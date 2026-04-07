@@ -38,6 +38,12 @@ DISCIPLINE_PREFIX = {
     "计算机科学": "C",
 }
 
+DISCIPLINE_PRIORITY = {
+    "数学": 0,
+    "物理": 1,
+    "计算机科学": 2,
+}
+
 
 @dataclass
 class Theorem:
@@ -257,6 +263,35 @@ def group_by_discipline_and_subcategory(items: list[Theorem]) -> OrderedDict[str
     return grouped
 
 
+def dedupe_items(items: list[Theorem]) -> tuple[list[Theorem], int]:
+    kept: dict[tuple[str, str, str, str, str, str], tuple[int, Theorem]] = {}
+    removed = 0
+
+    for index, item in enumerate(items):
+        signature = (
+            item.name,
+            item.statement,
+            item.proposer,
+            item.proposed_time,
+            item.importance,
+            item.formal_status,
+        )
+        current = kept.get(signature)
+        if current is None:
+            kept[signature] = (index, item)
+            continue
+
+        kept_index, kept_item = current
+        candidate_key = (DISCIPLINE_PRIORITY[item.discipline], index)
+        kept_key = (DISCIPLINE_PRIORITY[kept_item.discipline], kept_index)
+        if candidate_key < kept_key:
+            kept[signature] = (index, item)
+        removed += 1
+
+    deduped = [entry[1] for entry in sorted(kept.values(), key=lambda pair: pair[0])]
+    return deduped, removed
+
+
 def infer_proposition_type(theorem: Theorem) -> str:
     unresolved_statuses = {"未解决", "待解决", "待证明", "部分解决"}
     if theorem.formal_status in unresolved_statuses:
@@ -390,6 +425,7 @@ def render_blueprint(items: list[Theorem]) -> str:
     lines.append(f"- 当前 Stage0 目标不是伪造研究结论，而是把 `Docs/researches` 中现有的 {total_count} 个定理统一成可执行、可追踪、可拆分的结构化蓝图。")
     lines.append("- 一级类目只按学科展开：`数学`、`物理`、`计算机科学`。")
     lines.append("- 二级类目按源文档的主类目/次类目合并成一个稳定子分类路径，例如 `代数学 / 同调代数`、`凝聚态物理 / 超导`、`复杂性理论 / P vs NP 与 NP完全性`。")
+    lines.append("- 已执行一次严格去重：仅当 `名称 + 提出者 + 提出时间 + 陈述 + 重要性 + 形式化状态` 完全一致时才视为同一条目；保留优先级为 `数学 > 物理 > 计算机科学`，同学科内保留最早出现者。")
     lines.append("")
     lines.append("## 执行边界")
     lines.append("")
@@ -502,9 +538,10 @@ def main() -> None:
             path=TABLE_STYLE_SOURCE["path"],
             discipline=TABLE_STYLE_SOURCE["discipline"],
             ignore_h2=TABLE_STYLE_SOURCE["ignore_h2"],
+            )
         )
-    )
 
+    items, removed_count = dedupe_items(items)
     assign_ids(items)
     OUTPUT_FILE.write_text(render_blueprint(items))
 
@@ -516,6 +553,7 @@ def main() -> None:
         f"物理={counts['物理']}",
         f"计算机科学={counts['计算机科学']}",
         f"总计={len(items)}",
+        f"去重移除={removed_count}",
     )
 
 
