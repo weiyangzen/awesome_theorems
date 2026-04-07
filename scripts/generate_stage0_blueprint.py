@@ -10,7 +10,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 RESEARCH_DIR = ROOT / "Docs" / "researches"
-OUTPUT_FILE = ROOT / "Stage0_Blueprint.md"
+OUTPUT_FILE = ROOT / "Docs" / "Stage0_Blueprint.md"
 
 
 LIST_STYLE_SOURCES = [
