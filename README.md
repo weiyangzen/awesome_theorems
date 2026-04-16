@@ -99,6 +99,25 @@ The blueprint is designed to track fields such as:
 - ⚙️ Building research backlogs, datasets, benchmarks, or agent workflows
 - 🧠 Studying theorem families and dependency chains instead of isolated names
 
+### 6. Read a worked theorem case study
+
+If you want one concrete example of how the blueprint fields can be filled in for a single theorem,
+start here:
+
+- [`THM-M-0387/README.md`](./THM-M-0387/README.md)
+- [`THM-M-0387/full_study.md`](./THM-M-0387/full_study.md)
+- [`THM-M-0387/FermatLastTheorem_Sample.lean`](./THM-M-0387/FermatLastTheorem_Sample.lean)
+- [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean)
+- [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean)
+- [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean)
+- [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean)
+
+### 7. Check the blueprint guidelines
+
+For the quality bar used when filling or upgrading blueprint items, read:
+
+- [`Docs/Blueprint_Guidelines.md`](./Docs/Blueprint_Guidelines.md)
+
 ## 🎁 What You Can Get From This Repo Once the Blueprint Is Fully Finished
 
 Once the blueprint is fully completed, this repo should become much more than a reading list.
@@ -123,6 +142,11 @@ The real payoff is this:
 ```text
 Docs/
   Stage0_Blueprint.md
+  Blueprint_Guidelines.md
+  case_studies/
+    fermat_last_theorem_formalization_study.md  # redirect stub
+  tools/
+    generate_stage0_blueprint.py
   researches/
     math_theorems.md
     physics_theorems.md
@@ -130,9 +154,39 @@ Docs/
     classified_theorems.md
     formalization_classification.md
 
-scripts/
-  generate_stage0_blueprint.py
+THM-M-0387/
+  README.md
+  full_study.md
+  machine_checked_audit.md
+  process_audit.md
+  build_validation.md
+  FermatLastTheorem_Sample.lean
+  eligibles/
+  run_local_validation.sh
+  meta.json
+
+Formalizations/
+  Lean/
+    README.md
+    lakefile.lean
+    lean-toolchain
+    lake-manifest.json
+    AwesomeTheorems.lean
+    AwesomeTheorems/
+      NumberTheory/
+        THM_M_0387/
+          FLT4Path.lean
+          FLT3Path.lean
+          RegularPrimesPath.lean
+          Sample.lean
+
 ```
+
+根目录承担的是 dossier 与共享 formalization trees 的并列组织：
+
+- `THM-*` 目录保存 theorem dossier
+- `Formalizations/` 保存 assistant-specific 共享源码树
+- `Docs/` 保存 blueprint、规范与研究总览
 
 ## 🚧 Current Status
 
