@@ -33,6 +33,29 @@
 11. 若一个节点仍然依赖其他 theorem / lemma / case split，它就不能被视为叶子节点。
 12. 最终叶子节点的证明过程必须控制在 `100` 步以内；若超过 `100` 步，必须继续拆成更细的引理或 case 节点。
 13. `证明路径上的定理或其他引例引理` 与 `依赖图与关键引理` 不能只写线性摘要，必须能支撑这棵定理树继续向下展开。
+14. 若使用 cron / 并行 worker 自动补强 proof tree，必须把“私有 runtime ledger”和“公开归档面”分开：
+   - worker 的中间账本、slot 草稿、临时分段稿应放在 `.cron/results/`、`.ops/` 或同类私有路径下
+   - 这些 runtime 文件不能直接成为 blueprint 的公开 completion surface
+15. 自动展开 `eligibles` 时，默认只能增补现有的公开主稿，不应为了执行方便在公开材料包下再平行新建第二套长期目录结构。
+   - 例如已有 `eligibles/n4_proof_process.md`、`eligibles/regular_primes_proof_process.md` 时，应优先把新内容 merge 回这些主稿
+   - 只有用户明确要求拆成新的公开子目录时，才允许保留额外公开 surface
+16. 每个 execution unit 必须同时有：
+   - 一个私有 runtime ledger，用于并行执行与局部 budget closure
+   - 一个稳定的公开 merge target，用于最终材料归档
+   blueprint / todo / README 只能引用稳定的公开 merge target，不能引用 `.cron/automation_repo*`、私有 runtime ledger、或临时绝对路径。
+17. 自动执行场景下，平行 worker 不得直接并发编辑同一个公开 tracked 文档。
+   - worker 应只写自己独占的私有 runtime ledger
+   - supervisor / integrator 再串行 merge 回公开主稿
+   - blueprint 勾选与 todo 回写只能发生在 merge-back 之后
+18. 一个 unit 只有在以下条件同时满足后，才允许从 `open` 变成 `checked/completed`：
+   - machine side 的 theorem / module / theorem-name anchor 已核实
+   - 对“本仓库本地编译验证”与“仅记录上游 closure”之间的边界已如实写清
+   - 对应的人类可读展开已经 merge 回公开 surface
+   - 该 unit 自身已具备独立的 `<=100` 步 local budget ledger
+19. 自动展开的人类可读稿必须继续服从 machine/process surface 的 canonical naming。
+   - 可以给读者加 alias、标题化标签、budget alias
+   - 但这些 alias 不能演变成第二套 competing canonical node system
+20. 任何自动生成后准备进入公开主稿的材料，都应去掉过程性措辞，例如“本轮 worker”“slot 3”“下一轮继续”“当前 frontier”等，最后公开版只保留静态结论、状态表、budget ledger 与可复核内容。
 
 ## 定理树要求
 
@@ -89,6 +112,67 @@
    必须明确写出主定理如何展开到引理节点或 case split 节点，并说明叶子节点是否已经压到 `100` 步以内。
 8. 若某个 package / leaf 已经展开到下一层，但尚未逐条验证为 `<= 100` 步的 leaf proof，
    必须把该展开状态字面标为 `unchecked`，不能只写“待继续细化”或“后续再拆”。
+9. 若 machine-proof 自动审计与 human-readable 自动展开同时进行，则 closure 顺序必须固定为：
+   - 先核 machine anchor / theorem-level audit
+   - 再核 process-tree / package-level ledger
+   - 最后 merge 回 `eligibles` 的公开人类可读主稿
+   不允许反过来先把公开 `eligibles` 写满，再倒逼 machine/process surface 跟上。
+
+## 对 `eligibles` 人类可读展开的通用要求
+
+`eligibles/` 的定位不是 machine audit 的复读层，也不是零基础教材层，
+而是“对已经存在的 machine/process 结构做 reader-facing proof-flow translation”的公开主稿层。
+
+后续对任意定理的人类可读展开，必须同时满足下面这组通用约束：
+
+1. 不能止步于“命名已经同步”。
+   - 如果某条 branch 已经把 canonical package / leaf / package-level subitem 命名对齐，
+     但 `eligibles` 里还只有摘要句、状态句、或表格标题，那么这不算合格的人类可读展开。
+   - `eligibles` 至少要把每个公开 package 写到“读者能看懂这一步为什么存在、输入是什么、输出交给谁”的程度。
+2. 也不能为了显得完整而过度教学化细拆。
+   - 对互素、整除传播、基础模算术、简单符号改写、显然的 parity cleanup 等基础动作，
+     若它们不决定 proof flow，就不应继续拆成面向零基础的长篇教程。
+   - `eligibles` 的默认读者基线仍是“大学水平、具备相关学科基础”。
+3. 合格的 `eligibles` package 展开，至少应同时回答四个问题：
+   - 这一 package 在整条证明链中的局部职责是什么
+   - 它接收哪些上游输入
+   - 它产出哪些下游接口 / 结论
+   - 它在 canonical naming 中对应哪个 package / leaf / subitem
+4. 若某个 package 已拥有独立 `<=100` 步 local ledger，
+   则 `eligibles` 不应继续停留在“后续可继续展开”的口气，
+   而应把这份 closure 直接转译成稳定公开稿。
+   - 公开稿里可以保留局部 ledger
+   - 但不应继续用“当前 frontier”“下一轮再做”“本轮 slot”之类执行态措辞
+5. 若某个 package 尚未拥有独立 `<=100` 步 local ledger，
+   则 `eligibles` 必须明确写成 `unchecked` 或等价的 open 状态，
+   不能用流畅 prose 掩盖它还没有真正闭合这一事实。
+6. `eligibles` 的适度展开深度，默认以“package 级闭环 + 必要时补一层 high-risk leaf”作为目标。
+   - 对 proof graph 比较浅的 branch，package 级闭环通常就够
+   - 对 proof graph 很深且局部风险集中的 branch，必须继续把真正的高风险 leaf 再拆一层
+   - 但不能把所有 package 都机械地下钻到同一深度
+7. `eligibles` 应优先展开“承担证明推进的节点”，而不是“读起来顺手的节点”。
+   - bridge theorem、minimal normalization、case split、descent core、principalization、local-to-global transport 这类节点优先
+   - 纯背景知识、历史轶事、语义重复总结不应挤占 package 展开预算
+8. 若机器层已经给出 package / leaf / one-more-depth inventory，
+   则 `eligibles` 的成功展开至少要让读者能把 prose 段落逐段对回这套 inventory。
+   - 可以有 reader-facing alias
+   - 但不能写成一套无法映射回 machine/process surface 的新叙事树
+9. `eligibles` 不应长期停留在“只有总叙事，没有 unit closure”的状态。
+   - 对自动执行或大条目补强，建议把 package 级内容并回主稿的附录 / merged section
+   - 这样既避免平行目录膨胀，也避免主稿永远只停在粗粒度 narrative
+10. 判断 `eligibles` 是否“展开到位”的最低标准不是字数，而是可接续性。
+    - 读者读完某个 package 后，应能明确知道下一步 proof obligation 是什么
+    - 也应能看出为什么这个 package 已经闭合，或者为什么它还不能闭合
+11. 常见失败模式应视为硬错误：
+    - 只有 status ledger，没有真正的人类可读 proof-flow 解释
+    - 只有一层大段 narrative summary，没有 package 级输入 / 输出边界
+    - 为了“显得有内容”而把显然基础动作过度拆解
+    - machine/process surface 已闭合，但 `eligibles` 仍长期停留在“未整合”的执行中间态
+    - 为执行方便新开第二套公开 `eligibles` 文档树，导致主稿与附加稿长期并行漂移
+12. 当 `eligibles` 已达到适度展开后，后续补强应继续优先投向：
+    - 新闭合的 machine/process package
+    - 仍未闭合的高风险 leaf
+    而不是反复重写已经稳定闭合的低风险 prose 段落。
 
 ## 对旗舰条目的额外要求
 
@@ -172,6 +256,24 @@
 17. 若某条路线已经完成 package / leaf / package-level subitem 的独立 `<=100`-step ledger，
     则最终稿应去掉过程性措辞，例如“本轮 worker”“当前 frontier”“下一轮继续”等，
     只保留静态结论、状态表与 ledger 本体。
+18. `n = 4` 与 regular primes 的人类可读自动展开，默认应直接 merge 回
+    `eligibles/n4_proof_process.md` 与 `eligibles/regular_primes_proof_process.md`，
+    不应在 `eligibles/` 下长期保留第二套平行公开目录（例如 `human_steps/` 一类执行中间层）。
+19. 若自动执行确实需要把 `18` 个 execution unit 拆成独立 runtime ledger，
+    这些 ledger 必须放在私有路径（例如 `.cron/results/hr18/`）下；
+    公开蓝图里只能显示它们最终 merge 回的主稿位置，而不能把私有 runtime 文件当成公开归档面。
+20. `full_study.md` 一类 authoritative blueprint 若要显示进度，只能显示：
+    - unit 名称
+    - 公开 merge target
+    - 当前 closure 状态
+    不能把执行层的 slot 文件名、worker 临时目录、automation clone 路径暴露成长期公开接口。
+21. 对 `eligibles` 的自动增补，推荐采用“附录式 merge-back”而不是“平行文件外溢”：
+    - 原主稿保留总叙事与 canonical summary
+    - 新增 execution unit 细化内容统一并入主稿的附录 / merged section
+    - 这样既保留单文件可读性，也避免公开 surface 膨胀成多套 competing 文档树
+22. 若自动执行已经成功把某批 unit merge 回现有 `eligibles` 主稿，
+    后续 blueprint / README / case study 必须统一改口到新的公开归档面，
+    不得继续引用已经废弃的执行中间层目录。
 
 ## 执行建议
 
