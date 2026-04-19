@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 from __future__ import annotations
 
@@ -8,7 +9,7 @@ from pathlib import Path
 import re
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 RESEARCH_DIR = ROOT / "Docs" / "researches"
 OUTPUT_FILE = ROOT / "Docs" / "Stage0_Blueprint.md"
 
@@ -75,18 +76,21 @@ THEOREM_OVERRIDES: dict[TheoremOverrideKey, dict[str, str]] = {
         "目标形式系统": "首选 Lean 4 + mathlib；备选 Isabelle/HOL / Coq / HOL Light",
         "逻辑基础/形式系统": "Lean 路线以依赖类型论 + `Prop` + 按需 classical 为主；若迁移 Isabelle/HOL，则采用经典高阶逻辑",
         "提出背景": "费马在丢番图《算术》页边给出断言；现代证明路线则来自椭圆曲线、模形式、伽罗瓦表示与模性提升理论",
-        "精确定义与前提条件": "变量域取 `ℕ` 或 `ℤ`；要求 `x ≠ 0 ∧ y ≠ 0 ∧ z ≠ 0`，`n ≥ 3`，方程为 `x ^ n + y ^ n = z ^ n`；形式化时可先化到 primitive solution，并约化为 `n = 4` 与奇素数指数",
-        "被证明的过程": "闭环1 = 假说内容 `存在非平凡解`；证明/观测 = `n = 4` 用勾股数分类 + 无限递降排除，`n = 3` 用三次分圆域与 descent 排除，一般奇素数指数走 Frey 曲线、Ribet 降层、Wiles/Taylor-Wiles 模性路线导出矛盾",
+        "精确定义与前提条件": "变量域取 `ℕ` 或 `ℤ`；要求 `x ≠ 0 ∧ y ≠ 0 ∧ z ≠ 0`，`n ≥ 3`，方程为 `x ^ n + y ^ n = z ^ n`；形式化时先做 primitive solution 化简，再用指数整除约化把合数指数压回 `n = 4` 或奇素数指数。",
+        "被证明的过程": "闭环0 = 合数指数约化：若 `4 ∣ n` 则归入 `n = 4`，否则取奇素数因子 `p ∣ n` 归入指数 `p`；闭环1 = `n = 4` 用勾股数分类 + 无限递降排除；闭环2 = `n = 3` 用三次分圆域与 descent 排除；闭环3 = 一般奇素数指数走 Frey 曲线、Ribet 降层、Wiles/Taylor-Wiles 模性路线导出矛盾。",
         "被证明年代或时间": "1994 公布，1995 发表修正后的完整论文链",
         "被证明的意义": "源文档重要性 = 高；它把整数方程问题与椭圆曲线、模形式、伽罗瓦表示联通，也是现代 proof assistant 测试高阶数论 formalization 能力的旗舰 benchmark",
         "证明路径上的定理或其他引例引理": "`Mathlib.NumberTheory.FLT.Basic` 中的 statement/reduction 工具、`fermatLastTheoremFour`、`fermatLastTheoremThree`、`FermatLastTheorem.of_odd_primes`、`flt_regular`、`CaseI.caseI`、`CaseII.caseII`、Frey 曲线构造、Ribet 降层、半稳定椭圆曲线模性定理、Taylor-Wiles patching 主链",
-        "依赖图与关键引理": "顶层先做自然数/整数/有理数版本等价、指数整除约化与 primitive solution 化简；中层封闭 `n = 4` 的无限递降与 `n = 3` 的 generalized equation + multiplicity descent；再往上一层是 regular primes 的 `MayAssume + Case I + Case II + flt_regular`；底层未完成部分仍是奇素数指数的一般 Taylor-Wiles / Wiles 主链",
+        "依赖图与关键引理": "顶层先做自然数/整数/有理数版本等价、primitive solution 化简与指数整除约化；其中所有 `4` 以上非素数指数都被 reduction layer 吸收：`4 ∣ n` 归入 `n = 4`，否则取奇素数因子 `p ∣ n` 归入指数 `p`。在独立主 branch 上，中层封闭 `n = 4` 的无限递降与 `n = 3` 的 generalized equation + multiplicity descent；再往上一层是 regular primes 的 `MayAssume + Case I + Case II + flt_regular`；底层未完成部分仍是奇素数指数的一般 Taylor-Wiles / Wiles 主链。",
+        "定理树展开要求": "根节点 = FLT 主命题；必须继续展开到 `statement/reduction`、合数指数吸收层、`n = 4`、`n = 3`、`regular primes`、一般奇素数指数主链六层；其中 `n = 4` 与 `regular primes` 需要继续下钻到具体引理和 case split 节点；`n = 3` 只拆到真正承担证明工作的 mod `9` / generalized equation / multiplicity descent 节点，不向初等数论常识层过拆。",
+        "叶子节点证明步数上限": "100 步",
+        "当前定理树叶子控制状态": "`n = 4` 已拆成 `7` 个 canonical package，regular primes 已拆成 `11` 个 canonical package；两条线在 `machine_checked_audit`、`process_audit`、`eligibles` 三层材料里已对齐命名。跨文件统一的 `7` 个 canonical high-risk leaf 保持为：`raw coprime triple classification`、`square extraction for r*s with sign cleanup`、`strict natAbs descent hic`、`Case II ideal-factor layer / global product to local p-th powers`、`Case II distinguished root / p_pow_dvd_c_eta_zero`、`Case II descent core / three-root formula and raw descent`、`Case II close / merge / not_exists_solution'`。上述 canonical package、canonical high-risk leaf，以及先前单列的 package-level subitem `Int.gcd a n = 1 transfer`、`exists_ideal pairwise ideal coprimality interface`、`caseI_easier / aux-index exclusion`，现在都已各自拥有独立 `<=100` proof-step ledger 并在对应 completion surface 中记为 `checked`。regular primes 的 human-readable boundary sentence 仍固定保留为 `upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes`；其中最后一段只表示锚点 statement/module/theorem-name 记录已到位，不表示本仓库已 vendoring 上游 `flt_regular` 证明本体。`eligibles` 中的 reader-facing labels / budget aliases 只作为讲解别名，不构成第二套 canonical node 名；跨文件同步仍以上述 package / leaf 名为准。`n = 3` 有意保持较粗粒度，不下钻到初等数论常识层。完整 Wiles/Taylor-Wiles 一般奇素数指数主链仍未闭合。",
         "证据类型": "无限递降证明 + 代数数论证明 + 模性证明 + 局部完整 machine-check + 总体大型协作 formalization",
         "形式化阻塞点": "真正瓶颈在模形式/Hecke 代数/伽罗瓦表示/deformation theory 基础设施，而非 statement 本身；论文中的“标准事实”必须被拆成细粒度 lemma，且对象表示与 API 稳定性要求极高",
         "等价表述": "自然数版本、整数版本、有理数版本可互转；完整 FLT 可约化为 `n = 4` 与所有奇素数指数；只需考虑 primitive solution",
         "所需公理": "自然数/整数/有理数标准代数结构、gcd/PID/UFD 相关结构、理想/商环/分圆域等代数数论对象；完整主证明还依赖更强的现代经典数学基础设施",
         "经典逻辑/选择公理依赖": "`n = 4` 路线较初等，但 `n = 3`、regular primes 与完整 Wiles/Taylor-Wiles 路线在工程上都应按 classical + noncomputable 的现代数学库组织方式准备",
-        "现有 machine-checked 状态": "`Mathlib.NumberTheory.FLT.Basic` 已 machine-check statement/reduction 层（`FermatLastTheoremWith`、`FermatLastTheoremFor`、`FermatLastTheorem`、`FermatLastTheoremWith.mono`、`fermatLastTheoremFor_iff_int`、`fermatLastTheoremFor_iff_rat`、`fermatLastTheoremWith_of_fermatLastTheoremWith_coprime`）；`Four.lean` 已完成 `n = 4`（`Fermat42`、`exists_minimal`、`coprime_of_minimal`、`not_minimal`、`not_fermat_42`、`fermatLastTheoremFour`）；`Three.lean` 已完成 `n = 3`（mod `9` 的 Case 1、`FermatLastTheoremForThreeGen`、`Solution'`/`Solution`、`exists_Solution_of_Solution'`、`exists_Solution_multiplicity_lt`、`fermatLastTheoremThree`）；`flt-regular` 已完成 regular primes（`MayAssume.coprime`、`CaseI.caseI`、`CaseII.caseII`、`flt_regular`）；更细的 theorem-level 与 process-level 审计见专题文档 `§二`；完整 Wiles/Taylor-Wiles 总项目截至 2026-04-16 仍为 ongoing",
+        "现有 machine-checked 状态": "`Mathlib.NumberTheory.FLT.Basic` 已 machine-check statement/reduction 层（`FermatLastTheoremWith`、`FermatLastTheoremFor`、`FermatLastTheorem`、`FermatLastTheoremWith.mono`、`FermatLastTheoremFor.mono`、`FermatLastTheorem.of_odd_primes`、`fermatLastTheoremFor_iff_int`、`fermatLastTheoremFor_iff_rat`、`fermatLastTheoremWith_of_fermatLastTheoremWith_coprime`）；`Four.lean` 已完成 `n = 4`（`Fermat42`、`exists_minimal`、`coprime_of_minimal`、`not_minimal`、`not_fermat_42`、`fermatLastTheoremFour`，其下一层高负载节点包括 `PythagoreanTriple.coprime_classification'`、`Int.isCoprime_of_sq_sum'`、`Int.sq_of_gcd_eq_one`）；`Three.lean` 已完成 `n = 3`（mod `9` 的 Case 1、`FermatLastTheoremForThreeGen`、`Solution'`/`Solution`、`exists_Solution_of_Solution'`、`exists_Solution_multiplicity_lt`、`fermatLastTheoremThree`）；`flt-regular` 已完成 regular primes（`MayAssume.coprime`、`a_not_cong_b`、`exists_ideal`、`is_principal_aux` / `is_principal`、`exists_solution` / `exists_solution'`、`CaseI.caseI`、`CaseII.caseII`、`flt_regular`）；更细的 theorem-level 与 process-level 审计见专题文档 `§二`；完整 Wiles/Taylor-Wiles 总项目截至 2026-04-16 仍为 ongoing",
         "现有工件链接": "[权威总研究文档](../THM-M-0387/full_study.md)；[旗舰材料包](../THM-M-0387/README.md)；[机器证明审计](../THM-M-0387/machine_checked_audit.md)；[过程审计](../THM-M-0387/process_audit.md)；[本地验证记录](../THM-M-0387/build_validation.md)；[本地验证脚本](../THM-M-0387/run_local_validation.sh)；[Lean 样例入口](../THM-M-0387/FermatLastTheorem_Sample.lean)；[共享 Lean 库根模块](../Formalizations/Lean/AwesomeTheorems.lean)；[共享 Lean `n = 4` 路径模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean)；[共享 Lean `n = 3` 路径模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean)；[共享 Lean regular primes 路径模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean)；[共享 Lean 聚合模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean)；[Blueprint Guidelines](./Blueprint_Guidelines.md)；mathlib `Basic/Four/Three` 文档：<https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Basic.html>、<https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Four.html>、<https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Three.html>；`flt-regular` 主入口与源码：<https://github.com/leanprover-community/flt-regular>；公开总项目：<https://github.com/ImperialCollegeLondon/FLT>；regular primes 论文页：<https://afm.episciences.org/16046>",
     },
 }
@@ -418,12 +422,86 @@ def default_evidence_type(theorem: Theorem) -> str:
     return "待补充"
 
 
-def default_blockers(theorem: Theorem) -> str:
+def formal_status_bucket(theorem: Theorem) -> str:
+    status = theorem.formal_status
+    if "不可判定" in status:
+        return "undecidable"
+    if "独立于ZFC" in status:
+        return "independent"
+    if "已否证" in status:
+        return "refuted"
+    if any(keyword in status for keyword in ("部分", "进行中", "声称证明")):
+        return "partial"
+    if any(keyword in status for keyword in ("待研究", "待验证", "待解决", "待证明", "未解决")):
+        return "open"
+    if any(keyword in status for keyword in ("已验证", "已解决", "已证明", "准多项式时间解决")):
+        return "closed"
+    if "可验证" in status:
+        return "verifiable"
+    return "unknown"
+
+
+def default_tree_requirement(theorem: Theorem) -> str:
+    proposition_type = infer_proposition_type(theorem)
+    bucket = formal_status_bucket(theorem)
+
     if theorem.discipline == "数学":
+        if "引理" in proposition_type:
+            base = "根节点 = 引理陈述；向下至少拆成前提规范化、关键代数/结构步骤、必要分情况节点；若某步仍依赖标准引理，则继续向下展开。"
+        elif "公式" in proposition_type or "恒等式" in proposition_type:
+            base = "根节点 = 公式/恒等式；向下至少拆成定义展开、变换链、边界或收敛条件节点、必要分情况节点。"
+        else:
+            base = "根节点 = 主定理；向下至少拆成定义/约化节点、关键引理节点、必要的 case split / induction / descent 节点。"
+    elif theorem.discipline == "物理":
+        base = "根节点 = 主物理结论；向下至少拆成建模前提、适用 regime、控制方程/守恒关系、近似闭合步骤、必要分情况节点。"
+    elif theorem.discipline == "计算机科学":
+        base = "根节点 = 主理论结论；向下至少拆成计算模型定义、关键引理、归约/正确性/复杂度/安全性节点、必要分情况节点。"
+    else:
+        base = "主命题必须继续展开到引理节点或分情况讨论节点。"
+
+    if bucket in {"open", "undecidable", "independent", "refuted"}:
+        return base + " 当前若尚无闭合证明，应至少给出候选证明树、已知 barrier results 或 case split 骨架。"
+    if bucket == "partial":
+        return base + " 已知闭合的分支要优先继续下钻到叶子；未闭合分支应明确标记 ongoing。"
+    return base
+
+
+def default_leaf_control_status(theorem: Theorem) -> str:
+    bucket = formal_status_bucket(theorem)
+
+    if bucket == "closed":
+        return "已知存在闭合结果，但蓝图尚未完成逐叶审计；当前默认仍需继续拆到叶子节点，并检查每个叶子证明过程是否 <= 100 步。"
+    if bucket == "partial":
+        return "已有部分闭合分支或中间结果；已知分支需继续细化叶子预算，超出当前材料覆盖范围的部分应明确标记 ongoing。"
+    if bucket == "verifiable":
+        return "存在较强形式化可行性信号，但尚未确认闭合证明树；需先补定理树并做叶子预算审计。"
+    if bucket == "open":
+        return "主命题尚未闭合；当前先整理候选证明树、已知 reductions 与关键障碍，叶子预算检查暂不能视为完成。"
+    if bucket == "undecidable":
+        return "该结论类型应优先展开到编码、归约与对角线/语义障碍节点；叶子预算只对这些已闭合子证明单元生效。"
+    if bucket == "independent":
+        return "该命题应优先展开到相容性/独立性论证节点；在未明确双向相对一致性链之前，不视为叶子预算合规。"
+    if bucket == "refuted":
+        return "该条目应优先展开到反例构造、失败 case、或否证链的最小节点；反例链自身的叶子证明过程仍应控制在 100 步以内。"
+    return "待补充（需检查是否已拆到叶子节点且每个叶子证明过程 <= 100 步）"
+
+
+def default_blockers(theorem: Theorem) -> str:
+    bucket = formal_status_bucket(theorem)
+
+    if theorem.discipline == "数学":
+        if bucket == "closed":
+            return "已知困难通常不在“有没有证明”，而在 theorem tree 尚未拆细、叶子预算未审计、formal artifact 未逐条定位；仍需检查定义展开、非构造性步骤、库缺失、测度/范畴/同调等高层抽象。"
+        if bucket == "partial":
+            return "除定义展开、非构造性步骤、库缺失、测度/范畴/同调等高层抽象外，还需明确哪些分支已闭合、哪些分支必须继续标记 ongoing。"
         return "待补充（重点检查定义展开、非构造性步骤、库缺失、测度/范畴/同调等高层抽象）"
     if theorem.discipline == "物理":
+        if bucket == "closed":
+            return "已知困难通常在 regime 切分、近似假设、单位约定、实验可观测量与数值闭环尚未拆成可审计树，而不只是“有没有结果”。"
         return "待补充（重点检查适用尺度、近似假设、单位约定、实验可观测量、重整化或数值闭环）"
     if theorem.discipline == "计算机科学":
+        if bucket == "closed":
+            return "已知困难通常在计算模型、资源度量、对手模型、复杂度编码与可执行规范尚未拆成树形审计，而不只是缺少结论本身。"
         return "待补充（重点检查计算模型固定、资源度量、对手模型、复杂度编码、可执行规范）"
     return "待补充"
 
@@ -479,6 +557,12 @@ def render_blueprint(items: list[Theorem]) -> str:
     lines.append("")
     lines.append("- 唯一输入源：`Docs/researches/math_theorems.md`、`Docs/researches/physics_theorems.md`、`Docs/researches/cs_theorems.md`。")
     lines.append("- 本蓝图内每个定理只有一个 checklist item；未完成项只能由补全字段、补全引用链、补全形式化路径来推进，不能靠文档表面勾选。")
+    lines.append("- 虽然每个定理在 Stage0 中只有一个 checklist item，但该 item 的内部证明结构必须按“定理树”展开，而不是停留在线性摘要。")
+    lines.append("- 每个条目的定理树至少要展开到引理节点或分情况讨论节点；不能只保留主定理名。")
+    lines.append("- 叶子节点必须是不再引用其他 theorem / lemma 的最小证明单元；每个叶子节点的证明过程上限为 `100` 步。")
+    lines.append("- 若某叶子节点超过 `100` 步，则该条目默认仍未收敛，后续 cron 必须继续拆分。")
+    lines.append("- 若某条目已有 machine-checked branch，后续补强顺序默认是：先补 `machine_checked_audit` / `process_audit` 的机器节点留痕，再补 `eligibles` 的人类可读展开。")
+    lines.append("- 默认读者基线按“大学水平、具备相关学科基础”处理；对显然的基础动作，不应为了凑树深度而过度教学化细拆。")
     lines.append("- 若源文档未区分“提出时间”和“证明时间”，本蓝图先保留 `提出假说时间`，把 `被证明年代或时间` 置为 `待补充`，等待后续研究批次回填。")
     lines.append("- 若源文档只给出“重要性”而未给出具体学术意义，本蓝图将其映射为 `被证明的意义` 的最小占位信息。")
     lines.append("- 已把 `命题类型`、`目标形式系统`、`逻辑基础`、`证据类型`、`形式化阻塞点`、以及学科专属字段纳入每个 theorem item，供后续 cron 拆分。")
@@ -516,6 +600,9 @@ def render_blueprint(items: list[Theorem]) -> str:
     lines.append("- `被证明的意义`：先保留源文档的“重要性”等级，再等待补上具体意义。")
     lines.append("- `证明路径上的定理或其他引例引理`：记录主证明依赖链。")
     lines.append("- `依赖图与关键引理`：用于 cron 自动拆分时生成子任务树。")
+    lines.append("- `定理树展开要求`：要求主定理至少展开到引理或 case split 节点。")
+    lines.append("- `叶子节点证明步数上限`：统一要求叶子节点证明过程不超过 `100` 步。")
+    lines.append("- `当前定理树叶子控制状态`：记录当前是否已拆到满足 `100` 步预算。")
     lines.append("- `证据类型`：区分解析证明、构造性证明、实验观测、数值模拟、归约证明、程序验证等。")
     lines.append("- `形式化阻塞点`：记录库缺失、模型未固定、近似没写清、非构造性步骤等问题。")
     lines.append("- `现有工件链接`：论文、书籍、formal proof repo、mathlib/AFP 条目、脚本与数据位置。")
@@ -529,7 +616,9 @@ def render_blueprint(items: list[Theorem]) -> str:
     lines.append("## 执行切分建议")
     lines.append("")
     lines.append("- 优先按二级类目推进，一个 batch 处理同一子分类内 6 到 8 个定理。")
-    lines.append("- 对证明链特别长或形式化障碍明显的条目，拆成“命题类型校准 / 陈述规范化 / 逻辑基础锁定 / 关键引理 / 主证明 / 证据闭环 / 形式化落地”几个子任务。")
+    lines.append("- 对证明链特别长或形式化障碍明显的条目，拆成“命题类型校准 / 陈述规范化 / 逻辑基础锁定 / 定理树展开 / 关键引理 / 主证明 / 证据闭环 / 形式化落地”几个子任务。")
+    lines.append("- 对已 machine-checked 的 branch，优先补到“机器节点再拆一层”的程度，再决定是否扩写 `eligibles`。")
+    lines.append("- 任何 theorem item 在进入形式化落地之前，都应先完成一次叶子节点步数预算检查，确认叶子证明过程已压到 `100` 步以内。")
     lines.append("- 上层类目不能先被标记完成；必须等其下所有定理 item 都闭合。")
     lines.append("")
 
@@ -566,6 +655,15 @@ def render_blueprint(items: list[Theorem]) -> str:
                     f"  - 证明路径上的定理或其他引例引理: {overrides.get('证明路径上的定理或其他引例引理', '待补充')}"
                 )
                 lines.append(f"  - 依赖图与关键引理: {overrides.get('依赖图与关键引理', '待补充')}")
+                lines.append(
+                    f"  - 定理树展开要求: {overrides.get('定理树展开要求', default_tree_requirement(theorem))}"
+                )
+                lines.append(
+                    f"  - 叶子节点证明步数上限: {overrides.get('叶子节点证明步数上限', '100 步')}"
+                )
+                lines.append(
+                    f"  - 当前定理树叶子控制状态: {overrides.get('当前定理树叶子控制状态', default_leaf_control_status(theorem))}"
+                )
                 lines.append(f"  - 证据类型: {overrides.get('证据类型', default_evidence_type(theorem))}")
                 lines.append(
                     f"  - 形式化阻塞点: {overrides.get('形式化阻塞点', default_blockers(theorem))}"

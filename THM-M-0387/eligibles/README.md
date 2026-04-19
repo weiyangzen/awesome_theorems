@@ -20,6 +20,9 @@
 - `regular_primes_proof_process.md`
   `regular primes` 分支的人类可读证明过程。
 
+本轮 `n = 4` 与 `regular primes` 的 `18` 个 execution unit 已经直接并回上面两份主稿，
+不再单独列出一个 `human_steps/` 子目录。
+
 ## 与主材料的关系
 
 - 若你要看总入口，先读 [`../README.md`](../README.md)。
