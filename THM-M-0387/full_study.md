@@ -1,7 +1,7 @@
 # 费马大定理形式化验证研究
 
-> 蓝图编号: `THM-M-0387`  
-> 学科 / 子分类: `数学 / 数论 / 丢番图方程`  
+> 蓝图编号: `THM-M-0387`
+> 学科 / 子分类: `数学 / 数论 / 丢番图方程`
 > 研究日期: `2026-04-16`
 
 配套物料目录：
@@ -20,25 +20,123 @@
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean`](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean)
 
 本文档按照仓库 `README.md` 与 `Docs/Stage0_Blueprint.md` 对单个定理的字段要求，
-对“费马大定理”做一次完整的形式化验证研究，并给出一个贴近当前 `Lean 4 + mathlib`
+对“费马大定理”做一次完整的形式化验证研究，并给出一个贴近 `2026-04-24` 的 `Lean 4 + mathlib`
 生态的最小样例。
+
+## Machine-Checked Boundary Snapshot
+
+截至 `2026-04-24`，本仓库的 machine-checked 边界如下：
+
+Source evidence: local Lean dependency metadata pins source project
+`leanprover-community/mathlib4` at revision
+`8a178386ffc0f5fef0b77738bb5449d50efeea95` in
+`Formalizations/Lean/lake-manifest.json` and `Formalizations/Lean/lakefile.lean`.
+The exact mathlib module for `FermatLastTheoremFor`, `FermatLastTheorem`, and
+the reduction lemmas is `Mathlib.NumberTheory.FLT.Basic`; `n = 4` uses
+`Mathlib.NumberTheory.FLT.Four`; `n = 3` uses `Mathlib.NumberTheory.FLT.Three`.
+Regular primes theorem closure is upstream-only in source project
+`leanprover-community/flt-regular`; this repository records only the
+anchor module `AwesomeTheorems.NumberTheory.THM_M_0387.RegularPrimesPath`.
+
+- `n = 4` repo-local theorem-level closure 通过 `Mathlib.NumberTheory.FLT.Four` import
+  与 wrapper theorem `flt4Path` 记录。
+- `n = 3` repo-local theorem-level closure 通过 `Mathlib.NumberTheory.FLT.Three` import
+  与 wrapper theorem `flt3Path` 记录。
+- `flt4IntPath` 是由 mathlib 的 `fermatLastTheoremFor_iff_int` 等价推出的 repo-local 派生 wrapper。
+- `flt8ViaFlt4Path` 是由 `FermatLastTheoremFor.mono` 与 `4 ∣ 8` 的指数整除单调性推出的 repo-local 派生 wrapper。
+- 完整 `FermatLastTheorem` 不是本仓库 repo-local machine-checked theorem；样例只展示 statement/reduction API 与特例 wrapper。
+- regular primes theorem closure 来自上游 `flt-regular`，本仓库不 vendoring 证明本体；这里只保留 anchor-only statement/module/theorem-name 记录。
+
+## Cross-File Naming Consistency Record
+
+截至 `2026-04-24`，跨文件名称比对结果如下；本节只记录公开材料之间的
+canonical name / reader-facing alias 对齐关系，不改变 theorem-level 边界。
+
+### `n = 4` package names
+
+`full_study.md`、`machine_checked_audit.md`、`process_audit.md`、
+`eligibles/n4_proof_process.md` 共同使用以下 `7` 个 package 名；
+`full_study.md` 与 eligible 主稿在标题中保留 `n = 4 /` 前缀，
+审计表在 package 列中使用去前缀后的同名短名：
+
+1. `n = 4 / bridge packaging`
+2. `n = 4 / minimal normalization`
+3. `n = 4 / first triple classification`
+4. `n = 4 / second triple classification`
+5. `n = 4 / coprimality bridge`
+6. `n = 4 / square extraction and sign cleanup`
+7. `n = 4 / smaller-solution construction and size comparison`
+
+### `regular primes` package names
+
+`full_study.md` 与 `eligibles/regular_primes_proof_process.md` 使用完整 reader-facing
+标题；`machine_checked_audit.md` 与 `process_audit.md` 的 package ledger 使用较短的
+formal-flow alias。二者的 canonical 对应关系固定为：
+
+| canonical public heading | audit ledger alias |
+|---|---|
+| `regular primes / setup and regularity engine` | `setup` |
+| `regular primes / MayAssume primitive reduction` | `MayAssume` |
+| `regular primes / Case I outer statement` | `Case I outer statement` |
+| `regular primes / Case I ideal extraction` | `Case I ideal extraction` |
+| `regular primes / Case I principalization` | `Case I principalization` |
+| `regular primes / Case I element recovery and close` | `Case I element recovery / close` |
+| `regular primes / Case II pi-language reduction` | `Case II π-language` |
+| `regular primes / Case II ideal-factor layer` | `Case II ideal-factor layer` |
+| `regular primes / Case II distinguished root` | `Case II distinguished root` |
+| `regular primes / Case II descent core` | `Case II descent core` |
+| `regular primes / Case II close and merge` | `Case II close / merge` |
+
+Regular primes boundary is recorded explicitly:
+upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes.
+
+### canonical high-risk leaf names
+
+`Docs/Blueprint_Guidelines.md` fixes the cross-file high-risk set at `7` leaves.
+The `n = 4` leaves appear in `machine_checked_audit.md`, `process_audit.md`,
+and `eligibles/n4_proof_process.md`; the regular-primes leaves appear in
+`machine_checked_audit.md`, `process_audit.md`, and
+`eligibles/regular_primes_proof_process.md`:
+
+1. `raw coprime triple classification`
+2. `square extraction for r*s with sign cleanup`
+3. `strict natAbs descent hic`
+4. `Case II ideal-factor layer / global product to local p-th powers`
+5. `Case II distinguished root / p_pow_dvd_c_eta_zero`
+6. `Case II descent core / three-root formula and raw descent`
+7. `Case II close / merge / not_exists_solution'`
+
+The intentionally non-canonical package-level subitems remain excluded from this set:
+`Int.gcd a n = 1 transfer`、`exists_ideal pairwise ideal coprimality interface`、
+`caseI_easier / aux-index exclusion`。
+
+### `n = 3` proof-process scope
+
+`Docs/Blueprint_Guidelines.md` says `n = 3` should not be over-expanded into
+trivial arithmetic leaves such as elementary coprimality or divisibility propagation.
+The public `eligibles/n3_proof_process.md` follows that boundary: it keeps the
+readable proof architecture at the level of mod `9` Case 1、Eisenstein integers、
+generalized equation、typed solution objects、and `λ`-adic multiplicity descent,
+while explicitly declining tutorial-style expansion of routine arithmetic preliminaries.
 
 ## Human-Readable Supervision
 
-本轮只追踪 `n = 4` 与 `regular primes` 的人类可读展开进度。
+截至 `2026-04-24`，本节只追踪 `n = 4` 与 `regular primes` 的人类可读展开进度。
 
 - 唯一 authoritative progress source 是下方 `Execution Checklist`。
-- 这 `18` 个 execution unit 已经直接拆到 worker 粒度，因此这次 cron 不再对这 `18` 项自动二次拆分。
+- 这 `18` 个 execution unit 已经直接拆到最小公开归档粒度，因此不再对这 `18` 项自动二次拆分。
 - 最终对外归档面只有 [`eligibles/n4_proof_process.md`](./eligibles/n4_proof_process.md)
   与 [`eligibles/regular_primes_proof_process.md`](./eligibles/regular_primes_proof_process.md) 这两份主稿；
-  蓝图勾选只能由监督脚本根据私有 runtime ledger 的真实状态回写，不能手工抢跑。
+  蓝图勾选只能根据对应公开归档面与 `Completion Gate` 的真实状态回写，不能手工抢跑。
+- 以后更新 `Execution Checklist` 时，每个 execution unit 都必须同时保留公开归档面
+  与 ``2026-04-24` 状态` / `Completion Gate`；若二者任一缺失，不得更新总进度或勾选状态。
 
 <!-- EXECUTION_PROGRESS_SUMMARY_START -->
 - 总进度: `18/18`
 - `n = 4`: `7/7`
 - `regular primes`: `11/11`
-- 监工规则: 只有当对应 ledger 同时写明 `Supervisor Status: completed` 与 `Completion Gate: passed`，蓝图才允许从 `[ ]` 改为 `[x]`。
-- 本轮的 `18` 个 unit 已经是最细执行层；本轮 cron 不再对这 `18` 项自动二次拆分。
+- 监工规则: 只有当对应公开归档面同时写明 `completed` 与 `Completion Gate = passed`，蓝图才允许从 `[ ]` 改为 `[x]`。
+- 这 `18` 个 unit 已经是最细公开执行层；不再对这 `18` 项自动二次拆分。
 <!-- EXECUTION_PROGRESS_SUMMARY_END -->
 
 ## Execution Checklist
@@ -46,75 +144,85 @@
 <!-- EXECUTION_CHECKLIST_START -->
 - [x] `FLT-HR-001` `n = 4 / bridge packaging`
   归档面: `THM-M-0387/eligibles/n4_proof_process.md :: n = 4 / bridge packaging`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-002` `n = 4 / minimal normalization`
   归档面: `THM-M-0387/eligibles/n4_proof_process.md :: n = 4 / minimal normalization`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-003` `n = 4 / first triple classification`
   归档面: `THM-M-0387/eligibles/n4_proof_process.md :: n = 4 / first triple classification`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-004` `n = 4 / second triple classification`
   归档面: `THM-M-0387/eligibles/n4_proof_process.md :: n = 4 / second triple classification`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-005` `n = 4 / coprimality bridge`
   归档面: `THM-M-0387/eligibles/n4_proof_process.md :: n = 4 / coprimality bridge`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-006` `n = 4 / square extraction and sign cleanup`
   归档面: `THM-M-0387/eligibles/n4_proof_process.md :: n = 4 / square extraction and sign cleanup`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-007` `n = 4 / smaller-solution construction and size comparison`
   归档面: `THM-M-0387/eligibles/n4_proof_process.md :: n = 4 / smaller-solution construction and size comparison`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-008` `regular primes / setup and regularity engine`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / setup and regularity engine`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-009` `regular primes / MayAssume primitive reduction`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / MayAssume primitive reduction`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-010` `regular primes / Case I outer statement`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case I outer statement`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-011` `regular primes / Case I ideal extraction`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case I ideal extraction`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-012` `regular primes / Case I principalization`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case I principalization`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-013` `regular primes / Case I element recovery and close`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case I element recovery and close`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-014` `regular primes / Case II pi-language reduction`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case II pi-language reduction`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-015` `regular primes / Case II ideal-factor layer`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case II ideal-factor layer`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-016` `regular primes / Case II distinguished root`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case II distinguished root`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-017` `regular primes / Case II descent core`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case II descent core`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 - [x] `FLT-HR-018` `regular primes / Case II close and merge`
   归档面: `THM-M-0387/eligibles/regular_primes_proof_process.md :: regular primes / Case II close and merge`
-  当前状态: `completed` / `Completion Gate = passed`
+  `2026-04-24` 状态: `completed` / `Completion Gate = passed`
 <!-- EXECUTION_CHECKLIST_END -->
 
 ## Unit Inventory
 
-本轮 `18` 个 execution unit 的公开归档面固定如下：
+截至 `2026-04-24`，`18` 个 execution unit 的公开归档面固定如下：
 
 - `FLT-HR-001` 到 `FLT-HR-007`: [`eligibles/n4_proof_process.md`](./eligibles/n4_proof_process.md)
 - `FLT-HR-008` 到 `FLT-HR-018`: [`eligibles/regular_primes_proof_process.md`](./eligibles/regular_primes_proof_process.md)
-- 每个 unit 的完成信号来自 cron 的私有 runtime ledger；`full_study.md` 只负责同步显示。
-- 若 ledger 仍处于 `pending`、`in_progress`、`review-needed` 等非完成态，蓝图必须保持 `[ ]`。
+- 每个 unit 的完成信号来自对应公开归档面与 `Completion Gate`；`full_study.md` 只负责同步显示。
+- 若公开归档面在 `2026-04-24` 处于 `missing`、`open`、`not passed` 等非完成态，蓝图必须保持 `[ ]`。
 
-需要先明确一个事实：截至 `2026-04-16`，费马大定理的**完整**机器检验证明仍应归类为
-`部分验证 / 进行中`，而不是简单的 `已验证`。原因是：
+### Evidence Cross-Check for Completed Execution Units
+
+截至 `2026-04-24`，`full_study.md` 把 `FLT-HR-001` 到 `FLT-HR-018` 计为 completed。
+这些 completed unit 的证据命名口径如下：
+
+- machine anchor evidence: `machine_checked_audit.md` 的 `n = 4` package 表覆盖 `FLT-HR-001` 到 `FLT-HR-007`，`regular primes` package 表覆盖 `FLT-HR-008` 到 `FLT-HR-018`；其中 `FLT-HR-017` 明名 hooks `exists_solution` 与 `exists_solution'`，`FLT-HR-018` 明名 hooks `not_exists_solution`、`not_exists_solution'`、`not_exists_Int_solution`、`not_exists_Int_solution'`、`caseII`、`flt_regular`。
+- public merge target evidence: `FLT-HR-001` 到 `FLT-HR-007` 的唯一公开合并目标是 `THM-M-0387/eligibles/n4_proof_process.md`，`FLT-HR-008` 到 `FLT-HR-018` 的唯一公开合并目标是 `THM-M-0387/eligibles/regular_primes_proof_process.md`。
+- independent `<=100` local ledger evidence: `THM-M-0387/eligibles/n4_proof_process.md` 已为 `FLT-HR-001` 到 `FLT-HR-007` 各自命名 local ledger；`THM-M-0387/eligibles/regular_primes_proof_process.md` 已为 `FLT-HR-008` 到 `FLT-HR-018` 各自命名 local ledger，且 `FLT-HR-017` 的 ledger 总计 `35` 步，`FLT-HR-018` 的 ledger 总计 `34` 步。
+- boundary wording evidence: regular primes 在 `2026-04-24` 保持 `upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes` 的边界口径；`FLT-HR-018` 的完成只表示公开人类可读展开与本地预算账本已经补齐。
+
+需要先明确一个事实：截至 `2026-04-16`，费马大定理的**完整**机器检验证明应归类为
+`部分验证 / 截至 2026-04-16 未完成完整 repo-local machine-check`，而不是简单的全局 `已验证`。原因是：
 
 1. `mathlib` 已经给出 `n = 3` 与 `n = 4` 的 machine-checked 证明。
 2. Lean 社区已经公开发表了 regular primes 情形的完整形式化结果。
-3. 但完整的 Taylor-Wiles / Wiles 主证明链的公开 Lean 项目仍在进行中，尚不能保守地声称“全定理已完成 machine-checked”。
+3. 但截至 `2026-04-24`，完整的 Taylor-Wiles / Wiles 主证明链尚未形成可由本仓库 repo-local 验证的 Lean 证明，因此不能保守地声称“全定理已完成 machine-checked”。
 
 ## 一、按 README / Blueprint 字段完整填写
 
@@ -122,7 +230,7 @@
 
 费马大定理的标准陈述是：
 
-> 对任意整数 `n > 2`，方程 `x^n + y^n = z^n` 没有非零整数解。  
+> 对任意整数 `n > 2`，方程 `x^n + y^n = z^n` 没有非零整数解。
 > 等价地，对任意正整数 `n > 2`，方程 `x^n + y^n = z^n` 没有正整数解。
 
 在 `mathlib` 中，对固定指数 `n` 的陈述被编码为：
@@ -152,14 +260,14 @@
 
 建议在本仓库中标注为：
 
-`部分验证（n=3、n=4 与 regular primes 已 machine-checked；全证明进行中）`
+`部分验证 / 截至 2026-04-24 未完成完整 repo-local machine-check（`n = 3`、`n = 4` 由 mathlib import 与 repo-local wrapper 记录；regular primes theorem closure 来自上游 `flt-regular` 且本仓库 anchor-only）`
 
 原因如下：
 
-- `n = 4` 的无限递降证明已经在 `mathlib` 中完成。
-- `n = 3` 的 Eisenstein 整数 / 三次分圆域路线已经在 `mathlib` 中完成。
-- `regular primes` 情形已有公开发表的 Lean 4 完整形式化结果。
-- 但完整的 Wiles / Taylor-Wiles 主线公开项目仍标注为 ongoing。
+- `n = 4` 的无限递降证明已经在 `mathlib` 中完成，本仓库用 `flt4Path` 作为 repo-local wrapper 记录闭合点。
+- `n = 3` 的 Eisenstein 整数 / 三次分圆域路线已经在 `mathlib` 中完成，本仓库用 `flt3Path` 作为 repo-local wrapper 记录闭合点。
+- `regular primes` 情形已有公开发表的 Lean 4 完整形式化结果；本仓库只保留 anchor-only statement/module/theorem-name 记录，不 vendoring `flt-regular` 证明本体。
+- 但截至 `2026-04-24`，完整的 Wiles / Taylor-Wiles 主线尚未形成可由本仓库 repo-local 验证的 Lean 证明。
 
 ### 目标形式系统
 
@@ -169,16 +277,16 @@
 
 原因：
 
-- 当前最活跃的公开 FLT 总证明项目就在 Lean 生态中推进。
+- 截至 `2026-04-24`，最活跃的公开 FLT 总证明项目就在 Lean 生态中推进。
 - `mathlib` 已经为 `n = 3`、`n = 4`、代数数论、分圆域、PID、ideal、valuation、gcd、coprimality 等组件提供了可复用基础设施。
-- 本仓库目前没有 Coq / Isabelle 的本地工程骨架，因此以 Lean 样例最贴合现状。
+- 截至 `2026-04-24`，本仓库没有 Coq / Isabelle 的本地工程骨架，因此以 Lean 样例最贴合本项目状态。
 
 备选系统：
 
 - `Isabelle/HOL`
 - `Coq / Rocq + MathComp`
 
-但若要与当前社区产出直接对接，Lean 仍然是第一选择。
+但若要与 `2026-04-24` 的社区产出直接对接，Lean 是第一选择。
 
 ### 逻辑基础/形式系统
 
@@ -212,7 +320,7 @@
 1. 历史背景：17 世纪整数方程与古典数论问题。
 2. 现代证明背景：20 世纪下半叶形成的“椭圆曲线 - 模形式 - 伽罗瓦表示”路线。
 
-后者才是今天可执行的主形式化路线。
+后者才是截至 `2026-04-24` 可执行的主形式化路线。
 
 ### 精确定义与前提条件
 
@@ -294,7 +402,7 @@
 - 关键桥梁：Serre 观点、Ribet 降层、Wiles/Taylor-Wiles 模性提升
 - 终局：该曲线既必须来自某模形式，又因降层落到不存在的低层空间，得到矛盾
 
-这一路线是完整 FLT 形式化的主战场，目前仍在推进中。
+这一路线是完整 FLT 形式化的主战场，截至 `2026-04-24` 为推进中。
 
 ### 被证明年代或时间
 
@@ -318,7 +426,7 @@
 
 ### 证明路径上的定理或其他引例引理
 
-建议按“已经 machine-checked / 正在推进 / 仍是难点”三层来组织：
+建议按“已经 machine-checked / `2026-04-24` 推进中 / 截至 `2026-04-24` 是难点”三层来组织：
 
 #### 已经 machine-checked
 
@@ -336,7 +444,7 @@
 - Kummer's lemma 的 Lean 形式化
 - Hilbert 90-94 在该路线中的可形式化改写
 
-#### 完整总证明仍需打通
+#### 完整总证明待打通
 
 - Frey 曲线构造的系统化 API
 - 模形式空间与 Hecke 代数的形式化基础设施
@@ -345,7 +453,7 @@
 
 ### 依赖图与关键引理
 
-下面给出一个适合仓库后续拆分的依赖图：
+下面给出一个适合仓库在 `2026-04-24` 以后拆分的依赖图：
 
 ```text
 费马大定理
@@ -384,7 +492,7 @@
 - `无限递降`
 - `代数数论证明`
 - `现代模性证明`
-- `机器检验（局部完整 + 总体进行中）`
+- `机器检验（局部完整 + 截至 2026-04-24 总体 repo-local machine-check 未完成）`
 
 换句话说，它不是“单一风格”的 theorem item，而是一个跨多个证明范式的大型证明簇。
 
@@ -435,7 +543,7 @@
 
 若仅就 statement 而言，需要的只是通常的算术与代数结构。
 
-若就当前主流形式化路线而言，建议在仓库中写得更实务化：
+若就 `2026-04-24` 的主流形式化路线而言，建议在仓库中写得更实务化：
 
 - 自然数、整数、有理数的标准代数公理
 - 唯一分解 / PID / gcd 相关结构
@@ -457,14 +565,14 @@
 | 范围 | 状态 | 说明 |
 |---|---|---|
 | statement / reduction 层 | 已验证 | `mathlib` 中已给出 FLT 的标准陈述、指数整除约化、`ℕ/ℤ/ℚ` 版本等价、primitive solution 化简入口 |
-| `n = 4` | 已验证 | `mathlib` 中的 `fermatLastTheoremFour`，证明链并非一句 theorem，而是最小解 + 互素化 + 勾股数分类 + 无限递降 |
-| `n = 3` | 已验证 | `mathlib` 中的 `fermatLastTheoremThree`，证明链包含 mod `9` 的 Case 1、三次分圆域中的 generalized equation、`λ = ζ₃ - 1` 的 multiplicity descent |
-| regular primes | 已验证 | `flt-regular` 项目与 2025 年论文给出 `FermatLastTheoremFor p` 的完整 Lean 4 证明，分为 Case I / Case II 两条主线 |
-| 完整 FLT | 进行中 | Imperial College London 的公开 Lean 项目仍标注 ongoing |
+| `n = 4` | repo-local wrapper 已记录 | `mathlib` 中的 `fermatLastTheoremFour`，本仓库通过 import 与 `flt4Path` 记录 theorem-level closure；证明链并非一句 theorem，而是最小解 + 互素化 + 勾股数分类 + 无限递降 |
+| `n = 3` | repo-local wrapper 已记录 | `mathlib` 中的 `fermatLastTheoremThree`，本仓库通过 import 与 `flt3Path` 记录 theorem-level closure；证明链包含 mod `9` 的 Case 1、三次分圆域中的 generalized equation、`λ = ζ₃ - 1` 的 multiplicity descent |
+| regular primes | upstream closure / repo-local anchor-only | `flt-regular` 项目与 2025 年论文给出 `FermatLastTheoremFor p` 的完整 Lean 4 证明；本仓库不 vendoring 证明本体，只记录 statement shape、module anchors 与 terminal theorem name `flt_regular` |
+| 完整 FLT | 未完成 repo-local machine-check | 截至 `2026-04-24`，完整 `FermatLastTheorem` 不是本仓库 repo-local machine-checked theorem |
 
 因此，最稳妥的总体状态不是 `已验证`，而是：
 
-`部分验证（special exponents + regular primes 已完成；完整主证明仍进行中）`
+`部分验证 / 截至 2026-04-24 未完成完整主证明 repo-local machine-check（special exponents + regular primes 已有可追踪结果）`
 
 ### 现有工件链接
 
@@ -472,20 +580,60 @@
   <https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Basic.html>
 - `mathlib` 对 `n = 4` 的完整证明：
   <https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Four.html>
+  exact Lean module: `Mathlib.NumberTheory.FLT.Four`; terminal theorem:
+  `fermatLastTheoremFour`.
 - `mathlib` 对 `n = 3` 的完整证明：
   <https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Three.html>
+  exact Lean module: `Mathlib.NumberTheory.FLT.Three`; terminal theorem:
+  `fermatLastTheoremThree`.
 - `flt-regular` 主 theorem `flt_regular`：
   <https://github.com/leanprover-community/flt-regular/blob/master/FltRegular/FltRegular.lean>
+  source repository: <https://github.com/leanprover-community/flt-regular>;
+  `2026-04-24` source-identification command
+  `git ls-remote https://github.com/leanprover-community/flt-regular.git HEAD refs/heads/master`
+  returned `0ba4fc22e1742623c3923c5a7a1eb7df36d01b10` for `HEAD` and
+  `refs/heads/master`.  This is an upstream source anchor only; this repository
+  does not vendor the `flt-regular` proof body.
 - `flt-regular` 中 regular primes 的定义：
   <https://github.com/leanprover-community/flt-regular/blob/master/FltRegular/NumberTheory/RegularPrimes.lean>
+  exact upstream module for setup: `FltRegular.NumberTheory.RegularPrimes`;
+  declaration anchors: `IsRegularNumber`, `IsRegularPrime`,
+  `isPrincipal_of_isPrincipal_pow_of_coprime`.
 - `flt-regular` 中 primitive solution 规整：
   <https://github.com/leanprover-community/flt-regular/blob/master/FltRegular/MayAssume/Lemmas.lean>
+  exact upstream module for MayAssume: `FltRegular.MayAssume.Lemmas`;
+  declaration anchors: `MayAssume.coprime`,
+  `MayAssume.p_dvd_c_of_ab_of_anegc`, `a_not_cong_b`.
 - `flt-regular` 的 Case I 主文件：
   <https://github.com/leanprover-community/flt-regular/blob/master/FltRegular/CaseI/Statement.lean>
+  exact upstream Case I modules: `FltRegular.CaseI.Statement` and supporting
+  `FltRegular.CaseI.AuxLemmas`; declaration anchors: `CaseI.SlightlyEasier`,
+  `CaseI.Statement`, `CaseI.may_assume`, `CaseI.ab_coprime`,
+  `CaseI.exists_ideal`, `CaseI.is_principal`, `CaseI.caseI_easier`, `CaseI.caseI`.
 - `flt-regular` 的 Case II 主文件：
   <https://github.com/leanprover-community/flt-regular/blob/master/FltRegular/CaseII/Statement.lean>
+  exact upstream Case II terminal module: `FltRegular.CaseII.Statement`;
+  declaration anchors: `not_exists_solution`, `not_exists_solution'`,
+  `not_exists_Int_solution`, `not_exists_Int_solution'`, and `caseII`.
 - `flt-regular` 的 Case II 下降步骤文件：
   <https://github.com/leanprover-community/flt-regular/blob/master/FltRegular/CaseII/InductionStep.lean>
+  exact upstream Case II descent module: `FltRegular.CaseII.InductionStep`;
+  supporting module: `FltRegular.CaseII.AuxLemmas`; declaration anchors include
+  `zeta_sub_one_dvd`, `span_pow_add_pow_eq`, `div_one_sub_zeta_mem`,
+  `div_zeta_sub_one_Bijective`, `prod_c`, `exists_ideal_pow_eq_c`,
+  `root_div_zeta_sub_one_dvd_gcd_spec`, `c_div_principal`, `p_dvd_c_iff`,
+  `p_dvd_a_iff`, `p_pow_dvd_c_eta_zero`, `p_pow_dvd_a_eta_zero`,
+  `exists_solution`, and `exists_solution'`.
+- `flt-regular` upstream terminal theorem declaration:
+  exact module `FltRegular.FltRegular`; theorem header at upstream commit
+  `0ba4fc22e1742623c3923c5a7a1eb7df36d01b10` is
+  `theorem flt_regular {p : ℕ} [Fact p.Prime] (hreg : IsRegularPrime p) (hodd : p ≠ 2) : FermatLastTheoremFor p`.
+  This repository records only the module-name source anchor plus the
+  `2026-04-24` `git ls-remote` command result above; `flt-regular` is not
+  pinned by vendored commit, release tag, or lockfile in this repository.
+  TODO before stronger reproducibility claims: add a reproducible pin for
+  `leanprover-community/flt-regular` by commit or release and record the
+  matching dependency state.
 - Imperial College London 的公开总项目：
   <https://github.com/ImperialCollegeLondon/FLT>
 - 该项目的 blueprint：
@@ -495,7 +643,7 @@
 
 ## 二、已 machine-checked 部分的详细拆解
 
-这一节专门回答“哪些部分已经被机器证明，而且到底详细到了什么程度”。  
+这一节专门回答“哪些部分已经被机器证明，而且到底详细到了什么程度”。
 重点不是“有一个 theorem 名字存在”，而是**已经 machine-check 的数学内容到底铺到了哪一层**。
 
 ### 1. statement / reduction 层已经 machine-check 到什么程度
@@ -524,7 +672,7 @@
 - `fermatLastTheoremWith_of_fermatLastTheoremWith_coprime`
   把一般非零解归约到 `gcd = 1` 的 primitive solution。
 - `dvd_c_of_prime_of_dvd_a_of_dvd_b_of_FLT`
-  这是后续很多 special case 中会重复用到的 divisibility 工具。
+  这是 `2026-04-24` 以后拆分 special case 时会重复用到的 divisibility 工具。
 - `isCoprime_of_gcd_eq_one_of_FLT`
   把 `gcd = 1` 明确转成互素性结论。
 
@@ -547,20 +695,20 @@
 它的证明不是“直接一句 finishing theorem”，而是完整铺开成了一个无限递降脚手架：
 
 - `Fermat42`
-  先把目标改写成 `a^4 + b^4 = c^2` 的无解问题。  
+  先把目标改写成 `a^4 + b^4 = c^2` 的无解问题。
   这是 classical paper proof 里最常见的桥梁，在 Lean 中被明确单独命名。
 - `Fermat42.exists_minimal`
-  若存在解，则存在 `|c|` 最小的解。  
+  若存在解，则存在 `|c|` 最小的解。
   这一步把无限递降需要的“最小反例”对象形式化了。
 - `Fermat42.coprime_of_minimal`
-  证明最小反例必然互素。  
+  证明最小反例必然互素。
   这不是修辞性说明，而是完整 machine-checked 的缩放论证。
 - `Fermat42.exists_odd_minimal`
   证明可进一步假设最小反例中某个变量是奇数。
 - `Fermat42.exists_pos_odd_minimal`
-  继续规范化到“奇 + 正”的最小反例形态。
+  将最小反例规范化到“奇 + 正”的形态。
 - `Fermat42.not_minimal`
-  这是整条 `n = 4` 证明的核心。  
+  这是整条 `n = 4` 证明的核心。
   证明思路是把 `(a^2, b^2, c)` 看成 primitive Pythagorean triple，先分解出 `(m, n)`，再对 `(a, n, m)` 再做一次 primitive triple 分类，最后构造出一个更小的反例，从而和最小性矛盾。
 - `not_fermat_42`
   收束成 `a^4 + b^4 ≠ c^2`。
@@ -583,7 +731,7 @@
 - `cube_of_not_dvd`
 - `fermatLastTheoremThree_case_1`
 
-这里 formalize 的是 paper proof 中著名的模 `9` 分析：  
+这里 formalize 的是 paper proof 中著名的模 `9` 分析：
 若 `3 ∤ abc`，则每个非零立方模 `9` 只能是 `1` 或 `8`，因此 `a^3 + b^3 = c^3` 不可能成立。
 
 #### 第二层：把一般情形约化到“只有 `c` 被 `3` 整除”
@@ -602,7 +750,7 @@
 
 - `a^3 + b^3 = u * c^3`
 
-其中 `u` 是单位，工作环境是 `ℤ[ζ₃]`。  
+其中 `u` 是单位，工作环境是 `ℤ[ζ₃]`。
 这一步对人类读者来说可能看似“技术性绕路”，但对形式化非常关键，因为 descent 构造过程中单位因子无法避免。
 
 #### 第四层：把 generalized equation 组织成可下降的对象，并做 multiplicity descent
@@ -646,8 +794,8 @@
 - `IsRegularPrime`
 - `isPrincipal_of_isPrincipal_pow_of_coprime`
 
-这一步不是背景知识而已。  
-regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数互素，则“某个 ideal 的 `p` 次幂为 principal”能推出“该 ideal 本身 principal”。  
+这一步不是背景知识而已。
+regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数互素，则“某个 ideal 的 `p` 次幂为 principal”能推出“该 ideal 本身 principal”。
 这正是 Kummer 路线能 formalize 下去的 algebraic engine。
 
 #### 第二层：把任意非平凡整数解先规整到 primitive solution
@@ -724,16 +872,16 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 
 ### 5. 这些 machine-checked 部分合起来到底意味着什么
 
-把上面四层合起来，当前已经被机器证明的内容远比“`n = 3`、`n = 4`、`regular primes`”这句摘要更扎实：
+把上面四层合起来，截至 `2026-04-24` 已经被机器证明的内容远比“`n = 3`、`n = 4`、`regular primes`”这句摘要更扎实：
 
 1. FLT 的陈述层与关键归约层已经在 `mathlib` 中稳定存在。
 2. `n = 4` 不是黑箱，而是完整无限递降 proof。
 3. `n = 3` 不是黑箱，而是带 generalized equation 和 multiplicity descent 的完整 proof architecture。
 4. regular primes 不是概念性声明，而是分成 `MayAssume + Case I + Case II + main theorem flt_regular` 的完整工程。
 
-因此，`THM-M-0387` 在本仓库里不应再用一句“部分验证”糊过去，而应明确表述成：
+因此，`THM-M-0387` 在本仓库里不应只用一句“部分验证”笼统概括，而应明确表述成：
 
-> statement / reduction 层、`n=4`、`n=3`、regular primes 已有实质性且可追踪的 machine-checked 结果；缺失的是完整 Taylor-Wiles / Wiles 主证明链的公开完工版本。
+> statement / reduction 层、`n = 4`、`n = 3`、`regular primes` 已有实质性且可追踪的 machine-checked 结果；缺失的是完整 Taylor-Wiles / Wiles 主证明链的公开完工版本。
 
 ### 6. 本次核查使用的主要资料
 
@@ -761,6 +909,10 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 下面这张表专门回答一个更严格的问题：
 
 > 已 machine-checked 的，到底是“某个名字存在”，还是“整条证明链已经被拆成可追踪 theorem/lemma graph”？
+
+表中 `Mathlib/...` 行的 source project 均为 `leanprover-community/mathlib4`
+revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`；`FltRegular/...`
+行的 source project 为上游 `leanprover-community/flt-regular`，不是本仓库 vendored proof。
 
 | 分层 | 代码位置 | 关键 theorem / structure | 机器证明内容 | 备注 |
 |---|---|---|---|---|
@@ -797,7 +949,7 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 
 ### 8. 机器证明“过程层”审计
 
-如果只写“`n = 4` 已验证”，信息量仍然不够。  
+如果只写“`n = 4` 已验证”，信息量也不够。
 真正有用的是把“过程层”也审计清楚。
 
 #### 8.1 `n = 4` 过程层
@@ -813,8 +965,8 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 7. 用 `not_minimal` 与最小性矛盾。
 8. 收束到 `not_fermat_42`，再收束到 `fermatLastTheoremFour`。
 
-如果继续按“机器证明留痕优先”的标准往下拆，
-这条线当前最值得单列的下一层节点是：
+如果按“机器证明留痕优先”的标准细分，
+截至 `2026-04-24`，这条线最值得单列的下一层节点是：
 
 1. `bridge packaging`
    也就是 `Fermat42`、`not_fermat_42`、`fermatLastTheoremFour` 之间的桥梁层。
@@ -829,11 +981,11 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 6. `hic`, `hic'`
    新解严格更小的最终比较链。
 
-也就是说，`n = 4` 现在已经不只是“`not_minimal` 很重要”，
+也就是说，`n = 4` 截至 `2026-04-24` 已经不只是“`not_minimal` 很重要”，
 而是已经能进一步定位到哪几个 formal hook 才是真正的高负载 leaf。
 
-按当前仓库内的统一 package 口径，
-`n = 4` 这一分支已经被继续拆成 `7` 个 package，
+按 `2026-04-24` 仓库内的统一 package 口径，
+`n = 4` 这一分支截至 `2026-04-24` 已拆成 `7` 个 package，
 并且这 `7` 个 package 在：
 
 - `machine_checked_audit.md`
@@ -856,8 +1008,8 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 8. 用 `exists_Solution_multiplicity_lt` 和最小性矛盾。
 9. 收束到 `fermatLastTheoremThree`。
 
-在仓库写作粒度上，这一分支不再向“互素”“整除传播”那种大学初等数论基础层继续细拆；
-默认读者已经能把这些预备动作作为背景能力读过去。
+在仓库写作粒度上，这一分支不再向“互素”“整除传播”那种大学初等数论基础层细拆；
+默认读者可以把这些预备动作作为背景能力处理。
 
 #### 8.3 regular primes 过程层
 
@@ -869,8 +1021,8 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 4. `CaseII/Statement.lean` 与 `InductionStep.lean` 用 `ζ - 1` 的幂次下降排除 `p ∣ abc`。
 5. `FltRegular.lean` 合并 Case I / II，得到 `flt_regular`。
 
-继续按机器证明过程往下拆一层时，
-当前最值得优先留痕的是：
+按机器证明过程细分一层时，
+截至 `2026-04-24` 最值得优先留痕的是：
 
 1. `MayAssume.coprime`、`MayAssume.p_dvd_c_of_ab_of_anegc`、`a_not_cong_b`
    固定 primitive solution 与 Case I / Case II 的标准入口。
@@ -883,7 +1035,7 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 5. `not_exists_solution` / `not_exists_Int_solution`
    取最小 `m` 并完成 Case II 收束。
 
-也就是说，regular primes 这条线当前已经从“`caseI` / `caseII` 两个 theorem 名”推进到了：
+也就是说，regular primes 这条线截至 `2026-04-24` 已经从“`caseI` / `caseII` 两个 theorem 名”推进到了：
 
 - `MayAssume`
 - `Case I ideal extraction`
@@ -891,28 +1043,30 @@ regular prime 的核心形式化意义在于：若 `p` 与 class group 的基数
 - `Case II descent core`
 - `Case II close / merge`
 
-这套可继续细拆的机器节点层。
+这套可细分的机器节点层。
 
-按当前仓库内的统一 package 口径，
-regular primes 这一分支已经被继续拆成 `11` 个 package，
-并且这 `11` 个 package 在：
+按 `2026-04-24` 仓库内的统一 package 口径，
+regular primes 这一分支截至 `2026-04-24` 已拆成 `11` 个 package；
+其中 theorem/process audit 命名在：
 
 - `machine_checked_audit.md`
 - `process_audit.md`
 - `eligibles/regular_primes_proof_process.md`
 
-三层材料里都已对齐命名。
+三层材料里已对齐命名。
+公开完成状态以本文件的 `Execution Checklist` 为准；`FLT-HR-018` 的公开合并目标
+`eligibles/regular_primes_proof_process.md` 已补齐 human expansion 与 local ledger，
+所以它在 `2026-04-24` 公开状态中是 `completed` / `Completion Gate = passed`。
 
-把这两条加起来，当前围绕 `THM-M-0387` 已继续细化并完成一轮对齐装配的 package 总数是：
+把这两条加起来，截至 `2026-04-24`，围绕 `THM-M-0387` 已细化并完成公开归档闸门的 package 总数是：
 
 - `n = 4`：`7`
 - `regular primes`：`11`
 - 合计：`18`
 
 需要按统一口径记录：
-上述 `18` 个 canonical package、跨文件统一的 `7` 个 canonical high-risk leaf，
-以及先前曾单列出来的 `3` 个 package-level unresolved subitem，
-现在都已经各自拥有独立 `<=100` proof-step ledger 并被整合为 `checked`。
+上述 `18` 个 canonical package 已经各自达到 `completed` / `Completion Gate = passed`，并拥有独立 `<=100` proof-step ledger；
+`FLT-HR-018 / Case II close and merge` 的完成只表示公开人类可读展开与本地预算账本已经补齐，不表示本仓库 vendoring 上游 `flt_regular` 证明本体。
 
 跨文件统一保持不变的 canonical high-risk leaf 名为：
 
@@ -926,43 +1080,44 @@ regular primes 这一分支已经被继续拆成 `11` 个 package，
   - `Case II descent core / three-root formula and raw descent`
   - `Case II close / merge / not_exists_solution'`
 
-先前曾单列但现在已随 package ledger 一并关闭的 package-level subitem 为：
+先前曾单列但截至 `2026-04-24` 已随 package ledger 一并关闭的 package-level subitem 为：
 
 - `Int.gcd a n = 1 transfer`
 - `exists_ideal pairwise ideal coprimality interface`
 - `caseI_easier / aux-index exclusion`
 
-另外，`eligibles` 中面向读者的 layer label / budget alias 仍只作为讲解用 alias，
+另外，`eligibles` 中面向读者的 layer label / budget alias 只作为讲解用 alias，
 不构成第二套 canonical node 名；
 `eligibles/n4_proof_process.md` 第 `16` 节的 budget alias 与
 `eligibles/regular_primes_proof_process.md` 第 `14.1` 节的可读层标签，
-都继续回映到上面这套 canonical package / high-risk leaf 名称。
+都在 `2026-04-24` 口径下回映到上面这套 canonical package / high-risk leaf 名称。
 
 其中：
 
-- `n = 4` 的三条 canonical high-risk leaf 现在都已由独立 ledger 完整关闭，
-  且各自 one-more-depth 子层也随 parent ledger 一并记为 `checked`。
-- regular primes 的四条 canonical high-risk leaf 也都已由独立 ledger 完整关闭，
-  theorem-boundary sentence 仍固定为
+- 截至 `2026-04-24`，`n = 4` 的三条 canonical high-risk leaf 都已由独立 ledger 完整关闭，
+  且各自 one-more-depth 子层也随 parent ledger 一并纳入该 closed leaf 记录。
+- regular primes 的四条 canonical high-risk leaf 都已由独立 ledger 完整关闭，
+  其中 `Case II close / merge / not_exists_solution'` 由 `FLT-HR-018` 的 `34` 步 local ledger 关闭。
+  theorem-boundary sentence 固定为
   `upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes`。
 
-因此，当前 package / leaf 层已经全部闭合；
-后文若有继续扩写，也只属于解释层增补，不改变 acceptance 结论。
+因此，截至 `2026-04-24`，公开归档层闭合到 `18/18`；
+`2026-04-24` 之后若增补，只属于解释层扩写，不改变 `2026-04-24` acceptance 结论。
 
 ## 三、形式化验证样例
 
 ### 样例目标
 
-这个样例不试图伪装成“完整 FLT 已经在本仓库本地跑通”，因为本仓库目前并不是一个 Lean 工程。  
+这个样例不试图伪装成“完整 FLT 已经在本仓库本地跑通”，因为 `THM-M-0387/` 目录在 `2026-04-24` 并不是一个 Lean 工程。
 样例的目标是更严格也更有价值的：
 
 1. 直接复用上游 `mathlib` 中已经真实存在的 theorem 名称。
 2. 展示仓库如何把“陈述、约化、局部完成结果、总目标”拼成一个可执行研究对象。
-3. 给后续把本仓库接成正式 Lean 项目时提供零歧义入口。
+3. 给 `2026-04-24` 以后把本仓库接成正式 Lean 项目时提供零歧义入口。
 
 ### Lean 样例文件
 
-本条目当前采用“theorem dossier + repo-level Lean 共享源码树”的结构：
+截至 `2026-04-24`，本条目采用“theorem dossier + repo-level Lean 共享源码树”的结构：
 
 - `THM-M-0387/FermatLastTheorem_Sample.lean`
   本条目 dossier-local 的 Lean 入口。
@@ -977,8 +1132,20 @@ regular primes 这一分支已经被继续拆成 `11` 个 package，
 - `Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean`
   聚合入口模块；本地验证时与三条路径模块一起被 build。
 
-对应地，`lakefile.lean` 与 `lean-toolchain` 现在位于 `Formalizations/Lean/`，
+对应地，截至 `2026-04-24`，`lakefile.lean` 与 `lean-toolchain` 位于 `Formalizations/Lean/`，
 不再让单个 theorem folder 兼任仓库级 Lean 源码根。
+
+本地验证状态以 `THM-M-0387/build_validation.md` 为准。截至 `2026-04-24 22:10:48 CST (+0800)`，
+规范重跑命令为 `bash THM-M-0387/run_local_validation.sh`，该重跑失败且退出码为 `1`，
+失败原因是本地 `awesome-theorems-local` 工具链缺少
+`/Users/wangweiyang/.elan/toolchains/awesome-theorems-local/bin/lake`。
+因此，本节不声称 `2026-04-24 22:10:48 CST (+0800)` 环境可复现通过；早于该时间的成功 build、
+Lean version、toolchain name、模块清单与 `FermatLastTheorem_Sample.lean` file-check 只作为历史通过记录。
+脚本文件在 `2026-04-24` 文档约定中不要求可执行位，公开文档统一使用 `bash THM-M-0387/run_local_validation.sh` 调用。
+本地验证前提是 `Formalizations/Lean/lean-toolchain` 选择的自定义工具链 `awesome-theorems-local`
+同时提供可用的 `lake` 与 `lean` 二进制；只存在 `elan` 外壳不足以完成验证。
+`.lake/`、Lake build outputs、elan/toolchain downloads、dependency caches 与其他本机缓存不是 tracked artifacts，
+也不是公开稳定证据；公开验证证据以 `THM-M-0387/build_validation.md` 中记录的命令、结果、版本和边界说明为准。
 
 内容如下：
 
@@ -1006,11 +1173,11 @@ example
 
 这个样例说明了四个关键事实：
 
-1. `n = 4` 与 `n = 3` 的结果已经能被直接调用。
-2. `mathlib` 已经把自然数陈述和整数陈述打通。
-3. 指数可通过整除关系上推，例如 `4 | 8`。
-4. regular primes 路线在本仓库共享树里已经有独立锚点模块，便于后续接入 `flt-regular`。
-5. “证明所有奇素数指数”加上 `n = 4`，即可推出完整 FLT，这正是总项目的任务分解框架。
+1. `n = 4` 与 `n = 3` 的 repo-local wrapper `flt4Path`、`flt3Path` 已经能被直接调用，证明实质来自 mathlib import。
+2. `mathlib` 已经把自然数陈述和整数陈述打通，因此 `flt4IntPath` 可由 `fermatLastTheoremFor_iff_int` 作为 repo-local 派生 wrapper 给出。
+3. 指数可通过整除关系上推，因此 `flt8ViaFlt4Path` 可由 `FermatLastTheoremFor.mono` 与 `4 | 8` 的指数整除单调性给出。
+4. regular primes 路线在本仓库共享树里只有独立锚点模块，便于 `2026-04-24` 以后接入 `flt-regular`；theorem closure 属于上游，不是 repo-local vendored closure。Regular primes boundary: upstream theorem closure yes; repo-local vendored theorem closure no, anchor-only; repo-local anchor-only statement/module/theorem-name record yes。
+5. `FermatLastTheorem.of_odd_primes` 展示“证明所有奇素数指数”加上 `n = 4` 即可推出完整 FLT 的任务分解；它不表示完整 FLT 已在本仓库 repo-local machine-check 闭合。
 
 ## 四、对本仓库的执行建议
 
@@ -1019,7 +1186,7 @@ example
 1. 固化 `THM-M-0387` 的结构化字段，不再把总体状态写成 `已验证`。
 2. 保留一个专题研究文档，避免把所有细节硬塞回大蓝图。
 3. 把“样例代码”与“研究结论”分开：代码只展示真实已存在入口，研究文档负责证明链与阻塞点。
-4. 继续把更多定理接入 `Formalizations/Lean/` 这棵共享源码树，而不是回退到 theorem-local 源码根。
+4. 截至 `2026-04-24` 的建议是把更多定理接入 `Formalizations/Lean/` 这棵共享源码树，而不是回退到 theorem-local 源码根。
 
 ## 五、结论
 
@@ -1034,4 +1201,4 @@ example
 
 从仓库治理角度，最重要的不是把它误写成“已完成”，而是准确表达：
 
-> 这是一个已经有坚实 machine-checked 前沿、但完整总证明仍在推进中的旗舰级形式化目标。
+> 截至 `2026-04-24`，这是一个已经有坚实 machine-checked 前沿、但完整总证明尚未形成 repo-local machine-check 闭合的旗舰级形式化目标。

@@ -56,6 +56,13 @@
    - 可以给读者加 alias、标题化标签、budget alias
    - 但这些 alias 不能演变成第二套 competing canonical node system
 20. 任何自动生成后准备进入公开主稿的材料，都应去掉过程性措辞，例如“本轮 worker”“slot 3”“下一轮继续”“当前 frontier”等，最后公开版只保留静态结论、状态表、budget ledger 与可复核内容。
+21. 若同一 theorem folder 内存在 `full_study.md`、`machine_checked_audit.md`、`process_audit.md`、`eligibles/`、`README.md`、`meta.json` 等多层公开材料，必须指定一个 authoritative progress / status surface；其他文件只能解释它，不能与它产生 `checked` / `missing`、`completed` / `open`、`13/18` / `18/18` 这类冲突。
+22. 公开 checklist 是 completion gate，不是叙事摘要。若 checklist 中某 unit 仍为 `missing`、`open` 或未勾选，则其他公开稿不得把同一 unit、同一 package、或同一 leaf 写成已经完全 `checked/completed`，除非同一 patch 同步更新 checklist 并给出公开 merge target 与 ledger anchor。
+23. 反过来，若审计稿或人类可读稿已经声明某 unit 的 machine anchor、人类展开、`<=100` local ledger 均已闭合，则 authoritative checklist、README 摘要、`meta.json` 以及任何进度汇总必须同步更新；不得留下陈旧的 `missing`、`0/18`、`13/18` 等旧状态。
+24. `meta.json`、README 入口、表格摘要里的 `status_detail` 必须保留与正文同等重要的边界信息。尤其当某分支只是“上游已 machine-checked、本仓库仅 anchor-only”时，不能在机器可读摘要里压缩成“本仓库已 machine-checked”。
+25. `build_validation.md` 必须区分“历史上某日期通过”与“当前环境可复现通过”。若复跑失败，必须记录失败日期、命令、错误摘要与待修复条件；在复跑成功前，不得把当前状态继续写成“已通过”。
+26. 本地验证脚本本身也属于验证 surface：必须说明推荐调用方式，并保证要么脚本具备可执行权限且 `./path/script.sh` 可运行，要么文档统一写成 `bash path/script.sh`。不能让 README 推荐一种当前会 `Permission denied` 的调用方式。
+27. 若本地验证依赖自定义 toolchain、预编译 stage、缓存或外部下载，验证记录必须写明这些前置条件；若当前工具链只有 `lean` 但缺 `lake`，或会触发未完成下载，则不能声称当前 Lean 工程可复现 build 通过。
 
 ## 定理树要求
 
@@ -274,6 +281,23 @@
 22. 若自动执行已经成功把某批 unit merge 回现有 `eligibles` 主稿，
     后续 blueprint / README / case study 必须统一改口到新的公开归档面，
     不得继续引用已经废弃的执行中间层目录。
+23. `THM-M-0387/full_study.md` 中的 `Execution Checklist` 是该条目的人类可读展开 authoritative progress surface。
+    若它仍显示某个 `FLT-HR-*` 为 `missing`，则 `machine_checked_audit.md`、`process_audit.md`、`eligibles/*.md`、README 与 `meta.json`
+    都不得把同一 execution unit 叙述为已经完成；若确已完成，必须在同一轮同步回写 `Execution Checklist`。
+24. `THM-M-0387` 的 `regular primes` 分支必须始终保留三段边界：
+    - upstream theorem closure: yes
+    - repo-local vendored theorem closure: no, anchor-only
+    - repo-local anchor-only statement/module/theorem-name record: yes
+    任何入口摘要、机器可读元数据或 README 若写成“regular primes 已 machine-checked”，必须同时说明这是上游 closure，
+    不是本仓库 vendored theorem closure。
+25. `THM-M-0387` 的本地 Lean 验证记录必须可复现。若 `run_local_validation.sh` 因权限、缺 `lake`、toolchain 缺失、或外部下载超时而失败，
+    `build_validation.md` 必须降级为“历史通过记录 / 当前复现失败”，直到在当前环境重新跑通后才能恢复“当前已通过”。
+26. `THM-M-0387` 的 `run_local_validation.sh` 必须与文档调用方式一致：
+    - 若文档写 `./THM-M-0387/run_local_validation.sh`，脚本必须有 executable bit；
+    - 若不保证 executable bit，则文档统一写 `bash THM-M-0387/run_local_validation.sh`。
+27. `THM-M-0387` 若出现 `n = 4` / `regular primes` 的 package-level `checked` 声明，必须能追溯到：
+    machine anchor、公开 merge target、独立 `<=100` local ledger、以及 authoritative checklist 同步勾选。
+    任一项缺失时，状态必须保持 `open/missing` 或写成“审计稿已草拟，completion gate 未通过”。
 
 ## 执行建议
 

@@ -15,6 +15,20 @@
 | 5 | `FermatLastTheorem.of_odd_primes` | 由 `n = 4` 与所有奇素数指数拼回总 FLT | 顶层拼装完成 |
 | 6 | composite exponent split | 解释 `n > 4` 的非素数为何不单列：若 `4 ∣ n` 则归入 `n = 4`；否则某个奇素数 `p ∣ n`，归入奇素数指数分支 | `6, 8, 9, 10, 12, ...` 都被吸收 |
 
+#### repository-local machine boundary note
+
+`n = 4` 的 repo-local theorem-level closure 通过 mathlib import 与 wrapper theorem
+`flt4Path` 记录；`n = 3` 的 repo-local theorem-level closure 通过 mathlib import 与
+wrapper theorem `flt3Path` 记录。`flt4IntPath` 是从 mathlib 的自然数 / 整数版本等价
+派生出的 repo-local wrapper；`flt8ViaFlt4Path` 是用 `FermatLastTheoremFor.mono`
+与 `4 ∣ 8` 的指数整除单调性派生出的 repo-local wrapper。完整 `FermatLastTheorem`
+不是本仓库 repo-local machine-checked theorem；regular primes theorem closure 属于上游
+`flt-regular`，本仓库不 vendoring 证明本体，只保留 anchor-only statement/module/theorem-name 记录。
+
+Local process ledgers and upstream theorem closure are separate layers:
+本文件记录本仓库公开过程审计与 proof-step budget；regular primes 的 theorem closure
+仍只来自上游 `flt-regular`，不由这些 local process ledgers 重新闭合。
+
 ## `n = 4` 过程表
 
 | 步骤 | 形式化对象 | 数学作用 | 结果 |
@@ -32,8 +46,9 @@
 #### `n = 4` process-tree closure note
 
 `Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean`
-在本仓库共享源码树里直接导入 `fermatLastTheoremFour`，因此 `n = 4`
-这条 branch 的 theorem-level closure 是 repo-local 的。
+在本仓库共享源码树里导入 `Mathlib.NumberTheory.FLT.Four`，并用 wrapper theorem
+`flt4Path : FermatLastTheoremFor 4 := fermatLastTheoremFour` 记录 `n = 4`
+这条 branch 的 repo-local theorem-level closure；证明实质来自 mathlib import。
 在本文件覆盖的过程审计层级内，
 `n = 4` 这条 branch 的 canonical package、canonical high-risk leaf，
 以及此前单列的 package-level subitem 都已完成独立 `<=100` proof-step ledger 整合。
@@ -47,13 +62,13 @@
 | first triple classification | `PythagoreanTriple.coprime_classification'` | 从 `(a^2, b^2, c)` 取出第一组参数 `(m,n)` | 第一层参数化 |
 | second triple classification | `PythagoreanTriple.coprime_classification'` | 从 `(a, n, m)` 取出第二组参数 `(r,s)` | 第二层参数化 |
 | coprimality bridge | `Int.isCoprime_of_sq_sum` / `Int.isCoprime_of_sq_sum'` | 为 `b'^2 = m*(r*s)` 的平方提取建立互素接口 | 最容易漏掉的桥接层 |
-| square extraction and sign cleanup | `Int.sq_of_gcd_eq_one`, `Or.resolve_right` | 把乘积为平方拆成因子为平方，并排除负平方假分支 | 当前最重 package；canonical high-risk leaf 继续以下游表为准 |
-| smaller-solution construction / size comparison | `hh`, `hic`, `hic'` in `Fermat42.not_minimal` | 打包新解并证明它严格更小 | descent 收束 |
+| square extraction and sign cleanup | `Int.sq_of_gcd_eq_one`, `Or.resolve_right` | 把乘积为平方拆成因子为平方，并排除负平方假分支 | 最高负载 package；canonical high-risk leaf 继续以下游表为准 |
+| smaller-solution construction and size comparison | `hh`, `hic`, `hic'` in `Fermat42.not_minimal` | 打包新解并证明它严格更小 | descent 收束 |
 
 #### `n = 4` package 再拆一层
 
 以下 package / `one-more-depth` 子包与 `machine_checked_audit.md`、`eligibles/n4_proof_process.md`
-保持同名同步；当前这些展开项都已拥有独立 `<=100` proof-step ledger，
+保持同名同步；这些展开项已拥有独立 `<=100` proof-step ledger，
 因此下表统一记为 `checked`。
 
 | package | one-more-depth items | status |
@@ -64,7 +79,7 @@
 | `second triple classification` | `PythagoreanTriple a n m packaging`; `Int.gcd a n = 1 transfer`; `0 < m upgrade`; `second PythagoreanTriple.coprime_classification' call`; `r,s output interface` | `checked` |
 | `coprimality bridge` | `seed import from second classification`; `single-factor lift via Int.isCoprime_of_sq_sum`; `symmetric single-factor lift`; `product lift via Int.isCoprime_of_sq_sum'`; `API handoff to Int.sq_of_gcd_eq_one` | `checked` |
 | `square extraction and sign cleanup` | `even-halving normalization to b'^2 = m * (r*s)`; `square extraction for m`; `square extraction for r*s with sign cleanup`; `split d^2 across coprime r and s`; `square away the residual signs` | `checked` |
-| `smaller-solution construction / size comparison` | `sign-normalized fourth-power witnesses`; `new witness equation hh`; `minimality re-instantiation hic'`; `strict natAbs descent hic`; `final contradiction` | `checked` |
+| `smaller-solution construction and size comparison` | `sign-normalized fourth-power witnesses`; `new witness equation hh`; `minimality re-instantiation hic'`; `strict natAbs descent hic`; `final contradiction` | `checked` |
 
 #### `n = 4` accepted ledger: `bridge packaging`
 
@@ -135,12 +150,12 @@
 
 `Int.gcd a n = 1 transfer`
 不提升为跨文件统一的 high-risk leaf 名；
-它现在已由 `second triple classification` 的独立 ledger 一并关闭。
+它已由 `second triple classification` 的独立 ledger 一并关闭。
 
 #### `n = 4` 选定高风险 leaf 再拆一层
 
-以下高风险 leaf 及其 `one-more-depth` 子包现在都已由 matching package ledger 关闭；
-审计口径仍保持不变，但当前状态统一记为 `checked`。
+以下高风险 leaf 及其 `one-more-depth` 子包都已由 matching package ledger 关闭；
+审计口径仍保持不变，但状态统一记为 `checked`。
 
 | leaf | process-level wording | status |
 |---|---|---|
@@ -159,12 +174,10 @@
 顶层 theorem-flow 行继续描述 theorem-level 的 machine-checked 事实；
 下表只审计 process-tree 的 `<=100` leaf-budget closure。
 
-当前 `7` 个 canonical package、`3` 个 canonical high-risk leaf，
-以及此前单列的 `Int.gcd a n = 1 transfer`
-都已拥有独立 `<=100` proof-step ledger，
+`7` 个 canonical package 都已拥有独立 `<=100` proof-step ledger，
 因此本节对应的 process-tree `unchecked` surface 已经收束为 `0`。
 
-| node / leaf | status |
+| canonical package | status |
 |---|---|
 | `bridge packaging` | `checked` |
 | `minimal normalization` | `checked` |
@@ -172,13 +185,19 @@
 | `second triple classification` | `checked` |
 | `coprimality bridge` | `checked` |
 | `square extraction and sign cleanup` | `checked` |
-| `smaller-solution construction / size comparison` | `checked` |
+| `smaller-solution construction and size comparison` | `checked` |
+
+canonical high-risk leaf set 使用 `Docs/Blueprint_Guidelines.md` 固化的名称；
+三项 leaf 均已随 matching package ledger 关闭，不再作为 package row 重复计数。
+
+| canonical high-risk leaf | status |
+|---|---|
 | `raw coprime triple classification` | `checked` |
 | `square extraction for r*s with sign cleanup` | `checked` |
 | `strict natAbs descent hic` | `checked` |
 
 本节 `one-more-depth items` 表中列出的全部子项现都继承各自 parent row 的 `checked` 状态。
-当前 `n = 4` 过程审计表中已无剩余 package-level unresolved subitem。
+`n = 4` 过程审计表中已无剩余 package-level unresolved subitem。
 
 ## `n = 3` 过程表
 
@@ -199,6 +218,13 @@
 | 9 | `exists_Solution_multiplicity_lt` | 严格下降 | 与最小性矛盾 |
 | 10 | `fermatLastTheoremThree` | 回到原方程 | branch 完闭 |
 
+#### `n = 3` process-tree closure note
+
+`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean`
+在本仓库共享源码树里导入 `Mathlib.NumberTheory.FLT.Three`，并用 wrapper theorem
+`flt3Path : FermatLastTheoremFor 3 := fermatLastTheoremThree` 记录 `n = 3`
+这条 branch 的 repo-local theorem-level closure；证明实质来自 mathlib import。
+
 ## regular primes 过程表
 
 | 步骤 | 形式化对象 | 数学作用 | 结果 |
@@ -215,7 +241,7 @@
 #### regular primes process-tree closure note
 
 本节只审计 regular primes 路线的 process-tree closure。
-theorem-level 结果仍以上游 `flt-regular` 为准；当前仓库内的
+theorem-level 结果仍以上游 `flt-regular` 为准；本仓库内的
 `Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean`
 只是 statement shape / upstream module / terminal theorem 的锚点模块，
 不是 vendored 证明本体。
@@ -231,6 +257,9 @@ Boundary sentence fixed as:
 
 其中最后一段只表示锚点 statement/module/theorem-name 记录已到位，
 不表示本仓库已 vendoring 上游 `flt_regular` 证明本体。
+本文件后续 `checked` / local ledger 行只审计本仓库的人类可读 process ledger 与 proof-step budget，
+不把这些 process ledger 重新解释为 repo-local theorem closure。
+因此 local process ledgers 与 upstream theorem closure 是两个分离层级：前者记录本仓库公开过程审计是否补齐，后者仍只来自上游 `flt-regular`。
 
 上游 theorem closure 与 repo-local anchor-only 边界已经固定；
 在本文件覆盖的过程审计层级内，
@@ -244,19 +273,19 @@ regular primes 路线的 canonical package、canonical high-risk leaf，
 | setup | `IsRegularPrime`, `isPrincipal_of_isPrincipal_pow_of_coprime` | 定义 regularity 与 principalization engine | 外层代数数论引擎 |
 | MayAssume | `MayAssume.coprime`, `MayAssume.p_dvd_c_of_ab_of_anegc`, `a_not_cong_b` | 规整 primitive solution，并固定 Case I / Case II 入口 | 两个主分支共同入口 |
 | Case I outer statement | `CaseI.SlightlyEasier`, `CaseI.Statement`, `CaseI.may_assume` | 固定带附加假设的陈述，再消去附加假设 | Case I 外层骨架 |
-| Case I ideal extraction | `ab_coprime`, `auxf'`, `auxf`, `exists_ideal` | 线性因子 ideal 表现为 `p` 次幂 | 当前高负载 package；canonical high-risk leaf 继续以下游表为准 |
+| Case I ideal extraction | `ab_coprime`, `auxf'`, `auxf`, `exists_ideal` | 线性因子 ideal 表现为 `p` 次幂 | 高负载 package；canonical high-risk leaf 继续以下游表为准 |
 | Case I principalization | `is_principal_aux`, `is_principal` | 用 regularity 从 ideal-level 回到 element-level | regular primes 的核心特色 |
 | Case I element recovery / close | `ex_fin_div`, `caseI_easier`, `caseI` | 选择生成元、整理单位与同余并收束矛盾 | Case I 最终收口 |
 | Case II π-language | `zeta_sub_one_dvd`, `span_pow_add_pow_eq`, `div_one_sub_zeta_mem`, `div_zeta_sub_one_Bijective` | 建立 `π = ζ - 1` 框架和 ideal 分解 | 下降准备 |
 | Case II ideal-factor layer | `prod_c`, `exists_ideal_pow_eq_c`, `root_div_zeta_sub_one_dvd_gcd_spec`, `c_div_principal` | 建立 `𝔠 η` 与 `𝔞 η` 的 ideal-level `p` 次幂结构 | 下降前半 |
 | Case II distinguished root | `p_dvd_c_iff`, `p_dvd_a_iff`, `p_pow_dvd_c_eta_zero`, `p_pow_dvd_a_eta_zero` | 锁定唯一 ramified root `η₀` | 下降前的局部控制 |
-| Case II descent core | `exists_solution`, `exists_solution'` | 从 level `m+1` 下降到 level `m` | 当前最重 package；canonical high-risk leaf 继续以下游表为准 |
+| Case II descent core | `exists_solution`, `exists_solution'` | 从 level `m+1` 下降到 level `m` | 最高负载 package；canonical high-risk leaf 继续以下游表为准 |
 | Case II close / merge | `not_exists_solution`, `not_exists_solution'`, `not_exists_Int_solution`, `not_exists_Int_solution'`, `caseII`, `flt_regular` | 最小 `m` 矛盾并合并 Case I / II | 外层收口 |
 
 #### regular primes package 再拆一层
 
 以下 package / `one-more-depth` 子包与 `machine_checked_audit.md`、`eligibles/regular_primes_proof_process.md`
-保持同名同步；当前这些展开项都已拥有独立 `<=100` proof-step ledger，
+保持同名同步；这些展开项已拥有独立 `<=100` proof-step ledger，
 因此下表统一记为 `checked`。
 
 | package | one-more-depth items | status |
@@ -283,7 +312,7 @@ regular primes 路线的 canonical package、canonical high-risk leaf，
 `exists_ideal pairwise ideal coprimality interface` 与
 `caseI_easier / aux-index exclusion`
 虽然不提升为跨文件统一的 high-risk leaf 名，
-但现在都已随 matching package ledger 一并转为 `checked`。
+但均已随 matching package ledger 一并转为 `checked`。
 
 #### regular primes accepted ledger: `MayAssume`
 
@@ -329,7 +358,7 @@ Source anchor:
 25. Discharge those two possibilities by `hpri.ne_one` and `hp : p ≠ 3`, so the only surviving conclusion is `↑p ∣ c`.
 26. In `a_not_cong_b`, split on `H : a ≡ b [ZMOD p]`.
 27. If `H` is false, keep the original triple and return `⟨a, b, c, h, hgcd, H, hprod, caseI⟩`.
-28. Assume now that `H` is true; define the sign-swapped triple `(x,y,z) := (a, -c, -b)`.
+28. Assume that `H` is true; define the sign-swapped triple `(x,y,z) := (a, -c, -b)`.
 29. From `hp5 : 5 ≤ p`, derive `p ≠ 2`, hence `p` is odd by `hpri.eq_two_or_odd'`.
 30. Use `neg_pow` together with oddness to rewrite `(-c)^p = -c^p` and `(-b)^p = -b^p`.
 31. Rearranging the signs and using `h`, conclude `a ^ p + (-c) ^ p = (-b) ^ p`.
@@ -342,8 +371,8 @@ Source anchor:
 
 #### regular primes 选定高风险 leaf 再拆一层
 
-以下高风险 leaf 及其 `one-more-depth` 子包现在都已由 matching package ledger 关闭；
-审计口径仍保持不变，但当前状态统一记为 `checked`。
+以下高风险 leaf 及其 `one-more-depth` 子包都已由 matching package ledger 关闭；
+审计口径仍保持不变，但状态统一记为 `checked`。
 
 | leaf | process-level wording | status |
 |---|---|---|
@@ -364,7 +393,7 @@ Source anchor:
 顶层 theorem-flow 行继续描述 theorem-level 的 machine-checked 事实；
 下表只审计 process-tree 的 `<=100` leaf-budget closure。
 
-当前 `11` 个 canonical package、`4` 个 canonical high-risk leaf，
+`11` 个 canonical package、`4` 个 canonical high-risk leaf，
 以及此前单列的 `2` 个 package-level unresolved subitem
 都已拥有独立 `<=100` proof-step ledger，
 因此本节对应的 process-tree `unchecked` surface 已经收束为 `0`。
@@ -392,4 +421,4 @@ Source anchor:
 `exists_ideal pairwise ideal coprimality interface`
 与 `caseI_easier / aux-index exclusion`
 也已随 matching package ledger 一并关闭；
-当前 regular primes 过程审计表中已无剩余 package-level unresolved subitem。
+regular primes 过程审计表中已无剩余 package-level unresolved subitem。
