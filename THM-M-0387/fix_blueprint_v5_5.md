@@ -7,8 +7,8 @@
 
 ## Summary
 
-- Total checklist items: `211`
-- Lifecycle decision as of `2026-04-24 14:02:00 CST (+0800)`: this v5.5 fix blueprint is a temporary release-planning artifact, not a permanent folder-contract artifact; keep it through v5.5 closeout, then delete or archive it after fixes are merged and section K is complete.
+- Total checklist items with section K retained: `211`
+- Lifecycle decision as of `2026-04-26 12:00:46 CST (+0800)`: this v5.5 fix blueprint is a temporary release-planning artifact, not a permanent folder-contract artifact; keep it through v5.5 closeout, then delete or archive it after fixes are merged and section K is complete. Evidence is recorded in `THM-M-0387/process_audit.md :: v5.5 scheduler closeout evidence`.
 - Authoritative progress surface: `THM-M-0387/full_study.md :: Execution Checklist`
 - Public merge targets:
   - `THM-M-0387/full_study.md`
@@ -250,20 +250,20 @@ These items are intentionally not assigned to the ten execution workers. They ru
 - [x] K01 Confirm no v5.5 worker tmux sessions are still running.
 - [x] K02 Confirm no `codex exec` process is still running inside `.cron/automation_repo_slot*`.
 - [x] K03 Confirm `.cron/`, `.ops/`, logs, worker clones, and runtime state are not staged for commit.
-- [ ] K04 Review the final file/folder layout for human readability and remove accidental parallel public surfaces.
-- [ ] K05 Decide whether `fix_blueprint_v5_5.md` remains as a permanent planning artifact or is archived/removed after completion.
-- [ ] K06 If retained, add a concise link to `THM-M-0387/README.md` without making it compete with `full_study.md`.
-- [ ] K07 If removed or archived, ensure README, todo snapshots, and references do not point to a missing blueprint.
-- [ ] K08 Normalize headings, section order, and table style across `full_study.md`, audits, and eligible稿.
-- [ ] K09 Confirm `THM-M-0387/` contains only durable public materials, not execution scratch files.
-- [ ] K10 Confirm `eligibles/` contains only the three stable reader-facing proof-process documents plus its README.
-- [ ] K11 Confirm validation evidence is in `build_validation.md`, not scattered through logs or chat-derived notes.
-- [ ] K12 Confirm machine-boundary evidence is in `machine_checked_audit.md`, not duplicated inconsistently elsewhere.
-- [ ] K13 Confirm process-tree evidence is in `process_audit.md`, not only in eligible narrative prose.
-- [ ] K14 Confirm `full_study.md` remains the authoritative high-level study and progress surface.
-- [ ] K15 Confirm all public links are relative, stable repository paths.
-- [ ] K16 Confirm no absolute automation-clone path remains in public tracked files.
-- [ ] K17 Run the final grep suite listed in section J again after all worker edits are integrated.
-- [ ] K18 Run the final local validation command or record the blocking reason with an absolute date.
-- [ ] K19 Refresh the total checklist count in this file if section K remains part of the tracked blueprint.
-- [ ] K20 Only after K01-K19, remove the v5.5 scheduler via `.cron/bin/cleanup_cron.sh` or the matching launchd cleanup path.
+- [x] K04 Review the final file/folder layout for human readability and remove accidental parallel public surfaces.
+- [x] K05 Decide whether `fix_blueprint_v5_5.md` remains as a permanent planning artifact or is archived/removed after completion.
+- [x] K06 If retained, add a concise link to `THM-M-0387/README.md` without making it compete with `full_study.md`.
+- [x] K07 If removed or archived, ensure README, todo snapshots, and references do not point to a missing blueprint.
+- [x] K08 Normalize headings, section order, and table style across `full_study.md`, audits, and eligible稿.
+- [x] K09 Confirm `THM-M-0387/` contains only durable public materials, not execution scratch files.
+- [x] K10 Confirm `eligibles/` contains only the three stable reader-facing proof-process documents plus its README.
+- [x] K11 Confirm validation evidence is in `build_validation.md`, not scattered through logs or chat-derived notes.
+- [x] K12 Confirm machine-boundary evidence is in `machine_checked_audit.md`, not duplicated inconsistently elsewhere.
+- [x] K13 Confirm process-tree evidence is in `process_audit.md`, not only in eligible narrative prose.
+- [x] K14 Confirm `full_study.md` remains the authoritative high-level study and progress surface.
+- [x] K15 Confirm all public links are relative, stable repository paths.
+- [x] K16 Confirm no absolute automation-clone path remains in public tracked files.
+- [x] K17 Run the final grep suite listed in section J again after all worker edits are integrated.
+- [x] K18 Run the final local validation command or record the blocking reason with an absolute date.
+- [x] K19 Refresh the total checklist count in this file if section K remains part of the tracked blueprint.
+- [x] K20 Only after K01-K19, remove the v5.5 scheduler via `.cron/bin/cleanup_cron.sh` or the matching launchd cleanup path.

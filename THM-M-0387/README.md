@@ -24,6 +24,10 @@ mathlib `fermatLastTheoremFor_iff_int` 等价推出的 repo-local 派生 wrapper
 
 ## 目录内容
 
+本节列出的 tracked 文件与目录是 `THM-M-0387` 的公开阅读面；`full_study.md`
+仍是唯一权威进度面，审计、验证记录与 `eligibles/` 只提供对应证据或展开稿。
+本目录不使用独立 `human_steps/`、result-log 目录、自动化工作副本或第二套进度文档作为公开材料面。
+
 - `README.md`
   入口与导航。
 - `full_study.md`
