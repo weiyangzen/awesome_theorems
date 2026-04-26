@@ -247,9 +247,9 @@
 
 These items are intentionally not assigned to the ten execution workers. They run after workers disappear, tmux sessions are gone, and the v5.5 checklist is either complete or ready for final integration review.
 
-- [ ] K01 Confirm no v5.5 worker tmux sessions are still running.
-- [ ] K02 Confirm no `codex exec` process is still running inside `.cron/automation_repo_slot*`.
-- [ ] K03 Confirm `.cron/`, `.ops/`, logs, worker clones, and runtime state are not staged for commit.
+- [x] K01 Confirm no v5.5 worker tmux sessions are still running.
+- [x] K02 Confirm no `codex exec` process is still running inside `.cron/automation_repo_slot*`.
+- [x] K03 Confirm `.cron/`, `.ops/`, logs, worker clones, and runtime state are not staged for commit.
 - [ ] K04 Review the final file/folder layout for human readability and remove accidental parallel public surfaces.
 - [ ] K05 Decide whether `fix_blueprint_v5_5.md` remains as a permanent planning artifact or is archived/removed after completion.
 - [ ] K06 If retained, add a concise link to `THM-M-0387/README.md` without making it compete with `full_study.md`.
