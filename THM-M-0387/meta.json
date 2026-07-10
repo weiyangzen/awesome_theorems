@@ -4,23 +4,186 @@
   "discipline": "数学",
   "subcategory": "数论 / 丢番图方程",
   "status": "部分验证",
-  "status_detail": "n = 3、n = 4 通过 mathlib import 与 repo-local wrapper 记录；regular primes theorem closure 是 upstream-only，来自上游 flt-regular，本仓库 anchor-only 且不 vendoring 证明本体；截至 2026-04-24 13:31:15 CST (+0800)，完整 FLT repo-local machine-check 未完成，本地验证状态为 2026-04-24 fail",
-  "repo_local_validation": {
-    "status": "2026-04-24 fail",
-    "checked_at": "2026-04-24 13:31:15 CST (+0800)",
-    "command": "bash THM-M-0387/run_local_validation.sh",
-    "exit_code": 1,
-    "blocking_reason": "awesome-theorems-local toolchain lacks /Users/wangweiyang/.elan/toolchains/awesome-theorems-local/bin/lake"
+  "status_detail": "rev-5.6 root vector is [H1, M2, R0]: exact-root human source-to-leaf mapping remains incomplete, checked partial branches include n = 3, n = 4, n in 3..16, and regular primes, and no placeholder-free local declaration closes exact FermatLastTheorem.",
+  "coverage_metrics": {
+    "tree_classification": {
+      "numerator": 132,
+      "denominator": 132,
+      "percent": 100
+    },
+    "machine_closure": {
+      "numerator": 29,
+      "denominator": 93,
+      "percent": 31.18
+    },
+    "readable_closure": {
+      "numerator": 132,
+      "denominator": 132,
+      "percent": 100
+    },
+    "human_source": {
+      "numerator": 0,
+      "denominator": 113,
+      "percent": 0
+    },
+    "root_machine_closed": false
   },
   "flagship_template": true,
+  "template_role": {
+    "default_entry_files": [
+      "README.md",
+      "meta.json",
+      "proof_outline.md",
+      "machine_checked_audit.md"
+    ],
+    "lean4_proof_outline": "proof_outline.md",
+    "proof_unit_manifest": "proof_units.json",
+    "human_readable_main_file": "proof_outline.md",
+    "long_appendix_dir": "readable",
+    "lean_aware_lint": "../scripts/lint_theorem_dossier.py",
+    "temporary_closeout_blueprints_are_contract_files": false
+  },
+  "repo_local_validation": {
+    "status": "pass",
+    "checked_at": "2026-07-10 Asia/Shanghai",
+    "command": "bash THM-M-0387/run_local_validation.sh",
+    "exit_code": 0,
+    "lean_version": "Lean 4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "Lake 5.0.0-src+98dc76e",
+    "build_result": "Canonical seven-stage validation passed after final proof-unit integration; node build 3742 jobs, Stage1 3741, aggregator 3743, full build 3744, and strict lint 132 nodes / 29 exact-type-and-axiom probes.",
+    "lint_command": "python3 scripts/lint_theorem_dossier.py THM-M-0387",
+    "sample_check": "passed",
+    "checked_modules": [
+      "AwesomeTheorems.NumberTheory.THM_M_0387.FLT4Path",
+      "AwesomeTheorems.NumberTheory.THM_M_0387.FLT3Path",
+      "AwesomeTheorems.NumberTheory.THM_M_0387.StatementAndReductionPath",
+      "AwesomeTheorems.NumberTheory.THM_M_0387.RegularPrimesPath",
+      "AwesomeTheorems.NumberTheory.THM_M_0387.SmallExponentsPath",
+      "AwesomeTheorems.NumberTheory.THM_M_0387.InternalCoveragePath",
+      "AwesomeTheorems.NumberTheory.THM_M_0387.Sample",
+      "AwesomeTheorems.Stage1.S1_M_001",
+      "AwesomeTheorems",
+      "THM-M-0387/FermatLastTheorem_Sample.lean"
+    ],
+    "boundary": "Validation covers exact declared node types, accepted axiom reports, repo-local wrappers, pinned mathlib/flt-regular proof bodies, Stage1, the shared aggregator, the proof DAG, and the theorem-folder sample; it does not close full FermatLastTheorem.",
+    "lean_probe_check_count": 29
+  },
+  "formalization_status": {
+    "overall": "partial",
+    "repo_local_full_theorem": false,
+    "repo_local_full_theorem_name": null,
+    "lean_validation_status": "pass",
+    "status_levels": [
+      "local_proof_body",
+      "local_wrapper_upstream_mathlib",
+      "external_upstream_pinned",
+      "not_repo_local_closed"
+    ],
+    "source_projects": {
+      "mathlib": {
+        "project": "leanprover-community/mathlib4",
+        "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+        "pinned_in": [
+          "Formalizations/Lean/lake-manifest.json",
+          "Formalizations/Lean/lakefile.lean"
+        ]
+      },
+      "flt_regular": {
+        "project": "leanprover-community/flt-regular",
+        "observed_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+        "observed_at": "2026-07-10",
+        "pinned_in_repo_dependency": true,
+        "role": "external_upstream_pinned",
+        "pinned_in": [
+          "Formalizations/Lean/lakefile.lean",
+          "Formalizations/Lean/lake-manifest.json"
+        ]
+      }
+    },
+    "branches": [
+      {
+        "name": "n=4",
+        "status": "local_wrapper_upstream_mathlib",
+        "repo_local_theorem": "AwesomeTheorems.NumberTheory.THM_M_0387.flt4Path",
+        "repo_local_module": "AwesomeTheorems.NumberTheory.THM_M_0387.FLT4Path",
+        "upstream_theorem": "fermatLastTheoremFour",
+        "upstream_module": "Mathlib.NumberTheory.FLT.Four",
+        "source_project": "mathlib",
+        "proof_body_vendored_here": false
+      },
+      {
+        "name": "n=3",
+        "status": "local_wrapper_upstream_mathlib",
+        "repo_local_theorem": "AwesomeTheorems.NumberTheory.THM_M_0387.flt3Path",
+        "repo_local_module": "AwesomeTheorems.NumberTheory.THM_M_0387.FLT3Path",
+        "upstream_theorem": "fermatLastTheoremThree",
+        "upstream_module": "Mathlib.NumberTheory.FLT.Three",
+        "source_project": "mathlib",
+        "proof_body_vendored_here": false
+      },
+      {
+        "name": "n=4 integer specialization",
+        "status": "local_wrapper_upstream_mathlib",
+        "repo_local_theorem": "AwesomeTheorems.NumberTheory.THM_M_0387.flt4IntPath",
+        "repo_local_module": "AwesomeTheorems.NumberTheory.THM_M_0387.FLT4Path",
+        "upstream_theorem": "fermatLastTheoremFor_iff_int",
+        "upstream_module": "Mathlib.NumberTheory.FLT.Basic",
+        "source_project": "mathlib",
+        "proof_body_vendored_here": false
+      },
+      {
+        "name": "n=8 via n=4",
+        "status": "local_wrapper_upstream_mathlib",
+        "repo_local_theorem": "AwesomeTheorems.NumberTheory.THM_M_0387.flt8ViaFlt4Path",
+        "repo_local_module": "AwesomeTheorems.NumberTheory.THM_M_0387.FLT4Path",
+        "upstream_theorem": "FermatLastTheoremFor.mono",
+        "upstream_module": "Mathlib.NumberTheory.FLT.Basic",
+        "source_project": "mathlib",
+        "proof_body_vendored_here": false
+      },
+      {
+        "name": "regular primes",
+        "status": "external_upstream_pinned",
+        "repo_local_theorem": "AwesomeTheorems.NumberTheory.THM_M_0387.regularPrimesPath",
+        "repo_local_module": "AwesomeTheorems.NumberTheory.THM_M_0387.RegularPrimesPath",
+        "repo_local_anchors": [
+          "regularPrimesStatementShape",
+          "regularPrimesPathModules",
+          "regularPrimesPathTerminalTheorem"
+        ],
+        "upstream_theorem": "flt_regular",
+        "upstream_module": "FltRegular.FltRegular",
+        "source_project": "flt_regular",
+        "proof_body_vendored_here": false,
+        "proof_body_checked_via_pinned_dependency": true
+      },
+      {
+        "name": "full FermatLastTheorem",
+        "status": "not_repo_local_closed",
+        "repo_local_theorem": null,
+        "upstream_or_imported_support": [
+          "FermatLastTheorem",
+          "FermatLastTheorem.of_odd_primes",
+          "FermatLastTheoremFor.mono"
+        ],
+        "proof_body_vendored_here": false
+      }
+    ]
+  },
   "folder_contract": [
     "README.md",
+    "proof_outline.md",
+    "proof_units.json",
     "full_study.md",
     "machine_checked_audit.md",
     "process_audit.md",
     "build_validation.md",
     "FermatLastTheorem_Sample.lean",
     "run_local_validation.sh",
+    "readable/external_candidate_ledger.md",
+    "readable/machine_closed_nodes.md",
+    "readable/wiles_taylor_wiles_process.md",
     "eligibles/README.md",
     "eligibles/n4_proof_process.md",
     "eligibles/n3_proof_process.md",
@@ -29,9 +192,12 @@
   ],
   "shared_formalization_refs": [
     "../Formalizations/Lean/AwesomeTheorems.lean",
+    "../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/StatementAndReductionPath.lean",
     "../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean",
     "../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean",
     "../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean",
+    "../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/SmallExponentsPath.lean",
+    "../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/InternalCoveragePath.lean",
     "../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean"
   ]
 }

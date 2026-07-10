@@ -77,20 +77,21 @@ THEOREM_OVERRIDES: dict[TheoremOverrideKey, dict[str, str]] = {
         "逻辑基础/形式系统": "Lean 路线以依赖类型论 + `Prop` + 按需 classical 为主；若迁移 Isabelle/HOL，则采用经典高阶逻辑",
         "提出背景": "费马在丢番图《算术》页边给出断言；现代证明路线则来自椭圆曲线、模形式、伽罗瓦表示与模性提升理论",
         "精确定义与前提条件": "变量域取 `ℕ` 或 `ℤ`；要求 `x ≠ 0 ∧ y ≠ 0 ∧ z ≠ 0`，`n ≥ 3`，方程为 `x ^ n + y ^ n = z ^ n`；形式化时先做 primitive solution 化简，再用指数整除约化把合数指数压回 `n = 4` 或奇素数指数。",
-        "被证明的过程": "闭环0 = 合数指数约化：若 `4 ∣ n` 则归入 `n = 4`，否则取奇素数因子 `p ∣ n` 归入指数 `p`；闭环1 = `n = 4` 用勾股数分类 + 无限递降排除；闭环2 = `n = 3` 用三次分圆域与 descent 排除；闭环3 = 一般奇素数指数走 Frey 曲线、Ribet 降层、Wiles/Taylor-Wiles 模性路线导出矛盾。",
+        "被证明的过程": "闭环0 = 合数指数约化：若 `4 ∣ n` 则归入 `n = 4`，否则取奇素数因子 `p ∣ n` 归入指数 `p`；闭环1 = `n = 4` 用勾股数分类 + 无限递降排除；闭环2 = `n = 3` 用三次分圆域与 descent 排除；闭环3 = regular primes 由 pinned `flt-regular` 的 `flt_regular` 与本仓库 wrapper `regularPrimesPath` 闭合；闭环4 = 一般奇素数指数的人类数学证明走 Frey 曲线、Ribet 降层、Wiles/Taylor-Wiles 模性路线导出矛盾，但该完整主线尚未形成 repo-local Lean closure。",
         "被证明年代或时间": "1994 公布，1995 发表修正后的完整论文链",
         "被证明的意义": "源文档重要性 = 高；它把整数方程问题与椭圆曲线、模形式、伽罗瓦表示联通，也是现代 proof assistant 测试高阶数论 formalization 能力的旗舰 benchmark",
         "证明路径上的定理或其他引例引理": "`Mathlib.NumberTheory.FLT.Basic` 中的 statement/reduction 工具、`fermatLastTheoremFour`、`fermatLastTheoremThree`、`FermatLastTheorem.of_odd_primes`、`flt_regular`、`CaseI.caseI`、`CaseII.caseII`、Frey 曲线构造、Ribet 降层、半稳定椭圆曲线模性定理、Taylor-Wiles patching 主链",
-        "依赖图与关键引理": "顶层先做自然数/整数/有理数版本等价、primitive solution 化简与指数整除约化；其中所有 `4` 以上非素数指数都被 reduction layer 吸收：`4 ∣ n` 归入 `n = 4`，否则取奇素数因子 `p ∣ n` 归入指数 `p`。在独立主 branch 上，中层封闭 `n = 4` 的无限递降与 `n = 3` 的 generalized equation + multiplicity descent；再往上一层是 regular primes 的 `MayAssume + Case I + Case II + flt_regular`；底层未完成部分仍是奇素数指数的一般 Taylor-Wiles / Wiles 主链。",
+        "依赖图与关键引理": "顶层先做自然数/整数/有理数版本等价、primitive solution 化简与指数整除约化；其中所有 `4` 以上非素数指数都被 reduction layer 吸收：`4 ∣ n` 归入 `n = 4`，否则取奇素数因子 `p ∣ n` 归入指数 `p`。在独立主 branch 上，中层封闭 `n = 4` 的无限递降与 `n = 3` 的 generalized equation + multiplicity descent；再往上一层是 regular primes 的 `MayAssume + Case I + Case II + flt_regular`，现在通过 pinned `flt-regular` dependency 与 `regularPrimesPath` 纳入本仓库验证闭包；底层未完成部分仍是所有奇素数指数的一般 Taylor-Wiles / Wiles 主链，尤其包括 regular-prime 方法覆盖不了的 irregular prime exponents。",
         "定理树展开要求": "根节点 = FLT 主命题；必须继续展开到 `statement/reduction`、合数指数吸收层、`n = 4`、`n = 3`、`regular primes`、一般奇素数指数主链六层；其中 `n = 4` 与 `regular primes` 需要继续下钻到具体引理和 case split 节点；`n = 3` 只拆到真正承担证明工作的 mod `9` / generalized equation / multiplicity descent 节点，不向初等数论常识层过拆。",
         "叶子节点证明步数上限": "100 步",
-        "当前定理树叶子控制状态": "`n = 4` 已拆成 `7` 个 canonical package，regular primes 已拆成 `11` 个 canonical package；两条线在 `machine_checked_audit`、`process_audit`、`eligibles` 三层材料里已对齐命名。跨文件统一的 `7` 个 canonical high-risk leaf 保持为：`raw coprime triple classification`、`square extraction for r*s with sign cleanup`、`strict natAbs descent hic`、`Case II ideal-factor layer / global product to local p-th powers`、`Case II distinguished root / p_pow_dvd_c_eta_zero`、`Case II descent core / three-root formula and raw descent`、`Case II close / merge / not_exists_solution'`。上述 canonical package、canonical high-risk leaf，以及先前单列的 package-level subitem `Int.gcd a n = 1 transfer`、`exists_ideal pairwise ideal coprimality interface`、`caseI_easier / aux-index exclusion`，现在都已各自拥有独立 `<=100` proof-step ledger 并在对应 completion surface 中记为 `checked`。regular primes 的 human-readable boundary sentence 仍固定保留为 `upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes`；其中最后一段只表示锚点 statement/module/theorem-name 记录已到位，不表示本仓库已 vendoring 上游 `flt_regular` 证明本体。`eligibles` 中的 reader-facing labels / budget aliases 只作为讲解别名，不构成第二套 canonical node 名；跨文件同步仍以上述 package / leaf 名为准。`n = 3` 有意保持较粗粒度，不下钻到初等数论常识层。完整 Wiles/Taylor-Wiles 一般奇素数指数主链仍未闭合。",
+        "当前定理树叶子控制状态": "`n = 4` 已拆成 `7` 个 canonical package，regular primes 已拆成 `11` 个 canonical package；两条线在 `machine_checked_audit`、`process_audit`、`eligibles` 三层材料里已对齐命名。跨文件统一的 `7` 个 canonical high-risk leaf 保持为：`raw coprime triple classification`、`square extraction for r*s with sign cleanup`、`strict natAbs descent hic`、`Case II ideal-factor layer / global product to local p-th powers`、`Case II distinguished root / p_pow_dvd_c_eta_zero`、`Case II descent core / three-root formula and raw descent`、`Case II close / merge / not_exists_solution'`。上述 canonical package、canonical high-risk leaf，以及先前单列的 package-level subitem `Int.gcd a n = 1 transfer`、`exists_ideal pairwise ideal coprimality interface`、`caseI_easier / aux-index exclusion`，现在都已各自拥有独立 `<=100` proof-step ledger 并在对应 completion surface 中记为 `checked`。regular primes 的 human-readable boundary sentence 固定为 `upstream theorem closure: yes / repo-local checked dependency closure: yes / repo-local vendored proof-body copy: no`；其中第二段表示本仓库已经 pin `flt-regular` 并通过 `regularPrimesPath` 检查该分支，第三段表示证明本体仍位于外部 dependency 中。`eligibles` 中的 reader-facing labels / budget aliases 只作为讲解别名，不构成第二套 canonical node 名；跨文件同步仍以上述 package / leaf 名为准。`n = 3` 有意保持较粗粒度，不下钻到初等数论常识层。完整 Wiles/Taylor-Wiles 一般奇素数指数主链仍未闭合。",
         "证据类型": "无限递降证明 + 代数数论证明 + 模性证明 + 局部完整 machine-check + 总体大型协作 formalization",
-        "形式化阻塞点": "真正瓶颈在模形式/Hecke 代数/伽罗瓦表示/deformation theory 基础设施，而非 statement 本身；论文中的“标准事实”必须被拆成细粒度 lemma，且对象表示与 API 稳定性要求极高",
+        "机器证明债分类": "已还清 `repo_local_integration_debt`：regular primes 通过 pinned `flt-regular` dependency 与 `regularPrimesPath` 检查；仍存在 `formalization_debt`：人类已知的 Wiles/Taylor-Wiles / Ribet / Frey curve / modularity 主线尚未形成公开无 `sorry` 且可由本仓库验证的 Lean 4 完整证明；具体缺口 theorem family 是 `∀ p : ℕ, Nat.Prime p → Odd p → FermatLastTheoremFor p`，或直接 `FermatLastTheorem`。",
+        "形式化阻塞点": "这不是 `mathematical_debt`：完整 FLT 的人类数学证明已知。真正瓶颈是 `formalization_debt`，集中在模形式/Hecke 代数/伽罗瓦表示/deformation theory/Frey curve/Ribet 降层/模性提升等基础设施；论文中的“标准事实”必须被拆成细粒度 lemma，且对象表示与 API 稳定性要求极高。regular primes 旧的 `repo_local_integration_debt` 已通过 pinned `flt-regular` dependency 还清。",
         "等价表述": "自然数版本、整数版本、有理数版本可互转；完整 FLT 可约化为 `n = 4` 与所有奇素数指数；只需考虑 primitive solution",
         "所需公理": "自然数/整数/有理数标准代数结构、gcd/PID/UFD 相关结构、理想/商环/分圆域等代数数论对象；完整主证明还依赖更强的现代经典数学基础设施",
         "经典逻辑/选择公理依赖": "`n = 4` 路线较初等，但 `n = 3`、regular primes 与完整 Wiles/Taylor-Wiles 路线在工程上都应按 classical + noncomputable 的现代数学库组织方式准备",
-        "现有 machine-checked 状态": "`Mathlib.NumberTheory.FLT.Basic` 已 machine-check statement/reduction 层（`FermatLastTheoremWith`、`FermatLastTheoremFor`、`FermatLastTheorem`、`FermatLastTheoremWith.mono`、`FermatLastTheoremFor.mono`、`FermatLastTheorem.of_odd_primes`、`fermatLastTheoremFor_iff_int`、`fermatLastTheoremFor_iff_rat`、`fermatLastTheoremWith_of_fermatLastTheoremWith_coprime`）；`Four.lean` 已完成 `n = 4`（`Fermat42`、`exists_minimal`、`coprime_of_minimal`、`not_minimal`、`not_fermat_42`、`fermatLastTheoremFour`，其下一层高负载节点包括 `PythagoreanTriple.coprime_classification'`、`Int.isCoprime_of_sq_sum'`、`Int.sq_of_gcd_eq_one`）；`Three.lean` 已完成 `n = 3`（mod `9` 的 Case 1、`FermatLastTheoremForThreeGen`、`Solution'`/`Solution`、`exists_Solution_of_Solution'`、`exists_Solution_multiplicity_lt`、`fermatLastTheoremThree`）；`flt-regular` 已完成 regular primes（`MayAssume.coprime`、`a_not_cong_b`、`exists_ideal`、`is_principal_aux` / `is_principal`、`exists_solution` / `exists_solution'`、`CaseI.caseI`、`CaseII.caseII`、`flt_regular`）；更细的 theorem-level 与 process-level 审计见专题文档 `§二`；完整 Wiles/Taylor-Wiles 总项目截至 2026-04-16 仍为 ongoing",
+        "现有 machine-checked 状态": "`Mathlib.NumberTheory.FLT.Basic` 已 machine-check statement/reduction 层（`FermatLastTheoremWith`、`FermatLastTheoremFor`、`FermatLastTheorem`、`FermatLastTheoremWith.mono`、`FermatLastTheoremFor.mono`、`FermatLastTheorem.of_odd_primes`、`fermatLastTheoremFor_iff_int`、`fermatLastTheoremFor_iff_rat`、`fermatLastTheoremWith_of_fermatLastTheoremWith_coprime`）；`Four.lean` 已完成 `n = 4`（`Fermat42`、`exists_minimal`、`coprime_of_minimal`、`not_minimal`、`not_fermat_42`、`fermatLastTheoremFour`，其下一层高负载节点包括 `PythagoreanTriple.coprime_classification'`、`Int.isCoprime_of_sq_sum'`、`Int.sq_of_gcd_eq_one`）；`Three.lean` 已完成 `n = 3`（mod `9` 的 Case 1、`FermatLastTheoremForThreeGen`、`Solution'`/`Solution`、`exists_Solution_of_Solution'`、`exists_Solution_multiplicity_lt`、`fermatLastTheoremThree`）；pinned `flt-regular` 已通过本仓库 dependency closure 完成 regular primes（`MayAssume.coprime`、`a_not_cong_b`、`exists_ideal`、`is_principal_aux` / `is_principal`、`exists_solution` / `exists_solution'`、`CaseI.caseI`、`CaseII.caseII`、`flt_regular`、repo-local wrapper `regularPrimesPath`）；更细的 theorem-level 与 process-level 审计见专题文档 `§二`；完整 Wiles/Taylor-Wiles 总项目截至 2026-04-29 仍为 ongoing / not repo-local closed",
         "现有工件链接": "[权威总研究文档](../THM-M-0387/full_study.md)；[旗舰材料包](../THM-M-0387/README.md)；[机器证明审计](../THM-M-0387/machine_checked_audit.md)；[过程审计](../THM-M-0387/process_audit.md)；[本地验证记录](../THM-M-0387/build_validation.md)；[本地验证脚本](../THM-M-0387/run_local_validation.sh)；[Lean 样例入口](../THM-M-0387/FermatLastTheorem_Sample.lean)；[共享 Lean 库根模块](../Formalizations/Lean/AwesomeTheorems.lean)；[共享 Lean `n = 4` 路径模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean)；[共享 Lean `n = 3` 路径模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean)；[共享 Lean regular primes 路径模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean)；[共享 Lean 聚合模块](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean)；[Blueprint Guidelines](./Blueprint_Guidelines.md)；mathlib `Basic/Four/Three` 文档：<https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Basic.html>、<https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Four.html>、<https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/FLT/Three.html>；`flt-regular` 主入口与源码：<https://github.com/leanprover-community/flt-regular>；公开总项目：<https://github.com/ImperialCollegeLondon/FLT>；regular primes 论文页：<https://afm.episciences.org/16046>",
     },
 }
@@ -506,6 +507,19 @@ def default_blockers(theorem: Theorem) -> str:
     return "待补充"
 
 
+def default_machine_proof_debt(theorem: Theorem) -> str:
+    bucket = formal_status_bucket(theorem)
+    if bucket == "closed":
+        return "待分类：默认不是数学债；需查 primary sources 区分是否仍有 theorem-tree / leaf-budget 审计债、公开 formal proof 定位债、或 repo-local integration debt。"
+    if bucket == "partial":
+        return "待分类：至少区分已闭合 branch、formalization_debt、repo_local_integration_debt；不得把人类数学已知但机器未闭合的部分写成 repo-local completed。"
+    if bucket in {"open", "undecidable", "independent"}:
+        return "待分类：优先判断是否为 mathematical_debt；若人类已有证明但机器未闭合，则改标 formalization_debt。"
+    if bucket == "refuted":
+        return "待分类：若已有反例/否证证明，需区分否证链是否已机器检查，未检查部分通常是 formalization_debt 或 repo-local integration_debt。"
+    return "待分类：需查 primary sources，区分 mathematical_debt / formalization_debt / repo_local_integration_debt。"
+
+
 def append_discipline_specific_lines(lines: list[str], theorem: Theorem, overrides: dict[str, str]) -> None:
     if theorem.discipline == "数学":
         lines.append(f"  - 等价表述: {overrides.get('等价表述', '待补充')}")
@@ -549,6 +563,8 @@ def render_blueprint(items: list[Theorem]) -> str:
     lines.append("- 本文件是后续执行型 cron 的唯一 authoritative blueprint。")
     lines.append("- 后续 todo、批次切分、进度回写、自动拆分都只能以本文件为 requirement source。")
     lines.append(f"- 当前 Stage0 目标不是伪造研究结论，而是把 `Docs/researches` 中现有的 {total_count} 个定理统一成可执行、可追踪、可拆分的结构化蓝图。")
+    lines.append("- `THM-M-0387` 是本仓库 blueprint 质量基准；从 M0387 沉淀出的新标准必须先同步进 `Docs/Blueprint_Guidelines.md`，再运行本生成器。")
+    lines.append("- 若某条 M0387 规则只存在于专题文档、override、或生成结果里，而没有进入 guideline，则下一次批量生成前必须先补 guideline。")
     lines.append("- 一级类目只按学科展开：`数学`、`物理`、`计算机科学`。")
     lines.append("- 二级类目按源文档的主类目/次类目合并成一个稳定子分类路径，例如 `代数学 / 同调代数`、`凝聚态物理 / 超导`、`复杂性理论 / P vs NP 与 NP完全性`。")
     lines.append("- 已执行一次严格去重：仅当 `名称 + 提出者 + 提出时间 + 陈述 + 重要性 + 形式化状态` 完全一致时才视为同一条目；保留优先级为 `数学 > 物理 > 计算机科学`，同学科内保留最早出现者。")
@@ -562,6 +578,11 @@ def render_blueprint(items: list[Theorem]) -> str:
     lines.append("- 叶子节点必须是不再引用其他 theorem / lemma 的最小证明单元；每个叶子节点的证明过程上限为 `100` 步。")
     lines.append("- 若某叶子节点超过 `100` 步，则该条目默认仍未收敛，后续 cron 必须继续拆分。")
     lines.append("- 若某条目已有 machine-checked branch，后续补强顺序默认是：先补 `machine_checked_audit` / `process_audit` 的机器节点留痕，再补 `eligibles` 的人类可读展开。")
+    lines.append("- 每个条目的“还缺什么”必须按机器证明债分类记录：")
+    lines.append("  - `mathematical_debt`：人类数学共同体尚无公认闭合证明。")
+    lines.append("  - `formalization_debt`：人类证明已知，但公开 proof-assistant kernel-checked 证明链尚未完成，或仍含 `sorry` / placeholder。")
+    lines.append("  - `repo_local_integration_debt`：外部 formal 工程已有证明，但本仓库尚未 pin/import/check；一旦通过 pinned dependency 或 wrapper theorem 检查，应升级为 `external_upstream_pinned`。")
+    lines.append("- 不能把 `formalization_debt` 写成 `mathematical_debt`，也不能把 `external_upstream_anchor_only` 写成 repo-local completed。")
     lines.append("- 默认读者基线按“大学水平、具备相关学科基础”处理；对显然的基础动作，不应为了凑树深度而过度教学化细拆。")
     lines.append("- Stage0 通用 closure 顺序固定为：")
     lines.append("  `machine anchor / theorem-level audit -> process-tree / package-level ledger -> eligibles 公开主稿 merge-back`；")
@@ -639,6 +660,7 @@ def render_blueprint(items: list[Theorem]) -> str:
     lines.append("- `叶子节点证明步数上限`：统一要求叶子节点证明过程不超过 `100` 步。")
     lines.append("- `当前定理树叶子控制状态`：记录当前是否已拆到满足 `100` 步预算。")
     lines.append("- `证据类型`：区分解析证明、构造性证明、实验观测、数值模拟、归约证明、程序验证等。")
+    lines.append("- `机器证明债分类`：区分 mathematical_debt、formalization_debt、repo_local_integration_debt，并指明具体缺口 theorem family / branch。")
     lines.append("- `形式化阻塞点`：记录库缺失、模型未固定、近似没写清、非构造性步骤等问题。")
     lines.append("- `现有工件链接`：论文、书籍、formal proof repo、mathlib/AFP 条目、脚本与数据位置。")
     lines.append("")
@@ -716,6 +738,9 @@ def render_blueprint(items: list[Theorem]) -> str:
                     f"  - 当前定理树叶子控制状态: {overrides.get('当前定理树叶子控制状态', default_leaf_control_status(theorem))}"
                 )
                 lines.append(f"  - 证据类型: {overrides.get('证据类型', default_evidence_type(theorem))}")
+                lines.append(
+                    f"  - 机器证明债分类: {overrides.get('机器证明债分类', default_machine_proof_debt(theorem))}"
+                )
                 lines.append(
                     f"  - 形式化阻塞点: {overrides.get('形式化阻塞点', default_blockers(theorem))}"
                 )

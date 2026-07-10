@@ -1,4 +1,7 @@
+import AwesomeTheorems.NumberTheory.THM_M_0387.StatementAndReductionPath
 import AwesomeTheorems.NumberTheory.THM_M_0387.FLT4Path
 import AwesomeTheorems.NumberTheory.THM_M_0387.FLT3Path
 import AwesomeTheorems.NumberTheory.THM_M_0387.RegularPrimesPath
+import AwesomeTheorems.NumberTheory.THM_M_0387.SmallExponentsPath
+import AwesomeTheorems.NumberTheory.THM_M_0387.InternalCoveragePath
 import AwesomeTheorems.NumberTheory.THM_M_0387.Sample

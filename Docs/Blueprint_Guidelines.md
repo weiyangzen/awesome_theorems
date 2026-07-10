@@ -6,6 +6,18 @@
 
 当仓库为某个定理补充 blueprint 条目、case study、或形式化验证研究时，输出不应停留在“有无验证”的粗粒度标签，而要尽可能达到可追踪、可核查、可继续执行的状态。
 
+## M0387 基准门槛
+
+`THM-M-0387` 是后续 3000+ 个定理 blueprint 的旗舰样本，而不是一次性特例。凡是从 `THM-M-0387` 中沉淀出的更高标准，必须先同步进本文件，再生成或再生成任何批量 blueprint。
+
+具体顺序固定为：
+
+1. 先在 `THM-M-0387` 中把数学边界、machine-check 边界、人类可读展开、proof-unit 状态与本地验证记录校准到同一事实。
+2. 再把可泛化规则写入 `Docs/Blueprint_Guidelines.md`，包括状态口径、债务分类、定理树粒度、执行门槛、公开/私有 surface 边界。
+3. 最后才允许运行 blueprint generator，使 `Docs/Stage0_Blueprint.md` 或其他批量蓝图继承这些规则。
+
+若发现某条规则只存在于 `THM-M-0387` 文档、生成器 override、或某个已生成蓝图中，而没有进入本 guideline，则该规则还不能视为仓库级标准；下一次批量生成前必须补回本文件。
+
 ## 通用要求
 
 1. 对每个重点定理，必须满足 `README.md` 与 `Docs/Stage0_Blueprint.md` 中列出的字段要求，不能只补摘要。
@@ -63,6 +75,113 @@
 25. `build_validation.md` 必须区分“历史上某日期通过”与“当前环境可复现通过”。若复跑失败，必须记录失败日期、命令、错误摘要与待修复条件；在复跑成功前，不得把当前状态继续写成“已通过”。
 26. 本地验证脚本本身也属于验证 surface：必须说明推荐调用方式，并保证要么脚本具备可执行权限且 `./path/script.sh` 可运行，要么文档统一写成 `bash path/script.sh`。不能让 README 推荐一种当前会 `Permission denied` 的调用方式。
 27. 若本地验证依赖自定义 toolchain、预编译 stage、缓存或外部下载，验证记录必须写明这些前置条件；若当前工具链只有 `lean` 但缺 `lake`，或会触发未完成下载，则不能声称当前 Lean 工程可复现 build 通过。
+
+## 机器证明债分类
+
+后续生成或升级具体 blueprint 时，必须把“还缺什么”按下面三类债务区分，不能只写成笼统的 `缺失`、`未完成` 或 `待补充`：
+
+1. `mathematical_debt` / 数学债
+   - 命题仍是 conjecture / open problem，或人类数学共同体尚无公认闭合证明。
+   - 换言之，债务在数学本身：人类还没有证明。
+   - 这类条目不能被写成“人类已证明，只差形式化”。
+2. `formalization_debt` / 形式化债
+   - 人类数学上已有证明，但还没有完整走完 proof assistant / kernel-checked 的机器证明渠道。
+   - 公开项目若仍含 `sorry` / `admit` / axiom placeholder / 未闭合 blueprint，也属于这一类。
+   - 这类条目的正确状态是“数学已知，机器形式化未闭合”，不能写成数学债。
+3. `repo_local_integration_debt` / repo-local 整合债
+   - 外部 Lean / Coq / Isabelle / HOL 工程已有可检查的机器证明，但本仓库尚未 pin/import/check，或只有 URL / theorem name / source note。
+   - 换言之，机器证明已经存在，债务在本仓库没有把它纳入验证闭包。
+   - 这类债务在本仓库标准下不允许长期存在：发现后必须通过 pinned dependency、vendored proof body、或 repo-local wrapper theorem 还清；还清后状态可升级为 `external_upstream_pinned` 或 `local_wrapper_upstream_*`，但仍需说明 proof body 是否 vendored。
+   - 若短期内因为工具链不兼容、license、依赖冲突等原因无法整合，不能把该条目标成 completed；必须显式列入 blocker，并给出下一步整合条件。
+
+对应的机器状态口径固定如下：
+
+| 状态 | 含义 | 可计入 repo-local completed |
+|---|---|---|
+| `local_proof_body` | 证明本体在本仓库并通过本地验证 | yes |
+| `local_wrapper_upstream_mathlib` | 本仓库有 wrapper，证明本体来自 pinned mathlib 并本地检查 | yes |
+| `external_upstream_pinned` | 外部 formal 工程已作为 pinned dependency / vendored dependency 进入本仓库验证闭包并通过检查 | yes |
+| `external_upstream_anchor_only` | 只记录外部 URL、commit、module 或 theorem name，未进入本仓库验证闭包 | no |
+| `not_repo_local_closed` | 没有 repo-local theorem / dependency closure 闭合目标 | no |
+
+生成具体蓝图时，`形式化阻塞点`、`现有 machine-checked 状态`、`依赖图与关键引理` 至少要回答：
+
+- 人类数学证明是否已知？
+- 是否已有公开机器检验证明？
+- 若有外部机器证明，本仓库是否已经 pin/import/check？
+- 若仍未闭合，债务类型是 `mathematical_debt`、`formalization_debt` 还是 `repo_local_integration_debt`？
+- 哪个具体 theorem family / branch / API 参数仍缺失？
+
+例如 `THM-M-0387` 中，regular primes 原先属于 `repo_local_integration_debt`，在 pin `flt-regular` 并检查 `regularPrimesPath` 后已还清；完整 Wiles/Taylor-Wiles 主线属于 `formalization_debt`，因为人类数学证明已知，但公开 Lean kernel-checked 完整链仍未闭合。
+
+仓库级 acceptance 规则固定为：`repo_local_integration_debt` 不允许作为完成态残留；`mathematical_debt` 与 `formalization_debt` 可以存在，因为它们分别用于组织未来的新数学证明与新机器形式化工作。
+
+## Stage1 Lean 4 队列
+
+`Stage1_Blueprint.md` 只服务 Lean 4 theorem proving 执行队列，不再覆盖所有可形式化工具路线。生成 Stage1 前必须已经完成本 guideline 的同步，且 Stage1 生成器必须把下面规则写入生成结果：
+
+`Docs/Stage1_Blueprint_rev-5.6.md` 是每个 Stage1 定理实例的规范 assurance standard；
+`Stage1_Blueprint.md` 只是由生成器产生的 300 条候选队列，不再兼任 live execution-state、
+evidence 或 theorem-completion authority。`THM-M-0387` 是历史兼容 fixture，不是允许把定理 ID、
+路径、指标、公理集合或状态硬编码进通用 validator 的模板。
+
+rev-5.6 在本仓库的目标集合必须冻结为
+`Docs/Stage1_Blueprint_Applicable_Theorems.md` 中且仅其中的 `1546` 个 Lean 4 metadata-screened
+候选。Stage0 的 `1601` 个去重数学记录不是 Stage1 cover 数；其余 `55` 个不得出现在目标表、
+不得取得 Stage1 lane/slot/conformance 状态，也不得计入覆盖率。目标表不得再以历史 300-slot
+文件的存在区分 assurance level。全部 `1546` 个目标统一从 `L0 / rework_required` 开始；旧 slot、
+旧 wrapper、旧 statement、旧 build result 和旧 source label 只能作为 discovery input，不提供
+proof credit、accepted state 或门禁豁免。任何历史证据都必须按当前 rev-5.6 的 exact scope、
+provenance、trust、freshness 和 receipt 规则重新接纳。
+
+目标集合发生增删时，必须发布 exact ID delta、eligibility 理由并重新运行结构检查；不能通过
+手工向生成 Markdown 添行来扩大标准范围。
+
+1. Lean 4 优先
+   - 能在 Lean 4 / mathlib 中表达为定理、结构定理、模型定理、算法正确性定理或复杂度命题的条目，才进入 Stage1。
+   - 已知更适合 TLA+ / SPIN / NuSMV / 专用模型检验、或只应作为实验数据 pipeline 的条目，不进入 Stage1。
+2. 太难先延后
+   - 若条目本身仍是 open problem、独立性命题、已否证命题、不可形式化命题，或当前连数学陈述与 formal target 都无法稳定，则不得进入 Stage1 主执行队列。
+   - 人类数学证明已知但 Lean 4 基础设施明显未闭合的条目可以进入 Stage1，但必须标为 `deep_formalization_debt` 或更高难度 lane，不能伪装成短 proof task。
+3. 太简单不占主队列
+   - 若条目只是定义展开、低重要性事实、或不具备作为后续样本的 proof-tree 价值，应进入 `deferred_too_simple`，而不是占用 Stage1 主队列。
+4. 物理条目口径
+   - 物理条目只有在被重写为“给定公理化模型 / 方程 / regime / 单位约定后的数学结论”时，才算 Lean 4 theorem proving 任务。
+   - Stage1 不把实验事实、材料性质、或现象描述本身写成 Lean 4 已证明定理。
+5. 每个 Stage1 入选条目至少要带有：
+   - Stage0 原 UID 与来源学科/子类。
+   - Lean 4 陈述规范化任务。
+   - mathlib / external upstream anchor 搜索任务。
+   - theorem-tree / proof-package 拆分任务。
+   - repo-local wrapper / pinned dependency / local proof body 三选一的闭合目标。
+   - `<=100` 叶子证明步数预算要求。
+   - 机器证明债分类与当前 lane。
+
+`Stage1_Blueprint.md` 的 300 条数学高难度队列还必须额外满足：
+
+- 只从 Stage0 的数学条目中选取，保留 Stage0 原 UID。
+- 只纳入 Lean 4 / mathlib 可以承担部分验证任务的条目；非 Lean4 路线不进入 Stage1。
+- 排除当前主命题仍为 open problem、独立性命题、已否证命题或不可形式化命题的条目；这些可以进入后续 conjecture / barrier 队列，但不占 Stage1 的 300 个 Lean 4 proof slots。
+- 排除只有 `声称证明`、`部分解决`、`部分证明` 的 conjecture-named 条目；除非源文档明确写作 `已验证` / `已证明` / `已解决`，否则 `猜想` 条目不占 Stage1 theorem proof slot。
+- 难度排序优先级应偏向现代数论、代数几何、同调代数、偏微分方程、随机过程、数学物理、微分/代数拓扑、微分几何、证明论/模型论/集合论等深依赖图领域。
+- 对每一条，即使源文档写作 `已验证`，Stage1 也不得直接把它计为 repo-local completed；必须先完成 mathlib / external Lean 4 anchor 搜索、wrapper / dependency 整合、本地 build validation、`<=100` leaf budget ledger 与公开 merge target。
+- 若 Stage1 执行时发现外部 Lean 4 证明已经存在，不能留下 `repo_local_integration_debt`；必须 pin/import/check 或显式标为 integration blocker，不能勾选完成。
+
+每个 Stage1 实例还必须满足 rev-5.6 通用 assurance 门槛：
+
+1. 对 canonical Lean target 做 elaboration、environment fingerprint 与等价形式 checked transport。
+2. 在观察机器闭合状态前冻结 canonical obligation registry、eligibility、exclusion 与 denominator。
+3. 分开 proof、refinement、provenance、evidence、trust、documentation 与 workflow typed graph。
+4. 对非叶节点检查精确 child-to-parent composition certificate；alias/wrapper/transport 不得重复计 proof-body credit。
+5. 解析真实 terminal declaration/body、全传递 declaration/依赖 closure、foundation/axiom profile 与完整 TCB。
+6. validation recipe 必须是结构化 `cwd/argv/env/timeout/network/covered_ids`，并按原记录执行。
+7. release evidence 必须绑定 immutable clean source snapshot、content-addressed receipts、SBOM/license、cold build 与 offline replay。
+8. `R0` 必须是 unique anchored structured reconstruction 加独立 review；`<=100` 只是 leaf split threshold。
+9. `H0` 必须有 primary source edition/theorem/page/assumption/errata crosswalk 与独立 review。
+10. root、unique leaf、distinct body、interface、source-boundary、critical path/cut set 分开报告；百分比不能替代根闭合。
+11. audit completion 与 theorem completion 必须是两个终点；open root 可以完成 audit，不能完成 theorem。
+12. 高保证 release 必须经过独立 clean runner、independently implemented minimal verifier、mutation/metamorphic fixtures 和 deterministic evidence bundle。
+13. evidence 必须有 owner、review due、invalidation、revocation、archive 与 tool/dependency upgrade differential policy。
 
 ## 定理树要求
 
@@ -254,9 +373,9 @@
     已完成，但这些节点还没有各自独立的 `<=100`-step ledger，则对应 checklist 项必须继续保持
     open，并明确写成“proof-budget closure 尚未完成”，不能回退成“命名尚未对齐”。
 15. regular primes 的人类可读 closure 若显式固定边界句，应保留为：
-    `upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes`；
-    其中最后一段只表示本仓库的 anchor-only statement/module/theorem-name 记录已到位，
-    不表示本仓库已经 vendoring 上游 `flt_regular` 证明本体。
+    `upstream theorem closure: yes / repo-local checked dependency closure: yes / repo-local vendored proof-body copy: no`；
+    其中第二段表示本仓库已经 pin `flt-regular` 并通过 `regularPrimesPath` 检查该分支，
+    第三段表示证明本体仍位于外部 dependency 中，而不是复制进本仓库源码树。
 16. 若当前 package / leaf / package-level subitem inventory 中没有任何节点拥有独立的
     `<=100`-step ledger，则必须明确写出“当前还没有可提升为 `checked` 的 leaf-budget closure”，并保持
     现有 canonical naming、boundary sentence 与 status ledger 原样同步。
@@ -286,10 +405,10 @@
     都不得把同一 execution unit 叙述为已经完成；若确已完成，必须在同一轮同步回写 `Execution Checklist`。
 24. `THM-M-0387` 的 `regular primes` 分支必须始终保留三段边界：
     - upstream theorem closure: yes
-    - repo-local vendored theorem closure: no, anchor-only
-    - repo-local anchor-only statement/module/theorem-name record: yes
+    - repo-local checked dependency closure: yes
+    - repo-local vendored proof-body copy: no
     任何入口摘要、机器可读元数据或 README 若写成“regular primes 已 machine-checked”，必须同时说明这是上游 closure，
-    不是本仓库 vendored theorem closure。
+    且已通过 pinned dependency 进入本仓库验证闭包，但不是本仓库源码树内 vendored proof body。
 25. `THM-M-0387` 的本地 Lean 验证记录必须可复现。若 `run_local_validation.sh` 因权限、缺 `lake`、toolchain 缺失、或外部下载超时而失败，
     `build_validation.md` 必须降级为“历史通过记录 / 当前复现失败”，直到在当前环境重新跑通后才能恢复“当前已通过”。
 26. `THM-M-0387` 的 `run_local_validation.sh` 必须与文档调用方式一致：
@@ -298,6 +417,10 @@
 27. `THM-M-0387` 若出现 `n = 4` / `regular primes` 的 package-level `checked` 声明，必须能追溯到：
     machine anchor、公开 merge target、独立 `<=100` local ledger、以及 authoritative checklist 同步勾选。
     任一项缺失时，状态必须保持 `open/missing` 或写成“审计稿已草拟，completion gate 未通过”。
+28. `THM-M-0387` 必须明确写出当前 proof debt：
+    - 已还清的 `repo_local_integration_debt`：`regularPrimesPath` 通过 pinned `flt-regular` dependency 检查 regular primes branch。
+    - 仍未还清的 `formalization_debt`：完整 Wiles/Taylor-Wiles / Ribet / Frey curve / modularity 主线尚未形成可由本仓库验证的 Lean 4 完整证明。
+    - 具体缺口 theorem family：`∀ p : ℕ, Nat.Prime p → Odd p → FermatLastTheoremFor p`，或直接 `FermatLastTheorem`。
 
 ## 执行建议
 

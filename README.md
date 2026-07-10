@@ -30,6 +30,41 @@ Source breakdown:
 
 Most working documents are currently written in Chinese, but the structure is intended to be universal, reusable, and machine-friendly.
 
+## H/M/R Proof Debt
+
+Stage1 rev-5.6 tracks three independent axes. A paper, a kernel check, and a readable reconstruction answer different questions and never substitute for one another.
+
+| Axis | Meaning | Closed state |
+|---|---|---|
+| `H` human-proof debt | Whether an accepted human proof of the exact statement and assumptions has been source-audited. | `H0` |
+| `M` machine-proof debt | Whether the exact node is kernel-checked under the accepted axiom policy, distinguishing local bodies, mathlib wrappers, and pinned external bodies. | `M0-L`, `M0-W`, or `M0-P` |
+| `R` readability debt | Whether the route, formal map, trust boundary, composition, and leaf ledger are publicly readable. | `R0` |
+
+Evidence is graded separately as `E0` through `E5`. [`Docs/Stage1_Blueprint_rev-5.6.md`](./Docs/Stage1_Blueprint_rev-5.6.md) is the theorem-generic assurance standard; each theorem must keep scope, typed execution state, and content-addressed validation evidence in separate instance artifacts. For the retained THM-M-0387 compatibility run, its legacy checklist and exact node vectors remain in the rev-5.6 document and [`THM-M-0387/proof_units.json`](./THM-M-0387/proof_units.json), but those historical checks do not retroactively satisfy newly generalized release gates.
+
+For this repository, rev-5.6 covers exactly the `1546` metadata-screened Lean 4 targets in
+[`Docs/Stage1_Blueprint_Applicable_Theorems.md`](./Docs/Stage1_Blueprint_Applicable_Theorems.md),
+not all `1601` deduplicated mathematics records. All `1546` targets now start uniformly at
+`L0 / rework_required`; the former 300 priority-slot artifacts are retained only as legacy discovery
+inputs and confer no higher assurance or proof credit. The other `55` mathematics records remain
+outside the rev-5.6 target set.
+
+Execution is driven by [`$execute-stage1-rev56`](./skills/execute-stage1-rev56/SKILL.md), backed by
+the machine-readable [`Stage1_Targets_rev-5.6.json`](./Docs/Stage1_Targets_rev-5.6.json). The skill
+supports separate `intake`, `audit`, `prove`, `validate`, and `release` intents and fails closed when
+target membership, statement identity, evidence, or a required gate cannot be established.
+
+The flagship example is [`THM-M-0387`](./THM-M-0387/README.md), Fermat's Last Theorem. Its `n = 3`, `n = 4`, regular-prime, and `3 <= n <= 16` branches are locally checked through pinned dependencies and wrappers. The exact root remains `M2`: the general odd-prime Wiles/Taylor-Wiles chain is not kernel-closed here, and the audited Imperial full-FLT candidate is blocked by `sorryAx` and a disallowed arbitrary-proposition axiom.
+
+The final legacy rev-5.6 evidence manifest classifies `132/132` node rows, machine-closes
+`29/93` author-designated machine targets (`31.18%`), and labels all `132/132` public nodes
+`R0`. These are legacy node-row metrics, not cross-theorem semantic coverage: the generalized
+standard additionally requires frozen canonical obligations, alias/body deduplication, typed graph
+semantics, source-boundary coverage, node-anchored independent readability review, immutable
+receipts, hermetic replay, and independent verification. Human-source `H0` coverage remains `0/113`: primary papers are
+identified, but exact page/theorem-to-node assumption crosswalks are not yet
+complete, so the root and all nodes conservatively remain `H1` on that axis.
+
 ## 🔥 Why This Repo Exists
 
 The internet already has theorem lists. Textbooks already have statements. Formal proof libraries already have islands of machine-checked results.
@@ -51,9 +86,9 @@ In short: this repo is for people who do not just want to read theorems, but wan
 
 ### 1. Start from the blueprint
 
-Read [`Docs/Stage0_Blueprint.md`](./Docs/Stage0_Blueprint.md) first.
+Read [`Docs/Stage1_Blueprint_rev-5.6.md`](./Docs/Stage1_Blueprint_rev-5.6.md) for the theorem-generic machine-proof assurance standard, [`Docs/Stage1_Blueprint.md`](./Docs/Stage1_Blueprint.md) for the generated Lean 4 candidate queue, then [`Docs/Stage0_Blueprint.md`](./Docs/Stage0_Blueprint.md) for the broader catalog.
 
-This is the authoritative execution blueprint for the repo. It is the best entry point if you want the structured, deduplicated, execution-oriented view.
+The standard defines requirements; per-theorem structured instance/state/evidence artifacts establish execution status. Generated queues and Markdown summaries are not completion authority.
 
 ### 2. Use the source collections for raw coverage
 
@@ -109,7 +144,9 @@ start here:
 - [`THM-M-0387/FermatLastTheorem_Sample.lean`](./THM-M-0387/FermatLastTheorem_Sample.lean)
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT4Path.lean)
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/FLT3Path.lean)
+- [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/StatementAndReductionPath.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/StatementAndReductionPath.lean)
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean)
+- [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/SmallExponentsPath.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/SmallExponentsPath.lean)
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean`](./Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean)
 
 ### 7. Check the blueprint guidelines

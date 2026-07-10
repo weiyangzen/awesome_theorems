@@ -533,3 +533,83 @@ formal proof 在这里做的，是把“共同素因子”问题全部压到 `λ
    - `Solution'_descent`
 
 因为这四块正是整条 formal proof 的骨架。
+
+## 20. rev-5.6 Independent Leaf Ledgers
+
+The branch is split into five final leaves so that no high-risk descent call is
+hidden. These are readable ledgers reconstructed from the pinned mathlib source;
+the machine proof body remains in `Mathlib.NumberTheory.FLT.Three`.
+
+### B3.1 Mod-9 And Case-I Boundary
+
+1. Assume a nonzero integer cubic solution and the branch condition `3` does not divide `a*b*c`.
+2. Reduce each nonzero cube modulo `9` to `1` or `8`.
+3. Enumerate the three possible unordered sums of two values in `{1,8}`.
+4. Observe that the sums are `2`, `0`, or `7`, never `1` or `8`.
+5. Contradict the residue of the right-hand cube.
+6. Conclude that every candidate lies in the complementary `3 | a*b*c` branch.
+
+Step budget: `6`.
+
+### B3.2 Generalized Cubic Equation
+
+1. Use primitive normalization to prevent `3` from dividing two variables simultaneously.
+2. Permute/sign-normalize so `3 | c` and `3` divides neither `a` nor `b`.
+3. Transport the integer equation to the Eisenstein integer ring.
+4. Replace the rigid equation by `a^3 + b^3 = u*c^3` with an explicit unit `u`.
+5. Record nonzero, divisibility, and coprimality hypotheses in the generalized target.
+6. Prove that a normalized ordinary counterexample supplies a generalized counterexample.
+
+Step budget: `6`.
+
+### B3.3 Typed Solution Normalization
+
+1. Package the generalized equation and `lambda`-divisibility conditions as `Solution'`.
+2. Define the stricter `Solution` interface required for descent.
+3. Factor the cubic into the three conjugate Eisenstein linear factors.
+4. Audit the common divisors of those factors at `lambda = zeta_3 - 1`.
+5. Remove the controlled common `lambda` powers.
+6. Prove pairwise coprimality of the residual factors.
+7. Extract cubes up to units from the coprime product.
+8. Repackage the witnesses through `exists_Solution_of_Solution'`.
+
+Step budget: `8`.
+
+### B3.4 Multiplicity Descent
+
+1. Attach to a `Solution` the natural-valued `lambda`-adic multiplicity of `c`.
+2. Choose the normalized factor witnesses used by the descent formulas.
+3. Derive the three algebraic identities `formula1`, `formula2`, and `formula3`.
+4. Combine them into `Y^3 + u4*Z^3 = u5*(lambda^(m-1)*X)^3`.
+5. Use the cyclotomic unit congruence to prove `u4 = 1` or `u4 = -1`.
+6. Absorb that sign into a cubic variable.
+7. Build `Solution'_descent` from `Y`, `u4*Z`, and `lambda^(m-1)*X`.
+8. Verify every nonzero and divisibility field of the new solution.
+9. Compute its multiplicity as `m-1`.
+10. Prove this multiplicity is strictly less than `m`.
+11. Normalize the descended `Solution'` back to `Solution`.
+12. Obtain `exists_Solution_multiplicity_lt`.
+
+Step budget: `12`.
+
+### B3.5 Terminal And Wrapper
+
+1. Assume a generalized solution exists.
+2. Use `Solution.exists_minimal` to choose one of least multiplicity.
+3. Apply `exists_Solution_multiplicity_lt` to construct a smaller one.
+4. Contradict minimality and discharge the generalized equation.
+5. Apply `FermatLastTheoremForThree_of_FermatLastTheoremThreeGen`.
+6. Obtain `fermatLastTheoremThree : FermatLastTheoremFor 3`.
+7. Wrap it locally as `flt3Path`.
+
+Step budget: `7`.
+
+All five ledgers are at most `100` steps, but a readable ledger is not by itself
+an exact-node machine proof. In the rev-5.6 manifest, only the aggregate
+`M0387-B3` terminal and `M0387-B3-B3.5`, both exposed by the exact local
+`flt3Path : FermatLastTheoremFor 3` wrapper, are `[H1, M0-W, R0]`.
+`B3.1` through `B3.4` and their internal source-map nodes are
+`[H1, M3, R0]`: their mathlib hooks are located and explained here, but each
+different exact target still lacks its own repo-local wrapper/type/axiom
+packet. Human-source status and all canonical vectors remain governed by
+`proof_units.json`, not inferred from the terminal Lean body or these ledgers.

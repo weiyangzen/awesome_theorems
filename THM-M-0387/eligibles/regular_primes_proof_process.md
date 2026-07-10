@@ -1,5 +1,12 @@
 # THM-M-0387 regular primes 证明过程展开稿
 
+> rev-5.6 status boundary: 本文大量 `checked` / `completed` 标签是可读过程、源码
+> 定位和独立 `<=100` 步 ledger 的局部状态，不会把每个 canonical package 自动提升为
+> `M0-P`。精确 machine vector 以 `THM-M-0387/proof_units.json` 为准：
+> `M0387-RP`、`M0387-RP-RP.5` 以及具有 exact local wrapper/type/axiom packet
+> 的 package 可按声明计为 `M0-P`；其余内部 source-map children 保持 `M3`。
+> pinned `flt-regular` proof body 被本地依赖闭包检查，但没有 vendored 到本仓库。
+
 ## 1. 范围
 
 这里解释的是：
@@ -635,7 +642,7 @@ Source anchor:
 下表只审计 process-tree 的 `<=100` leaf-budget closure。
 这里的 process-tree `checked`
 不改变 theorem-level 的 upstream closure /
-repo-local anchor-only 边界，也不把已完成的 canonical naming sync
+repo-local checked dependency 边界，也不把已完成的 canonical naming sync
 扩张成“本仓库已 vendoring 上游 `flt_regular` 证明本体”的断言。
 
 截至 `2026-04-24`，`11` 个 canonical package、`4` 个 canonical high-risk leaf，
@@ -672,7 +679,7 @@ repo-local anchor-only 边界，也不把已完成的 canonical naming sync
 | question | answer |
 |---|---|
 | theorem-boundary wording closure | yes |
-| repo-local anchor-only statement/module/theorem-name record closure | yes |
+| repo-local checked dependency wrapper closure | yes |
 | human-readable narrative closure | yes |
 | canonical package naming closure | yes |
 | canonical high-risk leaf naming closure | yes |
@@ -684,10 +691,10 @@ repo-local anchor-only 边界，也不把已完成的 canonical naming sync
 
 - theorem-boundary wording closure: yes
 - boundary sentence fixed as:
-  `upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes`
+  `upstream theorem closure: yes / repo-local checked dependency closure: yes / repo-local vendored proof-body copy: no`
 - human-readable narrative closure: yes
 - theorem vendoring closure remains:
-  `no`; 截至 `2026-04-24`，本仓库的人类可读 closure 与 machine-tree 对齐，
+  `no`; 截至 `2026-04-29`，本仓库的人类可读 closure、machine-tree 与 pinned dependency wrapper 对齐，
   但不表示本仓库已经 vendoring `flt_regular` 的证明本体
 - machine-compatible package naming closure: yes
 - machine-compatible high-risk leaf naming closure: yes
@@ -697,11 +704,11 @@ repo-local anchor-only 边界，也不把已完成的 canonical naming sync
 ## 附录：regular primes 的 11 个 execution unit 公开归档
 
 下列 `11` 个 unit 的稳定公开说明统一归档在本主稿内，不再需要另设公开子稿。
-`FLT-HR-008` 到 `FLT-HR-018` 的唯一公开说明目标就是本文件；`human_steps/`、`.cron/results/*` 与自动化工作副本路径都不是公开归档目标。
+`FLT-HR-008` 到 `FLT-HR-018` 的稳定公开说明目标就是本文件；运行时日志与自动化工作副本不是公开归档目标。
 
 ### `FLT-HR-008` `regular primes / setup and regularity engine`
 
-Scope boundary: this unit is limited to the canonical package `setup`; it records the regularity engine and anchor-only theorem boundary, and does not prove `MayAssume`, Case I, Case II, or repo-local vendored theorem closure.
+Scope boundary: this unit is limited to the canonical package `setup`; it records the regularity engine and the checked dependency theorem boundary, and does not prove `MayAssume`, Case I, Case II, or repo-local vendored theorem closure.
 
 #### Human-Readable Expansion
 ##### 1. 本 unit 的边界
@@ -747,13 +754,13 @@ Case I 会先把某个线性因子对应的 ideal 证明成 `p` 次幂结构，�
 
 本 unit 必须保留下面这句边界口径：
 
-`upstream theorem closure: yes / repo-local vendored theorem closure: no, anchor-only / repo-local anchor-only statement/module/theorem-name record: yes`
+`upstream theorem closure: yes / repo-local checked dependency closure: yes / repo-local vendored proof-body copy: no`
 
 它的含义是：
 
 - `IsRegularPrime` 与 `isPrincipal_of_isPrincipal_pow_of_coprime` 的 machine-checked closure 来自上游 `flt-regular`。
-- 本仓库本地的 `Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean` 只记录 `regularPrimesStatementShape`、上游模块路径和终端 theorem 名 `flt_regular`。
-- 因而本文件可以稳定解释 proof architecture，但不能把“anchor 已记录”说成“上游证明本体已经 vendored 到本仓库”。
+- 本仓库本地的 `Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean` 导入 pinned `flt-regular` dependency，并通过 `regularPrimesPath` wrapper 检查终端 theorem `flt_regular`。
+- 因而本文件可以稳定解释 proof architecture，也可以把 regular primes branch 计入 repo-local checked dependency closure；但不能把“dependency 已检查”说成“上游证明本体已经 vendored 到本仓库”。
 
 ##### 6. 本 unit 与下游单元的交接
 
@@ -770,7 +777,7 @@ Case I 会先把某个线性因子对应的 ideal 证明成 `p` 次幂结构，�
 
 局部 budget cap：`13`
 
-closure 口径：下表里的 `checked` 只表示本 unit 的人类可读闭包已经写定；它不改变上游 theorem closure / 本地 anchor-only 的边界。
+closure 口径：下表里的 `checked` 表示本 unit 的人类可读闭包已经写定；theorem-level closure 由 pinned `flt-regular` dependency 与 `regularPrimesPath` wrapper 进入本仓库验证闭包。
 
 | step | canonical subitem | local closure note | status |
 |---|---|---|---|
@@ -786,7 +793,7 @@ closure 口径：下表里的 `checked` 只表示本 unit 的人类可读闭包�
 | 10 | `orderOf coprimality kill step` | 用 `orderOf` 同时受 `p` 与群阶约束，杀掉非平凡 ideal class | `checked` |
 | 11 | `ClassGroup.mk0_eq_one_iff bridge` | 由 `[I] = 1` 回推 `I` principal | `checked` |
 | 12 | package closure | 记录 `isPrincipal_of_isPrincipal_pow_of_coprime` 是 setup 的 algebraic engine | `checked` |
-| 13 | handoff boundary | 把下游交接给 `MayAssume` / Case I / Case II，并保留 anchor-only theorem boundary | `checked` |
+| 13 | handoff boundary | 把下游交接给 `MayAssume` / Case I / Case II，并保留 checked dependency theorem boundary | `checked` |
 
 Total local proof steps: `13`
 
@@ -978,7 +985,7 @@ Scope boundary: this unit is limited to the canonical package `MayAssume`; it pr
    给出除以公共 gcd 之后的 transported equation，
    同时把 primitive 条件与非零性一起打包；
    这是 Case I / Case II 共用的入口。
-2. `MayAssume.p_dvd_c_of_ab_of_anegc`
+2. `FltRegular.p_dvd_c_of_ab_of_anegc`
    给出一个局部模 `p` 反击器：
    当 `a ≡ b` 与 `b ≡ -c` 同时出现时，
    它把坏同余压成 `p | c`。
@@ -2799,7 +2806,7 @@ Kummer lemma 在这里承担的角色很窄，但不可替代：
 
 ### `FLT-HR-018` `regular primes / Case II close / merge`
 
-Scope boundary: this unit is limited to the canonical package `Case II close / merge` and canonical high-risk leaf `Case II close / merge / not_exists_solution'`; it does not prove repo-local vendored theorem closure, which remains anchor-only.
+Scope boundary: this unit is limited to the canonical package `Case II close / merge` and canonical high-risk leaf `Case II close / merge / not_exists_solution'`; it does not vendor the upstream proof body, but theorem closure is checked through the pinned `flt-regular` dependency and `regularPrimesPath` wrapper.
 
 #### Human-Readable Expansion
 
@@ -2839,9 +2846,9 @@ that this branch has no primitive solution for an odd regular prime.
 Finally, `flt_regular` is the theorem-level merge.  It combines the already
 closed Case I branch (`p ∤ abc`) with `caseII` (`p ∣ abc`) and yields the
 regular-primes theorem `FermatLastTheoremFor p`.  This is upstream theorem
-closure only: the repo-local boundary remains anchor-only, with a recorded
-statement/module/theorem-name anchor for `flt_regular`, and does not claim that
-this repository vendors the upstream proof body.
+closure checked through this repository's pinned dependency boundary: the
+repo-local wrapper `regularPrimesPath` imports `flt_regular`, while the proof
+body remains in the external `flt-regular` package and is not vendored here.
 
 This section therefore closes the canonical high-risk leaf
 `Case II close / merge / not_exists_solution'`, using the canonical name fixed

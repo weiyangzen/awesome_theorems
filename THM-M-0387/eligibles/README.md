@@ -1,12 +1,14 @@
 # THM-M-0387 Eligible Derivatives
 
-本目录放的是 `THM-M-0387` 的衍生展开稿。
+本目录放的是 `THM-M-0387` 的 appendix-style 衍生展开稿。
 
 它们不是新的 formal artifact，而是把 `n = 4`、`n = 3` 与 `regular primes` 三个分支，
 分别改写成“研究生层次可连续阅读”的证明过程说明稿；其中 regular primes 的定理闭合来自上游 `flt-regular`，
-本仓库保留 anchor-only 的 statement/module/theorem-name 记录，不 vendoring 证明本体。
+本仓库通过 pinned Lake dependency 和 wrapper theorem `regularPrimesPath` 检查该分支。
 
-这三份文档的定位是：
+这三份文档的定位是 Lean 4 anchored 长附录，不是默认入口；默认入口仍是
+`../README.md`、`../proof_outline.md`、`../meta.json` 与
+`../machine_checked_audit.md` 的边界表。这三份文档承担的任务是：
 
 1. 不混写。
 2. 不只列 theorem 名。
@@ -25,6 +27,13 @@
 `FLT-HR-018` 的 `Human-Readable Expansion` 与 `Local Budget Ledger` 已合并进 `regular_primes_proof_process.md`，
 不再单独列出一个 `human_steps/` 子目录。
 
+Lean 4-only completion boundary as of `2026-04-29 11:40:56 CST (+0800)`:
+`FLT-HR-001` through `FLT-HR-007` count as Lean 4 completed because their
+mathlib hooks and local wrapper are checked through `proof_units.json` and the
+generated Lean probe. `FLT-HR-008` through `FLT-HR-018` now count as
+`external_upstream_pinned`: `flt-regular` is pinned in the repository Lake
+dependency closure and checked through `regularPrimesPath`.
+
 ## execution unit 合并边界
 
 - `FLT-HR-001` 到 `FLT-HR-007` 的唯一公开合并目标是 `eligibles/n4_proof_process.md`。
@@ -33,7 +42,10 @@
 - 可读标题、中文说明和 reader-facing alias 只解释 canonical node；它们不创建第二套 canonical node system。跨文件同步时，canonical package 与 canonical high-risk leaf 名称以 `machine_checked_audit.md`、`process_audit.md` 和本目录主稿中反引号标出的 canonical 名称为准。
 - execution unit 状态只使用 `completed` / `Completion Gate = passed` 或 `missing/open` / `Completion Gate = missing/not passed`；
   theorem-level `checked` anchor 不等于公开归档面的 completion gate。
-- completion surface 与公开归档只使用本目录中的 tracked Markdown 主稿；`human_steps/` 不是 completion surface，`.cron/results/*` 不是公开归档目标，自动化工作副本路径也不是公开归档目标。
+- 本目录只保存稳定、tracked 的 special-branch 长篇 Markdown；运行时日志或工作副本不属于公开归档。
+- Lean 4 completion status is controlled by `../proof_units.json` and
+  `../meta.json`; prose in this directory cannot upgrade a unit without the
+  corresponding Lean 4 validation path.
 
 ## appendix-style unit hook 与 budget 索引
 
@@ -48,19 +60,19 @@
 | `FLT-HR-005` | `n4_proof_process.md` | `Int.isCoprime_of_sq_sum`, `Int.isCoprime_of_sq_sum'` | `Local Budget Ledger`, `12` steps |
 | `FLT-HR-006` | `n4_proof_process.md` | `Int.sq_of_gcd_eq_one` over `(m, r*s)`, `(r*s, m)`, and `(r, s)` | `Local Budget Ledger`, `25` steps |
 | `FLT-HR-007` | `n4_proof_process.md` | `Fermat42.not_minimal`, `Minimal`, `Int.natAbs_le_self_sq`, `Int.le_self_sq` | `Local Budget Ledger`, `19` steps |
-| `FLT-HR-008` | `regular_primes_proof_process.md` | upstream `flt-regular`: `IsRegularPrime`, `isPrincipal_of_isPrincipal_pow_of_coprime`; repo-local anchor-only `RegularPrimesPath.lean` / `flt_regular` | `Local Budget Ledger`, `13` steps |
-| `FLT-HR-009` | `regular_primes_proof_process.md` | upstream `flt-regular`: `MayAssume.coprime`, `MayAssume.p_dvd_c_of_ab_of_anegc`, `a_not_cong_b` | `Local Budget Ledger`, `37` steps |
-| `FLT-HR-010` | `regular_primes_proof_process.md` | upstream `flt-regular`: `CaseI.SlightlyEasier`, `CaseI.Statement`, `CaseI.may_assume` | `Local Budget Ledger`, `21` steps |
-| `FLT-HR-011` | `regular_primes_proof_process.md` | upstream `flt-regular`: `irreducible_aux`, `irreducible`, `exists_ideal` | `Local Budget Ledger`, `21` steps |
+| `FLT-HR-008` | `regular_primes_proof_process.md` | pinned upstream `flt-regular`: `IsRegularPrime`, `isPrincipal_of_isPrincipal_pow_of_coprime`; repo-local wrapper `RegularPrimesPath.lean` / `regularPrimesPath` | `Local Budget Ledger`, `13` steps |
+| `FLT-HR-009` | `regular_primes_proof_process.md` | upstream `flt-regular`: `MayAssume.coprime`, `FltRegular.p_dvd_c_of_ab_of_anegc`, `FltRegular.a_not_cong_b` | `Local Budget Ledger`, `37` steps |
+| `FLT-HR-010` | `regular_primes_proof_process.md` | upstream `flt-regular`: `CaseI.SlightlyEasier`, `CaseI.Statement`, `CaseI.may_assume` | `Local Budget Ledger`, `16` steps |
+| `FLT-HR-011` | `regular_primes_proof_process.md` | upstream `flt-regular`: `FltRegular.CaseI.ab_coprime`, `auxf'`, `auxf`, `exists_ideal` | `Local Budget Ledger`, `21` steps |
 | `FLT-HR-012` | `regular_primes_proof_process.md` | upstream `flt-regular`: `is_principal_aux`, `is_principal` | `Local Budget Ledger`, `13` steps |
 | `FLT-HR-013` | `regular_primes_proof_process.md` | upstream `flt-regular`: `ex_fin_div`, `caseI_easier`, `caseI` | `Local Budget Ledger`, `25` steps |
-| `FLT-HR-014` | `regular_primes_proof_process.md` | upstream `flt-regular`: `caseII_statement`, `caseII` π-language entrance hooks | `Local Budget Ledger`, `18` steps |
+| `FLT-HR-014` | `regular_primes_proof_process.md` | upstream `flt-regular`: `not_exists_solution`, `not_exists_solution'`, `caseII` π-language entrance hooks | `Local Budget Ledger`, `18` steps |
 | `FLT-HR-015` | `regular_primes_proof_process.md` | upstream `flt-regular`: `prod_c`, `exists_ideal_pow_eq_c`, `root_div_zeta_sub_one_dvd_gcd_spec`, `c_div_principal` | `Local Budget Ledger`, `25` steps |
-| `FLT-HR-016` | `regular_primes_proof_process.md` | upstream `flt-regular`: distinguished-root and `find_root` / `find_root'` hooks recorded under the Case II root layer | `Local Budget Ledger`, `20` steps |
+| `FLT-HR-016` | `regular_primes_proof_process.md` | upstream `flt-regular`: `zeta_sub_one_dvd_root`, `p_dvd_c_iff`, `p_dvd_a_iff`, `p_pow_dvd_c_eta_zero`, `p_pow_dvd_a_eta_zero` | `Local Budget Ledger`, `20` steps |
 | `FLT-HR-017` | `regular_primes_proof_process.md` | upstream `flt-regular`: `exists_solution`, `exists_solution'`, three-root descent and Kummer-normalization hooks | `Local Budget Ledger`, `35` steps |
 | `FLT-HR-018` | `regular_primes_proof_process.md` | upstream `flt-regular`: `not_exists_solution'`, `not_exists_solution`, `caseII` | `Local Budget Ledger`, `34` steps |
 
-Regular primes 的边界在每一行保持同一口径：upstream theorem closure 为 yes；repo-local vendored theorem closure 为 no、anchor-only；repo-local anchor-only statement/module/theorem-name record 为 yes。
+Regular primes 的边界在每一行保持同一口径：upstream theorem closure 为 yes；repo-local checked dependency closure 为 yes；repo-local vendored proof-body copy 为 no。
 
 ## 与主材料的关系
 

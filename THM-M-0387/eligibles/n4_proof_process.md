@@ -1,5 +1,13 @@
 # THM-M-0387 `n = 4` 证明过程展开稿
 
+> rev-5.6 status boundary: 本文表格里的 `checked` / `completed` 只表示对应
+> 上游证明过程已经在 pinned mathlib 源码中定位并完成了可读展开与步数预算，不能自动
+> 解释为 canonical node 的 `M0-*`。精确 machine vector 以
+> `THM-M-0387/proof_units.json` 为准：`M0387-B4`、具有 exact local wrapper 的
+> internal endpoints、以及 `M0387-B4-B4.8` / `B4.9` 才能按各自声明获得
+> `M0-W`；没有 node-scoped wrapper/type/axiom packet 的内部 package 保持 `M3`。
+> 所有 mathlib 证明本体都仍在 pinned dependency 中，未 vendored 到本仓库。
+
 ## 1. 目标
 
 这里解释的是 `mathlib` 中 `fermatLastTheoremFour` 背后的证明过程。
@@ -504,7 +512,7 @@ canonical high-risk leaf set 使用 `Docs/Blueprint_Guidelines.md` 固化的名�
 ## 附录：`n = 4` 的 7 个 execution unit 公开归档
 
 下列 `7` 个 unit 的稳定公开说明统一归档在本主稿内，不再需要另设公开子稿。
-`FLT-HR-001` 到 `FLT-HR-007` 的唯一公开说明目标就是本文件；`human_steps/`、`.cron/results/*` 与自动化工作副本路径都不是公开归档目标。
+`FLT-HR-001` 到 `FLT-HR-007` 的稳定公开说明目标就是本文件；运行时日志与自动化工作副本不是公开归档目标。
 
 ### `FLT-HR-001` `n = 4 / bridge packaging`
 
@@ -616,12 +624,12 @@ Scope boundary: this unit is limited to the canonical package `minimal normaliza
 `second triple classification` 与 `strict descent assembly`
 都只消费这些标准化结论，而不重新选择最小反例。
 
-从本仓库的本地锚点看，本 unit 仍然只是说明 mathlib 中
+从本仓库的本地 wrapper 看，本 unit 说明 pinned mathlib 中
 `Fermat42.exists_minimal`、`Fermat42.coprime_of_minimal` 与
 `Fermat42.exists_pos_odd_minimal` 这三枚 hook 的组合关系；
 repo-local 文件不重新 vend 这些 theorem 的闭包证明。
-因此本地记录是 anchor-only 的 statement/module/theorem-name 级审计，
-而 theorem closure 仍由上游 mathlib 承担。
+因此本地记录属于 `local_wrapper_upstream_mathlib`：theorem closure 由 pinned mathlib 承担，
+本仓库通过 wrapper 与本地验证把该闭包纳入 repo-local completion surface。
 
 #### Local Budget Ledger
 本 unit 的独立预算总计 `16` 步，满足本地 `<=100` 步要求。
