@@ -1,0 +1,129 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0424-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0424",
+  "inventory_version": "THM-M-0424-anchor-inventory/1",
+  "cutoff": "2026-07-12T00:00:00+08:00",
+  "base_revision": "7c33ee20ed10b1c1b2a0ec7dc1daed1dc304ac4e",
+  "canonical_declaration": "Stage1Instances.THM_M_0424.BrauerGroupStatement",
+  "canonical_expression_sha256": "62cfee70820b2f8bc4e924505b8984993322f623109868957b726b3446fc3aa8",
+  "statement_file_sha256": "e6ee85656ac5bf9576546f2d56ab6e9ff20eb85452be4a9be4ea6a06a55ae7e9",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "flt_regular_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "flt_regular_tree": "32c9eace926573a9981787ae97643e520353c893"
+  },
+  "search_protocol": {
+    "order": [
+      "repository-local Lean files and legacy slot",
+      "pinned mathlib source and declarations",
+      "all locally installed pinned Lean dependency sources",
+      "public GitHub repository and code indexes"
+    ],
+    "queries": [
+      "BrauerGroup",
+      "IsBrauerEquivalent",
+      "Brauer group Lean 4",
+      "IsAzumaya",
+      "central simple algebra Lean 4"
+    ],
+    "public_search_limitations": "GitHub repository search returned zero repositories for 'brauer lean4'. GitHub code search required sign-in, its API was rate-limited, and grep.app returned HTTP 429. No exhaustive public-web negative claim is made."
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0424-C01",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Algebra.BrauerGroup.Defs",
+      "file": "Mathlib/Algebra/BrauerGroup/Defs.lean",
+      "git_blob": "8b82a886f653dd788670a2098d0f45ba2e0541f9",
+      "file_sha256": "ab3a4ef1b8c38b799b25430e9a4ec638aa3aad5e1f7012ae3a71c9c1d9c7668c",
+      "declarations": ["CSA", "IsBrauerEquivalent", "Brauer.CSA_Setoid", "BrauerGroup"],
+      "comparison": "Exact object and equivalence definitions used by the target, plus quotient equality. The file explicitly lists the abelian tensor-product group law as TODO 1 and contains no CommGroup instance or BrauerGroupLawData inhabitant.",
+      "classification": "exact_definition_anchor_only",
+      "machine_debt": "M3"
+    },
+    {
+      "candidate_id": "M0424-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.RingTheory.SimpleModule.WedderburnArtin",
+      "file": "Mathlib/RingTheory/SimpleModule/WedderburnArtin.lean",
+      "git_blob": "2d11c54d7fa911dd2f4d7df6d14b924fe028d55d",
+      "file_sha256": "9d15d402881e062e1fa05787868bd813130136a9e7fc436bbfe4a679a0f52eba",
+      "declaration": "IsSimpleRing.exists_algEquiv_matrix_divisionRing_finite",
+      "local_probe": "Stage1Instances.THM_M_0424.AnchorAudit.wedderburnArtin",
+      "comparison": "Gives matrix-over-division-algebra normal form for each CSA after deriving Artinianity. It does not construct tensor products in CSA or any quotient group law.",
+      "classification": "support_only",
+      "machine_debt": "no_root_credit"
+    },
+    {
+      "candidate_id": "M0424-C03",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.RingTheory.Morita.Matrix",
+      "file": "Mathlib/RingTheory/Morita/Matrix.lean",
+      "git_blob": "cbcea31c61af09f4db3e7d86ad061d5fe7bcac42",
+      "file_sha256": "8158c8fc1177acfe248f660f3c8384cef5261103ae571909bb581d522047f97e",
+      "declarations": ["IsMoritaEquivalent.matrix", "IsMoritaEquivalent.of_algEquiv"],
+      "local_probe": "Stage1Instances.THM_M_0424.AnchorAudit.brauerEquivalent_to_morita",
+      "comparison": "Closes only Brauer-equivalence implies Morita-equivalence. The reverse direction is explicitly a TODO in BrauerGroup.Defs and neither direction supplies the group construction.",
+      "classification": "one_way_bridge_only",
+      "machine_debt": "no_root_credit"
+    },
+    {
+      "candidate_id": "M0424-C04",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": ["Mathlib.Algebra.Azumaya.Basic", "Mathlib.Algebra.Azumaya.Matrix"],
+      "files": [
+        {"path": "Mathlib/Algebra/Azumaya/Basic.lean", "git_blob": "78be1858937383621ee9e6162c7771fdd03068e3", "sha256": "88aa23160ad695798759fabc4ea4155540aeaeaebe7b8a2ba5640fd132886e98"},
+        {"path": "Mathlib/Algebra/Azumaya/Matrix.lean", "git_blob": "cd19136e3d75fa0d25fbc62b6bef60a97c4874be", "sha256": "62c7ca3f799aec1d4c9f29489f8ddebfca16933236e6ac6891cf220d374f9a75"}
+      ],
+      "declarations": ["IsAzumaya.id", "IsAzumaya.of_AlgEquiv", "IsAzumaya.matrix"],
+      "local_probe": "Stage1Instances.THM_M_0424.AnchorAudit.azumaya_support",
+      "comparison": "Useful neighboring base, equivalence-transfer, and matrix facts over commutative rings. No Azumaya quotient/group or checked transport to the frozen field-CSA group target exists.",
+      "classification": "support_only",
+      "machine_debt": "no_root_credit"
+    },
+    {
+      "candidate_id": "M0424-C05",
+      "project": "awesome_theorems repository-local legacy surface",
+      "revision": "7c33ee20ed10b1c1b2a0ec7dc1daed1dc304ac4e",
+      "module": "AwesomeTheorems.Stage1.S1_M_078",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_078.lean",
+      "declarations": ["brauerClass_eq_iff_isBrauerEquivalent", "csa_wedderburn_artin_finite", "BrauerGroupAbelianLawData", "BrauerGroupAbelianLawExists"],
+      "comparison": "The checked declarations wrap C01-C03. BrauerGroupAbelianLawData is only an uninhabited target interface and the file explicitly labels the root as a formalization gap.",
+      "classification": "legacy_discovery_and_interface_only",
+      "machine_debt": "no_independent_credit"
+    },
+    {
+      "candidate_id": "M0424-C06",
+      "project": "locally installed pinned external dependencies",
+      "revision": "revisions frozen by Formalizations/Lean/lake-manifest.json",
+      "scope": "All Lean source under Formalizations/Lean/.lake/packages excluding mathlib",
+      "result": "No non-mathlib occurrence of BrauerGroup, IsBrauerEquivalent, 'Brauer group', or 'Brauer equivalence' was found. flt-regular is present at 56161b6eb5281fbfe9c38f2bcec0f429ebc11a27 and had no hit.",
+      "classification": "no_terminal_candidate_in_local_dependency_closure",
+      "machine_debt": "M3"
+    }
+  ],
+  "placeholder_and_trust_boundary": "Scoped source scans of the five named mathlib owning files found no sorry, axiom declaration, unsafe def, or unsafe theorem. This is not a transitive trust or axiom closure; those remain validation-phase work.",
+  "audit_result": {
+    "inventory_classified_for_bounded_protocol": true,
+    "exact_external_closure_found": false,
+    "integration_action": "No proof-bearing candidate can be pinned or imported. Retain statement/interface debt and decompose the missing CSA tensor-product packaging, quotient descent, unit, inverse, associativity, and commutativity obligations.",
+    "root_vector": ["H1", "M3", "R3"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "state": "self_tested_pending_master_acceptance",
+    "status_boundary": "This phase closes only the bounded immutable candidate inventory. Definition and supporting theorem probes elaborate, but no candidate inhabits the exact root. No proof, M0 classification, full source audit, release evidence, or theorem completion is claimed."
+  }
+}
+
