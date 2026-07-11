@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1246-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1246",
+  "canonical_name": "Hardy inequality (Euclidean L2 differential form)",
+  "canonical_statement": "For every integer n at least 3 and every smooth compactly supported real-valued function u on R^n, the integral of |u(x)|^2 / |x|^2 is at most (2/(n-2))^2 times the integral of the squared Euclidean norm of the gradient of u.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "n : Nat with 3 <= n; u : C_c^infinity(R^n, R); all mathematical objects intended in Lean universe levels determined by the eventual encoding",
+  "ordered_binders": ["n : Nat", "hn : 3 <= n", "u : smooth compactly supported function (Fin n -> Real) -> Real"],
+  "hypotheses": ["3 <= n", "u is smooth", "support u is compact"],
+  "conclusion": "integral x, |u x|^2 / ||x||^2 <= (2/(n-2))^2 * integral x, ||gradient u x||^2",
+  "boundary_and_degenerate_cases": "Dimensions n = 0, 1, 2 are excluded. The value of the singular integrand at x = 0 is measure-theoretically irrelevant but its encoding must be fixed during statement work. u = 0 is included.",
+  "alternate_encodings": [
+    {"target": "weighted Sobolev norm form", "relationship": "algebraic restatement after measurability/integrability obligations", "checked_witness": null},
+    {"target": "one-dimensional integral Hardy inequality", "relationship": "different theorem, explicitly out of scope", "checked_witness": null},
+    {"target": "discrete sequence Hardy inequality", "relationship": "different theorem, explicitly out of scope", "checked_witness": null}
+  ],
+  "foundation_profile": "Not yet instantiated; classical analysis, choice, quotient, and measure-theory dependency audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; toolchain and dependency closure remain open",
+  "computation_profile": "No computation or oracle is credited at intake",
+  "formal_system": "Lean 4 with pinned mathlib, subject to statement-phase pin verification",
+  "source_revisions": "See source_statement_crosswalk.md; source pins and page-level verification remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1246/README.md", "Stage1_Instances/THM-M-1246/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the claim, chosen Hardy variant, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake selects and scopes one Hardy inequality variant only. It supplies no elaborated Lean statement, source acceptance, proof credit, or theorem-completion claim."
+}

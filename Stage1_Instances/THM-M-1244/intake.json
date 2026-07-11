@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1244-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1244",
+  "canonical_name": "Gross Gaussian logarithmic Sobolev inequality",
+  "canonical_statement": "For the standard Gaussian probability measure gamma on finite-dimensional Euclidean space and every sufficiently regular real function f for which the displayed quantities exist, Ent_gamma(f^2) is at most twice the integral of the squared Euclidean norm of the gradient of f.",
+  "canonical_formula": "integral (f^2 * log(f^2)) dgamma - m * log(m) <= 2 * integral ||grad f||^2 dgamma, where m = integral f^2 dgamma",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "provisional: dimension n : Nat; f : EuclideanSpace Real (Fin n) -> Real; proposition in Lean universe 0",
+  "quantifiers": [
+    "n : Nat",
+    "f : EuclideanSpace Real (Fin n) -> Real satisfying the statement-phase regularity and integrability predicate"
+  ],
+  "hypotheses": [
+    "gamma is the standard centered Gaussian probability measure with identity covariance",
+    "f has a square-integrable gradient",
+    "f^2 and f^2 log(f^2) are integrable, with the zero-log-zero convention"
+  ],
+  "conclusion": "Ent_gamma(f^2) <= 2 * integral ||grad f||^2 dgamma",
+  "boundary_cases": [
+    "f = 0 gives both sides zero under the zero-log-zero convention",
+    "constant f gives zero entropy and zero energy",
+    "dimension zero must not introduce a normalization exception"
+  ],
+  "alternate_encodings": [
+    {"target": "normalized form with integral f^2 dgamma = 1", "relationship": "homogeneity-equivalent candidate", "checked_witness": null},
+    {"target": "abstract Wiener space / Dirichlet form formulation", "relationship": "generalization specializing to the root", "checked_witness": null},
+    {"target": "Gaussian relative-entropy and Fisher-information form", "relationship": "substitution/normalization candidate", "checked_witness": null}
+  ],
+  "excluded_variants": "No manifold, Bernoulli/discrete, modified, defective, or unspecified-measure log-Sobolev inequality is the canonical root.",
+  "foundation_profile": "rev-5.6 classical measure/integration and finite-dimensional analysis profile; exact choice and quotient dependencies remain open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact versions and transitive closure remain open",
+  "computation_profile": "No computation, native oracle, or numerical evidence is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (formal target and pin verification deferred)",
+  "source_revisions": "Gross 1975 is identified in source_statement_crosswalk.md; immutable file hash, pinpoint theorem, assumptions, and errata audit remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1244/README.md",
+    "Stage1_Instances/THM-M-1244/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to canonical scope, Gaussian normalization, function class, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake resolves the metadata ambiguity to one named theorem family and freezes its intended scope. It neither elaborates nor proves a Lean theorem."
+}
