@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0442-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0442",
+  "audit_cutoff": "2026-07-12",
+  "base_revision": "32823ced1a433a51abc96f396ec91970ee6336ac",
+  "canonical_target": "Stage1Instances.THMM0442.MazurRationalTorsionTarget",
+  "inventory_version": "sha256:978cd7ee0fc74c8917aa72c5fa6815b26e2efb0f19e3030795a5dc1c9ed37b18",
+  "search_terms": [
+    "Mazur",
+    "Mazur_statement",
+    "MazurTorsion",
+    "IsMazurCyclicOrder",
+    "rational torsion",
+    "torsion rational",
+    "EisensteinIdeal",
+    "winding quotient",
+    "AddCommGroup.torsion E"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "LOCAL-S1-M-088",
+      "project": "awesome_theorems",
+      "revision": "32823ced1a433a51abc96f396ec91970ee6336ac",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_088.lean",
+      "source_sha256": "0bc6fdb5a5eaf93a4bfb56f9c31645b61c89c89c2575dcd4bfdc4ac054b93cb2",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_088.StatementShape",
+      "relationship": "A historical statement-only candidate equivalent in list shape after the checked n = 2*m transport; it has no terminal proof body.",
+      "trust": "definition plus supporting local theorems; no axiom or placeholder is credited",
+      "classification": "M3",
+      "proof_credit": false
+    },
+    {
+      "candidate_id": "MATHLIB-SUBSTRATE",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point",
+        "Mathlib.GroupTheory.Torsion",
+        "Mathlib.NumberTheory.ModularForms.Cusps"
+      ],
+      "declarations": [
+        "WeierstrassCurve",
+        "WeierstrassCurve.IsElliptic",
+        "WeierstrassCurve.Affine.Point",
+        "AddCommGroup.torsion",
+        "AddCommGroup.mem_torsion",
+        "CongruenceSubgroup.Gamma0",
+        "CongruenceSubgroup.Gamma1",
+        "CuspOrbits"
+      ],
+      "relationship": "Checked object-model, torsion, congruence-subgroup, and cusp substrate only. The pinned tree contains no terminal rational-torsion classification, compactified X_0/X_1 rational-point classification, Eisenstein-ideal descent, or winding-quotient theorem usable for the root.",
+      "classification": "M4",
+      "proof_credit": false
+    },
+    {
+      "candidate_id": "IMPERIAL-FLT-MAZUR",
+      "project": "ImperialCollegeLondon/FLT",
+      "remote": "https://github.com/ImperialCollegeLondon/FLT",
+      "revision": "1f76653ab824d19fd2475c24ba8c20f06fd9cc1d",
+      "tree_hash": "aff9afa34dcc2786a04d3807efea920b5f9899ba",
+      "file": "FLT/Assumptions/Mazur.lean",
+      "source_sha256": "1849f8b351cc1b2ad3597947779d55a83ac184bea65a7038ef88fbd8d8ba6780",
+      "declaration": "Mazur_statement",
+      "declaration_kind": "axiom",
+      "statement": "For each rational elliptic curve, the ncard of its torsion set is at most 16.",
+      "relationship": "Strictly weaker than the canonical classification and bodyless. The file itself notes that ncard is zero for an infinite set, so the declaration does not even assert finiteness by itself.",
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "b80f22719410f979c475e9b1d62221ec1dd7a3c6",
+      "license_file_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "dependency_feasibility": "Not eligible: adding the project would not supply a proof body and its toolchain/mathlib revisions differ from the local closure.",
+      "classification": "M4",
+      "proof_credit": false
+    }
+  ],
+  "negative_searches": {
+    "repo_local_and_pinned_mathlib": "Recursive rg over Lean and Markdown sources found only the historical statement candidate, the FLT assumption metadata, and unrelated theorems bearing Mazur's name.",
+    "github_repository_search": "GitHub REST repository searches for the exact theorem phrase and for 'Mazur theorem Lean4' returned zero repositories.",
+    "grep_app_code_search": "Both attempted public code-search queries returned HTTP 429; this is an explicit access limitation, not negative evidence.",
+    "exhaustiveness": "The frozen three-candidate inventory is fully classified, but public discovery is not claimed exhaustive because authenticated GitHub code search was unavailable and grep.app was rate-limited."
+  },
+  "root_machine_classification": "M4",
+  "integration_blocker": "No exact or stronger kernel-checked Lean 4 proof body was found. The only external theorem-specific Lean candidate is an axiom for a weaker cardinality bound, so there is no eligible dependency to pin/import/wrap.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This receipt completes only the bounded anchor inventory and candidate classification. It supplies no proof of Mazur's theorem and does not advance the obligation-tree, proof, validation, or release nodes."
+}
