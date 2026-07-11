@@ -1,0 +1,78 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-1077",
+  "item_id": "S56-M-1077-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 519,
+  "legacy_priority_slot": null,
+  "name_zh": "Blackwell更新定理",
+  "name_en": "Blackwell's renewal theorem",
+  "category": "probability and stochastic processes / stochastic processes",
+  "target_system": "Lean 4 + mathlib",
+  "canonical_claim_status": "human_scope_frozen_formal_statement_open",
+  "canonical_claim": "Let the interarrival law F be a probability distribution on the nonnegative reals with finite positive mean mu, and let U be its renewal measure. In the nonarithmetic case, for every fixed h > 0, U((x, x+h]) tends to h/mu as x tends to infinity. In the arithmetic case of maximal span d > 0, the corresponding span-d renewal masses tend to d/mu along the lattice.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "A Borel probability law on Real supported on [0, infinity), its convolution renewal measure U = sum over n >= 0 of F convolution powers, real parameters mu, h, x, and a separate arithmetic span d; exact Lean types and universes remain open.",
+  "quantifiers": [
+    "F: interarrival probability law",
+    "mu = integral t with respect to F, with 0 < mu < infinity",
+    "nonarithmetic branch: every h > 0",
+    "arithmetic branch: maximal span d > 0 and lattice index tending to infinity"
+  ],
+  "hypotheses": [
+    "interarrivals are represented by convolution powers of one probability law",
+    "F is supported on the nonnegative reals",
+    "the mean mu is finite and strictly positive",
+    "the branch-specific nonarithmetic or maximal-span arithmetic condition"
+  ],
+  "conclusion": "Local increments of the renewal measure converge to interval length divided by the mean, with the lattice analogue using the maximal span.",
+  "alternate_encodings": [
+    {
+      "target": "U(x+h) - U(x) tends to h / mu",
+      "relationship": "expected equal after fixing the cumulative renewal-function endpoint convention",
+      "checked_witness": null
+    },
+    {
+      "target": "sum over n >= 0 of probability(S_n in (x, x+h]) tends to h / mu",
+      "relationship": "expected equal by the definition of the renewal measure and justified interchange",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "mu = 0, infinite mean, signed interarrivals, defective laws, h <= 0, and a nonmaximal lattice span are excluded from the frozen classical claim. Endpoint and atom-at-zero conditions require explicit resolution in the statement phase.",
+  "foundation_profile": "Lean 4 dependent type theory; classical measure-theoretic choice profile not yet frozen",
+  "tcb_profile": "Lean kernel, repository toolchain, and pinned mathlib dependency; exact import closure remains open",
+  "computation_profile": "Analytic limit theorem; no numerical experiment or oracle receives proof credit",
+  "formal_system": "Lean 4 + mathlib",
+  "source_revisions": "Historical and modern source candidates are listed in source-statement-crosswalk.md; immutable editions and hashes remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1077/README.md",
+    "Stage1_Instances/THM-M-1077/source-statement-crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, arithmetic convention, source pins, Lean target, imports/toolchain, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "status_boundary": "A planned intake only: no exact Lean expression, H0, machine closure, readable reconstruction, audit completion, or theorem completion is claimed."
+}
