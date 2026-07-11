@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1247-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1247",
+  "canonical_name": "Rellich inequality",
+  "canonical_statement": "For an integer n at least 5 and a smooth compactly supported real-valued function u on R^n whose support avoids the origin, the integral of |Delta u|^2 is at least (n(n-4)/4)^2 times the integral of |u(x)|^2/|x|^4.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "n : Nat with 5 <= n; u : EuclideanSpace Real (Fin n) -> Real, smooth with compact support disjoint from {0}; all objects in Lean universe 0",
+  "quantifiers": [
+    "n : Nat",
+    "u : EuclideanSpace Real (Fin n) -> Real"
+  ],
+  "hypotheses": [
+    "5 <= n",
+    "u is smooth",
+    "u has compact support",
+    "0 is not in the support of u"
+  ],
+  "conclusion": "integral x, |laplacian u x|^2 >= ((n * (n - 4)) / 4)^2 * integral x, |u x|^2 / ||x||^4, with constants coerced to Real",
+  "alternate_encodings": [
+    {
+      "target": "C_c^infinity(R^n \\ {0}) formulation",
+      "relationship": "canonical paper notation",
+      "checked_witness": "none; deferred to statement phase"
+    },
+    {
+      "target": "completion to the appropriate homogeneous Sobolev space",
+      "relationship": "density extension, not part of the frozen root",
+      "checked_witness": "none; explicitly excluded at intake"
+    }
+  ],
+  "excluded_degenerate_cases": "Dimensions n <= 4, nonsmooth functions, functions without compact support, and supports meeting the singularity at 0 are outside this root. Rellich-Kondrachov compact embedding is a different theorem.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; measure theory, distributional derivatives, classical choice, and quotient use remain to be audited",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and transitive dependency closure remain open",
+  "computation_profile": "No numerical, native, oracle, or external computation is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; pin and API feasibility are deferred to the statement phase",
+  "source_revisions": "Discovery bibliography only; see source_statement_crosswalk.md. Immutable copies, hashes, errata review, and independent acceptance remain open.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1247/README.md",
+    "Stage1_Instances/THM-M-1247/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the root formulation, dimension or test-function class, normalization of the Laplacian or measure, constant, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the classical L2 Rellich inequality scope only. It supplies no elaborated Lean statement, proof, source acceptance, or theorem-completion evidence."
+}
