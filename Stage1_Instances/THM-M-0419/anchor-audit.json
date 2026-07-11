@@ -1,0 +1,113 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0419-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0419",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "71fb75ff5b70107068a33e8f5e3f3746a5ae4aa3",
+  "target": "Stage1.THM_M_0419.Statement",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Sourcegraph Lean index",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0419-C01",
+      "project": "awesome_theorems",
+      "revision": "71fb75ff5b70107068a33e8f5e3f3746a5ae4aa3",
+      "module": "Stage1_Instances/THM-M-0419/Statement.lean",
+      "declaration": "Stage1.THM_M_0419.Statement",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definition of a proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as the statement surface and supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0419-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.NumberField.Cyclotomic.Basic and adjacent pinned modules",
+      "declarations": [
+        "CyclotomicField",
+        "CyclotomicField.algebraBase",
+        "CyclotomicField.isCyclotomicExtension",
+        "IsCyclotomicExtension.isAbelianGalois",
+        "CyclotomicField.instNumberField",
+        "DirichletCharacter.conductor",
+        "DirichletCharacter.factorsThrough_conductor",
+        "Ideal.ramificationIdxIn",
+        "Ideal.inertiaDegIn",
+        "IsCyclotomicExtension.Rat.ramificationIdxIn_eq",
+        "IsCyclotomicExtension.Rat.inertiaDegIn_eq",
+        "IsDecompositionField",
+        "IsInertiaField"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no declaration proves abelian-extension-to-cyclotomic containment",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all selected declarations elaborate in the pinned Lake environment; no terminal target exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable but insufficient for the exact theorem"
+    },
+    {
+      "candidate_id": "S56-M-0419-C03",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "module": "Atlas.NumberTheoryI.code.KroneckerWeber",
+      "declaration": "KroneckerWeber.theorem_20_1",
+      "kind": "near_exact_external_placeholder_candidate",
+      "normalized_match": "same cyclotomic-embedding conclusion, but uses project-local IsAbelianExtension plus FiniteDimensional rather than the frozen IsAbelianGalois plus NumberField context; no adapter was checked",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "body_provenance": "terminal theorem composes proposition_20_3 with theorem_20_2, but its transitive source file contains 22 sorry occurrences, including conductor_from_local_cyclotomic_data and inertia_minkowski_gives_embedding immediately below the global bridge",
+      "placeholder_or_axiom_status": "contains sorry; zero machine proof credit",
+      "license": "CC BY-NC 4.0 with a no-training rider; commercial use and ML evaluation/development are prohibited by the repository notice",
+      "classification": "M3_external_placeholder_zero_credit",
+      "integration_status": "not pinned, vendored, imported, or checked; placeholder provenance and license restrictions block integration as proof evidence"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (Kronecker-Weber OR spaced name OR KroneckerWeber) lang:Lean count:100",
+      "result": "74 matches in one repository, facebookresearch/atlas-lean, at indexed commit 34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "response_sha256": "4d2ec532acad3cccf41a627448fb1ed311c171c6b235d92bc22a8867f3f427d6",
+      "immutability_boundary": "discovery response is dated and content-hashed; the candidate inspection is bound separately to its immutable Git commit"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories for quoted Kronecker-Weber Lean and KroneckerWeber Lean",
+      "result": "both queries returned total_count=0 and incomplete_results=false; repository metadata search missed the Sourcegraph-located candidate",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "bounded metadata search only, not negative proof of absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code containing quoted Kronecker-Weber with language Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "external_candidate_evidence": {
+    "complete_tree_response_sha256": "3a6c23e8726b8e50c36dcd2949f1389c2a9b40694030d25609396f3369302233",
+    "kronecker_weber_source_sha256": "0b0d4795e29bdbcbaa1b255c06632b3275956b3f999909400858f4c2779e3617",
+    "lean_toolchain_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+    "lake_manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+    "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+    "source_sorry_count": 22
+  },
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact local proposition elaborates, but no terminal no-placeholder proof candidate was found. Pinned mathlib supplies only adjacent infrastructure. The only external terminal-shaped candidate located has unchecked representation differences and depends transitively on sorry-filled proof bodies.",
+  "debt_classification": "formalization_debt",
+  "integration_blocker": "atlas-lean is not a machine closure to integrate: its immutable candidate source contains 22 sorry occurrences, including global conductor and embedding bridges, and its restrictive license also requires integration-lane review. No exact no-placeholder external proof candidate is known from this bounded audit.",
+  "reopen_condition": "A concrete no-placeholder Lean 4 candidate with immutable revision, compatible license, exact type or checked adapter, terminal-body dependency provenance, successful axiom/unsafe audit, and a repo-local pinned wrapper check.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes a bounded formal-anchor audit only. It does not claim global absence, H0, an obligation tree, proof closure, or theorem completion."
+}

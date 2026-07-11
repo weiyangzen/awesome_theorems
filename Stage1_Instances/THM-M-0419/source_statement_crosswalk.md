@@ -18,6 +18,13 @@ Discovery sources, not immutable evidence receipts:
 - Washington, DOI: <https://doi.org/10.1007/978-1-4612-1934-7>
 - D. A. Marcus, *Number Fields*, 2nd ed., Springer Universitext (2018), chapter on cyclotomic fields and the Kronecker-Weber theorem, as a secondary comparison source.
 
+The formal anchor audit additionally located
+`facebookresearch/atlas-lean@34ffed396f376454c1a9b297f3fd74c5c801fb50`, declaration
+`KroneckerWeber.theorem_20_1`. It is not a proof candidate eligible for machine credit: its source
+contains 22 `sorry` occurrences, including global conductor and embedding bridges used by the
+terminal theorem. Exact candidate provenance and the integration boundary are in
+`anchor-audit.json`.
+
 No `H0` claim is made. The source audit must verify a physical or immutable digital edition,
 pinpoint theorem/page and premises, check errata, map proof nodes to source passages, and obtain
 independent review. The statement phase must elaborate the actual Lean expression, fingerprint the

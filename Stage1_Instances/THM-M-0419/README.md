@@ -22,7 +22,10 @@ The exact human claim, domains, assumptions, and provisional formal target are s
 
 Lifecycle remains `planned`; provisional root vector remains `[H1, M3, R3]`. The exact statement has
 worker self-test evidence in `statement.json` and `statement-receipt.md`, but only the integration
-lane may accept it. The next dependent gate is anchor audit. The theorem is not complete.
+lane may accept it. The bounded anchor audit is recorded in `anchor-audit.json` and
+`anchor-audit-validation.md`, pending master acceptance. Pinned mathlib supplies supporting APIs but
+no terminal converse. The external `atlas-lean` candidate is placeholder-bearing and receives zero
+proof credit. The next dependent gate is the obligation tree. The theorem is not complete.
 
 ## Validation
 

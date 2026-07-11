@@ -38,3 +38,14 @@ The statement source SHA-256 is
 `db9efe3e6fbf82023500558480b83a88b583a51444272f2ee642a05fd38a0422`; the captured elaborator
 output SHA-256 is `d30ce90a242e9fe3900ec73e893184ad8878c5b90f5362a4f70ca3846342faeb`.
 This is statement elaboration, not a proof of the defined proposition.
+
+## Anchor-audit phase
+
+Base revision: `71fb75ff5b70107068a33e8f5e3f3746a5ae4aa3`.
+
+The node-specific command receipt is `anchor-audit-validation.md`; structured candidate and search
+evidence is `anchor-audit.json`. The audit re-elaborated 13 pinned mathlib support anchors and the
+frozen statement. It also inspected the immutable external
+`facebookresearch/atlas-lean@34ffed396f376454c1a9b297f3fd74c5c801fb50` candidate and classified
+it as zero-credit because its source has 22 `sorry` occurrences. This completes a bounded anchor
+audit pending master acceptance; it does not establish proof closure.
