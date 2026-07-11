@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1286-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1286",
+  "canonical_name": "Polya-Szego inequality",
+  "canonical_statement": "For 1 <= p < infinity and a nonnegative function u in W^{1,p}(R^n) that vanishes at infinity, its symmetric decreasing rearrangement u* belongs to W^{1,p}(R^n) and the L^p norm of its weak gradient is no greater than that of u.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": "Candidate only: integral (x : EuclideanSpace Real (Fin n)), norm (fderiv/weakGradient (symmetricDecreasingRearrangement u) x) ^ p <= integral x, norm (weakGradient u x) ^ p",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional analytic scope: n : Nat with 1 <= n; p : Real with 1 <= p and p < infinity; u : R^n -> R, nonnegative, in W^{1,p}(R^n), vanishing at infinity; Prop in Lean universe 0. Exact mathlib types are not frozen at intake.",
+  "quantifiers": [
+    "n : Nat with 1 <= n",
+    "p : Real with 1 <= p < infinity",
+    "u : R^n -> R"
+  ],
+  "hypotheses": [
+    "u is measurable and nonnegative",
+    "u belongs to W^{1,p}(R^n)",
+    "u vanishes at infinity: every positive superlevel set has finite measure"
+  ],
+  "conclusion": "u* is in W^{1,p}(R^n) and integral |grad u*|^p <= integral |grad u|^p",
+  "alternate_encodings": [
+    {
+      "target": "||grad u*||_p <= ||grad u||_p",
+      "relationship": "equivalent after nonnegativity and finite-p norm conventions",
+      "checked_witness": "none; statement-phase obligation"
+    },
+    {
+      "target": "bounded-domain zero-extension formulation for u in W_0^{1,p}(Omega)",
+      "relationship": "implied by the whole-space formulation after a checked zero-extension and support/ball identification",
+      "checked_witness": "none; statement-phase obligation"
+    }
+  ],
+  "excluded_degenerate_cases": "The intake excludes p = infinity, signed-function formulations not explicitly reduced through |u|, equality characterization, anisotropic rearrangements, and arbitrary rearrangements. Dimension zero and functions whose positive superlevel sets have infinite measure are outside the frozen human claim.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; measure-theoretic classical/choice/quotient dependencies remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and transitive dependency closure remain open",
+  "computation_profile": "No computation, numerical approximation, or oracle is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib; feasibility of symmetric rearrangement and Sobolev weak-gradient APIs remains to be established",
+  "source_revisions": "Bibliographic discovery anchors are recorded in source_statement_crosswalk.md; immutable scans, page-level premise mapping, errata review, and Lean pins remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1286/README.md",
+    "Stage1_Instances/THM-M-1286/scope_map.md",
+    "Stage1_Instances/THM-M-1286/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, rearrangement or Sobolev conventions, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H2",
+    "machine": "M4",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a precise classical scope and open tasks only. No Lean expression has elaborated, no source audit is accepted, and no proof credit is claimed."
+}

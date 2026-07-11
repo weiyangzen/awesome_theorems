@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1288-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1288",
+  "canonical_name": "Talenti's sharp Sobolev inequality",
+  "canonical_statement": "For integers n and real p with 1 < p < n, put q = n*p/(n-p). Every compactly supported smooth real-valued function u on Euclidean R^n satisfies its L^q norm bounded by the optimal Talenti constant times the L^p norm of its gradient.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "n : Nat, p q : Real, u : EuclideanSpace Real (Fin n) -> Real; exact Lean function-space encoding remains open",
+  "ordered_binders": ["n : Nat", "p : Real", "u : C_c^infinity(R^n, R)"],
+  "hypotheses": ["1 < p", "p < n", "q = n*p/(n-p)", "u is smooth and compactly supported"],
+  "conclusion": "norm_Lq u <= C_Talenti(n,p) * norm_Lp (gradient u), with C_Talenti(n,p) the least valid constant",
+  "degenerate_cases": ["n = 0 or n = 1 excluded by 1 < p < n", "p <= 1 excluded", "p >= n and the critical/endpoint embeddings excluded", "u = 0 is allowed and gives the trivial boundary case"],
+  "alternate_encodings": [
+    {"target": "homogeneous Sobolev-space completion", "relationship": "density extension candidate", "checked_witness": null},
+    {"target": "reciprocal sharp energy lower bound", "relationship": "algebraic reformulation candidate", "checked_witness": null},
+    {"target": "equality and extremizer classification", "relationship": "source-family strengthening, not part of the frozen inequality-only root", "checked_witness": null}
+  ],
+  "foundation_profile": "Lean 4 kernel with classical analysis expected; exact choice, quotient, measure, and extended-real dependencies remain open",
+  "tcb_profile": "Lean 4 plus pinned mathlib; exact toolchain and transitive closure remain open",
+  "computation_profile": "No numerical computation, oracle, or normalization result is credited at intake",
+  "source_revisions": "Primary bibliographic anchor recorded in source-statement-crosswalk.md; immutable source receipt and errata audit remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1288/README.md", "Stage1_Instances/THM-M-1288/scope-map.md", "Stage1_Instances/THM-M-1288/source-statement-crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the root claim, domain, sharpness meaning, Lean target, imports/toolchain, source anchor, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This intake freezes an inequality-only mathematical scope. It does not elaborate a Lean target, establish the explicit optimal constant, prove sharpness, or accept any machine proof."
+}
