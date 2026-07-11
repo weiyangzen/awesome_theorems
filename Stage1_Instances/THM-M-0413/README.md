@@ -54,6 +54,17 @@ machine-debt classification is `local_wrapper_upstream_mathlib`, with no new ext
 needed. This provisional audit does not freeze or close the transitive obligation graph and does
 not establish theorem completion.
 
+## Obligation-tree phase
+
+`obligation-registry.json` freezes ten required root-relevant obligations with no exclusions.
+`typed-graphs.json` keeps proof, composition, refinement, provenance, evidence, trust,
+documentation, and workflow edges distinct; `proof-units.json` supplies node-specific semantic
+ledgers. `ObligationTree.lean` kernel-checks only the conditional composition of the four defining
+Dedekind components through the generic integral-closure interface to the exact root. Component
+bodies, provenance closure, source mapping, readability review, and release trust remain open.
+
+This phase is self-tested pending master acceptance. It does not claim audit or theorem completion.
+
 ## Validation
 
 The exact structural commands and results for this dossier are recorded in `validation.md`. These

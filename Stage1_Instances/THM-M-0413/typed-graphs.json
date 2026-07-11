@@ -1,0 +1,65 @@
+{
+  "schema": "stage1-rev-5.6-typed-graph-bundle-v1",
+  "item_id": "S56-M-0413-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0413",
+  "registry_version": 1,
+  "nodes": ["THM-M-0413-ROOT","THM-M-0413-I-NUMBERFIELD","THM-M-0413-B-INTEGRAL-CLOSURE","THM-M-0413-C-DOMAIN","THM-M-0413-C-NOETHERIAN","THM-M-0413-C-DIMENSION","THM-M-0413-C-INTEGRAL-CLOSED","THM-M-0413-P-BASE-Z","THM-M-0413-P-FINITE-SEPARABLE","THM-M-0413-X-TRUST"],
+  "proof_graph": {
+    "root": "THM-M-0413-ROOT",
+    "edges": [
+      {"from":"THM-M-0413-ROOT","to":"THM-M-0413-I-NUMBERFIELD","type":"proof_requires"},
+      {"from":"THM-M-0413-I-NUMBERFIELD","to":"THM-M-0413-B-INTEGRAL-CLOSURE","type":"proof_requires"},
+      {"from":"THM-M-0413-B-INTEGRAL-CLOSURE","to":"THM-M-0413-C-DOMAIN","type":"proof_requires"},
+      {"from":"THM-M-0413-B-INTEGRAL-CLOSURE","to":"THM-M-0413-C-NOETHERIAN","type":"proof_requires"},
+      {"from":"THM-M-0413-B-INTEGRAL-CLOSURE","to":"THM-M-0413-C-DIMENSION","type":"proof_requires"},
+      {"from":"THM-M-0413-B-INTEGRAL-CLOSURE","to":"THM-M-0413-C-INTEGRAL-CLOSED","type":"proof_requires"},
+      {"from":"THM-M-0413-C-DOMAIN","to":"THM-M-0413-P-FINITE-SEPARABLE","type":"proof_requires"},
+      {"from":"THM-M-0413-C-NOETHERIAN","to":"THM-M-0413-P-BASE-Z","type":"proof_requires"},
+      {"from":"THM-M-0413-C-NOETHERIAN","to":"THM-M-0413-P-FINITE-SEPARABLE","type":"proof_requires"},
+      {"from":"THM-M-0413-C-DIMENSION","to":"THM-M-0413-P-BASE-Z","type":"proof_requires"},
+      {"from":"THM-M-0413-C-DIMENSION","to":"THM-M-0413-P-FINITE-SEPARABLE","type":"proof_requires"},
+      {"from":"THM-M-0413-C-INTEGRAL-CLOSED","to":"THM-M-0413-P-FINITE-SEPARABLE","type":"proof_requires"}
+    ],
+    "composition_edges": [
+      {"from":["THM-M-0413-I-NUMBERFIELD"],"to":"THM-M-0413-ROOT","certificate":"Stage1.THMM0413.ObligationTree.root_from_interface","status":"kernel_checked"},
+      {"from":["THM-M-0413-B-INTEGRAL-CLOSURE"],"to":"THM-M-0413-I-NUMBERFIELD","certificate":"Stage1.THMM0413.ObligationTree.interface_from_generic","status":"kernel_checked"},
+      {"from":["THM-M-0413-C-DOMAIN","THM-M-0413-C-NOETHERIAN","THM-M-0413-C-DIMENSION","THM-M-0413-C-INTEGRAL-CLOSED"],"to":"THM-M-0413-B-INTEGRAL-CLOSURE","certificate":"Stage1.THMM0413.ObligationTree.components_compose","status":"kernel_checked"},
+      {"from":["THM-M-0413-P-FINITE-SEPARABLE"],"to":"THM-M-0413-C-DOMAIN","certificate":null,"status":"open"},
+      {"from":["THM-M-0413-P-BASE-Z","THM-M-0413-P-FINITE-SEPARABLE"],"to":"THM-M-0413-C-NOETHERIAN","certificate":null,"status":"open"},
+      {"from":["THM-M-0413-P-BASE-Z","THM-M-0413-P-FINITE-SEPARABLE"],"to":"THM-M-0413-C-DIMENSION","certificate":null,"status":"open"},
+      {"from":["THM-M-0413-P-FINITE-SEPARABLE"],"to":"THM-M-0413-C-INTEGRAL-CLOSED","certificate":null,"status":"open"}
+    ]
+  },
+  "refinement_graph": {"edges":[
+    {"from":"THM-M-0413-ROOT","to":["THM-M-0413-C-DOMAIN","THM-M-0413-C-NOETHERIAN","THM-M-0413-C-DIMENSION","THM-M-0413-C-INTEGRAL-CLOSED"],"type":"definition_components","exhaustiveness":"kernel_checked_by_components_compose"}
+  ]},
+  "provenance_graph": {"edges":[
+    {"from":"mathlib:NumberField.RingOfIntegers.instIsDedekindDomain@8a178386","to":"THM-M-0413-I-NUMBERFIELD","type":"provenance_of","role":"wrapper"},
+    {"from":"mathlib:IsIntegralClosure.isDedekindDomain@8a178386","to":"THM-M-0413-B-INTEGRAL-CLOSURE","type":"provenance_of","role":"terminal_body"},
+    {"from":"mathlib:IsIntegralClosure.isNoetherianRing@8a178386","to":"THM-M-0413-C-NOETHERIAN","type":"provenance_of","role":"component_body"},
+    {"from":"mathlib:Ring.DimensionLEOne.isIntegralClosure@8a178386","to":"THM-M-0413-C-DIMENSION","type":"provenance_of","role":"component_body"},
+    {"from":"mathlib:isIntegrallyClosed_iff@8a178386","to":"THM-M-0413-C-INTEGRAL-CLOSED","type":"provenance_of","role":"component_body"}
+  ]},
+  "evidence_graph": {"edges":[
+    {"from":"statement.json","to":"THM-M-0413-ROOT","type":"evidence_for","scope":"statement_identity"},
+    {"from":"anchor-audit.json","to":"THM-M-0413-I-NUMBERFIELD","type":"evidence_for","scope":"candidate_identity_only"},
+    {"from":"obligation-tree-validation.md","to":"THM-M-0413-ROOT","type":"evidence_for","scope":"registry_graph_and_conditional_composition"}
+  ]},
+  "trust_graph": {"edges":[
+    {"from":"THM-M-0413-ROOT","to":"THM-M-0413-X-TRUST","type":"trusts","status":"open_release_gate"},
+    {"from":"Stage1.THMM0413.ObligationTree.components_compose","to":"Lean-4.29.0-kernel-plus-pinned-mathlib","type":"trusts","status":"narrow_check_only"}
+  ]},
+  "documentation_graph": {"edges":[
+    {"from":"obligation-tree.md#root-and-route","to":"THM-M-0413-ROOT","type":"documents"},
+    {"from":"obligation-tree.md#component-packages","to":"THM-M-0413-B-INTEGRAL-CLOSURE","type":"documents"},
+    {"from":"proof-units.json","to":"THM-M-0413-ROOT","type":"documents_all_nodes"}
+  ]},
+  "workflow_graph": {"edges":[
+    {"from":"S56-M-0413-OBLIGATION_TREE","to":"S56-M-0413-ANCHOR_AUDIT","type":"workflow_depends_on"},
+    {"from":"S56-M-0413-PROOF","to":"S56-M-0413-OBLIGATION_TREE","type":"workflow_depends_on"},
+    {"from":"S56-M-0413-VALIDATION","to":"S56-M-0413-PROOF","type":"workflow_depends_on"},
+    {"from":"S56-M-0413-RELEASE","to":"S56-M-0413-VALIDATION","type":"workflow_depends_on"}
+  ]},
+  "graph_invariants": {"proof_acyclic":true,"proof_root_reachable_nodes":9,"trust_nodes_separate":1,"unknown_endpoints":0,"typed_edge_families_separate":true},
+  "status_boundary": "Conditional composition is checked, but component and prerequisite proof states are not asserted here. The trust gate is intentionally not a proof premise."
+}
