@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1235-STATEMENT",
+  "theorem_id": "THM-M-1235",
+  "lifecycle": "planned",
+  "canonical_statement": "For a closed planar region whose frontier is a finite union of closed analytic curves, positive constant density, potential force, prescribed pressure normalization, and Lebesgue-integrable vorticity satisfying Wolibner's decay, Holder-continuity, and zero interior-boundary-circulation hypotheses, for every finite T > 0 there exists a unique five-function motion satisfying conditions (I)-(VIII) of Wolibner (1933) on 0 <= t <= T.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1235/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM1235.WolibnerGlobalExistenceAndUniqueness",
+    "elaborated_expression_sha256": "77aec2f595a800d145317ae7b7574b9b18dcd2546254e98c9a7e119fbd053c23",
+    "statement_file_sha256": "e59d7e8cb43f010533d3354022a042a38a27edc95337775da69c6cc8676a1697"
+  },
+  "domain_and_universes": "Point = Real x Real; SourceDomain and SourceData are universe-zero structures; terminal time T and density are Real; the target is Prop.",
+  "ordered_binders": [
+    "D : SourceData",
+    "T : Real",
+    "D.domain is a closed planar region",
+    "the domain boundary is a finite union of closed analytic curves",
+    "the vorticity is Lebesgue integrable on the domain",
+    "the vorticity satisfies source equation (1)'s decay condition",
+    "the vorticity is Holder continuous as in source equation (3)",
+    "initial circulation on every interior boundary component is zero",
+    "0 < T"
+  ],
+  "hypotheses": [
+    "positive constant density",
+    "a fixed potential force and pressure normalization",
+    "source domain and vorticity assumptions above",
+    "conditions (I)-(VIII) define area preservation, momentum/Euler equations, initial values, normalization, circulation, decay, and spatial regularity"
+  ],
+  "conclusion": "There exists a five-function Motion D T, and every other Motion D T has equal Lagrangian coordinates, velocity components, and pressure.",
+  "direct_imports": ["Mathlib.Data.Real.Basic"],
+  "encoding_boundary": "The pinned snapshot has no classical incompressible-Euler API or analytic planar-boundary API matching the 1933 formulation. Source conditions (I)-(VIII) are therefore typed proposition fields, not invented modern whole-plane equations. They contain no existence or uniqueness conclusion. Expansion into native analytic definitions is proof-phase infrastructure debt and requires checked transports.",
+  "checked_transport": "Stage1Instances.THMM1235.wolibnerTarget_iff_expanded (Iff.rfl)",
+  "alternate_encodings": {
+    "one_motion_on_nonnegative_infinite_time": "Uncredited: the source constructs a solution for every arbitrary finite T; no compatibility transport to one function on [0, infinity) is supplied.",
+    "modern_velocity_pressure_euler_pde": "Uncredited: no checked equivalence from source conditions (I)-(VIII) to a modern function-space formulation is supplied."
+  },
+  "degenerate_and_boundary_cases": "T is Real and strictly positive. T = 0 and negative T are excluded. Bounded and exterior source regions are retained; whole-plane or torus replacement is forbidden. Uniqueness is included because section 5 (pages 725-726) proves uniqueness under the same conditions.",
+  "source_pinpoint": {
+    "citation": "W. Wolibner, Mathematische Zeitschrift 37 (1933), 698-726, DOI 10.1007/BF01474610",
+    "stable_scan": "GDZ volume PPN266833020_0037, article LOG_0069",
+    "statement_pages": "698-700",
+    "uniqueness_pages": "725-726"
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1235/check_statement.py",
+    "killed": [
+      "removed the Holder-continuity hypothesis",
+      "changed the source domain to the whole plane",
+      "moved T outside the source-data universal binder",
+      "included the zero-time terminal boundary"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. This freezes and elaborates the source-faithful target but supplies no proof, accepted H0 audit, native PDE expansion, anchor closure, or theorem-completion evidence."
+}
