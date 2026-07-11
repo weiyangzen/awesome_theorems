@@ -1,0 +1,93 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0416-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0416",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "d76396d014ed07f02b5e64944c3eafca7d453d40",
+  "canonical_target": "Stage1Instances.THM_M_0416.DirichletUnitTheoremTarget",
+  "search_order": [
+    "repository-local Lean source",
+    "pinned mathlib source and declarations",
+    "public GitHub repository metadata",
+    "public GitHub and grep.app code indexes"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0416-C01",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "tag": "v4.29.0",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.NumberTheory.NumberField.Units.DirichletTheorem",
+      "file": "Mathlib/NumberTheory/NumberField/Units/DirichletTheorem.lean",
+      "file_sha256": "c4eb26b3512ed3d73f35cf41b62b519ed7fccd2d496220280f8c5a34d25e5500",
+      "declarations": [
+        "NumberField.Units.rank_modTorsion",
+        "NumberField.Units.exist_unique_eq_mul_prod"
+      ],
+      "local_adapter": "Stage1Instances.THM_M_0416.AnchorAudit.dirichletUnitTheorem_mathlib_candidate",
+      "normalized_match": "The adapter has the literal frozen target body: universal number-field binders, finite/free additive units-mod-torsion quotient, finrank equal to NumberField.Units.rank, and unique torsion-times-fundamental-unit coordinates.",
+      "body_provenance": "Both terminal declarations have explicit by-proofs in the pinned mathlib source. The finite/free conjuncts are pinned mathlib instances consumed by the adapter; a later provenance phase must enumerate their transitive bodies.",
+      "axioms_observed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_or_oracle_status": "The selected terminal source and adapter contain no sorry, axiom declaration, unsafe declaration, native_decide, or external oracle. This source scan is not the later transitive trust-closure gate.",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "kernel_check": "passed in the existing pinned Lake environment",
+      "candidate_classification": "eligible_M0-W_route_pending_dependent_gates",
+      "evidence_level": "node-local candidate check; not release-grade E1",
+      "integration_status": "Already available through the statement's sole direct import; no new dependency is required. Proof, provenance, trust, obligation-tree, validation, and release acceptance remain separate phases."
+    },
+    {
+      "candidate_id": "S56-M-0416-C02",
+      "project": "awesome_theorems repository-local legacy surface",
+      "revision": "d76396d014ed07f02b5e64944c3eafca7d453d40",
+      "module": "AwesomeTheorems.Stage1.S1_M_071",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_071.lean",
+      "file_sha256": "71927bcaf18110c03cd2ec34ce6e1a486a9ebbf4cc2810e2fe6d4d416bf24e95",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_071.statementShape_mathlib",
+      "normalized_match": "Its StatementShape is definitionally identical to the frozen target, as checked by the preceding statement node.",
+      "body_provenance": "Repo-local wrapper over C01 and the same pinned mathlib instances; no independent terminal proof body.",
+      "terminal_candidate_id": "S56-M-0416-C01",
+      "classification": "duplicate_legacy_wrapper",
+      "integration_status": "Discovery input only; deduplicated from machine-proof credit."
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "declaration": "NumberField.Units.closure_fundSystem_sup_torsion_eq_top",
+      "reason": "Generation is weaker than the frozen unique-coordinate conjunct and does not independently close the target."
+    },
+    {
+      "declaration": "Monoid.FG (O K)^x instance",
+      "reason": "Finite generation alone omits the quotient rank and unique decomposition."
+    },
+    {
+      "module": "Mathlib.NumberTheory.NumberField.Units.Regulator",
+      "reason": "Downstream regulator results use the same fundamental system and add no independent exact target proof."
+    }
+  ],
+  "external_search": {
+    "github_repository_api": "Query for repositories matching the quoted Dirichlet unit theorem plus lean returned HTTP 200, total_count=0, incomplete_results=false; response SHA-256 08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2.",
+    "github_code_api": "Query for exist_unique_eq_mul_prod in Lean returned HTTP 401 Requires authentication; response SHA-256 b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e.",
+    "grep_app": "Query for exist_unique_eq_mul_prod returned HTTP 429; response SHA-256 08f455eecd7374056f623b92e0261ecc340f636451179ba82d20b573b759b166.",
+    "result": "No additional credible independent Lean 4 candidate was established. The bounded search does not claim global absence."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_route": "M0-W eligible",
+    "root_machine_debt_after_this_node": "M3",
+    "root_evidence_level_after_this_node": "E3 plus a successful node-local kernel probe",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "gate_state": "self_tested_pending_master_acceptance",
+    "status_boundary": "This node establishes and checks the exact pinned mathlib candidate route. It does not promote the root: the obligation tree, proof integration receipt, transitive provenance/trust checks, hermetic validation, and release gates remain open."
+  }
+}
