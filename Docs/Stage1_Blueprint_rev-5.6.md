@@ -1424,7 +1424,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0393-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0393`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0393-VALIDATION` / `THM-M-0393` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0393-PROOF`. Owned paths: `Stage1_Instances/THM-M-0393`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0393-RELEASE` / `THM-M-0393` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0393-RELEASE` / `THM-M-0393` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0393-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0393`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0394-INTAKE` / `THM-M-0394` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0394`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -1474,7 +1474,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0397-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0397`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0397-ANCHOR_AUDIT` / `THM-M-0397` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0397-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0397`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0397-OBLIGATION_TREE` / `THM-M-0397` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-0397-OBLIGATION_TREE` / `THM-M-0397` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0397-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0397`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0397-PROOF` / `THM-M-0397` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0397-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0397`. Gate: rev-5.6 node-specific receipt and master acceptance.

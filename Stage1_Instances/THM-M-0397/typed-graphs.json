@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-0397-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0397",
+  "root_obligation_id": "M0397-ROOT",
+  "nodes": [
+    {"obligation_id":"M0397-ROOT","debt":"H3/M0-L/R3","status":"kernel_closed_assurance_open","meaning":"Exact universally quantified method statement"},
+    {"obligation_id":"M0397-COMP","debt":"H3/M0-L/R3","status":"composition_checked","meaning":"Forward filter projection and reverse bounded-enumeration construction"},
+    {"obligation_id":"M0397-BOUND","debt":"H3/M0-L/R3","status":"explicit_root_premise","meaning":"Concrete nonzero linear-logarithm lower bound"},
+    {"obligation_id":"M0397-REDUCE","debt":"H3/M0-L/R3","status":"application_interface_consumed","meaning":"Lower bound forces every solution below searchBound"},
+    {"obligation_id":"M0397-ENUM","debt":"H3/M0-L/R3","status":"application_interface_consumed","meaning":"Finite heightBall enumerates exactly bounded objects"},
+    {"obligation_id":"M0397-FILTER","debt":"H3/M0-W/R3","status":"pinned_mathlib","meaning":"Decidable filter membership equivalence"},
+    {"obligation_id":"M0397-SOURCE","debt":"H3/NA/R3","status":"open","meaning":"Primary theorem/page/application crosswalk"},
+    {"obligation_id":"M0397-TRUST","debt":"H3/M3/R3","status":"open","meaning":"Terminal provenance, axioms, TCB, replay, and review"}
+  ],
+  "graphs": {
+    "proof": {"edges":[
+      {"edge_id":"P01","type":"proof_requires","from":"M0397-ROOT","to":"M0397-COMP"},
+      {"edge_id":"P02","type":"proof_requires","from":"M0397-COMP","to":"M0397-REDUCE"},
+      {"edge_id":"P03","type":"proof_requires","from":"M0397-REDUCE","to":"M0397-BOUND"},
+      {"edge_id":"P04","type":"proof_requires","from":"M0397-COMP","to":"M0397-ENUM"},
+      {"edge_id":"P05","type":"proof_requires","from":"M0397-COMP","to":"M0397-FILTER"}
+    ]},
+    "refinement": {"edges":[
+      {"edge_id":"R01","type":"refines","from":"M0397-COMP","to":"M0397-ROOT"},
+      {"edge_id":"R02","type":"refines","from":"M0397-BOUND","to":"M0397-REDUCE"}
+    ]},
+    "provenance": {"edges":[
+      {"edge_id":"V01","type":"provenance_of","from":"local:ObligationTree.lean","to":"M0397-COMP"},
+      {"edge_id":"V02","type":"provenance_of","from":"mathlib:8a178386:Finset.mem_filter","to":"M0397-FILTER"}
+    ]},
+    "evidence": {"edges":[
+      {"edge_id":"E01","type":"evidence_for","from":"VAL-M0397-COMPOSITION-LEAN","to":"M0397-COMP"}
+    ]},
+    "trust": {"edges":[
+      {"edge_id":"T01","type":"trusts","from":"M0397-ROOT","to":"M0397-TRUST"},
+      {"edge_id":"T02","type":"trusts","from":"M0397-FILTER","to":"lean4-mathlib-pinned-tcb"}
+    ]},
+    "documentation": {"edges":[
+      {"edge_id":"D01","type":"documents","from":"obligation-tree.md","to":"M0397-ROOT"},
+      {"edge_id":"D02","type":"source_map","from":"M0397-SOURCE","to":"M0397-ROOT"}
+    ]},
+    "workflow": {"edges":[
+      {"edge_id":"W01","type":"workflow_depends_on","from":"S56-M-0397-OBLIGATION_TREE","to":"S56-M-0397-ANCHOR_AUDIT"},
+      {"edge_id":"W02","type":"workflow_depends_on","from":"S56-M-0397-PROOF","to":"S56-M-0397-OBLIGATION_TREE"},
+      {"edge_id":"W03","type":"workflow_depends_on","from":"S56-M-0397-VALIDATION","to":"S56-M-0397-PROOF"},
+      {"edge_id":"W04","type":"workflow_depends_on","from":"S56-M-0397-RELEASE","to":"S56-M-0397-VALIDATION"}
+    ]}
+  },
+  "composition_certificates": [
+    {"parent":"M0397-COMP","children":["M0397-REDUCE","M0397-ENUM","M0397-FILTER"],"declaration":"Stage1Rev56.THMM0397.ObligationTree.application_compose","state":"kernel_checked"},
+    {"parent":"M0397-ROOT","children":["M0397-COMP"],"declaration":"Stage1Rev56.THMM0397.ObligationTree.exact_root","state":"kernel_checked"}
+  ],
+  "closure_boundary": {"closed_obligations":["M0397-ROOT","M0397-COMP","M0397-BOUND","M0397-REDUCE","M0397-ENUM","M0397-FILTER"],"root_closed":true,"audit_complete":false,"theorem_complete":false,"remaining_root_cut_set":["M0397-SOURCE","M0397-TRUST"],"reason":"The exact method-level root is kernel-closed because reduction and enumeration are fields of every quantified Application and the lower bound is an explicit root premise. Human-source, readability, trust, replay, and independent acceptance gates remain open."}
+}

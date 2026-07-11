@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0393-RELEASE",
+  "theorem_id": "THM-M-0393",
+  "intent": "release",
+  "base_revision": "15a5351889f1657f452569fe630c9e39edb81877",
+  "decided_at": "2026-07-11T19:42:00Z",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0393-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0393-VALIDATION-local-20260711T193851Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "e799386f8a5c361d7d2cd1fc310afd6d5b6de0b23ee19976e8bd828586e3921c"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0393-PROOF-local-20260711T193608Z",
+    "S56-M-0393-VALIDATION-local-20260711T193851Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H3", "M4", "R3"],
+    "accepted_after": ["H3", "M4", "R3"],
+    "best_provisional_evidence": ["H3", "M4", "R3"],
+    "boundary": "A finite-choice subclaim inside M0393-N1 has provisional same-workspace kernel evidence. It does not close M0393-N1 or any canonical obligation. The exact Thue root and all seventeen frozen root-relevant obligations remain open."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0393-VALIDATION is only worker-self-tested and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-0393-ROOT-KERNEL-CLOSURE",
+    "reason": "Validation records root_closed=false and validates only a strict finite-choice subclaim within M0393-N1; no canonical obligation or root composition is closed."
+  },
+  "evidence_reconciliation": {
+    "statement_source_frozen": "provisional source hash only",
+    "statement_identity": "lean-source-sha256:456c62756bc035e675135270bf6984c00bb1203bc6687d3495ae7663131d985f#Stage1.THM_M_0393.ThueStatement",
+    "canonical_statement_replay": "missing",
+    "statement_replay_failure": "Statement.lean fails direct elaboration because evalBinary uses a noncomputable instance without being declared noncomputable",
+    "partial_proof_body": "local body for a finite-choice subclaim at Stage1.THM_M_0393.Proof.finite_pow_divisors",
+    "exact_root_kernel_check": "missing",
+    "closed_obligation_ids": [],
+    "partial_obligation_ids": ["M0393-N1"],
+    "open_root_relevant_obligation_count": 17,
+    "axioms_observed_on_partial_checks": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Proof.lean and Validation.lean",
+    "root_composition": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0393-VALIDATION and all transitive phase receipts",
+    "repair, refreeze, and replay of the canonical statement compilation defect through its owning phase",
+    "kernel closure of all seventeen root-relevant obligations and checked exact child-to-parent root composition",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "retry_condition": "Repair and master-accept the statement replay, complete and master-accept every root proof obligation and composition certificate, then master-accept validation. A separate release lane must close H0/R0 review, root trust and provenance, hermetic and independent reproduction, supply-chain, CI, and deterministic-bundle gates.",
+  "status_boundary": "This worker artifact decides the requested release phase as blocked. It creates no accepted receipt, changes no lifecycle or debt state, and makes no theorem-completion claim."
+}
