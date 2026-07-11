@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0420-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0420",
+  "canonical_name": "Hilbert class field theorem",
+  "canonical_statement": "For every number field K, there exists a finite abelian extension H/K, unramified at every finite prime, which is maximal among finite everywhere-unramified abelian extensions; global Artin reciprocity identifies Gal(H/K) with the ideal class group of K.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_075",
+    "declaration_or_expression": "HilbertClassFieldExists",
+    "status": "legacy candidate requiring exact-scope re-audit",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "K : Type uK with Field K and NumberField K; candidate H : Type uH with Field, NumberField, Algebra K H, and Module.Finite K H; proposition universes must be elaborated in the statement phase",
+  "ordered_binders": [
+    "uK and uH (and any comparison-field universe uM)",
+    "K : Type uK",
+    "[Field K]",
+    "[NumberField K]",
+    "existential H : Type uH and its field/number-field/K-algebra/finite-module instances"
+  ],
+  "hypotheses": [
+    "K is a number field",
+    "H/K is finite and abelian Galois",
+    "H/K is unramified at every finite prime",
+    "H is maximal against finite everywhere-unramified abelian extensions"
+  ],
+  "conclusion": "Existence of H with the stated properties, together with the class-group/Galois-group reciprocity characterization",
+  "alternate_encodings": [
+    {
+      "target": "Nonempty (HilbertClassFieldCore K H)",
+      "relationship": "explicit-candidate predicate used by the legacy artifact",
+      "checked_witness": "candidate only; no rev-5.6 transport credit"
+    },
+    {
+      "target": "uniqueness up to K-algebra equivalence",
+      "relationship": "expected consequence of maximality for two candidates",
+      "checked_witness": "candidate companion obligation only"
+    }
+  ],
+  "degenerate_and_boundary_cases": [
+    "The base is a number field; arbitrary fields and local fields are not substitutes.",
+    "Ramification means finite-prime ramification at intake; infinite-place conventions require an explicit later decision.",
+    "Supporting class-group or ramification lemmas do not imply existence or maximality.",
+    "A chosen candidate H is not a canonical constructed object unless construction and uniqueness are checked."
+  ],
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, quotients, and algebraic-number-theory foundations remain to be audited",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact versions, dependency hashes, imported declaration closure, and axioms remain open",
+  "computation_profile": "No computation, native oracle, or external solver is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib only",
+  "source_revisions": "Discovery anchors are listed in source_statement_crosswalk.md; immutable editions, page hashes, errata, and independent review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0420/README.md",
+    "Stage1_Instances/THM-M-0420/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, finite/infinite ramification convention, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes scope only. It does not accept the legacy Lean candidate, establish source fidelity, pass the statement gate, or prove the Hilbert class field theorem."
+}

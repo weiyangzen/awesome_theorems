@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0419-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0419",
+  "canonical_name": "Kronecker-Weber theorem",
+  "canonical_statement": "Every finite abelian extension of the rational numbers is contained in a cyclotomic extension of the rational numbers.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_074",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_074.StatementShape K",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "K : Type uK with Field K, Algebra Q K, NumberField K, and IsAbelianGalois Q K; conclusion in Prop",
+  "ordered_binders": ["K : Type uK", "[Field K]", "[Algebra Q K]", "[NumberField K]", "[IsAbelianGalois Q K]"],
+  "hypotheses": ["K is a number field over Q", "K/Q is Galois with abelian automorphism group"],
+  "conclusion": "There exists n : Nat with n != 0 and a Q-algebra embedding K -> CyclotomicField n Q.",
+  "alternate_encodings": [
+    {"target": "K is Q-algebra equivalent to an intermediate field of CyclotomicField n Q", "relationship": "expected to imply the embedding form", "checked_witness": "candidate only: legacy p7_embeddingConclusion_of_intermediateFieldEquiv; credit deferred"},
+    {"target": "an arbitrary finite abelian field extension E/Q is contained in Q(zeta_n)", "relationship": "classical subfield formulation", "checked_witness": null}
+  ],
+  "excluded_degenerate_cases": "The candidate requires n != 0 because the cyclotomic API uses a nonzero index for the intended roots-of-unity extension. The trivial extension Q/Q remains included and must be mutation-tested.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact versions and transitive dependency closure remain open",
+  "computation_profile": "No computation, native oracle, or external solver is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib",
+  "source_revisions": "Discovery citations are listed in source_statement_crosswalk.md; immutable source pins, page verification, and errata audit remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0419/README.md", "Stage1_Instances/THM-M-0419/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the human claim, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes scope only. It neither accepts the legacy StatementShape nor proves the Kronecker-Weber theorem."
+}

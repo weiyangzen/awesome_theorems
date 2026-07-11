@@ -1,0 +1,14 @@
+{
+  "schema_version": "stage1-open-task-dag/1.0",
+  "theorem_id": "THM-M-0437",
+  "frozen_for_phase": "intake",
+  "nodes": [
+    {"id": "SOURCE", "task": "Pin exact primary-source theorem, pages, hypotheses, translation, and errata", "depends_on": [], "state": "open"},
+    {"id": "SPELLING", "task": "Independently confirm 志田 is a metadata error for 志村 in this claim", "depends_on": ["SOURCE"], "state": "open"},
+    {"id": "STATEMENT", "task": "Elaborate the exact Lean target with pinned minimal imports", "depends_on": ["SOURCE", "SPELLING"], "state": "open"},
+    {"id": "ANCHORS", "task": "Audit mathlib and immutable external Lean 4 candidates", "depends_on": ["STATEMENT"], "state": "open"},
+    {"id": "OBLIGATIONS", "task": "Freeze typed obligation, provenance, trust, evidence, documentation, and workflow graphs", "depends_on": ["ANCHORS"], "state": "open"},
+    {"id": "PROOF", "task": "Close the exact root without placeholders", "depends_on": ["OBLIGATIONS"], "state": "open"},
+    {"id": "VALIDATE", "task": "Run rev-5.6 kernel, trust, provenance, hermetic, and independent gates", "depends_on": ["PROOF"], "state": "open"}
+  ]
+}
