@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "theorem_id": "THM-M-0388",
+  "item_id": "S56-M-0388-OBLIGATION_TREE",
+  "registry_version": 1,
+  "nodes": ["M0388-ROOT","M0388-S-PREDICATE","M0388-X-PELL","M0388-N-IRRATIONAL","M0388-C-APPROX","M0388-B-NORM","M0388-C-PAIR","M0388-C-QUOTIENT","M0388-L-EQUATION","M0388-L-NONZERO","M0388-X-TRUST"],
+  "graphs": {
+    "proof": [
+      {"from":"M0388-ROOT","type":"proof_requires","to":"M0388-S-PREDICATE"},
+      {"from":"M0388-ROOT","type":"proof_requires","to":"M0388-X-PELL"},
+      {"from":"M0388-X-PELL","type":"proof_requires","to":"M0388-N-IRRATIONAL"},
+      {"from":"M0388-X-PELL","type":"proof_requires","to":"M0388-C-APPROX"},
+      {"from":"M0388-X-PELL","type":"proof_requires","to":"M0388-B-NORM"},
+      {"from":"M0388-X-PELL","type":"proof_requires","to":"M0388-C-PAIR"},
+      {"from":"M0388-X-PELL","type":"proof_requires","to":"M0388-C-QUOTIENT"},
+      {"from":"M0388-X-PELL","type":"proof_requires","to":"M0388-L-EQUATION"},
+      {"from":"M0388-X-PELL","type":"proof_requires","to":"M0388-L-NONZERO"},
+      {"from":"M0388-X-PELL","type":"composes","to":"M0388-ROOT","certificate":"Stage1Instances.THMM0388.ObligationTree.root_compose","status":"conditional-kernel-checked"}
+    ],
+    "refinement": [
+      {"from":"M0388-X-PELL","type":"logical_decomposition","to":"M0388-N-IRRATIONAL"},
+      {"from":"M0388-N-IRRATIONAL","type":"composes","to":"M0388-C-APPROX"},
+      {"from":"M0388-C-APPROX","type":"composes","to":"M0388-B-NORM"},
+      {"from":"M0388-B-NORM","type":"composes","to":"M0388-C-PAIR"},
+      {"from":"M0388-C-PAIR","type":"composes","to":"M0388-C-QUOTIENT"},
+      {"from":"M0388-C-QUOTIENT","type":"composes","to":"M0388-L-EQUATION"},
+      {"from":"M0388-C-QUOTIENT","type":"composes","to":"M0388-L-NONZERO"}
+    ],
+    "provenance": [
+      {"from":"source:mathlib-Pell.lean-ac09716e","type":"provenance_of","to":"M0388-X-PELL"},
+      {"from":"source:mathlib-Pell.exists_of_not_isSquare-body","type":"provenance_of","to":"M0388-N-IRRATIONAL"},
+      {"from":"source:mathlib-Pell.exists_of_not_isSquare-body","type":"provenance_of","to":"M0388-C-APPROX"},
+      {"from":"local:AnchorAudit.lean:predicate-transport","type":"provenance_of","to":"M0388-S-PREDICATE"},
+      {"from":"source:repository-terse-claim","type":"source_map","to":"M0388-ROOT"}
+    ],
+    "evidence": [
+      {"from":"evidence:statement-expression-1c782335","type":"evidence_for","to":"M0388-ROOT"},
+      {"from":"evidence:anchor-inventory-M0388-C01","type":"evidence_for","to":"M0388-X-PELL"},
+      {"from":"evidence:obligation-composition-selftest","type":"evidence_for","to":"M0388-ROOT"}
+    ],
+    "trust": [
+      {"from":"M0388-ROOT","type":"trusts","to":"M0388-X-TRUST"},
+      {"from":"M0388-X-PELL","type":"trusts","to":"trust:mathlib-8a178386-import-closure-pending"},
+      {"from":"M0388-C-PAIR","type":"trusts","to":"trust:kernel-checked-ZMod-finiteness-pending-replay"},
+      {"from":"M0388-L-EQUATION","type":"trusts","to":"trust:tactic-generated-term-pending-audit"}
+    ],
+    "documentation": [
+      {"from":"doc:obligation-tree.md#root-and-composition","type":"documents","to":"M0388-ROOT"},
+      {"from":"doc:obligation-tree.md#statement-and-transport-layer","type":"documents","to":"M0388-S-PREDICATE"},
+      {"from":"doc:obligation-tree.md#imported-proof-body-expansion","type":"documents","to":"M0388-X-PELL"},
+      {"from":"doc:obligation-tree.md#trust-and-status-boundary","type":"documents","to":"M0388-X-TRUST"}
+    ],
+    "workflow": [
+      {"from":"task:S56-M-0388-OBLIGATION_TREE","type":"workflow_depends_on","to":"task:S56-M-0388-ANCHOR_AUDIT"},
+      {"from":"task:S56-M-0388-PROOF","type":"workflow_depends_on","to":"task:S56-M-0388-OBLIGATION_TREE"},
+      {"from":"task:S56-M-0388-VALIDATION","type":"workflow_depends_on","to":"task:S56-M-0388-PROOF"},
+      {"from":"task:S56-M-0388-RELEASE","type":"workflow_depends_on","to":"task:S56-M-0388-VALIDATION"}
+    ]
+  },
+  "graph_invariants": {"proof_acyclic":true,"proof_root_reaches":10,"trust_only_node":"M0388-X-TRUST","unknown_endpoints":0,"semantic_and_workflow_edges_separated":true},
+  "status_boundary": "The proof architecture is frozen and the conditional root composition is checked. All imported-body nodes and the release trust node remain open; typed edges do not assert proof closure."
+}
