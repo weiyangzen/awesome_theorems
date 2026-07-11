@@ -1,8 +1,13 @@
-# THM-M-0416 rev-5.6 intake
+# THM-M-0416 rev-5.6 instance
 
 This directory is the rev-5.6 `planned` instance for Dirichlet's unit theorem. Historical
 Stage1 files and the manifest's untrusted source label are discovery inputs only; neither confers
 accepted statement or proof credit.
+
+The statement phase freezes `Stage1Instances.THM_M_0416.DirichletUnitTheoremTarget` in
+`Statement.lean`; `statement.json` and `statement-validation.md` record its expression and
+environment fingerprints, checked historical-shape identity, mutations, and narrow Lean replay.
+This evidence is self-tested but remains pending master acceptance and provides no proof credit.
 
 ## Scope map
 

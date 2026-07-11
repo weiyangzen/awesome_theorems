@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0420-STATEMENT",
+  "theorem_id": "THM-M-0420",
+  "lifecycle": "planned",
+  "canonical_statement": "For every number field K, there exists a finite abelian Galois extension H/K, unramified at every finite prime, such that Gal(H/K) is isomorphic to the ideal class group of K and every finite everywhere-unramified abelian extension of K in the comparison universe embeds into H over K.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0420/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0420.HilbertClassFieldTarget",
+    "elaborated_expression_sha256": "e02ce829ff52e7bd576532eb0493f01d2b0053e114babc33d15131fc12db1041",
+    "statement_file_sha256": "426dd95935991a8038241904da996b1d993aea7857f87ff6689519b7ca80b536"
+  },
+  "domain_and_universes": "universes uK uH uM; K : Type uK with Field and NumberField; existential H : Type uH with Field, NumberField, Algebra K H, and Module.Finite K H; maximality compares M : Type uM with the same extension data",
+  "ordered_binders": [
+    "K : Type uK",
+    "[Field K]",
+    "[NumberField K]",
+    "existential H : Type uH",
+    "Field H, NumberField H, Algebra K H, Module.Finite K H",
+    "maximality comparison M : Type uM and its extension instances"
+  ],
+  "hypotheses": [
+    "K is a number field",
+    "the existential witness H is a finite number-field extension of K"
+  ],
+  "conclusion": "H/K is abelian Galois and unramified at all nonzero prime ideals of its ring of integers; its K-automorphism group is isomorphic to ClassGroup (O K); every finite unramified abelian M/K in universe uM has a K-algebra embedding into H.",
+  "direct_imports": [
+    "Mathlib.NumberTheory.NumberField.ClassNumber",
+    "Mathlib.NumberTheory.RamificationInertia.Unramified"
+  ],
+  "checked_transport": [
+    "Stage1Instances.THM_M_0420.hilbertClassFieldTarget_iff_pinnedCandidateSourceShape",
+    "Stage1Instances.THM_M_0420.reciprocity_orientation_transport"
+  ],
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_075.HilbertClassFieldExists",
+  "pinned_source_relationship": "The local target re-expresses the historical candidate at repository base 7fe8e74dc1d7b1678d428039fd13be71de273dd8. The checked iff is definitional after reproducing the candidate predicates. The historical module remains discovery input and supplies no proof credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0420/check_statement.py",
+    "killed": [
+      "removed the class-group reciprocity characterization",
+      "removed maximality against comparison extensions",
+      "removed abelianity and retained only Galoisness",
+      "allowed ramified extensions by removing finite-prime unramifiedness"
+    ]
+  },
+  "degenerate_cases": "The base and witnesses must be fields and number fields. The target deliberately quantifies only over nonzero finite primes and imposes no infinite-place condition. No canonical chosen field object is asserted. Universe uM is fixed for the maximality comparison family; universe-polymorphic maximality beyond that level would require a separate resizing formulation.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the intake-selected Hilbert class field target with minimal pinned imports, checked source-shape and reciprocity-orientation transports, and four structural mutations. It does not construct H or prove any component of the theorem."
+}

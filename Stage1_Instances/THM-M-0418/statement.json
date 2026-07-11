@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0418-STATEMENT",
+  "theorem_id": "THM-M-0418",
+  "lifecycle": "planned",
+  "canonical_statement": "For every number field K and every class C in the ideal class group of its ring of integers, there is a nonzero integral ideal I with ClassGroup.mk0 I = C and absolute norm at most (4/pi)^r2 * n! / n^n * sqrt(abs(discriminant K)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0418/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0418.MinkowskiIdealClassBound",
+    "elaborated_expression_sha256": "d47f228d8edd29ddabc2cc6189f476d231e1a49870e134db0b83095cd3db1081",
+    "statement_file_sha256": "84b8b52b8afc0b9b6ff4d6689815c230e99cffd2db2a57f8e4ac5bcc5daeaabc"
+  },
+  "domain_and_universes": "universe u; K : Type u; Field K; NumberField K; C : ClassGroup (RingOfIntegers K); Prop in Lean universe 0",
+  "ordered_binders": [
+    "K : Type u",
+    "[Field K]",
+    "[NumberField K]",
+    "C : ClassGroup (RingOfIntegers K)"
+  ],
+  "hypotheses": [],
+  "conclusion": "There exists I : (Ideal (RingOfIntegers K))^0 such that ClassGroup.mk0 I = C and the real coercion of absNorm I is at most MinkowskiClassBound K.",
+  "direct_imports": ["Mathlib.NumberTheory.NumberField.ClassNumber"],
+  "checked_transport": "Stage1Instances.THM_M_0418.minkowskiIdealClassBound_iff_pinnedMathlibSourceShape",
+  "pinned_source_declaration": "NumberField.exists_ideal_in_class_of_norm_le",
+  "pinned_source_relationship": "PinnedMathlibSourceShape is the literal proposition printed for the declaration at the pinned mathlib revision. The checked iff is definitional and freezes the class orientation, endpoint, nonzero-ideal subtype, and explicit real constant. No proof-body credit is assigned by this node.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0418/check_statement.py",
+    "killed": [
+      "changed represented class from C to inverse C",
+      "changed the weak norm endpoint to a strict endpoint",
+      "replaced the nonzero-ideal subtype and removed the class equation",
+      "removed the degree and complex-place factors from the bound"
+    ]
+  },
+  "degenerate_cases": "Degree-one and totally real fields remain in scope without added hypotheses. The natural exponent nrComplexPlaces K permits zero, and the target retains the weak endpoint. The representative is intrinsically nonzero through the nonZeroDivisors subtype.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected representative target with the sole direct ClassNumber import, a checked literal-source transport, and four distinguished structural mutations. It does not accept the mathlib proof, audit its provenance, or advance any dependent node."
+}

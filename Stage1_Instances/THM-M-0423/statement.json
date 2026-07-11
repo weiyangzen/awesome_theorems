@@ -1,0 +1,43 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0423-STATEMENT",
+  "theorem_id": "THM-M-0423",
+  "module_file": "Stage1_Instances/THM-M-0423/Statement.lean",
+  "declaration": "Stage1.THM_M_0423.HasseMinkowskiStatement",
+  "minimal_imports": [
+    "Mathlib.LinearAlgebra.QuadraticForm.Radical",
+    "Mathlib.LinearAlgebra.QuadraticForm.TensorProduct",
+    "Mathlib.NumberTheory.NumberField.Completion.FinitePlace",
+    "Mathlib.NumberTheory.NumberField.Completion.InfinitePlace"
+  ],
+  "domain_and_universes": "universes u v; K : Type u with Field K and NumberField K; V : Type v with AddCommGroup V, Module K V, and FiniteDimensional K V",
+  "ordered_binders": "K, Field K, NumberField K, V, AddCommGroup V, Module K V, FiniteDimensional K V, Q",
+  "hypothesis": "Q.Nondegenerate",
+  "conclusion": "IsIsotropic Q iff Q.baseChange is isotropic at every finite completion and every infinite completion of K",
+  "isotropy_boundary": "a witness x with x != 0 and Q x = 0; the zero vector is excluded",
+  "elaborated_expression_sha256": "4b5061f2c6f01173d7cb6c9b7005ca489aaa1da1f5740e980ea477d37ae04738",
+  "source_sha256": "96abe224c0aa06c54dd30e3d7f5724b6f17cb6a5a2b537bf26fcc8dbba9cc7f0",
+  "environment": {
+    "base_revision": "91cf43768c2b03b5c98d8ca436c450ba5a70babb",
+    "lean": "4.29.0 / 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_test": {
+    "file": "Stage1_Instances/THM-M-0423/StatementMutations.lean",
+    "source_sha256": "16f6648dc208eca455940c123013f0aa143c67b51fbac6e3c59fe6ef3203e46f",
+    "expected_exit": 1,
+    "expected_error_count": 4,
+    "mutations": [
+      "removed nondegeneracy hypothesis",
+      "changed the number-field domain to Q only",
+      "changed the scope of the nondegeneracy binder",
+      "allowed the zero vector as an isotropy witness"
+    ]
+  },
+  "alternate_encoding_credit": "none; the coordinate-polynomial encoding remains an unchecked bridge and receives no statement credit",
+  "gate_state": "provisional_self_tested_pending_master_acceptance",
+  "theorem_complete": false
+}
