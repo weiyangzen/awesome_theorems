@@ -493,7 +493,7 @@ def validate_only() -> None:
     print(f"todo={todo.relative_to(ROOT)}")
 
 
-def integrate(limit: int) -> None:
+def integrate(limit: int) -> int:
     """Verify worker handoffs and advance only the worker cursor to `[_]`."""
     if limit < 1:
         fail("--limit must be positive")
@@ -553,15 +553,41 @@ def integrate(limit: int) -> None:
     atomic_write(runtime_path("integration_queue.json"), json.dumps({"queued": queue, "rejected": rejected}, ensure_ascii=False, indent=2) + "\n")
     todo = write_todo(data, validate_dag(data), claims)
     print(f"integrate: worker-self-tested={len(accepted)} rejected={len(rejected)} todo={todo.relative_to(ROOT)}")
+    return len(accepted)
+
+
+def checkpoint_integration() -> None:
+    """Checkpoint a verified worker-cursor batch before refilling worker slots."""
+    run(["git", "add", "Docs/Stage1_Blueprint_rev-5.6.md", "Docs/Stage1_Execution_DAG_rev-5.6.json", "Stage1_Instances"])
+    staged = run(["git", "diff", "--cached", "--name-only"]).stdout.splitlines()
+    if not staged:
+        return
+    forbidden = [path for path in staged if path.startswith((".cron/", ".ops/", "tests/", "spec/"))]
+    if forbidden:
+        fail(f"checkpoint refuses private/test paths: {forbidden}")
+    if any(
+        not path.startswith("Stage1_Instances/")
+        and path not in {"Docs/Stage1_Blueprint_rev-5.6.md", "Docs/Stage1_Execution_DAG_rev-5.6.json"}
+        for path in staged
+    ):
+        fail("checkpoint includes a path outside the Stage1 integration surface")
+    run(["git", "commit", "-m", "Integrate Stage1 worker evidence batch"])
+    run(["git", "push", "origin", "main"])
+    sync_guard()
 
 
 def launch(max_workers: int) -> None:
     if max_workers < 1 or max_workers > 30:
         fail("--workers must be in 1..30")
+    # A tick begins clean/synced, then drains handoffs, checkpoints them, and only then
+    # refills worker capacity. This preserves the worker/master dual cursor across cron ticks.
+    sync_guard()
+    integrated = integrate(max_workers)
+    if integrated:
+        checkpoint_integration()
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     space_guard(claims)
-    sync_guard()
     live = [claim for claim in claims if claim.get("status") == "live"]
     capacity = max_workers - len(live)
     if capacity <= 0:
