@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-worker-validation-receipt/1.0",
+  "receipt_id": "VALREC-M0166-20260712-OPEN-M2",
+  "item_id": "S56-M-0166-VALIDATION",
+  "theorem_id": "THM-M-0166",
+  "base_revision": "cd2070316d8a25117b90105fb1da2b6853a71999",
+  "validated_at": "2026-07-12T00:00:00+08:00",
+  "support_state": "self_tested_pending_master_acceptance",
+  "inputs": {
+    "Statement.lean": "aea289005c12705536099f85fac8c979f682a1188e3e4bf1b63a9234f8bcf70b",
+    "ObligationTree.lean": "d1d0335e729e9c103a65efd40b06aca3d1f9bdd69f3b18636cd79068e0f6a1a2",
+    "Proof.lean": "32fff3662624367c01a7d70ec2d25959614e7f4641c90660ed2c1f2d75bba33f",
+    "obligation-registry.json": "b646b364e4db6b21d3a5f98793d90c65e7bad3e8f38100471cab0d5cd7af9b3c",
+    "typed-graphs.json": "6933b3009479827ae69053397d2bea8d8b0d8c287de09a62481621ee2eb9f2d7",
+    "proof-receipt.json": "79e13442c90507b2c077144f8076da63583e4bdb1d21f1b82227718e1c93d2fa",
+    "check_proof.sh": "2c93056fd9a52a7165907c0de2555330e341e4fca8a224bc6862e5ddb28195a4",
+    "Formalizations/Lean/lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "Formalizations/Lean/lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "lean": "4.29.0 (commit 98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_worktree_clean": true,
+    "cache_mode": "pre-existing canonical pinned .lake link; nonrelease worker evidence",
+    "network": "not used"
+  },
+  "validated_declarations": [
+    "Stage1Instances.THM_M_0166.HopfRinowStatement",
+    "Stage1Instances.THM_M_0166_Obligations.compose_root",
+    "Stage1Instances.THM_M_0166_Proof.subsegmentMinimality",
+    "Stage1Instances.THM_M_0166_Proof.hopfRinow_of_globalMinimizers"
+  ],
+  "trust_closure": {
+    "compose_root": ["propext", "Classical.choice", "Quot.sound"],
+    "subsegmentMinimality": ["propext", "Classical.choice", "Quot.sound"],
+    "hopfRinow_of_globalMinimizers": ["propext", "Classical.choice", "Quot.sound"]
+  },
+  "provenance": {
+    "proof_body_classification": "repo-local partial proof bodies",
+    "mathlib_pin_matches_manifest": true,
+    "proof_source_hygiene_clean": true,
+    "unconditional_root_proof_body_present": false
+  },
+  "root_decision": {"machine_debt": "M2", "kernel_closed": false, "theorem_complete": false},
+  "validated_closed_obligation_ids": ["M0166-L-SUBSEGMENT"],
+  "remaining_root_cut_set": ["M0166-C-PROPER", "M0166-L-EXISTENCE"],
+  "first_failed_gate": "proof.root_kernel_closure",
+  "failed_release_gates": ["hermetic.cold_empty_cache", "independent.distinct_runner"],
+  "known_failures": [
+    "Global minimizer existence and its properness/compactness dependency have no proof body, so the exact root is open.",
+    "Worker policy reuses the canonical pinned .lake artifacts; no empty-cache cold or archive-restoration run occurred.",
+    "The local checker is separately implemented but runs in this checkout with the shared dependency cache, so it is not a distinct independently provisioned verifier.",
+    "No complete root provenance/TCB closure, H0/R0 independent review, SBOM/license bundle, signed attestation, or deterministic release bundle exists."
+  ],
+  "status_boundary": "This receipt validates the exact statement, conditional composition, and closed subsegment child while preserving the open M2 root. It is not E0/E1 hermetic evidence, independent-runner evidence, or theorem completion."
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0166-VALIDATION",
+  "theorem_id": "THM-M-0166",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0166-STATEMENT-KERNEL",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0166/Statement.lean"],
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0166-S-INTERFACE"],
+      "covered_declarations": ["Stage1Instances.THM_M_0166.HopfRinowStatement"]
+    },
+    {
+      "recipe_id": "VAL-M0166-COMPOSITION-KERNEL",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0166/ObligationTree.lean"],
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0166-ROOT", "M0166-L-EXISTENCE", "M0166-L-SUBSEGMENT"],
+      "covered_declarations": ["Stage1Instances.THM_M_0166_Obligations.compose_root"]
+    },
+    {
+      "recipe_id": "VAL-M0166-PARTIAL-PROOF-KERNEL",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0166/check_proof.sh"],
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0166-L-SUBSEGMENT", "M0166-ROOT"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0166_Proof.subsegmentMinimality",
+        "Stage1Instances.THM_M_0166_Proof.hopfRinow_of_globalMinimizers"
+      ]
+    },
+    {
+      "recipe_id": "VAL-M0166-FAIL-CLOSED-HANDOFF",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0166/check_validation.py"],
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0166-ROOT", "M0166-C-PROPER", "M0166-L-EXISTENCE", "M0166-L-SUBSEGMENT"],
+      "covered_declarations": []
+    }
+  ]
+}
