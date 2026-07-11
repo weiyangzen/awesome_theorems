@@ -11,4 +11,10 @@ no terminal Thue-Siegel-Roth candidate was found or credited.
 
 Current root debt is `[H1, M3, R4]`: the statement is elaborated, but no proof inhabitant or upstream closure is claimed. No legacy artifact is accepted, no proof state is accepted, and neither audit completion nor theorem completion is claimed.
 
+The obligation phase freezes 15 semantic obligations in
+`obligation-registry.json` and seven separate graph families in
+`typed-graphs.json`. `ObligationTree.lean` checks the conditional `C = 1`
+specialization while leaving the substantive constant-factor Roth engine open;
+`obligation-tree.md` and `obligation-validation.md` state the exact boundary.
+
 The authoritative local intake state is `instance.json`; this Markdown file is explanatory only.

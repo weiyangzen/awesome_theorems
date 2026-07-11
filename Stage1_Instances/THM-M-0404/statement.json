@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0404-STATEMENT",
+  "theorem_id": "THM-M-0404",
+  "lifecycle": "planned",
+  "canonical_statement": "For a Nat-indexed solution of a linear recurrence over an arbitrary characteristic-zero field, the zero predicate is represented by a finite list of exceptional indices together with a finite list of one-sided natural arithmetic progressions.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0404/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0404.SkolemMahlerLechTarget",
+    "elaborated_expression_sha256": "7b53009924b8101ad44e30b1dfa4367a314fbd142d8834406c146e47201ea3fc",
+    "statement_file_sha256": "a7dac1072a52d9e205b56a5d5b0ed0535758adc15c7acd904269f160c41eef9d"
+  },
+  "domain_and_universes": "universe u; K : Type u; Field K; CharZero K; E : LinearRecurrence K; sequence : Nat -> K; Prop in Lean universe 0",
+  "ordered_binders": [
+    "K : Type u",
+    "[Field K]",
+    "[CharZero K]",
+    "E : LinearRecurrence K",
+    "sequence : Nat -> K"
+  ],
+  "hypotheses": ["E.IsSolution sequence"],
+  "conclusion": "There are lists exceptions : List Nat and progressions : List (Nat x Nat) such that sequence n = 0 iff n is exceptional or n = start + step * k for a listed pair and some k : Nat.",
+  "direct_imports": ["Mathlib.Algebra.LinearRecurrence"],
+  "checked_transport": "Stage1Instances.THM_M_0404.skolemMahlerLechTarget_iff_pinnedCandidateSourceShape",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_017.StatementShape",
+  "pinned_source_relationship": "PinnedCandidateSourceShape is a direct local expansion of the historical candidate at repository base a2d0c4c35be39158b4dbf33e63a3b9c4b80daac5; the checked iff unfolds the list and progression predicates. The historical file is discovery input, not proof evidence.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0404/check_statement.py",
+    "killed": [
+      "removed CharZero hypothesis",
+      "changed arbitrary coefficient field to Rat",
+      "moved the solution premise outside the sequence binder",
+      "changed the boundary policy to require positive progression steps"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0404.empty_boundary",
+      "Stage1Instances.THM_M_0404.zero_step_boundary",
+      "Stage1Instances.THM_M_0404.universal_boundary"
+    ]
+  },
+  "degenerate_cases": "No recurrence-order or nondegeneracy assumptions are added. Empty and universal predicates elaborate as finite-union representations. Step zero is admitted and checked to represent a singleton; duplicate list entries are semantically harmless through membership.",
+  "alternate_encodings": {
+    "eventual_periodicity": "The historical StatementShapeEventuallyPeriodic remains uncredited: its equivalence to the selected list representation requires the separate predicate-level bridge and is not assumed by this statement node."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected target with minimal imports, a checked historical-shape expansion, four structural mutations, and three boundary checks. It supplies no Skolem-Mahler-Lech proof or dependent-node evidence."
+}

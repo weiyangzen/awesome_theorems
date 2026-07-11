@@ -42,3 +42,15 @@ python3 scripts/stage1_target.py show THM-M-0404
 ```
 
 These are real membership and structural checks, not Lean proof validation. Node-specific self-test also validates JSON parsing and whitespace below; master acceptance remains outstanding.
+
+## Statement phase handoff
+
+The dependent statement phase now proposes `Stage1Instances.THM_M_0404.SkolemMahlerLechTarget`
+in `Statement.lean` as the exact canonical Lean target. It elaborates with the sole direct import
+`Mathlib.Algebra.LinearRecurrence`; `statement.json` freezes its explicit-expression hash,
+environment, checked historical-candidate expansion, mutations, and boundary cases. Exact commands
+and results are in `statement-validation.md`.
+
+This proposal is statement-only and pending master acceptance. The eventual-periodic alternate is
+not credited because its predicate-level equivalence bridge has not been supplied, and no theorem
+proof or completion is claimed.
