@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1233-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1233",
+  "canonical_name": "Beale-Kato-Majda continuation criterion",
+  "canonical_statement": "For a classical solution of the three-dimensional incompressible Euler equations on R^3 with sufficiently regular divergence-free initial velocity, failure to continue at a finite maximal time T forces the time integral on [0,T) of the spatial L-infinity norm of the vorticity curl u to diverge; equivalently, finiteness of that integral is a continuation criterion.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Time interval [0,T), space R^3, velocity u(t,x) in a classical/Sobolev solution class; precise Lean universes and analytic structures remain open",
+  "quantifiers": [
+    "T : Real with 0 < T",
+    "divergence-free initial velocity u0 of sufficient Sobolev regularity",
+    "u, p forming the corresponding classical incompressible Euler solution on [0,T) x R^3"
+  ],
+  "hypotheses": [
+    "partial_t u + (u dot nabla) u = -nabla p",
+    "div u = 0",
+    "u(0) = u0",
+    "T is a finite maximal existence time for the noncontinuation direction"
+  ],
+  "conclusion": "Integral from 0 to T of ||curl u(t)||_(L-infinity(R^3)) dt is infinite; contrapositively, a finite integral permits continuation beyond T",
+  "alternate_encodings": [
+    {
+      "target": "periodic three-torus formulation",
+      "relationship": "related variant, not identified with the R^3 root",
+      "checked_witness": null
+    },
+    {
+      "target": "Sobolev norm blow-up/continuation formulation",
+      "relationship": "expected consequence/equivalent criterion under a local well-posedness theorem",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "Two-dimensional Euler, Navier-Stokes, bounded domains, periodic domains, weak solutions, and one-sided estimates without a continuation theorem are outside the frozen root unless later connected by checked transports.",
+  "foundation_profile": "Not instantiated at intake; classical analysis, measure/integration, Sobolev, distributional derivative, and PDE solution foundations require an explicit policy.",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib is intended; exact toolchain and dependency closure remain open.",
+  "computation_profile": "No computation, numerical simulation, or oracle is credited.",
+  "formal_system": "Lean 4 + pinned mathlib; feasibility and pins deferred to statement phase",
+  "source_revisions": "Primary-source bibliographic anchor is recorded in source_statement_crosswalk.md; immutable source hash and errata audit remain open.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1233/README.md",
+    "Stage1_Instances/THM-M-1233/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on a change to domain, solution class, maximal-time semantics, vorticity norm, Lean target, imports/toolchain, source pin, foundation policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a source-faithful scope and open tasks only. It does not assert Lean elaboration, a mathlib anchor, kernel closure, or theorem completion."
+}
