@@ -1,0 +1,127 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-0450-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0450",
+  "base_revision": "8909a35bce35ee5c42b643282ec175114622659d",
+  "exact_target": "Stage1Instances.THM_M_0450.ExactTarget",
+  "search_order": [
+    "repository-local Lean sources",
+    "pinned mathlib source tree",
+    "credible public formal repositories at immutable commits"
+  ],
+  "mathlib": {
+    "project": "leanprover-community/mathlib4",
+    "remote": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "toolchain": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "candidates": [
+      {
+        "module": "Mathlib.AlgebraicGeometry.EllipticCurve.Jacobian.Point",
+        "file": "Mathlib/AlgebraicGeometry/EllipticCurve/Jacobian/Point.lean",
+        "git_blob": "86b18d74f3d68546250de1f13d58f33530e464b5",
+        "sha256": "0e593aa30f013427ee313b82dc181328c84fd218bdb9d5f3ee402d71516b7bb0",
+        "declaration": "WeierstrassCurve.Jacobian.Point.instAddCommGroup",
+        "role": "exact object-model anchor for the additive commutative group of Jacobian points",
+        "scope_match": "partial: supplies the group structure, not finite generation"
+      },
+      {
+        "module": "Mathlib.GroupTheory.Descent",
+        "file": "Mathlib/GroupTheory/Descent.lean",
+        "git_blob": "ffffec0966ead6e892185ed589efa4d88934ece9",
+        "sha256": "f478ecb79232733ea8ea748dde468a74c148e7d30d522265c7cc57f4b8840d19",
+        "declaration": "AddCommGroup.fg_of_descent'",
+        "role": "conditional terminal descent from finite-index doubling, nonnegative Northcott height, and approximate parallelogram law",
+        "scope_match": "partial: generic group theorem; it does not establish weak Mordell-Weil or the elliptic height inputs"
+      }
+    ],
+    "exact_root_search": {
+      "command": "git -C Formalizations/Lean/.lake/packages/mathlib grep -n -i -E 'mordell.?weil|weakMW_implies_MW' HEAD -- '*.lean'",
+      "result": "only Mordell-Weil commentary in Mathlib/GroupTheory/Descent.lean; no exact terminal declaration",
+      "classification": "M3"
+    },
+    "integration": "already in the pinned local dependency closure; AnchorAudit.lean checks the two candidate types",
+    "terminal_body": "Mathlib/GroupTheory/Descent.lean:140-146 for the conditional descent theorem",
+    "root_closure": false
+  },
+  "external_candidates": [
+    {
+      "project": "MichaelStollBayreuth/Heights",
+      "remote": "https://github.com/MichaelStollBayreuth/Heights",
+      "revision": "688bdb63259556fab4b0f699ce0d10bd2dce23f6",
+      "tree": "69cc5c70783e9f8074b354199d4bb7c25a1eef47",
+      "archive_sha256": "09e8bd85fe5e30f9a9ae5d1fe30bc11f27da05fd75123e770ab0954754333d27",
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "6f66e004f0a46a57a8b0d78b28c45e8e74c6d940",
+      "license": "GPL-2.0",
+      "file": "Heights/EllipticCurve.lean",
+      "file_sha256": "1c7a36c88a2a258c31a59e3dc407f13f573ac3417ef656a4582887b32d85c2a3",
+      "declarations": [
+        "WeierstrassCurve.Affine.approx_parallelogram_law",
+        "WeierstrassCurve.Affine.finite_naiveHeight_le",
+        "WeierstrassCurve.Affine.weakMW_implies_MW"
+      ],
+      "exact_candidate_type": "weakMW_implies_MW assumes finite index of doubling and proves AddGroup.FG W.Point for a short affine Weierstrass model with height hypotheses",
+      "statement_comparison": "not the exact root: weak Mordell-Weil remains a hypothesis; the point model is affine/short-Weierstrass rather than the frozen Jacobian model; no checked transport is supplied",
+      "placeholder_audit": "The active EllipticCurve.lean contributing body has no sorry/admit/axiom/unsafe hit. Two 'sorry' tokens in NumberField.lean are inside a block comment and do not contribute a body.",
+      "dependency_feasibility": "not pinned or imported here; Lean and mathlib revisions differ from this repository, and no compatibility adapter exists",
+      "evidence_class": "E3",
+      "machine_class": "M3",
+      "root_closure": false
+    },
+    {
+      "project": "Mel-TunaRoll/Lean-Mordell-Weil-Mel-Branch",
+      "remote": "https://github.com/Mel-TunaRoll/Lean-Mordell-Weil-Mel-Branch",
+      "revision": "4db36f86423976aacd2c2968c4e45787fcd86b97",
+      "tree": "af0cdf203f0c32ee112b9da13fb3f91caf488a22",
+      "toolchain": "Lean 3.39.0",
+      "license": "Apache-2.0",
+      "file": "src/algebraic_geometry/EllipticCurve/mordell_weil.lean",
+      "file_sha256": "976af923bff40bdbfcb48e8eefd1c6f89f038565cc2398b74d1b3d1514eac59a",
+      "declaration": "EllipticCurve.instAddGroupFg",
+      "statement_comparison": "a Lean 3 exact-theme candidate, not a Lean 4 candidate and not directly compatible with the frozen model",
+      "placeholder_audit": "terminal instance at line 262 is sorry; upstream weak-Mordell-Weil chain also contains active sorry bodies at lines 117, 156, 174-176, and 191",
+      "evidence_class": "E5",
+      "machine_class": "M5",
+      "root_closure": false
+    },
+    {
+      "project": "carloscaralps/mordell-weil_theorem",
+      "remote": "https://github.com/carloscaralps/mordell-weil_theorem",
+      "revision": "481369243781236792a19d5490deb28e80680312",
+      "tree": "70cde238fe970d2575f874cc5d15e1fd40a64ae8",
+      "toolchain": "Lean 3.45.0",
+      "file": "src/point_group.lean",
+      "statement_comparison": "only an unfinished point-group construction; no finite-generation theorem",
+      "placeholder_audit": "group_law contains active sorry bodies for tangent and secant construction at lines 28 and 30",
+      "evidence_class": "E5",
+      "machine_class": "M5",
+      "root_closure": false
+    }
+  ],
+  "repo_local_candidate": {
+    "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_092.lean",
+    "status": "historical discovery artifact only",
+    "useful_declarations": [
+      "AwesomeTheorems.Stage1.S1_M_092.jacobian_point_addCommGroup_anchor",
+      "AwesomeTheorems.Stage1.S1_M_092.jacobian_points_descent_bridge"
+    ],
+    "assessment": "checked wrappers around the same mathlib object/descent anchors; no terminal exact-root body"
+  },
+  "decision": {
+    "exact_external_closure_found": false,
+    "eligible_integration_candidate": null,
+    "root_vector_before": {"human": "H1", "machine": "M3", "readability": "R3"},
+    "root_vector_after": {"human": "H1", "machine": "M3", "readability": "R3"},
+    "first_failed_theorem_gate": "No candidate proves weak Mordell-Weil for the frozen Jacobian-point target and composes it with the height/descent inputs in the pinned Lean 4 closure.",
+    "remaining_root_cut_set": [
+      "finite index of doubling for every elliptic curve over a number field",
+      "elliptic height/Northcott and approximate-parallelogram package in the frozen point model",
+      "checked affine/short-Weierstrass to frozen Jacobian-point transport",
+      "terminal exact-target composition"
+    ],
+    "audit_gate": "self_tested_pending_master_acceptance",
+    "theorem_complete": false,
+    "status_boundary": "This phase inventories formal candidates and checks pinned mathlib anchor types. It does not integrate an external project, prove ExactTarget, establish M1 or M0, or claim theorem completion."
+  }
+}
