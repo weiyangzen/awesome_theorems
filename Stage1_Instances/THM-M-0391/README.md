@@ -28,3 +28,16 @@ inventory. The pinned mathlib tree has no terminal Mihailescu declaration; its s
 `Polynomial.flt_catalan` has a different polynomial theorem type. Formal Conjectures has a close
 statement at commit `7871d8fc7a8164a1ac16c3765b40c25ce015b681`, but its proof is `sorry`.
 Consequently there is no terminal body to integrate, and the root remains open at `[H1, M4, R4]`.
+
+## Obligation-tree verdict
+
+`obligation-registry.json` freezes a 15-obligation denominator with no
+exclusions, while `typed-graphs.json` keeps proof, refinement, provenance,
+evidence, trust, documentation, and workflow edges distinct. The readable
+architecture and substantive leaf ledgers are in `obligation-tree.md`.
+
+This is an open proof plan, not machine closure. Only the previously checked
+statement transport has a local proof body. The difficult square/odd-prime and
+odd-prime/odd-prime classification packages are explicitly marked for further
+expansion, so the root remains `[H1, M4, R4]`, `audit_complete=false`, and
+`theorem_complete=false`.

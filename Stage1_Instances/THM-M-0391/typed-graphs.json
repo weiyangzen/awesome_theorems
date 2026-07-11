@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "theorem_id": "THM-M-0391",
+  "graphs": {
+    "proof": [
+      {"from": "M0391-ROOT", "type": "proof_requires", "to": "M0391-S-BOUNDARY"},
+      {"from": "M0391-ROOT", "type": "proof_requires", "to": "M0391-N-EXPONENT"},
+      {"from": "M0391-ROOT", "type": "proof_requires", "to": "M0391-N-POWER-LIFT"},
+      {"from": "M0391-ROOT", "type": "proof_requires", "to": "M0391-B-EXHAUSTIVE"},
+      {"from": "M0391-ROOT", "type": "proof_requires", "to": "M0391-T-LIFTBACK"},
+      {"from": "M0391-B-EXHAUSTIVE", "type": "logical_decomposition", "to": "M0391-B-EE"},
+      {"from": "M0391-B-EXHAUSTIVE", "type": "logical_decomposition", "to": "M0391-B-EO"},
+      {"from": "M0391-B-EXHAUSTIVE", "type": "logical_decomposition", "to": "M0391-B-OE"},
+      {"from": "M0391-B-EXHAUSTIVE", "type": "logical_decomposition", "to": "M0391-B-OO"},
+      {"from": "M0391-B-EO", "type": "proof_requires", "to": "M0391-L-EO-FACTOR"},
+      {"from": "M0391-B-EO", "type": "proof_requires", "to": "M0391-L-EO-CLASSIFY"},
+      {"from": "M0391-B-OE", "type": "proof_requires", "to": "M0391-L-OE-FACTOR"},
+      {"from": "M0391-B-OO", "type": "proof_requires", "to": "M0391-L-OO-CYCLOTOMIC"},
+      {"from": "M0391-B-OO", "type": "proof_requires", "to": "M0391-L-OO-DESCENT"}
+    ],
+    "refinement": [
+      {"from": "M0391-S-BOUNDARY", "type": "transports", "to": "M0391-ROOT"},
+      {"from": "M0391-N-EXPONENT", "type": "logical_decomposition", "to": "M0391-B-EXHAUSTIVE"},
+      {"from": "M0391-N-POWER-LIFT", "type": "composes", "to": "M0391-B-EXHAUSTIVE"},
+      {"from": "M0391-B-EO", "type": "composes", "to": "M0391-T-LIFTBACK"},
+      {"from": "M0391-T-LIFTBACK", "type": "composes", "to": "M0391-ROOT"}
+    ],
+    "provenance": [
+      {"from": "local:Statement.lean:mihailescuTarget_iff_legacyStatementShape", "type": "provenance_of", "to": "M0391-S-BOUNDARY"},
+      {"from": "source:Mihailescu-2004", "type": "source_map", "to": "M0391-ROOT"},
+      {"from": "source:Mihailescu-2004-unmapped-core", "type": "source_map", "to": "M0391-L-OO-CYCLOTOMIC"},
+      {"from": "source:Mihailescu-2004-unmapped-core", "type": "source_map", "to": "M0391-L-OO-DESCENT"}
+    ],
+    "evidence": [
+      {"from": "evidence:statement-elaboration-a8665695", "type": "evidence_for", "to": "M0391-S-BOUNDARY"},
+      {"from": "evidence:anchor-audit-no-terminal-body", "type": "evidence_for", "to": "M0391-ROOT"}
+    ],
+    "trust": [
+      {"from": "M0391-S-BOUNDARY", "type": "trusts", "to": "trust:lean-4.29.0-kernel-init"},
+      {"from": "M0391-ROOT", "type": "trusts", "to": "trust:profile-pending-transitive-audit"}
+    ],
+    "documentation": [
+      {"from": "doc:obligation-tree.md", "type": "documents", "to": "M0391-ROOT"},
+      {"from": "doc:source-statement-crosswalk.md", "type": "documents", "to": "M0391-S-BOUNDARY"},
+      {"from": "doc:anchor-audit.md", "type": "documents", "to": "M0391-ROOT"}
+    ],
+    "workflow": [
+      {"from": "task:S56-M-0391-OBLIGATION_TREE", "type": "workflow_depends_on", "to": "task:S56-M-0391-ANCHOR_AUDIT"},
+      {"from": "task:S56-M-0391-PROOF", "type": "workflow_depends_on", "to": "task:S56-M-0391-OBLIGATION_TREE"},
+      {"from": "task:S56-M-0391-VALIDATION", "type": "workflow_depends_on", "to": "task:S56-M-0391-PROOF"},
+      {"from": "task:S56-M-0391-RELEASE", "type": "workflow_depends_on", "to": "task:S56-M-0391-VALIDATION"}
+    ]
+  }
+}

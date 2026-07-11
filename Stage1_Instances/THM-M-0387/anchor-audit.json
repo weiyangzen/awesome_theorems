@@ -1,0 +1,99 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0387-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0387",
+  "base_revision": "7723e96072c1d3996a280b874d09cfd02a847417",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0387.FermatLastTheoremTarget",
+  "canonical_target_expression_sha256": "8e0d406e9e5ba4504c1930352fde324a02df4a30cbfd75f796b9a3d2627113c",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "flt_regular_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M0387-A-MATHLIB-ROOT",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Basic",
+      "declaration": "FermatLastTheorem",
+      "type": "Prop; definitionally the frozen natural-number target",
+      "classification": "M2",
+      "result": "statement only; no unconditional proof declaration was found in the pinned dependency"
+    },
+    {
+      "id": "M0387-A-MATHLIB-ASSEMBLY",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Four",
+      "declaration": "FermatLastTheorem.of_odd_primes",
+      "type": "(forall p, Nat.Prime p -> Odd p -> FermatLastTheoremFor p) -> FermatLastTheorem",
+      "classification": "M0-P for the conditional implication only",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "exact checked recomposition anchor; it leaves the all-odd-prime premise open"
+    },
+    {
+      "id": "M0387-A-MATHLIB-THREE",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Three",
+      "declaration": "fermatLastTheoremThree",
+      "type": "FermatLastTheoremFor 3",
+      "classification": "M0-P",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "exact fixed-exponent anchor, not the root"
+    },
+    {
+      "id": "M0387-A-MATHLIB-FOUR",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Four",
+      "declaration": "fermatLastTheoremFour",
+      "type": "FermatLastTheoremFor 4",
+      "classification": "M0-P",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "exact fixed-exponent anchor, not the root"
+    },
+    {
+      "id": "M0387-A-FLT-REGULAR",
+      "source": "leanprover-community/flt-regular",
+      "revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+      "module": "FltRegular.FltRegular",
+      "declaration": "flt_regular",
+      "type": "{p : Nat} -> [Fact p.Prime] -> IsRegularPrime p -> p != 2 -> FermatLastTheoremFor p",
+      "classification": "M0-P",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "pinned and locally re-elaborated regular-prime branch; not arbitrary odd primes"
+    },
+    {
+      "id": "M0387-A-IMPERIAL-FULL",
+      "source": "ImperialCollegeLondon/FLT",
+      "revision": "8884a744090a0e7f5a6ba0fa7ba1019403f3ca78",
+      "module": "FLT.Proof",
+      "declaration": "flt",
+      "type": "FermatLastTheorem",
+      "toolchain": "leanprover/lean4:v4.32.0-rc1",
+      "mathlib_revision": "0098dd94d810711e831b250902687d3edab9969b",
+      "classification": "M5",
+      "result": "the immutable source has B4_proof defined with sorry, which flows through B3_proof, B2_proof, B1_proof, and flt; it is also outside the local pinned dependency closure",
+      "reopen_when": "a later immutable revision has an exact root with no proof gaps or unapproved axioms, passes a transitive axiom audit and independent kernel build, and is pinned and checked locally"
+    }
+  ],
+  "search": {
+    "repo_local": "audited the existing THM-M-0387 modules and wrappers",
+    "pinned_dependencies": "verified both package worktrees are at their manifest revisions and clean; inspected exact declaration sources",
+    "external": "resolved the current ImperialCollegeLondon/FLT main revision through GitHub and audited raw immutable files; resolved flt-regular main separately but did not treat its moving head as local evidence",
+    "limitations": "no external dependency was fetched or added; the Imperial candidate was source-audited rather than built because its different toolchain and package closure are not materialized locally"
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "all locally checked candidates are conditional or cover restricted exponent families, while the only exact external root candidate audited has a transitive proof gap",
+    "integration_tasks": [],
+    "remaining_cut_set": ["general nonregular odd-prime exponent closure"]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false
+}

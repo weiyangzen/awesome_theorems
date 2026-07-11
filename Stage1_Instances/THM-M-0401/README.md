@@ -53,6 +53,21 @@ human-source status is conservatively `H1`.
 This inventory completes the assigned phase, while the full theorem audit and proof remain open.
 External code-search access and fresh Lean replay blockers are described in the audit.
 
+## Obligation Tree
+
+Registry `THM-M-0401-OBLIGATIONS-v1` freezes 14 canonical obligations before proof status is
+observed. The 13 required machine obligations explicitly expose the integer-point normalization,
+algebraic linear-form construction, height comparison, missing qualitative Subspace-Theorem bridge,
+proper-subspace relation extraction, independence-limit argument, finite-union terminal step, and
+root trust/provenance boundaries. Separate reciprocal typed graphs prevent source, documentation,
+trust, or workflow links from being treated as proof premises.
+
+The coordinatewise alternate formulation is one nonroot informational obligation and is excluded
+from all required denominators; it cannot inflate coverage. The frozen denominator projection hash
+is `3e0527abbf2146164c691c2e22b29bb7501997a0c80d5e6718b746159e762dcc`. Structural validation is
+recorded in `obligation-tree-validation.md`. Zero proof obligations and zero composition
+certificates are claimed closed; the exact root remains `M4` and theorem completion remains false.
+
 ## Validation Record
 
 Base revision: `ca5213c506afa21d64fb8f2481ac658887786c6e`.
