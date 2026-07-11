@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0133-STATEMENT",
+  "theorem_id": "THM-M-0133",
+  "lifecycle": "planned",
+  "canonical_statement": "For every natural exponent n at least 3, there are no nonzero natural numbers a, b, c satisfying a^n + b^n = c^n.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0133/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0133.WilesFermatLastTheoremTarget",
+    "elaborated_expression_sha256": "8e0d406e9e5ba4504c1930352fde324a02df4a30cbfd75f796b9a3d2627113c1",
+    "statement_file_sha256": "01ea9240ac0d33b11938232c382812ca369b21aeeda4b2bd24cae960996421e1"
+  },
+  "domain_and_universes": "n a b c : Nat; Prop in Lean universe 0",
+  "ordered_binders": ["n : Nat", "a : Nat", "b : Nat", "c : Nat"],
+  "hypotheses": ["3 <= n", "a != 0", "b != 0", "c != 0"],
+  "conclusion": "a ^ n + b ^ n != c ^ n",
+  "direct_imports": ["Init"],
+  "checked_transports": [
+    "Stage1Instances.THM_M_0133.target_iff_pinnedMathlibSourceShape",
+    "Stage1Instances.THM_M_0133.target_iff_positiveNaturalSourceShape"
+  ],
+  "pinned_source_declaration": "Mathlib.NumberTheory.FLT.Basic.FermatLastTheorem",
+  "pinned_source_relationship": "PinnedMathlibSourceShape directly unfolds FermatLastTheorem, FermatLastTheoremFor, and FermatLastTheoremWith at mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The first checked iff is definitional; the second checks the intake wording using positive naturals and n > 2.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0133/check_statement.py",
+    "killed": [
+      "removed exponent lower bound",
+      "changed value domain from Nat to Int",
+      "moved exponent binder inside the value binders",
+      "changed boundary from 3 <= n to 2 <= n"
+    ],
+    "counterexample_proofs": [
+      "Stage1Instances.THM_M_0133.mutationRemovedExponentBound_is_false",
+      "Stage1Instances.THM_M_0133.mutationIncludesExponentTwo_is_false"
+    ]
+  },
+  "degenerate_case_policy": "Zero values are excluded explicitly. Exponents zero, one, and two are excluded by 3 <= n. Positive-natural source wording is kernel-checked equivalent to the canonical nonzero-natural target.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact FLT root selected at intake. It supplies no proof of FLT or semistable modularity and no evidence for later rev-5.6 nodes."
+}

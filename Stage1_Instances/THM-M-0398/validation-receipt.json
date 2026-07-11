@@ -1,0 +1,98 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0398-VALIDATION-local-20260711T195216Z",
+  "item_id": "S56-M-0398-VALIDATION",
+  "theorem_id": "THM-M-0398",
+  "base_revision": "0699f252b887121b74c60b9864f359c46ed435d6",
+  "validated_at": "2026-07-11T19:52:16Z",
+  "attestor": "stage1-rev56-worker-slot5",
+  "support_state": "provisional_worker_selftest",
+  "canonical_obligation_ids": [
+    "M0398-ROOT", "M0398-S", "M0398-S1", "M0398-S2", "M0398-S3",
+    "M0398-T", "M0398-N1", "M0398-C1", "M0398-C2", "M0398-L1",
+    "M0398-L2", "M0398-L3", "M0398-L4", "M0398-X1", "M0398-X2"
+  ],
+  "validated_declarations": [
+    "Stage1Instances.THMM0398.finite_exceptional_mono_constant",
+    "Stage1Instances.THMM0398.thueSiegelRoth_of_uniform_constant_estimate",
+    "Stage1Instances.THMM0398.Validation.independent_finite_exceptional_mono_constant",
+    "Stage1Instances.THMM0398.Validation.independent_root_composition"
+  ],
+  "inputs": {
+    "statement_sha256": "65d901d6ab3f5659638a302037c0b116a0b5293165a9f096fd40d958a0963dc9",
+    "obligation_tree_sha256": "6c9fe6c2d133f90556a6c629d4d2155c95222b9c8c90fb3c308a0134482d90d0",
+    "proof_sha256": "3ca0cd5bf7808a0f28e65d0e79506ebfa84eb7c6094cff7e64e70713b4598b84",
+    "validation_probe_sha256": "abb21cee8a9bbb9d852ce432bf2680b436999b8c08384ba5966d1abc3da1e366",
+    "validation_verifier_sha256": "887333ef6e7382dcee97a2d194cf7146eae62dd86f4a674dfe97294f34c71f66",
+    "obligation_registry_sha256": "3c246db0239fff016e115bea83143d5ca8a90d3f11e8cc9a213d58f3e0533fad",
+    "typed_graphs_sha256": "6aa42622c96676d7093180c6c8fede71492f55742e913ccde73082ec85896a15",
+    "proof_receipt_sha256": "d9aaed2ccce203c9297ad4da0103e84cafa98972a2fb9df98ee7814588eeb484",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "proof_body_classification": "repo_local_partial_constant_normalization",
+    "proof_module": "Stage1_Instances/THM-M-0398/Proof.lean",
+    "independent_probe_module": "Stage1_Instances/THM-M-0398/Validation.lean",
+    "terminal_body_boundary": "M0398-T and conditional FiniteExceptionalWithConstant-to-root composition only",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "root_provenance_closure": "open"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without mutation"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0398-validation-proof-elaboration",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0398/check_proof.sh"],
+      "env_allowlist": {}, "timeout_seconds": 120, "network_policy": "denied",
+      "expected_exit": 0, "covered_obligation_ids": ["M0398-T", "M0398-ROOT"]
+    },
+    {
+      "recipe_id": "M0398-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0398/check_validation_lean.sh"],
+      "env_allowlist": {}, "timeout_seconds": 120, "network_policy": "denied",
+      "expected_exit": 0, "covered_obligation_ids": ["M0398-T", "M0398-ROOT"]
+    },
+    {
+      "recipe_id": "M0398-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0398/check_validation.py"],
+      "env_allowlist": {}, "timeout_seconds": 120, "network_policy": "denied",
+      "expected_exit": 0, "covered_obligation_ids": ["M0398-ROOT", "M0398-T", "M0398-L4"]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Frozen hashes and the 15-node boundary pass. Partial constant normalization and conditional root composition elaborate, and independently implemented equivalents report only propext, Classical.choice, and Quot.sound. The exact root remains open.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass for Statement.lean, ObligationTree.lean, Proof.lean, and Validation.lean",
+    "validated_closed_obligation_ids": ["M0398-T"],
+    "root_closed": false,
+    "validation_state_proposal": "worker self-test passed for truthful partial validation; pending master acceptance",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The prerequisite proof receipt is provisional and closes only M0398-T; it does not close the uniform Roth engine M0398-L4 or exact root.",
+    "The worker reused a warm shared pinned dependency cache; this is not an empty-cache hermetic cold build or offline archive replay.",
+    "The independent probe ran in the same checkout and cache; it is not a separately provisioned signed independent runner or release verifier.",
+    "Root provenance/trust closure, H0/R0 independent review, SBOM/license evidence, deterministic release bundle, and master acceptance are absent.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "first_failed_gate": "S56-M-0398-PROOF exact-root closure and master acceptance",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Complete and master-accept the uniform Roth engine and all root-critical proof obligations, then run an immutable empty-cache network-denied replay and a distinct independent verifier.",
+  "invalidation_inputs": [
+    "Statement.lean", "ObligationTree.lean", "Proof.lean", "Validation.lean",
+    "check_validation.py", "obligation-registry.json", "typed-graphs.json",
+    "proof-receipt.json", "lake-manifest.json", "lean-toolchain",
+    "mathlib revision", "Lean executable", "axiom policy", "rev-5.6 assurance standard"
+  ]
+}
