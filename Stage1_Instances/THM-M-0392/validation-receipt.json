@@ -1,0 +1,132 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0392-VALIDATION-local-20260711T193009Z",
+  "item_id": "S56-M-0392-VALIDATION",
+  "theorem_id": "THM-M-0392",
+  "base_revision": "8532255651da718bca9900badd6c74ba110cc9ab",
+  "validated_at": "2026-07-11T19:30:09Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "supersession_state": "current",
+  "review_due": null,
+  "no_expiry_rationale": "Invalidated by any listed source, dependency, toolchain, policy, or validator input change.",
+  "canonical_obligation_ids": [
+    "M0392-ROOT",
+    "M0392-C-CURVE",
+    "M0392-L-NONSINGULAR",
+    "M0392-X-SIEGEL",
+    "M0392-T-COORDINATES",
+    "M0392-L-FINITE-TRANSFER",
+    "M0392-S-SOURCE",
+    "M0392-X-TRUST"
+  ],
+  "validated_obligation_ids": [
+    "M0392-C-CURVE",
+    "M0392-L-NONSINGULAR",
+    "M0392-T-COORDINATES"
+  ],
+  "validated_declarations": [
+    "Stage1Instances.THMM0392.Proof.mordellCurve_equation_iff",
+    "Stage1Instances.THMM0392.Proof.mordellCurve_discriminant_ne_zero",
+    "Stage1Instances.THMM0392.Proof.toIntegralCurvePoint_injective",
+    "Stage1Instances.THMM0392.Validation.independent_equation_iff",
+    "Stage1Instances.THMM0392.Validation.independent_discriminant_ne_zero",
+    "Stage1Instances.THMM0392.Validation.independent_embedding_injective"
+  ],
+  "inputs": {
+    "proof_sha256": "aa9d5b95f99e9c80e8e1a008aa3ac8842a8620ed510ed2285d9c4aca2fae205c",
+    "statement_sha256": "780749ea6df4283dbcdfb209e0fb430a303613594d50941d06caba285695c77f",
+    "obligation_registry_sha256": "62bd388e51d4399a2d311d6c34348823053b4c3e67ee25ceb7e4e5f3d491f534",
+    "typed_graphs_sha256": "8e9bddec2c109227e19f913cfc4e89aa73f9637c84ab6aa1b28d9c31e9069591",
+    "obligation_nodes_sha256": "8974a74bf77636d21e9a55a68fcd3814e8b3764fd5a01073382afc43c929bea5",
+    "proof_receipt_sha256": "f211296912b2caca6d56cc273a74fc687a5eb7bc564392f14a90165deae4d59f",
+    "validation_probe_sha256": "9f44b0b871c02decd544a277879e28ec86d0ab1e09c8b9c02c8ce84815a812b4",
+    "validation_verifier_sha256": "53e255d7da831484efbfddaaa02050a5b59e9786e41e029f7628111d2ee652f9",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "classification": "repo_local_partial_bodies_using_pinned_mathlib_definitions_and_tactics",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "affine_source_sha256": "aa57c2c86667817aacc04f9fd3d0eb5c9c09f205e644b9c28b9d8caebb36d3c1",
+    "normal_forms_source_sha256": "ec72b205c7193e28bfc129d0a079e5a35f0db46566eba3abee8190af9187973c",
+    "affine_olean_sha256": "1b19fd9d3e3a60b47e71b67a40d4acfffab1a06cc07369877044d199d2bd800c",
+    "normal_forms_olean_sha256": "0478cfd0deba75f192d0c75b2a24b8486ed1c8b40f7402bab94149add348f40d",
+    "terminal_boundary": "No terminal Lean 4 body exists in the dossier or pinned candidate ledger for M0392-X-SIEGEL."
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without mutation"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0392-validation-proof-elaboration",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0392/Proof.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0392-C-CURVE", "M0392-L-NONSINGULAR", "M0392-T-COORDINATES"]
+    },
+    {
+      "recipe_id": "M0392-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0392/Validation.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0392-C-CURVE", "M0392-L-NONSINGULAR", "M0392-T-COORDINATES"]
+    },
+    {
+      "recipe_id": "M0392-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0392/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0392-ROOT", "M0392-X-SIEGEL", "M0392-C-CURVE", "M0392-L-NONSINGULAR", "M0392-T-COORDINATES"]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The three implemented partial obligations and separately reconstructed probes elaborate with only propext, Classical.choice, and Quot.sound. Registry/graph/node identity, proof-receipt freshness, pinned provenance, fail-closed root state, and placeholder policy pass.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "validation_state_proposal": "worker self-test passed for the truthful partial/open validation handoff; pending master acceptance"
+  },
+  "known_failures": [
+    "The proof prerequisite is partial: M0392-X-SIEGEL and the canonical root remain open.",
+    "The run reused a warm shared pinned dependency cache and is not an empty-cache hermetic cold build or offline archive replay.",
+    "The independent probe ran in the same workspace and cache; it is not the separately provisioned signed verifier required for release.",
+    "No root provenance/trust closure, H0/R0 review, SBOM/license bundle, deterministic release bundle, or master acceptance exists.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "first_failed_gate": "S56-M-0392-PROOF dependency lacks M0392-X-SIEGEL, exact-root closure, and master acceptance",
+  "retry_condition": "Provide a checked Lean 4 integral-points finiteness body for M0392-X-SIEGEL, compose and master-accept the exact root, then perform release-grade cold and independent replay.",
+  "invalidation_inputs": [
+    "Proof.lean",
+    "Statement.lean",
+    "Validation.lean",
+    "check_validation.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "obligation-nodes.json",
+    "proof-receipt.json",
+    "lake-manifest.json",
+    "lean-toolchain",
+    "mathlib revision or imported source/olean",
+    "Lean executable",
+    "axiom policy",
+    "rev-5.6 assurance standard"
+  ],
+  "incident_path": "master integration lane"
+}
