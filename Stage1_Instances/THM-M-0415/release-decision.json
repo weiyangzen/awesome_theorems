@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0415-RELEASE",
+  "theorem_id": "THM-M-0415",
+  "intent": "release",
+  "base_revision": "9d4e9469fb83921bf7c0881c54fd75b5769445d9",
+  "base_tree": "e05d7a49cdc695cb3e430eaae2a48e9c0f172138",
+  "decided_at": "2026-07-11T20:43:36Z",
+  "decision_support": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0415-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0415-VALIDATION-local-20260711T204045Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "d4c2f134bd8701f9a81bbf44b739d3bbdc32f1776e77a7ea774e0e05b1379d8f"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0415-VALIDATION-local-20260711T204045Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M3", "R4"],
+    "accepted_after": ["H2", "M3", "R4"],
+    "best_provisional_evidence": ["H1", "M0-W", "R3"],
+    "boundary": "The exact root has provisional placeholder-free kernel evidence through pinned mathlib and local wrappers. No state is promoted because no phase receipt is master-accepted, the frozen graph remains unreconciled, and H0/R0 and release evidence are absent."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0415-VALIDATION is worker-self-tested [_], not master-accepted [x], so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused shared warm .lake artifacts; no immutable empty-cache network-denied cold build or offline restoration was performed."
+  },
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "statement_identity": "lean-expression-sha256:7597a79fb775bc7ecf0830020941f6962e64c6d3251d114f780b32e4c25d1590",
+    "exact_root_kernel_check": "pass as provisional worker evidence for idealClassGroupFinite and idealClassGroupFinite_via_frozen_composition",
+    "proof_body_classification": "M0-W candidate: repo-local exact wrapper over pinned mathlib class-number declarations",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, and Proof.lean",
+    "authoritative_graph_reconciliation": "missing: the frozen graph records root M3, no proof evidence edges, and M0415-X-PROVENANCE plus M0415-X-SOURCE in the cut set",
+    "human_source_acceptance": "missing: no accepted pinpoint H0 source crosswalk or independent source review",
+    "readability_acceptance": "missing: required nodes have no accepted structured R0 reconstruction and independent reader review",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_and_tcb_archive": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0415-VALIDATION and its transitive phase receipts",
+    "reconciliation of the frozen graph with proof evidence and M0415-X-PROVENANCE",
+    "accepted H0 primary-source pinpoint, assumptions, errata, node crosswalk, and independent source review",
+    "accepted R0 structured reconstruction and independent reader review",
+    "complete transitive declaration, axiom, provenance, TCB, SBOM, and license closure",
+    "immutable clean snapshot, empty-cache network-denied cold build, and offline archive replay",
+    "two signed attestations from independently provisioned clean runners and an independently implemented minimal verifier",
+    "protected CI, mutation/metamorphic gates, deterministic evidence bundle, and master reconciliation"
+  ],
+  "retry_condition": "Master-accept the dependency chain and reconcile the frozen graph, obtain accepted H0/R0 reviews, then produce hermetic supply-chain, independent-runner, minimal-verifier, CI, and deterministic-bundle evidence for master acceptance.",
+  "status_boundary": "Truthful self-tested negative release reconciliation only. It creates no accepted receipt, changes no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release grade, or master acceptance.",
+  "invalidation_inputs": [
+    "validation-receipt.json",
+    "proof-receipt.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "statement.json",
+    "source-statement-crosswalk.md",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "check_validation.py",
+    "Lean toolchain and mathlib revision",
+    "rev-5.6 assurance standard"
+  ]
+}
