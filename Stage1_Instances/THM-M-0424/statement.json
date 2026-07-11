@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0424-STATEMENT",
+  "theorem_id": "THM-M-0424",
+  "lifecycle": "planned",
+  "canonical_statement": "For every field K, stable matrix-equivalence classes of finite-dimensional central simple K-algebras form an abelian group whose multiplication is induced by tensor product, whose identity is represented by K, and whose inverse is represented by the opposite algebra.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0424/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0424.BrauerGroupStatement",
+    "elaborated_expression_sha256": "62cfee70820b2f8bc4e924505b8984993322f623109868957b726b3446fc3aa8",
+    "statement_file_sha256": "e6ee85656ac5bf9576546f2d56ab6e9ff20eb85452be4a9be4ea6a06a55ae7e9"
+  },
+  "domain_and_universes": "universes u v; K : Type u with Field K; CSA.{u,v} K representatives have carrier Type v and bundle centrality, simplicity, and finite-dimensionality",
+  "ordered_binders": ["K : Type u", "[Field K]"],
+  "conclusion": "Nonempty (BrauerGroupLawData.{u,v} K)",
+  "direct_imports": [
+    "Mathlib.Algebra.BrauerGroup.Defs",
+    "Mathlib.RingTheory.TensorProduct.Basic"
+  ],
+  "minimal_import_evidence": "Removing TensorProduct.Basic fails at tensorRep_equiv because no Semiring instance for the tensor product is available; BrauerGroup.Defs supplies CSA, IsBrauerEquivalent, its setoid, and BrauerGroup.",
+  "operation_contract": {
+    "multiplication": "tensorRep A B is algebra-equivalent to TensorProduct K A B and respects IsBrauerEquivalent in both arguments",
+    "identity": "oneRep is algebra-equivalent to K and its quotient class is 1",
+    "inverse": "invRep A is algebra-equivalent to MulOpposite A and its quotient class is the group inverse",
+    "laws": "the same bundled CommGroup instance is linked to all representative equations"
+  },
+  "alternate_encodings": {
+    "quotient_equality": "BrauerClass A = BrauerClass B iff IsBrauerEquivalent A B is a definitional quotient consequence and is strictly weaker than the root",
+    "wedderburn_artin": "matrix-over-division-algebra normal form is supporting classification, not a transport equivalent to the root",
+    "morita_equivalence": "no checked reverse bridge to IsBrauerEquivalent is credited"
+  },
+  "environment_fingerprint": {
+    "base_revision": "e057ea3c85e142707a88ea3fc13445bebddca902",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0424/check_statement.py",
+    "killed": [
+      "removed the Field domain and all Brauer structure",
+      "changed the arbitrary field domain to Rat",
+      "substituted quotient equality alone for the group construction",
+      "omitted the identity, inverse, compatibility, and group-law data"
+    ]
+  },
+  "boundary_cases": "No algebra is admitted unless CSA bundles centrality, simplicity, and finite-dimensionality. Split matrix algebras remain included. The claim excludes commutative base rings beyond fields and does not assert Galois-cohomological or arithmetic computations.",
+  "foundation_profile": "Lean 4 dependent type theory with quotient types; statement elaboration does not claim a terminal axiom or provenance audit.",
+  "tcb_profile": "Pinned Lean kernel and pinned mathlib dependency closure; proof trust is deferred to later phases.",
+  "computation_profile": "Pure proposition and bundled algebraic data; no native computation, oracle, or external solver is credited.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the intake-selected full field-level Brauer-group target. BrauerGroupLawData is uninhabited here; no anchor audit, proof, theorem validation, release, or completion is claimed."
+}

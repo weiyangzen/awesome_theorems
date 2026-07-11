@@ -1,4 +1,4 @@
-# THM-M-0424 rev-5.6 intake
+# THM-M-0424 rev-5.6 instance
 
 This directory is the rev-5.6 `planned` instance for the Brauer group theorem. Historical Stage0
 labels and the legacy Lean module are discovery inputs only and supply no accepted proof credit.
@@ -17,16 +17,17 @@ labels and the legacy Lean module are discovery inputs only and supply no accept
 
 The canonical human claim and provisional Lean boundary are structured in `intake.json`. Source
 wording and its relationship to Lean candidates are recorded in `source_statement_crosswalk.md`.
+The statement phase freezes the exact full group-construction proposition in `Statement.lean` and
+records its expression, environment, minimal imports, and mutation checks in `statement.json`.
 
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The source title is ambiguous,
-the primary-source premise audit is incomplete, and the full formal target has not been elaborated.
-The first failed theorem gate is therefore the exact-statement gate. No theorem completion or
-acceptance is claimed.
+Lifecycle remains `planned`; provisional root vector remains `[H2, M4, R3]`. The intake-selected
+full formal target has now elaborated, provisionally satisfying only the worker statement node.
+The primary-source premise audit and every later machine gate remain incomplete. No theorem
+completion or master acceptance is claimed.
 
 ## Validation
 
-The commands in `validation.md` validate manifest membership, repository-standard consistency,
-JSON syntax, and dossier-local hygiene only. Master acceptance and all dependent phases remain
-outstanding.
+The intake checks remain in `validation.md`; the kernel-backed statement checks are recorded in
+`statement-validation.md`. Master acceptance and all dependent phases remain outstanding.
