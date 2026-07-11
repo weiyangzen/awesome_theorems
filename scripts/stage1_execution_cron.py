@@ -47,7 +47,7 @@ PHASES = (
     ("release", "Reconcile evidence and decide the exact theorem-completion verdict."),
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
-MAX_WORKERS = 12
+MAX_WORKERS = 1
 ALLOWED_REASONING_EFFORTS = {"low", "medium", "high", "xhigh"}
 
 
