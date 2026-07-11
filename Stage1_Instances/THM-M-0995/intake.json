@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0995-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0995",
+  "canonical_name": "Bernstein inequality (bounded independent summands, upper tail)",
+  "canonical_statement": "Let X_0,...,X_(n-1) be mutually independent centered real random variables on a probability space. If |X_i| <= b almost surely, b >= 0, v >= 0, and the sum of their variances is at most v, then for every t >= 0, P(sum_i X_i >= t) <= exp(-t^2 / (2*(v + b*t/3))).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_275",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_275.StatementShape",
+    "status": "legacy_candidate_only",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Omega : Type u with MeasurableSpace Omega; a probability measure mu; n : Nat; X : Nat -> Omega -> Real; b v t : Real; proposition in Lean universe 0",
+  "ordered_binders": ["Omega", "measurable-space instance", "problem package (mu, n, X, v, b and hypotheses)", "t"],
+  "hypotheses": ["mu is a probability measure", "X_i is a.e.-measurable for i < n", "X_i belongs to L2 for i < n", "the family X is mutually independent", "integral X_i dmu = 0 for i < n", "|X_i| <= b almost everywhere for i < n", "0 <= b", "0 <= v", "sum over i < n of Var(X_i; mu) <= v", "0 <= t"],
+  "conclusion": "mu.real {omega | t <= sum over i < n of X_i omega} <= exp (-(t^2) / (2*(v + b*t/3)))",
+  "excluded_variants": ["lower-tail inequality", "two-sided absolute-tail inequality", "Bennett inequality", "martingale Bernstein/Freedman inequalities", "unbounded summands satisfying only moment or sub-exponential conditions", "vector- or matrix-valued Bernstein inequalities"],
+  "boundary_cases": ["n = 0", "t = 0", "b = 0", "v = 0", "v + b*t/3 = 0"],
+  "alternate_encodings": [
+    {"target": "two-sided absolute tail", "relationship": "derivable only after separately checking upper and lower applications plus a union bound", "checked_witness": null},
+    {"target": "finite-index Fin n family", "relationship": "expected reindexing equivalence with range n", "checked_witness": null}
+  ],
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical, choice, quotient, and measure-theory axiom audit remains open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib candidate; exact versions and transitive closure remain open",
+  "computation_profile": "No native computation, oracle, or external solver is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib",
+  "source_revisions": "See source_statement_crosswalk.md; immutable primary-source pin and errata review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0995/README.md", "Stage1_Instances/THM-M-0995/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, tail convention, constants, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a bounded-summand upper-tail scope only. It does not accept the legacy Lean candidate, establish source fidelity, pass the statement gate, or prove Bernstein's inequality."
+}

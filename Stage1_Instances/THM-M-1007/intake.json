@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1007-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1007",
+  "canonical_name": "Kolmogorov's three-series theorem",
+  "canonical_statement": "Let (X_n) be independent real-valued random variables on a probability space and let c > 0. Put Y_n = X_n on {|X_n| <= c} and Y_n = 0 otherwise. Then the series sum X_n converges almost surely if and only if: sum P(|X_n| > c) is finite, the numerical series sum E[Y_n] converges, and sum Var(Y_n) is finite.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": "Stage1.THM_M_1007.StatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Omega : Type u; mOmega : MeasurableSpace Omega; P : Measure Omega with IsProbabilityMeasure P; X : Nat -> Omega -> Real",
+  "quantifiers": [
+    "Omega : Type u and its measurable probability-space structure",
+    "X : Nat -> Omega -> Real",
+    "c : Real with 0 < c"
+  ],
+  "hypotheses": [
+    "each X n is measurable",
+    "the family X is mutually independent",
+    "0 < c"
+  ],
+  "conclusion": "Almost-sure convergence of sum_n X_n is equivalent to the tail-probability, truncated-expectation, and truncated-variance series conditions.",
+  "alternate_encodings": [
+    {"target": "partial sums converge P-almost everywhere", "relationship": "equivalent to pointwise Summable for real series", "checked_witness": "candidate only; deferred to statement phase"},
+    {"target": "Y n = if abs (X n omega) <= c then X n omega else 0", "relationship": "equivalent to indicator/restrict truncation", "checked_witness": "candidate only; deferred to statement phase"},
+    {"target": "a theorem quantified over every c > 0", "relationship": "classically derivable from the fixed-threshold formulation, subject to cutoff conventions", "checked_witness": "candidate only; deferred to statement phase"}
+  ],
+  "excluded_degenerate_cases": "The cutoff is strictly positive and finite. A one-sided implication, convergence in probability/Lp, pairwise independence, or a finite sequence is not the root theorem.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice and measure/integration foundations remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact version and transitive dependency closure remain open",
+  "computation_profile": "No computation, native_decide, oracle, or external result is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (pin and API verification deferred to statement phase)",
+  "source_revisions": "See source_statement_crosswalk.md; edition hashes, errata search, and immutable source receipts remain audit work",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1007/README.md",
+    "Stage1_Instances/THM-M-1007/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the claim, cutoff convention, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the intended scope only. It neither elaborates nor proves Kolmogorov's three-series theorem."
+}

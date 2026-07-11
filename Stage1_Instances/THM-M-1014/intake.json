@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1014-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1014",
+  "canonical_name": "Continuous mapping theorem",
+  "canonical_statement": "If probability measures mu_n converge weakly to mu and f is continuous, then the pushforward measures map f mu_n converge weakly to map f mu.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": "TBD: weak convergence of probability measures preserved by Measure.map along a continuous map",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional: topological measurable spaces alpha and beta; probability measures mu_n, mu on alpha; f : alpha -> beta",
+  "quantifiers": [
+    "alpha beta : Type (universes to be frozen during statement phase)",
+    "mu : Measure alpha and mu_n : Nat -> Measure alpha",
+    "f : alpha -> beta"
+  ],
+  "hypotheses": [
+    "mu and every mu_n are probability measures",
+    "mu_n converges weakly to mu",
+    "f is continuous",
+    "measurability/Borel compatibility required for Measure.map, to be minimized during statement elaboration"
+  ],
+  "conclusion": "Measure.map f (mu_n n) converges weakly to Measure.map f mu",
+  "alternate_encodings": [
+    {
+      "target": "random variables X_n, X with convergence in distribution; continuous f; f(X_n) converges in distribution to f(X)",
+      "relationship": "distributional restatement via laws/pushforwards",
+      "checked_witness": "none; transport is deferred to statement phase"
+    },
+    {
+      "target": "mapping theorem for f continuous mu-almost everywhere",
+      "relationship": "strict generalization, intentionally excluded from the frozen root",
+      "checked_witness": "not applicable"
+    }
+  ],
+  "excluded_degenerate_cases": "The root does not claim the stronger almost-everywhere continuity theorem, varying maps, or convergence modes stronger than weak convergence. Constant maps and Dirac measures remain included boundary cases.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or numerical approximation is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (pin and imports deferred to statement phase)",
+  "source_revisions": "See source_statement_crosswalk.md; immutable edition/page and errata acceptance remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1014/README.md",
+    "Stage1_Instances/THM-M-1014/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, domains, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the everywhere-continuous weak-convergence claim only. It does not elaborate a Lean statement, credit an upstream theorem, or prove the theorem."
+}

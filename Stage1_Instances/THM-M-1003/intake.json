@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1003-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1003",
+  "canonical_name": "L^p martingale convergence theorem",
+  "canonical_statement": "A real-valued discrete-time martingale that is bounded in L^p for an exponent 1 < p < infinity converges almost surely and in L^p to an L^p random variable.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_283",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_283.FullLpConvergenceStatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Omega : Type u with a measurable space and finite measure; discrete time Nat; real-valued process; p in ENNReal",
+  "quantifiers": ["Omega : Type u", "measurable structure and finite measure mu", "filtration indexed by Nat", "martingale X : Nat -> Omega -> Real", "p with 1 < p < infinity"],
+  "hypotheses": ["X is a martingale adapted to the filtration under mu", "sup_n ||X_n||_p is finite", "1 < p", "p < infinity"],
+  "conclusion": "There is an L^p limit X_infinity such that X_n tends to X_infinity almost everywhere and ||X_n - X_infinity||_p tends to zero.",
+  "alternate_encodings": [
+    {"target": "AwesomeTheorems.Stage1.S1_M_283.FullLpConvergenceStatementShape", "relationship": "legacy candidate using Filtration.limitProcess", "checked_witness": "none; exact exponent-domain alignment is deferred to statement phase"},
+    {"target": "Banach-valued martingale formulation", "relationship": "strict generalization, excluded from this intake root", "checked_witness": "none"},
+    {"target": "p = 1 plus uniform integrability", "relationship": "separate endpoint theorem, not an encoding of the root", "checked_witness": "legacy candidate EndpointOneUniformIntegrabilityRegime only"}
+  ],
+  "excluded_degenerate_cases": "p = 1 is excluded from the root and belongs to the uniform-integrability endpoint; p = infinity and p <= 1 are excluded; continuous time and Banach-valued processes are out of scope.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "Lean 4 kernel and pinned mathlib; exact toolchain and transitive dependency fingerprint remain open",
+  "computation_profile": "No computation, oracle, or generated certificate is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib",
+  "source_revisions": "See source_statement_crosswalk.md; a primary-source edition and pinpoint audit remains open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1003/README.md", "Stage1_Instances/THM-M-1003/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, exponent regime, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H3", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes scope only. It does not accept the legacy Lean wrapper, establish exact statement identity, or prove L^p convergence."
+}

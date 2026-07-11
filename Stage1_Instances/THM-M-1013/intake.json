@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1013-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1013",
+  "canonical_name": "Cramer-Wold theorem (convergence device)",
+  "canonical_statement": "For Borel probability measures mu_n and mu on finite-dimensional real coordinate space, mu_n converges weakly to mu if and only if, for every real coefficient vector t, the pushforwards of mu_n under x |-> sum_i t_i x_i converge weakly to the corresponding pushforward of mu.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "d n : Nat; points and coefficients provisionally Fin d -> Real; Borel probability measures on that space; Prop in Lean universe 0",
+  "quantifiers": [
+    "d : Nat",
+    "mu : probability measure on Fin d -> Real",
+    "mu_n : Nat -> probability measure on Fin d -> Real",
+    "t : Fin d -> Real (universal in the projection condition)"
+  ],
+  "hypotheses": [
+    "each mu_n is a Borel probability measure",
+    "mu is a Borel probability measure"
+  ],
+  "conclusion": "weak convergence mu_n -> mu is equivalent to weak convergence of every scalar linear pushforward",
+  "alternate_encodings": [
+    {
+      "target": "random-vector convergence in distribution via all scalar linear combinations",
+      "relationship": "expected equivalent through laws/pushforward measures",
+      "checked_witness": "candidate only; deferred to statement phase"
+    },
+    {
+      "target": "EuclideanSpace Real (Fin d) instead of Fin d -> Real",
+      "relationship": "expected definitional or continuous-linear equivalence",
+      "checked_witness": "candidate only; deferred to statement phase"
+    },
+    {
+      "target": "one-way reverse convergence device, assuming projection convergence",
+      "relationship": "reverse implication of the canonical biconditional",
+      "checked_witness": "candidate only; forward implication must not be lost"
+    }
+  ],
+  "excluded_degenerate_cases": "None are excluded at intake. Dimension zero, the zero coefficient vector, and constant laws are explicit boundary probes.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, measure, topology, and Borel structures remain to be audited",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact Lean/mathlib versions and dependency closure remain open",
+  "computation_profile": "No computation, native code, oracle, or external solver is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (pin verification deferred to statement phase)",
+  "source_revisions": "See source_statement_crosswalk.md; immutable source scans, hashes, errata review, and exact theorem-page crosswalk remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1013/README.md",
+    "Stage1_Instances/THM-M-1013/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, dimension/domain, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes scope only. It does not pass the Lean statement gate, accept the historical source label, or prove the Cramer-Wold theorem."
+}

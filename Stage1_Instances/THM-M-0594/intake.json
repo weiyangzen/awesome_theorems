@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0594-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0594",
+  "canonical_name": "Whitney embedding theorem",
+  "canonical_statement": "Every finite-dimensional Hausdorff second-countable smooth manifold admits a smooth embedding into some finite-dimensional real Euclidean space.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Mathlib.Geometry.Manifold.WhitneyEmbedding",
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "A finite-dimensional smooth manifold M modeled on a finite-dimensional real vector space; exact Lean universes, model-with-corners data, topology instances, and countability assumptions remain to be elaborated.",
+  "quantifiers": [
+    "for every finite dimension m",
+    "for every Hausdorff second-countable smooth m-manifold M",
+    "there exists a finite natural number N",
+    "there exists a map e : M -> EuclideanSpace Real (Fin N)"
+  ],
+  "hypotheses": [
+    "M is a smooth manifold of finite dimension m",
+    "the topology on M is Hausdorff",
+    "M is second-countable"
+  ],
+  "conclusion": "e is a smooth embedding: it is a topological embedding and its differential is injective at every point.",
+  "alternate_encodings": [
+    {
+      "target": "embedding into R^(2*m+1)",
+      "relationship": "implies canonical existence target",
+      "checked_witness": "none; candidate weak dimension-bound formulation"
+    },
+    {
+      "target": "embedding into R^(2*m)",
+      "relationship": "implies canonical existence target",
+      "checked_witness": "none; candidate strong dimension-bound formulation"
+    },
+    {
+      "target": "compact-manifold theorem exists_embedding_euclidean_of_compact",
+      "relationship": "implies canonical target only under an added compactness hypothesis",
+      "checked_witness": "legacy candidate only; no rev-5.6 credit"
+    }
+  ],
+  "excluded_degenerate_cases": "No boundary or corners are included unless the statement phase supplies a source-faithful encoding. Empty and zero-dimensional manifolds must be retained as boundary mutation cases, not discarded silently.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, quotients, and manifold foundations remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or numerical experiment is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib; pin verification deferred to statement phase",
+  "source_revisions": "Human and Lean candidates are discovery records in source_statement_crosswalk.md; immutable source hashes and dependency pins remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0594/README.md",
+    "Stage1_Instances/THM-M-0594/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, manifold conventions, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the broad existence claim only. It neither chooses a sharp dimension theorem nor establishes a Lean statement or proof."
+}
