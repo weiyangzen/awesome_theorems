@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0583-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0583",
+  "base_revision": "27314f63340f00cfc0abe5e57d8bfb9eb2331fd7",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0583.FourDimensionalTopologicalPoincareTarget",
+  "canonical_target_expression_sha256": "8ba8ef3cba0ad739c717ad8f42d40c221ff7a2cdcf79f7098709a60bd7a7ebce",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M0583-A-MATHLIB-SOURCE-MARKER",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Geometry.Manifold.PoincareConjecture",
+      "declaration": "ContinuousMap.HomotopyEquiv.nonempty_homeomorph_sphere",
+      "source_type": "[T2Space M] (n : Nat) [ChartedSpace (EuclideanSpace Real (Fin n)) M] : M ≃ₕ S^n -> Nonempty (M ≃ₜ S^n)",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "classification": "M2 source anchor only",
+      "result": "the name occurs under proof_wanted and is not emitted as an importable proof constant; if it were proved, specialization to n=4 would close the canonical target (whose additional CompactSpace binder is harmless)"
+    },
+    {
+      "id": "M0583-A-REPO-LEGACY",
+      "source": "repo-local legacy artifact",
+      "revision": "27314f63340f00cfc0abe5e57d8bfb9eb2331fd7",
+      "module": "AwesomeTheorems.Stage1.S1_M_116",
+      "declaration": "HomotopySphereFourStatementShape",
+      "classification": "M2 statement and audit wrappers only",
+      "result": "the module explicitly records terminalLeanProofBodyValidatedLocally=false and externalTerminalProofCandidateFound=false; no terminal proof body is supplied"
+    },
+    {
+      "id": "M0583-A-LEAN-MILLENNIUM",
+      "source": "lean-dojo/LeanMillenniumPrizeProblems",
+      "revision": "540da94826f70f3edf4d4fc66ce6cda20e903f61",
+      "module": "Problems/Poincare/Millennium.lean",
+      "declaration": "MillenniumPoincare.GeneralizedPoincareConjecture",
+      "toolchain": "leanprover/lean4:v4.26.0",
+      "mathlib_revision": "2df2f0150c275ad53cb3c90f7c98ec15a56a1a67",
+      "classification": "M2 external statement anchor",
+      "result": "the generalized proposition covers n=4 but the only retained terminal proof in this file is generalizedPoincareConjecture_zero; no four-dimensional proof body exists"
+    },
+    {
+      "id": "M0583-A-FORMAL-CONJECTURES",
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "686d32e672974920ca8525aef4a87281bd0cf146",
+      "module": "FormalConjectures/Millenium/Poincare.lean",
+      "declaration": "PoincareConjecture.poincare_conjecture.variants.dimension_four",
+      "type": "PoincareConjecture.ConjectureFor 4",
+      "toolchain": "leanprover/lean4:v4.27.0",
+      "mathlib_revision": "a3a10db0e9d66acbebf76c5e6a135066525ac900",
+      "classification": "M5 placeholder",
+      "result": "the exact four-dimensional declaration body is `by sorry`; it cannot supply proof credit and its dependency pins also differ from the local closure"
+    }
+  ],
+  "search": {
+    "repo_local": "searched Lean and owned artifacts for Poincare, homotopy-sphere, homeomorphism, and Freedman declarations; the legacy S1_M_116 artifact contains statement/audit bookkeeping but no terminal body",
+    "pinned_mathlib": "searched the pinned clean mathlib worktree and inspected Mathlib/Geometry/Manifold/PoincareConjecture.lean; the relevant name is proof_wanted source syntax, not an environment constant",
+    "external": "audited raw files, toolchains, and manifests at the two retained immutable Git revisions without cloning, fetching, or changing Lake dependencies",
+    "limitations": "this bounded audit covers the credible Lean 4 candidates already identified by the repository; no external project is added to the dependency closure"
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "mathlib and LeanMillenniumPrizeProblems provide statements only, the repo-local legacy artifact provides no terminal body, and Formal Conjectures uses sorry for the exact dimension-four theorem",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "a placeholder-free Lean 4 formalization of Freedman's four-dimensional topological Poincare theorem",
+      "a pinned import and exact checked transport into the canonical compact homotopy-sphere target"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": true,
+  "theorem_complete": false,
+  "status_boundary": "Candidate discovery and immutable classification are complete for this phase. No candidate closes the root, and this audit grants no theorem, H0, R0, validation, or release credit."
+}
