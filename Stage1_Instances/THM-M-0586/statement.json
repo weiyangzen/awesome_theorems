@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0586-STATEMENT",
+  "theorem_id": "THM-M-0586",
+  "lifecycle": "planned",
+  "canonical_statement": "For every natural dimension n at least 5, every compact Hausdorff smooth boundaryless n-manifold homotopy equivalent to the unit n-sphere is homeomorphic to that sphere.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0586/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0586.HighDimensionalPoincareTarget",
+    "elaborated_expression_sha256": "48062820803a28b54a2bcf9b1122a10ce4d4b53b1d9e37e5f0c8b119955346e7",
+    "statement_file_sha256": "326186c55d4b7abcefbd6f3c3e2813e8f0271bcbfc266ae937b6e7f220b42b49"
+  },
+  "domain_and_universes": "universe u; n : Nat; M : Type u; Prop in Lean universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "5 <= n",
+    "M : Type u",
+    "[TopologicalSpace M]",
+    "[T2Space M]",
+    "[ChartedSpace (EuclideanModel n) M]",
+    "[IsManifold (mathlib notation: model-with-corners R n) infinity M]",
+    "[CompactSpace M]"
+  ],
+  "hypotheses": [
+    "5 <= n",
+    "M is Hausdorff",
+    "M is charted by boundaryless Euclidean n-space",
+    "M is a smooth manifold",
+    "M is compact",
+    "M is homotopy equivalent to the unit n-sphere"
+  ],
+  "conclusion": "Nonempty (M homeomorphic to the unit n-sphere)",
+  "direct_imports": ["Mathlib.Geometry.Manifold.PoincareConjecture"],
+  "checked_transport": "Stage1Instances.THMM0586.generalizedTopologicalTarget_implies_highDimensionalTarget",
+  "transport_status": "The pinned mathlib generalized topological statement shape implies the selected smooth high-dimensional target. The converse is not claimed and the mathlib proof_wanted marker is not proof evidence.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0586/check_statement.py",
+    "killed": [
+      "removed the smooth-manifold hypothesis",
+      "changed the dimension domain from Nat to Fin 100",
+      "changed universal dimension scope to an existential dimension",
+      "excluded the boundary dimension n = 5"
+    ],
+    "boundary_proof": "Stage1Instances.THMM0586.dimensionFive_self_boundary"
+  },
+  "degenerate_cases": "The lower boundary n = 5 is included. Dimensions below five are excluded. Compactness, Hausdorffness, smoothness, and boundarylessness are explicit. Connectedness and orientability are not separately assumed because homotopy equivalence to the nonempty connected n-sphere supplies the relevant topological content; no diffeomorphism conclusion is requested.",
+  "human_source_boundary": "The target exactly freezes the intake-selected Smale formulation, but primary-source theorem/page/errata review remains H2 work for the anchor-audit phase. No H0 claim is made.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: exact Lean elaboration, fingerprint, one checked implication transport, four structural mutations, and the n = 5 boundary. No generalized Poincare proof or downstream-phase evidence is claimed."
+}
