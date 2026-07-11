@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0418-RELEASE",
+  "theorem_id": "THM-M-0418",
+  "intent": "release",
+  "base_revision": "109acd962c1b608e738a615b07e68eecb8eb5d96",
+  "base_tree": "45300430c61560298ce9e941e0e516c80aac6807",
+  "decided_at": "2026-07-11T20:58:26Z",
+  "decision_support": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0418-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0418-VALIDATION-local-20260711T205450Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "4428976180855254dea58c8b3b9087a3a08d39f27d2b58ffd1c3662e37ff6e53"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0418-VALIDATION-local-20260711T205450Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-W", "R2"],
+    "boundary": "The exact root has provisional placeholder-free kernel evidence through a pinned mathlib theorem and checked local composition. No accepted state is promoted because validation is not master-accepted and H0, R0, hermetic reproduction, independent verification, and deterministic release evidence are absent."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0418-VALIDATION is worker-self-tested [_], not master-accepted [x], so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused canonical warm .lake artifacts; no immutable empty-cache network-denied cold build or offline archive restoration was performed."
+  },
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "statement_identity": "lean-source-sha256:84b8b52b8afc0b9b6ff4d6689815c230e99cffd2db2a57f8e4ac5bcc5daeaabc#Stage1Instances.THM_M_0418.MinkowskiIdealClassBound",
+    "exact_root_kernel_check": "pass as provisional worker evidence for minkowskiIdealClassBound_obligationRoot, minkowskiIdealClassBound_proof, and Validation.independentMinkowskiIdealClassBound",
+    "proof_body_classification": "M0-W candidate: repo-local exact wrapper and composition over pinned mathlib NumberField.exists_ideal_in_class_of_norm_le",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, Proof.lean, and Validation.lean",
+    "authoritative_state_reconciliation": "missing: the intake authority remains planned at H1/M3/R3 and no provisional phase receipt is master-accepted",
+    "human_source_acceptance": "missing: M0418-X-SOURCE remains H1 without an accepted pinpoint primary-source crosswalk, errata audit, complete node mapping, or independent source review",
+    "readability_acceptance": "missing: root readability is provisionally R2, not an independently accepted section-8 R0 reconstruction",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_and_tcb_archive": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0418-VALIDATION and its transitive phase receipts",
+    "reconciliation of provisional M0-W/R2 evidence with the planned H1/M3/R3 instance authority",
+    "accepted H0 primary-source pinpoint, assumptions, conventions, errata, node crosswalk, and independent source review",
+    "accepted R0 structured reconstruction and independent reader review",
+    "complete transitive declaration, axiom, provenance, TCB, SBOM, and license closure",
+    "immutable clean snapshot, empty-cache network-denied cold build, and offline archive replay",
+    "two signed attestations from independently provisioned clean runners and an independently implemented minimal verifier",
+    "protected CI, mutation/metamorphic gates, deterministic evidence bundle, and master reconciliation"
+  ],
+  "retry_condition": "Master-accept the dependency chain and reconcile instance authority, obtain accepted H0/R0 reviews, then produce hermetic supply-chain, independent-runner, minimal-verifier, CI, and deterministic-bundle evidence for master acceptance.",
+  "status_boundary": "Truthful self-tested negative release reconciliation only. It creates no accepted receipt, changes no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release grade, or master acceptance.",
+  "invalidation_inputs": [
+    "validation-receipt.json",
+    "proof-receipt.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "statement.json",
+    "source-statement-crosswalk.md",
+    "instance.json",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "check_validation.py",
+    "Lean toolchain and mathlib revision",
+    "rev-5.6 assurance standard"
+  ]
+}
