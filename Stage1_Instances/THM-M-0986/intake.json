@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0986-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0986",
+  "canonical_name": "Khinchin's weak law of large numbers",
+  "canonical_statement": "For an independent identically distributed sequence of real-valued random variables with finite first absolute moment, the arithmetic means converge in probability to their common expectation.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_266",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_266.KhinchinWeakLawConclusion (specialized to E = Real)",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "A measurable probability space Omega and a sequence X : Nat -> Omega -> Real; Prop",
+  "quantifiers": ["probability space (Omega, mu)", "sequence X : Nat -> Omega -> Real"],
+  "hypotheses": ["X 0 is integrable", "the family X is pairwise independent under mu", "each X i has the same distribution as X 0 under mu"],
+  "conclusion": "(1/n) times the sum of X i for i < n converges in probability (TendstoInMeasure) to the constant integral of X 0",
+  "alternate_encodings": [
+    {
+      "target": "AwesomeTheorems.Stage1.S1_M_266.StatementShape",
+      "relationship": "existing discovery candidate generalizes the codomain from Real to a complete real Banach space",
+      "checked_witness": "candidate only; exact specialization/generalization transport is deferred to the statement phase"
+    },
+    {
+      "target": "almost-sure convergence of the empirical means",
+      "relationship": "strictly stronger conclusion under the same iid-integrability shape",
+      "checked_witness": "candidate mathlib strong-law bridge only; no rev-5.6 credit at intake"
+    }
+  ],
+  "excluded_degenerate_cases": "The n = 0 empirical average and division convention are not an asymptotic exception because convergence is atTop. No finite-variance or boundedness hypothesis is part of the root claim.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, measure integration, and quotient usage remain to be audited",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and transitive dependency closure remain open",
+  "computation_profile": "No computation, native_decide, oracle, or external result is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; pin verification is deferred to the statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; immutable scans, page hashes, translation, and errata review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0986/README.md", "Stage1_Instances/THM-M-0986/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the real-valued weak-law scope only. It does not accept the legacy wrapper, pass exact elaboration, or establish theorem completion."
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0981-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0981",
+  "canonical_name": "Kolmogorov axioms",
+  "canonical_statement": "A probability measure assigns zero to the empty event, one to the whole sample space, and is countably additive on pairwise disjoint measurable events.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_261",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_261.StatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Omega : Type u; [MeasurableSpace Omega]; P : Measure Omega; events A : Nat -> Set Omega",
+  "quantifiers": ["Omega : Type u", "P : Measure Omega", "A : Nat -> Set Omega"],
+  "hypotheses": ["IsProbabilityMeasure P", "every A n is measurable", "the family A is pairwise disjoint"],
+  "conclusion": "P empty = 0, P univ = 1, and P (iUnion A) = tsum (fun n => P (A n))",
+  "alternate_encodings": [
+    {"target": "ProbabilityMeasure Omega", "relationship": "subtype packaging of a normalized Measure", "checked_witness": "candidate only: probabilityMeasure_toMeasure_axioms; credit deferred to statement phase"},
+    {"target": "Measure Omega plus IsProbabilityMeasure P typeclass", "relationship": "class-based packaging used by the candidate root", "checked_witness": "candidate only: kolmogorovAxioms_of_isProbabilityMeasure; credit deferred to statement phase"}
+  ],
+  "degenerate_cases": "The empty event and empty disjoint family are included. No nonempty sample-space assumption is added; normalization itself makes an empty measurable space uninhabitable as a probability-measure instance.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, native decision procedure, or oracle is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib; pin verification is deferred to the statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; source scans and immutable hashes require anchor audit",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0981/README.md", "Stage1_Instances/THM-M-0981/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the human claim, formal target, source pins, Lean imports/toolchain, foundation policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes scope only. Historical Lean code is discovery input and receives no proof credit. Exact elaboration, source audit, proof, and release gates remain open."
+}

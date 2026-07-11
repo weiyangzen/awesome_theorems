@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0984-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0984",
+  "canonical_name": "Strong law of large numbers",
+  "source_label": "Borel, 1909; almost-sure convergence",
+  "canonical_statement": "Provisional scope: for an integrable identically distributed sequence of pairwise independent random variables, the empirical averages converge almost surely to the expectation of the reference variable.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Mathlib.Probability.StrongLaw",
+    "declaration_or_expression": "ProbabilityTheory.strong_law_ae",
+    "repo_local_candidate": "AwesomeTheorems.Stage1.S1_M_264.StatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional: Ω : Type u with MeasurableSpace; E : Type v with complete real normed additive group, measurable structure, and BorelSpace; μ : Measure Ω; X : Nat -> Ω -> E",
+  "ordered_binders": [
+    "Ω : Type u and its measurable-space instance",
+    "E : Type v and its normed additive group, real normed-space, completeness, measurable-space, and Borel instances",
+    "μ : Measure Ω",
+    "X : Nat -> Ω -> E"
+  ],
+  "hypotheses": [
+    "Integrable (X 0) μ",
+    "Pairwise ((fun Y Z => IndepFun Y Z μ) on X)",
+    "for every i, IdentDistrib (X i) (X 0) μ μ"
+  ],
+  "conclusion": "For μ-almost every ω, n |-> (n : Real)^(-1) • sum i in range n, X i ω tends to integral (X 0) dμ as n tends to infinity.",
+  "boundary_cases": "The n = 0 empirical average is defined using 0^(-1) and the empty sum and does not alter the atTop limit. Degenerate measures and almost-everywhere-zero variables are not excluded at intake. Whether the historical Borel target instead requires Bernoulli trials is unresolved.",
+  "alternate_encodings": [
+    {
+      "target": "AwesomeTheorems.Stage1.S1_M_264.StatementShapeExplicitHypotheses",
+      "relationship": "candidate definitional/bundling equivalence",
+      "checked_witness": "legacy discovery input only; statement-phase recheck required"
+    },
+    {
+      "target": "ProbabilityTheory.strong_law_ae_real",
+      "relationship": "candidate real-valued specialization",
+      "checked_witness": "not credited at intake"
+    },
+    {
+      "target": "Borel strong law for Bernoulli trials",
+      "relationship": "possible historical source interpretation, not established equivalent to the Banach-valued target",
+      "checked_witness": "none; primary-source audit required"
+    }
+  ],
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, integration, and almost-everywhere foundations remain to be audited",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib candidate; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, certificate, solver, or oracle is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib; pin and elaboration verification deferred to statement phase",
+  "source_revisions": "Repository source row and legacy Lean candidate are identified in source_statement_crosswalk.md; primary-source editions and immutable pins remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0984/README.md",
+    "Stage1_Instances/THM-M-0984/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the source interpretation, canonical claim, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake records a provisional exact scope and an explicit source-identity blocker. It does not establish that the terse Borel source row denotes the Banach-valued iid theorem, pass the Lean statement gate, accept the legacy wrapper, or prove any strong-law variant."
+}

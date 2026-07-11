@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0987-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0987",
+  "canonical_name": "Central limit theorem",
+  "canonical_statement": "The repository source describes normal convergence of sums of independent random variables; it does not yet specify enough hypotheses to identify one exact theorem.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Mathlib.Probability.CentralLimitTheorem",
+    "declaration_or_expression": "candidate: ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_exact_scope_and_statement_phase"
+  },
+  "domain_and_universes": "Candidate branch uses two measurable spaces and real-valued random variables indexed by Nat; exact universes and binders are not frozen.",
+  "quantifiers": ["candidate: probability spaces Omega and Omega'", "candidate: X : Nat -> Omega -> Real", "candidate: Gaussian-limit variable Y : Omega' -> Real"],
+  "hypotheses": ["candidate: probability measures", "candidate: identical distribution", "candidate: independence", "candidate: finite second moment", "candidate: Y has the required Gaussian law"],
+  "conclusion": "candidate: centered inverse-square-root-scaled partial sums tend in distribution to Y",
+  "alternate_encodings": [
+    {"target": "legacy CentralLimitTheoremData/StatementShape wrapper", "relationship": "packages the candidate mathlib branch", "checked_witness": "discovery only; no rev-5.6 statement credit"},
+    {"target": "variance-one standardized formulation", "relationship": "expected transport when variance is positive", "checked_witness": "not checked; zero-variance boundary must be explicit"}
+  ],
+  "excluded_degenerate_cases": "No case is silently excluded at intake. Zero variance, n = 0, and normalization boundaries require explicit statement decisions.",
+  "scope_exclusions": ["multivariate CLT", "Lindeberg-Feller triangular-array CLT", "martingale CLT", "functional CLT/Donsker", "Berry-Esseen rate"],
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical, choice, quotient, and measure-theory assumptions remain open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib candidate; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or numerical approximation is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib candidate (pin verification deferred)",
+  "source_revisions": "See source_statement_crosswalk.md; editions are discovery anchors and immutable source evidence remains open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0987/README.md", "Stage1_Instances/THM-M-0987/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to source scope, selected CLT variant, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the known scope ambiguity and candidate branch only. It neither substitutes the iid theorem for the broader source wording nor accepts legacy proof evidence."
+}
