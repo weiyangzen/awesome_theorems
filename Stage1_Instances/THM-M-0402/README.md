@@ -47,3 +47,13 @@ git diff --check -- Stage1_Instances/THM-M-0402
 ```
 
 No Lean proof validation is claimed or appropriate for this intake-only node. The next phase must elaborate the exact source-faithful target rather than inherit the old wrapper.
+
+## Frozen obligation architecture
+
+The obligation-tree phase freezes registry `THM-M-0402-OBLIGATIONS-v1` and seven typed graphs in
+`obligation-registry.json` and `obligation-graphs.json`. The proof route keeps S-unit finite
+generation, the nondegenerate unit-equation theorem, the multiplicative-group adapter, projective
+normalization, exact specialization, and terminal composition as distinct required obligations.
+Trust and proof-body provenance are separately root-relevant. No obligation is machine-closed, no
+composition certificate exists, and theorem completion remains false. See `obligation-tree.md` for
+the public node ledger and `obligation-tree-validation.md` for exact self-test evidence.

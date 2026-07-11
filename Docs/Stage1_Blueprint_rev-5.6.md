@@ -1544,7 +1544,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0402-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0402`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0402-ANCHOR_AUDIT` / `THM-M-0402` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0402-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0402`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0402-OBLIGATION_TREE` / `THM-M-0402` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-0402-OBLIGATION_TREE` / `THM-M-0402` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0402-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0402`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0402-PROOF` / `THM-M-0402` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0402-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0402`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -1572,7 +1572,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0404-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0404`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0404-ANCHOR_AUDIT` / `THM-M-0404` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0404-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0404`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0404-OBLIGATION_TREE` / `THM-M-0404` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-0404-OBLIGATION_TREE` / `THM-M-0404` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0404-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0404`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0404-PROOF` / `THM-M-0404` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0404-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0404`. Gate: rev-5.6 node-specific receipt and master acceptance.
