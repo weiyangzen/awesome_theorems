@@ -273,6 +273,13 @@ def pid_alive(pid: Any) -> bool:
     return isinstance(pid, int) and pid > 0 and Path(f"/proc/{pid}").exists()
 
 
+def session_is_live(session: Any) -> bool:
+    if not isinstance(session, str):
+        return False
+    result = run(["tmux", "list-panes", "-t", session, "-F", "#{pane_dead}"], check=False)
+    return result.returncode == 0 and any(line.strip() == "0" for line in result.stdout.splitlines())
+
+
 def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     states = {item["id"]: item["state"] for item in items}
     kept: list[dict[str, Any]] = []
@@ -282,7 +289,7 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["release_reason"] = "master_accepted"
             released.append(claim)
-        elif claim.get("status") == "live" and not pid_alive(claim.get("pid")):
+        elif claim.get("status") == "live" and (not pid_alive(claim.get("pid")) or not session_is_live(claim.get("session"))):
             session = claim.get("session")
             if isinstance(session, str):
                 run(["tmux", "kill-session", "-t", session], check=False)
@@ -515,6 +522,7 @@ def launch(max_workers: int) -> None:
         output.parent.mkdir(parents=True, exist_ok=True)
         atomic_write(prompt, task_prompt(item, workspace))
         session = f"stage1r56-{slot}-{item['execution_rank']:04d}"
+        run(["tmux", "kill-session", "-t", session], check=False)
         command = worker_command(workspace, prompt, output)
         run(["tmux", "new-session", "-d", "-s", session, "bash", "-lc", command])
         pid_result = run(["tmux", "list-panes", "-t", session, "-F", "#{pane_pid}"], check=False)
