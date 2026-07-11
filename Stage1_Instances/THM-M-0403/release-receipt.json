@@ -1,0 +1,95 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0403-RELEASE-local-20260711T194700Z",
+  "item_id": "S56-M-0403-RELEASE",
+  "theorem_id": "THM-M-0403",
+  "base_revision": "0c244bf31d168018cc6a106b13aeee2251e46c42",
+  "base_tree": "723ebe790e10b7ad0efc5a41f00a5a052b4f6ec0",
+  "validated_at": "2026-07-11T19:47:00Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "master_acceptance": "pending_and_not_claimed",
+  "inputs": {
+    "release-spec.json": "20d0ee2f35f4b854c8656b803ea84d570bb1ff7eafc60e89870b4a13ba105626",
+    "validation-receipt.json": "33052bcd99a6d8db9c0ddde295518f1694b64919ac6b24a7745b93c608c532bb",
+    "proof-receipt.json": "b8b853767ab3aff5d5099bf6cdd9ee52f328c0f0f0a0ac77c539baec7eacd23e",
+    "obligation-registry.json": "56384f43589cd9501ad231451d18089ebfb8922e2eb2e1f5a899db729f6bbe88",
+    "obligation-graphs.json": "01d97d5ce48b9679f1cf4fcf5b32c4e30b7688a37bb6269ae1f3965886bac5ac",
+    "Statement.lean": "0338f278543045e0a99397394c3282ca53ddf8590f1e8ddc4314641110163f5f",
+    "Proof.lean": "1bab5fda19ad1f0127390cfc4f9576bf466389fc17f53d7857b2aa9b3a0a689d"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease worker clone with owned release artifacts and pre-existing untracked .lake symlink"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-0403/validate_release.py"
+    ],
+    "env": {},
+    "timeout_seconds": 180,
+    "network": "denied"
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H1", "M4", "R3"],
+    "root_vector_after": ["H1", "M4", "R3"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "accepted_receipt_ids": [],
+    "first_failed_gate": "exact_root_kernel_closure",
+    "remaining_root_cut_set": ["M0403-L-ESS-FINITE"],
+    "status_boundary": "Truthful negative worker release reconciliation only; it supplies no M0, AUDIT-Z, THEOREM-Z, release-grade evidence, accepted receipt, or master acceptance."
+  },
+  "result": {
+    "exit_code": 0,
+    "upstream_validation_replay": "pass_for_recorded_partial_and_conditional_declarations",
+    "exact_root_kernel_closure": "fail_closed",
+    "composition_gate": "fail_closed",
+    "human_source_gate": "fail_closed_at_H1",
+    "readability_gate": "fail_closed_at_R3",
+    "hermetic_release_gate": "fail_closed",
+    "supply_chain_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "deterministic_bundle_gate": "fail_closed",
+    "master_acceptance_gate": "pending"
+  },
+  "known_failures": [
+    "The canonical root is M4 and is not kernel-closed.",
+    "No frozen obligation is closed and no child-to-parent composition certificate exists.",
+    "M0403-L-ESS-FINITE is the minimal open root cut.",
+    "AUDIT-Z is not established; the root retains H1 and R3 debt with no accepted independent H0/R0 reviews.",
+    "The validation receipt is provisional and release_grade=false; its prerequisite task is not master-accepted.",
+    "No cold empty-cache network-denied replay, complete TCB/SBOM/license archive, or offline restoration exists.",
+    "No distinct clean runner, second signed attestation, independently implemented verifier, or deterministic release bundle exists.",
+    "Only the integration lane can perform master acceptance and advance authoritative state."
+  ],
+  "retry_condition": "Close the exact frozen root and composition graph, complete and independently review H0/R0 audit records, then produce hermetic supply-chain and independent-verifier attestations plus a deterministic bundle for master acceptance.",
+  "freshness": {
+    "review_due": "before any retry or upon any invalidation input change",
+    "supersession_state": "current provisional worker release decision",
+    "revocation_state": "not_revoked",
+    "incident_path": "replace this receipt and fail closed on any source, proof, graph, receipt, toolchain, dependency, validator, or policy drift"
+  },
+  "invalidation_inputs": [
+    "release-spec.json",
+    "validate_release.py",
+    "validation-receipt.json",
+    "proof-receipt.json",
+    "obligation-registry.json",
+    "obligation-graphs.json",
+    "Statement.lean",
+    "Proof.lean",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "rev-5.6 assurance standard"
+  ]
+}

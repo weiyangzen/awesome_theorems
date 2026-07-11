@@ -25,6 +25,19 @@ The target domain is provisionally `ℤ` because the source explicitly says inte
 
 No primary mathematical source is cited in the repository records. Primary-source theorem/page identification and the choice of exact classification statement belong to the subsequent statement/source audit work and are not claimed here.
 
+## Provisional statement artifact
+
+The statement phase freezes the standard complete-classification reading in
+`Statement.lean`: every integer Markov triple is zero or an even-sign variant
+of a triple generated from `(1,1,1)` by permutations and Vieta mutations. The
+target elaborates with only `Init`; its explicit expression, environment, and
+four structural mutations are recorded in `statement.json` and
+`statement-validation.md`.
+
+This is self-tested statement evidence pending master acceptance, not a proof
+or a human-source fidelity upgrade. The absence of a repository primary-source
+theorem/page remains explicit debt for the source/anchor audit.
+
 ## Validation record
 
 Base revision: `a8d6489fd935cd71fa4499f2f3f5b051998203f4`.
