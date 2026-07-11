@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-rev-5.6-statement-v1",
+  "item_id": "S56-M-1234-STATEMENT",
+  "theorem_id": "THM-M-1234",
+  "depends_on": ["S56-M-1234-INTAKE"],
+  "intent": "statement",
+  "canonical_statement": "For every measurable, finite-energy, weakly divergence-free velocity field on the Euclidean plane whose measurable scalar curl is essentially bounded, the unforced two-dimensional incompressible Euler equations admit a weak solution for all nonnegative real times, retaining finite energy, bounded vorticity, incompressibility, curl compatibility, the pressure-free weak momentum equation, and the initial vorticity trace.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1234/Statement.lean",
+    "declaration_or_expression": "Stage1Rev56.THMM1234.Statement",
+    "elaborated_expression": "forall (u0 : Plane -> Plane) (omega0 : Plane -> Real), InitialData u0 omega0 -> Nonempty (GlobalWeakSolution u0 omega0)",
+    "statement_file_sha256": "f16005b36837682ec1f63bd6c5d15945e2d4a91402a28f8b80d0d3606da3e503"
+  },
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.Analysis.Calculus.FDeriv.Basic",
+    "Mathlib.Geometry.Euclidean.Volume.Measure",
+    "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "domain_and_universes": "Plane = EuclideanSpace Real (Fin 2); nonnegative real time; all declarations in Lean universe 0.",
+  "ordered_binders": [
+    "u0 : Plane -> Plane",
+    "omega0 : Plane -> Real",
+    "InitialData u0 omega0"
+  ],
+  "hypotheses": [
+    "u0 and omega0 are a.e. strongly measurable for Euclidean volume",
+    "u0 belongs to L2 and omega0 belongs to L-infinity",
+    "u0 is weakly divergence-free",
+    "omega0 is the weak scalar curl of u0"
+  ],
+  "conclusion": "Nonempty (GlobalWeakSolution u0 omega0), with fields covering every nonnegative real time and imposing the pressure-free distributional momentum equation and weak initial vorticity trace.",
+  "encoding_decisions": {
+    "domain": "the whole Euclidean plane; this avoids inventing an unresolved bounded-domain regularity and boundary class",
+    "forcing": "unforced Euler",
+    "solution": "velocity-vorticity weak solution; pressure is eliminated by divergence-free compactly supported test fields",
+    "root_scope": "existence only; uniqueness is not added because the repository target says global existence",
+    "regularity": "finite-energy velocity and essentially bounded vorticity at every nonnegative time"
+  },
+  "checked_transport": "Stage1Rev56.THMM1234.statement_iff_expanded",
+  "mutation_tests": [
+    "removed InitialData hypothesis",
+    "changed EuclideanSpace domain to the raw function type Fin 2 -> Real",
+    "changed binder scope so the initial-data premise is fixed at zero vorticity",
+    "excluded the zero-velocity boundary case"
+  ],
+  "boundary_policy": "Zero initial data remains admitted. Bounded domains, the flat torus, forcing, uniqueness, continuous dependence, and smooth-data-only variants are not substituted for this whole-plane existence root.",
+  "environment_fingerprint": {
+    "repository_base_revision": "a85ff9c25a5e8675747ebeb5917fdc10a9278662",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the selected exact existence proposition. The Prop-valued PDE predicates are obligations, not assumed proofs of existence; no proof, source-fidelity, anchor-audit, obligation-tree, or release credit is claimed."
+}
