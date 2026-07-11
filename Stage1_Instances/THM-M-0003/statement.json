@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0003-STATEMENT",
+  "theorem_id": "THM-M-0003",
+  "lifecycle": "planned",
+  "canonical_statement": "For every snake input in an arbitrary abelian category, the six-term sequence from the three kernel objects through the connecting morphism to the three cokernel objects is exact.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0003/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0003.SnakeLemmaTarget",
+    "elaborated_expression_sha256": "1132689414bcc557fc2a760263e8a3b3a656272a59254a642ad999f6a244ca40",
+    "statement_file_sha256": "d6a0a19d7a9b2e8cd3f99cda0c872e71aaf77a7b4a4122abf68c8611b8a8cece"
+  },
+  "domain_and_universes": "C : Type u with Category.{v} C and Abelian C; S : ShortComplex.SnakeInput C",
+  "ordered_binders": [
+    "C : Type u",
+    "Category.{v} C instance",
+    "Abelian C instance",
+    "S : ShortComplex.SnakeInput C"
+  ],
+  "hypotheses": [
+    "The abelian-category structure on C",
+    "The four-row diagram, kernel/cokernel witnesses, middle-row exactness, Epi S.L1.g, and Mono S.L2.f packaged by S"
+  ],
+  "conclusion": "S.composableArrows.Exact for the six objects S.L0.X1, S.L0.X2, S.L0.X3, S.L3.X1, S.L3.X2, S.L3.X3 and the connecting morphism S.delta.",
+  "direct_imports": [
+    "Mathlib.Algebra.Homology.ShortComplex.SnakeLemma"
+  ],
+  "minimal_import_evidence": "This is the defining module for ShortComplex.SnakeInput, its connecting morphism, composableArrows, and the exactness type used by the target. The legacy HomologySequenceLemmas and Algebra.Module.SnakeLemma imports are not needed.",
+  "checked_transport": "Stage1Instances.THM_M_0003.snakeLemmaTarget_iff_pointwise",
+  "pinned_source_declarations": [
+    "CategoryTheory.ShortComplex.SnakeInput",
+    "CategoryTheory.ShortComplex.SnakeInput.composableArrows"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0003/check_statement.py",
+    "killed": [
+      "removed the snake input and all of its packaged diagram hypotheses",
+      "changed the category universe",
+      "moved the snake-input binder into a Nonempty conclusion",
+      "added short-exact endpoint assumptions that extend the sequence beyond the canonical six terms"
+    ]
+  },
+  "boundary_cases": {
+    "zero_objects_and_zero_maps": "No nonzero-object or nonzero-map premise is introduced; such cases remain covered by SnakeInput.",
+    "endpoint_extension": "Mono S.L1.f and Epi S.L2.g are not required, so exactness at the canonical six terms does not silently become the stronger zero-extended sequence.",
+    "sequence_extent": "The root is exactly the six-term kernel/cokernel sequence, not an arbitrary derived-functor long exact sequence or the separate homology-sequence target."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact six-term Lean target. It does not inspect or credit ShortComplex.SnakeInput.snake_lemma, and supplies no anchor-audit, proof, validation, release, audit-completion, or theorem-completion evidence."
+}

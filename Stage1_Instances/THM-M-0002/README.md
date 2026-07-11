@@ -14,8 +14,10 @@ expression fingerprint, structural mutation checks, and pinned environment are r
 
 The legacy Lean module identifies a plausible mathlib encoding, but it is discovery input and has
 not been accepted under rev-5.6. The statement is self-tested but awaits master acceptance. This
-dossier claims no proof, anchor audit, H0/M0/R0 status, audit completion, or theorem completion.
-Pinpoint primary-source fidelity remains open for the later source audit.
+dossier now also contains a self-tested canonical proof in `Proof.lean`. It explicitly derives the
+middle mono and epi facts through the two pinned four lemmas and then obtains the middle isomorphism.
+The proof node remains provisional pending master acceptance and does not claim H0/R0, downstream
+validation, audit completion, or theorem completion. Pinpoint primary-source fidelity remains open.
 
 The scope map, source crosswalk, open task DAG, and exact intake checks are recorded alongside this
 file.
