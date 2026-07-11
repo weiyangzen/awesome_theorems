@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0420-RELEASE",
+  "theorem_id": "THM-M-0420",
+  "intent": "release",
+  "base_revision": "d63f260034fed7396a626ce530e26df243810e62",
+  "base_tree": "d5877fa27c460d5fc25ff48518e6dd7cbaad5071",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0420-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0420-VALIDATION-local-20260711T210627Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "f5fc5c971a013693df91ec74c6d667296b583cf864a9eea98d6402ff13427459"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0420-VALIDATION-local-20260711T210627Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M3", "R3"],
+    "boundary": "The exact statement and conditional composition elaborate, and M0420-N1 has a placeholder-free local proof body. No construction or substantive Hilbert class field property is proved, so the exact root remains open at M3 and no state is promoted."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0420-VALIDATION is worker-self-tested [_], not master-accepted [x], so release is not dependency-legal."
+  },
+  "first_failed_theorem_gate": {
+    "gate_id": "S56-M-0420-EXACT-ROOT-KERNEL-CLOSURE",
+    "reason": "M0420-C and M0420-L1 through M0420-L4 have no proof bodies; the checked root_composition declaration is conditional and does not close the canonical root."
+  },
+  "evidence_reconciliation": {
+    "statement_identity": "sha256:e02ce829ff52e7bd576532eb0493f01d2b0053e114babc33d15131fc12db1041#Stage1Instances.THM_M_0420.HilbertClassFieldTarget",
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "conditional_root_composition": "pass as provisional worker evidence; five premises remain",
+    "local_proof_body": "M0420-N1 only: everywhereUnramifiedAtFinitePrimes_iff_allPrimesOver",
+    "accepted_closed_obligation_ids": [],
+    "worker_checked_obligation_ids": ["M0420-S1", "M0420-S2", "M0420-T", "M0420-N1"],
+    "exact_root_kernel_check": "failed_open_root",
+    "axioms_observed_for_M0420_N1": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, and Proof.lean",
+    "graph_reconciliation": "missing: the frozen graph predates proof execution and does not credit M0420-N1",
+    "human_source_acceptance": "missing: no accepted primary-source H0 pinpoint crosswalk, errata audit, complete node mapping, or independent review",
+    "readability_acceptance": "missing: no accepted R0 reconstruction or independent reader review",
+    "transitive_provenance_and_tcb_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_and_offline_archive": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0420-VALIDATION and all transitive phase evidence",
+    "M0420-C: construct the finite candidate extension H/K",
+    "M0420-L1: prove abelian Galois structure",
+    "M0420-L2: prove unramifiedness at every finite prime",
+    "M0420-L3: prove global Artin reciprocity identifies the automorphism group with the ideal class group",
+    "M0420-L4: prove maximality against every finite unramified abelian comparison extension",
+    "reconcile M0420-N1 proof evidence into the frozen typed graph",
+    "accepted H0 primary-source pinpoint, assumptions, errata, node crosswalk, and independent source review",
+    "accepted R0 structured reconstruction and independent reader review",
+    "complete transitive declaration, axiom, provenance, TCB, SBOM, and license closure",
+    "immutable clean snapshot, empty-cache network-denied cold build, and offline archive replay",
+    "two signed attestations from independently provisioned clean runners and an independently implemented minimal verifier",
+    "protected CI, mutation and metamorphic gates, deterministic evidence bundle, and master reconciliation"
+  ],
+  "retry_condition": "First implement and master-accept placeholder-free proofs of M0420-C and M0420-L1 through M0420-L4, reconcile the graph, and master-accept validation. Then close H0/R0, provenance and trust, hermetic supply-chain replay, independent verification, CI, deterministic bundling, and master reconciliation on an immutable clean snapshot.",
+  "status_boundary": "Truthful self-tested negative release reconciliation only. It creates no accepted receipt, changes no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release grade, or master acceptance.",
+  "invalidation_inputs": [
+    "validation-receipt.json",
+    "proof-phase.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "statement.json",
+    "source_statement_crosswalk.md",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "check_validation.py",
+    "Lean toolchain and mathlib revision",
+    "rev-5.6 assurance standard"
+  ]
+}
