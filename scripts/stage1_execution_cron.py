@@ -548,6 +548,7 @@ def integrate(limit: int) -> int:
             destination = ROOT / item["owned_paths"][0]
             if not source.is_dir():
                 raise ValueError("worker source missing")
+            reject_mutable_dependency_operations(item["id"])
             changed = worker_changed_paths(workspace, owner)
             if not changed:
                 raise ValueError("worker made no owned-path changes")
@@ -601,6 +602,20 @@ def worker_changed_paths(workspace: Path, owner: str) -> list[str]:
     if any(not path.startswith(owner) or ".." in Path(path).parts for path in paths):
         raise ValueError("worker Git delta escapes the assigned ownership scope")
     return paths
+
+
+def reject_mutable_dependency_operations(item_id: str) -> None:
+    """Fail closed when a worker's recorded execution mutates Lean dependencies."""
+    log = RUNTIME / "logs" / f"{item_id}.out"
+    if not log.exists():
+        return
+    text = log.read_text(encoding="utf-8", errors="replace")
+    forbidden = (
+        r"(?ms)^exec\n.*?\blake\s+(?:update|build)\b",
+        r"(?ms)^exec\n.*?\bgit\s+(?:clone|fetch|pull)\b.*?\.lake",
+    )
+    if any(re.search(pattern, text) for pattern in forbidden):
+        raise ValueError("worker ran a mutable Lean dependency operation; no pinned receipt is admissible")
 
 
 def packet_path_covers(path: str, declared: list[Any], owner: str) -> bool:
