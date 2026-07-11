@@ -690,6 +690,11 @@ def launch(max_workers: int) -> None:
         and item["id"] not in claimed_ids
         and all(states_by_id.get(dependency) in {"[_]", "[x]"} for dependency in item["depends_on"])
     ]
+    # Start a bounded pipeline: statement work is materially more valuable than
+    # another unrelated intake once an intake dossier exists.  Stable layer/rank
+    # ordering keeps this deterministic and preserves an intake lane whenever
+    # no phase successor is ready.
+    candidates.sort(key=lambda item: (0 if item["depends_on"] else 1, item["layer"], item["execution_rank"], item["id"]))
     selected = candidates[:capacity]
     if not selected:
         print("tick: no unclaimed work")
