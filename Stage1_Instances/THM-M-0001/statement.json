@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0001-STATEMENT",
+  "theorem_id": "THM-M-0001",
+  "lifecycle": "planned",
+  "canonical_statement": "Every degreewise short exact sequence of homological complexes in an arbitrary abelian category induces connecting morphisms for every adjacent pair of degrees, and the induced homology maps and connecting morphisms are exact at all three repeating positions of the continuing long sequence.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0001/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0001.LongExactHomologySequenceTarget",
+    "elaborated_expression_sha256": "6846afc515ceb8a7479a074f21295620ef4f191bd0804e377b56ae37567b7677",
+    "statement_file_sha256": "0b93ddbd554c878eca5f08c390bb63ea7d2ae23859a2f2f100a5b99e7ead1d9a"
+  },
+  "domain_and_universes": "C : Type u with Category.{v} C and Abelian C; iota : Type w; c : ComplexShape iota; S : ShortComplex (HomologicalComplex C c)",
+  "ordered_binders": ["C", "category and abelian instances", "iota", "c", "S", "hS : S.ShortExact", "i", "j", "hij : c.Rel i j"],
+  "hypotheses": ["S.ShortExact", "c.Rel i j for the two connecting-map positions"],
+  "conclusion": "Exactness of homologyMap S.f i followed by homologyMap S.g i for every i, plus exactness on both sides of hS.delta i j hij for every related i,j.",
+  "direct_imports": ["Mathlib.Algebra.Homology.HomologySequence"],
+  "minimal_import_evidence": "The target uses ShortComplex.ShortExact.delta, comp_delta, delta_comp and the homology interfaces defined by this direct module; no HomologySequenceLemmas, derived-category, or representation-theory import is used.",
+  "checked_transport": "Stage1Instances.THM_M_0001.longExactHomologySequenceTarget_iff_grouped",
+  "pinned_source_declarations": [
+    "CategoryTheory.ShortComplex.ShortExact.delta",
+    "CategoryTheory.ShortComplex.ShortExact.comp_delta",
+    "CategoryTheory.ShortComplex.ShortExact.delta_comp"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0001/check_statement.py",
+    "killed": [
+      "removed short-exactness hypothesis and connecting-map positions",
+      "changed category universe and retained only one exactness position",
+      "moved short-exactness into a Nonempty conclusion",
+      "replaced the continuing universally indexed sequence by one adjacent window"
+    ]
+  },
+  "boundary_cases": {
+    "arbitrary_complex_shape": "No boundedness or successor-totality assumption is introduced.",
+    "endpoint_degree": "Same-degree exactness is quantified separately over every degree, so an endpoint with no outgoing Rel edge is retained.",
+    "sequence_extent": "All degrees and all Rel-adjacent pairs are quantified; a single six-term window is explicitly a killed mutation."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact continuing Lean target. It neither inspects nor credits the available mathlib exactness proof declarations, and it provides no anchor-audit, proof, validation, release, audit-completion, or theorem-completion evidence."
+}
