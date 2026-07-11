@@ -1,0 +1,104 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0083-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0083",
+  "inventory_version": "THM-M-0083-anchor-inventory/1",
+  "cutoff": "2026-07-12T00:00:00+08:00",
+  "base_revision": "45225aadff56e3948bc75a950e5287a960a002b5",
+  "canonical_target": "Stage1Instances.THM_M_0083.RepresentableFunctorTarget",
+  "search_order": [
+    "repository-local Lean files",
+    "pinned mathlib source and declarations",
+    "public GitHub repository and code indexes"
+  ],
+  "queries": [
+    "UniversalElementCriterion",
+    "IsRepresentable.iff_exists_isRepresentedBy",
+    "isRepresentedBy_iff",
+    "representable functor Lean",
+    "universal element Lean 4"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0083-C01",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.CategoryTheory.RepresentedBy",
+      "file": "Mathlib/CategoryTheory/RepresentedBy.lean",
+      "file_sha256": "4c9c456ed9052c4e8db63599902c7f95e87a7fc0d596bbaf5c673604f74485ae",
+      "declarations": [
+        "CategoryTheory.Functor.IsRepresentedBy",
+        "CategoryTheory.Functor.isRepresentedBy_iff",
+        "CategoryTheory.Functor.IsRepresentable.iff_exists_isRepresentedBy"
+      ],
+      "source_type": "F.IsRepresentable iff there exist X and x, F.IsRepresentedBy x; the generated isRepresentedBy_iff expands the latter to bijectivity of f |-> F.map f.op x for every Y",
+      "comparison": "Exact after unfolding the frozen local definitions. Binder domains, variance, universes, existential witnesses, all test objects, and bijectivity agree. AnchorAudit.lean proves the literal target directly from these two declarations.",
+      "role": "terminal proof family behind an exact local candidate wrapper",
+      "local_adapter": "Stage1Instances.THM_M_0083_AnchorAudit.exactTarget_mathlib_candidate",
+      "direct_source_imports": [
+        "Mathlib.CategoryTheory.Yoneda"
+      ],
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "source_placeholder_audit": "Both terminal declarations have explicit source definitions/proofs. No sorry, axiom declaration, unsafe declaration, or external oracle occurs in their bodies.",
+      "kernel_check": "passed_repo_local_lake_env_lean",
+      "axiom_probe": "Both the upstream equivalence and exact local adapter print 'depends on axioms: [propext, Classical.choice, Quot.sound]'.",
+      "machine_debt": "M0-W",
+      "evidence_level": "E2"
+    },
+    {
+      "candidate_id": "M0083-C02",
+      "project": "awesome_theorems repository-local legacy surface",
+      "revision": "45225aadff56e3948bc75a950e5287a960a002b5",
+      "module": "AwesomeTheorems.Stage1.S1_M_139",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_139.lean",
+      "file_sha256": "3cba6a4d62fa34036225e84a1ae555494e6be3f9ea83c8eae86f1de6df618090",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_139.statementShape_iff_isRepresentable",
+      "comparison": "Same universal-element equivalence, but its StatementShape names only the left side while the theorem supplies the iff. It imports many unrelated category and homology modules.",
+      "role": "discovery-only duplicate wrapper; no distinct terminal body",
+      "terminal_candidate_id": "M0083-C01",
+      "machine_debt": "M0-W",
+      "evidence_level": "E1"
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "family": "RepresentableBy.uniqueUpToIso and Yoneda consequences",
+      "reason": "Consequences of representation, not the frozen universal-element characterization."
+    },
+    {
+      "family": "Freyd adjoint functor and partial-adjoint theorems",
+      "reason": "Stronger existence theorems with additional hypotheses; substituting them would broaden and change the target."
+    },
+    {
+      "family": "Brown and homological representability",
+      "reason": "Specialized representability results outside the frozen Type-valued presheaf criterion."
+    },
+    {
+      "family": "corepresentability",
+      "reason": "Variance-dual theorem, not an encoding of this presheaf target."
+    }
+  ],
+  "external_search": {
+    "github_repository_api": "Unauthenticated searches for IsRepresentedBy Lean 4, representable functor Lean, category theory Lean 4 representable, and universal element Lean 4 returned HTTP 200 with total_count=0 on 2026-07-12.",
+    "github_code_api": "The exact-declaration code query returned HTTP 401 Requires authentication, so no exhaustive code-search claim is made.",
+    "grep_app": "The exact-declaration query was intercepted by a Vercel Security Checkpoint rather than returning index results; it supplies no negative evidence.",
+    "result": "No additional credible external Lean 4 terminal candidate was established. The exact pinned mathlib closure makes an external dependency unnecessary. This is a bounded search record, not an exhaustive public-code claim."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt": "M0-W",
+    "root_evidence_level": "E2",
+    "human_debt": "H1",
+    "readability_debt": "R4",
+    "audit_complete": true,
+    "theorem_complete": false,
+    "status_boundary": "This self-tested node closes only the bounded immutable candidate inventory and exact adapter check, pending master acceptance. M0-W is a candidate classification, not theorem completion: obligation, provenance/trust closure, source H0, readable reconstruction, hermetic validation, and release gates remain open."
+  }
+}

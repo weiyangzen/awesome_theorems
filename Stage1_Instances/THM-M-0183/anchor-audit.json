@@ -1,0 +1,113 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0183-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0183",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "b4f8dc843f188c63b631e3106d2694a3b07d1af1",
+  "audited_target": {
+    "declaration": "Stage1Instances.THMM0183.YauCalabiConjectureTarget",
+    "elaborated_expression_sha256": "f6f6506ce1ecc2a33f7c56a3a3ea97ac0271eeeb619d421e1e8f97f61cd08478",
+    "statement_file_sha256": "38816cb45c9be71c3426d3c0db9a94ceb97544b4e2faf2ec879de03829af6c25"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0183-C01",
+      "project": "awesome_theorems",
+      "revision": "b4f8dc843f188c63b631e3106d2694a3b07d1af1",
+      "module": "Stage1_Instances/THM-M-0183/Statement.lean",
+      "declaration": "Stage1Instances.THMM0183.YauCalabiConjectureTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "proposition definition; no proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M4_statement_only",
+      "integration_status": "already local, but supplies no theorem proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0183-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Geometry.Manifold.Complex",
+        "Mathlib.Geometry.Manifold.Riemannian.Basic",
+        "Mathlib.Geometry.Manifold.VectorBundle.CovariantDerivative.Basic",
+        "Mathlib.RingTheory.Kaehler.Basic"
+      ],
+      "declarations": [
+        "IsManifold",
+        "ContMDiffRiemannianMetric",
+        "riemannianMetricVectorSpace",
+        "riemannianEDist",
+        "IsCovariantDerivativeOn",
+        "CovariantDerivative",
+        "TangentSpace",
+        "TangentBundle",
+        "KaehlerDifferential",
+        "KaehlerDifferential.D"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no declaration supplies the target existential conclusion",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all ten probes elaborate; no terminal candidate exists to audit",
+      "classification": "M4_support_only",
+      "integration_status": "pinned and locally checkable, but insufficient for the target"
+    },
+    {
+      "candidate_id": "S56-M-0183-C03",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas.AlgebraicGeometryI.code.CalabiYauHypersurface",
+      "declaration": "CYHyp.isCalabiYau",
+      "kind": "off_target_external_source",
+      "normalized_match": "defines an algebraic hypersurface by zero canonical twist; no Kahler metric, prescribed class, Ricci-flatness, or Yau existence conclusion",
+      "body_provenance": "immutable source blob 28b96c570646d3a480a9e4676731f558877abea290e24871c3707078bb06dea0 (SHA-256)",
+      "placeholder_or_axiom_status": "the same module contains sorry at lines 37 and 43; it is neither exact nor placeholder-free",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "classification": "rejected_off_target",
+      "integration_status": "not eligible for integration"
+    },
+    {
+      "candidate_id": "S56-M-0183-C04",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "kind": "immutable_negative_tree_search",
+      "normalized_match": "no Calabi, Yau, Ricci, Kahler, Kaehler, or Monge-Ampere path in the complete 1204-entry tree",
+      "body_provenance": "not applicable",
+      "placeholder_or_axiom_status": "not applicable",
+      "classification": "no_candidate",
+      "integration_status": "nothing to integrate"
+    }
+  ],
+  "search_inventory": {
+    "local_dependency_scope": "all Lean files in all eleven git dependencies already present under the pinned lake-manifest",
+    "local_terms": ["Calabi-Yau", "Calabi conjecture", "Ricci-flat", "Kahler metric", "Chern class", "Ricci tensor", "Ricci form", "Monge-Ampere"],
+    "local_terminal_candidate_count": 0,
+    "sourcegraph": [
+      {"query_family": "CalabiYau / Calabi-Yau / Calabi conjecture", "result": "26 matches in atlas-lean only; all inspected matches concern algebraic canonical twist, not the target", "response_sha256": "cac632bff5485056ae95635e3724ba2b8e5be30859fc52d6cbe61eddcf88ad15"},
+      {"query_family": "RicciFlat / RicciTensor / RicciForm", "result": "matchCount=0", "response_sha256": "b4ea9605a9e0e5692df9eecda60926f6be88f38c89f7ad55dabf15bf06ef8d8f"},
+      {"query_family": "KahlerMetric / Kähler metric / Monge-Ampere", "result": "one documentation-only physlib mention; no declaration", "response_sha256": "2dd0d83a41ce22b722fcf733b79361aa571e04fdec09d07614ab4a7d40dd5f92"}
+    ],
+    "github_repository_search": "Five dated searches returned one unrelated mirror-map project and zero results for the four target-oriented queries.",
+    "github_code_search": "HTTP 401 Requires authentication; this lane is blocked and no complete GitHub-wide negative claim is made.",
+    "formal_conjectures_tree_response_sha256": "76fa3f96fc2ff7fc85addfd1e85852dae3fcb5022fc1ef35b030a3dc1e3efc61"
+  },
+  "legacy_discovery_input": {
+    "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_130.lean",
+    "sha256": "2855d53488aa06adb9f7deede9fdf03d8f0513ac852f0e146e153b261e7f7cd0",
+    "classification": "repo_local_audit_and_statement_scaffolding_only_no_proof_credit"
+  },
+  "terminal_result": "No exact or stronger Lean 4 proof candidate was found in the immutable local dependency closure or bounded external search. The only Calabi-Yau-named external source inspected is off-target and contains placeholders.",
+  "root_machine_classification": "M4",
+  "integration_blocker": "No eligible external repository, immutable proof revision, module, and exact terminal declaration exist to pin/import/check; authenticated GitHub code search is also unavailable.",
+  "reopen_condition": "A concrete Lean 4 candidate with immutable commit, toolchain, dependencies, license, module, declaration, exact-type transport, terminal-body provenance, placeholder and axiom audit, and successful repo-local wrapper check.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Completed bounded anchor audit only. Negative searches do not prove global absence; infrastructure and off-target declarations provide no proof credit. Human-source audit, obligation expansion, proof, and theorem completion remain open."
+}

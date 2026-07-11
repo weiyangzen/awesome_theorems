@@ -69,3 +69,19 @@ Base revision: `c2687431b1d86bac7bd509c9abbfdc1e763c060c`.
 The Lean check reused the pinned `.lake` closure and performed no update, build, clone, or fetch.
 The architecture is self-tested only: both substantive branch packages and every Nash analytic
 engine remain open, no proof coverage is credited, and master acceptance remains required.
+
+## Proof execution validation (2026-07-12)
+
+Base revision: `45225aadff56e3948bc75a950e5287a960a002b5`.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0170/Proof.lean` | 0 | `statement_of_isEmpty` closes the exact empty-manifold boundary case with target dimension zero; axioms are exactly `propext`, `Classical.choice`, `Quot.sound` |
+| `python3 -m json.tool Stage1_Instances/THM-M-0170/proof-receipt.json >/dev/null` | 0 | structured proof receipt is valid JSON |
+| `rg -n '\b(sorry|axiom)\b|placeholder|theorem_complete[[:space:]]*:[[:space:]]*true' Stage1_Instances/THM-M-0170/{Proof.lean,proof-receipt.json}` | 1 | no forbidden declarations, proof gaps, or false completion claim (`rg` exit 1 means no match) |
+| `git diff --check -- Stage1_Instances/THM-M-0170 .stage1-worker-selftest.json` | 0 | no whitespace errors |
+
+This proof phase makes genuine but bounded machine-checked progress on `M0170-S-BOUNDARY`. It does
+not close either member of the frozen root cut set (`M0170-B-COMPACT`, `M0170-B-NONCOMPACT`) and
+therefore does not establish the Nash embedding theorem. The next actionable proof work remains the
+substantive compact and noncompact construction packages and their shared analytic engines.
