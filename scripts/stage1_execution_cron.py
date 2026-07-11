@@ -678,7 +678,18 @@ def launch(max_workers: int) -> None:
         for claim in claims
         if claim.get("status") in {"live", "finished", "finished_integrated"}
     }
-    candidates = [item for item in ordered if item["state"] == "[ ]" and item["id"] not in claimed_ids]
+    states_by_id = {item["id"]: item["state"] for item in ordered}
+    # Phase artifacts are allowed to advance from a self-tested predecessor;
+    # only master acceptance remains strictly `[x]`-ordered.  This lets
+    # statement/anchor work begin from the concrete intake dossier while the
+    # master reviews the preceding receipt, without treating `[_]` as closure.
+    candidates = [
+        item
+        for item in ordered
+        if item["state"] == "[ ]"
+        and item["id"] not in claimed_ids
+        and all(states_by_id.get(dependency) in {"[_]", "[x]"} for dependency in item["depends_on"])
+    ]
     selected = candidates[:capacity]
     if not selected:
         print("tick: no unclaimed work")
