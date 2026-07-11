@@ -1,0 +1,21 @@
+{
+  "schema_version": "stage1-open-task-dag/1.0",
+  "theorem_id": "THM-M-1079",
+  "lifecycle": "planned",
+  "accepted_states": [],
+  "tasks": [
+    {
+      "id": "S56-M-1079-STATEMENT",
+      "phase": "statement",
+      "depends_on": ["S56-M-1079-INTAKE"],
+      "state": "open",
+      "first_blocker": "repository source names an object family but no unique proposition"
+    },
+    {"id": "S56-M-1079-ANCHOR_AUDIT", "phase": "anchor_audit", "depends_on": ["S56-M-1079-STATEMENT"], "state": "open"},
+    {"id": "S56-M-1079-OBLIGATION_TREE", "phase": "obligation_tree", "depends_on": ["S56-M-1079-ANCHOR_AUDIT"], "state": "open"},
+    {"id": "S56-M-1079-PROOF", "phase": "proof", "depends_on": ["S56-M-1079-OBLIGATION_TREE"], "state": "open"},
+    {"id": "S56-M-1079-VALIDATION", "phase": "validation", "depends_on": ["S56-M-1079-PROOF"], "state": "open"},
+    {"id": "S56-M-1079-RELEASE", "phase": "release", "depends_on": ["S56-M-1079-VALIDATION"], "state": "open"}
+  ],
+  "acceptance_boundary": "Only the integration lane may accept a node or modify the authoritative execution DAG."
+}
