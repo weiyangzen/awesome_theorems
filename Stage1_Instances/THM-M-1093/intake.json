@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1093-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1093",
+  "canonical_name": "Fokker-Planck equation",
+  "canonical_statement": "For a one-dimensional diffusion with drift b and variance coefficient a, a sufficiently regular probability density rho evolves by partial_t rho = -partial_x (b rho) + (1/2) partial_xx (a rho), subject to explicit initial, regularity, boundary, existence, and uniqueness conditions.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_217",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_217.StatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional one-dimensional model over Real: time-space Real x Real, density and coefficients (Real x Real) -> Real; Prop and Type in universe 0",
+  "quantifiers": [
+    "initial density rho0 : Real -> Real",
+    "initial-data package I : FokkerPlanckInitialData rho0",
+    "coefficient package C : FokkerPlanckCoefficients"
+  ],
+  "hypotheses": [
+    "rho0 is measurable, nonnegative, and induces a probability measure",
+    "finite-moment and diffusion-admissibility predicates",
+    "drift and variance regularity predicates",
+    "pointwise nonnegativity of the variance coefficient",
+    "compatibility of the selected generator with the diffusion"
+  ],
+  "conclusion": "There exists a density evolution with the selected classical and weak equations, initial trace, probability normalization, law/generator compatibility, and uniqueness package.",
+  "alternate_encodings": [
+    {
+      "target": "SolvesClassicalFokkerPlanck b a rho domain",
+      "relationship": "pointwise PDE component of the proposed root",
+      "checked_witness": "candidate only; equivalence and analytic adequacy deferred to statement phase"
+    },
+    {
+      "target": "SolvesWeakFokkerPlanck b a rho",
+      "relationship": "test-function/generator formulation",
+      "checked_witness": "candidate only; integration-by-parts transport deferred to statement phase"
+    },
+    {
+      "target": "measure-valued Kolmogorov forward equation",
+      "relationship": "broader formulation that does not require a density",
+      "checked_witness": "excluded from canonical credit until a source-faithful scope decision and checked transport exist"
+    }
+  ],
+  "excluded_degenerate_cases": "No claim is made for arbitrary measurable coefficients, negative variance, densities without probability normalization, singular laws without densities, boundary domains without boundary conditions, or higher-dimensional/manifold/jump processes.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, real analysis, measure integration, and derivative dependencies remain to be audited",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain, mathlib revision, imports, and transitive declaration closure remain open",
+  "computation_profile": "No numerical PDE solver, simulation, oracle, or native computation is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; pin and elaboration verification deferred to statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; primary-source scans, immutable hashes, pinpoint equations, translations, and errata remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1093/README.md",
+    "Stage1_Instances/THM-M-1093/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the mathematical scope, canonical Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H3",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a provisional one-dimensional scope only. The historical file is discovery input, not accepted proof evidence. No exact-statement, source-fidelity, Lean elaboration, proof, or release gate is claimed."
+}

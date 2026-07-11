@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1550-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1550",
+  "canonical_name": "Lax-pair isospectrality",
+  "source_label": "Lax pair; representation of integrable systems",
+  "canonical_statement": "For a finite-dimensional complex matrix path L on a real time domain, a Lax evolution dL/dt = [P,L] together with sufficient hypotheses producing conjugation evolution preserves the spectrum of L across the domain.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "candidate_module": "AwesomeTheorems.Stage1.S1_M_209",
+    "candidate_declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_209.StatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "provisionally n : Type u with DecidableEq n and Fintype n; L P : Real -> Matrix n n Complex; timeDomain : Set Real; result in Prop",
+  "ordered_binders": ["universe u", "n : Type u", "DecidableEq n", "Fintype n", "L P : Real -> Matrix n n Complex", "timeDomain : Set Real"],
+  "hypotheses": ["L satisfies the matrix Lax equation on timeDomain", "regularity sufficient for the derivative/evolution formulation", "a conjugating evolution is available or is constructed from separately frozen sufficient hypotheses"],
+  "conclusion": "for all t0 and t in timeDomain, spectrum Complex (L t) = spectrum Complex (L t0)",
+  "boundary_cases": ["an empty or singleton timeDomain makes the relational conclusion vacuous/trivial", "dimension zero is provisionally permitted by the finite type formulation", "constant paths and P = 0 are legitimate special cases"],
+  "excluded_scope": ["a theorem that every notion of integrable system admits a Lax representation", "unbounded-operator spectral theory", "PDE domain and boundary-condition analysis", "inverse-scattering completeness", "experimental or physical assertions"],
+  "alternate_encodings": [
+    {"target": "unit-conjugation of L(t)", "relationship": "sufficient for spectrum equality", "checked_witness": "candidate only; credit deferred to statement phase"},
+    {"target": "characteristic-polynomial conservation", "relationship": "finite-matrix spectral invariant refinement", "checked_witness": "candidate only; equivalence/implication audit deferred"},
+    {"target": "trace-power conservation", "relationship": "finite-matrix invariant consequence", "checked_witness": "candidate only; not treated as full spectral equivalence at intake"}
+  ],
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical reasoning and choice audit open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact versions and transitive closure open",
+  "computation_profile": "No native computation, oracle, or external solver is credited at intake",
+  "source_revisions": "Primary-source bibliographic anchor and repository-source crosswalk are recorded in source_statement_crosswalk.md; immutable file hashes and errata review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1550/README.md", "Stage1_Instances/THM-M-1550/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the human claim, canonical target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a conservative scope. It neither proves universal Lax representability nor accepts the historical Lean artifact."
+}
