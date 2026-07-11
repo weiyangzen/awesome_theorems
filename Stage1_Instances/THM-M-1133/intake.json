@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1133-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1133",
+  "canonical_name": "Weak maximum principle for the heat equation",
+  "canonical_statement": "Let U be a bounded open subset of a finite-dimensional Euclidean space and T > 0. If u is continuous on the closure of U x [0,T], is twice continuously differentiable in space and once continuously differentiable in time on U x (0,T], and satisfies u_t - Delta u = 0 there, then the maximum of u on the closed space-time cylinder equals its maximum on the parabolic boundary (the initial face together with the lateral boundary).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional: n : Nat, U : Set (EuclideanSpace Real (Fin n)), T : Real, u : EuclideanSpace Real (Fin n) -> Real -> Real; exact Lean universes and analytic predicates remain for the statement phase.",
+  "quantifiers": [
+    "n : Nat",
+    "U : bounded open subset of EuclideanSpace Real (Fin n)",
+    "T : Real with 0 < T",
+    "u : closure(U x [0,T]) -> Real, represented by a suitably regular ambient function"
+  ],
+  "hypotheses": [
+    "IsOpen U and IsBounded U",
+    "0 < T",
+    "u is continuous on the closed cylinder",
+    "u has the spatial C2 and temporal C1 regularity needed on U x (0,T]",
+    "partial_t u - Laplacian_x u = 0 on U x (0,T]"
+  ],
+  "conclusion": "max_{closure(U) x [0,T]} u = max_{(closure(U) x {0}) union (frontier(U) x [0,T])} u",
+  "alternate_encodings": [
+    {
+      "target": "supremum inequality u(x,t) <= sup on the parabolic boundary",
+      "relationship": "equivalent under compactness and continuity",
+      "checked_witness": "none; statement-phase obligation"
+    },
+    {
+      "target": "subsolution form partial_t u - Laplacian u <= 0",
+      "relationship": "strictly more general weak maximum principle",
+      "checked_witness": "none; not interchangeable without an explicit specialization"
+    },
+    {
+      "target": "strong maximum principle for an interior maximum",
+      "relationship": "stronger theorem with a different conclusion",
+      "checked_witness": "excluded from this root"
+    }
+  ],
+  "included_boundary_cases": "The initial face t = 0 and lateral boundary frontier(U) x [0,T] form the parabolic boundary. The terminal interior face U x {T} belongs to the cylinder, not to the parabolic boundary.",
+  "excluded_degenerate_cases": "T = 0, unbounded spatial domains, weak/distributional solutions, nonhomogeneous equations, and strong-principle equality cases are outside this root.",
+  "foundation_profile": "Lean 4 kernel with mathlib real analysis; classical compactness/extrema and finite-dimensional differential calculus are expected, but the exact axiom closure is open.",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; toolchain, imports, declaration closure, and dependency fingerprint remain open.",
+  "computation_profile": "No numerical PDE solver, native computation, oracle, or external computation is credited.",
+  "formal_system": "Lean 4 plus repository-pinned mathlib; exact import feasibility is deferred to the statement phase.",
+  "source_revisions": "Discovery citations are recorded in source_statement_crosswalk.md; immutable copies, hashes, edition pinpoints, and errata review remain open.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1133/README.md",
+    "Stage1_Instances/THM-M-1133/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on any change to the PDE sign convention, solution regularity, cylinder or parabolic-boundary definition, spatial domain assumptions, Lean target/imports/toolchain, source pins, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake fixes a precise classical weak maximum-principle reading of the terse Stage0 label. It supplies no elaborated Lean statement or proof credit. Source pinpoints and exact formal encodings remain subject to dependent phases."
+}
