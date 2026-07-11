@@ -1,0 +1,42 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0399",
+  "item_id": "S56-M-0399-STATEMENT",
+  "canonical_statement": "For every irrational real alpha algebraic over the rationals and every real epsilon > 0, the rational x satisfying |alpha - x| < den(x)^(-(2 + epsilon)) form a finite set, where den is the positive reduced denominator.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0399/RothStatement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0399.RothStatement",
+    "elaborated_expression_sha256": "d63a5863b947f4e03f21847e040b9f4980722607ae953749fa2cb7851a492389"
+  },
+  "domain_and_universes": "alpha epsilon : Real; approximants x : Rat; no universe parameters",
+  "quantifiers": ["alpha : Real", "epsilon : Real"],
+  "hypotheses": ["IsAlgebraic Rat alpha", "Irrational alpha", "0 < epsilon"],
+  "conclusion": "Set.Finite (exceptionalRationals alpha epsilon)",
+  "denominator": "Rat.den, coerced from Nat to Real; mathlib's positive reduced denominator",
+  "power_encoding": "Real.rpow (x.den : Real) (-(2 + epsilon))",
+  "excluded_degenerate_cases": ["rational alpha", "transcendental alpha", "epsilon <= 0"],
+  "imports": [
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    "Mathlib.RingTheory.Algebraic.Defs",
+    "Mathlib.Topology.Instances.Irrational"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "options": ["pp.explicit=true for expression serialization"],
+    "foundation_profile": "Lean 4 dependent type theory plus imported mathlib definitions; no proof or axiom is credited by this statement artifact"
+  },
+  "mutation_tests": {
+    "validator": "check_statement.py",
+    "killed": [
+      "removed irrationality hypothesis",
+      "changed alpha domain from Real to Rat",
+      "moved epsilon outside alpha binder scope",
+      "changed positive epsilon family to epsilon = 0 boundary"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact target only. It does not supply a proof, improve M4, complete the audit, or complete the theorem."
+}
