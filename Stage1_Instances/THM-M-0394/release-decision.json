@@ -1,0 +1,82 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0394-RELEASE",
+  "theorem_id": "THM-M-0394",
+  "intent": "release",
+  "base_revision": "81c2e54a7a83ea2d1470d4ce833f433e23d0141e",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0394-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0394-VALIDATION-local-20260711T193412Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "6c76cb4eb6b1bd8c40c99765d0004deee31ed5c73186440d6a6cab49d05717f1"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0394-PROOF-local-20260711T192954Z",
+    "S56-M-0394-VALIDATION-local-20260711T193412Z"
+  ],
+  "root_vector": {
+    "dossier_before": ["H3", "M3", "R3"],
+    "dossier_after": ["H3", "M3", "R3"],
+    "boundary": "The frozen typed graph records the root as H3/M3/R3. Worker receipts locally check only M0394-S3 and conditional M0394-B; they do not close or promote the root."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0394-VALIDATION is worker-self-tested only and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-0394-ROOT-KERNEL-CLOSURE",
+    "reason": "The validation receipt records root_closed=false; neither arithmetic finiteness branch nor the exact terminal/root composition has a checked proof body."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0394-VALIDATION and all transitive phase receipts",
+    "kernel closure of the positive-genus finiteness branch M0394-B1 and its Diophantine-approximation dependencies",
+    "kernel closure of the genus-zero three-boundary branch M0394-B2 and its S-unit finiteness dependencies",
+    "semantic realization and coordinate-model invariance obligations M0394-N, M0394-N1, and M0394-X1",
+    "checked exact terminal M0394-T and M0394-ROOT child-to-parent composition",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "canonical_statement": "elaborated as provisional worker evidence",
+    "statement_identity": "sha256:7db337b7285aa5908d1504574e09bb3ba02d13bdada499da93f3d79035a27cc8",
+    "frozen_root_relevant_obligation_count": 17,
+    "worker_receipt_closed_obligation_ids": ["M0394-S3", "M0394-B"],
+    "open_root_relevant_obligation_count": 15,
+    "frozen_graph_reconciliation": "M0394-S3 remains M3 in the frozen typed graph while the proof receipt proposes local closure; the weaker frozen status controls release. M0394-B is M0-L but conditional on two open branch premises.",
+    "exact_root_kernel_check": "missing",
+    "positive_genus_terminal_body": "missing",
+    "genus_zero_terminal_body": "missing",
+    "root_composition": "missing",
+    "axioms_observed_on_partial_checks": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, Proof.lean, and Validation.lean",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "First close and master-accept both substantive finiteness branches, semantic/model bridges, exact terminal/root composition, and the validation dependency. Then a separately provisioned release lane must close H0/R0, trust/provenance, hermetic, supply-chain, independent-runner, CI, and deterministic-bundle gates.",
+  "status_boundary": "This worker artifact truthfully decides the requested release phase as blocked. It creates no accepted receipt, changes no lifecycle or debt state, and makes no audit-completion or theorem-completion claim."
+}
