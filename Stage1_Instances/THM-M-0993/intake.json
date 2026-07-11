@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0993-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0993",
+  "canonical_name": "Chernoff exponential-moment upper-tail bound for a finite independent sum",
+  "canonical_statement": "For a finite family of independent real random variables X_i on a probability space, if their relevant exponential moments exist, then for every real threshold a and every real t > 0, the probability that their sum is at least a is at most exp(-t a) times the product of E[exp(t X_i)].",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Omega : Type u; mOmega : MeasurableSpace Omega; mu : Measure Omega with IsProbabilityMeasure mu; I : Type v with Fintype I; X : I -> Omega -> Real; a t : Real",
+  "ordered_binders": ["Omega and its measurable space", "probability measure mu", "finite index type I", "random variables X i", "threshold a", "exponential tilt t"],
+  "hypotheses": ["0 < t", "each X i has the measurability required by the selected integral API", "the family X is independent under mu", "each exp (t * X i) is integrable under mu"],
+  "conclusion": "mu {omega | a <= sum i, X i omega} <= exp (-t * a) * product i, integral omega, exp (t * X i omega) dmu",
+  "degenerate_and_boundary_cases": ["t = 0 is excluded", "the empty finite family is retained", "non-probability measures are outside the root", "infinite families and lower tails are outside the root"],
+  "alternate_encodings": [
+    {"target": "unfactored moment-generating-function bound", "relationship": "product form follows through checked independence factorization", "checked_witness": null, "status": "candidate_only"},
+    {"target": "multiplicative Bernoulli/binomial Chernoff bounds", "relationship": "optimized corollaries", "checked_witness": null, "status": "excluded_as_root_substitute"}
+  ],
+  "foundation_profile": "Not instantiated; classical finite-set and measure-theory usage remain open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact versions and dependency closure remain open",
+  "computation_profile": "No computation or oracle is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib",
+  "source_revisions": "Discovery anchors are in source_statement_crosswalk.md; immutable hashes, errata, and review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0993/README.md", "Stage1_Instances/THM-M-0993/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the variant, domains, hypotheses, Lean target, toolchain, source pins, TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes one precise Chernoff-family scope. It neither elaborates nor proves the target."
+}
+
