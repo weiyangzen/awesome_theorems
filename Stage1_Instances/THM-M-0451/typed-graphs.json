@@ -1,0 +1,98 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-0451-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0451",
+  "root_obligation_id": "M0451-ROOT",
+  "nodes": [
+    {"obligation_id":"M0451-ROOT","debt":"H1/M3/R3","status":"open","meaning":"Exact normalized Neron-Tate package"},
+    {"obligation_id":"M0451-ASSEMBLE","debt":"H1/M0-L/R3","status":"conditional_composition_checked","meaning":"Engine fields compose into exact root"},
+    {"obligation_id":"M0451-HEIGHT","debt":"H1/M4/R4","status":"open","meaning":"Construct canonical height by dyadic limiting process"},
+    {"obligation_id":"M0451-LIMIT","debt":"H1/M4/R4","status":"open","meaning":"Exact normalized defining limit"},
+    {"obligation_id":"M0451-APPROX","debt":"H1/M4/R4","status":"open","meaning":"Uniform naive-height estimate driving convergence"},
+    {"obligation_id":"M0451-BOUNDED","debt":"H1/M4/R4","status":"open","meaning":"Uniform difference from xHeight/2"},
+    {"obligation_id":"M0451-QUADRATIC","debt":"H1/M4/R4","status":"open","meaning":"Quadraticity for all integer scalars"},
+    {"obligation_id":"M0451-PARALLELOGRAM","debt":"H1/M4/R4","status":"open","meaning":"Parallelogram identity"},
+    {"obligation_id":"M0451-NONNEGATIVE","debt":"H1/M4/R4","status":"open","meaning":"Global nonnegativity"},
+    {"obligation_id":"M0451-TORSION-KERNEL","debt":"H1/M4/R4","status":"open","meaning":"Torsion iff zero height"},
+    {"obligation_id":"M0451-TORSION-ZERO","debt":"H1/M4/R4","status":"open","meaning":"Torsion implies zero height"},
+    {"obligation_id":"M0451-ZERO-TORSION","debt":"H1/M4/R4","status":"open","meaning":"Zero height implies torsion"},
+    {"obligation_id":"M0451-XHEIGHT","debt":"H1/M3/R3","status":"statement_elaborated","meaning":"Naive height and identity convention"},
+    {"obligation_id":"M0451-FOUNDATION","debt":"H1/M4/R4","status":"open","meaning":"Foundation and computation certificate"},
+    {"obligation_id":"M0451-SOURCE","debt":"H1/NA/R4","status":"open","meaning":"Primary-source and normalization crosswalk"},
+    {"obligation_id":"M0451-PROVENANCE","debt":"H1/M4/R4","status":"open","meaning":"Terminal-body and adapter provenance"},
+    {"obligation_id":"M0451-TRUST","debt":"H1/M4/R4","status":"open","meaning":"Replay, freshness, and independent verification"}
+  ],
+  "graphs": {
+    "proof": {"edges": [
+      {"edge_id":"P01","type":"proof_requires","from":"M0451-ROOT","to":"M0451-ASSEMBLE"},
+      {"edge_id":"P02","type":"proof_requires","from":"M0451-ASSEMBLE","to":"M0451-HEIGHT"},
+      {"edge_id":"P03","type":"proof_requires","from":"M0451-ASSEMBLE","to":"M0451-LIMIT"},
+      {"edge_id":"P04","type":"proof_requires","from":"M0451-ASSEMBLE","to":"M0451-BOUNDED"},
+      {"edge_id":"P05","type":"proof_requires","from":"M0451-ASSEMBLE","to":"M0451-QUADRATIC"},
+      {"edge_id":"P06","type":"proof_requires","from":"M0451-ASSEMBLE","to":"M0451-PARALLELOGRAM"},
+      {"edge_id":"P07","type":"proof_requires","from":"M0451-ASSEMBLE","to":"M0451-NONNEGATIVE"},
+      {"edge_id":"P08","type":"proof_requires","from":"M0451-ASSEMBLE","to":"M0451-TORSION-KERNEL"},
+      {"edge_id":"P09","type":"proof_requires","from":"M0451-HEIGHT","to":"M0451-APPROX"},
+      {"edge_id":"P10","type":"proof_requires","from":"M0451-LIMIT","to":"M0451-APPROX"},
+      {"edge_id":"P11","type":"proof_requires","from":"M0451-BOUNDED","to":"M0451-APPROX"},
+      {"edge_id":"P12","type":"proof_requires","from":"M0451-QUADRATIC","to":"M0451-LIMIT"},
+      {"edge_id":"P13","type":"proof_requires","from":"M0451-PARALLELOGRAM","to":"M0451-APPROX"},
+      {"edge_id":"P14","type":"proof_requires","from":"M0451-NONNEGATIVE","to":"M0451-BOUNDED"},
+      {"edge_id":"P15","type":"proof_requires","from":"M0451-TORSION-KERNEL","to":"M0451-TORSION-ZERO"},
+      {"edge_id":"P16","type":"proof_requires","from":"M0451-TORSION-KERNEL","to":"M0451-ZERO-TORSION"},
+      {"edge_id":"P17","type":"proof_requires","from":"M0451-TORSION-ZERO","to":"M0451-QUADRATIC"},
+      {"edge_id":"P18","type":"proof_requires","from":"M0451-ZERO-TORSION","to":"M0451-NONNEGATIVE"},
+      {"edge_id":"P19","type":"proof_requires","from":"M0451-APPROX","to":"M0451-XHEIGHT"}
+    ]},
+    "refinement": {"edges": [
+      {"edge_id":"R01","type":"refines","from":"M0451-ASSEMBLE","to":"M0451-ROOT"},
+      {"edge_id":"R02","type":"refines","from":"M0451-LIMIT","to":"M0451-HEIGHT"},
+      {"edge_id":"R03","type":"refines","from":"M0451-TORSION-ZERO","to":"M0451-TORSION-KERNEL"},
+      {"edge_id":"R04","type":"refines","from":"M0451-ZERO-TORSION","to":"M0451-TORSION-KERNEL"},
+      {"edge_id":"R05","type":"refines","from":"M0451-XHEIGHT","to":"M0451-LIMIT"}
+    ]},
+    "provenance": {"edges": [
+      {"edge_id":"V01","type":"provenance_of","from":"M0451-PROVENANCE","to":"M0451-ROOT"},
+      {"edge_id":"V02","type":"provenance_of","from":"M0451-PROVENANCE","to":"M0451-ASSEMBLE"},
+      {"edge_id":"V03","type":"provenance_of","from":"M0451-PROVENANCE","to":"M0451-APPROX"},
+      {"edge_id":"V04","type":"provenance_of","from":"M0451-PROVENANCE","to":"M0451-XHEIGHT"}
+    ]},
+    "evidence": {"edges": [
+      {"edge_id":"E01","type":"evidence_for","from":"M0451-TRUST","to":"M0451-ROOT"},
+      {"edge_id":"E02","type":"evidence_for","from":"M0451-TRUST","to":"M0451-ASSEMBLE"},
+      {"edge_id":"E03","type":"evidence_for","from":"M0451-TRUST","to":"M0451-PROVENANCE"}
+    ]},
+    "trust": {"edges": [
+      {"edge_id":"T01","type":"trusts","from":"M0451-ROOT","to":"M0451-TRUST"},
+      {"edge_id":"T02","type":"trusts","from":"M0451-ASSEMBLE","to":"M0451-FOUNDATION"},
+      {"edge_id":"T03","type":"trusts","from":"M0451-LIMIT","to":"M0451-FOUNDATION"},
+      {"edge_id":"T04","type":"trusts","from":"M0451-XHEIGHT","to":"M0451-FOUNDATION"}
+    ]},
+    "documentation": {"edges": [
+      {"edge_id":"D01","type":"documents","from":"M0451-SOURCE","to":"M0451-ROOT"},
+      {"edge_id":"D02","type":"source_map","from":"M0451-SOURCE","to":"M0451-LIMIT"},
+      {"edge_id":"D03","type":"source_map","from":"M0451-SOURCE","to":"M0451-APPROX"},
+      {"edge_id":"D04","type":"source_map","from":"M0451-SOURCE","to":"M0451-ZERO-TORSION"},
+      {"edge_id":"D05","type":"documents","from":"M0451-PROVENANCE","to":"M0451-ASSEMBLE"}
+    ]},
+    "workflow": {"edges": [
+      {"edge_id":"W01","type":"workflow_depends_on","from":"M0451-ASSEMBLE","to":"M0451-PROVENANCE"},
+      {"edge_id":"W02","type":"workflow_depends_on","from":"M0451-PROVENANCE","to":"M0451-TRUST"},
+      {"edge_id":"W03","type":"workflow_depends_on","from":"M0451-SOURCE","to":"M0451-TRUST"},
+      {"edge_id":"W04","type":"workflow_depends_on","from":"M0451-FOUNDATION","to":"M0451-TRUST"}
+    ]}
+  },
+  "composition_certificates": [
+    {"parent":"M0451-ASSEMBLE","children":["M0451-HEIGHT","M0451-LIMIT","M0451-BOUNDED","M0451-QUADRATIC","M0451-PARALLELOGRAM","M0451-NONNEGATIVE","M0451-TORSION-ZERO","M0451-ZERO-TORSION"],"declaration":"Stage1Instances.THM_M_0451.ObligationTree.engine_compose","state":"kernel_checked_conditional"},
+    {"parent":"M0451-ROOT","children":["M0451-ASSEMBLE"],"declaration":"none","state":"open_until_engine_inhabited"}
+  ],
+  "closure_boundary": {
+    "closed_obligations": [],
+    "conditionally_composed_obligations": ["M0451-ASSEMBLE"],
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": ["M0451-APPROX", "M0451-LIMIT", "M0451-BOUNDED", "M0451-QUADRATIC", "M0451-PARALLELOGRAM", "M0451-NONNEGATIVE", "M0451-TORSION-ZERO", "M0451-ZERO-TORSION", "M0451-SOURCE", "M0451-PROVENANCE", "M0451-TRUST"],
+    "reason": "The Lean certificate consumes a polymorphic uninhabited CanonicalHeightEngine. The anchor audit found substrate only; construction, all properties, source reconstruction, provenance, replay, readability, and independent review remain open."
+  }
+}
