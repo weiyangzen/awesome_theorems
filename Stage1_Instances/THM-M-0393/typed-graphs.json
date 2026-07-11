@@ -1,0 +1,98 @@
+{
+  "schema": "stage1-rev-5.6-typed-graph-bundle-v1",
+  "theorem_id": "THM-M-0393",
+  "registry_id": "THM-M-0393-REGISTRY-v1",
+  "proof_graph": {
+    "root": "M0393-ROOT",
+    "edges": [
+      {"from":"M0393-ROOT","to":"M0393-S1","type":"proof_requires"},
+      {"from":"M0393-ROOT","to":"M0393-S2","type":"proof_requires"},
+      {"from":"M0393-ROOT","to":"M0393-T2","type":"proof_requires"},
+      {"from":"M0393-ROOT","to":"M0393-X2","type":"proof_requires"},
+      {"from":"M0393-T2","to":"M0393-S3","type":"proof_requires"},
+      {"from":"M0393-T2","to":"M0393-N1","type":"proof_requires"},
+      {"from":"M0393-T2","to":"M0393-N2","type":"proof_requires"},
+      {"from":"M0393-T2","to":"M0393-T1","type":"proof_requires"},
+      {"from":"M0393-T1","to":"M0393-C1","type":"proof_requires"},
+      {"from":"M0393-T1","to":"M0393-C2","type":"proof_requires"},
+      {"from":"M0393-T1","to":"M0393-B1","type":"proof_requires"},
+      {"from":"M0393-T1","to":"M0393-B2","type":"proof_requires"},
+      {"from":"M0393-B2","to":"M0393-L1","type":"proof_requires"},
+      {"from":"M0393-B2","to":"M0393-L2","type":"proof_requires"},
+      {"from":"M0393-B2","to":"M0393-L3","type":"proof_requires"},
+      {"from":"M0393-B2","to":"M0393-X1","type":"proof_requires"}
+    ],
+    "composition_certificates": [
+      {"parent":"M0393-ROOT","id":"COMP-ROOT","state":"planned_open","required_children":["M0393-S1","M0393-S2","M0393-T2","M0393-X2"]},
+      {"parent":"M0393-T2","id":"COMP-T2","state":"planned_open","required_children":["M0393-S3","M0393-N1","M0393-N2","M0393-T1"]},
+      {"parent":"M0393-T1","id":"COMP-T1","state":"planned_open","required_children":["M0393-C1","M0393-C2","M0393-B1","M0393-B2"]},
+      {"parent":"M0393-B2","id":"COMP-B2","state":"planned_open","required_children":["M0393-L1","M0393-L2","M0393-L3","M0393-X1"]}
+    ]
+  },
+  "refinement_graph": {
+    "edges": [
+      {"from":"M0393-ROOT","to":"M0393-S1","type":"logical_decomposition"},
+      {"from":"M0393-ROOT","to":"M0393-S2","type":"logical_decomposition"},
+      {"from":"M0393-ROOT","to":"M0393-T2","type":"logical_decomposition"},
+      {"from":"M0393-T2","to":"M0393-N1","type":"logical_decomposition"},
+      {"from":"M0393-T2","to":"M0393-N2","type":"logical_decomposition"},
+      {"from":"M0393-T1","to":"M0393-B1","type":"logical_decomposition"},
+      {"from":"M0393-T1","to":"M0393-B2","type":"logical_decomposition"}
+    ]
+  },
+  "provenance_graph": {
+    "external_nodes": [
+      {"id":"PROV-CANONICAL-STATEMENT","kind":"local_statement","location":"Stage1_Instances/THM-M-0393/Statement.lean","proof_credit":false},
+      {"id":"PROV-MATHLIB-SUBSTRATE","kind":"pinned_dependency","revision":"8a178386ffc0f5fef0b77738bb5449d50efeea95","proof_credit":false},
+      {"id":"PROV-THUE-SOURCE-PENDING","kind":"human_source_boundary","revision":null,"proof_credit":false},
+      {"id":"PROV-NO-TERMINAL-BODY","kind":"open_proof_boundary","proof_credit":false}
+    ],
+    "edges": [
+      {"from":"M0393-S1","to":"PROV-CANONICAL-STATEMENT","type":"provenance_of"},
+      {"from":"M0393-S2","to":"PROV-CANONICAL-STATEMENT","type":"provenance_of"},
+      {"from":"M0393-C1","to":"PROV-MATHLIB-SUBSTRATE","type":"provenance_of"},
+      {"from":"M0393-ROOT","to":"PROV-NO-TERMINAL-BODY","type":"provenance_of"},
+      {"from":"M0393-X1","to":"PROV-THUE-SOURCE-PENDING","type":"source_map"}
+    ]
+  },
+  "evidence_graph": {"evidence_nodes":[],"edges":[]},
+  "trust_graph": {
+    "trust_nodes":[
+      {"id":"TRUST-LEAN-KERNEL","kind":"kernel","state":"required_open"},
+      {"id":"TRUST-MATHLIB-PIN","kind":"dependency_source","revision":"8a178386ffc0f5fef0b77738bb5449d50efeea95","state":"pinned_source_only"},
+      {"id":"TRUST-NO-ORACLE","kind":"computation_policy","state":"required_open"}
+    ],
+    "edges":[
+      {"from":"M0393-ROOT","to":"TRUST-LEAN-KERNEL","type":"trusts"},
+      {"from":"M0393-ROOT","to":"TRUST-MATHLIB-PIN","type":"trusts"},
+      {"from":"M0393-X2","to":"TRUST-NO-ORACLE","type":"trusts"}
+    ]
+  },
+  "documentation_graph": {
+    "document_nodes":[{"id":"DOC-OBLIGATION-TREE","path":"Stage1_Instances/THM-M-0393/obligation-tree.md","state":"worker_draft"}],
+    "edges":[{"from":"M0393-ROOT","to":"DOC-OBLIGATION-TREE","type":"documents"}]
+  },
+  "workflow_graph": {
+    "tasks":[
+      {"id":"M0393-T01","action":"freeze_registry","state":"provisional_worker_selftest"},
+      {"id":"M0393-T02","action":"validate_typed_graphs","state":"provisional_worker_selftest"},
+      {"id":"M0393-H01","action":"pinpoint_primary_sources_and_crosswalk","state":"open"},
+      {"id":"M0393-M05","action":"implement_open_obligations","state":"open"},
+      {"id":"M0393-C01","action":"check_composition_certificates","state":"open"},
+      {"id":"M0393-V01","action":"kernel_and_trust_validation","state":"open"}
+    ],
+    "edges":[
+      {"from":"M0393-T02","to":"M0393-T01","type":"workflow_depends_on"},
+      {"from":"M0393-H01","to":"M0393-T02","type":"workflow_depends_on"},
+      {"from":"M0393-M05","to":"M0393-T02","type":"workflow_depends_on"},
+      {"from":"M0393-M05","to":"M0393-H01","type":"workflow_depends_on"},
+      {"from":"M0393-C01","to":"M0393-M05","type":"workflow_depends_on"},
+      {"from":"M0393-V01","to":"M0393-C01","type":"workflow_depends_on"}
+    ],
+    "task_obligation_links":[
+      {"task":"M0393-T01","obligations":["M0393-ROOT","M0393-S1","M0393-S2","M0393-S3","M0393-N1","M0393-N2","M0393-C1","M0393-C2","M0393-L1","M0393-L2","M0393-L3","M0393-X1","M0393-B1","M0393-B2","M0393-T1","M0393-T2","M0393-X2"]},
+      {"task":"M0393-M05","obligations":["M0393-ROOT","M0393-S1","M0393-S2","M0393-S3","M0393-N1","M0393-N2","M0393-C1","M0393-C2","M0393-L1","M0393-L2","M0393-L3","M0393-X1","M0393-B1","M0393-B2","M0393-T1","M0393-T2","M0393-X2"]}
+    ]
+  },
+  "status_boundary":"Graph topology and open-state provenance are frozen. No edge is a composition proof, no evidence node exists, and every machine obligation remains M4."
+}
