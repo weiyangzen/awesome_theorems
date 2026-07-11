@@ -2,7 +2,7 @@
 
 ## Status boundary
 
-This is a `planned` rev-5.6 intake instance for the Noether normalization lemma. It freezes the intended scope and records source gaps. It does not claim exact Lean statement identity, accepted source fidelity, proof closure, or theorem completion. The historical `S1-M-030` Lean file and the manifest label `已验证` are discovery inputs only.
+This remains a `planned` rev-5.6 instance for the Noether normalization lemma. The statement node has now self-tested an exact Lean target and a checked historical-shape transport, pending master acceptance. It does not claim accepted source fidelity, proof closure, or theorem completion. The historical `S1-M-030` proof material and the manifest label `已验证` remain discovery inputs only.
 
 ## Scope map
 
@@ -24,11 +24,11 @@ This is a `planned` rev-5.6 intake instance for the Noether normalization lemma.
 | `SRC-MATHLIB-CANDIDATE` | `Mathlib.RingTheory.NoetherNormalization` import named by the legacy module | candidate `exists_integral_inj_algHom_of_fg` | `SCOPE-ALG` | Anchor audit is a later node; no immutable source/body or closure claim is made here. |
 | `SRC-PRIMARY-OPEN` | Primary mathematical publication/textbook | not yet pinpointed | `SCOPE-ROOT` | H status remains unclassified. Edition, theorem/page, assumptions, proof, errata, and reviewer are required before H0. |
 
-The common algebraic statement is deliberately more precise than the legacy Chinese slogan but is not yet certified as its unique intended meaning. The statement phase must resolve whether the public claim is the algebraic theorem, its affine contravariant corollary, or a checked package containing both.
+The statement phase selected a checked package containing both the algebraic normalization data and its affine-space consequence. See `Statement.lean`, `statement.json`, and `statement-validation.md`. The package is checked equivalent to the legacy affine-Spec shape, while arbitrary non-affine varieties remain excluded.
 
 ## Open task DAG
 
-`S56-M-0106-INTAKE` precedes `STATEMENT`, `ANCHOR_AUDIT`, `OBLIGATION_TREE`, `PROOF`, `VALIDATION`, and `RELEASE` in that order. Intake accepts none of those nodes. Immediate next work is exact elaboration, environment fingerprinting, checked transports, and mutation tests. Primary-source pinpointing is required during source audit.
+`S56-M-0106-INTAKE` precedes `STATEMENT`, `ANCHOR_AUDIT`, `OBLIGATION_TREE`, `PROOF`, `VALIDATION`, and `RELEASE` in that order. The statement artifacts are provisional worker evidence only. Immediate next work after master acceptance is the immutable anchor audit; primary-source pinpointing also remains required.
 
 ## Validation record
 
@@ -45,4 +45,4 @@ python3 scripts/stage1_target.py show THM-M-0106
   exit 0: rank 30; baseline L0; lifecycle planned; theorem_complete false
 ```
 
-No Lean build is credited because this intake phase creates no Lean declaration and deliberately leaves the exact formal target to the dependent statement node.
+The original intake commands above remain intake evidence. Statement-specific Lean evidence and exact commands are recorded separately in `statement-validation.md`; no theorem proof or later gate is credited.

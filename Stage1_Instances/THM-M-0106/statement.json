@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0106-STATEMENT",
+  "theorem_id": "THM-M-0106",
+  "lifecycle": "planned",
+  "canonical_statement": "Every nonzero finitely generated commutative algebra R over a field k admits an injective k-algebra map from a polynomial algebra in finitely many variables to R such that R is finite over that polynomial algebra; the induced morphism from Spec R to the corresponding affine space is finite.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0106/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0106.NoetherNormalizationTarget",
+    "elaborated_expression_sha256": "4980834b63da78609158f944b53234d72089e2bfaacb348461de2651aa671209",
+    "statement_file_sha256": "cdcc10cf09bf7edbd07c8b08f48c33431eee3ad4554349fb76bc61ee5457d291"
+  },
+  "domain_and_universes": "universe u; k R : Type u; Field k; CommRing R; Nontrivial R; Algebra k R; Algebra.FiniteType k R; Prop in Lean universe 0",
+  "ordered_binders": [
+    "k : Type u",
+    "R : Type u",
+    "[Field k]",
+    "[CommRing R]",
+    "[Nontrivial R]",
+    "[Algebra k R]",
+    "[Algebra.FiniteType k R]"
+  ],
+  "hypotheses": [],
+  "conclusion": "There exist s : Nat, an injective finite k-algebra map g : MvPolynomial (Fin s) k ->a[k] R, and a finite morphism f : Spec R -> AffineSpace (Fin s) (Spec k) whose composite with AffineSpace.SpecIso.hom is Spec.map g.toRingHom.",
+  "direct_imports": ["Mathlib.AlgebraicGeometry.AffineSpace"],
+  "minimal_import_check": "The single direct import elaborates AlgHom.Finite, IsFinite.SpecMap_iff, Spec, AffineSpace, and AffineSpace.SpecIso; the redundant direct Morphisms.Finite import was removed and the file re-elaborated.",
+  "checked_transport": "Stage1Instances.THM_M_0106.target_iff_pinnedAffineSpecCandidateShape",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_030.AffineSchemeStatementShape",
+  "pinned_source_relationship": "PinnedAffineSpecCandidateShape exactly restates the legacy affine-Spec candidate. The checked iff transports it to the selected affine-space statement through AffineSpace.SpecIso. The legacy file remains discovery input, not proof credit.",
+  "environment_fingerprint": {
+    "repository_base": "8f566755a28459bda22aa05071d96cc391ef0db6",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0106/check_statement.py",
+    "killed": [
+      "removed Nontrivial R",
+      "specialized the arbitrary base field to Rat",
+      "moved the polynomial-variable count outside the R binder",
+      "dropped the induced finite affine-space morphism"
+    ],
+    "boundary_checks": ["s : Nat includes s = 0; an empty Fin-indexed family elaborates"]
+  },
+  "degenerate_cases": "The zero ring is excluded by Nontrivial R. The variable count s may be zero. No reducedness, irreducibility, algebraic-closedness, or positive-dimension assumption is added, so the claim is for nonzero affine schemes of finite type rather than only classical irreducible affine varieties.",
+  "alternate_encodings": {
+    "algebraic": "AlgebraicNoetherNormalizationTarget retains the coordinate-ring core but is strictly less explicit than the selected public target.",
+    "affine_spec": "PinnedAffineSpecCandidateShape is checked equivalent to the selected target.",
+    "arbitrary_variety": "Excluded: no transport from non-affine varieties is asserted."
+  },
+  "foundation_profile": "Lean 4 kernel and mathlib default foundations; noncomputable section permits classical choice used by imported definitions, but this statement module introduces no axiom or proof of the root theorem.",
+  "tcb_profile": "Lean 4.29.0 kernel plus the pinned mathlib elaboration environment; acceptance and later trust closure remain separate gates.",
+  "computation_profile": "No oracle, solver, native-decide, or external computation is used.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected algebraic-plus-affine target, checks its transport from the historical affine-Spec encoding, and distinguishes four structural mutations. It provides no Noether-normalization proof or dependent-node evidence."
+}
