@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0088-STATEMENT",
+  "theorem_id": "THM-M-0088",
+  "lifecycle": "planned",
+  "canonical_statement": "Every locally small category admits the canonical fully faithful Yoneda functor into its category of contravariant Type-valued presheaves.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0088/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0088.YonedaEmbeddingTarget",
+    "elaborated_expression_sha256": "09b7265949046c6554d511b26406306ca81f0d19004a54e959f9fac4abc55519",
+    "statement_file_sha256": "7149fedef3964e45fedf69f621fedc85d9592f527df8ac3deb39fd3805a17a6b"
+  },
+  "domain_and_universes": "universe v u; C : Type u; Category.{v} C; YonedaEmbeddingTarget C : Type (max u v)",
+  "ordered_binders": [
+    "C : Type u",
+    "[Category.{v} C]"
+  ],
+  "hypotheses": [
+    "C carries a Category.{v} structure, encoding local smallness with homs in Type v"
+  ],
+  "conclusion": "(yoneda (C := C) : C ⟶ (Cᵒᵖ ⟶ Type v)).FullyFaithful",
+  "direct_imports": [
+    "Mathlib.CategoryTheory.Yoneda"
+  ],
+  "minimal_import_check": "The target uses CategoryTheory.yoneda, whose defining pinned module is the single direct import Mathlib.CategoryTheory.Yoneda. No aggregate Mathlib import or collateral category-theory module is present.",
+  "checked_transport": "Stage1Instances.THM_M_0088.nonemptyTarget_iff_historicalShape (Iff.rfl)",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_137.StatementShape",
+  "pinned_source_relationship": "The historical shape wraps FullyFaithful in Nonempty. The checked iff verifies that it is exactly existence of the selected data-valued target. The historical file supplies discovery context only, not proof credit.",
+  "environment_fingerprint": {
+    "base_revision": "c2687431b1d86bac7bd509c9abbfdc1e763c060c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "yoneda_source_sha256": "abf848cf1d1de154bff0dc0b3c0fb7cabefac92e44187f4b7992f9942c48622c",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0088/check_statement.py",
+    "killed": [
+      "removed fullness and retained only Faithful",
+      "changed variance and source to the co-Yoneda embedding",
+      "changed the codomain to a universe-raised presheaf category"
+    ]
+  },
+  "degenerate_cases": "No object is selected and no nonemptiness assumption on C is added. The empty category is included. Fullness is retained alongside faithfulness; essential surjectivity onto all presheaves is not asserted.",
+  "alternate_encodings": {
+    "full_and_faithful_typeclasses": "A consequence of FullyFaithful data but not substituted for the selected root.",
+    "hom_equivalence": "A pointwise consequence for each pair of objects, not substituted for the functor-level root.",
+    "co_yoneda_and_universe_raised_yoneda": "Explicitly mutation-tested as distinct targets."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact data-valued Yoneda embedding target, checks the historical proposition transport, and distinguishes three structural mutations. It supplies no inhabitant of the target, proof credit, anchor-audit acceptance, or dependent-node evidence."
+}
+

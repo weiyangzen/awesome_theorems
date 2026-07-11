@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0086",
+  "item_id": "S56-M-0086-STATEMENT",
+  "canonical_name": "Freyd theorem (three-branch repository package)",
+  "canonical_statement": "For every abelian category C, (A) C has a full, faithful functor to modules over a ring preserving finite limits and finite colimits; (B) if C is complete with enough injectives, every separator yields an injective coseparator; and (C) dually, if C is cocomplete with enough projectives, every coseparator yields a projective separator.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "source": "Statement.lean",
+    "module": "Mathlib.CategoryTheory.Abelian.FreydMitchell",
+    "declaration_or_expression": "Stage1Instances.THM_M_0086.CanonicalStatement.{v,u}",
+    "source_sha256": "98e2fce9832b23421c3084e1e7d3dfa84f1465fd700ab66a5eacf386b7c626f1",
+    "elaborated_expression_sha256": "44fed9ab5fa271f7a4fb2fa2de1c99e22f0cc6b9fd4ca1de348dbe308916305b"
+  },
+  "domain_and_universes": "universe v u; C : Type u; Category.{v} C; Abelian C; embedding ring R : Type (max u v); ModuleCat.{max u v} R",
+  "quantifiers": [
+    "forall C : Type u",
+    "implicit Category.{v} C",
+    "implicit Abelian C",
+    "embedding: exists R, Ring R, and F",
+    "injective: forall implicit HasLimits and EnoughInjectives, forall separator G",
+    "projective: forall implicit HasColimits and EnoughProjectives, forall coseparator G"
+  ],
+  "hypotheses": ["Category.{v} C", "Abelian C", "branch-local completeness and enough-object hypotheses", "branch-local separator/coseparator witness"],
+  "conclusion": "EmbeddingBranch C and InjectiveBranch C and ProjectiveBranch C",
+  "alternate_encodings": [{
+    "target": "the fully unfolded conjunction in canonicalStatement_iff_unfolded",
+    "relationship": "iff",
+    "checked_witness": "Stage1Instances.THM_M_0086.canonicalStatement_iff_unfolded"
+  }],
+  "excluded_degenerate_cases": "none; no Nonempty or nontriviality premise is present",
+  "mutation_tests": [
+    {"kind": "removed_hypothesis", "mutation": "remove EnoughInjectives from the injective branch", "expected": "proof term rejected by #check_failure"},
+    {"kind": "changed_domain", "mutation": "quantify C in Type (u+1)", "expected": "proof term rejected by #check_failure"},
+    {"kind": "changed_binder_scope", "mutation": "choose one ring before quantifying C", "expected": "proof term rejected by #check_failure"},
+    {"kind": "boundary_case", "mutation": "add Nonempty C", "expected": "proof term rejected by #check_failure"}
+  ],
+  "foundation_profile": "Lean 4 dependent type theory; #print axioms reports propext, Classical.choice, and Quot.sound for the simp-proved unfolded iff witness; no custom axioms",
+  "tcb_profile": "Lean kernel; elan leanprover/lean4:v4.29.0; mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable section; no computation, oracle, or experiment is credited at the statement gate",
+  "formal_system": "Lean 4.29.0 + mathlib4",
+  "source_revisions": {
+    "repository_base": "0a10648bed0f2cf439e264125af320deb9928048",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lockfile": "Formalizations/Lean/lake-manifest.json"
+  },
+  "obligation_registry_hash": "open: obligation-tree phase not begun",
+  "discovery_protocol_hash": "open: anchor-audit phase not begun",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0086"],
+  "owners_and_reviewers": "statement worker; master integration reviewer",
+  "freshness_and_revocation_policy": "Invalidate on any change to Statement.lean, toolchain, lockfile, mathlib revision, canonical human claim, or statement policy; master records review due date and incidents."
+}
