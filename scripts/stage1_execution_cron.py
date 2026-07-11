@@ -692,18 +692,22 @@ def launch(max_workers: int) -> None:
     claims = refresh_claims(ordered)
     space_guard(claims)
     live = [claim for claim in claims if claim.get("status") == "live"]
+    # A worker may exit after the integration pass but before slot allocation.
+    # Its `finished` handoff must retain the clone until the next integration
+    # pass; recycling that slot here would delete its self-test manifest.
+    slot_reservations = [claim for claim in claims if claim.get("status") in {"live", "finished"}]
     # A slot owns its clone.  Never derive a slot from the count of live claims:
     # claims can finish out of order, leaving holes, and reusing an occupied slot
     # would make two Codex processes write the same worker checkout/manifest.
     occupied_slots = {
         claim.get("slot")
-        for claim in live
+        for claim in slot_reservations
         if isinstance(claim.get("slot"), int) and 1 <= claim["slot"] <= max_workers
     }
     available_slots = [slot for slot in range(1, max_workers + 1) if slot not in occupied_slots]
     capacity = len(available_slots)
     if capacity <= 0:
-        print(f"tick: saturated ({len(live)}/{max_workers} live workers)")
+        print(f"tick: saturated ({len(live)} live, {len(slot_reservations) - len(live)} handoff pending/{max_workers} slots)")
         write_todo(data, ordered, claims)
         return
     claimed_ids = {
