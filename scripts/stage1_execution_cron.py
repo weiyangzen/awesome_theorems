@@ -518,15 +518,21 @@ def integrate(limit: int) -> None:
                 raise ValueError("worker packet identity/state mismatch")
             if not isinstance(changed_paths, list) or not changed_paths:
                 raise ValueError("worker packet lacks changed paths")
-            if any(not isinstance(path, str) or not path.startswith(owner) or ".." in Path(path).parts for path in changed_paths):
+            allowed_worker_metadata = {".stage1-worker-selftest.json"}
+            if any(
+                not isinstance(path, str)
+                or (not path.startswith(owner) and path not in allowed_worker_metadata)
+                or ".." in Path(path).parts
+                for path in changed_paths
+            ):
                 raise ValueError("worker paths escape the assigned ownership scope")
             source = workspace / item["owned_paths"][0]
             destination = ROOT / item["owned_paths"][0]
             if not source.is_dir() or destination.exists():
                 raise ValueError("worker source missing or main owned path conflicts")
-            records = list(source.rglob("*.json"))
+            records = [*source.rglob("*.json"), *source.rglob("*.yaml"), *source.rglob("*.yml")]
             if not records or not any(item["theorem_id"] in record.read_text(encoding="utf-8", errors="ignore") for record in records):
-                raise ValueError("no target-identifying JSON evidence record")
+                raise ValueError("no target-identifying structured evidence record")
             shutil.copytree(source, destination)
             item["state"] = "[_]"
             item["attempts"] = int(item.get("attempts", 0)) + 1
@@ -535,6 +541,8 @@ def integrate(limit: int) -> None:
             accepted.append(item["id"])
             queue.append({"item_id": item["id"], "theorem_id": item["theorem_id"], "state": "[_]", "owned_paths": item["owned_paths"], "changed_paths": changed_paths, "commands": packet.get("commands", []), "known_failures": packet.get("known_failures", [])})
         except (OSError, ValueError, json.JSONDecodeError) as exc:
+            claim["status"] = "rejected"
+            claim["rejected_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             rejected.append({"item_id": str(claim.get("item_id")), "reason": str(exc)})
     if accepted:
         run(["python3", "Docs/tools/check_stage1_standard.py"])
@@ -560,7 +568,11 @@ def launch(max_workers: int) -> None:
         print(f"tick: saturated ({len(live)}/{max_workers} live workers)")
         write_todo(data, ordered, claims)
         return
-    claimed_ids = {claim.get("item_id") for claim in claims}
+    claimed_ids = {
+        claim.get("item_id")
+        for claim in claims
+        if claim.get("status") in {"live", "finished", "finished_integrated"}
+    }
     candidates = [item for item in ordered if item["state"] == "[ ]" and item["id"] not in claimed_ids]
     selected = candidates[:capacity]
     if not selected:
