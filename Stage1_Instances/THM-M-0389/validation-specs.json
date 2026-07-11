@@ -1,0 +1,44 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "item_id": "S56-M-0389-VALIDATION",
+  "theorem_id": "THM-M-0389",
+  "recipes": [
+    {
+      "recipe_id": "M0389-validation-proof-kernel",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "-R", "../../Stage1_Instances/THM-M-0389", "../../Stage1_Instances/THM-M-0389/Proof.lean"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "contains integerMarkovClassification axiom report without sorryAx"}],
+      "covered_obligation_ids": ["M0389-ROOT", "M0389-B-ZERO", "M0389-N-SIGN", "M0389-N-ORDER", "M0389-L-POSGEN", "M0389-L-X1", "M0389-C-DESC", "M0389-L-MUTATE", "M0389-L-HEIGHT", "M0389-L-TERMINATE", "M0389-L-MINIMAL", "M0389-L-REVERSE", "M0389-T-COMPOSE"],
+      "covered_declarations": ["Stage1Instances.THM_M_0389.integerMarkovClassification"]
+    },
+    {
+      "recipe_id": "M0389-validation-exact-root-probe",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0389/check_validation.py", "--probe-only"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "contains validationExactRoot exact type and axiom report without sorryAx"}],
+      "covered_obligation_ids": ["M0389-ROOT", "M0389-T-COMPOSE"],
+      "covered_declarations": ["Stage1Instances.THM_M_0389_Validation.exactRoot_iff_frozen", "Stage1Instances.THM_M_0389_Validation.validationExactRoot"]
+    },
+    {
+      "recipe_id": "M0389-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0389/check_validation.py"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 240,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "contains validation ok"}],
+      "covered_obligation_ids": ["M0389-ROOT", "M0389-S-DEFS", "M0389-S-TRANSPORT", "M0389-B-ZERO", "M0389-N-SIGN", "M0389-N-ORDER", "M0389-L-POSGEN", "M0389-L-X1", "M0389-C-DESC", "M0389-L-MUTATE", "M0389-L-HEIGHT", "M0389-L-TERMINATE", "M0389-L-MINIMAL", "M0389-L-REVERSE", "M0389-T-COMPOSE", "M0389-X-TRUST"],
+      "covered_declarations": ["Stage1Instances.THM_M_0389.IntegerMarkovClassification", "Stage1Instances.THM_M_0389.integerMarkovClassification", "Stage1Instances.THM_M_0389_Validation.validationExactRoot"]
+    }
+  ],
+  "status_boundary": "These warm-cache worker recipes validate the local exact-root body, exact-type probe, frozen graph identity, standard axiom profile, and local-source hygiene. They are not the empty-cache hermetic replay or distinct signed runner required for release."
+}
