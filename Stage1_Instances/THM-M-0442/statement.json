@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0442-STATEMENT",
+  "theorem_id": "THM-M-0442",
+  "lifecycle": "planned",
+  "canonical_statement": "For every elliptic curve E over Q, the additive group E(Q)_tors is isomorphic either to Z/nZ for 1 <= n <= 10 or n = 12, or to Z/2Z x Z/(2*m)Z for 1 <= m <= 4.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0442/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0442.MazurRationalTorsionTarget",
+    "elaborated_expression_sha256": "b65a3a73cac19c57286b3cba584fc84ebda329b70006b409f12ec6e761721658",
+    "statement_file_sha256": "8779e87e3bc1c18654f30bb6380798da00baeaf18e8df6a588c6519ae8655ce4"
+  },
+  "domain_and_universes": "E : WeierstrassCurve Rat; [E.IsElliptic]; n m : Nat; target is Prop in Lean universe 0",
+  "ordered_binders": [
+    "E : WeierstrassCurve Rat",
+    "[E.IsElliptic]"
+  ],
+  "hypotheses": [
+    "E.IsElliptic, supplied as a typeclass binder"
+  ],
+  "conclusion": "There exists an allowed cyclic order n and an additive equivalence E(Q)_tors ~=+ ZMod n, or there exists 1 <= m <= 4 and an additive equivalence E(Q)_tors ~=+ ZMod 2 x ZMod (2*m).",
+  "direct_imports": [
+    "Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point",
+    "Mathlib.GroupTheory.Torsion"
+  ],
+  "minimal_import_check": "Deleting either direct import makes elaboration fail; Mathlib.Data.ZMod.Basic was tested and removed as transitively redundant.",
+  "checked_transport": "Stage1Instances.THMM0442.mazurRationalTorsionTarget_iff_historicalCandidateShape",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_088.StatementShape",
+  "pinned_source_relationship": "HistoricalCandidateShape locally restates the historical candidate, including the second-factor order list {2,4,6,8}. The checked iff reindexes that list by n = 2*m with 1 <= m <= 4. The historical file remains discovery input and supplies no proof credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0442/check_statement.py",
+    "killed": [
+      "omitted cyclic order 12",
+      "admitted the zero noncyclic index",
+      "changed the universal curve binder to an existential binder",
+      "added the excluded realizability converse"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THMM0442.cyclic_endpoint_boundaries",
+      "Stage1Instances.THMM0442.bicyclic_endpoint_boundaries"
+    ]
+  },
+  "degenerate_cases": "ZMod 1 is admitted as the trivial cyclic group. The cyclic endpoints 1, 10, and exceptional order 12 are checked. The noncyclic index endpoints m = 1 and m = 4 are checked to map to second-factor orders 2 and 8. Singular curves are excluded by E.IsElliptic.",
+  "excluded_claims": [
+    "realizability of every listed group",
+    "curves over fields other than Q",
+    "rational isogeny classification",
+    "chosen generators"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This evidence freezes and elaborates only the intake-selected classification direction. It proves the encoding transport and boundary facts, not Mazur's theorem, and does not advance later nodes."
+}

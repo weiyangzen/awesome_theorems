@@ -1,4 +1,4 @@
-# THM-M-0442 rev-5.6 intake
+# THM-M-0442 rev-5.6 dossier
 
 This directory is the `planned` rev-5.6 dossier for Mazur's rational torsion theorem. The frozen
 human claim classifies the abstract torsion subgroup of an elliptic curve over `Q`: it is cyclic of
@@ -18,3 +18,12 @@ mutation tests belong to the next phase. No theorem completion is claimed.
 
 See `scope-map.md`, `source-statement-crosswalk.md`, `instance.json`, and `task-dag.json`. The
 commands and their limits are recorded in `validation.md`.
+
+## Provisional statement evidence
+
+`Statement.lean` now elaborates the exact intake-selected necessity direction using two minimal
+direct imports. It includes a checked transport between the canonical `m = 1..4` parameterization
+and the historical second-factor orders `{2,4,6,8}`, structural mutation checks, and endpoint
+boundary proofs. `statement.json` and `statement-validation.md` record the expression and
+environment fingerprints. This evidence is self-tested but pending master acceptance and does not
+prove Mazur's theorem.
