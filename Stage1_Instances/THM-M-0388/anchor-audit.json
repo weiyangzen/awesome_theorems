@@ -1,0 +1,116 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0388",
+  "item_id": "S56-M-0388-ANCHOR_AUDIT",
+  "inventory_version": "THM-M-0388-anchor-inventory/1",
+  "cutoff": "2026-07-12T02:39:00+08:00",
+  "base_revision": "36804d275bde22e8280cb304ab8b40dae4fd5c4e",
+  "canonical_target": "Stage1Instances.THMM0388.PellEquationStatement",
+  "search_order": [
+    "repository-local Lean files",
+    "pinned mathlib source and declarations",
+    "public GitHub repository metadata",
+    "public GitHub and grep.app code indexes"
+  ],
+  "queries": [
+    "Pell.exists_of_not_isSquare",
+    "Pell equation",
+    "Pell's equation",
+    "PellEquation",
+    "pell lean4",
+    "pell lean",
+    "pell theorem prover",
+    "pell equation formalization"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0388-C01",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.NumberTheory.Pell",
+      "file": "Mathlib/NumberTheory/Pell.lean",
+      "file_sha256": "ac09716ec72e9d69cc505b7505473a1734408c36178f361155543952aafe86cb",
+      "declaration": "Pell.exists_of_not_isSquare",
+      "source_type": "(h0 : 0 < d) -> (hd : not IsSquare d) -> exists x y : Int, x ^ 2 - d * y ^ 2 = 1 and y != 0",
+      "comparison": "Exact conclusion, binder order, and parameter domain. The only spelling difference is IsSquare D versus the frozen exists k, k*k=D predicate; AnchorAudit.lean restates the canonical type literally with an audit-local copy of that predicate and supplies the direct iff transport.",
+      "role": "terminal theorem behind an exact local candidate wrapper",
+      "local_adapter": "Stage1Instances.THMM0388.pellEquationStatement_mathlib_candidate",
+      "direct_source_imports": [
+        "Mathlib.Data.ZMod.Basic",
+        "Mathlib.NumberTheory.DiophantineApproximation.Basic",
+        "Mathlib.NumberTheory.Zsqrtd.Basic",
+        "Mathlib.Tactic.Qify"
+      ],
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "source_placeholder_audit": "The terminal declaration has an explicit by-proof in the pinned source; no sorry, axiom declaration, unsafe declaration, or external oracle occurs in that body.",
+      "kernel_check": "blocked_missing_pinned_olean",
+      "machine_debt": "M3",
+      "evidence_level": "E3",
+      "integration_reopen_event": "The canonical pinned cache provides Mathlib/NumberTheory/Pell.olean, after which run the recorded lake env lean adapter command and machine axiom probes."
+    },
+    {
+      "candidate_id": "M0388-C02",
+      "project": "awesome_theorems repository-local legacy surface",
+      "revision": "36804d275bde22e8280cb304ab8b40dae4fd5c4e",
+      "module": "AwesomeTheorems.Stage1.S1_M_003",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_003.lean",
+      "declaration": "AwesomeTheorems.NumberTheory.THM_M_0388.PellPath.source_raw_integer_existence_of_not_isSquare",
+      "comparison": "Its per-D conclusion matches the target after the same nonsquare transport, but it is a wrapper over M0388-C01 and its broader StatementShape also adds generator classification not present in the frozen target.",
+      "role": "discovery-only local wrapper; duplicate terminal body",
+      "terminal_candidate_id": "M0388-C01",
+      "kernel_check": "blocked_by_the_same_missing_pinned_olean",
+      "machine_debt": "M3",
+      "evidence_level": "E3"
+    },
+    {
+      "candidate_id": "M0388-C03",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.Pell",
+      "file": "Mathlib/NumberTheory/Pell.lean",
+      "declaration": "Pell.exists_iff_not_isSquare",
+      "comparison": "Strictly stronger biconditional at positive d; its forward direction is another exact route to the target, but it shares the C01 proof family and is not counted as a distinct closure.",
+      "role": "stronger theorem alias/route",
+      "terminal_candidate_id": "M0388-C01",
+      "kernel_check": "blocked_missing_pinned_olean",
+      "machine_debt": "M3",
+      "evidence_level": "E3"
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "declaration": "Pell.Solution1.exists_pos_of_not_isSquare",
+      "reason": "Eligible structured-solution route but unnecessary for the exact raw-coordinate target; it depends on C01."
+    },
+    {
+      "declaration": "Pell.existsUnique_pos_generator",
+      "reason": "Stronger generator-classification theorem; it must not broaden the frozen existence target and is unnecessary for closure."
+    },
+    {
+      "module": "Mathlib.NumberTheory.PellMatiyasevic",
+      "reason": "Special family d=a^2-1, not the universally quantified positive nonsquare parameter of the canonical target."
+    }
+  ],
+  "external_search": {
+    "github_repository_api": "All four repository-metadata queries returned HTTP 200 and total_count=0; identical response SHA-256 08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2.",
+    "github_code_api": "HTTP 401 Requires authentication; response SHA-256 b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e.",
+    "grep_app": "HTTP 429 for both code queries; no response body and therefore no negative-result claim.",
+    "result": "No additional credible Lean 4 candidate was established. This is a bounded search record, not an exhaustive-discovery claim."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": false,
+    "root_machine_debt": "M3",
+    "root_evidence_level": "E3",
+    "human_debt": "H1",
+    "readability_debt": "R4",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "status_boundary": "Anchor inventory and exact candidate mapping are self-tested. No kernel closure, transitive trust closure, primary-source H0 packet, obligation-tree closure, or theorem-completion credit is claimed."
+  }
+}
