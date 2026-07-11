@@ -47,6 +47,7 @@ PHASES = (
     ("release", "Reconcile evidence and decide the exact theorem-completion verdict."),
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
+MAX_WORKERS = 12
 
 
 def fail(message: str) -> NoReturn:
@@ -577,8 +578,8 @@ def checkpoint_integration() -> None:
 
 
 def launch(max_workers: int) -> None:
-    if max_workers < 1 or max_workers > 30:
-        fail("--workers must be in 1..30")
+    if max_workers < 1 or max_workers > MAX_WORKERS:
+        fail(f"--workers must be in 1..{MAX_WORKERS}")
     # A tick begins clean/synced, then drains handoffs, checkpoints them, and only then
     # refills worker capacity. This preserves the worker/master dual cursor across cron ticks.
     sync_guard()
@@ -648,7 +649,7 @@ def cleanup() -> None:
 def install(schedule: str) -> None:
     if not re.fullmatch(r"[^\n]+", schedule):
         fail("schedule must be one crontab line prefix")
-    command = f"{schedule} cd {ROOT} && {ROOT / 'scripts' / 'stage1_execution_cron.py'} --tick --workers 30 >> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
+    command = f"{schedule} cd {ROOT} && {ROOT / 'scripts' / 'stage1_execution_cron.py'} --tick --workers {MAX_WORKERS} >> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
     current = run(["crontab", "-l"], check=False).stdout.splitlines()
     current = [line for line in current if "stage1_execution_cron.py" not in line]
     subprocess.run(["crontab", "-"], input="\n".join(current + [command]) + "\n", text=True, check=True)
@@ -664,8 +665,8 @@ def main() -> None:
     modes.add_argument("--tick", action="store_true", help="sync, refill the tmux Codex worker lanes, and refresh todo")
     modes.add_argument("--cleanup", action="store_true", help="remove the cron entry only after every completion gate is true")
     modes.add_argument("--install", action="store_true", help="install a bounded scheduler cron entry")
-    parser.add_argument("--workers", type=int, default=30, help="maximum concurrent tmux Codex workers (1..30)")
-    parser.add_argument("--limit", type=int, default=30, help="maximum worker handoffs integrated by --integrate")
+    parser.add_argument("--workers", type=int, default=MAX_WORKERS, help=f"maximum concurrent tmux Codex workers (1..{MAX_WORKERS})")
+    parser.add_argument("--limit", type=int, default=MAX_WORKERS, help=f"maximum worker handoffs integrated by --integrate (1..{MAX_WORKERS})")
     parser.add_argument("--schedule", default="*/10 * * * *", help="crontab schedule used by --install")
     args = parser.parse_args()
     if args.bootstrap:
