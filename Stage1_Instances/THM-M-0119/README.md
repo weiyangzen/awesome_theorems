@@ -8,9 +8,12 @@ vanishing. [scope-map.md](scope-map.md) fixes the mathematical boundary and
 primary sources. `instance.json` is the structured intake authority and `task-dag.json` is the open
 workflow authority.
 
-Current debt is `H4 / M5 / R4`. The source pinpoints have not received independent review, no exact
-Lean expression has been elaborated, and no proof evidence or accepted receipt exists. Audit and
-theorem completion are both false.
+Current provisional debt is `H4 / M3 / R4`. The exact local statement interface now elaborates as
+`Stage1Instances.THMM0119.KawamataViehwegVanishingTarget`; see `Statement.lean` and
+`statement.json`. The pinned library lacks native interfaces covering several required
+algebro-geometric notions, so the module exposes typed objects and named compatibility predicates
+without assuming the conclusion. The source pinpoints remain independently unreviewed, and no
+proof evidence or accepted receipt exists. Audit and theorem completion are both false.
 
 ## Intake Validation
 

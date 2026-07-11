@@ -1,0 +1,75 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0107-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0107",
+  "depends_on": ["S56-M-0107-STATEMENT"],
+  "audited_target": "Stage1Instances.THM_M_0107.ZariskiMainFactorizationTarget",
+  "environment": {
+    "repository_base_revision": "bca606e3b3f7a0638b9d257751458c87a1ee5368",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_zmt_source_sha256": "73c9105a8717007d3194d95d510accac0154455b9116764ef508c7d8f0444715",
+    "mathlib_normalization_source_sha256": "e14225fc6cc008dd7526e218c975b3cd6d178b7fed6818442e8044e22fa80122"
+  },
+  "candidates": [
+    {
+      "id": "MATHLIB-ZMT-03GW",
+      "kind": "pinned_mathlib_theorem",
+      "module": "Mathlib.AlgebraicGeometry.ZariskisMainTheorem",
+      "declaration": "AlgebraicGeometry.Scheme.Hom.exists_isIso_morphismRestrict_toNormalization",
+      "source_lines_at_pin": "204-208",
+      "stacks_tag_annotation": "03GW",
+      "exact_type_summary": "For locally finite-type, separated, quasi-compact f, an open U in f.normalization restricts to an isomorphism and its preimage is exactly the quasi-finite locus.",
+      "relation_to_root": "For a globally locally-quasi-finite f this supplies the open-immersion first-factor instance through the corollary at lines 354-358, but it does not assert that f.fromNormalization is finite.",
+      "terminal_body": "local mathlib proof body at the pinned revision",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders_or_unsafe": false,
+      "exact_root_closure": false
+    },
+    {
+      "id": "MATHLIB-NORMALIZATION-FACTOR",
+      "kind": "pinned_mathlib_theorem",
+      "module": "Mathlib.AlgebraicGeometry.Normalization",
+      "declaration": "AlgebraicGeometry.Scheme.Hom.toNormalization_fromNormalization",
+      "exact_type_summary": "Given quasi-compact and quasi-separated f, f.toNormalization followed by f.fromNormalization equals f.",
+      "relation_to_root": "Matches the root equation and orientation; IsSeparated supplies QuasiSeparated in the frozen context.",
+      "terminal_body": "local mathlib proof body at the pinned revision",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders_or_unsafe": false,
+      "exact_root_closure": false
+    },
+    {
+      "id": "LEGACY-S1-M-031-WRAPPER",
+      "kind": "repo_local_legacy_candidate",
+      "module": "AwesomeTheorems.Stage1.S1_M_031",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_031.zariskiMain_mathlib_wrapper",
+      "exact_type_summary": "Wrapper for the 03GW relative-normalization-open theorem, not the existential finite-factor root.",
+      "relation_to_root": "Related but strictly different statement; legacy artifacts are unaccepted and cannot substitute for the frozen rev-5.6 target.",
+      "terminal_body": "alias of pinned mathlib declaration",
+      "placeholders_or_unsafe": false,
+      "exact_root_closure": false
+    }
+  ],
+  "external_search": {
+    "date_utc": "2026-07-12",
+    "services": ["GitHub repository search API"],
+    "queries": [
+      "repository search: exact phrase Zariski's Main Theorem, language Lean",
+      "repository search: zariskismain, language Lean"
+    ],
+    "result": "Both repository queries returned total_count 0. GitHub unauthenticated code search returned HTTP 401, so it is recorded as a search limitation rather than negative evidence.",
+    "credible_external_candidate_found": false
+  },
+  "audit_verdict": {
+    "candidate_inventory_complete_for_protocol": true,
+    "exact_upstream_root_found": false,
+    "recommended_route": "Use the pinned mathlib open-immersion instance and normalization equation as partial anchors, then prove or locate a finite-envelope construction; do not claim IsFinite f.fromNormalization by inference.",
+    "first_blocker": "At the pinned revision, synthesis of IsFinite f.fromNormalization fails even under all four frozen root hypotheses. The audited normalization candidate is integral, but no audited declaration supplies the required finite second factor.",
+    "machine_classification": "M3_partial_pinned_mathlib_anchors_no_exact_root_closure",
+    "human_classification": "unchanged_H2_source_audit_not_part_of_this_node",
+    "theorem_complete": false,
+    "gate_state": "self_tested_pending_master_acceptance"
+  },
+  "status_boundary": "This node audits immutable formal candidates. It does not promote an anchor-only or partial theorem to M0, prove the frozen root, complete the source audit, or claim theorem completion."
+}

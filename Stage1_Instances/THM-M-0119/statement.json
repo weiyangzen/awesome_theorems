@@ -1,0 +1,46 @@
+{
+  "schema_version": "5.6",
+  "item_id": "S56-M-0119-STATEMENT",
+  "theorem_id": "THM-M-0119",
+  "backend": "lean4",
+  "module_path": "Stage1_Instances/THM-M-0119/Statement.lean",
+  "declaration": "Stage1Instances.THMM0119.KawamataViehwegVanishingTarget",
+  "source_sha256": "3fe71e3416e702f21689718833e7068685c5861394b556f5d584b01a963dd0a7",
+  "elaborated_print_sha256": "e7402bc1bb4f1bc6255436b7d7635869788000c47450782fa75cf8272dac644b",
+  "imports": [
+    "Mathlib.AlgebraicGeometry.Properties"
+  ],
+  "canonical_claim": "Let X be a normal projective variety over a characteristic-zero field, Delta an effective Q-divisor such that K_X+Delta is Q-Cartier and (X,Delta) is klt, and D a Cartier divisor. If D-(K_X+Delta) is nef and big, then H^i(X,O_X(D)) vanishes for every i>0.",
+  "encoding_boundary": "The pinned mathlib snapshot supplies Scheme and Spec, but lacks the combined native interfaces for Q-divisors, canonical divisors, klt pairs, nefness/bigness of divisors, divisorial sheaves, and their coherent cohomology. KawamataViehwegData types these objects and names their semantic compatibility predicates. None of its fields assumes any cohomology vanishing conclusion.",
+  "ordered_binders": [
+    "k : Type u with Field k and CharZero k",
+    "V : KawamataViehwegData k containing X, its structure map, Delta, D, K_X+Delta, positivity predicates, and coherent-cohomology groups",
+    "V.Hypotheses: variety, normality, projectivity, effectiveness, divisor compatibility, Q-Cartier, klt, sheaf-model compatibility, nef, and big",
+    "i : Nat with 0 < i"
+  ],
+  "conclusion": "Subsingleton (V.cohomology V.D i), encoding H^i(X,O_X(D)) = 0, for every positive natural degree i",
+  "degenerate_cases": "Degree zero is excluded from the conclusion. Dimension zero is not excluded. The base field is arbitrary of characteristic zero and is not silently restricted to an algebraically closed field or C.",
+  "checked_transport": "kawamataViehwegVanishingTarget_iff_expanded (Iff.rfl)",
+  "mutation_fixtures": [
+    "MutationRemovedKlt",
+    "MutationAmpleInsteadOfNefAndBig",
+    "MutationIncludesDegreeZero"
+  ],
+  "environment": {
+    "repository_base_revision": "e177a4f1326cbe30d4e8317dec8652b7d3746e1a",
+    "lean": "4.29.0 (commit 98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "dependency_mode": "existing canonical pinned .lake symlink; no dependency mutation"
+  },
+  "validation": {
+    "cwd": "Formalizations/Lean",
+    "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0119/Statement.lean"],
+    "exit_code": 0,
+    "output_sha256": "e7402bc1bb4f1bc6255436b7d7635869788000c47450782fa75cf8272dac644b"
+  },
+  "machine_status": "M3_statement_interface_only",
+  "proof_status": "No proof of KawamataViehwegVanishingTarget is declared or claimed.",
+  "status_boundary": "Successful elaboration freezes this exact local proposition only. It is not source-fidelity, proof, M0, audit-completion, theorem-completion, release, or master-acceptance evidence."
+}

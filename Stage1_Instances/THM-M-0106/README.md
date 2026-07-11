@@ -26,9 +26,15 @@ This remains a `planned` rev-5.6 instance for the Noether normalization lemma. T
 
 The statement phase selected a checked package containing both the algebraic normalization data and its affine-space consequence. See `Statement.lean`, `statement.json`, and `statement-validation.md`. The package is checked equivalent to the legacy affine-Spec shape, while arbitrary non-affine varieties remain excluded.
 
+The anchor audit is recorded in `anchor-audit.md` and `AnchorAudit.lean`. At
+the pinned mathlib commit it identifies `exists_finite_inj_algHom_of_fg` as an
+exact algebraic candidate and kernel-checks its composition with the frozen
+affine-space bridge. This is provisional audit evidence only; later graph,
+proof, validation, release, H, and R gates remain open.
+
 ## Open task DAG
 
-`S56-M-0106-INTAKE` precedes `STATEMENT`, `ANCHOR_AUDIT`, `OBLIGATION_TREE`, `PROOF`, `VALIDATION`, and `RELEASE` in that order. The statement artifacts are provisional worker evidence only. Immediate next work after master acceptance is the immutable anchor audit; primary-source pinpointing also remains required.
+`S56-M-0106-INTAKE` precedes `STATEMENT`, `ANCHOR_AUDIT`, `OBLIGATION_TREE`, `PROOF`, `VALIDATION`, and `RELEASE` in that order. The statement and anchor-audit artifacts are provisional worker evidence only. After master acceptance, the next execution node is the frozen obligation tree; primary-source pinpointing also remains required.
 
 ## Validation record
 
