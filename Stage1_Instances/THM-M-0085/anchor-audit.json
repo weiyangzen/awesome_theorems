@@ -1,0 +1,98 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0085-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0085",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "f9413ba75c44c7b473fce84209ab02c65afd10cd",
+  "canonical_target": "Stage1.THM_M_0085.Statement",
+  "search_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "installed pinned Lake dependencies",
+    "public Lean code index",
+    "GitHub repository and code search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_module_source_revision": "777eb7c44150dd78430799638de24cd9594d5c29",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0085-C01",
+      "project": "awesome_theorems",
+      "revision": "f9413ba75c44c7b473fce84209ab02c65afd10cd",
+      "module": "Stage1_Instances/THM-M-0085/Statement.lean",
+      "declaration": "Stage1.THM_M_0085.Statement",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0085-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "module": "Mathlib.CategoryTheory.Monad.Monadicity",
+      "declaration": "CategoryTheory.Monad.monadicOfCreatesGSplitCoequalizers",
+      "type": "{F : C ⟶ D} {G : D ⟶ C} (adj : F ⊣ G) [Monad.CreatesColimitOfIsSplitPair G] → MonadicRightAdjoint G",
+      "exact_projection": "(Monad.monadicOfCreatesGSplitCoequalizers adj).eqv : (Monad.comparison adj).IsEquivalence",
+      "kind": "exact_pinned_mathlib_anchor",
+      "normalized_match": "the eqv field is definitionally the fixed-adjunction conclusion, not merely an existential alternate adjunction",
+      "body_provenance": "ordinary explicit definition in pinned mathlib source, lines 350-358; it derives has, preserves, and reflects split-pair colimits and invokes monadicOfHasPreservesReflectsGSplitCoequalizers",
+      "terminal_body": "CategoryTheory.Monad.monadicOfHasPreservesReflectsGSplitCoequalizers",
+      "placeholder_or_oracle_status": "source contains an explicit non-unsafe body; narrow Lean check reports only propext, Classical.choice, and Quot.sound; no sorry, axiom declaration, native computation, or external oracle was found in the candidate source",
+      "license": "Apache-2.0 (mathlib repository LICENSE and module header)",
+      "classification": "M0-P candidate anchor",
+      "integration_status": "already pinned and locally exact-type checked; the proof phase can add the canonical wrapper without another dependency"
+    },
+    {
+      "candidate_id": "S56-M-0085-C03",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "f9413ba75c44c7b473fce84209ab02c65afd10cd",
+      "module": "AwesomeTheorems.Stage1.S1_M_140",
+      "declaration": "beckMonadicity_of_creates_GSplitCoequalizers",
+      "kind": "legacy_wrapper_to_same_mathlib_body",
+      "normalized_match": "returns MonadicRightAdjoint G; its eqv projection is exact but the wrapper is not the rev-5.6 canonical theorem",
+      "body_provenance": "one-step alias of the pinned mathlib constructor",
+      "placeholder_or_oracle_status": "no independent proof body; no additional proof credit",
+      "classification": "alias_zero_distinct_body_credit",
+      "integration_status": "discovery evidence only; do not inherit legacy acceptance"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes monadicOfCreatesGSplitCoequalizers lang:Lean count:100",
+      "result": "3 matches, all in leanprover-community/mathlib4 at indexed commit 12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f",
+      "response_sha256": "77636ab18b551983c731b9e459300773feea190a2ef0acd91022be823451eb59",
+      "boundary": "dated content-hashed discovery response; the accepted candidate is instead bound to the locally pinned immutable mathlib revision"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "queries": ["repositories?q=\"Beck's monadicity\" Lean", "repositories?q=monadicity Lean4"],
+      "result": "counts 0 and 1; the sole second-query result was an unrelated parser project",
+      "response_sha256": ["08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2", "68e5e2eca094d2bf88be2f66c8509022296d3a5e997a47742753ff30d0e18498"],
+      "boundary": "bounded repository-metadata search, not a global absence claim"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=monadicOfCreatesGSplitCoequalizers+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "cef915511b0f25639510537cff7b7560696504013cc41b3e09b8919f59de061d",
+      "boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M0-P candidate located, proof-phase integration pending",
+  "integration_decision": "Use the already pinned mathlib constructor and project its eqv field in the later canonical proof wrapper. No external dependency is required and no repo-local integration blocker remains.",
+  "audit_complete": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the bounded formal-anchor inventory. Exact-type checking establishes a usable pinned candidate, but this node does not own the canonical proof wrapper, obligation registry, theorem validation, release evidence, or theorem-completion decision."
+}
