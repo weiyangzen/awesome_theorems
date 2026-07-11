@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0388-RELEASE",
+  "theorem_id": "THM-M-0388",
+  "intent": "release",
+  "base_revision": "c15bbbe61f10abb7d0cf2bc6e8de86f572733d01",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0388-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0388-VALIDATION-local-20260711T191246Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "8820df6b20ba7f944a2d968474c6eabe2d078fc4f9678ebd3c6971545fa4c444"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0388-PROOF-local-20260711T190224Z",
+    "S56-M-0388-VALIDATION-local-20260711T191246Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H4", "M4", "R4"],
+    "accepted_after": ["H4", "M4", "R4"],
+    "best_provisional_evidence": ["H1", "M0-W", "R4"],
+    "boundary": "The exact Lean root has provisional same-workspace kernel evidence through pinned mathlib. No H0 or R0 review exists, and no provisional receipt is master accepted, so release cannot promote the accepted vector."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0388-VALIDATION is only worker-self-tested and has no master-accepted receipt; release state cannot be dependency-legal."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0388-VALIDATION and all transitive phase receipts",
+    "accepted H0 primary-source crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation/metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_root_kernel_check": "pass as provisional warm-cache worker evidence",
+    "statement_identity": "provisional fingerprint lean:Stage1Instances.THMM0388.PellEquationStatement@1c7823359ce2079a4c418429cd6be26e48fdfe6acb4624a0ee9701fdc05a92ad",
+    "proof_body": "local_wrapper_upstream_mathlib via Pell.exists_of_not_isSquare at mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on the local proof/probe and pinned Pell source",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "After the integration lane master-accepts the dependency chain, a release lane must build an immutable clean snapshot with empty caches and network denied, complete H0/R0 independent reviews and supply-chain artifacts, obtain two independent signed attestations, and accept a deterministic bundle through the minimal release verifier.",
+  "status_boundary": "This artifact decides the release request truthfully: no state transition and no theorem-completion claim. It is a worker handoff for master inspection, not a release receipt or acceptance authority."
+}
