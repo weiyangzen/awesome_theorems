@@ -1,0 +1,15 @@
+{
+  "schema_version": "stage1-open-task-dag/1.0",
+  "theorem_id": "THM-M-0554",
+  "root": "AHSS-ROOT",
+  "frozen": false,
+  "nodes": [
+    {"id": "AHSS-ROOT", "kind": "theorem", "state": "open", "depends_on": ["STMT", "SOURCE", "TREE", "PROOF", "VALIDATE"]},
+    {"id": "STMT", "kind": "statement", "state": "open", "depends_on": []},
+    {"id": "SOURCE", "kind": "source_audit", "state": "open", "depends_on": ["STMT"]},
+    {"id": "TREE", "kind": "obligation_registry", "state": "open", "depends_on": ["SOURCE"]},
+    {"id": "PROOF", "kind": "machine_proof", "state": "blocked_by_predecessors", "depends_on": ["TREE"]},
+    {"id": "VALIDATE", "kind": "validation", "state": "blocked_by_predecessors", "depends_on": ["PROOF"]}
+  ],
+  "note": "This is an intake task DAG, not the frozen canonical obligation registry."
+}

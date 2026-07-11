@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0010-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0010",
+  "canonical_name": "Artin-Rees lemma",
+  "canonical_statement": "Let R be a commutative Noetherian ring, I an ideal of R, M a finitely generated R-module, and N a submodule of M. There exists k such that for every n at least k, I^n M intersect N equals I^(n-k) (I^k M intersect N).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "planned_signature": "forall (R) [CommRing R] [IsNoetherianRing R] (I : Ideal R) (M) [AddCommGroup M] [Module R M] [Module.Finite R M] (N : Submodule R M), exists k : Nat, forall n : Nat, k <= n -> (I ^ n) * top inf N = (I ^ (n - k)) * ((I ^ k) * top inf N)",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "R : Type u; M : Type v; commutative Noetherian ring R; finitely generated R-module M",
+  "quantifiers": ["R", "I : Ideal R", "M", "N : Submodule R M", "k : Nat", "n : Nat"],
+  "hypotheses": ["CommRing R", "IsNoetherianRing R", "Module R M", "Module.Finite R M", "N is an R-submodule of M", "k <= n"],
+  "conclusion": "I^n M intersect N = I^(n-k) (I^k M intersect N)",
+  "alternate_encodings": [
+    {"target": "I^n M intersect N is contained in I^(n-k) N for all n >= k", "relationship": "standard containment consequence, not the canonical equality", "checked_witness": null},
+    {"target": "the I-adic filtration induced on N is eventually stable against the filtration of M", "relationship": "filtration formulation expected to be equivalent", "checked_witness": null}
+  ],
+  "degenerate_cases": "I = bottom, I = top, N = bottom, N = top, M trivial, and n = k remain within the quantified claim; mutation and simplification checks are deferred.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient use remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation or oracle is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib; exact pin and imports deferred to statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; edition hashes and errata review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0010/README.md", "Stage1_Instances/THM-M-0010/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, formal target, imports/toolchain, source edition, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the intended mathematical scope only. The proposed Lean signature is unelaborated, no source review is accepted, and no proof credit is claimed."
+}

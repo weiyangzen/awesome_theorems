@@ -1,0 +1,16 @@
+{
+  "schema_version": "stage1-task-dag/5.6.0",
+  "theorem_id": "THM-M-0444",
+  "lifecycle_mode": "planned",
+  "root_item": "S56-M-0444-INTAKE",
+  "tasks": [
+    {"id": "S56-M-0444-INTAKE", "depends_on": [], "state": "provisional_worker_selftest", "scope": "dossier, scope map, and source-statement crosswalk"},
+    {"id": "S56-M-0444-STATEMENT", "depends_on": ["S56-M-0444-INTAKE"], "state": "open", "scope": "pin the primary theorem and elaborate its exact Lean target"},
+    {"id": "S56-M-0444-ANCHOR_AUDIT", "depends_on": ["S56-M-0444-STATEMENT"], "state": "open", "scope": "audit mathlib and external Lean 4 candidates"},
+    {"id": "S56-M-0444-OBLIGATION_TREE", "depends_on": ["S56-M-0444-ANCHOR_AUDIT"], "state": "open", "scope": "freeze typed obligation and assurance graphs"},
+    {"id": "S56-M-0444-PROOF", "depends_on": ["S56-M-0444-OBLIGATION_TREE"], "state": "open", "scope": "implement or integrate exact proof bodies"},
+    {"id": "S56-M-0444-VALIDATION", "depends_on": ["S56-M-0444-PROOF"], "state": "open", "scope": "run kernel, trust, provenance and independent gates"},
+    {"id": "S56-M-0444-RELEASE", "depends_on": ["S56-M-0444-VALIDATION"], "state": "open", "scope": "reconcile evidence and decide completion"}
+  ],
+  "acceptance_boundary": "Only the integration lane may accept this intake or alter authoritative item state."
+}
