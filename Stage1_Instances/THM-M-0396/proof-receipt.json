@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0396-PROOF-local-20260711T193536Z",
+  "item_id": "S56-M-0396-PROOF",
+  "theorem_id": "THM-M-0396",
+  "base_revision": "a4db97af3ce0f2ed97c808ae6085a1df22608ba1",
+  "validated_at": "2026-07-11T19:35:36Z",
+  "attestor": "stage1-rev56-worker-slot6",
+  "support_state": "provisional_worker_selftest",
+  "exact_declarations": [
+    "Stage1Rev56.THMM0396.Proof.exp_intCast_mul_log_eq_zpow",
+    "Stage1Rev56.THMM0396.Proof.exp_sum_log_eq_algebraicProduct",
+    "Stage1Rev56.THMM0396.Proof.statement_of_core"
+  ],
+  "closed_obligation_ids": ["M0396-N1"],
+  "proof_body": {
+    "classification": "local_proof_body",
+    "source": "Stage1_Instances/THM-M-0396/Proof.lean",
+    "source_sha256": "e5b54890782c60ae76f4fdfed09fcdb873e86a08b6bdd26895adb90e9c33c34b"
+  },
+  "inputs": {
+    "statement_sha256": "adc9e134e2e2164064f33d35c056fd66aac052127dff858fa5b4b3de4ad9d094",
+    "obligation_tree_sha256": "93551393a7489d5705b063a632952da8018d97285b32d4d2b25fdb2642dee81b",
+    "obligation_registry_sha256": "d63c20b7d77043e656fd5e295e68171a5b3d4dabea527dd6c6d1a15c90ff97f3"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink, unmodified by worker"
+  },
+  "recipe": {
+    "cwd": "Formalizations/Lean",
+    "argv": [
+      "bash",
+      "-c",
+      "tmp=$(mktemp -d ./.m0396-proof.XXXXXX); trap 'rm -rf \"$tmp\"' EXIT; cp ../../Stage1_Instances/THM-M-0396/Statement.lean ../../Stage1_Instances/THM-M-0396/ObligationTree.lean ../../Stage1_Instances/THM-M-0396/Proof.lean \"$tmp/\"; lake env lean -o \"$tmp/Statement.olean\" \"$tmp/Statement.lean\" && LEAN_PATH=\"$tmp:$(lake env printenv LEAN_PATH)\" lake env lean -o \"$tmp/ObligationTree.olean\" \"$tmp/ObligationTree.lean\" && LEAN_PATH=\"$tmp:$(lake env printenv LEAN_PATH)\" lake env lean \"$tmp/Proof.lean\""
+    ],
+    "env": {},
+    "timeout_seconds": 120,
+    "network": "not_used",
+    "covered_ids": ["M0396-N1", "M0396-ROOT"]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The real logarithm/product normalization and conditional exact-root composition elaborated.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "root_closed": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The Baker-Matveev terminal estimate M0396-T and its determinant, lower-bound, upper-bound, and constant-optimization dependencies remain without proof bodies.",
+    "statement_of_core is conditional composition only and does not assert its CoreEstimate premise.",
+    "Validation, release, H0, R0, hermetic replay, and theorem completion remain open.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "invalidation_inputs": [
+    "Proof.lean",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "obligation-registry.json",
+    "mathlib revision",
+    "Lean toolchain",
+    "axiom policy",
+    "rev-5.6 assurance standard"
+  ]
+}
