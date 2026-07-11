@@ -389,6 +389,11 @@ Required work:
 1. Read Docs/Stage1_Blueprint_rev-5.6.md, skills/execute-stage1-rev56/SKILL.md, and the target manifest entry.
 2. Complete the assigned phase with real source, Lean, and/or evidence artifacts under the item's owned path. You may inspect shared read-only sources, but never modify another target's owned path. Never use sorry, axiom, placeholder, fake results, or a broadened/substituted theorem.
 3. Run the smallest real validation available and record exact commands/results in the owned artifact.
+   The worker clone reuses the canonical pinned Lean `.lake` artifacts when available. Do not run
+   `lake update`, `lake build`, dependency `git clone`/`git fetch`, or otherwise mutate `.lake`;
+   those actions are neither a pinned validation nor valid worker evidence. Use the existing
+   toolchain with `lake env lean` for narrowly scoped elaboration checks, and record a missing
+   artifact as a blocker rather than fetching a moving dependency.
 4. Do not edit Docs/Stage1_Execution_DAG_rev-5.6.json, the generated blueprint checklist, or any item state. You are a worker, never the master.
 5. If and only if your assigned phase is genuinely self-tested, write `.stage1-worker-selftest.json` at the workspace root with item_id, changed_paths, commands, output_summary, base_revision, known_failures, and `state: "[_]"`. Otherwise leave no self-test manifest and explain the blocker in an owned artifact.
 6. Do not commit, push, or modify unrelated targets. The integration lane will inspect this clone.
