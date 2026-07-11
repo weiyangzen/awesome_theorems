@@ -610,11 +610,15 @@ def reject_mutable_dependency_operations(item_id: str) -> None:
     if not log.exists():
         return
     text = log.read_text(encoding="utf-8", errors="replace")
+    # A worker prompt and repository search may legitimately quote forbidden
+    # commands. Inspect only the command that follows an `exec` event, stopping
+    # at the event result, so prose never becomes a false rejection.
+    commands = re.findall(r"(?ms)^exec\n(.*?)(?=\n(?:succeeded|failed) in |\nexec\n|\Z)", text)
     forbidden = (
-        r"(?ms)^exec\n.*?\blake\s+(?:update|build)\b",
-        r"(?ms)^exec\n.*?\bgit\s+(?:clone|fetch|pull)\b.*?\.lake",
+        r"(?:^|[;&|]\s*|(?:/bin/)?bash\s+-lc\s+['\"])lake\s+(?:update|build)\b",
+        r"(?:^|[;&|]\s*|(?:/bin/)?bash\s+-lc\s+['\"])git\s+(?:clone|fetch|pull)\b.*?\.lake",
     )
-    if any(re.search(pattern, text) for pattern in forbidden):
+    if any(re.search(pattern, command) for command in commands for pattern in forbidden):
         raise ValueError("worker ran a mutable Lean dependency operation; no pinned receipt is admissible")
 
 
