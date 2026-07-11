@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0415",
+  "item_id": "S56-M-0415-ANCHOR_AUDIT",
+  "inventory_version": "THM-M-0415-anchor-inventory/1",
+  "cutoff": "2026-07-12T00:00:00+08:00",
+  "base_revision": "1ec654c416270f261b365f46f5f2409b65d3f839",
+  "canonical_target": "Stage1Instances.THM_M_0415.IdealClassGroupFiniteTarget",
+  "canonical_expression_sha256": "7597a79fb775bc7ecf0830020941f6962e64c6d3251d114f780b32e4c25d1590",
+  "search_order": [
+    "repository-local Lean files and legacy wrapper",
+    "pinned mathlib source and declarations",
+    "public GitHub repository metadata",
+    "public GitHub and grep.app code indexes"
+  ],
+  "queries": [
+    "NumberField.RingOfIntegers.instFintypeClassGroup",
+    "ClassGroup.fintypeOfAdmissibleOfFinite",
+    "Finite ClassGroup RingOfIntegers",
+    "ideal class group finite Lean",
+    "class number theorem Lean theorem prover"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0415-C01",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.NumberTheory.NumberField.ClassNumber",
+      "file": "Mathlib/NumberTheory/NumberField/ClassNumber.lean",
+      "git_blob": "d897f56c59b4f1f3364fc4699d50a0077cd76a98",
+      "file_sha256": "abe0ed06630f8104a02380912074d7eb1edc656969dea029c2b25ffdef7f6624",
+      "declaration": "NumberField.RingOfIntegers.instFintypeClassGroup",
+      "source_type": "forall K [Field K] [NumberField K], Fintype (ClassGroup (NumberField.RingOfIntegers K))",
+      "comparison": "The binders and class-group object match the frozen target exactly. The candidate supplies stronger Fintype data; AnchorAudit.lean checks the direct Fintype-to-Finite wrapper without adding assumptions.",
+      "role": "exact pinned-mathlib wrapper candidate",
+      "local_adapter": "Stage1Instances.THM_M_0415.AnchorAudit.canonicalTarget_mathlib_candidate",
+      "terminal_declaration": "ClassGroup.fintypeOfAdmissibleOfFinite",
+      "terminal_file": "Mathlib/NumberTheory/ClassNumber/Finite.lean",
+      "terminal_git_blob": "bdf5c2f4838e64353e267304491d1dd5e2d7a394",
+      "terminal_file_sha256": "1bd1f5cfa6592b7f36321042ac3fad8361bfa80993dd5e52b8553c732ec5d7c0",
+      "terminal_route": [
+        "ClassGroup.fintypeOfAdmissibleOfAlgebraic",
+        "ClassGroup.fintypeOfAdmissibleOfFinite",
+        "NumberField.RingOfIntegers.instFintypeClassGroup",
+        "Stage1Instances.THM_M_0415.AnchorAudit.canonicalTarget_mathlib_candidate"
+      ],
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "source_placeholder_audit": "The immediate instance is an explicit definition and the general construction has an explicit by-body. Scoped source scanning found no sorry, axiom declaration, unsafe declaration, or external oracle in the two owning files.",
+      "kernel_check": "passed_current_pinned_environment",
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"],
+      "machine_debt": "M0-W-candidate_pending_later_validation_and_master_acceptance",
+      "evidence_level": "provisional_E1",
+      "proof_body_location": "pinned mathlib, not repository-local"
+    },
+    {
+      "candidate_id": "M0415-C02",
+      "project": "awesome_theorems repository-local legacy surface",
+      "revision": "1ec654c416270f261b365f46f5f2409b65d3f839",
+      "module": "AwesomeTheorems.Stage1.S1_M_070",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_070.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_070.idealClassGroup_finite",
+      "comparison": "Same per-number-field conclusion, packaged through a K-parameterized StatementShape rather than the frozen universally quantified root.",
+      "role": "discovery-only legacy wrapper; duplicate terminal proof body",
+      "terminal_candidate_id": "M0415-C01",
+      "machine_debt": "no_independent_credit"
+    },
+    {
+      "candidate_id": "M0415-C03",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.ClassNumber.Finite",
+      "file": "Mathlib/NumberTheory/ClassNumber/Finite.lean",
+      "declaration": "ClassGroup.fintypeOfAdmissibleOfFinite",
+      "comparison": "Strictly more general construction for integral closures in finite extensions with an admissible absolute value; C01 specializes it to Q and a number field.",
+      "role": "terminal general theorem family behind C01",
+      "terminal_candidate_id": "M0415-C01",
+      "machine_debt": "no_duplicate_root_credit"
+    }
+  ],
+  "external_search": {
+    "github_repository_api": "Four repository queries returned HTTP 200, total_count 0, incomplete_results false; response SHA-256 08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2.",
+    "github_code_api": "Four code queries returned HTTP 401 without authentication; no negative-result claim is made from them.",
+    "grep_app": "Three code-index queries returned HTTP 429; no negative-result claim is made from them.",
+    "result": "No additional credible Lean 4 candidate was established. This is a bounded search record, not exhaustive-discovery evidence."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "proposed_root_machine_debt": "M0-W",
+    "human_debt": "H1",
+    "readability_debt": "R4",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "status_boundary": "The immutable candidate inventory and narrow exact wrapper check are self-tested. M0-W is only a proposed node classification pending the obligation, proof, full trust/provenance, validation, and master-acceptance gates; no theorem completion is claimed."
+  }
+}
