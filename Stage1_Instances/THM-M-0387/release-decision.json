@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0387-RELEASE",
+  "theorem_id": "THM-M-0387",
+  "intent": "release",
+  "base_revision": "4dabab14860067cbb1220d76c5a1bd9abd87d624",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0387-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "VALREC-M0387-20260712-OPEN-M2",
+    "receipt_support_state": "self_tested_pending_master_acceptance",
+    "receipt_sha256": "7617c20f81952be8380045f9a81e919b52e75a131de069cc376659bc8e8f9419"
+  },
+  "reconciled_inputs": {
+    "statement.json": "febb1471998ce37871dba5c164033b175c97213c4acf7a17abb936e7658bec6a",
+    "anchor-audit.json": "46b41e59f49f69241e46a5c6322c814a746c889d81d5382ff559e3803c1d5bdb",
+    "obligation-registry.json": "60dde2360bacfdb05eabc88888831a67288ed3fb3e5c08e39f4364521c056f55",
+    "typed-graphs.json": "6cd9a640ddcd34a23d88945bc2fde0236cb4fb09b0e9adc639bfc42eb1a100a4",
+    "Proof.lean": "3d3adf5b2a9683d46daf9d9b29b6bcce3d7cf51c5dcdb879c01bc84110ac8c4e",
+    "validation-spec.json": "b7428151b2892de1ba1193f9c175290b42440d3c25a766510770bf005d20e407",
+    "validation-receipt.json": "7617c20f81952be8380045f9a81e919b52e75a131de069cc376659bc8e8f9419"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "VALREC-M0387-20260712-OPEN-M2"
+  ],
+  "root_vector": {
+    "before": ["H1", "M2", "R4"],
+    "after": ["H1", "M2", "R4"],
+    "boundary": "The exact root is conditional on the unproved universal odd-prime branch M0387-WTW. Human sources remain H1 and the readable reconstruction remains R4. Release changes none of these classifications."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0387-VALIDATION has worker self-test support only and no master-accepted receipt, so the release node is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "proof.root_kernel_closure",
+    "reason": "The validation receipt records machine debt M2, kernel_closed=false, and no unconditional proof body for the exact root."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0387-VALIDATION and all transitive phase receipts",
+    "M0387-WTW: kernel closure of every odd-prime exponent, including the nonregular Wiles/Taylor-Wiles branch",
+    "checked unconditional composition certificate for M0387-ROOT",
+    "accepted H0 primary-source crosswalk with theorem/page, assumptions, errata, node mapping, and independent review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, accepted foundation policy, axiom audit, trust closure, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "partial_and_conditional_lean_checks": "pass for exponents 3 and 4, regular primes, statement transport, and conditional odd-prime composition",
+    "exact_root_kernel_closure": "missing",
+    "root_machine_debt": "M2",
+    "minimal_open_root_cut": ["M0387-WTW"],
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "local_source_hygiene": "pass",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "First close M0387-WTW and the unconditional exact-root composition, complete independently reviewed H0/R0 and trust records, and obtain master acceptance of the dependency chain. Then a separately provisioned release lane must produce hermetic supply-chain evidence, independent attestations, and a deterministic bundle for master reconciliation.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It advances no lifecycle or debt state, creates no accepted receipt, and does not claim AUDIT-Z, THEOREM-Z, or theorem completion."
+}
