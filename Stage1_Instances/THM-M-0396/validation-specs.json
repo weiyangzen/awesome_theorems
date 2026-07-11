@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "item_id": "S56-M-0396-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0396",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0396-ARCH-STRUCTURE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0396/check_obligation_tree.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": [
+        "M0396-ROOT",
+        "M0396-N1",
+        "M0396-N2",
+        "M0396-C1",
+        "M0396-C2",
+        "M0396-L1",
+        "M0396-L2",
+        "M0396-L3",
+        "M0396-L4",
+        "M0396-T",
+        "M0396-X1",
+        "M0396-X2"
+      ],
+      "covered_declarations": [],
+      "claim_boundary": "schema and graph structure only"
+    },
+    {
+      "recipe_id": "VAL-M0396-COMPOSITION-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "bash",
+        "-c",
+        "tmp=$(mktemp -d ./.m0396-obligation.XXXXXX); trap 'rm -rf \"$tmp\"' EXIT; cp ../../Stage1_Instances/THM-M-0396/Statement.lean ../../Stage1_Instances/THM-M-0396/ObligationTree.lean \"$tmp/\"; lake env lean -o \"$tmp/Statement.olean\" \"$tmp/Statement.lean\" && LEAN_PATH=\"$tmp:$(lake env printenv LEAN_PATH)\" lake env lean \"$tmp/ObligationTree.lean\""
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": [
+        "M0396-S1",
+        "M0396-S2",
+        "M0396-S3"
+      ],
+      "covered_declarations": [
+        "Stage1Rev56.THMM0396.ObligationTree.root_compose",
+        "Stage1Rev56.THMM0396.ObligationTree.core_iff_statement"
+      ],
+      "claim_boundary": "conditional binder composition and statement-layer checks only"
+    }
+  ],
+  "status_boundary": "Neither recipe proves the terminal estimate or canonical root."
+}
