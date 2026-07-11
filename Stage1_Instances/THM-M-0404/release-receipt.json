@@ -1,0 +1,99 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0404-RELEASE-local-20260711T195832Z",
+  "item_id": "S56-M-0404-RELEASE",
+  "theorem_id": "THM-M-0404",
+  "base_revision": "8f566755a28459bda22aa05071d96cc391ef0db6",
+  "base_tree": "41edf1747a7ed991d01cde8131e2f1fbca3cafaf",
+  "validated_at": "2026-07-11T19:58:32Z",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "master_acceptance": "pending_and_not_claimed",
+  "inputs": {
+    "release-spec.json": "8ef050152672882fbb6db8a6cd5c8e9e551de5f0f21ad6afa1dee0c5e385a39c",
+    "validation-receipt.json": "bcbcf44105a57f6f8b4ea2ff69f03a91ea876605b34be61b9998107faf6c008f",
+    "obligation-registry.json": "c097548d687ee63f40a25633d6f5cfaf799927ae451bbb2a968b8ff6bc118136",
+    "typed-graphs.json": "81d05444b31af97268309dd5bb0d53fe2446f333ed082b8f368ce8f17f4567e4",
+    "instance.json": "c16e401722ee1c25c718afbd4c55fdca5371e673700e3891610ef33b22e1718d",
+    "Statement.lean": "a7dac1072a52d9e205b56a5d5b0ed0535758adc15c7acd904269f160c41eef9d",
+    "ObligationTree.lean": "5b7c9d4cadf6fc6a9131c9c5c7129070041091f35243bba7e6a23220818e3632",
+    "Proof.lean": "7008fb86e76b8dfc500cca3f0febf1e953c28c84bdcbb690a5345199d62aebfc",
+    "check_validation.py": "57f2803a73297a525a4e0888fa72eeaaff5e95c3bac20e230e5dac7d37080995"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease worker clone with owned release artifacts and pre-existing untracked .lake symlink"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-0404/validate_release.py"
+    ],
+    "env": {},
+    "timeout_seconds": 180,
+    "network": "denied"
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H3", "M3", "R4"],
+    "root_vector_after": ["H3", "M3", "R4"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "accepted_receipt_ids": [],
+    "first_failed_gate": "exact_root_kernel_closure",
+    "remaining_root_cut_set": ["M0404-T-EVENTUAL"],
+    "status_boundary": "Truthful negative worker release reconciliation only; it supplies no M0, AUDIT-Z, THEOREM-Z, release-grade evidence, accepted receipt, or master acceptance."
+  },
+  "result": {
+    "exit_code": 0,
+    "upstream_validation_replay": "pass_for_statement_conditional_composition_and_local_combinatorial_proof",
+    "exact_root_kernel_closure": "fail_closed",
+    "composition_gate": "fail_closed_at_open_eventual_periodicity_premise",
+    "human_source_gate": "fail_closed_at_H3",
+    "readability_gate": "fail_closed_at_R4",
+    "hermetic_release_gate": "fail_closed",
+    "supply_chain_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "deterministic_bundle_gate": "fail_closed",
+    "master_acceptance_gate": "pending"
+  },
+  "known_failures": [
+    "The canonical root is M3 and is not kernel-closed; root_of_eventuallyPeriodicZeroSets consumes EventuallyPeriodicZeroSets as an explicit premise.",
+    "M0404-T-EVENTUAL is the minimal mathematical open root cut.",
+    "AUDIT-Z is not established; the root retains H3 and R4 debt with no accepted independent H0/R0 reviews.",
+    "The frozen typed graph predates the proof-phase combinatorial body and is stale, so it also lists M0404-L-COMBINATORIAL; this receipt does not rewrite authoritative frozen state.",
+    "The validation receipt is provisional and release_grade=false; its prerequisite task is not master-accepted.",
+    "No cold empty-cache network-denied replay, complete TCB/SBOM/license archive, offline restoration, or immutable clean release input exists.",
+    "No distinct clean runner, second signed attestation, independently implemented verifier, mutation suite, or deterministic release bundle exists.",
+    "Only the integration lane can perform master acceptance and advance authoritative state."
+  ],
+  "retry_condition": "Close M0404-T-EVENTUAL and the exact frozen root with checked composition, reconcile structured graph state, complete and independently review H0/R0 records, then produce hermetic supply-chain and independent-verifier attestations plus a deterministic bundle for master acceptance.",
+  "freshness": {
+    "review_due": "before any retry or upon any invalidation input change",
+    "supersession_state": "current provisional worker release decision",
+    "revocation_state": "not_revoked",
+    "incident_path": "replace this receipt and fail closed on any statement, proof, graph, receipt, toolchain, dependency, validator, or policy drift"
+  },
+  "invalidation_inputs": [
+    "release-spec.json",
+    "validate_release.py",
+    "validation-receipt.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "instance.json",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "check_validation.py",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "rev-5.6 assurance standard"
+  ]
+}

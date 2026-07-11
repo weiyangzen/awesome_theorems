@@ -40,6 +40,18 @@ No versioned primary mathematical source with edition, theorem/page, assumptions
 
 See [`intake-receipt.json`](intake-receipt.json). Intake validation checks structured JSON, manifest identity, repository standards, and whitespace. It does not run Lean because this phase intentionally has no formal expression or proof claim.
 
+The statement phase now supplies [`Statement.lean`](Statement.lean), with the
+structured freeze in [`statement.json`](statement.json) and exact worker-local
+commands in [`statement-receipt.json`](statement-receipt.json). The target and
+its definitional expansion elaborate under the pinned Lean/mathlib environment
+using two imports. Because native de Rham/Dolbeault cohomology and a bundled
+Kahler-manifold API are absent, `HodgeData` exposes those typed notions without
+assuming the decomposition or conjugation-symmetry conclusions. This is an
+`M3` statement/interface result only.
+
 ## Status boundary
 
-This dossier does not claim an elaborated statement, `H0`, any `M0` class, proof completion, audit completion, or theorem completion. Lifecycle remains `planned`; only the integration lane can accept the provisional worker result.
+This dossier claims a worker-tested elaborated statement, but does not claim
+`H0`, any `M0` class, proof completion, audit completion, theorem completion,
+or master acceptance. Lifecycle remains `planned`; only the integration lane
+can accept the provisional worker result.

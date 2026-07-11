@@ -1,0 +1,39 @@
+{
+  "schema_version": "5.6",
+  "item_id": "S56-M-0113-STATEMENT",
+  "theorem_id": "THM-M-0113",
+  "backend": "lean4",
+  "module_path": "Stage1_Instances/THM-M-0113/Statement.lean",
+  "declaration": "Stage1Instances.THMM0113.HodgeDecompositionTarget",
+  "source_sha256": "73010040e7a16c02d00bfa95db270e2370440f433e8c3519e5e2ab429cd236dd",
+  "elaborated_print_sha256": "483a37eb70184d0596b11301c4e15018629fd00bbd8a601fdc6ad7691dcd7e84",
+  "imports": [
+    "Mathlib.Geometry.Manifold.Complex",
+    "Mathlib.LinearAlgebra.Dimension.Finite"
+  ],
+  "canonical_claim": "For every finite-dimensional compact Kahler manifold X and every n, complex de Rham cohomology H^n(X; C) is the internal direct sum of its Hodge pieces H^{p,q}(X) for p+q=n, and complex conjugation exchanges H^{p,q}(X) with H^{q,p}(X).",
+  "encoding_boundary": "The pinned mathlib snapshot lacks native de Rham/Dolbeault cohomology and bundled Kahler-manifold definitions. HodgeData therefore types those objects and their basic algebraic/conjugation structure, but does not assume isKahler, direct-sum decomposition, or conjugation symmetry. The target quantifies over every such realization and concludes the two theorem assertions from isKahler.",
+  "domains_and_binders": [
+    "E: finite-dimensional complex normed model space",
+    "H and I: complex manifold model-with-corners data",
+    "M: charted topological space with CompactSpace and T2Space instances",
+    "D: HodgeData containing an IsManifold witness, Kahler predicate, complex cohomology spaces, Hodge subspaces, and involutive conjugate-linear conjugation",
+    "n: every natural cohomological degree",
+    "p,q: natural bidegrees constrained by p+q=n"
+  ],
+  "conclusion_components": [
+    "iSupIndep of the bidegree-indexed Hodge submodules",
+    "their supremum equals top",
+    "membership is exchanged by conjugation between (p,q) and (q,p)"
+  ],
+  "degenerate_cases": "Degree zero is included. All natural bidegrees p+q=n are indexed; out-of-range pieces may be bottom through the realization. No noncompact, non-Kahler, real-coefficient, integral, polarized, or hard-Lefschetz variant is asserted.",
+  "checked_transport": "hodgeDecompositionTarget_iff_expanded (Iff.rfl)",
+  "mutation_fixtures": [
+    "MutationRemovedCompactness",
+    "MutationChangedCoefficients",
+    "MutationFixedDegreeZero"
+  ],
+  "machine_status": "M3_statement_interface_only",
+  "proof_status": "No proof of HodgeDecompositionTarget is declared or claimed.",
+  "status_boundary": "Successful elaboration freezes the exact local proposition only. It is not source-fidelity, proof, M0, audit-completion, theorem-completion, or master-acceptance evidence."
+}
