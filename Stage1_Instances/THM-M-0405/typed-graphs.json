@@ -1,0 +1,1088 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "theorem_id": "THM-M-0405",
+  "registry_id": "THM-M-0405-OBLIGATIONS-v1",
+  "edge_direction": "Edges run from consumer/parent to required child/support; reciprocal adjacency is explicit.",
+  "nodes": [
+    {
+      "node_id": "M0405-ROOT",
+      "obligation_id": "M0405-ROOT",
+      "kind": "root",
+      "human_statement": "The exact frozen conjunction: both Lucas and Lehmer terms have a primitive divisor for every index above 30.",
+      "formal_target": "Stage1.THM_M_0405.Statement",
+      "output": "The canonical proposition.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-MAIN",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 8,
+      "semantic_step_ledger": [
+        "Obtain the exact Lucas branch.",
+        "Obtain the exact Lehmer branch.",
+        "Apply the checked conjunction constructor."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-root",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-S-DEFINITIONS",
+      "obligation_id": "M0405-S-DEFINITIONS",
+      "kind": "definition",
+      "human_statement": "The pair structures, sequences, discriminants, and primitive-divisor predicates encode the selected claim.",
+      "formal_target": "Stage1.THM_M_0405.{LucasPair,LehmerPair,LucasPair.IsPrimitiveDivisor,LehmerPair.IsPrimitiveDivisor}",
+      "output": "Well-scoped canonical definitions.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 35,
+      "semantic_step_ledger": [
+        "Audit pair invariants and coprimality.",
+        "Audit quotient identities for odd/even indices.",
+        "Audit prime, term, discriminant, and earlier-term exclusions."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-s-definitions",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-S-FOUNDATION",
+      "obligation_id": "M0405-S-FOUNDATION",
+      "kind": "terminal",
+      "human_statement": "The eventual proof has an accepted transitive axiom and trusted-computing-base closure.",
+      "formal_target": "planned root axiom/dependency report",
+      "output": "Accepted trust closure.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 25,
+      "semantic_step_ledger": [
+        "Resolve terminal declarations.",
+        "Extract transitive constants and axioms.",
+        "Compare them with the pinned foundation profile."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-s-foundation",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-B-LUCAS",
+      "obligation_id": "M0405-B-LUCAS",
+      "kind": "branch",
+      "human_statement": "Every canonical Lucas pair and n > 30 admits a prime satisfying the exact Lucas primitive-divisor predicate.",
+      "formal_target": "Stage1.THM_M_0405.LucasBranch",
+      "output": "The left conjunct of Statement.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-LUCAS",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 30,
+      "semantic_step_ledger": [
+        "Instantiate the common BHV result for a Lucas pair.",
+        "Translate its primitive-divisor conclusion.",
+        "Return the existential prime."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-b-lucas",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/ObligationTree.lean"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-B-LEHMER",
+      "obligation_id": "M0405-B-LEHMER",
+      "kind": "branch",
+      "human_statement": "Every canonical Lehmer pair and n > 30 admits a prime satisfying the exact Lehmer primitive-divisor predicate.",
+      "formal_target": "Stage1.THM_M_0405.LehmerBranch",
+      "output": "The right conjunct of Statement.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-LEHMER",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 35,
+      "semantic_step_ledger": [
+        "Instantiate the common BHV result for a Lehmer pair.",
+        "Select the parity-specific sequence identity.",
+        "Translate its primitive-divisor conclusion."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-b-lehmer",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/ObligationTree.lean"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-N-PAIR-NORMALIZATION",
+      "obligation_id": "M0405-N-PAIR-NORMALIZATION",
+      "kind": "normalization",
+      "human_statement": "Convert each canonical pair into the normalized Lucas-or-Lehmer pair data used by BHV without losing coprimality or nontorsion.",
+      "formal_target": "planned Lean normalized-pair constructor",
+      "output": "Normalized source hypotheses for either branch.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-DEFS",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 85,
+      "semantic_step_ledger": [
+        "Package integral invariants.",
+        "Preserve nonzero and coprime conditions.",
+        "Transport the quotient nontorsion hypothesis.",
+        "Identify the stored integer sequence with the source quotient."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-n-pair-normalization",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-C-CYCLOTOMIC-FACTOR",
+      "obligation_id": "M0405-C-CYCLOTOMIC-FACTOR",
+      "kind": "construction",
+      "human_statement": "Construct the homogeneous cyclotomic factor of the nth term and relate its prime factors to primitive divisors.",
+      "formal_target": "planned Lean cyclotomic-factor construction",
+      "output": "An integral factor controlling primitive primes.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-CYCLOTOMIC",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 95,
+      "semantic_step_ledger": [
+        "Define the homogeneous cyclotomic value.",
+        "Derive its product/Mobius relation to sequence terms.",
+        "Control primes shared with the discriminant and earlier terms."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-c-cyclotomic-factor",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-L-NONPRIMITIVE-BOUND",
+      "obligation_id": "M0405-L-NONPRIMITIVE-BOUND",
+      "kind": "core_lemma",
+      "human_statement": "If the nth term has no primitive divisor, its cyclotomic factor satisfies the explicit upper bounds used in the BHV reduction.",
+      "formal_target": "planned Lean nonprimitive upper-bound theorem",
+      "output": "An explicit numerical inequality under defectiveness.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-BOUND",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 100,
+      "semantic_step_ledger": [
+        "Assume absence of primitive primes.",
+        "Classify valuations of the cyclotomic factor.",
+        "Bound exceptional prime contributions.",
+        "Assemble the logarithmic upper bound."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-l-nonprimitive-bound",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-L-LARGE-INDEX-EXCLUSION",
+      "obligation_id": "M0405-L-LARGE-INDEX-EXCLUSION",
+      "kind": "core_lemma",
+      "human_statement": "Cyclotomic lower estimates contradict the nonprimitive upper bound outside the finite exceptional index range.",
+      "formal_target": "planned Lean analytic inequality theorem",
+      "output": "Defectiveness implies membership in a finite index range.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-LARGE-N",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 100,
+      "semantic_step_ledger": [
+        "Apply lower bounds for cyclotomic values.",
+        "Combine them with the nonprimitive upper bound.",
+        "Verify the explicit inequalities by certified arithmetic.",
+        "Deduce the finite remaining range."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-l-large-index-exclusion",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-B-DEFECTIVE-CLASSIFICATION",
+      "obligation_id": "M0405-B-DEFECTIVE-CLASSIFICATION",
+      "kind": "branch",
+      "human_statement": "The finite remaining defective Lucas and Lehmer pairs are exhaustively classified, and none has index greater than 30.",
+      "formal_target": "planned Lean finite classification certificate",
+      "output": "No defective normalized pair exists for n > 30.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-CLASSIFICATION",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 100,
+      "semantic_step_ledger": [
+        "Enumerate the bounded index cases.",
+        "Reduce parameters using the source classification.",
+        "Check each certified exceptional family.",
+        "Prove the list exhaustive and its indices at most 30."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-b-defective-classification",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-X-BHV-BRIDGE",
+      "obligation_id": "M0405-X-BHV-BRIDGE",
+      "kind": "bridge",
+      "human_statement": "Compose normalization, cyclotomic bounds, large-index exclusion, and finite classification into the common BHV theorem.",
+      "formal_target": "planned exact Lean BHV theorem",
+      "output": "Primitive-divisor existence for every normalized Lucas or Lehmer pair at n > 30.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-MAIN",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 45,
+      "semantic_step_ledger": [
+        "Suppose the nth term is defective.",
+        "Apply the upper/lower-bound reduction.",
+        "Enter the exhaustive finite classification.",
+        "Contradict n > 30."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-x-bhv-bridge",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-T-LUCAS-ADAPTER",
+      "obligation_id": "M0405-T-LUCAS-ADAPTER",
+      "kind": "transport",
+      "human_statement": "Translate the common BHV conclusion to the exact LucasPair.IsPrimitiveDivisor predicate.",
+      "formal_target": "planned exact Lucas adapter",
+      "output": "M0405-B-LUCAS.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-LUCAS",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        "Rewrite the normalized term as L.term n.",
+        "Rewrite the discriminant.",
+        "Translate all earlier positive-term exclusions."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-t-lucas-adapter",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-T-LEHMER-ADAPTER",
+      "obligation_id": "M0405-T-LEHMER-ADAPTER",
+      "kind": "transport",
+      "human_statement": "Translate the common BHV conclusion to the parity-sensitive LehmerPair.IsPrimitiveDivisor predicate.",
+      "formal_target": "planned exact Lehmer adapter",
+      "output": "M0405-B-LEHMER.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-BHV-2001-LEHMER",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 65,
+      "semantic_step_ledger": [
+        "Split on index parity only for the sequence identity.",
+        "Rewrite the squared even denominator.",
+        "Translate all earlier positive-term exclusions."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-t-lehmer-adapter",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "M0405-C-ROOT-COMPOSITION",
+      "obligation_id": "M0405-C-ROOT-COMPOSITION",
+      "kind": "terminal",
+      "human_statement": "Combine the exact Lucas and Lehmer branches into the canonical conjunction.",
+      "formal_target": "Stage1.THM_M_0405.statement_of_branches",
+      "output": "Stage1.THM_M_0405.Statement.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "PROV-LOCAL-CHECKED-COMPOSITION",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 6,
+      "semantic_step_ledger": [
+        "Apply And.intro to the two exact branch premises."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-c-root-composition",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "The composition term is checked, but its two mathematical premises remain open.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/ObligationTree.lean"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "M0405-X-PROVENANCE",
+      "obligation_id": "M0405-X-PROVENANCE",
+      "kind": "terminal",
+      "human_statement": "Every eventual proof body, imported theorem, computation certificate, and source boundary has content-addressed provenance.",
+      "formal_target": "planned machine-derived provenance closure",
+      "output": "Complete body/origin/TCB inventory.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "LEAN4-MATHLIB-CLASSICAL-v1",
+      "tcb_profile": "LEAN4-PINNED-v1",
+      "computation_record": "none",
+      "step_budget": 40,
+      "semantic_step_ledger": [
+        "Resolve terminal proof bodies.",
+        "Hash origins and dependencies.",
+        "Bind validation receipts to this registry."
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0405/obligation-tree.md#m0405-x-provenance",
+      "validation_spec_id": "VAL-M0405-OBLIGATION-TREE",
+      "status_boundary": "Open architecture node; no proof-body closure is credited.",
+      "task_ids": [
+        "S56-M-0405-OBLIGATION_TREE",
+        "S56-M-0405-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0405/obligation-graphs.json"
+      ],
+      "owner": "S56-M-0405 execution lane",
+      "reviewer": "independent integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "on invalidation",
+        "invalidation_inputs": [
+          "statement hash",
+          "registry hash",
+          "proof implementation"
+        ],
+        "revocation_state": "open"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "P01",
+          "type": "proof_requires",
+          "from": "M0405-ROOT",
+          "to": "M0405-C-ROOT-COMPOSITION"
+        },
+        {
+          "edge_id": "P02",
+          "type": "proof_requires",
+          "from": "M0405-C-ROOT-COMPOSITION",
+          "to": "M0405-B-LUCAS"
+        },
+        {
+          "edge_id": "P03",
+          "type": "proof_requires",
+          "from": "M0405-C-ROOT-COMPOSITION",
+          "to": "M0405-B-LEHMER"
+        },
+        {
+          "edge_id": "P04",
+          "type": "proof_requires",
+          "from": "M0405-B-LUCAS",
+          "to": "M0405-T-LUCAS-ADAPTER"
+        },
+        {
+          "edge_id": "P05",
+          "type": "proof_requires",
+          "from": "M0405-B-LEHMER",
+          "to": "M0405-T-LEHMER-ADAPTER"
+        },
+        {
+          "edge_id": "P06",
+          "type": "proof_requires",
+          "from": "M0405-T-LUCAS-ADAPTER",
+          "to": "M0405-X-BHV-BRIDGE"
+        },
+        {
+          "edge_id": "P07",
+          "type": "proof_requires",
+          "from": "M0405-T-LEHMER-ADAPTER",
+          "to": "M0405-X-BHV-BRIDGE"
+        },
+        {
+          "edge_id": "P08",
+          "type": "proof_requires",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-N-PAIR-NORMALIZATION"
+        },
+        {
+          "edge_id": "P09",
+          "type": "proof_requires",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-C-CYCLOTOMIC-FACTOR"
+        },
+        {
+          "edge_id": "P10",
+          "type": "proof_requires",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-L-NONPRIMITIVE-BOUND"
+        },
+        {
+          "edge_id": "P11",
+          "type": "proof_requires",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-L-LARGE-INDEX-EXCLUSION"
+        },
+        {
+          "edge_id": "P12",
+          "type": "proof_requires",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-B-DEFECTIVE-CLASSIFICATION"
+        }
+      ],
+      "out": {
+        "M0405-ROOT": [
+          "P01"
+        ],
+        "M0405-C-ROOT-COMPOSITION": [
+          "P02",
+          "P03"
+        ],
+        "M0405-B-LUCAS": [
+          "P04"
+        ],
+        "M0405-B-LEHMER": [
+          "P05"
+        ],
+        "M0405-T-LUCAS-ADAPTER": [
+          "P06"
+        ],
+        "M0405-T-LEHMER-ADAPTER": [
+          "P07"
+        ],
+        "M0405-X-BHV-BRIDGE": [
+          "P08",
+          "P09",
+          "P10",
+          "P11",
+          "P12"
+        ]
+      },
+      "in": {
+        "M0405-C-ROOT-COMPOSITION": [
+          "P01"
+        ],
+        "M0405-B-LUCAS": [
+          "P02"
+        ],
+        "M0405-B-LEHMER": [
+          "P03"
+        ],
+        "M0405-T-LUCAS-ADAPTER": [
+          "P04"
+        ],
+        "M0405-T-LEHMER-ADAPTER": [
+          "P05"
+        ],
+        "M0405-X-BHV-BRIDGE": [
+          "P06",
+          "P07"
+        ],
+        "M0405-N-PAIR-NORMALIZATION": [
+          "P08"
+        ],
+        "M0405-C-CYCLOTOMIC-FACTOR": [
+          "P09"
+        ],
+        "M0405-L-NONPRIMITIVE-BOUND": [
+          "P10"
+        ],
+        "M0405-L-LARGE-INDEX-EXCLUSION": [
+          "P11"
+        ],
+        "M0405-B-DEFECTIVE-CLASSIFICATION": [
+          "P12"
+        ]
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "R01",
+          "type": "logical_decomposition",
+          "from": "M0405-ROOT",
+          "to": "M0405-S-DEFINITIONS"
+        }
+      ],
+      "out": {
+        "M0405-ROOT": [
+          "R01"
+        ]
+      },
+      "in": {
+        "M0405-S-DEFINITIONS": [
+          "R01"
+        ]
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "PV01",
+          "type": "provenance_of",
+          "from": "M0405-X-PROVENANCE",
+          "to": "M0405-ROOT"
+        }
+      ],
+      "out": {
+        "M0405-X-PROVENANCE": [
+          "PV01"
+        ]
+      },
+      "in": {
+        "M0405-ROOT": [
+          "PV01"
+        ]
+      }
+    },
+    "evidence": {
+      "edges": [],
+      "out": {},
+      "in": {}
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "TR01",
+          "type": "trusts",
+          "from": "M0405-ROOT",
+          "to": "M0405-S-FOUNDATION"
+        },
+        {
+          "edge_id": "TR02",
+          "type": "trusts",
+          "from": "M0405-ROOT",
+          "to": "M0405-X-PROVENANCE"
+        }
+      ],
+      "out": {
+        "M0405-ROOT": [
+          "TR01",
+          "TR02"
+        ]
+      },
+      "in": {
+        "M0405-S-FOUNDATION": [
+          "TR01"
+        ],
+        "M0405-X-PROVENANCE": [
+          "TR02"
+        ]
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "D01",
+          "type": "documents",
+          "from": "M0405-ROOT",
+          "to": "M0405-S-DEFINITIONS"
+        },
+        {
+          "edge_id": "D02",
+          "type": "documents",
+          "from": "M0405-ROOT",
+          "to": "M0405-X-BHV-BRIDGE"
+        }
+      ],
+      "out": {
+        "M0405-ROOT": [
+          "D01",
+          "D02"
+        ]
+      },
+      "in": {
+        "M0405-S-DEFINITIONS": [
+          "D01"
+        ],
+        "M0405-X-BHV-BRIDGE": [
+          "D02"
+        ]
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "W01",
+          "type": "workflow_depends_on",
+          "from": "M0405-ROOT",
+          "to": "M0405-C-ROOT-COMPOSITION"
+        },
+        {
+          "edge_id": "W02",
+          "type": "workflow_depends_on",
+          "from": "M0405-C-ROOT-COMPOSITION",
+          "to": "M0405-B-LUCAS"
+        },
+        {
+          "edge_id": "W03",
+          "type": "workflow_depends_on",
+          "from": "M0405-C-ROOT-COMPOSITION",
+          "to": "M0405-B-LEHMER"
+        },
+        {
+          "edge_id": "W04",
+          "type": "workflow_depends_on",
+          "from": "M0405-B-LUCAS",
+          "to": "M0405-T-LUCAS-ADAPTER"
+        },
+        {
+          "edge_id": "W05",
+          "type": "workflow_depends_on",
+          "from": "M0405-B-LEHMER",
+          "to": "M0405-T-LEHMER-ADAPTER"
+        },
+        {
+          "edge_id": "W06",
+          "type": "workflow_depends_on",
+          "from": "M0405-T-LUCAS-ADAPTER",
+          "to": "M0405-X-BHV-BRIDGE"
+        },
+        {
+          "edge_id": "W07",
+          "type": "workflow_depends_on",
+          "from": "M0405-T-LEHMER-ADAPTER",
+          "to": "M0405-X-BHV-BRIDGE"
+        },
+        {
+          "edge_id": "W08",
+          "type": "workflow_depends_on",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-N-PAIR-NORMALIZATION"
+        },
+        {
+          "edge_id": "W09",
+          "type": "workflow_depends_on",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-C-CYCLOTOMIC-FACTOR"
+        },
+        {
+          "edge_id": "W10",
+          "type": "workflow_depends_on",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-L-NONPRIMITIVE-BOUND"
+        },
+        {
+          "edge_id": "W11",
+          "type": "workflow_depends_on",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-L-LARGE-INDEX-EXCLUSION"
+        },
+        {
+          "edge_id": "W12",
+          "type": "workflow_depends_on",
+          "from": "M0405-X-BHV-BRIDGE",
+          "to": "M0405-B-DEFECTIVE-CLASSIFICATION"
+        }
+      ],
+      "out": {
+        "M0405-ROOT": [
+          "W01"
+        ],
+        "M0405-C-ROOT-COMPOSITION": [
+          "W02",
+          "W03"
+        ],
+        "M0405-B-LUCAS": [
+          "W04"
+        ],
+        "M0405-B-LEHMER": [
+          "W05"
+        ],
+        "M0405-T-LUCAS-ADAPTER": [
+          "W06"
+        ],
+        "M0405-T-LEHMER-ADAPTER": [
+          "W07"
+        ],
+        "M0405-X-BHV-BRIDGE": [
+          "W08",
+          "W09",
+          "W10",
+          "W11",
+          "W12"
+        ]
+      },
+      "in": {
+        "M0405-C-ROOT-COMPOSITION": [
+          "W01"
+        ],
+        "M0405-B-LUCAS": [
+          "W02"
+        ],
+        "M0405-B-LEHMER": [
+          "W03"
+        ],
+        "M0405-T-LUCAS-ADAPTER": [
+          "W04"
+        ],
+        "M0405-T-LEHMER-ADAPTER": [
+          "W05"
+        ],
+        "M0405-X-BHV-BRIDGE": [
+          "W06",
+          "W07"
+        ],
+        "M0405-N-PAIR-NORMALIZATION": [
+          "W08"
+        ],
+        "M0405-C-CYCLOTOMIC-FACTOR": [
+          "W09"
+        ],
+        "M0405-L-NONPRIMITIVE-BOUND": [
+          "W10"
+        ],
+        "M0405-L-LARGE-INDEX-EXCLUSION": [
+          "W11"
+        ],
+        "M0405-B-DEFECTIVE-CLASSIFICATION": [
+          "W12"
+        ]
+      }
+    }
+  },
+  "closure_boundary": {
+    "root_machine_debt": "M4",
+    "closed_obligations": [],
+    "minimal_open_root_cut_set": [
+      "M0405-X-BHV-BRIDGE"
+    ],
+    "checked_interfaces_not_closed": [
+      "M0405-C-ROOT-COMPOSITION"
+    ],
+    "composition_certificates": [
+      "Stage1.THM_M_0405.statement_of_branches"
+    ],
+    "audit_complete": false,
+    "theorem_complete": false
+  }
+}

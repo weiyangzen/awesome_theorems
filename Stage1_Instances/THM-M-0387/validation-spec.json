@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0387-VALIDATION",
+  "theorem_id": "THM-M-0387",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0387-STATEMENT-KERNEL",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0387/Statement.lean"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"stream": "stdout", "semantic_hash_policy": "exact SHA-256 recorded in receipt"}],
+      "covered_obligation_ids": ["M0387-S"],
+      "covered_declarations": ["Stage1Instances.THM_M_0387.FermatLastTheoremTarget"]
+    },
+    {
+      "recipe_id": "VAL-M0387-ADMITTED-PROOF-BODIES",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0387/Proof.lean"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 300,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"stream": "stdout", "semantic_hash_policy": "exact SHA-256 recorded in receipt"}],
+      "covered_obligation_ids": ["M0387-S", "M0387-B3", "M0387-B4", "M0387-RP", "M0387-T"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0387.fermatLastTheoremTarget_iff_mathlib",
+        "Stage1Instances.THM_M_0387.exponentThree",
+        "Stage1Instances.THM_M_0387.exponentFour",
+        "Stage1Instances.THM_M_0387.regularPrimeExponent",
+        "Stage1Instances.THM_M_0387.target_of_odd_prime_exponents"
+      ]
+    },
+    {
+      "recipe_id": "VAL-M0387-OBLIGATION-STATE",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0387/check_obligation_tree.py"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"stream": "stdout", "semantic_hash_policy": "must report root closure open (M2)"}],
+      "covered_obligation_ids": ["M0387-ROOT", "M0387-WTW"],
+      "covered_declarations": []
+    }
+  ]
+}

@@ -28,4 +28,14 @@ This citation is sufficiently specific for the next audit, but the paper's exact
 | Errata | absent | unknown | open |
 | Lean target | absent | legacy abstract `StatementShape` | not exact; no credit |
 
-The first failed gate is exact source-statement identification. Retry requires the primary paper (and any errata), a pinpoint numbered/page statement, and a documented resolution of the author and dimension conflicts. No broadened or substituted theorem is authorized.
+## Statement-phase resolution
+
+The immutable arXiv source `math/0206100` (SHA-256
+`cea7fd97f089fb2d33a771dce9399a30d869e24b06fd319cb62fba26f20139de`)
+identifies Theorem 1 on pages 706-707. It has authors Corvaja--Zannier and a
+surface domain. Evertse occurs later only in the discussion of quantitative
+Subspace-Theorem estimates. The metadata author and curve wording are thus
+errors, not authorization for a substituted Evertse theorem.
+
+`Statement.lean` transcribes that theorem. Primary-source/errata review to H0
+belongs to a later audit; the present statement record remains provisional.

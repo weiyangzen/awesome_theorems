@@ -1,5 +1,5 @@
 # THM-M-0406 rev-5.6 dossier
 
-This is a `planned` intake instance for `S56-M-0406-INTAKE`. The manifest membership and scope boundary are established, while the exact mathematical statement remains `needs_review` because the repository label conflicts with the legacy candidate primary source.
+This is a `planned` rev-5.6 instance. The statement phase resolves the metadata conflict against Corvaja--Zannier, *On integral points on surfaces* (2004), Theorem 1 on pages 706-707. The exact Lean target now elaborates as `Stage1Instances.THMM0406.CorvajaZannierTheoremOne` in `Statement.lean`.
 
-Authority within this dossier is `instance.json`; `scope-map.md` and `source-statement-crosswalk.md` record the intake reasoning. There is no accepted proof state, receipt, audit-completion claim, or theorem-completion claim.
+Authority within this dossier is `instance.json`; `statement.json` is the provisional node-specific statement record. There is no accepted proof state, receipt, audit-completion claim, or theorem-completion claim.
