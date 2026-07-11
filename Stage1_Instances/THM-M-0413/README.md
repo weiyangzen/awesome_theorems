@@ -81,3 +81,11 @@ neither audit completion nor theorem completion is claimed.
 The exact structural commands and results for this dossier are recorded in `validation.md`. These
 checks establish target membership, standard consistency, JSON syntax, and local reference hygiene
 only; they are not kernel evidence.
+
+## Release decision
+
+`release-decision.json` reconciles the provisional validation evidence and returns a fail-closed
+`blocked` verdict. The exact root has local `M0-W` candidate evidence, but validation is not
+master-accepted, the frozen composition/trust state is unreconciled, `H0` and `R0` reviews are
+absent, and hermetic, supply-chain, independent-verifier, deterministic-bundle, and master gates
+remain open. Lifecycle and accepted root state do not change; theorem completion is false.
