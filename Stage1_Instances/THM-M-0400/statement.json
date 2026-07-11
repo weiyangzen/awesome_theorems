@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-rev-5.6-statement-v1",
+  "item_id": "S56-M-0400-STATEMENT",
+  "theorem_id": "THM-M-0400",
+  "depends_on": ["S56-M-0400-INTAKE"],
+  "intent": "statement",
+  "canonical_declaration": "Stage1Rev56.THMM0400.Statement",
+  "canonical_module_source": "Stage1_Instances/THM-M-0400/Statement.lean",
+  "source_sha256": "29752f8af82237ba47ef9a22c8c73e641b8efc679eee94d324fe13ce62918e24",
+  "imports": [
+    "Mathlib.FieldTheory.IsAlgClosed.Basic",
+    "Mathlib.LinearAlgebra.Dimension.Finite",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real"
+  ],
+  "ordered_binders": [
+    "n : Nat",
+    "2 <= n",
+    "coeff : Fin n -> Fin n -> Complex",
+    "forall i j, IsAlgebraic Rat (coeff i j)",
+    "LinearIndependent Complex coeff",
+    "epsilon : Real",
+    "0 < epsilon"
+  ],
+  "conclusion": "There is a finite family of proper Rat-submodules of Fin n -> Rat containing every nonzero integer vector whose product of complex linear-form norms is less than its supremum height to the power -epsilon.",
+  "normalizations": {
+    "height": "max_j Int.natAbs (x j), coerced from Nat to Real",
+    "linear_form_evaluation": "sum_j coeff i j * (x j : Complex)",
+    "integer_embedding": "coordinatewise Int -> Rat",
+    "exceptional_spaces": "Finset (Submodule Rat (Fin n -> Rat))",
+    "properness": "V != top",
+    "inequality": "strict product bound using Real.rpow"
+  },
+  "excluded_variants": [
+    "S-arithmetic and nonarchimedean-place formulations",
+    "quantitative bounds on the exceptional family",
+    "moving-target variants",
+    "dimension n < 2",
+    "an abstract or uninterpreted smallness predicate"
+  ],
+  "environment": {
+    "repository_base_revision": "37bf5277bf057d41d0711172bc2cd11f43b2a0ce",
+    "lean": "4.29.0 (commit 98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "validation": {
+    "cwd": "Formalizations/Lean",
+    "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0400/Statement.lean"],
+    "exit_code": 0,
+    "output": "Stage1Rev56.THMM0400.Statement : Prop"
+  },
+  "status_boundary": {
+    "statement_elaborated": true,
+    "source_fidelity": "H4: exact primary-source edition/theorem/page crosswalk remains open; this phase selects the intake's standard formulation",
+    "machine": "M3: the exact selected proposition elaborates, but no proof body or terminal anchor is claimed",
+    "readability": "R3: normalized binders and encodings are documented but independently unreviewed",
+    "proof_credit": false,
+    "audit_complete": false,
+    "theorem_complete": false
+  }
+}
