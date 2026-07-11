@@ -520,15 +520,23 @@ def validate_only() -> None:
 
 
 def integrate(limit: int) -> int:
-    """Verify worker handoffs and advance only the worker cursor to `[_]`."""
+    """Verify worker handoffs and preserve bounded fail-closed reports."""
     if limit < 1 or limit > MAX_WORKERS:
         fail(f"--limit must be in 1..{MAX_WORKERS}")
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     by_id = {item["id"]: item for item in data["items"]}
-    ready = [claim for claim in claims if claim.get("status") == "finished"][:limit]
+    integration_candidates = [
+        claim
+        for claim in claims
+        if claim.get("status") == "finished"
+        or (claim.get("status") == "blocked" and not claim.get("blocked_artifacts_merged_at"))
+    ][:limit]
+    ready = [claim for claim in integration_candidates if claim.get("status") == "finished"]
+    blocked_ready = [claim for claim in integration_candidates if claim.get("status") == "blocked"]
     accepted: list[str] = []
     rejected: list[dict[str, str]] = []
+    preserved_blockers: list[str] = []
     queue: list[dict[str, Any]] = []
     for claim in ready:
         item = by_id.get(claim.get("item_id"))
@@ -579,16 +587,53 @@ def integrate(limit: int) -> int:
             # per-tick queue, which is deliberately overwritten on each run.
             claim["rejection_reason"] = str(exc)
             rejected.append({"item_id": str(claim.get("item_id")), "reason": str(exc)})
+    for claim in blocked_ready:
+        item = by_id.get(claim.get("item_id"))
+        workspace = Path(str(claim.get("workspace", "")))
+        try:
+            if item is None:
+                raise ValueError("blocked claim refers to unknown item")
+            source = workspace / item["owned_paths"][0]
+            if not source.is_dir():
+                raise ValueError("blocked worker source missing")
+            owner = item["owned_paths"][0] + "/"
+            reject_mutable_dependency_operations(item["id"])
+            changed = worker_changed_paths(workspace, owner)
+            if not changed:
+                raise ValueError("blocked worker made no owned-path report")
+            allowed_suffixes = {".json", ".md", ".txt", ".yaml", ".yml", ".lean"}
+            if any(Path(path).suffix not in allowed_suffixes for path in changed):
+                raise ValueError("blocked handoff contains an unsupported artifact type")
+            report_text = "\n".join(
+                (workspace / path).read_text(encoding="utf-8", errors="replace")
+                for path in changed
+                if Path(path).suffix in {".md", ".txt"}
+            )
+            if item["theorem_id"] not in report_text or "blocked" not in report_text.lower():
+                raise ValueError("blocked handoff lacks a target-specific blocker report")
+            run(["git", "diff", "--check", "--", owner], cwd=workspace)
+            merge_worker_changes(workspace, changed)
+            claim["blocked_artifacts"] = changed
+            claim["blocked_artifacts_merged_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            preserved_blockers.append(item["id"])
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            claim["blocked_artifact_rejection_reason"] = str(exc)
     if accepted:
         run(["python3", "Docs/tools/check_stage1_standard.py"])
         run(["python3", "scripts/stage1_target.py", "check"])
         atomic_write(DAG, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
         write_projection(data)
     save_claims(claims)
-    atomic_write(runtime_path("integration_queue.json"), json.dumps({"queued": queue, "rejected": rejected}, ensure_ascii=False, indent=2) + "\n")
+    atomic_write(
+        runtime_path("integration_queue.json"),
+        json.dumps({"queued": queue, "blocked_reports": preserved_blockers, "rejected": rejected}, ensure_ascii=False, indent=2) + "\n",
+    )
     todo = write_todo(data, validate_dag(data), claims)
-    print(f"integrate: worker-self-tested={len(accepted)} rejected={len(rejected)} todo={todo.relative_to(ROOT)}")
-    return len(accepted)
+    print(
+        f"integrate: worker-self-tested={len(accepted)} blocked-reports={len(preserved_blockers)} "
+        f"rejected={len(rejected)} todo={todo.relative_to(ROOT)}"
+    )
+    return len(accepted) + len(preserved_blockers)
 
 
 def worker_changed_paths(workspace: Path, owner: str) -> list[str]:
