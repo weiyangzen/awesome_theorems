@@ -555,14 +555,15 @@ def integrate(limit: int) -> int:
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     by_id = {item["id"]: item for item in data["items"]}
-    integration_candidates = [
+    ready = [claim for claim in claims if claim.get("status") == "finished"][:limit]
+    remaining = limit - len(ready)
+    blocked_ready = [
         claim
         for claim in claims
-        if claim.get("status") == "finished"
-        or (claim.get("status") == "blocked" and not claim.get("blocked_artifacts_merged_at"))
-    ][:limit]
-    ready = [claim for claim in integration_candidates if claim.get("status") == "finished"]
-    blocked_ready = [claim for claim in integration_candidates if claim.get("status") == "blocked"]
+        if claim.get("status") == "blocked"
+        and not claim.get("blocked_artifacts_merged_at")
+        and not claim.get("blocked_artifact_rejection_reason")
+    ][:remaining]
     accepted: list[str] = []
     rejected: list[dict[str, str]] = []
     preserved_blockers: list[str] = []
