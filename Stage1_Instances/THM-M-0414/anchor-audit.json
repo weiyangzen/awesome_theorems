@@ -1,0 +1,108 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0414-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0414",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "1ec654c416270f261b365f46f5f2409b65d3f839",
+  "canonical_target": "Stage1Instances.THM_M_0414.IdealUniqueFactorizationTarget",
+  "search_order": [
+    "repository-local Lean source",
+    "pinned mathlib source and declarations",
+    "other repository-pinned Lean 4 dependencies",
+    "public GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0414-C01",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.RingTheory.DedekindDomain.Ideal.Basic",
+      "file": "Mathlib/RingTheory/DedekindDomain/Ideal/Basic.lean",
+      "file_sha256": "5bc400f681418676cc6aa134235aeb0373c8165e028fd87672981f3757ebb780",
+      "declaration": "Ideal.uniqueFactorizationMonoid",
+      "source_type": "[CommRing R] [IsDedekindDomain R] -> UniqueFactorizationMonoid (Ideal R)",
+      "comparison": "Exact closure of the first conjunct for every ring and typeclass instance bound by the frozen target.",
+      "role": "root component terminal instance",
+      "body_provenance": "Explicit structure-valued source body at lines 424ff, reducing irreducibles to prime maximal ideals after the WfDvdMonoid construction.",
+      "placeholder_or_oracle_audit": "The declaration is an ordinary non-unsafe instance with an explicit body; no sorry, axiom declaration, native computation, or external oracle occurs in that body.",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "dependency_feasibility": "Already present in the pinned mathlib dependency and imported transitively by the frozen statement module.",
+      "kernel_check": "passed"
+    },
+    {
+      "candidate_id": "M0414-C02",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.RingTheory.DedekindDomain.Factorization",
+      "file": "Mathlib/RingTheory/DedekindDomain/Factorization.lean",
+      "file_sha256": "fe33fa1dfdc3eb884df5fa364757344f9e17183c08828f26b6986ac5d968ad98",
+      "declaration": "Ideal.finprod_heightOneSpectrum_factorization",
+      "source_type": "{I : Ideal R} -> I != 0 -> finprod v : HeightOneSpectrum R, v.maxPowDividing I = I",
+      "comparison": "Literal closure of the second conjunct, including the unit ideal and excluding only the zero ideal.",
+      "role": "root component terminal theorem",
+      "body_provenance": "Explicit by-proof at lines 202ff using equality of Associates counts and Ideal.finprod_count; last source-changing commit 00fca21215c51e01d2d90adc3b3d273de909050b.",
+      "placeholder_or_oracle_audit": "The declaration is an ordinary theorem with an explicit body; no sorry, axiom declaration, unsafe declaration, native computation, or external oracle occurs in that body.",
+      "direct_source_imports": [
+        "Mathlib.NumberTheory.RamificationInertia.Basic",
+        "Mathlib.Order.Filter.Cofinite"
+      ],
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "dependency_feasibility": "Already the direct pinned import of Statement.lean; no new Lake dependency is needed.",
+      "kernel_check": "passed"
+    },
+    {
+      "candidate_id": "M0414-C03",
+      "project": "awesome_theorems repository-local legacy surface",
+      "revision": "1ec654c416270f261b365f46f5f2409b65d3f839",
+      "module": "AwesomeTheorems.Stage1.S1_M_069",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_069.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_069.statementShape_from_mathlib",
+      "comparison": "Its StatementShape is definitionally identical to the frozen target, but its proof is a wrapper over C01 and C02.",
+      "role": "duplicate discovery wrapper; no independent terminal-body credit",
+      "dependency_feasibility": "Repository-local, but importing it would add no proof provenance beyond the direct mathlib anchors.",
+      "kernel_check": "not separately credited"
+    }
+  ],
+  "supporting_candidates": [
+    {
+      "declaration": "Ideal.finite_factors",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "role": "finite-support infrastructure used by the factorization proof; not a root closure by itself"
+    },
+    {
+      "declaration": "FractionalIdeal.finprod_heightOneSpectrum_factorization'",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "role": "strictly broader fractional-ideal extension excluded from the frozen canonical root"
+    }
+  ],
+  "external_search": {
+    "pinned_dependency_scan": "A Lean-source scan of all pinned non-mathlib packages found Dedekind-domain users in flt-regular but no competing declaration of the frozen ideal-factorization target.",
+    "github_repository_api": "Queries for unique factorization of ideals + Lean and Dedekind ideal factorization + Lean4 each returned HTTP 200 with total_count=0; response SHA-256 08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2.",
+    "github_code_api": "Query for finprod_heightOneSpectrum_factorization + language:Lean returned HTTP 401 Requires authentication; response SHA-256 b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e.",
+    "grep_app": "The public code-index query returned HTTP 429, so no negative-result claim is made from that lane.",
+    "result": "No additional credible independent Lean 4 candidate was established. This is bounded discovery evidence, not a claim of global nonexistence."
+  },
+  "integration_decision": "Use the already pinned mathlib anchors directly in the later proof node. No external dependency needs to be added; no repo_local_integration_debt remains from this audit.",
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_axiom_probe": "The narrow Lean run reports [propext, Classical.choice, Quot.sound] for both terminal anchors and their exact wrapper; no project axiom is reported.",
+    "root_machine_debt": "M2",
+    "root_evidence_level": "E4",
+    "human_debt": "H1",
+    "readability_debt": "R4",
+    "audit_complete": true,
+    "theorem_complete": false,
+    "gate_state": "self_tested_pending_master_acceptance",
+    "status_boundary": "The immutable anchor inventory and exact candidate adapter are self-tested. This phase does not claim proof-node acceptance, full transitive provenance, H0 source review, obligation-tree closure, hermetic replay, independent validation, or theorem completion."
+  }
+}
