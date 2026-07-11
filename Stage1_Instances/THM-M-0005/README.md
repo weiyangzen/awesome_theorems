@@ -25,6 +25,9 @@ or finite-type hypothesis is introduced, and no noncanonical splitting is assert
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
 `STATEMENT` is addressed provisionally here. No downstream node or receipt is accepted.
 
+The version-1 proof architecture is frozen in `obligation-registry.json`, `typed-graphs.json`, and
+`obligation-tree.md`. It records 18 canonical obligations and assigns no proof-closure credit.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The exact expression and
