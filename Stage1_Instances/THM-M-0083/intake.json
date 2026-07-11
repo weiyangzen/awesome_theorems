@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0083-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0083",
+  "canonical_name": "Representable functor theorem (universal-element criterion)",
+  "canonical_statement": "For a Type-valued presheaf F on a category C, F is representable if and only if there are an object X and an element x of F(X) such that, for every object Y, sending a morphism f : Y -> X to F(f)(x) is a bijection.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module_candidate": "Mathlib.CategoryTheory.RepresentedBy",
+    "legacy_local_module": "AwesomeTheorems.Stage1.S1_M_139",
+    "declaration_or_expression_candidate": "AwesomeTheorems.Stage1.S1_M_139.statementShape_iff_isRepresentable",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "C : Type u with Category.{v} C; F : Cᵒᵖ ⥤ Type w; the proposition lives in an inferred universe",
+  "quantifiers": [
+    "universes u v w",
+    "C : Type u",
+    "[Category.{v} C]",
+    "F : Cᵒᵖ ⥤ Type w",
+    "X Y : C, x : F.obj (Opposite.op X), f : Y ⟶ X"
+  ],
+  "hypotheses": [
+    "C carries the stated category structure",
+    "the universal-element side supplies X and x",
+    "for every Y, f ↦ F.map f.op x is bijective"
+  ],
+  "conclusion": "The universal-element data exist if and only if F.IsRepresentable.",
+  "degenerate_and_boundary_cases": "Empty categories and empty-valued presheaves are not silently excluded; the existential criterion handles them. Large-category and universe-lift variants require explicit transports and are not credited at intake.",
+  "alternate_encodings": [
+    {
+      "target": "∃ X : C, Nonempty (F.RepresentableBy X)",
+      "relationship": "expected equivalent bundled representation",
+      "checked_witness": "candidate only; checking deferred to statement phase"
+    },
+    {
+      "target": "F.IsRepresentable",
+      "relationship": "mathlib class-level conclusion",
+      "checked_witness": "candidate only: IsRepresentable.iff_exists_isRepresentedBy"
+    },
+    {
+      "target": "corepresentability for F : C ⥤ Type w",
+      "relationship": "dual theorem, not an encoding of the selected root",
+      "checked_witness": "excluded from root scope"
+    }
+  ],
+  "foundation_profile": "rev-5.6 foundation profile remains open; classical choice and quotient use must be audited transitively",
+  "tcb_profile": "Lean 4 kernel and pinned mathlib candidate; exact versions and dependency closure remain open",
+  "computation_profile": "No computation, native_decide, oracle, or external solver is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib only",
+  "source_revisions": "See source_statement_crosswalk.md; immutable editions, page images, hashes, and errata review remain later audit work",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0083/README.md",
+    "Stage1_Instances/THM-M-0083/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, selected variance, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a provisional scope only. It neither accepts the ambiguous legacy title as an exact source statement nor credits the existing Lean wrapper or any proof closure."
+}

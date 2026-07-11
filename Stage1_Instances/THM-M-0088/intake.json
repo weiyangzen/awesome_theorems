@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0088-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0088",
+  "canonical_name": "Yoneda embedding",
+  "canonical_statement": "Every locally small category admits a fully faithful Yoneda functor into its category of presheaves.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Mathlib.CategoryTheory.Yoneda",
+    "declaration_or_expression": "For C : Type u with Category.{v} C, (yoneda (C := C)).FullyFaithful",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "C : Type u; [Category.{v} C]; presheaves Cᵒᵖ ⟶ Type v",
+  "quantifiers": ["universe levels u v", "C : Type u", "Category.{v} C instance"],
+  "hypotheses": ["C carries a locally small Lean Category structure with morphisms in Type v"],
+  "conclusion": "The Yoneda functor yoneda : C ⟶ (Cᵒᵖ ⟶ Type v) is fully faithful.",
+  "alternate_encodings": [
+    {"target": "Nonempty ((yoneda (C := C)).FullyFaithful)", "relationship": "implied_by", "checked_witness": "legacy candidate AwesomeTheorems.Stage1.S1_M_137.statementShape; credit deferred"},
+    {"target": "Full (yoneda (C := C)) and Faithful (yoneda (C := C))", "relationship": "iff", "checked_witness": "candidate projections only; credit deferred"},
+    {"target": "(X ⟶ Y) ≃ (yoneda.obj X ⟶ yoneda.obj Y)", "relationship": "implied_by", "checked_witness": "candidate FullyFaithful.homEquiv; credit deferred"}
+  ],
+  "excluded_degenerate_cases": "No objects or morphisms are excluded; the empty category is included. Large-category and universe-raised variants are alternate targets, not silently substituted roots.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or experiment is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib; pin and minimal-import verification deferred to statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; immutable source and Lean pins require later audit",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0088/README.md", "Stage1_Instances/THM-M-0088/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, universe convention, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes scope only. Legacy Lean wrappers are discovery inputs and receive no rev-5.6 proof credit."
+}
