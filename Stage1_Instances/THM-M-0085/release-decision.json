@@ -1,0 +1,87 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0085-RELEASE",
+  "theorem_id": "THM-M-0085",
+  "intent": "release",
+  "base_revision": "bfd4cfb5d8531f2811d838fd96c0347715208d75",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0085-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0085-VALIDATION-WORKER-20260712",
+    "receipt_support_state": "provisional_worker_evidence",
+    "receipt_sha256": "5a1a92d1a565d9e55bf773b783d8672c95495cff0de8154a32e70fa7107c3ebc"
+  },
+  "reconciled_inputs": {
+    "statement.json": "6ae8405f98b638997b33aa5c44d1bbc34f0d6b65bf87666edc7e28438485cd21",
+    "anchor-audit.json": "1b38f729be04c45c1515e256d73fe66c684e615d69553b14ef8d35beebfdf18a",
+    "obligation-registry.json": "9bada45d7d79c345ff3992d077f3cbf853c5e3df440ffa745bd4fc91cb6b03c6",
+    "typed-graphs.json": "1b8da39b8e596aa13f042fe5c5fa959b22e96c18a35c03123e9729e2c1066436",
+    "Statement.lean": "54d3f1f5cd7e2380b158f64ba4d20c17296127b0da2e3c6b3c41908ccf8d8622",
+    "Proof.lean": "a4dc2b5543a530b78d2bc95d11ae0e9375b82554d6bc5f3c06c614343b22e205",
+    "Validation.lean": "a9f88e2cc99a5999e07455cbe9a301618e01fa9e26d5b5186d728debdaa67639",
+    "validation-receipt.json": "5a1a92d1a565d9e55bf773b783d8672c95495cff0de8154a32e70fa7107c3ebc"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0085-VALIDATION-WORKER-20260712"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M4", "R4"],
+    "accepted_after": ["H2", "M4", "R4"],
+    "best_provisional_evidence": ["H2", "M0-P", "R4"],
+    "boundary": "The exact fixed-adjunction wrapper has warm same-checkout kernel evidence through pinned mathlib, but no receipt is master accepted. The source packet remains H2, readability remains R4, and release cannot promote the accepted vector."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0085-VALIDATION has provisional worker support only and no master-accepted receipt, so the release node is not dependency-legal."
+  },
+  "first_failed_release_specific_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused the canonical warm .lake artifacts; no immutable empty-cache network-denied cold build or offline archive replay was performed."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0085-VALIDATION and all transitive phase receipts",
+    "reconciliation of the frozen typed graph with the provisional exact root proof and accepted composition evidence",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata, node crosswalk, and independent source review",
+    "accepted R0 unique structured reconstruction and independent reader review",
+    "complete transitive declaration, provenance, foundation, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_check": "pass as provisional warm same-checkout evidence",
+    "terminal_body": "pinned mathlib CategoryTheory.Monad.monadicOfCreatesGSplitCoequalizers",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, Proof.lean, and Validation.lean",
+    "same_checkout_independent_implementation": "pass as nonrelease worker evidence",
+    "structured_state_freshness": "failed: typed-graphs.json still records root_closed=false and M0085-W-RELEASE as open",
+    "audit_inventory_acceptance": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "First master-accept and reconcile the validation dependency and typed state. Then obtain independent H0/R0 reviews and run a separately provisioned release lane that closes hermetic reproduction, supply-chain, independent-verifier, deterministic-bundle, and master-acceptance gates.",
+  "worktree_classification": "nonrelease: owned release artifacts and the pre-existing untracked Formalizations/Lean/.lake symlink are present",
+  "status_boundary": "This is a self-tested negative release reconciliation. It advances no lifecycle or accepted debt state, creates no accepted receipt, and does not claim AUDIT-Z, THEOREM-Z, or theorem completion."
+}
