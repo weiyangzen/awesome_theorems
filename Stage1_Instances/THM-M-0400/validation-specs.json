@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "item_id": "S56-M-0400-VALIDATION",
+  "theorem_id": "THM-M-0400",
+  "recipes": [
+    {
+      "recipe_id": "M0400-VALIDATE-PROOF",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0400/check_proof.sh"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "three declarations and their axiom reports"}],
+      "covered_obligation_ids": ["M0400-S-BOUNDARY"],
+      "covered_declarations": [
+        "Stage1Rev56.THMM0400.Proof.natAbs_le_integerHeight",
+        "Stage1Rev56.THMM0400.Proof.one_le_integerHeight",
+        "Stage1Rev56.THMM0400.Proof.rationalVector_ne_zero"
+      ]
+    },
+    {
+      "recipe_id": "M0400-VALIDATE-INDEPENDENT-PROBE",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0400/check_validation_lean.sh"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "three independent declarations and their axiom reports"}],
+      "covered_obligation_ids": ["M0400-S-BOUNDARY"],
+      "covered_declarations": [
+        "Stage1Rev56.THMM0400.Validation.independent_natAbs_le_integerHeight",
+        "Stage1Rev56.THMM0400.Validation.independent_one_le_integerHeight",
+        "Stage1Rev56.THMM0400.Validation.independent_rationalVector_ne_zero"
+      ]
+    },
+    {
+      "recipe_id": "M0400-VALIDATE-FAIL-CLOSED",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0400/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "contains validation ok and root remains M3/open"}],
+      "covered_obligation_ids": ["M0400-ROOT", "M0400-S-BOUNDARY", "M0400-X-FOUNDATION"],
+      "covered_declarations": []
+    }
+  ],
+  "status_boundary": "The recipes validate three elementary boundary/encoding results only. The central engine, terminal composition, exact root, hermetic cold replay, and independent runner remain open."
+}
