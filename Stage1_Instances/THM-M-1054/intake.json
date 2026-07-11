@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1054-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1054",
+  "canonical_name": "von Neumann mean ergodic theorem",
+  "canonical_statement": "For a probability space and a measure-preserving transformation T, the Cesaro averages (1/N) sum_{k=0}^{N-1} f composed with T^k of every f in L2 converge in L2 to the orthogonal projection of f onto the closed subspace of T-invariant L2 functions.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "A probability measure space (Omega, Sigma, mu); a measurable, mu-measure-preserving endomorphism T; f in L2(mu); convergence in the L2 norm.",
+  "ordered_binders": [
+    "(Omega : Type u)",
+    "(mOmega : MeasurableSpace Omega)",
+    "(mu : Measure Omega) with IsProbabilityMeasure mu",
+    "(T : Omega -> Omega)",
+    "(hT_measurable : Measurable T)",
+    "(hT_preserving : MeasurePreserving T mu mu)",
+    "(f : Lp E 2 mu), provisionally E = Real"
+  ],
+  "hypotheses": [
+    "mu is a probability measure",
+    "T is measurable and measure-preserving",
+    "f is an L2 equivalence class"
+  ],
+  "conclusion": "The finite Cesaro averages of the Koopman iterates converge in L2 norm to the orthogonal projection onto the fixed-point subspace.",
+  "alternate_encodings": [
+    {
+      "target": "contraction form for a bounded linear operator U on a Hilbert space",
+      "relationship": "The Koopman operator induced by T is an isometry; the operator theorem implies the frozen measure-theoretic claim.",
+      "checked_witness": "none; candidate transport deferred to statement and obligation phases"
+    },
+    {
+      "target": "limit characterized as conditional expectation onto the invariant sigma-algebra",
+      "relationship": "Expected equivalent formulation under the standard identification of invariant functions.",
+      "checked_witness": "none; candidate transport deferred to later phases"
+    }
+  ],
+  "degenerate_cases": "N = 0 is excluded by indexing averages with positive N. The identity transformation yields the constant sequence f. Non-ergodic transformations are included; the limit is a projection, not necessarily the constant integral of f.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, quotient, and Hilbert projection dependencies remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or numerical convergence is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib; pin and API verification deferred to statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; immutable source copies, hashes, and detailed premise mapping remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1054/README.md",
+    "Stage1_Instances/THM-M-1054/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the measure-theoretic L2 claim and scope only. It does not establish an elaborated Lean statement, a checked operator transport, proof closure, or theorem completion."
+}

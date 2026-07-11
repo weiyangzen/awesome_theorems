@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1031-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1031",
+  "canonical_name": "Brownian martingale representation theorem",
+  "canonical_statement": "Every square-integrable martingale adapted to the augmented natural filtration of a Brownian motion admits representation, up to its initial value, as a stochastic integral of a predictable square-integrable process with respect to that Brownian motion.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_224",
+    "declaration_or_expression": "future exact replacement for StatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "A probability space Omega; continuous time t >= 0; a real Brownian motion W and real square-integrable martingale M on the augmented natural filtration of W; precise Lean universes and object model remain open.",
+  "quantifiers": [
+    "probability space (Omega, F, P)",
+    "real Brownian motion W with augmented natural filtration (F_t)",
+    "real square-integrable (F_t)-martingale M",
+    "all times t >= 0"
+  ],
+  "hypotheses": [
+    "W is Brownian motion and (F_t) is its augmented natural filtration",
+    "M is adapted and a martingale relative to (F_t)",
+    "M_t is square-integrable (with the horizon convention still to be frozen)"
+  ],
+  "conclusion": "There exists a predictable process H, square-integrable on each applicable horizon, such that M_t = M_0 + integral_0^t H_s dW_s (with equality mode to be frozen).",
+  "alternate_encodings": [
+    {
+      "target": "terminal-variable representation X = E[X] + integral H dW on a fixed finite horizon",
+      "relationship": "classically yields the martingale-process form by conditional expectation under suitable filtration and integrability assumptions",
+      "checked_witness": "none; candidate transport deferred to statement phase"
+    },
+    {
+      "target": "local-martingale representation with locally square-integrable integrand",
+      "relationship": "stronger/different integrability profile, not interchangeable at intake",
+      "checked_witness": "none; excluded from root unless later source audit changes the frozen claim"
+    }
+  ],
+  "excluded_degenerate_cases": "A general filtration merely carrying W is not in scope: the Brownian natural-filtration/generation hypothesis is essential. Multidimensional Brownian motion, local martingales, uniqueness of the integrand, and finite-terminal-variable formulations are not silently included.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, conditional expectation, completion, and almost-everywhere quotient use remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or simulation is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib only; pin verification deferred to statement phase",
+  "source_revisions": "Discovery sources and unresolved pinpoints are recorded in source_statement_crosswalk.md",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1031/README.md",
+    "Stage1_Instances/THM-M-1031/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the root claim, horizon/equality convention, filtration assumptions, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a provisional mathematical scope only. The legacy Lean module is discovery input and its implication from a representation hypothesis is not a proof of martingale representation. No statement, proof, or release gate is accepted."
+}

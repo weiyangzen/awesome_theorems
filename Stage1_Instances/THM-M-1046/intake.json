@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1046-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1046",
+  "canonical_name": "Novikov's condition",
+  "canonical_statement": "Let M be a real continuous local martingale with M_0 = 0 on a filtered probability space and let T be a finite horizon. If E[exp((1/2) <M>_T)] is finite, then the stochastic exponential exp(M_t - (1/2) <M>_t), 0 <= t <= T, is a martingale (in particular its expectation is one).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "planned_shape": "A finite-horizon theorem parameterized by a filtered probability space and a real continuous local martingale, using quadratic variation and stochastic exponential definitions",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional: a measurable sample type, real-valued time-indexed process, finite time horizon, filtration and probability measure; exact universes and time order are not frozen",
+  "quantifiers": [
+    "filtered probability space and probability measure",
+    "finite horizon T",
+    "real continuous local martingale M on [0,T]"
+  ],
+  "hypotheses": [
+    "M starts at zero",
+    "the filtration and process satisfy the conditions needed to define continuous local martingales and quadratic variation",
+    "the expectation of exp((1/2) times the quadratic variation of M at T) is finite"
+  ],
+  "conclusion": "The Doléans stochastic exponential of M is a martingale through T; consequently its expectation at each t <= T is one",
+  "alternate_encodings": [
+    {
+      "target": "Brownian-integrand form: M_t = integral_0^t theta_s dW_s and E[exp((1/2) integral_0^T theta_s^2 ds)] < infinity",
+      "relationship": "expected corollary after identifying quadratic variation",
+      "checked_witness": null,
+      "credit": "none"
+    },
+    {
+      "target": "uniform integrability of the stopped stochastic-exponential family",
+      "relationship": "proof-level strengthening commonly used to obtain the martingale conclusion",
+      "checked_witness": null,
+      "credit": "none"
+    }
+  ],
+  "excluded_or_boundary_cases": "No infinite horizon is claimed. T = 0 and the zero martingale remain required boundary probes. Jump-process variants and Kazamaki's distinct condition are outside the canonical root.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, measure completion, filtration conventions, and stochastic-integration foundations remain open",
+  "tcb_profile": "Lean 4 kernel with pinned mathlib intended; exact toolchain, imports, and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or external-code result is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib only",
+  "source_revisions": "Discovery citations are recorded in source_statement_crosswalk.md; immutable source files, hashes, errata review, and independent review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1046/README.md",
+    "Stage1_Instances/THM-M-1046/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, horizon or process class, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake fixes the intended mathematical scope only. It does not elaborate a Lean statement, establish a mathlib anchor, credit a proof body, or pass any theorem-completion gate."
+}
