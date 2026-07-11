@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "theorem_id": "THM-M-0392",
+  "item_id": "S56-M-0392-OBLIGATION_TREE",
+  "registry_version": 1,
+  "nodes": ["M0392-ROOT","M0392-C-CURVE","M0392-L-NONSINGULAR","M0392-X-SIEGEL","M0392-T-COORDINATES","M0392-L-FINITE-TRANSFER","M0392-X-SOURCE","M0392-X-TRUST"],
+  "graphs": {
+    "proof": [
+      {"from":"M0392-ROOT","type":"proof_requires","to":"M0392-C-CURVE"},
+      {"from":"M0392-ROOT","type":"proof_requires","to":"M0392-L-NONSINGULAR"},
+      {"from":"M0392-ROOT","type":"proof_requires","to":"M0392-X-SIEGEL"},
+      {"from":"M0392-ROOT","type":"proof_requires","to":"M0392-T-COORDINATES"},
+      {"from":"M0392-ROOT","type":"proof_requires","to":"M0392-L-FINITE-TRANSFER"},
+      {"from":"M0392-ROOT","type":"proof_requires","to":"M0392-X-SOURCE"},
+      {"from":"M0392-ROOT","type":"proof_requires","to":"M0392-X-TRUST"},
+      {"from":"M0392-X-SIEGEL","type":"composes","to":"M0392-ROOT","certificate":"Stage1Instances.THMM0392.ObligationTree.root_compose","status":"conditional-kernel-checked"}
+    ],
+    "refinement": [
+      {"from":"M0392-C-CURVE","type":"composes","to":"M0392-L-NONSINGULAR"},
+      {"from":"M0392-L-NONSINGULAR","type":"composes","to":"M0392-X-SIEGEL"},
+      {"from":"M0392-C-CURVE","type":"composes","to":"M0392-T-COORDINATES"},
+      {"from":"M0392-T-COORDINATES","type":"composes","to":"M0392-L-FINITE-TRANSFER"}
+    ],
+    "provenance": [
+      {"from":"source:repository-y2=x3+k","type":"source_map","to":"M0392-ROOT"},
+      {"from":"source:mathlib-affine-Weierstrass-8a178386","type":"provenance_of","to":"M0392-C-CURVE"},
+      {"from":"source:mathlib-short-normal-form-8a178386","type":"provenance_of","to":"M0392-L-NONSINGULAR"},
+      {"from":"source:missing-Lean4-Siegel-terminal","type":"provenance_of","to":"M0392-X-SIEGEL"},
+      {"from":"local:ObligationTree.lean:finite_of_injective","type":"provenance_of","to":"M0392-L-FINITE-TRANSFER"}
+    ],
+    "evidence": [
+      {"from":"evidence:statement-expression-4b5dfc8b","type":"evidence_for","to":"M0392-ROOT"},
+      {"from":"evidence:anchor-audit-M0392-v1","type":"evidence_for","to":"M0392-X-SIEGEL"},
+      {"from":"evidence:conditional-composition-selftest","type":"evidence_for","to":"M0392-ROOT"}
+    ],
+    "trust": [
+      {"from":"M0392-ROOT","type":"trusts","to":"M0392-X-TRUST"},
+      {"from":"M0392-X-SIEGEL","type":"trusts","to":"trust:future-terminal-body-and-import-closure"},
+      {"from":"M0392-L-FINITE-TRANSFER","type":"trusts","to":"trust:Init-kernel-elaboration"}
+    ],
+    "documentation": [
+      {"from":"doc:obligation-tree.md#root-composition","type":"documents","to":"M0392-ROOT"},
+      {"from":"doc:obligation-tree.md#mathematical-architecture","type":"documents","to":"M0392-X-SIEGEL"},
+      {"from":"doc:obligation-tree.md#open-boundaries","type":"documents","to":"M0392-X-TRUST"},
+      {"from":"doc:obligation-tree.md#open-boundaries","type":"documents","to":"M0392-X-SOURCE"}
+    ],
+    "workflow": [
+      {"from":"task:S56-M-0392-OBLIGATION_TREE","type":"workflow_depends_on","to":"task:S56-M-0392-ANCHOR_AUDIT"},
+      {"from":"task:S56-M-0392-PROOF","type":"workflow_depends_on","to":"task:S56-M-0392-OBLIGATION_TREE"},
+      {"from":"task:S56-M-0392-VALIDATION","type":"workflow_depends_on","to":"task:S56-M-0392-PROOF"},
+      {"from":"task:S56-M-0392-RELEASE","type":"workflow_depends_on","to":"task:S56-M-0392-VALIDATION"}
+    ]
+  },
+  "graph_invariants": {"proof_acyclic":true,"proof_root_reaches":8,"unknown_semantic_endpoints":0,"semantic_and_workflow_edges_separated":true},
+  "status_boundary": "Typed edges freeze dependencies and conditional composition; they do not claim a Lean 4 Siegel theorem, source closure, trust closure, or root proof."
+}
