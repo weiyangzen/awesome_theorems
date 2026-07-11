@@ -1,0 +1,43 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0170-STATEMENT",
+  "theorem_id": "THM-M-0170",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "source": "Stage1_Instances/THM-M-0170/Statement.lean",
+    "minimal_imports": ["Mathlib.Geometry.Manifold.Riemannian.Basic"],
+    "declaration": "Stage1Instances.THM_M_0170.Statement",
+    "source_sha256": "f77f31972d908adc8f67e7c758eda29f68f3ac2d8a817477a764f897d90677e8",
+    "printed_expression_output_sha256": "82f8d0b585c4bebb75ea4c251da158aafb436ebc709820e1b4e7573772c667e0"
+  },
+  "environment_fingerprint": {
+    "base_revision": "41a639c14626145f43eda7724d6a570cd710d688",
+    "lean": "4.29.0; commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; x86_64-unknown-linux-gnu; Release",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "options": "Lean defaults; noncomputable section; open scoped Bundle ContDiff Manifold",
+    "foundation_profile": "statement_iff reports propext, Classical.choice, Quot.sound"
+  },
+  "domain_and_universes": "E : Type uE is a finite-dimensional real inner-product space; M : Type uM is Hausdorff, second-countable, charted over E, a smooth manifold without boundary, and carries a C-infinity Riemannian tangent bundle.",
+  "ordered_binders": [
+    "E : Type uE", "NormedAddCommGroup E", "InnerProductSpace Real E",
+    "FiniteDimensional Real E", "M : Type uM", "TopologicalSpace M",
+    "ChartedSpace E M", "T2Space M", "SecondCountableTopology M",
+    "IsManifold I(Real,E) infinity M", "RiemannianBundle (TangentSpace I x)",
+    "IsContMDiffRiemannianBundle I infinity E (TangentSpace I)",
+    "exists n : Nat", "exists f : M -> EuclideanSpace Real (Fin n)"
+  ],
+  "conclusion": "f is C-infinity, is a topological embedding, and its manifold differential preserves the fiberwise Riemannian inner product for every point and pair of tangent vectors.",
+  "encoding_notes": "The pinned API has no bundled pullback-of-Riemannian-metric predicate, so pullback equality is expressed pointwise through mfderiv. This is metric-tensor isometry, not ambient metric-space Isometry.",
+  "checked_transport": "statement_iff is an Iff.rfl serialization of the canonical existential expression.",
+  "mutation_tests": {
+    "removed_hypothesis": "RemovedSecondCountability is rejected by guarded definitional equality",
+    "changed_domain": "ChangedDomain is rejected by guarded definitional equality",
+    "changed_binder_scope": "ChangedBinderScope is rejected by guarded definitional equality",
+    "boundary_case": "ExcludeZeroTarget is rejected by guarded definitional equality"
+  },
+  "gate_state": "provisional_worker_selftest",
+  "theorem_complete": false,
+  "status_boundary": "This receipt establishes exact target elaboration only. It supplies no witness and no proof credit for the Nash theorem; master acceptance remains required."
+}

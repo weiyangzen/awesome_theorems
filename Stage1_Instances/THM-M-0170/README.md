@@ -19,6 +19,17 @@ recorded in `intake.json`. `source-statement-crosswalk.md` separates the 1956 sm
 the 1954 `C^1` theorem. The dependent phases are represented by `task-dag.json`; no downstream
 phase or proof closure is credited here.
 
+## Statement gate
+
+`Statement.lean` freezes the exact Lean target using only
+`Mathlib.Geometry.Manifold.Riemannian.Basic`. Unlike the legacy statement shape, isometry means
+pointwise preservation of the Riemannian inner products by `mfderiv`, not preservation of the
+induced global distance. `statement.json` records the expression and environment fingerprints,
+ordered binders, checked serialization, and four negative mutation fixtures.
+
+This is statement elaboration only. It contains no Nash witness and gives no theorem-completion
+credit.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is
