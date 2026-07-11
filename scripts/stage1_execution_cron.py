@@ -283,6 +283,9 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             claim["release_reason"] = "master_accepted"
             released.append(claim)
         elif claim.get("status") == "live" and not pid_alive(claim.get("pid")):
+            session = claim.get("session")
+            if isinstance(session, str):
+                run(["tmux", "kill-session", "-t", session], check=False)
             manifest = Path(claim.get("workspace", "")) / ".stage1-worker-selftest.json"
             if manifest.exists():
                 claim["status"] = "finished"
