@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0082-STATEMENT",
+  "theorem_id": "THM-M-0082",
+  "depends_on": ["S56-M-0082-INTAKE"],
+  "lifecycle": "planned",
+  "canonical_statement": "For categories C and D and a functor G : D -> C, if D has all limits, G preserves limits whose diagram and morphism universes are vD, and G satisfies the vD-small solution-set condition, then G is a right adjoint (equivalently, G has a left adjoint).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0082/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0082.GeneralRightAdjointTarget",
+    "elaborated_expression_sha256": "7650acd20b1eb8822d24997cddb64fd35dd1a316cee5976171588cf4bc5c541f",
+    "statement_file_sha256": "27d31398b0dd5bddcd8cb6f781702eac5624b91cccbce6ecffe9f16da37cff72"
+  },
+  "domain_and_universes": "universes vC vD uC uD; C : Type uC with Category.{vC} C; D : Type uD with Category.{vD} D; G : CategoryTheory.Functor D C; Prop in Lean universe 0",
+  "ordered_binders": ["C : Type uC", "[Category.{vC} C]", "D : Type uD", "[Category.{vD} D]", "G : CategoryTheory.Functor D C"],
+  "hypotheses": ["CategoryTheory.Limits.HasLimits D", "CategoryTheory.Limits.PreservesLimitsOfSize.{vD, vD} G", "CategoryTheory.SolutionSetCondition.{vD} G"],
+  "conclusion": "G.IsRightAdjoint",
+  "direct_imports": ["Mathlib.CategoryTheory.Adjunction.AdjointFunctorTheorems"],
+  "minimal_import_evidence": "The sole direct import defines SolutionSetCondition and exposes the right-adjoint vocabulary and all limit interfaces used by the target. The legacy Limits and HomologySequenceLemmas imports are unnecessary for this statement.",
+  "checked_transport": "Stage1Instances.THM_M_0082.generalRightAdjointTarget_iff_typeclassTarget",
+  "alternate_encoding": "TypeclassGeneralRightAdjointTarget uses HasLimits and PreservesLimitsOfSize as instance binders, matching the pinned mathlib theorem interface. The checked iff transports both directions without invoking the adjoint functor theorem.",
+  "environment_fingerprint": {
+    "repository_base_revision": "2cbc2e53e5feb845c1045f812f0814ffa1711d5a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0082/check_statement.py",
+    "killed": ["removed HasLimits D", "removed SolutionSetCondition G", "moved the functor binder under completeness and conjoined its remaining premises", "excluded the empty-domain boundary by adding Nonempty D"]
+  },
+  "degenerate_case_policy": "No nonempty, small-object, locally-small-object, well-powered, coseparating, or equal-universe assumptions are added. Empty categories and large object universes remain syntactically in scope; any impossible hypothesis combination is handled by implication. Smallness is exactly SolutionSetCondition.{vD}, whose indexing type lies in Type vD.",
+  "foundation_profile": "Lean 4 dependent type theory at the statement gate; no proof of the root is supplied and the checked transport uses no classical choice.",
+  "tcb_profile": "Lean kernel, pinned Lean 4.29.0 executable, and pinned mathlib revision; existing canonical .lake artifacts reused without mutation.",
+  "computation_profile": "Prop-only noncomputational statement and transport.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates only the general right-adjoint theorem target selected at intake. It does not inspect or credit the pinned theorem body, establish source fidelity, freeze the obligation tree, or claim theorem completion."
+}

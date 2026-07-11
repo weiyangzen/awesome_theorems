@@ -15,3 +15,21 @@ Base revision: `43b8783c62005322690acf2bed800ea3acbd76c6`.
 This is an intake-only structural validation. It introduces no Lean declaration
 and claims no kernel evidence. Master acceptance and all dependent phases remain
 outstanding.
+
+## Statement validation record
+
+Base revision: `0a10648bed0f2cf439e264125af320deb9928048`.
+
+The statement check runs from `Formalizations/Lean` so it uses the repository's
+pinned Lean project and canonical read-only `.lake` dependency artifacts.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `lake env lean ../../Stage1_Instances/THM-M-0087/Statement.lean` | 0 | exact declaration elaborated; `#check` and `#print` reported the declaration and its four frozen conclusion components |
+| `python3 -m json.tool Stage1_Instances/THM-M-0087/statement.json >/dev/null` | 0 | structured statement receipt is valid JSON |
+| `sha256sum Stage1_Instances/THM-M-0087/Statement.lean` | 0 | source fingerprint recorded in the worker self-test receipt |
+| `git diff --check -- Stage1_Instances/THM-M-0087 .stage1-worker-selftest.json` | 0 | no whitespace errors |
+
+This is statement elaboration evidence, not proof closure. In particular, it
+does not establish the explicit quotient-equivalence transport, source gate,
+axiom closure, hermetic release, or theorem completion.
