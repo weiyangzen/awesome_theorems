@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0423-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0423",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "d76396d014ed07f02b5e64944c3eafca7d453d40",
+  "audited_target": {
+    "declaration": "Stage1.THM_M_0423.HasseMinkowskiStatement",
+    "elaborated_expression_sha256": "4b5061f2c6f01173d7cb6c9b7005ca489aaa1da1f5740e980ea477d37ae04738",
+    "statement_source_sha256": "96abe224c0aa06c54dd30e3d7f5724b6f17cb6a5a2b537bf26fcc8dbba9cc7f0"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "mathlib_candidates": [
+    {
+      "candidate_id": "S56-M-0423-C01",
+      "module": "Mathlib.LinearAlgebra.QuadraticForm.Basic",
+      "declarations": ["QuadraticMap.not_anisotropic_iff_exists", "QuadraticMap.nondegenerate_iff_radical_eq_bot"],
+      "classification": "M3_support_only",
+      "type_checked": true,
+      "reason": "The isotropy witness and nondegeneracy interfaces match components of the target, but no local-global implication is supplied."
+    },
+    {
+      "candidate_id": "S56-M-0423-C02",
+      "module": "Mathlib.LinearAlgebra.QuadraticForm.TensorProduct",
+      "declarations": ["QuadraticForm.baseChange", "QuadraticForm.baseChange_tmul"],
+      "classification": "M3_support_only",
+      "type_checked": true,
+      "reason": "Scalar extension and its pure-tensor evaluation are available, but they do not prove local-to-global isotropy."
+    },
+    {
+      "candidate_id": "S56-M-0423-C03",
+      "module": "Mathlib.LinearAlgebra.QuadraticForm.Real",
+      "declarations": ["QuadraticForm.equivalent_one_zero_neg_one_weighted_sum_squared"],
+      "classification": "M2_child_only",
+      "type_checked": true,
+      "reason": "Sylvester classification closes useful real-place infrastructure only."
+    },
+    {
+      "candidate_id": "S56-M-0423-C04",
+      "module": "Mathlib.NumberTheory.NumberField.Completion.FinitePlace; Mathlib.NumberTheory.NumberField.Completion.InfinitePlace; Mathlib.NumberTheory.NumberField.ProductFormula",
+      "declarations": ["NumberField.FinitePlace", "NumberField.InfinitePlace", "NumberField.prod_abs_eq_one"],
+      "classification": "M3_support_only",
+      "type_checked": true,
+      "reason": "The place/completion carriers and ordinary number-field product formula exist; Hilbert symbols, local Hasse invariants, Hilbert reciprocity, and the terminal Hasse-Minkowski theorem do not occur in pinned mathlib source."
+    }
+  ],
+  "external_candidates": [
+    {
+      "candidate_id": "S56-M-0423-E01",
+      "project": "facebookresearch/atlas-lean",
+      "repository_url": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.ArithmeticGeometry.code.HasseMinkowski",
+      "declaration": "hasse_minkowski",
+      "declared_type_summary": "Diagonal quadratic forms over Q are isotropic iff isotropic over R and every Q_p.",
+      "target_relationship": "Strict specialization/coordinate variant: rational field only, not arbitrary number fields and their finite/infinite completions.",
+      "terminal_body_provenance": "Local theorem body calls hasse_minkowski_reverse, whose transitive sources include placeholders.",
+      "placeholder_audit": "13 `sorry` tokens in the three inspected Hasse-Minkowski source files; the direct path includes sorry-bearing binary representation, splitting, approximation, and diagonalization declarations.",
+      "unsafe_or_oracle_audit": "No unsafe or axiom token found by the bounded source scan; this does not offset the placeholders.",
+      "license": "CC BY-NC 4.0 with a no-training rider",
+      "source_sha256": "0e40aeec6a562a1c596d84bb3d71ffe9584421e5d276813f3e2dfaed05a47f71",
+      "classification": "M5",
+      "integration_status": "rejected: statement mismatch and placeholder-contaminated proof closure; not fetched or added as a dependency"
+    },
+    {
+      "candidate_id": "S56-M-0423-E02",
+      "project": "mariainesdff/HassePrinciple",
+      "repository_url": "https://github.com/mariainesdff/HassePrinciple",
+      "revision": "549601cee72a71f9ffc9c99a3eb7afe522b5b42f",
+      "toolchain": "leanprover/lean4:v4.31.0-rc2",
+      "mathlib_revision": "5daf17f480907fd4d6cec96697e545dbec761560",
+      "module": "HassePrinciple.QuadraticForm.HasseMinkowski",
+      "declaration": "QuadraticForm.HasseMinkowski",
+      "declared_type_summary": "Quadratic forms over Q are isotropic iff isotropic over every Q_p and R.",
+      "target_relationship": "Rational-field specialization only; it does not close the arbitrary-number-field target.",
+      "terminal_body_provenance": "The root proof contains seven direct `sorry` branches and imports additional sorry-bearing modules.",
+      "placeholder_audit": "33 `sorry` tokens in the nine inspected quadratic-form files, including seven directly in the root declaration.",
+      "unsafe_or_oracle_audit": "No unsafe or axiom token found by the bounded source scan; direct placeholders already invalidate proof credit.",
+      "license": "Apache-2.0",
+      "source_sha256": "ce54c1233dd814fd928b1f43cb6091f05251d146b6566cbb58f20d586225f9b4",
+      "classification": "M5",
+      "integration_status": "rejected: statement mismatch, direct placeholders, and incompatible/uninstalled toolchain and mathlib pins; no dependency mutation attempted"
+    }
+  ],
+  "bounded_external_search": {
+    "sourcegraph_query": "context:global archived:yes fork:yes (HasseMinkowski OR Hasse-Minkowski OR Hasse Minkowski OR HilbertSymbol) lang:Lean count:100",
+    "sourcegraph_result": "Located facebookresearch/atlas-lean at commit 34ffed396f376454c1a9b297f3fd74c5c801fb50; result limit was hit, so no exhaustive-search claim is made.",
+    "github_repository_result": "Located mariainesdff/HassePrinciple; exact HasseMinkowski identifier repository search returned zero additional repositories.",
+    "github_code_search_result": "HTTP 401 Requires authentication; this lane is a blocker, not negative evidence."
+  },
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact target proposition and substantial pinned support interfaces exist, but neither pinned mathlib nor either immutable external candidate supplies a placeholder-free proof of the arbitrary-number-field statement. The external roots specialize to Q and are invalid proof candidates at the audited revisions.",
+  "integration_blocker": "A candidate must prove the exact arbitrary-number-field statement (or provide checked transports), be placeholder-free, expose acceptable axiom/provenance closure, use a reproducible compatible toolchain, pass license review, and be pinned/imported/checked locally.",
+  "reopen_condition": "A later immutable revision meeting the exact-type, placeholder, trust, toolchain, license, and repo-local validation gates.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded anchor audit. It closes only S56-M-0423-ANCHOR_AUDIT, gives no proof credit to placeholder-bearing or scope-mismatched candidates, and makes no claim that all external Lean code was searched."
+}
