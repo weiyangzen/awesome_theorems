@@ -36,6 +36,15 @@ source/body boundary, axiom output, external search lanes, and the explicit
 Serre-quotient scope gap. This is an `M0-P_candidate` pending the obligation and
 proof phases, not accepted proof credit and not theorem completion.
 
+## Obligation-tree verdict
+
+Registry version 1 freezes 17 canonical obligations and separate proof,
+refinement, provenance, evidence, trust, documentation, and workflow graphs.
+`ObligationTree.root_of_packages` kernel-checks only the exact conjunction
+assembly from four explicit premises. No proof body is accepted at this phase;
+the full, faithful, adjunction, and finite-limit packages are the open root cut
+set. The explicit Serre-quotient equivalence remains outside the frozen target.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first

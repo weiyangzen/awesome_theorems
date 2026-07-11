@@ -1,0 +1,127 @@
+{
+  "schema_version": "stage1-worker-validation-receipt/1.0",
+  "receipt_id": "VALREC-M0170-20260712-PROVISIONAL-BOUNDARY",
+  "item_id": "S56-M-0170-VALIDATION",
+  "theorem_id": "THM-M-0170",
+  "base_revision": "168aae8f6c98f025672f9f8fcfedb2a74785e4b9",
+  "base_tree": "518cb5d09dab3a59c5811a9fcd77bef0ca78069a",
+  "validated_at": "2026-07-12T07:43:09+08:00",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "self_tested_pending_master_acceptance",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "f77f31972d908adc8f67e7c758eda29f68f3ac2d8a817477a764f897d90677e8",
+    "ObligationTree.lean": "1cff05b3c8a5a5cb477474de61ed3590b4a0f3157c8499930ee95ee3928ec168",
+    "Proof.lean": "2fbc951b2e7145f4a512fd5eed4637be00bc54f86384cd9baf65fdefba6e2f89",
+    "Validation.lean": "91b0ed4f377bc09d52c7d97d558e40308ffa985f109073107581e4fdcd12b08f",
+    "obligation-registry.json": "291e685d851321e6aa2d1d5e3ae93b521729fcc16b1c03fcd8c4c145406f8a5c",
+    "typed-graphs.json": "6dd53dde6e2a57ce09961ec5fc605851305c473c6ee800ce51b2a3a739ac928e",
+    "proof-receipt.json": "04b7ab4fb72ec9d6feb9a8ba92ef00c2f2fd8f7969a36208c716d713399ec4f8",
+    "validation-spec.json": "9921ef968647ccf243a32cca3d7f757aa5a04e3193afdb8a612688ad3a7294ad",
+    "lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "cache_mode": "warm canonical pinned .lake artifacts; nonrelease evidence only",
+    "network_isolation": "unavailable: unshare --net was rejected by the host; validation used no network"
+  },
+  "recipe_results": [
+    {
+      "recipe_id": "S56-M-0170-VALIDATION-local-v1",
+      "exit": 0,
+      "result": "independently written empty-manifold boundary probe elaborated"
+    },
+    {
+      "recipe_id": "M0170-statement-replay",
+      "exit": 0,
+      "result": "exact target, checked serialization, and four guarded mutations elaborated"
+    },
+    {
+      "recipe_id": "M0170-composition-replay",
+      "exit": 0,
+      "result": "conditional compact/noncompact root composition elaborated"
+    },
+    {
+      "recipe_id": "M0170-proof-replay",
+      "exit": 0,
+      "result": "proof-phase empty-manifold declaration elaborated"
+    },
+    {
+      "recipe_id": "M0170-graph-validation",
+      "exit": 0,
+      "result": "17 obligations and 41 typed edges passed; root remained open at M4"
+    }
+  ],
+  "kernel_evidence": {
+    "validated_declarations": [
+      "Stage1Instances.THM_M_0170.Proof.statement_of_isEmpty",
+      "Stage1Instances.THM_M_0170.Validation.empty_boundary_probe",
+      "Stage1Instances.THM_M_0170.statement_of_compact_and_noncompact"
+    ],
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "exact_root_checked": false,
+    "root_reason": "M0170-B-COMPACT and M0170-B-NONCOMPACT remain unproved premises"
+  },
+  "provenance": {
+    "classification": "repo-local boundary proof; no terminal Nash proof body located",
+    "mathlib_module": "Mathlib.Geometry.Manifold.Riemannian.Basic",
+    "mathlib_source_sha256": "423334dd30e7c05ede4ab2c0f912bcbb758856078e90a21a0d91fa3d31c1d038",
+    "mathlib_olean_sha256": "1764da7573cd4d7aa867a904cfd662070270720c470847cc94577c697b4551e6",
+    "mathlib_worktree_clean": true,
+    "pin_matches_manifest": true,
+    "independent_probe_boundary": "separately written source in the same checkout and shared cache; not an independently provisioned verifier"
+  },
+  "trust_closure": {
+    "local_placeholder_unsafe_oracle_scan": "pass",
+    "accepted_axiom_policy": false,
+    "transitive_tcb_acceptance": false
+  },
+  "root_decision": {
+    "root_vector": "[H1, M4, R3]",
+    "kernel_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "M0170-B-COMPACT",
+      "M0170-B-NONCOMPACT"
+    ]
+  },
+  "failed_gates": [
+    "root.kernel_closure",
+    "trust.accepted_axiom_policy",
+    "trust.transitive_tcb_acceptance",
+    "hermetic.cold_empty_cache",
+    "hermetic.enforced_network_denial",
+    "independent.distinct_runner",
+    "source.H0",
+    "readability.R0",
+    "master.acceptance"
+  ],
+  "first_failed_gate": "root.kernel_closure",
+  "retry_condition": "Implement and kernel-check both frozen Nash branch packages, then rerun trust, hermetic, and independent-verification gates on an immutable snapshot.",
+  "invalidation_inputs": [
+    "statement",
+    "obligation registry",
+    "typed graphs",
+    "proof source",
+    "proof receipt",
+    "validation probe and spec",
+    "toolchain",
+    "dependency pins",
+    "foundation and TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "review_due": "before master acceptance or after any invalidation input changes",
+  "revocation_state": "not revoked",
+  "status_boundary": "Provisional narrow validation of statement, composition, and the empty-manifold leaf only. The exact Nash root is open; this is not release evidence, section 10.7 independent verification, theorem completion, or master acceptance."
+}
