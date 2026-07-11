@@ -1,0 +1,50 @@
+{
+  "schema": "stage1-rev-5.6-typed-graph-bundle-v1",
+  "item_id": "S56-M-0414-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0414",
+  "registry_version": 1,
+  "nodes": ["THM-M-0414-ROOT", "THM-M-0414-UFM", "THM-M-0414-FINPROD", "THM-M-0414-TRUST"],
+  "proof_graph": {
+    "root": "THM-M-0414-ROOT",
+    "edges": [
+      {"from":"THM-M-0414-ROOT","to":"THM-M-0414-UFM","type":"proof_requires"},
+      {"from":"THM-M-0414-ROOT","to":"THM-M-0414-FINPROD","type":"proof_requires"}
+    ],
+    "composition_edges": [
+      {"from":["THM-M-0414-UFM","THM-M-0414-FINPROD"],"to":"THM-M-0414-ROOT","type":"composes","certificate":"Stage1Instances.THM_M_0414.ObligationTree.components_compose","status":"kernel_checked_conditional"}
+    ]
+  },
+  "refinement_graph": {"edges":[
+    {"from":"THM-M-0414-ROOT","to":["THM-M-0414-UFM","THM-M-0414-FINPROD"],"type":"conjunction_decomposition","exhaustiveness":"kernel_checked_by_components_compose"},
+    {"from":"THM-M-0414-FINPROD","to":"boundary:zero-ideal-excluded-unit-ideal-included","type":"scope_refines"}
+  ]},
+  "provenance_graph": {"edges":[
+    {"from":"mathlib:Ideal.uniqueFactorizationMonoid@8a178386ffc0f5fef0b77738bb5449d50efeea95","to":"THM-M-0414-UFM","type":"terminal_body_candidate","credit":"audit_only"},
+    {"from":"mathlib:Ideal.finprod_heightOneSpectrum_factorization@8a178386ffc0f5fef0b77738bb5449d50efeea95","to":"THM-M-0414-FINPROD","type":"terminal_body_candidate","credit":"audit_only"},
+    {"from":"source:primary-edition-pinpoint-open","to":"THM-M-0414-ROOT","type":"source_map","credit":"H1_not_H0"}
+  ]},
+  "evidence_graph": {"edges":[
+    {"from":"statement.json","to":"THM-M-0414-ROOT","type":"evidence_for","scope":"statement_only"},
+    {"from":"anchor-audit.json","to":"THM-M-0414-UFM","type":"evidence_for","scope":"candidate_audit_only"},
+    {"from":"anchor-audit.json","to":"THM-M-0414-FINPROD","type":"evidence_for","scope":"candidate_audit_only"},
+    {"from":"obligation-tree-validation.md","to":"THM-M-0414-ROOT","type":"evidence_for","scope":"registry_graph_and_conditional_composition_only"}
+  ]},
+  "trust_graph": {"edges":[
+    {"from":"THM-M-0414-ROOT","to":"THM-M-0414-TRUST","type":"trusts","status":"open_release_gate"},
+    {"from":"Stage1Instances.THM_M_0414.ObligationTree.components_compose","to":"trust:Lean-4.29.0-kernel-pinned-mathlib","type":"trusts","status":"narrow_elaboration_only"}
+  ]},
+  "documentation_graph": {"edges":[
+    {"from":"obligation-tree.md#root","to":"THM-M-0414-ROOT","type":"documents"},
+    {"from":"obligation-tree.md#ufm-component","to":"THM-M-0414-UFM","type":"documents"},
+    {"from":"obligation-tree.md#finite-product-component","to":"THM-M-0414-FINPROD","type":"documents"},
+    {"from":"obligation-tree.md#trust-boundary","to":"THM-M-0414-TRUST","type":"documents"}
+  ]},
+  "workflow_graph": {"edges":[
+    {"from":"S56-M-0414-OBLIGATION_TREE","to":"S56-M-0414-ANCHOR_AUDIT","type":"workflow_depends_on"},
+    {"from":"S56-M-0414-PROOF","to":"S56-M-0414-OBLIGATION_TREE","type":"workflow_depends_on"},
+    {"from":"S56-M-0414-VALIDATION","to":"S56-M-0414-PROOF","type":"workflow_depends_on"},
+    {"from":"S56-M-0414-RELEASE","to":"S56-M-0414-VALIDATION","type":"workflow_depends_on"}
+  ]},
+  "graph_invariants": {"proof_acyclic":true,"proof_root_reachable_ids":["THM-M-0414-ROOT","THM-M-0414-UFM","THM-M-0414-FINPROD"],"trust_gate_separate":true,"unknown_endpoints":0},
+  "status_boundary": "The graph records architecture and audited candidates. It does not accept either terminal body, transitive provenance, trust closure, or theorem completion."
+}

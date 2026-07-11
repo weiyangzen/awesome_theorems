@@ -1,0 +1,63 @@
+{
+  "schema": "stage1-rev-5.6-proof-unit-manifest-v1",
+  "theorem_id": "THM-M-0414",
+  "defaults": {
+    "foundation_profile": "Lean 4 dependent type theory; Classical.choice, propext, and Quot.sound are provisionally observed and require validation-phase reconciliation",
+    "tcb_profile": "Lean 4.29.0 and pinned mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; transitive closure and release TCB remain open",
+    "owner": "Stage1 proof implementer",
+    "reviewer": "independent algebra and Lean reviewers",
+    "validity": "invalidated by statement, registry, source, dependency, or toolchain change"
+  },
+  "nodes": [
+    {
+      "node_id":"THM-M-0414-ROOT","obligation_id":"THM-M-0414-ROOT","kind":"root",
+      "human_statement":"For every commutative Dedekind domain, integral ideals form a unique factorization monoid and every nonzero integral ideal is the finite product of its height-one prime-power components.",
+      "formal_target":"Stage1Instances.THM_M_0414.IdealUniqueFactorizationTarget","output":"the exact frozen conjunction",
+      "human_debt":"H1","machine_debt":"M2","readability_debt":"R4","evidence_ids":["statement.json","anchor-audit.json"],
+      "source_crosswalk_id":"source-statement-crosswalk.md#primary-source-status","provenance_id":"anchor-audit.json#candidates",
+      "foundation_profile":"defaults","tcb_profile":"defaults","computation_record":"none","step_budget":3,
+      "semantic_step_ledger":["ROOT.1 obtain UFM component THM-M-0414-UFM","ROOT.2 obtain finite-product component THM-M-0414-FINPROD","ROOT.3 form the conjunction for each bound ring"],
+      "public_readable_target":"Stage1_Instances/THM-M-0414/obligation-tree.md#root","validation_spec_id":"OT-V-LEAN-COMPOSE",
+      "status_boundary":"Conditional composition is checked; the two child proof bodies are not accepted by this phase.",
+      "task_ids":["S56-M-0414-OBLIGATION_TREE","S56-M-0414-PROOF"],"owned_sources":["Stage1_Instances/THM-M-0414/ObligationTree.lean"],
+      "owner":"Stage1 proof implementer","reviewer":"independent Lean reviewer","validity":"composition self-tested pending master acceptance"
+    },
+    {
+      "node_id":"THM-M-0414-UFM","obligation_id":"THM-M-0414-UFM","kind":"bridge",
+      "human_statement":"For every commutative Dedekind domain R, Ideal R is a unique factorization monoid.",
+      "formal_target":"forall (R : Type u) [CommRing R] [IsDedekindDomain R], UniqueFactorizationMonoid (Ideal R)","output":"the first root conjunct",
+      "human_debt":"H1","machine_debt":"M2","readability_debt":"R4","evidence_ids":["anchor-audit.json:M0414-C01"],
+      "source_crosswalk_id":"source-statement-crosswalk.md#primary-source-status","provenance_id":"mathlib:Ideal.uniqueFactorizationMonoid@8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "foundation_profile":"defaults","tcb_profile":"defaults","computation_record":"none","step_budget":3,
+      "semantic_step_ledger":["UFM.1 bind the Dedekind-domain ring and instances","UFM.2 obtain the pinned Ideal.uniqueFactorizationMonoid structure body","UFM.3 return it as the first root conjunct"],
+      "public_readable_target":"Stage1_Instances/THM-M-0414/obligation-tree.md#ufm-component","validation_spec_id":"OT-V-OPEN-PROOF",
+      "status_boundary":"The candidate is audited but proof integration and transitive provenance are reserved for later phases.",
+      "task_ids":["S56-M-0414-PROOF","S56-M-0414-VALIDATION"],"owned_sources":[],"owner":"Stage1 proof implementer","reviewer":"independent algebra reviewer","validity":"planned bridge; terminal candidate known"
+    },
+    {
+      "node_id":"THM-M-0414-FINPROD","obligation_id":"THM-M-0414-FINPROD","kind":"bridge",
+      "human_statement":"Every nonzero integral ideal equals the finite product of maxPowDividing over the height-one spectrum; the unit ideal remains included.",
+      "formal_target":"forall (R : Type u) [CommRing R] [IsDedekindDomain R] {I : Ideal R}, I != 0 -> finprod v, v.maxPowDividing I = I","output":"the second root conjunct",
+      "human_debt":"H1","machine_debt":"M2","readability_debt":"R4","evidence_ids":["anchor-audit.json:M0414-C02","statement.json:unitIdealBoundary"],
+      "source_crosswalk_id":"source-statement-crosswalk.md#primary-source-status","provenance_id":"mathlib:Ideal.finprod_heightOneSpectrum_factorization@8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "foundation_profile":"defaults","tcb_profile":"defaults","computation_record":"none","step_budget":4,
+      "semantic_step_ledger":["FP.1 bind the ring and nonzero ideal","FP.2 use the pinned height-one factorization theorem","FP.3 preserve the nonzero premise and exact finprod expression","FP.4 return equality to the original ideal"],
+      "public_readable_target":"Stage1_Instances/THM-M-0414/obligation-tree.md#finite-product-component","validation_spec_id":"OT-V-OPEN-PROOF",
+      "status_boundary":"No properness premise is added and zero is not silently covered; integration and provenance acceptance remain open.",
+      "task_ids":["S56-M-0414-PROOF","S56-M-0414-VALIDATION"],"owned_sources":[],"owner":"Stage1 proof implementer","reviewer":"independent algebra reviewer","validity":"planned bridge; terminal candidate known"
+    },
+    {
+      "node_id":"THM-M-0414-TRUST","obligation_id":"THM-M-0414-TRUST","kind":"terminal",
+      "human_statement":"Inventory and validate the transitive declarations, axioms, imports, TCB, and replay boundary for both terminal bodies and their wrapper.",
+      "formal_target":"release validation predicate over terminal declarations and the full trusted closure","output":"accepted trust-closure receipt",
+      "human_debt":"H1","machine_debt":"M2","readability_debt":"R4","evidence_ids":[],"source_crosswalk_id":"not-applicable: governance boundary","provenance_id":"none",
+      "foundation_profile":"defaults","tcb_profile":"defaults","computation_record":"none","step_budget":5,
+      "semantic_step_ledger":["TRUST.1 enumerate terminal declarations and constants","TRUST.2 extract exact axiom profiles","TRUST.3 hash imports and executable closure","TRUST.4 compare with foundation and TCB policy","TRUST.5 independently replay and issue or deny receipt"],
+      "public_readable_target":"Stage1_Instances/THM-M-0414/obligation-tree.md#trust-boundary","validation_spec_id":"OT-V-RELEASE-OPEN",
+      "status_boundary":"Narrow elaboration and #print axioms are not hermetic release evidence.",
+      "task_ids":["S56-M-0414-VALIDATION","S56-M-0414-RELEASE"],"owned_sources":[],"owner":"Stage1 validation operator","reviewer":"independent release verifier","validity":"open"
+    }
+  ],
+  "audit_complete": false,
+  "theorem_complete": false
+}
