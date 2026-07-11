@@ -15,17 +15,21 @@ label and Stage1 queue entry are discovery inputs only and confer no proof credi
 | Human source | Atiyah-Macdonald, Proposition 10.9, with the Rees-module proof context | Edition/hash, assumptions, errata, and independent review remain open |
 | Machine surface | Lean 4 plus pinned mathlib | Statement elaborates on Lean 4.29.0 against mathlib `8a1783...a95`; proof and later gates remain open |
 
-The remaining task chain is immutable anchor audit, frozen obligation graphs, proof or pinned
-integration, validation, and release reconciliation. No later node is credited here.
+The pinned-candidate audit is recorded in `anchor-audit.json`, `AnchorAudit.lean`, and
+`anchor-audit-validation.md`. It finds the exact mathlib declaration and a historical repo-local
+alias of the same terminal body. Frozen obligation graphs, proof acceptance, validation, and
+release reconciliation remain later nodes.
 
 ## Intake verdict
 
-Lifecycle remains `planned`; the statement node is self-tested pending master acceptance. The exact
+Lifecycle remains `planned`; the anchor-audit node is self-tested pending master acceptance. The exact
 expression, environment fingerprint, checked transport, four mutations, and boundary expressions
-are in `statement.json`, `Statement.lean`, and `statement-validation.md`. Human-source review,
-proof closure, and all dependent gates remain open. The theorem is not complete.
+are in `statement.json`, `Statement.lean`, and `statement-validation.md`. The audit exact-type checks
+`Ideal.exists_pow_inf_eq_pow_smul` at the pinned mathlib revision and records its terminal source
+body and axiom profile. Human-source review, proof acceptance, and all dependent gates remain open.
+The theorem is not complete.
 
 ## Validation
 
-Intake checks remain in `validation.md`; statement checks are in `statement-validation.md`. The
-latter validate elaboration of the exact target, not an Artin-Rees proof.
+Intake checks remain in `validation.md`; statement checks are in `statement-validation.md`; pinned
+candidate checks are in `anchor-audit-validation.md`. Audit feasibility is not proof-node credit.

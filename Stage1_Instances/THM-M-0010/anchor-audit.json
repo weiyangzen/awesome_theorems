@@ -1,0 +1,83 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0010-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0010",
+  "depends_on": "S56-M-0010-STATEMENT",
+  "canonical_target": "Stage1Instances.THM_M_0010.ArtinReesTarget",
+  "discovery_scope": {
+    "repo_local": "all tracked Lean sources",
+    "mathlib": {
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+    },
+    "external_pinned_projects": [
+      {
+        "repository": "https://github.com/leanprover-community/flt-regular.git",
+        "revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+        "result": "no Artin-Rees declaration or reference"
+      }
+    ],
+    "query_terms": [
+      "Artin-Rees",
+      "Artin Rees",
+      "exists_pow_inf_eq_pow_smul",
+      "pow_inf_eq_pow_smul"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "REPO-LEGACY-S1-M-103",
+      "repository": "this repository",
+      "revision": "9c8fbcb508ef94b14b4cc94df3d576550867591d",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "AwesomeTheorems.Stage1.S1_M_103",
+      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_103.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_103.artinRees_mathlib",
+      "type_relationship": "the audit wrapper checks the historical declaration against the frozen target expression",
+      "checked_wrapper": "AwesomeTheorems.Stage1.S1_M_103.artinRees_mathlib (narrow standalone elaboration of its tracked source file)",
+      "proof_body": "delegates directly to Ideal.exists_pow_inf_eq_pow_smul",
+      "terminal_provenance": "the same pinned mathlib proof body; the repo wrapper is an alias and is not a distinct body",
+      "axioms_reported_by_lean": "not printed by the historical file; terminal mathlib body reports propext, Classical.choice, Quot.sound",
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe marker in the wrapper declaration",
+      "dependency_feasibility": "tracked and importable in the existing AwesomeTheorems Lake library",
+      "classification": "legacy_local_wrapper_discovery_input",
+      "eligible_for_later_proof_phase": true,
+      "rev56_credit": "none until the later rev-5.6 nodes accept the wrapper and terminal provenance"
+    },
+    {
+      "candidate_id": "MATHLIB-ARTIN-REES-EXACT",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.RingTheory.Filtration",
+      "source_path": "Mathlib/RingTheory/Filtration.lean",
+      "source_lines": "387-390",
+      "declaration": "Ideal.exists_pow_inf_eq_pow_smul",
+      "type_relationship": "the wrapper repeats the frozen ArtinReesTarget expression exactly and is inhabited by the candidate under the same ordered ring, ideal, module, and submodule binders",
+      "checked_wrapper": "Stage1Instances.THM_M_0010.mathlibCandidateChecksExactTarget",
+      "proof_body": "((I.stableFiltration_stable top).inter_right (I.trivialFiltration N)).exists_pow_smul_eq_of_ge",
+      "terminal_provenance": "mathlib source at the pinned revision; introduced by mathlib commit c639b48cbbee",
+      "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe marker in the declaration body",
+      "dependency_feasibility": "already present in the pinned lake manifest and elaborated through the existing cache",
+      "classification": "local_wrapper_upstream_mathlib_candidate",
+      "eligible_for_later_proof_phase": true
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "surface": "other immutable external Lean packages present in the lake manifest",
+      "reason": "query terms produced no Artin-Rees candidate"
+    },
+    {
+      "surface": "Mathlib.RingTheory.AdicCompletion.Exactness",
+      "reason": "two downstream uses of the same declaration, not distinct proof bodies"
+    }
+  ],
+  "audit_result": "one exact pinned mathlib proof body and one historical repo-local alias of that body were found and exact-type checked; no distinct external candidate was found in the immutable dependency set",
+  "machine_debt": "The candidate is feasible for a later repo-local wrapper, but this audit node does not accept or complete the proof node.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This receipt inventories and checks candidates only. It does not freeze the obligation tree, accept proof credit, perform release validation, or establish theorem completion."
+}
