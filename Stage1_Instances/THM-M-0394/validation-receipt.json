@@ -1,0 +1,131 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0394-VALIDATION-local-20260711T193412Z",
+  "item_id": "S56-M-0394-VALIDATION",
+  "theorem_id": "THM-M-0394",
+  "base_revision": "c6c14c0add140b98175266dc6421066ea99c79b3",
+  "validated_at": "2026-07-11T19:34:12Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "canonical_obligation_ids": [
+    "M0394-ROOT",
+    "M0394-S",
+    "M0394-S1",
+    "M0394-S2",
+    "M0394-S3",
+    "M0394-N",
+    "M0394-N1",
+    "M0394-B",
+    "M0394-B1",
+    "M0394-B2",
+    "M0394-C1",
+    "M0394-L1",
+    "M0394-C2",
+    "M0394-L2",
+    "M0394-X1",
+    "M0394-T",
+    "M0394-X2"
+  ],
+  "validated_declarations": [
+    "Stage1Rev56.THMM0394.Proof.isSiegelCurve_branch_iff",
+    "Stage1Rev56.THMM0394.Proof.statement_of_branches",
+    "Stage1Rev56.THMM0394.Validation.independent_isSiegelCurve_branch_iff",
+    "Stage1Rev56.THMM0394.Validation.independent_statement_of_branches"
+  ],
+  "inputs": {
+    "statement_sha256": "7db337b7285aa5908d1504574e09bb3ba02d13bdada499da93f3d79035a27cc8",
+    "obligation_tree_sha256": "ce0f74f06cc67321aaee95997590dba92826b48daa7091617e30e94f119bb944",
+    "proof_sha256": "1216a9cadcbcd2f661bac210a64e98283102d43880d622a441e85b468bf7968f",
+    "validation_probe_sha256": "d5ecb2e8fbc7e1d209b646557a112dbdab49dfa79ef9b91bb0ab0f9d31de1f62",
+    "validation_verifier_sha256": "75047e183e89d2d4bd7a45db3dcd7b65d76a34f64708d2fc1c659220b5cab29c",
+    "obligation_registry_sha256": "62e1d333dc8d1537643609c6820d3f3c3d478b2d302c609f4bdb7f33b53f0378",
+    "typed_graphs_sha256": "e2ec6dc22e909aee78b509f11ce5389ef1082f32bb97dac630085d464221a9d5",
+    "proof_receipt_sha256": "25761626ee114363705bef54ef10a5914bd038117ca5e937674f4e62921e1967",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "proof_body_classification": "repo_local_partial_logical_proofs",
+    "proof_module": "Stage1_Instances/THM-M-0394/Proof.lean",
+    "independent_probe_module": "Stage1_Instances/THM-M-0394/Validation.lean",
+    "terminal_body_boundary": "M0394-S3 and conditional M0394-B composition only",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "root_provenance_closure": "open"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without mutation"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0394-validation-proof-elaboration",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0394/check_proof.sh"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0394-S3", "M0394-B"]
+    },
+    {
+      "recipe_id": "M0394-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0394/check_validation_lean.sh"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0394-S3", "M0394-B"]
+    },
+    {
+      "recipe_id": "M0394-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0394/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0394-ROOT", "M0394-S3", "M0394-B"]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Frozen hashes and the 17-node boundary pass. The two partial logical declarations and independently implemented equivalents elaborate and report only propext, Classical.choice, and Quot.sound. The exact root remains open.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass for Statement.lean, ObligationTree.lean, Proof.lean, and Validation.lean",
+    "validated_closed_obligation_ids": ["M0394-S3", "M0394-B"],
+    "root_closed": false,
+    "validation_state_proposal": "worker self-test passed for truthful partial validation; pending master acceptance",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof dependency is provisional and does not close either substantive Siegel finiteness branch, semantic realization, coordinate invariance, terminal root composition, or the root.",
+    "The worker reused a warm shared pinned dependency cache; this is not an empty-cache hermetic cold build or offline archive replay.",
+    "The independent probe ran in the same checkout and cache; it is not a separately provisioned signed independent runner or release verifier.",
+    "Root provenance/trust closure, H0/R0 independent review, SBOM/license evidence, deterministic release bundle, and master acceptance are absent.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "first_failed_gate": "S56-M-0394-PROOF exact-root closure and master acceptance",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Complete and master-accept all root-critical proof and composition obligations, then run an immutable empty-cache network-denied replay and distinct independent verifier.",
+  "invalidation_inputs": [
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "check_validation.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "proof-receipt.json",
+    "lake-manifest.json",
+    "lean-toolchain",
+    "mathlib revision",
+    "Lean executable",
+    "axiom policy",
+    "rev-5.6 assurance standard"
+  ]
+}
