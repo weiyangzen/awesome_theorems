@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1177-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1177",
+  "canonical_name": "Alexandrov-Bakelman-Pucci maximum estimate (classical linear form)",
+  "canonical_statement": "Let n >= 1, let Omega be a bounded domain in R^n, let u be continuous on the closure of Omega and twice continuously differentiable in Omega, and let A(x) be symmetric positive definite. If trace(A(x) D^2 u(x)) >= f(x) in Omega and u <= 0 on the boundary, then sup_Omega u is at most C_n diam(Omega) times the L^n norm, over the upper contact set of u, of f^-(x)/(det A(x))^(1/n), for a constant C_n depending only on n.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "n : Nat with 1 <= n; Omega : Set (Fin n -> Real); u f : (Fin n -> Real) -> Real; A : (Fin n -> Real) -> Matrix (Fin n) (Fin n) Real; Prop in Lean universe 0",
+  "quantifiers": [
+    "n >= 1 and dimensional constant C_n",
+    "bounded open connected Omega subset R^n",
+    "u continuous on closure Omega and C^2 on Omega",
+    "f measurable with the displayed weighted negative part in L^n",
+    "A pointwise symmetric positive definite with sufficient measurability"
+  ],
+  "hypotheses": [
+    "trace(A(x) * Hessian u(x)) >= f(x) for x in Omega",
+    "u(x) <= 0 for x in frontier Omega",
+    "A(x) is symmetric positive definite for x in Omega"
+  ],
+  "conclusion": "sup_{x in Omega} u(x) <= C_n * diam(Omega) * ||f^- / (det A)^(1/n)||_{L^n(contact_set(u))}",
+  "alternate_encodings": [
+    {
+      "target": "uniformly elliptic linear ABP with an unweighted L^n norm",
+      "relationship": "corollary after a lower determinant bound",
+      "checked_witness": null
+    },
+    {
+      "target": "viscosity ABP estimate for a Pucci extremal operator",
+      "relationship": "standard nonlinear extension, not definitionally identical to the root",
+      "checked_witness": null
+    },
+    {
+      "target": "lower estimate obtained by applying the root to -u",
+      "relationship": "sign transport",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "Dimension zero is excluded. If Omega is empty or sup u <= 0, the estimate is trivial but must be handled explicitly. Drift and zeroth-order terms are excluded from the root rather than silently absorbed into the constant.",
+  "foundation_profile": "Classical real and finite-dimensional analysis, convexity, Lebesgue measure, area/change-of-variables theory; exact choice and quotient use remains unaudited",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No native computation, oracle, numerical approximation, or external solver is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (exact pin and imports deferred to statement phase)",
+  "source_revisions": "Discovery bibliography and unresolved edition/hash work are recorded in source_statement_crosswalk.md",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1177/README.md",
+    "Stage1_Instances/THM-M-1177/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, sign convention, contact-set definition, coefficient assumptions, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M4",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a classical ABP scope only. It does not establish an exact Lean statement, accept a source proof audit, or provide kernel closure."
+}

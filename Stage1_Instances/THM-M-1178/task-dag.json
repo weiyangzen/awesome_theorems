@@ -1,0 +1,15 @@
+{
+  "schema_version": "stage1-open-task-dag/1.0",
+  "theorem_id": "THM-M-1178",
+  "lifecycle": "planned",
+  "root": "select_exact_source_theorem",
+  "tasks": [
+    {"id": "select_exact_source_theorem", "depends_on": [], "state": "open", "deliverable": "Primary source edition/article, theorem/page, assumptions, conclusion, and errata"},
+    {"id": "freeze_exact_statement", "depends_on": ["select_exact_source_theorem"], "state": "blocked", "deliverable": "Canonical Lean target, profiles, transports, and mutation probes"},
+    {"id": "audit_formal_anchors", "depends_on": ["freeze_exact_statement"], "state": "blocked", "deliverable": "Pinned mathlib/external candidate audit"},
+    {"id": "freeze_obligations", "depends_on": ["audit_formal_anchors"], "state": "blocked", "deliverable": "Typed obligation and provenance graphs"},
+    {"id": "prove", "depends_on": ["freeze_obligations"], "state": "blocked", "deliverable": "Exact placeholder-free proof closure"},
+    {"id": "validate_release", "depends_on": ["prove"], "state": "blocked", "deliverable": "Kernel, trust, provenance, hermetic, and independent receipts"}
+  ],
+  "status_boundary": "The DAG records work only; no task after intake is accepted or complete."
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "stage1-open-task-dag/5.6.0",
+  "theorem_id": "THM-M-1175",
+  "root": "S56-M-1175-INTAKE",
+  "nodes": [
+    {"id": "S56-M-1175-INTAKE", "depends_on": [], "state": "provisional_worker_selftested"},
+    {"id": "S56-M-1175-STATEMENT", "depends_on": ["S56-M-1175-INTAKE"], "state": "open"},
+    {"id": "S56-M-1175-ANCHOR_AUDIT", "depends_on": ["S56-M-1175-STATEMENT"], "state": "open"},
+    {"id": "S56-M-1175-OBLIGATION_TREE", "depends_on": ["S56-M-1175-ANCHOR_AUDIT"], "state": "open"},
+    {"id": "S56-M-1175-PROOF", "depends_on": ["S56-M-1175-OBLIGATION_TREE"], "state": "open"},
+    {"id": "S56-M-1175-VALIDATION", "depends_on": ["S56-M-1175-PROOF"], "state": "open"},
+    {"id": "S56-M-1175-RELEASE", "depends_on": ["S56-M-1175-VALIDATION"], "state": "open"}
+  ],
+  "acceptance_boundary": "Only the integration lane may accept the intake; every dependent node remains open."
+}
+

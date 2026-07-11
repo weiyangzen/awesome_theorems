@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1188-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1188",
+  "canonical_name": "Weak maximum principle for the heat equation",
+  "canonical_statement": "Let U be a bounded open subset of Euclidean space, let T > 0, and let u be continuous on the closed space-time cylinder and twice continuously differentiable in space and once in time in its interior. If u_t - Laplacian u <= 0 in the cylinder, then the maximum of u on the closed cylinder equals its maximum on the parabolic boundary (initial time together with the lateral boundary).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Planned: finite-dimensional real Euclidean space; bounded open U; positive real T; scalar u on the closure of U x (0,T]",
+  "quantifiers": [
+    "dimension n >= 1",
+    "bounded open U subset of Real^n",
+    "T : Real with 0 < T",
+    "u : closure(U x (0,T]) -> Real with the stated regularity"
+  ],
+  "hypotheses": [
+    "U is bounded and open",
+    "0 < T",
+    "u is continuous on the closed cylinder",
+    "u has two continuous spatial derivatives and one continuous time derivative in the interior",
+    "u_t - Laplacian u <= 0 in the interior"
+  ],
+  "conclusion": "max over the closed cylinder u = max over the parabolic boundary u",
+  "alternate_encodings": [
+    {
+      "target": "For every interior point (x,t), u(x,t) <= sup on the parabolic boundary u",
+      "relationship": "iff subject to compactness and attainment",
+      "checked_witness": "none; candidate only, deferred to statement phase"
+    },
+    {
+      "target": "Minimum principle for u_t - Laplacian u >= 0",
+      "relationship": "equal after replacing u by -u",
+      "checked_witness": "none; candidate only, deferred to statement phase"
+    }
+  ],
+  "excluded_degenerate_cases": "T = 0, unbounded U, noncompact closures, weak/distributional solutions, variable-coefficient parabolic operators, and strong maximum principles are outside this frozen root.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; compactness, extrema, classical choice, and analysis dependencies remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or numerical evidence is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; the encoding and minimal import remain to be selected",
+  "source_revisions": "The bibliographic discovery anchor is recorded in source_statement_crosswalk.md; immutable source and Lean pins remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1188/README.md",
+    "Stage1_Instances/THM-M-1188/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the cylinder, boundary, regularity, differential inequality, Lean target, imports/toolchain, source pins, or rev-5.6 policy.",
+  "root_vector": {"human": "H2", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes one standard weak classical heat-equation maximum principle. It does not elaborate a Lean proposition, establish a primary-source genealogy, or prove the theorem."
+}
