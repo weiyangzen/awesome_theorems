@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0388",
+  "item_id": "S56-M-0388-STATEMENT",
+  "lifecycle": "planned",
+  "canonical_statement": "For every positive nonsquare integer D, there exist integers x and y with x^2 - D*y^2 = 1 and y nonzero.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0388/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0388.PellEquationStatement",
+    "elaborated_expression_sha256": "1c7823359ce2079a4c418429cd6be26e48fdfe6acb4624a0ee9701fdc05a92ad"
+  },
+  "domain_and_universes": "D x y : Int; no universe or typeclass binders",
+  "quantifiers": [
+    "D : Int",
+    "x : Int (existential)",
+    "y : Int (existential)"
+  ],
+  "hypotheses": [
+    "0 < D",
+    "not exists k : Int, k * k = D"
+  ],
+  "conclusion": "there exist x y : Int such that x^2 - D*y^2 = 1 and y != 0",
+  "excluded_degenerate_cases": [
+    "D <= 0",
+    "square D",
+    "the universal trivial solutions with y = 0"
+  ],
+  "direct_imports": [
+    "Init"
+  ],
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THMM0388.ConjunctiveHypothesesStatement",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THMM0388.pellEquationStatement_iff_conjunctiveHypothesesStatement"
+    }
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "base_revision": "cdc74d2233a90bfe43066d639abb923202621260",
+    "options": [
+      "pp.explicit=true for canonical expression serialization"
+    ],
+    "foundation_profile": "Lean 4 dependent type theory and Init definitions; this artifact credits no proof, classical-choice use, or trust closure",
+    "tcb_profile": "repository-pinned Lean executable plus repository-pinned mathlib; statement elaboration only",
+    "computation_profile": "no oracle, native_decide, external computation, or experimental result"
+  },
+  "source_crosswalk": {
+    "repository_text": "x²-Dy²=1的整数解",
+    "coordinates": "x and y are Int",
+    "equation": "x^2 - D*y^2 = 1",
+    "canonical_disambiguation": "the standard nontrivial-existence form for a positive nonsquare integer parameter",
+    "fidelity_boundary": "The terse repository source omits quantifiers and side conditions. This canonical disambiguation is frozen for execution, but primary-source H0 attribution remains open for the later anchor/source audit. The stronger legacy unique-generator classification is not part of this target."
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0388/check_statement.py",
+    "killed": [
+      "removed nonsquare hypothesis",
+      "changed D, x, and y domains from Int to Nat",
+      "moved x and y outside the D binder",
+      "replaced nonsquare by the square boundary"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "Exact Lean target elaborated; no proof, anchor, source-fidelity, audit, trust, release, or theorem-completion claim."
+}

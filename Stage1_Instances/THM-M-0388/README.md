@@ -65,3 +65,11 @@ python3 scripts/stage1_target.py show THM-M-0388
 
 The node-specific structural validation and its exact output are recorded in
 `intake-validation.txt`. This is intake evidence only, not Lean elaboration or theorem evidence.
+
+## Provisional Statement Handoff
+
+The later `S56-M-0388-STATEMENT` worker handoff is recorded separately in `Statement.lean`,
+`statement.json`, and `statement-validation.md`. It elaborates the conservative nontrivial integer
+existence target with one direct import and checked statement-level transport. That handoff is
+self-tested but awaits master acceptance; it does not alter this planned intake manifest or claim
+proof, source-audit, or theorem completion.
