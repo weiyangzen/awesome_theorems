@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "receipt_id": "S56-M-0400-RELEASE-worker-decision-20260712",
+  "item_id": "S56-M-0400-RELEASE",
+  "theorem_id": "THM-M-0400",
+  "depends_on": [
+    "S56-M-0400-VALIDATION"
+  ],
+  "base_revision": "f43940fa7710912e2a84a3fcd581ba9ff24159ad",
+  "intent": "release",
+  "support_state": "provisional_worker_selftest",
+  "reconciled_inputs": {
+    "intake_sha256": "760e30438e87e0124456ea588fa51db429eb7defc4b0c44045a8b56c52e86c4d",
+    "statement_record_sha256": "96e7053539a390948f48e582ab5876f34975d9e1942dcd235fd1f01d4445c659",
+    "anchor_audit_sha256": "a4225215de0fd3dee7010d523d71b198d7c572148079482fee21c64b75a8f2b9",
+    "obligation_tree_sha256": "5c638ca364766c85234df59945dc1152dc82a82f4a70392fd470bb1aa3dc32f8",
+    "proof_receipt_sha256": "f55f6c88cf3927c03949fef632656a1b2cba84a4209bcb318d7170c8642b7bca",
+    "validation_receipt_sha256": "ac4e67dd470ba2e50076e7a934d059ff29da1e0392c3788ade08e077513bdc1f",
+    "validation_specs_sha256": "1a12a369687549259e5b7acd17c4c9d7842e0da60171de3b1ced1a1a1d20d8c4"
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "root_vector_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "audit_complete": false,
+    "theorem_complete": false,
+    "root_closed": false,
+    "accepted_receipt_ids": [],
+    "worker_release_item_self_tested": true,
+    "master_acceptance_pending": true
+  },
+  "evidence_reconciliation": {
+    "statement": "The selected canonical proposition elaborated in the recorded pinned environment, but exact primary-source normalization is not independently accepted.",
+    "proof": "Three elementary height and encoding declarations elaborate. They support M0400-S-BOUNDARY but close no frozen obligation and do not prove the canonical root.",
+    "validation": "A same-workspace independent implementation confirms those three elementary facts. The validation receipt explicitly reports an open M3 root and is provisional worker evidence.",
+    "release": "No cold empty-cache build, offline archive replay, SBOM/license closure, deterministic evidence bundle, protected CI attestation, distinct independently provisioned runner, or master acceptance exists."
+  },
+  "first_failed_gate": "S56-M-0400-PROOF exact-root closure and master acceptance",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "M0400-N-COEFFICIENT-FIELD",
+    "M0400-N-TRANSPORT",
+    "M0400-C-AUXILIARY",
+    "M0400-L-NONVANISH",
+    "M0400-L-GAP",
+    "M0400-C-SUBSPACE",
+    "M0400-L-FINITE-COVER",
+    "M0400-T-COMPOSE",
+    "M0400-X-FOUNDATION",
+    "M0400-X-SOURCE"
+  ],
+  "known_failures": [
+    "The exact canonical root has no proof body or checked terminal composition.",
+    "The primary-source premise and normalization crosswalk is H1 rather than independently accepted H0.",
+    "The readable reconstruction is R3 rather than independently accepted R0.",
+    "Root provenance, trust, and supply-chain closure are absent.",
+    "Hermetic cold replay, distinct independent verification, deterministic bundling, and master acceptance are absent."
+  ],
+  "retry_condition": "Complete and master-accept the root-critical proof, composition, source, provenance, trust, and readability obligations; then produce hermetic and independent release evidence and rerun this decision.",
+  "status_boundary": "This receipt self-tests an honest blocked release decision only. It is not an accepted validation receipt, does not advance lifecycle or debt, and does not claim AUDIT-Z or THEOREM-Z."
+}
