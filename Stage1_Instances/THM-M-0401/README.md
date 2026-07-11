@@ -39,6 +39,20 @@ The alternate coordinatewise formulation remains uncredited: no checked implicat
 
 Only the statement node is self-tested here. All later nodes remain open, and only the integration lane may accept this provisional result.
 
+## Anchor Audit
+
+The rev-5.6 anchor inventory is recorded in `anchor-audit.json` with readable evidence in
+`anchor-audit.md`. At pinned mathlib commit `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the
+nearby Diophantine-approximation declarations cover Dirichlet and one-dimensional rational
+approximation, not the exact algebraic-vector product-finiteness target. The legacy local artifact
+is statement-only (`M3`), and no accessible external search produced an immutable Lean 4 proof
+candidate. The exact root therefore remains `M4`; no `M1` or `M0-*` credit is claimed. The primary
+1970 paper is bibliographically confirmed, but pinpoint and errata mapping remain open, so
+human-source status is conservatively `H1`.
+
+This inventory completes the assigned phase, while the full theorem audit and proof remain open.
+External code-search access and fresh Lean replay blockers are described in the audit.
+
 ## Validation Record
 
 Base revision: `ca5213c506afa21d64fb8f2481ac658887786c6e`.
