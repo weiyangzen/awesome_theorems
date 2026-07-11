@@ -17,7 +17,7 @@
   "canonical_statement": {
     "source_text": "y²=x³+k的整数解",
     "source_location": "Docs/Stage0_Blueprint.md:10778",
-    "status": "ambiguous_pending_statement_gate",
+    "status": "canonical_disambiguation_self_tested_pending_master_acceptance",
     "candidate_interpretation": "For every nonzero integer k, the set of integer pairs (x,y) satisfying y^2 = x^3 + k is finite.",
     "interpretation_basis": "The legacy S1-M-002 artifact chose this finiteness claim, but legacy artifacts are discovery evidence only and are not accepted under rev-5.6.",
     "unresolved_scope": [
@@ -28,12 +28,12 @@
   },
   "canonical_formal_target": {
     "backend": "lean4",
-    "module_candidate": "AwesomeTheorems.Stage1.S1_M_002",
-    "declaration_candidate": "AwesomeTheorems.Stage1.S1_M_002.StatementShape",
-    "expression_candidate": "∀ k : Int, k ≠ 0 → Set.Finite {p : Int × Int | p.2 ^ 2 = p.1 ^ 3 + k}",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "credit": "none; candidate only until S56-M-0392-STATEMENT"
+    "module_candidate": "Stage1_Instances/THM-M-0392/Statement.lean",
+    "declaration_candidate": "Stage1Instances.THMM0392.MordellFinitenessStatement",
+    "expression_candidate": "∀ k : Int, k ≠ 0 → IsFinite {p : Int × Int // p.2 ^ 2 = p.1 ^ 3 + k}",
+    "elaborated_expression_hash": "sha256:4b5dfc8bf3fbd262e5553eb6e4641dc2517dd73b49cb45d90aaa1ea0ff4c7dfb",
+    "environment_fingerprint": "leanprover/lean4:v4.29.0; Init; lake-manifest sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "credit": "statement elaboration self-tested; master acceptance pending; no proof credit"
   },
   "scope": {
     "domain_candidate": "k x y : Int",
@@ -41,9 +41,9 @@
     "hypotheses_candidate": ["k != 0"],
     "conclusion_candidate": "Set.Finite {(x,y) | y^2 = x^3 + k}",
     "excluded_degenerate_cases_candidate": ["k = 0"],
-    "foundation_profile": "pending",
-    "tcb_profile": "pending",
-    "computation_profile": "pending"
+    "foundation_profile": "Lean 4 dependent type theory plus Init; no proof principles credited",
+    "tcb_profile": "pinned Lean v4.29.0 statement elaborator; release TCB audit pending",
+    "computation_profile": "none for statement elaboration"
   },
   "source_revisions": {
     "repository_base_commit": "a8d6489fd935cd71fa4499f2f3f5b051998203f4",

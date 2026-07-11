@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0392",
+  "item_id": "S56-M-0392-STATEMENT",
+  "lifecycle": "planned",
+  "canonical_statement": "For every nonzero integer k, the type of integer pairs (x,y) satisfying y^2 = x^3 + k is finite.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0392/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0392.MordellFinitenessStatement",
+    "elaborated_expression_sha256": "4b5dfc8bf3fbd262e5553eb6e4641dc2517dd73b49cb45d90aaa1ea0ff4c7dfb"
+  },
+  "domain_and_universes": "k x y : Int; no universe or typeclass binders",
+  "quantifiers": [
+    "k : Int",
+    "every solution coordinate pair is represented in the subtype IntegralSolutions k"
+  ],
+  "hypotheses": [
+    "k != 0"
+  ],
+  "conclusion": "the subtype of p : Int x Int satisfying p.2^2 = p.1^3 + k injects into Fin n for some n",
+  "excluded_degenerate_cases": [
+    "k = 0, which has the parametrized solution family (t^2,t^3)"
+  ],
+  "direct_imports": [
+    "Init"
+  ],
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THMM0392.InlineEquationStatement",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THMM0392.mordellFinitenessStatement_iff_inlineEquationStatement"
+    }
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "base_revision": "6646f3026454e24525976ebd54841f85a50d3ba5",
+    "options": [
+      "pp.explicit=true for canonical expression serialization"
+    ],
+    "foundation_profile": "Lean 4 dependent type theory and Init definitions; finiteness is encoded by injection into Fin n; this artifact credits no theorem proof or classical-choice use",
+    "tcb_profile": "repository-pinned Lean executable; the repository pins mathlib, but this statement imports only Init",
+    "computation_profile": "no oracle, native_decide, external computation, or experimental result"
+  },
+  "source_crosswalk": {
+    "repository_text": "y²=x³+k的整数解",
+    "coordinates_and_parameter": "k, x, and y are Int",
+    "equation": "y^2 = x^3 + k",
+    "canonical_disambiguation": "the Mordell finiteness theorem, uniformly stated for every nonzero integer parameter",
+    "fidelity_boundary": "The terse repository source fixes the equation and integer solutions but omits quantifier and result kind. This legacy-guided disambiguation is frozen for execution; primary-source fidelity and H0 remain open for anchor/source audit. No effective enumeration claim is included."
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0392/check_statement.py",
+    "killed": [
+      "removed the nonzero hypothesis",
+      "changed solution-coordinate domains from Int to Nat",
+      "changed the universal parameter binder to an existential binder",
+      "specialized to the excluded k = 0 boundary"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "Exact Lean target elaborated; no proof, anchor, primary-source fidelity, audit, trust closure, release, or theorem-completion claim."
+}
