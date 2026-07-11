@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0415-STATEMENT",
+  "theorem_id": "THM-M-0415",
+  "lifecycle": "planned",
+  "canonical_statement": "For every number field K, the ideal class group of its ring of integers is finite.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0415/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0415.IdealClassGroupFiniteTarget",
+    "elaborated_expression_sha256": "7597a79fb775bc7ecf0830020941f6962e64c6d3251d114f780b32e4c25d1590",
+    "statement_file_sha256": "3dc07d596299cb0a72e9cb86580cfd84d1eb2bf5441ee2e714bed3a40b9e8eda"
+  },
+  "domain_and_universes": "universe u; K : Type u; Field K; NumberField K; Prop in Lean universe 0",
+  "ordered_binders": ["K : Type u", "[Field K]", "[NumberField K]"],
+  "hypotheses": [],
+  "conclusion": "Finite (ClassGroup (NumberField.RingOfIntegers K))",
+  "direct_imports": ["Mathlib.NumberTheory.NumberField.ClassNumber"],
+  "checked_transport": "Stage1Instances.THM_M_0415.idealClassGroupFiniteTarget_iff_fintypePresentation",
+  "alternate_encodings": {
+    "fintype_presentation": {
+      "target": "forall K [Field K] [NumberField K], Nonempty (Fintype (ClassGroup (NumberField.RingOfIntegers K)))",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0415.idealClassGroupFiniteTarget_iff_fintypePresentation"
+    }
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0415/check_statement.py",
+    "killed": [
+      "removed NumberField typeclass hypothesis and changed the object to ClassGroup K",
+      "changed the arbitrary number field domain to Rat",
+      "changed the NumberField typeclass binder to an explicit implication",
+      "restricted the claim to the class-number-one boundary"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0415.rational_boundary"]
+  },
+  "degenerate_cases": "The claim includes K = Rat, class number one, every finite degree, and every signature. No degree, discriminant, signature, effectiveness, or nontrivial-class-group premise is added.",
+  "foundation_profile": "Lean 4 dependent type theory; this statement certificate does not claim a completed trust or axiom audit.",
+  "tcb_profile": "Pinned Lean kernel and pinned mathlib dependency closure; terminal proof provenance is deferred to anchor audit.",
+  "computation_profile": "Propositional finiteness target; no computation or oracle is credited.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected target, its checked Finite/Fintype transport, four structural mutations, and the rational boundary. It supplies no anchor-audit, proof, validation, release, or theorem-completion evidence."
+}

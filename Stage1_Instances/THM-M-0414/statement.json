@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0414-STATEMENT",
+  "theorem_id": "THM-M-0414",
+  "lifecycle": "planned",
+  "canonical_statement": "For every commutative Dedekind domain R, the monoid of integral ideals of R is a unique factorization monoid, and every nonzero integral ideal I is the finite product of its height-one prime-power components. The unit ideal is included as the empty-product boundary case; the zero ideal is excluded.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0414/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0414.IdealUniqueFactorizationTarget",
+    "elaborated_expression_sha256": "de0c201f670ebcc5d4da370f9d5871c131e333652cff7a4dfb903d75e245b005",
+    "statement_file_sha256": "7fe066774a7105731721a651a959cf67312763e9ed089be248866dc49c9c486d"
+  },
+  "domain_and_universes": "universe u; R : Type u; CommRing R; IsDedekindDomain R; I : Ideal R; Prop in Lean universe 0",
+  "ordered_binders": [
+    "R : Type u",
+    "[CommRing R]",
+    "[IsDedekindDomain R]",
+    "I : Ideal R"
+  ],
+  "hypotheses": ["I != 0 for the explicit finite-product conjunct"],
+  "conclusion": "UniqueFactorizationMonoid (Ideal R), together with finprod v, v.maxPowDividing I = I for every nonzero I.",
+  "direct_imports": ["Mathlib.RingTheory.DedekindDomain.Factorization"],
+  "checked_transport": "Stage1Instances.THM_M_0414.idealUniqueFactorizationTarget_iff_historicalCandidateShape",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_069.StatementShape",
+  "pinned_source_relationship": "HistoricalCandidateShape is a direct local transcription of the historical candidate at repository base 4fe349b4364c7aee03dbe67f21b7a631e12042da. The checked iff is definitional. The historical theorem bodies remain discovery input and receive no proof credit at this phase.",
+  "scope_reconciliation": "The intake prose used 'nonzero proper ideal' while simultaneously requiring the unit ideal as an empty-product boundary. The canonical expression resolves that internal ambiguity in favor of the historical Lean candidate and standard monoid formulation: all nonzero integral ideals, including the unit ideal. Zero remains excluded. No fractional-ideal strengthening is included.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "foundation_profile": "Lean 4 dependent type theory. This phase elaborates a Prop and one boundary theorem; it does not accept a theorem-body axiom profile.",
+  "tcb_profile": "Lean 4.29.0 kernel and repository-pinned mathlib revision; existing canonical .lake artifacts reused read-only.",
+  "computation_profile": "Noncomputable algebraic factorization interfaces; no native, external, or oracle computation accepted.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0414/check_statement.py",
+    "killed": [
+      "removed the nonzero-ideal hypothesis",
+      "changed the arbitrary Dedekind domain to the integers",
+      "moved the nonzero premise outside the ideal binder",
+      "excluded the unit-ideal boundary"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0414.unitIdealBoundary"]
+  },
+  "degenerate_cases": "The zero ideal is excluded by I != 0. The unit ideal remains included and its finite-product equation is kernel checked. The formulation does not add a properness premise, does not assume a chosen factor list, and does not include fractional ideals.",
+  "alternate_encodings": {
+    "fractional_ideals": "A strengthening with integer exponents is deliberately excluded from the canonical root.",
+    "explicit_multiset_uniqueness": "The UFM conjunct is the selected canonical uniqueness interface. No separate explicit-multiset encoding receives credit without a future checked bridge."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact canonical target, historical-shape identity, four structural mutations, and the unit boundary. It supplies no anchor-audit, proof-body, theorem-completion, or release evidence."
+}

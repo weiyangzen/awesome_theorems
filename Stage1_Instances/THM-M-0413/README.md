@@ -1,4 +1,4 @@
-# THM-M-0413 rev-5.6 intake
+# THM-M-0413 rev-5.6 dossier
 
 This directory is the `planned` rev-5.6 dossier for the theorem that the ring of integers of a
 number field is a Dedekind domain. The generated source label `已验证` is discovery metadata only.
@@ -7,7 +7,7 @@ number field is a Dedekind domain. The generated source label `已验证` is dis
 
 | Surface | In scope | Boundary at intake |
 |---|---|---|
-| Exact root | Every finite extension `K/Q`; its elements integral over `Z` form a Dedekind domain | Exact Lean binders, imports, and normalized expression belong to the statement phase |
+| Exact root | Every finite extension `K/Q`; its elements integral over `Z` form a Dedekind domain | Elaborated as `Stage1.THMM0413.Statement` in `Statement.lean` |
 | Domain | Number fields, including the degree-one case `K = Q` | Arbitrary fields and infinite algebraic extensions are excluded |
 | Object | The integral closure of `Z` in `K`, with its induced ring structure | A chosen order smaller than the full ring of integers is excluded |
 | Conclusion | The complete mathlib Dedekind-domain predicate | Ideal factorization alone is a consequence/alternate characterization, not a substitute root |
@@ -20,11 +20,23 @@ integral closedness, and the nonzero-prime/maximal or dimension-one condition wi
 outline as a frozen obligation registry. The registry is deliberately deferred until after exact
 statement and anchor audit phases.
 
-## Intake verdict
+## Historical intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is
 the exact Lean statement gate: the target has no elaborated expression hash, environment
 fingerprint, checked transport, or mutation result. The theorem is not complete.
+
+## Statement phase
+
+`statement.json` is the phase-specific authority. The exact target uses the ordered context
+`(K : Type u) [Field K] [NumberField K]` and concludes
+`IsDedekindDomain (NumberField.RingOfIntegers K)`. It elaborates with the sole declared import
+`Mathlib.NumberTheory.NumberField.Basic`; its transport to `integralClosure Z K`, degree-one
+boundary probe, and three required negative mutations were checked with pinned Lean 4.29.0 and
+mathlib commit `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
+
+This statement result is provisional pending master acceptance. It does not update the historical
+intake receipt, establish proof closure, or make the theorem complete.
 
 ## Validation
 

@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0106-VALIDATION-local-20260711T201802Z",
+  "item_id": "S56-M-0106-VALIDATION",
+  "theorem_id": "THM-M-0106",
+  "base_revision": "08188d9b8d9d1f42b83c7fbc17ffabba5bc76d61",
+  "base_tree": "53c2894b3e1dfaf6a3d6f4d3f38dcd22f32c1f81",
+  "validated_at": "2026-07-11T20:18:02Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "canonical_target": "Stage1Instances.THM_M_0106.NoetherNormalizationTarget",
+  "validated_declarations": [
+    "Stage1Instances.THM_M_0106.noetherNormalization_proof",
+    "Stage1Instances.THM_M_0106.Validation.noetherNormalization_independent_probe"
+  ],
+  "inputs": {
+    "statement_sha256": "cdcc10cf09bf7edbd07c8b08f48c33431eee3ad4554349fb76bc61ee5457d291",
+    "obligation_tree_sha256": "04fc5b2aa9a7baf935eacd11bdfe1a472d2dc4abdc407840ce113bed0af2d439",
+    "proof_sha256": "7d00e6a04b91c1c6a6d0a270c51ff0474ff0e666395e77ad048f721b981acb07",
+    "validation_probe_sha256": "3fb998fae0f4a464dd1e5ca67b6d2a5f5ec9d79cf4248857efaea3a3e3c51cd1",
+    "validator_sha256": "8ee1e80e5913086815f9f910c0728709b39aaddf6c803c7a2c53dc1445cd254e",
+    "obligation_registry_sha256": "ea1a6119c53103fc28912cc37d9ea5a9e772aebb352978c9d63c8995700df5de",
+    "typed_graphs_sha256": "2e1d577853744b31ccbee06484efa31cf50e0a87506a52b28b7189c4868d6298",
+    "proof_receipt_sha256": "ff29fae7f12c212175fd1626c730937d555e637264d1783d92bab58d214e5efc",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "provenance": {
+    "proof_body_classification": "local_wrapper_upstream_mathlib",
+    "local_wrapper": "Stage1_Instances/THM-M-0106/Proof.lean",
+    "terminal_upstream_declaration": "exists_finite_inj_algHom_of_fg",
+    "upstream_module": "Mathlib.RingTheory.NoetherNormalization",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "independent_probe_strategy": "prove the frozen alternate affine-Spec encoding and apply the checked iff transport; Proof.lean is neither imported nor invoked"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink; warm and shared; dependency checkout clean",
+    "worktree_classification": "nonrelease: owned validation artifacts and pre-existing Formalizations/Lean/.lake are untracked"
+  },
+  "recipe": {
+    "recipe_id": "M0106-validation-narrow-verifier",
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0106/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": ["M0106-ROOT", "M0106-L-FINITE", "M0106-L-SPEC", "M0106-T-ASSEMBLE"],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_0106.noetherNormalization_proof",
+      "Stage1Instances.THM_M_0106.Validation.noetherNormalization_independent_probe"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass in a fresh temporary module directory using pinned warm artifacts",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "axiom_profile_inclusion": "pass",
+    "placeholder_unsafe_local_scan": "pass",
+    "proof_receipt_hash_binding": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "independently_written_probe": "pass in the same checkout and shared cache; not a section 10.7 independent runner",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed"
+  },
+  "known_failures": [
+    "The run reused the shared canonical warm .lake artifacts and was not an empty-cache cold build in a new checkout with network denied.",
+    "No offline dependency archive restoration, complete TCB inventory, SBOM/license bundle, deterministic release bundle, or signature was produced.",
+    "Validation.lean is independently written but ran in this same worker checkout with the same dependency cache; no distinct verifier identity, independently provisioned runner, second signed attestation, or independent minimal release verifier exists.",
+    "The frozen graph retains its pre-proof open boundary and has not been reconciled by the master.",
+    "Human-source H0 review, readable R0 review, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Replay the accepted immutable snapshot in a new empty-cache network-denied checkout with a complete TCB/SBOM archive, then obtain the distinct signed runner and independent minimal verifier required by section 10.7.",
+  "invalidation_inputs": [
+    "Statement.lean", "ObligationTree.lean", "Proof.lean", "Validation.lean",
+    "check_validation.py", "instance.json", "statement.json",
+    "obligation-registry.json", "typed-graphs.json", "proof-receipt.json",
+    "Lean executable or toolchain", "lake-manifest.json", "mathlib revision or worktree",
+    "foundation/TCB policy", "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Provisional narrow kernel, trust, provenance, and same-workspace probe evidence only. It is not hermetic release evidence, section 10.7 independent verification, theorem completion, release, or master acceptance."
+}

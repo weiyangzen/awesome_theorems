@@ -4,18 +4,18 @@
 
 - The ambient ring is a Dedekind domain (commutative, with the exact convention to be reconciled
   against the selected source and mathlib's `IsDedekindDomain`).
-- The factored object is a nonzero proper integral ideal.
+- The factored object is a nonzero integral ideal. Proper nonzero ideals have nonempty prime
+  support; the unit ideal is retained as the empty-product case.
 - Existence means a finite product of nonzero prime ideals.
 - Uniqueness is equality of the factor multisets, equivalently equality of every prime valuation,
   and is insensitive to ordering. The unit ideal is the empty product boundary case.
 
-## Encoding decision deferred to statement phase
+## Statement encoding decision
 
-The classical source formulation may be represented in Lean by explicit finitely supported
-exponents, an explicit `finprod` over height-one primes, or the
-`UniqueFactorizationMonoid (Ideal R)` instance. These are not definitionally the same statement.
-The statement phase must select one canonical expression and provide checked transports for any
-other presentation rather than silently broadening the theorem.
+The canonical target in `Statement.lean` combines the explicit `finprod` over height-one primes
+with `UniqueFactorizationMonoid (Ideal R)`. The historical candidate has a checked definitional
+identity with this target. An explicit factor-multiset presentation and the fractional-ideal
+strengthening remain uncredited alternate encodings until separately bridged.
 
 ## Boundaries and exclusions
 

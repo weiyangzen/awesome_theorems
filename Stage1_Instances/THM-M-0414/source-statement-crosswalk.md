@@ -14,10 +14,10 @@ bibliographic precision.
 | Metadata/source component | Frozen mathematical meaning | Lean-side consequence | Intake disposition |
 |---|---|---|---|
 | "Dedekind domain" | domain satisfying the source's Dedekind hypotheses | reconcile with `[CommRing R] [IsDedekindDomain R]` and any nontriviality convention | included, exact encoding pending |
-| "ideal" | nonzero proper integral ideal | binder `I : Ideal R` with explicit boundary hypotheses | included |
+| "ideal" | nonzero integral ideal; the unit has empty factorization | binder `I : Ideal R` with `I != 0` | included and elaborated |
 | "factorization" | finite product of nonzero prime ideals | choose explicit factors/exponents or checked `finprod` transport | included |
 | "unique" | prime multiplicities agree; order irrelevant | state equality in a canonical finitely supported representation or prove equivalence to UFM | included |
-| unit ideal | empty product | must be an explicit boundary test | included |
+| unit ideal | empty product | `unitIdealBoundary` | included and kernel checked |
 | zero ideal | not covered by the classical claim | mutation test removal of `I != 0` | excluded |
 | fractional ideals | integer-valued exponents | separate strengthening only | excluded from root |
 

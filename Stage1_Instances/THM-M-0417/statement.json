@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0417-STATEMENT",
+  "theorem_id": "THM-M-0417",
+  "lifecycle": "planned",
+  "canonical_statement": "In a finite-dimensional real normed vector space, a convex set symmetric about zero whose Haar measure is strictly greater than 2^finrank times the measure of an additive fundamental domain of a countable additive subgroup contains a nonzero point of that subgroup.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0417/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0417.Statement",
+    "elaborated_expression_sha256": "9d911a547ec729d286676982e8bd570bc5ee0790fb6a557062f3c0a4cf8beba5",
+    "statement_file_sha256": "fc5125d7afbcd9b11aa00f4f3bf2c55367faf662968bd223928f8f935ce756fe"
+  },
+  "domain_and_universes": "universe u; E : Type u; NormedAddCommGroup E; NormedSpace Real E; MeasurableSpace E; BorelSpace E; FiniteDimensional Real E; mu : Measure E with mu.IsAddHaarMeasure; L : AddSubgroup E with Countable L",
+  "ordered_binders": [
+    "E : Type u",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "[MeasurableSpace E]",
+    "[BorelSpace E]",
+    "[FiniteDimensional Real E]",
+    "mu : Measure E",
+    "[mu.IsAddHaarMeasure]",
+    "L : AddSubgroup E",
+    "[Countable L]",
+    "F s : Set E"
+  ],
+  "hypotheses": [
+    "IsAddFundamentalDomain L F mu",
+    "forall x in s, -x is in s",
+    "Convex Real s",
+    "mu F * 2 ^ finrank Real E < mu s"
+  ],
+  "conclusion": "There exists x : L with x != 0 and the image of x in E lies in s.",
+  "direct_imports": ["Mathlib.MeasureTheory.Group.GeometryOfNumbers"],
+  "checked_exact_type_fixture": "The annotated #check of MeasureTheory.exists_ne_zero_mem_lattice_of_measure_mul_two_pow_lt_measure fixes the same local hypotheses and conclusion; it identifies a candidate anchor but supplies no proof credit in this phase.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "geometry_of_numbers_source_sha256": "262ce99e30915f9e41dc35e9ceb8f44ef6194316c9607b8387c19bcc65358d62",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0417/check_statement.py",
+    "killed": [
+      "removed central-symmetry hypothesis",
+      "removed convexity hypothesis",
+      "changed strict threshold to a non-strict threshold without compactness and discreteness assumptions",
+      "removed the nonzero requirement from the lattice witness"
+    ]
+  },
+  "degenerate_cases": "No Nontrivial E or DiscreteTopology L hypothesis is added. Thus zero-dimensional and trivial ambient spaces remain quantified; feasibility is governed by the strict ENNReal measure premise. Equality at the covolume threshold is deliberately excluded from this strict root. Zero is explicitly excluded as a witness.",
+  "alternate_encodings": {
+    "compact_boundary_form": "The <= variant needs IsCompact s, DiscreteTopology L, and Nontrivial E and is not substituted for this root.",
+    "zlattice_covolume_form": "A Submodule integers / IsZLattice reformulation requires a later checked object-model transport; this statement retains an explicit additive fundamental domain and its measure."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the strict intake-selected target. The mathlib declaration is exact-type checked but is not credited as proof evidence until the dependent anchor-audit and proof phases."
+}

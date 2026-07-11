@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0413-STATEMENT",
+  "theorem_id": "THM-M-0413",
+  "module_file": "Stage1_Instances/THM-M-0413/Statement.lean",
+  "declaration": "Stage1.THMM0413.Statement",
+  "minimal_imports": [
+    "Mathlib.NumberTheory.NumberField.Basic"
+  ],
+  "universe": "u",
+  "ordered_binders": [
+    "K : Type u",
+    "[Field K]",
+    "[NumberField K]"
+  ],
+  "normalized_kernel_expression": "∀ (K : Type u) [inst : Field.{u} K] [NumberField.{u} K], IsDedekindDomain.{u} (NumberField.RingOfIntegers.{u} K)",
+  "normalized_expression_sha256": "b526664b1d5fd4276d46ab61990983b0617844321d19abeda9770c0efdfabd07",
+  "environment": {
+    "lean": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_commit": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "options": "Lean defaults; no option overrides",
+    "fingerprint_sha256": "08681e82b84d4286214494f52952cef1915152480def70df1c1ee51b29fdb14c"
+  },
+  "checked_transport": {
+    "declaration": "Stage1.THMM0413.statement_iff_integralClosure",
+    "target": "forall K [Field K] [NumberField K], IsDedekindDomain (integralClosure Int K)",
+    "relationship": "iff",
+    "basis": "NumberField.RingOfIntegers is definitionally the integral closure of Int in K"
+  },
+  "boundary_case": {
+    "case": "K = Rat",
+    "result": "accepted by kernel elaboration as an included degree-one number field"
+  },
+  "mutation_results": [
+    {
+      "class": "removed_hypothesis",
+      "file": "mutations/RemovedNumberField.lean",
+      "expected_exit": 1,
+      "result": "killed: IsDedekindDomain (RingOfIntegers K) cannot be synthesized without NumberField K"
+    },
+    {
+      "class": "changed_domain",
+      "file": "mutations/ChangedDomain.lean",
+      "expected_exit": 1,
+      "result": "killed: RingOfIntegers K requires Field K, not merely CommRing K"
+    },
+    {
+      "class": "changed_binder_scope",
+      "file": "mutations/ChangedBinderScope.lean",
+      "expected_exit": 1,
+      "result": "killed: NumberField K cannot be formed before its required Field K instance is in scope"
+    }
+  ],
+  "statement_gate": "self_tested_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "This receipt establishes exact statement elaboration and its checked definitional transport only. It gives no proof-phase or theorem-completion credit."
+}
