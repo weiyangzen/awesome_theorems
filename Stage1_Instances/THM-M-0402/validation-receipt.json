@@ -1,0 +1,124 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0402-VALIDATION-local-20260711T195632Z",
+  "item_id": "S56-M-0402-VALIDATION",
+  "theorem_id": "THM-M-0402",
+  "base_revision": "4dabab14860067cbb1220d76c5a1bd9abd87d624",
+  "validated_at": "2026-07-11T19:56:32Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "supersession_state": "current",
+  "canonical_obligation_ids": [
+    "M0402-ROOT",
+    "M0402-S-DEFINITIONS",
+    "M0402-S-FOUNDATION",
+    "M0402-L-SUNIT-FG",
+    "M0402-C-MULT-GROUP",
+    "M0402-L-NONDEGENERATE-UNIT-EQUATION",
+    "M0402-N-PROJECTIVE-NORMALIZATION",
+    "M0402-C-SPECIALIZATION",
+    "M0402-T-FINITENESS",
+    "M0402-X-PROVENANCE"
+  ],
+  "statement_fingerprint": "lean-sha256:1ce0cf193c7d5faa33f7cc68fce6aeb5c1d31724f02440c5737e8e984b1786ee",
+  "validated_declarations": [
+    "Stage1Instances.THMM0402.EvertseSUnitStatement",
+    "Stage1Instances.THMM0402.coordinateValue_ne_zero",
+    "Stage1Instances.THMM0402.coordinateValue_normalize_zero",
+    "Stage1Instances.THMM0402.coordinateValue_normalize",
+    "Stage1Instances.THMM0402.coordinateSum_normalize",
+    "Stage1Instances.THMM0402.coordinateSum_normalize_eq_zero_iff",
+    "Stage1Instances.THMM0402.normalize_eq_self",
+    "Stage1Instances.THMM0402.evertseSUnitStatement_of_finiteness",
+    "Stage1Instances.THMM0402.Validation.independently_coordinateValue_ne_zero",
+    "Stage1Instances.THMM0402.Validation.independently_normalize_zero",
+    "Stage1Instances.THMM0402.Validation.independently_coordinate_value",
+    "Stage1Instances.THMM0402.Validation.independently_coordinate_sum",
+    "Stage1Instances.THMM0402.Validation.independently_coordinate_sum_eq_zero_iff",
+    "Stage1Instances.THMM0402.Validation.independently_root_of_finiteness"
+  ],
+  "inputs": {
+    "statement_sha256": "d9213f673e100c85d2330219b6dbcbaf3e7542c9ea01df0bd7b31f2f3faf518d",
+    "proof_sha256": "8b843b5642858be5f4459a06677766008f8ca00a3e1bacf3fd3465d93e1a7ab7",
+    "validation_probe_sha256": "d4f1e34d15ce4d6d701c2dc973b1285f05b55343f323e1e5b450049469265db7",
+    "validation_verifier_sha256": "a29273836b0633ba2c786bfa0be126e6977dfbfe5ba06b97a8cee9504af2329a",
+    "instance_sha256": "ed2cbc3e30840b54083bd10b68fcf8182255b4ccaac88503c577f28f91efc954",
+    "obligation_registry_sha256": "747078c8e1ec2a9daafede3c56eb7a1606fb1b44de1c1d09605b333960ee7912",
+    "obligation_graphs_sha256": "ff83df80cd43b68d6a23fbed1b6cdbb7b926364541ff55877f7078292b759a69",
+    "obligation_validator_sha256": "8eb6c8f0581cdc1b4a088533806caa4160d77106aba5e649db9faa8c217444f3",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "provenance": {
+    "proof_body_classification": "local_partial_proof_bodies_and_conditional_composition",
+    "proof_module": "Stage1_Instances/THM-M-0402/Proof.lean",
+    "independent_probe_module": "Stage1_Instances/THM-M-0402/Validation.lean",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "proof_body_boundary": "Normalization lemmas and a binder-level conditional composition are local; the finiteness premise has no body and no frozen obligation is closed."
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without update, build, clone, or fetch"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0402-validation-proof-replay",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0402/check_proof.sh"],
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0402-N-PROJECTIVE-NORMALIZATION", "M0402-ROOT"]
+    },
+    {
+      "recipe_id": "M0402-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0402/check_validation.py"],
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0402-ROOT", "M0402-N-PROJECTIVE-NORMALIZATION", "M0402-X-PROVENANCE"]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The exact statement, partial normalization bodies, conditional root composition, and independently reconstructed normalization probe elaborate. Axiom reports contain only propext, Classical.choice, and Quot.sound. Frozen hashes, pins, graph identities, open-M3 boundary, hygiene, and obligation-tree validation pass.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass for Statement.lean, Proof.lean, and Validation.lean",
+    "validated_partial_obligation_ids": ["M0402-N-PROJECTIVE-NORMALIZATION"],
+    "accepted_closed_obligation_ids": [],
+    "root_closed": false,
+    "validation_state_proposal": "worker validation phase self-test passed for the truthful open-root result; master acceptance pending",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof prerequisite is partial: all frozen closures and composition certificates remain empty; the exact root remains M3.",
+    "M0402-L-SUNIT-FG and M0402-L-NONDEGENERATE-UNIT-EQUATION have no Lean proof bodies in the pinned closure.",
+    "The multiplicative-group adapter, projective quotient/class bijection, specialization, terminal finiteness composition, root provenance, and root trust closure remain open.",
+    "The independent Lean probe used the same checkout and shared dependency cache, so it is not the distinct signed independent runner required for release.",
+    "No empty-cache offline replay, SBOM/license check, H0/R0 independent review, deterministic release bundle, or master acceptance was performed."
+  ],
+  "first_failed_gate": "S56-M-0402-VALIDATION-DEPENDENCY-PROOF-ROOT-OPEN",
+  "first_failed_release_gate": "S56-6.7-ROOT-COMPOSITION-MISSING",
+  "retry_condition": "Implement and master-accept all root-critical proof obligations and exact composition, then rerun root provenance/trust and release-only hermetic independent validation on an immutable clean snapshot.",
+  "invalidation_inputs": [
+    "Statement.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "check_validation.py",
+    "instance.json",
+    "obligation-registry.json",
+    "obligation-graphs.json",
+    "validate_obligation_tree.py",
+    "lean-toolchain",
+    "lake-manifest.json",
+    "mathlib revision or imported olean closure",
+    "Lean executable",
+    "axiom policy",
+    "rev-5.6 assurance standard"
+  ]
+}
