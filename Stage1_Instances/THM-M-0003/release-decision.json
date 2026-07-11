@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0003-RELEASE-local-20260711T233104Z",
+  "item_id": "S56-M-0003-RELEASE",
+  "theorem_id": "THM-M-0003",
+  "intent": "release",
+  "base_revision": "ecf22a6439be62b1cd7ba6d402b68217ef7c119c",
+  "base_tree": "5b4a07780d4abe33b06879c5cb53df6c85a809c6",
+  "decided_at": "2026-07-11T23:31:04Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0003-VALIDATION",
+    "receipt_id": "VALREC-M0003-20260712-PROVISIONAL-M0W",
+    "receipt_sha256": "4debae76e432408808c72adefa126c5c80db52377e333b2995dd8014094a284e",
+    "support_state": "self_tested_pending_master_acceptance",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0003-PROOF-local-20260711T232357Z",
+    "VALREC-M0003-20260712-PROVISIONAL-M0W"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M3", "R3"],
+    "accepted_after": ["H2", "M3", "R3"],
+    "best_provisional_evidence": ["H2", "M0-W", "R3"],
+    "boundary": "Two exact root proof routes close in the Lean kernel over pinned mathlib, but no phase receipt is master accepted and the frozen structured graph predates proof closure. The planned instance therefore receives no accepted debt-vector change."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0003-VALIDATION is provisional warm-cache worker evidence, is not release grade, and has not been master accepted; the release transition is not dependency-legal."
+  },
+  "first_failed_release_gate": "trust.accepted_axiom_policy",
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0003-VALIDATION and every transitive phase receipt",
+    "fresh authoritative typed-graph reconciliation of the provisionally closed root and proof obligations",
+    "complete reconciled inventory and source-boundary classification for AUDIT-Z",
+    "accepted H0 primary-source crosswalk with edition, theorem/page, assumptions, errata, and independent source review",
+    "accepted R0 structured reconstruction for every readable obligation with independent reader review",
+    "accepted axiom policy and complete transitive declaration, provenance, foundation, computation, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure with durable dependency archives",
+    "two signed attestations from distinct identities, clean checkouts, separately provisioned runners, and unshared writable caches",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed release bundle, signature, archive, and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_root_kernel_check": "pass as provisional warm-cache worker evidence",
+    "composition_route": "pass provisionally through the four frozen exactness segments",
+    "proof_body": "repo-local exact wrappers over pinned mathlib SnakeInput terminal bodies at revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass for scoped local proof source",
+    "structured_state_freshness": "failed: typed-graphs.json and obligation-registry.json retain their pre-proof M1/open architecture boundary",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "accepted_axiom_policy": "missing",
+    "complete_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_archive": "missing",
+    "independent_release_verification": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "After master acceptance of the dependency chain, reconcile the authoritative graph and full audit inventory, obtain independent H0/R0 reviews and accepted axiom/TCB policy, then validate an immutable clean snapshot with empty caches and network denied, offline supply-chain restoration, two qualifying attestations, an independent minimal verifier, and a deterministic signed bundle.",
+  "worktree_classification": "nonrelease: owned release artifacts are being added and Formalizations/Lean/.lake is a pre-existing untracked symlink to the canonical warm cache",
+  "status_boundary": "This artifact self-tests an honest blocked release decision only. It does not accept prerequisite receipts, change authoritative lifecycle or debt state, establish AUDIT-Z or THEOREM-Z, or claim theorem completion."
+}
