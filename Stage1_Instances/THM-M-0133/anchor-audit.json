@@ -1,0 +1,120 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0133-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0133",
+  "base_revision": "16629827a8c07768fa69682fa6c8abee2a716543",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0133.WilesFermatLastTheoremTarget",
+  "canonical_target_expression_sha256": "8e0d406e9e5ba4504c1930352fde324a02df4a30cbfd75f796b9a3d2627113c1",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "flt_regular_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M0133-A-MATHLIB-ROOT",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Basic",
+      "declaration": "FermatLastTheorem",
+      "type": "Prop; definitionally the frozen natural-number target",
+      "classification": "M2",
+      "terminal_provenance": "definition only",
+      "result": "exact statement anchor; no unconditional proof declaration was found in the pinned dependency"
+    },
+    {
+      "id": "M0133-A-MATHLIB-ASSEMBLY",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Four",
+      "declaration": "FermatLastTheorem.of_odd_primes",
+      "type": "(forall p, Nat.Prime p -> Odd p -> FermatLastTheoremFor p) -> FermatLastTheorem",
+      "classification": "M0-P for the conditional implication only",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "terminal_provenance": "mathlib source proof body",
+      "result": "checked recomposition anchor; the all-odd-prime premise remains open"
+    },
+    {
+      "id": "M0133-A-MATHLIB-THREE",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Three",
+      "declaration": "fermatLastTheoremThree",
+      "type": "FermatLastTheoremFor 3",
+      "classification": "M0-P",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "terminal_provenance": "mathlib source proof body",
+      "result": "checked fixed-exponent theorem, not the root"
+    },
+    {
+      "id": "M0133-A-MATHLIB-FOUR",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Four",
+      "declaration": "fermatLastTheoremFour",
+      "type": "FermatLastTheoremFor 4",
+      "classification": "M0-P",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "terminal_provenance": "mathlib source proof body",
+      "result": "checked fixed-exponent theorem, not the root"
+    },
+    {
+      "id": "M0133-A-MATHLIB-POLYNOMIAL",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.FLT.Polynomial",
+      "declaration": "fermatLastTheoremWith'_polynomial",
+      "type": "3 <= n -> (n : k) != 0 -> FermatLastTheoremWith' k[X] n",
+      "classification": "M0-P",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "terminal_provenance": "mathlib source proof body",
+      "result": "adjacent polynomial-ring variant; it does not imply the natural-number root"
+    },
+    {
+      "id": "M0133-A-FLT-REGULAR",
+      "source": "leanprover-community/flt-regular",
+      "revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+      "module": "FltRegular.FltRegular",
+      "declaration": "flt_regular",
+      "type": "{p : Nat} -> [Fact p.Prime] -> IsRegularPrime p -> p != 2 -> FermatLastTheoremFor p",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "classification": "M0-P",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "terminal_provenance": "pinned external package proof body",
+      "result": "checked regular-prime family only; it does not cover arbitrary odd primes"
+    },
+    {
+      "id": "M0133-A-IMPERIAL-FULL",
+      "source": "ImperialCollegeLondon/FLT",
+      "revision": "8884a744090a0e7f5a6ba0fa7ba1019403f3ca78",
+      "module": "FLT.Proof",
+      "declaration": "flt",
+      "type": "FermatLastTheorem",
+      "toolchain": "leanprover/lean4:v4.32.0-rc1",
+      "mathlib_revision": "0098dd94d810711e831b250902687d3edab9969b",
+      "classification": "M5",
+      "terminal_provenance": "flt -> B1_proof -> B2_proof -> B3_proof -> B4_proof",
+      "result": "the immutable source defines B4_proof with a proof gap, which flows to flt; the project is also outside the local pinned closure",
+      "reopen_when": "an immutable revision removes all transitive proof gaps, passes axiom and independent kernel audits, and is pinned and checked locally"
+    }
+  ],
+  "search": {
+    "repo_local": "audited the legacy S1_M_022 module; its WilesModularityProofFrontier is an explicit assumption package and its wrappers are conditional or partial",
+    "pinned_dependencies": "verified clean mathlib and flt-regular worktrees at manifest revisions, inspected declaration sources, and elaborated exact candidate types",
+    "external": "audited immutable raw files for ImperialCollegeLondon/FLT at the recorded revision",
+    "limitations": "no dependency was fetched or added; the Imperial project uses a different unmaterialized toolchain and was source-audited rather than built"
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "local candidates are conditional or restricted, while the exact external root has a transitive proof gap",
+    "integration_tasks": [],
+    "remaining_cut_set": ["unconditional all-odd-prime exponent closure via the Wiles/Taylor-Wiles and Frey/Ribet chain"]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This completes only the immutable candidate inventory for S56-M-0133-ANCHOR_AUDIT. It does not accept a proof, close the root, or claim audit/theorem completion."
+}
