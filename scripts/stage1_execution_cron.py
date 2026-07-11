@@ -493,6 +493,60 @@ def validate_only() -> None:
     print(f"todo={todo.relative_to(ROOT)}")
 
 
+def integrate(limit: int) -> None:
+    """Verify worker handoffs and advance only the worker cursor to `[_]`."""
+    if limit < 1:
+        fail("--limit must be positive")
+    data, ordered = load_dag()
+    claims = refresh_claims(ordered)
+    by_id = {item["id"]: item for item in data["items"]}
+    ready = [claim for claim in claims if claim.get("status") == "finished"][:limit]
+    accepted: list[str] = []
+    rejected: list[dict[str, str]] = []
+    queue: list[dict[str, Any]] = []
+    for claim in ready:
+        item = by_id.get(claim.get("item_id"))
+        workspace = Path(str(claim.get("workspace", "")))
+        handoff = workspace / ".stage1-worker-selftest.json"
+        try:
+            if item is None:
+                raise ValueError("claim refers to unknown item")
+            packet = json.loads(handoff.read_text(encoding="utf-8"))
+            changed_paths = packet.get("changed_paths")
+            owner = item["owned_paths"][0] + "/"
+            if packet.get("item_id") != item["id"] or packet.get("state") != "[_]":
+                raise ValueError("worker packet identity/state mismatch")
+            if not isinstance(changed_paths, list) or not changed_paths:
+                raise ValueError("worker packet lacks changed paths")
+            if any(not isinstance(path, str) or not path.startswith(owner) or ".." in Path(path).parts for path in changed_paths):
+                raise ValueError("worker paths escape the assigned ownership scope")
+            source = workspace / item["owned_paths"][0]
+            destination = ROOT / item["owned_paths"][0]
+            if not source.is_dir() or destination.exists():
+                raise ValueError("worker source missing or main owned path conflicts")
+            records = list(source.rglob("*.json"))
+            if not records or not any(item["theorem_id"] in record.read_text(encoding="utf-8", errors="ignore") for record in records):
+                raise ValueError("no target-identifying JSON evidence record")
+            shutil.copytree(source, destination)
+            item["state"] = "[_]"
+            item["attempts"] = int(item.get("attempts", 0)) + 1
+            claim["status"] = "finished_integrated"
+            claim["integrated_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            accepted.append(item["id"])
+            queue.append({"item_id": item["id"], "theorem_id": item["theorem_id"], "state": "[_]", "owned_paths": item["owned_paths"], "changed_paths": changed_paths, "commands": packet.get("commands", []), "known_failures": packet.get("known_failures", [])})
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            rejected.append({"item_id": str(claim.get("item_id")), "reason": str(exc)})
+    if accepted:
+        run(["python3", "Docs/tools/check_stage1_standard.py"])
+        run(["python3", "scripts/stage1_target.py", "check"])
+        atomic_write(DAG, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+        write_projection(data)
+    save_claims(claims)
+    atomic_write(runtime_path("integration_queue.json"), json.dumps({"queued": queue, "rejected": rejected}, ensure_ascii=False, indent=2) + "\n")
+    todo = write_todo(data, validate_dag(data), claims)
+    print(f"integrate: worker-self-tested={len(accepted)} rejected={len(rejected)} todo={todo.relative_to(ROOT)}")
+
+
 def launch(max_workers: int) -> None:
     if max_workers < 1 or max_workers > 30:
         fail("--workers must be in 1..30")
@@ -568,16 +622,20 @@ def main() -> None:
     modes = parser.add_mutually_exclusive_group(required=True)
     modes.add_argument("--bootstrap", action="store_true", help="generate the typed 1546-target execution DAG and blueprint appendix")
     modes.add_argument("--validate-only", action="store_true", help="validate DAG, state, budgets, and todo without syncing or spawning workers")
+    modes.add_argument("--integrate", action="store_true", help="verify completed worker handoffs and advance them to worker-self-tested")
     modes.add_argument("--tick", action="store_true", help="sync, refill the tmux Codex worker lanes, and refresh todo")
     modes.add_argument("--cleanup", action="store_true", help="remove the cron entry only after every completion gate is true")
     modes.add_argument("--install", action="store_true", help="install a bounded scheduler cron entry")
     parser.add_argument("--workers", type=int, default=30, help="maximum concurrent tmux Codex workers (1..30)")
+    parser.add_argument("--limit", type=int, default=30, help="maximum worker handoffs integrated by --integrate")
     parser.add_argument("--schedule", default="*/10 * * * *", help="crontab schedule used by --install")
     args = parser.parse_args()
     if args.bootstrap:
         bootstrap()
     elif args.validate_only:
         validate_only()
+    elif args.integrate:
+        integrate(args.limit)
     elif args.tick:
         launch(args.workers)
     elif args.cleanup:
