@@ -1,14 +1,14 @@
 # THM-M-0441 rev-5.6 intake
 
-This directory is the `planned` intake for the Pila-Wilkie rational-point counting theorem. The
-intended source family is identifiable, but the repository metadata does not freeze an edition,
-theorem number, height convention, parameter policy, or the exact algebraic-part definition.
-Those choices materially affect the proposition, so the exact claim remains open for the statement
-phase rather than being invented here.
+This directory now freezes the first version of the Pila-Wilkie rational-point counting theorem:
+Theorem 1.8, with height from Definition 1.3 and algebraic part from Definition 1.5 of the 2006
+paper. `Statement.lean` elaborates the exact quantitative target with explicit o-minimality,
+definability, affine rational height, algebraic part, finiteness, constant, and threshold.
 
-The legacy `S1_M_087.lean` file is discovery input only. Its `StatementShape` quantifies over a
+The legacy `S1_M_087.lean` file remains discovery input only. Its `StatementShape` quantifies over a
 `subpolynomialBound` predicate supplied as structure data and therefore is not accepted as the
-classical theorem. The provisional root vector is `[H2, M4, R4]`. No proof or completion is claimed.
+classical theorem. The provisional root vector is `[H1, M3, R4]`. Elaboration is statement evidence,
+not a proof or completion claim.
 
-The included scope map and source crosswalk define the decision boundary. Downstream work is
-represented by the open `task-dag.json`; intake validation is recorded in `validation.md`.
+The source crosswalk records the inspected source and exact encoding. Downstream work remains open
+in `task-dag.json`; statement validation is recorded in `validation.md`.
