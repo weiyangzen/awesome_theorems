@@ -1,46 +1,46 @@
 {
   "schema_version": "stage1-instance/5.6.0",
-  "item_id": "S56-M-0005-INTAKE",
+  "item_id": "S56-M-0005-STATEMENT",
   "lifecycle_mode": "planned",
   "theorem_id": "THM-M-0005",
   "canonical_name": "Kunneth formula",
-  "canonical_statement": "For spaces X and Y and coefficients in a principal ideal domain R, under the usual freeness hypotheses for the singular chain complexes, the homology of X x Y fits into the natural Kunneth short exact sequence whose left term is the direct sum of tensor products of homology groups and whose right term is the corresponding direct sum of Tor groups.",
+  "canonical_statement": "For all spaces X and Y, every degree n, and every commutative principal ideal domain R, singular homology with coefficients in R fits naturally in both spaces into the short exact sequence whose left term is the direct sum over p + q = n of H_p(X;R) tensor_R H_q(Y;R) and whose right term is the direct sum over p + q + 1 = n of Tor_1^R(H_p(X;R), H_q(Y;R)).",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "module": "Stage1_Instances/THM-M-0005/KunnethStatement.lean",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.THM_M_0005.KunnethFormula",
+    "elaborated_expression_hash": "sha256:f6396a70702a8bb45dbbb267ebd3ba10aae4f4db28cf25355f8fcd7bb607ddd4",
+    "environment_fingerprint": "Lean v4.29.0; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; lake-manifest sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81; source sha256:f91fb92e25655c923340755a9b64b5b32e4667a51f48474db1f4f14ac0edea53",
+    "gate_state": "elaborated_worker_provisional"
   },
-  "domain_and_universes": "Topological spaces X and Y; a principal ideal domain R; graded R-modules arising as singular homology. Lean universes and category instances remain to be frozen.",
+  "domain_and_universes": "One Lean universe u; R : Type u with CommRing R, IsDomain R, and IsPrincipalIdealRing R; X Y : TopCat.{u}; n p q : Nat; homology objects in ModuleCat.{u} R.",
   "quantifiers": [
-    "X Y : topological spaces",
-    "R : principal ideal domain",
-    "n : integer grading degree"
+    "u : Lean universe",
+    "R : Type u, with CommRing R, IsDomain R, and IsPrincipalIdealRing R",
+    "X Y : TopCat.{u}",
+    "n : Nat"
   ],
   "hypotheses": [
-    "the singular chain complexes satisfy the freeness/flatness conditions required by the selected Kunneth theorem",
     "tensor products, Tor, and homology are taken over the same coefficient ring R"
   ],
-  "conclusion": "A natural short exact sequence 0 -> direct_sum_{p+q=n}(H_p(X;R) tensor_R H_q(Y;R)) -> H_n(X x Y;R) -> direct_sum_{p+q=n-1} Tor_1^R(H_p(X;R), H_q(Y;R)) -> 0, with any splitting treated as noncanonical unless stronger data are supplied.",
+  "conclusion": "Nonempty NaturalKunnethSequence R: for every X, Y, and n, a ShortComplex.ShortExact tensor-to-product-homology-to-Tor sequence, with componentwise induced maps and commuting inclusion/projection naturality squares for every pair of continuous maps.",
   "alternate_encodings": [
     {
       "target": "algebraic Kunneth theorem for tensor products of chain complexes",
       "relationship": "expected source theorem for a topological specialization via an Eilenberg-Zilber comparison",
-      "checked_witness": "none; deferred to statement and obligation phases"
+      "checked_witness": "none; this encoding is not credited as an alternate form"
     },
     {
       "target": "field-coefficient direct-sum isomorphism",
       "relationship": "special case in which the Tor term vanishes",
-      "checked_witness": "none; not substituted for the PID root"
+      "checked_witness": "none; not substituted for the PID root and not credited as an alternate form"
     }
   ],
-  "excluded_degenerate_cases": "No connectedness assumption is silently added. Empty spaces, degree conventions, negative grading, and zero coefficient rings must be mutation/boundary tested after an exact Lean encoding is selected.",
-  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, quotient, and category-theory assumptions remain open",
-  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "excluded_degenerate_cases": "No connectedness, nonemptiness, finite-type, or chain-level freeness hypothesis is added. Nat grading includes n = 0; TorDegrees 0 is empty. The zero ring is excluded by mathlib's IsDomain typeclass. A splitting is not asserted.",
+  "foundation_profile": "noncomputable section; Lean propositions and mathlib category constructions; no local axiom, theorem proof, oracle, or unsafe declaration",
+  "tcb_profile": "Lean v4.29.0 kernel with pinned mathlib commit 8a178386ffc0f5fef0b77738bb5449d50efeea95; worker elaboration is provisional pending master acceptance",
   "computation_profile": "No computation, oracle, or generated result is credited at intake",
-  "formal_system": "Lean 4 + pinned mathlib; exact pin verification is deferred to the statement phase",
+  "formal_system": "Lean v4.29.0 + mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
   "source_revisions": "See source_statement_crosswalk.md; primary edition hashing and errata review remain open",
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
@@ -54,7 +54,7 @@
     "reviewer": "independent integration-lane reviewer required"
   },
   "freshness_and_revocation_policy": "Invalidate on changes to the claim, coefficient or finiteness hypotheses, grading convention, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
-  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
   "theorem_complete": false,
-  "status_boundary": "This planned intake freezes the intended PID short-exact-sequence scope only. It supplies no elaborated Lean target, accepted source audit, proof body, or theorem-completion evidence."
+  "status_boundary": "The exact target elaborates provisionally at M3. This statement phase supplies no inhabitant of NaturalKunnethSequence, accepted source audit, proof body, alternate-encoding credit, or theorem-completion evidence."
 }
