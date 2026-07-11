@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0010-STATEMENT",
+  "theorem_id": "THM-M-0010",
+  "lifecycle": "planned",
+  "canonical_statement": "For a submodule N of a finite module M over a commutative Noetherian ring R and an ideal I, there is k such that I^n M intersect N equals I^(n-k) acting on (I^k M intersect N) for every n at least k.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0010/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0010.ArtinReesTarget",
+    "elaborated_expression_sha256": "4904e2a629f74a9ee9347b8309a6103bb6ee0e64e5357fc18f709f82c2e95a0d",
+    "statement_file_sha256": "a8470ae260bed65099a938a8d0c95187c1080e68f77e224aa6f0f0b7e00b28b3"
+  },
+  "domain_and_universes": "universes u v; R : Type u; CommRing R; IsNoetherianRing R; I : Ideal R; M : Type v; AddCommGroup M; Module R M; Module.Finite R M; N : Submodule R M; Prop in Lean universe 0",
+  "ordered_binders": [
+    "R : Type u",
+    "[CommRing R]",
+    "[IsNoetherianRing R]",
+    "I : Ideal R",
+    "M : Type v",
+    "[AddCommGroup M]",
+    "[Module R M]",
+    "[Module.Finite R M]",
+    "N : Submodule R M",
+    "k : Nat (existential)",
+    "n : Nat (universal)"
+  ],
+  "hypotheses": ["k <= n"],
+  "conclusion": "I ^ n • top ⊓ N = I ^ (n - k) • (I ^ k • top ⊓ N)",
+  "direct_imports": ["Mathlib.RingTheory.Filtration"],
+  "checked_transport": "Stage1Instances.THM_M_0010.artinReesTarget_iff_pinnedMathlibSourceShape",
+  "pinned_source_declaration": "Ideal.exists_pow_inf_eq_pow_smul",
+  "pinned_source_relationship": "PinnedMathlibSourceShape reproduces the declaration's ordered assumptions, binders, ideal action, infimum, equality, and n >= k guard at mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The checked iff is definitional. No proof credit is assigned by this statement node.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0010/check_statement.py",
+    "killed": [
+      "removed IsNoetherianRing R",
+      "removed Module.Finite R M",
+      "removed the k <= n guard",
+      "weakened equality to the standard containment consequence"
+    ],
+    "elaborated_boundary_expressions": [
+      "Stage1Instances.THM_M_0010.boundaryBottomIdeal",
+      "Stage1Instances.THM_M_0010.boundaryTopIdeal",
+      "Stage1Instances.THM_M_0010.boundaryBottomSubmodule",
+      "Stage1Instances.THM_M_0010.boundaryAtWitness"
+    ]
+  },
+  "degenerate_cases": "The target retains bottom and top ideals, bottom and top submodules, trivial modules, and n = k. Bottom ideal, top ideal, bottom submodule, and n = k specializations separately elaborate without adding side conditions.",
+  "alternate_encodings": {
+    "eventual_containment": "The intake-listed containment is strictly a consequence-shaped mutation here and is not substituted for the equality.",
+    "filtration_form": "The filtration formulation remains an uncredited alternate; no equivalence beyond the pinned declaration shape is claimed."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake target using the minimal module that exports the pinned mathlib declaration, a definitional source-shape transport, four structural mutations, and four boundary expressions. It supplies no Artin-Rees proof, anchor-audit acceptance, or dependent-node evidence."
+}

@@ -1,0 +1,3 @@
+import Mathlib.AlgebraicTopology.SingularHomology.HomotopyInvarianceTopCat
+
+#check CategoryTheory.E₂CohomologicalSpectralSequence

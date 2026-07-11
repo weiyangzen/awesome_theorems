@@ -25,3 +25,12 @@ Lean declaration and claims neither exact elaboration nor proof closure.
 The historical file `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_106.lean`
 is discovery input only. Its general spectral-sequence wrappers and local
 cohomology skeleton neither state nor prove the selected AHSS root.
+
+## Statement phase
+
+`Statement.lean` now freezes the exact closed proposition selected by this
+intake. It quantifies the abelian target, generalized-cohomology skeleton,
+space, and finite-CW skeletal input, then asks for the cohomological AHSS data,
+the `E₂` coefficient identification, naturality, and convergence to the
+skeletal associated graded. The file defines this proposition but provides no
+inhabitant and makes no proof-completion claim.

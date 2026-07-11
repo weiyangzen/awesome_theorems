@@ -18,3 +18,10 @@ Base revision: `1a30b84c1f86a2bbbf08b36f9afd06912b8f6c06`.
 The first downstream failed gate is the exact Lean statement gate: the bundled
 generalized-cohomology and finite-CW interfaces, canonical expression, imports,
 environment fingerprint, and mutation tests have not yet been established.
+
+## Statement phase
+
+The node-specific commands and hashes are recorded in `statement-receipt.md`.
+The exact proposition elaborated against the pinned toolchain and imports; both
+import-removal probes failed with the expected missing identifier. This is
+statement elaboration only and does not establish an AHSS proof.
