@@ -20,3 +20,11 @@ records that no terminal Lean proof is credited.
 
 See `scope-map.md`, `source-statement-crosswalk.md`, and `validation.md` for the boundaries and
 self-test evidence.
+
+## Anchor-audit verdict
+
+`anchor-audit.md` records the immutable mathlib, flt-regular, and external Lean 4 candidate
+inventory. The pinned mathlib tree has no terminal Mihailescu declaration; its similarly named
+`Polynomial.flt_catalan` has a different polynomial theorem type. Formal Conjectures has a close
+statement at commit `7871d8fc7a8164a1ac16c3765b40c25ce015b681`, but its proof is `sorry`.
+Consequently there is no terminal body to integrate, and the root remains open at `[H1, M4, R4]`.

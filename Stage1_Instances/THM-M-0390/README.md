@@ -9,7 +9,9 @@ repository gloss maps to the standard exponential equation. The historical Lean 
 input only. Its definitions have not been accepted as the rev-5.6 canonical target, and its checked
 small examples do not prove the theorem.
 
-This intake remains at provisional `[H2, M4, R4]`. The statement phase must inspect a stable copy of
-the primary paper, freeze the exact ordered binders, elaborate the Lean proposition, and test the
-equivalence of the consecutive-powers and oriented-equation presentations. No proof, audit
-completion, or theorem completion is claimed.
+The statement node now freezes and elaborates the exact oriented proposition in `Statement.lean`
+with the sole direct import `Init`; `statement.json` and `statement-validation.md` record its pinned
+environment, ordered binders, exact-type fixture, checked implication to the value-only form, and
+four mutation probes. The primary-source pinpoint audit remains open, and the value-only form is
+not incorrectly credited as an equivalence without a representation-uniqueness bridge. No proof,
+audit completion, theorem completion, or master acceptance is claimed.
