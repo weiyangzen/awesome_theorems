@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0583-STATEMENT",
+  "theorem_id": "THM-M-0583",
+  "lifecycle": "planned",
+  "canonical_statement": "Every closed topological 4-manifold homotopy equivalent to the standard topological 4-sphere is homeomorphic to the standard topological 4-sphere.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0583/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0583.FourDimensionalTopologicalPoincareTarget",
+    "elaborated_expression_sha256": "8ba8ef3cba0ad739c717ad8f42d40c221ff7a2cdcf79f7098709a60bd7a7ebce",
+    "statement_file_sha256": "ce7668cd0bd07aaf54ed7d60bb9eb74253b6ab48ab97e38c12d1446d99eec6d8"
+  },
+  "domain_and_universes": "M : Type u with TopologicalSpace, T2Space, CompactSpace, and ChartedSpace (EuclideanSpace Real (Fin 4)) instances; the sphere is Metric.sphere 0 1 in EuclideanSpace Real (Fin 5)",
+  "ordered_binders": [
+    "M : Type u",
+    "TopologicalSpace M instance",
+    "T2Space M instance",
+    "CompactSpace M instance",
+    "ChartedSpace (EuclideanSpace Real (Fin 4)) M instance",
+    "unpointed homotopy equivalence M ≃ₕ S^4"
+  ],
+  "hypotheses": [
+    "M is Hausdorff through T2Space",
+    "M is compact through CompactSpace",
+    "M is a boundaryless topological four-manifold through ChartedSpace over EuclideanSpace Real (Fin 4)",
+    "M is unpointedly homotopy equivalent to the standard topological four-sphere"
+  ],
+  "conclusion": "Nonempty (M ≃ₜ S^4), the existence of a homeomorphism to the standard topological four-sphere.",
+  "direct_imports": [
+    "Mathlib.Geometry.Manifold.PoincareConjecture"
+  ],
+  "minimal_import_evidence": "This is the pinned mathlib module defining the generalized topological Poincare statement and importing its exact manifold, sphere, homotopy-equivalence, and homeomorphism object model. No broader Mathlib umbrella is imported.",
+  "checked_transport": "Stage1Instances.THM_M_0583.fourDimensionalTopologicalPoincareTarget_iff_expanded (Iff.rfl)",
+  "alternate_encodings": [],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0583/check_statement.py",
+    "killed": [
+      "removed the homotopy-equivalence hypothesis",
+      "changed both manifold and sphere dimensions from four to three",
+      "changed universal quantification over manifolds to existential quantification",
+      "removed the CompactSpace closedness boundary"
+    ]
+  },
+  "boundary_cases": {
+    "closedness": "CompactSpace and T2Space are explicit; noncompact manifolds are excluded.",
+    "boundary": "ChartedSpace over EuclideanSpace Real (Fin 4) is the pinned mathlib boundaryless topological-manifold convention.",
+    "orientation_and_connectedness": "No orientation, connectedness, or simple-connectedness binder is added; the homotopy-equivalence hypothesis supplies the relevant homotopy type.",
+    "category": "The conclusion is a homeomorphism, not a diffeomorphism; the unresolved smooth four-dimensional conjecture is excluded.",
+    "sphere": "The sphere is the radius-one metric sphere centered at zero in EuclideanSpace Real (Fin 5)."
+  },
+  "foundation_profile": "Lean 4 dependent type theory; the statement uses no classical-choice term and introduces no axiom or proof body.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; existing canonical Lake artifacts only.",
+  "computation_profile": "Noncomputable topological existence proposition; no oracle, experiment, or certificate computation.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact local proposition. It does not inspect or credit mathlib's proof_wanted declaration, establish source H0, prove the target, close M0, complete the audit, or complete the theorem."
+}
