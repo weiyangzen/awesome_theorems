@@ -1,0 +1,107 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0417-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0417",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "1ec654c416270f261b365f46f5f2409b65d3f839",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_0417.Statement",
+    "elaborated_expression_sha256": "9d911a547ec729d286676982e8bd570bc5ee0790fb6a557062f3c0a4cf8beba5",
+    "statement_file_sha256": "fc5125d7afbcd9b11aa00f4f3bf2c55367faf662968bd223928f8f935ce756fe"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0417-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Group.GeometryOfNumbers",
+      "declaration": "MeasureTheory.exists_ne_zero_mem_lattice_of_measure_mul_two_pow_lt_measure",
+      "source_lines": "65-84",
+      "source_blob": "d1487ee506c1a9834ba2d21ac3d62867c1ecbd25",
+      "source_sha256": "262ce99e30915f9e41dc35e9ceb8f44ef6194316c9607b8387c19bcc65358d62",
+      "kind": "exact_terminal_theorem",
+      "normalized_match": "exact, established by a checked wrapper whose conclusion is the frozen Statement definition",
+      "proof_body_provenance": "pinned mathlib source; local theorem body invokes Blichfeldt's theorem after scaling the convex set by one half",
+      "placeholder_or_axiom_status": "source contains a theorem proof body and no sorry/admit/axiom declaration; #print axioms reports only propext, Classical.choice, and Quot.sound",
+      "classification": "M0-W candidate pending later proof/provenance/validation gates",
+      "integration_status": "already pinned in the Lake manifest, imported, and exact-type checked locally"
+    },
+    {
+      "candidate_id": "S56-M-0417-C02",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "1ec654c416270f261b365f46f5f2409b65d3f839",
+      "module": "AwesomeTheorems.Stage1.S1_M_072",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_072.minkowski_convex_body_strict",
+      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_072.lean",
+      "source_blob": "376f630157f9ef76b4f43d7f23dabcd91f4d6306",
+      "source_sha256": "32ff176c64c4b11b67247f05bd0e5078e1258ca9ba49a3ae6da6409a2951ae9e",
+      "kind": "exact_legacy_wrapper",
+      "proof_body_provenance": "one-step wrapper around C01",
+      "classification": "discovery_only_duplicate_wrapper",
+      "integration_status": "legacy artifacts are unaccepted under rev-5.6 and provide no independent proof-body credit"
+    },
+    {
+      "candidate_id": "S56-M-0417-C03",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas.NumberTheoryI.code.GeometryOfNumbers",
+      "declaration": "GeometryOfNumbers.minkowski_lattice_point",
+      "kind": "external_exact_wrapper",
+      "proof_body_provenance": "one-step wrapper around the same mathlib declaration as C01",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "license": "CC BY-NC 4.0 with a no-training rider",
+      "classification": "M1-shaped external wrapper, redundant and not integration-eligible",
+      "integration_status": "not imported; adds no terminal body beyond already-pinned C01 and has a restrictive license"
+    },
+    {
+      "candidate_id": "S56-M-0417-C04",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Group.GeometryOfNumbers",
+      "declaration": "MeasureTheory.exists_ne_zero_mem_lattice_of_measure_mul_two_pow_le_measure",
+      "kind": "stronger-threshold variant with additional hypotheses",
+      "normalized_match": "not interchangeable: requires compactness, discrete lattice topology, and Nontrivial E while allowing equality",
+      "classification": "adjacent M0-W theorem only",
+      "integration_status": "pinned and checked, but not credited to the strict root"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes exists_ne_zero_mem_lattice_of_measure_mul_two_pow_lt_measure lang:Lean count:100",
+      "result": "matchCount=12; mathlib4, mathlib3, and atlas-lean paths returned; Atlas C03 was the only distinct Lean 4 project wrapper inspected",
+      "response_sha256": "af0040736369fcd1dbc8a714db5b763545ecb47c6973c969c65d3aa7fefbab21",
+      "immutability_boundary": "dated content-hashed discovery response; candidate revisions were recorded separately"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Minkowski theorem\"+lean",
+      "result": "one Hasse-Minkowski repository, a distinct quadratic-form theorem; incomplete_results=false",
+      "response_sha256": "91c8b2410f461f85cbdb15df95309873281fd4b6a78c771137b617ba10875a18",
+      "immutability_boundary": "dated content-hashed discovery response, not a proof candidate"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"Minkowski Convex Body\"+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no exhaustive negative claim"
+    }
+  ],
+  "root_machine_classification": "M0-W candidate",
+  "root_classification_reason": "The immutable pinned mathlib dependency contains a placeholder-free terminal proof, and a repo-local exact-type wrapper elaborates against the frozen target. Final M0-W acceptance belongs to the later proof, provenance, validation, and master gates.",
+  "integration_blocker": null,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes the bounded anchor inventory only. It does not accept proof integration, obligation composition, H0/R0, hermetic validation, or theorem completion."
+}
