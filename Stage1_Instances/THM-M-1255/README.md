@@ -1,6 +1,7 @@
 # THM-M-1255 rev-5.6 intake
 
-This is the `planned` rev-5.6 instance for the Malgrange-Ehrenpreis theorem. The historical
+This is the `planned` rev-5.6 instance for the Malgrange-Ehrenpreis theorem. The exact normalized
+Lean statement is now self-tested pending master acceptance. The historical
 `S1_M_160.lean` module is discovery input only and supplies no inherited proof credit.
 
 ## Scope map
@@ -19,12 +20,18 @@ The structured binder and hypothesis inventory is in `intake.json`. Source-to-cl
 made explicit in `source_statement_crosswalk.md`; notably, the classical distribution conclusion
 must not be silently substituted by the legacy tempered-distribution target.
 
+## Statement phase
+
+`Statement.lean` freezes `MalgrangeEhrenpreisTarget`: every finite coordinate type existentially
+admits a polynomial differential action for which every nonzero complex polynomial has a tempered
+fundamental solution. `statement.json` records the explicit elaborated-expression digest, pinned
+environment, binder order, boundary cases, and mutation results. This statement phase supplies no
+proof and does not resolve the primary-source status of the tempered-distribution strengthening.
+
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
-The next phase must elaborate the exact target, decide the distribution class and coefficient field,
-construct or specify the genuine polynomial action, fingerprint the environment, check transports,
-and mutation-test hypotheses and boundary cases. Later phases must audit primary sources and Lean
+The next phase must audit primary sources and Lean
 anchors, freeze typed obligation graphs, close proof bodies, and run the full release protocol.
 
 ## Intake verdict

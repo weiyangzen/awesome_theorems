@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1255-STATEMENT",
+  "theorem_id": "THM-M-1255",
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite coordinate type, there is a complex constant-coefficient polynomial differential action such that every nonzero complex polynomial symbol has a complex tempered distribution E satisfying P(D)E = delta_0.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1255/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1255.MalgrangeEhrenpreisTarget",
+    "elaborated_expression_sha256": "0ea54a511c4baf6d8bfacb7e784833be9ca4faef66bf1c736765465ed65ad3cf",
+    "statement_file_sha256": "06e76a02a0781eafc5166ea68721b7dd6095e5f45ef686df425c2f236ab9e94f"
+  },
+  "domain_and_universes": "u; every ι : Type u with Fintype ι and DecidableEq ι; EuclideanSpace ℝ ι; complex-valued tempered distributions; MvPolynomial ι ℂ",
+  "ordered_binders": [
+    "ι : Type u",
+    "[Fintype ι]",
+    "[DecidableEq ι]",
+    "A : PolynomialDifferentialAction ι (existential)",
+    "P : MvPolynomial ι ℂ",
+    "P != 0",
+    "E : TemperedDist ι (existential)"
+  ],
+  "hypotheses": [
+    "P != 0",
+    "A.toAlgHom maps every polynomial variable X i to the distributional derivative in coordinate direction i"
+  ],
+  "conclusion": "A.toAlgHom P E = TemperedDistribution.delta 0",
+  "direct_imports": [
+    "Mathlib.Analysis.Distribution.TemperedDistribution",
+    "Mathlib.RingTheory.MvPolynomial.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1255.target_iff_exists_fixedActionStatement",
+  "pinned_source_relationship": "The repository's exact discovery claim is existence of a fundamental solution for constant-coefficient PDEs. This formal target makes the polynomial calculus explicit and existential rather than assuming it. Its tempered-distribution codomain is a deliberate normalization boundary inherited from the existing Lean object model; primary-source equivalence remains an H-gate obligation.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1255/check_statement.py",
+    "killed": [
+      "removed the nonzero-polynomial hypothesis",
+      "changed the polynomial coefficient field from complex to real",
+      "universally assumed rather than existentially supplied the polynomial action",
+      "restricted the coordinate type to one dimension"
+    ]
+  },
+  "boundary_cases": {
+    "zero_polynomial": "excluded",
+    "nonzero_constants": "included",
+    "zero_dimensional_coordinate_type": "included",
+    "all_finite_dimensions": "included"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the exact normalized target only. It does not prove existence, accept the polynomial action construction, establish primary-source equivalence of the tempered strengthening, or pass any later rev-5.6 gate."
+}
