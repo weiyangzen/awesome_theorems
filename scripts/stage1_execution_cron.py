@@ -590,7 +590,16 @@ def launch(max_workers: int) -> None:
     claims = refresh_claims(ordered)
     space_guard(claims)
     live = [claim for claim in claims if claim.get("status") == "live"]
-    capacity = max_workers - len(live)
+    # A slot owns its clone.  Never derive a slot from the count of live claims:
+    # claims can finish out of order, leaving holes, and reusing an occupied slot
+    # would make two Codex processes write the same worker checkout/manifest.
+    occupied_slots = {
+        claim.get("slot")
+        for claim in live
+        if isinstance(claim.get("slot"), int) and 1 <= claim["slot"] <= max_workers
+    }
+    available_slots = [slot for slot in range(1, max_workers + 1) if slot not in occupied_slots]
+    capacity = len(available_slots)
     if capacity <= 0:
         print(f"tick: saturated ({len(live)}/{max_workers} live workers)")
         write_todo(data, ordered, claims)
@@ -607,8 +616,7 @@ def launch(max_workers: int) -> None:
         write_todo(data, ordered, claims)
         return
     timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    for offset, item in enumerate(selected, start=1):
-        slot = len(live) + offset
+    for slot, item in zip(available_slots, selected):
         workspace = prepare_workspace(slot)
         prompt = RUNTIME / "prompts" / f"{item['id']}.txt"
         output = RUNTIME / "logs" / f"{item['id']}.out"
