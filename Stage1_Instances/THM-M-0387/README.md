@@ -34,3 +34,13 @@ dependency build or fetch.
 On base revision `a8d6489fd935cd71fa4499f2f3f5b051998203f4`, the worker ran the commands recorded in
 `validation.md`. They establish manifest membership, repository-standard consistency, JSON syntax,
 and dossier-local reference integrity only.
+
+## Obligation architecture
+
+The dependent obligation-tree phase is frozen in `obligation-registry.json`,
+`typed-graphs.json`, and `obligation-tree.md`. It contains 132 canonical IDs,
+separates seven graph roles, and preserves the complete mandatory FLT tree. Its
+structural self-test gives no historical artifact proof credit: all 121
+root-relevant obligations remain open in this phase, no composition
+certificate is credited, and the exact root remains `M2` with `M0387-WTW` as
+the remaining cut set.
