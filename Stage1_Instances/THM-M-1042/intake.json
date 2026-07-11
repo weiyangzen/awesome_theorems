@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1042-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1042",
+  "canonical_name": "Dynkin's formula",
+  "canonical_statement": "For a Markov process X with initial state x and infinitesimal generator A, an admissible function f, and an admissible stopping time tau, the expected stopped value satisfies E_x[f(X_tau)] = f(x) + E_x[integral from 0 to tau of (A f)(X_s) ds].",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional: a measurable state space, a time-homogeneous Markov process on it, real-valued generator-domain functions, and a probability space; exact Lean universes and object model remain open.",
+  "quantifiers": [
+    "state space E and initial state x : E",
+    "Markov process X indexed by nonnegative time with generator A",
+    "f in the domain of A",
+    "stopping time tau satisfying the selected integrability/boundedness conditions"
+  ],
+  "hypotheses": [
+    "X has the Markov and regularity assumptions needed to define A",
+    "f belongs to the generator domain",
+    "f(X_tau) and the stopped generator integral are integrable",
+    "tau satisfies the source theorem's boundedness or localization conditions"
+  ],
+  "conclusion": "E_x[f(X_tau)] = f(x) + E_x[integral_0^tau (A f)(X_s) ds]",
+  "alternate_encodings": [
+    {"target": "deterministic-time formula with tau = t", "relationship": "special case", "checked_witness": null},
+    {"target": "martingale statement f(X_t) - f(X_0) - integral_0^t A f(X_s) ds", "relationship": "expectation/stopping consequence under optional-stopping hypotheses", "checked_witness": null},
+    {"target": "discrete-time Markov-chain Dynkin formula", "relationship": "analogue, not the canonical target", "checked_witness": null}
+  ],
+  "excluded_degenerate_cases": "The discrete-time identity and deterministic-time semigroup identity are not substitutes for the stopped continuous-time formula. tau = 0 is a boundary probe only.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; measure-theoretic choice and classical reasoning audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, simulation, or oracle is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (pin and API verification deferred to statement phase)",
+  "source_revisions": "See source_statement_crosswalk.md; immutable editions, page scans, and errata checks remain later audit work",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1042/README.md", "Stage1_Instances/THM-M-1042/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the stopped-process claim, selected source variant, Lean object model, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake identifies and bounds the intended stopped-process theorem. It neither resolves source-variant assumptions nor elaborates or proves a Lean statement."
+}
