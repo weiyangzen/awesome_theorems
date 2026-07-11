@@ -65,6 +65,17 @@ bodies, provenance closure, source mapping, readability review, and release trus
 
 This phase is self-tested pending master acceptance. It does not claim audit or theorem completion.
 
+## Proof phase
+
+`Proof.lean` implements all four frozen mathematical component interfaces and checks two exact-root
+routes: direct specialization of the pinned integral-closure theorem and explicit assembly of the
+Dedekind structure. `proof-receipt.json` binds these declarations to the pinned mathlib commit and
+source hashes; `proof-validation.md` records the narrow kernel run and placeholder scan.
+
+The proof phase is self-tested pending master acceptance. Human-source and readable-reconstruction
+debt, full transitive trust/provenance, hermetic validation, and independent release remain open, so
+neither audit completion nor theorem completion is claimed.
+
 ## Validation
 
 The exact structural commands and results for this dossier are recorded in `validation.md`. These
