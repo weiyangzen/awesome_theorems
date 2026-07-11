@@ -30,6 +30,14 @@ ordered binders, checked serialization, and four negative mutation fixtures.
 This is statement elaboration only. It contains no Nash witness and gives no theorem-completion
 credit.
 
+## Anchor audit
+
+`anchor-audit.md` inventories the pinned mathlib tree, the immutable legacy repository artifact,
+and bounded external Lean 4 searches. `AnchorAudit.lean` kernel-checks the closest mathlib
+candidate, the compact Whitney smooth embedding theorem. That theorem does not preserve the
+Riemannian inner product and cannot close the Nash target. No exact external Lean 4 closure was
+located, so the root remains formalization debt rather than repo-local integration debt.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is

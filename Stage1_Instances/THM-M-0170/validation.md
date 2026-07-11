@@ -30,3 +30,23 @@ Base revision: `41a639c14626145f43eda7724d6a570cd710d688`.
 
 The Lean command reuses the canonical pinned `.lake` artifacts and performs no dependency update.
 This validates statement elaboration, not existence of an embedding or theorem closure.
+
+## Anchor-audit validation (2026-07-12)
+
+Base revision: `046b0721abb228d13c7042349574736fe375cd97`.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0170/AnchorAudit.lean` | 0 | Pinned `exists_embedding_euclidean_of_compact` and its exact local wrapper elaborate; wrapper axioms are `propext`, `Classical.choice`, `Quot.sound` |
+| `rg -n -i 'nash.{0,30}(embed\|imbedd)\|isometric.{0,30}(embed\|imbedd)\|riemannian.{0,30}(embed\|imbedd)' Formalizations/Lean/.lake/packages/mathlib/Mathlib Formalizations/Lean/.lake/packages/mathlib/Archive Formalizations/Lean/.lake/packages/mathlib/Counterexamples` | 0 | Matches are generic metric/linear isometric embeddings only; no Nash/Riemannian terminal theorem occurs |
+| `rg -n -i 'Nash.{0,40}(embedding\|imbedding)\|Nash-Kuiper\|convex integration' . --glob '!Formalizations/Lean/.lake/**' --glob '!Docs/Stage0_Blueprint.md' --glob '!Docs/Stage1_Blueprint*.md'` | 0 | Finds the legacy THM-M-0170 statement/audit artifact and unrelated exclusion references; no root proof body |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 targets pass |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1..1546, all L0/rework-required |
+| `python3 scripts/stage1_target.py show THM-M-0170` | 0 | rank 123, planned, theorem incomplete |
+| `rg -n '\b(sorry\|axiom)\b\|placeholder\|theorem_complete[[:space:]]*:[[:space:]]*true' Stage1_Instances/THM-M-0170/{AnchorAudit.lean,anchor-audit.md}` | 1 | no forbidden declarations, placeholders, or completion claims (`rg` exit 1 means no match) |
+| `git diff --check -- Stage1_Instances/THM-M-0170 .stage1-worker-selftest.json` | 0 | no whitespace errors |
+
+The GitHub repository-metadata searches and the grep.app failure boundary are recorded in
+`anchor-audit.md`; they are discovery evidence, not kernel evidence. The Lean check uses the
+existing pinned `.lake` tree without updating dependencies. It validates only the nearby compact
+Whitney substrate and does not prove the Nash target.
