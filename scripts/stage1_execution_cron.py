@@ -544,6 +544,9 @@ def integrate(limit: int) -> int:
         except (OSError, ValueError, json.JSONDecodeError) as exc:
             claim["status"] = "rejected"
             claim["rejected_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            # Preserve the reason in the durable claim ledger as well as the
+            # per-tick queue, which is deliberately overwritten on each run.
+            claim["rejection_reason"] = str(exc)
             rejected.append({"item_id": str(claim.get("item_id")), "reason": str(exc)})
     if accepted:
         run(["python3", "Docs/tools/check_stage1_standard.py"])
