@@ -1,0 +1,114 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0002-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0002",
+  "base_revision": "7f2287693d2d333c6cc744c9bdd80267232cdc12",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0002.FiveLemmaTarget",
+  "canonical_target_expression_sha256": "1eb7624d3b1cc72251bde5b5b60ecfc85b57324e0866348d91725d74acafb7b6",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T00:00:00+08:00",
+    "credentials_policy": "anonymous public HTTP only; no credential was available",
+    "aliases": [
+      "five lemma",
+      "fiveLemma",
+      "isIso_of_epi_of_isIso_of_isIso_of_mono",
+      "bijective_of_surjective_of_bijective_of_bijective_of_injective"
+    ],
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib source and declarations",
+      "GitHub public Lean repositories",
+      "GitHub public code search"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "M0002-A-MATHLIB-CATEGORICAL",
+      "source": "mathlib",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.CategoryTheory.Abelian.DiagramLemmas.Four",
+      "file": "Mathlib/CategoryTheory/Abelian/DiagramLemmas/Four.lean",
+      "source_sha256": "ba493086183f2aa2ffdd607f6ce25bbf96f9fedd19a89f9db0ef10067303ce3a",
+      "declaration": "CategoryTheory.Abelian.isIso_of_epi_of_isIso_of_isIso_of_mono",
+      "relationship": "exact match after introducing the frozen target's ordered binders",
+      "terminal_body": "derives Mono and Epi for component 2 via the two four-lemma declarations on truncated diagrams, then invokes isIso_of_mono_of_epi",
+      "direct_proof_dependencies": [
+        "CategoryTheory.Abelian.mono_of_epi_of_mono_of_mono",
+        "CategoryTheory.Abelian.epi_of_epi_of_epi_of_mono",
+        "CategoryTheory.isIso_of_mono_of_epi"
+      ],
+      "reported_axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry, admit, axiom declaration, unsafe declaration, or oracle token in the scoped theorem body",
+      "dependency_feasibility": "already materialized at the lake-manifest revision; exact-type probe elaborates without changing .lake",
+      "classification": "M1",
+      "result": "exact immutable mathlib closure exists; proof-phase canonical wrapper, full transitive provenance/trust closure, and accepted receipts remain open"
+    },
+    {
+      "id": "M0002-A-MATHLIB-UNBUNDLED",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Algebra.FiveLemma",
+      "file": "Mathlib/Algebra/FiveLemma.lean",
+      "declarations": [
+        "MonoidHom.bijective_of_surjective_of_bijective_of_bijective_of_injective",
+        "AddMonoidHom.bijective_of_surjective_of_bijective_of_bijective_of_injective",
+        "LinearMap.bijective_of_surjective_of_bijective_of_bijective_of_injective"
+      ],
+      "relationship": "credible specialized group/module variants, not the frozen general abelian-category expression",
+      "classification": "M3",
+      "result": "excluded as the canonical closure because using it would specialize and substitute the target"
+    },
+    {
+      "id": "M0002-A-LEGACY-WRAPPER",
+      "source": "awesome_theorems repository-local legacy source",
+      "revision": "7f2287693d2d333c6cc744c9bdd80267232cdc12",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_097.lean",
+      "source_sha256": "813dc831575b1a40e37af32cab19674081b73a852817bdad7982c5f5493385a3",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_097.fiveLemma_isIso_middle",
+        "AwesomeTheorems.Stage1.S1_M_097.statementShape_holds"
+      ],
+      "relationship": "exact local wrapper over the same pinned mathlib declaration",
+      "classification": "M3",
+      "result": "discovery evidence only; rev-5.6 explicitly denies inherited proof credit to legacy artifacts"
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {"query": "\"five lemma\" Lean 4", "total_count": 0, "incomplete": false, "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"},
+      {"query": "fiveLemma language:Lean", "total_count": 0, "incomplete": false, "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"}
+    ],
+    "code_search": "GitHub code search returned HTTP 401 without authentication; this is an access failure, not negative-result evidence.",
+    "result": "no additional credible Lean 4 project candidate was discovered; pinned mathlib contains both the exact categorical target and narrower unbundled variants",
+    "limitations": "repository metadata search is not exhaustive code search; no dependency was cloned or fetched, and exhaustive-discovery saturation is not claimed"
+  },
+  "root_decision": {
+    "classification": "M1",
+    "kernel_closed": false,
+    "reason": "the exact pinned mathlib theorem and adapter feasibility are checked, but this audit phase does not install or accept the canonical proof wrapper or complete transitive provenance/trust evidence",
+    "remaining_cut_set": [
+      "canonical root wrapper",
+      "full transitive declaration and terminal-body closure",
+      "accepted axiom/foundation and TCB receipt",
+      "proof-phase composition evidence"
+    ]
+  },
+  "human_debt": "H2 unchanged; primary-source theorem/page and errata crosswalk remains open",
+  "readability_debt": "R4 unchanged; no readable proof reconstruction is claimed",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false
+}
