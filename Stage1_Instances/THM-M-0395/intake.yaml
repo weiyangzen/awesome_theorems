@@ -1,0 +1,57 @@
+schema_version: "1.0"
+lifecycle_mode: planned
+theorem_id: THM-M-0395
+canonical_name: Faltings theorem (Mordell conjecture form)
+canonical_statement: >-
+  For every number field K and every smooth, proper, geometrically connected
+  curve C over K of genus at least two, the set C(K) of K-rational points is finite.
+canonical_formal_target:
+  backend: lean4
+  module: AwesomeTheorems.Stage1.S1_M_008
+  declaration_or_expression: AwesomeTheorems.Stage1.S1_M_008.StatementShape
+  elaborated_expression_hash: pending:S56-M-0395-STATEMENT
+  environment_fingerprint: pending:S56-M-0395-STATEMENT
+domain_and_universes: >-
+  K is a number field; C is a curve over K. The precise Lean universe and
+  scheme/curve representation remain to be frozen by the statement phase.
+quantifiers:
+  - "for every number field K"
+  - "for every curve C over K"
+hypotheses:
+  - C is smooth over K
+  - C is proper over K
+  - C is geometrically connected
+  - genus(C) >= 2
+conclusion: "the type/set of K-rational points C(K) is finite"
+alternate_encodings:
+  - target: "sections of C -> Spec K are finite"
+    relationship: equal
+    checked_witness: pending:S56-M-0395-STATEMENT
+excluded_degenerate_cases:
+  - curves of genus zero or one
+  - non-number-field base fields
+  - nonproper, nonsmooth, or geometrically disconnected objects
+foundation_profile: rev-5.6 Lean4/mathlib constructive kernel plus explicitly audited classical principles
+tcb_profile: rev-5.6 pinned Lean kernel, elaborator, mathlib sources, and build tooling
+computation_profile: no oracle or experimental computation receives theorem credit
+formal_system: Lean 4 plus pinned mathlib
+source_revisions:
+  repository_base: a8d6489fd935cd71fa4499f2f3f5b051998203f4
+  lean_toolchain: pending:S56-M-0395-STATEMENT
+  dependency_lock: lake-manifest.json
+obligation_registry_hash: pending:S56-M-0395-OBLIGATION_TREE
+discovery_protocol_hash: pending:S56-M-0395-ANCHOR_AUDIT
+authoritative_blueprint: Docs/Stage1_Blueprint_rev-5.6.md
+public_merge_targets:
+  - Stage1_Instances/THM-M-0395
+owners_and_reviewers:
+  owner: S56-M-0395 execution lane
+  reviewer: independent master integration lane
+freshness_and_revocation_policy: >-
+  Re-run intake validation after a source-statement correction, toolchain or
+  dependency change, profile change, upstream erratum, or rev-5.6 validator change.
+status_boundary:
+  intake_complete: true
+  statement_gate_complete: false
+  audit_complete: false
+  theorem_complete: false

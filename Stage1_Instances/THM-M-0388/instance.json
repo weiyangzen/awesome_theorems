@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-instance/1.0",
+  "theorem_id": "THM-M-0388",
+  "item_id": "S56-M-0388-INTAKE",
+  "lifecycle": "planned",
+  "assurance_baseline": "L0/rework_required",
+  "intent": "intake",
+  "created_on": "2026-07-12",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+  "execution_rank": 3,
+  "legacy_priority_slot": "S1-M-003",
+  "canonical_name": "Pell equation",
+  "source_name": "佩尔方程",
+  "source_claim_verbatim": "x²-Dy²=1的整数解",
+  "source_claim_language": "zh-CN",
+  "scope_status": "frozen_with_open_semantic_ambiguity",
+  "scope": {
+    "equation": "x^2 - D*y^2 = 1",
+    "explicit_source_domain": "integers for x and y",
+    "unresolved_parameter_domain": "The source does not state whether D is an integer, positive, nonsquare, or fixed.",
+    "unresolved_conclusion_strength": "The phrase 'integer solutions' does not distinguish existence, parametrization, or complete classification.",
+    "unresolved_degenerate_cases": "The source does not exclude D <= 0, square D, y = 0, or sign symmetries.",
+    "allowed_statement_phase_action": "Resolve the ambiguities from a primary mathematical source, then elaborate one exact proposition without silently importing the legacy wrapper's stronger scope.",
+    "forbidden_substitutions": [
+      "existence alone presented as a complete classification",
+      "classification for positive nonsquare D presented as verbatim source scope without a source crosswalk",
+      "natural-number coordinates substituted for integer coordinates without checked transport"
+    ]
+  },
+  "formal_system": "Lean 4 + pinned mathlib",
+  "candidate_only_legacy_artifact": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_003.lean",
+  "proof_credit": "none",
+  "accepted_execution_state": [],
+  "open_task_dag": [
+    {"id": "S56-M-0388-STATEMENT", "depends_on": ["S56-M-0388-INTAKE"], "state": "open"},
+    {"id": "S56-M-0388-ANCHOR_AUDIT", "depends_on": ["S56-M-0388-STATEMENT"], "state": "blocked_by_dependency"},
+    {"id": "S56-M-0388-OBLIGATION_TREE", "depends_on": ["S56-M-0388-ANCHOR_AUDIT"], "state": "blocked_by_dependency"},
+    {"id": "S56-M-0388-PROOF", "depends_on": ["S56-M-0388-OBLIGATION_TREE"], "state": "blocked_by_dependency"},
+    {"id": "S56-M-0388-VALIDATION", "depends_on": ["S56-M-0388-PROOF"], "state": "blocked_by_dependency"},
+    {"id": "S56-M-0388-RELEASE", "depends_on": ["S56-M-0388-VALIDATION"], "state": "blocked_by_dependency"}
+  ],
+  "status_boundary": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "human_source_debt": "H4",
+    "machine_debt": "M4",
+    "readability_debt": "R4"
+  }
+}

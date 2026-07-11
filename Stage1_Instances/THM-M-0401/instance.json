@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0401",
+  "canonical_name": "Schmidt's simultaneous approximation theorem",
+  "intent": "intake",
+  "base_revision": "a8d6489fd935cd71fa4499f2f3f5b051998203f4",
+  "manifest": {
+    "execution_rank": 14,
+    "legacy_priority_slot": "S1-M-014",
+    "baseline": "L0",
+    "rework_required": true,
+    "target_lane": "hard_mathlib_anchor_and_wrapper"
+  },
+  "canonical_statement": "For n > 0 and algebraic real numbers alpha_0,...,alpha_(n-1) such that 1,alpha_0,...,alpha_(n-1) are linearly independent over Q, for every epsilon > 0 only finitely many positive integers q satisfy product_i ||q alpha_i|| < q^(-1-epsilon), where ||x|| is distance to the nearest integer.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_014",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_014.CanonicalProductStatementShape",
+    "status": "legacy discovery candidate; exact rev-5.6 elaboration and fingerprint are deferred to S56-M-0401-STATEMENT",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null
+  },
+  "domain_and_universes": "n : Nat; alpha : Fin n -> Real; q : Nat; epsilon : Real; no polymorphic universes",
+  "quantifiers": ["n : Nat", "0 < n", "alpha : Fin n -> Real", "algebraicity of every alpha i", "Q-linear independence of 1 and all alpha i", "epsilon : Real", "0 < epsilon"],
+  "hypotheses": ["n is positive", "each alpha_i is algebraic over Q", "1, alpha_0, ..., alpha_(n-1) are Q-linearly independent", "epsilon is positive"],
+  "conclusion": "The set of positive natural denominators q satisfying the stated product inequality is finite.",
+  "excluded_degenerate_cases": ["n = 0", "q = 0", "epsilon <= 0", "Q-linear dependence with 1"],
+  "alternate_encodings": [
+    {
+      "target": "coordinatewise common-denominator approximation with exponent -(1/n)-epsilon",
+      "relationship": "expected corollary; not treated as definitionally equal",
+      "checked_witness": null,
+      "status": "open statement-phase transport obligation"
+    }
+  ],
+  "foundation_profile": "planned Lean 4 + mathlib classical foundation; exact axiom allowance not yet accepted",
+  "tcb_profile": "planned pinned Lean compiler/kernel plus mathlib dependency closure",
+  "computation_profile": "no oracle or experimental result is eligible for proof credit",
+  "formal_system": "Lean 4 + mathlib",
+  "source_revisions": {
+    "repository": "a8d6489fd935cd71fa4499f2f3f5b051998203f4",
+    "toolchain_and_library_lock": "Formalizations/Lean/lean-toolchain and Formalizations/Lean/lake-manifest.json; statement-phase fingerprint pending"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0401/README.md", "Stage1_Instances/THM-M-0401/instance.json"],
+  "owners_and_reviewers": {"owner": "S56-M-0401 execution lane", "reviewer": "independent integration lane"},
+  "freshness_and_revocation_policy": "Invalidate on canonical statement, source edition, Lean toolchain, mathlib lock, foundation policy, or rev-5.6 schema change; integration lane assigns review due dates and acceptance/revocation receipts.",
+  "accepted_proof_state": [],
+  "theorem_complete": false,
+  "audit_complete": false,
+  "open_tasks": ["S56-M-0401-STATEMENT", "S56-M-0401-ANCHOR_AUDIT", "S56-M-0401-OBLIGATION_TREE", "S56-M-0401-PROOF", "S56-M-0401-VALIDATION", "S56-M-0401-RELEASE"]
+}

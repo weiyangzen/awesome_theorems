@@ -1,0 +1,91 @@
+{
+  "schema_version": "stage1-rev-5.6-intake-v1",
+  "item_id": "S56-M-0400-INTAKE",
+  "theorem_id": "THM-M-0400",
+  "execution_rank": 13,
+  "intent": "intake",
+  "lifecycle": "planned",
+  "baseline": "L0",
+  "rework_required": true,
+  "identity": {
+    "name_manifest": "子空间定理",
+    "english_name": "Schmidt's Subspace Theorem",
+    "category": "数论 / 丢番图方程",
+    "legacy_slot": "S1-M-013",
+    "target_lane": "hard_mathlib_anchor_and_wrapper"
+  },
+  "claim_scope": {
+    "variant": "archimedean product-of-linear-forms formulation over integer vectors",
+    "informal_claim": "For n >= 2, linearly independent linear forms in n variables with algebraic coefficients, and epsilon > 0, the nonzero integer vectors x for which the product of the absolute values of the forms is sufficiently small relative to a fixed height of x lie in a finite union of proper rational linear subspaces.",
+    "domain": "nonzero vectors in Z^n",
+    "coefficient_domain": "algebraic numbers in a fixed algebraic closure/complex embedding",
+    "quantifier_order": [
+      "n",
+      "linear forms L_1,...,L_n",
+      "linear independence",
+      "epsilon > 0",
+      "there exists a finite family of proper rational subspaces",
+      "for every nonzero integer vector x satisfying the small-product inequality, x belongs to one family member"
+    ],
+    "normalization_open": [
+      "exact height convention",
+      "exact exponent and multiplicative constant in the inequality",
+      "whether n = 1 is excluded or handled separately",
+      "choice of algebraic closure and embeddings"
+    ],
+    "explicit_exclusions": [
+      "S-arithmetic variants",
+      "quantitative bounds on the number or heights of exceptional subspaces",
+      "moving-target variants",
+      "a statement whose inequality is an uninterpreted predicate"
+    ]
+  },
+  "source_crosswalk": {
+    "primary_source_candidate": {
+      "author": "Wolfgang M. Schmidt",
+      "title": "Diophantine Approximation",
+      "series": "Lecture Notes in Mathematics 785",
+      "publisher": "Springer",
+      "year": 1980,
+      "locator": "Chapter VI, theorem locator and page not yet verified against a scanned edition",
+      "status": "candidate_only_not_H0"
+    },
+    "source_record": {
+      "path": "Docs/Stage0_Blueprint.md",
+      "locator": "THM-M-0400",
+      "text": "联立逼近的子空间界",
+      "status": "metadata summary, not an exact mathematical statement"
+    },
+    "legacy_lean": {
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_013.lean",
+      "declaration": "Stage1.THMM0400.StatementShape",
+      "status": "discovery input only; not accepted by rev-5.6",
+      "mismatches": [
+        "the small-product inequality is an arbitrary Prop-valued field rather than a formula",
+        "algebraicity, independence, and height normalization are arbitrary Prop fields",
+        "membership in a rational linear subspace is abstract rather than a Submodule membership relation",
+        "nonzero-vector scope and the exact height exponent are absent"
+      ]
+    }
+  },
+  "profiles": {
+    "foundation": "Lean 4 dependent type theory with mathlib classical mathematics; exact axioms remain to be measured after declaration elaboration",
+    "tcb": "Lean kernel, pinned toolchain, mathlib dependency closure; exact fingerprint deferred to STATEMENT",
+    "computation": "no large computation expected; proof is structural and number-theoretic"
+  },
+  "open_task_dag": [
+    {"id": "S56-M-0400-STATEMENT", "depends_on": ["S56-M-0400-INTAKE"], "status": "open"},
+    {"id": "S56-M-0400-ANCHOR_AUDIT", "depends_on": ["S56-M-0400-STATEMENT"], "status": "open"},
+    {"id": "S56-M-0400-OBLIGATION_TREE", "depends_on": ["S56-M-0400-ANCHOR_AUDIT"], "status": "open"},
+    {"id": "S56-M-0400-PROOF", "depends_on": ["S56-M-0400-OBLIGATION_TREE"], "status": "open"},
+    {"id": "S56-M-0400-VALIDATION", "depends_on": ["S56-M-0400-PROOF"], "status": "open"},
+    {"id": "S56-M-0400-RELEASE", "depends_on": ["S56-M-0400-VALIDATION"], "status": "open"}
+  ],
+  "status_boundary": {
+    "human_source": "H4: primary-source candidate identified, exact edition locator and assumption crosswalk unverified",
+    "machine": "M4: legacy Prop shape exists but exact canonical target is not elaborated",
+    "readability": "R4: intake scope map only",
+    "theorem_complete": false,
+    "proof_credit": false
+  }
+}

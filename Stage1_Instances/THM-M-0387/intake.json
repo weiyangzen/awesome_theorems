@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0387-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0387",
+  "canonical_name": "Fermat's Last Theorem",
+  "canonical_statement": "For every natural exponent n greater than 2, there are no nonzero natural numbers a, b, c satisfying a^n + b^n = c^n.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Mathlib.NumberTheory.FLT.Basic",
+    "declaration_or_expression": "FermatLastTheorem",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "n a b c : Nat; Prop in Lean universe 0",
+  "quantifiers": ["n : Nat (implicit in the definition: 2 < n)", "a b c : Nat"],
+  "hypotheses": ["2 < n", "a != 0", "b != 0", "c != 0"],
+  "conclusion": "a ^ n + b ^ n != c ^ n",
+  "alternate_encodings": [
+    {"target": "FermatLastTheoremWith Int n", "relationship": "iff at each n", "checked_witness": "candidate only: fermatLastTheoremFor_iff_int; credit deferred to statement phase"},
+    {"target": "FermatLastTheoremWith Rat n", "relationship": "iff at each n", "checked_witness": "candidate only: fermatLastTheoremFor_iff_rat; credit deferred to statement phase"},
+    {"target": "FermatLastTheoremForCoprime n", "relationship": "iff at each n", "checked_witness": "candidate only: AwesomeTheorems.NumberTheory.THM_M_0387.fermatLastTheoremFor_iff_coprime; credit deferred to statement phase"}
+  ],
+  "excluded_degenerate_cases": "The root quantifies only over 2 < n. Zero, one, and two are boundary probes, not FLT instances.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact version and dependency closure remain open",
+  "computation_profile": "No computation or oracle is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (pin verification deferred to statement phase)",
+  "source_revisions": "See source_statement_crosswalk.md; immutable source and Lean pins require later audit",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0387/README.md", "Stage1_Instances/THM-M-0387/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes scope only. It does not pass the Lean statement gate, accept historical artifacts, or prove FLT."
+}

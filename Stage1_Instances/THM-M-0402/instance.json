@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0402",
+  "canonical_name": "Evertse theorem (S-unit equation solution count)",
+  "intent": "intake",
+  "baseline": "L0 / rework_required",
+  "canonical_statement_status": "source_pinpoint_required",
+  "canonical_statement": "Candidate only: for a number field K and a finite set S of places containing the archimedean places, the normalized two-variable S-unit equation x + y = 1 has finitely many solutions (x,y) in O_{K,S}^times. This wording is not frozen as the exact source theorem until the cited paper's theorem number, quantitative bound, and hypotheses are checked.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module_candidate": "AwesomeTheorems.Stage1.S1_M_015",
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_status": "open"
+  },
+  "scope": {
+    "included": [
+      "the exact Evertse S-unit equation theorem selected by a primary-source pinpoint",
+      "the number field, finite-place set, S-unit group, equation, degeneracy convention, and any explicit solution bound in that source"
+    ],
+    "excluded": [
+      "the Schlickewei-Evertse linear recurrence theorem (THM-M-0403)",
+      "the Schmidt Subspace Theorem as a substituted root",
+      "finiteness of an arbitrary caller-supplied set or a weaker special case",
+      "the legacy Lean statement wrapper as proof or accepted rev-5.6 evidence"
+    ]
+  },
+  "domain_and_universes": "Pending exact source selection; expected number field K, finite S including infinite places, and S-units x,y.",
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Pending primary-source pinpoint; candidate conclusion is finiteness, possibly with Evertse's explicit bound.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": "Pending source audit; x+y=1 already forces x,y nonzero when they are units, while higher-arity formulations require a no-vanishing-subsum convention.",
+  "foundation_profile": "planned: Lean 4 kernel plus pinned mathlib; exact allowed axioms not yet frozen",
+  "tcb_profile": "planned: Lean 4 kernel, elaborator, Lake lock, and rev-5.6 validators",
+  "computation_profile": "no oracle or experimental result may discharge a proof obligation",
+  "formal_system": "Lean 4 + mathlib",
+  "source_revisions": {
+    "repository_base": "a8d6489fd935cd71fa4499f2f3f5b051998203f4",
+    "dependency_lock": "lake-manifest.json (not yet fingerprinted for statement gate)"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0402/README.md"],
+  "owners_and_reviewers": {
+    "owner": "S56-M-0402 execution lane",
+    "reviewer": "independent integration lane"
+  },
+  "freshness_and_revocation_policy": "Invalidate intake on target-manifest, source pinpoint, canonical claim, toolchain, dependency-lock, or normative-profile change.",
+  "assurance": {
+    "root_vector": ["H1", "M4", "R4"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "accepted_execution_state": []
+  },
+  "open_task_dag": [
+    {"task_id": "S56-M-0402-STATEMENT", "depends_on": ["S56-M-0402-INTAKE"], "status": "open"},
+    {"task_id": "S56-M-0402-ANCHOR_AUDIT", "depends_on": ["S56-M-0402-STATEMENT"], "status": "open"},
+    {"task_id": "S56-M-0402-OBLIGATION_TREE", "depends_on": ["S56-M-0402-ANCHOR_AUDIT"], "status": "open"},
+    {"task_id": "S56-M-0402-PROOF", "depends_on": ["S56-M-0402-OBLIGATION_TREE"], "status": "open"},
+    {"task_id": "S56-M-0402-VALIDATION", "depends_on": ["S56-M-0402-PROOF"], "status": "open"},
+    {"task_id": "S56-M-0402-RELEASE", "depends_on": ["S56-M-0402-VALIDATION"], "status": "open"}
+  ]
+}

@@ -1,0 +1,29 @@
+THM-M-0389 intake validation
+date: 2026-07-12
+base_revision: a8d6489fd935cd71fa4499f2f3f5b051998203f4
+
+command: python3 -m json.tool Stage1_Instances/THM-M-0389/instance.json >/dev/null
+exit: 0
+result: valid JSON
+
+command: python3 -m json.tool Stage1_Instances/THM-M-0389/open_tasks.json >/dev/null
+exit: 0
+result: valid JSON
+
+command: python3 Docs/tools/check_stage1_standard.py
+exit: 0
+result: check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)
+
+command: python3 scripts/stage1_target.py check
+exit: 0
+result: stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)
+
+command: python3 scripts/stage1_target.py show THM-M-0389
+exit: 0
+result: rank 20; legacy slot S1-M-020; baseline L0; rework_required true; lifecycle planned; theorem_complete false
+
+command: git diff --check
+exit: 0
+result: no whitespace errors
+
+Lean validation: not run. Intake found that the source phrase identifies an equation and domain but supplies no exact conclusion. The statement phase must resolve this before a truthful Lean target exists.

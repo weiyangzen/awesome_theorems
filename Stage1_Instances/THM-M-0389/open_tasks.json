@@ -1,0 +1,14 @@
+{
+  "schema_version": "5.6",
+  "theorem_id": "THM-M-0389",
+  "lifecycle_mode": "planned",
+  "accepted_state": [],
+  "tasks": [
+    {"id": "S56-M-0389-STATEMENT", "depends_on": ["S56-M-0389-INTAKE"], "state": "open", "purpose": "Resolve the exact classification claim and elaborate it in Lean 4."},
+    {"id": "S56-M-0389-ANCHOR_AUDIT", "depends_on": ["S56-M-0389-STATEMENT"], "state": "blocked", "purpose": "Audit primary sources, mathlib, and external Lean candidates."},
+    {"id": "S56-M-0389-OBLIGATION_TREE", "depends_on": ["S56-M-0389-ANCHOR_AUDIT"], "state": "blocked", "purpose": "Freeze typed obligation and provenance graphs."},
+    {"id": "S56-M-0389-PROOF", "depends_on": ["S56-M-0389-OBLIGATION_TREE"], "state": "blocked", "purpose": "Close exact proof obligations without placeholders."},
+    {"id": "S56-M-0389-VALIDATION", "depends_on": ["S56-M-0389-PROOF"], "state": "blocked", "purpose": "Run kernel, trust, provenance, and replay checks."},
+    {"id": "S56-M-0389-RELEASE", "depends_on": ["S56-M-0389-VALIDATION"], "state": "blocked", "purpose": "Decide audit and theorem completion independently."}
+  ]
+}
