@@ -1,0 +1,107 @@
+{
+  "schema_version": "stage1-rev-5.6-anchor-audit-v1",
+  "item_id": "S56-M-0397-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0397",
+  "depends_on": ["S56-M-0397-STATEMENT"],
+  "intent": "anchor_audit",
+  "audit_cutoff": "2026-07-12",
+  "canonical_target": "Stage1Rev56.THMM0397.Statement",
+  "environment": {
+    "repository_base_revision": "4f4191e5205b710e81bd121e246a2a0960af8e6b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "statement_sha256": "78327c7641064bddbf5acb119253a5956e27c78a5c69b3fc04de7563b055c07f"
+  },
+  "search_terms": [
+    "Baker method",
+    "effective Diophantine",
+    "linear forms in logarithms",
+    "Thue-Mahler",
+    "S-unit equation"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0397-CAND-MATHLIB-FILTER",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "Lean 4.29.0",
+      "module": "Mathlib.Data.Finset.Filter",
+      "declaration": "Finset.mem_filter",
+      "type_match": "final finite-search membership connective only; composes after Application.reduce_solution and Application.heightBall_spec",
+      "terminal_proof_body": "pinned mathlib theorem body for filter membership, not a Baker lower bound or a Diophantine reduction",
+      "dependency_feasibility": "already in the pinned local dependency closure",
+      "placeholder_axiom_unsafe_audit": "ordinary mathlib theorem elaborated locally; no terminal canonical-root body is credited",
+      "exact_root_closed": false,
+      "classification": "usable pinned composition anchor, not M0-W"
+    },
+    {
+      "candidate_id": "M0397-CAND-MATHLIB-LOG-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "Lean 4.29.0",
+      "modules": [
+        "Mathlib.Analysis.SpecialFunctions.Complex.Log",
+        "Mathlib.FieldTheory.AlgebraicClosure"
+      ],
+      "declarations": ["Complex.exp", "IsAlgebraic"],
+      "type_match": "object-model substrate only",
+      "terminal_proof_body": "none for a Baker lower bound, application reduction, or the canonical root",
+      "dependency_feasibility": "already pinned and locally elaborated",
+      "placeholder_axiom_unsafe_audit": "not applicable to root closure because no terminal candidate exists",
+      "exact_root_closed": false,
+      "classification": "M3 substrate"
+    },
+    {
+      "candidate_id": "M0397-CAND-LEGACY-LOCAL",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "4f4191e5205b710e81bd121e246a2a0960af8e6b",
+      "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_010.lean",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_010.HasBakerMethodBound",
+        "AwesomeTheorems.Stage1.S1_M_010.HasExplicitSolutionBound"
+      ],
+      "type_match": "mismatch: abstract implication and boundedness interfaces, without the frozen exact Finset enumeration equivalence",
+      "terminal_proof_body": "the module explicitly states that it does not supply a kernel-checked Baker-method proof",
+      "dependency_feasibility": "repo-local discovery input only",
+      "placeholder_axiom_unsafe_audit": "no exact terminal body exists to audit or credit",
+      "exact_root_closed": false,
+      "classification": "legacy interface; zero proof credit"
+    }
+  ],
+  "negative_search_evidence": [
+    {
+      "surface": "pinned mathlib Lean sources",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "result": "no matches for the recorded method/application name and phrase inventory",
+      "scope": "all Mathlib/**/*.lean files"
+    },
+    {
+      "surface": "all other dependencies pinned by lake-manifest.json",
+      "revision_set": "the ten non-mathlib commits in the immutable manifest",
+      "result": "no matches for the recorded method/application name and phrase inventory",
+      "scope": "all available pinned dependency *.lean sources"
+    },
+    {
+      "surface": "GitHub repository search API",
+      "revision": "search snapshot 2026-07-12",
+      "result": "zero repositories for four quoted Baker-method/effective-Diophantine/linear-forms/Thue queries; incomplete_results=false",
+      "limitation": "repository metadata search is mutable discovery evidence, not exhaustive code search or proof of global absence"
+    }
+  ],
+  "decision": {
+    "exact_mathlib_candidate_found": false,
+    "exact_external_lean4_candidate_found": false,
+    "pinned_composition_anchor_found": true,
+    "pin_import_wrapper_action": "no new dependency action: Finset.mem_filter is already pinned; no external terminal proof candidate was identified",
+    "root_machine_debt": "M3",
+    "human_debt": "H3",
+    "readability_debt": "R3",
+    "proof_credit": false,
+    "audit_complete_for_phase": true,
+    "audit_complete_for_theorem": false,
+    "theorem_complete": false,
+    "accepted_receipts": [],
+    "status_boundary": "This bounded audit identifies a pinned final-composition API and no external terminal proof. It does not prove a Baker lower bound, an application reduction, the canonical Statement, or global candidate nonexistence."
+  }
+}
