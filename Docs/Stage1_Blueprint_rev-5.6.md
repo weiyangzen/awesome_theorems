@@ -1396,7 +1396,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0390-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0390`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0390-VALIDATION` / `THM-M-0390` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0390-PROOF`. Owned paths: `Stage1_Instances/THM-M-0390`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0390-RELEASE` / `THM-M-0390` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0390-RELEASE` / `THM-M-0390` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0390-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0390`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0391-INTAKE` / `THM-M-0391` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0391`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -1434,7 +1434,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0394-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0394`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0394-OBLIGATION_TREE` / `THM-M-0394` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0394-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0394`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0394-PROOF` / `THM-M-0394` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-0394-PROOF` / `THM-M-0394` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0394-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0394`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0394-VALIDATION` / `THM-M-0394` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0394-PROOF`. Owned paths: `Stage1_Instances/THM-M-0394`. Gate: rev-5.6 node-specific receipt and master acceptance.

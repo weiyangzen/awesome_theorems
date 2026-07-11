@@ -1,0 +1,76 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0390-RELEASE",
+  "theorem_id": "THM-M-0390",
+  "intent": "release",
+  "base_revision": "8532255651da718bca9900badd6c74ba110cc9ab",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0390-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0390-VALIDATION-local-20260711T192613Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "dd38ffa26af38222e12f978e61cf2a3f88c8215fe551ced259e6d6ae9409dcf1"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0390-VALIDATION-local-20260711T192613Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M4", "R4"],
+    "accepted_after": ["H2", "M4", "R4"],
+    "best_provisional_evidence": ["H2", "M3", "R4"],
+    "boundary": "The canonical target elaborates and one coprimality ledger step has provisional local kernel evidence. No exponent branch or exact root proof is closed, the primary source lacks H0 review, and no R0 reconstruction exists. Provisional receipts cannot promote the accepted vector."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0390-VALIDATION is only worker-self-tested and has no master-accepted receipt; the release decision cannot be dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-0390-ROOT-KERNEL-CLOSURE",
+    "reason": "The validation receipt explicitly records theorem_complete=false and validates only coprimality step NP.4; the normalization obligation, all exponent branches, and the exact Catalan root remain open."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0390-VALIDATION and all transitive phase receipts",
+    "kernel closure of primitive normalization beyond NP.4, every exponent branch, all deep arithmetic obligations, and checked exact child-to-parent composition",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "statement_identity": "lean:Stage1.THM_M_0390.CatalanStatement@b54a002f18aba974c2a675bcfe17551d80eb482a9fdf745c0d4b3c85afaf33f3",
+    "partial_proof_body": "local body for NP.4 at Stage1.THM_M_0390.solution_bases_coprime",
+    "exact_root_kernel_check": "missing",
+    "closed_ledger_steps": ["THM-M-0390-N-PRIMITIVE / NP.4 coprimality only"],
+    "open_root_relevant_obligation_count": 14,
+    "axioms_observed_on_partial_checks": ["propext", "Quot.sound"],
+    "placeholder_scan": "pass on Proof.lean and Validation.lean",
+    "root_composition": "conditional exponent split only; branch proofs and child-to-branch composition missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "First complete and master-accept every root-critical proof obligation and exact composition, then master-accept the validation dependency. A separately provisioned release lane must subsequently close H0/R0 review, root trust and provenance, hermetic reproduction, supply-chain, independent-runner, CI, and deterministic-bundle gates.",
+  "status_boundary": "This artifact truthfully decides the requested release phase as blocked. It creates no accepted receipt, changes no lifecycle or debt state, and makes no theorem-completion claim. It is a worker handoff for master inspection, not release authority."
+}
