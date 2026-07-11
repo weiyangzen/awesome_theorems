@@ -1,0 +1,105 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0087-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0087",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "c8855fd0eb87514348ace46003c6075c576fbfb6",
+  "target": "Stage1Instances.THM_M_0087.Statement",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned Lake dependency source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0087-C01",
+      "project": "awesome_theorems historical Stage1",
+      "revision": "c8855fd0eb87514348ace46003c6075c576fbfb6",
+      "module": "AwesomeTheorems.Stage1.S1_M_133",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_133.statementShape",
+      "kind": "historical_wrapper_discovery_only",
+      "type_relation": "stronger data-package encoding of the same embedding formulation, but not imported by this audit",
+      "toolchain": "repository Lean 4.29.0 project",
+      "dependency_feasibility": "repo-local source, but legacy artifacts are explicitly unaccepted",
+      "body_provenance": "local wrapper whose terminal bodies are pinned mathlib declarations",
+      "placeholder_or_axiom_status": "source inspection found no sorry, admit, axiom, or unsafe declaration in the terminal wrapper segment",
+      "classification": "unaccepted_legacy_candidate",
+      "integration_status": "not credited; retained only as discovery provenance"
+    },
+    {
+      "candidate_id": "S56-M-0087-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.CategoryTheory.Abelian.GrothendieckCategory.ModuleEmbedding.GabrielPopescu",
+      "declarations": [
+        "CategoryTheory.IsGrothendieckAbelian.tensorObj",
+        "CategoryTheory.IsGrothendieckAbelian.tensorObjPreadditiveCoyonedaObjAdjunction",
+        "CategoryTheory.IsGrothendieckAbelian.GabrielPopescu.full",
+        "CategoryTheory.IsGrothendieckAbelian.GabrielPopescu.preservesInjectiveObjects",
+        "CategoryTheory.IsGrothendieckAbelian.GabrielPopescu.preservesFiniteLimits",
+        "CategoryTheory.isSeparator_iff_faithful_preadditiveCoyonedaObj"
+      ],
+      "kind": "exact_composite_proof_candidate",
+      "type_relation": "AnchorAudit.exactMathlibCandidate elaborates against AuditedStatement, a verbatim local copy of the frozen Stage1Instances.THM_M_0087.Statement body",
+      "toolchain": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+      "dependency_feasibility": "already pinned in Formalizations/Lean/lake-manifest.json and available through existing .lake artifacts",
+      "source_sha256": "2972f921c284859ee8889d98f967cd4b0df39449d05ccc8ff05b773f0ede1418",
+      "body_provenance": "full and finite-limit bodies are in GabrielPopescu.lean lines 116-155; faithfulness is transported from the separator equivalence; the adjunction is constructed in lines 46-59",
+      "placeholder_or_axiom_status": "source scan found no sorry/admit/axiom/unsafe tokens in the module; #print axioms reports only propext, Classical.choice, and Quot.sound",
+      "classification": "M0-P_candidate_pending_proof_phase_and_master_acceptance",
+      "integration_status": "pinned and exact-type checked by the dossier-local wrapper"
+    },
+    {
+      "candidate_id": "S56-M-0087-C03",
+      "project": "leanprover-community/mathlib4 public indexed head",
+      "revision": "12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f",
+      "module": "Mathlib.CategoryTheory.Abelian.GrothendieckCategory.ModuleEmbedding.GabrielPopescu",
+      "declarations": [
+        "GabrielPopescu.full",
+        "GabrielPopescu.preservesInjectiveObjects",
+        "GabrielPopescu.preservesFiniteLimits"
+      ],
+      "kind": "external_duplicate_of_pinned_candidate_family",
+      "type_relation": "same named theorem family at a later immutable revision; not substituted for the pinned candidate",
+      "toolchain": "not evaluated because the repository already pins the earlier exact candidate",
+      "dependency_feasibility": "unnecessary moving-upgrade lane; no fetch or dependency mutation performed",
+      "body_provenance": "Sourcegraph indexed the upstream mathlib source path and declarations",
+      "placeholder_or_axiom_status": "not independently evaluated",
+      "classification": "external_anchor_only_duplicate",
+      "integration_status": "not integrated"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes GabrielPopescu lang:Lean count:100",
+      "result": "7 matches in one repository, all in mathlib4 at immutable commit 12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f",
+      "response_sha256": "711e18551fbde039057bbfa1f18ddfcdcf8410006f7a3f52bb2cb5859ace880a",
+      "immutability_boundary": "dated, content-hashed response; the reported candidate commit is immutable"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Gabriel-Popescu\"+lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated, content-hashed discovery response; not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=GabrielPopescu+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M0-P_candidate",
+  "root_classification_reason": "The pinned mathlib declarations compose into the exact frozen Statement and elaborate locally. Candidate status remains provisional because proof-phase provenance, obligation composition, and master acceptance are later gates.",
+  "quotient_formulation_boundary": "Neither the pinned module nor this wrapper constructs a named Serre quotient or an equivalence with it. The audited exact target is only the frozen embedding/exact-left-adjoint formulation.",
+  "integration_blocker": "No anchor-level blocker for the frozen Statement. Promotion requires the dependent obligation-tree and proof phases plus trust/provenance validation; an explicit quotient-equivalence target would require a separate checked transport.",
+  "reopen_condition": "Reaudit on any change to Statement.lean, the mathlib pin, the listed declaration types/bodies, or the canonical quotient-formulation boundary.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This receipt completes only the bounded anchor inventory. It supplies no accepted proof, human-source, obligation-tree, hermetic-release, or theorem-completion state."
+}

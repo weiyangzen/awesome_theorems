@@ -27,6 +27,15 @@ named Serre quotient. The pinned mathlib module says its checked formulation
 implies that characterization, but that transport is a later proof obligation.
 Master acceptance and every proof/release gate remain outstanding.
 
+## Anchor-audit verdict
+
+Pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`
+contains declarations that compose into a locally elaborated exact candidate for
+the frozen statement. `anchor-audit.json` records the immutable candidate,
+source/body boundary, axiom output, external search lanes, and the explicit
+Serre-quotient scope gap. This is an `M0-P_candidate` pending the obligation and
+proof phases, not accepted proof credit and not theorem completion.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first
