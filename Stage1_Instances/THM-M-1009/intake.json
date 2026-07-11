@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1009-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1009",
+  "canonical_name": "Erdos-Renyi second lemma",
+  "canonical_statement": "For measurable events A_n in a probability space whose probability sums diverge, the probability of limsup A_n is at least the limsup of the squared partial probability sum divided by the double partial sum of pairwise-intersection probabilities.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "AwesomeTheorems.Stage1.S1_M_289",
+    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_289.ErdosRenyiLowerBoundStatement",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Omega : Type u; MeasurableSpace Omega; probability measure mu; A : Nat -> Set Omega; Prop in universe 0",
+  "quantifiers": ["Omega : Type u", "mu : Measure Omega", "A : Nat -> Set Omega"],
+  "hypotheses": ["IsProbabilityMeasure mu", "each A n is measurable", "the finite partial sums of mu(A n) diverge to infinity"],
+  "conclusion": "limsup_n ((sum_{k<n} mu(A_k))^2 / sum_{i,j<n} mu(A_i intersect A_j)) <= mu(limsup_n A_n)",
+  "alternate_encodings": [
+    {"target": "full-probability consequence when the ratio tends to one", "relationship": "intended corollary", "checked_witness": "candidate only; statement phase must elaborate and prove the transport"},
+    {"target": "ENNReal-valued finite sums", "relationship": "measure-value encoding alternative", "checked_witness": "not yet checked"}
+  ],
+  "excluded_degenerate_cases": "Finite sums use initial segments. Zero denominators follow Lean field-division conventions in the legacy candidate; denominator positivity and indexing conventions require statement-phase mutation checks.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and transitive dependency closure remain open",
+  "computation_profile": "No computation, oracle, or numerical result is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (pin and elaboration verification deferred to statement phase)",
+  "source_revisions": "See source_statement_crosswalk.md; immutable source files and pinpoint pages remain an open human-source audit",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1009/README.md", "Stage1_Instances/THM-M-1009/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, indexing, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a provisional exact scope only. The legacy module is discovery input and supplies no rev-5.6 proof credit. Statement, source, proof, and release gates remain open."
+}

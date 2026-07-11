@@ -1,0 +1,17 @@
+{
+  "schema_version": "stage1-open-task-dag/1.0",
+  "theorem_id": "THM-M-0466",
+  "lifecycle": "planned",
+  "accepted_nodes": [],
+  "nodes": [
+    {"id": "S56-M-0466-INTAKE", "phase": "intake", "depends_on": [], "state": "proposed_self_tested"},
+    {"id": "S56-M-0466-STATEMENT", "phase": "statement", "depends_on": ["S56-M-0466-INTAKE"], "state": "open"},
+    {"id": "S56-M-0466-ANCHOR_AUDIT", "phase": "anchor_audit", "depends_on": ["S56-M-0466-STATEMENT"], "state": "open"},
+    {"id": "S56-M-0466-OBLIGATION_TREE", "phase": "obligation_tree", "depends_on": ["S56-M-0466-ANCHOR_AUDIT"], "state": "open"},
+    {"id": "S56-M-0466-PROOF", "phase": "proof", "depends_on": ["S56-M-0466-OBLIGATION_TREE"], "state": "open"},
+    {"id": "S56-M-0466-VALIDATION", "phase": "validation", "depends_on": ["S56-M-0466-PROOF"], "state": "open"},
+    {"id": "S56-M-0466-RELEASE", "phase": "release", "depends_on": ["S56-M-0466-VALIDATION"], "state": "open"}
+  ],
+  "authority_boundary": "Only the integration lane may accept the proposed intake node or alter the master DAG."
+}
+
