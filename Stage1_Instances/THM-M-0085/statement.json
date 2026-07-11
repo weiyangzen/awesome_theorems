@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0085-STATEMENT",
+  "theorem_id": "THM-M-0085",
+  "lifecycle": "planned",
+  "canonical_statement": "Given an adjunction F left adjoint to G, if G creates coequalizers of G-split parallel pairs, then the Eilenberg-Moore comparison functor associated to that adjunction is an equivalence.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0085/Statement.lean",
+    "declaration_or_expression": "Stage1.THM_M_0085.Statement",
+    "elaborated_expression_sha256": "f647a14de2662246e57da67c10b9831370a89ecf919974a096e55fe51b162a2d",
+    "statement_file_sha256": "54d3f1f5cd7e2380b158f64ba4d20c17296127b0da2e3c6b3c41908ccf8d8622"
+  },
+  "domain_and_universes": "universes v uC uD; C : Type uC; D : Type uD; Category.{v} C; Category.{v} D",
+  "ordered_binders": [
+    "C : Type uC",
+    "D : Type uD",
+    "[Category.{v} C]",
+    "[Category.{v} D]",
+    "F : C ⥤ D",
+    "G : D ⥤ C",
+    "adj : F ⊣ G"
+  ],
+  "hypotheses": [
+    "CategoryTheory.Monad.CreatesColimitOfIsSplitPair G"
+  ],
+  "conclusion": "(CategoryTheory.Monad.comparison adj).IsEquivalence",
+  "direct_imports": [
+    "Mathlib.CategoryTheory.Monad.Monadicity"
+  ],
+  "minimal_import_basis": "The CreatesColimitOfIsSplitPair predicate is declared by Monadicity itself; no broader Mathlib import is used.",
+  "checked_transport": "Stage1.THM_M_0085.statement_iff",
+  "alternate_encodings": {
+    "monadic_right_adjoint": "MonadicRightAdjoint G existentially packages a left adjoint, adjunction, and comparison equivalence. It is not credited as equivalent to the fixed-adjunction conclusion until an adjunction-independence transport is audited.",
+    "has_preserves_reflects": "The has/preserves/reflects criterion is a different sufficient hypothesis package and is not substituted for the canonical creates form.",
+    "reflects_isomorphisms": "The reflects-isomorphisms criterion is another sufficient variant and is not substituted for the canonical creates form."
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "environment_fingerprint_sha256": "a11e5b30215275cdd88d9cca39b618fb684af0b55b6c4b070b7728860b783e27",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0085/check_statement.py",
+    "killed": [
+      "removed CreatesColimitOfIsSplitPair G hypothesis",
+      "changed created-colimit domain from right adjoint G to left adjoint F",
+      "moved the adjunction binder inside the implication",
+      "excluded the empty right-hand category by adding Nonempty D"
+    ]
+  },
+  "degenerate_cases": "Empty categories and identity or equivalence adjunctions are not excluded. No smallness, nonemptiness, or locally small assumptions beyond the explicit same-morphism-universe Category instances are added.",
+  "foundation_profile": "Lean 4 dependent type theory; the statement is Prop-valued and adds no axiom or oracle.",
+  "tcb_profile": "Lean kernel 4.29.0, Lake, and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95.",
+  "computation_profile": "Noncomputable category-theoretic structures only; no experiment or external certificate is part of the statement.",
+  "statement_elaborated": true,
+  "proof_asserted": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the creates-G-split-coequalizers statement and its structural mutations. It does not prove Beck's theorem or satisfy anchor, proof, validation, or release gates."
+}

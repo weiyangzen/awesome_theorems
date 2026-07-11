@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0081",
+  "item_id": "S56-M-0081-ANCHOR_AUDIT",
+  "status": "provisional_self_tested",
+  "canonical_declaration": "Stage1Instances.THM_M_0081.CanonicalTarget",
+  "canonical_expression": "Nonempty (yoneda.obj X ≅ yoneda.obj Y) ↔ Nonempty (X ≅ Y)",
+  "environment": {
+    "repository_revision": "c8855fd0eb87514348ace46003c6075c576fbfb6",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "pin_source": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "candidate_id": "mathlib-reflection",
+      "classification": "exact_direction_anchor",
+      "module": "Mathlib.CategoryTheory.Yoneda",
+      "declarations": [
+        "CategoryTheory.Yoneda.fullyFaithful",
+        "CategoryTheory.Functor.FullyFaithful.preimageIso"
+      ],
+      "covers": "Nonempty (yoneda.obj X ≅ yoneda.obj Y) → Nonempty (X ≅ Y)",
+      "terminal_body": "Yoneda.fullyFaithful defines preimage by evaluating a natural transformation at op X and the identity; preimageIso is implemented in Mathlib.CategoryTheory.Functor.FullyFaithful using preimages of hom and inv and faithfulness for the inverse laws.",
+      "placeholder_scan": "No sorry, axiom declaration, unsafe declaration, or oracle was observed in the inspected terminal definitions.",
+      "axiom_report": "#print axioms reports [propext, Classical.choice, Quot.sound] for Yoneda.fullyFaithful and [propext, Quot.sound] for Functor.FullyFaithful.preimageIso."
+    },
+    {
+      "candidate_id": "mathlib-preservation",
+      "classification": "exact_direction_anchor",
+      "module": "Mathlib.CategoryTheory.Yoneda",
+      "declarations": ["CategoryTheory.Functor.mapIso"],
+      "covers": "Nonempty (X ≅ Y) → Nonempty (yoneda.obj X ≅ yoneda.obj Y)",
+      "terminal_body": "The generic functor operation mapIso maps the hom and inv components and discharges the inverse laws by functoriality.",
+      "placeholder_scan": "No sorry, axiom declaration, unsafe declaration, or oracle was observed in the inspected terminal definition.",
+      "axiom_report": "#print axioms reports [propext, Classical.choice, Quot.sound]."
+    },
+    {
+      "candidate_id": "mathlib-element-yoneda",
+      "classification": "strong_related_anchor_not_exact_target",
+      "module": "Mathlib.CategoryTheory.Yoneda",
+      "declarations": ["CategoryTheory.yonedaEquiv", "CategoryTheory.yonedaLemma"],
+      "covers": "Element-level and natural-isomorphism formulations of the Yoneda lemma; these do not themselves have the canonical iff type.",
+      "terminal_body": "yonedaEquiv constructs the evaluation equivalence; yonedaLemma bundles it into a natural isomorphism.",
+      "placeholder_scan": "No sorry, axiom declaration, unsafe declaration, or oracle was observed in the inspected definitions.",
+      "axiom_report": "#print axioms reports [propext, Classical.choice, Quot.sound] for yonedaEquiv and [propext, Classical.choice, Quot.sound] for yonedaLemma."
+    },
+    {
+      "candidate_id": "repository-legacy-wrapper",
+      "classification": "repo_local_exact_wrapper_discovery_only",
+      "module": "AwesomeTheorems.Stage1.S1_M_138",
+      "declarations": ["AwesomeTheorems.Stage1.S1_M_138.yoneda_obj_iso_iff_object_iso"],
+      "covers": "The exact canonical iff.",
+      "revision": "c8855fd0eb87514348ace46003c6075c576fbfb6",
+      "disposition": "Legacy artifacts are explicitly unaccepted by the rev-5.6 manifest. The wrapper is a useful candidate but receives no inherited proof or completion credit."
+    }
+  ],
+  "external_search": {
+    "installed_pinned_packages": "Searched every non-mathlib package present in Formalizations/Lean/.lake/packages for Yoneda.fullyFaithful, yonedaEquiv, yonedaLemma, and preimageIso; no candidate was found.",
+    "public_code_search": "An attempted grep.app exact-symbol search returned HTTP 429 on 2026-07-12, so it supplies no evidence.",
+    "result": "No additional credible external Lean 4 candidate was established. This negative result is scoped to the immutable installed dependency set and the recorded public-search attempt, not the entire internet."
+  },
+  "conclusion": {
+    "best_route": "Compose the two exact mathlib direction anchors in a later proof node using the already frozen canonical statement.",
+    "dependency_feasibility": "Feasible from the existing pinned Mathlib.CategoryTheory.Yoneda import; no new dependency or .lake mutation is required.",
+    "machine_status": "M4",
+    "human_status": "H2",
+    "readability_status": "R4",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "status_boundary": "This node audits immutable formal candidates only. It does not create a proof declaration, freeze proof obligations, establish source fidelity, provide hermetic replay, or claim master acceptance."
+  }
+}
