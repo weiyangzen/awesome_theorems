@@ -532,12 +532,17 @@ def integrate(limit: int) -> int:
                 raise ValueError("worker paths escape the assigned ownership scope")
             source = workspace / item["owned_paths"][0]
             destination = ROOT / item["owned_paths"][0]
-            if not source.is_dir() or destination.exists():
-                raise ValueError("worker source missing or main owned path conflicts")
+            if not source.is_dir():
+                raise ValueError("worker source missing")
+            changed = worker_changed_paths(workspace, owner)
+            if not changed:
+                raise ValueError("worker made no owned-path changes")
+            if any(not packet_path_covers(path, changed_paths, owner) for path in changed):
+                raise ValueError("worker packet does not declare every changed owned path")
             records = [*source.rglob("*.json"), *source.rglob("*.yaml"), *source.rglob("*.yml")]
             if not records or not any(item["theorem_id"] in record.read_text(encoding="utf-8", errors="ignore") for record in records):
                 raise ValueError("no target-identifying structured evidence record")
-            shutil.copytree(source, destination)
+            merge_worker_changes(workspace, changed)
             item["state"] = "[_]"
             item["attempts"] = int(item.get("attempts", 0)) + 1
             claim["status"] = "finished_integrated"
@@ -561,6 +566,64 @@ def integrate(limit: int) -> int:
     todo = write_todo(data, validate_dag(data), claims)
     print(f"integrate: worker-self-tested={len(accepted)} rejected={len(rejected)} todo={todo.relative_to(ROOT)}")
     return len(accepted)
+
+
+def worker_changed_paths(workspace: Path, owner: str) -> list[str]:
+    """Return the worker's owned file changes and reject deletions.
+
+    A later phase starts from a clone which already contains its target's intake
+    dossier.  Copying the whole directory would therefore either reject valid
+    work or overwrite independently changed master evidence.  The integration
+    surface is instead the worker's actual Git delta, merged one owned file at
+    a time with a base-content conflict check.
+    """
+    status = run(["git", "diff", "--name-status", "HEAD", "--", owner], cwd=workspace).stdout.splitlines()
+    deleted = [line for line in status if line.startswith("D\t")]
+    if deleted:
+        raise ValueError(f"worker deletion is not an admissible handoff: {deleted}")
+    tracked = run(["git", "diff", "--name-only", "HEAD", "--", owner], cwd=workspace).stdout.splitlines()
+    untracked = run(["git", "ls-files", "--others", "--exclude-standard", "--", owner], cwd=workspace).stdout.splitlines()
+    paths = sorted(set(tracked + untracked))
+    if any(not path.startswith(owner) or ".." in Path(path).parts for path in paths):
+        raise ValueError("worker Git delta escapes the assigned ownership scope")
+    return paths
+
+
+def packet_path_covers(path: str, declared: list[Any], owner: str) -> bool:
+    """Allow a packet to name an exact file or the complete owned directory."""
+    for entry in declared:
+        if not isinstance(entry, str) or entry == ".stage1-worker-selftest.json":
+            continue
+        normalized = entry.rstrip("/")
+        if normalized == owner.rstrip("/") or path == normalized:
+            return True
+    return False
+
+
+def git_blob_oid(workspace: Path, revision_path: str) -> str | None:
+    result = run(["git", "rev-parse", f"HEAD:{revision_path}"], cwd=workspace, check=False)
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def file_oid(path: Path) -> str:
+    return run(["git", "hash-object", str(path)]).stdout.strip()
+
+
+def merge_worker_changes(workspace: Path, changed: list[str]) -> None:
+    """Merge an isolated worker delta without overwriting a changed master file."""
+    for relative in changed:
+        source = workspace / relative
+        destination = ROOT / relative
+        if not source.is_file():
+            raise ValueError(f"worker changed path is not a regular file: {relative}")
+        if destination.exists():
+            base_oid = git_blob_oid(workspace, relative)
+            if base_oid is None:
+                raise ValueError(f"new worker file conflicts with existing master file: {relative}")
+            if file_oid(destination) != base_oid and file_oid(destination) != file_oid(source):
+                raise ValueError(f"master file changed since worker base: {relative}")
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
 
 
 def checkpoint_integration() -> None:
