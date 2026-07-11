@@ -1,0 +1,59 @@
+{
+  "schema": "stage1-rev-5.6-typed-graph-bundle-v1",
+  "item_id": "S56-M-0389-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0389",
+  "registry_version": 1,
+  "nodes": ["M0389-ROOT","M0389-S-DEFS","M0389-S-TRANSPORT","M0389-B-ZERO","M0389-N-SIGN","M0389-N-ORDER","M0389-L-POSGEN","M0389-L-X1","M0389-C-DESC","M0389-L-MUTATE","M0389-L-HEIGHT","M0389-L-TERMINATE","M0389-L-MINIMAL","M0389-L-REVERSE","M0389-T-COMPOSE","M0389-X-TRUST"],
+  "proof_graph": {"root":"M0389-ROOT","edges":[
+    {"from":"M0389-ROOT","to":"M0389-S-DEFS","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-ROOT","to":"M0389-S-TRANSPORT","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-ROOT","to":"M0389-B-ZERO","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-ROOT","to":"M0389-N-SIGN","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-ROOT","to":"M0389-L-POSGEN","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-ROOT","to":"M0389-T-COMPOSE","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-L-POSGEN","to":"M0389-N-ORDER","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-L-POSGEN","to":"M0389-L-X1","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-L-POSGEN","to":"M0389-C-DESC","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-C-DESC","to":"M0389-L-MUTATE","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-C-DESC","to":"M0389-L-HEIGHT","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-L-POSGEN","to":"M0389-L-TERMINATE","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-L-TERMINATE","to":"M0389-L-MINIMAL","type":"proof_requires","reciprocal":"required_by"},
+    {"from":"M0389-L-POSGEN","to":"M0389-L-REVERSE","type":"proof_requires","reciprocal":"required_by"}
+  ],"composition_edges":[
+    {"from":["M0389-B-ZERO","M0389-N-SIGN","M0389-L-POSGEN"],"to":"M0389-ROOT","type":"composes","certificate":"Stage1Instances.THM_M_0389_Obligations.root_compose","status":"kernel_checked_conditional"},
+    {"from":["M0389-N-ORDER","M0389-L-X1","M0389-C-DESC","M0389-L-TERMINATE","M0389-L-REVERSE"],"to":"M0389-L-POSGEN","type":"composes","certificate":null,"status":"open"}
+  ]},
+  "refinement_graph": {"edges":[
+    {"from":"M0389-ROOT","to":["M0389-B-ZERO","M0389-N-SIGN","M0389-L-POSGEN"],"type":"logical_decomposition","exhaustiveness":"kernel_checked_by_root_compose"},
+    {"from":"M0389-L-POSGEN","to":["M0389-N-ORDER","M0389-L-X1","M0389-C-DESC","M0389-L-TERMINATE","M0389-L-REVERSE"],"type":"logical_decomposition","exhaustiveness":"open_pending_exact_composition"}
+  ]},
+  "provenance_graph": {"edges":[
+    {"from":"statement.json","to":"M0389-ROOT","type":"provenance_of","credit":"statement_only"},
+    {"from":"legacy:S1_M_020.lean@b57e16ab5fc7d32683726eb7a1cf56df487d516aa9f62fd367a8d32febca7a4a","to":"M0389-L-MUTATE","type":"provenance_of","credit":"partial_body"},
+    {"from":"legacy:S1_M_020.lean@b57e16ab5fc7d32683726eb7a1cf56df487d516aa9f62fd367a8d32febca7a4a","to":"M0389-L-HEIGHT","type":"provenance_of","credit":"partial_body"},
+    {"from":"Markoff-1879-DOI-10.1007/BF02086269","to":"M0389-ROOT","type":"source_map","credit":"bibliographic_lead_only"}
+  ]},
+  "evidence_graph": {"edges":[
+    {"from":"statement.json","to":"M0389-ROOT","type":"evidence_for","scope":"exact_statement"},
+    {"from":"anchor-audit.json","to":"M0389-ROOT","type":"evidence_for","scope":"bounded_candidate_inventory"},
+    {"from":"ObligationTree.lean","to":"M0389-T-COMPOSE","type":"evidence_for","scope":"conditional_top_level_composition"}
+  ]},
+  "trust_graph": {"edges":[
+    {"from":"M0389-ROOT","to":"M0389-X-TRUST","type":"trusts","status":"open_release_gate"},
+    {"from":"root_compose","to":"Lean-4.29.0-kernel-plus-Init","type":"trusts","status":"narrow_check_only"}
+  ]},
+  "documentation_graph": {"edges":[
+    {"from":"obligation-tree.md#root-and-top-level-composition","to":"M0389-ROOT","type":"documents"},
+    {"from":"obligation-tree.md#positive-descent-subtree","to":"M0389-L-POSGEN","type":"documents"},
+    {"from":"obligation-tree.md#leaf-ledgers-and-boundaries","to":"M0389-C-DESC","type":"documents"},
+    {"from":"obligation-tree.md#trust-and-source-boundaries","to":"M0389-X-TRUST","type":"documents"}
+  ]},
+  "workflow_graph": {"edges":[
+    {"from":"S56-M-0389-OBLIGATION_TREE","to":"S56-M-0389-ANCHOR_AUDIT","type":"workflow_depends_on"},
+    {"from":"S56-M-0389-PROOF","to":"S56-M-0389-OBLIGATION_TREE","type":"workflow_depends_on"},
+    {"from":"S56-M-0389-VALIDATION","to":"S56-M-0389-PROOF","type":"workflow_depends_on"},
+    {"from":"S56-M-0389-RELEASE","to":"S56-M-0389-VALIDATION","type":"workflow_depends_on"}
+  ]},
+  "graph_invariants": {"proof_acyclic":true,"proof_root_reachable_nodes":15,"trust_only_nodes":1,"unknown_endpoints":0,"typed_graphs_separated":true},
+  "status_boundary": "The top-level conditional composition is checked. Positive descent composition, source crosswalks, proof bodies, release trust, and theorem closure remain open."
+}

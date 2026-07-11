@@ -1,0 +1,103 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0404-VALIDATION-local-20260711T195504Z",
+  "item_id": "S56-M-0404-VALIDATION",
+  "theorem_id": "THM-M-0404",
+  "base_revision": "4dabab14860067cbb1220d76c5a1bd9abd87d624",
+  "base_tree": "2c585eab9e13640309d3f010038d69db641e408d",
+  "validated_at": "2026-07-11T19:55:04Z",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "2a8afea3a2f8374e942bf4c6cad60858cd6365ab99769856c862d3c0e4ac37a0",
+    "validator_sha256": "57f2803a73297a525a4e0888fa72eeaaff5e95c3bac20e230e5dac7d37080995",
+    "statement_sha256": "a7dac1072a52d9e205b56a5d5b0ed0535758adc15c7acd904269f160c41eef9d",
+    "obligation_tree_sha256": "5b7c9d4cadf6fc6a9131c9c5c7129070041091f35243bba7e6a23220818e3632",
+    "proof_sha256": "7008fb86e76b8dfc500cca3f0febf1e953c28c84bdcbb690a5345199d62aebfc",
+    "obligation_registry_sha256": "c097548d687ee63f40a25633d6f5cfaf799927ae451bbb2a968b8ff6bc118136",
+    "typed_graphs_sha256": "81d05444b31af97268309dd5bb0d53fe2446f333ed082b8f368ce8f17f4567e4"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-0404/check_validation.py"
+    ],
+    "env": {},
+    "timeout_seconds": 120,
+    "network": "denied"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_statement_conditional_composition_and_local_combinatorial_proof",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "local_provenance_hashes": "pass_with_stale_graph_finding",
+    "dependency_pin_and_cleanliness": "pass",
+    "root_closed": false,
+    "root_machine_debt": "M3_in_frozen_graph; not M0 and exact root remains open",
+    "locally_checked_obligation_ids": [
+      "M0404-S-DEFINITIONS",
+      "M0404-S-BOUNDARY",
+      "M0404-L-COMBINATORIAL",
+      "M0404-T-ASSEMBLE"
+    ],
+    "minimal_mathematical_open_root_cut_set": [
+      "M0404-T-EVENTUAL"
+    ],
+    "stale_structured_cut_set": [
+      "M0404-T-EVENTUAL",
+      "M0404-L-COMBINATORIAL"
+    ],
+    "composition_certificates": [
+      "Stage1Instances.THM_M_0404.root_of_eventualPeriodic_packages",
+      "Stage1Instances.THM_M_0404.root_of_eventuallyPeriodicZeroSets"
+    ],
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The exact root is not kernel-closed; root_of_eventuallyPeriodicZeroSets takes EventuallyPeriodicZeroSets as an explicit premise.",
+    "M0404-T-EVENTUAL remains the mathematical open root cut.",
+    "The frozen typed graph predates Proof.lean and still reports M0404-L-COMBINATORIAL open; only the master may reconcile authoritative state.",
+    "The run reused shared writable warm .lake artifacts, so it is not a cold empty-cache hermetic replay.",
+    "No complete foundation/TCB inventory, SBOM/license archive, offline restoration, or second-platform attestation exists.",
+    "No independently provisioned clean runner, distinct verifier identity, second signature, or independently implemented minimal verifier exists.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "freshness": {
+    "review_due": "before any master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "record a replacement receipt and fail closed on any hash, pin, axiom, graph, validator, or policy drift"
+  },
+  "invalidation_inputs": [
+    "validation-spec.json",
+    "check_validation.py",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "statement.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow partial validation and explicit failed root/release gates. It is not E0/E1, M0, independent evidence, theorem completion, release, or master acceptance."
+}
