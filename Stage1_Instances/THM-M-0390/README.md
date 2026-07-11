@@ -15,3 +15,11 @@ environment, ordered binders, exact-type fixture, checked implication to the val
 four mutation probes. The primary-source pinpoint audit remains open, and the value-only form is
 not incorrectly credited as an equivalence without a representation-uniqueness bridge. No proof,
 audit completion, theorem completion, or master acceptance is claimed.
+
+The obligation-tree node freezes a fourteen-obligation denominator in
+`obligation-registry.json`, with separate typed proof, refinement, provenance, evidence, trust,
+documentation, and workflow graphs in `typed-graphs.json`. `proof-units.json` records exact or
+planned interfaces and substantive ledgers. `ObligationTree.lean` kernel-checks only the exhaustive
+three-way exponent split and conditional recomposition into the exact root expression. Every
+mathematical branch, deep arithmetic package, source pinpoint, proof body, and release trust gate
+remains explicitly open.

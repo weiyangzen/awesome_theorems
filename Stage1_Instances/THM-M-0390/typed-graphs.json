@@ -1,0 +1,70 @@
+{
+  "schema": "stage1-rev-5.6-typed-graph-bundle-v1",
+  "item_id": "S56-M-0390-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0390",
+  "registry_version": 1,
+  "nodes": [
+    "THM-M-0390-ROOT", "THM-M-0390-B-Q2", "THM-M-0390-B-P2", "THM-M-0390-B-RES",
+    "THM-M-0390-N-PRIMITIVE", "THM-M-0390-L-Q2", "THM-M-0390-L-P2", "THM-M-0390-L-CASSELS",
+    "THM-M-0390-L-WIEFERICH", "THM-M-0390-C-CYCLOTOMIC", "THM-M-0390-L-UNITS",
+    "THM-M-0390-L-CLASSGROUP", "THM-M-0390-T-RES-CONTRA", "THM-M-0390-X-TRUST"
+  ],
+  "proof_graph": {
+    "root": "THM-M-0390-ROOT",
+    "edges": [
+      {"from":"THM-M-0390-ROOT","to":"THM-M-0390-B-Q2","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-ROOT","to":"THM-M-0390-B-P2","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-ROOT","to":"THM-M-0390-B-RES","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-Q2","to":"THM-M-0390-N-PRIMITIVE","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-Q2","to":"THM-M-0390-L-Q2","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-P2","to":"THM-M-0390-N-PRIMITIVE","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-P2","to":"THM-M-0390-L-P2","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-RES","to":"THM-M-0390-N-PRIMITIVE","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-RES","to":"THM-M-0390-L-CASSELS","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-RES","to":"THM-M-0390-L-WIEFERICH","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-RES","to":"THM-M-0390-C-CYCLOTOMIC","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-RES","to":"THM-M-0390-L-UNITS","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-RES","to":"THM-M-0390-L-CLASSGROUP","type":"proof_requires","reciprocal":"required_by"},
+      {"from":"THM-M-0390-B-RES","to":"THM-M-0390-T-RES-CONTRA","type":"proof_requires","reciprocal":"required_by"}
+    ],
+    "composition_edges": [
+      {"from":["THM-M-0390-B-Q2","THM-M-0390-B-P2","THM-M-0390-B-RES"],"to":"THM-M-0390-ROOT","type":"composes","certificate":"Stage1.THM_M_0390.exponentBranches_compose","status":"kernel_checked"},
+      {"from":["THM-M-0390-N-PRIMITIVE","THM-M-0390-L-Q2"],"to":"THM-M-0390-B-Q2","type":"composes","certificate":null,"status":"open"},
+      {"from":["THM-M-0390-N-PRIMITIVE","THM-M-0390-L-P2"],"to":"THM-M-0390-B-P2","type":"composes","certificate":null,"status":"open"},
+      {"from":["THM-M-0390-N-PRIMITIVE","THM-M-0390-L-CASSELS","THM-M-0390-L-WIEFERICH","THM-M-0390-C-CYCLOTOMIC","THM-M-0390-L-UNITS","THM-M-0390-L-CLASSGROUP","THM-M-0390-T-RES-CONTRA"],"to":"THM-M-0390-B-RES","type":"composes","certificate":null,"status":"open"}
+    ]
+  },
+  "refinement_graph": {"edges":[
+    {"from":"THM-M-0390-ROOT","to":["THM-M-0390-B-Q2","THM-M-0390-B-P2","THM-M-0390-B-RES"],"type":"logical_decomposition","exhaustiveness":"kernel_checked_by_exponentBranches_compose"},
+    {"from":"THM-M-0390-B-RES","to":["THM-M-0390-L-CASSELS","THM-M-0390-L-WIEFERICH","THM-M-0390-C-CYCLOTOMIC","THM-M-0390-L-UNITS","THM-M-0390-L-CLASSGROUP","THM-M-0390-T-RES-CONTRA"],"type":"logical_decomposition","exhaustiveness":"open_pending_exact_signatures_and_composition"}
+  ]},
+  "provenance_graph": {"edges":[
+    {"from":"local-legacy-s1-m-004","to":"THM-M-0390-N-PRIMITIVE","type":"provenance_of","credit":"discovery_only"},
+    {"from":"mathlib-support-apis","to":"THM-M-0390-N-PRIMITIVE","type":"provenance_of","credit":"support_only"},
+    {"from":"formal-conjectures-catalan","to":"THM-M-0390-ROOT","type":"provenance_of","credit":"none_placeholder"}
+  ]},
+  "evidence_graph": {"edges":[
+    {"from":"statement.json","to":"THM-M-0390-ROOT","type":"evidence_for","scope":"statement_only"},
+    {"from":"anchor-audit.json","to":"THM-M-0390-ROOT","type":"evidence_for","scope":"candidate_classification_only"},
+    {"from":"obligation-tree-validation.md","to":"THM-M-0390-ROOT","type":"evidence_for","scope":"tree_structure_and_root_composition_only"}
+  ]},
+  "trust_graph": {"edges":[
+    {"from":"THM-M-0390-ROOT","to":"THM-M-0390-X-TRUST","type":"trusts","status":"open_release_gate"},
+    {"from":"Stage1.THM_M_0390.exponentBranches_compose","to":"Lean-4.29.0-kernel-plus-Init","type":"trusts","status":"narrow_check_only"}
+  ]},
+  "documentation_graph": {"edges":[
+    {"from":"obligation-tree.md#root","to":"THM-M-0390-ROOT","type":"documents"},
+    {"from":"obligation-tree.md#leaf-ledgers","to":"THM-M-0390-N-PRIMITIVE","type":"documents"},
+    {"from":"obligation-tree.md#leaf-ledgers","to":"THM-M-0390-L-CASSELS","type":"documents"},
+    {"from":"obligation-tree.md#leaf-ledgers","to":"THM-M-0390-C-CYCLOTOMIC","type":"documents"},
+    {"from":"obligation-tree.md#leaf-ledgers","to":"THM-M-0390-L-CLASSGROUP","type":"documents"}
+  ]},
+  "workflow_graph": {"edges":[
+    {"from":"S56-M-0390-OBLIGATION_TREE","to":"S56-M-0390-ANCHOR_AUDIT","type":"workflow_depends_on"},
+    {"from":"S56-M-0390-PROOF","to":"S56-M-0390-OBLIGATION_TREE","type":"workflow_depends_on"},
+    {"from":"S56-M-0390-VALIDATION","to":"S56-M-0390-PROOF","type":"workflow_depends_on"},
+    {"from":"S56-M-0390-RELEASE","to":"S56-M-0390-VALIDATION","type":"workflow_depends_on"}
+  ]},
+  "graph_invariants": {"proof_acyclic":true,"root_reachable_nodes":14,"unknown_endpoints":0,"proof_documentation_and_workflow_edges_separated":true},
+  "status_boundary": "Only the three-way exponent split and its root recomposition are kernel checked. All mathematical branch bodies and three child-to-branch composition certificates remain open. Graph edges record required architecture, not proof closure."
+}
