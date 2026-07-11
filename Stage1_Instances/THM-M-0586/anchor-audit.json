@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0586-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0586",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "6ba79369e24bfba400ebdfd7dbacd4fd64e18d2c",
+  "canonical_target": "Stage1Instances.THMM0586.HighDimensionalPoincareTarget",
+  "canonical_expression_sha256": "48062820803a28b54a2bcf9b1122a10ce4d4b53b1d9e37e5f0c8b119955346e7",
+  "discovery_order": [
+    "repository-local Lean source",
+    "pinned mathlib source and installed environment",
+    "credible external Lean 4 repository at an immutable revision",
+    "public GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0586-C01",
+      "project": "awesome_theorems",
+      "revision": "6ba79369e24bfba400ebdfd7dbacd4fd64e18d2c",
+      "module": "Stage1_Instances/THM-M-0586/Statement.lean",
+      "declaration": "Stage1Instances.THMM0586.HighDimensionalPoincareTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already repository-local as the statement surface; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0586-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Geometry.Manifold.PoincareConjecture",
+      "file": "Mathlib/Geometry/Manifold/PoincareConjecture.lean",
+      "file_sha256": "4b9c454dac5fb68da0ff0bac0efe9e5d4ce17c87b9892ff63343c42e761bb8cf",
+      "declaration": "ContinuousMap.HomotopyEquiv.nonempty_homeomorph_sphere",
+      "kind": "proof_wanted_statement_anchor",
+      "normalized_match": "strictly broader topological statement; it would imply the selected smooth compact n >= 5 target",
+      "body_provenance": "proof_wanted command in pinned source; no exported environment constant or proof body",
+      "placeholder_or_axiom_status": "statement marker only; an expected-failure #check reports unknown constant",
+      "supporting_declarations_checked": [
+        "ContinuousMap.HomotopyEquiv",
+        "Homeomorph",
+        "Homeomorph.toHomotopyEquiv",
+        "ContinuousMap.HomotopyEquiv.simplyConnectedSpace_iff",
+        "ChartedSpace",
+        "IsManifold",
+        "CompactSpace",
+        "ContinuousMap.HomotopyEquiv.NonemptyDiffeomorphSphere"
+      ],
+      "classification": "M3_anchor_only",
+      "integration_status": "mathlib is pinned and locally usable, but contains no proof-bearing terminal declaration to wrap"
+    },
+    {
+      "candidate_id": "S56-M-0586-C03",
+      "project": "lean-dojo/LeanMillenniumPrizeProblems",
+      "revision": "540da94826f70f3edf4d4fc66ce6cda20e903f61",
+      "toolchain": "leanprover/lean4:v4.26.0",
+      "module": "Problems.Poincare.Millennium",
+      "file": "Problems/Poincare/Millennium.lean",
+      "git_blob": "4ef88f661b979ad42c63b9a7f78db92b67613bd5",
+      "file_sha256": "045a97bb2dea46544ca57da7e9e5669c6b160721b1882bc53a8426369352deba",
+      "declarations": [
+        "MillenniumPoincare.PoincareConjecture3",
+        "MillenniumPoincare.GeneralizedPoincareConjecture",
+        "MillenniumPoincare.homotopyEquiv_nonempty_homeomorph_of_discrete",
+        "MillenniumPoincare.generalizedPoincareConjecture_zero"
+      ],
+      "kind": "adjacent_external_statement_and_dimension_zero_proof",
+      "normalized_match": "the generalized proposition omits smoothness and the n >= 5 restriction, but is only a def; the proved theorem specializes to n = 0 and cannot close the canonical root",
+      "body_provenance": "explicit Lean proof bodies exist only for the discrete-space bridge and n = 0 case",
+      "placeholder_or_axiom_status": "no terminal high-dimensional proof declaration is present in the inspected immutable file",
+      "license": "Apache-2.0",
+      "license_sha256": "a0eece0efe3201dd3237eef863cee0eb68bc7a8d8f97486ab7f1d01a645409c5",
+      "classification": "M3_adjacent_only",
+      "integration_status": "reject as a completion dependency: different toolchain and no n >= 5 proof body"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Poincare conjecture\" Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "boundary": "dated content-hashed discovery evidence, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code search for Poincare Lean declarations",
+      "result": "authentication unavailable; no negative result claimed",
+      "boundary": "blocked search lane"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "No repo-local, pinned mathlib, or inspected external candidate has a proof body for the exact high-dimensional target. Mathlib supplies a proof_wanted statement marker and usable substrate only; the external project proves only a dimension-zero case.",
+  "machine_debt": "formalization_debt",
+  "integration_blocker": "There is no terminal external Lean 4 proof candidate to pin, import, or wrap. Authenticated GitHub code search was unavailable, so the negative external search is explicitly bounded.",
+  "reopen_condition": "A concrete Lean 4 proof candidate with repository URL, immutable commit, toolchain, module, declaration, exact-type transport, proof-body provenance, license, and a successful repo-local wrapper check.",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The candidate inventory and pinned anchor probes complete this bounded node audit only. They do not complete the full audit, prove the theorem, or establish that no Lean 4 proof exists elsewhere."
+}
+

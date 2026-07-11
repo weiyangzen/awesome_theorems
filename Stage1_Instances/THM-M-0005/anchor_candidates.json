@@ -1,0 +1,110 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-0005-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0005",
+  "audited_at": "2026-07-12",
+  "canonical_target": "AwesomeTheorems.Stage1.THM_M_0005.KunnethFormula",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "search_roots": ["Mathlib", "Archive"],
+    "search_terms": [
+      "Kunneth",
+      "Kuenneth",
+      "Eilenberg-Zilber",
+      "EilenbergZilber",
+      "Alexander-Whitney",
+      "AlexanderWhitney",
+      "homology.*tensor",
+      "tensor.*homology",
+      "shortExact.*Tor",
+      "Tor.*shortExact"
+    ],
+    "exact_or_bridge_candidate": null,
+    "support_candidates": [
+      {
+        "module": "Mathlib.AlgebraicTopology.SingularHomology.Basic",
+        "declarations": [
+          "AlgebraicTopology.singularChainComplexFunctor",
+          "AlgebraicTopology.singularHomologyFunctor"
+        ],
+        "classification": "support_only"
+      },
+      {
+        "module": "Mathlib.CategoryTheory.Monoidal.Tor",
+        "declarations": [
+          "CategoryTheory.Tor",
+          "CategoryTheory.isZero_Tor_succ_of_projective"
+        ],
+        "classification": "support_only"
+      },
+      {
+        "module": "Mathlib.Algebra.Homology.ShortComplex.ShortExact",
+        "declarations": [
+          "CategoryTheory.ShortComplex.ShortExact",
+          "CategoryTheory.ShortComplex.ShortExact.map",
+          "CategoryTheory.ShortComplex.ShortExact.splittingOfProjective"
+        ],
+        "classification": "support_only"
+      }
+    ],
+    "conclusion": "Pinned mathlib supplies the vocabulary used by the target but no Kunneth theorem, algebraic Kunneth theorem, product comparison, Eilenberg-Zilber theorem, or exact wrapper candidate."
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "revision_date": "2026-06-02T17:28:59Z",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "license": "MIT",
+      "files": [
+        {
+          "path": "Atlas/AlgebraicTopologyI/code/Section25.lean",
+          "sha256": "764df962b7b0d22dde93bb2b3c7debb9e7f26a48c08dd8dc4ea6e9ef281f17ae",
+          "declarations": [
+            "algebraic_kunneth",
+            "algebraic_kunneth_natural",
+            "KunnethTopological.kunnethMap",
+            "KunnethTopological.kunnethBoundary",
+            "KunnethTopological.kunnethShortExact_exact",
+            "KunnethTopological.kunnethShortExact_naturality",
+            "KunnethTopological.kunneth_topological"
+          ],
+          "placeholder_count": 11
+        },
+        {
+          "path": "Atlas/AlgebraicTopologyI/code/EilenbergZilber.lean",
+          "sha256": "ee8fdef84b9daeae8777223c13e8380445f42e50e6a0fd5d4ec089964bc2c5b1",
+          "declarations": [
+            "EilenbergZilber.eilenbergZilber_homotopyEquiv",
+            "EilenbergZilber.eilenbergZilber_natural",
+            "EilenbergZilber.eilenbergZilberHomologyIso"
+          ],
+          "placeholder_count": 4
+        }
+      ],
+      "terminal_body_provenance": "kunneth_topological is a constructor expression whose exactness and splitting arguments terminate at kunnethShortExact_exact and kunnethShortExact_splitting; both bodies are `by sorry`. Its maps, zero proof, naturality theorem, chain freeness/instance bridges, and Eilenberg-Zilber equivalence/naturality also contain `sorry`.",
+      "scope_mismatches": [
+        "The topological declarations are universe-zero (`Type` and `TopCat.{0}`), while the canonical target quantifies over universe `u`.",
+        "kunneth_topological is pointwise in R, n, X, and Y rather than one coherent family packaged for all X, Y, and n.",
+        "kunnethShortExact_naturality asserts existence of a short-complex morphism and fixes only its middle component; the canonical target fixes tensor and Tor component maps and both naturality equations.",
+        "The external coefficient assumptions omit the canonical target's explicit IsDomain instance."
+      ],
+      "classification": "external_upstream_anchor_only_with_placeholders",
+      "proof_credit": false,
+      "integration_feasibility": "Toolchain and mathlib pins match, and the license is compatible, but placeholder-bearing terminal bodies prevent proof integration. No dependency was fetched or added."
+    }
+  ],
+  "discovery": {
+    "sourcegraph_query_scope": "public non-archived, non-fork Lean code indexed by Sourcegraph",
+      "result": "Kunneth-family and Eilenberg-Zilber hits were confined to facebookresearch/atlas-lean; candidate files were then audited at the immutable revision recorded above.",
+    "limitations": "Public-code search is discovery evidence, not a completeness proof. GitHub code search required authentication and grep.app returned HTTP 429."
+  },
+  "machine_classification": "M3",
+  "human_classification": "H1",
+  "readability_classification": "R3",
+  "theorem_complete": false,
+  "status_boundary": "The anchor audit is complete for this node only. No candidate supplies placeholder-free exact kernel closure, no external dependency is integrated, and no proof or theorem-completion credit is assigned."
+}
