@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-validation-recipes/1.0",
+  "theorem_id": "THM-M-0417",
+  "item_id": "S56-M-0417-OBLIGATION_TREE",
+  "recipes": [
+    {
+      "recipe_id": "recipe:M0417-obligation-tree-lean",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0417/ObligationTree.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains root_compose and axiom report"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0417-ROOT",
+        "M0417-S-CONTEXT",
+        "M0417-N-HALF-VOLUME",
+        "M0417-L-BLICHFELDT",
+        "M0417-C-COLLISION",
+        "M0417-T-DIFFERENCE",
+        "M0417-T-COMPOSE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0417.ObligationTree.root_compose",
+        "Stage1Instances.THM_M_0417.ObligationTree.root_exact_type"
+      ]
+    },
+    {
+      "recipe_id": "recipe:M0417-obligation-tree-structure",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0417/check_obligation_tree.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact structural success marker"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0417-ROOT",
+        "M0417-S-CONTEXT",
+        "M0417-N-HALF-VOLUME",
+        "M0417-L-BLICHFELDT",
+        "M0417-C-COLLISION",
+        "M0417-T-DIFFERENCE",
+        "M0417-T-COMPOSE",
+        "M0417-X-SOURCE",
+        "M0417-X-TRUST"
+      ],
+      "covered_declarations": []
+    }
+  ]
+}

@@ -1,0 +1,695 @@
+{
+  "schema_version": "stage1-obligation-nodes/1.0",
+  "theorem_id": "THM-M-0417",
+  "item_id": "S56-M-0417-OBLIGATION_TREE",
+  "registry_version": 1,
+  "nodes": [
+    {
+      "node_id": "THM-M-0417-ROOT",
+      "obligation_id": "M0417-ROOT",
+      "kind": "root",
+      "human_statement": "Exact strict Minkowski convex-body statement.",
+      "formal_target": "Stage1Instances.THM_M_0417.Statement",
+      "output": "A nonzero member of L lying in s.",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [
+        "evidence:statement-expression-9d911a547ec7"
+      ],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 3,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-ROOT-STEP-1",
+          "premises": [
+            "M0417-S-CONTEXT",
+            "M0417-N-HALF-VOLUME"
+          ],
+          "inference": "instantiate the frozen context and normalize the volume premise",
+          "output": "strict half-body volume bound",
+          "outgoing_use": "M0417-L-BLICHFELDT"
+        },
+        {
+          "step_id": "M0417-ROOT-STEP-2",
+          "premises": [
+            "M0417-L-BLICHFELDT",
+            "M0417-C-COLLISION"
+          ],
+          "inference": "apply and unpack the Blichfeldt collision",
+          "output": "distinct overlapping lattice translates",
+          "outgoing_use": "M0417-T-DIFFERENCE"
+        },
+        {
+          "step_id": "M0417-ROOT-STEP-3",
+          "premises": [
+            "M0417-T-DIFFERENCE",
+            "M0417-T-COMPOSE"
+          ],
+          "inference": "extract and compose the lattice difference witness",
+          "output": "exact frozen root conclusion",
+          "outgoing_use": "root acceptance gate"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-root",
+      "validation_spec_id": "recipe:M0417-obligation-tree-lean",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-S-CONTEXT",
+      "obligation_id": "M0417-S-CONTEXT",
+      "kind": "definition",
+      "human_statement": "The frozen binders, instances, covolume model, strict threshold, and witness coercions agree with the root.",
+      "formal_target": "Stage1Instances.THM_M_0417.ObligationTree.root_exact_type",
+      "output": "Checked definitional equality to the frozen statement.",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [
+        "evidence:statement-expression-9d911a547ec7"
+      ],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 2,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-S-CONTEXT-STEP-1",
+          "premises": [
+            "statement-expression-9d911a547ec729d286676982e8bd570bc5ee0790fb6a557062f3c0a4cf8beba5"
+          ],
+          "inference": "compare universes, ordered binders, instances, coercions, hypotheses, and conclusion",
+          "output": "composition Root has the frozen expression",
+          "outgoing_use": "root_exact_type"
+        },
+        {
+          "step_id": "M0417-S-CONTEXT-STEP-2",
+          "premises": [
+            "root_exact_type"
+          ],
+          "inference": "kernel-check definitional equality",
+          "output": "exact statement identity",
+          "outgoing_use": "M0417-ROOT"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-s-context",
+      "validation_spec_id": "recipe:M0417-obligation-tree-lean",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-N-HALF-VOLUME",
+      "obligation_id": "M0417-N-HALF-VOLUME",
+      "kind": "normalization",
+      "human_statement": "The strict 2^finrank bound implies that the half-scaled body has measure greater than the fundamental domain.",
+      "formal_target": "Stage1Instances.THM_M_0417.ObligationTree.HalfBodyVolume",
+      "output": "mu F < mu ((2^-1) \u2022 s).",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 4,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-N-HALF-VOLUME-STEP-1",
+          "premises": [
+            "root strict measure premise"
+          ],
+          "inference": "apply addHaar_smul_of_nonneg to scalar 2^-1",
+          "output": "measure of half-body as scalar factor times mu s",
+          "outgoing_use": "ENNReal normalization"
+        },
+        {
+          "step_id": "M0417-N-HALF-VOLUME-STEP-2",
+          "premises": [
+            "finite-dimensionality",
+            "two_ne_zero"
+          ],
+          "inference": "rewrite the scalar factor as (2^-1)^finrank",
+          "output": "explicit dimension-dependent scale",
+          "outgoing_use": "inequality cancellation"
+        },
+        {
+          "step_id": "M0417-N-HALF-VOLUME-STEP-3",
+          "premises": [
+            "mu F * 2^finrank < mu s"
+          ],
+          "inference": "cancel the finite nonzero 2^finrank factor in ENNReal",
+          "output": "mu F below the rescaled measure expression",
+          "outgoing_use": "final arithmetic"
+        },
+        {
+          "step_id": "M0417-N-HALF-VOLUME-STEP-4",
+          "premises": [
+            "inverse multiplication identities"
+          ],
+          "inference": "normalize inverse powers and multiplication order",
+          "output": "mu F < mu ((2^-1) \u2022 s)",
+          "outgoing_use": "M0417-L-BLICHFELDT"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-n-half-volume",
+      "validation_spec_id": "recipe:M0417-obligation-tree-lean",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-L-BLICHFELDT",
+      "obligation_id": "M0417-L-BLICHFELDT",
+      "kind": "bridge",
+      "human_statement": "Blichfeldt applied to the measurable half-body yields distinct lattice translates that overlap.",
+      "formal_target": "Stage1Instances.THM_M_0417.ObligationTree.BlichfeldtBridge",
+      "output": "Collision E L s.",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "mathlib:MeasureTheory.exists_pair_mem_lattice_not_disjoint_vadd@8a178386",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 3,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-L-BLICHFELDT-STEP-1",
+          "premises": [
+            "Convex Real s"
+          ],
+          "inference": "scale convexity by 2^-1 and derive null measurability",
+          "output": "NullMeasurableSet ((2^-1) \u2022 s) mu",
+          "outgoing_use": "Blichfeldt premise"
+        },
+        {
+          "step_id": "M0417-L-BLICHFELDT-STEP-2",
+          "premises": [
+            "fundamental domain",
+            "half-body volume bound",
+            "half-body null measurability"
+          ],
+          "inference": "apply exists_pair_mem_lattice_not_disjoint_vadd",
+          "output": "distinct x,y with nondisjoint translates",
+          "outgoing_use": "M0417-C-COLLISION"
+        },
+        {
+          "step_id": "M0417-L-BLICHFELDT-STEP-3",
+          "premises": [
+            "Blichfeldt witnesses"
+          ],
+          "inference": "package the witness and overlap relation",
+          "output": "Collision E L s",
+          "outgoing_use": "M0417-T-DIFFERENCE"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-l-blichfeldt",
+      "validation_spec_id": "recipe:M0417-obligation-tree-lean",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-C-COLLISION",
+      "obligation_id": "M0417-C-COLLISION",
+      "kind": "construction",
+      "human_statement": "Unpack translate non-disjointness into half-body points with equal translated images.",
+      "formal_target": "Stage1Instances.THM_M_0417.ObligationTree.Collision",
+      "output": "Distinct x,y in L and an overlap relation for their half-body translates.",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 3,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-C-COLLISION-STEP-1",
+          "premises": [
+            "not Disjoint translated half-bodies"
+          ],
+          "inference": "use Set.not_disjoint_iff",
+          "output": "a common ambient point in both translates",
+          "outgoing_use": "witness unpacking"
+        },
+        {
+          "step_id": "M0417-C-COLLISION-STEP-2",
+          "premises": [
+            "common-point memberships"
+          ],
+          "inference": "unpack vadd-set membership",
+          "output": "half-body points v,w and translate equality",
+          "outgoing_use": "difference rewriting"
+        },
+        {
+          "step_id": "M0417-C-COLLISION-STEP-3",
+          "premises": [
+            "x != y"
+          ],
+          "inference": "retain distinct subgroup witnesses alongside the equality",
+          "output": "structured collision data",
+          "outgoing_use": "M0417-T-DIFFERENCE"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-c-collision",
+      "validation_spec_id": "recipe:M0417-obligation-tree-lean",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-T-DIFFERENCE",
+      "obligation_id": "M0417-T-DIFFERENCE",
+      "kind": "transport",
+      "human_statement": "Use the overlap equation, central symmetry, and convexity to put x-y in s and prove x-y is nonzero.",
+      "formal_target": "Stage1Instances.THM_M_0417.ObligationTree.DifferenceExtraction",
+      "output": "A nonzero lattice point in s.",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 5,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-T-DIFFERENCE-STEP-1",
+          "premises": [
+            "collision x != y"
+          ],
+          "inference": "apply sub_ne_zero.mpr",
+          "output": "x-y != 0",
+          "outgoing_use": "root witness nonzeroness"
+        },
+        {
+          "step_id": "M0417-T-DIFFERENCE-STEP-2",
+          "premises": [
+            "half-body memberships"
+          ],
+          "inference": "rewrite inverse scalar membership",
+          "output": "v,w belong to the original body after doubling",
+          "outgoing_use": "convexity inputs"
+        },
+        {
+          "step_id": "M0417-T-DIFFERENCE-STEP-3",
+          "premises": [
+            "translate overlap equality"
+          ],
+          "inference": "rewrite vadd as addition and isolate the subgroup difference",
+          "output": "x-y equals the half-scaled point difference",
+          "outgoing_use": "body membership calculation"
+        },
+        {
+          "step_id": "M0417-T-DIFFERENCE-STEP-4",
+          "premises": [
+            "central symmetry",
+            "membership of v"
+          ],
+          "inference": "replace subtraction by addition of a body point and its negative",
+          "output": "two points of s at equal weights",
+          "outgoing_use": "convexity"
+        },
+        {
+          "step_id": "M0417-T-DIFFERENCE-STEP-5",
+          "premises": [
+            "Convex Real s",
+            "weights 1/2 and 1/2"
+          ],
+          "inference": "apply convexity and normalize the scalar expression",
+          "output": "the nonzero lattice difference lies in s",
+          "outgoing_use": "M0417-T-COMPOSE"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-t-difference",
+      "validation_spec_id": "recipe:M0417-obligation-tree-lean",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-T-COMPOSE",
+      "obligation_id": "M0417-T-COMPOSE",
+      "kind": "terminal",
+      "human_statement": "Compose half-body volume, Blichfeldt collision, and difference extraction without adding premises.",
+      "formal_target": "Stage1Instances.THM_M_0417.ObligationTree.root_compose",
+      "output": "The exact root proposition.",
+      "human_debt": "H1",
+      "machine_debt": "M0-W-candidate",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "mathlib:MeasureTheory.exists_ne_zero_mem_lattice_of_measure_mul_two_pow_lt_measure@8a178386",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 3,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-T-COMPOSE-STEP-1",
+          "premises": [
+            "M0417-N-HALF-VOLUME"
+          ],
+          "inference": "specialize HalfBodyVolume to the root inputs",
+          "output": "half-body strict measure bound",
+          "outgoing_use": "BlichfeldtBridge"
+        },
+        {
+          "step_id": "M0417-T-COMPOSE-STEP-2",
+          "premises": [
+            "M0417-L-BLICHFELDT",
+            "half-body bound"
+          ],
+          "inference": "specialize BlichfeldtBridge",
+          "output": "Collision E L s",
+          "outgoing_use": "DifferenceExtraction"
+        },
+        {
+          "step_id": "M0417-T-COMPOSE-STEP-3",
+          "premises": [
+            "M0417-T-DIFFERENCE",
+            "collision"
+          ],
+          "inference": "specialize DifferenceExtraction",
+          "output": "exact Root conclusion",
+          "outgoing_use": "M0417-ROOT"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-t-compose",
+      "validation_spec_id": "recipe:M0417-obligation-tree-lean",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-X-SOURCE",
+      "obligation_id": "M0417-X-SOURCE",
+      "kind": "source_boundary",
+      "human_statement": "Map every mathematical obligation to a primary source theorem, assumptions, page, and errata record.",
+      "formal_target": "policy obligation; no Lean declaration",
+      "output": "Human-source boundary record.",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source_statement_crosswalk.md",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 2,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-X-SOURCE-STEP-1",
+          "premises": [
+            "Minkowski 1896 discovery anchor",
+            "mathlib Clark reference"
+          ],
+          "inference": "locate exact theorem, edition, page, and assumptions",
+          "output": "pinpoint source crosswalk",
+          "outgoing_use": "independent source review"
+        },
+        {
+          "step_id": "M0417-X-SOURCE-STEP-2",
+          "premises": [
+            "pinpoint crosswalk",
+            "errata search"
+          ],
+          "inference": "independently review every root-relevant obligation",
+          "output": "H0-eligible source packet or explicit debt",
+          "outgoing_use": "release source gate"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-x-source",
+      "validation_spec_id": "recipe:M0417-obligation-tree-structure",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0417-X-TRUST",
+      "obligation_id": "M0417-X-TRUST",
+      "kind": "trust_boundary",
+      "human_statement": "Classify the terminal body, transitive declarations, axioms, imports, TCB, and replay boundary.",
+      "formal_target": "policy obligation; terminal declaration MeasureTheory.exists_ne_zero_mem_lattice_of_measure_mul_two_pow_lt_measure",
+      "output": "Trust and provenance boundary record.",
+      "human_debt": "H1",
+      "machine_debt": "M2",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical-v1-pending-validation",
+      "tcb_profile": "lean4-4.29.0-mathlib-8a178386-pending-transitive-audit",
+      "computation_record": "none",
+      "step_budget": 3,
+      "semantic_step_ledger": [
+        {
+          "step_id": "M0417-X-TRUST-STEP-1",
+          "premises": [
+            "pinned terminal declaration"
+          ],
+          "inference": "resolve terminal body and transitive declaration/import provenance",
+          "output": "complete formal provenance graph",
+          "outgoing_use": "foundation comparison"
+        },
+        {
+          "step_id": "M0417-X-TRUST-STEP-2",
+          "premises": [
+            "transitive provenance",
+            "axiom output"
+          ],
+          "inference": "compare exact principles with the versioned foundation profile",
+          "output": "accepted or rejected foundation closure",
+          "outgoing_use": "TCB audit"
+        },
+        {
+          "step_id": "M0417-X-TRUST-STEP-3",
+          "premises": [
+            "Lean executable",
+            "compiled artifacts",
+            "package tools",
+            "replay recipes"
+          ],
+          "inference": "inventory, hash, and independently replay the full trusted boundary",
+          "output": "release-grade trust packet or explicit debt",
+          "outgoing_use": "release trust gate"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0417/obligation-tree.md#m0417-x-trust",
+      "validation_spec_id": "recipe:M0417-obligation-tree-structure",
+      "status_boundary": "Architecture and decomposition only; no H0, M0, R0, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0417-OBLIGATION_TREE",
+        "S56-M-0417-PROOF",
+        "S56-M-0417-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0417/ObligationTree.lean",
+        "Stage1_Instances/THM-M-0417/obligation-tree.md"
+      ],
+      "owner": "Stage1 rev-5.6 THM-M-0417 execution lane",
+      "reviewer": "independent integration-lane reviewer required",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "on any invalidation input",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "Lean source",
+          "mathlib pin",
+          "standard"
+        ],
+        "revocation_state": "active-provisional"
+      }
+    }
+  ],
+  "status_boundary": "Node records freeze the architecture and budgets; their debt values remain open projections."
+}
