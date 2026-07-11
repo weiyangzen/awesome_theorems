@@ -304,17 +304,14 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             else:
                 # A worker that deliberately fails closed must not be relaunched on
                 # the same repository revision forever.  Keep its negative result
-                # in the runtime ledger while freeing the slot for another DAG node;
-                # a new main revision automatically makes the node eligible again.
+                # in the runtime ledger while freeing the slot for another DAG node.
+                # Retry requires an explicit operator decision backed by new source
+                # evidence, rather than incidental commits elsewhere in the queue.
                 claim["status"] = "blocked"
                 claim["blocked_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 claim["block_reason"] = "worker_exited_without_selftest"
                 claim["base_revision"] = claim.get("base_revision", current_revision)
                 kept.append(claim)
-        elif claim.get("status") == "blocked" and claim.get("base_revision") != current_revision:
-            claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
-            claim["release_reason"] = "base_revision_changed_after_block"
-            released.append(claim)
         else:
             kept.append(claim)
     if released:
