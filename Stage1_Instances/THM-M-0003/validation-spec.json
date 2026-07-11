@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0003-VALIDATION",
+  "theorem_id": "THM-M-0003",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0003-ISOLATED-KERNEL",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0003/check_proof.sh"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 120,
+      "network_policy": "denied_by_recipe_contract",
+      "expected_exit": 0,
+      "expected_outputs": [{"stream": "stdout", "semantic_hash_policy": "axiom sets and exact declarations checked"}],
+      "covered_obligation_ids": ["M0003-ROOT", "M0003-L-KERNEL", "M0003-L-LEFT", "M0003-L-RIGHT", "M0003-L-COKERNEL", "M0003-T-ASSEMBLE"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0003.Proof.snakeLemma",
+        "Stage1Instances.THM_M_0003.Proof.snakeLemma_via_frozen_composition"
+      ]
+    },
+    {
+      "recipe_id": "VAL-M0003-STATEMENT-IDENTITY",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0003/check_statement.py"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 120,
+      "network_policy": "denied_by_recipe_contract",
+      "expected_exit": 0,
+      "expected_outputs": [{"stream": "stdout", "semantic_hash_policy": "exact expression hash and killed mutations"}],
+      "covered_obligation_ids": ["M0003-ROOT", "M0003-S-TRANSPORT"],
+      "covered_declarations": ["Stage1Instances.THM_M_0003.SnakeLemmaTarget"]
+    },
+    {
+      "recipe_id": "VAL-M0003-GRAPH-AND-COMPOSITION",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0003/check_obligation_tree.py"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 60,
+      "network_policy": "denied_by_recipe_contract",
+      "expected_exit": 0,
+      "expected_outputs": [{"stream": "stdout", "semantic_hash_policy": "registry denominator and typed-edge counts"}],
+      "covered_obligation_ids": ["M0003-ROOT", "M0003-T-ASSEMBLE", "M0003-X-UPSTREAM", "M0003-X-TCB"],
+      "covered_declarations": ["Stage1Instances.THM_M_0003.ObligationTree.root_compose"]
+    },
+    {
+      "recipe_id": "VAL-M0003-PROOF-RECEIPT",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0003/check_proof.py"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 60,
+      "network_policy": "denied_by_recipe_contract",
+      "expected_exit": 0,
+      "expected_outputs": [{"stream": "stdout", "semantic_hash_policy": "input hashes, declaration inventory, and hygiene assertions"}],
+      "covered_obligation_ids": ["M0003-ROOT", "M0003-X-UPSTREAM"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0003.Proof.snakeLemma",
+        "Stage1Instances.THM_M_0003.Proof.snakeLemma_via_frozen_composition"
+      ]
+    }
+  ]
+}

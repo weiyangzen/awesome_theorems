@@ -1,0 +1,83 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0010-VALIDATION-local-20260711T232734Z",
+  "item_id": "S56-M-0010-VALIDATION",
+  "theorem_id": "THM-M-0010",
+  "base_revision": "20ad05958a693d2ca2006867b6235dc8616d9220",
+  "base_tree": "b123a3066f842bceaa7a6f88af420dbb90867fe0",
+  "validated_at": "2026-07-11T23:27:34Z",
+  "attestor": "stage1-rev56-worker-slot7",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "1aebfd90d7635c46adda8feab9303d72b3e0569ad9f11b7dcb53bbc263a30669",
+    "validator_sha256": "2167c60cedae58e14dc084b37b7912475460568ad9d48a9580a6d8fc98f79c7c",
+    "validation_probe_sha256": "30de42e35c89ef8f0d89b7ad825b2ca8a357c4e7b6d58d4a6a22f48be85aadf4",
+    "statement_sha256": "a8470ae260bed65099a938a8d0c95187c1080e68f77e224aa6f0f0b7e00b28b3",
+    "obligation_tree_sha256": "e8ce1c031308e16a8be21918f6b576c95279b4307838b4e7cfec351260ba49c3",
+    "proof_sha256": "903ae09ea6d30a17ac882c2d34a843c46de7dd60d42deb7d5b5c81bf3999e195",
+    "statement_record_sha256": "9cffbda6a3e93a241c3fce5dea8a25542a902eb73d2d5e321993994d4e662d43",
+    "obligation_registry_sha256": "bb8c9988f7625d008a6e11300cada02a3ff9c543c9b1570c980e6b51283da1a9",
+    "typed_graphs_sha256": "11785c58c32a0d7f88af84a65265cf953cbe626bb301c33a3e77b9c8b93b3f33",
+    "proof_receipt_sha256": "b92589fd687bd47cb225791f944a21695d2fe2d3b9effcf703ee0c80e016e062",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "provenance": {
+    "proof_body_classification": "local_wrapper_upstream_mathlib",
+    "local_wrapper": "Stage1_Instances/THM-M-0010/Proof.lean",
+    "terminal_upstream_declaration": "Ideal.exists_pow_inf_eq_pow_smul",
+    "upstream_module": "Mathlib.RingTheory.Filtration",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_source_sha256": "b161e2c4ce77f1224648467573dd4ba4c0ebc1ed734118e70df4cb39b33b1a72",
+    "independent_probe_strategy": "Reconstruct the exact frozen ArtinReesTarget directly from the pinned terminal declaration without importing or invoking Proof.lean."
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink; warm and shared; dependency checkout clean",
+    "worktree_classification": "nonrelease: owned validation artifacts and pre-existing Formalizations/Lean/.lake are untracked"
+  },
+  "recipe": {
+    "recipe_id": "M0010-validation-narrow-verifier",
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0010/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": ["M0010-ROOT", "M0010-S-EXACT", "M0010-S-BOUNDARY", "M0010-C-STABLE", "M0010-C-INTER", "M0010-L-EVENTUAL", "M0010-B-UPSTREAM", "M0010-T-COMPOSE"],
+    "covered_declarations": ["Stage1Instances.THM_M_0010.ObligationTree.root_of_exact_candidate", "Stage1Instances.THM_M_0010.Proof.artinRees", "Stage1Instances.THM_M_0010.Validation.independentlyReconstructedArtinRees"]
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass in a fresh temporary module directory using pinned warm artifacts",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "axiom_profile_inclusion": "pass",
+    "placeholder_unsafe_local_scan": "pass",
+    "proof_receipt_hash_binding": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "provisional_root_kernel_closed": true,
+    "locally_validated_closed_obligation_ids": ["M0010-ROOT", "M0010-S-EXACT", "M0010-S-BOUNDARY", "M0010-C-STABLE", "M0010-C-INTER", "M0010-L-EVENTUAL", "M0010-B-UPSTREAM", "M0010-T-COMPOSE"],
+    "structured_state_freshness": "fail_closed_stale_typed_graph",
+    "same_workspace_independent_probe": "pass; not a section 10.7 independent runner",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still reports root_closed=false; only the master may reconcile authoritative structured state.",
+    "The run reused shared writable warm .lake artifacts, so it was not an empty-cache cold hermetic build or offline archive restoration.",
+    "No complete transitive declaration and compiled-artifact TCB inventory, SBOM/license archive, deterministic evidence bundle, or signed attestation exists.",
+    "Validation.lean is independently written but ran in the same mutable worker checkout and shared cache; it is not a distinct independently provisioned runner or independently implemented release verifier.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "S56-M-0010-VALIDATION-STRUCTURED-STATE-STALE",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Master-reconcile proof closure into structured state, then validate an immutable clean snapshot with empty caches, complete TCB/SBOM evidence, offline replay, and a distinct independently provisioned verifier.",
+  "invalidation_inputs": ["validation-spec.json", "check_validation.py", "Validation.lean", "Statement.lean", "ObligationTree.lean", "Proof.lean", "statement.json", "obligation-registry.json", "typed-graphs.json", "proof-receipt.json", "Lean toolchain", "mathlib revision or worktree", "foundation/TCB policy", "rev-5.6 assurance standard"],
+  "status_boundary": "Self-tested worker evidence for narrow kernel replay, trust observation, local provenance, and a same-workspace independent reconstruction. It is not hermetic or distinct-runner independent evidence, E0/E1, accepted M0, theorem completion, release, or master acceptance."
+}
