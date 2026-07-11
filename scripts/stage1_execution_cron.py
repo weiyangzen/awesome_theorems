@@ -400,7 +400,8 @@ def worker_command(workspace: Path, prompt_path: Path, output_path: Path) -> str
     return (
         f"cd {shlex_quote(str(workspace))} && "
         f"codex exec --cd {shlex_quote(str(workspace))} --model {shlex_quote(model)} "
-        f"-c model_reasoning_effort={shlex_quote(effort)} -c service_tier={shlex_quote(service_tier)} "
+        f"-c features.code_mode_host=false -c model_reasoning_effort={shlex_quote(effort)} "
+        f"-c service_tier={shlex_quote(service_tier)} "
         f"--sandbox danger-full-access "
         f"< {shlex_quote(str(prompt_path))} > {shlex_quote(str(output_path))} 2>&1"
     )
