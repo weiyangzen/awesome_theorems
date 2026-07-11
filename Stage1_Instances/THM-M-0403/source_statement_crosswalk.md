@@ -28,7 +28,9 @@ Discovery links (not immutable evidence receipts):
 - ESS paper: <https://doi.org/10.2307/3062133>
 - Evertse recurrence paper: <http://www.numdam.org/item/CM_1984__53_2_225_0/>
 
-Required follow-up: archive immutable source files and hashes; identify exact
-theorem numbers and pages; crosswalk rank, characteristic, nondegeneracy, and
-index-domain assumptions; search corrections/errata; and obtain independent
-review. Until then the human-source status is `H2`.
+The anchor audit now pins the ESS arXiv source, its content hash, Theorems 1.1
+and 1.2, and the relevant pages in `anchor-audit.md`. That raises the
+provisional human-source status to `H1`, but not `H0`: scalar-extension and
+low-term premise mapping, errata review, proof-boundary review, and independent
+acceptance remain open. The NUMDAM recurrence paper remains a narrower
+number-field genealogy source rather than an exact substitute for the root.
