@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0002-STATEMENT",
+  "theorem_id": "THM-M-0002",
+  "lifecycle": "planned",
+  "canonical_statement": "In an abelian category, for a morphism between two exact composable rows of five objects, if vertical components 0, 1, 3, and 4 are respectively epic, isomorphisms, an isomorphism, and monic, then vertical component 2 is an isomorphism.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0002/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0002.FiveLemmaTarget",
+    "elaborated_expression_sha256": "1eb7624d3b1cc72251bde5b5b60ecfc85b57324e0866348d91725d74acafb7b6",
+    "statement_file_sha256": "c0da80e7f5b563c30142e5df2ee8203ffc1e8bb09980f4d8ac75f1cb7669c88c"
+  },
+  "domain_and_universes": "universes u v; C : Type u; Category.{v} C; Abelian C; resulting proposition in Lean universe 0",
+  "ordered_binders": [
+    "C : Type u (implicit)",
+    "[Category.{v} C]",
+    "[Abelian C]",
+    "R1 : ComposableArrows C 4",
+    "R2 : ComposableArrows C 4",
+    "phi : R1 ⟶ R2"
+  ],
+  "hypotheses": [
+    "R1.Exact",
+    "R2.Exact",
+    "Epi (app' phi 0)",
+    "IsIso (app' phi 1)",
+    "IsIso (app' phi 3)",
+    "Mono (app' phi 4)"
+  ],
+  "conclusion": "IsIso (app' phi 2)",
+  "direct_imports": [
+    "Mathlib.CategoryTheory.Abelian.DiagramLemmas.Four"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0002.fiveLemmaTarget_iff_pinnedCandidateSourceShape",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_097.StatementShape",
+  "pinned_source_relationship": "PinnedCandidateSourceShape directly reproduces the historical discovery declaration's category-theoretic shape. The local iff is definitional. The historical module remains unaccepted proof evidence.",
+  "environment_fingerprint": {
+    "base_revision": "b84b20757e6df1fd404e2c642bced3de70194984",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0002/check_statement.py",
+    "killed": [
+      "removed lower-row exactness",
+      "strengthened the first vertical component from epic to isomorphism",
+      "strengthened the last vertical component from monic to isomorphism",
+      "changed the conclusion from middle component 2 to component 1"
+    ]
+  },
+  "degenerate_cases": "No nonzero-object, nontrivial-map, concrete module, or endpoint-zero assumptions are added. ComposableArrows C 4 fixes exactly five objects and four horizontal maps; Exact governs all consecutive positions. Degenerate diagrams are therefore included whenever the displayed hypotheses hold.",
+  "foundation_profile": "Abelian category with mathlib's Preadditive and zero-morphism infrastructure inherited through Abelian; no concrete coefficient ring or element-level formulation is selected.",
+  "computation_profile": "Noncomputable categorical proposition; this statement node performs elaboration only and invokes no solver, oracle, or computation certificate.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the category-theoretic five lemma selected by intake. It supplies no anchor provenance audit, proof credit, audit completion, or theorem completion. Pinpoint primary-source review remains human-source debt for the later audit node."
+}
