@@ -1,0 +1,117 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0086-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0086",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "94e3ff8d01686341332e0fbae530f51b5cdb5a6f",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_0086.CanonicalStatement",
+    "statement_file_sha256": "98e2fce9832b23421c3084e1e7d3dfa84f1465fd700ab66a5eacf386b7c626f1",
+    "elaborated_expression_sha256": "44fed9ab5fa271f7a4fb2fa2de1c99e22f0cc6b9fd4ca1de348dbe308916305b"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "dependency_state": "manifest pin equals clean installed checkout; no update, fetch, clone, or build performed"
+  },
+  "terminal_declarations": [
+    "CategoryTheory.Abelian.freyd_mitchell",
+    "CategoryTheory.Abelian.has_injective_coseparator",
+    "CategoryTheory.Abelian.has_projective_separator"
+  ],
+  "mathlib_candidates": [
+    {
+      "candidate_id": "M0086-A-EMBEDDING",
+      "module": "Mathlib.CategoryTheory.Abelian.FreydMitchell",
+      "source_file": "Mathlib/CategoryTheory/Abelian/FreydMitchell.lean",
+      "source_sha256": "5eaa8e43e2116becda23df95559944990d7ff0b8411c8c517e96e0d54a494c79",
+      "declarations": [
+        {
+          "name": "CategoryTheory.Abelian.freyd_mitchell",
+          "source_needle": "theorem freyd_mitchell (C : Type u)",
+          "normalized_match": "exact EmbeddingBranch after definition unfolding"
+        }
+      ],
+      "body_provenance": "public theorem packages FreydMitchell.functor and its pinned Full, Faithful, PreservesFiniteLimits, and PreservesFiniteColimits instances",
+      "placeholder_unsafe_or_oracle_status": "source inspected; no sorry/admit/custom axiom/unsafe/oracle boundary in the terminal declaration; Lean axiom report is propext, Classical.choice, Quot.sound",
+      "license": "Apache-2.0, from pinned mathlib repository LICENSE and file header",
+      "classification": "exact_pinned_terminal"
+    },
+    {
+      "candidate_id": "M0086-A-GENERATORS",
+      "module": "Mathlib.CategoryTheory.Generator.Abelian",
+      "source_file": "Mathlib/CategoryTheory/Generator/Abelian.lean",
+      "source_sha256": "e2952ea887763387582fd966bcaa7890973b527717726e02bfae4aafd3204443",
+      "declarations": [
+        {
+          "name": "CategoryTheory.Abelian.has_injective_coseparator",
+          "source_needle": "theorem has_injective_coseparator [HasLimits C] [EnoughInjectives C]",
+          "normalized_match": "exact InjectiveBranch after definition unfolding"
+        },
+        {
+          "name": "CategoryTheory.Abelian.has_projective_separator",
+          "source_needle": "theorem has_projective_separator [HasColimits C] [EnoughProjectives C]",
+          "normalized_match": "exact ProjectiveBranch after definition unfolding"
+        }
+      ],
+      "body_provenance": "injective branch is a pinned local proof body; projective branch is its pinned opposite-category dual",
+      "placeholder_unsafe_or_oracle_status": "source inspected; no sorry/admit/custom axiom/unsafe/oracle boundary in either terminal declaration; Lean axiom report is propext, Classical.choice, Quot.sound",
+      "license": "Apache-2.0, from pinned mathlib repository LICENSE and file header",
+      "classification": "two_exact_pinned_terminals"
+    }
+  ],
+  "repo_local_candidate": {
+    "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_134.lean",
+    "source_sha256": "724bf9dbd3ff98a367c0f55597359826afb3add4d1f7a4758d714b3137dbf948",
+    "classification": "legacy discovery wrapper only",
+    "reason": "it checks the same three mathlib declarations but predates the frozen rev-5.6 statement and carries no accepted receipt"
+  },
+  "external_search": {
+    "sourcegraph_query": "context:global archived:yes fork:yes (freyd_mitchell OR FreydMitchell OR Freyd-Mitchell) lang:Lean count:100",
+    "sourcegraph_result": "9 matches in one repository, leanprover-community/mathlib4, at indexed immutable commit 12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f; no distinct external project candidate",
+    "sourcegraph_response_sha256": "a047eaa6b74dd47ce800ae8d0aeaf723920d1633dfeadc3cb7ade1e7ebf57818",
+    "github_repository_queries": [
+      {
+        "query": "Freyd-Mitchell language:Lean",
+        "total_count": 0,
+        "incomplete": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "injective coseparator Lean",
+        "total_count": 0,
+        "incomplete": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      }
+    ],
+    "result": "no credible distinct Lean 4 candidate was found; the exact pinned mathlib family is the sole terminal candidate discovered",
+    "limitations": "bounded public discovery is not proof of global absence; GitHub repository metadata is not exhaustive code search"
+  },
+  "composition_probe": {
+    "declaration": "Stage1Instances.THM_M_0086.AnchorAudit.pinned_mathlib_closes_unfolded_target",
+    "relationship": "exactly the fully unfolded right side of canonicalStatement_iff_unfolded",
+    "result": "elaborates against the pinned environment",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"]
+  },
+  "root_decision": {
+    "classification": "M1",
+    "kernel_closed": false,
+    "reason": "exact immutable terminal theorems exist and compose to the unfolded target, but the anchor-audit phase does not install the canonical proof wrapper or close full transitive provenance, trust, and release evidence",
+    "integration_status": "already pinned by lake-manifest.json and locally typechecked; proof phase must add the canonical wrapper rather than leave anchor-only integration debt",
+    "remaining_cut_set": [
+      "canonical proof-phase wrapper for CanonicalStatement",
+      "frozen obligation registry and child-to-parent composition certificate",
+      "full transitive declaration/body and TCB closure",
+      "accepted validation and release receipts"
+    ]
+  },
+  "human_debt": "H2 unchanged: exact primary-source edition/page/branch identity and errata crosswalk remain outside this formal-anchor node",
+  "readability_debt": "R4 unchanged: no readable proof reconstruction is claimed",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This completes only the bounded formal anchor inventory pending master acceptance. It does not complete the theorem audit or theorem, and it grants no M0 proof credit."
+}

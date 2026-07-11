@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0088-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0088",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0088.YonedaEmbeddingTarget",
+  "mathlib_candidate": {
+    "repository": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "revision_source": "Formalizations/Lean/lake-manifest.json and local git HEAD agree",
+    "module": "Mathlib.CategoryTheory.Yoneda",
+    "source_path": "Mathlib/CategoryTheory/Yoneda.lean",
+    "source_blob": "d4afb27182601dcd39feb5adeb40b9650d25279b",
+    "source_sha256": "abf848cf1d1de154bff0dc0b3c0fb7cabefac92e44187f4b7992f9942c48622c",
+    "declaration": "CategoryTheory.Yoneda.fullyFaithful",
+    "type": "{C : Type u} -> [Category.{v} C] -> (yoneda (C := C)).FullyFaithful",
+    "proof_body_kind": "structure constructor with preimage f := f.app _ (identity _); FullyFaithful laws discharge from the imported Functor.Hom API",
+    "exact_target_check": "Stage1Instances.THM_M_0088.AnchorAudit.exactMathlibAnchor",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "No sorry, admit, or custom axiom occurs in the declaration's source body. Kernel #print axioms reports the standard mathlib baseline propext, Classical.choice, and Quot.sound.",
+    "unsafe_or_oracle_boundary": "No unsafe declaration or oracle boundary observed in the terminal declaration or exact wrapper; the reported foundation axioms remain subject to the later trust-profile gate.",
+    "dependency_feasibility": "Already present as the manifest-pinned mathlib dependency; the target's minimal import elaborates locally.",
+    "classification": "M0-W candidate pending obligation-tree/proof/validation/master gates",
+    "credit_boundary": "This audit identifies and exact-type checks a locally available candidate. It does not accept proof-node closure or theorem completion."
+  },
+  "repo_local_legacy_candidate": {
+    "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_137.lean",
+    "declaration": "AwesomeTheorems.Stage1.S1_M_137.yoneda_embedding_fullyFaithful",
+    "relationship": "legacy wrapper whose body is CategoryTheory.Yoneda.fullyFaithful",
+    "classification": "discovery input only; duplicate wrapper, no independent terminal proof-body credit"
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/Shru-10p/yoneda-in-lean",
+      "revision": "5eaeeea3e63b4be3da8322d901a2a13f1482da9f",
+      "revision_date": "2026-06-26",
+      "declared_scope": "Yoneda lemma in a from-scratch category model",
+      "toolchain_and_dependency_surface": "Repository exposes lean-toolchain and lake-manifest.json, but raw source retrieval timed out during this audit.",
+      "assessment": "M5 external discovery candidate: exact canonical type, placeholders, axioms, license, and compatibility are unverified; not in the local dependency closure."
+    },
+    {
+      "repository": "https://github.com/emilyriehl/yoneda",
+      "revision": "98ac2e4e91c0eaefe721b767116760028eaa8b74",
+      "revision_date": "2026-06-15",
+      "declared_scope": "comparative Yoneda-lemma formalizations",
+      "assessment": "Ineligible as an exact Lean 4 anchor: the repository tree contains a legacy leanpkg Lean surface plus Rzk developments, not the selected pinned mathlib CategoryTheory functor target."
+    },
+    {
+      "repository": "https://github.com/sinhp/CovariantYonedaLean4",
+      "revision": "1c8005c6702dd24d251b31ecdd0e388782236ad5",
+      "revision_date": "2023-09-14",
+      "declared_scope": "covariant Yoneda lemma from scratch",
+      "assessment": "M5 alternate-model candidate: variance and locally defined category APIs do not establish the frozen contravariant mathlib functor target; not pinned or imported locally."
+    },
+    {
+      "repository": "https://github.com/LucDuponcheelAtGitHub/CoEndoYoneda-in-Lean",
+      "revision": "aa7bddb72ab5a1509d119de249d59e1081ad782d",
+      "revision_date": "2025-12-10",
+      "declared_scope": "point-free CoYoneda lemmas for endofunctors of functional categories",
+      "assessment": "Rejected as a substituted target: CoYoneda/endofunctor results do not inhabit the frozen YonedaEmbeddingTarget."
+    }
+  ],
+  "search_protocol": {
+    "local_queries": [
+      "Yoneda.fullyFaithful",
+      "yoneda and FullyFaithful",
+      "YonedaEmbeddingTarget"
+    ],
+    "remote_query": "GitHub repository search: Yoneda language:Lean, sorted by update",
+    "remote_limitations": "Unauthenticated GitHub code search returned HTTP 401; repository metadata/tree queries succeeded; raw-content requests later timed out. Negative search results are therefore not completeness claims."
+  },
+  "debt_classification": "No mathematical debt and no anchor-discovery debt for the exact target. The pinned mathlib terminal exists locally. Rev-5.6 proof integration, transitive provenance/trust analysis, obligation composition, and release evidence remain later-node work.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "Anchor audit only. The exact pinned candidate and representative external alternatives are classified; no obligation-tree, proof, validation, release, H0, R0, or theorem-completion claim is made."
+}
