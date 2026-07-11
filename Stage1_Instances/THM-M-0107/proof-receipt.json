@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0107-PROOF-local-20260711T201323Z",
+  "item_id": "S56-M-0107-PROOF",
+  "theorem_id": "THM-M-0107",
+  "base_revision": "e7581f4284278d4bd47fe4031297b242386a9bc4",
+  "validated_at": "2026-07-11T20:13:23Z",
+  "attestor": "stage1-rev56-worker-slot4",
+  "support_state": "provisional_worker_selftest",
+  "exact_declarations": [
+    "Stage1Instances.THM_M_0107.Proof.normalization_open",
+    "Stage1Instances.THM_M_0107.Proof.normalization_equation",
+    "Stage1Instances.THM_M_0107.Proof.exactTarget_of_normalization_finite"
+  ],
+  "closed_obligation_ids": ["M0107-L-OPEN", "M0107-L-EQUATION", "M0107-T"],
+  "proof_body": {
+    "classification": "local_wrapper_upstream_mathlib",
+    "source": "Stage1_Instances/THM-M-0107/Proof.lean",
+    "source_sha256": "934f52c8ff414746fb514e023c43ce134ecfe857bb738467e42e08a70ed4b55d",
+    "terminal_module": "Mathlib.AlgebraicGeometry.ZariskisMainTheorem",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "inputs": {
+    "statement_sha256": "0124e92293f0d24244d7d1f57bd93ab25ed12d521e6e3f257cd9852b40d6c737",
+    "obligation_registry_sha256": "50d6e9d6e8ad1b60f2d9e4bcc16ed2184d636541634483675463faf18f0ca422"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink, unmodified by worker"
+  },
+  "recipe": {
+    "cwd": "Formalizations/Lean",
+    "argv": [
+      "bash",
+      "-c",
+      "tmp=$(mktemp -d ./.m0107-proof.XXXXXX); trap 'rm -rf \"$tmp\"' EXIT; cp ../../Stage1_Instances/THM-M-0107/Statement.lean ../../Stage1_Instances/THM-M-0107/Proof.lean \"$tmp/\"; lake env lean -o \"$tmp/Statement.olean\" \"$tmp/Statement.lean\" && LEAN_PATH=\"$tmp:$(lake env printenv LEAN_PATH)\" lake env lean \"$tmp/Proof.lean\""
+    ],
+    "env": {},
+    "timeout_seconds": 120,
+    "network": "not_used",
+    "covered_ids": ["M0107-L-OPEN", "M0107-L-EQUATION", "M0107-T", "M0107-ROOT"]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The pinned open-immersion instance, normalization equation, and conditional exact-root assembly elaborated.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "root_closed": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "M0107-L-FINITE and M0107-L-INTEGRAL-TO-FINITE remain without proof bodies in the pinned closure.",
+    "exactTarget_of_normalization_finite is conditional composition and does not assert its finiteness premise.",
+    "Validation, release, H0, R0, hermetic replay, independent verification, and theorem completion remain open.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "invalidation_inputs": [
+    "Proof.lean",
+    "Statement.lean",
+    "obligation-registry.json",
+    "mathlib revision",
+    "Lean toolchain",
+    "axiom policy",
+    "rev-5.6 assurance standard"
+  ]
+}

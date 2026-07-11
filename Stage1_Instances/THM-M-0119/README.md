@@ -15,6 +15,12 @@ algebro-geometric notions, so the module exposes typed objects and named compati
 without assuming the conclusion. The source pinpoints remain independently unreviewed, and no
 proof evidence or accepted receipt exists. Audit and theorem completion are both false.
 
+The obligation phase now freezes registry version 1 with 33 obligations and seven separate typed
+graphs; see `obligation-registry.json`, `typed-graphs.json`, and `obligation-tree.md`. This is an
+open architecture, not proof progress: all substantive nodes remain unclosed, and the first
+implementation cut consists of the missing native APIs, log resolution, smooth logarithmic
+vanishing, and pushforward descent packages.
+
 ## Intake Validation
 
 Run from the repository root:
