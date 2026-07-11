@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0112-STATEMENT",
+  "theorem_id": "THM-M-0112",
+  "lifecycle": "planned",
+  "canonical_statement": "Let X be a connected smooth complex projective variety of complex dimension n and Y a smooth hyperplane section. The inclusion Y into X induces a bijection on homotopy groups in every degree k < n - 1 and a surjection in degree n - 1.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0112/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0112.WeakTopologicalLefschetzTarget",
+    "elaborated_expression_sha256": "1daee7f6d7814d04bb7cefe87b3487fc78a862bedafbf8dc283bd6cf1a5eb654",
+    "statement_file_sha256": "35bd5ca61ade63d95f8c4243be0a7aae1f153a0c527b54998c13f25302862dff"
+  },
+  "domain_and_universes": "X : Type uX and Y : Type uY with TopologicalSpace instances; complexDimension and k are Nat; basePoint : Y; the target is Prop.",
+  "ordered_binders": [
+    "X : Type uX with TopologicalSpace X",
+    "Y : Type uY with TopologicalSpace Y",
+    "D : LefschetzHyperplaneData X Y",
+    "ambient smoothness over Complex",
+    "ambient projectivity over Complex",
+    "smoothness of the section",
+    "hyperplane-section relationship for inclusion",
+    "piMap is induced by inclusion",
+    "k : Nat inside the below-boundary conclusion"
+  ],
+  "hypotheses": [
+    "X is connected (stored by D.ambientConnected)",
+    "X is smooth over Complex",
+    "X is projective over Complex",
+    "Y is smooth",
+    "Y is the hyperplane section represented by D.inclusion",
+    "D.piMap is induced by D.inclusion at D.basePoint"
+  ],
+  "conclusion": "For all k < complexDimension - 1, D.piMap k is bijective; D.piMap (complexDimension - 1) is surjective.",
+  "direct_imports": [
+    "Mathlib.Topology.Homotopy.HomotopyGroup"
+  ],
+  "encoding_boundary": "The pinned snapshot supplies HomotopyGroup.Pi but lacks a complex analytification functor and a canonical smooth projective hyperplane-section predicate. LefschetzHyperplaneData types those missing interfaces without assuming any bijectivity, surjectivity, or theorem conclusion. Its piMap is explicitly accompanied by the hypothesis that it is inclusion-induced. Future native APIs require checked transports before receiving credit.",
+  "checked_transport": "Stage1Instances.THMM0112.weakTopologicalLefschetzTarget_iff_expanded (Iff.rfl)",
+  "alternate_encodings": {
+    "relative_homotopy_vanishing": "Uncredited: no relative homotopy group API and no checked long-exact-sequence transport is supplied by this statement node."
+  },
+  "degenerate_and_boundary_cases": "Nat subtraction is intentional. For n = 0 or n = 1, n - 1 = 0: the below-boundary range is empty and the stated boundary conclusion is surjectivity on pi_0. For n >= 2, bijectivity is required exactly for k < n - 1 and only surjectivity at k = n - 1. Mathlib's Pi 0 is a type, so Function.Bijective rather than a group isomorphism uniformly expresses the lower-degree conclusion.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0112/check_statement.py",
+    "killed": [
+      "removed ambient projectivity hypothesis",
+      "changed the lower-range comparison from Nat subtraction to Int subtraction",
+      "moved k outside the geometric data binders and retained only the fixed-degree lower conclusion",
+      "strengthened the boundary degree from surjectivity to bijectivity"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact local weak-topological target. It supplies no proof, source-audit acceptance, native analytification bridge, relative-homotopy transport, or theorem-completion evidence."
+}
