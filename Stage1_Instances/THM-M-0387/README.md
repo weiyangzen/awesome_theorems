@@ -1,4 +1,4 @@
-# THM-M-0387 rev-5.6 intake
+# THM-M-0387 rev-5.6 statement
 
 This directory is the new rev-5.6 `planned` instance for Fermat's Last Theorem. It does not inherit
 proof credit or accepted state from the legacy `THM-M-0387/` dossier.
@@ -16,15 +16,18 @@ proof credit or accepted state from the legacy `THM-M-0387/` dossier.
 
 The mandatory minimum proof-tree scope is section 12.2 of the authoritative blueprint: `M0387-S`,
 `M0387-R`, `M0387-B3`, `M0387-B4`, `M0387-RP`, and `M0387-WTW`. None is collapsed or excluded here.
-The canonical human claim, ordered domains, hypotheses, and provisional formal target are structured
-in `intake.json`; the source relationship and unresolved audit work are in
-`source_statement_crosswalk.md`.
+The canonical human claim and intake scope remain in `intake.json`. `Statement.lean` now elaborates
+the exact natural-number proposition with only `Init`, checks it against the direct unfolding of
+the pinned mathlib source shape, and supplies executable mutation fixtures. The expression and
+environment fingerprints are in `statement.json`; exact commands are in `statement-validation.md`.
 
-## Intake verdict
+## Statement verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is
-the Lean statement gate because no normalized expression hash, environment fingerprint, checked
-alternate transports, or mutation results exist in this phase. The theorem is not complete.
+Lifecycle remains `planned`, and the theorem is not complete. The exact target elaborates and the
+statement mutation suite passes, pending master acceptance. No proof body is introduced. Known
+integer, rational, and primitive alternate encodings are not recredited because this worker's
+materialized pinned cache lacks the mathlib FLT oleans needed to recheck them without a prohibited
+dependency build or fetch.
 
 ## Validation
 
