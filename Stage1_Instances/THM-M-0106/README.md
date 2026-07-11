@@ -32,9 +32,15 @@ exact algebraic candidate and kernel-checks its composition with the frozen
 affine-space bridge. This is provisional audit evidence only; later graph,
 proof, validation, release, H, and R gates remain open.
 
+The obligation architecture is frozen in `obligation-registry.json` and
+`typed-graphs.json`, with its readable projection in `obligation-tree.md`.
+Registry version 1 contains 18 semantic obligations and keeps the root open at
+M2; `M0106-L-FINITE` is the frozen root cut set. `ObligationTree.lean` checks
+only conditional child-to-root composition and closes no obligation.
+
 ## Open task DAG
 
-`S56-M-0106-INTAKE` precedes `STATEMENT`, `ANCHOR_AUDIT`, `OBLIGATION_TREE`, `PROOF`, `VALIDATION`, and `RELEASE` in that order. The statement and anchor-audit artifacts are provisional worker evidence only. After master acceptance, the next execution node is the frozen obligation tree; primary-source pinpointing also remains required.
+`S56-M-0106-INTAKE` precedes `STATEMENT`, `ANCHOR_AUDIT`, `OBLIGATION_TREE`, `PROOF`, `VALIDATION`, and `RELEASE` in that order. The statement, anchor-audit, and obligation-tree artifacts are provisional worker evidence only. After master acceptance of this phase, the next execution node is proof integration; primary-source pinpointing also remains required.
 
 ## Validation record
 
