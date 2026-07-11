@@ -4,6 +4,11 @@ This is the rev-5.6 `planned` intake for the Thue-Siegel-Roth theorem. The scope
 
 The canonical prose claim, scope decisions, and source crosswalk are recorded in `instance.json`, `scope-map.md`, and `source-crosswalk.md`. `Statement.lean` now fixes and elaborates the exact rational-set target, using mathlib's `IsAlgebraic ℚ α`, `Irrational α`, normalized `Rat.den`, real powers, and `Set.Finite`. `statement.md` records the encoding and validation boundary.
 
+`anchor-audit.md` inventories pinned mathlib candidates and a bounded external
+Lean 4 search. The checked mathlib hits are supporting approximation, height,
+and Siegel-lemma infrastructure or an irrelevant combinatorial Roth theorem;
+no terminal Thue-Siegel-Roth candidate was found or credited.
+
 Current root debt is `[H1, M3, R4]`: the statement is elaborated, but no proof inhabitant or upstream closure is claimed. No legacy artifact is accepted, no proof state is accepted, and neither audit completion nor theorem completion is claimed.
 
 The authoritative local intake state is `instance.json`; this Markdown file is explanatory only.
