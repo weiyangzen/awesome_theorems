@@ -1,0 +1,138 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0081-VALIDATION-local-20260711T234712Z",
+  "item_id": "S56-M-0081-VALIDATION",
+  "theorem_id": "THM-M-0081",
+  "base_revision": "03523e6728e323f2844994a3e6a20ac7c269c6eb",
+  "validated_at": "2026-07-11T23:47:12Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "supersession_state": "current",
+  "review_due": null,
+  "no_expiry_rationale": "Any change to a listed source, dependency, toolchain, policy, or validator input invalidates this receipt.",
+  "canonical_obligation_ids": [
+    "M0081-ROOT",
+    "M0081-S-EXACT",
+    "M0081-B-REFLECT",
+    "M0081-L-FF",
+    "M0081-L-PREIMAGE",
+    "M0081-B-PRESERVE",
+    "M0081-L-MAPISO",
+    "M0081-T-ASSEMBLE",
+    "M0081-X-PROVENANCE",
+    "M0081-X-SOURCE",
+    "M0081-X-TCB"
+  ],
+  "validated_obligation_ids": [
+    "M0081-ROOT",
+    "M0081-S-EXACT",
+    "M0081-B-REFLECT",
+    "M0081-L-FF",
+    "M0081-L-PREIMAGE",
+    "M0081-B-PRESERVE",
+    "M0081-L-MAPISO",
+    "M0081-T-ASSEMBLE"
+  ],
+  "validated_declarations": [
+    "Stage1Instances.THM_M_0081.Proof.reflection",
+    "Stage1Instances.THM_M_0081.Proof.preservation",
+    "Stage1Instances.THM_M_0081.Proof.yonedaObjectDetection",
+    "Stage1Instances.THM_M_0081.Validation.independentYonedaObjectDetection"
+  ],
+  "inputs": {
+    "canonical_statement_sha256": "3f001ed0951c69caa05b5793ee91d4f6b9484e4c3a8ca75499e0a14a4bf34b75",
+    "proof_sha256": "dac372f34328c4145a62ddd9ef71ceb399fe0be0ad1206474badddbd71a4cdff",
+    "validation_probe_sha256": "5f4083198bccc5e348bce2f1b71fe73597f68e5583f76114208a7a23a7bb8ab9",
+    "validation_verifier_sha256": "9656c19fdc64931eb47d886dda38ca226e95bfea56507ba3363e806f65098610",
+    "obligation_tree_sha256": "746505008a0d77d2ff6ea555c05b8fe2fafcb64bfe291aa7b177b688b41feefe",
+    "obligation_registry_sha256": "f3b915d6851e344cab91aa505111e66df50c6f944077fd10545187eae60d388d",
+    "typed_graphs_sha256": "845b8814a136237ad1edcc11f976717340a0ec7343b819fd87963b16d70d3935",
+    "proof_receipt_sha256": "d13d6c58d89ce66b9cd80217f0d7e13ce116ed3984cc88f2d2d79ca039b87163",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "classification": "repo_local_exact_wrapper_over_pinned_mathlib_with_independent_local_reconstruction",
+    "proof_body_source": "Stage1_Instances/THM-M-0081/Proof.lean",
+    "independent_probe_source": "Stage1_Instances/THM-M-0081/Validation.lean",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "terminal_bodies": [
+      "CategoryTheory.Yoneda.fullyFaithful",
+      "CategoryTheory.Functor.FullyFaithful.preimageIso",
+      "CategoryTheory.Functor.mapIso",
+      "CategoryTheory.Functor.FullyFaithful.isoEquiv"
+    ],
+    "yoneda_source_sha256": "abf848cf1d1de154bff0dc0b3c0fb7cabefac92e44187f4b7992f9942c48622c",
+    "fully_faithful_source_sha256": "a4ef9fcd08330a026bc07122ad9fff060f3c994299491c26ffebce094f6d97ed",
+    "yoneda_olean_sha256": "1471e85dae81917c642b6513e4802f74baa4cf9f3d6e9b537ab55cd23cd13d3d",
+    "fully_faithful_olean_sha256": "0b1a4b6fb60a463b5feb15e83ac88123317a81095f3974548b1def916be88d9e"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without mutation"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0081-validation-kernel-primary-and-independent",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0081/Validation.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0081-ROOT", "M0081-B-REFLECT", "M0081-B-PRESERVE", "M0081-T-ASSEMBLE"],
+      "covered_declarations": ["Stage1Instances.THM_M_0081.Validation.independentYonedaObjectDetection"]
+    },
+    {
+      "recipe_id": "M0081-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0081/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0081-ROOT", "M0081-X-PROVENANCE", "M0081-X-TCB"],
+      "covered_declarations": []
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The exact canonical statement, primary proof, and independently reconstructed exact root elaborate; all proof declarations report only propext, Classical.choice, and Quot.sound. Freshness, frozen 11-node identity, clean pinned mathlib provenance, exact scope, and source hygiene pass.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "root_closed": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "validation_state_proposal": "worker validation self-test passed; master acceptance pending"
+  },
+  "known_failures": [
+    "This is warm-cache validation in the same checkout, not an empty-cache offline hermetic replay.",
+    "The independent Lean reconstruction does not import Proof.lean but used the same workspace, kernel, and writable dependency cache; it is not a distinct signed verifier runner.",
+    "Human-source H0, readable R0, complete transitive declaration/TCB closure, supply-chain archive, deterministic release bundle, and master acceptance remain open.",
+    "The frozen typed graph is the earlier pre-proof snapshot and still truthfully records no accepted closure; this receipt does not rewrite another phase's artifact.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Master-accept the proof and validation receipts, then replay from an immutable clean checkout with empty caches and denied network, followed by a distinct signed independent verifier and remaining source/readability/release gates.",
+  "invalidation_inputs": [
+    "CanonicalStatement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "check_validation.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "proof-receipt.json",
+    "lake-manifest.json",
+    "lean-toolchain",
+    "mathlib revision and referenced source/olean artifacts",
+    "Lean executable",
+    "axiom policy",
+    "rev-5.6 assurance standard"
+  ],
+  "incident_path": "master integration lane"
+}

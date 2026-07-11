@@ -1,0 +1,86 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0166-RELEASE-local-20260712",
+  "item_id": "S56-M-0166-RELEASE",
+  "theorem_id": "THM-M-0166",
+  "intent": "release",
+  "base_revision": "a6425da42e4fd63ec88cf4a2ce9b2facf0d32b33",
+  "base_tree": "76e4aa27523e6c67a14c52845042379ff7ca8653",
+  "decided_on": "2026-07-12",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0166-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "VALREC-M0166-20260712-OPEN-M2",
+    "receipt_support_state": "self_tested_pending_master_acceptance",
+    "receipt_sha256": "9502556a3b176c821f70ae78286611716cac9b544a8cf9a338e38aa653d11f46"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0166-PROOF",
+    "VALREC-M0166-20260712-OPEN-M2"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M4", "R3"],
+    "accepted_after": ["H1", "M4", "R3"],
+    "best_provisional_evidence": ["H1", "M2", "R3"],
+    "boundary": "The authoritative planned intake remains H1/M4/R3. Provisional proof and validation evidence closes only subsegment minimality and supports an M2 classification; no master-accepted debt transition exists."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0166-VALIDATION is provisional worker evidence and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-0166-ROOT-KERNEL-CLOSURE",
+    "reason": "The validation receipt records kernel_closed=false. M0166-C-PROPER and M0166-L-EXISTENCE have no proof bodies, so the exact canonical root remains open."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0166-VALIDATION and every transitive phase receipt",
+    "kernel closure of M0166-C-PROPER and M0166-L-EXISTENCE",
+    "checked unconditional composition of both required children into M0166-ROOT",
+    "complete reconciled inventory and evidence acceptance for AUDIT-Z",
+    "accepted H0 primary-source crosswalk with edition, theorem/page, assumptions, errata, and independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete accepted root provenance, axiom, foundation, computation, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure with durable dependency archives",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed release bundle, signature, and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional warm-cache worker evidence",
+    "statement_identity": "lean-expr:8965e82e10defac0d0e33b119fb5a4e48e93cee58029fe3d55e9af3d2f97da55",
+    "frozen_obligation_count": 7,
+    "validated_closed_obligation_ids": ["M0166-L-SUBSEGMENT"],
+    "minimal_open_proof_cut": ["M0166-C-PROPER", "M0166-L-EXISTENCE"],
+    "exact_root_kernel_check": "missing",
+    "root_composition": "conditional_only",
+    "axioms_observed_on_partial_checks": ["propext", "Classical.choice", "Quot.sound"],
+    "proof_source_hygiene": "pass on Statement.lean, ObligationTree.lean, and Proof.lean",
+    "audit_inventory_acceptance": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "Master-accept the dependency chain after closing the properness and global-minimizer obligations. Then complete AUDIT-Z, independent H0/R0 review, root trust and provenance, hermetic supply-chain replay, independent verification, CI, deterministic bundling, and master reconciliation.",
+  "worktree_classification": "nonrelease: scheduler-managed state changes and the pre-existing untracked Formalizations/Lean/.lake link are present",
+  "status_boundary": "This artifact self-tests an honest blocked release decision only. It accepts no receipt, changes no lifecycle or debt state, and claims neither audit completion nor theorem completion."
+}
