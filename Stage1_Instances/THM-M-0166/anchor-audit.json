@@ -1,0 +1,109 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0166-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0166",
+  "base_revision": "291aeb20bea9e3684c8de5cfca9373fcec398835",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0166.HopfRinowStatement",
+  "canonical_target_expression_sha256": "8965e82e10defac0d0e33b119fb5a4e48e93cee58029fe3d55e9af3d2f97da55",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M0166-A-MATHLIB-DISTANCE",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Geometry.Manifold.Riemannian.PathELength",
+      "declarations": [
+        "Manifold.riemannianEDist_le_pathELength",
+        "Manifold.exists_lt_of_riemannianEDist_lt",
+        "Manifold.exists_lt_locally_constant_of_riemannianEDist_lt"
+      ],
+      "types": "distance is bounded by each C1 path length; when distance is strictly below r, a C1 path of length below r exists",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "proof_gap_status": "all three declarations have kernel bodies in the pinned package",
+      "reported_trust_dependencies": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "M0-P for the adjacent inequalities and approximation statements only",
+      "result": "infimum/approximation substrate; it neither attains the infimum nor supplies one path minimizing every subsegment"
+    },
+    {
+      "id": "M0166-A-MATHLIB-METRIC",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Geometry.Manifold.Riemannian.Basic",
+      "declarations": [
+        "PseudoEMetricSpace.ofRiemannianMetric",
+        "EMetricSpace.ofRiemannianMetric",
+        "IsRiemannianManifold"
+      ],
+      "types": "construct the (pseudo-)extended metric induced by riemannianEDist and identify it with the ambient edist",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "proof_gap_status": "definitions and class declarations are present in the pinned package",
+      "classification": "M0-P for metric alignment only",
+      "result": "metric-instance bridge; no completeness-to-properness or minimizing-path theorem"
+    },
+    {
+      "id": "M0166-A-MATHLIB-PROPER",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.MetricSpace.ProperSpace",
+      "declarations": [
+        "isCompact_closedBall",
+        "complete_of_proper"
+      ],
+      "types": "closed metric balls are compact in a proper space; a proper pseudo-metric space is complete",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "proof_gap_status": "both declarations have kernel bodies in the pinned package",
+      "classification": "M0-P for proper-to-complete direction only",
+      "result": "the direction required by the root is complete Riemannian manifold to existence of a minimizer, which these declarations do not provide"
+    },
+    {
+      "id": "M0166-A-REPO-LEGACY",
+      "source": "awesome_theorems repository",
+      "revision": "291aeb20bea9e3684c8de5cfca9373fcec398835",
+      "module": "AwesomeTheorems.Stage1.S1_M_122",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_122.hopfRinowStatement",
+        "AwesomeTheorems.Stage1.S1_M_122.exists_short_path_of_riemannianEDist_lt"
+      ],
+      "type": "an older conclusion-package boundary and a checked short-path approximation wrapper",
+      "classification": "M2",
+      "result": "historical statement/audit scaffolding explicitly says that the terminal theorem is missing; it is not expression-identical to the rev-5.6 root and receives no inherited credit"
+    }
+  ],
+  "external_search": {
+    "protocol_date": "2026-07-12",
+    "queries": [
+      "GitHub repository API: quoted Hopf-Rinow plus Lean",
+      "GitHub repository API: hopf rinow lean4",
+      "GitHub repository API: riemannian geometry lean4",
+      "grep.app public code index: HopfRinow, language Lean",
+      "grep.app public code index: Hopf-Rinow, language Lean"
+    ],
+    "result": "all five public-index queries returned zero repositories or zero code hits; unauthenticated GitHub code search itself was unavailable",
+    "candidate_revisions": [],
+    "scope_limit": "negative public-index discovery is not a proof that no Lean 4 implementation exists; no concrete external repository candidate was found to resolve to an immutable revision",
+    "dependency_action": "none; no dependency was fetched or added"
+  },
+  "search": {
+    "repo_local": "audited the rev-5.6 dossier and the legacy S1_M_122 statement/audit module without inheriting its status",
+    "pinned_dependencies": "verified the mathlib worktree revision and cleanliness; searched every Lean source under Mathlib.Geometry.Manifold plus the full pinned Mathlib tree for Hopf-Rinow and geodesic/minimizer terms; inspected the exact adjacent declaration sources",
+    "limitations": "external discovery used public unauthenticated repository and code indexes; GitHub REST code search requires authentication"
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "pinned mathlib supplies Riemannian distance, path-length approximation, and the proper-to-complete direction, but no minimizer-attainment or Hopf-Rinow declaration; no external exact-root candidate was discovered",
+    "remaining_cut_set": [
+      "complete Riemannian metric implies the compactness/properness needed for minimizer extraction",
+      "attainment of riemannianEDist by a smooth endpoint path",
+      "proof that each ordered subsegment of the chosen path also attains riemannianEDist"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false
+}
