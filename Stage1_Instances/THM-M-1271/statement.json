@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1271-STATEMENT",
+  "theorem_id": "THM-M-1271",
+  "lifecycle": "planned",
+  "canonical_statement": "For a C1 real functional on a real Banach space satisfying the sequential Palais-Smale condition, normalized to zero at the origin and having a positive spherical barrier plus a lower endpoint beyond it, the path minimax level is attained at a critical point and is at least the barrier level.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1271/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1271.MountainPassTarget",
+    "elaborated_expression_sha256": "686a7f777a77c3f91504e4c48cd3d0fab19ef802ce3df1751dc4288e62592d7b",
+    "statement_file_sha256": "984ec64013fa92caf23696c39017a28b7c8a908224ae8e1018a156734469f70c"
+  },
+  "domain_and_universes": "universe u; X : Type u; NormedAddCommGroup X; NormedSpace Real X; CompleteSpace X; Phi : X -> Real",
+  "ordered_binders": [
+    "X : Type u",
+    "[NormedAddCommGroup X]",
+    "[NormedSpace Real X]",
+    "[CompleteSpace X]",
+    "Phi : X -> Real",
+    "rho alpha : Real",
+    "e : X"
+  ],
+  "hypotheses": [
+    "ContDiff Real 1 Phi",
+    "PalaisSmale Phi",
+    "Phi 0 = 0",
+    "0 < rho",
+    "0 < alpha",
+    "forall x, norm x = rho -> alpha <= Phi x",
+    "rho < norm e",
+    "Phi e <= 0"
+  ],
+  "conclusion": "There exists x with fderiv Real Phi x = 0, Phi x equal to the infimum over admissible path heights from 0 to e, and alpha no greater than that minimax level.",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.Topology.MetricSpace.Sequences"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1271.mountainPassTarget_iff_expanded",
+  "environment_fingerprint": {
+    "base_revision": "be286e95464895d6966301556151584a57536a1b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1271/check_statement.py",
+    "killed": [
+      "removed the Palais-Smale premise and minimax lower-bound conclusion",
+      "specialized the Banach space to finite-dimensional Euclidean space",
+      "weakened exact critical-point attainment to approximate criticality"
+    ]
+  },
+  "degenerate_cases": "rho and alpha are strictly positive, e lies strictly outside the barrier sphere, and Phi e <= Phi 0 through normalization. Straight-line paths ensure the admissible path family is nonempty. Completeness is explicit.",
+  "foundation_profile": "Lean 4 dependent type theory; noncomputable real sInf and sSup are used for the minimax level.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. It elaborates the intake-selected classical normalized mountain-pass claim but supplies no mountain-pass proof, source-audit acceptance, or downstream-node evidence."
+}
