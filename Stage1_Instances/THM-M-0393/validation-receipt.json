@@ -1,0 +1,144 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0393-VALIDATION-local-20260711T193851Z",
+  "item_id": "S56-M-0393-VALIDATION",
+  "theorem_id": "THM-M-0393",
+  "base_revision": "518315d81e5e2006972fb32b395e2a3a91d55b92",
+  "validated_at": "2026-07-11T19:38:51Z",
+  "attestor": "stage1-rev56-worker-slot4",
+  "support_state": "provisional_worker_selftest",
+  "supersession_state": "current",
+  "review_due": null,
+  "no_expiry_rationale": "Invalidated by any listed source, dependency, toolchain, policy, or validator input change.",
+  "canonical_obligation_ids": [
+    "M0393-ROOT",
+    "M0393-S1",
+    "M0393-S2",
+    "M0393-S3",
+    "M0393-N1",
+    "M0393-N2",
+    "M0393-C1",
+    "M0393-C2",
+    "M0393-L1",
+    "M0393-L2",
+    "M0393-L3",
+    "M0393-X1",
+    "M0393-B1",
+    "M0393-B2",
+    "M0393-T1",
+    "M0393-T2",
+    "M0393-X2"
+  ],
+  "validated_obligation_boundary": "finite-choice subclaim within M0393-N1 only",
+  "validated_declarations": [
+    "Stage1.THM_M_0393.Proof.finite_pow_divisors",
+    "Stage1.THM_M_0393.Validation.independent_finite_pow_divisors"
+  ],
+  "inputs": {
+    "statement_sha256": "456c62756bc035e675135270bf6984c00bb1203bc6687d3495ae7663131d985f",
+    "proof_sha256": "a77c1d1e431a36db1bd8ae48f2511150a2519e3a88a319e84256c88229c3f29f",
+    "validation_probe_sha256": "0086ee0ab6d416a49f51f476fbacb5d1f318bb2ce49e82b6b13a3c73c138696e",
+    "validation_verifier_sha256": "d60ef6441a712e67400ad4b4de43fb21c8db86622a9f9d26f5437216e16ff2bc",
+    "obligation_registry_sha256": "57bd847a36b0883078dece89081bff185fae7b74cabf814c01daa7f7e184aa66",
+    "typed_graphs_sha256": "3b6e634f6134346598fee300291daafa13b3d91aa2afc59dad0a66741595ae6c",
+    "proof_receipt_sha256": "b74728f6a34837f467e2bf9beaad0aaeef7894c56c84ac3264ac3209b7372234",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "classification": "repo_local_partial_proof_body_with_independent_local_reconstruction",
+    "proof_module": "Stage1_Instances/THM-M-0393/Proof.lean",
+    "independent_probe_module": "Stage1_Instances/THM-M-0393/Validation.lean",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "int_basic_source_sha256": "aa1b69d4e25829a159d8a93bbf74e9efefdd0a918287ebbd33db12939892df23",
+    "int_interval_source_sha256": "07e8c82976ad463754f32b81f90f1336df78451568603845e3ae73c57b1822d3",
+    "int_basic_olean_sha256": "91547d76a8ae72d5a334e4f4630937757c9f5b827e48fb478c11a4dc58d35fd4",
+    "int_interval_olean_sha256": "a13aca808a06df7c8c47e63e2a1a7c3e57e2e1b86653842548c2b79bad3a7695",
+    "root_terminal_boundary": "No proof body or composition certificate exists for the exact Thue root."
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without mutation"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0393-validation-proof-elaboration",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0393/Proof.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0393-N1"],
+      "covered_declarations": ["Stage1.THM_M_0393.Proof.finite_pow_divisors"]
+    },
+    {
+      "recipe_id": "M0393-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0393/Validation.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0393-N1"],
+      "covered_declarations": ["Stage1.THM_M_0393.Validation.independent_finite_pow_divisors"]
+    },
+    {
+      "recipe_id": "M0393-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0393/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0393-ROOT", "M0393-N1"],
+      "covered_declarations": [
+        "Stage1.THM_M_0393.Proof.finite_pow_divisors",
+        "Stage1.THM_M_0393.Validation.independent_finite_pow_divisors"
+      ]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The proof-phase finite-choice lemma and an independently written proof of the identical proposition elaborate. Both report only propext, Classical.choice, and Quot.sound. The verifier checks frozen input hashes, the 17-node reachable open registry, the partial proof receipt boundary, pinned manifest/toolchain, and the local placeholder policy.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass for Proof.lean and Validation.lean",
+    "validated_closed_obligation_ids": [],
+    "validated_partial_obligation_ids": ["M0393-N1"],
+    "root_closed": false,
+    "validation_state_proposal": "worker self-test passed for truthful partial validation; pending master acceptance",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof prerequisite is partial: it proves only finiteness of possible g under g^n divides m, not the gcd divisibility bridge or complete M0393-N1.",
+    "Sixteen other frozen obligations, all four composition certificates, and the exact Thue root remain open; the root vector remains H3/M4/R3.",
+    "Direct no-output compilation of the pre-existing Statement.lean fails because evalBinary depends on a noncomputable instance but is not marked noncomputable; validation did not edit the frozen statement.",
+    "The run reused a warm shared pinned dependency cache and is not an empty-cache hermetic cold build or offline archive replay.",
+    "The independent proof ran in the same workspace and cache; it is not the separately provisioned signed runner required for release.",
+    "No root provenance/trust closure, H0/R0 review, SBOM/license bundle, deterministic evidence bundle, release attestation, or master acceptance exists.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "first_failed_gate": "S56-M-0393-PROOF dependency lacks exact-root closure and master acceptance",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Complete and master-accept all root-critical proof obligations and composition certificates, repair and refreeze the statement compilation defect through its owning phase, then validate an immutable clean snapshot with an empty-cache network-denied replay and distinct independent runner.",
+  "invalidation_inputs": [
+    "Statement.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "check_validation.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "proof-receipt.json",
+    "lake-manifest.json",
+    "lean-toolchain",
+    "mathlib revision or imported source/olean closure",
+    "Lean executable",
+    "axiom policy",
+    "rev-5.6 assurance standard"
+  ],
+  "incident_path": "master integration lane"
+}
