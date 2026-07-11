@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1018-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1018",
+  "canonical_name": "Levy inversion formula",
+  "canonical_statement": "For a Borel probability measure mu on the real line and a < b with no atom at either endpoint, the mass mu((a,b]) is recovered as the limit, as T tends to positive infinity, of (1/(2*pi)) times the integral from -T to T of ((exp(-i*t*a)-exp(-i*t*b))/(i*t)) times the characteristic function of mu at t.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_primary_source_and_statement_phase"
+  },
+  "domain_and_universes": "mu : Measure Real with IsProbabilityMeasure mu; a b : Real; complex-valued integrals; Prop in Lean universe 0",
+  "ordered_binders": ["mu : Measure Real", "[IsProbabilityMeasure mu]", "a b : Real"],
+  "hypotheses": ["a < b", "mu {a} = 0", "mu {b} = 0"],
+  "conclusion": "The standard symmetric truncated characteristic-function inversion limit equals mu (Set.Ioc a b)",
+  "sign_convention": "Provisional: phi(t) = integral x, exp(I*t*x) dmu; kernel exp(-I*t*a)-exp(-I*t*b)",
+  "alternate_encodings": [
+    {"target": "distribution-function continuity-point formulation", "relationship": "expected equivalent", "checked_witness": null},
+    {"target": "law of a real random variable", "relationship": "pushforward-measure transport", "checked_witness": null},
+    {"target": "averaged endpoint formula allowing atoms", "relationship": "stronger/general boundary formulation", "checked_witness": null}
+  ],
+  "excluded_substitutions": ["characteristic-function uniqueness alone", "density inversion", "generic Fourier inversion"],
+  "degenerate_and_mutation_cases": ["a = b", "b < a", "mu {a} != 0", "mu {b} != 0", "opposite characteristic-function sign convention", "non-probability finite measure"],
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice and integration dependencies remain open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact version and transitive closure remain open",
+  "computation_profile": "No numerical computation, oracle, or native-code result is credited",
+  "source_revisions": "No immutable primary-source pin accepted at intake; see source_statement_crosswalk.md",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1018/README.md", "Stage1_Instances/THM-M-1018/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the human claim, endpoint convention, transform sign, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake records a precise candidate scope. It is not an elaborated Lean statement, a source-fidelity receipt, or proof evidence."
+}

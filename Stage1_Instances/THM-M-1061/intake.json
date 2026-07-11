@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1061-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1061",
+  "canonical_name": "Varadhan's integral lemma (bounded-continuous form)",
+  "canonical_statement": "Let X be a regular topological space, let (mu_epsilon) be probability measures satisfying a large-deviation principle with good rate function I at speed a_epsilon tending to zero, and let F : X -> R be bounded and continuous. Then lim as epsilon tends to zero of a_epsilon * log(integral exp(F/a_epsilon) d mu_epsilon) equals sup over x of (F(x) - I(x)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "A topological measurable space X; probability measures mu_epsilon; positive real speed a_epsilon -> 0; good rate I : X -> ENNReal (or an audited equivalent); bounded continuous F : X -> R",
+  "quantifiers": [
+    "X and its compatible topological/measurable structure",
+    "mu_epsilon : Measure X, each a probability measure",
+    "a_epsilon : R, positive and tending to zero",
+    "I : X -> [0,infinity], a good rate function",
+    "F : X -> R, bounded and continuous"
+  ],
+  "hypotheses": [
+    "mu_epsilon satisfies the full large-deviation principle at speed a_epsilon with rate I",
+    "I is good (lower semicontinuous with compact sublevel sets)",
+    "F is bounded and continuous",
+    "the exponential integral is interpreted in a type supporting its extended-real boundary cases"
+  ],
+  "conclusion": "Laplace asymptotic: a_epsilon * log Integral exp(F/a_epsilon) d mu_epsilon converges to sup_x (F x - I x)",
+  "alternate_encodings": [
+    {
+      "target": "inverse-speed convention: (1/beta) * log Integral exp(beta*F), beta -> infinity",
+      "relationship": "reparameterization beta = 1/a_epsilon",
+      "checked_witness": "not checked; statement-phase obligation"
+    },
+    {
+      "target": "unbounded continuous F with a tail or moment condition",
+      "relationship": "strict generalization, not interchangeable with the frozen root",
+      "checked_witness": "excluded from root; may be a later variant"
+    }
+  ],
+  "excluded_degenerate_cases": "Zero or negative speeds, a merely weak LDP without exponential tightness, and unbounded F without a tail condition are outside the frozen root. Empty-space and infinite-value conventions require explicit statement-phase probes.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, extended-real, measure-integral, and topology dependencies remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation, oracle, or numerical limit evidence is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; feasibility and pin verification deferred",
+  "source_revisions": "See source_statement_crosswalk.md; immutable scans, edition hashes, errata, and premise-level audit remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1061/README.md",
+    "Stage1_Instances/THM-M-1061/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the frozen bounded-continuous claim, topology or LDP convention, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake disambiguates and freezes the bounded-continuous mathematical scope only. It supplies neither an elaborated Lean statement nor proof credit."
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1019-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1019",
+  "canonical_name": "Uniqueness theorem for characteristic functions",
+  "canonical_statement": "For Borel probability measures mu and nu on the real line, if their characteristic functions agree at every real argument, then mu = nu.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": "forall (mu nu : Measure Real), IsProbabilityMeasure mu -> IsProbabilityMeasure nu -> (forall t : Real, integral (fun x : Real => Complex.exp (Complex.I * (t * x))) mu = integral (fun x : Real => Complex.exp (Complex.I * (t * x))) nu) -> mu = nu",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase",
+    "note": "Provisional mathematical shape only; namespaces, coercions, integrability API, and minimal imports are deliberately not asserted as elaborated Lean."
+  },
+  "domain_and_universes": "mu nu : Borel measures on Real; Prop in Lean universe 0",
+  "quantifiers": ["mu nu : Measure Real", "t : Real in the pointwise characteristic-function hypothesis"],
+  "hypotheses": ["mu and nu are probability measures", "for every real t, the characteristic-function integrals of mu and nu are equal"],
+  "conclusion": "mu = nu as measures on the Borel sigma-algebra of Real",
+  "alternate_encodings": [
+    {"target": "real-valued random variables X and Y with identical characteristic functions have identical distributions", "relationship": "pushforward-law specialization of the measure root", "checked_witness": null, "state": "candidate_only"},
+    {"target": "finite Borel measures with equal Fourier transforms are equal", "relationship": "a stronger Fourier-transform uniqueness theorem may imply the probability-measure root", "checked_witness": null, "state": "candidate_only"}
+  ],
+  "excluded_substitutions": ["moment sequences uniquely determine a distribution", "Levy inversion formula alone", "Levy continuity theorem", "Bochner representation theorem", "equality at a finite set of frequencies"],
+  "degenerate_cases": "Atomic and Dirac probability laws are included. No density, moment, compact-support, or nondegeneracy assumption may be added.",
+  "foundation_profile": "rev-5.6 foundation profile remains open; classical logic and choice use must be audited transitively",
+  "tcb_profile": "Lean 4 kernel with pinned mathlib; exact toolchain and dependency closure remain open",
+  "computation_profile": "No native computation, oracle, or numerical approximation is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (exact pin and imports deferred to statement phase)",
+  "source_revisions": "See source_statement_crosswalk.md; edition/page and errata audit remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1019/README.md", "Stage1_Instances/THM-M-1019/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, chosen Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This intake freezes the intended scope only. It neither establishes an exact Lean statement nor credits a proof."
+}

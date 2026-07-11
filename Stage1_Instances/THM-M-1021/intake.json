@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1021-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1021",
+  "canonical_name": "Bochner's theorem (characteristic-function form on the real line)",
+  "canonical_statement": "A function phi : Real -> Complex is the characteristic function of a Borel probability measure on Real if and only if phi is continuous, phi(0) = 1, and phi is positive definite: for every n, points t_1,...,t_n in Real, and coefficients c_1,...,c_n in Complex, the sum over j,k of c_j times conjugate(c_k) times phi(t_j-t_k) is a nonnegative real number.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "phi : Real -> Complex; finite index types in universe 0; Borel probability measure mu on Real",
+  "ordered_binders": ["phi : Real -> Complex"],
+  "hypotheses": ["Continuous phi", "phi 0 = 1", "phi is positive definite for all finite point and coefficient families"],
+  "conclusion": "There exists a Borel probability measure mu on Real whose Fourier/characteristic transform equals phi at every real argument; conversely every such transform has the three stated properties.",
+  "excluded_claims": ["uniqueness of the representing measure", "locally compact abelian groups beyond Real", "operator-valued Bochner theorems", "Bochner integration theorems"],
+  "degenerate_and_boundary_cases": ["the empty finite family gives the zero quadratic sum", "the singleton family and phi(0)=1 enforce the normalized diagonal", "the zero-frequency transform equals total mass", "Fourier sign conventions require checked reflection/conjugation transport"],
+  "alternate_encodings": [
+    {"target": "continuity only at zero plus positive definiteness", "relationship": "classically equivalent regularity package", "checked_witness": null},
+    {"target": "finite lists/matrices rather than finite index types", "relationship": "encoding transport", "checked_witness": null},
+    {"target": "exp(-i*t*x) transform convention", "relationship": "measure reflection/sign transport", "checked_witness": null}
+  ],
+  "foundation_profile": "Classical Lean reasoning and mathlib measure/integration/complex analysis are anticipated; exact axiom closure is open.",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact toolchain and dependency closure remain open.",
+  "computation_profile": "No native computation, oracle, or generated numerical certificate is credited.",
+  "formal_system": "Lean 4 with the repository-pinned dependency environment, to be identified in the statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; immutable copies/hashes, exact theorem pinpoints, and errata review remain open.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1021/README.md", "Stage1_Instances/THM-M-1021/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on any canonical-claim, domain, positivity predicate, transform convention, imports/toolchain, source pin, assurance-standard, or foundation/TCB change.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the intended probability-theory scope only. It neither passes the Lean statement gate nor establishes source fidelity or kernel closure."
+}
