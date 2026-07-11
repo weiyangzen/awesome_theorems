@@ -1,55 +1,76 @@
 {
-  "schema_version": "1.0",
-  "lifecycle_mode": "planned",
+  "schema_version": "stage1-instance-intake/1.0",
   "theorem_id": "THM-M-0401",
+  "item_id": "S56-M-0401-STATEMENT",
+  "lifecycle": "planned",
+  "intent": "statement",
+  "base_revision": "ca5213c506afa21d64fb8f2481ac658887786c6e",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 14,
+  "legacy_priority_slot": "S1-M-014",
   "canonical_name": "Schmidt's simultaneous approximation theorem",
-  "intent": "intake",
-  "base_revision": "a8d6489fd935cd71fa4499f2f3f5b051998203f4",
-  "manifest": {
-    "execution_rank": 14,
-    "legacy_priority_slot": "S1-M-014",
-    "baseline": "L0",
-    "rework_required": true,
-    "target_lane": "hard_mathlib_anchor_and_wrapper"
-  },
-  "canonical_statement": "For n > 0 and algebraic real numbers alpha_0,...,alpha_(n-1) such that 1,alpha_0,...,alpha_(n-1) are linearly independent over Q, for every epsilon > 0 only finitely many positive integers q satisfy product_i ||q alpha_i|| < q^(-1-epsilon), where ||x|| is distance to the nearest integer.",
+  "canonical_claim": "For n > 0 and algebraic real numbers alpha_0,...,alpha_(n-1) such that 1,alpha_0,...,alpha_(n-1) are linearly independent over Q, for every epsilon > 0 only finitely many positive integers q satisfy product_i ||q alpha_i|| < q^(-1-epsilon), where ||x|| is distance to the nearest integer.",
+  "domain_and_universes": "n q : Nat; alpha : Fin n -> Real; epsilon : Real; Prop in Lean universe 0",
+  "ordered_binders": ["n : Nat", "0 < n", "alpha : Fin n -> Real", "AlgebraicVector n alpha", "RationalIndependenceWithOne n alpha", "epsilon : Real", "0 < epsilon"],
+  "hypotheses": ["n is positive", "every alpha i is algebraic over Rat", "the Option-indexed family none |-> 1 and some i |-> alpha i is linearly independent over Rat", "epsilon is positive"],
+  "conclusion": "The set of positive natural denominators q whose product of nearest-integer distances is less than Real.rpow q (-1-epsilon) is finite.",
+  "excluded_degenerate_cases": ["n = 0", "q = 0", "epsilon <= 0", "Rat-linear dependence of 1 and the coordinates"],
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": "AwesomeTheorems.Stage1.S1_M_014",
-    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_014.CanonicalProductStatementShape",
-    "status": "legacy discovery candidate; exact rev-5.6 elaboration and fingerprint are deferred to S56-M-0401-STATEMENT",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null
+    "module": "Stage1_Instances/THM-M-0401/Statement.lean",
+    "declaration": "Stage1Instances.THMM0401.SchmidtSimultaneousApproximationTarget",
+    "gate_state": "elaborated_statement_only",
+    "normalized_expression_file": "Stage1_Instances/THM-M-0401/normalized-expression.txt",
+    "normalized_expression_sha256": "427c6f12e12dbe19e3864c2bc8c91fa33d11615d55c0e202a36e4c478befd68f",
+    "source_sha256": "cbd4391c84fe8368b9dcbdab0e0543dc0f91c9f27d92c163905796f0dcf735e1",
+    "environment_fingerprint": {
+      "lean": "4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+      "imports": ["Mathlib.Analysis.SpecialFunctions.Pow.Real", "Mathlib.FieldTheory.IntermediateField.Adjoin.Basic"],
+      "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+      "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+    },
+    "checked_transport": "Stage1Instances.THMM0401.target_iff_legacyCanonicalProductStatementShape",
+    "mutation_tests": [
+      "delete the algebraicity hypothesis",
+      "change denominator domain from Nat to Int",
+      "move epsilon outside the dimension binder",
+      "admit the boundary case n = 0"
+    ]
   },
-  "domain_and_universes": "n : Nat; alpha : Fin n -> Real; q : Nat; epsilon : Real; no polymorphic universes",
-  "quantifiers": ["n : Nat", "0 < n", "alpha : Fin n -> Real", "algebraicity of every alpha i", "Q-linear independence of 1 and all alpha i", "epsilon : Real", "0 < epsilon"],
-  "hypotheses": ["n is positive", "each alpha_i is algebraic over Q", "1, alpha_0, ..., alpha_(n-1) are Q-linearly independent", "epsilon is positive"],
-  "conclusion": "The set of positive natural denominators q satisfying the stated product inequality is finite.",
-  "excluded_degenerate_cases": ["n = 0", "q = 0", "epsilon <= 0", "Q-linear dependence with 1"],
   "alternate_encodings": [
     {
+      "target": "legacy CanonicalProductStatementShape, locally restated with the same product predicate",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THMM0401.target_iff_legacyCanonicalProductStatementShape",
+      "status": "kernel checked"
+    },
+    {
       "target": "coordinatewise common-denominator approximation with exponent -(1/n)-epsilon",
-      "relationship": "expected corollary; not treated as definitionally equal",
+      "relationship": "implied_by",
       "checked_witness": null,
-      "status": "open statement-phase transport obligation"
+      "status": "not credited; transport remains an anchor-audit/proof obligation"
     }
   ],
-  "foundation_profile": "planned Lean 4 + mathlib classical foundation; exact axiom allowance not yet accepted",
-  "tcb_profile": "planned pinned Lean compiler/kernel plus mathlib dependency closure",
-  "computation_profile": "no oracle or experimental result is eligible for proof credit",
-  "formal_system": "Lean 4 + mathlib",
+  "foundation_profile": "Lean 4 dependent type theory with classical mathlib definitions; exact axiom closure is not claimed by the statement phase",
+  "tcb_profile": "Pinned Lean compiler/kernel and the transitive dependencies locked by Formalizations/Lean/lake-manifest.json",
+  "computation_profile": "No oracle, experiment, or computation is eligible for proof credit",
+  "formal_system": "Lean 4.29.0 + pinned mathlib",
   "source_revisions": {
-    "repository": "a8d6489fd935cd71fa4499f2f3f5b051998203f4",
-    "toolchain_and_library_lock": "Formalizations/Lean/lean-toolchain and Formalizations/Lean/lake-manifest.json; statement-phase fingerprint pending"
+    "repository": "ca5213c506afa21d64fb8f2481ac658887786c6e",
+    "toolchain_file": "Formalizations/Lean/lean-toolchain",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json"
   },
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
-  "public_merge_targets": ["Stage1_Instances/THM-M-0401/README.md", "Stage1_Instances/THM-M-0401/instance.json"],
+  "public_merge_targets": ["Stage1_Instances/THM-M-0401/README.md", "Stage1_Instances/THM-M-0401/instance.json", "Stage1_Instances/THM-M-0401/Statement.lean"],
   "owners_and_reviewers": {"owner": "S56-M-0401 execution lane", "reviewer": "independent integration lane"},
-  "freshness_and_revocation_policy": "Invalidate on canonical statement, source edition, Lean toolchain, mathlib lock, foundation policy, or rev-5.6 schema change; integration lane assigns review due dates and acceptance/revocation receipts.",
-  "accepted_proof_state": [],
-  "theorem_complete": false,
+  "freshness_and_revocation_policy": "Invalidate on canonical statement, source edition, Lean toolchain, mathlib lock, foundation policy, or rev-5.6 schema change; integration assigns acceptance and revocation receipts.",
+  "root_vector": {"H": "H3", "M": "M4", "R": "R3"},
   "audit_complete": false,
-  "open_tasks": ["S56-M-0401-STATEMENT", "S56-M-0401-ANCHOR_AUDIT", "S56-M-0401-OBLIGATION_TREE", "S56-M-0401-PROOF", "S56-M-0401-VALIDATION", "S56-M-0401-RELEASE"]
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "open_tasks": ["S56-M-0401-ANCHOR_AUDIT", "S56-M-0401-OBLIGATION_TREE", "S56-M-0401-PROOF", "S56-M-0401-VALIDATION", "S56-M-0401-RELEASE"],
+  "status_boundary": "The exact product-form proposition elaborates with the two declared pinned imports. One exact local legacy transport and four rejected definitional mutations are checked. This is statement identity evidence only; it supplies no proof of Schmidt's theorem, source acceptance, audit completion, or theorem completion."
 }

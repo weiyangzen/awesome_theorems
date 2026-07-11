@@ -1,6 +1,6 @@
-# THM-M-0401 Intake Dossier
+# THM-M-0401 rev-5.6 statement
 
-Status: `planned`, `L0 / rework_required`. This dossier records intake only. It does not claim exact Lean statement acceptance, source-proof fidelity, audit completion, or theorem completion.
+Status: `planned`, `L0 / rework_required`. `Statement.lean` freezes and elaborates the exact product-form claim using the pinned Lean 4.29.0 environment. It does not prove Schmidt's theorem or claim source, audit, or release acceptance.
 
 ## Scope Map
 
@@ -14,7 +14,7 @@ Included: real algebraic inputs, simultaneous rational approximation with one po
 
 Excluded or not yet identified with the root: the full number-field Subspace Theorem, quantitative bounds, effective constants, `n = 0`, zero denominators, nonpositive epsilon, and the coordinatewise `-(1/n)-epsilon` formulation except as a prospective corollary requiring a checked bridge.
 
-The legacy module `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_014.lean` is discovery input only. Its `CanonicalProductStatementShape` is the planned formal-target candidate. Rev-5.6 exact elaboration, normalized expression hash, environment fingerprint, transports, and mutation tests belong to `S56-M-0401-STATEMENT` and remain open.
+The canonical declaration is `Stage1Instances.THMM0401.SchmidtSimultaneousApproximationTarget`. Its ordered binders, explicit exclusions, printed normalized expression, source hash, toolchain and lock hashes are recorded in `instance.json` and `normalized-expression.txt`. The legacy module remains discovery input only; the local exact restatement is connected by a checked `iff`.
 
 ## Source-Statement Crosswalk
 
@@ -27,16 +27,22 @@ The legacy module `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_014.lean` is 
 
 Current source debt is `H3`: a plausible primary source and claim are identified, but the exact theorem number/page, assumptions, proof boundary, edition relation, and errata require the anchor/source audit. Current machine debt is `M4`: no rev-5.6 exact target or root closure has been accepted. Current readability debt is `R3`: this is an intake map, not a proof reconstruction.
 
+## Statement Gate
+
+The narrow Lean check covers the exact proposition, a definitional transport to the legacy product form, and four negative mutation probes: removal of algebraicity, changing denominators from naturals to integers, moving epsilon outside the dimension binder, and admitting `n = 0`. Each mutated expression is required to fail definitional equality with the canonical target.
+
+The alternate coordinatewise formulation remains uncredited: no checked implication from the product theorem is claimed in this phase. Machine debt stays `M4`, human-source debt stays `H3`, readability debt stays `R3`, and `theorem_complete` remains false.
+
 ## Open Task DAG
 
-`INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
+`ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-Only intake is self-tested here. All later nodes remain open, and only the integration lane may accept this provisional result.
+Only the statement node is self-tested here. All later nodes remain open, and only the integration lane may accept this provisional result.
 
 ## Validation Record
 
-Base revision: `a8d6489fd935cd71fa4499f2f3f5b051998203f4`.
+Base revision: `ca5213c506afa21d64fb8f2481ac658887786c6e`.
 
-The preflight commands `python3 Docs/tools/check_stage1_standard.py`, `python3 scripts/stage1_target.py check`, and `python3 scripts/stage1_target.py show THM-M-0401` exited 0. They reported 15 assurance groups, 1546 uniform-L0 unique targets ranked 1 through 1546, and this target at rank 14 with lifecycle `planned` and `theorem_complete: false`.
+The preflight commands `python3 Docs/tools/check_stage1_standard.py`, `python3 scripts/stage1_target.py check`, and `python3 scripts/stage1_target.py show THM-M-0401` exited 0. The statement command `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0401/Statement.lean)` also exited 0 using the existing canonical `.lake` artifacts; it printed the fully explicit target expression after checking the transport and mutations. Exact commands, hashes, and scope are in `validation.md`.
 
-The owned-artifact self-test commands and exact outcomes are recorded in `.stage1-worker-selftest.json`. No Lean proof validation is claimed by this intake phase.
+The owned-artifact self-test commands and exact outcomes are recorded in `.stage1-worker-selftest.json`. No Lean proof validation is claimed by this statement phase.

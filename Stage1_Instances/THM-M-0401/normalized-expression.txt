@@ -1,0 +1,11 @@
+def Stage1Instances.THMM0401.SchmidtSimultaneousApproximationTarget : Prop :=
+∀ (n : Nat),
+  @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) n →
+    ∀ (alpha : Fin n → Real),
+      Stage1Instances.THMM0401.AlgebraicVector n alpha →
+        Stage1Instances.THMM0401.RationalIndependenceWithOne n alpha →
+          ∀ (epsilon : Real),
+            @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                epsilon →
+              @Set.Finite.{0} Nat
+                (@setOf.{0} Nat fun (q : Nat) => Stage1Instances.THMM0401.ProductTooGood n alpha epsilon q)
