@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0107-STATEMENT",
+  "theorem_id": "THM-M-0107",
+  "depends_on": ["S56-M-0107-INTAKE"],
+  "lifecycle": "planned",
+  "canonical_statement": "Every locally quasi-finite, locally finite-type, separated, quasi-compact morphism f : X -> Y of schemes factors as an open immersion j : X -> Xbar followed by a finite morphism g : Xbar -> Y, with j >> g = f.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0107/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0107.ZariskiMainFactorizationTarget",
+    "elaborated_expression_sha256": "1432cea76d1fbb8b70f03874753d551bc28ee05c4b86c738e4085cd6f8923f27",
+    "statement_file_sha256": "0124e92293f0d24244d7d1f57bd93ab25ed12d521e6e3f257cd9852b40d6c737"
+  },
+  "domain_and_universes": "universe u; X Y Xbar : AlgebraicGeometry.Scheme.{u}; scheme morphisms in the pinned category instance; Prop in Lean universe 0",
+  "ordered_binders": [
+    "X Y : Scheme.{u}",
+    "f : X ⟶ Y",
+    "[LocallyQuasiFinite f]",
+    "[LocallyOfFiniteType f]",
+    "[IsSeparated f]",
+    "[QuasiCompact f]",
+    "Xbar : Scheme.{u}",
+    "j : X ⟶ Xbar",
+    "g : Xbar ⟶ Y"
+  ],
+  "hypotheses": [
+    "LocallyQuasiFinite f",
+    "LocallyOfFiniteType f",
+    "IsSeparated f",
+    "QuasiCompact f"
+  ],
+  "conclusion": "There exist Xbar, j, and g such that IsOpenImmersion j, IsFinite g, and j ≫ g = f.",
+  "direct_imports": ["Mathlib.AlgebraicGeometry.ZariskisMainTheorem"],
+  "minimal_import_evidence": "The sole direct import supplies Scheme, the four selected morphism predicates, normalization, and the pinned Grothendieck ZMT API. No RationalMap import from the legacy module is needed by this statement.",
+  "checked_transport": "Stage1Instances.THM_M_0107.relativeNormalization_implies_factorization",
+  "alternate_encoding": "Stage1Instances.THM_M_0107.RelativeNormalizationFactorizationTarget uses the canonical intermediate f.normalization and maps f.toNormalization and f.fromNormalization. The checked implication establishes that this stronger pinned-API encoding supplies the intake-selected existential factorization shape; no converse or proof of the stronger encoding is credited here.",
+  "environment_fingerprint": {
+    "repository_base_revision": "d202f3aedade691a692ec4162fc08e5f1d2694f9",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0107/check_statement.py",
+    "killed": [
+      "removed QuasiCompact f",
+      "removed IsSeparated f",
+      "removed LocallyQuasiFinite f",
+      "swapped finite/open-immersion roles of the two factors"
+    ]
+  },
+  "degenerate_case_policy": "No noetherian, reduced, irreducible, normal, birational, surjective, or nonempty hypotheses are added. Empty schemes and isomorphisms remain within the quantified target. LocallyOfFiniteType and QuasiCompact are explicit because the pinned normalization construction and ZMT theorem require these API classes separately.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact factorization proposition selected at intake. It checks only a transport from the relative-normalization encoding; it does not prove that encoding or the canonical target, audit anchors, freeze obligations, validate proof closure, or claim theorem completion."
+}
