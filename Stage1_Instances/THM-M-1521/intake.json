@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1521-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1521",
+  "canonical_name": "Poincare recurrence theorem",
+  "canonical_statement": "A measure-preserving self-map of a finite measure space sends almost every point of each measurable set back into that set infinitely often.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Mathlib.Dynamics.Ergodic.Conservative",
+    "declaration_or_expression": "provisional local candidate: AwesomeTheorems.Stage1.S1_M_180.StatementShape",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "alpha : Type u with MeasurableSpace alpha; f : alpha -> alpha; mu : Measure alpha; s : Set alpha",
+  "quantifiers": ["every measurable-space type alpha", "every self-map f", "every finite measure mu preserved by f", "every mu-null-measurable set s", "mu-almost every x"],
+  "hypotheses": ["IsFiniteMeasure mu", "MeasurePreserving f mu mu", "NullMeasurableSet s mu", "x in s"],
+  "conclusion": "Frequently n in atTop, Function.iterate f n x belongs to s",
+  "alternate_encodings": [
+    {"target": "MeasureTheory.Conservative f mu", "relationship": "measure preservation plus finite measure implies conservativity", "checked_witness": "candidate only: MeasureTheory.MeasurePreserving.conservative; credit deferred"},
+    {"target": "almost-everywhere recurrence to every neighborhood", "relationship": "topological strengthening under second countability and measurable opens", "checked_witness": "candidate only: MeasureTheory.Conservative.ae_frequently_mem_of_mem_nhds; credit deferred"}
+  ],
+  "excluded_degenerate_cases": "No Hamiltonian, Liouville-measure, bounded-energy-shell, or continuous-flow model is inferred. Null sets make the almost-everywhere conclusion vacuous; finite spaces and the identity map remain included boundary cases.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and transitive dependency closure remain open",
+  "computation_profile": "No computation, native oracle, or external solver is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (pin and import verification deferred to statement phase)",
+  "source_revisions": "Discovery sources are recorded in source_statement_crosswalk.md; immutable editions and errata audit remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1521/README.md", "Stage1_Instances/THM-M-1521/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to claim scope, Lean target, source pins, imports/toolchain, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a measure-theoretic scope. It neither validates the legacy Lean file nor proves the broader physical slogan that every bounded system recurs."
+}

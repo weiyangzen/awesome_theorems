@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1270-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1270",
+  "canonical_name": "Ekeland's variational principle",
+  "canonical_statement": "Provisional two-parameter form: on a nonempty complete metric space, a proper lower-semicontinuous function bounded below sends every epsilon-approximate minimizer u, for positive epsilon and lambda, to a point v no worse than u, at distance at most lambda from u, and strictly minimizing the epsilon/lambda metric perturbation against every distinct point.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional: u : Type u with MetricSpace u and CompleteSpace u; f : u -> EReal (or a Real-valued bounded-below specialization); epsilon lambda : Real",
+  "ordered_binders": [
+    "X : Type u",
+    "metric and completeness structures on X",
+    "nonemptiness witness for X",
+    "f : X -> EReal (codomain choice open)",
+    "epsilon lambda : Real",
+    "u : X"
+  ],
+  "hypotheses": [
+    "f is proper",
+    "f is lower semicontinuous",
+    "f is bounded below",
+    "0 < epsilon",
+    "0 < lambda",
+    "u is an epsilon-approximate minimizer of f"
+  ],
+  "conclusion": "There exists v with f v <= f u, dist u v <= lambda, and for every w != v, f v < f w + (epsilon / lambda) * dist v w, subject to the final codomain/coercion convention.",
+  "degenerate_cases": [
+    "epsilon = 0 and lambda = 0 are excluded by positivity",
+    "the empty space is excluded because the input point and witness must exist",
+    "an identically +infinity objective is excluded by properness",
+    "points where the extended-real objective is infinite require an explicit finiteness convention"
+  ],
+  "alternate_encodings": [
+    {"target": "Real-valued bounded-below formulation", "relationship": "expected specialization", "gate_state": "candidate_only"},
+    {"target": "one-parameter formulation with lambda = 1", "relationship": "expected rescaling", "gate_state": "candidate_only"},
+    {"target": "Caristi-order maximal-point formulation", "relationship": "classically related theorem family", "gate_state": "candidate_only"}
+  ],
+  "foundation_profile": "Provisional classical Lean 4 profile; choice, quotient, extended-real, and topology dependencies require audit",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact versions and transitive closure remain open",
+  "computation_profile": "No native computation, oracle, or code generation is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib",
+  "source_revisions": "See source_statement_crosswalk.md; immutable files, page-level premise mapping, and errata review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1270/README.md",
+    "Stage1_Instances/THM-M-1270/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the human claim, parameter convention, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the intended theorem family and scope only. It does not establish an exact Lean statement, source-complete H0 evidence, a kernel proof, or theorem completion."
+}
