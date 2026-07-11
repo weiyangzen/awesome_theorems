@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1140-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1140",
+  "canonical_name": "Strong maximum principle for harmonic functions",
+  "canonical_statement": "Let Omega be a nonempty connected open subset of R^n and let u : Omega -> R be harmonic. If u attains a maximum at a point of Omega, then u is constant on Omega.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional classical Euclidean formulation: n : Nat; Omega : Set (EuclideanSpace Real (Fin n)); u : Omega -> Real. The statement phase must choose the actual mathlib harmonicity API.",
+  "ordered_binders": [
+    "n : Nat",
+    "Omega : Set (EuclideanSpace Real (Fin n))",
+    "u : Omega -> Real",
+    "x0 : Omega"
+  ],
+  "hypotheses": [
+    "Omega.Nonempty",
+    "IsOpen Omega",
+    "IsConnected Omega",
+    "u is harmonic on Omega",
+    "forall x : Omega, u x <= u x0"
+  ],
+  "conclusion": "forall x : Omega, u x = u x0",
+  "scope_decisions": {
+    "included": "Real-valued classical harmonic functions on a connected open Euclidean domain; an attained interior global maximum; constancy on the whole domain.",
+    "equivalent_candidate": "An interior local maximum implies constancy, after restricting to a neighborhood and using propagation/connectedness; this requires a checked transport.",
+    "excluded": "Weak boundary maximum principles, subharmonic functions, general uniformly elliptic operators, manifolds, discrete harmonic functions, vector-valued functions, and minimum versions unless connected by a checked negation transport."
+  },
+  "degenerate_cases": "Nonemptiness is explicit. Dimension zero and singleton-domain behavior must be mutation-tested rather than silently discarded. Disconnected domains are excluded because an extremum on one component does not force global constancy.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain, imports, harmonicity definition, and dependency closure remain open",
+  "computation_profile": "No computation, native decision procedure, or oracle is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; exact pin and API verification are deferred to the statement phase",
+  "source_revisions": "Discovery anchors are recorded in source_statement_crosswalk.md; immutable editions, page hashes, and errata review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1140/README.md",
+    "Stage1_Instances/THM-M-1140/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the human claim, domain or connectedness assumptions, Lean target, harmonicity definition, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake fixes the intended mathematical scope only. It neither elaborates a Lean statement nor establishes a mathlib anchor, source fidelity, or proof closure."
+}

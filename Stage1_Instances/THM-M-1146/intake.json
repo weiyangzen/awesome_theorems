@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1146-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1146",
+  "canonical_name": "Schwarz reflection principle (harmonic, zero-boundary form)",
+  "canonical_statement": "Let U be an open subset of the upper half-plane whose union with its reflection and its relative boundary interval on the real axis forms an open reflection-symmetric domain V. If u : U -> R is harmonic, continuous up to that interval, and is zero there, then the odd reflection u(z) for Im z >= 0 and -u(conj z) for Im z < 0 is harmonic on V and extends u.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Planar domains represented in Complex (equivalently Real x Real); real-valued functions; Prop in Lean universe 0",
+  "quantifiers": [
+    "V : Set Complex, open and invariant under complex conjugation",
+    "U = {z in V | 0 < z.im}",
+    "u : Complex -> Real (used on U and its real-axis boundary)"
+  ],
+  "hypotheses": [
+    "IsOpen V",
+    "conj-invariance: z in V iff conj z in V",
+    "u is harmonic on U",
+    "u is continuous on U union {z in V | z.im = 0}",
+    "u z = 0 on {z in V | z.im = 0}"
+  ],
+  "conclusion": "The odd reflection is harmonic on V, agrees with u on U, and hence is a harmonic continuation across the real-axis portion of V.",
+  "alternate_encodings": [
+    {
+      "target": "holomorphic Schwarz reflection for a function real-valued on the boundary",
+      "relationship": "closely related classical theorem, but not interchangeable with the manifest's harmonic-continuation wording without harmonic-conjugate and regularity bridges",
+      "checked_witness": null
+    },
+    {
+      "target": "reflection across an arbitrary line or analytic arc",
+      "relationship": "requires a coordinate or conformal transport and is excluded from the root",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "No claim is made without an open two-sided reflected domain, continuity to the reflecting interval, or zero boundary values. Endpoints of an isolated boundary segment are not asserted to be interior continuation points.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and transitive dependency closure remain open",
+  "computation_profile": "No computation, native code, oracle, or numerical evidence is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; exact imports and API feasibility are deferred to the statement phase",
+  "source_revisions": "Repository source record is Docs/researches/math_theorems.md lines 8394ff; primary-source edition and immutable scholarly source remain open as documented in source_statement_crosswalk.md",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1146/README.md",
+    "Stage1_Instances/THM-M-1146/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, domain/boundary convention, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H3", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake fixes a narrow harmonic zero-boundary scope. It does not establish source fidelity, elaborate Lean, locate a machine proof, or prove the reflection principle."
+}
