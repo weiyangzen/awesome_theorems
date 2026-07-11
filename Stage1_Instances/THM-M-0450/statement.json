@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0450-STATEMENT",
+  "theorem_id": "THM-M-0450",
+  "base_revision": "e571265c0884ee452ec9fa3e73eb1ae0d04ab128",
+  "canonical_claim": "For every number field K and elliptic curve E over K, the abelian group E(K) of K-rational points is finitely generated.",
+  "lean": {
+    "source": "Stage1_Instances/THM-M-0450/Statement.lean",
+    "declaration": "Stage1Instances.THM_M_0450.ExactTarget",
+    "declaration_kind": "definition_of_a_Prop_target_not_a_proof",
+    "imports": [
+      "Mathlib.AlgebraicGeometry.EllipticCurve.Jacobian.Point",
+      "Mathlib.NumberTheory.NumberField.Basic"
+    ],
+    "universe": "u",
+    "ordered_binders": [
+      "K : Type u",
+      "[Field K]",
+      "[NumberField K]",
+      "E : WeierstrassCurve K"
+    ],
+    "hypothesis": "E.IsElliptic",
+    "conclusion": "AddGroup.FG E.toJacobian.Point",
+    "normalized_expression_output_sha256": "25441c035ace49d13ff9f5f2d0a1c1fbd6c5df9c76ad9674e9fbff0c870a68c1",
+    "source_sha256": "fcec6a21a86d796e75a2e66f1c9ef2a5ab57ab6835a2511a19c78909ff60c1af"
+  },
+  "encoding_boundary": {
+    "point_model": "E.toJacobian.Point",
+    "identity": "the Jacobian point at infinity is included by the AddCommGroup model",
+    "singular_curves": "excluded by E.IsElliptic",
+    "rank_zero": "included by AddGroup.FG",
+    "alternate_encodings_credited": []
+  },
+  "environment": {
+    "lean": "4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda",
+    "dependency_artifacts": "canonical pinned Formalizations/Lean/.lake symlink; no dependency update or fetch performed"
+  },
+  "mutation_tests": [
+    {"case": "removed_hypothesis", "source": "mutations/removed_hypothesis.lean", "expected": "Lean type mismatch", "result": "rejected"},
+    {"case": "changed_domain", "source": "mutations/changed_domain.lean", "expected": "Lean type mismatch", "result": "rejected"},
+    {"case": "changed_binder_scope", "source": "mutations/changed_binder_scope.lean", "expected": "Lean type mismatch", "result": "rejected"},
+    {"case": "boundary_singular_curve", "source": "mutations/boundary_singular_curve.lean", "expected": "Lean type mismatch", "result": "rejected"}
+  ],
+  "statement_gate": "self_tested_pending_master_acceptance",
+  "root_vector_after": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This receipt establishes exact target elaboration and sensitivity of four non-equivalent mutations only. It supplies no proof of ExactTarget, no source acceptance, and no theorem-completion evidence."
+}
