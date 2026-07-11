@@ -1,0 +1,103 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0183-RELEASE",
+  "theorem_id": "THM-M-0183",
+  "intent": "release",
+  "base_revision": "4fbe3ce993b660eb9a4da0d9139eb8b6f66878d0",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0183-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0183-VALIDATION-local-20260712",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_release_grade": false,
+    "receipt_sha256": "2f29bfca3653062db99a0bcee1601eaef64379ed80ffb872a2f3a92a13bc12c2"
+  },
+  "reconciled_inputs": {
+    "instance.json": "71d1042c5b9ae4740d40b7ffde8046e68bae62b107b3285ee45b74252b049c7c",
+    "statement.json": "b0d1942a4379f9fdeb41826ca623c2fe181f682da92036b6a562e69e8e91d7d1",
+    "anchor-audit.json": "c90f814f74c4d7ed00dff673b80ed720e99c2de5b40350e7714eeb5f912cb005",
+    "obligation-registry.json": "07f930bef7f26931fb80623ca9bd55c2c9a8abe6110b4a3b5b33990016b26952",
+    "typed-graphs.json": "040e0f4ad53c408dde6e0b946d8b8b64f4302e4276061316a333f89520616215",
+    "Proof.lean": "8ea7a9487361d543fac295394193224ac3eefec7c46b582371fc729787214906",
+    "validation-spec.json": "f93fca759e95bd3803b5f24f7d6237da173c3601ea24c1cb19841b43e5bb38d3",
+    "validation-receipt.json": "2f29bfca3653062db99a0bcee1601eaef64379ed80ffb872a2f3a92a13bc12c2"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0183-VALIDATION-local-20260712"
+  ],
+  "root_vector": {
+    "accepted_before": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "accepted_after": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "boundary": "The accepted planned-instance boundary remains H2/M4/R4. The frozen positive Lean target is refuted by a checked empty-metric-carrier instance, so the exact root is not kernel-closed and no provisional evidence can promote the accepted vector."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0183-VALIDATION is provisional worker evidence, release_grade=false, and not master accepted; therefore the release node is not dependency-legal."
+  },
+  "first_failed_theorem_gate": {
+    "gate_id": "S56-5.1-EXACT-TARGET-CONSISTENCY",
+    "reason": "The exact frozen positive proposition is false: its universally quantified KahlerMetricInterface permits an empty metric carrier, and Proof.lean kernel-checks the proposition's exact negation."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0183-VALIDATION and all transitive phase receipts",
+    "repair of the canonical Lean statement so metric existence is intrinsic rather than universally quantified over an arbitrary possibly empty carrier",
+    "fresh statement identity, mutation tests, registry, typed graphs, proof, and validation after the statement repair",
+    "kernel closure of the repaired exact root and every root-relevant semantic obligation with checked child-to-parent composition",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, foundation, axiom, trust, computation, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "checked_countermodel": "Stage1Instances.THMM0183.not_yauCalabiConjectureTarget",
+    "countermodel_axioms_observed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, and Proof.lean",
+    "exact_positive_root_kernel_closure": "failed: the frozen target is refuted",
+    "root_machine_debt": "M4",
+    "recorded_graph_cut": [
+      "M0183-T-METRIC"
+    ],
+    "statement_consistency": "failed and requires a new statement revision before the recorded graph cut can be executed",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "First repair and accept the exact statement, then regenerate and rerun every dependent statement, obligation, proof, and validation artifact. After positive root closure, the integration and release lanes must accept the dependency chain and close H0/R0, trust, hermetic supply-chain, independent-verifier, deterministic-bundle, and master gates.",
+  "worktree_classification": "nonrelease worker clone using the pre-existing untracked Formalizations/Lean/.lake symlink and shared warm pinned artifacts",
+  "status_boundary": "This is a self-tested negative release reconciliation. It advances no lifecycle or debt state, creates no accepted receipt, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release-grade evidence, or master acceptance."
+}

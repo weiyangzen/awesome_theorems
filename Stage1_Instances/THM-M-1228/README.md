@@ -1,4 +1,4 @@
-# THM-M-1228 rev-5.6 intake
+# THM-M-1228 rev-5.6 dossier
 
 This directory is the rev-5.6 `planned` instance for the Caffarelli-Kohn-Nirenberg
 partial regularity theorem. Historical Stage1 code is discovery material only and
@@ -29,8 +29,24 @@ independently accepted. The first failed theorem gate is the exact-statement gat
 there is no elaborated canonical Lean target, expression hash, environment
 fingerprint, checked transport, or mutation record. The theorem is not complete.
 
+## Statement phase
+
+`Statement.lean` now freezes and kernel-elaborates the exact logical root: for
+every source-suitable weak solution in three spatial dimensions, the singular
+set has zero one-dimensional parabolic Hausdorff measure. The pinned library
+lacks canonical definitions of suitability, regular points, and parabolic
+Hausdorff measure, so these source notions are explicit semantic parameters.
+They contain no conclusion witness and cannot supply proof credit.
+
+The checked `Iff.rfl` expansion fixes the binder order and singular-set
+definition. Four separately elaborated mutations remove suitability, change
+dimension, alter binder scope, or strengthen partial regularity to regularity
+everywhere. `statement.json` records the expression and environment hashes.
+This completes only the worker statement deliverable; master acceptance and
+all source, concrete-definition, proof, validation, and release work remain.
+
 ## Validation
 
-The commands and exact intake-only results are in `validation.md`. They validate
-manifest membership, repository consistency, JSON syntax, and dossier hygiene;
-they do not constitute Lean kernel evidence.
+The commands and exact intake and statement results are in `validation.md`.
+Statement elaboration is real kernel evidence for the proposition's shape, not
+for an inhabitant of that proposition.

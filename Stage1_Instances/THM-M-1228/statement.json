@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1228-STATEMENT",
+  "theorem_id": "THM-M-1228",
+  "lifecycle": "planned",
+  "canonical_statement": "For every suitable weak solution of the three-dimensional incompressible Navier-Stokes equations, its singular set has zero one-dimensional parabolic Hausdorff measure.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1228/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM1228.CaffarelliKohnNirenbergTarget",
+    "elaborated_expression_sha256": "101ce8f2cda8c25d5a0b9ce0e94560f8b801d011c06912d5e53eb698ecf58e5f",
+    "statement_file_sha256": "e5360836f4875e028eabdbf3e76c860aa1566a0f2f4eeb1487588c6ee55ddcc5"
+  },
+  "domain_and_universes": "SpaceTime = (Fin 3 -> Real) x Real; Velocity = Fin 3 -> Real; all data and semantic interfaces live in Lean Type/Prop universe 0.",
+  "ordered_binders": [
+    "S : CKNSourceSemantics",
+    "D : SolutionData"
+  ],
+  "hypotheses": [
+    "S.IsSuitableWeakSolution D, carrying the source's distributional Navier-Stokes equation, incompressibility, velocity/pressure integrability, local energy inequality, and local-domain clauses"
+  ],
+  "conclusion": "S.ParabolicHausdorffOneMeasureZero {z | z is in D.domain and not S.RegularAt D z}.",
+  "direct_imports": [
+    "Mathlib.Data.Real.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THMM1228.caffarelliKohnNirenbergTarget_iff_expanded (Iff.rfl)",
+  "encoding_boundary": "The pinned snapshot has no canonical suitable-weak-solution, CKN regular-point, or parabolic Hausdorff-measure API. CKNSourceSemantics parameterizes exactly these source notions without assuming any theorem conclusion or proof witness. This is a semantic statement interface: the later source-audit and proof phases must instantiate and transport it to concrete analytic definitions before root proof credit is possible.",
+  "excluded_substitutions": [
+    "Euclidean Hausdorff measure in place of parabolic Hausdorff measure",
+    "smooth-solution regularity in place of suitable weak solutions",
+    "two-dimensional Navier-Stokes",
+    "global regularity at every point",
+    "a package with the conclusion stored as an assumed proof field"
+  ],
+  "degenerate_and_boundary_cases": "The statement adds no force-free, bounded-domain, global-existence, or smoothness hypothesis. The singular set is restricted to D.domain. If it is empty, the same parabolic-measure predicate remains the conclusion; no Euclidean surrogate or automatic empty-set lemma is postulated here.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1228/check_statement.py",
+    "killed": [
+      "removed suitable-weak-solution hypothesis",
+      "changed spatial dimension from three to two",
+      "moved a singular point binder outside the measure-zero conclusion",
+      "strengthened partial regularity to regularity everywhere"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact logical CKN partial-regularity target with the unavailable source notions exposed as semantic parameters. It supplies no concrete PDE/parabolic-measure implementation, source acceptance, proof, or theorem-completion evidence."
+}
