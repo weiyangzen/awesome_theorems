@@ -496,8 +496,8 @@ def validate_only() -> None:
 
 def integrate(limit: int) -> int:
     """Verify worker handoffs and advance only the worker cursor to `[_]`."""
-    if limit < 1:
-        fail("--limit must be positive")
+    if limit < 1 or limit > MAX_WORKERS:
+        fail(f"--limit must be in 1..{MAX_WORKERS}")
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     by_id = {item["id"]: item for item in data["items"]}
