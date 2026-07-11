@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "item_id": "S56-M-0395-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0395",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0395-ARCH-STRUCTURE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0395/check_obligation_tree.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0395 obligation tree"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0395-ROOT",
+        "M0395-S",
+        "M0395-S1",
+        "M0395-S2",
+        "M0395-N",
+        "M0395-N1",
+        "M0395-N2",
+        "M0395-C",
+        "M0395-C1",
+        "M0395-C2",
+        "M0395-L1",
+        "M0395-X1",
+        "M0395-L2",
+        "M0395-L3",
+        "M0395-T",
+        "M0395-X2"
+      ],
+      "covered_declarations": []
+    },
+    {
+      "recipe_id": "VAL-M0395-S3-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0395/Statement.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains Stage1Rev56.THMM0395.Statement"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0395-S3"
+      ],
+      "covered_declarations": [
+        "Stage1Rev56.THMM0395.finite_points_iff_finite_univ"
+      ]
+    }
+  ],
+  "status_boundary": "The architecture recipe validates structure only. The Lean recipe checks the statement transport, not Faltings's theorem."
+}

@@ -16,9 +16,15 @@
 | "lower bound" | Nonvanishing premise, norm/absolute value, parameters, height convention, constant, and effectiveness | Open |
 | "Baker's theorem" | Exact historical or later explicit variant and bibliographic theorem/page | Open |
 
-`SRC-GAP-1`: no audited source currently maps the short repository phrase to one
-ordered-binder theorem. The statement phase must select a faithful primary-source
-variant and record edition/page/theorem, assumptions, errata, degeneracies, and
-all quantitative conventions. It must not silently substitute the easier claim
-that a supplied bound record exists. Until that work is done, exact-statement
-status remains M3 and source fidelity remains H3.
+`SRC-GAP-1` is resolved for the formal statement boundary by selecting the
+standard real, multiplicative Matveev variant recorded in `Statement.lean`:
+`Lambda = alpha_1^b_1 * ... * alpha_n^b_n - 1`, with `n >= 1`, a number field
+`K`, a chosen real embedding, positive algebraic inputs, integer coefficients,
+the normalized number-field logarithmic height, explicit `A_i` and `B`
+majorants, and `Lambda != 0`. The conclusion uses the explicit constant shape
+`1.4 * 30^(n+3) * n^(9/2) * D^2 * (1 + log D) * (1 + log(nB)) * prod A_i`.
+
+This resolves exact Lean target selection, not H0. Pinpoint primary-source
+theorem/page wording, errata, and an independent assumption crosswalk remain
+for `S56-M-0396-ANCHOR_AUDIT`; source fidelity therefore remains open and no
+proof credit is granted.
