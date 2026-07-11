@@ -1,0 +1,92 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0086-RELEASE",
+  "theorem_id": "THM-M-0086",
+  "intent": "release",
+  "base_revision": "be286e95464895d6966301556151584a57536a1b",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0086-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0086-VALIDATION-local-20260712T075234+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "a7c773fc9821008bcb1271d1a447fb5b2f49be9f828125258ea93f172e016e34"
+  },
+  "reconciled_inputs": {
+    "statement.json": "c356d97260baf57c665b46c1c260709b6322f4036821e5f7b3753a55b8b785a5",
+    "anchor-audit.json": "1464cdd3bb625affb6a6d7530816975e0e125e9162abf6ca9536bc1aa78e67a3",
+    "obligation-registry.json": "af09f8198e3ad5dd51c9d35eef14f42a451a4e8cbd33a0360946aeb1da259190",
+    "typed-graphs.json": "e8ccefbd630d98d221d27e7260ddb2515fa7087dfc823473b8b4a2c38ef931f5",
+    "Statement.lean": "98e2fce9832b23421c3084e1e7d3dfa84f1465fd700ab66a5eacf386b7c626f1",
+    "Proof.lean": "897b7480d54dbb19c3a53734199f4d67cee50b726ee3772b9c229894489b22d7",
+    "Validation.lean": "7b70f195585cc40d7ec3df8c7c1cffe93d60bb1a4c23d91cf9140811ae11a94e",
+    "validation-receipt.json": "a7c773fc9821008bcb1271d1a447fb5b2f49be9f828125258ea93f172e016e34"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0086-PROOF-local-20260712T074856+0800",
+    "S56-M-0086-VALIDATION-local-20260712T075234+0800"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M4", "R4"],
+    "accepted_after": ["H2", "M4", "R4"],
+    "best_provisional_evidence": ["H2", "M0-W", "R4"],
+    "boundary": "The exact three-branch root has warm same-checkout kernel evidence through pinned mathlib and local composition, but no receipt is master accepted. The frozen typed graph still reports M1 with three leaves open, while the instance authority remains M4; the weaker accepted state controls. H2 and R4 also remain open."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0086-VALIDATION has provisional worker support only and no master-accepted receipt, so the release node is not dependency-legal."
+  },
+  "first_failed_release_specific_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused the canonical warm .lake artifacts; no immutable empty-cache network-denied cold build or offline archive replay was performed."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0086-VALIDATION and all transitive phase receipts",
+    "reconciliation of the frozen typed graph with the provisional closures of M0086-L-EMBED, M0086-L-INJECTIVE, M0086-L-PROJECTIVE, M0086-T-ASSEMBLE, and M0086-ROOT",
+    "accepted H0 pinpoint primary-source edition, theorem/page, assumptions, errata, branch-identity crosswalk, and independent source review",
+    "accepted R0 unique structured reconstruction and independent reader review",
+    "complete transitive declaration, provenance, foundation, axiom, trust, source-boundary, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_check": "pass as provisional warm same-checkout evidence",
+    "terminal_bodies": [
+      "CategoryTheory.Abelian.freyd_mitchell",
+      "CategoryTheory.Abelian.has_injective_coseparator",
+      "CategoryTheory.Abelian.has_projective_separator"
+    ],
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_unsafe_scan": "pass on Statement.lean, Proof.lean, and Validation.lean",
+    "same_checkout_independent_implementation": "pass as nonrelease worker evidence",
+    "structured_state_freshness": "failed: typed-graphs.json predates Proof.lean and records root_closed=false with three proof leaves open",
+    "audit_inventory_acceptance": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "First master-accept and reconcile the validation dependency and typed state. Then obtain independent H0/R0 reviews and run a separately provisioned release lane that closes hermetic reproduction, supply-chain, independent-verifier, deterministic-bundle, and master-acceptance gates.",
+  "worktree_classification": "nonrelease: owned release artifacts and the pre-existing untracked Formalizations/Lean/.lake symlink are present",
+  "status_boundary": "This is a self-tested negative release reconciliation. It advances no lifecycle or accepted debt state, creates no accepted receipt, and does not claim AUDIT-Z, THEOREM-Z, or theorem completion."
+}
