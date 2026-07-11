@@ -34,6 +34,15 @@ environment; `statement-validation.md` records the commands and scope boundary.
 Each node remains open and depends on acceptance of its predecessor. Intake creates no proof-body
 credit and does not inherit the historical `S1_M_098.lean` result.
 
+## Obligation architecture
+
+`obligation-registry.json` freezes 19 semantic obligations and their machine,
+human-source, and readability denominators. `typed-graphs.json` keeps proof,
+refinement, provenance, evidence, trust, documentation, and workflow edges
+separate. `ObligationTree.lean` checks only the conditional composition of the
+four adjacent exactness segments into the pointwise six-term target. The frozen
+root cut remains open, and no anchor candidate is counted as accepted closure.
+
 ## Intake verdict
 
 Lifecycle remains `planned`; provisional root vector remains `[H2, M3, R3]`. The statement phase is
