@@ -48,6 +48,7 @@ PHASES = (
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 MAX_WORKERS = 12
+ALLOWED_REASONING_EFFORTS = {"low", "medium", "high", "xhigh"}
 
 
 def fail(message: str) -> NoReturn:
@@ -396,7 +397,9 @@ Required work:
 
 def worker_command(workspace: Path, prompt_path: Path, output_path: Path) -> str:
     model = os.environ.get("CODEX_MODEL", "gpt-5.6-sol")
-    effort = os.environ.get("CODEX_REASONING_EFFORT", "low")
+    effort = os.environ.get("CODEX_REASONING_EFFORT", "high")
+    if effort not in ALLOWED_REASONING_EFFORTS:
+        fail(f"CODEX_REASONING_EFFORT must be one of {sorted(ALLOWED_REASONING_EFFORTS)}")
     service_tier = os.environ.get("CODEX_SERVICE_TIER", "fast")
     return (
         f"cd {shlex_quote(str(workspace))} && "
@@ -488,7 +491,7 @@ def validate_only() -> None:
     print(
         "platform=codex "
         f"model={os.environ.get('CODEX_MODEL', 'gpt-5.6-sol')} "
-        f"reasoning_effort={os.environ.get('CODEX_REASONING_EFFORT', 'low')} "
+        f"reasoning_effort={os.environ.get('CODEX_REASONING_EFFORT', 'high')} "
         f"service_tier={os.environ.get('CODEX_SERVICE_TIER', 'fast')}"
     )
     print(f"todo={todo.relative_to(ROOT)}")
