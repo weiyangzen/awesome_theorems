@@ -1,0 +1,107 @@
+{
+  "schema_version": "stage1-rev-5.6-anchor-audit-v1",
+  "item_id": "S56-M-0396-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0396",
+  "depends_on": ["S56-M-0396-STATEMENT"],
+  "intent": "anchor_audit",
+  "audit_cutoff": "2026-07-12",
+  "canonical_target": "Stage1Rev56.THMM0396.Statement",
+  "environment": {
+    "repository_base_revision": "63ffe6d6785bf79248c8559737f408834081b07e",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_source_tree": "Formalizations/Lean/.lake/packages/mathlib",
+    "mathlib_source_tree_is_canonical_symlink": true
+  },
+  "search_terms": [
+    "Baker",
+    "Baker-Wuestholz",
+    "Wuestholz",
+    "Wustholz",
+    "Matveev",
+    "LinearFormsInLogarithms",
+    "linear forms in logarithms"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0396-CAND-MATHLIB-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "Lean 4.29.0",
+      "modules": [
+        "Mathlib.NumberTheory.Height.NumberField",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Log",
+        "Mathlib.Analysis.Complex.Exponential",
+        "Mathlib.NumberTheory.DiophantineApproximation.Basic"
+      ],
+      "declarations": [
+        "Height.logHeight₁",
+        "NumberField",
+        "Complex.exp",
+        "Complex.log",
+        "Module.finrank"
+      ],
+      "type_match": "substrate only; none has the type of Stage1Rev56.THMM0396.Statement",
+      "terminal_proof_body": "none for the canonical lower-bound target",
+      "placeholder_axiom_unsafe_audit": "not applicable to theorem closure; only ordinary pinned mathlib APIs were elaborated",
+      "dependency_feasibility": "already in the pinned local dependency closure",
+      "classification": "M3 substrate, not M0-W"
+    },
+    {
+      "candidate_id": "M0396-CAND-LEGACY-LOCAL",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "63ffe6d6785bf79248c8559737f408834081b07e",
+      "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_009.lean",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_009.StatementShape",
+        "AwesomeTheorems.Stage1.S1_M_009.selectedLowerBoundConvention",
+        "AwesomeTheorems.Stage1.S1_M_009.externalLeanPrimaryAuditRows"
+      ],
+      "type_match": "mismatch: abstract additive complex statement shape versus the frozen explicit real multiplicative inequality",
+      "terminal_proof_body": "none; the legacy module explicitly classifies the analytic theorem as formalization debt",
+      "placeholder_axiom_unsafe_audit": "no candidate terminal body exists to credit",
+      "dependency_feasibility": "repo-local discovery input only",
+      "classification": "M3 legacy interface, zero proof credit"
+    }
+  ],
+  "negative_search_evidence": [
+    {
+      "surface": "pinned mathlib Lean sources",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "result": "no matches for the exact Baker/Matveev name and phrase inventory",
+      "scope": "all Mathlib/**/*.lean files"
+    },
+    {
+      "surface": "all other dependencies already pinned in Formalizations/Lean/.lake/packages",
+      "revision_set": "exact revisions in Formalizations/Lean/lake-manifest.json",
+      "result": "no matches for the exact Baker/Matveev name and phrase inventory",
+      "scope": "all dependency *.lean sources except mathlib"
+    },
+    {
+      "surface": "GitHub repository search API",
+      "revision": "search snapshot 2026-07-12",
+      "result": "zero repositories returned for six Baker/Matveev/linear-forms Lean query variants",
+      "limitation": "repository metadata search is discovery evidence, not a proof of global absence"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "revision": "search snapshot 2026-07-12",
+      "result": "zero Lean matches for Matveev, Baker-Wuestholz, and LinearFormsInLogarithms",
+      "limitation": "forks and archived repositories were excluded and the service reported shard limits; this is not a proof of global absence"
+    }
+  ],
+  "decision": {
+    "exact_mathlib_candidate_found": false,
+    "exact_external_lean4_candidate_found": false,
+    "pin_import_wrapper_action": "none: there is no identified exact theorem path to pin or wrap",
+    "root_machine_debt": "M3",
+    "human_debt": "H1",
+    "readability_debt": "R3",
+    "proof_credit": false,
+    "audit_complete_for_phase": true,
+    "theorem_complete": false,
+    "status_boundary": "The bounded discovery audit is complete at its recorded cutoff. It establishes pinned substrate availability and failure to locate a terminal candidate, not global nonexistence and not Baker-Matveev proof closure."
+  }
+}
+
