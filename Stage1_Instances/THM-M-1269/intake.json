@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1269-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1269",
+  "canonical_name": "Existence of a minimizing sequence",
+  "canonical_statement": "For every nonempty type X and real-valued functional F on X whose range is bounded below, there exists a sequence u in X such that F(u_n) converges to the infimum of the range of F.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": "Nonempty X -> BddBelow (Set.range F) -> Exists u : Nat -> X, Tendsto (fun n => F (u n)) atTop (nhds (sInf (Set.range F)))",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "X : Type u; F : X -> Real; proposition in Type u with result Prop",
+  "quantifiers": ["X : Type u", "F : X -> Real"],
+  "hypotheses": ["Nonempty X", "BddBelow (Set.range F)"],
+  "conclusion": "Exists u : Nat -> X, Tendsto (fun n => F (u n)) atTop (nhds (sInf (Set.range F)))",
+  "alternate_encodings": [
+    {"target": "a nonempty constraint set A with F restricted to A", "relationship": "encode the domain as the subtype A", "checked_witness": "candidate only; deferred to statement phase"},
+    {"target": "extended-real infimum", "relationship": "requires finiteness and coercion hypotheses", "checked_witness": "not credited at intake"}
+  ],
+  "excluded_degenerate_cases": "The domain is not empty and the real-valued range is bounded below. Infimum attainment is not assumed.",
+  "foundation_profile": "Classical countable choice is anticipated for selecting approximate minimizers; exact axiom audit remains open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain and dependency closure remain open",
+  "computation_profile": "No computation or oracle is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib, with pin verification deferred to statement phase",
+  "source_revisions": "See source_statement_crosswalk.md; primary-source pinpointing remains open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1269/README.md", "Stage1_Instances/THM-M-1269/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the human claim, domains, Lean target, source pins, toolchain/imports, trust policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H2", "machine": "M3", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a reviewable scope only. It does not accept an exact Lean statement, prove the claim, or validate the Stage0 source-status label."
+}

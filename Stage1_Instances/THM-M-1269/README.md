@@ -1,0 +1,36 @@
+# THM-M-1269 rev-5.6 intake
+
+This directory is the rev-5.6 `planned` instance for the minimizing-sequence
+existence lemma used in variational problems. The Stage0 label alone does not
+fix a unique theorem, so this intake records the narrow standard claim below
+and leaves exact Lean elaboration to the dependent statement phase.
+
+## Scope map
+
+| Surface | In scope | Boundary at intake |
+|---|---|---|
+| Exact root | A nonempty real-valued variational problem bounded below admits a sequence whose values converge to its infimum | Provisional until statement review accepts the encoding |
+| Domain | An arbitrary type `X`, a functional `F : X -> Real`, and the range `Set.range F` | Extended-real and constrained-set variants require checked transports |
+| Hypotheses | `X` is nonempty and `F` is bounded below | No compactness, coercivity, or attainment assumption |
+| Conclusion | Existence of `u : Nat -> X` with `F (u n) -> sInf (Set.range F)` | This does not assert existence of a minimizer |
+| Boundary cases | Empty domains and unbounded-below functionals are excluded | Constant and attained-minimum cases remain included |
+| Foundations | Lean 4 kernel plus the classical choice needed to select approximate minimizers | Exact imports, axioms, and environment fingerprint remain open |
+
+Potential proof architecture is the greatest-lower-bound approximation lemma,
+selection of a point with value below `sInf + 1/(n+1)`, and a squeeze argument.
+These are discovery nodes only; the obligation registry belongs to a later
+phase.
+
+## Intake verdict
+
+Lifecycle is `planned`; provisional root vector is `[H2, M3, R3]`. The first
+failed theorem gate is exact-statement acceptance: the source entry says only
+"approximation of variational problems," and no Lean expression, source
+pinpoint, environment fingerprint, or mutation evidence has yet been accepted.
+The theorem is not complete.
+
+## Validation
+
+The exact intake-only checks and results are recorded in `validation.md`. They
+establish manifest membership, standard consistency, JSON syntax, and local
+dossier hygiene only. No Lean proof or kernel closure is claimed.
