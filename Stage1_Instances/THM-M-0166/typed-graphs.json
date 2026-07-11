@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-0166-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0166",
+  "registry_version": 1,
+  "graphs": {
+    "proof": [
+      {"from": "M0166-ROOT", "type": "proof_requires", "to": "M0166-L-EXISTENCE"},
+      {"from": "M0166-ROOT", "type": "proof_requires", "to": "M0166-L-SUBSEGMENT"},
+      {"from": "M0166-L-EXISTENCE", "type": "proof_requires", "to": "M0166-X-DISTANCE"},
+      {"from": "M0166-L-EXISTENCE", "type": "proof_requires", "to": "M0166-C-PROPER"},
+      {"from": "M0166-ROOT", "type": "composes", "to": "M0166-L-EXISTENCE", "certificate": "Stage1Instances.THM_M_0166_Obligations.compose_root"},
+      {"from": "M0166-ROOT", "type": "composes", "to": "M0166-L-SUBSEGMENT", "certificate": "Stage1Instances.THM_M_0166_Obligations.compose_root"}
+    ],
+    "refinement": [
+      {"from": "M0166-ROOT", "type": "logical_decomposition", "to": "M0166-S-INTERFACE"},
+      {"from": "M0166-L-EXISTENCE", "type": "logical_decomposition", "to": "M0166-C-PROPER"},
+      {"from": "M0166-L-EXISTENCE", "type": "logical_decomposition", "to": "M0166-X-DISTANCE"}
+    ],
+    "provenance": [
+      {"from": "M0166-X-DISTANCE", "type": "provenance_of", "to": "anchor-audit:M0166-A-MATHLIB-DISTANCE"},
+      {"from": "M0166-S-INTERFACE", "type": "provenance_of", "to": "statement-validation:8965e82e"}
+    ],
+    "evidence": [
+      {"from": "statement-validation:8965e82e", "type": "evidence_for", "to": "M0166-S-INTERFACE"},
+      {"from": "anchor-audit:M0166-A-MATHLIB-DISTANCE", "type": "evidence_for", "to": "M0166-X-DISTANCE"}
+    ],
+    "trust": [
+      {"from": "M0166-ROOT", "type": "trusts", "to": "M0166-X-TRUST"},
+      {"from": "M0166-L-EXISTENCE", "type": "trusts", "to": "M0166-X-TRUST"},
+      {"from": "M0166-L-SUBSEGMENT", "type": "trusts", "to": "M0166-X-TRUST"}
+    ],
+    "documentation": [
+      {"from": "M0166-ROOT", "type": "documents", "to": "Stage1_Instances/THM-M-0166/obligation-tree.md#root"},
+      {"from": "M0166-L-EXISTENCE", "type": "documents", "to": "Stage1_Instances/THM-M-0166/obligation-tree.md#global-minimizer"},
+      {"from": "M0166-L-SUBSEGMENT", "type": "documents", "to": "Stage1_Instances/THM-M-0166/obligation-tree.md#subsegment-minimality"}
+    ],
+    "workflow": [
+      {"from": "S56-M-0166-OBLIGATION_TREE", "type": "workflow_depends_on", "to": "S56-M-0166-ANCHOR_AUDIT"},
+      {"from": "S56-M-0166-PROOF", "type": "workflow_depends_on", "to": "S56-M-0166-OBLIGATION_TREE"},
+      {"from": "S56-M-0166-VALIDATION", "type": "workflow_depends_on", "to": "S56-M-0166-PROOF"},
+      {"from": "S56-M-0166-RELEASE", "type": "workflow_depends_on", "to": "S56-M-0166-VALIDATION"}
+    ]
+  },
+  "root_cut_set": ["M0166-C-PROPER", "M0166-L-EXISTENCE", "M0166-L-SUBSEGMENT"],
+  "coverage_denominators": {
+    "canonical_obligations": ["M0166-ROOT", "M0166-S-INTERFACE", "M0166-X-DISTANCE", "M0166-C-PROPER", "M0166-L-EXISTENCE", "M0166-L-SUBSEGMENT", "M0166-X-TRUST"],
+    "required_logical_leaves": ["M0166-S-INTERFACE", "M0166-X-DISTANCE", "M0166-C-PROPER", "M0166-L-SUBSEGMENT", "M0166-X-TRUST"],
+    "required_readable": ["M0166-ROOT", "M0166-S-INTERFACE", "M0166-X-DISTANCE", "M0166-C-PROPER", "M0166-L-EXISTENCE", "M0166-L-SUBSEGMENT", "M0166-X-TRUST"]
+  },
+  "closure_metrics_observed": false,
+  "status_boundary": "Graphs and denominators are frozen. Open proof nodes remain open; no coverage or completion promotion is claimed."
+}
