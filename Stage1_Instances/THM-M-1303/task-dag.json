@@ -1,0 +1,15 @@
+{
+  "schema_version": "stage1-task-dag/5.6.0",
+  "theorem_id": "THM-M-1303",
+  "root": "S56-M-1303-RELEASE",
+  "nodes": [
+    {"id": "S56-M-1303-INTAKE", "depends_on": [], "local_state": "provisional_self_tested"},
+    {"id": "S56-M-1303-STATEMENT", "depends_on": ["S56-M-1303-INTAKE"], "local_state": "open"},
+    {"id": "S56-M-1303-ANCHOR_AUDIT", "depends_on": ["S56-M-1303-STATEMENT"], "local_state": "open"},
+    {"id": "S56-M-1303-OBLIGATION_TREE", "depends_on": ["S56-M-1303-ANCHOR_AUDIT"], "local_state": "open"},
+    {"id": "S56-M-1303-PROOF", "depends_on": ["S56-M-1303-OBLIGATION_TREE"], "local_state": "open"},
+    {"id": "S56-M-1303-VALIDATION", "depends_on": ["S56-M-1303-PROOF"], "local_state": "open"},
+    {"id": "S56-M-1303-RELEASE", "depends_on": ["S56-M-1303-VALIDATION"], "local_state": "open"}
+  ],
+  "authoritative_state_note": "Local states are planning evidence only; master acceptance controls checklist state."
+}
