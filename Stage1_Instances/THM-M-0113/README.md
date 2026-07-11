@@ -49,6 +49,16 @@ Kahler-manifold API are absent, `HodgeData` exposes those typed notions without
 assuming the decomposition or conjugation-symmetry conclusions. This is an
 `M3` statement/interface result only.
 
+The anchor phase supplies the structured candidate ledger
+[`anchor-audit.json`](anchor-audit.json), locally elaborated support probes in
+[`AnchorAudit.lean`](AnchorAudit.lean), and exact validation evidence in
+[`anchor-audit-validation.md`](anchor-audit-validation.md). The bounded audit
+found no exact Lean 4 proof body: the local statement is `M3`, pinned mathlib
+offers support infrastructure only, and the immutable Lean Millennium Hodge
+project formalizes a different conjecture while explicitly leaving Hodge
+decomposition unformalized. The root is therefore recorded as `M4`, without a
+global nonexistence or theorem-completion claim.
+
 ## Status boundary
 
 This dossier claims a worker-tested elaborated statement, but does not claim

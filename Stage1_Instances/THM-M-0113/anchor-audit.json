@@ -1,0 +1,147 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0113-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0113",
+  "audit_date": "2026-07-12",
+  "base_revision": "0f142dc81233343d6cad44f3c6dfbe9240e15606",
+  "canonical_target": "Stage1Instances.THMM0113.HodgeDecompositionTarget",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index",
+    "GitHub repository and code search",
+    "known Hodge-related Lean repository at an immutable commit"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0113-A-LOCAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "0f142dc81233343d6cad44f3c6dfbe9240e15606",
+      "module": "Stage1_Instances/THM-M-0113/Statement.lean",
+      "declaration": "Stage1Instances.THMM0113.HodgeDecompositionTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact frozen proposition",
+      "terminal_provenance": "proposition definition; no proof body",
+      "classification": "M3",
+      "integration_status": "already repo-local as the statement surface; no proof credit"
+    },
+    {
+      "candidate_id": "M0113-A-LOCAL-LEGACY",
+      "project": "awesome_theorems",
+      "revision": "0f142dc81233343d6cad44f3c6dfbe9240e15606",
+      "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_025.lean",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_025.StatementShape",
+        "AwesomeTheorems.Stage1.S1_M_025.extDeriv_extDeriv_mathlib_anchor",
+        "AwesomeTheorems.Stage1.S1_M_025.harmonicOnNhd_const_mathlib_anchor"
+      ],
+      "kind": "legacy_parameterized_shape_and_support",
+      "normalized_match": "not exact: the package statement requires supplied abstract cohomology, harmonic, type, and direct-sum data and omits the frozen conjugation conclusion",
+      "terminal_provenance": "local wrappers around supplied premises and nearby mathlib facts",
+      "classification": "M3_support_only",
+      "integration_status": "legacy discovery input; rev-5.6 does not inherit proof credit"
+    },
+    {
+      "candidate_id": "M0113-A-MATHLIB",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Geometry.Manifold.Complex",
+        "Mathlib.Geometry.Manifold.Riemannian.Basic",
+        "Mathlib.Analysis.Calculus.DifferentialForm.Basic",
+        "Mathlib.Analysis.InnerProductSpace.Harmonic.Basic",
+        "Mathlib.CategoryTheory.Sites.SheafCohomology.Basic",
+        "Mathlib.RingTheory.Kaehler.Basic"
+      ],
+      "declarations": [
+        "ModelWithCorners",
+        "IsManifold",
+        "IsRiemannianManifold",
+        "extDeriv",
+        "extDeriv_extDeriv",
+        "InnerProductSpace.HarmonicAt",
+        "InnerProductSpace.HarmonicOnNhd",
+        "InnerProductSpace.harmonicOnNhd_const",
+        "CategoryTheory.Sheaf.H",
+        "KaehlerDifferential",
+        "KaehlerDifferential.D",
+        "iSupIndep"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no declaration provides compact-Kahler de Rham cohomology, Hodge bidegree decomposition, or conjugation symmetry",
+      "terminal_provenance": "pinned mathlib source and compiled oleans for support declarations only",
+      "classification": "M3_support_only",
+      "integration_status": "already pinned and locally elaborated, but insufficient for the exact target"
+    },
+    {
+      "candidate_id": "M0113-A-LEAN-MILLENNIUM",
+      "project": "lean-dojo/LeanMillenniumPrizeProblems",
+      "revision": "540da94826f70f3edf4d4fc66ce6cda20e903f61",
+      "toolchain": "leanprover/lean4:v4.26.0",
+      "mathlib_revision": "2df2f0150c275ad53cb3c90f7c98ec15a56a1a67",
+      "modules": [
+        "Problems.Hodge.Millennium",
+        "Problems.Hodge.Variety"
+      ],
+      "declarations": [
+        "MillenniumHodge.HodgeConjecture",
+        "VarietyDefinition.HodgeData.hodgeSubspace",
+        "VarietyDefinition.HodgeData.hodgeFiltration",
+        "VarietyDefinition.HodgeData.hodgeClass"
+      ],
+      "kind": "immutable_adjacent_statement_scaffold",
+      "normalized_match": "different theorem: the Hodge conjecture over supplied cohomology and Hodge subspaces; the source explicitly records Hodge decomposition and harmonic interpretation as not formalized",
+      "terminal_provenance": "definitions and elementary consequences of parameterized fields, not a Hodge-decomposition proof body",
+      "classification": "M3_support_only",
+      "integration_status": "not a target candidate and uses an unmaterialized, different pinned toolchain; nothing to integrate for this root",
+      "source_hashes": {
+        "Problems/Hodge/Millennium.lean": "f6dbda7dffdf24d68f37b332df78773a21ffe3f5bd3e512cf46e9784d99598cd",
+        "Problems/Hodge/Variety.lean": "df56a82b806405d000031c000afe28aeb12555e0f341d30b02a93410daacd806"
+      }
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (HodgeDecomposition OR exact Hodge decomposition OR DolbeaultCohomology OR deRhamCohomology) lang:Lean count:100",
+      "result": "matchCount=0",
+      "response_sha256": "5d79a5f0fe4bc4d00a3b3878dba66df3a2b8fbcedc8b3b68d86214a513c0a5b0",
+      "immutability_boundary": "dated, content-hashed discovery response; not an exhaustive proof-absence result"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=quoted Hodge decomposition Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated repository-metadata search, not exhaustive source search"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=quoted HodgeDecomposition language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    },
+    {
+      "surface": "lean-dojo/LeanMillenniumPrizeProblems complete Git tree",
+      "revision": "540da94826f70f3edf4d4fc66ce6cda20e903f61",
+      "result": "complete non-truncated 71-entry tree; Hodge modules inspected at the immutable revision",
+      "response_sha256": "55efcc7d06fd49b41cb09b73118716c52e6512f10fda2811046056d07265906f",
+      "immutability_boundary": "immutable candidate-tree evidence"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact repo-local artifact is statement-only. Pinned mathlib and the legacy module provide nearby infrastructure only. The immutable external Hodge project formalizes a different conjecture over supplied Hodge data and explicitly leaves Hodge decomposition unformalized. No exact Lean 4 proof body was discovered in the bounded searches.",
+  "integration_blocker": "There is no exact external proof repository, immutable proof revision, module, or declaration to pin, import, and check. Authenticated GitHub code search was unavailable.",
+  "reopen_condition": "A concrete Lean 4 compact-Kahler Hodge-decomposition candidate with repository URL, immutable revision, toolchain and dependency pins, module, declaration, exact-type transport, terminal proof-body provenance, license, placeholder and trust audits, and a successful repo-local check.",
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the bounded immutable formal-anchor inventory for this node. Negative searches do not establish global absence. Human-source classification, obligation-tree work, proof, theorem audit completion, and theorem completion remain open."
+}
