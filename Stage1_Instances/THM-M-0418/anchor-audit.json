@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0418-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0418",
+  "inventory_version": "THM-M-0418-anchor-inventory/1",
+  "cutoff": "2026-07-12T12:00:00+08:00",
+  "base_revision": "d76396d014ed07f02b5e64944c3eafca7d453d40",
+  "canonical_target": "Stage1Instances.THM_M_0418.MinkowskiIdealClassBound",
+  "canonical_statement_sha256": "d47f228d8edd29ddabc2cc6189f476d231e1a49870e134db0b83095cd3db1081",
+  "search_order": [
+    "repository-local Lean source",
+    "pinned mathlib source and declarations",
+    "public Lean code index",
+    "public GitHub repository and code metadata"
+  ],
+  "queries": [
+    "NumberField.exists_ideal_in_class_of_norm_le",
+    "exists_ideal_in_class_of_norm_le",
+    "Minkowski bound",
+    "MinkowskiBound",
+    "minkowskiClassBound",
+    "ideal_in_class_of_norm"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0418-C01",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.NumberTheory.NumberField.ClassNumber",
+      "file": "Mathlib/NumberTheory/NumberField/ClassNumber.lean",
+      "file_sha256": "abe0ed06630f8104a02380912074d7eb1edc656969dea029c2b25ffdef7f6624",
+      "declaration": "NumberField.exists_ideal_in_class_of_norm_le",
+      "normalized_match": "exact: same universe-polymorphic number field, class, nonzero integral ideal subtype, class orientation, weak endpoint, and explicit real Minkowski constant",
+      "local_adapter": "Stage1Instances.THM_M_0418.minkowskiIdealClassBound_mathlibAnchor",
+      "terminal_proof_body": "explicit by-proof at ClassNumber.lean:77; introduced in mathlib commit 3e8b888dc9e0163fcb30caf6cf53a2c8cc2d680c and present at the pinned revision",
+      "direct_body_dependencies": [
+        "ClassGroup.mk0_surjective",
+        "NumberField.exists_ne_zero_mem_ideal_of_norm_le_mul_sqrt_discr",
+        "ClassGroup.mk0_eq_mk0_inv_iff",
+        "FractionalIdeal.absNorm_span_singleton",
+        "NumberField.absNorm_ne_zero_of_nonZeroDivisors"
+      ],
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "placeholder_unsafe_oracle_audit": "The terminal declaration has an explicit by-proof. The inspected body contains no sorry, axiom declaration, unsafe declaration, native/external evaluator, or oracle. Lean reports exactly the standard mathlib axioms propext, Classical.choice, and Quot.sound for both the terminal and wrapper; final foundation-profile acceptance remains a later validation gate.",
+      "kernel_check": "passed through the repo-local exact wrapper using the existing pinned Lake environment",
+      "machine_debt": "M0-W",
+      "evidence_level": "E2",
+      "integration_status": "already pinned, imported, and checked locally"
+    },
+    {
+      "candidate_id": "M0418-C02",
+      "project": "awesome_theorems legacy Stage1 surface",
+      "revision": "d76396d014ed07f02b5e64944c3eafca7d453d40",
+      "module": "AwesomeTheorems.Stage1.S1_M_073",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_073.lean",
+      "file_sha256": "d1faa6e95e65e028bf71f610a389f7d6b7eeb65fd54f5d61b96bce77a4adbeb1",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_073.statementShape_of_mathlib",
+      "normalized_match": "exact per-field wrapper after unfolding its local StatementShape and minkowskiClassBound",
+      "role": "duplicate repo-local wrapper over M0418-C01; no independent terminal proof credit",
+      "terminal_candidate_id": "M0418-C01",
+      "machine_debt": "M0-W"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes exact declaration name, then Minkowski-bound aliases; lang:Lean; count:100",
+      "result": "both searches completed with matchCount=0",
+      "response_sha256": [
+        "29dfc7eb919045d3fdf348b151eb2806ae32f59dde6f16b1654b3b87cbe9b384",
+        "05d5dadbb5caeddd3305ae2912dae25f7cc7182aae1afb5d24c4526446b76690"
+      ],
+      "boundary": "dated content-hashed negative discovery evidence, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Minkowski bound\" Lean number field",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "boundary": "dated repository-metadata result"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"exists_ideal_in_class_of_norm_le\" language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "boundary": "blocked lane; no negative result claimed"
+    }
+  ],
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "root_machine_debt": "M0-W",
+    "root_evidence_level": "E2",
+    "audit_complete": true,
+    "theorem_proved": true,
+    "theorem_complete": false,
+    "gate_state": "self_tested_pending_master_acceptance",
+    "status_boundary": "The exact frozen machine target is closed by a pinned mathlib theorem and a kernel-checked local wrapper. This completes only the bounded anchor-audit phase. It does not complete the obligation tree, human-source/readability audits, hermetic release gates, independent verification, or master acceptance."
+  }
+}
