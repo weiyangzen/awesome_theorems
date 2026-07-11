@@ -1,10 +1,10 @@
-# Intake validation
+# Statement validation
 
-Validation evidence is limited to manifest membership, repository-standard consistency, JSON syntax, dossier invariants, and whitespace checks. No Lean theorem exists in this intake, so no kernel result is claimed.
+Validation evidence includes narrow kernel elaboration of the exact target and its checked definitional expansion. No proof of the Roth target is claimed.
 
 Exact commands and results are appended after execution.
 
-Base revision: `a8d6489fd935cd71fa4499f2f3f5b051998203f4`.
+Base revision: `c6c14c0add140b98175266dc6421066ea99c79b3`.
 
 | Command | Result |
 |---|---|
@@ -13,7 +13,8 @@ Base revision: `a8d6489fd935cd71fa4499f2f3f5b051998203f4`.
 | `python3 scripts/stage1_target.py show THM-M-0398` | exit 0; rank 11, L0/rework_required, planned, theorem_complete false |
 | `python3 -m json.tool Stage1_Instances/THM-M-0398/instance.json` | exit 0 |
 | `python3 -m json.tool Stage1_Instances/THM-M-0398/task-dag.json` | exit 0 |
-| scoped Python assertions over both JSON files and the owned file set | exit 0; `intake invariant check: ok` |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0398/Statement.lean)` | exit 0; no output; exact target and interface checks elaborated |
+| `rg -n '\\bsorry\\b|\\baxiom\\b|admit|placeholder' Stage1_Instances/THM-M-0398/Statement.lean` | exit 1; no forbidden proof construct found |
 | `git diff --check -- Stage1_Instances/THM-M-0398` | exit 0; no output |
 
-Known failures/open gates: the canonical Lean expression is not yet elaborated; page-level primary-source audit and independent review are open; no kernel proof or release evidence exists. These are downstream gates rather than failures of the assigned intake phase.
+Known failures/open gates: page-level primary-source audit and independent review are open; no inhabitant of the canonical target, transitive trust audit, hermetic replay, or release evidence exists. These are downstream gates rather than failures of the assigned statement phase.
