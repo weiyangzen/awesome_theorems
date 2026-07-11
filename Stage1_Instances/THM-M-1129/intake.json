@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1129-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-1129",
+  "canonical_name": "Poisson formula for the two-dimensional wave equation",
+  "canonical_statement": "Let c > 0. For sufficiently regular initial displacement f and velocity g on R^2, the classical solution of u_tt = c^2 Delta u with u(x,0)=f(x) and u_t(x,0)=g(x) is the time derivative of the Poisson disk integral of f plus the Poisson disk integral of g; the exact regularity, support, time domain, and uniqueness class remain to be frozen in the statement phase.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional: c t : Real, x : EuclideanSpace Real (Fin 2), f g u real-valued; all live in Lean universe 0. Function spaces and differentiability classes are deliberately unresolved.",
+  "quantifiers": ["c : Real with 0 < c", "f and g on R^2 with sufficient regularity", "x in R^2", "t > 0"],
+  "hypotheses": ["u is a classical solution of u_tt = c^2 Delta u", "u(x,0)=f(x)", "u_t(x,0)=g(x)", "regularity/integrability assumptions sufficient for disk integrals and differentiation"],
+  "conclusion": "u equals the two-dimensional Poisson integral representation, with the initial conditions recovered at t=0 and uniqueness in the selected solution class",
+  "alternate_encodings": [
+    {"target": "integration over the disk |y-x| < c*t", "relationship": "canonical geometric form", "checked_witness": "none; statement phase"},
+    {"target": "integration over the unit disk after y=x+c*t*z", "relationship": "change-of-variables equivalent", "checked_witness": "none; statement phase"},
+    {"target": "spherical-means/descent-from-three-dimensions formulation", "relationship": "analytically equivalent under regularity assumptions", "checked_witness": "none; later proof architecture"}
+  ],
+  "excluded_degenerate_cases": "t=0 is a limiting/boundary obligation, not direct substitution into the singular kernel. c=0 and c<0 are excluded. Weak/distributional solutions and bounded-domain boundary conditions are outside the provisional root.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical analysis, choice, measure theory, and differentiation-under-integral audit open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact toolchain and transitive dependency fingerprint open",
+  "computation_profile": "No numerical integration, oracle, or computation is credited at intake",
+  "formal_system": "Lean 4 + pinned mathlib (exact pin and imports deferred to statement phase)",
+  "source_revisions": "Discovery anchors are recorded in source_statement_crosswalk.md; immutable editions and page hashes remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-1129/README.md", "Stage1_Instances/THM-M-1129/source_statement_crosswalk.md"],
+  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
+  "freshness_and_revocation_policy": "Invalidate on changes to the root PDE, initial-data convention, solution class, regularity/support assumptions, kernel normalization, formal target, toolchain/imports, source pins, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "theorem_complete": false,
+  "status_boundary": "This planned intake identifies and bounds the intended Poisson formula only. The source label 'verified' is untrusted; no exact Lean statement, transport, proof, or theorem completion is claimed."
+}
