@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0395-RELEASE",
+  "theorem_id": "THM-M-0395",
+  "intent": "release",
+  "base_revision": "eb92fd2942463321aa51edd41ee8e5cd5a6564d5",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0395-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0395-VALIDATION-local-20260712",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "b5300fb5d7061a63859580b6ec108392dc6b68e92a7739d898869734a3da987f"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0395-PROOF-local-20260711T193336Z",
+    "S56-M-0395-VALIDATION-local-20260712"
+  ],
+  "root_vector": {
+    "dossier_before": ["H1", "M4", "R3"],
+    "dossier_after": ["H1", "M4", "R3"],
+    "boundary": "The frozen typed graph records the exact Faltings root as H1/M4/R3. The provisional proof and validation receipts close no frozen obligation and do not promote the root."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0395-VALIDATION is worker-self-tested only and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-0395-ROOT-KERNEL-CLOSURE",
+    "reason": "The validation receipt records root_closed=false and validated_closed_obligation_ids=[]; the exact Faltings root and every substantive arithmetic-geometric obligation remain open."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0395-VALIDATION and all transitive phase receipts",
+    "kernel closure of finite-extension normalization M0395-N and its field/model bridges M0395-N1 and M0395-N2",
+    "kernel closure of the Jacobian and Abel-Jacobi construction route M0395-C, M0395-C1, and M0395-C2",
+    "kernel closure of Mordell-Weil, Mordell-Lang, and the no-positive-dimensional-coset input M0395-L1, M0395-X1, and M0395-L2",
+    "kernel closure of finite intersection M0395-L3 and exact terminal/root composition M0395-T, M0395-X2, and M0395-ROOT",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "canonical_statement": "elaborated as provisional worker evidence",
+    "statement_identity": "sha256:de1bfb399ccec48a224e867c55f6eab12589e458949d6d409260be65f0920ba6",
+    "frozen_root_relevant_obligation_count": 17,
+    "worker_receipt_closed_obligation_ids": [],
+    "worker_receipt_support_only_obligation_ids": ["M0395-L3", "M0395-T"],
+    "open_root_relevant_obligation_count": 17,
+    "exact_root_kernel_check": "missing",
+    "substantive_faltings_proof_bodies": "missing",
+    "root_composition": "missing",
+    "axioms_observed_on_partial_checks": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, Proof.lean, and Validation.lean",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "First implement and master-accept the substantive Faltings obligations, exact root composition, and validation dependency. Then a separately provisioned release lane must close H0/R0, trust/provenance, hermetic, supply-chain, independent-runner, CI, and deterministic-bundle gates.",
+  "status_boundary": "This worker artifact truthfully decides the requested release phase as blocked. It creates no accepted receipt, changes no lifecycle or debt state, and makes no audit-completion or theorem-completion claim."
+}

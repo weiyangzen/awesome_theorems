@@ -4,43 +4,43 @@
   "lifecycle_mode": "planned",
   "theorem_id": "THM-M-0402",
   "canonical_name": "Evertse theorem (S-unit equation solution count)",
-  "intent": "intake",
+  "intent": "statement",
   "baseline": "L0 / rework_required",
-  "canonical_statement_status": "source_pinpoint_required",
-  "canonical_statement": "Candidate only: for a number field K and a finite set S of places containing the archimedean places, the normalized two-variable S-unit equation x + y = 1 has finitely many solutions (x,y) in O_{K,S}^times. This wording is not frozen as the exact source theorem until the cited paper's theorem number, quantitative bound, and hypotheses are checked.",
+  "canonical_statement_status": "frozen_and_elaborated",
+  "canonical_statement": "For every number field K, positive integer n, and finite set S of finite primes, the nondegenerate projective solutions of x_0 + ... + x_n = 0 whose homogeneous coordinates are S-units form a finite set. The Lean encoding selects the unique representative with x_0 = 1.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module_candidate": "AwesomeTheorems.Stage1.S1_M_015",
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_status": "open"
+    "module_candidate": "Stage1_Instances/THM-M-0402/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0402.EvertseSUnitStatement",
+    "elaborated_expression_hash": "sha256:1ce0cf193c7d5faa33f7cc68fce6aeb5c1d31724f02440c5737e8e984b1786ee",
+    "environment_fingerprint": "leanprover/lean4:v4.29.0; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; lake-manifest sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "gate_status": "statement_elaborated"
   },
   "scope": {
     "included": [
-      "the exact Evertse S-unit equation theorem selected by a primary-source pinpoint",
-      "the number field, finite-place set, S-unit group, equation, degeneracy convention, and any explicit solution bound in that source"
+      "Evertse 1984 Theorem 1 on nondegenerate projective sums, specialized to S-units by setting (c,d)=(1,0)",
+      "number fields, finite supports, arbitrary positive projective dimension, the full-sum equation, and the no-proper-subsum degeneracy convention"
     ],
     "excluded": [
       "the Schlickewei-Evertse linear recurrence theorem (THM-M-0403)",
       "the Schmidt Subspace Theorem as a substituted root",
-      "finiteness of an arbitrary caller-supplied set or a weaker special case",
+      "only the two-variable x+y=1 special case as a substituted root",
       "the legacy Lean statement wrapper as proof or accepted rev-5.6 evidence"
     ]
   },
-  "domain_and_universes": "Pending exact source selection; expected number field K, finite S including infinite places, and S-units x,y.",
-  "quantifiers": [],
-  "hypotheses": [],
-  "conclusion": "Pending primary-source pinpoint; candidate conclusion is finiteness, possibly with Evertse's explicit bound.",
+  "domain_and_universes": "K : Type u with Field K and NumberField K; finite primes are HeightOneSpectrum (NumberField.RingOfIntegers K); coordinates lie in mathlib's S.unit K.",
+  "quantifiers": ["K : Type u", "[Field K]", "[NumberField K]", "n : Nat", "S : Set (HeightOneSpectrum (NumberField.RingOfIntegers K))"],
+  "hypotheses": ["0 < n", "S.Finite", "x_0 = 1", "sum over all coordinates = 0", "every nonempty proper coordinate subsum is nonzero"],
+  "conclusion": "(NormalizedNondegenerateSolutions S n).Finite",
   "alternate_encodings": [],
-  "excluded_degenerate_cases": "Pending source audit; x+y=1 already forces x,y nonzero when they are units, while higher-arity formulations require a no-vanishing-subsum convention.",
-  "foundation_profile": "planned: Lean 4 kernel plus pinned mathlib; exact allowed axioms not yet frozen",
+  "excluded_degenerate_cases": "Every nonempty proper coordinate subsum is required to be nonzero, matching equation (8) of Evertse 1984 Theorem 1.",
+  "foundation_profile": "Lean 4 kernel plus pinned mathlib; this node elaborates a Prop and claims no proof or axiom closure",
   "tcb_profile": "planned: Lean 4 kernel, elaborator, Lake lock, and rev-5.6 validators",
   "computation_profile": "no oracle or experimental result may discharge a proof obligation",
   "formal_system": "Lean 4 + mathlib",
   "source_revisions": {
-    "repository_base": "a8d6489fd935cd71fa4499f2f3f5b051998203f4",
-    "dependency_lock": "lake-manifest.json (not yet fingerprinted for statement gate)"
+    "repository_base": "526ce9084300c50dce820f559d879c3e6b579060",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
   },
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
@@ -52,13 +52,13 @@
   },
   "freshness_and_revocation_policy": "Invalidate intake on target-manifest, source pinpoint, canonical claim, toolchain, dependency-lock, or normative-profile change.",
   "assurance": {
-    "root_vector": ["H1", "M4", "R4"],
+    "root_vector": ["H1", "M3", "R4"],
     "audit_complete": false,
     "theorem_complete": false,
     "accepted_execution_state": []
   },
   "open_task_dag": [
-    {"task_id": "S56-M-0402-STATEMENT", "depends_on": ["S56-M-0402-INTAKE"], "status": "open"},
+    {"task_id": "S56-M-0402-STATEMENT", "depends_on": ["S56-M-0402-INTAKE"], "status": "provisional_self_tested"},
     {"task_id": "S56-M-0402-ANCHOR_AUDIT", "depends_on": ["S56-M-0402-STATEMENT"], "status": "open"},
     {"task_id": "S56-M-0402-OBLIGATION_TREE", "depends_on": ["S56-M-0402-ANCHOR_AUDIT"], "status": "open"},
     {"task_id": "S56-M-0402-PROOF", "depends_on": ["S56-M-0402-OBLIGATION_TREE"], "status": "open"},

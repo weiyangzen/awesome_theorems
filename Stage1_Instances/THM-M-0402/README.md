@@ -6,9 +6,9 @@ This is a rev-5.6 `planned` intake instance at `L0 / rework_required`. It record
 
 ## Scope map
 
-The repository metadata names “Evertse theorem”, dates it to 1984, and describes it only as “the number of solutions of S-unit equations”. That label does not uniquely determine whether the intended root is the two-variable finiteness statement, a quantitative upper bound, or the general nondegenerate multi-term theorem.
+The repository metadata names “Evertse theorem”, dates it to 1984, and describes it as “the number of solutions of S-unit equations”. The statement phase resolves this against Theorem 1 of Evertse's 1984 paper: finiteness of nondegenerate projective sums, specialized to S-units by `(c,d) = (1,0)`. This includes every positive projective dimension rather than silently substituting only the two-variable consequence.
 
-The candidate boundary inherited for investigation is: a number field `K`, a finite set `S` of places containing the archimedean places, and S-units `x,y` satisfying `x + y = 1`; the solution set is finite. The statement phase must not silently replace a quantitative source theorem by this qualitative consequence. It must freeze the exact field/place conventions, any rank or cardinality parameters, degeneracy condition, and bound.
+The canonical Lean target uses a number field `K`, a finite set `S` of finite primes of its ring of integers, `n > 0`, and `n+1` mathlib S-units. It selects the unique projective representative with `x_0 = 1`, requires the full coordinate sum to vanish, and excludes every vanishing nonempty proper subsum. Infinite places are implicit in the number-field S-unit convention; mathlib's `S` records finite height-one primes.
 
 Out of scope are THM-M-0403's recurrence-zero theorem, the Schmidt Subspace Theorem as a substitute, arbitrary finite-set tautologies, and any special case presented as Evertse's full result.
 
@@ -21,7 +21,11 @@ Out of scope are THM-M-0403's recurrence-zero theorem, the Schmidt Subspace Theo
 | SRC-PRIMARY-CANDIDATE-01 | J.-H. Evertse, *On sums of S-units and linear recurrences*, Compositio Math. 53 (1984), 225-244; NUMDAM `CM_1984__53_2_225_0` | Candidate primary proof source named by the legacy Lean artifact | Must be checked for exact theorem number, arity, hypotheses, degeneracy convention, and bound before H0 or statement freeze | Open; citation identified but pinpoint not yet verified |
 | SRC-FORMAL-CANDIDATE-01 | `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_015.lean` | Models pairs of mathlib S-units and weighted/normalized equations | Candidate object-model input for the next statement phase | Legacy, unaccepted, and not a terminal proof |
 
-The first failed downstream gate is the exact-statement gate: a primary-source theorem/page crosswalk and exact Lean expression fingerprint do not yet exist. Consequently the honest intake vector is `[H1, M4, R4]`.
+The exact statement now elaborates as `Stage1Instances.THMM0402.EvertseSUnitStatement` in `Statement.lean`. This closes only the provisional statement node; proof, anchor audit, source-review H0, and all completion gates remain open. The honest vector is `[H1, M3, R4]`.
+
+## Statement source pinpoint
+
+J.-H. Evertse, *On sums of S-units and linear recurrences*, Compositio Mathematica 53 (1984), 225-244, Theorem 1 on pages 226-227. The paper defines a finite place set containing all infinite places and `(c,d,S)`-admissibility in equation (6). Immediately before Theorem 1 it states that `(1,0,S)`-admissible projective coordinates may be chosen to be S-units. Theorem 1 asserts finiteness subject to equations (7) and (8), the total-sum and nonvanishing proper-subsum conditions. `Statement.lean` is precisely that specialization, with projective scaling normalized by `x_0 = 1`.
 
 ## Intake validation receipt
 
