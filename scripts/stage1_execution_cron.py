@@ -284,6 +284,7 @@ def session_is_live(session: Any) -> bool:
 
 def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     states = {item["id"]: item["state"] for item in items}
+    current_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
     kept: list[dict[str, Any]] = []
     released: list[dict[str, Any]] = []
     for claim in load_claims():
@@ -301,9 +302,19 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 claim["selftest_manifest"] = str(manifest.relative_to(ROOT)) if manifest.is_relative_to(ROOT) else str(manifest)
                 kept.append(claim)
             else:
-                claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
-                claim["release_reason"] = "worker_exited_without_selftest"
-                released.append(claim)
+                # A worker that deliberately fails closed must not be relaunched on
+                # the same repository revision forever.  Keep its negative result
+                # in the runtime ledger while freeing the slot for another DAG node;
+                # a new main revision automatically makes the node eligible again.
+                claim["status"] = "blocked"
+                claim["blocked_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                claim["block_reason"] = "worker_exited_without_selftest"
+                claim["base_revision"] = claim.get("base_revision", current_revision)
+                kept.append(claim)
+        elif claim.get("status") == "blocked" and claim.get("base_revision") != current_revision:
+            claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            claim["release_reason"] = "base_revision_changed_after_block"
+            released.append(claim)
         else:
             kept.append(claim)
     if released:
@@ -713,7 +724,7 @@ def launch(max_workers: int) -> None:
     claimed_ids = {
         claim.get("item_id")
         for claim in claims
-        if claim.get("status") in {"live", "finished", "finished_integrated"}
+        if claim.get("status") in {"live", "finished", "finished_integrated", "blocked"}
     }
     states_by_id = {item["id"]: item["state"] for item in ordered}
     # Phase artifacts are allowed to advance from a self-tested predecessor;
@@ -757,6 +768,7 @@ def launch(max_workers: int) -> None:
             "item_id": item["id"], "theorem_id": item["theorem_id"], "depends_on": item["depends_on"],
             "owned_paths": item["owned_paths"], "session": session, "slot": slot, "workspace": str(workspace),
             "status": "live", "pid": int(pid_text) if pid_text.isdigit() else None, "claimed_at": timestamp,
+            "base_revision": run(["git", "rev-parse", "HEAD"]).stdout.strip(), "output_log": str(output),
         })
     save_claims(claims)
     todo = write_todo(data, ordered, claims)
