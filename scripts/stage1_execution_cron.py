@@ -282,6 +282,29 @@ def session_is_live(session: Any) -> bool:
     return result.returncode == 0 and any(line.strip() == "0" for line in result.stdout.splitlines())
 
 
+def snapshot_blocked_worker(claim: dict[str, Any]) -> tuple[list[str], Path]:
+    """Copy a fail-closed worker's owned delta before its reusable slot is reset."""
+    workspace = Path(str(claim.get("workspace", "")))
+    owned_paths = claim.get("owned_paths")
+    if not isinstance(owned_paths, list) or len(owned_paths) != 1 or not isinstance(owned_paths[0], str):
+        raise ValueError("blocked claim has invalid ownership metadata")
+    owner = owned_paths[0] + "/"
+    changed = worker_changed_paths(workspace, owner)
+    if not changed:
+        raise ValueError("blocked worker made no owned-path report")
+    snapshot = runtime_path("blocked-reports") / str(claim.get("item_id", "unknown"))
+    shutil.rmtree(snapshot, ignore_errors=True)
+    for relative in changed:
+        source = workspace / relative
+        if not source.is_file():
+            raise ValueError(f"blocked worker changed path is not a regular file: {relative}")
+        destination = snapshot / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+    atomic_write(snapshot / "manifest.json", json.dumps({"changed_paths": changed}, indent=2) + "\n")
+    return changed, snapshot
+
+
 def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     states = {item["id"]: item["state"] for item in items}
     current_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
@@ -311,6 +334,12 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 claim["blocked_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 claim["block_reason"] = "worker_exited_without_selftest"
                 claim["base_revision"] = claim.get("base_revision", current_revision)
+                try:
+                    changed, snapshot = snapshot_blocked_worker(claim)
+                    claim["blocked_snapshot"] = str(snapshot)
+                    claim["blocked_snapshot_paths"] = changed
+                except ValueError as exc:
+                    claim["blocked_artifact_rejection_reason"] = str(exc)
                 kept.append(claim)
         else:
             kept.append(claim)
@@ -593,26 +622,42 @@ def integrate(limit: int) -> int:
         try:
             if item is None:
                 raise ValueError("blocked claim refers to unknown item")
-            source = workspace / item["owned_paths"][0]
-            if not source.is_dir():
-                raise ValueError("blocked worker source missing")
             owner = item["owned_paths"][0] + "/"
             reject_mutable_dependency_operations(item["id"])
-            changed = worker_changed_paths(workspace, owner)
+            changed = claim.get("blocked_snapshot_paths")
+            snapshot_text = claim.get("blocked_snapshot")
+            source_root = workspace
+            if isinstance(snapshot_text, str):
+                snapshot = Path(snapshot_text)
+                manifest = snapshot / "manifest.json"
+                if not isinstance(changed, list) and manifest.exists():
+                    changed = json.loads(manifest.read_text(encoding="utf-8")).get("changed_paths")
+                source_root = snapshot
+            if not isinstance(changed, list):
+                changed = worker_changed_paths(workspace, owner)
             if not changed:
                 raise ValueError("blocked worker made no owned-path report")
             allowed_suffixes = {".json", ".md", ".txt", ".yaml", ".yml", ".lean"}
             if any(Path(path).suffix not in allowed_suffixes for path in changed):
                 raise ValueError("blocked handoff contains an unsupported artifact type")
             report_text = "\n".join(
-                (workspace / path).read_text(encoding="utf-8", errors="replace")
+                (source_root / path).read_text(encoding="utf-8", errors="replace")
                 for path in changed
                 if Path(path).suffix in {".md", ".txt"}
             )
             if item["theorem_id"] not in report_text or "blocked" not in report_text.lower():
                 raise ValueError("blocked handoff lacks a target-specific blocker report")
             run(["git", "diff", "--check", "--", owner], cwd=workspace)
-            merge_worker_changes(workspace, changed)
+            if source_root == workspace:
+                merge_worker_changes(workspace, changed)
+            else:
+                for relative in changed:
+                    source = source_root / relative
+                    destination = ROOT / relative
+                    if destination.exists():
+                        raise ValueError(f"blocked report conflicts with existing master file: {relative}")
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source, destination)
             claim["blocked_artifacts"] = changed
             claim["blocked_artifacts_merged_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             preserved_blockers.append(item["id"])
