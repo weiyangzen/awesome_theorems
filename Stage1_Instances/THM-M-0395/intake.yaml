@@ -7,13 +7,13 @@ canonical_statement: >-
   curve C over K of genus at least two, the set C(K) of K-rational points is finite.
 canonical_formal_target:
   backend: lean4
-  module: AwesomeTheorems.Stage1.S1_M_008
-  declaration_or_expression: AwesomeTheorems.Stage1.S1_M_008.StatementShape
-  elaborated_expression_hash: pending:S56-M-0395-STATEMENT
-  environment_fingerprint: pending:S56-M-0395-STATEMENT
+  module: Stage1_Instances/THM-M-0395/Statement.lean
+  declaration_or_expression: Stage1Rev56.THMM0395.Statement
+  elaborated_source_sha256: de1bfb399ccec48a224e867c55f6eab12589e458949d6d409260be65f0920ba6
+  environment_fingerprint: lean-4.29.0_mathlib-8a178386ffc0f5fef0b77738bb5449d50efeea95_manifest-321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81
 domain_and_universes: >-
-  K is a number field; C is a curve over K. The precise Lean universe and
-  scheme/curve representation remain to be frozen by the statement phase.
+  Universe u; K : Type u with Field K and NumberField K; C : CurveOver K,
+  containing a Scheme.{u}, its morphism to Spec K, and the five curve predicates.
 quantifiers:
   - "for every number field K"
   - "for every curve C over K"
@@ -26,7 +26,10 @@ conclusion: "the type/set of K-rational points C(K) is finite"
 alternate_encodings:
   - target: "sections of C -> Spec K are finite"
     relationship: equal
-    checked_witness: pending:S56-M-0395-STATEMENT
+    checked_witness: definition of Stage1Rev56.THMM0395.RationalPoint
+  - target: "the universal set of K-rational sections is finite"
+    relationship: equivalent
+    checked_witness: Stage1Rev56.THMM0395.finite_points_iff_finite_univ
 excluded_degenerate_cases:
   - curves of genus zero or one
   - non-number-field base fields
@@ -36,8 +39,9 @@ tcb_profile: rev-5.6 pinned Lean kernel, elaborator, mathlib sources, and build 
 computation_profile: no oracle or experimental computation receives theorem credit
 formal_system: Lean 4 plus pinned mathlib
 source_revisions:
-  repository_base: a8d6489fd935cd71fa4499f2f3f5b051998203f4
-  lean_toolchain: pending:S56-M-0395-STATEMENT
+  repository_base: d4f6f2514a650df5293be857999912996576c420
+  lean_toolchain: leanprover/lean4:v4.29.0
+  mathlib: 8a178386ffc0f5fef0b77738bb5449d50efeea95
   dependency_lock: lake-manifest.json
 obligation_registry_hash: pending:S56-M-0395-OBLIGATION_TREE
 discovery_protocol_hash: pending:S56-M-0395-ANCHOR_AUDIT
@@ -52,6 +56,6 @@ freshness_and_revocation_policy: >-
   dependency change, profile change, upstream erratum, or rev-5.6 validator change.
 status_boundary:
   intake_complete: true
-  statement_gate_complete: false
+  statement_gate_complete: true
   audit_complete: false
   theorem_complete: false
