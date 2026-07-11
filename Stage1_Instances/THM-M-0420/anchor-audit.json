@@ -1,0 +1,113 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0420-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0420",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "d76396d014ed07f02b5e64944c3eafca7d453d40",
+  "target": "Stage1Instances.THM_M_0420.HilbertClassFieldTarget",
+  "target_expression_sha256": "e02ce829ff52e7bd576532eb0493f01d2b0053e114babc33d15131fc12db1041",
+  "discovery_protocol": {
+    "order": [
+      "repo-local Lean source",
+      "pinned mathlib source",
+      "known Lean class-field-theory projects at immutable commits"
+    ],
+    "terms": [
+      "Hilbert class field",
+      "HilbertClassField",
+      "ClassField",
+      "class field theory",
+      "maximal unramified abelian",
+      "Artin reciprocity"
+    ],
+    "negative_result_boundary": "Absence claims cover only the recorded local trees and immutable external trees; they do not assert global absence."
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0420-C01",
+      "project": "awesome_theorems",
+      "revision": "d76396d014ed07f02b5e64944c3eafca7d453d40",
+      "module": "Stage1_Instances/THM-M-0420/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0420.HilbertClassFieldTarget",
+      "kind": "exact_statement_only",
+      "body_provenance": "definitional proposition; no theorem body",
+      "classification": "M3",
+      "integration_status": "already local; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0420-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.NumberTheory.NumberField.ClassNumber",
+        "Mathlib.NumberTheory.RamificationInertia.Unramified",
+        "Mathlib.RingTheory.ClassGroup"
+      ],
+      "declarations": [
+        "ClassGroup",
+        "NumberField.classNumber",
+        "NumberField.classNumber_ne_zero",
+        "NumberField.classNumber_pos",
+        "Algebra.IsUnramifiedAt",
+        "Algebra.isUnramifiedAt_iff_of_isDedekindDomain",
+        "Ideal.ramificationIdx",
+        "Ideal.primesOver",
+        "IsGalois",
+        "AlgEquiv"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no terminal Hilbert class field or global Artin reciprocity declaration occurs in the pinned Mathlib tree",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally elaborated; insufficient for the exact target"
+    },
+    {
+      "candidate_id": "S56-M-0420-C03",
+      "project": "kbuzzard/ClassFieldTheory",
+      "revision": "11f0a7f3874b6891e8e8290d1e645d61ed06e1aa",
+      "tree_sha": "11f0a7f3874b6891e8e8290d1e645d61ed06e1aa",
+      "tree_complete": true,
+      "lean_file_count": 109,
+      "lean_toolchain": "leanprover/lean4:v4.29.0",
+      "project_mathlib_revision": "3bd2603b817feffa4cc0ce9f5d6bad4094ca746e",
+      "relevant_declarations": [
+        "ClassFieldTheory.Cohomology.SplittingModule.reciprocityIso",
+        "ClassFieldTheory.IsNonarchimedeanLocalField.Unramified.UnramifiedExtension.splits",
+        "ClassFieldTheory.IsNonarchimedeanLocalField.Unramified.maximalUnramified",
+        "ClassFieldTheory.IsNonarchimedeanLocalField.Unramified.le_maximalUnramified_iff"
+      ],
+      "scope_match": "local-field and cohomological infrastructure; no terminal global Hilbert class field theorem found",
+      "placeholder_status": "the historical repo audit records active sorry occurrences; no declaration is credited",
+      "classification": "external_support_only",
+      "integration_status": "not imported; mathlib revision differs from the repository pin"
+    },
+    {
+      "candidate_id": "S56-M-0420-C04",
+      "project": "mariainesdff/LocalClassFieldTheory",
+      "revision": "9ebdafa0b464df096037c10a2597c40f7e046602",
+      "tree_sha": "9ebdafa0b464df096037c10a2597c40f7e046602",
+      "tree_complete": true,
+      "lean_file_count": 66,
+      "lean_toolchain": "leanprover/lean4:v4.22.0-rc2",
+      "project_mathlib_revision": "81a4b04c3ae8a45c367ee1664e82b618694462c4",
+      "relevant_modules": [
+        "LocalClassFieldTheory.LocalField.Basic",
+        "LocalClassFieldTheory.LocalField.GaloisConnection",
+        "LocalClassFieldTheory.DiscreteValuationRing.Ramification",
+        "LocalClassFieldTheory.DiscreteValuationRing.Extensions"
+      ],
+      "scope_match": "local-field infrastructure, not the global Hilbert class field target",
+      "placeholder_status": "the historical repo audit records active sorry occurrences; no declaration is credited",
+      "classification": "scope_mismatch",
+      "integration_status": "not imported; Lean and mathlib revisions differ from repository pins"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact local artifact is statement-only. Pinned mathlib has supporting class-group and ramification APIs but no Hilbert class field construction, global Artin reciprocity theorem, or maximality proof. Both audited external Lean 4 projects are nonterminal, scope-mismatched or placeholder-bearing, and use incompatible dependency pins.",
+  "integration_blocker": "No exact Lean 4 proof candidate with a placeholder-free terminal declaration is available to pin, import, and compare to the frozen target.",
+  "reopen_condition": "Provide a Lean 4 repository, immutable commit, module, terminal declaration, dependency pins, license, placeholder/axiom audit, and checked exact-target transport.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor audit. It supplies no theorem proof, human-source acceptance, obligation tree, or completion claim."
+}
