@@ -436,6 +436,15 @@ def prepare_workspace(slot: int) -> Path:
         source, destination = ROOT / relative, workspace / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
+    # Lean worker clones are source-only to keep 12 lanes practical.  Reuse the
+    # canonical checkout's pinned build artifacts read-only rather than asking
+    # every statement worker to run `lake update` and fetch dependencies again.
+    canonical_lean = ROOT / "Formalizations" / "Lean"
+    worker_lean = workspace / "Formalizations" / "Lean"
+    canonical_lake = canonical_lean / ".lake"
+    worker_lake = worker_lean / ".lake"
+    if canonical_lake.is_dir() and worker_lean.is_dir() and not worker_lake.exists():
+        worker_lake.symlink_to(canonical_lake)
     return workspace
 
 
