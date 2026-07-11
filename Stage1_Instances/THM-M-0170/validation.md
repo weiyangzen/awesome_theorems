@@ -50,3 +50,22 @@ The GitHub repository-metadata searches and the grep.app failure boundary are re
 `anchor-audit.md`; they are discovery evidence, not kernel evidence. The Lean check uses the
 existing pinned `.lake` tree without updating dependencies. It validates only the nearby compact
 Whitney substrate and does not prove the Nash target.
+
+## Obligation-tree validation (2026-07-12)
+
+Base revision: `c2687431b1d86bac7bd509c9abbfdc1e763c060c`.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `python3 Stage1_Instances/THM-M-0170/build_obligation_artifacts.py` | 0 | deterministically generated the 17-row frozen registry, validation recipes, and seven typed graph indexes |
+| `python3 Stage1_Instances/THM-M-0170/check_obligation_tree.py` | 0 | `PASS THM-M-0170 obligation tree: 17 obligations, 41 typed edges`; denominator `9b30c70c...df079f`; graph reciprocity, indexes, acyclicity, root reachability, node schema, budgets, and source hygiene passed |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0170/ObligationTree.lean` | 0 | conditional compact/noncompact recomposition elaborated; axioms were exactly `propext`, `Classical.choice`, `Quot.sound` |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 targets pass |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1..1546, all L0/rework-required |
+| `python3 scripts/stage1_target.py show THM-M-0170` | 0 | rank 123, planned, theorem incomplete |
+| `python3 -m json.tool Stage1_Instances/THM-M-0170/obligation-registry.json >/dev/null && python3 -m json.tool Stage1_Instances/THM-M-0170/typed-graphs.json >/dev/null && python3 -m json.tool Stage1_Instances/THM-M-0170/validation-specs.json >/dev/null` | 0 | all structured artifacts are valid JSON |
+| `git diff --check -- Stage1_Instances/THM-M-0170 .stage1-worker-selftest.json` | 0 | no whitespace errors |
+
+The Lean check reused the pinned `.lake` closure and performed no update, build, clone, or fetch.
+The architecture is self-tested only: both substantive branch packages and every Nash analytic
+engine remain open, no proof coverage is credited, and master acceptance remains required.

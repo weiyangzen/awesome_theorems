@@ -16,18 +16,18 @@ accepted statement or proof credit.
 | Homological/AFT branches | Legacy imports concerning derived functors, exact sequences, and adjoint functor theorems | Excluded from the root: they are applications or stronger existence criteria, not the universal-element characterization |
 | Foundations | Lean 4 kernel with pinned mathlib; ordinary category-theory foundations and permitted classical principles | Exact toolchain, dependency, axiom, TCB, and computation profiles remain open |
 
-The canonical human claim and provisional formal target are structured in
-`intake.json`. Source correspondence and ambiguities are recorded in
+The canonical human claim and intake record are structured in `intake.json`.
+The exact elaborated target is frozen in `Statement.lean` and `statement.json`;
+source correspondence and ambiguities are recorded in
 `source_statement_crosswalk.md`.
 
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first
-failed theorem gate is the exact Lean statement gate: there is no accepted
-normalized expression hash, environment fingerprint, checked transport set, or
-mutation report. This intake is self-tested as an intake artifact only. It does
-not establish theorem completion or accept the later statement, proof, or
-release phases.
+Lifecycle remains `planned`; provisional root vector remains `[H1, M3, R3]`.
+The statement phase has now produced a self-tested normalized expression hash,
+environment fingerprint, checked transport, mutation report, and boundary
+proof, all pending master acceptance. This does not establish theorem
+completion or accept the later anchor, proof, validation, or release phases.
 
 ## Validation
 

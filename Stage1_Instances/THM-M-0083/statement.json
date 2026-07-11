@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0083-STATEMENT",
+  "theorem_id": "THM-M-0083",
+  "lifecycle": "planned",
+  "canonical_statement": "For every Type-valued presheaf F on a category C, F is representable if and only if there are an object X and an element x of F(op X) such that, for every Y, the function sending f : Y -> X to F.map f.op x is bijective.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0083/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0083.RepresentableFunctorTarget",
+    "elaborated_expression_sha256": "1319e132e2f2c66360cf15565db7a1f4acf3623597a87f92753765c02d714a19",
+    "statement_file_sha256": "c5cba3b345c94fdb2519438f71a52b96408d8551e75d37e1aaeb3a7e00fe8580"
+  },
+  "domain_and_universes": "universes w v u; C : Type u; Category.{v} C; F : C^op -> Type w; proposition in Lean universe 0",
+  "ordered_binders": [
+    "C : Type u (implicit)",
+    "[Category.{v} C]",
+    "F : C^op -> Type w"
+  ],
+  "hypotheses": [
+    "The universal-element side supplies X : C and x : F.obj (op X)",
+    "For every Y : C, f |-> F.map f.op x is bijective"
+  ],
+  "conclusion": "The universal-element criterion is logically equivalent to F.IsRepresentable.",
+  "direct_imports": ["Mathlib.CategoryTheory.RepresentedBy"],
+  "checked_transport": "Stage1Instances.THM_M_0083.representableFunctorTarget_iff_pinnedMathlibSourceShape",
+  "pinned_source_declaration": "CategoryTheory.Functor.IsRepresentable.iff_exists_isRepresentedBy",
+  "pinned_source_relationship": "PinnedMathlibSourceShape uses the exact pinned mathlib existential predicate. The checked iff unfolds IsRepresentedBy.map_bijective and the local explicit criterion. The legacy S1_M_139 file remains discovery input only.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0083/check_statement.py",
+    "killed": [
+      "replaced bijectivity by injectivity",
+      "replaced bijectivity by surjectivity",
+      "changed every test object to one existential test object",
+      "removed the forward implication"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0083.empty_category_boundary"]
+  },
+  "degenerate_cases": "No nonemptiness, smallness, or locally-small hypothesis is added. A kernel-checked boundary proof shows that on the empty discrete category both the universal-element criterion and representability are false, so the equivalence still includes this case.",
+  "alternate_encodings": {
+    "is_represented_by": "Checked through PinnedMathlibSourceShape and representableFunctorTarget_iff_pinnedMathlibSourceShape.",
+    "representable_by": "The bundled RepresentableBy encoding is not made canonical here; mathlib's pinned IsRepresentedBy bridge is the minimal direct match to the intake wording.",
+    "corepresentability": "Excluded as the variance-dual theorem rather than an alternate encoding of this root."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact intake-selected target with one minimal pinned import, a checked mathlib-shape transport, four mutations, and an empty-category boundary proof. It supplies no dependent-node or theorem-completion evidence."
+}
