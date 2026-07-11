@@ -1,0 +1,99 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0392-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0392",
+  "base_revision": "cb5b64d8319cd77348c3bec3361760dd82e42d87",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THMM0392.MordellFinitenessStatement",
+  "canonical_target_expression_sha256": "4b5dfc8bf3fbd262e5553eb6e4641dc2517dd73b49cb45d90aaa1ea0ff4c7dfb",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "id": "M0392-A-MATHLIB-AFFINE",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Basic",
+      "declarations": [
+        "WeierstrassCurve.Affine.Equation",
+        "WeierstrassCurve.Affine.equation_iff",
+        "WeierstrassCurve.Affine.equation_iff_nonsingular"
+      ],
+      "classification": "M0-P object-model anchors only",
+      "result": "models affine Weierstrass equations and nonsingularity; supplies no finiteness theorem for integral points"
+    },
+    {
+      "id": "M0392-A-MATHLIB-NORMAL-FORM",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.AlgebraicGeometry.EllipticCurve.NormalForms",
+      "declarations": [
+        "WeierstrassCurve.IsShortNF",
+        "WeierstrassCurve.delta_of_isShortNF"
+      ],
+      "source_spelling": "WeierstrassCurve.Δ_of_isShortNF",
+      "classification": "M0-P object-model anchors only",
+      "result": "supports the short Weierstrass model and discriminant calculation; does not bound or enumerate integer points"
+    },
+    {
+      "id": "M0392-A-MATHLIB-NORTHCOTT",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.Height.Northcott",
+      "declaration": "Northcott",
+      "type": "all sublevel sets of a height function are finite",
+      "classification": "M0-P conditional infrastructure only",
+      "result": "would turn a proved height bound into finiteness, but supplies neither an elliptic integral-point height bound nor the root theorem"
+    },
+    {
+      "id": "M0392-A-LEAN3-MORDELL",
+      "source": "lean-forward/class-group-and-mordell-equation",
+      "revision": "baba2049f3bfe4d2cc184f8205997333e7c58638",
+      "module": "src/number_theory/mordell.lean",
+      "declarations": [
+        "Mordell_minus1",
+        "Mordell_minus2",
+        "Mordell_minus5",
+        "Mordell_minus6",
+        "Mordell_minus13"
+      ],
+      "toolchain": "leanprover-community/lean:3.49.1",
+      "mathlib_revision": "cf9386b56953fb40904843af98b7a80757bbe7f9",
+      "classification": "excluded external anchor",
+      "result": "formalizes five fixed negative parameters in Lean 3, not uniform finiteness for every nonzero integer parameter and not a Lean 4/Lake dependency"
+    },
+    {
+      "id": "M0392-A-GITHUB-MORDELL-WEIL",
+      "source": "Mel-TunaRoll/Lean-Mordell-Weil-Mel-Branch",
+      "revision": "4db36f86423976aacd2c2968c4e45787fcd86b97",
+      "classification": "excluded by subject and toolchain",
+      "result": "repository search hit concerns Mordell-Weil development rather than the frozen integral-solution finiteness target; no exact root candidate identified"
+    }
+  ],
+  "search": {
+    "repo_local": "audited the legacy S1-M-002 statement, equation-normalization leaves, elliptic object bridge, and historical-reference metadata",
+    "pinned_mathlib": "searched all Lean sources for Mordell, integral points, IntegralPoints, and Siegel; inspected the affine, normal-form, Northcott, and descent modules at the manifest revision",
+    "external": "GitHub repository searches for Mordell with Lean, Mordell equation with Lean4, and the known class-group project; moving heads were resolved to immutable commits before classification",
+    "limitations": "GitHub repository search is not an exhaustive code-host or private-repository search; no dependency was fetched, cloned, added, or built"
+  },
+  "human_source_boundary": {
+    "classification": "H3",
+    "result": "the classical route through Siegel's integral-points theorem is mathematically relevant, but no primary-source edition/theorem/page/errata crosswalk was independently established in this node; no H0 credit"
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "the pinned Lean 4 candidates stop at curve objects or conditional finiteness infrastructure, while the only located Mordell-equation formalization is Lean 3 and handles selected fixed parameters rather than the uniform root",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "a checked Lean 4 Siegel/integral-points finiteness theorem specialized to every nonsingular Mordell curve",
+      "or a direct checked Lean 4 proof of uniform nonzero-parameter Mordell finiteness"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": true,
+  "theorem_complete": false
+}
