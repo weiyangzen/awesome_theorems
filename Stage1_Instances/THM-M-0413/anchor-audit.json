@@ -1,0 +1,76 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-0413-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0413",
+  "audit_date": "2026-07-12",
+  "statement_dependency": {
+    "item_id": "S56-M-0413-STATEMENT",
+    "declaration": "Stage1.THMM0413.Statement",
+    "normalized_expression_sha256": "b526664b1d5fd4276d46ab61990983b0617844321d19abeda9770c0efdfabd07"
+  },
+  "environment": {
+    "lean": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_commit": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_commit_date": "2026-03-30T18:47:58Z",
+    "manifest_pin_verified": true
+  },
+  "candidates": [
+    {
+      "candidate_id": "mathlib-number-field-instance",
+      "classification": "exact_local_wrapper_upstream_mathlib",
+      "module": "Mathlib.NumberTheory.NumberField.Basic",
+      "declaration": "NumberField.RingOfIntegers.instIsDedekindDomain",
+      "type": "(K : Type u) [Field K] [NumberField K] -> IsDedekindDomain (NumberField.RingOfIntegers K)",
+      "source_file": "Mathlib/NumberTheory/NumberField/Basic.lean",
+      "source_line_at_pin": 316,
+      "body": "IsIntegralClosure.isDedekindDomain Int Rat K (NumberField.RingOfIntegers K)",
+      "exact_target_match": true,
+      "repo_local_probe": "Stage1.THMM0413.AnchorAudit.viaNumberFieldInstance",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry/admit declaration in the audited source files",
+      "dependency_feasibility": "already in the pinned Lake dependency closure through the statement's sole import",
+      "terminal_body_location": "Mathlib/RingTheory/DedekindDomain/IntegralClosure.lean:217 at the pinned revision"
+    },
+    {
+      "candidate_id": "mathlib-integral-closure-terminal",
+      "classification": "exact_generic_terminal_theorem",
+      "module": "Mathlib.RingTheory.DedekindDomain.IntegralClosure",
+      "declaration": "IsIntegralClosure.isDedekindDomain",
+      "type": "under the file's fraction-field, finite-dimensional, separable, and integral-closure context, IsDedekindDomain A -> IsDedekindDomain C",
+      "source_file": "Mathlib/RingTheory/DedekindDomain/IntegralClosure.lean",
+      "source_line_at_pin": 217,
+      "body_summary": "constructs the Dedekind instance from Noetherianity, dimension at most one, and integral closedness",
+      "exact_target_match": false,
+      "relationship_to_root": "terminal proof body instantiated by the exact number-field instance",
+      "repo_local_probe": "Stage1.THMM0413.AnchorAudit.viaIntegralClosureTheorem",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry/admit declaration in the audited source files",
+      "dependency_feasibility": "transitively imported by Mathlib.NumberTheory.NumberField.Basic"
+    }
+  ],
+  "external_search": {
+    "immutable_checkout": {
+      "repository": "https://github.com/leanprover-community/flt-regular.git",
+      "commit": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+      "result": "no distinct THM-M-0413 terminal candidate found; its uses resolve through pinned mathlib"
+    },
+    "repo_local_legacy": {
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_068.lean",
+      "result": "historical wrapper names the same mathlib instance and pin; discovery evidence only under rev-5.6"
+    },
+    "scope_note": "No moving dependency was fetched. Installed immutable source trees and repository sources were searched; the exact mathlib closure makes an additional external dependency unnecessary."
+  },
+  "provenance": {
+    "wrapper_body": "owned AnchorAudit.lean",
+    "upstream_terminal_body": "pinned mathlib source",
+    "proof_body_vendored": false,
+    "unsafe_or_oracle_boundary": "none observed",
+    "trust_boundary": "Lean kernel plus the reported foundational axioms and pinned imported source/olean closure"
+  },
+  "machine_debt": "local_wrapper_upstream_mathlib",
+  "audit_gate": "self_tested_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "This phase identifies and kernel-checks exact immutable anchors. It does not freeze the obligation registry, accept source H0, validate the full transitive declaration closure, or establish theorem completion."
+}

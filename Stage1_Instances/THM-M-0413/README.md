@@ -38,6 +38,22 @@ mathlib commit `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
 This statement result is provisional pending master acceptance. It does not update the historical
 intake receipt, establish proof closure, or make the theorem complete.
 
+## Anchor-audit phase
+
+`anchor-audit.json` is the phase-specific authority. At pinned mathlib commit
+`8a178386ffc0f5fef0b77738bb5449d50efeea95`, the exact candidate is
+`NumberField.RingOfIntegers.instIsDedekindDomain` from
+`Mathlib.NumberTheory.NumberField.Basic`. Its body instantiates the terminal theorem
+`IsIntegralClosure.isDedekindDomain` from
+`Mathlib.RingTheory.DedekindDomain.IntegralClosure`. `AnchorAudit.lean` names and checks both routes;
+Lean reports only `propext`, `Classical.choice`, and `Quot.sound` for each route.
+
+The pinned external `flt-regular` checkout and repository-local legacy sources supplied no
+distinct proof candidate: the legacy wrapper resolves to the same mathlib instance. Thus the
+machine-debt classification is `local_wrapper_upstream_mathlib`, with no new external dependency
+needed. This provisional audit does not freeze or close the transitive obligation graph and does
+not establish theorem completion.
+
 ## Validation
 
 The exact structural commands and results for this dossier are recorded in `validation.md`. These
