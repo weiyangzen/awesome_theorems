@@ -1,0 +1,115 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0133-VALIDATION-local-20260711T200837Z",
+  "item_id": "S56-M-0133-VALIDATION",
+  "theorem_id": "THM-M-0133",
+  "base_revision": "b11e1f5a1a404420eee7320a845fdb9df48bec0c",
+  "base_tree": "0b0c79f2420265754d1d9853f506c98fd0762f23",
+  "validated_at": "2026-07-11T20:08:37Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "01ea9240ac0d33b11938232c382812ca369b21aeeda4b2bd24cae960996421e1",
+    "ObligationTree.lean": "29e3c84793873c25d033e6d20966954652c14234ddb861f7864f9450d706ba86",
+    "Proof.lean": "edf992203932c7a16827e75bc0954ecddfcc4ce966778b40d1a9c090cac43a6d",
+    "statement.json": "52fd1475b35ba221867d283b61bef4e3caaacedf9ecb3a65f8e5f1de92ecf786",
+    "obligation-registry.json": "26cf5cf90351f729cd181c8d68338161fa14226823376c947de42cad5b8db3ac",
+    "typed-graphs.json": "4d604622baeb7b142cdea318d7aeb4dd435a1846e3de3e3024b355be3b3e2580",
+    "anchor-audit.json": "98dd1ebb992bcd54fe4158551f2d98a09d8e95e783e31cb5c0135ed8426a72ca",
+    "validation-spec.json": "0a32f5f192b9a66c9bd2155acdbcb947c0276d3fe7510cca0763e3bbfb55e77b"
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-0133/check_validation.py"
+    ],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_statement_exponent_four_and_conditional_composition",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "local_provenance_hashes": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "validated_closed_obligation_ids": [
+      "M0133-S-DEF",
+      "M0133-S-DOM",
+      "M0133-S-BOUNDARY",
+      "M0133-S-TRANSPORT",
+      "M0133-B-FOUR",
+      "M0133-B-RECOMPOSE"
+    ],
+    "root_closed": false,
+    "root_machine_debt": "M2",
+    "remaining_root_cut_set": [
+      "M0133-L-MOD",
+      "M0133-L-LOWER"
+    ],
+    "composition_certificates": [
+      "Stage1Instances.THM_M_0133.ObligationTree.root_compose",
+      "Stage1Instances.THM_M_0133.exactTarget_of_oddPrimeCases"
+    ],
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "root_decision": {
+    "machine_debt": "M2",
+    "kernel_closed": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The exact root is not kernel-closed: both composition declarations consume the unproved all-odd-prime exponent family.",
+    "The frozen root cut M0133-L-MOD and M0133-L-LOWER remains open; no complete Wiles/Taylor-Wiles and Frey/Ribet chain is present in the pinned Lean closure.",
+    "The run reused shared writable warm .lake artifacts, so it is not a cold empty-cache hermetic replay.",
+    "No complete foundation/TCB inventory, SBOM/license archive, offline restoration, or deterministic release bundle exists.",
+    "No distinct verifier identity, independently provisioned clean runner, second signed attestation, or independently implemented release verifier exists.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gates": [
+    "proof.root_kernel_closure",
+    "hermetic.cold_empty_cache",
+    "independent.distinct_runner"
+  ],
+  "freshness": {
+    "review_due": "before master acceptance or after any invalidation input changes",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "replace this receipt and fail closed on any source, hash, pin, axiom, graph, validator, or policy drift"
+  },
+  "invalidation_inputs": [
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "statement.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "anchor-audit.json",
+    "validation-spec.json",
+    "check_validation.py",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow partial validation and explicit failed root/release gates. It is not M0, independent evidence, theorem completion, release, or master acceptance."
+}
