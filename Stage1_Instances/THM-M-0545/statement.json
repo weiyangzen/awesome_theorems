@@ -1,0 +1,46 @@
+{
+  "schema_version": "5.6",
+  "item_id": "S56-M-0545-STATEMENT",
+  "theorem_id": "THM-M-0545",
+  "backend": "lean4",
+  "module_path": "Stage1_Instances/THM-M-0545/Statement.lean",
+  "declaration": "Stage1Instances.THMM0545.HodgeDecompositionTarget",
+  "imports": [
+    "Mathlib.Geometry.Manifold.Riemannian.Basic"
+  ],
+  "canonical_claim": "For every finite-dimensional smooth compact oriented Riemannian manifold without boundary, every smooth complex-valued differential k-form has a unique pairwise-orthogonal decomposition into harmonic, exact, and coexact forms.",
+  "encoding_boundary": "The pinned mathlib revision has smooth Riemannian manifolds but no bundled smooth manifold differential forms, codifferential, or Hodge Laplacian. HodgeAnalyticData supplies typed form spaces and operators plus explicit predicates asserting their geometric realization. Those predicates do not contain decomposition, existence, uniqueness, orthogonality, or harmonicity conclusions. The target quantifies over every realization and concludes the full decomposition.",
+  "domains_and_binders": [
+    "E: finite-dimensional real normed model space",
+    "H and I: real manifold model-with-corners data",
+    "M: compact T2 smooth Riemannian manifold with its metric and tangent Riemannian bundle",
+    "D: complex form spaces, exterior derivative, codifferential, Hodge Laplacian, orientation/boundary predicates, and realization predicates",
+    "k: every natural form degree",
+    "omega: every smooth complex-valued k-form in the realization"
+  ],
+  "conclusion_components": [
+    "existence of harmonic, exact, and coexact degree-k summands",
+    "pairwise inner-product orthogonality",
+    "omega equals their sum",
+    "uniqueness among triples satisfying the same properties"
+  ],
+  "degenerate_cases": "Degree zero is included; exactness explicitly requires a natural predecessor, so its exact summand is empty when no predecessor exists. Degrees above the manifold dimension are not excluded and are handled by each faithful form realization. Noncompact and boundary variants are excluded.",
+  "checked_transport": "hodgeDecompositionTarget_iff_expanded (Iff.rfl)",
+  "mutation_fixtures": [
+    "MutationRemovedCompactness",
+    "MutationChangedCoefficientDomain",
+    "MutationChangedBinderScope",
+    "MutationDegreeZeroOnly"
+  ],
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "fixed_options": [
+      "pp.universes=true for canonical print",
+      "pp.explicit=true for canonical print"
+    ]
+  },
+  "machine_status": "M3_statement_interface_only",
+  "proof_status": "No proof of HodgeDecompositionTarget is declared or claimed.",
+  "status_boundary": "Successful elaboration freezes the exact local proposition only. It is not source-fidelity, proof, M0, audit completion, theorem completion, or master acceptance evidence."
+}

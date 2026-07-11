@@ -1,0 +1,64 @@
+{
+  "schema_version": "5.6",
+  "receipt_id": "S56-M-0545-STATEMENT-worker-selftest",
+  "item_id": "S56-M-0545-STATEMENT",
+  "theorem_id": "THM-M-0545",
+  "base_revision": "9e3fd02a2a952da7031bb1dd61387443dd4c1cc7",
+  "scope": "statement artifacts only",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "dependency_mode": "existing canonical pinned .lake symlink; no dependency mutation"
+  },
+  "artifacts": {
+    "statement_source_sha256": "896d7efeaeaedb0ca19799622231b621f1fa731cd3f54634b687f0157afaf861",
+    "elaborated_print_sha256": "afcc4739ad6536f2f83577f6076cdcd38cbb3c15d867ddadac48cc5e417227a9"
+  },
+  "commands": [
+    {
+      "cwd": "repository root",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "cwd": "repository root",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "cwd": "repository root",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0545"],
+      "exit_code": 0,
+      "result": "rank 105; planned; L0/rework_required; theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0545/Statement.lean"],
+      "exit_code": 0,
+      "result": "canonical target, checked Iff.rfl expansion, four structural mutation fixtures, and explicit canonical print elaborated"
+    },
+    {
+      "cwd": "repository root",
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0545/statement.json"],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "cwd": "repository root",
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0545/statement-receipt.json"],
+      "exit_code": 0,
+      "result": "valid JSON before receipt finalization"
+    },
+    {
+      "cwd": "repository root",
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0545"],
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    }
+  ],
+  "result": "pass",
+  "known_failures": [],
+  "status_boundary": "Worker-local statement elaboration evidence only; not proof evidence and not a master acceptance receipt."
+}
