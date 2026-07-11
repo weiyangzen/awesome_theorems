@@ -2,8 +2,9 @@
 
 This directory is the rev-5.6 `planned` instance for the Neron-Tate canonical-height theorem. The
 Stage0 phrase "height of points on elliptic curves" is not precise enough to select a single formal
-theorem, so this intake freezes the standard existence-and-properties package described in
-`intake.json`. Exact source pinning and Lean elaboration remain dependent phases.
+theorem, so the intake freezes the standard existence-and-properties package described in
+`intake.json`. The statement phase elaborates that package in `Statement.lean`; its expression and
+environment fingerprints are recorded in `statement.json` and `statement-validation.md`.
 
 ## Scope map
 
@@ -24,10 +25,9 @@ number-field root.
 
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M4, R3]`. The first failed theorem gate is
-the exact-statement gate: the repository currently supplies neither a canonical Lean expression nor
-an environment fingerprint, and the local mathlib search found no canonical-height declaration.
-This dossier claims scope intake only, not source acceptance, kernel closure, or theorem completion.
+Lifecycle remains `planned`. The exact statement is worker-self-tested pending master acceptance,
+but the package has no inhabitant and the root remains unproved. This dossier claims no source
+acceptance, anchor acceptance, kernel closure of the theorem, or theorem completion.
 
 The open phase graph is in `task-dag.json`; source genealogy and statement risks are in
 `source_statement_crosswalk.md`. Validation commands and their exact outcomes are recorded in
