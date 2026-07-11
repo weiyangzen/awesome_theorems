@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0009-VALIDATION-local-20260711T232708Z",
+  "item_id": "S56-M-0009-VALIDATION",
+  "theorem_id": "THM-M-0009",
+  "base_revision": "6894f3df8b6434b7b3ef2668d8395476b30b3d48",
+  "base_tree": "f6cc3a13b200534ef1599763683dc652cf7cf093",
+  "validated_at": "2026-07-11T23:27:08Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "b34b9bd419817a6781c8548b4d1c6cde13ef0e55c9a5662dc6712042d23de653",
+    "validator_sha256": "c6186ed74beeb199079e3c4204cdf473f82f03fc326cd341167d2a98cb394f67",
+    "validation_probe_sha256": "b8cfb8a685fe1f6a56a0aa3334fa26032e01302209edbab9ded2fd518bb15f06",
+    "statement_sha256": "1210c60730c50a2b7c475d78948f233c8357f13fb7312eec8778c62e40141e63",
+    "obligation_tree_sha256": "16dec6f73bd83bda3f2e6fbef390e6d85ba07e684ac3ce99d4d12d0197beb07e",
+    "proof_sha256": "e6506ab217ae7fc2df93856d179f9fdf345aa35e21494fd3831628df9c5bcc1d",
+    "statement_record_sha256": "c68182272821cfb43fb8e5f4af4c0cffe36db2ed4a349290f6cfd5bc676683ee",
+    "obligation_registry_sha256": "f68e0681275f5194dfac7b75fe9b3ed772d2eba4675abdda1fb7022a97139589",
+    "typed_graphs_sha256": "c2b5b14e66fe0461969f958c17661484fc7162f81761b72b69ac09ab0766ea86",
+    "proof_receipt_sha256": "827728300beae03d5bb1644bc335e920e1674ee5c3c9552bddc0e10448f4eec1",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_source_sha256": "0aa08f6a0505e9ef22e03937f2d55e3f35287b4a731282cd7cd1d3e9c0fb7242",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0009/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": ["M0009-ROOT", "M0009-S-TRANSPORT", "M0009-L-COV-EXACT", "M0009-L-CONTRA-EXACT", "M0009-T-ASSEMBLE", "M0009-X-UPSTREAM", "M0009-X-TCB"],
+    "covered_declarations": ["Stage1Instances.THM_M_0009.Proof.longExactExtSequence", "Stage1Instances.THM_M_0009.Validation.independentlyReconstructedLongExactExtSequence"]
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_frozen_target_canonical_proof_and_independent_local_reconstruction",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "proof_receipt_hashes": "pass",
+    "dependency_pin_and_local_provenance": "pass",
+    "provisional_root_kernel_closed": true,
+    "locally_validated_closed_obligation_ids": ["M0009-ROOT", "M0009-B-COV", "M0009-B-CONTRA", "M0009-C-COV-SEQ", "M0009-C-CONTRA-SEQ", "M0009-L-COV-EXACT", "M0009-L-CONTRA-EXACT", "M0009-T-ASSEMBLE"],
+    "composition_certificates": ["Stage1Instances.THM_M_0009.ObligationTree.root_compose", "Stage1Instances.THM_M_0009.Proof.longExactExtSequence"],
+    "structured_state_freshness": "fail_closed_stale_typed_graph",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean: it reports root_closed=false and both exactness leaves open; only the master may reconcile authoritative structured state.",
+    "This worker reused shared writable warm .lake artifacts, so it did not perform an empty-cache cold hermetic build or offline archive restoration.",
+    "No complete transitive declaration/compiled-artifact TCB inventory, SBOM/license archive, deterministic evidence bundle, or signed attestation exists.",
+    "Validation.lean is independently implemented but ran in the same mutable worker checkout and shared cache; it is not a distinct independently provisioned runner or second verifier identity.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "S56-M-0009-VALIDATION-STRUCTURED-STATE-STALE",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Master-reconcile proof closure into structured state, then validate an immutable clean snapshot with empty caches, complete TCB/SBOM evidence, offline replay, and a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "invalidation_inputs": ["validation-spec.json", "check_validation.py", "Validation.lean", "Statement.lean", "ObligationTree.lean", "Proof.lean", "statement.json", "obligation-registry.json", "typed-graphs.json", "proof-receipt.json", "Lean toolchain", "mathlib revision or worktree", "foundation/TCB policy", "rev-5.6 assurance standard"],
+  "status_boundary": "Self-tested worker evidence for narrow kernel replay, trust observation, local provenance, and a same-workspace independent reconstruction. It is not hermetic or distinct-runner independent evidence, E0/E1, accepted M0, theorem completion, release, or master acceptance."
+}

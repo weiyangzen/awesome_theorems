@@ -1,0 +1,32 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0009-VALIDATION",
+  "theorem_id": "THM-M-0009",
+  "recipes": [
+    {
+      "recipe_id": "M0009-validation-fail-closed-runner",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0009/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {"path_or_stream": "stdout", "semantic_hash_policy": "required five-line gate summary"}
+      ],
+      "covered_obligation_ids": [
+        "M0009-ROOT",
+        "M0009-S-TRANSPORT",
+        "M0009-L-COV-EXACT",
+        "M0009-L-CONTRA-EXACT",
+        "M0009-T-ASSEMBLE",
+        "M0009-X-UPSTREAM",
+        "M0009-X-TCB"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0009.Proof.longExactExtSequence",
+        "Stage1Instances.THM_M_0009.Validation.independentlyReconstructedLongExactExtSequence"
+      ]
+    }
+  ]
+}
