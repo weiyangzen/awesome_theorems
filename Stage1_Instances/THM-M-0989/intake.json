@@ -4,19 +4,21 @@
   "lifecycle_mode": "planned",
   "theorem_id": "THM-M-0989",
   "canonical_name": "Lindeberg-Feller central limit theorem",
-  "canonical_statement": "Provisional source-faithful root: for a triangular array of row-wise independent, centered, square-integrable real random variables, if each row's total variance is one and the Lindeberg truncated-second-moment condition holds for every positive epsilon, then the sum of each row converges in distribution to the standard normal law.",
+  "canonical_statement": "For every measurable probability space and every Nat-indexed triangular array whose row n consists of n+1 row-wise independent, centered, square-integrable real random variables, if every row has total variance one and its summed truncated second moments tend to zero for every positive epsilon, then the row sums converge in distribution to the identity random variable under gaussianReal 0 1.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
+    "module": "Stage1_Instances/THM-M-0989/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0989.Statement",
     "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "source_file_sha256": "ccdd546c1997d1cd38879a6df2ac9acbb8aaf01b7565ce19625c981d7b32772a",
+    "elaboration_evidence": "statement_receipt.json records the exact successful lake env lean command; no noncanonical serialization of Lean's elaborated Expr is claimed",
+    "environment_fingerprint": "lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; lean-toolchain sha256 651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2; lake-manifest sha256 321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81; mathlib CentralLimitTheorem.lean sha256 4b42bad9589ec3772fe0e884ad70789c89fd0c11566d980f3df1c862bbc7f03d",
+    "gate_state": "worker_self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "Planned: a measurable probability space and a Nat-indexed triangular array of real-valued random variables; exact universes and finite-row index type remain open",
+  "domain_and_universes": "Universe u; every Type u with a MeasurableSpace; a Nat-indexed array with row n indexed by Fin (n+1); real-valued increments",
   "quantifiers": [
     "triangular array X(n,k) of real random variables",
-    "each row index n and its finite column range",
+    "each n : Nat and k : Fin (n+1)",
     "every epsilon > 0"
   ],
   "hypotheses": [
@@ -28,12 +30,13 @@
   ],
   "conclusion": "The row sums converge in distribution to the standard Gaussian distribution",
   "alternate_encodings": [
-    {"target": "unnormalized variance s_n^2 with row sum divided by s_n", "relationship": "standard rescaling candidate", "checked_witness": null},
+    {"target": "transparent binder presentation of the normalized target", "relationship": "definitional equivalence", "checked_witness": "Stage1Instances.THM_M_0989.statement_iff"},
+    {"target": "unnormalized variance s_n^2 with row sum divided by s_n", "relationship": "standard rescaling candidate excluded from this root", "checked_witness": null},
     {"target": "Lindeberg iff Gaussian convergence under the Feller/uniform-negligibility condition", "relationship": "stronger converse formulation often called Lindeberg-Feller", "checked_witness": null}
   ],
-  "excluded_degenerate_cases": "Zero total row variance is excluded by unit normalization; epsilon is strictly positive; empty-row and zero-variance encodings require explicit statement-phase boundary tests.",
-  "foundation_profile": "rev-5.6 profile not yet instantiated; classical probability, choice, quotients, and weak-convergence dependencies remain open",
-  "tcb_profile": "Lean 4 kernel plus pinned mathlib planned; exact toolchain and dependency closure remain open",
+  "excluded_degenerate_cases": "Empty rows are excluded by Fin (n+1); zero total row variance is excluded by per-row unit normalization; the Lindeberg condition quantifies only epsilon > 0; the converse/Feller form and variable row-length encoding are outside this root.",
+  "foundation_profile": "Statement elaboration uses Lean's noncomputable classical measure/probability APIs; no proof of the root is present and no foundation closure is credited",
+  "tcb_profile": "Lean 4.29.0 kernel plus the pinned lake-manifest dependency closure; statement elaboration only",
   "computation_profile": "No computation, oracle, simulation, or numerical result is credited at intake",
   "formal_system": "Lean 4 + pinned mathlib",
   "source_revisions": "Discovery citations are recorded in source_statement_crosswalk.md; immutable scans/hashes and errata audit remain open",
@@ -46,7 +49,7 @@
   ],
   "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
   "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, selected theorem variant, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
-  "root_vector": {"human": "H2", "machine": "M4", "readability": "R3"},
+  "root_vector": {"human": "H2", "machine": "M3", "readability": "R3"},
   "theorem_complete": false,
-  "status_boundary": "This planned intake freezes a provisional forward triangular-array scope only. It does not establish an exact Lean statement, accept source metadata as proof, settle the converse variant, or prove the theorem."
+  "status_boundary": "The forward variance-normalized target now elaborates in the pinned Lean environment. This does not prove the target, accept the source audit, settle a converse variant, or establish theorem completion; integration-lane acceptance is still required."
 }
