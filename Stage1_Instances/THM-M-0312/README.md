@@ -1,16 +1,16 @@
-# THM-M-0312 rev-5.6 intake
+# THM-M-0312 rev-5.6 dossier
 
 This directory is the `planned` intake dossier for the theorem called the resonance theorem in the
 repository and more commonly the Banach-Steinhaus theorem or Uniform Boundedness Principle. The
 frozen root scope is the normed-space form: a pointwise bounded family of continuous semilinear maps
 from a Banach space to a normed space has uniformly bounded operator norms.
 
-Pinned mathlib contains the matching candidate declaration `banach_steinhaus` in
-`Mathlib.Analysis.Normed.Operator.BanachSteinhaus`. The intake probe checks only that declaration's
-public type and its nearby extended-nonnegative formulation. It does not accept exact statement
-identity, source fidelity, proof-body provenance, axiom closure, or any machine proof state.
+`Statement.lean` now freezes and elaborates that exact root with the minimal direct import
+`Mathlib.Analysis.Normed.Operator.BanachSteinhaus`. It also checks an `iff` with the published
+extended-nonnegative-supremum encoding, distinguishes the four required structural mutations, and
+checks the empty-index boundary. Exact fingerprints and commands are in `statement.json` and
+`statement-validation.md`.
 
-The root remains `[H1, M3, R3]`: the mathematical result is established in the literature but the
-primary-source crosswalk is unaudited; a formal declaration candidate exists but has only been
-probed; and no reviewed proof reconstruction exists. `audit_complete` and `theorem_complete` are
-both false. Exact commands and results are recorded in `validation.md`.
+The statement node is only self-tested and pending master acceptance. The imported declarations
+receive no proof or provenance credit here. The root therefore remains `[H1, M3, R3]`;
+`audit_complete` and `theorem_complete` are both false.

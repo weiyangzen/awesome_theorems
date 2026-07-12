@@ -1,0 +1,6 @@
+import Mathlib.Analysis.InnerProductSpace.LaxMilgram
+
+#check IsCoercive
+#check IsCoercive.continuousLinearEquivOfBilin
+#check IsCoercive.continuousLinearEquivOfBilin_apply
+#check IsCoercive.unique_continuousLinearEquivOfBilin

@@ -13,18 +13,18 @@
   "category": "analysis / functional analysis",
   "target_system": "Lean 4 + pinned mathlib",
   "literal_source_claim": "A pointwise bounded family of operators is uniformly bounded.",
-  "canonical_claim_status": "human_scope_frozen_exact_lean_statement_and_expression_fingerprint_deferred_to_statement_gate",
+  "canonical_claim_status": "exact_lean_statement_self_tested_pending_master_acceptance",
   "canonical_claim": "For an arbitrary family of continuous semilinear maps from a Banach space E into a normed space F, if at every x in E the norms of all values g_i(x) have a common real upper bound, then the operator norms of all g_i have a common real upper bound.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "candidate_located_not_credited_or_expression_frozen_at_intake",
-    "module_candidate": "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
-    "declaration_candidate": "banach_steinhaus",
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "statement_self_tested_pending_master_acceptance",
+    "module_candidate": "Stage1_Instances/THM-M-0312/Statement.lean",
+    "declaration_candidate": "Stage1Instances.THM_M_0312.UniformBoundednessTarget",
+    "declaration_or_expression": "Stage1Instances.THM_M_0312.UniformBoundednessTarget",
+    "elaborated_expression_hash": "sha256:8d8de4ab21686d451342fe90b92b7d11d8719ae9ce140609ce8ee6f3abd53725",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-737dd81a_options-pp.explicit+pp.universes"
   },
-  "domain_and_universes": "Arbitrary index type iota; seminormed additive commutative groups E and F; nontrivially normed scalar fields k and k2; normed-space structures; an isometric scalar ring homomorphism; CompleteSpace E; universe levels and the exact serialized context remain for the statement gate.",
+  "domain_and_universes": "Universes uE, uF, uK, uK2, uI; arbitrary I : Type uI; E : Type uE and F : Type uF with seminormed additive commutative group structures; K : Type uK and K2 : Type uK2 with nontrivially normed field structures; NormedSpace K E and NormedSpace K2 F; sigma12 : K ->+* K2 with RingHomIsometric sigma12; CompleteSpace E.",
   "quantifiers": [
     "all admissible E, F, k, k2, and scalar homomorphisms sigma12",
     "all index types iota",
@@ -42,8 +42,8 @@
     {
       "target": "banach_steinhaus_iSup_nnnorm",
       "relationship": "expected equivalent extended-nonnegative supremum formulation",
-      "checked_witness": null,
-      "status": "not credited until the statement phase checks the transport"
+      "checked_witness": "Stage1Instances.THM_M_0312.uniformBoundednessTarget_iff_iSupTarget",
+      "status": "kernel-checked iff, pending master acceptance"
     },
     {
       "target": "WithSeminorms.banach_steinhaus",
@@ -84,7 +84,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. A pinned mathlib declaration candidate was type-checked, but its exact expression, transports, proof provenance, axioms, and source fidelity are not accepted. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Planned intake plus a self-tested exact statement pending master acceptance. The expression, checked iSup iff, mutations, and empty-index boundary elaborate, but proof provenance, axioms, source fidelity, and every downstream gate remain open. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
 }

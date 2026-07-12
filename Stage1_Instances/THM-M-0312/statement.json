@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0312-STATEMENT",
+  "theorem_id": "THM-M-0312",
+  "lifecycle": "planned",
+  "canonical_statement": "For an arbitrary family of continuous semilinear maps from a complete seminormed space E to a seminormed space F over compatible nontrivially normed fields, if for each x in E the real norms of all g_i(x) have a common upper bound depending on x, then the operator norms of all g_i have one common real upper bound.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0312/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0312.UniformBoundednessTarget",
+    "elaborated_expression_sha256": "8d8de4ab21686d451342fe90b92b7d11d8719ae9ce140609ce8ee6f3abd53725",
+    "statement_file_sha256": "cd5c5985074cf55f35f9df4e71186cd575e17854971c0e563f4792d34518887a"
+  },
+  "domain_and_universes": "universes uE uF uK uK2 uI; E : Type uE; F : Type uF; K : Type uK; K2 : Type uK2; I : Type uI; seminormed additive commutative groups E and F; nontrivially normed fields K and K2; NormedSpace K E; NormedSpace K2 F; sigma12 : K ->+* K2; RingHomIsometric sigma12; CompleteSpace E",
+  "ordered_binders": [
+    "E, F, K, K2 and their seminormed/field/normed-space instances",
+    "sigma12 : K ->+* K2 and RingHomIsometric sigma12",
+    "I : Type uI and CompleteSpace E",
+    "g : I -> E ->SL[sigma12] F",
+    "pointwise boundedness premise, with x before its bound C"
+  ],
+  "hypotheses": [
+    "CompleteSpace E",
+    "each g i is a continuous semilinear map",
+    "forall x : E, exists C : Real, forall i : I, norm (g i x) <= C"
+  ],
+  "conclusion": "exists C' : Real, forall i : I, norm (g i) <= C'",
+  "direct_imports": ["Mathlib.Analysis.Normed.Operator.BanachSteinhaus"],
+  "checked_transports": [
+    {
+      "target": "Stage1Instances.THM_M_0312.UniformBoundednessISupTarget",
+      "relationship": "iff",
+      "witness": "Stage1Instances.THM_M_0312.uniformBoundednessTarget_iff_iSupTarget"
+    }
+  ],
+  "excluded_alternate": "WithSeminorms.banach_steinhaus is more general and is not credited as an equivalent root encoding at this gate.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_module_sha256": "737dd81a84049ff08ee79724090c88d5f1d7bacf6a7a465022d6cd8654ad9c61",
+    "serialization_options": ["pp.explicit=true", "pp.universes=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0312/check_statement.py",
+    "killed": [
+      "removed CompleteSpace E from the context",
+      "changed the polymorphic semilinear domain to real continuous linear endomorphisms",
+      "moved the real pointwise bound outside the x binder",
+      "excluded the empty index type by requiring Nonempty I"
+    ],
+    "boundary_proof": "Stage1Instances.THM_M_0312.emptyIndexBoundary"
+  },
+  "degenerate_cases": "The empty family and zero spaces remain included. Codomain completeness, index nonemptiness, and nonzero-space assumptions are not added. The pointwise bound may depend on x but not on i; the conclusion bound may not depend on i.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration only. Imported declarations discharge local type and transport checks but receive no proof, provenance, trust, or theorem-completion credit at this phase."
+}

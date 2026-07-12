@@ -14,6 +14,11 @@ transport, distinguishes four structural mutations, and exercises zero/empty/inf
 The historical Fourier-series realization remains outside the canonical target unless a later
 source audit supplies a checked bridge.
 
-The root remains `[H1, M3, R4]`. This is provisional statement evidence pending master acceptance,
-not an accepted proof state. No primary-source review, proof-body credit, audit completion, or
-theorem completion is claimed. `statement-validation.md` records the exact statement checks.
+The anchor audit identifies pinned mathlib's `MeasureTheory.Lp.instCompleteSpace` as an exact
+`M0-P` candidate and re-elaborates a root-typed wrapper at the immutable repository pin. The
+candidate's transitive axiom report is `propext`, `Classical.choice`, and `Quot.sound`; its visible
+terminal body and bounded external search are recorded in `anchor-audit.json`.
+
+The accepted root remains `[H1, M3, R4]`; candidate closure is not accepted proof state. No
+primary-source review, frozen obligation graph, audit completion, or theorem completion is claimed.
+`statement-validation.md` and `anchor-audit-validation.md` record the exact checks and boundaries.

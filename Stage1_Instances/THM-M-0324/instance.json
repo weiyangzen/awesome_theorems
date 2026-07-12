@@ -13,32 +13,37 @@
   "category": "analysis / functional analysis",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "Banach spaces need not have a basis.",
-  "canonical_claim_status": "human_scope_frozen_exact_formal_target_pending_primary_source_pinpoint_and_object_model",
-  "canonical_claim": "There exists a Banach space over the real or complex scalars which has no Schauder basis.",
+  "canonical_claim_status": "selected_conservative_formal_target_elaborated_primary_source_pinpoint_and_stronger_transport_pending",
+  "canonical_claim": "There exists a separable infinite-dimensional real Banach space with no countable Schauder basis.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "module": "Stage1_Instances/THM-M-0324/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0324.EnfloNoSchauderBasisTarget",
+    "elaborated_expression_hash": "sha256:d69d1e5ebb004524a214e2f22608448f7a1a4df0ac1d46c002a38c309c157570",
+    "environment_fingerprint": "Lean 4.29.0 commit 98dc76e3; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; imports recorded in statement.json",
+    "gate_state": "self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "An existentially bundled complete normed vector space; scalar choice (real, complex, or both) and universe level remain to be fixed from the primary statement and Lean object model.",
+  "domain_and_universes": "universe u; an existentially bundled real complete normed vector space, required to be separable and not finite-dimensional.",
   "quantifiers": [
-    "an existential Banach space X with its additive, normed, scalar, and completeness structures"
+    "X : RealBanachSpace.{u}"
   ],
-  "hypotheses": [],
-  "conclusion": "There is no term of SchauderBasis K X for the selected scalar field K.",
+  "hypotheses": ["Not (FiniteDimensional Real X.carrier)", "TopologicalSpace.SeparableSpace X.carrier"],
+  "conclusion": "There is no term of SchauderBasis Real X.carrier.",
   "alternate_encodings": [
     {
       "target": "a separable reflexive Banach space without the approximation property",
       "relationship": "stronger primary-source construction implying the no-Schauder-basis root",
-      "checked_witness": "none; source and Lean bridges remain open"
+      "checked_witness": "none; source and Lean bridges remain open and this stronger form is uncredited"
     },
     {
       "target": "for a fixed X, Not (Nonempty (SchauderBasis K X))",
       "relationship": "candidate inner predicate only, not the existential theorem",
-      "checked_witness": "Stage1_Instances/THM-M-0324/IntakeCheck.lean elaborates the predicate shape only"
+      "checked_witness": "Stage1_Instances/THM-M-0324/Statement.lean elaborates the predicate inside the exact existential"
+    },
+    {
+      "target": "the sigma presentation recorded in statement.json",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0324.enfloTarget_iff_sigmaPresentation"
     }
   ],
   "excluded_degenerate_cases": "Hamel bases, nonseparable spaces used for a trivial cardinality obstruction, merely uncountable Schauder index sets, absence of an unconditional basis only, and a bare failure of a chosen sequence to be a basis may not replace Enflo's counterexample.",
@@ -51,10 +56,10 @@
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
-  "foundation_profile": "Lean 4 dependent type theory; classical choice and quotient requirements are not frozen.",
-  "tcb_profile": "Lean kernel 4.29.0 and mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95 are available; exact target import closure is open.",
-  "computation_profile": "No numerical experiment, native oracle, or external solver may discharge the theorem; exact profile remains open.",
-  "formal_system": "Lean 4 + pinned mathlib; no canonical root declaration exists at intake.",
+  "foundation_profile": "Lean 4 dependent type theory. Statement elaboration and its checked transport use no local axioms; construction-level choice and quotient requirements remain downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 and mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; the two direct statement imports and hashes are recorded in statement.json.",
+  "computation_profile": "Pure Prop target. No numerical experiment, native oracle, external solver, or computation is credited.",
+  "formal_system": "Lean 4 + pinned mathlib; canonical statement declaration recorded in statement.json.",
   "source_revisions": "Per Enflo, Acta Mathematica 130 (1973), 309-317, DOI 10.1007/BF02392270; bibliographic and abstract-level metadata checked, theorem text and errata review still open.",
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
@@ -76,7 +81,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeCheck.lean",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
     "validation.md"
   ],
-  "status_boundary": "Planned intake only. It fixes the Schauder-basis reading and conservative existential human root, but the exact primary statement, bundled Lean existential, expression fingerprint, proof, reviews, audit, and release gates remain open."
+  "status_boundary": "Planned lifecycle with statement-only self-tested evidence pending master acceptance. The selected real separable infinite-dimensional no-Schauder-basis target is elaborated and fingerprinted, but the exact stronger primary statement, approximation-property bridge, proof, reviews, audit, and release gates remain open."
 }

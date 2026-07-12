@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0322-STATEMENT",
+  "theorem_id": "THM-M-0322",
+  "lifecycle": "planned",
+  "canonical_statement": "Let E be a real locally convex Hausdorff topological vector space and s a compact convex subset of E. Then s equals the closure of the real convex hull of its extreme points.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0322/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0322.KreinMilmanTarget",
+    "elaborated_expression_sha256": "785719abddfc881edb6ec8cb60f1175995b433ae42f12727d7d3a1479955579f",
+    "statement_file_sha256": "8f66eb4d0c75188ae0dae528474cacf5a82faa66a8e65d32a2bf868d6c0b4732"
+  },
+  "domain_and_universes": "universe u; E : Type u; AddCommGroup E; Module Real E; TopologicalSpace E; T2Space E; IsTopologicalAddGroup E; ContinuousSMul Real E; LocallyConvexSpace Real E; s : Set E; Prop in Lean universe 0",
+  "ordered_binders": [
+    "E : Type u",
+    "[AddCommGroup E]",
+    "[Module Real E]",
+    "[TopologicalSpace E]",
+    "[T2Space E]",
+    "[IsTopologicalAddGroup E]",
+    "[ContinuousSMul Real E]",
+    "[LocallyConvexSpace Real E]",
+    "s : Set E"
+  ],
+  "hypotheses": ["IsCompact s", "Convex Real s"],
+  "conclusion": "closure (convexHull Real (s.extremePoints Real)) = s",
+  "direct_imports": ["Mathlib.Analysis.Convex.KreinMilman"],
+  "checked_transport": "Stage1Instances.THM_M_0322.kreinMilmanTarget_of_pinned",
+  "pinned_source_declaration": "closure_convexHull_extremePoints",
+  "pinned_source_relationship": "The local target universally closes the exact ambient instances, set binder, premises, and conclusion of the pinned mathlib declaration. The checked wrapper applies that declaration without weakening or adding mathematical premises.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0322/check_statement.py",
+    "killed": [
+      "removed compactness hypothesis",
+      "changed the universe-polymorphic ambient space to Real",
+      "moved compactness outside the set binder",
+      "added a nonemptiness boundary premise"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0322.empty_boundary"]
+  },
+  "degenerate_cases": "No nonemptiness hypothesis is imposed. The empty set is in scope and its equality is kernel-checked. No finite-dimensional, normed, complex, weak-star, or closure-free variant is substituted.",
+  "alternate_encodings": [],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected target with the minimal theorem-defining import, a checked pinned-declaration wrapper, four structural mutations, and the empty-set boundary. It supplies statement-only evidence and no downstream audit, proof, validation, release, or theorem-completion credit."
+}

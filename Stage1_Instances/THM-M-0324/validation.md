@@ -24,3 +24,8 @@ text, scalar convention, approximation-property definition, bundled existential 
 and fingerprint, source review, exhaustive formal-candidate audit, obligation tree, proof,
 composition, hermetic replay, and independent validation remain open. These are honest downstream
 gates and prevent theorem completion; they do not invalidate a self-tested `planned` intake.
+
+The later statement-phase validation is recorded separately in `statement-validation.md`. It
+supersedes only the intake's open bundled-expression item: the selected conservative real target is
+now elaborated and fingerprinted. The primary Theorem 1 text, approximation-property/reflexivity
+transport, and every proof and release gate remain open.

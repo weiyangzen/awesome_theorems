@@ -19,12 +19,16 @@ property. A space with a Schauder basis has uniformly bounded finite-rank partia
 converging pointwise to the identity, hence has the bounded approximation property. That bridge
 explains the catalog summary but receives no proof or H0 credit at intake.
 
-## Decisions deferred to the statement phase
+## Statement decisions
 
-- Whether the root is formalized over `Real`, `Complex`, or with a checked scalar-extension bridge.
-- The precise existential packaging of a type together with its normed-space and complete-space
-  instances, without leaking typeclass metavariables.
-- Whether separability and reflexivity belong in the canonical root or in a stronger alternate.
+- The root is formalized over `Real`. A complex version has no credited transport.
+- `Statement.lean` uses a bundled `RealBanachSpace` so the existential has fixed normed-additive,
+  real-module, and completeness instances without leaked metavariables.
+- Separability and infinite dimension belong to the selected root to exclude nonseparable and
+  finite-dimensional shortcuts. Reflexivity remains part of the stronger uncredited source result.
+
+## Decisions deferred downstream
+
 - The exact Lean definition of the approximation property, finite rank, and convergence topology.
 - The exact primary Theorem 1 statement and the source steps deriving no Schauder basis.
 - Foundation and choice requirements for the constructed space and any completion/quotient.

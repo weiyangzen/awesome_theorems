@@ -5,11 +5,11 @@ repository gloss, "representation of compact convex sets by extreme points", is 
 standard claim that a compact convex subset of a real locally convex Hausdorff topological vector
 space equals the closure of the convex hull of its extreme points.
 
-The pinned mathlib tree contains a declaration with exactly that visible shape. At intake it is only
-a formal-candidate locator: its full expression, imports, assumptions, source fidelity, terminal
-proof provenance, and trust closure belong to later statement and anchor-audit phases. A bounded
-Lean probe confirms that the relevant APIs and candidate declaration elaborate; it does not claim
-statement acceptance or proof credit.
+The statement artifact now freezes the universe-polymorphic Lean expression, its minimal
+theorem-defining import, environment fingerprint, checked pinned-declaration wrapper, structural
+mutations, and empty-set boundary. Upstream proof provenance, trust closure, and source fidelity
+still belong to later nodes.
 
 The provisional root remains `[H2, M3, R4]`. No accepted proof state, audit completion, or theorem
-completion is claimed. Exact commands and results are recorded in `validation.md`.
+completion is claimed. Intake evidence is in `validation.md`; statement evidence is in
+`statement-validation.md`.

@@ -24,20 +24,21 @@ not claimed.
 
 | Repository phrase | Primary-source role | Required Lean component | Intake status |
 |---|---|---|---|
-| "Banach space" | Enflo constructs a separable reflexive example | existentially bundled complete normed space and scalar field | family identified; packaging open |
-| "basis" | source abstract connects Schauder bases to bounded approximation | `Nonempty (SchauderBasis K X)` and finite-rank partial projections | basis API checked; bridge unproved |
-| "need not have" | consequence of the constructed counterexample | existential `X` with negated basis existence | human scope frozen; exact expression open |
+| "Banach space" | Enflo constructs a separable reflexive example | bundled real complete normed space | real packaging elaborated; reflexivity uncredited |
+| "basis" | source abstract connects Schauder bases to bounded approximation | `Nonempty (SchauderBasis Real X)` and finite-rank partial projections | exact no-basis predicate elaborated; bridge unproved |
+| "need not have" | consequence of the constructed counterexample | existential separable infinite-dimensional `X` with negated basis existence | exact selected expression elaborated |
 | approximation failure | stronger construction underlying the consequence | exact approximation-property predicate and failure certificate | mathlib object model not found at intake |
-| separable/reflexive | strength preventing a trivial nonseparability example | Lean structures/predicates plus source assumption map | inclusion in root deferred |
+| separable/reflexive | strength preventing a trivial nonseparability example | separability in root; reflexivity needs an exact object model | separability elaborated; reflexivity uncredited |
 
 ## Source gate still required
 
 Before H0, an independent qualified reviewer must inspect a stable copy of pages 309-317, transcribe
 the exact Theorem 1 statement, locate the Schauder-basis implication, map every hypothesis and
-conclusion, check corrections/errata, record a content hash, and sign the crosswalk. Before the Lean
-statement gate, the selected source-level claim and its consequence must be expressed with fixed
-universes, scalar conventions, typeclass packaging, and checked implication/transport witnesses.
+conclusion, check corrections/errata, record a content hash, and sign the crosswalk. The statement
+phase fixes the conservative consequence over `Real`, its universe and bundled typeclasses, and its
+checked sigma transport. It does not close the primary-source implication from approximation
+failure.
 
 The stronger approximation-property result may support the no-basis root; it may not be replaced by
 an easier nonseparable-space argument or by assuming an opaque predicate that already states the
-counterexample. These open source and statement gates prevent theorem completion.
+counterexample. These open source and proof gates prevent theorem completion.

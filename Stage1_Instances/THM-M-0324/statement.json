@@ -1,0 +1,75 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0324-STATEMENT",
+  "theorem_id": "THM-M-0324",
+  "lifecycle": "planned",
+  "canonical_statement": "There exists a separable infinite-dimensional real Banach space with no countable Schauder basis.",
+  "source_interpretation": "This is the conservative no-Schauder-basis consequence selected at intake, strengthened only by separability and infinite dimension to exclude finite-dimensional and nonseparable shortcuts. Reflexivity and failure of the approximation property remain stronger uncredited source-level properties pending source audit.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0324/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0324.EnfloNoSchauderBasisTarget",
+    "elaborated_expression_sha256": "d69d1e5ebb004524a214e2f22608448f7a1a4df0ac1d46c002a38c309c157570",
+    "statement_file_sha256": "7e6c4b115863b813d233a990c46dad154e371a2a075f0535c915af8a0baaf770"
+  },
+  "domain_and_universes": "universe u; X : RealBanachSpace.{u}, bundling a carrier with NormedAddCommGroup, NormedSpace Real, and CompleteSpace instances; Prop in Lean universe 0",
+  "ordered_binders": [
+    "X : RealBanachSpace.{u}"
+  ],
+  "hypotheses": [
+    "Not (FiniteDimensional Real X.carrier)",
+    "TopologicalSpace.SeparableSpace X.carrier"
+  ],
+  "conclusion": "Not (Nonempty (SchauderBasis Real X.carrier))",
+  "direct_imports": [
+    "Mathlib.Analysis.Normed.Module.Bases",
+    "Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0324.enfloTarget_iff_sigmaPresentation",
+  "alternate_encodings": {
+    "sigma_presentation": {
+      "target": "Nonempty {X : RealBanachSpace // Not (FiniteDimensional Real X.carrier) and SeparableSpace X.carrier and Not (Nonempty (SchauderBasis Real X.carrier))}",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0324.enfloTarget_iff_sigmaPresentation"
+    },
+    "complex_scalar_version": {
+      "relationship": "uncredited",
+      "checked_witness": null
+    },
+    "reflexive_approximation_property_version": {
+      "relationship": "stronger source-level theorem implying this target",
+      "checked_witness": null
+    }
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda",
+    "serialization_option": "pp.explicit=true",
+    "platform": "x86_64-unknown-linux-gnu"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0324/check_statement.py",
+    "killed": [
+      "removed infinite-dimensional condition",
+      "changed real scalar field to rational",
+      "changed existential space binder to a universal claim",
+      "weakened absence of every Schauder basis to failure of one specified sequence"
+    ],
+    "boundary_proof": "Stage1Instances.THM_M_0324.zeroSpaceBoundary proves the zero space finite-dimensional and therefore excluded"
+  },
+  "degenerate_cases": "Finite-dimensional and nonseparable shortcuts are excluded. The zero space is explicitly checked as excluded. The target does not require reflexivity or encode failure of the approximation property because their exact source and object-model transports remain downstream obligations.",
+  "foundation_profile": "Lean 4 dependent type theory. This statement and its transport use constructive term proofs; no theorem-proof axiom policy is inferred from statement elaboration.",
+  "tcb_profile": "Pinned Lean kernel and pinned mathlib dependency closure. Terminal proof provenance is deferred to later phases.",
+  "computation_profile": "Pure Prop statement; no numerical computation, native oracle, external solver, or experiment is credited.",
+  "source_revisions": "Repository base fc8e70dc8b3df070bf824de575d4a369542a621f; Lean and mathlib as fingerprinted. Enflo 1973 source pinpoint and errata review remain downstream.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. The exact selected Lean target, checked sigma transport, four structural mutations, and zero-space exclusion elaborate. No Enflo construction, source acceptance, anchor audit, obligation closure, proof, release, or theorem completion is claimed."
+}

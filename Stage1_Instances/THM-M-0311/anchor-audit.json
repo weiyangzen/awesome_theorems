@@ -1,0 +1,83 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0311-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0311",
+  "base_revision": "fc8e70dc8b3df070bf824de575d4a369542a621f",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0311.RieszFischerTarget",
+  "canonical_target_expression_sha256": "38cbb055cfb3734633dad981d0bd36dfb2dd89720a64e09659a1c19aae4c3d84",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M0311-A-MATHLIB-LP-COMPLETE",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Function.LpSpace.Complete",
+      "declaration": "MeasureTheory.Lp.instCompleteSpace",
+      "source_lines": "Mathlib/MeasureTheory/Function/LpSpace/Complete.lean:393-396",
+      "type": "[CompleteSpace E] -> [Fact (1 <= p)] -> CompleteSpace (MeasureTheory.Lp E p mu)",
+      "terminal_body": "completeSpace_lp_of_cauchy_complete_eLpNorm applied to cauchy_complete_eLpNorm",
+      "authors": [
+        "Remy Degenne",
+        "Sebastien Gouezel"
+      ],
+      "license": "Apache-2.0",
+      "classification": "M0-P candidate exact root closure",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_scan": "no sorry, admit, axiom, or unsafe declaration in the audited module",
+      "result": "The repo-local wrapper rieszFischerTarget_of_pinned_mathlib elaborates at the immutable pin and has exactly the frozen root type. Real and Complex discharge CompleteSpace E; exponent two discharges Fact (1 <= p)."
+    },
+    {
+      "id": "M0311-A-MATHLIB-LP-SEQUENCE",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+      "declaration": "lp.completeSpace",
+      "source_lines": "Mathlib/Analysis/Normed/Lp/lpSpace.lean:1173",
+      "type": "CompleteSpace (lp E p)",
+      "classification": "supporting alternate-family anchor",
+      "result": "This closes completeness of sequence lp, not the canonical measure-theoretic MeasureTheory.Lp quotient. It is not credited to the root and would need a Fourier/coefficient realization bridge for the historical formulation."
+    }
+  ],
+  "external_search": {
+    "searched_on": "2026-07-12",
+    "queries": [
+      "GitHub repository search: Riesz-Fischer language:Lean",
+      "GitHub repository search: Riesz Fischer Lean4",
+      "GitHub repository search: L2 completeness Lean4",
+      "GitHub repository search: Lp completeness Lean"
+    ],
+    "result": "Each bounded public repository query returned total_count 0. No distinct external Lean 4 candidate was identified.",
+    "limitations": "GitHub repository metadata search is not an exhaustive code or private-repository search. No moving dependency was fetched or added. The exact pinned mathlib closure makes external integration unnecessary for this target."
+  },
+  "source_provenance": {
+    "module_file_last_change": "a30baca9e81d2be5a33462e4f1eaf1dd467ee028 at 2025-11-27T12:30:39Z",
+    "module_split_revision": "f926055d78ba4e699f1b0ad2faca8c9947f6abf1 at 2025-04-01T07:44:42Z",
+    "repository_pin_commit_date": "2026-03-30T18:47:58Z",
+    "proof_body_provenance": "terminal instance and its supporting lemmas are source-visible in the pinned mathlib worktree; a later obligation-tree phase must freeze the full transitive declaration graph before theorem release"
+  },
+  "root_decision": {
+    "classification": "M0-P candidate",
+    "kernel_closed_in_anchor_probe": true,
+    "reason": "The checked wrapper has the exact frozen target and is synthesized solely from the pinned mathlib instance for arbitrary measures, with no added hypotheses or excluded boundary cases.",
+    "integration_task": "In the proof phase, retain or promote the exact wrapper as local_wrapper_upstream_mathlib and bind it to the frozen obligation/provenance graphs.",
+    "remaining_cut_set": [
+      "freeze full transitive declaration and trust closure",
+      "complete proof-phase integration and node composition",
+      "complete source/readability/hermetic/independent release gates"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This completes only the immutable Lean anchor inventory and exact-type candidate check. It does not claim H0, a frozen obligation graph, accepted M0, audit completion, or theorem completion."
+}

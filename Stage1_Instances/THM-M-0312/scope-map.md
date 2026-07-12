@@ -22,9 +22,10 @@ bound may depend on `x`; the conclusion's bound may not depend on `i`.
 - Substitution of the more general barrelled-space/equicontinuity theorem for the normed root.
 - Treating the repository label `已验证` or a successful `#check` as proof evidence.
 
-## Statement-phase boundary
+## Statement gate
 
-The next phase must freeze universes, binder order, scalar homomorphism and typeclass context, minimal
-imports, normalized expression and environment fingerprints. It must check any real-bound versus
-`iSup` transport and mutation-test domain completeness, the domain type, binder scope of `C`, and
-the empty-index and other boundary cases before inspecting proof closure.
+`Statement.lean` freezes the universes, binder order, scalar homomorphism and typeclass context with
+one direct import. `statement.json` records the normalized expression and environment fingerprints.
+The checked `iff` covers the real-bound and `iSup` formulations; mutations distinguish domain
+completeness, domain specialization, the scope of `C`, and index nonemptiness. The empty family has
+a direct kernel-checked boundary witness. Proof closure and candidate eligibility remain downstream.

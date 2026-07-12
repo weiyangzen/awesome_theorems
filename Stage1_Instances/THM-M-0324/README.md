@@ -14,11 +14,12 @@ pinpoint, line-by-line source review. Consequently this intake freezes the theor
 non-substitution boundary, but leaves the exact Lean target to the statement phase.
 
 Pinned mathlib defines `SchauderBasis` and its finite-rank partial-sum projections.
-`IntakeCheck.lean` checks those representation APIs and the proposition shape "this specified
-space has no Schauder basis." It does not construct Enflo's space, prove nonexistence, or establish
-the existential root.
+`Statement.lean` now elaborates the exact selected real-scalar target using an existentially bundled
+Banach space, with separability and infinite dimension excluding nonseparable and finite-dimensional
+shortcuts. It checks a sigma-presentation transport, structural mutations, and the zero-space
+boundary. It does not construct Enflo's space or prove the existential root.
 
-The provisional vector is `[H1, M3, R4]`. Lifecycle is `planned`; accepted proof state is empty.
+The provisional vector remains `[H1, M3, R4]`. Lifecycle is `planned`; accepted proof state is empty.
 There is no claim of H0, M0, R0, audit completion, or theorem completion. See `scope-map.md`,
-`source-statement-crosswalk.md`, `task-dag.json`, and `validation.md` for the frozen boundary and
-the exact checks performed.
+`source-statement-crosswalk.md`, `statement.json`, `statement-validation.md`, `task-dag.json`, and
+`validation.md` for the frozen boundary and exact checks performed.
