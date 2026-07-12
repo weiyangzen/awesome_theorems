@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0156-STATEMENT",
+  "theorem_id": "THM-M-0156",
+  "lifecycle": "planned",
+  "canonical_statement": "For every positive-dimensional finite Euclidean coordinate space, closed rectangular box [a,b], and continuously differentiable vector field with integrable coordinate divergence, the volume integral of the divergence equals the signed sum of its coordinate components over the upper and lower faces.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0156/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0156.DivergenceTheoremTarget",
+    "elaborated_expression_sha256": "1107b156821b2a97d3534a46d1798b57fd219ea1a035ef91069cb3db818bd790",
+    "statement_file_sha256": "b622de86895603194bf93b238c72284d21ec461f7275511de078ef1944bf9596"
+  },
+  "domain_and_universes": "n : Nat; Euclidean n = Fin (n + 1) -> Real; target is Prop in Lean universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "a b : Euclidean n",
+    "a <= b",
+    "f : Euclidean n -> Euclidean n",
+    "f' : Euclidean n -> Euclidean n ->L[Real] Euclidean n"
+  ],
+  "hypotheses": [
+    "ContinuousOn f (Icc a b)",
+    "f' is the Frechet derivative of f at every point of the open box",
+    "coordinateDivergence f' is integrable on Icc a b"
+  ],
+  "conclusion": "The restricted volume integral of coordinateDivergence f' over Icc a b equals outwardFlux a b f, the upper-face integral minus lower-face integral summed over coordinates.",
+  "direct_imports": ["Mathlib.MeasureTheory.Integral.DivergenceTheorem"],
+  "checked_transport": "Stage1Instances.THM_M_0156.target_iff_expanded",
+  "scope_decision": "The repository provides only a theorem-family slogan and no uniquely determined general-domain proposition. The statement gate selects the pinned mathlib module's documented classical rectangular-box formulation, without claiming a theorem for arbitrary regular regions.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0156/check_statement.py",
+    "killed": [
+      "removed continuity hypothesis",
+      "changed arbitrary positive dimension to three-space",
+      "changed universal boxes to an existentially selected box",
+      "excluded degenerate boxes by replacing a <= b with coordinatewise strict inequality"
+    ]
+  },
+  "degenerate_cases": "n = 0 represents one real coordinate. Boxes with equal endpoints in any coordinate remain in scope through a <= b; empty interiors make the derivative premise vacuous while the pinned divergence theorem handles zero-volume and cancelling-face behavior.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates a box-scoped exact target with one pinned direct import, checked expansion, and four structural mutations. It supplies no proof, anchor acceptance, audit completion, or theorem completion."
+}

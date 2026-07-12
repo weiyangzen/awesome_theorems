@@ -23,12 +23,12 @@ These are source-audit tasks, not citations sufficient for `H0`.
 
 | Repository/source phrase | Intended component | Required Lean component | Intake status |
 |---|---|---|---|
-| `散度定理` | divergence/Gauss--Ostrogradsky theorem | one canonical equality declaration | family fixed; exact type open |
-| vector field | map from the ambient domain into its Euclidean tangent space | function plus differentiability data | included; regularity open |
-| divergence | trace of the derivative/Jacobian | finite sum of coordinate derivatives or a checked divergence definition | included; encoding open |
-| volume integral | integral of divergence over `Omega` | restricted volume/Bochner integral | included; integrability open |
-| boundary flux | outward normal component integrated over `boundary Omega` | boundary measure, orientation, normal, inner product | implicit in theorem name; exact source wording required |
-| equality | volume divergence equals outward boundary flux | equality with orientation fixed | included; no Lean expression yet |
+| `散度定理` | divergence/Gauss--Ostrogradsky theorem | `DivergenceTheoremTarget` | exact box-scoped type selected |
+| vector field | map from the ambient domain into its Euclidean tangent space | `f : (Fin (n+1) -> Real) -> (Fin (n+1) -> Real)` | included |
+| divergence | trace of the derivative/Jacobian | sum of `f' x (Pi.single i 1) i` | included |
+| volume integral | integral of divergence over `Omega` | restricted product-Lebesgue integral on `Icc a b` | included |
+| boundary flux | outward normal component integrated over `boundary Omega` | upper-face component integral minus lower-face component integral | included for boxes |
+| equality | volume divergence equals outward boundary flux | exact Lean equality with signed orientation | included and elaborated |
 
 ## Lean discovery crosswalk
 

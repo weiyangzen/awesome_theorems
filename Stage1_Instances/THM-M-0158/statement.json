@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0158-STATEMENT",
+  "theorem_id": "THM-M-0158",
+  "lifecycle": "planned",
+  "canonical_statement": "For a C2 regular local parametrization x of a surface in Euclidean three-space and a C1 chosen unit normal N, the coordinate derivatives of N equal the coordinate tangent basis multiplied by minus the inverse first-fundamental-form matrix times the second-fundamental-form matrix.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0158/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0158.WeingartenEquationsTarget",
+    "elaborated_expression_sha256": "62594b8173c0478a49cafb93c7f668b9a8a9302e6f2b194ce7d4e6bd0668eb9a",
+    "statement_file_sha256": "1435d566c0dda2f5d295dfba101528ff21fc2443602ece258d2f80bb1082dbc3"
+  },
+  "domain_and_universes": "U : Set (EuclideanSpace Real (Fin 2)); x N : EuclideanSpace Real (Fin 2) -> EuclideanSpace Real (Fin 3); p in U; Prop in Lean universe 0",
+  "ordered_binders": ["U", "x", "N", "p"],
+  "hypotheses": [
+    "IsOpen U", "p in U", "ContDiffOn Real 2 x U", "ContDiffOn Real 1 N U",
+    "N has norm one on U", "N is orthogonal to both coordinate derivatives of x on U",
+    "det(firstFundamentalForm U x p) != 0"
+  ],
+  "conclusion": "For each coordinate i, partial_i N at p is the sum over j of (-(I^-1) * II) j i times partial_j x at p.",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+    "Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0158/check_statement.py",
+    "killed": [
+      "removed determinant regularity hypothesis", "changed local open domain to the whole plane",
+      "changed pointwise regularity to regularity at every point", "removed the requirement that p belongs to U"
+    ]
+  },
+  "degenerate_cases": "Singular parametrizations and evaluation points outside U are excluded explicitly. No global orientability is assumed. Replacing N by -N changes both II and dN signs consistently.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. The source pinpoint, proof, anchor audit, obligation tree, release gates, and theorem completion remain open."
+}

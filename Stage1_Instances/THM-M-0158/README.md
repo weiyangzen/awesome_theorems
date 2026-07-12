@@ -12,6 +12,7 @@ been inspected. The provisional root vector is `[H1, M4, R4]`: the classical res
 source family are identified, but source fidelity, the exact Lean target, and a readable proof
 reconstruction remain open.
 
-The scope map, source-statement crosswalk, and open task DAG define the downstream work. Intake
-checks and their exact results are recorded in `validation.md`. No statement, proof, audit, or
-theorem-completion credit is claimed.
+The statement phase now freezes and elaborates the exact local-coordinate target in `Statement.lean`;
+its expression fingerprint, environment, mutation checks, and exact commands are recorded in
+`statement.json` and `statement-validation.md`. This is provisional statement-only evidence. No
+proof, audit completion, or theorem-completion credit is claimed.

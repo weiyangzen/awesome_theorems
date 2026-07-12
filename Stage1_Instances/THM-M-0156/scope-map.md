@@ -17,11 +17,18 @@ At intake level the mathematical display is
 integral_Omega div(F) dV = integral_boundary(Omega) <F, n_out> dS.
 ```
 
-This display fixes the theorem family and the direction/orientation convention. It is not yet the
-canonical Lean proposition because the source metadata does not determine its binders or exact
-hypotheses.
+This display fixes the theorem family and direction/orientation convention. The canonical Lean
+proposition below selects its rectangular-box realization without claiming arbitrary-domain scope.
 
-## Statement-phase decisions
+## Statement-phase decision
+
+The canonical Lean target is the positive-dimensional closed rectangular-box theorem encoded in
+`Statement.lean`. It uses `Fin (n + 1) -> Real`, coordinatewise `a <= b`, continuity on `Icc a b`,
+Frechet differentiability throughout the open box, integrability of the coordinate derivative
+trace, product Lebesgue volume, and signed upper-minus-lower coordinate-face integrals. Degenerate
+boxes remain included.
+
+## Source-audit decisions still open
 
 The pinpoint primary or authoritative source must determine the ambient dimension; whether the
 region is a `C^1`, piecewise smooth, Lipschitz, Jordan, or rectangular domain; the regularity of
@@ -30,10 +37,9 @@ the representation of the outward normal. It must also settle empty or degenerat
 disconnected regions, corners, zero-dimensional faces, and whether compact support replaces a
 bounded-domain assumption.
 
-The binder order, universes, orientation data, integrability hypotheses, and equality expression
-must follow those decisions. Mutation checks in the statement phase must test removal of domain and
-field regularity, reversal of boundary orientation, replacement of boundary flux by an unsigned
-integral, and restriction to a single dimension or rectangle.
+The anchor/source audit must still identify and independently review an exact human edition and
+page. A later general-domain statement needs its own checked transport and cannot retroactively
+broaden this declaration.
 
 ## Explicit exclusions
 
@@ -49,7 +55,7 @@ integral, and restriction to a single dimension or rectangle.
 
 The pinned mathlib source file
 `Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean` states a Bochner-integral result on boxes in
-`Fin (n + 1) -> Real`, including countably many exceptional interior points. That is a substantive
-candidate for an exact box-scoped target. Intake does not decide whether the source theorem should
-be that result or a broader regular-domain theorem; the statement phase must either justify the box
-scope from a selected source or record the missing boundary-integration API as a blocker.
+`Fin (n + 1) -> Real`, including countably many exceptional interior points. Its documented box
+formulation fixes the exact statement scope here, while the canonical target uses the ordinary
+every-interior-point differentiability specialization. Existing proof bodies receive no statement-
+phase credit; provenance and trust inspection belong to the anchor audit.
