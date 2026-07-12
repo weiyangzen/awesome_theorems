@@ -1,0 +1,107 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1161-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1161",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "54743c8a753017ec2ce50ffebf85facec9112b95",
+  "target": "AwesomeTheorems.Stage1.THM_M_1161.FredholmSecondKindAlternative",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1161-C01",
+      "project": "awesome_theorems",
+      "revision": "54743c8a753017ec2ce50ffebf85facec9112b95",
+      "module": "Stage1_Instances/THM-M-1161/FredholmIntegralEquationStatement.lean",
+      "declaration": "AwesomeTheorems.Stage1.THM_M_1161.FredholmSecondKindAlternative",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition",
+      "body_provenance": "definition of a proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1161-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Normed.Operator.FredholmAlternative",
+      "declarations": [
+        "IsCompactOperator.hasEigenvalue_or_mem_resolventSet",
+        "IsCompactOperator.hasEigenvalue_iff_mem_spectrum"
+      ],
+      "kind": "supporting_operator_anchor",
+      "normalized_match": "compact-operator eigenvalue-or-resolvent alternative only",
+      "body_provenance": "kernel-checked pinned mathlib source and compiled artifacts",
+      "placeholder_or_axiom_status": "checked through the pinned Lake environment",
+      "classification": "M3_support_only",
+      "integration_status": "usable for a future operator branch, but it omits the integral model, lambda-zero handling, and adjoint compatibility conclusion"
+    },
+    {
+      "candidate_id": "S56-M-1161-C03",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+      "declarations": [
+        "ContinuousLinearMap.orthogonal_ker",
+        "ContinuousLinearMap.orthogonal_range"
+      ],
+      "kind": "supporting_adjoint_anchor",
+      "normalized_match": "orthogonal complement and adjoint kernel/range identities",
+      "body_provenance": "kernel-checked pinned mathlib source and compiled artifacts",
+      "placeholder_or_axiom_status": "checked through the pinned Lake environment",
+      "classification": "M3_support_only",
+      "integration_status": "the range identity is not by itself the closed-range Fredholm solvability equivalence required by the target"
+    },
+    {
+      "candidate_id": "S56-M-1161-C04",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas/IntroductionToFunctionalAnalysis/code/SpectralTheory.lean",
+      "declaration": "fredholm_alternative_full",
+      "kind": "external_narrower_self_adjoint_anchor",
+      "normalized_match": "range/kernel alternative for a self-adjoint compact operator, not the general integral target",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "body_provenance": "source theorem body at immutable commit; repository file also contains admitted declarations elsewhere",
+      "placeholder_or_axiom_status": "candidate project is not placeholder-clean as a whole; no local import/elaboration was attempted",
+      "classification": "M3_external_support_only",
+      "integration_status": "not exact and not admissible as root closure; it adds self-adjointness and does not specialize the integral realization"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (FredholmAlternative OR Fredholm alternative OR hasEigenvalue_or_mem_resolventSet) lang:Lean count:100",
+      "result": "12 matches in two repositories: mathlib4 and atlas-lean; only atlas-lean was a distinct external project",
+      "response_sha256": "5b6939dd64e4328dfbfe7c686b4c8220c9a7b8797ddc7ee24b9ae7523a77e955",
+      "immutability_boundary": "dated content-hashed discovery response; candidate source separately bound to a commit"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=fredholm+lean+theorem",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated content-hashed discovery response, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=fredholm+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact local artifact is only a proposition definition. Pinned mathlib proves a spectral compact-operator alternative and adjoint orthogonality identities, but no checked declaration has the canonical integral equation's full unique-solvability/nonzero-kernel and adjoint-compatibility result. The external atlas theorem is narrower and its repository is not placeholder-clean.",
+  "integration_blocker": "A proof must still connect Solves to A = I - lambda T, treat lambda = 0, derive bijectivity or nonzero kernel, establish closed range and the exact adjoint orthogonality solvability equivalence, and transport all results back through realize_injective.",
+  "reopen_condition": "A concrete Lean 4 declaration at an immutable revision with the exact normalized type, or a dependency-legal collection of anchors closing every listed bridge, plus proof-body, axiom, placeholder, license, and local elaboration checks.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes a bounded formal-anchor inventory only. It does not complete human-source audit, obligation expansion, proof, or theorem release."
+}

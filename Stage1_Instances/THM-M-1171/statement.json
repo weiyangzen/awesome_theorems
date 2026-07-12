@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1171-STATEMENT",
+  "theorem_id": "THM-M-1171",
+  "lifecycle": "planned",
+  "canonical_statement": "For every n >= 1 and 1 < p < infinity, there is a nonnegative C depending only on n and p such that every real-valued smooth compactly supported u on R^n has the L^p norm of its Frechet Hessian bounded by C times the L^p norm of its Laplacian.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1171/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1171.CalderonZygmundEstimateTarget",
+    "elaborated_expression_sha256": "94cb9c63c1ee16182bd550388d2f29156c59a6a5cbda91509fead48fcfcc2fd8",
+    "statement_file_sha256": "8fbc30483425ab2e78c919b0f62c88e0161a0a290836cd532bd3ca837c225ae3"
+  },
+  "domain_and_universes": "n : Nat; p : ENNReal; u : (Fin n -> Real) -> Real; Prop in universe 0; Lebesgue volume on the finite Pi space",
+  "ordered_binders": ["n : Nat", "p : ENNReal", "C : Real (existential)", "u : Euclidean n -> Real"],
+  "hypotheses": ["1 <= n", "1 < p", "p < infinity", "ContDiff Real top u", "HasCompactSupport u"],
+  "conclusion": "eLpNorm (fun x => norm (hessian u x)) p volume <= ENNReal.ofReal C * eLpNorm (laplacian u) p volume",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.MeasureTheory.Function.LpSeminorm.Basic",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1171.calderonZygmundEstimateTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "euclidean_space": "Fin n -> Real with the standard Pi norm and product Lebesgue volume",
+    "hessian": "fderiv Real (fun y => fderiv Real u y) x, with operator norm",
+    "laplacian": "trace of that Hessian on the standard coordinate vectors",
+    "exponent": "ENNReal, matching eLpNorm; strict hypotheses exclude 1 and infinity",
+    "constant": "C : Real, constrained nonnegative and quantified before u"
+  },
+  "environment_fingerprint": {
+    "base_revision": "54743c8a753017ec2ce50ffebf85facec9112b95",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1171/check_statement.py",
+    "killed": [
+      "removed dimension lower bound",
+      "included endpoint p = 1",
+      "moved the constant after u so that it may depend on the function",
+      "reversed the estimate"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "No p = 1 or p = infinity strong-type endpoint",
+    "No dimension zero",
+    "No bounded domain, boundary condition, weight, vector-valued system, or variable coefficient",
+    "No Sobolev-completion extension is credited by this statement node"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and kernel-elaborates the exact selected whole-space statement and a definitional expansion. It supplies no Calderon-Zygmund proof, anchor acceptance, source-fidelity acceptance, or theorem-completion evidence."
+}

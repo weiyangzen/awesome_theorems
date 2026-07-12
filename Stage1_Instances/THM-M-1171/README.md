@@ -14,15 +14,16 @@ label `已验证` is untrusted discovery metadata and supplies no proof or accep
 | Proof architecture | Fundamental solution, second derivatives as singular integrals, Calderon-Zygmund operator boundedness, componentwise assembly | Architecture only; no obligation or proof closure is credited |
 | Foundations | Lean 4 kernel, pinned mathlib, classical analysis policy | Exact toolchain, imports, axioms, TCB, and computation profile remain open |
 
-The canonical human claim and its unresolved choices are structured in `intake.json`. Primary-source
-genealogy and the source-to-statement gaps are recorded in `source_statement_crosswalk.md`.
+The canonical human claim originated in `intake.json`. The statement phase has now frozen and
+kernel-elaborated its exact Lean encoding in `Statement.lean` and `statement.json`; exact commands
+and results are in `statement-validation.md`. Primary-source genealogy and remaining source-fidelity
+gaps are recorded in `source_statement_crosswalk.md`.
 
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The first failed downstream gate
-is exact-statement identity: the source record does not uniquely determine one formal proposition,
-and no Lean expression or checked transport exists. The intake scope is nevertheless concrete and
-fail-closed. The theorem is not complete.
+Lifecycle remains `planned`. Exact statement identity for the selected whole-space formulation is
+self-tested pending master acceptance; human-source fidelity, anchor audit, proof closure, and all
+release gates remain open. The theorem is not complete.
 
 ## Validation
 
