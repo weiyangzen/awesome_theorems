@@ -19,7 +19,7 @@ catalog is therefore a discovery source only and cannot establish `H0`.
 | Catalog component | Conventional mathematical completion | Pinned Lean candidate | Intake disposition |
 |---|---|---|---|
 | `p` | prime natural modulus | `p : Nat`, `hp : p.Prime` | missing catalog premise; source confirmation required |
-| `a` | residue represented by a natural or integer | implicit `{n : Nat}` in the closest natural declaration | domain not specified by catalog |
+| `a` | residue represented locally by a natural | `a : Nat` in the frozen target; implicit `{n : Nat}` in the closest library declaration | natural domain selected locally; catalog does not specify it |
 | nonzero residue | `gcd(a,p)=1`, equivalently `p` does not divide `a` when `p` is prime | `hpn : n.Coprime p` | missing catalog premise; unconditional reading refuted by `a=p` |
 | exponent | `p - 1` | natural exponent `p - 1` | direct syntactic match under the prime premise |
 | congruence | modulo `p` | `Nat.ModEq p (n ^ (p - 1)) 1` | closest candidate encoding |
@@ -39,13 +39,19 @@ Nat.ModEq.pow_card_sub_one_eq_one
 The same module contains the `ZMod` nonzero and units forms, the integer congruence form,
 `Int.ModEq.pow_prime_eq_self`, and the natural remainder form. `IntakeProbe.lean` imports this one
 module and checks those names in the pinned environment. That is real API and kernel elaboration
-evidence for an `M3` candidate only. Intake does not freeze a canonical expression, conduct the
-formal-candidate/provenance audit, inspect terminal proof bodies, or credit `M0-W`.
+evidence for an `M3` candidate only. The statement phase freezes the local expression below, but it
+does not conduct the formal-candidate/provenance audit, inspect terminal proof bodies, or credit
+`M0-W`.
 
-## Required statement/source follow-up
+## Statement freeze and source follow-up
 
-Before statement acceptance, a source reviewer must select a stable authoritative edition, give a
-pinpoint theorem or historical text and translation, enumerate the prime and nondivisibility
-assumptions, decide natural versus integer base, record equivalent-form boundaries and errata, and
-obtain independent approval. The statement phase must then elaborate the exact selected target,
-fingerprint it, and check transports and all mandated mutations.
+`Statement.lean` freezes the intake-selected natural, coprime-base form with only
+`Mathlib.Data.Nat.ModEq` and `Mathlib.Data.Nat.Prime.Defs`. It fingerprints the elaborated target,
+checks the equivalent nondivisibility premise form, and rejects the four mandated mutations. It
+does not import or credit the proof-bearing module named above.
+
+Human-source acceptance remains separate. A source reviewer must still select a stable
+authoritative edition, give a pinpoint theorem or historical text and translation, enumerate the
+prime and nondivisibility assumptions, map the natural-domain choice, record equivalent-form
+boundaries and errata, and obtain independent approval. Thus the formal statement can be frozen
+while `H1` source-reconstruction debt remains visible.

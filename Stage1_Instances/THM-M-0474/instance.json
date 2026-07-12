@@ -17,19 +17,21 @@
   "target_system": "Lean 4 + pinned mathlib",
   "literal_source_claim": "a^(p-1) is congruent to 1 modulo p",
   "canonical_statement": "For natural numbers a and p, if p is prime and a is coprime to p, then a^(p-1) is congruent to 1 modulo p.",
-  "canonical_claim_status": "conventional_conditional_scope_recorded_but_exact_source_domain_and_formal_statement_open",
-  "canonical_claim": "For a prime natural modulus p and a natural base a coprime to p, a^(p-1) is congruent to 1 modulo p; natural versus integer canonical domain remains subject to source selection in the statement phase.",
+  "canonical_claim_status": "intake_selected_conventional_natural_scope_frozen_primary_source_fidelity_open",
+  "canonical_claim": "For a prime natural modulus p and a natural base a coprime to p, a^(p-1) is congruent to 1 modulo p. This is the canonical local target; primary-source confirmation of the omitted assumptions and domain remains open.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_source_confirmed_statement_phase",
+    "status": "self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0474/Statement.lean",
+    "minimal_imports": ["Mathlib.Data.Nat.ModEq", "Mathlib.Data.Nat.Prime.Defs"],
     "module_candidate": "Mathlib.FieldTheory.Finite.Basic",
     "declaration_candidate": "Nat.ModEq.pow_card_sub_one_eq_one",
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
-    "gate_state": "open_pending_exact_statement_fingerprint_and_mutations"
+    "declaration_or_expression": "Stage1Instances.THM_M_0474.FermatLittleTheoremTarget",
+    "elaborated_expression_hash": "sha256:5475969fd23513d3b98134a6aaa747675a32a899f38be773a23cb330f2f590e8",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Nat.ModEq+Nat.Prime.Defs_pp-explicit-universes",
+    "gate_state": "self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "Provisional a p : Nat with a truth-valued Prop conclusion; an integer-base encoding remains a source-dependent alternate and exact Lean universe data await statement elaboration.",
+  "domain_and_universes": "p a : Nat; Nat.Prime p; Nat.Coprime a p; Nat.ModEq p (a ^ (p - 1)) 1; the exact closed target is Prop in Lean universe 0. The integer-base form remains related but uncredited.",
   "quantifiers": ["p : Nat", "a : Nat"],
   "ordered_binders": ["p : Nat", "a : Nat", "hp : p.Prime", "ha : a.Coprime p"],
   "hypotheses": ["p.Prime", "a.Coprime p (equivalently for prime p, p does not divide a)"],
@@ -37,21 +39,26 @@
   "alternate_encodings": [
     {
       "target": "integer-base Int.ModEq form",
-      "relationship": "candidate domain extension or alternate encoding, subject to the selected source",
-      "checked_witness": "API and type checked only in IntakeProbe.lean; no canonical transport credited"
+      "relationship": "uncredited related domain extension, subject to a future source and transport audit",
+      "checked_witness": null
     },
     {
       "target": "nonzero equality in ZMod p",
-      "relationship": "candidate equivalent encoding under primality and nonzero-residue transport",
-      "checked_witness": "declaration checked only; transport deferred"
+      "relationship": "uncredited candidate equivalent encoding under primality and nonzero-residue transport",
+      "checked_witness": null
     },
     {
       "target": "a ^ p is congruent to a modulo p for every a",
-      "relationship": "related all-base form, not substituted for the displayed catalog claim",
-      "checked_witness": "nearby declaration checked only"
+      "relationship": "related all-base form, not substituted or credited for the displayed catalog claim",
+      "checked_witness": null
+    },
+    {
+      "target": "nondivisibility premise form Not (p divides a)",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0474.fermatLittleTheoremTarget_iff_notDvd"
     }
   ],
-  "excluded_degenerate_cases": "Composite or zero modulus, a divisible by p, and an unconditional universal reading are excluded. The p=2 and a=0 boundaries must be mutation-tested in the statement phase rather than silently discarded.",
+  "excluded_degenerate_cases": "Composite or zero modulus, a divisible by p, and the unconditional universal reading are excluded by explicit premises. The p=2 boundary remains included and is protected by a rejected mutation; a=0 is excluded by coprimality for prime p.",
   "source_status": "repository_secondary_catalog_only_primary_source_pinpoint_assumptions_translation_errata_and_independent_review_open",
   "source_revisions": {
     "repository_base": "dd8846dbc83818f6ba7124151d5d4b7b29bb5b0d",
@@ -72,7 +79,7 @@
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
   "foundation_profile": "Lean 4 dependent type theory; pinned candidate currently reports propext, Classical.choice, and Quot.sound, but the accepted foundation profile and transitive trust closure remain open",
-  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact imports, terminal proof body, transitive declarations, and TCB review remain open",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact statement imports are frozen, while terminal proof body, transitive declarations, and TCB review remain open",
   "computation_profile": "No native computation, experiment, oracle, solver, or unchecked certificate is credited; the theorem is expected to use ordinary kernel-checked proof terms",
   "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -96,7 +103,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. The conventional conditional scope is recorded because the literal unconditional catalog gloss is false, but primary-source acceptance and the exact canonical Lean target remain open. The pinned candidate is M3 discovery evidence only. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested statement pending master acceptance. The intake-selected natural conditional target and one equivalent premise encoding are elaborated and fingerprinted with minimal imports, but primary-source acceptance remains open and the pinned proof candidate remains M3 discovery evidence only. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
 }

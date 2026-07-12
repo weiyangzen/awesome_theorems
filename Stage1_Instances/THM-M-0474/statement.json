@@ -1,0 +1,128 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0474-STATEMENT",
+  "theorem_id": "THM-M-0474",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_name": "Fermat's little theorem",
+  "canonical_statement": "For every pair of natural numbers p and a, if p is prime and a is coprime to p, then a^(p-1) is congruent to 1 modulo p.",
+  "canonical_claim_status": "intake_selected_conventional_natural_scope_frozen_primary_source_fidelity_open",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0474/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0474.FermatLittleTheoremTarget",
+    "direct_imports": [
+      "Mathlib.Data.Nat.ModEq",
+      "Mathlib.Data.Nat.Prime.Defs"
+    ],
+    "statement_file_sha256": "67c859e7999fa793cdeb74493ff1ca2d3473174de5d2021786f0549bee254c43",
+    "elaborated_expression_sha256": "5475969fd23513d3b98134a6aaa747675a32a899f38be773a23cb330f2f590e8"
+  },
+  "domain_and_universes": "p a : Nat; Nat.Prime p; Nat.Coprime a p; Nat.ModEq p (a ^ (p - 1)) 1; the closed target is Prop in Lean universe 0.",
+  "quantifiers": [
+    "p : Nat",
+    "a : Nat"
+  ],
+  "ordered_binders": [
+    "p : Nat",
+    "a : Nat",
+    "hp : p.Prime",
+    "ha : a.Coprime p"
+  ],
+  "hypotheses": [
+    "hp : p.Prime",
+    "ha : a.Coprime p"
+  ],
+  "conclusion": "a ^ (p - 1) is congruent to 1 modulo p, encoded as Nat.ModEq p (a ^ (p - 1)) 1.",
+  "alternate_encodings": [
+    {
+      "target": "For natural p and a, p.Prime and Not (p divides a) imply a^(p-1) is congruent to 1 modulo p.",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0474.fermatLittleTheoremTarget_iff_notDvd"
+    }
+  ],
+  "uncredited_related_encodings": [
+    "integer-base Int.ModEq form",
+    "nonzero equality in ZMod p",
+    "the all-base form a^p congruent to a modulo p"
+  ],
+  "boundary_and_degenerate_cases": {
+    "p_equals_two": "included and protected by the boundary mutation",
+    "a_equals_zero": "excluded by a.Coprime p for every prime p; no extra nonzero hypothesis is added",
+    "a_divisible_by_p": "excluded by coprimality and refutes the unconditional catalog reading",
+    "composite_or_zero_modulus": "excluded by p.Prime",
+    "natural_subtraction": "p.Prime implies p is at least 2, so p - 1 is the intended positive exponent"
+  },
+  "minimal_import_evidence": "The target elaborates with exactly Mathlib.Data.Nat.ModEq and Mathlib.Data.Nat.Prime.Defs. Removing the former makes Nat.ModEq notation unavailable; removing the latter makes Nat.Prime unavailable. Mathlib.FieldTheory.Finite.Basic is deliberately absent because it contains the later proof candidate.",
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "Stage1Instances.THM_M_0474.mutationRemovedCoprimeHypothesis",
+      "mutation": "remove a.Coprime p",
+      "result": "rejected by Lean #check_failure and explicit-expression comparison"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "Stage1Instances.THM_M_0474.mutationChangedDomainToIntegerModEq",
+      "mutation": "replace the natural modulus and base by integers and express congruence as integer divisibility",
+      "result": "rejected by Lean #check_failure and explicit-expression comparison"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "Stage1Instances.THM_M_0474.mutationChangedBaseBinderScope",
+      "mutation": "replace universal a by an existential witness",
+      "result": "rejected by Lean #check_failure and explicit-expression comparison"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "Stage1Instances.THM_M_0474.mutationExcludedPrimeTwo",
+      "mutation": "add p != 2 and exclude the smallest prime",
+      "result": "rejected by Lean #check_failure and explicit-expression comparison"
+    }
+  ],
+  "source_boundary": {
+    "repository_record": "Docs/researches/math_theorems.md at source-record commit bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "literal_claim": "a^(p-1) is congruent to 1 modulo p",
+    "status": "The record omits primality, coprimality, and the base domain. The natural conditional target is the conventional scope selected at intake, not a newly accepted primary-source claim; pinpoint edition, historical text or translation, assumption mapping, errata review, and independent source approval remain open."
+  },
+  "foundation_profile": "Lean 4 dependent type theory. The checked alternate-premise iff reports propext, Classical.choice, and Quot.sound; no custom axiom, unsafe declaration, oracle, placeholder, or proof of the canonical target is introduced.",
+  "tcb_profile": "Lean kernel 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; full transitive trust and proof-body review remain downstream gates.",
+  "computation_profile": "No native computation, experiment, solver, oracle, or unchecked certificate is used or credited.",
+  "environment_fingerprint": {
+    "repository_base": "a8aba97a7ef2ff387e7814fe517e1b35524a04dc",
+    "repository_base_tree": "495e962862c2e7bc7c33c880c06fe39b2cb75db6",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "direct_import_source_sha256": {
+      "Mathlib.Data.Nat.ModEq": "247ec25633683d05aa1b7c276d5aebeb80ed4d1db5f07aa1a536a71a3d339054",
+      "Mathlib.Data.Nat.Prime.Defs": "fb7b8f26c48fdb96c39d264574b70ba382d700a9a97a06ee41bb05377dfc68a4"
+    },
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ]
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact elaboration of the intake-selected natural conditional target and one checked premise transport only. Primary-source fidelity, anchor and terminal proof-body audit, obligation freeze, proof credit, audit completion, validation, release, and theorem completion remain open."
+}

@@ -1,5 +1,9 @@
 # Intake validation
 
+This file records the historical intake-phase validation. Statement-phase evidence is recorded in
+`statement-validation.md` and `statement-receipt.json`; later dossier expansion does not retroactively
+change the commands or scope recorded here.
+
 Base revision: `dd8846dbc83818f6ba7124151d5d4b7b29bb5b0d`.
 
 This validation covers target membership, the planned dossier and open DAG, JSON integrity, source
