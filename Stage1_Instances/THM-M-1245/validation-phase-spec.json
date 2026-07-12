@@ -1,0 +1,28 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1245-VALIDATION",
+  "theorem_id": "THM-M-1245",
+  "depends_on": [
+    "S56-M-1245-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "M1245-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1245/check_validation.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": [
+        "M1245-ROOT",
+        "M1245-A-TERMINAL",
+        "M1245-T-WITNESS"
+      ]
+    }
+  ],
+  "status_boundary": "Narrow nonrelease validation only; cold hermetic and distinct-runner release gates are explicitly outside this worker recipe."
+}

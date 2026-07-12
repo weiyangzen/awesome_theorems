@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1245-VALIDATION-local-20260712T023712Z",
+  "item_id": "S56-M-1245-VALIDATION",
+  "theorem_id": "THM-M-1245",
+  "depends_on": [
+    "S56-M-1245-PROOF"
+  ],
+  "base_revision": "331f3394ba689a537bffbf8764a780c63caecd72",
+  "base_tree": "bb13bfd5777330e966fed8e8a9f7c03c7e93e91c",
+  "validated_at": "2026-07-12T02:37:12Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "33f7a4b0e87852b03b0e4e2a3b0945a62f5aa462dd3b989ae07e62993bbe0ece",
+    "ObligationTree.lean": "2576d7ea27265e5390f1d4f0fe551474ac168ed9f42015b8ad2517a5d9843c9a",
+    "Proof.lean": "73c011ac96970ecd070ecd3e9d377e1f40866d912f5f8540261cefd2a65a000b",
+    "Validation.lean": "d913fbc562a3560fbe6290bbb21424839b2416a5547ed108201fdca1fb76e535",
+    "statement.json": "0925d7f516cf26f6b4f18ed3eee2af66f06d2040739f4958d790f4483497247e",
+    "obligation-registry.json": "8646b5ccd615100afb015a27e6eebfa68652d054e280b39c0821d170d9903fdc",
+    "typed-graphs.json": "b5190eb50ec94a0a465796da3ea5d4bfbe4fe63c261024814ab5e638c841bb76",
+    "proof-receipt.json": "dfdf78e061091d11b682e631fd774db3c8753a4e973dd9fd4e36073c2a5408e8",
+    "validation-phase-spec.json": "9185773c9b1f43ba676cc10877370bba1148c10b849e7d858a33903e81a0e053",
+    "check_validation.py": "1f359dec3659b6021ac429fa78e530ed5676b4483558d88e6ad89a96f96c8e1d"
+  },
+  "provenance": {
+    "terminal_module": "Mathlib.Analysis.FunctionalSpaces.SobolevInequality",
+    "terminal_declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "terminal_source_sha256": "bbd0840b2f0c1145c325577c18bb136053d2712dc1c24ad66c8aba0370a4623b",
+    "terminal_olean_sha256": "20ef38bc2a94148b4db642ec071da307a9e6b92d6fe3e9c4d5314e26cc7af9a9",
+    "proof_body_boundary": "Both local reconstructions terminate at the pinned mathlib theorem; complete transitive declaration/body provenance remains a release gate."
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_cache": "pre-existing shared canonical pinned .lake symlink reused without mutation",
+    "worktree_classification": "nonrelease worker checkout with validation artifacts and pre-existing untracked .lake symlink",
+    "network": "not used by validation commands; host-level network isolation was not established"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-1245/check_validation.py"
+    ],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "exact frozen proof root, frozen composition, and independently reconstructed exact root passed",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "root_kernel_closed": true,
+    "structured_state_freshness": "fail_closed: typed-graphs.json predates proof closure and records root_closed false/M1",
+    "machine_debt": "M1",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof dependency has only a provisional worker receipt and no master acceptance receipt in this clone.",
+    "The frozen typed graph predates Proof.lean and records the root as open M1; only the master may reconcile authoritative structured state.",
+    "The worker reused shared warm .lake artifacts, so it did not perform an empty-cache cold hermetic build or offline archive restoration.",
+    "Validation.lean is independently implemented but ran in the same mutable checkout and shared cache; it is not a distinct independently provisioned runner or second verifier identity.",
+    "Complete transitive provenance, accepted foundation/TCB inventory, SBOM/license evidence, deterministic bundling, H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "dependency.S56-M-1245-PROOF.master_acceptance",
+  "first_failed_release_gate": "hermetic.cold_empty_cache",
+  "retry_condition": "Master-accept and reconcile the proof dependency and fresh root graph, then replay an immutable clean snapshot with empty caches, offline restoration, complete trust/provenance evidence, and a distinct independently provisioned verifier.",
+  "invalidation_inputs": [
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "statement.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "proof-receipt.json",
+    "validation-phase-spec.json",
+    "check_validation.py",
+    "Lean toolchain and executable",
+    "mathlib revision, terminal source, or compiled artifact",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "status_boundary": "Self-tested nonrelease evidence for exact kernel closure, observed classical axioms, pinned local provenance, and same-workspace independent reconstruction. It is not hermetic or distinct-runner evidence, accepted M0, theorem completion, release, or master acceptance."
+}
