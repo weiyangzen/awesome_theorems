@@ -48,7 +48,8 @@ PHASES = (
     ("release", "Reconcile evidence and decide the exact theorem-completion verdict."),
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
-MAX_WORKERS = 12
+# This is both the lane-concurrency ceiling and the per-tick integration/refill ceiling.
+MAX_WORKERS = 100
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
 CODEX_SERVICE_TIER = "default"
