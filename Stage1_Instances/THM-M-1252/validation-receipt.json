@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1252-VALIDATION-local-20260712T032235Z",
+  "item_id": "S56-M-1252-VALIDATION",
+  "theorem_id": "THM-M-1252",
+  "base_revision": "6bcd5f977dc26298be5f77327a2616e726454eb7",
+  "base_tree": "05e1ab99f212cb84b33c65d5a099d450abd1d4bd",
+  "validated_at": "2026-07-12T03:22:35Z",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "f85db61cee2e594a1acc32e4e03c64ca4d6c3466fa4a2606c1b600880311b627",
+    "validator_sha256": "9ab7a0b1bd537d4810c14c8b3ed793610dd51c27d7f22432d210d50e3c8678fd",
+    "validation_probe_sha256": "fef6000eb914b78015ca34d0f4bbf153798b397d48b4e573148331633270d5e1",
+    "statement_sha256": "507071b90dec721e489adcc0ae4d8675ea42463bddbb8bc89d311fd2d729b9da",
+    "obligation_tree_sha256": "8fd51a4f9b16823b8e57e5271ad2d5f094d168f07fdbeaf957d05724b78ccae5",
+    "proof_sha256": "af52cccdca4ab123600997ffaa52c5f40ec52d8b9e0fd3af3dfb1eea968e2086",
+    "statement_record_sha256": "c74c621059b9225cfd760fb01f047ad2b7cf9aa8ba3bd4adf3679343100f7eb4",
+    "obligation_registry_sha256": "54b6a26383315f5df435a9f533a66bffd15e660bf67256e2dd2be2689812d114",
+    "typed_graphs_sha256": "1b76d9aca0c6df98deaea16012817be13a7b2f56f064dda6ae31a884a1a5380d",
+    "proof_receipt_sha256": "a395df63e7d9d7df1cbffe2331e5defe7fb40aadf34e861fcbe34b1e61701f49",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_anchor_source_sha256": "731a4f0d50cfdefa365d1187e9644dc02b222c87a01e9880bb49f9a16c579052"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1252/check_validation.py"],
+    "env_allowlist": {"LC_ALL": "C", "TZ": "UTC"},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": ["M1252-ROOT", "M1252-N-SPECIALIZE", "M1252-L-UPSTREAM", "M1252-T-COMPOSE", "M1252-X-PROVENANCE"]
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_target_proof_root_frozen_composition_and_independent_local_reconstruction",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "proof_receipt_hashes": "pass",
+    "dependency_pin_and_anchor_provenance": "pass",
+    "provisional_root_kernel_closed": true,
+    "composition_certificate": "Stage1Instances.THM_M_1252.ObligationTree.root_of_specializedAnchor",
+    "structured_state_freshness": "fail_closed_stale_typed_graph",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still reports root_closed=false; only the master may reconcile authoritative structured state.",
+    "The validation run reused shared writable warm .lake artifacts, so it is not an empty-cache cold hermetic build or offline restoration.",
+    "No complete transitive declaration/compiled-artifact TCB inventory, SBOM/license archive, deterministic evidence bundle, or signed attestation exists.",
+    "Validation.lean reconstructs the proposition independently but ran in the same mutable checkout and shared cache; it is not a distinct independently provisioned runner.",
+    "M1252-X-SOURCE lacks accepted H0 and required readable nodes lack independent R0 review.",
+    "AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "S56-M-1252-VALIDATION-STRUCTURED-STATE-STALE",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Master-reconcile proof closure into structured state, then validate an immutable clean snapshot with empty caches, complete TCB/SBOM and H0/R0 evidence, offline replay, and a distinct independently provisioned verifier.",
+  "status_boundary": "Self-tested narrow kernel, trust-observation, provenance, and same-workspace reconstruction evidence only; not hermetic, distinct-runner independent, accepted M0-W, theorem completion, release, or master acceptance."
+}
