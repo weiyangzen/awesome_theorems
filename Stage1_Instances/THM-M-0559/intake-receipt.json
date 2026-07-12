@@ -1,0 +1,26 @@
+{
+  "schema_version": "stage1-worker-receipt/1.0",
+  "receipt_id": "S56-M-0559-INTAKE-worker-selftest",
+  "item_id": "S56-M-0559-INTAKE",
+  "theorem_id": "THM-M-0559",
+  "base_revision": "418e6ea60487eaae4d9a1fa7aeb4bb7c575c33ee",
+  "scope": "planned intake dossier, scope map, source-statement crosswalk, open task DAG, and pinned API smoke check",
+  "commands": [
+    {"argv": ["python3", "Docs/tools/check_stage1_standard.py"], "exit_code": 0, "result": "ok: 15 assurance groups and 1546 uniform-L0 targets"},
+    {"argv": ["python3", "scripts/stage1_target.py", "check"], "exit_code": 0, "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"},
+    {"argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0559"], "exit_code": 0, "result": "rank 607; planned; L0/rework_required; theorem_complete false"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0559/instance.json"], "exit_code": 0, "result": "valid JSON"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0559/task-dag.json"], "exit_code": 0, "result": "valid JSON"},
+    {"cwd": "Formalizations/Lean", "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0559/IntakeSurface.lean"], "exit_code": 0, "result": "pinned topology API names elaborated"},
+    {"argv": ["scoped forbidden proof-token scan", "Stage1_Instances/THM-M-0559/*.lean"], "exit_code": 0, "result": "no proof escape or assumed declaration"},
+    {"argv": ["scoped Python intake assertions"], "exit_code": 0, "result": "intake invariant check: ok"},
+    {"argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0559"], "exit_code": 0, "result": "no whitespace errors"}
+  ],
+  "result": "pass",
+  "known_failures": [
+    "canonical Lean proposition and expression fingerprint are open for the statement phase",
+    "exact primary-source theorem/page, assumptions, transitions, and errata are not yet reviewed",
+    "formal anchor, obligation, proof, release, and independent-verification gates remain open"
+  ],
+  "status_boundary": "Worker-local intake evidence only; not master acceptance, proof evidence, audit completion, or theorem completion."
+}

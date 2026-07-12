@@ -1,0 +1,92 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0559",
+  "item_id": "S56-M-0559-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 607,
+  "legacy_priority_slot": null,
+  "name_zh": "怀特赫德定理",
+  "name_en": "Whitehead theorem",
+  "category": "topology / algebraic topology",
+  "target_system": "Lean 4 + mathlib",
+  "canonical_claim_status": "human_scope_frozen_formal_statement_open",
+  "canonical_claim": "Let X and Y be CW complexes and f : X -> Y a continuous map. If f induces a bijection on path components and, for every x in X and every n >= 1, an isomorphism pi_n(X,x) -> pi_n(Y,f(x)), then f is the forward map of a homotopy equivalence X ~= Y.",
+  "domain_and_universes": "Topological spaces X and Y in potentially distinct universes, each equipped with a CW-complex structure; a continuous map f : X -> Y; basepoint x : X; positive dimension n.",
+  "quantifiers": [
+    "X, Y : topological spaces with CW-complex structures",
+    "f : continuous map X -> Y",
+    "x : X",
+    "n : Nat with 1 <= n"
+  ],
+  "hypotheses": [
+    "the map induced by f on path components is bijective",
+    "for every x and positive n, the map induced by f on the based n-th homotopy group is an isomorphism"
+  ],
+  "conclusion": "There is a homotopy equivalence e : X ~=h Y whose forward continuous map is f.",
+  "alternate_encodings": [
+    {
+      "target": "the connected based version with an isomorphism on pi_n for every n >= 1",
+      "relationship": "equivalent after an explicit componentwise reduction under connectedness hypotheses",
+      "checked_witness": null,
+      "status": "open"
+    },
+    {
+      "target": "existence of some homotopy equivalence X ~=h Y",
+      "relationship": "implied_by the canonical conclusion but too weak as a replacement",
+      "checked_witness": null,
+      "status": "excluded_as_canonical_target"
+    }
+  ],
+  "excluded_degenerate_cases": "No nonempty or connected assumption is silently added. Empty spaces and disconnected CW complexes remain in scope through the path-component condition. Dimension zero is represented by path components rather than a group isomorphism.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase",
+    "blocker": "The statement phase must define the induced homotopy-group maps, the path-component map, and the concrete relationship between whole-space CW structures and mathlib's set-indexed CWComplex interface."
+  },
+  "source_status": "historical_and_modern_source_candidates_identified_exact_primary_theorem_page_assumptions_and_errata_open",
+  "root_vector": {"H": "H3", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Lean 4 dependent type theory; classical choice and quotient dependencies remain to be audited",
+  "tcb_profile": "Lean 4.29.0 kernel plus mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; exact import and axiom closure open",
+  "computation_profile": "structural theorem; no oracle, experiment, or numerical computation receives proof credit",
+  "source_revisions": {
+    "repository_base": "418e6ea60487eaae4d9a1fa7aeb4bb7c575c33ee",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "primary_sources": "not yet pinned to theorem/page evidence"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0559/README.md",
+    "Stage1_Instances/THM-M-0559/scope-map.md",
+    "Stage1_Instances/THM-M-0559/source-statement-crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate this intake if the canonical scope, source interpretation, target manifest, toolchain pins, or rev-5.6 standard changes.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeSurface.lean",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "A planned intake only: no elaborated canonical proposition, H0, M0, R0, audit completion, or theorem completion is claimed."
+}
