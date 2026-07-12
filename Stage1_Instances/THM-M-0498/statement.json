@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0498-STATEMENT",
+  "theorem_id": "THM-M-0498",
+  "lifecycle": "planned",
+  "canonical_statement": "For every complete, injective, positive-multiplicity enumeration of the nontrivial zeros of the Riemann zeta function ordered by nondecreasing absolute imaginary part, and every real x > 1 which is not a prime power, Chebyshev psi(x) is the limit of x minus the multiplicity-weighted sum of x^rho/rho, minus log(2*pi), minus one half log(1-x^(-2)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0498/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0498.RiemannVonMangoldtTarget",
+    "elaborated_expression_sha256": "4de2508b7d4cc86d13c5d51e1b5d6b8c61e43dec6655035224c21e25745af526",
+    "statement_file_sha256": "ffdaf423ec563b3f6a33e7611e1627b01a8d1299c9afb62cbef2342dd54c623a"
+  },
+  "domain_and_universes": "E : NontrivialZeroEnumeration; x : Real; all declarations live in Lean universe 0",
+  "ordered_binders": ["E : NontrivialZeroEnumeration", "x : Real"],
+  "hypotheses": [
+    "1 < x",
+    "x is not p^k for any prime p and positive natural k",
+    "E enumerates exactly the zeta zeros rho with 0 < re(rho) < 1",
+    "E assigns every enumerated zero its positive meromorphic order as multiplicity and has no duplicates",
+    "E is ordered by nondecreasing abs(im(rho))"
+  ],
+  "conclusion": "The stated complex partial sums tend to the real value Chebyshev.psi x embedded in Complex.",
+  "direct_imports": ["Mathlib.NumberTheory.Chebyshev", "Mathlib.NumberTheory.LSeries.RiemannZeta", "Mathlib.Analysis.Meromorphic.Order"],
+  "checked_transport": "Stage1Instances.THM_M_0498.target_iff_expanded",
+  "endpoint_convention": "Mathlib Chebyshev.psi is right-continuous; the root excludes prime-power discontinuities, so no half-jump term is needed.",
+  "zero_sum_convention": "Multiplicity-weighted partial sums use an injective complete enumeration ordered by nondecreasing absolute imaginary part.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0498/check_statement.py",
+    "killed": ["removed x > 1 hypothesis", "changed x domain from Real to Nat", "moved zero-enumeration binder inside x hypotheses", "removed the exclusion of prime-power discontinuities"]
+  },
+  "alternate_encodings": {
+    "expanded_target": "Definitionally equivalent through target_iff_expanded.",
+    "prime_counting_pi_formula": "Not credited as equivalent: it requires a separately checked J/pi normalization and Mobius-inversion transport.",
+    "zero_counting_N_of_T": "Excluded homonymous theorem; it is not the manifest's prime-counting explicit formula."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact weighted prime-power explicit formula only. It supplies no proof, anchor acceptance, obligation-tree closure, or theorem-completion evidence."
+}

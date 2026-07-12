@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1011-STATEMENT",
+  "theorem_id": "THM-M-1011",
+  "lifecycle": "planned",
+  "canonical_statement": "For every family S of Borel probability measures on a Polish space X, S is uniformly tight if and only if its closure is compact in the weak topology on probability measures.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1011/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1011.CanonicalStatement",
+    "elaborated_expression_sha256": "5711575e18ff4a1eecd2ce047a29817d876a6e44cb86c724b476414314f9e812",
+    "statement_file_sha256": "6bf24878f5041dc4aa1e7365b8a0c2b5c7d8fb65fe5ee389597081a8c9511d66"
+  },
+  "domain_and_universes": "universe u; X : Type u; MeasurableSpace X; PseudoMetricSpace X; BorelSpace X; SecondCountableTopology X; CompleteSpace X; Prop in Lean universe 0",
+  "ordered_binders": [
+    "X : Type u",
+    "[MeasurableSpace X]",
+    "[PseudoMetricSpace X]",
+    "[BorelSpace X]",
+    "[SecondCountableTopology X]",
+    "[CompleteSpace X]",
+    "S : Set (ProbabilityMeasure X)"
+  ],
+  "hypotheses": [
+    "X has a complete second-countable pseudo-metric topology",
+    "the measurable space on X is the Borel sigma algebra"
+  ],
+  "conclusion": "MeasureTheory.IsTightMeasureSet of the underlying measures in S iff IsCompact (closure S) in the topology on ProbabilityMeasure X.",
+  "direct_imports": ["Mathlib.MeasureTheory.Measure.Tight"],
+  "checked_transport": "Stage1Instances.THM_M_1011.canonicalStatement_iff",
+  "source_boundary": "This formalizes the exact human scope frozen by intake. The primary-source theorem/page, convention, and errata crosswalk remains the responsibility of the downstream anchor-audit node.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1011/check_statement.py",
+    "killed": [
+      "removed CompleteSpace hypothesis",
+      "changed an arbitrary set of probability measures to a Nat-indexed sequence",
+      "changed probability measures to finite measures",
+      "removed the compact-closure-to-tight direction"
+    ]
+  },
+  "degenerate_cases": "The universal family binder includes empty, singleton, and finite families; no nonempty-family or nondegeneracy hypothesis is added.",
+  "alternate_encodings": {
+    "tightness": "The canonical image under ProbabilityMeasure-to-Measure coercion unfolds by Iff.rfl to the explicit IsTightMeasureSet expression.",
+    "relative_compactness": "Frozen as compact closure, not merely sequential precompactness or total boundedness."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact target and checked unfolding elaborate with the pinned minimal import, and four structural mutations are distinguished. No proof, H0 source review, anchor audit, or downstream completion is claimed."
+}
