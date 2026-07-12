@@ -44,3 +44,12 @@ is claimed.
 
 The commands and results in `validation.md` establish manifest membership, rev-5.6 structural
 consistency, JSON syntax, dossier-local references, and whitespace hygiene only.
+
+## Obligation-tree phase
+
+`obligation-registry.json` freezes registry v1 with 16 canonical obligations and a content-addressed
+denominator. `typed-graphs.json` keeps proof, refinement, provenance, evidence, trust,
+documentation, and workflow edges separate. `ObligationTree.lean` checks the exact transport from
+a weak subsolution maximum package to the frozen caloric root; it deliberately leaves the analytic
+package open. See `obligation-tree.md` and `obligation-tree-validation.md`. This provisional phase
+does not change the `M3` root classification or claim theorem completion.

@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-1129-STATEMENT",
+  "theorem_id": "THM-M-1129",
+  "lifecycle_mode": "planned",
+  "canonical_name": "Poisson formula for the two-dimensional wave equation",
+  "canonical_statement": "For c > 0, compactly supported f of class C^3 and g of class C^2 on R^2, every compactly supported classical solution u of u_tt = c^2 Delta u with u(.,0)=f and u_t(.,0)=g satisfies, for x in R^2 and t > 0, u(x,t) = d/dt [(t/(2*pi)) integral_{|z|<=1} f(x+c*t*z)/sqrt(1-|z|^2) dz] + (t/(2*pi)) integral_{|z|<=1} g(x+c*t*z)/sqrt(1-|z|^2) dz.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "file": "Stage1_Instances/THM-M-1129/Statement.lean",
+    "module_imports": [
+      "Mathlib.Analysis.InnerProductSpace.Laplacian",
+      "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+      "Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace"
+    ],
+    "declaration": "Stage1.THM_M_1129.PoissonFormulaTarget",
+    "declaration_or_expression": "forall c f g u, 0 < c -> ContDiff Real 3 f -> ContDiff Real 2 g -> HasCompactSupport f -> HasCompactSupport g -> IsClassicalWaveSolution c f g u -> forall x t, 0 < t -> u x t = deriv (fun s => poissonDiskTerm c s f x) t + poissonDiskTerm c t g x",
+    "source_sha256": "sha256:7f3427de436cf46a7162b2f1cded47f12dd348f6cea1c117788027a8d3bd70de",
+    "elaborated_expression_hash": "sha256:0cb797156a05d1c76475f474799fc7993b09556fa4254dbcf2f61bdb48298b69",
+    "hash_method": "SHA-256 of the complete successful lake env lean stdout/stderr containing #print output; see statement_receipt.json",
+    "gate_state": "worker_self_tested"
+  },
+  "domain_and_universes": "c,t : Real; x,z : EuclideanSpace Real (Fin 2); f,g : Plane -> Real; u : Plane -> Real -> Real; all in universe 0.",
+  "quantifiers": ["c", "f", "g", "u", "positive-speed proof", "regularity and compact-support proofs", "classical-solution proof", "x", "t", "positive-time proof"],
+  "hypotheses": ["0 < c", "ContDiff Real 3 f", "ContDiff Real 2 g", "HasCompactSupport f", "HasCompactSupport g", "u is twice continuously differentiable spatially on every time slice", "u has two time derivatives satisfying u_tt = c^2 Laplacian u", "u(x,0)=f(x)", "u_t(x,0)=g(x)", "every time slice of u has compact support"],
+  "conclusion": "The unit-disk Poisson representation holds pointwise for every x and positive t.",
+  "excluded_degenerate_cases": "c <= 0 is excluded. The displayed formula is restricted to t > 0; t = 0 is represented by the two initial-data clauses rather than direct evaluation of the singular kernel. Dimension is exactly Fin 2.",
+  "alternate_encodings": [],
+  "mutation_tests": [
+    {"mutation": "remove 0 < c", "result": "definitional equality rejected by #check_failure"},
+    {"mutation": "replace Fin 2 by Fin 3", "result": "definitional equality rejected by #check_failure"},
+    {"mutation": "change forall t to exists t under x", "result": "definitional equality rejected by #check_failure"},
+    {"mutation": "replace 0 < t by 0 <= t", "result": "definitional equality rejected by #check_failure"}
+  ],
+  "foundation_profile": "Lean 4 kernel with mathlib classical real analysis, choice, quotient, and propositional extensionality permitted; no oracle or unsafe declaration credited.",
+  "tcb_profile": "Lean 4.29.0 kernel and elaborator plus pinned mathlib sources; this phase establishes elaboration only, not proof closure.",
+  "computation_profile": "No numerical computation or external oracle.",
+  "status_boundary": "The exact formal target elaborates and its structural mutations are rejected. This is statement evidence only: no proof, equivalence to alternate disk coordinates, H0 source acceptance, or theorem completion is claimed."
+}
