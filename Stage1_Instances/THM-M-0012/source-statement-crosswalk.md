@@ -26,13 +26,13 @@ errata search, complete node mapping, and reviewer.
 
 | Catalog component | Frozen human meaning | Candidate Lean component | Intake status |
 |---|---|---|---|
-| "polynomial over the complex field" | conventionally, univariate `f` with complex coefficients and a complex root domain; arity is not explicit in the catalog | `f : Polynomial Complex` | candidate carrier identified; source ratification and canonical binder open |
-| "nonconstant" | excludes every constant polynomial, including zero | candidate `0 < f.degree` or exclusion of `Polynomial.C` images | exact encoding and equivalence open |
-| "has a root" | there exists a complex `z` where evaluation is zero | `exists z : Complex, Polynomial.IsRoot f z` | exact encoding open |
+| "polynomial over the complex field" | conventionally, univariate `f` with complex coefficients and a complex root domain; arity is not explicit in the catalog | `f : Polynomial Complex` | repository-scope carrier and binder frozen; source ratification open |
+| "nonconstant" | excludes every constant polynomial, including zero | `Stage1Instances.THM_M_0012.Nonconstant f`, checked iff `0 < f.degree` | repository-scope encoding frozen; historical terminology crosswalk open |
+| "has a root" | there exists a complex `z` where evaluation is zero | `exists z : Complex, Polynomial.IsRoot f z`, checked iff `eval z f = 0` | repository-scope encoding frozen |
 | Gauss / 1799 | historical attribution in the catalog | no formal component | primary edition and fidelity audit open |
 | `已验证` | catalog status label | no formal component | explicitly untrusted; no H/M credit |
 
-## Pinned formal candidates, not credited
+## Pinned formal candidates and statement boundary
 
 At mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
 `Mathlib.Analysis.Complex.Polynomial.Basic` declares:
@@ -44,15 +44,14 @@ Complex.exists_root {f : Complex[X]} (hf : 0 < degree f) :
 
 The same module installs `Complex.isAlgClosed`, while
 `Mathlib.FieldTheory.IsAlgClosed.Basic` exposes the generic `IsAlgClosed.exists_root`. These are
-highly relevant candidates. Intake deliberately does not claim their normalized identity with the
-canonical root, audit the terminal proof body, or derive `M0-W`. The later statement and anchor
-audit nodes own those gates.
+highly relevant candidates. The statement module checks exact identity between its canonical
+pointwise target and the positive-degree/evaluation shapes. It deliberately does not invoke or
+credit `Complex.exists_root`, audit any terminal proof body, or derive `M0-W`; the anchor audit and
+later nodes own those gates.
 
 ## Non-substitution boundary
 
-Positive degree and exclusion of constants appear conventionally equivalent over complex
-polynomials, and `IsRoot` is conventionally evaluation at zero, but names and intuition do not
-establish rev-5.6 statement identity. Those relationships require kernel-checked transports under
-the same pinned environment. Algebraic closedness and splitting forms additionally require an
-explicit directional mapping back to root existence and may not be assumed as premises. Until
-those checks and source review occur, no H0, M0, or exact-statement claim is made.
+Positive degree and exclusion of constants, and `IsRoot` and evaluation at zero, now have
+kernel-checked iff transports under the pinned environment. Algebraic closedness and splitting
+forms remain uncredited stronger packages and may not be assumed as premises. Pinpoint primary
+source review, proof-body provenance, and trust closure remain open, so no H0 or M0 claim is made.

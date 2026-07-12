@@ -1,0 +1,146 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0843-ANCHOR-AUDIT-WORKER-20260713",
+  "item_id": "S56-M-0843-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0843",
+  "phase": "anchor_audit",
+  "intent": "audit",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "5ae439adae290d44dcf08cc6439c5fb64154fe47",
+  "base_tree": "51717feef6efc7076e60ee31e7a1ca0a246fec42",
+  "validated_at": "2026-07-13T04:36:59+08:00",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0843/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0843/README.md",
+    "Stage1_Instances/THM-M-0843/anchor-audit-receipt.json",
+    "Stage1_Instances/THM-M-0843/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0843/anchor-audit.json",
+    "Stage1_Instances/THM-M-0843/check_anchor_audit.py",
+    "Stage1_Instances/THM-M-0843/source-statement-crosswalk.md"
+  ],
+  "covered_node_ids": [
+    "S56-M-0843-ANCHOR_AUDIT"
+  ],
+  "covered_declarations": [
+    "szemeredi_regularity",
+    "Stage1Instances.THM_M_0843_AnchorAudit.ExactTarget",
+    "Stage1Instances.THM_M_0843_AnchorAudit.exactTarget_mathlib_candidate"
+  ],
+  "statement_fingerprints": [
+    "sha256:3fe13f3562cb642e45e467687508ac44f945e9848ff53d22b9cf068d7ec11219"
+  ],
+  "immutable_inputs": {
+    "repository_revision": "5ae439adae290d44dcf08cc6439c5fb64154fe47",
+    "repository_tree": "51717feef6efc7076e60ee31e7a1ca0a246fec42",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_lemma_sha256": "eee7f2c505130c4a09fa8e62dca7bc1bbfaff90c18e86e9ad43f44f7f0ea8fd6",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidate_result": {
+    "candidate_id": "M0843-C01",
+    "classification": "M0-W",
+    "evidence_level": "E2",
+    "kernel_checked": true,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "master_accepted": false
+  },
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0843-ANCHOR-AUDIT-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0843/AnchorAudit.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must print exact szemeredi_regularity type, machine sorry-free result, and propext/Classical.choice/Quot.sound for terminal and wrapper"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0843-ANCHOR_AUDIT"
+      ],
+      "covered_declarations": [
+        "szemeredi_regularity",
+        "Stage1Instances.THM_M_0843_AnchorAudit.exactTarget_mathlib_candidate"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0843-ANCHOR-AUDIT-LEDGER",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0843/check_anchor_audit.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must contain exact pinned mathlib wrapper M0-W/E2 and both audit/theorem false"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0843-ANCHOR_AUDIT"
+      ],
+      "covered_declarations": [
+        "szemeredi_regularity",
+        "Stage1Instances.THM_M_0843_AnchorAudit.exactTarget_mathlib_candidate"
+      ]
+    }
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_candidate_vector_after": {
+    "H": "H1",
+    "M": "M0-W",
+    "R": "R4"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "known_failures": [
+    "GitHub code search returned HTTP 401 without credentials and grep.app returned HTTP 429 with a Vercel checkpoint; exhaustive discovery saturation is not claimed.",
+    "Full transitive declaration/provenance/trust and TCB closure is not accepted in this anchor phase.",
+    "Primary-source H0, readable R0, obligation composition, hermetic replay, independent verification, deterministic release evidence, downstream master acceptance, AUDIT-Z, and theorem completion remain open."
+  ],
+  "remaining_root_cut_set": [
+    "S56-M-0843-OBLIGATION_TREE",
+    "S56-M-0843-PROOF",
+    "S56-M-0843-VALIDATION",
+    "S56-M-0843-RELEASE",
+    "primary-source H0 and independent review",
+    "readable R0 and independent review",
+    "master acceptance"
+  ],
+  "status_boundary": "Provisional node-specific worker receipt only. It self-tests the bounded anchor inventory and exact mathlib adapter; it accepts no receipt, does not finish AUDIT-Z, and does not complete the theorem."
+}

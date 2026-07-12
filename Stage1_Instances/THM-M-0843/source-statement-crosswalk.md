@@ -64,9 +64,10 @@ At mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`:
   `(G : SimpleGraph alpha) -> 0 < epsilon -> l <= Fintype.card alpha -> Exists P : Finpartition Finset.univ, P.IsEquipartition /\\ l <= P.parts.card /\\ P.parts.card <= SzemerediRegularity.bound epsilon l /\\ P.IsUniform G epsilon`,
 
   under `DecidableEq alpha`, `Fintype alpha`, and `DecidableRel G.Adj`.
-- The source file contains a real proof body. Intake has not audited its terminal provenance,
-  declaration dependencies, axioms, unsafe/oracle boundary, or exact source identity. Those belong
-  to `S56-M-0843-ANCHOR_AUDIT` and later nodes.
+- The source file contains a real proof body. The anchor audit now binds that body at
+  `Lemma.lean:79-155`, checks an exact local adapter, records the direct regularity source boundary,
+  and obtains the machine axiom set `propext`, `Classical.choice`, and `Quot.sound`. Full transitive
+  declaration/TCB acceptance and release-grade provenance remain later gates.
 
 The narrow probe also checks `SimpleGraph.IsUniform`, `Finpartition.IsUniform`,
 `Finpartition.IsEquipartition`, and `SzemerediRegularity.bound`. No alternate formulation is
@@ -84,13 +85,14 @@ regularity convention as definitionally identical.
 `szemerediRegularityTarget_implies_existentialBoundTarget` checks only the implication to an
 existential-bound formulation using that same formal predicate. No converse and no transport to a
 differently normalized unordered-pair convention is credited. The current pinned declaration
-`szemeredi_regularity` remains a formal candidate whose body, exact relationship, provenance, and
-trust closure belong to `S56-M-0843-ANCHOR_AUDIT`.
+`szemeredi_regularity` is now an exact self-tested `M0-W / E2` candidate: `AnchorAudit.lean`
+literally restates the frozen target and closes it with that theorem. This provisional
+classification is not accepted `E1`, full trust closure, audit completion, or theorem completion.
 
 ## Work required for closure
 
 The source audit must preserve one complete lawful source snapshot, inspect the 1975 source or an
 accepted authoritative edition, map its definition and exceptional-pair conventions, assumptions,
-conclusion, proof boundary, and corrections, and obtain independent review. The formal anchor audit
-must separately compare the actual pinned theorem to the frozen expression and inspect its proof
-object, provenance, dependencies, axioms, unsafe/oracle boundary, and trust closure.
+conclusion, proof boundary, and corrections, and obtain independent review. Formal work still must
+freeze the obligation and typed provenance/trust graphs, compute and accept the full transitive
+declaration and TCB closure, and pass the downstream proof, validation, and release gates.

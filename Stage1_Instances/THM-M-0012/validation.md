@@ -1,7 +1,8 @@
 # THM-M-0012 Intake Validation
 
-Base revision: `d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9` (tree
-`829a47c47ae831cada4f8acc6c2c00ba5883215e`). The initial worktree contained only the
+Original intake base revision: `d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9`. The statement
+phase is based on `ec27eb0336c89f0aed87200fc7cbf03a09996597` (tree
+`3fe77e381bf94ce1ed347bed17c94af25de8d543`). Each initial worktree contained only the
 automation-provided untracked `Formalizations/Lean/.lake` symlink to canonical pinned artifacts.
 It was used read-only, so this packet is nonrelease evidence. No `lake update`, `lake build`, clone,
 fetch, or dependency mutation was run.
@@ -21,7 +22,7 @@ fetch, or dependency mutation was run.
 | `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0012/IntakeProbe.lean)` | 0 | printed the exact types of seven complex-polynomial and algebraic-closedness candidate APIs; no diagnostics |
 | `python3 -m json.tool` on the structured owned JSON artifacts and worker packet | 0 | valid JSON |
 | `PYTHONPYCACHEPREFIX=/tmp/stage1-thm-m-0012-pycache python3 -m py_compile Stage1_Instances/THM-M-0012/check_intake.py` | 0 | scoped validator compiles without generated files in the owned path |
-| `python3 -B Stage1_Instances/THM-M-0012/check_intake.py --worker-packet .stage1-worker-selftest.json` | 0 | target identity, planned H1/M4/R4 boundary, exact artifact inventory, packet agreement, and six open tasks pass |
+| `python3 -B Stage1_Instances/THM-M-0012/check_intake.py --worker-packet .stage1-worker-selftest.json` | 0 | target identity, planned H1/M3/R4 boundary, expanded artifact inventory, packet agreement, and six open tasks pass |
 | `python3 -B Stage1_Instances/THM-M-0012/check_intake.py` | 0 | public replay mode passes without the scheduler-only packet |
 | prohibited-construct scan over the owned Lean probe | 1 (expected no match) | no `sorry`, `admit`, `sorryAx`, `axiom`, `constant`, `opaque`, or `unsafe` declaration |
 | per-file `git diff --no-index --check /dev/null` over all new files | 0 aggregate after treating exit 1 as the expected new-file difference | no whitespace diagnostics |
@@ -29,10 +30,10 @@ fetch, or dependency mutation was run.
 
 ## Evidence boundary
 
-The Lean command checks only that the named pinned types and declarations elaborate. It does not
-freeze or mutation-test a canonical target, establish a normalized-expression fingerprint, inspect
-terminal proof provenance or axioms, or credit `Complex.exists_root` to this target. The source
-edition and independent review, statement gate, full anchor audit, obligation registry and typed
-graphs, proof/composition gates, hermetic replay, deterministic release bundle, and independent
-verification all remain open. These boundaries prevent audit and theorem completion but do not
-invalidate the self-tested `planned` intake.
+The intake probe checks only that named pinned types and declarations elaborate. The subsequent
+statement record freezes and mutation-tests the canonical target separately, as documented in
+`statement-validation.md`; neither command inspects or credits a terminal proof body. The source
+edition and independent review, full anchor audit, obligation registry and typed graphs,
+proof/composition gates, hermetic replay, deterministic release bundle, and independent verification
+remain open. These boundaries prevent audit and theorem completion but do not invalidate the
+self-tested `planned` dossier.

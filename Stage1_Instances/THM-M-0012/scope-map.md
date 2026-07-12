@@ -2,33 +2,27 @@
 
 ## Frozen human scope
 
-The repository claim identifies the conventional fundamental-theorem-of-algebra family. Reading it
-as every nonconstant univariate polynomial with complex coefficients having a root in the complex
-numbers matches standard usage and the pinned Lean candidate, but the catalog does not itself state
-the arity or separately spell out coefficient and root domains. The dossier records this as the
-provisional human scope that the source and statement phase must ratify, with binders ordered as
-polynomial, nonconstancy hypothesis, then existential root. It does not yet freeze a Lean expression
-or credit any proof.
+The repository claim identifies the conventional fundamental-theorem-of-algebra family. The
+statement phase freezes it as every univariate `f : Polynomial Complex` outside the image of
+`Polynomial.C` having a root `z : Complex`. Binders are ordered as polynomial, nonconstancy
+hypothesis, then existential root. This fixes the repository-scope Lean expression while leaving
+pinpoint historical source fidelity and every proof gate open.
 
 The intended conclusion is existence, not uniqueness or an algorithm for computing a root. The
 root must lie in `Complex`, not merely in an unspecified extension. A later formulation may package
 the result as algebraic closedness or splitting only after a checked directional crosswalk shows
 that it returns the catalog claim without assuming it.
 
-## Decisions for the statement phase
+## Frozen statement decisions
 
-The next phase must independently select and review a pinpoint mathematical source, then freeze:
-
-1. The precise meaning of nonconstant: positive `WithBot Nat` degree, positive natural degree, or
-   exclusion of all constant polynomials.
-2. Root encoding: `Polynomial.IsRoot f z`, `Polynomial.eval z f = 0`, or an explicitly checked
-   equivalent expression.
-3. Whether the canonical root is the pointwise existence proposition or `IsAlgClosed Complex`, and
-   the exact direction of every credited transport.
-4. The minimal pinned import, namespaces, binders, universe/typeclass context, normalized expression
-   hash, environment fingerprint, and proof-foundation profile.
-5. Removed-hypothesis, changed-domain, binder-scope, zero/constant, and linear-polynomial mutations
-   before inspecting proof closure.
+1. Nonconstant means exclusion of all `Polynomial.C c`, including zero.
+2. The canonical conclusion is `Polynomial.IsRoot f z`; evaluation at zero is credited through a
+   checked iff.
+3. The canonical target is pointwise existence. `IsAlgClosed Complex` remains an uncredited
+   stronger packaging.
+4. Positive `WithBot Nat` degree is credited through a checked iff.
+5. The sole direct import, expression/environment fingerprints, four structural mutations, and
+   zero/constant/linear boundary witnesses are recorded in the statement artifacts.
 
 ## Boundary cases
 
@@ -43,12 +37,10 @@ The next phase must independently select and review a pinpoint mathematical sour
 
 Pinned mathlib contains `Complex.exists_root` in
 `Mathlib.Analysis.Complex.Polynomial.Basic` with a positive-degree hypothesis, as well as the
-`Complex.isAlgClosed` instance and the generic `IsAlgClosed.exists_root` API. The intake probe only
-authenticated that these declarations elaborate at the recorded pin. It did not establish exact
-statement identity, inspect their proof bodies or transitive trust closure, or perform the later
-precommitted anchor audit. Because no exact target or statement mapping is frozen, the candidate is
-not yet a usable formal artifact for this root. Consequently it remains `H1 / M4 / R4` with no accepted
-execution state.
+`Complex.isAlgClosed` instance and the generic `IsAlgClosed.exists_root` API. The statement phase
+now establishes exact target identity with the positive-degree pointwise shape but does not inspect
+or credit any candidate proof body, transitive trust closure, or anchor audit. Consequently the root
+is provisionally `H1 / M3 / R4`, with no accepted execution state.
 
 ## Explicit exclusions
 

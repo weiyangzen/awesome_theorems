@@ -1,0 +1,112 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0012-STATEMENT",
+  "theorem_id": "THM-M-0012",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "intake_selected_conventional_scope_frozen_primary_source_fidelity_open",
+  "canonical_statement": "For every univariate polynomial f with complex coefficients, if f is not a constant polynomial, then there exists a complex number z such that f evaluates to zero at z.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0012/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0012.FundamentalTheoremOfAlgebraTarget",
+    "elaborated_expression_sha256": "d14207f425a984b6daefaa986d8351a1543f58b7631d1c842e51a3ef2392ba74",
+    "statement_file_sha256": "fce52766380ace58b4b202f267b8a3640f74655d0cacdea897de01bcf956ee46",
+    "fully_explicit_expression": "forall f : @Polynomial.{0} Complex Complex.instSemiring, Stage1Instances.THM_M_0012.Nonconstant f -> exists z, @Polynomial.IsRoot.{0} Complex Complex.instSemiring f z"
+  },
+  "domain_and_universes": "f : Polynomial Complex; z : Complex; concrete carriers in universe 0; target Prop in universe 0; no typeclass binders or additional premises.",
+  "ordered_binders": [
+    "f : Polynomial Complex (universal)",
+    "Nonconstant f (antecedent)",
+    "z : Complex (existential)"
+  ],
+  "hypotheses": [
+    "Stage1Instances.THM_M_0012.Nonconstant f, defined as the negation of existence of c : Complex with f = Polynomial.C c"
+  ],
+  "conclusion": "There exists z : Complex with Polynomial.IsRoot f z, definitionally equivalent to Polynomial.eval z f = 0.",
+  "direct_imports": [
+    "Mathlib.Analysis.Complex.Polynomial.Basic"
+  ],
+  "minimal_import_basis": "This single narrow feature module declares the pinned Complex.exists_root theorem and exports every polynomial and complex-number interface needed by the target and checked transports. No aggregate Mathlib import or second direct import is used.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0012.PositiveDegreeRootTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0012.fundamentalTheoremOfAlgebraTarget_iff_positiveDegreeRootTarget",
+      "boundary": "Exact positive-WithBot-degree root-existence proposition adjacent to Complex.exists_root; the theorem body is not invoked or credited by this statement phase."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0012.EvaluationRootTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0012.fundamentalTheoremOfAlgebraTarget_iff_evaluationRootTarget",
+      "boundary": "Direct evaluation-at-zero conclusion with the same nonconstancy antecedent and binders."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "IsAlgClosed Complex as a stronger packaged property",
+    "splitting or factorization of every complex polynomial",
+    "a root in an extension or algebraic closure rather than in Complex"
+  ],
+  "degenerate_cases": {
+    "excluded_by_antecedent": [
+      "the zero polynomial",
+      "every nonzero constant polynomial"
+    ],
+    "included": [
+      "every linear complex polynomial",
+      "all higher-degree complex polynomials without monicity or irreducibility"
+    ],
+    "checked_witnesses": [
+      "Stage1Instances.THM_M_0012.zero_not_nonconstant",
+      "Stage1Instances.THM_M_0012.C_not_nonconstant",
+      "Stage1Instances.THM_M_0012.X_nonconstant"
+    ]
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "f6159d7625ca323846088b04ae89fca501bb040fcdce982f8f24c453e587d491",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under the pinned mathlib environment. The three checked statement transports report only propext, Classical.choice, and Quot.sound; no custom axiom is introduced. Full transitive trust closure is downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The imported module is statement-adjacent; its proof bodies and transitive trust closure are not audited or credited here.",
+  "computation_profile": "No native computation, numerical approximation, experiment, oracle, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0012/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedNonconstantHypothesis"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedDomainToReal"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludedLinearBoundary"
+      }
+    ],
+    "method": "Each mutation is rejected as a term of the canonical target by Lean and has a distinct fully explicit elaborated expression."
+  },
+  "source_fidelity_boundary": "The repository gloss identifies the conventional theorem family but no independently reviewed primary edition, page, translation, assumption map, or errata packet. This freezes the intake-selected conventional repository scope, not H0 source fidelity.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration and two checked transports only. No proof body is invoked or credited; primary-source review, anchor audit, obligation tree, proof, validation, release, audit completion, theorem completion, and master acceptance remain open."
+}
