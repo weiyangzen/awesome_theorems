@@ -1,0 +1,37 @@
+{
+  "schema_version": "stage1-node-receipt/5.6.0",
+  "receipt_id": "S56-M-0559-ANCHOR_AUDIT-worker-9898022a",
+  "item_id": "S56-M-0559-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0559",
+  "phase": "anchor_audit",
+  "base_revision": "9898022a0eed3cf9fb3c55a6affb6176224f33cf",
+  "pinned_mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "external_candidates": [
+    {
+      "repository": "https://github.com/jzxia/WhiteheadTheorem",
+      "revision": "ee1d4a5c332e6b95853bfa0719efd9f435317307",
+      "archive_sha256": "4faf267fd0ce760ca4db88240fec8782278d9fa2e28977b2c70fd54c9a291023",
+      "module": "WhiteheadTheorem/Basic.lean",
+      "declaration": "WhiteheadTheorem",
+      "toolchain": "leanprover/lean4:v4.21.0-rc3",
+      "mathlib_revision": "2239a8d321747551f090ee416301afcf1b434321",
+      "license": "Apache-2.0",
+      "classification": "external_upstream_anchor_only"
+    }
+  ],
+  "commands": [
+    {"argv": ["python3", "Docs/tools/check_stage1_standard.py"], "exit_code": 0, "result": "standard structure ok"},
+    {"argv": ["python3", "scripts/stage1_target.py", "check"], "exit_code": 0, "result": "1546-target manifest ok"},
+    {"argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0559"], "exit_code": 0, "result": "rank 607; planned; theorem_complete false"},
+    {"cwd": "Formalizations/Lean", "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0559/AnchorAudit.lean"], "exit_code": 0, "result": "mathlib candidate interfaces elaborated"},
+    {"argv": ["immutable codeload archive inspection", "jzxia/WhiteheadTheorem@ee1d4a5c332e6b95853bfa0719efd9f435317307"], "exit_code": 0, "result": "archive checksum, declaration, pins, license, and scoped proof-token scan recorded; no dependency installed"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0559/anchor-audit-receipt.json"], "exit_code": 0, "result": "valid JSON"},
+    {"argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0559", ".stage1-worker-selftest.json"], "exit_code": 0, "result": "no whitespace errors"}
+  ],
+  "root_vector_before": {"H": "H3", "M": "M4", "R": "R4"},
+  "root_vector_after": {"H": "H3", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "state": "[_]",
+  "status_boundary": "Anchor inventory self-tested pending master acceptance; no candidate is exact and integrated, so no proof or theorem-completion credit is claimed."
+}

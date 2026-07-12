@@ -40,6 +40,25 @@ dependency mutation.
 | forbidden declaration/proof-escape scan over `Statement.lean` | exit 0; no forbidden declaration or proof escape |
 | `git diff --check -- Stage1_Instances/THM-M-0559 .stage1-worker-selftest.json` | exit 0; no output |
 
+## Anchor-audit worker validation
+
+Base revision: `9898022a0eed3cf9fb3c55a6affb6176224f33cf`.
+
+| Command | Result |
+|---|---|
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups and 1546 uniform-L0 targets validated |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique ordered targets validated |
+| `python3 scripts/stage1_target.py show THM-M-0559` | exit 0; rank 607, planned, theorem_complete false |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0559/AnchorAudit.lean` | exit 0; pinned model-category Whitehead candidates and topology substrate elaborated |
+| immutable codeload inspection of `jzxia/WhiteheadTheorem@ee1d4a5c332e6b95853bfa0719efd9f435317307` | exit 0; archive SHA-256 `4faf267fd0ce760ca4db88240fec8782278d9fa2e28977b2c70fd54c9a291023`; declaration, source pins, Apache-2.0 license, and scoped proof-token scan recorded; nothing installed or fetched into `.lake` |
+| `python3 -m json.tool Stage1_Instances/THM-M-0559/anchor-audit-receipt.json` | exit 0 |
+| scoped forbidden proof-token scan over `Stage1_Instances/THM-M-0559/*.lean` | exit 0; no active `axiom`, `unsafe`, `sorry`, `admit`, or `sorryAx` |
+| `git diff --check -- Stage1_Instances/THM-M-0559 .stage1-worker-selftest.json` | exit 0; no output |
+
+The narrow Lean check validates only pinned mathlib interfaces. The external archive is immutable
+source evidence, not an integrated build: its toolchain/mathlib revisions and theorem scope differ.
+No anchor is assigned kernel-closure credit.
+
 This is worker-local statement evidence, not proof or release evidence. Primary-source acceptance,
 anchor audit, obligation expansion, proof closure, trust closure, replay, and independent master
 acceptance remain open.
