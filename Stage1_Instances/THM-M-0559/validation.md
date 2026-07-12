@@ -23,3 +23,23 @@ The first downstream gate remains the exact statement. In particular, API existe
 establish the component map, functorial induced maps on `HomotopyGroup.Pi`, or Whitehead's theorem.
 Primary theorem/page and errata inspection, source review, statement mutation tests, formal-anchor
 audit, obligation registry, proof, hermetic replay, and independent validation all remain open.
+
+## Statement-phase validation (2026-07-12 Asia/Shanghai)
+
+The existing canonical pinned `.lake` symlink was reused without update, fetch, build, or other
+dependency mutation.
+
+| Command | Result |
+|---|---|
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups and 1546 uniform-L0 targets |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets, ranks 1..1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0559` | exit 0; rank 607, planned, theorem_complete false |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0559/Statement.lean` | exit 0; induced component/group maps, canonical target, checked expansion, three mutations, and explicit target print elaborated under Lean 4.29.0 |
+| `python3 -m json.tool Stage1_Instances/THM-M-0559/statement.json` | exit 0 |
+| `python3 -m json.tool Stage1_Instances/THM-M-0559/statement-receipt.json` | exit 0 |
+| forbidden declaration/proof-escape scan over `Statement.lean` | exit 0; no forbidden declaration or proof escape |
+| `git diff --check -- Stage1_Instances/THM-M-0559 .stage1-worker-selftest.json` | exit 0; no output |
+
+This is worker-local statement evidence, not proof or release evidence. Primary-source acceptance,
+anchor audit, obligation expansion, proof closure, trust closure, replay, and independent master
+acceptance remain open.

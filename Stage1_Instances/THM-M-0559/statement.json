@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-statement-freeze/1.0",
+  "item_id": "S56-M-0559-STATEMENT",
+  "theorem_id": "THM-M-0559",
+  "canonical_module": "Stage1_Instances/THM-M-0559/Statement.lean",
+  "canonical_declaration": "Stage1Instances.THM_M_0559.WhiteheadTarget",
+  "checked_transport": "Stage1Instances.THM_M_0559.whiteheadTarget_iff_expandedSourceShape",
+  "direct_imports": [
+    "Mathlib.Topology.CWComplex.Classical.Basic",
+    "Mathlib.Topology.Homotopy.Equiv",
+    "Mathlib.Topology.Homotopy.HomotopyGroup"
+  ],
+  "universes": ["u", "v"],
+  "binders": [
+    "X : Type u with a topological space and CWComplex univ",
+    "Y : Type v with a topological space and CWComplex univ",
+    "f : C(X, Y)"
+  ],
+  "hypotheses": [
+    "zerothHomotopyMap f is bijective",
+    "for every x : X and n : Nat with 1 <= n, homotopyGroupMap f n x is bijective"
+  ],
+  "conclusion": "there exists e : ContinuousMap.HomotopyEquiv X Y with e.toFun = f",
+  "boundary_cases": {
+    "empty_spaces": "included",
+    "disconnected_spaces": "included",
+    "dimension_zero": "handled by ZerothHomotopy rather than the based group clause",
+    "positive_dimensions": "all n satisfying 1 <= n",
+    "given_map_preserved": true
+  },
+  "mutations": [
+    "Stage1Instances.THM_M_0559.mutationRemovedComponents",
+    "Stage1Instances.THM_M_0559.mutationAllowsDimensionZero",
+    "Stage1Instances.THM_M_0559.mutationUnrelatedEquivalence"
+  ],
+  "source_sha256": "f6db49c559ac718c96eb566d83e69748ae2d3fd0a1e95396465cbfa1e7328f1c",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "proof_claimed": false,
+  "theorem_complete": false,
+  "status_boundary": "Exact target elaboration only; source audit, anchor audit, proof, trust, replay, and master acceptance remain open."
+}
