@@ -57,3 +57,12 @@ retained theorem. Bounded external searches found no exact proof-bearing Lean 4
 candidate; authenticated GitHub code search was unavailable and is not treated
 as a negative result. The root remains `M4` with `formalization_debt`; this
 phase supplies no proof or theorem-completion credit.
+
+## Obligation-tree phase
+
+`obligation-registry.json` freezes 13 root-relevant obligations, and
+`typed-graphs.json` separates proof, refinement, provenance, evidence, trust,
+documentation, and workflow edges. The route separates the Milnor bundle
+construction, homeomorphism, and invariant obstruction. `ObligationTree.lean`
+checks only final conditional composition; all three inputs remain open, the
+root remains `M4`, and no theorem-completion credit is claimed.
