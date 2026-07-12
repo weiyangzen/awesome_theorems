@@ -17,5 +17,7 @@ Lifecycle remains `planned`; provisional root vector is `[H1, M3, R3]`. The sour
 paper is identified to theorem and pages, but a stable copy/hash, verbatim
 premise audit, and errata review remain open. The first failed theorem gate is
 the anchor-audit gate. The canonical Lean expression is elaborated and
-fingerprinted in `statement.json`, pending master acceptance. Historical
-metadata saying `已验证` supplies no proof credit.
+fingerprinted in `statement.json`, pending master acceptance. The obligation
+phase now freezes 17 typed obligations and seven separate graphs; it closes no
+proof node and leaves `M1291-T-INTEGRAL` as the root cut. Historical metadata
+saying `已验证` supplies no proof credit.
