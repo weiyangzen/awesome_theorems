@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0325-STATEMENT",
+  "theorem_id": "THM-M-0325",
+  "lifecycle": "planned",
+  "canonical_statement": "There is a nonnegative universal real constant K_G such that, for every pair of finite index types and real matrix A, each nonnegative bound C for the scalar bilinear form on the real unit polydisc bounds the corresponding form on unit-ball vectors in every real Hilbert space by K_G * C.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0325/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0325.GrothendieckInequalityTarget",
+    "elaborated_expression_sha256": "b4daa662b6b3f7cc1578975aeaf9fd097ef586b209bd0d26d4262c59ac59cf82",
+    "statement_file_sha256": "a24ef5cd7e7ee64b388eeb36d2881c66f85630deca58f63440de5dd72098eb1e"
+  },
+  "domain_and_universes": "universe u; m n H : Type u; Fintype m; Fintype n; NormedAddCommGroup H; InnerProductSpace Real H; A : m -> n -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "K_G : Real",
+    "m n : Type u",
+    "[Fintype m] [Fintype n]",
+    "A : m -> n -> Real",
+    "C : Real",
+    "H : Type u",
+    "[NormedAddCommGroup H] [InnerProductSpace Real H]",
+    "x : m -> H",
+    "y : n -> H"
+  ],
+  "hypotheses": [
+    "0 <= K_G",
+    "0 <= C",
+    "the scalar matrix form is bounded by C whenever all scalar coordinates have absolute value at most one",
+    "all x and y coordinates have norm at most one"
+  ],
+  "conclusion": "The absolute value of the finite sum of A i j times the real inner product of x i and y j is at most K_G * C.",
+  "direct_imports": ["Mathlib.Analysis.InnerProductSpace.Basic"],
+  "checked_transport": "Stage1Instances.THM_M_0325.target_iff_intakeSourceShape",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_214.StatementShape",
+  "pinned_source_relationship": "IntakeSourceShape is a direct expansion of the intake-selected finite real matrix/Hilbert-space formulation. The checked iff is definitional. The legacy declaration is discovery input only and supplies no proof credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0325/check_statement.py",
+    "killed": [
+      "moved the universal constant inside the matrix binders",
+      "restricted the Hilbert quantifier to subsingleton spaces",
+      "changed scalar unit-polydisc inequalities to sign-vector equalities",
+      "changed real scalar matrices to complex scalar matrices"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0325.empty_scalar_boundary"]
+  },
+  "degenerate_cases": "Empty finite index types are admitted and checked at scalar bound zero. No nonemptiness or finite-dimensionality hypothesis is imposed. C is explicitly nonnegative, and K_G is explicitly nonnegative.",
+  "alternate_encodings": {
+    "sign_vectors": "Separately elaborated as a mutation; no equivalence transport is credited in this node.",
+    "tensor_norm_form": "Not substituted for the selected finite real matrix claim; any later use requires a checked equivalence transport.",
+    "complex_form": "Explicitly excluded from this real statement node."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected finite real target with one minimal direct mathlib import, a definitional expanded-shape transport, four distinguished structural mutations, and an empty-index boundary check. It supplies no Grothendieck inequality proof or dependent-node evidence."
+}
