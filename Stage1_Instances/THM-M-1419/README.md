@@ -1,6 +1,6 @@
 # THM-M-1419 rev-5.6 intake
 
-This directory contains the fail-closed intake, exact statement freeze, and anchor audit for Oseledets'
+This directory contains the fail-closed intake, exact statement freeze, anchor audit, and frozen obligation architecture for Oseledets'
 multiplicative ergodic theorem. `OseledetsStatement.lean` kernel-elaborates the selected
 finite-dimensional real, invertible, ergodic, two-sided splitting proposition with minimal direct
 imports. `statement.md` records its binders, boundary decisions, mutations, and environment.
@@ -10,6 +10,11 @@ pinned-mathlib search and a substantive external Lean 4 splitting candidate at a
 That candidate uses different interfaces, a newer Lean/mathlib closure, and has no checked exact
 transport here. The root vector is `[H2, M3, R3]`: source-audited external discovery is not
 repo-local kernel closure. No `H0`, `M0`, audit completion, or theorem completion is claimed.
+
+`obligation-registry.json` freezes 14 root-relevant semantic obligations before proof work. The
+seven typed graphs expose proof composition, refinement, provenance, evidence, trust,
+documentation, and workflow dependencies. `ObligationTree.lean` checks only the final conditional
+interface; its construction-package premise is definitionally the exact target and is not a proof.
 
 The historical `THM-M-1056` Lean file is discovery input for a separately owned target only. It
 cannot supply statement or proof credit here. The scope map, source crosswalk, and task DAG record
