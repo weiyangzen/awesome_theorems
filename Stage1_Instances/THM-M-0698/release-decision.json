@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0698-RELEASE",
+  "theorem_id": "THM-M-0698",
+  "intent": "release",
+  "depends_on": ["S56-M-0698-VALIDATION"],
+  "base_revision": "ed278d07d4b1fbd48887625b78d32141bebc9441",
+  "dependency": {
+    "item_id": "S56-M-0698-VALIDATION",
+    "receipt_id": "S56-M-0698-VALIDATION-local-20260712T080139Z",
+    "receipt_sha256": "2ed0f716f284b5284b2eba6f26050779c619906d63cba01230b68e816206a5d6",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H1", "M3", "R4"],
+    "root_vector_after": ["H1", "M3", "R4"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "accepted_receipt_ids": [],
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-0698-VALIDATION is provisional worker evidence, release_grade=false, and has no master acceptance."
+    },
+    "next_failed_theorem_gate": {
+      "gate_id": "structured_state.root_freshness",
+      "reason": "The frozen typed graph predates proof closure and still records M0698-B-REVERSE as open, root M3, and theorem_complete=false."
+    },
+    "remaining_root_cut_set": [
+      "master-accepted validation prerequisite",
+      "fresh authoritative proof/evidence/trust graph reconciliation",
+      "independently accepted pinpoint H0 source review",
+      "independently accepted structured R0 reconstruction",
+      "complete transitive provenance and approved foundation/TCB profile",
+      "immutable empty-cache network-denied cold build and offline archive replay",
+      "complete SBOM and license closure",
+      "two signed attestations from independently provisioned clean runners",
+      "independently implemented minimal verifier",
+      "deterministic content-addressed evidence bundle and clean generated views",
+      "AUDIT-Z, THEOREM-Z, freshness, protected CI, and master acceptance"
+    ]
+  },
+  "evidence_reconciliation": {
+    "exact_root_kernel_candidate": true,
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "authoritative_graph_reconciled": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "complete_provenance_and_tcb": false,
+    "hermetic_cold_offline_replay": false,
+    "tcb_sbom_license_closure": false,
+    "independent_clean_runner_attestation": false,
+    "independently_implemented_minimal_verifier": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "retry_condition": "Master-accept the prerequisite proof and validation only after reconciling fresh authoritative graphs; independently accept H0/R0 and trust/provenance records; then run the immutable cold offline and distinct-runner release protocol, build the deterministic bundle, and obtain master acceptance.",
+  "status_boundary": "Self-tested negative release reconciliation only. The exact Lean root is a provisional M0-W candidate, not accepted M0; this decision grants no AUDIT-Z, THEOREM-Z, release, receipt acceptance, or lifecycle promotion."
+}

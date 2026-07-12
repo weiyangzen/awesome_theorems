@@ -1,0 +1,79 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0696-RELEASE-local-20260712",
+  "item_id": "S56-M-0696-RELEASE",
+  "theorem_id": "THM-M-0696",
+  "intent": "release",
+  "base_revision": "ed278d07d4b1fbd48887625b78d32141bebc9441",
+  "base_tree": "446f61ca797bef91bb82e4df0fd30d0714ca310a",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "dependency": {
+    "item_id": "S56-M-0696-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0696-VALIDATION-local-20260712",
+    "receipt_sha256": "ce95d898245c325affde5c5338c262400d7b2c35c46572d490e6d5b25b3c3571",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0696-VALIDATION-local-20260712"
+  ],
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "accepted_root_vector_before": ["H1", "M4", "R3"],
+    "accepted_root_vector_after": ["H1", "M4", "R3"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-0696-VALIDATION is provisional worker-self-test evidence, is explicitly nonrelease, and has no master-accepted receipt."
+    },
+    "next_failed_theorem_gate": {
+      "gate_id": "evidence.structured_state_freshness",
+      "reason": "The frozen typed graph predates Proof.lean and still records root_closed=false with H1/M3/R3; only the master integration lane may reconcile proof evidence into authoritative state."
+    },
+    "remaining_root_cut_set": [
+      "master acceptance of S56-M-0696-VALIDATION and every transitive phase receipt",
+      "master reconciliation of Proof.lean and its exact-root kernel evidence into the frozen obligation graph and authoritative instance state",
+      "accepted H0 pinpoint primary-source theorem, assumptions, errata, node crosswalk, and independent source review",
+      "accepted R0 structured reconstruction and independent reader review",
+      "complete accepted provenance, foundation, axiom, trust, and transitive TCB closure for the exact root",
+      "immutable clean source and dependency snapshot with origin and content-address verification",
+      "empty-cache network-denied cold build and offline archive replay",
+      "complete SBOM and license closure",
+      "two signed attestations from separately provisioned independent runners",
+      "an independently implemented minimal release verifier",
+      "protected CI plus required mutation, metamorphic, stale-evidence, and adversarial gate results",
+      "a deterministic content-addressed current release bundle and master reconciliation"
+    ]
+  },
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "provisional_pass",
+    "exact_root_warm_cache_kernel_replay": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "local_provenance_hashes": "provisional_pass",
+    "same_worker_exact_type_probe": "provisional_pass",
+    "authoritative_graph_reconciled": false,
+    "frozen_graph_root_closed": false,
+    "frozen_graph_root_vector": ["H1", "M3", "R3"],
+    "audit_z_accepted": false,
+    "theorem_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "hermetic_cold_offline_replay": false,
+    "tcb_sbom_license_closure": false,
+    "independent_clean_runner_attestation": false,
+    "independently_implemented_minimal_verifier": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "retry_condition": "The master must first accept the dependency chain and reconcile the exact local proof into fresh structured graph state. A separately provisioned release lane must then close H0/R0 review, trust and TCB, immutable cold offline reproduction, supply-chain, independent-runner, minimal-verifier, CI, and deterministic-bundle gates.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, release, or theorem completion."
+}
