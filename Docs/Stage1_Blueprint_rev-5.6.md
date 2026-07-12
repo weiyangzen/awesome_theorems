@@ -7354,7 +7354,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1250-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1250`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1250-ANCHOR_AUDIT` / `THM-M-1250` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-1250-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1250`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1250-OBLIGATION_TREE` / `THM-M-1250` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-1250-OBLIGATION_TREE` / `THM-M-1250` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1250-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1250`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1250-PROOF` / `THM-M-1250` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1250-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1250`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -7368,7 +7368,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1252-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1252`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1252-ANCHOR_AUDIT` / `THM-M-1252` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-1252-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1252`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1252-OBLIGATION_TREE` / `THM-M-1252` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-1252-OBLIGATION_TREE` / `THM-M-1252` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1252-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1252`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1252-PROOF` / `THM-M-1252` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1252-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1252`. Gate: rev-5.6 node-specific receipt and master acceptance.
