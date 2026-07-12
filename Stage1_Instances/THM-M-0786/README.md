@@ -16,5 +16,7 @@ human proof is identified but not source-audited, while a highly relevant immuta
 source anchor lacks accepted kernel/trust evidence, a checked statement adapter, and repo-local
 integration. The intake-selected
 Gale-Stewart target now elaborates in `Statement.lean` and is self-tested pending master acceptance;
-this supplies no proof credit. No accepted proof state, audit completion, or theorem completion is
-claimed.
+this supplies no proof credit. The version-1 obligation registry freezes 14 typed nodes and an
+external-theorem adapter route. Its conditional final composition elaborates, but the external
+kernel integration and all substantive transports remain open. No accepted proof state, audit
+completion, or theorem completion is claimed.
