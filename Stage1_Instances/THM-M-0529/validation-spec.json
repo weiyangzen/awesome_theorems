@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0529-VALIDATION",
+  "theorem_id": "THM-M-0529",
+  "recipes": [
+    {
+      "recipe_id": "M0529-kernel-proof-replay",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0529/Proof.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0529-ROOT", "M0529-C-MAP", "M0529-B-HOMEO", "M0529-B-FUNCTOR", "M0529-S-STATEMENT"],
+      "covered_declarations": ["AwesomeTheorems.THM_M_0529.Proof.homologyIsHomeomorphismInvariant"]
+    },
+    {
+      "recipe_id": "M0529-independent-exact-type-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0529/Validation.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0529-ROOT"],
+      "covered_declarations": ["AwesomeTheorems.THM_M_0529.Validation.independentHomologyIsHomeomorphismInvariant"]
+    },
+    {
+      "recipe_id": "M0529-fail-closed-validation",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0529/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0529-ROOT", "M0529-C-MAP", "M0529-B-HOMEO", "M0529-B-FUNCTOR", "M0529-S-STATEMENT"],
+      "covered_declarations": ["AwesomeTheorems.THM_M_0529.Proof.homologyIsHomeomorphismInvariant", "AwesomeTheorems.THM_M_0529.Validation.independentHomologyIsHomeomorphismInvariant"]
+    }
+  ]
+}
