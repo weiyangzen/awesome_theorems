@@ -1,0 +1,86 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0118-RELEASE",
+  "theorem_id": "THM-M-0118",
+  "intent": "release",
+  "base_revision": "8a434aa49a78627cb0f9ce260ee33af4d1f2f174",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0118-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": null,
+    "receipt_support_state": "self_tested_pending_master_acceptance",
+    "receipt_release_grade": false,
+    "receipt_sha256": "946caedcfea64e4466dc310c516d1166ba00d3dd698bba014340111a0eaaae62"
+  },
+  "reconciled_inputs": {
+    "intake.json": "4ba34574a72f01807b03ca4cd0eabd23ae3a82c32bdb0640739dd51ef5feafd9",
+    "statement.json": "7a0f4278d7541fa964698fb24a61565bf586b174d169757e9bfdc61f83b41f53",
+    "anchor-audit.json": "41578e23336f56c795095248961553b6179a93d3ee65b9cac17d200af66d9c65",
+    "obligation-registry.json": "981cad4075d7a43093903441713ad3b8ef5d8c7fa827304b0a2353fcdb2d5a24",
+    "typed-graphs.json": "5ca58a2bf2e2b53f9be7c123254ee1e0d34d72613ec7d2db56236c73462b4014",
+    "Proof.lean": "568e270b3e068f2024f26917ef316fe2588323ed54a21dddb7501fd316542080",
+    "proof-blocker.json": "0f45a5034edb8d232ddafeabf92f1429c1efcf010f3d95473b4ee3947a34dc75",
+    "Validation.lean": "5fe5c42a7837259e9337e6225a42d8d449f193b914f13b4ae5042bc77f024968",
+    "validation-receipt.json": "946caedcfea64e4466dc310c516d1166ba00d3dd698bba014340111a0eaaae62",
+    "check_validation.py": "b4911c4b1bd0e2f4d49c20a783e5c9cf27fbf01172cc4a526347588d29d52db4"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [],
+  "root_vector": {
+    "accepted_before": ["H2", "M4", "R3"],
+    "accepted_after": ["H2", "M4", "R3"],
+    "best_provisional_evidence": ["H5", "M5", "R3"],
+    "boundary": "No phase receipt is master accepted. Provisional validation strengthens the fail-closed diagnosis to H5/M5/R3 because two kernel-checked models refute the disconnected abstract encoding; it cannot promote accepted state."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0118-VALIDATION is only self-tested worker evidence pending master acceptance and has no accepted receipt ID, so release is not dependency-legal."
+  },
+  "first_failed_theorem_gate": {
+    "gate_id": "S56-5.1-EXACT-TARGET-CONSISTENCY",
+    "reason": "The frozen universal target is false: its three geometric predicates and Cohomology family are disconnected, permitting Int and ZMod 2 countermodels at bidegree (1,0)."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0118-VALIDATION and all transitive phase receipts",
+    "replacement of the disconnected abstract fields with native analytic structures and checked cohomology transports",
+    "fresh statement identity, mutations, registry, typed graphs, proof, and validation after statement repair",
+    "kernel closure of the repaired exact root with checked child-to-parent composition",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, foundation, axiom, trust, computation, and TCB closure",
+    "immutable clean source snapshot and empty-cache network-denied cold build",
+    "offline archive replay plus SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI mutation and metamorphic gates",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "proof_phase_countermodel": "Stage1Instances.THMM0118.not_nakanoVanishingTarget using Int",
+    "validation_phase_countermodel": "Stage1Instances.THMM0118.Validation.independent_root_countermodel using ZMod 2",
+    "countermodel_axioms_observed": ["propext", "Quot.sound"],
+    "placeholder_scan": "pass in the scoped Lean validation replay",
+    "exact_positive_root_kernel_closure": "failed: the frozen target has two checked countermodels",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "worktree_classification": "nonrelease worker clone with owned release artifacts and a pre-existing untracked Formalizations/Lean/.lake symlink to shared pinned artifacts",
+  "retry_condition": "Repair and accept the exact statement first, regenerate every dependent phase, and obtain positive exact-root closure. Then close H0/R0, trust, hermetic supply-chain, independent-verifier, deterministic-bundle, dependency-acceptance, and final master gates.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It advances no lifecycle or debt state, accepts no receipt, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release-grade evidence, or master acceptance."
+}

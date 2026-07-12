@@ -13,3 +13,9 @@ for formal execution; the 1887 historical source remains unaudited and is not cr
 The provisional root vector is `[H1, M3, R3]`. The canonical expression elaborates, but it has no
 proof body or accepted proof state. There is no audit completion or theorem completion. The source
 label `已验证` remains untrusted metadata and supplies no rev-5.6 proof credit.
+
+The anchor audit found checked pinned mathlib mean-value and Poisson formulas but no Harnack
+declaration. It also inspected `scottnarmstrong/DeGiorgi` at immutable revision
+`4c1b3077d3782b24065184df4ba59501b2e56fc7`: its placeholder-free divergence-form Harnack theorem
+is adjacent rather than an exact candidate for this `HarmonicOnNhd` compact-subset target. The
+root therefore remains `M3`; see `anchor-audit.json` and `anchor-audit-validation.md`.

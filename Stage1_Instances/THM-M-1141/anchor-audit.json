@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1141-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1141",
+  "base_revision": "b08e4eb319008c958d529196907c5f193beee335",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1141.HarnackInequality",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M1141-A-MATHLIB-BASIC",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.InnerProductSpace.Harmonic.Basic",
+      "declarations": [
+        "InnerProductSpace.HarmonicOnNhd",
+        "InnerProductSpace.HarmonicOnNhd.continuousOn"
+      ],
+      "classification": "supporting anchor only",
+      "result": "supplies the target harmonicity predicate and regularity, but no Harnack comparison"
+    },
+    {
+      "id": "M1141-A-MATHLIB-MEAN-POISSON",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Analysis.Complex.Harmonic.MeanValue",
+        "Mathlib.Analysis.Complex.Harmonic.Poisson"
+      ],
+      "declarations": [
+        "InnerProductSpace.HarmonicOnNhd.circleAverage_eq",
+        "InnerProductSpace.HarmonicOnNhd.circleAverage_poissonKernel_smul"
+      ],
+      "classification": "M0-P for the stated local complex-disc identities only",
+      "result": "useful possible proof-route anchors in real dimension two; neither states the arbitrary-dimensional compact-subset comparison root"
+    },
+    {
+      "id": "M1141-A-DEGIORGI",
+      "source": "scottnarmstrong/DeGiorgi",
+      "revision": "4c1b3077d3782b24065184df4ba59501b2e56fc7",
+      "archive_sha256": "50eedbf2b7900bb45991f1871f6a3583a201aebdaf77b57fabff5f45f4ea996a",
+      "module": "DeGiorgi.Harnack",
+      "declarations": [
+        "DeGiorgi.harnack",
+        "DeGiorgi.harnack_of_homogeneousWeakSolution"
+      ],
+      "toolchain": "leanprover/lean4:v4.29.0-rc6",
+      "mathlib_revision": "5c8398df528176d9c87ccd9226ba8f7c8852d59c",
+      "placeholder_scan": "no Lean source occurrence of sorry or admit and no axiom declaration found in the immutable archive",
+      "classification": "adjacent exact Lean 4 proof, not an exact target candidate",
+      "result": "proves a local essSup/essInf estimate for positive divergence-form weak solutions in dimension greater than two; it does not use HarmonicOnNhd, does not state the compact-K comparison, and is outside the pinned dependency closure"
+    }
+  ],
+  "search": {
+    "repo_local": "case-insensitive Lean-source search found no proof of the canonical target; legacy PDE files contain audit metadata and adjacent wrappers only",
+    "pinned_mathlib": "complete Mathlib/**/*.lean search for Harnack returned no occurrence; harmonic-module declaration inventory located only supporting, mean-value, and Poisson anchors",
+    "external": "GitHub repository search for Harnack Lean4 returned zero repositories; repo-local prior audit identified scottnarmstrong/DeGiorgi, whose immutable main revision and archive were independently resolved and inspected",
+    "limitations": "GitHub unauthenticated code search returned HTTP 401 and grep.app returned HTTP 429; these failed search surfaces are recorded and do not support a negative universal claim"
+  },
+  "root_decision": {
+    "classification": "M3",
+    "kernel_closed": false,
+    "reason": "no exact pinned or external Lean 4 declaration for the canonical compact-subset HarmonicOnNhd target was located",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "arbitrary-dimensional local Harnack estimate for HarmonicOnNhd",
+      "finite compact cover and connected-domain Harnack-chain assembly",
+      "conversion to the uniform ratio bound with C independent of u, x, and y"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false
+}
