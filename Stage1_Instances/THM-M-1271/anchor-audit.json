@@ -1,0 +1,136 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1271-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1271",
+  "audit_date": "2026-07-12",
+  "cutoff_timezone": "Asia/Shanghai",
+  "base_revision": "67392d9b9aeb94afc0b864b86ce8cdd8ace153ad",
+  "depends_on": ["S56-M-1271-STATEMENT"],
+  "canonical_declaration": "Stage1Instances.THM_M_1271.MountainPassTarget",
+  "canonical_source_sha256": "984ec64013fa92caf23696c39017a28b7c8a908224ae8e1018a156734469f70c",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "flt_regular_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "flt_regular_tree": "32c9eace926573a9981787ae97643e520353c893",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "discovery_protocol": {
+    "search_order": [
+      "canonical and legacy repository-local Lean",
+      "pinned mathlib source",
+      "all pinned non-mathlib Lake dependency source trees",
+      "credible external Lean 4 statement collections at immutable revisions",
+      "public GitHub repository index"
+    ],
+    "aliases": [
+      "MountainPass", "mountain pass", "PalaisSmale", "Palais-Smale",
+      "Ambrosetti", "Rabinowitz", "critical point", "deformation lemma",
+      "minimax critical point", "variational methods"
+    ],
+    "network_policy": "Only read-only public APIs were queried. No dependency was cloned, fetched, added, or updated.",
+    "exhaustive_public_search_claimed": false
+  },
+  "candidates": [
+    {
+      "id": "M1271-LOCAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "67392d9b9aeb94afc0b864b86ce8cdd8ace153ad",
+      "module": "Stage1_Instances/THM-M-1271/Statement.lean",
+      "declarations": ["Stage1Instances.THM_M_1271.MountainPassTarget", "Stage1Instances.THM_M_1271.mountainPassTarget_iff_expanded"],
+      "role": "exact_statement_and_definitional_transport",
+      "classification": "M3_no_root_proof_body",
+      "exact_root_closed": false,
+      "result": "The exact proposition and its direct expansion elaborate. The iff theorem is rfl and provides statement identity only."
+    },
+    {
+      "id": "M1271-LOCAL-LEGACY",
+      "project": "awesome_theorems",
+      "revision": "67392d9b9aeb94afc0b864b86ce8cdd8ace153ad",
+      "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_164.lean",
+      "source_sha256": "40b6967b485874d9ed1ab46feaa1bde2bf82ac0c3a53f55aafe77381c7098fd5",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_164.pathEnergy_exists_isMax",
+        "AwesomeTheorems.Stage1.S1_M_164.MountainPassLevel.not_pathLoweringDeformation",
+        "AwesomeTheorems.Stage1.S1_M_164.PalaisSmaleAt.exists_mountainPassCriticalPoint_of_ps_sequence",
+        "AwesomeTheorems.Stage1.S1_M_164.StatementShape"
+      ],
+      "role": "checked_partial_scaffold",
+      "classification": "M0-P_nonterminal_statement_mismatch",
+      "exact_root_closed": false,
+      "result": "The checked legacy file proves compact path maxima, a minimax contradiction, and conditional limit passage. It assumes the deformation output and derivative continuity, uses a different levelwise Palais-Smale predicate, and never proves either its StatementShape or the canonical root."
+    },
+    {
+      "id": "M1271-MATHLIB-CALCULUS",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": ["Mathlib.Analysis.Calculus.ContDiff.Basic", "Mathlib.Analysis.Calculus.FDeriv.Basic"],
+      "declarations": ["fderiv", "ContDiff", "ContDiff.continuous"],
+      "role": "partial_differential_calculus_infrastructure",
+      "classification": "M0-P_nonterminal",
+      "exact_root_closed": false,
+      "result": "The Frechet derivative and smoothness APIs elaborate, but no critical-point existence or deformation result is present."
+    },
+    {
+      "id": "M1271-MATHLIB-PATH-COMPACTNESS",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": ["Mathlib.Topology.Connected.PathConnected", "Mathlib.Topology.Order.Compact", "Mathlib.Topology.Sequences"],
+      "declarations": ["Path", "Path.source", "Path.target", "IsCompact.exists_isMaxOn", "IsCompact.tendsto_subseq", "StrictMono.tendsto_atTop"],
+      "role": "partial_path_and_compactness_infrastructure",
+      "classification": "M0-P_nonterminal",
+      "exact_root_closed": false,
+      "result": "These checked declarations support admissible paths, maximum attainment, and subsequences, but do not construct a Palais-Smale sequence or prove the mountain-pass root."
+    },
+    {
+      "id": "M1271-PINNED-NON-MATHLIB-DEPS",
+      "project": "pinned Lake dependency closure",
+      "revision": "revisions fixed individually by lake-manifest.json",
+      "declarations": [],
+      "role": "local_immutable_dependency_search",
+      "classification": "no_candidate_found",
+      "exact_root_closed": false,
+      "result": "Alias search over flt-regular and every pinned utility dependency source tree found no terminal mountain-pass declaration."
+    },
+    {
+      "id": "M1271-EXTERNAL-FORMAL-CONJECTURES",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "declarations": [],
+      "role": "credible_lean_statement_collection",
+      "classification": "no_candidate_path_in_immutable_tree",
+      "exact_root_closed": false,
+      "result": "The immutable recursive tree response was not truncated and contained no path matching the recorded aliases."
+    },
+    {
+      "id": "M1271-PUBLIC-REPOSITORIES",
+      "project": "GitHub repository search API",
+      "revision": "query responses on 2026-07-12",
+      "queries": ["mountain pass theorem Lean", "mountain pass lemma Lean", "Palais-Smale Lean", "Ambrosetti Rabinowitz Lean", "variational methods Lean theorem prover"],
+      "counts": [0, 0, 0, 0, 0],
+      "declarations": [],
+      "role": "bounded_public_discovery",
+      "classification": "no_credible_candidate_found",
+      "exact_root_closed": false,
+      "result": "All five repository searches returned zero with incomplete_results=false. Unauthenticated GitHub code search was unavailable and grep.app returned HTTP 503, so no exhaustive web claim is made."
+    }
+  ],
+  "root_decision": {
+    "classification": "M3",
+    "kernel_closed": false,
+    "reason": "The exact target elaborates, but the bounded immutable inventory contains only partial infrastructure, a nonterminal legacy scaffold, or negative searches; no proof-bearing exact candidate was found.",
+    "remaining_cut_set": [
+      "mountain-pass barrier crossing and minimax lower bound",
+      "deformation or variational principle producing a Palais-Smale sequence",
+      "compactness limit passage under the canonical global Palais-Smale predicate",
+      "critical value equality and exact canonical-root composition"
+    ]
+  },
+  "audit_complete": true,
+  "theorem_complete": false,
+  "accepted_receipts": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The bounded candidate inventory and classifications are complete for this phase. This is not an exhaustive public-web claim, supplies no proof credit, and does not complete validation, release, or the theorem."
+}
+

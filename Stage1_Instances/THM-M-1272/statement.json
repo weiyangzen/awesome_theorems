@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1272-STATEMENT",
+  "theorem_id": "THM-M-1272",
+  "lifecycle": "planned",
+  "canonical_statement": "Classical Fountain theorem, specialized to a separable real Hilbert space presented by an orthonormal total sequence: an even C1 functional satisfying global Palais-Smale and Fountain geometry has critical points whose values tend to positive infinity.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1272/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1272.FountainTheoremTarget",
+    "elaborated_expression_sha256": "529bd5aeec0b1e9e58034f05dc03531a3fd9063547aeb54b68d5c0821d46cd31",
+    "statement_file_sha256": "da530b9b71de757b21579996e2c90558c2affcb6a1fc0e90517986deb7ee1eec"
+  },
+  "domain_and_universes": "universe u; complete real inner-product space E : Type u; e : Nat -> E; Phi : E -> Real; Prop in Lean universe 0",
+  "ordered_binders": ["E : Type u", "[NormedAddCommGroup E]", "[InnerProductSpace Real E]", "[CompleteSpace E]", "e : Nat -> E", "Phi : E -> Real"],
+  "hypotheses": [
+    "e is orthonormal and closure(span(range e)) = top",
+    "Phi is ContDiff Real 1 and even",
+    "global Palais-Smale compactness",
+    "there are 0 < r_k < rho_k, tail lower bounds b_k tending to infinity, and Phi <= 0 on finite-core rho_k-spheres"
+  ],
+  "conclusion": "There is u : Nat -> E such that every u n is critical and Phi (u n) tends to +infinity.",
+  "direct_imports": ["Mathlib.Analysis.Calculus.ContDiff.Basic", "Mathlib.Analysis.InnerProductSpace.l2Space"],
+  "selection_boundary": "The sparse Stage0 phrase does not identify a publication-level formula. Intake selected the classical Bartsch-Willem variant; this statement makes it concrete as a Hilbert-space specialization. Banach/Schauder-basis, dual-fountain, Cerami, levelwise-PS, and PDE-corollary variants are excluded substitutions.",
+  "checked_statement_transport": "Stage1Instances.THM_M_1272.tendsto_critical_values_unbounded checks that the selected sequence conclusion entails unbounded critical values.",
+  "environment_fingerprint": {
+    "repository_base": "be286e95464895d6966301556151584a57536a1b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1272/check_statement.py",
+    "killed": ["removed evenness", "removed Palais-Smale", "weakened to one critical point", "replaced divergent values by boundedness"]
+  },
+  "degenerate_cases": "The total orthonormal Nat-family rules out zero and finite-dimensional spaces. Strict positivity and r_k < rho_k are explicit. Points need not be declared pairwise distinct because values tending to infinity force infinitely many distinct critical values.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence; no minimax proof, H0 source receipt, audit completion, or theorem completion."
+}
