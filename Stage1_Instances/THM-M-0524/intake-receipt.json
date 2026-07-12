@@ -1,0 +1,22 @@
+{
+  "schema_version": "5.6",
+  "receipt_id": "S56-M-0524-INTAKE-worker-selftest",
+  "item_id": "S56-M-0524-INTAKE",
+  "theorem_id": "THM-M-0524",
+  "base_revision": "e3d0fd205c9c81486cb86f68cdc66d4d4e5bb264",
+  "scope": "intake artifacts only",
+  "commands": [
+    {"argv": ["python3", "Docs/tools/check_stage1_standard.py"], "exit_code": 0, "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"},
+    {"argv": ["python3", "scripts/stage1_target.py", "check"], "exit_code": 0, "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"},
+    {"argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0524"], "exit_code": 0, "result": "rank 896; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0524/instance.json"], "exit_code": 0, "result": "valid JSON"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0524/task-dag.json"], "exit_code": 0, "result": "valid JSON"},
+    {"argv": ["python3", "scoped intake assertions"], "exit_code": 0, "result": "IDs, planned lifecycle, null canonical claim, empty accepted state, open downstream DAG, false completion flags, and artifact inventory agree"},
+    {"argv": ["rg", "-n", "forbidden proof tokens", "Stage1_Instances/THM-M-0524"], "exit_code": 1, "result": "no forbidden proof tokens found"},
+    {"argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0524"], "exit_code": 0, "result": "no whitespace errors"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0524/intake-receipt.json"], "exit_code": 0, "result": "valid JSON after finalization"},
+    {"argv": ["python3", "-m", "json.tool", ".stage1-worker-selftest.json"], "exit_code": 0, "result": "valid JSON after finalization"}
+  ],
+  "result": "pass",
+  "status_boundary": "Worker-local evidence for a planned intake only; not a master acceptance receipt and not statement, source-fidelity, proof, audit-completion, or theorem-completion evidence."
+}

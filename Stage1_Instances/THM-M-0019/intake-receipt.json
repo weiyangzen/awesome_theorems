@@ -1,0 +1,21 @@
+{
+  "schema_version": "5.6",
+  "receipt_id": "S56-M-0019-INTAKE-worker-selftest",
+  "item_id": "S56-M-0019-INTAKE",
+  "theorem_id": "THM-M-0019",
+  "base_revision": "e3d0fd205c9c81486cb86f68cdc66d4d4e5bb264",
+  "scope": "intake artifacts only",
+  "commands": [
+    {"argv": ["python3", "Docs/tools/check_stage1_standard.py"], "exit_code": 0, "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"},
+    {"argv": ["python3", "scripts/stage1_target.py", "check"], "exit_code": 0, "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"},
+    {"argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0019"], "exit_code": 0, "result": "rank 897; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0019/instance.json"], "exit_code": 0, "result": "valid JSON"},
+    {"argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0019/task-dag.json"], "exit_code": 0, "result": "valid JSON"},
+    {"cwd": "Formalizations/Lean", "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0019/IntakeProbe.lean"], "exit_code": 0, "result": "six nearby pinned number-field, ideal, and conjugacy APIs elaborated under Lean 4.29.0"},
+    {"argv": ["rg", "-ni", "chebotarev|chebotaryov|tschebotareff", "Formalizations/Lean/.lake/packages/mathlib/Mathlib"], "exit_code": 1, "result": "no name matches in pinned mathlib; bounded discovery only"},
+    {"argv": ["python3", "scoped intake assertions"], "exit_code": 0, "result": "IDs, planned lifecycle, null target, empty accepted state, open downstream DAG, false completion flags, and artifact inventory agree"},
+    {"argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0019"], "exit_code": 0, "result": "no whitespace errors"}
+  ],
+  "result": "pass",
+  "status_boundary": "Worker-local evidence for a planned intake only; not a master acceptance receipt and not statement or theorem evidence."
+}

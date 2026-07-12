@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "receipt_id": "S56-M-1333-RELEASE-local-20260712T133110Z",
+  "item_id": "S56-M-1333-RELEASE",
+  "theorem_id": "THM-M-1333",
+  "base_revision": "e3d0fd205c9c81486cb86f68cdc66d4d4e5bb264",
+  "base_tree": "9063477e2d1f859062bd7ff425c667e32af022ce",
+  "validated_at": "2026-07-12T13:31:10Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "master_acceptance": "pending_and_not_claimed",
+  "dependency": {
+    "item_id": "S56-M-1333-VALIDATION",
+    "receipt_id": "S56-M-1333-VALIDATION-local-20260712T132214Z",
+    "receipt_sha256": "f559c4a7b7cb155bdc0ed7aaa095d33891884182e258ad2e8d4bab0e6da8e4c1",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "evidence_reconciliation": {
+    "canonical_statement_elaborated": true,
+    "partial_proof_kernel_replayed": true,
+    "exact_root_kernel_closed": false,
+    "authoritative_graph_reconciled": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "hermetic_cold_offline_replay": false,
+    "tcb_sbom_license_closure": false,
+    "independent_clean_runner_attestation": false,
+    "independently_implemented_minimal_verifier": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H2", "M4", "R3"],
+    "root_vector_after": ["H2", "M4", "R3"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "accepted_receipt_ids": [],
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-1333-VALIDATION has only provisional worker evidence and is not master-accepted."
+    },
+    "next_failed_theorem_gate": {
+      "gate_id": "proof.root_kernel_closure",
+      "reason": "The positive-dimensional continuity-only Peano existence branch has no checked proof body."
+    },
+    "remaining_root_cut_set": [
+      "M1333-C-EULER",
+      "M1333-C-INVARIANTS",
+      "M1333-L-COMPACT",
+      "M1333-L-INTEGRAL",
+      "M1333-L-DERIV",
+      "H0 primary-source mapping and independent review",
+      "R0 readable reconstruction and independent review",
+      "cold empty-cache network-denied replay with TCB/SBOM/license closure",
+      "two signed attestations from distinct independently provisioned runners",
+      "independently implemented minimal release verifier",
+      "deterministic content-addressed release bundle",
+      "master acceptance"
+    ],
+    "status_boundary": "Truthful negative worker release reconciliation only. It supplies no accepted prerequisite, M0 root, AUDIT-Z, THEOREM-Z, release-grade evidence, accepted receipt, or master acceptance."
+  },
+  "known_failures": [
+    "The validation dependency is provisional and not master-accepted.",
+    "The exact root remains M4: only the zero-dimensional branch and conditional dimension assembly are checked.",
+    "The frozen graph predates partial proof evidence and has not been reconciled by the master.",
+    "Primary-source H0 and independently reviewed R0 evidence are absent, so AUDIT-Z is false.",
+    "The warm shared .lake run is not an immutable cold offline reproduction and has no complete TCB, SBOM, license, or restoration packet.",
+    "No distinct independently provisioned verifier, second signature, independently implemented minimal verifier, or deterministic release bundle exists.",
+    "Only the integration lane may accept receipts and advance authoritative state."
+  ],
+  "retry_condition": "Master-accept the prerequisite only after its gates pass; close and compose the five positive-dimensional obligations, reconcile structured state, independently accept H0/R0, and produce hermetic supply-chain, independent-verifier, and deterministic-bundle evidence.",
+  "freshness": {
+    "review_due": "before any retry and upon any invalidation input change",
+    "supersession_state": "current provisional worker release decision",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "invalidation_inputs": [
+    "release-spec.json",
+    "check_release.py",
+    "validation-receipt.json",
+    "validation-spec.json",
+    "statement.json",
+    "Statement.lean",
+    "proof-receipt.json",
+    "Proof.lean",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "rev-5.6 assurance standard"
+  ]
+}
