@@ -1,0 +1,224 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1423-INTAKE-WORKER-20260712",
+  "item_id": "S56-M-1423-INTAKE",
+  "theorem_id": "THM-M-1423",
+  "intent": "intake",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "3d1d6d3eb018f17657cae1cfd7d25fc30492a12b",
+  "base_tree": "3aa3dd324b35549da6cf2c5a54183a63ed1bfff9",
+  "worker_branch_or_worktree": "isolated scheduler worker slot12",
+  "worktree_state": "nonrelease_dirty_due_to_owned_untracked_intake_artifacts_and_a_preexisting_automation_lake_symlink",
+  "preexisting_untracked_paths": [
+    "Formalizations/Lean/.lake"
+  ],
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:52f2a56ce13c751df7bc74e061438b11578cf1f2b16379c6c414204f1682c1b6",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f"
+  },
+  "source_evidence": {
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_source_record_sha256": "12f4236f76c8f9c2089957a6087800999eb48f3fa3959f59570a78180968e089",
+    "ambiguity_witnesses": [
+      "Flandoli-Gess-Scheutzow, DOI 10.1007/s00440-016-0716-2, arXiv:1411.1340v2, Theorems 2.14/2.23, PDF sha256 e0f4b7bf...cc18; nonselected synchronization variants",
+      "Flandoli-Gess-Scheutzow, DOI 10.1214/16-AOP1088, arXiv:1503.08737v2, Theorem 2.6, PDF sha256 2a4e274a...b0a; nonselected weak-synchronization variant",
+      "Hairer-Mattingly-Scheutzow, DOI 10.1007/s00440-009-0250-6, arXiv:0902.4495v2, Theorem 1.1, PDF sha256 58e8732e...0d7; nonselected asymptotic-coupling/ergodicity variant"
+    ],
+    "proof_body_locations": []
+  },
+  "worker_input_hashes": {
+    "lean_toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lake_symlink_target_string": "sha256:e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "validated_scope": "planned dossier, scope map, source-statement crosswalk, adjacent pinned API probe, and open downstream task DAG only",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1423/README.md",
+    "Stage1_Instances/THM-M-1423/instance.json",
+    "Stage1_Instances/THM-M-1423/scope-map.md",
+    "Stage1_Instances/THM-M-1423/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1423/task-dag.json",
+    "Stage1_Instances/THM-M-1423/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1423/check_intake.py",
+    "Stage1_Instances/THM-M-1423/validation.md",
+    "Stage1_Instances/THM-M-1423/intake-receipt.json"
+  ],
+  "diff_summary": "Created a nine-file fail-closed planned intake dossier; no existing or foreign target path was modified.",
+  "exact_statement_change": "No exact mathematical or Lean statement was added. The intake freezes that the supplied method label and synchronization gloss are not a stable proposition and leaves the canonical target null.",
+  "proof_body_locations": [],
+  "commands_and_results": [
+    {
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-1423"],
+      "exit_code": 0,
+      "result": "rank 921; planned; L0/rework_required; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": ["git", "blame", "-L", "10397,10402", "--", "Docs/researches/math_theorems.md"],
+      "exit_code": 0,
+      "result": "all six catalog lines originate at commit bcf3f9fa79ab8c2b6610c9875668c2589b35b74f"
+    },
+    {
+      "argv": ["curl", "DOI metadata and immutable arXiv manuscripts for three coupling/synchronization candidates", "and", "sha256sum/pdfinfo/pdftotext", "candidate PDFs"],
+      "exit_code": 0,
+      "result": "metadata and immutable manuscript hashes confirmed; Theorems 2.14/2.23, 2.6, and 1.1 inspected only to demonstrate incompatible synchronization and asymptotic-coupling variants"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1423/instance.json"],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1423/task-dag.json"],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1423/intake-receipt.json"],
+      "exit_code": 0,
+      "result": "valid JSON after finalization"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "valid JSON after finalization"
+    },
+    {
+      "argv": ["python3", "Stage1_Instances/THM-M-1423/check_intake.py"],
+      "exit_code": 0,
+      "result": "target identity, planned lifecycle, H5/M4/R4 boundary, null formal target, empty accepted state, exact artifact inventory, and six open downstream tasks agree"
+    },
+    {
+      "env": {"PYTHONPYCACHEPREFIX": "/tmp/stage1-thm-m-1423-pycache"},
+      "argv": ["python3", "-m", "py_compile", "Stage1_Instances/THM-M-1423/check_intake.py"],
+      "exit_code": 0,
+      "result": "intake validator compiles"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, x86_64 Linux"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1423/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "ten adjacent pinned kernel, Markov, distribution, marginal, map, convergence, and metric APIs elaborated; the probe states no target theorem"
+    },
+    {
+      "argv": ["git", "-C", "Formalizations/Lean/.lake/packages/mathlib", "rev-parse", "HEAD"],
+      "exit_code": 0,
+      "result": "8a178386ffc0f5fef0b77738bb5449d50efeea95; package status clean"
+    },
+    {
+      "argv": ["sha256sum", "Formalizations/Lean/lean-toolchain", "Formalizations/Lean/lake-manifest.json"],
+      "exit_code": 0,
+      "result": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2 and 321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+    },
+    {
+      "argv": ["rg", "bounded random-system synchronization/coupling theorem-name query", "Formalizations/Lean/.lake/packages/mathlib/Mathlib", "--glob", "*.lean"],
+      "exit_code": 1,
+      "result": "expected no-match result; two unrelated Gromov-Hausdorff coupling modules identified separately; intake discovery only, not an exhaustive anchor audit"
+    },
+    {
+      "argv": ["rg", "prohibited Lean proof constructs", "Stage1_Instances/THM-M-1423", "--glob", "*.lean"],
+      "exit_code": 1,
+      "result": "expected no-match result; no sorry, admit, sorryAx, axiom, constant, or opaque declaration"
+    },
+    {
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-1423", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "no whitespace error; check_intake.py independently validates every untracked owned file"
+    }
+  ],
+  "root_vector_before": {
+    "H": "unclassified",
+    "M": "unclassified",
+    "R": "unclassified"
+  },
+  "root_vector_after": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "debt_delta_basis": "H5 records that the catalog method label and synchronization gloss are not a stable proposition, not that any standard coupling or synchronization theorem is false or open. No exact usable formal artifact or proof reconstruction is identified.",
+  "axiom_and_placeholder_result": "No theorem declaration or proof body was added. The scoped Lean scan found no sorry, admit, sorryAx, axiom, constant, or opaque declaration in the API-only probe.",
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "owner": "Stage1 integration lane",
+  "validation_started_at": "2026-07-12T22:50:30+08:00",
+  "validation_ended_at": "2026-07-12T23:00:30+08:00",
+  "validated_at": "2026-07-12T23:00:30+08:00",
+  "review_due": "before master acceptance or any dependent statement work",
+  "invalidation_inputs": [
+    "source or target correction",
+    "canonical statement",
+    "stochastic model and probability/noise/state/time choices",
+    "coupling construction, marginals, and adaptedness choices",
+    "synchronization predicate, convergence mode, quantifiers, and boundary cases",
+    "Lean target",
+    "toolchain or dependency pin",
+    "assurance profile",
+    "validator",
+    "any owned artifact"
+  ],
+  "support_state": "provisional_worker_only",
+  "supersession_state": "current_unsuperseded_worker_report",
+  "incident_path": "integration lane rejects or supersedes this report and requires a fresh scoped self-test",
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-1423"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1423/README.md",
+    "Stage1_Instances/THM-M-1423/scope-map.md",
+    "Stage1_Instances/THM-M-1423/source-statement-crosswalk.md"
+  ],
+  "change_impact_set": [
+    "S56-M-1423-INTAKE"
+  ],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "the supplied catalog method label and synchronization gloss do not form a stable truth-valued proposition",
+  "remaining_root_cut_set": [
+    "S56-M-1423-STATEMENT",
+    "S56-M-1423-ANCHOR_AUDIT",
+    "S56-M-1423-OBLIGATION_TREE",
+    "S56-M-1423-PROOF",
+    "S56-M-1423-VALIDATION",
+    "S56-M-1423-RELEASE"
+  ],
+  "known_failures": [
+    "An approved target correction, exact immutable primary-source theorem, assumptions, convergence boundary, errata review, and independent source review are open.",
+    "Canonical Lean target, exact imports, elaborated expression and environment fingerprints, checked transports, and statement mutations are open.",
+    "Formal anchor, discovery protocol, obligation registry, typed graphs, proof, composition, hermetic replay, deterministic bundle, and independent release gates are open.",
+    "Ordinary theorem-proof execution is blocked by H5 until the target becomes a stable proposition.",
+    "Master acceptance is pending."
+  ],
+  "selftest_result": "pass",
+  "status_boundary": "Worker self-tested intake proposal only. No statement, proof, audit-completion, theorem-completion, or master-acceptance credit is asserted."
+}
