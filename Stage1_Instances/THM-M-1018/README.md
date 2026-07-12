@@ -33,3 +33,9 @@ claimed.
 
 The commands and results in `validation.md` establish target membership, repository-standard
 consistency, JSON syntax, and dossier-local structure only.
+
+The subsequent statement-phase artifact `Statement.lean` freezes and kernel-elaborates the exact
+interval-mass target with one direct pinned mathlib import. `statement-validation.md` records its
+normalization, checked binder-explicit transport, mutation probes, environment fingerprint, and
+successful narrow Lean command. This is statement evidence only; H0, proof closure, and theorem
+completion remain unclaimed.
