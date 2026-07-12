@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1028-VALIDATION-local-20260712T005757Z",
+  "item_id": "S56-M-1028-VALIDATION",
+  "theorem_id": "THM-M-1028",
+  "base_revision": "8509654fd1347228b71158b61f9f700360aa1691",
+  "base_tree": "5006c172713450ae34bc602476dad1b9bcdc8e1e",
+  "validated_at": "2026-07-12T00:57:57Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "statement_sha256": "ed1e047de690606ca699b5dcc5adf1daf8549302c6e20e34aa7491f33281b6dc",
+    "obligation_tree_sha256": "532464539b37410c3a5af6ad635f09a83d13ec42c0ccb5491636a6450c7a1b2e",
+    "proof_sha256": "bcd59287bd9d8e10d5795900f402b0533692502a686cec7977c6fe7076ac3e29",
+    "independent_probe_sha256": "e7b528d69a365e9c012ea3f7e56a28efb44334b09497ee0bcecada2281d46ca7",
+    "obligation_registry_sha256": "ed8cbad6d6db6aed7b7dd0a5223bddfe78989dd88e41300def44de3bb6bfcaee",
+    "typed_graphs_sha256": "62fbc1f7299233794e8f06018692510b45b814ca6a96e02c398a9dec3ff22415",
+    "validation_spec_sha256": "a5e263859c0f5753dced236cb4787bbe94e42bc025418a74e73601d8cf654ad0",
+    "validator_sha256": "02df3cc18086487af6c596fb63009cfce1ce031a7a449dac3e1dadc57eacf70b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink reused without update, build, fetch, or clone",
+    "worktree_classification": "nonrelease worker checkout with validation artifacts and pre-existing untracked .lake symlink"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1028/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Exact Statement, conditional composition, and independently reconstructed conditional composition kernel-replayed; frozen hashes, denominator, open-root boundary, dependency pins, placeholder policy, and classical axiom profile passed.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "validated_closed_obligation_ids": ["M1028-T-MERGE-EVENTS", "M1028-T-ASSEMBLE"],
+    "conditional_on_open_obligation_ids": ["M1028-C-CONTINUOUS-MODIFICATION", "M1028-T-NONDIFFERENTIABLE"],
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "validation_state_proposal": "worker self-test passed for truthful partial validation; pending master acceptance"
+  },
+  "known_failures": [
+    "The exact Wiener root remains M2 because the continuous-modification and almost-sure nowhere-differentiability packages remain M4 premises.",
+    "The worker reused the canonical warm dependency cache and did not perform an empty-cache cold build or offline archive restoration.",
+    "Validation.lean is independently implemented but ran in the same checkout and shared read-only dependencies; it is not a distinct signed independent runner.",
+    "No complete transitive root provenance/trust closure, H0/R0 independent review, SBOM/license archive, protected CI result, or deterministic release bundle exists."
+  ],
+  "first_failed_gate": "S56-M-1028-VALIDATION-DEPENDENCY-ROOT-OPEN",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Kernel-close and master-accept both substantive path packages, then validate an immutable clean snapshot with empty caches, network denied, and a distinct independently provisioned verifier."
+}
