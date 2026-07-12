@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1244-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1244",
+  "canonical_declaration": "Stage1Instances.THM_M_1244.GaussianLogSobolevTarget",
+  "environment": {
+    "base_revision": "c00bc6793b3d4c186b81b80bbaf165b32e125b58",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "mathlib_audit": {
+    "scope": "all Lean sources in the pinned mathlib package",
+    "search_terms": [
+      "LogSobolev",
+      "logSobolev",
+      "logarithmic Sobolev",
+      "log Sobolev",
+      "log-sobolev",
+      "entropy.*gaussian",
+      "gaussian.*entropy"
+    ],
+    "terminal_candidate_found": false,
+    "supporting_interfaces": [
+      "ProbabilityTheory.gaussianReal",
+      "MeasureTheory.Measure.pi",
+      "MeasureTheory.MemLp.integrable_sq"
+    ],
+    "classification": "supporting_api_only"
+  },
+  "repo_local_prior_artifact": {
+    "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_279.lean",
+    "role": "discovery record only",
+    "proof_credit": false
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/YuanheZ/lean-stat-learning-theory",
+      "revision": "7b82b1323c80f0c21ca449fd12e1c24315ae9782",
+      "commit_tree": "cadf7aacaa985a23249e2616a4417372d4542fd2",
+      "commit_verified_by_github": true,
+      "module": "SLT.GaussianLSI.TensorizedGLSI",
+      "source_path": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "source_blob": "2681f02ad1af5edb23b82e824263e82d2999c7e0",
+      "source_sha256": "22eefaf07248a28de214b07154ecd953e50ed7c9432931ac9e2fe34ea9c45e29",
+      "declaration": "GaussianLSI.gaussian_logSobolev_W12_pi",
+      "terminal_body": "by proof in the pinned source file",
+      "placeholders_observed_in_candidate_file": false,
+      "unsafe_or_oracle_boundary_observed": false,
+      "toolchain": "leanprover/lean4:v4.27.0-rc1",
+      "mathlib_revision": "d68c4dc09f5e000d3c968adae8def120a0758729",
+      "license": "Apache-2.0 header in source files",
+      "relation_to_canonical_target": "near anchor, not an exact-type candidate",
+      "mismatches": [
+        "The external energy is a sum of squared coordinate derivatives; the canonical target uses the squared operator norm of fderiv on Lean's product norm.",
+        "The external regularity assumptions are Differentiable plus coordinate-gradient continuity and MemW12GaussianPi; the canonical assumptions are ContDiff Real 1 plus three explicit Integrable hypotheses.",
+        "A checked bridge between GaussianMeasure.stdGaussianPi and the canonical standardGaussian is not present in this repository.",
+        "A checked bridge between LogSobolev.entropy and the canonical zero-safe xlogx entropy is not present in this repository."
+      ],
+      "repo_local_import_checked": false,
+      "classification": "external_upstream_anchor_only"
+    },
+    {
+      "repository": "https://github.com/YuanheZ/lean-stat-learning-theory",
+      "revision": "7b82b1323c80f0c21ca449fd12e1c24315ae9782",
+      "module": "SLT.GaussianLSI.OneDimGLSI",
+      "source_path": "SLT/GaussianLSI/OneDimGLSI.lean",
+      "source_blob": "fb6346d219f816f87794056502670e5cc5f881fd",
+      "source_sha256": "d3e36df5fcc34c1e61be53e538f457c0a657e36929f60dea92fc90b8c661001b",
+      "declaration": "GaussianSobolevReal.gaussian_logSobolev_W12_real",
+      "relation_to_canonical_target": "one-dimensional supporting anchor only",
+      "repo_local_import_checked": false,
+      "classification": "external_upstream_anchor_only"
+    }
+  ],
+  "audit_verdict": "candidate_inventory_complete_no_exact_repo_local_anchor",
+  "machine_debt": "formalization_debt",
+  "root_machine_state": "M4",
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The audit identifies an immutable external formalization but neither imports it nor credits it as closure. The energy mismatch prevents an exact wrapper for the frozen canonical target."
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1250-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1250",
+  "base_revision": "950964e64a8a340a562abdc58bb0987c439a6f11",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1250.SchwartzSpaceCharacterization",
+  "canonical_target_expression_sha256": "367a6b23168c88dcc5023a4d82bff17b496187a25303b4f81871a321750205f0",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_worktree_clean": true
+  },
+  "candidates": [
+    {
+      "id": "M1250-A-MATHLIB-STRUCTURE",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Distribution.SchwartzSpace.Basic",
+      "declaration": "SchwartzMap",
+      "type": "structure with toFun, smooth' : ContDiff Real top toFun, and decay' : forall k n, exists C, forall x, norm x ^ k * norm (iteratedFDeriv Real n toFun x) <= C",
+      "classification": "M0-P for the bundled definition only",
+      "axioms": [],
+      "terminal_body": "inductive structure declaration in Basic.lean lines 69-78 at the pinned revision",
+      "result": "exact semantic anchor for both directions of the frozen characterization, but this audit does not install a root proof"
+    },
+    {
+      "id": "M1250-A-MATHLIB-SMOOTH",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Distribution.SchwartzSpace.Basic",
+      "declaration": "SchwartzMap.smooth",
+      "type": "(f : SchwartzMap E F) -> (n : ENat) -> ContDiff Real n f",
+      "classification": "M0-P",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "terminal_body": "projection smooth' weakened by ContDiff.of_le",
+      "result": "closes the forward smoothness component only"
+    },
+    {
+      "id": "M1250-A-MATHLIB-DECAY",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Distribution.SchwartzSpace.Basic",
+      "declaration": "SchwartzMap.decay",
+      "type": "(f : SchwartzMap E F) -> forall k n, exists C : Real, 0 < C and forall x, norm x ^ k * norm (iteratedFDeriv Real n f x) <= C",
+      "classification": "M0-P",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "terminal_body": "decay' projection with bound enlarged to max C 1",
+      "result": "closes the forward rapid-decay component only"
+    },
+    {
+      "id": "M1250-A-MATHLIB-SEMINORMS",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Distribution.SchwartzSpace.Basic",
+      "declarations": [
+        "SchwartzMap.le_seminorm",
+        "SchwartzMap.seminorm_le_bound"
+      ],
+      "classification": "M0-P",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "result": "checked two-way bridge between pointwise derivative bounds and mathlib's seminorm API; not itself the existential root"
+    },
+    {
+      "id": "M1250-A-EXTERNAL-SEARCH",
+      "source": "public GitHub repository metadata search",
+      "revision": "search performed 2026-07-12",
+      "queries": [
+        "SchwartzMap language:Lean",
+        "Schwartz space language:Lean",
+        "rapidly decreasing language:Lean"
+      ],
+      "classification": "M4",
+      "result": "no separate relevant Lean repository was identified; the sole repository returned by a broader Schwartz/Lean search formalizes the unrelated Schwartz-Zippel lemma",
+      "limitation": "GitHub unauthenticated repository metadata search is discovery evidence, not an exhaustive code-index proof"
+    }
+  ],
+  "search": {
+    "repo_local": "searched all repository and materialized dependency Lean sources for the frozen declaration name, IsSchwartzFunction, existential SchwartzMap representatives, and the decay' field",
+    "pinned_dependencies": "inspected the exact Basic.lean source and git provenance in the clean mathlib worktree at the manifest revision",
+    "external": "queried public GitHub repository metadata for SchwartzMap, Schwartz space, and rapidly decreasing Lean projects without fetching or adding a dependency",
+    "limitations": "no separate credible external Lean 4 candidate was found; no claim of an exhaustive internet-wide search is made"
+  },
+  "root_decision": {
+    "classification": "M1",
+    "kernel_closed": false,
+    "reason": "the pinned structure and projections are an exact, dependency-legal proof route, but the assigned audit phase deliberately does not implement or validate the root proof body",
+    "integration_tasks": [
+      "construct a SchwartzMap from the reverse-direction smoothness and decay witnesses",
+      "transport the bundled toFun equality through the forward-direction projections",
+      "kernel-check the resulting exact root and audit its axioms in the proof phase"
+    ],
+    "remaining_cut_set": [
+      "exact checked root wrapper assembled from SchwartzMap.mk, smooth, and decay'"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": true,
+  "theorem_complete": false,
+  "status_boundary": "This receipt completes immutable candidate discovery and classification only. It neither executes the proof node nor claims theorem completion."
+}
