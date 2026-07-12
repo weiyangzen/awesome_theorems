@@ -1,0 +1,82 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0649",
+  "item_id": "S56-M-0649-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 695,
+  "legacy_priority_slot": null,
+  "name_zh": "初等链定理",
+  "name_en": "Elementary chain theorem (Tarski union theorem)",
+  "category": "mathematical logic / model theory",
+  "target_system": "Lean 4 + mathlib",
+  "canonical_claim_status": "human_scope_frozen_formal_encoding_open",
+  "canonical_claim": "Let (M_i) be a nonempty linearly ordered increasing chain of structures for one first-order language. If M_i is an elementary substructure of M_j whenever i <= j, then the induced union structure U is an elementary extension of every M_i.",
+  "canonical_formal_target": {
+    "status": "open",
+    "module_candidates": [
+      "Mathlib.ModelTheory.ElementarySubstructures",
+      "Mathlib.ModelTheory.DirectLimit"
+    ],
+    "declaration": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null
+  },
+  "domain_and_universes": "One first-order language L; a nonempty linear order I; an I-indexed compatible family of nonempty L-structures and elementary inclusion maps. Exact universe levels and same-carrier-substructure versus typed-direct-system encoding remain open.",
+  "quantifiers": [
+    "first-order language L",
+    "nonempty linearly ordered index type I",
+    "I-indexed family of L-structures M_i",
+    "compatible elementary inclusions M_i to M_j for i <= j",
+    "index i in I"
+  ],
+  "hypotheses": [
+    "the index order is nonempty and linear",
+    "the family is increasing through compatible inclusions",
+    "each transition inclusion is elementary"
+  ],
+  "conclusion": "The canonical inclusion of each M_i into the induced union structure is elementary.",
+  "alternate_encodings": [
+    {
+      "target": "a directed family of elementary substructures of one ambient L-structure whose substructure supremum is elementary",
+      "relationship": "intended equivalent presentation after a checked common-ambient/direct-limit transport",
+      "checked_witness": null,
+      "status": "open"
+    },
+    {
+      "target": "the direct limit of a linearly ordered system of elementary embeddings, with every structure mapping elementarily into the limit",
+      "relationship": "intended equivalent presentation",
+      "checked_witness": null,
+      "status": "open"
+    }
+  ],
+  "excluded_degenerate_cases": "The empty chain is excluded because there is no member whose elementary extension is asserted and its union need not be a nonempty model. Singleton chains are included. No countability, ordinal indexing, finite language, or fixed ambient carrier assumption may be added without a checked transport.",
+  "source_status": "repository_wording_frozen_primary_theorem_page_and_errata_open",
+  "root_vector": {"H": "H2", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Lean 4 dependent type theory; classical/choice requirements of the eventual construction and proof remain to be audited",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are candidate components; exact imports, declaration closure, and axiom profile remain open",
+  "computation_profile": "noncomputable structural theorem expected; no oracle, experiment, or unchecked certificate is intended",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0649"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned",
+    "formal_reviewer": "unassigned"
+  },
+  "freshness_and_revocation_policy": "Invalidate on canonical wording, source edition, chain encoding, Lean target, toolchain, mathlib pin, profile, or validator change; independent review and review due date remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "Planned intake only. Checked library ingredients are discovery evidence; there is no exact Lean target, source acceptance, obligation registry, proof credit, accepted task state, audit completion, or theorem completion."
+}

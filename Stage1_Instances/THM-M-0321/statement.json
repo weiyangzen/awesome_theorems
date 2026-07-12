@@ -1,0 +1,42 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0321",
+  "item_id": "S56-M-0321-STATEMENT",
+  "canonical_name": "Markov-Kakutani fixed-point theorem",
+  "canonical_statement": "Let K be a nonempty compact convex subset of a Hausdorff locally convex real topological vector space. Every pairwise commuting family of continuous affine maps from K into itself has a common fixed point in K.",
+  "canonical_formal_target": {
+    "backend": "Lean 4",
+    "module": "Stage1_Instances/THM-M-0321/Statement.lean",
+    "minimal_import": "Mathlib.Topology.Algebra.Module.LocallyConvex",
+    "declaration": "Stage1Instances.THM_M_0321.MarkovKakutaniTarget",
+    "expression_sha256": "7a9628fca04eb72d787efad1f852517f4385377b3ad16f3eba662ccea4bb86a5"
+  },
+  "domain_and_universes": "E : Type u; I : Type v; real topological module E with AddCommGroup, Module Real, TopologicalSpace, T2Space, IsTopologicalAddGroup, ContinuousSMul Real, and LocallyConvexSpace Real",
+  "ordered_binders": ["E", "ambient instances", "I", "K", "f"],
+  "hypotheses": [
+    "K.Nonempty",
+    "IsCompact K",
+    "Convex Real K",
+    "each f i maps K into K",
+    "each f i is continuous on K",
+    "each f i preserves convex two-point real combinations on K",
+    "the family commutes pairwise on K"
+  ],
+  "conclusion": "there exists x in K fixed by every f i",
+  "alternate_encodings": [{
+    "target": "Stage1Instances.THM_M_0321.EqOnCommutationTarget",
+    "relationship": "iff",
+    "checked_witness": "Stage1Instances.THM_M_0321.markovKakutaniTarget_iff_eqOnCommutationTarget"
+  }],
+  "boundary_cases": "The index type may be empty; emptyFamily_boundary checks that the conclusion then reduces to K.Nonempty.",
+  "mutation_tests": [
+    "mutationRemovedCompactness",
+    "mutationChangedDomain",
+    "mutationChangedBinderScope",
+    "mutationNonemptyIndex"
+  ],
+  "foundation_profile": "Statement only; no classical axiom or choice is invoked by the declarations in this phase.",
+  "tcb_profile": "Lean kernel, leanprover/lean4:v4.29.0, and the repository-pinned mathlib closure reused without dependency mutation.",
+  "computation_profile": "Pure Prop statement; no oracle, experiment, native computation, or proof result.",
+  "status_boundary": "The exact formal target elaborates. This is statement evidence only, not a proof, source audit, audit completion, theorem completion, or master acceptance."
+}
