@@ -29,6 +29,13 @@ transport; weak duality; compactness and lower semicontinuity of the primal; sig
 normalization; separation/minimax or c-transform reverse inequality; equality wrapper. This is only
 a scope map, not a frozen obligation registry.
 
+## Statement status
+
+The dependent statement phase now freezes the exact expression in `Statement.lean` and records its
+hashes, environment, mutations, and minimal imports in `statement.json` and
+`statement-validation.md`. This is provisional statement evidence only; it does not change the
+planned lifecycle or prove either duality inequality.
+
 ## Intake verdict
 
 Lifecycle is `planned`, root vector is `[H1, M3, R3]`, and theorem completion is false. The first

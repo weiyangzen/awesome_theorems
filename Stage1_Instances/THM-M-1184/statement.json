@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1184-STATEMENT",
+  "theorem_id": "THM-M-1184",
+  "lifecycle": "planned",
+  "canonical_statement": "For probability measures mu and nu on compact metric Borel spaces and a continuous real-valued cost c, the infimum of the cost integral over probability couplings equals the supremum of the integrals of signed continuous real potentials phi and psi satisfying phi(x) + psi(y) <= c(x,y).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1184/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1184.KantorovichDualityTarget",
+    "elaborated_expression_sha256": "edb496494c51e51e63988c1b32c3fd639f1c911af60db1557a364968ff01cc29",
+    "statement_file_sha256": "e9f16cca64ccfd408080d8165c852d8b31fe547c6be121e98a2cba931319fbb2"
+  },
+  "domain_and_universes": "universes u v; compact metric spaces X : Type u and Y : Type v with explicit measurable structures satisfying BorelSpace; probability measures mu and nu; continuous c : X x Y -> Real",
+  "ordered_binders": [
+    "X : Type u", "Y : Type v",
+    "[MetricSpace X]", "[MeasurableSpace X]", "[BorelSpace X]", "[CompactSpace X]",
+    "[MetricSpace Y]", "[MeasurableSpace Y]", "[BorelSpace Y]", "[CompactSpace Y]",
+    "mu : ProbabilityMeasure X", "nu : ProbabilityMeasure Y", "c : X x Y -> Real"
+  ],
+  "hypotheses": ["Continuous c"],
+  "conclusion": "sInf of real Bochner-integral costs over probability couplings equals sSup of the real integral objectives over signed continuous feasible potential pairs",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "minimal_import_evidence": "Bochner.Basic alone does not expose ProbabilityMeasure (negative probe: unknown identifier); ProbabilityMeasure alone does not supply integral notation and Bochner integration, so both direct imports represent the two used API surfaces.",
+  "historical_candidate_relationship": "The historical AwesomeTheorems.Stage1.S1_M_169.CompactMetricStatementShape is deliberately not transported: it quantifies lower-semicontinuous ENNReal costs, uses nonnegative measurable ENNReal potentials, and concludes Nonempty of an auxiliary data package. These are not equivalent by unfolding to this signed-real equality.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1184/check_statement.py",
+    "killed": [
+      "removed cost continuity",
+      "changed the cost codomain to ENNReal",
+      "restricted potentials to nonnegative values",
+      "weakened equality to weak duality"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_1184.zero_cost_dual_nonempty"]
+  },
+  "degenerate_cases": "Empty carrier types cannot support a ProbabilityMeasure, so no separate Nonempty binder is added. Zero cost admits the signed zero potential pair by a kernel-checked constructor. Constant costs, Dirac marginals, and singleton spaces remain admitted without extra hypotheses.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the intake-selected target only. It proves neither weak nor strong Kantorovich duality and gives no credit to later rev-5.6 nodes."
+}
