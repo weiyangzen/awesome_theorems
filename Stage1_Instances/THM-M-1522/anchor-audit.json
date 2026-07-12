@@ -1,0 +1,94 @@
+{
+  "schema_version": "stage1-rev-5.6-anchor-audit-v1",
+  "item_id": "S56-M-1522-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1522",
+  "depends_on": [
+    "S56-M-1522-STATEMENT"
+  ],
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1522.BirkhoffPointwiseErgodicTarget",
+  "repositories": [
+    {
+      "name": "awesome_theorems repo-local inventory",
+      "revision": "4161921b2a43484a498bcf39900c1c468bc4174e",
+      "search_scope": "repository Lean, Markdown, and JSON artifacts",
+      "root_candidate": null,
+      "supporting_artifact": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_247.lean",
+      "supporting_artifact_sha256": "57a019dbff1d9c8267bdcc72266b9d2960da49e2f921d4302f6fd46f10577d9c",
+      "classification": "statement_and_audit_metadata_only",
+      "reason": "The artifact explicitly says that its StatementShape and external records do not assert or locally import the pointwise theorem."
+    },
+    {
+      "name": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "search_scope": "Mathlib/**/*.lean in the pinned clean local Lake package",
+      "queries": [
+        "Birkhoff",
+        "birkhoff",
+        "pointwise ergodic",
+        "ergodic theorem",
+        "Tendsto plus birkhoffAverage"
+      ],
+      "root_candidate": null,
+      "supporting_declarations": [
+        "birkhoffSum",
+        "birkhoffAverage",
+        "MeasureTheory.MeasurePreserving",
+        "Ergodic",
+        "MeasureTheory.Integrable",
+        "MeasureTheory.Measure.QuasiMeasurePreserving.birkhoffAverage_ae_eq_of_ae_eq",
+        "Ergodic.ae_eq_const_of_ae_eq_comp_ae",
+        "ContinuousLinearMap.tendsto_birkhoffAverage_orthogonalProjection"
+      ],
+      "source_hashes_sha256": {
+        "Mathlib/Dynamics/BirkhoffSum/Basic.lean": "334111502a0e9100e20a409959ced2f44833ffdf9a610344c7145166e260f42e",
+        "Mathlib/Dynamics/BirkhoffSum/Average.lean": "806ac5104deed43f15adc7854be78c5eaa22483148a0733f03e4d772ac227c34",
+        "Mathlib/Dynamics/BirkhoffSum/QuasiMeasurePreserving.lean": "2b59b771281eb15f115b38939f3144199832c81eb3ea1a1ccdaa521be30e3c0c",
+        "Mathlib/Dynamics/Ergodic/Ergodic.lean": "853dac930e9abd11a440ad1a6b1390d34a33ed09a5c96915b623196e943ac0f4"
+      },
+      "classification": "supporting_api_only"
+    },
+    {
+      "name": "lua-vr/pointwise-birkhoff",
+      "remote": "https://github.com/lua-vr/pointwise-birkhoff",
+      "revision": "fc06094ca0506d8d74eba8b45b34882ce5930bf4",
+      "toolchain": "leanprover/lean4:v4.20.0-rc5",
+      "mathlib_revision": "83f3832c6cfeecbc8d16b0248c98346956a7f0e5",
+      "license": "Apache-2.0",
+      "source_file": "BirkhoffErgodicThm.lean",
+      "source_file_sha256": "34cd25528e31e3eacf9bdd1089b57d799ae339a0d6512a4a2713668c96bee156",
+      "candidate_declarations": [
+        "BirkhoffErgodicThm.birkhoffErgodicTheorem",
+        "BirkhoffErgodicThm.birkhoffErgodicTheorem'"
+      ],
+      "candidate_conclusion": "Almost-everywhere convergence of Birkhoff averages to an invariant-sigma-algebra conditional expectation (invCondexp).",
+      "statement_relation": "strong pointwise Birkhoff candidate but not an exact direct match to the canonical ergodic constant-integral conclusion",
+      "repo_local_state": "external_upstream_anchor_only",
+      "classification": "M3",
+      "integration_blockers": [
+        "The external project is absent from the pinned local dependency closure and was not fetched or vendored.",
+        "Its Lean and mathlib revisions differ from the repository pins.",
+        "Its conditional-expectation endpoint still needs a checked ergodicity-to-constant-integral bridge.",
+        "No local kernel or transitive trust audit covers the external declaration, including its assumptions, unsafe boundaries, or oracle dependencies."
+      ]
+    }
+  ],
+  "discovery_queries": [
+    "repo-local rg for Birkhoff, pointwise ergodic, and theorem aliases",
+    "pinned mathlib recursive declaration and text search",
+    "immutable raw source and manifest inspection for lua-vr/pointwise-birkhoff"
+  ],
+  "access_limitations": [
+    "The GitHub recursive-tree API returned HTTP 403 during this run.",
+    "Raw immutable files were intermittently rate-limited; the top-level Lean source was obtained and hashed, while existing repo-local immutable-revision audit metadata supplied declaration locations and dependency notes.",
+    "Negative results are limited to the named repository and pinned local surfaces, not a universal nonexistence claim."
+  ],
+  "exact_repo_local_closure_found": false,
+  "machine_classification": "M3",
+  "machine_debt": "external_anchor_unchecked_and_adapter_open",
+  "audit_complete_for_recorded_surfaces": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "The external project is a credible immutable Lean 4 pointwise-Birkhoff anchor, but it is outside this Lake closure and does not directly conclude the frozen constant-integral target. This audit gives no proof-body or theorem-completion credit."
+}
