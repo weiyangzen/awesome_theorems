@@ -51,3 +51,15 @@ Statement elaboration therefore preserves the intake's `H5` barrier and supplies
 
 Lifecycle is `planned`. The statement phase is self-tested pending master acceptance. Audit
 completion and theorem completion are both false, and no later phase or checklist state is claimed.
+
+## Obligation-tree phase
+
+The v1 registry freezes twelve semantic obligations and seven separate typed graphs. The exact
+proof spine exposes `DenseFamilySolver`, which is definitionally the expanded Martin's-axiom
+content, and kernel-checks only the conditional transport back to `MartinsAxiom`. The solver remains
+open at `M4`; declaring or assuming it would extend the foundation and earns no proof credit.
+
+Normalization, branching, and a distinct construction package are recorded as explicit reviewed
+exclusions rather than silently omitted or double-counted. Source, foundation, provenance,
+readability, workflow, proof, validation, and release gates remain open. See
+`obligation-registry.json`, `typed-graphs.json`, and `obligation-tree-validation.md`.

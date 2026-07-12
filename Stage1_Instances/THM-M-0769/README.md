@@ -31,3 +31,9 @@ fail-closed at hermetic replay and distinct-runner independent verification;
 the frozen pre-proof graph also awaits master reconciliation. Exact commands,
 gate decisions, and the provisional receipt are in `validation-phase.md` and
 `validation-receipt.json`. No theorem completion or release is claimed.
+
+The release phase reconciles that provisional evidence to an exact negative verdict. Release is
+blocked first by the absence of a master-accepted validation dependency, and then by the hermetic,
+independent-review, source/readability, supply-chain, and deterministic-bundle gates. The lifecycle
+and accepted `[H2, M3, R4]` vector remain unchanged. See `release-decision.json` and
+`release-validation.md`; no `AUDIT-Z`, `THEOREM-Z`, or theorem completion is claimed.

@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0768-RELEASE",
+  "theorem_id": "THM-M-0768",
+  "intent": "release",
+  "base_revision": "32404187d6cee70b44ae90adf8d0d765752e5149",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0768-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0768-VALIDATION-local-20260712T093145Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "55e0468300e3d8a706124649b2c47ea71d3453385d7d539e6945a9fb5a23ad05"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0768-PROOF-local-20260712T092150Z",
+    "S56-M-0768-VALIDATION-local-20260712T093145Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H3", "M3", "R4"],
+    "accepted_after": ["H3", "M3", "R4"],
+    "best_provisional_evidence": ["H2", "M0-W", "R4"],
+    "boundary": "The exact root has provisional warm-cache kernel evidence through a pinned mathlib body, but the frozen accepted graph remains M3. Primary-source H0, readable R0, and master acceptance are absent, so release cannot promote the accepted vector."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0768-VALIDATION is worker-self-tested provisional evidence, not a master-accepted prerequisite; the release node is not dependency-legal for acceptance."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance and authoritative reconciliation of S56-M-0768-VALIDATION and all transitive phase receipts",
+    "accepted H0 primary-source crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "accepted reconciliation of the frozen M3 graph with the provisional exact-root proof",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "complete transitive TCB inventory plus SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation/metamorphic gate results",
+    "deterministic content-addressed release bundle and master terminal decision"
+  ],
+  "evidence_reconciliation": {
+    "exact_root_kernel_check": "pass as provisional warm-cache worker evidence",
+    "statement_identity": "sha256:6de4e6083a9f47066dfed88584ba5366362c0774b16762b5fbab6d09fc39dcc0",
+    "proof_body": "local exact wrapper over Function.Embedding.schroeder_bernstein_of_rel at mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "independent_local_probe": "pass in the same worker and shared cache via Function.Embedding.schroeder_bernstein; not a section 10.7 independent runner",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "pass on scoped local sources",
+    "authoritative_graph_reconciliation": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "After master acceptance and graph reconciliation, a release lane must validate an immutable clean snapshot from empty caches with network denied, close H0/R0 and TCB/supply-chain gates, obtain two independent signed attestations, and verify a deterministic bundle with an independent minimal verifier.",
+  "status_boundary": "This is a fail-closed worker release decision: no lifecycle transition, accepted receipt, audit completion, theorem completion, or release claim. Only the master integration lane can accept and reconcile it."
+}

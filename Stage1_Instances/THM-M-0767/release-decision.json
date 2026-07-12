@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0767-RELEASE-local-20260712T174051+0800",
+  "item_id": "S56-M-0767-RELEASE",
+  "theorem_id": "THM-M-0767",
+  "intent": "release",
+  "base_revision": "32404187d6cee70b44ae90adf8d0d765752e5149",
+  "base_tree": "f75879cc011dd071db414240d019d10769454903",
+  "decided_at": "2026-07-12T17:40:51+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "dependency": {
+    "item_id": "S56-M-0767-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0767-VALIDATION-local-20260712T173127+0800",
+    "receipt_sha256": "5982bfe3080abb446f36c5cd48d2e31db80b3a196f17e2aacac199647c39e4d8",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0767-PROOF-local-20260712T172134+0800",
+    "S56-M-0767-VALIDATION-local-20260712T173127+0800"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "same_workspace_independent_reconstruction": "provisional_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "pinned_terminal_mathlib_provenance": "provisional_pass",
+    "accepted_root_machine_state": "M3",
+    "provisional_machine_candidate": "M0-W",
+    "authoritative_graph_reconciled": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "full_transitive_trust_closure": false,
+    "hermetic_cold_offline_replay": false,
+    "tcb_sbom_license_closure": false,
+    "independent_clean_runner_attestation": false,
+    "independently_implemented_minimal_verifier": false,
+    "protected_ci_and_mutation_gates": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "conflicts_resolved_fail_closed": [
+    "instance.json labels the provisional wrapper M0-P, but the terminal body is pinned mathlib and would be M0-W if accepted; no M0 class is accepted here.",
+    "instance.json carries provisional M0-P while the frozen typed graph remains M3 with no evidence IDs; the unreconciled accepted vector therefore remains at the weaker M3 state.",
+    "The validation kernel replay passed, but its own receipt is release_grade=false and records non-hermetic shared-cache and same-runner limitations."
+  ],
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H1", "M3", "R4"],
+    "root_vector_after": ["H1", "M3", "R4"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-0767-VALIDATION has provisional worker-self-test evidence only, is release_grade=false, and has no master-accepted receipt."
+    },
+    "next_failed_theorem_gate": {
+      "gate_id": "state.authoritative_graph_reconciliation",
+      "reason": "The immutable typed graph still records M0767-ROOT as M3 with no evidence IDs and has not admitted the provisional proof and validation receipts."
+    },
+    "remaining_root_cut_set": [
+      "master acceptance of S56-M-0767-VALIDATION and all transitive phase receipts",
+      "authoritative graph reconciliation admitting exact root composition and the pinned mathlib proof-body provenance as M0-W, if accepted",
+      "accepted primary-source H0 edition, statement, assumptions, errata, node crosswalk, and independent review",
+      "accepted R0 anchored reconstruction and independent reader review",
+      "full transitive declaration/body provenance, accepted foundation and axiom profiles, and TCB closure",
+      "immutable clean snapshot, empty-cache network-denied cold build, and offline archive replay",
+      "SBOM and license closure",
+      "two signed attestations from separately provisioned independent runners without shared writable caches",
+      "independently implemented minimal release verifier",
+      "protected CI plus required mutation and metamorphic gate results",
+      "deterministic content-addressed release bundle and master reconciliation"
+    ]
+  },
+  "retry_condition": "Master-accept and reconcile dependency-legal proof and validation evidence, correct the machine class to M0-W if admitted, close H0/R0 and transitive trust, then execute the cold/offline supply-chain, independent-runner, minimal-verifier, CI, mutation, and deterministic-bundle gates in an immutable release lane.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim M0, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}
