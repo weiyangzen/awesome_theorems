@@ -13,10 +13,13 @@ compactness, model-theoretic completeness of a particular theory, propositional 
 an abstract predicate that assumes the desired result.
 
 The primary-source candidates and the unresolved source decisions are recorded in the crosswalk.
-The pinned mathlib tree supplies first-order syntax and semantics, but intake found no repo-local
-artifact whose terminal declaration states syntactic completeness. This discovery observation is
-not an anchor audit and carries no proof credit.
+The completed formal-candidate inventory is recorded in `anchor-audit.json` and
+`anchor-audit.md`. Pinned mathlib supplies first-order syntax and semantics but no terminal
+syntactic completeness theorem. FormalizedFormalLogic/Foundation has a substantive external Lean 4
+proof at an immutable revision; it remains anchor-only because its calculus and dependencies differ
+and it is neither integrated nor transported to the exact target.
 
-The provisional root vector remains `[H2, M4, R4]`: elaborating the statement supplies no proof
-credit. The untrusted `已验证` metadata label supplies no evidence. All downstream tasks remain
-open, and this dossier claims neither audit completion nor theorem completion.
+The provisional root vector remains `[H2, M4, R4]`: neither statement elaboration nor an
+anchor-only external proof supplies proof credit. The untrusted `已验证` metadata label supplies no
+evidence. The anchor-audit node is self-tested pending master acceptance, all later tasks remain
+open, and this dossier claims no theorem completion.

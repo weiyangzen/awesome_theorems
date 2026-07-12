@@ -1,0 +1,105 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0645-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0645",
+  "audit_date": "2026-07-12",
+  "base_revision": "5c0a4aafae91449d16f106bf558339d46b60f39b",
+  "canonical_target": "Stage1Instances.THM_M_0645.CompletenessTarget",
+  "canonical_target_expression_sha256": "76fbce831cb0d1669af8754a6c4f3c3d45d0e4fbbab1532e0140104937c7ea68",
+  "search_order": [
+    "repository-local Lean sources",
+    "pinned mathlib source tree",
+    "credible external Lean 4 projects at immutable revisions"
+  ],
+  "candidates": [
+    {
+      "id": "A-MATHLIB-SEMANTICS",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Mathlib.ModelTheory.Syntax",
+        "Mathlib.ModelTheory.Semantics",
+        "Mathlib.ModelTheory.Satisfiability"
+      ],
+      "declarations": [
+        "FirstOrder.Language.Sentence",
+        "FirstOrder.Language.Structure",
+        "FirstOrder.Language.Sentence.Realize",
+        "FirstOrder.Language.Theory.IsSatisfiable",
+        "FirstOrder.Language.Theory.IsComplete"
+      ],
+      "classification": "object_layer_only",
+      "exact_target": false,
+      "dependency_feasibility": "already pinned and locally available",
+      "terminal_proof_body_provenance": "none for syntactic completeness",
+      "placeholders_or_axioms": "not applicable: no candidate completeness declaration was found",
+      "notes": "The snapshot supplies the syntax and semantic side of the frozen target. Its IsComplete is model-theoretic completeness of a theory, not semantic-to-syntactic proof completeness. A scoped source search found no proof calculus or terminal first-order syntactic completeness theorem."
+    },
+    {
+      "id": "A-LOCAL-CRAIG-KERNEL",
+      "project": "awesome_theorems repository",
+      "revision": "5c0a4aafae91449d16f106bf558339d46b60f39b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_298.lean"
+      ],
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1M298.Derivation",
+        "AwesomeTheorems.Stage1.S1M298.SemanticToDerivabilityBridge"
+      ],
+      "classification": "nonterminal_local_boundary",
+      "exact_target": false,
+      "dependency_feasibility": "repo-local",
+      "terminal_proof_body_provenance": "the semantic-to-derivability bridge is explicitly uninhabited",
+      "placeholders_or_axioms": "no terminal completeness proof is claimed",
+      "notes": "This is a different local calculus built for the Craig interpolation target. Its source explicitly says that the bridge is not a completeness theorem and provides no inhabitant of SemanticToDerivabilityBridge."
+    },
+    {
+      "id": "A-FOUNDATION-FOL",
+      "project": "FormalizedFormalLogic/Foundation",
+      "repository": "https://github.com/FormalizedFormalLogic/Foundation",
+      "revision": "87d4dd68835a6c1eb8448b9c392d9ca51fe08d63",
+      "revision_observed_as_head_on": "2026-07-12",
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "module": "Foundation.FirstOrder.Completeness.CounterModel",
+      "source_path": "Foundation/FirstOrder/Completeness/CounterModel.lean",
+      "source_sha256": "daa486fd8f6f8adaf34972aa61ef7ccaa93aa239556ec95def5bf57af09492d5",
+      "declarations": [
+        "LO.FirstOrder.Theory.small_satisfiable_of_consistent",
+        "LO.FirstOrder.Theory.Proof.complete",
+        "LO.FirstOrder.Theory.Proof.small_complete",
+        "LO.FirstOrder.Theory.Proof.complete_iff",
+        "LO.FirstOrder.Theory.Proof.complete_on_eq_models"
+      ],
+      "classification": "external_upstream_anchor_only",
+      "exact_target": false,
+      "dependency_feasibility": "not currently feasible without a checked transport and dependency integration; upstream uses Lean/mathlib 4.31 while this repository is pinned to Lean 4.29/mathlib 8a178386",
+      "terminal_proof_body_provenance": "upstream source body in CounterModel.lean; completeness is derived through consistency, a countermodel construction, and soundness",
+      "placeholders_or_axioms": "no textual sorry/admit occurrence in the audited terminal source; transitive axiom and placeholder closure was not built or inspected locally",
+      "license": "Apache-2.0",
+      "notes": "This is a substantive Lean 4 first-order completeness implementation, but its syntax, proof system, equality typeclasses, universe conventions, and semantic consequence relation differ from the frozen mathlib-based Derivation target. It is neither imported nor checked in this repository and therefore earns no M0 credit."
+    }
+  ],
+  "negative_search": {
+    "repo_local_terminal_candidate_found": false,
+    "pinned_mathlib_terminal_candidate_found": false,
+    "external_terminal_candidate_found": true,
+    "search_limitations": [
+      "GitHub unauthenticated code-search API returned HTTP 403 rate-limit failure",
+      "external candidate source was inspected through immutable raw URLs, but was not cloned, fetched, built, or added to .lake",
+      "absence findings are scoped to the recorded repository and pinned mathlib searches, not a claim about all Lean code in existence"
+    ]
+  },
+  "decision": {
+    "selected_proof_anchor": null,
+    "machine_status": "not_repo_local_closed",
+    "root_machine_debt": "M4",
+    "integration_blocker": "Foundation is anchor-only at an immutable revision. Promotion requires pin/import/check or vendoring, a kernel-checked translation from its language/proof calculus/equality semantics to the exact frozen target, compatible Lean dependencies, and terminal trust/provenance inspection.",
+    "audit_complete": true,
+    "theorem_complete": false,
+    "gate_state": "self_tested_pending_master_acceptance",
+    "status_boundary": "The formal-candidate inventory is complete for this node. It identifies an external substantive proof but supplies no proof, wrapper, dependency closure, or theorem-completion credit."
+  }
+}
