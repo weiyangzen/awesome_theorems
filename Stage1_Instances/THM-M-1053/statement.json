@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1053-STATEMENT",
+  "theorem_id": "THM-M-1053",
+  "lifecycle": "planned",
+  "canonical_statement": "On a probability space, the forward Cesaro averages of every real integrable observable under a measure-preserving endomorphism converge almost everywhere to an integrable invariant function; if the endomorphism is ergodic, the limit equals the constant space integral almost everywhere.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1053/Statement.lean",
+    "declaration_or_expression": "Stage1.THM_M_1053.StatementShape",
+    "elaborated_expression_sha256": "f4b06a49160cd083fa4cf1bb3b1ddfe1453dbcb1e521ff2c09ba5d3753a2e562",
+    "statement_file_sha256": "0beae61d530145f227f6657484cf04f6e847d604164cb6683c8aee94aeb01427"
+  },
+  "domain_and_universes": "universe u; X : Type u; MeasurableSpace X; probability measure mu; T : X -> X; f,g : X -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "X : Type u",
+    "MeasurableSpace X",
+    "mu : Measure X",
+    "IsProbabilityMeasure mu",
+    "T : X -> X",
+    "MeasurePreserving T mu mu",
+    "f : X -> Real",
+    "Integrable f mu"
+  ],
+  "conclusion": "There exists an integrable g, invariant under T almost everywhere, to which the forward Cesaro iterates converge pointwise almost everywhere; Ergodic T mu implies g is almost everywhere the constant integral of f.",
+  "direct_imports": [
+    "Mathlib.Dynamics.Ergodic.Function",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "normalization": "timeAverage T f n x = (n : Real)^(-1) times the sum over k in range n of f ((T^[k]) x); the value at n=0 is zero and convergence is along atTop",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1053/check_statement.py",
+    "killed": [
+      "removed the ergodic space-integral identification",
+      "changed probability measure to merely finite measure",
+      "assumed the desired almost-everywhere convergence",
+      "substituted L1 mean convergence for pointwise almost-everywhere convergence"
+    ],
+    "boundary_proofs": ["Stage1.THM_M_1053.timeAverage_zero"]
+  },
+  "degenerate_cases": "No invertibility or non-atomicity assumption is imposed. The n=0 average is defined as zero and is irrelevant along atTop. The ergodicity hypothesis is required only for identification with the space integral, not for existence of the invariant limit.",
+  "source_boundary": "This elaborates the exact modern theorem family frozen by intake. Primary-source theorem/page and convention review remains assigned to anchor audit; this phase makes no H0 or proof claim.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. It does not establish Birkhoff's theorem, an anchor, audit completion, or theorem completion."
+}

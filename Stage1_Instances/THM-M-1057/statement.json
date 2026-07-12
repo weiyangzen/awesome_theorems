@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1057-STATEMENT",
+  "theorem_id": "THM-M-1057",
+  "lifecycle": "planned",
+  "canonical_statement": "On an ergodic probability space, every integrable real Nat-indexed process that is zero at index zero, is subadditive along iterates almost everywhere, and has normalized expectations bounded below converges after normalization almost everywhere to the infimum of its positive-index normalized expectations.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1057/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1057.KingmanTarget",
+    "elaborated_expression_sha256": "aebaaa6256cc5cb252ff4662647955a625f2ff6f1311dbcea1c04463ab3c03af",
+    "statement_file_sha256": "bdd8ad8026b13ec9de27a63aac9874e88d29e8f57a9d5dcf0380d3f14eb61073"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; measure : Measure Omega; transformation : Omega -> Omega; process : Nat -> Omega -> Real",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "P : KingmanData Omega"
+  ],
+  "hypotheses": [
+    "IsProbabilityMeasure P.measure",
+    "Ergodic P.transformation P.measure",
+    "forall n, Integrable (P.process n) P.measure",
+    "P.process 0 = 0 almost everywhere",
+    "forall m n, P.process (m+n) <= P.process m + P.process n after transformation^[m], almost everywhere",
+    "exists C, forall nonzero n, C <= integral(P.process n)/n"
+  ],
+  "conclusion": "For almost every omega, n |-> P.process n omega / n tends to sInf of the normalized expectations at indices n >= 1.",
+  "direct_imports": [
+    "Mathlib.Dynamics.Ergodic.Function",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1057.kingmanTarget_iff_expandedSourceShape",
+  "pinned_source_relationship": "ExpandedSourceShape unfolds the statement-phase package into the intake-selected ergodic real-valued claim. The legacy S1_M_249 package is discovery material and is not imported or credited.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "Lean #print default pretty-printer"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1057/check_statement.py",
+    "killed": [
+      "removed normalized-expectation lower-bound hypothesis",
+      "changed process codomain from Real to Rat",
+      "changed binder scope to an existential space-only claim",
+      "included index zero in the expectation infimum"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1057.zeroIndexNormalizationBoundary",
+      "Stage1Instances.THM_M_1057.positiveIndexMembershipBoundary"
+    ]
+  },
+  "degenerate_cases": "The process has an explicit almost-everywhere zero convention at n=0. Normalization at n=0 evaluates to zero in Lean, but the limiting constant deliberately ranges only over Ici 1. No non-ergodic, extended-real, two-parameter, or L1-convergence form is claimed.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and elaborates only the intake-selected statement with two minimal direct imports, a checked expansion, four distinguished structural mutations, and two boundary checks. It supplies no Kingman proof or dependent-node evidence."
+}
