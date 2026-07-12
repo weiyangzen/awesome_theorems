@@ -1,0 +1,192 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1340",
+  "item_id": "S56-M-1340-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 951,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 108,
+  "name_zh": "解对参数的可微性",
+  "name_en": "differentiability of ODE solutions with respect to parameters",
+  "canonical_name": "differentiability of ODE solutions with respect to external parameters (exact variant open)",
+  "category": "differential equations / ordinary differential equations",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "解对参数的导数",
+  "literal_source_claim_en": "Derivative of solutions with respect to parameters.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_ode_parameter_dependence_family_but_exact_source_domain_regularities_and_conclusion_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalogue supplies no source and does not fix finite- versus infinite-dimensional spaces, an autonomous or time-dependent ODE, the parameter domain, joint versus partial regularity, a common existence neighborhood, parameter-dependent initial data, local versus maximal solutions, the derivative notion, or whether the conclusion includes a sensitivity equation. Selecting the modern textbook candidate or another standard formulation would invent a source identity and missing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.ODE.Basic",
+      "Mathlib.Analysis.ODE.PicardLindelof",
+      "Mathlib.Analysis.Calculus.FDeriv.Basic"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_exact_source_selection_statement_elaboration_and_mutation_tests",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_adjacent-api-probe-only"
+  },
+  "domain_and_universes": "Prospective real time, a source-selected state space E and parameter space P, and a source-selected open time-state-parameter domain. Finite-dimensional versus Banach assumptions and Lean universes remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: on a common source-specified local domain, the selected solution map is differentiable or C^k in an external parameter, possibly with its derivative characterized by a sensitivity equation. Exact quantifiers, derivative, and equation remain open.",
+  "candidate_scope_not_credited": {
+    "source": "Gerald Teschl, Ordinary Differential Equations and Dynamical Systems, Graduate Studies in Mathematics 140, AMS (2012), Theorem 2.11, page 47",
+    "domain": "open U subset of Real x Real^n and open parameter set Lambda subset of Real^p",
+    "vector_field": "f in C^k(U x Lambda, Real^n), k at least 1",
+    "solution_map": "phi(t, s, x, lambda) for x' = f(t, x, lambda), x(s) = x",
+    "candidate_conclusion": "near every (t0, x0, lambda0), there is I x B x Lambda0 such that phi is C^k on I x I x B x Lambda0",
+    "status": "credible modern source candidate inspected during intake, but not selected by the repository or independently reviewed; recorded to constrain follow-up, not as the canonical claim or H0"
+  },
+  "alternate_encodings": [
+    {
+      "target": "differentiate the solution after adjoining lambda as a dependent variable satisfying lambda' = 0",
+      "relationship": "proof reduction used by the modern source candidate; no checked Lean transport or composition",
+      "checked_witness": null
+    },
+    {
+      "target": "the parameter derivative solves an inhomogeneous first variational or sensitivity equation",
+      "relationship": "possible consequence or stronger packaged conclusion depending on the selected source; adjacent to THM-M-1341",
+      "checked_witness": null
+    },
+    {
+      "target": "differentiability only in lambda with time and initial data fixed",
+      "relationship": "potentially weaker than joint C^k dependence on time, initial time, initial state, and parameter",
+      "checked_witness": null
+    }
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty or nonopen parameter domains and boundary parameters requiring within-derivatives",
+    "zero-dimensional parameter or state spaces",
+    "a parameter that does not occur in the vector field",
+    "parameter-dependent versus fixed initial time and initial value",
+    "absence of a common existence interval as the parameter varies",
+    "initial data or trajectories approaching the boundary of the ODE domain",
+    "local versus maximal solutions and parameter-dependent blow-up times",
+    "C1 versus Ck, Frechet versus coordinatewise, and pointwise versus joint differentiability",
+    "the sensitivity equation's initial condition when initial data depend on the parameter"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1339 continuous dependence on initial values, which is weaker than differentiability",
+    "THM-M-1341 the variational equation alone without the parameter-differentiability conclusion",
+    "differentiability with respect to time, which follows from the ODE but is not external-parameter dependence",
+    "dependence only on initial values unless an exact source treats those values as the intended parameter",
+    "a scalar, autonomous, linear, globally defined, analytic, or constant-parameter special case as the general root",
+    "a structure or hypothesis that assumes the differentiable solution map or sensitivity conclusion",
+    "generic calculus APIs, an API probe, or the untrusted verified label as theorem evidence"
+  ],
+  "source_status": "H1_recognizable_published_theorem_family_and_inspected_modern_candidate_but_no_repository_selected_exact_source_assumption_crosswalk_errata_audit_or_independent_review",
+  "human_source_discovery_not_credited": [
+    {
+      "citation": "Gerald Teschl, Ordinary Differential Equations and Dynamical Systems, Graduate Studies in Mathematics 140, American Mathematical Society, 2012, DOI 10.1090/gsm/140, Theorem 2.11, page 47",
+      "immutable_copy_sha256": "362433156525216abf596c17ce843204510e96d57afa4284a37c7aa5a9ffc36e",
+      "status": "author-hosted preliminary version and exact theorem inspected; credible modern candidate only because the catalogue supplies no citation, the statement incorporates prior solution notation and hypotheses, and no errata audit or independent source review is complete"
+    }
+  ],
+  "formal_candidate_discovery_not_credited": [
+    {
+      "modules": [
+        "Mathlib.Analysis.ODE.Basic",
+        "Mathlib.Analysis.ODE.PicardLindelof",
+        "Mathlib.Analysis.Calculus.FDeriv.Basic"
+      ],
+      "declarations": [
+        "IsIntegralCurveOn",
+        "IsIntegralCurveAt",
+        "IsPicardLindelof",
+        "IsPicardLindelof.exists_eq_forall_mem_Icc_hasDerivWithinAt",
+        "HasFDerivAt",
+        "DifferentiableAt"
+      ],
+      "status": "adjacent ODE solution and Frechet-derivative interfaces elaborate, but no theorem-specific parameter-differentiability declaration, exact root, derivative equation, or proof body is located"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "5a057abd0705ba3f4cadbff1712f2bb7467e6354",
+    "repository_base_tree": "e6499183859cf75043a1ab13bcce0ca7470a2df6",
+    "repository_record": "Docs/researches/math_theorems.md:9775-9780",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:36453-36478",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "1f174bf34ffa7a54b6d4134c7b47b694c86a14908f4266ac5f16d0006aac5b5e",
+    "execution_dag_sha256": "8fb7657391de0532d3b3527da24520d56c8491db0a433a8e423e60fab3a205b6",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "modern_source_url": "https://www.mat.univie.ac.at/~gerald/ftp/book-ode/ode.pdf",
+    "modern_source_pdf_sha256": "362433156525216abf596c17ce843204510e96d57afa4284a37c7aa5a9ffc36e",
+    "modern_source_landing_page_sha256": "8a1c9d59eb6ee56bb5bbc253f459b00e644c478812ff2b1ac6eb8a4c7181ad1e",
+    "modern_source_crossref_response_sha256": "6e654148bf53f81b4389c243866a8c7c24202490e8717e5875f427fbf6ae0850",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "ode_basic_source_sha256": "ae12311010b33270373065089e7abbad74fc3df21b8067276301846890ac477d",
+    "picard_lindelof_source_sha256": "84f6cd4fe5fef3dd4c8e30f6db137f5be80c12678b0bafeaf0bc927181499863"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, finite-dimensional coordinate identifications, completeness, local-existence selection, and differentiation-under-fixed-point arguments remain open until the exact target is frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, solution construction, terminal proof bodies, transitive declarations, axioms, and trust closure remain open",
+  "computation_profile": "No numerical ODE solver, finite-difference sensitivity, floating-point experiment, oracle, or unchecked certificate is credited; the prospective theorem requires kernel-checked analytic reasoning",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1340/README.md",
+    "Stage1_Instances/THM-M-1340/instance.json",
+    "Stage1_Instances/THM-M-1340/scope-map.md",
+    "Stage1_Instances/THM-M-1340/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1340/task-dag.json",
+    "Stage1_Instances/THM-M-1340/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1340/check_intake.py",
+    "Stage1_Instances/THM-M-1340/validation.md",
+    "Stage1_Instances/THM-M-1340/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "neighbor_scope_reviewer": "unassigned reviewer for THM-M-1339 and THM-M-1341 boundaries"
+  },
+  "freshness_and_revocation_policy": "Invalidate on a source or target correction, primary-source selection or erratum, neighbor-scope decision, state/parameter/time domain, regularity, solution or derivative convention, sensitivity-equation boundary, Lean target or import, toolchain or dependency pin, assurance profile, validator, or any owned artifact; review is due before master acceptance or dependent statement work.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalogue wording, theorem-family boundary, proposition-changing choices, a modern source candidate, neighbor exclusions, and adjacent pinned APIs. M4 reflects the absence of a usable exact formal artifact. No canonical proposition, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

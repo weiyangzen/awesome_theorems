@@ -1,0 +1,297 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1334",
+  "item_id": "S56-M-1334-STATEMENT",
+  "execution_rank": 945,
+  "phase": "statement",
+  "base_revision": "8bbb7ffdbb5e6e8e3e1ffaba9955137f6b68c76c",
+  "base_tree": "ade61913e5912b1160e25afe096df7f5b3b0cfed",
+  "worker_worktree": "isolated scheduler worker clone at detached HEAD",
+  "intent": "statement",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "statement_elaborated": false,
+  "statement_accepted": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "dependency_state": {
+    "item_id": "S56-M-1334-INTAKE",
+    "blueprint_projection": "[_]",
+    "receipt_accepted": false,
+    "assessment": "The statement attempt can record an intrinsic blocker, but dependency-legal master acceptance remains unavailable until the intake is accepted."
+  },
+  "first_failed_gate": {
+    "gate": "exact_source_statement_and_scope_identity",
+    "normative_reference": "Docs/Stage1_Blueprint_rev-5.6.md sections 5 and 5.1",
+    "reason": "The catalogue supplies only 'an analytic solution of an analytic ODE', while the historical namesake is a PDE theorem. No accepted primary-source mapping selects one exact theorem or freezes its domains, binders, hypotheses, conclusion, solution encoding, uniqueness scope, and boundary cases."
+  },
+  "canonical_human_statement": null,
+  "canonical_formal_target": null,
+  "minimal_target_imports": null,
+  "elaborated_expression_hash": null,
+  "environment_fingerprint_for_canonical_target": null,
+  "blocker": "Kepley-Zhang Theorems 1 and 11 are precise modern ODE candidates, but the intake explicitly marks them uncredited pending an approved ODE/PDE decision, incorporated definitions, errata disposition, and independent review. Encoding either candidate would invent the missing catalogue-to-source identity and proposition-level conventions.",
+  "source_boundary": {
+    "repository_record": "Docs/researches/math_theorems.md:9733-9738",
+    "repository_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "title_zh": "柯西-科瓦列夫斯卡娅定理",
+    "literal_claim_zh": "解析ODE的解析解",
+    "literal_claim_en": "An analytic solution of an analytic ODE.",
+    "attribution": "Augustin Cauchy / Sofia Kovalevskaya",
+    "year": 1875,
+    "source_status_untrusted": "已验证",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:36291-36316",
+    "stage0_assessment": "Exact definitions, premises, proof route, equivalent statements, axioms, machine state, and formal artifacts are explicitly open.",
+    "modern_ode_candidate": {
+      "citation": "Shane Kepley and Tianhao Zhang, A constructive proof of the Cauchy-Kovalevskaya theorem for ordinary differential equations, arXiv:1912.03836v3",
+      "immutable_pdf_sha256": "f5edbddab5f7a1da7591a82dca7c5a1038b5ca0fe96e8f326a2c4d3ddf4a9b36",
+      "locators": [
+        "Theorem 1, PDF page 2",
+        "Theorem 11, PDF page 20 with proof continuing on page 21"
+      ],
+      "candidate_statement": "For an open V in real n-space, an analytic autonomous vector field f : V -> R^n, and x0 in V, the IVP x' = f(x), x(0) = x0 has a unique solution analytic on some open interval containing zero.",
+      "status": "strong exact-topic candidate only; not accepted as the catalogue's canonical statement"
+    },
+    "historical_candidate": {
+      "citation": "Sophie von Kowalevsky, Zur Theorie der partiellen Differentialgleichung, Crelle issue 80 (1875), 1-32, DOI 10.1515/crll.1875.80.1",
+      "assessment": "PDE bibliographic lead whose primary text was unavailable at intake; it cannot silently identify the catalogue's ODE target."
+    }
+  },
+  "unresolved_statement_choices": [
+    "ODE versus PDE scope and the relationship to the historical namesake",
+    "autonomous versus time-dependent dynamics and real versus complex scalars",
+    "positive dimension versus every n : Nat, including dimension zero",
+    "open state domain and the exact source definition of analytic vector field",
+    "checked relationship between source analyticity and AnalyticOnNhd or another Lean encoding",
+    "partial interval curve, total curve restricted to an interval, or germ solution carrier",
+    "open, symmetric, or otherwise source-selected interval and positive-radius convention",
+    "fixed-interval, overlap-after-shrinking, germ, differentiable-class, or analytic-class uniqueness",
+    "empty or disconnected domains, trivial vector fields, and remaining boundary cases"
+  ],
+  "rejected_substitutions": [
+    "selecting the general PDE theorem solely from the historical name despite the ODE catalogue scope",
+    "selecting the modern ODE candidate without an accepted catalogue-to-source mapping",
+    "using Picard-Lindelof existence and uniqueness without the analytic-solution conclusion",
+    "replacing analyticity with finite or infinity smoothness",
+    "presenting a scalar, polynomial, linear, or fixed-dimensional special case as the full theorem",
+    "quantifying a package that assumes the desired solution, analyticity, or uniqueness",
+    "using a truncated power series, numerical approximation, oracle, placeholder, or untrusted verified label"
+  ],
+  "pinned_lean_feasibility_probe": {
+    "path": "Stage1_Instances/THM-M-1334/IntakeProbe.lean",
+    "sha256": "b0a7645aa2127153e3e8ed52a91917d008e57ceedf13c2b50669f419baf21bd2",
+    "direct_imports": [
+      "Mathlib.Analysis.Analytic.Basic",
+      "Mathlib.Analysis.ODE.Basic",
+      "Mathlib.Analysis.ODE.PicardLindelof",
+      "Mathlib.Analysis.SpecialFunctions.Pow.Real"
+    ],
+    "checked_interfaces": [
+      "IsIntegralCurveAt",
+      "isIntegralCurveAt_iff_exists_pos",
+      "AnalyticAt",
+      "AnalyticOnNhd",
+      "IsPicardLindelof",
+      "IsPicardLindelof.exists_eq_forall_mem_Icc_hasDerivWithinAt",
+      "ODE.contDiffOn_enat_Icc_of_hasDerivWithinAt",
+      "EuclideanSpace"
+    ],
+    "result": "All eight discovery-only interface types elaborated under the pinned environment.",
+    "analytic_gap": "Mathlib.Analysis.ODE.PicardLindelof explicitly marks extension of the relevant Picard regularity result to the analytic n = top case as TODO.",
+    "credit": "API feasibility only; the four-import probe is neither a canonical target nor evidence of minimal target imports, an exact expression, a transport, or a proof."
+  },
+  "probe_environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_target": "x86_64-unknown-linux-gnu",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "environment_boundary": "Nonhermetic worker check using the automation-provided canonical .lake symlink read-only; no release evidence."
+  },
+  "statement_gate_coverage": {
+    "exact_claim_frozen": false,
+    "minimal_imports_established": false,
+    "target_elaborated": false,
+    "expression_serialized": false,
+    "canonical_environment_fingerprinted": false,
+    "alternate_transports_checked": false,
+    "removed_hypothesis_mutation": "not_applicable_until_exact_target_exists",
+    "changed_domain_mutation": "not_applicable_until_exact_target_exists",
+    "changed_binder_scope_mutation": "not_applicable_until_exact_target_exists",
+    "boundary_case_mutation": "not_applicable_until_exact_target_exists"
+  },
+  "exact_statement_change": "None. No mathematical claim, Lean declaration, binder, hypothesis, conclusion, alternate encoding, or mutation fixture was added or changed.",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1334/statement-blocker.json",
+    "Stage1_Instances/THM-M-1334/statement-blocker.md"
+  ],
+  "diff_summary": "Added a structured and readable statement-phase blocker under the assigned target path; no target statement, state authority, dependency, shared file, or foreign target was modified.",
+  "commands_and_exit_codes": [
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-1334"],
+      "exit_code": 0,
+      "result": "rank 945; planned; L0/rework_required; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "commit 8bbb7ffdbb5e6e8e3e1ffaba9955137f6b68c76c; tree ade61913e5912b1160e25afe096df7f5b3b0cfed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "status", "--short", "--untracked-files=all"],
+      "exit_code": 0,
+      "result": "initial status contained only the pre-existing automation-provided Formalizations/Lean/.lake symlink"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, x86_64-unknown-linux-gnu"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "--version"],
+      "exit_code": 0,
+      "result": "Lake version 5.0.0-src+98dc76e (Lean version 4.29.0)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "-C", "Formalizations/Lean/.lake/packages/mathlib", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; tree bdc39a3123201dae413a9d9be56ec242c19e5c2b; package status clean"
+    },
+    {
+      "cwd": ".",
+      "argv": ["sha256sum", "Formalizations/Lean/lean-toolchain", "Formalizations/Lean/lake-manifest.json", "Stage1_Instances/THM-M-1334/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "hashes 651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2, 321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81, and b0a7645aa2127153e3e8ed52a91917d008e57ceedf13c2b50669f419baf21bd2"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1334/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "all eight discovery-only integral-curve, analytic, Picard-Lindelof, regularity, and Euclidean-space interface types elaborated and printed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["rg", "-n", "-i", "--glob", "*.lean", "cauchy.{0,3}(kowalev|kovalev)|kowalevsk|kovalevsk", "Formalizations/Lean/AwesomeTheorems", "Formalizations/Lean/.lake/packages/mathlib/Mathlib"],
+      "exit_code": 1,
+      "result": "expected no-match in the bounded repo-local and pinned-mathlib search; this is not an exhaustive anchor audit or a global absence claim"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-1334/check_intake.py"],
+      "exit_code": 1,
+      "result": "AssertionError at its frozen assertion that the intake execution-DAG state is [ ]; the current authority projects provisional [_], and this statement worker does not rewrite the earlier intake validator or receipt"
+    },
+    {
+      "cwd": ".",
+      "argv": ["rg", "-n", "--glob", "*.lean", "\\b(sorry|admit)\\b|\\bsorryAx\\b|^[[:space:]]*(axiom|constant|opaque|unsafe)\\b", "Stage1_Instances/THM-M-1334"],
+      "exit_code": 1,
+      "result": "expected no-match: no prohibited Lean placeholder, bodyless declaration, or unsafe declaration occurs in the target directory"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1334/statement-blocker.json"],
+      "exit_code": 0,
+      "result": "the finalized structured blocker is valid JSON"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--no-index", "--check", "/dev/null", "Stage1_Instances/THM-M-1334/statement-blocker.json"],
+      "exit_code": 1,
+      "result": "expected new-file difference exit with no diagnostic; no whitespace errors"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--no-index", "--check", "/dev/null", "Stage1_Instances/THM-M-1334/statement-blocker.md"],
+      "exit_code": 1,
+      "result": "expected new-file difference exit with no diagnostic; no whitespace errors"
+    },
+    {
+      "cwd": ".",
+      "argv": ["test", "!", "-e", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "the ineligible worker self-test manifest is absent"
+    }
+  ],
+  "root_vector_before": {"H": "H1", "M": "M4", "R": "R3"},
+  "root_vector_after": {"H": "H1", "M": "M4", "R": "R3"},
+  "debt_delta_basis": "No debt change is proposed. A pinned API probe does not resolve source identity or elaborate a canonical target.",
+  "axiom_and_placeholder_result": "The statement attempt added no Lean declaration or proof body. The existing discovery-only probe contains no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration.",
+  "actual_source_ownership": ["Stage1_Instances/THM-M-1334"],
+  "declaration_ownership": [],
+  "readable_ownership": ["Stage1_Instances/THM-M-1334/statement-blocker.md"],
+  "change_impact_set": ["S56-M-1334-STATEMENT"],
+  "covered_node_ids": [],
+  "covered_declaration_ids": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "accepted_receipt_ids": [],
+  "validation_date": "2026-07-13 Asia/Shanghai",
+  "review_due": "after intake acceptance and an authoritative ODE/PDE source decision",
+  "invalidation_inputs": [
+    "an accepted exact primary-source statement or source correction",
+    "an accepted ODE-versus-PDE scope decision",
+    "a change to repository target metadata or the accepted intake",
+    "a change to the Lean toolchain, dependency lock, candidate interfaces, or assurance standard"
+  ],
+  "support_state": "blocked_worker_report_only",
+  "supersession_state": "current_unsuperseded_worker_report",
+  "incident_path": "The integration lane rejects or supersedes this blocker after the retry conditions are met and assigns a fresh statement attempt.",
+  "retry_condition": "First obtain master acceptance of the intake. Preserve and hash an immutable primary source, approve the ODE root or a documented correction, transcribe and independently review the exact theorem and incorporated definitions, and freeze every domain, ordered binder, hypothesis, conclusion, solution/interval/uniqueness convention, and boundary case. A later worker can then encode that claim, check required transports, minimize pinned imports, serialize the expression and environment, and execute all four mutation classes.",
+  "remaining_root_cut_set": [
+    "S56-M-1334-STATEMENT",
+    "S56-M-1334-ANCHOR_AUDIT",
+    "S56-M-1334-OBLIGATION_TREE",
+    "S56-M-1334-PROOF",
+    "S56-M-1334-VALIDATION",
+    "S56-M-1334-RELEASE"
+  ],
+  "known_failures": [
+    "The exact source proposition and ODE/PDE target identity are unresolved.",
+    "No canonical Lean expression, minimal target import set, expression fingerprint, checked transport, or mutation suite exists.",
+    "The intake dependency is provisional [_] rather than master accepted [x].",
+    "The historical intake validator freezes the earlier [ ] DAG state and now fails against the authoritative provisional [_] projection; it is not altered by this statement attempt.",
+    "Anchor, provenance, trust, proof, readability, hermetic replay, independent verification, and master acceptance remain open."
+  ],
+  "validation_summary": {
+    "structural_preflight": "pass",
+    "pinned_api_probe": "pass_discovery_only",
+    "blocker_artifact_json": "pass",
+    "placeholder_and_bodyless_declaration_scan": "pass_no_match",
+    "new_file_whitespace_checks": "pass",
+    "historical_intake_validator": "fail_expected_authority_state_drift",
+    "statement_completion_gate": "blocked",
+    "overall": "blocked_not_selftested_complete"
+  },
+  "gate_state": "blocked_no_worker_selftest",
+  "selftest_manifest_emitted": false,
+  "selftest_manifest_reason": "The assigned exact-statement phase did not pass its completion gate, so .stage1-worker-selftest.json must remain absent.",
+  "status_boundary": "This is evidence for a truthful first-gate blocker only. It is not an elaborated target, a statement-node completion receipt, a worker [_] completion claim, a proof, audit completion, theorem completion, or master acceptance."
+}
