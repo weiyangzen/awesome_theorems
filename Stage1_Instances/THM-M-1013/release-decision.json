@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1013-RELEASE",
+  "theorem_id": "THM-M-1013",
+  "intent": "release",
+  "verdict": "blocked",
+  "base_revision": "afa4c955de308129aa8a2e0882fa02fde43fedbe",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1013-VALIDATION",
+    "receipt_id": "S56-M-1013-VALIDATION-local-20260712T020435Z",
+    "receipt_sha256": "92cd51a5adc04705a7221195d532c46a1ed778ec13ea279aed80084258e03d4b",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "reconciled_inputs": {
+    "intake.json": "0a2d5812755d204c3164e7ee19225527de5e3be155c526fa109f3f085112a3cc",
+    "Statement.lean": "76a798216239a16d9ea0fa55d2dd69c41f1e757de9c99deae69f2e9462076c0b",
+    "obligation-registry.json": "0eed5f1306be5125db5cb59a25c1bd71fe66601f6876a6be7de52dad2806e84a",
+    "typed-graphs.json": "f16a090bc3689074d951e5d7f7b180d18bcb401ee5bf005be2d41d0ea6799f38",
+    "Proof.lean": "a06c23901f366aa546d16a566c244533748a910582cb101acb860e61b5b9e4f1",
+    "proof-receipt.json": "56a176de05937e648ba1b001ce14a7a38489a3d91168e3a1a3e4c586f96c25d5",
+    "validation-spec.json": "ce39df63f19bd700b3a05a64a27996bb482518ae3b2f015fbe3fa73b6d2b4fdb",
+    "check_validation.py": "feb522cc758927744c4cd27bbc8e72fa37eb9b0dc1ade42c66d4194cf4412897",
+    "validation-receipt.json": "92cd51a5adc04705a7221195d532c46a1ed778ec13ea279aed80084258e03d4b"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1013-PROOF-local-20260712T020119Z",
+    "S56-M-1013-VALIDATION-local-20260712T020435Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "provisional_observation": "The exact Cramer-Wold root kernel-replays over the pinned mathlib bridges, but the frozen typed graph still records its pre-proof open root and no worker receipt is acceptance authority."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "root_composition": "provisional_pass",
+    "placeholder_scan": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "structured_state_freshness": "failed: typed-graphs.json predates proof execution and records root_closed=false at H1/M3/R3",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1013-VALIDATION has only a provisional worker receipt, is release_grade=false, and has no master acceptance."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "Master acceptance of S56-M-1013-VALIDATION and reconciliation of the checked exact proof into the frozen typed graph",
+    "AUDIT-Z inventory and source-boundary reconciliation",
+    "Accepted H0 primary-source edition, exact theorem/page, assumptions, errata crosswalk, and independent source review",
+    "Accepted R0 node-by-node readable reconstruction with formal anchors and independent reader review",
+    "Complete transitive proof-body provenance, accepted foundation/axiom profiles, and hashed TCB closure",
+    "Immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "SBOM and license closure, protected CI, and required mutation/metamorphic fixtures",
+    "Two signed attestations from distinct independently provisioned runners with no shared writable cache",
+    "Independently implemented minimal release verifier and deterministic content-addressed release bundle",
+    "Master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "Master-accept the validation dependency and reconcile the authoritative graph; then close H0/R0, provenance/trust, hermetic, supply-chain, independent-verifier, deterministic-bundle, and terminal master gates.",
+  "status_boundary": "This is a self-tested negative release decision. It accepts no receipt, changes no lifecycle or root vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, or release."
+}
