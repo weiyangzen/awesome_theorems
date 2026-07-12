@@ -1,0 +1,121 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1005-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1005",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "d1f51b88124ac7e1027cf7a0effa59c31030de04",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1005.Statement",
+    "elaborated_expression_sha256": "32343e66034f94d4afabc10f4d15cbae77daf650c757023a2142aafba50366e5",
+    "statement_file_sha256": "03e36de9b3040e757f9620b3eac5e6f95d003abb5b9b2ffb58416b8f478f38f6"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_module": "Mathlib.Probability.Martingale.OptionalStopping",
+    "mathlib_module_sha256": "a9bfa392263b80af96da9b547d36f5bef1342bb86054a7a973fb90a6597011c9",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T09:41:00+08:00",
+    "credentials_policy": "anonymous public HTTP only; no dependency fetch or installation",
+    "aliases": [
+      "Doob inequality",
+      "Doob maximal inequality",
+      "Doob Lp inequality",
+      "martingale maximal inequality",
+      "maximal_ineq",
+      "Submartingale eLpNorm"
+    ],
+    "search_order": [
+      "repository-local Lean source",
+      "all materialized pinned dependency Lean sources",
+      "GitHub public repository metadata",
+      "GitHub and grep.app public code search"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1005-C01",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "d1f51b88124ac7e1027cf7a0effa59c31030de04",
+      "module": "AwesomeTheorems.Stage1.S1_M_285",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_285.DoobLpMomentEstimateStatement",
+      "kind": "exact_statement_only_with_related_wrappers",
+      "normalized_match": "The strong Lp proposition matches the frozen material binders and conclusion, but has no proof body.",
+      "body_provenance": "The exact declaration is a proposition definition. Its checked wrappers terminate at the different weak theorem MeasureTheory.maximal_ineq.",
+      "placeholder_or_unsafe_status": "No placeholder supplies the exact target; legacy artifacts are discovery-only under rev-5.6.",
+      "classification": "M3",
+      "integration_status": "No inherited proof credit and nothing exact to integrate."
+    },
+    {
+      "candidate_id": "S56-M-1005-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Probability.Martingale.OptionalStopping",
+      "declaration": "MeasureTheory.maximal_ineq",
+      "kind": "related_weak_maximal_theorem",
+      "normalized_match": "Mismatch: nonnegative submartingale and threshold-event/set-integral conclusion versus arbitrary real martingale, absolute running maximum, and strong eLpNorm bound for 1 < p < infinity.",
+      "body_provenance": "Pinned source lines 152 onward; terminal local mathlib proof body uses stopping-time and integral infrastructure.",
+      "axioms_of_local_probe": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_unsafe_status": "The wrapper elaborates and its axiom report contains no sorryAx; it proves only the mismatching weak result.",
+      "classification": "M3_support_only",
+      "integration_status": "Already pinned and locally checkable, but cannot be wrapped as the frozen target. The module comment explicitly says the Lp corollary remains future work at this revision."
+    },
+    {
+      "candidate_id": "S56-M-1005-C03",
+      "project": "materialized pinned Lake dependencies",
+      "revision": "revisions fixed by Formalizations/Lean/lake-manifest.json",
+      "kind": "bounded_negative_source_search",
+      "normalized_match": "No additional Doob Lp or martingale eLpNorm maximal theorem was found; BorelCantelli eLpNorm hits concern a stopped-above L1 bound.",
+      "body_provenance": "not applicable",
+      "placeholder_or_unsafe_status": "not applicable",
+      "classification": "no_exact_candidate",
+      "integration_status": "nothing exact to integrate"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=Doob+inequality+Lean+4",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "limitation": "Repository metadata only; dated hashed discovery evidence, not proof of global absence."
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=Doob's maximal inequality+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "limitation": "Access failure; no negative result claimed."
+    },
+    {
+      "surface": "grep.app API",
+      "queries": ["Doob's Lp inequality", "Doob's maximal inequality", "maximal_ineq"],
+      "result": "HTTP 429 for every query; no response artifact",
+      "limitation": "Rate-limit access failure; no negative result claimed."
+    },
+    {
+      "surface": "Sourcegraph public API",
+      "query": "Lean Doob/maximal aliases",
+      "result": "HTTP 404 at the formerly documented stream endpoint",
+      "limitation": "Access failure; no negative result claimed."
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact target exists only as a proposition shape. Pinned mathlib supplies a related weak theorem and useful interfaces, but no exact terminal strong Lp theorem or checked reduction to it was located.",
+  "integration_blocker": "No immutable external Lean 4 repository/module/declaration proving the exact strong Lp target was located. The public code-search lanes were authentication-, rate-, or endpoint-blocked, and no moving dependency was fetched.",
+  "reopen_condition": "A concrete Lean 4 candidate with repository URL, immutable commit, toolchain, dependency graph, module, declaration, exact-type comparison, license, terminal proof provenance, and a successful local wrapper check.",
+  "human_debt": "H2 unchanged; primary-source theorem/page and errata review are outside this machine-anchor node.",
+  "readability_debt": "R4 unchanged; no readable proof reconstruction is claimed.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This is a completed bounded anchor audit, not exhaustive global discovery. It supplies no exact proof, H0, obligation-tree acceptance, full audit completion, or theorem completion."
+}
