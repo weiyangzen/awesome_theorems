@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1251-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1251",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "f58cf2c65a6c9fda32651887cd15949b3a85108c",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1251.TemperedDistributionsAreSchwartzDual",
+    "elaborated_expression_sha256": "597f3e4b3a8dd3da2a6eb5e14d5451f854d866cfaa214245b3dfc65c078a8ab9",
+    "interpretation": "complex pointwise-convergence continuous dual, not a locally convex strong-dual topology"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1251-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Distribution.TemperedDistribution",
+      "declaration": "TemperedDistribution",
+      "type": "abbrev TemperedDistribution E F := SchwartzMap E Complex ->L_pt[Complex] F",
+      "normalized_match": "exact definitional match after specializing F to Complex",
+      "body_provenance": "mathlib source abbreviation at lines 50-52 and compiled pinned olean",
+      "placeholder_or_axiom_status": "the abbreviation has no proof body; the exact local wrapper is kernel-checked and #print axioms reports only mathlib's standard propext, Classical.choice, and Quot.sound foundations",
+      "classification": "M0-W",
+      "integration_status": "already in the pinned Lake closure; exactMathlibAnchor is the checked repo-local wrapper of the statement's identical expression",
+      "license": "Apache-2.0"
+    },
+    {
+      "candidate_id": "S56-M-1251-C02",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "f58cf2c65a6c9fda32651887cd15949b3a85108c",
+      "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_171.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_171.scalarStatementShape_mathlib_wrapper",
+      "normalized_match": "same complex pointwise-dual equality with a free base space; canonical finite-dimensional binder is a direct specialization",
+      "body_provenance": "repo-local rfl wrapper over the same pinned mathlib abbreviation",
+      "placeholder_or_axiom_status": "legacy discovery input only; rev-5.6 does not inherit its proof credit",
+      "classification": "M3_legacy_discovery_only",
+      "integration_status": "not credited; AnchorAudit.lean independently rechecks the canonical rev-5.6 declaration"
+    },
+    {
+      "candidate_id": "S56-M-1251-C03",
+      "project": "mrdouglasny/gaussian-field",
+      "revision": "d63a28568a75d99f6cb27af1f888a49a69855a66",
+      "module": "GaussianField.Construction",
+      "declaration": "Configuration",
+      "toolchain": "leanprover/lean4:v4.30.0",
+      "normalized_match": "near miss: real WeakDual of a general test space, not complex PointwiseConvergenceCLM and not TemperedDistribution",
+      "body_provenance": "immutable source archive; abbreviation only",
+      "placeholder_or_axiom_status": "the audited declaration itself is an abbreviation; no terminal proof is present",
+      "classification": "M3_external_near_miss",
+      "integration_status": "not integrated because it cannot close or strengthen the canonical target",
+      "source_sha256": "b0f6260b300795af2e95296eb894a397a8c099e023ca7adbe0dda7bd38ecc40b"
+    },
+    {
+      "candidate_id": "S56-M-1251-C04",
+      "project": "mrdouglasny/gaussian-field",
+      "revision": "d63a28568a75d99f6cb27af1f888a49a69855a66",
+      "module": "SchwartzNuclear.HermiteNuclear",
+      "declaration": "schwartz_dyninMityaginSpace",
+      "toolchain": "leanprover/lean4:v4.30.0",
+      "normalized_match": "supporting Schwartz nuclearity infrastructure, not a dual identification",
+      "body_provenance": "immutable source archive",
+      "placeholder_or_axiom_status": "no terminal canonical-target declaration to audit for proof provenance",
+      "classification": "M3_support_only",
+      "integration_status": "not integrated; different toolchain and no root-closing result",
+      "source_sha256": "dd3f91a793e61c27b043d4178b78237c0e7631b809397ceca29b62d9374f000e"
+    }
+  ],
+  "search_inventory": {
+    "pinned_local_roots": [
+      "Formalizations/Lean/.lake/packages/mathlib",
+      "Formalizations/Lean/.lake/packages/flt-regular"
+    ],
+    "terms": [
+      "TemperedDistribution",
+      "Schwartz dual",
+      "dual Schwartz",
+      "StrongDual Schwartz",
+      "Schwartz StrongDual",
+      "Montel",
+      "nuclear space"
+    ],
+    "terminal_exact_candidates": 1,
+    "terminal_stronger_strong_dual_candidates": 0,
+    "external_boundary": "The immutable gaussian-field archive was inspected as a credible Schwartz/dual-adjacent Lean 4 project. Public search endpoints were unavailable during this run, so no claim of global absence is made."
+  },
+  "root_machine_classification": "M0-W",
+  "root_classification_reason": "The frozen canonical target deliberately selects mathlib's pointwise-convergence model, and pinned mathlib defines TemperedDistribution by the exact right-hand type. AnchorAudit.exactMathlibAnchor checks the whole quantified target with rfl; #print axioms reports only the declared standard mathlib foundations.",
+  "stronger_branch_classification": "M4",
+  "stronger_branch_reason": "No theorem identifying a locally convex strong dual of Schwartz space with tempered distributions was found. This branch is explicitly outside the frozen canonical target.",
+  "repo_local_integration_debt": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the bounded formal-anchor inventory. M0-W is an anchor classification for the exact canonical node, not a release verdict. Human-source H0 review, obligation architecture, downstream proof acceptance, hermetic validation, readability review, and theorem completion remain open."
+}
