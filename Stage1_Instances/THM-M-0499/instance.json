@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "item_id": "S56-M-0499-INTAKE",
+  "theorem_id": "THM-M-0499",
+  "execution_rank": 876,
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "name_zh": "素数定理的误差项",
+  "name_en": "de la Vallee Poussin error term for the prime number theorem",
+  "category": "number theory / analytic number theory",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_claim_verbatim": "pi(x)-Li(x)=O(xe^(-c sqrt(ln x)))",
+  "canonical_claim_status": "human_theorem_family_frozen_exact_encoding_open",
+  "canonical_claim": "There exists a real constant c > 0 such that, as x tends to positive infinity, the difference between the number pi(x) of primes at most x and a source-normalized logarithmic integral Li(x) is O(x * exp(-c * sqrt(log x))).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_pinned_exact_statement"
+  },
+  "domain_and_universes": "Provisional real asymptotic variable x at +infinity; Nat.primeCounting composed with a reviewed floor/nonnegative-floor convention, or an equivalent natural-variable encoding; all values in Real; conclusion in Prop; no nontrivial universes expected.",
+  "ordered_binders_provisional": [
+    "there exists c : Real",
+    "c > 0",
+    "the error function x |-> pi(x) - Li(x) is asymptotically Big-O at +infinity of x |-> x * exp(-c * sqrt(log x))"
+  ],
+  "hypotheses_requiring_statement_freeze": [
+    "the positivity of c",
+    "the exact real or natural domain and filter",
+    "the extension of primeCounting from natural to real arguments",
+    "the definition and additive normalization of Li",
+    "the lower-domain and endpoint convention needed by log, sqrt, and the logarithmic integral"
+  ],
+  "conclusion": "An unconditional de la Vallee Poussin exponential-decay Big-O bound for the error pi - Li at positive infinity.",
+  "alternate_encodings": [
+    {
+      "target": "natural-variable sequence n |-> (Nat.primeCounting n : Real) - Li(n)",
+      "relationship": "candidate equivalent restriction of the real-variable statement",
+      "checked_witness": null
+    },
+    {
+      "target": "a real-variable statement using Nat.primeCounting floor(x)",
+      "relationship": "candidate primary encoding",
+      "checked_witness": null
+    },
+    {
+      "target": "an error estimate for Chebyshev theta or psi",
+      "relationship": "proof-route or transport candidate, not statement identity",
+      "checked_witness": null
+    }
+  ],
+  "degenerate_cases": "Values x <= 1, x at an integer or prime jump, the singularity and normalization of Li, c = 0, a sign change in the exponent, and replacement of Big-O by little-o must be explicit statement mutations or boundaries.",
+  "foundation_profile": "Lean 4 dependent type theory; classical real analysis, integration, and choice dependencies remain to be frozen and audited",
+  "tcb_profile": "Lean kernel, repository toolchain, and pinned mathlib; exact minimal import and transitive declaration closure remain open",
+  "computation_profile": "No numerical prime count, zero computation, oracle, native computation, or external result is credited at intake",
+  "source_status": "historical_primary_source_candidate_identified_but_exact_theorem_page_assumptions_normalization_errata_and_review_open",
+  "source_revisions": "Discovery records are in source-statement-crosswalk.md; no citation is accepted H0 evidence.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent analytic-number-theory and integration-lane review required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the selected error-term formulation, constants or quantifiers, prime-counting or Li normalization, Lean target, imports/toolchain, source edition, trust policy, or rev-5.6 standard.",
+  "root_vector": {"H": "H1", "M": "M4", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "A planned intake only: no exact Lean expression, expression hash, H0, M0, R0, audit completion, or theorem completion is claimed."
+}

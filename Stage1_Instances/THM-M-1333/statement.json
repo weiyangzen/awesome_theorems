@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1333-STATEMENT",
+  "theorem_id": "THM-M-1333",
+  "lifecycle": "planned",
+  "canonical_statement": "For every continuous finite-dimensional real vector field defined on an open neighborhood U of initial data (t0, x0), there are epsilon > 0 and a curve x through x0 that stays in U and satisfies x'(t) = f(t, x(t)) within the closed interval [t0 - epsilon, t0 + epsilon], with one-sided derivatives at its endpoints.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1333/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1333.PeanoExistenceTarget",
+    "elaborated_expression_sha256": "4ecb0c59750f3a7df0ec655cc4e7527dde459d3c8a186811c37c1b0b8120f78e",
+    "statement_file_sha256": "2ce845ee55e2f9a2b3b1e8850f027b86d1f92a4fba81238da20effdcd6f445da"
+  },
+  "domain_and_universes": "n : Nat; time : Real; StateSpace n = Fin n -> Real with its standard finite-dimensional norm; U : Set (Real x StateSpace n); Prop in universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "U : Set (Real x StateSpace n)",
+    "f : Real -> StateSpace n -> StateSpace n",
+    "t0 : Real",
+    "x0 : StateSpace n",
+    "epsilon : Real (existential)",
+    "x : Real -> StateSpace n (existential)"
+  ],
+  "hypotheses": [
+    "IsOpen U",
+    "(t0, x0) belongs to U",
+    "the uncurried vector field p |-> f p.1 p.2 is ContinuousOn U"
+  ],
+  "conclusion": "There are epsilon > 0 and x with x t0 = x0 such that for every t in Set.Icc (t0 - epsilon) (t0 + epsilon), (t, x t) is in U and HasDerivWithinAt x (f t (x t)) on that interval at t.",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.Deriv.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1333.peanoExistenceTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "state_space": "Fin n -> Real, including n = 0, rather than a scalar-only or arbitrary Banach-space replacement",
+    "domain": "an open subset of time-state product space containing the initial datum",
+    "continuity": "joint continuity on that open domain",
+    "interval": "a nondegenerate symmetric closed interval selected existentially",
+    "derivative": "HasDerivWithinAt, so both closed-interval endpoints use the appropriate one-sided derivative",
+    "solution_domain": "the curve is total as a Lean function but only constrained on the selected interval"
+  },
+  "environment_fingerprint": {
+    "base_revision": "562c428c3d520ab42bba305174b7cad9409d7c0b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1333/check_statement.py",
+    "killed": [
+      "removed the continuity hypothesis",
+      "changed the finite-dimensional system family to scalar equations",
+      "moved the solution curve before the interval radius",
+      "allowed a zero interval radius"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "epsilon is strictly positive, so a singleton interval cannot witness existence",
+    "dimension zero is retained and not silently excluded",
+    "the initial datum must be interior to the vector-field domain",
+    "no uniqueness, Lipschitz condition, quantitative lifespan, maximal continuation, or global existence is asserted"
+  ],
+  "source_fidelity_boundary": "The repository source says only 'existence of solutions under a continuity condition'. This target freezes the standard finite-dimensional local Peano formulation, but the later source audit must still pinpoint and review a primary formulation before H0 or source acceptance. No stronger Picard-Lindelof hypothesis is substituted.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact selected Lean proposition, its expanded encoding, mutations, and environment have been checked. This does not prove Peano existence or accept the source, anchor, obligation-tree, validation, or release phases."
+}
