@@ -1,0 +1,127 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-1414-STATEMENT",
+  "theorem_id": "THM-M-1414",
+  "base_revision": "508f92b22d15ce42276877b26d34b9da3cac695c",
+  "base_tree": "765daac67cdaffd2b797474b4c1a3d12f4f99933",
+  "verdict": "blocked",
+  "first_failed_gate": "exact_source_statement_identity",
+  "dependency_state": {
+    "id": "S56-M-1414-INTAKE",
+    "worker_state": "[_]",
+    "master_accepted": false,
+    "assessment": "The required intake dependency has provisional worker evidence but is not master accepted; the statement node cannot be accepted above it."
+  },
+  "canonical_statement": null,
+  "canonical_formal_target": null,
+  "reason": "The repository fixes only Smale 1967 and 'decomposition of Axiom A systems'. The primary paper contains a diffeomorphism theorem (6.2) and a materially different Axiom A' flow theorem, Part II (5.2). The accepted intake deliberately selects neither. Choosing a variant without accountable independent source review would substitute worker inference for unresolved scope.",
+  "competing_source_candidates": [
+    {
+      "locator": "Stephen Smale, Differentiable dynamical systems (1967), theorem (6.2), printed page 777",
+      "kind": "diffeomorphism",
+      "summary": "An Axiom A compact-manifold diffeomorphism uniquely decomposes its nonwandering set into finitely many disjoint closed invariant indecomposable pieces, each topologically transitive."
+    },
+    {
+      "locator": "Stephen Smale, Differentiable dynamical systems (1967), Part II theorem (5.2), printed page 803",
+      "kind": "flow",
+      "summary": "A flow satisfying the distinct Axiom A' fixed-point, closed-orbit, and derived-flow conditions uniquely decomposes its nonwandering set into closed invariant transitive pieces."
+    }
+  ],
+  "unresolved_inputs": [
+    "independent selection and approval of the diffeomorphism or flow source theorem",
+    "immutable source edition, exact incorporated definitions, cited source [117], proof boundary, and errata disposition",
+    "manifold category, compactness, boundary, regularity, diffeomorphism or flow representation, universes, and typeclass context",
+    "source-faithful nonwandering-set, Axiom A or Axiom A', hyperbolicity, derivative, invariant splitting, and periodic-density definitions",
+    "meaning and nonemptiness boundary of indecomposable pieces and exact topological-transitivity convention",
+    "finite decomposition representation, pairwise disjointness, coverage, invariance, and uniqueness up to reindexing or as a finite set",
+    "empty nonwandering set, zero-piece, empty-piece, singleton-piece, connectedness, and zero-dimensional boundary cases"
+  ],
+  "lean_infrastructure_observation": {
+    "probe": "Stage1_Instances/THM-M-1414/IntakeProbe.lean",
+    "probe_sha256": "f4afefea7651ef4d61ee967e62e51287545b71e656f565ce43e0644ed4c32de6",
+    "direct_imports": [
+      "Mathlib.Dynamics.Flow",
+      "Mathlib.Dynamics.PeriodicPts.Defs",
+      "Mathlib.Dynamics.Transitive"
+    ],
+    "checked_interfaces": [
+      "IsInvariant",
+      "Function.periodicPts",
+      "Dense",
+      "MulAction.IsTopologicallyTransitive",
+      "AddAction.IsTopologicallyTransitive",
+      "Flow",
+      "Flow.fromIter",
+      "Flow.restrict"
+    ],
+    "assessment": "The pinned probe checks generic infrastructure only. It states no target theorem, does not supply missing dynamical definitions, and its imports cannot be certified minimal for an unknown canonical expression."
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "source_fingerprint": {
+    "description": "temporary independently rechecked copy of the official AMS PDF; not delivered",
+    "sha256": "759e0601e50ceebc812c4a4c67e5b9ed59534848c6d342a2e2cf56871db19551"
+  },
+  "minimal_import_status": "blocked_until_canonical_target_exists",
+  "expression_fingerprint": null,
+  "alternate_transports": [],
+  "mutation_tests": {
+    "removed_hypothesis": "not_meaningful_without_a_canonical_statement",
+    "changed_domain": "not_meaningful_without_a_canonical_statement",
+    "changed_binder_scope": "not_meaningful_without_a_canonical_statement",
+    "boundary_case": "not_meaningful_without_a_canonical_statement"
+  },
+  "validation": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "standard and 1546-target coverage passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1..1546, uniform L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1414",
+      "exit_code": 0,
+      "result": "rank 913, planned, legacy artifacts unaccepted, theorem incomplete"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "command": "lake env lean ../../Stage1_Instances/THM-M-1414/IntakeProbe.lean",
+      "exit_code": 0,
+      "result": "eight generic candidate interfaces elaborated; no target theorem stated"
+    },
+    {
+      "command": "bounded exact-topic rg search under Formalizations/Lean/.lake/packages/mathlib/Mathlib/Dynamics",
+      "exit_code": 1,
+      "result": "expected no-match; limited feasibility evidence only, not an anchor audit"
+    }
+  ],
+  "placeholder_scan": "clean: the final owned-path Lean scan found no sorry, admit, sorryAx, axiom, or unsafe declaration",
+  "retry_condition": "After master acceptance of the intake, an accountable reviewer must select and independently approve one exact primary-source theorem, definitions, assumptions, conclusion, boundaries, proof source, and errata disposition. Then encode that same claim with real Lean definitions, minimize imports, serialize its elaborated expression and environment, compile credited transports, and run all four required statement mutations.",
+  "statement_elaborated": false,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "debt_vector_change_proposed": false,
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1414/statement-blocker.md",
+    "Stage1_Instances/THM-M-1414/statement-blocker.json"
+  ],
+  "gate_state": "blocked_no_worker_selftest",
+  "status_boundary": "This records the first failed statement gate. It is not an elaborated canonical statement, a completion receipt, proof evidence, audit completion, theorem completion, or master acceptance."
+}

@@ -1,0 +1,271 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1412-INTAKE-WORKER-20260712",
+  "item_id": "S56-M-1412-INTAKE",
+  "theorem_id": "THM-M-1412",
+  "intent": "intake",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "cbe531e6fdc68190477a9c7e8f635fe5a68a4bcd",
+  "base_tree": "0b4a5720f51c89484fdc5f6b6f07dc01ee1e95c8",
+  "worktree_state": "nonrelease_dirty_due_to_owned_untracked_intake_artifacts_and_a_preexisting_automation_lake_symlink",
+  "preexisting_untracked_paths": [
+    "Formalizations/Lean/.lake"
+  ],
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:bb9aedd3f35043e709002ffa6045302d1855cfa710ce4a56dfdc487acafd3dc9",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:466cc90b065626747d6e48e20269e1b6d11d0ecb649e08781727bfb5a2338796",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8"
+  },
+  "source_revisions": {
+    "repository_base": "cbe531e6fdc68190477a9c7e8f635fe5a68a4bcd",
+    "repository_tree": "0b4a5720f51c89484fdc5f6b6f07dc01ee1e95c8",
+    "source_corpus_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "lean": "4.29.0-98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "worker_input_hashes": {
+    "lake_symlink_target_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "lake_symlink_hash_policy": "SHA-256 of the symlink target string without a trailing newline",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "validated_scope": "planned theorem dossier, scope map, source-statement crosswalk, open downstream task DAG, and discovery-only pinned Lean API probe",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1412/README.md",
+    "Stage1_Instances/THM-M-1412/instance.json",
+    "Stage1_Instances/THM-M-1412/scope-map.md",
+    "Stage1_Instances/THM-M-1412/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1412/task-dag.json",
+    "Stage1_Instances/THM-M-1412/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1412/check_intake.py",
+    "Stage1_Instances/THM-M-1412/validation.md",
+    "Stage1_Instances/THM-M-1412/intake-receipt.json"
+  ],
+  "exact_statement_change": "No exact mathematical or Lean statement was added; the class-label ambiguity and null canonical target were frozen.",
+  "diff_summary": "Created a nine-file fail-closed planned intake dossier; no existing or foreign target path was modified.",
+  "commands_and_results": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-1412"
+      ],
+      "exit_code": 0,
+      "result": "rank 911; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "--version"
+      ],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, x86_64 Linux"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "Formalizations/Lean/.lake/packages/mathlib",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "result": "8a178386ffc0f5fef0b77738bb5449d50efeea95, equal to the pinned lake manifest revision"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1412/instance.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1412/task-dag.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1412/intake-receipt.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON after finalization"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "result": "valid worker self-test JSON after finalization"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1412/check_intake.py"
+      ],
+      "exit_code": 0,
+      "result": "planned lifecycle, null canonical target, H5/M4/R4 vector, empty accepted state, six open downstream tasks, false completion flags, receipt boundary, and artifact inventory agree"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-1412/IntakeProbe.lean"
+      ],
+      "exit_code": 0,
+      "result": "eight generic pinned manifold diffeomorphism, tangent-space, tangent-bundle, and derivative APIs elaborated; the probe states no target theorem"
+    },
+    {
+      "argv": [
+        "rg",
+        "-n",
+        "-i",
+        "Anosov|uniform(ly)? hyperbolic|hyperbolic[ _-]?(diffeomorphism|system)",
+        "Formalizations/Lean/.lake/packages/mathlib/Mathlib",
+        "--glob",
+        "*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match result in pinned mathlib; bounded intake name search only, not an exhaustive anchor audit"
+    },
+    {
+      "argv": [
+        "rg",
+        "-n",
+        "\\b(sorry|admit|sorryAx)\\b|^[[:space:]]*(axiom|opaque)[[:space:]]",
+        "Stage1_Instances/THM-M-1412",
+        "-g",
+        "*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match result; no sorry, admit, sorryAx, axiom, or opaque declaration in the API-only probe"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "Stage1_Instances/THM-M-1412",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "result": "no tracked diff errors; check_intake.py independently checked whitespace and final newlines in all untracked dossier files"
+    }
+  ],
+  "root_vector_before": {
+    "H": "unclassified",
+    "M": "unclassified",
+    "R": "unclassified"
+  },
+  "root_vector_after": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The received class label and descriptive gloss do not form a stable proposition, no usable exact formal artifact is identified, and no proof reconstruction exists; the metadata-level verified label receives no credit.",
+  "axiom_and_placeholder_result": "No theorem declaration or proof body was added. A scoped scan found no sorry, admit, sorryAx, axiom, or opaque declaration in the API-only Lean probe.",
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "accepted_receipt_ids": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-1412"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1412/README.md",
+    "Stage1_Instances/THM-M-1412/scope-map.md",
+    "Stage1_Instances/THM-M-1412/source-statement-crosswalk.md"
+  ],
+  "change_impact_set": [
+    "S56-M-1412-INTAKE"
+  ],
+  "covered_node_ids": [
+    "S56-M-1412-INTAKE"
+  ],
+  "owner": "Stage1 integration lane",
+  "review_due": "before master acceptance or any dependent statement work",
+  "invalidation_inputs": [
+    "source or target correction",
+    "canonical statement",
+    "manifold, differentiability, splitting, norm, and estimate conventions",
+    "Lean target",
+    "toolchain or dependency pin",
+    "assurance profile",
+    "validator",
+    "any owned artifact"
+  ],
+  "support_state": "provisional_worker_only",
+  "supersession_state": "current_unsuperseded_worker_report",
+  "incident_path": "integration lane rejects or supersedes this report and requires a fresh scoped self-test",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "the repository title and gloss identify a mathematical class but not one exact primary-source proposition or canonical Lean target",
+  "remaining_root_cut_set": [
+    "S56-M-1412-STATEMENT",
+    "S56-M-1412-ANCHOR_AUDIT",
+    "S56-M-1412-OBLIGATION_TREE",
+    "S56-M-1412-PROOF",
+    "S56-M-1412-VALIDATION",
+    "S56-M-1412-RELEASE"
+  ],
+  "known_failures": [
+    "No immutable pinpoint primary source or independent source review has selected an exact definition or theorem.",
+    "The class-definition versus consequence-theorem ambiguity and overlap with neighboring hyperbolic-dynamics targets remain unresolved.",
+    "No canonical Lean expression, expression or environment fingerprint, mutation certificate, obligation or discovery freeze, proof, composition certificate, hermetic replay, or independent release evidence exists.",
+    "Master acceptance is pending."
+  ],
+  "output_summary": "All rev-5.6 preflight, JSON, scoped invariant, pinned Lean API, placeholder, and whitespace checks passed for the planned intake. The bounded Anosov name search produced the expected no-match result. No exact statement or proof was tested or claimed.",
+  "selftest_result": "pass",
+  "status_boundary": "Worker self-tested intake proposal only; no statement, proof, audit-completion, theorem-completion, or master-acceptance credit is asserted."
+}

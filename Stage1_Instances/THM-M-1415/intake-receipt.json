@@ -1,0 +1,210 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1415-INTAKE-worker-selftest",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "item_id": "S56-M-1415-INTAKE",
+  "theorem_id": "THM-M-1415",
+  "phase": "intake",
+  "intent": "intake",
+  "base_revision": "cbe531e6fdc68190477a9c7e8f635fe5a68a4bcd",
+  "base_tree": "0b4a5720f51c89484fdc5f6b6f07dc01ee1e95c8",
+  "worktree_class": "nonrelease_worker_evidence_with_preexisting_untracked_pinned_lake_link",
+  "worker_reference": "isolated Stage1 rev-5.6 automation clone; absolute runtime path intentionally omitted from public artifacts",
+  "owned_path": "Stage1_Instances/THM-M-1415",
+  "scope": "planned intake dossier, scope map, source-statement crosswalk, open downstream task DAG, and generic pinned API probe only",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1415/README.md",
+    "Stage1_Instances/THM-M-1415/instance.json",
+    "Stage1_Instances/THM-M-1415/scope-map.md",
+    "Stage1_Instances/THM-M-1415/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1415/task-dag.json",
+    "Stage1_Instances/THM-M-1415/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1415/check_intake.py",
+    "Stage1_Instances/THM-M-1415/validation.md",
+    "Stage1_Instances/THM-M-1415/intake-receipt.json",
+    ".stage1-worker-selftest.json"
+  ],
+  "diff_summary": "created a fail-closed planned dossier, scope map, source-statement crosswalk, open six-task DAG, discovery-only Lean API probe, scoped intake checker, validation record, provisional node receipt, and worker handoff",
+  "exact_statement_change": "No exact mathematical or Lean statement was added; the received source ambiguity and null canonical target were frozen.",
+  "source_revisions": {
+    "repository_record": "Docs/researches/math_theorems.md:10341-10346 at base revision",
+    "bowen_candidate": "DOI 10.2307/2373370; Crossref publisher metadata inspected; primary text not inspected",
+    "sinai_candidate": "DOI 10.1007/BF01075361; Crossref publisher metadata inspected; primary text and translation not inspected",
+    "sinai_followup_candidate": "DOI 10.1007/BF01076126; Crossref publisher metadata inspected; relationship and primary text not inspected",
+    "lean": "4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "proof_body_locations": [],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-1415"
+      ],
+      "exit_code": 0,
+      "result": "rank 914; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "--version",
+        "and pin identity checks"
+      ],
+      "exit_code": 0,
+      "result": "Lean 4.29.0 commit 98dc76e3; Lake 5.0.0-src+98dc76e; pin hashes 651c8acc...b1d2 and 321626c8...8b81; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95"
+    },
+    {
+      "argv": [
+        "Crossref and OpenAlex metadata queries",
+        "DOI 10.2307/2373370",
+        "DOI 10.1007/BF01075361",
+        "DOI 10.1007/BF01076126"
+      ],
+      "exit_code": 0,
+      "result": "Bowen 1970 and two Sinai 1968 primary candidates identified; metadata only, with bounded access checks finding no repository full text for the principal papers"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "owned JSON files and .stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "result": "instance, open task DAG, provisional intake receipt, and worker self-test are valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "ast.parse",
+        "Stage1_Instances/THM-M-1415/check_intake.py"
+      ],
+      "exit_code": 0,
+      "result": "scoped intake validator parses without writing bytecode"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1415/check_intake.py",
+        "--without-handoff"
+      ],
+      "exit_code": 0,
+      "result": "dossier, receipt, source, open-DAG, and false-completion invariants passed independently of the root handoff manifest"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1415/check_intake.py"
+      ],
+      "exit_code": 0,
+      "result": "manifest and source identity, planned/null-target boundary, H1/M4/R3 vector, empty accepted state, six open tasks, artifact inventory, receipt boundary, and false completion flags agree"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-1415/IntakeProbe.lean"
+      ],
+      "exit_code": 0,
+      "result": "seven generic pinned partition, stream, semiconjugacy, iteration, and periodic-point APIs elaborated; discovery-only evidence"
+    },
+    {
+      "argv": [
+        "rg",
+        "bounded exact-phrase Markov-partition and hyperbolic-symbolic target query",
+        "repo-local and pinned-mathlib Lean sources"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match exit; no named target surface found in the bounded search"
+    },
+    {
+      "argv": [
+        "rg",
+        "prohibited proof constructs",
+        "Stage1_Instances/THM-M-1415",
+        "--glob",
+        "*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match exit; no sorry, admit, sorryAx, axiom, opaque, or constant declaration found"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "<each new intake file in a checked loop>"
+      ],
+      "exit_code": 0,
+      "result": "each of the nine owned files and root self-test produced only the expected added-content status and no whitespace diagnostic"
+    }
+  ],
+  "result": "pass",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "master_acceptance": false,
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": null,
+  "proposed_root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "debt_delta_basis": "Credible primary publications are identified but their exact theorem text and mapping remain unaudited; no usable exact formal artifact or proof reconstruction is identified, and the catalog verified label receives no proof credit.",
+  "axiom_and_placeholder_result": "No theorem declaration or proof body was added. The API-only Lean probe contains no prohibited assumed or placeholder declaration.",
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_downstream_gate": "the catalog title and gloss do not identify one exact independently reviewed primary-source proposition or canonical Lean target",
+  "remaining_root_cut_set": [
+    "S56-M-1415-STATEMENT",
+    "S56-M-1415-ANCHOR_AUDIT",
+    "S56-M-1415-OBLIGATION_TREE",
+    "S56-M-1415-PROOF",
+    "S56-M-1415-VALIDATION",
+    "S56-M-1415-RELEASE"
+  ],
+  "known_failures": [
+    "The catalog wording names a theorem family and purpose, not a stable proposition.",
+    "No immutable primary theorem passage, exact definition/assumption/proof/errata crosswalk, or independent source review is accepted.",
+    "The Bowen/Sinai root selection and the catalog 1970 versus Sinai 1968 chronology and translation boundary remain unresolved.",
+    "No canonical Lean expression, fingerprint, checked transport, mutation test, discovery protocol, or obligation registry exists.",
+    "All statement, anchor-audit, obligation-tree, proof, validation, release, hermetic, and independent-verification gates remain open.",
+    "Master acceptance remains open."
+  ],
+  "status_boundary": "Worker-local evidence for a self-tested planned intake only; not a master acceptance receipt and not source-fidelity, statement, proof, audit-completion, or theorem-completion evidence."
+}
