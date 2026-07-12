@@ -49,6 +49,9 @@ PHASES = (
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 MAX_WORKERS = 12
+CODEX_MODEL = "gpt-5.6-sol"
+CODEX_REASONING_EFFORT = "xhigh"
+CODEX_SERVICE_TIER = "default"
 ALLOWED_REASONING_EFFORTS = {"low", "medium", "high", "xhigh"}
 
 
@@ -439,11 +442,13 @@ Required work:
 
 
 def worker_command(workspace: Path, prompt_path: Path, output_path: Path) -> str:
-    model = os.environ.get("CODEX_MODEL", "gpt-5.6-sol")
-    effort = os.environ.get("CODEX_REASONING_EFFORT", "high")
+    model = CODEX_MODEL
+    effort = CODEX_REASONING_EFFORT
     if effort not in ALLOWED_REASONING_EFFORTS:
         fail(f"CODEX_REASONING_EFFORT must be one of {sorted(ALLOWED_REASONING_EFFORTS)}")
-    service_tier = os.environ.get("CODEX_SERVICE_TIER", "fast")
+    # Stage1 workers must use the standard-priority lane.  Do not inherit a
+    # caller's ``fast`` setting: the scheduler owns this execution policy.
+    service_tier = CODEX_SERVICE_TIER
     return (
         f"cd {shlex_quote(str(workspace))} && "
         f"codex exec --cd {shlex_quote(str(workspace))} --model {shlex_quote(model)} "
@@ -554,9 +559,9 @@ def validate_only() -> None:
     print(f"items={len(ordered)} targets=1546 states={dict(Counter(item['state'] for item in ordered))}")
     print(
         "platform=codex "
-        f"model={os.environ.get('CODEX_MODEL', 'gpt-5.6-sol')} "
-        f"reasoning_effort={os.environ.get('CODEX_REASONING_EFFORT', 'high')} "
-        f"service_tier={os.environ.get('CODEX_SERVICE_TIER', 'fast')}"
+        f"model={CODEX_MODEL} "
+        f"reasoning_effort={CODEX_REASONING_EFFORT} "
+        f"service_tier={CODEX_SERVICE_TIER}"
     )
     print(f"todo={todo.relative_to(ROOT)}")
 
@@ -876,6 +881,51 @@ def launch(max_workers: int) -> None:
     print(f"tick: launched {len(selected)} worker(s), live={len(live) + len(selected)}/{max_workers}, todo={todo.relative_to(ROOT)}")
 
 
+def restart_live_workers(max_workers: int) -> None:
+    """Restart live claims in place after a scheduler runtime-policy change.
+
+    A worker clone can contain useful, uncommitted progress.  Reusing the same
+    clone keeps that progress available to the restarted Codex process while
+    changing only the runtime configuration.  Finished handoffs are left for
+    the normal integration path and are never restarted.
+    """
+    if max_workers < 1 or max_workers > MAX_WORKERS:
+        fail(f"--workers must be in 1..{MAX_WORKERS}")
+    sync_guard()
+    data, ordered = load_dag()
+    claims = refresh_claims(ordered)
+    by_id = {item["id"]: item for item in ordered}
+    live = [claim for claim in claims if claim.get("status") == "live" and int(claim.get("slot", 0)) <= max_workers]
+    timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    restarted = 0
+    for claim in live:
+        item = by_id.get(claim.get("item_id"))
+        workspace = Path(str(claim.get("workspace", "")))
+        slot = claim.get("slot")
+        session = claim.get("session")
+        if item is None or not isinstance(slot, int) or not workspace.is_dir() or not isinstance(session, str):
+            fail(f"cannot safely restart malformed live claim: {claim.get('item_id')}")
+        run(["tmux", "kill-session", "-t", session], check=False)
+        prompt = RUNTIME / "prompts" / f"{item['id']}.txt"
+        output = RUNTIME / "logs" / f"{item['id']}.out"
+        atomic_write(prompt, task_prompt(item, workspace))
+        command = worker_command(workspace, prompt, output)
+        run(["tmux", "new-session", "-d", "-s", session, "bash", "-lc", command])
+        pid_result = run(["tmux", "list-panes", "-t", session, "-F", "#{pane_pid}"], check=False)
+        pid_text = pid_result.stdout.strip()
+        claim["pid"] = int(pid_text) if pid_text.isdigit() else None
+        claim["restarted_at"] = timestamp
+        claim["runtime_config"] = {
+            "model": CODEX_MODEL,
+            "reasoning_effort": CODEX_REASONING_EFFORT,
+            "service_tier": CODEX_SERVICE_TIER,
+        }
+        restarted += 1
+    save_claims(claims)
+    write_todo(data, ordered, claims)
+    print(f"restart: restarted {restarted} live worker(s) with service_tier={CODEX_SERVICE_TIER}")
+
+
 def cleanup() -> None:
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
@@ -909,6 +959,7 @@ def main() -> None:
     modes.add_argument("--integrate", action="store_true", help="verify completed worker handoffs and advance them to worker-self-tested")
     modes.add_argument("--tick", action="store_true", help="sync, refill the tmux Codex worker lanes, and refresh todo")
     modes.add_argument("--cleanup", action="store_true", help="remove the cron entry only after every completion gate is true")
+    modes.add_argument("--restart-live", action="store_true", help="restart live workers in place using the current scheduler runtime policy")
     modes.add_argument("--install", action="store_true", help="install a bounded scheduler cron entry")
     parser.add_argument("--workers", type=int, default=MAX_WORKERS, help=f"maximum concurrent tmux Codex workers (1..{MAX_WORKERS})")
     parser.add_argument("--limit", type=int, default=MAX_WORKERS, help=f"maximum worker handoffs integrated by --integrate (1..{MAX_WORKERS})")
@@ -924,6 +975,8 @@ def main() -> None:
         launch(args.workers)
     elif args.cleanup:
         cleanup()
+    elif args.restart_live:
+        restart_live_workers(args.workers)
     else:
         install(args.schedule)
 
