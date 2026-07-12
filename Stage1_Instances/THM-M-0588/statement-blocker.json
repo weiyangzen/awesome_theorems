@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-worker-statement-blocker/1.0",
+  "item_id": "S56-M-0588-STATEMENT",
+  "theorem_id": "THM-M-0588",
+  "base_revision": "e694abee3f44557daf2f54147d968edf96e64752",
+  "state": "blocked",
+  "canonical_human_claim": "For a connected compact smooth h-cobordism (W; M0, M1) of dimension at least six, the Whitehead torsion of the incoming inclusion M0 -> W vanishes if and only if W is diffeomorphic relative to M0 to M0 x [0,1].",
+  "first_failed_gate": "exact source and Lean object-model identification",
+  "blockers": [
+    {
+      "id": "SOURCE-EXACTNESS",
+      "detail": "The repository source record gives no edition, theorem number, page, category, dimension convention, torsion convention, or relative-boundary conclusion. The intake records unresolved Sullivan (1967) versus Barden-Mazur-Stallings attribution. Selecting one exact theorem here would invent source fidelity rather than freeze it."
+    },
+    {
+      "id": "LEAN-OBJECT-MODEL",
+      "detail": "Pinned mathlib contains no Lean source declaration for a cobordism or h-cobordism, simple homotopy equivalence, Whitehead torsion, or the Whitehead group. Consequently the required compact smooth manifold-with-boundary data, incoming inclusion torsion, and relative product diffeomorphism cannot be expressed using identified pinned interfaces."
+    }
+  ],
+  "rejected_substitutions": [
+    "an abstract Prop parameter named zeroWhiteheadTorsion",
+    "an abstract Prop parameter named isRelativeProduct",
+    "a structure carrying torsion-vanishing or productness as fields",
+    "Smale's simply connected h-cobordism specialization",
+    "a PL, topological, controlled, or one-directional variant"
+  ],
+  "missing_artifacts": [
+    "a reviewed exact source statement with stable theorem/page locator",
+    "a pinned Lean 4 object model for smooth cobordisms with boundary inclusions",
+    "a pinned Lean 4 definition of Whitehead torsion and its zero element",
+    "a pinned Lean 4 definition of diffeomorphism relative to the incoming boundary"
+  ],
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "output_summary": "15 assurance groups and 1546 uniform-L0 Lean 4 targets validated"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "output_summary": "1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-0588",
+      "exit_code": 0,
+      "output_summary": "rank 628, planned, L0/rework_required, theorem_complete false"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean --version",
+      "exit_code": 0,
+      "output_summary": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740"
+    },
+    {
+      "command": "rg -l -i 'cobord|whitehead torsion|simple homotopy' Formalizations/Lean/.lake/packages/mathlib/Mathlib --glob '*.lean'",
+      "exit_code": 0,
+      "output_summary": "eight unrelated lexical-match files caused by mathlib's topological `coborder` identifier; inspection found no relevant declaration"
+    },
+    {
+      "command": "rg -n 'Whitehead|simple homotopy|torsion' Formalizations/Lean/.lake/packages/mathlib/Mathlib --glob '*.lean'",
+      "exit_code": 0,
+      "output_summary": "no Whitehead or simple-homotopy API; matches use torsion in unrelated algebra and number theory"
+    }
+  ],
+  "proof_claimed": false,
+  "theorem_complete": false,
+  "status_boundary": "No Statement.lean or expression fingerprint is emitted. The rev-5.6 statement gate remains open rather than crediting an opaque predicate surrogate."
+}
