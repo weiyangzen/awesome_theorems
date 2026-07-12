@@ -835,6 +835,7 @@ def launch(max_workers: int) -> None:
         checkpoint_integration()
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
+    claims = enforce_worker_cap(claims, max_workers)
     space_guard(claims)
     live = [claim for claim in claims if claim.get("status") == "live"]
     # A worker may exit after the integration pass but before slot allocation.
