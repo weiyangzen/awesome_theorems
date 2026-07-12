@@ -3620,7 +3620,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1270-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1270`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1270-PROOF` / `THM-M-1270` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1270-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1270`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1270-VALIDATION` / `THM-M-1270` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
+- [_] `S56-M-1270-VALIDATION` / `THM-M-1270` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1270-PROOF`. Owned paths: `Stage1_Instances/THM-M-1270`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1270-RELEASE` / `THM-M-1270` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-1270-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1270`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -3854,7 +3854,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1521-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1521`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1521-ANCHOR_AUDIT` / `THM-M-1521` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-1521-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1521`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1521-OBLIGATION_TREE` / `THM-M-1521` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-1521-OBLIGATION_TREE` / `THM-M-1521` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1521-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1521`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1521-PROOF` / `THM-M-1521` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1521-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1521`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -3948,7 +3948,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1517-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1517`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1518-INTAKE` / `THM-M-1518` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-1518`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1518-STATEMENT` / `THM-M-1518` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
+- [_] `S56-M-1518-STATEMENT` / `THM-M-1518` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-1518-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1518`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1518-ANCHOR_AUDIT` / `THM-M-1518` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-1518-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1518`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -4046,7 +4046,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1525-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1525`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1526-INTAKE` / `THM-M-1526` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-1526`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1526-STATEMENT` / `THM-M-1526` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
+- [_] `S56-M-1526-STATEMENT` / `THM-M-1526` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-1526-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1526`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1526-ANCHOR_AUDIT` / `THM-M-1526` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-1526-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1526`. Gate: rev-5.6 node-specific receipt and master acceptance.

@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1518-STATEMENT",
+  "theorem_id": "THM-M-1518",
+  "lifecycle": "planned",
+  "canonical_statement": "For a twice continuously differentiable time-dependent Lagrangian on a finite-dimensional real Euclidean configuration space and a twice continuously differentiable path with fixed endpoints on a nondegenerate compact interval, stationarity of the action under every continuously differentiable endpoint-vanishing variation implies the pointwise Euler-Lagrange equation on the interval interior.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1518/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1518.StationaryActionEulerLagrangeTarget",
+    "elaborated_expression_sha256": "4cc15786f13f4e4ad7594012ab3e96613f5bffbf572523e8282b41139fe6979f",
+    "statement_file_sha256": "c5f7022ac18e06a2dd9e5ee8d35590e15ee46777468c2c197884535230c1c167"
+  },
+  "domain_and_universes": "n : Nat; Configuration n := Fin n -> Real; paths have type Real -> Configuration n; target is Prop in Lean universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "L : Real x (Configuration n x Configuration n) -> Real",
+    "B : BoundaryData n",
+    "q : Path n"
+  ],
+  "hypotheses": [
+    "ContDiff Real 2 L",
+    "ContDiff Real 2 q",
+    "q B.initialTime = B.initialPosition",
+    "q B.finalTime = B.finalPosition",
+    "StationaryAction L B q"
+  ],
+  "conclusion": "EulerLagrangeEquation L B q at every t in Ioo B.initialTime B.finalTime",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+    "Mathlib.Analysis.Calculus.ContDiff.Basic"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1518/check_statement.py",
+    "killed": [
+      "reversed the implication to Euler-Lagrange implies stationarity",
+      "removed both fixed-path endpoint hypotheses",
+      "restricted the Lagrangian to be autonomous",
+      "replaced stationarity by an unqualified global-minimum premise"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1518.zero_admissibleVariation",
+      "Stage1Instances.THM_M_1518.endpoints_distinct"
+    ]
+  },
+  "degenerate_cases": "BoundaryData enforces initialTime < finalTime. Dimension n = 0 and constant paths are not excluded. The zero variation is admissible. The conclusion is only interior and the premise is stationarity, not local or global minimization.",
+  "historical_candidate_boundary": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_187.lean is discovery input only. Its StatementShape states the converse implication, Euler-Lagrange implies stationarity, so it is not transported to or credited as this intake-selected target.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact stationary-action-to-Euler-Lagrange implication selected at intake. It supplies no proof, source acceptance, anchor credit, audit completion, or theorem completion."
+}

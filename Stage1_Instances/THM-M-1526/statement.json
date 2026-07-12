@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1526-STATEMENT",
+  "theorem_id": "THM-M-1526",
+  "lifecycle": "planned",
+  "canonical_statement": "For a finite family of constant-coefficient complex-linear spacetime derivatives and gamma operators satisfying the stated Clifford and commutation relations, the conjugate free massive Dirac factors compose to the metric-contracted Klein-Gordon operator minus mass squared; hence every vector satisfying the free Dirac equation satisfies that Klein-Gordon equation.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1526/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1526.FreeDiracFactorizationTarget",
+    "elaborated_expression_sha256": "956e5d9f215473f7e3a896cbe5f4e1254d64dd1a29aacd695dc1984a71f06215",
+    "statement_file_sha256": "023a6d029577126ca940736995b65869bc9554d1b81e487c53b322765eb910a2"
+  },
+  "domain_and_universes": "universe u; finite I : Type; Psi : Type u with AddCommGroup and Module Complex; complex-linear endomorphisms represent a selected invariant space of sufficiently regular spinor fields",
+  "ordered_binders": [
+    "I : Type",
+    "Psi : Type u",
+    "[Fintype I]",
+    "[DecidableEq I]",
+    "[AddCommGroup Psi]",
+    "[Module Complex Psi]",
+    "D : FreeDiracData I Psi",
+    "psi : Psi (consequence conjunct)"
+  ],
+  "hypotheses": [
+    "gamma_mu gamma_mu = g_mu_mu identity",
+    "gamma_mu gamma_nu + gamma_nu gamma_mu = (g_mu_nu + g_nu_mu) identity for mu != nu",
+    "each gamma commutes with each derivative",
+    "all derivatives commute"
+  ],
+  "conclusion": "The product (slash + m)(slash - m) equals the metric-contracted second derivative operator minus m^2, together with its pointwise implication for every Dirac solution.",
+  "direct_imports": [
+    "Mathlib.LinearAlgebra.Matrix.ToLin",
+    "Mathlib.Data.Complex.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1526.freeDiracFactorizationTarget_iff_directConsequenceShape",
+  "source_relationship": "This is the theorem-sized free flat-spacetime factorization and Klein-Gordon consequence frozen by the accepted intake. Exact historical equation/page fidelity remains H2 and is not claimed by this statement node.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1526/check_statement.py",
+    "distinguished": [
+      "removed derivative-commutation data",
+      "changed scalar domain from Complex to Rat",
+      "changed binder scope",
+      "excluded the zero-mass boundary"
+    ],
+    "boundary_declaration": "Stage1Instances.THM_M_1526.zeroMassBoundary"
+  },
+  "degenerate_cases": "Zero mass is explicitly admitted. Empty index types and zero spinor spaces are not excluded. Concrete analytic domains, Lorentz signature, units, and gamma representations must instantiate FreeDiracData and remain downstream source/obligation work.",
+  "foundation_profile": "Lean 4 dependent type theory; no classical axiom is requested by the statement module",
+  "tcb_profile": "Lean kernel, pinned Lean 4.29.0, pinned mathlib revision, and the two direct imported modules",
+  "computation_profile": "Finite sums and complex-linear endomorphism algebra only; no oracle or native computation",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: no source-fidelity promotion, factorization proof, concrete PDE model, anchor acceptance, audit completion, or theorem completion is claimed."
+}
