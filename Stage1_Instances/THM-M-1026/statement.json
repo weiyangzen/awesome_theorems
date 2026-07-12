@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1026-STATEMENT",
+  "theorem_id": "THM-M-1026",
+  "lifecycle": "planned",
+  "canonical_statement": "A nondegenerate Borel probability law on the real line is stable if and only if it is the weak limit of positively scaled and centered convolution powers of some Borel probability law.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1026/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1026.Statement",
+    "elaborated_expression_sha256": "e39476697d12d054b84ab39c07251418d449ba5ea094c2bb37df9850c7caff93",
+    "statement_file_sha256": "f70d267d426daf28a4fbf912fa4215c5f27095a347fe714d83a4cd31eb605e8b"
+  },
+  "domain_and_universes": "Borel measures on Real; natural convolution index; real positive scales and real centerings; proposition in Prop",
+  "ordered_binders": [
+    "nu : Measure Real",
+    "IsProbabilityLaw nu",
+    "IsNondegenerate nu"
+  ],
+  "hypotheses": [
+    "nu is a Borel probability law",
+    "nu is not a Dirac point mass"
+  ],
+  "conclusion": "IsStableLaw nu if and only if there exists a Borel probability law mu and positive scales a_n with normalized convolution powers of mu converging weakly to nu",
+  "definitions": {
+    "stability": "For every n at least two, some positive affine normalization of the n-fold convolution of nu equals nu.",
+    "domain_of_attraction": "There are positive scales and real centerings for which normalized convolution powers converge weakly against every bounded continuous real test function.",
+    "zeroth_convolution_power": "dirac 0; asymptotic convergence makes this convention immaterial"
+  },
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Integral.BoundedContinuousFunction"
+  ],
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_1026.ExpandedSourceShape",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_1026.statement_iff_expanded"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "Dirac limit laws",
+    "zero or negative normalizing scales",
+    "ordinary Gaussian CLT as a substitute for the stable-law equivalence",
+    "necessity-only or converse-only truncations"
+  ],
+  "foundation_profile": "Lean 4 dependent type theory with mathlib classical measure theory, convolution, Bochner integration, topology, and bounded continuous functions; no custom axiom declarations",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "Noncomputable measure-theoretic proposition; no numerical computation, experiment, or oracle supplies proof credit",
+  "environment_fingerprint": {
+    "base_revision": "97a7eb41befd3d09707663f246a3133706a9be08",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1026/check_statement.py",
+    "validator_sha256": "782634ce7df5b6eff74173e50e6766771f5987f2d39b5123473801bccbe2daa9",
+    "distinguished": [
+      "removed nondegeneracy hypothesis",
+      "allowed zero normalizing scales",
+      "changed the domain to a degenerate Gaussian-only target",
+      "changed biconditional binder scope to necessity only"
+    ]
+  },
+  "statement_selection": "The intake's literal claim 'domains of attraction of stable distributions' is frozen as the standard one-dimensional equivalence between nondegenerate stable laws and possible nondegenerate normalized-sum limits. A tail regular-variation characterization would be a stronger analytic refinement and is not silently included.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. Exact primary-source edition and theorem/page review remains open on the H axis; no anchor, proof, audit-completion, or theorem-completion credit is claimed."
+}

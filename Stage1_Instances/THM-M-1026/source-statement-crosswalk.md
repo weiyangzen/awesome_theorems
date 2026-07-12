@@ -18,10 +18,11 @@ them no H0 credit.
 | normalized sums | generalized CLT name | laws of `(sum X k - b n) / a n` | expected, exact convention open |
 | iid summands | classical generalized-CLT family | independence plus identical laws | expected, not explicit in metadata |
 | nondegenerate limit | stable attraction family | weak convergence to `nu`, not a Dirac law | essential boundary, source wording open |
-| stability necessity | stable distributions | predicate expressing stability of `nu` | candidate direction |
-| converse | domain of attraction | existence of a summand law and normalizers | candidate direction |
-| analytic characterization | "domains of attraction" | tail balance and regular variation | may be stronger than intended root |
+| stability necessity | stable distributions | `IsStableLaw nu` follows from a nonempty domain of attraction | selected direction |
+| converse | domain of attraction | every stable `nu` has some attracting probability law | selected direction |
+| analytic characterization | "domains of attraction" | tail balance and regular variation | stronger refinement excluded from root |
 
-No repository-local Lean declaration has been accepted. Searching by the English theorem-family
-terms located adjacent central-limit modules but no target-specific exact declaration; the formal
-candidate audit belongs to `S56-M-1026-ANCHOR_AUDIT` after statement selection.
+The statement phase freezes the combined biconditional as
+`Stage1Instances.THM_M_1026.Statement`; `statement_iff_expanded` checks its expanded form. This is a
+statement elaboration record, not an accepted proof or source-fidelity verdict. The formal-candidate
+and immutable-source audits belong to the dependent anchor-audit phase.
