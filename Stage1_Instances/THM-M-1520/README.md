@@ -1,16 +1,17 @@
-# THM-M-1520 rev-5.6 intake
+# THM-M-1520 rev-5.6 statement
 
 This planned instance disambiguates the queue label "Liouville's theorem" as the classical
-Hamiltonian result: Hamiltonian flow preserves phase-space (Liouville) volume. It does not cover
-the unrelated complex-analysis, ODE, or Arnold-Liouville theorems.
+Hamiltonian result: Hamiltonian flow preserves phase-space volume. `Statement.lean` freezes the
+canonical-coordinate, complete-flow version and elaborates it against pinned mathlib. It does not
+cover the unrelated complex-analysis, ODE, or Arnold-Liouville theorems.
 
 ## Scope map
 
 | Surface | In scope | Intake boundary |
 |---|---|---|
-| Geometric model | finite-dimensional symplectic manifold `(M, omega)` | exact mathlib structures and universe parameters remain open |
-| Dynamics | smooth Hamiltonian, its Hamiltonian vector field, and local flow | sign convention and local-flow API must be frozen next |
-| Exact root | pullback of `omega^n / n!` by each defined flow map equals itself | no Lean expression or elaboration fingerprint yet |
+| Geometric model | canonical phase space `R^n x R^n` | represented by an L2 product of two `EuclideanSpace`s |
+| Dynamics | `C2` Hamiltonian and a global `C1` flow solving Hamilton's equations | sign convention is `X_H = (dH/dp, -dH/dq)` |
+| Exact root | every time map is `MeasurePreserving` for `volume` | `Stage1.THM_M_1520.LiouvilleStatement` |
 | Equivalent route | zero divergence in canonical coordinates | candidate reduction, not a credited equivalence |
 | Stronger route | flow preserves `omega`, hence its top exterior power | candidate proof architecture only |
 | Measure corollary | invariance of induced volume on measurable sets | requires a checked form-to-measure bridge |
@@ -24,8 +25,8 @@ only a Euclidean special case or with the assumption that an arbitrary map prese
 
 ## Open task DAG
 
-1. `S56-M-1520-STATEMENT`: select minimal pinned imports; freeze the sign convention, local versus
-   complete flow semantics, exact Lean expression, environment fingerprint, and mutation tests.
+1. `S56-M-1520-STATEMENT`: worker-elaborated canonical-coordinate global-flow target, environment
+   fingerprint, and four negative identity mutations; master acceptance remains pending.
 2. `S56-M-1520-ANCHOR_AUDIT`: inspect mathlib and external Lean candidates at immutable revisions;
    complete primary-source pinpoint and errata review.
 3. `S56-M-1520-OBLIGATION_TREE`: freeze typed proof, provenance, trust, evidence, documentation,
@@ -36,13 +37,13 @@ only a Euclidean special case or with the assumption that an arbitrary map prese
 
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The first failed theorem gate is
-the exact-statement gate: the repository has neither a canonical Lean declaration nor an elaborated
-expression/environment fingerprint for this target. No historical "verified" label is accepted as
-proof credit, and the theorem is not complete.
+Lifecycle remains `planned`; provisional root vector is `[H2, M3, R3]`. The exact Lean statement
+elaborates, but this node proves no proposition. The next failed gate is the source/anchor audit, and
+the full proof, composition, trust, hermetic, readability, and release gates remain open. No
+historical "verified" label is accepted as proof credit, and the theorem is not complete.
 
 ## Validation
 
-The exact commands and results in `validation.md` establish target membership, standard integrity,
-JSON syntax, dossier structure, and the absence of forbidden proof devices only. No Lean theorem is
-introduced in this intake phase.
+The exact commands and results in `validation.md` establish target membership, exact elaboration,
+the printed kernel expression fingerprint, and negative mutation behavior. `Statement.lean`
+introduces definitions and a `Prop`, not a theorem or proof.

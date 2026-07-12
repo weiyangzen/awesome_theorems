@@ -1,32 +1,33 @@
 {
   "schema_version": "stage1-instance/5.6.0",
-  "item_id": "S56-M-1520-INTAKE",
+  "item_id": "S56-M-1520-STATEMENT",
   "lifecycle_mode": "planned",
   "theorem_id": "THM-M-1520",
   "canonical_name": "Liouville's theorem for Hamiltonian flow",
-  "canonical_statement": "On a finite-dimensional symplectic manifold, every Hamiltonian flow preserves the Liouville volume form, wherever the flow is defined.",
+  "canonical_statement": "For every finite number n of degrees of freedom, every globally defined C1 flow on canonical phase space R^n x R^n that satisfies Hamilton's equations for a C2 Hamiltonian and the flow laws preserves phase-space Lebesgue volume at every time.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "module": "Stage1_Instances/THM-M-1520/Statement.lean",
+    "declaration_or_expression": "Stage1.THM_M_1520.LiouvilleStatement",
+    "elaborated_expression_hash": "sha256:547fe7d61d57e7ea242aaff7a97763a769275f0c6f1c64d03ca5db45e82a012b",
+    "environment_fingerprint": "sha256:cec5b3566157a30c0adf598fe6fbf307453e7e141d0e8074c95d98c1c6d6c78e",
+    "gate_state": "worker_elaborated_pending_master_acceptance"
   },
-  "domain_and_universes": "A finite-dimensional smooth symplectic manifold (M, omega), a smooth Hamiltonian H, its local flow Phi, and the top-degree form omega^n/n!; exact Lean universes and typeclasses remain to be selected.",
+  "domain_and_universes": "Universe 0; n : Nat; PhaseSpace n := WithLp 2 (EuclideanSpace Real (Fin n) x EuclideanSpace Real (Fin n)); H : PhaseSpace n -> Real; Phi : Real -> PhaseSpace n -> PhaseSpace n.",
   "quantifiers": [
-    "M: finite-dimensional smooth manifold",
-    "omega: symplectic form on M",
-    "H: smooth real-valued Hamiltonian",
-    "t and x in the domain of the Hamiltonian local flow Phi"
+    "n : Nat",
+    "H : PhaseSpace n -> Real",
+    "Phi : Real -> PhaseSpace n -> PhaseSpace n",
+    "t : Real"
   ],
   "hypotheses": [
-    "omega is closed and nondegenerate",
-    "X_H is defined by contraction with omega (sign convention to be frozen)",
-    "Phi is the local flow of X_H",
-    "dim M = 2*n"
+    "ContDiff Real 2 H",
+    "for every z, t |-> Phi t z is C1",
+    "HasDerivAt (fun s => Phi s z) (hamiltonianVectorField H (Phi t z)) t for every t and z",
+    "Phi 0 z = z for every z",
+    "Phi (s + t) z = Phi s (Phi t z) for every s, t, z"
   ],
-  "conclusion": "Phi_t pulls back omega^n/n! to omega^n/n!; equivalently the induced Liouville measure is invariant on measurable sets where the flow map is defined.",
+  "conclusion": "For every t, MeasureTheory.MeasurePreserving (Phi t) volume volume.",
   "alternate_encodings": [
     {
       "target": "divergence of the Hamiltonian vector field is zero in canonical coordinates",
@@ -39,12 +40,12 @@
       "checked_witness": "none; candidate only until the statement phase"
     }
   ],
-  "included_boundary_cases": "Local (not necessarily complete) flows are included by restricting to their domain; n = 0 is mathematically harmless but must be mutation-tested before inclusion in Lean.",
+  "included_boundary_cases": "n = 0 is included and elaborates with the same target. This statement covers complete global flows; partial local flows require a different domain-sensitive measure statement and are not silently encoded here.",
   "excluded_scope": "The complex-analysis and ODE Liouville theorems, Arnold-Liouville integrability, quantum time evolution, statistical equilibrium, and empirical conservation claims are different targets.",
-  "foundation_profile": "rev-5.6 profile not yet instantiated; differential-geometric classical/choice/quotient use remains open",
-  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact toolchain and transitive dependency closure remain open",
+  "foundation_profile": "Lean 4 dependent type theory with mathlib classical definitions permitted; no theorem proof is credited by this statement node",
+  "tcb_profile": "Lean 4.29.0 kernel commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; mathlib commit 8a178386ffc0f5fef0b77738bb5449d50efeea95",
   "computation_profile": "No numerical integration, symbolic oracle, or computation is credited at intake",
-  "formal_system": "Lean 4 + pinned mathlib (pin and API verification deferred to statement phase)",
+  "formal_system": "Lean 4.29.0 + pinned mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
   "source_revisions": "Discovery citations are recorded in source_statement_crosswalk.md; immutable source receipts and errata audit remain open",
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
@@ -60,9 +61,9 @@
   "freshness_and_revocation_policy": "Invalidate on changes to the claim, model/sign convention, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
   "root_vector": {
     "human": "H2",
-    "machine": "M4",
+    "machine": "M3",
     "readability": "R3"
   },
   "theorem_complete": false,
-  "status_boundary": "This planned intake identifies and scopes the classical-mechanics theorem only. It contains no elaborated Lean declaration, kernel proof, accepted primary-source audit, or theorem-completion evidence."
+  "status_boundary": "The canonical-coordinate global-flow target elaborates and its four non-equivalent mutations fail exact definitional identity. This is M3 statement evidence only: it contains no proof of LiouvilleStatement, no accepted source/anchor audit, and no theorem-completion evidence."
 }
