@@ -15,5 +15,11 @@ termination of one Lean program or unrestricted propositional decidability.
 `Statement.lean` elaborates the exact target with the minimal direct import
 `Mathlib.Computability.Halting`; `check_statement.py` distinguishes four altered claims and the
 kernel checks terminating and divergent boundary cases. The statement is self-tested pending
-master acceptance. The provisional human-source and readability debt remains open, and there is
-no accepted proof state, audit completion, or theorem completion.
+master acceptance.
+
+The anchor audit locates the proof-bearing pinned mathlib theorem
+`ComputablePred.halting_problem`. `AnchorAudit.lean` checks an exact transport from its fixed-input
+conclusion to the canonical pair predicate: a pair decider restricted along `c |-> (c, 0)` would
+contradict mathlib's theorem at input zero. This supplies provisional `M0-W` node evidence pending
+master acceptance and downstream provenance/trust gates. The human-source and readability debts,
+full audit, release validation, and theorem completion remain open.

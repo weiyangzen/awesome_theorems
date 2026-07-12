@@ -1,0 +1,135 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0707-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0707",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "136ebf643dcdcbc42cef34e415177189578060ef",
+  "repository_base_tree": "127be64b413538196b293f87cc5f60d97b52f0e5",
+  "canonical_declaration": "Stage1Instances.THM_M_0707.HaltingProblemUndecidable",
+  "lean_toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+  "discovery_order": [
+    "repo-local Lean source and all Stage1 target sources",
+    "pinned mathlib Computability source",
+    "pinned flt-regular source",
+    "Sourcegraph public Lean index",
+    "GitHub repository search",
+    "formal-conjecture collection at an immutable commit"
+  ],
+  "aliases_and_queries": [
+    "halting_problem",
+    "halting problem",
+    "ComputablePred plus eval",
+    "eval plus ComputablePred",
+    "Turing halting",
+    "program termination undecidable"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0707-C01",
+      "project": "awesome_theorems",
+      "revision": "136ebf643dcdcbc42cef34e415177189578060ef",
+      "module": "Stage1_Instances/THM-M-0707/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0707.HaltingProblemUndecidable",
+      "kind": "exact_statement_only",
+      "normalized_match": "canonical proposition definition; elaborated expression SHA-256 9eea217b4bee04ef468074d9f414ff4af376153349db418ff39facce8c31e46b",
+      "body_provenance": "definitional proposition; no proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface already local"
+    },
+    {
+      "candidate_id": "S56-M-0707-C02",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Computability.Halting",
+      "file": "Mathlib/Computability/Halting.lean",
+      "source_sha256": "c2a073a05c631e7fc957577a66025e9ac36dac741f9aa865e0f053b17f0c85de",
+      "declaration": "ComputablePred.halting_problem",
+      "candidate_type": "forall n : Nat, not (ComputablePred (fun c : Nat.Partrec.Code => (c.eval n).Dom))",
+      "kind": "pinned_library_terminal_anchor",
+      "normalized_match": "strict fixed-input specialization, not definitionally the pair target; the checked local wrapper derives the exact pair target by computably restricting p to (c, 0)",
+      "body_provenance": "mathlib source lines 241-242; terminal proof uses ComputablePred.rice with Nat.Partrec.zero and Nat.Partrec.none",
+      "direct_dependencies": [
+        "ComputablePred.rice",
+        "Nat.Partrec.zero",
+        "Nat.Partrec.none"
+      ],
+      "toolchain": "Lean 4.29.0 with the repository-pinned mathlib closure",
+      "license": "Apache-2.0",
+      "placeholder_or_axiom_status": "local wrapper elaborated; machine #print axioms reports only Classical.choice, Quot.sound, and propext for both terminal anchor and wrapper; forbidden-token source scan is clean",
+      "classification": "M0-W_provisional_node_evidence",
+      "integration_status": "checked through Stage1Instances.THM_M_0707.haltingProblemUndecidable_of_pinnedMathlibAnchor"
+    },
+    {
+      "candidate_id": "S56-M-0707-C03",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "kind": "immutable_negative_tree_search",
+      "normalized_match": "no halting-named path in the complete 1204-entry tree; the nearby Computability/TuringMachine paths contain DFA, encoding, busy-beaver, notation, and machine infrastructure only",
+      "body_provenance": "not applicable",
+      "placeholder_or_axiom_status": "not applicable",
+      "classification": "no_candidate",
+      "integration_status": "nothing to integrate"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes lang:Lean quoted halting_problem count:100",
+      "result": "matchCount=0",
+      "response_sha256": "91e81def2dbc95908fd85f3e896755b4d5963a4cac08f5ac09887ff89826ff44",
+      "immutability_boundary": "dated content-hashed discovery response; not a global absence proof"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes lang:Lean quoted Halting Problem count:100",
+      "result": "matchCount=0",
+      "response_sha256": "c944dbbb07c3a46e949beffaf17d03f26932e476f89e510827143a38bd960f99",
+      "immutability_boundary": "dated content-hashed discovery response; not a global absence proof"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "quoted halting problem Lean theorem prover",
+      "result": "total_count=0 and incomplete_results=false",
+      "immutability_boundary": "dated repository-metadata discovery evidence"
+    },
+    {
+      "surface": "GitHub immutable recursive-tree inspection",
+      "query": "google-deepmind/formal-conjectures@b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "result": "non-truncated 1204-entry tree; no halting-named path",
+      "response_sha256": "76fa3f96fc2ff7fc85addfd1e85852dae3fcb5022fc1ef35b030a3dc1e3efc61",
+      "immutability_boundary": "complete path inventory at the named commit, not a content-level global absence claim"
+    }
+  ],
+  "local_wrapper": {
+    "file": "Stage1_Instances/THM-M-0707/AnchorAudit.lean",
+    "declaration": "Stage1Instances.THM_M_0707.haltingProblemUndecidable_of_pinnedMathlibAnchor",
+    "formal_target": "not ComputablePred (fun p : Nat.Partrec.Code x Nat => (Nat.Partrec.Code.eval p.1 p.2).Dom)",
+    "role": "checked exact transport wrapper",
+    "terminal_declaration": "ComputablePred.halting_problem 0",
+    "terminal_proof_body_id": "mathlib4@8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/Computability/Halting.lean#ComputablePred.halting_problem",
+    "proof_method": "compose any alleged pair decider with the computable embedding c maps to (c, 0), contradicting the fixed-input theorem"
+  },
+  "foundation_profile_observed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "root_machine_classification_after": "M0-W_provisional_pending_downstream_trust_and_master_acceptance",
+  "root_vector_after": {"H": "H1", "M": "M0-W", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "remaining_root_cut_set": [
+    "freeze the full obligation and provenance graphs",
+    "accept a versioned foundation and TCB profile and transitive trust closure",
+    "complete human primary-source crosswalk and readable reconstruction",
+    "run hermetic, freshness, independent-validation, and release gates"
+  ],
+  "status_boundary": "This node locates and checks a pinned mathlib terminal theorem and an exact local transport, so it may support provisional M0-W machine evidence. It does not accept H0, AUDIT-Z, THEOREM-Z, or theorem completion."
+}

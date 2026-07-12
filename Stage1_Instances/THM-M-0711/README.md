@@ -11,5 +11,9 @@ the fixed-group and uniform-presentation formulations. The statement phase now f
 standard fixed-group reading for this repository, using finite signed-generator lists as the word
 code. Historical source fidelity remains a separate open audit gate.
 
-The root remains `[H1, M4, R4]`. `Statement.lean` kernel-elaborates the exact proposition under the
-pinned toolchain, but supplies no proof. Exact commands and results are in `validation.md`.
+The anchor phase found no exact or transport-ready proof in pinned mathlib or the immutable external
+Lean 4 candidates inspected. `AnchorAudit.lean` kernel-checks the adjacent representation and
+halting anchors, while `anchor-audit.md` records the bounded negative search and integration cut.
+The root remains `[H1, M4, R4]`: `Statement.lean` elaborates the exact proposition, but no finite
+presentation construction or undecidability reduction has been supplied. Exact commands and
+results are in `validation.md`.

@@ -40,6 +40,13 @@ The intake is self-tested pending master acceptance. Human-source fidelity, exac
 anchor audit, obligations, proof, trust, reproducibility, and release gates remain open. The theorem
 is not complete.
 
+## Proof handoff
+
+`Proof.lean` now contains a placeholder-free local proof body for the exact frozen target. Its
+deduction, Lindenbaum, truth-lemma, countermodel, and root declarations elaborate in the pinned
+environment; `proof-validation.md` records the scoped command and axiom output. This proof-phase
+self-test remains provisional until master acceptance and does not claim validation or release.
+
 ## Validation
 
 Exact intake-only commands and results are recorded in `validation.md`. They establish manifest

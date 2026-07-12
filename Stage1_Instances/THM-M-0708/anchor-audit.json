@@ -1,0 +1,47 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0708-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0708",
+  "base_revision": "136ebf643dcdcbc42cef34e415177189578060ef",
+  "audit_date": "2026-07-12",
+  "frozen_target": "Stage1Instances.THM_M_0708.RiceTheoremTarget",
+  "candidates": [
+    {
+      "candidate_id": "MATHLIB-RICE-8A178386",
+      "project": "leanprover-community/mathlib4",
+      "immutable_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "revision_source": "Formalizations/Lean/lake-manifest.json",
+      "module": "Mathlib.Computability.Halting",
+      "declaration": "ComputablePred.rice",
+      "direct_type": "(C : Set (Nat ->. Nat)) -> ComputablePred (fun c => eval c in C) -> Nat.Partrec f -> Nat.Partrec g -> f in C -> g in C",
+      "relationship_to_target": "Contraposition with the frozen represented positive and negative witnesses closes the exact target.",
+      "checked_wrapper": "Stage1Instances.THM_M_0708.AnchorAudit.mathlib_rice_exact_candidate",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "Already present as the exact pinned mathlib dependency; no new dependency is needed.",
+      "terminal_proof_body_provenance": "Mathlib/Computability/Halting.lean lines 208-217 at the pinned revision; body uses fixed_point2 and Partrec.cond.",
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders_or_unsafe": "No sorry/admit declaration or unsafe/oracle boundary found in the candidate source or checked wrapper.",
+      "classification": "local_wrapper_upstream_mathlib_candidate"
+    },
+    {
+      "candidate_id": "MATHLIB-RICE2-8A178386",
+      "project": "leanprover-community/mathlib4",
+      "immutable_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "revision_source": "Formalizations/Lean/lake-manifest.json",
+      "module": "Mathlib.Computability.Halting",
+      "declaration": "ComputablePred.rice₂",
+      "relationship_to_target": "Related intensional-code formulation with an explicit extensionality premise; not selected because rice is a direct semantic-function anchor.",
+      "classification": "related_not_selected"
+    }
+  ],
+  "external_search": {
+    "scope": "Repository-wide Lean sources, complete pinned mathlib tree, GitHub web/code queries, grep.app API queries, and GitHub repository search.",
+    "result": "No additional credible Lean 4 candidate was identified. Search APIs returned no result payload before rate limiting; therefore this is not a claim that none exists.",
+    "immutable_external_candidate_found": false
+  },
+  "audit_complete": true,
+  "theorem_proved_by_this_phase": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The exact pinned mathlib anchor and a kernel-elaborated feasibility wrapper are audited. Proof-node adoption, provenance closure, validation, release, and theorem completion remain unclaimed."
+}

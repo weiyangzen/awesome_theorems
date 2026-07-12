@@ -42,3 +42,26 @@ invalidate a truthful self-tested `planned` intake.
 The statement phase freezes and elaborates the exact repository target but supplies no proof.
 Primary-source fidelity and every downstream proof/release gate remain open, so the root vector is
 unchanged and `theorem_complete` remains false.
+
+## Anchor-audit phase (S56-M-0711-ANCHOR_AUDIT)
+
+Audit base revision: `136ebf643dcdcbc42cef34e415177189578060ef`.
+
+| Command | Result |
+|---|---|
+| `rg -l -i 'Novikov|Boone' Formalizations/Lean/.lake/packages/mathlib/Mathlib --glob '*.lean'` and corresponding `word[ _-]?problem|wordProblem` search | exit 1 expected no-match for each; zero terminal-name files at pinned mathlib `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| same terminal-name search over each package named in `Formalizations/Lean/lake-manifest.json` | zero matching Lean files in all eleven pinned packages |
+| immutable archive inspection for the three revisions in `anchor-audit-receipt.json` | exit 0; 17, 152, and 18 Lean files inspected respectively; no target-term match; third project contains at least 20 executable placeholder lines |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0711/AnchorAudit.lean)` | exit 0; all five adjacent declarations and explicit halting type checked; both audited theorems report `[propext, Classical.choice, Quot.sound]` |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0711/Statement.lean)` | exit 0; frozen target and all three statement mutations re-elaborated |
+| `python3 -m json.tool Stage1_Instances/THM-M-0711/anchor-audit-receipt.json` and `instance.json` | exit 0 for both |
+| `rg -n '\\b(sorry|admit)\\b|^[[:space:]]*axiom\\b' Stage1_Instances/THM-M-0711 -g '*.lean'` | exit 1 expected no-match |
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups, 1546 uniform-L0 Lean 4 targets |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets, ranks 1..1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0711` | exit 0; rank 751, planned, theorem_complete false |
+| `git diff --check -- Stage1_Instances/THM-M-0711` | exit 0; no output |
+
+No dependency update, build, fetch, or clone was run in `.lake`. External archives were inspected
+under `/tmp` only. The anchor audit is self-tested as a bounded negative inventory. It neither
+asserts global nonexistence nor closes the target: the finite-presentation construction, checked
+reduction, human-source gates, and all downstream phases remain open.
