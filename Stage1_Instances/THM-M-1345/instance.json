@@ -1,0 +1,233 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1345",
+  "item_id": "S56-M-1345-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 956,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 108,
+  "name_zh": "Hartman-Grobman定理",
+  "name_en": "Hartman-Grobman theorem",
+  "canonical_name": "Hartman-Grobman local topological linearization theorem (exact source variant open)",
+  "category": "differential equations / ordinary differential equations",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "双曲平衡点的局部线性化",
+  "literal_source_claim_en": "Local linearization of a hyperbolic equilibrium.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_continuous_time_hartman_grobman_family_and_primary_candidate_identified_but_exact_source_variant_binders_and_formal_target_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalogue gives no citation and does not fix the state-space generality, vector-field domain and regularity, local flow and time domain, hyperbolicity encoding, neighborhood/homeomorphism data, conjugacy orientation and parametrization, or the continuous-flow versus discrete-map boundary. Hartman 1960 Theorem (II) is an inspected primary candidate with an explicit C2 hypothesis, while a modern candidate uses different conventions. Selecting or generalizing either without review would invent source identity and proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.ODE.Basic",
+      "Mathlib.Analysis.Calculus.FDeriv.Basic",
+      "Mathlib.Dynamics.Flow",
+      "Mathlib.Dynamics.PeriodicPts.Defs",
+      "Mathlib.Topology.IsLocalHomeomorph",
+      "Mathlib.Topology.Homeomorph.Defs",
+      "Mathlib.Topology.OpenPartialHomeomorph.Basic"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_variant_selection_binder_complete_statement_elaboration_and_mutation_tests",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_adjacent-api-probe-only"
+  },
+  "domain_and_universes": "Prospective real finite-dimensional phase space and an autonomous local vector field near a hyperbolic equilibrium; exact dimension, Lean universes, Euclidean versus coordinate-free model, open domain, equilibrium translation, and flow/time representation remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: the nonlinear local flow near a hyperbolic equilibrium is topologically conjugate, with the selected time-parametrization convention, to the flow of its derivative. Exact neighborhoods, maps, time quantifiers, orientation, and regularity remain open.",
+  "primary_candidate_not_credited": {
+    "source": "Philip Hartman, A lemma in the theory of structural stability of differential equations, Proceedings of the American Mathematical Society 11(4), 1960, DOI 10.1090/S0002-9939-1960-0121542-7",
+    "locator": "Theorem (II), page 615; proof pages 615-618",
+    "system": "x' = T x + F(x) near zero in a real Euclidean space",
+    "hypotheses": "F=o(|x|), F is C2 near zero, and every eigenvalue gamma_j of T has nonzero real part",
+    "conclusion": "a continuous one-to-one neighborhood map conjugates the nonlinear solution transformations T^t to u |-> exp(T t)u while preserving path parametrization",
+    "status": "inspected primary candidate and proof, but not catalogue-selected, binder-complete in the dossier, audited for Hartman-specific errata or corrigenda, or independently reviewed; H1 discovery evidence only"
+  },
+  "modern_candidate_not_credited": {
+    "source": "Gerald Teschl, Ordinary Differential Equations and Dynamical Systems, Graduate Studies in Mathematics 140, AMS, 2012, DOI 10.1090/gsm/140",
+    "locator": "Theorem 9.9, page 264; proof pages 264-266",
+    "system": "a differentiable vector field with zero as a hyperbolic fixed point",
+    "conclusion": "a local homeomorphism phi(x)=x+h(x) conjugates exp(tA) to the nonlinear flow Phi_t",
+    "status": "inspected authoritative modern candidate together with its official errata, but not catalogue-selected or independently reviewed; proof-relevant errata on pages 265, 266, and 268 require an incorporated mapping, and the source does not license silently weakening the primary candidate's C2 premise"
+  },
+  "alternate_encodings": [
+    {
+      "target": "translate an arbitrary hyperbolic equilibrium p to zero before applying a zero-based theorem",
+      "relationship": "potential equality transport after source selection",
+      "checked_witness": null
+    },
+    {
+      "target": "express hyperbolicity by a complexified spectrum avoiding the imaginary axis versus a stable/unstable invariant splitting",
+      "relationship": "potential iff requiring a checked finite-dimensional equivalence",
+      "checked_witness": null
+    },
+    {
+      "target": "conjugacy of time-one maps",
+      "relationship": "implied by a full parametrized flow conjugacy, but insufficient in the reverse direction without a checked bridge",
+      "checked_witness": null
+    },
+    {
+      "target": "the discrete local-diffeomorphism Hartman-Grobman theorem",
+      "relationship": "distinct theorem variant, not an alternate credited encoding of the continuous-flow root",
+      "checked_witness": null
+    }
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero-dimensional phase space and the zero vector field",
+    "purely stable, purely unstable, and mixed stable/unstable spectra",
+    "an eigenvalue on the imaginary axis and the failure of hyperbolicity",
+    "equilibrium at zero versus translation from an arbitrary point",
+    "empty, nonopen, or mismatched source and target neighborhoods",
+    "local trajectories or conjugacy images leaving the selected neighborhoods",
+    "all real times versus a local time interval versus only integer or time-one dynamics",
+    "parametrized conjugacy versus orbit equivalence with time reparametrization",
+    "C1, differentiable, C2, and little-o conventions at the equilibrium",
+    "noninvertible discrete maps versus local diffeomorphisms"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1344 Lyapunov's indirect method",
+    "THM-M-1346 the stable manifold theorem and THM-M-1347 the center manifold theorem",
+    "THM-M-1366 structural stability",
+    "a discrete-map, time-one-map, scalar, one-dimensional, linear, or globally defined special case as the continuous-flow root",
+    "a structure or hypothesis that assumes the desired homeomorphism or conjugacy conclusion",
+    "Matrix.IsHyperbolic for two-by-two matrices, which is a positive-discriminant predicate unrelated to ODE hyperbolicity",
+    "generic ODE, flow, derivative, fixed-point, homeomorphism, spectrum, or matrix-exponential APIs without an exact theorem bridge",
+    "a numerical phase portrait, experiment, name match, or the untrusted verified label as theorem evidence"
+  ],
+  "source_status": "H1_inspected_primary_candidate_and_published_proof_but_catalogue_source_variant_full_assumption_crosswalk_errata_audit_and_independent_review_open",
+  "human_source_discovery_not_credited": [
+    {
+      "citation": "Philip Hartman, A lemma in the theory of structural stability of differential equations, Proc. AMS 11(4) (1960), 610-620, DOI 10.1090/S0002-9939-1960-0121542-7",
+      "immutable_copy_sha256": "f633e1c7f25336d13b0fae201361393003995d99e1d7ee17e6bccf0246d997f9",
+      "status": "publisher PDF and Theorem (II) inspected; primary candidate only because catalogue selection, complete incorporated assumptions, errata, Grobman genealogy, and independent review remain open"
+    },
+    {
+      "citation": "Gerald Teschl, Ordinary Differential Equations and Dynamical Systems, GSM 140, AMS (2012), DOI 10.1090/gsm/140, Theorem 9.9, page 264",
+      "immutable_copy_sha256": "362433156525216abf596c17ce843204510e96d57afa4284a37c7aa5a9ffc36e",
+      "status": "author-hosted preliminary edition inspected; modern corroborating candidate only, not a catalogue-selected canonical statement or H0"
+    }
+  ],
+  "formal_candidate_discovery_not_credited": [
+    {
+      "modules": [
+        "Mathlib.Analysis.ODE.Basic",
+        "Mathlib.Analysis.Calculus.FDeriv.Basic",
+        "Mathlib.Dynamics.Flow",
+        "Mathlib.Dynamics.PeriodicPts.Defs",
+        "Mathlib.Topology.IsLocalHomeomorph",
+        "Mathlib.Topology.Homeomorph.Defs",
+        "Mathlib.Topology.OpenPartialHomeomorph.Basic"
+      ],
+      "declarations": [
+        "IsIntegralCurveOn",
+        "IsIntegralCurveAt",
+        "Flow",
+        "Flow.toHomeomorph",
+        "Function.IsFixedPt",
+        "HasFDerivAt",
+        "fderiv",
+        "IsLocalHomeomorphOn",
+        "Homeomorph",
+        "OpenPartialHomeomorph",
+        "Function.Semiconj",
+        "Flow.IsSemiconjugacy"
+      ],
+      "status": "adjacent interfaces elaborate, but no exact Hartman-Grobman declaration, hyperbolicity package, conjugacy construction, or proof body was located; Flow.IsSemiconjugacy is global and requires a continuous surjection, so it cannot by itself encode the local neighborhood conjugacy"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "3ed74ce8b03564707b34b6e2314d2bb6d0a6206e",
+    "repository_base_tree": "5d5275ace8e7c0d1026c248e8f2760e18c3c8dda",
+    "repository_record": "Docs/researches/math_theorems.md:9810-9815",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:36588-36613",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "88539bc8f2c48258d309c2488bcffb080878907bd4800da940f49c76cee72e03",
+    "execution_dag_sha256": "414ffe2870bd325ebf1098c038f1902cb034e5406e619b7184ded538e06a94af",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "hartman_primary_source_url": "https://www.ams.org/journals/proc/1960-011-04/S0002-9939-1960-0121542-7/S0002-9939-1960-0121542-7.pdf",
+    "hartman_primary_source_pdf_sha256": "f633e1c7f25336d13b0fae201361393003995d99e1d7ee17e6bccf0246d997f9",
+    "hartman_doi": "10.1090/S0002-9939-1960-0121542-7",
+    "teschl_modern_source_url": "https://www.mat.univie.ac.at/~gerald/ftp/book-ode/ode.pdf",
+    "teschl_modern_source_pdf_sha256": "362433156525216abf596c17ce843204510e96d57afa4284a37c7aa5a9ffc36e",
+    "teschl_source_landing_page_sha256": "8a1c9d59eb6ee56bb5bbc253f459b00e644c478812ff2b1ac6eb8a4c7181ad1e",
+    "teschl_errata_url": "https://www.mat.univie.ac.at/~gerald/ftp/book-ode/errata.pdf",
+    "teschl_errata_pdf_sha256": "3eacbac5b8fc762c5d3f21183cba3ae638b9ac5fbe703cc52cf2857b9605996e",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "ode_basic_source_sha256": "ae12311010b33270373065089e7abbad74fc3df21b8067276301846890ac477d",
+    "flow_source_sha256": "c7f07f0f0b126a2a80bb6ea80bccdc2ac24e5cd0ef74c9df041e598b265e803d",
+    "periodic_points_source_sha256": "4964d3b8a9b3845e87d6be77efd6b886e6290112a8c59a29efcd70df15ac16e6",
+    "local_homeomorph_source_sha256": "7696cbf4008a475eec4b6620d5facaebcb1b3d2f7a497f68fdbed79cb33ac79e",
+    "homeomorph_defs_source_sha256": "fa07e3709be98fd676277ae1cfd8585d6f3e145246589b123ea5dedaee2b4ffb",
+    "fderiv_basic_source_sha256": "3e9a21ea0c7ad87b2711fcdc6f8746a54e28b59cdfdc0544a5bc35301a49d31e"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, finite-dimensional complexification, spectral decomposition, local-solution selection, and homeomorphism construction policies remain open until the exact target is frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, ODE flow construction, hyperbolicity bridge, terminal declarations, transitive dependencies, axioms, and trust closure remain open",
+  "computation_profile": "No numerical flow, eigenvalue approximation, phase portrait, oracle, generated conjugacy, or unchecked certificate is credited; the prospective theorem requires kernel-checked analytic and topological reasoning",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1345/README.md",
+    "Stage1_Instances/THM-M-1345/instance.json",
+    "Stage1_Instances/THM-M-1345/scope-map.md",
+    "Stage1_Instances/THM-M-1345/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1345/task-dag.json",
+    "Stage1_Instances/THM-M-1345/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1345/check_intake.py",
+    "Stage1_Instances/THM-M-1345/validation.md",
+    "Stage1_Instances/THM-M-1345/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "neighbor_scope_reviewer": "unassigned reviewer for continuous-flow, discrete-map, stable-manifold, indirect-stability, and structural-stability boundaries"
+  },
+  "freshness_and_revocation_policy": "Invalidate on a source or target correction, source selection or erratum, regularity or hyperbolicity convention, state/domain/equilibrium/time/neighborhood/conjugacy decision, neighbor-scope decision, Lean target or import, toolchain or dependency pin, assurance profile, validator, or any owned artifact; review is due before master acceptance or dependent statement work, and the integration lane owns rejection, supersession, and incident response.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalogue wording, primary and modern source candidates, proposition-changing choices, neighbor exclusions, and adjacent pinned APIs. H1 does not mean the exact source statement is accepted; M4 records no usable exact formal artifact. No canonical proposition, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
