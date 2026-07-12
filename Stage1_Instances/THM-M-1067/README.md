@@ -15,3 +15,9 @@ checks appear in `validation.md`; statement commands and evidence appear in
 `statement-validation.md`. The immutable mathlib and external Lean candidate inventory, including
 the negative exact-anchor result and prospective Brownian-process prerequisites, appears in
 `anchor-audit.md`.
+
+The provisional obligation architecture is frozen in `obligation-registry.json` and
+`typed-graphs.json`, with the readable tree in `obligation-tree.md`, checked composition interfaces
+in `ObligationTree.lean`, and exact phase evidence in `obligation-tree-validation.md`. All proof
+obligations remain open; the architecture packet does not change the planned lifecycle or root
+debt.
