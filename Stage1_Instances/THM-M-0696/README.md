@@ -20,6 +20,15 @@ The choice of calculus is intentionally not guessed from the short Stage0 slogan
 human claim is narrow enough to reject nearby theorems, while `intake.json` keeps the concrete Lean
 expression open until the statement phase can freeze all syntax and binder choices.
 
+## Statement handoff
+
+The statement phase selected and elaborated an exact object-language target in `Statement.lean`.
+It uses the false/implication basis, Boolean valuations, arbitrary `Set` contexts, and a fixed
+classical Hilbert calculus with premise, K, S, double-negation elimination, and modus ponens rules.
+`statement.json` freezes its expression and environment fingerprints; `statement-validation.md`
+records the worker checks. This statement evidence is self-tested pending master acceptance and is
+not a proof of completeness.
+
 ## Intake verdict
 
 Lifecycle is `planned`. Root debt is provisionally `[H1, M4, R3]`: a primary historical source

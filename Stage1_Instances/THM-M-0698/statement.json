@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0698-STATEMENT",
+  "theorem_id": "THM-M-0698",
+  "lifecycle": "planned",
+  "canonical_statement": "For every first-order language L and theory T of closed L-sentences, T has a nonempty model if and only if every finite subtheory contained in T has a nonempty model.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0698/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0698.FirstOrderCompactnessTarget",
+    "expression": "forall {L : FirstOrder.Language.{u, v}} {T : L.Theory}, T.IsSatisfiable <-> T.IsFinitelySatisfiable",
+    "elaborated_expression_sha256": "3531c40508e8728e24c5d55f887988faa083c8c1e4f9ae73b5dd920bdfb48ec5",
+    "statement_file_sha256": "14d196fe8a7a4e4541699342f835dcedf8365072db893ef579e49fbdf426681a"
+  },
+  "domain_and_universes": "universe u v; implicit L : FirstOrder.Language.{u,v}; implicit T : L.Theory; Prop in Lean universe 0",
+  "ordered_binders": [
+    "L : FirstOrder.Language.{u,v}",
+    "T : L.Theory"
+  ],
+  "hypotheses": [],
+  "conclusion": "T.IsSatisfiable iff T.IsFinitelySatisfiable",
+  "direct_imports": [
+    "Mathlib.ModelTheory.Satisfiability"
+  ],
+  "checked_transports": [
+    "Stage1Instances.THM_M_0698.firstOrderCompactnessTarget_iff_pinnedMathlibType",
+    "Stage1Instances.THM_M_0698.firstOrderCompactnessTarget_iff_expandedFiniteSubtheoryShape"
+  ],
+  "pinned_source_declaration": "FirstOrder.Language.Theory.isSatisfiable_iff_isFinitelySatisfiable",
+  "pinned_source_relationship": "The first checked identity matches the exact displayed type of the pinned mathlib declaration. The second unfolds IsFinitelySatisfiable to finite Finset subtheories and checks the repository's selected semantic reading. Neither identity claims proof-body credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "imported_module_source_sha256": "0abb92d531851a57909945b740981d79a4cbb29238f2a3d21cb5fa57aa143edb",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0698/check_statement.py",
+    "method": "Each mutation is elaborated and then an attempted definitional equality to the canonical target is required to fail with Lean's rfl failure.",
+    "killed": [
+      "removed finite-subtheory containment hypothesis",
+      "changed finite domain from Finset sentences to finite Theory sets",
+      "moved containment outside the finite-subtheory binder",
+      "excluded the empty finite subtheory"
+    ]
+  },
+  "degenerate_cases": "The empty theory, empty finite subtheory, finite theories, and languages with empty symbol families remain included. IsSatisfiable uses mathlib's nonempty ModelType convention. No language cardinality, consistency, or syntactic derivability premise is introduced.",
+  "alternate_encodings": {
+    "expanded_finite_subtheory_form": "Credited through firstOrderCompactnessTarget_iff_expandedFiniteSubtheoryShape.",
+    "semantic_consequence_form": "Not credited by this statement item; it is a consequence form and would require its own checked relationship if used later."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the intake-selected exact target with one minimal pinned import, checked type/expansion identities, and four statement mutations. It supplies no compactness proof, proof provenance, anchor-audit acceptance, or theorem completion."
+}
