@@ -33,3 +33,9 @@ The proof phase now supplies `Proof.lean`. Its exact pinned bridge calls
 `ObligationTree.root_compose` certificate, and inhabits the unchanged `StatementShape`. This closes
 the proof node's machine cut pending master acceptance. Full validation, primary-source and readable
 review, hermetic replay, independent verification, and theorem completion remain downstream gates.
+
+The validation phase adds a separately written `Validation.lean` probe and a fail-closed verifier.
+They replay the exact root, axiom profile, local placeholder policy, pinned mathlib revision and
+terminal source provenance. This is provisional warm-cache evidence only: the proof prerequisite
+and graph reconciliation await master acceptance, and cold hermetic, distinct-runner, H0/R0, and
+release gates remain open. See `validation-validation.md` and `validation-receipt.json`.

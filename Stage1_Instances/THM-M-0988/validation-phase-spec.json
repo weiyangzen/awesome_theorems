@@ -1,0 +1,44 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0988-VALIDATION",
+  "theorem_id": "THM-M-0988",
+  "recipes": [
+    {
+      "recipe_id": "M0988-validation-kernel-replay",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0988/check_proof.sh"],
+      "env_allowlist": {"ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0988-ROOT", "M0988-X-PINNED", "M0988-T-ASSEMBLE"],
+      "covered_declarations": ["Stage1Instances.THM_M_0988.Proof.lindebergLevyCentralLimit"]
+    },
+    {
+      "recipe_id": "M0988-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0988/Validation.lean"],
+      "env_allowlist": {"ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0988-ROOT", "M0988-X-PINNED"],
+      "covered_declarations": ["Stage1Instances.THM_M_0988.Validation.independentlyReconstructedRoot"]
+    },
+    {
+      "recipe_id": "M0988-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0988/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0988-ROOT", "M0988-X-PINNED", "M0988-T-ASSEMBLE"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0988.Proof.lindebergLevyCentralLimit",
+        "Stage1Instances.THM_M_0988.Validation.independentlyReconstructedRoot",
+        "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub"
+      ]
+    }
+  ]
+}
