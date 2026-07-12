@@ -25,3 +25,12 @@ real-closed-field quantifier elimination. No exact Lean 4 closure was found, so 
 classification after audit remains `H1/M3/R3`: usable artifacts stop at statement/interfaces. See
 `anchor-audit.md` and `anchor-audit.json`. This phase
 does not claim exhaustive global discovery, H0, audit completion, or theorem completion.
+
+The obligation-tree phase freezes a 14-node denominator and separate proof,
+refinement, provenance, evidence, trust, documentation, and workflow graphs.
+The architecture isolates atomic and Boolean normalization, one-variable
+algebraic elimination through sign conditions and projection, the semantics
+bridge, and formula recursion. `ObligationTree.lean` checks only an exact-type
+identity boundary that assumes the still-open root. It adds no proof credit:
+the root remains `H1/M3/R3`, and master acceptance, all substantive proof
+nodes, source/foundation closure, validation, and release remain open.
