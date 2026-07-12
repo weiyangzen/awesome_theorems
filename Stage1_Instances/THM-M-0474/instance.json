@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0474",
+  "item_id": "S56-M-0474-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_artifacts_accepted": false,
+  "execution_rank": 938,
+  "legacy_priority_slot": null,
+  "name_zh": "费马小定理",
+  "name_en": "Fermat's little theorem",
+  "canonical_name": "Fermat's little theorem",
+  "category": "number theory / elementary number theory",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim": "a^(p-1) is congruent to 1 modulo p",
+  "canonical_statement": "For natural numbers a and p, if p is prime and a is coprime to p, then a^(p-1) is congruent to 1 modulo p.",
+  "canonical_claim_status": "conventional_conditional_scope_recorded_but_exact_source_domain_and_formal_statement_open",
+  "canonical_claim": "For a prime natural modulus p and a natural base a coprime to p, a^(p-1) is congruent to 1 modulo p; natural versus integer canonical domain remains subject to source selection in the statement phase.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_pending_source_confirmed_statement_phase",
+    "module_candidate": "Mathlib.FieldTheory.Finite.Basic",
+    "declaration_candidate": "Nat.ModEq.pow_card_sub_one_eq_one",
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_exact_statement_fingerprint_and_mutations"
+  },
+  "domain_and_universes": "Provisional a p : Nat with a truth-valued Prop conclusion; an integer-base encoding remains a source-dependent alternate and exact Lean universe data await statement elaboration.",
+  "quantifiers": ["p : Nat", "a : Nat"],
+  "ordered_binders": ["p : Nat", "a : Nat", "hp : p.Prime", "ha : a.Coprime p"],
+  "hypotheses": ["p.Prime", "a.Coprime p (equivalently for prime p, p does not divide a)"],
+  "conclusion": "a ^ (p - 1) is congruent to 1 modulo p",
+  "alternate_encodings": [
+    {
+      "target": "integer-base Int.ModEq form",
+      "relationship": "candidate domain extension or alternate encoding, subject to the selected source",
+      "checked_witness": "API and type checked only in IntakeProbe.lean; no canonical transport credited"
+    },
+    {
+      "target": "nonzero equality in ZMod p",
+      "relationship": "candidate equivalent encoding under primality and nonzero-residue transport",
+      "checked_witness": "declaration checked only; transport deferred"
+    },
+    {
+      "target": "a ^ p is congruent to a modulo p for every a",
+      "relationship": "related all-base form, not substituted for the displayed catalog claim",
+      "checked_witness": "nearby declaration checked only"
+    }
+  ],
+  "excluded_degenerate_cases": "Composite or zero modulus, a divisible by p, and an unconditional universal reading are excluded. The p=2 and a=0 boundaries must be mutation-tested in the statement phase rather than silently discarded.",
+  "source_status": "repository_secondary_catalog_only_primary_source_pinpoint_assumptions_translation_errata_and_independent_review_open",
+  "source_revisions": {
+    "repository_base": "dd8846dbc83818f6ba7124151d5d4b7b29bb5b0d",
+    "repository_base_tree": "1bf3680085cf7338ac4d405cf4ef2188fa14ccec",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory; pinned candidate currently reports propext, Classical.choice, and Quot.sound, but the accepted foundation profile and transitive trust closure remain open",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact imports, terminal proof body, transitive declarations, and TCB review remain open",
+  "computation_profile": "No native computation, experiment, oracle, solver, or unchecked certificate is credited; the theorem is expected to use ordinary kernel-checked proof terms",
+  "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0474/README.md",
+    "Stage1_Instances/THM-M-0474/scope-map.md",
+    "Stage1_Instances/THM-M-0474/source-statement-crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned",
+    "formal_reviewer": "unassigned"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source selection or correction, canonical domain/claim/binders/hypotheses, Lean target or import, toolchain/dependency pin, foundation/TCB/computation policy, validator, or rev-5.6 standard change; independent reviewers and review due date remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. The conventional conditional scope is recorded because the literal unconditional catalog gloss is false, but primary-source acceptance and the exact canonical Lean target remain open. The pinned candidate is M3 discovery evidence only. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+}
