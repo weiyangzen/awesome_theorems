@@ -6,6 +6,9 @@ Lyapunov exponent offset and convergence to a standard normal law.
 
 The legacy Lean module is discovery input only. Its `LyapunovData` includes a
 `characteristicFunctionTaylorBridge : Prop`, and `StatementShape` assumes that bridge; it therefore
-receives no statement or terminal-proof credit. The provisional root vector is `[H2, M4, R4]`.
-Exact source anchoring, a canonical elaborated target, proof closure, and theorem completion remain
-open. The other files freeze scope, crosswalk candidate sources, and record the downstream task DAG.
+receives no statement or terminal-proof credit. The self-tested statement moves the provisional
+root vector to `[H2, M3, R4]`, pending master acceptance.
+`Statement.lean` now freezes and kernel-elaborates the exact target selected from that human scope,
+with joint row independence, explicit moments, the textbook Lyapunov ratio, eventual positive row
+variance, and convergence to `gaussianReal 0 1`. This provisional statement work awaits master
+acceptance. Exact source anchoring, proof closure, and theorem completion remain open.

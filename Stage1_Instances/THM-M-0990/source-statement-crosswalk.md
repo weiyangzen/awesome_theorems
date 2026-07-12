@@ -18,12 +18,12 @@ pinpoint statement and proof, check errata, and obtain independent review.
 
 | Repository phrase | Intended source component | Required Lean component | Intake status |
 |---|---|---|---|
-| triangular array | finite row of real random variables | row-indexed functions and row length | included; encoding open |
-| independent | joint independence within each row | `iIndepFun` or exact finite-family equivalent | included; strength to verify |
-| centered row sum | subtract expectations then sum | integral/expectation and finite sum | included |
-| row variance scale | square root of summed variances | variance, nonnegativity, square root, nonzero conditions | included; edge cases open |
-| Lyapunov condition | normalized sum of absolute `2 + delta` moments tends to zero | `Integrable`, `Real.rpow`, and `Tendsto` | included; exact formulation open |
-| central limit conclusion | convergence to standard normal | `TendstoInDistribution` or weak convergence of pushforward laws | included; transport open |
+| triangular array | finite row of real random variables | `X : Nat -> Nat -> Omega -> Real`; row `n` uses `Finset.range n` | frozen in Lean; source audit open |
+| independent | joint independence within each row | `forall n, iIndepFun (X n) P` | frozen in Lean; deliberately not pairwise |
+| centered row sum | subtract expectations then sum | `centered` and `normalizedRowSum` | frozen and elaborated |
+| row variance scale | square root of summed variances | `rowVarianceSum`, `rowScale`, eventual strict positivity | frozen and elaborated |
+| Lyapunov condition | normalized sum of absolute `2 + delta` moments tends to zero | `Integrable`, `Real.rpow`, `lyapunovRatio`, and `Tendsto` | frozen and elaborated |
+| central limit conclusion | convergence to standard normal | `TendstoInDistribution` to a variable with law `gaussianReal 0 1` | frozen and elaborated |
 
 ## Existing Lean boundary
 
@@ -34,6 +34,6 @@ field `D.characteristicFunctionTaylorBridge`. Thus it is not an exact formalizat
 implication and supplies no proof credit. Its comments about missing upstream closure must be
 re-audited at the pinned dependency revision.
 
-Before `H0`, every source assumption and conclusion must be mapped to the final Lean binders and
-definitions, including row length, centering, variance edge cases, moment existence, and the chosen
-equivalence between distribution-function and weak-convergence formulations.
+Before `H0`, the selected Lean binders and definitions must be checked against a pinpoint primary
+source, including its row convention, variance edge cases, and the transport from any
+distribution-function formulation to mathlib weak convergence.

@@ -8,14 +8,15 @@
 - The Lyapunov ratio tending to zero as the row index tends to infinity.
 - Weak convergence in distribution of normalized row sums to the standard Gaussian law.
 
-## Decisions reserved for statement phase
+## Statement-phase decisions
 
-The inspected primary source must fix row length (`n` versus a separate `k_n`), whether variables
-are initially assumed centered, positivity versus divergence of variance sums, the precise moment
-integrability formulation, and whether the conclusion uses distribution functions or weak
-convergence of laws. The Lean target must also fix probability-space variation across rows,
-measurability, binder order, universes, and degenerate rows. These choices must not be inherited
-silently from the legacy module.
+The canonical Lean target uses the first `n` entries of row `n` on one probability space. It centers
+each entry explicitly, assumes eventual strict positivity of the summed row variance, requires
+measurability, finite second moments, and integrability of every centered `2 + delta` moment, and
+concludes mathlib weak convergence in distribution. The target quantifies universe-polymorphically
+over separate source and Gaussian realization spaces. Degenerate rows are allowed only outside an
+eventual tail. These encoding choices implement the frozen human scope but remain subject to the
+later pinpoint source audit; they are not inherited from the legacy bridge-bearing structure.
 
 ## Explicit exclusions
 
