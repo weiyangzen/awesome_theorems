@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0645-STATEMENT",
+  "theorem_id": "THM-M-0645",
+  "lifecycle": "planned",
+  "canonical_statement": "For any first-order language with logical equality and any closed formula, validity in every nonempty structure implies derivability from no assumptions in the fixed finite classical natural-deduction calculus.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0645/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0645.CompletenessTarget",
+    "elaborated_expression_sha256": "76fbce831cb0d1669af8754a6c4f3c3d45d0e4fbbab1532e0140104937c7ea68",
+    "statement_file_sha256": "cda4391afd39e771c67afa1f235a6088c6cd3e33c8d507ebdcc96a7b0ebf78ee"
+  },
+  "domain_and_universes": "universes u v; L : FirstOrder.Language.{u,v}; phi : L.Sentence; semantic models M : Type (max u v); derivations specialize alpha to Empty",
+  "ordered_binders": [
+    "L : Language.{u,v}",
+    "phi : L.Sentence",
+    "validity proof over every M : Type (max u v), Nonempty M, and L.Structure M"
+  ],
+  "hypotheses": ["Valid phi"],
+  "conclusion": "Nonempty (Derivation L (alpha := Empty) [] phi)",
+  "direct_imports": ["Mathlib.ModelTheory.Semantics"],
+  "calculus": "finite classical natural deduction with hypothesis, falsum elimination, implication introduction/elimination, double-negation elimination, universal introduction/elimination, equality reflexivity, and equality substitution",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "foundation_profile": "Lean dependent type theory; target calculus is classical through double-negation elimination; semantics and syntax are mathlib's first-order logic with logical equality; no choice, quotient, oracle, unsafe declaration, axiom, or theorem proof is introduced by this statement artifact.",
+  "tcb_profile": "Lean 4 kernel and the pinned mathlib transitive closure of Mathlib.ModelTheory.Semantics; future proof closure must separately audit axioms and imports.",
+  "computation_profile": "The target is a Prop about existence of an inductive derivation object; this statement gate performs elaboration only and credits no computation or oracle.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0645/check_statement.py",
+    "killed": [
+      "removed the semantic-validity hypothesis",
+      "allowed empty semantic domains by removing Nonempty M",
+      "specialized the arbitrary language to Language.empty",
+      "moved semantic validity outside the sentence binder"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0645.emptyLanguageBoundary"]
+  },
+  "degenerate_cases": "Empty languages are included and exercised. Empty model domains are excluded by Nonempty M. Sentences have no free variables. Logical equality is built into mathlib syntax and the calculus includes reflexivity and substitution.",
+  "alternate_encodings": {
+    "strong_completeness": "Uncredited pending a kernel-checked specialization and a concrete theory-derivability interface.",
+    "satisfiability_form": "Uncredited pending checked classical transports."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact weak completeness target and its concrete calculus. It supplies no completeness proof, source acceptance, anchor audit, obligation tree, validation, or release evidence."
+}

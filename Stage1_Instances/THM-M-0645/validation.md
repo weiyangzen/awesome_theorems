@@ -19,8 +19,8 @@ untracked `Formalizations/Lean/.lake` entry was present at preflight and was not
 | direct trailing-whitespace/EOF assertion over owned files | exit 0; `owned text check: ok` |
 | `git diff --check -- Stage1_Instances/THM-M-0645` | exit 0; no output |
 
-Known downstream failures: pinpoint primary-source inspection and independent review, exact syntax
-and calculus selection, statement elaboration and mutation tests, formal-candidate audit,
-obligation registry, proof, trust/provenance closure, hermetic replay, and independent validation
-remain open. They prevent every later phase and theorem completion but do not invalidate this
-truthful `planned` intake.
+Statement-phase validation is now recorded separately in `statement-validation.md`. Known
+downstream failures remain: pinpoint primary-source inspection and independent review,
+formal-candidate audit, obligation registry, proof, trust/provenance closure, hermetic replay, and
+independent validation. They prevent every later phase and theorem completion but do not invalidate
+the truthful planned lifecycle or the self-tested statement handoff.

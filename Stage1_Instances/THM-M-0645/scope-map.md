@@ -16,20 +16,19 @@ encoding, not the canonical claim at intake. It may be credited only through che
 to `T = empty` and, in the reverse direction, the hypotheses needed for a deduction/compactness
 transport.
 
-## Decisions required at statement phase
+## Statement decisions frozen
 
-- Select a primary-source statement and transcribe its formula class, primitive connectives,
-  quantifiers, equality convention, and notion of general validity.
-- Select a concrete Lean calculus (Hilbert, sequent, or natural deduction), including its finite
-  proof object and empty-context derivability judgment. The theorem must not quantify over an
-  arbitrary calculus carrying completeness as an assumption.
-- Decide whether equality is logical, supplied by an equality theory, or absent. Do not silently
-  prove only the equality-free fragment if the chosen source includes equality.
-- Freeze the nonempty-domain convention, treatment of empty languages and zero-ary symbols,
-  capture-avoiding substitution, universal closure of formulas with free variables, binder order,
-  and universe levels.
-- Freeze the foundation, TCB, and computation profiles, then mutation-test removal of validity,
-  replacement of sentences by open formulas, empty structures, and weakening of the conclusion.
+- Use mathlib `Language`, locally nameless formulas, sentences, semantic realization, and logical
+  equality, with model carrier `Type (max u v)` and an explicit `Nonempty` premise.
+- Use the inductive finite classical natural-deduction calculus in `Statement.lean`; its rules do
+  not contain or assume semantic completeness.
+- Quantify the language before the sentence, require semantic validity, and conclude an inhabited
+  empty-context derivation. Open formulas are excluded rather than silently universally closed.
+- Include empty languages and zero-ary symbols. The checked empty-language boundary and four
+  structural mutations are recorded in `statement.json`.
+
+Pinpoint primary-source conventions remain source-audit work. They may require a checked transport
+or statement revision; they do not prevent this exact repository-gloss encoding from elaborating.
 
 ## Expected semantic and syntactic interfaces
 

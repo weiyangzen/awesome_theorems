@@ -12,13 +12,20 @@
   "name_en": "Goedel completeness theorem for first-order logic",
   "category": "mathematical logic / model theory",
   "target_system": "Lean 4 + mathlib",
-  "canonical_claim_status": "human_scope_frozen_formal_statement_open",
+  "canonical_claim_status": "formal_statement_self_tested_pending_master_acceptance",
   "canonical_claim": "For classical first-order logic, every closed formula that is true in every nonempty structure under every interpretation of its language is derivable from no assumptions in a fixed sound and complete first-order deductive calculus.",
-  "canonical_formal_target": null,
-  "domain_and_universes": "arbitrary first-order language and closed formulas; exact Lean universes and syntax representation remain open",
-  "quantifiers": "universally quantify the language and closed formula; validity quantifies over nonempty structures and interpretations; exact binder order remains open",
-  "hypotheses": "semantic validity of the formula; equality and nonempty-domain conventions remain to be selected from the primary source and formal calculus",
-  "conclusion": "derivability of the formula from the empty theory/context in the selected calculus",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0645/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0645.CompletenessTarget",
+    "status": "statement_self_tested_pending_master_acceptance",
+    "elaborated_expression_hash": "sha256:76fbce831cb0d1669af8754a6c4f3c3d45d0e4fbbab1532e0140104937c7ea68",
+    "environment_fingerprint": "Lean 4.29.0@98dc76e3; mathlib@8a178386; Semantics sole direct import; full hashes in statement.json"
+  },
+  "domain_and_universes": "universes u v; arbitrary mathlib Language.{u,v} and L.Sentence; models M : Type (max u v); derivations specialize free-variable type to Empty",
+  "quantifiers": "ordered binders L, phi, then the Valid phi hypothesis; validity quantifies over M, Nonempty M, and L.Structure M",
+  "hypotheses": "semantic validity of the sentence in every nonempty structure; logical equality is built into mathlib syntax",
+  "conclusion": "Nonempty (Derivation L (alpha := Empty) [] phi) in the fixed classical natural-deduction calculus",
   "alternate_encodings": [
     "strong completeness T entails phi implies T derives phi, only after a checked specialization to the empty theory",
     "satisfiability form: syntactic consistency implies existence of a model, only after checked classical transports"
@@ -29,9 +36,9 @@
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
-  "foundation_profile": "Lean 4 dependent type theory; classical reasoning, choice, quotient, and syntax-induction profile not yet frozen",
-  "tcb_profile": "Lean kernel, repository toolchain, pinned mathlib, selected calculus, and transitive import closure remain to be frozen",
-  "computation_profile": "expected noncomputable model construction or maximal-consistent-set construction; exact use of choice and quotienting remains open",
+  "foundation_profile": "Lean 4 dependent type theory; target calculus is classical through double-negation elimination; this statement artifact introduces no axiom, choice, quotient, oracle, or unsafe declaration",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib transitive closure of Mathlib.ModelTheory.Semantics; proof-phase axiom and dependency closure remains open",
+  "computation_profile": "The target is a Prop about an inductive derivation object; no computation or oracle receives proof credit",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -44,7 +51,11 @@
     "scope-map.md",
     "source-statement-crosswalk.md",
     "task-dag.json",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "A planned intake only: no pinpoint primary-source review, exact Lean expression, environment fingerprint, H0, M0, R0, accepted execution state, audit completion, or theorem completion is claimed."
+  "status_boundary": "The exact Lean expression and environment fingerprint are self-tested pending master acceptance. No pinpoint primary-source review, theorem proof, H0, M0, R0, accepted execution state, audit completion, or theorem completion is claimed."
 }
