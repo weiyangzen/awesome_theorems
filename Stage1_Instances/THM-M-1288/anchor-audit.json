@@ -1,0 +1,142 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1288-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1288",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "3bb2bb303df87d54d8d5dfafcee61ad3c329e278",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1288.TalentiSharpSobolevTarget",
+    "elaborated_print_sha256": "399dca9a18e2ab2e7577ab64e41f7bc79a0b3f20cc5c4fcb3f3d7d9593408126",
+    "statement_file_sha256": "fc152a0dff8d2dd50231d76f5fcc32ad0bd3edbf3fc5c69bfe856a73ef67ce6d"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_module": "Mathlib.Analysis.FunctionalSpaces.SobolevInequality",
+    "mathlib_module_sha256": "bbd0840b2f0c1145c325577c18bb136053d2712dc1c24ad66c8aba0370a4623b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T23:30:00+08:00",
+    "credentials_policy": "anonymous public HTTP only; no dependency fetch, clone, or installation",
+    "aliases": [
+      "Talenti inequality",
+      "Aubin-Talenti inequality",
+      "sharp Sobolev inequality",
+      "best constant in Sobolev inequality",
+      "Gagliardo-Nirenberg-Sobolev inequality",
+      "eLpNorm_le_eLpNorm_fderiv_of_eq"
+    ],
+    "search_order": [
+      "repository-local Lean source",
+      "all materialized pinned dependency Lean sources",
+      "Sourcegraph public Lean index",
+      "GitHub public repository metadata",
+      "grep.app public code search"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1288-C01",
+      "project": "awesome_theorems",
+      "revision": "3bb2bb303df87d54d8d5dfafcee61ad3c329e278",
+      "module": "Stage1_Instances/THM-M-1288/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1288.TalentiSharpSobolevTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact frozen proposition",
+      "body_provenance": "definition of a proposition; no theorem proof body",
+      "placeholder_or_unsafe_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1288-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Analysis.FunctionalSpaces.SobolevInequality",
+      "declarations": [
+        "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_one",
+        "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner",
+        "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq",
+        "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_le"
+      ],
+      "kind": "checked_nonsharp_sobolev_inequality_family",
+      "normalized_match": "same compact-support first-order Sobolev exponent regime, but the theorem uses ENNReal eLpNorm, Frechet derivative, and a library-defined non-sharp constant; it neither identifies Talenti's displayed gamma constant nor proves least-constant sharpness",
+      "body_provenance": "kernel-checked pinned mathlib source and compiled artifacts; local direct wrapper terminates at eLpNorm_le_eLpNorm_fderiv_of_eq",
+      "axioms_of_local_wrapper": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_unsafe_status": "local wrapper elaborated and its machine axiom report has no sorryAx; no exact-root proof is inferred",
+      "classification": "M3_support_only",
+      "integration_status": "already pinned and locally checkable, but requires constant sharpness and encoding transports before it can contribute to the exact root"
+    },
+    {
+      "candidate_id": "S56-M-1288-C03",
+      "project": "scottnarmstrong/DeGiorgi",
+      "revision": "4c1b3077d3782b24065184df4ba59501b2e56fc7",
+      "module": "DeGiorgi.WholeSpaceSobolev",
+      "declaration": "DeGiorgi.sobolev_smooth",
+      "source_sha256": "0c0146e551fc332bcf68370c9fb39644a36a1a0752dcd1d6b900cbe0b7d56729",
+      "toolchain": "leanprover/lean4:v4.29.0-rc6",
+      "mathlib_revision": "5c8398df528176d9c87ccd9226ba8f7c8852d59c",
+      "kind": "external_wrapper_of_mathlib_nonsharp_inequality",
+      "normalized_match": "specializes the Sobolev conjugate arithmetic on Euclidean space, but wraps mathlib's unspecified C_gns constant and proves no Talenti formula or optimality",
+      "body_provenance": "immutable raw source inspected; proof directly invokes MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq",
+      "placeholder_or_unsafe_status": "no sorry, axiom, or unsafe token in the inspected module; transitive project audit and local elaboration were not performed",
+      "classification": "M3_external_support_only",
+      "integration_status": "not exact, redundant with the pinned mathlib anchor, and on different Lean/mathlib revisions; no integration task is justified"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "queries": [
+        "context:global archived:yes fork:yes Talenti lang:Lean count:100",
+        "context:global archived:yes fork:yes Aubin-Talenti lang:Lean count:100",
+        "context:global archived:yes fork:yes sharp Sobolev lang:Lean count:100"
+      ],
+      "result": "zero matches for all three exact-name queries",
+      "response_sha256": [
+        "e15cf2ed69187a81c5155f365ee4883820e89af3b04fe105801708f2dc6cd254",
+        "37d9dea8cbeaca19838b411ca388388e9dd47eb8e16dcd4a19ee81423e05b4ca",
+        "13cb630ea2c2c7297f8790e62670d47a98d620a652a3a140704f931cb9b46e39"
+      ],
+      "limitation": "dated content-hashed index responses, not proof of global absence"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes eLpNorm_le_eLpNorm_fderiv_of_eq lang:Lean count:100",
+      "result": "10 matches in mathlib4 and scottnarmstrong/DeGiorgi; the external result is candidate C03",
+      "response_sha256": "063ab8ad04017e8481a38d65d62358de34faf62d7895fb9b0d6fe737342df2fd",
+      "limitation": "search covers this declaration alias, not all semantic equivalents"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "queries": ["Talenti Lean language:Lean", "Sobolev inequality Lean 4"],
+      "result": "total_count=0 and incomplete_results=false for both queries",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "limitation": "repository metadata only; no global code absence is claimed"
+    },
+    {
+      "surface": "grep.app API",
+      "queries": ["Talenti", "eLpNorm_le_eLpNorm_fderiv_of_eq"],
+      "result": "HTTP 503 for both queries",
+      "limitation": "access failure; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact root is only a proposition definition. Pinned mathlib proves a non-sharp compact-support Sobolev inequality, and DeGiorgi only specializes that theorem. No checked candidate identifies the explicit gamma-function coefficient with the library constant or proves that the displayed coefficient is least among admissible constants.",
+  "integration_blocker": "Proof closure needs checked transports between the frozen real integral norms and eLpNorm, between gradient and the Frechet derivative operator norm, a derivation of the displayed Talenti gamma constant, admissibility at exactly that constant, and the lower-bound argument establishing optimality. No immutable external Lean 4 terminal theorem supplying those sharpness obligations was located.",
+  "reopen_condition": "An immutable Lean 4 declaration with the exact normalized sharp target, or dependency-legal declarations closing every listed transport and sharpness obligation, followed by terminal-body, transitive axiom/placeholder/unsafe/oracle, license, and local elaboration checks.",
+  "human_debt": "H1 unchanged; primary-source formula and errata review belong to the human-source audit, not this formal-anchor node.",
+  "readability_debt": "R3 unchanged; no readable proof reconstruction is claimed.",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes a bounded formal-anchor inventory only. It is not exhaustive global discovery and does not establish H0, an obligation tree, proof closure, full AUDIT-Z, or theorem completion."
+}

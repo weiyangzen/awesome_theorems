@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1291-STATEMENT",
+  "theorem_id": "THM-M-1291",
+  "lifecycle": "planned",
+  "canonical_statement": "For p > 0, a complex-valued almost-everywhere convergent sequence on an arbitrary measure space whose p-power densities are integrable with uniformly bounded integrals satisfies the Brezis-Lieb integral splitting limit.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1291/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1291.BrezisLiebTarget",
+    "elaborated_expression_sha256": "d33af3afa4d754bac48547f753d7bda319f46e538766e7c763fa437376599884",
+    "statement_file_sha256": "ef19e70e68cd8c9179130141706954825b7de8529ecef6aec1dc6e87c76dd92f"
+  },
+  "domain_and_universes": "universe u; alpha : Type u; MeasurableSpace alpha; mu : Measure alpha; p : Real; f : alpha -> Complex; fseq : Nat -> alpha -> Complex; Prop in universe 0",
+  "ordered_binders": [
+    "alpha : Type u (implicit)",
+    "[MeasurableSpace alpha]",
+    "mu : Measure alpha",
+    "p : Real",
+    "f : alpha -> Complex",
+    "fseq : Nat -> alpha -> Complex"
+  ],
+  "hypotheses": [
+    "0 < p",
+    "for every n, fseq n is AEStronglyMeasurable with respect to mu",
+    "fseq n tends to f pointwise mu-almost everywhere",
+    "there is one real C bounding the integrals of all p-power densities, each of which is Integrable"
+  ],
+  "conclusion": "Tendsto (integral |fseq n|^p - integral |fseq n - f|^p) atTop (nhds (integral |f|^p)), with powers encoded by Real.rpow of the complex norm.",
+  "direct_imports": ["Mathlib.MeasureTheory.Integral.Bochner.Basic"],
+  "checked_transport": "Stage1Instances.THM_M_1291.brezisLiebTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "scalar": "Complex; the real-valued form follows by a later checked scalar transport and is not substituted here",
+    "power": "Real.rpow (norm z) p, retaining the source range p > 0 rather than restricting to norm exponents p >= 1",
+    "integral": "Bochner integral of a nonnegative real density",
+    "finite_mass": "Each density is explicitly Integrable, avoiding Lean's zero value for the integral of a nonintegrable function",
+    "uniform_bound": "One C is existentially quantified before all sequence indices",
+    "measure_space": "Arbitrary Measure alpha; no finite or sigma-finite strengthening"
+  },
+  "environment_fingerprint": {
+    "base_revision": "8f4c72eeb09c3eab9ea2ef5a83d0bf48d59fdce6",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1291/check_statement.py",
+    "killed": [
+      "allowed p = 0",
+      "strengthened almost-everywhere convergence to everywhere convergence",
+      "changed the complex scalar domain to real",
+      "moved the integral bound after the sequence index"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "p = 0 and p < 0 are excluded; 0 < p < 1 remains included",
+    "Null sets are respected through almost-everywhere convergence",
+    "No finite-measure or sigma-finite hypothesis is introduced",
+    "No Lp-space or p >= 1 restricted corollary is credited as the canonical theorem"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact selected Brezis-Lieb target with a definitional expansion and four structural mutations. It supplies no proof, anchor acceptance, source-fidelity acceptance, or theorem-completion evidence."
+}

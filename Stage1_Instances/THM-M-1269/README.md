@@ -60,3 +60,13 @@ provenance, evidence, trust, documentation, and workflow graphs. The checked
 composition in `ObligationTree.lean` remains conditional on the pinned
 `exists_seq_tendsto_sInf` bridge. Consequently the root stays open at `M1`;
 the frozen route and per-node boundaries are in `obligation-tree.md`.
+
+## Validation phase
+
+`check_validation.py` replays the exact statement, conditional composition,
+installed proof, and a separately implemented `Validation.lean` root in a
+fresh temporary module directory. The narrow warm-cache gates pass, including
+the exact axiom set and pinned-mathlib cleanliness checks. This is provisional
+same-workspace evidence only: the frozen graph awaits master reconciliation,
+and cold hermetic plus distinct-runner gates remain open as recorded in
+`validation-phase.md` and `validation-receipt.json`.
