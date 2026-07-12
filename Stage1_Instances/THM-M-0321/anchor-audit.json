@@ -1,0 +1,117 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0321",
+  "item_id": "S56-M-0321-ANCHOR_AUDIT",
+  "canonical_declaration": "Stage1Instances.THM_M_0321.MarkovKakutaniTarget",
+  "canonical_expression_sha256": "7a9628fca04eb72d787efad1f852517f4385377b3ad16f3eba662ccea4bb86a5",
+  "audit_date": "2026-07-12",
+  "local_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "revision_source": "Formalizations/Lean/lake-manifest.json",
+    "dependency_mutation": false
+  },
+  "searches": [
+    {
+      "scope": "repository and complete pinned mathlib Lean source tree",
+      "method": "case-insensitive ripgrep over Lean files",
+      "terms": [
+        "markov.?kakutani",
+        "common fixed point",
+        "commuting family",
+        "pairwise commuting.*fixed"
+      ],
+      "result": "No Markov-Kakutani common-fixed-point declaration. Markov/Kakutani hits are Riesz-Markov-Kakutani representation results; other common-fixed-point hits concern ordinals or joint eigenspaces."
+    },
+    {
+      "scope": "all existing locally pinned Lake dependency source trees",
+      "method": "case-insensitive ripgrep over Lean files",
+      "terms": [
+        "markov.?kakutani",
+        "common fixed point",
+        "pairwise commuting.*fixed"
+      ],
+      "result": "No exact or statement-compatible external dependency candidate located."
+    },
+    {
+      "scope": "Sourcegraph global indexed Lean corpus, including forks and archived repositories",
+      "method": "literal content queries with lang:Lean, fork:yes, archived:yes, count:100",
+      "terms": [
+        "Markov-Kakutani",
+        "Markov Kakutani",
+        "MarkovKakutani",
+        "markov_kakutani"
+      ],
+      "result": "Only Riesz-Markov-Kakutani representation occurrences were returned for the hyphenated spelling; no common-fixed-point implementation was located under the other spellings. Returned Lean 4 repositories were mathlib4 at indexed commit 12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f and facebookresearch/atlas-lean at 34ffed396f376454c1a9b297f3fd74c5c801fb50; the latter only imports the Riesz representation modules."
+    },
+    {
+      "scope": "GitHub repository index",
+      "method": "repository searches for Markov-Kakutani plus Lean/Lean4 and language:Lean",
+      "terms": [
+        "\"Markov-Kakutani\" lean",
+        "\"Markov Kakutani\" lean4",
+        "markov-kakutani language:Lean",
+        "markovkakutani language:Lean"
+      ],
+      "result": "Each query returned total_count 0. This is corroborating discovery evidence, not a proof of global nonexistence."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "CAND-MATHLIB-BANACH",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.MetricSpace.Contracting",
+      "declaration": "ContractingWith.exists_fixedPoint'",
+      "classification": "rejected_statement_mismatch",
+      "reason": "Requires a contracting map on a complete emetric-space subset and supplies one-map convergence data; it does not cover affine maps, arbitrary locally convex spaces, or commuting families.",
+      "placeholder_and_axiom_audit": "not root-relevant after exact-type rejection",
+      "terminal_body_provenance": "pinned mathlib source"
+    },
+    {
+      "id": "CAND-MATHLIB-IVT",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declaration": "exists_mem_Icc_isFixedPt_of_mapsTo",
+      "classification": "rejected_statement_mismatch",
+      "reason": "Applies to a single continuous map of a real interval, not a compact convex subset of an arbitrary locally convex space or a commuting family.",
+      "placeholder_and_axiom_audit": "not root-relevant after exact-type rejection",
+      "terminal_body_provenance": "pinned mathlib source"
+    },
+    {
+      "id": "CAND-MATHLIB-RMK",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Integral.RieszMarkovKakutani.Real",
+      "declaration": "RealRMK.integral_rieszMeasure",
+      "classification": "rejected_name_collision",
+      "reason": "This is the Riesz-Markov-Kakutani representation theorem for positive linear functionals and measures, not a fixed-point theorem.",
+      "placeholder_and_axiom_audit": "not root-relevant after exact-type rejection",
+      "terminal_body_provenance": "pinned mathlib source"
+    },
+    {
+      "id": "CAND-EXTERNAL-ATLAS-RMK",
+      "repository": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas.DifferentialAnalysis.code.RieszRepresentation",
+      "declaration": null,
+      "classification": "rejected_name_collision_and_not_in_dependency_closure",
+      "reason": "The indexed occurrence imports mathlib's Riesz-Markov-Kakutani representation module; it supplies no common-fixed-point declaration and is not a pinned repository dependency.",
+      "placeholder_and_axiom_audit": "not root-relevant after semantic rejection",
+      "terminal_body_provenance": "none for the target"
+    }
+  ],
+  "exact_candidate": null,
+  "machine_classification": "M3",
+  "classification_reason": "The exact statement is locally elaborated, but no exact mathlib or immutable external Lean 4 proof candidate was located. Near hits fail exact statement identity. M0 and M1 are not claimed.",
+  "integration_feasibility": "No candidate is eligible for import or wrapping. A local formalization would require a separately frozen obligation architecture and proof work.",
+  "known_limits": [
+    "Negative name and indexed-code searches cannot prove that no unindexed or privately held Lean formalization exists.",
+    "The global services are discovery surfaces, not dependencies or kernel evidence.",
+    "Human primary-source theorem/page/errata fidelity is outside this formal-candidate phase and remains open."
+  ],
+  "status_boundary": "The immutable formal-anchor inventory is self-tested. This does not close a proof obligation, human-source debt, audit completion, theorem completion, or master acceptance."
+}
+

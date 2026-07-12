@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0649-STATEMENT",
+  "theorem_id": "THM-M-0649",
+  "lifecycle": "planned",
+  "canonical_statement": "For a nonempty linearly ordered typed direct system of nonempty structures in one first-order language, whose coherent transition maps are elementary embeddings, the canonical embedding of every stage into the direct limit is elementary.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0649/Statement.lean",
+    "declaration_or_expression": "Stage1.THM_M_0649.ElementaryChainTarget",
+    "elaborated_print_sha256": "acb2ab29191a821685e73fdc4edb6d786a3f2c92913eeecdff15a50de43b1197",
+    "statement_file_sha256": "b6f4d94a5c701f0b00f8e8c76332312cc8c432908144a7e477e7c3bed319c111"
+  },
+  "domain_and_universes": "L : Language.{uL,uS}; iota : Type v; G i : Type w; Prop in Lean universe 0",
+  "ordered_binders": [
+    "L : FirstOrder.Language",
+    "iota : Type v",
+    "G : iota -> Type w",
+    "[LinearOrder iota]",
+    "[Nonempty iota]",
+    "[forall i, Nonempty (G i)]",
+    "[forall i, L.Structure (G i)]",
+    "f : forall i j, i <= j -> ElementaryEmbedding L (G i) (G j)",
+    "[DirectedSystem G (fun i j h => (f i j h).toEmbedding)]"
+  ],
+  "hypotheses": [
+    "the index type is a nonempty linear order",
+    "every carrier is nonempty and interprets the same language",
+    "every transition is elementary",
+    "the underlying embeddings satisfy identity and composition coherence"
+  ],
+  "conclusion": "For every i, there is an elementary embedding e from G i into the mathlib direct limit whose underlying embedding is exactly Language.DirectLimit.of at i.",
+  "direct_imports": [
+    "Mathlib.ModelTheory.DirectLimit",
+    "Mathlib.ModelTheory.ElementaryMaps"
+  ],
+  "checked_transport": "Stage1.THM_M_0649.target_iff_expandedTarget",
+  "encoding_decision": "The typed direct-limit form is canonical. It does not add a common ambient carrier. Equality of the elementary embedding's underlying embedding with DirectLimit.of prevents an existentially unrelated map from satisfying the conclusion.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": ["pp.explicit=true", "pp.universes=true"]
+  },
+  "mutation_tests": {
+    "elaborated_distinct_declarations": [
+      "mutationMereEmbeddings removes elementarity of transition maps",
+      "mutationOnlyFirstStage changes the all-stages conclusion to one selected stage",
+      "mutationAssumedConclusion assumes the claimed result"
+    ]
+  },
+  "degenerate_cases": "The empty index is excluded. Singleton chains and chains with a greatest element remain included. No countability, ordinal-index, finite-language, or shared-carrier restriction is imposed.",
+  "alternate_encodings": "The common-ambient directed-supremum form remains an alternate presentation. Its equivalence to this typed target requires a later checked transport and receives no statement credit here.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the exact typed elementary-chain target. It does not prove it, accept a common-ambient transport, complete the source or anchor audits, or advance any downstream node."
+}
