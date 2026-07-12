@@ -1,0 +1,75 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0993-VALIDATION-local-20260712",
+  "item_id": "S56-M-0993-VALIDATION",
+  "theorem_id": "THM-M-0993",
+  "depends_on": ["S56-M-0993-PROOF"],
+  "base_revision": "36a2c698e6cc9758311ad1c10ecc9d229f7ce613",
+  "base_tree": "1178c3f51dbf2d790e7d593de13d01b78ae3d579",
+  "validated_at": "2026-07-12T00:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot10",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "e515adc0282947df73715cea21b4d646226d50f92ada623d3f933adc58bf5219",
+    "ObligationTree.lean": "6d1117333bb46fd10c9113f978e97499b2a3846ddf087c5fa403d5ee7001b6d0",
+    "Proof.lean": "8a665a6407cbe71240ddfc8f311778328953194ae3097454edad35e851d7d042",
+    "Validation.lean": "9a53643d85aafcf54a08533add899c85a7058df5c32407dd248d826042819e8e",
+    "statement.json": "ad007cfaf827147cac9eb71e247480ac6041fc8271a478fdd422a141855c8fc1",
+    "obligation-registry.json": "588df80fe2020cc0997cab737c26b1bfe66bef9988cf4d7b4847ec19cdb28f04",
+    "typed-graphs.json": "3b64a11bb27acd8830d7a70323697d8a23a433b99ae72ec2d75ffae4d6dfc6a1",
+    "validation-phase-spec.json": "c91b6535bc4c904ff71a8f0bf5ec965c41f9b3ebc82aa1df482b1d16f263f515"
+  },
+  "provenance": {
+    "terminal_module": "Mathlib.Probability.Moments.Basic",
+    "terminal_declarations": [
+      "ProbabilityTheory.measure_ge_le_exp_mul_mgf",
+      "ProbabilityTheory.iIndepFun.integrable_exp_mul_sum",
+      "ProbabilityTheory.iIndepFun.mgf_sum"
+    ],
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "terminal_source_sha256": "9043dc54bc2898ae5a82a89b0f79537f61a6635424360dfb21d49098a63afd73",
+    "terminal_olean_sha256": "f4d70f5712c9c26fb4f87dc186d7d10c0e42ad158315b6c8ff96fb430279f0e8",
+    "proof_body_boundary": "The exact local proof and independent reconstruction both compose the same three declarations in the pinned module; complete transitive body provenance remains a release gate."
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_cache": "pre-existing shared canonical pinned .lake symlink reused without mutation",
+    "worktree_classification": "nonrelease worker checkout with validation artifacts and pre-existing untracked .lake symlink",
+    "network": "not used by validation commands; host-level network isolation not established"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "exact frozen proof root, frozen composition, and independently reconstructed exact root passed",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "root_kernel_closed": true,
+    "structured_state_freshness": "fail_closed: typed-graphs.json predates proof closure and still records root_closed false/M1",
+    "machine_debt": "M1",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still records the root as open M1; only the master may reconcile authoritative structured state.",
+    "The proof dependency has only provisional worker evidence and no master acceptance receipt in this clone.",
+    "The worker reused shared warm .lake artifacts, so it did not perform an empty-cache cold hermetic build or offline archive restoration.",
+    "Validation.lean is independently implemented but ran in the same mutable checkout and shared cache; it is not a distinct independently provisioned runner or second verifier identity.",
+    "Complete transitive declaration/body provenance, accepted TCB/SBOM/license evidence, deterministic bundling, H0, R0, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "dependency.S56-M-0993-PROOF.master_acceptance",
+  "first_failed_release_gate": "hermetic.cold_empty_cache",
+  "retry_condition": "Master-accept and reconcile the proof dependency and fresh root graph, then replay an immutable clean snapshot with empty caches, offline restoration, complete trust/provenance evidence, and a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "status_boundary": "Self-tested nonrelease worker evidence for exact kernel closure, observed classical axioms, pinned local provenance, and same-workspace independent reconstruction. It is not hermetic or distinct-runner evidence, accepted M0, theorem completion, release, or master acceptance."
+}
