@@ -8,11 +8,19 @@ encoding and cannot replace this target with the stronger, separately catalogued
 theorem.
 
 The repository source gives only the phrase "existence of NP-complete problems." It does not fix
-machine models, encodings, reductions, or a primary theorem anchor. Those choices remain explicit
-statement-phase obligations. The provisional root vector is `[H1, M4, R4]`: the classical result is
-published, but its exact source-to-statement mapping has not been accepted, no canonical Lean target
-has been elaborated, and no readable proof reconstruction has been reviewed.
+machine models, encodings, reductions, or a primary theorem anchor. The statement phase now freezes
+these choices as binary strings, verifier-based NP, and polynomial-time many-one reductions using
+mathlib's bundled TM2 interface. The provisional root vector is `[H1, M3, R4]`: the exact statement
+has been elaborated, but its source mapping and proof remain open and no readable reconstruction has
+been reviewed.
 
 The scope map, source crosswalk, and open task DAG define the downstream work. Intake validation and
 its deliberately limited claim boundary are recorded in `validation.md`. No audit completion or
 theorem completion is claimed.
+
+## Statement phase handoff
+
+`Stage1Instances.THM_M_0721.ExistsNPCompleteLanguage` in `Statement.lean` is the proposed exact
+target. `statement.json` freezes its expression and environment fingerprints, encodings, binders,
+mutation tests, and boundary policy. `statement-validation.md` records the real Lean commands. This
+is statement-only evidence pending master acceptance; it contains no Cook-Levin or existence proof.
