@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-1280-STATEMENT",
+  "theorem_id": "THM-M-1280",
+  "base_revision": "6bcd5f977dc26298be5f77327a2616e726454eb7",
+  "verdict": "blocked",
+  "first_failed_gate": "exact_lean_statement",
+  "canonical_statement": "Every smooth closed Riemannian manifold of dimension at least three admits a conformal Riemannian metric of constant scalar curvature.",
+  "canonical_formal_target": null,
+  "reason": "The pinned mathlib revision supplies smooth manifolds and Riemannian metrics but no concrete Ricci/scalar-curvature or conformal metric-rescaling API. Therefore the conclusion cannot be expressed using pinned concrete objects. Introducing an uninterpreted scalar-curvature predicate or taking the desired conclusion as a Prop parameter would broaden or substitute the theorem and is not allowed.",
+  "unresolved_statement_choices": [
+    "whether connectedness is an explicit hypothesis or disconnected closed manifolds are covered componentwise with potentially different constants",
+    "the concrete encoding of dimension at least three",
+    "the real-valued exponent and positivity convention in conformal rescaling",
+    "the scalar-curvature and Laplacian sign conventions needed for a checked PDE transport"
+  ],
+  "checked_boundary": {
+    "file": "Stage1_Instances/THM-M-1280/StatementProbe.lean",
+    "minimal_import": "Mathlib.Geometry.Manifold.Riemannian.Basic",
+    "elaboration_exit": 0,
+    "credit": "substrate_only",
+    "available": [
+      "Bundle.RiemannianMetric",
+      "Bundle.ContMDiffRiemannianMetric",
+      "IsManifold",
+      "CompactSpace",
+      "ConnectedSpace",
+      "Module.finrank",
+      "positive continuous real-valued factors"
+    ],
+    "missing": [
+      "Ricci curvature",
+      "scalar curvature",
+      "conformal rescaling with its scalar-curvature law",
+      "the Yamabe equation"
+    ]
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "statement_probe_sha256": "8145914da669539e61508de8de8465dbce81c56e2db98d3356708f4496325c1c",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "retry_condition": "Pin compatible concrete scalar-curvature and conformal-rescaling APIs (or implement and validate them in an authorized phase), settle the listed source-level choices, then elaborate the exact proposition and checked transports and run mutation tests.",
+  "statement_elaborated": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "blocked_no_worker_selftest"
+}

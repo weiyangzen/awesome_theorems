@@ -1,0 +1,130 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1268-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1268",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "ad0567008a38fc8c39deda009ab34e4ca9910f46",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1268.WeakLowerSemicontinuityTarget",
+    "elaborated_expression_sha256": "abc6ebd5245bf9c98fb244875d5af316f780b6edf6af146a3ffaf6890bf47c54",
+    "statement_file_sha256": "72cef2c495524a276c2331b103277addc79b9271af24286fbc6c3c84c833ef09"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T11:20:16+08:00",
+    "credentials_policy": "anonymous public HTTP only; no dependency fetch or installation",
+    "aliases": [
+      "weak lower semicontinuity",
+      "weakly lower semicontinuous convex functional",
+      "convex lower semicontinuous functional",
+      "weak topology convex closure",
+      "toWeakSpace closure"
+    ],
+    "search_order": [
+      "repository-local Lean sources",
+      "all materialized pinned mathlib sources",
+      "GitHub public repository metadata",
+      "GitHub public code search"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1268-C01",
+      "project": "awesome_theorems",
+      "revision": "ad0567008a38fc8c39deda009ab34e4ca9910f46",
+      "module": "Stage1_Instances/THM-M-1268/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1268.WeakLowerSemicontinuityTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition",
+      "body_provenance": "definition of a proposition; target_iff_expanded is only a definitional statement transport",
+      "placeholder_or_axiom_status": "no proof declaration for the root",
+      "classification": "M4",
+      "integration_status": "statement surface only; no inherited proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1268-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Analysis.LocallyConvex.WeakSpace",
+      "module_sha256": "672356ee3118ce01af81cb09e6b78a9aa93389ff71b47b666e38a354cc51ac92",
+      "declaration": "Convex.toWeakSpace_closure",
+      "kind": "principal_closed_convex_set_bridge",
+      "normalized_match": "for every real-convex set, transport by toWeakSpace commutes with closure; this is the central separation-theorem bridge but is not a theorem about a functional or LowerSemicontinuous",
+      "body_provenance": "local theorem body in pinned mathlib source, based on geometric Hahn-Banach separation",
+      "placeholder_or_axiom_status": "the declaration elaborates from the materialized pinned dependency; no root proof is inferred from this support probe",
+      "classification": "M4_support_only",
+      "integration_status": "already pinned and locally checkable; downstream proof must derive convex sublevel sets and use the closure equality to establish their weak closedness"
+    },
+    {
+      "candidate_id": "S56-M-1268-C03",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Semicontinuity.Basic",
+      "module_sha256": "c60b70b03f2ca3bbc364d0d10e42d45fca727d40236311a70927760203f7aa98",
+      "declarations": [
+        "lowerSemicontinuous_iff_isClosed_preimage",
+        "LowerSemicontinuous.isClosed_preimage"
+      ],
+      "kind": "principal_semicontinuity_sublevel_bridge",
+      "normalized_match": "characterizes lower semicontinuity into a linear order by closed Iic preimages; applicable to EReal, but contains no convexity or weak-topology transport",
+      "body_provenance": "local theorem bodies in pinned mathlib source",
+      "placeholder_or_axiom_status": "both declarations elaborate from the materialized pinned dependency",
+      "classification": "M4_support_only",
+      "integration_status": "already pinned and locally checkable; must be composed with the convex-sublevel and weak-closure arguments"
+    },
+    {
+      "candidate_id": "S56-M-1268-C04",
+      "project": "materialized pinned Lake dependencies",
+      "revision": "revisions fixed by Formalizations/Lean/lake-manifest.json",
+      "kind": "bounded_negative_source_search",
+      "normalized_match": "no additional declaration matching weak lower semicontinuity of convex extended-real functionals was found",
+      "body_provenance": "not applicable",
+      "placeholder_or_axiom_status": "not applicable",
+      "classification": "no_exact_candidate",
+      "integration_status": "nothing exact to integrate"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "queries": [
+        "\"weak lower semicontinuity\" Lean",
+        "\"lower semicontinuous\" convex Lean",
+        "weak topology convex Lean"
+      ],
+      "result": "each query returned total_count=0 and incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "limitation": "repository metadata only; dated hashed discovery evidence is not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "\"weak lower semicontinuity\" language:Lean",
+      "result": "HTTP 403 API rate limit exceeded",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "limitation": "access failure; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "No exact terminal theorem was located. Pinned mathlib supplies the two central support bridges, but the frozen custom EReal Jensen predicate still requires checked derivation of convex sublevel sets and composition into both semicontinuity directions.",
+  "integration_blocker": "Proof work must derive real-convexity of every EReal sublevel from IsExtendedRealConvex, convert norm-closed convex sublevels to weak-closed sublevels through Convex.toWeakSpace_closure, handle image/preimage transports through toWeakSpace, and prove the topology-functorial converse.",
+  "reopen_condition": "An immutable Lean 4 declaration with the exact normalized type, or dependency-legal declarations closing every listed bridge, followed by proof-body, transitive axiom, placeholder, unsafe/oracle, license, and local elaboration checks.",
+  "debt_type": "formalization_debt",
+  "human_debt": "H2 unchanged; exact primary-source edition, theorem/page, assumptions, and errata review remain open outside this machine-anchor node.",
+  "readability_debt": "R4 unchanged; no readable proof reconstruction is claimed.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This node completes a bounded immutable formal-anchor inventory only. It establishes neither an exact proof nor H0, M0, R0, obligation-tree acceptance, full audit completion, or theorem completion."
+}
+
