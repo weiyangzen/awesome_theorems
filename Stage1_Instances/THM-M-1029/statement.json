@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1029-STATEMENT",
+  "theorem_id": "THM-M-1029",
+  "lifecycle": "planned",
+  "canonical_statement": "For a real-valued process on nonnegative real time over a filtered probability space, if the process has continuous sample paths, starts at zero almost surely, and both X and t |-> X_t^2 - t are martingales for the filtration, then its increments after time s are independent of the sigma algebra at s and have centered Gaussian law of variance t-s.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1029/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1029.LevyMartingaleCharacterizationTarget",
+    "elaborated_expression_sha256": "f3e443377f8cac2eba62a6ebcf6f05ce5bd453f3075d9de573641856e21331b2",
+    "statement_file_sha256": "ae6a30cd8ba78423f8d4577bb1c6e9e047cc7c8f10e5a2ba8b6d500337f06782"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; probability measure P; filtration indexed by NNReal; process NNReal -> Omega -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "P : Measure Omega",
+    "[IsProbabilityMeasure P]",
+    "F : Filtration NNReal (inferInstance : MeasurableSpace Omega)",
+    "X : NNReal -> Omega -> Real"
+  ],
+  "hypotheses": [
+    "all sample paths t |-> X t omega are continuous",
+    "X 0 = 0 P-almost everywhere",
+    "X is a martingale relative to F and P",
+    "t |-> X_t^2 - t is a martingale relative to F and P"
+  ],
+  "conclusion": "Continuous paths and zero start, and for every s <= t the increment X_t-X_s is independent of F_s and has law gaussianReal 0 (t-s) under P.",
+  "direct_imports": [
+    "Mathlib.Probability.Distributions.Gaussian.Real",
+    "Mathlib.Probability.Martingale.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1029.target_iff_expandedSourceShape",
+  "source_boundary": "This is the exact formal encoding of the human claim frozen by intake. The later anchor-audit node must still establish a versioned primary-source pinpoint and conventions crosswalk; the legacy S1_M_222 abstract conclusion package receives no credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1029/check_statement.py",
+    "killed": [
+      "removed compensated-square martingale hypothesis",
+      "changed NNReal continuous time to Nat time",
+      "moved the filtration from a universal binder to an existential conclusion",
+      "excluded the zero-elapsed-time boundary by changing s <= t to s < t"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1029.zeroElapsedVariance"
+    ]
+  },
+  "degenerate_cases": "The statement includes s=t, where the required variance is zero, and does not add nondegeneracy or positive-time assumptions. P is explicitly a probability measure. Continuity is pathwise and the initial condition is P-almost everywhere.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the target and its expansion elaborate with pinned imports. No Levy proof, H0 source review, anchor audit, or downstream completion is claimed."
+}

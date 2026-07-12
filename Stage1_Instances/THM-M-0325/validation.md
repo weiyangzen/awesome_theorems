@@ -37,3 +37,24 @@ Base revision: `28e77827f1df290b07af3449223a8bb3f3a56bfd`.
 The direct import is `Mathlib.Analysis.InnerProductSpace.Basic`; no dependency or `.lake` mutation
 command was run. Statement acceptance does not establish H0 source fidelity, a proof, anchor audit,
 or theorem completion. Those remain downstream gates.
+
+## Anchor-audit validation
+
+Base revision: `b67cae22b8ce0468d8053d20648f603f670485ec`.
+
+| Command | Result |
+|---|---|
+| `rg -n -i 'grothendieck.?inequal|grothendieckconstant|grothendieck.?constant|tensor norm inequality|cross.?norm' Formalizations/Lean/.lake/packages/mathlib/Mathlib --glob '*.lean'` | exit 1; no terminal-name or phrase match in pinned mathlib source |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0325/AnchorAudit.lean` | exit 0; five pinned tensor-seminorm declarations elaborated and the comparison wrapper reported only `propext`, `Classical.choice`, and `Quot.sound` |
+| `python3 Stage1_Instances/THM-M-0325/check_anchor_audit.py` | exit 0; structured invariants, mathlib revision, source hashes, and forbidden-token scans passed |
+| recorded Sourcegraph queries for `GrothendieckInequality` and `"Grothendieck inequality"` in Lean | HTTP success; both returned `matchCount=0`; response hashes are in `anchor-audit.json` |
+| recorded GitHub REST repository search for `"Grothendieck inequality" Lean` | HTTP success; `total_count=0`, `incomplete_results=false`; response hash is in `anchor-audit.json` |
+| `python3 -m json.tool Stage1_Instances/THM-M-0325/anchor-audit.json` | exit 0 |
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups and 1546 uniform-L0 targets |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets, ranks 1..1546 |
+| `git diff --check -- Stage1_Instances/THM-M-0325 .stage1-worker-selftest.json` | exit 0; no output |
+
+The bounded audit found only pinned projective/injective `PiTensorProduct` seminorm substrate, not
+an exact or stronger terminal theorem. Public-index zero results are explicitly not global absence
+proofs. Root status therefore remains `M4 / formalization_debt`; no external integration debt,
+proof credit, H0 source status, or theorem completion is claimed.

@@ -1,0 +1,92 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0325-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0325",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "b67cae22b8ce0468d8053d20648f603f670485ec",
+  "target": "Stage1Instances.THM_M_0325.GrothendieckInequalityTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned Lake dependency source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0325-C01",
+      "project": "awesome_theorems historical Stage1",
+      "revision": "b67cae22b8ce0468d8053d20648f603f670485ec",
+      "module": "AwesomeTheorems.Stage1.S1_M_214",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_214.StatementShape",
+      "kind": "historical_statement_and_audit_discovery_only",
+      "type_relation": "a finite real matrix/Hilbert-space formulation in the same theorem family; it is not imported and no equivalence to the frozen target is credited",
+      "toolchain": "repository Lean 4.29.0 project",
+      "dependency_feasibility": "repo-local source, but uniform-L0 policy explicitly rejects legacy proof or gate credit",
+      "body_provenance": "the declaration is a statement shape; its file explicitly disclaims a terminal proof",
+      "placeholder_or_axiom_status": "not a proof candidate; no terminal Grothendieck body exists in the historical module",
+      "classification": "unaccepted_legacy_candidate",
+      "integration_status": "discovery only"
+    },
+    {
+      "candidate_id": "S56-M-0325-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Analysis.Normed.Module.PiTensorProduct.ProjectiveSeminorm",
+        "Mathlib.Analysis.Normed.Module.PiTensorProduct.InjectiveSeminorm"
+      ],
+      "declarations": [
+        "PiTensorProduct.projectiveSeminorm",
+        "PiTensorProduct.projectiveSeminorm_tprod_le",
+        "PiTensorProduct.injectiveSeminorm",
+        "PiTensorProduct.norm_eval_le_injectiveSeminorm",
+        "PiTensorProduct.injectiveSeminorm_le_projectiveSeminorm"
+      ],
+      "kind": "supporting_tensor_seminorm_substrate",
+      "type_relation": "generic finite-family projective and injective tensor seminorm infrastructure; no universal Grothendieck constant and no implication matching the frozen scalar-to-Hilbert bound",
+      "toolchain": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+      "dependency_feasibility": "already pinned in Formalizations/Lean/lake-manifest.json and available through existing .lake artifacts",
+      "source_sha256": {
+        "ProjectiveSeminorm.lean": "c1ed3a76b83aaa2151bdf5786d135b58e2935a02254032cde30737a6040f470c",
+        "InjectiveSeminorm.lean": "a133e4e5156d096a4e4add0ee0e714e7fe99b1c8ef13c742ffe23fe4ec50cd02"
+      },
+      "body_provenance": "definitions and theorem bodies are in the two named pinned mathlib source files; the dossier-local AnchorAudit checks their types and the comparison theorem's axioms",
+      "placeholder_or_axiom_status": "source scan found no sorry, admit, axiom, or unsafe tokens in either module; the checked comparison reports only propext, Classical.choice, and Quot.sound",
+      "classification": "substrate_only_not_terminal_candidate",
+      "integration_status": "pinned and locally elaborated, but supplies no root proof credit"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes GrothendieckInequality lang:Lean count:100",
+      "result": "matchCount=0",
+      "response_sha256": "b652426866bd955e6cafbc70db247fff94464c9237f3367c78e640429479131e",
+      "immutability_boundary": "dated and content-hashed discovery response; absence is limited to the indexed corpus"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes \"Grothendieck inequality\" lang:Lean count:100",
+      "result": "matchCount=0",
+      "response_sha256": "6182582c0593aeca9e3d13d5fad6d3b687bb43d1598f857d617e13ff1af334c6",
+      "immutability_boundary": "dated and content-hashed discovery response; absence is limited to the indexed corpus"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Grothendieck inequality\" Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated and content-hashed repository-name/metadata search; not a global code-absence proof"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "No exact or stronger terminal Lean 4 theorem was found in repo-local source, pinned mathlib, or the recorded public searches. The pinned declarations are infrastructure only, so the frozen target remains without a proof candidate.",
+  "machine_debt": "formalization_debt",
+  "integration_blocker": "No external terminal theorem was identified to integrate. Closing the root requires a new placeholder-free Lean proof or later discovery followed by immutable pin/import/exact-type checking.",
+  "search_limitations": "The public searches are bounded discovery evidence, not a proof of global absence. Search must be reopened when indexes, pins, or credible Lean projects change.",
+  "reopen_condition": "Reaudit on any change to Statement.lean, the mathlib pin, the two substrate modules, or discovery of a credible external Lean 4 Grothendieck-inequality project.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the bounded mathlib/external candidate inventory. It gives the substrate anchors no terminal proof credit and supplies no H0 source, obligation-tree, proof, hermetic-release, or theorem-completion evidence."
+}
