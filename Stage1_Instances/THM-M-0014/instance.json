@@ -1,0 +1,190 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0014",
+  "item_id": "S56-M-0014-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1064,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "克罗内克-韦伯定理",
+  "name_en": "Kronecker-Weber theorem",
+  "canonical_name": "Kronecker-Weber theorem (THM-M-0014 field-theory catalog record)",
+  "category": "代数学 / 域论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "有理数域的有限阿贝尔扩张都包含于分圆域",
+  "literal_source_claim_en": "Every finite abelian extension of the rational field is contained in a cyclotomic field.",
+  "source_attribution": "Leopold Kronecker / Heinrich Weber, 1887 (catalog metadata only; not a pinpoint source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_theorem_family_and_literal_containment_gloss_identified_but_exact_extension_presentation_and_source_review_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog fixes the classical containment gloss but no source-reviewed representation of extensions and containment. Literal subfield inclusion in a fixed algebraic closure, an abstract Q-algebra embedding, and equivalence with an intermediate field require different ambient data and checked transports. The separate THM-M-0419 record cannot be silently substituted. An immutable exact source and independent duplicate/scope review must approve the presentation, binders, boundary cases, and transports before canonical Lean elaboration.",
+  "target_decision": "retain the literal theorem family while deferring the exact human and Lean presentation to the dependent statement phase",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.NumberTheory.NumberField.Cyclotomic.Basic",
+      "Mathlib.NumberTheory.Cyclotomic.Basic",
+      "Mathlib.FieldTheory.Galois.Abelian"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_source_reviewed_presentation_and_duplicate_reconciliation",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "candidate_shape_not_credited": "For K : Type u with Field K, Algebra Q K, NumberField K, and IsAbelianGalois Q K, there exists n : Nat with n != 0 and, under CyclotomicField.algebraBase n Q Q, a nonempty Q-algebra hom K -> CyclotomicField n Q."
+  },
+  "domain_and_universes": "Open presentation choice: expected an arbitrary universe-level field K over Q, finite-dimensional or bundled as a number field, with a finite abelian Galois extension condition; literal-subfield and abstract-algebra presentations require different ambient fields and binders.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open formal presentation: the literal conclusion is containment in some cyclotomic field, but source review must select literal inclusion, a Q-algebra embedding, or an intermediate-field equivalence and fix the cyclotomic index convention.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "an abstract number field K with IsAbelianGalois Q K admits a Q-algebra embedding into CyclotomicField n Q for some nonzero n",
+    "K is Q-algebra equivalent to an intermediate field of CyclotomicField n Q for some positive index n",
+    "a literal finite abelian subextension K/Q inside a fixed algebraic closure is included in Q(zeta_n)"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the trivial extension Q/Q",
+    "cyclotomic indices zero, one, and two and the exact positivity convention",
+    "extension presentations with noncanonical Q-algebra structures",
+    "different embeddings of an abstract number field into a fixed algebraic closure",
+    "whether the witness index is arbitrary or required to be the conductor",
+    "equivalence between literal inclusion, algebra embedding, and intermediate-field formulations"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake. A later exact statement must keep the trivial extension unless the reviewed source excludes it and must explicitly decide the zero-index API boundary.",
+  "excluded_substitutions": [
+    "THM-M-0419, its historical Stage1 slot, dossier, lifecycle state, and receipts",
+    "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_074.lean treated as an accepted statement or proof for this target",
+    "the easy direction that cyclotomic extensions are abelian Galois",
+    "a special case such as one fixed extension, one fixed cyclotomic field, or only quadratic extensions",
+    "a predicate, structure field, hypothesis, axiom, or unchecked bridge that assumes the desired containment",
+    "the untrusted catalog label 已验证 used as human-source or machine evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0419",
+      "name": "克罗内克-韦伯定理",
+      "relationship": "separate rank-74 number-theory catalog target with a shorter source gloss and historical statement-shape artifact; no state, source, statement, receipt, or proof credit is shared"
+    }
+  ],
+  "source_status": "H1_historical_theorem_known_but_repository_has_only_an_uncited_gloss_and_exact_source_assumption_errata_duplicate_and_node_mapping_review_is_open",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "Lawrence C. Washington, Introduction to Cyclotomic Fields, second edition, Graduate Texts in Mathematics 83, Springer, 1997, Chapter 14, The Kronecker-Weber Theorem, pages 321-331, book DOI 10.1007/978-1-4612-1934-7",
+      "status": "official chapter metadata supports the theorem-family wording, but no immutable full passage, exact theorem/proof locator within the chapter, assumptions, proof mapping, errata, or independent review was completed"
+    },
+    {
+      "citation": "Daniel A. Marcus, Number Fields, second edition, Springer Universitext, 2018",
+      "status": "secondary comparison lead only; no source-fidelity credit"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_074.lean",
+      "owning_target": "THM-M-0419",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_074.StatementShape",
+      "boundary": "legacy sibling statement shape only; explicitly no terminal proof and unaccepted under rev-5.6"
+    },
+    {
+      "module": "Mathlib.NumberTheory.Cyclotomic.Basic",
+      "declarations": [
+        "CyclotomicField",
+        "CyclotomicField.algebraBase",
+        "CyclotomicField.isCyclotomicExtension",
+        "IsCyclotomicExtension.isAbelianGalois"
+      ],
+      "boundary": "cyclotomic object model and easy abelian-Galois direction only; no converse containment theorem"
+    },
+    {
+      "module": "Mathlib.FieldTheory.Galois.Abelian",
+      "declaration": "IsAbelianGalois",
+      "boundary": "abelian Galois extension predicate only; it does not produce a cyclotomic embedding"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9",
+    "repository_base_tree": "829a47c47ae831cada4f8acc6c2c00ba5883215e",
+    "repository_record": "Docs/researches/math_theorems.md:121-126",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:501-526",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "2fec1b235e381c3646e9acc83929ee581f3d83f3a7759d4d38d1443df1fe8e7d",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "bcbce90f45f8df2b674e642470a641bea5a6df5c750be2ac69aa7e686f1c1d72",
+    "execution_dag_sha256": "0f01e5060d405907103ce214fe2b550b50fc081fbb0dd39f6ca3713cc23bfcd0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "sibling_legacy_module_sha256": "c5d7734267c3aea2698d702b520c5d0030628d36bfa717ae7e0c00e1b6471e29",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, quotient, field-embedding, and algebraic-closure policies remain open until the canonical presentation and proof route are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, axioms, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No numerical experiment, symbolic class-field computation, oracle, generated conductor, or unchecked certificate is credited; the intended theorem is noncomputable algebraic number theory",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0014/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0014/README.md",
+    "Stage1_Instances/THM-M-0014/instance.json",
+    "Stage1_Instances/THM-M-0014/scope-map.md",
+    "Stage1_Instances/THM-M-0014/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0014/task-dag.json",
+    "Stage1_Instances/THM-M-0014/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0014/check_intake.py",
+    "Stage1_Instances/THM-M-0014/validation.md",
+    "Stage1_Instances/THM-M-0014/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent algebraic-number-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "duplicate_scope_reviewer": "unassigned target-governance reviewer",
+    "reviewer_policy": "Source and formal reviewers must approve the exact statement and transports; target governance must independently reconcile THM-M-0014 with THM-M-0419 before statement acceptance; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source edition, theorem locator, assumption or errata finding, containment presentation, duplicate-target decision, domain, binder, hypothesis, conclusion, cyclotomic index or boundary decision, checked transport, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records a known historical theorem with an incomplete source crosswalk; M4 records that this target has no source-approved, usable exact formal artifact, despite a sibling statement-shape candidate; R3 records a scope dossier without a proof reconstruction. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
