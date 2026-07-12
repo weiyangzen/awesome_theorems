@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1524-VALIDATION-local-20260712T003909Z",
+  "item_id": "S56-M-1524-VALIDATION",
+  "theorem_id": "THM-M-1524",
+  "base_revision": "446447c65190dc818b074bf543171f807e9b4651",
+  "base_tree": "19244a13ce6cb3fd0fc640b82c53d62504c30ce5",
+  "validated_at": "2026-07-12T00:39:09Z",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "dc7d111777b8138024774dd187f523dc7fee381d8fa3c69c70cbf869c2644802",
+    "validator_sha256": "0c135a011aaa3dc396d3b83f601c7457faaa678912f562f9e8a160ec343243ee",
+    "exact_type_probe_sha256": "f6c1eb4f6853eb169b60251e3a19c43ccd75eedc4ce782718fa912a028eb57d8",
+    "statement_sha256": "2913314de7466b4ed37d90d6cf58a522f7a682943dcde0686962e6927478563f",
+    "obligation_tree_sha256": "ff4f6a2946f958888ed4b8b14c59ac89b1a9f100bb0610594760b4eb13dcf7f6",
+    "proof_sha256": "c34bd2e9c8ac4fd203fed534d8eceb7809f1d1971c4b91959c90c73a0860e9d5",
+    "obligation_registry_sha256": "a4f3f49843c65aeed2140841aa3453210790da13e2a239574bebfc8bd30c4902",
+    "typed_graphs_sha256": "ac6afed65ff9187997d9e2e0f25fe6f29877cbdf75b2b45672e40fe50ae438cf"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: owned validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1524/check_validation.py"],
+    "expected_exit": 0,
+    "network_policy": "denied"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_components_root_proof_and_exact_type_probe",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "local_provenance_hashes": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "authoritative_graph_root_closed": false,
+    "authoritative_graph_machine_debt": "M2; stale relative to proof-phase evidence and pending master reconciliation",
+    "locally_validated_obligation_ids": ["M1524-ROOT", "M1524-L-CAUCHY-SCHWARZ", "M1524-L-ROBERTSON", "M1524-L-CCR-SCALAR", "M1524-T-CCR", "M1524-T-ASSEMBLE"],
+    "composition_certificates": ["Stage1Instances.THM_M_1524.heisenberg_uncertainty", "Stage1Instances.THM_M_1524.Validation.exactTargetProbe"],
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph still reports root_closed=false (M2); only the master may reconcile structured state with proof-phase evidence.",
+    "The run reused a shared writable warm .lake cache, so it is not a cold empty-cache hermetic replay.",
+    "No complete TCB executable/bootstrap inventory, SBOM/license archive, or network-disconnected restoration receipt exists.",
+    "Validation.lean is a separate exact-type probe but ran in the same clone and cache; no distinct verifier identity, independently provisioned runner, second signature, or independently implemented receipt/graph verifier exists.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "freshness": {
+    "review_due": "before any master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "record a replacement receipt and fail closed on any hash, pin, axiom, graph, validator, or policy drift"
+  },
+  "invalidation_inputs": ["validation-spec.json", "check_validation.py", "Validation.lean", "Statement.lean", "ObligationTree.lean", "Proof.lean", "statement.json", "obligation-registry.json", "typed-graphs.json", "Lean toolchain", "mathlib revision or worktree", "foundation/TCB policy", "rev-5.6 assurance standard"],
+  "status_boundary": "Self-tested narrow warm kernel, trust-observation, provenance, and direct exact-type validation. This is not E0/E1, accepted M0, independent-runner evidence, theorem completion, release, or master acceptance."
+}
