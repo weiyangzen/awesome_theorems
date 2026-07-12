@@ -27,8 +27,8 @@ The statement phase must choose and elaborate one exact encoding of:
 - convergence in distribution as weak convergence of pushforward laws, including measurability;
 - standard Brownian motion/Wiener measure and the uniform-topology Borel structure.
 
-Binder order, universes, imports, foundation/TCB profiles, and the canonical expression fingerprint
-remain open until those choices elaborate under the pinned Lean environment.
+The statement phase resolves these decisions in `DonskerTarget.lean` and `statement.md`. Source
+pinpointing and any proof-relevant equivalence to alternative encodings remain downstream work.
 
 ## Boundary cases requiring explicit treatment
 

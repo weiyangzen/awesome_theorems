@@ -1,0 +1,119 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1024-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1024",
+  "audit_date": "2026-07-12",
+  "base_revision": "205d13cfc35c45883410c569709a91cb34edce16",
+  "canonical_target": "Stage1Instances.THM_M_1024.LevyKhintchineTarget",
+  "search_order": [
+    "repo-local target and historical artifacts",
+    "pinned mathlib Lean sources",
+    "GitHub repositories and commits for public Lean 4 candidates"
+  ],
+  "repo_local": {
+    "result": "No proof body or wrapper was found. Statement.lean contains definitions and the exact target only.",
+    "classification": "M3 statement interface only"
+  },
+  "mathlib": {
+    "remote": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "exact_candidate_found": false,
+    "negative_queries": [
+      "LevyKhintchine",
+      "levyKhintchine",
+      "IsInfinitelyDivisible",
+      "infinitely divisible",
+      "IsLevyMeasure"
+    ],
+    "nearby_anchors": [
+      {
+        "module": "Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic",
+        "declarations": [
+          "MeasureTheory.charFun",
+          "MeasureTheory.charFun_apply_real",
+          "MeasureTheory.Measure.ext_of_charFun",
+          "MeasureTheory.charFun_conv",
+          "MeasureTheory.charFun_dirac",
+          "MeasureTheory.norm_charFun_le_one"
+        ],
+        "relationship": "Characteristic-function and convolution infrastructure used by the frozen statement; it does not provide infinite divisibility, a Levy triplet, representation existence, or uniqueness."
+      }
+    ],
+    "probe": "Stage1_Instances/THM-M-1024/AnchorAudit.lean"
+  },
+  "external_candidates": [
+    {
+      "project": "slink/LeanLevy",
+      "canonical_remote": "https://github.com/slink/LeanLevy",
+      "revision": "93b635fba23398bfb1f0db8d220f88172f6900b6",
+      "revision_date": "2026-07-07T22:02:00Z",
+      "source_archive_sha256": "585b9255907bc5db4c44f010acf98f7a9d608eea1d845b93f6938ff2437e4621",
+      "license": "MIT",
+      "toolchain": "leanprover/lean4:v4.29.0-rc3",
+      "mathlib_revision": "8e096f85f9401f2c359b6708199c0402a980d921",
+      "declarations": [
+        {
+          "module": "LeanLevy.Levy.LevyKhintchineUniqueness",
+          "name": "ProbabilityTheory.isInfinitelyDivisible_iff_exists_levyKhintchineTriple",
+          "source_line": 607,
+          "type_summary": "For a probability measure mu on Real, IsInfinitelyDivisible mu iff there is a LevyKhintchineTriple whose exponent gives charFun mu."
+        },
+        {
+          "module": "LeanLevy.Levy.LevyKhintchineUniqueness",
+          "name": "ProbabilityTheory.existsUnique_levyKhintchineTriple",
+          "source_line": 629,
+          "type_summary": "An infinitely divisible probability measure on Real has a unique LevyKhintchineTriple representing its characteristic function."
+        },
+        {
+          "module": "LeanLevy.Levy.LevyKhintchineProof",
+          "name": "ProbabilityTheory.levyKhintchine_representation",
+          "source_line": 5159,
+          "type_summary": "Forward Levy-Khintchine representation for probability measures on Real."
+        },
+        {
+          "module": "LeanLevy.Levy.LevyKhintchineProof",
+          "name": "ProbabilityTheory.levyKhintchine_converse",
+          "source_line": 5248,
+          "type_summary": "Every real LevyKhintchineTriple is realized by an infinitely divisible probability measure."
+        }
+      ],
+      "statement_match": "partial_only",
+      "mismatches": [
+        "The external results cover measures on Real only; the canonical target quantifies over every finite dimension d.",
+        "The external truncation is abs x < 1; the canonical target freezes norm x <= 1.",
+        "The external covariance is a nonnegative scalar gaussianVariance; the canonical target uses a symmetric positive-semidefinite continuous linear operator.",
+        "The external probability premise is a typeclass, whereas the canonical target stores mu univ = 1 and convolution-root probability conditions as propositions.",
+        "No checked transport to the canonical target exists."
+      ],
+      "source_scan": "The immutable archive has no Lean command occurrences of sorry, admit, axiom, or unsafe under a syntax-oriented scan. This regex scan is not a kernel trust report.",
+      "upstream_ci": "GitHub Actions run 28901735390, job 85739880508, completed successfully at the exact revision on 2026-07-07. This is upstream CI and was not independently replayed here.",
+      "evidence_tier": "E3",
+      "classification": "credible specialized external anchor; not an exact closure and not in the repo-local dependency graph"
+    }
+  ],
+  "queries": {
+    "repo_and_mathlib": "rg over repository artifacts and pinned mathlib *.lean files for Levy/Khintchine/infinite-divisibility identifiers",
+    "github_repository_search": [
+      "levy khintchine lean",
+      "levy-khintchine lean4",
+      "infinitely divisible lean theorem",
+      "LevyKhintchine language:Lean",
+      "Levy measure language:Lean"
+    ],
+    "github_commit_search": [
+      "Levy-Khintchine",
+      "Lévy-Khintchine",
+      "infinitely divisible extension:lean",
+      "LevyKhintchine extension:lean",
+      "LevyMeasure extension:lean"
+    ],
+    "limitations": "Unauthenticated GitHub API and public repositories only; no registry-wide authenticated code search and no moving dependency fetch."
+  },
+  "root_machine_classification": "M3",
+  "integration_decision": "Do not integrate this candidate as closure for the canonical target. It is a useful one-dimensional proof architecture candidate only. A future obligation phase may define a checked d=1 transport, while the all-d existence and uniqueness root remains open.",
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This audit inventories candidates. It does not prove the frozen target, accept upstream trust claims, add an external dependency, or provide M0/M1 credit."
+}
+
