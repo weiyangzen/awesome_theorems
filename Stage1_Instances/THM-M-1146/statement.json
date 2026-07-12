@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1146-STATEMENT",
+  "theorem_id": "THM-M-1146",
+  "lifecycle": "planned",
+  "canonical_statement": "For an open conjugation-invariant subset V of the complex plane and a real-valued function u harmonic on its strict upper part, continuous on that part together with the real-axis portion of V, and zero on that real-axis portion, the odd reflection is harmonic on V and agrees with u above the axis.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1146/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1146.SchwarzReflectionTarget",
+    "elaborated_expression_sha256": "14336b88fd9aa11228ee9c7a86cc56a3473702bc2f8d77e266f2b4d37deef53d",
+    "statement_file_sha256": "1eed15359d2a23379ba77f1c8773588f4644b8b73f3b21fd981dc68271bdf5dd"
+  },
+  "domain_and_universes": "V : Set Complex; u : Complex -> Real; Prop in Lean universe 0",
+  "ordered_binders": ["V : Set Complex", "u : Complex -> Real"],
+  "hypotheses": [
+    "IsOpen V",
+    "forall z, z in V iff starRingEnd Complex z in V",
+    "InnerProductSpace.HarmonicOnNhd u (upperPart V)",
+    "ContinuousOn u (upperPart V union reflectingPart V)",
+    "forall z in reflectingPart V, u z = 0"
+  ],
+  "conclusion": "The odd reflection is harmonic in a neighborhood of every point of V and agrees with u on the strict upper part.",
+  "direct_imports": [
+    "Mathlib.Analysis.InnerProductSpace.Harmonic.Basic",
+    "Mathlib.LinearAlgebra.Complex.FiniteDimensional"
+  ],
+  "encoding_decisions": {
+    "upper_part": "z is in V and 0 < z.im",
+    "reflecting_part": "z is in V and z.im = 0",
+    "odd_reflection": "u z when 0 <= z.im, and -u (conj z) otherwise",
+    "axis_branch": "The nonnegative branch selects u on the axis; boundary vanishing makes this equal to its negative reflected value.",
+    "regularity": "HarmonicOnNhd is mathlib's C2 and locally vanishing-Laplacian predicate; continuity is required only on the upper part plus reflecting part."
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1146/check_statement.py",
+    "killed": [
+      "removed openness",
+      "removed conjugation invariance",
+      "removed boundary continuity",
+      "removed boundary vanishing",
+      "changed odd reflection to even reflection"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1146.oddReflection_eq_of_nonnegative_imaginary",
+      "Stage1Instances.THM_M_1146.oddReflection_eq_of_negative_imaginary"
+    ]
+  },
+  "degenerate_cases": "The target includes the empty open set and domains with an empty reflecting part. It makes no endpoint claim outside V. The entire real-axis portion inside the open set is included, and equality with u is asserted only on the strict upper part.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact target elaboration only. Primary-source audit, proof, trust, hermetic replay, independent verification, and master acceptance remain open."
+}
