@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1268-STATEMENT",
+  "theorem_id": "THM-M-1268",
+  "lifecycle": "planned",
+  "canonical_statement": "For every real normed space and extended-real-valued convex functional that never takes negative infinity, weak-topology lower semicontinuity is equivalent to norm-topology lower semicontinuity.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1268/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1268.WeakLowerSemicontinuityTarget",
+    "elaborated_expression_sha256": "abc6ebd5245bf9c98fb244875d5af316f780b6edf6af146a3ffaf6890bf47c54",
+    "statement_file_sha256": "72cef2c495524a276c2331b103277addc79b9271af24286fbc6c3c84c833ef09"
+  },
+  "domain_and_universes": "universe u; E : Type u; NormedAddCommGroup E; NormedSpace Real E; f : E -> EReal; proposition in Prop",
+  "ordered_binders": ["E : Type u", "[NormedAddCommGroup E]", "[NormedSpace Real E]", "f : E -> EReal"],
+  "hypotheses": [
+    "forall x, f x != negative infinity",
+    "the extended-real Jensen inequality for all x, y and nonnegative real a, b with a + b = 1"
+  ],
+  "conclusion": "LowerSemicontinuous (f transported to WeakSpace Real E) iff LowerSemicontinuous f in the norm topology.",
+  "direct_imports": [
+    "Mathlib.Analysis.LocallyConvex.WeakSpace",
+    "Mathlib.Topology.Semicontinuity.Basic",
+    "Mathlib.Data.EReal.Basic"
+  ],
+  "encoding_decisions": {
+    "space": "an arbitrary real normed space; completeness is not assumed",
+    "weak_topology": "mathlib WeakSpace Real E, induced by the continuous dual",
+    "codomain": "EReal, with negative infinity excluded and positive infinity retained",
+    "convexity": "the explicit extended-real Jensen inequality because EReal has no SMul Real instance",
+    "semicontinuity": "topological LowerSemicontinuous, not sequential lower semicontinuity",
+    "direction": "an equivalence; norm-lsc to weak-lsc is substantive and the converse is retained"
+  },
+  "checked_transport": "Stage1Instances.THM_M_1268.target_iff_expanded",
+  "environment_fingerprint": {
+    "base_revision": "8da22023e24f307fb21f41ed93f69f2b8fa82879",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "distinguished_by_separate_elaborated_declarations": [
+      "removed convexity hypothesis",
+      "changed EReal codomain to Real",
+      "substituted weak sequential lower semicontinuity",
+      "retained only the trivial weak-to-norm implication"
+    ]
+  },
+  "degenerate_cases": "The zero space, constant functionals, the identically positive-infinity functional, and empty sublevel sets remain in scope. Functionals taking negative infinity are explicitly excluded; properness is not strengthened by requiring a finite value.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and kernel-elaborates the intake-selected theorem family and a checked expanded spelling. Exact primary-source theorem/page acceptance remains an H-axis task. No theorem proof, anchor acceptance, audit completion, or theorem completion is claimed."
+}

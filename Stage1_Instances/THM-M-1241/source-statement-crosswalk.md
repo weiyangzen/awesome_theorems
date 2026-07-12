@@ -14,9 +14,15 @@ the family name.
 
 ## Crosswalk
 
+The statement node selects Nirenberg's Lecture II theorem on page 125, formulae (2.2)--(2.3), in
+the stable NUMDAM scan. Its SHA-256 is
+`cd76d6de19f77a7f27d44909c2c00cafbb5fb165a6587b4ff8d86dd13ff7eb3e`. The scan explicitly gives
+the exponent equation, `j/m <= a <= 1`, dependence of the constant, and two exceptional cases.
+This pinpoint selection does not itself close the later source-fidelity or errata review gate.
+
 | Repository phrase | Intended source component | Required Lean component | Intake status |
 |---|---|---|---|
-| Gagliardo-Nirenberg inequality | one selected interpolation estimate, not the whole family | one canonical proposition plus checked transports only | family scoped; variant open |
+| Gagliardo-Nirenberg inequality | Nirenberg 1959, Lecture II theorem, p. 125, (2.2)--(2.3) | `GagliardoNirenbergTarget` | selected and elaborated |
 | intermediate derivative | weak derivative of order `j` | multi-index derivative or Sobolev seminorm | encoding open |
 | higher derivative | derivative order `m > j` | concrete weak-derivative membership and norm | encoding open |
 | interpolation powers | factors with powers `a` and `1-a` | real extended norms/powers with boundary handling | exact type open |
