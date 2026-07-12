@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1259-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1259",
+  "audit_date": "2026-07-12",
+  "frozen_target": "Stage1Instances.THM_M_1259.hormanderTarget",
+  "repositories": [
+    {
+      "name": "awesome_theorems worker base",
+      "revision": "4d48a3c5fbec6d005a64a99338e40c001656264c",
+      "scope": "repository-local Lean sources",
+      "result": "Only the legacy S1_M_161 statement-shape artifact and the frozen Statement.lean match the theorem vocabulary; neither declares the frozen proposition as a theorem."
+    },
+    {
+      "name": "mathlib4",
+      "url": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "result": "No Lean source matches Hormander/Hörmander, hypoelliptic, or subelliptic. Supporting but nonterminal anchors elaborate in AnchorAudit.lean."
+    }
+  ],
+  "supporting_candidates": [
+    {
+      "module": "Mathlib.Analysis.Calculus.VectorField",
+      "declarations": [
+        "VectorField.lieBracket",
+        "ContDiff.lieBracket_vectorField"
+      ],
+      "relationship": "Defines Lie brackets and proves smoothness closure; supports BracketGenerating but has no bracket-generating hypoellipticity conclusion.",
+      "terminal": false
+    },
+    {
+      "module": "Mathlib.Analysis.Distribution.Distribution",
+      "declarations": ["Distribution"],
+      "relationship": "Supplies the distribution type used by the frozen target, but not variable-coefficient sum-of-squares regularity.",
+      "terminal": false
+    },
+    {
+      "module": "Mathlib.Analysis.FunctionalSpaces.SobolevInequality",
+      "declarations": ["MeasureTheory.eLpNorm_le_eLpNorm_fderiv"],
+      "relationship": "A first-order Gagliardo-Nirenberg-Sobolev inequality, not the fractional local subelliptic estimate required for Hormander's theorem.",
+      "terminal": false
+    }
+  ],
+  "external_discovery": {
+    "service": "GitHub REST repository search",
+    "queries": [
+      "Hormander language:Lean",
+      "hypoelliptic lean",
+      "subelliptic lean",
+      "Hormander theorem prover",
+      "Hörmander Lean4",
+      "sum of squares hypoelliptic Lean"
+    ],
+    "result": "Each query returned total_count 0 on 2026-07-12. No external candidate was found to pin, import, inspect for placeholders, or credit.",
+    "limitations": "Repository search is a bounded discovery method, not proof that no private, unindexed, differently named, or later formalization exists. grep.app returned HTTP 429 and is recorded as a known search failure."
+  },
+  "terminal_candidate": null,
+  "classification": {
+    "human": "H2",
+    "machine": "M4",
+    "readability": "R3"
+  },
+  "status_boundary": "Anchor inventory complete for this node. No exact external or mathlib closure exists in the audited surfaces, so no machine proof credit or theorem-completion claim is made."
+}
+
