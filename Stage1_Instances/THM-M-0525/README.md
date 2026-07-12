@@ -60,3 +60,11 @@ freezes forward concatenation `p.trans q`. The five exact quotient laws needed t
 group are already available in pinned mathlib, but no exact root declaration is credited. The root
 therefore remains open at `M2` pending obligation-tree freeze and proof construction; audit-wide
 and theorem-wide completion remain false.
+
+## Obligation-tree handoff
+
+`obligation-registry.json` freezes ten canonical semantic obligations and the denominator before
+proof-phase integration. `typed-graphs.json` separates proof, refinement, provenance, evidence,
+trust, documentation, and workflow edges. `ObligationTree.lean` kernel-checks only the conditional
+composition from three minimal left group laws to the exact root packaging; it does not discharge
+those law premises. The root remains `[H1, M2, R3]`, with audit and theorem completion false.
