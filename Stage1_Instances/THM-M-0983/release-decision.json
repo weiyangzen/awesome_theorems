@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0983-RELEASE",
+  "theorem_id": "THM-M-0983",
+  "intent": "release",
+  "verdict": "blocked",
+  "base_revision": "bfef6a00cd081d39a04e6e0633ae92fff0f316fa",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0983-VALIDATION",
+    "receipt_id": "S56-M-0983-VALIDATION-local-20260712",
+    "receipt_sha256": "a0c5cc30c987fed8bf16d5427ac4020eaa8a09d2e587372d5abdd1367e2da685",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "provisional_kernel_observation": "M1: exact root kernel-replayed, but structured-state, trust, provenance, and release gates remain open"
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "not_accepted",
+    "theorem_z": "not_accepted"
+  },
+  "accepted_receipt_ids": [],
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "placeholder_scan": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "structured_state_freshness": "failed: typed-graphs.json predates Proof.lean and records the root open at M3",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "The validation prerequisite has only a provisional worker receipt and no master acceptance."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "Master acceptance of S56-M-0983-VALIDATION and typed-graph reconciliation for M0983-R-PAIRWISE, M0983-B-STRONG-LAW, and M0983-T-EXPECTATION",
+    "AUDIT-Z with complete inventory reconciliation and independently accepted H0 primary-source and R0 readable records",
+    "Complete transitive declaration/body provenance, accepted foundation profile, and hashed TCB closure",
+    "Immutable empty-cache network-denied cold build and offline archive restoration",
+    "SBOM and license archive plus protected CI and required mutation fixtures",
+    "Two signed attestations from distinct independently provisioned runners with no shared writable cache",
+    "Independently implemented minimal release verifier and deterministic content-addressed release bundle",
+    "Master acceptance of THEOREM-Z"
+  ],
+  "retry_condition": "After dependency acceptance and authoritative graph reconciliation, complete H0/R0 and audit review, then run the full hermetic, supply-chain, independent-verifier, deterministic-bundle, and master-acceptance protocol.",
+  "status_boundary": "This is a self-tested negative release decision. It accepts no receipt, changes no lifecycle or root vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, or release."
+}
