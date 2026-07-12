@@ -1,0 +1,214 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1397",
+  "item_id": "S56-M-1397-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1007,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 108,
+  "name_zh": "Adams方法",
+  "name_en": "Adams method",
+  "canonical_name": "Adams numerical-method family (repository method label)",
+  "category": "微分方程 / 常微分方程",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Adams方法",
+  "literal_source_claim_zh": "多步数值方法",
+  "literal_source_claim_en": "Multistep numerical methods.",
+  "source_attribution": "John Couch Adams, 1883 (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_an_Adams_numerical_method_family_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies a method-family label and three-word gloss, not a proposition. It does not select Adams-Bashforth, Adams-Moulton, predictor-corrector, coefficient derivation, order or truncation error, convergence, zero-stability, absolute stability, or an adaptive procedure. It also omits the step count, coefficient and indexing convention, ODE and state domains, starting history, regularity and solvability hypotheses, error or stability notion, ordered binders, assumptions, conclusion, and boundary cases. Selecting a familiar Adams theorem would invent or substitute missing mathematics.",
+  "target_decision": "redirect the catalog method label to a corrected, source-selected exact Adams proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.ODE.Basic",
+      "Mathlib.LinearAlgebra.Lagrange",
+      "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an exact source must fix the scalar field, state and error spaces and universes, norm and completeness assumptions, ODE domain and solution model, grid and history representation, step parameter, time interval, and all typeclass data.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose a recurrence definition, coefficient identity, order or local-error formula, consistency or convergence theorem, zero-stability or absolute-stability criterion, predictor-corrector convergence result, or variable-step algorithm property.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every step, grid, history, regularity, implicit-solve, asymptotic, root, and stability boundary case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the constant-step explicit Adams-Bashforth recurrence derived by extrapolating past derivative values",
+    "the constant-step implicit Adams-Moulton recurrence derived by interpolating through the new derivative value",
+    "an Adams-Bashforth predictor with one or more Adams-Moulton corrector iterations and a source-specific contraction condition",
+    "coefficient, order, local truncation-error, or global error formulas for one selected step count",
+    "consistency plus zero-stability implies convergence for one selected linear multistep encoding",
+    "absolute-stability or characteristic-root results for a selected scalar test equation",
+    "a variable-step or adaptive-order Adams implementation theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero step count, zero order, empty or insufficient history, and exact versus approximate starting values",
+    "zero or negative step, repeated grid nodes, endpoint mismatch, and finite versus unbounded integration intervals",
+    "scalar versus vector states, incomplete spaces, nonsmooth or non-Lipschitz fields, and solutions leaving the ODE domain",
+    "implicit equations with no or multiple solutions and correction iterations outside their contraction range",
+    "variable steps, step-ratio bounds, adaptive order, accumulated roundoff, and stiffness conventions",
+    "characteristic roots on the unit circle or with multiplicity and uniformity of big-O constants"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1395 finite-difference methods or THM-M-1396 Runge-Kutta methods",
+    "THM-M-1398 stiff equations or THM-M-1399 backward differentiation formulas",
+    "Euler or trapezoidal special cases presented as a general Adams-family theorem",
+    "generic interpolation, interval-integration, ODE, polynomial, sequence, or finite-sum APIs alone",
+    "a recurrence or error estimate placed directly in a structure field or hypothesis",
+    "a numerical trajectory, convergence plot, floating-point experiment, sampled error, or empirical order estimate",
+    "the untrusted catalog label 已验证 used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1395",
+      "name": "有限差分法",
+      "relationship": "neighboring broad finite-difference method target; no Adams statement or proof credit shared"
+    },
+    {
+      "theorem_id": "THM-M-1396",
+      "name": "Runge-Kutta方法",
+      "relationship": "neighboring one-step numerical integration family; no statement or proof credit shared"
+    },
+    {
+      "theorem_id": "THM-M-1398",
+      "name": "刚性方程",
+      "relationship": "neighboring problem-class target; stiffness does not identify an Adams proposition"
+    },
+    {
+      "theorem_id": "THM-M-1399",
+      "name": "向后微分公式",
+      "relationship": "distinct implicit linear multistep family; no coefficient, convergence, or stability credit inherited"
+    }
+  ],
+  "source_status": "H5_repository_method_label_only_with_one_authoritative_tertiary_family_entry_inspected_but_no_stable_proposition_selected",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "Encyclopedia of Mathematics, Adams method",
+      "source_url": "https://encyclopediaofmath.org/index.php?title=Adams_method&oldid=45150",
+      "api_url": "https://encyclopediaofmath.org/api.php?action=query&prop=revisions&revids=45150&rvprop=ids%7Ctimestamp%7Csha1%7Ccontent&rvslots=main&format=json&formatversion=2",
+      "candidate_locator": "permanent revision 45150, timestamp 2020-04-04T21:01:15Z",
+      "candidate_summary": "Separates explicit extrapolation, implicit interpolation, predictor-corrector, error, stability, and practical claims and identifies Adams-Bashforth and Adams-Moulton subfamilies",
+      "mediawiki_content_sha1": "ffa19fe8b6a9d8b92728115150593fd6e1350407",
+      "observed_raw_wikitext_sha256": "79d65c537e31ebb8591b725ed6671cbaccf818faec85ba6f2bdab21b52f3c7e2",
+      "observed_raw_wikitext_bytes": 6157,
+      "observed_wikitext_sha256": "0c9a9ad1f5a6e7a2a0ec096553e63ab170ee1027b70f56e4bf48dba4fc910fa1",
+      "observed_wikitext_bytes": 6158,
+      "historical_discrepancy": "the repository says 1883 while the inspected entry says the method was introduced in 1855; neither is accepted without primary-source reconciliation",
+      "status": "stable tertiary entry inspected for source-family discrimination only; the catalog does not cite or select it, and no immutable H0 admission, exact proposition, complete proof and correction mapping, historical review, or independent approval is credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Lagrange",
+      "declarations": ["Lagrange.interpolate", "Lagrange.eval_interpolate_at_node"],
+      "boundary": "generic polynomial-interpolation substrate only; no Adams coefficients, integral derivation, or numerical scheme"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+      "declaration": "intervalIntegral",
+      "boundary": "generic interval integral only; no multistep formula or error theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.ODE.Basic",
+      "declaration": "IsIntegralCurve",
+      "boundary": "exact ODE-solution substrate only; no discretization, approximation, convergence, or stability theorem"
+    },
+    {
+      "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic (transitively imported)",
+      "declaration": "Finset.sum",
+      "boundary": "finite summation substrate only; no coefficient or Adams-family semantics"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9",
+    "repository_base_tree": "829a47c47ae831cada4f8acc6c2c00ba5883215e",
+    "repository_record": "Docs/researches/math_theorems.md:10174-10179",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:37992-38017",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob_at_origin_commit": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_blob_at_base": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "bcbce90f45f8df2b674e642470a641bea5a6df5c750be2ac69aa7e686f1c1d72",
+    "execution_dag_sha256": "0f01e5060d405907103ce214fe2b550b50fc081fbb0dd39f6ca3713cc23bfcd0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, real-analysis completeness, normed-space, calculus, integration, polynomial, sequence, asymptotic, spectral, and noncomputability policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, axioms, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No floating-point solver, generated coefficient table, numerical trajectory, empirical convergence plot, adaptive controller, external oracle, native evaluation, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1397/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1397/README.md",
+    "Stage1_Instances/THM-M-1397/instance.json",
+    "Stage1_Instances/THM-M-1397/scope-map.md",
+    "Stage1_Instances/THM-M-1397/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1397/task-dag.json",
+    "Stage1_Instances/THM-M-1397/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1397/check_intake.py",
+    "Stage1_Instances/THM-M-1397/validation.md",
+    "Stage1_Instances/THM-M-1397/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "An independent source reviewer and formal reviewer must approve the selected proposition, crosswalk, and formal boundary; the integration lane must separately approve ownership and neighbor scope before master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected method or theorem, historical-date decision, scheme family, step count, coefficient or indexing convention, ODE or state domain, grid or history model, regularity, solvability, order, error, convergence, stability, asymptotic, computation, boundary or neighbor decision, recurrence-to-theorem mapping, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog method label and gloss as not yet a stable proposition; it does not refute standard Adams-method results. The inspected encyclopedia entry and pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

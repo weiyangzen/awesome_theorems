@@ -1,0 +1,191 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1512",
+  "item_id": "S56-M-1512-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1026,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 96,
+  "name_zh": "纳什存在性定理",
+  "name_en": "Nash existence theorem",
+  "canonical_name": "Nash equilibrium existence for finite normal-form games (source family; exact proposition open)",
+  "category": "other important fields / numerical analysis (repository classification)",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "纳什均衡的存在性",
+  "literal_source_claim_en": "Existence of Nash equilibrium.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "historical_finite_mixed_strategy_existence_family_identified_but_catalog_omits_proposition_changing_assumptions_and_exact_formal_statement",
+  "canonical_claim": null,
+  "statement_blocker": "The repository gives only an existence gloss. It does not fix a player index or its nonemptiness, finite nonempty pure-strategy carriers, payoff codomain, mixed-strategy representation, expected-payoff and unilateral-deviation definitions, equilibrium convention, or degenerate cases. Nash's inspected 1950 paper supplies a strong historical candidate, but the catalog does not cite or formally select it; choosing its exact proposition without review would infer missing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Convex.StdSimplex",
+      "Mathlib.Probability.ProbabilityMassFunction.Basic",
+      "Mathlib.Topology.Semicontinuity.Hemicontinuity"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_on_source_statement_selection_and_exact_game_encoding",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: the selected source and encoding must fix the finite player carrier and whether nonemptiness is explicit, dependent finite pure-strategy carriers and their nonemptiness convention, payoff field, mixed-profile carrier, and all universes and instances.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open at intake. The candidate source-family conclusion is existence of a mixed-strategy profile at which every player best-responds to the other players, but no exact proposition is accepted.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No boundary case is silently excluded before statement selection; zero players, empty and singleton action carriers, ties, constant payoffs, zero-sum games, and nonunique equilibria require explicit treatment.",
+  "candidate_scope_not_credited": [
+    "every finite nonempty-player normal-form game with finite nonempty pure-strategy carriers and real payoff tables has a mixed-strategy Nash equilibrium",
+    "the source's self-countering mixed profile formulation",
+    "an all-player no-profitable-unilateral-deviation formulation",
+    "a fixed point of the best-response correspondence on a product of finite probability simplices"
+  ],
+  "excluded_substitutions": [
+    "pure-strategy equilibrium existence",
+    "the two-player zero-sum minimax theorem",
+    "the 1951 compact-convex continuous-game generalization without an accepted redirect",
+    "correlated, approximate, perfect, Bayesian, evolutionary, or subgame-perfect equilibrium",
+    "Kakutani, Brouwer, or Banach fixed-point theorem alone",
+    "a computed equilibrium for one finite game",
+    "an assumed equilibrium or fixed point projected from input data",
+    "the neighboring THM-M-1511 target or its future evidence without an accepted identity decision",
+    "the catalog label 已验证 or an API probe treated as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1511",
+      "name": "纳什均衡",
+      "relationship": "separate broader concept-label target; no statement, evidence, or status is shared"
+    },
+    {
+      "theorem_id": "THM-M-0320",
+      "name": "Kakutani fixed-point theorem",
+      "relationship": "prospective proof dependency, not a substitute root and no proof credit is inherited"
+    }
+  ],
+  "source_status": "primary_1950_source_lead_and_proof_route_inspected_but_catalog_selection_complete_assumption_errata_translation_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "John F. Nash, Jr., Equilibrium Points in N-Person Games, Proceedings of the National Academy of Sciences 36 (1950), no. 1, 48-49, DOI 10.1073/pnas.36.1.48",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1063129/pdf/pnas01550-0057.pdf",
+      "observed_source_sha256": "5bf21fdad1ab15779fb1d816298ba338b6d30d854938c15e4f41df1b6659ed85",
+      "candidate_locator": "printed pages 48-49; game and mixed-strategy definitions on 48-49, countering and equilibrium definition on 49, Kakutani application and existence conclusion on 49",
+      "candidate_summary": "finite pure-strategy normal-form games have self-countering mixed profiles, called equilibrium points",
+      "inspection_status": "primary scan inspected outside the repository for family discrimination; no accepted canonical root, repository-owned immutable capture, complete errata/translation audit, H0 review, or independent reviewer"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "project": "math-xmum/Brouwer",
+      "revision": "c02205edf347ad45f0d62db85497598ba2c4291e",
+      "module": "Gametheory.Nash",
+      "declarations": ["FinGame", "mixedS", "mixed_g", "mixedNashEquilibrium", "ExistsNashEq"],
+      "source_sha256": "734911160e5fec94607d343c36228b0064de083d6a9b412b9dbe8b66bd962c4b",
+      "toolchain": "Lean 4.31.0 with mathlib fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "boundary": "credible immutable external source anchor for finite mixed-strategy equilibrium existence, discovered after the intake search; static source inspection only, not in the repo-local dependency closure, not built with its pinned toolchain, no axiom or transitive trust audit, and no checked mapping to the eventual canonical statement; anchor audit must classify it"
+    },
+    {
+      "module": "Mathlib.Analysis.Convex.StdSimplex",
+      "declarations": ["stdSimplex", "convex_stdSimplex", "isCompact_stdSimplex"],
+      "boundary": "finite probability-simplex infrastructure only; no game, equilibrium, or existence theorem"
+    },
+    {
+      "module": "Mathlib.Probability.ProbabilityMassFunction.Basic",
+      "declarations": ["PMF", "PMF.hasSum_coe_one"],
+      "boundary": "alternate discrete probability representation only; transport to a real simplex is not checked"
+    },
+    {
+      "module": "Mathlib.Topology.Semicontinuity.Hemicontinuity",
+      "declarations": ["UpperHemicontinuous", "UpperHemicontinuousAt.mem_of_tendsto"],
+      "boundary": "generic correspondence regularity only; no Kakutani terminal theorem or Nash proof"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9",
+    "repository_base_tree": "829a47c47ae831cada4f8acc6c2c00ba5883215e",
+    "repository_record": "Docs/researches/math_theorems.md:11043-11048",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:41107-41132",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "0c84ffe8756c2a64ef716f333f3645690b39e5ecff276cb972c3df3c753ae86d",
+    "stage0_projection_excerpt_sha256": "a3836122403c8bb3e2552f35793592b8b32c75acc0bca76b221b8a85aa6a1b20",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "bcbce90f45f8df2b674e642470a641bea5a6df5c750be2ac69aa7e686f1c1d72",
+    "execution_dag_sha256": "0f01e5060d405907103ce214fe2b550b50fc081fbb0dd39f6ca3713cc23bfcd0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "inspected_nash_1950_pdf_sha256": "5bf21fdad1ab15779fb1d816298ba338b6d30d854938c15e4f41df1b6659ed85",
+    "crossref_response_sha256": "59eeb4f06cfb8b6a905049948188ac9e587e80e79b6c558073ef8d5a2f56a9f6",
+    "unpaywall_response_sha256": "e8af5122ff05c534843922fa8094b90372433cd424b3805d77cdd5afc02cb227",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "std_simplex_source_sha256": "7fbbaf6d8759e90d4ca39bfed5d5cdacc41b6f6f3490ab29ecb63e77e4af37dd",
+    "external_brouwer_project_revision": "c02205edf347ad45f0d62db85497598ba2c4291e",
+    "external_brouwer_archive_sha256": "8591fadd6737d75b921eee27dc9d85d5d9f040a83ad7dcb2d81dc208754c04cd",
+    "external_brouwer_nash_source_sha256": "734911160e5fec94607d343c36228b0064de083d6a9b412b9dbe8b66bd962c4b",
+    "external_brouwer_toolchain_file_sha256": "efac0b94923b2d8b6840cd35be9177ad0fc5ab2332f4f4311c98712cee92fdee",
+    "external_brouwer_lake_manifest_sha256": "cc34545d9f2516fcb9a82a832f3d127983c451bb54933670b3d201133d0e2eb2"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, finite-product and real-analysis policies remain open until an exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, axioms, and transitive declaration closure remain open",
+  "computation_profile": "No numerical equilibrium solver, exhaustive game enumeration, learning simulation, oracle, native computation, experiment, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1512/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1512/README.md",
+    "Stage1_Instances/THM-M-1512/instance.json",
+    "Stage1_Instances/THM-M-1512/scope-map.md",
+    "Stage1_Instances/THM-M-1512/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1512/task-dag.json",
+    "Stage1_Instances/THM-M-1512/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1512/check_intake.py",
+    "Stage1_Instances/THM-M-1512/validation.md",
+    "Stage1_Instances/THM-M-1512/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "neighbor_scope_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target selection, edition or errata finding, player/action finiteness or nonemptiness, payoff, mixed-strategy, expectation, deviation, best-response, equilibrium or boundary decision, THM-M-1511 scope reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, finite mixed-strategy source family, source and neighbor boundaries, adjacent pinned APIs, and open task DAG. No accepted canonical proposition, exact Lean statement, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

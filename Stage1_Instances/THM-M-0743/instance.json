@@ -1,0 +1,188 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0743",
+  "item_id": "S56-M-0743-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1061,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 92,
+  "name_zh": "不动点定理",
+  "name_en": "Recursion-theoretic fixed-point theorem",
+  "canonical_name": "effective program-index fixed-point theorem family",
+  "category": "mathematical logic / recursion theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "递归函数的不动点",
+  "literal_source_claim_en": "A fixed point of recursive functions.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recursion_theorem_fixed_point_family_identified_but_catalog_does_not_resolve_rogers_form_kleene_parameterized_form_or_neighbor_ownership",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For an effective transformation of program indices, there is a program index whose computed partial function is extensionally unchanged by the transformation; exact code model, transformer arity, formulation, and target ownership remain unresolved.",
+  "statement_blocker": "The catalog supplies no acceptable-numbering convention, code or natural-index carrier, evaluator, total-computable versus partial-recursive transformer type, binder order, extensional-equality convention, or exact conclusion. It also separately catalogs THM-M-0742 as the recursion/self-reference theorem while an outside-scope record equates Kleene's second recursion theorem with a fixed-point gloss. Pinned mathlib contains distinct Rogers fixed_point and Kleene fixed_point2 declarations. Selecting either without source and ownership review would risk inventing or substituting mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Computability.PartrecCode"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_variant_and_neighbor_identity_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-candidate-probe-only"
+  },
+  "domain_and_universes": "Open: the selected source must fix the effective numbering or program-code type, universal evaluator into partial functions on natural numbers or another domain, transformer arity, and all Primcodable or acceptable-numbering structure; the pinned candidates live in Prop/Type 0 over Nat.Partrec.Code and Nat partial functions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose equality of evaluations for a total computable code transformer, self-specialization of a partial-recursive binary family, a natural-index presentation, or another checked equivalent formulation.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "for every total computable f : Code -> Code, there exists c such that eval (f c) = eval c",
+    "for every partial-recursive f : Code -> Nat ->. Nat, there exists c such that eval c = f c",
+    "for every total computable natural-index transformer f, there exists n such that phi_n and phi_(f n) are extensionally equal",
+    "an acceptable-numbering-independent formulation connected to a chosen code model by checked transports"
+  ],
+  "excluded_degenerate_cases": [
+    "syntactic code equality f c = c in place of equality of computed partial functions",
+    "an arbitrary noncomputable transformation",
+    "only a particular quine or self-printing program",
+    "the diagonal lemma for formulas or an unrelated analytic, topological, order, domain, or programming-language fixed-point theorem",
+    "a universal evaluator or s-m-n theorem alone without root composition",
+    "a hypothesis or structure field that already assumes the desired fixed point",
+    "the catalog's untrusted verified label or the discovery probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0742",
+      "name": "递归定理",
+      "relationship": "adjacent Stage1 target glossed recursive-function self-reference; likely overlaps Kleene's second recursion theorem, but no accepted alias, distinction, or root-ownership decision exists"
+    },
+    {
+      "theorem_id": "THM-M-0744",
+      "name": "s-m-n定理",
+      "relationship": "adjacent parameter theorem; a likely proof dependency rather than this target's root, with no evidence shared"
+    },
+    {
+      "theorem_id": "THM-C-0006",
+      "name": "递归定理（Kleene第二递归定理）",
+      "relationship": "outside the closed Stage1 target set; its every-computable-function-has-a-fixed-point gloss is ambiguity evidence only and receives no Stage1 slot or credit"
+    }
+  ],
+  "source_status": "H1_repository_family_plus_authoritative_secondary_statement_and_primary_bibliographic_lead_identified_but_primary_text_exact_target_ownership_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "S. C. Kleene, On notation for ordinal numbers, Journal of Symbolic Logic 3(4), 1938, 150-155, DOI 10.2307/2267778",
+      "observed_metadata_sha256": "55a075143569558b609fed2874e6c0829cc95d65d9ed277e706a9782454e83cc",
+      "inspection_status": "Crossref bibliographic metadata only; article text, theorem passage, incorporated definitions, assumptions, proof, corrections, and errata not inspected or credited"
+    },
+    {
+      "citation": "Walter Dean and Alberto Naibo, Recursive Functions, Stanford Encyclopedia of Philosophy, Spring 2024 archive, Section 3.4, Theorem 3.5",
+      "source_url": "https://plato.stanford.edu/archives/spr2024/entries/recursive-functions/",
+      "observed_source_sha256": "7d856ecda491ab83814622f4a75d277552b8750816412bca215b4a461d0b0af1",
+      "candidate_summary": "states the 1938 total-computable index-transformer theorem and explains its Fixed Point Theorem name and semantic rather than literal index equality",
+      "inspection_status": "authoritative secondary source inspected for family disambiguation; not a primary proof source, H0 record, immutable repository copy, or independent review"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Computability.PartrecCode",
+      "declaration": "Nat.Partrec.Code.fixed_point",
+      "type": "{f : Code -> Code} -> Computable f -> Exists c, eval (f c) = eval c",
+      "upstream_label": "Rogers' fixed-point theorem",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "boundary": "strongest candidate for the total effective-index-transformer formulation; no exact catalog/source mapping or target ownership accepted"
+    },
+    {
+      "module": "Mathlib.Computability.PartrecCode",
+      "declaration": "Nat.Partrec.Code.fixed_point2 (Lean spelling: fixed_point followed by Unicode subscript 2)",
+      "type": "{f : Code -> Nat ->. Nat} -> Partrec2 f -> Exists c, eval c = f c",
+      "upstream_label": "Kleene's second recursion theorem",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "boundary": "parameterized candidate likely overlapping THM-M-0742; no statement or proof credit transferred"
+    },
+    {
+      "module": "Mathlib.Computability.PartrecCode",
+      "declaration": "Nat.Partrec.Code.smn",
+      "boundary": "checked parameterization theorem and likely proof dependency; separately cataloged as THM-M-0744 and not the root"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9",
+    "repository_base_tree": "829a47c47ae831cada4f8acc6c2c00ba5883215e",
+    "repository_record": "Docs/researches/math_theorems.md:5479-5484",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:20299-20324",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_origin_commit": "16d227cffb7cb7d9e8392b6c0ff8211e498e1330",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "bcbce90f45f8df2b674e642470a641bea5a6df5c750be2ac69aa7e686f1c1d72",
+    "execution_dag_sha256": "0f01e5060d405907103ce214fe2b550b50fc081fbb0dd39f6ca3713cc23bfcd0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "partrec_code_source_blob": "6a5a8cd7a1819f65ca068a13e8216714fa9c9401",
+    "partrec_code_source_sha256": "543fdfc34bbc62e0d2bdff524be58e58abdd4ebded0ca25fac7edf791aadb2df",
+    "mathlib_references_sha256": "9f6b3a98cd6cd044736db1e6ac08fd766cc8d492b31d19643a82ee31ac995c11",
+    "inspected_sep_source_sha256": "7d856ecda491ab83814622f4a75d277552b8750816412bca215b4a461d0b0af1",
+    "kleene_crossref_response_sha256": "55a075143569558b609fed2874e6c0829cc95d65d9ed277e706a9782454e83cc"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the pinned candidates currently report propext, Classical.choice, and Quot.sound, but their acceptability and the exact source foundation remain open until one root is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact target imports, terminal declaration ownership, transitive dependency closure, compiled-artifact provenance, and trust acceptance remain downstream",
+  "computation_profile": "Program codes and their partial evaluator are mathematical objects inside Lean. No native execution, oracle, external evaluator, experiment, or unchecked certificate is credited; target closure would require kernel-checked extensional equality under a selected effective-numbering model.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0743/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0743/README.md",
+    "Stage1_Instances/THM-M-0743/instance.json",
+    "Stage1_Instances/THM-M-0743/scope-map.md",
+    "Stage1_Instances/THM-M-0743/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0743/task-dag.json",
+    "Stage1_Instances/THM-M-0743/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0743/check_intake.py",
+    "Stage1_Instances/THM-M-0743/validation.md",
+    "Stage1_Instances/THM-M-0743/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "target_identity_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, exact theorem selection, THM-M-0742 or THM-C-0006 identity reconciliation, numbering/code/evaluator/arity/equality convention, canonical Lean target, toolchain or dependency pin, assurance profile, validator, or owned-artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the literal catalog record, source and neighbor ambiguity, candidate mathematical shapes, inspected secondary source, primary bibliographic lead, pinned candidate declarations, and open task DAG. No canonical proposition, accepted primary source, exact Lean statement, proof-body credit, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

@@ -1,0 +1,203 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1443",
+  "item_id": "S56-M-1443-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1051,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 92,
+  "name_zh": "不动点迭代",
+  "name_en": "Fixed-point iteration",
+  "canonical_name": "Fixed-point iteration for equation root finding (repository method label)",
+  "category": "其他重要领域 / 数值分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "不动点迭代",
+  "literal_source_claim_zh": "方程求根的迭代方法",
+  "literal_source_claim_en": "An iterative method for finding roots of equations.",
+  "source_attribution": "Many mathematicians, twentieth century (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_root_finding_method_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only a method label and purpose. It fixes no equation, root-to-fixed-point transformation, iteration map, space, invariant domain, initial point, regularity or contraction hypotheses, ordered binders, convergence mode or rate, error estimate, stopping rule, or conclusion. Choosing a recurrence definition, limit-transfer result, Banach/Picard convergence theorem, local interval theorem, or algorithm-correctness theorem would invent proposition-changing mathematics and may collide with the distinct Banach fixed-point target THM-M-1444.",
+  "target_decision": "redirect the catalog method label to a corrected, independently reviewed, source-selected exact proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Dynamics.FixedPoints.Topology",
+      "Mathlib.Topology.MetricSpace.Contracting"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the equation and root domain, iteration self-map, scalar or metric/normed spaces and universes, subset or interval, topology and completeness, initial data, regularity, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose recurrence well-definedness, limit-is-fixed, existence, uniqueness, local or global convergence, rate, error bounds, stopping correctness, root equivalence, or a conjunction of these results.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No boundary case is excluded at intake because no proposition is selected; the statement phase must resolve every domain, initial-point, fixed-point, convergence, contraction-factor, endpoint, and arithmetic case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the recurrence x_(n+1) = g(x_n) as a definition",
+    "if the iterates converge and g is continuous at their limit, then the limit is a fixed point",
+    "Banach/Picard iteration for a contraction on a complete nonempty metric space, including existence, uniqueness, convergence, and error estimates",
+    "a one-dimensional interval or derivative-bound convergence theorem",
+    "a local convergence theorem around an already known fixed point",
+    "a finite-precision solver correctness and stopping theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty or singleton domains and maps that are not self-maps",
+    "starting points outside the invariant domain, zero iterates, and initially stationary points",
+    "multiple, absent, or non-root fixed points and failure of the root-to-fixed-point bridge",
+    "cycles, divergent or nonconvergent iterates, and local versus global basins",
+    "contraction factor zero, equal to one, or endpoint and derivative-bound equality",
+    "pseudometric zero without equality, infinite distances, and incomplete spaces",
+    "exact versus finite-precision arithmetic, residual tolerances, and stopping without convergence"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1444 Banach fixed-point theorem",
+    "THM-M-1440 Newton method, THM-M-1441 secant method, or THM-M-1442 bisection method",
+    "a constant or identity-map toy theorem",
+    "a statement that assumes the desired root, fixed point, convergence, estimate, or correctness",
+    "a finite sampled trajectory, plot, floating-point experiment, or empirical stopping event",
+    "generic pinned iteration, fixed-point, continuity, or contraction APIs without an accepted source mapping",
+    "the untrusted catalog label 已验证 as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1440",
+      "name": "牛顿法",
+      "relationship": "separately cataloged derivative-based root-finding method; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1441",
+      "name": "弦截法",
+      "relationship": "separately cataloged secant root-finding method; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1442",
+      "name": "二分法",
+      "relationship": "separately cataloged bracketing root-finding method; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1444",
+      "name": "Banach不动点定理",
+      "relationship": "separately cataloged contraction theorem; its hypotheses and conclusions cannot be silently assigned to this method label"
+    }
+  ],
+  "source_status": "H5_repository_method_gloss_only_no_primary_source_or_stable_truth_valued_proposition",
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Dynamics.FixedPoints.Topology",
+      "declaration": "isFixedPt_of_tendsto_iterate",
+      "boundary": "assumes iterate convergence and continuity at its limit, then proves the limit fixed; no equation/root bridge, convergence proof, rate, or solver correctness"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Contracting",
+      "declaration": "ContractingWith.exists_fixedPoint",
+      "boundary": "Banach contraction theorem with convergence and an error estimate; hypotheses and conclusion are absent from the catalog and overlap THM-M-1444"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Contracting",
+      "declaration": "ContractingWith.tendsto_iterate_fixedPoint",
+      "boundary": "convergence of contraction iterates to the library fixedPoint; not a source-selected root-finding theorem"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Contracting",
+      "declaration": "ContractingWith.apriori_dist_iterate_fixedPoint_le",
+      "boundary": "geometric a priori estimate for the contraction candidate only; no catalog source maps to this conclusion"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Contracting",
+      "declaration": "ContractingWith.aposteriori_dist_iterate_fixedPoint_le",
+      "boundary": "a posteriori estimate for the contraction candidate only; no stopping-rule or finite-precision theorem follows automatically"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9",
+    "repository_base_tree": "829a47c47ae831cada4f8acc6c2c00ba5883215e",
+    "repository_record": "Docs/researches/math_theorems.md:10539-10544",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39244-39269",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "d94b0c3523a21feb074378dcdbdeb029e85a1d7fb57bc429c87e50a73138820b",
+    "stage0_projection_excerpt_sha256": "8094ed32ee6e720f98942d59871852c08cb77995e74e253b23001349c1cff41c",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "bcbce90f45f8df2b674e642470a641bea5a6df5c750be2ac69aa7e686f1c1d72",
+    "execution_dag_sha256": "0f01e5060d405907103ce214fe2b550b50fc081fbb0dd39f6ca3713cc23bfcd0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, function extensionality, real or general metric analysis, completeness, quotients, noncomputability, and numerical representation policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declaration, axioms, transitive dependency closure, numerical runtime, and trust policy remain open",
+  "computation_profile": "No numerical iteration, floating-point trajectory, convergence experiment, stopping event, oracle, generated approximation, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1443/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1443/README.md",
+    "Stage1_Instances/THM-M-1443/instance.json",
+    "Stage1_Instances/THM-M-1443/scope-map.md",
+    "Stage1_Instances/THM-M-1443/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1443/task-dag.json",
+    "Stage1_Instances/THM-M-1443/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1443/check_intake.py",
+    "Stage1_Instances/THM-M-1443/validation.md",
+    "Stage1_Instances/THM-M-1443/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned numerical-analysis reviewer",
+    "reviewer_policy": "An independent source reviewer and formal reviewer must approve the selected proposition, source crosswalk, root/fixed-point bridge, and formal boundary; the integration lane must separately approve ownership and neighboring-target scope before master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected theorem, equation, root/fixed-point bridge, space, domain, self-map, initial point, invariant-set premise, regularity, contraction or derivative hypothesis, convergence mode or rate, error or stopping conclusion, boundary decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog method gloss as not yet a stable proposition; it does not refute established fixed-point iteration theorems. The pinned API probe supplies discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

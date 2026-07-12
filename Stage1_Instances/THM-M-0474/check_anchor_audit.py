@@ -62,7 +62,11 @@ item = next(row for row in execution["items"] if row["id"] == ITEM_ID)
 
 assert audit["item_id"] == item["id"] == ITEM_ID
 assert receipt["item_id"] == ITEM_ID
-assert selftest["item_id"] in {ITEM_ID, "S56-M-0474-OBLIGATION_TREE"}
+assert selftest["item_id"] in {
+    ITEM_ID,
+    "S56-M-0474-OBLIGATION_TREE",
+    "S56-M-0474-PROOF",
+}
 assert audit["theorem_id"] == item["theorem_id"] == THEOREM_ID
 assert receipt["theorem_id"] == THEOREM_ID
 assert selftest.get("theorem_id", THEOREM_ID) == THEOREM_ID

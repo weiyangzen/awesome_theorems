@@ -1,0 +1,211 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0904",
+  "item_id": "S56-M-0904-INTAKE",
+  "execution_rank": 1044,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_artifacts_accepted": false,
+  "legacy_priority_slot": null,
+  "name_zh": "Dinitz猜想",
+  "name_en": "Dinitz conjecture (exact array/list-coloring formulation open)",
+  "canonical_name": "Dinitz array list-coloring conjecture family (exact proposition open)",
+  "category": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "source_status_untrusted": "已证明",
+  "intake_score": 96,
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "列表着色的存在性",
+  "literal_source_claim_en": "existence of list coloring",
+  "canonical_claim_status": "catalog_title_and_gloss_identify_the_Dinitz_list_coloring_family_but_not_one_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected natural number n and source-selected n-element or at-least-n-element allowed-color collection at every cell of an n by n array, select one allowed color per cell so that the selected colors are pairwise distinct within each row and within each column.",
+  "target_disposition": "requires_source_selection_and_THM-M-0905_boundary_review_before_ordinary_theorem_execution",
+  "statement_blocker": "The catalog supplies only 'existence of list coloring'. It does not fix the array or graph carrier, exact versus lower-bound list cardinality, set/list/multiset duplicate semantics, color carrier, n-domain, row and column distinctness predicates, degenerate cases, or the boundary between the Dinitz K_(n,n) special case and the stronger bipartite-multigraph theorem assigned to neighboring THM-M-0905. Choosing a root at intake would add or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_due_to_source_statement_and_neighbor_target_ambiguity",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "module_candidates_not_credited": [
+      "Mathlib.Combinatorics.SimpleGraph.Basic",
+      "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "Mathlib.Combinatorics.SimpleGraph.Bipartite",
+      "Mathlib.Combinatorics.SimpleGraph.LineGraph"
+    ],
+    "declaration_candidates_not_credited": [
+      "SimpleGraph.Coloring",
+      "SimpleGraph.Colorable",
+      "SimpleGraph.IsBipartite",
+      "SimpleGraph.IsBipartiteWith",
+      "completeBipartiteGraph",
+      "SimpleGraph.lineGraph",
+      "SimpleGraph.lineGraph_adj_iff_exists"
+    ],
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix n, the row and column finite types, the color carrier and any DecidableEq or finiteness structure, the per-cell collection representation, and every universe and coercion used by an array or graph encoding.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not state the per-cell membership condition, row and column distinctness, array versus K_(n,n) scope, or whether it intends the stronger bipartite-multigraph theorem.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "an n by n array whose every cell owns a Finset of exactly n allowed colors, with an allowed selection injective in every row and column",
+    "the monotone variant in which every cell owns at least n allowed colors",
+    "list edge-colorability of the simple complete bipartite graph K_(n,n) from arbitrary per-edge lists of size at least n",
+    "equality of the list chromatic index of K_(n,n) with n",
+    "Galvin's stronger theorem that every k-edge-colorable bipartite multigraph is k-edge-choosable"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; n equals zero and one, empty color carriers, duplicate-bearing lists, palette finiteness, and vacuous row or column conditions remain statement decisions.",
+  "degenerate_cases_to_resolve": [
+    "n = 0 and whether the empty selection is intended",
+    "n = 1 and singleton row and column conditions",
+    "empty or insufficient allowed-color collections",
+    "duplicate entries when the source uses the word list",
+    "infinite color carriers with finite per-cell collections",
+    "exactly n versus at least n allowed colors and the logical strength of thinning",
+    "array-to-K_(n,n) transports in low dimensions"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0905 Galvin theorem or its future proof receipts silently substituted for this target",
+    "the general bipartite-multigraph theorem adopted as the canonical Dinitz array statement without an explicit source-selected bridge",
+    "ordinary vertex coloring, bicoloring, bipartiteness, or line-graph construction presented as list edge-colorability",
+    "a Latin-square theorem with one shared palette presented as arbitrary per-cell list coloring",
+    "a structure field or hypothesis that assumes the desired selection or proper coloring",
+    "a finite search, SAT result, or experiment without a general checked certificate proof",
+    "the untrusted catalog label 已证明 used as human-source or kernel evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0905",
+      "name": "Galvin定理",
+      "relationship": "immediately adjacent target glossed 'proof of the Dinitz conjecture'; likely owns the stronger bipartite-multigraph theorem, so no root, evidence, or status is shared without explicit master scope reconciliation"
+    },
+    {
+      "theorem_id": "THM-M-0906",
+      "name": "列表着色",
+      "relationship": "neighboring general list-coloring theory topic; definitions or evidence there do not establish the Dinitz array theorem"
+    },
+    {
+      "theorem_id": "THM-M-0899",
+      "name": "拉丁方",
+      "relationship": "neighboring Latin-square topic; a common-palette Latin square is only a special list assignment"
+    }
+  ],
+  "source_status": "H5_catalog_wording_is_not_one_stable_proposition_bibliographic_primary_proof_lead_and_inspected_secondary_abstract_only_source_admission_exact_mapping_errata_and_independent_review_open",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "Fred Galvin, The List Chromatic Index of a Bipartite Multigraph, Journal of Combinatorial Theory Series B 63(1), 1995, 153-158, DOI 10.1006/jctb.1995.1011",
+      "candidate_summary": "primary proof lead for the stronger bipartite-multigraph result",
+      "inspection_status": "Crossref bibliographic metadata inspected; publisher theorem text, definitions, proof boundary, errata, exact Dinitz array corollary, and independent review not inspected or accepted"
+    },
+    {
+      "citation": "Tomaz Slivnik, Short Proof of Galvin's Theorem on the List-chromatic Index of a Bipartite Multigraph, Combinatorics Probability and Computing 5(1), 1996, 91-94, DOI 10.1017/S0963548300001851",
+      "candidate_summary": "publisher abstract says every k-edge-colorable bipartite multigraph is k-edge-choosable and cites Galvin's 1995 paper",
+      "inspection_status": "publisher metadata and abstract inspected for family discrimination only; secondary source, not an exact H0 source for the repository target"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "declarations": ["SimpleGraph.Coloring", "SimpleGraph.Colorable"],
+      "boundary": "ordinary vertex coloring only; no per-vertex lists or choosability"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Bipartite",
+      "declarations": ["SimpleGraph.IsBipartite", "SimpleGraph.IsBipartiteWith"],
+      "boundary": "bipartite structure and ordinary bicoloring only"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Basic",
+      "declarations": ["completeBipartiteGraph"],
+      "boundary": "complete bipartite graph construction, not list edge coloring"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.LineGraph",
+      "declarations": ["SimpleGraph.lineGraph", "SimpleGraph.lineGraph_adj_iff_exists"],
+      "boundary": "edge-incidence representation only; no list-coloring theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9",
+    "repository_base_tree": "829a47c47ae831cada4f8acc6c2c00ba5883215e",
+    "repository_record": "Docs/researches/math_theorems.md:6614-6619",
+    "neighbor_repository_record": "Docs/researches/math_theorems.md:6621-6626",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:24656-24684 (target plus neighboring Galvin boundary)",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "5703b064790c1941a6f9ee64661f5dae8f2378fe5b9bd7944f85c5e42408f525",
+    "stage0_projection_excerpt_sha256": "79185f89bde4c892782f854b0fe0a10d1301062d1ba6d0b53b00662cf300fee5",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "bcbce90f45f8df2b674e642470a641bea5a6df5c750be2ac69aa7e686f1c1d72",
+    "execution_dag_sha256": "0f01e5060d405907103ce214fe2b550b50fc081fbb0dd39f6ca3713cc23bfcd0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "galvin_crossref_normalized_sha256": "88f7f27488c8a21c5756ede101a89646d293ac63c77a3a03eaba4cfd999c704c",
+    "slivnik_publisher_metadata_extract_sha256": "70960b8aa7a3a3de11202bd8ab8899b0979366a3853732e6e07d4e499a043d72",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; finite choice, classical decidable equality, exact-size list thinning, quotient or Sym2 edge representations, and any noncomputability policy remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, axioms, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No finite search, SAT or ILP solver, exhaustive enumeration, native code, oracle, experiment, or unchecked certificate is credited; a selected general theorem requires kernel-checked proof or checked certificate semantics",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0904/README.md",
+    "Stage1_Instances/THM-M-0904/instance.json",
+    "Stage1_Instances/THM-M-0904/scope-map.md",
+    "Stage1_Instances/THM-M-0904/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0904/task-dag.json",
+    "Stage1_Instances/THM-M-0904/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0904/check_intake.py",
+    "Stage1_Instances/THM-M-0904/validation.md",
+    "Stage1_Instances/THM-M-0904/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "neighbor_scope_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target selection, array or graph carrier, exact or lower-bound list size, finite-set/list/multiset semantics, color carrier, n-domain, row or column predicate, degenerate-case, THM-M-0905 boundary, transport, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog title and gloss as not yet one stable proposition; it does not refute the classical Dinitz conjecture. Bibliographic leads and pinned API probes supply discovery evidence only. No canonical statement, expression fingerprint, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

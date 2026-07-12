@@ -57,6 +57,11 @@ OWNED_FILES = {
     "obligation-tree.md",
     "obligation-tree-validation.md",
     "obligation-tree-receipt.json",
+    "Proof.lean",
+    "check_proof.py",
+    "check_proof.sh",
+    "proof-validation.md",
+    "proof-receipt.json",
     "statement.json",
     "task-dag.json",
     "validation.md",
@@ -178,6 +183,7 @@ def main() -> None:
     elif selftest["item_id"] not in {
         "S56-M-0474-ANCHOR_AUDIT",
         "S56-M-0474-OBLIGATION_TREE",
+        "S56-M-0474-PROOF",
     }:
         raise SystemExit("root self-test covers neither this statement nor a downstream successor")
     if set(instance["owned_artifacts"]) != OWNED_FILES:

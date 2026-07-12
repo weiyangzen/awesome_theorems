@@ -1,0 +1,215 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1399",
+  "item_id": "S56-M-1399-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1009,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 108,
+  "name_zh": "向后微分公式",
+  "name_en": "Backward differentiation formula",
+  "canonical_name": "Backward differentiation formula (repository numerical-method label)",
+  "category": "微分方程 / 常微分方程",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "向后微分公式",
+  "literal_source_claim_zh": "刚性方程的数值方法",
+  "literal_source_claim_en": "A numerical method for stiff equations.",
+  "source_attribution": "Many mathematicians, twentieth century (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_backward_differentiation_method_family_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies a method name and a broad stiff-equation gloss, not a proposition. It does not fix an order, coefficients or normalization, history indexing, time grid, constant or variable steps, state space, ODE class, starting data, regularity, stability or convergence notion, ordered binders, hypotheses, or conclusion. Selecting BDF1, BDF2, a recurrence convention, or a stability theorem would invent or substitute missing mathematics.",
+  "target_decision": "redirect the catalog method label to a corrected, source-selected exact BDF proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Calculus.Deriv.Slope",
+      "Mathlib.Analysis.ODE.Basic",
+      "Mathlib.Analysis.ODE.PicardLindelof",
+      "Mathlib.LinearAlgebra.Lagrange"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an exact source must fix scalar or normed state spaces and universes, scalar field, autonomous or nonautonomous vector field, time domain and grid, step policy, history representation, and all typeclass data.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose a recurrence identity, interpolation construction, coefficient theorem, consistency or order result, zero-stability or convergence result, stability theorem, implicit-step solvability theorem, or conjunction.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every boundary case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "a source-normalized constant-step k-step BDF implicit recurrence",
+    "the derivative-at-the-newest-node construction from a Lagrange interpolant through recent solution values",
+    "the BDF1/backward-Euler or BDF2 special case",
+    "a consistency, local-truncation-error, order, zero-stability, convergence, A-stability, or stability-region theorem for source-selected orders",
+    "a variable-step BDF algorithm with step-ratio conditions or an existence and uniqueness theorem for its implicit update"
+  ],
+  "degenerate_cases_to_resolve": [
+    "order zero, order one, and unsupported orders",
+    "empty history, insufficient or inconsistent starting values, and recurrence start index",
+    "zero, negative, repeated, nonmonotone, or variable time steps and extreme step ratios",
+    "coincident interpolation nodes and singular leading coefficients",
+    "constant or zero vector fields and exact solutions of insufficient regularity",
+    "nonexistent or nonunique implicit updates and nonlinear-solver error",
+    "finite versus infinite horizon and scalar versus vector or Banach-space state",
+    "truncation, rounding, and starting-error treatment in the selected conclusion"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1395 finite difference method",
+    "THM-M-1396 Runge-Kutta methods",
+    "THM-M-1397 Adams methods",
+    "THM-M-1398 stiff equations",
+    "backward Euler or BDF2 presented as an unidentified all-order BDF theorem",
+    "a backward finite-difference derivative identity presented as an ODE method theorem",
+    "a generic implicit linear-multistep theorem without a checked source-to-BDF transport",
+    "a numerical experiment, stability plot, benchmark, or solver output",
+    "a recurrence, convergence, or stability property assumed as a structure field",
+    "generic derivative, interpolation, ODE, or existence APIs alone",
+    "the untrusted catalog label 已验证 used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1395",
+      "name": "有限差分法",
+      "relationship": "broader finite-difference method target; a backward derivative identity does not select this BDF root"
+    },
+    {
+      "theorem_id": "THM-M-1396",
+      "name": "Runge-Kutta方法",
+      "relationship": "distinct one-step method family; no statement or proof credit shared"
+    },
+    {
+      "theorem_id": "THM-M-1397",
+      "name": "Adams方法",
+      "relationship": "neighboring linear-multistep family with different right-hand-side history; no statement or proof credit shared"
+    },
+    {
+      "theorem_id": "THM-M-1398",
+      "name": "刚性方程",
+      "relationship": "problem-class topic motivating BDF use; not a BDF proposition"
+    }
+  ],
+  "source_status": "H5_repository_method_label_only_with_historical_bibliographic_leads_but_no_stable_proposition_selected",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "C. F. Curtiss and J. O. Hirschfelder, Integration of Stiff Equations, Proceedings of the National Academy of Sciences 38(3) (1952), 235-243",
+      "doi": "10.1073/pnas.38.3.235",
+      "pmid": "16589085",
+      "pmcid": "PMC1063538",
+      "metadata_sha256": "8c17df7a6a1a918934e99988d7bbc31fd2e66046017cbf2ec49d8e6a0b70bcee",
+      "status": "DOI and Europe PMC bibliographic metadata inspected; catalog does not cite it, article is not open access, no exact equation theorem proof or errata passage accepted"
+    },
+    {
+      "citation": "C. W. Gear, The automatic integration of ordinary differential equations, Communications of the ACM 14(3) (1971), 176-179",
+      "doi": "10.1145/362566.362571",
+      "metadata_sha256": "a618aef1e5c079904b4d6bdb2dc33ba03803aea1fec5d61a2a99b3b9f7a01184",
+      "status": "DOI bibliographic metadata inspected; catalog does not cite it and no exact equation theorem proof or errata passage accepted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Calculus.Deriv.Slope",
+      "declarations": ["HasDerivAt", "hasDerivAt_iff_tendsto_slope"],
+      "boundary": "derivative and difference-quotient substrate only; no BDF coefficients, recurrence, or numerical-analysis result"
+    },
+    {
+      "module": "Mathlib.Analysis.ODE.Basic",
+      "declaration": "IsIntegralCurve",
+      "boundary": "exact ODE-solution substrate only; no discrete method or error theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.ODE.PicardLindelof",
+      "declaration": "IsPicardLindelof",
+      "boundary": "continuous ODE local-existence substrate only; no implicit BDF-step solvability theorem"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Lagrange",
+      "declarations": ["Lagrange.interpolate", "Lagrange.iterate_derivative_interpolate"],
+      "boundary": "scalar polynomial-interpolation substrate only; no source-selected BDF construction, vector-valued transport, consistency, stability, or convergence theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d502dd6f3d278ca9cb0ead8cbdc5f16c0e1fd8c9",
+    "repository_base_tree": "829a47c47ae831cada4f8acc6c2c00ba5883215e",
+    "repository_record": "Docs/researches/math_theorems.md:10188-10193",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:38046-38071",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob_at_origin_commit": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_blob_at_base": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "bcbce90f45f8df2b674e642470a641bea5a6df5c750be2ac69aa7e686f1c1d72",
+    "execution_dag_sha256": "0f01e5060d405907103ce214fe2b550b50fc081fbb0dd39f6ca3713cc23bfcd0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H5", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, real-analysis completeness, topology, calculus, sequence, polynomial, ODE, quotient, and noncomputability policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, axioms, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No floating-point solve, adaptive controller, nonlinear iteration, numerical trajectory, benchmark, stability plot, oracle, native computation, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1399/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1399/README.md",
+    "Stage1_Instances/THM-M-1399/instance.json",
+    "Stage1_Instances/THM-M-1399/scope-map.md",
+    "Stage1_Instances/THM-M-1399/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1399/task-dag.json",
+    "Stage1_Instances/THM-M-1399/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1399/check_intake.py",
+    "Stage1_Instances/THM-M-1399/validation.md",
+    "Stage1_Instances/THM-M-1399/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "An independent source reviewer and formal reviewer must approve the selected proposition, crosswalk, and formal boundary; the integration lane must separately approve ownership and neighbor scope before master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected theorem, BDF order, coefficients, normalization, indexing, time grid, step policy, state or ODE domain, starting values, regularity, implicit-solve policy, stability or convergence notion, conclusion, boundary or neighbor decision, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog method label and gloss as not yet a stable proposition; it does not refute standard BDF theorems. The bibliographic leads and pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

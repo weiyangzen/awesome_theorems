@@ -49,6 +49,11 @@ OWNED_FILES = {
     "obligation-tree.md",
     "obligation-tree-validation.md",
     "obligation-tree-receipt.json",
+    "Proof.lean",
+    "check_proof.py",
+    "check_proof.sh",
+    "proof-validation.md",
+    "proof-receipt.json",
 }
 
 
@@ -134,6 +139,11 @@ def main() -> None:
         "obligation-tree.md",
         "obligation-tree-validation.md",
         "obligation-tree-receipt.json",
+        "Proof.lean",
+        "check_proof.py",
+        "check_proof.sh",
+        "proof-validation.md",
+        "proof-receipt.json",
     }
     expected_intake_changed = {".stage1-worker-selftest.json"} | {
         f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_owned_files

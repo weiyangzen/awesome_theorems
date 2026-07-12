@@ -35,14 +35,18 @@ turn the incomplete catalog wording into an accepted primary-source statement.
   the mathlib theorem. `build_obligation_artifacts.py`, `check_obligation_tree.py`,
   `obligation-tree.md`, `obligation-tree-validation.md`, and `obligation-tree-receipt.json` record
   the deterministic freeze, semantic expansion, and provisional self-test.
+- `Proof.lean` installs the exact pinned `Nat.ModEq.pow_card_sub_one_eq_one` body at the canonical
+  target and separately checks it through the frozen composition interface. `check_proof.sh`,
+  `check_proof.py`, `proof-validation.md`, and `proof-receipt.json` bind the narrow kernel run,
+  source and dependency fingerprints, axiom and placeholder results, and provisional proof handoff.
 
 ## Status boundary
 
-The root vector remains `[H1, M3, R4]`: no primary edition/theorem/page/errata review is accepted,
-and no proof-phase wrapper or accepted proof state exists. The exact pinned candidate remains
-`M0-W_candidate_pending_proof_phase_and_master_acceptance`. The obligation phase has frozen and
-self-tested the denominator, full visible terminal-source expansion, seven typed graphs, and a
-conditional composition interface; it has not promoted the authoritative root. Complete
-provenance/trust and TCB closure, proof installation, readable reconstruction, hermetic validation,
-independent verification, and release remain later work. There is no full audit completion or
-theorem completion; dependency-ordered acceptance remains with the integration lane.
+The authoritative root vector remains `[H1, M3, R4]`: no primary edition/theorem/page/errata review
+or proof receipt is accepted. The proof phase now proposes `M0-W` for the exact root: its direct
+wrapper, exact Nat child, and frozen child-to-parent composition are kernel-checked against the
+manifest-pinned mathlib body, with no placeholder and only `propext`, `Classical.choice`, and
+`Quot.sound` reported. That proposal does not mutate accepted state. Complete provenance/trust and
+TCB acceptance, readable reconstruction, hermetic validation, independent verification, and
+release remain later work. There is no full audit completion or theorem completion;
+dependency-ordered acceptance remains with the integration lane.
