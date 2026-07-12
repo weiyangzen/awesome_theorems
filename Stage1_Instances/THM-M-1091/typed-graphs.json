@@ -1,0 +1,864 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-1091-OBLIGATION_TREE",
+  "theorem_id": "THM-M-1091",
+  "registry_denominator_sha256": "4ec2b5d5aec067b17fb083be5130977395b153baea6cd37e4403439e6ddf0a0f",
+  "nodes": [
+    {
+      "node_id": "THM-M-1091-ROOT",
+      "obligation_id": "M1091-ROOT",
+      "kind": "root",
+      "human_statement": "For every homogeneous discrete-time Markov kernel and natural m,n, the (m+n)-step kernel is the n-step kernel composed after the m-step kernel.",
+      "formal_target": "Stage1Instances.THM_M_1091.ChapmanKolmogorovTarget",
+      "output": "The exact frozen kernel equality.",
+      "human_debt": "H1",
+      "machine_debt": "M1",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-M1091-PRIMARY-OPEN",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 5,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "Stage1Instances.THM_M_1091.ChapmanKolmogorovTarget",
+          "output": "The exact frozen kernel equality.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#root",
+      "validation_spec_id": "VAL-M1091-ROOT",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-S-CONTEXT",
+      "obligation_id": "M1091-S-CONTEXT",
+      "kind": "definition",
+      "human_statement": "Fix an arbitrary measurable State, a Markov endokernel kappa, and natural step counts m,n, with no finiteness or nonemptiness premise.",
+      "formal_target": "State; MeasurableSpace State; kappa : Kernel State State; IsMarkovKernel kappa; m n : Nat",
+      "output": "The exact binder, typeclass, and degenerate-case policy.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 8,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "State; MeasurableSpace State; kappa : Kernel State State; IsMarkovKernel kappa; m n : Nat",
+          "output": "The exact binder, typeclass, and degenerate-case policy.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#s-context",
+      "validation_spec_id": "VAL-M1091-S-CONTEXT",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-S-ORIENTATION",
+      "obligation_id": "M1091-S-ORIENTATION",
+      "kind": "definition",
+      "human_statement": "Read kernel composition chronologically: kappa^m acts first and kappa^n acts second.",
+      "formal_target": "kappa^(m+n) = (kappa^n) comp (kappa^m)",
+      "output": "The frozen composition direction and index naming.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-M1091-PRIMARY-OPEN",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 6,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "kappa^(m+n) = (kappa^n) comp (kappa^m)",
+          "output": "The frozen composition direction and index naming.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#s-orientation",
+      "validation_spec_id": "VAL-M1091-S-ORIENTATION",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-S-INTEGRAL",
+      "obligation_id": "M1091-S-INTEGRAL",
+      "kind": "transport",
+      "human_statement": "Transport the kernel equality to its setwise lintegral form for every measurable target set.",
+      "formal_target": "Stage1Instances.THM_M_1091.target_iff_integralTarget",
+      "output": "A checked bidirectional alternate encoding.",
+      "human_debt": "H1",
+      "machine_debt": "M1",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-M1091-PRIMARY-OPEN",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 12,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "Stage1Instances.THM_M_1091.target_iff_integralTarget",
+          "output": "A checked bidirectional alternate encoding.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#s-integral",
+      "validation_spec_id": "VAL-M1091-S-INTEGRAL",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-N-ADD",
+      "obligation_id": "M1091-N-ADD",
+      "kind": "normalization",
+      "human_statement": "Swap the anchor indices and normalize n+m to m+n without changing composition order.",
+      "formal_target": "add_comm n m",
+      "output": "The exact arithmetic normalization used by root composition.",
+      "human_debt": "H1",
+      "machine_debt": "M1",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 5,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "add_comm n m",
+          "output": "The exact arithmetic normalization used by root composition.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#n-add",
+      "validation_spec_id": "VAL-M1091-N-ADD",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-B-ZERO",
+      "obligation_id": "M1091-B-ZERO",
+      "kind": "branch",
+      "human_statement": "Cover both m=0 and n=0 identity-kernel boundaries.",
+      "formal_target": "zero_first_boundary; zero_second_boundary",
+      "output": "Checked zero-step boundary theorems.",
+      "human_debt": "H1",
+      "machine_debt": "M1",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 8,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "zero_first_boundary; zero_second_boundary",
+          "output": "Checked zero-step boundary theorems.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#b-zero",
+      "validation_spec_id": "VAL-M1091-B-ZERO",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-C-POWCOMP",
+      "obligation_id": "M1091-C-POWCOMP",
+      "kind": "construction",
+      "human_statement": "Interpret kernel powers as iterated kernel composition with power zero equal to the identity kernel.",
+      "formal_target": "HPow.hPow kappa Nat; Kernel.id; Kernel.comp",
+      "output": "The construction semantics required by the semigroup equation.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-M1091-PRIMARY-OPEN",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 12,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "HPow.hPow kappa Nat; Kernel.id; Kernel.comp",
+          "output": "The construction semantics required by the semigroup equation.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#c-powcomp",
+      "validation_spec_id": "VAL-M1091-C-POWCOMP",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-L-POWADD",
+      "obligation_id": "M1091-L-POWADD",
+      "kind": "bridge",
+      "human_statement": "Obtain the central power-add law for endokernels at arbitrary indices a,b.",
+      "formal_target": "ProbabilityTheory.Kernel.pow_add",
+      "output": "kappa^(a+b) = (kappa^a) comp (kappa^b).",
+      "human_debt": "H1",
+      "machine_debt": "M1",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-M1091-PRIMARY-OPEN",
+      "provenance_id": "PROV-M1091-MATHLIB-POWADD",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 18,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "ProbabilityTheory.Kernel.pow_add",
+          "output": "kappa^(a+b) = (kappa^a) comp (kappa^b).",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#l-powadd",
+      "validation_spec_id": "VAL-M1091-L-POWADD",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-T-ASSEMBLE",
+      "obligation_id": "M1091-T-ASSEMBLE",
+      "kind": "terminal",
+      "human_statement": "Instantiate the power-add child at n,m and use addition commutativity to yield the exact root.",
+      "formal_target": "Stage1Instances.THM_M_1091_Obligations.compose_root",
+      "output": "The exact root conditionally composed from its required child and normalization.",
+      "human_debt": "H1",
+      "machine_debt": "M1",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "SRC-M1091-PRIMARY-OPEN",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 8,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "Stage1Instances.THM_M_1091_Obligations.compose_root",
+          "output": "The exact root conditionally composed from its required child and normalization.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#t-assemble",
+      "validation_spec_id": "VAL-M1091-T-ASSEMBLE",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-X-PROVENANCE",
+      "obligation_id": "M1091-X-PROVENANCE",
+      "kind": "terminal",
+      "human_statement": "Bind the central bridge to the pinned mathlib declaration, revision, source body, and axiom inventory.",
+      "formal_target": "Mathlib.Probability.Kernel.Composition.Comp@8a178386:Kernel.pow_add",
+      "output": "Body-level provenance without duplicate wrapper credit.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "PROV-M1091-MATHLIB-POWADD",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 10,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "Mathlib.Probability.Kernel.Composition.Comp@8a178386:Kernel.pow_add",
+          "output": "Body-level provenance without duplicate wrapper credit.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#x-provenance",
+      "validation_spec_id": "VAL-M1091-X-PROVENANCE",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-X-TCB",
+      "obligation_id": "M1091-X-TCB",
+      "kind": "certificate",
+      "human_statement": "Record Lean, mathlib, classical measure-theory, axiom, and reproducibility trust boundaries.",
+      "formal_target": "Lean 4.29.0; mathlib 8a178386; release trust closure pending",
+      "output": "A release-gated trust overlay.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 10,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "Lean 4.29.0; mathlib 8a178386; release trust closure pending",
+          "output": "A release-gated trust overlay.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#x-tcb",
+      "validation_spec_id": "VAL-M1091-X-TCB",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-1091-W-FOLLOWUP",
+      "obligation_id": "M1091-W-FOLLOWUP",
+      "kind": "certificate",
+      "human_statement": "Order proof adoption, node validation, trust replay, readable reconstruction, and release review.",
+      "formal_target": "S56-M-1091-PROOF -> VALIDATION -> RELEASE",
+      "output": "A workflow-only gate with no mathematical credit.",
+      "human_debt": "H1",
+      "machine_debt": "M5",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "Lean 4 dependent type theory plus pinned mathlib measure theory; observed candidate axioms are propext, Classical.choice, Quot.sound",
+      "tcb_profile": "Lean 4.29.0 (98dc76e); mathlib 8a178386; transitive release audit open",
+      "computation_record": "none",
+      "step_budget": 6,
+      "semantic_step_ledger": [
+        {
+          "premises": "the exact context and typed children named by this node",
+          "inference": "S56-M-1091-PROOF -> VALIDATION -> RELEASE",
+          "output": "A workflow-only gate with no mathematical credit.",
+          "outgoing_use": "the typed parent edge or frozen root result"
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-1091/obligation-tree.md#w-followup",
+      "validation_spec_id": "VAL-M1091-W-FOLLOWUP",
+      "status_boundary": "Architecture only; this phase does not credit the obligation closed or accepted.",
+      "task_ids": [
+        "S56-M-1091-OBLIGATION_TREE",
+        "S56-M-1091-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-1091"
+      ],
+      "owner": "THM-M-1091 proof implementer",
+      "reviewer": "independent Stage1 integration reviewer",
+      "validity": {
+        "validated_at": "2026-07-12",
+        "review_due": "before master acceptance",
+        "invalidation_inputs": [
+          "statement",
+          "registry",
+          "typed edges",
+          "anchor provenance",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "PROOF-ROOT-T-ASSEMBLE",
+          "from": "M1091-ROOT",
+          "type": "proof_requires",
+          "to": "M1091-T-ASSEMBLE",
+          "reciprocal_edge_id": "COMPOSE-T-ASSEMBLE-ROOT"
+        },
+        {
+          "edge_id": "COMPOSE-T-ASSEMBLE-ROOT",
+          "from": "M1091-T-ASSEMBLE",
+          "type": "composes",
+          "to": "M1091-ROOT",
+          "reciprocal_edge_id": "PROOF-ROOT-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "PROOF-T-ASSEMBLE-L-POWADD",
+          "from": "M1091-T-ASSEMBLE",
+          "type": "proof_requires",
+          "to": "M1091-L-POWADD",
+          "reciprocal_edge_id": "COMPOSE-L-POWADD-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "COMPOSE-L-POWADD-T-ASSEMBLE",
+          "from": "M1091-L-POWADD",
+          "type": "composes",
+          "to": "M1091-T-ASSEMBLE",
+          "reciprocal_edge_id": "PROOF-T-ASSEMBLE-L-POWADD"
+        },
+        {
+          "edge_id": "PROOF-T-ASSEMBLE-N-ADD",
+          "from": "M1091-T-ASSEMBLE",
+          "type": "proof_requires",
+          "to": "M1091-N-ADD",
+          "reciprocal_edge_id": "COMPOSE-N-ADD-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "COMPOSE-N-ADD-T-ASSEMBLE",
+          "from": "M1091-N-ADD",
+          "type": "composes",
+          "to": "M1091-T-ASSEMBLE",
+          "reciprocal_edge_id": "PROOF-T-ASSEMBLE-N-ADD"
+        }
+      ],
+      "out": {
+        "M1091-ROOT": [
+          "PROOF-ROOT-T-ASSEMBLE"
+        ],
+        "M1091-T-ASSEMBLE": [
+          "COMPOSE-T-ASSEMBLE-ROOT",
+          "PROOF-T-ASSEMBLE-L-POWADD",
+          "PROOF-T-ASSEMBLE-N-ADD"
+        ],
+        "M1091-L-POWADD": [
+          "COMPOSE-L-POWADD-T-ASSEMBLE"
+        ],
+        "M1091-N-ADD": [
+          "COMPOSE-N-ADD-T-ASSEMBLE"
+        ]
+      },
+      "in": {
+        "M1091-T-ASSEMBLE": [
+          "PROOF-ROOT-T-ASSEMBLE",
+          "COMPOSE-L-POWADD-T-ASSEMBLE",
+          "COMPOSE-N-ADD-T-ASSEMBLE"
+        ],
+        "M1091-ROOT": [
+          "COMPOSE-T-ASSEMBLE-ROOT"
+        ],
+        "M1091-L-POWADD": [
+          "PROOF-T-ASSEMBLE-L-POWADD"
+        ],
+        "M1091-N-ADD": [
+          "PROOF-T-ASSEMBLE-N-ADD"
+        ]
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "REFINE-ROOT-S-CONTEXT",
+          "from": "M1091-ROOT",
+          "type": "logical_decomposition",
+          "to": "M1091-S-CONTEXT"
+        },
+        {
+          "edge_id": "REFINE-ROOT-S-ORIENTATION",
+          "from": "M1091-ROOT",
+          "type": "logical_decomposition",
+          "to": "M1091-S-ORIENTATION"
+        },
+        {
+          "edge_id": "REFINE-ROOT-S-INTEGRAL",
+          "from": "M1091-ROOT",
+          "type": "logical_decomposition",
+          "to": "M1091-S-INTEGRAL"
+        },
+        {
+          "edge_id": "REFINE-ROOT-B-ZERO",
+          "from": "M1091-ROOT",
+          "type": "logical_decomposition",
+          "to": "M1091-B-ZERO"
+        },
+        {
+          "edge_id": "REFINE-L-POWADD-C-POWCOMP",
+          "from": "M1091-L-POWADD",
+          "type": "logical_decomposition",
+          "to": "M1091-C-POWCOMP"
+        }
+      ],
+      "out": {
+        "M1091-ROOT": [
+          "REFINE-ROOT-S-CONTEXT",
+          "REFINE-ROOT-S-ORIENTATION",
+          "REFINE-ROOT-S-INTEGRAL",
+          "REFINE-ROOT-B-ZERO"
+        ],
+        "M1091-L-POWADD": [
+          "REFINE-L-POWADD-C-POWCOMP"
+        ]
+      },
+      "in": {
+        "M1091-S-CONTEXT": [
+          "REFINE-ROOT-S-CONTEXT"
+        ],
+        "M1091-S-ORIENTATION": [
+          "REFINE-ROOT-S-ORIENTATION"
+        ],
+        "M1091-S-INTEGRAL": [
+          "REFINE-ROOT-S-INTEGRAL"
+        ],
+        "M1091-B-ZERO": [
+          "REFINE-ROOT-B-ZERO"
+        ],
+        "M1091-C-POWCOMP": [
+          "REFINE-L-POWADD-C-POWCOMP"
+        ]
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "PROV-POWADD-BODY",
+          "from": "M1091-L-POWADD",
+          "type": "provenance_of",
+          "to": "M1091-X-PROVENANCE"
+        }
+      ],
+      "out": {
+        "M1091-L-POWADD": [
+          "PROV-POWADD-BODY"
+        ]
+      },
+      "in": {
+        "M1091-X-PROVENANCE": [
+          "PROV-POWADD-BODY"
+        ]
+      }
+    },
+    "evidence": {
+      "edges": [
+        {
+          "edge_id": "EVID-ROOT-PROVENANCE",
+          "from": "M1091-ROOT",
+          "type": "evidence_for",
+          "to": "M1091-X-PROVENANCE"
+        }
+      ],
+      "out": {
+        "M1091-ROOT": [
+          "EVID-ROOT-PROVENANCE"
+        ]
+      },
+      "in": {
+        "M1091-X-PROVENANCE": [
+          "EVID-ROOT-PROVENANCE"
+        ]
+      }
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "TRUST-ROOT-TCB",
+          "from": "M1091-ROOT",
+          "type": "trusts",
+          "to": "M1091-X-TCB"
+        }
+      ],
+      "out": {
+        "M1091-ROOT": [
+          "TRUST-ROOT-TCB"
+        ]
+      },
+      "in": {
+        "M1091-X-TCB": [
+          "TRUST-ROOT-TCB"
+        ]
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "DOC-ROOT-INTEGRAL",
+          "from": "M1091-ROOT",
+          "type": "documents",
+          "to": "M1091-S-INTEGRAL"
+        }
+      ],
+      "out": {
+        "M1091-ROOT": [
+          "DOC-ROOT-INTEGRAL"
+        ]
+      },
+      "in": {
+        "M1091-S-INTEGRAL": [
+          "DOC-ROOT-INTEGRAL"
+        ]
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "FLOW-ROOT-FOLLOWUP",
+          "from": "M1091-ROOT",
+          "type": "workflow_depends_on",
+          "to": "M1091-W-FOLLOWUP"
+        }
+      ],
+      "out": {
+        "M1091-ROOT": [
+          "FLOW-ROOT-FOLLOWUP"
+        ]
+      },
+      "in": {
+        "M1091-W-FOLLOWUP": [
+          "FLOW-ROOT-FOLLOWUP"
+        ]
+      }
+    }
+  },
+  "closure_metrics_observed": false,
+  "closure_boundary": {
+    "closed_obligations": [],
+    "root_closed": false,
+    "root_machine_debt": "M1",
+    "remaining_root_cut_set": [
+      "M1091-L-POWADD"
+    ],
+    "composition_certificates_checked": [
+      "Stage1Instances.THM_M_1091_Obligations.compose_root"
+    ],
+    "audit_complete": false,
+    "theorem_complete": false
+  }
+}

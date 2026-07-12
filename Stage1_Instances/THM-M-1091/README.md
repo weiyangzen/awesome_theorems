@@ -56,3 +56,15 @@ and the external search found no separately admissible exact candidate.
 This is a self-tested anchor inventory pending master acceptance. The exact bridge is only an
 `M0-P` candidate until the dependent obligation-tree and proof phases adopt it. Human-source debt
 remains `H1`, all later validation and release gates remain open, and theorem completion is false.
+
+## Obligation-tree handoff
+
+Registry version 1 freezes twelve canonical obligations and seven separate typed graph classes
+before proof-phase closure credit is observed. `ObligationTree.lean` checks the exact conditional
+composition: a named power-add child is instantiated at swapped indices and `add_comm` yields the
+frozen chronological root. Both zero-step boundaries also elaborate. The pinned
+`Kernel.pow_add` body is the unique central bridge identity; wrappers receive no duplicate credit.
+
+This architecture is self-tested pending master acceptance. The root stays open at
+`M1091-L-POWADD` until the proof phase adopts the audited anchor. H0/R0 review, transitive trust,
+hermetic and independent validation, release, and theorem completion remain open.
