@@ -40,6 +40,15 @@ OWNED_FILES = {
     "check_anchor_audit.py",
     "anchor-audit-validation.md",
     "anchor-audit-receipt.json",
+    "ObligationTree.lean",
+    "build_obligation_artifacts.py",
+    "check_obligation_tree.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "validation-specs.json",
+    "obligation-tree.md",
+    "obligation-tree-validation.md",
+    "obligation-tree-receipt.json",
 }
 
 
@@ -83,7 +92,9 @@ def main() -> None:
     assert formal["elaborated_expression_hash"] == (
         "sha256:5475969fd23513d3b98134a6aaa747675a32a899f38be773a23cb330f2f590e8"
     )
-    assert instance["obligation_registry_hash"] is None
+    assert instance["obligation_registry_hash"] == (
+        "sha256:28dd518db2fe79a5006cbeb3fdd51b379f67cf388960c3f5fafdf2a7ad8b6a9e"
+    )
     assert instance["discovery_protocol_hash"] is None
     assert instance["root_vector"] == {"H": "H1", "M": "M3", "R": "R4"}
     assert instance["accepted_proof_state"] == instance["accepted_receipt_ids"] == []
@@ -114,6 +125,15 @@ def main() -> None:
         "check_anchor_audit.py",
         "anchor-audit-validation.md",
         "anchor-audit-receipt.json",
+        "ObligationTree.lean",
+        "build_obligation_artifacts.py",
+        "check_obligation_tree.py",
+        "obligation-registry.json",
+        "typed-graphs.json",
+        "validation-specs.json",
+        "obligation-tree.md",
+        "obligation-tree-validation.md",
+        "obligation-tree-receipt.json",
     }
     expected_intake_changed = {".stage1-worker-selftest.json"} | {
         f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_owned_files

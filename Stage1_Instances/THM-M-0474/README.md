@@ -1,4 +1,4 @@
-# THM-M-0474 rev-5.6 anchor audit
+# THM-M-0474 rev-5.6 dossier
 
 This is the `planned` dossier for Fermat's little theorem. The repository catalog says only
 `a^(p-1) congruent to 1 (mod p)`. Taken without hypotheses, that sentence is false: setting
@@ -27,13 +27,22 @@ turn the incomplete catalog wording into an accepted primary-source statement.
 - `anchor-audit.json` classifies the immutable mathlib candidate, adjacent encodings, pinned
   external consumer, and bounded public-source inventory. `check_anchor_audit.py`,
   `anchor-audit-validation.md`, and `anchor-audit-receipt.json` bind the provisional node self-test.
+- `obligation-registry.json` freezes 21 semantic obligations independently of candidate closure
+  status. `typed-graphs.json` separates proof, refinement, provenance, evidence, trust,
+  documentation, and workflow relations; `validation-specs.json` binds one structured recipe to
+  every obligation.
+- `ObligationTree.lean` checks the conditional exact child-to-root composition without installing
+  the mathlib theorem. `build_obligation_artifacts.py`, `check_obligation_tree.py`,
+  `obligation-tree.md`, `obligation-tree-validation.md`, and `obligation-tree-receipt.json` record
+  the deterministic freeze, semantic expansion, and provisional self-test.
 
 ## Status boundary
 
 The root vector remains `[H1, M3, R4]`: no primary edition/theorem/page/errata review is accepted,
-and no proof-phase wrapper or accepted proof state exists. The anchor phase has self-tested an exact
-pinned mathlib candidate, classified conservatively as
-`M0-W_candidate_pending_downstream_acceptance`; it has not promoted the authoritative root. Frozen
-obligations, complete provenance/trust and TCB closure, composition, readable reconstruction,
-hermetic validation, independent verification, and release remain later work. There is no full
-audit completion or theorem completion; anchor-audit acceptance remains with the integration lane.
+and no proof-phase wrapper or accepted proof state exists. The exact pinned candidate remains
+`M0-W_candidate_pending_proof_phase_and_master_acceptance`. The obligation phase has frozen and
+self-tested the denominator, full visible terminal-source expansion, seven typed graphs, and a
+conditional composition interface; it has not promoted the authoritative root. Complete
+provenance/trust and TCB closure, proof installation, readable reconstruction, hermetic validation,
+independent verification, and release remain later work. There is no full audit completion or
+theorem completion; dependency-ordered acceptance remains with the integration lane.

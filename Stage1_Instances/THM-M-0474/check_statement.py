@@ -48,6 +48,15 @@ OWNED_FILES = {
     "check_anchor_audit.py",
     "anchor-audit-validation.md",
     "anchor-audit-receipt.json",
+    "ObligationTree.lean",
+    "build_obligation_artifacts.py",
+    "check_obligation_tree.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "validation-specs.json",
+    "obligation-tree.md",
+    "obligation-tree-validation.md",
+    "obligation-tree-receipt.json",
     "statement.json",
     "task-dag.json",
     "validation.md",
@@ -166,14 +175,20 @@ def main() -> None:
             selftest["changed_paths"]
         ) != CHANGED_PATHS:
             raise SystemExit("statement changed-path handoff is incomplete")
-    elif selftest["item_id"] != "S56-M-0474-ANCHOR_AUDIT":
-        raise SystemExit("root self-test covers neither this statement nor its direct successor")
+    elif selftest["item_id"] not in {
+        "S56-M-0474-ANCHOR_AUDIT",
+        "S56-M-0474-OBLIGATION_TREE",
+    }:
+        raise SystemExit("root self-test covers neither this statement nor a downstream successor")
     if set(instance["owned_artifacts"]) != OWNED_FILES:
         raise SystemExit("instance artifact inventory is stale")
     actual_files = {path.name for path in SOURCE.parent.iterdir() if path.is_file()}
     if actual_files != OWNED_FILES:
         raise SystemExit("owned directory contains an unrecorded or missing file")
-    if any(record["theorem_complete"] for record in (statement, receipt, instance, dag, selftest)):
+    if any(
+        record.get("theorem_complete", False)
+        for record in (statement, receipt, instance, dag, selftest)
+    ):
         raise SystemExit("statement phase cannot claim theorem completion")
     if statement["accepted_receipt_ids"] or receipt["accepted_receipt_ids"]:
         raise SystemExit("worker statement receipt cannot be accepted")
