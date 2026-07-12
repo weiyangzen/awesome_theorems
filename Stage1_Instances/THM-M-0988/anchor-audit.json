@@ -1,0 +1,96 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0988-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0988",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "b781ef440e9de69e6413b608ce5542eed8c0070e",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_0988.StatementShape",
+    "elaborated_expression_sha256": "fc6e4406127b02f2881070dba8415e942f5c0b5197bbdd05167f3b6f5300daf9",
+    "statement_file_sha256": "c66998733f85b2f819ab1c6960bd7791c45e9c5a5226329c3c4061a8296637c4"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_module_sha256": "4b42bad9589ec3772fe0e884ad70789c89fd0c11566d980f3df1c862bbc7f03d",
+    "mathlib_license": "Apache-2.0"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0988-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.CentralLimitTheorem",
+      "declaration": "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub",
+      "kind": "exact_terminal_theorem",
+      "normalized_match": "Exact frozen binders, hypotheses, centered sum, sqrt normalization, Gaussian variance, measures, and TendstoInDistribution conclusion.",
+      "body_provenance": "Lines 123-153 of the immutable module; the proof splits variance=0 from variance!=0 and reduces the latter to the standardized CLT proved earlier in the same module.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_unsafe_status": "The checked terminal declaration reports no sorryAx; no unsafe or oracle boundary is used.",
+      "classification": "M0-L_candidate_pending_downstream_gates",
+      "integration_status": "Already in the repository's pinned Lake closure; the exact audit wrapper elaborates."
+    },
+    {
+      "candidate_id": "S56-M-0988-C02",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "b781ef440e9de69e6413b608ce5542eed8c0070e",
+      "module": "AwesomeTheorems.Stage1.S1_M_268",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_268.lindebergLevy_clt_mathlib_wrapper",
+      "kind": "legacy_alias_wrapper",
+      "normalized_match": "Equivalent data-packaged wrapper around the exact mathlib declaration.",
+      "body_provenance": "Delegates directly to the same pinned mathlib theorem.",
+      "placeholder_or_unsafe_status": "Discovery input only; rev-5.6 does not inherit its proof credit.",
+      "classification": "legacy_discovery_only",
+      "integration_status": "Redundant with the independently checked direct route."
+    },
+    {
+      "candidate_id": "S56-M-0988-C03",
+      "project": "mostlyharmfuleconometrics/lean-hansen-econometrics",
+      "repository": "https://github.com/mostlyharmfuleconometrics/lean-hansen-econometrics",
+      "revision": "b05e2b8e582f628155b69e441299716a7d1f3a7a",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "HansenEconometrics.Chapter6Asymptotics",
+      "declaration": "iidScalarCLT_tendstoInDistribution_gaussian",
+      "kind": "external_exact_alias_wrapper",
+      "normalized_match": "Same scalar iid finite-second-moment CLT, with renamed measures and variables.",
+      "body_provenance": "Immutable raw source SHA-256 99fe197d78f41a5f1df69c7afbfccdb5a7f264fcfa5b021d7b0cb93a0cdb18e3; delegates directly to the pinned mathlib theorem.",
+      "placeholder_or_unsafe_status": "No placeholder occurs in the inspected file, but the declaration adds no independent terminal proof body.",
+      "classification": "external_upstream_anchor_only_redundant",
+      "integration_status": "Not added as a dependency because the identical terminal body is already pinned locally."
+    },
+    {
+      "candidate_id": "S56-M-0988-C04",
+      "project": "facebookresearch/atlas-lean",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.TheoryOfProbability.code.LindebergFeller",
+      "declaration": "ProbabilityTheory.lindeberg_feller_clt_triangular",
+      "kind": "different_stronger_domain_with_proof_gaps",
+      "normalized_match": "Triangular-array Lindeberg-Feller theorem rather than the frozen iid target.",
+      "body_provenance": "Immutable raw source SHA-256 c2a38afab75db140b074cb8ec50026fa9b47dd5a87caac68cf4bb3850a2e02b7; depends on lindeberg_charFun_product_tendsto.",
+      "placeholder_or_unsafe_status": "The dependency lindeberg_charFun_product_tendsto and two preceding analytic lemmas have explicit sorry bodies.",
+      "classification": "M5_noncandidate",
+      "integration_status": "Not integrated: it is not the frozen theorem and its proof closure contains placeholders."
+    }
+  ],
+  "external_search": {
+    "surface": "Sourcegraph public code search",
+    "query": "context:global fork:yes archived:yes lang:Lean (tendstoInDistribution_inv_sqrt_mul_sum_sub OR central-limit phrase OR Lindeberg) count:100",
+    "result": "100 capped matches in three repositories. Exact iid hits reduced to the Hansen alias; Atlas was a distinct triangular-array result and automath exposed assumption-packaged domain endpoints.",
+    "response_sha256": "651e60d55c03ce420356e5bce1da25c95a11c8cec62d98dc4302e70da04f51ea",
+    "limitation": "The result cap makes this bounded discovery evidence, not a global completeness claim."
+  },
+  "root_machine_classification": "M0-L_candidate_pending_downstream_gates",
+  "root_classification_reason": "The exact frozen proposition is discharged by an independently elaborated direct call to the immutable pinned mathlib theorem.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the statement, toolchain, mathlib pin, terminal declaration body/type, or dependency closure changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor audit complete: an exact pinned mathlib route exists. No H0, obligation-tree acceptance, proof-node acceptance, hermetic validation, independent verification, or theorem completion is claimed."
+}

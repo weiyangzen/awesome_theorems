@@ -52,9 +52,9 @@ rev-5.6 gates.
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-`INTAKE`, `STATEMENT`, and `ANCHOR_AUDIT` have provisional master state `[_]`.
-`OBLIGATION_TREE` is now worker self-tested and awaits master acceptance. All
-later phases remain open.
+`INTAKE`, `STATEMENT`, `ANCHOR_AUDIT`, and `OBLIGATION_TREE` have provisional
+master state `[_]`. `PROOF` is now worker self-tested and awaits master
+acceptance. Validation and release remain open.
 
 ## Obligation architecture
 
@@ -63,8 +63,19 @@ later phases remain open.
 `typed-graphs.json` separates proof, refinement, provenance, evidence, trust,
 documentation, and workflow edges. `ObligationTree.lean` kernel-checks the
 child-to-parent composition while deliberately retaining the deep exact
-strong-law theorem as an explicit premise. No obligation is marked closed;
-`M0984-L-TERMINAL` remains the proof cut set, and source identity remains H1.
+strong-law theorem as an explicit premise. At architecture-freeze time no
+obligation was marked closed and `M0984-L-TERMINAL` was the proof cut set; the
+proof phase below now supplies that body. Source identity remains H1.
+
+## Proof phase
+
+`Proof.lean` supplies the exact `M0984-L-TERMINAL` body by applying pinned
+mathlib declaration `ProbabilityTheory.strong_law_ae`, then composes it into
+the frozen `ObligationTree.Root` through `root_of_terminal`. This closes the
+machine proof cut set for the selected modern target without changing its
+binders or hypotheses. It does not resolve the independent historical
+Borel-versus-modern source identity obligation, and it makes no validation,
+release, or theorem-completion claim.
 
 ## Intake verdict
 
@@ -72,8 +83,8 @@ Lifecycle remains `planned`; provisional root vector is `[H1, M0-W, R3]` for
 the frozen modern target. The pinned mathlib theorem supplies its exact
 machine body, but the first failed theorem gate remains source identity: the
 source row is too terse to prove that this iid Banach-valued formalization is
-the intended Borel theorem. Proof, validation, readability, and release gates
-also remain open. The theorem is not complete.
+the intended Borel theorem. Master proof acceptance, validation, readability,
+and release gates also remain open. The theorem is not complete.
 
 ## Validation
 
