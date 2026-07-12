@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1058-STATEMENT",
+  "theorem_id": "THM-M-1058",
+  "lifecycle": "planned",
+  "canonical_statement": "A supplied sequence of probability measures satisfies the full large deviation principle at a positive speed tending to infinity and with a nonnegative lower-semicontinuous rate function exactly when it obeys the exponential upper bound on every closed set and lower bound on every open set.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1058/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1058.LargeDeviationPrinciple",
+    "elaborated_expression_sha256": "60a04b08693660e1b050384acab58541f1a768cc7dfa32da65ac587e47876a33",
+    "statement_file_sha256": "91a805cf552fe2ebb137f46298053eb7130c3f6ea67c18049a1fe8c8e0dacd5c"
+  },
+  "domain_and_universes": "universe u; E : Type u; TopologicalSpace E; MeasurableSpace E; D : LargeDeviationData E; Prop in Lean universe 0",
+  "ordered_binders": [
+    "E : Type u",
+    "[TopologicalSpace E]",
+    "[MeasurableSpace E]",
+    "D : LargeDeviationData E",
+    "F : Set E for the closed-set branch",
+    "G : Set E for the open-set branch"
+  ],
+  "data_hypotheses": [
+    "D.measures : Nat -> ProbabilityMeasure E",
+    "D.speed_pos : forall n, 0 < D.speed n",
+    "D.speed_tendsto_atTop : Tendsto D.speed atTop atTop",
+    "D.rate_nonnegative : forall x, 0 <= D.rate x",
+    "D.rate_lowerSemicontinuous : LowerSemicontinuous D.rate"
+  ],
+  "conclusion": "For every closed F, limsup_n speed(n)^-1 * log(mu_n(F)) <= -inf_F rate, and for every open G, -inf_G rate <= liminf_n speed(n)^-1 * log(mu_n(G)).",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+    "Mathlib.Topology.Order.LiminfLimsup",
+    "Mathlib.Topology.Semicontinuity.Defs",
+    "Mathlib.Analysis.SpecialFunctions.Log.ENNRealLog"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1058.largeDeviationPrinciple_iff_pinnedCandidateSourceShape",
+  "pinned_source_relationship": "PinnedCandidateSourceShape directly expands the intake-selected sequence formulation. The historical module at repository base 8509654fd1347228b71158b61f9f700360aa1691 is discovery input only and is not imported or credited.",
+  "boundary_conventions": [
+    "ENNReal.log maps probability zero to EReal bottom",
+    "sInf over the image of the rate fixes the empty-event convention",
+    "upper bounds quantify over all closed sets, not only compact sets",
+    "compact rate sublevel sets are not required; this is not a good-LDP claim"
+  ],
+  "mutation_results": {
+    "removed_hypothesis": "killed: removed speed_tendsto_atTop field produces a distinct elaborated declaration",
+    "changed_domain": "killed: specializing the arbitrary state space to Real produces a distinct elaborated declaration",
+    "changed_binder_scope": "killed: nesting the open-set branch under the closed-set quantifier produces a distinct elaborated declaration",
+    "boundary_case": "killed: replacing closed upper-bound sets by compact sets produces the distinct weak-LDP declaration"
+  },
+  "environment": {
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "foundation_profile": "Lean 4 kernel and pinned mathlib; noncomputable definitions; no axiom, sorry, unsafe declaration, native computation, or oracle introduced",
+  "theorem_complete": false,
+  "status_boundary": "Statement-only evidence pending master acceptance. No LDP instance, proof closure, anchor audit, or theorem completion is claimed."
+}
