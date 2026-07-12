@@ -875,6 +875,11 @@ def launch(max_workers: int) -> None:
             "owned_paths": item["owned_paths"], "session": session, "slot": slot, "workspace": str(workspace),
             "status": "live", "pid": int(pid_text) if pid_text.isdigit() else None, "claimed_at": timestamp,
             "base_revision": run(["git", "rev-parse", "HEAD"]).stdout.strip(), "output_log": str(output),
+            "runtime_config": {
+                "model": CODEX_MODEL,
+                "reasoning_effort": CODEX_REASONING_EFFORT,
+                "service_tier": CODEX_SERVICE_TIER,
+            },
         })
     save_claims(claims)
     todo = write_todo(data, ordered, claims)
