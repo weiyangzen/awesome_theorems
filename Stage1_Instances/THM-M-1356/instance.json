@@ -1,0 +1,188 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1356",
+  "item_id": "S56-M-1356-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 966,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 108,
+  "name_zh": "Routh-Hurwitz准则",
+  "name_en": "Routh-Hurwitz criterion",
+  "canonical_name": "Routh-Hurwitz real-polynomial stability criterion family",
+  "category": "differential equations / ordinary differential equations",
+  "category_zh": "微分方程 / 常微分方程",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "多项式根的实部为负的条件",
+  "literal_source_claim_en": "Conditions for the real parts of a polynomial's roots to be negative.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_routh_hurwitz_stability_family_with_inspected_primary_and_modern_source_passages_but_exact_formal_root_and_review_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not fix the coefficient domain and ordering, exact-degree and leading-coefficient premises, real-to-complex root encoding, strict half-plane convention, finite Hurwitz matrix orientation and zero extension, leading-principal-minor indices, determinant versus Routh-array formulation, boundary cases, or exact equivalence directions. Inspected sources narrow the classical family but do not replace an independently accepted source/translation/errata crosswalk and binder-complete Lean statement.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Algebra.Polynomial.Roots",
+      "Mathlib.LinearAlgebra.Matrix.Determinant.Basic"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_exact_source_convention_and_formal_statement_unaccepted",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: likely a finite-degree real polynomial, complex roots after scalar extension, and finite real matrices indexed by degree; the source-selected degree carrier, coefficient adapter, and universes are not frozen.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not yet select an exact iff between strict left-half-plane roots and a precisely indexed finite Hurwitz-determinant predicate.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is silently excluded before the proposition is frozen; n = 0, degree drop, zero or negative leading coefficient, imaginary-axis and repeated roots, zero minors, and scaling/reversal conventions require explicit source-mapped decisions.",
+  "candidate_scope_not_credited": [
+    "for a real degree-n polynomial with positive leading coefficient, every complex root has negative real part if and only if every leading principal determinant of the finite Hurwitz matrix is positive",
+    "the equivalent Routh-array sign criterion with all exceptional and zero-row cases specified",
+    "an ascending-coefficient or reciprocal-polynomial transport checked against the descending-coefficient finite-matrix theorem"
+  ],
+  "excluded_substitutions": [
+    "a quadratic, cubic, quartic, or numerical special case",
+    "a matrix eigenvalue, linear-system, Lyapunov, discrete-time Schur, or Jury stability theorem",
+    "a Routh table, root count, Hermite-Biehler, Lienard-Chipart, or total-positivity theorem without a checked source-mapped transport",
+    "Holtz's ascending-coefficient infinite-matrix factorization used as though it were definitionally the finite descending-coefficient theorem",
+    "a complex-coefficient generalization or a closed-left-half-plane/nonnegative-minor weakening",
+    "generic root, real-part, matrix, submatrix, and determinant APIs treated as a target theorem",
+    "a definition, structure field, or premise that assumes the desired equivalence",
+    "the catalog's untrusted verified label, source discovery, or API probe treated as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1355",
+      "name": "线性系统的稳定性",
+      "relationship": "neighboring linear-system stability family; characteristic-polynomial transport would require an explicit checked theorem and does not define this target"
+    },
+    {
+      "theorem_id": "THM-M-1357",
+      "name": "Nyquist稳定性判据",
+      "relationship": "neighboring frequency-domain feedback criterion; not a polynomial Hurwitz-determinant theorem"
+    }
+  ],
+  "source_status": "H1_primary_historical_and_modern_theorem_passages_inspected_but_complete_translation_proof_errata_crosswalk_exact_root_selection_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "A. Hurwitz, Ueber die Bedingungen, unter welchen eine Gleichung nur Wurzeln mit negativen reellen Theilen besitzt, Mathematische Annalen 46(2), 1895, 273-284, DOI 10.1007/BF01446812",
+      "source_locator": "Goettingen Digitisation Centre PPN235181684_0046 / LOG_0026",
+      "source_url": "https://gdz.sub.uni-goettingen.de/download/pdf/PPN235181684_0046/LOG_0026.pdf",
+      "article_purl": "http://resolver.sub.uni-goettingen.de/purl?GDZPPN002255472",
+      "observed_pdf_sha256": "e625ad366a91e771ce45319fbaae53959dd35a1ed384b95e4a4046cfda99fbad",
+      "candidate_summary": "pages 273-274 give the real degree-n positive-leading-coefficient determinant criterion for strictly negative real parts",
+      "inspection_status": "primary passage inspected for intake; complete proof, translation, errata, and independent H0 review open"
+    },
+    {
+      "citation": "Yury S. Barkovsky, Lectures on the Routh-Hurwitz problem, arXiv:0802.1805v1, 2008",
+      "source_url": "https://arxiv.org/pdf/0802.1805v1",
+      "observed_pdf_sha256": "da0e65cd8b8f0fe68622e2814a2714ab30eb0e2b97577ae9407f8270d26d02c6",
+      "candidate_summary": "printed pages 6 and 18-19 define strict stability, the finite Hurwitz matrix, and Theorem 40's positivity equivalence",
+      "inspection_status": "modern source lead inspected; its version/correction note and complete source mapping require independent review"
+    },
+    {
+      "citation": "Olga Holtz, Hermite-Biehler, Routh-Hurwitz, and total positivity, arXiv:math/0512591v1, 2005",
+      "source_url": "https://arxiv.org/pdf/math/0512591v1",
+      "observed_pdf_sha256": "38b234adbff843c05b8b2a5d1a28c0a7f6a276ba60dc8e3999aef3869bcd2c79",
+      "candidate_summary": "strict stability with ascending coefficients and an infinite-Hurwitz-matrix positive factorization",
+      "inspection_status": "corroborating but materially different candidate encoding; not selected or credited as the root"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Algebra.Polynomial.Roots",
+      "declarations": ["Polynomial.IsRoot", "Polynomial.roots", "Polynomial.mem_roots", "Polynomial.map", "Polynomial.eval₂"],
+      "boundary": "generic polynomial and root infrastructure only; no Hurwitz criterion"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+      "declarations": ["Matrix.submatrix", "Matrix.det"],
+      "boundary": "generic finite-matrix determinant infrastructure only; no source Hurwitz-matrix definition or criterion"
+    },
+    {
+      "module": "mathlib/docs/1000.yaml",
+      "declarations": [],
+      "boundary": "wishlist/catalog title Q4455015 only; not Lean source, a declaration, or proof evidence"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "531673f2e97293dd22e5727b12fc7e13eca7d6e5",
+    "repository_base_tree": "4acbd91f6e676b2b89949bb52992c0be522de40f",
+    "repository_record": "Docs/researches/math_theorems.md:9887-9892",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:36885-36910",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9756ec8b873ab353998c84cf7a4cc471f0aca5bb310eed69b027e94be907da19",
+    "execution_dag_sha256": "6940aab4cb53c2d2a886aaba9a7946a06d4da1ed1a02e9d87314aea4246dc7b6",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "historical_hurwitz_observed_pdf_sha256": "e625ad366a91e771ce45319fbaae53959dd35a1ed384b95e4a4046cfda99fbad",
+    "barkovsky_arxiv_v1_observed_pdf_sha256": "da0e65cd8b8f0fe68622e2814a2714ab30eb0e2b97577ae9407f8270d26d02c6",
+    "holtz_arxiv_v1_observed_pdf_sha256": "38b234adbff843c05b8b2a5d1a28c0a7f6a276ba60dc8e3999aef3869bcd2c79",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "polynomial_roots_source_sha256": "65cd370e7aa88d5b322611da7332bcbfb119f0e952a60d0efc6fb179fece3829",
+    "matrix_determinant_source_sha256": "18fd46c88d720a62e6ffc03b220827109dd812caa3a7f51683bb36265aaa9bd8"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical finite-root handling, real-to-complex algebra, finite determinant, equality/extensionality, and any choice policy remain open until the exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No numerical root finder, floating-point stability test, symbolic determinant oracle, external CAS, experiment, native code, or unchecked certificate is credited; the intended result requires kernel-checked algebra",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1356/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1356/README.md",
+    "Stage1_Instances/THM-M-1356/instance.json",
+    "Stage1_Instances/THM-M-1356/scope-map.md",
+    "Stage1_Instances/THM-M-1356/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1356/task-dag.json",
+    "Stage1_Instances/THM-M-1356/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1356/check_intake.py",
+    "Stage1_Instances/THM-M-1356/validation.md",
+    "Stage1_Instances/THM-M-1356/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, canonical-root selection, edition/translation/correction/errata finding, coefficient/degree/root/matrix/minor/boundary convention, Lean target, toolchain or dependency pin, assurance profile, validator, recipe, or owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, inspected source leads and their differing conventions, proposition-changing decisions, adjacent pinned APIs, and open task DAG. No canonical proposition, H0 source acceptance, exact Lean statement, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
