@@ -1,0 +1,110 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0992-VALIDATION-local-20260712",
+  "item_id": "S56-M-0992-VALIDATION",
+  "theorem_id": "THM-M-0992",
+  "depends_on": [
+    "S56-M-0992-PROOF"
+  ],
+  "base_revision": "9d84f229ca62f240f8ad5b6e017c0bfef7b05eae",
+  "base_tree": "02bb184ed0e24cb87010aed236a30d7858410097",
+  "validated_at": "2026-07-12T00:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "2bd4c5f2c324432d0544203ddb000385a2affbfc25748a415c9771e6469339aa",
+    "ObligationTree.lean": "ade5f0e6af5c4b646568362d16da9319917508c45d642d98ee49187ac558a575",
+    "Proof.lean": "27ee879c937dbfaa33d4175eb99c256e6554c0b9694f27fe0fed1bcf04849e54",
+    "Validation.lean": "d887a798394af37cb7b7a44459032f781a5f6f07206e4297a3667ebd8fbb5f6b",
+    "statement.json": "da2e4f52ad79378209dc66d4c0529dfed00d379cd492b45a6553a8f168fb6f2f",
+    "obligation-registry.json": "5b015fa17f22b1689bf421131a470871c0771d486e19845e518c7b9be869da1b",
+    "typed-graphs.json": "e561965d37e23db59959858defce7b7c868729afda9fbcab7d809347299536e1",
+    "anchor-audit.json": "61967a6aa213bc6b1eea821b8b88bd6bf9ca4654280fa3e51545cc40c2b6b535",
+    "validation-phase-spec.json": "934ca3d41017b93c98a48ae1a879c740b75b17b27c97b40b63c77b3870cffc04"
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "terminal_source": "Mathlib/Probability/Moments/Variance.lean",
+    "terminal_source_sha256": "920c022075149257307335beccbc8a62c7360fb3d9d73571b8240093dc2d72f0",
+    "terminal_source_defining_commit": "05af26ba41a6dd0046cd94bfdad3d6d787950b31",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease worker checkout with validation artifacts and pre-existing untracked .lake symlink",
+    "network": "not used by validation commands; host-level network isolation not established"
+  },
+  "provenance": {
+    "canonical_root": "Stage1Instances.THM_M_0992.ChebyshevTarget",
+    "local_declaration": "Stage1Instances.THM_M_0992.Proof.chebyshev_inequality",
+    "local_role": "wrapper",
+    "composition_declaration": "Stage1Instances.THM_M_0992.root_of_varianceAnchorPackage",
+    "terminal_declaration": "ProbabilityTheory.meas_ge_le_variance_div_sq",
+    "terminal_proof_body_id": "mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/Probability/Moments/Variance.lean#meas_ge_le_variance_div_sq",
+    "independent_probe": "Stage1Instances.THM_M_0992.Validation.independentlyReconstructedTarget",
+    "transitive_trust_closure": "open; terminal source identity and kernel-reported axioms are bound, but a complete transitive body and TCB inventory is not"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-0992/check_validation.py"
+    ],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "exact frozen root, proof composition, terminal theorem, and independently reconstructed exact target passed",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "root_kernel_closed": true,
+    "structured_state_freshness": "fail_closed: typed-graphs.json predates proof closure and records root_closed false",
+    "machine_debt": "M1",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof prerequisite has only provisional worker evidence and no master acceptance receipt in this clone.",
+    "The frozen typed graph predates Proof.lean and still records the root as open; only the master may reconcile authoritative structured state.",
+    "The worker reused shared writable warm .lake artifacts, so it did not perform an empty-cache cold hermetic build or offline archive restoration.",
+    "Validation.lean is independently implemented but ran in the same mutable checkout and shared cache; it is not a distinct independently provisioned runner or second verifier identity.",
+    "Complete transitive provenance/TCB, SBOM/licenses, deterministic bundling, H0, R0, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "dependency.S56-M-0992-PROOF.master_acceptance",
+  "first_failed_release_gate": "hermetic.cold_empty_cache",
+  "retry_condition": "Master-accept the proof dependency and reconcile a fresh root graph, then replay an immutable clean snapshot with empty caches, offline restoration, complete trust/provenance evidence, and a distinct independently provisioned verifier.",
+  "invalidation_inputs": [
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "check_validation.py",
+    "validation-phase-spec.json",
+    "statement.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "anchor-audit.json",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "status_boundary": "Self-tested nonrelease worker evidence for exact kernel closure, observed classical axiom output, pinned terminal-source provenance, and same-workspace independent reconstruction. It is not hermetic or distinct-runner evidence, accepted M0, theorem completion, release, or master acceptance."
+}
