@@ -51,3 +51,10 @@ Validation date: 2026-07-12. Worker base revision:
 This validation checks the candidate declaration surface, not the canonical
 root theorem. Negative search results are bounded by the protocol documented in
 `anchor_audit.md`; no proof or global absence claim is inferred from them.
+
+## Obligation-tree phase validation
+
+The exact commands, outcomes, denominator digest, and status boundary for the
+frozen architecture are recorded in `obligation-validation.md`. The structured
+validator checks 50 obligations and 65 typed edges while preserving an open
+`M3` root and an empty closed-obligation set.

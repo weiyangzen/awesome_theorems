@@ -36,3 +36,13 @@ complete.
 
 The commands in `validation.md` include the narrow kernel elaboration check and
 environment fingerprints, in addition to dossier-local structural checks.
+
+## Obligation-tree verdict
+
+`obligation-registry.json` and `typed-graphs.json` freeze 46 root-relevant
+mathematical obligations plus four informational provenance/trust overlays.
+The architecture is described in `obligation-tree.md`; it expands both theorem
+directions, the reverse representing-measure construction, the forward
+quadratic-form calculation, and terminal composition gates. No obligation is
+machine-closed by this phase. The root remains `[H1, M3, R3]`, and theorem
+completion is not claimed.
