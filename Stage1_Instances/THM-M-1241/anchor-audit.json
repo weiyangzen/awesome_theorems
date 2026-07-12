@@ -1,0 +1,95 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1241-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1241",
+  "canonical_target": "Stage1Instances.THM_M_1241.GagliardoNirenbergTarget",
+  "environment": {
+    "repository_base_revision": "ad0567008a38fc8c39deda009ab34e4ca9910f46",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "candidate_file": "Mathlib/Analysis/FunctionalSpaces/SobolevInequality.lean",
+    "candidate_file_sha256": "bbd0840b2f0c1145c325577c18bb136053d2712dc1c24ad66c8aba0370a4623b",
+    "candidate_file_last_commit": "d0a53972acfb6b7d9de9fcf09c19073c990177f6"
+  },
+  "searches": [
+    {
+      "scope": "pinned mathlib and all locally pinned Lean packages",
+      "terms": [
+        "gagliardo",
+        "nirenberg",
+        "interpolation inequality",
+        "interpolation.*sobolev",
+        "sobolev.*interpolation"
+      ],
+      "result": "Only Mathlib.Analysis.FunctionalSpaces.SobolevInequality matched by theorem name or documentation. No other locally pinned package produced a candidate."
+    },
+    {
+      "scope": "GitHub public repository search API",
+      "queries": [
+        "repositories?q=\"Gagliardo-Nirenberg\"+Lean",
+        "repositories?q=\"SobolevInequality.lean\""
+      ],
+      "searched_at": "2026-07-12",
+      "result": "Both unauthenticated repository queries returned total_count 0. GitHub code search returned HTTP 403 and grep.app returned HTTP 429, so the negative external-code result is not exhaustive."
+    }
+  ],
+  "candidates": [
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_one",
+      "classification": "strict_special_case",
+      "coverage": "m=1, j=0, derivative exponent r=1 and Sobolev-conjugate output exponent; compact support; Frechet derivative norm",
+      "mismatches": "Does not quantify arbitrary m,j,q,r,a; it has no interpolation factor involving the L^q norm of u and does not cover Nirenberg's endpoint exceptions.",
+      "repo_local": true,
+      "kernel_checked": true,
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner",
+      "classification": "strict_special_case",
+      "coverage": "m=1, j=0, compact support, Hilbert codomain, 1 <= r < n, exact Sobolev exponent equation",
+      "mismatches": "No arbitrary derivative order, intermediate derivative, interpolation power, L^q factor, infinite exponents, or printed endpoint exceptions.",
+      "repo_local": true,
+      "kernel_checked": true,
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq",
+      "classification": "closest_mathlib_anchor_but_strict_special_case",
+      "coverage": "m=1, j=0, compact support, finite-dimensional codomain, 1 <= r < n, exact Sobolev exponent equation",
+      "mismatches": "It bounds u only by its first Frechet derivative. The canonical target permits arbitrary m and j, has two norm factors with real powers a and 1-a, ENNReal infinity endpoints, coordinate-derivative maxima, and two exceptional hypotheses.",
+      "repo_local": true,
+      "kernel_checked": true,
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_le",
+      "classification": "strict_special_case_with_different_constant_scope",
+      "coverage": "m=1, j=0 and a bounded support set, with a subcritical output exponent",
+      "mismatches": "The constant depends on the supplied bounded set s; the canonical whole-space constant depends only on structural exponents and dimensions. It also lacks general interpolation and endpoint coverage.",
+      "repo_local": true,
+      "kernel_checked": true,
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv",
+      "classification": "strict_special_case_with_different_constant_scope",
+      "coverage": "same input/output finite exponent, m=1, j=0, bounded support",
+      "mismatches": "Poincare/Sobolev-style bounded-support corollary rather than Nirenberg's full interpolation family.",
+      "repo_local": true,
+      "kernel_checked": true,
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"]
+    }
+  ],
+  "exact_candidate_found": false,
+  "external_exact_candidate_found": false,
+  "machine_debt": "formalization_debt",
+  "integration_feasibility": "The closest candidates are already available from pinned mathlib, but none has the canonical type and no exact wrapper can be obtained by parameter transport. They may serve only as leaves for special cases in a future proof architecture.",
+  "placeholder_audit": "The candidate file contains no `sorry`, `admit`, `axiom`, or `unsafe` token. Lean's #print axioms reports only propext, Classical.choice, and Quot.sound for all five candidates.",
+  "audit_complete_for_phase": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a candidate inventory at immutable local revisions, not proof closure. External public-code search was rate-limited and is explicitly non-exhaustive; no external anchor receives proof credit."
+}

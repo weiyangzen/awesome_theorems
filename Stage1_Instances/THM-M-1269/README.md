@@ -43,3 +43,12 @@ binders, normalized expression hash, pinned environment, and three deliberately
 changed mutation surfaces are recorded in `statement.json`. This phase checks
 elaboration only: none of these proposition declarations supplies a proof of
 the canonical claim, and theorem completion remains false.
+
+## Anchor audit phase
+
+The pinned mathlib declaration `exists_seq_tendsto_sInf` is a stronger usable
+anchor. `AnchorAudit.lean` verifies the specialization to `Set.range F` and
+the countable choice of preimages needed to recover a sequence in `X`.
+Candidate revisions, search boundaries, trust output, and the honest `M1`
+classification are recorded in `anchor_audit.json` and `anchor_audit.md`.
+This audit does not install a canonical proof or claim theorem completion.

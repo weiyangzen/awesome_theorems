@@ -41,3 +41,26 @@ The mutations ensure the omitted hypotheses and the stronger attainment claim
 remain visibly distinct proposition surfaces; they are not proofs or accepted
 counterexamples. Statement elaboration is self-tested, while proof closure and
 master acceptance remain open.
+
+## Anchor-audit validation record
+
+Anchor-audit base revision: `4197281122e0165098f43f0b967905d0378ee2db`.
+The `.lake` path remained the existing symlink to canonical pinned artifacts;
+no update, build, clone, fetch, or dependency mutation was performed.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | exact pinned revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| `rg -n "exists_seq_tendsto_sInf\|minimizing sequence\|minimizingSequence\|sInf.*Tendsto\|Tendsto.*sInf" ...` over repo-local Lean/Markdown and then all pinned packages | 0 | mathlib definition plus one mathlib use; no independent exact repo-local or pinned-external theorem |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1269/AnchorAudit.lean)` | 0 | exact-shape wrapper elaborated; candidate type printed; axioms `[propext, Classical.choice, Quot.sound]` |
+| `curl ... grep.app ...` | 22 | HTTP 429; public external search inconclusive, no proof credit |
+| `curl ... api.github.com/search/code ...` | 22 | HTTP 403; unauthenticated external search inconclusive, no proof credit |
+| `python3 -m json.tool Stage1_Instances/THM-M-1269/anchor_audit.json >/dev/null` | 0 | structured audit is valid JSON |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard consistent: 1546 uniform-L0 targets |
+| `python3 scripts/stage1_target.py check` | 0 | ordered target manifest consistent |
+| `git diff --check -- Stage1_Instances/THM-M-1269 .stage1-worker-selftest.json` | 0 | no whitespace errors |
+
+The smallest kernel-relevant audit check is the scoped Lean wrapper. The two
+network failures are known limitations, not candidate evidence. The immutable
+mathlib result is sufficient to finish the assigned candidate audit, while
+proof installation and every later theorem gate remain open.

@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1269-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1269",
+  "canonical_statement_declaration": "THM_M_1269_statement",
+  "audit_scope": "Repository-local candidates, every already-pinned Lean dependency, and a network search for public Lean 4 uses of the exact declaration name",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_revision_verified": true
+  },
+  "candidates": [
+    {
+      "candidate_id": "M1269-A1",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Order.IsLUB",
+      "source_path": "Mathlib/Topology/Order/IsLUB.lean",
+      "declaration": "exists_seq_tendsto_sInf",
+      "source_lines_at_revision": "407-410",
+      "type": "S.Nonempty -> BddBelow S -> Exists u : Nat -> alpha, Antitone u /\\ Tendsto u atTop (nhds (sInf S)) /\\ Forall n, u n in S",
+      "relationship_to_target": "stronger_anchor_with_checked_wrapper",
+      "applicability": "Instantiate alpha with Real and S with Set.range F. Nonempty X gives range nonemptiness. Membership of each selected value in the range permits countable choice of preimages in X, and pointwise equality transports the anchor convergence to F composed with those preimages.",
+      "checked_wrapper": "Stage1_Instances/THM-M-1269/AnchorAudit.lean",
+      "terminal_body": "Dual-order wrapper around exists_seq_tendsto_sSup; the latter invokes isLUB_csSup and IsLUB.exists_seq_monotone_tendsto.",
+      "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+      "unsafe_or_oracle_boundary": "none observed in declaration output or source body",
+      "placeholder_scan": "No sorry declaration is present in the candidate source module; the scoped worker file is also marker-free.",
+      "dependency_feasibility": "available from the existing pinned mathlib artifacts and already reachable through the statement phase import Mathlib.Topology.Algebra.Ring.Real",
+      "audit_verdict": "preferred exact proof anchor; no external integration is needed"
+    },
+    {
+      "candidate_id": "M1269-A2",
+      "project": "awesome_theorems repository-local Lean sources",
+      "revision": "4197281122e0165098f43f0b967905d0378ee2db",
+      "query": "exists_seq_tendsto_sInf|minimizing sequence|minimizingSequence|sInf.*Tendsto|Tendsto.*sInf",
+      "result": "No exact repository-local theorem candidate. S1_M_162 contains only descriptive minimizing-sequence workflow text.",
+      "audit_verdict": "rejected_as_nonformal_candidate"
+    },
+    {
+      "candidate_id": "M1269-A3",
+      "project": "already-pinned external Lean dependencies",
+      "revisions": {
+        "flt-regular": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+        "other_packages": "immutable revisions recorded in Formalizations/Lean/lake-manifest.json"
+      },
+      "query": "exists_seq_tendsto_sInf|minimizing sequence|minimizingSequence",
+      "result": "Only mathlib's defining theorem and its Hahn-decomposition use matched across all pinned packages; no independent external exact closure was found.",
+      "audit_verdict": "no_candidate"
+    },
+    {
+      "candidate_id": "M1269-A4",
+      "project": "public external Lean 4 code search",
+      "query": "exact declaration name exists_seq_tendsto_sInf",
+      "result": "grep.app returned HTTP 429 and the unauthenticated GitHub code-search API returned HTTP 403 on 2026-07-12.",
+      "audit_verdict": "network_search_inconclusive; no moving dependency was fetched and no external proof credit is assigned"
+    }
+  ],
+  "selected_candidate": "M1269-A1",
+  "machine_classification": "M1",
+  "machine_classification_reason": "A pinned mathlib anchor and an elaborated scoped wrapper close the exact proposition shape, but this audit phase does not install the canonical proof declaration, freeze the obligation tree, or satisfy proof/validation/release gates.",
+  "human_classification": "H2",
+  "readability_classification": "R3",
+  "gate_state": "provisional_worker_selftest_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "The anchor audit is self-tested. It supplies no theorem-completion claim and gives no credit to the failed external network searches."
+}
