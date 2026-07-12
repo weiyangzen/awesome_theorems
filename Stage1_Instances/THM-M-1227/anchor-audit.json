@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1227-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1227",
+  "audit_date": "2026-07-12",
+  "base_revision": "c00bc6793b3d4c186b81b80bbaf165b32e125b58",
+  "canonical_expression": "Stage1.THM_M_1227.lerayHopfExistenceTarget",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "revision_source": "Formalizations/Lean/lake-manifest.json and installed checkout HEAD",
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "bounded_search_terms": ["Leray", "LerayHopf", "NavierStokes", "Navier-Stokes", "weak solution"],
+    "terminal_candidates": [],
+    "substrate_candidates": [
+      {
+        "module": "Mathlib.Analysis.Distribution.TestFunction",
+        "declaration": "TestFunction",
+        "role": "smooth compactly supported test-function infrastructure",
+        "source_sha256": "b481de09783e3099b2122194a64f2c69639a0426f2bbbb811de9839bb85b7388"
+      },
+      {
+        "module": "Mathlib.Analysis.Calculus.ContDiff.Basic",
+        "declaration": "fderiv / ContDiff",
+        "role": "derivative and smoothness substrate used by the frozen expression"
+      },
+      {
+        "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+        "declaration": "MeasureTheory.integral / Integrable",
+        "role": "Bochner-integral substrate used by weak identities and energy bounds"
+      }
+    ],
+    "bounded_search_result": "Only the prose phrase 'weak solutions' in Analysis/Distribution/TestFunction.lean matched; no terminal Leray-Hopf or Navier-Stokes declaration was found in the pinned Mathlib tree."
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/lean-dojo/LeanMillenniumPrizeProblems",
+      "revision": "540da94826f70f3edf4d4fc66ce6cda20e903f61",
+      "revision_committer_date": "2026-01-16T17:09:44Z",
+      "lean_toolchain": "leanprover/lean4:v4.26.0",
+      "license": "Apache-2.0",
+      "source_path": "Problems/NavierStokes/Navierstokes.lean",
+      "source_sha256": "f6a16fb42226dddf77b96a09e4bdd787154d83916e58149b0ebfe78d1b3e38da",
+      "declarations": ["NavierStokes.WeakSolution", "NavierStokes.LerayHopfSolution"],
+      "terminal_proof_body": false,
+      "exact_for_canonical_target": false,
+      "placeholder_or_axiom_findings": "No existence theorem is declared. LerayHopfSolution is only a structure extending a finite-horizon WeakSolution and taking its conditions as fields.",
+      "integration_disposition": "anchor_only_not_integrated_not_terminal"
+    }
+  ],
+  "external_discovery": {
+    "github_repository_query_leray_hopf_language_lean": {"total_count": 0, "incomplete_results": false},
+    "github_repository_query_navier_stokes_language_lean": {"total_count": 16, "incomplete_results": false},
+    "scope_boundary": "Repository metadata search is discovery, not a global code-search completeness claim. The one credible statement project already identified repo-locally was source-inspected at its immutable revision."
+  },
+  "classification": {
+    "human_mathematics": "known",
+    "machine_debt": "formalization_debt",
+    "root_machine_state": "M4",
+    "reason": "No exact kernel-checked terminal candidate was found. Mathlib offers analytic substrate; the external project offers only definition/statement scaffolding."
+  },
+  "status_boundary": "The anchor audit is complete for its recorded bounded surfaces. It gives no theorem proof, M0 credit, audit-completion claim, or theorem-completion claim."
+}
