@@ -26,10 +26,10 @@ The source audit must inspect and hash a stable copy and obtain independent revi
 
 | Repository/source phrase | Mathematical component to freeze | Required Lean component | Intake status |
 |---|---|---|---|
-| "every set" | arbitrary `A`, including empty and finite cases | `alpha : Type u` or `s : Set alpha` with subtype cardinal | family fixed; encoding open |
-| "power set" | all subsets of `A` | `Set alpha` or subtype `Set.powerset s` | APIs probed; transport open |
-| "cardinality" | cardinal assigned to a type/set | `Cardinal.mk` and subtype coercions | API probed; exact expression open |
-| "strictly greater" | `|A| < |P(A)|` | strict order on `Cardinal`, possibly normalized through `2 ^ #alpha` | conclusion fixed; normalization open |
+| "every set" | arbitrary `A`, including empty and finite cases | `alpha : Type u`, `s : Set alpha`, subtype cardinal | frozen and elaborated |
+| "power set" | all subsets of `A` | subtype `Set.powerset s` | frozen and elaborated |
+| "cardinality" | cardinal assigned to a type/set | `Cardinal.mk s` and `Cardinal.mk (Set.powerset s)` | frozen and elaborated |
+| "strictly greater" | `|A| < |P(A)|` | strict order on `Cardinal`; checked normalization through `2 ^ Cardinal.mk s` | frozen and elaborated |
 | diagonal argument | no map `A -> P(A)` is surjective | `Function.cantor_surjective` or an audited local derivation | supporting candidate only |
 | singleton map | injection `A -> P(A)` | `a |-> {a}` and its injectivity | expected bridge; not yet frozen |
 | Cantor / 1891 | historical provenance | no Lean proof credit | primary candidate uninspected |
@@ -46,5 +46,6 @@ anchor-audit phases.
 
 Before `H0`, an independent reviewer must approve the immutable primary-source locator, exact
 statement and assumptions, diagonal proof boundary, terminology/translation, corrections and
-errata, and the row-by-row source-to-Lean map. Before machine credit, the chosen target and every
-credited alternate form must be related by checked Lean declarations.
+errata, and the row-by-row source-to-Lean map. Before machine credit, proof-body and anchor
+provenance must pass the downstream audit. The chosen target's type-level and cardinal-exponential
+alternate encodings are now related by checked Lean declarations in `Statement.lean`.

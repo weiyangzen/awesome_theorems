@@ -9,21 +9,21 @@
 - Cantor's diagonal non-surjectivity argument as the central supporting result, subject to an exact
   statement-to-cardinality bridge.
 
-## Decisions required at statement freeze
+## Statement freeze decisions
 
-The statement phase must inspect an immutable primary source and freeze:
+The canonical binder is `alpha : Type u`, followed by `s : Set alpha`; the set is represented by
+its subtype and its power set by `Set.powerset s`. The conclusion is
+`Cardinal.mk s < Cardinal.mk (Set.powerset s)`. Both sides inhabit `Cardinal.{u}`, so no universe
+lift is needed. `Statement.lean` checks transports to the type-level and normalized exponential
+forms.
 
-- whether the canonical Lean binder is a type `alpha : Type u` or a set `s : Set alpha` represented
-  by its subtype;
-- whether the conclusion is `#alpha < #(Set alpha)`, `#s < #(Set.powerset s)`, or the normalized
-  exponential form `#alpha < 2 ^ #alpha`;
-- universe parameters and any lifts needed for a source-faithful comparison;
-- the exact meaning of strict cardinal order and the bridge from absence of a surjection;
+The following remain for the source and anchor audits rather than statement elaboration:
+
 - the singleton injection witnessing the non-strict direction and the diagonal set witnessing
   non-surjectivity;
 - the logical-principle footprint of converting between injection, surjection, equivalence, and
   cardinal-order formulations;
-- checked transports among all alternate forms that receive proof credit.
+- proof-body provenance and the transitive trust closure of the cardinal-order bridge.
 
 The empty set is not excluded. Its power set is a singleton, so it is an ordinary boundary case
 that must survive statement mutation testing. Finite, countably infinite, and uncountable sets are

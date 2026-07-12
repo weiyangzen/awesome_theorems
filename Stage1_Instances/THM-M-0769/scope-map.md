@@ -8,13 +8,19 @@
 - Empty index types, for which the selector exists vacuously.
 - Explicit reporting that the Lean closure rests on foundational choice.
 
-## Decisions deferred to statement freeze
+## Statement decisions frozen provisionally
 
-- Exact `Type`/`Sort` universe levels and binder ordering.
-- Whether the canonical surface uses `Nonempty (∀ i, A i)` or an existential selector for sets.
-- Checked transports to set membership, right inverses of surjections, and nonempty products.
-- Mutation tests deleting fiber nonemptiness, replacing all families by countable families, and
-  changing dependent fibers to a constant family.
+- The canonical target uses `iota : Sort u`, `A : iota -> Sort v`, the ordered fiberwise
+  nonemptiness hypothesis, and `Nonempty (forall i, A i)`.
+- The empty index is included; an empty fiber fails the explicit hypothesis.
+- The pointwise binder grouping is checked definitionally. Four required structural mutation
+  classes are distinguished by the statement validator.
+
+## Decisions deferred beyond statement freeze
+
+- Transports to set membership, right inverses of surjections, and nonempty products.
+- Equivalence audits for well-ordering and Zorn formulations.
+- Proof, terminal-body provenance, axiom profile, and release evidence.
 
 ## Explicit exclusions
 

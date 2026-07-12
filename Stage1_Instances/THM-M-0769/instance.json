@@ -13,21 +13,22 @@
   "category": "mathematical logic / set theory",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "Every family of nonempty sets has a choice function.",
-  "canonical_claim_status": "ordinary_indexed_family_scope_frozen_exact_lean_statement_and_source_review_open",
+  "canonical_claim_status": "exact_indexed_family_lean_statement_self_tested_pending_master_acceptance_source_review_open",
   "canonical_claim": "For an indexed family A_i of nonempty types/sets, there exists a function f with f(i) in A_i for every index i.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "candidate_elaborated_not_statement_phase_frozen",
-    "module_candidates": ["Mathlib.Logic.Basic"],
-    "declaration_or_expression": "forall (i : Sort u) (A : i -> Sort v), (forall j, Nonempty (A j)) -> Nonempty (forall j, A j)",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "statement_self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0769/Statement.lean",
+    "minimal_import": "Mathlib.Logic.Basic",
+    "declaration_or_expression": "Stage1Instances.THM_M_0769.AxiomOfChoiceTarget",
+    "elaborated_expression_hash": "sha256:1221bb601965de34dc2ea2a4ba104f1e4c4b9476ed3d682e1f822f5cc3cee505",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_statement-c6099963"
   },
-  "domain_and_universes": "An arbitrary index sort and dependent family of sorts; exact universe polymorphism is deferred to statement freeze.",
+  "domain_and_universes": "iota : Sort u and A : iota -> Sort v; the dependent selector has universe imax u v.",
   "quantifiers": ["index sort i", "dependent family A : i -> Sort", "nonemptiness witness for every fiber"],
   "hypotheses": ["forall j, Nonempty (A j)"],
   "conclusion": "Nonempty (forall j, A j), equivalently existence of a dependent choice function.",
-  "alternate_encodings": ["set family with membership witnesses", "surjection admits a right inverse", "product of nonempty sets is nonempty"],
+  "alternate_encodings": ["checked definitional pointwise binder grouping", "uncredited set family with membership witnesses", "uncredited surjection admits a right inverse", "uncredited product of nonempty sets is nonempty"],
   "excluded_degenerate_cases": "Empty index families are included vacuously; empty fibers violate the hypothesis. Countable choice, dependent choice, unique choice, well-ordering, and Zorn's lemma are not substitutes without checked transports.",
   "source_status": "repository_secondary_metadata_plus_located_primary_1904_source; exact German passage, translation, assumptions, errata, and independent review open",
   "source_revisions": {
@@ -49,6 +50,6 @@
   "public_merge_targets": ["Stage1_Instances/THM-M-0769"],
   "owners_and_reviewers": {"owner": "Stage1 integration lane", "source_reviewer": "unassigned", "formal_reviewer": "unassigned"},
   "freshness_and_revocation_policy": "Invalidate on source passage, translation, scope, binder order, universe policy, Lean target, toolchain, mathlib pin, assurance profile, or validator change.",
-  "owned_artifacts": ["README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "IntakeProbe.lean", "validation.md"],
-  "status_boundary": "Self-tested planned intake only. Candidate APIs and proposition elaborate, but the exact statement is not frozen and no H0, M0, R0, audit completion, theorem completion, or proof state is claimed."
+  "owned_artifacts": ["README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "IntakeProbe.lean", "Statement.lean", "check_statement.py", "statement.json", "validation.md", "statement-validation.md"],
+  "status_boundary": "Self-tested planned intake and provisional exact statement only. No H0, M0, R0, audit completion, theorem completion, or proof state is claimed; statement acceptance remains with the master."
 }

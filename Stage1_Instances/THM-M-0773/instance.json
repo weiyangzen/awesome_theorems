@@ -1,0 +1,87 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0773",
+  "item_id": "S56-M-0773-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 781,
+  "legacy_priority_slot": null,
+  "name_zh": "图基引理",
+  "name_en": "Teichmuller-Tukey lemma (source attribution pending audit)",
+  "category": "mathematical logic / set theory",
+  "target_system": "Lean 4 + mathlib",
+  "literal_source_claim": "A family of finite character has a maximal element.",
+  "canonical_claim_status": "mathematical_scope_frozen_source_fidelity_and_exact_lean_statement_pending_downstream_gates",
+  "canonical_claim": "For every type alpha and family F of subsets of alpha, if F is nonempty and has finite character (X belongs to F exactly when every finite subset of X belongs to F), then F contains an inclusion-maximal member. Equivalently in the pointed form: every x in F is contained in some inclusion-maximal m in F.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "candidate_api_type_checked_at_intake_exact_statement_fingerprint_deferred_to_statement_phase",
+    "module_candidate": "Mathlib.Order.TeichmullerTukey",
+    "declaration_candidate": "Order.IsOfFiniteCharacter.exists_maximal",
+    "candidate_expression": "forall {alpha : Type u} {F : Set (Set alpha)}, Order.IsOfFiniteCharacter F -> forall {x : Set alpha}, x in F -> exists m, x subseteq m and Maximal (fun y => y in F) m",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "An arbitrary universe u, a type alpha : Type u, and a family F : Set (Set alpha), ordered by subset inclusion.",
+  "quantifiers": [
+    "universe u and type alpha : Type u",
+    "family F : Set (Set alpha)",
+    "seed x : Set alpha in the pointed form"
+  ],
+  "hypotheses": [
+    "F has finite character: for every X, X is in F iff every finite subset of X is in F",
+    "F is nonempty; represented in the candidate pointed form by a witness x in F"
+  ],
+  "conclusion": "There exists m in F maximal under inclusion; in the pointed form x is a subset of m and m is maximal among members of F.",
+  "alternate_encodings": [
+    {
+      "target": "Nonempty F -> exists m, Maximal (fun y => y in F) m",
+      "relationship": "expected equivalent to the pointed candidate by choosing a seed and forgetting x subseteq m",
+      "checked_witness": null,
+      "status": "statement-phase transport required"
+    },
+    {
+      "target": "forall x in F, exists m, x subseteq m and Maximal (fun y => y in F) m",
+      "relationship": "strong pointed formulation exposed by the pinned candidate",
+      "checked_witness": "Order.IsOfFiniteCharacter.exists_maximal type checked by IntakeProbe.lean; exact transport not yet credited",
+      "status": "candidate"
+    }
+  ],
+  "excluded_degenerate_cases": "The empty family is excluded because it has finite character vacuously under the standard biconditional definition but has no maximal member. Maximal means maximal among members of F under subset inclusion, not a greatest member and not a maximal set in the entire powerset. Alpha may be empty and family members may be empty; these are not excluded.",
+  "source_status": "repository_secondary_metadata_only_primary_source_publication_theorem_page_assumptions_proof_and_errata_open",
+  "source_revisions": {
+    "repository_base": "3159849a5319960dea505779c7c20894ea30487c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Lean 4 dependent type theory; the candidate mathlib proof uses Zorn's lemma and its classical/choice axiom closure must be measured downstream rather than assumed",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are candidate components; exact import closure, terminal body provenance, axioms, and trust closure remain open",
+  "computation_profile": "No computation, oracle, experiment, or unchecked certificate is credited; the theorem is noncomputable existence mathematics",
+  "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0773"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned",
+    "formal_reviewer": "unassigned"
+  },
+  "freshness_and_revocation_policy": "Invalidate on primary-source selection, canonical wording, finite-character definition, nonempty/pointed formulation, maximality convention, universe choice, Lean target, toolchain, mathlib pin, assurance profile, or validator change; independent reviewers and review due date remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake only. Mathematical scope and boundary cases are frozen, and a pinned candidate API type elaborates. No expression fingerprint, source acceptance, anchor-audit acceptance, proof credit, accepted task state, audit completion, or theorem completion is claimed."
+}

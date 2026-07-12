@@ -18,16 +18,17 @@ independent review must still be recorded in the source-audit work.
 
 | Repository phrase | Mathematical component | Candidate Lean component | Intake status |
 |---|---|---|---|
-| "family" | index type and indexed fibers | `(i : Sort u) (A : i → Sort v)` | scope fixed; universes open |
-| "nonempty" | each fiber has an inhabitant propositionally | `∀ j, Nonempty (A j)` | candidate elaborated |
-| "choice function" | simultaneous dependent selector | `Nonempty (∀ j, A j)` | candidate elaborated |
+| "family" | index sort and indexed fibers | `(ι : Sort u) (A : ι → Sort v)` | exact binders frozen and elaborated |
+| "nonempty" | each fiber has an inhabitant propositionally | `∀ i, Nonempty (A i)` | exact hypothesis frozen and elaborated |
+| "choice function" | simultaneous dependent selector | `Nonempty (∀ i, A i)` | exact conclusion frozen and elaborated |
 | "axiom" | foundational principle, not a choice-free theorem | `Classical.choice`, `Classical.axiomOfChoice` | pinned APIs probed |
 | `已验证` | untrusted inventory status | no proof credit | rejected as evidence |
 
 ## Lean boundary
 
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, importing
-`Mathlib.Logic.Basic` exposes `Classical.choice` and `Classical.axiomOfChoice`. The intake probe also elaborates
-the dependent-family proposition corresponding to the repository gloss. These observations locate
-the formal surface only. Exact declaration selection, `#print axioms`, equivalence transports,
-mutation tests, provenance closure, and theorem credit belong to downstream phases.
+`Mathlib.Logic.Basic` exposes `Classical.choice` and `Classical.axiomOfChoice`. The statement phase
+freezes the dependent-family proposition as `Stage1Instances.THM_M_0769.AxiomOfChoiceTarget`,
+checks its pointwise binder transport, and distinguishes the four required mutation classes.
+Set-family and other classical equivalents remain uncredited without checked transports. Axiom
+closure, terminal provenance, proof credit, and release closure belong to downstream phases.

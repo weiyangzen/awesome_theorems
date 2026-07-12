@@ -11,6 +11,17 @@ library contains the expected theorem and that its type matches the intended ing
 discovery evidence, not the canonical statement artifact or proof credit.
 
 This intake remains at `[H3, M3, R4]`. A primary-source edition/page, independent source review,
-canonical repo-local declaration, mutation tests, and all downstream assurance gates remain open.
-The manifest's `source_status_untrusted` value `已验证` supplies no proof or completion credit.
+master acceptance, and all downstream assurance gates remain open. The manifest's
+`source_status_untrusted` value `已验证` supplies no proof or completion credit.
 
+## Statement phase handoff
+
+The dependent statement phase proposes
+`Stage1Instances.THM_M_0768.CantorBernsteinSchroederTarget` in `Statement.lean` as the exact
+canonical target. It elaborates with one direct import, has a checked iff to the bundled
+embedding/equivalence encoding, and distinguishes mutations of a hypothesis, carrier domains,
+binder scope, and the empty-carrier boundary. `statement.json` freezes the expression and
+environment hashes; exact commands and results are in `statement-validation.md`.
+
+This proposal is statement-only and pending master acceptance. It does not invoke or credit the
+pinned mathlib proof, and it does not advance any downstream node or theorem completion.

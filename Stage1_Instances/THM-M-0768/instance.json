@@ -13,23 +13,23 @@
   "category": "mathematical logic / set theory",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "两个集合互相单射则等势",
-  "canonical_claim_status": "repository_claim_frozen_primary_source_and_canonical_lean_declaration_pending",
+  "canonical_claim_status": "repository_claim_and_lean_statement_self_tested_pending_master_acceptance_primary_source_pending",
   "canonical_claim": "For any two sets, if each injects into the other, then there is a bijection between them.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "provisional_encoding_api_probed_statement_phase_open",
-    "module_candidate": "Mathlib.SetTheory.Cardinal.SchroederBernstein",
-    "declaration_candidate": "Function.Embedding.schroeder_bernstein",
-    "provisional_expression": "forall {alpha : Type u} {beta : Type v} {f : alpha -> beta} {g : beta -> alpha}, Function.Injective f -> Function.Injective g -> exists h : alpha -> beta, Function.Bijective h",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "statement_self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0768/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0768.CantorBernsteinSchroederTarget",
+    "expression": "forall {alpha : Type u} {beta : Type v} {f : alpha -> beta} {g : beta -> alpha}, Function.Injective f -> Function.Injective g -> exists h : alpha -> beta, Function.Bijective h",
+    "elaborated_expression_hash": "sha256:6de4e6083a9f47066dfed88584ba5366362c0774b16762b5fbab6d09fc39dcc0",
+    "environment_fingerprint": "Lean 4.29.0@98dc76e3; mathlib@8a178386; Mathlib.SetTheory.Cardinal.SchroederBernstein sole direct import; full hashes in statement.json"
   },
   "domain_and_universes": "Arbitrary carrier types alpha : Type u and beta : Type v, representing sets up to their elements; no finiteness, nonemptiness, decidable equality, or common-universe assumption.",
   "ordered_binders": ["alpha : Type u", "beta : Type v", "f : alpha -> beta", "g : beta -> alpha"],
   "hypotheses": ["Function.Injective f", "Function.Injective g"],
   "conclusion": "There exists h : alpha -> beta such that Function.Bijective h.",
   "alternate_encodings": [
-    "Given embeddings alpha ↪ beta and beta ↪ alpha, Nonempty (alpha ≃ beta).",
+    "Given embeddings alpha ↪ beta and beta ↪ alpha, Nonempty (alpha ≃ beta), checked equivalent by Stage1Instances.THM_M_0768.target_iff_bundled.",
     "Mutual cardinal inequalities imply equality of Cardinal.mk values."
   ],
   "degenerate_cases": "Empty carriers are included. Mutual injections force both carriers empty when either is empty. No inhabitance hypothesis is permitted.",
@@ -70,8 +70,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. The repository claim and scope are frozen and pinned candidate APIs elaborate, but canonical statement acceptance and proof closure are not claimed. No H0, M0, R0, audit completion, or theorem completion."
+  "status_boundary": "Self-tested planned intake plus statement proposal. The exact local declaration elaborates, its bundled alternate has a checked iff, and structural mutations are distinguished, all pending master acceptance. No theorem proof is credited and no H0, M0, R0, audit completion, or theorem completion is claimed."
 }
-

@@ -1,7 +1,7 @@
 {
   "schema_version": "stage1-instance-intake/1.0",
   "theorem_id": "THM-M-0767",
-  "item_id": "S56-M-0767-INTAKE",
+  "item_id": "S56-M-0767-STATEMENT",
   "lifecycle": "planned",
   "intent": "intake",
   "baseline": "L0",
@@ -14,20 +14,20 @@
   "target_lane": "hard_statement_first_partial_verification",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "The cardinality of the power set of every set is strictly greater than the cardinality of the set.",
-  "canonical_claim_status": "human_theorem_family_and_strict_cardinality_conclusion_frozen_exact_source_variant_and_formal_statement_open",
+  "canonical_claim_status": "exact_lean_statement_frozen_primary_source_audit_open",
   "canonical_claim": "For every set A, the cardinality of A is strictly less than the cardinality of its power set P(A).",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_statement_phase_and_checked_type_set_transport",
+    "status": "elaborated_exact_set_subtype_target_with_checked_type_and_exponential_transports",
     "module_candidates": [
       "Mathlib.SetTheory.Cardinal.Order",
       "Mathlib.Logic.Function.Basic"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "declaration_or_expression": "Stage1.THM_M_0767.CanonicalTarget := forall (alpha : Type u) (s : Set alpha), Cardinal.mk s < Cardinal.mk (Set.powerset s)",
+    "elaborated_expression_hash": "sha256:e2c1a41f84286e9bb1da71e3bff95762246f94aa62ca25f8cb5932bec63a6088",
+    "environment_fingerprint": "repo-3159849a5319960dea505779c7c20894ea30487c_lean-v4.29.0_mathlib-8a178386ffc0f5fef0b77738bb5449d50efeea95"
   },
-  "domain_and_universes": "One arbitrary small Lean type alpha representing a set, or one set s : Set alpha represented by its subtype; the universe and checked relation between these encodings remain to be frozen.",
+  "domain_and_universes": "One arbitrary alpha : Type u and s : Set alpha, represented by its subtype; the powerset is the subtype Set.powerset s and both cardinals inhabit Cardinal.{u}, requiring no lift.",
   "quantifiers": [
     "for every set A"
   ],
@@ -37,7 +37,7 @@
     {
       "target": "type-level alpha versus Set alpha and set-level subtype s versus the subtype of Set.powerset s",
       "relationship": "iff",
-      "checked_witness": "open: statement phase must compile the transport"
+      "checked_witness": "Stage1.THM_M_0767.canonical_iff_type"
     },
     {
       "target": "there is no surjection A -> P(A)",
@@ -62,7 +62,7 @@
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
-  "foundation_profile": "Lean 4 dependent type theory; the exact classical logic and choice footprint of cardinal strictness versus diagonal non-surjectivity remains to be audited",
+  "foundation_profile": "The checked statement transports report exactly propext, Classical.choice, and Quot.sound; proof-body and transitive trust audit remain downstream.",
   "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact import and transitive declaration closure remain open",
   "computation_profile": "No computation, oracle, experiment, or unchecked certificate is credited; the theorem is a noncomputational cardinality result",
   "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
@@ -83,7 +83,9 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "statement-freeze.json"
   ],
-  "status_boundary": "Self-tested planned intake only. Relevant pinned Lean APIs elaborate, but no exact source-reviewed proposition, canonical Lean target, H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested statement phase only. The exact Lean target and checked type/exponential transports elaborate, but primary-source H0, anchor acceptance, proof-body M0, R0, audit completion, and theorem completion are not claimed."
 }

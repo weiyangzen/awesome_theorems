@@ -23,3 +23,25 @@ independent review, canonical statement elaboration and mutation tests, obligati
 freezes, formal-anchor and proof-body audit, proof/composition evidence, hermetic replay, and
 release acceptance. They prevent theorem completion but do not invalidate a truthful `planned`
 intake.
+
+## Statement validation (2026-07-12)
+
+Base revision: `3159849a5319960dea505779c7c20894ea30487c`.
+
+The exact set-subtype statement, its type-level and exponential transports, and empty/finite
+boundary fixtures were elaborated with the existing pinned artifacts. No `.lake` mutation command
+was run. `#print axioms` reports `propext`, `Classical.choice`, and `Quot.sound` for every transport.
+
+| Command | Result |
+|---|---|
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0767/Statement.lean)` | exit 0; exact canonical/type targets printed; five checked transports elaborate; empty and `Fin 3` fixtures elaborate; axioms exactly `propext`, `Classical.choice`, `Quot.sound` |
+| `python3 -m json.tool Stage1_Instances/THM-M-0767/instance.json` | exit 0 |
+| `python3 -m json.tool Stage1_Instances/THM-M-0767/task-dag.json` | exit 0 |
+| `python3 -m json.tool Stage1_Instances/THM-M-0767/statement-freeze.json` | exit 0 |
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0 |
+| `python3 scripts/stage1_target.py check` | exit 0 |
+| `git diff --check -- Stage1_Instances/THM-M-0767 .stage1-worker-selftest.json` | exit 0; no output |
+
+The statement node is self-tested but not master-accepted. Primary-source acceptance, anchor and
+terminal proof-body provenance, transitive trust closure, M0, audit completion, and theorem
+completion remain explicitly downstream.
