@@ -39,3 +39,12 @@ artifact, and dated public Lean 4 discovery surfaces. No exact terminal theorem 
 pinned mathlib declarations checked in `AnchorAudit.lean` are independence, Borel-Cantelli,
 finite-sum variance, variance, and strong-law substrate only. The root therefore remains `M3` with
 `formalization_debt`; `anchor_audit_validation.md` records the scoped commands and results.
+
+## Obligation-tree verdict
+
+`obligation-registry.json` freezes 19 semantic obligations before proof-phase closure credit, and
+`typed-graphs.json` separates proof, refinement, provenance, evidence, trust, documentation, and
+workflow edges. `ObligationTree.lean` checks only that the exact necessity and sufficiency
+implications assemble into the canonical biconditional. Both implications and every mathematical
+leaf remain open at `M3`; `obligation-tree.md` and `obligation-tree-validation.md` state the frozen
+cut set and the status boundary.
