@@ -15,3 +15,8 @@ may substitute for this target.
 The provisional root vector is `[H2, M4, R4]`. No canonical Lean expression, kernel proof, source
 fidelity, audit completion, or theorem completion is claimed. All downstream tasks remain open in
 `task-dag.json`; the bounded intake checks are recorded in `validation.md`.
+
+The statement-phase candidate is now frozen and self-tested in `Statement.lean`, `statement.json`,
+and `statement-validation.md`, pending master acceptance. It elaborates the literal based
+fundamental-group pushout universal property using one pinned mathlib import. This does not alter
+the provisional theorem-level vector or claim a proof, source review, audit, or completion.

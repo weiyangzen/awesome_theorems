@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0526-STATEMENT",
+  "theorem_id": "THM-M-0526",
+  "lifecycle": "planned",
+  "canonical_statement": "If a topological space is covered by two open path-connected subspaces U and V, their intersection is path-connected, and a basepoint belongs to both, then the inclusion-induced square of based fundamental groups is a pushout in groups.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0526/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0526.SeifertVanKampenTarget",
+    "elaborated_expression_sha256": "a7550267adfd8bc8d37de8174319c6389cb1bbab62b740595a9c91d831567d45",
+    "statement_file_sha256": "862db06c1419e1eed5c5c9f118865bd0c1e35c3121b869697dceda5a99cd7d28"
+  },
+  "domain_and_universes": "universe u; X : Type u; TopologicalSpace X; U V : Set X; x0 : X; the universal-property test group G : Type u",
+  "ordered_binders": [
+    "X : Type u",
+    "[TopologicalSpace X]",
+    "U V : Set X",
+    "x0 : X",
+    "hU : IsOpen U",
+    "hV : IsOpen V",
+    "hcover : U union V = Set.univ",
+    "hxU : x0 in U",
+    "hxV : x0 in V",
+    "hpcU : IsPathConnected U",
+    "hpcV : IsPathConnected V",
+    "hpcW : IsPathConnected (U intersection V)"
+  ],
+  "conclusion": "The inclusion-induced homomorphisms from pi1(U intersection V, x0) to pi1(U, x0) and pi1(V, x0), followed by the ambient inclusions into pi1(X, x0), commute; every compatible pair into a group G factors uniquely through pi1(X, x0).",
+  "direct_imports": [
+    "Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup"
+  ],
+  "encoding": {
+    "cover_members": "sets U V with open predicates and U union V = univ",
+    "based_groups": "Mathlib FundamentalGroup on subtypes U, V, and U intersection V",
+    "arrows": "FundamentalGroup.map applied to continuous subtype inclusions",
+    "pushout": "literal commutativity plus existence and uniqueness of the mediating group homomorphism"
+  },
+  "environment_fingerprint": {
+    "base_revision": "9a468f5e9a1a136bac76eb92f1c16ea75bfbb5d5",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0526/check_statement.py",
+    "killed": [
+      "removed openness and cover hypotheses",
+      "removed path-connectedness of the intersection",
+      "weakened the pushout conclusion to generation by the two images",
+      "substituted an arbitrary assumed commutative group square"
+    ],
+    "boundary_proof": "Stage1Instances.THM_M_0526.intersection_nonempty"
+  },
+  "degenerate_cases": "The common basepoint kernel-checks nonemptiness of U intersection V. The statement permits U = X, V = X, and U = V; it adds no properness or nontrivial-fundamental-group assumptions.",
+  "alternate_encodings": "The free-product modulo normal closure presentation and the fundamental-groupoid theorem are not substituted for this target; either requires a separately checked transport.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: exact target, maps, universal property, mutations, and a nonempty-intersection boundary elaborate. No Seifert-van Kampen proof, source H0, anchor audit, or downstream completion is claimed."
+}
