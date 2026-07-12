@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0995-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0995",
+  "cutoff_utc": "2026-07-12T00:00:00Z",
+  "canonical_target": "Stage1Instances.THM_M_0995.StatementShape",
+  "inventory_version": "anchor-inventory-1",
+  "candidates": [
+    {
+      "id": "repo-legacy-S1-M-275",
+      "project": "awesome_theorems",
+      "revision": "b15861ce0ba012fa04e8c728e6bacbc35a359aea",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_275.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_275.StatementShape",
+      "role": "historical statement and auxiliary-lemma inventory",
+      "normalized_match": "statement-level match to the selected bounded one-sided form, but no terminal proof body",
+      "classification": "M3",
+      "completion_credit": false,
+      "blocker": "The file explicitly marks the Bernstein MGF bridge and terminal parent proof open."
+    },
+    {
+      "id": "mathlib-subgaussian-sum",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/Probability/Moments/SubGaussian.lean",
+      "declarations": [
+        "ProbabilityTheory.measure_ge_le_exp_mul_mgf",
+        "ProbabilityTheory.HasSubgaussianMGF.measure_ge_le",
+        "ProbabilityTheory.HasSubgaussianMGF.measure_sum_ge_le_of_iIndepFun",
+        "ProbabilityTheory.HasSubgaussianMGF.measure_sum_range_ge_le_of_iIndepFun",
+        "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc_of_integral_eq_zero"
+      ],
+      "role": "Chernoff, finite independent-sum, and Hoeffding MGF anchors",
+      "normalized_match": "not exact: these yield sub-Gaussian/Hoeffding exponents and do not use the variance-sensitive Bernstein denominator",
+      "classification": "M2",
+      "completion_credit": false,
+      "local_check": "Stage1_Instances/THM-M-0995/AnchorAudit.lean",
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "id": "mathlib-variance-sum",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/Probability/Moments/Variance.lean",
+      "declaration": "ProbabilityTheory.IndepFun.variance_sum",
+      "role": "variance accounting for an independent finite sum",
+      "normalized_match": "supporting identity only; it supplies no exponential tail conclusion",
+      "classification": "M2",
+      "completion_credit": false,
+      "local_check": "Stage1_Instances/THM-M-0995/AnchorAudit.lean",
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "id": "external-highdimprob-scalar-bernstein",
+      "project": "dududuguo/HighDimProb",
+      "remote": "https://github.com/dududuguo/HighDimProb",
+      "revision": "8d4eec8bc06d80e8436ab3505000fca999b46546",
+      "tree": "1e7f35a04da5d58fc97306164a0aaaf332af31ad",
+      "file": "HighDimProb/Concentration/Bernstein.lean",
+      "file_git_blob": "025491857afccada0432138f1a1afa64613e49d3",
+      "file_sha256": "5ff345c42b4888d6a50720d3bb7bc2c590a1301850340a1aeee98ca167e48c7d",
+      "declarations": [
+        "HighDimProb.upperTailProb_le_exp_neg_quarter_bernsteinRate_of_centeredSubExponentialMGFLIntegral_sum",
+        "HighDimProb.bernstein_sum_subExponential"
+      ],
+      "toolchain": "leanprover/lean4:v4.29.1",
+      "mathlib_revision": "5e932f97dd25535344f80f9dd8da3aab83df0fe6",
+      "license": "Apache-2.0",
+      "upstream_check": "GitHub Actions CI run 29101064472 succeeded at the recorded revision",
+      "normalized_match": "not exact: min-form subexponential conclusion, ENNReal tail API, strictly positive proxy/scale, and CenteredSubExponentialMGFLIntegral assumptions; no checked transport from the target's centered a.s.-bounded plus variance-budget assumptions",
+      "classification": "M5",
+      "completion_credit": false,
+      "integration_status": "not in the local dependency closure; no dependency was fetched",
+      "reopen_event": "A checked theorem transports the canonical bounded-summand assumptions and exact real-valued conclusion to this declaration, followed by a pinned local import and axiom/provenance check."
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_reason": "The exact canonical target is elaborated locally, but no exact terminal proof candidate was found. Mathlib supplies useful children; the external result has a material statement mismatch.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance"
+}
