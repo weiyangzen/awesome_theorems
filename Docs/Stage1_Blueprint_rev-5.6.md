@@ -9426,7 +9426,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0721-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0721`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0721-ANCHOR_AUDIT` / `THM-M-0721` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0721-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0721`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0721-OBLIGATION_TREE` / `THM-M-0721` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-0721-OBLIGATION_TREE` / `THM-M-0721` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0721-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0721`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0721-PROOF` / `THM-M-0721` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0721-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0721`. Gate: rev-5.6 node-specific receipt and master acceptance.
