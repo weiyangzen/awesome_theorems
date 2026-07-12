@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1014-VALIDATION-local-20260712T020533Z",
+  "item_id": "S56-M-1014-VALIDATION",
+  "theorem_id": "THM-M-1014",
+  "base_revision": "5efc9accb7b7d20411403a280fb058cb19aea566",
+  "base_tree": "ae1c04f3bbca11649e54e75702c1698233bfa5ec",
+  "validated_at": "2026-07-12T02:05:33Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "statement_sha256": "03af2e1309d2e86056ac37c4630ec7f9dbabcb009e55aac820cfad8b4df5d198",
+    "obligation_tree_sha256": "ff18998dc3f68ababc760f051e36df9d0031c56fbf2057a4f5bbd9cc9532bb0e",
+    "proof_sha256": "7806ff31b02d9914da2b07d3ca481810a3d30d13eea11f409bab88e34511f6cf",
+    "validation_probe_sha256": "7f8f8b8a8b9dfcdfd3e9da5c44bf316b0ea6dfd8833cd9b7e127d6f645bae10d",
+    "validator_sha256": "949b59e4489802fb7bc005d514b5ab717c046f338e6cb508a2c954c3c7982330",
+    "obligation_registry_sha256": "6fa94e0852f87e511db201f32ba4f3311ebf2b4f9460433f302fbe5ba50b53a9",
+    "typed_graphs_sha256": "f16e57ee74d3e3d2266af1a2062d98f95c9ace903884fdd65f0d687099430de3",
+    "proof_record_sha256": "a8eb7fea1b7e7d6eb2ff3ed2bc3c9f14f93905b3eadc6e273219abb6743a1049",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "terminal_module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+    "terminal_declaration": "MeasureTheory.ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "dependency_source_sha256": "f8e505e1d388a65ef1f0f8e19916a1a673872fa373a922ca78ec05aa807b856d",
+    "dependency_olean_sha256": "69a9a38958c00f21be94f37e4d628d19da4476ddbfbe5093abcbfa5ffdf6f81e"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink, reused without mutation"
+  },
+  "recipe": {
+    "recipe_id": "M1014-validation-local-verifier",
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1014/check_validation.py"],
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_frozen_statement_composition_proof_root_and_independent_direct_probe",
+    "validated_declarations": [
+      "Stage1Instances.THM_M_1014.Proof.continuousMappingTheorem",
+      "Stage1Instances.THM_M_1014.Validation.independentContinuousMappingTheorem",
+      "MeasureTheory.ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous"
+    ],
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "frozen_input_and_dependency_provenance": "pass",
+    "root_kernel_closed_locally": true,
+    "hermetic_release_gate": "fail_closed",
+    "independent_runner_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The worker reused canonical warm .lake artifacts, so this is not an empty-cache hermetic release replay.",
+    "The independently written Validation.lean probe ran in the same worker and cache, not under a distinct independently provisioned verifier identity.",
+    "No release TCB/SBOM archive, signed attestations, H0/R0 review, protected CI result, deterministic bundle, master acceptance, or release decision exists."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "The integration or release lane must validate an immutable clean snapshot with empty caches and network denied, then obtain the distinct independent-runner attestation required by section 10.7.",
+  "status_boundary": "Provisional worker evidence for narrow kernel replay, trust observation, pinned provenance, and a same-worker independent implementation. It is not hermetic release evidence, distinct-runner evidence, theorem completion, release, or master acceptance."
+}
