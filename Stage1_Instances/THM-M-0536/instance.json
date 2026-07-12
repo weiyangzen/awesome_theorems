@@ -1,9 +1,9 @@
 {
   "schema_version": "stage1-instance-intake/1.0",
   "theorem_id": "THM-M-0536",
-  "item_id": "S56-M-0536-STATEMENT",
+  "item_id": "S56-M-0536-ANCHOR_AUDIT",
   "lifecycle": "planned",
-  "intent": "statement",
+  "intent": "anchor_audit",
   "baseline": "L0",
   "rework_required": true,
   "execution_rank": 593,
@@ -12,7 +12,7 @@
   "name_en": "Homotopy invariance of homology",
   "category": "topology / algebraic topology",
   "target_system": "Lean 4 + mathlib",
-  "canonical_claim_status": "exact_lean_target_frozen_and_elaborated",
+  "canonical_claim_status": "exact_lean_target_frozen_and_elaborated_anchor_candidates_audited",
   "canonical_claim": "For base-universe topological spaces X and Y, a chosen ContinuousMap.HomotopyEquiv e : X ≃ₕ Y, and n : ℕ, the morphism induced by e.toFun on unreduced integral singular homology in degree n is an isomorphism in ModuleCat ℤ.",
   "canonical_module": "Stage1_Instances/THM-M-0536/Target.lean",
   "canonical_declaration": "Stage1.THM_M_0536.HomotopyInvarianceStatement",
@@ -21,6 +21,17 @@
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
+  "anchor_audit": {
+    "status": "complete_pending_master_acceptance",
+    "selected_candidate": "Stage1.THM_M_0536.anchorCandidate",
+    "candidate_module": "Stage1_Instances/THM-M-0536/AnchorAudit.lean",
+    "terminal_bridge": "TopCat.Homotopy.congr_homologyMap_singularChainComplexFunctor",
+    "upstream_module": "Mathlib.AlgebraicTopology.SingularHomology.HomotopyInvarianceTopCat",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "upstream_introduction_revision": "f71a4059a8f0c29fac39f43a7376e94defcbe603",
+    "candidate_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "integration_class": "local_wrapper_upstream_mathlib_feasible_not_yet_accepted"
+  },
   "foundation_profile": "Lean 4 dependent type theory; the statement is Prop-valued and assumes only topology instances plus a packaged homotopy equivalence",
   "tcb_profile": "Lean kernel, leanprover/lean4:v4.29.0, and mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; exact imports are recorded in Target.lean",
   "computation_profile": "The singular homology object wrapper is noncomputable; the canonical target only asserts CategoryTheory.IsIso and contains no evaluator claim",
@@ -33,6 +44,6 @@
   "public_merge_targets": ["Stage1_Instances/THM-M-0536"],
   "owners_and_reviewers": {"owner": "Stage1 execution lane", "independent_reviewer": "unassigned"},
   "freshness_and_revocation_policy": "Invalidate this intake if the Stage0 source phrase, target manifest entry, selected source statement, or formal conventions change; master review is required for acceptance.",
-  "owned_artifacts": ["README.md", "Target.lean", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "statement-validation.md", "task-dag.json", "validation.md"],
-  "status_boundary": "The exact Lean proposition is frozen and elaborated. No proof, frozen obligation registry, H0, M0, R0, audit completion, or theorem completion is claimed."
+  "owned_artifacts": ["README.md", "Target.lean", "AnchorAudit.lean", "anchor-audit.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "statement-validation.md", "task-dag.json", "validation.md"],
+  "status_boundary": "The exact Lean proposition is frozen and elaborated, and a pinned mathlib bridge has been audited and composed into an exact checked candidate. No accepted proof-phase declaration, frozen obligation registry, H0, M0, R0, audit completion, or theorem completion is claimed."
 }
