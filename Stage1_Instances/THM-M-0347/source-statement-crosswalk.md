@@ -25,10 +25,10 @@ proof boundary, and known errata, followed by independent review. Until then the
 
 | Repository phrase | Intended mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
-| "continuous function" | continuous complex-valued function on a periodic domain | `C(AddCircle T, ℂ)` | included; scalar and period open |
-| "Fourier" (implicit in theorem name/context) | normalized coefficients and symmetric partial sums | `fourierCoeff`, `fourier`, finite integer sums | family located; exact normalization open |
-| "Cesaro means" | first-order arithmetic means of partial sums | finite sums and scalar division indexed by naturals | definition not frozen |
-| "converge" | standard Fejer conclusion, expected uniform convergence to `f` | `Tendsto` in sup norm or `TendstoUniformly` | exact encoding and source qualifier open |
+| "continuous function" | continuous complex-valued function on an arbitrary positive-period circle | `C(AddCircle T, ℂ)` under `Fact (0 < T)` | frozen formal selection; source justification open |
+| "Fourier" (implicit in theorem name/context) | normalized coefficients and symmetric partial sums | `fourierCoeff`, `fourier`, `Finset.Icc (-n) n` | frozen formal selection; source justification open |
+| "Cesaro means" | arithmetic mean of `S_0, ..., S_n` | inverse of `n + 1` times `Finset.range (n + 1)` sum | frozen and boundary-tested |
+| "converge" | uniform convergence to `f` | `Tendsto (fejerMean f) atTop (nhds f)` in `C(AddCircle T, ℂ)` | frozen formal selection; source qualifier review open |
 | `已验证` | untrusted inventory label | no Lean proposition or proof | explicitly rejected as evidence |
 
 ## Lean boundary
@@ -39,4 +39,5 @@ uniform-limit predicate available through that import closure. Mathlib also has 
 `hasSum_fourier_series_of_summable`, which assumes summability of the Fourier coefficients. It is
 not Fejer's theorem for every continuous function and is not credited as a formal anchor or proof.
 No declaration named for Fejer was found by the bounded repo-local name search; the later immutable
-anchor audit remains open.
+anchor audit remains open. `Statement.lean` now freezes the selected target and checks its direct
+expansion, but it is not a proof and does not clear the missing primary-source pinpoint.

@@ -11,6 +11,10 @@ subalgebra characterized by vanishing off-diagonal matrix coefficients, extreme-
 and existence and uniqueness among all normalized positive extensions. See `statement.json` and
 `statement-validation.md` for the exact boundary and pinned elaboration evidence.
 
-The statement elaborates, but it is not proved. The primary-source clause crosswalk, anchor audit,
-obligation tree, proof, release validation, and independent review remain open. The root therefore
-remains `[H1, M4, R4]`; statement evidence supplies no theorem-completion credit.
+The statement elaborates, but it is not proved. The bounded anchor audit found no terminal Lean
+proof, and registry version 1 now freezes 16 obligations plus separate typed proof, provenance,
+source, trust, and workflow graphs. The checked `root_of_components` theorem validates only the
+child-to-root logical composition; its existence and uniqueness package is an explicit open premise.
+Primary-source closure, every substantive proof leaf, release validation, and independent review
+remain open. The obligation phase records root machine debt M3 and supplies no theorem-completion
+credit.

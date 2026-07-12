@@ -1,0 +1,86 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0342-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0342",
+  "base_revision": "c9694802ae049af37973e49a65f11b833135333f",
+  "statement_dependency": {
+    "item_id": "S56-M-0342-STATEMENT",
+    "declaration": "Stage1Instances.THM_M_0342.PlancherelTarget",
+    "receipt_state": "provisional_self_tested_pending_master_acceptance"
+  },
+  "candidate_inventory_frozen_before_classification": true,
+  "candidates": [
+    {
+      "candidate_id": "M0342-CAND-MATHLIB-NORM",
+      "project": "leanprover-community/mathlib4",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "immutable_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Fourier.LpSpace",
+      "source_path": "Mathlib/Analysis/Fourier/LpSpace.lean",
+      "source_lines": "88-89",
+      "declaration": "MeasureTheory.Lp.norm_fourier_eq",
+      "role": "exact norm-equality anchor",
+      "type_fit": "exact after introducing n, f, hf and applying to hf.toLp f",
+      "local_dependency_status": "present in pinned lake manifest and elaborated read-only",
+      "proof_body_provenance": "one-step projection of LinearIsometryEquiv.norm_map from MeasureTheory.Lp.fourierTransform_l_i",
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe token in the source module",
+      "axiom_report": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "M0-W candidate pending downstream proof/provenance/trust acceptance"
+    },
+    {
+      "candidate_id": "M0342-CAND-MATHLIB-ISOMETRY",
+      "project": "leanprover-community/mathlib4",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "immutable_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Fourier.LpSpace",
+      "source_path": "Mathlib/Analysis/Fourier/LpSpace.lean",
+      "source_lines": "47-54",
+      "declaration": "MeasureTheory.Lp.fourierTransform_l_i",
+      "role": "stronger linear-isometry-equivalence construction",
+      "type_fit": "strictly stronger API from which the norm anchor is projected",
+      "local_dependency_status": "present in pinned lake manifest and elaborated read-only",
+      "terminal_inputs": [
+        "LinearEquiv.extendOfIsometry",
+        "SchwartzMap.denseRange_toLpCLM",
+        "SchwartzMap.norm_fourier_toL2_eq"
+      ],
+      "axiom_report": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "supporting mathlib anchor; not separately credited"
+    },
+    {
+      "candidate_id": "M0342-CAND-MATHLIB-INNER",
+      "project": "leanprover-community/mathlib4",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "immutable_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Fourier.LpSpace",
+      "source_path": "Mathlib/Analysis/Fourier/LpSpace.lean",
+      "source_lines": "91-93",
+      "declaration": "MeasureTheory.Lp.inner_fourier_eq",
+      "role": "stronger inner-product preservation companion",
+      "type_fit": "elaborates on the frozen Euclidean domain but is not the frozen norm target",
+      "local_dependency_status": "present in pinned lake manifest and elaborated read-only",
+      "proof_body_provenance": "projection of LinearIsometryEquiv.inner_map_map",
+      "axiom_report": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "alternate supporting anchor; no substitution credit"
+    }
+  ],
+  "external_lean4_search": {
+    "scope": "all Lean sources in the repository and all already pinned lake packages, followed by public exact-symbol searches",
+    "immutable_local_revisions": {
+      "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "flt-regular": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27"
+    },
+    "result": "No additional relevant external Lean 4 candidate was found in the pinned closure. Public GitHub code search required authentication (HTTP 401), and grep.app rate-limited both exact-symbol requests (HTTP 429); these failures are negative-search limitations, not evidence of absence.",
+    "dependency_action": "No update, fetch, clone, or lake mutation was performed."
+  },
+  "debt_classification": {
+    "H": "H1",
+    "M": "M0-W candidate, not accepted proof state",
+    "R": "R3",
+    "reason": "The exact pinned mathlib norm theorem fits the frozen target, but primary-source crosswalk, terminal transitive provenance/trust review, readable reconstruction, and master acceptance remain open."
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor discovery and exact-type feasibility only; no accepted proof state or theorem-completion claim."
+}

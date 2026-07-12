@@ -10,13 +10,13 @@
   only as a checked consequence.
 - The constant-function and initial-index boundary cases under the chosen convention.
 
-## Boundary decisions for the statement phase
+## Frozen statement decisions
 
-The exact source must fix or justify the circle period, normalized versus unnormalized Haar
-measure, the sign and scale in the Fourier characters, complex versus real codomain, and the
-symmetric partial sum range. It must also decide whether the `n`th mean averages partial sums
-`S_0, ..., S_n` or `S_0, ..., S_(n-1)`, how the zero denominator is avoided, and whether convergence
-is phrased in the continuous-map sup norm or by a uniform-convergence predicate.
+The canonical Lean target quantifies over every `T : Real` with `Fact (0 < T)` and uses complex-valued
+continuous maps. It adopts mathlib's normalized Haar `fourierCoeff` and `fourier` convention. The
+`n`th symmetric partial sum ranges over integer frequencies `-n, ..., n`; the `n`th mean averages
+`S_0, ..., S_n` and divides by `n + 1`. Convergence is `Tendsto` in the continuous-map topology.
+The source audit must still justify these standard conventions with an immutable pinpoint.
 
 The duplicate repository target `THM-M-0291` has the stronger gloss "uniform convergence". It is
 discovery context only: targets must not be merged, and no proof or source credit transfers between

@@ -1,17 +1,18 @@
-# THM-M-0347 rev-5.6 intake
+# THM-M-0347 rev-5.6 statement dossier
 
 This directory is the fail-closed `planned` intake dossier for Fejer's theorem in periodic Fourier
 analysis. The repository gloss says only that the Cesaro means for a continuous function converge.
 The standard theorem concerns the first-order Cesaro means of the Fourier partial sums of a
 continuous periodic function and gives uniform convergence back to that function.
 
-The mathematical family is identified, but the source record does not fix the circle period,
-real- versus complex-valued functions, Fourier normalization, indexing of symmetric partial sums,
-whether the zeroth or first mean starts the sequence, or whether its word "converges" means the
-standard uniform conclusion. Those decisions, a primary-source pinpoint, and an exact Lean target
-remain for the statement phase.
+The statement phase selects arbitrary positive real period, complex-valued continuous maps,
+mathlib's normalized Haar Fourier coefficients, symmetric frequencies `-n, ..., n`, and the mean
+of `S_0, ..., S_n`. The conclusion is convergence in the continuous-map topology, the uniform
+conclusion on the compact circle. `Statement.lean` elaborates this exact target with the single
+direct import `Mathlib.Analysis.Fourier.AddCircle`, checks a direct expansion, distinguishes four
+structural mutations, and proves the two index-zero boundary identities.
 
-A bounded pinned Lean probe confirms that mathlib has the additive-circle, normalized Haar
-measure, continuous-map, Fourier coefficient, monomial, and uniform-convergence APIs needed to
-state the theorem. It does not assert Fejer's theorem and receives no proof credit. The root remains
-`[H1, M4, R4]`; exact commands and results are recorded in `validation.md`.
+This is statement-only evidence and does not assert Fejer's theorem. A primary-source pinpoint and
+review remain open, so human debt remains `H1`; machine debt is now `M3` because the exact interface
+exists without a proof; readability remains `R4`. Exact statement commands and results are in
+`statement-validation.md`; the earlier intake probe remains discovery evidence only.
