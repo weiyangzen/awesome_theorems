@@ -34,3 +34,12 @@ The theorem is not complete.
 The exact intake-only checks and results are recorded in `validation.md`. They
 establish manifest membership, standard consistency, JSON syntax, and local
 dossier hygiene only. No Lean proof or kernel closure is claimed.
+
+## Statement phase
+
+`Statement.lean` now declares the exact target as the proposition
+`THM_M_1269_statement`, using only `Mathlib.Topology.Algebra.Ring.Real`. The ordered
+binders, normalized expression hash, pinned environment, and three deliberately
+changed mutation surfaces are recorded in `statement.json`. This phase checks
+elaboration only: none of these proposition declarations supplies a proof of
+the canonical claim, and theorem completion remains false.
