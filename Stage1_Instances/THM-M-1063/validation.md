@@ -38,3 +38,22 @@ does not declare a theorem, proof body, axiom, or placeholder.
 
 Environment: repository base `205d13cfc35c45883410c569709a91cb34edce16`, Lean toolchain
 `leanprover/lean4:v4.29.0`, mathlib pin `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
+
+## Anchor-audit phase (2026-07-12)
+
+Base revision: `45aefb41a1978e4156e78f7fe59c590530703225`.
+
+| Command | Result |
+|---|---|
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | exit 0; `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| `git -C Formalizations/Lean/.lake/packages/mathlib status --short` | exit 0; no output (clean pinned source) |
+| `rg -n -i 'donsker|invariance principle|functional central limit|wiener|brownian' Formalizations/Lean/.lake/packages/mathlib/Mathlib` | exit 0 only because of unrelated Wiener analytic-number-theory text and documentation wishlist rows; no Donsker or Brownian declaration |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1063/AnchorAudit.lean` | exit 0; all five candidate anchors resolved; axiom reports contained only `propext`, `Classical.choice`, and `Quot.sound` |
+| `curl -L --fail --silent --show-error https://api.github.com/repos/RemyDegenne/brownian-motion/commits/master` | exit 0; resolved `bdf5ea0c34f9e6d75bce5f0609a968d6e9e99e8e` |
+| `curl -L --fail --silent --show-error 'https://api.github.com/repos/RemyDegenne/brownian-motion/git/trees/bdf5ea0c34f9e6d75bce5f0609a968d6e9e99e8e?recursive=1'` | exit 0; 56,483-byte immutable recursive tree inventory |
+| bounded raw-source keyword scan of external `Brownian`, `Gaussian`, and `Continuity` Lean modules at that commit | exit 1; no `donsker`, functional/central CLT, invariance-principle, or `TendstoInDistribution` match |
+
+Known failures: no exact mathlib or external formal Donsker theorem exists in the audited closure;
+the external project is unpinned, uses Lean 4.31.0, and has a separate Git dependency. The theorem
+still requires a new path-space tightness and finite-dimensional convergence proof. These failures
+block theorem closure but do not invalidate the completed anchor inventory.

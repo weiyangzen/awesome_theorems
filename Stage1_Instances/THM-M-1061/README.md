@@ -36,6 +36,15 @@ acceptance. The source anchors are discovery-quality rather than accepted H0
 receipts, and no theorem proof is claimed. The next workflow gate is the anchor
 audit. The theorem is not complete.
 
+## Obligation architecture
+
+Registry version 1 now freezes 15 canonical obligations and seven separate
+typed graphs in `obligation-registry.json` and `typed-graphs.json`. The lower
+localization, compact-core upper bound, bounded tail estimate, and EReal limit
+merge remain open. `ObligationTree.lean` checks only the conditional identity
+transport from the exact terminal proposition to the root; it supplies no
+analytic proof or theorem-completion credit.
+
 ## Validation
 
 The exact local checks and results are recorded in `validation.md`. They validate
