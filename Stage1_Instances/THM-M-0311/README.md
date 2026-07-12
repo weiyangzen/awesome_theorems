@@ -31,6 +31,11 @@ exact statement target in `Proof.lean`. The provisional node receipt records the
 hashes plus the disclosed kernel axiom set. Earlier phase artifacts retain their historical
 pre-proof boundary rather than being rewritten.
 
+The validation phase replays the statement, branches, composition, and exact root in a fresh
+temporary module directory. `Validation.lean` independently reconstructs the root without importing
+`Proof` or `ObligationTree`; it observes the same three disclosed axioms. Local hashes and the clean
+pinned mathlib revision pass, while cold hermetic and distinct-runner gates fail closed.
+
 The accepted root remains `[H1, M3, R4]` until the integration lane accepts proof evidence; the
 kernel-elaborated proof node is only provisional. No primary-source review, validation/release
 closure, audit completion, or theorem completion is claimed. The phase-specific validation records
