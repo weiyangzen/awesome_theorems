@@ -14,6 +14,9 @@ requires agreement on the distinguished relation. Explicit definability places t
 old-language formula outside the model quantifier, so the formula is parameter-free and uniform.
 The statement includes `n = 0`, empty `T`, inconsistent `T`, and arbitrary nonempty carriers.
 
-The lifecycle remains `planned`, now at `[H2, M3, R4]`: the exact statement is locally elaborated,
-but no proof body or formal-candidate audit is credited. Primary-source pinpointing and every later
-gate remain open. No accepted proof state, audit completion, or theorem completion is claimed.
+The lifecycle remains `planned` at `[H2, M3, R4]`. The exact statement is locally elaborated and
+the bounded formal-anchor audit is self-tested. Pinned mathlib supplies definability, language-map,
+compactness, and finite-entailment infrastructure, but no terminal Beth theorem was located; the
+bounded external searches likewise found no exact Lean 4 proof candidate. Primary-source
+pinpointing and every proof/release gate remain open. No accepted proof state, audit completion, or
+theorem completion is claimed.

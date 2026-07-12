@@ -1,0 +1,89 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0651-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0651",
+  "base_revision": "3dfb8575e8f56f817e48b9846f7ff2fbd146b603",
+  "canonical_declaration": "Stage1Instances.THM_M_0651.OmittingTypesTarget",
+  "canonical_expression_sha256": "789c281a89ba5947476cb2189ae3e216de0eeaa0b5d016549489d8c1553d8c43",
+  "audit_scope": "repository-local Lean, the repository-pinned mathlib ModelTheory tree, and identified public Lean 4 model-theory repositories, all evaluated against the exact frozen target",
+  "candidates": [
+    {
+      "candidate_id": "A-MATHLIB-DIRECT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "search_root": "Mathlib/ModelTheory",
+      "result": "no_direct_candidate",
+      "exact_target_match": false,
+      "integration_feasible": false,
+      "reason": "The scoped source search found no omitting-types, partial-type, or model-theoretic nonprincipality declaration. CompleteType.exists_modelType_is_realized_in realizes rather than omits one complete type."
+    },
+    {
+      "candidate_id": "A-MATHLIB-INFRA",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Mathlib.ModelTheory.Satisfiability",
+        "Mathlib.ModelTheory.Types",
+        "Mathlib.ModelTheory.Skolem"
+      ],
+      "declarations": [
+        "FirstOrder.Language.Theory.isSatisfiable_iff_isFinitelySatisfiable",
+        "FirstOrder.Language.Theory.CompleteType.exists_modelType_is_realized_in",
+        "FirstOrder.Language.exists_elementarySubstructure_card_eq"
+      ],
+      "result": "infrastructure_only",
+      "exact_target_match": false,
+      "integration_feasible": true,
+      "reason": "These declarations supply compactness, complete-type realization, and downward Lowenheim-Skolem infrastructure, but no declaration supplies simultaneous omission or the required nonprincipality-to-construction bridge."
+    },
+    {
+      "candidate_id": "A-INFINITARY-LOGIC",
+      "project": "cameronfreer/infinitary-logic",
+      "revision": "3f3a920f45117c7ff2e50e0af137ab779b009fa8",
+      "tree": "6affba7d9ca14375003e1f1f0c8f103cc572649b",
+      "toolchain": "leanprover/lean4:v4.32.0-rc1",
+      "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+      "module": "InfinitaryLogic.Methods.Henkin.Completeness",
+      "declaration": "FirstOrder.Language.omitting_types",
+      "file_blob": "277372417de825a4798675a627d6ce86dc59cebf",
+      "file_sha256": "c41efef1e6941c2d85757dad99b3c3556daa3421819519f5b15fa468edd38a58",
+      "result": "related_nonmatching_external_body",
+      "exact_target_match": false,
+      "integration_feasible": false,
+      "placeholder_scan": "no sorry, admit, axiom, unsafe, implemented_by, or opaque token in the candidate file",
+      "reason": "The theorem is over the project's separate Lomega1omega Theoryomega/Formulaomega semantics, only unary types, a Set-indexed family, and a consistency-property hypothesis quantified inside its non-isolation premise. It is neither definitionally equal to nor equipped with transports to the pinned mathlib first-order, varying-finite-arity target. Its newer Lean/mathlib and extra LeanArchitect dependency also prevent direct pinned import."
+    },
+    {
+      "candidate_id": "A-FOUNDATION",
+      "project": "FormalizedFormalLogic/Foundation",
+      "revision": "87d4dd68835a6c1eb8448b9c392d9ca51fe08d63",
+      "tree": "93152b3ba3c72d83b95567bea6d8a9ec15461555",
+      "result": "no_textual_candidate",
+      "exact_target_match": false,
+      "integration_feasible": false
+    },
+    {
+      "candidate_id": "A-MANY-SORTED",
+      "project": "Mathias-Stout/Many-sorted-model-theory",
+      "revision": "af0c20fa57898d43d06d3e6803f4b97489078e58",
+      "tree": "a3be52bfe3c4631e9f67f29b8490a602138811af",
+      "result": "no_textual_candidate",
+      "exact_target_match": false,
+      "integration_feasible": false
+    }
+  ],
+  "classification": {
+    "exact_external_or_mathlib_closure": false,
+    "best_anchor": "A-INFINITARY-LOGIC",
+    "best_anchor_role": "proof-architecture reference only",
+    "machine_debt": "M4",
+    "first_open_bridge": "construct a countable mathlib model simultaneously omitting every locally defined nonprincipal partial type",
+    "status_boundary": "This phase classifies formal anchors only. It does not import an external proof body, close the canonical proposition, establish H0/R0, or claim audit/theorem completion."
+  },
+  "self_tested": true,
+  "gate_state": "self_tested_pending_master_acceptance"
+}
