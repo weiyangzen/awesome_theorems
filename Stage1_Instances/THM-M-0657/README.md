@@ -37,9 +37,18 @@ does not supply a proof of Morley's theorem.
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-`S56-M-0657-INTAKE` and the provisional worker statement node are addressed.
-Master acceptance is still required. Anchor audit and all later phases remain
-open.
+`S56-M-0657-INTAKE`, the provisional worker statement node, and the provisional
+worker anchor-audit node are addressed. Master acceptance is still required.
+The obligation-tree and all later phases remain open.
+
+## Anchor audit
+
+`anchor-audit.json` inventories four pinned mathlib anchors and five external
+repositories at immutable commits. Mathlib supplies the categoricity API,
+Los-Vaught completeness, and ACF/DLO examples, but no arbitrary-theory Morley
+transfer theorem. The external search likewise found no exact Lean 4 closure.
+The result is self-tested audit evidence pending master acceptance: the root
+stays `M3` with `formalization_debt`, and no proof credit is claimed.
 
 ## Intake verdict
 

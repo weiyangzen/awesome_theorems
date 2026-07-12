@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0657-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0657",
+  "canonical_target": "Stage1Instances.THM_M_0657.MorleyCategoricityTarget",
+  "audit_date": "2026-07-12",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mathlib_candidates": [
+    {
+      "module": "Mathlib.ModelTheory.Satisfiability",
+      "declaration": "Cardinal.Categorical",
+      "classification": "definition_only",
+      "relationship": "The uniqueness conjunct used by the canonical target; it is vacuous without a model-existence witness.",
+      "exact_root_closure": false
+    },
+    {
+      "module": "Mathlib.ModelTheory.Satisfiability",
+      "declaration": "Cardinal.Categorical.isComplete",
+      "classification": "supporting_lemma",
+      "relationship": "Los-Vaught completeness consequence from categoricity, satisfiability, cardinal bounds, and infinitude of all bundled models.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "exact_root_closure": false
+    },
+    {
+      "module": "Mathlib.ModelTheory.Algebra.Field.IsAlgClosed",
+      "declaration": "FirstOrder.Field.ACF_categorical",
+      "classification": "special_case",
+      "relationship": "Uncountable categoricity of the particular theory ACF p, not transfer for arbitrary countable-language theories; it also lacks the target's explicit existence conjunct.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "exact_root_closure": false
+    },
+    {
+      "module": "Mathlib.ModelTheory.Order",
+      "declaration": "FirstOrder.Language.aleph0_categorical_dlo",
+      "classification": "boundary_special_case",
+      "relationship": "Categoricity of DLO at aleph0, outside the canonical target's strict uncountable range.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "exact_root_closure": false
+    }
+  ],
+  "external_candidates": [
+    {
+      "repository": "https://github.com/Mathias-Stout/Many-sorted-model-theory",
+      "revision": "af0c20fa57898d43d06d3e6803f4b97489078e58",
+      "toolchain": "leanprover/lean4:v4.28.0",
+      "result": "foundation_only",
+      "details": "ProdExpr/Satisfiable.lean defines a multisorted Categorical predicate and proves a Los-Vaught-style Categorical.isComplete, but contains no Morley or uncountable categoricity transfer declaration.",
+      "dependency_feasibility": "Different target semantics (many-sorted total cardinality) and toolchain; no exact theorem to integrate.",
+      "exact_root_closure": false
+    },
+    {
+      "repository": "https://github.com/Jlh18/ModelTheoryInLean8",
+      "revision": "fbda7d869d4169b6e739bb74165e99ee03ca63d6",
+      "toolchain": "Lean 3 era project",
+      "result": "special_cases_only_not_lean4",
+      "details": "src/Rings/Fields.lean has categorical_ACF0 and categorical_ACFp; src/Rings/vaught.lean has a completeness lemma. No Morley transfer theorem was found.",
+      "dependency_feasibility": "Not Lean 4 and no exact theorem; ineligible for pinned Lean 4 closure.",
+      "exact_root_closure": false
+    },
+    {
+      "repository": "https://github.com/anishrajeev/ModelTheoryFun",
+      "revision": "a4b1af1074313d24d27ba41f44aa4e39754cb4da",
+      "toolchain": "leanprover/lean4:v4.19.0",
+      "result": "no_candidate",
+      "details": "Immutable source archive contained no Lean occurrence of Morley or categoricity.",
+      "exact_root_closure": false
+    },
+    {
+      "repository": "https://github.com/xhalo32/ModelTheoryInLean",
+      "revision": "2ba3803cfd6021bd0b6411e4d06b96b5972754e6",
+      "toolchain": "leanprover/lean4:v4.19.0",
+      "result": "no_candidate",
+      "details": "Immutable source archive contained no Lean occurrence of Morley or categoricity.",
+      "exact_root_closure": false
+    },
+    {
+      "repository": "https://github.com/Quoteme/modelltheorie2lean",
+      "revision": "cad69c09257cf981e3eea42222f3f3a32faf23b2",
+      "toolchain": "leanprover/lean4:v4.8.0",
+      "result": "no_candidate",
+      "details": "Immutable source archive contained no Lean occurrence of Morley or categoricity.",
+      "exact_root_closure": false
+    }
+  ],
+  "placeholder_and_provenance_audit": {
+    "exact_candidate_found": false,
+    "exact_candidate_placeholder_scan": "not_applicable",
+    "terminal_exact_proof_body": null,
+    "unsafe_or_oracle_boundary": null,
+    "note": "There is no exact candidate whose proof body could be credited. The three elaborated mathlib theorem anchors are ordinary declarations at the pinned revision and their reported axiom profiles were checked by Lean."
+  },
+  "classification": {
+    "machine": "M3",
+    "debt": "formalization_debt",
+    "repo_local_integration_debt": false,
+    "reason": "The exact statement elaborates locally, but neither pinned mathlib nor the audited immutable external Lean sources provide the arbitrary-theory Morley transfer theorem. There is therefore no external closure awaiting integration and no proof credit."
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false
+}
