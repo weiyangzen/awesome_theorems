@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-task-dag/5.6.0",
+  "theorem_id": "THM-M-0337",
+  "lifecycle_mode": "planned",
+  "tasks": [
+    {
+      "id": "M0337-SOURCE-DECISION",
+      "kind": "source_scope",
+      "state": "open",
+      "depends_on": [],
+      "deliverable": "Select one authoritative proposition and pinpoint its primary source, assumptions, and errata disposition.",
+      "blocked_by": "The repository metadata names a theory but states no proposition."
+    },
+    {
+      "id": "M0337-STATEMENT",
+      "kind": "lean_statement",
+      "state": "blocked",
+      "depends_on": ["M0337-SOURCE-DECISION"],
+      "deliverable": "Freeze and elaborate the exact Lean 4 target with domains, ordered binders, hypotheses, conclusion, profiles, and mutation tests.",
+      "blocked_by": "M0337-SOURCE-DECISION is open."
+    },
+    {
+      "id": "M0337-DISCOVERY",
+      "kind": "formal_candidate_audit",
+      "state": "blocked",
+      "depends_on": ["M0337-STATEMENT"],
+      "deliverable": "Precommit and execute the repo-local, mathlib, and external Lean candidate search against the exact target.",
+      "blocked_by": "An exact target is required to prevent candidate-driven theorem substitution."
+    },
+    {
+      "id": "M0337-OBLIGATION-REGISTRY",
+      "kind": "obligation_tree",
+      "state": "blocked",
+      "depends_on": ["M0337-SOURCE-DECISION", "M0337-DISCOVERY"],
+      "deliverable": "Freeze the canonical obligation registry and typed graphs without inherited proof credit.",
+      "blocked_by": "Source and formal-candidate audits are not available."
+    }
+  ],
+  "accepted_task_ids": [],
+  "theorem_complete": false
+}

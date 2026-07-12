@@ -25,6 +25,13 @@ upstream analytic route through the Lp completeness criterion, almost-everywhere
 and `MemLp` obligations. `ObligationTree.lean` checks the conditional scalar-to-root composition;
 it deliberately does not admit either scalar proof body in this phase.
 
-The accepted root remains `[H1, M3, R4]`; candidate closure is not accepted proof state. No
-primary-source review, accepted root proof, audit completion, or theorem completion is claimed.
-The phase-specific validation records state the exact checks and boundaries.
+The proof phase now admits pinned mathlib's `MeasureTheory.Lp.instCompleteSpace` at both frozen
+scalar branch types, composes them through the frozen obligation-tree certificate, and closes the
+exact statement target in `Proof.lean`. The provisional node receipt records the input and proof
+hashes plus the disclosed kernel axiom set. Earlier phase artifacts retain their historical
+pre-proof boundary rather than being rewritten.
+
+The accepted root remains `[H1, M3, R4]` until the integration lane accepts proof evidence; the
+kernel-elaborated proof node is only provisional. No primary-source review, validation/release
+closure, audit completion, or theorem completion is claimed. The phase-specific validation records
+state the exact checks and boundaries.

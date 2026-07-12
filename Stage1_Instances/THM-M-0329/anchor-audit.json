@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0329-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0329",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "106084d7f6343f3046dfb9e108503edbcdc86191",
+  "canonical_target": "Stage1Instances.THM_M_0329.LaxMilgramTarget",
+  "inventory_version": "THM-M-0329-anchor-inventory/1",
+  "search_order": [
+    "repository-local Lean source",
+    "pinned mathlib source and declarations",
+    "Sourcegraph public Lean code index including forks and archives",
+    "GitHub repository metadata and code search"
+  ],
+  "queries": [
+    "LaxMilgram",
+    "Lax-Milgram",
+    "Lax Milgram",
+    "continuousLinearEquivOfBilin",
+    "unique_continuousLinearEquivOfBilin"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0329-C01",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.InnerProductSpace.LaxMilgram",
+      "file": "Mathlib/Analysis/InnerProductSpace/LaxMilgram.lean",
+      "git_blob": "3acc990035f6e7ef609909dc2c3755dcacb36db5",
+      "file_sha256": "79643570d2052a66114e0f87f7b284e2dc72f79638b3c6c962ba18300a9abc6d",
+      "declarations": [
+        "IsCoercive.continuousLinearEquivOfBilin",
+        "IsCoercive.continuousLinearEquivOfBilin_apply",
+        "IsCoercive.unique_continuousLinearEquivOfBilin"
+      ],
+      "comparison": "The pinned equivalence maps an unknown u to the Riesz representative of v -> B u v. Its inverse applied to the Riesz representative of F gives exactly the frozen existence-and-uniqueness conclusion, with no symmetry or nonzero-space assumption.",
+      "role": "exact pinned-mathlib adapter candidate",
+      "local_adapter": "Stage1Instances.THM_M_0329.AnchorAudit.canonicalTarget_mathlib_candidate",
+      "body_provenance": "explicit definitions and theorem bodies in pinned mathlib; local adapter has an explicit theorem body",
+      "placeholder_audit": "No sorry, admit, axiom declaration, unsafe declaration, or proof_wanted marker occurs in the owning pinned source file.",
+      "kernel_check": "passed_current_pinned_environment",
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "M0-W-candidate_pending_later_gates",
+      "integration_status": "already present at the exact Lake pin and importable; proof credit awaits obligation, provenance/trust, validation, and master gates"
+    },
+    {
+      "candidate_id": "M0329-C02",
+      "project": "scottnarmstrong/DeGiorgi",
+      "revision": "4c1b3077d3782b24065184df4ba59501b2e56fc7",
+      "file": "DeGiorgi/WeakFormulation/ExistenceTheory.lean",
+      "file_sha256": "e6d4843900ed5c4a0f305e6c01f86a410507ff0e5e189983b09c0248940936bf",
+      "kind": "downstream application",
+      "comparison": "Uses the same mathlib continuous equivalence to construct one PDE weak solution; it does not provide a distinct general Lax-Milgram proof body.",
+      "classification": "no_duplicate_root_credit",
+      "integration_status": "no integration needed"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes lang:Lean (LaxMilgram OR Lax-Milgram OR continuousLinearEquivOfBilin) count:100",
+      "result": "exhaustive matchCount=14 in two repositories: mathlib4 and DeGiorgi",
+      "response_sha256": "7de38d9dd786a86ac5128b8e81f60f030a51435c68295072c3fc94a8c457e43b",
+      "immutability_boundary": "dated discovery response; both candidates were rebound to explicit commits"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Lax-Milgram\"+Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated repository-metadata evidence, not a global absence claim"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"Lax-Milgram\"+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "9afb6c806b49740a42046dbf409c715a3d4da277b495226906a5f3275203c5bf",
+      "immutability_boundary": "blocked lane; no negative result claimed"
+    }
+  ],
+  "decision": {
+    "inventory_classified": true,
+    "exact_mathlib_candidate_found": true,
+    "distinct_external_root_candidate_found": false,
+    "proposed_root_machine_debt": "M0-W",
+    "audit_complete_for_phase": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "status_boundary": "The immutable anchor inventory and exact mathlib adapter are self-tested. The obligation tree, accepted proof phase, full transitive provenance/trust closure, hermetic replay, independent review, release receipt, and master acceptance remain open."
+  }
+}

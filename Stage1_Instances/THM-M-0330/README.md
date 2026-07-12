@@ -15,3 +15,10 @@ Its concrete generator, semigroup, and resolvent predicates are in `Statement.le
 expression and environment fingerprint are in `statement.json`, and exact commands are recorded in
 `statement-validation.md`. This is statement-only evidence pending master acceptance: the root
 remains `[H1, M4, R4]`, with no source-fidelity, proof, audit-completion, or theorem-completion claim.
+
+The anchor audit records a bounded search of repository-local Lean, pinned mathlib at
+`8a178386ffc0f5fef0b77738bb5449d50efeea95`, and an external partial formalization at immutable
+commit `680e9499ee866763e737c8d888c1248684ced667`. No candidate proves the exact frozen equivalence:
+mathlib supplies statement substrate only, and the external project covers pieces of the forward
+resolvent direction without the converse. This phase evidence is self-tested pending master
+acceptance and supplies no proof credit; the root remains `[H1, M4, R4]`.

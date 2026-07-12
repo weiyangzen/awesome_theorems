@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0330-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0330",
+  "audit_date": "2026-07-12",
+  "cutoff_time": "2026-07-12T12:00:00+08:00",
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_0330.HilleYosidaContractionTarget",
+    "expression_sha256": "5696285042abd39e340c7e72b2c2855d17e2e335106b1aa6a724056fd68bd75e",
+    "variant": "real Banach-space contraction-semigroup equivalence"
+  },
+  "discovery_protocol": {
+    "order": ["repository-local Lean files", "pinned mathlib source tree", "public Lean 4 repositories"],
+    "queries": ["Hille-Yosida", "HilleYosida", "Yosida", "strongly continuous semigroup", "C0 semigroup", "infinitesimal generator", "semigroup generator Lean4"],
+    "access_policy": "public immutable raw source and git metadata only; no dependency clone or fetch",
+    "limitations": [
+      "The external project was inspected through commit-qualified raw views and git ls-remote but was not fetched into .lake or built.",
+      "Negative public discovery is bounded by the recorded queries and cutoff and is not an exhaustive internet claim."
+    ]
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "repo-legacy-s1-m-234",
+      "project": "awesome_theorems",
+      "revision": "106084d7f6343f3046dfb9e108503edbcdc86191",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_234.lean",
+      "content_sha256": "93f9287afb46139d9d5b68b203eea1b374f0a0bb63146f537d7fa1d9a274eb9f",
+      "declarations": ["AwesomeTheorems.Stage1.S1_M_234.StatementShape", "AwesomeTheorems.Stage1.S1_M_234.HilleYosidaConclusion"],
+      "role": "legacy statement interface and projection wrappers",
+      "statement_match": "no",
+      "terminal_body": "Substantive resolvent, generator-identification, and uniqueness facts are unconstrained Prop fields of HilleYosidaData; wrappers only project assumed fields.",
+      "placeholder_or_axiom_boundary": "No terminal theorem body for the canonical equivalence is present; abstract fields prevent proof credit.",
+      "classification": "M3",
+      "integration_decision": "reject as a proof anchor"
+    },
+    {
+      "candidate_id": "pinned-mathlib",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "files": ["Mathlib/Topology/Algebra/Module/LinearPMap.lean", "Mathlib/Analysis/Normed/Operator/Basic.lean"],
+      "declarations": ["LinearPMap.IsClosed", "LinearPMap.graph", "ContinuousLinearMap.id", "ContinuousLinearMap.comp"],
+      "role": "statement substrate only",
+      "statement_match": "no terminal Hille-Yosida or C0-semigroup generator equivalence located",
+      "search_result": "No occurrence of the recorded aliases or strongly-continuous-semigroup generator terminology was found in pinned Mathlib Lean source.",
+      "classification": "M3 substrate; M4 for the exact root",
+      "integration_decision": "retain imports as substrate; no M0-W anchor"
+    },
+    {
+      "candidate_id": "external-mrdouglasny-hille-yosida",
+      "project": "mrdouglasny/hille-yosida",
+      "remote": "https://github.com/mrdouglasny/hille-yosida.git",
+      "revision": "680e9499ee866763e737c8d888c1248684ced667",
+      "revision_observed_by": "git ls-remote refs/heads/main on 2026-07-12",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "dependency": "BochnerMinlos at 1b56973aff9b4e6ba761a6bd8af678e38bfd8d10",
+      "license": "Apache-2.0 stated in README and source headers",
+      "files": ["HilleYosida/StronglyContinuousSemigroup.lean", "HilleYosida/Future/GenerationTheorem.lean"],
+      "content_sha256": {"StronglyContinuousSemigroup.lean": "2f7d21498e2406040086eeee120bf007f90431517a0a35dcd8105d69dd912abe", "Future/GenerationTheorem.lean": "ff3b87ae21014894f0d37597c86209b19aabf68282da8cb27225c27fc97e7308"},
+      "declarations": ["ContractingSemigroup.resolventMapsToDomain", "ContractingSemigroup.resolventRightInv", "hilleYosidaResolventBound"],
+      "role": "credible partial formalization of the generation-to-resolvent direction",
+      "statement_match": "partial only",
+      "mismatches": [
+        "Checked declarations begin from a bundled ContractingSemigroup rather than prove the canonical Iff for an arbitrary LinearPMap.",
+        "They establish a constructed resolvent's range, right inverse, and norm bound, not generator closedness/density or the converse construction.",
+        "The canonical target also requires the left inverse on every point of A.domain.",
+        "Future/GenerationTheorem.lean has dissipativity scaffolding, a trivial placeholder example, commented former axioms, and no converse theorem body."
+      ],
+      "trust_boundary": "No repo-local build, #print axioms, or transitive terminal dependency audit was performed.",
+      "placeholder_scan": "The forward source has no lexical sorry/axiom hit in the inspected declarations; the Future file has a trivial placeholder example and commented former axioms, so it supplies no root body.",
+      "classification": "E3 / M3 partial anchor, not M1 and not M0-P",
+      "integration_decision": "do not integrate for root closure; reconsider only for child obligations after a pinned build and exact adapters"
+    }
+  ],
+  "root_decision": {
+    "machine_status": "M4",
+    "reason": "No audited candidate proves the exact frozen equivalence. The strongest external candidate supplies only part of one direction and is outside local dependency closure.",
+    "proof_credit": false,
+    "audit_complete_for_phase": true,
+    "theorem_complete": false,
+    "next_cut_set": [
+      "freeze child obligations for generator closedness and density",
+      "freeze the forward left-inverse obligation",
+      "freeze the Yosida-approximation converse construction",
+      "pin and build any reused external child, then check exact adapters, axioms, and terminal bodies"
+    ]
+  },
+  "status_boundary": "This bounded anchor inventory neither proves Hille-Yosida nor claims exhaustive public discovery, H0 source fidelity, external build success, or theorem completion."
+}

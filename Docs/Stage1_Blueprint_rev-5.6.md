@@ -12718,7 +12718,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0311-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0311`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0311-OBLIGATION_TREE` / `THM-M-0311` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0311-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0311`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0311-PROOF` / `THM-M-0311` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-0311-PROOF` / `THM-M-0311` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0311-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0311`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0311-VALIDATION` / `THM-M-0311` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0311-PROOF`. Owned paths: `Stage1_Instances/THM-M-0311`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12730,7 +12730,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0312-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0312`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0312-ANCHOR_AUDIT` / `THM-M-0312` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0312-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0312`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0312-OBLIGATION_TREE` / `THM-M-0312` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-0312-OBLIGATION_TREE` / `THM-M-0312` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0312-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0312`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0312-PROOF` / `THM-M-0312` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0312-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0312`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12800,7 +12800,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0322-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0322`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0322-ANCHOR_AUDIT` / `THM-M-0322` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0322-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0322`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0322-OBLIGATION_TREE` / `THM-M-0322` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-0322-OBLIGATION_TREE` / `THM-M-0322` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0322-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0322`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0322-PROOF` / `THM-M-0322` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0322-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0322`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12814,7 +12814,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0324-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0324`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0324-ANCHOR_AUDIT` / `THM-M-0324` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0324-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0324`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0324-OBLIGATION_TREE` / `THM-M-0324` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-0324-OBLIGATION_TREE` / `THM-M-0324` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0324-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0324`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0324-PROOF` / `THM-M-0324` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0324-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0324`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12840,7 +12840,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0329`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0329-STATEMENT` / `THM-M-0329` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0329-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0329`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0329-ANCHOR_AUDIT` / `THM-M-0329` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
+- [_] `S56-M-0329-ANCHOR_AUDIT` / `THM-M-0329` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0329-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0329`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0329-OBLIGATION_TREE` / `THM-M-0329` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0329-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0329`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12854,7 +12854,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0330`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0330-STATEMENT` / `THM-M-0330` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0330-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0330`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0330-ANCHOR_AUDIT` / `THM-M-0330` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
+- [_] `S56-M-0330-ANCHOR_AUDIT` / `THM-M-0330` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0330-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0330`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0330-OBLIGATION_TREE` / `THM-M-0330` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0330-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0330`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12934,7 +12934,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0335-PROOF`. Owned paths: `Stage1_Instances/THM-M-0335`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0335-RELEASE` / `THM-M-0335` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0335-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0335`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0336-INTAKE` / `THM-M-0336` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
+- [_] `S56-M-0336-INTAKE` / `THM-M-0336` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0336`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0336-STATEMENT` / `THM-M-0336` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0336-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0336`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12948,7 +12948,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0336-PROOF`. Owned paths: `Stage1_Instances/THM-M-0336`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0336-RELEASE` / `THM-M-0336` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0336-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0336`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0337-INTAKE` / `THM-M-0337` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
+- [_] `S56-M-0337-INTAKE` / `THM-M-0337` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0337`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0337-STATEMENT` / `THM-M-0337` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0337-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0337`. Gate: rev-5.6 node-specific receipt and master acceptance.
