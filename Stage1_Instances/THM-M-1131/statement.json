@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1131-STATEMENT",
+  "theorem_id": "THM-M-1131",
+  "lifecycle": "planned",
+  "canonical_statement": "For a positive finite spatial dimension, positive constant density and heat capacity, nonnegative constant isotropic conductivity, a temperature field, heat-flux field, and volumetric source: if q = -k grad T and rho*c*T_t = -div q + Q pointwise, then rho*c*T_t = k*Delta T + Q pointwise.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1131/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1131.Statement",
+    "elaborated_expression_sha256": "01b3e91bb9da602483ca5af9d00787c8b264c6afb530c8b4b268c4c49c60ee99",
+    "statement_file_sha256": "d324d62be8a9ecb18aa1b195870436e25b1c747d62780203b6e0e18d653d6c9a"
+  },
+  "domain_and_universes": "n : Nat with 0 < n; spatial points Space n = Fin n -> Real; time and scalar coefficients in Real; proposition in Prop",
+  "ordered_binders": [
+    "n : Nat", "0 < n", "rho heatCapacity conductivity : Real",
+    "0 < rho", "0 < heatCapacity", "0 <= conductivity",
+    "temperature : Real -> Space n -> Real",
+    "heatFlux : Real -> Space n -> Space n",
+    "source : Real -> Space n -> Real",
+    "forall t x, heatFlux t x = fun i => -conductivity * gradient (temperature t) x i",
+    "t : Real", "x : Space n",
+    "rho * heatCapacity * timeDerivative temperature t x = -divergence (heatFlux t) x + source t x"
+  ],
+  "conclusion": "rho * heatCapacity * timeDerivative temperature t x = conductivity * laplacian (temperature t) x + source t x",
+  "operator_conventions": {
+    "gradient": "coordinate evaluation of the Frechet derivative on Pi.single i 1",
+    "divergence": "sum of coordinate Frechet derivatives",
+    "laplacian": "definitionally divergence of gradient",
+    "time_derivative": "one-dimensional deriv",
+    "balance_sign": "rho*c*T_t = -div q + source",
+    "flux_sign": "q = -conductivity*grad T"
+  },
+  "direct_imports": ["Mathlib.Analysis.Calculus.Deriv.Basic"],
+  "foundation_profile": "Lean 4 dependent type theory with mathlib classical Frechet/one-dimensional derivative and finite-sum infrastructure; no custom axiom declarations",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable differential proposition; no numerical solver, oracle, or empirical result supplies proof credit",
+  "environment_fingerprint": {
+    "base_revision": "f756a5a3b3e172050802423f4b98d5910b56dbb5",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1131/check_statement.py",
+    "validator_sha256": "eb46289942e455be926c7b3650fdb577efcbe249c9e2c3e6ee2c8e60b6b7ba9f",
+    "distinguished": ["reversed Fourier flux sign", "removed local energy balance", "removed volumetric source", "changed constant conductivity to a spatial field"]
+  },
+  "statement_selection": "The intake requires a conditional heat-equation derivation rather than treating the empirical constitutive law as a proved universal fact. The selected elementary homogeneous isotropic classical form keeps the energy balance as an independent hypothesis and includes a volumetric source. Anisotropic, variable-coefficient, weak, boundary-value, and source-free forms are not silently substituted.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and elaborates the exact conditional statement only. Primary-source H0 review, anchor audit, proof closure, trust checks, hermetic replay, and independent acceptance remain open."
+}
