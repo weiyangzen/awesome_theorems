@@ -1,0 +1,137 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1029-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1029",
+  "base_revision": "81c766970d38b9ae3179b58cc75a46425a624c6e",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1029.LevyMartingaleCharacterizationTarget",
+  "canonical_target_expression_sha256": "f3e443377f8cac2eba62a6ebcf6f05ce5bd453f3075d9de573641856e21331b2",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T00:00:00+08:00",
+    "credentials_policy": "anonymous public HTTP only",
+    "aliases": [
+      "Levy martingale characterization",
+      "Levy characterization Brownian motion",
+      "Brownian motion",
+      "Wiener process",
+      "quadratic variation",
+      "X_t^2 - t martingale"
+    ],
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib source tree",
+      "GitHub public Lean repository metadata",
+      "immutable source files of the credible external candidate",
+      "GitHub public code search"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "M1029-A-MATHLIB-PINNED",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "modules": [
+        "Mathlib.Probability.Martingale.Basic",
+        "Mathlib.Probability.Distributions.Gaussian.Real",
+        "Mathlib.Probability.Independence.Basic"
+      ],
+      "declarations": [
+        "ProbabilityTheory.Martingale",
+        "ProbabilityTheory.Indep",
+        "ProbabilityTheory.HasLaw",
+        "ProbabilityTheory.gaussianReal"
+      ],
+      "source_sha256": {
+        "Mathlib/Probability/Martingale/Basic.lean": "15331870d95bc20385c6e93ad09a8eb10d26cad46d7b3a7a73536937f6adbcc0",
+        "Mathlib/Probability/Distributions/Gaussian/Real.lean": "f5321db08f0156c5a12e15986d2ced9108183c907e3082d2566da8ef8da931a8",
+        "Mathlib/Probability/Independence/Basic.lean": "67f71d5c3d32371ad4822fc29f0db84bb0cffbbab24f82ae2f88702152ffe33b"
+      },
+      "relationship": "exact vocabulary for the frozen hypotheses and conclusion, but no Brownian-motion object, continuous-martingale quadratic variation, or Levy characterization declaration was found",
+      "dependency_feasibility": "already materialized at the lake-manifest revision; AnchorAudit.lean elaborates without mutating .lake",
+      "classification": "M3",
+      "result": "supporting APIs only; no terminal closure"
+    },
+    {
+      "id": "M1029-A-EXTERNAL-BROWNIAN-MOTION",
+      "source": "RemyDegenne/brownian-motion",
+      "remote": "https://github.com/RemyDegenne/brownian-motion.git",
+      "revision": "bdf5ea0c34f9e6d75bce5f0609a968d6e9e99e8e",
+      "tree": "7b3df14bcb05cc6f8675f7d412b33383199f6f63",
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "license": "Apache-2.0",
+      "modules": [
+        "BrownianMotion.Gaussian.BrownianMotion",
+        "BrownianMotion.StochasticIntegral.QuadraticVariation"
+      ],
+      "declarations": [
+        "ProbabilityTheory.IsFilteredPreBrownian",
+        "ProbabilityTheory.IsPreBrownianReal.isMartingale",
+        "ProbabilityTheory.IsBrownianReal",
+        "ProbabilityTheory.quadraticVariation"
+      ],
+      "source_sha256": {
+        "BrownianMotion/Gaussian/BrownianMotion.lean": "60418ac9f3e5e05c32d17b91e622e5b30cc203e666a0d1b722272feafae0aecc",
+        "BrownianMotion/StochasticIntegral/QuadraticVariation.lean": "fe891648338bcf75d96cb5388e175fc9a00e62a1710b9ae352af4f5ec497c921",
+        "lean-toolchain": "e0a7032ab1976a37a3e1e823816b4f490d462c1e864b21e1999c33cdac76e263",
+        "lake-manifest.json": "73332a2a39977c3eb037aea27e8a6eef027a547dd800240c609bc59d25d3aaaa",
+        "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "relationship": "credible partial infrastructure: defines Brownian predicates/constructions and a quadratic-variation construction, and proves Brownian implies martingale; the two inspected relevant modules contain no converse Levy characterization",
+      "dependency_feasibility": "not in this repository's lake-manifest and requires Lean 4.31/mathlib fabf563; no dependency was fetched or installed",
+      "classification": "M3",
+      "result": "partial external APIs only, not an exact external closure; therefore no repo-local integration debt is created"
+    },
+    {
+      "id": "M1029-A-LEGACY",
+      "source": "repository-local legacy source",
+      "revision": "81c766970d38b9ae3179b58cc75a46425a624c6e",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_222.lean",
+      "source_sha256": "16aef2baef6891928403367fb0876f29992c0aaafc7a02b64dc6861d3a9ff6f7",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_222.StatementShape",
+      "relationship": "abstract conclusion package with proposition fields; explicitly non-terminal and not the frozen exact target",
+      "classification": "M3",
+      "result": "discovery evidence only; no inherited proof credit"
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {"query": "brownian language:Lean", "total_count": 2, "incomplete": false},
+      {"query": "\"Brownian motion\" language:Lean", "total_count": 2, "incomplete": false},
+      {"query": "\"Levy characterization\" Lean", "total_count": 0, "incomplete": false},
+      {"query": "\"Lévy characterization\" Lean", "total_count": 0, "incomplete": false},
+      {"query": "stochastic calculus language:Lean", "total_count": 1, "incomplete": false}
+    ],
+    "code_search": "GitHub code search returned HTTP 401 without authentication; this is an access failure, not negative-result evidence.",
+    "result": "one credible Brownian-motion formalization was inspected at an immutable commit; it supplies partial APIs but not the exact target",
+    "limitations": "repository metadata search and the two relevant-module scans are not exhaustive code search; external dependencies were not cloned, fetched, installed, or kernel-checked"
+  },
+  "root_decision": {
+    "classification": "M3",
+    "kernel_closed": false,
+    "debt_type": "formalization_debt",
+    "reason": "no exact terminal Lean 4 theorem was found in the pinned mathlib tree or inspected external candidate",
+    "remaining_cut_set": [
+      "conditional characteristic-function or exponential-martingale bridge",
+      "Gaussian increment-law derivation",
+      "independence-from-filtration derivation",
+      "canonical root proof and full provenance/trust closure"
+    ]
+  },
+  "human_debt": "H2 unchanged; exact primary-source theorem/page and errata review remain outside this machine-anchor audit",
+  "readability_debt": "R4 unchanged; no readable proof reconstruction is claimed",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false
+}
