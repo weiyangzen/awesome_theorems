@@ -1,4 +1,4 @@
-# THM-M-1553 rev-5.6 intake
+# THM-M-1553 rev-5.6 dossier
 
 This directory is the `planned` intake for the Hirota bilinear method. The repository label names
 a method, not a single theorem. To avoid inventing a universal claim, the intended first theorem is
@@ -11,5 +11,7 @@ abstract certificate plumbing, but its derivative data and bridge propositions a
 it therefore receives no rev-5.6 statement or proof credit. The provisional root vector is
 `[H3, M4, R4]`. No exact Lean target, audit completion, or theorem completion is claimed.
 
-The scope map, source crosswalk, and open task DAG define the downstream work. Intake validation is
-recorded in `validation.md`.
+The statement phase now freezes and elaborates that intake-selected KdV bridge in `Statement.lean`;
+its structured identity and replay evidence are in `statement.json` and `statement-validation.md`.
+This is provisional statement evidence only. The scope map, source crosswalk, and open task DAG
+continue to define downstream work, and intake validation remains recorded in `validation.md`.
