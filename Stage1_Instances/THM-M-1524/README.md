@@ -15,3 +15,9 @@ The scope map, source crosswalk, and task DAG define downstream work. Intake che
 The anchor audit records pinned mathlib leaves and an immutable external Spectra closure candidate
 in `anchor-audit.json`, with validation in `anchor-audit-validation.md`. Spectra is not yet pinned or
 transported to the frozen operator encoding, so the provisional machine classification remains `M2`.
+
+The obligation-tree phase freezes 14 canonical obligations and separate typed proof, refinement,
+provenance, evidence, trust, documentation, and workflow graphs. `ObligationTree.lean` checks the
+pinned Cauchy-Schwarz leaf and conditional pairing of the exact Robertson and CCR components. The
+root remains open: centering, the symmetry identity, and CCR scalar evaluation form the current
+minimal cut set. No proof or theorem-completion credit follows from the frozen architecture.
