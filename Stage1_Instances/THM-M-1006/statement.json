@@ -1,0 +1,37 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-1006-STATEMENT",
+  "theorem_id": "THM-M-1006",
+  "variant": "finite discrete-time real-valued martingale BDG inequalities",
+  "canonical_module_file": "Stage1_Instances/THM-M-1006/Statement.lean",
+  "canonical_declaration": "Stage1Instances.THM_M_1006.StatementShape",
+  "minimal_import": "Mathlib.Probability.Martingale.Basic",
+  "ordered_scope": [
+    "p : Real with 0 < p",
+    "c C : ENNReal with 0 < c < top and 0 < C < top",
+    "probability space (Omega, m, mu)",
+    "Nat-indexed filtration F",
+    "real-valued Martingale f F mu with f 0 = 0",
+    "finite horizon n : Nat"
+  ],
+  "conclusion": "c times the extended nonnegative integral of quadraticVariation^(p/2) is at most the extended nonnegative integral of maximalProcess^p, which is at most C times the extended nonnegative integral of quadraticVariation^(p/2)",
+  "constant_uniformity": "c and C precede Omega, m, mu, F, f, and n and therefore depend only on p",
+  "boundary_cases": {
+    "included": ["p > 0", "n = 0", "zero martingale"],
+    "excluded": ["p <= 0", "nonzero initial value", "continuous-time processes", "optimal constants", "vector-valued processes", "jump corrections"]
+  },
+  "encoding_notes": [
+    "maximalProcess is the maximum of abs(f k omega) over k < n + 1",
+    "quadraticVariation is the sum of squared increments f(k+1)-f(k) over k < n",
+    "the p/2 moment of quadratic variation equals the p moment of its square root",
+    "extended nonnegative integrals retain infinite moments instead of applying the real integral's nonintegrable-function convention"
+  ],
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "project_file": "Formalizations/Lean/lakefile.lean"
+  },
+  "gate_state": "locally_elaborated_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "This receipt freezes and elaborates the exact target only. It supplies no proof of StatementShape and no anchor, obligation-tree, proof, validation, or release credit."
+}
