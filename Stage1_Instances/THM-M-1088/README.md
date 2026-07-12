@@ -1,14 +1,16 @@
-# THM-M-1088 rev-5.6 intake
+# THM-M-1088 rev-5.6 statement dossier
 
-This directory is the fail-closed `planned` intake dossier for the Borell-TIS inequality. It freezes
-the intended claim family as Gaussian concentration of the supremum of a centered, separable
-real-valued Gaussian process around its mean, with variance proxy given by the supremum of the
-pointwise variances. The exact source formulation, measurability conventions, tail sidedness, and
-degenerate variance case remain statement-phase work.
+This directory remains a fail-closed `planned` dossier for the Borell-TIS inequality. `Statement.lean`
+now freezes and elaborates the selected countable-index, one-sided upper-tail form. It explicitly
+represents the measurable real supremum, requires its integrability, and uses a strictly positive
+variance proxy equal to the supremum of the pointwise variances. The zero-variance extension is
+excluded instead of relying on real division by zero.
 
 The repository's historical `已验证` label is untrusted metadata and supplies no human-source or
-machine-proof credit. No canonical Lean expression, formal anchor, or kernel proof is claimed. The
-provisional root vector is `[H2, M4, R4]`; audit completion and theorem completion are both false.
+machine-proof credit. The canonical expression and its direct expansion elaborate, but no
+Borell-TIS proof or formal anchor is claimed. The provisional root vector is `[H2, M3, R4]`; audit
+completion and theorem completion are both false.
 
-The scope map, source-statement crosswalk, and open task DAG delimit all downstream work. Exact
-commands and results for this intake are recorded in `validation.md`.
+The scope map, source-statement crosswalk, and open task DAG delimit all downstream work. Statement
+commands and results are recorded in `statement-validation.md`; intake checks remain in
+`validation.md`.
