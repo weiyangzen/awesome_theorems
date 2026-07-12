@@ -20,10 +20,10 @@ or obtained independent review. It is therefore discovery metadata, not `H0` evi
 
 | Repository phrase | Intended mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
-| "sufficiently large" | one threshold uniform over later inputs | `Exists fun N : Nat => forall n, N <= n -> ...`, or checked `Filter.Eventually` equivalent | shape frozen; exact encoding open |
-| "odd number" | an input satisfying odd parity | `Odd n` or `n % 2 = 1` with a checked equivalence | pinned APIs available; source domain open |
-| "three primes" | witnesses `p`, `q`, `r`, each prime | `Nat.Prime p`, `Nat.Prime q`, `Nat.Prime r` | pinned predicate available; repetition convention open |
-| "represented as a sum" | exact equality `n = p + q + r` | natural addition and equality | shape frozen; binder/order conventions open |
+| "sufficiently large" | one threshold uniform over later inputs | `Exists fun N : Nat => forall n, N <= n -> ...`, with checked `Filter.Eventually` equivalent | exact repository-claim encoding frozen |
+| "odd number" | an input satisfying odd parity | `Odd n` | exact repository-claim encoding frozen; historical domain review open |
+| "three primes" | witnesses `p`, `q`, `r`, each prime | `Nat.Prime p`, `Nat.Prime q`, `Nat.Prime r` | exact repository-claim encoding frozen; no distinctness premise |
+| "represented as a sum" | exact equality `n = p + q + r` | natural addition and equality | exact repository-claim encoding frozen |
 | 1937 / Vinogradov | historical provenance | no Lean proposition | primary-source verification open |
 | `已验证` | untrusted inventory label | no proof object | explicitly rejected as evidence |
 
@@ -36,5 +36,6 @@ pinpoint the statement and all assumptions, determine prime/repetition/domain co
 representation-count formula to existence, check errata, and obtain qualified review. Until that
 work is accepted, the source status is `H1`, not `H0`.
 
-The intake Lean probe checks statement ingredients only. It does not claim that pinned mathlib
-contains Vinogradov's theorem or that any formal proof has been located.
+`Statement.lean` now elaborates the exact natural-number reading of the repository sentence and a
+checked eventual-filter equivalent. That formal freeze does not claim that pinned mathlib contains
+Vinogradov's theorem, resolve historical-source fidelity, or locate any proof.

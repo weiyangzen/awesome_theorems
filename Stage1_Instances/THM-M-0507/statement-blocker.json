@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-0507-STATEMENT",
+  "theorem_id": "THM-M-0507",
+  "base_revision": "aa55669bb59986e08ea8a0d1d77a1e40343d8142",
+  "verdict": "blocked",
+  "first_failed_gate": "exact_source_statement",
+  "canonical_statement": null,
+  "canonical_formal_target": null,
+  "statement_elaborated": false,
+  "reason": "The repository wording says only that the Hardy-Littlewood circle method is a fundamental method of additive number theory. A method is not a proposition, and the intake intentionally leaves open the representation problem, domains, ordered binders, hypotheses, asymptotic or existence conclusion, local conditions, and error term. Selecting a Waring, Goldbach, partition, or abstract major/minor-arc theorem would substitute mathematics not present in the source.",
+  "unresolved_inputs": [
+    "immutable primary-source edition and exact theorem/page or formula locator, with assumptions and errata reviewed",
+    "source-selected theorem family and exact representation or coefficient function",
+    "ordered binders, domains, number of summands, weights, and limiting regime",
+    "local-solubility and other hypotheses, including all boundary and degenerate cases",
+    "main term, singular series or integral normalization, uniformity, and exact error term",
+    "source-faithful Lean encoding and any alternate-encoding transports"
+  ],
+  "lean_surface_assessment": "Pinned mathlib exposes AddCircle, UnitAddCircle, AddCircle.haarAddCircle, fourier, fourierCoeff, and fourierCoeff_eq_intervalIntegral through Mathlib.Analysis.Fourier.AddCircle. IntakeProbe.lean re-elaborates these possible substrate APIs. They do not identify a source proposition, so the probe is not a canonical target and its import cannot be certified as the target's minimal import.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "rejected_substitutions": [
+    "a Waring-type representation asymptotic",
+    "a Goldbach-type prime representation theorem",
+    "a partition asymptotic",
+    "a generic Fourier coefficient identity",
+    "an abstract schema that assumes major- and minor-arc estimates as fields or hypotheses"
+  ],
+  "retry_condition": "Pin and independently review one precise source theorem, freeze all of its conventions and boundary cases, then encode it with minimized pinned imports, serialize the elaborated expression, check source-faithful transports, and run hypothesis/domain/binder/boundary mutation tests.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "blocked_no_worker_selftest"
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0500",
+  "item_id": "S56-M-0500-STATEMENT",
+  "lifecycle": "planned",
+  "canonical_name": "Dirichlet's theorem on primes in arithmetic progressions",
+  "canonical_statement": "For every nonzero natural modulus q and every unit residue class a in ZMod q, the set of natural primes whose residue modulo q equals a is infinite.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "source": "Statement.lean",
+    "direct_imports": ["Mathlib.Data.ZMod.Coprime", "Mathlib.Order.Interval.Finset.Basic"],
+    "declaration_or_expression": "Stage1Instances.THM_M_0500.DirichletPrimesInAPTarget",
+    "statement_file_sha256": "b25800f3672cc6860cfaa0d804cc9f59d5d4774707ed20ac6482010740b36b37",
+    "elaborated_expression_sha256": "23806a3d33ac195c516a56f94afada5049a257e6af85d8e9be61032c983269bc"
+  },
+  "domain_and_universes": "q : Nat; [NeZero q]; a : ZMod q; p : Nat",
+  "ordered_binders": ["q : Nat", "[NeZero q]", "a : ZMod q", "ha : IsUnit a"],
+  "hypotheses": ["NeZero q", "IsUnit a"],
+  "conclusion": "{p : Nat | p.Prime and (p : ZMod q) = a}.Infinite",
+  "boundary_cases": {
+    "q_zero": "excluded by NeZero q",
+    "q_one": "included; ZMod 1 has its unit residue class and the target specializes to infinitude of all natural primes",
+    "nonunit_residue": "excluded by the explicit IsUnit a hypothesis",
+    "prime_domain": "Nat, not Int"
+  },
+  "alternate_encodings": [{
+    "target": "above every natural bound n there exists a prime p > n whose residue is a",
+    "relationship": "iff",
+    "checked_witness": "Stage1Instances.THM_M_0500.dirichletPrimesInAPTarget_iff_unbounded"
+  }],
+  "minimal_import_evidence": "The statement uses ZMod and its unit predicate from Mathlib.Data.ZMod.Coprime. The checked infinitude/unbounded transport uses Set.infinite_iff_exists_gt from Mathlib.Order.Interval.Finset.Basic. Mathlib.NumberTheory.LSeries.PrimesInAP, which contains the theorem proof, is deliberately not imported.",
+  "mutation_tests": [
+    {"kind": "removed_hypothesis", "mutation": "remove IsUnit a", "result": "rejected by #check_failure and expression comparison"},
+    {"kind": "changed_domain", "mutation": "replace natural primes by integers with prime natAbs", "result": "rejected by #check_failure and expression comparison"},
+    {"kind": "changed_binder_scope", "mutation": "choose one modulus existentially instead of quantifying every modulus", "result": "rejected by #check_failure and expression comparison"},
+    {"kind": "boundary_case", "mutation": "exclude q = 1", "result": "rejected by #check_failure and expression comparison"}
+  ],
+  "foundation_profile": "Lean 4 dependent type theory; the checked iff transport reports propext, Classical.choice, and Quot.sound; no custom axioms",
+  "tcb_profile": "Lean kernel 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "No computation, oracle, experiment, or unchecked certificate is credited.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "serialization_option": "pp.explicit=true"
+  },
+  "obligation_registry_hash": "open: obligation-tree phase not begun",
+  "discovery_protocol_hash": "open: anchor-audit phase not begun",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement and checked alternate transport only. The proof-bearing PrimesInAP module was not imported or credited; source audit, anchor audit, proof, validation, release, audit completion, and theorem completion remain open."
+}

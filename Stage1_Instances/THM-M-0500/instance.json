@@ -13,40 +13,42 @@
   "category": "number theory / analytic number theory",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "等差数列素数定理",
-  "canonical_claim_status": "human_scope_frozen_exact_formal_statement_and_primary_source_crosswalk_open",
+  "canonical_claim_status": "human_scope_and_exact_formal_statement_frozen_primary_source_audit_open",
   "canonical_claim": "For every positive modulus and every residue class coprime to that modulus, there are infinitely many prime natural numbers in that residue class.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_statement_phase",
-    "module_candidate": "Mathlib.NumberTheory.LSeries.PrimesInAP",
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0500/Statement.lean",
+    "direct_imports": ["Mathlib.Data.ZMod.Coprime", "Mathlib.Order.Interval.Finset.Basic"],
+    "declaration_or_expression": "Stage1Instances.THM_M_0500.DirichletPrimesInAPTarget",
+    "elaborated_expression_hash": "sha256:23806a3d33ac195c516a56f94afada5049a257e6af85d8e9be61032c983269bc",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_manifest-321626c846f1"
   },
-  "domain_and_universes": "Natural-number modulus q with positivity/nonzero condition; a reduced residue class represented either by a : ZMod q with IsUnit a or by an integer/natural coprimality condition. Exact encoding is open for the statement gate.",
+  "domain_and_universes": "q : Nat with [NeZero q]; a : ZMod q with IsUnit a; p : Nat. The q = 1 boundary is included and q = 0 is excluded.",
   "quantifiers": [
-    "q : Nat (positive/nonzero modulus)",
-    "a : reduced residue class modulo q",
-    "unbounded prime p in that residue class"
+    "q : Nat",
+    "[NeZero q]",
+    "a : ZMod q",
+    "IsUnit a implies infinitude of natural primes reducing to a"
   ],
   "hypotheses": [
-    "q is positive (or an equivalent nonzero-modulus condition)",
-    "a is coprime to q (or is a unit of ZMod q)"
+    "NeZero q",
+    "IsUnit a"
   ],
   "conclusion": "The primes congruent to a modulo q form an infinite set; equivalently, above every natural bound there is such a prime.",
   "alternate_encodings": [
     {
       "target": "infinitude of the set of primes in the residue class",
       "relationship": "expected_iff",
-      "checked_witness": "open_until_statement_phase"
+      "checked_witness": "canonical encoding itself"
     },
     {
       "target": "for every bound n there exists a prime p > n in the residue class",
       "relationship": "expected_iff",
-      "checked_witness": "open_until_statement_phase"
+      "checked_witness": "Stage1Instances.THM_M_0500.dirichletPrimesInAPTarget_iff_unbounded"
     }
   ],
-  "excluded_degenerate_cases": "The statement phase must fix q = 0 and q = 1 behavior, the representative of a residue class, and whether primality is over Nat or Int. Non-coprime classes are excluded from the theorem rather than treated as a conclusion-bearing case.",
+  "excluded_degenerate_cases": "q = 0 and nonunit residue classes are excluded by explicit hypotheses. q = 1 is included. Primality is over Nat, not Int.",
   "source_status": "repository_secondary_metadata_only_primary_source_edition_theorem_page_assumptions_proof_boundary_and_errata_open",
   "source_revisions": {
     "repository_base": "3f994388953e417edafd54b069ab45d648619698",
@@ -78,7 +80,12 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. A pinned Lean probe establishes relevant API availability, not exact statement identity or proof acceptance. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Planned intake plus a self-tested statement node pending master acceptance. The exact target and unbounded alternate elaborate with minimal non-proof-bearing imports. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
 }

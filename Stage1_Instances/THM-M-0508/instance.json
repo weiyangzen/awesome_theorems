@@ -13,17 +13,17 @@
   "category": "number theory / analytic number theory",
   "target_system": "Lean 4 + pinned mathlib",
   "source_claim_verbatim_translation": "Every sufficiently large odd integer can be represented as a sum of three primes.",
-  "canonical_claim_status": "human_theorem_family_frozen_exact_source_and_formal_encoding_open",
-  "canonical_claim": "There exists a threshold N such that every odd natural number n at least N is equal to p + q + r for some primes p, q, and r; repetition is provisionally permitted pending pinpoint source review.",
+  "canonical_claim_status": "repository_claim_and_exact_formal_encoding_frozen_historical_source_review_open",
+  "canonical_claim": "There exists a threshold N such that every odd natural number n at least N is equal to p + q + r for some natural primes p, q, and r; no distinctness condition is imposed.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
-    "gate_state": "open_pending_source_pinned_exact_statement"
+    "module": "Stage1_Instances/THM-M-0508/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0508.VinogradovThreePrimesTarget",
+    "elaborated_expression_hash": "sha256:54ddaa6fe49c75368fd333adae9bc7ab50a9542516ef24d73fb5e43f0c1ac5fb",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Prime.Basic+AtTopBot.CountablyGenerated_pp.explicit",
+    "gate_state": "statement_self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "Provisional natural numbers for the threshold, represented odd number, and three prime summands; conclusion in Prop; no nontrivial universes expected. An integer-domain source presentation requires a checked transport.",
+  "domain_and_universes": "Natural numbers for the threshold, represented odd input, and three prime summands; conclusion in Prop; no nontrivial universes. Integer input is a rejected changed-domain mutation.",
   "ordered_binders_provisional": [
     "there exists N : Nat",
     "for every n : Nat",
@@ -41,19 +41,19 @@
   "conclusion": "Every odd input beyond one uniform threshold has a representation as the sum of three primes.",
   "alternate_encodings": [
     {
-      "target": "Filter.Eventually (fun n : Nat => n % 2 = 1 -> exists prime p q r, n = p + q + r) Filter.atTop",
-      "relationship": "candidate equivalent eventual formulation",
-      "checked_witness": null
+      "target": "forall eventually n : Nat in Filter.atTop, Odd n -> IsSumOfThreePrimes n",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0508.target_iff_eventually"
     },
     {
       "target": "an integer-domain formulation with positive prime summands",
-      "relationship": "candidate source-faithful transport",
+      "relationship": "not credited; changed-domain mutation pending any future source-driven transport",
       "checked_witness": null
     }
   ],
   "excluded_degenerate_cases": "Even inputs, inputs below the eventual threshold, zero or one as a prime, distinctness of summands, ordered triples, and replacement of existence by an asymptotic counting formula must be treated explicitly rather than inferred.",
-  "foundation_profile": "Lean 4 dependent type theory; classical and choice dependencies of the eventual analytic proof remain to be frozen and audited",
-  "tcb_profile": "Lean kernel, repository toolchain, and pinned mathlib; exact minimal import and transitive declaration closure remain open",
+  "foundation_profile": "Lean 4 dependent type theory; the statement and checked iff transport use no classical axiom; dependencies of any future analytic proof remain open",
+  "tcb_profile": "Lean kernel, repository toolchain, pinned mathlib, and the two direct imports recorded in statement.json",
   "computation_profile": "No finite prime search, numerical cutoff, oracle, native computation, or external computation is credited at intake",
   "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
   "source_status": "repository_metadata_and_historical_primary_candidate_only_pinpoint_statement_assumptions_errata_and_review_open",
@@ -83,7 +83,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. No exact Lean expression, statement fingerprint, H0, M0, R0, accepted proof state, audit completion, master acceptance, or theorem completion is claimed."
+  "status_boundary": "The exact repository-claim Lean statement is self-tested pending master acceptance. Historical pinpoint-source H0 review, proof state, M0, R0, audit completion, downstream phases, master acceptance, and theorem completion are not claimed."
 }

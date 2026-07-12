@@ -1,4 +1,4 @@
-# THM-M-0509 rev-5.6 intake
+# THM-M-0509 rev-5.6 dossier
 
 This directory is the fail-closed `planned` intake dossier for Chen's theorem. The repository gloss
 says that every sufficiently large even number is a sum of a prime and an almost prime. This fixes
@@ -11,8 +11,9 @@ multiplicity. Whether the selected source includes primes themselves among the `
 the exact formulation of "sufficiently large", remain statement-phase decisions. The provisional
 root is `[H1, M4, R4]`.
 
-A pinned Lean probe confirms only that prime predicates, natural-number factorization, finite
-support cardinality, and eventual quantification are available. No canonical Lean expression,
-source acceptance, proof, audit completion, or theorem completion is claimed. Exact checks are
-recorded in `validation.md`.
-
+The statement phase now freezes the intake-selected classical convention: `P2` means a prime or a
+product of two primes, with repeated prime factors permitted. `Statement.lean` elaborates the exact
+uniform-threshold `Nat` target using only `Mathlib.Data.Nat.Prime.Basic`; `statement.json` and
+`statement-validation.md` record its expression hash, mutations, boundary cases, pins, and exact
+commands. Primary-source pinpoint acceptance remains for the source/anchor audit. No proof, audit
+completion, or theorem completion is claimed.

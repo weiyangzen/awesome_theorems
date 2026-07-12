@@ -5,18 +5,17 @@
 - One uniform threshold beyond which the assertion holds for every odd input.
 - An additive representation `n = p + q + r` by three natural primes.
 - Unconditional existence, not a density-one or almost-all assertion.
-- Repeated primes provisionally allowed, subject to confirmation by the pinpoint source.
-- A checked equivalence between explicit-threshold and `Filter.Eventually` encodings if both are
-  advertised.
+- Repeated primes are allowed by imposing no distinctness hypothesis in the repository-claim target.
+- A checked equivalence between explicit-threshold and `Filter.Eventually` encodings.
 
-## Statement decisions still open
+## Source decisions still open
 
 The statement phase must inspect an immutable source and freeze:
 
 1. the exact source theorem or displayed formula and its surrounding hypotheses;
-2. whether inputs and summands are naturals, positive integers, or another stated domain;
-3. whether "sufficiently large" is encoded by an existential threshold or an eventual filter;
-4. whether equality is literal, whether summands may repeat, and whether ordered triples matter;
+2. whether a historical source uses integers and needs a future checked transport to this natural target;
+3. whether its presentation is a direct existence corollary or an asymptotic representation count;
+4. whether historical notation counts ordered representations or repeated summands;
 5. whether Vinogradov's source claim is an asymptotic representation-count formula from which the
    existence statement follows, or directly the existence corollary;
 6. all endpoint conventions and the relationship to the later all-odd-integers theorem.
@@ -31,5 +30,5 @@ The statement phase must inspect an immutable source and freeze:
 - A finite computation up to a chosen cutoff as proof of the eventual analytic assertion.
 - The repository label `已验证` as source, formalization, or proof evidence.
 
-No canonical Lean target is frozen at intake. The API probe establishes only that the elementary
-statement vocabulary exists in the pinned environment.
+The canonical repository-claim Lean target is frozen in `Statement.lean`. This does not resolve
+historical-source fidelity or supply any proof of the analytic theorem.

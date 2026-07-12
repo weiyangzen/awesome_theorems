@@ -13,26 +13,26 @@
   "category": "number theory / analytic number theory",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "An asymptotic formula for the integer partition function.",
-  "canonical_claim_status": "scope_frozen_to_the_conventional_ordinary_partition_asymptotic_but_exact_primary_source_passage_and_formal_statement_remain_statement_phase_work",
+  "canonical_claim_status": "conventional_ordinary_partition_asymptotic_formal_target_self_tested_pending_master_acceptance_primary_source_pinpoint_and_review_open",
   "canonical_claim": "Let p(n) be the number of unordered partitions of n into positive integers. As n tends to infinity through the natural numbers, p(n) is asymptotic to exp(pi * sqrt(2*n/3)) / (4*n*sqrt(3)).",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_exact_source_crosswalk_and_statement_gate",
-    "module_candidates": [
+    "status": "statement_elaborated_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0510/Statement.lean",
+    "direct_imports": [
       "Mathlib.Combinatorics.Enumerative.Partition.Basic",
-      "Mathlib.Analysis.Asymptotics.AsymptoticEquivalent",
       "Mathlib.Analysis.SpecialFunctions.Pow.Real"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "declaration_or_expression": "Stage1Instances.THM_M_0510.HardyRamanujanAsymptoticTarget",
+    "elaborated_expression_hash": "sha256:9c84bc6acd929a60f87942f0ae5647b0430b9164e35249e561bccecc0cb91b41",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Partition.Basic+Pow.Real_pp.explicit"
   },
   "domain_and_universes": "n ranges over Nat along Filter.atTop; p(n) is the finite cardinality of Nat.Partition n, coerced to Real; the comparison function is Real-valued.",
   "quantifiers": ["asymptotic variable n : Nat", "limit filter Filter.atTop"],
   "hypotheses": [],
   "conclusion": "Real-valued asymptotic equivalence of the ordinary partition count and exp(pi * sqrt(2*n/3)) / (4*n*sqrt(3)).",
   "alternate_encodings": [],
-  "excluded_degenerate_cases": "No restriction at n = 0 is needed for an atTop statement, but the exact total comparison function and any eventually-positive restriction must be fixed and mutation-tested at statement phase.",
+  "excluded_degenerate_cases": "No natural index is excluded. The totalized main term is zero at n = 0, checked by mainTerm_at_zero; the target uses atTop rather than a principal positive filter.",
   "source_status": "original_article_bibliography_identified_repository_gloss_only_formula_page_assumptions_errata_and_independent_review_open",
   "source_revisions": {
     "repository_base": "3f994388953e417edafd54b069ab45d648619698",
@@ -46,7 +46,7 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "foundation_profile": "Lean 4 dependent type theory; exact classical-choice use is not yet audited",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are intended; exact imports and transitive declaration closure remain open",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib; statement direct imports are Partition.Basic and Pow.Real; transitive declaration trust closure remains a later gate",
   "computation_profile": "No oracle, experiment, numerical fit, or unchecked certificate is credited",
   "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -64,7 +64,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Scope and conventional formula are recorded and required pinned APIs elaborate. No exact statement, H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested statement evidence pending master acceptance. The exact conventional Lean target elaborates with mutation and boundary checks, but primary-source acceptance, H0, M0, R0, proof state, audit completion, and theorem completion are not claimed."
 }

@@ -20,8 +20,11 @@ The statement phase now freezes the conventional finite-dimensional local formul
 | Architecture | bound, approximants, compactness, limit, differentiation | candidate map only; no obligation is frozen or closed |
 | Foundations | finite-dimensional compactness, integration, classical subsequence extraction | logic, imports, TCB, and computation profiles require audit |
 
-The candidate scope nodes are recorded in `intake.json`. They are planning labels, not a frozen
-obligation registry and not proof-coverage evidence.
+The candidate scope nodes from intake have now been replaced by the versioned registry in
+`obligation-registry.json`. `typed-graphs.json` separately records proof, refinement, provenance,
+evidence, trust, documentation, and workflow edges. The selected proof route uses delayed Euler
+approximants, finite-dimensional Arzela-Ascoli, passage to the integral equation, and recovery of
+the derivative. These are frozen open obligations, not proof-coverage claims.
 
 ## Current verdict
 
@@ -30,8 +33,9 @@ expression now elaborates with one minimal import, but an independently inspecte
 formulation has not yet been accepted. The mathlib Picard-Lindelof module is a nearby theorem under
 stronger Lipschitz hypotheses and cannot substitute for Peano existence.
 
-The theorem is not complete. `task-dag.json` leaves every downstream node open, and the catalogue's
-untrusted "verified" status receives no assurance credit.
+The theorem is not complete. The obligation receipt closes no mathematical obligation and records
+the first open cut as construction of Euler approximants, compactness, limit passage, and
+differentiation. The catalogue's untrusted "verified" status receives no assurance credit.
 
 ## Validation
 

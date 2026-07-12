@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0510-STATEMENT",
+  "theorem_id": "THM-M-0510",
+  "lifecycle": "planned",
+  "canonical_statement": "Let p(n) be the number of unordered partitions of the natural number n into positive integers. As n tends to infinity through the natural numbers, p(n) is asymptotic to exp(pi * sqrt(2*n/3)) / (4*n*sqrt(3)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0510/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0510.HardyRamanujanAsymptoticTarget",
+    "elaborated_expression_sha256": "9c84bc6acd929a60f87942f0ae5647b0430b9164e35249e561bccecc0cb91b41",
+    "statement_file_sha256": "2bdbd9447b9917305ecb72e4268f14effd74ea12a55a2f9aa620fe1d497bd049"
+  },
+  "domain_and_universes": "n : Nat along Filter.atTop; Fintype.card (Nat.Partition n) is coerced to Real; the comparison function is Real-valued; Prop in universe 0",
+  "ordered_binders": [
+    "implicit asymptotic index n : Nat inside both functions",
+    "limit filter Filter.atTop on Nat"
+  ],
+  "hypotheses": [],
+  "conclusion": "Asymptotics.IsEquivalent Filter.atTop partitionCount hardyRamanujanMainTerm",
+  "direct_imports": [
+    "Mathlib.Combinatorics.Enumerative.Partition.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0510.target_iff_expandedTarget",
+  "encoding_decisions": {
+    "partition_function": "Fintype.card (Nat.Partition n), coerced to Real",
+    "limit": "Filter.atTop on Nat",
+    "asymptotic_relation": "Asymptotics.IsEquivalent",
+    "main_term": "Real.exp (Real.pi * Real.sqrt (2 * (n : Real) / 3)) / (4 * (n : Real) * Real.sqrt 3)",
+    "zero_boundary": "The total comparison function evaluates to zero at n = 0; atTop retains the full Nat domain"
+  },
+  "environment_fingerprint": {
+    "base_revision": "aa55669bb59986e08ea8a0d1d77a1e40343d8142",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0510/check_statement.py",
+    "killed": [
+      "removed the partition-count asymptotic and retained logarithmic exponential growth only",
+      "changed the index domain from Nat to Int",
+      "changed the limit relation to pointwise equality under a binder",
+      "changed atTop to a principal filter excluding the zero boundary"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "n = 0 is retained in the function domain and the main term is zero there",
+    "Rademacher's exact convergent series is excluded",
+    "restricted partitions and ordered compositions are excluded",
+    "logarithmic equivalence or an exponential-rate-only result cannot replace the full constant-factor asymptotic"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact intake-selected conventional Hardy-Ramanujan target with a definitional expansion, four distinguished mutations, and a checked zero boundary. It supplies no proof, H0/source acceptance, anchor acceptance, or theorem-completion evidence."
+}

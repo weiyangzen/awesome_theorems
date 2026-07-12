@@ -10,12 +10,13 @@
 - Dirichlet characters and their L-functions only insofar as they occur in the proof architecture;
   they are not the conclusion named by the repository gloss.
 
-## Boundary decisions for the statement phase
+## Frozen statement boundary
 
-The exact statement must choose between a unit `a : ZMod q` and a natural/integer representative
-with a coprimality hypothesis. It must freeze the binder order, the positivity mechanism for `q`,
-the meaning of congruence, and the `q = 1` boundary. It must also decide which infinitude statement
-is canonical and prove a checked transport to the other formulation.
+The canonical encoding uses `q : Nat`, `[NeZero q]`, `a : ZMod q`, and `IsUnit a`, in that order.
+Primes are natural numbers and membership in the progression is `(p : ZMod q) = a`. Infinitude is
+canonical; `dirichletPrimesInAPTarget_iff_unbounded` checks transport to existence above every
+natural bound. `q = 0` is excluded by `NeZero`; `q = 1` is included. Nonunit classes remain outside
+the quantified implication's conclusion-bearing cases.
 
 The title and gloss are not interchangeable: `狄利克雷L函数` names the analytic machinery while
 `等差数列素数定理` identifies the theorem claimed. The latter controls the root scope.
@@ -33,4 +34,5 @@ The title and gloss are not interchangeable: `狄利克雷L函数` names the ana
 - Treating the repository labels `已验证` or the presence of a mathlib theorem name as accepted
   source, kernel, provenance, or completion evidence.
 
-No canonical Lean expression is frozen at intake. The API probe is discovery evidence only.
+The canonical expression is now frozen by the dependent statement artifact. The earlier API probe
+remains intake discovery evidence only and supplies no proof credit.

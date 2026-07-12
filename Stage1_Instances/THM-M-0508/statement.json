@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0508-STATEMENT",
+  "theorem_id": "THM-M-0508",
+  "phase": "statement",
+  "lifecycle": "planned",
+  "module": "Stage1_Instances/THM-M-0508/Statement.lean",
+  "declaration": "Stage1Instances.THM_M_0508.VinogradovThreePrimesTarget",
+  "canonical_statement": "There exists N : Nat such that for every n : Nat, N <= n and Odd n imply that n equals p + q + r for some natural primes p, q, and r.",
+  "ordered_binders": [
+    "exists N : Nat",
+    "forall n : Nat",
+    "N <= n",
+    "Odd n",
+    "exists p q r : Nat"
+  ],
+  "conclusion": "p.Prime and q.Prime and r.Prime and n = p + q + r",
+  "imports": [
+    "Mathlib.Data.Nat.Prime.Basic",
+    "Mathlib.Order.Filter.AtTopBot.CountablyGenerated"
+  ],
+  "alternate_encoding": {
+    "declaration": "Stage1Instances.THM_M_0508.VinogradovThreePrimesEventually",
+    "relationship": "iff",
+    "checked_witness": "Stage1Instances.THM_M_0508.target_iff_eventually"
+  },
+  "mutation_tests": [
+    {
+      "class": "removed_hypothesis",
+      "declaration": "Stage1Instances.THM_M_0508.mutationRemovedOddHypothesis",
+      "difference": "Odd n is absent"
+    },
+    {
+      "class": "changed_domain",
+      "declaration": "Stage1Instances.THM_M_0508.mutationChangedDomain",
+      "difference": "threshold and represented input are Int"
+    },
+    {
+      "class": "changed_binder_scope",
+      "declaration": "Stage1Instances.THM_M_0508.mutationChangedBinderScope",
+      "difference": "N is chosen after n"
+    },
+    {
+      "class": "boundary_case",
+      "declaration": "Stage1Instances.THM_M_0508.mutationThresholdUnconditionallyIncluded",
+      "difference": "the threshold itself must be representable even when it is not odd"
+    }
+  ],
+  "boundary_witness": "Stage1Instances.THM_M_0508.even_input_boundary",
+  "environment_fingerprint": {
+    "lean": "4.29.0-98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "statement_source_sha256": "e27734b0b8a7c6ad8f858cba756fd1ac64abd3a7d3bbedde435c3d9a007080da",
+    "explicit_print_sha256": "dc51d7aea3ee9b4a2a258ffa97fcb4f5e74d748329bb3ef95690b54f51a19791"
+  },
+  "foundation_profile": "Lean 4 Prop statement and constructive iff transport; no classical axioms are used by the statement module",
+  "tcb_profile": "Lean kernel, pinned Lean executable, and pinned mathlib imports",
+  "computation_profile": "No computation, oracle, native evaluation, or finite search is credited",
+  "source_fidelity_boundary": "The canonical expression exactly formalizes the repository sentence. Pinpoint historical source and errata review remain H1 work for the anchor-audit phase.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement elaboration only; no proof of Vinogradov's theorem, H0, M0, R0, downstream phase, master acceptance, or theorem completion is claimed."
+}

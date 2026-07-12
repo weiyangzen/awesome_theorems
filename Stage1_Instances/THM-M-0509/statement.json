@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0509-STATEMENT",
+  "theorem_id": "THM-M-0509",
+  "lifecycle": "planned",
+  "canonical_statement": "There is a uniform natural threshold such that every even natural number at least that threshold is the sum of a prime and either a prime or a product of two primes, with repeated prime factors allowed.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0509/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0509.ChenTheoremTarget",
+    "elaborated_expression_sha256": "e2c8d3782d80648aa229dab05f90a84506ed5b6f213fa3083e312674aa6c64f7",
+    "statement_file_sha256": "fe4685daeb9747b01adb0d896c293c167c2e763a0c1f5b9130e80eb1afa776a9"
+  },
+  "domain_and_universes": "threshold N p a q r : Nat; Prop in Lean universe 0",
+  "ordered_binders": [
+    "threshold : Nat (existential, uniform)",
+    "N : Nat (universal)",
+    "threshold <= N",
+    "Even N",
+    "p a : Nat (existential representation witnesses)"
+  ],
+  "hypotheses": ["threshold <= N", "Even N"],
+  "conclusion": "There are p and a with Nat.Prime p, IsP2 a, and N = p + a; IsP2 a means that a is prime or a = q*r for prime naturals q and r.",
+  "direct_imports": ["Mathlib.Data.Nat.Prime.Basic"],
+  "checked_transport": "Stage1Instances.THM_M_0509.chenTheoremTarget_iff_pinnedSourceShape",
+  "source_relationship": "This is the exact formal expansion selected from the intake's classical P + P2 scope. The repository source phrase fixes sufficiently-large even numbers, a prime summand, and an almost-prime summand; the statement freeze makes P2 explicit as one or two prime factors counted with multiplicity. Primary-source pinpoint and independent source acceptance remain the anchor/source-audit gate and are not claimed here.",
+  "environment_fingerprint": {
+    "repository_base": "aa55669bb59986e08ea8a0d1d77a1e40343d8142",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0509/check_statement.py",
+    "killed": [
+      "removed the evenness hypothesis",
+      "changed P2 from at-most-two to exactly two prime factors",
+      "changed the value domain from Nat to Int",
+      "moved the threshold under the universally quantified number"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0509.prime_boundary",
+      "Stage1Instances.THM_M_0509.prime_square_boundary",
+      "Stage1Instances.THM_M_0509.zero_not_p2",
+      "Stage1Instances.THM_M_0509.one_not_p2"
+    ]
+  },
+  "degenerate_cases": "Primes count as P2; two prime factors may coincide, so prime squares count; zero and one are kernel-checked not to count. The threshold is uniform and excludes no even number above it. Equality orientation is N = p + a.",
+  "alternate_encodings": {
+    "factorization_bigOmega": "Not credited at this gate. Any factorization/exponent-sum encoding needs a separately checked equivalence with IsP2.",
+    "eventually_filter": "Not credited at this gate. The explicit existential threshold is canonical."
+  },
+  "foundation_profile": "Lean 4 dependent type theory; the proposition itself introduces no classical axiom or choice dependency.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision; the only direct import is Mathlib.Data.Nat.Prime.Basic.",
+  "computation_profile": "No oracle, experiment, numerical cutoff, unchecked certificate, or proof is credited.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact selected P + P2 target with a minimal pinned import, direct expansion, four structural mutations, and four boundary checks. It supplies no Chen-theorem proof, source-audit acceptance, or dependent-node evidence."
+}

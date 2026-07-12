@@ -26,9 +26,9 @@ errata, and identify a reviewer. Until then the human axis remains `H1`.
 | Repository phrase | Mathematical component | Expected Lean component | Intake status |
 |---|---|---|---|
 | `狄利克雷L函数` | Dirichlet characters and associated complex L-functions used in the analytic proof | `DirichletCharacter`, `DirichletCharacter.LFunction` | pinned API probed; proof-role only |
-| `等差数列` | a residue class `a mod q` with `gcd(a,q)=1` | `a : ZMod q` plus `IsUnit a`, or an equivalent coprimality encoding | representation open |
-| `素数定理` in this entry | infinitely many primes in each reduced residue class | an infinite set of prime naturals satisfying reduction modulo `q` | human scope frozen; exact expression open |
-| equivalent unbounded form | above every bound lies such a prime | universally quantified bound and existential prime | candidate alternate; transport open |
+| `等差数列` | a residue class `a mod q` with `gcd(a,q)=1` | `q : Nat`, `[NeZero q]`, `a : ZMod q`, `IsUnit a` | frozen and elaborated |
+| `素数定理` in this entry | infinitely many primes in each reduced residue class | `{p : Nat | p.Prime ∧ (p : ZMod q) = a}.Infinite` | frozen and elaborated |
+| equivalent unbounded form | above every bound lies such a prime | `∀ n, ∃ p > n, p.Prime ∧ (p : ZMod q) = a` | checked iff transport |
 | `1837`, Peter Dirichlet | historical attribution and date | provenance only | secondary metadata; not H0 |
 | `已验证` | untrusted inventory label | no proposition or proof object | explicitly rejected as evidence |
 
