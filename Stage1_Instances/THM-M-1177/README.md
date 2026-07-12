@@ -18,11 +18,18 @@ inherit proof credit from the Stage0 label `已验证`.
 The structured claim is in `intake.json`. Source genealogy and the component-level relationship to
 the intended statement are recorded in `source_statement_crosswalk.md`.
 
+## Statement freeze
+
+`Statement.lean` now freezes and elaborates the exact classical ABP proposition selected here.
+`statement.json` records the binder order, encoding decisions, pinned environment, expression hash,
+and mutation results. This is a statement artifact only and contains no ABP proof.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M4, R3]`. The first failed theorem gate is
-the exact Lean statement gate: this intake supplies no elaborated expression, environment
-fingerprint, checked transport, or mutation result. The theorem is not complete.
+the exact Lean statement gate in the intake record is superseded by the provisional statement
+receipt, pending master acceptance. Source, proof, and release gates remain open, and the theorem is
+not complete.
 
 ## Validation
 

@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1177-STATEMENT",
+  "theorem_id": "THM-M-1177",
+  "lifecycle": "planned",
+  "canonical_statement": "For every positive dimension there is a nonnegative dimensional constant such that every classical subsolution of a drift-free linear nondivergence operator on a bounded domain, with zero boundary upper data and symmetric positive-definite coefficients, is bounded above by the domain diameter times the determinant-weighted L^n quantity over its upper contact set.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1177/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1177.AlexandrovBakelmanPucciTarget",
+    "elaborated_expression_sha256": "bb3ff2384920048fe79eb0bad3c47a32db31bdaf4e4595898cbd5c7dbfb6ac41",
+    "statement_file_sha256": "d7512549ee50d7e7fcfd6e17dc19fdc96bea00cd32504659b4e11491505afe1d"
+  },
+  "domain_and_universes": "n : Nat with 1 <= n; Euclidean n := Fin n -> Real; Omega : Set (Euclidean n); u f : Euclidean n -> Real; A : Euclidean n -> Matrix (Fin n) (Fin n) Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "n : Nat", "1 <= n", "Cn : Real", "0 <= Cn", "Omega", "u", "f", "A"
+  ],
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.MeasureTheory.Integral.IntegrableOn",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar"
+  ],
+  "encoding_decisions": {
+    "domain": "IsOpen, IsPreconnected, and Bornology.IsBounded encode bounded domain; emptiness is not excluded and is a trivial boundary case.",
+    "regularity": "ContinuousOn u (closure Omega) and ContDiffOn Real 2 u Omega.",
+    "hessian": "Coordinate matrix of the iterated Frechet derivative evaluated on coordinate unit vectors.",
+    "coefficients": "Coordinatewise measurable, symmetric, and strictly positive definite at every point in Omega.",
+    "contact_set": "Points in Omega admitting an affine upper support over all of Omega.",
+    "norm": "Real.rpow of the contact-set integral of (f negative part)^n / det A, with exponent 1/n."
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1177/check_statement.py",
+    "killed": [
+      "allow dimension zero",
+      "drop the boundary condition and other analytic premises",
+      "replace the contact-set integral with a whole-domain integral",
+      "reverse the nondivergence operator inequality"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and kernel-elaborates the intake-selected ABP proposition. It supplies no ABP proof, source acceptance, dependent-node receipt, or theorem-completion evidence."
+}
