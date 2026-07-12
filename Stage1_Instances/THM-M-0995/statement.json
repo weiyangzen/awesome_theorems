@@ -1,0 +1,76 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0995-STATEMENT",
+  "theorem_id": "THM-M-0995",
+  "lifecycle": "planned",
+  "canonical_statement": "Let X_0,...,X_(n-1) be mutually independent centered real random variables on a probability space. If each is almost surely bounded in absolute value by b, b and v are nonnegative, and the sum of variances is at most v, then for every t >= 0 the upper-tail probability of their sum is at most exp(-t^2/(2*(v+b*t/3))).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0995/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0995.StatementShape",
+    "elaborated_expression_sha256": "0201bd579e5b8f490d8079891aec8d7e8b4d69c1534a18a9e6bc77e464faafa2",
+    "statement_file_sha256": "b50beed65dc1cd10f656024aa09085458e94233b0ac9baedec4c0c9ad31856c4"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; a real-valued Nat-indexed family on Omega; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "P : BoundedSummandProblem Omega",
+    "t : Real"
+  ],
+  "hypotheses": [
+    "P.mu is a probability measure",
+    "0 <= P.varianceBudget",
+    "0 <= P.bound",
+    "for i < P.n, P.X i is almost-everywhere measurable",
+    "for i < P.n, P.X i belongs to L2",
+    "P.X is mutually independent under P.mu",
+    "for i < P.n, integral (P.X i) dP.mu = 0",
+    "for i < P.n, abs (P.X i) <= P.bound almost everywhere",
+    "sum over range P.n of Var[P.X i; P.mu] <= P.varianceBudget",
+    "0 <= t"
+  ],
+  "conclusion": "P.mu.real {omega | t <= sum over i in range P.n of P.X i omega} <= exp (-(t^2) / (2*(P.varianceBudget + P.bound*t/3)))",
+  "direct_imports": [
+    "Mathlib.Probability.Moments.Variance"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0995.statementShape_iff_expandedSourceShape",
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_275.StatementShape",
+  "pinned_source_relationship": "The local target restates the intake-selected bounded-problem candidate while using only the pinned Variance module. The historical declaration remains discovery input and supplies no proof credit.",
+  "environment_fingerprint": {
+    "base_revision": "8d7cfb9e267efd34427f29cb4d7103282a0d0942",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0995/check_statement.py",
+    "validator_sha256": "38c9d2f092eba936b366440efa137e0726490e7d7d646ec1f20f5b48dd83baeb",
+    "killed": [
+      "removed the almost-sure absolute-bound hypothesis",
+      "changed the random-variable and threshold domain from Real to Int",
+      "moved the threshold outside the probability-problem binders",
+      "excluded the zero-threshold boundary"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0995.zeroThresholdBound",
+      "Stage1Instances.THM_M_0995.zeroBudgetAndBound",
+      "Stage1Instances.THM_M_0995.emptyPartialSum"
+    ]
+  },
+  "degenerate_cases": "The target includes n = 0, t = 0, b = 0, v = 0, and a zero denominator. Lean's totalized real division makes the displayed exponential equal to one when the denominator is zero; the statement adds no silent positivity or nonempty-family premise.",
+  "alternate_encodings": {
+    "expanded_package_form": "Kernel-checked by statementShape_iff_expandedSourceShape.",
+    "finite_index_family": "Not credited; a reindexing transport from Fin n to range n has not been checked.",
+    "two_sided_tail": "Excluded; it requires separate lower-tail and union-bound arguments."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates only the intake-selected one-sided bounded-summand target. It supplies no Bernstein proof, source acceptance, anchor audit, or downstream completion evidence."
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0996",
+  "item_id": "S56-M-0996-STATEMENT",
+  "declaration": "Stage1Instances.THM_M_0996.GaussianIsoperimetricTarget",
+  "module_file": "Statement.lean",
+  "imports": [
+    "Mathlib.Probability.Distributions.Gaussian.Multivariate"
+  ],
+  "universes": ["u"],
+  "domain": "an arbitrary finite-dimensional real inner-product space E with its Borel measurable structure",
+  "measure": "ProbabilityTheory.stdGaussian E",
+  "set_binders": ["A", "H"],
+  "hypotheses": [
+    "MeasurableSet A",
+    "H is {x | L x <= c} for a continuous linear functional L with norm one",
+    "stdGaussian E A = stdGaussian E H",
+    "0 < r"
+  ],
+  "conclusion": "stdGaussian E (Metric.thickening r H) <= stdGaussian E (Metric.thickening r A)",
+  "conventions": {
+    "enlargement": "Metric.thickening, the open metric enlargement",
+    "radius": "strictly positive real radius; r = 0 is deliberately outside the statement because Metric.thickening 0 A is empty",
+    "halfspace": "closed affine sublevel half-space with a unit continuous-linear normal",
+    "dimension": "all finite dimensions, including dimension zero; in dimension zero the half-space hypothesis is uninhabited",
+    "boundary_measures": "null and full Gaussian measures need no quantile convention in the equal-measure half-space formulation",
+    "measurability": "A is explicitly measurable; each open thickening is Borel-measurable"
+  },
+  "checked_transport": "target_iff_expandedStatementShape",
+  "structural_mutations": [
+    "mutationRemovedMeasurability",
+    "mutationRemovedEqualMeasure",
+    "mutationNonpositiveRadius",
+    "mutationArbitraryGaussianMeasure"
+  ],
+  "statement_sha256": "cdecb06daf3ca5cbc2b6f8f5def0a82fb3fc712695fdd5c2a047189d683edd14",
+  "formal_status": "exact target elaborated; no proof of the target claimed",
+  "root_vector_after": {"H": "H2", "M": "M3", "R": "R4"},
+  "theorem_complete": false
+}
