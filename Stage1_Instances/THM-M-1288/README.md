@@ -48,3 +48,12 @@ evidence, trust, documentation, and workflow graphs. The checked
 packages and returns the frozen root; both packages remain open, so this phase
 supplies no theorem-proof or completion claim. Validation and the precise root
 cut set are recorded in `obligation-tree-validation.md`.
+
+## Proof phase
+
+`Proof.lean` closes the bounded elementary domain facts, the exact gradient to
+Frechet-derivative norm transport, and the zero-function boundary branch. The
+sharp rearrangement, radial, weighted, constant, and extremizing-sequence
+obligations remain open, and the root is still conditional on explicit
+admissibility and optimality packages. Exact commands and the remaining cut
+set are recorded in `proof-validation.md`.
