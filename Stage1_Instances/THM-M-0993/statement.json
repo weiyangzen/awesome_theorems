@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0993-STATEMENT",
+  "theorem_id": "THM-M-0993",
+  "lifecycle": "planned",
+  "canonical_statement": "For a finite family of jointly independent measurable real random variables on a probability space, if every tilted exponential is integrable, then for every real threshold a and positive real tilt t, the real-valued probability that their sum is at least a is at most exp(-t*a) times the product of their tilted exponential integrals.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0993/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0993.ChernoffUpperTailTarget",
+    "elaborated_expression_sha256": "ecae1a493dd8be1ab742029ee934c64ecd0595761326dc1efadfa5fb2e590669",
+    "statement_file_sha256": "e515adc0282947df73715cea21b4d646226d50f92ada623d3f933adc58bf5219"
+  },
+  "domain_and_universes": "universes u v; Omega : Type u with a measurable space; probability measure mu; finite index type I : Type v; X : I -> Omega -> Real; a t : Real; Prop in universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "mu : Measure Omega",
+    "[IsProbabilityMeasure mu]",
+    "I : Type v",
+    "[Fintype I]",
+    "X : I -> Omega -> Real",
+    "a : Real",
+    "t : Real"
+  ],
+  "hypotheses": [
+    "0 < t",
+    "forall i, Measurable (X i)",
+    "ProbabilityTheory.iIndepFun X mu",
+    "forall i, Integrable (fun omega => Real.exp (t * X i omega)) mu"
+  ],
+  "conclusion": "mu.real {omega | a <= sum i, X i omega} <= Real.exp (-t * a) * product i, integral omega, Real.exp (t * X i omega) dmu",
+  "direct_imports": [
+    "Mathlib.Probability.Independence.Integration"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0993.target_iff_expandedIntakeShape",
+  "source_boundary": "This formal target is the exact general product-form Chernoff claim selected and frozen by intake. The primary-source theorem/page, assumptions, and errata mapping remain anchor-audit work; no library theorem or proof body receives credit here.",
+  "environment_fingerprint": {
+    "base_revision": "3c49a04f350afa3376ed84e511f0c4e1e03dbe06",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0993/check_statement.py",
+    "validator_sha256": "5b35dd1a6300fa44b79cf0ee4393c0d8c2fa2c811428e4a630a5ff20200c51be",
+    "killed": [
+      "removed the positive-tilt hypothesis",
+      "removed joint independence",
+      "replaced the product of individual moments by the unfactored moment of the sum",
+      "changed the non-strict upper-tail event to a strict event"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0993.empty_family_sum"
+    ]
+  },
+  "degenerate_cases": "The empty finite family remains included and its sum is checked to be zero. Arbitrary real thresholds, including equality at the boundary, are included. The target excludes t = 0 and negative tilts exactly as frozen at intake.",
+  "alternate_encodings": {
+    "unfactored_mgf": "Elaborated as a distinct mutation, not substituted for the intake-selected product-form root; a future proof must supply the checked independence factorization.",
+    "ennreal_probability": "Not selected. Since mu is a probability measure, mu.real provides a finite real-valued probability compatible with the real-valued exponential-moment bound.",
+    "bernoulli_or_binomial": "Excluded as an optimized corollary rather than the canonical root."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact product-form target, direct expansion, four structural mutations, and empty-family boundary elaborate with the pinned minimal import. No source acceptance, proof closure, anchor audit, or theorem completion is claimed."
+}

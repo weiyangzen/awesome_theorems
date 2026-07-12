@@ -1,0 +1,25 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0984-VALIDATION",
+  "theorem_id": "THM-M-0984",
+  "network_policy": "denied",
+  "recipes": [
+    {
+      "recipe_id": "M0984-validation-verifier-v1",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0984/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "exact gate summary retained in validation-receipt.json"}],
+      "covered_obligation_ids": ["M0984-ROOT", "M0984-L-TERMINAL", "M0984-T-COMPOSE", "M0984-X-PROVENANCE", "M0984-X-TRUST"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0984.StrongLawTarget",
+        "Stage1Instances.THM_M_0984.terminalStrongLaw",
+        "Stage1Instances.THM_M_0984.strongLawRoot",
+        "Stage1Instances.THM_M_0984.Validation.independentStrongLawTarget"
+      ]
+    }
+  ],
+  "scope_boundary": "Narrow warm-cache worker validation. Cold hermetic release replay and distinct-runner independent verification fail closed."
+}

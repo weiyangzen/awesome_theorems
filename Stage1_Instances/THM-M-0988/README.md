@@ -20,3 +20,10 @@ The scope map, source crosswalk, and open task DAG record the exact downstream d
 validation remains in `validation.md`; the statement fingerprint, commands, and strict status
 boundary are recorded in `statement.json` and `statement-validation.md`. This remains statement-only
 evidence and claims neither proof closure nor theorem completion.
+
+The obligation-tree phase now freezes registry version 1 with 18 canonical obligations and seven
+separate typed graphs. `ObligationTree.lean` checks only the conditional composition from the exact
+pinned bridge to the root; the registry deliberately records no closed obligations. The remaining
+root cut set is `M0988-X-PINNED`, reserved for the proof phase. Architecture validation and the
+denominator hash are recorded in `obligation-tree-validation.md`; no proof or theorem-completion
+credit is claimed here.
