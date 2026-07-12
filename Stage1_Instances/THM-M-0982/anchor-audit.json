@@ -1,0 +1,82 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0982-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0982",
+  "audit_date": "2026-07-12",
+  "base_revision": "2676c4fcc9a91f3717e0ef31bd11faa45e5576fe",
+  "canonical_target": "Stage1Instances.THM_M_0982.ProbabilityContinuityTarget",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "measure_space_source_sha256": "656ad97e8dcf481e6d62e0226a0e5d623df3ef9cc70c774d02cfbc1f4aef1ec7",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "id": "M0982-A-LOCAL-LEGACY",
+      "project": "awesome_theorems",
+      "revision": "2676c4fcc9a91f3717e0ef31bd11faa45e5576fe",
+      "module": "AwesomeTheorems.Stage1.S1_M_262",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_262.statementShape_mathlib",
+      "kind": "repo_local_wrapper",
+      "normalized_match": "not exact: its below branch omits measurable events and its above branch quantifies NullMeasurableSet",
+      "terminal_bodies": ["MeasureTheory.tendsto_measure_iUnion_atTop", "MeasureTheory.tendsto_measure_iInter_atTop"],
+      "classification": "M0-P for the historical StatementShape only",
+      "integration_status": "discovery evidence; no direct root credit"
+    },
+    {
+      "id": "M0982-A-MATHLIB-BELOW",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.MeasureSpace",
+      "declaration": "MeasureTheory.tendsto_measure_iUnion_atTop",
+      "type_fit": "proves the frozen below conclusion from Monotone A; the target's measurability premise is unused because mathlib proves a stronger result",
+      "source_body": "MeasureSpace.lean:582-588 at the pinned revision",
+      "classification": "M0-P anchor for the below branch"
+    },
+    {
+      "id": "M0982-A-MATHLIB-ABOVE",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.MeasureSpace",
+      "declaration": "MeasureTheory.tendsto_measure_iInter_atTop",
+      "type_fit": "ordinary measurability maps to NullMeasurableSet; IsProbabilityMeasure supplies measure_ne_top",
+      "source_body": "MeasureSpace.lean:606-613 at the pinned revision",
+      "classification": "M0-P anchor for the above branch"
+    },
+    {
+      "id": "M0982-A-EXTERNAL-REASBOOK",
+      "project": "optpku/ReasBook",
+      "revision": "7aee054dff16f8f701137e6dc01e6b04c224d596",
+      "module": "ReasBook.Books.Analysis2_Tao_2022.Chapters.Chap07.section02_part4",
+      "declarations": ["proposition_7_8", "proposition_7_9"],
+      "source_sha256": "b281b28cc5799467788d6e7ebe62fcbbb6eb526a0570b781943ba3611ef2868b",
+      "normalized_match": "specialized to Lebesgue measure on finite-dimensional real space, not arbitrary probability measures",
+      "terminal_bodies": ["MeasureTheory.tendsto_measure_iUnion_atTop", "MeasureTheory.tendsto_measure_iInter_atTop"],
+      "classification": "M0-P for specialized statements; no additional root credit",
+      "integration_status": "immutable source-audited only; project toolchain manifest was not found at repository root and no dependency was fetched"
+    }
+  ],
+  "external_search": {
+    "sourcegraph_query": "context:global archived:yes fork:yes (tendsto_measure_iUnion_atTop OR tendsto_measure_iInter_atTop) lang:Lean count:100",
+    "result": "43 exhaustive matches across 8 repositories; all inspected hits were mathlib itself or downstream uses of the same anchors",
+    "response_sha256": "42515644537df1fcc683a19cb26bf1c082b4b6297f30ceb5507eaf0d29f1ac37",
+    "github_repository_query": "repositories?q=\"continuity of probability\"+lean",
+    "github_repository_result": "total_count=0; incomplete_results=false",
+    "github_repository_response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+    "github_code_search": "HTTP 403 rate-limit blocker; no negative result claimed",
+    "github_code_response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e"
+  },
+  "root_candidate_decision": {
+    "classification": "M1",
+    "kernel_closed_in_audit_probe": true,
+    "local_declaration": "Stage1Instances.THM_M_0982.AnchorAudit.auditedTarget_mathlib",
+    "reason": "the exact copied target is closed by pinned mathlib anchors, but authoritative proof-module integration, frozen obligation composition, and downstream validation receipts belong to later phases"
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This completes a bounded formal-anchor audit only. It does not grant proof-phase acceptance, H0 source fidelity, R0 readability, hermetic release evidence, or theorem completion."
+}
