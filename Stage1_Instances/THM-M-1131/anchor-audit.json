@@ -1,0 +1,138 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1131-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1131",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "451cecc55d7bd202b72564a5fcbe6968711cb1ea",
+  "canonical_target": "Stage1Instances.THM_M_1131.Statement",
+  "canonical_target_expression_sha256": "01b3e91bb9da602483ca5af9d00787c8b264c6afb530c8b4b268c4c49c60ee99",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T00:00:00+08:00",
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib source tree",
+      "GitHub public Lean repository metadata",
+      "immutable source of a credible external PDE candidate"
+    ],
+    "aliases": [
+      "Fourier heat conduction",
+      "Fourier law heat flux",
+      "heat equation",
+      "thermal conduction",
+      "divergence",
+      "Laplacian"
+    ],
+    "access_boundary": "Anonymous GitHub repository metadata search only; exact code search was not available. Negative results are bounded discovery evidence, not a claim of global absence."
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1131-C01",
+      "project": "awesome_theorems",
+      "revision": "451cecc55d7bd202b72564a5fcbe6968711cb1ea",
+      "module": "Stage1_Instances/THM-M-1131/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1131.Statement",
+      "source_sha256": "d324d62be8a9ecb18aa1b195870436e25b1c747d62780203b6e0e18d653d6c9a",
+      "kind": "exact_statement_only",
+      "relationship": "exact canonical proposition",
+      "body_provenance": "abbreviation of a proposition definition; no theorem proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already local as the frozen statement; supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1131-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "modules": [
+        "Mathlib.Analysis.Calculus.FDeriv.Add",
+        "Mathlib.MeasureTheory.Integral.DivergenceTheorem"
+      ],
+      "declarations": [
+        "fderiv_fun_const_smul",
+        "fderiv_const_smul",
+        "fderiv_const_smul_of_invertible",
+        "fderiv_fun_neg",
+        "fderiv_neg",
+        "MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable"
+      ],
+      "source_sha256": {
+        "Mathlib/Analysis/Calculus/FDeriv/Add.lean": "efd9e61f4705028ce9bead35714f8402e1e1540bd9a91687f282626c6738fc2d",
+        "Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean": "7c3242338eca46ea0053d6e4d8f005b03409bca9e589e7f6beb65e0283c50ed8"
+      },
+      "kind": "supporting_infrastructure",
+      "relationship": "the fderiv constant-scalar and negation identities can support the pointwise divergence rewrite; the integral divergence theorem is adjacent infrastructure for weak or boundary formulations, not the frozen classical pointwise target",
+      "body_provenance": "pinned mathlib source and existing compiled oleans",
+      "placeholder_or_axiom_status": "all retained declarations elaborate through the pinned Lake environment; no terminal Fourier-law declaration was found",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checked, but a future proof must still compose these identities with the exact local definitions and hypotheses"
+    },
+    {
+      "candidate_id": "S56-M-1131-C03",
+      "project": "weiran-sun/pde",
+      "remote": "https://github.com/weiran-sun/pde.git",
+      "revision": "0b37f095c5ac3571084f5ea47f0435884452d86a",
+      "toolchain": "leanprover/lean4:v4.23.0-rc2",
+      "mathlib_revision": "90c0e186fd333cbdddbe0e5148aa3cd2d24dcf9a",
+      "license": "Apache-2.0",
+      "module": "PDE.Basics.Heat.HeatKernel",
+      "declarations": [
+        "Heat.heatKernel",
+        "Heat.heatKernel_pos",
+        "Heat.integral_heatKernel_one_gaussian",
+        "Heat.heatKernel_solves_heat_eq"
+      ],
+      "source_sha256": {
+        "PDE/Basics/Heat/HeatKernel.lean": "8362b67991fb4c433d70b656bfeae885b935fbbc862678eb52962e4661527b9d",
+        "lean-toolchain": "410d5c912b1a040c79883f5e0bb55e733888534e2006eefe186e631c24864546",
+        "lake-manifest.json": "38045832a34ae17ed1b949885305cd0a5e76ac3477874681e5acc9f0ee0e6175",
+        "LICENSE": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+      },
+      "kind": "adjacent_heat_equation_formalization",
+      "relationship": "proves that one explicit one-dimensional heat kernel satisfies a source-free heat equation; it does not state a constitutive heat-flux law, local energy balance, or the frozen arbitrary-field implication",
+      "body_provenance": "immutable raw source contains theorem bodies for the named declarations",
+      "placeholder_or_axiom_status": "the inspected HeatKernel module contains no sorry, admit, or axiom declaration; it contains no exact terminal candidate to credit",
+      "classification": "M3_support_only",
+      "integration_status": "not imported: it is non-exact and uses an older incompatible toolchain; therefore it creates no repo-local integration debt"
+    }
+  ],
+  "search_ledger": [
+    {
+      "surface": "repo-local tracked Lean plus pinned mathlib source",
+      "query_family": "Fourier/heat/conduction/heat equation/heat flux/thermal conduction",
+      "result": "the frozen local statement and unrelated or adjacent heat-equation material were found; no terminal proof of the exact target"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query_family": "quoted heat equation language:Lean; Fourier conduction Lean",
+      "result": "both queries returned total_count=0 and incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "immutable external PDE source",
+      "query_family": "heat equation theorem and admission scan in PDE.Basics.Heat.HeatKernel",
+      "result": "adjacent heat-kernel theorem only; no Fourier constitutive derivation"
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact proposition is elaborated, and pinned mathlib provides relevant derivative identities, but no audited declaration proves the canonical implication. The external PDE theorem is a non-equivalent special heat-kernel result.",
+  "debt_type": "formalization_debt",
+  "integration_blocker": "No exact external proof candidate exists among the audited immutable sources, so there is nothing exact to pin/import/check. The future local proof must establish the coordinate divergence rewrite, including zero and nonzero conductivity behavior, and compose it with the balance hypothesis.",
+  "reopen_condition": "A concrete Lean 4 candidate with immutable commit, license, toolchain, module, non-placeholder declaration, exact-type comparison or checked transport, proof-body provenance, and a successful local wrapper check.",
+  "human_debt": "H1 unchanged; primary-source pinpoint and independent source review are outside this machine-anchor phase",
+  "readability_debt": "R3 unchanged; no readable proof reconstruction is claimed",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This node completes a bounded formal-anchor inventory only. It does not establish H0, freeze the obligation tree, close the exact theorem, or supply release evidence."
+}
