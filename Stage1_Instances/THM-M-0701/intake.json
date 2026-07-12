@@ -1,0 +1,89 @@
+{
+  "schema": "stage1-rev-5.6-intake-v1",
+  "item_id": "S56-M-0701-INTAKE",
+  "theorem_id": "THM-M-0701",
+  "execution_rank": 742,
+  "intent": "intake",
+  "lifecycle": "planned",
+  "baseline": "L0",
+  "rework_required": true,
+  "canonical_name": "Resolution principle",
+  "source_name": "归结原理",
+  "category": "数理逻辑 / 证明论",
+  "target_system": "Lean 4 + pinned mathlib",
+  "human_claim": null,
+  "statement_resolution": {
+    "state": "blocked_source_is_not_a_proposition",
+    "source_wording": "自动定理证明的方法 (a method of automated theorem proving)",
+    "reason": "The repository metadata names Robinson's resolution method but gives no proposition. It does not choose propositional versus first-order clauses, ground versus lifted resolution, factoring, clause semantics, a derivability relation, or whether the intended result is local soundness, refutation completeness, or a lifting theorem. These choices yield distinct theorems.",
+    "required_resolution": "A source owner must select a proposition-level theorem from a pinpoint edition of Robinson's paper (or another primary source) and freeze its clause syntax, semantics, inference rules, equality policy, and all finiteness or satisfiability hypotheses."
+  },
+  "primary_source_candidate": {
+    "citation": "J. A. Robinson, A Machine-Oriented Logic Based on the Resolution Principle, Journal of the ACM 12(1), 1965, 23-41",
+    "doi": "10.1145/321250.321253",
+    "credit": "discovery anchor only; theorem/page premises and errata have not been audited"
+  },
+  "candidate_scopes_not_adopted": [
+    {
+      "name": "binary resolution soundness",
+      "shape": "Every resolvent is a logical consequence of its two parent clauses.",
+      "exclusion_reason": "This is a local inference-rule theorem and does not by itself express resolution's refutation completeness."
+    },
+    {
+      "name": "propositional resolution refutation completeness",
+      "shape": "An unsatisfiable finite propositional clause set derives the empty clause by resolution.",
+      "exclusion_reason": "The repository source does not restrict the method to propositional logic or fix finiteness and derivation conventions."
+    },
+    {
+      "name": "first-order resolution refutation completeness",
+      "shape": "An unsatisfiable first-order clause set has a resolution refutation, with a specified lifted rule and any required factoring.",
+      "exclusion_reason": "Several formulations differ in clause representation, standardizing apart, unification, factoring, equality, and compactness assumptions; none is selected by the metadata."
+    },
+    {
+      "name": "resolution lifting lemma",
+      "shape": "A ground resolution step or refutation lifts to a first-order resolution derivation.",
+      "exclusion_reason": "This is an important component of completeness, but the source record does not identify it as the root theorem."
+    }
+  ],
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_exact_source_statement"
+  },
+  "domain_and_universes": null,
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": null,
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": "Cannot be frozen until the clause language, inference system, and root theorem are selected.",
+  "foundation_profile": "Open. Classical semantics, compactness, choice, and quotient requirements depend on the unresolved completeness formulation and receive no intake credit.",
+  "tcb_profile": "Lean 4 kernel and the repository's pinned dependency closure are intended; no target-specific declaration closure exists.",
+  "computation_profile": "No solver run, computation, oracle, or experiment is credited.",
+  "formal_system": "Lean 4; exact imports and adapter are blocked on statement selection",
+  "source_revisions": "Repository metadata at base revision 74980872e6ba4cca3e08b1b728b5cf3695421b94; the primary-source candidate is not yet an immutable evidence receipt.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0701/README.md",
+    "Stage1_Instances/THM-M-0701/scope.md",
+    "Stage1_Instances/THM-M-0701/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "source owner plus independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on any change to the selected source theorem, clause syntax or semantics, inference rules, Lean target, imports/toolchain, or rev-5.6 standard.",
+  "debt": {
+    "human": "H4: a primary paper is identifiable, but no proposition-level source statement or premise crosswalk is selected",
+    "machine": "M4: no exact proposition is available to elaborate",
+    "readability": "R4: no theorem-specific proof reconstruction can begin"
+  },
+  "next_node": "S56-M-0701-STATEMENT (blocked until source resolution)",
+  "theorem_complete": false,
+  "audit_complete": false,
+  "status_boundary": "This planned intake records the source ambiguity and candidate scope without choosing a substitute theorem. It supplies no elaborated statement, proof, or completion credit."
+}
