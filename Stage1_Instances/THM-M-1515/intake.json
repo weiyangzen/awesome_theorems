@@ -7,27 +7,25 @@
   "canonical_statement": "For a smooth finite-dimensional Lagrangian system, if a smooth one-parameter transformation is a variational symmetry of the action up to a total time derivative, then the associated Noether charge is constant along every Euler-Lagrange solution.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "blocked_pending_convention_and_statement_freeze"
+    "module": "Stage1_Instances/THM-M-1515/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1515.NoetherFirstTheoremTarget",
+    "elaborated_expression_hash": "sha256:91f6f9b51af1889d9f92f9647f41b0c3e23574783ee97517fd0498b67d8e537e",
+    "environment_fingerprint": "Lean 4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740); mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "gate_state": "self_tested_pending_master_acceptance"
   },
-  "domains_and_universes": "Provisional: a finite-dimensional smooth real manifold Q; time in an interval of Real; tangent-bundle states; universe levels and typeclass binders not frozen.",
+  "domains_and_universes": "Frozen statement: universe u; finite-dimensional real normed vector space E : Type u; global time Real; scalar Lagrangian and charge.",
   "ordered_binders": [
-    "Q: smooth finite-dimensional real configuration manifold",
-    "L: time-dependent smooth Lagrangian on TQ",
-    "Phi: smooth local one-parameter transformation family",
-    "B: smooth boundary-term function",
-    "q: twice differentiable trajectory"
+    "E : Type u with NormedAddCommGroup, NormedSpace Real, and FiniteDimensional Real",
+    "D : NoetherData E containing a time-independent Lagrangian, infinitesimal generator, and boundary term",
+    "q : Real -> E"
   ],
   "hypotheses": [
-    "Phi is a variational symmetry of L up to the total time derivative of B",
-    "q satisfies the Euler-Lagrange equations for L",
-    "all derivatives and transformed curves are defined on the interval under consideration"
+    "the Lagrangian, generator, and boundary are differentiable and q is ContDiff Real 2",
+    "the infinitesimal Lagrangian variation equals the directional derivative of the boundary term",
+    "q satisfies the covector-valued Euler-Lagrange equation"
   ],
-  "conclusion": "The derivative along q of the convention-dependent Noether charge J is zero, hence J is constant on each connected time interval.",
-  "degenerate_cases": "The zero generator yields a trivial charge; endpoints and local-flow domains require explicit handling. Singular Lagrangians are not silently excluded unless regularity is made a hypothesis in the statement phase.",
+  "conclusion": "For every real time t, the Noether charge has derivative zero at t, expressed by HasDerivAt rather than deriv fallback.",
+  "degenerate_cases": "Zero generators and zero boundary terms remain in scope; singular Lagrangians are not excluded. Endpoints and local-flow domains are absent because the selected target uses global Real time.",
   "excluded_scopes": ["Noether's second theorem", "converse Noether theorem", "gauge/PDE field theories", "quantum theory and anomalies", "empirical conservation laws"],
   "alternate_encodings": [
     {"target": "coordinate Euler-Lagrange identity", "relationship": "candidate specialization", "checked_witness": null},
@@ -45,7 +43,7 @@
   "public_merge_targets": ["Stage1_Instances/THM-M-1515/README.md", "Stage1_Instances/THM-M-1515/source_statement_crosswalk.md"],
   "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
   "freshness_and_revocation_policy": "Invalidate on changes to selected theorem variant, mathematical conventions, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
-  "root_vector": {"human": "H1", "machine": "M4", "readability": "R3"},
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
   "theorem_complete": false,
-  "status_boundary": "This planned intake selects and bounds a theorem variant only. It does not freeze or elaborate an exact Lean proposition, accept a source proof, or prove Noether's theorem."
+  "status_boundary": "The exact selected statement now elaborates and is self-tested pending master acceptance. This does not accept source fidelity, supply a Noether proof, or close any downstream phase."
 }

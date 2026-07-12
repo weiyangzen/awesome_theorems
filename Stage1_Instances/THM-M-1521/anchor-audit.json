@@ -1,0 +1,87 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1521-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1521",
+  "base_revision": "bc7ff7c864291d915984b6d9312ed0ea7d160161",
+  "lifecycle": "planned",
+  "audit_cutoff_utc": "2026-07-12",
+  "search_protocol": {
+    "order": [
+      "repository-local Lean sources",
+      "complete pinned mathlib source tree",
+      "complete locally pinned external dependency source trees",
+      "public GitHub code search API",
+      "public grep.app code search API"
+    ],
+    "terms": [
+      "Poincare recurrence",
+      "Poincare recurrence theorem",
+      "ae_mem_imp_frequently_image_mem",
+      "ae_frequently_mem_of_mem_nhds",
+      "MeasurePreserving.conservative"
+    ],
+    "cutoff_note": "Repo-local and pinned dependency searches were complete for Lean/Markdown sources. Both public APIs rejected the unauthenticated requests (GitHub HTTP 403; grep.app HTTP 429), so no external-project completeness claim is made."
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_revision_date_utc": "2026-03-30T18:47:58Z",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_source": "Mathlib/Dynamics/Ergodic/Conservative.lean"
+  },
+  "candidates": [
+    {
+      "candidate_id": "mathlib-conservative-chain",
+      "kind": "pinned_mathlib_composition",
+      "module": "Mathlib.Dynamics.Ergodic.Conservative",
+      "declarations": [
+        "MeasureTheory.MeasurePreserving.conservative",
+        "MeasureTheory.Conservative.ae_mem_imp_frequently_image_mem"
+      ],
+      "exact_local_witness": "Stage1Instances.THM_M_1521.AnchorAudit.exactTargetFromPinnedMathlib",
+      "relationship_to_target": "exact after unfolding the frozen target and the audit witness target",
+      "terminal_body_provenance": "mathlib source at the pinned revision; both declarations have theorem bodies in Conservative.lean",
+      "placeholder_audit": "No sorry/admit/axiom/bodyless declaration occurs in the terminal source slice; kernel axiom print is recorded in anchor-audit.md.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "dependency_feasibility": "already present in the pinned local Lake closure",
+      "machine_classification": "M0-W candidate pending later obligation, proof, validation, and master-acceptance phases",
+      "credited_now": false
+    },
+    {
+      "candidate_id": "mathlib-topological-recurrence",
+      "kind": "pinned_mathlib_stronger_alternate",
+      "module": "Mathlib.Dynamics.Ergodic.Conservative",
+      "declarations": ["MeasureTheory.Conservative.ae_frequently_mem_of_mem_nhds"],
+      "relationship_to_target": "topological alternate with extra SecondCountableTopology and OpensMeasurableSpace assumptions; not the exact root",
+      "terminal_body_provenance": "mathlib source at the pinned revision",
+      "dependency_feasibility": "already present in the pinned local Lake closure",
+      "machine_classification": "anchor only",
+      "credited_now": false
+    },
+    {
+      "candidate_id": "legacy-local-wrapper",
+      "kind": "repository_local_legacy_candidate",
+      "module": "AwesomeTheorems.Stage1.S1_M_180",
+      "declarations": ["statementShape_from_mathlib"],
+      "relationship_to_target": "same normalized proposition shape and the same two mathlib terminal bodies",
+      "terminal_body_provenance": "wrapper only; terminal credit deduplicates to mathlib-conservative-chain",
+      "dependency_feasibility": "repo-local, but legacy artifacts are explicitly unaccepted",
+      "machine_classification": "discovery evidence only",
+      "credited_now": false
+    }
+  ],
+  "external_project_result": {
+    "credible_exact_candidates_found_in_local_pinned_closure": 0,
+    "remote_search_complete": false,
+    "reason": "public search endpoints rate/auth rejected requests; moving dependencies were not fetched",
+    "classification": "unknown outside the immutable local closure"
+  },
+  "root_vector_before": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "root_vector_after": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This phase identifies and kernel-checks an exact pinned-mathlib candidate chain. It does not freeze obligations, accept proof credit, clear source/readability debt, or establish theorem completion."
+}

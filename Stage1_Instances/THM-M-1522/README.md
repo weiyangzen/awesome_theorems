@@ -1,4 +1,4 @@
-# THM-M-1522 rev-5.6 intake
+# THM-M-1522 rev-5.6 dossier
 
 This is the `planned` dossier for the Birkhoff pointwise ergodic theorem. The Stage0 slogan
 "time average equals space average" is frozen here as the standard ergodic probability-space
@@ -20,14 +20,25 @@ pointwise limit; identify it as invariant conditional expectation; use ergodicit
 normalization to make that expectation the constant space integral. This is a scope map, not a
 frozen obligation registry or proof tree.
 
+## Statement phase
+
+The intake-selected proposition is now frozen and kernel-elaborated as
+`Stage1Instances.THM_M_1522.BirkhoffPointwiseErgodicTarget` in `Statement.lean`. It fixes the
+real codomain, probability normalization, mathlib's `Ergodic` predicate, integrability, the
+`birkhoffAverage` convention, the almost-everywhere qualifier, and the integral limit. A checked
+definitional transport expands the average into its finite orbit sum. Four expression-level
+mutations distinguish removed or changed premises and quantifiers.
+
+This completes only the provisional statement deliverable. No pointwise convergence proof or
+legacy mean-ergodic wrapper is credited, and master acceptance remains pending.
+
 ## Intake verdict
 
-Lifecycle is `planned`, with provisional root vector `[H1, M3, R3]`. The first failed theorem gate
-is the exact Lean statement gate: there is no elaborated expression, environment fingerprint,
-checked transport, or mutation record. The theorem is not complete.
+Lifecycle remains `planned`, with provisional root vector `[H1, M3, R3]`. The former exact-statement
+blocker now has locally self-tested evidence. The next dependent gate is the formal-anchor audit;
+all theorem-completion gates remain open. The theorem is not complete.
 
 ## Validation
 
-The exact commands and results establishing manifest membership, repository consistency, JSON
-syntax, and dossier-local integrity are recorded in `validation.md`. These checks validate only
-this intake deliverable.
+The intake commands remain in `validation.md`; exact statement commands and results are recorded
+in `statement-validation.md`.

@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1522-STATEMENT",
+  "theorem_id": "THM-M-1522",
+  "depends_on": ["S56-M-1522-INTAKE"],
+  "lifecycle": "planned",
+  "canonical_statement": "For an integrable real-valued observable on an ergodic probability-preserving measurable endomorphism, the finite-orbit Cesaro averages converge almost everywhere to the integral of the observable.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1522/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1522.BirkhoffPointwiseErgodicTarget",
+    "elaborated_expression_sha256": "1ae3d8a352060fb26372a07d0128af2f465933e4c3c08b6c752b0b5fe72c83b5",
+    "statement_file_sha256": "2ef66fbbe0b1f6130270ff944ae95df04bc688f15e8009a6ceef5a4d28f9d87c"
+  },
+  "domain_and_universes": "universe u; X : Type u; MeasurableSpace X; mu : Measure X; IsProbabilityMeasure mu; T : X -> X; f : X -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "X : Type u",
+    "[MeasurableSpace X]",
+    "mu : Measure X",
+    "[IsProbabilityMeasure mu]",
+    "T : X -> X",
+    "f : X -> Real"
+  ],
+  "hypotheses": [
+    "Ergodic T mu (includes measurability and MeasurePreserving T mu mu)",
+    "MeasureTheory.Integrable f mu"
+  ],
+  "conclusion": "For mu-almost every x, Tendsto (fun n => birkhoffAverage Real T f n x) atTop (nhds (integral mu f)).",
+  "direct_imports": [
+    "Mathlib.Dynamics.BirkhoffSum.Average",
+    "Mathlib.Dynamics.Ergodic.Ergodic",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "minimal_import_evidence": "Deleting each direct import separately makes Lean reject respectively the Birkhoff average, Ergodic predicate, or Integrable/integral vocabulary. No legacy mean-ergodic module is imported.",
+  "checked_transport": "Stage1Instances.THM_M_1522.birkhoffTarget_iff_expandedFiniteSumTarget",
+  "alternate_encoding": "ExpandedFiniteSumTarget replaces birkhoffAverage by n^{-1} times the Finset.range n orbit sum; the checked iff is definitional simplification and uses no convergence theorem.",
+  "environment_fingerprint": {
+    "repository_base_revision": "bc7ff7c864291d915984b6d9312ed0ea7d160161",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1522/check_statement.py",
+    "killed": [
+      "weakened Ergodic T mu to MeasurePreserving T mu mu",
+      "removed Integrable f mu",
+      "removed IsProbabilityMeasure mu",
+      "strengthened almost-everywhere convergence to pointwise-everywhere convergence"
+    ]
+  },
+  "degenerate_case_policy": "The average is indexed by every Nat and has value zero at n = 0, which does not affect the atTop limit. No nonempty-space or invertibility assumption is added. Null exceptional sets remain permitted. Ergodicity carries measure preservation and measurability, and probability normalization fixes the constant limit as integral mu f rather than a normalized integral expression.",
+  "foundation_profile": "Lean 4 dependent type theory at the statement gate; the statement and its definitional transport add no local axioms and provide no root proof.",
+  "tcb_profile": "Lean kernel, pinned Lean 4.29.0 executable, and pinned mathlib revision; pre-existing canonical .lake artifacts reused without mutation.",
+  "computation_profile": "Prop-only noncomputational target and definitional statement transport.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates only the intake-selected Birkhoff target. It does not locate or credit a pointwise ergodic proof, establish H0 source fidelity, freeze obligations, or claim theorem completion."
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1515-STATEMENT",
+  "theorem_id": "THM-M-1515",
+  "lifecycle": "planned",
+  "canonical_statement": "For a sufficiently regular time-independent Lagrangian on a finite-dimensional real normed vector space, an infinitesimal vertical variational symmetry up to the total time derivative of a configuration-dependent boundary term gives a Noether charge with derivative zero along every Euler-Lagrange trajectory.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1515/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1515.NoetherFirstTheoremTarget",
+    "elaborated_expression_sha256": "91f6f9b51af1889d9f92f9647f41b0c3e23574783ee97517fd0498b67d8e537e",
+    "statement_file_sha256": "60b548f2032771a84c7da069e9343a74544294380dec21d041f492c880989add"
+  },
+  "domain_and_universes": "universe u; E : Type u; NormedAddCommGroup E; NormedSpace Real E; FiniteDimensional Real E; time domain Real; scalar-valued Lagrangian and charge",
+  "ordered_binders": [
+    "E : Type u",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "[FiniteDimensional Real E]",
+    "D : NoetherData E",
+    "q : Real -> E"
+  ],
+  "hypotheses": [
+    "IsRegularFor E D q: differentiability of the Lagrangian, generator, and boundary, and ContDiff Real 2 q",
+    "IsVariationalSymmetry E D: the infinitesimal Lagrangian variation equals the directional derivative of the boundary term",
+    "IsEulerLagrange E D q: the momentum covector has derivative equal to the position derivative along q"
+  ],
+  "conclusion": "For every t : Real, HasDerivAt (noetherCharge E D q) 0 t.",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.Deriv.Basic",
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.Analysis.Normed.Module.FiniteDimension"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1515.target_iff_expanded",
+  "scope_decisions": {
+    "theorem_variant": "Noether's first theorem, forward implication only",
+    "configuration_model": "finite-dimensional real normed vector space",
+    "lagrangian": "time-independent L : E -> E -> Real",
+    "symmetry": "vertical infinitesimal configuration transformation; time is fixed",
+    "quasi_invariance": "configuration-dependent boundary B : E -> Real",
+    "conservation_form": "HasDerivAt charge 0 at every real time",
+    "excluded": ["time transformations", "explicitly time-dependent Lagrangians", "manifold-local domains", "field theory", "Noether's second theorem", "converse theorems"]
+  },
+  "degenerate_cases": "Zero generators and zero boundary terms remain in scope. Singular Lagrangians are not excluded. The whole real time line is used, so endpoint and local-flow questions are outside this selected vector-space statement.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1515/check_statement.py",
+    "killed": [
+      "restricted quasi-invariance to strict symmetry by requiring boundary = 0",
+      "removed the Euler-Lagrange hypothesis",
+      "removed the finite-dimensional hypothesis",
+      "replaced HasDerivAt by an equality using deriv's fallback value"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates one exact finite-dimensional Noether target. It neither proves that target nor accepts its historical-source fidelity, anchor audit, obligation tree, proof, validation, or release nodes."
+}
