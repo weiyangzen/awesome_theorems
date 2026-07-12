@@ -16,3 +16,8 @@ The provisional root vector is `[H1, M3, R4]`. The exact Lean expression is elab
 bounded immutable anchor audit found only statement ingredients and nonmatching o-minimal projects,
 not a Pila-Wilkie proof body. Independent source/errata review remains open. No overall audit or
 theorem completion is claimed.
+
+The obligation-tree phase freezes 20 canonical obligations and separates proof, refinement,
+provenance, evidence, trust, documentation, and workflow edges. It identifies controlled
+parametrization, determinant estimates, dimension drop, and exponent bookkeeping as explicit open
+proof packages. No obligation or composition certificate is credited closed.
