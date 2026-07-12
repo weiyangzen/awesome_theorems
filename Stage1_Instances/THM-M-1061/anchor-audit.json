@@ -1,0 +1,120 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1061-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1061",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "63dd69def57f86f9ff668f657fbd2bbef39b8068",
+  "canonical_target": "Stage1Instances.THM_M_1061.VaradhanIntegralLemmaTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1061-C01",
+      "project": "awesome_theorems",
+      "revision": "63dd69def57f86f9ff668f657fbd2bbef39b8068",
+      "module": "Stage1_Instances/THM-M-1061/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1061.VaradhanIntegralLemmaTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition",
+      "body_provenance": "definition of a proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1061-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Analysis.SpecialFunctions.Log.ENNRealLog",
+        "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+        "Mathlib.MeasureTheory.Measure.Typeclasses.Probability"
+      ],
+      "declarations": [
+        "LowerSemicontinuous",
+        "IsCompact",
+        "Filter.limsup",
+        "Filter.liminf",
+        "ENNReal.log",
+        "MeasureTheory.lintegral",
+        "MeasureTheory.IsProbabilityMeasure"
+      ],
+      "kind": "supporting_topology_measure_asymptotic_infrastructure",
+      "normalized_match": "no declaration has the exponential-integral conclusion",
+      "body_provenance": "pinned mathlib source and compiled artifacts",
+      "placeholder_or_axiom_status": "seven selected declarations elaborate through the pinned Lake environment",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable, but insufficient for the exact theorem"
+    },
+    {
+      "candidate_id": "S56-M-1061-C03",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas.TheoryOfProbability.code.LargeDeviations",
+      "declarations": ["IsRateFunction", "IsGoodRateFunction", "SatisfiesLDP"],
+      "kind": "external_statement_infrastructure",
+      "normalized_match": "related inverse-natural-speed LDP definitions only; no Varadhan or Laplace integral theorem",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "source_sha256": "8074d9ec64803c7ff9c4985d4e5455d9b00936063986c29ec3e0f677e50df036",
+      "body_provenance": "complete source file inspected through the GitHub content API at the immutable commit",
+      "placeholder_or_axiom_status": "the file contains definitions only and no terminal proof declaration",
+      "classification": "M3_external_support_only",
+      "integration_status": "dependency-compatible but strictly weaker than an exact proof candidate; nothing terminal to integrate"
+    },
+    {
+      "candidate_id": "S56-M-1061-C04",
+      "project": "the-omega-institute/automath",
+      "revision": "f76f46f07a1a48d5c12a20c2f8d366bb9df9330d",
+      "module": "Omega.POM.OracleSuccessVariationalLaplace",
+      "declaration": "Omega.POM.paper_pom_oracle_success_variational_laplace",
+      "kind": "name_collision_not_mathematical_candidate",
+      "normalized_match": "an elementary rewrite from hypotheses named hVaradhan and hSplit; no measures, LDP, exponential integral, or asymptotic limit",
+      "source_sha256": "796a34707e8ad5377cd09fe8f91aea6961e7ab9e1b26a6e7bfcf28d2555d316d",
+      "body_provenance": "theorem body inspected through the GitHub content API at the immutable commit",
+      "placeholder_or_axiom_status": "explicit rw proof, but proves a different proposition",
+      "classification": "rejected_substitution",
+      "integration_status": "not eligible for integration"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (Varadhan OR large deviation principle OR LargeDeviation OR LaplacePrinciple) lang:Lean count:100",
+      "result": "18 matches in facebookresearch/atlas-lean and the-omega-institute/automath; no exact integral-lemma proof candidate",
+      "response_sha256": "541124ede52375ed581ce23c0bd85ad0c21eb3d2dae106d7eed421f13857602b",
+      "immutability_boundary": "dated content-hashed discovery response; candidate files separately bound to commits"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=Varadhan+Lean",
+      "result": "one repository metadata hit, mrdouglasny/gibbs-variational; metadata alone supplied no Lean declaration candidate",
+      "response_sha256": "7921cc874967545b942631151c1e6c3d0b807c9d4be9679939a739800c5a5968",
+      "immutability_boundary": "dated content-hashed discovery response, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=Varadhan+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact local artifact is only a proposition definition. Pinned mathlib and Atlas provide statement substrate but no terminal Varadhan integral theorem. The Automath name hit proves an unrelated rewrite proposition.",
+  "integration_blocker": "No exact external proof declaration was found to pin/import/check. A local proof still requires the LDP lower-bound localization, compact-sublevel upper-bound cover, bounded tail estimate, and extended-real limit and supremum transports.",
+  "reopen_condition": "An immutable Lean 4 declaration with the exact normalized type, followed by toolchain, dependency, license, proof-body, placeholder, axiom, unsafe/oracle, and local wrapper checks.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes a bounded formal-anchor audit only. It does not establish H0, obligation-tree closure, a proof, validation, release, or theorem completion. Negative search evidence is not a claim of global absence."
+}
