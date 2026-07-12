@@ -1,0 +1,92 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0786-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0786",
+  "base_revision": "32404187d6cee70b44ae90adf8d0d765752e5149",
+  "audit_date": "2026-07-12",
+  "cutoff_timezone": "Asia/Shanghai",
+  "canonical_target": "Stage1Instances.THM_M_0786.BorelDeterminacyTarget",
+  "canonical_target_expression_sha256": "4cca4f76eee94e303392ae7902f318fd730387b29587330e643fab8af10ef97a",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "inventory_version": "M0786-anchor-inventory-2026-07-12-1",
+  "search": {
+    "aliases": [
+      "Martin theorem",
+      "Martin's theorem",
+      "Borel determinacy",
+      "Borel games are determined",
+      "Gale-Stewart determinacy"
+    ],
+    "repo_local": "Searched the repository outside this target for the aliases and game/determinacy vocabulary. No proof body or wrapper for this target was found.",
+    "pinned_mathlib": "Searched mathlib@8a178386 for Martin/Borel determinacy, Gale-Stewart, determined-game, and winning-strategy vocabulary. No game framework or Borel-determinacy declaration was found; the pinned library supplies the topology and MeasurableSet vocabulary used by the statement only.",
+    "external": "GitHub repository search for quoted Borel determinacy plus Lean returned sven-manthe/A-formalization-of-Borel-determinacy-in-Lean. Its master ref was resolved through the GitHub commits API to the immutable revision recorded below. A Gale-Stewart plus Lean 4 repository query returned no additional repository.",
+    "limitations": "GitHub unauthenticated code search did not provide a usable code-result API. Discovery saturation is therefore not claimed. The external dependency was not cloned, fetched, added to Lake, or built. Raw files at the immutable revision were inspected only."
+  },
+  "candidates": [
+    {
+      "id": "M0786-A-LOCAL-STATEMENT",
+      "source": "repo-local",
+      "revision": "32404187d6cee70b44ae90adf8d0d765752e5149",
+      "module": "Stage1_Instances/THM-M-0786/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0786.BorelDeterminacyTarget",
+      "type": "For every MeasurableSet payoff in Nat -> Nat, Player I has a forcing strategy or Player II has a complement-forcing strategy.",
+      "classification": "M3",
+      "result": "exact statement and definitional expansion only; there is no proof body for the target"
+    },
+    {
+      "id": "M0786-A-MATHLIB-BOREL-API",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Constructions.Pi",
+      "declaration": "MeasurableSet and the product measurable-space instances used by Statement.lean",
+      "classification": "M3",
+      "result": "statement vocabulary only; no Gale-Stewart game or Borel-determinacy theorem was located"
+    },
+    {
+      "id": "M0786-A-BORELDET-EXTERNAL",
+      "source": "sven-manthe/A-formalization-of-Borel-determinacy-in-Lean",
+      "remote": "https://github.com/sven-manthe/A-formalization-of-Borel-determinacy-in-Lean",
+      "revision": "42bc874b2357ca7e7573b31854a0d09761e11e41",
+      "tree_revision": "dba14a9f8172b6a0083a9668f71dc5e553e7e6f3",
+      "module": "BorelDet.Proof.borel_determinacy",
+      "declaration": "GaleStewartGame.borel_determinacy",
+      "type": "{A : Type*} {G : Game A} -> MeasurableSet[borel _] G.payoff -> Tree.IsPruned G.tree -> G.IsDetermined",
+      "source_file_sha256": "4f1c0918c4772b38726469f6e12f0db673cbce17914e2cf8506c628a2fcd1305",
+      "toolchain": "leanprover/lean4:v4.28.0-rc1",
+      "mathlib_revision": "b94b918e1fd0293f3ef9c2567dfe3774f273dced",
+      "manifest_sha256": "dc18c676789bf0e5d8a7b27600063a72935302754fb5c1ad9a0d1622c004e9c5",
+      "license": "Apache-2.0",
+      "classification": "M5",
+      "result": "an exact-scope external theorem family is present and a raw-source scan found no sorry, admit, axiom, or unsafe declaration in Lean files, but no upstream CI run was available for this revision, its full transitive trust closure was not parser/elaborator-audited, its toolchain and mathlib pins differ, it is absent from the local dependency closure, and no checked adapter to the canonical total-strategy encoding exists",
+      "reopen_when": "materialize this exact external revision and its pinned dependencies in an isolated permitted build, kernel-check the declaration, audit its transitive axioms/placeholders/unsafe and proof-body provenance, then pin/import it and prove a two-way or sufficient checked adapter between its full pruned Nat game and the canonical target"
+    }
+  ],
+  "root_decision": {
+    "classification": "M3",
+    "kernel_closed": false,
+    "reason": "the canonical target elaborates and a highly relevant immutable external source declaration was located, but no candidate supplies locally checked exact closure or E2 evidence",
+    "integration_tasks": [
+      "reproduce BorelDet revision 42bc874 at its own immutable toolchain and dependency pins without changing this repository's pinned .lake",
+      "obtain parser/elaborator-aware transitive trust and placeholder evidence for GaleStewartGame.borel_determinacy",
+      "implement and kernel-check the full-tree Nat-game adapter to BorelDeterminacyTarget",
+      "pin the accepted external closure and check the wrapper in the repo-local validation graph"
+    ],
+    "remaining_cut_set": [
+      "external kernel/trust evidence",
+      "canonical statement adapter",
+      "repo-local pinned integration"
+    ]
+  },
+  "human_debt": "H1: the 1975 primary source remains identified but not edition/page/assumption/errata audited",
+  "readability_debt": "R3: source and formal anchors are classified, but no reviewed proof reconstruction exists",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This closes only the assigned candidate inventory/classification work pending master acceptance. It does not claim exhaustive discovery, H0, external kernel reproducibility, repo-local proof closure, audit completion, or theorem completion."
+}
+
