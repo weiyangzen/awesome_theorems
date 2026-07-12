@@ -14,18 +14,16 @@ This is a result family because the Stage0 phrase is not itself a closed proposi
 phase must select one root proposition (or an explicitly composed finite family) without silently
 turning the existence of definitions into theorem completion.
 
-## Statement-phase decisions
+## Frozen statement choices
 
-The selected source must fix coefficients (`Z`, a commutative ring, or an abelian category), ordered
-versus oriented simplices, finite versus locally finite chains, augmented/reduced versus unreduced
-homology, whether the empty simplex is present, and the precise class of simplicial maps. It must
-also fix universe parameters, degree indexing, signs, degenerate cases (empty complex and low
-degrees), and whether functoriality and invariance under vertex-order choice belong to the root.
+`Statement.lean` fixes integral finite-support chains on ordered simplices, with the increasing
+vertex enumeration supplying orientation. It uses unreduced degrees in `Nat`, excludes the empty
+simplex and degree `-1`, and includes empty vertex types and infinite complexes. The root is the
+existence of the basis-level alternating boundary and its square-zero law.
 
-The Lean encoding must decide whether to build directly from
-`AbstractSimplicialComplex`, pass through an associated simplicial object, or state the construction
-for an already supplied simplicial object. Checked transports are required for any credited
-alternate presentation.
+The encoding builds directly from `AbstractSimplicialComplex`; no alternate presentation is
+credited. Functoriality and independence of vertex order are deferred to explicit downstream
+bridges rather than assumed as part of this construction root.
 
 ## Explicit exclusions
 

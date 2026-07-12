@@ -6,11 +6,13 @@ theorem. This intake therefore freezes the intended result family: simplicial ch
 alternating boundary form a chain complex, its degreewise homology defines simplicial homology, and
 simplicial maps induce the corresponding maps on homology.
 
-The precise coefficient category, orientation convention, treatment of the empty simplex, and
-reduced versus unreduced theory remain statement-phase decisions tied to a selected source. The
-mathlib probe records adjacent APIs only; it is not a canonical target or proof. The provisional
-root vector is `[H2, M3, R4]`. No accepted proof state, audit completion, or theorem completion is
-claimed.
+The statement phase now freezes ordered, unreduced integral finite chains and the alternating
+boundary-square construction in `Statement.lean`. The increasing vertex order fixes orientations;
+empty simplices and degree `-1` are excluded. Functoriality is deferred because non-injective and
+order-changing vertex maps require a separately checked signed chain-map construction. The mathlib
+probe records adjacent APIs only; it is not a proof. The provisional root vector remains
+`[H2, M3, R4]`. No accepted proof state, audit completion, or theorem completion is claimed.
 
-The scope map, source crosswalk, and open task DAG define the downstream work. Exact intake checks
-and their results are recorded in `validation.md`.
+The exact formal target and statement-only evidence are recorded in `statement.json` and
+`statement-validation.md`. The scope map, source crosswalk, and open task DAG define downstream
+work. Intake checks remain recorded in `validation.md`.

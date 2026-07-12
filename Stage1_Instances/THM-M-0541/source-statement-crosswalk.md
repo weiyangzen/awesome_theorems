@@ -16,8 +16,10 @@ or a proof source. The target manifest's `已验证` label is explicitly untrust
   This is a stable modern exposition candidate for definitions, boundary-square, and induced maps;
   its exact proposition/page anchors and published corrections still require inspection.
 
-These are discovery anchors, not `H0` evidence. The statement phase must choose an immutable source
-snapshot and map every assumption and convention before source credit is possible.
+These are discovery anchors, not `H0` evidence. The statement phase selected Hatcher's standard
+ordered, unreduced integral boundary-square formulation, but no immutable source snapshot,
+pinpoint pages, errata audit, or reviewed assumption crosswalk exists yet. Therefore no source
+credit is claimed.
 
 ## Crosswalk
 
@@ -28,7 +30,14 @@ snapshot and map every assumption and convention before source credit is possibl
 | "boundary" | alternating sum of codimension-one faces | differential with sign convention | included; concrete bridge open |
 | `boundary^2 = 0` | cancellation makes a chain complex | checked chain-complex differential law | required root component |
 | "homology" | cycles modulo boundaries in each degree | `HomologicalComplex.homologyFunctor` or checked equivalent | included; exact object open |
-| simplicial maps | maps preserve faces and induce chain maps | functorial chain map and homology map | included; map API open |
+| simplicial maps | maps preserve faces and induce chain maps | signed treatment of reordered or identified vertices | deferred to a checked downstream bridge |
+
+The elaborated root is `Stage1Instances.THM_M_0541.StatementShape`. It quantifies over a linearly
+ordered vertex type and an `AbstractSimplicialComplex`, uses integral finite-support chains on
+faces of cardinality `n + 1`, specifies the alternating vertex-deletion boundary on basis chains,
+and concludes that consecutive boundaries compose to zero. Homology is then the downstream
+construction from this chain complex; the statement node does not mistake that definition for a
+proved boundary-square law.
 
 ## Existing Lean boundary
 
