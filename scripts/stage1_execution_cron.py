@@ -579,7 +579,6 @@ def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list
 def validate_only() -> None:
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
-    claims = enforce_worker_cap(claims, max_workers)
     space_guard(claims)
     todo = write_todo(data, ordered, claims)
     print("validate-only: ok")
