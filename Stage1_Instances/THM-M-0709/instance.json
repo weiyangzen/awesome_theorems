@@ -13,21 +13,18 @@
   "category": "mathematical logic / computability theory",
   "target_system": "Lean 4 + pinned mathlib",
   "literal_source_claim": "Post correspondence problem is undecidable.",
-  "canonical_claim_status": "mathematical_scope_frozen_exact_effective_encoding_and_lean_expression_open",
+  "canonical_claim_status": "exact_binary_structured_encoding_and_lean_expression_self_tested_pending_master_acceptance",
   "canonical_claim": "There is no total computable decision procedure which, given an effective code for an arbitrary finite Post correspondence instance over a fixed finite alphabet, returns true exactly when some nonempty finite sequence of tile indices makes the concatenated upper words equal the concatenated lower words.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_statement_phase_encoding_selection",
-    "module_candidates": [
-      "Mathlib.Computability.Halting",
-      "Mathlib.Computability.Reduce",
-      "Mathlib.Data.List.Basic"
-    ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-probe-only"
+    "status": "self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0709/Statement.lean",
+    "direct_imports": ["Mathlib.Computability.Halting"],
+    "declaration_or_expression": "Stage1Instances.THM_M_0709.PostCorrespondenceUndecidable",
+    "elaborated_expression_hash": "sha256:5d375802e054a1c87b9fe6c8c24b728e9bcf8bfa20025ebe987d461545926d03",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0"
   },
-  "domain_and_universes": "A fixed finite alphabet with at least two symbols; finite lists of pairs of finite words; nonempty finite lists of valid tile indices; and a concrete effective code type. Exact Lean types and the treatment of malformed codes remain open.",
+  "domain_and_universes": "The fixed alphabet is Bool; PCPInstance is List (List Bool x List Bool); witnesses are nonempty List (Fin tiles.length); structured Primcodable inputs eliminate malformed external codes; the root is Prop in universe 0.",
   "quantifiers": [
     "for every effectively encoded finite PCP instance",
     "the instance has a solution iff there exists a nonempty finite valid index sequence whose upper and lower concatenations agree",
@@ -90,8 +87,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "statement.json",
+    "statement-validation.md",
+    "check_statement.py"
   ],
-  "status_boundary": "Self-tested planned intake only. It identifies the uniform PCP undecidability claim and rejects nearby substitutions, but does not freeze an effective encoding or exact Lean expression, establish H0, credit a formal proof, complete an audit, or complete the theorem."
+  "status_boundary": "Self-tested planned intake plus exact statement, pending master acceptance. The binary structured encoding and Lean expression are frozen and elaborated, but H0, anchor audit, formal proof, audit completion, theorem completion, and release remain open."
 }
-

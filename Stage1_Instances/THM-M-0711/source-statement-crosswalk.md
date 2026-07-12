@@ -17,12 +17,12 @@ not promote them to `H0` and does not guess bibliographic details from memory.
 
 | Repository phrase | Mathematical component | Candidate Lean component | Intake status |
 |---|---|---|---|
-| "group" | group given by finitely many generators and relators | `PresentedGroup rels` | pinned API probed; concrete presentation open |
-| "word" | finite string of generators and formal inverses | effectively coded word type mapping to `FreeGroup` | effective representation open |
-| "word equals identity" | image of the word in the presented quotient is `1` | `PresentedGroup.mk rels w = 1` | quotient predicate API probed |
-| "word problem" | decide identity for all encoded words in one presentation | unary predicate on the effective word code | exact predicate open |
-| "undecidable" | no algorithm computes that predicate | `\u00ac ComputablePred p` after providing `Primcodable` input | candidate semantics only |
-| Novikov-Boone | existential construction of a finite presentation with that property | existential proposition packaging all finite/effective data | provisional standard reading |
+| "group" | group given by finitely many generators and relators | `PresentedGroup rels` with `rels : Finset (FreeGroup (Fin n))` | frozen repository encoding |
+| "word" | finite string of generators and formal inverses | `List (Fin n × Bool)` mapped by `evalWord` | frozen repository encoding |
+| "word equals identity" | image of the word in the presented quotient is `1` | `PresentedGroup.mk rels (evalWord word) = 1` | frozen repository predicate |
+| "word problem" | decide identity for all encoded words in one presentation | unary predicate on signed-generator lists | frozen fixed-presentation reading |
+| "undecidable" | no algorithm computes that predicate | `\u00ac ComputablePred p` | frozen semantics |
+| Novikov-Boone | existential construction of a finite presentation with that property | `Stage1.THM_M_0711.NovikovBooneTarget` | elaborated; source review open |
 | `\u5df2\u9a8c\u8bc1` | untrusted inventory label | no proposition or proof term | rejected as evidence |
 
 ## Primary-source work required
@@ -39,6 +39,6 @@ strengths rather than merging two proofs under a title. Until that work is revie
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the bounded probe imports
 `Mathlib.GroupTheory.PresentedGroup` and `Mathlib.Computability.Halting`. It checks the free-group
 and presented-group types, the quotient map and identity characterization, `ComputablePred`,
-`Primcodable`, and finite-set infrastructure. This establishes only that adjacent encoding
-ingredients exist. It does not establish a suitable effective coding, an exact Novikov-Boone
-declaration, or any proof closure; those belong to later statement and anchor-audit phases.
+`Primcodable`, and finite-set infrastructure. The statement artifact freezes those ingredients as
+`Stage1.THM_M_0711.NovikovBooneTarget` and elaborates it under the same pins. This does not establish
+historical source equivalence, locate an imported theorem, or supply any proof closure.

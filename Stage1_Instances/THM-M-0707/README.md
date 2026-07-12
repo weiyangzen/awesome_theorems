@@ -6,12 +6,14 @@ machine and input, whether that computation halts. This identifies a standard th
 but it does not yet fix a machine model, encoding, operational semantics, or the formal meaning
 of a decider.
 
-The intake preserves that universal machine-and-input scope. It does not substitute termination
-of one Lean program, undecidability for partial-recursive codes without a checked equivalence, or
-a generic diagonal proposition that assumes its own interpreter. The next phase must select an
-immutable source formulation and elaborate the corresponding Lean target.
+The statement phase now freezes that universal machine-and-input scope in mathlib's concrete,
+denumerable `Nat.Partrec.Code` model: halting means that `Code.eval code input` has a defined
+partial result, and deciding means a total Boolean indicator satisfying `ComputablePred`. This is
+the standard computability-complete program-code formulation selected as the canonical claim, not
+termination of one Lean program or unrestricted propositional decidability.
 
-The provisional root vector is `[H1, M4, R3]`. A narrow pinned Lean probe confirms that mathlib
-provides codes for partial recursive functions, their universal partial evaluator, computability,
-and the `S_n^m` theorem. These are candidate interfaces only, not the requested theorem or proof.
-There is no accepted proof state, audit completion, or theorem completion.
+`Statement.lean` elaborates the exact target with the minimal direct import
+`Mathlib.Computability.Halting`; `check_statement.py` distinguishes four altered claims and the
+kernel checks terminating and divergent boundary cases. The statement is self-tested pending
+master acceptance. The provisional human-source and readability debt remains open, and there is
+no accepted proof state, audit completion, or theorem completion.

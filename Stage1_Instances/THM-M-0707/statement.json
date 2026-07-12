@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0707-STATEMENT",
+  "theorem_id": "THM-M-0707",
+  "lifecycle": "planned",
+  "canonical_statement": "There is no total effective Boolean procedure which, for every encoded program and every natural-number input, decides whether the program's universal partial evaluation is defined.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0707/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0707.HaltingProblemUndecidable",
+    "elaborated_expression_sha256": "9eea217b4bee04ef468074d9f414ff4af376153349db418ff39facce8c31e46b",
+    "statement_file_sha256": "1df1418f5305f5c29aa34bb487698de63f354d2ad79fe7abd940534f49057a0f"
+  },
+  "domain_and_universes": "p : Nat.Partrec.Code x Nat; Prop in Lean universe 0",
+  "ordered_binders": ["p : Nat.Partrec.Code x Nat"],
+  "hypotheses": [],
+  "conclusion": "not ComputablePred (fun p => (Nat.Partrec.Code.eval p.1 p.2).Dom)",
+  "direct_imports": ["Mathlib.Computability.Halting"],
+  "machine_model": "Nat.Partrec.Code, a denumerable syntax of partial-recursive programs",
+  "input_type": "Nat",
+  "execution_semantics": "Nat.Partrec.Code.eval : Code -> Nat ->. Nat",
+  "halting_predicate": "the Part domain proposition (Code.eval code input).Dom; it means that some natural output is produced after finite partial-recursive evaluation",
+  "decider_contract": "ComputablePred Halts: existence of a DecidablePred instance whose Bool indicator is Computable (partial recursive as a total function)",
+  "boundary_policy": "All Code constructors are valid programs, all Nat inputs including zero are included, Code.zero halts on every input, and Code.rfind' Code.succ diverges on every input.",
+  "checked_transport": "Stage1Instances.THM_M_0707.haltingProblemUndecidable_iff_pinnedMathlibSourceShape",
+  "pinned_source_relationship": "The root is the arbitrary-pair version of mathlib's fixed-input Nat.Partrec.Code halting predicate. It freezes the computability-theoretic machine model selected by the intake; a Turing-machine operational reading is supported by the pinned compiler theorem ToPartrec.tr_eval but that transport is not credited in this statement node.",
+  "environment_fingerprint": {
+    "repository_base": "f4c286c4ebc4a8b1a5d0a746afd6fba9849e4c7c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0707/check_statement.py",
+    "killed": [
+      "fixed-input theorem family instead of one arbitrary code/input pair predicate",
+      "self-input restriction instead of arbitrary input",
+      "dropped computability/effectivity requirement",
+      "changed undecidability to failure of recursive enumerability"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0707.zero_halts",
+      "Stage1Instances.THM_M_0707.rfind_succ_does_not_halt"
+    ]
+  },
+  "alternate_encodings": {
+    "fixed_input_mathlib_theorem": "Nat.Partrec.ComputablePred.halting_problem n is a pinned exact candidate for each fixed input; proof and anchor credit are deferred.",
+    "compiled_turing_machine": "Mathlib.Computability.TuringMachine.ToPartrec.tr_eval gives a pinned operational compiler equality, but a full uniform undecidability transport is deferred."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact arbitrary-program/arbitrary-input target in a standard computability-complete code model and distinguishes four weakened or altered claims. It supplies no proof credit, anchor acceptance, audit completion, or theorem completion."
+}

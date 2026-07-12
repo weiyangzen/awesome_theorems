@@ -12,18 +12,14 @@
 This is the standard existential reading of the Novikov-Boone theorem. It is provisional until an
 immutable source passage and independent source review fix the exact formulation.
 
-## Decisions required at statement freeze
+## Statement-freeze decisions
 
-1. Whether the accepted source states existence of one finitely presented group or a uniform
-   undecidability result about finite presentations, and which direction is canonical.
-2. The concrete finite generator and relator types, including whether relators are a finite set or
-   list and how finiteness is carried into computation.
-3. The computable word code. Mathlib's abstract `FreeGroup` and `PresentedGroup` quotient express
-   the algebra, but noncomputability requires a `Primcodable` or equivalent effective input type.
-4. The exact word predicate: equality of two words or the equivalent identity problem for one
-   word. Any equivalence used for credit needs a checked transport.
-5. The computability notion and its foundation profile, plus every reduction theorem needed to
-   connect the historical proof to that predicate.
+1. The canonical repository target uses the fixed-presentation existential reading; whether an
+   accepted primary source states this exact strength remains an open source-audit question.
+2. Generators are `Fin n` and relators are `Finset (FreeGroup (Fin n))`.
+3. Words are effectively coded by `List (Fin n × Bool)` and evaluated by `evalWord`.
+4. The root uses the one-word identity predicate. No two-word equality transport is yet credited.
+5. Undecidability is `¬ ComputablePred`; proof reductions and their foundation profile remain open.
 
 ## Explicit exclusions
 
@@ -37,4 +33,5 @@ immutable source passage and independent source review fix the exact formulation
 - A quotient-equality proposition without an effective word coding and computability semantics.
 - The repository label `\u5df2\u9a8c\u8bc1` as human-proof or machine-proof evidence.
 
-The intake does not freeze a canonical Lean expression, obligation registry, or discovery result.
+The statement phase freezes the canonical Lean expression. The obligation registry and discovery
+result remain open.

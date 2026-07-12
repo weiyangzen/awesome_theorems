@@ -6,11 +6,10 @@ mathematical theorem is an existential result: there is a finitely presented gro
 problem is undecidable. It is not the false assertion that every group's word problem is
 undecidable.
 
-The repository does not supply a primary-source edition, theorem/page, presentation, word coding,
-or a precise choice between the fixed-group and uniform-presentation formulations. Those choices
-affect the Lean proposition and cannot be invented at intake. The scope and competing encodings are
-therefore frozen, while the canonical formal target remains open for the statement phase.
+The repository does not supply a primary-source edition, theorem/page, or a precise choice between
+the fixed-group and uniform-presentation formulations. The statement phase now freezes the
+standard fixed-group reading for this repository, using finite signed-generator lists as the word
+code. Historical source fidelity remains a separate open audit gate.
 
-The root remains `[H1, M4, R4]`. A pinned Lean probe confirms the availability of free groups,
-presented groups, the quotient word predicate, and computability predicates. This is encoding
-evidence only, not a theorem statement or proof. Exact commands and results are in `validation.md`.
+The root remains `[H1, M4, R4]`. `Statement.lean` kernel-elaborates the exact proposition under the
+pinned toolchain, but supplies no proof. Exact commands and results are in `validation.md`.

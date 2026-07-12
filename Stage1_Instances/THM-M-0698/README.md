@@ -15,3 +15,8 @@ claim the later statement or anchor-audit gates: no normalized expression finger
 source identity, proof provenance audit, or accepted proof state is recorded here. The provisional
 root vector is `[H1, M3, R4]`; audit and theorem completion are both false.
 
+The obligation-tree phase additionally freezes 16 semantic obligations and
+seven separate typed graphs. Its checked local composition isolates the
+finite-to-satisfiable direction as the remaining root cut; it does not promote
+the matching pinned mathlib body before the ordered proof phase. See
+`obligation-tree.md` and `obligation-tree-validation.md`.

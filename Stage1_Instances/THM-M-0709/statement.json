@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0709-STATEMENT",
+  "theorem_id": "THM-M-0709",
+  "lifecycle": "planned",
+  "canonical_statement": "The solvability predicate for finite Post correspondence instances over one fixed binary alphabet is not computable; a solution is one nonempty finite sequence of valid tile indices whose upper and lower word concatenations are equal.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0709/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0709.PostCorrespondenceUndecidable",
+    "elaborated_expression_sha256": "5d375802e054a1c87b9fe6c8c24b728e9bcf8bfa20025ebe987d461545926d03",
+    "statement_file_sha256": "354a0a291b2c304451ad1e22157ba233ce18730c792a09d9d339b7df3ab29121"
+  },
+  "domain_and_universes": "PCPInstance = List (List Bool x List Bool); witnesses are List (Fin tiles.length); the target is a Prop in Lean universe 0.",
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "not ComputablePred HasSolution",
+  "direct_imports": ["Mathlib.Computability.Halting"],
+  "checked_transport": "Stage1Instances.THM_M_0709.postCorrespondenceUndecidable_iff_expanded",
+  "encoding_policy": "The input itself is a structured Primcodable finite instance, rather than an external natural-number serialization. Consequently every input is well formed and no malformed-code convention is needed. Bool fixes a nondegenerate two-symbol alphabet independently of the input.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "Lean #print default pretty-printer, hashed by check_statement.py"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0709/check_statement.py",
+    "killed": [
+      "allowed the empty witness",
+      "changed the fixed binary alphabet to a unary alphabet",
+      "bounded witness length by the number of tiles",
+      "allowed different upper and lower index sequences"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0709.emptyInstance_hasNoSolution"]
+  },
+  "degenerate_cases": "The empty tile list is admitted as a negative instance and checked by emptyInstance_hasNoSolution. Empty words and repeated tiles or indices remain allowed. The empty witness is excluded. Bool prevents unary/empty-alphabet collapse.",
+  "alternate_encodings": {
+    "natural_number_codes": "Not selected: a checked encode/decode transport would be required.",
+    "modified_pcp": "Not selected: it requires a checked reduction to ordinary PCP.",
+    "arbitrary_finite_alphabet": "Not selected: the canonical theorem is the standard fixed binary specialization, which expresses uniform PCP undecidability without an alphabet binder."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact binary-PCP undecidability target and its semantic definitions. The checked iff is definitional expansion, not an undecidability proof. Human-source acceptance, anchor audit, proof, validation, release, and master acceptance remain open."
+}

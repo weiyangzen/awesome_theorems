@@ -1,9 +1,9 @@
 {
   "schema_version": "stage1-instance-intake/1.0",
   "theorem_id": "THM-M-0711",
-  "item_id": "S56-M-0711-INTAKE",
+  "item_id": "S56-M-0711-STATEMENT",
   "lifecycle": "planned",
-  "intent": "intake",
+  "intent": "validate",
   "baseline": "L0",
   "rework_required": true,
   "execution_rank": 751,
@@ -13,30 +13,31 @@
   "category": "mathematical logic / proof theory; combinatorial group theory",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "The word problem for groups is undecidable.",
-  "canonical_claim_status": "human_theorem_family_identified_but_exact_primary_source_and_fixed_group_word_encoding_open",
-  "canonical_claim": "There exists a finitely presented group with an undecidable word problem (provisional standard reading; exact source wording and encoding not yet accepted).",
+  "canonical_claim_status": "lean_target_frozen_for_repository_gloss_primary_source_crosswalk_still_open",
+  "canonical_claim": "There exist a finite generator type and a finite set of relators such that no computable predicate decides whether an effectively encoded word represents the identity in the resulting presented group.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_source_and_encoding_freeze",
-    "module_candidates": [
+    "status": "elaborated",
+    "minimal_imports": [
       "Mathlib.GroupTheory.PresentedGroup",
       "Mathlib.Computability.Halting"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "module": "Stage1_Instances/THM-M-0711/Statement.lean",
+    "declaration_or_expression": "Stage1.THM_M_0711.NovikovBooneTarget",
+    "elaborated_expression_hash": "sha256 recorded in statement-receipt.json",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_statement-elaboration"
   },
-  "domain_and_universes": "Expected finite generator alphabet, finite relator data, effectively coded words, and the associated presented group; exact representations remain open.",
+  "domain_and_universes": "n : Nat; generators Fin n; rels : Finset (FreeGroup (Fin n)); words : List (Fin n x Bool), where Bool selects a generator or its inverse; PresentedGroup uses the coerced finite relator set.",
   "quantifiers": [
     "existentially choose a finite presentation (standard fixed-group reading)",
-    "universally range over effectively coded words when defining its identity predicate"
+    "universally range over finite lists of signed generators through ComputablePred"
   ],
   "hypotheses": [
     "the generator alphabet and relator collection are finite/effectively presented",
-    "the word encoding and evaluation map correctly represent the presented group"
+    "evalWord maps signed-generator lists into the free group before the presentation quotient"
   ],
   "conclusion": "The predicate deciding whether an encoded word represents the identity is not computable.",
-  "alternate_encodings": [],
+  "alternate_encodings": ["Two-word equality is equivalent to the frozen one-word identity predicate by multiplying one word by the inverse of the other; this transport is not yet credited."],
   "excluded_degenerate_cases": "Do not substitute undecidability uniformly over arbitrary presentations, undecidability of the semigroup word problem, or the assertion that every finitely presented group has undecidable word problem. Empty or trivial presentations cannot witness the existential conclusion.",
   "source_status": "named_classical_theorem_but_primary_source_edition_theorem_page_assumptions_errata_and_independent_review_open",
   "source_revisions": {
@@ -51,7 +52,7 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "foundation_profile": "Lean 4 dependent type theory; classical/choice policy remains to be frozen with the exact reduction and presentation construction",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib intended; exact imports and transitive declaration closure open",
+  "tcb_profile": "Lean kernel 4.29.0 with pinned mathlib; statement elaborates using exactly Mathlib.Computability.Halting and Mathlib.GroupTheory.PresentedGroup",
   "computation_profile": "Computability must be expressed through a checked effective coding and Mathlib computability predicate; no oracle, experiment, or unchecked certificate receives credit",
   "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -69,7 +70,10 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
+    "Statement.lean",
+    "statement.md",
+    "statement-receipt.json",
     "validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Relevant pinned APIs elaborate, but no exact source passage, canonical Lean target, formal proof, accepted state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested statement elaboration only. The canonical repository target is frozen and kernel-elaborated, but primary-source fidelity, proof, accepted state, audit completion, and theorem completion are not claimed."
 }

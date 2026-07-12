@@ -16,20 +16,21 @@ This functional formulation makes "program behavior" precise while retaining the
 theorem. It deliberately does not cover syntax, running time, promise properties, or the two
 constant semantic properties. The full boundary is recorded in `scope-map.md`.
 
-## Intake state
+## Current state
 
 | Surface | State | Boundary |
 |---|---|---|
 | Membership | confirmed | execution rank 749; lane `hard_statement_first_partial_verification` |
 | Human source | `H1` | Rice's primary 1953 paper is identified, but exact theorem/premise/errata review is not accepted |
-| Lean target | `M4` | no exact declaration is selected or elaborated; mathlib's partial-recursive code API is discovery only |
+| Lean target | statement frozen | `RiceTheoremTarget` elaborates with pinned `Mathlib.Computability.Halting`; no proof-phase credit is claimed |
 | Readability | `R3` | scope and crosswalk exist; no node-by-node proof reconstruction exists |
 | Lifecycle | `planned` | no accepted execution state and `theorem_complete=false` |
 
-The dependent statement phase must choose and elaborate an exact predicate-computability encoding,
-freeze the acceptable-numbering assumptions, and check all claimed transports. The subsequent
-anchor audit must search and classify formal proof candidates without importing proof credit from
-the presence of computability definitions alone.
+The statement phase selected mathlib's `Nat.Partrec.Code` acceptable enumeration and
+`ComputablePred`, checked the set/predicate transport, distinguished four structural mutations, and
+checked both constant-property boundaries. See `statement.json` and `statement-validation.md`.
+The subsequent anchor audit must classify the existing mathlib result without importing proof
+credit at this statement-only node.
 
 ## Validation
 
