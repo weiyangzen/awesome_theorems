@@ -1,0 +1,111 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0667-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0667",
+  "intent": "audit",
+  "lifecycle": "planned",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "f88008269fd93059958bb45cbbbfb9a820b13534",
+  "cutoff_time": "2026-07-12T00:00:00+08:00",
+  "canonical_target": "Not (Primrec2 ack)",
+  "search_terms": [
+    "Ackermann",
+    "ackermann",
+    "Nat.ack",
+    "Primrec2 ack",
+    "Primrec₂ ack",
+    "not_primrec_ack",
+    "not_primrec₂_ack",
+    "Ackermann function is not primitive recursive"
+  ],
+  "search_order": [
+    "repository-local Lean source outside .lake",
+    "pinned mathlib source",
+    "all other packages in the pinned Lake dependency closure",
+    "GitHub repository and code search APIs",
+    "grep.app public code-search API"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0667-CAND-LOCAL-STATEMENT",
+      "classification": "exact_statement_only",
+      "project": "awesome_theorems",
+      "revision": "f88008269fd93059958bb45cbbbfb9a820b13534",
+      "module": "Stage1_Instances/THM-M-0667/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0667.AckermannNondefinabilityTarget",
+      "elaborated_type": "Prop defined as Not (Primrec2 ack)",
+      "terminal_body": null,
+      "current_machine_class": "M3",
+      "proof_credit_awarded": false
+    },
+    {
+      "candidate_id": "M0667-CAND-MATHLIB-NOT-PRIMREC2-ACK",
+      "classification": "exact_pinned_mathlib_candidate",
+      "project": "mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree_hash": "45f646944c0fd7714ee56066e03bb230b49c5940",
+      "toolchain": "Lean 4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+      "module": "Mathlib.Computability.Ackermann",
+      "file": "Mathlib/Computability/Ackermann.lean",
+      "declaration": "not_primrec₂_ack",
+      "source_lines": "340-342",
+      "source_sha256": "02135d74dcfe97d8ad95402d224be3979babc6e69c2a2b6f2ad06c9fc2f17578",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "elaborated_type": "Not (Primrec2 ack)",
+      "statement_relation": "exact after unfolding the local target definition; CandidateAudit.lean type-ascribes the declaration to the canonical expression",
+      "terminal_declaration": "not_primrec₂_ack",
+      "terminal_body": "fun h => not_primrec_ack_self (h.comp Primrec.id Primrec.id)",
+      "direct_proof_dependencies": [
+        "not_primrec_ack_self",
+        "Primrec₂.comp",
+        "Primrec.id"
+      ],
+      "route_anchors": [
+        "exists_lt_ack_of_nat_primrec",
+        "not_nat_primrec_ack_self",
+        "not_primrec_ack_self",
+        "not_primrec₂_ack"
+      ],
+      "machine_reported_axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "No sorry, admit, axiom, unsafe, or implemented_by token occurs in Mathlib/Computability/Ackermann.lean at the pinned revision; this lexical scan is audit evidence only, not the later transitive trust-closure gate.",
+      "local_dependency_status": "present in the existing pinned mathlib dependency and directly elaborated",
+      "current_machine_class": "M3",
+      "candidate_potential": "M0-W after the obligation registry and proof-phase local wrapper/composition evidence are accepted",
+      "proof_credit_awarded": false
+    },
+    {
+      "candidate_id": "M0667-CAND-ANOMA-GEB-CONSUMER",
+      "classification": "external_related_consumer_only",
+      "project": "anoma/geb",
+      "canonical_remote": "https://github.com/anoma/geb.git",
+      "revision": "f78f9d4e456fba89722dfe3633b333d075b7e783",
+      "toolchain": "leanprover/lean4:v4.29.0-rc6",
+      "mathlib_revision": "5c8398df528176d9c87ccd9226ba8f7c8852d59c",
+      "module": "GebLean.LawvereERInterp",
+      "file": "geb-lean/GebLean/LawvereERInterp.lean",
+      "declaration": "GebLean.erInterpFunctor_not_full",
+      "source_sha256": "153ef639566c248a297d23c62308ce172a95d35af14f2601fa64fb30fa7c4fdf",
+      "license": "GPL-3.0",
+      "normalized_relation": "The theorem consumes mathlib's not_primrec₂_ack to establish failure of fullness; it neither redeclares nor independently proves the canonical target.",
+      "dependency_feasibility": "Different mathlib revision and not needed because the exact proof body is already in the repository's pinned mathlib.",
+      "proof_credit_awarded": false
+    }
+  ],
+  "negative_results": {
+    "repo_local": "Only the statement-phase THM-M-0667 file was found outside .lake; it intentionally contains no proof wrapper.",
+    "other_pinned_packages": "No independent match was found in the ten non-mathlib packages pinned by Formalizations/Lean/lake-manifest.json.",
+    "public_external_search": "Sourcegraph exact-name search returned current mathlib4, historical mathlib3, and anoma/geb at indexed commit f78f9d4e456fba89722dfe3633b333d075b7e783. The GEB occurrence consumes mathlib's theorem rather than independently proving it. GitHub repository search returned zero repositories for 'ackermann lean theorem prover'; GitHub code search and grep.app returned HTTP 429.",
+    "access_policy": "Unauthenticated public HTTPS only; no credentials were available or used. No dependency was fetched or cloned."
+  },
+  "audit_decision": {
+    "anchor_audit_complete": true,
+    "theorem_proved": false,
+    "theorem_complete": false,
+    "debt_vector_before": "[H1, M3, R3]",
+    "debt_vector_after": "[H1, M3, R3]",
+    "reason": "An exact, immutable, locally available mathlib candidate is identified and checked. Sourcegraph also found a historical Lean 3 port and a Lean 4 downstream consumer, neither an independent replacement candidate. This phase does not create or accept the required proof wrapper, obligation composition, transitive trust closure, source crosswalk, or release evidence."
+  },
+  "gate_state": "self_tested_pending_master_acceptance"
+}
