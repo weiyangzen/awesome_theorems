@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-task-dag/1.0",
+  "item_id": "S56-M-1010-OBLIGATION_TREE",
+  "theorem_id": "THM-M-1010",
+  "tasks": [
+    {
+      "task_id": "S56-M-1010-OBLIGATION_TREE-FREEZE",
+      "kind": "freeze_registry",
+      "depends_on": [],
+      "covered_obligation_ids": [
+        "M1010-ROOT",
+        "M1010-S-DEFINITIONS",
+        "M1010-S-DOMAIN",
+        "M1010-S-BOUNDARY",
+        "M1010-S-FOUNDATION",
+        "M1010-N-PARTITIONS",
+        "M1010-C-INTERVAL",
+        "M1010-C-COUPLING",
+        "M1010-L-MEASURABLE",
+        "M1010-L-LAWS",
+        "M1010-L-AE-STABILIZE",
+        "M1010-L-METRIC-CONVERGENCE",
+        "M1010-T-ASSEMBLE",
+        "M1010-X-SOURCE",
+        "M1010-X-PROVENANCE"
+      ],
+      "state": "provisional_self_tested"
+    },
+    {
+      "task_id": "S56-M-1010-OBLIGATION_TREE-LEAN-COMPOSE",
+      "kind": "check_composition",
+      "depends_on": [
+        "S56-M-1010-OBLIGATION_TREE-FREEZE"
+      ],
+      "covered_obligation_ids": [
+        "M1010-ROOT",
+        "M1010-T-ASSEMBLE"
+      ],
+      "state": "provisional_self_tested"
+    },
+    {
+      "task_id": "S56-M-1010-PROOF",
+      "kind": "implement_open_obligations",
+      "depends_on": [
+        "S56-M-1010-OBLIGATION_TREE-LEAN-COMPOSE"
+      ],
+      "covered_obligation_ids": [
+        "M1010-N-PARTITIONS",
+        "M1010-C-INTERVAL",
+        "M1010-L-MEASURABLE",
+        "M1010-L-LAWS",
+        "M1010-L-AE-STABILIZE"
+      ],
+      "state": "open"
+    }
+  ]
+}
