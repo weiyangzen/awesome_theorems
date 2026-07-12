@@ -12,4 +12,6 @@ expansion elaborate in the pinned Lean environment, so the provisional root vect
 
 The scope map, source-statement crosswalk, and open task DAG delimit the downstream work. Intake
 checks appear in `validation.md`; statement commands and evidence appear in
-`statement-validation.md`.
+`statement-validation.md`. The immutable mathlib and external Lean candidate inventory, including
+the negative exact-anchor result and prospective Brownian-process prerequisites, appears in
+`anchor-audit.md`.
