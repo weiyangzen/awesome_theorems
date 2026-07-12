@@ -1,0 +1,37 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "item_id": "S56-M-1045-OBLIGATION_TREE",
+  "theorem_id": "THM-M-1045",
+  "recipes": [
+    {
+      "recipe_id": "M1045-V-STRUCTURE",
+      "covers": [
+        "M1045-ROOT",
+        "M1045-S-DEFINITIONS",
+        "M1045-S-BOUNDARY",
+        "M1045-S-FOUNDATION",
+        "M1045-N-TRANSLATION",
+        "M1045-B-EQUIVALENCE",
+        "M1045-B-DENSITY",
+        "M1045-B-SINGULARITY",
+        "M1045-L-CYLINDER-SHIFT",
+        "M1045-L-PALEY-WIENER",
+        "M1045-L-EXTENSION",
+        "M1045-L-SEPARATION",
+        "M1045-T-ASSEMBLE",
+        "M1045-X-SOURCE",
+        "M1045-X-PROVENANCE"
+      ],
+      "command": "python3 Stage1_Instances/THM-M-1045/check_obligation_tree.py",
+      "expected_exit": 0
+    },
+    {
+      "recipe_id": "M1045-V-LEAN-COMPOSITION",
+      "covers": [
+        "M1045-T-ASSEMBLE"
+      ],
+      "command": "elaborate Statement.lean then ObligationTree.lean with pinned lake env",
+      "expected_exit": 0
+    }
+  ]
+}

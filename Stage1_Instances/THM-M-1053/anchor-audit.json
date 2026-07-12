@@ -1,0 +1,136 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1053-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1053",
+  "depends_on": ["S56-M-1053-STATEMENT"],
+  "audit_date": "2026-07-12",
+  "base_revision": "8b61d0242da6b4b6810daf423a82881bc4a5c956",
+  "canonical_target": "Stage1.THM_M_1053.StatementShape",
+  "canonical_target_expression_sha256": "f4b06a49160cd083fa4cf1bb3b1ddfe1453dbcb1e521ff2c09ba5d3753a2e562",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T00:00:00+08:00",
+    "aliases": [
+      "Birkhoff pointwise ergodic theorem",
+      "pointwise ergodic theorem",
+      "individual ergodic theorem",
+      "birkhoffErgodicTheorem",
+      "tendsto_birkhoffAverage_ae"
+    ],
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib source and declarations",
+      "GitHub public repository search",
+      "Sourcegraph public Lean index",
+      "immutable GitHub source archives"
+    ],
+    "limitations": "GitHub code search was rate-limited (HTTP 403), Sourcegraph did not index the two external repositories, and no external dependency was fetched, installed, or built. Repository search and immutable archive inspection are bounded discovery evidence, not exhaustive absence evidence."
+  },
+  "candidates": [
+    {
+      "id": "M1053-A-PINNED-MATHLIB-ADJACENT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "modules": [
+        "Mathlib.Dynamics.BirkhoffSum.Average",
+        "Mathlib.Dynamics.Ergodic.Function"
+      ],
+      "declarations": [
+        "birkhoffAverage",
+        "birkhoffAverage_apply_sub_birkhoffAverage",
+        "Ergodic.ae_eq_const_of_ae_eq_comp_ae"
+      ],
+      "source_sha256": {
+        "Mathlib/Dynamics/BirkhoffSum/Average.lean": "806ac5104deed43f15adc7854be78c5eaa22483148a0733f03e4d772ac227c34",
+        "Mathlib/Dynamics/Ergodic/Function.lean": "9767f751f891a797ae46fc6715a830de83dc0b6a5c0661d62cd0205ba98e93c0"
+      },
+      "type_relation": "The dossier-local timeAverage is definitionally equal to mathlib's real birkhoffAverage. Mathlib also supplies the one-step average identity and the fact that an a.e.-invariant measurable function is a.e. constant under ergodicity.",
+      "terminal_body_provenance": "repo-local pinned mathlib source",
+      "placeholder_or_unsafe_status": "the scoped files contain no sorry, admit, axiom, or unsafe declaration token; full transitive trust closure is deferred",
+      "dependency_feasibility": "already available at the lake-manifest pin; checked without changing .lake",
+      "classification": "M3_adjacent_interfaces_only",
+      "exact_root_closure": false,
+      "blocker": "The pinned mathlib revision defines Birkhoff averages and ergodic invariance APIs but contains no theorem proving almost-everywhere pointwise convergence of those averages."
+    },
+    {
+      "id": "M1053-A-POINTWISE-BIRKHOFF",
+      "project": "lua-vr/pointwise-birkhoff",
+      "remote": "https://github.com/lua-vr/pointwise-birkhoff",
+      "revision": "fc06094ca0506d8d74eba8b45b34882ce5930bf4",
+      "archive_sha256": "1d6de2d3e71a5d87f12334693424c1d531078d9297f936fdda6fb1527028b4cc",
+      "module": "BirkhoffErgodicThm",
+      "declaration": "birkhoffErgodicTheorem'",
+      "source_sha256": "34cd25528e31e3eacf9bdd1089b57d799ae339a0d6512a4a2713668c96bee156",
+      "toolchain": "leanprover/lean4:v4.20.0-rc5",
+      "mathlib_revision": "83f3832c6cfeecbc8d16b0248c98346956a7f0e5",
+      "license": "Apache-2.0",
+      "type_relation": "Proves a.e. convergence of real Birkhoff averages for an integrable observable and measure-preserving map to conditional expectation onto invariant sets. It does not expose the frozen target's ergodic space-integral identification.",
+      "terminal_body_provenance": "source-visible local proof across seven Lean files in the immutable archive",
+      "placeholder_or_unsafe_status": "archive-wide scoped scan over all seven Lean files found no sorry, admit, axiom, or unsafe token",
+      "dependency_feasibility": "not in the repo-local dependency closure; older release-candidate toolchain and different mathlib pin; not built or integrated",
+      "classification": "M2_external_partial_candidate",
+      "exact_root_closure": false
+    },
+    {
+      "id": "M1053-A-ERGODIC-THEORY",
+      "project": "marcmorningstar/lean4-ergodic-theory",
+      "remote": "https://github.com/marcmorningstar/lean4-ergodic-theory",
+      "revision": "ed3fa6b8a30594eeb791160563942ba115581aa0",
+      "archive_sha256": "3c0ef177500430ab55950061cfd73991347f5336b5b3d5032ffe46ac56009a52",
+      "module": "ErgodicTheory.Ergodic.Birkhoff",
+      "declarations": [
+        "ErgodicTheory.tendsto_birkhoffAverage_ae",
+        "ErgodicTheory.tendsto_birkhoffAverage_ae_integral",
+        "ErgodicTheory.condExp_invariants_comp_self"
+      ],
+      "source_sha256": "bed8d81c6eb7f0ba74548255779dad7c3dc4e75ecf7ad935e1c68ef6fcb6ea6a",
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "34f7a6cd150fd7a166958d989d5abab56e9e3d15",
+      "license": "Apache-2.0",
+      "type_relation": "The general theorem supplies convergence to conditional expectation on finite measures; the companion invariance theorem and ergodic integral theorem provide the witness properties and frozen ergodic specialization. A straightforward adapter appears to close the frozen real probability-space proposition, but was not elaborated because this project is not in the local dependency closure.",
+      "terminal_body_provenance": "source-visible proof body in ErgodicTheory/Ergodic/Birkhoff.lean at the immutable revision",
+      "placeholder_or_unsafe_status": "the candidate source file has no sorry, admit, axiom, or unsafe token; archive-wide trust claims in the README were not treated as validation",
+      "dependency_feasibility": "not in the repo-local dependency closure and uses a newer release-candidate toolchain plus a different mathlib pin; no fetch, install, or build was performed",
+      "classification": "M1_exact_external_candidate_unintegrated",
+      "exact_root_closure": false,
+      "integration_blocker": "Pin/import the external project in an authorized dependency change, elaborate an exact StatementShape adapter, and audit its transitive axioms and terminal proof bodies."
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {"query": "Birkhoff ergodic theorem Lean", "total_count": 1, "incomplete": false, "response_sha256": "304a4868da4a0472441d1ee2290ec399ce61ed67e9608ee5d4841190c300652b"},
+      {"query": "pointwise ergodic theorem Lean4", "total_count": 0, "incomplete": false, "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"},
+      {"query": "ergodic theorem language:Lean", "total_count": 2, "incomplete": false, "response_sha256": "efc6f1dcd784eadd5598b73255735f26ad9d756ffeb2931b4a3733f979bf1239"}
+    ],
+    "sourcegraph_query": "context:global archived:yes fork:yes (Birkhoff OR pointwise ergodic) lang:Lean count:100",
+    "sourcegraph_response_sha256": "e82c4e58dfd44b67c9f766f11e7ea3bbe0836a1847b74ad8ba1c8a18f7c80b96",
+    "sourcegraph_result": "100 matches in mathlib4 at commit 12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f, but the query saturated on unrelated Birkhoff results and Birkhoff-sum definitions; this is not negative evidence for other projects",
+    "github_code_search": "HTTP 403 rate limit exceeded; explicit access failure, not negative-result evidence"
+  },
+  "root_decision": {
+    "classification": "M1",
+    "kernel_closed": false,
+    "reason": "A credible immutable external Lean 4 candidate appears to cover the exact frozen proposition, but it is not in the repository's pinned dependency closure and no exact adapter has been kernel-checked locally.",
+    "remaining_cut_set": [
+      "authorized immutable external dependency integration or repo-local proof",
+      "exact StatementShape adapter elaboration",
+      "transitive declaration, axiom, placeholder, and terminal-body audit",
+      "proof-phase composition receipt"
+    ]
+  },
+  "human_debt": "unchanged; this node audits formal candidates and does not establish primary-source H0",
+  "readability_debt": "unchanged; no readable proof reconstruction is claimed",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This completes only the bounded immutable formal-candidate inventory. It does not integrate the external theorem, prove StatementShape, accept M0, complete AUDIT-Z, or claim theorem completion."
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1550-RELEASE",
+  "theorem_id": "THM-M-1550",
+  "intent": "release",
+  "base_revision": "42186a75d7cd08ea38daa2739e6cb8a34b59dc49",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1550-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1550-VALIDATION-local-20260712T005702Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "4ec9dc350fff03de10c960c9a29b412ca083a926ac5b55f7ea3bc794e8fe6ddb"
+  },
+  "reconciled_inputs": {
+    "statement.json": "06bf95d6ab99a8104283895708b151324e761530d80e8ec00c5fda20bdfca744",
+    "anchor-audit.json": "f16ece9a452a4c3077e120357cf79a42c72de735b81f6636663cd3b4c5fae75c",
+    "obligation-registry.json": "38a78bd887a27ae5ad4c0a4415862515aa22d2ef6fed78037ee171a548520e73",
+    "typed-graphs.json": "7ef7d777205a5999351f5e6487f7c3b66b3052e87ab849fea7014f32ef579071",
+    "Proof.lean": "9901a5d7670ad898090601fd72104512d97073e1dc344c646a8169b94d4b73da",
+    "validation-spec.json": "99ef89315a79476abec60e28d3dac4105452f21831d20c87771506d9669d937c",
+    "validation-receipt.json": "4ec9dc350fff03de10c960c9a29b412ca083a926ac5b55f7ea3bc794e8fe6ddb"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1550-VALIDATION-local-20260712T005702Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-P", "R3"],
+    "boundary": "Warm-cache exact-root replay supports provisional kernel closure through a local wrapper around pinned mathlib spectrum.units_conjugate, but the authoritative typed graph remains M3/open. H0 and independently accepted R0 are absent."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1550-VALIDATION has only provisional worker-self-test support and no master-accepted receipt, so the release node is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-1550-STRUCTURED-ROOT-RECONCILIATION",
+    "reason": "The validation receipt reports provisional exact-root closure while the authoritative typed graph still records M3, root_closed=false in substance, zero accepted obligations, and M1550-L-SPECTRUM open; the weaker state controls."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1550-VALIDATION and all transitive phase receipts",
+    "master reconciliation of M1550-L-SPECTRUM and exact root composition into authoritative structured state",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete root provenance, foundation policy, axiom, trust, and executable/bootstrap TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_replay": "pass as provisional warm-cache worker evidence",
+    "proof_body": "repo-local exact-root wrapper terminating at pinned mathlib spectrum.units_conjugate",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, Proof.lean, and Validation.lean",
+    "local_provenance_hashes": "pass",
+    "authoritative_root_closure": "missing; graph remains M3/open",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "First obtain master acceptance of the validation dependency and reconcile provisional root closure into authoritative structured state. Then independently close H0/R0, full trust and provenance, hermetic supply-chain replay, distinct-runner verification, and deterministic-bundle gates before master release acceptance.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It advances no lifecycle or debt state, creates no accepted receipt, and does not claim AUDIT-Z, THEOREM-Z, release grade, or theorem completion."
+}
