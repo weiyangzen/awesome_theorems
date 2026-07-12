@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0525-STATEMENT",
+  "theorem_id": "THM-M-0525",
+  "execution_rank": 582,
+  "lifecycle_mode": "planned",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup",
+    "source": "Stage1_Instances/THM-M-0525/Statement.lean",
+    "declaration": "THM_M_0525.Statement",
+    "expression": "fun (X : Type u) [TopologicalSpace X] (x : X) => Nonempty (THM_M_0525.CanonicalBasedLoopGroup X x)",
+    "elaborated_signature": "THM_M_0525.Statement.{u} : (X : Type u) -> [TopologicalSpace X] -> X -> Prop",
+    "source_sha256": "a7d309a1eb09fa8b4f03b47b46b79de3f210149d3473f9639ee11a4d55d1bb0e"
+  },
+  "semantic_contract": {
+    "carrier": "Path.Homotopic.Quotient x x",
+    "structure": "Group",
+    "multiplication": "Path.Homotopic.Quotient.trans",
+    "identity": "Path.Homotopic.Quotient.refl x",
+    "inverse": "Path.Homotopic.Quotient.symm",
+    "binder_order": ["universe u", "X : Type u", "[TopologicalSpace X]", "x : X"],
+    "excluded_assumptions": ["ConnectedSpace X", "PathConnectedSpace X", "Nonempty X"]
+  },
+  "checked_alternate": {
+    "expression": "FundamentalGroup X x = Path.Homotopic.Quotient x x",
+    "relationship": "definitional equality",
+    "witness": "the rfl example in Statement.lean"
+  },
+  "environment_fingerprint": {
+    "base_revision": "61f7b7dcf859725be90a66069022323d5a8903e2",
+    "lean": "4.29.0; commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; Release",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "minimal_import_source_sha256": "4d38953d013f239ed987fb0e1d46bdb440a9366420d456d550fd4719c2c94a2d",
+    "options": "Lean defaults; no custom options"
+  },
+  "mutations": [
+    {
+      "kind": "removed_hypothesis",
+      "file": "MutationRemovedTopology.lean",
+      "expected": "elaboration failure: failed to synthesize TopologicalSpace X",
+      "observed_exit": 1
+    },
+    {
+      "kind": "changed_domain",
+      "file": "MutationChangedDomain.lean",
+      "expected": "elaboration failure: basepoint Y is not an element of X",
+      "observed_exit": 1
+    },
+    {
+      "kind": "changed_binder_scope",
+      "file": "MutationBinderScope.lean",
+      "expected": "elaboration failure: X is unavailable in the earlier binder",
+      "observed_exit": 1
+    },
+    {
+      "kind": "boundary_case",
+      "file": "Statement.lean",
+      "expected": "Statement PUnit PUnit.unit elaborates",
+      "observed_exit": 0
+    }
+  ],
+  "gate_result": "self_tested_statement_candidate",
+  "root_vector_before": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "root_vector_after": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This receipt freezes and elaborates the exact statement only. It does not credit the existing mathlib Group instance as audited proof evidence, close source/provenance/trust obligations, or establish theorem completion."
+}

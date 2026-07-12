@@ -35,6 +35,16 @@ the canonical formal target is a declaration audit of `FundamentalGroup` plus it
 or an explicit proposition packaging the carrier identification and operations, then elaborate and
 mutation-test that exact target.
 
+## Statement-phase handoff
+
+`Statement.lean` now freezes the latter choice: for every topological space `X` and basepoint `x`,
+the endpoint-fixed path-homotopy quotient is equipped with a `Group` whose multiplication, identity,
+and inverse are respectively quotient path concatenation, the constant path, and path reversal.
+The `Group` laws therefore express exactly the claimed construction laws, while operation equations
+rule out satisfying the target with an unrelated structure. `statement.json` records the signature,
+environment hashes, carrier equality, and four required mutation/boundary checks. This is
+self-tested statement evidence pending master acceptance, not proof or theorem-completion credit.
+
 ## Validation
 
 Exact commands and results are recorded in `validation.md`. They establish manifest consistency,

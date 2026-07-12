@@ -7,22 +7,22 @@
   "execution_rank": 579,
   "legacy_priority_slot": null,
   "canonical_name": "Zorn's lemma",
-  "canonical_statement": "Every nonempty partially ordered set in which every chain has an upper bound in the set has a maximal element.",
-  "canonical_statement_status": "theorem_family_frozen; exact empty-chain convention and source wording remain for the statement phase",
+  "canonical_statement": "Every nonempty partially ordered set in which every nonempty chain has an upper bound has a maximal element.",
+  "canonical_statement_status": "exact nonempty-carrier/nonempty-chain Lean statement self-tested pending master acceptance; primary-source H0 remains open",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_S56-M-0770-STATEMENT",
+    "module": "Stage1_Instances/THM-M-0770/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0770.ZornsLemmaTarget",
+    "elaborated_expression_hash": "sha256:e4f371f43c1ebee6f62e093d1102857b339c6e4bf70778ea18b1877fa43631fc",
+    "environment_fingerprint": "Lean 4.29.0@98dc76e3; mathlib@8a178386; exact hashes in statement.json",
+    "gate_state": "self_tested_pending_master_acceptance",
     "discovery_candidates": [
       "Mathlib.Order.Zorn.zorn_le",
       "Mathlib.Order.Zorn.zorn_le_nonempty",
       "Mathlib.Order.Zorn.exists_maximal_of_chains_bounded"
     ]
   },
-  "domain_and_universes": "A type alpha in an as-yet-unfixed Lean universe with a PartialOrder instance; a chain is a set of alpha linearly ordered by the inherited <= relation.",
+  "domain_and_universes": "universe u; alpha : Type u with PartialOrder alpha and Nonempty alpha; a chain is c : Set alpha satisfying IsChain (fun x y => x <= y) c.",
   "quantifiers": [
     "for every type alpha with a partial order",
     "assuming alpha is nonempty",
@@ -30,12 +30,12 @@
     "there exists an upper bound of c in alpha",
     "there exists a maximal element m of alpha"
   ],
-  "ordered_binders_pending": [
+  "ordered_binders": [
     "universe level u",
     "alpha : Type u",
     "PartialOrder alpha",
-    "Nonempty alpha if the nonempty-chain formulation is selected",
-    "chain upper-bound hypothesis"
+    "Nonempty alpha",
+    "for every nonempty chain, its BddAbove hypothesis"
   ],
   "hypotheses": [
     "the carrier is nonempty",
@@ -55,7 +55,7 @@
       "target": "all chains, including the empty chain, are bounded above",
       "relationship": "equivalent candidate because an upper bound for the empty chain supplies an inhabitant",
       "checked_witness": null,
-      "status": "transport_pending_statement_phase"
+      "status": "distinct_mutation_elaborated; bridge_not_credited"
     },
     {
       "target": "transitive-relation formulation exists_maximal_of_chains_bounded",
@@ -70,8 +70,8 @@
       "status": "not_credited"
     }
   ],
-  "foundation_profile": "Lean 4 dependent type theory; classical choice is expected because Zorn's lemma is choice-equivalent, but the exact accepted axiom report is not credited at intake.",
-  "tcb_profile": "Lean 4 kernel v4.29.0 candidate plus mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; exact imports, declaration closure, and axiom report remain open.",
+  "foundation_profile": "Lean 4 dependent type theory; classical choice is expected because Zorn's lemma is choice-equivalent, but statement elaboration does not inspect or credit a proof axiom report.",
+  "tcb_profile": "Lean 4 kernel v4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; the direct statement import is Mathlib.Order.Zorn; proof closure and axiom audit remain open.",
   "computation_profile": "Noncomputable existence theorem; no native computation, oracle, external solver, or experiment is credited.",
   "formal_system": "Lean 4 + pinned mathlib",
   "source_revisions": {
@@ -97,7 +97,11 @@
     "scope-map.md",
     "source-statement-crosswalk.md",
     "task-dag.json",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "S56-M-0770 execution lane",
@@ -108,5 +112,5 @@
   "accepted_proof_state": [],
   "audit_complete": false,
   "theorem_complete": false,
-  "status_boundary": "A planned intake only. The theorem family and exclusions are frozen, but no exact source pinpoint, canonical Lean expression, statement fingerprint, accepted formal candidate, H0, M0, R0, audit completion, or theorem completion is claimed. The source label 'verified' is untrusted."
+  "status_boundary": "The exact Lean statement and its fingerprint are self-tested pending master acceptance. No exact primary-source pinpoint, accepted proof candidate, anchor audit, H0, M0, R0, audit completion, or theorem completion is claimed. The source label 'verified' is untrusted."
 }

@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0770-STATEMENT",
+  "theorem_id": "THM-M-0770",
+  "lifecycle": "planned",
+  "canonical_statement": "For every nonempty partially ordered type, if every nonempty chain has an upper bound, then there exists a maximal element.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0770/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0770.ZornsLemmaTarget",
+    "elaborated_expression_sha256": "e4f371f43c1ebee6f62e093d1102857b339c6e4bf70778ea18b1877fa43631fc",
+    "statement_file_sha256": "2b6efebda500500023d422bf9838ab391210d4a449daa335d57af72a616870b6"
+  },
+  "domain_and_universes": "universe u; alpha : Type u; PartialOrder alpha; Nonempty alpha; c : Set alpha; Prop in Lean universe 0",
+  "ordered_binders": [
+    "alpha : Type u",
+    "[PartialOrder alpha]",
+    "[Nonempty alpha]",
+    "c : Set alpha",
+    "m : alpha"
+  ],
+  "hypotheses": [
+    "for every c : Set alpha, IsChain (fun x y => x <= y) c",
+    "if c.Nonempty, then BddAbove c"
+  ],
+  "conclusion": "There exists m : alpha satisfying IsMax m; in a partial order this is equivalent to every a above m being equal to m.",
+  "direct_imports": ["Mathlib.Order.Zorn"],
+  "minimal_import_justification": "The target directly names Set, IsChain, BddAbove, and IsMax. Mathlib.Order.Zorn is the narrow pinned public module that exports the selected zorn_le_nonempty declaration shape and all four interfaces.",
+  "checked_transport": "Stage1Instances.THM_M_0770.zornsLemmaTarget_iff_pinnedMathlibSourceShape",
+  "checked_maximality_expansion": "Stage1Instances.THM_M_0770.isMax_iff_no_strictly_larger",
+  "pinned_source_declaration": "Mathlib.Order.Zorn.zorn_le_nonempty",
+  "pinned_source_relationship": "PinnedMathlibSourceShape is a direct local copy of the type of zorn_le_nonempty at mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, restricted from its Preorder parameter to the intake-selected PartialOrder boundary. The checked local iff is definitional. No proof-body or anchor-audit credit is claimed.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_zorn_source_sha256": "706b55e103d64d65f1bb9668e3b0f821483c0536d6e87875a2717771410de14c",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0770/check_statement.py",
+    "killed": [
+      "removed Nonempty carrier instance while retaining only nonempty-chain bounds",
+      "changed PartialOrder to Preorder",
+      "changed nonempty-chain boundedness to all-chain boundedness",
+      "strengthened maximal element to greatest element"
+    ],
+    "counterexample_proof": "Stage1Instances.THM_M_0770.mutationAllowsEmptyCarrier_is_false",
+    "boundary_proof": "Stage1Instances.THM_M_0770.singleton_maximal_boundary"
+  },
+  "degenerate_cases": "The carrier is explicitly nonempty. Only nonempty chains require bounds; no empty-chain convention supplies inhabitance implicitly. Singleton carriers are included. Maximal does not mean greatest.",
+  "alternate_encodings": {
+    "all_chains_bounded": "Elaborated as a distinct mutation; its bridge to the canonical nonempty-carrier form is not credited by this node.",
+    "general_relation": "The more general exists_maximal_of_chains_bounded remains a candidate for anchor audit, not a substituted root.",
+    "relativized_subset": "Not selected and not credited."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact nonempty-partial-order target, checks its maximality expansion, and distinguishes four structural mutations. Exact primary-source H0, proof credit, anchor acceptance, and theorem completion remain open."
+}

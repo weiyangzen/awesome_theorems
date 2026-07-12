@@ -1,12 +1,12 @@
-# Intake validation
+# Intake validation (historical phase record)
 
 Base revision: `c90787f590a3c33f8b60f77575a97c71b3e93ff6`.
 
-Validation is limited to target/standard consistency, bounded source and formal-candidate discovery,
-JSON syntax, scoped intake invariants, and whitespace. The canonical Lean expression is deliberately
-open, so no exact-type elaboration, axiom report, proof-body acceptance, or kernel-proof result is
-claimed. The worker clone's pre-existing untracked `Formalizations/Lean/.lake` link/artifact is not
-modified or counted as a changed path.
+This file records the earlier intake phase and is superseded for the exact expression by
+`statement-validation.md`. At intake, validation was limited to target/standard consistency,
+bounded source and formal-candidate discovery, JSON syntax, scoped intake invariants, and
+whitespace. The worker clone's pre-existing untracked `Formalizations/Lean/.lake` link/artifact was
+not modified or counted as an intake changed path.
 
 | Command | Result |
 |---|---|

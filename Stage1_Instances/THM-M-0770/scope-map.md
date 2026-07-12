@@ -9,14 +9,14 @@
 - The conclusion is existence of a maximal element: if `m <= a`, then `a = m`.
 - Singleton carriers and carriers with a greatest element remain valid boundary instances.
 
-## Decisions required before statement freeze
+## Statement decision
 
-The statement phase must pin one exact source theorem and decide whether it quantifies over all
-chains (so the empty chain's bound establishes nonemptiness) or assumes a nonempty carrier and only
-requires bounds for nonempty chains. It must select a whole-carrier or relativized-subset target,
-fix `PartialOrder` versus a more general transitive relation, define chain and upper bound, order all
-binders, and state maximality in one exact form. The selected Lean expression and every credited
-alternate encoding need elaboration, fingerprints, checked transports, and mutation tests.
+The canonical target uses a whole nonempty carrier with `PartialOrder`, requires upper bounds only
+for nonempty chains, and concludes `IsMax`. `Statement.lean` fixes the universe and binder order,
+elaborates this expression, checks the equality expansion of maximality, and mutation-tests the
+empty-carrier, preorder, all-chain, and greatest-element alternatives. General-relation and subset
+forms remain uncredited alternate encodings. Exact primary-source wording remains an H-gate rather
+than being invented from the repository's incomplete gloss.
 
 ## Boundary and mutation obligations
 
