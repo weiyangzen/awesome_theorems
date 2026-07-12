@@ -1,0 +1,122 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1285-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1285",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "4ac441e7be0c42ea78cddc541390953fa7318de7",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1285.SchwarzRearrangementTarget",
+    "elaborated_expression_sha256": "ffce741885f8c5eeb87a6dd893e7c5bf6ccc7a7f88fcc37e9fdd8750ab2d41ac",
+    "statement_file_sha256": "5b3e9ec5606263ee7aac7cd59ba0c7c91c1f8017ba41ada01f8c0327528ac5e6"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T12:00:00+08:00",
+    "aliases": [
+      "Schwarz rearrangement",
+      "Schwarz symmetrization",
+      "symmetric decreasing rearrangement",
+      "equimeasurable rearrangement",
+      "Polya-Szego",
+      "Talenti"
+    ],
+    "search_order": [
+      "repository-local Lean source",
+      "all materialized pinned dependency Lean source",
+      "Sourcegraph public Lean index",
+      "GitHub public repository and code search",
+      "formal-conjectures tree at an immutable commit"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1285-C01",
+      "project": "awesome_theorems",
+      "revision": "4ac441e7be0c42ea78cddc541390953fa7318de7",
+      "module": "Stage1_Instances/THM-M-1285/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1285.SchwarzRearrangementTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact frozen canonical proposition",
+      "body_provenance": "definition of a proposition; no theorem body",
+      "placeholder_or_unsafe_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1285-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.MeasureTheory.Measure.Lebesgue.VolumeOfBalls",
+        "Mathlib.MeasureTheory.Integral.Layercake"
+      ],
+      "declarations": [
+        "measurable_norm",
+        "measurableSet_lt",
+        "EuclideanSpace.volume_ball",
+        "InnerProductSpace.volume_ball",
+        "Metric.measure_ball_pos",
+        "MeasureTheory.measure_ball_ne_top",
+        "MeasureTheory.lintegral_eq_lintegral_meas_lt",
+        "MeasureTheory.lintegral_eq_lintegral_meas_le"
+      ],
+      "kind": "supporting_measure_and_ball_infrastructure",
+      "normalized_match": "supports measurable superlevels, centered-ball volume, and layer-cake reasoning but does not construct fstar",
+      "body_provenance": "pinned mathlib source and compiled artifacts",
+      "placeholder_or_unsafe_status": "all eight declarations elaborated in the pinned Lake environment; no terminal rearrangement declaration exists to inspect",
+      "classification": "M3_support_only",
+      "integration_status": "usable downstream, but insufficient for the exact existential target"
+    },
+    {
+      "candidate_id": "S56-M-1285-C03",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "kind": "immutable_negative_tree_search",
+      "normalized_match": "no path matching Schwarz, rearrangement, Polya-Szego, or Talenti in the complete 1204-entry tree",
+      "body_provenance": "not applicable",
+      "placeholder_or_unsafe_status": "not applicable",
+      "classification": "no_candidate",
+      "integration_status": "nothing to integrate"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "global archived/fork Lean search for symmetric decreasing rearrangement, Schwarz rearrangement, or Polya-Szego",
+      "result": "matchCount=0",
+      "response_sha256": "e3add3c160f17a0569fb1d65bb2f3be706dfb365def885ab5b62f1c564a45d97",
+      "limitation": "dated content-hashed discovery response, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Schwarz rearrangement\" Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "limitation": "repository metadata only"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"Schwarz rearrangement\" language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "limitation": "access failure; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact target is only a proposition definition. Pinned mathlib provides material distribution-function and ball-volume interfaces, but bounded name/source searches located no declaration constructing the required measurable radial nonincreasing equimeasurable witness.",
+  "integration_blocker": "No immutable Lean 4 repository/module/declaration proving the exact target was located. A proof must construct the distribution function and generalized inverse, select radii realizing finite superlevel volumes, establish witness measurability and radial antitonicity, and prove exact strict-superlevel equimeasurability.",
+  "reopen_condition": "A concrete candidate with repository URL, immutable commit, toolchain, dependency graph, module, declaration, exact-type comparison, license, terminal proof provenance, placeholder/axiom audit, and successful local wrapper check.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This completes the bounded formal-anchor inventory only. It is not exhaustive global discovery and supplies no human-source acceptance, obligation tree, proof, full audit completion, or theorem completion."
+}
