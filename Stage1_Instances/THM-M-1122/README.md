@@ -7,15 +7,14 @@ random planar curves/processes, not by itself a unique theorem. A theorem must f
 marked boundary points, a curve topology and parametrization, the Loewner normalization, the
 driving process, and an exact conclusion.
 
-The intended theorem family is Schramm's conditional characterization: a suitably conformally
-invariant random non-self-crossing curve with the domain Markov property has a chordal Loewner
-driving function of Brownian form, with a convention-dependent parameter. This is only a family
-freeze. The exact primary result, hypotheses, normalization, parameter range, and conclusion remain
-open for the statement phase; no existence or lattice-model scaling-limit theorem is silently
-included.
+The statement phase selects Schramm (2000), Theorem 1.3: conditional on Conjecture 1.2, the radial
+Loewner solution in the unit disk driven by circle Brownian motion at time `-2t` has the same law as
+the LERW scaling limit. `Statement.lean`, `statement.md`, and `statement.json` freeze and elaborate
+that exact conditional target. They do not prove it or silently replace it with a modern chordal
+characterization.
 
-The provisional root vector is `[H2, M4, R4]`. No exact Lean expression, source review, formal
-candidate, proof, audit completion, or theorem completion is claimed. `scope-map.md` records the
+The provisional root vector remains `[H2, M4, R4]`. Exact statement elaboration does not provide
+source-review acceptance, a formal candidate, proof, audit completion, or theorem completion. `scope-map.md` records the
 proposition-changing decisions, `source-statement-crosswalk.md` records the source mapping, and
 `task-dag.json` keeps every downstream phase open. Intake validation is recorded in
 `validation.md`.

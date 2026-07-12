@@ -17,7 +17,23 @@ so no elaboration or kernel-proof result is claimed. No `.lake` content was fetc
 | scoped Python intake assertions | exit 0; `intake invariant check: ok` |
 | `git diff --check -- Stage1_Instances/THM-M-1122 .stage1-worker-selftest.json` | exit 0; no output |
 
-Known downstream failures are exact primary-source selection and independent review, canonical
-Lean elaboration and mutation tests, formal-anchor audit, obligation registry, proof, hermetic
-replay, and release validation. They prevent theorem completion but do not invalidate this
-fail-closed planned intake.
+At intake, known downstream failures included exact primary-source selection, canonical Lean
+elaboration, independent review, formal-anchor audit, obligation registry, proof, hermetic replay,
+and release validation. The statement evidence below closes only selection and elaboration pending
+master acceptance; all later gates remain open.
+
+## Statement validation
+
+Base revision: `56160b79dacf85088c6e625d50aac63aa6a0e8f9`.
+
+| Command | Result |
+|---|---|
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1122/Statement.lean)` | exit 0; canonical target, expanded transport, and two proposition-changing mutations elaborated; printed canonical declaration type |
+| `(cd Formalizations/Lean && lake env lean --version)` | exit 0; Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
+| `python3 -m json.tool Stage1_Instances/THM-M-1122/statement.json` | exit 0 |
+| placeholder-token scan over `Statement.lean` | exit 0; no `sorry`, `admit`, `axiom`, or `placeholder` token |
+| `git diff --check -- Stage1_Instances/THM-M-1122 .stage1-worker-selftest.json` | exit 0; no output |
+
+The statement phase selects the primary result and elaborates its exact conditional interface. The
+formal predicates implementing Brownian motion, radial Loewner equations, and the LERW scaling
+limit remain open implementation obligations, and no proof or theorem completion is claimed.
