@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0665-STATEMENT",
+  "theorem_id": "THM-M-0665",
+  "lifecycle": "planned",
+  "canonical_statement": "If X is a subset of R^n definable in an o-minimal structure over the real field, then for every epsilon > 0 there is c > 0 such that N(X - X_alg, T) <= c*T^epsilon for every T >= 1.",
+  "source_pinpoint": {
+    "work": "J. Pila and A. J. Wilkie, The rational points of a definable set, Duke Math. J. 133 (2006), 591-616",
+    "root": "Theorem 1.8 (first version)",
+    "definitions": ["Definition 1.3 (affine height and N(X,T))", "Definition 1.5 (algebraic part)"],
+    "inspection_status": "pinpoint corroborated by the separately inspected THM-M-0441 dossier; independent H0 review remains open"
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0665/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0665.PilaWilkie",
+    "elaborated_expression_sha256": "da66c715ce12af9ff6dfb55a721665c8240358c0ee547062b3d2fc10c7785944",
+    "statement_file_sha256": "856703261f1e12c4dd91f209bb001cb7b1a5512770117a5f4527a4804439a175"
+  },
+  "domain_and_universes": "L : FirstOrder.Language.{0,0}; L.Structure Real; n : Nat; X : Set (Fin n -> Real); epsilon c : Real; T : Nat; root in Prop",
+  "ordered_binders": ["L", "[L.Structure Real]", "IsOMinimalExpansion L", "n", "X", "X definable in L", "epsilon", "0 < epsilon", "c", "0 < c", "T", "1 <= T"],
+  "conclusion": "The bounded-height rational slice outside algebraicPart X is finite and its ncard, coerced to Real, is at most c * T ^ epsilon.",
+  "direct_imports": ["Mathlib.Analysis.SpecialFunctions.Pow.Real", "Mathlib.Data.Set.Card", "Mathlib.ModelTheory.Algebra.Field.Basic", "Mathlib.ModelTheory.Definability", "Mathlib.Topology.Closure", "Mathlib.Topology.Separation.Connected"],
+  "checked_transport": "Stage1Instances.THM_M_0665.pilaWilkie_iff",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0665/check_statement.py",
+    "killed": ["removed o-minimality hypothesis", "changed domain to semialgebraic sets", "moved the constant outside the structure/set/exponent binders"],
+    "boundary_proofs": ["Stage1Instances.THM_M_0665.threshold_boundary", "Stage1Instances.THM_M_0665.zero_dimensional_height"]
+  },
+  "degenerate_cases": "T=0 is excluded by T>=1. n=0 remains admitted and has coordinate maximum height zero. Empty sets and zero-dimensional sets remain admitted. epsilon<=0 is excluded. The constant is required positive.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement-only evidence; anchor, proof, trust, H0 human-source audit, readability, hermetic replay, and independent acceptance remain open."
+}

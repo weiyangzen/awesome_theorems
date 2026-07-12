@@ -38,3 +38,29 @@ Independent primary-source inspection and review, exact Lean elaboration and mut
 formal-candidate audit, obligation registry, proof, trust closure, hermetic replay, readable
 reconstruction, and independent verification remain open. These downstream gates prevent audit and
 theorem completion but do not invalidate this planned intake.
+
+## Statement validation
+
+Item: `S56-M-0665-STATEMENT`. Base revision:
+`3bbec7282e62d6123372fda54f8eb18cd839d643`. Validation date: 2026-07-12
+(Asia/Shanghai).
+
+The canonical target is `Stage1Instances.THM_M_0665.PilaWilkie`. This phase records exact
+statement-only evidence and does not claim a proof, H0 review, audit completion, or theorem
+completion.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `lake env lean ../../Stage1_Instances/THM-M-0665/Statement.lean` from `Formalizations/Lean` | 0 | target, checked expansion, three mutations, and two boundary proofs elaborated |
+| `python3 ../../Stage1_Instances/THM-M-0665/check_statement.py` from `Formalizations/Lean` | 0 | expression SHA-256 `da66c715...85944`; all three mutations distinguished |
+| `lake env lean --version` from `Formalizations/Lean` | 0 | Lean 4.29.0, commit `98dc76e3...fab16740` |
+| `sha256sum Statement.lean lean-toolchain lake-manifest.json` | 0 | `856703...9a175`, `651c8a...f1d2`, `321626...2d81` |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard and 1546-target coverage OK |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
+| `python3 scripts/stage1_target.py show THM-M-0665` | 0 | rank 709, planned, L0/rework-required, theorem incomplete |
+
+Known failures: independent primary-source/errata review, anchor audit, obligation tree, proof,
+transitive trust closure, hermetic replay, and independent acceptance remain open. A mistakenly run
+`lake env lean --version` from the repository root exited 1 because that directory has no default
+toolchain; the correctly scoped command from `Formalizations/Lean` exited 0. No dependency update,
+build, fetch, or `.lake` mutation was performed.

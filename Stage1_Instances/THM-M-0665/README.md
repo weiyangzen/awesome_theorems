@@ -6,12 +6,12 @@ first quantitative counting theorem: if `X` is a definable subset of real affine
 rational points of bounded affine height in `X` outside its algebraic part number at most
 `c * T^epsilon` for every positive `epsilon`.
 
-This intake does not claim an exact Lean target. It freezes the intended source boundary and the
-statement decisions that the next phase must verify against Pila and Wilkie's 2006 paper. The
+The statement phase now freezes and elaborates the exact first-version quantitative target as
+`Stage1Instances.THM_M_0665.PilaWilkie`. The
 repo-local `THM-M-0441` dossier and legacy `S1_M_087.lean` are discovery aids only: they belong to a
-different target ID, have not been re-admitted here, and supply no statement or proof credit.
+different target ID and supply no proof or accepted-state credit. The independently named target
+now owns its own checked module, expression fingerprint, mutations, and boundary tests.
 
-The provisional root vector is `[H1, M4, R4]`. The primary paper and theorem number are identified,
-but this target still needs an independent inspection of the exact text, definitions, assumptions,
-and errata. There is no canonical Lean expression or proof body. No audit or theorem completion is
-claimed.
+The provisional root vector is `[H1, M3, R4]`. The primary paper and theorem number are identified,
+and the exact Lean expression is elaborated, but an independent source/errata review remains open
+and there is no proof body. No audit or theorem completion is claimed.

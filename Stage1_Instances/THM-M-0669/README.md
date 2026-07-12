@@ -6,12 +6,14 @@ The human scope is therefore frozen to the standard theorem that every first-ord
 real closed field, in a fixed language of ordered rings or a checked definitionally equivalent
 language, is equivalent over the theory of real closed fields to a quantifier-free formula.
 
-The intake does not choose between ordered-ring primitives and a pure ring language with definable
-order, and it does not silently identify quantifier elimination with decidability. Those choices,
-the exact theory axioms, free-variable convention, uniform syntactic transformation, and primary
-source anchor remain statement-phase obligations.
+The intake did not choose between ordered-ring primitives and a pure ring language with definable
+order. The statement phase now selects the pure ring language and the complete theory of `Real`,
+without silently identifying quantifier elimination with decidability. Pinpoint primary-source
+review and the mathematical presentation bridge remain downstream obligations.
 
-`IntakeProbe.lean` checks only relevant pinned mathlib ingredients. It is not the target theorem and
-receives no proof credit. The provisional root vector is `[H1, M4, R4]`; no exact Lean target, H0,
-M0, audit completion, or theorem completion is claimed. The scope map, source crosswalk, and open
-task DAG record the downstream boundary, while `validation.md` records the self-tests.
+`Statement.lean` now freezes and elaborates the exact pure-ring formula target over the complete
+theory of `Real`; `statement.json`, `statement.md`, and `statement-validation.md` record its binder,
+theory, boundary, environment, and mutation-test contract. This advances only the statement
+interface to `M3`. It does not prove the root or accept the source bridge identifying the selected
+presentation with all real closed fields. Thus H0, M0, audit completion, and theorem completion
+remain unclaimed.

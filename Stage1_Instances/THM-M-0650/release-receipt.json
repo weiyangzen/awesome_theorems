@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0650-RELEASE-local-20260712T064942Z",
+  "item_id": "S56-M-0650-RELEASE",
+  "theorem_id": "THM-M-0650",
+  "base_revision": "8d9629a48fccb5b722dabcaa962142e5045fafd9",
+  "base_tree": "acb24585bac27c61cbe39b945b436930319c6732",
+  "validated_at": "2026-07-12T06:49:42Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "master_acceptance": "pending_and_not_claimed",
+  "inputs": {
+    "release_spec_sha256": "4eae65167f049e1d3e27713ebd9ea53c6bb8da7100d27c6b6ec496f82d2496b6",
+    "release_decision_sha256": "fa5efc637186db7c6ce1bb7766cb5bee758cf647f60764d3ab4b3dd51e2c791f",
+    "validation_receipt_sha256": "22422c1bd5d757161948792ffbdc603f7b7189336d3749e51318034fd349334b",
+    "validator_sha256": "aa23837e683546fe502f0d055e65645786b90b10e744667c6ce1610ea70be27b"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink reused warm and unmodified by worker",
+    "worktree_classification": "nonrelease worker clone with owned untracked dossier and pre-existing untracked .lake symlink"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0650/check_release.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 180,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "verdict": "blocked",
+    "lifecycle_after": "planned",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "accepted_receipt_ids": [],
+    "first_failed_gate": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "narrow_validation_replay": "pass",
+    "authoritative_graph_freshness": "fail_closed",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed"
+  },
+  "known_failures": [
+    "The prerequisite validation receipt is provisional worker evidence and is not master-accepted.",
+    "The authoritative frozen typed graph predates proof integration and still reports M0650-T-EMBEDDING open.",
+    "AUDIT-Z lacks complete accepted classification plus independent H0 and R0 reviews.",
+    "There is no immutable clean empty-cache cold replay, offline restoration, complete TCB/SBOM closure, or deterministic release bundle.",
+    "There is no distinct independent runner, second signed attestation, or independently implemented minimal verifier."
+  ],
+  "retry_condition": "Accept and reconcile the prerequisite and graph, close audit evidence, then perform hermetic and independent release verification and master acceptance.",
+  "status_boundary": "Self-tested negative worker decision only; not an accepted receipt, theorem completion, release, or master acceptance."
+}
