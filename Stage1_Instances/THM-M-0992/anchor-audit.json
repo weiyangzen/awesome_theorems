@@ -1,0 +1,119 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0992-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0992",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "6607e765f4b1b664fa13d7035af8e18567eaf062",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_0992.ChebyshevTarget",
+    "elaborated_expression_sha256": "b162195bc3a51eba84565f1c454e9005c8fec36f2e4f9e502a4ac6e8742cb8e2",
+    "statement_file_sha256": "2bd4c5f2c324432d0544203ddb000385a2affbfc25748a415c9771e6469339aa"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_module": "Mathlib.Probability.Moments.Variance",
+    "mathlib_module_sha256": "920c022075149257307335beccbc8a62c7360fb3d9d73571b8240093dc2d72f0",
+    "mathlib_license": "Apache-2.0"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12 Asia/Shanghai",
+    "order": [
+      "repository-local Lean sources",
+      "pinned Lake dependency Lean sources",
+      "public Lean repositories indexed by Sourcegraph"
+    ],
+    "aliases": [
+      "Chebyshev inequality",
+      "Chebyshev's inequality",
+      "meas_ge_le_variance_div_sq",
+      "meas_ge_le_evariance_div_sq",
+      "variance tail bound",
+      "second moment inequality"
+    ],
+    "credentials_policy": "public anonymous read-only search only; no dependency was fetched or installed"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0992-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Moments.Variance",
+      "declaration": "ProbabilityTheory.meas_ge_le_variance_div_sq",
+      "kind": "exact_terminal_theorem",
+      "normalized_match": "The event, expectation, variance quotient, MemLp second-moment premise, positive real threshold, and ENNReal conclusion are exact. The candidate assumes IsFiniteMeasure; the frozen IsProbabilityMeasure instance supplies it.",
+      "body_provenance": "Immutable module lines 395-402 reduce the real-variance result to meas_ge_le_evariance_div_sq after checked coercion and variance transport.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_unsafe_status": "The direct wrapper's kernel axiom report contains no sorryAx; no unsafe declaration or oracle is used.",
+      "classification": "M0-W_candidate_pending_downstream_gates",
+      "integration_status": "Already in the pinned local Lake closure; AnchorAudit.lean elaborates an exact wrapper."
+    },
+    {
+      "candidate_id": "S56-M-0992-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Moments.Variance",
+      "declaration": "ProbabilityTheory.meas_ge_le_evariance_div_sq",
+      "kind": "upstream_terminal_dependency_and_alternate_form",
+      "normalized_match": "Same closed two-sided deviation event, but with AEStronglyMeasurable, NNReal nonzero threshold, and evariance. It is not substituted for the frozen real-variance target.",
+      "body_provenance": "Immutable module lines 380-393 derive the result from the general eLpNorm Chebyshev-Markov bound; it is the direct terminal dependency of C01.",
+      "classification": "M0-W_supporting_candidate",
+      "integration_status": "Pinned transitively through C01; separately probed by AnchorAudit.lean."
+    },
+    {
+      "candidate_id": "S56-M-0992-C03",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "6607e765f4b1b664fa13d7035af8e18567eaf062",
+      "module": "AwesomeTheorems.Stage1.S1_M_272",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_272.chebyshevVariance_mathlib",
+      "kind": "legacy_alias_wrapper",
+      "normalized_match": "Its individual wrapper has the same formula under the more general IsFiniteMeasure premise, while its parent StatementShape additionally conjoins an evariance variant.",
+      "body_provenance": "Delegates directly to C01 and adds no terminal body.",
+      "classification": "legacy_discovery_only",
+      "integration_status": "No rev-5.6 credit inherited; the audit uses a new independent direct wrapper."
+    },
+    {
+      "candidate_id": "S56-M-0992-C04",
+      "project": "mostlyharmfuleconometrics/lean-hansen-econometrics",
+      "repository": "https://github.com/mostlyharmfuleconometrics/lean-hansen-econometrics",
+      "revision": "b05e2b8e582f628155b69e441299716a7d1f3a7a",
+      "module": "HansenEconometrics.Chapter10Bootstrap.WLLN",
+      "kind": "external_consumer_only",
+      "normalized_match": "Search hits call C01 inside weak-law arguments; they do not expose an independent terminal proof of the frozen root.",
+      "classification": "external_anchor_only_redundant",
+      "integration_status": "Not integrated because it supplies no independent proof body and mathlib is already pinned locally."
+    },
+    {
+      "candidate_id": "S56-M-0992-C05",
+      "project": "facebookresearch/atlas-lean",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "modules": [
+        "Atlas.TheoryOfProbability.code.PairwiseIndepSLLN",
+        "Atlas.ProbabilisticMethodsInCombinatorics.code.Chapter4.SecondMoment"
+      ],
+      "kind": "external_consumer_and_corollaries_only",
+      "normalized_match": "Hits consume C01 for strong-law and second-moment corollaries; none replaces the exact general frozen theorem.",
+      "classification": "external_anchor_only_redundant",
+      "integration_status": "Not integrated because the exact terminal body remains the already-pinned mathlib theorem."
+    }
+  ],
+  "external_search": {
+    "surface": "Sourcegraph public code search",
+    "query": "context:global fork:yes archived:yes lang:Lean (meas_ge_le_variance_div_sq OR meas_ge_le_evariance_div_sq OR Chebyshev's inequality) count:100",
+    "result": "17 matches in four repositories: mathlib4, historical mathlib3, lean-hansen-econometrics, and atlas-lean. The Lean 4 non-mathlib hits were consumers, not independent exact terminal bodies.",
+    "response_sha256": "befccb5dc04f0ccd0f0b4db6bbd92a8f3770f9db6ef7d79ba97e91cc788b081c",
+    "limitations": "Public index coverage and freshness are external. Historical mathlib3 is research provenance only and cannot supply Lean 4 completion."
+  },
+  "root_machine_classification": "M0-W_candidate_pending_downstream_gates",
+  "root_classification_reason": "An independently elaborated wrapper closes the exact frozen probability-space proposition by direct use of the immutable pinned mathlib theorem.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the frozen statement, toolchain, mathlib pin, terminal declaration type/body, dependency closure, or public search inventory changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This phase identifies and kernel-checks an exact pinned candidate. It supplies no accepted proof node, full transitive trust receipt, H0 source audit, obligation-tree closure, hermetic replay, independent verification, or theorem completion."
+}

@@ -27,3 +27,9 @@ pinned bridge to the root; the registry deliberately records no closed obligatio
 root cut set is `M0988-X-PINNED`, reserved for the proof phase. Architecture validation and the
 denominator hash are recorded in `obligation-tree-validation.md`; no proof or theorem-completion
 credit is claimed here.
+
+The proof phase now supplies `Proof.lean`. Its exact pinned bridge calls
+`ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub`, passes through the frozen
+`ObligationTree.root_compose` certificate, and inhabits the unchanged `StatementShape`. This closes
+the proof node's machine cut pending master acceptance. Full validation, primary-source and readable
+review, hermetic replay, independent verification, and theorem completion remain downstream gates.
