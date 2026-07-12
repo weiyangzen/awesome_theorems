@@ -19,3 +19,11 @@ declaration. It also inspected `scottnarmstrong/DeGiorgi` at immutable revision
 `4c1b3077d3782b24065184df4ba59501b2e56fc7`: its placeholder-free divergence-form Harnack theorem
 is adjacent rather than an exact candidate for this `HarmonicOnNhd` compact-subset target. The
 root therefore remains `M3`; see `anchor-audit.json` and `anchor-audit-validation.md`.
+
+The obligation-tree phase freezes an 11-node v1 denominator and separate proof,
+refinement, provenance, evidence, trust, documentation, and workflow graphs. The
+architecture exposes the local-ball estimate, compact interior cover,
+connected-domain ball chain, finite propagation, and uniform-constant assembly
+as open obligations. `ObligationTree.lean` checks only the final conversion from
+a symmetric uniform value comparison to the exact ratio target. This does not
+close the uniform comparison premise or the root.

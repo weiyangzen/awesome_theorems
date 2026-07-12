@@ -1,0 +1,75 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1143-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1143",
+  "phase": "anchor_audit",
+  "base_revision": "3727de2a4ceed9cd590d437f2e2e51c1a2e7c172",
+  "canonical_declaration": "Stage1Instances.THM_M_1143.BoundedHarmonicIsConstant",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_revision_date": "2026-03-30T18:47:58Z",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "searches": [
+    {
+      "scope": "repository-local Lean sources",
+      "method": "ripgrep over all tracked Lean files for Liouville, bounded/harmonic combinations, HarmonicOnNhd, and IsBounded",
+      "result": "no target-local proof or exact all-dimensions declaration"
+    },
+    {
+      "scope": "pinned mathlib source closure",
+      "method": "ripgrep over Mathlib and direct inspection of the harmonic and complex Liouville modules",
+      "result": "one close plane-only harmonic anchor and one holomorphic dependency family"
+    },
+    {
+      "scope": "credible external Lean 4 source indexes",
+      "method": "anonymous GitHub code search, grep.app API, LeanSearch endpoint, and Moogle endpoint queried without fetching or mutating dependencies",
+      "result": "no independently inspectable additional candidate; GitHub required sign-in, grep.app returned HTTP 429, and the attempted LeanSearch/Moogle endpoints returned HTTP 404/400"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "MATHLIB-HARMONIC-PLANE",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Complex.Harmonic.Liouville",
+      "file": "Mathlib/Analysis/Complex/Harmonic/Liouville.lean",
+      "file_sha256": "f88a775aac1cda4d11057521a6735f30edfe97dad5645a2bd56cc8a3e0e3f0cd",
+      "declaration": "InnerProductSpace.bounded_harmonic_on_complex_plane_is_constant",
+      "type_summary": "for f : Complex -> E, HarmonicOnNhd f univ and bounded range imply pairwise equality",
+      "toolchain": "Lean 4.29.0",
+      "dependency_feasibility": "available in the existing pinned mathlib closure and elaborates",
+      "placeholder_scan": "the inspected source contains a theorem body and no prohibited proof placeholder",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "terminal_body": "local mathlib proof via real dual functionals, a private real-valued harmonic lemma, analytic conjugates, complex exponential, and complex Liouville",
+      "relation_to_target": "strict special case in dimension two after an additional checked real-linear isometry transport between EuclideanSpace Real (Fin 2) and Complex",
+      "classification": "anchor_only_not_exact_closure"
+    },
+    {
+      "candidate_id": "MATHLIB-HOLOMORPHIC-LIOUVILLE",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Complex.Liouville",
+      "file": "Mathlib/Analysis/Complex/Liouville.lean",
+      "declarations": [
+        "Differentiable.apply_eq_apply_of_bounded",
+        "Differentiable.exists_const_forall_eq_of_bounded",
+        "Differentiable.exists_eq_const_of_bounded"
+      ],
+      "type_summary": "bounded entire complex-differentiable functions are constant",
+      "dependency_feasibility": "already imported transitively by the plane harmonic anchor",
+      "relation_to_target": "terminal dependency of the plane proof, not a harmonic theorem and not an all-dimensional bridge",
+      "classification": "supporting_anchor_not_direct_candidate"
+    }
+  ],
+  "exact_candidate_found": false,
+  "machine_debt": "M4",
+  "first_open_integration_blocker": "the pinned library has no audited declaration transporting the plane argument to arbitrary positive n or supplying the required n-dimensional Liouville/gradient-estimate proof",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "proof_credit": false,
+  "audit_complete_for_phase": true,
+  "theorem_complete": false
+}

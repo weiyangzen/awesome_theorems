@@ -36,3 +36,11 @@ completion is claimed.
 `validation.md` records both the intake checks and the statement elaboration recipe. The Lean run
 checks the proposition, structural mutation declarations, and encoding transport, not the strong
 maximum principle itself.
+
+## Anchor audit
+
+`anchor-audit.json` and `anchor-audit.md` record the bounded repo-local, pinned-mathlib, and public
+Lean search at immutable revisions. Mathlib supplies harmonic regularity/sign operations, a
+complex-plane mean-value theorem, and close complex maximum-modulus analogues, but no declaration
+closing the arbitrary-dimensional real harmonic root. Two external projects were source-audited;
+neither supplies a trusted matching proof. The root remains `M3`, with no proof credit.
