@@ -30,6 +30,18 @@ Calkin-algebra, essential-spectrum, and Fredholm-index APIs to elaborate the lit
 replacing it by an interface-level model. It must also mutation-test essential normality, the
 infinite-dimensional domain, binder scope for `\u03bb`, and the off-spectrum restriction.
 
+## Exact Lean target
+
+`Statement.lean` elaborates `THMM0590.brownDouglasFillmoreTarget : Prop` using the single pinned
+import `Mathlib.Analysis.InnerProductSpace.Adjoint`. Because this mathlib revision has no general
+Fredholm-index API, the module expands Fredholmness, its integer index, and the essential spectrum
+from kernel, cokernel, closed range, and `T - lambda I`; it does not substitute an uninterpreted
+interface. `statement.json` freezes binders and conventions, and `statement_validation.md` records
+the Lean replay and environment fingerprint.
+
+This elaboration supplies no inhabitant of the proposition. The source, anchor, proof, validation,
+and release phases remain open, the root stays `M3`, and theorem completion remains false.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is
