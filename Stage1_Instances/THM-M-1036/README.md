@@ -38,3 +38,10 @@ The immutable-revision formal-candidate inventory is recorded in
 mathlib and external Brownian-process substrate, but no exact terminal Lean 4
 SDE existence-and-uniqueness theorem. Those anchors receive no machine proof
 credit, and the root remains `[H2, M4, R3]`.
+
+The proof architecture is now provisionally frozen in
+`obligation-registry.json`, `typed-graphs.json`, and `obligation-tree.md`.
+Its checked final composition consumes separate exact existence and uniqueness
+packages, but all analytic bodies remain open. The architecture therefore
+refines machine debt to M3 without claiming proof closure; the current root is
+`[H2, M3, R3]` pending master acceptance.
