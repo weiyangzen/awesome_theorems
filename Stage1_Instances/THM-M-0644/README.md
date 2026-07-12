@@ -27,3 +27,10 @@ The anchor audit identifies the exact pinned mathlib declaration at revision
 profile, and bounded external searches. This is provisional anchor evidence only: the obligation
 tree, accepted proof credit, full trust/provenance closure, validation, and theorem completion
 remain open.
+
+The obligation-tree phase freezes 16 canonical obligations and seven separate typed graphs. It
+expands the easy restriction direction and the hard ultraproduct direction through finite-model
+selection, the tail ultrafilter, filter product, eventual sentence realization, the ultraproduct
+bridge, and final model packaging. `ObligationTree.lean` checks only their conditional composition
+into the exact root. The denominator is frozen, but the root remains `M3`; later proof, provenance,
+source, validation, and master-acceptance gates remain open.
