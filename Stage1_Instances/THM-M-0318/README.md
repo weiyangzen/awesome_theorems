@@ -21,3 +21,10 @@ anchor audit does not change the root's machine status.
 The provisional root vector is `[H2, M3, R4]`. The statement node is self-tested pending master
 acceptance, and the anchor-audit node is independently self-tested pending master acceptance. No
 source fidelity (`H0`), proof, full audit completion, or theorem completion is claimed.
+
+The obligation-tree phase now freezes 12 canonical obligations in `obligation-registry.json` and
+separate typed proof, refinement, provenance, evidence, trust, documentation, and workflow graphs
+in `typed-graphs.json`. `ObligationTree.lean` checks the exact parent composition from abstract
+approximation and compact-limit engines. The principal open cut set is the finite-net and
+barycentric construction, locally pinned Brouwer integration, compactness extraction, and the
+continuity limit. This architecture evidence does not close those hypotheses or the root.

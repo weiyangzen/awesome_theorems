@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1419-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1419",
+  "base_revision": "28be4ce7383f582503e6b54f645e2ca0e955d9de",
+  "canonical_target": "Stage1Instances.THM_M_1419.OseledetsMultiplicativeErgodicTarget",
+  "search_cutoff_utc": "2026-07-12",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "searched_scope": "complete pinned Mathlib and Archive Lean source trees",
+    "terminal_candidate_found": false,
+    "nearby_candidates": [
+      {"module": "Mathlib.Analysis.Subadditive", "declaration": "Subadditive.tendsto_lim", "role": "deterministic Fekete limit only"},
+      {"module": "Mathlib.Dynamics.Ergodic.Function", "declaration": "Ergodic.ae_eq_const_of_ae_eq_comp_ae", "role": "ergodic invariant-function constancy only"},
+      {"module": "Mathlib.MeasureTheory.Function.L1Space.Integrable", "declaration": "MeasureTheory.MeasurePreserving.integrable_comp", "role": "integrability transport only"},
+      {"module": "Mathlib.LinearAlgebra.Basis.Flag", "declaration": "Flag", "role": "algebraic flag carrier; no measurable Oseledets API"},
+      {"module": "Mathlib.RingTheory.Grassmannian", "declaration": "Module.Grassmannian", "role": "algebraic quotient-rank carrier; no measurable Oseledets API"}
+    ]
+  },
+  "repo_local_legacy": {
+    "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_248.lean",
+    "revision": "28be4ce7383f582503e6b54f645e2ca0e955d9de",
+    "classification": "separately owned legacy statement, infrastructure inventory, and explicit open integration gates",
+    "terminal_candidate_found": false,
+    "accepted_proof_credit": false
+  },
+  "external_lean4": {
+    "repository": "https://github.com/marcmorningstar/lean4-ergodic-theory",
+    "revision": "3882faed7d0a9c332d3e7c0fb38a5f6d48f29864",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0-rc2",
+    "mathlib_revision": "34f7a6cd150fd7a166958d989d5abab56e9e3d15",
+    "candidates": [
+      {"module": "ErgodicTheory.MultiplicativeErgodic", "declaration": "ErgodicTheory.oseledets_filtration", "classification": "substantive one-sided filtration theorem; not the selected splitting target"},
+      {"module": "ErgodicTheory.TwoSided.SplittingAssembly", "declaration": "ErgodicTheory.oseledets_splitting", "classification": "substantive two-sided finite-matrix splitting candidate"}
+    ],
+    "placeholder_and_trust_audit": "Pinned README says warnings-as-errors exclude sorry and test/AxiomAudit.lean guards both headline declarations. At the pinned revision the expected #print axioms result is [propext, Classical.choice, Quot.sound]. This is immutable source inspection, not an independent build in this clone.",
+    "exact_target_match": false,
+    "mismatch": "The external theorem uses a measurable equivalence as base, pointwise Measurable A, pointwise det nonzero, its own IntegrableLogNorm and L2 EuclideanSpace/cocycle APIs. The canonical target uses a plain equivalence plus separate MeasurePreserving, AE strong measurability, AE IsUnit, the Pi-space norm and distance-to-fiber measurability, and a separately defined forward product. Output index order is also transposed. No checked transport establishes that the stronger external input assumptions and its output imply the exact canonical proposition.",
+    "integration_status": "blocked_not_attempted",
+    "integration_blocker": "No external package artifact is in the pinned Lake closure. The candidate requires Lean 4.30.0-rc2 and mathlib 34f7a6cd..., unlike this clone's Lean 4.29.0 and mathlib 8a178386.... Worker policy forbids fetching dependencies or mutating .lake, and no exact wrapper has been checked."
+  },
+  "searches": [
+    "repo-local ripgrep over Lean, Markdown, and JSON for Oseledets, multiplicative ergodic theorem, and Lyapunov exponent",
+    "complete pinned mathlib Mathlib and Archive source-tree ripgrep for Oseledets, multiplicative ergodic, Lyapunov exponent, Kingman, and subadditive ergodic",
+    "GitHub repository API searches for Oseledets lean4, multiplicative ergodic lean4, and Lyapunov Lean4",
+    "git ls-remote main and immutable raw-source inspection at external revision 3882faed7d0a9c332d3e7c0fb38a5f6d48f29864"
+  ],
+  "classification": {
+    "human": "H2",
+    "machine": "M3",
+    "readability": "R3",
+    "evidence_class": "E3",
+    "reason": "A credible immutable external Lean 4 theorem candidate is source-audited, but it is not an exact target match, is not in the pinned dependency closure, and was not kernel-checked here. Primary-source fidelity remains independently open."
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The candidate inventory and immutable-revision classification are complete for this phase only. No external theorem receives repo-local proof credit; exact integration, source fidelity, root closure, and theorem completion remain open."
+}
+

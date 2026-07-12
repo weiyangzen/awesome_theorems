@@ -23,3 +23,12 @@ elaboration is statement evidence only, not a proof of the target proposition.
 Known downstream failures are exact numbered primary-source selection and independent review,
 formal-anchor audit, obligation registry, proof, hermetic replay, and release validation. They
 prevent theorem completion but do not invalidate the exact elaborated statement phase.
+
+## Anchor-audit validation
+
+Base revision: `28be4ce7383f582503e6b54f645e2ca0e955d9de`.
+
+The pinned mathlib infrastructure check and immutable external-source audit are detailed in
+`anchor-audit.md` and structured in `anchor-audit.json`. The external candidate was not fetched,
+built, or added to `.lake`: it requires a different Lean/mathlib closure, and no exact checked
+transport is present. Anchor audit is therefore self-tested candidate evidence only, not M0.
