@@ -1,0 +1,116 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0012-RELEASE-local-20260712T223224Z",
+  "item_id": "S56-M-0012-RELEASE",
+  "theorem_id": "THM-M-0012",
+  "intent": "release",
+  "base_revision": "837792d9180ab731db89c16a5cc22128a9599bc8",
+  "base_tree": "5c5bd784032e9859e4c88b48a886d50194be1732",
+  "decided_at": "2026-07-12T22:32:24Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "dependency": {
+    "item_id": "S56-M-0012-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0012-VALIDATION-local-20260712T221520Z",
+    "receipt_sha256": "35b43069b0fd31e0e537f3ad33b9ef332fa0398431721412bffa196713a827cd",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "reconciled_inputs": {
+    "validation-receipt.json": "35b43069b0fd31e0e537f3ad33b9ef332fa0398431721412bffa196713a827cd",
+    "proof-receipt.json": "4af149d19c1e059771f41a4c224877430cf2171fe5921d997eb709df927971fa",
+    "instance.json": "de8f7347043b13829d50a590ac9a29b482c3143334143029ab1d6cd2d841d978",
+    "statement.json": "4ed8563b1bbdc9f802178d3f7109998793dc65f0770b580f10fab385f61765fe",
+    "obligation-registry.json": "e1604c806866d990a44d5343c2f946be29911d967438d6ccccf5e1a6be0e580e",
+    "typed-graphs.json": "c1bb05388ce9dd8030837216231066c9dda418d0543cb289b35a3142ba10ca82",
+    "Statement.lean": "fce52766380ace58b4b202f267b8a3640f74655d0cacdea897de01bcf956ee46",
+    "ObligationTree.lean": "86d3c1eca8017e56f83c7d1356487f08be4fea50c256ae5bd3d4bff44f6a03f1",
+    "Proof.lean": "57f5a50482cf8101cb35b337703f25f1a72e1b5562ddca43862854e9d0d582b6",
+    "check_validation.py": "04ed731b1e0c552e2a34963cbb77ad4faa2d971de9dffe2426bea1ed05785f0f"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0012-PROOF-local-20260712T215618Z",
+    "S56-M-0012-VALIDATION-local-20260712T221520Z"
+  ],
+  "root_vector": {
+    "accepted_before": [
+      "H1",
+      "M3",
+      "R4"
+    ],
+    "accepted_after": [
+      "H1",
+      "M3",
+      "R4"
+    ],
+    "best_provisional_evidence": [
+      "H1",
+      "M0-W",
+      "R4"
+    ],
+    "boundary": "The exact root and the frozen analytic composition kernel-replay through a local wrapper over pinned mathlib, but the receipts are provisional and the authoritative planned graph remains root-open. No accepted debt state changes."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "frozen_child_composition_kernel_replay": "provisional_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass_on_scoped_local_modules_and_terminal_mathlib_body",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "proof_body": "local exact wrappers and expanded composition over Complex.exists_root and supporting pinned mathlib bodies at revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "structured_state_freshness": "failed: typed-graphs.json predates proof closure and records root_closed=false, M3, and no accepted closed obligations",
+    "receipt_snapshot_freshness": "failed: proof and validation receipts bind pre-integration base revisions rather than the current immutable repository snapshot",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0012-VALIDATION has only provisional non-release-grade worker evidence and is not master accepted, so release is not dependency-legal."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused the shared warm canonical .lake symlink and did not run an immutable empty-cache network-denied cold build or offline restoration replay."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0012-VALIDATION and every transitive phase receipt",
+    "fresh authoritative typed-graph and instance reconciliation of the provisionally closed exact root and proof obligations",
+    "current content-addressed receipts binding the exact immutable release snapshot and worktree classification",
+    "AUDIT-Z with complete discovery, source-boundary, evidence-state, trust-boundary, and debt reconciliation",
+    "accepted H0 primary-source edition, theorem/page, premise and assumption mapping, errata status, node crosswalk, and independent source review",
+    "accepted R0 node-by-node readable reconstruction with formal anchors, substantive <=100-step ledgers, and independent reader review",
+    "complete transitive declaration, proof-body provenance, accepted foundation and axiom profiles, and hashed TCB closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "complete SBOM and license closure with durable content-addressed dependency archives",
+    "two signed attestations from distinct independently provisioned clean runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed evidence bundle, signature, public-state reconciliation, and master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "retry_condition": "After dependency-ordered master acceptance, reconcile the authoritative graph and audit inventory, obtain independent H0/R0 reviews, close transitive provenance and TCB records, then replay an immutable clean snapshot with empty caches and network denied and obtain two qualifying attestations plus independent minimal-verifier acceptance of a deterministic bundle.",
+  "worktree_classification": "nonrelease worker clone: the automation-provided Formalizations/Lean/.lake symlink was present and reused read-only; release artifacts are worker changes",
+  "status_boundary": "This self-tests only a truthful blocked release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance."
+}

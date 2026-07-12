@@ -1,0 +1,10 @@
+import Mathlib.RingTheory.Nakayama
+
+#check Submodule.FG
+#check Submodule.exists_sub_one_mem_and_smul_eq_zero_of_fg_of_le_smul
+#check Submodule.exists_mem_and_smul_eq_self_of_fg_of_le_smul
+#check Submodule.eq_smul_of_le_smul_of_le_jacobson
+#check Submodule.eq_bot_of_le_smul_of_le_jacobson_bot
+#check Submodule.le_of_le_smul_of_le_jacobson_bot
+#check Submodule.smul_le_of_le_smul_of_le_jacobson_bot
+#check Submodule.exists_injOn_mkQ_image_span_eq_of_span_eq_map_mkQ_of_le_jacobson_bot

@@ -1,0 +1,12 @@
+import Mathlib.RingTheory.SimpleModule.WedderburnArtin
+
+/-! Discovery-only checks for later source selection and exact statement work. -/
+
+#check IsSemisimpleRing.exists_ringEquiv_pi_matrix_divisionRing
+#check isSemisimpleRing_iff_pi_matrix_divisionRing
+#check IsSemisimpleRing.exists_ringEquiv_pi_matrix_end_mulOpposite
+#check IsSimpleRing.exists_ringEquiv_matrix_divisionRing
+#check IsSemisimpleRing.exists_algEquiv_pi_matrix_divisionRing_finite
+
+#print axioms IsSemisimpleRing.exists_ringEquiv_pi_matrix_divisionRing
+#print axioms isSemisimpleRing_iff_pi_matrix_divisionRing

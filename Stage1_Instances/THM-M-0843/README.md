@@ -97,3 +97,20 @@ frozen graph remains `[H1, M3, R4]` with zero accepted closed obligations, and
 the 18 internal source-body decompositions retain no individual closure
 credit. `audit_complete=false` and `theorem_complete=false`; no `E1`, accepted
 `M0-W`, release, or master acceptance is claimed.
+
+## Release result
+
+`release-decision.json` reconciles the provisional receipts with the current
+instance, graph, manifest, and release gates. `release-spec.json` and
+`release-receipt.json` bind the structured worker recipe and its provisional
+node-specific result. `check_release.py` also performs
+a fresh temporary-directory Lean replay of the exact terminal, frozen
+composition, proof wrappers, and differential wrapper using the existing
+pinned toolchain and warm `.lake` artifacts.
+
+The exact release verdict is `blocked`. Validation is not master accepted,
+the authoritative root remains `[H1, M3, R4]`, and `AUDIT-Z` and `THEOREM-Z`
+are both false. Cold empty-cache offline reproduction, complete trust and
+supply-chain closure, independent runner attestations, a minimal independent
+verifier, and a deterministic release bundle remain absent. The release phase
+therefore advances no lifecycle, debt, receipt, or theorem-completion state.
