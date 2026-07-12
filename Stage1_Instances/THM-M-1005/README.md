@@ -11,3 +11,9 @@ audit completion, or theorem completion is claimed.
 
 The scope map, source-statement crosswalk, and open task DAG define the downstream work. Intake
 validation and its exact limits are recorded in `validation.md`.
+
+The rev-5.6 statement and bounded anchor audit now select and elaborate the strong finite-horizon
+`L^p` target. The obligation-tree phase freezes its 14 canonical obligations and seven typed graphs
+in `obligation-registry.json`, `typed-graphs.json`, and `obligation-tree.md`. The exact root remains
+open at `M3`; the minimal open cut is the strong analytic estimate, not the checked weak mathlib
+anchor. No proof, audit completion, or theorem completion is claimed.

@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0993-RELEASE",
+  "theorem_id": "THM-M-0993",
+  "intent": "release",
+  "base_revision": "f3a78c922f6edd8503e644c9b0b350f72940ac0b",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0993-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0993-VALIDATION-local-20260712",
+    "receipt_support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "receipt_sha256": "b2547f3724dcbef6a9ed907512d79ee7bff97b34dcbb633f882e016d0f900c17"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0993-VALIDATION-local-20260712"
+  ],
+  "reconciled_inputs": {
+    "intake.json": "4830191ca7fe72b69b1abcc8e708bb688ccefee4aab6d0beef5be56300447a1a",
+    "statement.json": "ad007cfaf827147cac9eb71e247480ac6041fc8271a478fdd422a141855c8fc1",
+    "anchor-audit.json": "5bdddfcbcb6b4d3e30ab1e2b55863b1e2f145b21ab40d0f20e21afbb316a35c3",
+    "obligation-registry.json": "588df80fe2020cc0997cab737c26b1bfe66bef9988cf4d7b4847ec19cdb28f04",
+    "typed-graphs.json": "3b64a11bb27acd8830d7a70323697d8a23a433b99ae72ec2d75ffae4d6dfc6a1",
+    "Proof.lean": "8a665a6407cbe71240ddfc8f311778328953194ae3097454edad35e851d7d042",
+    "Validation.lean": "9a53643d85aafcf54a08533add899c85a7058df5c32407dd248d826042819e8e",
+    "validation-phase-spec.json": "c91b6535bc4c904ff71a8f0bf5ec965c41f9b3ebc82aa1df482b1d16f263f515",
+    "validation-receipt.json": "b2547f3724dcbef6a9ed907512d79ee7bff97b34dcbb633f882e016d0f900c17"
+  },
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M1", "R3"],
+    "boundary": "The exact root and an independent same-workspace reconstruction kernel-elaborate against pinned mathlib, but the authoritative graph predates proof closure and the receipt is nonrelease worker evidence. H0 and R0 acceptance are absent."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0993-VALIDATION is only worker-self-tested, is explicitly nonrelease, and has no master-accepted receipt."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "master acceptance and authoritative structured-state reconciliation for S56-M-0993-VALIDATION and its transitive prerequisites",
+    "accepted AUDIT-Z inventory and evidence reconciliation",
+    "accepted H0 primary-source theorem, premise, assumption, errata, and node crosswalk with independent source review",
+    "accepted R0 node-by-node reconstruction and independent reader review",
+    "complete transitive declaration/body provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and empty-cache network-denied cold build with offline archive restoration",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier and protected CI mutation gates",
+    "deterministic content-addressed release bundle and master reconciliation",
+    "accepted THEOREM-Z terminal decision"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_check": "pass as provisional same-workspace worker evidence",
+    "root_composition": "pass as provisional same-workspace worker evidence",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "authoritative_graph_freshness": "missing",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "Master-accept the prerequisite chain and reconcile fresh structured root state, then use a separately provisioned release lane to close H0/R0, complete trust and provenance, cold offline reproduction, supply-chain, independent-verifier, CI, and deterministic-bundle gates.",
+  "status_boundary": "This worker artifact truthfully decides release as blocked. It accepts no receipt, advances no lifecycle or debt vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance."
+}

@@ -31,3 +31,11 @@ proof, release validation, and theorem completion remain open.
 
 Intake-only checks remain in `validation.md`; the pinned Lean statement checks are recorded in
 `statement_validation.md`. Neither record claims a proof of the three-series theorem.
+
+## Anchor-audit verdict
+
+`anchor_audit.json` audits the pinned mathlib tree, the immutable historical `S1_M_287.lean`
+artifact, and dated public Lean 4 discovery surfaces. No exact terminal theorem was found. The
+pinned mathlib declarations checked in `AnchorAudit.lean` are independence, Borel-Cantelli,
+finite-sum variance, variance, and strong-law substrate only. The root therefore remains `M3` with
+`formalization_debt`; `anchor_audit_validation.md` records the scoped commands and results.

@@ -1,0 +1,124 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1007-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1007",
+  "depends_on": "S56-M-1007-STATEMENT",
+  "canonical_target": "Stage1Instances.THM_M_1007.KolmogorovThreeSeriesTarget",
+  "canonical_expression_sha256": "3b1a82b3fc0ce70be489e8a49279e3f29cfe244f7a50c28f5c4e5de26894cf38",
+  "audit_date": "2026-07-12",
+  "candidate_inventory": [
+    {
+      "candidate_id": "CAND-MATHLIB-TERMINAL",
+      "surface": "pinned mathlib source tree",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "search_scope": [
+        "Mathlib/Probability",
+        "Mathlib/MeasureTheory",
+        "Mathlib/Archive"
+      ],
+      "queries": [
+        "three[-_ ]series",
+        "three series",
+        "kolmogorov.*series",
+        "series.*kolmogorov",
+        "iIndepFun.*Summable",
+        "Summable.*variance"
+      ],
+      "terminal_declaration": null,
+      "exact_type_match": false,
+      "finding": "No terminal Kolmogorov three-series declaration or exact biconditional candidate occurs in the pinned source tree. The declarations retained below are adjacent substrate only.",
+      "integration_decision": "No mathlib terminal body exists at this pin to wrap."
+    },
+    {
+      "candidate_id": "CAND-LEGACY-S1-M-287",
+      "surface": "repo-local historical Lean 4 artifact",
+      "repository": "awesome_theorems worker clone",
+      "revision": "32a5ff1576146ad5f0f6ce7cc6ca7ca0c64a48af",
+      "module": "AwesomeTheorems.Stage1.S1_M_287",
+      "source_file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_287.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_287.StatementShape",
+      "declaration_kind": "definition of Prop without a proof body",
+      "exact_type_match": false,
+      "mismatches": [
+        "uses Summable for the expectation series rather than the canonical natural-order SeriesConverges predicate",
+        "puts 0 < c both outside and inside ThreeSeriesConditions",
+        "adds explicit Integrable and MemLp conjuncts to the right side",
+        "contains no theorem inhabiting StatementShape"
+      ],
+      "proof_body_integrity": "No terminal proof exists to inspect; proposition declarations and substrate wrappers supply no root proof credit.",
+      "integration_decision": "Discovery input only; cannot transport to or close the canonical target."
+    },
+    {
+      "candidate_id": "CAND-EXTERNAL-GLOBAL",
+      "surface": "public Lean 4 source discovery",
+      "repositories": "GitHub repository search and Sourcegraph global Lean index",
+      "revision": null,
+      "queries": [
+        "KolmogorovThreeSeries",
+        "three-series theorem",
+        "Kolmogorov three",
+        "series of independent random variables"
+      ],
+      "result": "GitHub repository search returned total_count 0 for both quoted theorem-name queries. Sourcegraph returned matchCount 0 for all four lang:Lean queries.",
+      "terminal_declaration": null,
+      "exact_type_match": false,
+      "immutability_note": "No candidate repository or declaration was found, so there is no external candidate revision to pin. Search-index absence is dated discovery evidence, not a proof of universal nonexistence.",
+      "integration_decision": "No external dependency candidate identified; no anchor-only machine credit retained."
+    }
+  ],
+  "mathlib_substrate": [
+    {
+      "declaration": "ProbabilityTheory.iIndepFun.comp",
+      "module": "Mathlib.Probability.Independence.Basic",
+      "role": "measurable coordinatewise postcomposition preserves independence",
+      "checked_use": "Stage1Instances.THM_M_1007.AnchorAudit.independent_truncations",
+      "root_closure": false
+    },
+    {
+      "declaration": "MeasureTheory.ae_eventually_notMem",
+      "module": "Mathlib.MeasureTheory.OuterMeasure.BorelCantelli",
+      "source_line_at_pin": 86,
+      "role": "first Borel-Cantelli direction for the large-jump branch",
+      "root_closure": false
+    },
+    {
+      "declaration": "ProbabilityTheory.IndepFun.variance_sum",
+      "module": "Mathlib.Probability.Moments.Variance",
+      "source_line_at_pin": 422,
+      "role": "finite-sum variance identity for pairwise independent variables",
+      "root_closure": false
+    },
+    {
+      "declaration": "ProbabilityTheory.strong_law_ae",
+      "module": "Mathlib.Probability.StrongLaw",
+      "source_line_at_pin": 788,
+      "role": "adjacent iid strong-law result, not the three-series equivalence",
+      "root_closure": false
+    },
+    {
+      "declaration": "ProbabilityTheory.variance",
+      "module": "Mathlib.Probability.Moments.Variance",
+      "source_line_at_pin": 63,
+      "role": "variance scalar used by the canonical third condition",
+      "root_closure": false
+    }
+  ],
+  "toolchain": {
+    "lean": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "classification": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3",
+    "debt": "formalization_debt",
+    "reason": "The mathematical theorem is classical, but neither pinned mathlib, the historical repo artifact, nor the searched external Lean 4 surfaces supplied an exact terminal proof."
+  },
+  "audit_complete_for_node": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This receipt completes candidate discovery and classification for the anchor-audit node only. Substrate declarations do not prove either direction of the root biconditional."
+}
