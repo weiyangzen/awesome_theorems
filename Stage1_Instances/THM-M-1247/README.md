@@ -8,25 +8,25 @@ this intake freezes the standard Euclidean `L2` form and excludes Rellich-Kondra
 
 | Surface | In scope | Boundary at intake |
 |---|---|---|
-| Exact root | `n >= 5`, real `u` smooth and compactly supported in `R^n \\ {0}` | A Lean expression and normalized hash belong to the statement phase |
-| Left side | Lebesgue integral of the squared Euclidean Laplacian | Laplacian convention and measurability/integrability APIs require elaboration |
-| Right side | weighted integral `|u(x)|^2 / ||x||^4` | The singularity is avoided by the support hypothesis |
-| Constant | sharp squared constant `(n(n-4)/4)^2` over `Real` | Coercions and algebraic normalization are not yet checked |
+| Exact root | `n >= 5`, real `u` smooth and compactly supported in `R^n \\ {0}` | Elaborated as `RellichInequalityTarget` in `Statement.lean` |
+| Left side | Lebesgue integral of the squared Euclidean Laplacian | Laplacian is the standard-coordinate trace of the second Frechet derivative |
+| Right side | weighted integral `|u(x)|^2 / ||x||^4` | The singularity is avoided by `0 ∉ tsupport u` |
+| Constant | sharp squared constant `(n(n-4)/4)^2` over `Real` | Natural-number dimension is explicitly coerced before subtraction |
 | Extensions | none | Sobolev completion, weighted variants, manifolds, and `Lp` analogues are excluded |
-| Foundations | Lean 4 kernel and pinned mathlib | Exact toolchain, imports, axioms, and TCB remain open |
+| Foundations | Lean 4.29.0 and pinned mathlib `8a178386...` | Statement uses three direct imports; proof-level trust remains open |
 
 The likely architecture is a second-order integration-by-parts identity plus a sharp weighted
 Cauchy-Schwarz/Hardy estimate, with density needed only for excluded extensions. This is an
 orientation map, not a frozen obligation registry or proof credit.
 
-## Intake verdict
+## Statement verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M4, R3]`. The first failed theorem gate is
-the exact Lean statement gate: no declaration, elaborated expression, environment fingerprint,
-transport, or mutation evidence exists. The theorem is not complete.
+Lifecycle remains `planned`; provisional root vector is `[H1, M3, R3]`. The exact statement, a
+definitional expanded transport, environment fingerprint, minimal-import probes, and four structural
+mutation fingerprints now elaborate against the pinned environment. This is statement/interface
+evidence only. No proof or theorem-completion claim is made.
 
 ## Validation
 
-The exact commands and results establishing manifest membership, standard consistency, JSON syntax,
-and dossier-local reference integrity are recorded in `validation.md`. The pre-existing modifications
-to the generated blueprint and execution DAG were observed and were not edited by this intake.
+Statement commands and results are recorded in `statement-validation.md`; intake checks remain in
+`validation.md`. The generated blueprint and execution DAG were not edited.

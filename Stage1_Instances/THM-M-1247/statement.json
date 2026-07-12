@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1247-STATEMENT",
+  "theorem_id": "THM-M-1247",
+  "lifecycle": "planned",
+  "canonical_statement": "For every natural number n at least 5 and every smooth compactly supported real-valued function u on R^n whose support avoids the origin, (n(n-4)/4)^2 times the integral of u(x)^2/||x||^4 is at most the integral of (Delta u(x))^2.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1247/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1247.RellichInequalityTarget",
+    "elaborated_expression_sha256": "4697dbbaaf7fd636a371bb293a47359a9b079a3857fcb85d6f7cf5a608a5c90e",
+    "statement_file_sha256": "0fb5f4ddca16a5e9d99f692b17ad86ca55955835fc5aa3d2c063798fc06bf266"
+  },
+  "domain_and_universes": "n : Nat; u : (Fin n -> Real) -> Real; Prop in universe 0; product Lebesgue volume on the finite Pi space",
+  "ordered_binders": ["n : Nat", "u : Euclidean n -> Real"],
+  "hypotheses": ["5 <= n", "ContDiff Real top u", "HasCompactSupport u", "0 not in tsupport u"],
+  "conclusion": "(((n : Real) * ((n : Real) - 4)) / 4)^2 * integral x, (u x)^2 / ||x||^4 <= integral x, (laplacian u x)^2",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1247.rellichInequalityTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "euclidean_space": "Fin n -> Real with the standard Pi norm and product Lebesgue volume",
+    "laplacian": "standard-coordinate trace of fderiv Real (fun y => fderiv Real u y) x",
+    "test_class": "ContDiff Real top, HasCompactSupport, and zero outside topological support",
+    "constant": "dimension coerced to Real before subtraction; sharp constant is squared",
+    "integrals": "mathlib Bochner integral with its default product Lebesgue volume instance"
+  },
+  "environment_fingerprint": {
+    "base_revision": "c370639c4481be6bdcec40b9aa3553046d6f7572",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "minimal_import_evidence": "Removing any one direct import makes Statement.lean fail to elaborate; see statement-validation.md.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1247/check_statement.py",
+    "killed": [
+      "removed support-avoids-origin hypothesis",
+      "changed the dimension-varying domain to one dimension",
+      "changed the universally quantified function to an existential binder",
+      "included boundary dimension four"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "Dimensions n <= 4 are excluded",
+    "The support may not meet the singularity at zero",
+    "No Sobolev completion, weighted variant, manifold, vector-valued, or Lp extension is credited",
+    "Rellich-Kondrachov compactness is a different theorem"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and kernel-elaborates the exact selected classical Rellich inequality statement and a definitional expansion. It supplies no Rellich proof, source-fidelity acceptance, anchor acceptance, or theorem-completion evidence."
+}

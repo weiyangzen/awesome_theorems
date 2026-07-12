@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1250-STATEMENT",
+  "theorem_id": "THM-M-1250",
+  "lifecycle": "planned",
+  "canonical_statement": "For every natural dimension n and complex-valued function f on R^n, f is represented by a mathlib SchwartzMap exactly when f is infinitely differentiable and, for every polynomial weight k and Frechet-derivative order r, the weighted derivative norm is uniformly bounded.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1250/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1250.SchwartzSpaceCharacterization",
+    "elaborated_expression_sha256": "367a6b23168c88dcc5023a4d82bff17b496187a25303b4f81871a321750205f0",
+    "statement_file_sha256": "bb3cc8dcc73edcf3d7543e2b8d49df9c4fc46da16d2ab9a712b193c6be82e39f"
+  },
+  "domain_and_universes": "n : Nat; EuclideanDomain n := Fin n -> Real; f : EuclideanDomain n -> Complex; Prop in Lean universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "f : EuclideanDomain n -> Complex",
+    "k r : Nat",
+    "C : Real",
+    "x : EuclideanDomain n"
+  ],
+  "hypotheses": [
+    "ContDiff Real top f",
+    "for every k and r there is a uniform real bound on norm(x)^k * norm(iteratedFDeriv Real r f x)"
+  ],
+  "conclusion": "Existence of a complex-valued SchwartzMap with underlying function f is equivalent to the smooth rapid-decay conditions.",
+  "direct_imports": [
+    "Mathlib.Analysis.Distribution.SchwartzSpace.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1250.exists_representative_iff_nonempty",
+  "checked_transport_relationship": "Existential function-level membership is equivalent to inhabitation of the subtype of bundled SchwartzMap representatives with underlying function f.",
+  "environment_fingerprint": {
+    "base_revision": "c370639c4481be6bdcec40b9aa3553046d6f7572",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1250/check_statement.py",
+    "killed": [
+      "changed Complex codomain to Real",
+      "removed infinite differentiability",
+      "required decay only for the function rather than every derivative",
+      "excluded dimension zero"
+    ]
+  },
+  "degenerate_cases": "Dimension zero is retained. No nonzero-function or positive-bound premise is imposed; the zero function and constant zero-dimensional functions remain within the characterization.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact object-characterization selected from the intake scope. It supplies no proof of that characterization and no dependent-node evidence."
+}
