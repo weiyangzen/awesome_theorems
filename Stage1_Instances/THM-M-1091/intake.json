@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-1091-INTAKE",
+  "theorem_id": "THM-M-1091",
+  "execution_rank": 533,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Chapman-Kolmogorov equation",
+  "canonical_statement": "For a consistent family of transition probabilities, transition from time s to time u factors through every intermediate time t: P(s,u)(x,A) is the integral over y of P(t,u)(y,A) against P(s,t)(x,dy). In the time-homogeneous discrete case this says that the (m+n)-step kernel is the composition of the m-step and n-step kernels.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "candidate_module": "Mathlib.Probability.Kernel.Composition.Comp",
+    "candidate_declarations": [
+      "ProbabilityTheory.Kernel.pow_add",
+      "ProbabilityTheory.Kernel.pow_add_apply_eq_lintegral"
+    ],
+    "candidate_scope": "homogeneous discrete-time endokernel",
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_scope_and_statement_phase"
+  },
+  "domain_and_universes": "A measurable state space E; a time parameter and transition kernels P(s,t) : Kernel E E for s <= t. The candidate pinned Lean encoding instead uses natural step counts and powers of one endokernel.",
+  "quantifiers": [
+    "measurable state space E",
+    "ordered times s <= t <= u, or natural step counts m and n in the homogeneous discrete specialization",
+    "initial state x in E",
+    "measurable target set A"
+  ],
+  "hypotheses": [
+    "each P(s,t) is a transition probability kernel with the measurability needed for kernel composition",
+    "the family is the transition family of the selected Markov model, or its composition consistency is derived from the selected construction",
+    "time homogeneity if the single-kernel power encoding is selected"
+  ],
+  "conclusion": "P(s,u)(x,A) = integral P(t,u)(y,A) dP(s,t)(x,dy); equivalently P(s,u) = P(t,u) composed with P(s,t).",
+  "alternate_encodings": [
+    {
+      "target": "P(s,u) = P(t,u) composed with P(s,t)",
+      "relationship": "kernel equality form of the general equation",
+      "checked_witness": null
+    },
+    {
+      "target": "ProbabilityTheory.Kernel.pow_add for a single endokernel",
+      "relationship": "homogeneous discrete-time specialization",
+      "checked_witness": null
+    },
+    {
+      "target": "ProbabilityTheory.Kernel.pow_add_apply_eq_lintegral",
+      "relationship": "setwise integral form of the homogeneous discrete-time specialization",
+      "checked_witness": null
+    },
+    {
+      "target": "continuous-time transition semigroup P(t+s) = P(t) composed with P(s)",
+      "relationship": "time-homogeneous continuous-time specialization",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "Not yet frozen. The statement phase must explicitly treat zero elapsed time, m = 0 or n = 0, empty or degenerate state spaces, measurable-set requirements, null-set conventions, killed/sub-Markov kernels, and nonhomogeneous transition families.",
+  "foundation_profile": "Lean 4 kernel with classical measure theory expected; exact accepted/disallowed logical principles remain to be frozen",
+  "tcb_profile": "Lean 4 v4.29.0 plus pinned mathlib; complete trust closure belongs to later phases",
+  "computation_profile": "No simulation, oracle, native computation, or generated numerical result is credited",
+  "formal_system": "Lean 4 + pinned mathlib",
+  "source_revisions": {
+    "repository_base": "62079b9309b9fd52b92c67032eb6543ea54a0c3f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "primary_mathematical_source": "open_pending_edition_and_page_audit"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1091/README.md",
+    "Stage1_Instances/THM-M-1091/scope-map.md",
+    "Stage1_Instances/THM-M-1091/source-statement-crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the repository source record, selected time model, canonical claim, Lean target/imports/toolchain, dependency pins, source edition, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake identifies the conventional equation and a pinned homogeneous discrete-time Lean candidate. It does not accept a source specialization, pass the exact statement gate, or claim proof closure."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "stage1-open-task-dag/5.6.0",
+  "theorem_id": "THM-M-1091",
+  "root_item": "S56-M-1091-INTAKE",
+  "tasks": [
+    {"id": "S56-M-1091-INTAKE", "phase": "intake", "depends_on": [], "state": "provisional_worker_complete"},
+    {"id": "S56-M-1091-STATEMENT", "phase": "statement", "depends_on": ["S56-M-1091-INTAKE"], "state": "open"},
+    {"id": "S56-M-1091-ANCHOR_AUDIT", "phase": "anchor_audit", "depends_on": ["S56-M-1091-STATEMENT"], "state": "open"},
+    {"id": "S56-M-1091-OBLIGATION_TREE", "phase": "obligation_tree", "depends_on": ["S56-M-1091-ANCHOR_AUDIT"], "state": "open"},
+    {"id": "S56-M-1091-PROOF", "phase": "proof", "depends_on": ["S56-M-1091-OBLIGATION_TREE"], "state": "open"},
+    {"id": "S56-M-1091-VALIDATION", "phase": "validation", "depends_on": ["S56-M-1091-PROOF"], "state": "open"},
+    {"id": "S56-M-1091-RELEASE", "phase": "release", "depends_on": ["S56-M-1091-VALIDATION"], "state": "open"}
+  ],
+  "authority_boundary": "Only the integration lane may accept a node or alter the authoritative execution DAG."
+}

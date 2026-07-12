@@ -1,0 +1,20 @@
+{
+  "schema_version": "stage1-task-dag/5.6.0",
+  "theorem_id": "THM-M-1095",
+  "lifecycle": "planned",
+  "nodes": [
+    {"id": "S56-M-1095-INTAKE", "phase": "intake", "depends_on": [], "state": "provisional_worker_selftest"},
+    {"id": "S56-M-1095-STATEMENT", "phase": "statement", "depends_on": ["S56-M-1095-INTAKE"], "state": "blocked_pending_exact_source_statement"},
+    {"id": "S56-M-1095-ANCHOR_AUDIT", "phase": "anchor_audit", "depends_on": ["S56-M-1095-STATEMENT"], "state": "open"},
+    {"id": "S56-M-1095-OBLIGATION_TREE", "phase": "obligation_tree", "depends_on": ["S56-M-1095-ANCHOR_AUDIT"], "state": "open"},
+    {"id": "S56-M-1095-PROOF", "phase": "proof", "depends_on": ["S56-M-1095-OBLIGATION_TREE"], "state": "open"},
+    {"id": "S56-M-1095-VALIDATION", "phase": "validation", "depends_on": ["S56-M-1095-PROOF"], "state": "open"},
+    {"id": "S56-M-1095-RELEASE", "phase": "release", "depends_on": ["S56-M-1095-VALIDATION"], "state": "open"}
+  ],
+  "first_blocker": {
+    "node": "S56-M-1095-STATEMENT",
+    "gate": "exact source statement identification",
+    "retry_condition": "Pin and transcribe one exact primary-source proposition and justify its identity with the catalog entry."
+  },
+  "acceptance_boundary": "Only the integration lane may accept a node or alter the authoritative execution DAG."
+}
