@@ -1,0 +1,28 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0646-VALIDATION",
+  "theorem_id": "THM-M-0646",
+  "recipes": [
+    {
+      "recipe_id": "M0646-validation-proof-replay",
+      "cwd": ".",
+      "argv": ["bash", "Stage1_Instances/THM-M-0646/check_proof.sh"],
+      "network_policy": "denied",
+      "expected_exit": 0
+    },
+    {
+      "recipe_id": "M0646-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0646/Validation.lean"],
+      "network_policy": "denied",
+      "expected_exit": 0
+    },
+    {
+      "recipe_id": "M0646-validation-provenance-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0646/check_validation.py"],
+      "network_policy": "denied",
+      "expected_exit": 0
+    }
+  ]
+}
