@@ -13,20 +13,26 @@
   implication is elementary but belongs to the repository's stated "equivalence" and must be
   included or connected by a checked wrapper in the canonical root.
 
-## Statement-phase decisions
+## Frozen statement decisions
 
-The statement phase must freeze the representation of the one-symbol language extension, relation
-arity and tuple convention, ordered binders and universes, equality versus definitional equality of
-reduct structures, and semantic consequence over all carriers. It must decide from a reviewed
-source whether inconsistent `T`, nullary `R`, empty carriers, equality symbols, and parameterized
-variants are included. The formula must be in the old language; merely defining `R` with an
-expanded-language formula is circular.
+`Statement.lean` uses `L.sum (OneRel n)`, where `OneRel n` has no function symbols and relation
+symbols `PLift (k = n)`. Tuples are `Fin n -> M`. Binders are ordered `L`, `n`, `T`; each semantic
+side then ranges over `M : Type w`, a `Nonempty M` witness, structures, model hypotheses, and tuples.
+Reducts are compared by equality of the `Language.Structure M` values obtained from `LHom.sumInl`.
+The formula is `L.Formula (Fin n)` and its existential binder precedes every carrier/model binder.
 
-The same-carrier uniqueness formulation is the intake root because it states uniqueness of an
-expansion directly. A formulation using isomorphic reducts may be credited only after a checked
-transport. Mutation tests must remove the model hypothesis, weaken equality of reducts, change the
-formula language, move the existential formula inside the model quantifier, and exercise nullary
-and inconsistent-theory boundaries.
+The target includes `n = 0`, the empty theory, inconsistent theories (both sides are vacuous in the
+expected way), equality atoms supplied by first-order logic, and all nonempty carriers. It excludes
+parameters and empty carriers. These choices match mathlib's `Theory.Model` semantic boundary and
+the standard parameter-free, one-new-relation formulation frozen at intake.
+
+The same-carrier uniqueness formulation is canonical because it states uniqueness of expansion
+directly. Isomorphic-reduct and two-copy syntactic formulations still require checked transports.
+Statement review rejected the four weakening mutations: removing either model hypothesis permits
+non-model structures; weakening reduct equality changes implicit definability; using an expanded-
+language formula permits the circular atom itself; and moving `exists phi` under the model binder
+loses uniformity. Nullary relations and inconsistent theories were retained rather than mutated
+away.
 
 ## Explicit exclusions
 

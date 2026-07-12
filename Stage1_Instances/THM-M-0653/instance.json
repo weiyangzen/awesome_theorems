@@ -1,9 +1,9 @@
 {
   "schema_version": "stage1-instance-intake/1.0",
   "theorem_id": "THM-M-0653",
-  "item_id": "S56-M-0653-INTAKE",
+  "item_id": "S56-M-0653-STATEMENT",
   "lifecycle": "planned",
-  "intent": "intake",
+  "intent": "statement",
   "baseline": "L0",
   "rework_required": true,
   "execution_rank": 698,
@@ -13,20 +13,22 @@
   "category": "mathematical logic / model theory",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "Implicit definability and explicit definability are equivalent.",
-  "canonical_claim_status": "human_scope_frozen_formal_encoding_open",
+  "canonical_claim_status": "exact_lean_target_elaborated_statement_phase",
   "canonical_claim": "Let L be a first-order language, let R be one new finite-arity relation symbol, and let T be a theory in the expanded language L union {R}. If any two models of T carried by the same underlying set and having the same L-reduct interpret R identically, then there is an L-formula phi with the arity of R such that every model of T satisfies, for every tuple x, R(x) iff phi(x).",
   "canonical_formal_target": {
-    "status": "open",
+    "status": "elaborated",
     "module_candidates": [
       "Mathlib.ModelTheory.LanguageMap",
       "Mathlib.ModelTheory.Semantics",
       "Mathlib.ModelTheory.Definability"
     ],
-    "declaration": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null
+    "declaration": "Stage1.THM_M_0653.BethDefinabilityTarget",
+    "source_file": "Statement.lean",
+    "source_sha256": "99f75b5c940f45b295576c150f9cdd3dccec590c749d792ab672ab57ed0cb1eb",
+    "elaborated_type": "(L : Language.{u,v}) -> (n : Nat) -> (T : (Expanded L n).Theory) -> Prop",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_manifest-321626c846f1"
   },
-  "domain_and_universes": "A one-sorted first-order base language L, a finite arity n, an expanded language with one distinguished n-ary relation R, expanded structures on arbitrary nonempty carriers, and an expanded-language theory T. Exact universe levels remain open.",
+  "domain_and_universes": "A one-sorted Language.{u,v}, any n : Nat including zero, Expanded L n formed by a language sum with exactly one n-ary relation, structures on each Type w with Nonempty M, and an expanded-language theory T.",
   "quantifiers": [
     "base first-order language L",
     "finite relation arity n",
@@ -57,12 +59,12 @@
   ],
   "excluded_degenerate_cases": "Nullary R must be decided explicitly rather than silently excluded; empty theories and inconsistent theories require source-faithful treatment; no parameters are allowed in the defining formula unless the reviewed source explicitly states a parameterized variant.",
   "source_status": "repository_secondary_metadata_only_primary_source_edition_theorem_page_and_errata_open",
-  "root_vector": {"H": "H2", "M": "M4", "R": "R4"},
+  "root_vector": {"H": "H2", "M": "M3", "R": "R4"},
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "foundation_profile": "Lean 4 dependent type theory; classical logic, compactness, completeness, and choice dependencies of the eventual proof remain to be audited",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are candidate components; exact imports, target declaration, proof closure, and axiom profile remain open",
+  "tcb_profile": "Statement elaboration uses Lean kernel 4.29.0, pinned mathlib 8a178386ffc0, and only Mathlib.ModelTheory.Semantics; proof closure and axiom profile remain open",
   "computation_profile": "noncomputable metatheoretic existence theorem expected; no oracle, experiment, or unchecked certificate is credited",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "public_merge_targets": ["Stage1_Instances/THM-M-0653"],
@@ -79,7 +81,8 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean"
   ],
-  "status_boundary": "Planned intake only. Checked library ingredients are discovery evidence; there is no exact Lean target, primary-source acceptance, obligation registry, proof credit, accepted task state, audit completion, or theorem completion."
+  "status_boundary": "The exact canonical Lean statement elaborates locally. Primary-source acceptance, checked alternate transports, candidate audit, obligation registry, proof credit, accepted master state, audit completion, and theorem completion remain open."
 }

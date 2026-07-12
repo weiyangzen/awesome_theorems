@@ -1,11 +1,10 @@
-# Intake validation
+# Statement validation
 
-Base revision: `3436a9512b8c720d6b89ba3b8a1d4c405ae3a95f`.
+Base revision: `8a4de324e430348fba945ccc31633dc565330377`.
 
-Validation date: 2026-07-12 (Asia/Shanghai). This validation is limited to target membership,
-dossier structure/invariants, whitespace, and a narrow elaboration probe against existing pinned
-artifacts. The probe checks formal ingredients only. It is not the rev-5.6 statement gate and
-establishes no canonical target or proof result.
+Validation date: 2026-07-12 (Asia/Shanghai). This validation covers the exact statement declaration
+and dossier consistency against existing pinned artifacts. It establishes statement elaboration,
+not proof closure or theorem completion.
 
 The preflight worktree contains the existing untracked `Formalizations/Lean/.lake` link/artifact.
 It is used read-only. No `lake update`, `lake build`, clone, fetch, or other dependency mutation is
@@ -28,14 +27,15 @@ Environment fingerprint:
 | `sha256sum Formalizations/Lean/lean-toolchain Formalizations/Lean/lake-manifest.json` | exit 0; hashes recorded above |
 | `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | exit 0; pinned mathlib revision recorded above |
 | scoped repository and pinned-mathlib `rg` searches for Beth and implicit/explicit definability | exit 0; only the repository gloss and generic definability API were found; no Beth root declaration located |
-| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0653/IntakeProbe.lean` | exit 0; reduct, expansion, theory/model, definability, and formula-transport ingredients elaborated |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0653/Statement.lean` | exit 0; printed `BethDefinabilityTarget.{u, v, w} (L : Language) (n : Nat) (T : (Expanded L n).Theory) : Prop` |
+| `sha256sum Stage1_Instances/THM-M-0653/Statement.lean` | exit 0; `99f75b5c940f45b295576c150f9cdd3dccec590c749d792ab672ab57ed0cb1eb` |
 | `python3 -m json.tool` on `instance.json` and `task-dag.json` | exit 0; both valid JSON |
 | scoped Python intake assertions | exit 0; `intake invariant check: ok` |
 | `git diff --check -- Stage1_Instances/THM-M-0653 .stage1-worker-selftest.json` | exit 0; no output |
 
 ## Status boundary
 
-Primary-source inspection and review, canonical Lean elaboration and expression fingerprint,
-checked transports and mutations, formal-candidate audit, obligation registry, proof, hermetic
-replay, readable reconstruction, and independent verification all remain open. They prevent audit
-and theorem completion but do not invalidate a self-tested planned intake.
+Primary-source inspection and review, checked alternate transports, formal-candidate audit,
+obligation registry, proof, hermetic replay, readable reconstruction, and independent verification
+all remain open. They prevent audit and theorem completion but do not invalidate this self-tested
+statement phase.

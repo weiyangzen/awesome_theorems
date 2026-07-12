@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0651-STATEMENT",
+  "theorem_id": "THM-M-0651",
+  "lifecycle": "planned",
+  "canonical_statement": "For a satisfiable theory in a countable first-order language and a countable family of finite-arity partial types over the empty parameter set, each nonprincipal over the theory, there exists an at-most-countable model of the theory omitting every type.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0651/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0651.OmittingTypesTarget",
+    "elaborated_expression_sha256": "789c281a89ba5947476cb2189ae3e216de0eeaa0b5d016549489d8c1553d8c43",
+    "statement_file_sha256": "39b09536792acdd585eb62dc09917eca50eff8717211a764bca58d96645d38ea"
+  },
+  "domain_and_universes": "L : Language.{u,v}; countable function and relation symbol types at every arity; T : L.Theory; Nat-indexed finite arities and formula sets; model carrier in max u v; Prop in universe 0",
+  "ordered_binders": [
+    "L : Language.{u,v}",
+    "[forall n, Countable (L.Functions n)]",
+    "[forall n, Countable (L.Relations n)]",
+    "T : L.Theory",
+    "arity : Nat -> Nat",
+    "p : (i : Nat) -> Set (L.Formula (Fin (arity i)))"
+  ],
+  "hypotheses": [
+    "T.IsSatisfiable",
+    "forall i, IsPartialType T (p i)",
+    "forall i, IsNonprincipal T (p i)"
+  ],
+  "conclusion": "There exists M : T.ModelType whose carrier is Countable and which omits p i for every i.",
+  "direct_imports": ["Mathlib.ModelTheory.Satisfiability"],
+  "local_definitions": {
+    "IsPartialType": "The constants expansion of T union the formula set is finitely satisfiable.",
+    "Isolates": "A formula is jointly satisfiable with T and T semantically entails its implication to every member of the type.",
+    "IsNonprincipal": "No formula isolates the type over T.",
+    "Omits": "Every tuple falsifies some member of the type."
+  },
+  "checked_transport": "Stage1Instances.THM_M_0651.omits_iff_no_realizing_tuple",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0651/check_statement.py",
+    "killed": [
+      "removed the nonprincipality hypothesis",
+      "weakened omission of every realizing tuple to failure at one selected tuple"
+    ]
+  },
+  "degenerate_cases": "The Nat-indexed family permits repetitions; arity may vary and may be zero. Countable means at most countable, so finite models remain admissible. The empty family is represented by an extensionally empty Nat-indexed family rather than by changing the index type.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact statement selected by intake. It supplies no omitting-types proof, source acceptance, anchor-audit, or downstream completion evidence."
+}
