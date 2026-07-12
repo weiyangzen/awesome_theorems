@@ -71,13 +71,20 @@ H0.
 ## Pinned Lean boundary
 
 At mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
-`Mathlib.RingTheory.RegularLocalRing.Defs` defines `IsRegularLocalRing`; the UFD class is in
-`Mathlib.RingTheory.UniqueFactorizationDomain.Defs`. `IntakeProbe.lean` authenticates these APIs.
+`Mathlib.RingTheory.RegularLocalRing.Defs` defines `IsRegularLocalRing` and transitively exposes
+`UniqueFactorizationMonoid`; it is the statement's sole direct import. `IntakeProbe.lean`
+authenticated the adjacent APIs, while `Statement.lean` now freezes the exact unrestricted target.
 A bounded exact-topic search found no `Auslander`, `Buchsbaum`, or declaration deriving
 `UniqueFactorizationMonoid R` from `IsRegularLocalRing R`. The only located direction involving
 regular local rings and principal ideals is the reverse special-case instance that a local domain
 which is a principal ideal ring is regular.
 
-This is intake discovery, not an exhaustive anchor audit and not proof that no external Lean 4
-formalization exists. The canonical module, proposition, elaborated-expression hash, environment
-fingerprint, alternate encodings, mutations, terminal proof body, and trust closure remain open.
+The instance-binder target is kernel-checked equivalent to the same proposition with
+`IsRegularLocalRing R` explicit. Removed regularity, specialization to fields, existential binder
+scope, and exclusion of the field boundary have distinct elaborated expressions and fail the tested
+identity direction. `Rat` authenticates that regular local fields are included. This freezes the
+machine statement, not the historical definition transport or H0 source fidelity.
+
+This is still not an exhaustive anchor audit and not proof that no external Lean 4 formalization
+exists. Terminal proof body, provenance, dependency, trust closure, and all proof credit remain
+open.

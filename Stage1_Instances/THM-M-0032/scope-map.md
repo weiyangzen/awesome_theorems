@@ -3,25 +3,25 @@
 ## Preserved claim
 
 The admissible root is the catalog's universal statement: every regular local ring is a unique
-factorization domain. The 1959 paper's Theorem 5 is a direct statement locator. At intake this
-remains a mathematical scope locator rather than a frozen canonical Lean proposition.
+factorization domain. The 1959 paper's Theorem 5 is a direct statement locator. Under pinned
+mathlib's commutative-ring convention, the statement phase freezes this as
+`forall (R : Type u) [CommRing R] [IsRegularLocalRing R], UniqueFactorizationMonoid R`.
 
-## Decisions required at statement freeze
+## Statement decisions
 
-An immutable source packet and independent review must freeze all proposition-changing choices:
+The machine statement fixes these encoding choices:
 
-1. The paper's convention for a ring, including commutativity, identity, and nontriviality.
-2. The exact definition of local ring and its distinguished maximal ideal.
-3. The Noetherian premise and the homological or dimension-theoretic definition of regularity used
-   by the paper, with a checked transport to a modern equivalent definition.
-4. Whether integrality is an explicit premise or a theorem derived from regular localness.
-5. The exact UFD definition, including existence and uniqueness up to units, and its relationship
-   to modern atomic/prime-element and height-one-prime formulations.
-6. The ordered ring and structure binders, universe parameters, typeclass dependencies, and
-   conclusion encoding.
-7. The treatment of fields and zero-dimensional rings, the zero ring, positive-dimensional rings,
-   and any use of completion or localization in source dependencies.
-8. The foundation, choice, quotient, localization, TCB, and computation profiles.
+1. `R : Type u` is universally quantified with `CommRing R` and `IsRegularLocalRing R` instances.
+2. `IsRegularLocalRing` supplies local, Noetherian, and nontrivial structure; no redundant premise
+   and no explicit domain premise is added.
+3. The conclusion is `UniqueFactorizationMonoid R` on the same carrier.
+4. Fields and dimension zero are included; `Rat` checks the field boundary. The zero ring is
+   excluded by inherited nontriviality.
+5. An explicit-hypothesis formulation is credited only through the checked iff in `Statement.lean`.
+
+The exact transport from the primary paper's incorporated definitions to these modern definitions,
+including the domain consequence and UFD conventions, remains open on H and blocks H0 rather than
+M3 statement elaboration.
 
 ## Source proof boundary
 
@@ -49,10 +49,9 @@ support H0 or an obligation tree.
 
 Pinned mathlib's `IsRegularLocalRing R` extends `IsLocalRing R` and `IsNoetherianRing R` for a
 commutative ring and uses the maximal-ideal span-rank/Krull-dimension equality. Its UFD interface is
-`UniqueFactorizationMonoid R`. A natural schematic binder shape is therefore
-`(R : Type u) [CommRing R] [IsRegularLocalRing R] : UniqueFactorizationMonoid R`, but intake does
-not freeze or credit this expression. The exact
-source transport, domain consequence, imports, elaborated expression, and mutations are open.
+`UniqueFactorizationMonoid R`. The exact binder shape is frozen by `Statement.lean` with the single
+direct import `Mathlib.RingTheory.RegularLocalRing.Defs`. Its explicit expression, environment,
+four mutation classes, and field boundary are fingerprinted in `statement.json`.
 
-No canonical Lean target, expression fingerprint, checked alternate encoding, discovery protocol,
-obligation registry, typed graph, proof state, or proof credit is frozen at intake.
+No discovery protocol, obligation registry, typed graph, target proof body, proof state, or proof
+credit is frozen by the statement phase.

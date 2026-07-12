@@ -29,11 +29,23 @@ checks `PUnit` as a concrete commutative Noetherian zero-ring coefficient instan
 
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
 `Mathlib.RingTheory.Polynomial.Basic` contains the exact candidate
-`Polynomial.isNoetherianRing`. Its terminal body, provenance, dependencies, and trust closure
-remain for the later anchor audit and receive no proof credit here.
+`Polynomial.isNoetherianRing`.
+
+## Anchor-audit result
+
+`AnchorAudit.lean` now checks a literal copy of the frozen target through that declaration. The
+pinned body proves finite generation by a well-founded minimum of leading-coefficient ideals and
+strong induction on polynomial degree. Lean reports the terminal and wrapper sorry-free and gives
+the axiom set `propext`, `Classical.choice`, and `Quot.sound`. `anchor-audit.json` binds the mathlib
+revision, tree, source blob and hashes, body lineage, dependencies, license, bounded discovery
+ledger, exact statement comparison, and supplemental source hygiene.
+
+The bounded public search also classifies an immutable Lean power-series result as a carrier
+mismatch, not a substitute. GitHub code search and grep.app were inaccessible, so discovery
+saturation is not claimed.
 
 The planned vector is `[H1, M3, R3]`: a stable conventional statement and source lead exist; an
-exact formal interface is located but not accepted through the anchor-audit and proof gates; and
-this dossier maps scope without reconstructing the proof. The statement proposal is self-tested
-pending master acceptance, while every later task remains open. No accepted execution state,
-audit completion, theorem completion, or master acceptance is claimed.
+exact pinned mathlib route is a self-tested `M0-W / E2` candidate but the accepted root remains
+`M3` until downstream proof, provenance/trust, composition, validation, and master-acceptance
+gates; and this dossier maps scope without reconstructing the proof. No accepted execution state,
+`E1`, audit completion, theorem completion, or master acceptance is claimed.

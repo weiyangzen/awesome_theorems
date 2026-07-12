@@ -1,0 +1,233 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0032-STATEMENT-WORKER-20260713",
+  "item_id": "S56-M-0032-STATEMENT",
+  "theorem_id": "THM-M-0032",
+  "phase": "statement",
+  "intent": "statement",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "94f6abf9359f26384e0f68bef694dc5b9aae624c",
+  "base_tree": "e0083f4f402c93febe4419b51498afa8ecf81c06",
+  "worker_branch_or_worktree": "isolated Stage1 rev-5.6 automation clone",
+  "worktree_state": "nonrelease dirty due to owned statement changes, the authorized root worker packet, and a pre-existing automation-provided untracked Formalizations/Lean/.lake symlink",
+  "preexisting_untracked_paths": [
+    "Formalizations/Lean/.lake"
+  ],
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:ae0055f65665bc05a0fa8ee2eed39566b036e65a2119be2fa6e4cecd5c1966a9",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:d9506f42dd2de7f8a28e12b9e780931938d99fdc66f42a6698d4032b29a465d1",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Docs/Blueprint_Guidelines.md": "sha256:a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f"
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "direct_import_sha256": "3031d9946232a1d726a4556d0674632345b0877f049a23c104c495f5b2128c6f",
+    "dependency_mode": "existing canonical pinned .lake symlink used read-only"
+  },
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0032-STATEMENT-RECIPE-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0032/Statement.lean"],
+      "expected_exit": 0,
+      "covered_task_ids": ["S56-M-0032-STATEMENT"],
+      "covered_declarations": ["Stage1Instances.THM_M_0032.AuslanderBuchsbaumUFDTarget"]
+    },
+    {
+      "recipe_id": "S56-M-0032-STATEMENT-RECIPE-CHECKER",
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "-B", "../../Stage1_Instances/THM-M-0032/check_statement.py"],
+      "expected_exit": 0,
+      "covered_task_ids": ["S56-M-0032-STATEMENT"],
+      "covered_declarations": ["Stage1Instances.THM_M_0032.AuslanderBuchsbaumUFDTarget"]
+    }
+  ],
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0032"],
+      "exit_code": 0,
+      "result": "rank 1076, planned, no legacy slot, legacy artifacts unaccepted, theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0032/Statement.lean"],
+      "exit_code": 0,
+      "result": "exact target, checked iff, four expected type rejections, Rat field boundary, axiom report, and explicit expression elaborated; output sha256 2a26d392cff0eab1fc3a25aed89898827f02c059f9dc7c4f21748ab0c86637d1"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "-B", "../../Stage1_Instances/THM-M-0032/check_statement.py"],
+      "exit_code": 0,
+      "result": "expression, source, Lean output, mutation, minimal-import deletion, boundary, structured record, worker packet, and pin checks passed"
+    },
+    {
+      "cwd": ".",
+      "command": "python3 -m json.tool on all owned JSON and .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "all structured files are valid JSON"
+    },
+    {
+      "cwd": ".",
+      "command": "scoped prohibited Lean construct scan over Stage1_Instances/THM-M-0032",
+      "exit_code": 1,
+      "result": "expected no match: no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration"
+    },
+    {
+      "cwd": ".",
+      "command": "git diff --check plus per-new-file git diff --no-index --check",
+      "exit_code": 0,
+      "result": "no whitespace diagnostics"
+    }
+  ],
+  "covered_node_ids": [
+    "S56-M-0032-STATEMENT"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0032.AuslanderBuchsbaumUFDTarget",
+    "Stage1Instances.THM_M_0032.ExplicitRegularityTarget",
+    "Stage1Instances.THM_M_0032.auslanderBuchsbaumUFDTarget_iff_explicitRegularityTarget"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0032/README.md",
+    "Stage1_Instances/THM-M-0032/Statement.lean",
+    "Stage1_Instances/THM-M-0032/check_statement.py",
+    "Stage1_Instances/THM-M-0032/instance.json",
+    "Stage1_Instances/THM-M-0032/scope-map.md",
+    "Stage1_Instances/THM-M-0032/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0032/statement-receipt.json",
+    "Stage1_Instances/THM-M-0032/statement-validation.md",
+    "Stage1_Instances/THM-M-0032/statement.json",
+    "Stage1_Instances/THM-M-0032/task-dag.json"
+  ],
+  "diff_summary": "Added the exact Lean statement module, fail-closed statement checker, structured statement record, provisional node receipt, and validation record; reconciled the public dossier without changing authoritative task state or historical intake evidence.",
+  "exact_statement_change": "Froze the unrestricted target forall (R : Type u) [CommRing R] [IsRegularLocalRing R], UniqueFactorizationMonoid R and a checked iff to the same proposition with explicit regularity evidence.",
+  "source_revision_and_proof_body_summary": "The primary Theorem 5 exactly locates the root, while incorporated definition transport and independent review remain H1. The single statement import supplies vocabulary only; no target proof body was located, inspected, or credited.",
+  "ownership_and_change_impact": "Only Stage1_Instances/THM-M-0032 and the scheduler-authorized root self-test handoff changed. No authoritative execution DAG/checklist, dependency, .lake artifact, or other target was modified.",
+  "statement_fingerprints": [
+    "sha256:199d16d669438ea6e1cd556adbc4a9475805acf048379e01ae1a1f75f453a8d8"
+  ],
+  "statement_file_sha256": "5391ab5cef4895413e28fcabe5a3e23e7b93aeea643c1fbae991223c34c07f3a",
+  "lean_output_sha256": "2a26d392cff0eab1fc3a25aed89898827f02c059f9dc7c4f21748ab0c86637d1",
+  "direct_imports": [
+    "Mathlib.RingTheory.RegularLocalRing.Defs"
+  ],
+  "minimal_import_result": "Exactly one narrow direct import is declared. Deleting it makes the target vocabulary unavailable; no aggregate Mathlib import or redundant direct UFD import is present.",
+  "checked_transports": [
+    "Stage1Instances.THM_M_0032.auslanderBuchsbaumUFDTarget_iff_explicitRegularityTarget"
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedRegularityHypothesis",
+      "result": "Lean type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedDomainToField",
+      "result": "Lean type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationChangedBinderScope",
+      "result": "Lean type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationExcludedFieldBoundary",
+      "result": "Lean type rejection and distinct fully explicit expression"
+    }
+  ],
+  "boundary_results": [
+    "Rat kernel-checks as an IsRegularLocalRing",
+    "Rat kernel-checks as an IsField and is therefore included rather than excluded"
+  ],
+  "axiom_and_placeholder_result": "No proof of the canonical target is declared. The checked binder transport reports only propext, Classical.choice, and Quot.sound. The scoped scan finds no prohibited proof escape or declaration.",
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0032/Statement.lean"
+  ],
+  "declaration_ownership": [
+    "Stage1Instances.THM_M_0032.AuslanderBuchsbaumUFDTarget",
+    "Stage1Instances.THM_M_0032.ExplicitRegularityTarget",
+    "Stage1Instances.THM_M_0032.auslanderBuchsbaumUFDTarget_iff_explicitRegularityTarget"
+  ],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0032/README.md",
+    "Stage1_Instances/THM-M-0032/scope-map.md",
+    "Stage1_Instances/THM-M-0032/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0032/statement-validation.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0032-STATEMENT"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "Exact statement elaboration, checked transport, mutations, minimal import, and fingerprints support M3 statement/interface status. No accepted source mapping, target proof body, or readable reconstruction supports H0, M0, or R0.",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "master acceptance of this statement node and all downstream anchor, obligation, proof, validation, readability, and release gates are open",
+  "remaining_root_cut_set": [
+    "S56-M-0032-ANCHOR_AUDIT",
+    "S56-M-0032-OBLIGATION_TREE",
+    "S56-M-0032-PROOF",
+    "S56-M-0032-VALIDATION",
+    "S56-M-0032-RELEASE"
+  ],
+  "known_failures": [
+    "Master acceptance of this provisional statement node is pending.",
+    "Primary-source inherited definitions, unrestricted reduction, proof dependencies, errata boundary, 1958/1959 discrepancy, and independent review remain open on H.",
+    "Formal candidate and terminal proof-body discovery, provenance, dependency, and trust audits remain open.",
+    "Obligation registry, typed graphs, proof and composition, readable reconstruction, hermetic replay, deterministic evidence bundle, and independent release verification remain open.",
+    "The historical intake checker and receipt intentionally retain their original null-target snapshot and are superseded for statement replay by check_statement.py and this receipt."
+  ],
+  "invalidation_boundary": "Any change to the target expression, direct import, checked transport, mutation fixtures, source scope, toolchain, dependency pin, statement checker, or evidence record invalidates this provisional receipt.",
+  "selftest_result": "pass",
+  "status_boundary": "Worker-self-tested statement proposal only. It is unsigned, mutable, nonrelease, not content-addressed, and not master accepted. It asserts no proof, H0, M0, R0, audit completion, or theorem completion."
+}

@@ -54,6 +54,8 @@ axis.
 The statement phase has fixed the Noetherian finite-generation encoding, elaborated the target
 with two statement-only imports, recorded expression and environment fingerprints, checked its
 credited alternate encoding and zero-ring boundary, and distinguished all four required mutation
-classes. Only the later anchor audit may inspect and classify the proof body and trust closure of
-`Polynomial.isNoetherianRing`; `BoundaryProbe.lean` separately validates `PUnit` as a concrete
-zero-ring coefficient antecedent. Source fidelity remains independently open.
+classes. The anchor audit has now authenticated an exact pinned mathlib wrapper, inspected its
+terminal body and provenance boundary, and recorded its sorry/axiom result as an unaccepted
+`M0-W / E2` candidate. `BoundaryProbe.lean` separately validates `PUnit` as a concrete zero-ring
+coefficient antecedent. Obligation-tree expansion, proof-phase integration, full transitive trust,
+release-grade evidence, source fidelity, and independent review remain open.

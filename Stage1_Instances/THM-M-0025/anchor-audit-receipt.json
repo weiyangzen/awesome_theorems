@@ -1,0 +1,157 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0025-ANCHOR-AUDIT-WORKER-20260713",
+  "item_id": "S56-M-0025-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0025",
+  "phase": "anchor_audit",
+  "intent": "audit",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "94f6abf9359f26384e0f68bef694dc5b9aae624c",
+  "base_tree": "e0083f4f402c93febe4419b51498afa8ecf81c06",
+  "validated_at": "2026-07-13T06:55:31+08:00",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0025/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0025/README.md",
+    "Stage1_Instances/THM-M-0025/anchor-audit-receipt.json",
+    "Stage1_Instances/THM-M-0025/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0025/anchor-audit.json",
+    "Stage1_Instances/THM-M-0025/check_anchor_audit.py",
+    "Stage1_Instances/THM-M-0025/instance.json",
+    "Stage1_Instances/THM-M-0025/scope-map.md",
+    "Stage1_Instances/THM-M-0025/source-statement-crosswalk.md"
+  ],
+  "diff_summary": "classified a frozen three-candidate inventory, authenticated the exact pinned mathlib Hilbert-basis body through a local wrapper, classified an external power-series mismatch, and recorded provisional validation evidence",
+  "covered_node_ids": [
+    "S56-M-0025-ANCHOR_AUDIT"
+  ],
+  "covered_declarations": [
+    "Polynomial.isNoetherianRing",
+    "Stage1Instances.THM_M_0025_AnchorAudit.ExactTarget",
+    "Stage1Instances.THM_M_0025_AnchorAudit.exactTarget_mathlib_candidate"
+  ],
+  "statement_fingerprints": [
+    "sha256:9bb5ed6dd01550f3481d4a66e1d81009272b717997f9752ff422029da2828564"
+  ],
+  "immutable_inputs": {
+    "repository_revision": "94f6abf9359f26384e0f68bef694dc5b9aae624c",
+    "repository_tree": "e0083f4f402c93febe4419b51498afa8ecf81c06",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_source_sha256": "7cedafd3e1fc910b152c699375e8670f0db7d6261d7ebdd3dd8ff2420fda5b9c",
+    "mathlib_body_sha256": "7c5fe7f7259ee84eedf9143053bbc283e5f21f15b62163b64ad4088938b8001f",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidate_result": {
+    "candidate_id": "M0025-C01-MATHLIB-DIRECT",
+    "classification": "M0-W",
+    "evidence_level": "E2",
+    "kernel_checked": true,
+    "proof_body_location": "pinned mathlib",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "sorry_free": true,
+    "master_accepted": false
+  },
+  "lean_output_sha256": "79b75df3fc67b8b32ef9b32a61fccc2bc9150bb866001c6350da1154ad2df223",
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0025-ANCHOR-AUDIT-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0025/AnchorAudit.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must print the exact terminal type and body, a sorry-free report, and propext/Classical.choice/Quot.sound for terminal and wrapper"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0025-ANCHOR_AUDIT"
+      ],
+      "covered_declarations": [
+        "Polynomial.isNoetherianRing",
+        "Stage1Instances.THM_M_0025_AnchorAudit.exactTarget_mathlib_candidate"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0025-ANCHOR-AUDIT-LEDGER",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0025/check_anchor_audit.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must report 3 classified candidates, exact pinned mathlib M0-W/E2 route, accepted root M3, and both audit/theorem false"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0025-ANCHOR_AUDIT"
+      ],
+      "covered_declarations": [
+        "Polynomial.isNoetherianRing",
+        "Stage1Instances.THM_M_0025_AnchorAudit.exactTarget_mathlib_candidate"
+      ]
+    }
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_candidate_vector_after": {
+    "H": "H1",
+    "M": "M0-W",
+    "R": "R3"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "known_failures": [
+    "The statement prerequisite and this anchor-audit node have provisional worker evidence but still require master acceptance.",
+    "GitHub code search returned HTTP 401 without credentials and grep.app returned HTTP 429; exhaustive discovery saturation is not claimed.",
+    "Full transitive declaration/provenance/trust and release-grade TCB closure are not accepted in this anchor phase.",
+    "The immutable power-series search result is a statement mismatch and is not in the local dependency closure.",
+    "Primary-source H0, readable R0, obligation composition, proof-phase integration, hermetic replay, independent verification, deterministic release evidence, AUDIT-Z, and theorem completion remain open."
+  ],
+  "remaining_root_cut_set": [
+    "S56-M-0025-OBLIGATION_TREE",
+    "S56-M-0025-PROOF",
+    "S56-M-0025-VALIDATION",
+    "S56-M-0025-RELEASE",
+    "primary-source H0 and independent review",
+    "readable R0 and independent review",
+    "full transitive provenance, trust and TCB acceptance",
+    "master acceptance"
+  ],
+  "status_boundary": "Provisional node-specific worker receipt only. It self-tests the bounded anchor inventory and exact mathlib adapter; it accepts no receipt, changes no accepted root vector, does not finish AUDIT-Z, and does not complete the theorem."
+}

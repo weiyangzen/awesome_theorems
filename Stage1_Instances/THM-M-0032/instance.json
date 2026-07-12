@@ -23,32 +23,50 @@
   "literal_source_claim_zh": "正则局部环是UFD",
   "literal_source_claim_en": "A regular local ring is a unique factorization domain.",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "exact_primary_theorem_text_located_but_inherited_definitions_assumption_transport_and_independent_review_not_frozen",
-  "canonical_claim": null,
-  "statement_blocker": "The primary paper's Theorem 5 matches the catalog wording, but the paper imports its regular-local-ring, homological-dimension, and ring conventions from earlier work and uses a Nagata reduction for the unrestricted dimension. Before freezing a canonical proposition, an independent reviewer must admit and map those definitions, resolve the catalog's 1958 versus publication's 1959 date, ratify commutative/unital/nontrivial/domain and UFD conventions, and then elaborate and mutation-test an exact Lean target.",
+  "canonical_statement": "Every commutative regular local ring is a unique factorization domain.",
+  "canonical_claim_status": "exact_conventional_unrestricted_regular_local_ring_to_ufd_scope_frozen_primary_source_definition_transport_open",
+  "canonical_claim": "For every commutative ring R, if R is a regular local ring, then R has unique factorization into irreducibles up to units.",
+  "statement_blocker": "Master acceptance of the self-tested exact conventional repository target is pending. The primary paper's incorporated definitions, Nagata reduction, 1958/1959 discrepancy, errata boundary, and independent review remain open on H, but do not prevent exact M3 elaboration of the catalog-selected unrestricted claim.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0032/Statement.lean",
     "module_candidates": [
       "Mathlib.RingTheory.RegularLocalRing.Defs",
       "Mathlib.RingTheory.UniqueFactorizationDomain.Defs"
     ],
-    "declaration_or_expression": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0032.AuslanderBuchsbaumUFDTarget",
     "candidate_expression": "(R : Type u) [CommRing R] [IsRegularLocalRing R] : UniqueFactorizationMonoid R",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "blocked_pending_source_definition_transport_independent_review_and_exact_statement_gate",
+    "elaborated_expression_hash": "sha256:199d16d669438ea6e1cd556adbc4a9475805acf048379e01ae1a1f75f453a8d8",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-RegularLocalRing.Defs_pp-universes-explicit",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
   },
-  "domain_and_universes": "Open pending source ratification: an arbitrary universe-u commutative ring with identity, with local, Noetherian, and regular structure; exact nontriviality and derived-domain conventions must be mapped. The prospective conclusion uses mathlib's UniqueFactorizationMonoid on the same carrier.",
-  "quantifiers": [],
-  "ordered_binders": [],
-  "hypotheses": [],
-  "conclusion": "Open as a canonical encoding: the primary theorem says the regular local ring is a unique factorization domain, but exact source definitions and the accepted Lean UFD transport are not frozen.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is excluded before source conventions are ratified. The statement phase must resolve the zero ring, fields and dimension zero, arbitrary positive dimension, completion/localization boundaries, explicit versus derived domain structure, and unit-associated factorization conventions.",
+  "domain_and_universes": "An arbitrary R : Type u carrying CommRing and IsRegularLocalRing instances. IsRegularLocalRing includes local, Noetherian, and nontrivial structure. No explicit domain, dimension, completeness, or characteristic premise is added.",
+  "quantifiers": [
+    "R: an arbitrary commutative ring",
+    "a regular-local-ring hypothesis on R"
+  ],
+  "ordered_binders": [
+    "forall R : Type u",
+    "given CommRing R",
+    "given IsRegularLocalRing R"
+  ],
+  "hypotheses": [
+    "R is a commutative ring",
+    "R is regular local under pinned mathlib's definition"
+  ],
+  "conclusion": "UniqueFactorizationMonoid R, pinned mathlib's UFD interface on the same carrier.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0032.ExplicitRegularityTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0032.auslanderBuchsbaumUFDTarget_iff_explicitRegularityTarget"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "the zero ring, because it cannot carry the inherited IsLocalRing/Nontrivial antecedent"
+  ],
+  "degenerate_case_status": "The zero ring is excluded by IsRegularLocalRing's inherited IsLocalRing/Nontrivial instance. Fields and dimension zero are included, kernel-checked with Rat. Arbitrary positive dimension is retained; no completeness, localization, or explicit domain premise is added.",
   "candidate_scope_not_credited": [
     "the unrestricted primary statement that every regular local ring is a UFD",
     "the modern Stacks Project formulation at tag 0AG0",
@@ -111,8 +129,8 @@
     "repository_record_excerpt_sha256": "5618ef040b189625471a9661676c1cdea2093dbb55fa81305a759b3196a1d7c9",
     "stage0_excerpt_sha256": "ce32858f61ece4ab54f7742bc124ae514c37f762ec4b2d761f0d1da32eab738a",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "6a7092660da65f6f8e46daa1a724babc65a151a6c45d08abe836dbccbb28e135",
-    "execution_dag_sha256": "72438674d4a872064e64105ff0cbee714b86ec72e77e5c1e00a503e104f20ebc",
+    "authoritative_blueprint_sha256": "ae0055f65665bc05a0fa8ee2eed39566b036e65a2119be2fa6e4cecd5c1966a9",
+    "execution_dag_sha256": "d9506f42dd2de7f8a28e12b9e780931938d99fdc66f42a6698d4032b29a465d1",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -128,13 +146,13 @@
   },
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
-  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; exact classical-choice, quotient, localization, completion, and extensionality use remains downstream",
-  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; canonical imports, theorem body, transitive dependency closure, compiled artifacts, and accepted trust closure remain open",
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory; the checked binder transport reports propext, Classical.choice, and Quot.sound; proof-specific and transitive axiom closure remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib; the statement-only direct import is frozen, while the terminal proof body, transitive declarations, and accepted trust closure remain open",
   "computation_profile": "kernel-proposition-planned/1.0: no experiment, oracle, generated instance, native shortcut, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -148,7 +166,12 @@
     "Stage1_Instances/THM-M-0032/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0032/check_intake.py",
     "Stage1_Instances/THM-M-0032/validation.md",
-    "Stage1_Instances/THM-M-0032/intake-receipt.json"
+    "Stage1_Instances/THM-M-0032/intake-receipt.json",
+    "Stage1_Instances/THM-M-0032/Statement.lean",
+    "Stage1_Instances/THM-M-0032/check_statement.py",
+    "Stage1_Instances/THM-M-0032/statement.json",
+    "Stage1_Instances/THM-M-0032/statement-validation.md",
+    "Stage1_Instances/THM-M-0032/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -176,6 +199,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
-  ]
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
+  ],
+  "status_boundary": "The exact unrestricted commutative regular-local-to-UFD target, explicit-regularity iff, four mutations, field boundary, minimal import, expression hash, and pinned environment are self-tested pending master acceptance. Source fidelity remains H1 and no proof or later-phase credit is claimed."
 }

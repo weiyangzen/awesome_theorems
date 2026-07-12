@@ -49,14 +49,26 @@ Polynomial.isNoetherianRing {R : Type u} [CommRing R] [IsNoetherianRing R] :
 The immutable mathlib revision is `8a178386ffc0f5fef0b77738bb5449d50efeea95`. The candidate is
 an unusually close formal match. The statement phase freezes a canonical proposition with the
 same implicit ring and instance binders without importing this proof-bearing module, and checks an
-iff to the every-ideal-is-finitely-generated encoding. It does not credit the candidate body,
-source fidelity, transitive dependencies, trust profile, or proof closure. Those remain
-anchor-audit/proof/validation responsibilities.
+iff to the every-ideal-is-finitely-generated encoding.
+
+The anchor audit checks an exact wrapper and inspects the pinned body at lines 732-806. The body
+selects a well-founded minimum among leading-coefficient ideals, obtains finite generators in
+bounded degree, and closes the span by strong induction on `natDegree`. Lean reports the terminal
+and wrapper sorry-free with axioms `propext`, `Classical.choice`, and `Quot.sound`. This is a
+self-tested `M0-W / E2` candidate only; full transitive trust/provenance, proof-phase integration,
+`E1`, and master acceptance remain downstream.
+
+The immutable external repository
+`chenlingccll/a-lean4-formalisation-of-Hilbert-basis-theorem-for-power-series-ring` proves a
+Noetherian result for `PowerSeries R`, not `Polynomial R`; it is a classified statement mismatch
+and supplies no target credit. Bounded public code-search access failures prevent any saturation
+claim.
 
 ## Exactness risks held open
 
 The statement phase freezes the conventional commutative, one-variable reading, the
 finite-generation encoding, inclusion of the zero ring, and absence of an extra nontriviality
 premise. Pinpoint historical-source ratification and the ACC transport remain open. The
-finite-variable `MvPolynomial` instance, the finite-type algebra theorem, and any noncommutative
-one-sided theorem are related candidates, not silent replacements.
+finite-variable `MvPolynomial` instance and finite-type algebra theorem are downstream routes
+through the same terminal polynomial body, not independent coverage; noncommutative one-sided
+theorems remain statement mismatches.

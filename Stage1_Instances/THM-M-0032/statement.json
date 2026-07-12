@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0032-STATEMENT",
+  "theorem_id": "THM-M-0032",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "exact_conventional_unrestricted_regular_local_ring_to_ufd_scope_frozen_primary_source_definition_transport_open",
+  "canonical_statement": "Every commutative regular local ring is a unique factorization domain.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0032/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0032.AuslanderBuchsbaumUFDTarget",
+    "elaborated_expression_sha256": "199d16d669438ea6e1cd556adbc4a9475805acf048379e01ae1a1f75f453a8d8",
+    "statement_file_sha256": "5391ab5cef4895413e28fcabe5a3e23e7b93aeea643c1fbae991223c34c07f3a",
+    "fully_explicit_expression": "∀ (R : Type u) [inst : CommRing.{u} R] [@IsRegularLocalRing.{u} R inst], @UniqueFactorizationMonoid.{u} R (@CommSemiring.toCommMonoidWithZero.{u} R (@CommRing.toCommSemiring.{u} R inst))"
+  },
+  "domain_and_universes": "R is an arbitrary Type u with CommRing and IsRegularLocalRing instances; the target is Prop. IsRegularLocalRing supplies IsLocalRing, IsNoetherianRing, and hence Nontrivial, so none is redundantly rebound. No IsDomain premise is added.",
+  "ordered_binders": [
+    "R : Type u (universal explicit binder)",
+    "CommRing R (instance binder)",
+    "IsRegularLocalRing R (instance binder)"
+  ],
+  "hypotheses": [
+    "R is a commutative ring",
+    "R is regular local in pinned mathlib's maximal-ideal span-rank/Krull-dimension sense, which includes local, Noetherian, and nontrivial instances"
+  ],
+  "conclusion": "UniqueFactorizationMonoid R, pinned mathlib's unique-factorization-domain interface for this nontrivial commutative ring.",
+  "direct_imports": [
+    "Mathlib.RingTheory.RegularLocalRing.Defs"
+  ],
+  "minimal_import_basis": "The one regular-local definition module exposes CommRing, IsRegularLocalRing, and transitively UniqueFactorizationMonoid. Deleting it makes the target vocabulary unavailable; the separate UniqueFactorizationDomain.Defs import used by the intake probe is redundant for this target.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0032.ExplicitRegularityTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0032.auslanderBuchsbaumUFDTarget_iff_explicitRegularityTarget",
+      "boundary": "Only the regularity evidence changes from an instance binder to an explicit implication; ring binder, universe, and conclusion are unchanged."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "a formulation with an explicit IsDomain premise or conclusion component",
+    "principal height-one primes",
+    "factoriality or unique factorization encoded outside pinned mathlib's UniqueFactorizationMonoid interface",
+    "the Auslander-Buchsbaum projective-dimension/depth formula"
+  ],
+  "degenerate_cases": {
+    "excluded_by_antecedent": [
+      "the zero ring, because IsRegularLocalRing extends IsLocalRing and IsLocalRing extends Nontrivial"
+    ],
+    "included": [
+      "fields and zero-dimensional regular local rings",
+      "regular local rings of arbitrary Krull dimension"
+    ],
+    "checked_witnesses": [
+      "IsRegularLocalRing Rat",
+      "IsField Rat"
+    ]
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "3031d9946232a1d726a4556d0674632345b0877f049a23c104c495f5b2128c6f",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked binder transport reports propext, Classical.choice, and Quot.sound; no custom axiom is introduced. Full transitive trust closure is downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. This statement phase does not inspect or credit any target proof body.",
+  "computation_profile": "No native computation, numerical experiment, oracle, generated instance, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0032/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedRegularityHypothesis"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedDomainToField"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludedFieldBoundary"
+      }
+    ],
+    "method": "Lean rejects each structurally changed proposition in the tested direction, and the validator serializes every fully explicit expression and rejects any fingerprint identical to the canonical target."
+  },
+  "source_fidelity_boundary": "The primary paper's Theorem 5 exactly states the unrestricted root, but its incorporated regular-local definitions, Nagata reduction, date discrepancy, errata boundary, and independent review remain open on H. They do not prevent exact M3 elaboration of the repository-selected conventional claim.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact target elaboration, one checked binder transport, four mutations, a field boundary, minimal import, expression fingerprint, and pinned environment only. No target proof, H0, M0, R0, anchor audit, obligation tree, validation, release, audit completion, theorem completion, or master acceptance is claimed."
+}
