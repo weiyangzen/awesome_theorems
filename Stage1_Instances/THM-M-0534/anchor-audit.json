@@ -1,0 +1,132 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0534-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0534",
+  "base_revision": "9a5088a76a8219c7df161c5dbaeb2de32d6ce742",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0534.LongExactHomologySequenceTarget",
+  "canonical_target_expression_sha256": "6846afc515ceb8a7479a074f21295620ef4f191bd0804e377b56ae37567b7677",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T15:30:00+08:00",
+    "credentials_policy": "anonymous public HTTP only; no credential was used",
+    "aliases": [
+      "long exact sequence in homology",
+      "homology exact sequence",
+      "homology sequence",
+      "connecting homomorphism",
+      "homology_exact1",
+      "homology_exact2",
+      "homology_exact3"
+    ],
+    "namespace_queries": [
+      "ShortComplex.ShortExact",
+      "HomologicalComplex.HomologySequence"
+    ],
+    "search_order": [
+      "repository-local Lean sources and target dossiers",
+      "pinned mathlib sources and declarations",
+      "GitHub public Lean repositories",
+      "public code search"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "M0534-A-REPO-EXACT-WRAPPER",
+      "source": "awesome_theorems repository-local separately owned target",
+      "revision": "9a5088a76a8219c7df161c5dbaeb2de32d6ce742",
+      "tree": "6c3cb54b71d646f9884e9a2e330f8376936546d5",
+      "file": "Stage1_Instances/THM-M-0001/Proof.lean",
+      "source_sha256": "74a78a81755c3929631d1dcb8c7341b2856dfbec8388cebe604a7e4a747bcdbd",
+      "declaration": "Stage1Instances.THM_M_0001.Proof.longExactHomologySequence",
+      "relationship": "an exact same-expression wrapper for a separately scheduled theorem ID",
+      "classification": "M1",
+      "result": "strong adapter precedent, but ownership and rev-5.6 anti-credit-transfer rules forbid treating another target's proof or receipts as closure for THM-M-0534",
+      "integration_task": "the proof phase must define a THM-M-0534-owned wrapper after its obligation tree is frozen"
+    },
+    {
+      "id": "M0534-A-LEGACY-WINDOW",
+      "source": "awesome_theorems repository-local legacy source",
+      "revision": "9a5088a76a8219c7df161c5dbaeb2de32d6ce742",
+      "tree": "6c3cb54b71d646f9884e9a2e330f8376936546d5",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_096.lean",
+      "source_sha256": "0eb1ec60f2ca2778aa09215d0a0677129ddee4ed1df48dcd11b28f0579edae4e",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_096.statementShape_from_mathlib",
+        "AwesomeTheorems.Stage1.S1_M_096.six_term_long_exact_sequence"
+      ],
+      "relationship": "one adjacent six-term window over the same mathlib theorem family",
+      "classification": "M3",
+      "result": "not the universally quantified frozen target, and legacy artifacts are unaccepted"
+    },
+    {
+      "id": "M0534-A-MATHLIB-EXACTNESS-FAMILY",
+      "source": "mathlib",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Algebra.Homology.HomologySequence",
+      "file": "Mathlib/Algebra/Homology/HomologySequence.lean",
+      "source_sha256": "310b69ae9e99b5d2b5667f1fda9f2db374778418f21c66aefb96f6846ec5cbeb",
+      "declarations": [
+        "CategoryTheory.ShortComplex.ShortExact.δ",
+        "CategoryTheory.ShortComplex.ShortExact.comp_δ",
+        "CategoryTheory.ShortComplex.ShortExact.δ_comp",
+        "CategoryTheory.ShortComplex.ShortExact.homology_exact₁",
+        "CategoryTheory.ShortComplex.ShortExact.homology_exact₂",
+        "CategoryTheory.ShortComplex.ShortExact.homology_exact₃"
+      ],
+      "normalized_match": "homology_exact₂ closes same-degree exactness for every degree, including endpoints; homology_exact₃ and homology_exact₁ close the two connecting-map positions for every c.Rel i j",
+      "terminal_bodies": "homology_exact₁ and homology_exact₃ project exactness from snakeInput; homology_exact₂ splits on c.Rel i (c.next i), using snakeInput when related and opcycles_right_exact at an endpoint",
+      "direct_dependencies": [
+        "HomologicalComplex.HomologySequence.snakeInput",
+        "ShortComplex.ShortExact.exact",
+        "HomologicalComplex.opcycles_right_exact"
+      ],
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "unsafe_or_oracle_boundary": "none observed by the scoped source scan; full transitive trust closure is deferred",
+      "placeholder_boundary": "no sorry, admit, axiom declaration, unsafe, implemented_by, or extern token found in the audited source file",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "already materialized at the lake-manifest revision and checked without changing .lake",
+      "classification": "M1",
+      "result": "exact immutable theorem family exists and all three node-shaped adapters elaborate; the proof phase must create the owned root wrapper and later gates must audit the full trust closure",
+      "integration_task": "define the canonical THM-M-0534 wrapper, then compute transitive declarations, proof-body identities, accepted foundation/TCB evidence, and composition receipts"
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {"query": "Lean 4 long exact sequence homology", "http": 200, "total_count": 0, "incomplete": false, "response_sha256": "812af5e59072520173b4cfedf639f6216887366fd016194b60dc9e12b2f5436c"},
+      {"query": "lean4 homological algebra homology sequence", "http": 200, "total_count": 0, "incomplete": false, "response_sha256": "812af5e59072520173b4cfedf639f6216887366fd016194b60dc9e12b2f5436c"},
+      {"query": "language:Lean homology exact sequence", "http": 200, "total_count": 0, "incomplete": false, "response_sha256": "812af5e59072520173b4cfedf639f6216887366fd016194b60dc9e12b2f5436c"}
+    ],
+    "code_search": "GitHub code search returned HTTP 403 due to the anonymous API rate limit; grep.app returned HTTP 429 with a security checkpoint. These are access failures, not negative-result evidence.",
+    "result": "no additional credible Lean 4 project candidate was discovered; pinned mathlib is the sole exact external candidate found",
+    "limitations": "repository metadata search is not exhaustive code search; no dependency was cloned or fetched, and exhaustive-discovery saturation is not claimed"
+  },
+  "root_decision": {
+    "classification": "M1",
+    "kernel_closed": false,
+    "reason": "the exact pinned mathlib family and adapter feasibility are checked, but this phase does not install or accept the target-owned canonical proof wrapper or full provenance/trust evidence",
+    "remaining_cut_set": [
+      "frozen obligation registry",
+      "target-owned canonical root wrapper",
+      "transitive declaration and terminal-proof-body closure",
+      "accepted axiom/foundation and TCB receipt",
+      "proof-phase composition evidence"
+    ]
+  },
+  "human_debt": "H2 unchanged; primary-source pinpoint and independent errata review remain open",
+  "readability_debt": "R4 unchanged; no readable proof reconstruction is claimed",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false
+}

@@ -13,4 +13,6 @@ uncredited applications requiring additional topological constructions. The root
 statement elaboration is not source-fidelity acceptance or proof credit.
 
 Intake evidence remains in `validation.md`; statement evidence is in `statement-validation.md` and
-`statement.json`. No anchor audit, proof, audit completion, or theorem completion is claimed.
+`statement.json`. `anchor-audit.json`, `AnchorAudit.lean`, and `anchor-audit-validation.md` record a
+self-tested `M1` candidate at the pinned mathlib revision, pending master acceptance. No obligation
+tree, target-owned proof, audit completion, or theorem completion is claimed.
