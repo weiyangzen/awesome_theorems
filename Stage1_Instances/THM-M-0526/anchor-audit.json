@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0526-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0526",
+  "canonical_target": "Stage1Instances.THM_M_0526.SeifertVanKampenTarget",
+  "audit_date": "2026-07-12",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "searched_roots": [
+      "Mathlib/AlgebraicTopology",
+      "Mathlib/CategoryTheory/Limits/VanKampen.lean",
+      "Mathlib/CategoryTheory/Adhesive/Basic.lean"
+    ],
+    "exact_candidate": null,
+    "supporting_declarations": [
+      {
+        "module": "Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup",
+        "declaration": "FundamentalGroup.map",
+        "role": "constructs each inclusion-induced based fundamental-group homomorphism",
+        "closure": "support_only"
+      },
+      {
+        "module": "Mathlib.AlgebraicTopology.FundamentalGroupoid.Basic",
+        "declaration": "FundamentalGroupoid.map_comp",
+        "role": "functorial composition support for the commutative square",
+        "closure": "support_only"
+      },
+      {
+        "module": "Mathlib.CategoryTheory.Limits.Shapes.Pullback.Square",
+        "declaration": "CategoryTheory.Square.IsPushout",
+        "role": "generic categorical pushout predicate; not the topological van Kampen theorem",
+        "closure": "encoding_alternative_only"
+      }
+    ],
+    "false_positive": "Mathlib.CategoryTheory.Limits.VanKampen.IsVanKampenColimit concerns universal colimits in category theory, not the Seifert-van Kampen theorem for fundamental groups."
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/Deicyde/algebraic-topology",
+      "revision": "8dc1fcdc04b86b20743f270a326f2f9e29a09bb9",
+      "toolchain": "leanprover/lean4:v4.32.0-rc1",
+      "result": "excluded_no_candidate",
+      "evidence": "The immutable archive has two Lean files and no occurrence of Seifert, van Kampen, fundamental group, or pushout. Its mathlib dependency is moving master."
+    },
+    {
+      "repository": "https://github.com/szaranczuk/hatcher_algtop_lean",
+      "revision": "99b62f114ccc276b1ab0ee2ec5b77ebde7c7bd88",
+      "toolchain": "leanprover/lean4:v4.24.0",
+      "result": "excluded_no_candidate",
+      "evidence": "The immutable archive has seven Lean files about path examples and singular homology, no Seifert/van Kampen occurrence, and three Lean files containing sorry."
+    },
+    {
+      "repository": "https://github.com/WayneLin92/LeanAlgTop",
+      "revision": "073e366edec700827f1d14dfd7174d68eb5429a5",
+      "toolchain": "leanprover/lean4:nightly-2023-07-30",
+      "result": "excluded_no_candidate",
+      "evidence": "The immutable archive contains spectral-sequence and operad work, no Seifert/van Kampen occurrence, and one Lean file containing sorry."
+    },
+    {
+      "repository": "https://github.com/prakol16/lean-fundamental-groupoid",
+      "revision": "cf1b62f2c89d476fee80699f836694370f3c560c",
+      "toolchain": "Lean 3 era; no lean-toolchain file",
+      "result": "excluded_wrong_language_and_scope",
+      "evidence": "The archive proves product and homotopy-equivalence facts for fundamental groupoids, has no Seifert/van Kampen occurrence, and is not a Lean 4 integration candidate."
+    }
+  ],
+  "terminal_proof_provenance": "No exact or implication candidate was found, so there is no terminal external proof body to credit or integrate.",
+  "classification": {
+    "machine_state": "not_repo_local_closed",
+    "debt": "formalization_debt",
+    "integration_debt": false,
+    "reason": "Pinned mathlib provides the target's fundamental-group and generic pushout APIs but no van Kampen closure. The inspected immutable external projects provide no matching theorem, so no anchor-only proof is being inflated to M0 and no known external closure remains to pin."
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "Anchor inventory only. It establishes the absence of an identified exact candidate in the searched pinned/local and immutable external surfaces; it is not an exhaustive claim about all public Lean code and supplies no proof credit."
+}
