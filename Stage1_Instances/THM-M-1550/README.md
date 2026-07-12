@@ -32,4 +32,12 @@ Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first fai
 the exact-statement gate: no normalized Lean expression hash, environment fingerprint, checked
 transport, or mutation evidence has been accepted. The theorem is not complete.
 
+## Obligation-tree phase
+
+`obligation-registry.json` and `typed-graphs.json` freeze ten canonical obligations and seven
+separate reciprocal graph types. `ObligationTree.lean` checks only conditional child-to-root
+composition; it assumes the spectrum-under-conjugation leaf and therefore gives no theorem proof
+credit. The frozen root cut, all debt boundaries, and exact validation results are recorded in
+`obligation-tree.md` and `obligation-tree-validation.md`.
+
 Validation commands and their exact outcomes are recorded in `validation.md`.
