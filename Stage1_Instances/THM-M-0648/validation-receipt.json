@@ -1,0 +1,104 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0648-VALIDATION-local-20260712T063832Z",
+  "item_id": "S56-M-0648-VALIDATION",
+  "theorem_id": "THM-M-0648",
+  "base_revision": "734cdf53ab1cc41c766d2a40058a1929f6e1311a",
+  "base_tree": "f68d1c74974d9c98e305e9de698d9515d1b712c6",
+  "validated_at": "2026-07-12T06:38:32Z",
+  "attestor": "stage1-rev56-worker-slot7",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "canonical_declaration": "Stage1Instances.THM_M_0648.canonicalTarget",
+  "independent_probe_declaration": "Stage1Instances.THM_M_0648.Validation.independentCanonicalTarget",
+  "inputs": {
+    "statement_sha256": "27605643e4706bbcec0ea4db6c13ce95bc16b035db5de85adfaab245cf062ec2",
+    "proof_sha256": "dd5b6aa59ba2ea6584e6862ca05cb2a85aea7384e99eea9726eae43fc61250b1",
+    "validation_probe_sha256": "54cb49ceb6b1656b583393866722f5f00891b8b16bb81cab25ebf0ccabe8d499",
+    "validation_verifier_sha256": "6aef68aa432f7e39fc1e75b4825b59fcd61fb568d8133644357bf8cf5abb72eb",
+    "obligation_registry_sha256": "e0ddc60285c1d6623b0d7b918979b732f2590c0c42a9219acf264a4ac3dafc4a",
+    "typed_graphs_sha256": "0f73d1da9f441764115624e9b39c482add1a96a02023d753595b53b58bd995d2",
+    "proof_receipt_sha256": "a57715834738705ef6ee268e4f648f55eeda2ed879c70cf64d561afc06a3577d",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "proof_body_classification": "local_wrapper_over_two_pinned_mathlib_theorems",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "downward_terminal": "FirstOrder.Language.exists_elementarySubstructure_card_eq",
+    "downward_source_sha256": "85c5fa3fd4f76381b02d46a8bfd515cceb14254543e0afae95004c1fc07137b0",
+    "upward_terminal": "FirstOrder.Language.exists_elementaryEmbedding_card_eq_of_ge",
+    "upward_source_sha256": "0abb92d531851a57909945b740981d79a4cbb29238f2a3d21cb5fa57aa143edb"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink, reused without mutation"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0648-validation-statement",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0648/Statement.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0648-S-EXACT", "M0648-S-BOUNDARY"],
+      "covered_declarations": ["Stage1Instances.THM_M_0648.CanonicalTarget"]
+    },
+    {
+      "recipe_id": "M0648-validation-proof",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0648/Proof.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0648-ROOT", "M0648-D", "M0648-U", "M0648-T-COMPOSE"],
+      "covered_declarations": ["Stage1Instances.THM_M_0648.canonicalTarget"]
+    },
+    {
+      "recipe_id": "M0648-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0648/Validation.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0648-ROOT", "M0648-D", "M0648-U"],
+      "covered_declarations": ["Stage1Instances.THM_M_0648.Validation.independentCanonicalTarget"]
+    },
+    {
+      "recipe_id": "M0648-validation-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0648/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0648-ROOT", "M0648-X-TRUST"],
+      "covered_declarations": ["Stage1Instances.THM_M_0648.canonicalTarget", "Stage1Instances.THM_M_0648.Validation.independentCanonicalTarget"]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The exact paired root and an independently reconstructed same-type probe elaborate. Frozen hashes, the full machine denominator, reciprocal typed edges, terminal source identities, mathlib revision, placeholder policy, and kernel axiom profile agree.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "validated_closed_obligation_ids": ["M0648-ROOT", "M0648-S-EXACT", "M0648-S-BOUNDARY", "M0648-D", "M0648-D-SKOLEM", "M0648-U", "M0648-U-DIAGRAM", "M0648-U-COMPACT", "M0648-U-SHRINK", "M0648-T-COMPOSE"],
+    "root_closed": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "This worker used a warm shared read-only dependency cache; no empty-cache cold build or offline archive restoration was performed.",
+    "The independent probe was separately implemented but ran in the same checkout and cache, so it is not the distinct signed runner required by section 10.7.",
+    "H0 primary-source pinpoint and errata review, independently accepted R0 reconstruction, SBOM/license archive, protected CI, mutation suite, signed attestations, and deterministic release bundle remain absent.",
+    "All prerequisite receipts and this receipt remain provisional pending master acceptance."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Replay the immutable accepted snapshot from an offline dependency archive with empty caches, then obtain a distinct signed runner and minimal independent verifier plus the remaining source/readability/supply-chain evidence.",
+  "status_boundary": "Worker-local validation is self-tested. It establishes neither release-grade hermeticity nor independent verification, audit completion, theorem completion, or master acceptance."
+}
