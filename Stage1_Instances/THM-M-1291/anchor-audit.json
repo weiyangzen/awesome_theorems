@@ -1,0 +1,91 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1291-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1291",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "c326cc33b70825386f90cf5d885ad451004fbbff",
+  "canonical_target": "Stage1Instances.THM_M_1291.BrezisLiebTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1291-C01",
+      "project": "awesome_theorems",
+      "revision": "c326cc33b70825386f90cf5d885ad451004fbbff",
+      "module": "Stage1_Instances/THM-M-1291/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1291.BrezisLiebTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition",
+      "body_provenance": "definition of a proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1291-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+        "Mathlib.MeasureTheory.Integral.MeanInequalities",
+        "Mathlib.MeasureTheory.Function.LpSeminorm.Basic"
+      ],
+      "declarations": [
+        "MeasureTheory.tendsto_integral_of_dominated_convergence",
+        "MeasureTheory.tendsto_integral_filter_of_dominated_convergence",
+        "ENNReal.lintegral_rpow_add_lt_top_of_lintegral_rpow_lt_top",
+        "MeasureTheory.lintegral_rpow_enorm_lt_top_of_eLpNorm_lt_top",
+        "MeasureTheory.eLpNorm_lt_top_iff_lintegral_rpow_enorm_lt_top"
+      ],
+      "kind": "supporting_convergence_and_lp_infrastructure",
+      "normalized_match": "no declaration has the Brezis-Lieb remainder-splitting conclusion",
+      "body_provenance": "kernel-checked pinned mathlib source and compiled artifacts",
+      "placeholder_or_axiom_status": "all selected declaration names elaborate in the pinned Lake environment; no terminal target exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "useful substrate, but dominated convergence requires a single integrable pointwise dominator absent from the canonical hypotheses, and the rpow declarations do not prove the asymptotic identity"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global (Brezis-Lieb OR BrezisLieb OR brezis_lieb) lang:Lean count:100",
+      "result": "matchCount=0",
+      "immutability_boundary": "dated bounded discovery response; not a proof of global absence"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "queries": [
+        "Brezis Lieb Lean",
+        "Brezis-Lieb Lean4",
+        "Brezis Lieb theorem prover",
+        "Brezis Lieb formalization"
+      ],
+      "result": "total_count=0 for every query",
+      "immutability_boundary": "dated repository-metadata search; not exhaustive source search"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"Brezis-Lieb\"+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The only exact local artifact is a proposition definition. The complete pinned-mathlib name scan found no Brezis-Lieb declaration, while the checked convergence and Lp APIs are supporting infrastructure with strictly different hypotheses or conclusions. Bounded public searches found no external Lean 4 candidate.",
+  "integration_blocker": "There is no discovered immutable external repository, module, or proof declaration to pin/import/check. A proof must still establish the Brezis-Lieb pointwise remainder estimate and uniform-integrability/truncation argument for every real p > 0, including 0 < p < 1, without strengthening the hypotheses to domination.",
+  "reopen_condition": "A concrete Lean 4 candidate with repository URL, immutable commit, toolchain and dependency pins, exact normalized type or checked bridges, terminal proof-body provenance, license, and successful local elaboration and axiom checks.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the bounded formal-anchor audit. It does not establish H0, freeze an obligation tree, provide proof closure, pass release validation, or claim theorem completion."
+}

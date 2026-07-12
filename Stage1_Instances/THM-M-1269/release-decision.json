@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1269-RELEASE",
+  "theorem_id": "THM-M-1269",
+  "intent": "release",
+  "base_revision": "c326cc33b70825386f90cf5d885ad451004fbbff",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1269-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1269-VALIDATION-local-20260712",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "b99240350472706b14c13357bafe3f78241a1de0e5b5a21233c172c21fb8adcb"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1269-PROOF-pinned-mathlib-20260712",
+    "S56-M-1269-VALIDATION-local-20260712"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M3", "R3"],
+    "accepted_after": ["H2", "M3", "R3"],
+    "best_provisional_evidence": ["H2", "M0-W", "R3"],
+    "boundary": "The exact root has a provisional kernel-checked wrapper around pinned mathlib, but the planned instance and frozen pre-proof graph have not been master-reconciled. Human-source and readable-review debt remain open."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1269-VALIDATION is worker-self-tested [_] evidence, not a master-accepted dependency, so a release decision cannot be dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-10.4-AUTHORITATIVE-RECONCILIATION",
+    "reason": "The frozen typed graph predates Proof.lean and still records root_closed=false with M1269-L-SINF as its cut; a release worker may not rewrite accepted root state."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1269-VALIDATION and all transitive phase receipts",
+    "master reconciliation of the provisional exact-root proof with the frozen typed graph and composition/provenance state",
+    "accepted AUDIT-Z with complete classified evidence and public reconciliation",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata crosswalk, and independent source review",
+    "accepted R0 anchored structured reconstruction and independent reader review",
+    "complete transitive declaration, provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and empty-cache network-denied cold build",
+    "offline-restorable dependency archive with SBOM and license closure",
+    "two signed attestations from separately provisioned clean runners",
+    "independently implemented minimal release verifier",
+    "protected CI plus required mutation and metamorphic gate results",
+    "deterministic current content-addressed release bundle and master acceptance"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_check": "pass as provisional same-workspace warm-cache evidence",
+    "proof_body_classification": "local_wrapper_upstream_mathlib",
+    "terminal_declaration": "exists_seq_tendsto_sInf",
+    "terminal_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "pass on the scoped Lean sources",
+    "authoritative_root_closed": false,
+    "authoritative_root_cut_set": ["M1269-L-SINF"],
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "The integration lane must first accept the dependency chain and reconcile proof closure into structured authority. A separately provisioned release lane must then close AUDIT-Z, H0/R0 review, full trust and supply-chain closure, cold offline reproduction, independent attestations, adversarial fixtures, and deterministic-bundle verification.",
+  "status_boundary": "This artifact truthfully decides the worker release phase as blocked. It creates no accepted receipt, changes no lifecycle or accepted debt vector, and makes no audit-completion, theorem-completion, release-grade, or master-acceptance claim."
+}
