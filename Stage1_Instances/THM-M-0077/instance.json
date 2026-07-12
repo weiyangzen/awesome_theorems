@@ -1,0 +1,207 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0077",
+  "item_id": "S56-M-0077-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1025,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 96,
+  "name_zh": "霍尔定理",
+  "name_en": "Hall's theorem for finite solvable groups",
+  "canonical_name": "Existence of Hall pi-subgroups in finite solvable groups",
+  "category": "代数学 / 群论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "有限可解群中Hall子群的存在性",
+  "literal_source_claim_en": "Existence of Hall subgroups in finite solvable groups.",
+  "source_attribution": "Philip Hall, 1928",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "existence_claim_identified_but_pi_parameter_hall_definition_and_source_binder_mapping_open",
+  "canonical_claim": null,
+  "candidate_claim_not_credited_as_statement": "For every finite solvable group G and selected set pi of primes, there exists a subgroup H whose order has prime support in pi and whose index has prime support disjoint from pi; the exact encoding and source scope are not yet frozen.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.GroupTheory.Solvable",
+      "Mathlib.GroupTheory.Sylow",
+      "Mathlib.GroupTheory.SchurZassenhaus"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_exact_source_mapped_hall_pi_definition_and_statement_not_frozen",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Candidate scope: G : Type u with Group G, Finite G, and IsSolvable G; a selected prime set pi; and H : Subgroup G. The pi representation, finite-carrier encoding, universe, explicit instances, and Hall predicate remain statement-phase decisions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open as an exact expression: existence of a Hall pi-subgroup for every source-approved prime selection and finite solvable group.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake. The statement must settle empty pi, all primes, the trivial group, pi disjoint from the group-order support, and redundant primes not dividing the group order.",
+  "candidate_scope_not_credited": [
+    "a predicate saying every prime divisor of Nat.card H lies in pi and every prime divisor of H.index lies outside pi",
+    "the equivalent factorization or largest pi-divisor cardinality formulation",
+    "a bare coprimality condition Nat.Coprime (Nat.card H) H.index together with enough data to preserve the selected pi support",
+    "an existence conclusion only, without adding the classical conjugacy or pi-subgroup-containment clauses"
+  ],
+  "degenerate_cases_to_resolve": [
+    "pi is empty",
+    "pi contains every prime",
+    "the trivial finite group",
+    "no prime in pi divides Nat.card G",
+    "pi contains primes not dividing Nat.card G",
+    "Finite G versus Fintype G",
+    "class-valued, Finset-valued, Set Nat, or predicate-valued encoding of pi",
+    "whether bare coprime order and index is adequate or loses required pi support"
+  ],
+  "excluded_substitutions": [
+    "Hall's marriage theorem or any declaration in Mathlib.Combinatorics.Hall",
+    "the stronger conjugacy and containment branches of the classical Hall theorem family unless a reviewed source crosswalk requires them",
+    "Sylow subgroup existence for one prime in place of arbitrary pi",
+    "Schur-Zassenhaus complement existence for a pre-existing normal Hall subgroup",
+    "a result restricted to Z-groups in place of arbitrary finite solvable groups",
+    "mere existence of a subgroup with coprime order and index when it does not encode the selected pi support",
+    "a structure, typeclass, or hypothesis that assumes the desired Hall subgroup as data",
+    "the untrusted verified catalog label, a declaration name, a #check, or an upstream URL as proof credit"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.GroupTheory.Solvable",
+      "declarations": [
+        "IsSolvable",
+        "isSolvable_def"
+      ],
+      "boundary": "authenticates the derived-series solvability predicate only; it provides no general Hall-subgroup existence declaration"
+    },
+    {
+      "module": "Mathlib.GroupTheory.Sylow",
+      "declarations": [
+        "Sylow.card_coprime_index"
+      ],
+      "boundary": "a one-prime Hall special case, not arbitrary-pi existence in a solvable group"
+    },
+    {
+      "module": "Mathlib.GroupTheory.SpecificGroups.ZGroup",
+      "declarations": [
+        "IsZGroup.coprime_commutator_index"
+      ],
+      "boundary": "a Hall subgroup fact for the commutator of a finite Z-group, not the target scope"
+    },
+    {
+      "module": "Mathlib.GroupTheory.SchurZassenhaus",
+      "declarations": [
+        "Subgroup.exists_right_complement'_of_coprime"
+      ],
+      "boundary": "assumes a normal Hall subgroup and constructs a complement; it neither defines arbitrary pi support nor proves target existence"
+    }
+  ],
+  "bounded_formal_search": {
+    "scope": "repo-local Lean, pinned mathlib Mathlib/GroupTheory, and pinned mathlib docs",
+    "patterns": "Hall subgroup, IsHall, HallSubgroup, hall_pi, isHall, plus solvable declarations",
+    "result": "No general finite-solvable-group Hall-subgroup existence declaration was found; this is a bounded intake result, not a global absence claim or the immutable anchor audit."
+  },
+  "source_status": "H1_original_article_identity_and_catalog_claim_identified_but_primary_text_theorem_locator_exact_pi_scope_proof_mapping_errata_and_independent_review_open",
+  "primary_source_candidates_not_credited": [
+    {
+      "citation": "P. Hall, A Note on Soluble Groups, Journal of the London Mathematical Society s1-3 (1928), no. 2, 98-105, DOI 10.1112/jlms/s1-3.2.98",
+      "candidate_locator": "exact theorem/page within pages 98-105 not yet inspected",
+      "candidate_summary": "bibliographic identity matches the catalog's Philip Hall and 1928 attribution; the catalog existence gloss remains to be mapped to the article's exact wording",
+      "observed_crossref_metadata_sha256": "063fac8007c85510ce9bd5228a1fe81679d967f84583b1786d51094fd33ef1fd",
+      "observed_semantic_scholar_metadata_sha256": "204915f0fb3fb16326871505489debccad3d9c26865c4d4e54c527281918a212",
+      "status": "bibliographic discovery only; primary article text was not available in the pinned repository and the observed publisher PDF endpoint denied access; no proposition, proof, errata, or H0 credit"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "35681bf154be61836528486ed7830f619fc03231",
+    "repository_base_tree": "b45fc969fef64ad53ac30dc548894b08e8bef834",
+    "repository_record": "Docs/researches/math_theorems.md:568-573",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:2217-2242",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "c84a88bd6677e4b6b632f7a9ea7dd3815568c2715a4500dd5390012558d2b072",
+    "stage0_projection_excerpt_sha256": "596a6a2bcd2bf1a7815112ec45bb965b1f2c5ee750180b8ed6472f699d858efa",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "32d8e0d4ea396a0d265da77f133d8c5e4f9fffddbb4736e8fc5a9af4cd49b2e4",
+    "execution_dag_sha256": "a10781706a67accd0525c28e870f16843415fa7a9e7fa9b12a86f35c8b704de4",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "crossref_discovery_response_sha256": "063fac8007c85510ce9bd5228a1fe81679d967f84583b1786d51094fd33ef1fd",
+    "semantic_scholar_discovery_response_sha256": "204915f0fb3fb16326871505489debccad3d9c26865c4d4e54c527281918a212",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_solvable_source_sha256": "d665fe00fcf4bc1bc072cc053b1e47c8609552627386981feccd81a448b6153b",
+    "mathlib_sylow_source_sha256": "065f21a50a881e60f2353ebc1fb9b75b6afe88faeab891883af07bcae93754a6",
+    "mathlib_schur_zassenhaus_source_sha256": "bf934b734ba6327748a189f232220e10c840a23c0f157a84c8a99d3c97d8add4",
+    "mathlib_zgroup_source_sha256": "c8843ea3195b5f095e1225114732892d37ac1c20687646a437e02d709a6e4ecf",
+    "lake_symlink_target_sha256": "e7d8a6bce8b934a5b0dc162324c830c4f26e1146c65bb31e8063491a3f47bfcc"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the adjacent probe declarations report propext, Classical.choice, and Quot.sound, but no exact root or accepted principle set is frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact imports, a Hall-pi encoding, selected declarations, terminal bodies, dependencies, executable identities, and trust policy remain open",
+  "computation_profile": "No group database, computer algebra system, oracle, native decision result, or unchecked certificate is credited; any future proof must be ordinary kernel evidence or use separately approved checked certificates",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0077/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0077/README.md",
+    "Stage1_Instances/THM-M-0077/instance.json",
+    "Stage1_Instances/THM-M-0077/scope-map.md",
+    "Stage1_Instances/THM-M-0077/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0077/task-dag.json",
+    "Stage1_Instances/THM-M-0077/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0077/check_intake.py",
+    "Stage1_Instances/THM-M-0077/validation.md",
+    "Stage1_Instances/THM-M-0077/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent finite-group reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Source and formal reviewers must independently approve the exact 1928 proposition, pi and Hall-subgroup definitions, binder and boundary choices, and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, primary-text or errata finding, pi or Hall-subgroup definition, binder order, boundary decision, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the literal existence-only catalog scope, the Hall-pi ambiguity, inspected bibliographic identity, bounded formal discovery, adjacent pinned APIs, and the open downstream DAG. The probe supplies vocabulary evidence only. No canonical expression, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

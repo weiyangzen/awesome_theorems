@@ -49,3 +49,18 @@ The exact adapter is classified as a self-tested `M0-W / E2` candidate pending m
 it is not accepted `E1` closure or theorem completion. Public code-search access failures also mean
 discovery saturation is not claimed. Obligation-tree composition, full transitive provenance and
 TCB acceptance, H0/R0, hermetic validation, independent verification, and release remain open.
+
+## Obligation-tree result
+
+`obligation-registry.json` now freezes version 1 of the semantic architecture before proof-phase
+closure credit. The 44 obligations expand the actual pinned `szemeredi_regularity` source through
+its cardinality and tolerance branches, energy induction, chunk/equitabilise constructions,
+density engine, energy recomposition, terminal body, exact adapter, and source/trust boundaries.
+`typed-graphs.json` keeps proof, refinement, provenance, evidence, trust, documentation, and
+workflow edges separate; `obligation-tree.md` is the readable projection.
+
+`ObligationTree.lean` kernel-checks only the exact root composition from the adapter and pinned
+terminal interfaces. Seventeen internal relations are deliberately recorded as unverified
+source-body decomposition plans, not composition certificates. The aggregate validation recipe and
+receipt preserve that boundary: zero obligations close, the accepted root remains `[H1, M3, R4]`,
+and audit and theorem completion remain false pending proof-phase certificates and master review.

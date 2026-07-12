@@ -1,0 +1,94 @@
+{
+  "schema_version": "stage1-obligation-tree-receipt/1.0",
+  "receipt_id": "S56-M-0843-OBLIGATION_TREE-worker-02cc55f8",
+  "item_id": "S56-M-0843-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0843",
+  "phase": "obligation_tree",
+  "base_revision": "02cc55f883d5b5d091ead6851bffe89199eb8391",
+  "base_tree": "035212d041a1e61553b3d2f465964c9bbb35e47d",
+  "validated_at": "2026-07-13",
+  "registry_version": 1,
+  "registry_denominator_sha256": "5373c66a953b356d53f3849d2b3d2cb9657189e38b458964f992817b66751f06",
+  "obligation_count": 44,
+  "typed_edge_count": 261,
+  "substantive_ledger_step_count": 105,
+  "graph_names": [
+    "proof",
+    "refinement",
+    "provenance",
+    "evidence",
+    "trust",
+    "documentation",
+    "workflow"
+  ],
+  "canonical_declaration": "Stage1Instances.THM_M_0843.SzemerediRegularityTarget",
+  "candidate_terminal_declaration": "szemeredi_regularity",
+  "composition_declarations": [
+    "Stage1Instances.THM_M_0843_Obligations.compose_root"
+  ],
+  "unverified_internal_decomposition_count": 18,
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0843/ObligationTree.lean",
+    "Stage1_Instances/THM-M-0843/README.md",
+    "Stage1_Instances/THM-M-0843/build_obligation_artifacts.py",
+    "Stage1_Instances/THM-M-0843/check_obligation_tree.py",
+    "Stage1_Instances/THM-M-0843/obligation-registry.json",
+    "Stage1_Instances/THM-M-0843/obligation-tree-receipt.json",
+    "Stage1_Instances/THM-M-0843/obligation-tree-validation.md",
+    "Stage1_Instances/THM-M-0843/obligation-tree.md",
+    "Stage1_Instances/THM-M-0843/task-dag.json",
+    "Stage1_Instances/THM-M-0843/typed-graphs.json",
+    "Stage1_Instances/THM-M-0843/validation-specs.json"
+  ],
+  "commands": [
+    "python3 Docs/tools/check_stage1_standard.py",
+    "python3 scripts/stage1_target.py check",
+    "python3 scripts/stage1_target.py show THM-M-0843",
+    "python3 -B Stage1_Instances/THM-M-0843/build_obligation_artifacts.py",
+    "python3 -B Stage1_Instances/THM-M-0843/check_obligation_tree.py",
+    "python3 -m json.tool on obligation-registry.json, typed-graphs.json, validation-specs.json, obligation-tree-receipt.json, and .stage1-worker-selftest.json",
+    "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0843/Statement.lean",
+    "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0843/AnchorAudit.lean",
+    "temporary statement interface compilation plus lake env lean on ObligationTree.lean, performed by check_obligation_tree.py",
+    "PYTHONPYCACHEPREFIX=/tmp/stage1-thm-m-0843-obligation-pycache python3 -m py_compile Stage1_Instances/THM-M-0843/build_obligation_artifacts.py Stage1_Instances/THM-M-0843/check_obligation_tree.py",
+    "git diff --check -- Stage1_Instances/THM-M-0843 .stage1-worker-selftest.json"
+  ],
+  "output_summary": "All commands exited 0. The generator wrote 44 obligations and 261 typed edges; the checker validated 105 structured ledger steps, the exact root harness, a sorry-free terminal, the standard axiom set, zero closed obligations, and accepted root H1/M3/R4. Internal reverse edges remain logical_decomposition, not composes.",
+  "known_failures": [
+    "Eighteen internal proof relations are frozen as unverified source-body decomposition plans, not checked composition certificates.",
+    "The M0843-C01 exact candidate has only E2 worker evidence; no E1 accepted proof receipt exists.",
+    "Primary-source H0, readable R0, full transitive provenance/TCB, hermetic replay, independent verification, AUDIT-Z, THEOREM-Z, and master acceptance remain open."
+  ],
+  "candidate_evidence": {
+    "candidate_id": "M0843-C01",
+    "classification": "M0-W candidate",
+    "evidence_level": "E2",
+    "accepted": false,
+    "boundary": "Exact pinned candidate and local composition are self-tested, but rev-5.6 M0-W requires an accepted E1 receipt."
+  },
+  "closed_obligations": [],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "proposed_state": "[_]",
+  "accepted": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "remaining_root_cut_set": [
+    "accepted node-specific proof receipts for all required machine obligations",
+    "primary-source H0 and independent review",
+    "readable R0 reconstruction and independent review",
+    "full transitive provenance and TCB acceptance",
+    "hermetic and independent validation",
+    "master acceptance"
+  ],
+  "status_boundary": "This worker receipt covers the version-1 obligation registry, seven separate typed graphs, source-body expansion, and the exact Lean root composition check only. Eighteen internal decompositions remain explicitly unverified. It does not accept M0-W, close a proof obligation, complete AUDIT-Z, or complete the theorem."
+}
