@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1111-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1111",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "cd7d0c47c19a08d85f4314833fd1e5a339230a3c",
+  "target": "Stage1Instances.THM_M_1111.TaoVuFourMomentTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned Lake dependency source",
+    "Sourcegraph public Lean source index",
+    "GitHub repository metadata search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1111-C01",
+      "project": "awesome_theorems",
+      "revision": "cd7d0c47c19a08d85f4314833fd1e5a339230a3c",
+      "module": "Stage1_Instances/THM-M-1111/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1111.TaoVuFourMomentTarget",
+      "kind": "exact_statement_over_semantic_interface",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration; semantic operations are explicit structure fields",
+      "classification": "M3",
+      "integration_status": "already local and elaborated, but supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1111-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Data.Matrix.Basic",
+        "Mathlib.LinearAlgebra.Matrix.Hermitian",
+        "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+        "Mathlib.Probability.Independence.Basic"
+      ],
+      "declarations": [
+        "Matrix",
+        "Matrix.IsHermitian",
+        "MeasureTheory.integral",
+        "ProbabilityTheory.iIndepFun"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no declaration has the target comparison conclusion",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "selected declarations elaborate in the pinned environment; no terminal candidate exists to audit for target proof closure",
+      "classification": "M3_support_only",
+      "integration_status": "locally checkable substrate, insufficient for the exact theorem"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "queries": [
+        "context:global archived:yes fork:yes lang:Lean Four Moment Theorem count:100",
+        "context:global archived:yes fork:yes lang:Lean TaoVu count:100",
+        "context:global archived:yes fork:yes lang:Lean Tao-Vu count:100",
+        "context:global archived:yes fork:yes lang:Lean Wigner count:100",
+        "context:global archived:yes fork:yes lang:Lean eigenvalue statistics count:100"
+      ],
+      "result": "exact-name/author/eigenvalue-statistics queries matchCount=0; Wigner query matchCount=10 in 3 repositories, all quantum/Wigner-function or Breit-Wigner name collisions and none random-matrix universality",
+      "response_sha256": [
+        "c7ce14180a444e23a8b0c77f970b4726b7d7d8f10d64f1c6b0a5466374fd73d2",
+        "e402c5a78866d6e6b1aa4e3d2659814147295ad845d2c4ee6285ada5a0a6e6f5",
+        "102ab821834444cf751b2c391aa284b85f29a464c1d23ff758df68ea5db06156",
+        "84b051415ee12c016336ce8ed63af167bc0a858e6bb770a56eb882f51acde3a4",
+        "d8044c5785afae21e8b3bde05a763174e5e4a715bafbb0e9ef8b4d49f1d87d11"
+      ],
+      "immutability_boundary": "dated, content-hashed discovery responses; not immutable proof candidates"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "queries": [
+        "lean4 four moment theorem",
+        "lean tao vu random matrix",
+        "leanprover random matrix"
+      ],
+      "result": "total_count=0 for each completed query",
+      "immutability_boundary": "dated repository-metadata discovery, not proof evidence"
+    },
+    {
+      "surface": "GitHub REST and grep.app code search",
+      "result": "GitHub code search requires authentication; grep.app returned HTTP 429",
+      "immutability_boundary": "blocked search lanes; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact target elaborates only over an unimplemented semantic interface. Pinned mathlib provides generic matrix, Hermitian, integration, and independence APIs but no terminal Tao-Vu/Wigner-universality comparison declaration. No exact external Lean 4 proof candidate was found in the bounded public searches.",
+  "integration_blocker": "There is no external immutable proof revision, module, declaration, and exact type to pin/import/check. A real implementation must first instantiate the random-Hermitian ensemble and analytic semantics, then formalize the comparison proof.",
+  "reopen_condition": "A concrete Lean 4 candidate with repository URL, immutable commit, license, toolchain and dependency lock, module, declaration, exact-type transport, terminal proof-body provenance, and successful local wrapper/trust checks.",
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor inventory only. Search negatives do not establish global absence, H0, audit-wide closure, proof closure, or theorem completion."
+}
