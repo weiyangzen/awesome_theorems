@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "receipt_id": "S56-M-0525-RELEASE-local-20260712",
+  "item_id": "S56-M-0525-RELEASE",
+  "theorem_id": "THM-M-0525",
+  "intent": "release",
+  "depends_on": ["S56-M-0525-VALIDATION"],
+  "base_revision": "ff48a6d1083b7ce86e3b95f6417f4356ce5fc1a9",
+  "base_tree": "68f8c7c05b1b1050450add76b0a632e676bf80f1",
+  "decided_at": "2026-07-12T00:00:00+08:00",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "a7d309a1eb09fa8b4f03b47b46b79de3f210149d3473f9639ee11a4d55d1bb0e",
+    "ObligationTree.lean": "3f6d3e0ca2328e5272d36d0da2d62c649ae6f25f789285612ab0e526b3519972",
+    "Proof.lean": "815ddb3ab950034954ac1fd6245d1d88924b8fe793870cf1f0515489e4b014c0",
+    "Validation.lean": "314824478ba3e8422a2912b7ca8130c15f354c0b469f2cd4a980f1b505e83816",
+    "statement.json": "8c3921cc3385443c69e72befda371d73eb62972b87a33d461a926363c337ee68",
+    "obligation-registry.json": "bd45f7328da5ca578d801eca6087f79dd61ca99c719dc29601b4154ca4729257",
+    "typed-graphs.json": "0f7e1932b70e5395f4b3101242c2aabe570e08638782cd2b0aeb9a658e8a28db",
+    "validation-spec.json": "477f9fdd48ff84e096f40a0419ad7a3c0c807bc70f8b7967ee25dbc74d9c754e",
+    "validation-receipt.json": "e4dd3acf3f661896c3674f2608f95cf338c1874117f14518d4a37e49e2f45192"
+  },
+  "evidence_reconciliation": {
+    "exact_statement_elaborated": true,
+    "exact_root_kernel_checked_locally": true,
+    "frozen_composition_checked_locally": true,
+    "same_workspace_independent_reconstruction_checked": true,
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "validation_receipt_support_state": "provisional_worker_selftest",
+    "validation_dependency_master_accepted": false,
+    "structured_root_state_fresh": false,
+    "human_source_h0_accepted": false,
+    "readability_r0_accepted": false,
+    "transitive_tcb_and_provenance_accepted": false,
+    "hermetic_cold_offline_replay": false,
+    "sbom_and_license_closure": false,
+    "distinct_runner_independent_verification": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": "H?/M2/R? (frozen structured authority)",
+    "root_vector_after": "H?/M2/R? (no accepted state change; local kernel evidence proposes M0-L review only)",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "accepted_receipt_ids": [],
+    "first_failed_gate": "dependency.S56-M-0525-VALIDATION.master_acceptance",
+    "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+    "remaining_root_cut_set": [
+      "master-accepted dependency chain and fresh structured root reconciliation",
+      "accepted theorem-specific foundation policy and complete transitive TCB/provenance closure",
+      "independently reviewed H0 primary-source crosswalk",
+      "independently reviewed R0 readable reconstruction",
+      "immutable clean empty-cache cold build and network-disconnected offline restoration",
+      "complete SBOM/license evidence and deterministic content-addressed release bundle",
+      "two distinct signed attestations and an independently implemented minimal verifier",
+      "AUDIT-Z, THEOREM-Z, and master acceptance"
+    ],
+    "retry_condition": "After the integration lane accepts the prerequisite receipts and reconciles structured root state, rerun all recipes on an immutable clean snapshot with empty caches and offline restoration; close TCB/provenance, H0, R0, SBOM/license, deterministic-bundle, and distinct-verifier gates; then obtain master acceptance."
+  },
+  "known_failures": [
+    "The prerequisite validation receipt is provisional worker evidence, not master accepted.",
+    "The frozen typed graph still records root_closed=false at M2 and predates Proof.lean.",
+    "The checkout has a pre-existing untracked Formalizations/Lean/.lake symlink and reused a shared warm cache, so it is not clean or hermetic release evidence.",
+    "H0, R0, complete transitive trust/provenance, cold offline replay, supply-chain closure, distinct verification, deterministic bundling, AUDIT-Z, and THEOREM-Z are absent."
+  ],
+  "status_boundary": "This worker decision truthfully rejects theorem completion. It records a self-tested release-phase reconciliation only; it is not an accepted receipt, accepted M0, AUDIT-Z, THEOREM-Z, release, or master acceptance."
+}
