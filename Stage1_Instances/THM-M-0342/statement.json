@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0342-STATEMENT",
+  "theorem_id": "THM-M-0342",
+  "lifecycle": "planned",
+  "canonical_statement": "For every natural number n and every complex-valued function f on the real Euclidean space R^n which is square-integrable with respect to mathlib's volume measure, the normalized L2 Fourier transform of the L2 class represented by f has the same L2 norm as that class.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0342/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0342.PlancherelTarget",
+    "elaborated_expression_sha256": "b1a203e1a1a01bcd48f13a9ddf153a4f24a32bc3d5f893b0572e7a113b693e0e",
+    "statement_file_sha256": "2e78d2f613c4f7309910e7e10e2bd95ae0e6ca7e596b7e9ac7772882dbfb24c5"
+  },
+  "domain_and_universes": "n : Nat; Domain n abbreviates EuclideanSpace Real (Fin n); f : Domain n -> Complex; hf : MemLp f 2 volume; the target is Prop in Lean universe 0.",
+  "ordered_binders": ["n", "f", "hf"],
+  "hypotheses": ["hf : MemLp f 2 (volume : Measure (Domain n))"],
+  "conclusion": "The L2 norm of the Fourier transform of hf.toLp f equals the L2 norm of hf.toLp f.",
+  "direct_imports": ["Mathlib.Analysis.Fourier.LpSpace"],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "17a9c60b5e6ca3cd7e97e908b2f4bed28c5db077309e1ec5f5981803dee4fcab",
+    "serialization_options": ["pp.explicit=true", "pp.universes=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0342/check_statement.py",
+    "killed": [
+      "removed the square-integrability hypothesis",
+      "fixed the domain to the one-dimensional real line",
+      "changed the function binder from universal to existential",
+      "excluded the zero-dimensional boundary case"
+    ]
+  },
+  "alternate_encodings": [],
+  "degenerate_cases": "The zero-dimensional Euclidean space is included. Infinite-dimensional spaces, real-valued codomains, non-L2 functions, unnormalized transforms, and arbitrary LCA groups are excluded.",
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's classical and noncomputable Fourier/Lp infrastructure permitted; this statement artifact introduces no axiom, unsafe declaration, oracle, or proof body.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; full transitive trust closure remains a downstream validation task.",
+  "computation_profile": "No native computation, numerical experiment, oracle, or unchecked certificate is credited.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. Primary-source fidelity, anchor audit, proof obligations, proof provenance, hermetic release, and theorem completion remain open."
+}

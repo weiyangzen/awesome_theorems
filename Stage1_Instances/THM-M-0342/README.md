@@ -5,11 +5,15 @@ claim is that the Fourier transform is an isometry on `L^2`. The intended scope 
 Fourier transform on complex-valued square-integrable functions over finite-dimensional real
 Euclidean space, with equality of `L^2` norms (and the corresponding inner-product preservation).
 
-The source record does not fix the Fourier-character normalization, Haar/Lebesgue measure
-normalization, scalar versus Hilbert-valued formulation, or an exact primary-source theorem. Those
-choices remain statement-phase work. A pinned Lean API probe confirms that mathlib contains an
-`L^2` Fourier linear isometry and its norm and inner-product theorems. This is discovery evidence
-only: no canonical expression, accepted proof state, audit completion, or theorem completion is
-claimed.
+The statement phase freezes the repository-scope claim as
+`Stage1Instances.THM_M_0342.PlancherelTarget`: for every finite dimension, mathlib's normalized
+Fourier transform preserves the norm of every complex `L2` class on the corresponding real
+Euclidean space. The exact expression, environment fingerprint, and four structural mutations are
+recorded in `statement.json` and `statement-validation.md`.
 
-The provisional root is `[H1, M3, R4]`. Exact intake commands and results are in `validation.md`.
+The source record still lacks an inspected primary-source passage and therefore receives no `H0`
+credit. Inner-product preservation, inversion, and surjectivity are not credited alternate targets.
+No accepted proof state, audit completion, or theorem completion is claimed.
+
+The provisional root is `[H1, M2, R4]`, pending master acceptance of the statement node. Intake
+commands are in `validation.md`; statement commands are in `statement-validation.md`.

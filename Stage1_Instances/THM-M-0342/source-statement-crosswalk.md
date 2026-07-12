@@ -17,10 +17,10 @@ recorded before `H0`; the accent-free title here is not asserted as an edition-a
 
 | Repository/source phrase | Mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
-| `L^2` functions | square-integrable functions modulo almost-everywhere equality | `MeasureTheory.Lp ... 2` with the selected measure | intended; exact domain/measure open |
-| Fourier transform | normalized transform and its `L^2` extension | `MeasureTheory.Lp.fourierTransformₗᵢ` / `𝓕` | pinned candidate probed; normalization crosswalk open |
-| isometry | preservation of the `L^2` norm for every input | `MeasureTheory.Lp.norm_fourier_eq` | exact semantic candidate, not yet canonical |
-| inner-product form | preservation of the `L^2` inner product | `MeasureTheory.Lp.inner_fourier_eq` | candidate equivalent formulation |
+| `L^2` functions | square-integrable functions modulo almost-everywhere equality | `hf : MemLp f 2 volume` and `hf.toLp f` | repository-scope formal target frozen |
+| Fourier transform | normalized transform and its `L^2` extension | `𝓕 (hf.toLp f)` from pinned `LpSpace` | repository-scope formal target frozen; historical normalization crosswalk open |
+| isometry | preservation of the `L^2` norm for every input | equality `‖𝓕 (hf.toLp f)‖ = ‖hf.toLp f‖` | canonical formal conclusion frozen |
+| inner-product form | preservation of the `L^2` inner product | `MeasureTheory.Lp.inner_fourier_eq` | not credited as an alternate encoding at statement gate |
 | Michel Plancherel / 1910 | historical attribution | no Lean proof credit | primary-source candidate identified |
 | `已验证` | inventory metadata | no proposition or proof evidence | explicitly untrusted |
 
@@ -32,6 +32,8 @@ equivalence and exposes norm and inner-product preservation. A repository-local 
 `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_153.lean` also invokes `norm_fourier_eq`, but it
 belongs to another theorem target and supplies no accepted evidence here.
 
-The bounded `IntakeProbe.lean` checks only the pinned declarations and a scalar Euclidean
-specialization's type. It does not perform the required statement identity, source-normalization,
-terminal-body, axiom, provenance, or independent-review audits. Those remain downstream tasks.
+The statement artifact now freezes the norm equality for complex functions on
+`EuclideanSpace Real (Fin n)`, including `n = 0`, and mutation-tests its hypothesis, domain, binder
+scope, and boundary. This settles repository-scope statement identity, not historical source
+identity: source-normalization, terminal-body, axiom, provenance, and independent-review audits
+remain downstream tasks.

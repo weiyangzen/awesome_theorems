@@ -13,27 +13,28 @@
   "category": "analysis / harmonic analysis",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "The L^2 Fourier transform is an isometry.",
-  "canonical_claim_status": "human_scope_frozen_exact_source_conventions_and_formal_statement_open",
-  "canonical_claim": "For complex-valued square-integrable functions on a finite-dimensional real Euclidean space, the correctly normalized Fourier transform extends to an L^2 isometry; in particular it preserves the L^2 norm and inner product.",
+  "canonical_claim_status": "repository_scope_and_exact_formal_norm_target_frozen_primary_source_fidelity_open",
+  "canonical_claim": "For every finite dimension n and every complex-valued square-integrable function on real Euclidean n-space, mathlib's normalized L^2 Fourier transform preserves the L^2 norm.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_source_and_normalization_freeze",
-    "module_candidate": "Mathlib.Analysis.Fourier.LpSpace",
+    "status": "self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0342/Statement.lean",
+    "minimal_import": "Mathlib.Analysis.Fourier.LpSpace",
     "declaration_candidates": [
       "MeasureTheory.Lp.fourierTransformₗᵢ",
       "MeasureTheory.Lp.norm_fourier_eq",
       "MeasureTheory.Lp.inner_fourier_eq"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "declaration_or_expression": "Stage1Instances.THM_M_0342.PlancherelTarget",
+    "elaborated_expression_hash": "sha256:b1a203e1a1a01bcd48f13a9ddf153a4f24a32bc3d5f893b0572e7a113b693e0e",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-LpSpace_pp-explicit-universes"
   },
-  "domain_and_universes": "Intended scalar domain: complex-valued L2 functions over finite-dimensional real Euclidean space. Exact dimension binder, measure, Fourier character, normalization, and whether the source supports a more general locally compact abelian group remain open.",
-  "quantifiers": ["finite dimension n", "f in complex L2 on the selected Euclidean space"],
-  "hypotheses": ["the Fourier transform and measure use the source-approved compatible normalization"],
-  "conclusion": "The Fourier transform preserves the L2 norm; inner-product preservation is included only after its equivalence under the frozen conventions is checked.",
+  "domain_and_universes": "n : Nat; f : EuclideanSpace Real (Fin n) -> Complex; hf : MemLp f 2 volume; Prop in Lean universe 0. The normalization is the one fixed by pinned mathlib's Lp Fourier instance.",
+  "quantifiers": ["n : Nat", "f : EuclideanSpace Real (Fin n) -> Complex", "hf : MemLp f 2 volume"],
+  "hypotheses": ["hf certifies square-integrability with exponent 2 and volume measure"],
+  "conclusion": "The L2 norm of the Fourier transform of hf.toLp f equals the L2 norm of hf.toLp f.",
   "alternate_encodings": [],
-  "excluded_degenerate_cases": "The zero-dimensional space is provisionally included. Infinite-dimensional spaces, arbitrary LCA groups, non-L2 functions, and unnormalized transforms are excluded unless the selected source explicitly changes the scope.",
+  "excluded_degenerate_cases": "The zero-dimensional space is included. Infinite-dimensional spaces, arbitrary LCA groups, non-L2 functions, real-valued codomains, and unnormalized transforms are excluded.",
   "source_status": "repository_secondary_metadata_plus_historical_primary_source_candidate_exact_theorem_page_assumptions_and_errata_open",
   "source_revisions": {
     "repository_base": "230f719da7724afb27c761dcb8c62a327557fe63",
@@ -42,7 +43,7 @@
   },
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
-  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector": {"H": "H1", "M": "M2", "R": "R4"},
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
@@ -65,7 +66,12 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Pinned mathlib candidate APIs elaborate, but exact source conventions and the canonical Lean expression are not frozen. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested statement pending master acceptance. The exact repository-scope Lean expression is frozen and elaborates, but primary-source fidelity and every downstream node remain open. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
 }

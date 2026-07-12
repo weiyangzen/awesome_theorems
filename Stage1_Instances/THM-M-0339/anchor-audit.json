@@ -1,0 +1,104 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0339-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0339",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "bd0d227173ac95971603f633607751754850337e",
+  "target": "Stage1.THM_M_0339.MSSPartitionStatement",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index",
+    "GitHub repository search",
+    "commit-addressed external Lean source tree"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0339-C01",
+      "project": "awesome_theorems",
+      "revision": "bd0d227173ac95971603f633607751754850337e",
+      "module": "Stage1_Instances/THM-M-0339/Statement.lean",
+      "declaration": "Stage1.THM_M_0339.MSSPartitionStatement",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact frozen target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as an elaborated statement; supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0339-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Analysis.InnerProductSpace.LinearMap",
+        "Mathlib.Analysis.InnerProductSpace.Positive",
+        "Mathlib.Analysis.InnerProductSpace.PiL2"
+      ],
+      "declarations": [
+        "InnerProductSpace.rankOne",
+        "InnerProductSpace.rankOne_apply",
+        "InnerProductSpace.norm_rankOne",
+        "InnerProductSpace.isPositive_rankOne_self",
+        "OrthonormalBasis.sum_rankOne_eq_id",
+        "ContinuousLinearMap.id",
+        "Finset.sum_filter",
+        "Real.sqrt"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "rank-one, positivity, identity-sum, filtered-sum, and bound-expression APIs only; no MSS partition conclusion",
+      "body_provenance": "pinned mathlib source and existing compiled artifacts",
+      "placeholder_or_axiom_status": "all eight selected declarations elaborate in the pinned Lake environment; no terminal target exists to audit for proof closure",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable, but insufficient for the exact theorem"
+    },
+    {
+      "candidate_id": "S56-M-0339-C03",
+      "project": "PerAlexandersson/RealRooted",
+      "revision": "634a949d31683785b4181efbba6faff31e81e006",
+      "modules": [
+        "RealRooted.InterlacingSequenceBasic",
+        "RealRooted.MatrixInterlacing",
+        "RealRooted.CauchyInterlacing"
+      ],
+      "declaration": null,
+      "toolchain": "leanprover/lean4:v4.31.0-rc2",
+      "dependency_feasibility": "not directly pin-ready: its lakefile leaves mathlib unpinned and its toolchain differs from the repository's Lean 4.29.0",
+      "kind": "related_external_infrastructure",
+      "normalized_match": "polynomial and matrix interlacing infrastructure, but no mixed characteristic polynomial, random-vector bound, rank-one partition, or exact Corollary 1.5 declaration",
+      "body_provenance": "complete commit-addressed source archive inspected; several unrelated project files contain sorry",
+      "placeholder_or_axiom_status": "the repository-wide Lean scan found multiple sorry occurrences; no target-relevant terminal body exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "anchor-only and incompatible as a direct dependency; no exact wrapper or proof body to integrate"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "queries": [
+        "repositories?q=\"Marcus-Spielman-Srivastava\"+Lean",
+        "repositories?q=\"Kadison-Singer\"+Lean",
+        "repositories?q=interlacing+polynomials+Lean"
+      ],
+      "result": "first two searches returned total_count=0 with incomplete_results=false; the third returned only PerAlexandersson/RealRooted",
+      "immutability_boundary": "dated discovery responses; the discovered project was separately inspected at a full commit"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "queries": [
+        "Marcus Spielman Srivastava lang:Lean",
+        "Kadison Singer lang:Lean"
+      ],
+      "result": "matchCount=0 for both bounded public-index queries",
+      "immutability_boundary": "dated bounded index evidence, not proof of global absence"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The repository has only the exact proposition. Pinned mathlib supplies foundational rank-one APIs but no MSS theorem. The sole related external Lean project found supplies general interlacing infrastructure at an incompatible toolchain and unpinned mathlib dependency, contains unrelated placeholders, and has no exact or transportable terminal declaration.",
+  "integration_blocker": "No exact Lean 4 proof candidate, immutable terminal declaration, or proof body was found to pin/import/check. The MSS interlacing-family and mixed-characteristic-polynomial proof architecture remains unformalized in the audited candidates.",
+  "reopen_condition": "A concrete Lean 4 candidate with repository URL, immutable commit, pinned toolchain and dependencies, module, terminal declaration, exact-type comparison or checked transport, proof-body provenance, license, placeholder/axiom report, and successful local wrapper check.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor audit. It supplies no human-source H0 result, obligation tree, proof closure, audit completion, release evidence, or theorem-completion credit."
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0312-RELEASE",
+  "theorem_id": "THM-M-0312",
+  "intent": "release",
+  "base_revision": "bd0d227173ac95971603f633607751754850337e",
+  "decided_at": "2026-07-12T19:20:48+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0312-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0312-VALIDATION-local-20260712T191212+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "f681e7b00a282ef60f93944cb21acfb357d66e01a00624521b6e69728219eb05"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0312-VALIDATION-local-20260712T191212+0800"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-W", "R3"],
+    "boundary": "The exact root has same-worker warm-cache kernel evidence, but the authoritative graph remains unreconciled and no M0 state is accepted. Primary-source H0 and independently reviewed R0 are absent."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0312-VALIDATION is provisional worker evidence and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-0312-AUTHORITATIVE-STATE-RECONCILIATION",
+    "reason": "The frozen graph still records candidate proof nodes and an open foundation/provenance/source cut set; a worker cannot promote these to accepted M0 or terminal state."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0312-VALIDATION and its transitive phase receipts",
+    "authoritative reconciliation of M0312-B-EQUICONT, M0312-T-NORM-BOUND, M0312-S-FOUNDATION, M0312-X-PROVENANCE, and M0312-X-SOURCE",
+    "accepted H0 primary-source theorem locator, assumptions, errata, node crosswalk, and independent source review",
+    "accepted R0 structured reconstruction and independent reader review",
+    "complete transitive declaration, axiom, foundation, TCB, and computation-profile closure",
+    "immutable clean source snapshot and content-addressed release inputs",
+    "empty-cache network-denied cold build and disconnected archive replay",
+    "complete SBOM and license closure",
+    "two signed attestations from distinct independently provisioned runners",
+    "independently implemented minimal release verifier and attestation agreement",
+    "protected CI plus required negative mutation and metamorphic gate results",
+    "current deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_check": "pass as provisional same-worker warm-cache evidence",
+    "proof_source_sha256": "11a309b1f5c76210304376a88919e319253953587a5c0f64530ae99842395350",
+    "differential_source_sha256": "924823a37aad1a0170a8829cf20a5a361ac5556e449a55d24c425226d5f1be24",
+    "observed_axioms": ["Classical.choice", "Quot.sound", "propext"],
+    "placeholder_and_unsafe_scan": "pass",
+    "authoritative_root_state": "unreconciled",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "The integration lane must accept and reconcile the dependency chain and structured root state. Independent source/readability reviewers and a separately provisioned release lane must then close H0/R0, trust, hermetic, supply-chain, verifier, CI, and deterministic-bundle gates.",
+  "status_boundary": "This is a truthful blocked worker release decision. It creates no accepted receipt, does not change lifecycle or authoritative debt, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance."
+}
