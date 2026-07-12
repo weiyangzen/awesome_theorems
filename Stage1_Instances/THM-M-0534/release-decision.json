@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0534-RELEASE",
+  "theorem_id": "THM-M-0534",
+  "intent": "release",
+  "base_revision": "eef00eab3acabcc58485ecd6cbe0a15a23e9bbf7",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0534-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0534-VALIDATION-local-20260712T050757Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "f5b8c7c7ea8596b4b7555cb47eb6083f6a3c6577fa4ecab87b8c84cfdb3371f8"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0534-PROOF-local-20260712T050437Z",
+    "S56-M-0534-VALIDATION-local-20260712T050757Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M3", "R4"],
+    "accepted_after": ["H2", "M3", "R4"],
+    "best_provisional_evidence": ["H2", "M0-W-eligible-pending-acceptance", "R4"],
+    "boundary": "The exact root and frozen composition route have same-workspace kernel evidence through pinned mathlib bodies. No accepted E1 receipt, H0 source review, R0 reconstruction, or release evidence exists, so authoritative debt is not promoted."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0534-VALIDATION is provisional worker evidence and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-COLD-HERMETIC-REPLAY",
+    "reason": "Validation reused the shared warm .lake artifacts and did not establish an empty-cache, network-denied cold build or offline archive restoration."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0534-VALIDATION and all transitive phase receipts",
+    "reconciliation of the stale pre-proof typed graph with accepted exact-root closure",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 node-anchored reconstruction with independent reader review",
+    "complete transitive declaration, proof-body, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "complete SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI plus required mutation, adversarial, and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "statement_identity": "lean-expression-sha256:6846afc515ceb8a7479a074f21295620ef4f191bd0804e377b56ae37567b7677#Stage1Instances.THM_M_0534.LongExactHomologySequenceTarget",
+    "exact_root_kernel_check": "pass as provisional same-workspace worker evidence",
+    "root_composition": "pass as provisional same-workspace worker evidence",
+    "terminal_proof_bodies": "pinned mathlib ShortExact.homology_exact1, homology_exact2, and homology_exact3 family",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on target modules and directly audited terminal mathlib source",
+    "authoritative_graph_freshness": "missing",
+    "complete_transitive_provenance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "The integration lane must first accept the dependency chain and reconcile authoritative root state. A separately provisioned release lane must then close H0/R0 review, complete trust/provenance, hermetic reproduction, supply-chain, independent-runner, CI, mutation, and deterministic-bundle gates.",
+  "status_boundary": "This artifact truthfully decides the requested release phase as blocked. It creates no accepted receipt, changes no lifecycle or accepted debt state, and makes no theorem-completion claim. It is a worker handoff for master inspection, not release authority."
+}
