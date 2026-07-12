@@ -1,0 +1,37 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "item_id": "S56-M-0843-VALIDATION",
+  "theorem_id": "THM-M-0843",
+  "recipe_id": "S56-M-0843-VALIDATION-NARROW",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0843/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains the four PASS lines and the fail-closed hermetic, independent-runner, and authoritative-state boundaries"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0843-ROOT",
+    "M0843-T-UPSTREAM",
+    "M0843-T-ADAPTER"
+  ],
+  "covered_declarations": [
+    "szemeredi_regularity",
+    "Stage1Instances.THM_M_0843_Obligations.terminal_adapter",
+    "Stage1Instances.THM_M_0843_Obligations.compose_root",
+    "Stage1Instances.THM_M_0843.Proof.pinnedTerminal",
+    "Stage1Instances.THM_M_0843.Proof.szemerediRegularity_via_frozen_composition",
+    "Stage1Instances.THM_M_0843.Proof.szemerediRegularity",
+    "Stage1Instances.THM_M_0843.Validation.differentialSzemerediRegularity"
+  ],
+  "coverage_boundary": "The recipe kernel-checks the exact pinned terminal, frozen adapter/root composition, proof wrappers, and a separately written same-worker direct wrapper. It does not grant individual closure to the 18 unverified internal source-body decompositions or satisfy cold hermetic and distinct-runner release gates."
+}

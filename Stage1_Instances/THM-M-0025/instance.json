@@ -1,0 +1,186 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0025",
+  "item_id": "S56-M-0025-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1070,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "希尔伯特基定理",
+  "name_en": "Hilbert basis theorem",
+  "canonical_name": "Hilbert basis theorem for one polynomial indeterminate over a commutative Noetherian ring",
+  "category": "代数学 / 环论",
+  "category_en": "algebra / ring theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "诺特环上的多项式环仍是诺特环",
+  "literal_source_claim_en": "A polynomial ring over a Noetherian ring is still Noetherian.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "For every commutative ring R, if R is Noetherian, then the univariate polynomial ring R[X] is Noetherian.",
+  "canonical_claim_status": "conventional_commutative_one_variable_repository_scope_selected_at_intake_pending_pinpoint_primary_source_ratification_and_exact_lean_statement_gate",
+  "canonical_claim": "For every commutative ring R, if every ideal of R is finitely generated, then every ideal of the univariate polynomial ring R[X] is finitely generated.",
+  "statement_blocker": "The catalog omits a source citation and definitions. Before accepting an exact Lean target, the statement phase must admit and independently review a pinpoint source, ratify commutativity, the one-variable reading, the finite-generation/ascending-chain equivalence, inclusion of the zero ring, and absence of a Nontrivial premise, then elaborate and mutation-test the result.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.RingTheory.Polynomial.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "Polynomial.isNoetherianRing",
+      "isNoetherianRing_iff_ideal_fg"
+    ],
+    "candidate_expression": "forall {R : Type u}, [CommRing R] -> [IsNoetherianRing R] -> IsNoetherianRing (Polynomial R)",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_ratification_canonical_elaboration_and_mutation_tests",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Intake-selected domain: an arbitrary universe-u type R carrying a commutative ring structure, with Polynomial R in the same universe. The exact elaborated universe and instance binder representation remains for the statement gate.",
+  "quantifiers": [
+    "R: an arbitrary commutative ring",
+    "a Noetherian-ring hypothesis on R"
+  ],
+  "ordered_binders": [
+    "forall R",
+    "given a commutative ring structure on R",
+    "given that R is Noetherian"
+  ],
+  "hypotheses": [
+    "R is a commutative ring",
+    "every ideal of R is finitely generated (the selected Noetherian convention)"
+  ],
+  "conclusion": "Every ideal of the univariate polynomial ring R[X] is finitely generated; equivalently, R[X] is Noetherian under the accepted commutative convention.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "The zero ring is provisionally included and no Nontrivial premise is added. The statement phase must ratify this against the selected source and test zero-ring and representative field/domain instances without changing the root.",
+  "candidate_scope_not_credited": [
+    "the finite-variable MvPolynomial Noetherian instance",
+    "the theorem that every finite type algebra over a Noetherian ring is Noetherian",
+    "ascending-chain and well-founded-order encodings of Noetherianity",
+    "left- or right-Noetherian noncommutative variants"
+  ],
+  "excluded_substitutions": [
+    "Hilbert's Nullstellensatz, weak Nullstellensatz, Hilbert polynomial, or syzygy theorem",
+    "a theorem only over fields, domains, PIDs, finite rings, or another strict special class",
+    "a finite-variable or finite-type strengthening used without a checked transport to the exact one-variable root",
+    "a polynomial ring in infinitely many indeterminates",
+    "a noncommutative left- or right-Noetherian variant",
+    "a structure, instance premise, oracle, experiment, or unchecked certificate that assumes the conclusion",
+    "the catalog's untrusted verified label or the intake API probe as source or proof credit"
+  ],
+  "source_status": "H1_stable_conventional_claim_and_historical_lead_but_no_admitted_pinpoint_primary_statement_definition_assumption_errata_proof_mapping_or_independent_review",
+  "source_candidates_not_credited": [
+    {
+      "citation": "David Hilbert, Ueber die Theorie der algebraischen Formen, Mathematische Annalen 36(4), 473-534 (1890), DOI 10.1007/BF01208503",
+      "candidate_summary": "Crossref-confirmed historical primary bibliographic lead consistent with the catalog attribution and year.",
+      "inspection_status": "Metadata only; primary text, exact theorem/page, definitions, assumptions, proof boundary, translation, errata, node mapping, and independent review remain open."
+    },
+    {
+      "citation": "Stacks Project, Section 10.31, Lemma 10.31.1, tag 00FN",
+      "candidate_summary": "Authoritative modern statement and proof of finite-type and localization stability, explicitly reducing the polynomial part to R[X].",
+      "inspection_status": "Secondary cross-check only; not accepted as the historical primary source packet or an H0 review."
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.RingTheory.Polynomial.Basic",
+      "declarations": [
+        "Polynomial.isNoetherianRing"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type": "{R : Type u} -> [CommRing R] -> [IsNoetherianRing R] -> IsNoetherianRing (Polynomial R)",
+      "boundary": "The exact candidate type was authenticated by the intake probe. Canonical statement identity, proof-body provenance, transitive dependencies, trust closure, and M0 classification are not inspected or credited."
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d750776142c633e42858cebfc67c5c2664d419d7",
+    "repository_base_tree": "7e62c62f1939b5cb668e56590b709f71f6e676b5",
+    "repository_record": "Docs/researches/math_theorems.md:200-205",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:803-828",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "3f17cdfd7d25cf040fdf2cb172b6f440f9d344d2f1a82d9762942f00d6fd5eec",
+    "stage0_excerpt_sha256": "c33f577e23ea1219532e3761944641a6964c5dec0a766ddb2d27bbb30159dd7e",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "02f31c3bc439908d8fa571acff9ee5f595f173b994b88b3df2ac5688c894f0d2",
+    "execution_dag_sha256": "55a6de4dce1081d2cc7ac662adc6de3e7374f549d381374a7ed19cec0d4c245c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "polynomial_basic_sha256": "7cedafd3e1fc910b152c699375e8670f0db7d6261d7ebdd3dd8ff2420fda5b9c",
+    "noetherian_defs_sha256": "a0e5c5a1aceb564f885573d5c51ec124be20abbd19fabc6af8c798b637530f0b",
+    "noetherian_basic_sha256": "f738b564843cd9c868966e7c284ec5ffc1f7b6e0774cd9774e7f855453d1e1c9"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; exact statement transports and proof-specific use of classical principles, choice, quotients, or extensionality remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are the intended base; exact canonical imports, terminal proof body, transitive dependencies, compiled artifacts, and accepted trust closure remain open",
+  "computation_profile": "kernel-proposition-planned/1.0: no experiment, oracle, native shortcut, generated instance, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0025/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0025/README.md",
+    "Stage1_Instances/THM-M-0025/instance.json",
+    "Stage1_Instances/THM-M-0025/scope-map.md",
+    "Stage1_Instances/THM-M-0025/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0025/task-dag.json",
+    "Stage1_Instances/THM-M-0025/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0025/check_intake.py",
+    "Stage1_Instances/THM-M-0025/validation.md",
+    "Stage1_Instances/THM-M-0025/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "policy_id": "stage1-intake-freshness/1.0",
+    "review_due": "before master acceptance or any dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, or source correction",
+      "primary-source selection, translation, correction, or errata finding",
+      "commutativity, arity, Noetherian definition, zero-ring, or nontriviality decision",
+      "canonical Lean target or checked transport",
+      "toolchain, dependency pin, assurance profile, validator, or owned artifact change"
+    ],
+    "incident_path": "revoke or supersede the provisional intake report and issue a freshly self-tested scoped replacement"
+  },
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes a conventional commutative one-variable human claim, source boundaries, a pinned exact formal candidate, exclusions, and the open task DAG. The canonical Lean declaration and fingerprints remain unset for the statement phase, and the formal body is uncredited pending anchor audit. No H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

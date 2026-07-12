@@ -79,3 +79,21 @@ accepted or individually closed. It withholds individual closure credit for the 
 source-body decompositions that still lack abstract-child composition certificates. The accepted
 instance therefore remains `[H1, M3, R4]`, and validation, release, H0/R0, master acceptance, and
 theorem completion remain open.
+
+## Validation result
+
+`Validation.lean` gives a separately written exact-target wrapper that imports
+neither the proof nor the obligation tree. `check_validation.py` replays the
+frozen modules from fresh temporary source copies and checks the exact terminal,
+composition, proof roots, differential root, observed axiom set, local source
+hygiene, immutable mathlib pin, direct regularity-source provenance, terminal
+olean, and license. Exact commands and decisions are in `validation-phase.md`;
+the structured recipe and provisional receipt are `validation-spec.json` and
+`validation-receipt.json`.
+
+This is same-worker warm-cache corroboration, not rev-5.6 hermetic or
+independent-runner evidence. The prerequisite proof remains provisional, the
+frozen graph remains `[H1, M3, R4]` with zero accepted closed obligations, and
+the 18 internal source-body decompositions retain no individual closure
+credit. `audit_complete=false` and `theorem_complete=false`; no `E1`, accepted
+`M0-W`, release, or master acceptance is claimed.
