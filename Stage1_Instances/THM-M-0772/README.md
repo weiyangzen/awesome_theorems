@@ -5,11 +5,14 @@ claim is: every partially ordered set has a maximal chain. Here "maximal" means 
 among chains, not a chain of greatest cardinality and not the existence of a maximal element of the
 underlying order.
 
-The intended human claim is frozen, but the exact Lean declaration remains a statement-phase task.
-Pinned mathlib contains the closely matching and more general declaration `maxChain_spec`, for an
-arbitrary binary relation. `IntakeProbe.lean` only confirms that candidate's name and current type;
-it does not yet establish exact source identity, a checked specialization, or proof credit.
+The statement-phase worker has now proposed the exact Lean declaration
+`Stage1Instances.THM_M_0772.HausdorffMaximalPrinciple`, with minimal direct import
+`Mathlib.Order.Preorder.Chain`, a checked definitional expansion of `IsMaxChain`, structural
+mutation tests, and empty/singleton boundary proofs. This proposal is self-tested but remains
+pending master acceptance. Pinned mathlib's more general `maxChain_spec` is still only a downstream
+audit candidate and receives no proof credit here.
 
-The provisional root vector is `[H1, M4, R4]`. The source edition/locator, independent source
-review, canonical Lean expression, obligation registry, and all completion gates remain open. No
-audit completion or theorem completion is claimed.
+The provisional root vector remains `[H1, M4, R4]`: statement elaboration alone does not promote
+machine-proof debt. The source edition/locator, independent source review, candidate provenance and
+trust audit, obligation registry, and all completion gates remain open. No audit completion or
+theorem completion is claimed.

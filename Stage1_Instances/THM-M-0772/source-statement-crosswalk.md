@@ -17,10 +17,10 @@ assumptions, proof, translation of terminology, and row-by-row mapping below.
 
 | Repository/source phrase | Frozen mathematical meaning | Required Lean component | Intake status |
 |---|---|---|---|
-| "partially ordered set" | a carrier with reflexive, antisymmetric, transitive `≤` | `P : Type u` and `[PartialOrder P]` | included; binder freeze open |
-| "chain" | a subset whose distinct elements are comparable | `IsChain (· ≤ ·) c` | pinned definition found |
-| "maximal chain" | no strictly larger chain contains it | `IsMaxChain (· ≤ ·) c` | intended conclusion frozen |
-| "exists" | at least one such subset, without uniqueness | `∃ c : Set P, ...` or checked constructed witness | encoding decision open |
+| "partially ordered set" | a carrier with reflexive, antisymmetric, transitive `≤` | `P : Type u` and `[PartialOrder P]` | frozen and elaborated |
+| "chain" | a subset whose distinct elements are comparable | `IsChain (· ≤ ·) c` | checked through expanded encoding |
+| "maximal chain" | no strictly larger chain contains it | `IsMaxChain (· ≤ ·) c` | frozen and elaborated |
+| "exists" | at least one such subset, without uniqueness | `∃ c : Set P, IsMaxChain (· ≤ ·) c` | canonical encoding frozen |
 | Hausdorff / 1914 | historical attribution and source locator | no machine credit | exact primary locator open |
 
 ## Pinned Lean discovery candidate
@@ -31,10 +31,11 @@ It exports `maxChain_spec` with a witness `maxChain r` and result `IsMaxChain r 
 arbitrary relation `r`. The underlying `IsMaxChain` definition in
 `Mathlib.Order.Preorder.Chain` pairs chainhood with equality against every containing chain.
 
-This is strong local discovery evidence, but not statement or proof acceptance. The later statement
-phase must record the exact elaborated expression and partial-order specialization. The anchor audit
-must inspect imports, axioms, terminal body provenance, license, and transitive dependency closure;
-the existence of a declaration name alone cannot clear `M4`.
+The statement artifact now records the exact partial-order expression independently of that
+candidate and deliberately imports only the definition module. This is statement evidence pending
+master acceptance, not proof acceptance. The anchor audit must still inspect imports, axioms,
+terminal body provenance, license, and transitive dependency closure; the existence of a declaration
+name alone cannot clear `M4`.
 
 ## Proposition-changing distinctions
 

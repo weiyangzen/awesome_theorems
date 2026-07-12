@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0772-STATEMENT",
+  "theorem_id": "THM-M-0772",
+  "lifecycle": "planned",
+  "canonical_statement": "For every type equipped with a partial order, there exists a subset that is a chain and is inclusion-maximal among chains.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0772/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0772.HausdorffMaximalPrinciple",
+    "elaborated_expression_sha256": "f96455da0bdeabe833120768fad0327421d0f31f540e2ddf6d03725c54ef571a",
+    "statement_file_sha256": "802fc1722c734e3d64770855b6866e1a843c42395df1d4a9ed6ae7eb4ea6e306"
+  },
+  "domain_and_universes": "universe u; P : Type u; PartialOrder P; Prop in Lean universe 0",
+  "ordered_binders": [
+    "P : Type u",
+    "[PartialOrder P]",
+    "c : Set P (existential)"
+  ],
+  "hypotheses": [],
+  "conclusion": "There exists c : Set P such that IsMaxChain (fun x y => x <= y) c.",
+  "direct_imports": [
+    "Mathlib.Order.Preorder.Chain"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0772.hausdorffMaximalPrinciple_iff_expanded",
+  "checked_transport_relationship": "The alternate expands IsMaxChain to chainhood plus equality with every containing chain; the iff is proved by definitional equality.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0772/check_statement.py",
+    "killed": [
+      "removed PartialOrder and replaced the relation by equality",
+      "changed the arbitrary carrier to Nat",
+      "changed the universal carrier binder to an existential binder",
+      "excluded the empty carrier with Nonempty"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0772.emptyBoundary",
+      "Stage1Instances.THM_M_0772.singletonBoundary"
+    ]
+  },
+  "degenerate_cases": "Empty and singleton carriers remain in scope and have kernel-checked maximal-chain boundary witnesses. No Nonempty, finite, completeness, or cardinality hypothesis is present.",
+  "alternate_encodings": {
+    "arbitrary_relation": "The stronger maxChain_spec formulation for an arbitrary relation is not the canonical target and receives no statement-phase proof credit.",
+    "extension_form": "The claim that every input chain extends to a maximal chain is not substituted for the bare-existence target."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact target elaboration only. Primary-source review, candidate and proof-body audit, obligation registry, theorem proof, trust closure, hermetic replay, and independent acceptance remain open."
+}

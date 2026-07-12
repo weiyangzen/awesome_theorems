@@ -14,16 +14,11 @@ countable, cardinality, well-foundedness, or completeness assumption on the part
 
 ## Statement-phase decisions
 
-The statement phase must freeze universe binders and choose between the direct existential form
-
-`∃ c : Set P, IsMaxChain (· ≤ ·) c`
-
-and an explicitly checked specialization of mathlib's constructed witness
-`maxChain (· ≤ ·)`. It must inspect whether the primary edition states bare existence or the common
-extension form saying that every chain is contained in a maximal chain. The latter must not silently
-replace the repository's bare-existence wording. If the arbitrary-relation strengthening exposed by
-mathlib is retained, a checked specialization/crosswalk must preserve the partial-order source
-claim rather than broaden the canonical target without notice.
+The canonical Lean target uses the direct existential form
+`∀ (P : Type u) [PartialOrder P], ∃ c : Set P, IsMaxChain (· ≤ ·) c`. It does not mention
+mathlib's constructed witness and does not import its defining module. A checked iff expands
+`IsMaxChain` at the statement boundary. The common extension form and mathlib's arbitrary-relation
+strengthening remain noncanonical alternates requiring separate source and proof transports.
 
 ## Explicit exclusions
 
