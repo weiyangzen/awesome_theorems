@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "item_id": "S56-M-1012-OBLIGATION_TREE",
+  "theorem_id": "THM-M-1012",
+  "recipes": [
+    {
+      "recipe_id": "M1012-VAL-LEAN",
+      "command": "lake env lean ../../Stage1_Instances/THM-M-1012/ObligationTree.lean",
+      "working_directory": "Formalizations/Lean",
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": [
+        "M1012-ROOT",
+        "M1012-B-FORWARD",
+        "M1012-B-REVERSE",
+        "M1012-C-TIGHTNESS",
+        "M1012-L-WEAK-FROM-TIGHT",
+        "M1012-T-COMPOSE"
+      ]
+    },
+    {
+      "recipe_id": "M1012-VAL-STRUCTURE",
+      "command": "python3 Stage1_Instances/THM-M-1012/check_obligation_tree.py",
+      "working_directory": ".",
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": [
+        "M1012-S-DEFINITIONS",
+        "M1012-S-BOUNDARIES",
+        "M1012-S-FOUNDATION",
+        "M1012-L-TIGHT-ANALYTIC",
+        "M1012-L-CHARPOLY",
+        "M1012-L-SEPARATION",
+        "M1012-X-PROVENANCE",
+        "M1012-X-SOURCE"
+      ]
+    }
+  ]
+}
