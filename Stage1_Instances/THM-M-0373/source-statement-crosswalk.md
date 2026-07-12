@@ -26,11 +26,19 @@ remain required before `H0`.
 | maximal ideal formulation | disc evaluations dense in the maximal ideal space | Banach-algebra spectrum and checked equivalence | alternate only; no credit |
 | `已验证` | legacy inventory assertion | no Lean proposition or kernel evidence | explicitly rejected |
 
-## Lean boundary
+## Lean statement boundary
+
+The statement gate selects `Stage1Instances.THM_M_0373.CoronaTheoremTarget`: a nonempty finite index
+type, ambient functions on `ℂ` restricted to the open unit ball, analyticity plus bounded restricted
+image, an explicit positive lower bound on the sum of norms, and bounded analytic Bezout
+coefficients. Its direct expanded form is connected by a kernel-checked iff. This formal freeze does
+not upgrade source status: the original paper's exact passage, notation, conclusion, errata, and
+independent review remain open H gates.
+
+## Intake Lean boundary
 
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the bounded intake
 probe imports the unit-disc and analytic APIs and checks `Complex.UnitDisc`, `AnalyticOnNhd`,
 `Bornology.IsBounded`, `Finset.sum`, and the unit-disc norm lemma. These are encoding ingredients,
 not a corona theorem or proof. No formal anchor search is credited at intake; that belongs to the
 downstream immutable anchor-audit node after the exact statement is frozen.
-

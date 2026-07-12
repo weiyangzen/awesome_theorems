@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0373-STATEMENT",
+  "theorem_id": "THM-M-0373",
+  "lifecycle": "planned",
+  "canonical_statement": "For every nonempty finite family of bounded analytic complex functions on the open unit disc and every positive real delta that bounds their pointwise sum of norms below, there is a bounded analytic coefficient family whose pointwise Bezout combination is one.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0373/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0373.CoronaTheoremTarget",
+    "elaborated_expression_sha256": "682732528e7459a7e3cd1be98c6a0bc35ce0d80a7b7be1011b0bade5073d69cf",
+    "statement_file_sha256": "548f86da75579242c1331195e4d1a95b50121b780a600e3ff205ba5324112abe"
+  },
+  "domain_and_universes": "Prop in universe 0; ι : Type with Fintype and Nonempty instances; ambient functions ℂ -> ℂ; δ : ℝ; z ranges over Metric.ball (0 : ℂ) 1.",
+  "ordered_binders": [
+    "ι : Type",
+    "[Fintype ι]",
+    "[Nonempty ι]",
+    "f : ι -> ℂ -> ℂ",
+    "δ : ℝ"
+  ],
+  "hypotheses": [
+    "each f_i is AnalyticOnNhd ℂ on Metric.ball 0 1 and its image of that set is Bornology.IsBounded",
+    "0 < δ",
+    "for every z in Metric.ball 0 1, δ <= Finset.univ.sum (fun i => norm (f i z))"
+  ],
+  "conclusion": "There is g : ι -> ℂ -> ℂ such that each g_i satisfies the same H-infinity predicate and, for every z in the open unit disc, Finset.univ.sum (fun i => f i z * g i z) = 1.",
+  "direct_imports": [
+    "Mathlib.Analysis.Complex.UnitDisc.Basic",
+    "Mathlib.Analysis.Analytic.Basic",
+    "Mathlib.Topology.MetricSpace.Bounded"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0373.coronaTheoremTarget_iff_expanded",
+  "source_relationship": "The repository source supplies only the H^infinity corona-problem label. The selected expression is the classical finite-generator Bezout formulation frozen by the accepted intake scope; exact primary-source theorem/page review remains an H gate and receives no statement-phase credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0373/check_statement.py",
+    "killed": [
+      "removed Nonempty index-family instance",
+      "removed positive-delta hypothesis",
+      "changed sum of norms to sum of squared norms",
+      "changed the open disc to the closed disc"
+    ]
+  },
+  "degenerate_cases": "The family is explicitly nonempty. Delta is explicit and strictly positive. A singleton family and constant generators remain in scope. The unit circle is excluded because the domain is the open ball. No quantitative bound on the resulting g_i beyond boundedness is asserted.",
+  "alternate_encodings": {
+    "subtype_functions": "Functions Complex.UnitDisc -> ℂ are not credited as interchangeable until analyticity on the subtype is given a checked transport to the ambient open-set predicate.",
+    "squared_norm_or_maximum": "Not selected; these require checked finite-dimensional bound transports.",
+    "maximal_ideal_space_density": "Not credited without a checked equivalence to this Bezout target."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the classical finite-generator Bezout target, its direct expanded transport, and four structural mutations. It supplies no corona-theorem proof, primary-source acceptance, anchor audit, or downstream evidence."
+}
