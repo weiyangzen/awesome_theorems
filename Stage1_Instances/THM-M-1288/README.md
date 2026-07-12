@@ -37,3 +37,14 @@ constant target under three direct pinned mathlib imports. `statement.json` and
 hashes, structural mutations, and validation command. This advances only the
 provisional statement node; the primary-source formula audit, proof, and all
 later assurance gates remain open, and the theorem remains incomplete.
+
+## Obligation-tree phase
+
+`obligation-registry.json` freezes 19 canonical semantic obligations before
+proof status, with separate machine, human-source, and readability
+denominators. `typed-graphs.json` records proof/refinement, provenance,
+evidence, trust, documentation, and workflow graphs. The checked
+`ObligationTree.lean` composition consumes exact admissibility and optimality
+packages and returns the frozen root; both packages remain open, so this phase
+supplies no theorem-proof or completion claim. Validation and the precise root
+cut set are recorded in `obligation-tree-validation.md`.
