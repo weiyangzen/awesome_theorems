@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1027-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1027",
+  "canonical_target": "Stage1Instances.THM_M_1027.WienerExistenceTarget",
+  "audit_date": "2026-07-12",
+  "local_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git"
+  },
+  "repo_local_candidates": [
+    {
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_218.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_218.StatementShape",
+      "assessment": "legacy discovery only; it strengthens the frozen target with IsGaussianProcess and natural-filtration adaptedness and contains no terminal existence proof",
+      "classification": "M3"
+    }
+  ],
+  "mathlib_candidates": [
+    {
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Probability.Distributions.Gaussian.Real",
+        "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Basic",
+        "Mathlib.Probability.Independence.Process.HasIndepIncrements",
+        "Mathlib.Probability.Process.Kolmogorov"
+      ],
+      "declarations": [
+        "ProbabilityTheory.IsGaussianProcess",
+        "ProbabilityTheory.IsGaussianProcess.aemeasurable",
+        "ProbabilityTheory.IsGaussianProcess.hasGaussianLaw_eval",
+        "ProbabilityTheory.HasIndepIncrements",
+        "ProbabilityTheory.HasIndepIncrements.indepFun_sub_sub",
+        "ProbabilityTheory.IsKolmogorovProcess",
+        "ProbabilityTheory.gaussianReal",
+        "ProbabilityTheory.HasLaw"
+      ],
+      "terminal_search_terms": [
+        "brownian",
+        "BrownianMotion",
+        "Wiener",
+        "wienerMeasure"
+      ],
+      "assessment": "all named infrastructure elaborates, but the pinned Mathlib source tree has no Brownian/Wiener construction or exact existence theorem",
+      "classification": "M3"
+    }
+  ],
+  "external_candidates": [
+    {
+      "repository": "https://github.com/RemyDegenne/brownian-motion",
+      "tag": "v4.29.0",
+      "tag_object": "6c93424fe282eca6df5a20ed9531ed081f23a095",
+      "peeled_commit": "fdcef67f41b51b7635b3c2d08eb61768604f8f74",
+      "module": "BrownianMotion.Gaussian.BrownianMotion",
+      "source_path": "BrownianMotion/Gaussian/BrownianMotion.lean",
+      "source_blob": "4ebeae388f3ed11876b0307ed4b74e99516cd81d",
+      "declarations": [
+        "ProbabilityTheory.IsBrownian",
+        "ProbabilityTheory.brownian",
+        "ProbabilityTheory.IsBrownian_brownian",
+        "ProbabilityTheory.measurable_brownian",
+        "ProbabilityTheory.continuous_brownian",
+        "ProbabilityTheory.hasLaw_brownian_eval",
+        "ProbabilityTheory.hasLaw_brownian_sub",
+        "ProbabilityTheory.hasIndepIncrements_brownian",
+        "ProbabilityTheory.wienerMeasure"
+      ],
+      "lean_toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "additional_dependency": "RemyDegenne/kolmogorov_extension4@e8d02e83550f893bbf48f0b651f782eccf6760e8",
+      "license": "Apache-2.0 (source header)",
+      "statement_relationship": "credible construction candidate: the named process is measurable, everywhere continuous, has the centered Gaussian evaluation and symmetric subtraction laws, and has independent increments; a local adapter must normalize ordered subtraction variance and derive the almost-sure zero start",
+      "placeholder_and_axiom_status": "the inspected terminal declarations have explicit proof bodies and no placeholder token; transitive proof-body, axiom, and TCB closure was not established in this phase",
+      "local_import_result": "failed: unknown module prefix BrownianMotion",
+      "evidence_level": "E3",
+      "classification": "M3",
+      "classification_reason": "an exact immutable source anchor is located, but it is absent from the repo-local Lake closure and no independent upstream kernel replay or transitive trust audit was performed; rev-5.6 forbids upgrading an E3 anchor to M1"
+    }
+  ],
+  "checked_bridge": "Stage1Instances.THM_M_1027.externalCandidateContract_expands_frozen_root",
+  "integration_blocker": "The compatible external project is not a pinned Lake dependency. Owned scope forbids changing the shared Lake files, and worker rules forbid fetching or mutating dependencies. A later integration node must pin the peeled commit plus kolmogorov_extension4, instantiate the checked bridge, and audit placeholder/axiom/TCB closure.",
+  "root_machine_state": "M3",
+  "audit_phase_complete": true,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact completes only the bounded immutable anchor inventory. It does not import, kernel-check, or credit the external proof and does not prove the Wiener existence target."
+}
