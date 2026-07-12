@@ -1,14 +1,12 @@
 # THM-M-0320 rev-5.6 intake
 
-This directory is the fail-closed `planned` intake for Kakutani's fixed-point theorem. It freezes
-the intended human theorem family: a nonempty compact convex subset of a finite-dimensional real
-vector space and an upper-hemicontinuous correspondence with nonempty compact convex values admit
-a point belonging to its own value. The exact primary-source formulation and its transport to the
-common compact-domain formulation remain statement-phase work.
+This directory is the fail-closed `planned` dossier for Kakutani's fixed-point theorem. The
+statement phase freezes and elaborates the source's closed, bounded, convex Euclidean formulation
+in `Statement.lean`; `statement.md` records its boundary and minimal imports.
 
 The repository source gives only “fixed-point theorem for a set-valued map”; its `已验证` label is
-untrusted metadata. The provisional root vector is `[H1, M4, R4]`. No canonical Lean expression,
-source acceptance, proof, audit completion, or theorem completion is claimed.
+untrusted metadata. The provisional root vector remains `[H1, M4, R4]`: elaborating a proposition
+does not prove it. No source acceptance, proof, audit completion, or theorem completion is claimed.
 
 `scope-map.md` records proposition-critical choices and exclusions,
 `source-statement-crosswalk.md` maps the source vocabulary to the intended Lean surface, and
