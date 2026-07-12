@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1027-VALIDATION-local-20260712",
+  "item_id": "S56-M-1027-VALIDATION",
+  "theorem_id": "THM-M-1027",
+  "base_revision": "d063bd42d94a2decb5765a8c856f97975ab4f0a8",
+  "validated_at": "2026-07-12T00:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot5",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "a25a1c9b18ee4c9c41a7bd2f2f63087a41f50a68afa6b3af9b8fc848d560426e",
+    "validator_sha256": "f441c7778d65e06bd52f2b15e94fae26d0a6eb80fb1de65776c613cdbc08aa5e",
+    "validation_probe_sha256": "062c800ee6e5cb9f8bb9e4c0884e64001bf0d667d65c3bcb2acd5a44a9c7b391",
+    "statement_sha256": "429c918e7a5b653b3b8bdb6f09dd11eba7b4099e1bb2fa10d4da11929c2c001b",
+    "obligation_tree_sha256": "7e104de9fc3bc8fd7c648a75833a30ef272aa443d9aaff786c27ad3243f3e7c8",
+    "proof_sha256": "6ff89f5a031681e4360960ec37b9aefd3e2d71fd843e0f49190803a91204d7dc",
+    "statement_record_sha256": "1fcb58b672b7187da2e6429a96a9af8e82029df6f4badc19141c81101d8ecd5f",
+    "obligation_registry_sha256": "92b8979876874bf845d97ba00eeebba6ae627d54413dbbeb07fc890a7816cb5d",
+    "typed_graphs_sha256": "fdef9432d7ff1792da634e5b7541d785715349c5a1750d187425260b30c1bbb1",
+    "proof_receipt_sha256": "5474e004b9a22af1004689e0eda5b699a44efc51cf44f6ab8d1a9d67a5bd142a",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1027/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_frozen_statement_local_bodies_conditional_composition_and_independent_conditional_reconstruction",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "proof_receipt_hashes": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "root_closed": false,
+    "root_machine_debt": "M3",
+    "locally_validated_closed_obligation_ids": [
+      "M1027-S-DEFS",
+      "M1027-S-DOMAIN",
+      "M1027-S-BOUNDARY",
+      "M1027-S-TRANSPORT",
+      "M1027-N-INCREMENT",
+      "M1027-L-ZERO",
+      "M1027-T-ASSEMBLE"
+    ],
+    "remaining_root_cut_set": ["M1027-X-EXTERNAL"],
+    "composition_certificates": [
+      "Stage1Instances.THM_M_1027.wienerExistenceTarget_of_witnessPackage",
+      "Stage1Instances.THM_M_1027.wienerExistenceTarget_of_externalBrownianComponents",
+      "Stage1Instances.THM_M_1027.Validation.independentlyReconstructedConditionalTarget"
+    ],
+    "structured_state_freshness": "fail_closed_frozen_graph_predates_proof_leaf_closure",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The exact root has no proof body: BrownianMotion.Gaussian.BrownianMotion is absent from the pinned Lake closure, leaving M1027-X-EXTERNAL open.",
+    "The frozen typed graph predates Proof.lean and still names M1027-T-PACKAGE rather than the proof receipt's sharper M1027-X-EXTERNAL cut; only the master may reconcile authoritative structured state.",
+    "This worker reused shared writable warm .lake artifacts, so it did not perform an empty-cache cold hermetic build or offline archive restoration.",
+    "No complete transitive declaration/compiled-artifact TCB inventory, SBOM/license archive, deterministic evidence bundle, or signed attestation exists.",
+    "Validation.lean is separately implemented but ran in the same mutable worker checkout and shared cache; it is not a distinct independently provisioned runner or second verifier identity.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "proof.root_kernel_closure.M1027-X-EXTERNAL",
+  "first_failed_release_gate": "hermetic.cold_empty_cache",
+  "retry_condition": "Pin the immutable Brownian construction and its dependency in an authorized integration lane, close and reconcile the exact root, then replay an immutable clean snapshot with empty caches, complete TCB/SBOM evidence, offline restoration, and a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "invalidation_inputs": [
+    "validation-spec.json",
+    "check_validation.py",
+    "Validation.lean",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "statement.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "proof-receipt.json",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "external Brownian dependency state",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow kernel replay, trust observation, local provenance, and a same-workspace independent conditional reconstruction. It is not root closure, hermetic or distinct-runner evidence, E0/E1, accepted M0, theorem completion, release, or master acceptance."
+}
