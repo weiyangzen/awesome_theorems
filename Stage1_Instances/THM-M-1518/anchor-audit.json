@@ -1,0 +1,123 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1518-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1518",
+  "base_revision": "2b5a356f0d547597e745bab548db0caac12e6c96",
+  "canonical_target": "Stage1Instances.THM_M_1518.StationaryActionEulerLagrangeTarget",
+  "canonical_target_sha256": "4cc15786f13f4e4ad7594012ab3e96613f5bffbf572523e8282b41139fe6979f",
+  "environment": {
+    "lean": "4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git"
+  },
+  "mathlib_audit": {
+    "search_terms": [
+      "Euler[-_ ]?Lagrange", "stationary action", "least action",
+      "calculus of variations", "first variation", "fundamental lemma"
+    ],
+    "terminal_candidate_found": false,
+    "nearby_checked_anchors": [
+      {
+        "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus",
+        "declarations": [
+          "intervalIntegral.integral_eq_sub_of_hasDerivAt",
+          "intervalIntegral.integral_deriv_eq_sub"
+        ],
+        "role": "fundamental theorem of calculus"
+      },
+      {
+        "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.IntegrationByParts",
+        "declarations": [
+          "intervalIntegral.integral_mul_deriv_eq_deriv_mul",
+          "intervalIntegral.integral_smul_deriv_eq_deriv_smul"
+        ],
+        "role": "scalar and scalar-vector interval integration by parts"
+      },
+      {
+        "module": "Mathlib.MeasureTheory.Function.AEEqOfIntegral",
+        "declarations": ["MeasureTheory.Integrable.ae_eq_zero_of_forall_setIntegral_eq_zero"],
+        "role": "almost-everywhere zero from all finite-measure set integrals"
+      },
+      {
+        "module": "Mathlib.Analysis.Distribution.AEEqOfIntegralContDiff",
+        "declarations": ["ae_eq_zero_of_integral_contDiff_smul_eq_zero"],
+        "role": "smooth test-function fundamental lemma with a.e. conclusion"
+      },
+      {
+        "module": "Mathlib.Analysis.Calculus.LocalExtr.Basic",
+        "declarations": ["IsLocalMin.fderiv_eq_zero", "IsLocalExtr.fderiv_eq_zero"],
+        "role": "local-extremum-to-zero-derivative bridge"
+      }
+    ],
+    "assessment": "The pinned source contains prerequisite calculus APIs but no terminal declaration for the exact fixed-endpoint stationary-action implication. AnchorAudit.lean kernel-checks every listed name."
+  },
+  "external_audit": [
+    {
+      "project": "leanprover-community/physlib",
+      "revision": "cd22b0c28882412447d12d5cfde677c4ad999994",
+      "module": "Physlib.ClassicalMechanics.EulerLagrange",
+      "source_sha256": "eff51d119f58ad9babe3a4a2e12a098dc5a916c384b7f694bd3b1dccc1da89dc",
+      "declarations": [
+        "ClassicalMechanics.eulerLagrangeOp",
+        "ClassicalMechanics.eulerLagrangeOp_eq",
+        "ClassicalMechanics.eulerLagrangeOp_zero",
+        "ClassicalMechanics.euler_lagrange_varGradient"
+      ],
+      "terminal_for_canonical_target": false,
+      "placeholder_audit": "No sorry/admit occurs in the inspected immutable module. The theorem proves equality between Physlib's variational gradient and Euler-Lagrange operator; it does not quantify over this target's endpoint-vanishing variations or derive the pointwise equation from StationaryAction.",
+      "toolchain": "leanprover/lean4:v4.29.1",
+      "mathlib_revision": "5e932f97dd25535344f80f9dd8da3aab83df0fe6",
+      "integration": "external_upstream_anchor_only",
+      "blocker": "Toolchain and mathlib pins differ from this repository, and no checked transport exists between Physlib Time/varGradient/inner-product APIs and BoundaryData/FirstVariation/StationaryAction."
+    },
+    {
+      "project": "leanprover-community/physlib",
+      "revision": "cd22b0c28882412447d12d5cfde677c4ad999994",
+      "module": "Physlib.Mathematics.VariationalCalculus.Basic",
+      "source_sha256": "4d8c41f7407ed1a7d68d6b8e5b74fdf3c5b4b3bc62bf69c8c54561ce5b8bb70f",
+      "declarations": [
+        "fundamental_theorem_of_variational_calculus'",
+        "fundamental_theorem_of_variational_calculus"
+      ],
+      "terminal_for_canonical_target": false,
+      "placeholder_audit": "No sorry/admit occurs in the inspected immutable module. These are substantive fundamental-lemma anchors, not a stationary-action theorem.",
+      "toolchain": "leanprover/lean4:v4.29.1",
+      "mathlib_revision": "5e932f97dd25535344f80f9dd8da3aab83df0fe6",
+      "integration": "external_upstream_anchor_only",
+      "blocker": "Besides the dependency mismatch, a transport from IsTestFunction and whole-space inner-product integrals to endpoint-vanishing variations on the open interval is required."
+    },
+    {
+      "project": "leanprover-community/physlib",
+      "revision": "cd22b0c28882412447d12d5cfde677c4ad999994",
+      "module": "Physlib.ClassicalMechanics.HarmonicOscillator.Basic",
+      "source_sha256": "b35e82d7b89cf00abd9e00d1df73656de66da1e599752fb39d43af8f02efe112",
+      "declarations": ["ClassicalMechanics.HarmonicOscillator.equationOfMotion_tfae"],
+      "terminal_for_canonical_target": false,
+      "placeholder_audit": "The immutable module is a model-specific harmonic-oscillator development, not the general n-dimensional time-dependent target.",
+      "integration": "excluded_nonterminal_special_case",
+      "blocker": "Even a compatible import would not close the canonical general theorem."
+    },
+    {
+      "project": "lecopivo/SciLean",
+      "revision": "95f8119a2884e9c41f82136523bd5568ea7075c5",
+      "module": "doc/literate/literate_lean_test.lean",
+      "declarations": ["section EulerLagrange"],
+      "terminal_for_canonical_target": false,
+      "integration": "excluded_documentation_demo",
+      "blocker": "No credible terminal declaration was identified; the repository-local historical audit records this section as demo material with unclosed placeholders."
+    }
+  ],
+  "historical_repo_candidate": {
+    "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_187.lean",
+    "status": "rejected_as_terminal",
+    "reason": "StatementShape proves the converse direction (Euler-Lagrange implies stationarity). Its anchor tables are discovery input only under the uniform L0 rework rule."
+  },
+  "classification": {
+    "machine_debt": "formalization_debt",
+    "root_kernel_closed": false,
+    "repo_local_integration_debt_counted_as_completion": false,
+    "audit_phase_complete": true,
+    "theorem_complete": false
+  },
+  "status_boundary": "This receipt completes only the immutable candidate inventory and narrow kernel probes for S56-M-1518-ANCHOR_AUDIT. No external source was added to Lake, no external theorem was checked in this dependency closure, and no proof credit or theorem completion is claimed."
+}
