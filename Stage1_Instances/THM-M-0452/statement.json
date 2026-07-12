@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0452-STATEMENT",
+  "theorem_id": "THM-M-0452",
+  "lifecycle": "planned",
+  "canonical_statement": "For every elliptic curve E over a number field K, polarization of the normalized Neron-Tate canonical height defines a symmetric Z-bilinear real pairing on E(K), with self-pairing equal to the height, nonnegative diagonal, diagonal kernel exactly the torsion points, and a positive-definite descended pairing on E(K) modulo torsion.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0452/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0452.NeronTatePairingTarget",
+    "elaborated_expression_sha256": "c57affc6c695e804883b40a8d9ad148b9fdb19a42bfac04e5f9b68acee7198d9",
+    "statement_file_sha256": "5098fac72e52f6bc732b4fddd4491a9de09561b8708a83b6b66831d4eec24bff"
+  },
+  "domain_and_universes": "universe u; K : Type u; Field K; DecidableEq K; NumberField K; E : WeierstrassCurve K; E.IsElliptic; P Q R : E(K); m n : Int",
+  "ordered_binders": ["K : Type u", "[Field K]", "[DecidableEq K]", "[NumberField K]", "E : WeierstrassCurve K", "[E.IsElliptic]"],
+  "conclusion": "Nonempty (NeronTatePairingPackage K E), retaining the normalized canonical-height limit, bounded comparison, polarization by one half, symmetry, additivity and integer scalar laws in both arguments, diagonal identity and torsion kernel, and the positive-definite quotient pairing.",
+  "pairing_normalization": "pairing P Q = (canonicalHeight (P + Q) - canonicalHeight P - canonicalHeight Q) / 2; self_pairing fixes pairing P P = canonicalHeight P.",
+  "height_normalization": "xHeight P is Height.logHeight P.xRep; the canonical-height sequence is 4^(-n) * xHeight([2^n]P) / 2 and the bounded comparison is with xHeight/2.",
+  "quotient_encoding": "The quotient is E(K) / AddCommGroup.torsion E(K). quotient_lift freezes agreement on representatives, and quotient_positive_definite states nonnegativity and zero only at the quotient identity.",
+  "direct_imports": ["Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point", "Mathlib.NumberTheory.Height.NumberField"],
+  "minimal_import_check": "Affine.Point supplies elliptic rational points, their commutative group and quotient substrate, xRep, and scalar actions. Height.NumberField supplies NumberField, logarithmic height, real topology, and the convergence vocabulary. Neither import is redundant for this exact expression.",
+  "environment_fingerprint": {
+    "repository_base": "350ffc25f193b3d2ac0fcc9f4d760879cfae0f58",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0452/check_statement.py",
+    "killed": ["removed the number-field domain", "changed the polarization factor from one half", "weakened integer bilinearity to natural scalars", "omitted the torsion quotient and its positive definiteness"],
+    "boundary_checks": ["identity uses xRep = [1,0]", "integer binders include zero and negative scalars", "diagonal kernel is an iff", "quotient zero represents exactly the torsion coset"]
+  },
+  "foundation_profile": "Lean 4 kernel and pinned mathlib default foundations; the module is noncomputable because logarithmic height uses classical infrastructure. No root proof is introduced.",
+  "tcb_profile": "Lean 4.29.0 kernel plus mathlib at the pinned Lake-manifest revision; later trust and release gates remain open.",
+  "computation_profile": "No oracle, native_decide, solver, or external numerical computation is used.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected pairing target. NeronTatePairingPackage is a statement carrier, not an assumed inhabitant. No pairing construction, anchor acceptance, proof, or theorem-completion evidence is claimed."
+}
