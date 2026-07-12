@@ -27,3 +27,10 @@ connected-domain ball chain, finite propagation, and uniform-constant assembly
 as open obligations. `ObligationTree.lean` checks only the final conversion from
 a symmetric uniform value comparison to the exact ratio target. This does not
 close the uniform comparison premise or the root.
+
+The proof phase adds placeholder-free local bodies for positivity/nonzero
+denominator bookkeeping and for propagating a symmetric comparison along an
+arbitrary finite chain with endpoint constant `A ^ k`. It also rechecks the
+conditional root composition. The local analytic Harnack estimate, construction
+of compactly uniform chains, and uniform comparison remain open, so the root
+stays `M3` and theorem completion remains false.
