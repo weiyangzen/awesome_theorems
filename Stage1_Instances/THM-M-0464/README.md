@@ -29,6 +29,14 @@ This is statement evidence, not proof evidence. The declaration is a definition 
 no theorem declaration or proof body. Machine state is therefore `M3`, and theorem completion is
 false.
 
+## Anchor audit
+
+The pinned mathlib and repo-local closure provide statement ingredients but no Pila-Wilkie proof.
+The 2026-07-12 external Lean repository inventory is frozen and classified in `anchor-audit.json`:
+three o-minimality-related projects were inspected at immutable commits, and none contains an exact
+terminal theorem or a feasible proof-bearing integration. `anchor_audit.md` records the search,
+trust findings, archive hashes, validation, and limitations. Machine state remains `M3`.
+
 ## Intake verdict
 
 Lifecycle remains `planned`; the intake vector `[H1, M4, R3]` is superseded for the machine
