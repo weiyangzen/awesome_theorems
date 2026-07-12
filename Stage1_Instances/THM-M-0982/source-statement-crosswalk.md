@@ -17,19 +17,19 @@ be accepted.
 
 | Repository phrase | Intended mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
-| "continuity of probability" | continuity from below and above | two `Tendsto` claims or an exact checked conjunction | included; source wording open |
-| increasing events | `A_n` nested upward | `Monotone A`, countable union, measure convergence | included; encoding open |
-| decreasing events | `A_n` nested downward | `Antitone A`, countable intersection, measure convergence | included; hypotheses open |
-| probability measure | countably additive measure of total mass one | `Measure` plus `IsProbabilityMeasure`, or `ProbabilityMeasure` | included; representation open |
-| event regularity | source measurability assumptions | `MeasurableSet` or `NullMeasurableSet` | decision deferred to exact source |
+| "continuity of probability" | continuity from below and above | checked conjunction `ProbabilityContinuityTarget` | formal target frozen; source wording open |
+| increasing events | `A_n` nested upward | `Monotone A`, indexed union, `Tendsto` | frozen |
+| decreasing events | `A_n` nested downward | `Antitone A`, indexed intersection, `Tendsto` | frozen |
+| probability measure | countably additive measure of total mass one | `Measure` plus `IsProbabilityMeasure` | frozen |
+| event regularity | measurable events | `forall n, MeasurableSet (A n)` in both branches | frozen; historical null-measurable alternate reached by checked implication |
 
 ## Existing Lean boundary
 
 The legacy `S1_M_262.lean` defines a conjunction over `Measure` and `IsProbabilityMeasure` and names
 `tendsto_measure_iUnion_atTop` and `tendsto_measure_iInter_atTop`. It is valuable candidate evidence,
-but its imports, declaration types, terminal bodies, axioms, pinned dependency revision, and exact
-match to the selected human source must be freshly audited. No legacy `#check`, wrapper, or status
-label is accepted by this intake.
+but its terminal bodies, axioms, and provenance must be audited separately. The statement phase has
+now checked a one-way transport from the canonical measurable-event target to its null-measurable
+above branch; this grants no proof or source credit.
 
 Before `H0`, an independent reviewer must approve the selected edition and a row-by-row mapping of
 all assumptions and boundary cases. Before machine credit, the statement and later anchor phases

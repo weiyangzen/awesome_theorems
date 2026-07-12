@@ -1,0 +1,87 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1054-RELEASE",
+  "theorem_id": "THM-M-1054",
+  "depends_on": [
+    "S56-M-1054-VALIDATION"
+  ],
+  "base_revision": "0b15e1d09d0dd88cd490567cba7d27d18c85c082",
+  "decided_at": "2026-07-12T00:00:00+08:00",
+  "support_state": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M1",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M1",
+    "R": "R3"
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "dependency": {
+    "item_id": "S56-M-1054-VALIDATION",
+    "receipt_id": "VALREC-M1054-20260712-NONRELEASE-M1",
+    "receipt_sha256": "d84c134bddcf1560e879a0d7cf4c54713f32f75ff3e75a20cf7fd42b1856719a",
+    "support_state": "self_tested_pending_master_acceptance",
+    "master_accepted": false
+  },
+  "accepted_receipt_ids": [],
+  "first_failed_gate": "workflow.validation_master_acceptance",
+  "evidence_reconciliation": {
+    "exact_statement_identity": "provisional_pass",
+    "exact_root_kernel_check": "provisional_pass",
+    "checked_root_composition": "provisional_pass",
+    "machine_debt": "M1",
+    "accepted_foundation_profile": "missing",
+    "complete_tcb_inventory": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "audit_terminal_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_archive": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of the validation prerequisite and all preceding workflow nodes",
+    "versioned accepted foundation profile covering propext, Classical.choice, and Quot.sound",
+    "complete content-addressed transitive TCB, SBOM, and license inventory",
+    "independently accepted H0 primary-source crosswalk and R0 readable reconstruction",
+    "accepted AUDIT-Z classification and reconciliation",
+    "immutable clean empty-cache network-denied cold build and offline archive replay",
+    "two distinct signed attestations from independently provisioned clean runners",
+    "independently implemented minimal verifier and protected mutation/CI evidence",
+    "current deterministic content-addressed release bundle",
+    "master acceptance of the release decision"
+  ],
+  "known_failures": [
+    "The validation receipt is nonrelease worker evidence and has not been master-accepted.",
+    "The observed kernel axiom set has no accepted versioned foundation profile or complete TCB inventory.",
+    "The dossier has no independently accepted H0 source packet or R0 readable reconstruction, so AUDIT-Z is false.",
+    "The existing elaboration used the shared canonical warm .lake symlink and did not establish a cold offline replay.",
+    "No distinct runner, second signed attestation, independent minimal verifier, supply-chain archive, or deterministic release bundle exists."
+  ],
+  "retry_condition": "After master acceptance of the dependency chain, independently close H0/R0 and AUDIT-Z, then produce accepted foundation/TCB, hermetic supply-chain, distinct-runner, minimal-verifier, and deterministic-bundle evidence for master reconciliation.",
+  "status_boundary": "Truthful provisional release reconciliation only. The exact root has local kernel evidence, but M1, H1, R3 and the open release gates prevent AUDIT-Z, THEOREM-Z, theorem completion, or release-grade claims.",
+  "invalidation_inputs": [
+    "validation-receipt.json",
+    "proof-receipt.json",
+    "statement.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "rev-5.6 assurance standard"
+  ]
+}

@@ -5,19 +5,17 @@
 - An arbitrary measurable space and a countably additive probability measure on it.
 - An increasing sequence of events, with convergence of their probabilities to the probability of
   their countable union.
-- A decreasing sequence of events, with convergence of their probabilities to the probability of
-  their countable intersection, under the precise measurability/finite-first-term conditions chosen
-  from the primary source.
-- Extended-nonnegative-real convergence as the likely mathlib representation; this is not yet the
-  frozen canonical encoding.
+- A decreasing sequence of measurable events, with convergence of their probabilities to the
+  probability of their countable intersection. Probability normalization supplies finiteness.
+- Extended-nonnegative-real convergence in the topology used by mathlib's `Measure` codomain.
 
-## Statement-phase decisions
+## Frozen statement decisions
 
-The selected primary theorem must fix whether every event is measurable or only null-measurable,
-whether continuity from above assumes finite mass of the first event or uses total probability mass
-one, and whether the two directions are one theorem or two. It must also settle indexing, empty or
-constant sequences, the ambient sigma-algebra, binder order, universes, and the exact topology and
-codomain used for convergence.
+`Statement.lean` freezes a conjunction of the two laws, `Nat` indexing, ordinary measurable events,
+an arbitrary universe-polymorphic measurable space, `Measure` plus `IsProbabilityMeasure`, and
+`Tendsto` at `atTop` in `ENNReal`. Empty, universal, and constant event sequences remain included.
+The historical null-measurable formulation is credited only as the target of a checked one-way
+transport. Pinpoint primary-source review remains open and may not silently alter this formal target.
 
 ## Explicit exclusions
 
