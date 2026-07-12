@@ -4,10 +4,11 @@ This directory is the `planned` intake for Hoeffding's inequality. It freezes th
 the one-sided concentration bound for a finite sum of independent, almost surely interval-bounded
 real random variables, centered by its expectation.
 
-The legacy Lean module is discovery input only. Although it contains a plausible mathlib-backed
-wrapper, this intake does not credit its statement or proof before the later statement, anchor,
-obligation, proof, and validation nodes. The provisional root vector is `[H2, M3, R4]`; no audit or
-theorem completion is claimed.
+The statement node now freezes and elaborates the exact arbitrary finite-family target in
+`Statement.lean`; its fingerprint and scoped checks are recorded in `statement.json` and
+`statement-validation.md`. The legacy Lean module remains discovery input only. Its initial-segment
+and variance-proxy encoding receives no proof or transport credit before later nodes. The
+provisional machine status remains M3; no audit or theorem completion is claimed.
 
 The scope map, source crosswalk, and open task DAG define the downstream work. Intake validation and
 its exact limits are recorded in `validation.md`.

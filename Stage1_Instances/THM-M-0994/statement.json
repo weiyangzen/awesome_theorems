@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0994-STATEMENT",
+  "theorem_id": "THM-M-0994",
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite family of independent measurable real random variables X_i on a probability space, almost surely bounded by a_i and b_i, and every epsilon >= 0, the probability that the centered sum is at least epsilon is at most exp((-2*epsilon^2)/(sum_i (b_i-a_i)^2)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0994/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0994.HoeffdingTarget",
+    "elaborated_expression_sha256": "b8667e40b1500ad131f407ebdc2eb5d810de5593310c3a57d16178da79545409",
+    "statement_file_sha256": "55d06a8e8d0d3cbc2392b0c4ba69858b4fa208ea22f9bdcfb1bd88bfe55ee7e9"
+  },
+  "domain_and_universes": "universes u v; I : Type v with Fintype I; Omega : Type u with MeasurableSpace Omega; mu : Measure Omega with IsProbabilityMeasure mu; X : I -> Omega -> Real; a b : I -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "I : Type v",
+    "[Fintype I]",
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "mu : Measure Omega",
+    "[IsProbabilityMeasure mu]",
+    "X : I -> Omega -> Real",
+    "a b : I -> Real"
+  ],
+  "hypotheses": [
+    "forall i, Measurable (X i)",
+    "ProbabilityTheory.iIndepFun X mu",
+    "forall i, almost everywhere omega with respect to mu, X i omega is in Set.Icc (a i) (b i)",
+    "0 <= epsilon"
+  ],
+  "conclusion": "mu.real {omega | epsilon <= sum_i (X_i(omega) - integral X_i dmu)} <= Real.exp ((-2 * epsilon^2) / sum_i (b_i-a_i)^2)",
+  "direct_imports": [
+    "Mathlib.Probability.Independence.Basic",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Exp"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "foundation_profile": "Lean 4 dependent type theory; classical/noncomputable Bochner integration is permitted; no proof is supplied by this phase.",
+  "tcb_profile": "Lean kernel, repository-pinned Lean toolchain, and repository-pinned mathlib dependency closure.",
+  "computation_profile": "Noncomputable measure and Bochner-integral expressions; no oracle or experimental result.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0994/check_statement.py",
+    "killed": [
+      "removed independence hypothesis",
+      "changed arbitrary finite index type to Fin n",
+      "changed coordinate-measurability binder to centered-sum measurability",
+      "excluded the empty and zero-total-width boundary"
+    ]
+  },
+  "degenerate_cases": "The target includes the empty family, epsilon = 0, and zero total squared width. Lean real division fixes the denominator-zero syntax: x / 0 = 0, so the displayed right side is exp 0 = 1 in that case. No positivity premise on the denominator is silently added.",
+  "alternate_encodings": {
+    "legacy_initial_segment_wrapper": "Uncredited in this phase. It uses Nat initial segments and a nonnegative variance proxy; its algebraic and quantifier transport to this arbitrary finite-family target belongs to later anchor/proof work."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration only. Source audit, alternate-form transport, proof, trust, hermetic replay, and independent acceptance remain open."
+}
