@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1524-STATEMENT",
+  "theorem_id": "THM-M-1524",
+  "lifecycle": "planned",
+  "canonical_statement": "For two densely defined self-adjoint observables A and B on a complex Hilbert space and a normalized vector psi in both domains and both operator-product domains, the product of their standard deviations is at least half the norm of the expected commutator. For Q and P satisfying [Q,P]x = i*hbar*x on their common product domain, with hbar nonnegative, this specializes to Delta(Q) Delta(P) >= hbar/2.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1524/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1524.HeisenbergUncertaintyTarget",
+    "elaborated_expression_sha256": "5acc7178fdf52c186852a6c6567826fee3b64f216541cb194d37fb6ea4211891",
+    "statement_file_sha256": "2913314de7466b4ed37d90d6cf58a522f7a682943dcde0686962e6927478563f"
+  },
+  "domain_and_universes": "universe u; H : Type u; NormedAddCommGroup H; InnerProductSpace Complex H; each observable contains a complex submodule domain, a linear map from that domain, and density of the domain; target is Prop",
+  "ordered_binders": ["H : Type u", "[NormedAddCommGroup H]", "[InnerProductSpace Complex H]", "A B (or Q P) : Observable H", "psi : H", "hbar : Real (CCR component only)", "psi-domain witnesses", "both operator-product-domain witnesses"],
+  "hypotheses": ["both observables are self-adjoint", "psi has norm one", "psi lies in both operator domains", "B psi lies in A's domain and A psi lies in B's domain", "0 <= hbar and the canonical commutation relation for the specialization"],
+  "conclusion": "The Robertson lower bound and its hbar/2 canonical-commutation specialization.",
+  "direct_imports": ["Mathlib.Analysis.InnerProductSpace.Basic"],
+  "minimal_import_evidence": "The sole direct import supplies complex inner-product spaces, dense subsets, submodules, norms, and inner products. No adjoint, matrix, spectral, probability, or legacy Stage1 module is imported.",
+  "encoding_boundary": "Pinned mathlib has no identified native densely-defined unbounded-operator/adjoint interface. Observable records a dense submodule and a linear action on it. IsSelfAdjoint states symmetry plus equality of the operator domain with the domain characterized by existence of an adjoint value; it contains no uncertainty inequality. Any future native encoding needs a checked transport.",
+  "checked_transport": "Stage1Instances.THM_M_1524.target_iff_components (Iff.rfl)",
+  "environment_fingerprint": {
+    "repository_base_revision": "d698933c7bdc6a4c46601381f122d3dc6855cda3",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1524/check_statement.py",
+    "killed": ["replaced densely defined observables by everywhere-defined linear maps", "weakened self-adjointness to symmetry", "removed both operator-product-domain obligations", "removed normalization"]
+  },
+  "degenerate_cases": "Zero deviation and hbar = 0 remain in scope. No finite-dimensionality, nonzero commutator, positive hbar, or everywhere-definedness premise is added. Product-domain witnesses make both AB psi and BA psi well typed.",
+  "alternate_encodings": {
+    "legacy_bounded_linear_maps": "Explicitly rejected as the canonical physical target; no statement or proof credit is inherited from S1_M_192.lean.",
+    "Fourier_width_form": "Not substituted for the selected operator-variance statement."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact two-part target and its unbounded-domain interfaces. It provides no Robertson proof, source-audit acceptance, anchor credit, or theorem-completion evidence."
+}
