@@ -25,6 +25,10 @@ pages 9:1-9:19, DOI `10.4230/LIPIcs.ITP.2022.9`, is an inspected immutable sourc
   equipartition into `m` parts with `l <= m <= L`.
 - Section 3, article page 9:10, displays the effective Lean-facing statement
   `szemeredi_regularity`, with an explicit bound.
+- Section 3.1 defines finite partitions as nonempty pairwise-disjoint finite parts covering the
+  carrier and equipartitions by part sizes differing by at most one. Section 6.1.2 explains the
+  selected partition-uniformity convention; the formal definition counts ordered off-diagonal
+  nonuniform pairs.
 - The paper says its regularity-lemma proof principally follows Andrew Thomason's 2019 lectures and
   cites Szemerédi, "Regular partitions of graphs" (1975). Neither complete primary source has been
   incorporated or independently reviewed here.
@@ -37,16 +41,16 @@ pages 9:1-9:19, DOI `10.4230/LIPIcs.ITP.2022.9`, is an inspected immutable sourc
 
 ## Component crosswalk
 
-| Repository/source component | Inspected effective formulation | Pinned Lean component | Intake status |
+| Repository/source component | Inspected effective formulation | Frozen Lean component | Statement status |
 |---|---|---|---|
-| finite graph | every finite graph `G` | `G : SimpleGraph alpha`, `Fintype alpha`, decidable adjacency | exact candidate API checked |
-| positive tolerance | `epsilon > 0` | `hε : 0 < ε`, with `ε : Real` inferred by the module | exact candidate API checked |
-| requested number of parts | natural `l`, graph has at least `l` vertices | `l : Nat`, `hl : l <= Fintype.card alpha` | exact candidate API checked |
-| regular partition | all but a controlled proportion of pairs are regular | `Finpartition.IsUniform G ε`; off-diagonal ordered nonuniform pairs are bounded by `epsilon` times `k(k-1)` | definition checked; source convention review open |
-| equitable | part sizes differ by at most one | `Finpartition.IsEquipartition` | definition checked |
-| partition of all vertices | nonempty pairwise-disjoint parts cover `V(G)` | `P : Finpartition (Finset.univ : Finset alpha)` | exact candidate type checked |
-| graph-independent upper bound | some `L = L(epsilon,l)`; formalisation makes it explicit | `card P.parts <= SzemerediRegularity.bound ε l` | effective refinement candidate; canonical relationship open |
-| dense graph | usual dense-graph context | no global density hypothesis in the candidate | wording mismatch to resolve |
+| finite graph | every finite graph `G` | `G : SimpleGraph alpha`, `Fintype alpha`, decidable adjacency | selected and elaborated |
+| positive tolerance | `epsilon > 0` | `hε : 0 < ε`, `ε : Real` | selected and elaborated |
+| requested number of parts | natural `l`, graph has at least `l` vertices | `l : Nat`, `hl : l <= Fintype.card alpha` | selected and elaborated |
+| regular partition | page 9:10 uses the formalisation's partition uniformity | `Finpartition.IsUniform G ε`; ordered off-diagonal nonuniform pairs are bounded by `epsilon` times `k(k-1)` | selected exact formal predicate; broader prose convention transport not credited |
+| equitable | part sizes differ by at most one | `Finpartition.IsEquipartition` | selected and elaborated |
+| partition of all vertices | nonempty pairwise-disjoint parts cover `V(G)` | `P : Finpartition (Finset.univ : Finset alpha)` | selected and elaborated |
+| graph-independent upper bound | the page-9:10 form is explicit | `card P.parts <= SzemerediRegularity.bound ε l` | selected; implication to same-predicate existential form checked |
+| dense graph | usual dense-graph context | no global density hypothesis | resolved as contextual wording for this selected target |
 | `已验证` | untrusted inventory label | no proposition, declaration, or receipt | explicitly rejected as evidence |
 
 ## Pinned Lean candidate
@@ -68,10 +72,25 @@ The narrow probe also checks `SimpleGraph.IsUniform`, `Finpartition.IsUniform`,
 `Finpartition.IsEquipartition`, and `SzemerediRegularity.bound`. No alternate formulation is
 credited without a checked transport.
 
+## Statement selection
+
+`Stage1Instances.THM_M_0843.SzemerediRegularityTarget` selects the effective Lean-facing statement
+displayed on article page 9:10 and serializes the corresponding current pinned API proposition. The
+statement-only module imports `Regularity.Bound` and `Regularity.Uniform`; it deliberately excludes
+the proof-bearing `Regularity.Lemma` module. The canonical root therefore fixes mathlib's exact
+ordered-off-diagonal `Finpartition.IsUniform` predicate rather than silently treating every prose
+regularity convention as definitionally identical.
+
+`szemerediRegularityTarget_implies_existentialBoundTarget` checks only the implication to an
+existential-bound formulation using that same formal predicate. No converse and no transport to a
+differently normalized unordered-pair convention is credited. The current pinned declaration
+`szemeredi_regularity` remains a formal candidate whose body, exact relationship, provenance, and
+trust closure belong to `S56-M-0843-ANCHOR_AUDIT`.
+
 ## Work required for closure
 
-The statement/source audit must preserve one complete lawful source snapshot, inspect the 1975
-source or an accepted authoritative edition, map its definition and exceptional-pair conventions,
-assumptions, conclusion, proof boundary, and corrections, decide whether the effective equitable
-mathlib theorem is equal to or implies the canonical claim, and obtain independent review. A later
-formal audit must separately inspect the actual pinned proof object and trust closure.
+The source audit must preserve one complete lawful source snapshot, inspect the 1975 source or an
+accepted authoritative edition, map its definition and exceptional-pair conventions, assumptions,
+conclusion, proof boundary, and corrections, and obtain independent review. The formal anchor audit
+must separately compare the actual pinned theorem to the frozen expression and inspect its proof
+object, provenance, dependencies, axioms, unsafe/oracle boundary, and trust closure.

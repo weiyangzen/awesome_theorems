@@ -16,12 +16,13 @@ of the off-diagonal pairs of parts must be regular/uniform: sufficiently large s
 have edge density close to that of the original pair. The number of parts is bounded independently
 of the graph.
 
-This scope includes the conventional existential regularity lemma and the equitable effective
-version exposed by pinned mathlib as candidates. It does not yet choose between them.
+Intake retained both the conventional existential regularity lemma and the equitable effective
+version exposed by pinned mathlib as candidates. The statement phase has now selected the latter,
+as displayed in Section 3 of the inspected ITP article.
 
-## Candidate binders and conclusion
+## Frozen binders and conclusion
 
-The pinned candidate has the following ordered mathematical data:
+The canonical target has the following ordered mathematical data:
 
 1. a finite vertex type `alpha`, decidable equality, and its finite enumeration;
 2. a finite simple graph `G` with decidable adjacency;
@@ -36,25 +37,23 @@ It concludes that there is a finite partition `P` of the full vertex finset such
 - `card P.parts <= bound epsilon l`, for mathlib's explicit graph-independent bound;
 - `P` is `epsilon`-uniform under mathlib's off-diagonal ordered-pair convention.
 
-These are candidate fields only. The statement phase must freeze the canonical human proposition,
-the precise ordered Lean binders and universes, minimal import, normalized expression and
-environment fingerprint, and checked source-to-candidate relationship.
+These fields are frozen in `Statement.lean` at arbitrary universe `u`. Its fully explicit
+expression, minimal-import environment, and four structural mutations are bound in `statement.json`
+and `statement-receipt.json`.
 
-## Decisions deferred to statement freeze
+## Statement decisions
 
-- Whether the root requires an equipartition or only a partition plus an exceptional class.
-- Whether the upper bound is existential or the particular effective `bound epsilon l`.
-- Whether the graph-size hypothesis is `l <= |V|` or a separate threshold depending on the
-  tolerance and requested number of parts.
-- Whether uniformity counts ordered or unordered off-diagonal pairs, whether the diagonal is
-  ignored, and whether the exceptional-pair bound is strict or non-strict.
-- Whether the tolerance is restricted to `epsilon <= 1`; the pinned theorem's type accepts every
-  positive tolerance, but the behavior and source relationship for `epsilon > 1` remain to be
-  audited.
-- The treatment of `l = 0`, the empty vertex type, singleton graphs, empty/complete graphs,
-  empty parts, and a zero-part partition.
-- The exact relationship between "dense graph" in the repository gloss and the pinned theorem,
-  which applies to every finite simple graph and does not assume positive global edge density.
+- The root requires an equipartition of all vertices, with no exceptional vertex class.
+- The root uses the particular effective `bound epsilon l`; its implication to an existential-bound
+  form using the same `Finpartition.IsUniform` predicate is kernel-checked.
+- The size premise is exactly `l <= Fintype.card alpha`.
+- Uniformity uses mathlib's ordered off-diagonal nonuniform-pair count, ignores the diagonal, and
+  uses its existing strict pair-uniformity definition.
+- The only tolerance premise is `0 < epsilon`; values at least one remain included.
+- `l = 0`, empty and singleton types when the size premise permits them, and empty/complete graphs
+  are included. `Finpartition` parts are nonempty; no extra boundary restriction is added.
+- The target applies to every finite simple graph. The repository's "dense graph" phrase is treated
+  as contextual wording, not a global positive-density hypothesis.
 
 ## Explicit exclusions
 
@@ -70,7 +69,7 @@ environment fingerprint, and checked source-to-candidate relationship.
 
 ## Current cut set
 
-Source-variant selection and independent review, exact Lean statement elaboration and mutation
-tests, formal-candidate/provenance audit, obligation and discovery freezes, proof/composition
-credit, readable reconstruction, trust closure, hermetic replay, independent validation, and
-master acceptance remain open.
+Independent source review, formal-candidate/provenance audit, obligation and discovery freezes,
+proof/composition credit, readable reconstruction, trust closure, hermetic replay, independent
+validation, and master acceptance remain open. Exact statement elaboration and the four mutation
+classes are self-tested pending master acceptance; they supply no downstream proof credit.
