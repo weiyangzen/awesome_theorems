@@ -1,0 +1,47 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0557-STATEMENT",
+  "theorem_id": "THM-M-0557",
+  "lifecycle": "planned",
+  "canonical_statement": "For every pointed topological space (X, x) and every natural n, pi_(n+1)(X,x) carries a group structure and pi_(n+2)(X,x) carries a commutative group structure.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0557/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0557.HomotopyGroupStructureTarget",
+    "elaborated_expression_sha256": "c194bd11441b036272cf4faff6e11fdcf62c833b4ba822276ffb2b0061845e70",
+    "statement_file_sha256": "1ec079a5f017753fdb28a74e97f0f053c906ec22116f290e150b7604240f04fa"
+  },
+  "domain_and_universes": "universe u; X : Type u; TopologicalSpace X; x : X; n : Nat; Prop in Lean universe 0",
+  "ordered_binders": ["X : Type u", "[TopologicalSpace X]", "x : X", "n : Nat"],
+  "hypotheses": [],
+  "conclusion": "Nonempty (Group (HomotopyGroup.Pi (n + 1) X x)) and Nonempty (CommGroup (HomotopyGroup.Pi (n + 2) X x)).",
+  "direct_imports": ["Mathlib.Topology.Homotopy.HomotopyGroup"],
+  "encoding_boundary": "HomotopyGroup.Pi is mathlib's quotient of generalized Fin n-cube loops that map the cube boundary to x, modulo homotopy relative to that boundary. Nonempty packages existence of the structures without choosing a second global instance. The offsets exclude pi_0 from the group claim and pi_1 from the commutative-group claim.",
+  "source_relationship": "This exact proposition was selected from the intake-frozen theorem family and matches the pinned mathlib module's documented group and commutative-group construction. Immutable historical theorem/page acceptance remains H1 and belongs to source audit; no H0 claim is made here.",
+  "environment_fingerprint": {
+    "base_revision": "bdfc69baefbe6cfce9a205be72f3d46cb31458e8",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0557/check_statement.py",
+    "killed": ["included dimension zero in the group claim", "claimed commutativity beginning in dimension one", "specialized the family to dimension two", "changed the pointed universal basepoint binder to an existential basepoint"],
+    "boundary_checks": ["Group (HomotopyGroup.Pi 1 X x)", "CommGroup (HomotopyGroup.Pi 2 X x)"]
+  },
+  "degenerate_cases": "The explicit x : X binder makes empty X vacuous rather than adding an inhabitedness assumption. No connectedness, separation, or Hausdorff hypothesis is imposed. Dimension one is the first group case and dimension two is the first commutative case. Pi_0 is excluded from the group conclusion.",
+  "alternate_encodings": {
+    "sphere_maps": "Uncredited until a checked equivalence with the pinned generalized-cube-loop quotient is supplied.",
+    "iterated_loop_spaces": "Uncredited as an alternate root; the statement uses HomotopyGroup.Pi directly.",
+    "functoriality_and_invariance": "Excluded from this exact root and left to separately frozen propositions."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration only. Historical source acceptance, anchor audit, proof architecture, proof, hermetic validation, and theorem release remain open."
+}
