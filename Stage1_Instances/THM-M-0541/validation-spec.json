@@ -1,0 +1,20 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0541-VALIDATION",
+  "theorem_id": "THM-M-0541",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0541-LOCAL-KERNEL-TRUST-PROVENANCE",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0541/check_validation.py"],
+      "env_allowlist": {"TZ": "UTC", "LC_ALL": "C.UTF-8"},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "receipt-bound summary"}],
+      "covered_obligation_ids": ["M0541-ROOT", "M0541-B", "M0541-C", "M0541-L", "M0541-T"],
+      "covered_declarations": ["Stage1Instances.THM_M_0541.statementShape"]
+    }
+  ],
+  "status_boundary": "This recipe is a provisional fresh-source replay using the pinned warm dependency cache. It is neither a cold empty-cache release replay nor an independent-runner attestation."
+}

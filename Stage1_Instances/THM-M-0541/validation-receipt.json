@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0541-VALIDATION-local-20260712T052948Z",
+  "item_id": "S56-M-0541-VALIDATION",
+  "theorem_id": "THM-M-0541",
+  "base_revision": "e694abee3f44557daf2f54147d968edf96e64752",
+  "base_tree": "65895a2f4aaafd7217a128f8341d353681e91885",
+  "validated_at": "2026-07-12T05:29:48Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "validated_declarations": ["Stage1Instances.THM_M_0541.statementShape"],
+  "inputs": {
+    "statement_sha256": "5e799f4793bdba080beac5baba329a5d90a4c89e8beeadca6f6c0d1765bcc32d",
+    "proof_sha256": "4fcaaaeff8998e50a7bdea2e670e02d9ea96861f48fdef9964e7e24840ee16ae",
+    "obligation_registry_sha256": "fa62c038bcf08222c22cb315901d214106c5ed23dbde31868687b1ee29f2ae04",
+    "typed_graphs_sha256": "2aa9d617b073acfc8b1ff5e72fc42993b95d5a209ee5b85eedf0e824fa3c8d9e",
+    "anchor_audit_sha256": "aa40b58b2697782deb5c073a4d835b7fdb05267ea5f662e14cb8458c870a3bdb",
+    "validation_spec_sha256": "53174941d5e7933f83a50bc482457b5a42051301043f6d81b0c541df5aa7e9c1",
+    "validator_sha256": "c232330cc08e05fbfd12b748085b0b30e9f37b5ab3ef458d7385299170756844",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned warm .lake symlink; clean and not modified"
+  },
+  "recipe": {
+    "recipe_id": "VAL-M0541-LOCAL-KERNEL-TRUST-PROVENANCE",
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0541/check_validation.py"],
+    "env": {"TZ": "UTC", "LC_ALL": "C.UTF-8"},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_from_fresh_temporary_copy_of_proof_source",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "target_identity": "pass",
+    "provenance_and_dependency_pins": "pass",
+    "validated_closed_obligation_ids": ["M0541-ROOT", "M0541-B", "M0541-C", "M0541-L", "M0541-T"],
+    "root_closed": true,
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The replay reused the canonical pinned warm dependency cache and is not a cold empty-cache hermetic release replay.",
+    "The validator ran in the same worker checkout and is not a distinct signed independent runner or independently provisioned verifier.",
+    "The architecture graph remains a pre-proof frozen artifact and does not itself assert accepted closure; master reconciliation is pending.",
+    "H0/R0 review, complete TCB/SBOM and license closure, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Replay an immutable clean snapshot from an empty offline cache and obtain a distinct independent-runner attestation after master acceptance of prerequisite evidence.",
+  "status_boundary": "The exact local root passed provisional kernel, trust, hash, pin, and provenance validation. This receipt is not release evidence, theorem completion, or master acceptance."
+}
