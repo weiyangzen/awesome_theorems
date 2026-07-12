@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1252-STATEMENT",
+  "theorem_id": "THM-M-1252",
+  "lifecycle": "planned",
+  "canonical_statement": "For every real scalar distribution T on an open subset Omega of a finite-dimensional real normed space, the complement of the distributional support of T is the union of all open sets U on which T vanishes, meaning that T evaluates to zero on every test function whose topological support is contained in U.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1252/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1252.DistributionSupportLocalizationTarget",
+    "statement_file_sha256": "507071b90dec721e489adcc0ae4d8675ea42463bddbb8bc89d311fd2d729b9da"
+  },
+  "domain_and_universes": "universe u; E : Type u; NormedAddCommGroup E; NormedSpace Real E; FiniteDimensional Real E; Omega : Opens E; T : Distribution Omega Real top; Prop in universe 0",
+  "ordered_binders": [
+    "E : Type u",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "[FiniteDimensional Real E]",
+    "Omega : Opens E",
+    "T : Distribution Omega Real top"
+  ],
+  "hypotheses": [],
+  "conclusion": "compl (Distribution.dsupport T) = sUnion {U | Distribution.IsVanishingOn T U and IsOpen U}",
+  "direct_imports": [
+    "Mathlib.Analysis.Distribution.Distribution",
+    "Mathlib.Analysis.Distribution.Support"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1252.distributionSupportLocalizationTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "distribution": "real-valued, infinite-order mathlib Distribution on Omega",
+    "ambient_domain": "an arbitrary finite-dimensional real normed space with Omega represented by Opens E",
+    "support": "Distribution.dsupport, a subset of the ambient E",
+    "vanishing": "Distribution.IsVanishingOn; ExpandedTarget unfolds this to evaluation on all test functions with tsupport contained in U",
+    "localization": "largest-open-zero-region characterization expressed as equality with an indexed union"
+  },
+  "environment_fingerprint": {
+    "base_revision": "a80ab2514294b0e85527fd5a7d419748401215b2",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "elaborated_not_accepted_as_equivalent": [
+      "replace open zero regions by closed zero regions",
+      "equate support rather than its complement to the union",
+      "replace the union of every open zero region by existence of one such region"
+    ]
+  },
+  "degenerate_cases": "The quantification includes the zero distribution, empty Omega, and zero-dimensional E. No nonzero, nonempty, connectedness, or positive-dimension hypothesis is introduced.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact target elaboration and definitional test-function expansion only. No proof credit, primary-source H0 claim, downstream validation, or theorem completion is asserted."
+}
