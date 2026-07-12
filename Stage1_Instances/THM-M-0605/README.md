@@ -1,4 +1,4 @@
-# THM-M-0605 rev-5.6 statement
+# THM-M-0605 rev-5.6 dossier
 
 This directory is the `planned` rev-5.6 dossier for the existence of a
 seven-dimensional exotic sphere. The repository claim fixes dimension seven
@@ -14,8 +14,12 @@ homeomorphism is `Nonempty Homeomorph` and non-diffeomorphism is
 
 The stable scope is recorded in `scope-map.md`, and
 `source-statement-crosswalk.md` relates each component to the repository
-record and Milnor's 1956 primary paper. The scope nodes are planning labels,
-not a frozen obligation registry or proof-tree leaves.
+record and Milnor's 1956 primary paper. The frozen architecture now lives in
+`obligation-registry.json` and the seven separate graphs in
+`typed-graphs.json`; `obligation-tree.md` is their readable projection. The
+selected route uses Milnor's sphere-bundle construction followed by separate
+topological-sphere and smooth-obstruction branches. `ObligationTree.lean`
+checks only conditional terminal assembly and supplies no witness proof.
 
 ## Statement verdict
 

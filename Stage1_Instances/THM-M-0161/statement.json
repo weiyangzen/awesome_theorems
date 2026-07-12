@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0161-STATEMENT",
+  "theorem_id": "THM-M-0161",
+  "lifecycle": "planned",
+  "canonical_statement": "On every nonempty open real interval, differentiable prescribed curvature kappa > 0 and differentiable prescribed signed torsion are realized by a C3 unit-speed curve in oriented Euclidean three-space, and any two realizing curves agree on the interval after an orientation-preserving Euclidean rigid motion.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0161/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0161.FundamentalTheoremOfSpaceCurvesTarget",
+    "elaborated_expression_sha256": "c140d1d15da39c41b3cc430e5119c4ec5194856f15481e2040cc0ea710c47f82",
+    "statement_file_sha256": "82f74a6f99d1b81fe3dac43628a6d5d7dd0f88a323d42b0d21c300bb92a43060"
+  },
+  "domain_and_universes": "a b : Real with a < b; kappa tau : Real -> Real; curves Real -> (Fin 3 -> Real); Prop in Lean universe 0",
+  "ordered_binders": [
+    "a b : Real",
+    "a < b",
+    "kappa tau : Real -> Real",
+    "DifferentiableOn Real kappa (Ioo a b)",
+    "DifferentiableOn Real tau (Ioo a b)",
+    "forall s in Ioo a b, 0 < kappa s"
+  ],
+  "conclusion": "A C3 unit-speed realizing curve exists; every two realizing curves differ on Ioo a b by a dot-product-preserving linear equivalence of determinant one followed by translation.",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.LinearAlgebra.CrossProduct"
+  ],
+  "encoding_notes": "E3 is Fin 3 -> Real. An explicit dot product and square-root length avoid the Pi supremum norm. Curvature is length of the second within-derivative; signed torsion is dot(c' cross c'', c''') divided by the squared cross-product length. All derivative and congruence requirements are restricted to the open interval.",
+  "source_alignment": "The statement selects the differentiable-coefficient, C3-curve, open-interval version reported for do Carmo's fundamental theorem candidate. Exact edition/page inspection remains an H-gate task and is not claimed by this statement receipt.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0161/check_statement.py",
+    "killed": [
+      "allowing zero curvature",
+      "omitting existence",
+      "allowing orientation-reversing isometries",
+      "changing coefficient hypotheses from the open to the closed interval"
+    ]
+  },
+  "degenerate_cases": "a < b excludes empty and singleton parameter intervals. Zero curvature is excluded pointwise; zero torsion is allowed. The target fixes parameter orientation and signed torsion and therefore only permits determinant-one rigid motions.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: no anchor-audit, proof, kernel closure of the theorem, or release credit is claimed."
+}
