@@ -8,7 +8,7 @@ standard discrete, finite-measure, measure-preserving recurrence claim in `intak
 
 | Surface | In scope | Intake boundary |
 |---|---|---|
-| Exact root | Almost-everywhere infinite return to each null-measurable set | Exact elaboration and fingerprint belong to the statement phase |
+| Exact root | Almost-everywhere infinite return to each null-measurable set | Elaborated and fingerprinted in `Statement.lean` and `statement.json` |
 | Dynamics | One discrete self-map preserving the same finite measure | Continuous flows require a checked time-map transport |
 | Measure theory | Arbitrary measurable space and finite invariant measure | No physical measure is manufactured by this theorem |
 | Topological variant | Return to neighborhoods under the usual countability/measurability assumptions | Candidate strengthening, not part of the frozen root |
@@ -21,8 +21,9 @@ discovery inputs only. No old proof, pin, build result, or source label receives
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
-The next phase must elaborate the exact root, fingerprint its environment, check transports, and
-mutation-test finiteness, preservation, measurability, binder scope, and almost-everywhere strength.
+The statement phase elaborates the exact root, fingerprints its environment, checks the historical
+and conservative transports, and mutation-tests finiteness, domain, binder scope, and the null-set
+boundary. Later phases remain open and receive no proof credit from statement elaboration.
 
 ## Intake verdict
 

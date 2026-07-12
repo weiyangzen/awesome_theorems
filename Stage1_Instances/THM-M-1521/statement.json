@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1521-STATEMENT",
+  "theorem_id": "THM-M-1521",
+  "lifecycle": "planned",
+  "canonical_statement": "A self-map preserving a finite measure sends almost every point of every null-measurable set that starts in the set back into that set infinitely often.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1521/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1521.PoincareRecurrenceTarget",
+    "elaborated_expression_sha256": "3d7c202adf1f52ae3dbcdb46e7726395600cb0d89d93220d70d42b9b837f6c06",
+    "statement_file_sha256": "2345be9208d010b700c5cc52333ea91655efefc37fe5e3b266de9bf2f25c5139"
+  },
+  "domain_and_universes": "universe u; alpha : Type u; MeasurableSpace alpha; f : alpha -> alpha; mu : Measure alpha; s : Set alpha; Prop in Lean universe 0",
+  "ordered_binders": [
+    "alpha : Type u",
+    "[MeasurableSpace alpha]",
+    "f : alpha -> alpha",
+    "mu : Measure alpha",
+    "IsFiniteMeasure mu",
+    "MeasurePreserving f mu mu",
+    "s : Set alpha",
+    "NullMeasurableSet s mu",
+    "mu-almost every x : alpha",
+    "x in s"
+  ],
+  "hypotheses": [
+    "MeasureTheory.IsFiniteMeasure mu",
+    "MeasureTheory.MeasurePreserving f mu mu",
+    "MeasureTheory.NullMeasurableSet s mu",
+    "x in s"
+  ],
+  "conclusion": "Frequently n in atTop, the n-fold iterate of f at x belongs to s.",
+  "direct_imports": ["Mathlib.Dynamics.Ergodic.Conservative"],
+  "checked_transports": [
+    "Stage1Instances.THM_M_1521.poincareRecurrenceTarget_iff_pinnedCandidateSourceShape",
+    "Stage1Instances.THM_M_1521.poincareRecurrenceTarget_of_conservativeRecurrenceTarget"
+  ],
+  "alternate_encoding_relationship": "The historical candidate is definitionally equal after expanding SetRecurrenceConclusion. The conservative-system formulation implies the canonical finite-measure-preserving target via MeasurePreserving.conservative; the reverse implication is not claimed.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1521/check_statement.py",
+    "killed": [
+      "removed finite-measure hypothesis",
+      "changed arbitrary measurable-space domain to Nat",
+      "moved the set binder inside the almost-everywhere binder",
+      "excluded the null-set boundary by requiring nonzero measure"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_1521.emptySetBoundary"]
+  },
+  "degenerate_cases": "Null sets, the empty set, finite spaces, and the identity map remain within the statement. No nonzero-measure premise is added. No Hamiltonian model, Liouville preservation, finite energy shell, continuous flow, or topological recurrence is inferred.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the intake-selected discrete finite-measure recurrence target and checked statement transports only. It does not credit the imported recurrence proof, audit sources, or advance any later node."
+}

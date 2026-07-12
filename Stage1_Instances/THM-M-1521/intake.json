@@ -7,18 +7,18 @@
   "canonical_statement": "A measure-preserving self-map of a finite measure space sends almost every point of each measurable set back into that set infinitely often.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": "Mathlib.Dynamics.Ergodic.Conservative",
-    "declaration_or_expression": "provisional local candidate: AwesomeTheorems.Stage1.S1_M_180.StatementShape",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "module": "Stage1_Instances/THM-M-1521/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1521.PoincareRecurrenceTarget",
+    "elaborated_expression_hash": "sha256:3d7c202adf1f52ae3dbcdb46e7726395600cb0d89d93220d70d42b9b837f6c06",
+    "environment_fingerprint": "Lean 4.29.0 (98dc76e3), mathlib 8a178386, manifest sha256 321626c8; full record in statement.json",
+    "gate_state": "self_tested_pending_master_acceptance"
   },
   "domain_and_universes": "alpha : Type u with MeasurableSpace alpha; f : alpha -> alpha; mu : Measure alpha; s : Set alpha",
   "quantifiers": ["every measurable-space type alpha", "every self-map f", "every finite measure mu preserved by f", "every mu-null-measurable set s", "mu-almost every x"],
   "hypotheses": ["IsFiniteMeasure mu", "MeasurePreserving f mu mu", "NullMeasurableSet s mu", "x in s"],
   "conclusion": "Frequently n in atTop, Function.iterate f n x belongs to s",
   "alternate_encodings": [
-    {"target": "MeasureTheory.Conservative f mu", "relationship": "measure preservation plus finite measure implies conservativity", "checked_witness": "candidate only: MeasureTheory.MeasurePreserving.conservative; credit deferred"},
+    {"target": "MeasureTheory.Conservative f mu", "relationship": "the conservative recurrence target implies the canonical finite-measure-preserving target", "checked_witness": "Stage1Instances.THM_M_1521.poincareRecurrenceTarget_of_conservativeRecurrenceTarget"},
     {"target": "almost-everywhere recurrence to every neighborhood", "relationship": "topological strengthening under second countability and measurable opens", "checked_witness": "candidate only: MeasureTheory.Conservative.ae_frequently_mem_of_mem_nhds; credit deferred"}
   ],
   "excluded_degenerate_cases": "No Hamiltonian, Liouville-measure, bounded-energy-shell, or continuous-flow model is inferred. Null sets make the almost-everywhere conclusion vacuous; finite spaces and the identity map remain included boundary cases.",
