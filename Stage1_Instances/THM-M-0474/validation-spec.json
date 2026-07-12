@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0474-VALIDATION",
+  "theorem_id": "THM-M-0474",
+  "network_policy": "denied",
+  "recipes": [
+    {
+      "recipe_id": "M0474-validation-verifier",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0474/check_validation.py"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC"
+      },
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS S56-M-0474-VALIDATION"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0474-ROOT",
+        "M0474-T-COMPOSE",
+        "M0474-L-NAT",
+        "M0474-N-NAT-INT",
+        "M0474-N-COPRIME",
+        "M0474-L-INT",
+        "M0474-C-ZMOD-NONZERO",
+        "M0474-T-INT-ZMOD",
+        "M0474-L-ZMOD",
+        "M0474-T-ZMOD-CARD",
+        "M0474-L-FINITE-FIELD",
+        "M0474-C-UNIT",
+        "M0474-L-GROUP-CARD"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0474.Proof.fermatLittleTheorem",
+        "Stage1Instances.THM_M_0474.Proof.fermatLittleTheorem_via_frozen_composition",
+        "Stage1Instances.THM_M_0474.Validation.fermatLittleTheorem_via_totient"
+      ]
+    }
+  ],
+  "status_boundary": "Narrow warm-cache worker validation only. The proof dependency is not master-accepted, the frozen graph remains pre-proof M3, and hermetic release plus distinct-runner independence fail closed."
+}

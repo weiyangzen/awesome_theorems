@@ -54,6 +54,11 @@ OWNED_FILES = {
     "check_proof.sh",
     "proof-validation.md",
     "proof-receipt.json",
+    "Validation.lean",
+    "check_validation.py",
+    "validation-spec.json",
+    "validation-receipt.json",
+    "validation-phase.md",
 }
 
 
@@ -144,6 +149,11 @@ def main() -> None:
         "check_proof.sh",
         "proof-validation.md",
         "proof-receipt.json",
+        "Validation.lean",
+        "check_validation.py",
+        "validation-spec.json",
+        "validation-receipt.json",
+        "validation-phase.md",
     }
     expected_intake_changed = {".stage1-worker-selftest.json"} | {
         f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_owned_files

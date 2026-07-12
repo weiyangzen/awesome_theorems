@@ -39,6 +39,10 @@ turn the incomplete catalog wording into an accepted primary-source statement.
   target and separately checks it through the frozen composition interface. `check_proof.sh`,
   `check_proof.py`, `proof-validation.md`, and `proof-receipt.json` bind the narrow kernel run,
   source and dependency fingerprints, axiom and placeholder results, and provisional proof handoff.
+- `Validation.lean` reconstructs the exact frozen root through Euler's totient theorem without
+  importing the proof or obligation tree. `validation-spec.json`, `check_validation.py`,
+  `validation-receipt.json`, and `validation-phase.md` bind the warm-cache kernel replay, trust and
+  provenance observations, and the fail-closed hermetic and distinct-runner decisions.
 
 ## Status boundary
 
@@ -47,6 +51,7 @@ or proof receipt is accepted. The proof phase now proposes `M0-W` for the exact 
 wrapper, exact Nat child, and frozen child-to-parent composition are kernel-checked against the
 manifest-pinned mathlib body, with no placeholder and only `propext`, `Classical.choice`, and
 `Quot.sound` reported. That proposal does not mutate accepted state. Complete provenance/trust and
-TCB acceptance, readable reconstruction, hermetic validation, independent verification, and
-release remain later work. There is no full audit completion or theorem completion;
+TCB acceptance, readable reconstruction, cold hermetic replay, distinct-runner verification, and
+release remain open. The validation phase's Euler-totient route is implementation-diverse local
+evidence, not an independent attestation. There is no full audit completion or theorem completion;
 dependency-ordered acceptance remains with the integration lane.

@@ -332,7 +332,11 @@ def main() -> None:
     selftest_path = ROOT / ".stage1-worker-selftest.json"
     if selftest_path.is_file():
         selftest = json.loads(selftest_path.read_text(encoding="utf-8"))
-        assert selftest["item_id"] in {ITEM, "S56-M-0474-PROOF"}
+        assert selftest["item_id"] in {
+            ITEM,
+            "S56-M-0474-PROOF",
+            "S56-M-0474-VALIDATION",
+        }
         assert selftest["state"] == "[_]"
         if selftest["item_id"] == ITEM:
             assert selftest["base_revision"] == receipt["base_revision"]

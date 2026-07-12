@@ -62,6 +62,11 @@ OWNED_FILES = {
     "check_proof.sh",
     "proof-validation.md",
     "proof-receipt.json",
+    "Validation.lean",
+    "check_validation.py",
+    "validation-spec.json",
+    "validation-receipt.json",
+    "validation-phase.md",
     "statement.json",
     "task-dag.json",
     "validation.md",
@@ -184,6 +189,7 @@ def main() -> None:
         "S56-M-0474-ANCHOR_AUDIT",
         "S56-M-0474-OBLIGATION_TREE",
         "S56-M-0474-PROOF",
+        "S56-M-0474-VALIDATION",
     }:
         raise SystemExit("root self-test covers neither this statement nor a downstream successor")
     if set(instance["owned_artifacts"]) != OWNED_FILES:

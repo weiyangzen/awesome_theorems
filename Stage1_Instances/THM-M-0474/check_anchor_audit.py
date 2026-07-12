@@ -66,6 +66,7 @@ assert selftest["item_id"] in {
     ITEM_ID,
     "S56-M-0474-OBLIGATION_TREE",
     "S56-M-0474-PROOF",
+    "S56-M-0474-VALIDATION",
 }
 assert audit["theorem_id"] == item["theorem_id"] == THEOREM_ID
 assert receipt["theorem_id"] == THEOREM_ID

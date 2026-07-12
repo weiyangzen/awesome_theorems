@@ -41,6 +41,21 @@ required structural mutations.
 
 The provisional vector after statement elaboration is `[H1, M3, R4]`: an exact source-selected
 interface now exists, but no Routh-Hurwitz proof body is supplied. Complete proof translation,
-correction or errata review, independent `H0` acceptance, formal anchor audit, obligation freeze,
-readable reconstruction, release validation, and master acceptance remain open. No accepted proof
-state, audit completion, or theorem completion is claimed.
+correction or errata review, independent `H0` acceptance, obligation freeze, readable
+reconstruction, release validation, and master acceptance remain open. The formal anchor audit is
+reported provisionally below. No accepted proof state, audit completion, or theorem completion is
+claimed.
+
+## Anchor-audit result
+
+`anchor-audit.json`, `anchor-audit.md`, and `AnchorAudit.lean` freeze and check the bounded formal
+candidate inventory. At clean pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
+the relevant polynomial/root and matrix/determinant declarations are support APIs only. A complete
+exact-topic scan found no Routh-Hurwitz declaration; `docs/1000.yaml` contains a catalog title but
+no formal declaration. Bounded public Lean searches likewise discovered no external terminal
+candidate, while unavailable code-search lanes are recorded as access failures rather than absence
+evidence.
+
+The vector therefore remains `[H1, M3, R4]`. This provisional result completes only the assigned
+candidate inventory pending master acceptance. It adds no proof credit and does not claim
+exhaustive discovery, obligation-tree closure, audit completion, or theorem completion.
