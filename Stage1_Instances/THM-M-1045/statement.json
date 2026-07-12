@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1045-STATEMENT",
+  "theorem_id": "THM-M-1045",
+  "lifecycle": "planned",
+  "canonical_statement": "For Wiener measure on continuous real paths over nonnegative time, push-forward by x |-> x + h is equivalent to Wiener measure exactly when h is the indefinite integral of a square-integrable function g; in that case the Radon-Nikodym derivative with respect to Wiener measure is exp(integral g dx - one half integral g squared dt), while translations outside that space are mutually singular.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1045/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1045.CameronMartinTarget",
+    "elaborated_expression_sha256": "e1b35bb7a569b9a4279ea7eb729ccd5e45a62663fb645a68aeb03e41274c5cea",
+    "statement_file_sha256": "13e17c16e7d194910f50bb73002462467424cdacd05fcea77f93a2020fa0fe93"
+  },
+  "domain_and_universes": "WienerPath is ContinuousMap NNReal Real with the cylinder measurable structure; timeMeasure is the push-forward of real volume by Real.toNNReal; all declarations are in Lean universe 0.",
+  "ordered_binders": [
+    "W : WienerData",
+    "h : WienerPath",
+    "g : NNReal -> Real inside the density branch",
+    "t : NNReal inside the indefinite-integral witness"
+  ],
+  "hypotheses": [
+    "W.measure is a probability measure on continuous paths starting at zero almost everywhere",
+    "its finite-dimensional coordinate laws are Gaussian and increments have centered Gaussian law with variance t-s",
+    "W.paleyWienerIntegral realizes the measurable stochastic pairing used by the density",
+    "Cameron-Martin membership supplies g in L2(timeMeasure) and h(t)=integral over (0,t] of g"
+  ],
+  "conclusion": "Equivalence of translated and original Wiener measure iff membership, the positive-sign RN density for every L2 integral representative, and mutual singularity outside the Cameron-Martin space.",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Function.LpSeminorm.Basic",
+    "Mathlib.MeasureTheory.Measure.MutuallySingular",
+    "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Basic",
+    "Mathlib.Probability.Distributions.Gaussian.Real"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1045.target_iff_expanded",
+  "encoding_boundary": "The pinned snapshot has no canonical Wiener measure on continuous NNReal paths or Paley-Wiener stochastic integral. WienerData types those construction interfaces and Brownian-law premises without storing any absolute-continuity, RN-density, or singularity conclusion. Constructing a concrete inhabitant and proving CameronMartinTarget remain downstream obligations.",
+  "translation_and_density_orientation": "translatedMeasure is map under x |-> x + h; rnDeriv is translatedMeasure.rnDeriv W.measure; the exponent has positive Paley-Wiener pairing and negative half-energy.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1045/check_statement.py",
+    "killed": [
+      "removed the non-Cameron-Martin singularity conclusion",
+      "reversed translation from x+h to x-h while retaining the density",
+      "weakened mutual absolute continuity to forward absolute continuity",
+      "removed the indefinite-integral relationship between h and its L2 representative"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1045.zero_isCameronMartinDirection"
+    ]
+  },
+  "degenerate_cases": "The zero direction is included and kernel-checked. No positive-time or nonzero-energy assumption is added. The time domain is NNReal, and the source convention is frozen on the full nonnegative axis rather than a finite interval.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. The exact target and expansion elaborate in the pinned environment; no concrete WienerData construction, Cameron-Martin proof, source H0 audit, downstream validation, or theorem completion is claimed."
+}
