@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1010-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1010",
+  "phase": "anchor_audit",
+  "canonical_declaration": "Stage1Instances.THM_M_1010.Target",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "exact_root_candidate": null,
+  "candidates": [
+    {
+      "module": "Mathlib.MeasureTheory.Measure.LevyProkhorovMetric",
+      "declaration": "LevyProkhorov.eq_convergenceInDistribution",
+      "source_blob": "9fb875215400ee5d7b52b616257e1d27df3a14ee",
+      "role": "premise topology bridge",
+      "exact_root": false,
+      "reason": "Identifies the probability-measure topology with the Levy-Prokhorov topology on separable spaces; it constructs no common sample space or representatives."
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Measure.LevyProkhorovMetric",
+      "declaration": "LevyProkhorov.probabilityMeasureHomeomorph",
+      "source_blob": "9fb875215400ee5d7b52b616257e1d27df3a14ee",
+      "role": "premise topology bridge",
+      "exact_root": false,
+      "reason": "Packages the topology equivalence only; it has no HasLaw or almost-everywhere realization conclusion."
+    },
+    {
+      "module": "Mathlib.Probability.HasLaw",
+      "declaration": "ProbabilityTheory.HasLaw",
+      "source_blob": "fe1155e2c2d5f4876171e888c06b48bd9110a449",
+      "role": "marginal-law interface",
+      "exact_root": false,
+      "reason": "Expresses AEMeasurable plus Measure.map equality and exactly supports Representation marginals, but is a predicate rather than an existence theorem."
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Constructions.Polish.Basic",
+      "declaration": "PolishSpace.measurableEquivOfNotCountable",
+      "source_blob": "98ab8957f4b289194f6df34d93672b873e225a29",
+      "role": "standard-Borel transport candidate",
+      "exact_root": false,
+      "reason": "Provides a Borel isomorphism between uncountable standard Borel spaces; it neither preserves the original topology nor supplies the coupling."
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+      "declaration": "TendstoInMeasure.exists_seq_tendsto_ae",
+      "source_blob": "c8d4362b2da6aedb4898e9282f6db8a0e408a375",
+      "role": "excluded nearby result",
+      "exact_root": false,
+      "reason": "Extracts an almost-everywhere convergent subsequence from functions already defined on one measure space; it does not realize prescribed weakly converging laws and cannot replace full-sequence convergence."
+    }
+  ],
+  "external_search": {
+    "searched_at": "2026-07-12",
+    "terms": ["Skorokhod", "Skorohod", "Skorokhod Lean 4", "Skorohod Lean theorem"],
+    "result": "No exact public Lean 4 repository or declaration candidate was identified.",
+    "excluded_repository": {
+      "url": "https://github.com/BryceT233/two-properties-of-weak-convergence",
+      "revision": "3e50fe3c4d8b3ed448cc92ff1fc22a7871194ea4",
+      "reason": "Its immutable README describes weak convergence in uniformly convex normed spaces, not convergence in distribution of probability measures or a Skorokhod coupling."
+    },
+    "limitation": "Unauthenticated GitHub code search requires sign-in and grep.app rate-limited two requests; repository searches, immutable README inspection, and the complete pinned dependency-tree search were still performed. Absence is an audit result, not a proof that no Lean formalization exists anywhere."
+  },
+  "classification": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3",
+    "debt": "formalization_debt",
+    "repo_local_integration_debt": false,
+    "rationale": "The named human theorem is known and the exact Lean statement elaborates, but neither pinned mathlib nor an identified external Lean 4 project closes the canonical existential coupling. There is therefore no known external proof to integrate."
+  },
+  "gate_state": "provisional_self_tested_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "This receipt completes candidate inventory and classification only. It does not prove Target, upgrade H status, or satisfy obligation-tree, proof, validation, or release gates."
+}

@@ -36,6 +36,15 @@ the exponent restriction in the frozen human claim is not enforced by the legacy
 shape, and there is no normalized-expression hash, environment fingerprint, checked transport,
 or mutation evidence. `theorem_complete` is false.
 
+## Obligation-tree phase
+
+The v1 registry freezes 16 canonical obligations and seven separate typed graphs. The proof
+architecture exposes the L1-bound reduction, common `limitProcess` candidate, pinned a.e. and
+`MemLp` anchors, conditional-expectation representation, and the same-exponent conditional-
+expectation approximation engine. `root_of_limit_packages` kernel-checks exact composition of the
+two terminal packages into the root, but both packages remain proof obligations. The root remains
+open at `M4`; this phase supplies architecture, not a convergence proof.
+
 ## Validation
 
 Exact commands and results for this dossier are recorded in `validation.md`. They validate

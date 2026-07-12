@@ -7,18 +7,18 @@
   "canonical_statement": "For Borel probability measures mu_n and mu on finite-dimensional real coordinate space, mu_n converges weakly to mu if and only if, for every real coefficient vector t, the pushforwards of mu_n under x |-> sum_i t_i x_i converge weakly to the corresponding pushforward of mu.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "module": "Stage1_Instances/THM-M-1013/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1013.StatementShape",
+    "elaborated_expression_hash": "sha256:8cae819c65fe669e84ad89391b427da3df7e3475835b7c2063cb3c7bbb6edd1b",
+    "environment_fingerprint": "Lean leanprover/lean4:v4.29.0; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; lean-toolchain sha256 651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2; lake-manifest.json sha256 321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "gate_state": "locally_elaborated_pending_master_acceptance"
   },
-  "domain_and_universes": "d n : Nat; points and coefficients provisionally Fin d -> Real; Borel probability measures on that space; Prop in Lean universe 0",
+  "domain_and_universes": "d n : Nat; points and coefficients EuclideanSpace Real (Fin d); Borel probability measures on that space; Prop in Lean universe 0",
   "quantifiers": [
     "d : Nat",
-    "mu : probability measure on Fin d -> Real",
-    "mu_n : Nat -> probability measure on Fin d -> Real",
-    "t : Fin d -> Real (universal in the projection condition)"
+    "mu : ProbabilityMeasure (EuclideanSpace Real (Fin d))",
+    "mu_n : Nat -> ProbabilityMeasure (EuclideanSpace Real (Fin d))",
+    "t : EuclideanSpace Real (Fin d) (universal in the projection condition)"
   ],
   "hypotheses": [
     "each mu_n is a Borel probability measure",
@@ -29,22 +29,22 @@
     {
       "target": "random-vector convergence in distribution via all scalar linear combinations",
       "relationship": "expected equivalent through laws/pushforward measures",
-      "checked_witness": "candidate only; deferred to statement phase"
+      "checked_witness": "not canonical; law-level transport is deferred to a downstream obligation"
     },
     {
       "target": "EuclideanSpace Real (Fin d) instead of Fin d -> Real",
       "relationship": "expected definitional or continuous-linear equivalence",
-      "checked_witness": "candidate only; deferred to statement phase"
+      "checked_witness": "canonical representation selected as EuclideanSpace Real (Fin d)"
     },
     {
       "target": "one-way reverse convergence device, assuming projection convergence",
       "relationship": "reverse implication of the canonical biconditional",
-      "checked_witness": "candidate only; forward implication must not be lost"
+      "checked_witness": "rejected by MutationReverseOnly; canonical target retains the biconditional"
     }
   ],
   "excluded_degenerate_cases": "None are excluded at intake. Dimension zero, the zero coefficient vector, and constant laws are explicit boundary probes.",
-  "foundation_profile": "rev-5.6 profile not yet instantiated; classical choice, measure, topology, and Borel structures remain to be audited",
-  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact Lean/mathlib versions and dependency closure remain open",
+  "foundation_profile": "Lean 4 kernel with mathlib classical measure/topology definitions; Statement.lean invokes no oracle or native computation",
+  "tcb_profile": "Lean leanprover/lean4:v4.29.0 with mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
   "computation_profile": "No computation, native code, oracle, or external solver is credited at intake",
   "formal_system": "Lean 4 + pinned mathlib (pin verification deferred to statement phase)",
   "source_revisions": "See source_statement_crosswalk.md; immutable source scans, hashes, errata review, and exact theorem-page crosswalk remain open",
@@ -66,5 +66,5 @@
     "readability": "R3"
   },
   "theorem_complete": false,
-  "status_boundary": "This planned intake freezes scope only. It does not pass the Lean statement gate, accept the historical source label, or prove the Cramer-Wold theorem."
+  "status_boundary": "The exact Lean statement is locally elaborated and mutation-tested pending master acceptance. This does not accept the historical source label, prove the Cramer-Wold theorem, or pass any downstream gate."
 }
