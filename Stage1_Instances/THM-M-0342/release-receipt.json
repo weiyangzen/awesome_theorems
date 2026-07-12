@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0342-RELEASE-local-20260712T121106Z",
+  "item_id": "S56-M-0342-RELEASE",
+  "theorem_id": "THM-M-0342",
+  "base_revision": "ded29702119d0d4880db9fcf1d0a6560a89058fd",
+  "base_tree": "76593b644253330d6368446d7397d674b76e6ef9",
+  "validated_at": "2026-07-12T12:11:06Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "release_decision_sha256": "342aaa512201a48bfe00574293dcf3c660833aa39206c4b06b69f39bfa400b1d",
+    "validation_receipt_sha256": "99ecb6e964c805228115c46f70a167695c319201877e959bdcfb99450146f6fe",
+    "proof_receipt_sha256": "396283d7c8d8914d38979447718ac452dd6543b236d01506b3dcdb3a0fb12f1e",
+    "instance_sha256": "250bfd64afa5f04ca3a5775a5fd85ef78c82709f2a3fac3dfc700287b6666f43",
+    "task_dag_sha256": "21cbd37215601ee088e678593e0269930a38b9c626189e1a3612e3312c865377",
+    "typed_graphs_sha256": "7ddd9e6323dc9ff10499172c3eddb9ff8e3ffef12260d4047aeba032de25034a"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0342/check_release.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 30,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_decisions": ["AUDIT-Z", "THEOREM-Z"]
+  },
+  "result": {
+    "exit_code": 0,
+    "verdict": "no_state_change",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "state_transition": "none",
+    "accepted_receipt_ids": [],
+    "first_failed_gate": "release.dependency_master_acceptance"
+  },
+  "known_failures": [
+    "The prerequisite validation receipt is provisional and has not received master acceptance.",
+    "Primary-source H0 and independently reviewed readable R0 evidence are absent.",
+    "The structured root state is stale at M2 despite provisional proof-phase kernel closure.",
+    "No complete foundation, provenance, transitive TCB, immutable cold offline replay, SBOM/license archive, deterministic bundle, distinct signed runner, or independent minimal verifier is available.",
+    "The worker clone contains the pre-existing untracked shared .lake symlink and is not release-grade clean input."
+  ],
+  "status_boundary": "Self-tested evidence reconciliation supporting only the negative theorem-completion decision. This is not release-grade evidence and grants no accepted state."
+}
