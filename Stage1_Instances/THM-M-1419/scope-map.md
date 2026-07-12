@@ -11,19 +11,19 @@
 - Almost-everywhere existence of finitely many Lyapunov growth rates, together with the invariant
   filtration or direct-sum splitting needed to say which nonzero vectors realize each rate.
 
-## Decisions required at statement freeze
+## Statement-freeze decisions
 
-The statement phase must select and inspect one exact primary theorem. It must freeze: probability
-versus finite measure; invertible versus one-sided base dynamics; `GL(d, R)` versus possibly
-singular endomorphisms; real versus complex scalars; fixed versus measurable fiber dimension;
-strong measurability; the exact `log+` moment assumptions for the cocycle and inverse; forward or
-two-sided product convention; filtration versus splitting; deterministic exponents under
-ergodicity versus invariant exponent functions; multiplicities; exceptional null sets; and whether
-the limit is stated for vector norms, singular values, exterior powers, or all of these.
+The selected formal target freezes: probability measure; invertible ergodic base; almost-everywhere
+invertible real `d x d` matrices for positive fixed `d`; a.e. strong measurability of the matrix and
+inverse; `log+` integrability of both operator norms; forward products; a direct-sum splitting;
+constant strictly decreasing exponents; multiplicity as subspace finrank; and actual vector-norm
+growth limits on one common conull set. Subspace-field measurability is expressed through distance
+to each fiber.
 
-Quantifier order must cover all relevant nonzero vectors without silently choosing a separate null
-set for each vector. Boundary behavior for zero vectors, zero or repeated exponents, singular
-matrices, zero-dimensional fibers, nonergodic bases, and nonintegrable cocycles must be explicit.
+The quantifier order covers all relevant nonzero vectors without choosing a separate null set per
+vector. Zero vectors are excluded from the logarithmic limit, repeated exponents are consolidated
+into a single higher-rank subspace, and singular matrices, zero-dimensional fibers, nonergodic
+bases, and nonintegrable cocycles are outside this selected variant.
 
 ## Explicit exclusions
 

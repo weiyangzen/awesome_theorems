@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0319-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0319",
+  "audit_date": "2026-07-12",
+  "canonical_declaration": "Stage1Instances.THM_M_0319.BrouwerFixedPointTarget",
+  "canonical_expression_sha256": "2e4dc02230de7a1c08fdf4a19ef0ec1da107297972dee0e85d893bdb33d6a514",
+  "local_environment": {
+    "lean": "4.29.0@98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "candidates": [
+    {
+      "id": "M0319-C01",
+      "kind": "pinned_mathlib",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "result": "no_exact_candidate",
+      "evidence_level": "none",
+      "classification": "M4",
+      "details": "Case-insensitive Brouwer search has only Brouwerian-logic bibliography/vocabulary. Fixed-point search finds interval, contraction, and unrelated fixed-point APIs, not the finite-dimensional compact-convex theorem."
+    },
+    {
+      "id": "M0319-C02",
+      "kind": "external_lean4_anchor_only",
+      "project": "harfe/fixed-point-theorems-lean4",
+      "revision": "11a9f041246d28374edae384241757f9a0cbd5e4",
+      "toolchain": "leanprover/lean4:v4.21.0-rc3",
+      "mathlib_revision": "c873c5d1d1eb371ddca7f0f5eab48e80ed10b7cb",
+      "module": "FixedPointTheorems.brouwer",
+      "declaration": "brouwer_fixed_point",
+      "source_sha256": "6141b8ce5f27496be796a17569a24e8c06b55828db0ec79db7959617f3e14628",
+      "statement_match": "checked_transport_to_exact_target",
+      "transport": "Stage1Instances.THM_M_0319.AnchorAudit.harfe_type_implies_canonical",
+      "terminal_body": "repo source proof via homeo_unit_cube_of_convex_compact and fixed_point_unit_cube; transitive source snapshot contains no sorry, admit, axiom, or unsafe token",
+      "evidence_level": "E3",
+      "classification": "M3",
+      "integration": "not in local dependency closure",
+      "blocker": "The immutable candidate requires Lean 4.21.0-rc3 and mathlib c873c5d1; neither dependency closure is present in the pinned worker environment. Fetch/build was prohibited, and the existing Lean 4.29/mathlib 8a178 environment cannot resolve its local modules without generating external oleans. No upstream independent kernel receipt or axiom report was available."
+    },
+    {
+      "id": "M0319-C03",
+      "kind": "external_lean3_excluded",
+      "project": "mmasdeu/brouwerfixedpoint",
+      "revision": "548270f79ecf12d7e20a256806ccb9fcf57b87e2",
+      "toolchain": "leanprover-community/lean:3.32.1",
+      "mathlib_revision": "c2e6e62a673cbd6bf615389462b452f532c66e99",
+      "result": "not_lean4_and_no_credited_terminal",
+      "classification": "excluded"
+    },
+    {
+      "id": "M0319-C04",
+      "kind": "external_lean3_excluded",
+      "project": "mlavrent/brouwer-fp-formalization",
+      "revision": "94a23ed613d5aa7224b48f17a4c67f52a3496251",
+      "toolchain": "leanprover-community/lean:3.35.1",
+      "mathlib_revision": "d6056eeea7e46b6f3e40411b5284360a4de4ec4c",
+      "result": "not_lean4_and_readme_reports_incomplete_route",
+      "classification": "excluded"
+    },
+    {
+      "id": "M0319-C05",
+      "kind": "repo_local",
+      "project": "awesome_theorems",
+      "revision": "ba66c12eb0b1828b8aa19b6fa8eb2171a454e162",
+      "result": "no_exact_proof_candidate",
+      "classification": "M4",
+      "details": "The target directory contains statement and boundary checks only; other repo fixed-point hits are different theorems or special cases."
+    }
+  ],
+  "search_limits": [
+    "GitHub repository search returned the three named projects; unauthenticated code search returned HTTP 403 rate-limit response.",
+    "grep.app Lean searches returned HTTP 503.",
+    "No dependency was cloned, fetched, updated, or built. Immutable source tarballs were inspected only under /tmp and are represented here by commits and hashes."
+  ],
+  "root_machine_classification": "M3",
+  "audit_complete_for_phase": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "Candidate inventory and exact type transport are self-tested audit evidence only. C02 is anchor-only E3/M3, not M1 or M0-P; no external proof body is in the repo-local validation closure."
+}

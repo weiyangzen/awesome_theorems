@@ -39,3 +39,12 @@ theorem and pages, verify translation and errata, map every definition and assum
 the source-to-statement rows. Before statement credit, those rows must map to an elaborated Lean
 expression without dropping inverse integrability, changing one-sided/two-sided dynamics, replacing
 a splitting by a filtration, or weakening simultaneous almost-everywhere vector growth.
+
+## Formal statement selection
+
+`OseledetsStatement.lean` now freezes and elaborates the conventional finite-dimensional real,
+invertible, ergodic, two-sided splitting variant. In particular it retains inverse measurability and
+inverse logarithmic integrability and places all vector-growth quantifiers under a common conull
+set. This clears the formal statement-selection ambiguity without pretending the repository gloss
+selected that primary-source variant. The primary theorem locator, translation crosswalk, errata,
+and independent source review remain open, so the source classification stays `H2`.
