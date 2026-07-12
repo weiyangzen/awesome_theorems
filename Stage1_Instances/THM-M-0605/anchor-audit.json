@@ -1,0 +1,100 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0605-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0605",
+  "audit_date": "2026-07-12",
+  "base_revision": "c8bb1d8f046a4b2816eb059edc201b88d2063f42",
+  "canonical_target": "Stage1.THM_M_0605.ExoticSevenSphereExists",
+  "canonical_target_expression_sha256": "b45c5a871dc9b5862356b1fd2540c8d770d8b4488230005303cc6b41f7b33469",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source and imported environment",
+    "Sourcegraph public Lean code index",
+    "google-deepmind/formal-conjectures immutable source tree"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, Release",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_source_sha256": "4b9c454dac5fb68da0ff0bac0efe9e5d4ce17c87b9892ff63343c42e761bb8cf",
+    "batteries_revision": "756e3321fd3b02a85ffda19fef789916223e578c",
+    "proof_wanted_source_sha256": "6c4f0bd839bbfc7eb70c191c605e3295fad4e0f48f9beea8466a86f5a3d9db9c",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0605-A-MATHLIB-MARKER",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Geometry.Manifold.PoincareConjecture",
+      "source_path": "Mathlib/Geometry/Manifold/PoincareConjecture.lean",
+      "source_lines": "64-68",
+      "declaration": "exists_homeomorph_isEmpty_diffeomorph_sphere_seven",
+      "type": "existence of a smooth seven-manifold homeomorphic but not diffeomorphic to the standard smooth seven-sphere",
+      "normalized_match": "exact after the checked packaging transport in AnchorAudit.lean",
+      "body_provenance": "none: source uses Batteries proof_wanted",
+      "placeholder_or_axiom_status": "proof_wanted elaborates through a temporary helper axiom inside withoutModifyingEnv; the candidate name is discarded and absent after import",
+      "classification": "M4_statement_only",
+      "toolchain": "Lean 4.29.0 with the repository's pinned mathlib closure",
+      "dependency_feasibility": "already pinned and locally importable",
+      "integration_status": "no retained proof declaration or terminal body exists to wrap"
+    },
+    {
+      "candidate_id": "M0605-A-LOCAL-M0578",
+      "project": "awesome_theorems",
+      "revision": "c8bb1d8f046a4b2816eb059edc201b88d2063f42",
+      "module": "Stage1_Instances/THM-M-0578/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0578.MilnorExoticSphereTarget",
+      "normalized_match": "same mathematical statement shape",
+      "body_provenance": "definition of a proposition; no proof body",
+      "placeholder_or_axiom_status": "not a theorem declaration",
+      "classification": "M4_statement_only",
+      "dependency_feasibility": "repo-local discovery input only; cross-target proof credit is forbidden",
+      "integration_status": "excluded as duplicate statement-only metadata"
+    },
+    {
+      "candidate_id": "M0605-A-FORMAL-CONJECTURES",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "module": null,
+      "declaration": null,
+      "normalized_match": "no exotic-, Milnor-, or sphere-named path in the complete 1204-entry immutable tree",
+      "body_provenance": "not applicable",
+      "placeholder_or_axiom_status": "not applicable",
+      "classification": "no_candidate",
+      "dependency_feasibility": "nothing to integrate",
+      "integration_status": "negative bounded path search only"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "queries": [
+        "exists_homeomorph_isEmpty_diffeomorph_sphere_seven",
+        "exotic 7-sphere",
+        "Milnor sphere",
+        "ExoticSphere"
+      ],
+      "scope": "context:global archived:yes fork:yes lang:Lean count:100",
+      "result": "the exact-name and exotic-phrase queries returned only mathlib's proof_wanted source marker; the other bounded queries returned no proof-bearing candidate",
+      "immutability_boundary": "dated discovery evidence; matched mathlib result was re-audited at the repository pin rather than credited at Sourcegraph's moving indexed commit"
+    },
+    {
+      "surface": "google-deepmind/formal-conjectures recursive tree",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "entries": 1204,
+      "truncated": false,
+      "response_sha256": "76fa3f96fc2ff7fc85addfd1e85852dae3fcb5022fc1ef35b030a3dc1e3efc61",
+      "result": "no path matched exotic, Milnor, or sphere"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The canonical target elaborates and is definitionally connected by a checked Lean transport to the pinned mathlib source marker, but proof_wanted retains no declaration or proof body. No proof-bearing external candidate was found in the bounded searches.",
+  "machine_debt": "formalization_debt",
+  "integration_blocker": "There is no retained external proof declaration to pin, import, inspect, or wrap.",
+  "reopen_condition": "A concrete Lean 4 candidate at an immutable revision with an exact-type transport, retained proof body, compatible license/toolchain, transitive trust audit, and successful repo-local check, or a later deliberately pinned mathlib revision with a proof-bearing declaration.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the immutable formal-anchor inventory and classification. Bounded searches do not establish global absence, the mathlib proof_wanted marker supplies no proof credit, and no theorem-completion claim is made."
+}
