@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-proof-attempt/1.0",
+  "item_id": "S56-M-1084-PROOF",
+  "theorem_id": "THM-M-1084",
+  "attempt_date": "2026-07-12",
+  "base_revision": "d83bcd9bb91558d5f3e2cd99f964cc161d7a0cc5",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "canonical_target": "Stage1Instances.THM_M_1084.DudleyEntropyBoundTarget",
+  "root_machine_state": "M3",
+  "first_failed_gate": "exact repo-local kernel closure for M1084-T-INTEGRABLE and M1084-T-ENTROPY",
+  "remaining_root_cut_set": [
+    "M1084-T-INTEGRABLE",
+    "M1084-T-ENTROPY"
+  ],
+  "implemented_proof_bodies": [],
+  "accepted_receipt_ids": [],
+  "local_search": {
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "result": "supporting Gaussian-process and covering-number declarations only; no exact or transportable terminal Dudley theorem"
+  },
+  "external_candidate": {
+    "project": "YuanheZ/lean-stat-learning-theory",
+    "revision": "be5d5a8a1a1f46f2ec9502980ff10a39e17e3820",
+    "module": "SLT.Dudley",
+    "declaration": "dudley",
+    "integration": "anchor_only_not_in_lake_manifest",
+    "exact_match": false,
+    "mismatch": [
+      "sub-Gaussian MGF and continuity hypotheses rather than the frozen Gaussian and sample-separability interface",
+      "closed-ball WithTop covering numbers rather than the frozen open-ball Nat coveringNumber",
+      "constant 12 * sqrt 2 * sigma rather than 12",
+      "no proof of the frozen supremum-integrability conjunct"
+    ]
+  },
+  "commands": [
+    {"argv": ["python3", "Docs/tools/check_stage1_standard.py"], "exit_code": 0},
+    {"argv": ["python3", "scripts/stage1_target.py", "check"], "exit_code": 0},
+    {"argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-1084"], "exit_code": 0},
+    {"argv": ["python3", "Stage1_Instances/THM-M-1084/check_statement.py"], "exit_code": 0},
+    {"argv": ["python3", "Stage1_Instances/THM-M-1084/check_anchor_audit.py"], "exit_code": 0},
+    {"argv": ["python3", "Stage1_Instances/THM-M-1084/check_obligation_tree.py"], "exit_code": 0},
+    {"argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1084/Statement.lean"], "cwd": "Formalizations/Lean", "exit_code": 0},
+    {"argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1084/AnchorAudit.lean"], "cwd": "Formalizations/Lean", "exit_code": 0},
+    {"recipe": "copy Statement.lean and ObligationTree.lean into a temporary directory under Formalizations/Lean; compile Statement.olean; elaborate ObligationTree.lean with the temporary directory prepended to LEAN_PATH; remove the temporary directory", "exit_code": 0, "axioms": ["propext", "Classical.choice", "Quot.sound"]}
+  ],
+  "known_failures": [
+    "No proof body exists for either root-cut package.",
+    "The external near-candidate is unavailable in the pinned dependency closure and is not the exact target."
+  ],
+  "reopen_condition": "Provide compatible pinned exact bridges and integration, or implement the frozen native chaining obligations through both terminal packages.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This is a fail-closed proof-attempt record, not a worker self-test receipt or a completion claim."
+}
