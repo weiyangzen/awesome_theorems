@@ -1,0 +1,119 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0152-VALIDATION-local-20260712T060404Z",
+  "item_id": "S56-M-0152-VALIDATION",
+  "theorem_id": "THM-M-0152",
+  "base_revision": "e51894725a43642d26ce16e4aad3abaf28393de7",
+  "validated_at": "2026-07-12T06:04:04Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "supersession_state": "current",
+  "review_due": null,
+  "no_expiry_rationale": "Invalidated by any listed source, dependency, toolchain, policy, or validator input change.",
+  "canonical_obligation_ids": [
+    "M0152-ROOT", "M0152-S-DEFINITIONS", "M0152-S-REGULAR",
+    "M0152-S-LOCAL-INVERSE", "M0152-N-LOCAL", "M0152-B-ORIENTATION",
+    "M0152-C-CHRISTOFFEL", "M0152-L-CHAIN", "M0152-L-METRIC-JET",
+    "M0152-L-GAUSS-CANCEL", "M0152-L-INTRINSIC-FORMULA",
+    "M0152-T-INVARIANCE", "M0152-T-ASSEMBLE", "M0152-S-FOUNDATION",
+    "M0152-X-EXTERNAL", "M0152-X-SOURCE", "M0152-X-PROVENANCE"
+  ],
+  "statement_fingerprint": "lean-expression-sha256:898c24a88007838d739dc3ec63103e92ba06df082fa6d0b91557ba3863de2f02#Stage1Instances.THM_M_0152.TheoremaEgregiumTarget",
+  "validated_declarations": [
+    "Stage1Instances.THM_M_0152.Proof.gaussianQuotient_neg_normal",
+    "Stage1Instances.THM_M_0152.Validation.independentGaussianQuotientNegNormal"
+  ],
+  "inputs": {
+    "statement_sha256": "411162ea683f92ccd9dae93e7c2a9b0cbfba3c15996da8be28e33980e143058d",
+    "proof_sha256": "af4248cf6607df0b7c0ab05d97773f2b92f1950c4f1ec95a8d74a59e158c99e3",
+    "validation_probe_sha256": "be9a371577198823a785c6fa8cf77d184471b26d7623612eb5cafcec377bc4f4",
+    "validation_verifier_sha256": "0de4f7850bae751fd3a00730b0d5c75a9678278b6c47a9db02c5a71c87fe151c",
+    "obligation_registry_sha256": "c1c1588dc67d00af3d8a01236c23e8066e41080aef6521078c87be07a2663fd7",
+    "typed_graphs_sha256": "864fcd7c62763bb03236d873634b116650f1c4359ef6eef492e8a1ecd1e34c2f",
+    "proof_receipt_sha256": "47df55d7413717fa543001ec9bbab3ebe6e5b6ea265bcd7ea67f3f47da09e2bd",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "proof_body_classification": "local_partial_proof_body",
+    "proof_module": "Stage1_Instances/THM-M-0152/Proof.lean",
+    "independent_probe_module": "Stage1_Instances/THM-M-0152/Validation.lean",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tactic_source_sha256": "f049def0be2ca7688084314d6d483292c83c43b37798773c8c480436fa5b89cd",
+    "mathlib_tactic_olean_sha256": "9c25edf679cb5f612439e9e790855010ab66fdc54866547ebe1484662400b41a"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "canonical pinned .lake symlink, reused read-only by worker policy"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0152-validation-statement-elaboration",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0152/Statement.lean"],
+      "env_allowlist": {}, "timeout_seconds": 30, "network_policy": "denied",
+      "expected_exit": 0, "covered_obligation_ids": ["M0152-S-DEFINITIONS"],
+      "covered_declarations": ["Stage1Instances.THM_M_0152.TheoremaEgregiumTarget"]
+    },
+    {
+      "recipe_id": "M0152-validation-proof-elaboration",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0152/Proof.lean"],
+      "env_allowlist": {}, "timeout_seconds": 30, "network_policy": "denied",
+      "expected_exit": 0, "covered_obligation_ids": ["M0152-B-ORIENTATION"],
+      "covered_declarations": ["Stage1Instances.THM_M_0152.Proof.gaussianQuotient_neg_normal"]
+    },
+    {
+      "recipe_id": "M0152-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0152/Validation.lean"],
+      "env_allowlist": {}, "timeout_seconds": 30, "network_policy": "denied",
+      "expected_exit": 0, "covered_obligation_ids": ["M0152-B-ORIENTATION"],
+      "covered_declarations": ["Stage1Instances.THM_M_0152.Validation.independentGaussianQuotientNegNormal"]
+    },
+    {
+      "recipe_id": "M0152-validation-independent-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0152/check_validation.py"],
+      "env_allowlist": {}, "timeout_seconds": 30, "network_policy": "denied",
+      "expected_exit": 0, "covered_obligation_ids": ["M0152-ROOT", "M0152-B-ORIENTATION"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0152.Proof.gaussianQuotient_neg_normal",
+        "Stage1Instances.THM_M_0152.Validation.independentGaussianQuotientNegNormal"
+      ]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The canonical statement, partial proof body, and independently reconstructed orientation identity elaborate. Both proof bodies report only propext, Classical.choice, and Quot.sound. The verifier confirms frozen hashes, graph identity, root relevance, open-root boundary, pins, placeholder policy, elaboration, and axiom reports.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass for Statement.lean, Proof.lean, and Validation.lean",
+    "validated_closed_obligation_ids": ["M0152-B-ORIENTATION"],
+    "root_closed": false,
+    "validation_state_proposal": "worker self-test passed for truthful partial validation; pending master acceptance",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof dependency is provisional and the root is open; the intrinsic-formula and coordinate-invariance obligations remain the minimal M4 root cut.",
+    "No exact child-to-parent composition closes TheoremaEgregiumTarget, so complete root provenance and trust closure cannot be computed.",
+    "The worker reused canonical pinned source and compiled artifacts; it did not perform an empty-cache cold build or offline archive restoration.",
+    "Validation.lean is independently implemented but used the same checkout and shared read-only cache; it is not the distinct signed runner required by section 10.7.",
+    "No H0/R0 independent review, SBOM/license bundle, signed attestation pair, protected CI result, or deterministic release bundle exists.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "first_failed_gate": "S56-M-0152-VALIDATION-DEPENDENCY-ROOT-OPEN",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Complete and master-accept the remaining root obligations and composition, then validate an immutable clean snapshot with empty-cache network-denied replay and a distinct independent runner.",
+  "invalidation_inputs": [
+    "Statement.lean", "Proof.lean", "Validation.lean", "check_validation.py",
+    "instance.json", "statement.json", "obligation-registry.json",
+    "typed-graphs.json", "proof-receipt.json", "lake-manifest.json",
+    "lean-toolchain", "mathlib revision or imported closure", "Lean executable",
+    "axiom policy", "rev-5.6 assurance standard"
+  ],
+  "incident_path": "master integration lane"
+}

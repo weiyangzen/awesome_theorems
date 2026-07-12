@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0168-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0168",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "81a476ca1d6d291cdb0760d9dd206fc7ae943180",
+  "target": "Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index including forks and archived repositories",
+    "commit-addressed external Lean 4 source"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0168-C01",
+      "project": "awesome_theorems",
+      "revision": "81a476ca1d6d291cdb0760d9dd206fc7ae943180",
+      "module": "Stage1_Instances/THM-M-0168/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as the statement surface; supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0168-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+      "declarations": [
+        "ContDiff",
+        "fderiv",
+        "ContDiff.differentiable",
+        "contDiff_succ_iff_fderiv",
+        "contDiff_infty_iff_fderiv"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "calculus definitions and derivative regularity only; no minimal-surface or affine-rigidity conclusion",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all five declarations elaborate in the existing pinned Lake environment",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable, but insufficient for the exact theorem"
+    },
+    {
+      "candidate_id": "S56-M-0168-C03",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "modules": [
+        "Atlas/DifferentialGeometry/code/Hypersurfaces.lean",
+        "Atlas/DifferentialGeometry/code/Manifolds.lean"
+      ],
+      "declarations": [
+        "meanCurvature",
+        "meanCurvature_parametric_eq_levelSet"
+      ],
+      "kind": "related_external_anchor_only",
+      "normalized_match": "defines mean curvature and relates parametric and level-set curvature at one point; it neither states the entire minimal-graph hypothesis nor concludes that the graphing function is affine",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "license": "LICENSE exists at the immutable revision; license text was not needed for integration because this is not an exact candidate",
+      "body_provenance": "commit-addressed public source; the displayed meanCurvature_parametric_eq_levelSet has a proof body",
+      "placeholder_or_axiom_status": "no sorry or axiom was found by the bounded indexed search in the two named declarations' directory, but other declarations in the inspected source include sorry (for example rigidity_theorem), so no transitive trust claim is made",
+      "classification": "related_support_anchor_only",
+      "integration_status": "not a repository dependency and not an exact closure; nothing can be credited or wrapped as the root theorem"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "queries": [
+        "context:global fork:yes archived:yes lang:lean Bernstein minimal surface",
+        "context:global fork:yes archived:yes lang:lean bernstein theorem minimal",
+        "context:global fork:yes archived:yes lang:lean meanCurvature",
+        "context:global fork:yes archived:yes lang:lean SatisfiesMinimalSurfaceEquation"
+      ],
+      "result": "the Bernstein/minimal-surface and local predicate-name searches returned matchCount=0; meanCurvature returned four matches, all in atlas-lean at the candidate revision",
+      "immutability_boundary": "dated bounded discovery results; candidate inspection is separately bound to its full commit"
+    },
+    {
+      "surface": "GitHub unauthenticated web code search",
+      "queries": [
+        "minimal surface equation language:Lean",
+        "Bernstein minimal surface language:Lean"
+      ],
+      "result": "sign-in page; no result set was available",
+      "immutability_boundary": "blocked lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact local artifact is only a proposition definition. Pinned mathlib supplies derivative infrastructure but no minimal-surface Bernstein theorem. The sole related public Lean 4 candidate located at an immutable revision only supplies differential-geometric mean-curvature infrastructure and no affine-rigidity result.",
+  "integration_blocker": "No discovered external project provides an exact proof declaration with a type comparable to BernsteinMinimalGraphTarget, so there is no proof body that can be pin/import/check integrated.",
+  "debt_classification": "formalization_debt",
+  "reopen_condition": "A concrete Lean 4 repository URL, immutable commit, toolchain, module, declaration, exact-type transport, terminal proof-body provenance, license, and successful repo-local wrapper check.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor audit, not proof of global absence. It establishes neither H0 nor an obligation tree nor machine closure."
+}
