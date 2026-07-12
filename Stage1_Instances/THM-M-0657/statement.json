@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0657-STATEMENT",
+  "theorem_id": "THM-M-0657",
+  "lifecycle": "planned",
+  "canonical_statement": "Let T be a first-order theory in a countable language. If T is categorical, with model existence, in one uncountable cardinal, then T is categorical, with model existence, in every uncountable cardinal.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0657/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0657.MorleyCategoricityTarget",
+    "elaborated_expression_sha256": "95c7d92148fe7e9375ef83729de47149f0cdecec4ce440308515ddae33442fc2",
+    "statement_file_sha256": "e70540498a70b7836ef9d70446a69753d3610088ab93669281f05a3ea1286131"
+  },
+  "domain_and_universes": "universes u v w; L : FirstOrder.Language.{u,v}; T : L.Theory; source and target cardinals in Cardinal.{w}; Prop in universe 0",
+  "ordered_binders": [
+    "L : FirstOrder.Language.{u,v}",
+    "T : L.Theory",
+    "L.card <= Cardinal.aleph0",
+    "kappa : Cardinal.{w}",
+    "Cardinal.aleph0 < kappa",
+    "CategoricalWithExistence L T kappa",
+    "lambda : Cardinal.{w}",
+    "Cardinal.aleph0 < lambda"
+  ],
+  "conclusion": "CategoricalWithExistence L T lambda",
+  "direct_imports": ["Mathlib.ModelTheory.Satisfiability"],
+  "definition_policy": {
+    "language_countability": "L.card <= Cardinal.aleph0, where mathlib L.card is the supremum of the cardinalities of all function- and relation-symbol types",
+    "categoricity": "HasModelCardinality L T kappa and Cardinal.Categorical kappa T",
+    "model_existence": "there exists a nonempty bundled T.ModelType in universe w with Cardinal.mk exactly kappa",
+    "uniqueness": "mathlib Cardinal.Categorical: every two bundled T-models of cardinality kappa are nonempty-isomorphic as L-structures",
+    "completeness": "not added as a separate hypothesis",
+    "uncountable": "strict Cardinal.aleph0 < cardinal"
+  },
+  "checked_transport": "Stage1Instances.THM_M_0657.morleyCategoricityTarget_iff_existentialSourceShape",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0657/check_statement.py",
+    "killed": [
+      "removed countable-language hypothesis",
+      "changed strict uncountable domain to include aleph0",
+      "moved the theory binder beneath a uniform source-categoricity premise",
+      "changed the conclusion to categoricity at the countable boundary"
+    ],
+    "boundary_probes": [
+      "Stage1Instances.THM_M_0657.categoricalWithExistence_hasModel",
+      "Stage1Instances.THM_M_0657.aleph0_not_uncountable"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact intake-selected target, its explicit nonvacuous categoricity convention, an existential-source transport, four structural mutations, and two boundary probes. It provides no proof of Morley's theorem and no dependent-node evidence."
+}

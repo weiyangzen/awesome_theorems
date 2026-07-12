@@ -11,13 +11,13 @@
   "canonical_statement": "Let T be a first-order theory in a countable language. If T is categorical in one uncountable cardinal, then T is categorical in every uncountable cardinal.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase_and_model_theory_api_selection"
+    "module": "Stage1_Instances/THM-M-0657/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0657.MorleyCategoricityTarget",
+    "elaborated_expression_hash": "sha256:95c7d92148fe7e9375ef83729de47149f0cdecec4ce440308515ddae33442fc2",
+    "environment_fingerprint": "statement.json#environment_fingerprint",
+    "gate_state": "self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "A countable first-order language L; an L-theory T; infinite cardinals kappa and lambda. Exact Lean universes, cardinal representation, syntax, semantics, and model isomorphism APIs remain to be selected in the statement phase.",
+  "domain_and_universes": "universes u v w; L : FirstOrder.Language.{u,v}; T : L.Theory; L.card <= Cardinal.aleph0; kappa lambda : Cardinal.{w}; strict uncountability is Cardinal.aleph0 < cardinal; categoricity combines an exact-cardinality nonempty bundled model with mathlib structure-isomorphism uniqueness.",
   "ordered_binders": [
     "a first-order language L with at most countably many symbols",
     "an L-theory T",
@@ -41,8 +41,8 @@
     {
       "target": "For all uncountable kappa and lambda, categoricity of T in kappa implies categoricity of T in lambda",
       "relationship": "equivalent after moving the existential source cardinal into universally quantified implication form",
-      "checked_witness": null,
-      "status": "candidate_only"
+      "checked_witness": "Stage1Instances.THM_M_0657.morleyCategoricityTarget_iff_existentialSourceShape",
+      "status": "checked"
     },
     {
       "target": "The spectrum of uncountable cardinals in which T is categorical is either empty or all uncountable cardinals",
@@ -55,7 +55,7 @@
   "foundation_profile": "Lean 4 dependent type theory with a later explicit policy for classical choice, quotients, cardinal arithmetic, and model existence; no principle is credited at intake.",
   "tcb_profile": "Lean 4 kernel plus the repository-pinned mathlib environment; exact executable, imports, options, and transitive dependency closure remain open.",
   "computation_profile": "No computation, oracle, experiment, external theorem, or proof body is credited at intake.",
-  "formal_system": "Lean 4 + pinned mathlib, pending selection or construction of first-order model-theory APIs.",
+  "formal_system": "Lean 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; statement surface uses Mathlib.ModelTheory.Satisfiability.",
   "source_revisions": "Repository metadata and Morley's 1965 primary paper are identified in source-statement-crosswalk.md. Full-text capture, pinpoint premise mapping, errata review, immutable source hashing, and independent review remain open.",
   "scope_nodes": [
     "MOR-ROOT uncountable categoricity transfer",
@@ -80,11 +80,11 @@
   "freshness_and_revocation_policy": "Invalidate on changes to the countability scope, categoricity or model-existence convention, cardinal domain, source edition, Lean target, imports/toolchain, foundation/TCB policy, or rev-5.6 standard. Master acceptance is required before promotion.",
   "root_vector": {
     "human": "H1",
-    "machine": "M4",
+    "machine": "M3",
     "readability": "R3"
   },
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
-  "status_boundary": "This planned intake freezes the standard uncountable-categoricity transfer claim and its unresolved conventions. It does not elaborate a Lean proposition, accept source fidelity, establish a model-theory API, provide a proof body, or claim audit/theorem completion."
+  "status_boundary": "This planned instance now includes a self-tested Lean statement and checked existential-source transport pending master acceptance. It does not accept source fidelity, provide a proof body, or claim audit/theorem completion."
 }

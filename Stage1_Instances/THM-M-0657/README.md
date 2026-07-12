@@ -24,20 +24,26 @@ encodings, and provisional debt vector are authoritative in `intake.json`.
 The relationship between repository wording and the primary paper is recorded
 in `source-statement-crosswalk.md`.
 
+## Statement phase
+
+The exact target now elaborates as
+`Stage1Instances.THM_M_0657.MorleyCategoricityTarget` in `Statement.lean`.
+`statement.json` freezes its expression and environment fingerprints, explicit
+nonvacuous categoricity convention, checked existential-source transport,
+mutations, and boundary probes. This remains statement-only work at `M3` and
+does not supply a proof of Morley's theorem.
+
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-Only `S56-M-0657-INTAKE` is addressed here. The dependent statement phase must
-choose exact syntax/semantics/cardinal APIs, elaborate the proposition with
-minimal pinned imports, settle the source conventions, fingerprint the
-environment, and run the required mutations before proof discovery receives
-credit.
+`S56-M-0657-INTAKE` and the provisional worker statement node are addressed.
+Master acceptance is still required. Anchor audit and all later phases remain
+open.
 
 ## Intake verdict
 
-Lifecycle is `planned`; the provisional root vector is `[H1, M4, R3]`.
-The first open theorem gate is the Lean statement gate. No accepted proof
-state, audit completion, theorem completion, or master receipt is asserted.
-The commands in `validation.md` validate only membership and dossier
-structure.
+Lifecycle is `planned`; the provisional root vector after statement
+elaboration is `[H1, M3, R3]`. No accepted proof state, audit completion,
+theorem completion, or master receipt is asserted. `validation.md` remains the
+intake record; `statement-validation.md` records the scoped Lean evidence.
