@@ -1,0 +1,99 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0525-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0525",
+  "execution_rank": 582,
+  "canonical_name": "Fundamental group",
+  "source_claim_verbatim_translation": "The group of path-homotopy classes of a topological space.",
+  "canonical_statement": "For a topological space X with a chosen basepoint x, the based loops at x modulo endpoint-preserving path homotopy form a group: multiplication is induced by path concatenation, the identity by the constant loop, and inverse by path reversal.",
+  "canonical_claim_kind": "construction_with_group_laws",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module_candidate": "Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup",
+    "declaration_candidates": [
+      "FundamentalGroup",
+      "instGroupFundamentalGroup"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "X : Type u with TopologicalSpace X; x : X; the resulting FundamentalGroup X x is in a universe determined by X.",
+  "ordered_binders": [
+    "universe u",
+    "X : Type u",
+    "[TopologicalSpace X]",
+    "x : X"
+  ],
+  "hypotheses": [
+    "X carries a topological-space structure",
+    "x is a chosen basepoint of X"
+  ],
+  "conclusion": "Endpoint-preserving homotopy classes of loops x to x carry the concatenation group structure.",
+  "scope_nodes": [
+    "FG-ROOT based-loop homotopy classes form a group",
+    "FG-PATH paths and endpoint-preserving path homotopy",
+    "FG-QUOT quotient of paths by homotopy",
+    "FG-MUL concatenation descends to the quotient",
+    "FG-ONE the constant loop is the identity",
+    "FG-INV reversal descends and gives inverse",
+    "FG-LAWS associativity and two-sided identity/inverse laws"
+  ],
+  "alternate_encodings": [
+    {
+      "target": "End (FundamentalGroupoid.mk x)",
+      "relationship": "mathlib definition candidate for FundamentalGroup X x",
+      "checked_witness": "discovery-only #check in IntakeProbe.lean; definitional equality and normalized type remain for statement phase"
+    },
+    {
+      "target": "Path.Homotopic.Quotient x x",
+      "relationship": "underlying based path-homotopy quotient candidate",
+      "checked_witness": "discovery-only #check in IntakeProbe.lean; no transport is credited at intake"
+    },
+    {
+      "target": "HomotopyGroup.pi1EquivFundamentalGroup",
+      "relationship": "candidate equivalence with the first homotopy group",
+      "checked_witness": "not imported or checked by this intake; excluded from root"
+    }
+  ],
+  "boundary_cases": [
+    "No connectedness hypothesis is needed to define the group at a chosen basepoint.",
+    "An empty space has no selectable basepoint, so the binder x rules it out without a separate nonemptiness hypothesis.",
+    "Changing basepoint gives only a path-dependent isomorphism in general; unbased or free-loop homotopy classes are not the root.",
+    "The one-point space and spaces with only null-homotopic based loops yield a trivial group but remain in scope."
+  ],
+  "explicit_exclusions": [
+    "the fundamental groupoid as a substitute for the vertex group",
+    "free homotopy classes of unbased loops",
+    "basepoint independence without path-connectedness and a chosen path",
+    "computations of the fundamental group of a particular space",
+    "the Seifert-van Kampen theorem and covering-space classification"
+  ],
+  "foundation_profile": "Lean 4 dependent type theory with quotient types and category/group structures; exact classical-choice use and axiom closure remain open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact toolchain, imports, and transitive dependency closure remain for statement and validation phases",
+  "computation_profile": "No computation, native code, oracle, or external result is credited at intake",
+  "formal_system": "Lean 4 v4.29.0 candidate environment with mathlib commit 8a178386ffc0f5fef0b77738bb5449d50efeea95; acceptance of the fingerprint is deferred",
+  "source_revisions": "Repository source and discovery citations are crosswalked in source_statement_crosswalk.md; primary-source pinpointing, hashes, errata, and independent review remain open",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0525/README.md",
+    "Stage1_Instances/THM-M-0525/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, based-loop/homotopy convention, Lean target, source pins, imports/toolchain, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the based-loop construction scope only. The Lean probe establishes candidate API availability, not the exact statement, proof closure, source closure, or theorem completion."
+}
