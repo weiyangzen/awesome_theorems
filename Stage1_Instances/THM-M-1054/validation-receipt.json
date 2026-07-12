@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-worker-validation-receipt/1.0",
+  "receipt_id": "VALREC-M1054-20260712-NONRELEASE-M1",
+  "item_id": "S56-M-1054-VALIDATION",
+  "theorem_id": "THM-M-1054",
+  "depends_on": ["S56-M-1054-PROOF"],
+  "base_revision": "6c2108d725fc300302148b2400ef718bbed05d76",
+  "validated_at": "2026-07-12T00:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "self_tested_pending_master_acceptance",
+  "inputs": {
+    "Statement.lean": "553a0ea00cbad0c7168787901522ad316734450e72886371621dab26a5a4888a",
+    "ObligationTree.lean": "d9a61d256b1c574189b64e2b7a125b2eb78a55d1647b3da2d2b4849460010f02",
+    "Proof.lean": "40a65bc109a0fac7b96f9234cabe05312abb127f1883707499dc5fbcc05e43e1",
+    "obligation-registry.json": "b232bd064d6553dc2b104de035ba9005685dda3de11123e744f9828eebe877fd",
+    "typed-graphs.json": "f5068e00fad50d996936c6d564ee3a9cd0566e79a5662c43141043f6ae31e6ef",
+    "proof-receipt.json": "6e4a818b4e96e5def95c46988df50e963f4fc1c6d2888b504c05cbe2da8b03a5"
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree_tracked_clean": true,
+    "cache_mode": "warm shared canonical .lake symlink; nonrelease evidence only",
+    "network_isolation": "not established; unshare -n was denied by the host"
+  },
+  "recipe_results": [
+    {"recipe_id": "VAL-M1054-KERNEL", "exit": 0, "result": "all three modules elaborated into a new temporary output directory; exact root reached the kernel"},
+    {"recipe_id": "VAL-M1054-STRUCTURE", "exit": 0, "result": "frozen registry and typed graphs passed their structural checker"},
+    {"recipe_id": "VAL-M1054-PROOF-HYGIENE", "exit": 0, "result": "proof hashes and exact integration fragments passed; no forbidden mechanism found"}
+  ],
+  "trust_closure": {
+    "root_of_nontrivialMeanErgodicPackage": ["propext", "Classical.choice", "Quot.sound"],
+    "nontrivialMeanErgodicPackage_proof": ["propext", "Classical.choice", "Quot.sound"],
+    "vonNeumannL2MeanErgodic": ["propext", "Classical.choice", "Quot.sound"],
+    "foundation_profile_comparison": "blocked: no versioned accepted/disallowed foundation profile exists in the dossier",
+    "transitive_tcb_inventory": "blocked: no complete hashed TCB/SBOM record exists"
+  },
+  "provenance": {
+    "terminal_declaration": "ContinuousLinearMap.tendsto_birkhoffAverage_orthogonalProjection",
+    "origin": "mathlib4@8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "source_file": "Mathlib/Analysis/InnerProductSpace/MeanErgodic.lean",
+    "source_sha256": "627c02d75fea2c740dd42d741375b8d38fbc8f85ac4a960ecc9de28995312b9b",
+    "source_defining_commit": "33a7291a345d718bca41f8ae8a9bae365d8f2a3e",
+    "local_wrapper": "Stage1Instances.THM_M_1054.nontrivialMeanErgodicPackage_proof",
+    "full_transitive_declaration_closure": "not yet serialized and independently checked"
+  },
+  "root_decision": {
+    "machine_debt": "M1",
+    "kernel_closed": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "first_failed_gates": [
+    "trust.accepted_foundation_profile",
+    "trust.complete_tcb_inventory",
+    "hermetic.cold_empty_cache_offline_replay",
+    "independent.distinct_runner"
+  ],
+  "invalidation_inputs": ["statement", "obligation composition", "proof source", "registry", "typed graphs", "toolchain", "dependency pins", "foundation profile", "TCB profile", "validation spec"],
+  "review_due": "before master acceptance or after any invalidation input changes",
+  "revocation_state": "not revoked",
+  "status_boundary": "This is nonrelease worker evidence for exact kernel closure and partial pinned provenance. Missing accepted foundation/TCB profiles, cold offline replay, and a distinct runner prevent M0/E0/E1, theorem completion, and release claims."
+}

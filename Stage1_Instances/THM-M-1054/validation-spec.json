@@ -1,0 +1,36 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1054-VALIDATION",
+  "theorem_id": "THM-M-1054",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M1054-KERNEL",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "-c", "create a fresh temporary output directory, copy Statement.lean, ObligationTree.lean, and Proof.lean, then elaborate them in dependency order with lake env lean and an explicit LEAN_PATH"],
+      "network_policy": "not_enforced_process_did_not_require_network",
+      "cache_policy": "existing pinned canonical .lake; fresh target-local olean outputs",
+      "expected_exit": 0,
+      "covered_declarations": [
+        "Stage1Instances.THM_M_1054.root_of_nontrivialMeanErgodicPackage",
+        "Stage1Instances.THM_M_1054.nontrivialMeanErgodicPackage_proof",
+        "Stage1Instances.THM_M_1054.vonNeumannL2MeanErgodic"
+      ]
+    },
+    {
+      "recipe_id": "VAL-M1054-STRUCTURE",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-1054/check_obligation_tree.py"],
+      "network_policy": "denied_not_needed",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M1054-ROOT"]
+    },
+    {
+      "recipe_id": "VAL-M1054-PROOF-HYGIENE",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-1054/check_proof.py"],
+      "network_policy": "denied_not_needed",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M1054-ROOT", "M1054-B-NONTRIVIAL", "M1054-T-ASSEMBLE"]
+    }
+  ]
+}
