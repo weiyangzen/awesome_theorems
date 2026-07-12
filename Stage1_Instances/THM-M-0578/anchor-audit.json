@@ -1,0 +1,108 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0578-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0578",
+  "audit_date": "2026-07-12",
+  "base_revision": "f247e0d21ae7b4235e6bc7f78c1fad05b754ff16",
+  "canonical_target": "Stage1Instances.THM_M_0578.MilnorExoticSphereTarget",
+  "canonical_target_expression_sha256": "c9d29902fc3b1bd25c4a83aa5daaa4ce201798576d7b5e16e9bbc05e76a9d32c",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source and imported environment",
+    "Sourcegraph public Lean code index",
+    "GitHub repository and authenticated-code-search endpoints",
+    "google-deepmind/formal-conjectures immutable source tree"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_source_sha256": "4b9c454dac5fb68da0ff0bac0efe9e5d4ce17c87b9892ff63343c42e761bb8cf",
+    "batteries_revision": "756e3321fd3b02a85ffda19fef789916223e578c",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0578-A-LOCAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "f247e0d21ae7b4235e6bc7f78c1fad05b754ff16",
+      "module": "Stage1_Instances/THM-M-0578/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0578.MilnorExoticSphereTarget",
+      "type": "existence of a smooth seven-manifold homeomorphic but not diffeomorphic to the standard smooth seven-sphere",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definition of a proposition; no proof body",
+      "placeholder_or_axiom_status": "not a theorem declaration",
+      "classification": "M4_statement_only",
+      "integration_status": "already local and elaborated; no proof credit"
+    },
+    {
+      "candidate_id": "M0578-A-MATHLIB-MARKER",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Geometry.Manifold.PoincareConjecture",
+      "source_path": "Mathlib/Geometry/Manifold/PoincareConjecture.lean",
+      "source_lines": "64-68",
+      "declaration": "exists_homeomorph_isEmpty_diffeomorph_sphere_seven",
+      "type": "exact source-level match after expansion of local sphere/model-space macros",
+      "normalized_match": "exact statement marker",
+      "body_provenance": "none: declared with Batteries proof_wanted",
+      "placeholder_or_axiom_status": "proof_wanted uses a temporary helper axiom under withoutModifyingEnv and discards it; the name is absent after import",
+      "classification": "M4_statement_only",
+      "toolchain": "repository Lean 4.29.0 and pinned mathlib closure",
+      "dependency_feasibility": "already pinned and imported locally",
+      "integration_status": "no retained theorem body exists to wrap or credit"
+    },
+    {
+      "candidate_id": "M0578-A-FORMAL-CONJECTURES",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "module": null,
+      "declaration": null,
+      "normalized_match": "no exotic-, Milnor-, or sphere-named path in the complete 1204-entry immutable tree",
+      "body_provenance": "not applicable",
+      "placeholder_or_axiom_status": "not applicable",
+      "classification": "no_candidate",
+      "dependency_feasibility": "nothing to integrate",
+      "integration_status": "negative bounded tree search only"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "queries": ["exists_homeomorph_isEmpty_diffeomorph_sphere_seven", "exotic 7-sphere", "Milnor sphere", "ExoticSphere"],
+      "scope": "context:global archived:yes fork:yes lang:Lean count:100",
+      "result": "each query returned done=true and matchCount=0",
+      "immutability_boundary": "dated discovery result, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "queries": ["exotic sphere lean", "Milnor sphere lean", "exotic-sphere lean4", "diffeomorph_sphere_seven"],
+      "result": "each query returned total_count=0 and incomplete_results=false",
+      "immutability_boundary": "dated discovery result, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "exotic sphere language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked lane; no negative search result claimed"
+    },
+    {
+      "surface": "google-deepmind/formal-conjectures recursive tree",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "entries": 1204,
+      "truncated": false,
+      "response_sha256": "76fa3f96fc2ff7fc85addfd1e85852dae3fcb5022fc1ef35b030a3dc1e3efc61",
+      "result": "no path matched exotic, Milnor, or sphere"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The local target elaborates and pinned mathlib has the same source-level statement, but proof_wanted retains no declaration or proof body. No exact external Lean 4 proof candidate was found in the bounded searches.",
+  "machine_debt": "formalization_debt",
+  "integration_blocker": "There is no retained external proof declaration to pin, import, or check. Authenticated GitHub code search was unavailable, but no completion or exhaustive-absence claim depends on that lane.",
+  "reopen_condition": "A concrete Lean 4 candidate with an immutable revision, exact type comparison, retained proof body, transitive trust audit, compatible license/toolchain, and successful repo-local wrapper check, or a later pinned mathlib revision with a proof-bearing declaration.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the immutable formal-anchor inventory and classification. Bounded negative searches do not establish global absence, the mathlib proof_wanted marker supplies no proof credit, and no theorem-completion claim is made."
+}

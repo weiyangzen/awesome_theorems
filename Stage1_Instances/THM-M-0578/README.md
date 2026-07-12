@@ -47,3 +47,13 @@ result. `Statement.lean` freezes the exact target as existence of a smooth seven
 homeomorphic, but not diffeomorphic, to the standard smooth seven-sphere. The target and four
 structural mutations elaborate under the pinned Lean environment. This is statement-only evidence:
 the root remains unproved and master acceptance is pending.
+
+## Anchor-audit phase
+
+The immutable candidate ledger is recorded in `anchor-audit.json`. At pinned
+mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the exact candidate
+is a `proof_wanted` source marker discarded after signature elaboration, not a
+retained theorem. Bounded external searches found no exact proof-bearing Lean 4
+candidate; authenticated GitHub code search was unavailable and is not treated
+as a negative result. The root remains `M4` with `formalization_debt`; this
+phase supplies no proof or theorem-completion credit.
