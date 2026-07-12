@@ -1,0 +1,78 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0536-RELEASE",
+  "theorem_id": "THM-M-0536",
+  "intent": "release",
+  "base_revision": "60aae17521cd359d0473812b6927789cb4fee9e6",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0536-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0536-VALIDATION-local-20260712T051336Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "d2063b93b843bbfc176823614c8db219cfcd1c8271a2fad34008aafc4698096e"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0536-PROOF-local-20260712",
+    "S56-M-0536-VALIDATION-local-20260712T051336Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M4", "R4"],
+    "accepted_after": ["H1", "M4", "R4"],
+    "best_provisional_machine_evidence": "M0-W",
+    "boundary": "The exact root has placeholder-free same-worker kernel evidence through a repo-local wrapper of pinned mathlib, but no receipt is master-accepted or release-grade. Human-source and readable-review evidence remain H1 and R4."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0536-VALIDATION is worker-provisional and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused the canonical warm dependency cache; no empty-cache, network-denied cold build or offline archive replay exists."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0536-VALIDATION and all transitive phase receipts",
+    "reconciliation of the stale frozen typed graph with the provisional exact-root proof without rewriting historical evidence",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured readable reconstruction with independent reader review",
+    "complete transitive declaration provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "complete dependency SBOM, license closure, and durable archive restoration",
+    "two signed attestations from separately provisioned independent runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI plus required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle, public-surface reconciliation, and master acceptance"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "statement_sha256": "9aa4bda4f3240abe9fcb450b4012842a8a4635f1196fc2774fd97c1c97cc7294",
+    "exact_root_declaration": "Stage1.THM_M_0536.homotopyInvariance",
+    "proof_body_classification": "local_wrapper_of_pinned_mathlib_terminal_body",
+    "exact_root_kernel_check": "pass as provisional same-worker evidence",
+    "root_composition": "pass as provisional same-worker evidence",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "frozen_graph_reconciliation": "missing master reconciliation; graph still records accepted root open",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_and_archive": "missing",
+    "independent_release_verification": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "The integration lane must first accept and reconcile the phase dependency chain. A separately provisioned release lane must then close H0/R0 review, full provenance and supply-chain evidence, cold offline reproduction, independent attestations and verifier, mutation/CI gates, and deterministic bundle validation before master acceptance.",
+  "status_boundary": "This is a truthful negative worker release decision. It creates no accepted receipt, changes no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, or theorem completion."
+}
