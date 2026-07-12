@@ -1,0 +1,85 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0644-RELEASE",
+  "theorem_id": "THM-M-0644",
+  "intent": "release",
+  "base_revision": "342a2a84e882f1306db716fac3b986c3e2f1db8f",
+  "base_tree": "47de6d87334ea87433a928e6a3d314a0006d4bf7",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0644-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0644-VALIDATION-local-20260712T063322Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "aacdfd708d0c30226fc7b7ff5cf6c76d4c1c76b80ca43f0cff95ddd0b0c05182"
+  },
+  "reconciled_inputs": {
+    "instance.json": "7d6560ffe431efe54ad1b05d57ccad26dde47df8f7482345e55919dd2bdd7095",
+    "statement.json": "fd01b9dcc4e5b2f9e2fbaec4ff857d3e1f8db5a01dbce21a6ed31bc278d575df",
+    "anchor-audit.json": "1f053273eb62294aed88416ebbd424f8eb9d1e3e6f20a18f80a278173d280aac",
+    "obligation-registry.json": "bca9f82123b2c6df51d06dd535b48a038b4d08939904c182e46cfccde3cd5109",
+    "typed-graphs.json": "c056ffcaa78003f804d04f22a2fdbf8bba6efc10accf781d8a91a576da11d5a6",
+    "Proof.lean": "9e6f0d5b433e384729efd69f080ce9db25f61ba61dbe37fc9ac2f81862d67b1a",
+    "proof-receipt.json": "ea53a734d5142fe932e918e49a7cf6569d31bdb3ae820076654226c48cbd40ce",
+    "validation-spec.json": "144e998ec06a83f89ce2f0fa6e37c9b9b9b720da6e59e6618c95e1949359ee2d",
+    "validation-receipt.json": "aacdfd708d0c30226fc7b7ff5cf6c76d4c1c76b80ca43f0cff95ddd0b0c05182"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0644-PROOF-local-20260712",
+    "S56-M-0644-VALIDATION-local-20260712T063322Z"
+  ],
+  "root_vector": {
+    "before": ["H1", "M3", "R4"],
+    "after": ["H1", "M3", "R4"],
+    "boundary": "The frozen authoritative graph remains M3 and open. Narrow worker evidence checks an exact mathlib-backed root, but it is provisional and has not been reconciled by the master. Primary-source and readable-review gates remain H1 and R4."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0644-VALIDATION has provisional worker support only and no master-accepted receipt, so the release node is not dependency-legal."
+  },
+  "next_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused a shared writable warm dependency cache; no immutable empty-cache network-denied build or offline archive replay exists."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance and authoritative graph reconciliation for the statement, anchor, obligation, proof, and validation phase receipts",
+    "accepted H0 primary-source edition/theorem/page/assumption/errata crosswalk and independent source review",
+    "accepted R0 unique anchored structured reconstruction and independent reader review",
+    "complete transitive declaration provenance, accepted foundation policy, trust closure, and TCB inventory",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI plus required mutation and metamorphic fixtures",
+    "deterministic content-addressed evidence bundle and master acceptance"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_replay": "pass as provisional worker evidence",
+    "authoritative_root_machine_debt": "M3",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "local_placeholder_policy": "pass",
+    "dependency_pin_and_terminal_provenance": "pass for the narrow warm-cache validation surface",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "The master must first accept and reconcile the dependency chain. A separately provisioned release lane must then complete H0/R0 and trust review, cold offline replay, supply-chain closure, independent attestations and verifier, and the deterministic evidence bundle before a new release decision.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It changes no lifecycle or debt state, accepts no receipt, and does not claim AUDIT-Z, THEOREM-Z, or theorem completion."
+}
