@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1131-RELEASE",
+  "theorem_id": "THM-M-1131",
+  "intent": "release",
+  "base_revision": "767bcb5c33375def04fc8f536c5a5e3f27c31aa0",
+  "evaluated_snapshot": {
+    "worktree_classification": "nonrelease",
+    "reason": "The worker clone has an untracked shared canonical .lake symlink and this decision is new worker evidence.",
+    "validation_receipt_id": "S56-M-1131-VALIDATION-local-20260712T023739Z",
+    "validation_support_state": "provisional_worker_selftest",
+    "validation_release_grade": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": {"human": "H1", "machine": "M3", "readability": "R3"},
+    "root_vector_after": {"human": "H1", "machine": "M3", "readability": "R3"},
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "accepted_receipt_ids": []
+  },
+  "positive_evidence": [
+    "The exact frozen Lean statement, conditional composition, local proof root, and same-worker independently implemented root elaborate under the pinned warm environment.",
+    "The narrow validator reports only propext, Classical.choice, and Quot.sound and passes its placeholder, unsafe, pin, and local provenance checks.",
+    "The target-set and rev-5.6 structural validators pass for all 1546 metadata-screened targets."
+  ],
+  "failed_gates": [
+    {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "The authoritative validation prerequisite is still provisional [_], not master accepted [x]."
+    },
+    {
+      "gate_id": "S56-ROOT-STATE-RECONCILIATION",
+      "reason": "The frozen typed graph still truthfully records the root as open M3 and theorem_complete=false."
+    },
+    {
+      "gate_id": "S56-H0-SOURCE",
+      "reason": "No independently reviewed primary-source edition/theorem/page/assumption/errata crosswalk closes H0."
+    },
+    {
+      "gate_id": "S56-R0-RECONSTRUCTION",
+      "reason": "No unique anchored readable reconstruction with independent review closes R0."
+    },
+    {
+      "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+      "reason": "Evidence reused a shared warm dependency cache; no immutable clean empty-cache build, offline restoration, complete TCB inventory, SBOM/license archive, or deterministic release bundle exists."
+    },
+    {
+      "gate_id": "S56-10.7-INDEPENDENT-VERIFICATION",
+      "reason": "There are not two signed attestations from independently provisioned clean runners with no shared writable cache, nor an accepted independent minimal verifier."
+    },
+    {
+      "gate_id": "S56-10.4-MASTER-ACCEPTANCE",
+      "reason": "No integration-lane receipt accepts the prerequisite nodes or this release decision."
+    }
+  ],
+  "first_failed_gate": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+  "remaining_root_cut_set": [
+    "master acceptance and authoritative reconciliation of all prerequisite nodes",
+    "H0 primary-source crosswalk and independent review",
+    "R0 unique readable reconstruction and independent review",
+    "complete axiom, transitive declaration, TCB, provenance, and supply-chain closure",
+    "immutable clean cold empty-cache build plus network-denied offline replay",
+    "deterministic release archive with SBOM/licenses and durable recovery evidence",
+    "two qualifying independent signed runner attestations and minimal-verifier agreement"
+  ],
+  "retry_condition": "After the integration lane accepts the dependency chain, reconcile the authoritative graph, then evaluate a clean immutable snapshot using the full hermetic, source, readability, TCB, supply-chain, deterministic-bundle, and independent-verification protocol.",
+  "status_boundary": "This is a self-tested worker release decision that fails closed. It grants no accepted node, E0/E1, AUDIT-Z, THEOREM-Z, theorem completion, or release credit."
+}
