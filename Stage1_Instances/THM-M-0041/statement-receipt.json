@@ -1,0 +1,173 @@
+{
+  "schema_version": "stage1-provisional-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0041-STATEMENT-worker-selftest",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "accepted": false,
+  "acceptance_status": "unsigned_provisional_worker_report",
+  "item_id": "S56-M-0041-STATEMENT",
+  "theorem_id": "THM-M-0041",
+  "phase": "statement",
+  "intent": "statement",
+  "base_revision": "0ea006c25dcbfe400adbb084c0a3476a9b271741",
+  "base_tree": "ff2e3bde08d7f5d6c83519160a4a6bd2cb7526db",
+  "proposed_state": "[_]",
+  "verdict": "no_state_change",
+  "worktree_state": "dirty_nonrelease_automation_provided_untracked_canonical_lake_symlink_plus_owned_statement_outputs",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0041/BoundaryProbe.lean",
+    "Stage1_Instances/THM-M-0041/README.md",
+    "Stage1_Instances/THM-M-0041/Statement.lean",
+    "Stage1_Instances/THM-M-0041/check_statement.py",
+    "Stage1_Instances/THM-M-0041/instance.json",
+    "Stage1_Instances/THM-M-0041/scope-map.md",
+    "Stage1_Instances/THM-M-0041/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0041/statement-receipt.json",
+    "Stage1_Instances/THM-M-0041/statement-validation.md",
+    "Stage1_Instances/THM-M-0041/statement.json",
+    "Stage1_Instances/THM-M-0041/task-dag.json"
+  ],
+  "diff_summary": "froze and self-tested the exact finite square-matrix Cayley-Hamilton target, expanded det(X I - A) definition, minimal imports with the candidate theorem unavailable, empty/zero-ring boundaries, four mutation classes, fingerprints, and provisional statement evidence",
+  "exact_statement_delta": "created Stage1Instances.THM_M_0041.CayleyHamiltonTarget over implicit universe-u CommRing R and implicit universe-v finite decidable n, universally quantifying A : Matrix n n R and concluding Polynomial.aeval A (det (X I - A)) = 0",
+  "ownership_and_change_impact": "target-owned THM-M-0041 files only, plus the scheduler-authorized root self-test handoff; no shared authority or another target changed",
+  "statement_fingerprints": ["sha256:5aad8415af4578ca43d0ec58eee038ed4470dce17896766215d3bf9f49d8e711"],
+  "statement_file_sha256": "3b218c1a96922399bb8ed2d852d556422a92901dca10efdd431a677eaefd2b0b",
+  "boundary_probe_sha256": "ba5758ff5c612108e203007c0b5e04fe239697771540114c4e3938f370135e3e",
+  "lean_output_sha256": "eccdbbe3150ca0d246e8381821b5b2f3740fbe4a2927c5f239507c781564ffdc",
+  "direct_imports": [
+    "Mathlib.Algebra.Polynomial.AlgebraMap",
+    "Mathlib.LinearAlgebra.Matrix.Determinant.Basic"
+  ],
+  "minimal_import_check": "Deleting AlgebraMap removes Polynomial.aeval support; deleting Determinant.Basic removes matrix/determinant support. The proof-bearing Charpoly.Basic module is absent, and Lean confirms Matrix.charpoly and Matrix.aeval_self_charpoly are unavailable.",
+  "checked_transports": [],
+  "mutation_tests": [
+    {"kind": "removed_hypothesis", "declaration": null, "result": "literal removal of CommRing R is rejected during elaboration"},
+    {"kind": "changed_domain", "declaration": "mutationChangedDomainToField", "result": "distinct explicit expression and rejected by #check_failure"},
+    {"kind": "changed_binder_scope", "declaration": "mutationChangedMatrixBinderScope", "result": "distinct explicit expression and rejected by #check_failure"},
+    {"kind": "boundary_case", "declaration": "mutationExcludedBoundaries", "result": "distinct explicit expression and rejected by #check_failure"}
+  ],
+  "boundary_witnesses": [
+    "BoundaryProbe.lean elaborates the target expression at Matrix Empty Empty R",
+    "BoundaryProbe.lean elaborates the target expression over the zero ring PUnit and checks 0 = 1"
+  ],
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "polynomial_algebra_map_source_sha256": "e6db579a99dcbed160c598103c215d07807699dac1fce406db7bbc37b38de228",
+    "matrix_determinant_basic_source_sha256": "18fd46c88d720a62e6ffc03b220827109dd812caa3a7f51683bb36265aaa9bd8"
+  },
+  "accepted_receipt_ids": [],
+  "proof_body_locations": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R3"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_downstream_gate": "S56-M-0041-ANCHOR_AUDIT: Matrix.charpoly transport, Matrix.aeval_self_charpoly terminal body, provenance, dependencies, axioms, and trust remain unaudited",
+  "remaining_root_cut_set": [
+    "S56-M-0041-ANCHOR_AUDIT",
+    "S56-M-0041-OBLIGATION_TREE",
+    "S56-M-0041-PROOF",
+    "S56-M-0041-VALIDATION",
+    "S56-M-0041-RELEASE"
+  ],
+  "known_failures": [
+    "master acceptance of S56-M-0041-STATEMENT is pending",
+    "pinpoint primary-source admission, assumption and definition mapping, errata audit, attribution reconciliation, and independent H0 review remain open",
+    "the checked transport to Matrix.charpoly and audit of Matrix.aeval_self_charpoly, its terminal body, provenance, dependencies, axioms, and trust remain open",
+    "obligation registry, typed graphs, proof credit, composition, readable reconstruction, hermetic validation, independent verification, audit completion, and theorem completion remain open",
+    "the historical intake checker is stale after statement artifacts and is not cited as current statement evidence"
+  ],
+  "validation_recipes": [
+    {
+      "recipe_id": "THM-M-0041-statement-lean",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0041/Statement.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "exact SHA-256 eccdbbe3150ca0d246e8381821b5b2f3740fbe4a2927c5f239507c781564ffdc and no timeout/heartbeat diagnostic"}],
+      "covered_obligation_ids": ["S56-M-0041-STATEMENT"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0041.characteristicPolynomial",
+        "Stage1Instances.THM_M_0041.CayleyHamiltonTarget"
+      ]
+    },
+    {
+      "recipe_id": "THM-M-0041-statement-validator",
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "../../Stage1_Instances/THM-M-0041/check_statement.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 90,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "parsed JSON must agree with statement.json, statement-receipt.json, instance.json, and worker packet"}],
+      "covered_obligation_ids": ["S56-M-0041-STATEMENT"],
+      "covered_declarations": ["Stage1Instances.THM_M_0041.CayleyHamiltonTarget"]
+    },
+    {
+      "recipe_id": "THM-M-0041-boundaries",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0041/BoundaryProbe.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "empty output on successful elaboration"}],
+      "covered_obligation_ids": ["S56-M-0041-STATEMENT"],
+      "covered_declarations": []
+    }
+  ],
+  "command_results": [
+    {"argv": ["python3", "Docs/tools/check_stage1_standard.py"], "exit_code": 0, "result": "15 assurance groups and 1546 uniform-L0 targets passed"},
+    {"argv": ["python3", "scripts/stage1_target.py", "check"], "exit_code": 0, "result": "1546 unique ordered targets passed"},
+    {"argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0041"], "exit_code": 0, "result": "rank 1081, planned, L0/rework_required, theorem incomplete"},
+    {"cwd": "Formalizations/Lean", "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0041/Statement.lean"], "exit_code": 0, "result": "target and three mutations elaborated; three expected identity rejections and two expected unavailable-candidate checks occurred; explicit expression printed"},
+    {"cwd": "Formalizations/Lean", "argv": ["python3", "../../Stage1_Instances/THM-M-0041/check_statement.py"], "exit_code": 0, "result": "fingerprints, two import-deletion probes, removed-hypothesis failure, three mutation expressions, boundaries, pins, instance, metadata, receipt, and worker packet agree"},
+    {"cwd": "Formalizations/Lean", "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0041/BoundaryProbe.lean"], "exit_code": 0, "result": "empty-index and zero-ring target expressions elaborate with empty output"},
+    {"argv": ["rg", "-n", "\\b(sorry|admit|sorryAx)\\b|^[[:space:]]*(axiom|constant|opaque|unsafe)[[:space:]]", "Stage1_Instances/THM-M-0041", "-g", "*.lean"], "exit_code": 1, "result": "expected no-match exit; no prohibited declaration or placeholder"},
+    {"argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0041", ".stage1-worker-selftest.json"], "exit_code": 0, "result": "no whitespace errors"}
+  ],
+  "selftest_result": "pass",
+  "support_state": "worker_self_tested_pending_master_acceptance",
+  "supersession_state": "current_worker_receipt_unaccepted",
+  "validated_at": "2026-07-13 Asia/Shanghai",
+  "owner": "Stage1 integration lane",
+  "attestor": "automation worker self-test; unsigned and not independent",
+  "review_due": "at master integration and on every invalidation input change",
+  "invalidation_inputs": [
+    "catalog, target-set, source, scope, characteristic-polynomial convention, or boundary correction",
+    "canonical Lean target, mutation, fingerprint, or boundary probe",
+    "toolchain, dependency, direct import, assurance profile, validator, or any changed owned artifact"
+  ],
+  "axiom_and_placeholder_result": {
+    "source_placeholders_or_custom_axioms": [],
+    "root_proof_body": null,
+    "proof_credit": false
+  },
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0041/Statement.lean",
+    "Stage1_Instances/THM-M-0041/BoundaryProbe.lean",
+    "Stage1_Instances/THM-M-0041/check_statement.py"
+  ],
+  "declaration_ownership": [
+    "Stage1Instances.THM_M_0041.characteristicPolynomial",
+    "Stage1Instances.THM_M_0041.CayleyHamiltonTarget"
+  ],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0041/README.md",
+    "Stage1_Instances/THM-M-0041/scope-map.md",
+    "Stage1_Instances/THM-M-0041/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0041/statement-validation.md"
+  ],
+  "change_impact_set": ["S56-M-0041-STATEMENT"],
+  "status_boundary": "Worker statement proposal only. It freezes and elaborates an exact proposition but provides no inhabitant or proof, is not master-accepted, and asserts no anchor-audit, H0, M0, audit-completion, or theorem-completion credit."
+}

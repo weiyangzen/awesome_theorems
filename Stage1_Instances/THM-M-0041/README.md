@@ -14,8 +14,8 @@ nontriviality, invertibility, diagonalizability, or nonempty-dimension hypothesi
 
 This selection preserves the catalog theorem family but does not pretend that the catalog supplied
 the coefficient domain, index type, characteristic-polynomial convention, evaluation operation, or
-empty-matrix boundary. The statement phase must ratify these choices against an admitted source and
-freeze the exact elaborated Lean target.
+empty-matrix boundary. The statement phase below freezes these conventional repository-scope choices;
+their primary-source fidelity remains open for independent review.
 
 ## Source and formal boundary
 
@@ -29,11 +29,21 @@ At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
 `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` contains the close candidate
 `Matrix.aeval_self_charpoly`; `Mathlib.LinearAlgebra.Charpoly.Basic` contains the finite free-module
 form `LinearMap.aeval_self_charpoly`. `IntakeProbe.lean` authenticates their types and reported axioms
-with the pinned toolchain. Intake does not freeze an elaborated canonical declaration, establish a
-source transport, audit terminal bodies or transitive trust, or credit proof closure.
+with the pinned toolchain. That historical intake snapshot did not freeze an elaborated canonical
+declaration, establish a source transport, audit terminal bodies or transitive trust, or credit proof
+closure; the statement handoff below supersedes only the canonical-elaboration part of that boundary.
 
-The planned vector is `[H1, M3, R3]`: the theorem and historical lead are stable but the exact source
-mapping is incomplete; exact formal interfaces are located but have not passed statement or anchor
-audit; and this dossier maps scope without reconstructing the proof. All six downstream tasks remain
-open. No accepted execution state, audit completion, theorem completion, or master acceptance is
-claimed.
+## Statement phase handoff
+
+`Statement.lean` now freezes the exact intake-selected target as
+`Stage1Instances.THM_M_0041.CayleyHamiltonTarget`. It expands the characteristic polynomial as
+`det (X I - A)` and uses only `Mathlib.Algebra.Polynomial.AlgebraMap` and
+`Mathlib.LinearAlgebra.Matrix.Determinant.Basic`. This keeps the Cayley-Hamilton candidate
+`Matrix.aeval_self_charpoly` module outside the statement boundary. `statement.json` records the
+expression/environment fingerprints, a literal removed-hypothesis failure, three distinct
+structural mutations, and concrete empty-index/zero-ring elaboration probes.
+
+The vector remains `[H1, M3, R3]`. This is exact statement-only evidence pending master acceptance;
+it gives no proof credit. The pinpoint source review, transport to `Matrix.charpoly`, formal anchor
+and body audit, obligation tree, proof, validation, release, audit completion, and theorem completion
+remain open.

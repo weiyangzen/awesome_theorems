@@ -1,0 +1,95 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0034-STATEMENT",
+  "theorem_id": "THM-M-0034",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "source_mapped_field_coefficient_positive_finite_variable_statement_elaborated_pending_master_and_independent_source_review",
+  "canonical_statement": "For every field k, every positive natural number n, and every finitely generated projective module P over k[X1,...,Xn], P is free.",
+  "source_root": {
+    "selection": "field specialization of Suslin's Theorem 3* PID freeness clause on page 1066, aligned with the field question and affirmative answer on page 1063",
+    "citation": "A. A. Suslin, Projective modules over a polynomial ring are free, Doklady Akademii Nauk SSSR 229(5), 1063-1066 (1976), journal pages 1063 and 1066",
+    "primary_pdf_sha256": "b01635ee5a28e8b78bc20c18301e4b2f5978dfa85933e8564cd6c3e64cc91353",
+    "review_boundary": "The primary Russian scan was inspected but independent translation, errata review, Quillen full-text reconciliation, and master source acceptance remain open, so source status remains H1 rather than H0."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0034/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0034.QuillenSuslinTarget",
+    "elaborated_expression_sha256": "d80cc9860ed5a53c81a0851b4dc8e702aa5a23d448f373ae6d68ed0c9b5604b1",
+    "statement_file_sha256": "cfdfeabe825f5b7936905cee310c2306dba8b18a4b25281fb09c7d10719b79e8",
+    "fully_explicit_expression": "∀ (k : Type u) [inst : Field.{u} k] (n : Nat),\n  @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) n →\n    ∀ (P : Type v) [inst_1 : AddCommGroup.{v} P]\n      [inst_2 :\n        @Module.{u, v}\n          (@MvPolynomial.{0, u} (Fin n) k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst))) P\n          (@AddMonoidAlgebra.semiring.{u, 0} k\n            (@Finsupp.{0, 0} (Fin n) Nat (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))\n            (@CommSemiring.toSemiring.{u} k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst)))\n            (@Finsupp.instAddMonoid.{0, 0} (Fin n) Nat Nat.instAddMonoid))\n          (@AddCommGroup.toAddCommMonoid.{v} P inst_1)]\n      [@Module.Finite.{u, v}\n          (@MvPolynomial.{0, u} (Fin n) k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst))) P\n          (@AddMonoidAlgebra.semiring.{u, 0} k\n            (@Finsupp.{0, 0} (Fin n) Nat (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))\n            (@CommSemiring.toSemiring.{u} k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst)))\n            (@Finsupp.instAddMonoid.{0, 0} (Fin n) Nat Nat.instAddMonoid))\n          (@AddCommGroup.toAddCommMonoid.{v} P inst_1) inst_2]\n      [@Module.Projective.{u, v}\n          (@MvPolynomial.{0, u} (Fin n) k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst)))\n          (@AddMonoidAlgebra.semiring.{u, 0} k\n            (@Finsupp.{0, 0} (Fin n) Nat (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))\n            (@CommSemiring.toSemiring.{u} k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst)))\n            (@Finsupp.instAddMonoid.{0, 0} (Fin n) Nat Nat.instAddMonoid))\n          P (@AddCommGroup.toAddCommMonoid.{v} P inst_1) inst_2],\n      @Module.Free.{u, v}\n        (@MvPolynomial.{0, u} (Fin n) k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst))) P\n        (@AddMonoidAlgebra.semiring.{u, 0} k\n          (@Finsupp.{0, 0} (Fin n) Nat (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))\n          (@CommSemiring.toSemiring.{u} k (@Semifield.toCommSemiring.{u} k (@Field.toSemifield.{u} k inst)))\n          (@Finsupp.instAddMonoid.{0, 0} (Fin n) Nat Nat.instAddMonoid))\n        (@AddCommGroup.toAddCommMonoid.{v} P inst_1) inst_2"
+  },
+  "domain_and_universes": "k is an explicit Type u with a Field instance; n is an explicit natural number with an explicit 0 < n premise; P is an explicit Type v with AddCommGroup and module structures over MvPolynomial (Fin n) k. The coefficient and module universes are independent.",
+  "ordered_binders": [
+    "k : Type u (explicit universal)",
+    "Field k (instance binder)",
+    "n : Nat (explicit universal)",
+    "0 < n (explicit hypothesis)",
+    "P : Type v (explicit universal)",
+    "AddCommGroup P (instance binder)",
+    "Module (MvPolynomial (Fin n) k) P (instance binder)",
+    "Module.Finite (MvPolynomial (Fin n) k) P (instance binder)",
+    "Module.Projective (MvPolynomial (Fin n) k) P (instance binder)"
+  ],
+  "hypotheses": [
+    "k is a field",
+    "n is positive, matching the source notation X1,...,Xn rather than adding an unspoken zero-variable extension",
+    "P is a unital left module over the commutative polynomial ring MvPolynomial (Fin n) k",
+    "P is finitely generated as a module",
+    "P is projective as a module"
+  ],
+  "conclusion": "Module.Free (MvPolynomial (Fin n) k) P: P admits a basis over the same polynomial ring.",
+  "direct_imports": [
+    "Mathlib.Algebra.Module.Projective",
+    "Mathlib.Algebra.MvPolynomial.Basic",
+    "Mathlib.RingTheory.Finiteness.Defs"
+  ],
+  "minimal_import_basis": "Projective supplies Module.Projective and Free; Algebra.MvPolynomial.Basic supplies the multivariable polynomial carrier and ring/module structure; Finiteness.Defs supplies Module.Finite. Deleting any direct import fails. The broader RingTheory.MvPolynomial.Basic and aggregate Mathlib imports are deliberately absent.",
+  "checked_alternate_encodings": [],
+  "uncredited_alternate_encodings": [
+    "the stronger PID-coefficient clause in Suslin Theorem 3*",
+    "an arbitrary finite variable type rather than the source-ordered variables encoded by Fin n",
+    "unimodular-row, matrix-completion, vector-bundle, stable-freeness, or extended-module formulations without checked transports"
+  ],
+  "degenerate_cases": {
+    "included": [
+      "the zero module and rank-zero free outcome",
+      "one or more polynomial variables"
+    ],
+    "excluded": [
+      "zero variables, because the source writes X1,...,Xn and does not explicitly state the n = 0 extension",
+      "infinitely many variables",
+      "projective modules not satisfying the finite-generation convention"
+    ]
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "module_projective_source_sha256": "43ea6a534f5db642eef41d8138f8b2bf579b13bba8353612f6b40c8c32d1471b",
+    "mvpolynomial_basic_source_sha256": "b74bd9ea40166361eabbb6d3131b7cbb49be2dbb08423bfd9647ca7f56eaf23c",
+    "finiteness_defs_source_sha256": "b655f724f2043f555274767269a6a3a4df4865e644ddc42b55791dc8ee64cabe",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The statement defines only a proposition and introduces no proof body, custom axiom, oracle, or unchecked certificate.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and exactly three direct statement imports. Proof-body and transitive trust audits are downstream.",
+  "computation_profile": "No native computation, experiment, generated instance, oracle, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0034/check_statement.py",
+    "killed": [
+      {"kind": "removed_hypothesis", "declaration": "mutationRemovedFiniteGeneration"},
+      {"kind": "changed_domain", "declaration": "mutationChangedDomainToCommRing"},
+      {"kind": "changed_binder_scope", "declaration": "mutationChangedBinderScope"},
+      {"kind": "boundary_case", "declaration": "mutationIncludedZeroVariables"}
+    ],
+    "method": "Every mutation elaborates separately, is rejected as a definitionally identical term of the canonical proposition by #check_failure, and must have a pairwise-distinct fully explicit expression fingerprint. These are exact-expression identity tests, not claims that every mutation lacks a logical implication to the root."
+  },
+  "source_fidelity_boundary": "The exact proposition is a worker statement proposal crosswalked to the inspected Suslin scan. H0 source fidelity is not claimed until independent translation, correction/errata review, Quillen reconciliation, and master acceptance.",
+  "status_boundary": "Exact statement elaboration only. This artifact contains no inhabitant of QuillenSuslinTarget and supplies no proof, anchor-audit, audit-completion, theorem-completion, or accepted-state credit."
+}

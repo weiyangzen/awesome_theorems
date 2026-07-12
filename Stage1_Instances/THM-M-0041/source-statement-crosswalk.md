@@ -30,10 +30,10 @@ nodes, or obtain independent source review.
 
 | Catalog component | Intake-selected meaning | Pinned Lean candidate | Status |
 |---|---|---|---|
-| "matrix" | arbitrary finite square matrix | `A : Matrix n n R`, with `[Fintype n] [DecidableEq n]` | conventional carrier selected; exact source and binder ratification open |
-| "its characteristic polynomial" | `det(X I - A)` over the same coefficient ring | `Matrix.charpoly A` | definition candidate authenticated; sign/source crosswalk open |
-| "satisfies" | evaluation at `A` gives the zero matrix | `Polynomial.aeval A A.charpoly = 0` | candidate conclusion authenticated; canonical elaboration open |
-| coefficient domain | commutative ring, with no nontriviality premise | `[CommRing R]` | strong conventional generality selected; historical scope review open |
+| "matrix" | arbitrary finite square matrix | `A : Matrix n n R`, with `[Fintype n] [DecidableEq n]` | exact Lean carrier and binders frozen; historical source mapping open |
+| "its characteristic polynomial" | `det(X I - A)` over the same coefficient ring | local `characteristicPolynomial A` | expanded definition frozen; `Matrix.charpoly` transport downstream |
+| "satisfies" | evaluation at `A` gives the zero matrix | `Polynomial.aeval A (characteristicPolynomial A) = 0` | exact canonical conclusion elaborated and fingerprinted |
+| coefficient domain | commutative ring, with no nontriviality premise | `[CommRing R]` | exact Lean domain frozen; historical scope review open |
 | Hamilton/Cayley / 1858 | catalog attribution and date | no formal component | historical attribution audit open |
 | `已验证` | catalog status label | no formal component | explicitly no H/M credit |
 
@@ -59,16 +59,17 @@ LinearMap.aeval_self_charpoly (f : M ->ₗ[R] M) : aeval f f.charpoly = 0
 for a finite free module over a commutative ring. That theorem reduces through a chosen basis to the
 matrix theorem. It is a related alternate encoding, not silently the canonical root.
 
-`IntakeProbe.lean` checks both exact types and asks Lean to print their axiom reports. These are close
-formal candidates, but intake records only discovery evidence. It does not establish source identity,
-freeze an expression hash, inspect terminal proof provenance and all transitive declarations, or
-promote either candidate to `M0`.
+`Statement.lean` deliberately imports two lower vocabulary modules and expands `det(X I - A)` rather
+than importing `Charpoly.Basic`. Its exact root expression and environment are now fingerprinted,
+and Lean confirms `Matrix.charpoly` and `Matrix.aeval_self_charpoly` are unavailable in that module.
+The intake candidates remain discovery evidence only: source identity, the checked `Matrix.charpoly`
+transport, terminal proof provenance, transitive dependencies, and `M0` classification remain open.
 
 ## Exactness risks held open
 
-The statement phase must confirm the finite square-matrix reading, coefficient domain, empty-index
-and zero-ring boundaries, `det(X I - A)` convention, scalar-coefficient embedding, and
-noncommutative matrix-algebra evaluation semantics. The finite free-module theorem,
+The statement phase has confirmed the finite square-matrix reading, coefficient domain, empty-index
+and zero-ring boundaries, `det(X I - A)` convention, scalar-coefficient embedding, and exact
+noncommutative matrix-algebra evaluation expression, pending master acceptance. The finite free-module theorem,
 minimal-polynomial divisibility,
 matrix-power reduction, and field-specialized textbook statements are related consequences or
 encodings, not replacements without checked directional crosswalks.

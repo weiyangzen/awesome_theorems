@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-open-task-dag/1.0",
+  "theorem_id": "THM-M-0045",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_states": [],
+  "tasks": [
+    {
+      "id": "S56-M-0045-STATEMENT",
+      "phase": "statement",
+      "state": "open",
+      "depends_on": ["S56-M-0045-INTAKE"],
+      "deliverable": "Elaborate the exact Lean 4 target with the minimal pinned imports."
+    },
+    {
+      "id": "S56-M-0045-ANCHOR_AUDIT",
+      "phase": "anchor_audit",
+      "state": "open",
+      "depends_on": ["S56-M-0045-STATEMENT"],
+      "deliverable": "Audit mathlib and external Lean 4 candidates at immutable revisions."
+    },
+    {
+      "id": "S56-M-0045-OBLIGATION_TREE",
+      "phase": "obligation_tree",
+      "state": "open",
+      "depends_on": ["S56-M-0045-ANCHOR_AUDIT"],
+      "deliverable": "Freeze the obligation registry and typed proof/provenance/workflow graphs."
+    },
+    {
+      "id": "S56-M-0045-PROOF",
+      "phase": "proof",
+      "state": "open",
+      "depends_on": ["S56-M-0045-OBLIGATION_TREE"],
+      "deliverable": "Implement or pin/import the required proof bodies without placeholders."
+    },
+    {
+      "id": "S56-M-0045-VALIDATION",
+      "phase": "validation",
+      "state": "open",
+      "depends_on": ["S56-M-0045-PROOF"],
+      "deliverable": "Run hermetic kernel, trust, provenance, and independent validation gates."
+    },
+    {
+      "id": "S56-M-0045-RELEASE",
+      "phase": "release",
+      "state": "open",
+      "depends_on": ["S56-M-0045-VALIDATION"],
+      "deliverable": "Reconcile evidence and decide the exact theorem-completion verdict."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0041-STATEMENT",
+  "theorem_id": "THM-M-0041",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "intake_selected_commutative_finite_square_matrix_scope_and_exact_lean_expression_frozen_primary_source_fidelity_open",
+  "canonical_statement": "For every finite square matrix A over a commutative ring, polynomial evaluation at A of det(X I - A) is the zero matrix.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0041/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0041.CayleyHamiltonTarget",
+    "characteristic_polynomial_definition": "Stage1Instances.THM_M_0041.characteristicPolynomial",
+    "elaborated_expression_sha256": "5aad8415af4578ca43d0ec58eee038ed4470dce17896766215d3bf9f49d8e711",
+    "statement_file_sha256": "3b218c1a96922399bb8ed2d852d556422a92901dca10efdd431a677eaefd2b0b",
+    "serialization": "The normalized fully explicit pp.universes=true/pp.explicit=true expression is reproducibly emitted by Statement.lean; its exact bytes are bound by the expression and Lean-output SHA-256 values."
+  },
+  "domain_and_universes": "R : Type u is implicit and carries CommRing; n : Type v is implicit and carries DecidableEq and Fintype; A : Matrix n n R is explicit; the result is Prop. No Nontrivial R or Nonempty n premise is present.",
+  "ordered_binders": [
+    "R : Type u (implicit universal)",
+    "CommRing R (instance binder)",
+    "n : Type v (implicit universal)",
+    "DecidableEq n (instance binder)",
+    "Fintype n (instance binder)",
+    "A : Matrix n n R (explicit universal)"
+  ],
+  "hypotheses": [
+    "R has a commutative ring structure",
+    "n has decidable equality",
+    "n is finite"
+  ],
+  "conclusion": "Polynomial.aeval A (Matrix.det (Matrix.scalar n Polynomial.X - A.map Polynomial.C)) = 0.",
+  "direct_imports": [
+    "Mathlib.Algebra.Polynomial.AlgebraMap",
+    "Mathlib.LinearAlgebra.Matrix.Determinant.Basic"
+  ],
+  "minimal_import_basis": "AlgebraMap supplies Polynomial.aeval and the scalar algebra map; Determinant.Basic supplies matrices, scalar matrices, map, subtraction, and determinant. Deleting either import fails. Charpoly.Basic and Matrix.aeval_self_charpoly are deliberately unavailable; no imported theorem is credited as a root proof.",
+  "checked_alternate_encodings": [],
+  "uncredited_alternate_encodings": [
+    "Matrix.charpoly and Matrix.aeval_self_charpoly pending anchor audit of the proof-bearing Charpoly.Basic module",
+    "the finite-free-module endomorphism formulation LinearMap.aeval_self_charpoly"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0041/check_statement.py",
+    "killed": [
+      {"kind": "removed_hypothesis", "method": "literal removal of CommRing R makes the characteristic-polynomial target fail elaboration"},
+      {"kind": "changed_domain", "declaration": "mutationChangedDomainToField"},
+      {"kind": "changed_binder_scope", "declaration": "mutationChangedMatrixBinderScope"},
+      {"kind": "boundary_case", "declaration": "mutationExcludedBoundaries"}
+    ],
+    "method": "The literal removed-hypothesis mutation must fail elaboration. The other mutations elaborate, are rejected as terms of the canonical Prop by #check_failure, and have distinct fully explicit expression fingerprints."
+  },
+  "degenerate_cases": {
+    "included": [
+      "empty finite index types",
+      "the zero ring and other subsingleton commutative rings",
+      "zero, scalar, singular, noninvertible, nondiagonalizable, and repeated-eigenvalue matrices"
+    ],
+    "excluded": ["rectangular matrices", "noncommutative coefficient rings"],
+    "checked_witness": "Stage1_Instances/THM-M-0041/BoundaryProbe.lean elaborates the exact expression for Empty and for the concrete zero ring PUnit."
+  },
+  "boundary_probe_sha256": "ba5758ff5c612108e203007c0b5e04fe239697771540114c4e3938f370135e3e",
+  "environment_fingerprint": {
+    "base_revision": "0ea006c25dcbfe400adbb084c0a3476a9b271741",
+    "base_tree": "ff2e3bde08d7f5d6c83519160a4a6bd2cb7526db",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "polynomial_algebra_map_source_sha256": "e6db579a99dcbed160c598103c215d07807699dac1fce406db7bbc37b38de228",
+    "matrix_determinant_basic_source_sha256": "18fd46c88d720a62e6ffc03b220827109dd812caa3a7f51683bb36265aaa9bd8",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The statement module introduces no axiom or proof of the root; proof-specific transitive trust closure remains downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The imports provide statement vocabulary but do not expose the Cayley-Hamilton candidate; no imported theorem is credited as a root proof, and candidate proof provenance/trust remain for anchor audit.",
+  "computation_profile": "No native computation, numerical experiment, oracle, generated result, or unchecked certificate is used or credited.",
+  "source_fidelity_boundary": "This freezes the conventional repository scope selected at intake. No immutable pinpoint primary edition, assumption map, errata review, or independent H0 source review has been accepted.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration only. This artifact contains no inhabitant of CayleyHamiltonTarget and supplies no candidate-proof, anchor-audit, H0, M0, R0, audit-completion, or theorem-completion credit."
+}

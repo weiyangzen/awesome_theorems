@@ -1,0 +1,213 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0045",
+  "item_id": "S56-M-0045-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1085,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "舒尔分解定理",
+  "name_en": "Schur decomposition theorem",
+  "canonical_name": "Finite complex Schur triangularization theorem family",
+  "category": "代数学 / 线性代数",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "复方阵可酉三角化",
+  "literal_source_claim_en": "A complex square matrix can be unitarily triangularized.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_finite_complex_schur_triangularization_family_but_catalog_omits_index_unitary_triangular_conjugation_and_boundary_conventions",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not fix the finite dimension or ordered index type, upper-versus-lower triangular convention, unitary predicate, star and matrix-multiplication conventions, conjugation orientation, equality direction, existential witness shape, or zero-dimensional case. Schur's primary Satz I is broader in scalar domain and lower-triangular in its display, while Axler Theorem 6.38 is a complex operator-and-orthonormal-basis form; neither source-to-catalog specialization/orientation nor matrix/unitary transport is accepted. Selecting one exact proposition at intake would add unstated mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Eigenspace.Triangularizable",
+      "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+      "Mathlib.LinearAlgebra.Matrix.Block",
+      "Mathlib.LinearAlgebra.UnitaryGroup"
+    ],
+    "declaration_candidates": [
+      "Module.End.exists_eigenvalue",
+      "Module.End.iSup_maxGenEigenspace_eq_top",
+      "InnerProductSpace.gramSchmidtOrthonormalBasis_inv_blockTriangular",
+      "OrthonormalBasis.toMatrix_orthonormalBasis_mem_unitary"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_exact_source_statement_and_operator_basis_matrix_unitary_transport"
+  },
+  "domain_and_universes": "Open: an accepted source must fix square complex matrices on Fin n or another finite linearly ordered index, or finite-dimensional complex inner-product spaces and endomorphisms, together with universes and typeclass conventions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: every source-specified finite complex square matrix admits a unitary change of basis making its matrix upper triangular. Exact witnesses, triangular predicate, conjugation equation, and boundary cases are unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "for every A : Matrix (Fin n) (Fin n) Complex, there is U in Matrix.unitaryGroup with star U * A * U BlockTriangular id",
+    "the equivalent equation A = U * T * star U with a separately quantified upper-triangular T",
+    "every endomorphism of a finite-dimensional complex inner-product space has an upper-triangular matrix in some orthonormal basis",
+    "the generalization from Complex to an algebraically closed RCLike field where the required analytic structures exist"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero and one dimensional index types",
+    "zero, scalar, diagonal, already triangular, normal, and nilpotent matrices",
+    "singular, nonnormal, repeated-eigenvalue, and defective matrices",
+    "upper versus lower triangular form under order reversal",
+    "arbitrary finite linearly ordered indices versus Fin n"
+  ],
+  "excluded_substitutions": [
+    "triangularizability by an arbitrary nonunitary similarity",
+    "eigenvalue existence or generalized-eigenspace spanning without an invariant flag and orthonormal-basis construction",
+    "Gram-Schmidt triangularity of only the basis-change matrix",
+    "the spectral theorem or unitary diagonalization restricted to normal or Hermitian matrices",
+    "Jordan canonical form, Jordan-Chevalley decomposition, QR decomposition, or singular-value decomposition",
+    "fixed-dimension, diagonalizable-only, normal-only, nilpotent-only, or numerical cases",
+    "a structure or hypothesis storing the desired triangularization",
+    "the catalog's untrusted verified label or the discovery probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0042",
+      "name": "若尔当标准形定理",
+      "relationship": "Jordan form is a stronger arbitrary-similarity canonical form and does not supply the required unitary witness"
+    },
+    {
+      "theorem_id": "THM-M-0043",
+      "name": "谱定理",
+      "relationship": "unitary diagonalization for normal matrices is a strict specialization, not the arbitrary-matrix Schur root"
+    },
+    {
+      "theorem_id": "THM-M-0044",
+      "name": "奇异值分解定理",
+      "relationship": "two-sided unitary singular-value factorization is not unitary similarity to a triangular matrix"
+    },
+    {
+      "theorem_id": "THM-M-0046",
+      "name": "QR分解定理",
+      "relationship": "QR factorization is an ingredient-level orthonormalization result, not Schur triangularization"
+    }
+  ],
+  "source_status": "H1_primary_historical_and_authoritative_modern_complete_theorem_leads_inspected_but_exact_domain_orientation_transport_errata_archival_policy_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Issai Schur, Über die charakteristischen Wurzeln einer linearen Substitution mit einer Anwendung auf die Theorie der Integralgleichungen, Mathematische Annalen 66 (1909), 488-510, DOI 10.1007/BF01450045, Satz I printed pages 490-492",
+      "candidate_locator": "GDZ scan https://gdz.sub.uni-goettingen.de/download/pdf/PPN235181684_0066/LOG_0049.pdf observed 2026-07-13; sha256 a32565f72b7ffa94806be14a96174ea716dc5265fd258b7caeb877ab91a5a488",
+      "candidate_summary": "defines conjugate transpose and unitary on printed page 489 and proves unitary triangularization of arbitrary real or complex square matrices by induction in Satz I",
+      "inspection_status": "primary source lead inspected; catalog complex-only restriction, lower-versus-upper convention, formula and definition translation, correction audit, archival policy, and independent review remain open"
+    },
+    {
+      "citation": "Sheldon Axler, Linear Algebra Done Right, fourth edition, Section 6B, Theorems 6.37-6.38, printed pages 203-204",
+      "candidate_locator": "author-hosted PDF https://linear.axler.net/LADR4e.pdf observed 2026-07-13; sha256 45f821b6f51e1f6c42728db6254699d89c14c90fcdb2443c1341188672815d03",
+      "candidate_summary": "Theorem 6.38 gives upper-triangular form in an orthonormal basis for every finite-dimensional complex operator; Theorem 6.37 supplies the Gram-Schmidt invariant-flag route",
+      "inspection_status": "inspected source lead; catalog citation identity, immutable recovery, exact definition and operator-to-matrix transport, correction audit, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Eigenspace.Triangularizable",
+      "declaration": "Module.End.exists_eigenvalue and Module.End.iSup_maxGenEigenspace_eq_top",
+      "boundary": "eigenvalue and generalized-eigenspace substrate; the file explicitly leaves triangularizable endomorphisms as a TODO and supplies no invariant flag or orthonormal triangularizing basis"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+      "declaration": "InnerProductSpace.gramSchmidtOrthonormalBasis_inv_blockTriangular",
+      "boundary": "the change-of-basis coefficient matrix is upper triangular; this does not state that an arbitrary operator is triangular in the constructed basis"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+      "declaration": "OrthonormalBasis.toMatrix_orthonormalBasis_mem_unitary",
+      "boundary": "unitary change-of-orthonormal-basis infrastructure only; no Schur existence conclusion"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Block",
+      "declaration": "Matrix.BlockTriangular",
+      "boundary": "prospective triangular-matrix predicate only, not a theorem or root proof body"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, algebraic closure of Complex, finite-dimensional basis and eigenvalue selection, and the exact accepted axiom closure remain open until the canonical target and route are frozen.",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations and bodies, transitive dependencies, axioms, and trust policy remain open.",
+  "computation_profile": "No floating-point Schur algorithm, QR iteration, experiment, oracle, unchecked certificate, native computation, or numerical tolerance is credited; the intended result requires kernel-checked exact linear algebra.",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded.",
+  "source_revisions": {
+    "repository_base": "4ecdda4863162748b3ee70bc4ec842789418145d",
+    "repository_base_tree": "aace54662cd5e9ca38472011f41afdbffdedfa04",
+    "repository_record": "Docs/researches/math_theorems.md:342-347",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1348-1373",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "ac1e8f01695fbc2f30703e66cf6e93c4cdd9abfb59e7f632ecfa23c3ff3a723e",
+    "execution_dag_sha256": "bfa7c48b46024cf928d3962f9a0caf382a6cb860a82fde504d5a0348ced6e19b",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "triangularizable_source_sha256": "c441e191010aedfb7bbc7e65bcfafa9ec7da27474f96d29a3f1550613cc03c0d",
+    "gram_schmidt_source_sha256": "0eb98a48c591bfe2c4677a89e719b1973b199a55d6b1cfc9ce73c265ea22288a",
+    "pi_l2_source_sha256": "4df49dd497992b022f3d18ee79ea0ae5536be7a452779b4c2400b1d136b7a2bb",
+    "matrix_block_source_sha256": "bdbdc046f6f10fdd634028259bbaae5dce9da670d8b95e37950f0a39390e3762",
+    "inspected_schur_1909_gdz_pdf_sha256": "a32565f72b7ffa94806be14a96174ea716dc5265fd258b7caeb877ab91a5a488",
+    "inspected_axler_pdf_sha256": "45f821b6f51e1f6c42728db6254699d89c14c90fcdb2443c1341188672815d03"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0045/README.md",
+    "Stage1_Instances/THM-M-0045/instance.json",
+    "Stage1_Instances/THM-M-0045/scope-map.md",
+    "Stage1_Instances/THM-M-0045/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0045/task-dag.json",
+    "Stage1_Instances/THM-M-0045/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0045/check_intake.py",
+    "Stage1_Instances/THM-M-0045/validation.md",
+    "Stage1_Instances/THM-M-0045/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source-edition or errata finding, Schur/1909 attribution finding, dimension/index/scalar/unitary/triangular/conjugation/boundary convention, operator-matrix transport, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-0045/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, source and formal leads, proposition-changing choices, exclusions, and open task DAG. No canonical proposition, exact Lean statement, accepted source, root proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

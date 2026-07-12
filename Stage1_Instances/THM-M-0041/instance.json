@@ -23,28 +23,28 @@
   "literal_source_claim_en": "A matrix satisfies its characteristic polynomial.",
   "source_status_untrusted": "已验证",
   "canonical_statement": "Every finite square matrix over a commutative ring is annihilated by its characteristic polynomial.",
-  "canonical_claim_status": "conventional_finite_square_matrix_over_commutative_ring_scope_selected_at_intake_pending_pinpoint_source_ratification_and_exact_lean_statement_gate",
+  "canonical_claim_status": "conventional_finite_square_matrix_over_commutative_ring_scope_selected_at_intake_and_exact_lean_expression_self_tested_pending_master_acceptance_while_primary_source_fidelity_remains_open",
   "canonical_claim": "For every finite square matrix A over a commutative ring, evaluating det(X I - A) at A in the matrix algebra yields the zero matrix.",
-  "statement_blocker": "The catalog supplies no source citation or definitions. Before accepting an exact Lean target, the statement phase must admit and independently review a pinpoint source, ratify coefficient-ring and finite-index generality, characteristic-polynomial and evaluation conventions, empty-index and zero-ring boundaries, then elaborate, fingerprint, transport, and mutation-test the result.",
+  "statement_blocker": "The intake-selected conventional target, det(X I - A) convention, evaluation semantics, empty-index and zero-ring boundaries, imports, expression fingerprint, and mutations are self-tested; master acceptance is pending. Pinpoint source fidelity remains independently open on H, while transport to Matrix.charpoly and formal proof-candidate audit remain downstream.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0041/Statement.lean",
     "module_candidates": [
       "Mathlib.LinearAlgebra.Matrix.Charpoly.Basic",
       "Mathlib.LinearAlgebra.Charpoly.Basic"
     ],
-    "declaration_or_expression": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0041.CayleyHamiltonTarget",
     "candidate_declarations": [
       "Matrix.aeval_self_charpoly",
       "LinearMap.aeval_self_charpoly"
     ],
     "candidate_expression": "∀ {R n} [CommRing R] [DecidableEq n] [Fintype n] (A : Matrix n n R), Polynomial.aeval A A.charpoly = 0",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_source_ratification_canonical_elaboration_transports_and_mutation_tests",
+    "elaborated_expression_hash": "sha256:5aad8415af4578ca43d0ec58eee038ed4470dce17896766215d3bf9f49d8e711",
+    "environment_fingerprint": "Lean-4.29.0@98dc76e3; mathlib@8a178386; statement-vocabulary imports Polynomial.AlgebraMap and Matrix.Determinant.Basic with the Cayley-Hamilton candidate unavailable; pp.universes=true; pp.explicit=true; full digests in statement.json",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-axiom-probe-only"
   },
-  "domain_and_universes": "Intake-selected domain: an arbitrary universe-u commutative ring R and an arbitrary universe-v finite decidable index type n, with A : Matrix n n R. The exact elaborated universes and instance binder order remain for the statement gate.",
+  "domain_and_universes": "Exact elaborated domain: implicit R : Type u with CommRing; implicit n : Type v with DecidableEq and Fintype; explicit A : Matrix n n R; no Nontrivial R or Nonempty n premise.",
   "quantifiers": [
     "R: an arbitrary commutative ring",
     "n: an arbitrary finite decidable matrix index type",
@@ -59,10 +59,10 @@
     "R is a commutative ring",
     "n is finite and has decidable equality"
   ],
-  "conclusion": "Polynomial evaluation of A.charpoly at A, with coefficients acting by scalar matrices, equals 0 : Matrix n n R.",
+  "conclusion": "Polynomial evaluation at A of det (X I - A), with coefficients acting by scalar matrices, equals 0 : Matrix n n R.",
   "alternate_encodings": [],
   "excluded_degenerate_cases": [],
-  "degenerate_case_status": "The empty index type and zero ring are provisionally included; no Nonempty or Nontrivial premise is added. The statement phase must ratify and mutation-test them, along with zero, scalar, singular, and nondiagonalizable matrices.",
+  "degenerate_case_status": "The empty index type and zero ring are included; no Nonempty or Nontrivial premise is added. BoundaryProbe.lean elaborates the exact expression over Empty and PUnit, and the boundary mutation excluding both classes is killed.",
   "candidate_scope_not_credited": [
     "the finite free-module endomorphism formulation LinearMap.aeval_self_charpoly",
     "minimal-polynomial divisibility by the characteristic polynomial",
@@ -150,9 +150,9 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; the intake candidate axiom reports list propext, Classical.choice, and Quot.sound, while exact statement transports and full proof-specific transitive closure remain downstream",
-  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are the intended base; exact canonical imports, terminal bodies, transitive declarations, compiled artifacts, and accepted trust closure remain open",
-  "computation_profile": "kernel-polynomial-evaluation-planned/1.0: no numerical matrix computation, oracle, native shortcut, experiment, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
+  "foundation_profile": "lean4-foundation-statement-frozen/1.0: the exact target is elaborated in Lean 4 dependent type theory; no root inhabitant is supplied, and checked candidate transports plus proof-specific transitive axiom closure remain downstream",
+  "tcb_profile": "lean4-mathlib-statement-frozen/1.0: Lean kernel 4.29.0, pinned mathlib, exact statement imports, and their source hashes are frozen and self-tested; candidate terminal bodies, transitive proof dependencies, compiled-artifact closure, and accepted trust closure remain downstream",
+  "computation_profile": "kernel-polynomial-evaluation-statement-frozen/1.0: the target expression uses kernel-elaborated polynomial evaluation; no numerical matrix computation, oracle, native shortcut, experiment, or unchecked certificate is used or credited",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "open_task_dag": "Stage1_Instances/THM-M-0041/task-dag.json",
@@ -165,7 +165,13 @@
     "Stage1_Instances/THM-M-0041/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0041/check_intake.py",
     "Stage1_Instances/THM-M-0041/validation.md",
-    "Stage1_Instances/THM-M-0041/intake-receipt.json"
+    "Stage1_Instances/THM-M-0041/intake-receipt.json",
+    "Stage1_Instances/THM-M-0041/Statement.lean",
+    "Stage1_Instances/THM-M-0041/BoundaryProbe.lean",
+    "Stage1_Instances/THM-M-0041/check_statement.py",
+    "Stage1_Instances/THM-M-0041/statement.json",
+    "Stage1_Instances/THM-M-0041/statement-validation.md",
+    "Stage1_Instances/THM-M-0041/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -203,7 +209,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "BoundaryProbe.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
   ],
-  "status_boundary": "Self-tested planned intake only. Conventional matrix scope, historical lead, and pinned candidate interfaces are recorded, but no exact source packet, canonical Lean target, proof body, or accepted receipt exists. No H0, M0, R0, audit completion, or theorem completion is claimed."
+  "status_boundary": "The exact conventional matrix target, expanded det(X I - A) definition, minimal imports, expression hash, mutations, and boundaries are self-tested pending master acceptance. Pinpoint primary-source fidelity, Matrix.charpoly transport, formal candidate body/provenance/trust audit, and all proof gates remain open. No H0, M0, R0, accepted execution state, audit completion, or theorem completion is claimed."
 }

@@ -11,37 +11,33 @@
 | adjacent gloss | projective modules over a polynomial ring are free | narrows the family but omits material binders and hypotheses |
 | catalog status | verified | explicitly untrusted under rev-5.6 |
 
-## Candidate mathematical shape
+## Selected statement shape
 
-A common modern formulation is: for a field `k`, a finite set of indeterminates, and a finitely
-generated projective module `P` over the resulting polynomial ring, `P` is free. This is a
-candidate family description only. The statement phase must select an immutable source and decide
-all of the following before it may create a canonical proposition:
+The proposal selects a field `k`, a positive natural number `n`, the ring
+`MvPolynomial (Fin n) k`, and a type `P` with additive-group, module, finite-generation, and
+projectivity instances. Its conclusion is `Module.Free (MvPolynomial (Fin n) k) P`. The coefficient
+and module universes are independent.
 
 | Decision | Alternatives that change scope |
 |---|---|
-| coefficient object | field, division ring, PID, regular ring, or another base class |
-| polynomial ring | `k[X]`, finitely many named variables, `MvPolynomial (Fin n) k`, or an arbitrary finite variable type |
-| module convention | left or right module; commutative specialization; bundled module versus typeclasses |
-| size premise | finitely generated module, finite module typeclass, constant finite rank, or unrestricted projective module |
-| conclusion | existence of some basis, finite basis of a specified rank, stable freeness, or an explicit matrix completion |
-| quantifier order | fixed `n`/variable type and module versus uniform quantification over them |
-| universe/finiteness encoding | `Finite`, `Fintype`, explicit finite set, or a natural number of variables |
-| foundation | use of choice to select a basis and any classical ideal/module principles |
+| coefficient object | `Field k`; the stronger PID clause is not selected as the root |
+| polynomial ring | `MvPolynomial (Fin n) k` with explicit `0 < n` |
+| module convention | unital left module, harmless over the selected commutative ring |
+| size premise | `Module.Finite` and `Module.Projective` |
+| conclusion | `Module.Free`, existence of a basis without specified rank |
+| quantifier order | `k`, field instance, `n`, positivity, `P`, additive/module/finite/projective instances |
+| universe/finiteness encoding | `k : Type u`, `P : Type v`, `n : Nat` |
+| foundation | proposition only here; proof-specific classical principles remain downstream |
 
-## Boundary cases held open
+## Frozen boundary cases
 
-- zero variables, where the polynomial ring reduces to the coefficient ring;
-- empty or trivial coefficient ring if the selected algebraic structures permit it;
-- the zero module, rank-zero modules, and nontriviality assumptions;
-- infinitely many variables;
-- projective modules that are not finitely generated;
-- finite generation as a module versus finite presentation or constant finite rank;
-- stable freeness versus actual freeness and whether a finite basis is required;
-- univariate-to-multivariate induction versus a direct finite-variable statement.
-
-No case is excluded at intake. Every exclusion must be justified by the selected source rather than
-chosen to match a convenient Lean encoding.
+- Zero variables are excluded by `0 < n`; the inspected source does not expressly state that
+  extension.
+- The zero module and rank zero are included; no `Nontrivial P` premise is present.
+- Infinitely many variables and projectives without finite generation are excluded.
+- Actual freeness is required; stable freeness, matrix completion, and vector-bundle forms receive
+  no identity credit without checked transports.
+- A field is nontrivial in the selected Lean structure, so a trivial coefficient ring is excluded.
 
 ## Excluded substitutions
 
@@ -60,12 +56,13 @@ The pinned environment contains the prospective vocabulary:
 
 | Mathematical component | Pinned Lean surface | Intake result |
 |---|---|---|
-| projective module | `Module.Projective R P` | definition checked; no root theorem |
-| free module | `Module.Free R P` | definition checked; conclusion candidate only |
-| finite generation | `Module.Finite R P` | vocabulary checked; source premise unresolved |
-| polynomial ring | `Polynomial R` | carrier checked; variable convention unresolved |
-| multivariable polynomial ring | `MvPolynomial sigma R` | carrier checked; finiteness convention unresolved |
+| projective module | `Module.Projective R P` | definition selected as a target premise; no root theorem |
+| free module | `Module.Free R P` | definition selected as the target conclusion |
+| finite generation | `Module.Finite R P` | source-mapped premise frozen pending independent review |
+| polynomial ring | `Polynomial R` | unselected alternate carrier |
+| multivariable polynomial ring | `MvPolynomial (Fin n) k` | selected with `0 < n` pending master acceptance |
 | easy reverse implication | `Module.Projective.of_free` | checked neighboring theorem; explicitly not the target |
 
-No canonical module, declaration, elaborated-expression fingerprint, alternate transport,
-obligation registry, or discovery protocol is frozen. Those are downstream gates.
+The canonical declaration is `Stage1Instances.THM_M_0034.QuillenSuslinTarget`, with expression
+SHA-256 `d80cc9860ed5a53c81a0851b4dc8e702aa5a23d448f373ae6d68ed0c9b5604b1`. No alternate
+transport, obligation registry, discovery protocol, or proof body is credited.

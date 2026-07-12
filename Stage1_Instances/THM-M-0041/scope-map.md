@@ -8,24 +8,24 @@ polynomial of `A` at `A` yields the zero matrix. The characteristic polynomial i
 algebra with scalar coefficients acting as scalar matrices.
 
 This is a conventional repository-scope selection from a concise catalog gloss, not an `H0` source
-finding and not an accepted Lean statement. The statement phase must ratify it against an immutable
-source packet, elaborate it, fingerprint it, and mutation-test it before tree construction.
+finding. The statement phase has now elaborated, fingerprinted, boundary-tested, and mutation-tested
+this exact selection; its provisional receipt still requires master acceptance. Immutable pinpoint
+source fidelity remains independently open on the human-proof axis.
 
 ## Scope decisions
 
 | Surface | Intake-selected meaning | Open verification |
 |---|---|---|
-| Matrix | finite square matrix indexed by one finite type | exact source dimension/index convention and binder order |
-| Coefficients | arbitrary commutative ring | source generality and exact Lean structure hierarchy |
-| Characteristic polynomial | `det(X I - A)` | sign convention and checked definition unfolding |
-| Evaluation | substitute `A`, with coefficients mapped to scalar matrices | exact `Polynomial.aeval` expression and noncommutative evaluation semantics |
-| Conclusion | result equals the zero matrix | elaborated equality, universe, and typeclass fingerprint |
+| Matrix | finite square matrix indexed by one finite type | exact Lean carrier/binders frozen; source convention review open |
+| Coefficients | arbitrary commutative ring | exact `CommRing` hierarchy frozen; historical source generality open |
+| Characteristic polynomial | `det(X I - A)` | local expanded definition frozen; `Matrix.charpoly` transport is downstream |
+| Evaluation | substitute `A`, with coefficients mapped to scalar matrices | exact `Polynomial.aeval` expression frozen |
+| Conclusion | result equals the zero matrix | explicit universe/typeclass expression fingerprint frozen |
 
 ## Boundary cases
 
-- The empty index type and the zero ring are provisionally included because the catalog excludes
-  neither and the pinned matrix candidate supports them. The statement gate must test both rather
-  than silently add `Nonempty`, positive dimension, or `Nontrivial`.
+- The empty index type and the zero ring are included because the catalog excludes neither.
+  `BoundaryProbe.lean` checks both, and the mutation adding `Nonempty` and `Nontrivial` is killed.
 - Zero, identity, scalar, singular, noninvertible, nondiagonalizable, and repeated-eigenvalue
   matrices remain in scope.
 - Rectangular matrices are excluded because the characteristic polynomial and self-evaluation root
@@ -51,10 +51,8 @@ source packet, elaborate it, fingerprint it, and mutation-test it before tree co
 
 ## Downstream handoff
 
-The statement phase must admit and independently review a pinpoint source passage; freeze the
-coefficient domain, dimension/index convention, characteristic polynomial, evaluation semantics,
-and boundary cases; elaborate the minimal-import canonical target; record expression and environment
-fingerprints; check the matrix/endomorphism relationship if credited; and distinguish the required
-removed-hypothesis, changed-domain, changed-binder-scope, and boundary mutations. Only the later
-anchor audit may inspect and classify proof bodies, provenance, transitive dependencies, and trust
-closure of the pinned candidates.
+The statement phase has frozen the coefficient domain, index convention, expanded characteristic
+polynomial, evaluation semantics, boundaries, minimal imports, fingerprints, and required mutation
+classes. Master acceptance is pending. The source audit must still admit and independently review a
+pinpoint source passage. The later anchor audit must check the `Matrix.charpoly` relationship and
+inspect proof bodies, provenance, transitive dependencies, and trust closure of pinned candidates.

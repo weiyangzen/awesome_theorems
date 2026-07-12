@@ -39,19 +39,20 @@ a pinpoint primary statement and assumptions, but it has not received an indepen
 errata review, complete proof-to-node mapping, or reviewer acceptance. These leads support `H1`,
 never `H0`.
 
-## Prospective component map
+## Selected component map
 
-| Candidate source component | Decision required | Prospective Lean component | Intake status |
+| Source component | Selected Lean component | Statement status | Remaining review |
 |---|---|---|---|
-| coefficient field `k` | decide whether root is the field corollary or Suslin's PID clause | `[Field k]` or source-selected alternative | primary field/PID clauses located; root choice open |
-| finitely many indeterminates | map source variables `X1,...,Xn` | `MvPolynomial (Fin n) k` or reviewed equivalent | prospective encoding open |
-| projective `k[X]`-module `P` | map commutative rings and unital modules to Lean structures | `Module.Projective (MvPolynomial (Fin n) k) P` | adjacent definition checked only |
-| finitely generated `P` | preserve Suslin's `P(A)` convention | `Module.Finite (MvPolynomial (Fin n) k) P` | primary premise located; encoding open |
-| `P` is free | preserve the PID conclusion of Theorem 3* | `Module.Free (MvPolynomial (Fin n) k) P` | primary conclusion located; encoding open |
-| independent proof | decide how Quillen's separate proof enters source ownership | source-to-obligation proof split | Quillen full text and crosswalk open |
+| coefficient field `k` | `[Field k]` | field specialization of the PID clause selected | independent source approval open |
+| named variables `X1,...,Xn` | `MvPolynomial (Fin n) k` and `0 < n` | finite ordered variables frozen | zero-variable extension uncredited |
+| unital projective module `P` | additive group, module, and `Module.Projective` instances | commutative left-module encoding frozen | definition-chain review open |
+| finitely generated `P` | `Module.Finite` | premise frozen from Theorem 3* | independent translation open |
+| `P` is free | `Module.Free` | conclusion frozen | exact basis terminology review open |
+| independent Quillen proof | no statement field or proof credit | not part of target identity | Quillen full text and crosswalk open |
 
-There are no ordered binders, accepted hypotheses, exact conclusion, alternate encoding, checked
-transport, statement fingerprint, or credited proof body at intake.
+The fully explicit elaborated expression is frozen in `statement.json` with SHA-256
+`d80cc9860ed5a53c81a0851b4dc8e702aa5a23d448f373ae6d68ed0c9b5604b1`. No alternate encoding,
+checked transport, or proof body is credited.
 
 ## Pinned formal-source boundary
 
@@ -66,11 +67,10 @@ This is bounded intake discovery, not the dependency-ordered anchor audit and no
 absence. A later audit must search repo-local Lean, all pinned mathlib declarations and terminal
 bodies, and credible immutable external Lean 4 projects under a precommitted protocol.
 
-## Gate to an exact statement
+## Remaining source gate
 
-Before the statement task can pass, accountable reviewers must ratify the immutable Suslin scan,
-translate and independently review the opening claim, `P(A)` convention, and Theorem 3*; select the
-field corollary or another exact source root; reconcile Quillen's formulation; map every binder and
-hypothesis; decide the boundary cases above; check errata; and approve the target as the claim
-actually owned by `THM-M-0034` rather than `THM-M-0033`. Only then may a Lean expression and
-mutation suite be frozen.
+The worker has proposed and self-tested the exact field specialization. Master acceptance still
+requires an accountable reviewer to ratify the immutable Suslin scan, independently translate and
+review Theorem 3*, check corrections and errata, reconcile Quillen's formulation, and approve the
+target as the claim owned by `THM-M-0034` rather than `THM-M-0033`. Until then this remains H1 and
+provisional; the Lean expression does not establish H0 source fidelity.
