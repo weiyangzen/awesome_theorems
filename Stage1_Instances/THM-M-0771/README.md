@@ -1,15 +1,15 @@
 # THM-M-0771 rev-5.6 intake
 
-This directory is the fail-closed `planned` intake dossier for the well-ordering theorem. The
-repository claim is "every set can be well-ordered." The dossier fixes the ordinary mathematical
-scope as an arbitrary carrier admitting a strict well-order, while leaving the exact Lean surface,
-universe serialization, and checked equivalence transports to the dependent statement phase.
+This directory is the fail-closed `planned` dossier for the well-ordering theorem. The repository
+claim is "every set can be well-ordered." The statement phase freezes this as every `alpha : Type u`
+admitting a relation `r` with `IsWellOrder alpha r`; it also checks the equivalence with existence
+of a `LinearOrder alpha` satisfying `WellFoundedLT alpha`.
 
-Pinned mathlib contains `exists_wellOrder` and the relation-level `WellOrderingRel` API. The bounded
-Lean probe confirms those names and a candidate direct relation proposition elaborate. This is API
-discovery, not proof credit: intake does not freeze the exact expression, audit axioms or terminal
-bodies, or complete any later phase.
+`Statement.lean` uses only `Mathlib.Order.RelClasses`, so it does not import the cardinal
+construction or `exists_wellOrder`. The exact target, both encoding transports, mutations, and
+empty/singleton boundaries elaborate. This is statement identity evidence, not proof credit: the
+anchor audit, terminal-body provenance, and all later phases remain open.
 
-The intake root remains `[H1, M3, R4]`. A primary 1904 source is located, but its exact passage,
+The root remains `[H1, M3, R4]`. A primary 1904 source is located, but its exact passage,
 translation, assumptions, errata, and independent review remain open. Exact commands and results
 are recorded in `validation.md`; all downstream tasks remain open in `task-dag.json`.

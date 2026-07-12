@@ -13,24 +13,25 @@
   "category": "mathematical logic / set theory",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "Every set can be well-ordered.",
-  "canonical_claim_status": "ordinary_type_level_scope_frozen_exact_lean_statement_and_source_review_open",
+  "canonical_claim_status": "exact_lean_statement_self_tested_pending_master_acceptance_source_review_open",
   "canonical_claim": "For every type alpha, there is a strict well-ordering relation on alpha; equivalently, alpha admits a linear order whose strict order is well-founded.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "candidate_elaborated_not_statement_phase_frozen",
-    "module_candidates": ["Mathlib.SetTheory.Cardinal.Order"],
-    "declaration_or_expression": "forall (alpha : Type u), Nonempty { r : alpha -> alpha -> Prop // IsWellOrder alpha r }",
-    "alternate_candidate": "forall (alpha : Type u), Exists fun _ : LinearOrder alpha => WellFoundedLT alpha",
-    "candidate_declaration": "exists_wellOrder",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "statement_self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0771/Statement.lean",
+    "minimal_import": "Mathlib.Order.RelClasses",
+    "declaration_or_expression": "Stage1Instances.THM_M_0771.WellOrderingTarget",
+    "alternate_candidate": "Stage1Instances.THM_M_0771.BundledWellOrderingTarget",
+    "candidate_declaration": "exists_wellOrder (discovery only; not imported or credited by statement phase)",
+    "elaborated_expression_hash": "sha256:adeed39bf6f748a2f9deb3f75399b41e073f2edb84be65dad243c1aae11dfecd",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_statement-9f09f7d9"
   },
-  "domain_and_universes": "An arbitrary Lean type in an arbitrary universe. Translation from set-theoretic sets to types and exact universe binders await statement freeze.",
+  "domain_and_universes": "One arbitrary universe u and every alpha : Type u; the relation is alpha -> alpha -> Prop and the complete target is Prop.",
   "quantifiers": ["universe u", "carrier alpha : Type u"],
   "hypotheses": [],
   "conclusion": "There exists a relation on alpha satisfying the strict well-order laws; equivalently there exists a LinearOrder alpha with WellFoundedLT alpha.",
   "alternate_encodings": [
-    "an existential LinearOrder with WellFoundedLT",
+    "checked equivalent existential LinearOrder with WellFoundedLT",
     "a nonempty subtype of relations satisfying IsWellOrder",
     "the chosen relation WellOrderingRel"
   ],
@@ -48,13 +49,13 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "foundation_profile": "Lean 4 dependent type theory with classical choice expected in the dependency profile; exact accepted axioms and their source-facing interpretation await later gates.",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib; minimal imports, axiom printout, and transitive closure await statement and validation phases.",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib; the statement uses only Mathlib.Order.RelClasses and its checked transports print propext, Classical.choice, and Quot.sound; transitive closure remains downstream.",
   "computation_profile": "Noncomputable existence/construction is expected; no executable ordering, oracle result, or unchecked certificate is credited.",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "public_merge_targets": ["Stage1_Instances/THM-M-0771"],
   "owners_and_reviewers": {"owner": "Stage1 integration lane", "source_reviewer": "unassigned", "formal_reviewer": "unassigned"},
   "freshness_and_revocation_policy": "Invalidate on source passage or translation, set/type scope, binder or universe policy, Lean target, toolchain or mathlib pin, foundation profile, or rev-5.6 validator change.",
-  "owned_artifacts": ["README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "IntakeProbe.lean", "validation.md"],
-  "status_boundary": "Self-tested planned intake only. Candidate APIs and a candidate relation proposition elaborate, but the exact statement is not frozen and no H0, M0, R0, audit completion, theorem completion, or proof state is claimed."
+  "owned_artifacts": ["README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "IntakeProbe.lean", "Statement.lean", "check_statement.py", "statement.json", "validation.md", "statement-validation.md"],
+  "status_boundary": "Self-tested planned intake and provisional exact statement only. The relation-level target and bundled-order equivalence elaborate, but no H0, M0, R0, audit completion, theorem completion, or proof state is claimed; statement acceptance remains with the master."
 }

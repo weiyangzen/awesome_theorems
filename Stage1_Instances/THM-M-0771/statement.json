@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0771-STATEMENT",
+  "theorem_id": "THM-M-0771",
+  "lifecycle": "planned",
+  "canonical_statement": "For every type alpha, there exists a binary relation on alpha which is well-founded and trichotomous, hence a strict well-order.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0771/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0771.WellOrderingTarget",
+    "elaborated_expression_sha256": "adeed39bf6f748a2f9deb3f75399b41e073f2edb84be65dad243c1aae11dfecd",
+    "statement_file_sha256": "9f09f7d91d45669b4f7950348890ae5de6ab1b4572693045ded68084c0f86653"
+  },
+  "domain_and_universes": "universe u; alpha : Type u; the relation alpha -> alpha -> Prop and its IsWellOrder witness are universe-polymorphic; the complete declaration is a Prop.",
+  "ordered_binders": [
+    "alpha : Type u"
+  ],
+  "hypotheses": [],
+  "conclusion": "Nonempty { r : alpha -> alpha -> Prop // IsWellOrder alpha r }",
+  "direct_imports": [
+    "Mathlib.Order.RelClasses"
+  ],
+  "minimal_import_evidence": "The canonical statement, IsWellOrder, WellFoundedLT, IsWellOrder.linearOrder, and the reverse LinearOrder instance are all exposed by Mathlib.Order.RelClasses. The cardinal construction and exists_wellOrder proof module are deliberately not imported at this phase.",
+  "checked_transports": [
+    "Stage1Instances.THM_M_0771.relation_to_bundled",
+    "Stage1Instances.THM_M_0771.bundled_to_relation",
+    "Stage1Instances.THM_M_0771.wellOrderingTarget_iff_bundled"
+  ],
+  "environment_fingerprint": {
+    "repository_base": "c72bad9e8827ffb1ba1a585dbe346c88393b4a3f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ]
+  },
+  "foundation_profile": {
+    "target": "A proposition only; no inhabitant or well-ordering construction is supplied here.",
+    "checked_transport_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0771/check_statement.py",
+    "killed": [
+      "removed well-foundedness by retaining only IsStrictTotalOrder",
+      "removed linearity by retaining only IsWellFounded",
+      "restricted the carrier domain to inhabited types",
+      "replaced the universally quantified carrier with Nat"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0771.empty_boundary",
+      "Stage1Instances.THM_M_0771.singleton_boundary"
+    ]
+  },
+  "alternate_encodings": {
+    "credited": [
+      "BundledWellOrderingTarget, equivalent by wellOrderingTarget_iff_bundled"
+    ],
+    "not_credited": [
+      "the axiom of choice",
+      "Zorn's lemma",
+      "a fixed familiar carrier",
+      "a merely well-founded relation",
+      "a merely strict linear order"
+    ]
+  },
+  "degenerate_cases": "No carrier is excluded. Empty and singleton carriers are kernel-checked fixtures; finite and infinite carriers remain under the same universal binder.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact relation-level target and its bundled-order equivalence only. It does not import or credit exists_wellOrder, audit proof provenance, establish M0, or complete the theorem."
+}

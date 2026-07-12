@@ -1,0 +1,76 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0767",
+  "item_id": "S56-M-0767-ANCHOR_AUDIT",
+  "phase": "anchor_audit",
+  "canonical_declaration": "Stage1.THM_M_0767.CanonicalTarget",
+  "environment": {
+    "repository_base": "c72bad9e8827ffb1ba1a585dbe346c88393b4a3f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "id": "MATHLIB-CARDINAL-CANTOR",
+      "kind": "exact_mathlib_anchor_via_checked_normalization",
+      "module": "Mathlib.SetTheory.Cardinal.Order",
+      "declaration": "Cardinal.cantor",
+      "type": "forall (a : Cardinal.{u}), a < 2 ^ a",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "source_file": "Mathlib/SetTheory/Cardinal/Order.lean",
+      "source_file_sha256": "7a219ff0395f8eb23002f7aa3f3ae4eef3f5ad9d727a5aea2dbb1645ea2f83a0",
+      "source_lines": "338-344",
+      "terminal_body": "mathlib source body: singleton injection plus contradiction through Function.cantor_injective",
+      "canonical_bridge": "rw [Cardinal.mk_powerset]; exact Cardinal.cantor (Cardinal.mk s)",
+      "checked_wrapper": "Stage1.THM_M_0767.AnchorAudit.mathlib_anchor",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders": "none in the audited declaration bodies/source slices",
+      "dependency_feasibility": "already in the pinned repo-local Lake closure",
+      "classification": "eligible M0-W anchor after downstream obligation, provenance, composition, and acceptance gates"
+    },
+    {
+      "id": "MATHLIB-FUNCTION-DIAGONAL",
+      "kind": "supporting_diagonal_boundary",
+      "module": "Mathlib.Logic.Function.Basic",
+      "declarations": ["Function.cantor_surjective", "Function.cantor_injective"],
+      "types": [
+        "forall (f : alpha -> Set alpha), not (Function.Surjective f)",
+        "forall (f : Set alpha -> alpha), not (Function.Injective f)"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "source_file": "Mathlib/Logic/Function/Basic.lean",
+      "source_file_sha256": "5dffbb69147f9bf2cfc8de6083b7eab88d0b297762052e5e81d19a77f346dc97",
+      "source_lines": "246-266",
+      "terminal_body": "explicit Lawvere fixed-point/diagonal terms in pinned mathlib source",
+      "axioms": {
+        "Function.cantor_surjective": [],
+        "Function.cantor_injective": ["propext", "Quot.sound"]
+      },
+      "placeholders": "none in the audited declaration bodies/source slices",
+      "classification": "supporting anchor; not independently credited as the exact cardinal root"
+    }
+  ],
+  "external_audit": {
+    "pinned_project_searched": "leanprover-community/flt-regular at 56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "repo_local_search": "all Lean files outside the mathlib package and THM-M-0767 owned path",
+    "remote_queries": [
+      "GitHub repository search: Cantor theorem Lean4",
+      "GitHub repository search: cantor_surjective language:Lean",
+      "GitHub repository search: Cardinal.cantor language:Lean"
+    ],
+    "result": "no additional credible exact Lean 4 candidate located",
+    "limitation": "anonymous GitHub code search returned HTTP 401 and grep.app returned HTTP 429; no moving dependency was fetched, and absence is not claimed beyond the recorded search surface"
+  },
+  "audit_decision": {
+    "preferred_anchor": "MATHLIB-CARDINAL-CANTOR",
+    "root_vector_before": {"H": "H1", "M": "M4", "R": "R4"},
+    "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+    "reason": "an exact usable pinned formal anchor and checked canonical wrapper are now identified, but this audit phase does not accept proof closure",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "first_downstream_gate": "freeze the root-critical obligation and provenance graphs before proof credit"
+  },
+  "status_boundary": "Self-tested candidate audit only, pending master acceptance. No accepted M0 state, AUDIT-Z, or THEOREM-Z is claimed."
+}

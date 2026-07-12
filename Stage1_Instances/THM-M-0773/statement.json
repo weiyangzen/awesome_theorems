@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0773-STATEMENT",
+  "theorem_id": "THM-M-0773",
+  "lifecycle": "planned",
+  "canonical_statement": "For every type alpha and nonempty family F of subsets of alpha, if membership in F has finite character, then F contains a member maximal under subset inclusion.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0773/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0773.TeichmullerTukeyTarget",
+    "elaborated_expression_sha256": "68aa26cd5bfd9033298490cc521d4c26b0fd5bd62f6431259532573d1a699f14",
+    "statement_file_sha256": "49682139f4e77254eaa5cd9fcbb205851cb0b6365cabfb7fc76205ea28d49264"
+  },
+  "domain_and_universes": "universe u; alpha : Type u; F : Set (Set alpha); Prop in Lean universe 0",
+  "ordered_binders": [
+    "alpha : Type u",
+    "F : Set (Set alpha)",
+    "Order.IsOfFiniteCharacter F",
+    "F.Nonempty"
+  ],
+  "hypotheses": [
+    "Order.IsOfFiniteCharacter F: X is in F iff every finite subset of X is in F",
+    "F.Nonempty"
+  ],
+  "conclusion": "There exists m maximal among the members of F under subset inclusion.",
+  "direct_imports": ["Mathlib.Order.TeichmullerTukey"],
+  "minimal_import_evidence": "This is the pinned module that defines Order.IsOfFiniteCharacter, the exact predicate occurring in the target. Its three public imports are internal to mathlib; no broader umbrella import is used.",
+  "checked_transports": [
+    {
+      "declaration": "Stage1Instances.THM_M_0773.pointed_implies_unpointed",
+      "relationship": "PointedTarget implies the canonical nonempty-family target by choosing the seed and forgetting its extension witness. The reverse direction is not credited at this statement-only phase."
+    }
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0773/check_statement.py",
+    "killed": [
+      "removed the nonempty-family hypothesis",
+      "changed the family from sets to finite sets and removed finite character",
+      "moved the family binder from universal to existential scope",
+      "excluded the empty-carrier boundary with a Nonempty alpha instance"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0773.emptyFamily_boundary",
+      "Stage1Instances.THM_M_0773.emptyCarrier_boundary"
+    ]
+  },
+  "degenerate_cases": "The empty family is excluded and is proved to be a counterexample when nonemptiness is removed. The carrier alpha may be empty; this included boundary has an explicit maximal-member witness. Maximal is relative to F and does not mean greatest.",
+  "alternate_encodings": {
+    "credited": ["PointedTarget implies TeichmullerTukeyTarget by pointed_implies_unpointed"],
+    "not_credited": ["the reverse unpointed-to-pointed implication", "Zorn's lemma", "Hausdorff maximality", "the axiom of choice"]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact nonempty-family target, one checked implication from the pointed encoding, four structural mutations, and two boundary facts. It does not credit the pinned theorem body, close the reverse transport, perform anchor audit, or establish theorem completion."
+}

@@ -11,6 +11,10 @@ The statement phase selects the set-subtype target
 normalized `2 ^ Cardinal.mk` forms. Empty and finite boundary fixtures elaborate without added
 hypotheses. The exact primary-source edition, source wording, assumptions, and errata remain open.
 
-The provisional root vector remains `[H1, M4, R4]`: statement elaboration does not itself provide
-formal-anchor or proof-body credit. The frozen expression and environment are in
-`statement-freeze.json`; exact commands and results are recorded in `validation.md`.
+The anchor audit identifies pinned mathlib's `Cardinal.cantor`, normalized by
+`Cardinal.mk_powerset`, as an exact candidate for the canonical root. `AnchorAudit.lean` checks the
+wrapper and reports the candidate's axioms; `anchor-audit.json` records immutable revisions, source
+locations and hashes, terminal-body provenance, the supporting diagonal declarations, and the
+bounded external search. The provisional vector is now `[H1, M3, R4]`: a usable interface exists,
+but the obligation/provenance graph and all proof-acceptance gates remain downstream. Exact commands
+and results are recorded in `validation.md`.

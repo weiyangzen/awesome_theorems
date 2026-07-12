@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0769-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0769",
+  "base_revision": "c72bad9e8827ffb1ba1a585dbe346c88393b4a3f",
+  "frozen_target": "Stage1Instances.THM_M_0769.AxiomOfChoiceTarget",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tag": "v4.29.0"
+  },
+  "candidates": [
+    {
+      "id": "CORE-PI-INST-NONEMPTY",
+      "project": "lean4 core",
+      "module": "Init.Prelude",
+      "declaration": "Pi.instNonempty",
+      "source_locator": "src/lean/Init/Prelude.lean:820",
+      "revision": "leanprover/lean4:v4.29.0 (commit 98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+      "relation_to_target": "exact after explicit application to the pointwise Nonempty hypothesis",
+      "checked_witness": "Stage1Instances.THM_M_0769.AnchorAudit.viaPiInstNonempty",
+      "terminal_provenance": "the core instance constructs the selector with Classical.ofNonempty, whose body calls Classical.choice",
+      "axioms": ["Classical.choice"],
+      "placeholders": false,
+      "unsafe_or_oracle_boundary": false,
+      "classification": "exact_pinned_core_candidate"
+    },
+    {
+      "id": "MATHLIB-CLASSICAL-NONEMPTY-PI",
+      "project": "mathlib4",
+      "module": "Mathlib.Logic.Nonempty",
+      "declaration": "Classical.nonempty_pi",
+      "source_locator": "Mathlib/Logic/Nonempty.lean:108",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "relation_to_target": "its reverse implication is the exact pointwise target for arbitrary Sort universes",
+      "checked_witness": "Stage1Instances.THM_M_0769.AnchorAudit.viaClassicalNonemptyPi",
+      "terminal_provenance": "the reverse implication is @Pi.instNonempty, hence terminates at Classical.choice",
+      "axioms": ["Classical.choice"],
+      "placeholders": false,
+      "unsafe_or_oracle_boundary": false,
+      "classification": "exact_pinned_mathlib_candidate"
+    },
+    {
+      "id": "CORE-CLASSICAL-CHOICE",
+      "project": "lean4 core",
+      "module": "Init.Classical",
+      "declaration": "Classical.choice",
+      "source_locator": "src/lean/Init/Prelude.lean:795; dependent wrapper Classical.axiomOfChoice at src/lean/Init/Classical.lean:122",
+      "revision": "leanprover/lean4:v4.29.0 (commit 98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+      "relation_to_target": "directly selects one inhabitant from every fiber",
+      "checked_witness": "Stage1Instances.THM_M_0769.AnchorAudit.viaClassicalChoice",
+      "terminal_provenance": "trusted Lean axiom Classical.choice",
+      "axioms": ["Classical.choice"],
+      "placeholders": false,
+      "unsafe_or_oracle_boundary": false,
+      "classification": "exact_pinned_foundational_candidate"
+    }
+  ],
+  "external_search": {
+    "scope": "repo-local Lean sources and every package already pinned in Formalizations/Lean/lake-manifest.json",
+    "result": "No additional exact AxiomOfChoice/nonempty_pi declaration was found outside Lean core and mathlib. The only axiom_of_choice hit outside the exact candidates was Mathlib.Logic.Encodable.Basic, which is Type-valued and requires Encodable fibers, so it is strictly narrower and receives no root credit.",
+    "network_mutation": "No clone, fetch, update, or build was performed; moving external dependencies were not consulted."
+  },
+  "debt_classification": "No external integration debt: exact candidates are already in the pinned toolchain/dependency closure. Later phases must choose and compose a repo-local proof declaration; this audit does not claim M0 or theorem completion.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "Candidate identity, exact types, terminal axiom provenance, and pinned availability are audited. Human-source H0, obligation-tree closure, accepted proof credit, hermetic validation, and release remain open."
+}

@@ -17,12 +17,12 @@
   "canonical_claim": "For every type alpha and family F of subsets of alpha, if F is nonempty and has finite character (X belongs to F exactly when every finite subset of X belongs to F), then F contains an inclusion-maximal member. Equivalently in the pointed form: every x in F is contained in some inclusion-maximal m in F.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "candidate_api_type_checked_at_intake_exact_statement_fingerprint_deferred_to_statement_phase",
-    "module_candidate": "Mathlib.Order.TeichmullerTukey",
-    "declaration_candidate": "Order.IsOfFiniteCharacter.exists_maximal",
-    "candidate_expression": "forall {alpha : Type u} {F : Set (Set alpha)}, Order.IsOfFiniteCharacter F -> forall {x : Set alpha}, x in F -> exists m, x subseteq m and Maximal (fun y => y in F) m",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "exact_canonical_statement_elaborated_statement_phase_self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0773/Statement.lean",
+    "declaration": "Stage1Instances.THM_M_0773.TeichmullerTukeyTarget",
+    "expression": "forall (alpha : Type u) (F : Set (Set alpha)), Order.IsOfFiniteCharacter F -> F.Nonempty -> exists m, Maximal (fun y => y in F) m",
+    "elaborated_expression_hash": "sha256:68aa26cd5bfd9033298490cc521d4c26b0fd5bd62f6431259532573d1a699f14",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_pp-universes-explicit"
   },
   "domain_and_universes": "An arbitrary universe u, a type alpha : Type u, and a family F : Set (Set alpha), ordered by subset inclusion.",
   "quantifiers": [
@@ -39,14 +39,14 @@
     {
       "target": "Nonempty F -> exists m, Maximal (fun y => y in F) m",
       "relationship": "expected equivalent to the pointed candidate by choosing a seed and forgetting x subseteq m",
-      "checked_witness": null,
-      "status": "statement-phase transport required"
+      "checked_witness": "canonical target itself",
+      "status": "canonical"
     },
     {
       "target": "forall x in F, exists m, x subseteq m and Maximal (fun y => y in F) m",
       "relationship": "strong pointed formulation exposed by the pinned candidate",
-      "checked_witness": "Order.IsOfFiniteCharacter.exists_maximal type checked by IntakeProbe.lean; exact transport not yet credited",
-      "status": "candidate"
+      "checked_witness": "Stage1Instances.THM_M_0773.pointed_implies_unpointed checks pointed implies canonical",
+      "status": "one_direction_credited_reverse_open"
     }
   ],
   "excluded_degenerate_cases": "The empty family is excluded because it has finite character vacuously under the standard biconditional definition but has no maximal member. Maximal means maximal among members of F under subset inclusion, not a greatest member and not a maximal set in the entire powerset. Alpha may be empty and family members may be empty; these are not excluded.",
@@ -81,7 +81,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "statement.json",
+    "check_statement.py",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Mathematical scope and boundary cases are frozen, and a pinned candidate API type elaborates. No expression fingerprint, source acceptance, anchor-audit acceptance, proof credit, accepted task state, audit completion, or theorem completion is claimed."
+  "status_boundary": "The planned intake now has a self-tested exact statement fingerprint pending master acceptance. No reverse pointed transport, source acceptance, anchor-audit acceptance, proof credit, accepted task state, audit completion, or theorem completion is claimed."
 }
