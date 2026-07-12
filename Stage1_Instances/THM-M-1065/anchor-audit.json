@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1065-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1065",
+  "base_revision": "4344dc4263d0bcc8c386ec0ae1ad4e508c910b1e",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1065.KMTStrongApproximationTarget",
+  "canonical_target_expression_sha256": "b257ceb188a0b84aab11fd389b5df322129c283dbc38f5c226900a4fec5cebd0",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M1065-A-MATHLIB-SUBSTRATE",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+      "declarations": [
+        "ProbabilityTheory.gaussianReal",
+        "ProbabilityTheory.HasLaw",
+        "ProbabilityTheory.iIndepFun"
+      ],
+      "type_relation": "interfaces used by the frozen target, but no common-space coupling or logarithmic maximal-discrepancy tail bound",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "already in the pinned local closure",
+      "placeholders_or_unsafe": "no exact candidate proof body exists to credit or audit transitively",
+      "classification": "M3 substrate; not M0-W",
+      "result": "locally elaborated supporting declarations only"
+    },
+    {
+      "id": "M1065-A-REPO-LOCAL-SEARCH",
+      "source": "repository at base revision",
+      "revision": "4344dc4263d0bcc8c386ec0ae1ad4e508c910b1e",
+      "module": null,
+      "declarations": [],
+      "type_relation": "no exact KMT proof declaration located; incidental references to a different Komlos martingale theorem are excluded",
+      "dependency_feasibility": "not applicable",
+      "placeholders_or_unsafe": "no candidate body",
+      "classification": "no candidate",
+      "result": "negative bounded search"
+    },
+    {
+      "id": "M1065-A-PUBLIC-LEAN4-SEARCH",
+      "source": "GitHub repository search API",
+      "revision": null,
+      "module": null,
+      "declarations": [],
+      "queries": [
+        "\"Komlos-Major-Tusnady\" lean",
+        "\"strong approximation\" lean4"
+      ],
+      "type_relation": "no Lean 4 repository candidate returned by either query",
+      "dependency_feasibility": "no dependency identified",
+      "placeholders_or_unsafe": "no candidate body",
+      "classification": "no candidate; discovery result only",
+      "result": "both completed repository queries returned total_count 0; unauthenticated code search was not used to claim global saturation"
+    }
+  ],
+  "search": {
+    "repo_local": "searched Lean sources for KMT names, author names, strong approximation, and strong invariance; no exact proof found",
+    "pinned_dependencies": "searched the pinned mathlib Lean tree under its immutable revision; no KMT or strong-approximation theorem family found",
+    "external": "two GitHub repository-search queries completed with zero results",
+    "limitations": "GitHub repository metadata search is not exhaustive code search; no global nonexistence claim is made, and no dependency was fetched"
+  },
+  "root_decision": {
+    "classification": "M3",
+    "kernel_closed": false,
+    "reason": "the exact statement elaborates and mathlib supplies interfaces, but the audit found no terminal exact Lean proof candidate",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "construct the common-space iid coupling",
+      "prove the uniform logarithmic maximal-discrepancy exponential tail bound"
+    ]
+  },
+  "human_source_boundary": "The primary-source theorem/page, assumptions, constants, and errata crosswalk remains open; this formal-anchor audit does not establish H0.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false
+}
