@@ -1,0 +1,79 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1012-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1012",
+  "lifecycle": "planned",
+  "canonical_target": "Stage1Instances.THM_M_1012.LevyContinuityKnownLimitTarget",
+  "audit_date": "2026-07-12",
+  "environment": {
+    "base_revision": "b2c5ff63ca2e762d1b24d1dc514782747d1a6e1b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree_object": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M1012-CAND-MATHLIB-LEVY-KNOWN-LIMIT",
+      "kind": "pinned_mathlib_exact_closure",
+      "module": "Mathlib.MeasureTheory.Measure.LevyConvergence",
+      "source_path": "Mathlib/MeasureTheory/Measure/LevyConvergence.lean",
+      "declaration": "MeasureTheory.ProbabilityMeasure.tendsto_iff_tendsto_charFun",
+      "source_lines_at_revision": "212-219",
+      "source_file_git_object": "fc0bf2a7054634763040aa9bbcaae5f2c93b8d5f",
+      "source_file_sha256": "54fa4a3baec8a8ab916524dd63c52a6da70bc919031e20318b198fa20755fff8",
+      "introducing_commit": "901a41358322e44c48a679486effd3b34e6d12ed",
+      "introducing_commit_date": "2026-03-09T11:53:30Z",
+      "author": "Remy Degenne",
+      "toolchain": "Lean 4.29.0",
+      "type_relation": "exact after elaboration of explicit coercions and nhds notation",
+      "repo_dependency_feasibility": "already present in the canonical pinned mathlib dependency; no new dependency required",
+      "terminal_proof_body": "mathlib theorem body in the pinned source module, not merely an axiom or declaration-only anchor",
+      "placeholder_scan": "no sorry, admit, axiom, or unsafe token in the pinned LevyConvergence.lean source",
+      "reported_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "validation_wrapper": "Stage1Instances.THM_M_1012.AnchorAudit.pinned_mathlib_candidate",
+      "classification": "local_wrapper_upstream_mathlib_candidate"
+    }
+  ],
+  "supporting_mathlib_declarations": [
+    {
+      "declaration": "MeasureTheory.ProbabilityMeasure.tendsto_of_tendsto_charFun",
+      "role": "reverse implication via tightness and characteristic-polynomial separation"
+    },
+    {
+      "declaration": "MeasureTheory.isTightMeasureSet_of_tendsto_charFun",
+      "role": "tightness from pointwise characteristic-function convergence to a function continuous at zero"
+    },
+    {
+      "declaration": "MeasureTheory.ProbabilityMeasure.tendsto_charPoly_of_tendsto_charFun",
+      "role": "transports characteristic-function convergence to the separating star-subalgebra"
+    }
+  ],
+  "external_lean4_search": {
+    "scope": "all already-pinned Lake packages plus public GitHub repository metadata searches",
+    "local_package_revision_count": 11,
+    "queries": [
+      "case-insensitive local search for Levy/Lévy convergence and tendsto_iff_tendsto_charFun in all pinned Lean sources",
+      "GitHub repository search: exact phrase Levy convergence with language Lean",
+      "GitHub repository search: exact phrase Levy continuity with language Lean",
+      "GitHub repository search: characteristic function probability lean4"
+    ],
+    "result": "No independent external Lean 4 implementation was found. The only exact closure in the pinned dependency set is mathlib; CentralLimitTheorem merely consumes that declaration.",
+    "limitations": "GitHub unauthenticated repository metadata search is not code search and cannot prove global absence. grep.app code search returned HTTP 503 and is recorded as a known failure. No moving dependency was fetched."
+  },
+  "human_source_boundary": {
+    "status": "not H0",
+    "reason": "This node establishes the immutable Lean anchor and exact formal candidate. It does not provide a primary-source edition/theorem/page/assumption/errata crosswalk or independent human-source review."
+  },
+  "machine_debt_after_audit": "M0-L candidate discovered; promotion awaits the proof, validation, and release nodes plus master acceptance",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved_by_this_node": false,
+  "theorem_complete": false,
+  "status_boundary": "Anchor-audit evidence only. The pinned mathlib theorem exactly closes the frozen known-limit statement, but this phase does not freeze the obligation graph, issue accepted receipts, establish H0/R0, or pass rev-5.6 release gates."
+}
