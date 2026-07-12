@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0986-STATEMENT",
+  "theorem_id": "THM-M-0986",
+  "lifecycle": "planned",
+  "canonical_statement": "For an independent identically distributed sequence of real-valued random variables on a probability space, integrability of the reference variable implies that the arithmetic means converge in probability to the common expectation.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0986/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0986.KhinchinWeakLawTarget",
+    "elaborated_expression_sha256": "9a4e61a6c5dea73eb277213b8f95796bcff74d53f63c13fd0d5317ebde502204",
+    "statement_file_sha256": "c7f5ca8ea5438ba4290ffcebb0576a102bee121a213fa2555a9852a711c4e1eb"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; probability measure mu; X : Nat -> Omega -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "mu : Measure Omega",
+    "[IsProbabilityMeasure mu]",
+    "X : Nat -> Omega -> Real"
+  ],
+  "hypotheses": [
+    "Integrable (X 0) mu",
+    "Pairwise ((fun f g => ProbabilityTheory.IndepFun f g mu) on X)",
+    "forall i, ProbabilityTheory.IdentDistrib (X i) (X 0) mu mu"
+  ],
+  "conclusion": "TendstoInMeasure mu (fun n omega => empiricalAverage X n omega) atTop (fun _ => mu[X 0]).",
+  "direct_imports": ["Mathlib.Probability.StrongLaw"],
+  "checked_transport": "Stage1Instances.THM_M_0986.target_iff_expandedIntakeShape",
+  "source_boundary": "This elaborates the real-valued weak-law reading frozen at intake. Exact primary-source transcription, translation, and errata review remain anchor-audit work. The historical Banach-valued module is discovery input only.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0986/check_statement.py",
+    "killed": [
+      "removed pairwise-independence hypothesis",
+      "changed the observation codomain from Real to Nat",
+      "moved X from a universal binder to an existential conclusion",
+      "removed the integrability hypothesis"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0986.empiricalAverage_zero"]
+  },
+  "degenerate_cases": "The n = 0 average is explicitly proved equal to zero. This finite initial value does not alter an atTop limit. No finite-variance, boundedness, nonzero-mean, or nondegeneracy hypothesis is added.",
+  "alternate_encodings": {
+    "expanded_real_form": "Kernel-checked by target_iff_expandedIntakeShape.",
+    "banach_valued_form": "The historical generalization is not credited as identical to this real-valued root.",
+    "almost_sure_form": "A stronger conclusion that may supply a later proof bridge, but is not substituted for convergence in probability."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: exact target, direct expansion, four mutations, and the n=0 boundary elaborate using the pinned minimal import. No source acceptance, proof closure, or downstream completion is claimed."
+}
