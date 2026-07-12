@@ -1,0 +1,108 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0540-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0540",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "db900270f2f4923a9b799f36bb75ca392d869647",
+  "canonical_target": "Stage1.THM_M_0540.CanonicalTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned Lake dependency source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_commit_date": "2026-03-30T18:47:58Z",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0540-C01",
+      "project": "awesome_theorems",
+      "revision": "db900270f2f4923a9b799f36bb75ca392d869647",
+      "module": "Stage1_Instances/THM-M-0540/Statement.lean",
+      "declarations": [
+        "Stage1.THM_M_0540.CanonicalTarget",
+        "Stage1.THM_M_0540.canonicalTarget_elaborates"
+      ],
+      "kind": "exact_statement_and_statement_phase_witness",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "repo-local rfl witness created by the prerequisite statement phase",
+      "placeholder_or_axiom_status": "no sorry, admit, or axiom token; re-elaborates in the pinned environment",
+      "classification": "M3_statement_surface",
+      "integration_status": "statement-phase evidence only under the workflow boundary; not independently credited as proof-phase closure"
+    },
+    {
+      "candidate_id": "S56-M-0540-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.AlgebraicTopology.SingularHomology.Basic",
+      "declarations": [
+        "AlgebraicTopology.SSet.singularChainComplexFunctor",
+        "AlgebraicTopology.singularChainComplexFunctor",
+        "AlgebraicTopology.singularHomologyFunctor"
+      ],
+      "source_sha256": "655867a11ed5ec706a554ac32f8f273c5227cafd4b47f0de42d84e24b0d33c7c",
+      "source_lines": "36-49",
+      "license": "Apache-2.0",
+      "kind": "exact_pinned_definition_anchor",
+      "normalized_match": "singularHomologyFunctor is defined as singularChainComplexFunctor followed by the degree-n homology functor; specialization to ModuleCat Int is definitionally the canonical equality",
+      "body_provenance": "repo-local dependency source and compiled artifact at the manifest-pinned commit",
+      "placeholder_or_axiom_status": "AnchorAudit.lean elaborates an exact rfl wrapper; #print axioms reports only mathlib's expected foundational propext, Classical.choice, and Quot.sound, with no target-specific axiom",
+      "classification": "M0-W_candidate",
+      "integration_status": "already in the pinned dependency closure and exact-wrapper check passed; proof credit remains reserved for the ordered proof and validation phases"
+    },
+    {
+      "candidate_id": "S56-M-0540-C03",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas.AlgebraicTopologyI.code.Section1",
+      "declarations": [
+        "AlgebraicTopologyI.SingularHomologyGroup",
+        "AlgebraicTopologyI.singularHomologyGroup_eq_homology"
+      ],
+      "source_sha256": "0335e69f8b42288c34ccb7d59b808edda5d04c3e1abb07296fe3f52f52d0c8",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "kind": "external_near_exact_wrapper",
+      "normalized_match": "same construction identity and integral coefficients, but stated in AddCommGrpCat and with chain-complex .homology rather than the canonical ModuleCat Int homologyFunctor expression",
+      "body_provenance": "rfl theorem inspected in raw source bound to the immutable commit",
+      "placeholder_or_axiom_status": "terminal body is rfl; transitive project placeholder and trust audit was not performed",
+      "classification": "M1_near_exact_external",
+      "integration_status": "not needed and not exact as stated; the pinned mathlib definition is a closer dependency-legal anchor"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (singularHomologyFunctor OR singular homology functor) lang:Lean count:100",
+      "result": "78 matches in two repositories: mathlib4 and atlas-lean; no third Lean repository was returned",
+      "response_sha256": "266ab0669811a3d2b06b0f590d61cd2beea44cc0a7642186b7497522c9308627",
+      "immutability_boundary": "dated content-hashed discovery response; candidate sources are separately bound to commits"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=singular homology Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated content-hashed discovery response, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=singularHomologyFunctor language:Lean",
+      "result": "HTTP 403 API rate limit exceeded",
+      "response_sha256": "ff4efb0ee22ebccbed9a17ab9cd85163b6c2c7647b75dcb6d10241d5b357a6b4",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M0-W_candidate_pending_ordered_proof_gate",
+  "root_classification_reason": "The canonical proposition is deliberately the definitional expansion of pinned mathlib's singularHomologyFunctor. AnchorAudit.lean checks the exact ModuleCat Int specialization by rfl and reports only propext, Classical.choice, and Quot.sound. This audit locates a dependency-legal exact terminal anchor but does not promote proof state out of phase.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the canonical expression, Lean toolchain, mathlib revision, coefficient category, or dependency source changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes the bounded formal-candidate inventory. It does not accept proof-phase credit, establish H0 or R0, freeze the obligation tree, perform release validation, or claim theorem completion."
+}
