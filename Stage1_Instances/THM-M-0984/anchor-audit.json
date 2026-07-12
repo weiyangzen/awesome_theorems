@@ -1,0 +1,95 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0984-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0984",
+  "base_revision": "578632bf0c98d5485dbd13f1946157f593e5087a",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0984.StrongLawTarget",
+  "canonical_target_expression_sha256": "d5e802fd68962ef2637033e80b2c948ef0ee7bbc64427ce24c2c86ab23435360",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "strong_law_source_sha256": "b74c93434df44eb75b2567f43a58b9e0353138660ad07b99263d8019bcf4f1c6",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M0984-A-MATHLIB-EXACT",
+      "source": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.StrongLaw",
+      "file": "Mathlib/Probability/StrongLaw.lean",
+      "declaration": "ProbabilityTheory.strong_law_ae",
+      "proof_body_location": "pinned mathlib, lines 788-819 at the audited revision",
+      "type_match": "exact after unfolding the dossier's empiricalAverage notation",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "M0-W",
+      "result": "the locally elaborated strongLawAnchor closes the exact frozen modern target"
+    },
+    {
+      "id": "M0984-A-MATHLIB-REAL",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.StrongLaw",
+      "declaration": "ProbabilityTheory.strong_law_ae_real",
+      "classification": "M0-P",
+      "result": "real-valued specialization only; useful child but not the arbitrary Banach-valued root"
+    },
+    {
+      "id": "M0984-A-MATHLIB-LP",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.StrongLaw",
+      "declaration": "ProbabilityTheory.strong_law_Lp",
+      "classification": "M5 for this target",
+      "result": "proves Lp convergence under MemLp assumptions, not the frozen almost-everywhere integrable claim",
+      "reopen_when": "only as a child if a later obligation tree requires the Lp strengthening"
+    },
+    {
+      "id": "M0984-A-LEGACY-WRAPPER",
+      "source": "repository legacy artifact",
+      "revision": "578632bf0c98d5485dbd13f1946157f593e5087a",
+      "module": "AwesomeTheorems.Stage1.S1_M_264",
+      "declaration": "strongLaw_ae_mathlib_wrapper",
+      "classification": "discovery-only duplicate wrapper",
+      "result": "same terminal mathlib body; legacy artifacts carry no inherited rev-5.6 proof credit"
+    }
+  ],
+  "provenance": {
+    "terminal_declaration": "ProbabilityTheory.strong_law_ae",
+    "terminal_proof_body_git_blob": "23b7d686e1e689156025bf11c499616c68c2d8d6",
+    "source_last_change": "6fcaafd4817fca8d7d4481f8a25ca95305c2b14b",
+    "direct_public_imports": [
+      "Mathlib.Probability.IdentDistrib",
+      "Mathlib.Probability.Independence.Integrable",
+      "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+      "Mathlib.Analysis.SpecificLimits.FloorPow",
+      "Mathlib.Analysis.PSeries",
+      "Mathlib.Analysis.Asymptotics.SpecificAsymptotics"
+    ],
+    "foundation_profile": "Lean kernel with mathlib's standard classical quotient foundation; reported axioms are propext, Classical.choice, and Quot.sound",
+    "computation_profile": "no native_decide, external solver, oracle, or generated certificate is used by the checked wrapper"
+  },
+  "search": {
+    "aliases": ["strong_law_ae", "strong_law_ae_real", "strong_law_Lp", "strong law of large numbers", "almost sure convergence", "Etemadi strong law"],
+    "repo_local": "inspected the legacy S1_M_264 wrapper and the new rev-5.6 statement dossier",
+    "pinned_dependencies": "searched every installed pinned dependency Lean source; all strong-law terminal matches were in mathlib's StrongLaw module",
+    "external": "GitHub repository API query for the exact English theorem name plus Lean returned total_count 0; unauthenticated code search and grep.app were rate limited",
+    "limitations": "bounded negative search, not an exhaustive nonexistence claim; no dependency was fetched or added because pinned mathlib already supplies the exact root"
+  },
+  "root_decision": {
+    "classification": "M0-W",
+    "kernel_closed_candidate": true,
+    "proof_body_repo_local": false,
+    "reason": "the exact frozen modern target is supplied by pinned mathlib and checked through AnchorAudit.strongLawAnchor",
+    "integration_tasks": [],
+    "remaining_machine_cut_set": []
+  },
+  "human_source_status": "H1: this audit does not identify the terse Borel 1909 source row with the modern Banach-valued Etemadi theorem",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "M0-W classifies the exact modern machine candidate only. Source fidelity, obligation-tree composition, release-grade validation, readability, and master acceptance remain open."
+}

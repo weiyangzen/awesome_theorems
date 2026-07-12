@@ -38,21 +38,32 @@ This statement result does not resolve the source-identity issue. In
 particular, it does not claim that the modern Banach-valued theorem is the
 exact historical Borel 1909 frequency theorem.
 
+## Anchor audit
+
+`AnchorAudit.lean` kernel-checks the exact frozen modern target through pinned
+mathlib declaration `ProbabilityTheory.strong_law_ae` at revision
+`8a178386ffc0f5fef0b77738bb5449d50efeea95`. The candidate and provenance
+ledger is in `anchor-audit.json`, with exact commands and limitations in
+`anchor-audit-validation.md`. This classifies the modern machine candidate as
+`M0-W`; it does not upgrade the historical source crosswalk or complete later
+rev-5.6 gates.
+
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-`INTAKE` has provisional master state `[_]`. `STATEMENT` is now worker
-self-tested and awaits master acceptance. All later phases remain open.
+`INTAKE` and `STATEMENT` have provisional master state `[_]`. `ANCHOR_AUDIT`
+is now worker self-tested and awaits master acceptance. All later phases
+remain open.
 
 ## Intake verdict
 
-Lifecycle remains `planned`; provisional root vector is `[H1, M3, R3]`. The
-modern Lean expression, environment, packaging transport, mutations, and
-boundary fixtures are now frozen as statement-only evidence. The first failed
-theorem gate remains source identity: the source row is too terse to prove
-that this iid Banach-valued formalization is the intended Borel theorem. The
-theorem is not complete.
+Lifecycle remains `planned`; provisional root vector is `[H1, M0-W, R3]` for
+the frozen modern target. The pinned mathlib theorem supplies its exact
+machine body, but the first failed theorem gate remains source identity: the
+source row is too terse to prove that this iid Banach-valued formalization is
+the intended Borel theorem. Obligation, validation, readability, and release
+gates also remain open. The theorem is not complete.
 
 ## Validation
 
