@@ -1,4 +1,4 @@
-# THM-M-1021 rev-5.6 statement
+# THM-M-1021 rev-5.6 dossier
 
 This directory is the rev-5.6 `planned` instance for Bochner's theorem in its
 one-dimensional probability form. The historical `已验证` label is discovery
@@ -25,8 +25,12 @@ The canonical claim and ordered mathematical binders are structured in
 Lifecycle remains `planned`; provisional root vector remains `[H1, M3, R3]`.
 The exact statement now elaborates with one pinned mathlib import and has a
 reproducible printed-expression fingerprint. No proof is present or claimed.
-The next open phase is anchor audit, and master acceptance is still required.
-The theorem is not complete.
+The bounded anchor audit is recorded in `anchor_audit.md` and
+`anchor_audit.json`. Pinned mathlib provides characteristic-function encoding,
+continuity, normalization, and uniqueness support, but no exact representation
+theorem candidate was found. The root remains `not_repo_local_closed` with
+formalization debt. Master acceptance is still required, and the theorem is not
+complete.
 
 ## Validation
 

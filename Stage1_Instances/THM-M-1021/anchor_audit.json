@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1021-ANCHOR_AUDIT",
+  "depends_on": ["S56-M-1021-STATEMENT"],
+  "theorem_id": "THM-M-1021",
+  "phase": "anchor_audit",
+  "state": "provisional_self_tested",
+  "audit_date": "2026-07-12",
+  "canonical_target": "AwesomeTheorems.Stage1.THM_M_1021.BochnerTarget",
+  "environment": {
+    "lean": "4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree_clean": true,
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "discovery_scope": {
+    "repo_local": ["Lean and Markdown source outside dependency caches"],
+    "pinned_dependencies": ["mathlib", "flt-regular"],
+    "external": ["GitHub repository search API"],
+    "search_terms": ["Bochner theorem", "bochner_theorem", "bochnerTheorem", "positive definite characteristic function"]
+  },
+  "candidates": [
+    {
+      "id": "mathlib-charfun-api",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic",
+      "declarations": [
+        "MeasureTheory.charFun",
+        "MeasureTheory.charFun_apply_real",
+        "MeasureTheory.charFun_zero",
+        "MeasureTheory.Measure.ext_of_charFun"
+      ],
+      "assessment": "supporting_api_only",
+      "exact_root": false
+    },
+    {
+      "id": "mathlib-charfun-continuity",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.CharacteristicFunction.TaylorExpansion",
+      "declarations": ["MeasureTheory.continuous_charFun"],
+      "assessment": "forward_direction_support_only",
+      "exact_root": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "name": "Mathlib.MeasureTheory.Integral.Bochner.*",
+      "reason": "This is the Bochner integral implementation, not Bochner's positive-definite representation theorem."
+    },
+    {
+      "name": "mrdouglasny/hille-yosida",
+      "reason": "Repository-search hit concerns a BCR semigroup-to-group extension and does not state the characteristic-function representation target."
+    }
+  ],
+  "exact_candidate_found": false,
+  "external_candidate_found": false,
+  "machine_classification": "not_repo_local_closed",
+  "debt": "formalization_debt",
+  "root_vector_after_audit": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "proof_claimed": false,
+  "theorem_complete": false,
+  "acceptance_boundary": "The audit pins and elaborates supporting mathlib characteristic-function declarations and records a negative exact-anchor result for the inspected immutable dependency snapshot. It does not prove either direction of BochnerTarget, establish exhaustive global absence, or supply theorem completion. Master acceptance remains required."
+}

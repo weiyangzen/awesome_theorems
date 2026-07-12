@@ -32,3 +32,22 @@ The single import is sufficient in the pinned environment; no dependency was
 downloaded or changed. This phase validates proposition elaboration only. It
 does not validate a proof, an anchor, source fidelity beyond the accepted
 intake scope, or theorem completion.
+
+## Anchor-audit validation
+
+Validation date: 2026-07-12. Worker base revision:
+`2258ea568eef0aa1e38a1124909098ee19b8b0e9`.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1021/AnchorAudit.lean` | 0 | all five pinned mathlib characteristic-function declarations elaborated |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| `git -C Formalizations/Lean/.lake/packages/mathlib status --short` | 0 | empty output; inspected dependency tree clean |
+| `python3 -m json.tool Stage1_Instances/THM-M-1021/anchor_audit.json >/dev/null` | 0 | structured audit receipt is valid JSON |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard structure passes for 1546 uniform-L0 targets |
+| `python3 scripts/stage1_target.py check` | 0 | ordered target manifest passes |
+| `git diff --check -- Stage1_Instances/THM-M-1021` | 0 | no whitespace errors |
+
+This validation checks the candidate declaration surface, not the canonical
+root theorem. Negative search results are bounded by the protocol documented in
+`anchor_audit.md`; no proof or global absence claim is inferred from them.
