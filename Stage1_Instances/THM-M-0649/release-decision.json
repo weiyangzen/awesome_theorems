@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0649-RELEASE",
+  "theorem_id": "THM-M-0649",
+  "base_revision": "3bbec7282e62d6123372fda54f8eb18cd839d643",
+  "validated_at": "2026-07-12",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector": {
+    "accepted_before": ["H2", "M4", "R4"],
+    "accepted_after": ["H2", "M4", "R4"]
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false
+  },
+  "accepted_receipt_ids": [],
+  "reconciled_inputs": {
+    "instance.json": "152a74a03ed3bb83d2f536d06be858b4105b41b87384a8209f6a01fe4719dcb9",
+    "obligation-registry.json": "53a868f2ccfb542e6e233df56d8acb72d2ddbe911c94d79fbe833aece1a9f3e4",
+    "typed-graphs.json": "9ddffb01584e96df3a819dec4950f5ed9ed78acf9a0741768200204766a8d216",
+    "proof-receipt.json": "0ecf34eed2423bc9b8f7b5bc25a55d41087bc3c9005b85a48a69a45a44769d91",
+    "validation-receipt.json": "9780941a5fce73892409a6b4a071c61af72483bb9142bfcf34cc8c40452a80f5"
+  },
+  "dependency": {
+    "item_id": "S56-M-0649-VALIDATION",
+    "receipt_id": "VALREC-M0649-20260712-KERNEL-CLOSED-NONRELEASE",
+    "receipt_sha256": "9780941a5fce73892409a6b4a071c61af72483bb9142bfcf34cc8c40452a80f5",
+    "support_state": "self_tested_pending_master_acceptance",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "evidence_reconciliation": {
+    "exact_root_kernel_replay": "provisional_pass",
+    "same_workspace_exact_type_wrapper": "provisional_pass",
+    "authoritative_graph_reconciliation": "missing",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "The validation dependency is self-tested nonrelease worker evidence and has not been master accepted."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "Master acceptance of S56-M-0649-VALIDATION and reconciliation of the provisional kernel closure with the frozen authoritative graph",
+    "AUDIT-Z inventory and source-boundary reconciliation",
+    "Pinpoint primary-source and errata mapping sufficient for independently accepted H0",
+    "Node-specific structured reconstruction sufficient for independently accepted R0",
+    "Complete transitive declaration, proof-body, provenance, accepted-axiom, and TCB closure",
+    "Immutable empty-cache network-denied cold build and offline archive restoration",
+    "SBOM and license closure for the complete source and dependency archive",
+    "Two signed attestations from distinct clean independently provisioned runners without a shared writable cache",
+    "Independently implemented minimal release verifier",
+    "Protected CI, required release mutations, and deterministic content-addressed evidence bundle",
+    "THEOREM-Z decision and master acceptance"
+  ],
+  "retry_condition": "After dependency-legal master acceptance and authoritative graph reconciliation, close H0/R0, full provenance/TCB, hermetic, supply-chain, independent-verification, deterministic-bundle, and master release gates on one immutable snapshot.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It accepts no receipt, changes no lifecycle or root vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance."
+}
