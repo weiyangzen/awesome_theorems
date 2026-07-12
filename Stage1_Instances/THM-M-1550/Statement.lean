@@ -67,6 +67,25 @@ theorem laxPairIsospectrality_iff_pinnedCandidateSourceShape :
     LaxPairIsospectrality.{u} <-> PinnedCandidateSourceShape.{u} := by
   rfl
 
+/-- Unit conjugation preserves the spectrum in the exact matrix encoding used
+by the frozen `ConjugatesAt` predicate. -/
+theorem spectrumUnderConjugation {n : Type u} [Fintype n] [DecidableEq n]
+    (L : Real -> LaxMatrix n) (t0 t : Real) (h : ConjugatesAt L t0 t) :
+    spectrum Complex (L t) = spectrum Complex (L t0) := by
+  obtain ⟨U, hU⟩ := h
+  rw [hU, ← Matrix.GeneralLinearGroup.coe_inv U]
+  exact spectrum.units_conjugate
+
+/-- Kernel proof of the exact frozen target. The Lax-equation premise remains
+in the statement, while the stronger supplied evolution premise yields the
+unit conjugation used by the spectrum leaf. -/
+theorem laxPairIsospectrality : LaxPairIsospectrality.{u} := by
+  intro n _ _ L P timeDomain _hLax hEvolution t0 ht0 t ht
+  exact spectrumUnderConjugation L t0 t (hEvolution t0 ht0 t ht)
+
+#print axioms spectrumUnderConjugation
+#print axioms laxPairIsospectrality
+
 -- Structural mutations: the validator requires distinct elaborated targets.
 def mutationRemovedLaxEquation : Prop :=
   forall (n : Type u) [Fintype n] [DecidableEq n]
