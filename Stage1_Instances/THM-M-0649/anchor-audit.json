@@ -1,0 +1,124 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0649-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0649",
+  "intent": "audit",
+  "cutoff_utc": "2026-07-12T06:30:00Z",
+  "base_revision": "2eb836c21ebdba77082dcafd9222259988e44a54",
+  "canonical_target": {
+    "declaration_or_expression": "Stage1.THM_M_0649.ElementaryChainTarget",
+    "source_sha256": "b6f4d94a5c701f0b00f8e8c76332312cc8c432908144a7e477e7c3bed319c111"
+  },
+  "search_plan": {
+    "order": [
+      "repository-local Lean and dossiers",
+      "pinned mathlib source",
+      "public Lean 4 code search",
+      "formal statement collections"
+    ],
+    "aliases": [
+      "elementary chain theorem",
+      "Tarski union theorem",
+      "union of an elementary chain",
+      "direct limit of elementary embeddings",
+      "directed supremum of elementary substructures"
+    ],
+    "declaration_queries": [
+      "ElementaryChain",
+      "IsElementary iSup",
+      "DirectLimit ElementaryEmbedding",
+      "isElementary_of_exists",
+      "Equiv_iSup"
+    ],
+    "credentials_policy": "anonymous public access only; no credentials were available or used"
+  },
+  "immutable_inputs": {
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740"
+  },
+  "inventory": [
+    {
+      "candidate_id": "M0649-C-LOCAL-STATEMENT",
+      "project": "awesome_theorems worker clone",
+      "revision": "2eb836c21ebdba77082dcafd9222259988e44a54",
+      "file": "Stage1_Instances/THM-M-0649/Statement.lean",
+      "declaration": "Stage1.THM_M_0649.ElementaryChainTarget",
+      "role": "exact statement only",
+      "statement_match": "exact by definition; target_iff_expandedTarget is Iff.rfl",
+      "terminal_body": "none: the root is a Prop definition, not a proof declaration",
+      "classification": "M3",
+      "eligible_for_proof_credit": false
+    },
+    {
+      "candidate_id": "M0649-C-MATHLIB-DIRECTLIMIT",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "file": "Mathlib/ModelTheory/DirectLimit.lean",
+      "source_sha256": "b161ba02062338bc203d34d1a1b4caf9a668693dce9143533982d6af236341fb",
+      "declarations": [
+        "FirstOrder.Language.DirectLimit.of",
+        "FirstOrder.Language.DirectLimit.exists_of",
+        "FirstOrder.Language.DirectLimit.iSup_range_of_eq_top",
+        "FirstOrder.Language.DirectLimit.Equiv_iSup"
+      ],
+      "role": "construction and transport ingredients",
+      "statement_match": "mismatch: these construct ordinary embeddings, cover the limit, or identify a substructure-system limit with iSup; none proves that the canonical of map is elementary",
+      "terminal_body": "mathlib source bodies at the pinned file and revision",
+      "classification": "M3",
+      "eligible_for_proof_credit": false
+    },
+    {
+      "candidate_id": "M0649-C-MATHLIB-TARSKI-VAUGHT",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "files": [
+        {
+          "path": "Mathlib/ModelTheory/ElementaryMaps.lean",
+          "sha256": "14002b5ff04b89ad9206f4078959f9e41251e204f004d5d98a1c5bc82ac6e60e"
+        },
+        {
+          "path": "Mathlib/ModelTheory/ElementarySubstructures.lean",
+          "sha256": "d99e9956a98faec04fd21330a7d440196a65bee565e29c6fdfbc771f972d88b1"
+        }
+      ],
+      "declarations": [
+        "FirstOrder.Language.Embedding.isElementary_of_exists",
+        "FirstOrder.Language.Substructure.isElementary_of_exists",
+        "FirstOrder.Language.ElementaryEmbedding.comp"
+      ],
+      "role": "Tarski-Vaught proof interface and elementary-map composition",
+      "statement_match": "strict prerequisite mismatch: a witness condition must still be proved for DirectLimit.of; composition alone does not establish the root",
+      "terminal_body": "mathlib source bodies at the pinned files and revision",
+      "classification": "M3",
+      "eligible_for_proof_credit": false
+    }
+  ],
+  "negative_results": {
+    "repo_local": "Scoped rg over Lean, Markdown, and JSON found no root proof or external candidate beyond this dossier; unrelated S1_M_300 prose contains only the phrase elementary chain.",
+    "pinned_mathlib": "git grep over Mathlib/ModelTheory for elementary/limit/sup/chain/union combinations found no exact root theorem. Manual declaration review found only the inventoried ingredients.",
+    "github_code_search": "Anonymous HTML code search required sign-in. Anonymous REST code search returned HTTP 403 because the shared address had exhausted its rate limit; therefore no exhaustive external-negative claim is made.",
+    "grep_app": "All five anonymous queries returned HTTP 503 and empty response bodies (SHA-256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855).",
+    "loogle": "The text query is not supported as declaration syntax; response SHA-256 469f07fdec26f60dc349afe41412290d0fb095199e768ea95453bdbbfee7fb16 reported Unknown identifier elementary."
+  },
+  "external_audit_boundary": "No credible exact external Lean 4 completion candidate was located. Public discovery was access-limited, so this is a classified bounded inventory, not an exhaustive-discovery or saturation claim.",
+  "machine_debt": "M3",
+  "human_debt": "H1",
+  "readability_debt": "R3",
+  "root_vector": {"H": "H1", "M": "M3", "R": "R3"},
+  "audit_complete_for_phase": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "remaining_root_cut_set": [
+    "prove the Tarski-Vaught witness condition for each canonical DirectLimit.of embedding",
+    "freeze and validate the downstream obligation/provenance graph",
+    "complete primary-source pinpointing and independent review",
+    "run proof, trust, hermetic, and independent release gates"
+  ],
+  "status_boundary": "This artifact completes only the bounded anchor-audit phase. Ingredient declarations are not root closure; no M0, audit-complete theorem dossier, proof, or theorem completion is claimed."
+}
