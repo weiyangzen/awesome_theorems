@@ -7,24 +7,23 @@
 - Terence Tao and Van Vu, arXiv `0906.0510`, "Random matrices: Universality of local eigenvalue
   statistics", including its version history.
 
-These stable identifiers establish the relevant primary-source family, not yet `H0` evidence. The
-journal text and arXiv versions must be compared because theorem numbering and hypotheses can vary.
-An exact theorem number, pages, immutable source hash, assumption audit, and errata check remain
-open. Secondary expositions and later strengthening papers may aid discovery but cannot silently
-define this target.
+The statement node selects arXiv `0906.0510v10`, Theorem 15 (Four Moment Theorem), whose downloaded
+PDF has SHA-256 `0b9212169ef044f5ce8211784f70d0d2a0953e46931bd0824260a9410734eab4`.
+This immutable selection fixes the formal proposition but is not an `H0` source audit: journal
+pagination comparison, errata review, and independent source approval remain downstream work.
 
 ## Crosswalk
 
 | Repository phrase | Intended source component | Required Lean component | Intake status |
 |---|---|---|---|
-| "Tao-Vu four moment theorem" | comparison theorem for local eigenvalue statistics | one canonical quantified proposition | included; exact source variant open |
+| "Tao-Vu four moment theorem" | arXiv v10 Theorem 15, order-four branch | `TaoVuFourMomentTarget` | frozen and elaborated |
 | "random matrix universality" | asymptotic agreement between two Wigner ensembles | probability spaces, random Hermitian matrices, expectation, asymptotics | included; encodings open |
-| "four moment condition" | off-diagonal atoms agree through fourth order | explicit real/complex mixed-moment equalities | included; source convention open |
+| "four moment condition" | Definition 13 through order four | semantic predicate at order 4 | frozen; implementation open |
 | diagonal exception | diagonal atoms agree only through second order | separate diagonal moment predicate | included |
-| local eigenvalues | fixed ordered eigenvalue indices with source normalization | measurable ordered eigenvalue maps and scaling | included; range open |
-| test observable | smooth function of a fixed eigenvalue tuple | differentiability and derivative-growth bounds plus integrability | included; constants open |
-| conclusion | expectation difference has the prescribed small bound | exact finite-`n` inequality or asymptotic formulation | included; quantifiers open |
-| tail hypothesis | source Condition C0 or selected replacement | uniform tail/regularity predicate | included; exact formula open |
+| local eigenvalues | `A_n = sqrt(n) M_n`, strictly increasing bulk indices | semantic expected-statistic operation plus index predicates | frozen; implementation open |
+| test observable | smooth `G : R^k -> R`, derivative orders 0 through 5 bounded by `n^c0` | smoothness and derivative-bound predicates | frozen; implementation open |
+| conclusion | expectation difference at most `n^(-c0)` for sufficiently large `n` | exact quantified inequality | frozen and elaborated |
+| tail hypothesis | Condition C0 with uniform constants `C,C'` | `obeysC0 C C'` | frozen; implementation open |
 
 ## Repository-source boundary
 
