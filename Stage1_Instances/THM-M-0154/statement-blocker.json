@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-0154-STATEMENT",
+  "theorem_id": "THM-M-0154",
+  "base_revision": "b66e26872f7b2eb2047782e029b32e32b0ead1d8",
+  "verdict": "blocked",
+  "first_failed_gate": "exact_target_not_representable_in_pinned_lean_api",
+  "canonical_human_statement": "Let M be an oriented smooth n-manifold with boundary and let omega be a smooth compactly supported differential (n-1)-form on M. With the outward-normal-first induced orientation on the boundary and boundary inclusion i, the integral over M of d omega equals the integral over the boundary of i^* omega.",
+  "canonical_formal_target": null,
+  "reason": "At the pinned mathlib revision, extDeriv is defined only for differential forms on normed vector spaces. The manifold library represents the boundary only as a Set of points and explicitly records boundary submanifold infrastructure as TODO. No bundled manifold differential-form API, manifold orientation and induced boundary orientation API, pullback of such forms, or integration of differential forms over oriented manifolds is present. Introducing opaque local proxies would not elaborate the exact theorem.",
+  "available_checked_substrate": [
+    "extDeriv for E -> ContinuousAlternatingMap over a normed vector space",
+    "ModelWithCorners.boundary as a Set M",
+    "Bochner integral for functions against a measure",
+    "HasCompactSupport for functions"
+  ],
+  "missing_exact_surfaces": [
+    "bundled smooth differential forms on manifolds",
+    "exterior derivative of manifold differential forms",
+    "orientation of a smooth manifold and outward-normal-first induced boundary orientation",
+    "boundary as an oriented smooth (n-1)-manifold with a smooth inclusion",
+    "pullback of manifold differential forms along the boundary inclusion",
+    "integration of top-degree differential forms over oriented manifolds and their boundaries",
+    "a source-faithful encoding of the n = 0 boundary case"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "retry_condition": "Provide pinned, kernel-checkable APIs for manifold differential forms, manifold and induced boundary orientations, a smooth boundary manifold and inclusion, pullback, exterior derivative, and oriented manifold-form integration. Then encode the n = 0 convention, elaborate the exact ordered target with minimized imports, fingerprint it, check transports, and execute all four required mutation classes.",
+  "statement_elaborated": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "blocked_no_worker_selftest"
+}
