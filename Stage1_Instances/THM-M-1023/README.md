@@ -1,6 +1,10 @@
-# THM-M-1023 Intake Dossier
+# THM-M-1023 theorem dossier
 
-Lifecycle: `planned`. This dossier covers only `S56-M-1023-INTAKE`. It accepts no historical proof credit and makes no claim of exact Lean elaboration, audit completion, or theorem completion.
+Lifecycle: `planned`. Intake, exact-statement, anchor-audit, and obligation-tree
+artifacts are self-tested pending master acceptance. The exact statement
+elaborates and the 17-node obligation denominator is frozen, but neither
+Levy-Khinchin direction is proved. This dossier accepts no historical proof
+credit and makes no claim of audit completion or theorem completion.
 
 ## Scope map
 
@@ -10,11 +14,20 @@ The statement phase must freeze one normalization for the Fourier sign, Gaussian
 
 No repository-local Lean declaration was found by the bounded intake search for the target name or standard English identifiers. This is a discovery result only, not proof that mathlib lacks a relevant API. A canonical Lean expression, minimal imports, normalized expression hash, checked transports, and mutation tests belong to the dependent statement node.
 
-## Open task DAG
+## Frozen proof architecture
 
-`S56-M-1023-STATEMENT` -> `ANCHOR_AUDIT` -> `OBLIGATION_TREE` -> `PROOF` -> `VALIDATION` -> `RELEASE`.
+The proof graph has two root-relevant terminal packages: the forward direction
+constructs and uniquely identifies the Levy triplet from infinite divisibility;
+the reverse direction scales valid triplet data and constructs probability
+convolution roots. `ObligationTree.lean` checks that these two exact packages
+compose into the frozen biconditional, without supplying either package.
+`obligation-tree.md` records the typed route and node ledgers; the JSON registry
+and graph bundle are the scope authority pending master acceptance.
 
-The first task must choose exact measure and convolution definitions, fix the Levy-Khinchin convention, elaborate the complete biconditional, and test the probability hypothesis, `n >= 1` scope, both implications, and degenerate components. No obligation registry or proof denominator is frozen by this intake.
+The remaining workflow is `PROOF -> VALIDATION -> RELEASE`.
+
+The minimal open root cut is `M1023-T-FORWARD` plus
+`M1023-T-REVERSE`. Root debt remains `[H1, M3, R4]`.
 
 ## Intake validation
 
