@@ -1,0 +1,82 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0673",
+  "item_id": "S56-M-0673-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 717,
+  "legacy_priority_slot": null,
+  "name_zh": "超积基本定理",
+  "name_en": "Los's theorem (fundamental theorem of ultraproducts)",
+  "category": "mathematical logic / model theory",
+  "target_system": "Lean 4 + mathlib",
+  "literal_source_claim": "Elementary equivalence of ultraproducts.",
+  "canonical_claim_status": "human_scope_frozen_formal_statement_gate_open",
+  "canonical_claim": "Let L be a first-order language, let (M_i) be a family of nonempty L-structures indexed by I, and let U be an ultrafilter on I. For every L-sentence phi, the ultraproduct product_U M_i satisfies phi if and only if the set of indices i for which M_i satisfies phi belongs to U.",
+  "canonical_formal_target": {
+    "status": "candidate_located_not_statement_gated",
+    "module": "Mathlib.ModelTheory.Ultraproducts",
+    "declaration": "FirstOrder.Language.Ultraproduct.sentence_realize",
+    "declaration_or_expression": "For each L-sentence phi, (U : Filter I).Product M models phi iff eventually i in U, M i models phi.",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": "open_until_statement_phase"
+  },
+  "domain_and_universes": "A one-sorted first-order language L, an arbitrary index type I, a family M : I -> Type with an L-structure and a Nonempty instance on every M i, and an ultrafilter U on I.",
+  "quantifiers": [
+    "first-order language L",
+    "index type I",
+    "family of carrier types M indexed by I",
+    "an L-structure and nonemptiness witness for every M i",
+    "ultrafilter U on I",
+    "L-sentence phi"
+  ],
+  "hypotheses": [
+    "each factor M i carries an L-structure",
+    "each factor M i is nonempty",
+    "U is an ultrafilter on I"
+  ],
+  "conclusion": "The ultraproduct satisfies phi if and only if phi holds in U-almost every factor.",
+  "alternate_encodings": [
+    {
+      "target": "the full formula-with-assignments form of Los's theorem",
+      "relationship": "implies the sentence form; the reverse is not credited without a checked encoding",
+      "checked_witness": null,
+      "status": "open"
+    },
+    {
+      "target": "preservation of an arbitrary theory T by the ultraproduct when every factor models T",
+      "relationship": "a corollary, not a substitute for the biconditional root",
+      "checked_witness": null,
+      "status": "open"
+    }
+  ],
+  "excluded_degenerate_cases": "No nonempty-index assumption is added: an ultrafilter supplies the relevant proper-filter boundary, while every factor carrier remains nonempty. Empty languages, nullary symbols, and sentences with quantifiers remain included. Principal ultrafilters are included.",
+  "source_status": "historical_primary_candidate_identified_exact_edition_statement_page_assumptions_and_errata_open",
+  "source_revisions": {
+    "repository_base": "347a3f61a73c2987a5e0b2b9bed8c07961d8b1a5",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95 (existing pinned checkout; lake-manifest SHA-256 321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81)"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Lean 4 dependent type theory; classical choice is visibly used in the upstream formula proof and its exact axiom closure remains to be checked",
+  "tcb_profile": "Lean kernel, pinned repository toolchain, and pinned mathlib are candidate components; executable/import hashes and terminal trust closure remain open",
+  "computation_profile": "proof-producing kernel terms only are expected; no oracle, native computation, experiment, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + mathlib, rev-5.6 Lean adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0673"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned",
+    "formal_reviewer": "unassigned"
+  },
+  "freshness_and_revocation_policy": "Invalidate on canonical wording, source edition, sentence/formula scope, Lean target, toolchain, mathlib pin, profile, or validator change; review due date remains open.",
+  "owned_artifacts": ["README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "IntakeProbe.lean", "validation.md"],
+  "status_boundary": "Planned intake with a locally checked candidate anchor only. No accepted source crosswalk, exact statement identity, proof credit, obligation registry, audit completion, or theorem completion is claimed."
+}

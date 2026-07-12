@@ -12,7 +12,8 @@ restricted graph, finite pairwise-disjoint order-convex partition, and continuit
 monotone alternatives. It does not absorb the separate cell-decomposition target `THM-M-0664`.
 
 The target elaborates with three minimal pinned imports. Its checked definitional expansion, four
-structural mutations, and empty-domain boundary proof provide statement evidence only. The exact
-primary-source theorem/page, candidate audit, proof, and all downstream gates remain open. The
-lifecycle remains `planned`; there is no accepted proof state, audit completion, or theorem
-completion.
+structural mutations, and empty-domain boundary proof provide statement evidence only. The bounded
+anchor audit checks pinned mathlib and three external Lean repositories at immutable revisions; it
+finds useful interfaces and partial developments, but no exact terminal proof body. The exact
+primary-source theorem/page, proof, and all downstream gates remain open. The lifecycle remains
+`planned`; there is no accepted proof state, audit completion, or theorem completion.

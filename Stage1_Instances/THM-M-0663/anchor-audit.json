@@ -1,0 +1,100 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0663-ANCHOR_AUDIT",
+  "depends_on": [
+    "S56-M-0663-STATEMENT"
+  ],
+  "theorem_id": "THM-M-0663",
+  "base_revision": "5db470f65548af5e1bcabfd26264a5b038ab1023",
+  "canonical_declaration": "Stage1Instances.THM_M_0663.OMinimalMonotonicity",
+  "canonical_statement_file_sha256": "c0c75f33c97b50eac9d225fb75dc841819ab721690d2ae880b10ae591b31aa40",
+  "discovery": {
+    "cutoff_date": "2026-07-12",
+    "access_policy": "Repository-local search, pinned mathlib source-tree search, unauthenticated public GitHub repository search, git ls-remote, and immutable GitHub source archives. Nothing was added to or changed under .lake.",
+    "query_families": [
+      "o-minimality language:Lean",
+      "ominimal language:Lean",
+      "o-minimal formalization",
+      "o-minimality lean4",
+      "o-minimal / OMinimal in the pinned mathlib Lean tree",
+      "o-minimal / ominimal in repository-local Lean files"
+    ],
+    "github_repository_query_counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "limitations": "GitHub code search required authentication and grep.app returned HTTP 429. Every repository returned by the focused public repository searches was instead inspected as a complete immutable source archive. The result is a bounded, reproducible candidate inventory, not a claim that no unindexed or private project exists."
+  },
+  "repo_local": {
+    "lean": "4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_pin_source": "Formalizations/Lean/lake-manifest.json",
+    "audit_module": "Stage1_Instances/THM-M-0663/AnchorAudit.lean",
+    "available_surfaces": [
+      "FirstOrder Set.Definable and Set.Definable₁",
+      "FirstOrder.Language.OrderedStructure",
+      "Set.OrdConnected",
+      "ContinuousOn",
+      "StrictMonoOn and StrictAntiOn",
+      "order-topology monotone-continuity lemmas"
+    ],
+    "negative_search": "The pinned Mathlib tree has no o-minimal/OMinimal declaration and no theorem deriving a finite monotonicity-and-continuity partition for definable unary functions. Repository-local hits outside this dossier are Pila-Wilkie assumptions or unrelated legacy surfaces, not this target.",
+    "exact_closure_found": false,
+    "terminal_declaration": null,
+    "classification": "M3",
+    "gap": "The proposition vocabulary elaborates, but the pinned dependency closure lacks an o-minimal structure theory and the finite global partition theorem needed by the canonical target."
+  },
+  "external_candidates": [
+    {
+      "repository": "theominimalist/monotonicity",
+      "revision": "6e3ee129f0d9cc0d9d6a58cac4fc03bc7b121b30",
+      "source_archive_sha256": "9a7d3a22fc16e4822eb857b366a3ab1459b448adb3b79c3deb327e2f4b11c603",
+      "toolchain": null,
+      "license": "No root license file found in the immutable archive",
+      "candidate_surface": "Custom dense-order/o-minimal interfaces and partial local monotonicity exercises, including contributions/monotonicity.lean.",
+      "statement_match": false,
+      "terminal_proof_body": null,
+      "trust_findings": "The 11 Lean files contain 30 sorry tokens and 12 explicit axiom declarations. The closest monotonicity lemmas and monotonicity_case1 retain sorry bodies; no finite global partition matching the canonical target is closed.",
+      "classification": "M5",
+      "integration_decision": "Rejected: placeholder/axiom boundaries, no project toolchain pin, no exact statement transport, no terminal closure, and no auditable reuse license."
+    },
+    {
+      "repository": "tonysf/lean-OMIN",
+      "revision": "fd8b4f3423265d9beb290a08992ad866eb5230e0",
+      "source_archive_sha256": "38b2c53b0c7ca03d5c36069c9eb981d9999d67938933b7433c490d67f5dcc012",
+      "toolchain": "leanprover/lean4:v4.30.0-rc1",
+      "mathlib_revision": "f8770bc8b055a6978d119315c739292baf4251cc",
+      "license": "No root license file found in the immutable archive",
+      "candidate_surface": "LeanOMIN.Ominimal.monotonicity plus a substantial one-variable development in LeanOMIN/Chapter2/Monotonicity.lean.",
+      "statement_match": false,
+      "terminal_proof_body": "The exported LeanOMIN.Ominimal.monotonicity theorem is only S.monotonicity_axiom hf; the assumed field is in OMinStructure.",
+      "trust_findings": "The archive is sorry-free, but the candidate conclusion is local regularity outside a finite exceptional set over real coordinates, not the canonical finite partition over arbitrary o-minimal ordered structures. Its root is a structure-field assumption named monotonicity_axiom, so it provides no terminal proof provenance for this target.",
+      "classification": "M5",
+      "integration_decision": "Rejected: assumed root, non-equivalent statement and carrier scope, incompatible Lean/mathlib pins, and no auditable reuse license."
+    },
+    {
+      "repository": "KittySaya/Lean-ominimal",
+      "revision": "4429c2cc75e49a83043175f7a85c4c1bf284c2eb",
+      "source_archive_sha256": "37a5cf8e8440a633e923fe9e2909b5d7217e181f8171ead6337b64b88b1ccc9f",
+      "toolchain": "leanprover/lean4:v4.19.0-rc3",
+      "mathlib_revision": "44efe04055fba9a1387f320d39c6ec9d6a609aa1",
+      "license": "MIT",
+      "candidate_surface": "A custom proof attempt that the pure order structure on the reals is o-minimal.",
+      "statement_match": false,
+      "terminal_proof_body": null,
+      "trust_findings": "Five sorry tokens occur in root-imported Formula/Compatible.lean and Definability/Left.lean. The project proves or attempts an example structure and has no definable-function monotonicity partition declaration.",
+      "classification": "M5",
+      "integration_decision": "Rejected: wrong theorem, placeholder-bearing transitive surface, and incompatible older Lean/mathlib pins."
+    }
+  ],
+  "placeholder_and_trust_disposition": "No external candidate receives proof credit. Structure fields, explicit axioms, sorry-bearing dependencies, and partial lemmas are not terminal proof bodies.",
+  "machine_classification": "M3",
+  "debt_classification": "formalization_debt",
+  "audit_complete_for_phase": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The immutable mathlib and external Lean candidate inventory is complete for this bounded phase. No exact external closure was found, no dependency was integrated, and no proof, audit-completion, or theorem-completion claim is made."
+}
