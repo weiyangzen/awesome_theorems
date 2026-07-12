@@ -5,6 +5,8 @@ subadditive ergodic theorem. Historical slot `S1-M-249` is discovery material on
 The statement phase has self-tested the exact target in `Statement.lean`. The
 anchor audit now records checked pinned-mathlib support and the bounded external
 Lean 4 search; proof and downstream assurance gates remain open.
+The obligation phase freezes a 15-node registry and separate typed graphs. Its
+checked final composition remains conditional on the open pointwise-limit package.
 
 ## Scope map
 
@@ -27,11 +29,15 @@ Lifecycle remains `planned`; provisional root vector remains `[H1, M3, R3]`.
 The exact statement has been elaborated with a direct expansion, structural mutations,
 and positive/zero-index boundary checks. The anchor audit found deterministic Fekete,
 iterate-preservation, and ergodic-constancy support, but no terminal pinned-mathlib or
-inspectable external Lean 4 Kingman theorem. Both phases await master acceptance. The
-first open dependent gate is the obligation tree. The theorem is not complete.
+inspectable external Lean 4 Kingman theorem. These phases await master acceptance.
+The frozen minimal open root cut is `M1057-T-LIMIT-PACKAGE`; proof and all later
+gates remain open. The theorem is not complete.
 
 ## Validation
 
 The intake checks remain in `validation.md`; exact Lean statement evidence is recorded
 in `statement-validation.md` and `statement.json`. Anchor evidence is in
 `anchor-audit.md`, `anchor-audit.json`, and `AnchorAudit.lean`.
+The frozen architecture is recorded in `obligation-tree.md`,
+`obligation-registry.json`, `typed-graphs.json`, `validation-specs.json`, and
+`ObligationTree.lean`.
