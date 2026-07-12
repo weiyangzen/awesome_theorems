@@ -25,3 +25,9 @@ The immutable formal-anchor audit is recorded in `anchor-audit.md` and checked b
 sheaf-cohomology Mayer-Vietoris theorem as a statement mismatch, and records the immutable head of
 the open relative-singular-homology PR as partial infrastructure only. The exact root remains `M3`;
 this provisional phase evidence claims no accepted state or theorem completion.
+
+The obligation architecture is now frozen in `obligation-registry.json` and
+seven separate typed graphs in `typed-graphs.json`. It selects the classical
+small-singular-chain route and kernel-checks only the final conditional
+composition in `ObligationTree.lean`. Construction and exactness packages
+remain open, so the root remains `M3`; no proof or theorem completion is claimed.
