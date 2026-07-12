@@ -37,6 +37,14 @@ three o-minimality-related projects were inspected at immutable commits, and non
 terminal theorem or a feasible proof-bearing integration. `anchor_audit.md` records the search,
 trust findings, archive hashes, validation, and limitations. Machine state remains `M3`.
 
+## Obligation architecture
+
+`obligation-registry.json` freezes sixteen root-relevant semantic obligations before proof
+execution, while `typed-graphs.json` separates proof, refinement, provenance, evidence, trust,
+documentation, and workflow edges. `ObligationTree.lean` checks only the conditional unfolding
+from a complete counting premise to the exact root. Every mathematical package plus source,
+provenance, readability, and trust closure remains open; theorem completion is false.
+
 ## Intake verdict
 
 Lifecycle remains `planned`; the intake vector `[H1, M4, R3]` is superseded for the machine

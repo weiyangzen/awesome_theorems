@@ -30,6 +30,15 @@ kernel command and four distinguished structural mutations.
 This is provisional statement evidence pending master acceptance, not proof or
 theorem-completion evidence.
 
+## Obligation-tree phase
+
+The dependent architecture is frozen in `obligation-registry.json` and seven
+separate graph families in `typed-graphs.json`. It contains 14 canonical
+obligations and isolates `M0118-T-COHOMOLOGY` as the remaining root cut. The
+local `ObligationTree.lean` checks only transparent conditional composition;
+it does not provide the missing analytic package. See `obligation-tree.md` and
+`obligation-validation.md` for the exact provisional boundary.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The source
