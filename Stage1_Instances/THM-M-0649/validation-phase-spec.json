@@ -1,0 +1,32 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0649-VALIDATION",
+  "theorem_id": "THM-M-0649",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0649-FRESH-KERNEL",
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "../../Stage1_Instances/THM-M-0649/check_validation.py"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0649-ROOT", "M0649-X-PROVENANCE", "M0649-X-TRUST"],
+      "covered_declarations": [
+        "Stage1.THM_M_0649.elementaryChainTarget",
+        "Stage1.THM_M_0649.Validation.exactRootTypeCheck"
+      ]
+    },
+    {
+      "recipe_id": "VAL-M0649-STRUCTURE",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0649/check_obligation_tree.py"],
+      "env_allowlist": {"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC"},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0649-ROOT"],
+      "covered_declarations": []
+    }
+  ]
+}

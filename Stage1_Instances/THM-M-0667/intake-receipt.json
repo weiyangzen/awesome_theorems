@@ -1,0 +1,52 @@
+{
+  "schema_version": "5.6",
+  "receipt_id": "S56-M-0667-INTAKE-worker-selftest",
+  "item_id": "S56-M-0667-INTAKE",
+  "theorem_id": "THM-M-0667",
+  "base_revision": "16187d91397de4edab8cb93140166f634baa0c02",
+  "scope": "intake dossier, scope map, and source-statement crosswalk only",
+  "commands": [
+    {
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "ok: rev-5.6 structure and 1546-target uniform-L0 population"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0667"],
+      "exit_code": 0,
+      "result": "rank 711; planned; L0/rework_required; theorem_complete false"
+    },
+    {
+      "argv": ["bash", "-lc", "cd Formalizations/Lean && lake env lean --version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0667/intake.json"],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0667/intake-receipt.json"],
+      "exit_code": 0,
+      "result": "valid JSON after receipt finalization"
+    },
+    {
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0667"],
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    }
+  ],
+  "result": "pass",
+  "known_failures": [
+    "No canonical Lean expression or expression fingerprint exists before the statement phase.",
+    "No edition-level pinpoint source audit or independent human-source review has been accepted.",
+    "No proof, axiom closure, audit-completion, theorem-completion, or release evidence is claimed."
+  ],
+  "status_boundary": "Worker-local intake evidence only; not a master acceptance receipt and not theorem evidence."
+}
