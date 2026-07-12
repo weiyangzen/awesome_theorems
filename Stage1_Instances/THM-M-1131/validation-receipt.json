@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1131-VALIDATION-local-20260712T023739Z",
+  "item_id": "S56-M-1131-VALIDATION",
+  "theorem_id": "THM-M-1131",
+  "base_revision": "331f3394ba689a537bffbf8764a780c63caecd72",
+  "base_tree": "bb13bfd5777330e966fed8e8a9f7c03c7e93e91c",
+  "validated_at": "2026-07-12T02:37:39Z",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "27f74932dda32d911da02138c6bea6be18718e8fd0e5ce69c02d7db7e1876c3f",
+    "validator_sha256": "0425c77e45b2aaf5a832a728f490fa6b3e82581a3a309ceca433b6f39a17759c",
+    "statement_sha256": "d324d62be8a9ecb18aa1b195870436e25b1c747d62780203b6e0e18d653d6c9a",
+    "obligation_tree_sha256": "915a2de6c7c089beaf1e172de45cb3d4b2c81b75f1cd8413b38af4cb6fae87b6",
+    "proof_sha256": "d9b0af17708e5e02588c5fab2434d494a8c0c98bb780767dcf684a1357a22c46",
+    "independent_probe_sha256": "ec00c9ff9feaca936f0e3c4ebabedc4f9141b04146f6c57087d3a6e753bea5b4",
+    "anchor_audit_sha256": "28b1147e0e834573f4140ecea7dff2d862e46856f7007df66f3080524fdb8392",
+    "obligation_registry_sha256": "3389410dc158711a41959fed274a7156570c52120e88f225f2eeaf79dbf88c5f",
+    "typed_graphs_sha256": "30445993e802f4bffcb5afb683868ed5e969ecb9f051b74fd8e4d9c187c056e9",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_source_sha256": "efd9e61f4705028ce9bead35714f8402e1e1540bd9a91687f282626c6738fc2d",
+    "mathlib_olean_sha256": "8b712de9baa2a50d1a287df689bd5781b5ea1db0f6dd99f6f0a797be484d033c",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1131/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_statement_frozen_composition_local_proof_root_and_independent_direct_root",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "pass",
+    "local_provenance_hashes": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "independent_implementation_probe": "pass_in_same_worker_without_importing_Proof_or_ObligationTree",
+    "frozen_graph_state": "stale_pre_proof_M3_open_root_pending_master_reconciliation",
+    "hermetic_release_gate": "fail_closed",
+    "independent_distinct_runner_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still reports an open M3 root; only the master may reconcile authoritative state.",
+    "The run reused shared warm .lake artifacts and is not a cold empty-cache hermetic replay.",
+    "No complete transitive TCB inventory, SBOM/license archive, offline restoration, or second-platform attestation exists.",
+    "Validation.lean is independently implemented but ran in this worker clone with the shared dependency cache; it is not a distinct signed runner.",
+    "Primary-source H0, readable R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Master-reconcile proof closure, validate an immutable clean snapshot from an empty cache with network denied, and obtain a second independent signed attestation.",
+  "invalidation_inputs": [
+    "validation-spec.json", "check_validation.py", "Validation.lean", "Statement.lean",
+    "ObligationTree.lean", "Proof.lean", "statement.json", "anchor-audit.json",
+    "obligation-registry.json", "typed-graphs.json", "Lean toolchain", "mathlib revision or source",
+    "foundation/TCB policy", "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow warm-cache validation and explicit failed release gates. It is not E0/E1, master acceptance, theorem completion, or release."
+}
