@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1288-STATEMENT",
+  "theorem_id": "THM-M-1288",
+  "lifecycle": "planned",
+  "canonical_statement": "For n : Nat and p : Real with 1 < p < n, every smooth compactly supported real-valued function on Euclidean R^n satisfies the first-order Sobolev inequality with Talenti's displayed gamma-function constant, and that constant is no greater than every other constant valid for the same test class.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1288/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1288.TalentiSharpSobolevTarget",
+    "elaborated_print_sha256": "399dca9a18e2ab2e7577ab64e41f7bc79a0b3f20cc5c4fcb3f3d7d9593408126",
+    "statement_file_sha256": "fc152a0dff8d2dd50231d76f5fcc32ad0bd3edbf3fc5c69bfe856a73ef67ce6d"
+  },
+  "ordered_binders": [
+    "n : Nat",
+    "p : Real",
+    "1 < p",
+    "p < (n : Real)"
+  ],
+  "test_function_binders": [
+    "u : EuclideanSpace Real (Fin n) -> Real",
+    "ContDiff Real infinity u",
+    "HasCompactSupport u"
+  ],
+  "conclusion": "The explicit talentiConstant n p is admissible, and for every C, admissibility of C implies talentiConstant n p <= C.",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.Gradient.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Gamma.Basic",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "encoding_decisions": {
+    "lp_norm": "The classical finite real integral expression (integral |f|^p)^(1/p), rather than an ENNReal eLpNorm, so the displayed inequality and optimal constant have the source's Real codomain.",
+    "gradient": "Mathlib's total gradient operator; smoothness ensures the intended derivative branch.",
+    "sharpness": "Least admissible constant on exactly the same smooth compactly supported test class.",
+    "constant": "pi^(-1/2) n^(-1/p) ((p-1)/(n-p))^(1-1/p) times (Gamma(1+n/2) Gamma(n)/(Gamma(n/p) Gamma(1+n-n/p)))^(1/n)."
+  },
+  "environment_fingerprint": {
+    "base_revision": "d9a306e1c1d941b347946d9efe1f1a8225f40978",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": [
+    "mutationRemovedLowerBound removes 1 < p",
+    "mutationRemovedSharpness drops least-constant sharpness",
+    "mutationChangedTestClass drops smoothness and compact support"
+  ],
+  "degenerate_cases": "The hypotheses force n >= 2 and exclude p <= 1 and p >= n. The zero function remains in the test class. No endpoint, completion-space, or extremizer-classification claim is included.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the exact inequality-plus-optimality proposition. It does not prove Talenti's theorem, verify the primary-source formula transcription, establish alternate-encoding transports, or close any later node."
+}

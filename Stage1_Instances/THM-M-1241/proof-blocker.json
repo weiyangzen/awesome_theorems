@@ -1,0 +1,42 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1241-PROOF",
+  "theorem_id": "THM-M-1241",
+  "base_revision": "c198d8dd5bd64a4d487ed7455874705d67fd300f",
+  "recorded_at": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1241.GagliardoNirenbergTarget",
+  "statement_file_sha256": "96f22aff1d5682cc341b84e4951c2ca36f01026cc0ba1748303ffc484765e7ac",
+  "obligation_denominator_sha256": "d2173828bd656ec7e4545903a4fdd42a5c759de71b31e46f8c4c189be864991e",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "blocked",
+  "machine_classification": "M3",
+  "proof_body_added": false,
+  "root_closed": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M1241-T-FINITE: no placeholder-free local or pinned proof body establishes FiniteExponentPackage for arbitrary m, j, q, r, p, and a",
+  "remaining_machine_cut_set": [
+    "M1241-T-FINITE",
+    "M1241-T-ENDPOINT"
+  ],
+  "open_supporting_obligations": [
+    "M1241-S-FOUNDATION",
+    "M1241-R-SMOOTH",
+    "M1241-L-LOCAL",
+    "M1241-L-NORM",
+    "M1241-C-OPTIMIZE",
+    "M1241-B-CRITICAL",
+    "M1241-B-INFINITY",
+    "M1241-B-ZERO"
+  ],
+  "candidate_assessment": {
+    "conditional_local_composition": "ObligationTree.lean proves the exact root only from FiniteExponentPackage and InfiniteEndpointPackage; it supplies neither premise and receives no terminal analytic proof credit.",
+    "pinned_mathlib": "Mathlib.Analysis.FunctionalSpaces.SobolevInequality provides first-order Gagliardo-Nirenberg-Sobolev special cases. It has no declaration with the arbitrary derivative orders, interpolation product, ENNReal endpoint cases, and exceptional hypotheses of the frozen target.",
+    "repo_local_search": "The exact target name occurs only in this dossier. Historical and neighboring Lean surfaces expose adjacent Sobolev or abstract package material, not an eligible proof body for either frozen analytic package.",
+    "external_audit": "The preceding immutable anchor audit found no exact external candidate; its public code search was rate-limited and therefore grants no proof credit."
+  },
+  "blocker": "Closing the root requires genuine analytic implementations of both frozen packages. The finite branch needs density or approximation, local derivative estimates, global Lp control, scale optimization, and the integer-critical branch. The endpoint branch additionally needs infinity-norm estimates and the exact zero-order exceptional case. Pinned mathlib supplies only strict first-order special cases, so importing or wrapping it cannot inhabit either package without proving the missing mathematics. Assuming a package, adding an axiom, or substituting the Sobolev special case would violate the frozen target.",
+  "retry_condition": "Provide placeholder-free Lean implementations, or an immutable compatible dependency, for both M1241-T-FINITE and M1241-T-ENDPOINT and their frozen supporting obligations, with exact-type transports and terminal-body provenance.",
+  "status_boundary": "This is a proof-phase blocker record, not a proof receipt. It does not satisfy S56-M-1241-PROOF, does not change M3, and must not be promoted to provisional or accepted completion."
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1286-STATEMENT",
+  "theorem_id": "THM-M-1286",
+  "lifecycle": "planned",
+  "canonical_statement": "For n >= 1 and 1 <= p < infinity, every nonnegative u in W^{1,p}(R^n) whose positive superlevel sets have finite measure has an equimeasurable symmetric decreasing rearrangement uStar in W^{1,p}(R^n), and the L^p seminorm of a weak gradient of uStar is no greater than that of u.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1286/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1286.PolyaSzegoTarget",
+    "elaborated_expression_sha256": "72e5ad16e9b7959558632eb7d78e993e56630d7aa3186176d331fdd9a326a789",
+    "statement_file_sha256": "ef428b6d6fbb5a05b9112291cd5e113ff02d58776a03b2765837bd3ddc2039bb"
+  },
+  "domain_and_universes": "n : Nat; p : ENNReal; u : (Fin n -> Real) -> Real; weak gradients valued in Fin n -> Real; product Lebesgue volume; Prop in universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "p : ENNReal",
+    "u : Euclidean n -> Real",
+    "g : Euclidean n -> Euclidean n",
+    "uStar : Euclidean n -> Real (existential)",
+    "gStar : Euclidean n -> Euclidean n (existential)"
+  ],
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Basic",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1286.polyaSzegoTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "sobolev_membership": "MemLp u p volume plus an explicitly quantified distributional weak gradient g with MemLp g p volume",
+    "weak_gradient": "integration by parts against every smooth compactly supported scalar test function and each standard coordinate",
+    "rearrangement": "an existential nonnegative radial-antitone representative equimeasurable at every positive superlevel",
+    "vanishing_at_infinity": "every positive superlevel has finite product-Lebesgue measure",
+    "energy": "the ENNReal eLpNorm inequality for vector-valued weak gradients"
+  },
+  "environment_fingerprint": {
+    "base_revision": "b18a08591e70d8b29ed5ebb3f76a33bb76ca1f83",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization": "Lean #print output through the mutation declaration boundary"
+  },
+  "mutation_tests": [
+    "allow dimension zero",
+    "allow p = infinity",
+    "remove the finite-superlevel condition",
+    "reverse the weak-gradient energy inequality"
+  ],
+  "boundary_and_exclusions": [
+    "Dimension zero and p = infinity are excluded; p = 1 is included.",
+    "The root is nonnegative and does not silently include signed-input transport.",
+    "No equality or rigidity characterization, bounded-domain wrapper, anisotropic, fractional, or finite-sequence substitute is included."
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This statement node only freezes and kernel-elaborates the selected finite-p whole-space target. It supplies no Polya-Szego proof, accepted source audit, anchor credit, or theorem-completion evidence."
+}

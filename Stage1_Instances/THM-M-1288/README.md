@@ -28,3 +28,12 @@ been elaborated. The theorem is not complete.
 `validation.md` records the exact structural checks run for this intake. They
 validate repository membership and dossier syntax/references only, not the
 mathematical claim or a Lean proof.
+
+## Statement phase
+
+`Statement.lean` now freezes and kernel-elaborates the inequality-plus-least-
+constant target under three direct pinned mathlib imports. `statement.json` and
+`statement-validation.md` bind its exact declaration, formula, environment,
+hashes, structural mutations, and validation command. This advances only the
+provisional statement node; the primary-source formula audit, proof, and all
+later assurance gates remain open, and the theorem remains incomplete.
