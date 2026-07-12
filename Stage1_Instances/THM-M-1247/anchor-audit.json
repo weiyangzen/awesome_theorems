@@ -1,0 +1,116 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1247-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1247",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "950964e64a8a340a562abdc58bb0987c439a6f11",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1247.RellichInequalityTarget",
+    "elaborated_expression_sha256": "4697dbbaaf7fd636a371bb293a47359a9b079a3857fcb85d6f7cf5a608a5c90e",
+    "statement_file_sha256": "0fb5f4ddca16a5e9d99f692b17ad86ca55955835fc5aa3d2c063798fc06bf266"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "discovery_order": [
+    "repo-local Lean source",
+    "all pinned Lake dependency Lean source",
+    "Sourcegraph public Lean code search",
+    "GitHub repository and code search",
+    "known similarly named external Lean project at an immutable commit"
+  ],
+  "mathlib_candidates": [
+    {
+      "candidate_id": "S56-M-1247-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.InnerProductSpace.Laplacian",
+      "declarations": [
+        "Laplacian.laplacian",
+        "InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis"
+      ],
+      "kind": "operator_and_encoding_substrate",
+      "normalized_match": "The standard-basis theorem identifies mathlib's Laplacian with a trace of iterated Frechet derivatives, but has no integral inequality or sharp constant.",
+      "type_checked": true,
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable; insufficient for the canonical target"
+    },
+    {
+      "candidate_id": "S56-M-1247-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Calculus.FDeriv.Const",
+      "declarations": [
+        "fderiv_of_notMem_tsupport",
+        "HasCompactSupport.fderiv",
+        "HasCompactSupport.fderiv_apply"
+      ],
+      "kind": "compact_support_derivative_substrate",
+      "normalized_match": "These preserve or exploit derivative support; they do not prove a weighted estimate.",
+      "type_checked": true,
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable; insufficient for the canonical target"
+    },
+    {
+      "candidate_id": "S56-M-1247-C03",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Integral.IntegralEqImproper",
+      "declarations": [
+        "HasCompactSupport.integral_Ioi_deriv_eq",
+        "HasCompactSupport.integral_Iic_deriv_eq"
+      ],
+      "kind": "one_dimensional_integration_substrate",
+      "normalized_match": "These are one-dimensional half-line fundamental-theorem identities, not multidimensional integration by parts or the Rellich estimate.",
+      "type_checked": true,
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable; insufficient for the canonical target"
+    }
+  ],
+  "external_candidates": [
+    {
+      "candidate_id": "S56-M-1247-E01",
+      "project": "abenenson/rellich-kondrachov",
+      "url": "https://github.com/abenenson/rellich-kondrachov",
+      "revision": "85f2c2e943404e5ba92911346874d8961e137b60",
+      "toolchain": "leanprover/lean4:v4.29.0-rc7",
+      "module": "RellichKondrachov.Geometry.Manifold.Sobolev.RellichKondrachovRiemannian.Global",
+      "declaration": "RellichKondrachov.Geometry.Manifold.Sobolev.RiemannianFiniteChartData.isCompactOperator_h1ToL2_riemannianVolume",
+      "kind": "off_target_similar_name",
+      "normalized_match": "Rellich-Kondrachov compact embedding is explicitly excluded from the canonical sharp weighted Rellich inequality.",
+      "body_provenance": "External project recorded at an immutable commit by the repo-local S1_M_176 audit; not fetched or added to this Lake closure.",
+      "placeholder_or_axiom_status": "Not reassessed for proof credit because the declaration is mathematically off target.",
+      "classification": "excluded_not_a_candidate",
+      "integration_status": "must not be substituted or integrated for this target"
+    }
+  ],
+  "search_inventory": {
+    "local_roots": "all 11 package roots in Formalizations/Lean/lake-manifest.json plus repo-local Lean source",
+    "terms": ["Rellich", "Hardy-Rellich", "HardyRellich", "Rellich inequality", "rellichInequality"],
+    "matching_pinned_dependency_lean_files": 0,
+    "sourcegraph_query": "context:global archived:yes fork:yes (Rellich OR Hardy-Rellich OR HardyRellich) lang:Lean count:100",
+    "sourcegraph_result": "matchCount=0",
+    "sourcegraph_response_sha256": "bf0673c027f80e58e575ed395f2c528f5f7a47c861c7327bb855f686dbedd712",
+    "github_repository_query": "repositories?q=\"Rellich inequality\" lean",
+    "github_repository_result": "total_count=0; incomplete_results=false",
+    "github_repository_response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+    "github_code_query": "code?q=\"Rellich inequality\" language:Lean",
+    "github_code_result": "API rate limit exceeded; no negative result claimed",
+    "github_code_response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e"
+  },
+  "terminal_result": "No exact or stronger Lean 4 terminal theorem was found in the immutable local dependency closure or bounded external search. The checked declarations are substrate only, and the known similarly named external theorem is explicitly off target.",
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact canonical proposition elaborates locally, but no proof declaration, importable terminal candidate, or sufficient bridge was identified.",
+  "integration_blocker": "There is no exact external Lean 4 repository, immutable revision, module, and declaration to pin/import/check. GitHub code search was rate-limited, so external discovery remains bounded.",
+  "reopen_condition": "A concrete Lean 4 declaration with an immutable revision, exact-type comparison to RellichInequalityTarget, checked terminal proof provenance, compatible license/toolchain, and successful repo-local wrapper elaboration.",
+  "human_debt": "H1",
+  "readability_debt": "R3",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor audit only. Negative searches are bounded evidence, substrate is not proof closure, and the off-target compactness theorem receives no proof credit. No H0, obligation-tree, proof, validation, or theorem-completion claim is made."
+}
