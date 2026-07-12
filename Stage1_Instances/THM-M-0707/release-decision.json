@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0707-RELEASE-local-20260712T163049+0800",
+  "item_id": "S56-M-0707-RELEASE",
+  "theorem_id": "THM-M-0707",
+  "intent": "release",
+  "base_revision": "f12b1ccbda307337d488a2993eddbf883b722be6",
+  "base_tree": "3c0bd4b5d25c7d0ad345b2bc6600e6a8b287a595",
+  "decided_at": "2026-07-12T16:30:49+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "dependency": {
+    "item_id": "S56-M-0707-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0707-VALIDATION-local-20260712T162219+0800",
+    "receipt_sha256": "476e4432d25239bd13b61f50bc764ab1f32ef0888140024079fd656bac112213",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0707-VALIDATION-local-20260712T162219+0800"
+  ],
+  "evidence_reconciliation": {
+    "exact_root_kernel_replay": "provisional_pass",
+    "same_worker_differential_reconstruction": "provisional_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "provisional_root_machine_classification": "M0-W",
+    "authoritative_state_reconciled": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "accepted_foundation_and_provenance_closure": false,
+    "hermetic_cold_offline_replay": false,
+    "tcb_sbom_license_closure": false,
+    "independent_clean_runner_attestation": false,
+    "independently_implemented_minimal_verifier": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H1", "M4", "R3"],
+    "root_vector_after": ["H1", "M4", "R3"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-0707-VALIDATION has provisional worker-self-test evidence only, release_grade=false, and no master-accepted receipt."
+    },
+    "next_failed_release_gate": {
+      "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+      "reason": "Validation reused a shared writable warm .lake cache and did not produce a clean empty-cache network-denied cold replay or offline restoration bundle."
+    },
+    "remaining_root_cut_set": [
+      "master acceptance of S56-M-0707-VALIDATION and all transitive phase receipts",
+      "M0707-X-SOURCE: accepted H0 pinpoint primary-source crosswalk, errata audit, and independent source review",
+      "M0707-X-FOUNDATION: accepted foundation, axiom, transitive trust, and complete TCB closure",
+      "M0707-X-PROVENANCE: accepted terminal-body and dependency provenance closure",
+      "accepted R0 structured readable reconstruction and independent reader review",
+      "AUDIT-Z acceptance and authoritative instance/graph reconciliation",
+      "immutable clean snapshot, empty-cache network-denied cold build, offline restoration, SBOM, and license closure",
+      "two signed attestations from separately provisioned independent runners",
+      "independently implemented minimal release verifier and protected CI mutation evidence",
+      "deterministic content-addressed release bundle and master reconciliation"
+    ]
+  },
+  "retry_condition": "Obtain dependency-legal master acceptance, close and independently review H0/R0 plus foundation/provenance/TCB records, then run the cold hermetic supply-chain and distinct-verifier protocol and reconcile a deterministic bundle in the master lane.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim M0 acceptance, AUDIT-Z, THEOREM-Z, release, or theorem completion."
+}

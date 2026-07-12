@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0708-RELEASE-local-20260712",
+  "item_id": "S56-M-0708-RELEASE",
+  "theorem_id": "THM-M-0708",
+  "intent": "release",
+  "base_revision": "f12b1ccbda307337d488a2993eddbf883b722be6",
+  "base_tree": "3c0bd4b5d25c7d0ad345b2bc6600e6a8b287a595",
+  "decided_on": "2026-07-12",
+  "attestor": "stage1-rev56-worker-slot2",
+  "decision_support": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0708-VALIDATION",
+    "receipt_id": "S56-M-0708-VALIDATION-local-20260712T082237Z",
+    "receipt_sha256": "e998bd7433a44fffcec34bd6cb97979adf6c5a0ceda1cd541b6f09980c716acc",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0708-PROOF-local-20260712T081122Z",
+    "S56-M-0708-VALIDATION-local-20260712T082237Z"
+  ],
+  "reconciled_inputs": {
+    "statement.json": "595ea7cd39d78df764d13107e0ca66c449155e361984c7dec419b90e6587ff6e",
+    "anchor-audit.json": "d64059d00ce79251291a537fcf97fed8d43ce3fc6b071e6f5304fa3bccb6b24a",
+    "obligation-registry.json": "3f062918d31161130726bc0f8253773d34eea6e8a29daa493cf906a58a100166",
+    "typed-graphs.json": "19202081a51cec32dcc74add5fdc828c6a7bae7e9a8c8d749c19a83efcdd973f",
+    "Proof.lean": "7b6e3fe1a3088c315df98207364b33825abf6fcdd1e1f2f6a6065efec5bf66f6",
+    "validation-spec.json": "40d9d8af9b33ef7233285d58f5a6ebc4b60d7631d6bb28dfb7afccbb7e750844",
+    "validation-receipt.json": "e998bd7433a44fffcec34bd6cb97979adf6c5a0ceda1cd541b6f09980c716acc"
+  },
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-W", "R3"],
+    "boundary": "The exact root kernel-replays provisionally through a local wrapper over pinned mathlib, but the planned instance and frozen pre-proof graph remain authoritative until master reconciliation. H0 and R0 are absent."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "independent_direct_declaration_same_worker": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "structured_state_freshness": "failed: typed-graphs.json predates proof adoption and records root_closed=false with machine debt M3",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "independently_implemented_minimal_verifier": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0708-VALIDATION has provisional non-release worker evidence and no master-accepted receipt, so the release transition is not dependency-legal."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0708-VALIDATION and every transitive phase receipt",
+    "fresh authoritative typed-graph reconciliation of the provisionally closed Rice bridge and exact root",
+    "complete reconciled discovery, source-boundary, evidence-state, and debt inventory for AUDIT-Z",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata crosswalk, and independent source review",
+    "accepted R0 node-by-node structured reconstruction with substantive step ledgers and independent reader review",
+    "complete transitive proof-body provenance, accepted foundation and axiom profiles, and hashed TCB closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "SBOM and license closure with durable dependency archives",
+    "two signed attestations from distinct independently provisioned runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed release bundle and master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "Master-accept the validation dependency and reconcile authoritative graph and audit state; then close H0/R0, transitive trust, cold offline reproduction, supply-chain, independent-runner, minimal-verifier, CI, deterministic-bundle, and master terminal-decision gates in a separately provisioned release lane.",
+  "worktree_classification": "nonrelease: owned release artifacts and the pre-existing untracked Formalizations/Lean/.lake materialization are present",
+  "status_boundary": "This self-tests an honest blocked release decision only. It accepts no receipt, advances no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, release, or theorem completion."
+}

@@ -1,6 +1,6 @@
 # THM-M-0729 rev-5.6 intake
 
-This directory is the fail-closed `planned` intake dossier for the repository label "PCP theorem".
+This directory is the fail-closed `planned` dossier for the repository label "PCP theorem".
 One repository inventory gives only the gloss "probabilistically checkable proofs"; a second gives
 the standard shorthand `NP = PCP[O(log n), O(1)]`. The latter identifies the intended theorem
 family, but it is not yet an exact proposition: neither inventory defines `NP`, the PCP verifier,
@@ -12,16 +12,15 @@ perfect versus bounded completeness, constant soundness threshold, randomness ac
 whether resource bounds hold asymptotically or for every input. Those variants are mathematically
 related but cannot be substituted without a checked source statement and transports.
 
-The root remains `[H3, M4, R4]`: repository metadata locates a known theorem but provides no
-pinpoint primary statement, no exact Lean target is selected, and no readable reconstruction is
-accepted. A pinned Lean probe confirms only that mathlib exposes languages, deterministic
-polynomial-time computation, probability mass functions, and asymptotic bounds that could support
-a later encoding. It is not a PCP definition or proof. Exact commands and results are recorded in
-`validation.md`.
+`Statement.lean` now freezes one explicit standard formulation: binary verifier-based NP equals a
+binary, nonadaptive oracle-checker class with eventual logarithmic randomness, a uniform constant
+query bound, perfect completeness, and soundness one half. The target and mutations elaborate with
+one pinned mathlib import. This moves only the proposed machine statement boundary to M3; the root
+remains `[H3, M3, R4]`, because no PCP proof, primary-source pinpoint review, or readable
+reconstruction is accepted. Exact statement commands and results are in `statement-validation.md`.
 
 ## Open task DAG
 
-All dependent phases remain open in `task-dag.json`. The first blocker is independent inspection
-of an immutable primary statement and referenced definitions, fixing the verifier model, oracle
-encoding, resource measures, thresholds, ordered quantifiers, and equality of language classes.
-This intake supplies no `H0`, `M0`, or `R0` credit, no audit completion, and no theorem completion.
+All dependent phases remain open in `task-dag.json`. Primary-source inspection must still check the
+chosen verifier model and constants against an immutable edition before H0. This dossier supplies
+no `H0`, `M0`, or `R0` credit, no audit completion, and no theorem completion.

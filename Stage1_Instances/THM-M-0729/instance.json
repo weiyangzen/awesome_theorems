@@ -13,20 +13,16 @@
   "category": "mathematical logic / proof theory (computational complexity)",
   "target_system": "Lean 4 + pinned mathlib",
   "literal_source_claim": "Primary inventory gloss: probabilistically checkable proofs. Corroborating repository inventory shorthand: NP = PCP[O(log n), O(1)].",
-  "canonical_claim_status": "intended_theorem_family_identified_but_exact_source_definitions_thresholds_and_formal_target_open",
-  "canonical_claim": null,
+  "canonical_claim_status": "exact_binary_nonadaptive_perfect_completeness_statement_self_tested_pending_master_acceptance",
+  "canonical_claim": "Over binary strings, verifier-based NP equals the class recognized by polynomial-time nonadaptive binary proof-oracle checkers using O(log n) random bits, O(1) queries, perfect completeness, and soundness one half.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "blocked_due_to_missing_exact_source_statement_and_pcp_formal_vocabulary",
-    "module_candidates": [
-      "Mathlib.Computability.Language",
-      "Mathlib.Computability.TuringMachine.Computable",
-      "Mathlib.Probability.ProbabilityMassFunction.Monad",
-      "Mathlib.Analysis.Asymptotics.Defs"
-    ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "statement_self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0729/Statement.lean",
+    "direct_imports": ["Mathlib.Computability.TuringMachine.Computable"],
+    "declaration_or_expression": "Stage1Instances.THM_M_0729.PCPTheorem",
+    "elaborated_expression_hash": "sha256:2a3d6c881d9d74079ecc6a7733b1b53a7500b85b9a4d075159cf8cd6cce7bbc5",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0; full hashes in statement.json"
   },
   "domain_and_universes": "Open: the source must fix finite alphabets and encodings for inputs, witnesses, random strings and oracle proofs; a verifier machine model; input length; and extensional language-class equality.",
   "quantifiers": [],
@@ -42,13 +38,13 @@
   },
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
-  "root_vector": {"H": "H3", "M": "M4", "R": "R4"},
+  "root_vector": {"H": "H3", "M": "M3", "R": "R4"},
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "foundation_profile": "Lean 4 dependent type theory is the intended backend; classical logic and choice policy cannot be frozen until the verifier, probability, and language-class encodings are selected.",
   "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; minimal imports, any future complexity infrastructure, and transitive declaration closure remain open.",
-  "computation_profile": "No randomized evaluator, oracle, timing experiment, sampler, or unchecked probability certificate is credited; verifier execution, random-bit use, query access, and cost semantics remain open.",
+  "computation_profile": "Binary strings and proof oracles; Turing.FinTM2 polynomial-time witnesses; nonadaptive queries; finite-cardinality soundness. No randomized evaluator, oracle execution, native computation, or unchecked probability certificate is credited.",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "public_merge_targets": ["Stage1_Instances/THM-M-0729"],
@@ -65,7 +61,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Pinned computation, probability, and asymptotic APIs elaborate, but no exact primary statement, PCP encoding, or canonical Lean target is selected. No source proof, formal proof, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested planned intake plus exact binary nonadaptive PCP statement, pending master acceptance. Primary-source H0 fidelity, anchor audit, proof, accepted proof state, audit completion, and theorem completion remain open."
 }
