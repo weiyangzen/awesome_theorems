@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1200-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1200",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1200.RankineHugoniotTarget",
+  "immutable_environment": {
+    "repository_base_revision": "7c261cad5ed43a724864ac5581564164750b865c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "exact_closure_candidates": [],
+  "supporting_mathlib_candidates": [
+    {
+      "module": "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension",
+      "declarations": [
+        "ContDiffBump",
+        "ContDiffBump.contDiff",
+        "ContDiffBump.hasCompactSupport",
+        "ContDiffBump.one_of_mem_closedBall",
+        "ContDiffBump.nonneg"
+      ],
+      "role": "construct a smooth compactly supported spacetime test function whose trace is nonzero",
+      "candidate_class": "supporting_infrastructure_only",
+      "exact_target": false
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.Bochner.Set",
+      "declarations": [
+        "Continuous.integral_pos_of_hasCompactSupport_nonneg_nonzero"
+      ],
+      "role": "prove that the selected nonnegative, nonzero compactly supported trace has nonzero integral",
+      "candidate_class": "supporting_infrastructure_only",
+      "exact_target": false
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+      "declarations": [
+        "MeasureTheory.integral_congr_ae"
+      ],
+      "role": "integral extensionality already used by the statement boundary check",
+      "candidate_class": "supporting_infrastructure_only",
+      "exact_target": false
+    }
+  ],
+  "searches": [
+    {
+      "surface": "pinned mathlib source tree",
+      "query": "case-insensitive Rankine, Hugoniot, conservation law, weak solution, or shock over Mathlib/**/*.lean",
+      "result": "No Rankine-Hugoniot declaration or scalar conservation-law weak-shock closure was found. The only relevant weak-solution hit was generic distribution test-function infrastructure."
+    },
+    {
+      "surface": "GitHub repository search API",
+      "query": "quoted Rankine-Hugoniot with language:Lean; Rankine Hugoniot Lean4; quoted conservation law with language:Lean; quoted weak solution PDE with language:Lean",
+      "result": "The two Rankine-Hugoniot queries and the weak-solution query returned zero repositories. The conservation-law query returned three unrelated projects whose descriptions concern non-PDE conservation laws."
+    },
+    {
+      "surface": "Sourcegraph global code search",
+      "query": "context:global lang:Lean RankineHugoniot and quoted Rankine-Hugoniot",
+      "result": "Both searches completed with matchCount 0."
+    }
+  ],
+  "external_candidates": [],
+  "classification": {
+    "machine_status": "not_repo_local_closed",
+    "debt": "formalization_debt",
+    "reason": "No exact public Lean 4 closure was identified. The pinned mathlib revision supplies credible bump-function and integration ingredients, but not the frozen equivalence or the piecewise-state distributional derivation."
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This receipt completes only the immutable-revision candidate audit. Negative searches are discovery evidence, not a universal nonexistence proof. Supporting declarations receive no root proof credit, and no external anchor-only theorem is promoted to M0."
+}
