@@ -1,0 +1,161 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1045-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1045",
+  "base_revision": "0ef9fcf1c0a7fb2521adb0cd3bbce55a6285c80d",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1045.CameronMartinTarget",
+  "canonical_target_expression_sha256": "e1b35bb7a569b9a4279ea7eb729ccd5e45a62663fb645a68aeb03e41274c5cea",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T00:00:00+08:00",
+    "credentials_policy": "anonymous public HTTP and git transport only",
+    "aliases": [
+      "Cameron-Martin theorem",
+      "Cameron Martin theorem",
+      "Gaussian quasi-invariance",
+      "Wiener measure translation",
+      "Paley-Wiener integral",
+      "abstract Wiener space",
+      "Radon-Nikodym density",
+      "mutually singular translations"
+    ],
+    "search_order": [
+      "repository-local Lean source",
+      "pinned mathlib source tree",
+      "GitHub public Lean repository metadata",
+      "immutable source archives of Brownian-motion candidates",
+      "GitHub public code search"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "M1045-A-LOCAL-LEGACY",
+      "source": "repository-local legacy source",
+      "revision": "0ef9fcf1c0a7fb2521adb0cd3bbce55a6285c80d",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_238.lean",
+      "source_sha256": "7d8f6d46da21a18e2c63ce6d8e2d6ba1f157cddddcaf956c6d9669ff9eb8099f",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_238.CameronMartinModel.cameronMartinConclusion",
+        "AwesomeTheorems.Stage1.S1_M_238.cameronMartinConclusion_standardRealGaussianShift"
+      ],
+      "relationship": "the first declaration projects quasi-invariance fields already stored in an abstract model, while the second proves only a one-dimensional Gaussian shift; neither proves the frozen Wiener-path iff, density, and singularity target",
+      "body_provenance": "repo-local checked legacy bodies, outside the rev-5.6 exact target",
+      "classification": "M3",
+      "result": "discovery and partial-lemma evidence only; no inherited root proof credit"
+    },
+    {
+      "id": "M1045-A-MATHLIB-PINNED",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "modules": [
+        "Mathlib.MeasureTheory.Measure.Decomposition.RadonNikodym",
+        "Mathlib.MeasureTheory.Measure.MutuallySingular",
+        "Mathlib.MeasureTheory.Function.LpSeminorm.Basic",
+        "Mathlib.Probability.Distributions.Gaussian.Real"
+      ],
+      "declarations": [
+        "Measure.AbsolutelyContinuous",
+        "Measure.rnDeriv",
+        "Measure.rnDeriv_self",
+        "Measure.rnDeriv_withDensity",
+        "Measure.MutuallySingular",
+        "Measure.map",
+        "MemLp",
+        "gaussianReal",
+        "gaussianReal_map_add_const",
+        "ProbabilityTheory.HasGaussianLaw"
+      ],
+      "source_sha256": {
+        "Mathlib/MeasureTheory/Measure/Decomposition/RadonNikodym.lean": "2807db6d77bb145e00e953f9b425e1775794aa68b41a01dac46a3fb97e4dd970",
+        "Mathlib/MeasureTheory/Measure/MutuallySingular.lean": "e30ebeeb4114f175d6ec192c10cb606ec9edaa9cf939c715bb2e2c0d92020b8c",
+        "Mathlib/Probability/Distributions/Gaussian/Real.lean": "f5321db08f0156c5a12e15986d2ced9108183c907e3082d2566da8ef8da931a8"
+      },
+      "relationship": "exact low-level vocabulary and a finite-dimensional real Gaussian shift theorem, but no Wiener measure, Paley-Wiener integral, Cameron-Martin-space characterization, quasi-invariance theorem, or non-admissible singularity theorem",
+      "dependency_feasibility": "already materialized at the lake-manifest revision; AnchorAudit.lean elaborates without modifying .lake",
+      "classification": "M3",
+      "result": "supporting APIs and a strict finite-dimensional subcase only; no terminal closure"
+    },
+    {
+      "id": "M1045-A-EXTERNAL-BROWNIAN-MOTION",
+      "source": "RemyDegenne/brownian-motion",
+      "remote": "https://github.com/RemyDegenne/brownian-motion.git",
+      "revision": "bdf5ea0c34f9e6d75bce5f0609a968d6e9e99e8e",
+      "source_archive_sha256": "de1fad62fabb1145254a668a38368dad7fc0cf27ff5b346cf98f4caeb5d572cd",
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "license": "Apache-2.0",
+      "modules": ["BrownianMotion.Gaussian.BrownianMotion"],
+      "declarations": [
+        "ProbabilityTheory.brownian",
+        "ProbabilityTheory.isBrownianReal_brownian",
+        "ProbabilityTheory.hasIndepIncrements_brownian",
+        "ProbabilityTheory.wienerMeasure"
+      ],
+      "source_sha256": {
+        "BrownianMotion/Gaussian/BrownianMotion.lean": "60418ac9f3e5e05c32d17b91e622e5b30cc203e666a0d1b722272feafae0aecc",
+        "lean-toolchain": "e0a7032ab1976a37a3e1e823816b4f490d462c1e864b21e1999c33cdac76e263",
+        "lake-manifest.json": "73332a2a39977c3eb037aea27e8a6eef027a547dd800240c609bc59d25d3aaaa",
+        "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "relationship": "credible construction substrate: the complete immutable source archive defines Brownian motion and Wiener measure, but a whole-archive search finds no Cameron-Martin, Girsanov, quasi-invariance, rnDeriv, mutual-singularity, or Paley-Wiener declaration",
+      "dependency_feasibility": "not in this repository's lake-manifest and uses Lean 4.31/mathlib fabf563; no dependency was installed or checked locally",
+      "classification": "M3",
+      "result": "strong supporting external infrastructure, not an exact proof and not repo-local integration debt"
+    },
+    {
+      "id": "M1045-A-EXTERNAL-TAILORED-BROWNIAN",
+      "source": "banr1/tailored-brownian-motion",
+      "remote": "https://github.com/banr1/tailored-brownian-motion.git",
+      "revision": "5f7e47403f707ba69d2534c884712eb08ea37134",
+      "source_archive_sha256": "e8eeb66ddf83abbe392155f0ca0bd458467f988d18381f557e70a6424a65b88a",
+      "toolchain": "leanprover/lean4:v4.28.0-rc1",
+      "mathlib_revision": "9227fd8e495705d7b4e97f0b0cc5098c655fc458",
+      "license": "Apache-2.0",
+      "relationship": "Brownian/Wiener construction fork; complete immutable source archive has no terminal Cameron-Martin-family declaration and its blueprint leaves the main Wiener-measure properties open",
+      "dependency_feasibility": "not in the local manifest and on a different Lean/mathlib revision; no installation was attempted",
+      "classification": "M4",
+      "result": "no exact candidate"
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {"query": "Cameron-Martin language:Lean", "total_count": 0, "incomplete": false},
+      {"query": "Cameron Martin language:Lean", "total_count": 0, "incomplete": false},
+      {"query": "Gaussian measure Lean", "total_count": 0, "incomplete": false},
+      {"query": "Brownian motion language:Lean", "total_count": 2, "incomplete": false},
+      {"query": "Wiener measure language:Lean", "total_count": 0, "incomplete": false}
+    ],
+    "code_search": "GitHub code search is unavailable without authentication; this is an access limitation, not negative-result evidence.",
+    "result": "both Brownian-motion repositories returned by the complete repository-metadata query were inspected at immutable commits; neither source archive contains the terminal target",
+    "limitations": "repository metadata queries and two complete candidate-archive scans are bounded discovery evidence, not proof that no Lean 4 implementation exists anywhere"
+  },
+  "root_decision": {
+    "classification": "M3",
+    "kernel_closed": false,
+    "debt_type": "formalization_debt",
+    "reason": "credible pinned and external supporting APIs exist, but no exact theorem body for the frozen Wiener-path equivalence, density, and singularity target was found",
+    "remaining_cut_set": [
+      "construct or integrate WienerData on continuous nonnegative-time paths",
+      "construct the Paley-Wiener integral for every L2 direction",
+      "prove translated-measure equivalence and the exact RN-density identity",
+      "prove mutual singularity for every non-Cameron-Martin direction",
+      "compose the exact root and audit its transitive trust closure"
+    ]
+  },
+  "human_debt": "H1 unchanged; primary-source theorem/page, assumptions, and errata mapping are outside this machine-anchor node",
+  "readability_debt": "R3 unchanged; no proof reconstruction is claimed",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false
+}
