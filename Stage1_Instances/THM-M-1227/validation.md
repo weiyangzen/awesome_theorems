@@ -1,10 +1,10 @@
-# Intake validation
+# Statement validation
 
-Base revision: `c67df8af765ae58e38b6c8d4ce37668f5a600c6b`.
+Base revision: `f4b142975b0cf41e1c092e006544346545ed8b8c`.
 
-Validation is limited to manifest consistency, dossier structure, scoped intake invariants, JSON
-syntax, and whitespace. No canonical Lean target exists yet, so no elaboration or kernel result is
-claimed.
+The narrow Lean command elaborates the canonical expression against the existing pinned dependency
+artifacts. It does not prove the proposition. No dependency update, build, fetch, or `.lake`
+mutation was performed.
 
 | Command | Result |
 |---|---|
@@ -13,9 +13,10 @@ claimed.
 | `python3 scripts/stage1_target.py show THM-M-1227` | exit 0; rank 416, L0/rework_required, planned, theorem_complete false |
 | `python3 -m json.tool Stage1_Instances/THM-M-1227/instance.json` | exit 0 |
 | `python3 -m json.tool Stage1_Instances/THM-M-1227/task-dag.json` | exit 0 |
-| scoped Python intake assertions (command in worker self-test manifest) | exit 0; `intake invariant check: ok` |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1227/Statement.lean` | exit 0; `Stage1.THM_M_1227.lerayHopfExistenceTarget : Prop` |
+| scoped Python statement assertions (command in worker self-test manifest) | exit 0; `statement invariant check: ok` |
 | `git diff --check -- Stage1_Instances/THM-M-1227` | exit 0; no output |
 
-Known downstream failures: exact primary-source inspection, canonical Lean elaboration, anchor
-audit, obligation expansion, proof, hermetic replay, and independent review remain open. These
-prevent theorem completion but do not invalidate the fail-closed planned intake.
+Known downstream failures: exact primary-source theorem/page inspection, anchor audit, obligation
+expansion, proof, hermetic replay, and independent review remain open. These prevent theorem
+completion but do not invalidate the elaborated statement-phase result.

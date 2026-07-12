@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1244-STATEMENT",
+  "theorem_id": "THM-M-1244",
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite dimension n and every C1 real function f for which f squared, f squared log(f squared), and the squared norm of its Frechet derivative are integrable under the centered product Gaussian of coordinate variance one, the entropy of f squared is at most twice its Gaussian Dirichlet energy.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1244/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1244.GaussianLogSobolevTarget",
+    "elaborated_expression_sha256": "eeff335a47ceaf9d469f25e1570640f17008c1f38d8173499a5429e7ab6397b3",
+    "statement_file_sha256": "f1507845f649ea0881f77178c58ac681851c127e26c0dd42cce92b38f48d441b"
+  },
+  "domain_and_universes": "n : Nat; f : (Fin n -> Real) -> Real; Prop in universe 0; product of n copies of gaussianReal 0 1",
+  "ordered_binders": ["n : Nat", "f : Euclidean n -> Real"],
+  "hypotheses": [
+    "ContDiff Real 1 f",
+    "Integrable (fun x => f x ^ 2) (standardGaussian n)",
+    "Integrable (fun x => xlogx (f x ^ 2)) (standardGaussian n)",
+    "Integrable (fun x => norm (fderiv Real f x) ^ 2) (standardGaussian n)"
+  ],
+  "conclusion": "entropySquare f (standardGaussian n) <= 2 * integral (fun x => norm (fderiv Real f x) ^ 2) (standardGaussian n)",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.MeasureTheory.Measure.Prod",
+    "Mathlib.Probability.Distributions.Gaussian.Real"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1244.gaussianLogSobolevTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "gaussian_measure": "Measure.pi of gaussianReal 0 1 over Fin n; this fixes centered identity covariance",
+    "entropy": "integral xlogx(f^2) minus m log m, m = integral f^2; xlogx 0 is definitionally zero",
+    "energy": "integral of the squared operator norm of fderiv Real f",
+    "regularity": "ContDiff Real 1 plus explicit integrability of all three displayed integrands",
+    "dimension": "all n : Nat, including n = 0",
+    "constant": "the sharp standard-Gaussian factor 2"
+  },
+  "environment_fingerprint": {
+    "base_revision": "7619d195bd4454d4084e74977cf56d86c396ab3a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1244/check_statement.py",
+    "killed": [
+      "restricted the target to positive dimensions",
+      "removed entropy-integrand integrability",
+      "changed the sharp constant from 2 to 4",
+      "replaced Gaussian measure by Lebesgue measure"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "The zero-dimensional product Gaussian is included",
+    "xlogx uses the zero-log-zero convention",
+    "No normalized integral-f-squared-equals-one form is silently substituted",
+    "No abstract Wiener, manifold, discrete, modified, or defective log-Sobolev variant is credited"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and kernel-elaborates the selected finite-dimensional Gaussian statement and a definitional expansion. It supplies no proof, source-audit acceptance, anchor acceptance, or theorem-completion evidence."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1246-STATEMENT",
+  "theorem_id": "THM-M-1246",
+  "lifecycle": "planned",
+  "canonical_statement": "For every natural number n at least 3 and every smooth compactly supported real-valued function u on Euclidean R^n, the integral of |u(x)|^2 / ||x||^2 is at most (2/(n-2))^2 times the integral of the squared norm of the Frechet derivative of u.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1246/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1246.HardyInequalityTarget",
+    "elaborated_expression_sha256": "07f1c030325dfe8d02e99a0af1a00c5241a312e6195aa4a9e2967822960048f1",
+    "statement_file_sha256": "0388e86c4661e59d1cebd5d54c854bad1184b6b7d2ae2a83e12fc3c3dabddf41"
+  },
+  "domain_and_universes": "n : Nat; u : EuclideanSpace Real (Fin n) -> Real; proposition in Prop",
+  "ordered_binders": [
+    "n : Nat",
+    "3 <= n",
+    "u : EuclideanSpace Real (Fin n) -> Real",
+    "ContDiff Real top u",
+    "HasCompactSupport u"
+  ],
+  "conclusion": "integral x, |u x|^2 / ||x||^2 <= (2 / ((n : Real) - 2))^2 * integral x, ||fderiv Real u x||^2",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace"
+  ],
+  "minimal_import_check": "Deleting each listed direct import separately makes Statement.lean fail to elaborate; two initially tested imports were removed as redundant.",
+  "checked_transport": "Stage1Instances.THM_M_1246.hardyInequalityTarget_iff_expanded",
+  "statement_selection": "This is the exact Euclidean differential L2 variant frozen by intake. It does not substitute a discrete, one-dimensional, fractional, boundary-domain, or Rellich inequality.",
+  "degenerate_cases": "Dimensions 0, 1, and 2 are excluded. Lean's totalized real division gives the singular integrand value zero at x = 0; this differs only on the volume-null singleton in positive dimension. The zero function is included.",
+  "environment_fingerprint": {
+    "base_revision": "7619d195bd4454d4084e74977cf56d86c396ab3a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1246/check_statement.py",
+    "killed": [
+      "dimension lower bound changed from 3 to 2",
+      "compact-support hypothesis removed",
+      "inequality direction reversed"
+    ]
+  },
+  "foundation_profile": "Lean 4 dependent type theory with mathlib classical analysis infrastructure; no local axiom declaration",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "Noncomputable analytic proposition; no computation or oracle supplies proof credit",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and kernel-elaborates the exact statement only. It supplies no anchor audit, proof credit, H0/R0 verdict, audit completion, or theorem completion."
+}
