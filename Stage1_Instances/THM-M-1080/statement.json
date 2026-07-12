@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1080-STATEMENT",
+  "theorem_id": "THM-M-1080",
+  "lifecycle": "planned",
+  "canonical_statement": "For every real-valued discrete-time martingale X on a probability space, deterministic nonnegative bounds c, horizon n, and t >= 0, if |X_(k+1)-X_k| <= c_(k+1) almost surely for every k < n, then P(t <= X_n-X_0) <= exp(-t^2/(2 sum_{j=1}^n c_j^2)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1080/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1080.Statement",
+    "elaborated_expression_sha256": "af69d1d82ed31033201ff05a06f14f6fe200307a16bd3538f34ab56d4fd0d350",
+    "statement_file_sha256": "7c70293edee7d3bfc79ea241f932241483285342ab400e10e8290782666ebda4"
+  },
+  "domain_and_universes": "Omega : Type u; probability measure mu; filtration indexed by Nat; X : Nat -> Omega -> Real; c : Nat -> NNReal; n : Nat; t : Real",
+  "ordered_binders": [
+    "Omega : Type u",
+    "mOmega : MeasurableSpace Omega",
+    "mu : Measure Omega",
+    "IsProbabilityMeasure mu",
+    "G : Filtration Nat mOmega",
+    "X : Nat -> Omega -> Real",
+    "c : Nat -> NNReal",
+    "Martingale X G mu",
+    "n : Nat",
+    "for every k < n, the step-k increment is a.e. absolutely bounded by c (k+1)",
+    "t : Real",
+    "0 <= t"
+  ],
+  "conclusion": "mu.real {omega | t <= X n omega - X 0 omega} <= Real.exp (-(t^2) / (2 * sum_{k in range n} (c (k+1))^2))",
+  "index_convention": "Times are 0,...,n; range n indexes the n increments by k+1, so the denominator is sum_{j=1}^n c_j^2.",
+  "boundary_convention": "n=0, t=0, and zero squared-bound sum remain in the target and use Lean's total real division; no positivity assumption on the denominator is added.",
+  "direct_imports": ["Mathlib.Probability.Martingale.Basic"],
+  "alternate_encodings": [{
+    "target": "Stage1Instances.THM_M_1080.ExpandedSourceShape",
+    "relationship": "iff",
+    "checked_witness": "Stage1Instances.THM_M_1080.statement_iff_expandedSourceShape"
+  }],
+  "foundation_profile": "Lean 4 dependent type theory with mathlib classical measure-theory infrastructure; no custom axiom declarations",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable measure-theoretic proposition; no computation or oracle supplies proof credit",
+  "environment_fingerprint": {
+    "base_revision": "ec625affaba626d33138848b34fb76da0bf247cf",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1080/check_statement.py",
+    "validator_sha256": "23018c19a7a8bdc25ebeb1e0bc667e9e09f3476fff0de54e3085a9d9ff158584",
+    "distinguished": [
+      "removed martingale hypothesis",
+      "changed the process codomain from Real to Int",
+      "changed the varying bound family to one uniform bound",
+      "excluded the threshold boundary t = 0"
+    ]
+  },
+  "source_boundary": "This is the exact modern absolute-increment form selected by the intake claim. Primary-source theorem/page and normalization review remains assigned to anchor audit and may require an explicit checked revision, never silent substitution.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. No proof, anchor acceptance, H0 verdict, audit completion, or theorem-completion evidence is claimed."
+}

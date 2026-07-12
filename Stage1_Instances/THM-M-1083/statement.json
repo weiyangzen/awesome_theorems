@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1083-STATEMENT",
+  "theorem_id": "THM-M-1083",
+  "lifecycle": "planned",
+  "canonical_statement": "Let T > 0 and X be a real-valued process indexed by [0,T] on a probability space. If alpha,beta > 0 and E[edist(X_s,X_t)^alpha] <= C*edist(s,t)^(1+beta) for every s,t, then X has a fixed-time almost-everywhere modification Y whose paths are almost surely gamma-Holder for every 0 < gamma < beta/alpha.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1083/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1083.Statement",
+    "elaborated_expression_sha256": "fb7209158513f98f9692a12449560573c5009e1a2366ed34eb8e61f9cae7c58a",
+    "statement_file_sha256": "2b9c25f6eec19a8d8366850aa868f7ea13921827859f11e268c69b1149ab3c04"
+  },
+  "domain_and_universes": "Omega : Type u with a measurable space; probability measure P; T, alpha, beta : Real; C : NNReal; X,Y : Set.Icc 0 T -> Omega -> Real; gamma : NNReal; proposition in Prop",
+  "ordered_binders": [
+    "Omega : Type u",
+    "MeasurableSpace Omega",
+    "P : Measure Omega",
+    "IsProbabilityMeasure P",
+    "T alpha beta : Real",
+    "C : NNReal",
+    "X : RealProcess T Omega",
+    "0 < T",
+    "0 < alpha",
+    "0 < beta",
+    "forall t, Measurable (X t)",
+    "uniform increment moment bound"
+  ],
+  "conclusion": "There exists one process Y such that forall fixed t, X t = Y t almost everywhere under P, and forall gamma : NNReal with 0 < gamma and gamma < beta/alpha, almost every path of Y has some finite HolderWith constant at exponent gamma.",
+  "encoding_decisions": {
+    "time": "intrinsic subtype Set.Icc (0 : Real) T",
+    "expectation": "lintegral of ENNReal-valued edist^alpha",
+    "modification": "forall t, fixed-time Filter.EventuallyEq under P",
+    "holder": "exists K : NNReal, HolderWith K gamma on the intrinsic interval subtype",
+    "null_set_dependency": "the almost-everywhere Holder event is inside the gamma quantifier"
+  },
+  "direct_imports": [
+    "Mathlib.Probability.Process.Kolmogorov",
+    "Mathlib.MeasureTheory.Measure.Typeclasses.Probability",
+    "Mathlib.Topology.MetricSpace.Holder"
+  ],
+  "foundation_profile": "Lean 4 dependent type theory with mathlib measure theory, classical noncomputable definitions, and no custom axiom declarations",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable measure-theoretic existence proposition; no oracle or computation supplies proof credit",
+  "environment_fingerprint": {
+    "base_revision": "7c40b39aac30d12a21a2ca13ebe9406d4d57b383",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1083/check_statement.py",
+    "validator_sha256": "64ee9d20bb7efcc4839c19ca0f60e687a91e3e80c064137ad7a63ad12a2c7a5c",
+    "distinguished": [
+      "included critical endpoint gamma = beta/alpha",
+      "weakened Holder conclusion to continuity only",
+      "strengthened fixed-time modification to one simultaneous null set",
+      "changed increment exponent 1+beta to beta"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. It supplies no proof, source acceptance, anchor acceptance, audit completion, or theorem-completion evidence."
+}
