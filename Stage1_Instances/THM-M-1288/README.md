@@ -57,3 +57,12 @@ sharp rearrangement, radial, weighted, constant, and extremizing-sequence
 obligations remain open, and the root is still conditional on explicit
 admissibility and optimality packages. Exact commands and the remaining cut
 set are recorded in `proof-validation.md`.
+
+## Release phase
+
+`release-decision.json` reconciles the provisional validation receipt with the
+frozen graph and authoritative planned state. The exact verdict is `blocked`:
+the validation dependency is not master-accepted, both sharp analytic packages
+remain unproved, and the audit and release-assurance gates are open. The
+self-tested negative decision and exact retry boundary are recorded in
+`release-validation.md`; no theorem-completion or release claim is made.

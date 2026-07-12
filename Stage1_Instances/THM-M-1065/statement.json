@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1065-STATEMENT",
+  "theorem_id": "THM-M-1065",
+  "lifecycle": "planned",
+  "canonical_statement": "Every centered variance-one real probability law with a two-sided exponential moment admits a common-space coupling of iid variables with that law and iid standard Gaussian variables whose partial-sum discrepancy through every positive n has an exponentially decaying tail above C log n + x, with positive law-dependent constants C, K, and lambda.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1065/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1065.KMTStrongApproximationTarget",
+    "elaborated_expression_sha256": "b257ceb188a0b84aab11fd389b5df322129c283dbc38f5c226900a4fec5cebd0",
+    "statement_file_sha256": "7f3b249e058dcdc4410c966622b1d707daff6cd486a0666bf3c0c8cf1e2edaf1"
+  },
+  "domain_and_universes": "mu : Measure Real; existential Omega : Type with MeasurableSpace Omega; P : Measure Omega; X Y : Nat -> Omega -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "mu : Measure Real",
+    "AdmissibleLaw mu",
+    "Omega : Type",
+    "MeasurableSpace Omega",
+    "P : Measure Omega",
+    "X Y : Nat -> Omega -> Real",
+    "C K lambda : Real",
+    "n : Nat with 1 <= n",
+    "x : Real with 0 <= x"
+  ],
+  "hypotheses": [
+    "mu is a probability measure",
+    "the identity and square are integrable under mu",
+    "mu has mean zero and second moment one",
+    "there is delta > 0 for which exp(delta * abs x) is integrable"
+  ],
+  "conclusion": "There is a probability-space coupling of iid mu increments X and iid N(0,1) increments Y, and positive C, K, lambda, such that P(max_{1 <= k <= n} abs(sum_{i<k} X_i - sum_{i<k} Y_i) > C log n + x) <= ofReal(K exp(-lambda x)) for every n >= 1 and x >= 0.",
+  "direct_imports": [
+    "Mathlib.Probability.Distributions.Gaussian.Real"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1065.target_iff_expandedSourceShape",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1065/check_statement.py",
+    "killed": [
+      "removed the exponential-moment and integrability hypotheses",
+      "changed the input distribution domain from Real to Rat",
+      "changed the running maximum to a terminal-time estimate",
+      "moved the positive-n boundary out of the target"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1065.discrepancyEvent_one"
+    ]
+  },
+  "degenerate_cases": "The input is normalized to variance one, so zero variance is excluded explicitly by the second-moment equation. n starts at one; x may be zero. The n=1 event is kernel-checked to equal the first-increment discrepancy. Gaussian input laws are not excluded.",
+  "alternate_encodings": {
+    "brownian_motion": "Uncredited in this node; a checked bridge from iid Gaussian increments to Brownian integer samples is required before using that encoding.",
+    "almost_sure_big_o": "A downstream consequence, not a substitute for the nonasymptotic exponential tail root."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the exact intake-selected normalized KMT target. It supplies no KMT proof, H0 source acceptance, M0 closure, audit completion, or theorem completion."
+}
