@@ -1,0 +1,93 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0773-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0773",
+  "base_revision": "9864b47f2fbf53d0b642c54f12039877d4635056",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0773.TeichmullerTukeyTarget",
+  "canonical_target_expression_sha256": "68aa26cd5bfd9033298490cc521d4c26b0fd5bd62f6431259532573d1a699f14",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "inventory_version": "M0773-anchor-inventory-1",
+  "candidates": [
+    {
+      "id": "M0773-A-MATHLIB-POINTED",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "source_sha256": "bbc024713cae3cf3b9ed4fe85ea7b2bed1b4f1a649a017fb04903fb42a6a71a2",
+      "module": "Mathlib.Order.TeichmullerTukey",
+      "declaration": "Order.IsOfFiniteCharacter.exists_maximal",
+      "type": "IsOfFiniteCharacter F -> x in F -> exists m, x subset m and Maximal (fun y => y in F) m",
+      "relationship": "strictly pointed form; closes the frozen nonempty-family target after choosing x from F and forgetting x subset m",
+      "terminal_body": "Order.IsOfFiniteCharacter.exists_maximal in Mathlib/Order/TeichmullerTukey.lean; direct body applies zorn_subset_nonempty and proves finite-character closure of a chain union",
+      "direct_imports": [
+        "Mathlib.Data.Set.Finite.Range",
+        "Mathlib.Data.Set.Finite.Lattice",
+        "Mathlib.Order.Zorn"
+      ],
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe marker in TeichmullerTukey.lean or its direct Zorn source",
+      "classification": "M0-W",
+      "evidence_level": "E1",
+      "result": "pinned mathlib body is in the local dependency closure; the exact local wrapper elaborates and reports only the approved foundation-profile axioms"
+    },
+    {
+      "id": "M0773-A-LOCAL-WRAPPER",
+      "source": "repo-local",
+      "revision": "worker tree over 9864b47f2fbf53d0b642c54f12039877d4635056",
+      "module": "Stage1_Instances/THM-M-0773/AnchorAudit.lean",
+      "declaration": "Stage1Instances.THM_M_0773.target_of_mathlib",
+      "type": "the fully expanded expression of Stage1Instances.THM_M_0773.TeichmullerTukeyTarget",
+      "role": "checked exact-root wrapper, not a distinct terminal proof body",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "M0-W",
+      "evidence_level": "E1",
+      "result": "chooses a seed using F.Nonempty, invokes the pinned pointed theorem, and forgets only the extension conjunct"
+    }
+  ],
+  "search": {
+    "cutoff": "2026-07-12T17:11:49+08:00",
+    "aliases": [
+      "Teichmuller-Tukey",
+      "Teichmuller Tukey",
+      "Tukey lemma",
+      "finite character maximal",
+      "IsOfFiniteCharacter",
+      "IsOfFiniteCharacter.exists_maximal",
+      "图基引理"
+    ],
+    "repo_local": "rg over Lean, Markdown, and JSON found no separate proof body or wrapper outside this target; THM-M-0770 mentions the lemma only as prose",
+    "pinned_mathlib": "rg located the exact theorem only in Mathlib/Order/TeichmullerTukey.lean; source, revision, tree, imports, body, axioms, worktree cleanliness, and local wrapper were checked",
+    "public_external": "GitHub unauthenticated code search returned HTTP 401 (response SHA-256 b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e); grep.app searches were blocked by HTTP 429/Vercel checkpoint (response SHA-256 1c0c181faa87d615fd9daa4005797df87684ed5ce9984d08e5bc37c02d6800b5 and 75fa3845bcd49eacbe98cb51b3743061eae58a02f24b6eb49bfa2a0ceb8a10eb)",
+    "limitations": "no dependency was fetched or mutated; unauthenticated public code-search failures prevent an exhaustive negative claim about other Lean 4 repositories, but do not affect the exact pinned mathlib completion candidate"
+  },
+  "root_decision": {
+    "classification": "M0-W",
+    "kernel_closed": true,
+    "terminal_body_ids": ["M0773-A-MATHLIB-POINTED"],
+    "wrapper_ids": ["M0773-A-LOCAL-WRAPPER"],
+    "reason": "the pinned mathlib pointed theorem and a checked structural wrapper close the exact frozen target",
+    "remaining_cut_set": [],
+    "deferred_gates": [
+      "master acceptance of statement and anchor-audit receipts",
+      "frozen obligation and typed provenance graphs",
+      "full transitive trust/provenance validation",
+      "human-source H0 and readable R0 review",
+      "hermetic release and independent verification"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_phase_complete": true,
+  "theorem_complete": false,
+  "status_boundary": "This node identifies and locally checks an exact pinned mathlib completion anchor. It does not accept downstream proof, validation, or release gates and makes no theorem-completion claim."
+}

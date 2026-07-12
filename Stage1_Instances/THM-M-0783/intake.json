@@ -1,0 +1,109 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0783-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0783",
+  "execution_rank": 788,
+  "canonical_name": "Martin's axiom",
+  "source_claim_as_received": "An axiomatization of forcing",
+  "claim_kind": "additional set-theoretic axiom scheme, not a theorem of ZFC",
+  "canonical_statement": "For every cardinal kappa smaller than the continuum, MA(kappa) asserts that for every nonempty partially ordered set satisfying the countable chain condition and every family D of at most kappa dense subsets, there is a filter in the poset meeting every member of D.",
+  "statement_precision": "standard_definition_family_frozen_exact_foundational_encoding_open",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase_and_set_theory_encoding"
+  },
+  "domain_and_universes": "Set-theoretic cardinals kappa, the continuum 2^aleph_0, nonempty ccc partial orders, indexed families of dense subsets, and filters on those orders. A Lean universe/set-theory representation is not selected at intake.",
+  "ordered_quantifiers": [
+    "kappa, with kappa < 2^aleph_0",
+    "a nonempty partially ordered set P satisfying ccc",
+    "an index type I with cardinality at most kappa",
+    "a family D : I -> Set P of dense subsets",
+    "a filter G on P"
+  ],
+  "hypotheses": [
+    "P is nonempty",
+    "P satisfies the countable chain condition",
+    "the family of dense sets has cardinality at most kappa",
+    "each D_i is dense in P",
+    "kappa is strictly smaller than the continuum"
+  ],
+  "conclusion": "There exists a filter G on P such that G intersects D_i for every i.",
+  "convention_choices": [
+    "The orientation of the forcing order and the corresponding upward/downward closure convention for filters must be fixed together.",
+    "The ccc condition may be stated by countability of antichains or by the absence of uncountable antichains; any credited transport must be checked.",
+    "MA may be encoded as the family of propositions MA(kappa) for all kappa below the continuum or as one bundled proposition; exact equivalence must be checked."
+  ],
+  "excluded_or_distinct_claims": [
+    "Martin's axiom is not claimed to be provable in ZFC.",
+    "MA plus not-CH is a stronger theory and is not silently identified with MA.",
+    "The consistency of MA or MA plus not-CH relative to ZFC is a metamathematical theorem distinct from the axiom itself.",
+    "The proper forcing axiom and Martin's maximum are stronger forcing axioms and are outside this target.",
+    "The source phrase 'axiomatization of forcing' is not itself an exact proposition."
+  ],
+  "degenerate_and_boundary_cases": "Finite or countable families of dense sets, empty index families, trivial posets, kappa equal to the continuum, and order-dual conventions must be tested explicitly. The strict bound kappa < continuum must not be weakened to kappa <= continuum.",
+  "alternate_encodings": [
+    {
+      "target": "MA(kappa) for every kappa < continuum",
+      "relationship": "intended defining family",
+      "checked_witness": null
+    },
+    {
+      "target": "the dense-set statement indexed by a type I with #I < continuum",
+      "relationship": "candidate bundled equivalent form",
+      "checked_witness": null
+    }
+  ],
+  "foundation_profile": "Open. The object-level axiom must be separated from any metatheoretic consistency claim; classical logic, choice, cardinal arithmetic, and the ambient set-theory model require an explicit versioned profile.",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib is intended; the set-theory encoding, exact toolchain inputs, imports, and transitive dependency closure remain open.",
+  "computation_profile": "No computation, forcing oracle, model checker, or external solver is credited at intake.",
+  "formal_system": "Lean 4 with pinned dependencies after an object-level or model-theoretic encoding is selected",
+  "source_revisions": "Repository source wording and discovery bibliography are crosswalked in source_statement_crosswalk.md. Immutable primary-source copies, pinpoint pages, errata review, and independent source acceptance remain open.",
+  "open_task_dag": [
+    {
+      "id": "M0783-I01",
+      "task": "Pin and inspect the Martin-Solovay primary source and distinguish the definition of MA from its relative-consistency and consequence theorems",
+      "depends_on": []
+    },
+    {
+      "id": "M0783-I02",
+      "task": "Freeze the forcing-order, filter, dense-set, ccc, cardinal, and continuum conventions",
+      "depends_on": ["M0783-I01"]
+    },
+    {
+      "id": "M0783-I03",
+      "task": "Choose whether the formal target is the object-level MA proposition under explicit set-theory primitives or a model-theoretic satisfaction statement",
+      "depends_on": ["M0783-I02"]
+    },
+    {
+      "id": "M0783-I04",
+      "task": "Elaborate the exact Lean target and mutation-test the cardinal bound, ccc condition, density, filter law, and binder scope",
+      "depends_on": ["M0783-I03"]
+    }
+  ],
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0783/README.md",
+    "Stage1_Instances/THM-M-0783/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on a change to the selected claim kind, forcing/filter/cardinal conventions, source pin, formal target, toolchain/dependencies, trust profile, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H5",
+    "machine": "M4",
+    "readability": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "status_boundary": "This planned intake identifies Martin's axiom as an additional axiom rather than a ZFC theorem and freezes its standard defining family only. It does not assert MA, prove its consistency, select an exact Lean encoding, or accept the repository's untrusted 'verified' label."
+}

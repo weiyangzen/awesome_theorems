@@ -74,3 +74,35 @@ This node is self-tested but pending master acceptance. The exact pinned candida
 the provisional machine classification from `M4` to `M3`; it does not grant `M0-W`. Obligation and
 provenance graph freeze, composition, full trust closure, primary-source review, independent
 validation, `AUDIT-Z`, and `THEOREM-Z` remain open.
+
+## Obligation-tree validation (2026-07-12)
+
+Base revision: `9864b47f2fbf53d0b642c54f12039877d4635056`.
+
+Registry version 1 contains 28 canonical obligations and freezes its eligibility projection at
+`9bf54713d38d6a18baeea4e55c8d9ec54f2ac0f02b7024fabf2cda9bc69acd66`. The graph validator checked
+all required node fields, the three ordered denominators, unique reciprocal edges, seven distinct
+graph roles, combined proof/refinement acyclicity, and root reachability of all 25 required
+mathematical obligations. Three trust/provenance overlays are informational. All 28 obligations
+remain open and the root remains `M3`.
+
+| Command | Result |
+|---|---|
+| `python3 Stage1_Instances/THM-M-0767/build_obligation_artifacts.py` | exit 0; deterministically wrote 28 obligations and 46 typed edges |
+| `python3 Stage1_Instances/THM-M-0767/check_obligation_tree.py` | exit 0; `PASS THM-M-0767 obligation tree: 28 obligations, 46 typed edges`; denominator hash matched; root open M3 |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0767/Statement.lean)` | exit 0; exact statement and five transports elaborated; boundary fixtures passed; reported axioms were `propext`, `Classical.choice`, and `Quot.sound` |
+| `python3 -m json.tool Stage1_Instances/THM-M-0767/obligation-registry.json` | exit 0 |
+| `python3 -m json.tool Stage1_Instances/THM-M-0767/typed-graphs.json` | exit 0 |
+| `python3 -m json.tool Stage1_Instances/THM-M-0767/instance.json` | exit 0 |
+| `python3 -m json.tool Stage1_Instances/THM-M-0767/task-dag.json` | exit 0 |
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups and all 1546 uniform-L0 targets passed |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets and ranks passed |
+| `git diff --check -- Stage1_Instances/THM-M-0767 .stage1-worker-selftest.json` | exit 0; no output |
+
+The generated artifact hashes were
+`3d939d035e788c7aacb79374fef42feeead72e36408b6a1b32c72067bedcd42a` for
+`obligation-registry.json` and
+`54b7e133984bd53a8e9d3916b34d49182279b1460d9068d93fe012d7477679cb` for
+`typed-graphs.json`. The pre-existing untracked `.lake` link/artifact was used without mutation.
+This architecture self-test accepts no proof body or composition certificate and makes no theorem-
+completion claim; master acceptance remains required.

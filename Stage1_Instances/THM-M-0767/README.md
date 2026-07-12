@@ -18,3 +18,11 @@ locations and hashes, terminal-body provenance, the supporting diagonal declarat
 bounded external search. The provisional vector is now `[H1, M3, R4]`: a usable interface exists,
 but the obligation/provenance graph and all proof-acceptance gates remain downstream. Exact commands
 and results are recorded in `validation.md`.
+
+The obligation-tree phase freezes registry version 1 in `obligation-registry.json`: 28 canonical
+IDs, of which 25 are required mathematical obligations and three are informational provenance/trust
+overlays. `typed-graphs.json` keeps proof, refinement, provenance, evidence, trust, documentation,
+and workflow edges separate. The architecture expands the statement/foundation, powerset
+normalization, strict-order branches, singleton construction, diagonal engine, imported boundary,
+and exact-root composition layers. All nodes remain open; the checked anchor is not admitted as
+proof evidence by this phase.

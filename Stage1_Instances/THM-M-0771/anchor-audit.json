@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0771-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0771",
+  "lifecycle": "planned",
+  "statement_dependency": {
+    "item_id": "S56-M-0771-STATEMENT",
+    "gate_state_observed": "self_tested_pending_master_acceptance",
+    "canonical_declaration": "Stage1Instances.THM_M_0771.WellOrderingTarget",
+    "elaborated_expression_sha256": "adeed39bf6f748a2f9deb3f75399b41e073f2edb84be65dad243c1aae11dfecd"
+  },
+  "environment": {
+    "repository_base": "9864b47f2fbf53d0b642c54f12039877d4635056",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_order_blob": "c89ff6ad83317b9bb03929693ee47e668bc78c88",
+    "mathlib_order_sha256": "7a219ff0395f8eb23002f7aa3f3ae4eef3f5ad9d727a5aea2dbb1645ea2f83a0",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "id": "A1",
+      "project": "mathlib4",
+      "module": "Mathlib.SetTheory.Cardinal.Order",
+      "declaration": "IsWellOrder.subtype_nonempty",
+      "source_lines": "524-525",
+      "type": "Nonempty { r : alpha -> alpha -> Prop // IsWellOrder alpha r }",
+      "fit": "exact pointwise conclusion; universal closure checked by mathlib_relation_candidate",
+      "terminal_body": "pair of WellOrderingRel and its inferred IsWellOrder instance",
+      "transitive_construction": "WellOrderingRel is the pullback of cardinal less-than along embeddingToCardinal; embeddingToCardinal chooses nonempty_embedding_to_cardinal",
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe declaration in the candidate body at the pinned source",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "disposition": "preferred exact anchor"
+    },
+    {
+      "id": "A2",
+      "project": "mathlib4",
+      "module": "Mathlib.SetTheory.Cardinal.Order",
+      "declaration": "exists_wellOrder",
+      "source_lines": "529-531",
+      "type": "forall (alpha : Type u), exists (_ : LinearOrder alpha), WellFoundedLT alpha",
+      "fit": "exact bundled alternate encoding accepted by the statement phase's checked equivalence",
+      "terminal_body": "linearOrderOfSTO WellOrderingRel paired with WellOrderingRel.isWellOrder.toIsWellFounded",
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe declaration in the candidate body at the pinned source",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "disposition": "secondary transport anchor"
+    }
+  ],
+  "external_search": {
+    "scope": "all Lean source and Markdown under the existing immutable Lake package checkout",
+    "pinned_packages_searched": 11,
+    "query_terms": ["exists_wellOrder", "WellOrderingRel", "IsWellOrder.subtype_nonempty", "well-ordering theorem", "well ordering theorem"],
+    "result": "No independent exact candidate was found outside mathlib. Other hits import or consume mathlib's WellOrderingRel or exists_wellOrder and do not provide a distinct terminal proof body.",
+    "network_fetch_performed": false
+  },
+  "classification": {
+    "machine_anchor": "local_wrapper_upstream_mathlib candidate available but not yet credited by the proof phase",
+    "current_machine_debt": "repo_local_integration_debt",
+    "h_status": "H1 unchanged",
+    "m_status": "M3 unchanged",
+    "r_status": "R4 unchanged"
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This phase identifies, pins, type-checks, and trust-audits exact upstream candidates. The later obligation-tree, proof, validation, and release phases remain open; no theorem-completion credit is claimed."
+}
+
