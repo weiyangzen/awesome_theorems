@@ -11,14 +11,14 @@
 - The corresponding interior value formula; uniqueness may be included only if the selected source
   states it as part of the same theorem.
 
-## Decisions deferred to statement phase
+## Statement decisions
 
-The inspected primary source must fix the unit-disk versus arbitrary-disk presentation, angular
-versus circle-average normalization, real versus complex boundary values, the precise regularity
-assumption, and whether boundary agreement is pointwise equality of a continuous extension or a
-radial/nontangential limit. Binder order, universes, and treatment of `R <= 0` must then be explicit.
-An arbitrary-radius statement should either use the source formula directly or provide a checked
-transport from the unit disk.
+The canonical target uses an arbitrary disk in `ℂ`, real-valued data, `0 < R`, pointwise equality
+on `sphere c R`, and continuity on `closedBall c R`. The integral normalization is
+`Real.circleAverage (poissonKernel c w • g) c R`, for interior `w`. The target is a proposition in
+universe zero with binders ordered `c`, `R`, the positive-radius hypothesis, `g`, and its boundary
+continuity hypothesis. A pinpoint primary-source review remains required for H0 and can require a
+checked transport if its selected presentation differs.
 
 ## Explicit exclusions
 

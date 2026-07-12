@@ -22,11 +22,16 @@ the statement phase records a stable edition and an independent review.
 
 | Repository phrase | Frozen mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
-| "Poisson integral formula" | Poisson-kernel boundary integral | `poissonKernel`, circle integral/average | included; normalization open |
-| "on a disk" | open disk, closed disk, boundary circle, `R > 0` | `ball c R`, `closedBall c R`, `sphere c R` | included |
-| "Dirichlet problem" | prescribed continuous boundary trace | `ContinuousOn g (sphere c R)` and trace equality | included |
-| "solution" | constructed extension with analytic properties | existence/definition, harmonicity, closure continuity | included |
-| interior formula | kernel integral evaluates the extension | equality at every interior point | included |
+| "Poisson integral formula" | Poisson-kernel boundary integral | `Real.circleAverage (poissonKernel c w • g) c R` | frozen |
+| "on a disk" | open disk, closed disk, boundary circle, `R > 0` | `ball c R`, `closedBall c R`, `sphere c R` | frozen |
+| "Dirichlet problem" | prescribed continuous boundary trace | `ContinuousOn g (sphere c R)` and `EqOn u g (sphere c R)` | frozen |
+| "solution" | constructed extension with analytic properties | existential `u`, `HarmonicOnNhd`, closure continuity | frozen |
+| interior formula | kernel integral evaluates the extension | equality at every `w ∈ ball c R` | frozen |
+
+The repository metadata is too terse to decide a different classical variant. The statement phase
+therefore follows the fuller human scope frozen by the accepted intake dependency. This is an exact
+Lean target decision, not H0: the historical/modern primary-source pinpoint and independent review
+remain open.
 
 ## Lean discovery boundary
 
