@@ -1,0 +1,47 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0644-STATEMENT",
+  "theorem_id": "THM-M-0644",
+  "lifecycle": "planned",
+  "canonical_statement": "For every first-order language L and L-theory T, T has a nonempty model if and only if every finite subtheory of T has a nonempty model.",
+  "canonical_formal_target": {
+    "module": "Stage1_Instances/THM-M-0644/Statement.lean",
+    "declaration": "Stage1.THM_M_0644.CompactnessTarget",
+    "type": "forall {L : FirstOrder.Language.{u,v}} {T : L.Theory}, T.IsSatisfiable iff T.IsFinitelySatisfiable",
+    "statement_source_sha256": "0dc58600885d61c10bae9f79f529536d26cc29deed664bf4bf5518fd18891701",
+    "explicit_print_output_sha256": "b6a0f1d42aa926b73f597fdb99c334676ae4e4e5ade71983684dce3c49300171"
+  },
+  "direct_imports": ["Mathlib.ModelTheory.Satisfiability"],
+  "ordered_binders": [
+    "universes u v",
+    "implicit L : FirstOrder.Language.{u,v}",
+    "implicit T : L.Theory"
+  ],
+  "hypotheses": [],
+  "conclusion": "T.IsSatisfiable iff T.IsFinitelySatisfiable",
+  "checked_encodings": {
+    "finset_expansion": "target_iff_finsetExpanded unfolds IsFinitelySatisfiable",
+    "finite_set_transport": "finiteSet_iff_finset proves equivalence between finite Set subtheories and mathlib's Finset encoding"
+  },
+  "mutations_killed": [
+    "removed finite-subtheory containment",
+    "changed sentences to closed terms",
+    "moved the theory binder across the iff",
+    "excluded the empty theory"
+  ],
+  "degenerate_cases": "The empty language, empty theory, and empty finite subtheory are included; no countability or finiteness assumption is imposed on L or T.",
+  "environment_fingerprint": {
+    "base_revision": "ba66c12eb0b1828b8aa19b6fa8eb2171a454e162",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "import_source_sha256": "0abb92d531851a57909945b740981d79a4cbb29238f2a3d21cb5fa57aa143edb"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement evidence only. Source/anchor acceptance, proof credit, obligation closure, release validation, and theorem completion remain open."
+}

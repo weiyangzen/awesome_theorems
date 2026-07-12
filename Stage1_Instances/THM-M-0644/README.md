@@ -14,3 +14,9 @@ source, its exact theorem/page, assumptions, and errata also remain to be audite
 The lifecycle remains `planned` at `[H1, M4, R4]`. There is no accepted proof state, audit
 completion, or theorem completion. The scope map, source crosswalk, and open task DAG record the
 precise downstream boundary; `validation.md` records this intake's self-tests.
+
+The statement phase now freezes and self-tests `Stage1.THM_M_0644.CompactnessTarget` in
+`Statement.lean`, including direct expansion, a finite-`Set` transport, and four structural
+mutations. `statement.json`, `statement-receipt.json`, and `statement-validation.md` record the
+provisional `[_]` evidence. Master acceptance and every later phase remain open; this adds no proof
+or theorem-completion claim.
