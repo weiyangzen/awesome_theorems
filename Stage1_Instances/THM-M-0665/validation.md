@@ -64,3 +64,15 @@ transitive trust closure, hermetic replay, and independent acceptance remain ope
 `lake env lean --version` from the repository root exited 1 because that directory has no default
 toolchain; the correctly scoped command from `Formalizations/Lean` exited 0. No dependency update,
 build, fetch, or `.lake` mutation was performed.
+
+## Anchor-audit validation
+
+Item: `S56-M-0665-ANCHOR_AUDIT`. Base revision:
+`20b8abf35019d24fc944d56d6af62cb098711ee3`. Validation date: 2026-07-12
+(Asia/Shanghai).
+
+The bounded immutable candidate audit and exact commands/results are recorded in
+`anchor-audit.md`; the machine-readable inventory is `anchor-audit.json`. Pinned mathlib ingredient
+checks and the exact statement re-elaborated. No exact Lean proof was found locally or in the three
+immutable external o-minimal candidates, so the root remains `M3` and theorem completion remains
+false. No dependency update, build, clone, fetch, or `.lake` mutation was performed.

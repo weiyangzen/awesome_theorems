@@ -12,6 +12,7 @@ repo-local `THM-M-0441` dossier and legacy `S1_M_087.lean` are discovery aids on
 different target ID and supply no proof or accepted-state credit. The independently named target
 now owns its own checked module, expression fingerprint, mutations, and boundary tests.
 
-The provisional root vector is `[H1, M3, R4]`. The primary paper and theorem number are identified,
-and the exact Lean expression is elaborated, but an independent source/errata review remains open
-and there is no proof body. No audit or theorem completion is claimed.
+The provisional root vector is `[H1, M3, R4]`. The exact Lean expression is elaborated, and the
+bounded immutable anchor audit found only statement ingredients and nonmatching o-minimal projects,
+not a Pila-Wilkie proof body. Independent source/errata review remains open. No overall audit or
+theorem completion is claimed.
