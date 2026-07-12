@@ -1,0 +1,32 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "sha256:faa0a236eefc53a102f22862846a46eff686f2536500f281c52ae824cba72a50",
+  "item_id": "S56-M-0500-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0500",
+  "base_revision": "e9d545372b66f73be63271b2fb408ef134d1d6f7",
+  "worktree_state": "nonrelease dirty due to owned audit artifacts and pre-existing untracked Formalizations/Lean/.lake link",
+  "toolchain": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "dependency": "mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; tree bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+  "covered_declarations": [
+    "Nat.infinite_setOf_prime_and_eq_mod",
+    "Stage1Instances.THM_M_0500.AnchorAudit.pinnedMathlibCandidate"
+  ],
+  "audit_source_sha256": "faa0a236eefc53a102f22862846a46eff686f2536500f281c52ae824cba72a50",
+  "upstream_source_sha256": "d99edfb234cc2c044332951a16f32bbfad58c8c73cc51faf4e9219d3bc6684c2",
+  "inventory_sha256": "dc5bb6d2ddaf8d33b91f22e9e6cb8b50b567d45ebf2d1c90106f6f8dd8b0a12d",
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "commands": [
+    {"command": "python3 Docs/tools/check_stage1_standard.py", "exit_code": 0, "summary": "15 assurance groups and 1546 uniform-L0 targets"},
+    {"command": "python3 scripts/stage1_target.py check", "exit_code": 0, "summary": "1546 unique targets, ranks 1..1546"},
+    {"command": "python3 scripts/stage1_target.py show THM-M-0500", "exit_code": 0, "summary": "rank 877, planned, theorem_complete false"},
+    {"command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0500/AnchorAudit.lean", "exit_code": 0, "summary": "exact pinned candidate elaborated; upstream body printed; both axiom sets are propext, Classical.choice, Quot.sound"},
+    {"command": "git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD 'HEAD^{tree}'", "exit_code": 0, "summary": "commit 8a178386ffc0 and tree bdc39a312320"},
+    {"command": "git -C Formalizations/Lean/.lake/packages/mathlib status --short", "exit_code": 0, "summary": "empty output; pinned checkout unchanged"},
+    {"command": "python3 -m json.tool Stage1_Instances/THM-M-0500/anchor-audit.json", "exit_code": 0, "summary": "valid JSON"},
+    {"command": "git diff --check -- Stage1_Instances/THM-M-0500", "exit_code": 0, "summary": "no whitespace errors"}
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "Receipt covers candidate discovery, immutable pin identification, exact-type elaboration, and bounded external search only."
+}

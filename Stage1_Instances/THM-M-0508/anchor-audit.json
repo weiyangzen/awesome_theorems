@@ -1,0 +1,125 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0508-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0508",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "e9d545372b66f73be63271b2fb408ef134d1d6f7",
+  "target": "Stage1Instances.THM_M_0508.VinogradovThreePrimesTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index",
+    "GitHub repository and code search",
+    "formal-conjecture collection at an immutable commit"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0508-C01",
+      "project": "awesome_theorems",
+      "revision": "e9d545372b66f73be63271b2fb408ef134d1d6f7",
+      "module": "Stage1_Instances/THM-M-0508/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0508.VinogradovThreePrimesTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as the statement surface; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0508-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.NumberTheory.PrimeCounting",
+        "Mathlib.NumberTheory.Chebyshev",
+        "Mathlib.NumberTheory.SumPrimeReciprocals"
+      ],
+      "declarations": [
+        "Nat.Prime",
+        "Nat.primesBelow",
+        "Nat.mem_primesBelow",
+        "Nat.primeCounting",
+        "Nat.tendsto_primeCounting",
+        "Nat.primesBelow_card_eq_primeCounting'",
+        "Nat.infinite_setOf_prime",
+        "Chebyshev.theta",
+        "Chebyshev.eventually_primeCounting_le",
+        "not_summable_one_div_on_primes"
+      ],
+      "kind": "supporting_prime_distribution_infrastructure",
+      "normalized_match": "no declaration has an eventual three-prime representation conclusion",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all ten probes elaborate in the pinned environment; no terminal target exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "locally checkable but insufficient for the circle-method theorem"
+    },
+    {
+      "candidate_id": "S56-M-0508-C03",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "module": "FormalConjectures.Wikipedia.GoldbachConjecture",
+      "declaration": "TernaryGoldbachConjecture.ternaryGoldbach",
+      "kind": "stronger_statement_with_placeholder_body",
+      "normalized_match": "stronger all-odd-n>5 conclusion implies the eventual target, but is not an exact body candidate",
+      "body_provenance": "theorem body is literally `by sorry`; its `answer(sorry)` sibling also contains placeholders",
+      "placeholder_or_axiom_status": "rejected: `sorry` at line 51 of the content-hashed immutable file",
+      "source_sha256": "bf6a587c50ba159af919fbe9afa09f04375608c33c68361ffc52246018a5b447",
+      "license": "Apache-2.0 header",
+      "classification": "M4_placeholder_rejected",
+      "integration_status": "must not be imported or credited"
+    },
+    {
+      "candidate_id": "S56-M-0508-C04",
+      "project": "AlexKontorovich/PrimeNumberTheoremAnd",
+      "revision": "5754873e8dae73f3b50f8f2b7a4f0b15d4df58aa",
+      "module": "PrimeNumberTheoremAnd.Defs",
+      "declaration": "Epi.vinogradovBound / Epi_star.vinogradovBound",
+      "kind": "name_collision_unrelated",
+      "normalized_match": "explicit prime-counting error bounds, not Vinogradov's three-primes theorem",
+      "body_provenance": "public-index discovery only; a related summary theorem is reported with `sorry`",
+      "placeholder_or_axiom_status": "not eligible and not dependency-tested because the type is unrelated",
+      "classification": "no_candidate",
+      "integration_status": "excluded"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "global archived/fork Lean search for Vinogradov, three-primes, sum-of-three-primes, weak Goldbach, and ternary Goldbach names",
+      "result": "15 matches in four repositories; only the stronger Formal Conjectures placeholder matched the representation theorem; other Vinogradov matches were unrelated bounds",
+      "response_sha256": "3107b94b7a1b983967dd32b1d7ad6a270d6066663a9372c14abd9dc4bd77158a",
+      "immutability_boundary": "dated, content-hashed discovery response; candidate records use reported commits"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "vinogradov lean theorem; quoted weak Goldbach Lean",
+      "result": "both complete responses had total_count=0",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated, content-hashed discovery response; not proof evidence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "quoted Vinogradov in language Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked lane; no negative result claimed"
+    },
+    {
+      "surface": "google-deepmind/formal-conjectures complete Git tree",
+      "query": "paths matching vinogradov, goldbach, three-prime, or prime-sum",
+      "result": "complete 1204-entry tree; one Goldbach file, inspected and placeholder-rejected",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "response_sha256": "76fa3f96fc2ff7fc85addfd1e85852dae3fcb5022fc1ef35b030a3dc1e3efc61",
+      "immutability_boundary": "immutable commit and non-truncated tree"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact local object is only a Prop definition. Pinned mathlib has basic and distributional prime infrastructure but no terminal three-primes theorem. The only relevant external Lean declaration found is stronger but has a literal sorry body, so it is forbidden evidence.",
+  "integration_blocker": "No placeholder-free Lean 4 proof candidate with an immutable revision and checkable terminal body was found. Authenticated GitHub code search is unavailable.",
+  "reopen_condition": "A concrete Lean 4 repository and immutable commit supplying a placeholder-free declaration, toolchain and dependency pins, license, exact-type transport, terminal-body provenance, axiom report, and successful local wrapper check.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor audit. It does not prove global absence, resolve H-source fidelity, freeze the obligation tree, or supply theorem completion."
+}

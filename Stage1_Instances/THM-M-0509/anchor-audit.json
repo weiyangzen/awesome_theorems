@@ -1,0 +1,125 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0509-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0509",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "e9d545372b66f73be63271b2fb408ef134d1d6f7",
+  "target": "Stage1Instances.THM_M_0509.ChenTheoremTarget",
+  "discovery_protocol": {
+    "cutoff_date": "2026-07-12",
+    "order": [
+      "repo-local Lean source",
+      "pinned mathlib source",
+      "public Sourcegraph Lean index",
+      "GitHub repository and code search",
+      "formal-conjecture collection at an immutable commit"
+    ],
+    "aliases": [
+      "Chen's theorem",
+      "Chen theorem",
+      "ChenTheorem",
+      "almost prime",
+      "almost_prime",
+      "semiprime",
+      "P + P2"
+    ],
+    "credentials_policy": "Public unauthenticated endpoints only; an authentication failure is a blocked lane, never a negative result."
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0509-C01",
+      "project": "awesome_theorems",
+      "revision": "e9d545372b66f73be63271b2fb408ef134d1d6f7",
+      "module": "Stage1_Instances/THM-M-0509/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0509.ChenTheoremTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no Chen-theorem proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as the statement surface and supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0509-C02",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Data.Nat.Prime.Basic",
+        "Mathlib.Data.Nat.Factorization.Basic",
+        "Mathlib.NumberTheory.SmoothNumbers"
+      ],
+      "declarations": [
+        "Nat.Prime",
+        "Nat.prime_def",
+        "Nat.prime_iff_not_exists_mul_eq",
+        "Nat.factorization",
+        "Nat.factorization_eq_zero_of_not_dvd",
+        "Nat.primeFactors",
+        "Nat.primeFactorsList",
+        "Nat.mem_primeFactors",
+        "Nat.mem_primeFactorsList",
+        "Nat.prod_primeFactorsList",
+        "Nat.smoothNumbers",
+        "Nat.mem_smoothNumbers",
+        "Nat.smoothNumbers_eq_factoredNumbers_primesBelow"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no declaration has the uniform even-number P-plus-P2 conclusion",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all selected declarations elaborate in the pinned Lake environment; no terminal target exists to audit for proof credit",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable, but insufficient for the exact theorem"
+    },
+    {
+      "candidate_id": "S56-M-0509-C03",
+      "project": "google-deepmind/formal-conjectures",
+      "remote": "https://github.com/google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "kind": "immutable_negative_tree_search",
+      "normalized_match": "no Chen/almost-prime/semiprime path in the complete 1204-entry tree",
+      "body_provenance": "not applicable",
+      "placeholder_or_axiom_status": "not applicable",
+      "classification": "no_candidate",
+      "integration_status": "nothing to integrate"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (Chen theorem name/aliases or almost-prime/semiprime) lang:Lean count:100",
+      "result": "matchCount=0",
+      "response_sha256": "9b88e8ccad6bf516dd2bebec4aa8462f6e18f655bc473f74cc235c9509eff2eb",
+      "immutability_boundary": "dated, content-hashed discovery response; not an immutable proof candidate"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Chen's theorem\"+lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated, content-hashed discovery response; not an immutable proof candidate"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"Chen's theorem\"+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    },
+    {
+      "surface": "GitHub immutable recursive tree API",
+      "query": "google-deepmind/formal-conjectures tree b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "result": "truncated=false; 1204 entries; no matching path",
+      "response_sha256": "76fa3f96fc2ff7fc85addfd1e85852dae3fcb5022fc1ef35b030a3dc1e3efc61",
+      "immutability_boundary": "complete tree bound to an immutable commit"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The only exact local artifact defines the proposition. Pinned mathlib provides elementary prime, factorization, and smooth-number infrastructure but no sieve result or terminal declaration with the target conclusion. No exact external Lean 4 proof candidate was found in the bounded searches.",
+  "integration_blocker": "There is no external repository, immutable proof revision, module, or declaration to pin, import, normalize, or check. Authenticated GitHub code search is unavailable.",
+  "reopen_condition": "A concrete Lean 4 candidate with repository URL, immutable commit, license, toolchain, dependency graph, module, declaration, exact-type comparison, proof-body provenance, and a successful local wrapper check.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor audit, not proof of global absence. It gives no human-source H0 credit, obligation-tree credit, root proof, audit completion, or theorem completion."
+}

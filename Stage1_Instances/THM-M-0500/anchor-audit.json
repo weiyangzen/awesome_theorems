@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0500-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0500",
+  "base_revision": "e9d545372b66f73be63271b2fb408ef134d1d6f7",
+  "cutoff": "2026-07-12T21:11:09+08:00",
+  "discovery_scope": {
+    "search_order": [
+      "repo-local tracked Lean outside this target",
+      "pinned mathlib source and declarations",
+      "LeanSearch public theorem index",
+      "GitHub public repository search"
+    ],
+    "aliases": [
+      "Dirichlet's theorem",
+      "primes in arithmetic progression",
+      "primes in arithmetic progressions",
+      "PrimesInAP",
+      "infinite_setOf_prime_and_eq_mod",
+      "forall_exists_prime_gt_and_eq_mod",
+      "infinite_setOf_prime_and_modEq"
+    ],
+    "credentials": "anonymous access only",
+    "exhaustive_discovery_claim": false
+  },
+  "inventory_version": "sha256:dc5bb6d2ddaf8d33b91f22e9e6cb8b50b567d45ebf2d1c90106f6f8dd8b0a12d",
+  "candidates": [
+    {
+      "candidate_id": "mathlib-Nat.infinite_setOf_prime_and_eq_mod",
+      "classification": "exact_pinned_mathlib_closure",
+      "project": "mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree_hash": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+      "file": "Mathlib/NumberTheory/LSeries/PrimesInAP.lean",
+      "file_sha256": "d99edfb234cc2c044332951a16f32bbfad58c8c73cc51faf4e9219d3bc6684c2",
+      "declaration": "Nat.infinite_setOf_prime_and_eq_mod",
+      "type": "forall {q : Nat} [NeZero q] {a : ZMod q}, IsUnit a -> {p : Nat | p.Prime and (p : ZMod q) = a}.Infinite",
+      "statement_relation": "The body proposition of the canonical forall target is definitionally the candidate conclusion after introducing q, the instance, a, and IsUnit a.",
+      "local_exact_type_check": "Stage1Instances.THM_M_0500.AnchorAudit.pinnedMathlibCandidate",
+      "local_role": "audit wrapper",
+      "terminal_declaration": "Nat.infinite_setOf_prime_and_eq_mod",
+      "terminal_body_boundary": [
+        "ArithmeticFunction.vonMangoldt.not_summable_residueClass_prime_div",
+        "ArithmeticFunction.vonMangoldt.support_residueClass_prime_div",
+        "summable_of_hasFiniteSupport"
+      ],
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "unsafe_or_oracle": "none reported by Lean for the checked declarations; proof is kernel-elaborated theorem code",
+      "placeholders": "no sorry/admit/axiom placeholder appears in the audited source file; exact Lean checks pass",
+      "license": "Apache-2.0",
+      "license_file_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "machine_debt": "M0-P candidate: exact closure is present in the repository's already-pinned mathlib artifacts, but proof-node integration, full transitive trust/provenance closure, and master acceptance belong to later phases"
+    },
+    {
+      "candidate_id": "mathlib-Nat.forall_exists_prime_gt_and_eq_mod",
+      "classification": "checked_equivalent_form_anchor",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/NumberTheory/LSeries/PrimesInAP.lean",
+      "declaration": "Nat.forall_exists_prime_gt_and_eq_mod",
+      "relation": "Matches the statement phase's checked unbounded formulation after quantifier introduction; its proof calls the exact infinite-set candidate. It is not a distinct terminal proof body."
+    },
+    {
+      "candidate_id": "mathlib-Nat.infinite_setOf_prime_and_modEq",
+      "classification": "alternate_encoding_anchor",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/NumberTheory/LSeries/PrimesInAP.lean",
+      "declaration": "Nat.infinite_setOf_prime_and_modEq",
+      "relation": "Nat.ModEq/Coprime presentation; useful crosswalk but not credited as a second proof body or as the canonical target without transport."
+    }
+  ],
+  "external_search": {
+    "leansearch": [
+      {"query": "infinitely many primes in every invertible residue class.", "http_status": 200, "response_sha256": "972165f5a97be3954653c9cd92387502b6ba3ae47c075179d9b685d874cf257a", "result": "returned the pinned mathlib theorem family among its leading results"},
+      {"query": "Dirichlet theorem primes arithmetic progression.", "http_status": 200, "response_sha256": "61319861a3b1aa8e5429a7bd05b4dd90ce381874a0853c831241ae262bd9c97c", "result": "returned the mathlib PrimesInAP theorem family"},
+      {"query": "For every natural bound there is a larger prime congruent modulo q.", "http_status": 200, "response_sha256": "c078c468d81cb69a4bd76d773a459f3cb788006ef63ac49e841527935f0a58b5", "result": "returned related mathlib results"}
+    ],
+    "github": [
+      {"query": "repository search: quoted Dirichlet's theorem + Lean formalization", "http_status": 200, "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2", "result": "0 repositories; incomplete_results=false"},
+      {"query": "repository search: quoted primes in arithmetic progression + language Lean", "http_status": 200, "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2", "result": "0 repositories; incomplete_results=false"},
+      {"query": "code search: infinite_setOf_prime_and_eq_mod + language Lean", "http_status": 401, "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e", "result": "anonymous code search denied"},
+      {"query": "remaining repository aliases", "http_status": 403, "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e", "result": "anonymous search rate limit exhausted"}
+    ],
+    "conclusion": "No separate external Lean 4 project was established. This is a bounded, access-limited negative result, not saturation evidence. The exact pinned mathlib candidate makes a moving external dependency unnecessary."
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "The candidate inventory and exact pinned mathlib match are self-tested. No proof phase, obligation tree, full transitive closure, H0/R0, release evidence, audit completion, or theorem completion is claimed."
+}
