@@ -1,16 +1,15 @@
-# THM-M-1141 rev-5.6 intake
+# THM-M-1141 rev-5.6 statement
 
-This is the fail-closed `planned` dossier for the classical Harnack inequality. The repository
-source identifies only "comparison of positive harmonic functions" and Axel Harnack (1887). That
-description does not choose a domain, dimension, compact subset, normalization point, or the
-quantitative form of the comparison. This intake therefore freezes the theorem family, not an
-invented exact theorem.
+This remains a fail-closed `planned` dossier for the classical Harnack inequality. The repository
+source identifies only "comparison of positive harmonic functions" and Axel Harnack (1887).
+`Statement.lean` now freezes the precise compact-subset form in Axler, Bourdon, and Ramey,
+*Harmonic Function Theory*, second edition, Theorem 3.6 (page 48 of the numbered text).
 
-The intended root is a quantitative comparison for a nonnegative harmonic function on a connected
-domain: values (or extrema on a compactly contained region) are bounded by a constant determined by
-the geometry, not by the function. The exact classical formulation must be selected from an
-inspected primary source during the statement phase.
+For a connected open Euclidean domain `Omega` and compact `K ⊆ Omega`, it asserts the existence
+of `C > 1`, independent of the points and strictly positive harmonic function, such that
+`1 / C ≤ u y / u x ≤ C` for every `x,y ∈ K`. This is the exact modern-source variant selected
+for formal execution; the 1887 historical source remains unaudited and is not credited as H0.
 
-The provisional root vector is `[H2, M4, R4]`. There is no canonical Lean expression, accepted
-proof state, audit completion, or theorem completion. The source label `已验证` is untrusted
-metadata and supplies no rev-5.6 proof credit.
+The provisional root vector is `[H1, M3, R3]`. The canonical expression elaborates, but it has no
+proof body or accepted proof state. There is no audit completion or theorem completion. The source
+label `已验证` remains untrusted metadata and supplies no rev-5.6 proof credit.

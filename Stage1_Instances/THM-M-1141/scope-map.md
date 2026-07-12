@@ -8,13 +8,17 @@
   subregion, with a constant independent of the particular harmonic function.
 - Degenerate cases such as the zero function only if compatible with the selected positivity form.
 
-## Decisions deferred to the statement phase
+## Statement decisions frozen
 
-The source transcription must fix whether the root is the ball formula, a compact-subset inequality,
-or a point-normalized bound; whether the domain is a ball or arbitrary connected open set; the
-dimension and radius hypotheses; strict positivity versus nonnegativity; and the exact constant.
-It must also freeze binder order, universes, the harmonicity predicate, topology, scalar codomain,
-and treatment of empty or disconnected domains and boundary points.
+The root is the compact-subset inequality of Axler--Bourdon--Ramey Theorem 3.6, not the preceding
+explicit ball formula. The ambient space is `EuclideanSpace Real (Fin n)` for arbitrary `n`; the
+domain is open and connected; the function is real-valued, strictly positive, and mathlib-harmonic
+on the domain; and `K` is compact and contained in the domain. The existential constant `C > 1`
+precedes the binders for the function and points, encoding its independence from all three.
+
+Empty `K` and zero-dimensional ambient space are retained because the selected theorem does not
+exclude them and the statement remains well formed (vacuously in the empty-set case). Strict
+positivity makes every displayed denominator positive. Boundary points are excluded by `K ⊆ Ω`.
 
 ## Explicit exclusions
 
