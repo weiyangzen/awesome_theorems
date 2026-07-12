@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1085-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1085",
+  "base_revision": "7fade6ac1192f68266bd22be9fb2c754785b0727",
+  "cutoff_utc": "2026-07-12T04:08:26Z",
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_1085.SlepianTarget",
+    "expression_sha256": "2af285ae0bb208a80c325d1b8ba89cd273b83d01b2fef018b13e2feca9d43315"
+  },
+  "discovery_queries": [
+    {
+      "surface": "worker repository",
+      "immutable_ref": "7fade6ac1192f68266bd22be9fb2c754785b0727",
+      "query": "case-insensitive Slepian, Gaussian comparison, and normal comparison over Lean files",
+      "result": "no target-equivalent declaration; unrelated textual hits only"
+    },
+    {
+      "surface": "pinned mathlib source",
+      "immutable_ref": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "query": "git grep for Slepian, Gaussian comparison/inequality, and normal comparison over Mathlib Lean sources",
+      "result": "zero matches"
+    },
+    {
+      "surface": "other locally pinned Lean dependency with plausible theorem content (flt-regular)",
+      "immutable_ref": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+      "query": "git grep for Slepian, Gaussian comparison/inequality, and normal comparison over Lean sources",
+      "result": "zero matches"
+    },
+    {
+      "surface": "Sourcegraph public Lean index",
+      "immutable_ref": "cutoff 2026-07-12T04:08:26Z; results included archived repositories and forks",
+      "query": "Slepian; exact phrase Gaussian comparison; conjunction covariance Gaussian comparison",
+      "result": "three exhaustive responses, each matchCount 0 and skipped []"
+    },
+    {
+      "surface": "GitHub repository search API",
+      "immutable_ref": "cutoff 2026-07-12T04:08:26Z",
+      "query": "slepian lean; gaussian comparison lean4; exact phrase Slepian's lemma; slepian theorem prover",
+      "result": "four successful responses, each total_count 0; unauthenticated code-search API returned HTTP 403 and is recorded as an access limitation"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "MATHLIB-GAUSSIAN-API",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "Lean 4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+      "modules": [
+        "Mathlib.Probability.Distributions.Gaussian.HasGaussianLaw.Basic",
+        "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def"
+      ],
+      "declarations": [
+        "ProbabilityTheory.HasGaussianLaw",
+        "ProbabilityTheory.IsGaussianProcess",
+        "ProbabilityTheory.HasGaussianLaw.charFunDual_map_eq",
+        "ProbabilityTheory.IsGaussianProcess.hasGaussianLaw"
+      ],
+      "statement_match": "not a match: definitions and characteristic-function/process projection infrastructure only; no covariance-order lower-tail comparison conclusion",
+      "terminal_body_provenance": "pinned mathlib source; HasGaussianLaw/IsGaussianProcess structures and a local mathlib proof of charFunDual_map_eq",
+      "placeholder_or_unsafe_result": "AnchorAudit.lean elaborated these declarations; no placeholder was introduced by this audit. Full transitive placeholder/unsafe closure was not claimed because no exact candidate exists.",
+      "axiom_report": "Lean #print axioms reports propext, Classical.choice, and Quot.sound for both charFunDual_map_eq and IsGaussianProcess.hasGaussianLaw",
+      "dependency_feasibility": "already present in the pinned local Lake closure",
+      "classification": "supporting API only; E3 interface evidence, not proof evidence"
+    }
+  ],
+  "exact_candidates": [],
+  "machine_debt": "M4",
+  "evidence_tier": "No exact-candidate tier. The closest APIs are E3 discovery/interface evidence only.",
+  "audit_result": "No repo-local, pinned-mathlib, pinned-dependency, or indexed public Lean 4 implementation of the exact frozen SlepianTarget was located by the recorded bounded search.",
+  "status_boundary": "Negative discovery is not a proof of global nonexistence and does not establish M0 or M1. It completes this bounded anchor-audit phase only; obligation-tree, proof, provenance closure, hermetic release, and independent acceptance remain open."
+}
