@@ -3,6 +3,10 @@
 This is the `planned` rev-5.6 dossier for the Kolmogorov probability axioms. It does not inherit
 proof credit from the legacy `S1_M_261.lean` wrapper or from the untrusted source-status label.
 
+The version-1 obligation architecture is frozen in `obligation-registry.json` and
+`typed-graphs.json`, with its readable projection in `obligation-tree.md`. The three audited
+mathlib clauses remain an open proof-phase cut set; this architecture phase grants no proof credit.
+
 ## Scope map
 
 | Surface | In scope | Boundary at intake |

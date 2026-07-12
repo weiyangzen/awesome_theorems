@@ -52,9 +52,19 @@ rev-5.6 gates.
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-`INTAKE` and `STATEMENT` have provisional master state `[_]`. `ANCHOR_AUDIT`
-is now worker self-tested and awaits master acceptance. All later phases
-remain open.
+`INTAKE`, `STATEMENT`, and `ANCHOR_AUDIT` have provisional master state `[_]`.
+`OBLIGATION_TREE` is now worker self-tested and awaits master acceptance. All
+later phases remain open.
+
+## Obligation architecture
+
+`obligation-registry.json` freezes ten stable obligations and denominator
+`7869ad0637404b744050b4cf6ded4d80ae7403c59158fea2f9aea2b8f48a1d92`.
+`typed-graphs.json` separates proof, refinement, provenance, evidence, trust,
+documentation, and workflow edges. `ObligationTree.lean` kernel-checks the
+child-to-parent composition while deliberately retaining the deep exact
+strong-law theorem as an explicit premise. No obligation is marked closed;
+`M0984-L-TERMINAL` remains the proof cut set, and source identity remains H1.
 
 ## Intake verdict
 
@@ -62,8 +72,8 @@ Lifecycle remains `planned`; provisional root vector is `[H1, M0-W, R3]` for
 the frozen modern target. The pinned mathlib theorem supplies its exact
 machine body, but the first failed theorem gate remains source identity: the
 source row is too terse to prove that this iid Banach-valued formalization is
-the intended Borel theorem. Obligation, validation, readability, and release
-gates also remain open. The theorem is not complete.
+the intended Borel theorem. Proof, validation, readability, and release gates
+also remain open. The theorem is not complete.
 
 ## Validation
 
