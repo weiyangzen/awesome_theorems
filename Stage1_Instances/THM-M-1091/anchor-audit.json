@@ -1,0 +1,82 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1091-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1091",
+  "base_revision": "e7fc1469ef5eb468d13c2ccc07a94982bc51ab75",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1091.ChapmanKolmogorovTarget",
+  "canonical_target_expression_sha256": "c40da0506d47094c906bdcab758ccd3bc8b91beb3f7bcd0465052d77d8115f45",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_commit_date": "2026-03-30 18:47:58 +0000",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M1091-A-MATHLIB-KERNEL",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Kernel.Composition.Comp",
+      "declaration": "ProbabilityTheory.Kernel.pow_add",
+      "type": "(kappa : Kernel State State) (m n : Nat) -> kappa ^ (m + n) = (kappa ^ m) comp (kappa ^ n)",
+      "terminal_body": "delegates to the core Monoid theorem _root_.pow_add",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders": false,
+      "unsafe_or_oracle_boundary": false,
+      "classification": "M0-P candidate for the exact frozen root",
+      "checked_bridge": "Stage1Instances.THM_M_1091.target_of_mathlib_pow_add",
+      "result": "The bridge swaps m and n and normalizes n+m to m+n; it elaborates at the exact frozen target."
+    },
+    {
+      "id": "M1091-A-MATHLIB-INTEGRAL",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Kernel.Composition.Comp",
+      "declaration": "ProbabilityTheory.Kernel.pow_add_apply_eq_lintegral",
+      "type": "(kappa : Kernel State State) (m n : Nat) (x : State) (hA : MeasurableSet A) -> (kappa ^ (m+n)) x A = integral (fun y => (kappa^n) y A) against (kappa^m) x",
+      "terminal_body": "proved from add_comm, Kernel.pow_add, and Kernel.comp_apply'",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders": false,
+      "unsafe_or_oracle_boundary": false,
+      "classification": "M0-P candidate for the checked integral encoding",
+      "checked_bridge": "Stage1Instances.THM_M_1091.integralTarget_of_mathlib_anchor",
+      "result": "Directly elaborates at the frozen integral target, including its measurable-set premise."
+    },
+    {
+      "id": "M1091-A-REPO-LEGACY-WRAPPERS",
+      "source": "awesome_theorems repository",
+      "revision": "e7fc1469ef5eb468d13c2ccc07a94982bc51ab75",
+      "module": "AwesomeTheorems.Stage1.S1_M_236",
+      "declaration": "chapmanKolmogorov_kernel_pow_wrapper; chapmanKolmogorov_kernel_pow_apply_wrapper",
+      "type": "thin wrappers around the two pinned mathlib declarations",
+      "classification": "discovery-only duplicate",
+      "result": "No independent terminal proof body and no THM-M-1091 exact-target bridge; excluded from proof credit."
+    }
+  ],
+  "search": {
+    "repo_local": "Searched Lean, Markdown, and JSON for Chapman-Kolmogorov and the exact integral declaration. Legacy Stage1 wrappers are duplicates of mathlib; no independent exact proof was found.",
+    "pinned_dependencies": "Searched the clean pinned mathlib worktree. The only named Chapman-Kolmogorov family is Kernel.pow_add, Kernel.pow_add_apply_eq_lintegral, and the one-step corollary in Composition.Comp. Exact sources and proof bodies were inspected.",
+    "external": "GitHub repository search on 2026-07-12 for the exact phrase Chapman-Kolmogorov with Lean returned zero repositories. Broader Lean Markov-chain searches returned projects, but none exposed an exact candidate in the search evidence and none was admitted without an immutable revision and exact declaration.",
+    "limitations": "No dependency was cloned or fetched. External search is negative discovery evidence, not a claim that all Lean code hosts were exhaustively searched."
+  },
+  "source_fidelity": {
+    "classification": "H1",
+    "reason": "Mathlib documents the theorem as Chapman-Kolmogorov and cites Meyn-Tweedie Theorem 3.4.2 page 68, but the edition, cited page, assumptions, proof, and errata were not independently inspected. The repository's unqualified historical gloss remains broader than the frozen homogeneous discrete-time specialization."
+  },
+  "root_decision": {
+    "classification": "M0-P candidate",
+    "kernel_closed": false,
+    "reason": "An exact, axiom-audited pinned bridge is available, but this anchor-audit phase does not assign proof-node, composition, validation, or release credit.",
+    "integration_tasks": [
+      "promote the checked bridge only in the dependent proof phase",
+      "freeze the obligation and provenance graphs before proof credit",
+      "run later trust, hermetic, freshness, and independent-verification gates"
+    ],
+    "remaining_cut_set": ["proof-phase adoption and all downstream rev-5.6 gates"]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": true,
+  "theorem_complete": false
+}

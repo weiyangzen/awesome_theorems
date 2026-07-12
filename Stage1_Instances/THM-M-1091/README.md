@@ -43,3 +43,16 @@ by the recipes in `statement-validation.md`.
 This is statement-only evidence pending master acceptance. The general inhomogeneous three-time
 family and continuous-time semigroup remain uncredited alternate scopes, and primary-source
 fidelity remains an anchor-audit obligation. No theorem proof or completion is claimed.
+
+## Anchor-audit handoff
+
+The anchor audit now freezes the pinned mathlib candidates and an exact checked bridge in
+`AnchorAudit.lean`. `Kernel.pow_add` closes the frozen kernel expression after swapping the named
+step counts and normalizing addition; `Kernel.pow_add_apply_eq_lintegral` directly closes the
+checked integral encoding. Exact source bodies and transitive axioms were inspected at mathlib
+revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`. Repo-local legacy wrappers are duplicates,
+and the external search found no separately admissible exact candidate.
+
+This is a self-tested anchor inventory pending master acceptance. The exact bridge is only an
+`M0-P` candidate until the dependent obligation-tree and proof phases adopt it. Human-source debt
+remains `H1`, all later validation and release gates remain open, and theorem completion is false.
