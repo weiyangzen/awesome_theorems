@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0541-RELEASE",
+  "theorem_id": "THM-M-0541",
+  "intent": "release",
+  "verdict": "blocked",
+  "base_revision": "760cbc73b01804753c0dfb5f84b703dff6d026de",
+  "base_tree": "99beba8b51b8846c0843d16cad74c279a6e0475f",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0541-VALIDATION",
+    "receipt_id": "S56-M-0541-VALIDATION-local-20260712T052948Z",
+    "receipt_sha256": "cc0feca91ff60598ddbd7c1f8b685a2d34b8392d268df9f3b6932a6d222a3ef7",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "reconciled_inputs": {
+    "instance.json": "46f6765581fa7b4a63d9e73f1610358f958f902aeb9040f4fddc4d196e7df0bb",
+    "Statement.lean": "5e799f4793bdba080beac5baba329a5d90a4c89e8beeadca6f6c0d1765bcc32d",
+    "Proof.lean": "4fcaaaeff8998e50a7bdea2e670e02d9ea96861f48fdef9964e7e24840ee16ae",
+    "obligation-registry.json": "fa62c038bcf08222c22cb315901d214106c5ed23dbde31868687b1ee29f2ae04",
+    "typed-graphs.json": "2aa9d617b073acfc8b1ff5e72fc42993b95d5a209ee5b85eedf0e824fa3c8d9e",
+    "validation-spec.json": "53174941d5e7933f83a50bc482457b5a42051301043f6d81b0c541df5aa7e9c1",
+    "validation-receipt.json": "cc0feca91ff60598ddbd7c1f8b685a2d34b8392d268df9f3b6932a6d222a3ef7",
+    "check_validation.py": "c232330cc08e05fbfd12b748085b0b30e9f37b5ab3ef458d7385299170756844"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0541-VALIDATION-local-20260712T052948Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M3", "R4"],
+    "accepted_after": ["H2", "M3", "R4"],
+    "provisional_observation": "The exact canonical root passes fresh-source kernel replay, but the planned instance and pre-proof typed graph remain authoritative until master reconciliation."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "placeholder_scan": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "structured_state_freshness": "failed: typed-graphs.json is a pre-proof artifact with closed_obligations=[] and root machine debt M3",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0541-VALIDATION has only a provisional worker receipt and no master acceptance, so release is not dependency-legal."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "Master acceptance of S56-M-0541-VALIDATION and reconciliation of provisional root closure into authoritative instance and typed-graph state",
+    "AUDIT-Z with complete inventory, source-boundary, and evidence reconciliation",
+    "Accepted H0 primary-source edition, theorem/page or definition anchors, assumptions, errata crosswalk, and independent review",
+    "Accepted R0 node-by-node readable reconstruction with formal anchors, substantive step ledgers, and independent review",
+    "Complete transitive declaration/body provenance, accepted foundation and axiom profiles, and hashed TCB closure",
+    "Immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "SBOM and license closure plus protected CI and required adversarial fixtures",
+    "Two signed attestations from distinct independently provisioned runners with no shared writable cache",
+    "Independently implemented minimal release verifier and deterministic content-addressed release bundle",
+    "Master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "Master-accept the validation dependency and reconcile authoritative graph state; then close H0/R0 and the full provenance, trust, hermetic, supply-chain, independent-verifier, CI, deterministic-bundle, and master release gates.",
+  "status_boundary": "This is a self-tested negative release decision. It accepts no receipt, changes no lifecycle or root vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, or release."
+}
