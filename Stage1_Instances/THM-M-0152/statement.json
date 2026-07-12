@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0152-STATEMENT",
+  "theorem_id": "THM-M-0152",
+  "lifecycle": "planned",
+  "canonical_statement": "For smooth regular parametrized surfaces in Euclidean three-space, a smooth local coordinate equivalence that preserves the induced first fundamental form on a neighborhood preserves Gaussian curvature at the corresponding point.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0152/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0152.TheoremaEgregiumTarget",
+    "elaborated_expression_sha256": "898c24a88007838d739dc3ec63103e92ba06df082fa6d0b91557ba3863de2f02",
+    "statement_file_sha256": "411162ea683f92ccd9dae93e7c2a9b0cbfba3c15996da8be28e33980e143058d"
+  },
+  "domain_and_universes": "Plane = Fin 2 -> Real; Space = Fin 3 -> Real; X and Y are globally smooth regular parametrizations; phi and psi are local coordinate maps; p is a source parameter point; Prop in universe 0",
+  "ordered_binders": [
+    "X Y : Plane -> Space",
+    "Regular X",
+    "Regular Y",
+    "phi psi : Plane -> Plane",
+    "p : Plane",
+    "IsLocalCoordinateEquivAt phi psi p",
+    "IsLocalIsometryAt X Y phi p"
+  ],
+  "conclusion": "gaussianCurvature Y (phi p) = gaussianCurvature X p",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.LinearAlgebra.CrossProduct"
+  ],
+  "minimal_import_evidence": "The calculus import supplies fderiv, ContDiff, ContDiffAt, filters, and continuous linear maps. The cross-product import supplies the three-dimensional normal construction and its finite-sum algebra dependencies. No manifold, curvature, topology, or umbrella Mathlib import is used.",
+  "checked_transport": "Stage1Instances.THM_M_0152.theoremaEgregiumTarget_iff_expandedTarget",
+  "encoding_decisions": {
+    "surfaces": "Regular smooth parametrizations Plane -> Space; injectivity of every differential expresses regularity.",
+    "local_coordinate_equivalence": "phi has a smooth local inverse psi at p through two EventuallyEq identities.",
+    "local_isometry": "The differential of phi pulls back Y's first fundamental form to X's on a neighborhood of p.",
+    "gaussian_curvature": "The classical (LN-M^2)/(EG-F^2) formula using the normalized cross-product normal; regularity excludes the zero denominator at all points used by the target.",
+    "orientation": "Changing the unit normal negates L, M, and N together and leaves LN-M^2 unchanged."
+  },
+  "environment_fingerprint": {
+    "base_revision": "b66e26872f7b2eb2047782e029b32e32b0ead1d8",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0152/check_statement.py",
+    "killed": [
+      "removed regularity of both surface parametrizations",
+      "weakened neighborhood metric preservation to equality only at p",
+      "specialized the coordinate map and point to id and zero",
+      "changed the conclusion expression"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "Singular parametrizations are excluded by injectivity of fderiv.",
+    "Metric preservation is local, not merely pointwise, because curvature depends on metric derivatives.",
+    "No orientation choice occurs in the target.",
+    "Mean curvature, principal curvatures, total curvature, Gauss-Bonnet, and the converse existence of an isometry are not claimed.",
+    "The target is the parametrized local form; no embedded-submanifold wrapper is credited by this node."
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact intake-selected pointwise local-isometry invariance target and its definitions. It supplies no proof of Theorema Egregium and no anchor-audit, obligation-tree, validation, release, audit-completion, or theorem-completion evidence."
+}
