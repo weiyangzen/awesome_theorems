@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1270-RELEASE",
+  "theorem_id": "THM-M-1270",
+  "intent": "release",
+  "base_revision": "2b5a356f0d547597e745bab548db0caac12e6c96",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1270-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1270-VALIDATION-local-20260712T001823Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "0bba535aabb9c14fe7fc3153300e8e67a523ad6a613e9f729f108b65f638bbfb"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1270-VALIDATION-local-20260712T001823Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M4", "R3"],
+    "accepted_after": ["H1", "M4", "R3"],
+    "best_provisional_evidence": ["H1", "M3", "R3"],
+    "boundary": "The exact target and several conditional proof bodies have provisional local evidence, but the descent-maximal-point construction is an explicit open premise. No worker evidence changes the accepted planned baseline."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1270-VALIDATION is provisional worker evidence and has no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-1270-ROOT-KERNEL-CLOSURE",
+    "reason": "The validation receipt records root_closed=false and M3: target_of_maximalPoint requires an unproved descent-maximal-point constructor."
+  },
+  "remaining_root_cut_set": [
+    "M1270-C-SEQUENCE",
+    "M1270-C-INVARIANTS",
+    "M1270-L-CAUCHY",
+    "M1270-L-LIMIT",
+    "M1270-L-LOCALIZE",
+    "M1270-L-MAXIMAL"
+  ],
+  "release_gate_cut_set": [
+    "master acceptance of S56-M-1270-VALIDATION and all transitive phase receipts",
+    "kernel closure of the descent-maximal-point construction and exact root composition",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent review",
+    "accepted R0 structured reconstruction with independent review",
+    "complete root provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and empty-cache network-denied cold replay",
+    "offline restoration plus SBOM and license closure",
+    "two signed attestations from independently provisioned runners",
+    "independently implemented minimal release verifier and required mutation gates",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "conditional_composition": "pass as provisional worker evidence",
+    "partial_proof_bodies": "pass for the declarations covered by validation-receipt.json",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on the four checked Lean modules",
+    "exact_root_kernel_closure": "failed",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "Prove and master-accept the descent-maximal-point construction and all six frozen root-cut obligations, then independently accept H0/R0 and replay an immutable empty-cache snapshot with full TCB/SBOM, offline restoration, distinct verifier attestations, mutation gates, and a deterministic bundle.",
+  "status_boundary": "This is a self-tested negative worker release reconciliation. It creates no accepted receipt, lifecycle promotion, M0 classification, AUDIT-Z, THEOREM-Z, release-grade evidence, or theorem-completion claim."
+}
