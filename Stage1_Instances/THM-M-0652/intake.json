@@ -4,29 +4,27 @@
   "lifecycle_mode": "planned",
   "theorem_id": "THM-M-0652",
   "canonical_name": "Craig's interpolation theorem (first-order semantic form)",
-  "canonical_statement": "If a first-order sentence in a left language semantically entails a sentence in a right language, then there is an interpolating sentence using only their common language which is entailed by the left sentence and entails the right sentence.",
+  "canonical_statement": "If a first-order sentence phi semantically entails a sentence psi in one ambient language, then there is a sentence theta whose nonlogical symbols occur in both phi and psi, such that phi entails theta and theta entails psi.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": "AwesomeTheorems.Stage1.S1_M_298",
-    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_298.StatementShape",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "module": "Stage1_Instances/THM-M-0652/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0652.Statement",
+    "elaborated_expression_hash": "sha256:31ddfe8d7d426cacfb1acb17e443bbaa59a0e975fb92fb47916a600964362c6a",
+    "environment_fingerprint": "Lean 4.29.0@98dc76e3; mathlib@8a178386; Statement.lean sha256:0688e793479810070b0d7afe2b93ffa85bb132e80f4c79840532ae5add69d793",
+    "gate_state": "provisional_statement_selftest_pending_master_acceptance"
   },
   "domain_and_universes": "FirstOrder.Language.{u,v}; sentences and structures in the associated mathlib universes; Prop",
   "quantifiers": [
-    "Lcommon Lleft Lright Ltotal : FirstOrder.Language.{u,v}",
-    "P : CraigInterpolationProblem Lcommon Lleft Lright Ltotal"
+    "L : FirstOrder.Language.{u,v}",
+    "phi psi : L.Sentence"
   ],
   "hypotheses": [
-    "language maps embed the common language into both sides and both sides into a joint language",
-    "the two common-to-joint language maps commute",
-    "the embedded left sentence semantically entails the embedded right sentence in the empty joint theory"
+    "phi semantically entails psi in every nonempty L-structure"
   ],
-  "conclusion": "There exists a common-language sentence theta such that the left sentence entails its left translation and its right translation entails the right sentence.",
+  "conclusion": "There exists an L-sentence theta whose nonlogical symbols occur in both phi and psi, such that phi semantically entails theta and theta semantically entails psi.",
   "alternate_encodings": [
     {"target": "syntactic derivability formulation", "relationship": "expected via soundness and completeness", "checked_witness": "none; later statement/bridge work required"},
-    {"target": "single ambient signature with symbol-support intersection", "relationship": "expected equivalent after explicit language-reduct/support transports", "checked_witness": "none; later statement work required"}
+    {"target": "four-language formulation with an explicit common sublanguage and joint language", "relationship": "expected equivalent only when the common sublanguage is proved to be the exact intersection of endpoint symbol occurrences", "checked_witness": "none; the historical candidate is not credited as a transport"}
   ],
   "excluded_degenerate_cases": "No equality or disjointness of the side languages is assumed. Empty common languages and identical side languages remain included. Theory-relative, infinitary, propositional, and higher-order interpolation are outside this root.",
   "foundation_profile": "Classical first-order model theory over mathlib Language/Structure semantics; exact choice, quotient, and classical axiom closure remains open.",

@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0652-STATEMENT",
+  "theorem_id": "THM-M-0652",
+  "phase": "statement",
+  "lifecycle_mode": "planned",
+  "canonical_target": {
+    "file": "Stage1_Instances/THM-M-0652/Statement.lean",
+    "declaration": "Stage1Instances.THM_M_0652.Statement",
+    "universes": ["u", "v"],
+    "type": "Prop",
+    "source_sha256": "0688e793479810070b0d7afe2b93ffa85bb132e80f4c79840532ae5add69d793",
+    "normalized_expression_sha256": "31ddfe8d7d426cacfb1acb17e443bbaa59a0e975fb92fb47916a600964362c6a"
+  },
+  "exact_claim": "For every first-order language L and sentences phi and psi, if every nonempty L-structure satisfying phi satisfies psi, then there is an L-sentence theta whose nonlogical symbols occur in both phi and psi, such that phi semantically entails theta and theta semantically entails psi.",
+  "scope": {
+    "logic": "classical first-order logic with equality",
+    "form": "semantic, sentence-level, empty-theory consequence",
+    "common_vocabulary": "exact syntactic occurrence subset of both endpoint sentences, represented by quantification over every SymbolSupport",
+    "included_boundaries": ["empty language", "identical endpoint vocabularies", "sentences containing only logical symbols"],
+    "excluded_variants": ["theory-relative interpolation", "Lyndon interpolation", "uniform interpolation", "propositional-only interpolation", "infinitary logic", "higher-order logic"]
+  },
+  "minimal_import": "Mathlib.ModelTheory.Semantics",
+  "checked_transport": "Stage1Instances.THM_M_0652.statement_iff",
+  "mutation_probes": [
+    "removing the semantic-entailment premise is rejected by definitional identity",
+    "removing the common-vocabulary conjunct is rejected by definitional identity",
+    "reversing the right entailment direction is rejected by definitional identity"
+  ],
+  "boundary_probes": [
+    "Language.empty instantiates the target",
+    "the transparent IsInterpolant package projects both vocabulary subsets and both entailment directions"
+  ],
+  "environment": {
+    "base_revision": "07cc89a04d18aba80d921bc643786856d7e22ad7",
+    "lean": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_commit": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda"
+  },
+  "kernel_check": {
+    "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0652/Statement.lean",
+    "exit_code": 0,
+    "stdout_sha256": "3afe8770cdb0bd71a36ae495e57699cedb65dcee24964096c9181b75b2126958",
+    "checked_transport_axioms": ["Quot.sound"]
+  },
+  "machine_state": "M3",
+  "theorem_complete": false,
+  "status_boundary": "This receipt establishes exact target elaboration only. It does not prove Craig interpolation, accept the intake dependency, close source fidelity, or satisfy proof, validation, release, or master-acceptance gates."
+}
