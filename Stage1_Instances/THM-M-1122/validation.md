@@ -37,3 +37,12 @@ Base revision: `56160b79dacf85088c6e625d50aac63aa6a0e8f9`.
 The statement phase selects the primary result and elaborates its exact conditional interface. The
 formal predicates implementing Brownian motion, radial Loewner equations, and the LERW scaling
 limit remain open implementation obligations, and no proof or theorem completion is claimed.
+
+## Anchor-audit validation
+
+Base revision: `5f92af864c807c144a7e058bd175040d99a0d6d1`.
+
+The node-specific commands, immutable candidate revisions, search results, and classification are
+recorded in `anchor-audit.md` and `anchor-audit.json`. The audit elaborated the pinned
+`IdentDistrib` interface and re-elaborated the frozen target. It found no exact mathlib or external
+Lean proof candidate. The root remains open with formalization debt; this is not proof evidence.

@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1122-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1122",
+  "canonical_target": "Stage1Instances.THM_M_1122.SchrammLoewnerEvolutionTarget",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "5f92af864c807c144a7e058bd175040d99a0d6d1",
+  "candidates": [
+    {
+      "id": "mathlib-ident-distrib",
+      "kind": "interface_only",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Probability.IdentDistrib",
+      "declaration": "ProbabilityTheory.IdentDistrib",
+      "type_role": "exact conclusion interface for equality in distribution",
+      "source_file_sha256": "37d719a0916697171f6a0e53d03897ab1311cf9f12d77ba180d1017c90119544",
+      "repo_local_validation": "elaborated",
+      "exact_root_closure": false,
+      "reason_not_closure": "The declaration defines identical distribution and basic transports; it proves neither the radial Loewner/LERW hypotheses nor Schramm Theorem 1.3."
+    },
+    {
+      "id": "brownian-motion-project",
+      "kind": "external_partial_foundation",
+      "repository": "https://github.com/RemyDegenne/brownian-motion",
+      "revision": "bdf5ea0c34f9e6d75bce5f0609a968d6e9e99e8e",
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "module": "BrownianMotion.Gaussian.BrownianMotion",
+      "declarations": [
+        "IsPreBrownianReal",
+        "IsBrownianReal",
+        "brownian",
+        "isBrownianReal_brownian",
+        "hasLaw_brownian"
+      ],
+      "repo_local_validation": "not_imported",
+      "dependency_feasibility": "incompatible_without_upgrade_or_backport: upstream Lean 4.31/mathlib fabf563 versus pinned Lean 4.29/mathlib 8a1783",
+      "exact_root_closure": false,
+      "reason_not_closure": "It supplies real Brownian-motion infrastructure, but no circle Brownian motion, radial Loewner equations, LERW scaling limit, Conjecture 1.2 bridge, or Theorem 1.3 declaration."
+    },
+    {
+      "id": "tailored-brownian-motion",
+      "kind": "external_partial_foundation",
+      "repository": "https://github.com/banr1/tailored-brownian-motion",
+      "revision": "5f7e47403f707ba69d2534c884712eb08ea37134",
+      "toolchain": "leanprover/lean4:v4.28.0-rc1",
+      "mathlib_revision": "9227fd8e495705d7b4e97f0b0cc5098c655fc458",
+      "module": "BrownianMotion.Gaussian.BrownianMotion",
+      "declarations": [
+        "IsPreBrownian",
+        "IsBrownian",
+        "brownian",
+        "IsBrownian_brownian"
+      ],
+      "repo_local_validation": "not_imported",
+      "dependency_feasibility": "incompatible_without_backport: upstream Lean 4.28.0-rc1 and a different mathlib revision",
+      "exact_root_closure": false,
+      "reason_not_closure": "This older branch also stops at real Brownian motion and does not formalize the target's circle driver, Loewner trace, LERW limit, or equality-in-law theorem."
+    }
+  ],
+  "negative_searches": {
+    "pinned_mathlib": "No SLE, stochastic/radial Loewner, LERW, or Brownian-motion file/declaration; Loewner hits are only the operator order.",
+    "repository_local": "No target-specific proof or matching Lean declaration outside this dossier.",
+    "github_repository_search": "Zero repositories for exact Schramm-Loewner and Loewner queries restricted to language Lean; Brownian language search returned the two audited projects."
+  },
+  "terminal_body_provenance": "No candidate terminal body proves the canonical root.",
+  "trust_and_placeholder_boundary": "The pinned IdentDistrib declaration is an ordinary mathlib structure elaborated locally. External candidates were source-audited at immutable commits but not imported or credited; no placeholder or axiom claim is inferred from their names.",
+  "machine_debt": "formalization_debt",
+  "machine_state": "not_repo_local_closed",
+  "root_status": "open",
+  "audit_complete_for_phase": true,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "first_downstream_blocker": "No formal candidate supplies the radial Loewner/LERW interfaces or a proof body for Schramm (2000), Theorem 1.3; these must be formalized before root closure."
+}
