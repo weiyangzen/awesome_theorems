@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1200-STATEMENT",
+  "theorem_id": "THM-M-1200",
+  "lifecycle": "planned",
+  "canonical_statement": "For arbitrary real scalar flux f, left and right states uL and uR, and interface speed s, the weak defect of the two constant states across x = s*t vanishes against every smooth compactly supported spacetime test function if and only if s*(uR-uL) = f(uR)-f(uL).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1200/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1200.RankineHugoniotTarget",
+    "elaborated_expression_sha256": "b77d79ed6acc61642c8288a004f1023d65a71367415ac90fd6a6c5e8af77ca93",
+    "statement_file_sha256": "8e1650b86f9f8ab1917c326d938859bace727cf445182d3ae614d2eb48ae5ee7"
+  },
+  "domain_and_universes": "f : Real -> Real; uL uR s : Real; phi : Real x Real -> Real; Prop in universe 0; Lebesgue integration along the interface parameter t",
+  "ordered_binders": [
+    "f : Real -> Real",
+    "uL : Real",
+    "uR : Real",
+    "s : Real",
+    "phi : Real x Real -> Real (inside InterfaceDefectVanishes)"
+  ],
+  "hypotheses": [
+    "ContDiff Real top phi",
+    "HasCompactSupport phi"
+  ],
+  "conclusion": "InterfaceDefectVanishes f uL uR s iff s * (uR - uL) = f uR - f uL",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.Basic"
+  ],
+  "encoding_decisions": {
+    "interface": "the straight line x = s*t, parameterized by t : Real",
+    "interface_defect": "(f uR - f uL - s*(uR-uL)) times the Lebesgue integral of phi(t,s*t)",
+    "test_functions": "all ContDiff Real top compactly supported functions on Real x Real",
+    "flux_regularity": "none is needed after the constant-state weak defect has been reduced to the two endpoint values f uL and f uR",
+    "interface_representative": "only the trace phi(t,s*t) occurs; no value of the discontinuous state on the interface is selected"
+  },
+  "checked_transport": "Stage1Instances.THM_M_1200.rankineHugoniotTarget_iff_movingFrameFluxTarget",
+  "environment_fingerprint": {
+    "base_revision": "bffb5c63a3a8b89fc36a28a72eed61be8fc4d16a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1200/check_statement.py",
+    "killed": [
+      "weakened the equivalence to its forward implication",
+      "specialized the interface speed to zero",
+      "excluded the equal-state boundary",
+      "changed the frozen binder order by quantifying states before the flux"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1200.equal_states_boundary",
+      "Stage1Instances.THM_M_1200.interface_representative_boundary"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "Equal states and stationary interfaces are included",
+    "No entropy admissibility, existence, uniqueness, system, multidimensional, curved-interface, or balance-law claim is included",
+    "The node freezes the already reduced interface-defect formulation; deriving that defect from a piecewise-state distribution remains proof architecture, not statement evidence"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and kernel-elaborates the intake-selected scalar Rankine-Hugoniot target, its moving-frame transport, structural mutations, and boundary checks. It supplies no Rankine-Hugoniot proof, source-fidelity acceptance, anchor acceptance, or theorem-completion evidence."
+}
