@@ -9,6 +9,7 @@ input only. It provides a useful proposed object boundary and checked adjacent w
 terminal conclusion is packaged as assumed structure data. It therefore supplies no rev-5.6
 statement or proof credit.
 
-The provisional root vector is `[H2, M4, R4]`. The source edition, exact theorem anchor, canonical
-Lean expression, and Brownian modification convention remain open for the statement phase. No
-audit completion or theorem completion is claimed.
+The exact statement and bounded anchor audit are now inputs to frozen obligation registry version
+1. The root cut set is the continuous-modification package and the nowhere-differentiability
+package; `ObligationTree.lean` checks only their conditional composition. The root remains
+`[H2, M2, R4]`. No audit completion or theorem completion is claimed.
