@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0987-STATEMENT",
+  "theorem_id": "THM-M-0987",
+  "lifecycle": "planned",
+  "canonical_statement": "For an independent identically distributed sequence of real-valued random variables with finite second moment, the centered sums scaled by the inverse square root of n converge in distribution to a centered Gaussian random variable whose variance is Var(X_0).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0987/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0987.CentralLimitTheoremTarget",
+    "elaborated_expression_sha256": "b4afb1da2c0020f5fdb8918d5bfc1ac048dba16a51344d278998fd99e556da50",
+    "statement_file_sha256": "4ac6a7cdb7139df6bca2f3eb6b0e211c4ff108ab89b1b99d60186dde75734363"
+  },
+  "domain_and_universes": "universes uOmega and uOmega'; measurable spaces Omega and Omega'; probability measures P and P'; X : Nat -> Omega -> Real; Y : Omega' -> Real; target in Prop",
+  "ordered_binders": [
+    "Omega : Type uOmega",
+    "Omega' : Type uOmega'",
+    "[MeasurableSpace Omega]",
+    "[MeasurableSpace Omega']",
+    "P : Measure Omega",
+    "P' : Measure Omega'",
+    "[IsProbabilityMeasure P]",
+    "[IsProbabilityMeasure P']",
+    "X : Nat -> Omega -> Real",
+    "Y : Omega' -> Real"
+  ],
+  "hypotheses": [
+    "Y has law gaussianReal 0 (variance (X 0) P).toNNReal under P'",
+    "X 0 belongs to MemLp exponent 2 under P",
+    "X is jointly independent under P via iIndepFun",
+    "for every i, X i and X 0 are identically distributed under P"
+  ],
+  "conclusion": "The sequence n |-> (sqrt n)^-1 times (sum of X_k for k<n minus n times the expectation of X_0) tends in distribution to Y, with source measures constantly P and target measure P'.",
+  "direct_imports": ["Mathlib.Probability.CentralLimitTheorem"],
+  "minimal_import_evidence": "The canonical target intentionally names the exact pinned central-limit interface, and the same module is the narrow feature module defining the checked source declaration. No umbrella Mathlib import or historical repo module is used.",
+  "checked_transport": "Stage1Instances.THM_M_0987.target_iff_pinnedMathlibSourceShape",
+  "pinned_source_declaration": "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub",
+  "source_boundary": "The intake found that the repository phrase denotes a theorem family. This statement node selects the one-dimensional real-valued iid finite-second-moment branch exposed by pinned mathlib. It does not claim that independence alone implies a CLT, and primary-source equivalence remains for anchor audit.",
+  "environment_fingerprint": {
+    "base_revision": "2676c4fcc9a91f3717e0ef31bd11faa45e5576fe",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0987/check_statement.py",
+    "validator_sha256": "34acd803b49f8509b821a649446f97420344f5deee1295ce8ff2f95cf6776414",
+    "killed": [
+      "removed joint-independence hypothesis",
+      "changed real-valued observations to natural-valued observations",
+      "moved the limit variable from a universal binder to an existential conclusion",
+      "excluded the zero-variance boundary"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0987.centeredSum_zero"]
+  },
+  "degenerate_cases": "Variance zero is included: the Gaussian law has variance parameter zero and pinned mathlib handles the constant-almost-everywhere case. The n=0 centered finite sum is checked as zero; its inverse-sqrt scaling is the totalized Real expression used by the convergence sequence. No positive-variance or positive-index premise is added.",
+  "scope_exclusions": [
+    "non-identically-distributed independent sequences",
+    "Lindeberg-Feller triangular arrays",
+    "multivariate, martingale, and functional central limit theorems",
+    "Berry-Esseen rates"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the selected exact target, pinned-shape expansion, four structural mutations, and n=0 boundary elaborate. No source acceptance, proof credit, anchor audit, or downstream completion is claimed."
+}
