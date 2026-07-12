@@ -1,0 +1,145 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-1345-STATEMENT",
+  "theorem_id": "THM-M-1345",
+  "execution_rank": 956,
+  "phase": "statement",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "base_revision": "122f443c54e4e81d1bf325b07e18ba095823da6d",
+  "base_tree": "2629bb0cacebd896715a9abad7c52ad60e7bccd0",
+  "verdict": "blocked",
+  "statement_elaborated": false,
+  "statement_accepted": false,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "exact_source_statement_and_variant_selection",
+  "canonical_human_statement": null,
+  "canonical_formal_target": null,
+  "elaborated_expression_hash": null,
+  "minimal_imports": null,
+  "blocker": "The authoritative repository record supplies only the title Hartman-Grobman theorem and the gloss local linearization of a hyperbolic equilibrium. It gives no citation, equation, phase space, vector-field domain or regularity, local-flow and time-domain convention, hyperbolicity encoding, neighborhoods, conjugacy orientation or parametrization, ordered binders, hypotheses, conclusion, or boundary cases. The intake preserves Hartman's historical C2 theorem and a modern differentiable-vector-field theorem as inequivalent, unaccepted candidates. Choosing either, combining their conventions, or selecting the discrete-map variant would add proposition-changing mathematics rather than elaborate the exact target.",
+  "source_boundary": {
+    "repository_record": "Docs/researches/math_theorems.md:9810-9815, introduced by bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "literal_claim": "Hartman-Grobman theorem; Philip Hartman/David Grobman; 1960; local linearization of a hyperbolic equilibrium",
+    "stage0_boundary": "Docs/Stage0_Blueprint.md:36588-36613 leaves the formal system, exact definitions and premises, proof route, equivalent statements, axioms, machine status, and artifacts open.",
+    "primary_candidate": "Philip Hartman, A lemma in the theory of structural stability of differential equations, Proc. AMS 11(4) (1960), Theorem (II), page 615; proof pages 615-618",
+    "primary_candidate_sha256": "f633e1c7f25336d13b0fae201361393003995d99e1d7ee17e6bccf0246d997f9",
+    "primary_candidate_assessment": "The intake records x' = T x + F(x), F = o(|x|), F of class C2 near zero, and every eigenvalue of T off the imaginary axis, with a continuous one-to-one neighborhood coordinate map conjugating the nonlinear solution transformations to exp(tT) while preserving parametrization. The catalogue does not cite or select this formulation, and incorporated local-solution and neighborhood/time conventions, errata, Grobman genealogy, and independent review remain open.",
+    "modern_candidate": "Gerald Teschl, Ordinary Differential Equations and Dynamical Systems (2012), Theorem 9.9, page 264",
+    "modern_candidate_sha256": "362433156525216abf596c17ce843204510e96d57afa4284a37c7aa5a9ffc36e",
+    "modern_errata_sha256": "3eacbac5b8fc762c5d3f21183cba3ae638b9ac5fbe703cc52cf2857b9605996e",
+    "modern_candidate_assessment": "The intake records a differentiable vector field with zero as a hyperbolic fixed point and a local homeomorphism conjugating exp(tA) with the nonlinear flow, under inherited local-flow conventions and proof-relevant official errata. This differs from Hartman's explicit C2 formulation and is not catalogue-selected or independently approved.",
+    "assessment": "Both sources identify the continuous-time theorem family, but neither is accepted as the canonical source proposition. Their differing regularity and presentation conventions are ambiguity evidence, not authority to synthesize a target."
+  },
+  "unresolved_inputs": [
+    "immutable primary or authoritative source selection, exact theorem/page, all incorporated definitions and assumptions, proof boundary, errata disposition, Hartman/Grobman genealogy, and independent source approval",
+    "continuous autonomous flow versus discrete local-diffeomorphism formulation, and whether a time-one map is only a reduction or part of the root statement",
+    "finite-dimensional real Euclidean, coordinate-free finite-dimensional, or Banach phase space, including dimension, universes, norm, domain, and equilibrium-at-zero versus arbitrary-point encoding",
+    "vector-field regularity, little-o premise, well-posedness, local solution or flow object, maximal-domain convention, and admissible real-time quantifier",
+    "hyperbolicity as a complexified spectral condition or stable/unstable splitting, including a checked equivalence and the imaginary-axis boundary",
+    "source and target neighborhoods, bundled or unbundled local homeomorphism, equilibrium-fixing condition, conjugacy orientation, image-domain side conditions, and whether time parametrization is preserved",
+    "ordered binders, typeclass context, coercions, and policies for zero dimension, zero field, purely stable, purely unstable, mixed spectrum, and trajectories leaving the selected neighborhoods"
+  ],
+  "rejected_substitutions": [
+    "silently selecting Hartman 1960 Theorem (II) and its C2 formulation as the canonical target",
+    "silently selecting Teschl Theorem 9.9 or merging its modern differentiability and local-flow conventions with Hartman's statement",
+    "substituting the discrete-map theorem, a time-one-map conjugacy, orbit equivalence with time reparametrization, a scalar example, or a globally defined special case",
+    "substituting THM-M-1344 Lyapunov's indirect method, THM-M-1346 the stable manifold theorem, THM-M-1347 the center manifold theorem, or THM-M-1366 structural stability",
+    "using Matrix.IsHyperbolic, generic ODE or flow infrastructure, or an abstract package that assumes the desired homeomorphism or conjugacy conclusion",
+    "treating the catalogue's untrusted verified label, the adjacent API probe, a numerical phase portrait, or a name match as exact-statement or proof evidence"
+  ],
+  "pinned_lean_boundary": {
+    "module": "Stage1_Instances/THM-M-1345/IntakeProbe.lean",
+    "probe_sha256": "5b413b783867c0bcf0793af7d8e1a3a26f5daaa465f959e3cbe2a7203fa0ffcd",
+    "direct_imports": [
+      "Mathlib.Analysis.ODE.Basic",
+      "Mathlib.Analysis.Calculus.FDeriv.Basic",
+      "Mathlib.Dynamics.Flow",
+      "Mathlib.Dynamics.PeriodicPts.Defs",
+      "Mathlib.Topology.IsLocalHomeomorph",
+      "Mathlib.Topology.Homeomorph.Defs",
+      "Mathlib.Topology.OpenPartialHomeomorph.Basic"
+    ],
+    "checked_interfaces": [
+      "IsIntegralCurveOn",
+      "IsIntegralCurveAt",
+      "Flow",
+      "Flow.toHomeomorph",
+      "Flow.IsSemiconjugacy",
+      "Function.IsFixedPt",
+      "HasFDerivAt",
+      "fderiv",
+      "IsLocalHomeomorphOn",
+      "Homeomorph",
+      "OpenPartialHomeomorph",
+      "Function.Semiconj",
+      "Function.Semiconj.iterate_right"
+    ],
+    "assessment": "The probe re-elaborates adjacent ODE, flow, derivative, fixed-point, local-homeomorphism, and conjugacy interfaces. It states no target theorem. Its imports are not claimed to be minimal for the unknown canonical target, and the successful check receives no statement, anchor, or proof credit.",
+    "bounded_search_assessment": "A narrow repo-local and pinned-Mathlib exact-topic search found no Hartman-Grobman declaration or hyperbolic-equilibrium local topological-conjugacy result. This is local feasibility evidence, not the later immutable anchor audit or a global absence claim."
+  },
+  "mutation_tests": {
+    "removed_hypothesis": "not_runnable_without_a_canonical_target",
+    "changed_domain": "not_runnable_without_a_canonical_target",
+    "changed_binder_scope": "not_runnable_without_a_canonical_target",
+    "boundary_case": "not_runnable_without_a_canonical_target"
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "dependency_freshness": {
+    "intake_node_state_at_base": "provisional_worker_only_not_master_accepted",
+    "intake_receipt_base_revision": "3ed74ce8b03564707b34b6e2314d2bb6d0a6206e",
+    "intake_public_replay": "failed_on_current_base",
+    "receipt_blueprint_sha256": "88539bc8f2c48258d309c2488bcffb080878907bd4800da940f49c76cee72e03",
+    "current_blueprint_sha256": "80514f615a6c626917a7b7311dcc661c3a5788438d1968fb4607e939e6114e1a",
+    "failure": "The intake validator reports a stale Docs/Stage1_Blueprint_rev-5.6.md input hash after integration changed that authority file.",
+    "assessment": "This independently prevents statement-node acceptance. The statement phase does not rewrite or refresh the separately owned intake receipt."
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "required_unblock_conditions": [
+    "Preserve and hash an immutable primary or authoritative source, select and transcribe one exact theorem and every incorporated definition with pinpoint locators, audit proof ancestry, errata, and Hartman/Grobman genealogy, and obtain independent source approval.",
+    "Freeze the continuous-flow or discrete-map boundary, phase space, domain, equilibrium, vector-field regularity, well-posedness and flow model, hyperbolicity encoding, neighborhoods, time quantifiers, conjugacy orientation and parametrization, and all degenerate cases from that source.",
+    "Refresh and obtain master acceptance for the prerequisite intake evidence against the current authorities.",
+    "Encode that same claim using real Lean definitions, minimize pinned imports, serialize and hash the elaborated expression and environment, check every credited alternate transport, and run the removed-hypothesis, changed-domain, changed-binder-scope, and boundary-case mutations."
+  ],
+  "accepted_receipt_ids": [],
+  "remaining_root_cut_set": [
+    "S56-M-1345-STATEMENT",
+    "S56-M-1345-ANCHOR_AUDIT",
+    "S56-M-1345-OBLIGATION_TREE",
+    "S56-M-1345-PROOF",
+    "S56-M-1345-VALIDATION",
+    "S56-M-1345-RELEASE"
+  ],
+  "known_failures": [
+    "The authoritative metadata and provisional intake do not select one exact source proposition or obtain independent source review.",
+    "The canonical Lean target, minimal imports, elaborated expression and environment fingerprints, checked transports, and four statement mutation classes are unavailable.",
+    "The prerequisite intake receipt is provisional rather than master-accepted, and its public replay is stale against the current blueprint hash.",
+    "Anchor audit, obligation freeze, proof, composition, trust closure, readable reconstruction, hermetic replay, deterministic release evidence, independent verification, and master acceptance remain open."
+  ],
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1345/statement-blocker.json",
+    "Stage1_Instances/THM-M-1345/statement-blocker.md"
+  ],
+  "gate_state": "blocked_no_worker_selftest",
+  "status_boundary": "This artifact records the first failed statement gate. The statement node remains open. No canonical target, minimal target import, expression fingerprint, exact-statement credit, proof credit, accepted state, audit completion, theorem completion, or master acceptance is claimed; no worker self-test manifest is emitted."
+}

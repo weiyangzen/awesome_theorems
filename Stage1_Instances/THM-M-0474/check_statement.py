@@ -43,6 +43,11 @@ OWNED_FILES = {
     "source-statement-crosswalk.md",
     "statement-receipt.json",
     "statement-validation.md",
+    "AnchorAudit.lean",
+    "anchor-audit.json",
+    "check_anchor_audit.py",
+    "anchor-audit-validation.md",
+    "anchor-audit-receipt.json",
     "statement.json",
     "task-dag.json",
     "validation.md",
@@ -154,12 +159,15 @@ def main() -> None:
         raise SystemExit("dossier theorem IDs disagree")
     if statement["item_id"] != receipt["item_id"] or receipt["item_id"] != ITEM_ID:
         raise SystemExit("statement item IDs disagree")
-    if selftest["item_id"] != ITEM_ID or selftest["state"] != "[_]":
-        raise SystemExit("root self-test does not cover this provisional statement item")
-    if set(receipt["changed_paths"]) != set(selftest["changed_paths"]) or set(
-        selftest["changed_paths"]
-    ) != CHANGED_PATHS:
-        raise SystemExit("changed-path handoff is incomplete")
+    if selftest["state"] != "[_]":
+        raise SystemExit("root self-test is not provisional")
+    if selftest["item_id"] == ITEM_ID:
+        if set(receipt["changed_paths"]) != set(selftest["changed_paths"]) or set(
+            selftest["changed_paths"]
+        ) != CHANGED_PATHS:
+            raise SystemExit("statement changed-path handoff is incomplete")
+    elif selftest["item_id"] != "S56-M-0474-ANCHOR_AUDIT":
+        raise SystemExit("root self-test covers neither this statement nor its direct successor")
     if set(instance["owned_artifacts"]) != OWNED_FILES:
         raise SystemExit("instance artifact inventory is stale")
     actual_files = {path.name for path in SOURCE.parent.iterdir() if path.is_file()}

@@ -35,6 +35,11 @@ OWNED_FILES = {
     "statement.json",
     "statement-receipt.json",
     "statement-validation.md",
+    "AnchorAudit.lean",
+    "anchor-audit.json",
+    "check_anchor_audit.py",
+    "anchor-audit-validation.md",
+    "anchor-audit-receipt.json",
 }
 
 
@@ -104,6 +109,11 @@ def main() -> None:
         "statement.json",
         "statement-receipt.json",
         "statement-validation.md",
+        "AnchorAudit.lean",
+        "anchor-audit.json",
+        "check_anchor_audit.py",
+        "anchor-audit-validation.md",
+        "anchor-audit-receipt.json",
     }
     expected_intake_changed = {".stage1-worker-selftest.json"} | {
         f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_owned_files
