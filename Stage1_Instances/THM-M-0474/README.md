@@ -43,6 +43,10 @@ turn the incomplete catalog wording into an accepted primary-source statement.
   importing the proof or obligation tree. `validation-spec.json`, `check_validation.py`,
   `validation-receipt.json`, and `validation-phase.md` bind the warm-cache kernel replay, trust and
   provenance observations, and the fail-closed hermetic and distinct-runner decisions.
+- `release-decision.json` reconciles the accepted and provisional evidence into the exact blocked
+  release verdict. `release-spec.json`, `check_release.py`, `release-receipt.json`, and
+  `release-phase.md` bind a fresh narrow kernel replay and verify that every absent release gate
+  remains fail-closed.
 
 ## Status boundary
 
@@ -53,5 +57,6 @@ manifest-pinned mathlib body, with no placeholder and only `propext`, `Classical
 `Quot.sound` reported. That proposal does not mutate accepted state. Complete provenance/trust and
 TCB acceptance, readable reconstruction, cold hermetic replay, distinct-runner verification, and
 release remain open. The validation phase's Euler-totient route is implementation-diverse local
-evidence, not an independent attestation. There is no full audit completion or theorem completion;
-dependency-ordered acceptance remains with the integration lane.
+evidence, not an independent attestation. Release reconciliation is therefore blocked at dependency
+acceptance and does not change the planned `[H1, M3, R4]` authority. There is no full audit
+completion or theorem completion; dependency-ordered acceptance remains with the integration lane.
