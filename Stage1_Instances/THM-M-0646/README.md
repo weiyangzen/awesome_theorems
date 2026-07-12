@@ -17,3 +17,8 @@ completion is claimed.
 
 The scope map, source-statement crosswalk, and open task DAG define the downstream work. Exact
 intake checks and results are recorded in `validation.md`.
+
+The obligation-tree phase freezes thirteen obligations and seven separate typed graphs in
+`obligation-registry.json` and `typed-graphs.json`. `ObligationTree.lean` checks the exact root
+composition from an explicit pinned-candidate interface. This architecture work does not promote
+the root from `M4` or claim proof, audit, or theorem completion.
