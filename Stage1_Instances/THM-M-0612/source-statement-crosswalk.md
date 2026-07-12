@@ -33,3 +33,10 @@ the checked supporting definitions do not prove nonsqueezing.
 The worker-proposed canonical target is `Stage1.THM_M_0612.StatementShape` in `Statement.lean`.
 Before `H0`, an independent reviewer must approve the primary edition/result/page, every hypothesis
 and convention, errata status, and this row-by-row source-to-Lean mapping.
+
+The 2026-07-12 anchor audit also found `hrmacbeth/symplectic` declaration
+`gromovNonsqueezing` at immutable commit
+`acc509702046aaae6a3c9be4546d5735ad7450cf`. Its theorem body is `sorry`, as are
+11 supporting definitions/proofs in the same four-file project. Its capacity-normalized parameters
+and manifold-map interface are therefore useful comparison material only, not source fidelity or
+machine-proof evidence. See `anchor-audit.md` for the complete candidate inventory.

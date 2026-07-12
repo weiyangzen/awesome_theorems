@@ -1,4 +1,4 @@
-# THM-M-0984 rev-5.6 intake
+# THM-M-0984 rev-5.6 dossier
 
 This directory is the rev-5.6 `planned` instance for the strong law of large
 numbers. The repository source row says only "Borel, 1909" and "almost-sure
@@ -25,21 +25,34 @@ The structured domains, binders, hypotheses, conclusion, boundary cases, and
 profiles are in `intake.json`. The source-to-statement uncertainty and the
 required resolution are in `source_statement_crosswalk.md`.
 
+## Statement artifact
+
+`Statement.lean` freezes and elaborates the intake-selected modern iid
+integrable target using only `Mathlib.Probability.StrongLaw`. The explicit
+target and bundled `StrongLawData` form have a checked iff; four structural
+mutations are distinguished and the zero-index and zero-sequence boundaries
+are kernel checked. Exact fingerprints and replay commands are recorded in
+`statement.json` and `statement-validation.md`.
+
+This statement result does not resolve the source-identity issue. In
+particular, it does not claim that the modern Banach-valued theorem is the
+exact historical Borel 1909 frequency theorem.
+
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-Only `INTAKE` is addressed here. Master acceptance is still required before
-the dependent statement task becomes eligible.
+`INTAKE` has provisional master state `[_]`. `STATEMENT` is now worker
+self-tested and awaits master acceptance. All later phases remain open.
 
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first
-failed theorem gate is the exact source/statement identity gate: the source
-row is too terse to prove that the legacy iid Banach-valued formalization is
-the intended Borel theorem. Even after that is resolved, the Lean expression
-hash, environment fingerprint, checked transports, and mutations remain open.
-The theorem is not complete.
+Lifecycle remains `planned`; provisional root vector is `[H1, M3, R3]`. The
+modern Lean expression, environment, packaging transport, mutations, and
+boundary fixtures are now frozen as statement-only evidence. The first failed
+theorem gate remains source identity: the source row is too terse to prove
+that this iid Banach-valued formalization is the intended Borel theorem. The
+theorem is not complete.
 
 ## Validation
 

@@ -47,3 +47,25 @@ any proof obligation, or satisfy hermetic/independent release gates. The primary
 errata review is still assigned to downstream source audit; the statement is the exact canonical
 formalization of the already frozen intake claim, not evidence that the historical source has been
 independently certified.
+
+## Anchor-audit validation (S56-M-0612-ANCHOR_AUDIT)
+
+Base revision: `ef4b7fa8a178497a72e8409648876ceefeb811f8`.
+
+The audit used the existing pinned package closure only. External candidates were downloaded as
+immutable commit archives to `/tmp` for inspection and were neither cloned into nor installed in
+the repository. No `.lake` update, dependency fetch, or build was performed.
+
+| Command | Result |
+|---|---|
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | exit 0; `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| pinned `rg` scan of `Mathlib/**/*.lean` for nonsqueezing, Gromov width, symplectic, and pseudoholomorphic terms | exit 0; only finite symplectic-matrix support and the nonterminal Hofer lemma; no terminal theorem/capacity API |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0612/AnchorAudit.lean` | exit 0; all seven pinned supporting declarations checked |
+| immutable archive scan of `hrmacbeth/symplectic@acc509702046aaae6a3c9be4546d5735ad7450cf` | exit 0; archive SHA-256 matched; `gromovNonsqueezing` terminal body is `sorry`; 12 total `sorry` occurrences |
+| immutable archive scans of `krystophny/geomnum@8b72abbfd96111237a55ea411069ebb395bc4c00` and `BenFrohman/NS_Millennium_Proof@44ca45c347d6a08d89a31844f83d40dbb66e08d1` | exit 0; archive SHA-256 values matched receipt; no terminal search-term hits |
+| `python3 -m json.tool Stage1_Instances/THM-M-0612/anchor-audit-receipt.json` | exit 0; valid JSON |
+| scoped prohibited-token scan of worker-authored Lean | exit 0; clean (the admitted external candidate is documented only in Markdown/JSON) |
+| `git diff --check -- Stage1_Instances/THM-M-0612 .stage1-worker-selftest.json` | exit 0; no output |
+
+This self-tests the assigned anchor inventory, not the theorem. The audit found no terminal proof;
+the root remains `[H2, M3, R4]`, and audit completion and theorem completion remain false.

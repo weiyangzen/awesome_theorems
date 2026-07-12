@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0984-STATEMENT",
+  "theorem_id": "THM-M-0984",
+  "lifecycle": "planned",
+  "canonicalization_decision": "The statement phase freezes the modern iid integrable target explicitly selected as provisional by the accepted intake. It does not claim that this Banach-valued Etemadi-strength formulation is identical to Borel's 1909 Bernoulli frequency theorem; that historical source relationship remains H1 and belongs to anchor/source audit.",
+  "canonical_statement": "For every sequence of pairwise-independent, identically distributed random variables with values in a complete real normed space with Borel measurable structure, integrability of X 0 implies that the empirical averages converge mu-almost everywhere to the Bochner integral of X 0.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0984/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0984.StrongLawTarget",
+    "elaborated_expression_sha256": "d5e802fd68962ef2637033e80b2c948ef0ee7bbc64427ce24c2c86ab23435360",
+    "statement_file_sha256": "29fd61ee29db46ea9871743ee6f3d2eb3e0b765ae759d908df9dc4a7a5358cfe"
+  },
+  "domain_and_universes": "universe u v; Omega : Type u with MeasurableSpace; E : Type v with NormedAddCommGroup, NormedSpace Real, CompleteSpace, MeasurableSpace, and BorelSpace; mu : Measure Omega; X : Nat -> Omega -> E",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "E : Type v",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "[CompleteSpace E]",
+    "[MeasurableSpace E]",
+    "[BorelSpace E]",
+    "mu : Measure Omega",
+    "X : Nat -> Omega -> E"
+  ],
+  "hypotheses": [
+    "Integrable (X 0) mu",
+    "Pairwise ((fun Y Z => Y IndepFun[mu] Z) on X)",
+    "forall i, ProbabilityTheory.IdentDistrib (X i) (X 0) mu mu"
+  ],
+  "conclusion": "For mu-almost every omega, Tendsto (fun n => (n : Real)^(-1) scalar-multiplied by the sum of X i omega over i in range n) atTop (nhds (integral mu (X 0))).",
+  "direct_imports": ["Mathlib.Probability.StrongLaw"],
+  "minimal_import_evidence": "The target uses the strong-law public object model and notation from its defining module. The statement file has exactly this one direct import; no umbrella Mathlib import or legacy repository module is used.",
+  "checked_transport": "Stage1Instances.THM_M_0984.strongLawTarget_iff_bundled",
+  "transport_boundary": "The checked iff only packages and unpacks the explicit hypotheses in StrongLawData. No upstream strong-law theorem, historical-source equivalence, or proof closure is used.",
+  "environment_fingerprint": {
+    "repository_base_revision": "ae3a77da9f973d2fb833b68ab90f37e9c6bc2ddd",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_mode": "existing canonical pinned .lake symlink; no dependency mutation",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0984/check_statement.py",
+    "killed": [
+      "removed integrability of X 0",
+      "changed the arbitrary Banach codomain to Real",
+      "strengthened pairwise independence to joint iIndepFun",
+      "changed the expectation limit to zero"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0984.empiricalAverage_zero",
+      "Stage1Instances.THM_M_0984.zero_sequence_boundary"
+    ]
+  },
+  "degenerate_cases": "At n = 0 the average is definitionally normalized through the empty sum and is proved equal to zero. No IsProbabilityMeasure premise is added; arbitrary measures, including the zero measure, remain in scope. The identically-zero sequence conclusion is checked for every measure. Bernoulli endpoint cases are not a separate premise of this modern target.",
+  "source_identity_debt": "The repository source row says only Borel, 1909 and almost-sure convergence. It does not determine the modern Banach-valued pairwise-independent statement. This node elaborates the intake-selected modern target but does not upgrade human-source status or establish an equivalence to Borel's historical theorem.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected modern Lean target with one minimal direct import, a checked packaging transport, four distinguished structural mutations, and two kernel-checked boundary facts. It does not prove the strong law, inspect or credit the upstream proof body, resolve the Borel source crosswalk, or advance later nodes."
+}

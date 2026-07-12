@@ -11,5 +11,7 @@ automatically equivalent to the classical local embedding of a ball, and its pro
 proved. The provisional root vector is `[H2, M3, R4]`: this records statement/interface evidence,
 not proof closure. No audit completion or theorem completion is claimed.
 
-The scope map, source crosswalk, and open task DAG define the downstream work. Intake and statement
-checks and their exact results are recorded in `validation.md`.
+The fresh anchor audit records pinned mathlib infrastructure and an external Lean 4 declaration of
+the named theorem, but the external theorem and its dependencies contain `sorry`; it is not proof
+evidence or an integration target. The scope map, source crosswalk, and open task DAG define the
+downstream work. Phase checks and their exact results are recorded in `validation.md`.
