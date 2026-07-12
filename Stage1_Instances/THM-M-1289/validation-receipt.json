@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1289-VALIDATION-local-20260712T034321Z",
+  "item_id": "S56-M-1289-VALIDATION",
+  "theorem_id": "THM-M-1289",
+  "base_revision": "aaeade67ccb391b2d10e50e766d54427324b3090",
+  "base_tree": "279688843ded0006eb353dc977c2676b20703018",
+  "validated_at": "2026-07-12T03:43:21Z",
+  "attestor": "stage1-rev56-worker-slot6",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "d29efe7e8c638fee2bfccc631c758f3a542b99a302a82c4c456566fb0d99fdbd",
+    "validator_sha256": "ef5efd9c526fea51507bffc7621180b14cede16ff327f57787068564ec29fadf",
+    "statement_sha256": "39e00146b8674048066b0431ba4c9c18f85636e33ce9a170faab9d82381246f0",
+    "obligation_tree_sha256": "22b57f9be58f8871a2d7a83f2748c82a7cc0889ab866ed2f03d705649cbbee7d",
+    "proof_sha256": "7f4803a93166f1901383367838abe59895e506a036a2a155aba0bcad299b273d",
+    "statement_record_sha256": "6db827824a68a6ac6827b58fe7bdbc5e80f54f12667c8fc3ca52444c755857ff",
+    "obligation_registry_sha256": "835c25962fef6c3e2b71b56e7a8a6d3406fc4465e6aff391f4e2e5cec332fd8f",
+    "typed_graphs_sha256": "ef3d21da6a49e32d572bc7aa0d6feb6706d0b6ac2bcf2c8a56ec2c46f9dd0649",
+    "proof_record_sha256": "25af1770a93362f58c9e9149cd27a8e1b4fe46a00a5835b977360b76a8fa8b0d",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "toolchain": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; Lake 5.0.0-src+98dc76e",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "network": "not used by validation commands; host-level denial not established",
+    "dependency_cache": "pre-existing shared canonical pinned .lake symlink; warm, clean, and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1289/check_validation.py"],
+    "env_allowlist": {"ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_statement_conditional_composition_positivity_and_smoothness",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "frozen_hashes_and_denominator": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "locally_checked_obligation_ids": ["M1289-C-BUBBLE", "M1289-L-POS", "M1289-L-SMOOTH", "M1289-T-ASSEMBLE"],
+    "checked_composition": "Stage1Instances.THM_M_1289.aubinTalentiTarget_of_components",
+    "checked_partial_composition": "Stage1Instances.THM_M_1289.aubinTalentiTarget_of_remaining_components",
+    "root_kernel_closed": false,
+    "minimal_mathematical_open_root_cut_set": ["M1289-L-PDE", "M1289-L-FUN-NORM", "M1289-L-GRAD-NORM", "M1289-T-EXTREMAL"],
+    "structured_state_freshness": "fail_closed: typed-graphs.json predates Proof.lean and also lists M1289-L-POS and M1289-L-SMOOTH open",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The exact root is not kernel-closed: the PDE, function-norm finiteness, gradient-norm finiteness, and sharp-extremal components remain explicit premises.",
+    "The frozen typed graph predates Proof.lean and still lists positivity and smoothness in the root cut; only the master may reconcile authoritative structured state.",
+    "The proof dependency has provisional worker evidence but no master acceptance receipt in this clone.",
+    "The run reused shared warm .lake artifacts and is not the section 10.6 clean empty-cache hermetic replay or offline restoration.",
+    "No independently implemented validation route, distinct verifier identity, independently provisioned checkout, or separate dependency cache exists.",
+    "Complete transitive TCB/SBOM/license evidence, H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "exact_root.kernel_closure",
+  "first_failed_release_gate": "hermetic.cold_empty_cache",
+  "retry_condition": "Prove the four remaining exact analytic components, reconcile authoritative typed state, then validate an immutable clean snapshot with empty caches, offline restoration, complete trust/provenance evidence, and a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "replace and revoke through the master integration lane on input, pin, axiom, graph, validator, or policy drift"
+  },
+  "invalidation_inputs": [
+    "validation-spec.json", "check_validation.py", "Statement.lean", "ObligationTree.lean",
+    "Proof.lean", "statement.json", "obligation-registry.json", "typed-graphs.json", "proof.json",
+    "Lean toolchain", "mathlib revision or worktree", "foundation/TCB policy", "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested nonrelease worker evidence for narrow partial kernel, trust, and local provenance validation. It is not root closure, hermetic or distinct-runner evidence, accepted M0, theorem completion, release, or master acceptance."
+}
