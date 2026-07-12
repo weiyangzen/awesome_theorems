@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0994-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0994",
+  "depends_on": "S56-M-0994-STATEMENT",
+  "canonical_target": "Stage1Instances.THM_M_0994.HoeffdingTarget",
+  "base_revision": "28bf820a9c304cb6e04fd040a0d3384d9ac0b15d",
+  "discovery_scope": {
+    "repo_local": "all repo-local Lean sources queried for Hoeffding and the two candidate declaration names",
+    "mathlib": {
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "source_sha256": "1261993867efbddb6781a6ce9d0855335fab6891f819062ac83b8d9f6d94c440",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+    },
+    "external_pinned_projects": [
+      {
+        "surface": "all non-mathlib packages already present at immutable revisions in lake-manifest.json",
+        "result": "no Hoeffding or candidate-declaration occurrence in Lean or Markdown sources"
+      }
+    ],
+    "query_terms": [
+      "Hoeffding",
+      "hasSubgaussianMGF_of_mem_Icc",
+      "measure_sum_ge_le_of_iIndepFun"
+    ],
+    "external_search_limit": "No moving dependency was fetched. The external audit is complete for the repository's immutable Lake dependency closure, not an exhaustive claim about every public Lean repository."
+  },
+  "candidates": [
+    {
+      "candidate_id": "MATHLIB-HOEFFDING-COMPOSITION",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declarations": [
+        "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc",
+        "ProbabilityTheory.HasSubgaussianMGF.measure_sum_ge_le_of_iIndepFun"
+      ],
+      "source_lines": ["780-786", "842-868"],
+      "checked_wrapper": "Stage1Instances.THM_M_0994.mathlibCandidateProxy",
+      "type_relationship": "The checked wrapper has the canonical domains, binders, hypotheses, centered event, and epsilon condition. Its bound uses mathlib's NNReal proxy sum ((nnnorm (b_i-a_i)/2)^2); algebraic and zero-denominator transport to the exact Real denominator remains open.",
+      "terminal_provenance": "measure_sum_ge_le_of_iIndepFun composes sum_of_iIndepFun with HasSubgaussianMGF.measure_ge_le; each centered coordinate is supplied by hasSubgaussianMGF_of_mem_Icc and its pinned source body.",
+      "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe marker in the audited declaration bodies or audit wrapper",
+      "dependency_feasibility": "already pinned by lake-manifest.json and elaborated with the existing cache",
+      "classification": "exact_semantic_anchor_with_open_proxy_transport",
+      "eligible_for_later_proof_phase": true
+    },
+    {
+      "candidate_id": "REPO-LEGACY-S1-M-274",
+      "repository": "this repository",
+      "revision": "28bf820a9c304cb6e04fd040a0d3384d9ac0b15d",
+      "module": "AwesomeTheorems.Stage1.S1_M_274",
+      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_274.lean",
+      "source_sha256": "2ef7e11a3034b0fafb8d4a3b2353e7168525986c814783c564eee4144b342c4d",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_274.hoeffding_upper_tail",
+      "type_relationship": "finite initial-segment wrapper over the same proxy, rather than the frozen arbitrary Fintype target",
+      "terminal_provenance": "delegates to the same two pinned mathlib bodies; not a distinct terminal proof body",
+      "classification": "legacy_local_wrapper_discovery_input",
+      "rev56_credit": "none in this audit phase"
+    }
+  ],
+  "audit_result": "Pinned mathlib supplies a directly compositional Hoeffding anchor, exact through the variance-proxy conclusion. A historical local wrapper uses the same terminal bodies. No distinct candidate exists in the immutable external dependency closure.",
+  "machine_debt": "M1: a pinned feasible candidate is checked, but the exact canonical root is not credited until the NNReal proxy is transported to sum_i (b_i-a_i)^2, including the zero-width boundary, and a later proof node is accepted.",
+  "human_debt": "H2: the Hoeffding 1963 Theorem 2 citation remains unverified against a stable scan and errata.",
+  "readability_debt": "R3: candidate provenance and the open bridge are documented, but no reviewed readable proof reconstruction exists.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "Anchor audit only. No obligation tree, proof-node acceptance, H0, R0, release validation, or theorem-completion claim is made."
+}
