@@ -38,3 +38,12 @@ type. No theorem completion is claimed.
 The commands and exact results for this intake are recorded in
 `validation.md`. They validate target membership, repository structure, JSON
 syntax, and dossier hygiene only. Master acceptance remains outstanding.
+
+## Statement phase
+
+The ambiguity is now resolved for the statement node by the second repository entry, which names
+the existence of a seven-dimensional exotic sphere, and Milnor's cited homeomorphic-to-the-7-sphere
+result. `Statement.lean` freezes the exact target as existence of a smooth seven-manifold
+homeomorphic, but not diffeomorphic, to the standard smooth seven-sphere. The target and four
+structural mutations elaborate under the pinned Lean environment. This is statement-only evidence:
+the root remains unproved and master acceptance is pending.

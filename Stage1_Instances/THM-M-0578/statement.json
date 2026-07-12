@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0578-STATEMENT",
+  "theorem_id": "THM-M-0578",
+  "lifecycle": "planned",
+  "canonical_statement": "There exists a smooth seven-manifold homeomorphic to the standard unit seven-sphere but admitting no diffeomorphism to that standard smooth sphere.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0578/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0578.MilnorExoticSphereTarget",
+    "elaborated_expression_sha256": "c9d29902fc3b1bd25c4a83aa5daaa4ce201798576d7b5e16e9bbc05e76a9d32c",
+    "statement_file_sha256": "676bf484e788d23f1eb58fd0a9e3dc36daf8d68b689d435ed21934da12d09a72"
+  },
+  "domain_and_universes": "M : Type; TopologicalSpace M; ChartedSpace (EuclideanSpace Real (Fin 7)) M; smoothness infinity; standard sphere Metric.sphere 0 1 in EuclideanSpace Real (Fin 8); Prop in Lean universe 0",
+  "ordered_binders": [
+    "M : Type",
+    "TopologicalSpace M",
+    "ChartedSpace (EuclideanSpace Real (Fin 7)) M",
+    "IsManifold 𝓘(Real, EuclideanSpace Real (Fin 7)) infinity M",
+    "M homeomorphic to Metric.sphere 0 1 in EuclideanSpace Real (Fin 8)"
+  ],
+  "hypotheses": [],
+  "conclusion": "The type of infinity-smooth diffeomorphisms from M to the standard smooth seven-sphere is empty.",
+  "direct_imports": ["Mathlib.Geometry.Manifold.PoincareConjecture"],
+  "minimal_import_justification": "This single pinned module is the narrow public mathlib surface that simultaneously supplies the smooth sphere instances, Homeomorph and Diffeomorph notation, and the exact Milnor statement candidate.",
+  "checked_transport": "Stage1Instances.THM_M_0578.milnorExoticSphereTarget_iff_pinnedCandidateSourceShape",
+  "pinned_source_declaration": "exists_homeomorph_isEmpty_diffeomorph_sphere_seven",
+  "pinned_source_relationship": "The mathlib declaration is proof_wanted, so it is statement discovery only and receives no proof credit. PinnedCandidateSourceShape is its direct local type expansion, and the checked iff is definitional. The dimension-seven/homeomorphic selection is supported by Milnor's cited 1956 result and the repository's second Milnor entry, 'existence of a seven-dimensional exotic sphere'.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0578/check_statement.py",
+    "killed": [
+      "changed dimension seven to six",
+      "removed the homeomorphism witness",
+      "removed the smooth-manifold instance",
+      "changed absence of diffeomorphisms to existence of a diffeomorphism"
+    ]
+  },
+  "degenerate_cases": "The target fixes dimension seven and the unit sphere in Real^8. It does not require orientation preservation: IsEmpty rules out every diffeomorphism. The explicit homeomorphism excludes a merely homotopy-equivalent non-homeomorphic witness.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact seven-dimensional statement with a direct pinned mathlib statement crosswalk and four structural mutations. It does not prove existence, credit mathlib's proof_wanted declaration, or supply dependent-node evidence."
+}

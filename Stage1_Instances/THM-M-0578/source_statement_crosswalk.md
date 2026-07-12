@@ -32,3 +32,17 @@ Source locators for discovery, not immutable evidence receipts:
 
 No `H0` claim is made. `H1` records a named primary proof source with an open
 exact-statement, premise, edition/hash, errata, and independent-review audit.
+
+## Statement-phase resolution
+
+The exact statement phase selects dimension seven and homeomorphism to the standard smooth
+seven-sphere. This is supported both by Milnor's cited title/result and by the repository's second
+entry for the same named theorem, whose statement is `七维怪球的存在` ("existence of a
+seven-dimensional exotic sphere"). It entails the first entry's homotopy-equivalence wording but
+does not replace the named theorem with a weaker arbitrary homotopy-sphere claim.
+
+The frozen Lean expression is
+`Stage1Instances.THM_M_0578.MilnorExoticSphereTarget` in `Statement.lean`. Pinned mathlib revision
+`8a178386ffc0f5fef0b77738bb5449d50efeea95` contains the identically shaped declaration
+`exists_homeomorph_isEmpty_diffeomorph_sphere_seven`, but marks it `proof_wanted`; consequently it
+confirms the encoding surface only and supplies no theorem-proof credit.
