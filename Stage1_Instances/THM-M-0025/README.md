@@ -49,3 +49,21 @@ exact pinned mathlib route is a self-tested `M0-W / E2` candidate but the accept
 `M3` until downstream proof, provenance/trust, composition, validation, and master-acceptance
 gates; and this dossier maps scope without reconstructing the proof. No accepted execution state,
 `E1`, audit completion, theorem completion, or master acceptance is claimed.
+
+## Obligation architecture
+
+Registry version 1 freezes 26 semantic obligations and seven separate typed graphs. The proof
+architecture expands the pinned terminal body through the finite-generation reduction, a
+well-founded minimum of leading-coefficient ideals, bounded-degree generators, and strong
+induction with low- and high-degree branches. The high-degree branch keeps its local derivation of
+`Nontrivial R` explicit, selects a bounded-degree polynomial with matching leading coefficient,
+and uses strict degree descent after cancellation. The two span inclusions and their final equality
+composition are distinct obligations.
+
+`ObligationTree.lean` kernel-checks only conditional transports between the exact anchor,
+finite-generation interface, and canonical root. It does not invoke or install
+`Polynomial.isNoetherianRing`. Internal source-body relations are open logical decompositions, not
+unchecked machine-closure certificates. The audited wrapper and instance alias are deduplicated to that one
+pinned terminal body. The accepted root remains `[H1, M3, R3]`; proof installation, primary-source
+review, readable reconstruction, transitive provenance and trust, validation, release, and master
+acceptance remain open.

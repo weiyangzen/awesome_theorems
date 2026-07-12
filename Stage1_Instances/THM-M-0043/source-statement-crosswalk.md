@@ -22,7 +22,7 @@ bibliography, definition, erratum, or reviewer that ties Hilbert in 1906 to this
 normal-matrix formulation. The attribution and date are therefore catalog identity fields, not an
 accepted primary-source citation.
 
-## Inspected authoritative source lead
+## Selected authoritative statement source
 
 Sheldon Axler, *Linear Algebra Done Right*, fourth edition, Section 7B, Theorem 7.31 (book pages
 246-247), "complex spectral theorem," states for a finite-dimensional complex inner-product space
@@ -31,24 +31,40 @@ respect to some orthonormal basis; and `V` has an orthonormal basis of eigenvect
 
 The official PDF at `https://linear.axler.net/LADR4e.pdf` was inspected on 2026-07-13 and had
 SHA-256 `45f821b6f51e1f6c42728db6254699d89c14c90fcdb2443c1341188672815d03`.
-The theorem is an authoritative modern source lead and matches the intended mathematical family.
-It is not a historically primary Hilbert source, does not by itself ratify the catalog attribution,
-and is phrased for operators and orthonormal bases rather than an explicit matrix unitary-conjugacy
-equation. No independent reviewer has admitted its definitions, proof boundary, errata, and exact
-matrix transport, so the current human status remains `H1`, not `H0`.
+The statement phase selects the implication from Axler 7.31(a) to 7.31(b): normality implies
+diagonal form in an orthonormal basis. This fixes complex scalars, finite dimension, the sole
+normality antecedent, and the one-way conclusion that the catalog gloss requests. It is not a
+historically primary Hilbert source and does not ratify the catalog attribution. No independent
+reviewer has admitted its definitions, proof boundary, errata, and full source genealogy, so the
+human status remains `H1`, not `H0`.
 
 ## Clause crosswalk
 
-| Repository phrase or candidate component | Required mathematical meaning | Prospective Lean surface | Intake status |
+| Repository phrase or source component | Frozen mathematical meaning | Lean surface | Statement status |
 |---|---|---|---|
-| "matrix" | a square matrix indexed by a finite type | `Matrix n n ℂ`, `[Fintype n]`, `[DecidableEq n]` | exact field and binders absent |
-| "normal" | commute with the conjugate transpose | `IsStarNormal A`, exposed by `isStarNormal_iff` | predicate available; source convention open |
-| "unitarily" | change by a unitary matrix or orthonormal basis | `Matrix.unitaryGroup n ℂ`, `Matrix.mem_unitaryGroup_iff` | API available; orientation open |
-| "diagonalizable" | existence of diagonal data and a unitary similarity equation | `Matrix.diagonal d` plus a unitary conjugation equation | witness and equality form absent |
-| Axler 7.31 | normal iff diagonal in an orthonormal basis over `ℂ` | matrix/linear-map and basis/unitary transports | strong source lead; transport unchecked |
+| "matrix" | a square matrix on a nonzero finite-dimensional space | `Matrix n n Complex`, `[Fintype n]`, `[DecidableEq n]`, `[Nonempty n]` | frozen; empty index excluded |
+| "normal" | commute with the conjugate transpose | `IsStarNormal A` | frozen sole antecedent |
+| "unitarily" | change by a unitary matrix | `U : Matrix.unitaryGroup n Complex` | frozen subtype witness |
+| "diagonalizable" | unitary similarity to a diagonal matrix | `A = U * Matrix.diagonal d * star U` | frozen canonical orientation |
+| Axler 7.31(a) to (b) | normal implies diagonal in an orthonormal basis over `Complex` | finite matrix/unitary encoding above | selected claim; source review remains H1 |
 | `已验证` | untrusted inventory label | no Lean declaration or proof body | explicitly rejected as evidence |
 
-## Pinned Lean boundary
+## Checked matrix transport
+
+`Statement.lean` freezes `SpectralTheoremTarget` with the two direct imports
+`Mathlib.Data.Complex.Basic` and `Mathlib.LinearAlgebra.UnitaryGroup`. The declaration
+`spectralTheoremTarget_iff_explicitUnitaryMembershipTarget` checks that carrying `U` as a unitary
+subtype is equivalent to carrying a matrix and its membership proof. The declaration
+`spectralTheoremTarget_iff_conjugatedDiagonalTarget` uses both unitary inverse identities to check
+the equivalence between `A = U * diagonal d * star U` and
+`star U * A * U = diagonal d`.
+
+The source is phrased using an orthonormal basis. For a fixed coordinate space, a matrix whose
+columns are that basis is unitary, and its change-of-basis equation has the second checked
+orientation above. The statement phase freezes this standard finite matrix encoding but does not
+claim a proof of Axler's spectral theorem or H0 historical/source fidelity.
+
+## Adjacent pinned candidate boundary
 
 At mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, module
 `Mathlib.Analysis.Matrix.Spectrum` provides `Matrix.IsHermitian.spectral_theorem`. Its type states
@@ -63,10 +79,10 @@ the unrelated `THM-M-1524` boundary. A bounded search found no finite normal-mat
 diagonalization declaration in repo-local Lean or pinned mathlib. That observation is intake
 discovery only, not an exhaustive anchor audit or proof of external absence.
 
-## First source gate
+## Remaining source gate
 
-The statement phase must preserve and independently review one lawful source edition, select the
-exact theorem and incorporated definitions, resolve the scalar field and Hilbert/1906 provenance,
-map every ordered binder, hypothesis, conclusion, equality convention, and boundary case, and then
-freeze and mutation-test the exact Lean expression. Until then the canonical mathematical and Lean
-targets remain null, no source-to-formal transport is credited, and the root remains H1/M3/R4.
+Independent review must still admit the Axler edition, incorporated definitions, proof boundary,
+errata status, and matrix/orthonormal-basis crosswalk, and must resolve the separate Hilbert/1906
+attribution. Those open source tasks keep the root at `H1`. The exact Lean statement, direct imports,
+two transports, expression fingerprint, and four mutation classes are now frozen at `M3`; no proof
+body or theorem-completion credit follows.

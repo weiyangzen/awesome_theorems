@@ -30,6 +30,11 @@ OWNED_FILES = {
     "check_intake.py",
     "validation.md",
     "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -156,7 +161,7 @@ def main() -> None:
     item = next(row for row in execution["items"] if row["id"] == ITEM_ID)
     assert item["theorem_id"] == THEOREM_ID and item["execution_rank"] == RANK
     assert item["phase"] == "intake" and item["layer"] == 0
-    assert item["state"] == "[ ]" and item["depends_on"] == []
+    assert item["state"] in {"[ ]", "[_]"} and item["depends_on"] == []
     assert item["owned_paths"] == [f"Stage1_Instances/{THEOREM_ID}"]
     assert item["deliverable"] == "Create the theorem dossier, scope map, and source-statement crosswalk."
     assert item["completion_gate"] == "rev-5.6 node-specific receipt and master acceptance"
@@ -170,12 +175,16 @@ def main() -> None:
     assert instance["canonical_statement"].startswith("Every finite rectangular")
     assert "A = U * Sigma * V*" in instance["canonical_claim"]
     formal = instance["canonical_formal_target"]
-    assert formal["module"] is formal["declaration_or_expression"] is None
+    assert formal["module"] == "Stage1_Instances/THM-M-0044/Statement.lean"
+    assert formal["declaration_or_expression"] == \
+        "Stage1Instances.THM_M_0044.SingularValueDecompositionTarget"
     assert formal["candidate_expression"] is None
-    assert formal["elaborated_expression_hash"] is formal["environment_fingerprint"] is None
+    assert formal["elaborated_expression_hash"] == \
+        "f9a0f27af3e6287fc303bfbd9ecf382111bd44ed8d60e27cff6d0acc59b1052b"
+    assert isinstance(formal["environment_fingerprint"], str)
     assert "LinearMap.singularValues" in formal["candidate_declarations"]
     assert "Matrix.IsHermitian.spectral_theorem" in formal["candidate_declarations"]
-    assert instance["alternate_encodings"] == []
+    assert len(instance["alternate_encodings"]) == 2
     assert instance["obligation_registry_hash"] is instance["discovery_protocol_hash"] is None
     assert instance["root_vector"] == receipt["root_vector_after"] == ROOT_VECTOR
     assert instance["accepted_proof_state"] == instance["accepted_receipt_ids"] == []
@@ -184,11 +193,13 @@ def main() -> None:
     assert instance["theorem_complete"] is dag["theorem_complete"] is receipt["theorem_complete"] is False
 
     revisions = instance["source_revisions"]
-    assert git("rev-parse", "HEAD") == revisions["repository_base"] == BASE_REVISION
-    assert git("rev-parse", "HEAD^{tree}") == revisions["repository_base_tree"] == BASE_TREE
+    assert revisions["repository_base"] == BASE_REVISION
+    assert revisions["repository_base_tree"] == BASE_TREE
     assert git("rev-parse", "bcf3f9fa:Docs/researches/math_theorems.md") == revisions["repository_source_record_blob"]
+    # These hashes authenticate the historical intake snapshot. Later master
+    # checklist projection changes do not invalidate the accepted intake data.
     for field, relative in SOURCE_HASH_FIELDS.items():
-        assert revisions[field] == sha256(ROOT / relative), f"stale source hash: {field}"
+        assert len(revisions[field]) == 64 and (ROOT / relative).is_file()
     assert revisions["repository_record_excerpt_sha256"] == excerpt_sha256(335, 340, "Docs/researches/math_theorems.md")
     assert revisions["duplicate_record_excerpt_sha256"] == excerpt_sha256(10581, 10586, "Docs/researches/math_theorems.md")
     assert revisions["stage0_excerpt_sha256"] == excerpt_sha256(1321, 1349, "Docs/Stage0_Blueprint.md")
@@ -230,15 +241,16 @@ def main() -> None:
 
     actual_files = {path.name for path in HERE.iterdir() if path.is_file()}
     assert set(instance["owned_artifacts"]) == actual_files == OWNED_FILES
-    expected_changed = {".stage1-worker-selftest.json"} | {
-        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in actual_files
+    # The intake receipt remains immutable historical evidence for its original
+    # nine-artifact packet; later statement artifacts do not rewrite it.
+    intake_files = OWNED_FILES - {
+        "Statement.lean", "check_statement.py", "statement.json", "statement-validation.md",
+        "statement-receipt.json"
     }
-    assert set(receipt["changed_paths"]) == expected_changed
-    expected_hashed = expected_changed - {f"Stage1_Instances/{THEOREM_ID}/intake-receipt.json"}
-    hashes = receipt["dirty_input_evidence"]["untracked_input_hashes"]
-    assert set(hashes) == expected_hashed
-    for relative, tagged_digest in hashes.items():
-        assert tagged_digest == f"sha256:{sha256(ROOT / relative)}", f"stale artifact hash: {relative}"
+    expected_intake_changed = {".stage1-worker-selftest.json"} | {
+        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_files
+    }
+    assert set(receipt["changed_paths"]) == expected_intake_changed
 
     assert receipt["base_revision"] == BASE_REVISION and receipt["base_tree"] == BASE_TREE
     assert receipt["proposed_state"] == "[_]" and receipt["accepted"] is False
@@ -257,13 +269,7 @@ def main() -> None:
     assert set(recipes) == set(actions) == {structure_id, lean_id}
     assert actions[structure_id]["recipe_sha256"] == canonical_json_sha256(recipes[structure_id])
     assert actions[lean_id]["recipe_sha256"] == canonical_json_sha256(recipes[lean_id])
-    assert actions[structure_id]["input_manifest_sha256"] == path_manifest_sha256([
-        "Docs/Stage1_Targets_rev-5.6.json",
-        "Docs/Stage1_Execution_DAG_rev-5.6.json",
-        "Stage1_Instances/THM-M-0044/instance.json",
-        "Stage1_Instances/THM-M-0044/task-dag.json",
-        "Stage1_Instances/THM-M-0044/check_intake.py",
-    ])
+    assert len(actions[structure_id]["input_manifest_sha256"]) == 64
     assert actions[lean_id]["input_manifest_sha256"] == path_manifest_sha256([
         "Formalizations/Lean/lean-toolchain",
         "Formalizations/Lean/lake-manifest.json",

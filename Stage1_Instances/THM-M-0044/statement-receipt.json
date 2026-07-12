@@ -1,0 +1,92 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0044-STATEMENT-local-20260713",
+  "item_id": "S56-M-0044-STATEMENT",
+  "theorem_id": "THM-M-0044",
+  "base_revision": "7e54c0fcaf9c0e53fa7afbbeb0a36218152f932c",
+  "base_tree": "80ece87e35401b07ba76abc36ea83440b5fa7f31",
+  "support_state": "provisional_worker_selftest",
+  "attestor": "stage1 rev-5.6 worker self-test; unsigned and not independent",
+  "validated_at": "2026-07-13",
+  "review_due": "before master acceptance or dependent anchor-audit work",
+  "accepted": false,
+  "release_grade": false,
+  "inputs": {
+    "statement_module": "Stage1_Instances/THM-M-0044/Statement.lean",
+    "statement_sha256": "29f45600f5bc00edbd42756c7dd70c8599cdf2f04f07a570eb9f4e9b3d30141c",
+    "validator_module": "Stage1_Instances/THM-M-0044/check_statement.py",
+    "validator_sha256": "7704881c26ea221e48819c94e6971c73ea9379dcd5a4c2616e8aa910acbc14e2",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "network": "not_used",
+    "worktree_classification": "nonrelease worker statement artifacts"
+  },
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0044.SingularValueDecompositionTarget",
+    "Stage1Instances.THM_M_0044.DirectFullSVDShape",
+    "Stage1Instances.THM_M_0044.singularValueDecompositionTarget_iff_directFullSVDShape",
+    "Stage1Instances.THM_M_0044.rclikeFullSVDShape_implies_target",
+    "Stage1Instances.THM_M_0044.zeroByNBoundary",
+    "Stage1Instances.THM_M_0044.mByZeroBoundary"
+  ],
+  "statement_fingerprint": "f9a0f27af3e6287fc303bfbd9ecf382111bd44ed8d60e27cff6d0acc59b1052b",
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0044-STATEMENT-RECIPE-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0044/Statement.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0
+    },
+    {
+      "recipe_id": "S56-M-0044-STATEMENT-RECIPE-MUTATIONS",
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "../../Stage1_Instances/THM-M-0044/check_statement.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0
+    }
+  ],
+  "validation_actions": [
+    {
+      "recipe_id": "S56-M-0044-STATEMENT-RECIPE-LEAN",
+      "exit_code": 0,
+      "output_summary": "printed the closed canonical Prop after all declarations and boundary proofs elaborated"
+    },
+    {
+      "recipe_id": "S56-M-0044-STATEMENT-RECIPE-MUTATIONS",
+      "exit_code": 0,
+      "output_summary": "expanded canonical SHA-256 f9a0f27a...b1052b; five distinct mutations; pinned mathlib revision confirmed"
+    }
+  ],
+  "mutation_result": "pass: removed nonnegativity, removed unitary constraints, changed scalar domain, changed binder scope, and excluded empty dimensions all produce distinct elaborated expressions",
+  "placeholder_scan": "pass",
+  "result": {
+    "statement_elaborated": true,
+    "theorem_proved": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "gate_state": "self_tested_pending_master_acceptance"
+  },
+  "known_failures": [
+    "master acceptance of S56-M-0044-STATEMENT is pending",
+    "independent admission/review of the Axler source, its nonzero-space and ordering boundary, and THM-M-1449 duplicate ownership remain open",
+    "no singular-value-decomposition proof body, anchor audit, obligation registry, proof validation, release evidence, audit completion, or theorem completion is claimed"
+  ],
+  "invalidation_inputs": [
+    "canonical proposition, convention, transport, mutation, or boundary change",
+    "Lean toolchain, direct import, dependency lock, or mathlib revision change",
+    "source review or THM-M-1449 duplicate decision that changes target ownership or scope",
+    "assurance profile, validator, or owned statement artifact change"
+  ],
+  "status_boundary": "Node-specific provisional statement evidence only; not an accepted receipt, proof receipt, release receipt, or theorem-completion receipt."
+}

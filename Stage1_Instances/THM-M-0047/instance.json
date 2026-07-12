@@ -1,0 +1,203 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0047",
+  "item_id": "S56-M-0047-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1087,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "LU分解定理",
+  "name_en": "LU decomposition theorem",
+  "canonical_name": "LU decomposition theorem family with unresolved pivot and hypothesis boundary",
+  "category": "代数学 / 线性代数",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "矩阵可分解为下三角与上三角矩阵之积",
+  "literal_source_claim_en": "A matrix can be decomposed as a product of a lower-triangular and an upper-triangular matrix.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "catalog_is_not_a_binder_complete_proposition_and_its_natural_unqualified_universal_unpivoted_reading_is_false;_no_corrected_LU_or_PLU_root_is_selected",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies no matrix domain, scalar class, shape, pivot or permutation convention, hypotheses, diagonal normalization, uniqueness clause, or boundary cases. Its universal unpivoted reading is refuted over the rationals by the 2 x 2 swap matrix. Adding a permutation or nonzero-pivot hypotheses would change the proposition, so selecting a corrected root at intake would invent or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Matrix.Block",
+      "Mathlib.LinearAlgebra.Matrix.Notation",
+      "Mathlib.LinearAlgebra.Matrix.Transvection"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_false_literal_universal_and_missing_source_scope",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_counterexample-and-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix square or rectangular matrices, ordered finite index types, scalar field or ring, universe levels, pivot conditions, and any rank or invertibility hypotheses.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-corrected existence statement for lower and upper triangular factors, possibly with a permutation and/or pivot hypotheses; exact equation, witness types, normalization, and uniqueness are unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a corrected proposition is selected; the statement phase must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "unpivoted A = L * U under nonzero leading-principal-minor or pivot hypotheses",
+    "pivoted P * A = L * U for arbitrary square matrices over a field",
+    "a differently oriented A = P * L * U or LUP factorization",
+    "rectangular rank-revealing or elimination-based LU variants",
+    "existence plus uniqueness after unit-diagonal normalization"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero and one dimensional index types",
+    "zero, singular, and invertible matrices",
+    "zero pivots and matrices requiring row permutations",
+    "rectangular, tall, wide, and rank-deficient matrices",
+    "nonunique factors and unit lower versus unit upper normalization",
+    "rings with zero divisors versus fields or division rings"
+  ],
+  "excluded_substitutions": [
+    "a pivoted PLU or LUP theorem silently replacing unpivoted LU",
+    "an unpivoted theorem under unstated leading-minor or pivot hypotheses",
+    "Gaussian elimination or row-echelon form alone",
+    "transvection-diagonal-transvection factorization",
+    "Schur, QR, or Cholesky decomposition",
+    "determinant multiplicativity or triangular determinant formulas",
+    "fixed-dimension numerical examples or approximate floating-point factorizations",
+    "a structure or hypothesis storing the desired factors",
+    "the catalog's untrusted verified label or the intake probe as corrected-root proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0045",
+      "name": "舒尔分解定理",
+      "relationship": "unitary triangularization is a distinct similarity theorem"
+    },
+    {
+      "theorem_id": "THM-M-0046",
+      "name": "QR分解定理",
+      "relationship": "orthogonal-times-upper-triangular factorization is not LU"
+    },
+    {
+      "theorem_id": "THM-M-0048",
+      "name": "柯西-比内公式",
+      "relationship": "a determinant formula for matrix products does not construct LU factors"
+    },
+    {
+      "theorem_id": "THM-M-1446",
+      "name": "LU分解",
+      "relationship": "separate numerical-analysis catalog record; possible duplicate identity and all evidence remain independently governed"
+    }
+  ],
+  "source_status": "H1_Turing_1948_primary_LDU_proof_inspected_but_catalog_omits_principal_minor_hypothesis_and_exact_domain_transport_errata_and_independent_review_remain_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "A. M. Turing, Rounding-off Errors in Matrix Processes, The Quarterly Journal of Mechanics and Applied Mathematics 1(1), 1948, 287-308, DOI 10.1093/qjmam/1.1.287",
+      "candidate_locator": "King's College, Cambridge Turing Digital Archive AMT/B/18 PDF observed 2026-07-13; sha256 4762fc6d01628be3282d336e6fc080be6b34cc0d75d6e70542afa98b23e272d3",
+      "candidate_summary": "Section 3, journal pages 289-290, defines triangular/unit triangular matrices and proves unique A = L D U under nonsingular principal-minor hypotheses",
+      "inspection_status": "primary proof inspected; exact principal-minor terminology, scalar/domain conventions, LDU-to-LU transport, errata/correction audit, preservation policy, and independent review remain open; not H0"
+    },
+    {
+      "citation": "Robert van de Geijn and Margaret Myers, Advanced Linear Algebra: Foundations to Frontiers, online Section 5.2.3, Definitions 5.2.3.1-2 and Theorem 5.2.3.4",
+      "candidate_locator": "https://www.cs.utexas.edu/~flame/laff/alaff/chapter05-lu-factorization-def.html observed 2026-07-13; sha256 15fc81a54356635a5311a50c0373d1c3e9ad5b384b7d2770906aba2f52bff9b3",
+      "candidate_summary": "for full-column-rank complex m x n matrices, unique unpivoted LU exists iff all principal leading submatrices are nonsingular; Section 5.3.3 separately gives partial pivoting P A = L U",
+      "inspection_status": "inspected modern source lead; mutable web source not cited by the catalog, no accepted correction/transport or independent review, and not H0"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Block",
+      "declaration": "Matrix.BlockTriangular",
+      "boundary": "upper and lower triangular predicates and closure/determinant infrastructure only; no factor-existence theorem"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Transvection",
+      "declaration": "Matrix.Pivot.exists_list_transvec_mul_diagonal_mul_list_transvec",
+      "boundary": "Gaussian pivot reduction to transvections and a diagonal matrix, not the catalog LU or a source-approved PLU theorem"
+    },
+    {
+      "module": "Stage1_Instances.THM-M-0047.IntakeProbe",
+      "declaration": "thmM0047_swap_not_lower_mul_upper",
+      "boundary": "repo-local checked counterexample to the false literal universal reading; it does not prove a corrected target"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, field/ring assumptions, finite index order, pivot selection, and permutation witnesses remain open until an approved corrected proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact target imports, terminal declarations, transitive dependencies, and trust policy remain open; the intake counterexample is checked separately",
+  "computation_profile": "No floating-point LU routine, oracle, experiment, unchecked certificate, or numerical residual is credited; the intended corrected theorem requires kernel-checked algebra",
+  "formal_system": "Lean 4 + mathlib adapter under machine-theorem-assurance/1.0; no corrected canonical target is encoded",
+  "source_revisions": {
+    "repository_base": "7e54c0fcaf9c0e53fa7afbbeb0a36218152f932c",
+    "repository_base_tree": "80ece87e35401b07ba76abc36ea83440b5fa7f31",
+    "repository_record": "Docs/researches/math_theorems.md:356-361",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1402-1427",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "47b6b1f8847369db69b034fa18d58a8edb0c857d7e4ec691436418cb5970c12a",
+    "execution_dag_sha256": "c62868b81cf74e4f695115f2bfd69d2fec5b944fa126e71ae09ea9f6fceeeb35",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "matrix_block_source_sha256": "bdbdc046f6f10fdd634028259bbaae5dce9da670d8b95e37950f0a39390e3762",
+    "matrix_notation_source_sha256": "d48c434ba4ac709b00f07f88b340d9cdbe017c998fb545caf1cace4b43894184",
+    "matrix_transvection_source_sha256": "edd3aba3ce58ff197b3daceb43a56333eebe2bba59dabf08c9a6f19400c0a0b6",
+    "inspected_alaff_section_5_2_3_html_sha256": "15fc81a54356635a5311a50c0373d1c3e9ad5b384b7d2770906aba2f52bff9b3",
+    "inspected_turing_archive_amt_b_18_pdf_sha256": "4762fc6d01628be3282d336e6fc080be6b34cc0d75d6e70542afa98b23e272d3"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0047/README.md",
+    "Stage1_Instances/THM-M-0047/instance.json",
+    "Stage1_Instances/THM-M-0047/scope-map.md",
+    "Stage1_Instances/THM-M-0047/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0047/task-dag.json",
+    "Stage1_Instances/THM-M-0047/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0047/check_intake.py",
+    "Stage1_Instances/THM-M-0047/validation.md",
+    "Stage1_Instances/THM-M-0047/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source-edition or errata finding, LU/PLU selection, matrix domain, scalar, shape, index, pivot, permutation, normalization, uniqueness or boundary convention, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-0047/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, its checked counterexample, source and formal leads, proposition-changing repairs, exclusions, and open task DAG. No corrected canonical proposition, accepted source, exact-root proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

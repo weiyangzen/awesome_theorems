@@ -1,0 +1,125 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0043-STATEMENT",
+  "theorem_id": "THM-M-0043",
+  "execution_rank": 1083,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "intake_gloss_disambiguated_by_axler_complex_spectral_theorem_statement_frozen_source_fidelity_review_open",
+  "canonical_statement": "For every square complex matrix indexed by a nonempty finite type, if the matrix is normal, then it is a unitary conjugate of a diagonal complex matrix.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0043/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0043.SpectralTheoremTarget",
+    "elaborated_expression_sha256": "a46ee23911b8027aa5de93149fd781def441429e386cb9181fc2064b2898557a",
+    "statement_file_sha256": "d2e524169f6c8a4e8d11b5c33eb3c218a62531966953150b3ec77b9a0f9e0d9c"
+  },
+  "domain_and_universes": "universe u; n : Type u; Fintype n; DecidableEq n; Nonempty n; A : Matrix n n Complex; target Prop in universe 0",
+  "ordered_binders": [
+    "n : Type u (universal)",
+    "[Fintype n] (implicit instance)",
+    "[DecidableEq n] (implicit instance)",
+    "[Nonempty n] (implicit instance)",
+    "A : Matrix n n Complex (universal)",
+    "IsStarNormal A (antecedent)",
+    "U : Matrix.unitaryGroup n Complex (existential)",
+    "d : n -> Complex (existential)"
+  ],
+  "hypotheses": [
+    "IsStarNormal A, whose star_comm_self field is star A * A = A * star A"
+  ],
+  "conclusion": "There exist U : Matrix.unitaryGroup n Complex and d : n -> Complex such that A = (U : Matrix n n Complex) * Matrix.diagonal d * star (U : Matrix n n Complex).",
+  "direct_imports": [
+    "Mathlib.Data.Complex.Basic",
+    "Mathlib.LinearAlgebra.UnitaryGroup"
+  ],
+  "minimal_import_basis": "The first import supplies Complex and its star-ring structure; the second supplies the matrix unitary group, conjugate-transpose matrix star, matrix multiplication, and diagonal. Removing either direct import makes Statement.lean fail, while no aggregate Mathlib or spectral-theorem module is imported.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0043.ExplicitUnitaryMembershipTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0043.spectralTheoremTarget_iff_explicitUnitaryMembershipTarget",
+      "boundary": "Expands the unitary subtype witness into an explicit matrix membership proof without changing the root equation."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0043.ConjugatedDiagonalTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0043.spectralTheoremTarget_iff_conjugatedDiagonalTarget",
+      "boundary": "Checks the equivalent change-of-orthonormal-basis orientation star U * A * U = Matrix.diagonal d using both unitary inverse equations."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "Axler's stronger three-way equivalence, rather than the catalog's one-way implication",
+    "an orthonormal eigenbasis packaged as operator data without a checked matrix representation",
+    "a generic RCLike theorem or a real orthogonal diagonalization statement",
+    "the strict Hermitian specialization Matrix.IsHermitian.spectral_theorem"
+  ],
+  "degenerate_cases": {
+    "excluded": [
+      "empty finite index type and zero-by-zero matrix, matching Axler's standing nonzero-space convention"
+    ],
+    "included": [
+      "zero and identity matrices",
+      "repeated eigenvalues",
+      "singular normal matrices"
+    ],
+    "not_in_selected_domain": [
+      "real normal matrices, which need not be real-orthogonally diagonalizable"
+    ]
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "complex_basic_source_sha256": "b26f6e653e122ea18e2dc1f790e46f6e3218b23bacd5d6b441324f11277c978b",
+    "unitary_group_source_sha256": "0136abe584007ffe1b9e9b0016b792ed92bc2de36fa710e87af9cb87d0808f93",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "source_mapping": {
+    "source": "Sheldon Axler, Linear Algebra Done Right, fourth edition, Section 7B, Theorem 7.31, pages 246-247",
+    "source_sha256": "45f821b6f51e1f6c42728db6254699d89c14c90fcdb2443c1341188672815d03",
+    "selected_direction": "7.31(a) normal implies 7.31(b) diagonal matrix in some orthonormal basis",
+    "source_status": "H1 pending independent source/errata/crosswalk review and separate Hilbert/1906 provenance"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under the pinned mathlib environment. The two checked transports report only propext, Classical.choice, and Quot.sound; no custom axiom or root proof is introduced.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. This statement phase does not audit or credit imported proof bodies.",
+  "computation_profile": "No native computation, numerical approximation, experiment, oracle, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0043/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedNormalityHypothesis"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedScalarDomain"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationIncludedEmptyBoundary"
+      }
+    ],
+    "method": "Lean rejects each mutation as a term of the canonical target, and the validator confirms each fully explicit elaborated expression differs from the canonical expression."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration and two checked statement transports only. No spectral-theorem proof body is invoked or credited; H0 source review, anchor audit, obligation tree, proof, validation, release, audit completion, theorem completion, and master acceptance remain open."
+}

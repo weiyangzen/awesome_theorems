@@ -14,10 +14,11 @@ right star is transpose in the real case and conjugate transpose in the complex 
 in scope; uniqueness of the factors, numerical algorithms, conditioning, and low-rank approximation
 are not.
 
-This is a provisional theorem-family selection. The catalog does not choose the scalar field,
-matrix dimensions, full versus thin factorization, diagonal-padding convention, ordering of
-singular values, or exact meaning of `*`. The statement phase must ratify those choices against an
-admitted source and freeze the exact Lean proposition.
+The statement artifact freezes the intake-selected reading as a conjunction of the `Real` and
+`Complex` full rectangular matrix propositions over `Fin m` and `Fin n`. It uses square unitary
+factors, an explicit zero-padded rectangular diagonal with `min m n` nonnegative real entries, and
+matrix `star` for the right conjugate transpose. Ordering is not part of the catalog claim. Master
+acceptance and independent source/duplicate review remain pending.
 
 ## Source and formal boundary
 
@@ -34,8 +35,9 @@ adjoint, and unitary-matrix infrastructure. The bounded intake search found no t
 constructing both factors and proving `A = U * Sigma * Vᴴ`. `IntakeProbe.lean` authenticates only
 these adjacent interfaces; it is not the downstream anchor audit and gives no proof credit.
 
-The planned vector is `[H1, M3, R3]`: a published proof and source lead are known but exact source
+The planned vector remains `[H1, M3, R3]`: a published proof and source lead are known but exact source
 fidelity and independent review are open; useful formal definitions and prerequisite interfaces are
-present but no exact decomposition declaration is credited; and this dossier maps scope rather than
-reconstructing a proof. All six downstream tasks remain open. No accepted execution state, audit
-completion, theorem completion, or master acceptance is claimed.
+present and the exact target elaborates, but no decomposition proof is credited; and this dossier
+maps scope rather than reconstructing a proof. The statement node is self-tested pending master
+acceptance; all later tasks remain open. No accepted execution state, audit completion, theorem
+completion, or master acceptance is claimed.

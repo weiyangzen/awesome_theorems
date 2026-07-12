@@ -14,20 +14,20 @@
   "intake_score": 86,
   "name_zh": "谱定理",
   "name_en": "Spectral theorem",
-  "canonical_name": "Finite normal-matrix unitary diagonalization theorem (exact formulation open)",
+  "canonical_name": "Finite complex normal-matrix unitary diagonalization theorem",
   "category": "algebra / linear algebra",
   "target_lane": "hard_statement_first_partial_verification",
   "target_system": "Lean 4 + pinned mathlib",
   "literal_source_claim_zh": "正规矩阵可酉对角化",
   "literal_source_claim_en": "Normal matrices are unitarily diagonalizable.",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "recognizable_finite_normal_matrix_spectral_theorem_and_authoritative_modern_source_lead_but_scalar_domain_exact_source_form_attribution_and_matrix_transport_open",
-  "canonical_claim": null,
-  "statement_blocker": "The catalog does not fix the scalar field, finite index or zero-dimensional convention, conjugate-transpose and normality predicates, unitary convention, diagonal witness, equality orientation, or theorem direction. It also provides no source locator for the Hilbert/1906 attribution. Axler Theorem 7.31 supplies an authoritative complex operator-form lead, but its matrix transport and independent source review are open. Selecting a standard complex matrix proposition now would add unstated mathematics.",
+  "canonical_statement": "For every square complex matrix indexed by a nonempty finite type, if the matrix is normal, then it is a unitary conjugate of a diagonal complex matrix.",
+  "canonical_claim_status": "intake_gloss_disambiguated_by_axler_complex_spectral_theorem_statement_frozen_source_fidelity_review_open",
+  "canonical_claim": "For every nonempty finite index type n and A : Matrix n n Complex, if star A * A = A * star A, then there are a unitary U and diagonal entries d such that A = U * Matrix.diagonal d * star U.",
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0043/Statement.lean",
     "module_candidates": [
       "Mathlib.Analysis.Matrix.Spectrum",
       "Mathlib.Algebra.Star.SelfAdjoint"
@@ -36,20 +36,53 @@
       "IsStarNormal",
       "Matrix.IsHermitian.spectral_theorem"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0043.SpectralTheoremTarget",
+    "elaborated_expression_hash": "sha256:a46ee23911b8027aa5de93149fd781def441429e386cb9181fc2064b2898557a",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Data.Complex.Basic+LinearAlgebra.UnitaryGroup_pp-universes-explicit",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
-    "gate_state": "open_pending_exact_source_statement_scalar_domain_and_checked_matrix_transport"
+    "gate_state": "self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "Open: an exact source must fix complex or other scalar field, finite index type or dimension, square-matrix carrier, star operation, and all Lean universes and typeclasses.",
-  "quantifiers": [],
-  "ordered_binders": [],
-  "hypotheses": [],
-  "conclusion": "Prospective family only: a source-specified finite normal square matrix admits a source-specified unitary diagonalization. Exact witnesses, equality direction, and whether an equivalence is asserted remain open.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve the empty index type, zero-by-zero matrix, zero and identity matrices, repeated eigenvalues, singularity, and real normal matrices with nonreal eigenvalues.",
+  "domain_and_universes": "universe u; n : Type u with Fintype n, DecidableEq n, and Nonempty n; A : Matrix n n Complex; d : n -> Complex; U : Matrix.unitaryGroup n Complex; target Prop in universe 0.",
+  "quantifiers": [
+    "n : Type u (universal)",
+    "[Fintype n] (implicit instance)",
+    "[DecidableEq n] (implicit instance)",
+    "[Nonempty n] (implicit instance)",
+    "A : Matrix n n Complex (universal)",
+    "IsStarNormal A (antecedent)",
+    "U : Matrix.unitaryGroup n Complex (existential)",
+    "d : n -> Complex (existential)"
+  ],
+  "ordered_binders": [
+    "n : Type u",
+    "[Fintype n]",
+    "[DecidableEq n]",
+    "[Nonempty n]",
+    "A : Matrix n n Complex",
+    "IsStarNormal A",
+    "U : Matrix.unitaryGroup n Complex",
+    "d : n -> Complex"
+  ],
+  "hypotheses": [
+    "IsStarNormal A, whose star_comm_self field is star A * A = A * star A"
+  ],
+  "conclusion": "There exist U : Matrix.unitaryGroup n Complex and d : n -> Complex such that A = (U : Matrix n n Complex) * Matrix.diagonal d * star (U : Matrix n n Complex).",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0043.ExplicitUnitaryMembershipTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0043.spectralTheoremTarget_iff_explicitUnitaryMembershipTarget"
+    },
+    {
+      "target": "Stage1Instances.THM_M_0043.ConjugatedDiagonalTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0043.spectralTheoremTarget_iff_conjugatedDiagonalTarget"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "empty finite index type and zero-by-zero matrix, matching Axler's standing nonzero-space convention"
+  ],
+  "degenerate_case_status": "The empty finite index type and zero-by-zero matrix are excluded by Nonempty n, matching Axler's standing nonzero-space convention. Zero and identity matrices in positive dimension, repeated eigenvalues, and singular normal matrices are included. Real matrices are outside the selected complex domain.",
   "candidate_scope_not_credited": [
     "a finite square complex matrix A",
     "normality expressed by commutation of A with its conjugate transpose",
@@ -94,16 +127,16 @@
     }
   ],
   "source_revisions": {
-    "repository_base": "94f6abf9359f26384e0f68bef694dc5b9aae624c",
-    "repository_base_tree": "e0083f4f402c93febe4419b51498afa8ecf81c06",
+    "repository_base": "4ecdda4863162748b3ee70bc4ec842789418145d",
+    "repository_base_tree": "aace54662cd5e9ca38472011f41afdbffdedfa04",
     "repository_record": "Docs/researches/math_theorems.md:328-333",
     "stage0_projection": "Docs/Stage0_Blueprint.md:1294-1319",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
     "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
     "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "ae0055f65665bc05a0fa8ee2eed39566b036e65a2119be2fa6e4cecd5c1966a9",
-    "execution_dag_sha256": "d9506f42dd2de7f8a28e12b9e780931938d99fdc66f42a6698d4032b29a465d1",
+    "authoritative_blueprint_sha256": "ac1e8f01695fbc2f30703e66cf6e93c4cdd9abfb59e7f632ecfa23c3ff3a723e",
+    "execution_dag_sha256": "bfa7c48b46024cf928d3962f9a0caf382a6cb860a82fde504d5a0348ced6e19b",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -129,8 +162,8 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended; the adjacent Hermitian candidate reports propext, Classical.choice, and Quot.sound, but the accepted foundation profile and exact transitive closure remain open until the target is frozen",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, statement transport, terminal bodies, transitive dependencies, axioms, and trust closure remain open",
+  "foundation_profile": "Lean 4 dependent type theory under the pinned mathlib environment. The two checked statement transports report only propext, Classical.choice, and Quot.sound; no custom axiom or proof of the canonical target is introduced. Full transitive trust closure is downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The statement uses only Mathlib.Data.Complex.Basic and Mathlib.LinearAlgebra.UnitaryGroup as direct imports; proof bodies and their transitive trust closure are not credited here.",
   "computation_profile": "No computation, native oracle, experiment, or unchecked certificate is credited; the expected result is a structural finite-dimensional linear-algebra theorem",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -143,7 +176,13 @@
     "Stage1_Instances/THM-M-0043/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0043/check_intake.py",
     "Stage1_Instances/THM-M-0043/validation.md",
-    "Stage1_Instances/THM-M-0043/intake-receipt.json"
+    "Stage1_Instances/THM-M-0043/intake-receipt.json",
+    "Stage1_Instances/THM-M-0043/Statement.lean",
+    "Stage1_Instances/THM-M-0043/check_statement.py",
+    "Stage1_Instances/THM-M-0043/validate_statement_artifacts.py",
+    "Stage1_Instances/THM-M-0043/statement.json",
+    "Stage1_Instances/THM-M-0043/statement-receipt.json",
+    "Stage1_Instances/THM-M-0043/statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -160,7 +199,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "validate_statement_artifacts.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, finite-matrix and non-substitution boundary, authoritative modern source lead, and relevant pinned formal interfaces and strict special-case theorem. No canonical mathematical or Lean proposition, source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "The statement worker freezes and elaborates the exact finite complex normal-matrix target and two checked statement transports, pending master acceptance. It does not prove the spectral theorem or claim H0, M0, R0, audit completion, theorem completion, or master acceptance."
 }

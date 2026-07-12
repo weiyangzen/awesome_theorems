@@ -23,19 +23,19 @@
   "literal_source_claim_en": "Every matrix can be decomposed in U Sigma V* form.",
   "source_status_untrusted": "已验证",
   "canonical_statement": "Every finite rectangular real or complex matrix has a full singular value decomposition into square orthogonal or unitary left and right factors and a conforming rectangular diagonal factor with nonnegative real diagonal entries.",
-  "canonical_claim_status": "conventional_full_finite_rectangular_real_or_complex_scope_selected_at_intake_pending_pinpoint_source_duplicate_reconciliation_and_exact_lean_statement_gate",
+  "canonical_claim_status": "full_finite_rectangular_real_and_complex_proposition_frozen_and_elaborated_pending_master_statement_acceptance_and_independent_source_and_duplicate_review",
   "canonical_claim": "For each finite m-by-n matrix A over R or C, there exist square orthogonal or unitary matrices U and V and an m-by-n rectangular diagonal matrix Sigma with nonnegative real diagonal entries such that A = U * Sigma * V*.",
-  "statement_blocker": "The catalog supplies no source citation, scalar field, dimensions, factor shapes, unitary convention, rectangular-diagonal definition, ordering, zero-padding, star convention, or empty-dimension policy, and THM-M-1449 is a likely unresolved duplicate. Before accepting an exact Lean target, the statement phase must admit and independently review a pinpoint source, reconcile the duplicate, ratify every convention, then elaborate, fingerprint, transport, and mutation-test the result.",
+  "statement_blocker": "The exact Lean target, conventions, transports, mutations, and empty-dimension witnesses are self-tested. Master statement acceptance is pending; independent admission/review of the Axler source, its nonzero-space and ordering boundary, and reconciliation of likely duplicate THM-M-1449 remain source-governance blockers and prevent H0, not elaboration of the explicitly frozen proposition.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0044/Statement.lean",
     "module_candidates": [
       "Mathlib.Analysis.InnerProductSpace.SingularValues",
       "Mathlib.Analysis.InnerProductSpace.Spectrum",
       "Mathlib.Analysis.Matrix.Spectrum",
       "Mathlib.LinearAlgebra.UnitaryGroup"
     ],
-    "declaration_or_expression": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0044.SingularValueDecompositionTarget",
     "candidate_declarations": [
       "LinearMap.singularValues",
       "LinearMap.support_singularValues",
@@ -44,33 +44,40 @@
       "Matrix.mem_unitaryGroup_iff"
     ],
     "candidate_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_source_ratification_duplicate_reconciliation_canonical_elaboration_transports_and_mutation_tests",
+    "elaborated_expression_hash": "f9a0f27af3e6287fc303bfbd9ecf382111bd44ed8d60e27cff6d0acc59b1052b",
+    "environment_fingerprint": "Lean 4.29.0@98dc76e3; mathlib@8a178386; Complex.Basic and UnitaryGroup direct imports; full hashes in statement.json",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-axiom-probe-only"
   },
-  "domain_and_universes": "Intake-selected family: arbitrary finite row and column index types m and n and scalar k equal to R or C (possibly via RCLike), with A : Matrix m n k. Exact universes, decidable-equality and fintype binders, and whether real and complex cases share one root remain for the statement gate.",
+  "domain_and_universes": "Closed conjunction of Real and Complex roots; m n : Nat; A : Matrix (Fin m) (Fin n) K; helpers are universe-polymorphic and the exact root is Prop in universe 0.",
   "quantifiers": [
-    "k: real or complex scalar field",
-    "m: arbitrary finite row index type",
-    "n: arbitrary finite column index type",
-    "A: arbitrary matrix m-by-n over k",
-    "existential U, V, and Sigma of source-selected shapes"
+    "the Real case and the Complex case",
+    "m n : Nat",
+    "A : Matrix (Fin m) (Fin n) Real or Complex",
+    "existential square U and V and sigma : Fin (min m n) -> Real"
   ],
   "ordered_binders": [
-    "forall k and its real-or-complex field structure",
-    "forall finite row and column index types m and n",
-    "forall A : Matrix m n k",
-    "there exist U : Matrix m m k, V : Matrix n n k, and Sigma : Matrix m n k"
+    "the Real root followed by the Complex root",
+    "forall m n : Nat",
+    "forall A : Matrix (Fin m) (Fin n) K",
+    "there exist U : Matrix (Fin m) (Fin m) K, V : Matrix (Fin n) (Fin n) K, and sigma : Fin (min m n) -> Real"
   ],
-  "hypotheses": [
-    "k is R or C, provisionally represented by an RCLike field",
-    "m and n are finite and have decidable equality"
-  ],
+  "hypotheses": [],
   "conclusion": "U and V satisfy the selected orthogonal/unitary predicates; Sigma is rectangular diagonal with nonnegative real diagonal entries under the selected indexing convention; and A = U * Sigma * V* exactly.",
-  "alternate_encodings": [],
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0044.DirectFullSVDShape",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0044.singularValueDecompositionTarget_iff_directFullSVDShape"
+    },
+    {
+      "target": "Stage1Instances.THM_M_0044.RCLikeFullSVDShape",
+      "relationship": "implies",
+      "checked_witness": "Stage1Instances.THM_M_0044.rclikeFullSVDShape_implies_target"
+    }
+  ],
   "excluded_degenerate_cases": [],
-  "degenerate_case_status": "Empty row and column types and the zero matrix are provisionally included; no Nonempty, positive-dimension, full-rank, or invertibility premise is added. The statement phase must ratify and mutation-test every boundary described in scope-map.md.",
+  "degenerate_case_status": "Empty row and column dimensions and the zero matrix are included; zeroByNBoundary and mByZeroBoundary kernel-check the empty cases. No Nonempty, positive-dimension, full-rank, or invertibility premise is added.",
   "candidate_scope_not_credited": [
     "the orthonormal-list linear-map form from Axler Theorem 7.70",
     "thin or economy SVD indexed by min(m,n)",
@@ -185,7 +192,12 @@
     "Stage1_Instances/THM-M-0044/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0044/check_intake.py",
     "Stage1_Instances/THM-M-0044/validation.md",
-    "Stage1_Instances/THM-M-0044/intake-receipt.json"
+    "Stage1_Instances/THM-M-0044/intake-receipt.json",
+    "Stage1_Instances/THM-M-0044/Statement.lean",
+    "Stage1_Instances/THM-M-0044/check_statement.py",
+    "Stage1_Instances/THM-M-0044/statement.json",
+    "Stage1_Instances/THM-M-0044/statement-validation.md",
+    "Stage1_Instances/THM-M-0044/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -229,7 +241,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
   ],
-  "status_boundary": "Self-tested planned intake only. A conventional full finite rectangular real/complex scope, modern source lead, duplicate boundary, and pinned prerequisite interfaces are recorded, but no accepted source packet, exact Lean target, SVD proof body, or accepted receipt exists. No H0, M0, R0, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Planned intake plus a self-tested exact Lean statement proposal pending master acceptance. The closed Real-and-Complex target, direct expansion, stronger-form implication, mutations, and empty boundaries elaborate, but no accepted source packet, SVD proof body, or accepted receipt exists. No H0, M0, R0, audit completion, theorem completion, or master acceptance is claimed."
 }

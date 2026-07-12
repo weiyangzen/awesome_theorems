@@ -1,0 +1,76 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0044-STATEMENT",
+  "theorem_id": "THM-M-0044",
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite m-by-n real matrix and every finite m-by-n complex matrix, there exist square orthogonal or unitary matrices U and V and a conforming rectangular diagonal matrix whose min(m,n) real diagonal entries are nonnegative such that A = U * Sigma * V*.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0044/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0044.SingularValueDecompositionTarget",
+    "direct_expansion": "Stage1Instances.THM_M_0044.DirectFullSVDShape",
+    "elaborated_expression_sha256": "f9a0f27af3e6287fc303bfbd9ecf382111bd44ed8d60e27cff6d0acc59b1052b",
+    "statement_file_sha256": "29f45600f5bc00edbd42756c7dd70c8599cdf2f04f07a570eb9f4e9b3d30141c"
+  },
+  "domain_and_universes": "Closed conjunction of the Real and Complex cases; m n : Nat; A : Matrix (Fin m) (Fin n) K; the helper IsFullSVD is universe-polymorphic, while the exact root is Prop in universe 0.",
+  "ordered_binders": [
+    "real case, then complex case",
+    "m n : Nat",
+    "A : Matrix (Fin m) (Fin n) Real or Complex",
+    "U : Matrix (Fin m) (Fin m) K",
+    "V : Matrix (Fin n) (Fin n) K",
+    "sigma : Fin (Nat.min m n) -> Real"
+  ],
+  "hypotheses": [],
+  "conclusion": "There exist square U and V and real sigma such that U and V belong to their unitary groups, every sigma entry is nonnegative, and with Sigma(i,j) equal to the embedded sigma(i) when i.val = j.val and zero otherwise, IsRectangularDiagonal Sigma and A = U * Sigma * star V.",
+  "direct_imports": [
+    "Mathlib.Analysis.Complex.Basic",
+    "Mathlib.LinearAlgebra.UnitaryGroup"
+  ],
+  "minimal_import_evidence": "Complex.Basic supplies the closed Real and Complex scalar instances and real-to-complex coercion; UnitaryGroup supplies Matrix.unitaryGroup. The SingularValues and spectral modules are not required to state the target.",
+  "checked_transports": [
+    "Stage1Instances.THM_M_0044.singularValueDecompositionTarget_iff_directFullSVDShape (Iff.rfl)",
+    "Stage1Instances.THM_M_0044.rclikeFullSVDShape_implies_target"
+  ],
+  "alternate_encodings": {
+    "RCLikeFullSVDShape": "A strictly stronger open-class formulation. It is not the canonical root; its one-way checked implication specializes to Real and Complex.",
+    "thin_or_compact_svd": "Uncredited and not substituted for the full square-factor target.",
+    "linear_map_orthonormal_list": "Uncredited until a later phase provides a checked two-way transport with this full matrix representation."
+  },
+  "environment_fingerprint": {
+    "base_revision": "7e54c0fcaf9c0e53fa7afbbeb0a36218152f932c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true; canonical fingerprint uses the fully expanded DirectFullSVDShape rather than the opaque helper-root print"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0044/check_statement.py",
+    "validator_sha256": "7704881c26ea221e48819c94e6971c73ea9379dcd5a4c2616e8aa910acbc14e2",
+    "killed": [
+      "removed nonnegativity",
+      "removed both unitary-factor constraints",
+      "changed the closed real-and-complex domain to complex only",
+      "moved the real U and V witnesses outside the arbitrary-matrix binder",
+      "excluded zero row or column dimensions"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0044.zeroByNBoundary",
+      "Stage1Instances.THM_M_0044.mByZeroBoundary"
+    ]
+  },
+  "degenerate_cases": "Zero row dimensions, zero column dimensions, the zero matrix, rank-deficient matrices, repeated singular values, square matrices, row and column vectors, and tall and wide matrices remain admitted. No Nonempty, positive-dimension, rank, or invertibility premise is added.",
+  "source_boundary": "The intake-selected conventional full rectangular statement is frozen here. The Axler 4e source lead uses nonzero spaces and ordered singular values, so extension to empty dimensions and omission of ordering still require source-review acceptance; THM-M-1449 duplicate ownership also remains for master review. These issues do not create an elaboration ambiguity in the explicitly frozen proposition but block H0 and dependent source acceptance.",
+  "foundation_profile": "Lean 4 dependent type theory with classical matrix multiplication, the Real/Complex RCLike instances, and exact star-conjugate-transpose semantics; no numerical oracle or approximation.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib 8a178386; statement elaboration only, with no proof-body or transitive proof trust claim.",
+  "computation_profile": "Pure exact definitions and propositions; no floating-point SVD, residual test, native shortcut, oracle, or unchecked certificate.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact full finite rectangular Real-and-Complex target, checked direct expansion, stronger RCLike implication, structural mutations, and empty-dimension witnesses. It provides no SVD proof, H0 source acceptance, anchor, obligation-tree, theorem-completion, or master-acceptance evidence."
+}
