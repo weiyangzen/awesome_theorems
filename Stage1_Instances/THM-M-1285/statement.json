@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1285-STATEMENT",
+  "theorem_id": "THM-M-1285",
+  "depends_on": ["S56-M-1285-INTAKE"],
+  "lifecycle": "planned",
+  "canonical_statement": "For every positive dimension and every measurable ENNReal-valued function on Euclidean space whose positive strict superlevel sets have finite volume, there exists a measurable radial function nonincreasing in the radius whose positive strict superlevel sets have the same volume.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1285/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1285.SchwarzRearrangementTarget",
+    "elaborated_expression_sha256": "ffce741885f8c5eeb87a6dd893e7c5bf6ccc7a7f88fcc37e9fdd8750ab2d41ac",
+    "statement_file_sha256": "5b3e9ec5606263ee7aac7cd59ba0c7c91c1f8017ba41ada01f8c0327528ac5e6"
+  },
+  "domain_and_universes": "n : Nat; f and fstar : EuclideanSpace Real (Fin n) -> ENNReal; Prop in universe 0; canonical inner-product-space volume",
+  "ordered_binders": [
+    "n : Nat",
+    "0 < n",
+    "f : Euclidean n -> ENNReal",
+    "Measurable f",
+    "finite positive strict superlevel hypothesis",
+    "fstar : Euclidean n -> ENNReal (existential)"
+  ],
+  "hypotheses": [
+    "0 < n",
+    "Measurable f",
+    "for every t : ENNReal with 0 < t, volume {x | t < f x} is not infinity"
+  ],
+  "conclusion": "There exists measurable fstar that is constant at equal radii, nonincreasing as radius increases, and satisfies volume {x | t < fstar x} = volume {x | t < f x} for every positive t.",
+  "direct_imports": ["Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace"],
+  "minimal_import_evidence": "The sole direct import supplies EuclideanSpace, its measurable and canonical volume structures, and ENNReal measure values. Replacing it with Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar fails because the Euclidean measure-space instance is unavailable; no ball-volume theorem is needed by this statement.",
+  "checked_transport": "Stage1Instances.THM_M_1285.schwarzRearrangementTarget_iff_expandedTarget",
+  "alternate_encoding": "ExpandedTarget unfolds Equimeasurable at the witness use site; the checked iff is definitional and invokes no rearrangement result.",
+  "encoding_decisions": {
+    "euclidean_space": "EuclideanSpace Real (Fin n), excluding dimension zero explicitly",
+    "codomain": "ENNReal, so nonnegativity is intrinsic and infinity-valued representatives remain expressible",
+    "threshold": "positive strict superlevel sets {x | t < f x}",
+    "finiteness": "the measure is constrained to be unequal to ENNReal infinity at every positive threshold",
+    "radiality": "equal norm implies equal value",
+    "radial_monotonicity": "norm x <= norm y implies fstar y <= fstar x",
+    "equality_policy": "literal equality of distribution functions; the existential witness is pointwise, not an a.e. quotient"
+  },
+  "environment_fingerprint": {
+    "repository_base_revision": "0b1783610a62e88f5df9a118d9e9a0661c1fd0e9",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1285/check_statement.py",
+    "killed": [
+      "included dimension zero",
+      "removed finite-positive-superlevel hypothesis",
+      "changed strict superlevels to non-strict superlevels",
+      "removed radial monotonicity"
+    ]
+  },
+  "degenerate_case_policy": "Dimension zero is excluded. The zero function and functions differing on null sets remain in scope. Threshold zero is excluded, while threshold infinity is harmless and included by the universal positive-threshold binder. Infinite-measure positive superlevel sets are excluded.",
+  "foundation_profile": "Lean 4 dependent type theory at the statement gate; the definitional transport uses no classical choice.",
+  "tcb_profile": "Lean kernel, pinned Lean 4.29.0 executable, and pinned mathlib revision; existing canonical .lake artifacts reused without mutation.",
+  "computation_profile": "Prop-only noncomputational target and definitional transport.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates only the least-broadened existence and equimeasurability target selected at intake. It does not construct the rearrangement, inspect or credit a proof body, accept a human source, or claim theorem completion."
+}
