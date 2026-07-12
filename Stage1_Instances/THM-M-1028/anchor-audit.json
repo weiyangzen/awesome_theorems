@@ -1,0 +1,79 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1028-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1028",
+  "base_revision": "cb017427b2aed4af4881826839e21a102a224cbf",
+  "audit_date": "2026-07-12",
+  "canonical_target": "AwesomeTheorems.Stage1.THM_M_1028.Statement",
+  "canonical_target_expression_sha256": "b2b4d22cf67e788a83c50a50a8510737e5c3a82f972be439f3c5f3d27cdfbf40",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M1028-A-MATHLIB-GAUSSIAN",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Basic",
+      "declarations": [
+        "ProbabilityTheory.IsGaussianProcess.congr",
+        "ProbabilityTheory.IsGaussianProcess.hasGaussianLaw_increments"
+      ],
+      "classification": "M0-P",
+      "result": "checked Gaussian-process modification and finite-increment Gaussianity infrastructure; it neither constructs a continuous modification nor proves nowhere differentiability"
+    },
+    {
+      "id": "M1028-A-MATHLIB-KOLMOGOROV",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Process.Kolmogorov",
+      "declarations": [
+        "ProbabilityTheory.IsKolmogorovProcess",
+        "ProbabilityTheory.IsAEKolmogorovProcess",
+        "ProbabilityTheory.IsAEKolmogorovProcess.mk",
+        "ProbabilityTheory.IsAEKolmogorovProcess.ae_eq_mk"
+      ],
+      "classification": "M0-P",
+      "result": "checked moment-condition and coordinatewise-modification infrastructure; this pinned module has no continuity constructor and no Brownian nowhere-differentiability theorem"
+    },
+    {
+      "id": "M1028-A-BROWNIAN-MOTION",
+      "source": "RemyDegenne/brownian-motion",
+      "revision": "bdf5ea0c34f9e6d75bce5f0609a968d6e9e99e8e",
+      "module": "BrownianMotion.Gaussian.BrownianMotion",
+      "declarations": [
+        "ProbabilityTheory.IsPreBrownianReal.exists_continuous_modification",
+        "ProbabilityTheory.IsPreBrownianReal.mk",
+        "ProbabilityTheory.IsPreBrownianReal.continuous_mk",
+        "ProbabilityTheory.isBrownianReal_brownian"
+      ],
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "license": "Apache-2.0",
+      "classification": "M0-P candidate from immutable source inspection; not locally kernel checked",
+      "result": "supplies Brownian construction and continuous-modification results over NNReal; its 25-module local import closure contains no sorry or axiom token, but unrelated project modules do contain sorry and no transitive kernel/axiom report was run. No nowhere-differentiability declaration was found, so it cannot close the exact root; its toolchain and mathlib pins also differ from the repository",
+      "source_sha256": "60418ac9f3e5e05c32d17b91e622e5b30cc203e666a0d1b722272feafae0aecc"
+    }
+  ],
+  "search": {
+    "repo_local": "audited the frozen Statement.lean and historical S1_M_221.lean discovery boundary; the latter packages desired conclusions as fields and provides no root proof",
+    "pinned_dependencies": "searched all Lean sources under the manifest-pinned packages for Brownian, Wiener, Kolmogorov continuity, and nowhere differentiability; checked the strongest mathlib declarations with Lean",
+    "external": "GitHub repository search identified RemyDegenne/brownian-motion; immutable raw sources, toolchain, manifest, license, and declarations were inspected. The 25 local modules transitively imported by BrownianMotion.Gaussian.BrownianMotion contain no sorry or axiom token; unrelated project modules do contain sorry and receive no proof credit",
+    "limitations": "no external dependency was fetched, added, or locally built; the external candidate has a different dependency closure and was source-audited only"
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "pinned mathlib supplies only foundational Gaussian and Kolmogorov predicates; the external project reaches continuous Brownian modifications but has no nowhere-differentiability endpoint, and no audited candidate has the frozen root type",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "derive the Brownian increment moment condition and integrate a continuous modification in the frozen real/Ici representation",
+      "prove almost-sure nowhere DifferentiableWithinAt at every nonnegative time",
+      "combine both path properties on one full-measure event"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false
+}
