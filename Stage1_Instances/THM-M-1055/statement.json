@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1055-STATEMENT",
+  "theorem_id": "THM-M-1055",
+  "lifecycle": "planned",
+  "canonical_statement": "On every probability space, for every ergodic self-transformation T and every integrable real observable f, the Birkhoff averages of f along T converge almost everywhere to the integral of f.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1055/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1055.BirkhoffErgodicTarget",
+    "elaborated_expression_sha256": "8d7956f1f5f46ae435293eef17df7881f26d9c18fad6ac54c870e232cdb26181",
+    "statement_file_sha256": "a4caeaa6d5e09ea935d38a9b8e202854a43d430fe365368e78e2027d49dc2625"
+  },
+  "domain_and_universes": "Omega : Type u; MeasurableSpace Omega; mu : Measure Omega; T : Omega -> Omega; f : Omega -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "mu : Measure Omega",
+    "[IsProbabilityMeasure mu]",
+    "T : Omega -> Omega",
+    "f : Omega -> Real"
+  ],
+  "hypotheses": ["Ergodic T mu", "Integrable f mu"],
+  "conclusion": "for mu-almost every x, Tendsto (fun n : Nat => birkhoffAverage Real T f n x) atTop (nhds (integral f mu))",
+  "boundary_semantics": {
+    "transformation": "Mathlib Ergodic includes measurable measure preservation and pre-ergodicity.",
+    "averages": "Mathlib birkhoffAverage averages k in Finset.range n and assigns zero at n = 0; this initial value is irrelevant to atTop convergence.",
+    "normalization": "IsProbabilityMeasure mu makes the unnormalized integral equal to the probability-space mean.",
+    "degenerate_spaces": "The universal target includes empty types when they carry the stated instances; no nonemptiness assumption is added.",
+    "equality_mode": "The conclusion is pointwise convergence on a mu-almost-everywhere set."
+  },
+  "direct_imports": [
+    "Mathlib.Dynamics.BirkhoffSum.Average",
+    "Mathlib.Dynamics.Ergodic.Ergodic",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "minimal_import_check": "Deleting each direct import separately makes elaboration fail respectively at birkhoffAverage, Ergodic, or integral notation/API.",
+  "checked_transport": "Stage1Instances.THM_M_1055.birkhoffErgodicTarget_iff_expandedTarget",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1055/check_statement.py",
+    "killed": [
+      "removed ergodicity hypothesis",
+      "removed integrability hypothesis",
+      "changed observable codomain from Real to Complex",
+      "changed the limit from the space integral to zero"
+    ]
+  },
+  "source_relationship": "This exact formal target implements the human claim frozen by the accepted intake. Primary-source wording and errata remain an H-status task and are not claimed here.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and kernel-elaborates the exact real-valued ergodic probability-space target only. It supplies no proof, anchor acceptance, source audit completion, or theorem-completion evidence."
+}

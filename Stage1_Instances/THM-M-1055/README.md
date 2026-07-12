@@ -4,7 +4,9 @@ This directory is the `planned` intake for the Birkhoff pointwise ergodic theore
 intended human claim as almost-everywhere convergence of time averages of an integrable observable
 under an ergodic probability-preserving transformation to its space mean.
 
-The legacy Lean module is discovery input only. Its `StatementShape` packages the desired limit and
-does not supply a proof, so it receives no rev-5.6 statement or proof credit. The provisional root
-vector is `[H2, M4, R4]`; no elaborated canonical target, audit completion, or theorem completion is
-claimed. The scope map, source crosswalk, and open task DAG define the downstream work.
+The statement phase now freezes and kernel-elaborates the direct almost-everywhere convergence
+target in `Statement.lean`, with minimal pinned mathlib imports and structural mutation checks. The
+legacy Lean module remains discovery input only: its `StatementShape` packages the desired limit
+and does not supply a proof. The provisional root vector remains fail-closed and no proof, audit
+completion, or theorem completion is claimed. The scope map, source crosswalk, statement record,
+and open task DAG define the downstream work.

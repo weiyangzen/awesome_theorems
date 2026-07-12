@@ -21,10 +21,11 @@ in `source_statement_crosswalk.md`.
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The first
-failed theorem gate is exact-source/statement identification. The source label
-names a theorem family but does not fix coefficient hypotheses, solution notion,
-or uniqueness relation. The dependent statement phase must freeze those choices
-without broadening the theorem. The theorem is not complete.
+failed theorem-completion gate is proof/integration closure. The statement phase
+has now frozen and elaborated the conservative finite-dimensional global-
+Lipschitz target in `Statement.lean`; see `statement.json` and
+`statement-validation.md`. Primary-source page-level review is still open, so
+no H0 claim is made. The theorem is not complete.
 
 ## Validation
 
