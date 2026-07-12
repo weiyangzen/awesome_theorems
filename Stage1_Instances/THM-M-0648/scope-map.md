@@ -21,13 +21,13 @@ The root theorem is a paired result with both clauses. Closing only one directio
 target. The intended language cardinal is the cardinality of its function and relation symbols, as
 defined by the selected source and mapped explicitly to mathlib's `FirstOrder.Language.card`.
 
-## Statement-phase decisions
+## Statement encoding decisions
 
-The next phase must freeze ordered binders, universe levels and every `Cardinal.lift`; decide whether
-the pair is represented by a conjunction/structure or by two declarations plus a checked assembly
-theorem; and elaborate the exact target using minimal imports. It must also cross-check whether the
-selected primary source absorbs `|A|` and `|L|` into `max(aleph_0, |A|, |L|)`, and whether its upward
-form states proper extension, elementary embedding, or elementary equivalence.
+`Stage1Instances.THM_M_0648.CanonicalTarget` represents the pair as a conjunction of named downward
+and upward propositions. Its ordered binders, universes, and cardinal lifts are frozen in
+`Statement.lean`; `canonicalTarget_iff_expanded` is the checked assembly expansion. The later source
+audit must still cross-check whether the selected primary source packages the lower bounds with a
+maximum and whether its upward terminology maps to the selected elementary-embedding encoding.
 
 Boundary cases requiring explicit treatment are `A = empty`, `kappa = aleph_0`, `kappa = |M|`, an
 empty language, finite `M` (excluded from the upward clause), and equality rather than strict growth

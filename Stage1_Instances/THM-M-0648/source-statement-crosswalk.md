@@ -26,12 +26,12 @@ edition/theorem/page and errata, and obtain independent review.
 | first-order language `L` | one-sorted finitary signature and its size convention | `FirstOrder.Language` and `L.card` | pinned API exists; source definition open |
 | downward ambient model | nonempty `L`-structure `M` | `[L.Structure M] [Nonempty M]` | pinned API exists |
 | distinguished set `A` | subset required to lie in the small model | `A : Set M`, `A subset N` | pinned API exists |
-| downward cardinal bounds | infinite `kappa`, `|A|, |L| <= kappa <= |M|` | cardinal inequalities with universe lifts | exact transport open |
-| downward conclusion | elementary substructure containing `A` of size `kappa` | `L.ElementarySubstructure M` and cardinal equality | candidate declaration probed |
+| downward cardinal bounds | infinite `kappa`, `|A|, |L| <= kappa <= |M|` | four explicit cardinal inequalities with universe lifts | canonical target elaborated; source mapping open |
+| downward conclusion | elementary substructure containing `A` of size `kappa` | `L.ElementarySubstructure M`, `A subset S`, lifted cardinal equality | canonical target elaborated; anchor audit open |
 | upward ambient model | infinite `L`-structure `M` | `[L.Structure M] [Infinite M]` | pinned API exists |
-| upward cardinal bounds | `|L|, |M| <= kappa` | cardinal inequalities with universe lifts | exact transport open |
-| upward conclusion | elementary extension of exact size `kappa` | bundled structure, `M` elementary-embeds into `N`, `#N = kappa` | candidate declaration probed |
-| paired theorem identity | both directions belong to this target | conjunction/package plus checked projections | formal assembly open |
+| upward cardinal bounds | `|L|, |M| <= kappa` | two explicit cardinal inequalities with universe lifts | canonical target elaborated; source mapping open |
+| upward conclusion | elementary extension of exact size `kappa` | bundled structure, `M` elementary-embeds into `N`, `#N = kappa` | canonical target elaborated; anchor audit open |
+| paired theorem identity | both directions belong to this target | conjunction plus checked `Iff.rfl` expansion | elaborated in `Statement.lean` |
 
 ## Existing Lean boundary
 
