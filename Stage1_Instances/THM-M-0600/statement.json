@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0600-STATEMENT",
+  "theorem_id": "THM-M-0600",
+  "lifecycle": "planned",
+  "canonical_statement": "For a smooth real-valued function near a nondegenerate critical point of a finite-dimensional real smooth manifold without boundary, there are centered smooth local coordinates in which the function is exactly its critical value plus a diagonal quadratic form with index many negative squares.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0600/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0600.MorseLemmaTarget",
+    "elaborated_expression_sha256": "6ba927d7712fa05ea04ff656eefe32d16a57a2c45f4aa49a30695b263b04911d",
+    "statement_file_sha256": "40dced107b293e5045af83deaabd2f898bdf16c4b6f4bced61b6a9fbef2b97dc"
+  },
+  "domain_and_universes": "universe u; n : Nat; M : Type u; a boundaryless smooth manifold modeled on Fin n -> Real",
+  "ordered_binders": [
+    "n : Nat",
+    "M : Type u",
+    "[TopologicalSpace M]",
+    "I : ModelWithCorners Real (Euclidean n) (Euclidean n)",
+    "[ChartedSpace (Euclidean n) M]",
+    "[IsManifold I top M]",
+    "f : M -> Real",
+    "p : M",
+    "base : SmoothLocalCoordinates M I p"
+  ],
+  "hypotheses": [
+    "the coordinate representative is ContDiffOn Real top on base.target",
+    "its Frechet derivative at zero is zero",
+    "its coordinate Hessian at zero is injective"
+  ],
+  "conclusion": "There exist index <= n and centered smooth local coordinates normal such that for every x in normal.target, f (normal.invFun x) = f p minus the squares in coordinates i < index plus the remaining squares.",
+  "direct_imports": ["Mathlib.Geometry.Manifold.ContMDiff.NormedSpace"],
+  "checked_transport": "Stage1Instances.THM_M_0600.morseLemmaTarget_iff_expandedTarget",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0600/check_statement.py",
+    "killed": [
+      "removed critical-point hypothesis",
+      "removed Hessian nondegeneracy hypothesis",
+      "weakened neighborhood equality to equality only at zero",
+      "reversed the quadratic-form sign convention"
+    ]
+  },
+  "degenerate_cases": "Dimension zero is included. The inequalities index <= n include local minima (index zero) and local maxima (index n). The local-coordinate target is an open neighborhood containing zero, so equality is not merely pointwise at the critical point.",
+  "foundation_profile": "Lean 4 dependent type theory; the statement itself uses no classical choice",
+  "computation_profile": "Noncomputable coordinate Hessian through fderiv; no computation is proof evidence",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact target and mutations elaborate with the pinned environment. No Morse lemma proof, anchor audit, H0, M0, audit completion, or theorem completion is claimed."
+}
