@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0534-STATEMENT",
+  "theorem_id": "THM-M-0534",
+  "lifecycle": "planned",
+  "canonical_statement": "Every short exact sequence of homological complexes in an arbitrary abelian category induces connecting morphisms for every adjacent pair of degrees, and the induced homology maps and connecting morphisms are exact at all three repeating positions of the continuing long sequence.",
+  "statement_selection": "The literal repository claim explicitly begins with a short exact sequence, so the general chain-complex theorem is the exact root. Pair and triple sequences are applications requiring extra topological constructions; an abstract homology-theory axiom would instead assume the claimed behavior.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0534/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0534.LongExactHomologySequenceTarget",
+    "elaborated_expression_sha256": "6846afc515ceb8a7479a074f21295620ef4f191bd0804e377b56ae37567b7677",
+    "statement_file_sha256": "a5478269a17d675f908f829cd58fb841e3192ee0f4cc4c6e31841155850ea8e3"
+  },
+  "domain_and_universes": "C : Type u with Category.{v} C and Abelian C; iota : Type w; c : ComplexShape iota; S : ShortComplex (HomologicalComplex C c)",
+  "ordered_binders": ["C", "category and abelian instances", "iota", "c", "S", "hS : S.ShortExact", "i", "j", "hij : c.Rel i j"],
+  "hypotheses": ["S.ShortExact", "c.Rel i j for each of the two connecting-map exactness positions"],
+  "conclusion": "Exactness of homologyMap S.f i followed by homologyMap S.g i for every i, and exactness on both sides of hS.delta i j hij for every related i and j.",
+  "direct_imports": ["Mathlib.Algebra.Homology.HomologySequence"],
+  "minimal_import_evidence": "The direct module defines the connecting map and its composition identities used in the target. The broader HomologySequenceLemmas intake import is unnecessary.",
+  "checked_transport": "Stage1Instances.THM_M_0534.longExactHomologySequenceTarget_iff_grouped",
+  "pinned_source_declarations": [
+    "CategoryTheory.ShortComplex.ShortExact.delta",
+    "CategoryTheory.ShortComplex.ShortExact.comp_delta",
+    "CategoryTheory.ShortComplex.ShortExact.delta_comp"
+  ],
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's abelian-category interfaces; this statement introduces no axiom declaration and does not inspect proof closure.",
+  "tcb_profile": "Pinned Lean kernel and pinned mathlib dependency graph; exact proof-body trust closure is deferred to downstream audit and validation.",
+  "computation_profile": "Noncomputable categorical homology and connecting morphisms; no oracle or experiment.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0534/check_statement.py",
+    "killed": [
+      "removed the short-exactness hypothesis and connecting-map positions",
+      "changed the category universe and retained only one exactness position",
+      "moved short-exactness into a Nonempty conclusion",
+      "replaced the continuing universally indexed sequence by one adjacent window"
+    ]
+  },
+  "boundary_cases": {
+    "arbitrary_complex_shape": "No boundedness, integer grading, or successor-totality assumption is introduced.",
+    "endpoint_degree": "Same-degree exactness is quantified separately over every degree, including one without an outgoing Rel edge.",
+    "sequence_extent": "All degrees and all Rel-adjacent pairs are quantified; a single finite window is a distinguished mutation."
+  },
+  "excluded_specializations": ["long exact sequence of a pair", "long exact sequence of a triple", "abstract homology-theory exactness axiom", "Mayer-Vietoris sequence"],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact continuing general chain-complex target. It supplies no source-fidelity acceptance, anchor audit, proof credit, H0, M0, audit completion, or theorem completion."
+}

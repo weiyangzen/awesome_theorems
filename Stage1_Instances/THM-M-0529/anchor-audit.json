@@ -1,0 +1,108 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0529-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0529",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "b86b7c60888b8506233bd2a07adc4f7c277ad675",
+  "canonical_target": "AwesomeTheorems.THM_M_0529.CanonicalTarget",
+  "discovery_order": [
+    "repo-local target source",
+    "pinned mathlib source and declarations",
+    "public Lean source index",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0529-C01",
+      "project": "awesome_theorems",
+      "revision": "b86b7c60888b8506233bd2a07adc4f7c277ad675",
+      "module": "Stage1_Instances/THM-M-0529/Statement.lean",
+      "declaration": "AwesomeTheorems.THM_M_0529.CanonicalTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition",
+      "body_provenance": "definition of a proposition; no proof body",
+      "classification": "M3",
+      "integration_status": "already present as the statement surface; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0529-C02",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "kind": "exact_compositional_anchor",
+      "normalized_match": "exact target after introducing n, X, Y, and e",
+      "components": [
+        {
+          "module": "Mathlib.Topology.Category.TopCat.Basic",
+          "declaration": "TopCat.isoOfHomeo",
+          "role": "turns the homeomorphism into a TopCat isomorphism whose hom has an IsIso instance",
+          "source_sha256": "f3a4abd6a77e9ddc999306c2ed62535075a137474553fbdc837f3f05f15252d4"
+        },
+        {
+          "module": "Mathlib.AlgebraicTopology.SingularHomology.Basic",
+          "declaration": "AlgebraicTopology.singularHomologyFunctor",
+          "role": "the exact degree-n homology functor used by the target",
+          "source_sha256": "655867a11ed5ec706a554ac32f8f273c5227cafd4b47f0de42d84e24b0d33c7c"
+        },
+        {
+          "module": "Mathlib.CategoryTheory.Iso",
+          "declaration": "CategoryTheory.Functor.map_isIso",
+          "role": "supplies IsIso for the functor image of an isomorphism",
+          "source_sha256": "12b67503207b201a82e66ff59ea597aa06d4ad9f50913266535d9cc924101bf4"
+        }
+      ],
+      "local_probe": "AwesomeTheorems.THM_M_0529.anchorCandidate",
+      "probe_result": "elaborates at the exact conclusion by infer_instance; #print axioms reports propext, Classical.choice, and Quot.sound",
+      "placeholder_or_axiom_status": "no sorry, user axiom, or unsafe declaration in the probe; kernel reports the standard mathlib foundation set propext, Classical.choice, and Quot.sound",
+      "classification": "M0-W_candidate",
+      "integration_status": "pinned mathlib is already in the repository environment and the exact wrapper recipe is locally checked; proof-phase acceptance remains separate"
+    },
+    {
+      "candidate_id": "S56-M-0529-C03",
+      "project": "facebookresearch/atlas-lean",
+      "remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Atlas.AlgebraicTopologyI.code.Section5",
+      "declaration": "HomotopyTheory.homotopyEquivHomologyIso",
+      "kind": "stronger_related_external_theorem",
+      "normalized_match": "a homotopy equivalence induces a homology-object Iso for general coefficients; not the target's exact map-level IsIso conclusion",
+      "source_sha256": "9eda91502c1f529fa4acb213ca0b3a2759b6d03966b3cd6b1d74e1af31f19514",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "classification": "external_upstream_anchor_only",
+      "integration_status": "not integrated and not needed because pinned mathlib directly closes the exact candidate"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (singularHomologyFunctor OR TopCat.isoOfHomeo) lang:Lean count:100",
+      "result": "matchCount=78; mathlib and atlas-lean were the relevant project families inspected",
+      "response_sha256": "d01870cb77fb235818e304f21efa4b9fa1a631cb6e12852e6baa50a4f771d6ae",
+      "immutability_boundary": "dated, content-hashed discovery response; candidate source was then retrieved at an immutable commit"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"singular homology\"+lean+language:Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated, content-hashed discovery response"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=singularHomologyFunctor+language:Lean",
+      "result": "API rate limit exceeded; no negative result claimed",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "immutability_boundary": "blocked search lane"
+    }
+  ],
+  "root_machine_classification": "M0-W_candidate_pending_proof_phase",
+  "root_classification_reason": "The exact target is a direct instance composition of TopCat.isoOfHomeo and Functor.map_isIso through the pinned singularHomologyFunctor. AnchorAudit.lean checks the exact conclusion and reports only propext, Classical.choice, and Quot.sound. This audit identifies a valid proof candidate but does not accept the later proof node.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the canonical statement, mathlib pin, imports, or selected declarations change.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor discovery and candidate validation only. The proof, obligation-tree, provenance-closure, release, and theorem-completion gates remain open."
+}

@@ -46,6 +46,12 @@ interfaces exist in the pinned environment. It does not select the source propos
 singular-homology pair/triple bridge, audit terminal bodies or axioms, or transfer proof credit from
 the separately scheduled `THM-M-0001`.
 
+The statement phase selects the general chain-complex row because it is the only row whose input is
+literally the short exact sequence named by the inventory claim. Pair/triple formulations require
+extra constructions, while an abstract homology-theory formulation assumes an exactness axiom.
+This selection is frozen in `Statement.lean` but does not resolve the still-open H-axis pinpoint
+source review.
+
 Before `H0`, an independent reviewer must approve the exact source locator, definitions,
 assumptions, signs, coefficients, boundary cases, proof boundaries, and errata. Before statement
 credit, every approved row must map to one elaborated canonical Lean expression, with checked

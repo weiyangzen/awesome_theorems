@@ -6,11 +6,11 @@ a long exact sequence in homology. It does not decide whether the intended input
 sequence of chain complexes, a pair/triple of spaces after applying singular chains, or an
 Eilenberg-Steenrod homology theory.
 
-The intake freezes the common theorem family: a short exact sequence of homological chain complexes
-has connecting morphisms and an exact homology sequence. Topological specializations remain explicit
-scope choices for the statement phase and may not be silently substituted for that general claim.
-The provisional root vector is `[H2, M3, R4]`. `M3` records only pinned, elaborated mathlib interfaces
-found by the intake probe; it is not exact-statement or proof credit for this target.
+The statement phase selects the general chain-complex theorem because that is the exact domain named
+by the literal claim. `Statement.lean` freezes its continuing three-position exactness target with
+arbitrary complex shape and a checked regrouping transport. Pair and triple sequences remain
+uncredited applications requiring additional topological constructions. The root remains open:
+statement elaboration is not source-fidelity acceptance or proof credit.
 
-The scope map, source crosswalk, and open task DAG define the downstream work. Validation evidence is
-recorded in `validation.md`. No audit completion or theorem completion is claimed.
+Intake evidence remains in `validation.md`; statement evidence is in `statement-validation.md` and
+`statement.json`. No anchor audit, proof, audit completion, or theorem completion is claimed.
