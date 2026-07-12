@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0663-STATEMENT",
+  "theorem_id": "THM-M-0663",
+  "lifecycle": "planned",
+  "canonical_statement": "In an o-minimal expansion of a dense linear order without endpoints, every unary function whose domain and restricted graph are definable admits a finite pairwise-disjoint partition of its domain into singleton or order-convex pieces on which it is continuous and constant, strictly increasing, or strictly decreasing.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0663/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0663.OMinimalMonotonicity",
+    "elaborated_expression_sha256": "2d5a051f2bc932f2b637928aaf63f6795621670cb9d9f13264e139dfe1074fbd",
+    "statement_file_sha256": "c0c75f33c97b50eac9d225fb75dc841819ab721690d2ae880b10ae591b31aa40"
+  },
+  "domain_and_universes": "universes u v w; first-order language L : Language.{u,v}; carrier M : Type w; an ordered L-structure on a dense linear order without endpoints carrying its order topology; Prop in universe 0",
+  "ordered_binders": [
+    "L and M",
+    "ordered-language, L-structure, linear-order, compatibility, density, no-endpoint, and order-topology instances",
+    "o-minimality hypothesis",
+    "definable domain A and unary function f",
+    "definability of A and of the graph of f restricted to A",
+    "finite partition pieces"
+  ],
+  "hypotheses": [
+    "the distinguished language relation is interpreted as the carrier order",
+    "the carrier is a dense linear order without endpoints with its order topology",
+    "every parameter-definable unary set is a finite union of order-convex sets",
+    "A is parameter-definable",
+    "the graph of f restricted to A is parameter-definable"
+  ],
+  "conclusion": "There is a finite pairwise-disjoint cover of A by subsets of A; every piece is order-convex and is either a singleton or supports continuity together with constant, strictly increasing, or strictly decreasing behavior of f.",
+  "direct_imports": [
+    "Mathlib.ModelTheory.Definability",
+    "Mathlib.ModelTheory.Order",
+    "Mathlib.Topology.Order.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_0663.oMinimalMonotonicity_iff",
+  "encoding_decisions": {
+    "parameter_convention": "Set.univ.Definable and Set.univ.Definable1 permit parameters from the whole carrier",
+    "o_minimality": "finite union of order-convex unary definable subsets; empty and singleton components are permitted",
+    "function": "total Lean function with a separately frozen definable domain and definable restricted graph",
+    "partition": "Finset of pairwise-disjoint subsets whose sUnion is exactly A",
+    "pieces": "singleton pieces need no continuity condition; all other pieces are order-convex, continuous, and constant or strictly monotone",
+    "endpoints": "the ambient dense order has neither a minimum nor a maximum; A and its pieces may be bounded, unbounded, open, closed, half-open, empty, or singleton"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0663/check_statement.py",
+    "killed": [
+      "removed o-minimality hypothesis",
+      "changed the definable domain to the whole carrier",
+      "moved the finite partition existential outside the domain binder",
+      "removed continuity and monotonicity from the conclusion"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0663.emptyDomainPartition"
+    ]
+  },
+  "source_boundary": "The repository metadata says only 'properties of o-minimal structures'. The accepted intake selected the classical unary monotonicity family provisionally. This phase freezes that exact Lean proposition but does not promote the unresolved bibliographic pinpoint to H0 or claim that all possible readings of the broad metadata phrase are equivalent.",
+  "environment_fingerprint": {
+    "base_revision": "a74bf62e5952864a45901ffdf9160b000ba3fd01",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node elaborates the exact intake-selected target with minimal pinned imports, a checked expansion, four structural mutations, and an empty-domain boundary proof. It supplies no monotonicity proof, H0 source acceptance, anchor audit, downstream receipt, audit completion, or theorem completion."
+}

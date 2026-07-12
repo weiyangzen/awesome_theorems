@@ -1,0 +1,70 @@
+../../Stage1_Instances/THM-M-0663/Statement.lean:93:11: warning: unused variable `f`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../Stage1_Instances/THM-M-0663/Statement.lean:104:24: warning: unused variable `f`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+def Stage1Instances.THM_M_0663.OMinimalMonotonicity.{u, v, w} : Prop :=
+∀ (L : Language) (M : Type w) [inst : L.IsOrdered] [inst_1 : L.Structure M] [inst_2 : LinearOrder M]
+  [inst_3 :
+    @Language.OrderedStructure L M inst
+      (@Preorder.toLE M
+        (@PartialOrder.toPreorder M
+          (@SemilatticeInf.toPartialOrder M
+            (@Lattice.toSemilatticeInf M (@DistribLattice.toLattice M (@instDistribLatticeOfLinearOrder M inst_2))))))
+      inst_1]
+  [@DenselyOrdered M
+      (@Preorder.toLT M
+        (@PartialOrder.toPreorder M
+          (@SemilatticeInf.toPartialOrder M
+            (@Lattice.toSemilatticeInf M (@DistribLattice.toLattice M (@instDistribLatticeOfLinearOrder M inst_2))))))]
+  [@NoMinOrder M
+      (@Preorder.toLT M
+        (@PartialOrder.toPreorder M
+          (@SemilatticeInf.toPartialOrder M
+            (@Lattice.toSemilatticeInf M (@DistribLattice.toLattice M (@instDistribLatticeOfLinearOrder M inst_2))))))]
+  [@NoMaxOrder M
+      (@Preorder.toLT M
+        (@PartialOrder.toPreorder M
+          (@SemilatticeInf.toPartialOrder M
+            (@Lattice.toSemilatticeInf M (@DistribLattice.toLattice M (@instDistribLatticeOfLinearOrder M inst_2))))))]
+  [inst_7 : TopologicalSpace M]
+  [@OrderTopology M inst_7
+      (@PartialOrder.toPreorder M
+        (@SemilatticeInf.toPartialOrder M
+          (@Lattice.toSemilatticeInf M (@DistribLattice.toLattice M (@instDistribLatticeOfLinearOrder M inst_2)))))],
+  @Stage1Instances.THM_M_0663.IsOMinimal L M inst inst_1 inst_2 inst_3 →
+    ∀ (A : Set M) (f : M → M),
+      @Definable₁ M (@univ M) L inst_1 A →
+        @Definable M (@univ M) L inst_1 (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+            (@Stage1Instances.THM_M_0663.restrictedGraph M A f) →
+          ∃ pieces,
+            And
+              (∀ (p : Set M),
+                @Membership.mem (Set M) (Finset (Set M))
+                    (@SetLike.instMembership (Finset (Set M)) (Set M) (@Finset.instSetLike (Set M))) pieces p →
+                  And (@Subset (Set M) (@instHasSubset M) p A)
+                    (And
+                      (@OrdConnected M
+                        (@PartialOrder.toPreorder M
+                          (@SemilatticeInf.toPartialOrder M
+                            (@Lattice.toSemilatticeInf M
+                              (@DistribLattice.toLattice M (@instDistribLatticeOfLinearOrder M inst_2)))))
+                        p)
+                      (@Stage1Instances.THM_M_0663.HasMonotoneBehavior M inst_2 inst_7 f p)))
+              (And
+                (@PairwiseDisjoint (Set M) (Set M)
+                  (@OmegaCompletePartialOrder.toPartialOrder (Set M)
+                    (@CompleteLattice.instOmegaCompletePartialOrder (Set M)
+                      (@CompleteBooleanAlgebra.toCompleteLattice (Set M)
+                        (@CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra (Set M)
+                          (@instCompleteAtomicBooleanAlgebra M)))))
+                  (@HeytingAlgebra.toOrderBot (Set M)
+                    (@Order.Frame.toHeytingAlgebra (Set M)
+                      (@CompleteDistribLattice.toFrame (Set M)
+                        (@CompleteBooleanAlgebra.toCompleteDistribLattice (Set M)
+                          (@CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra (Set M)
+                            (@instCompleteAtomicBooleanAlgebra M))))))
+                  (@SetLike.coe (Finset (Set M)) (Set M) (@Finset.instSetLike (Set M)) pieces) (@id (Set M)))
+                (@Eq (Set M) A
+                  (@sUnion M (@SetLike.coe (Finset (Set M)) (Set M) (@Finset.instSetLike (Set M)) pieces))))
