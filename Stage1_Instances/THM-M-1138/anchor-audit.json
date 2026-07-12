@@ -1,0 +1,89 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1138-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1138",
+  "phase": "anchor_audit",
+  "target_declaration": "Stage1Instances.THM_M_1138.HarmonicWeakMaximumPrinciple",
+  "cutoff_date": "2026-07-12",
+  "search_order": [
+    "repository-local Lean sources",
+    "pinned mathlib source tree",
+    "public Lean 4 repositories"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "queries": [
+    "Harmonic|harmonic",
+    "maximum|Maximum|IsMax|frontier|closure",
+    "exists_isMaxOn",
+    "maximum principle harmonic language:Lean",
+    "harmonic language:Lean"
+  ],
+  "candidates": [
+    {
+      "id": "MATHLIB-HARMONIC-PREDICATE",
+      "module": "Mathlib.Analysis.InnerProductSpace.Harmonic.HarmonicContOnCl",
+      "declaration": "InnerProductSpace.HarmonicContOnCl",
+      "classification": "exact hypothesis package",
+      "relationship": "Packages HarmonicOnNhd on U and ContinuousOn on closure U; it is not a maximum principle.",
+      "terminal_body": "structure definition in pinned mathlib",
+      "axioms_observed": [],
+      "exact_root_closure": false
+    },
+    {
+      "id": "MATHLIB-EXTREME-VALUE",
+      "module": "Mathlib.Topology.Order.Compact",
+      "declaration": "IsCompact.exists_isMaxOn",
+      "classification": "supporting compactness anchor",
+      "relationship": "Produces a maximizer on closure U from compactness, nonemptiness, and continuity, but does not move an interior maximizer to frontier U.",
+      "terminal_body": "mathlib theorem",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "exact_root_closure": false
+    },
+    {
+      "id": "MATHLIB-COMPLEX-MAX-MODULUS",
+      "module": "Mathlib.Analysis.Complex.AbsMax",
+      "declaration": "Complex.exists_mem_frontier_isMaxOn_norm",
+      "classification": "close analogue only",
+      "relationship": "Has the desired frontier-maximizer shape for the norm of a complex-differentiable function on a complex finite-dimensional space; the target concerns the ordered real values of a real harmonic function on a real Euclidean space.",
+      "terminal_body": "mathlib theorem",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "exact_root_closure": false,
+      "substitution_rejected": true
+    },
+    {
+      "id": "MATHLIB-COMPLEX-HARMONIC-MEAN-VALUE",
+      "module": "Mathlib.Analysis.Complex.Harmonic.MeanValue",
+      "declaration": "HarmonicContOnCl.circleAverage_eq",
+      "classification": "special-dimension proof ingredient",
+      "relationship": "Mean-value equality is available only for functions from Complex to Real on a ball; it neither covers arbitrary positive finite dimension nor arbitrary bounded connected open U.",
+      "terminal_body": "mathlib theorem",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "exact_root_closure": false
+    },
+    {
+      "id": "EXTERNAL-LEAN-HARMONIC",
+      "project": "mccorvie/lean-harmonic",
+      "remote": "https://github.com/mccorvie/lean-harmonic.git",
+      "revision": "f3b75687e0ff790ab135811db54d5c2e4ea2170b",
+      "toolchain": "leanprover/lean4:nightly-2023-07-12",
+      "source_file": "LeanHarmonic.lean",
+      "source_sha256": "145c3614edd1e7227c25ed9eb8eb13ead1b6fcc8385055188eee7426650ea4a2",
+      "classification": "not a candidate closure",
+      "relationship": "The source contains preliminary polar-coordinate definitions and no declaration matching a harmonic maximum principle.",
+      "trust_issue": "One commented theorem ends in an admitted proof marker; no declaration from this project is credited.",
+      "dependency_feasibility": "Toolchain is an incompatible 2023 nightly and its mathlib dependency is not pinned into this repository.",
+      "exact_root_closure": false
+    }
+  ],
+  "exact_candidate_found": false,
+  "root_machine_classification": "M4",
+  "remaining_machine_debt": "formalization_debt",
+  "first_missing_bridge": "A general real finite-dimensional harmonic weak maximum principle, or a mean-value/local-maximum theorem sufficient to move a closure maximizer from U to frontier U.",
+  "proof_credit": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance"
+}

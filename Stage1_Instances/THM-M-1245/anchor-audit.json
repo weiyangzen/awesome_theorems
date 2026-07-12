@@ -1,0 +1,85 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1245-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1245",
+  "audit_date": "2026-07-12",
+  "frozen_target": "Stage1Instances.THM_M_1245.SobolevInequalityTarget",
+  "repositories": [
+    {
+      "name": "awesome_theorems worker base",
+      "revision": "f756a5a3b3e172050802423f4b98d5910b56dbb5",
+      "scope": "repository-local Lean sources",
+      "result": "Historical Sobolev references are discovery material only. The exact terminal declaration used by this audit is supplied by the pinned mathlib dependency and independently probed in AnchorAudit.lean."
+    },
+    {
+      "name": "mathlib4",
+      "url": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "module": "Mathlib.Analysis.FunctionalSpaces.SobolevInequality",
+      "result": "Exact terminal candidate found: MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner. Its hypotheses and conclusion specialize directly to each function instance of the frozen target."
+    }
+  ],
+  "terminal_candidate": {
+    "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner",
+    "constant": "MeasureTheory.eLpNormLESNormFDerivOfEqInnerConst",
+    "relationship": "For E = EuclideanSpace Real (Fin n), F' = Real, and mu = volume, finrank is n. The theorem accepts ContDiff Real 1 u, HasCompactSupport u, 1 <= p, 0 < n, and exactly the frozen inverse-exponent equation, and returns the required eLpNorm inequality. Its constant is independent of u; the frozen existential C may choose this value.",
+    "terminal": true,
+    "repo_local_dependency": true,
+    "proof_body_location": "pinned mathlib source",
+    "placeholder_scan": "No sorry, admit, axiom declaration, or unsafe marker occurs in the module source.",
+    "axiom_probe": "#print axioms reports [propext, Classical.choice, Quot.sound] for the terminal declaration.",
+    "integration_state": "candidate_checked_not_yet_wrapped_by_the_proof_node"
+  },
+  "supporting_candidates": [
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_one",
+      "relationship": "The p = 1 foundation used upstream; it is narrower than the frozen root and receives no separate terminal credit."
+    },
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq",
+      "relationship": "Finite-dimensional codomain version with the same exponent equation; also applicable to Real, but the inner-product version is the more direct scalar terminal anchor."
+    },
+    {
+      "declaration": "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_le",
+      "relationship": "A bounded-support, exponent-inequality generalization; it introduces a support set and is not the minimal exact anchor."
+    }
+  ],
+  "external_discovery": {
+    "method": "GitHub repository search followed by immutable archive inspection where relevant",
+    "queries": [
+      "Sobolev inequality Lean4",
+      "Gagliardo Nirenberg Sobolev Lean",
+      "Sobolev language:Lean",
+      "Gagliardo language:Lean"
+    ],
+    "candidates": [
+      {
+        "repository": "grunweg/SobolevSlobodeckij",
+        "revision": "88d0535ecf0d2c31dd7f53674919da0aa7c40c7b",
+        "toolchain": "leanprover/lean4:v4.30.0",
+        "result": "README says the embedding theorem is planned and delegates the inequality to mathlib; the inspected Lean archive contains multiple sorry placeholders. Not a terminal candidate."
+      },
+      {
+        "repository": "abenenson/rellich-kondrachov",
+        "revision": "70f85d4c1bf99c6e7d61e8be4daa6f3664d08d23",
+        "toolchain": "leanprover/lean4:v4.29.1",
+        "result": "Formalizes compact H1-to-L2 Rellich-Kondrachov embedding on compact manifolds, not the frozen first-order Euclidean norm inequality. No placeholders were found, but its terminal type is different."
+      },
+      {
+        "repository": "Brsanch/sqg-lean-proofs-fourier",
+        "revision_status": "moving main observed by discovery; immutable revision retrieval was unavailable during the bounded audit",
+        "toolchain": "leanprover/lean4:v4.29.0",
+        "result": "README describes homogeneous Fourier Sobolev embedding on the two-torus, not the frozen Euclidean compact-support GNS inequality. It receives no anchor credit."
+      }
+    ],
+    "limitations": "The GitHub core API rate limit was exhausted after repository discovery. Immutable git advertisements and archives were used for the two relevant candidates; no dependency was cloned, fetched, or added. Search is bounded and does not prove that private, unindexed, differently named, or future projects do not exist."
+  },
+  "classification": {
+    "human": "H2",
+    "machine": "M1",
+    "readability": "R3"
+  },
+  "status_boundary": "The exact pinned mathlib terminal candidate and its direct applicability are self-tested. The proof node must still add and validate the named root wrapper; source H0, proof acceptance, audit completion, and theorem completion are not claimed."
+}

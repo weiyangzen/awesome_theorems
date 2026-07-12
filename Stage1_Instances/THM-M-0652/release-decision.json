@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0652-RELEASE",
+  "theorem_id": "THM-M-0652",
+  "intent": "release",
+  "base_revision": "797546bf2bab359f9fc5be515c3d4e8943c9d931",
+  "base_tree": "47848a833ad29d14ba558eca2fad0b8baa4dab12",
+  "decided_at": "2026-07-12T10:26:22+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0652-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0652-VALIDATION-local-20260712T102302+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_release_grade": false,
+    "receipt_sha256": "2fc927e2cf932dcbaf09252c563f57b60387f4212a4dd5389ea1be8603cdfdf3"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0652-VALIDATION-local-20260712T102302+0800"
+  ],
+  "root_vector": {
+    "accepted_before": ["H2", "M3", "R3"],
+    "accepted_after": ["H2", "M3", "R3"],
+    "best_provisional_evidence": ["H2", "M3", "R3"],
+    "boundary": "The frozen exact target, conditional composition, and endpoint-vocabulary boundary lemmas have warm local kernel evidence. There is no unconditional proof of Statement; completeness, general syntactic interpolation, and soundness remain explicit premises."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0652-VALIDATION is provisional worker evidence and has no master-accepted receipt, so release cannot be dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-6.7-ROOT-COMPOSITION-INCOMPLETE",
+    "reason": "The validation receipt records machine_root_closed=false. The conditional composition theorem consumes completeness, syntactic interpolation, and soundness packages rather than supplying their proof bodies."
+  },
+  "remaining_root_cut_set": [
+    "M0652-B-COMPLETENESS",
+    "M0652-T-SYNTACTIC",
+    "M0652-B-SOUNDNESS"
+  ],
+  "remaining_release_gates": [
+    "master acceptance of S56-M-0652-VALIDATION and its transitive prerequisites",
+    "unconditional exact-root kernel closure and checked composition",
+    "accepted H0 primary-source statement, assumptions, errata, and node crosswalk with independent review",
+    "accepted R0 anchored reconstruction with independent reader review",
+    "complete root proof-body provenance, declaration closure, axiom policy, trust, and TCB acceptance",
+    "immutable clean source and dependency snapshot",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned runners",
+    "independently implemented minimal release verifier",
+    "protected CI plus required mutation and metamorphic results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "statement_identity": "lean-expression-sha256:31ddfe8d7d426cacfb1acb17e443bbaa59a0e975fb92fb47916a600964362c6a#Stage1Instances.THM_M_0652.Statement",
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "partial_proof_bodies": "local boundary bodies in Proof.lean; separate same-workspace reconstructions in Validation.lean",
+    "exact_root_kernel_check": "missing",
+    "machine_root_closed": false,
+    "validated_partial_obligation_ids": [
+      "M0652-S-DEFINITIONS",
+      "M0652-S-BOUNDARY",
+      "M0652-T-ASSEMBLE"
+    ],
+    "accepted_closed_obligation_ids": [],
+    "axioms_observed_on_partial_checks": ["Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, Proof.lean, and Validation.lean",
+    "root_composition": "conditional_only",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "Implement and master-accept M0652-B-COMPLETENESS, M0652-T-SYNTACTIC, M0652-B-SOUNDNESS, and unconditional exact-root composition; then master-accept validation and close H0/R0, trust/provenance, hermetic supply-chain, independent-verifier, CI, and deterministic-bundle gates on an immutable clean snapshot.",
+  "known_failures": [
+    "The exact Craig interpolation root remains M3 and has no unconditional proof body.",
+    "AUDIT-Z is not established: primary-source mapping remains H2 and readable reconstruction remains R3.",
+    "The validation dependency is provisional, release_grade=false, and not master-accepted.",
+    "The worktree contains the pre-existing untracked Formalizations/Lean/.lake symlink and is not immutable clean release input.",
+    "The validation replay used a warm shared pinned cache, not an empty-cache cold build or offline archive restoration.",
+    "The independent boundary probe used the same workspace and shared dependency cache, not a distinct signed runner.",
+    "No full TCB/SBOM/license archive, independently implemented verifier, protected CI attestation, mutation suite receipt, or deterministic release bundle exists."
+  ],
+  "status_boundary": "This is a truthful negative worker release reconciliation. It changes no accepted state, supplies no release-grade receipt, and makes no audit-completion or theorem-completion claim."
+}
