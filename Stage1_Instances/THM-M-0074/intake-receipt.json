@@ -1,0 +1,193 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0074-INTAKE-WORKER-20260713",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "content_addressing_boundary": "This mutable worker receipt is not validation authority. The integration lane must recapture immutable inputs and issue master acceptance.",
+  "item_id": "S56-M-0074-INTAKE",
+  "theorem_id": "THM-M-0074",
+  "phase": "intake",
+  "intent": "intake",
+  "base_revision": "d3cbfa8941a8bcaafa3b8a690d1333f9643288ad",
+  "base_tree": "e912a107150c6f9c3fc096901412fce0337c7c01",
+  "dirty_input_boundary": "The pre-edit worker status contained only the automation-provided untracked Formalizations/Lean/.lake symlink to canonical pinned artifacts. It was used read-only. This packet is nonrelease evidence.",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": {
+    "H": "unclassified",
+    "M": "unclassified",
+    "R": "unclassified"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "completion_gate_assessment": "worker self-test passed; node-specific master acceptance remains open",
+  "first_failed_gate": "master acceptance of the provisional intake packet",
+  "first_failed_theorem_gate": "the exact source-complete proposition, canonical Lean target, construction proof, and all downstream assurance gates remain open",
+  "retry_condition": "The integration lane must independently replay and content-address the intake. Before statement acceptance, accountable reviewers must preserve and approve the complete primary source passage and exact construction/property boundary, then freeze and mutation-test the identical Lean expression.",
+  "source_boundary": {
+    "catalog_record": "Docs/researches/math_theorems.md:547-552 supplies only Griess, 1982, existence of the Monster group, importance, and an untrusted verified label.",
+    "stage0_record": "Docs/Stage0_Blueprint.md:2136-2161 repeats the gloss and explicitly leaves all exact formal and proof fields open.",
+    "announcement_witness": "Griess, PNAS 78 (1981), 689-691, DOI 10.1073/pnas.78.2.689, openly inspected abstract: finite simple F1, exact order, and a 196883-dimensional rational commutative nonassociative algebra construction. It self-identifies as an announcement.",
+    "full_primary_lead": "Griess, The friendly giant, Inventiones mathematicae 69 (1982), 1-102, DOI 10.1007/BF01389186. Metadata was inspected, but the full source and exact theorem passage were not preserved or reviewed.",
+    "intake_record": "instance.json leaves the canonical statement, claim, module, declaration, expression hash, and canonical environment fingerprint null."
+  },
+  "platform": {
+    "operating_system": "Linux",
+    "architecture": "x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "dependency_mode": "existing canonical pinned .lake artifacts used read-only; no update, build, clone, fetch, or dependency mutation"
+  },
+  "validation_recipes": [
+    {
+      "recipe_id": "THM-M-0074-INTAKE-LEAN-PROBE",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0074/IntakeProbe.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_node_ids": ["S56-M-0074-INTAKE"],
+      "covered_declarations": [
+        "Finite",
+        "Nat.card",
+        "Nat.card_congr",
+        "IsSimpleGroup",
+        "isSimpleGroup_iff",
+        "MulEquiv.isSimpleGroup",
+        "MulEquiv.isSimpleGroup_congr",
+        "Finite.card_pos",
+        "Stage1Instances.THM_M_0074.monsterOrderEnvelope",
+        "Stage1Instances.THM_M_0074.monsterExistenceEnvelope"
+      ]
+    }
+  ],
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0074"],
+      "exit_code": 0,
+      "result": "rank 1024; planned; L0/rework_required; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "status", "--short", "--untracked-files=all"],
+      "exit_code": 0,
+      "result": "pre-edit status contained only the automation-provided untracked Formalizations/Lean/.lake symlink; base revision and tree recorded above"
+    },
+    {
+      "cwd": ".",
+      "command": "git blame and bounded repository source inspection",
+      "exit_code": 0,
+      "result": "the six uncited catalog lines originate at bcf3f9fa79ab8c2b6610c9875668c2589b35b74f; Stage0 leaves exact formal fields open"
+    },
+    {
+      "cwd": ".",
+      "command": "bounded inspection of Crossref and publisher metadata for DOI 10.1007/BF01389186 and the open Crossref/PMC abstract for DOI 10.1073/pnas.78.2.689",
+      "exit_code": 0,
+      "result": "1982 full-paper bibliography corroborated; 1981 announcement explicitly supplies finite simplicity, factorized and decimal order, and algebra/cubic-form construction scope; neither was promoted to H0"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, x86_64-unknown-linux-gnu, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, Release"
+    },
+    {
+      "cwd": "Formalizations/Lean/.lake/packages/mathlib",
+      "argv": ["git", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; tree bdc39a3123201dae413a9d9be56ec242c19e5c2b; package status clean"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0074/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "nine pinned generic interfaces, two nonterminal envelope declarations, and two transport/cardinality examples elaborated; no canonical Monster target or proof body declared"
+    },
+    {
+      "cwd": ".",
+      "command": "bounded focused rg search for THM-M-0074, Griess, Friendly Giant, Fischer-Griess, and Monster-group spellings in repo-local and pinned mathlib Lean",
+      "exit_codes": [0, 1],
+      "result": "no target declaration found; only unrelated model-theory monster-model terms and vertex-algebra bibliography appeared"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0074/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "target, authority, source leads, planned H1/M4/R4 boundary, null canonical target, exact artifact inventory, receipt/self-test agreement, and six open downstream tasks agree"
+    },
+    {
+      "cwd": ".",
+      "argv": ["rg", "-n", "--glob", "*.lean", "prohibited proof escape pattern", "Stage1_Instances/THM-M-0074"],
+      "exit_code": 1,
+      "result": "expected no-match result; no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration"
+    },
+    {
+      "cwd": ".",
+      "command": "JSON parsing, Python compilation, and scoped whitespace checks",
+      "exit_code": 0,
+      "result": "all three JSON artifacts parsed, the scoped checker compiled, and touched paths had no whitespace diagnostics"
+    }
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0074/README.md",
+    "Stage1_Instances/THM-M-0074/instance.json",
+    "Stage1_Instances/THM-M-0074/scope-map.md",
+    "Stage1_Instances/THM-M-0074/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0074/task-dag.json",
+    "Stage1_Instances/THM-M-0074/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0074/check_intake.py",
+    "Stage1_Instances/THM-M-0074/validation.md",
+    "Stage1_Instances/THM-M-0074/intake-receipt.json"
+  ],
+  "accepted_receipt_ids": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "proof_body_locations": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "remaining_root_cut_set": [
+    "S56-M-0074-STATEMENT",
+    "S56-M-0074-ANCHOR_AUDIT",
+    "S56-M-0074-OBLIGATION_TREE",
+    "S56-M-0074-PROOF",
+    "S56-M-0074-VALIDATION",
+    "S56-M-0074-RELEASE"
+  ],
+  "known_failures": [
+    "The complete 1982 primary proof, exact proposition and construction boundary, definitions, corrections or errata, premise-to-conclusion map, preservation, and independent source review remain open.",
+    "The elaborated finite-simple-exact-order envelope is explicitly nonterminal: it omits a source-approved Griess construction and recognition or uniqueness bridge, so canonical statement identity remains null.",
+    "No usable exact repo-local, pinned-mathlib, or external Lean proof artifact for the unresolved Monster construction was located at intake.",
+    "Anchor audit, obligation freeze, proof, composition, readable reconstruction, trust closure, hermetic replay, independent verification, release, content-addressed receipt, and master acceptance remain open."
+  ],
+  "selftest_result": "pass",
+  "status_boundary": "Worker-self-tested planned intake proposal only. It asserts source and Lean feasibility boundaries, not an exact theorem statement, accepted receipt, proof, audit completion, theorem completion, or master acceptance."
+}
