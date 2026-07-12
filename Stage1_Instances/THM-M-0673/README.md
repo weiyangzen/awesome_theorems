@@ -7,11 +7,13 @@ of nonempty structures modulo an ultrafilter exactly when the set of indices whe
 to that ultrafilter.
 
 Pinned mathlib contains the exact-shaped declaration
-`FirstOrder.Language.Ultraproduct.sentence_realize`. `IntakeProbe.lean` checks that this declaration
-is present and exposes its type, but intake does not yet credit it as an exact canonical statement or
-proof body. The statement phase must freeze the expression, source mapping, imports, mutations, and
-environment fingerprint before the anchor can advance machine debt.
+`FirstOrder.Language.Ultraproduct.sentence_realize`. `Statement.lean` now freezes the canonical
+polymorphic target, checks a definitional transport to the declaration's direct type shape, and
+elaborates four structural mutations plus the principal-ultrafilter boundary. `statement.json` and
+`statement-validation.md` record its expression and environment fingerprints. This is provisional
+statement-node evidence pending master acceptance; it does not credit the upstream proof body.
 
-The lifecycle is `planned` at `[H1, M3, R4]`. The source edition and pinpoint mapping, exact Lean
-statement gate, obligation tree, trust/provenance closure, readable reconstruction, and release
-checks remain open. No accepted proof state, audit completion, or theorem completion is claimed.
+The lifecycle remains `planned` at `[H1, M3, R4]`. The source edition and pinpoint mapping,
+statement master acceptance, obligation tree, trust/provenance closure, readable reconstruction,
+and release checks remain open. No accepted proof state, audit completion, or theorem completion is
+claimed.

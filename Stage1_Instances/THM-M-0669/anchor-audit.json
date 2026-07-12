@@ -1,0 +1,139 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0669-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0669",
+  "audit_cutoff": "2026-07-12",
+  "base_revision": "20b8abf35019d24fc944d56d6af62cb098711ee3",
+  "canonical_target": "Stage1.THM_M_0669.TarskiQuantifierEliminationTarget",
+  "canonical_target_expression_sha256": "91efc0e7986951efbb4f667a73f31de3eae2f0221d397c37c13a303f3769badd",
+  "inventory_version": "M0669-anchor-inventory-v1",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_project": "leanprover-community/mathlib4",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "search_order": [
+    "repository-local Lean and dossier artifacts",
+    "pinned mathlib source tree",
+    "GitHub public repository metadata and immutable refs",
+    "other installed pinned Lean dependencies"
+  ],
+  "aliases": [
+    "Tarski quantifier elimination",
+    "quantifier elimination for real closed fields",
+    "real closed field quantifier elimination",
+    "realClosedFieldTheory",
+    "IsRealClosed",
+    "qelim"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0669-C-MATHLIB-RCF-ALGEBRA",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "immutable_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.FieldTheory.IsRealClosed.Basic",
+      "declarations": [
+        "IsRealClosed",
+        "IsRealClosed.isSquare_or_isSquare_neg",
+        "IsRealClosed.exists_isRoot_of_odd_natDegree"
+      ],
+      "normalized_match": "supporting algebraic structure only; it contains neither first-order theory semantics nor formula elimination",
+      "terminal_body_provenance": "repo-local pinned mathlib source; declarations elaborate in AnchorAuditProbe.lean",
+      "placeholder_or_trust_result": "not root-relevant proof bodies; no root proof credit assigned",
+      "dependency_feasibility": "already in the pinned local dependency closure",
+      "license": "Apache-2.0",
+      "classification": "support_only"
+    },
+    {
+      "candidate_id": "M0669-C-MATHLIB-MODEL-THEORY-API",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "immutable_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.ModelTheory.{Algebra.Ring.Basic,Complexity,Equivalence,Semantics}",
+      "declarations": [
+        "FirstOrder.Language.ring",
+        "FirstOrder.Language.BoundedFormula.IsQF",
+        "FirstOrder.Language.Theory.Iff",
+        "FirstOrder.Language.completeTheory"
+      ],
+      "normalized_match": "syntax and semantic interfaces used by the canonical statement, but no eliminator or correctness theorem",
+      "terminal_body_provenance": "repo-local pinned mathlib source; interfaces elaborate in AnchorAuditProbe.lean",
+      "placeholder_or_trust_result": "interfaces only; no root-relevant terminal proof body",
+      "dependency_feasibility": "already in the pinned local dependency closure",
+      "license": "Apache-2.0",
+      "classification": "statement_interface_only"
+    },
+    {
+      "candidate_id": "M0669-C-AVIGAD-QELIM",
+      "project": "avigad/qelim",
+      "canonical_remote": "https://github.com/avigad/qelim.git",
+      "immutable_revision": "b7d22864f1f0a2d21adad0f4fb3fc7ba665f8e60",
+      "module": "dlo/dlo_qelim.lean and lia/*",
+      "declarations": ["dlo_qelim", "dlo_qelim_prsv"],
+      "normalized_match": "different theories (dense linear orders and linear integer arithmetic), custom syntax, and Lean 3 source; no real-closed-field result",
+      "terminal_body_provenance": "immutable raw source inspected; dlo/dlo_qelim.lean contains an early #exit before the preservation theorem",
+      "placeholder_or_trust_result": "not audited as a closure because the statement is nonmatching; the inspected file is not a Lean 4 candidate and is not buildable as the canonical target",
+      "toolchain": "Lean 3-era syntax and project layout; no lean-toolchain or Lake manifest at the pinned root",
+      "dependency_feasibility": "not compatible with the pinned Lean 4 project and not relevant to the target theory",
+      "license": "Apache-2.0",
+      "classification": "rejected_nonmatching"
+    }
+  ],
+  "search_ledger": [
+    {
+      "surface": "repository-local tracked text and Lean",
+      "query": "quantifier.?elimin|real.?closed.*quantifier|Tarski, excluding the target dossier and .lake",
+      "result": "no root proof body or wrapper; only metadata, neighboring targets, and unrelated Tarski results"
+    },
+    {
+      "surface": "pinned mathlib Mathlib/**/*.lean",
+      "query": "quantifier.?elimin|elimination of quantifiers|real.?closed|IsRealClosed",
+      "result": "IsRealClosed algebraic API and a Presburger QE TODO; no real-closed-field QE declaration",
+      "result_path_list_sha256": "59ee526d606985453b0a260c5d3432a914a38917482b0e2e6694174f9e944234"
+    },
+    {
+      "surface": "GitHub repository search API",
+      "query": "quantifier elimination language:Lean; real closed field lean4; Tarski quantifier elimination Lean",
+      "result": "only avigad/qelim was returned; the latter two searches returned zero repositories",
+      "response_sha256": [
+        "97fa8c7d348bcfd27928445e32f8396f6a96a4e5e2d6236dcaa8fb97ef6fd14e",
+        "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      ]
+    },
+    {
+      "surface": "avigad/qelim remote and immutable raw source",
+      "query": "git ls-remote master; inspect root/common/dlo/lia and dlo/dlo_qelim.lean",
+      "result": "master resolves to b7d2286; DLO and LIA only, Lean 3 syntax, no RCF module",
+      "ls_remote_sha256": "c93088259f976a67d5481b2fa733725fcc1fb36289699fb3db2ea734748dd9ed",
+      "dlo_qelim_source_sha256": "f5be7aac557afdeb156b58382c17d45c6858ac1e6ad4a2f9d8f3aff9abf7da58"
+    },
+    {
+      "surface": "grep.app public code search",
+      "query": "quantifier elimination, IsRealClosed, realClosedFieldTheory in Lean",
+      "result": "HTTP 429 rate limit; recorded as an access failure and not treated as a negative result"
+    }
+  ],
+  "classification_coverage": {
+    "frozen_candidates": 3,
+    "classified_candidates": 3,
+    "coverage": "100% of inventory v1; exhaustive public discovery is not claimed"
+  },
+  "root_machine_debt": "M3",
+  "root_human_debt": "H1",
+  "root_readability_debt": "R3",
+  "exact_candidate_found": false,
+  "machine_debt": "formalization_debt",
+  "integration_blocker": "No exact Lean 4 proof of formula-level quantifier elimination for the complete pure-ring theory of Real was located. The usable formal artifacts stop at statement and supporting interfaces. Reopen on discovery of an immutable Lean 4 declaration with a checked statement transport, or implement the proof locally.",
+  "reopen_condition": "Re-audit if the canonical statement hash, Lean toolchain, mathlib revision, public candidate inventory, or any candidate source changes.",
+  "audit_complete_for_scoped_phase": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The bounded immutable candidate inventory is classified. Negative searches do not prove global nonexistence, the human primary-source audit remains open, and no candidate supplies machine closure of the canonical target."
+}

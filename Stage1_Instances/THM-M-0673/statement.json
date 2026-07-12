@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0673-STATEMENT",
+  "theorem_id": "THM-M-0673",
+  "lifecycle": "planned",
+  "canonical_statement": "For every first-order language L, index type I, family M of nonempty L-structures, ultrafilter U on I, and L-sentence phi, the ultraproduct of M modulo U satisfies phi if and only if M i satisfies phi for U-almost every i.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0673/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0673.LosSentenceTarget",
+    "elaborated_expression_sha256": "3b541698da0e2b40d0cef5ea0f03ebd62538d330293e4e393ce053e000906cba",
+    "statement_file_sha256": "131cab45507a3d3c7249d02f52f8cfbaf9d7b1c004a542e24f1bdb36be9ca424"
+  },
+  "domain_and_universes": "I : Type u; M : I -> Type v; L : FirstOrder.Language.{w, x}; U : Ultrafilter I; the target is Prop in universe 0",
+  "ordered_binders": [
+    "I : Type u",
+    "M : I -> Type v",
+    "U : Ultrafilter I",
+    "L : FirstOrder.Language.{w, x}",
+    "[forall i, L.Structure (M i)]",
+    "[forall i, Nonempty (M i)]",
+    "phi : L.Sentence"
+  ],
+  "hypotheses": [
+    "every factor M i carries an L.Structure",
+    "every factor M i is Nonempty",
+    "U is an Ultrafilter on I"
+  ],
+  "conclusion": "(U : Filter I).Product M models phi iff eventually i in U, M i models phi",
+  "direct_imports": ["Mathlib.ModelTheory.Ultraproducts"],
+  "checked_transport": "Stage1Instances.THM_M_0673.losSentenceTarget_iff_pinnedMathlibSentenceShape",
+  "pinned_source_declaration": "FirstOrder.Language.Ultraproduct.sentence_realize",
+  "pinned_source_relationship": "PinnedMathlibSentenceShape directly spells the polymorphic type family of the pinned mathlib declaration; the local iff transport is definitional. Proof credit and terminal-body provenance remain downstream gates.",
+  "environment_fingerprint": {
+    "base_revision": "c62c7e6f4b9f2eace4ef9d3f7e3e90240c96391f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0673/check_statement.py",
+    "killed": [
+      "removed the Nonempty instance for every factor",
+      "changed the arbitrary index type to Nat",
+      "changed the sentence binder from universal to existential scope",
+      "restricted the arbitrary ultrafilter to a principal ultrafilter"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0673.principal_boundary"
+    ]
+  },
+  "degenerate_cases": "No nonempty-index premise is invented. Existence of U itself controls the empty-index boundary. Principal ultrafilters are included and kernel-elaborated. Empty languages, nullary symbols, arbitrary language universes, and quantified sentences remain in scope.",
+  "alternate_encodings": {
+    "formula_with_assignments": "Uncredited at this node: it is stronger than the selected sentence root and needs a separately checked relationship before use.",
+    "common_theory_preservation": "Uncredited as an alternate root: it is only a one-way corollary of the selected biconditional."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact intake-selected sentence target with the minimal direct import, a definitional pinned-shape transport, four distinguished structural mutations, and the principal-ultrafilter boundary. It supplies no proof acceptance, anchor audit, source H0, obligation tree, or theorem-completion evidence."
+}

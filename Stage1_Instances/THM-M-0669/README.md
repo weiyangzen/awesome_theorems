@@ -17,3 +17,11 @@ theory, boundary, environment, and mutation-test contract. This advances only th
 interface to `M3`. It does not prove the root or accept the source bridge identifying the selected
 presentation with all real closed fields. Thus H0, M0, audit completion, and theorem completion
 remain unclaimed.
+
+The immutable anchor audit classifies pinned mathlib's real-closed-field and model-theory APIs as
+supporting interfaces rather than a proof. It also rejects `avigad/qelim` at immutable revision
+`b7d22864f1f0a2d21adad0f4fb3fc7ba665f8e60`: that repository is a Lean 3 DLO/LIA development, not
+real-closed-field quantifier elimination. No exact Lean 4 closure was found, so the fail-closed root
+classification after audit remains `H1/M3/R3`: usable artifacts stop at statement/interfaces. See
+`anchor-audit.md` and `anchor-audit.json`. This phase
+does not claim exhaustive global discovery, H0, audit completion, or theorem completion.
