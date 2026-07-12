@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1016-STATEMENT",
+  "theorem_id": "THM-M-1016",
+  "lifecycle": "planned",
+  "canonical_statement": "Let X_n be finite-dimensional real random elements, theta a fixed center, r_n positive real numbers tending to infinity, and Z a finite-dimensional real random element. If r_n (X_n - theta) converges in distribution to Z and the measurable map g is Frechet differentiable at theta with derivative g', then r_n (g(X_n) - g(theta)) converges in distribution to g'(Z).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1016/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1016.StatementShape",
+    "elaborated_expression_sha256": "9cdb0281811565d62d5b8a7cc2933f27facd49e39aff10c29fe1d7702797dbee",
+    "statement_file_sha256": "75d7800ccedfe5499e997adb68acbb9f7bef828815cdf2802b4735babaa5f011"
+  },
+  "domain_and_universes": "Omega : Type u and Omega' : Type v carry source and limit probability measures; E : Type w and F : Type* are finite-dimensional normed real vector spaces with their Borel measurable structures; the index is Nat at atTop",
+  "ordered_binders": [
+    "Omega, Omega', measurable spaces, mu, mu', probability instances",
+    "E, F, normed real vector-space, finite-dimensional, and Borel instances",
+    "X : Nat -> Omega -> E",
+    "Z : Omega' -> E",
+    "theta : E",
+    "r : Nat -> Real",
+    "hr_pos : forall n, 0 < r n",
+    "hr_inf : Tendsto r atTop atTop",
+    "g : E -> F",
+    "g' : E ->L[Real] F",
+    "hg_meas : Measurable g",
+    "hg_diff : HasFDerivAt g g' theta",
+    "scaled input TendstoInDistribution premise"
+  ],
+  "conclusion": "TendstoInDistribution (fun n omega => r n • (g (X n omega) - g theta)) atTop (fun omega => g' (Z omega)) (fun _ => mu) mu'",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+    "Mathlib.Analysis.Calculus.FDeriv.Defs"
+  ],
+  "representation_notes": "The target selects the standard finite-dimensional first-order variant from the intake alternatives. Mathlib's TendstoInDistribution is weak convergence of pushforward laws. Explicit measurability of g supplies the transformed random-variable condition; the convergence structures also carry the needed a.e.-measurability of X, Z, and the conclusion.",
+  "foundation_profile": "Lean 4 dependent type theory and pinned mathlib; proposition declarations introduce no custom axioms or proof bodies",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable probability and analysis proposition; no computation, oracle, or experiment is credited",
+  "environment_fingerprint": {
+    "base_revision": "21b5f8a135c40b3fc4f9987beee433d2ebd8bd43",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1016/check_statement.py",
+    "validator_sha256": "1f2db42b77e0e26adaa7890bff0c30f15933b18c36ef778a7108730cc1d020ba",
+    "distinguished": [
+      "remove convergence of the scaling sequence",
+      "change the vector-space domain and codomain to Real",
+      "move the fixed center under the sequence binder",
+      "replace positive divergent scaling by the identically-zero boundary"
+    ]
+  },
+  "included_boundary_cases": "zero derivative, constant g, degenerate Z, and one-dimensional E or F are included when all stated instances and convergence premises hold",
+  "excluded_generalizations": "Hadamard or functional delta methods, infinite-dimensional spaces, second-order conclusions, random or nonpositive scaling, and normal-limit-only substitutes",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and kernel-elaborates only the finite-dimensional delta-method target. It supplies no proof, anchor acceptance, source H0 verdict, audit completion, or theorem-completion evidence."
+}
