@@ -64,3 +64,31 @@ The smallest kernel-relevant audit check is the scoped Lean wrapper. The two
 network failures are known limitations, not candidate evidence. The immutable
 mathlib result is sufficient to finish the assigned candidate audit, while
 proof installation and every later theorem gate remain open.
+
+## Obligation-tree validation record
+
+Obligation-tree base revision: `883205204cea57181965a9de9620f3c150aaf2e8`.
+The existing `.lake` path remained the worker-clone link to canonical pinned
+artifacts. No dependency update, build, clone, fetch, or mutation was run.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `python3 Stage1_Instances/THM-M-1269/build_obligation_artifacts.py` | 0 | generated registry/graph/spec artifacts; denominator SHA-256 `12c3255b53f7432b3ca2e00b712901bb20da2f20429a047c1444ca1d79278efa` |
+| `python3 Stage1_Instances/THM-M-1269/check_obligation_tree.py` | 0 | `PASS`: 14 obligations, all required node fields and ledgers, 23 legal typed reciprocal/indexed edges, acyclic root proof reachability, matching recipes, open root boundary |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1269/ObligationTree.lean)` | 0 | conditional exact-root composition elaborated; axioms `[propext, Classical.choice, Quot.sound]` |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard consistent: 15 assurance groups and 1546 uniform-L0 targets |
+| `python3 scripts/stage1_target.py check` | 0 | ordered manifest consistent: 1546 unique targets, ranks 1..1546 |
+| `python3 scripts/stage1_target.py show THM-M-1269` | 0 | rank 445, planned, hard-mathlib-anchor lane, theorem incomplete |
+| `python3 -m json.tool` on the registry, graph bundle, and validation specs | 0 | all three structured artifacts are valid JSON |
+| `git diff --check -- Stage1_Instances/THM-M-1269 .stage1-worker-selftest.json` | 0 | no whitespace errors |
+
+An initial Lean attempt imported the sibling as `Statement` and exited 1
+because that out-of-project file is not a module on the pinned Lake search
+path. The scoped check was corrected by repeating the already frozen canonical
+definition locally; no dependency artifact or search path was changed.
+
+The frozen minimal root cut is `M1269-L-SINF`. The pinned anchor and exact
+wrapper are audited, but this architecture phase does not install accepted
+proof evidence. Root debt remains `M1`, human debt `H2`, readability debt
+`R3`, and both audit and theorem completion are false pending later phases and
+master acceptance.

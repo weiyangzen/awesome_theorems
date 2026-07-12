@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1278-STATEMENT",
+  "theorem_id": "THM-M-1278",
+  "lifecycle": "planned",
+  "canonical_statement": "For every smooth real-valued function u on the standard round unit two-sphere, log((1/(4*pi)) integral exp(u)) is at most (1/(4*pi)) integral u plus (1/(16*pi)) times the Dirichlet energy of u.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1278/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1278.OnofriInequality",
+    "elaborated_expression_sha256": "a267837ccca68a9ad86620bd4ce7c26c8d56861b57d76d6198ddce94ae671fdb",
+    "statement_file_sha256": "efd71349e6a5dd719a804c4d04bd092cd0f400c2130c024775635de7c93fd7f6"
+  },
+  "domain_and_universes": "u : SmoothSphereFunction, an ambient C-infinity representative restricted to Metric.sphere (0 : EuclideanSpace Real (Fin 3)) 1; Prop in universe 0",
+  "ordered_binders": ["u : SmoothSphereFunction"],
+  "hypotheses": ["u.extension is ContDiff Real top"],
+  "conclusion": "Real.log ((1 / (4 * Real.pi)) * integral (Real.exp composed with u)) <= (1 / (4 * Real.pi)) * integral u + (1 / (16 * Real.pi)) * dirichletEnergy u",
+  "direct_imports": [
+    "Mathlib.Geometry.Manifold.Instances.Sphere",
+    "Mathlib.Analysis.Calculus.Gradient.Basic",
+    "Mathlib.MeasureTheory.Measure.Hausdorff",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic"
+  ],
+  "encoding": {
+    "sphere": "Metric.sphere 0 1 in EuclideanSpace Real (Fin 3)",
+    "area_measure": "the two-dimensional Hausdorff measure on the sphere subtype",
+    "smoothness": "a global ambient C-infinity extension; this is a concrete sufficient encoding of a smooth sphere function",
+    "gradient": "ambient gradient projected orthogonally to the tangent plane",
+    "normalization": "area 4*pi form with mean coefficient 1/(4*pi) and sharp energy coefficient 1/(16*pi)"
+  },
+  "source_crosswalk": "The Springer primary-source abstract for DOI 10.1007/BF01212171 explicitly says C-infinity functions on the two-dimensional sphere and gives the constrained positivity form. Algebraically setting eta = u - log((1/(4*pi))*integral exp u), using area 4*pi and invariance of the gradient under constants, gives this normalized logarithmic form. Full article-page and errata review remains an H-gate task, not a statement-elaboration prerequisite.",
+  "environment_fingerprint": {
+    "base_revision": "ad0567008a38fc8c39deda009ab34e4ca9910f46",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1278/check_statement.py",
+    "killed": [
+      "substituted zero-mean-only implication for the unrestricted normalized inequality",
+      "changed sharp energy coefficient from 1/(16*pi) to 1/(8*pi)"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. It freezes and elaborates the exact smooth normalized target; it does not prove Onofri, accept an anchor, close H0/M0/R0, or establish theorem completion."
+}

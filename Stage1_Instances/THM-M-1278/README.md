@@ -1,13 +1,13 @@
-# THM-M-1278 rev-5.6 intake
+# THM-M-1278 rev-5.6 statement
 
 This directory is the `planned` intake for the Onofri inequality on the standard unit two-sphere.
-It freezes the intended human claim, including its normalized exponential integral, spherical mean,
-and Dirichlet-energy terms, while leaving exact regularity and normalization verification to the
-statement phase.
+`Statement.lean` freezes and kernel-elaborates the smooth normalized claim, including its concrete
+unit sphere, two-dimensional Hausdorff area, tangential gradient, spherical mean, and sharp
+Dirichlet-energy coefficient. The structured freeze is in `statement.json`.
 
 The Stage0 label `已验证` is untrusted discovery metadata and supplies no proof credit. The
-provisional root vector is `[H2, M4, R4]`; no elaborated Lean target, source fidelity, kernel
-closure, audit completion, or theorem completion is claimed.
+provisional root vector remains `[H2, M4, R4]`; statement elaboration supplies no proof, source
+fidelity, kernel closure of the theorem, audit completion, or theorem completion.
 
-The scope map, source crosswalk, and open task DAG define the downstream work. Intake checks and
-their results are recorded in `validation.md`.
+The scope map, source crosswalk, and open task DAG define the downstream work. Statement checks and
+their results are recorded in `statement-validation.md`; `validation.md` retains intake evidence.

@@ -52,3 +52,11 @@ the countable choice of preimages needed to recover a sequence in `X`.
 Candidate revisions, search boundaries, trust output, and the honest `M1`
 classification are recorded in `anchor_audit.json` and `anchor_audit.md`.
 This audit does not install a canonical proof or claim theorem completion.
+
+## Obligation-tree phase
+
+The registry now freezes 14 semantic nodes and separate proof, refinement,
+provenance, evidence, trust, documentation, and workflow graphs. The checked
+composition in `ObligationTree.lean` remains conditional on the pinned
+`exists_seq_tendsto_sInf` bridge. Consequently the root stays open at `M1`;
+the frozen route and per-node boundaries are in `obligation-tree.md`.
