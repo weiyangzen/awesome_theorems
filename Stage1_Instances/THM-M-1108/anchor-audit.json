@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1108-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1108",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1108.CanonicalStatement",
+  "environment": {
+    "repository_base_revision": "84447940cf503cb83cb4fd16670216427c19bf18",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git"
+  },
+  "search_terms": [
+    "Baik", "Deift", "Johansson", "TracyWidom", "Tracy-Widom",
+    "Painleve", "Hastings--McLeod", "longest increasing subsequence",
+    "increasing subsequence", "Young tableau", "Robinson-Schensted",
+    "Airy", "random permutation"
+  ],
+  "mathlib_candidates": [
+    {
+      "module": "Mathlib.Data.Fintype.Perm",
+      "declarations": ["Equiv.Perm", "Fintype.card_perm"],
+      "classification": "infrastructure_only",
+      "gap": "Finite permutations and their cardinality are available, but there is no LIS statistic, uniform LIS law, or asymptotic limit theorem."
+    },
+    {
+      "module": "Mathlib.Combinatorics.Young.SemistandardTableau",
+      "declarations": ["YoungDiagram", "SemistandardYoungTableau"],
+      "classification": "infrastructure_only",
+      "gap": "Young diagrams and semistandard tableaux are available, but no Robinson--Schensted correspondence or LIS/first-row distribution bridge was found."
+    },
+    {
+      "module": "Mathlib.Probability.CDF",
+      "declarations": ["ProbabilityTheory.cdf", "ProbabilityTheory.cdf_eq_real"],
+      "classification": "infrastructure_only",
+      "gap": "General real-measure CDF infrastructure does not construct the Tracy--Widom distribution or prove the BDJ convergence."
+    },
+    {
+      "module": "Mathlib.Probability.Distributions.Poisson.PoissonLimitThm",
+      "declarations": ["ProbabilityTheory.binomial_tendsto_poissonPMFReal_atTop"],
+      "classification": "analogue_not_reusable",
+      "gap": "This is a discrete Poisson limit for binomial masses; its source and target distributions do not match the normalized LIS/Tracy--Widom claim."
+    }
+  ],
+  "exact_mathlib_anchor": null,
+  "external_searches": [
+    {
+      "service": "Sourcegraph public global code search",
+      "queries": ["lang:Lean TracyWidom", "lang:Lean Tracy-Widom", "lang:Lean Painleve", "lang:Lean Baik", "lang:Lean longest increasing subsequence", "lang:Lean Hastings--McLeod"],
+      "result": "zero matches for every query; archived repositories and forks were excluded by the service default",
+      "status": "discovery_only_no_candidate"
+    },
+    {
+      "service": "GitHub public repository search API",
+      "queries": ["repository: Tracy-Widom Lean", "repository: Painleve language:Lean", "repository: longest increasing subsequence Lean"],
+      "result": "zero repositories for every query",
+      "status": "discovery_only_no_candidate"
+    }
+  ],
+  "external_lean4_candidates": [],
+  "terminal_proof_body": null,
+  "placeholder_or_axiom_findings": "No theorem-level candidate was found, so there is no external proof body, placeholder set, axiom profile, toolchain, license, or dependency closure to credit or integrate.",
+  "machine_debt": "formalization_debt",
+  "machine_status": "not_repo_local_closed",
+  "root_vector_after_audit": {"H": "H2", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The pinned mathlib snapshot contains useful foundational APIs but no exact or theorem-level BDJ anchor. Public external discovery found no Lean candidate. Negative search is not a proof of global nonexistence and supplies no M0 credit."
+}
