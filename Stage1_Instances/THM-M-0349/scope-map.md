@@ -9,13 +9,18 @@
 - Strong `L^p` boundedness: membership of the conjugate function in `L^p` and a norm estimate with a
   constant depending only on `p`.
 
-## Decisions required at statement freeze
+## Frozen formal conventions
 
-The exact source must determine the circle parametrization and measure normalization; real or
-complex scalars; whether functions are equivalence classes or chosen measurable representatives;
-the sign and zero-mode conventions; the principal-value or Fourier-multiplier definition and their
-relationship; whether existence almost everywhere is included; the form and sharpness of `C_p`;
-and whether the result is an operator norm theorem or a pointwise-function theorem.
+The Lean target uses `AddCircle (1 : Real)` with `AddCircle.haarAddCircle`, complex-valued `Lp`
+equivalence classes, `p : ENNReal` with `1 < p` and `p != top`, and Fourier multiplier `i` on
+negative modes, `-i` on positive modes, and zero at mode zero. It asserts existence of a
+nonnegative real `C_p` and an `Lp` conjugate `g` satisfying the coefficient identity and norm bound.
+
+## Source-review decisions still required
+
+An independently inspected source must confirm or challenge the selected period, measure,
+complexification, multiplier sign, zero-mode convention, and non-sharp existential bound. Any
+principal-value formulation needs a later checked bridge rather than silent identification.
 
 The ordered binders must make `p`, its endpoint hypotheses, `f`, and any bound constant explicit.
 Boundary treatment must cover constant functions, the zero Fourier mode, null-set changes, and the

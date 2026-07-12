@@ -5,11 +5,13 @@ repository gloss identifies the classical Marcel Riesz result that the periodic 
 operator is bounded on `L^p` for `1 < p < infinity`, but it does not fix the underlying circle
 normalization, the definition of the operator, scalar field, or an exact source passage.
 
-The human scope is therefore provisional. The statement phase must select and independently inspect
-an immutable source, then freeze all conventions before choosing a Lean expression. A narrow pinned
-Lean probe confirms that mathlib supplies the circle Haar measure, `L^p` spaces, and the Fourier
-basis needed for an encoding; it does not define or prove the conjugate-function operator claimed
-here. The provisional root vector is `[H3, M4, R4]`.
+The statement phase now freezes the classical strong-type formulation on the period-one additive
+circle: complex `L^p` equivalence classes, Haar measure, multiplier `-i sign(n)`, zero constant mode,
+and a nonnegative bound depending on `p`. `Statement.lean` elaborates this exact proposition from
+the single direct import `Mathlib.Analysis.Fourier.AddCircle`; four structural mutations are
+separately elaborated and fingerprint-distinguished. The provisional root vector remains
+`[H3, M4, R4]` because statement elaboration is not a proof.
 
-The scope map and source crosswalk preserve the unresolved choices. All downstream tasks remain
-open, and no exact statement, proof, audit completion, or theorem completion is claimed.
+The original repository gloss still lacks a pinpoint source passage and independent review, so the
+Fourier-multiplier conventions remain a provisional statement proposal until master acceptance.
+No proof, audit completion, or theorem completion is claimed.

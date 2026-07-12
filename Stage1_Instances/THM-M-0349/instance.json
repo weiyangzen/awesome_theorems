@@ -1,7 +1,7 @@
 {
   "schema_version": "stage1-instance-intake/1.0",
   "theorem_id": "THM-M-0349",
-  "item_id": "S56-M-0349-INTAKE",
+  "item_id": "S56-M-0349-STATEMENT",
   "lifecycle": "planned",
   "intent": "intake",
   "baseline": "L0",
@@ -13,20 +13,18 @@
   "category": "analysis / harmonic analysis",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "The L^p boundedness of conjugate functions.",
-  "canonical_claim_status": "human_scope_provisional_exact_source_conventions_and_formal_statement_open",
-  "canonical_claim": "Provisionally: for 1 < p < infinity, the periodic conjugate function (circular Hilbert transform) of an L^p function belongs to L^p and has norm at most C_p times the norm of the original function, with the operator, circle measure, scalar field, representatives, and constant fixed by the selected source.",
+  "canonical_claim_status": "formal_statement_frozen_source_pinpoint_and_independent_human_review_open",
+  "canonical_claim": "For every exponent 1 < p < infinity there is a nonnegative constant C_p such that every complex-valued L^p function on the unit additive circle with Haar measure has an L^p conjugate function g, whose nth Fourier coefficient is -i sign(n) times that of f (and whose zero coefficient is zero), with norm at most C_p times the norm of f.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_exact_source_and_operator_definition",
-    "module_candidates": [
-      "Mathlib.Analysis.Fourier.AddCircle",
-      "Mathlib.MeasureTheory.Function.LpSpace.Basic"
-    ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "elaborated_statement_only_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0349/Statement.lean",
+    "minimal_import": "Mathlib.Analysis.Fourier.AddCircle",
+    "declaration_or_expression": "Stage1Instances.THM_M_0349.ConjugateFunctionTheoremTarget",
+    "elaborated_expression_hash": "sha256:5f80bebbbf59938add2cb517d6b6219f7a7a22ad8f09586d01e508db2e2ac908",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.Analysis.Fourier.AddCircle_statement-c548991ce6ec39da14646f359edea6ad3b53e31dc71e27c4b90345b034afcf62"
   },
-  "domain_and_universes": "Expected domain is the one-dimensional torus with normalized Haar measure and real- or complex-valued L^p functions; the exact circle model, scalar field, and representative convention remain open.",
+  "domain_and_universes": "p : ENNReal; f and g are complex-valued Lp equivalence classes on AddCircle (1 : Real), using AddCircle.haarAddCircle; no universe parameters.",
   "quantifiers": [
     "p with 1 < p < infinity",
     "f in the source-specified L^p space",
@@ -38,7 +36,7 @@
   ],
   "conclusion": "The source-defined conjugate function exists in L^p and satisfies the source-specified L^p bound.",
   "alternate_encodings": [],
-  "excluded_degenerate_cases": "Endpoints p = 1 and p = infinity are not included in the strong-type claim. Mean-zero normalization, constants, almost-everywhere representatives, real versus complex scalars, and principal-value versus Fourier-multiplier definitions must be fixed rather than silently identified.",
+  "excluded_degenerate_cases": "The strong-type endpoints p = 1 and p = infinity are excluded. The circle period is 1, scalars are complex, functions are Lp equivalence classes, and the Fourier multiplier sends the zero mode to zero. Principal-value and real-valued encodings receive no credit without later checked transports.",
   "source_status": "repository_secondary_metadata_only_primary_source_edition_theorem_page_assumptions_and_errata_open",
   "source_revisions": {
     "repository_base": "c9694802ae049af37973e49a65f11b833135333f",
@@ -70,7 +68,10 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Encoding ingredients elaborate, but no exact source theorem or canonical Lean target is frozen. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested statement proposal only. The exact Lean proposition elaborates and its four required structural mutations are distinguished, pending master acceptance. Pinpoint source review, proof, H0, M0, R0, audit completion, and theorem completion remain open."
 }

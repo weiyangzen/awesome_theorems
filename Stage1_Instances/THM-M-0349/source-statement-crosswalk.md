@@ -24,9 +24,9 @@ one passage and independently verify every assumption and convention.
 
 | Repository phrase | Provisional mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
-| "conjugate function" | periodic Hilbert transform of `f` | a concrete operator on circle functions or `L^p` classes | intended family identified; definition open |
-| `L^p` | periodic function space for exponent `p` | `MeasureTheory.Lp` over the selected Haar measure | API probed; exponent encoding and scalars open |
-| "boundedness" | `||Hf||_p <= C_p ||f||_p` | a continuous linear map or explicit norm inequality | conclusion shape provisional; constant open |
+| "conjugate function" | periodic Hilbert transform of `f` | Fourier coefficient multiplier `-i sign(n)`, zero at `n=0` | formal convention frozen; source confirmation open |
+| `L^p` | periodic function space for exponent `p` | complex `MeasureTheory.Lp` on period-one `AddCircle` Haar measure | formal domain frozen; source confirmation open |
+| "boundedness" | `||Hf||_p <= C_p ||f||_p` | existential nonnegative real `C_p` and explicit norm inequality | formal conclusion frozen; sharpness not claimed |
 | Marcel Riesz / 1927 | historical locator | no Lean term or proof credit | exact primary passage open |
 | `已验证` | untrusted inventory metadata | no statement or proof evidence | explicitly rejected as evidence |
 
@@ -38,7 +38,7 @@ and `MemLp`. A bounded name/content search found no theorem-specific circular Hi
 transform or conjugate-function declaration. This is a bounded intake observation, not the later
 immutable anchor audit and not proof of absence from all Lean projects.
 
-Before statement credit, the selected source rows must map to one elaborated Lean proposition, and
-all alternate operator encodings receiving credit must have checked witnesses. Before `H0`, an
+`Statement.lean` now supplies one elaborated proposition with a recorded expression fingerprint.
+No alternate encoding receives credit. Before `H0`, an
 independent reviewer must approve the pinned edition, passage, assumptions, definitions, proof
 boundary, and errata record.

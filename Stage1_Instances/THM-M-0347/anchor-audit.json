@@ -1,0 +1,87 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0347-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0347",
+  "audit_cutoff_utc": "2026-07-12T11:41:10Z",
+  "canonical_target": "Stage1Instances.THM_M_0347.FejerTheoremTarget",
+  "discovery_order": [
+    "repo-local Lean sources",
+    "pinned mathlib source tree",
+    "GitHub public repositories",
+    "GitLab public projects"
+  ],
+  "immutable_environment": {
+    "repository_base": "cc46a50150dae27c90dca0938294d8da17db9109",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "queries": {
+    "aliases": ["Fejer", "Fejer", "Cesaro", "Cesaro", "Fourier", "fejerKernel"],
+    "repo_local": "rg over tracked/untracked Lean and documentation, excluding the pinned package cache and this target",
+    "mathlib": "rg over Mathlib, Archive, and Counterexamples for name/documentation aliases and Fourier/Cesaro API families",
+    "github_repository_api": ["Fejer Lean4", "Fejer Lean4", "Cesaro Fourier Lean4", "Cesaro Fourier Lean4"],
+    "gitlab_project_api": ["Fejer Lean4", "Fejer Lean4", "Cesaro Fourier Lean4"]
+  },
+  "candidates": [
+    {
+      "id": "mathlib-summable-fourier-series",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/Analysis/Fourier/AddCircle.lean",
+      "file_sha256": "32363b7144bee4cdc3f96e41237eb6944c8dd6ac92449340a0c27462959e7c81",
+      "declaration": "hasSum_fourier_series_of_summable",
+      "classification": "related_not_exact",
+      "reason": "It assumes Summable (fourierCoeff f); the canonical target quantifies over every continuous f without coefficient summability. It sums a bilateral Int series rather than directly proving convergence of the frozen symmetric Cesaro means.",
+      "local_check": "Stage1Instances.THM_M_0347.summableFourierCandidate",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "id": "mathlib-generic-cesaro",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/Analysis/Asymptotics/SpecificAsymptotics.lean",
+      "file_sha256": "23c45fb6388080a60762564d03d83ac46b2fff0ff5c8bc79c70b5574054520ea",
+      "declaration": "Filter.Tendsto.cesaro_smul",
+      "classification": "related_not_exact",
+      "reason": "It requires the averaged sequence u itself to converge. Fejer's theorem cannot assume convergence of the Fourier partial sums it is meant to Cesaro-sum.",
+      "local_check": "Stage1Instances.THM_M_0347.cesaroCandidate",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "id": "external-l1-fejer-sum",
+      "project": "BryceT233/L1-convergence-of-Fejer-sum",
+      "remote": "https://github.com/BryceT233/L1-convergence-of-Fejer-sum",
+      "revision": "2718c05d5ab6beca24f7f5df2e86f673a0550e1f",
+      "tree": "83db828a8bb2bd6fbeab1d5c0bd483af3f5db873",
+      "file": "fejer_L1.lean",
+      "git_blob": "e0fc7960bfcf2533ab0eee9983840ceffad125b3",
+      "file_sha256": "c856b60abe160bc73a95e8a735e786c17526c4a51df594c1688d6f61615a18b7",
+      "declaration": "Fejer_L1",
+      "license": "Apache-2.0",
+      "classification": "different_target_unchecked",
+      "reason": "The theorem is L1 convergence of a convolution on the fixed circle AddCircle (2*pi), scaled to (2*pi) * hf.toL1. It is not uniform convergence of frozen symmetric Fourier Cesaro sums for arbitrary positive period and continuous f. The file also contains a sorry-backed auxiliary declaration and fails under this repository's pinned Lean/mathlib environment.",
+      "direct_check_result": "exit 1: multiple elaboration errors and warning 'declaration uses sorry' at upstream line 345",
+      "integration_status": "anchor_only_not_dependency"
+    }
+  ],
+  "negative_results": {
+    "repo_local_exact_candidate": false,
+    "pinned_mathlib_exact_candidate": false,
+    "github_exact_candidate": false,
+    "gitlab_results": 0,
+    "limitations": "Repository-name/description APIs do not search every code blob; no exhaustive-discovery claim is made. GitHub code-search and grep.app were unavailable without credentials/rate capacity. The one relevant public Lean repository returned by the prescribed repository queries was inspected at its immutable commit."
+  },
+  "decision": {
+    "machine_debt": "M3",
+    "evidence_level": "E3_related_anchors_only",
+    "exact_external_closure_found": false,
+    "repo_local_integration_debt_created": false,
+    "theorem_proved": false,
+    "theorem_complete": false,
+    "status_boundary": "This closes the bounded anchor-audit phase only. It finds no exact Lean 4 closure and gives no proof credit to related or incompatible candidates."
+  },
+  "gate_state": "self_tested_pending_master_acceptance"
+}
+

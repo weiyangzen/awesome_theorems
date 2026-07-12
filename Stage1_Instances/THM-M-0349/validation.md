@@ -23,3 +23,7 @@ Known downstream failures remain intentionally open: exact primary-source inspec
 review, convention freeze, canonical Lean elaboration and mutation tests, immutable anchor audit,
 obligation registry, proof, hermetic replay, and release acceptance. They prevent theorem completion
 but do not invalidate this truthful `planned` intake.
+
+The later statement-phase evidence is recorded separately in `statement-validation.md`. It
+supersedes the intake-only claims that convention freeze and canonical elaboration remain open, but
+does not alter the intake receipt or grant proof credit.
