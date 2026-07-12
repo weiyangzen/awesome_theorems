@@ -1,0 +1,107 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0161-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0161",
+  "base_revision": "b33312e792c156f58e747a0f53dfa36691ee0658",
+  "canonical_target": "Stage1Instances.THM_M_0161.FundamentalTheoremOfSpaceCurvesTarget",
+  "target_expression_sha256": "c140d1d15da39c41b3cc430e5119c4ec5194856f15481e2040cc0ea710c47f82",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "searches": [
+    {
+      "surface": "repository and pinned mathlib source",
+      "queries": [
+        "frenet",
+        "space curve",
+        "fundamental theorem.*curve",
+        "signed torsion",
+        "curve.*torsion",
+        "curvature.*torsion"
+      ],
+      "result": "No exact or near-exact space-curve theorem declaration was found in the repository or pinned mathlib. Algebraic-geometry torsion hits were false positives."
+    },
+    {
+      "surface": "Sourcegraph public indexed Lean source",
+      "queries": [
+        "Fundamental theorem of space curves",
+        "fundamental theorem of curves",
+        "signed torsion",
+        "torsion AND curvature",
+        "Frenet"
+      ],
+      "result": "Exact theorem/torsion queries returned zero matches, including archived and forked repositories. The broader Frenet query found only facebookresearch/atlas-lean at immutable commit 34ffed396f376454c1a9b297f3fd74c5c801fb50. This is an indexed-public-code search, not a proof that no unindexed project exists."
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "MATHLIB-ODE-EXISTENCE",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.ODE.PicardLindelof",
+      "declaration": "IsPicardLindelof.exists_eq_forall_mem_Icc_hasDerivWithinAt",
+      "classification": "supporting_anchor_only",
+      "fit": "Kernel-checked local existence for a time-dependent ODE on a closed interval, assuming an IsPicardLindelof package.",
+      "gap": "It neither constructs a global solution on the arbitrary open interval nor establishes Frenet-frame invariants, curve regularity, curvature/torsion identities, or rigid-motion uniqueness.",
+      "placeholder_audit": "The pinned declaration has a theorem body and the audited source contains no sorry/admit at this declaration.",
+      "integration": "available at the pinned revision but not imported by the canonical statement"
+    },
+    {
+      "candidate_id": "MATHLIB-ODE-UNIQUENESS",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.ODE.Gronwall",
+      "declarations": [
+        "ODE_solution_unique_of_mem_Ioo",
+        "ODE_solution_unique_univ"
+      ],
+      "classification": "supporting_anchor_only",
+      "fit": "Kernel-checked uniqueness of solutions to Lipschitz ODEs, including an open-interval form.",
+      "gap": "A future proof must encode the Frenet system, prove Lipschitz hypotheses, connect frame uniqueness to the curve invariants, and derive the determinant-one rigid motion. These declarations do not prove existence.",
+      "placeholder_audit": "Both pinned declarations have theorem bodies; their source file contains no sorry/admit.",
+      "integration": "available at the pinned revision but not imported by the canonical statement"
+    },
+    {
+      "candidate_id": "MATHLIB-CROSS-PRODUCT",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.LinearAlgebra.CrossProduct",
+      "declaration": "crossProduct",
+      "classification": "definition_anchor_only",
+      "fit": "The pinned definition is already used by the canonical signed-torsion encoding.",
+      "gap": "A definition is not an existence/uniqueness proof and grants no machine closure.",
+      "placeholder_audit": "Concrete definition in pinned mathlib.",
+      "integration": "already imported by Statement.lean"
+    },
+    {
+      "candidate_id": "ATLAS-SPACE-CURVES",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module_or_path": "Atlas/DifferentialGeometry/code/SpaceCurves.lean",
+      "source_sha256": "ebe6f9de7a951d944a56c348d428ef13e45e934be611fc1e4aeb673fed6bbb2f",
+      "observed_declarations": [
+        "IsFrenetCurve",
+        "frenetFrame",
+        "frenetCurvature",
+        "frenetSerret_theorem"
+      ],
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "classification": "rejected_incomplete_nearby_formalization",
+      "fit": "The file develops general-dimensional Frenet frames and Frenet-Serret equations and happens to use the same Lean/mathlib revisions.",
+      "gap": "It contains no prescribed-curvature/torsion existence theorem, no uniqueness-up-to-proper-rigid-motion theorem, and no declaration matching the canonical target.",
+      "placeholder_audit": "Rejected for machine credit: the immutable file contains explicit sorry bodies, including frenetFrame_differentiableAt, frenetFrame_orthogonal_higher_iteratedDeriv, and frenet_frame_det_one.",
+      "integration": "not vendored or imported; no dependency fetch was performed"
+    }
+  ],
+  "exact_candidate_found": false,
+  "machine_debt": "M4",
+  "anchor_audit_complete": true,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The candidate inventory is complete for the recorded pinned/local and indexed-public searches. No candidate proves the canonical target, no external artifact is integrated, and no H0, M0, proof, audit-completion, or theorem-completion credit is claimed."
+}
+

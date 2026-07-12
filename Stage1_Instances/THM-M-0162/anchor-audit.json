@@ -1,0 +1,89 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0162",
+  "item_id": "S56-M-0162-ANCHOR_AUDIT",
+  "base_revision": "0a66013e1558a3bc4e31c9d7f64c0e8fb1dfebab",
+  "canonical_target": "Stage1Instances.THM_M_0162.FrenetSerretTarget",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "revision_source": "Formalizations/Lean/lake-manifest.json and local package HEAD agree",
+    "exact_candidate_found": false,
+    "name_search_terms": [
+      "Frenet",
+      "Serret",
+      "torsion",
+      "curvature",
+      "unit speed"
+    ],
+    "supporting_modules": [
+      {
+        "module": "Mathlib.LinearAlgebra.CrossProduct",
+        "declarations": [
+          "crossProduct",
+          "dot_self_cross",
+          "dot_cross_self",
+          "triple_product_permutation",
+          "cross_dot_cross",
+          "cross_cross_eq_smul_sub_smul"
+        ],
+        "role": "oriented coordinate cross product and algebraic orthogonality identities"
+      },
+      {
+        "module": "Mathlib.Analysis.InnerProductSpace.Calculus",
+        "declarations": [
+          "HasDerivAt.inner",
+          "deriv_inner_apply"
+        ],
+        "role": "differentiate moving-frame inner products"
+      },
+      {
+        "module": "Mathlib.Geometry.Euclidean.Angle.Unoriented.CrossProduct",
+        "declarations": [
+          "InnerProductGeometry.norm_toLp_symm_crossProduct"
+        ],
+        "role": "Euclidean norm of a cross product"
+      }
+    ],
+    "classification": "supporting_lemmas_only"
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "path": "Atlas/DifferentialGeometry/code/SpaceCurves.lean",
+      "source_sha256": "58b6944dbd78a74f6cf978ead62b67a1e6202aedadac961f5a17a177aa7ef6d0",
+      "declarations": [
+        "SpaceCurves.frenetSerret_equation",
+        "SpaceCurves.frenetSerret_theorem"
+      ],
+      "candidate_kind": "related_general_dimensional_matrix_form",
+      "exact_target_match": false,
+      "placeholder_scan": {
+        "result": "failed",
+        "finding": "SpaceCurves.frenetFrame_differentiableAt has proof `by sorry` at source line 350 and is used transitively by the displayed Frenet-Serret development."
+      },
+      "integration_status": "rejected_for_proof_credit",
+      "reasons": [
+        "The external frame is obtained by Gram-Schmidt from iterated derivatives, rather than the target's T, N, and oriented B = T cross N.",
+        "The equation contains a speed norm factor and generalized curvatures; the target is unit-speed and fixes torsion by tau = -dot(B', N).",
+        "No checked transport to the target's three coordinate-vector equations is supplied.",
+        "A root-relevant differentiability theorem contains `sorry`, so terminal proof provenance is not kernel-closed."
+      ]
+    }
+  ],
+  "search_scope": {
+    "repository_local": "all tracked Lean files under the worker clone",
+    "pinned_mathlib": "all Mathlib/*.lean files at the manifest revision",
+    "external_index": "Sourcegraph global Lean-language searches for Frenet, Serret, FrenetSerret, and frenet_serret",
+    "external_result": "one relevant repository, facebookresearch/atlas-lean, inspected at the immutable indexed commit"
+  },
+  "debt": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete_for_phase": true,
+  "theorem_complete": false,
+  "status_boundary": "Candidate inventory and rejection evidence only. No external theorem is imported or credited, and no H0, M0, audit-complete theorem verdict, or theorem completion is claimed."
+}
