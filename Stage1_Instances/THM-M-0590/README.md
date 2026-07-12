@@ -39,8 +39,18 @@ from kernel, cokernel, closed range, and `T - lambda I`; it does not substitute 
 interface. `statement.json` freezes binders and conventions, and `statement_validation.md` records
 the Lean replay and environment fingerprint.
 
-This elaboration supplies no inhabitant of the proposition. The source, anchor, proof, validation,
-and release phases remain open, the root stays `M3`, and theorem completion remains false.
+This elaboration supplies no inhabitant of the proposition. The bounded anchor audit found no exact
+proof candidate, so the current root is `M4`; proof, validation, and release remain open and theorem
+completion remains false.
+
+## Frozen proof architecture
+
+The obligation-tree phase freezes 17 semantic obligations and separate proof, refinement,
+provenance, evidence, trust, documentation, and workflow graphs. The machine denominator has 15
+required obligations. `ObligationTree.lean` checks only the final conditional composition from
+explicit forward-invariance and backward-classification packages; both packages remain open at
+`M4`, and the current root cut set is those two packages. See `obligation-tree.md` for the readable
+node ledgers and `obligation-registry.json` / `typed-graphs.json` for the authoritative freeze.
 
 ## Intake verdict
 

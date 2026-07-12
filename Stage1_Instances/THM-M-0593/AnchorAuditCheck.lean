@@ -1,0 +1,10 @@
+import Mathlib.MeasureTheory.Function.Jacobian
+import Mathlib.Topology.MetricSpace.HausdorffDimension
+
+#check MeasureTheory.addHaar_image_eq_zero_of_det_fderivWithin_eq_zero
+#check ContDiffOn.dimH_image_le
+#check ContDiffOn.dense_compl_image_of_dimH_lt_finrank
+
+#print axioms MeasureTheory.addHaar_image_eq_zero_of_det_fderivWithin_eq_zero
+#print axioms ContDiffOn.dimH_image_le
+#print axioms ContDiffOn.dense_compl_image_of_dimH_lt_finrank
