@@ -1,0 +1,33 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1259-PROOF",
+  "theorem_id": "THM-M-1259",
+  "base_revision": "6280a5556a0879b07f75e8bfd9359fa6cc60101b",
+  "recorded_at": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1259.hormanderTarget",
+  "statement_sha256": "8258728ff71980a4431fb47213487c8d7655c64d0dd0f3ab2e9b058f8a95c0c7",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "blocked",
+  "machine_classification": "M4",
+  "proof_body_added": false,
+  "root_closed": false,
+  "theorem_complete": false,
+  "first_failed_gate": "THM-M-1259-L-COMMUTATOR-ESTIMATE: the frozen registry has only a planned fingerprint and the pinned Lean closure contains no localized fractional Sobolev estimate deriving positive gain from the bracket condition",
+  "remaining_machine_cut_set": [
+    "THM-M-1259-L-COMMUTATOR-ESTIMATE",
+    "THM-M-1259-L-REGULARITY-BOOTSTRAP",
+    "THM-M-1259-L-ANALYTIC-CORE",
+    "THM-M-1259-ROOT"
+  ],
+  "candidate_assessment": {
+    "pinned_mathlib": "Provides distributions, Lie brackets, smoothness lemmas, and a global first-order Gagliardo-Nirenberg-Sobolev inequality, but no Hormander sum-of-squares subelliptic estimate or hypoellipticity theorem.",
+    "repo_local_legacy": "AwesomeTheorems.Stage1.S1_M_161 defines statement-shape and finite-probe estimate packages, but explicitly leaves the compact-support estimate, localization, bootstrap, and smooth-representative leaves unchecked.",
+    "owned_composition": "expandedCore_composes_hormanderTarget is a valid conditional wrapper from ExpandedHypoellipticCore; it does not inhabit that premise."
+  },
+  "statement_risk": "The canonical target quantifies over an arbitrary measure mu although the receipt describes it as Lebesgue measure. IsSmoothDistribution is defined relative to mu, so zero or otherwise unsuitable measures materially change the conclusion. Exact source fidelity and truth of this broadened quantification must be resolved before a proof can be accepted; the proof worker did not alter the frozen statement.",
+  "blocker": "Closing the exact root requires a new placeholder-free formalization of the local fractional Sobolev machinery, Hormander commutator estimate, distribution regularization, arbitrary-order bootstrap, local Sobolev embedding, and density patching, plus resolution of the arbitrary-measure statement risk. No exact or stronger proof body exists in the available pinned closure, and assuming the analytic core or importing the legacy certificate package would violate the proof gate.",
+  "retry_condition": "Correct and re-freeze the measure boundary if source review confirms the target is broadened, then provide local placeholder-free bodies for the estimate and bootstrap at the frozen types, or an independently audited immutable dependency with an exact or stronger proof and a checked transport.",
+  "status_boundary": "This is a proof-phase blocker record, not a proof receipt. It does not satisfy S56-M-1259-PROOF, does not change M4, and must not be promoted to provisional or accepted completion."
+}
