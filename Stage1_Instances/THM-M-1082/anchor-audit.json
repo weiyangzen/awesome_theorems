@@ -1,0 +1,98 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1082-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1082",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "095199268f7d62ff1a1f99662c4cbe931cdf0e73",
+  "canonical_target": "AwesomeTheorems.THM_M_1082.gaussianProcess_iff_finiteDimensionalGaussian",
+  "canonical_target_expression_sha256": "26f4a571d703862aca5ccf41d7b75c6166d2fa67ca78a23db60d3f674d5ea592",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source and history",
+    "Sourcegraph public Lean index",
+    "GitHub repository metadata search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1082-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+      "declaration": "ProbabilityTheory.IsGaussianProcess",
+      "projection": "ProbabilityTheory.IsGaussianProcess.hasGaussianLaw",
+      "kind": "exact_definition_anchor",
+      "normalized_match": "exact: the sole structure field is the frozen target's finite-dimensional Gaussian-law quantifier",
+      "source_sha256": "1dce719afde290695718b795b2b64ae5045726de8d59e9674f7252ac666cfb83",
+      "body_provenance": "pinned mathlib one-field Prop structure; local iff wrapper uses only the public constructor and projection",
+      "axiom_status": "independent local audit wrapper reports propext, Classical.choice, and Quot.sound; no custom axiom",
+      "placeholder_or_unsafe_status": "no placeholder, custom axiom, unsafe declaration, or oracle occurs in the wrapper or terminal structure definition",
+      "classification": "M0-W_candidate",
+      "integration_status": "already in the pinned local Lake closure and exactly re-elaborated; downstream proof/trust gates must accept before authoritative promotion"
+    },
+    {
+      "candidate_id": "S56-M-1082-C02",
+      "project": "RemyDegenne/brownian-motion",
+      "revision": "62df9fdf929642afcbc77e880135b468328b86c6",
+      "module": "BrownianMotion.Gaussian.GaussianProcess",
+      "declarations": [
+        "ProbabilityTheory.IsGaussianProcess.indepFun''",
+        "ProbabilityTheory.IsGaussianProcess.iIndepFun''"
+      ],
+      "kind": "external_support_only",
+      "normalized_match": "consequences of mathlib's predicate, not the exact definition-characterization equivalence",
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "source_sha256": "0a51f1274533938eb90b61d2f038ce6edf1fe5000f883cfbae45542eda123dfe",
+      "body_provenance": "immutable raw source inspected; transitive project build and axiom audit not performed",
+      "classification": "M3_external_support_only",
+      "integration_status": "different dependency closure and no root value; pinning would add no proof capability"
+    },
+    {
+      "candidate_id": "S56-M-1082-C03",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas.FourierAnalysis.code.BrownianMotion",
+      "kind": "external_support_only",
+      "normalized_match": "uses IsGaussianProcess for a Brownian-motion development; does not prove the frozen generic equivalence",
+      "body_provenance": "immutable Sourcegraph result and raw module inspected; project not imported or built",
+      "classification": "M3_external_support_only",
+      "integration_status": "not exact and unnecessary because the exact pinned mathlib anchor is already local"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global (IsGaussianProcess OR \"Gaussian process\") lang:Lean count:100",
+      "result": "100 matches in three repositories; shard match limit reached",
+      "response_sha256": "0f7e3fdd6f9393a1c2c4857cac49086cb2701d2c6b24ca3734142903a80fbde6",
+      "immutability_boundary": "dated, content-hashed bounded response; candidate revisions recorded separately"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Gaussian process\"+Lean4",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "repository metadata only; not an exhaustive code-search absence claim"
+    }
+  ],
+  "root_machine_classification_proposed": "M0-W",
+  "root_classification_reason": "The frozen iff is exactly constructor/projection transport for the one-field IsGaussianProcess structure at the pinned mathlib revision, and both the canonical wrapper and an independent probe elaborate locally without axioms.",
+  "proof_body_location": "local two-direction wrapper over a pinned mathlib definition; no external body",
+  "remaining_anchor_blocker": null,
+  "downstream_gates": [
+    "freeze the obligation and provenance registries",
+    "accept proof-body and transitive trust classification",
+    "run release-grade hermetic and independent validation",
+    "complete human-source and readability review"
+  ],
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes the bounded formal-anchor inventory only. Proposed M0-W is not authoritative proof-state promotion and supplies no H0, obligation-tree, release, audit-completion, or theorem-completion receipt."
+}
