@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1009-STATEMENT",
+  "theorem_id": "THM-M-1009",
+  "lifecycle": "planned",
+  "canonical_statement": "For measurable events A_n in a probability space whose finite probability sums diverge, the probability of limsup A_n is at least the limsup of the squared finite probability sum divided by the ordered double sum of pairwise-intersection probabilities.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1009/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1009.ErdosRenyiLowerBoundTarget",
+    "elaborated_expression_sha256": "5933a50ff097d2de1336a67d4671b3caf7add728d2be6f8be22f95a0385dec1f",
+    "statement_file_sha256": "9906d8bf53b69bff68246b938627f5f117611fbdf95e2e54f01758c28ce5d831"
+  },
+  "domain_and_universes": "Omega : Type u; MeasurableSpace Omega; mu : Measure Omega; IsProbabilityMeasure mu; A : Nat -> Set Omega; Prop in universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "MeasurableSpace Omega instance",
+    "mu : Measure Omega",
+    "IsProbabilityMeasure mu instance",
+    "A : Nat -> Set Omega"
+  ],
+  "hypotheses": [
+    "forall n, MeasurableSet (A n)",
+    "Tendsto (partialEventMass mu A) atTop atTop"
+  ],
+  "conclusion": "Filter.limsup (eventMassRatio mu A) atTop <= mu.real (limsup A atTop), where both finite sums use Finset.range n and the denominator is the ordered n-by-n double sum.",
+  "direct_imports": [
+    "Mathlib.Probability.BorelCantelli"
+  ],
+  "minimal_import_evidence": "This pinned module directly supplies Measure, IsProbabilityMeasure, MeasurableSet, event limsup notation, and the filter/topology infrastructure used by the target. No repository Stage1 module or broader Mathlib umbrella is imported.",
+  "checked_transport": "Stage1Instances.THM_M_1009.lowerBoundTarget_iff_pointwise",
+  "pinned_source_relationship": "The definitions and root proposition directly normalize the intake-selected lower-bound candidate. The legacy S1_M_289 module is not imported and supplies no proof credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1009/check_statement.py",
+    "killed": [
+      "removed event measurability",
+      "changed probability measure to an arbitrary finite measure",
+      "moved the event-sequence binder outside the pointwise measurability scope",
+      "changed the initial-segment convention from range n to range (n + 1)"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1009.partialEventMass_zero",
+      "Stage1Instances.THM_M_1009.pairwiseEventMass_zero",
+      "Stage1Instances.THM_M_1009.eventMassRatio_zero"
+    ]
+  },
+  "degenerate_cases": "At n = 0 both sums and the ratio are kernel-checked to be zero. Real division therefore fixes a zero denominator to zero. No independence, denominator-positivity, atomlessness, or nonempty-event hypothesis is added.",
+  "alternate_encodings": {
+    "full_probability_consequence": "Not selected as the exact root and not credited as an equivalent statement; deriving it is a later proof obligation.",
+    "ennreal_finite_sums": "Not credited; conversion and division transports would require separate checked witnesses."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the intake-selected generalized Borel-Cantelli lower-bound proposition. It supplies no primary-source H0 result, anchor audit, proof body, M0 claim, audit completion, release validation, or theorem completion."
+}

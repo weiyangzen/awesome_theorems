@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1008-STATEMENT",
+  "theorem_id": "THM-M-1008",
+  "lifecycle": "planned",
+  "canonical_statement": "Let X be a countable iid family of measurable-space-valued random variables on a probability space. Every measurable path event invariant under every finite-support permutation of the coordinates has pullback probability zero or one.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1008/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1008.HewittSavageZeroOneTarget",
+    "elaborated_expression_sha256": "2d9e3cd06b290ffddd906b177c7400dc999028ef45dc0134d845621a4aa7b76c",
+    "statement_file_sha256": "95e22d470855eae44d723c6c58101abf1211d5405bc36d5c838f623a879febf6"
+  },
+  "domain_and_universes": "universes u v; Omega : Type u and E : Type v with measurable spaces; probability measure mu on Omega; X : Nat -> Omega -> E; event : Set (Nat -> E); Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "E : Type v",
+    "[MeasurableSpace Omega]",
+    "[MeasurableSpace E]",
+    "mu : Measure Omega",
+    "[IsProbabilityMeasure mu]",
+    "X : Nat -> Omega -> E",
+    "event : Set (Nat -> E)"
+  ],
+  "hypotheses": [
+    "iIndepFun X mu",
+    "forall i j : Nat, IdentDistrib (X i) (X j) mu mu",
+    "MeasurableSet event in the product measurable space",
+    "event membership is invariant under every permutation sigma for which {n | sigma n != n} is finite"
+  ],
+  "conclusion": "mu (processPath X preimage event) = 0 or mu (processPath X preimage event) = 1",
+  "direct_imports": [
+    "Mathlib.Probability.IdentDistribIndep"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1008.target_iff_expandedSourceShape",
+  "source_boundary": "This instantiates the standard symmetric-event iid reading frozen at intake. The anchor-audit phase must still establish the exact primary-source theorem/page and convention crosswalk; the historical S1_M_288 candidate receives no proof credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1008/check_statement.py",
+    "killed": [
+      "removed mutual independence",
+      "changed the coordinate index domain from Nat to Int",
+      "moved the process binder from universal to existential scope",
+      "strengthened finite-support invariance to invariance under every permutation"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1008.identity_hasFiniteSupport"
+    ]
+  },
+  "degenerate_cases": "Constant iid processes, empty and universal events, and the identity permutation remain included. The statement does not accept mere exchangeability, a nonmeasurable event, almost-everywhere invariance, or invariance under only one permutation.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact target and direct expansion elaborate in the pinned environment. No Hewitt-Savage proof, H0 source review, anchor acceptance, or theorem-completion evidence is claimed."
+}
