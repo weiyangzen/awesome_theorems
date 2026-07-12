@@ -45,6 +45,15 @@ everywhere. `statement.json` records the expression and environment hashes.
 This completes only the worker statement deliverable; master acceptance and
 all source, concrete-definition, proof, validation, and release work remain.
 
+## Obligation-tree phase
+
+Registry version 1 freezes 15 obligations and separate typed proof, refinement,
+provenance, evidence, trust, documentation, and workflow graphs. The conditional
+Lean harness `ObligationTree.root_compose` checks only that a per-solution
+measure conclusion composes with the exact root's binder shape. All analytic
+premises remain open; the root stays `M4`. See `obligation-tree.md` for the
+frozen cut set and node ledgers.
+
 ## Validation
 
 The commands and exact intake and statement results are in `validation.md`.

@@ -1,0 +1,95 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1184-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1184",
+  "cutoff_utc": "2026-07-12T00:00:00Z",
+  "target": "Stage1Instances.THM_M_1184.KantorovichDualityTarget",
+  "environment": {
+    "repository_revision": "68e663d8ce85727d9e1baf107d3b32eb7a434ba8",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain": "leanprover/lean4:v4.29.0"
+  },
+  "query_families": [
+    "Kantorovich, Kantorovich duality, optimal transport, transport duality",
+    "Wasserstein duality, primal infimum, dual supremum",
+    "coupling, transport plan, marginal, ProbabilityMeasure",
+    "Stone separation, Hahn-Banach separation, Prokhorov, Portmanteau"
+  ],
+  "candidates": [
+    {
+      "id": "LOCAL-S1-M-169",
+      "project_revision": "68e663d8ce85727d9e1baf107d3b32eb7a434ba8",
+      "module": "AwesomeTheorems.Stage1.S1_M_169",
+      "declarations": [
+        "weakDuality_dualSup_le_primalInf",
+        "primalInf_eq_dualSup_of_data",
+        "hahnBanach_open_separation_anchor"
+      ],
+      "comparison": "Uses ENNReal costs and nonnegative measurable ENNReal potentials, unlike the exact signed-real continuous target. Its equality wrapper requires KantorovichDualityData, whose reverse_inequality field is the missing strong-duality proof.",
+      "terminal_body": "No unconditional terminal body for the exact target; the equality wrapper consumes the unproved mathematical obligation as input.",
+      "trust": "The complete historical source module elaborates under the pinned toolchain with no sorry/admit/axiom/unsafe tokens found by the supplementary scan; this does not close the target.",
+      "classification": "M2-partial-local-branches"
+    },
+    {
+      "id": "LOCAL-S1-M-151",
+      "project_revision": "68e663d8ce85727d9e1baf107d3b32eb7a434ba8",
+      "module": "AwesomeTheorems.Stage1.S1_M_151",
+      "declarations": [
+        "probabilityCouplingSet_isCompact_of_compactMetric",
+        "probabilityTransportCost_continuous_boundedContinuous"
+      ],
+      "comparison": "Adjacent compactness and continuous-cost primitives for transport existence; no dual potentials, dual objective, or primal-dual equality.",
+      "terminal_body": "Repo-local proofs/wrappers for proper sub-obligations only.",
+      "trust": "The complete historical source module elaborates under the pinned toolchain; this remains proper-sub-obligation evidence only.",
+      "classification": "M2-adjacent-child-anchors"
+    },
+    {
+      "id": "PINNED-MATHLIB",
+      "project_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "multiple pinned Mathlib modules",
+      "declarations": [
+        "exists_convex_convex_compl_subset",
+        "geometric_hahn_banach_open",
+        "geometric_hahn_banach_compact_closed",
+        "ProbabilityMeasure compactness/weak-convergence APIs"
+      ],
+      "comparison": "Generic separation, probability, integration, and compactness machinery. A source-tree search found no Kantorovich/optimal-transport duality declaration and no exact root theorem.",
+      "terminal_body": "No terminal exact candidate located.",
+      "trust": "Pinned dependency in the local Lake closure; only the selected adjacent wrappers were directly probed in this phase.",
+      "classification": "M2-supporting-library-only"
+    },
+    {
+      "id": "PUBLIC-NEWTON-KANTOROVICH-NONMATCH",
+      "project": "victorliu5296/newton-kantorovich-theorem",
+      "discovery_snapshot_sha256": "3bc18b9a5330e9bbb3de1d219b3209a10d6587ad82a8aabb9231d1ed66b1bf77",
+      "comparison": "Repository metadata says Newton-Kantorovich theorem, a nonlinear-analysis result, not Kantorovich optimal-transport duality.",
+      "terminal_body": "Not inspected after semantic exclusion.",
+      "trust": "Not a dependency and not a candidate for this target.",
+      "classification": "excluded-name-collision"
+    }
+  ],
+  "external_search": {
+    "registries": ["GitHub repository search API"],
+    "queries": [
+      "kantorovich language:Lean",
+      "optimal transport language:Lean",
+      "optimal-transport lean4",
+      "wasserstein language:Lean",
+      "\"Kantorovich duality\"",
+      "Kantorovich Lean4"
+    ],
+    "result": "No matching Lean 4 optimal-transport duality project was located. The sole Lean-language Kantorovich repository was the excluded Newton-Kantorovich name collision. A later GitHub commit-detail request returned HTTP 403, so no moving external source was fetched or promoted.",
+    "limitations": "Unauthenticated repository metadata search is not exhaustive code search. Negative discovery is cutoff-scoped and is not an exhaustive-discovery or AUDIT-Z claim."
+  },
+  "root_classification": {
+    "machine_debt": "M2",
+    "evidence_grade": "below E2 for the exact root",
+    "reason": "Local kernel-checked adjacent branches exist, but neither pinned mathlib nor the searched external surface supplies the exact signed-real equality. Strong duality and an encoding bridge remain open formalization debt."
+  },
+  "integration_decision": "No external exact completion candidate exists to pin/import/wrap from this inventory. Do not create an M1 integration task. Carry local formalization of strong duality plus explicit transports into the obligation-tree phase.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This receipt completes only the node-scoped candidate audit. It grants no proof, validation, release, H0, R0, M0, or exhaustive-discovery credit."
+}
