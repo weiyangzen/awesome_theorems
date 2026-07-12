@@ -6,12 +6,17 @@ two-dimensional percolation". That wording strongly points to the bond-percolati
 `p_c = 1/2` for the square lattice, but it does not state the graph, percolation model, definition of
 the critical parameter, or exact source proposition.
 
-The intended family is therefore frozen as Kesten's critical-probability result for independent
-bond percolation on the planar square lattice. The exact primary-source statement, endpoint and
-infinite-cluster formulation, graph encoding, and Lean expression remain open for the statement
-phase. The provisional root vector is `[H2, M4, R4]`. No exact Lean target, source review, formal
-candidate, audit completion, or theorem completion is claimed.
+The statement phase now freezes the title-selected equality from Kesten's 1980 paper: for
+independent bond percolation on the nearest-neighbor square lattice `Z x Z`, the critical parameter
+defined from positive probability that the origin lies in an infinite open cluster is `1/2`.
+`Statement.lean` elaborates the exact target, its graph and product-measure definitions, a checked
+expanded form, and four non-equivalent mutations using the pinned Lean environment. Absence of an
+infinite cluster at criticality is not silently added to the title-selected root.
 
-`scope-map.md` records proposition-changing choices,
-`source-statement-crosswalk.md` records the source lead and missing mapping, and `task-dag.json`
-leaves every downstream phase open. The intake checks are recorded in `validation.md`.
+This remains a `planned` dossier pending master acceptance. The root vector stays
+`[H2, M4, R4]`: statement elaboration supplies no Kesten proof, `H0` source review, formal-anchor
+audit, audit completion, or theorem completion.
+
+`statement.json` and `statement-validation.md` record the formal target, expression fingerprint,
+environment, mutations, and exact commands. The intake artifacts remain as discovery history, and
+all later task-DAG phases remain open.

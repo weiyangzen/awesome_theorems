@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1119-STATEMENT",
+  "theorem_id": "THM-M-1119",
+  "lifecycle": "planned",
+  "canonical_statement": "For independent Bernoulli bond percolation on the nearest-neighbor square lattice with vertex set Z x Z, the infimum of opening parameters p in [0,1] for which the origin has positive probability of belonging to an infinite open cluster is 1/2.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1119/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1119.KestenTarget",
+    "elaborated_expression_sha256": "c457bb8081bc2dc5dfdaca2c724ea34eab89491a80e87e78ab2a31fa16c5cf6e",
+    "statement_file_sha256": "f020e5b38de3a85f6efa0272c98271c1fe49aa2194e21918342a23b58a4e3b86"
+  },
+  "domain_and_universes": "Vertex = Int x Int; SquareLattice is the horizontal/vertical nearest-neighbor SimpleGraph; Bond = SquareLattice.edgeSet; Configuration = Bond -> Bool; p : NNReal with hp : p <= 1; all declarations are in Lean universe 0",
+  "ordered_binders": [
+    "p : NNReal",
+    "hp : p <= 1",
+    "configuration : Bond -> Bool",
+    "finiteVertices : Finset (Int x Int)",
+    "vertex : Int x Int"
+  ],
+  "hypotheses": [
+    "The threshold set contains parameters p with a witness hp : p <= 1.",
+    "Each bond coordinate has law PMF.bernoulli p hp under Measure.infinitePi."
+  ],
+  "conclusion": "criticalProbability = (1 / 2 : NNReal)",
+  "direct_imports": [
+    "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+    "Mathlib.Probability.ProductMeasure",
+    "Mathlib.Probability.ProbabilityMassFunction.Constructions"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1119.kestenTarget_iff_expandedTarget",
+  "source_selection": "Harry Kesten, The critical probability of bond percolation on the square lattice equals 1/2, Communications in Mathematical Physics 74(1) (1980), 41-59, DOI 10.1007/BF01197577. The title and bibliographic metadata identify the equality used here; pinpoint source-definition and errata review remain the later H audit and receive no H0 credit here.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1119/check_statement.py",
+    "killed": [
+      "changed bond configurations to site configurations",
+      "removed the infinite-cluster probability event",
+      "changed binder scope by adding positive probability at p = 1/2",
+      "strengthened the root with absence of percolation at the critical endpoint"
+    ]
+  },
+  "boundary_policy": "The bond model, unoriented square-lattice edge domain, product law, rooted infinite-cluster event, p in [0,1], and equality p_c = 1/2 are explicit. Infinite means escape from every finite vertex set through open-graph reachability. Absence of an infinite cluster at p = 1/2 is deliberately not part of this title-selected root and is retained as a distinguished mutation.",
+  "foundation_profile": "Lean 4 dependent type theory; definitions use noncomputable Measure.infinitePi and sInf. No proof-body axiom profile is claimed by this statement phase.",
+  "tcb_profile": "Lean kernel, pinned Lean toolchain, pinned mathlib revision, and the three declared imports.",
+  "computation_profile": "Analytic probability statement; simulations and numerical estimates receive no proof credit.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact title-selected critical-probability equality. It does not prove Kesten's theorem, establish event measurability, claim H0 source review, or advance anchor-audit and later nodes."
+}

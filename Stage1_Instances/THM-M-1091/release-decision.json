@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1091-RELEASE-local-20260712T043320Z",
+  "item_id": "S56-M-1091-RELEASE",
+  "theorem_id": "THM-M-1091",
+  "intent": "release",
+  "base_revision": "a089a197f76509f793325bc100907bfaa9c15bb2",
+  "base_tree": "ec4645d98c9f528f0aa9257f499cc86f48d6a5d3",
+  "decided_at": "2026-07-12T04:33:20Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1091-VALIDATION",
+    "receipt_id": "S56-M-1091-VALIDATION-local-20260712T042855Z",
+    "receipt_sha256": "db2182160a4d388d269c922d6d0191181239a39f08ef9810e0322f2778f66dab",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1091-VALIDATION-local-20260712T042855Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-P", "R3"],
+    "boundary": "The exact homogeneous discrete-time root closes provisionally through pinned mathlib Kernel.pow_add, but no phase receipt is master accepted. The accepted planned instance therefore remains H1/M3/R3."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1091-VALIDATION is provisional non-release-grade worker evidence and is not master accepted, so the release transition is not dependency-legal."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1091-VALIDATION and every transitive phase receipt",
+    "fresh authoritative typed-graph reconciliation of the provisionally closed exact root and machine obligations",
+    "complete reconciled discovery, source-boundary, evidence-state, and debt inventory for AUDIT-Z",
+    "accepted H0 primary-source crosswalk with edition, theorem/page, assumptions, errata, specialization justification, and independent source review",
+    "accepted R0 structured reconstruction for every readable obligation with independent reader review",
+    "complete transitive declaration, provenance, foundation, computation, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure with durable dependency archives",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed release bundle, signature, and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_root_kernel_check": "pass as provisional warm-cache worker evidence",
+    "proof_body": "local exact-target wrapper over ProbabilityTheory.Kernel.pow_add at pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, Proof.lean, Validation.lean, and the pinned terminal source",
+    "structured_state_freshness": "failed: typed-graphs.json predates proof closure and still records root_closed=false with M1091-L-POWADD open",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "After master acceptance of the dependency chain, reconcile the typed graph and audit inventory, obtain independent H0/R0 reviews, close transitive trust and supply-chain records, replay an immutable clean snapshot with empty caches and network denied, and obtain two qualifying signed attestations plus minimal-verifier acceptance of a deterministic bundle.",
+  "worktree_classification": "nonrelease: owned release artifacts and the pre-existing untracked Formalizations/Lean/.lake symlink are present",
+  "status_boundary": "This artifact self-tests an honest blocked release decision only. It does not accept prerequisite receipts, update authoritative state, establish AUDIT-Z or THEOREM-Z, or claim theorem completion."
+}

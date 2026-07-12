@@ -9,19 +9,20 @@ artifact and therefore cannot alone identify an exact proposition.
 
 The close primary-source lead is Harry Kesten, *The critical probability of bond percolation on
 the square lattice equals 1/2*, **Communications in Mathematical Physics** 74 (1980), 41-59. The
-title matches the likely intended equality and the repository year. This intake records the
-bibliographic lead for later inspection; it has not inspected and pinned an edition page by page,
-selected an exact numbered or displayed result, checked errata, or obtained independent review.
-It is discovery evidence, not `H0` evidence.
+title matches the intended equality and the repository year. The statement phase selects the
+equality literally stated by that title as its root and records DOI `10.1007/BF01197577`, volume 74,
+issue 1, and pages 41-59. It has not yet performed a page-by-page definition crosswalk, checked
+errata, or obtained independent review. The selection fixes the Lean statement boundary but is not
+`H0` evidence.
 
 ## Crosswalk
 
 | Repository/source phrase | Mathematical component to freeze | Required Lean component | Intake status |
 |---|---|---|---|
-| "two-dimensional" | the infinite planar square lattice and its dual | locally finite graph on `Z x Z`, edge relation, duality or checked encoding | likely square lattice; exact encoding open |
-| "percolation" | independent Bernoulli bond percolation | product measure on edge configurations and measurable connectivity events | bond model indicated by source title; definitions open |
-| "critical probability" | exact definition of `p_c` and percolation probability | real infimum/supremum, parameter domain, infinite-cluster event | intended invariant identified; convention open |
-| "equals 1/2" | both inequalities and endpoint behavior required by the selected root | rational/real coercion and equality of the defined critical value | intended equality identified; no Lean target |
+| "square lattice" | infinite nearest-neighbor graph on `Z x Z` | `SquareLattice : SimpleGraph (Int x Int)` and its `edgeSet` | frozen and elaborated; source-definition review open |
+| "bond percolation" | independent Bernoulli state on each unoriented bond | `Configuration`, `bondMeasure`, and `Measure.infinitePi` | frozen and elaborated; measurability/proof obligations open |
+| "critical probability" | infimum of parameters with positive rooted infinite-cluster probability | `OriginInInfiniteCluster`, `percolationProbability`, `criticalProbability` | frozen and elaborated; source-convention review open |
+| "equals 1/2" | exact threshold equality | `KestenTarget : criticalProbability = (1 / 2 : NNReal)` | frozen and elaborated; unproved |
 | Harry Kesten / 1980 | authorship and bibliographic disambiguation | no machine-proof credit | consistent with lead; pinpoint review open |
 
 ## Human and machine boundary

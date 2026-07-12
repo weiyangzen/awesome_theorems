@@ -9,16 +9,15 @@
 - The planar duality, crossing, connectivity, and infinite-volume probability notions needed to
   state the equality `p_c = 1/2` without building the desired result into a definition.
 
-## Decisions required at statement freeze
+## Statement-freeze decisions
 
-The statement phase must select and inspect an immutable primary edition and exact result. It must
-freeze: bond rather than site percolation; the concrete square-lattice graph and dual graph;
-unoriented rather than oriented edges; product probability space and edge independence; the event
-used to define the percolation probability; whether `p_c` is an infimum of positive percolation
-probability or a supremum of vanishing probability; the treatment of `p = 0, 1, 1/2`; and whether
-the root is stated as `p_c = 1/2` alone or together with absence of an infinite cluster at
-criticality. The order of all graph, vertex, configuration, event, and real-parameter binders must
-be explicit.
+The selected root is the equality stated in Kesten's paper title. `Statement.lean` freezes bond,
+not site, percolation; the horizontal/vertical nearest-neighbor `SimpleGraph` on `Int x Int`;
+unoriented bonds; Boolean bond configurations with `Measure.infinitePi` Bernoulli coordinates;
+origin reachability outside every finite vertex set as the infinite-cluster event; and `p_c` as the
+`NNReal` infimum of `p <= 1` with positive event measure. Parameters `0`, `1`, and `1/2` are admitted.
+The root is only `p_c = 1/2`; absence of an infinite cluster at criticality is a distinguished
+stronger mutation and is not credited.
 
 The source's notation may identify the square lattice with `Z^2`, a planar embedded graph, or its
 edge set. Those encodings require checked transports; informal isomorphism does not transfer proof
@@ -36,6 +35,6 @@ credit.
 - Monte Carlo evidence, finite-grid enumeration, asymptotic heuristic, or the repository metadata
   value `已验证` as mathematical or kernel evidence.
 
-No canonical Lean expression is frozen at intake. A later target must expose the lattice, edge
-configuration law, connectivity event, infinite-cluster predicate, critical parameter, and exact
-equality concretely.
+The canonical Lean expression and these components are now frozen by the statement artifacts.
+Planar duality is proof architecture rather than a root-statement binder. Pinpoint primary-source
+definitions, errata, and independent review remain open for the human-source audit.
