@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1012-STATEMENT",
+  "theorem_id": "THM-M-1012",
+  "lifecycle": "planned",
+  "canonical_statement": "For probability measures on any finite-dimensional real inner product space with its Borel measurable structure, convergence to a specified probability measure in the topology of weak convergence is equivalent to pointwise convergence of characteristic functions to the characteristic function of that specified measure.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1012/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1012.LevyContinuityKnownLimitTarget",
+    "elaborated_expression_sha256": "1baa1f00d8cab4be7e0121d56f06dd7c6b5455d7a87d5befd7604f629c44a618",
+    "statement_file_sha256": "647ac5ebd94ea8e8835201d0abf4b380f630006bdb1b0d593244df43d724cee0"
+  },
+  "domain_and_universes": "universe u; E : Type u; NormedAddCommGroup E; InnerProductSpace Real E; FiniteDimensional Real E; MeasurableSpace E; BorelSpace E; Nat-indexed probability measures; Prop in Lean universe 0",
+  "ordered_binders": [
+    "E : Type u",
+    "[NormedAddCommGroup E]",
+    "[InnerProductSpace Real E]",
+    "[FiniteDimensional Real E]",
+    "[MeasurableSpace E]",
+    "[BorelSpace E]",
+    "mu : Nat -> ProbabilityMeasure E",
+    "mu0 : ProbabilityMeasure E"
+  ],
+  "hypotheses": [],
+  "conclusion": "Tendsto mu atTop (nhds mu0) iff for every t : E, Tendsto (fun n => charFun (mu n) t) atTop (nhds (charFun mu0 t)).",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic",
+    "Mathlib.MeasureTheory.Measure.ProbabilityMeasure"
+  ],
+  "minimal_import_note": "The first direct import provides charFun and inner-product characteristic functions; the second provides ProbabilityMeasure and its weak-convergence topology. Neither direct import alone elaborates the target. LevyConvergence is deliberately not imported by this statement-only node.",
+  "checked_transport": "Stage1Instances.THM_M_1012.target_iff_expanded",
+  "source_boundary": "The intake-selected known-limit equivalence is frozen. The stronger arbitrary-limit existence theorem remains excluded. Primary-source pinpointing and convention review remain for the anchor-audit node.",
+  "environment_fingerprint": {
+    "base_revision": "688f1e598934169a383f99a0cde9d998eca49972",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1012/check_statement.py",
+    "validator_sha256": "79ac001e2a1c9b925b2536f1a90574aedd26cf245502dd7eb49131c246af0d4a",
+    "killed": [
+      "removed FiniteDimensional Real E hypothesis",
+      "changed arbitrary finite-dimensional domain E to Real",
+      "moved the specified limiting measure from a universal binder to an existential conclusion",
+      "excluded the zero frequency by restricting pointwise convergence to t != 0"
+    ],
+    "boundary_targets": [
+      "Stage1Instances.THM_M_1012.zeroDimensionalBoundary"
+    ]
+  },
+  "degenerate_cases": "The target includes the zero-dimensional Euclidean space, the zero frequency, constant or repeated measure sequences, and nonconvergent sequences; it adds no nondegeneracy premise.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "proposed_machine_debt": "M3",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. No Levy proof, mathlib anchor acceptance, H0 source review, audit completion, or theorem completion is claimed."
+}
