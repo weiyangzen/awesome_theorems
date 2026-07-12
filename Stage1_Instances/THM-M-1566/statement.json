@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1566-STATEMENT",
+  "theorem_id": "THM-M-1566",
+  "lifecycle": "planned",
+  "canonical_statement": "Corollary 5.9 of Gubinelli--Imkeller--Perkowski: for alpha in (2/3,1), beta in (2-2*alpha,alpha], F in C_b^(2+beta/alpha), initial condition u0 in C^alpha, and spatial white noise xi on T^2, the generalized parabolic Anderson equation has a unique solution characterized by renormalized mollified solutions which, up to an almost-surely positive data-measurable random time, converge in probability in the stopped C^alpha norm.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1566/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM1566.GIPCorollary59Target",
+    "elaborated_expression_sha256": "70ee4869b479335e8f13e902d68b13f73828f675124603909189fec1ccee473a",
+    "statement_file_sha256": "627813eff36280a012ac092e347ab8a12b424c6771692d70169b7202aa12fcd7"
+  },
+  "domain_and_universes": "Omega : Type u with MeasurableSpace; probability measure mu; abstract API types live in Type 0; positive epsilons carry the epsilon-to-zero filter.",
+  "ordered_binders": [
+    "Omega and its measurable space",
+    "probability measure mu",
+    "typed analytic API",
+    "GIP Corollary 5.9 data alpha, beta, F, u0, xi",
+    "unique solution u",
+    "every normalized Schwartz mollifier psi",
+    "renormalized solution family u_epsilon and stopping time tau"
+  ],
+  "hypotheses": [
+    "2/3 < alpha < 1",
+    "2 - 2*alpha < beta <= alpha",
+    "F has bounded smoothness 2 + beta/alpha",
+    "u0 is in C^alpha",
+    "xi is spatial white noise on the two-dimensional torus",
+    "psi is Schwartz with integral one"
+  ],
+  "conclusion": "There exists exactly one limit solution; for every normalized mollifier, renormalized classical solutions exist with the Lemma 5.8 counterterm, the stopping time is data-measurable and positive almost everywhere, and stopped C^alpha distance tends to zero in probability.",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Function.ConvergenceInMeasure"
+  ],
+  "minimal_import_check": "The only direct import supplies Measure, IsProbabilityMeasure, filters, and TendstoInMeasure; deleting it makes the file fail at its imports/API surface.",
+  "source_selection": "M. Gubinelli, P. Imkeller, N. Perkowski, Paracontrolled distributions and singular PDEs, arXiv:1210.2684v4, Corollary 5.9, pp. 38-39, using Lemma 5.8 and Theorem 5.4.",
+  "source_pdf_sha256": "d09790ea4e866e0e5c1a7fe2b419ea70308d5c638f63ca306641dbe62ed19fa3",
+  "historical_relationship": "The legacy S1_M_182.StatementShape is not an alternate encoding: it quantifies arbitrary dimensions and assumes the difficult SPDE propositions. It receives no transport or proof credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1566/check_statement.py",
+    "killed": [
+      "removed/reversed the white-noise hypothesis",
+      "changed the target to arbitrary-noise limit-equation existence",
+      "moved the mollifier binder outside the theorem data",
+      "weakened almost-sure strict positivity to nonnegativity"
+    ],
+    "boundary_proof": "Stage1Instances.THMM1566.alpha_boundary_excluded"
+  },
+  "foundation_profile": "Lean kernel logic, classical noncomputability, filters, measure theory, and the typeclass IsProbabilityMeasure. The statement invokes no oracle, unsafe declaration, numerical computation, or proof axiom.",
+  "degenerate_cases": "alpha = 2/3 and alpha = 1 are excluded by strict inequalities; beta's lower endpoint is excluded and upper endpoint admitted; zero stopping time is excluded almost everywhere; non-normalized mollifiers and non-white noise are outside the claim.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the Corollary 5.9 proposition over an explicit abstract analytic API. It does not construct that API, prove the theorem, or advance anchor, obligation, proof, validation, or release nodes."
+}

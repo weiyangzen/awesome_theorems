@@ -2,20 +2,22 @@
 
 This planned rev-5.6 instance covers the Gubinelli-Imkeller-Perkowski
 paracontrolled-distribution theory. The repository label, "regularity of
-parabolic SPDEs", is not a unique theorem. The leading target candidate is
+parabolic SPDEs", is not a unique theorem. The statement phase selects
 Corollary 5.9 of *Paracontrolled distributions and singular PDEs*: local
 existence, uniqueness, and convergence of renormalized approximations for the
 generalized parabolic Anderson model on the two-dimensional torus.
 
-The exact-statement phase must either accept that pinpointed claim or record a
-source-supported alternative. It must not silently broaden it to the entire
-theory or substitute a generic Holder/Lp wrapper.
+The exact Lean proposition is `Stage1Instances.THMM1566.GIPCorollary59Target`
+in `Statement.lean`. It uses a typed abstract analytic API because the pinned
+libraries lack paracontrolled distributions and the renormalized PAM solution
+notion. The API contains no assumed conclusion. This is an elaborated statement
+boundary, not proof closure.
 
 ## Scope map
 
 | Node | Scope | Intake state |
 |---|---|---|
-| `GIP-ROOT` | Exact well-posedness and approximation-convergence claim | open: source selection required |
+| `GIP-ROOT` | Exact well-posedness and approximation-convergence claim | statement frozen: Corollary 5.9 |
 | `GIP-SPACE` | Parabolic Holder-Besov spaces and norms | open |
 | `GIP-NOISE` | Spatial white noise and enhanced renormalized data | open |
 | `GIP-CALC` | Paraproduct, resonant product, and commutator estimates | open |
@@ -32,4 +34,5 @@ Authoritative structured intake: `intake.json`. Source mapping:
 `source_statement_crosswalk.md`. Validation record: `validation.md`.
 
 Current boundary: `planned`, root vector `H1 / M4 / R3`, theorem completion
-`false`.
+`false`. The statement node is self-tested pending master acceptance; every
+later node remains open.
