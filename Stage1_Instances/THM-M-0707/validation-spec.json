@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0707-VALIDATION",
+  "theorem_id": "THM-M-0707",
+  "recipes": [
+    {
+      "recipe_id": "M0707-validation-kernel-primary-and-differential",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0707/check_validation.sh"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {"path_or_stream": "stdout", "semantic_hash_policy": "record exact axiom output"}
+      ],
+      "covered_obligation_ids": [
+        "M0707-ROOT", "M0707-S-STATEMENT", "M0707-S-BOUNDARY",
+        "M0707-N-FIXED-ZERO", "M0707-C-PAIR-ZERO", "M0707-L-RESTRICT",
+        "M0707-X-HALTING", "M0707-T-CONTRADICTION", "M0707-T-ASSEMBLE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0707.Proof.haltingProblemUndecidable",
+        "Stage1Instances.THM_M_0707.Validation.independentlyReconstructedHaltingProblemUndecidable"
+      ]
+    },
+    {
+      "recipe_id": "M0707-validation-fail-closed-evidence",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0707/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {"path_or_stream": "stdout", "semantic_hash_policy": "require PASS lines and truthful OPEN release gates"}
+      ],
+      "covered_obligation_ids": ["M0707-ROOT", "M0707-X-FOUNDATION", "M0707-X-PROVENANCE"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0707.Proof.haltingProblemUndecidable",
+        "Stage1Instances.THM_M_0707.Validation.independentlyReconstructedHaltingProblemUndecidable"
+      ]
+    }
+  ]
+}

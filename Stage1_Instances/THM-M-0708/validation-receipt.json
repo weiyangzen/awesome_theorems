@@ -1,0 +1,76 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0708-VALIDATION-local-20260712T082237Z",
+  "item_id": "S56-M-0708-VALIDATION",
+  "theorem_id": "THM-M-0708",
+  "base_revision": "d19d83e12b57432e75cbb1c35f4577d5b0645cf9",
+  "base_tree": "2b0ed8f1540e42ba12cae256f75567f78bb1c6c5",
+  "validated_at": "2026-07-12T08:22:37Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "40d9d8af9b33ef7233285d58f5a6ebc4b60d7631d6bb28dfb7afccbb7e750844",
+    "validator_sha256": "e5347228acb387dab57a93acf254abfc99b4d41565cc6c0421e599417df2c70b",
+    "independent_probe_sha256": "48b6ed59a594bb077790fefe220946f366dbadba40ed17e83807ff672a63dd15",
+    "statement_sha256": "f6c9ccce821b7b1c22404d75207ae9f78e10ff97d3117bfb32f6641b8661a4fe",
+    "obligation_tree_sha256": "949bae956bccbad159ecd02d9f9d142632c1ed1f45c81d18c1765d82f8e17fa5",
+    "proof_sha256": "7b6e3fe1a3088c315df98207364b33825abf6fcdd1e1f2f6a6065efec5bf66f6",
+    "proof_receipt_sha256": "bb0bf4eced07a731fb163fd2fef0738f8b14dcf75b298df9def04c2029eb656c",
+    "anchor_audit_sha256": "d64059d00ce79251291a537fcf97fed8d43ce3fc6b071e6f5304fa3bccb6b24a",
+    "obligation_registry_sha256": "3f062918d31161130726bc0f8253773d34eea6e8a29daa493cf906a58a100166",
+    "typed_graphs_sha256": "19202081a51cec32dcc74add5fdc828c6a7bae7e9a8c8d749c19a83efcdd973f",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: owned validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0708/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": ["M0708-ROOT", "M0708-L-RICE-BRIDGE", "M0708-T-ASSEMBLE", "M0708-X-PROVENANCE"]
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_statement_composition_proof_root_and_same_worker_independent_direct_root",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "pass",
+    "local_provenance_hashes": "pass",
+    "mathlib_pin_and_cleanliness": "pass",
+    "same_worker_differential_probe": "pass_without_importing_Proof_or_ObligationTree",
+    "proof_root_closed": true,
+    "frozen_graph_state": "stale_pre_proof_M3_pending_master_reconciliation",
+    "hermetic_release_gate": "fail_closed",
+    "independent_distinct_runner_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof prerequisite has only provisional worker evidence and no master acceptance receipt in this clone.",
+    "The frozen typed graph predates Proof.lean and still reports an M3 open root; only the master may reconcile structured state.",
+    "The run reused shared writable warm .lake artifacts and is not a clean-checkout, cold empty-cache, offline hermetic replay.",
+    "No complete transitive declaration/TCB inventory, SBOM/license archive, network-disconnected restoration, deterministic bundle, or second-platform attestation exists.",
+    "Validation.lean is separately implemented but ran in this worker clone and cache; no distinct verifier identity, independently provisioned runner, second signature, or independent release verifier exists.",
+    "Primary-source H0, readable R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "dependency.master_acceptance.S56-M-0708-PROOF",
+  "retry_condition": "Master-accept the proof prerequisite and reconcile its root evidence; release additionally requires immutable cold offline replay and a distinct signed independent verifier.",
+  "freshness": {
+    "review_due": "before master acceptance and upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "status_boundary": "Self-tested worker evidence for narrow warm-cache kernel, exact axiom observation, local provenance, and same-worker differential validation. It is not E0/E1, accepted M0, hermetic or independent-runner evidence, theorem completion, release, or master acceptance."
+}
