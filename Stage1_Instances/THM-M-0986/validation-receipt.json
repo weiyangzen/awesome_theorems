@@ -1,0 +1,128 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0986-VALIDATION-local-20260712T012917Z",
+  "item_id": "S56-M-0986-VALIDATION",
+  "theorem_id": "THM-M-0986",
+  "base_revision": "e5e8ddc710ab4ddd81a74aa5045c846238ce9562",
+  "validated_at": "2026-07-12T01:29:17Z",
+  "attestor": "stage1-rev56-worker-slot11",
+  "support_state": "provisional_worker_selftest",
+  "canonical_obligation_ids": [
+    "M0986-ROOT",
+    "M0986-S-DEFINITIONS",
+    "M0986-S-BOUNDARY",
+    "M0986-S-FOUNDATION",
+    "M0986-N-MEASURABILITY",
+    "M0986-C-AVERAGE-MEASURABLE",
+    "M0986-L-STRONG-LAW",
+    "M0986-T-AE-IN-MEASURE",
+    "M0986-T-ASSEMBLE",
+    "M0986-X-SOURCE",
+    "M0986-X-PROVENANCE"
+  ],
+  "validated_obligation_ids": [
+    "M0986-ROOT",
+    "M0986-S-DEFINITIONS",
+    "M0986-S-BOUNDARY",
+    "M0986-S-FOUNDATION",
+    "M0986-N-MEASURABILITY",
+    "M0986-C-AVERAGE-MEASURABLE",
+    "M0986-L-STRONG-LAW",
+    "M0986-T-AE-IN-MEASURE",
+    "M0986-T-ASSEMBLE",
+    "M0986-X-PROVENANCE"
+  ],
+  "validated_declarations": [
+    "Stage1Instances.THM_M_0986.averageMeasurabilityPackage",
+    "Stage1Instances.THM_M_0986.strongLawPackage",
+    "Stage1Instances.THM_M_0986.khinchinWeakLaw",
+    "Stage1Instances.THM_M_0986.Validation.independentKhinchinWeakLaw"
+  ],
+  "inputs": {
+    "statement_sha256": "c7f5ca8ea5438ba4290ffcebb0576a102bee121a213fa2555a9852a711c4e1eb",
+    "obligation_tree_sha256": "81ed76db353ab4bf0ed6dac7dc651f9f5fa250d87d39c6ae1aa0a7e07c6bc076",
+    "proof_sha256": "8c0b88d0df61a2eae77355f982ee0d5621f496e72beb5ad4499237e3b9a4f162",
+    "validation_probe_sha256": "52676ffa9ce37c8b1a2742a805f6f4b2ffeb3913495e5b5dd96829baae5bb3a1",
+    "validation_verifier_sha256": "4e16e9fbdb2ce7914555f069e56476e799e27980c1a373dd49577b7b06fb3213",
+    "validation_runner_sha256": "53e2c45a84fe9b284ffc3de82c41d0bff3848c17e429a91914de2413f518cbfc",
+    "obligation_registry_sha256": "b349a16f4acd142d4f2800672a62ae8c7886671e9856b1f7858364ff9f225306",
+    "typed_graphs_sha256": "7a45374951fd85560047a88de0d9d3d8f7e5b0d1b25c95fa636c08792331963b",
+    "proof_receipt_sha256": "060158faadf525102164f242137a8affe7b207785fff44f891b50028b90c22ac",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "classification": "repo_local_exact_wrapper_over_pinned_mathlib_with_independent_local_reconstruction",
+    "terminal_declaration": "ProbabilityTheory.strong_law_ae",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "strong_law_source_sha256": "b74c93434df44eb75b2567f43a58b9e0353138660ad07b99263d8019bcf4f1c6",
+    "strong_law_olean_sha256": "c6b22153e738e3cff3d9dada4e49d4ed1137993d495f90fa98f9b9bf2676cd09",
+    "dependency_worktree_clean": true
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without mutation"
+  },
+  "recipes": [
+    {
+      "recipe_id": "M0986-validation-kernel-primary",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0986/check_proof.sh"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0986-ROOT", "M0986-N-MEASURABILITY", "M0986-C-AVERAGE-MEASURABLE", "M0986-L-STRONG-LAW", "M0986-T-AE-IN-MEASURE", "M0986-T-ASSEMBLE"]
+    },
+    {
+      "recipe_id": "M0986-validation-kernel-independent",
+      "cwd": "Formalizations/Lean",
+      "argv": ["bash", "../../Stage1_Instances/THM-M-0986/check_validation.sh"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0986-ROOT", "M0986-N-MEASURABILITY", "M0986-C-AVERAGE-MEASURABLE", "M0986-L-STRONG-LAW", "M0986-T-AE-IN-MEASURE"]
+    },
+    {
+      "recipe_id": "M0986-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0986/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0986-ROOT", "M0986-S-FOUNDATION", "M0986-X-PROVENANCE"]
+    }
+  ],
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Primary and independently reconstructed exact roots elaborate; all proof declarations report only propext, Classical.choice, and Quot.sound. Receipt freshness, frozen identity, clean pinned mathlib provenance, exact scope, and source hygiene pass.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "root_closed": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "validation_state_proposal": "worker validation self-test passed; master acceptance pending"
+  },
+  "known_failures": [
+    "This is warm-cache validation in the worker clone, not an empty-cache offline hermetic replay.",
+    "The independent reconstruction does not import Proof.lean, but it used the same workspace, kernel, and canonical dependency cache; it is not a distinct signed runner.",
+    "Human-source H0, readable R0, complete transitive TCB closure, deterministic release bundle, and master acceptance remain open.",
+    "The frozen registry and typed graphs retain their pre-proof observations and have not been rewritten by validation.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was not modified."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Replay an immutable clean snapshot with empty caches and denied network, then obtain a distinct signed independent verifier and remaining source/readability/release acceptance.",
+  "invalidation_inputs": [
+    "Statement.lean", "ObligationTree.lean", "Proof.lean", "Validation.lean",
+    "check_validation.py", "check_validation.sh", "obligation-registry.json",
+    "typed-graphs.json", "proof-receipt.json", "lake-manifest.json",
+    "lean-toolchain", "mathlib revision and StrongLaw source/olean", "Lean executable",
+    "axiom policy", "rev-5.6 assurance standard"
+  ],
+  "incident_path": "master integration lane"
+}

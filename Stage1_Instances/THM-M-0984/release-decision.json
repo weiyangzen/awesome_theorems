@@ -1,0 +1,89 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0984-RELEASE-local-20260712",
+  "item_id": "S56-M-0984-RELEASE",
+  "theorem_id": "THM-M-0984",
+  "intent": "release",
+  "base_revision": "8fae7de1ca4ed3b0645d51573ac87053fb300f40",
+  "base_tree": "2ad462bb07c1a69a1944448503a10bdc6bfc46a7",
+  "decided_on": "2026-07-12",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0984-VALIDATION",
+    "receipt_id": "S56-M-0984-VALIDATION-local-20260712T012615Z",
+    "receipt_sha256": "77eb224a13bab677f55e708895d772e37415092fa2ad7ec691e1fbb544964ff8",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0984-VALIDATION-local-20260712T012615Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-W", "R3"],
+    "boundary": "The exact selected modern strong-law target has provisional pinned-mathlib kernel evidence, but the frozen structured graph has not been reconciled and still records the terminal and root as open. The historical Borel-to-modern source identity and readable reconstruction are also open."
+  },
+  "terminal_decisions": {
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "worker_item_selftest": "pass"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0984-VALIDATION is provisional non-release-grade worker evidence and has not been master accepted."
+  },
+  "first_failed_theorem_gate": "source.H0",
+  "failed_gates": [
+    "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "audit.structured_state_reconciliation",
+    "source.H0",
+    "readability.R0",
+    "trust.transitive_tcb_acceptance",
+    "S56-10.6-HERMETIC-COLD-BUILD",
+    "supply_chain.sbom_license_archive",
+    "independent.distinct_runner",
+    "independent.minimal_verifier",
+    "release.deterministic_bundle",
+    "master.acceptance"
+  ],
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0984-VALIDATION and every transitive phase receipt",
+    "master reconciliation of the frozen graph's open M0984-L-TERMINAL and M0984-ROOT against the provisional proof evidence",
+    "accepted H0 primary-source theorem, assumptions, errata, and Borel-to-modern statement crosswalk with independent review",
+    "accepted R0 structured reconstruction with node-level formal anchors and independent review",
+    "complete accepted transitive declaration provenance, axiom, foundation, and TCB closure",
+    "immutable clean source snapshot and empty-cache network-denied cold build with offline archive replay",
+    "SBOM and license closure with content-addressed dependency archives",
+    "two signed attestations from distinct independently provisioned clean runners",
+    "independently implemented minimal release verifier and required mutation gates",
+    "deterministic content-addressed signed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional pinned warm-cache worker evidence",
+    "exact_machine_proof": "pass provisionally through ProbabilityTheory.strong_law_ae and checked root composition",
+    "proof_body_location": "pinned mathlib at 8a178386ffc0f5fef0b77738bb5449d50efeea95; local exact wrapper",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on Statement.lean, ObligationTree.lean, Proof.lean, and Validation.lean",
+    "structured_root_state": "stale and open: root_closed=false; remaining_root_cut_set=[M0984-L-TERMINAL]",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_archive": "missing",
+    "independent_release_verification": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "The integration lane must first master-accept and reconcile the validation dependency and structured root state. A release lane must then close independent H0/R0 review, full trust and supply-chain evidence, clean cold/offline reproduction, independent attestations and verifier, mutation gates, and the deterministic bundle before master acceptance.",
+  "worktree_classification": "nonrelease worker checkout with owned release artifacts and a pre-existing untracked canonical Formalizations/Lean/.lake symlink; validation reuses the pinned warm dependency cache",
+  "status_boundary": "This artifact self-tests an honest blocked release verdict only. It accepts no receipt, changes no authoritative state, and establishes neither AUDIT-Z nor THEOREM-Z."
+}
