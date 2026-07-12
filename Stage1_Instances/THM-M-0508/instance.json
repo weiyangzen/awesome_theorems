@@ -1,0 +1,89 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "item_id": "S56-M-0508-INTAKE",
+  "theorem_id": "THM-M-0508",
+  "execution_rank": 882,
+  "legacy_priority_slot": null,
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "name_zh": "维诺格拉多夫三素数定理",
+  "name_en": "Vinogradov's three-primes theorem",
+  "category": "number theory / analytic number theory",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_claim_verbatim_translation": "Every sufficiently large odd integer can be represented as a sum of three primes.",
+  "canonical_claim_status": "human_theorem_family_frozen_exact_source_and_formal_encoding_open",
+  "canonical_claim": "There exists a threshold N such that every odd natural number n at least N is equal to p + q + r for some primes p, q, and r; repetition is provisionally permitted pending pinpoint source review.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_source_pinned_exact_statement"
+  },
+  "domain_and_universes": "Provisional natural numbers for the threshold, represented odd number, and three prime summands; conclusion in Prop; no nontrivial universes expected. An integer-domain source presentation requires a checked transport.",
+  "ordered_binders_provisional": [
+    "there exists N : Nat",
+    "for every n : Nat",
+    "if N <= n and n is odd",
+    "there exist p q r : Nat with each prime",
+    "n = p + q + r"
+  ],
+  "hypotheses_requiring_statement_freeze": [
+    "the exact meaning and quantifier order of sufficiently large",
+    "the natural- or integer-valued domain",
+    "whether repeated prime summands are allowed",
+    "whether prime means positive natural prime and whether any ordering of summands is imposed",
+    "whether the source states only existence or also an asymptotic representation count"
+  ],
+  "conclusion": "Every odd input beyond one uniform threshold has a representation as the sum of three primes.",
+  "alternate_encodings": [
+    {
+      "target": "Filter.Eventually (fun n : Nat => n % 2 = 1 -> exists prime p q r, n = p + q + r) Filter.atTop",
+      "relationship": "candidate equivalent eventual formulation",
+      "checked_witness": null
+    },
+    {
+      "target": "an integer-domain formulation with positive prime summands",
+      "relationship": "candidate source-faithful transport",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "Even inputs, inputs below the eventual threshold, zero or one as a prime, distinctness of summands, ordered triples, and replacement of existence by an asymptotic counting formula must be treated explicitly rather than inferred.",
+  "foundation_profile": "Lean 4 dependent type theory; classical and choice dependencies of the eventual analytic proof remain to be frozen and audited",
+  "tcb_profile": "Lean kernel, repository toolchain, and pinned mathlib; exact minimal import and transitive declaration closure remain open",
+  "computation_profile": "No finite prime search, numerical cutoff, oracle, native computation, or external computation is credited at intake",
+  "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
+  "source_status": "repository_metadata_and_historical_primary_candidate_only_pinpoint_statement_assumptions_errata_and_review_open",
+  "source_revisions": {
+    "repository_base": "3f994388953e417edafd54b069ab45d648619698",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0508"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "source_reviewer": "unassigned analytic-number-theory reviewer",
+    "formal_reviewer": "unassigned integration-lane reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the selected source, eventual quantifiers, domain or prime conventions, Lean target, imports/toolchain, dependency pin, trust policy, or rev-5.6 standard.",
+  "root_vector": {"H": "H1", "M": "M4", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake only. No exact Lean expression, statement fingerprint, H0, M0, R0, accepted proof state, audit completion, master acceptance, or theorem completion is claimed."
+}

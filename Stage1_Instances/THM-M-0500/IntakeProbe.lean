@@ -1,0 +1,7 @@
+import Mathlib.NumberTheory.LSeries.PrimesInAP
+
+#check DirichletCharacter.LFunction
+#check DirichletCharacter.LFunction_eq_LSeries
+#check DirichletCharacter.LFunction_ne_zero_of_one_le_re
+#check Nat.infinite_setOf_prime_and_eq_mod
+#check Nat.forall_exists_prime_gt_and_eq_mod

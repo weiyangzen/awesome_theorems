@@ -1,0 +1,92 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1333-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1333",
+  "cutoff": "2026-07-12T00:00:00+08:00",
+  "canonical_target": "Stage1Instances.THM_M_1333.PeanoExistenceTarget",
+  "target_expression_sha256": "4ecb0c59750f3a7df0ec655cc4e7527dde459d3c8a186811c37c1b0b8120f78e",
+  "discovery_scope": {
+    "order": [
+      "repository-local Lean files",
+      "pinned mathlib source tree",
+      "GitHub public repository search",
+      "grep.app public code search"
+    ],
+    "aliases": [
+      "Peano existence theorem",
+      "Peano ODE",
+      "Cauchy-Peano",
+      "ordinary differential equation existence",
+      "Picard-Lindelof",
+      "IsPicardLindelof",
+      "exists_eq_forall_mem_Icc_hasDerivWithinAt"
+    ],
+    "credentials_policy": "anonymous public endpoints only; no private credentials",
+    "exhaustive_discovery_claimed": false
+  },
+  "environment": {
+    "repository_base_revision": "3f994388953e417edafd54b069ab45d648619698",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_source_file": "Mathlib/Analysis/ODE/PicardLindelof.lean",
+    "mathlib_source_sha256": "84f6cd4fe5fef3dd4c8e30f6db137f5be80c12678b0bafeaf0bc927181499863",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "inventory": [
+    {
+      "candidate_id": "LOCAL-STATEMENT-ONLY",
+      "project": "awesome_theorems worker clone",
+      "revision": "3f994388953e417edafd54b069ab45d648619698",
+      "module": "Stage1_Instances/THM-M-1333/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1333.PeanoExistenceTarget",
+      "role": "exact proposition definition only",
+      "statement_relation": "exact target",
+      "proof_body": "none; the declaration is a Prop-valued definition",
+      "classification": "M4",
+      "eligible_for_completion": false
+    },
+    {
+      "candidate_id": "MATHLIB-PICARD-DIFFERENTIAL",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Analysis.ODE.PicardLindelof",
+      "declaration": "IsPicardLindelof.exists_eq_forall_mem_Icc_hasDerivWithinAt",
+      "role": "proved neighboring theorem",
+      "statement_relation": "strictly stronger hypotheses: IsPicardLindelof includes a uniform spatial LipschitzOnWith premise, separate time continuity, a norm bound, and a quantitative interval condition",
+      "conclusion_relation": "supplies an initial-value curve and HasDerivWithinAt on an Icc, but does not derive those extra premises from joint continuity",
+      "kernel_dependencies": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no proof-hole declaration found in the candidate source file; parser-aware terminal provenance remains a later proof/validation concern",
+      "classification": "M4",
+      "eligible_for_completion": false,
+      "blocker": "using this theorem would replace Peano's continuity-only admissible fields with the narrower Picard-Lindelof Lipschitz class"
+    },
+    {
+      "candidate_id": "MATHLIB-PICARD-ZERO-RADIUS",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Analysis.ODE.PicardLindelof",
+      "declaration": "IsPicardLindelof.exists_eq_forall_mem_Icc_hasDerivWithinAt₀",
+      "role": "proved neighboring theorem",
+      "statement_relation": "same hypothesis mismatch as the differential candidate; radius zero concerns the initial-point ball, not removal of Lipschitz assumptions or selection of a positive time radius",
+      "kernel_dependencies": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "M4",
+      "eligible_for_completion": false
+    }
+  ],
+  "negative_results": {
+    "repo_local": "No proof or wrapper for PeanoExistenceTarget was found outside the target-owned statement file. Other local ODE references import or describe Picard-Lindelof only.",
+    "pinned_mathlib": "The Analysis/ODE directory contains Basic, Gronwall, PicardLindelof, and Transform. Searches for Peano/Cauchy-Peano and existence/derivative declarations found no continuity-only Peano theorem.",
+    "github_repository_search": "Four anonymous repository-search queries returned HTTP-success JSON with total_count 0; repository search is not code-search completeness evidence.",
+    "grep_app": "Both anonymous code-search requests returned HTTP 429, so no negative-result claim is inferred from this endpoint. Reopen when the endpoint permits replay or an authenticated reviewer runs an equivalent immutable search."
+  },
+  "audit_verdict": "No exact Lean 4 proof candidate was located. The only checked formal candidates are pinned mathlib Picard-Lindelof neighbors and cannot close the continuity-only target.",
+  "root_machine_debt": "M4",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This receipt completes a bounded candidate audit, not exhaustive public discovery and not theorem closure. External code search was rate-limited; no inaccessible endpoint is treated as negative evidence."
+}
