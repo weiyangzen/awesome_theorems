@@ -1,0 +1,99 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1083-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1083",
+  "inventory_version": "2026-07-12.1",
+  "cutoff_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1083.Statement",
+  "canonical_expression_sha256": "fb7209158513f98f9692a12449560573c5009e1a2366ed34eb8e61f9cae7c58a",
+  "search_order": [
+    "repository-local Lean files",
+    "pinned mathlib source tree",
+    "RemyDegenne/brownian-motion at an immutable commit",
+    "GitHub public code-search API"
+  ],
+  "query_families": [
+    "Kolmogorov continuity",
+    "Kolmogorov-Chentsov",
+    "KolmogorovChentsov",
+    "IsKolmogorovProcess",
+    "IsAEKolmogorovProcess",
+    "holder modification",
+    "HolderOnWith",
+    "holderModification",
+    "exists_modification_holder"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "repo-local-s1-m-221-shape",
+      "project": "awesome_theorems",
+      "revision": "45b96fd58a0e141750ae21e0ddbb3d81233b8a6a",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_221.lean",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_221.KolmogorovChentsovContinuityConclusion",
+        "AwesomeTheorems.Stage1.S1_M_221.KolmogorovChentsovStatementShape"
+      ],
+      "normalized_comparison": "Statement-only package with ContinuousOn output on an arbitrary set; it explicitly records the terminal theorem as missing and is weaker than the canonical simultaneous all-gamma Holder conclusion.",
+      "terminal_body": false,
+      "classification": "M4",
+      "completion_credit": false
+    },
+    {
+      "candidate_id": "mathlib-kolmogorov-substrate",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "path": "Mathlib/Probability/Process/Kolmogorov.lean",
+      "source_sha256": "97f4062f1ebcfbd6fff897c6f95aadd3fe06ed7471874fb783b50ae14b785bde",
+      "declarations": [
+        "ProbabilityTheory.IsKolmogorovProcess",
+        "ProbabilityTheory.IsAEKolmogorovProcess",
+        "ProbabilityTheory.IsKolmogorovProcess.mk_of_secondCountableTopology",
+        "ProbabilityTheory.IsAEKolmogorovProcess.ae_eq_mk",
+        "ProbabilityTheory.IsAEKolmogorovProcess.kolmogorovCondition"
+      ],
+      "normalized_comparison": "Exact substrate for the measurable-pair increment condition with p=alpha and q=1+beta, plus fixed-time modification bookkeeping. No declaration constructs a Holder-continuous modification.",
+      "terminal_body": false,
+      "classification": "M4",
+      "completion_credit": false
+    },
+    {
+      "candidate_id": "brownian-motion-kolmogorov-chentsov",
+      "project": "RemyDegenne/brownian-motion",
+      "remote": "https://github.com/RemyDegenne/brownian-motion",
+      "revision": "91885e6172648ea7f9c6a16b3a7069f92c88e023",
+      "toolchain": "leanprover/lean4:v4.30.0-rc1",
+      "mathlib_revision": "f23306121184717ace04f3ac514be974e3224c8b",
+      "path": "BrownianMotion/Continuity/KolmogorovChentsov.lean",
+      "source_sha256": "ce2b9dc8fc18f083d3ebe86c5ef68bd3e8d4e2c1f1587d4fa7c6e503144578a9",
+      "manifest_sha256": "23013991c467cf8f58fba624039478aaf6fdaef2bfcbe2697a3ca56eef907e02",
+      "declarations": [
+        "ProbabilityTheory.exists_modification_holder_aux",
+        "ProbabilityTheory.exists_modification_holder",
+        "ProbabilityTheory.exists_modification_holder'"
+      ],
+      "normalized_comparison": "Positive terminal candidate. exists_modification_holder supplies one measurable fixed-time modification and every Holder exponent below (q-d)/p on an open U. For the canonical compact interval subtype, the intended specialization is U=univ, p=alpha, q=1+beta, d=1, followed by HolderOnWith-univ/HolderWith transports. The bounded-covering-number witness and all type transports still require a checked wrapper.",
+      "terminal_body": true,
+      "placeholder_scan": "No sorry, admit, or axiom token was found in the complete immutable source file; this is only a defensive text scan, not transitive trust closure.",
+      "repo_local_importable": false,
+      "integration_blocker": "BrownianMotion is absent from the pinned Lake closure and its Lean/mathlib revisions differ. Policy forbids fetching or mutating .lake in this worker. No upstream build receipt or transitive #print axioms evidence was available locally.",
+      "classification": "M3",
+      "completion_credit": false
+    }
+  ],
+  "negative_search_evidence": {
+    "repo_and_mathlib": "Repository-wide and pinned-mathlib rg queries found no other terminal candidate; the only repo-local KolmogorovChentsovStatementShape says the result is missing.",
+    "github_api": "Unauthenticated recursive-tree request returned HTTP 403 on 2026-07-12. Global absence is therefore not claimed.",
+    "access_policy": "No credentials were used. Immutable raw files for the known external project were retrieved through jsDelivr; no dependency was cloned or fetched."
+  },
+  "inventory_classified": true,
+  "exhaustive_discovery_claimed": false,
+  "best_candidate": "brownian-motion-kolmogorov-chentsov",
+  "best_machine_debt": "M3",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor-audit evidence only. The external theorem is not pinned, imported, elaborated, or trust-closed in this repository and receives no completion credit."
+}
