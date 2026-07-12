@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1056-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1056",
+  "base_revision": "fc440f22c0e7587c75465d0dd18454622b2740db",
+  "canonical_target": "Stage1Instances.THM_M_1056.OseledetsMultiplicativeErgodicTarget",
+  "search_cutoff_utc": "2026-07-12",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "searched_scope": "complete pinned Mathlib source tree",
+    "terminal_candidate_found": false,
+    "nearby_candidates": [
+      {"module": "Mathlib.Analysis.Subadditive", "declaration": "Subadditive.tendsto_lim", "role": "deterministic Fekete limit only"},
+      {"module": "Mathlib.Dynamics.Ergodic.Function", "declaration": "Ergodic.ae_eq_const_of_ae_eq_comp_ae", "role": "ergodic invariant-function constancy only"},
+      {"module": "Mathlib.MeasureTheory.Function.L1Space.Integrable", "declaration": "MeasureTheory.MeasurePreserving.integrable_comp", "role": "integrability transport only"},
+      {"module": "Mathlib.LinearAlgebra.Basis.Flag", "declaration": "Flag", "role": "algebraic flag carrier; no measurable Oseledets API"},
+      {"module": "Mathlib.RingTheory.Grassmannian", "declaration": "Module.Grassmannian", "role": "algebraic quotient-rank carrier; no measurable Oseledets API"}
+    ]
+  },
+  "repo_local_legacy": {
+    "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_248.lean",
+    "revision": "fc440f22c0e7587c75465d0dd18454622b2740db",
+    "classification": "legacy statement and infrastructure inventory",
+    "terminal_candidate_found": false,
+    "accepted_proof_credit": false
+  },
+  "external_lean4": {
+    "repository": "https://github.com/marcmorningstar/lean4-ergodic-theory",
+    "revision": "ed3fa6b8a30594eeb791160563942ba115581aa0",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0-rc2",
+    "mathlib_revision": "34f7a6cd150fd7a166958d989d5abab56e9e3d15",
+    "candidates": [
+      {"module": "ErgodicTheory.MultiplicativeErgodic", "declaration": "ErgodicTheory.oseledets_filtration", "classification": "one-sided filtration theorem; not the canonical splitting target"},
+      {"module": "ErgodicTheory.TwoSided.SplittingAssembly", "declaration": "ErgodicTheory.oseledets_splitting", "classification": "substantive two-sided finite-matrix splitting anchor"}
+    ],
+    "placeholder_audit": "Upstream README reports warning-as-error sorry exclusion and guarded axiom output; test/AxiomAudit.lean at the pinned revision guards both headline declarations with [propext, Classical.choice, Quot.sound]. This was source-audited, not independently built here.",
+    "exact_target_match": false,
+    "mismatch": "The external theorem is matrix/EuclideanSpace based and returns Submodule fields with forward and backward growth. The canonical target quantifies over an arbitrary finite-dimensional real normed Borel space and returns strongly measurable complementary continuous projections. No checked transport or wrapper between these encodings exists in this clone.",
+    "integration_status": "blocked_not_attempted",
+    "integration_blocker": "The external project requires Lean 4.30.0-rc2 and mathlib 34f7a6cd..., while this target is pinned to Lean 4.29.0 and mathlib 8a178386.... Worker policy forbids fetching or mutating dependencies, and no external package artifact is present in the pinned Lake closure."
+  },
+  "searches": [
+    "repo-local and pinned mathlib ripgrep: Oseledets, multiplicative ergodic, Lyapunov exponent, Kingman, subadditive ergodic",
+    "GitHub repository API query: Oseledets lean4",
+    "immutable raw-source inspection at external commit ed3fa6b...",
+    "grep.app Lean queries attempted but rate limited (HTTP 429); not credited as coverage"
+  ],
+  "classification": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3",
+    "evidence_class": "E3",
+    "reason": "A credible external Lean 4 theorem is now pinned and source-audited, but it is not an exact target match and is neither imported nor kernel-checked in the repository's pinned environment."
+  },
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor discovery and classification only. No external theorem is credited as repo-local kernel closure, and no proof or theorem-completion claim is made."
+}
