@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0650-STATEMENT",
+  "theorem_id": "THM-M-0650",
+  "lifecycle": "planned",
+  "canonical_statement": "For every first-order language L, L-structure M, and L-substructure S of M, if every bounded formula with one witness variable and finitely many parameters from S that is realized by an element of M has a realizing witness in S, then S is an elementary substructure of M.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0650/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0650.TarskiVaughtTarget",
+    "elaborated_expression_sha256": "33ef21b57b9433d0caa5188ed270e4d9ef70aaef44d308f2a8b839be3938a5e2",
+    "statement_file_sha256": "76a17bc8a654a3f29e9d57754d861fa3501bb1827beb324c25096f5023faba6c"
+  },
+  "domain_and_universes": "universes u v w; L : FirstOrder.Language.{v,w}; M : Type u; [L.Structure M]; S : L.Substructure M; Prop in universe 0",
+  "ordered_binders": [
+    "L : FirstOrder.Language.{v,w}",
+    "M : Type u",
+    "[L.Structure M]",
+    "S : L.Substructure M",
+    "n : Nat",
+    "phi : L.BoundedFormula Empty (n + 1)",
+    "x : Fin n -> S",
+    "a : M"
+  ],
+  "hypotheses": [
+    "For every n, phi, x, and a, realization of phi by the parameters coerced from S and witness a implies existence of b : S realizing the same formula."
+  ],
+  "conclusion": "S.IsElementary: every first-order formula has the same realization on tuples from S in S and M.",
+  "direct_imports": ["Mathlib.ModelTheory.ElementarySubstructures"],
+  "checked_transport": "Stage1Instances.THM_M_0650.tarskiVaughtTarget_iff_pinnedMathlibStatementShape",
+  "pinned_source_declaration": "FirstOrder.Language.Substructure.isElementary_of_exists",
+  "pinned_source_relationship": "PinnedMathlibStatementShape is the exact type shape of the declaration at the pinned mathlib revision; the checked iff is definitional. This is statement alignment, not proof credit or a human-source audit.",
+  "environment_fingerprint": {
+    "base_revision": "2414fa7f8693bbe8d5b656241466f11ec0430a5f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0650/check_statement.py",
+    "killed": [
+      "removed the witness-condition hypothesis",
+      "changed the substructure domain to an arbitrary elementary embedding",
+      "moved elementarity inside the formula and parameter binders",
+      "excluded the nullary parameter-tuple boundary n = 0"
+    ],
+    "boundary_proof": "Stage1Instances.THM_M_0650.nullaryParameterBoundary"
+  },
+  "encoding_decisions": {
+    "direction": "the nontrivial witness-condition-implies-elementarity direction selected at intake; no unreviewed iff is added",
+    "root": "unbundled L.Substructure with conclusion S.IsElementary, matching the repository gloss and pinned declaration",
+    "formula": "L.BoundedFormula Empty (n + 1), with n parameters followed by one witness via Fin.snoc",
+    "parameters": "x : Fin n -> S, coerced pointwise into M",
+    "boundary": "n = 0 is included; no nonemptiness hypothesis beyond existing Structure/Substructure conventions"
+  },
+  "alternate_encodings": {
+    "bundled_elementary_substructure": "Mathlib's toElementarySubstructure is not credited as an equivalent canonical root in this node.",
+    "embedding_form": "The embedding Tarski-Vaught theorem is a generalization and is deliberately only a killed changed-domain mutation."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact intake-selected implication with one minimal direct import, a checked pinned-shape transport, four structural mutations, and the n = 0 boundary. It supplies no primary-source acceptance, anchor/provenance audit, proof credit, or theorem completion."
+}

@@ -8,11 +8,12 @@ that has a witness in the ambient structure also has a witness in the substructu
 Pinned mathlib contains exact-looking substructure and embedding candidates,
 `FirstOrder.Language.Substructure.isElementary_of_exists` and
 `FirstOrder.Language.Embedding.isElementary_of_exists`. `IntakeProbe.lean` checks their names and
-types in the pinned environment. This is bounded discovery evidence, not an accepted statement
-fingerprint, source transport, anchor audit, or proof receipt. The statement phase must select the
-substructure root, freeze its exact Lean expression, and test the required mutations.
+types in the pinned environment. `Statement.lean` now freezes the intake-selected implication on an
+unbundled substructure, checks its direct pinned mathlib shape, and covers the required structural
+mutations plus the nullary-parameter boundary. This statement evidence is self-tested but remains
+provisional until master acceptance; it is not a source-fidelity, anchor-audit, or proof receipt.
 
 The historical source is not established by the repository's unsupported `1957` date or its
-untrusted `已验证` label. Pinpoint primary-source theorem/page, directionality, assumptions, and
-errata remain open. The lifecycle is therefore `planned` at `[H1, M3, R3]`, with no accepted proof
-state, audit completion, or theorem completion.
+untrusted `已验证` label. Pinpoint primary-source theorem/page, historical directionality,
+assumptions, and errata remain open. The lifecycle is therefore `planned` at `[H1, M3, R3]`, with no
+accepted proof state, audit completion, or theorem completion.
