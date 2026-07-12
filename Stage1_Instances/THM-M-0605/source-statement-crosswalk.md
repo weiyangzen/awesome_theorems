@@ -18,14 +18,14 @@ pinpoint primary-source confirmation at the human-source gate.
 
 ## Statement decisions passed forward
 
-The statement phase must preserve the existence quantifier, dimension seven,
-homeomorphism, and failure of every diffeomorphism. It must decide the exact
-Lean manifold and standard-sphere models; whether orientation data is internal
-to the proof or the root; and whether the root uses `IsEmpty` of a
-diffeomorphism type or an equivalent negated existential. Any credited
-alternate encoding requires a checked transport.
+The statement preserves the existence quantifier, dimension seven,
+homeomorphism, and failure of every diffeomorphism. It selects an abstract
+smooth real 7-manifold, the unit sphere in real Euclidean 8-space, and
+`IsEmpty` of the infinity-smooth diffeomorphism type. Orientation data is not
+part of the root. Any later credited alternate encoding still requires a
+checked transport.
 
 This crosswalk is discovery evidence only. It does not claim that the cited
 pages have been inspected in this clone, that the source has no corrections,
 or that any formal proof exists. The human axis therefore remains `H1`, and
-the machine axis remains `M4`.
+the machine axis remains `M4`: elaboration fixes the target but is not a proof.

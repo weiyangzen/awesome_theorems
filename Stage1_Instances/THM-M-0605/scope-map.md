@@ -15,18 +15,18 @@ dimension would broaden rather than exactly encode this repository item.
 
 | Surface | In scope | Boundary at intake |
 |---|---|---|
-| `MES7-ROOT` | Existence of one exotic smooth 7-sphere | Human claim only; no Lean expression is accepted |
-| `MES7-DEF` | A smooth real 7-manifold and a fixed standard smooth 7-sphere | Lean manifold, model-with-corners, sphere, and dimension encodings are unselected |
+| `MES7-ROOT` | Existence of one exotic smooth 7-sphere | Provisional exact expression: `Stage1.THM_M_0605.ExoticSevenSphereExists` |
+| `MES7-DEF` | A smooth real 7-manifold and a fixed standard smooth 7-sphere | Abstract `Type 0` manifold modeled on `EuclideanSpace Real (Fin 7)`; standard unit sphere in `EuclideanSpace Real (Fin 8)` |
 | `MES7-CONSTR` | An explicit Milnor construction if required, commonly via an `S^3`-bundle over `S^4` | Bundle parameters and total-space APIs are not frozen and are not root assumptions |
-| `MES7-TOPO` | A homeomorphism from the witness to the topological 7-sphere | Homotopy equivalence alone is excluded |
-| `MES7-SMOOTH` | Nonexistence of any diffeomorphism with the standard smooth sphere | The obstruction invariant and orientation conventions remain source-audit tasks |
-| `MES7-BOUND` | Dimension seven, standard structure, and oriented/unoriented comparison mutations | Mutation tests belong to the statement phase |
+| `MES7-TOPO` | A homeomorphism from the witness to the topological 7-sphere | `Nonempty Homeomorph`; homotopy equivalence alone is excluded |
+| `MES7-SMOOTH` | Nonexistence of any diffeomorphism with the standard smooth sphere | `IsEmpty` of the infinity-smooth `Diffeomorph` type; obstruction proof remains open |
+| `MES7-BOUND` | Dimension seven, standard structure, and oriented/unoriented comparison mutations | The root is unoriented; statement mutations are recorded in `statement-receipt.json` |
 
 ## Formal and trust boundary
 
 Lean 4 with the repository's pinned mathlib is the selected backend. The
-minimal import, universes, structures, options, normalized expression, and
-environment fingerprint remain open. Classical reasoning, quotients,
+minimal import, universes, structures, options, serialized expression, and
+environment fingerprint are frozen in `statement-receipt.json`. Classical reasoning, quotients,
 characteristic classes, computation, and any external formal artifact receive
 no credit until their foundation, TCB, and provenance records are frozen.
 

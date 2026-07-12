@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-statement-receipt/1.0",
+  "item_id": "S56-M-0605-STATEMENT",
+  "theorem_id": "THM-M-0605",
+  "state": "provisional_self_tested",
+  "base_revision": "162f31e26f99fc08e308d576b8fb1b6f18a338c6",
+  "source": {
+    "path": "Stage1_Instances/THM-M-0605/Statement.lean",
+    "sha256": "7ee1cf3d89a07089ade97959b32faeabbe948796e45a0c0537fdea3ea26d1a31",
+    "declaration": "Stage1.THM_M_0605.ExoticSevenSphereExists",
+    "direct_imports": [
+      "Mathlib.Geometry.Manifold.Instances.Sphere"
+    ]
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, Release",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "sphere_module_sha256": "9715f1164df26ff6bfe00141fcd9a4e313bc5a2c630f5251ffc8a217fb77f200",
+    "options": [
+      "noncomputable section",
+      "open scoped ContDiff Manifold",
+      "pp.explicit=true for serialized expression",
+      "pp.universes=true for serialized expression"
+    ]
+  },
+  "elaboration": {
+    "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0605/Statement.lean",
+    "exit_code": 0,
+    "serialized_stdout_bytes": 15602,
+    "serialized_expression_sha256": "b45c5a871dc9b5862356b1fd2540c8d770d8b4488230005303cc6b41f7b33469",
+    "unresolved_metavariables": false
+  },
+  "statement_boundary": {
+    "witness": "an abstract smooth real seven-manifold modeled on EuclideanSpace Real (Fin 7)",
+    "standard_sphere": "the unit Metric.sphere in EuclideanSpace Real (Fin 8)",
+    "topological_comparison": "Nonempty Homeomorph",
+    "smooth_obstruction": "IsEmpty of the infinity-smooth Diffeomorph type",
+    "orientation_at_root": false,
+    "alternate_encodings_credited": []
+  },
+  "foundation_profile": "Lean dependent type theory; mathlib's noncomputable manifold instances and standard classical choice and quotient foundations are permitted. This statement artifact adds no axiom, unsafe declaration, oracle, computation, or proof body.",
+  "mutation_tests": [
+    {"kind": "removed_hypothesis", "path": "mutations/RemovedHomeomorphism.lean", "expected_exit": 1, "observed_exit": 1, "failure": "rfl cannot identify exact with target lacking homeomorphism"},
+    {"kind": "changed_domain", "path": "mutations/ChangedDomain.lean", "expected_exit": 1, "observed_exit": 1, "failure": "rfl cannot identify the unit 7-sphere target with a unit 6-sphere mutation"},
+    {"kind": "changed_binder_scope", "path": "mutations/ChangedBinderScope.lean", "expected_exit": 1, "observed_exit": 1, "failure": "rfl cannot identify existential and universal witness scopes"},
+    {"kind": "boundary_case", "path": "mutations/BoundaryDimension.lean", "expected_exit": 1, "observed_exit": 1, "failure": "rfl cannot identify seven-dimensional and zero-dimensional witness models"}
+  ],
+  "minimal_import_check": "Removing Mathlib.Geometry.Manifold.Instances.Sphere fails at EuclideanSpace; an initially separate Diffeomorph import was removed after the target still elaborated without it.",
+  "accepted_receipt_ids": [],
+  "theorem_complete": false,
+  "status_boundary": "Statement elaboration only; no inhabitant or proof of ExoticSevenSphereExists is supplied."
+}
