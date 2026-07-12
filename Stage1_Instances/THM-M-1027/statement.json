@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1027-STATEMENT",
+  "theorem_id": "THM-M-1027",
+  "lifecycle": "planned",
+  "canonical_statement": "There exist a measurable probability space and a real-valued process indexed by nonnegative real time which is coordinate-measurable, starts at zero almost surely, has independent increments whose law for s <= t is the centered real Gaussian with variance t-s, and has almost surely continuous sample paths.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1027/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1027.WienerExistenceTarget",
+    "elaborated_expression_sha256": "be0e748b7e1efd3bbe66636dedd6f5fcde9a5c73afb22b3b5ae7d50a2625cf5e",
+    "statement_file_sha256": "429c918e7a5b653b3b8bdb6f09dd11eba7b4099e1bb2fa10d4da11929c2c001b"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; P : Measure Omega; W : NNReal -> Omega -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "_m : MeasurableSpace Omega",
+    "P : Measure Omega",
+    "W : NNReal -> Omega -> Real"
+  ],
+  "hypotheses": [],
+  "conclusion": "P is a probability measure and W satisfies coordinate measurability, almost-sure zero start, centered Gaussian ordered-increment laws with variance t-s, independent increments, and almost-sure continuous paths.",
+  "direct_imports": [
+    "Mathlib.Probability.Distributions.Gaussian.Real",
+    "Mathlib.Probability.Independence.Process.HasIndepIncrements"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1027.wienerExistenceTarget_iff_pinnedIntakeSourceShape",
+  "pinned_source_declaration": "Stage1_Instances/THM-M-1027/intake.json canonical_statement",
+  "pinned_source_relationship": "PinnedIntakeSourceShape directly expands the intake-selected abstract-space existential. The checked iff converts between that conjunction and the structured IsWienerProcess predicate without adding Gaussian-process or adaptedness fields from the unaccepted legacy candidate.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1027/check_statement.py",
+    "killed": [
+      "changed the time domain from NNReal to Real",
+      "removed almost-sure path continuity",
+      "removed independent increments",
+      "changed variance t-s to unit variance for every increment"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1027.incrementVariance_self"
+    ]
+  },
+  "degenerate_cases": "Time zero and equal-time increments remain in scope; incrementVariance_self checks that equal-time variance is zero. Negative time is excluded by NNReal. IsProbabilityMeasure excludes non-probability measures.",
+  "alternate_encodings": {
+    "legacy_statement_shape": "The legacy StatementShape adds IsGaussianProcess and adaptation to the natural filtration. Those strengthenings are deliberately not part of this canonical root and receive no statement credit.",
+    "canonical_path_space": "A continuous-path-space Wiener measure may later witness this abstract existential, but no equivalence or construction is assumed here."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact intake-selected target with minimal imports, a checked direct expansion, four structural mutations, and the equal-time boundary. It supplies no Wiener-process construction or dependent-node evidence."
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1537-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1537",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "08a407403afaad909b720a0d74980081e6e7d140",
+  "canonical_target": "Stage1Instances.THM_M_1537.BekensteinHawkingAreaLaw",
+  "search_terms": [
+    "black hole",
+    "Bekenstein",
+    "Hawking",
+    "BekensteinHawking",
+    "thermodynamicEntropy",
+    "horizonArea",
+    "area law",
+    "entropy"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "LOCAL-CANONICAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "08a407403afaad909b720a0d74980081e6e7d140",
+      "module": "Stage1_Instances/THM-M-1537/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1537.BekensteinHawkingAreaLaw",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition",
+      "proof_body": "none; the declaration defines a Prop",
+      "classification": "M4",
+      "proof_credit": false
+    },
+    {
+      "candidate_id": "MATHLIB-ENTROPY-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Mathlib.Analysis.SpecialFunctions.BinaryEntropy",
+        "Mathlib.Data.Real.Basic"
+      ],
+      "declarations": [
+        "Real.binEntropy",
+        "Real.binEntropy_nonneg",
+        "Real.binEntropy_le_log_two",
+        "Real.binEntropy_continuous",
+        "Real.log",
+        "div_eq_mul_inv"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "Binary Shannon entropy and real arithmetic only; no black-hole model, horizon area, physical constants, or area-law theorem.",
+      "proof_body": "pinned mathlib source and installed oleans",
+      "classification": "M4_support_only",
+      "proof_credit": false
+    },
+    {
+      "candidate_id": "PHYSLIB-CANONICAL-ENSEMBLE-ENTROPY",
+      "project": "leanprover-community/physlib",
+      "remote": "https://github.com/leanprover-community/physlib",
+      "revision": "851e49a321d5a8dad4da23583da422f569c53cb4",
+      "module": "Physlib.StatisticalMechanics.CanonicalEnsemble.Finite",
+      "source_path": "Physlib/StatisticalMechanics/CanonicalEnsemble/Finite.lean",
+      "source_sha256": "50145ea1ecb2e02602e11a82fdb84ffba01dd68f10f0e2d390e02a74ae49e721",
+      "declarations": [
+        "StatisticalMechanics.CanonicalEnsemble.thermodynamicEntropy_eq_shannonEntropy"
+      ],
+      "toolchain": "leanprover/lean4:v4.30.0",
+      "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+      "manifest_sha256": "b14db97e52f19008ffb0aa0f5505d9ff864e5b25a81c854eb5b5f2bef186c52b",
+      "license": "Apache-2.0",
+      "kind": "credible_partial_external_proof",
+      "normalized_match": "Proves equality of thermodynamic and Shannon entropy for finite canonical ensembles. It has no black-hole geometry, horizon area, or Bekenstein-Hawking proportionality and cannot imply the frozen target.",
+      "proof_body": "Explicit by-proof in immutable source. Not imported or replayed because Physlib is absent from the pinned dependency closure and uses different Lean/mathlib revisions.",
+      "placeholder_or_axiom_status": "The inspected candidate theorem has an explicit proof and no sorry in its body. Transitive axiom and placeholder closure was not locally replayed, so it receives no kernel-closure credit.",
+      "classification": "M4_partial_non_target",
+      "integration_status": "Do not integrate for the root: it establishes a statistical-mechanics identity, not the black-hole area law.",
+      "proof_credit": false
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public Lean code search",
+      "query": "context:global lang:Lean (BekensteinHawking OR Bekenstein OR thermodynamicEntropy OR horizonArea) count:100",
+      "result": "31 matches, all in leanprover-community/physlib@851e49a321d5a8dad4da23583da422f569c53cb4 and all concerning canonical-ensemble thermodynamic entropy; no Bekenstein, Hawking, horizon-area, or area-law declaration.",
+      "response_sha256": "a73cb7f3df6f79960bd8eab5ea2c92da68deae935b2fe1e4d9e598cd2af4fbf9"
+    },
+    {
+      "surface": "Sourcegraph public Lean code search",
+      "query": "context:global lang:Lean (Bekenstein OR black hole OR Hawking) count:100",
+      "result": "One lexical false positive in GaloisInc/lean-llvm (an IO error string 'black hole'); no mathematical candidate. Search completed with matchCount=1.",
+      "response_sha256": "not retained; result and completion stream were inspected live"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "black hole Lean theorem prover",
+      "result": "total_count=0, incomplete_results=false; repository metadata search only",
+      "response_sha256": "not retained"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact local artifact is statement-only. Pinned mathlib has generic entropy and arithmetic substrate, while Physlib has a substantive finite canonical-ensemble entropy identity but no black-hole area law. Moreover, the frozen model leaves thermodynamicEntropy independent of all premises, so its universal equality cannot be derived without a new physical/model relation.",
+  "integration_blocker": "No exact or implication-complete external Lean 4 proof was found. The only credible external candidate is non-target, outside the dependency closure, and pinned to incompatible Lean/mathlib revisions; integrating it would not close the root.",
+  "reopen_condition": "Locate a Lean 4 declaration at an immutable revision proving the exact dimensionful area law for a model with the frozen hypotheses, or revise the statement in a separately authorized phase to supply a substantive model relation and then re-run statement and anchor gates.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes a bounded anchor inventory and candidate classification only. Public discovery is not claimed exhaustive. No root proof, obligation tree, H0 source review, release validation, or theorem-completion gate is advanced."
+}
