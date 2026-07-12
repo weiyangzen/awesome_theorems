@@ -9,29 +9,29 @@
   "execution_rank": 832,
   "legacy_priority_slot": null,
   "name_zh": "Marcus-Spielman-Srivastava定理",
-  "name_en": "Marcus-Spielman-Srivastava theorem (Kadison-Singer result; exact target not yet selected)",
+  "name_en": "Marcus-Spielman-Srivastava theorem (Corollary 1.5 partition bound)",
   "category": "analysis / functional analysis",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "A positive solution of the Kadison-Singer problem.",
-  "canonical_claim_status": "repository_gloss_identifies_a_result_family_but_not_one_exact_proposition",
-  "canonical_claim": null,
+  "canonical_claim_status": "frozen_to_MSS_Corollary_1_5_with_Kadison_Singer_reductions_outside_root",
+  "canonical_claim": "For d,m,r in Nat with 0 < r, delta in Real with 0 <= delta, and u : Fin m -> C^d, if sum_i u_i u_i* = I and norm(u_i)^2 <= delta for every i, then the indices admit an r-part labeled partition whose every part has rank-one sum operator norm at most (1/sqrt(r) + sqrt(delta))^2.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_due_to_statement_granularity_and_equivalence_boundary",
+    "status": "elaborated_statement_no_proof_claimed",
     "module_candidates": [
       "Mathlib.Analysis.InnerProductSpace.PiL2",
       "Mathlib.LinearAlgebra.Matrix.Hermitian"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0_mathlib-8a178386ffc0_intake-api-probe-only"
+    "declaration_or_expression": "Stage1.THM_M_0339.MSSPartitionStatement",
+    "elaborated_expression_hash": "sha256:65f33abcebfa3d3c007b923852d0f89d71c3250f72b95b8645546178813503dc",
+    "environment_fingerprint": "lean-4.29.0_mathlib-8a178386ffc0_statement-elaboration"
   },
-  "domain_and_universes": "Open. The source must select the operator-algebraic Kadison-Singer statement, Weaver KS2, Anderson paving, MSS Theorem 1.4, or MSS Corollary 1.5 and fix finite/infinite-dimensional and scalar conventions.",
-  "quantifiers": [],
-  "hypotheses": [],
-  "conclusion": "Open: the repository phrase 'positive solution' does not say which implication endpoint is the canonical theorem.",
+  "domain_and_universes": "d,m,r : Nat; delta : Real; u : Fin m -> EuclideanSpace C (Fin d). The root is finite dimensional over C; no free universes.",
+  "quantifiers": ["forall d m r : Nat", "forall delta : Real", "forall u : Fin m -> EuclideanSpace C (Fin d)", "exists color : Fin m -> Fin r", "forall j : Fin r"],
+  "hypotheses": ["0 < r", "0 <= delta", "sum_i rankOne C (u i) (u i) = ContinuousLinearMap.id C (EuclideanSpace C (Fin d))", "forall i, norm(u i)^2 <= delta"],
+  "conclusion": "For each j, the operator norm of the sum of rank-one operators over the fiber color i = j is at most (1 / sqrt(r) + sqrt(delta))^2.",
   "alternate_encodings": [],
-  "excluded_degenerate_cases": "Not frozen. The selected formulation must decide zero dimension, empty vector families, positivity of r and epsilon/delta, finite-support probability spaces, and strict versus non-strict bounds.",
+  "excluded_degenerate_cases": "Only r = 0 and delta < 0 are excluded. d = 0, m = 0, and empty labeled parts remain allowed; the identity-sum hypothesis controls feasibility.",
   "source_status": "primary_MSS_paper_identified_and_inspected_exact_canonical_theorem_and_equivalence_chain_open",
   "source_revisions": {
     "repository_base": "3d8dd27e4ff1200a2d9c8daaa9cae8072eca6241",
@@ -64,7 +64,9 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
+    "Statement.lean",
+    "statement-freeze.md",
     "validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. The primary MSS paper and competing theorem endpoints are identified, and relevant pinned Lean APIs elaborate, but no canonical proposition or proof is accepted. No H0, M0, R0, audit completion, or theorem completion is claimed."
+  "status_boundary": "Planned dossier with a worker-self-tested exact statement proposal. MSS Corollary 1.5 is selected and its Lean proposition elaborates, but no proof or master acceptance is claimed. No H0, M0, R0, audit completion, or theorem completion is claimed."
 }

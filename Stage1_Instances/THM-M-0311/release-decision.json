@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0311-RELEASE-local-20260712",
+  "item_id": "S56-M-0311-RELEASE",
+  "theorem_id": "THM-M-0311",
+  "intent": "release",
+  "base_revision": "230f719da7724afb27c761dcb8c62a327557fe63",
+  "base_tree": "74e29f2c885a37a775e6abf3dafd423c38b2ab93",
+  "decided_at": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "dependency": {
+    "item_id": "S56-M-0311-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0311-VALIDATION-local-20260712T110205Z",
+    "receipt_sha256": "d09c8f4b2aa187d6b1cbd91ebdd5c3e7d60a94b0ea8d9e21eee858f69cdc8ed6",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0311-VALIDATION-local-20260712T110205Z"
+  ],
+  "evidence_reconciliation": {
+    "canonical_statement_kernel_replay": "provisional_pass",
+    "scalar_branch_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "same_worker_differential_reconstruction": "provisional_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "authoritative_graph_reconciled": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "hermetic_cold_offline_replay": false,
+    "tcb_sbom_license_closure": false,
+    "independent_clean_runner_attestation": false,
+    "independently_implemented_minimal_verifier": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H1", "M3", "R4"],
+    "root_vector_after": ["H1", "M3", "R4"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-0311-VALIDATION has provisional worker-self-test evidence only, is release_grade=false, and has no master-accepted receipt."
+    },
+    "next_failed_theorem_gate": {
+      "gate_id": "authoritative_graph_reconciliation",
+      "reason": "The frozen typed graph still classifies both scalar branches as candidate M3 and root-open; worker proof evidence has not been accepted and reconciled by the integration lane."
+    },
+    "remaining_root_cut_set": [
+      "master acceptance of S56-M-0311-VALIDATION and its transitive phase receipts",
+      "authoritative reconciliation of M0311-B-REAL and M0311-B-COMPLEX with the provisional proof and validation receipts",
+      "accepted H0 pinpoint primary-source statement, assumptions, errata, node crosswalk, and independent source review",
+      "accepted R0 structured reconstruction and independent reader review",
+      "complete transitive declaration, provenance, foundation, axiom, trust, and TCB closure",
+      "immutable clean snapshot, empty-cache network-denied cold build, and offline restoration replay",
+      "SBOM and license closure",
+      "two signed attestations from separately provisioned independent runners",
+      "independently implemented minimal release verifier",
+      "protected CI plus required mutation and metamorphic fixtures",
+      "deterministic content-addressed release bundle and master reconciliation"
+    ]
+  },
+  "retry_condition": "First obtain dependency-legal master acceptance and reconcile the authoritative graph. Then close independently reviewed H0/R0, full trust and supply-chain evidence, cold offline replay, distinct-runner verification, the minimal verifier, CI fixtures, and the deterministic release bundle in a release lane.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim M0, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}

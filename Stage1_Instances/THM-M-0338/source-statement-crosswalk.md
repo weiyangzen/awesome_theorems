@@ -24,18 +24,18 @@ the literal pure-state claim must be audited node by node later; its title is no
 
 | Repository/source concept | Mathematical content to freeze | Candidate Lean component | Intake status |
 |---|---|---|---|
-| bounded operators | `B(l2(N))` as a unital complex C-star algebra | `ContinuousLinearMap` plus C-star instances | foundational API probed |
-| diagonal algebra | operators diagonal in the standard basis, as a closed star subalgebra | `StarSubalgebra` plus a construction not yet identified | encoding open |
-| state | positive complex-linear functional normalized at one | `PositiveLinearMap` plus normalization | partial ingredients probed |
-| pure | extreme state or equivalent indecomposability condition | no pinned declaration identified by bounded search | missing encoding |
-| extension | a state on the full algebra restricting to the given state | function equality after the subalgebra inclusion | encoding open |
-| unique | exactly one extension in the source-specified class | `ExistsUnique` or a subsingleton extension subtype | encoding open |
-| affirmative solution | the unique-extension assertion holds for every diagonal pure state | canonical proposition | exact source mapping open |
+| bounded operators | `B(H)` for a separable infinite-dimensional complex Hilbert space | `H →L[ℂ] H` with C-star/operator-order instances | frozen |
+| diagonal algebra | operators diagonal in a countable Hilbert basis | `StarSubalgebra` plus exact vanishing of off-diagonal matrix coefficients | frozen |
+| state | positive complex-linear functional normalized at one | local `State` over `PositiveLinearMap` | frozen |
+| pure | extreme state | local `IsPure` strict convex-decomposition predicate | frozen |
+| extension | a state on the full algebra restricting to the given state | equality after subalgebra coercion | frozen |
+| unique | exactly one extension among all states | `ExistsUnique` | frozen |
+| affirmative solution | every diagonal pure state has a unique extension | `KadisonSingerStatement` | elaborated; primary-source clause review remains open |
 
 ## Lean boundary
 
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the intake probe
 imports the C-star positive-linear-map and bounded-operator APIs and checks their core types. A
-bounded name search found no C-star state or pure-state declaration. This does not prove absence
-from all possible encodings, but it establishes that substantial definitions are still required
-before exact elaboration. No mathlib theorem candidate receives statement or proof credit here.
+bounded name search found no C-star state or pure-state declaration. `Statement.lean` therefore
+defines these notions transparently from `PositiveLinearMap`, and its exact target elaborates.
+No mathlib theorem candidate receives proof credit here.

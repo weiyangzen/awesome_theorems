@@ -23,3 +23,25 @@ Known downstream failures are intentionally open: exact endpoint selection, impl
 freeze, canonical statement elaboration and mutation tests, anchor audit, obligation/provenance
 graphs, proof, hermetic replay, source/formal independent review, and release acceptance. They block
 theorem completion but do not invalidate a truthful `planned` intake.
+
+## Statement-phase validation
+
+Base revision: `230f719da7724afb27c761dcb8c62a327557fe63`.
+
+The statement phase selected MSS Corollary 1.5 and elaborated its exact deterministic partition
+claim. The historical reductions to the operator-algebraic Kadison-Singer endpoint are explicitly
+outside this root. Validation reused the existing pinned `.lake` artifacts read-only; no update,
+fetch, clone, or build was run. The pre-existing untracked `Formalizations/Lean/.lake` remains a
+nonrelease worktree condition.
+
+| Command | Result |
+|---|---|
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups and 1546 uniform-L0 targets |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets, ranks 1..1546 |
+| `python3 scripts/stage1_target.py show THM-M-0339` | exit 0; rank 832, planned, theorem_complete false |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0339/Statement.lean)` | exit 0; printed `Stage1.THM_M_0339.MSSPartitionStatement : Prop` under Lean 4.29.0 |
+| `sha256sum Stage1_Instances/THM-M-0339/Statement.lean /tmp/thm-m-0339-statement.out` | exit 0; source `b906c95d...679fd`, elaborated printed expression `65f33abc...03dc` |
+| `git diff --check -- Stage1_Instances/THM-M-0339` | exit 0; no output |
+
+This is statement-elaboration evidence only. Proof search, axiom/provenance closure, mutation tests,
+anchor audit, obligation graphs, hermetic replay, independent review, and release remain open.

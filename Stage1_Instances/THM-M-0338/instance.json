@@ -13,21 +13,21 @@
   "category": "analysis / functional analysis",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "Unique extension of pure states.",
-  "canonical_claim_status": "conventional_problem_scope_identified_but_exact_source_statement_and_formal_encoding_open",
-  "canonical_claim": "Working scope only: every pure state on the diagonal maximal abelian C-star subalgebra of bounded operators on a separable infinite-dimensional Hilbert space has a unique state extension to the full operator algebra; exact source wording and all encoding choices remain open.",
+  "canonical_claim_status": "formal_statement_frozen_and_elaborated_primary_source_clause_review_open",
+  "canonical_claim": "Every pure state on the diagonal maximal abelian C-star subalgebra of bounded operators on a separable infinite-dimensional complex Hilbert space has a unique state extension to the full operator algebra.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_pending_exact_source_and_missing_state_purity_encoding",
+    "status": "elaborated_statement_only",
     "module_candidates": [
       "Mathlib.Analysis.CStarAlgebra.PositiveLinearMap",
       "Mathlib.Analysis.CStarAlgebra.Classes",
       "Mathlib.Analysis.Normed.Operator.Basic"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "declaration_or_expression": "Stage1.THM_M_0338.KadisonSingerStatement",
+    "elaborated_expression_hash": "sha256:c0c479c898a7b418bd4d82ad05d7514edfcc885cfd9a5487fb1a4ac5ffc37868",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_statement"
   },
-  "domain_and_universes": "Working scope: a separable infinite-dimensional complex Hilbert space H, B(H), and its diagonal maximal abelian star subalgebra relative to a selected orthonormal basis; exact carriers and universes remain open.",
+  "domain_and_universes": "H : Type u with complete complex inner-product-space structure; B(H) is H ->L[Complex] H; a HilbertBasis Nat Complex H fixes the countably infinite diagonal coordinates.",
   "quantifiers": [
     "H: source-specified separable infinite-dimensional complex Hilbert space",
     "D: diagonal maximal abelian C-star subalgebra of B(H)",
@@ -37,9 +37,9 @@
     "D is the diagonal algebra for the source-specified basis",
     "phi is normalized, positive, and pure"
   ],
-  "conclusion": "Working scope: there exists exactly one state on B(H) whose restriction to D equals phi; exact source phrasing remains open.",
+  "conclusion": "There exists exactly one normalized positive complex-linear functional on B(H) whose restriction to the diagonal star subalgebra equals phi.",
   "alternate_encodings": [],
-  "excluded_degenerate_cases": "Not frozen. The statement phase must decide whether H is concretely l2(N) or abstract with a basis, what infinite-dimensional and separability hypotheses are explicit, whether the extension is quantified among all states or pure states, and whether existence is part of the claim.",
+  "excluded_degenerate_cases": "Finite index types and finite-dimensional analogues are excluded by the Nat-indexed Hilbert basis. The target uses an abstract H rather than only concrete l2(N), and quantifies existence and uniqueness among all state extensions.",
   "source_status": "repository_secondary_gloss_plus_uninspected_primary_source_candidate_no_H0_crosswalk",
   "source_revisions": {
     "repository_base": "3d8dd27e4ff1200a2d9c8daaa9cae8072eca6241",
@@ -53,7 +53,7 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "foundation_profile": "Lean 4 dependent type theory; classical logic and choice policy not frozen at intake",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; the canonical target and transitive declaration closure remain open",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib elaborate the canonical target; transitive proof closure remains open",
   "computation_profile": "No oracle, experiment, numerical approximation, or unchecked certificate is credited; the intended theorem is noncomputable",
   "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -71,7 +71,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "statement.json",
+    "check_statement.py",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Foundational pinned APIs elaborate, but no exact source statement, state/purity encoding, canonical Lean target, H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested planned dossier with an elaborated canonical Lean statement. No H0 primary-source review, proof, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
 }

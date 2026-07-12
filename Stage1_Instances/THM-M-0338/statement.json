@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0338-STATEMENT",
+  "theorem_id": "THM-M-0338",
+  "lifecycle": "planned",
+  "canonical_statement": "For every complex Hilbert space with a Hilbert basis indexed by Nat, every pure state on the star subalgebra of operators diagonal in that basis has exactly one state extension to all bounded operators.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0338/Statement.lean",
+    "declaration_or_expression": "Stage1.THM_M_0338.KadisonSingerStatement",
+    "elaborated_expression_sha256": "c0c479c898a7b418bd4d82ad05d7514edfcc885cfd9a5487fb1a4ac5ffc37868",
+    "statement_file_sha256": "6619fde250e55f083e861d4de954745713a3448e12a10d0e140f1d7a4064ad12"
+  },
+  "domain_and_universes": "H : Type u; complex complete inner-product space; basis : HilbertBasis Nat Complex H; diagonal : StarSubalgebra Complex (H ->L[Complex] H)",
+  "ordered_binders": [
+    "H : Type u",
+    "[NormedAddCommGroup H]",
+    "[InnerProductSpace Complex H]",
+    "[CompleteSpace H]",
+    "basis : HilbertBasis Nat Complex H",
+    "diagonal : StarSubalgebra Complex (Operators H)",
+    "off-diagonal matrix coefficients vanish exactly on diagonal",
+    "phi : State diagonal",
+    "IsPure phi"
+  ],
+  "conclusion": "There exists exactly one normalized positive complex-linear functional on Operators H whose restriction along the diagonal subtype inclusion is phi.",
+  "direct_imports": [
+    "Mathlib.Analysis.CStarAlgebra.PositiveLinearMap",
+    "Mathlib.Analysis.CStarAlgebra.ContinuousLinearMap",
+    "Mathlib.Analysis.InnerProductSpace.l2Space",
+    "Mathlib.Analysis.InnerProductSpace.StarOrder"
+  ],
+  "encoding_notes": {
+    "state": "PositiveLinearMap to Complex with value one at the algebra unit.",
+    "pure": "Extreme point of the real convex set of states, expressed by every strict convex decomposition being trivial.",
+    "diagonal": "The passed star subalgebra is required to consist exactly of operators whose off-diagonal matrix coefficients vanish relative to the Nat-indexed Hilbert basis.",
+    "infinite_separable_domain": "A Nat-indexed Hilbert basis supplies countably infinite orthonormal coordinates; HilbertBasis completeness excludes a finite-dimensional carrier from admitting such a basis."
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "Lean #print output with default pretty-printer"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0338/check_statement.py",
+    "killed": [
+      "removed purity hypothesis",
+      "changed Nat-indexed diagonal domain to Fin 2",
+      "changed universal diagonal binder to existential scope",
+      "changed uniqueness among all state extensions to uniqueness among pure state extensions"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact unique state-extension target elaborates and structural mutations are distinct. No Kadison-Singer proof, H0 source review, downstream node, or theorem completion is claimed."
+}

@@ -10,13 +10,13 @@
 - The affirmative solution of the 1959 Kadison-Singer question, once its exact source statement is
   frozen.
 
-## Decisions required at statement freeze
+## Statement decisions
 
-The repository gloss does not decide whether to use concrete `l2(N)` or an abstract Hilbert space
-with a chosen orthonormal basis. It also does not define a state (positive normalized linear
-functional), pure state (extreme point versus order decomposition), the diagonal subalgebra, or
-the restriction map. The exact source must determine whether the conclusion is uniqueness among
-all state extensions, uniqueness among pure extensions, or existence and uniqueness together.
+The frozen statement uses an abstract complete complex inner-product space with a `Nat`-indexed
+Hilbert basis. A state is a positive complex-linear functional normalized at one, purity is the
+extreme-point condition, and the diagonal star subalgebra is characterized by vanishing
+off-diagonal matrix coefficients. The conclusion is existence and uniqueness among all state
+extensions, with restriction expressed through the subalgebra coercion.
 
 Boundary cases needing explicit treatment include finite-dimensional spaces, an empty or finite
 index type, nonseparable spaces, nonunital algebras, and a subalgebra that is merely commutative or
@@ -33,4 +33,5 @@ maximal abelian rather than the distinguished diagonal algebra.
 - Treating `PositiveLinearMap` alone as a state without normalization and purity predicates.
 - Treating the repository label `已验证` as human-proof or kernel-proof evidence.
 
-No canonical Lean target is frozen at intake.
+The canonical Lean target is frozen in `Statement.lean`; these exclusions remain statement
+boundaries and do not assert the target is proved.
