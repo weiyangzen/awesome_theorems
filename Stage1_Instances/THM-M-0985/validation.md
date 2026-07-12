@@ -15,3 +15,23 @@ Base revision: `c6aa0f2ba41dd389c2bcf01dd532923615781719`.
 This is the smallest real validation for an intake-only node. It validates membership, standard
 consistency, artifact structure, and honest status boundaries. No Lean declaration is introduced,
 so no kernel result is claimed. Master acceptance and all dependent phases remain outstanding.
+
+## Statement validation
+
+Base revision: `ae3a77da9f973d2fb833b68ab90f37e9c6bc2ddd`.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard and 1546-target projection consistent |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique uniform-L0 targets, ranks 1 through 1546 |
+| `python3 scripts/stage1_target.py show THM-M-0985` | 0 | rank 265; planned; rework required; theorem incomplete |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0985/Statement.lean)` | 0 | canonical target, checked expansion, boundary lemmas, and four mutation probes elaborated; pretty-printed exact declaration emitted |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0985/Statement.lean 2>/dev/null \| sed -n '/^def Stage1Instances.THMM0985.KolmogorovStrongLaw/,$p' \| sha256sum)` | 0 | `517642192400a8c1319fd8e75ed0074439a8667c9a8f5ec09798da654004f5ca` |
+| `python3 -m json.tool Stage1_Instances/THM-M-0985/statement.json >/dev/null` | 0 | statement record is valid JSON |
+| `! rg -n '\\bsorry\\b|\\badmit\\b|\\baxiom\\b|placeholder' Stage1_Instances/THM-M-0985/Statement.lean` | 0 | no forbidden proof construct found |
+| `git diff --check -- Stage1_Instances/THM-M-0985` | 0 | no whitespace errors |
+
+The existing pinned cache was reused without update, build, clone, fetch, or other `.lake`
+mutation. This evidence establishes statement elaboration only. Primary-source acceptance,
+anchor audit, proof inhabitation, trust closure, reproducible release, independent verification,
+master acceptance, and theorem completion remain open.

@@ -1,4 +1,4 @@
-# THM-M-0985 rev-5.6 intake
+# THM-M-0985 rev-5.6 statement
 
 This directory is the rev-5.6 `planned` instance for Kolmogorov's strong law of large
 numbers. It freezes the intended iid, integrable, real-valued form: the arithmetic means
@@ -16,6 +16,12 @@ untrusted discovery input and supplies no proof credit.
 | Exclusions | Weak/in-probability laws, finite-state special cases, non-iid variants, and variance-only sufficient forms | These may become lemmas but cannot replace the root |
 | Foundations | Lean 4 kernel and pinned mathlib measure/probability/integration APIs | Toolchain, imports, axioms, TCB, and normalized expression hash remain open |
 
+The canonical Lean target is now frozen in `Statement.lean` with the single direct import
+`Mathlib.Probability.StrongLaw`. It fixes a universe-polymorphic sample space, an explicit
+probability measure, real-valued variables, mutual independence, identical distribution,
+measurability, integrability, zero-based `range n` averages, almost-everywhere convergence, and
+the Bochner integral of `X 0`. `statement.json` records its environment and mutation probes.
+
 The initial proof architecture is probability space -> random-variable interfaces -> iid and
 integrability assumptions -> centering/partial sums -> almost-sure convergence -> arithmetic-mean
 transport. This is a scope map, not a frozen obligation registry or a proof.
@@ -23,9 +29,9 @@ transport. This is a scope map, not a frozen obligation registry or a proof.
 The structured claim and open task DAG are in `intake.json`; source fidelity and convention risks
 are in `source_statement_crosswalk.md`.
 
-## Intake verdict
+## Statement verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is
-the exact Lean statement gate. No elaborated target, environment fingerprint, checked transport,
-mutation suite, source acceptance, or proof closure is claimed. The theorem is not complete.
-
+Lifecycle remains `planned`; provisional root vector remains `[H1, M3, R3]`. The exact statement,
+checked definitional expansion, boundary lemmas, and four structural mutation probes elaborate in
+the pinned environment. Source acceptance, anchor audit, proof closure, trust closure, and release
+evidence remain open. The theorem is not complete.

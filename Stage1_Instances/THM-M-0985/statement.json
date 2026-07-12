@@ -1,0 +1,47 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0985-STATEMENT",
+  "theorem_id": "THM-M-0985",
+  "execution_rank": 265,
+  "lifecycle_mode": "planned",
+  "canonical_claim_status": "exact_lean_target_elaborated",
+  "canonical_lean_module": "Stage1_Instances/THM-M-0985/Statement.lean",
+  "canonical_lean_declaration": "Stage1Instances.THMM0985.KolmogorovStrongLaw",
+  "canonical_lean_expression": "forall Omega with a measurable structure, probability measure mu, and X : Nat -> Omega -> Real, measurability of every X n, mutual independence, identical distribution with X 0, and integrability of X 0 imply mu-almost-sure convergence of (n : Real)^(-1) times sum over range n to integral X 0 dmu",
+  "minimal_imports": [
+    "Mathlib.Probability.StrongLaw"
+  ],
+  "universe_and_domains": "Omega : Type u; mu : Measure Omega with IsProbabilityMeasure mu; X : Nat -> Omega -> Real",
+  "indexing_convention": "range n, hence variables 0 through n-1; the n=0 mean is zero and the n=1 mean is X 0",
+  "hypotheses": [
+    "forall n, Measurable (X n)",
+    "ProbabilityTheory.iIndepFun X mu",
+    "forall n, ProbabilityTheory.IdentDistrib (X n) (X 0) mu mu",
+    "MeasureTheory.Integrable (X 0) mu"
+  ],
+  "conclusion": "mu-almost everywhere, the real arithmetic means tend to the Bochner integral of X 0",
+  "checked_expansion": "Stage1Instances.THMM0985.kolmogorovStrongLaw_iff",
+  "boundary_checks": [
+    "Stage1Instances.THMM0985.arithmeticMean_zero",
+    "Stage1Instances.THMM0985.arithmeticMean_one"
+  ],
+  "mutation_probes": {
+    "removed_hypothesis": "MutationProbes.WithoutMeasurability",
+    "changed_domain": "MutationProbes.IntegerValued",
+    "binder_scope": "MutationProbes.EventuallyIdenticallyDistributed",
+    "boundary_indexing": "MutationProbes.OneBasedMean"
+  },
+  "environment": {
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "dependency_cache": "pre-existing canonical pinned Formalizations/Lean/.lake symlink; not mutated"
+  },
+  "expression_fingerprint": {
+    "algorithm": "sha256 of UTF-8 pretty-printed declaration emitted by the recorded Lean command, from the leading def line through EOF, with stderr excluded",
+    "value": "517642192400a8c1319fd8e75ed0074439a8667c9a8f5ec09798da654004f5ca"
+  },
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "The exact statement and its definitional expansion elaborate. This phase supplies no inhabitant, proof credit, source acceptance, anchor acceptance, audit completion, or theorem completion."
+}

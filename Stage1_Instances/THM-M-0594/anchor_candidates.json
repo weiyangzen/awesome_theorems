@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-0594-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0594",
+  "audit_date": "2026-07-12",
+  "canonical_declaration": "Stage1Instances.THM_M_0594.WhitneyEmbeddingTarget",
+  "candidates": [
+    {
+      "candidate_id": "mathlib-compact-whitney",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Geometry.Manifold.WhitneyEmbedding",
+      "declaration": "exists_embedding_euclidean_of_compact",
+      "source_lines": "111-140",
+      "relationship": "strict_specialization",
+      "extra_hypothesis": "CompactSpace M",
+      "conclusion_difference": "The upstream IsClosedEmbedding witness implies the canonical IsEmbedding field.",
+      "repo_local_check": "Stage1Instances.THM_M_0594.compactSpecialization_of_mathlib",
+      "placeholder_scan": "The terminal theorem body contains no sorry, admit, axiom declaration, or proof_wanted marker; its imported transitive proof dependencies remain a later provenance-phase obligation.",
+      "machine_credit": "local_wrapper_upstream_mathlib for the compact subtarget only",
+      "closes_root": false
+    },
+    {
+      "candidate_id": "legacy-stage1-wrapper",
+      "project": "awesome_theorems",
+      "revision": "ef4b7fa8a178497a72e8409648876ceefeb811f8",
+      "module_file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_255.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_255.compactWhitneyEmbedding_mathlib_wrapper",
+      "relationship": "wrapper_of_same_compact_mathlib_body",
+      "machine_credit": "discovery input only; duplicate terminal body and no broad-root credit",
+      "closes_root": false
+    }
+  ],
+  "external_search": {
+    "services": ["GitHub repository search", "GitHub issue and pull-request search"],
+    "queries": [
+      "repositories: quoted Whitney embedding plus Lean",
+      "repositories: WhitneyEmbedding language:Lean",
+      "issues/pull requests: quoted Whitney embedding language:Lean",
+      "repo-local and pinned dependency text search for Whitney identifiers"
+    ],
+    "result": "No credible external Lean 4 terminal proof candidate of the unrestricted theorem was identified. Search did find leanprover/lean-eval PR 353, described as an evaluation problem for the strong theorem, but an eval prompt is not a proof artifact and receives no candidate or proof credit.",
+    "immutability_boundary": "No external proof candidate was accepted without a retrievable immutable commit and inspectable terminal declaration. Therefore there is no anchor-only integration debt to disguise as closure."
+  },
+  "root_assessment": {
+    "status": "not_repo_local_closed",
+    "debt": "formalization_debt",
+    "reason": "Pinned mathlib explicitly lists the sigma-compact weak theorem as TODO and proves only the compact case. The canonical target has no CompactSpace premise.",
+    "machine_state": "M3",
+    "theorem_complete": false
+  },
+  "gate_state": "self_tested_pending_master_acceptance"
+}
