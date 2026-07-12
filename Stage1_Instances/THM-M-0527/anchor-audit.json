@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0527-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0527",
+  "canonical_target": "Stage1Instances.THM_M_0527.CoveringSpaceClassificationTarget",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "mathlib_candidates": [
+    {
+      "module": "Mathlib.Topology.Homotopy.Lifting",
+      "declaration": "IsCoveringMap.monodromyFunctor",
+      "assessment": "ingredient_only",
+      "reason": "Constructs the fiber monodromy functor for an already supplied covering map; it neither constructs a cover from every subgroup nor classifies pointed covers."
+    },
+    {
+      "module": "Mathlib.Topology.Homotopy.Lifting",
+      "declaration": "IsCoveringMap.injective_path_homotopic_map",
+      "assessment": "ingredient_only",
+      "reason": "Proves injectivity on fundamental-groupoid hom-sets for one existing cover, not surjectivity of the cover-to-subgroup assignment or its fiber criterion."
+    },
+    {
+      "module": "Mathlib.Topology.Homotopy.Lifting",
+      "declaration": "IsCoveringMap.existsUnique_continuousMap_lifts_of_range_le",
+      "assessment": "strong_uniqueness_anchor",
+      "reason": "The subgroup-range lifting criterion can support comparison maps between existing covers, but it supplies no covering-space construction for an arbitrary subgroup."
+    },
+    {
+      "module": "Mathlib.Topology.Covering.Quotient",
+      "declaration": "Subgroup.isQuotientCoveringMap",
+      "assessment": "special_case_only",
+      "reason": "Builds quotient covering maps for discrete subgroups of topological groups; the frozen root concerns arbitrary eligible base spaces."
+    }
+  ],
+  "external_candidates": [
+    {
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "module": "Atlas.AlgebraicTopologyI.code.Section31",
+      "declaration": "CoveringSpaces.coveringSpacesClassification",
+      "source_sha256": "089de5e4fe174cbe07aa9291dbeb4a8c885e77cc5e45db6434223db1706fb0d9",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "assessment": "rejected_placeholder_and_nonexact",
+      "reason": "The theorem body is literally `by sorry`; its categorical all-coverings/action statement is also broader and differently encoded than the frozen pointed connected-cover/subgroup target. It receives no proof credit and was not imported."
+    }
+  ],
+  "search_protocol": {
+    "local": "Repository-wide and pinned-package ripgrep for covering/fundamental-group/classification/monodromy terms, followed by direct inspection of candidate modules.",
+    "external": "Sourcegraph global Lean searches and immutable raw GitHub reads; no repository was cloned or fetched.",
+    "limitations": "Public-code search is not an exhaustive proof of nonexistence; candidates found at moving heads were evaluated only after resolving an immutable commit."
+  },
+  "exact_external_closure_found": false,
+  "machine_status": "M3",
+  "audit_complete_for_phase": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The pinned candidate inventory and rejection/integration decisions are complete for this anchor-audit node. No candidate closes the frozen target, so the root stays open and no theorem-completion credit is claimed."
+}

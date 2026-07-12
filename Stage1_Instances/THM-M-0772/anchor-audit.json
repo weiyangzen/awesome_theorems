@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0772-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0772",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "9c62e277cad936290d63af79d788d97dd17bf4cf",
+  "canonical_target": "Stage1Instances.THM_M_0772.HausdorffMaximalPrinciple",
+  "discovery_queries": [
+    "Hausdorff maximal principle",
+    "Hausdorff maximality principle",
+    "maxChain",
+    "maxChain_spec",
+    "IsMaxChain"
+  ],
+  "candidates": [
+    {
+      "id": "C-LOCAL-01",
+      "project": "awesome_theorems",
+      "revision": "9c62e277cad936290d63af79d788d97dd17bf4cf",
+      "module": "Stage1_Instances/THM-M-0772/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0772.HausdorffMaximalPrinciple",
+      "kind": "exact_statement_only",
+      "classification": "M4",
+      "proof_credit": false
+    },
+    {
+      "id": "C-MATHLIB-01",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree_clean": true,
+      "module": "Mathlib.Order.CompleteLattice.Chain",
+      "file": "Mathlib/Order/CompleteLattice/Chain.lean",
+      "file_git_blob": "b10b8b938ecff5db9c3c70cab7948746b06fefcd",
+      "file_sha256": "074d91a7eb6be7f846e9fe468f9ff6a05f4e70cb2f04a13a6ba381ab726972a8",
+      "declaration": "maxChain_spec",
+      "type": "IsMaxChain r (maxChain r)",
+      "normalized_match": "strictly more relation-generic; exact after r := (fun x y => x <= y)",
+      "adapter": "Stage1Instances.THM_M_0772.AnchorAudit.mathlib_maxChain_spec_candidate",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry, admit, axiom, or unsafe token in terminal source file",
+      "license": "Apache-2.0",
+      "classification": "provisional_M0-W_candidate_pending_downstream_acceptance",
+      "proof_credit": false
+    },
+    {
+      "id": "C-MATHLIB-02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Order.Zorn",
+      "declaration": "IsChain.exists_maxChain",
+      "classification": "duplicate_wrapper",
+      "terminal_candidate_id": "C-MATHLIB-01",
+      "proof_credit": false
+    },
+    {
+      "id": "C-EXT-01",
+      "project": null,
+      "classification": "no_distinct_candidate_discovered",
+      "limitations": "GitHub code search was rate-limited; Sourcegraph timed out after returning mathlib and copied Pygments test-data matches; exhaustive negative discovery is not claimed",
+      "proof_credit": false
+    }
+  ],
+  "external_search_evidence": {
+    "github_repository_query_total_counts": [0, 0],
+    "github_repository_response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+    "github_code_http_status": 403,
+    "github_code_response_sha256": "ff4efb0ee22ebccbed9a17ab9cd85163b6c2c7647b75dcb6d10241d5b357a6b4",
+    "sourcegraph_partial_match_count": 9,
+    "sourcegraph_partial_response_sha256": "0837af049a7d06e0594c7e8f6825e1f48c2e45f8c9c50ce6e6825413550d169a"
+  },
+  "root_decision": {
+    "classification": "M4_authoritative_with_provisional_M0-W_candidate",
+    "reason": "The audit identifies and checks an exact pinned mathlib adapter, but this phase cannot promote the authoritative root or claim proof acceptance.",
+    "downstream_candidate": "C-MATHLIB-01"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Assigned anchor inventory classified and adapter self-tested; no obligation-tree, proof, validation, release, AUDIT-Z, or THEOREM-Z claim."
+}
