@@ -1,9 +1,10 @@
-# Intake validation
+# Intake and statement validation
 
-Base revision: `fe07aee0ce546497b6b69c8f7dcf910f374c09b1`.
+Statement worker base revision: `15209c0db1b16388f976ffb2244cadfdd6f3866d`.
 
-Validation is limited to manifest consistency, dossier structure, scoped intake invariants, and
-whitespace. No canonical Lean declaration has been selected, so no kernel result is claimed.
+Statement validation uses the existing pinned Lean and mathlib artifacts. The canonical declaration,
+its definitional expansion, and four deliberately altered statement shapes elaborate; the validator
+compares explicit elaborated expressions and confirms that no mutation is identical to the target.
 
 | Command | Result |
 |---|---|
@@ -14,8 +15,11 @@ whitespace. No canonical Lean declaration has been selected, so no kernel result
 | `python3 -m json.tool Stage1_Instances/THM-M-1245/task-dag.json` | exit 0 |
 | scoped Python intake assertions | exit 0; `intake invariant check: ok` |
 | `git diff --check -- Stage1_Instances/THM-M-1245` | exit 0; no output |
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1245/Statement.lean` | exit 0; canonical target elaborated and printed |
+| `python3 Stage1_Instances/THM-M-1245/check_statement.py` | exit 0; expression SHA-256 `de06a2c7...d6125e80`; four mutations killed; mathlib `8a178386...eea95` |
+| `python3 -m json.tool Stage1_Instances/THM-M-1245/statement.json` | exit 0 |
 
-Known downstream failures: primary-source inspection, exact regularity and endpoint decisions,
-canonical Lean elaboration, anchor audit, obligation registry, proof, hermetic replay, and
-independent review remain open. They prevent theorem completion but do not invalidate this
-fail-closed planned intake.
+Known downstream failures: primary-source pinpointing and attribution review, anchor and terminal
+proof-body audit, obligation registry, proof acceptance, hermetic replay, and independent review
+remain open. They prevent proof credit and theorem completion but do not invalidate this
+fail-closed, statement-only result.

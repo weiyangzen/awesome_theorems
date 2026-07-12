@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-rev-5.6-statement-v1",
+  "item_id": "S56-M-1277-STATEMENT",
+  "theorem_id": "THM-M-1277",
+  "depends_on": ["S56-M-1277-INTAKE"],
+  "intent": "statement",
+  "canonical_statement": "For every nonempty bounded open Omega in R^2, exp(4*pi*u^2) has a uniform finite integral over Omega among real u in W_0^{1,2}(Omega) whose weak-gradient energy is at most one; for every alpha > 4*pi, no finite uniform bound exists for the same admissible class.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1277/Statement.lean",
+    "declaration_or_expression": "Stage1Rev56.THMM1277.Statement",
+    "statement_file_sha256": "2b1ddca1ed6abcee99139bfa66e2fc931a543368814b456d50b555a44250f839"
+  },
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.Analysis.Calculus.FDeriv.Basic",
+    "Mathlib.Geometry.Euclidean.Volume.Measure",
+    "Mathlib.MeasureTheory.Function.LpSeminorm.Basic",
+    "Mathlib.MeasureTheory.Integral.Lebesgue.Basic"
+  ],
+  "domain_and_universes": "Omega : Set (EuclideanSpace Real (Fin 2)); u : Plane -> Real; g : Plane -> Plane; all declarations in Lean universe 0.",
+  "ordered_binders": ["Omega", "IsOpen Omega", "Omega.Nonempty", "Bornology.IsBounded Omega", "endpoint constant", "admissible u", "alpha", "supercritical comparison constant"],
+  "encoding_decisions": {
+    "zero_boundary_sobolev": "Existence of a sequence of smooth functions compactly supported in Omega converging to u and its selected weak gradient in extended L2 seminorm.",
+    "gradient_energy": "The volume lintegral of ENNReal.ofReal norm(g x)^2.",
+    "endpoint": "Existence of one finite ENNReal constant uniformly bounding every admissible u at alpha = 4*pi.",
+    "sharpness": "For every alpha > 4*pi and every finite ENNReal C, an admissible u has exponential integral greater than C.",
+    "nonempty_domain": "Required by the source's domain convention and logically necessary for the sharpness conjunct; the empty-domain exponential integral is always zero."
+  },
+  "boundary_policy": "The zero function and equality in the gradient constraint remain admitted. The exact endpoint is included; every strictly supercritical exponent is unbounded. Empty domains are excluded explicitly because sharpness would be false.",
+  "environment_fingerprint": {
+    "repository_base_revision": "25f9c9fc7ebc5af027982533c083f67f86dddb1f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the exact selected statement only. It supplies no inhabitant of Statement and claims no anchor-audit, proof, downstream validation, release, or theorem completion credit."
+}

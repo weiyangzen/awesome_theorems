@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1245-STATEMENT",
+  "theorem_id": "THM-M-1245",
+  "lifecycle": "planned",
+  "canonical_statement": "For every positive Euclidean dimension n and nonnegative real exponents p and q satisfying 1 <= p and 1/q = 1/p - 1/n, there is a constant C depending only on n, p, and q such that every compactly supported C1 real function on R^n has Lq norm at most C times the Lp norm of its Frechet derivative.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1245/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1245.SobolevInequalityTarget",
+    "elaborated_expression_sha256": "de06a2c7b1515429a72b45e2c3042fff34d75cc97f778af4a98eb320d6125e80",
+    "statement_file_sha256": "33f7a4b0e87852b03b0e4e2a3b0945a62f5aa462dd3b989ae07e62993bbe0ece"
+  },
+  "domain_and_universes": "n : Nat; p q : NNReal; u : EuclideanSpace Real (Fin n) -> Real; proposition in Prop",
+  "ordered_binders": [
+    "n : Nat",
+    "p q : NNReal",
+    "0 < n",
+    "1 <= p",
+    "q^-1 = p^-1 - n^-1 after coercion to Real",
+    "C : NNReal (existential, before u)",
+    "u : EuclideanSpace Real (Fin n) -> Real"
+  ],
+  "hypotheses": [
+    "ContDiff Real 1 u",
+    "HasCompactSupport u"
+  ],
+  "conclusion": "eLpNorm u q volume <= C * eLpNorm (fderiv Real u) p volume",
+  "direct_imports": [
+    "Mathlib.Analysis.FunctionalSpaces.SobolevInequality"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1245.sobolevInequalityTarget_iff_expanded",
+  "statement_selection": "The repository gloss 'Sobolev embedding in norm form' and the intake scope select the classical first-order compact-support Euclidean estimate. The formal target fixes real scalar values, C1 regularity, Lebesgue volume, operator norm of the Frechet derivative, and a uniform existential constant. A source-page and historical-attribution audit remains downstream; it cannot silently revise this statement.",
+  "degenerate_cases": "Dimension zero is excluded. The p = 1 endpoint is included. The conjugacy equation plus q in NNReal excludes p >= n in any satisfiable instance; no redundant p < n premise is added. Compactly supported zero and other boundary functions remain included.",
+  "environment_fingerprint": {
+    "base_revision": "15209c0db1b16388f976ffb2244cadfdd6f3866d",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1245/check_statement.py",
+    "validator_sha256": "15ccbc4f1939f2fafa4040a7dfc26151b9fa6ca30043bb76032ebb0ba204aa26",
+    "killed": [
+      "moved the existential constant inside the function binder",
+      "removed compact support",
+      "changed the arbitrary positive dimension to one dimension",
+      "removed the lower exponent bound 1 <= p"
+    ]
+  },
+  "foundation_profile": "Lean 4 dependent type theory with mathlib analytic and classical infrastructure; no local axiom declaration",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable analytic proposition; no computation or oracle supplies proof credit",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and kernel-elaborates the exact statement only. It supplies no anchor audit, proof credit, H0/R0 verdict, audit completion, or theorem completion."
+}

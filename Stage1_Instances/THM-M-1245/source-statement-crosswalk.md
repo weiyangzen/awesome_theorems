@@ -33,9 +33,9 @@ These citations are discovery anchors, not `H0` evidence.
 
 Repository search finds the pinned mathlib module
 `Mathlib.Analysis.FunctionalSpaces.SobolevInequality`, referenced by historical Stage1 modules.
-This is only an anchor candidate at intake: its exact declarations, types, transitive proof bodies,
-axioms, toolchain revision, and correspondence to the selected source have not been audited. It
-therefore supplies no M-state proof credit here.
+Its API supplies the pinned vocabulary used to elaborate the exact target, but its declarations,
+transitive proof bodies, axioms, and correspondence to the selected source have not yet passed the
+separate anchor audit. It therefore supplies no M-state proof credit here.
 
 Before `H0`, an independent reviewer must verify a stable source edition, theorem/page, all
 assumptions and definitions, translations and errata, then approve the source-to-Lean crosswalk.
