@@ -1,0 +1,83 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1014-RELEASE",
+  "theorem_id": "THM-M-1014",
+  "intent": "release",
+  "base_revision": "1c4493fdc57e8f67990a516eae0e3c9f20c22e10",
+  "base_tree": "4565cdac8cdfc78f7a03c22f995875edf7da1379",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1014-VALIDATION",
+    "receipt_id": "S56-M-1014-VALIDATION-local-20260712T020533Z",
+    "receipt_sha256": "4987442c50f685022f9226e399873822501d403bac1520d9f544f704eec781cc",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "reconciled_inputs": {
+    "intake.json": "9b388e97ae5a39a7f406b5643064939633c91bc110adff2a6b47357d05db1308",
+    "typed-graphs.json": "f16e57ee74d3e3d2266af1a2062d98f95c9ace903884fdd65f0d687099430de3",
+    "proof.json": "a8eb7fea1b7e7d6eb2ff3ed2bc3c9f14f93905b3eadc6e273219abb6743a1049",
+    "validation-receipt.json": "4987442c50f685022f9226e399873822501d403bac1520d9f544f704eec781cc"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1014-VALIDATION-local-20260712T020533Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-W", "R3"],
+    "boundary": "The exact root kernel-replays through a repo-local wrapper over pinned mathlib. Under section 3.2 this is an M0-W candidate, not the M0-P label proposed by proof.json. No phase receipt is master accepted, so authoritative planned state remains H1/M3/R3."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1014-VALIDATION is provisional, non-release-grade worker evidence and has no master acceptance."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "proof_body_classification": "M0-W candidate: repo-local wrapper over pinned mathlib declaration MeasureTheory.ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous",
+    "placeholder_scan": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "structured_state_freshness": "failed: typed-graphs.json predates proof closure and records root_closed=false with M1",
+    "machine_classification_consistency": "failed: proof.json proposes M0-P although the terminal body is pinned mathlib, which section 3.2 classifies as M0-W",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1014-VALIDATION and every transitive phase receipt",
+    "authoritative typed-graph reconciliation of provisional exact-root closure and correction of M0-P to M0-W",
+    "complete reconciled discovery, evidence, trust, source-boundary, and debt inventory for AUDIT-Z",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata crosswalk, and independent source review",
+    "accepted R0 node-by-node structured reconstruction with formal anchors, substantive step ledgers, and independent reader review",
+    "complete transitive declaration/body provenance, accepted foundation and axiom profiles, and hashed TCB closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and offline archive replay",
+    "SBOM and license closure with durable dependency archives",
+    "two signed attestations from separately provisioned independent runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed release bundle, signatures, and master reconciliation of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "Master-accept the dependency chain and reconcile the graph and M0-W classification; then close H0/R0 review, audit, transitive trust, hermetic supply-chain, independent-verifier, deterministic-bundle, and master release gates.",
+  "worktree_classification": "nonrelease: owned release artifacts and the pre-existing untracked Formalizations/Lean/.lake symlink are present",
+  "status_boundary": "This is a self-tested negative release decision. It accepts no receipt, changes no lifecycle or root vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, or release."
+}
