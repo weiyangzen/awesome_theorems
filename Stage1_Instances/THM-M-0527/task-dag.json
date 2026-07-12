@@ -1,0 +1,16 @@
+{
+  "schema_version": "stage1-task-dag/1.0.0",
+  "theorem_id": "THM-M-0527",
+  "lifecycle_mode": "planned",
+  "authority": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+  "status_boundary": "This is the theorem-local open-task projection. It does not alter master item state.",
+  "tasks": [
+    {"id": "S56-M-0527-INTAKE", "phase": "intake", "depends_on": [], "state": "proposed_self_tested_pending_master_acceptance"},
+    {"id": "S56-M-0527-STATEMENT", "phase": "statement", "depends_on": ["S56-M-0527-INTAKE"], "state": "open"},
+    {"id": "S56-M-0527-ANCHOR_AUDIT", "phase": "anchor_audit", "depends_on": ["S56-M-0527-STATEMENT"], "state": "open"},
+    {"id": "S56-M-0527-OBLIGATION_TREE", "phase": "obligation_tree", "depends_on": ["S56-M-0527-ANCHOR_AUDIT"], "state": "open"},
+    {"id": "S56-M-0527-PROOF", "phase": "proof", "depends_on": ["S56-M-0527-OBLIGATION_TREE"], "state": "open"},
+    {"id": "S56-M-0527-VALIDATION", "phase": "validation", "depends_on": ["S56-M-0527-PROOF"], "state": "open"},
+    {"id": "S56-M-0527-RELEASE", "phase": "release", "depends_on": ["S56-M-0527-VALIDATION"], "state": "open"}
+  ]
+}
