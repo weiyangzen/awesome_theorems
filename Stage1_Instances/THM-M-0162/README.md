@@ -11,6 +11,9 @@ boundary choices frozen in `statement.json`. A modern source family is identifie
 edition/page has been inspected. The provisional root vector remains `[H1, M4, R4]`: statement
 elaboration is not proof closure.
 
-The scope map, source-statement crosswalk, and open task DAG define downstream work. Intake checks
-are in `validation.md`; exact statement checks are in `statement-validation.md`. No proof, audit,
-or theorem-completion credit is claimed.
+The obligation registry and typed proof/provenance/workflow graphs are frozen in
+`obligation-registry.json` and `typed-graphs.json`; `obligation-tree.md` gives the readable route.
+The checked final composition remains conditional on three open equation packages. Intake checks
+are in `validation.md`, exact statement checks in `statement-validation.md`, and obligation checks
+in `obligation-tree-validation.md`. No root proof, audit completion, or theorem-completion credit
+is claimed.
