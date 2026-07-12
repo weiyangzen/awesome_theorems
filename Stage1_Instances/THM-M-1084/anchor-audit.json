@@ -1,0 +1,110 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1084-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1084",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "dfacb54b5f277adf642e7658a065015f486d4cf2",
+  "target": "Stage1Instances.THM_M_1084.DudleyEntropyBoundTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned Lake dependency source",
+    "Sourcegraph public Lean index",
+    "GitHub repository search and immutable raw source"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1084-C01",
+      "project": "awesome_theorems",
+      "revision": "dfacb54b5f277adf642e7658a065015f486d4cf2",
+      "module": "Stage1_Instances/THM-M-1084/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1084.DudleyEntropyBoundTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1084-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Mathlib.Topology.MetricSpace.CoveringNumbers",
+        "Mathlib.Topology.EMetricSpace.PairReduction",
+        "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Basic"
+      ],
+      "declarations": [
+        "Metric.coveringNumber",
+        "Metric.externalCoveringNumber",
+        "Metric.coveringNumber_anti",
+        "EMetric.pair_reduction",
+        "ProbabilityTheory.IsGaussianProcess",
+        "ProbabilityTheory.IsGaussianProcess.hasGaussianLaw_fun_sub"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no declaration states an expected-supremum entropy-integral bound",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all selected declarations elaborate locally; no terminal Dudley body exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checked, but insufficient for the exact theorem"
+    },
+    {
+      "candidate_id": "S56-M-1084-C03",
+      "project": "YuanheZ/lean-stat-learning-theory",
+      "revision": "be5d5a8a1a1f46f2ec9502980ff10a39e17e3820",
+      "toolchain": "leanprover/lean4:v4.27.0-rc1",
+      "mathlib_revision": "d68c4dc09f5e000d3c968adae8def120a0758729",
+      "module": "SLT.Dudley",
+      "declarations": [
+        "dudley_chaining_bound_core",
+        "dudley_chaining_bound_countable",
+        "dudley"
+      ],
+      "kind": "near_external_proof_candidate",
+      "normalized_match": "not exact: assumes a sub-Gaussian MGF process with scale sigma, sample continuity, measurability and exponential integrability; uses closed-ball WithTop covering numbers on a set and entropy interval (0,D]; concludes only an integral inequality with constant 12*sqrt(2)*sigma and does not conclude Integrable for the supremum",
+      "body_provenance": "SLT/Dudley.lean sha256 72ecafe31e8ad23f8373c7153dad6bb25ac940d95443a7cd5d9944a9efc7614a at the immutable commit; dudley terminates in dudley_chaining_bound_countable",
+      "placeholder_or_axiom_status": "the immutable Dudley file contains no sorry, admit, axiom, unsafe, or implemented_by token; Sourcegraph repository-wide query found no proof-placeholder occurrence, but no repo-local kernel replay was performed",
+      "license_status": "source file declares Apache-2.0; repository root LICENSE returned HTTP 404 at the audited commit, so release-level license verification remains open",
+      "classification": "M1_external_upstream_anchor_only",
+      "integration_status": "not present in lake-manifest and not locally checked; exact Gaussian-to-sub-Gaussian, cover-normalization, endpoint, constant, continuity/separability, and supremum-integrability bridges are required before any wrapper can be credited"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes Dudley lang:Lean count:100",
+      "result": "the sole relevant Lean repository was YuanheZ/lean-stat-learning-theory at indexed commit be5d5a8...; the query hit a shard match limit, so global saturation is not claimed",
+      "immutability_boundary": "discovery response identifies an immutable candidate commit; individual retained raw files were content-hashed"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "four repository queries for Dudley theorem/entropy, generic chaining, and Gaussian process with Lean/Lean4 terms",
+      "result": "total_count=0 and incomplete_results=false for all four completed queries; subsequent REST commit/tree requests hit the unauthenticated rate limit",
+      "immutability_boundary": "dated discovery result only; negative global absence is not claimed"
+    },
+    {
+      "surface": "immutable raw GitHub source",
+      "query": "SLT/Dudley.lean, MetricEntropy.lean, SubGaussian.lean, CoveringNumber.lean, lean-toolchain, and lake-manifest.json at be5d5a8...",
+      "result": "HTTP 200 for the retained files; exact source, dependency pins, and content hashes inspected",
+      "immutability_boundary": "commit-qualified URLs and recorded SHA-256 digests"
+    }
+  ],
+  "external_file_sha256": {
+    "SLT/Dudley.lean": "72ecafe31e8ad23f8373c7153dad6bb25ac940d95443a7cd5d9944a9efc7614a",
+    "SLT/MetricEntropy.lean": "f5cc8ae564c2eeda7bdbfc72e848167f700da9460033be92e402362efdf16408",
+    "SLT/SubGaussian.lean": "fd46a4c0b8d150125eadc529e1ce548c6cb6fe54f70ce8d2c8098e9bb887af3b",
+    "SLT/CoveringNumber.lean": "1d45d07b091f295a3159865e9066d0c47c9290f82f1fc171800cf302978fd60a",
+    "lean-toolchain": "d71f508cc546aeb22c1687e8ed95fc7e371795a448134142d5e1a262fab2051e",
+    "lake-manifest.json": "c03e3fe4e65d574f536ba3e88f83a07b37a21d0c747bdd69d2b0be54e5e8af93"
+  },
+  "root_machine_classification": "M1",
+  "root_classification_reason": "An immutable external Lean theorem named dudley with a substantive proof body was located, but its type is not the frozen target and it is not in the repository dependency closure. Pinned mathlib supplies only substrate. Therefore this phase records an anchor-only near candidate, not kernel closure.",
+  "integration_blocker": "The candidate uses Lean v4.27.0-rc1 and mathlib d68c4dc..., while this repository uses Lean v4.29.0 and mathlib 8a178386.... It also requires several nontrivial exact-statement bridges. Fetching or mutating dependencies was forbidden for this worker, and no compatible artifact is already present.",
+  "reopen_condition": "Pin or vendor the external project at the audited commit, pass a compatible local build, inspect its transitive proof/axiom closure, and prove an exact local transport covering Gaussian MGF, open/closed covering-number normalization, interval and constant normalization, separability versus continuity, and supremum integrability.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes a bounded formal-anchor inventory. It does not accept the external theorem, establish H0, freeze the obligation tree, prove the canonical target, claim AUDIT-Z, or claim theorem completion."
+}
