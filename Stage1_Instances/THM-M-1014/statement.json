@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1014-STATEMENT",
+  "theorem_id": "THM-M-1014",
+  "lifecycle": "planned",
+  "canonical_statement": "For topological measurable spaces alpha and beta with measurable opens on alpha and the Borel sigma algebra on beta, every continuous f : alpha -> beta sends any filter-convergent family of probability measures mu_n -> mu in the weak topology to the weakly convergent family of pushforwards f_* mu_n -> f_* mu.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1014/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1014.StatementShape",
+    "elaborated_expression_sha256": "aac91776d29ce760f643bd6cfc102167bf78a0686c0b9019a70985279fbd195f",
+    "statement_file_sha256": "03af2e1309d2e86056ac37c4630ec7f9dbabcb009e55aac820cfad8b4df5d198"
+  },
+  "domain_and_universes": "alpha : Type u, beta : Type v, arbitrary index iota : Type w and filter L; probability measures use mathlib's ProbabilityMeasure weak topology",
+  "ordered_binders": [
+    "alpha : Type u",
+    "beta : Type v",
+    "TopologicalSpace alpha",
+    "MeasurableSpace alpha",
+    "OpensMeasurableSpace alpha",
+    "TopologicalSpace beta",
+    "MeasurableSpace beta",
+    "BorelSpace beta",
+    "iota : Type w",
+    "L : Filter iota",
+    "mu_n : iota -> ProbabilityMeasure alpha",
+    "mu : ProbabilityMeasure alpha",
+    "f : alpha -> beta",
+    "hf : Continuous f",
+    "Tendsto mu_n L (nhds mu)"
+  ],
+  "conclusion": "Tendsto (fun n => ProbabilityMeasure.map (mu_n n) hf.measurable.aemeasurable) L (nhds (ProbabilityMeasure.map mu hf.measurable.aemeasurable))",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Measure.ProbabilityMeasure"
+  ],
+  "representation_notes": "ProbabilityMeasure packages probability mass and its topology is mathlib's weak-convergence topology. Continuity yields the AEMeasurable witnesses required by ProbabilityMeasure.map. No sequence-only or random-variable restatement replaces the general filtered measure root.",
+  "foundation_profile": "Lean 4 dependent type theory and pinned mathlib; proposition declaration introduces no custom axioms or proof body",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable measure-theoretic proposition; no computation or oracle is credited",
+  "environment_fingerprint": {
+    "base_revision": "31c0253e7592e9a19dd9571adcf10eb0023effda",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1014/check_statement.py",
+    "validator_sha256": "8d29c7037a72e6555001ba804bd52a83387d541d5f2fd1b08402f19f95e3de90",
+    "distinguished": [
+      "replace continuity with measurability",
+      "reverse and alter the weak-convergence premise",
+      "replace the limiting pushforward by that of an unrelated probability measure"
+    ]
+  },
+  "included_boundary_cases": "constant and identity maps, Dirac laws, arbitrary filters, and empty or degenerate carriers when the required instances exist",
+  "excluded_generalizations": "continuity only almost everywhere, varying maps, stronger convergence modes, and a random-variable formulation without a checked law transport",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and kernel-elaborates only the exact everywhere-continuous pushforward statement. It supplies no proof, anchor acceptance, source H0 verdict, audit completion, or theorem-completion evidence."
+}

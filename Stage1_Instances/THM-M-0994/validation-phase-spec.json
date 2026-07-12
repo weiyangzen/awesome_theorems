@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0994-VALIDATION",
+  "theorem_id": "THM-M-0994",
+  "recipes": [
+    {
+      "recipe_id": "M0994-validation-kernel-replay",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0994/Proof.lean"],
+      "env_allowlist": {"ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0994-ROOT", "M0994-L-CENTER", "M0994-L-INTERVAL-MGF", "M0994-L-SUM-TAIL", "M0994-L-ENDPOINTS", "M0994-L-PROXY-ALG", "M0994-B-ZERO-WIDTH", "M0994-T-PROXY", "M0994-T-ASSEMBLE"],
+      "covered_declarations": ["Stage1Instances.THM_M_0994.hoeffding"]
+    },
+    {
+      "recipe_id": "M0994-validation-independent-probe",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0994/Validation.lean"],
+      "env_allowlist": {"ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0994-ROOT", "M0994-X-PINNED"],
+      "covered_declarations": ["Stage1Instances.THM_M_0994.Validation.independentlyReconstructedRoot"]
+    },
+    {
+      "recipe_id": "M0994-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0994/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "covered_obligation_ids": ["M0994-ROOT", "M0994-X-PINNED", "M0994-X-TCB"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0994.hoeffding",
+        "Stage1Instances.THM_M_0994.Validation.independentlyReconstructedRoot",
+        "ProbabilityTheory.HasSubgaussianMGF.measure_sum_ge_le_of_iIndepFun",
+        "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc"
+      ]
+    }
+  ]
+}
