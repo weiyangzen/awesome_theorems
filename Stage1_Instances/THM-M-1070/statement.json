@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1070-STATEMENT",
+  "theorem_id": "THM-M-1070",
+  "canonical_name": "Levy process",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1070/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1070.IsLevyProcess",
+    "status": "self_tested_pending_master_acceptance",
+    "source_sha256": "6968f5fbf916f36d31518be99b631a560afe8a5fbc2ca30108ff1d57bd692268"
+  },
+  "domains_and_binders": [
+    "Omega : Type u",
+    "MeasurableSpace Omega",
+    "P : Measure Omega",
+    "X : NNReal -> Omega -> Real"
+  ],
+  "clauses": [
+    "IsProbabilityMeasure P",
+    "for every t, X t is AEMeasurable with respect to P",
+    "X 0 = 0 P-almost everywhere",
+    "ProbabilityTheory.HasIndepIncrements X P (joint finite-family independence)",
+    "for all s t, X (s+t) - X s and X t are identically distributed under P",
+    "for all t, X converges in measure to X t along nhds t"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1070.isLevyProcess_iff_expandedSourceShape",
+  "boundary_policy": {
+    "time_zero": "included",
+    "repeated_endpoints": "included through monotone, not strictly monotone, finite time families",
+    "empty_and_singleton_increment_families": "included by HasIndepIncrements",
+    "cadlag": "not assumed; separate regularization obligation",
+    "filtration": "not part of the unfiltered Levy-process predicate",
+    "codomain": "Real",
+    "equality_at_zero": "almost everywhere"
+  },
+  "mutations": [
+    "mutationPairwiseIndependentIncrements",
+    "mutationDiscreteTime",
+    "mutationNoStochasticContinuity",
+    "mutationCadlagAssumed"
+  ],
+  "minimal_direct_imports": [
+    "Mathlib.Probability.Independence.Process.HasIndepIncrements",
+    "Mathlib.Probability.IdentDistrib"
+  ],
+  "environment": {
+    "repository_base": "342d4f3073746c527586b3ea2818216ab631877c",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_commit": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This artifact freezes an elaborated predicate. It is not a proof that cadlag modifications exist, not a proof of any Levy-process characterization, and not theorem completion."
+}
