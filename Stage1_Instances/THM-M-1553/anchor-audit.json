@@ -1,0 +1,129 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-1553",
+  "item_id": "S56-M-1553-ANCHOR_AUDIT",
+  "intent": "audit",
+  "base_revision": "446447c65190dc818b074bf543171f807e9b4651",
+  "cutoff_utc": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1553.HirotaKdVTarget",
+  "search_aliases": [
+    "Hirota",
+    "Hirota bilinear method",
+    "Hirota D-operator",
+    "KdV",
+    "Korteweg-de Vries",
+    "tau function",
+    "tau-function",
+    "bilinear KdV"
+  ],
+  "immutable_inputs": {
+    "repository_revision": "446447c65190dc818b074bf543171f807e9b4651",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740"
+  },
+  "candidates": [
+    {
+      "id": "LOCAL-CANONICAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "446447c65190dc818b074bf543171f807e9b4651",
+      "file": "Stage1_Instances/THM-M-1553/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1553.HirotaKdVTarget",
+      "relationship": "exact canonical proposition; definition only",
+      "terminal_proof_body": null,
+      "placeholder_or_axiom_result": "No proof declaration exists, so there is no proof body or axiom closure to credit.",
+      "classification": "M4",
+      "integration_decision": "The exact root remains open."
+    },
+    {
+      "id": "LOCAL-LEGACY-S1-M-212",
+      "project": "awesome_theorems",
+      "revision": "16d227cffb7cb7d9e8392b6c0ff8211e498e1330",
+      "tree_revision": "4f823e2d768f1b3542a8462acec7cadc24a6c9e5",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_212.lean",
+      "source_sha256": "d49efcde28d695c79b310fd9466864b93c3ebedfbdfa8ead08efa081759b13e2",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_212.statementShape_of_certificate",
+        "AwesomeTheorems.Stage1.S1_M_212.HirotaBilinearData.Certificate.conclusion",
+        "AwesomeTheorems.Stage1.S1_M_212.kdvHirotaDOperator"
+      ],
+      "relationship": "abstract certificate plumbing over complex-valued functions; decisive bilinear-to-nonlinear result is a Certificate field; not the real-valued canonical target",
+      "terminal_proof_body": "local wrapper bodies discharge only conclusions already assumed by Certificate fields",
+      "placeholder_or_axiom_result": "No placeholder credit assessed because the candidate statement is not equivalent to the root and assumes the bridge as data.",
+      "classification": "M2",
+      "integration_decision": "Reject as a root proof; retain only as implementation guidance."
+    },
+    {
+      "id": "LOCAL-ADJACENT-S1-M-211",
+      "project": "awesome_theorems",
+      "revision": "446447c65190dc818b074bf543171f807e9b4651",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_211.lean",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_211.kdvHirotaD",
+        "AwesomeTheorems.Stage1.S1_M_211.KdVFiniteSolitonHirotaIdentity",
+        "AwesomeTheorems.Stage1.S1_M_211.kdvHirotaD_zero_zero"
+      ],
+      "relationship": "adjacent finite-soliton definitions and a zero-order identity; its own ledger leaves the determinant Hirota identity open; no logarithmic bilinear-to-KdV bridge",
+      "terminal_proof_body": null,
+      "placeholder_or_axiom_result": "No root-relevant terminal proof body found.",
+      "classification": "M2",
+      "integration_decision": "Not importable as closure of the canonical target."
+    },
+    {
+      "id": "PINNED-MATHLIB-INFRASTRUCTURE",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Analysis.Calculus.ContDiff.Basic",
+        "Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas",
+        "Mathlib.Analysis.SpecialFunctions.Log.Deriv",
+        "Mathlib.LinearAlgebra.BilinearMap"
+      ],
+      "declarations": [
+        "ContDiff.differentiable",
+        "deriv_add",
+        "deriv_mul",
+        "deriv_comp",
+        "Real.hasDerivAt_log",
+        "iteratedDeriv",
+        "LinearMap.BilinMap"
+      ],
+      "relationship": "derivative, logarithm, iterated derivative, and bilinear-map infrastructure; no declaration matching the Hirota/KdV target",
+      "terminal_proof_body": null,
+      "placeholder_or_axiom_result": "Infrastructure declarations elaborate in AnchorAudit.lean; none states the root.",
+      "classification": "M2",
+      "integration_decision": "Use as proof infrastructure; a new bridge proof is still required."
+    }
+  ],
+  "external_search": {
+    "github_rest_repository_search": {
+      "endpoint": "https://api.github.com/search/repositories",
+      "queries": [
+        "Hirota language:Lean",
+        "KdV language:Lean",
+        "\"Korteweg-de Vries\" Lean",
+        "\"tau function\" Lean theorem prover"
+      ],
+      "result": "Each query returned total_count=0.",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "limitations": "Repository search is unauthenticated and is not GitHub code search; zero repositories is negative discovery evidence, not an exhaustiveness claim."
+    },
+    "grep_app_code_search": {
+      "queries": ["Hirota", "Korteweg-de Vries", "kdvHirotaD", "tau function"],
+      "result": "HTTP 503 for every query; no response body was accepted as evidence.",
+      "limitations": "External code search unavailable during this run."
+    },
+    "verified_external_candidates": [],
+    "authenticated_code_search_complete": false,
+    "discovery_exhaustive": false
+  },
+  "root_machine_classification": "M4",
+  "audit_phase_result": "candidate_inventory_classified_with_discovery_limitations",
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "No exact terminal proof body exists locally or in pinned mathlib for Stage1Instances.THM_M_1553.HirotaKdVTarget.",
+  "reopen_event": "A concrete Lean 4 repository/declaration matching the exact root is discovered at an immutable revision, or the local bilinear-to-KdV derivative bridge is implemented.",
+  "status_boundary": "This audit classifies the candidates actually found and records unavailable search surfaces. It does not claim exhaustive Internet discovery, human-source fidelity, proof closure, audit completion for the whole theorem dossier, or theorem completion."
+}
+
