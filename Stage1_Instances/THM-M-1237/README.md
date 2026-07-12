@@ -22,11 +22,12 @@ Those variants require separate theorem statements and cannot be used to broaden
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The source statement is
 mathematically standard, but a versioned primary-source scan, exact assumption/errata crosswalk,
-and independent review remain open. The first failed theorem gate is the exact Lean statement gate:
-there is no accepted elaborated expression hash, environment fingerprint, checked transport, or
-mutation record. This intake does not claim theorem completion.
+and independent review remain open. The statement phase now supplies a self-tested exact Lean
+target, environment and file fingerprints, checked transport, and structural mutation record in
+`Statement.lean` and `statement.json`. Master acceptance and every downstream gate remain open;
+this does not claim a proof or theorem completion.
 
 ## Validation
 
-The commands in `validation.md` validate membership, repository consistency, JSON syntax, and
-dossier-local references only. No Lean declaration was added or credited by this phase.
+The intake commands remain in `validation.md`; `statement-validation.md` records the narrow Lean
+elaboration and statement-node checks.

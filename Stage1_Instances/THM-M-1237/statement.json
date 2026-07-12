@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-rev-5.6-statement-v1",
+  "item_id": "S56-M-1237-STATEMENT",
+  "theorem_id": "THM-M-1237",
+  "depends_on": ["S56-M-1237-INTAKE"],
+  "intent": "statement",
+  "canonical_statement": "For n >= 1, a measurable bounded domain Omega in R^n, p > n, alpha = 1 - n/p, and scalar W^{1,p}(Omega) data admitting the specified bounded W^{1,p} extension to R^n, there exists a representative agreeing almost everywhere on Omega that is alpha-Holder on closure Omega and obeys a quantitative sup/Holder bound by its W^{1,p}(Omega) norm.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1237/Statement.lean",
+    "declaration_or_expression": "Stage1Rev56.THMM1237.Statement",
+    "elaborated_expression": "forall (n : Nat), 1 <= n -> forall (Omega : Set (Space n)), MeasurableSet Omega -> IsBounded Omega -> forall (p alpha : NNReal), (n : Real) < p -> (alpha : Real) = 1 - n / p -> forall u : W1pData Omega p, ExtensionData u -> Nonempty (HolderRepresentative u alpha)",
+    "statement_file_sha256": "490f7dc2b30c9d2cb4a1d2f24ee5635fbf02b50f443cd1c7a3430ed7162ec439"
+  },
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Defs",
+    "Mathlib.Geometry.Euclidean.Volume.Measure",
+    "Mathlib.MeasureTheory.Function.LpSeminorm.Basic",
+    "Mathlib.Topology.MetricSpace.Holder"
+  ],
+  "domain_and_universes": "n : Nat with 1 <= n; Omega : Set (EuclideanSpace Real (Fin n)); p and alpha : NNReal; scalar functions; all declarations in Lean universe 0.",
+  "ordered_binders": [
+    "n : Nat", "1 <= n", "Omega : Set (Space n)", "MeasurableSet Omega",
+    "Bornology.IsBounded Omega", "p alpha : NNReal", "n < p",
+    "alpha = 1 - n / p", "u : W1pData Omega p", "ExtensionData u"
+  ],
+  "encoding_decisions": {
+    "sobolev_data": "Concrete function and weak gradient, both MemLp on volume restricted to Omega, with a distributional integration-by-parts relation.",
+    "domain_regularness": "A bounded-domain W1p extension package is explicit data; no opaque Lipschitz-domain proposition is assumed.",
+    "representative": "A concrete function agreeing almost everywhere with the Sobolev input on Omega.",
+    "conclusion": "HolderOnWith on closure Omega plus a pointwise value bound; both constants are quantitatively tied to the encoded W1p norm.",
+    "exponent": "The equation alpha = 1 - n/p is explicit and the strict hypothesis p > n excludes endpoints."
+  },
+  "checked_transport": "Stage1Rev56.THMM1237.statement_iff_expanded",
+  "mutation_tests": [
+    "removed dimension, exponent, and domain hypotheses",
+    "weakened strict p > n to p >= n",
+    "excluded the empty-domain boundary case by adding Omega.Nonempty to the conclusion"
+  ],
+  "boundary_policy": "The empty domain and zero function remain admitted. Critical/subcritical exponents, unbounded domains, domains without the specified extension data, vector-valued targets, and plain continuity without the Holder exponent and estimate are not substituted.",
+  "environment_fingerprint": {
+    "repository_base_revision": "9258763ef5d98df2b13458756f43399dd7e63278",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates the exact selected statement only. ExtensionData is a hypothesis package and no inhabitant of the root conclusion is constructed; no proof, source-audit, obligation-tree, validation, or release credit is claimed."
+}
