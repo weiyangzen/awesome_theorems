@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1007-STATEMENT",
+  "theorem_id": "THM-M-1007",
+  "lifecycle": "planned",
+  "canonical_statement": "For independent measurable real random variables X_n on a probability space and a fixed c > 0, the real series sum X_n converges almost surely if and only if the large-jump probabilities are summable, the series of expectations of the inclusive truncations converges, and their variances are summable.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1007/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1007.KolmogorovThreeSeriesTarget",
+    "elaborated_expression_sha256": "3b1a82b3fc0ce70be489e8a49279e3f29cfe244f7a50c28f5c4e5de26894cf38",
+    "statement_file_sha256": "596d935026c6276c8a0e57a0e95915d18c568971094a02762bd1f88cdfc5daa9"
+  },
+  "domain_and_universes": "universe u; Omega : Type u with MeasurableSpace; mu : Measure Omega with IsProbabilityMeasure; X : Nat -> Omega -> Real; c : Real; Prop in universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "mu : Measure Omega",
+    "[IsProbabilityMeasure mu]",
+    "X : Nat -> Omega -> Real",
+    "c : Real"
+  ],
+  "hypotheses": [
+    "0 < c",
+    "forall n, Measurable (X n)",
+    "ProbabilityTheory.iIndepFun X mu"
+  ],
+  "conclusion": "AE omega under mu, the natural-order partial sums of X n omega converge, iff: Summable (mu.real {|X n| > c}); the natural-order partial sums of integral mu (truncate c (X n)) converge; and Summable (variance (truncate c (X n)) mu).",
+  "direct_imports": [
+    "Mathlib.Probability.Moments.Variance"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1007.target_iff_expandedIntakeShape",
+  "source_boundary": "This freezes the standard real-valued fixed-positive-cutoff biconditional selected by intake. Primary-source page and errata acceptance remain anchor-audit work; no proof body is claimed.",
+  "environment_fingerprint": {
+    "base_revision": "eb5f7c9057a60dace86040954ad22ca44a040954",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1007/check_statement.py",
+    "validator_sha256": "90908d1632a9864332fd132f1c9425b16ae93c0e28dff622f50fc1902bacbd23",
+    "killed": [
+      "removed measurability",
+      "removed mutual independence",
+      "changed the cutoff binder scope",
+      "weakened the positive cutoff to a nonnegative cutoff"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1007.truncate_eq_self_of_abs_le",
+      "Stage1Instances.THM_M_1007.truncate_eq_zero_of_lt_abs"
+    ]
+  },
+  "degenerate_cases": "Only c > 0 is included. Equality |X_n| = c is retained by truncation and excluded from the strict large-jump event. Natural-order convergence is used for real series; unconditional Summable is used only for the nonnegative probability and variance series.",
+  "alternate_encodings": {
+    "partial_sums": "Selected explicitly through SeriesConverges and definitionally expanded in the elaborated target.",
+    "inclusive_truncation": "Selected explicitly; equality and strict-outside boundary lemmas elaborate.",
+    "ennreal_probability": "Not selected: mu.real is finite under IsProbabilityMeasure and yields the intended real nonnegative series."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact target, its alias transport, four structural mutations, and cutoff boundary probes elaborate with the pinned import. Source acceptance, proof closure, trust, hermetic replay, and independent acceptance remain open."
+}
