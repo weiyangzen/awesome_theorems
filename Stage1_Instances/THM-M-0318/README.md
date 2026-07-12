@@ -6,12 +6,12 @@ of a real normed vector space has a fixed point. This is narrower and more preci
 phrase "a fixed-point theorem on Banach spaces" and does not silently substitute Banach's
 contraction theorem or the finite-dimensional Brouwer theorem.
 
-The primary 1930 Schauder paper has been identified bibliographically, but its exact theorem text,
-page-level anchor, hypotheses, and errata have not yet been inspected. Accordingly the human claim
-is frozen only at intake scope, while the exact source-controlled statement and canonical Lean
-expression remain open for `S56-M-0318-STATEMENT`. `IntakeProbe.lean` checks only that the pinned
-Lean environment exposes the vocabulary needed to express the scope; it is not the theorem.
+`Statement.lean` now freezes and elaborates that compact-convex claim as
+`Stage1Instances.THM_M_0318.SchauderFixedPointTarget`, with a checked direct expansion, structural
+mutations, and empty/singleton boundary checks. The exact expression and environment fingerprint
+are recorded in `statement.json`. The primary 1930 paper's exact theorem text, page-level anchor,
+terminology, and errata remain uninspected, so this statement evidence does not upgrade source
+fidelity to `H0`.
 
-The provisional root vector is `[H2, M4, R4]`. No source fidelity (`H0`), elaborated target, proof,
-audit completion, or theorem completion is claimed. The scope map, source crosswalk, and open task
-DAG are the authoritative navigation for subsequent phases.
+The provisional root vector is `[H2, M3, R4]`. The statement node is self-tested pending master
+acceptance. No source fidelity (`H0`), proof, audit completion, or theorem completion is claimed.

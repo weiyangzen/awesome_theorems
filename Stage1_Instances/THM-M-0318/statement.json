@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0318-STATEMENT",
+  "theorem_id": "THM-M-0318",
+  "lifecycle": "planned",
+  "canonical_statement": "Let E be a real normed vector space, K a nonempty compact convex subset of E, and f : E -> E continuous on K with f(K) subset K. Then some x in K satisfies f x = x.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0318/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0318.SchauderFixedPointTarget",
+    "elaborated_expression_sha256": "2605ac76f3d50dddcc135d3094639fbed3de58a10b26a8f9eeb504101e556b5f",
+    "statement_file_sha256": "e428904e22f39e9dd3b2283c1155ade8c1df09b40d1a15052e3dd4ca71b2912d"
+  },
+  "domain_and_universes": "universe u; E : Type u; NormedAddCommGroup E; NormedSpace Real E; K : Set E; f : E -> E; Prop in Lean universe 0",
+  "ordered_binders": [
+    "E : Type u",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "K : Set E",
+    "f : E -> E"
+  ],
+  "hypotheses": [
+    "K.Nonempty",
+    "IsCompact K",
+    "Convex Real K",
+    "ContinuousOn f K",
+    "Set.MapsTo f K K"
+  ],
+  "conclusion": "Exists x : E, x in K and f x = x.",
+  "direct_imports": [
+    "Mathlib.Analysis.Normed.Module.Basic",
+    "Mathlib.Analysis.Convex.Basic"
+  ],
+  "minimal_import_check": "Removing either direct import makes a required identifier unavailable; Mathlib.Topology.Basic was tested and removed as redundant.",
+  "checked_transport": "Stage1Instances.THM_M_0318.target_iff_expanded",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0318/check_statement.py",
+    "killed": [
+      "removed compactness hypothesis",
+      "specialized the ambient domain to the real line",
+      "moved the fixed-point witness outside the map binder",
+      "removed the self-map hypothesis"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0318.empty_boundary",
+      "Stage1Instances.THM_M_0318.singleton_boundary"
+    ]
+  },
+  "degenerate_cases": "The empty set is excluded by K.Nonempty. Singletons remain in scope and have a checked boundary lemma. No completeness of E, global continuity, contraction, uniqueness, or finite-dimensionality is added.",
+  "source_boundary": "This freezes the compact-convex formulation selected by intake. Primary-source theorem/page/terminology fidelity remains H2 and belongs to source audit; no H0 claim is made.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact Lean statement elaboration only. This supplies no Schauder proof, source-fidelity acceptance, anchor audit, or dependent-node evidence."
+}
