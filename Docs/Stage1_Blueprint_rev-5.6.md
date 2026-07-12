@@ -9708,7 +9708,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0541-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0541`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0541-OBLIGATION_TREE` / `THM-M-0541` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0541-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0541`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0541-PROOF` / `THM-M-0541` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-0541-PROOF` / `THM-M-0541` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0541-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0541`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0541-VALIDATION` / `THM-M-0541` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0541-PROOF`. Owned paths: `Stage1_Instances/THM-M-0541`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -10120,7 +10120,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0587-PROOF`. Owned paths: `Stage1_Instances/THM-M-0587`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0587-RELEASE` / `THM-M-0587` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0587-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0587`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0588-INTAKE` / `THM-M-0588` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
+- [_] `S56-M-0588-INTAKE` / `THM-M-0588` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0588`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0588-STATEMENT` / `THM-M-0588` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0588-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0588`. Gate: rev-5.6 node-specific receipt and master acceptance.
