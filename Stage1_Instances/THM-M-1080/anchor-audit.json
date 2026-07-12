@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1080-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1080",
+  "depends_on": "S56-M-1080-STATEMENT",
+  "canonical_target": "Stage1Instances.THM_M_1080.Statement",
+  "base_revision": "45b96fd58a0e141750ae21e0ddbb3d81233b8a6a",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "module": "Mathlib.Probability.Moments.SubGaussian",
+    "source_sha256": "1261993867efbddb6781a6ce9d0855335fab6891f819062ac83b8d9f6d94c440",
+    "declarations": [
+      "ProbabilityTheory.measure_sum_ge_le_of_hasCondSubgaussianMGF",
+      "ProbabilityTheory.HasSubgaussianMGF.sum_of_hasCondSubgaussianMGF",
+      "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc_of_integral_eq_zero"
+    ],
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "checked_wrapper": "Stage1Instances.THM_M_1080.mathlibConditionalSubgaussianCandidate",
+    "terminal_body_origin": "The sum and tail bodies entered mathlib in commit 86d68b796d952e7937d3d37ca8156f9c81422da1 (2025-03-18); the audited names are those at the pinned revision.",
+    "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+    "dependency_feasibility": "present at the lake-manifest revision and elaborated from the existing pinned cache"
+  },
+  "candidate_relationship": {
+    "classification": "strong_semantic_anchor_not_exact_root",
+    "matching_surface": "one-sided finite-sum tail, threshold t >= 0, exponent -t^2/(2 sum c_i), and filtration-indexed conditional increments",
+    "mismatches": [
+      "candidate requires StandardBorelSpace while the canonical target quantifies over every measurable probability space",
+      "candidate assumes each increment is conditionally sub-Gaussian; the canonical target supplies a martingale plus an almost-sure absolute bound",
+      "candidate is stated for a sum process Y with a separate initial sub-Gaussian hypothesis, not directly as X_n-X_0",
+      "candidate parameter cY is the sub-Gaussian variance proxy, whereas the canonical c is an absolute increment bound and must be squared"
+    ],
+    "required_bridge": "derive conditional sub-Gaussianity with parameter (c_(i+1))^2 from the martingale conditional-mean-zero law and the a.s. interval [-c_(i+1), c_(i+1)], then telescope the increments and discharge index/boundary transports",
+    "bridge_available_in_pinned_mathlib": false,
+    "eligible_for_direct_root_credit": false
+  },
+  "repo_local_candidate": {
+    "revision": "45b96fd58a0e141750ae21e0ddbb3d81233b8a6a",
+    "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_276.lean",
+    "source_sha256": "38db3162d92e3e3988e375237aa7eb48f234479418f0e66318c04b23553bc9ed",
+    "declaration": "AwesomeTheorems.Stage1.S1_M_276.azuma_hoeffding_tail_bound",
+    "relationship": "wrapper around the same pinned mathlib terminal body and the same stronger conditional-sub-Gaussian hypotheses",
+    "rev56_credit": "none; discovery input only"
+  },
+  "external_pinned_audit": {
+    "scope": "all non-mathlib packages already present at the immutable revisions in Formalizations/Lean/lake-manifest.json",
+    "queries": ["Azuma", "Azuma-Hoeffding", "HasCondSubgaussianMGF", "measure_sum_ge_le_of_hasCondSubgaussianMGF"],
+    "result": "no distinct external candidate in the immutable dependency closure",
+    "limit": "No dependency was fetched. This does not claim exhaustive coverage of all public Lean repositories."
+  },
+  "root_machine_classification": "M3",
+  "human_debt": "H2: bibliographic metadata for Azuma 1967 is fixed by DOI 10.2748/tmj/1178243286, but the primary theorem/page and errata could not be inspected from a stable local copy in this node.",
+  "readability_debt": "R3: the candidate and exact bridge gap are documented; no reviewed readable reconstruction exists.",
+  "audit_result": "Pinned mathlib has a genuine Azuma-Hoeffding anchor, but not an exact theorem for bounded increments of an arbitrary-space martingale. The conditional Hoeffding bridge is absent and must be proved later without broadening the target.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "Anchor audit only. No exact-root proof, H0, obligation-tree acceptance, validation, release, or theorem-completion claim is made."
+}
