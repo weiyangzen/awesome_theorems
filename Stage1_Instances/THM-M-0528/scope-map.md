@@ -11,14 +11,13 @@ The repository's own statement gloss, `覆盖空间的提升唯一性` (uniquene
 spaces), controls this scope. The title alone is not used to substitute the unrelated
 uniformization theorem for Riemann surfaces.
 
-## Decisions required before statement closure
+## Statement selection
 
-The statement phase must select and cite an exact source variant. In particular, it must decide
-whether the root is uniqueness of a lifted path after fixing its starting point, equality of two
-lifts from a connected or path-connected space after equality at one point, or the uniqueness
-clause of a lift-existence theorem. It must preserve the source's separation, local triviality,
-continuity, nonemptiness, connectedness, endpoint, and basepoint conditions and all universe/binder
-scope. These variants are related but are not interchangeable exact statements.
+The statement phase selects equality of two continuous lifts from a `PreconnectedSpace` after
+equality at one explicitly bound point. The projection is an `IsCoveringMap`; equality of
+composites is the canonical encoding, with a checked transport to pointwise projection equality.
+Path-lift uniqueness and the uniqueness clause of a lift-existence theorem remain related but
+excluded variants.
 
 ## Explicit exclusions
 

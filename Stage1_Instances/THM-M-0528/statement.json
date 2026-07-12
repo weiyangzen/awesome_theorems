@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0528-STATEMENT",
+  "theorem_id": "THM-M-0528",
+  "lifecycle": "planned",
+  "canonical_statement": "Let p : E -> X be a covering map and let A be a preconnected topological space. If two continuous maps g1, g2 : A -> E have the same composite with p and agree at one specified point of A, then g1 = g2.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0528/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0528.CoveringLiftUniquenessTarget",
+    "elaborated_expression_sha256": "722b820b9322f8eba435ecaad4432c680f6301bad55f585aa73c60878ad40376",
+    "statement_file_sha256": "0011468a4f6dc0083a41cbf4359e55e67a312d033df74f5738be403d6d101378"
+  },
+  "domain_and_universes": "universes u v w; E : Type u; X : Type v; A : Type w; independently supplied topologies; Prop in universe 0",
+  "ordered_binders": [
+    "E : Type u",
+    "X : Type v",
+    "A : Type w",
+    "[TopologicalSpace E]",
+    "[TopologicalSpace X]",
+    "[TopologicalSpace A]",
+    "[PreconnectedSpace A]",
+    "p : E -> X",
+    "IsCoveringMap p",
+    "g1 g2 : A -> E",
+    "Continuous g1",
+    "Continuous g2",
+    "p composed with g1 = p composed with g2",
+    "a : A",
+    "g1 a = g2 a"
+  ],
+  "conclusion": "g1 = g2 as functions",
+  "direct_imports": ["Mathlib.Topology.Covering.Basic"],
+  "checked_transport": "Stage1Instances.THM_M_0528.coveringLiftUniquenessTarget_iff_pointwiseProjectionEncoding",
+  "encoding_decisions": {
+    "variant": "general uniqueness of lifts, not path-lift existence or analytic uniformization",
+    "connectedness": "PreconnectedSpace A, matching the pinned Proposition 1.34 API and allowing the empty domain only vacuously because an explicit a : A is later required",
+    "lift_equation": "function equality p composed with g1 = p composed with g2; a checked iff transports to pointwise projection equality",
+    "initial_value": "agreement at an arbitrary explicitly bound witness a : A",
+    "projection": "IsCoveringMap p; no extra Hausdorff or local-homeomorphism hypothesis is added"
+  },
+  "source_relationship": {
+    "repository_gloss": "covering-space lift uniqueness",
+    "selected_variant": "Proposition 1.34 in the pinned Mathlib.Topology.Covering.Basic source, documented there as Hatcher 2002",
+    "source_fidelity_boundary": "The machine target is frozen from the pinned declaration shape. Primary-edition page, assumption, and errata acceptance remains for the dependent anchor-audit phase, so no H0 claim is made."
+  },
+  "environment_fingerprint": {
+    "base_revision": "8957e7b8e92faa5c99376c8f291502ea568a7271",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "default #print rendering"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0528/check_statement.py",
+    "killed": [
+      "removed PreconnectedSpace A",
+      "removed continuity of the second lift",
+      "removed agreement at the specified point",
+      "weakened the conclusion to agreement only at the witness"
+    ]
+  },
+  "boundary_and_exclusions": [
+    "No nonemptiness typeclass is added; the explicit witness a supplies inhabitedness at use sites",
+    "Disconnected domains are excluded by PreconnectedSpace A",
+    "Both candidate lifts must be continuous",
+    "No lift-existence, path-lift, homotopy-lift, lifting-criterion, or simply-connected-domain conclusion is substituted",
+    "No analytic uniformization theorem is represented"
+  ],
+  "foundation_profile": "Lean 4 dependent type theory plus mathlib topology definitions; the statement itself invokes no classical-choice operation",
+  "tcb_profile": "Lean kernel, Lean 4.29.0 toolchain, and pinned mathlib revision; proof-body trust is outside this statement node",
+  "computation_profile": "pure topological proposition; no computation or native-code certificate",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact general covering-lift uniqueness target, its pointwise transport, and four structural mutations. It supplies no proof, anchor acceptance, source-fidelity acceptance, audit completion, or theorem completion."
+}

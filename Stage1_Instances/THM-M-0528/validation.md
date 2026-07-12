@@ -1,4 +1,4 @@
-# Intake validation
+# Intake validation (historical)
 
 Base revision: `e3088372b5e523a6cfdb23d80c03e154fefa2f38`.
 
@@ -6,6 +6,10 @@ Validation is limited to manifest consistency, dossier structure, scoped intake 
 environment discovery, and whitespace. There is deliberately no Lean target in this intake, so no
 elaboration or kernel proof is claimed. The pre-existing untracked `Formalizations/Lean/.lake`
 link/artifact was reused read-only and was not modified or accepted as release evidence.
+
+This records the earlier intake node only. The later statement target and its current elaboration
+evidence are recorded separately in `statement-validation.md`; the historical sentence above is
+not a claim about the directory after the statement phase.
 
 | Command | Result |
 |---|---|

@@ -32,6 +32,8 @@ not an anchor audit or repo-local closure claim.
 | implicit domain condition | connectedness used to propagate equality | `PreconnectedSpace`, `PathConnectedSpace`, or source-equivalent hypotheses | must be selected from exact source |
 | `已验证` | unsupported metadata label | no accepted declaration | untrusted; zero proof credit |
 
-To advance source fidelity, a reviewer must select a stable edition, record the exact theorem/page
-and assumptions, check errata, explain the relationship between the Chinese title and source
-terminology, and map every quantifier and boundary case to the canonical Lean target.
+The statement phase selects the general-map variant matching `IsCoveringMap.eq_of_comp_eq`, which
+the pinned mathlib source labels Proposition 1.34 of Hatcher. `Statement.lean` freezes every formal
+quantifier and checks the pointwise/composite-equality transport. To advance source fidelity to
+`H0`, the dependent anchor audit must still inspect a stable primary edition, record its exact page
+and assumptions, check errata, and independently review the source-to-Lean crosswalk.
