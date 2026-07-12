@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1133-STATEMENT",
+  "theorem_id": "THM-M-1133",
+  "lifecycle": "planned",
+  "canonical_statement": "For every nonempty bounded open U in finite-dimensional Euclidean space and T > 0, every function continuous on closure(U) x [0,T], classically C2 in space and C1 in time on U x (0,T], and satisfying partial_t u - Delta_x u = 0 there has a global maximizer on the parabolic boundary closure(U) x {0} union frontier(U) x [0,T].",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1133/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1133.HeatEquationWeakMaximumPrinciple",
+    "elaborated_expression_sha256": "cb70ff9396c3c5fad0ea98bf234dc38f20738f5ff2accc32b4712675e90e5c3b",
+    "statement_file_sha256": "63e7f31ae3f3b1a8d0a06836f6afe31960fa1cb0c461922eaf69c08cedcd7bee"
+  },
+  "domain_and_universes": "Universe 0; n : Nat; Space n := EuclideanSpace Real (Fin n); U : Set (Space n); T : Real; u : Space n -> Real -> Real; proposition in Prop.",
+  "ordered_binders": [
+    "n : Nat",
+    "U : Set (Space n)",
+    "T : Real",
+    "u : Space n -> Real -> Real"
+  ],
+  "hypotheses": [
+    "U.Nonempty",
+    "IsOpen U",
+    "Bornology.IsBounded U",
+    "0 < T",
+    "ContinuousOn (fun p => u p.1 p.2) (closure U x Icc 0 T)",
+    "spatial C2 and temporal C1 regularity at every (x,t) in U x Ioc 0 T",
+    "deriv_t u - sum of coordinate second Frechet derivatives = 0 on U x Ioc 0 T"
+  ],
+  "conclusion": "There exists p on closure(U) x {0} union frontier(U) x Icc 0 T such that u(q) <= u(p) for every q in closure(U) x Icc 0 T.",
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Basic",
+    "Mathlib.Analysis.InnerProductSpace.PiL2"
+  ],
+  "sign_convention": "Forward heat operator partial_t - Delta_x. The coordinate Laplacian uses the standard EuclideanSpace basis.",
+  "boundary_policy": "The initial face and lateral boundary are included. Points (x,T) with x in U are cylinder points but are not added to the parabolic boundary.",
+  "degenerate_cases": "T = 0 and empty U are excluded by hypotheses. Dimension n = 0 remains quantified but cannot satisfy the nonempty open bounded-domain premises. No connectedness, smooth-boundary, or nondegeneracy premise is silently added.",
+  "mutation_tests": {
+    "elaborated_distinct_targets": [
+      "mutationRemovedBoundedness",
+      "mutationChangedSign",
+      "mutationTerminalFaceBoundary",
+      "mutationChangedBinderScope"
+    ]
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node elaborates and freezes the exact intake-selected statement only. It supplies no proof of the maximum principle, no anchor-audit credit, and no theorem-completion evidence."
+}
