@@ -1,0 +1,130 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1011-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1011",
+  "base_revision": "01e0cab0efda724de1660ee854e9a38cebf1e0ab",
+  "audit_date": "2026-07-12",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1011.CanonicalStatement",
+    "elaborated_expression_sha256": "5711575e18ff4a1eecd2ce047a29817d876a6e44cb86c724b476414314f9e812",
+    "statement_file_sha256": "6bf24878f5041dc4aa1e7365b8a0c2b5c7d8fb65fe5ee389597081a8c9511d66"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T00:00:00+08:00",
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib source tree",
+      "GitHub public Lean repository metadata",
+      "immutable source files of the credible external candidate"
+    ],
+    "aliases": [
+      "Prokhorov theorem",
+      "Prohorov theorem",
+      "IsTightMeasureSet",
+      "isCompact_closure_of_isTightMeasureSet"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "M1011-A-MATHLIB-TIGHT-TO-COMPACT",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.Prokhorov",
+      "file": "Mathlib/MeasureTheory/Measure/Prokhorov.lean",
+      "source_sha256": "b8bf3ca4bba9f313270a384088abc17dcfa7e8484d382af55d758159d30a434c",
+      "declaration": "isCompact_closure_of_isTightMeasureSet",
+      "relationship": "The target's tight-to-compact direction, but upstream additionally requires T2Space X.",
+      "terminal_body": "mathlib source lines 497 onward; checked through mathlib_wrapper_with_t2",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders": false,
+      "dependency_feasibility": "Already materialized at the lake-manifest revision and checked without changing .lake.",
+      "classification": "M5",
+      "blocker": "The frozen target has PseudoMetricSpace X but no T2Space X, and instance synthesis for T2Space X fails."
+    },
+    {
+      "id": "M1011-A-MATHLIB-COMPACT-TO-TIGHT",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.Tight",
+      "file": "Mathlib/MeasureTheory/Measure/Tight.lean",
+      "source_sha256": "8adda2a29a13ef3877a4a343efa71da379f0adda6c615b0186338be89f11eb0b",
+      "declaration": "MeasureTheory.isTightMeasureSet_of_isCompact_closure",
+      "relationship": "Exact compact-to-tight direction after definitional normalization of the image/set-builder encoding.",
+      "terminal_body": "mathlib source lines 215 onward; checked through mathlib_wrapper_with_t2",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholders": false,
+      "dependency_feasibility": "Already materialized at the lake-manifest revision and checked without changing .lake.",
+      "classification": "M0-W-direction-only"
+    },
+    {
+      "id": "M1011-A-LEGACY",
+      "source": "repository-local legacy source",
+      "revision": "01e0cab0efda724de1660ee854e9a38cebf1e0ab",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_260.lean",
+      "source_sha256": "80aee03344b6097df6d0c60dbd87a44d12406db263de43b6f83e63c6e83c0d65",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_260.statementShapeWithBorel_mathlib_wrapper",
+      "relationship": "A wrapper around the same two mathlib declarations; it explicitly adds T2Space X and therefore does not close the frozen target.",
+      "classification": "M5",
+      "result": "discovery evidence only; no inherited proof credit"
+    },
+    {
+      "id": "M1011-A-EXTERNAL-PROKHOROV",
+      "source": "FormulaRabbit81/ProkhorovTheorem",
+      "remote": "https://github.com/FormulaRabbit81/ProkhorovTheorem.git",
+      "revision": "92d1b9006ca1a8e903a96fbf46ac15782f1e6e95",
+      "archive_sha256": "dcc970c86efed9af7b2d3a2396c715567c02f6a1d23b6e26e82e25cc812dccf3",
+      "toolchain": "leanprover/lean4:v4.24.0-rc1",
+      "mathlib_revision": "eed770a434957369c6262aa3fb1d6426419016d4",
+      "license": "not found at the audited revision",
+      "relevant_files": {
+        "Prokhorov/PRtightnessproof.lean": "cd58f24c258aa28aee760ed93c0842fa04bf059a65e48bda2894dd344ea48bdd",
+        "Prokhorov/compactnessproof.lean": "0f373e5c673bf46bf35a77c7f99e1aefbfb88889f9bd2537203e496b98624d2d",
+        "Prokhorov/tightnessproof.lean": "d6ede2060b347218b9e4e9f83e656101cd4521ed090286039a76fe9dbb416a5f"
+      },
+      "relationship": "Historical development repository whose README says code moved to mathlib. Its apparent equivalence uses MetricSpace, not the frozen PseudoMetricSpace boundary.",
+      "placeholders": true,
+      "placeholder_evidence": "compactnessproof.lean and tightnessproof.lean contain sorry; the former also says it is unfinished and contains a stop command.",
+      "dependency_feasibility": "Not in the local dependency closure; older Lean/mathlib revisions. No clone, fetch, build, or installation was performed.",
+      "classification": "M5",
+      "result": "incompatible, placeholder-bearing, and not an external closure"
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {"query": "Prokhorov language:Lean", "total_count": 1, "incomplete": false},
+      {"query": "Prohorov language:Lean", "total_count": 0, "incomplete": false},
+      {"query": "isCompact_closure_of_isTightMeasureSet", "total_count": 0, "incomplete": false},
+      {"query": "IsTightMeasureSet language:Lean", "total_count": 0, "incomplete": false}
+    ],
+    "result": "The sole repository result was inspected at its immutable HEAD and is not a usable closure.",
+    "limitations": "GitHub API repository metadata subsequently returned HTTP 403; immutable raw files, codeload archive, and git ls-remote remained available. Repository search is bounded, not proof of global nonexistence."
+  },
+  "root_decision": {
+    "classification": "M5",
+    "kernel_closed": false,
+    "debt_type": "statement/candidate assumption mismatch",
+    "first_failed_gate": "exact statement match",
+    "reason": "Pinned mathlib closes the equivalence only with T2Space X; the frozen PseudoMetricSpace target does not synthesize that instance.",
+    "retry_condition": "Amend and re-elaborate the statement with MetricSpace X or an explicit T2Space X, or supply a checked proof of the frozen non-T2 target without that assumption.",
+    "remaining_cut_set": [
+      "resolve the missing separation assumption at the statement gate",
+      "after re-freezing, validate an exact wrapper and its transitive trust closure"
+    ]
+  },
+  "human_debt": "H1 unchanged; exact primary-source theorem/page and errata review remains open.",
+  "readability_debt": "R3 unchanged; candidate-boundary prose is not a proof reconstruction.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This is an anchor-audit result. One direction is checked, but the exact frozen equivalence is not kernel-closed and no theorem-completion claim is made."
+}

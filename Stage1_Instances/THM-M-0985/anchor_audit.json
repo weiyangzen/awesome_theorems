@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0985-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0985",
+  "execution_rank": 265,
+  "canonical_declaration": "Stage1Instances.THMM0985.KolmogorovStrongLaw",
+  "environment": {
+    "repository_revision": "46ae82675e83fbd3605819f1c3a6d6fb2e7328cd",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "dependency_source": "pre-existing pinned Formalizations/Lean/.lake/packages/mathlib checkout; not mutated"
+  },
+  "candidates": [
+    {
+      "classification": "exact_compatible_mathlib_anchor",
+      "module": "Mathlib.Probability.StrongLaw",
+      "declaration": "ProbabilityTheory.strong_law_ae",
+      "source_file": "Mathlib/Probability/StrongLaw.lean",
+      "source_line": 788,
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "type_assessment": "Banach-valued iid integrable strong law using pairwise IndepFun and zero-based range averages; its real specialization has exactly the target conclusion.",
+      "target_crosswalk": "The target iIndepFun is converted by iIndepFun.indepFun; target identical distribution and integrability pass directly; real scalar smul reduces to multiplication; target measurability and IsProbabilityMeasure are stronger unused inputs.",
+      "checked_witness": "Stage1Instances.THMM0985.AnchorAudit.mathlib_candidate_matches_exact_target",
+      "placeholders": "none detected in the checked declaration dependency report",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "unsafe_or_oracle_boundary": "none observed",
+      "terminal_body_provenance": "mathlib source proof at the pinned commit; reduces through strong_law_ae_of_measurable and strong_law_ae_real, whose file documentation credits Etemadi's pairwise-independent proof"
+    },
+    {
+      "classification": "exact_real_adjacent_anchor",
+      "module": "Mathlib.Probability.StrongLaw",
+      "declaration": "ProbabilityTheory.strong_law_ae_real",
+      "source_file": "Mathlib/Probability/StrongLaw.lean",
+      "source_line": 598,
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "type_assessment": "Real-valued pairwise-independent iid integrable theorem with division-form averages; algebraically equivalent to the frozen inverse-multiplication expression.",
+      "role": "credible alternate direct anchor, but not selected because strong_law_ae matches the frozen expression without a division transport"
+    },
+    {
+      "classification": "non_root_adjacent_anchor",
+      "module": "Mathlib.Probability.StrongLaw",
+      "declaration": "ProbabilityTheory.strong_law_Lp",
+      "source_file": "Mathlib/Probability/StrongLaw.lean",
+      "source_line": 832,
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "type_assessment": "Lp convergence under MemLp and p constraints; it does not substitute for the almost-sure finite-first-moment root."
+    }
+  ],
+  "external_search": {
+    "scope": "all pre-existing pinned Lean packages plus repository-local Lean sources",
+    "command": "rg -n -i 'strong.?law|kolmogorov' Formalizations/Lean/.lake/packages --glob '*.lean'; rg -n -i 'strong.?law|kolmogorov' --glob '*.lean' --glob '!Formalizations/Lean/.lake/**' .",
+    "result": "No independent external Lean 4 implementation of the iid strong law was present. Repository-local hits are wrappers or unrelated Kolmogorov results; the only terminal candidate in the pinned dependency closure is mathlib's StrongLaw module.",
+    "network_discovery": "A non-evidentiary grep.app query was attempted on 2026-07-12 and returned HTTP 503. No moving network result is credited, fetched, or integrated."
+  },
+  "audit_verdict": "candidate_accepted_for_later_obligation_and_proof_phases",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This node identifies and kernel-checks an exact pinned mathlib candidate. It does not claim primary-source H0, freeze the obligation registry, promote machine status, establish hermetic or independent validation, receive master acceptance, or complete the theorem."
+}

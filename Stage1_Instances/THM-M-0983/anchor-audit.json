@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0983-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0983",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "46f3323eb334a00da17b0f37524a13c107cabf27",
+  "target": "Stage1Instances.THM_M_0983.BernoulliStrongLawTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned Lake dependency source",
+    "Sourcegraph public Lean 4 index including forks and archives",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0983-C01",
+      "project": "mathlib4",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Probability.StrongLaw",
+      "declaration": "ProbabilityTheory.strong_law_ae_real",
+      "kind": "terminal_upstream_theorem",
+      "normalized_match": "The theorem yields the target average and expectation limit after projecting iIndepFun to pairwise IndepFun and rewriting the assumed expectation equation. Its assumptions are weaker because it does not require Bernoulli-valued observations or a probability-measure instance.",
+      "body_provenance": "Pinned mathlib source at Mathlib/Probability/StrongLaw.lean:598-631 and compiled olean; terminal body is a kernel-checked theorem, not an axiom.",
+      "placeholder_or_axiom_status": "Repo-local exact wrapper elaborates without sorry; #print axioms reports only propext, Classical.choice, and Quot.sound.",
+      "classification": "M0-L_candidate_pending_downstream_gates",
+      "integration_status": "Already in the pinned Lake dependency closure; exactTarget_from_pinned_mathlib checks the complete target bridge. Proof and validation node acceptance remain downstream."
+    },
+    {
+      "candidate_id": "S56-M-0983-C02",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "46f3323eb334a00da17b0f37524a13c107cabf27",
+      "module": "AwesomeTheorems.Stage1.S1_M_263",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_263.iIndepFun_pairwise_independent",
+        "AwesomeTheorems.Stage1.S1_M_263.frequencyLaw_ae_from_iIndepFun_wrapper"
+      ],
+      "kind": "legacy_discovery_wrapper",
+      "normalized_match": "Same mathlib reduction through a packaged data structure, but not the frozen rev-5.6 target declaration.",
+      "body_provenance": "Repository-local source delegates to ProbabilityTheory.strong_law_ae_real.",
+      "placeholder_or_axiom_status": "Legacy artifact is unaccepted by rev-5.6 policy and receives no proof or state credit.",
+      "classification": "discovery_only",
+      "integration_status": "Superseded for audit purposes by the independently elaborated exact target bridge."
+    },
+    {
+      "candidate_id": "S56-M-0983-C03",
+      "project": "facebookresearch/atlas-lean",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.TheoryOfProbability.code.StrongLaw",
+      "declaration": "StrongLaw.strong_law_of_large_numbers_real",
+      "kind": "external_alias_wrapper",
+      "normalized_match": "General pairwise-independent real SLLN, requiring the same family-to-pairwise and expectation rewrites as mathlib.",
+      "body_provenance": "Immutable raw source SHA-256 f9f12468552f9ca08c842860744c6173e15790a0459fc8965e98e3457c8e19e2; theorem delegates to ProbabilityTheory.strong_law_ae.",
+      "placeholder_or_axiom_status": "No placeholder appears in the inspected declaration body; not imported locally because it is redundant with the already pinned mathlib theorem.",
+      "classification": "external_upstream_anchor_only_redundant",
+      "integration_status": "No dependency integration is justified: its terminal proof body is the same pinned mathlib anchor and adds no closure."
+    },
+    {
+      "candidate_id": "S56-M-0983-C04",
+      "project": "mostlyharmfuleconometrics/lean-hansen-econometrics",
+      "repository": "https://github.com/mostlyharmfuleconometrics/lean-hansen-econometrics",
+      "revision": "b05e2b8e582f628155b69e441299716a7d1f3a7a",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "HansenEconometrics.AsymptoticUtils",
+      "declaration": "tendstoInMeasure_wlln",
+      "kind": "weaker_external_consequence",
+      "normalized_match": "Convergence in measure rather than the frozen almost-sure target.",
+      "body_provenance": "Immutable raw source SHA-256 5c0ebb54087d8b4bffafd7d252b7f666540c5d117e38f0abfc49ce9000887a93; delegates to ProbabilityTheory.strong_law_ae then tendstoInMeasure_of_tendsto_ae.",
+      "placeholder_or_axiom_status": "No placeholder appears in the inspected declaration body; it is not an exact candidate.",
+      "classification": "weaker_noncandidate",
+      "integration_status": "Not integrated because substituting convergence in measure would broaden/weaken the frozen theorem."
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global fork:yes archived:yes lang:Lean (strong-law phrase or declaration names) count:100",
+      "result": "38 matches in four repositories; Lean 4 exact/relevant results reduce to mathlib, atlas-lean aliases, and a Hansen weak-law consequence.",
+      "response_sha256": "f3d5423aabdc4bdbb409706f10820a15b45429b0cb63fb0cce891222f6e98521",
+      "immutability_boundary": "Discovery response is dated and hashed; cited candidates are separately bound to immutable commits."
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=strong_law_ae+language:Lean",
+      "result": "API rate limit exceeded for unauthenticated address",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "immutability_boundary": "Blocked search lane; no negative result claimed."
+    }
+  ],
+  "root_machine_classification": "M0-L_candidate_pending_downstream_gates",
+  "root_classification_reason": "The exact frozen proposition is discharged by a locally elaborated bridge to the already pinned mathlib strong_law_ae_real theorem. This anchor node records that candidate but does not pre-accept the later proof, provenance, trust, or validation nodes.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the statement, mathlib pin, toolchain, strong-law declaration type/body, or dependency closure changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor audit complete: an exact pinned mathlib route exists and its wrapper elaborates. No human-source H0, obligation-tree acceptance, proof-node acceptance, theorem completion, hermetic replay, or independent validation is claimed."
+}

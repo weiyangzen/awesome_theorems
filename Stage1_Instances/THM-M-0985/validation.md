@@ -35,3 +35,21 @@ The existing pinned cache was reused without update, build, clone, fetch, or oth
 mutation. This evidence establishes statement elaboration only. Primary-source acceptance,
 anchor audit, proof inhabitation, trust closure, reproducible release, independent verification,
 master acceptance, and theorem completion remain open.
+
+## Anchor-audit validation
+
+Base revision: `46ae82675e83fbd3605819f1c3a6d6fb2e7328cd`.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | exact manifest pin `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| `git -C Formalizations/Lean/.lake/packages/mathlib show -s --format='%T' HEAD` | 0 | immutable source tree `bdc39a3123201dae413a9d9be56ec242c19e5c2b` |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0985/AnchorAudit.lean)` | 0 | candidate types printed; mutual-to-pairwise bridge and exact expanded target witness elaborated; both declarations report only `propext`, `Classical.choice`, `Quot.sound` |
+| `python3 -m json.tool Stage1_Instances/THM-M-0985/anchor_audit.json >/dev/null` | 0 | structured audit is valid JSON |
+| `rg -n -i 'strong.?law\|kolmogorov' Formalizations/Lean/.lake/packages --glob '*.lean'` plus the analogous repo-local search | 0 | pinned mathlib StrongLaw is the only terminal iid strong-law implementation; external package and local-wrapper hits classified |
+| `! rg -n '\\bsorry\\b\|\\badmit\\b\|\\baxiom\\b' Stage1_Instances/THM-M-0985/AnchorAudit.lean` | 0 | no forbidden proof construct in the audit witness |
+| `git diff --check -- Stage1_Instances/THM-M-0985` | 0 | no whitespace errors |
+
+The existing pinned cache was not updated, built, cloned, or fetched. This
+self-test completes only the anchor-audit work product; the obligation tree,
+proof, full validation, release, and master-acceptance nodes remain open.
