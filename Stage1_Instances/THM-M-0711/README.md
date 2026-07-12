@@ -17,3 +17,8 @@ halting anchors, while `anchor-audit.md` records the bounded negative search and
 The root remains `[H1, M4, R4]`: `Statement.lean` elaborates the exact proposition, but no finite
 presentation construction or undecidability reduction has been supplied. Exact commands and
 results are in `validation.md`.
+
+The obligation-tree phase freezes 17 canonical semantic obligations and seven separate typed
+graphs. `ObligationTree.lean` checks only that an explicit fixed-presentation noncomputability
+witness assembles into the exact root. The central construction/reduction and foundation audit are
+still open, so this architecture supplies no theorem closure.

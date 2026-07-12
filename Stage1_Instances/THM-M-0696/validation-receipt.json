@@ -1,0 +1,105 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0696-VALIDATION-local-20260712",
+  "item_id": "S56-M-0696-VALIDATION",
+  "theorem_id": "THM-M-0696",
+  "base_revision": "3a479c703900e8096e6b239e7bf5b0da25472b8a",
+  "base_tree": "af331dc313af5c8db7265a3db5071adc03346772",
+  "validated_at": "2026-07-12",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "a416774a2d7ed152cbcaee68e26435c262ff69e355b288f46b391c3b48198881",
+    "validator_sha256": "d2872623a5e5b27f518616826246b2f904d068e3c340b195de28fe65ea540432",
+    "independent_probe_sha256": "bc3ddc611fee9393be791e34f967d139e9e624e031ec7fbadaaab1455c03fb23",
+    "statement_sha256": "60bc9f7474ddc20774c3e24c68743e2d6ba56b4b358bda81367a80773a1e2387",
+    "obligation_tree_sha256": "1e22c7db49934e35fde195480bdd992f5a1530ad48b2a1458695d5be27ca2c1e",
+    "proof_sha256": "5855a06a8e657a401017f0b6e272babacc557dbcd7d06d3e3c92b5ee94482650",
+    "statement_record_sha256": "2ccd0579a0ef41eea2d66cebbd3e11196e63c871a70b381129fc07eae9a074e3",
+    "anchor_audit_sha256": "447425488e379d8a7eb0f9beda28b30a18e513cc74e7c715f2fafa1a044dbfa4",
+    "obligation_registry_sha256": "03a5fd4278e285dcd326f9c7d2d9bf25f666aa7b0ebf03995091da885ee9e9f3",
+    "typed_graphs_sha256": "5dc9ee14da3476ebb69af5be7131723062bdd2c795181e6c42b4a1de0a78a0c2",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: owned validation artifacts and the pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-0696/check_validation.py"
+    ],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": [
+      "M0696-ROOT",
+      "M0696-S-ENCODING",
+      "M0696-S-FOUNDATION",
+      "M0696-T-COUNTERMODEL",
+      "M0696-T-ASSEMBLE",
+      "M0696-X-PROVENANCE",
+      "M0696-X-COMPUTATION"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_frozen_root_in_fresh_temporary_module_directory",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_and_unsafe_scan": "pass",
+    "local_provenance_hashes": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "same_worker_exact_type_probe": "pass",
+    "frozen_graph_state": "stale_pre_proof_H1_M3_R3_pending_master_reconciliation",
+    "hermetic_release_gate": "fail_closed",
+    "independent_distinct_runner_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still reports the root H1/M3/R3 and open; only the master may reconcile structured state with proof evidence.",
+    "The run reused shared writable warm .lake artifacts and is not a clean-checkout, cold empty-cache, offline hermetic replay.",
+    "No complete transitive TCB inventory, SBOM/license archive, network-disconnected restoration, or second-platform attestation exists.",
+    "Validation.lean is a separate exact-type probe but ran in this worker clone and cache; no distinct verifier identity, independently provisioned runner, second signature, or independently implemented release verifier exists.",
+    "Primary-source H0, readable R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "evidence.structured_state_freshness",
+  "retry_condition": "Master reconciliation must bind the proof receipt into the frozen graph; release additionally requires immutable cold offline replay and a distinct signed independent verifier.",
+  "freshness": {
+    "review_due": "before master acceptance and upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "invalidation_inputs": [
+    "validation-spec.json",
+    "check_validation.py",
+    "Validation.lean",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "statement.json",
+    "anchor-audit.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "Lean toolchain",
+    "mathlib revision or source",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow warm-cache kernel replay, trust observation, local provenance, and a same-worker exact-type probe. It is not E0/E1, accepted M0, hermetic or distinct-runner evidence, theorem completion, release, or master acceptance."
+}

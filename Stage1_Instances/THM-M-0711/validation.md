@@ -65,3 +65,26 @@ No dependency update, build, fetch, or clone was run in `.lake`. External archiv
 under `/tmp` only. The anchor audit is self-tested as a bounded negative inventory. It neither
 asserts global nonexistence nor closes the target: the finite-presentation construction, checked
 reduction, human-source gates, and all downstream phases remain open.
+
+## Obligation-tree phase (S56-M-0711-OBLIGATION_TREE)
+
+Validation base revision: `3a479c703900e8096e6b239e7bf5b0da25472b8a`.
+
+| Command | Result |
+|---|---|
+| `python3 Stage1_Instances/THM-M-0711/build_obligation_artifacts.py` | exit 0; generated registry denominator `9fbdae321a68e51a301e942864c9a785fab407f21f25247ab04cb74277bd8d24` |
+| `python3 Stage1_Instances/THM-M-0711/check_obligation_tree.py` | exit 0; PASS, 17 obligations and 38 typed edges; root explicitly open M4 |
+| `cd Formalizations/Lean && lake env lean -R ../../Stage1_Instances/THM-M-0711 -o /tmp/thm-m-0711-lean/Statement.olean ../../Stage1_Instances/THM-M-0711/Statement.lean` | exit 0; canonical statement elaborated to an ephemeral output outside `.lake` |
+| `cd Formalizations/Lean && LEAN_PATH=/tmp/thm-m-0711-lean lake env lean -R ../../Stage1_Instances/THM-M-0711 ../../Stage1_Instances/THM-M-0711/ObligationTree.lean` | exit 0; conditional composition checked; axioms `[propext, Classical.choice, Quot.sound]` |
+| `python3 -m json.tool` on the registry, typed graphs, validation specs, receipt, instance, and task DAG | exit 0 for all |
+| `rg -n '\\b(sorry\|admit)\\b\|^[[:space:]]*axiom\\b' Stage1_Instances/THM-M-0711 -g '*.lean'` | exit 1 expected no-match; no prohibited placeholder or primitive declaration |
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups, 1546 uniform-L0 Lean 4 targets |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets, ranks 1..1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0711` | exit 0; rank 751, planned, theorem_complete false |
+| `git diff --check -- Stage1_Instances/THM-M-0711` | exit 0; no output |
+
+No `.lake` dependency was mutated. The ephemeral `Statement.olean` exists only because the
+obligation module imports the owned statement module without adding either file to the project
+build. The frozen architecture and final conditional composition are self-tested. The finite
+presentation, compiler, reduction correctness, source acceptance, trust closure, proof, and all
+release gates remain open, so no theorem completion is claimed.

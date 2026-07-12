@@ -1,0 +1,78 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0698-VALIDATION-local-20260712T080139Z",
+  "item_id": "S56-M-0698-VALIDATION",
+  "theorem_id": "THM-M-0698",
+  "depends_on": ["S56-M-0698-PROOF"],
+  "base_revision": "3a479c703900e8096e6b239e7bf5b0da25472b8a",
+  "base_tree": "af331dc313af5c8db7265a3db5071adc03346772",
+  "validated_at": "2026-07-12T08:01:39Z",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "14d196fe8a7a4e4541699342f835dcedf8365072db893ef579e49fbdf426681a",
+    "ObligationTree.lean": "b148bdc3a7a48be5462b19dfa61a390fadcd2cc72e655344661832f45941f9d5",
+    "Proof.lean": "6eb399b79d001cd89ab2d39e06ad998930ed37aa5a6f8ee2d74f732d3cf38889",
+    "Validation.lean": "c7bd6e4c3bd02c764d316a05f4cb3d23def687e455598a9914660bddd6898f35",
+    "statement.json": "867fd13b43bc26216db39c541e0faf750874f0697a4cb52909242e8acec2d518",
+    "obligation-registry.json": "b6badf160ca06f4bfa7de518b35175a2609f216932c9de139ac906ebc06cd1f0",
+    "typed-graphs.json": "e7482376bb32dee19d7d68215c67dd0fc3d145a95f11aa7a1863a33b421d8fc4",
+    "proof-receipt.json": "a26b9f36c8a9a2066290d530728586a175be3679a5d943ce3d8738b5fa3f208a",
+    "anchor-audit.json": "efc52ee9b1a99dd5813623d0ba272725fea567201eef9e4c1ce45c6d340d574e",
+    "validation-phase-spec.json": "0b7c21e11220e8da85bcd9cdb2ffd256a55ef425c405090ca7b7771fa8336164"
+  },
+  "provenance": {
+    "terminal_project": "mathlib",
+    "terminal_module": "Mathlib.ModelTheory.Satisfiability",
+    "terminal_declaration": "FirstOrder.Language.Theory.isSatisfiable_iff_isFinitelySatisfiable",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "dependency_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "terminal_source_sha256": "0abb92d531851a57909945b740981d79a4cbb29238f2a3d21cb5fa57aa143edb",
+    "terminal_olean_sha256": "56f4ca802c48e3f8c97fb8bb939f027d2ee2712cacf1de1495bae29796ae9a9b",
+    "proof_body_boundary": "The local proof wrapper, frozen composition, and independent probe terminate at the pinned mathlib declaration; complete transitive declaration/body and TCB provenance remain release gates."
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_cache": "pre-existing shared canonical pinned .lake symlink reused without mutation",
+    "worktree_classification": "nonrelease worker checkout with owned artifacts and a pre-existing untracked .lake symlink",
+    "network": "not used by validation commands; host-level network isolation not established"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "exact frozen root, child-to-parent composition, direct proof wrapper, and independently reconstructed exact root passed",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "foundation_profile_decision": "observed classical mathlib axioms are compatible with the provisional proof receipt; a versioned accepted foundation profile remains open",
+    "placeholder_and_unsafe_scan": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "root_kernel_closed": true,
+    "structured_state_freshness": "fail_closed: typed-graphs.json predates proof closure and records root_closed false/M3",
+    "machine_state_proposal": "M0-W pending master acceptance and graph reconciliation",
+    "hermetic_release_gate": "fail_closed",
+    "independent_distinct_runner_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The proof dependency has only a provisional worker receipt and no master acceptance receipt in this clone.",
+    "The frozen typed graph predates Proof.lean and still records root_closed=false, M3, and M0698-B-REVERSE open; only the master may reconcile authoritative structured state.",
+    "The run reused shared warm .lake artifacts and is not a clean-checkout, cold empty-cache, network-denied offline restoration replay.",
+    "Validation.lean is separately written and does not import Proof or ObligationTree, but it ran in the same worker checkout and shared cache; it is not a distinct independently provisioned runner or independently attested verifier.",
+    "Complete transitive declaration/body trust closure, accepted foundation/TCB profile, SBOM/licenses, deterministic evidence bundle, primary-source H0, readable R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "dependency.S56-M-0698-PROOF.master_acceptance",
+  "first_failed_release_gate": "hermetic.cold_empty_cache_offline_replay",
+  "retry_condition": "Master-accept and reconcile the proof receipt and fresh graph, then replay an immutable clean snapshot from an offline archive with empty caches, complete trust/provenance evidence, and a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "status_boundary": "Self-tested nonrelease worker evidence for exact kernel closure, observed axioms, pinned local provenance, and same-workspace independent reconstruction. It is not hermetic or distinct-runner evidence, accepted M0-W, theorem completion, release, or master acceptance."
+}

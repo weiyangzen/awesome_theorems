@@ -1,0 +1,38 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0696-VALIDATION",
+  "theorem_id": "THM-M-0696",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0696-KERNEL-TRUST-PROVENANCE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0696/check_validation.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "bind the exact root axiom report and fail-closed gate summary in validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0696-ROOT",
+        "M0696-S-ENCODING",
+        "M0696-S-FOUNDATION",
+        "M0696-T-COUNTERMODEL",
+        "M0696-T-ASSEMBLE",
+        "M0696-X-PROVENANCE",
+        "M0696-X-COMPUTATION"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0696.propositional_completeness"
+      ]
+    }
+  ],
+  "independence_boundary": "The Python validator and Validation.lean probe are separately authored validation surfaces, but execute in the same worker clone with the same writable dependency cache. They do not satisfy the distinct-runner release gate."
+}
