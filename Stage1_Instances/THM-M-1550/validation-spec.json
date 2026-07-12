@@ -1,0 +1,37 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1550-VALIDATION",
+  "theorem_id": "THM-M-1550",
+  "recipes": [
+    {
+      "recipe_id": "M1550-validation-fail-closed-runner",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-1550/check_validation.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "required five-line gate summary"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M1550-ROOT",
+        "M1550-S-EXACT",
+        "M1550-S-LAX",
+        "M1550-B-TIMES",
+        "M1550-C-WITNESS",
+        "M1550-L-SPECTRUM",
+        "M1550-T-ASSEMBLE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_1550.laxPairIsospectrality",
+        "Stage1Instances.THM_M_1550.Proof.laxPairIsospectrality",
+        "Stage1Instances.THM_M_1550.Validation.independentLaxPairIsospectrality"
+      ]
+    }
+  ],
+  "scope_boundary": "Warm node-scoped kernel replay, axiom observation, local provenance, and fail-closed release-gate decisions. This is not cold hermetic replay or distinct-runner independent verification."
+}

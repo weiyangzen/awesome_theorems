@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1055-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1055",
+  "base_revision": "bbb17fe085a3545a76988417fdad024a9e9e136a",
+  "canonical_target": "Stage1Instances.THM_M_1055.BirkhoffErgodicTarget",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "revision_source": "Formalizations/Lean/lake-manifest.json",
+    "working_tree_clean": true,
+    "toolchain": "Lean 4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "candidates": [
+      {
+        "declaration": "birkhoffAverage",
+        "module": "Mathlib.Dynamics.BirkhoffSum.Average",
+        "source_line": 46,
+        "role": "defines the exact finite averages in the canonical target",
+        "classification": "usable_definition_not_terminal"
+      },
+      {
+        "declaration": "Function.IsFixedPt.tendsto_birkhoffAverage",
+        "module": "Mathlib.Dynamics.BirkhoffSum.NormedSpace",
+        "source_line": 36,
+        "role": "convergence only when the orbit point is fixed",
+        "classification": "strict_special_case_not_terminal"
+      },
+      {
+        "declaration": "MeasureTheory.Measure.QuasiMeasurePreserving.birkhoffAverage_ae_eq_of_ae_eq",
+        "module": "Mathlib.Dynamics.BirkhoffSum.QuasiMeasurePreserving",
+        "source_line": 43,
+        "role": "transports a.e.-equal observables through each finite average",
+        "classification": "usable_transport_not_terminal"
+      },
+      {
+        "declaration": "Ergodic",
+        "module": "Mathlib.Dynamics.Ergodic.Ergodic",
+        "source_line": 50,
+        "role": "packages measure preservation and pre-ergodicity used by the target",
+        "classification": "usable_hypothesis_not_terminal"
+      },
+      {
+        "declaration": "Ergodic.ae_eq_const_of_ae_eq_comp_ae",
+        "module": "Mathlib.Dynamics.Ergodic.Function",
+        "source_line": 103,
+        "role": "makes an a.e.-invariant measurable limit a.e. constant",
+        "classification": "usable_post_convergence_bridge_not_terminal"
+      }
+    ],
+    "terminal_search": {
+      "scope": "all Lean sources in the pinned mathlib checkout, with focused declaration inventory of Mathlib/Dynamics/BirkhoffSum and Mathlib/Dynamics/Ergodic",
+      "terms": [
+        "Birkhoff ergodic",
+        "pointwise ergodic",
+        "ae_tendsto_birkhoffAverage",
+        "tendsto_birkhoffAverage_ae",
+        "birkhoffAverage_integral"
+      ],
+      "result": "no declaration matching the canonical a.e. convergence theorem was found",
+      "terminal_candidate": null
+    }
+  },
+  "external_lean4": [
+    {
+      "repository": "https://github.com/lua-vr/pointwise-birkhoff",
+      "revision": "fc06094ca0506d8d74eba8b45b34882ce5930bf4",
+      "revision_kind": "immutable_git_commit",
+      "source_evidence": "git-tracked prior source audit in Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_247.lean; live raw-source refresh was attempted and timed out, so source contents were not newly re-fetched",
+      "module": "BirkhoffErgodicThm",
+      "declarations": [
+        "birkhoffErgodicTheorem",
+        "birkhoffErgodicTheorem'"
+      ],
+      "lean_toolchain": "leanprover/lean4:v4.20.0-rc5",
+      "mathlib_revision": "83f3832c6cfeecbc8d16b0248c98346956a7f0e5",
+      "license": "Apache-2.0",
+      "target_relation": "candidate proves convergence to an invariant conditional expectation; the canonical ergodic specialization additionally needs a checked conditional-expectation-to-space-mean bridge",
+      "placeholder_and_axiom_status": "not freshly verified in this worker because immutable source was unavailable locally and network retrieval timed out",
+      "repo_local_import_status": "not present in the Lake dependency closure",
+      "integration_feasibility": "blocked",
+      "blockers": [
+        "Lean 4.20.0-rc5 differs from the repository's Lean 4.29.0",
+        "external mathlib 83f3832c6cfeecbc8d16b0248c98346956a7f0e5 differs from local mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+        "the prior vendored probe reports collisions for birkhoffAverage_neg, birkhoffAverage_add, and birkhoffAverage_sub",
+        "the invariant conditional expectation must be identified with the constant integral under ergodicity"
+      ],
+      "classification": "external_anchor_only_not_M0"
+    }
+  ],
+  "repo_local_candidates": [
+    {
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_247.lean",
+      "revision": "bbb17fe085a3545a76988417fdad024a9e9e136a",
+      "status": "statement packages, audit metadata, and a hypothetical external wrapper only; no inhabitant of the canonical target"
+    }
+  ],
+  "verdict": "audit_complete_terminal_proof_open",
+  "machine_debt": "M4",
+  "terminal_proof_available": false,
+  "theorem_complete": false
+}
