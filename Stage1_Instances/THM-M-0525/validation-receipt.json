@@ -1,0 +1,109 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0525-VALIDATION-local-20260712",
+  "item_id": "S56-M-0525-VALIDATION",
+  "theorem_id": "THM-M-0525",
+  "depends_on": ["S56-M-0525-PROOF"],
+  "base_revision": "79350f6756ac2f7d72136216ef446106f56a6fb9",
+  "base_tree": "979e1741723f830dda81c2366a1ac4fe384101e9",
+  "validated_at": "2026-07-12T00:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "a7d309a1eb09fa8b4f03b47b46b79de3f210149d3473f9639ee11a4d55d1bb0e",
+    "ObligationTree.lean": "3f6d3e0ca2328e5272d36d0da2d62c649ae6f25f789285612ab0e526b3519972",
+    "Proof.lean": "815ddb3ab950034954ac1fd6245d1d88924b8fe793870cf1f0515489e4b014c0",
+    "Validation.lean": "314824478ba3e8422a2912b7ca8130c15f354c0b469f2cd4a980f1b505e83816",
+    "statement.json": "8c3921cc3385443c69e72befda371d73eb62972b87a33d461a926363c337ee68",
+    "obligation-registry.json": "bd45f7328da5ca578d801eca6087f79dd61ca99c719dc29601b4154ca4729257",
+    "typed-graphs.json": "0f7e1932b70e5395f4b3101242c2aabe570e08638782cd2b0aeb9a658e8a28db",
+    "validation-spec.json": "477f9fdd48ff84e096f40a0419ad7a3c0c807bc70f8b7967ee25dbc74d9c754e",
+    "lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_launcher_sha256": "840179e70803ef373c2ec53342d6a45ea7d022533e4145489fc1278b4f716385",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "network": "not used by validation commands; denial is a recipe contract rather than host isolation",
+    "dependency_cache": "pre-existing shared canonical pinned .lake symlink reused without mutation",
+    "worktree_classification": "nonrelease worker checkout with owned validation artifacts and pre-existing untracked .lake symlink"
+  },
+  "provenance": {
+    "proof_body_boundary": "Local statement_proof composes three pinned mathlib quotient-law bodies through local Group.ofLeftAxioms construction; the independent probe reconstructs that composition without importing Proof or ObligationTree.",
+    "path_laws_source": {
+      "path": "Mathlib/Topology/Homotopy/Path.lean",
+      "sha256": "07ca9fc78c0368045df24b78e22d7c918dee7748c2f1b134a038a60c63f952f7"
+    },
+    "path_laws_olean": {
+      "path": ".lake/build/lib/lean/Mathlib/Topology/Homotopy/Path.olean",
+      "sha256": "1d7b2c82e34e279c73a65afc0875773402d6fc4441082fe044773cb75e8b7bb8"
+    },
+    "minimal_axioms_source": {
+      "path": "Mathlib/Algebra/Group/MinimalAxioms.lean",
+      "sha256": "ce7a58a7c147bed59ab42bf96882de4fd3889636a149016df731f86d90ccf750"
+    },
+    "minimal_axioms_olean": {
+      "path": ".lake/build/lib/lean/Mathlib/Algebra/Group/MinimalAxioms.olean",
+      "sha256": "ae78943e2d98fa5afa558a8f8c8a61e4244c3a1d6a20a748ed3c91e55b9f9c01"
+    },
+    "terminal_declarations": [
+      "Path.Homotopic.Quotient.trans_assoc",
+      "Path.Homotopic.Quotient.refl_trans",
+      "Path.Homotopic.Quotient.symm_trans",
+      "Group.ofLeftAxioms"
+    ],
+    "transitive_boundary": "Direct terminal source and compiled artifacts are hashed; complete transitive declaration/body and compiled-artifact closure remains open."
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "exact frozen root, frozen conditional composition, three terminal quotient laws, and independently reconstructed exact root passed",
+    "exact_root_kernel_closed": true,
+    "frozen_composition_checked": true,
+    "independent_local_reconstruction_checked": true,
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_unsafe_scan": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "provisional_machine_debt": "M0-L pending master reconciliation and accepted trust policy",
+    "structured_state_freshness": "fail_closed: frozen typed graph predates Proof.lean and records root_closed=false/M2",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates proof closure and still records the exact root open at M2; worker rules prohibit rewriting prior-phase authoritative state.",
+    "The proof dependency has no master-accepted receipt in this clone.",
+    "The observed axiom set lacks an accepted theorem-specific foundation policy and complete transitive TCB inventory.",
+    "The shared warm .lake cache means this was not an empty-cache cold hermetic build or offline archive restoration.",
+    "The independently implemented Validation.lean ran in the same mutable checkout and shared cache, not on a distinct independently provisioned runner with a second verifier identity.",
+    "Complete SBOM/license evidence, deterministic bundling, H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "dependency.S56-M-0525-PROOF.master_acceptance",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Master-accept and reconcile proof closure into structured state, accept the foundation/TCB policy, then validate an immutable clean snapshot with empty caches, offline restoration, complete transitive trust and supply-chain evidence, and a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "invalidation_inputs": [
+    "validation specification and checker",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "Validation.lean",
+    "statement.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "Lean toolchain",
+    "mathlib revision/tree/source/olean",
+    "foundation and TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested nonrelease worker evidence for exact kernel closure, observed axioms, direct pinned provenance, and same-workspace independent reconstruction. It is not hermetic or distinct-runner evidence, accepted M0, theorem completion, release, or master acceptance."
+}

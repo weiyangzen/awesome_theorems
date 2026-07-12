@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0525-VALIDATION",
+  "theorem_id": "THM-M-0525",
+  "recipes": [
+    {
+      "recipe_id": "M0525-validation-fail-closed-runner",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0525/check_validation.py"],
+      "env_allowlist": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC"
+      },
+      "timeout_seconds": 120,
+      "network_policy": "denied_by_recipe_contract",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "required four-line gate summary"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0525-ROOT",
+        "M0525-S-SCOPE",
+        "M0525-S-FOUNDATION",
+        "M0525-C-QUOTIENT",
+        "M0525-L-ASSOC",
+        "M0525-L-ONE-LEFT",
+        "M0525-L-INV-LEFT",
+        "M0525-T-GROUP",
+        "M0525-X-PROVENANCE"
+      ],
+      "covered_declarations": [
+        "THM_M_0525.statement_proof",
+        "THM_M_0525.Validation.independentlyReconstructedStatement",
+        "Path.Homotopic.Quotient.trans_assoc",
+        "Path.Homotopic.Quotient.refl_trans",
+        "Path.Homotopic.Quotient.symm_trans"
+      ]
+    }
+  ],
+  "scope_boundary": "Fresh-directory warm-cache validation of the exact proof root, frozen composition, observed axioms, pinned source/olean provenance, and an independently implemented local reconstruction. Cold empty-cache replay, full transitive TCB closure, and distinct-runner independent verification fail closed."
+}
