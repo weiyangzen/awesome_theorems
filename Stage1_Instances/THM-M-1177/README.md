@@ -35,3 +35,11 @@ not complete.
 
 The commands and results in `validation.md` establish target membership, standard consistency,
 JSON syntax, and dossier-local hygiene only. Master acceptance and all dependent phases remain open.
+
+## Obligation architecture
+
+`obligation-registry.json` freezes the version-1 semantic denominator, while
+`typed-graphs.json` keeps proof, refinement, provenance, evidence, trust, documentation, and
+workflow edges distinct. `ObligationTree.lean` checks only the exact conditional composition of
+the nonpositive-maximum and positive-maximum packages. The root remains open at `M4`; details and
+the complete node ledger are in `obligation-tree.md`.
