@@ -1,0 +1,85 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1289-RELEASE-local-20260712T000000Z",
+  "item_id": "S56-M-1289-RELEASE",
+  "theorem_id": "THM-M-1289",
+  "intent": "release",
+  "base_revision": "634562e2599c6555789d305e4afce2c10508e1db",
+  "base_tree": "061269cc4179f892e045a3986513c7b8de9d84c6",
+  "decided_on": "2026-07-12",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1289-VALIDATION",
+    "receipt_id": "S56-M-1289-VALIDATION-local-20260712T034321Z",
+    "receipt_sha256": "1f387310e3e6ac209f63ae2912a629eddd3d7eb3b93530fe992a5300948ed041",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "accepted_receipt_ids": [],
+  "root_vector": {
+    "accepted_before": ["H2", "M4", "R3"],
+    "accepted_after": ["H2", "M4", "R3"],
+    "best_provisional_evidence": ["H2", "M2", "R3"],
+    "boundary": "Local kernel bodies provisionally close positivity and smoothness, but the exact canonical root retains four analytic premises. The planned instance has no master-accepted state, so its accepted vector is unchanged."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1289-VALIDATION has only a provisional nonrelease worker receipt and no master acceptance, so the release transition is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-1289-ROOT-KERNEL-CLOSURE",
+    "reason": "The checked partial composition still consumes PDEComponent, FunctionNormComponent, GradientNormComponent, and ExtremalComponent as explicit premises."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "minimal_mathematical_open_root_cut_set": [
+    "M1289-L-PDE",
+    "M1289-L-FUN-NORM",
+    "M1289-L-GRAD-NORM",
+    "M1289-T-EXTREMAL"
+  ],
+  "remaining_release_cut_set": [
+    "master acceptance of S56-M-1289-VALIDATION and all transitive phase evidence",
+    "kernel closure of M1289-L-PDE, M1289-L-FUN-NORM, M1289-L-GRAD-NORM, and M1289-T-EXTREMAL with exact root composition",
+    "fresh authoritative typed-graph reconciliation",
+    "complete classified inventory and accepted AUDIT-Z",
+    "accepted H0 primary-source crosswalk with independent review",
+    "accepted R0 anchored reconstruction with independent review",
+    "complete transitive provenance, axiom, trust, TCB, SBOM, and license closure",
+    "immutable clean source snapshot and empty-cache network-denied cold replay with offline restoration",
+    "two signed attestations from independently provisioned clean runners",
+    "independently implemented minimal verifier and required mutation fixtures",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "partial_local_proof_bodies": [
+      "Stage1Instances.THM_M_1289.bubble_pos",
+      "Stage1Instances.THM_M_1289.positivityComponent_proof",
+      "Stage1Instances.THM_M_1289.contDiff_bubble",
+      "Stage1Instances.THM_M_1289.smoothnessComponent_proof"
+    ],
+    "conditional_composition": "Stage1Instances.THM_M_1289.aubinTalentiTarget_of_remaining_components",
+    "exact_root_kernel_check": "fail_closed: four explicit component premises remain",
+    "axioms_observed_on_partial_checks": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on scoped Lean sources",
+    "structured_state_freshness": "failed: typed-graphs.json predates the positivity and smoothness proof bodies",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "First master-accept and reconcile dependency-legal evidence, then prove the four open analytic components and exact root. Release additionally requires accepted audit, H0/R0 review, hermetic supply-chain replay, independent verification, a deterministic bundle, and master acceptance.",
+  "status_boundary": "This artifact self-tests a truthful blocked release decision only. It creates no accepted receipt, changes no lifecycle or debt state, and establishes neither AUDIT-Z nor THEOREM-Z."
+}

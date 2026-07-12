@@ -20,13 +20,21 @@ The canonical binders, hypotheses, exclusions, conventions, and alternate encodi
 are recorded in `intake.json`. Source-to-claim correspondence and its remaining
 audit debt are recorded in `source_statement_crosswalk.md`.
 
+## Statement artifact
+
+The statement phase has now frozen and elaborated
+`Stage1Instances.THM_M_1061.VaradhanIntegralLemmaTarget` in `Statement.lean`.
+It selects a nonempty Polish ambient space, spells out the full LDP upper and
+lower bounds, uses a good `ENNReal`-valued rate function, and places both sides
+of the limit in `EReal`. Exact hashes, imports, mutations, and commands are in
+`statement.json` and `statement-validation.md`. This is statement evidence only.
+
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M4, R3]`. The first failed
-theorem gate is the exact Lean statement gate: there is no selected declaration,
-normalized expression, environment fingerprint, transport proof, or mutation test.
-The source anchors are discovery-quality rather than accepted H0 receipts. The
-theorem is not complete.
+Lifecycle remains `planned`; the statement node is self-tested pending master
+acceptance. The source anchors are discovery-quality rather than accepted H0
+receipts, and no theorem proof is claimed. The next workflow gate is the anchor
+audit. The theorem is not complete.
 
 ## Validation
 
