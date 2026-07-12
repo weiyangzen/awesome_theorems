@@ -17,3 +17,15 @@ No public Lean closure is claimed. The statement phase must first establish the 
 required definitions for distribution functions, Schwarz rearrangement, Sobolev membership, and
 weak-gradient energy; it must then serialize the exact expression and mutation-test the scope before
 the anchor audit observes proof candidates.
+
+## Anchor-audit addendum (2026-07-12)
+
+The completed candidate audit is recorded in `anchor-audit.json` and `anchor-audit.md`. At pinned
+mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the finite permutation results in
+`Mathlib.Algebra.Order.Rearrangement` and the derivative estimates in
+`Mathlib.Analysis.FunctionalSpaces.SobolevInequality` are neighboring infrastructure, not candidates
+for the frozen claim. The public project `igorrivin/polya-szego-lean` was inspected at immutable
+commit `5cac4f71df47699ff6c90d354447f5f3a6b699cc` and rejected as a title/author name collision: it
+formalizes exercises from a different Polya-Szego book and contains no semantic candidate for this
+inequality. No exact external closure was found, so the machine classification remains `M4 /
+formalization_debt` and no anchor receives proof credit.

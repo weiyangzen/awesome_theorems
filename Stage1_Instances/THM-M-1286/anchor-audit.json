@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1286-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1286",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1286.PolyaSzegoTarget",
+  "search_scope": {
+    "repository_revision": "3bb2bb303df87d54d8d5dfafcee61ad3c329e278",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "external_revision": "igorrivin/polya-szego-lean@5cac4f71df47699ff6c90d354447f5f3a6b699cc"
+  },
+  "candidates": [
+    {
+      "kind": "pinned_mathlib_neighbor",
+      "module": "Mathlib.Algebra.Order.Rearrangement",
+      "declarations": [
+        "MonovaryOn.sum_smul_comp_perm_le_sum_smul",
+        "AntivaryOn.sum_smul_le_sum_smul_comp_perm"
+      ],
+      "assessment": "Finite Finset permutation inequalities. They do not define a measurable Schwarz rearrangement, establish equimeasurability, construct weak gradients, or compare gradient eLpNorms, so they cannot close or directly wrap the canonical target."
+    },
+    {
+      "kind": "pinned_mathlib_neighbor",
+      "module": "Mathlib.Analysis.FunctionalSpaces.SobolevInequality",
+      "declarations": [
+        "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_one",
+        "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq",
+        "MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_le"
+      ],
+      "assessment": "Gagliardo-Nirenberg-Sobolev estimates for compactly supported smooth functions. Their inequality bounds a function norm by its derivative norm and does not construct or compare a symmetric decreasing rearrangement. They are infrastructure only."
+    },
+    {
+      "kind": "external_name_collision_not_candidate",
+      "repository": "https://github.com/igorrivin/polya-szego-lean",
+      "revision": "5cac4f71df47699ff6c90d354447f5f3a6b699cc",
+      "toolchain": "Lean 4.24.0 as declared by its immutable README",
+      "mathlib_revision": "f897ebcf72cd16f89ab4577d0c826cd14afaafc7 as declared by its immutable README",
+      "inventory": "318 original Lean files and 80 verified Lean files",
+      "placeholder_audit": "No sorry/admit/axiom/unsafe hit in verified/*.lean; 661 placeholder hits in original/*.lean.",
+      "assessment": "The repository formalizes exercises from Problems and Theorems in Analysis I; its name refers to the authors, not the Polya-Szego rearrangement inequality. An immutable full-text scan found no Schwarz/symmetric-decreasing/equimeasurability/weak-gradient/Sobolev-space/Dirichlet-integral candidate. It is semantically unrelated and cannot receive anchor credit."
+    }
+  ],
+  "exact_candidate_found": false,
+  "repo_local_closure_found": false,
+  "machine_debt": "formalization_debt",
+  "root_machine_status": "M4",
+  "audit_result": "The candidate search is complete for the recorded pinned repository, pinned mathlib tree, and identified public Lean repository. No exact Lean 4 closure or importable wrapper was found.",
+  "next_phase_cut_set": [
+    "Define the symmetric decreasing rearrangement and prove its measurability and equimeasurability.",
+    "Develop the coarea/isoperimetric or polarization machinery needed for the gradient estimate.",
+    "Transport the estimate through smooth approximation and weak-gradient lower semicontinuity.",
+    "Compose those obligations into the exact frozen finite-p whole-space target."
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This receipt completes only the bounded anchor-audit phase. Neighboring declarations and an unrelated external project supply no proof credit; the theorem root remains open."
+}

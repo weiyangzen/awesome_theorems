@@ -8,20 +8,22 @@ from silently substituting an elementary finite rearrangement inequality or only
 The structured claim is in `intake.json`, the inclusions and exclusions are in `scope_map.md`, and
 the source-to-statement mapping is in `source_statement_crosswalk.md`.
 
-## Intake verdict
+## Current verdict
 
-Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The first failed theorem gate is
-the exact Lean statement gate: the repository search found no candidate rearrangement declaration,
-and neither an elaborated expression nor an environment fingerprint exists. The primary-source
-pinpoint and errata audit also remain open. This intake is not theorem completion.
+Lifecycle is `planned`; the root remains `[H2, M4, R3]`. The exact Lean statement and environment
+fingerprint now exist, and the anchor audit found no exact proof candidate at the recorded immutable
+revisions. The first failed theorem gate is proof architecture and closure: the rearrangement,
+equimeasurability, weak-gradient energy, and limiting arguments are not formalized. The
+primary-source pinpoint and errata audit also remain open. This dossier is not theorem completion.
 
-## Open task DAG
+## Task DAG
 
-`STATEMENT` must select or define the exact Sobolev, weak-gradient, equimeasurability, and symmetric
-decreasing rearrangement interfaces and elaborate the root. `ANCHOR_AUDIT` must then search pinned
-mathlib and external Lean projects and finish the source audit. Only afterward may the obligation
-registry separate rearrangement construction, equimeasurability, coarea/isoperimetric estimates,
-approximation/lower-semicontinuity, and the root composition.
+`STATEMENT` has selected the exact Sobolev, weak-gradient, equimeasurability, and symmetric decreasing
+rearrangement interfaces and elaborated the root. `ANCHOR_AUDIT` searched the pinned mathlib tree and
+an identified external Lean project at immutable revisions; `anchor-audit.md` records why the nearby
+declarations do not close the target. The next phase may now freeze obligations for rearrangement
+construction, equimeasurability, coarea/isoperimetric estimates, approximation/lower-semicontinuity,
+and root composition. The root remains open.
 
 ## Validation
 
