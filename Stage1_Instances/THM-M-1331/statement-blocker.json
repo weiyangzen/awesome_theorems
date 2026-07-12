@@ -1,0 +1,252 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1331",
+  "item_id": "S56-M-1331-STATEMENT",
+  "execution_rank": 943,
+  "phase": "statement",
+  "base_revision": "d4646fb26544dad2bd601137067a00d47064a074",
+  "base_tree": "1308114241d7b7c725a558dbe58775d1e3dd5083",
+  "worker_worktree_ref": ".cron/stage1-rev56/workers/slot7 at detached HEAD",
+  "intent": "statement",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "statement_elaborated": false,
+  "statement_accepted": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "dependency_state": {
+    "item_id": "S56-M-1331-INTAKE",
+    "blueprint_projection": "[_]",
+    "master_accepted": false,
+    "assessment": "The assigned statement work may record a truthful blocker, but no dependency-legal master acceptance can occur until the intake is accepted."
+  },
+  "first_failed_gate": {
+    "gate": "exact_source_statement_and_target_identity",
+    "normative_reference": "Docs/Stage1_Blueprint_rev-5.6.md sections 5 and 5.1",
+    "reason": "The complete repository claim says only that ODE solutions exist uniquely under a Lipschitz condition. It does not fix one proposition's domains, binders, assumptions, interval, solution predicate, or uniqueness class, and the adjacent target THM-M-1332 separately names the Picard-Lindelof theorem. No immutable primary-source transcription or approved distinction, alias, deduplication relation, or correction resolves that collision."
+  },
+  "canonical_human_statement": null,
+  "canonical_formal_target": null,
+  "minimal_target_imports": null,
+  "elaborated_expression_hash": null,
+  "environment_fingerprint_for_canonical_target": null,
+  "blocker": "Selecting a familiar Cauchy-Lipschitz or Picard-Lindelof formulation would invent material assumptions and could duplicate THM-M-1332. Because statement identity fails before encoding, there is no honest exact Lean proposition on which to claim minimal target imports, expression serialization, checked transports, or statement mutations.",
+  "source_boundary": {
+    "repository_record": "Docs/researches/math_theorems.md:9712-9717",
+    "repository_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "title_zh": "存在唯一性定理",
+    "literal_claim_zh": "Lipschitz条件下解的存在唯一性",
+    "attribution": "Augustin Cauchy / Charles Emile Picard",
+    "year": 1890,
+    "source_status_untrusted": "已验证",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:36210-36234",
+    "stage0_assessment": "Exact definitions, premises, proof route, equivalent statements, axioms, and a formal artifact are all explicitly open.",
+    "neighbor_record": "Docs/researches/math_theorems.md:9719-9724",
+    "neighbor_theorem_id": "THM-M-1332",
+    "neighbor_title_zh": "皮卡-林德勒夫定理",
+    "neighbor_literal_claim_zh": "ODE解的存在唯一性",
+    "assessment": "Repository metadata identifies a theorem family only. It is neither a binder-complete primary statement nor authority to count two overlapping roots."
+  },
+  "unresolved_statement_choices": [
+    "scalar equation, finite-dimensional system, or Banach-valued ODE",
+    "autonomous or time-dependent vector field",
+    "time domain, state space, local region, and initial data",
+    "local or global Lipschitz condition, its variable, constant, and uniformity",
+    "continuity, boundedness, completeness, and interval-radius hypotheses",
+    "one-sided or two-sided interval and endpoint derivative convention",
+    "derivative or integral-equation solution predicate",
+    "fixed-domain, overlapping-domain, local, or global uniqueness class",
+    "boundary and degenerate cases, including zero radii and zero-width intervals",
+    "distinct-statement, alias/deduplication, or correction relationship with THM-M-1332"
+  ],
+  "rejected_substitutions": [
+    "using IsPicardLindelof.exists_eq_forall_mem_Icc_hasDerivWithinAt alone, because it proves existence but not uniqueness",
+    "using an ODE_solution_unique theorem alone, because it proves uniqueness but not existence",
+    "conjoining convenient pinned existence and uniqueness APIs without a source-approved target and a checked convention bridge",
+    "choosing the same Picard-Lindelof proposition independently for THM-M-1331 and THM-M-1332",
+    "quantifying an abstract package that assumes an existing solution or the uniqueness conclusion",
+    "replacing the Lipschitz theorem with Peano existence, a continuously differentiable special case, or unsupported global existence"
+  ],
+  "pinned_lean_feasibility_probe": {
+    "path": "Stage1_Instances/THM-M-1331/IntakeProbe.lean",
+    "sha256": "5708196249d8c3cf05949d3c9226b13973c7f25018f9e039c1fee203993aaf3f",
+    "direct_imports": [
+      "Mathlib.Analysis.ODE.Gronwall",
+      "Mathlib.Analysis.ODE.PicardLindelof"
+    ],
+    "candidate_existence_declaration": "IsPicardLindelof.exists_eq_forall_mem_Icc_hasDerivWithinAt",
+    "candidate_uniqueness_declarations": [
+      "ODE_solution_unique_of_mem_Icc",
+      "ODE_solution_unique_of_eventually",
+      "ODE_solution_unique",
+      "ODE_solution_unique_univ"
+    ],
+    "result": "The existing discovery-only probe elaborates all nine named interfaces under the pinned environment.",
+    "interface_mismatch": "The existence candidate permits the initial time anywhere in a closed interval and returns HasDerivWithinAt on that interval. The central closed-interval uniqueness candidate requires the initial time in the open interior, ordinary HasDerivAt on the interior, continuity on the closed interval, and range membership in a time-indexed set. The right/left variants instead use Ico/Ioc and one-sided derivatives. Composition is not a definitional wrapper.",
+    "credit": "API feasibility only; no canonical statement, minimal target-import, checked-transport, expression-fingerprint, or proof credit."
+  },
+  "probe_environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_target": "x86_64-unknown-linux-gnu",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "environment_boundary": "Nonhermetic worker check using the automation-provided canonical .lake symlink read-only; no release evidence."
+  },
+  "statement_gate_coverage": {
+    "exact_claim_frozen": false,
+    "minimal_imports_established": false,
+    "target_elaborated": false,
+    "expression_serialized": false,
+    "canonical_environment_fingerprinted": false,
+    "alternate_transports_checked": false,
+    "removed_hypothesis_mutation": "not_applicable_until_exact_target_exists",
+    "changed_domain_mutation": "not_applicable_until_exact_target_exists",
+    "changed_binder_scope_mutation": "not_applicable_until_exact_target_exists",
+    "boundary_case_mutation": "not_applicable_until_exact_target_exists"
+  },
+  "exact_statement_change": "None. No mathematical claim, Lean declaration, binder, hypothesis, conclusion, alternate encoding, or mutation fixture was added or changed.",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1331/statement-blocker.json",
+    "Stage1_Instances/THM-M-1331/statement-blocker.md"
+  ],
+  "diff_summary": "Added a structured and readable statement-phase blocker under the assigned target path; no target statement, state authority, shared file, dependency, or foreign target was modified.",
+  "commands_and_exit_codes": [
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-1331"],
+      "exit_code": 0,
+      "result": "rank 943; planned; L0/rework_required; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1331/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "All nine discovery-only ODE interfaces elaborated; their full types were printed."
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, x86_64-unknown-linux-gnu"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "--version"],
+      "exit_code": 0,
+      "result": "Lake version 5.0.0-src+98dc76e (Lean version 4.29.0)"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-1331/check_intake.py"],
+      "exit_code": 1,
+      "result": "The historical intake validator requires its intake run's root .stage1-worker-selftest.json and raised FileNotFoundError because that provisional packet is absent from the current phase clone. This statement worker must not recreate an intake self-test, and its own blocked phase is ineligible for a new self-test packet."
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1331/statement-blocker.json"],
+      "exit_code": 0,
+      "result": "The finalized structured blocker is valid JSON."
+    },
+    {
+      "cwd": ".",
+      "argv": ["rg", "-n", "--glob", "*.lean", "\\b(sorry|admit)\\b|\\bsorryAx\\b|^[[:space:]]*(axiom|constant|opaque)[[:space:]]|^[[:space:]]*unsafe\\b", "Stage1_Instances/THM-M-1331"],
+      "exit_code": 1,
+      "result": "Expected no-match result: no prohibited Lean placeholder, bodyless declaration, or unsafe declaration occurs in the target directory."
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--no-index", "--check", "/dev/null", "Stage1_Instances/THM-M-1331/statement-blocker.json"],
+      "exit_code": 1,
+      "result": "Expected git-diff difference exit with no diagnostic; the new JSON has no whitespace errors."
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--no-index", "--check", "/dev/null", "Stage1_Instances/THM-M-1331/statement-blocker.md"],
+      "exit_code": 1,
+      "result": "Expected git-diff difference exit with no diagnostic; the new Markdown has no whitespace errors."
+    },
+    {
+      "cwd": ".",
+      "argv": ["test", "!", "-e", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "The ineligible worker self-test manifest is absent."
+    }
+  ],
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "debt_delta_basis": "No debt change is proposed. A pinned API probe does not resolve source identity or elaborate a canonical target.",
+  "axiom_and_placeholder_result": "The statement attempt added no Lean declaration or proof body. The existing discovery-only probe contains no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration.",
+  "actual_source_ownership": ["Stage1_Instances/THM-M-1331"],
+  "declaration_ownership": [],
+  "readable_ownership": ["Stage1_Instances/THM-M-1331/statement-blocker.md"],
+  "change_impact_set": ["S56-M-1331-STATEMENT"],
+  "covered_node_ids": [],
+  "covered_declaration_ids": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "accepted_receipt_ids": [],
+  "validation_date": "2026-07-13 Asia/Shanghai",
+  "review_due": "after an authoritative source and THM-M-1331/THM-M-1332 identity decision exists",
+  "invalidation_inputs": [
+    "an exact primary-source statement or source correction",
+    "an accepted distinct-statement, alias/deduplication, or correction decision for THM-M-1331 versus THM-M-1332",
+    "a change to repository target metadata or the accepted intake",
+    "a change to the Lean toolchain, dependency lock, candidate interfaces, or assurance standard"
+  ],
+  "support_state": "blocked_worker_report_only",
+  "supersession_state": "current_unsuperseded_worker_report",
+  "incident_path": "The integration lane rejects or supersedes this blocker after the retry conditions are met and assigns a fresh statement attempt.",
+  "retry_condition": "First obtain master acceptance of the intake dependency. Preserve and hash an immutable primary source, select and independently approve the exact theorem and incorporated definitions, and resolve THM-M-1331 versus THM-M-1332 as distinct targets, a deduplicated alias, or a correction. Freeze every domain, ordered binder, hypothesis, conclusion, convention, and boundary case. A later statement worker can then encode that same claim, prove any required existence/uniqueness bridge, minimize pinned imports, serialize and hash the elaborated expression and environment, compile credited transports, and execute all four required mutation classes.",
+  "remaining_root_cut_set": [
+    "S56-M-1331-STATEMENT",
+    "S56-M-1331-ANCHOR_AUDIT",
+    "S56-M-1331-OBLIGATION_TREE",
+    "S56-M-1331-PROOF",
+    "S56-M-1331-VALIDATION",
+    "S56-M-1331-RELEASE"
+  ],
+  "known_failures": [
+    "The exact source proposition and neighbor-target identity are unresolved.",
+    "No canonical Lean expression, minimal target import set, expression fingerprint, checked transport, or mutation suite exists.",
+    "The intake dependency is provisional [_] rather than master accepted [x].",
+    "The historical intake validator cannot replay without its prior root intake self-test packet, which is absent from the current phase clone; it exits 1 and is not altered by this statement attempt.",
+    "Anchor, provenance, trust, proof, readability, hermetic replay, independent verification, and master acceptance remain open."
+  ],
+  "validation_summary": {
+    "structural_preflight": "pass",
+    "pinned_api_probe": "pass_discovery_only",
+    "blocker_artifact_json": "pass",
+    "placeholder_and_bodyless_declaration_scan": "pass_no_match",
+    "new_file_whitespace_checks": "pass",
+    "historical_intake_validator": "fail_expected_missing_prior_intake_selftest",
+    "statement_completion_gate": "blocked",
+    "overall": "blocked_not_selftested_complete"
+  },
+  "gate_state": "blocked_no_worker_selftest",
+  "selftest_manifest_emitted": false,
+  "selftest_manifest_reason": "The assigned exact-statement phase did not pass its completion gate, so the worker must leave .stage1-worker-selftest.json absent.",
+  "status_boundary": "This is evidence for a truthful first-gate blocker only. It is not an elaborated target, statement-node completion receipt, worker [_] completion claim, proof, audit completion, theorem completion, or master acceptance."
+}
