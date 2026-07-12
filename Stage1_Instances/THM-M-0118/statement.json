@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0118-STATEMENT",
+  "theorem_id": "THM-M-0118",
+  "lifecycle": "planned",
+  "canonical_statement": "Let X be a compact Kahler manifold of complex dimension n and E a Nakano-positive holomorphic vector bundle on X. Then H^q(X, Omega^p_X tensor E) vanishes whenever p + q > n.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0118/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0118.NakanoVanishingTarget",
+    "elaborated_expression_sha256": "f3d6dd9891dd0197f4227d4a9091952cdb148663a2bc17a624c4bc07310bc2a5",
+    "statement_file_sha256": "f6068e1b79b2bb800e2a6ce3c3973697b529f532e8ac23cd203fbf2ee7002eba"
+  },
+  "domain_and_universes": "NakanoVanishingData.{uX,uE,uH} has a manifold carrier X : Type uX, a bundle-total-space carrier E : Type uE, complexDimension : Nat, and coefficient cohomology types Cohomology p q : Type uH with AddCommGroup instances; p q : Nat; the target is Prop.",
+  "ordered_binders": [
+    "D : NakanoVanishingData",
+    "p q : Nat",
+    "D.compactKahler",
+    "D.holomorphicVectorBundle",
+    "D.nakanoPositive",
+    "D.complexDimension < p + q"
+  ],
+  "hypotheses": [
+    "X is a compact Kahler manifold",
+    "E is a holomorphic vector bundle on X",
+    "E is Nakano-positive",
+    "p + q is strictly greater than the complex dimension"
+  ],
+  "conclusion": "Subsingleton (D.Cohomology p q), the type-level zero-group form of H^q(X, Omega^p_X tensor E) = 0.",
+  "direct_imports": [
+    "Mathlib.Algebra.Group.Defs"
+  ],
+  "encoding_boundary": "Pinned mathlib does not bundle analytic compact Kahler manifolds, holomorphic vector bundles with Nakano curvature positivity, or their Dolbeault coefficient cohomology. NakanoVanishingData types exactly those interfaces without including a vanishing field. The predicates and Cohomology family retain their standard mathematical meanings and require checked transports to future native APIs; this statement node gives them no proof credit.",
+  "checked_transport": "Stage1Instances.THMM0118.nakanoVanishingTarget_iff_expanded (Iff.rfl)",
+  "alternate_encodings": {
+    "zero_object_equality": "Credited only through the chosen type-level encoding: Subsingleton is vanishing for the supplied AddCommGroup cohomology type.",
+    "dolbeault_cohomology": "Uncredited until a native analytic Dolbeault/sheaf comparison and a checked transport are available.",
+    "positive_line_bundle_specialization": "Excluded as a substitute for the selected vector-bundle root."
+  },
+  "degenerate_and_boundary_cases": "The strict inequality D.complexDimension < p + q is frozen. Equality p + q = n receives no conclusion. Degrees are natural numbers. No claim is made for semipositivity, a noncompact manifold, or a non-Kahler manifold.",
+  "foundation_profile": "Statement-only constructive Prop/type formation; no classical choice, quotient, oracle, or computation is used by this module.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0118/check_statement.py",
+    "killed": [
+      "removed Nakano positivity hypothesis",
+      "changed degree domain from Nat to Int",
+      "moved degree binders outside the geometric data and replaced the dimension range",
+      "included the boundary p + q = n"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact selected Nakano-positive vector-bundle target. It supplies no theorem proof, native analytic API bridge, anchor audit, source acceptance, or completion evidence."
+}

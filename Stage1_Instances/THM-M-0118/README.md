@@ -17,6 +17,19 @@ records the ambiguity rather than silently substituting Kodaira vanishing.
 | Specializations | positive line bundle; Kodaira-Akizuki-Nakano and Kodaira vanishing consequences | Candidates only, with no proof credit |
 | Foundations | Lean 4 kernel with a versioned classical/choice/quotient policy | Exact TCB and dependency fingerprint remain open |
 
+## Statement phase
+
+The exact selected vector-bundle target is now elaborated as
+`Stage1Instances.THMM0118.NakanoVanishingTarget` in `Statement.lean`, using only
+`Mathlib.Algebra.Group.Defs`. Because the pinned library lacks native analytic
+Kahler/Nakano/Dolbeault interfaces, a typed input package states those standard
+notions without assuming the vanishing conclusion. `statement.json` records the
+expression and environment fingerprints; `statement-validation.md` records the
+kernel command and four distinguished structural mutations.
+
+This is provisional statement evidence pending master acceptance, not proof or
+theorem-completion evidence.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The source

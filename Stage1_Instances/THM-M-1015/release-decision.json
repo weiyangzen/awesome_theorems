@@ -1,0 +1,85 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1015-RELEASE",
+  "theorem_id": "THM-M-1015",
+  "intent": "release",
+  "verdict": "blocked",
+  "base_revision": "532efb68f0678a0c54f345265223bf2e835a55d7",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1015-VALIDATION",
+    "receipt_id": "S56-M-1015-VALIDATION-local-20260712",
+    "receipt_sha256": "01aa227f7cf84bcbcbd6642ebcbedc29077161d81ea06b50012774bec50694fc",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "reconciled_inputs": {
+    "intake.json": "0333c9d21bbe48b74049b0d5a4a1a777c4c66c2e7f9adca5b8fa204e8d932052",
+    "Statement.lean": "ec54dada8ac9c934b8863d5e1ae96c5502e6f93f2bb1ef35cb5b488372744fb1",
+    "statement.json": "27cdb12547b383aa3c38f9d0b4a4f19790cb08186b2e4f584d1ed1a2963d44ef",
+    "anchor-audit.json": "10995952467f84a34faa4dd1d2511fb921906cab09d4a3cabf15627f388bf5c8",
+    "obligation-registry.json": "42a55359d5d0be181f1f1fb5165c39c2aa3e557bdeaeb34b51d90e239932059a",
+    "typed-graphs.json": "bfb4a9d709cfb36828390e80689ced7331e180cc057032e081153041716aa2c4",
+    "Proof.lean": "da5063c9941b9ca7a3fe7b36f5e7799052c27d478ce22076e294ea502d81633e",
+    "proof-receipt.json": "3135671198a66d15bd8b0e2936222549153ad331650d8bd870e605b77ea2e939",
+    "validation-phase-spec.json": "dfdeaa2e8fba7715bd80b46b2ada44962647fd356f7a1ed0eab714a507788434",
+    "check_validation.py": "a36a3130fb76991b32023e19bb789eddf6259f1477765cebd1df7018638ba419",
+    "validation-receipt.json": "01aa227f7cf84bcbcbd6642ebcbedc29077161d81ea06b50012774bec50694fc"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1015-PROOF-local-20260712T020609Z",
+    "S56-M-1015-VALIDATION-local-20260712"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "provisional_observation": "The exact four-branch Slutsky root kernel-replays over pinned mathlib bridges and a local reciprocal-continuity proof, but the frozen graph records its pre-proof open root and worker receipts are not acceptance authority."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "root_composition": "provisional_pass",
+    "independent_same_workspace_reconstruction": "provisional_pass_nonrelease",
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "structured_state_freshness": "failed: typed-graphs.json predates proof execution and records root_closed=false while intake authority remains H1/M3/R3",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1015-VALIDATION has only a provisional worker receipt, is release_grade=false, and has no master acceptance."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "Master acceptance of S56-M-1015-VALIDATION and reconciliation of checked exact proof closure into authoritative structured state",
+    "AUDIT-Z inventory and source-boundary reconciliation",
+    "Accepted H0 primary-source edition, exact theorem/page, assumptions, errata crosswalk, and independent source review",
+    "Accepted R0 node-by-node readable reconstruction with formal anchors and independent reader review",
+    "Complete transitive declaration and proof-body provenance, accepted foundation and axiom profiles, and hashed TCB closure",
+    "Immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "SBOM and license closure, protected CI, and required mutation and metamorphic fixtures",
+    "Two signed attestations from distinct independently provisioned runners with no shared writable cache",
+    "Independently implemented minimal release verifier and deterministic content-addressed release bundle",
+    "Master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "Master-accept the validation dependency and reconcile authoritative graph state; then close H0/R0, audit inventory, provenance/trust, hermetic, supply-chain, independent-verifier, deterministic-bundle, and terminal master gates.",
+  "status_boundary": "This is a self-tested negative release decision. It accepts no receipt, changes no lifecycle or root vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, or release."
+}
