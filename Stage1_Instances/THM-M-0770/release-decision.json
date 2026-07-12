@@ -1,0 +1,76 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0770-RELEASE",
+  "theorem_id": "THM-M-0770",
+  "intent": "release",
+  "base_revision": "a5b577acd0418260193c05708c0413b040e312a1",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0770-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0770-VALIDATION-local-20260712T050034Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "ff75772c4455cc4680010bc7c5d1786cbc411b8f292ebf2c4ae7d97c8d4e01d6"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0770-PROOF-local-20260712T045731Z",
+    "S56-M-0770-VALIDATION-local-20260712T050034Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-L-candidate", "R3"],
+    "boundary": "The exact root has provisional same-workspace kernel closure through pinned mathlib, but the authoritative frozen graph remains M3 and no phase receipt is master-accepted. H0 and R0 are open."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0770-VALIDATION is provisional worker evidence and has no master-accepted receipt, so this release execution is not dependency-legal."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10-HERMETIC-COLD-REPLAY",
+    "reason": "The validation run reused the canonical warm .lake cache and did not perform an empty-cache, network-denied cold build or offline archive restoration."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0770-VALIDATION and all transitive phase receipts",
+    "reconciliation of the stale frozen graph with the provisional exact-root kernel closure",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata, and node crosswalk with independent review",
+    "accepted R0 unique anchored structured reconstruction with independent reader review",
+    "complete transitive proof-body provenance, axiom, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier",
+    "protected CI plus mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_check": "pass as provisional worker evidence",
+    "proof_terminal": "Mathlib.Order.Zorn.zorn_le_nonempty at mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "independent_probe": "same-workspace alternate reconstruction through zorn_le; not a distinct runner",
+    "closed_obligation_ids": ["M0770-ROOT", "M0770-L-ZORN-ANCHOR", "M0770-T-ASSEMBLE"],
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass on local Lean validation surface and pinned terminal source",
+    "authoritative_graph_freshness": "missing",
+    "hermetic_release_reproduction": "missing",
+    "independent_release_verification": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "release_bundle": "missing"
+  },
+  "retry_condition": "Master-accept the dependency chain and reconcile structured root state, then close H0/R0 review, complete provenance and TCB evidence, and replay an immutable clean snapshot through cold offline, supply-chain, independent-runner, mutation, deterministic-bundle, and master gates.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It creates no accepted receipt, changes no lifecycle or authoritative debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release grade, or master acceptance."
+}
