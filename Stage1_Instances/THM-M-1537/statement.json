@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1537-STATEMENT",
+  "theorem_id": "THM-M-1537",
+  "lifecycle": "planned",
+  "canonical_statement": "For every stationary black hole in the semiclassical Einstein-gravity regime, with nonnegative horizon area and positive k_B, c, G, and hbar, the thermodynamic entropy equals k_B*c^3*A/(4*G*hbar).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1537/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1537.BekensteinHawkingAreaLaw",
+    "elaborated_expression_sha256": "0294eb7c5af32d8a7dfc2abf6ff5ac0431343f4eeab5fe4d331217a398d07cc8",
+    "statement_file_sha256": "83d94e93a02d82dca7f9b2467e049302bb33503de2d1897b33312bbffa8e471e"
+  },
+  "domain_and_universes": "B : SemiclassicalBlackHole; all numerical quantities are Real; physical-regime markers are Prop; target is Prop in universe 0",
+  "ordered_binders": [
+    "B : SemiclassicalBlackHole",
+    "B.stationary",
+    "B.einsteinGravityRegime",
+    "B.semiclassicalRegime",
+    "0 <= B.horizonArea",
+    "0 < B.boltzmannConstant",
+    "0 < B.speedOfLight",
+    "0 < B.newtonConstant",
+    "0 < B.reducedPlanckConstant"
+  ],
+  "conclusion": "B.thermodynamicEntropy = B.boltzmannConstant * B.speedOfLight^3 * B.horizonArea / (4 * B.newtonConstant * B.reducedPlanckConstant)",
+  "direct_imports": ["Mathlib.Data.Real.Basic"],
+  "encoding_boundary": "The physical construction and applicability of the stationary semiclassical Einstein-gravity model are hypotheses. The model deliberately has no area-law field, so the target is not an assumed-law projection. Real-valued quantities do not enforce physical dimensions; the dimensionful constants and positivity premises are explicit.",
+  "checked_transport": "Stage1Instances.THM_M_1537.areaLaw_iff_expanded",
+  "degenerate_cases": "Zero horizon area is admitted by 0 <= A. Nonpositive physical constants are excluded. Extremal, dynamical, higher-curvature, quantum-corrected, entanglement-entropy, and generalized-second-law claims are outside this target unless they satisfy the stated stationary semiclassical Einstein-gravity premises.",
+  "environment_fingerprint": {
+    "base_revision": "ff80c1f55ecdfa168e5feec2a8b1b65960177ea0",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1537/check_statement.py",
+    "validator_sha256": "b5b1c425e8090efa8536ed3e8330969b99d7ef5126969a2f7ceae570fad3c380",
+    "killed": [
+      "removed semiclassical-regime hypothesis",
+      "changed physical quantity domain from Real to Nat",
+      "changed the scope/shape of the Einstein and semiclassical binders",
+      "excluded the zero-area boundary"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected dimensionful area-law target with one direct import, checked expansion, and four distinguished mutations. It supplies no physical derivation, source-audit acceptance, proof, or theorem-completion evidence."
+}
