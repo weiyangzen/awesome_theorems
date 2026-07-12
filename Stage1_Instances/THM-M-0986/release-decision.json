@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0986-RELEASE",
+  "theorem_id": "THM-M-0986",
+  "intent": "release",
+  "base_revision": "25fbac874308ef58f14fc38921bfd8d904f258f7",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0986-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0986-VALIDATION-local-20260712T012917Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "fafb2092080da6b932535c835ab5346e2f5dae54e359372a489c38b576a21df1"
+  },
+  "reconciled_inputs": {
+    "statement.json": "c867f750d287180f6c3b7f456515494e9f13a8ec2aca3afa569f14a3af61bee1",
+    "anchor-audit.json": "4e53a6c21fbbe324f5374781207c5ddefd182a20552af93500a6b9265ce05313",
+    "obligation-registry.json": "b349a16f4acd142d4f2800672a62ae8c7886671e9856b1f7858364ff9f225306",
+    "typed-graphs.json": "7a45374951fd85560047a88de0d9d3d8f7e5b0d1b25c95fa636c08792331963b",
+    "Proof.lean": "8c0b88d0df61a2eae77355f982ee0d5621f496e72beb5ad4499237e3b9a4f162",
+    "validation-specs.json": "aa0d99031941eef0e5e4076fa8c1faf1700893aed71d02307dfb5e640881ea54",
+    "validation-receipt.json": "fafb2092080da6b932535c835ab5346e2f5dae54e359372a489c38b576a21df1"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0986-VALIDATION-local-20260712T012917Z"
+  ],
+  "root_vector": {
+    "before": ["H1", "M3", "R3"],
+    "after": ["H1", "M3", "R3"],
+    "boundary": "The frozen typed graph remains the authoritative provisional classification. Later worker validation demonstrates exact root kernel closure, but cannot promote M3 without master reconciliation; the primary-source and readable-review gates remain H1 and R3."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0986-VALIDATION has provisional worker-self-test support only and no master-accepted receipt, so the release node is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-8.1-HUMAN-SOURCE-H0",
+    "reason": "The source crosswalk remains H1: it lacks a content-addressed primary-source transcription, pinpoint premise and errata mapping, translation review, and independent acceptance."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0986-VALIDATION and all transitive phase receipts",
+    "reconciliation of the kernel-closed worker proof into the frozen obligation graph and root machine-debt authority",
+    "accepted H0 primary-source crosswalk with immutable source, pinpoint assumptions, errata and independent review",
+    "accepted R0 node-by-node readable reconstruction with formal anchors and independent reader review",
+    "accepted foundation policy, complete transitive provenance, axiom audit, trust closure and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier and protected CI gates",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_closure": "pass as provisional worker evidence through primary and separately written local reconstructions",
+    "frozen_root_machine_debt": "M3 pending authoritative reconciliation",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "local_source_hygiene": "pass",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "retry_condition": "Obtain master acceptance and reconcile the validated exact-root proof into authoritative obligation state; then close independently reviewed H0/R0, trust and provenance records, and produce hermetic supply-chain, independent-runner, and deterministic-bundle evidence for master release reconciliation.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It advances no lifecycle or debt state, creates no accepted receipt, and does not claim AUDIT-Z, THEOREM-Z, or theorem completion."
+}
