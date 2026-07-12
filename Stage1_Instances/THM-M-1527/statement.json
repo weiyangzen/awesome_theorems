@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1527-STATEMENT",
+  "theorem_id": "THM-M-1527",
+  "lifecycle": "planned",
+  "canonical_statement": "For positive SI vacuum constants, any explicitly supplied 3+1 coordinate decomposition identifies the four classical Maxwell equations with the covariant differential-form system dF = 0 and d(star F) = J.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1527/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1527.MaxwellCoordinateEquivalence",
+    "elaborated_expression_sha256": "b1bbba94a1c44ca9acf885c3ec01a73e8d29cbf4a2e7bff5fa54857aac85adc9",
+    "statement_file_sha256": "9520e44fd993eca1ad6c47d9b9eace32f037c2a20994126e683e159d30c02658"
+  },
+  "domain_and_universes": "universe u; arbitrary real normed vector spacetime Spacetime : Type u; classical spatial domain fixed to Euclidean3 = Fin 3 -> Real; Prop in universe 0",
+  "ordered_binders": [
+    "Spacetime : Type u",
+    "[NormedAddCommGroup Spacetime]",
+    "[NormedSpace Real Spacetime]",
+    "ops : ClassicalOperators",
+    "c : SIConstants",
+    "classical : ClassicalFields",
+    "covariant : CovariantFields Spacetime"
+  ],
+  "hypotheses": [
+    "covariant.dimension = 4",
+    "covariant.signature = SignatureConvention.lorentzianMostlyPlus",
+    "covariant.orientation = OrientationConvention.spacetimeOrientedAndTimeOriented",
+    "0 < c.epsilon0",
+    "0 < c.mu0",
+    "CoordinateDecomposition ops c classical covariant"
+  ],
+  "conclusion": "ClassicalMaxwellSystem ops c classical iff CovariantMaxwellSystem covariant",
+  "direct_imports": ["Mathlib.Analysis.Calculus.DifferentialForm.Basic"],
+  "source_relationship": "The repository source phrase is not proposition-valued. This freezes the genuine equivalence theorem family provisionally selected by the accepted intake, while making the convention-dependent coordinate decomposition an explicit hypothesis rather than inventing it or substituting a projection wrapper.",
+  "environment_fingerprint": {
+    "base_revision": "4161921b2a43484a498bcf39900c1c468bc4174e",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1527/check_statement.py",
+    "validator_sha256": "f1543783b85077430215d5324e731ea095059b60108415109e31d9e94fb7cda3",
+    "killed": [
+      "removed positivity hypotheses",
+      "changed arbitrary spacetime to Euclidean3",
+      "changed binder scope by moving the field binders after the positivity premises",
+      "weakened equivalence to the classical-to-covariant implication"
+    ]
+  },
+  "degenerate_cases": "Zero fields and zero current remain admitted. Vacuum constants equal to or below zero, non-four-dimensional models, and other signature/orientation tokens are excluded. No existence of a coordinate decomposition, Hodge star, solution, or empirical model is asserted by the statement.",
+  "alternate_encodings": {
+    "classical_system_only": "A satisfaction predicate is statement infrastructure, not the selected theorem.",
+    "covariant_system_only": "The equations are one side of the selected equivalence, not a theorem by themselves.",
+    "charge_conservation": "A downstream consequence and not an alternate root.",
+    "historical_primary_variant": "The legacy model-specific projection wrapper is not credited because it merely unpacks an assumed solution predicate."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and elaborates an exact conditional equivalence target with one pinned import and mutation evidence. It neither proves the coordinate decomposition nor completes Maxwell's equations."
+}
