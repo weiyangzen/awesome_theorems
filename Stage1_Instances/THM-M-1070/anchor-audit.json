@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1070-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1070",
+  "audit_cutoff": "2026-07-12T00:00:00+08:00",
+  "inventory_version": 1,
+  "search_order": [
+    "repository-local Lean files",
+    "pinned mathlib source",
+    "public Lean 4 repositories at immutable revisions",
+    "historical Lean repositories"
+  ],
+  "queries": [
+    "IsLevyProcess",
+    "LevyProcess",
+    "Levy process (ASCII spelling)",
+    "Levy process",
+    "HasIndepIncrements",
+    "independent increments",
+    "stationary increments",
+    "cadlag"
+  ],
+  "candidates": [
+    {
+      "id": "MATHLIB-HAS-INDEP-INCREMENTS",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/Probability/Independence/Process/HasIndepIncrements.lean",
+      "declarations": [
+        "ProbabilityTheory.HasIndepIncrements",
+        "ProbabilityTheory.hasIndepIncrements_iff_nat",
+        "ProbabilityTheory.HasIndepIncrements.indepFun_sub_sub"
+      ],
+      "relation_to_target": "exact independent-increments clause and checked pairwise consequence only",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "evidence_tier": "E1_component",
+      "machine_classification": "M2_component_only",
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "MATHLIB-DISTRIBUTION-CONTINUITY",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "files": [
+        "Mathlib/Probability/IdentDistrib.lean",
+        "Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean"
+      ],
+      "declarations": [
+        "ProbabilityTheory.IdentDistrib",
+        "MeasureTheory.TendstoInMeasure"
+      ],
+      "relation_to_target": "exact stationary-law and stochastic-continuity vocabulary only",
+      "evidence_tier": "E1_component",
+      "machine_classification": "M2_component_only",
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "LEANLEVY-IS-LEVY-PROCESS",
+      "project": "slink/LeanLevy",
+      "remote": "https://github.com/slink/LeanLevy.git",
+      "revision": "93b635fba23398bfb1f0db8d220f88172f6900b6",
+      "tree": "5fdad55a9f84ebb7fe2de35eea05480dbbae6d0a",
+      "file": "LeanLevy/Processes/LevyProcess.lean",
+      "source_sha256": "fa99538f9865983909718d0d40d389f631de05d242ea27b88bf21d711bff65d0",
+      "declarations": [
+        "ProbabilityTheory.IsLevyProcess",
+        "ProbabilityTheory.IsLevyProcess.indepFun_increment",
+        "ProbabilityTheory.IsLevyProcess.identDistrib_increment",
+        "ProbabilityTheory.IsLevyProcess.charFun_eq_exp_mul"
+      ],
+      "relation_to_target": "nearby but non-identical convention: pointwise zero and almost-everywhere cadlag replace almost-everywhere zero and stochastic continuity; probability and marginal measurability are not fields",
+      "toolchain": "leanprover/lean4:v4.29.0-rc3",
+      "mathlib_revision": "8e096f85f9401f2c359b6708199c0402a980d921",
+      "license": "MIT",
+      "placeholder_regex_scan": "no matches in the four process files audited",
+      "upstream_ci": "GitHub Actions run 28901735390 succeeded for this exact revision",
+      "evidence_tier": "E2_for_upstream_declarations_E3_for_target_mapping",
+      "machine_classification": "M3_nonidentical_external_anchor",
+      "integration_status": "not a repository dependency; no local build or wrapper credited"
+    },
+    {
+      "id": "GRUNDBEGRIFFE-HISTORICAL",
+      "project": "catskillsresearch/grundbegriffe",
+      "remote": "https://github.com/catskillsresearch/grundbegriffe.git",
+      "selection": "historical repository returned by GitHub repository search",
+      "classification": "not a viable Lean 4 candidate: last push 2021 and no immutable source inventory obtained because API access returned HTTP 403",
+      "evidence_tier": "E5_access_failure"
+    }
+  ],
+  "negative_result": "No full Levy-process declaration occurs in pinned mathlib at the audited revision. The only exact repo-local full predicate is the frozen statement itself and has no substantive theorem proof body.",
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "The anchor inventory is self-tested and fully classified for this phase. It does not integrate LeanLevy, establish exact target equivalence, inspect a primary human source, or close a theorem root."
+}
