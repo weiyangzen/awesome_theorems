@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1085-STATEMENT",
+  "theorem_id": "THM-M-1085",
+  "lifecycle": "planned",
+  "canonical_statement": "For centered jointly Gaussian real vectors X and Y on a common nonempty finite index type, possibly on different probability spaces, equal coordinate variances and Cov(X_i,X_j) <= Cov(Y_i,Y_j) for distinct indices imply P(for all i, X_i <= t) <= P(for all i, Y_i <= t) for every real t.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1085/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1085.SlepianTarget",
+    "elaborated_expression_sha256": "2af285ae0bb208a80c325d1b8ba89cd273b83d01b2fef018b13e2feca9d43315",
+    "statement_file_sha256": "ac7160af49ed699e13856c10d7a0aba637aaa5f76e30eb1ca943a9cbf3136a9d"
+  },
+  "domain_and_universes": "universes u v w; nonempty finite I : Type u; measurable ΩX : Type v and ΩY : Type w; measures μX and μY; random vectors X : ΩX -> I -> Real and Y : ΩY -> I -> Real",
+  "ordered_binders": [
+    "I : Type u, [Fintype I], [Nonempty I]",
+    "ΩX : Type v, [MeasurableSpace ΩX], μX : Measure ΩX",
+    "ΩY : Type w, [MeasurableSpace ΩY], μY : Measure ΩY",
+    "X : ΩX -> I -> Real, Y : ΩY -> I -> Real"
+  ],
+  "hypotheses": [
+    "HasGaussianLaw X μX and HasGaussianLaw Y μY",
+    "each coordinate integral is zero",
+    "corresponding coordinate self-covariances are equal",
+    "off-diagonal covariance of X is at most that of Y"
+  ],
+  "conclusion": "For every t : Real, μX {ω | forall i, X ω i <= t} <= μY {ω | forall i, Y ω i <= t}.",
+  "direct_imports": ["Mathlib.Probability.Distributions.Gaussian.HasGaussianLaw.Basic"],
+  "checked_transport": "Stage1Instances.THM_M_1085.slepianTarget_iff_directShape",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1085/check_statement.py",
+    "killed": [
+      "removed equal-variance hypothesis",
+      "changed random-vector probability domain to deterministic vectors",
+      "moved threshold before hypotheses and discarded substantive assumptions",
+      "allowed the empty index type"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_1085.singleton_boundary"]
+  },
+  "degenerate_cases": "The index type is nonempty. No covariance nonsingularity, positive variance, coordinate distinctness, common sample space, or density assumption is imposed. The singleton-index event is kernel-checked.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. Primary-source audit, proof, trust closure, hermetic replay, and independent acceptance remain downstream."
+}
