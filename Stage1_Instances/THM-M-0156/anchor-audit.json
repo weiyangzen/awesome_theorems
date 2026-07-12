@@ -1,0 +1,83 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0156",
+  "item_id": "S56-M-0156-ANCHOR_AUDIT",
+  "inventory_version": "THM-M-0156-anchor-inventory/1",
+  "audit_date": "2026-07-12",
+  "base_revision": "af0b9c3534733bf19ba3f83c1a063916aaac92fe",
+  "canonical_target": "Stage1Instances.THM_M_0156.DivergenceTheoremTarget",
+  "canonical_statement_sha256": "b622de86895603194bf93b238c72284d21ec461f7275511de078ef1944bf9596",
+  "search_order": [
+    "repository-local Lean source",
+    "pinned mathlib declarations and owning source",
+    "Sourcegraph public Lean code index",
+    "GitHub public repository metadata"
+  ],
+  "queries": [
+    "integral_divergence_of_hasFDerivAt_off_countable",
+    "divergence theorem lang:Lean",
+    "volume integral divergence outward flux lang:Lean"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0156-C01",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.MeasureTheory.Integral.DivergenceTheorem",
+      "file": "Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean",
+      "git_blob": "29d0e24572c289a80679393653570ad3e9bbd66f",
+      "file_sha256": "7c3242338eca46ea0053d6e4d8f005b03409bca9e589e7f6beb65e0283c50ed8",
+      "declaration": "MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable",
+      "comparison": "Exact box, continuity, interior Frechet derivative, integrable coordinate divergence, and signed face-flux conclusion. The upstream theorem is stronger by allowing a countable exceptional set; the checked adapter specializes it to the empty set.",
+      "role": "exact pinned-mathlib wrapper candidate",
+      "local_adapter": "Stage1Instances.THM_M_0156.AnchorAudit.canonicalTarget_mathlib_candidate",
+      "body_provenance": "explicit theorem body in pinned mathlib",
+      "dependency_feasibility": "already present at the exact lake-manifest pin and locally importable",
+      "placeholder_audit": "No sorry, axiom declaration, unsafe declaration, or proof_wanted marker occurs in the owning source file.",
+      "kernel_check": "passed_current_pinned_environment",
+      "axioms_reported": ["propext", "Classical.choice", "Quot.sound"],
+      "machine_classification": "M0-W-candidate_pending_later_gates",
+      "proof_body_location": "pinned mathlib"
+    },
+    {
+      "candidate_id": "M0156-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.BoxIntegral.DivergenceTheorem",
+      "file": "Mathlib/Analysis/BoxIntegral/DivergenceTheorem.lean",
+      "git_blob": "d5f3091d73b0af2b3f634484cd39fd46a004ca76",
+      "file_sha256": "6e4462aaba2f35111d249a3e995c56bb85b7ce36ff28dcdfa193c62639fb0669",
+      "declaration": "BoxIntegral.hasIntegral_GP_divergence_of_forall_hasDerivWithinAt",
+      "comparison": "More primitive Henstock-Kurzweil-style box-integral theorem with within-derivative hypotheses. It underlies the Bochner candidate but is not an exact root match without substantial integration transport.",
+      "role": "upstream proof-family ancestor",
+      "machine_classification": "no_duplicate_root_credit"
+    }
+  ],
+  "external_search": {
+    "sourcegraph": "The exact-name query completed exhaustively with 16 matches, all in leanprover-community/mathlib4. Its indexed commit was moving discovery evidence only; the retained candidate was re-audited at the local immutable pin.",
+    "github_repository_api": "The phrase query for divergence theorem plus Lean theorem prover returned HTTP 200, total_count 0, incomplete_results false. A broad divergence language:Lean query returned five unrelated repositories about program divergence, optimization divergences, or physics.",
+    "result": "No distinct credible external Lean 4 proof candidate was established. This is a bounded search, not a global absence claim."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "proposed_root_machine_debt": "M0-W",
+    "machine_debt_type": "none_if_later_wrapper_and_validation_gates_accept_the_pinned_candidate",
+    "human_debt": "H1",
+    "readability_debt": "R4",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "status_boundary": "Only the immutable candidate inventory and narrow exact adapter are self-tested. The obligation tree, accepted proof node, full transitive provenance/trust audit, hermetic replay, independent review, and master acceptance remain open; no theorem completion is claimed."
+  }
+}
