@@ -1,0 +1,85 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0653",
+  "item_id": "S56-M-0653-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 698,
+  "legacy_priority_slot": null,
+  "name_zh": "贝特可定义性定理",
+  "name_en": "Beth definability theorem",
+  "category": "mathematical logic / model theory",
+  "target_system": "Lean 4 + mathlib",
+  "literal_source_claim": "Implicit definability and explicit definability are equivalent.",
+  "canonical_claim_status": "human_scope_frozen_formal_encoding_open",
+  "canonical_claim": "Let L be a first-order language, let R be one new finite-arity relation symbol, and let T be a theory in the expanded language L union {R}. If any two models of T carried by the same underlying set and having the same L-reduct interpret R identically, then there is an L-formula phi with the arity of R such that every model of T satisfies, for every tuple x, R(x) iff phi(x).",
+  "canonical_formal_target": {
+    "status": "open",
+    "module_candidates": [
+      "Mathlib.ModelTheory.LanguageMap",
+      "Mathlib.ModelTheory.Semantics",
+      "Mathlib.ModelTheory.Definability"
+    ],
+    "declaration": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null
+  },
+  "domain_and_universes": "A one-sorted first-order base language L, a finite arity n, an expanded language with one distinguished n-ary relation R, expanded structures on arbitrary nonempty carriers, and an expanded-language theory T. Exact universe levels remain open.",
+  "quantifiers": [
+    "base first-order language L",
+    "finite relation arity n",
+    "expanded language L plus distinguished n-ary relation R",
+    "expanded-language theory T",
+    "pairs of models of T with identical L-reduct on a common carrier",
+    "tuples x of length n"
+  ],
+  "hypotheses": [
+    "both expanded structures model T",
+    "their reducts to L agree on the same carrier",
+    "implicit definability: their interpretations of R agree"
+  ],
+  "conclusion": "There exists one parameter-free L-formula phi of arity n which defines R in every model of T.",
+  "alternate_encodings": [
+    {
+      "target": "a disjoint-copy formulation in which isomorphic or canonically identified L-reducts force agreement of R",
+      "relationship": "intended equivalent after a checked transport between equality-on-one-carrier and reduct-isomorphism formulations",
+      "checked_witness": null,
+      "status": "open"
+    },
+    {
+      "target": "the syntactic two-copy consequence formulation used in proofs via Craig interpolation",
+      "relationship": "intended equivalent proof interface, not a substitute root",
+      "checked_witness": null,
+      "status": "open"
+    }
+  ],
+  "excluded_degenerate_cases": "Nullary R must be decided explicitly rather than silently excluded; empty theories and inconsistent theories require source-faithful treatment; no parameters are allowed in the defining formula unless the reviewed source explicitly states a parameterized variant.",
+  "source_status": "repository_secondary_metadata_only_primary_source_edition_theorem_page_and_errata_open",
+  "root_vector": {"H": "H2", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Lean 4 dependent type theory; classical logic, compactness, completeness, and choice dependencies of the eventual proof remain to be audited",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are candidate components; exact imports, target declaration, proof closure, and axiom profile remain open",
+  "computation_profile": "noncomputable metatheoretic existence theorem expected; no oracle, experiment, or unchecked certificate is credited",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0653"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned",
+    "formal_reviewer": "unassigned"
+  },
+  "freshness_and_revocation_policy": "Invalidate on canonical wording, source edition, implicit-definability encoding, Lean target, toolchain, mathlib pin, profile, or validator change; independent review and review due date remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "Planned intake only. Checked library ingredients are discovery evidence; there is no exact Lean target, primary-source acceptance, obligation registry, proof credit, accepted task state, audit completion, or theorem completion."
+}

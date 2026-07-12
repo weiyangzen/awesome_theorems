@@ -1,0 +1,107 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0650-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0650",
+  "audit_date": "2026-07-12",
+  "base_revision": "737d00e2fcd766790dfe7d675dfb8e279f059733",
+  "canonical_target": "Stage1Instances.THM_M_0650.TarskiVaughtTarget",
+  "canonical_target_expression_sha256": "33ef21b57b9433d0caa5188ed270e4d9ef70aaef44d308f2a8b839be3938a5e2",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned Lake dependency source and Git history",
+    "all installed pinned dependency Lean source",
+    "Sourcegraph and GitHub public code search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_project": "leanprover-community/mathlib4",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_manifest_input_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "elementary_substructures_sha256": "d99e9956a98faec04fd21330a7d440196a65bee565e29c6fdfbc771f972d88b1",
+    "elementary_maps_sha256": "14002b5ff04b89ad9206f4078959f9e41251e204f004d5d98a1c5bc82ac6e60e",
+    "license": "Apache-2.0",
+    "license_file_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0650-A-MATHLIB-SUBSTRUCTURE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.ModelTheory.ElementarySubstructures",
+      "source_path": "Mathlib/ModelTheory/ElementarySubstructures.lean",
+      "source_lines": "126-132",
+      "declaration": "FirstOrder.Language.Substructure.isElementary_of_exists",
+      "kind": "exact_proof_anchor",
+      "normalized_match": "exact binder-for-binder match to the canonical implication after unfolding TarskiVaughtWitnessCondition and TarskiVaughtTarget",
+      "body_provenance": "retained theorem; direct body is `fun _ => S.subtype.isElementary_of_exists htv` and delegates to the embedding theorem",
+      "terminal_body": "FirstOrder.Language.Embedding.isElementary_of_exists",
+      "placeholder_or_axiom_status": "Lean `#print axioms` reports only the standard foundational axioms `propext`, `Classical.choice`, and `Quot.sound` for the local check, substructure theorem, and terminal embedding theorem; source has a retained proof body and no sorry/admit marker",
+      "toolchain": "Lean 4.29.0 with the repository's pinned mathlib closure",
+      "dependency_feasibility": "already immutable-pinned by lake-manifest.json and locally importable",
+      "classification": "M0-P_candidate",
+      "integration_status": "exact pinned proof is available; AnchorAudit.lean locally checks a wrapper with the audited target shape"
+    },
+    {
+      "candidate_id": "M0650-A-MATHLIB-EMBEDDING",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.ModelTheory.ElementaryMaps",
+      "source_path": "Mathlib/ModelTheory/ElementaryMaps.lean",
+      "source_lines": "245-276",
+      "declaration": "FirstOrder.Language.Embedding.isElementary_of_exists",
+      "kind": "terminal_proof_body",
+      "normalized_match": "more general embedding form used by the exact substructure wrapper",
+      "body_provenance": "retained structural-induction proof over bounded formulas; original theorem commit 26d572805b336851ae1451bae19bc6eacac5e3d4",
+      "placeholder_or_axiom_status": "Lean `#print axioms` reports only `propext`, `Classical.choice`, and `Quot.sound`; no sorry/admit marker occurs in the audited declaration body",
+      "toolchain": "Lean 4.29.0 with the repository's pinned mathlib closure",
+      "dependency_feasibility": "transitively imported by the exact candidate",
+      "classification": "proof_body_dependency",
+      "integration_status": "already in the pinned dependency closure"
+    },
+    {
+      "candidate_id": "M0650-A-MATHLIB-BUNDLED",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.ModelTheory.ElementarySubstructures",
+      "source_path": "Mathlib/ModelTheory/ElementarySubstructures.lean",
+      "source_lines": "134-142",
+      "declaration": "FirstOrder.Language.Substructure.toElementarySubstructure",
+      "kind": "alternate_packaging",
+      "normalized_match": "same premise but a bundled ElementarySubstructure result rather than the canonical IsElementary proposition",
+      "body_provenance": "definition packaging the exact substructure theorem",
+      "placeholder_or_axiom_status": "no independent terminal proof body",
+      "classification": "excluded_alternate_encoding",
+      "integration_status": "not selected because it broadens the requested result representation"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "all locally installed pinned Lake dependencies",
+      "query": "case-insensitive Tarski-Vaught or isElementary_of_exists over all Lean files",
+      "result": "only pinned mathlib ElementaryMaps, ElementarySubstructures, and a Skolem theorem using the substructure anchor",
+      "immutability_boundary": "complete search of the locally installed dependency revisions recorded by the manifest"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global Tarski-Vaught lang:Lean; context:global isElementary_of_exists lang:Lean",
+      "result": "request completed with no usable response payload in this environment",
+      "immutability_boundary": "blocked discovery lane; no negative global result claimed"
+    },
+    {
+      "surface": "GitHub public code search and REST API",
+      "query": "Tarski-Vaught and isElementary_of_exists, Lean language",
+      "result": "web search returned no usable result payload; grep.app returned HTTP 429 and GitHub commit REST returned HTTP 403",
+      "immutability_boundary": "rate-limited/blocked discovery lanes; no negative global result claimed"
+    }
+  ],
+  "root_machine_classification": "M0-P_candidate",
+  "root_classification_reason": "An exact proof-bearing declaration exists in the already pinned mathlib revision, and a narrow local wrapper checks the canonical binder shape without axioms. This anchor node identifies and validates the candidate but does not promote the later proof, validation, or release nodes.",
+  "machine_debt": "repo_local_integration_debt_identified",
+  "integration_blocker": "The assigned phase cannot accept proof credit or close the theorem: the obligation registry is not frozen and the proof-phase canonical wrapper, transitive provenance/trust closure, and release receipts remain downstream.",
+  "reopen_condition": "Re-audit if the canonical statement hash, Lean toolchain, mathlib revision, candidate body, or direct/imported dependency graph changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the immutable formal-anchor inventory and candidate feasibility check. External search failures are explicitly bounded. No H0 source claim, obligation closure, proof-phase acceptance, theorem proof, or theorem completion is asserted."
+}
