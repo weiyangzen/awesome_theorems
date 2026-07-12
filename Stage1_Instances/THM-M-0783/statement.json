@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0783-STATEMENT",
+  "theorem_id": "THM-M-0783",
+  "lifecycle": "planned",
+  "canonical_statement": "For every cardinal kappa strictly below the continuum, every family indexed by a type of cardinality at most kappa of dense subsets of a nonempty ccc partial order is met by one filter.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0783/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0783.MartinsAxiom",
+    "elaborated_expression_sha256": "c5896a33b3a29994084bb3f6c465aef5122fda2414b21723fd950a95b5599ada",
+    "statement_file_sha256": "c7adfe1b504a5cd17fe94da38320a265dbf67e410c6a7155aee3da943f757d40"
+  },
+  "domain_and_universes": "universe u; kappa : Cardinal.{u}; P I : Type u; PartialOrder P; Nonempty P; D : I -> Set P; G : Set P; Prop in Lean universe 0",
+  "ordered_binders": [
+    "kappa : Cardinal.{u}",
+    "kappa < Cardinal.continuum",
+    "P : Type u",
+    "[PartialOrder P]",
+    "[Nonempty P]",
+    "HasCCC P",
+    "I : Type u",
+    "D : I -> Set P",
+    "Cardinal.mk I <= kappa",
+    "forall i, IsForcingDense (D i)"
+  ],
+  "conclusion": "There exists G : Set P which is a forcing filter and for every i : I, G intersects D i.",
+  "direct_imports": [
+    "Mathlib.SetTheory.Cardinal.Continuum"
+  ],
+  "minimal_import_evidence": "Cardinal.Continuum alone supplies Cardinal arithmetic, Cardinal.mk, Set.Countable, the order/set surface used by the local ccc encoding, and the pinned continuum constant. Removing this sole import makes those APIs unavailable; no umbrella Mathlib import is used.",
+  "frozen_conventions": {
+    "order_orientation": "q <= p means q is a stronger condition than p",
+    "density": "for every p there is q in D with q <= p",
+    "filter": "nonempty, upward closed toward weaker conditions, and downward directed toward common stronger conditions",
+    "ccc": "every subset whose distinct members lack a common stronger extension is Set.Countable",
+    "family_size": "the dense family is indexed by I with Cardinal.mk I <= kappa",
+    "continuum_bound": "kappa < Cardinal.continuum"
+  },
+  "checked_transport": "Stage1Instances.THM_M_0783.martinsAxiom_iff_expanded",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0783/check_statement.py",
+    "killed": [
+      "removed the ccc hypothesis",
+      "changed the strict continuum bound to a non-strict bound",
+      "moved the dense-family binder inside the existential filter scope",
+      "changed partial orders to preorders"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0783.empty_family_boundary"
+    ]
+  },
+  "degenerate_cases": "The empty dense-family boundary is admitted and kernel-checked. Nonempty P is explicit. Empty antichains and trivial partial orders remain included. The bound is strict, so kappa equal to the continuum is excluded. No antisymmetry, density, or ccc hypothesis is silently dropped.",
+  "foundation_boundary": "MartinsAxiom is defined as a Prop only. The file contains no axiom declaration or inhabitant of this Prop. Thus elaboration freezes the object-level assertion without claiming that MA follows from Lean's foundations or ZFC.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact object-level Martin's axiom proposition with explicit forcing conventions, a checked expansion, four structural mutations, and one boundary proof. It provides no proof of MA, no relative-consistency result, and no anchor, obligation, validation, or release receipt."
+}

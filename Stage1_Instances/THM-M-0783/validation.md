@@ -27,3 +27,28 @@ No Lean theorem was elaborated because intake has truthfully left the formal exp
 Lean command above validates availability of the pinned toolchain only; it is not statement or
 proof evidence. The first remaining gate is selection and elaboration of an exact foundational
 encoding during `S56-M-0783-STATEMENT`, after master acceptance of this intake.
+
+## Statement validation (2026-07-12)
+
+Base revision: `444819795285695894ff7b29af5c2419e0e000fa`.
+
+The pre-existing untracked `Formalizations/Lean/.lake` symlink was used read-only. No dependency
+update, build, clone, fetch, or other `.lake` mutation was performed. This is narrow statement
+elaboration evidence, not a proof or clean release receipt.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0783/Statement.lean` | 0 | canonical target, checked expansion, four mutation declarations, and empty-family boundary elaborated; printed `MartinsAxiom.{u} : Prop` |
+| `python3 Stage1_Instances/THM-M-0783/check_statement.py` | 0 | expression SHA-256 `c5896a33...b5599ada`; all four structural mutations distinguished; toolchain and mathlib pins matched |
+| `sha256sum Stage1_Instances/THM-M-0783/Statement.lean Formalizations/Lean/lean-toolchain Formalizations/Lean/lake-manifest.json` | 0 | `c7adfe1b...f757d40`, `651c8acc...d2`, `321626c8...2d81` |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | pinned revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 targets valid |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0783` | 0 | rank 788, planned lifecycle, theorem incomplete |
+| `python3 -m json.tool` on `intake.json` and `statement.json` | 0 | both structured artifacts are valid JSON |
+| scoped Lean forbidden-token scan | 0 | no `axiom`, `opaque`, proof placeholder, or fake proof body in owned Lean source |
+| `git diff --check -- Stage1_Instances/THM-M-0783 .stage1-worker-selftest.json` | 0 | no whitespace errors |
+
+The statement artifact defines a proposition only and contains no assumed constant or proof of
+Martin's axiom. Anchor audit, obligation freeze, proof classification, hermetic replay, and
+independent acceptance remain open and prevent audit or theorem completion.

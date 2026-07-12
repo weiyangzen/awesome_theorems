@@ -18,3 +18,8 @@ The intake root remains `[H2, M3, R4]`: statement/interface work does not promot
 and the primary-source edition/page/translation review remains open. Intake evidence is in
 `validation.md`; exact statement commands and results are in `statement-validation.md`, and the
 architecture boundary is recorded in `obligation-tree-validation.md`.
+
+The proof phase adds `Proof.lean`, whose explicit fiber selector invokes
+`Classical.choice` and whose root theorem proves the exact frozen target.
+`proof-receipt.json` and `proof-validation.md` record provisional worker
+evidence; downstream validation, release, and master acceptance remain open.

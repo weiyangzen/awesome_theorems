@@ -1,4 +1,4 @@
-# THM-M-0783 rev-5.6 intake
+# THM-M-0783 rev-5.6 dossier
 
 This directory is the `planned` rev-5.6 instance for Martin's axiom. The repository source describes
 the item only as an "axiomatization of forcing" and labels it verified. That wording does not state
@@ -33,7 +33,21 @@ The canonical record and open intake DAG are in `intake.json`. Source fidelity a
 between definition, consistency, and consequences are recorded in `source_statement_crosswalk.md`.
 Commands and exact results for this worker's structural self-test are in `validation.md`.
 
+## Statement phase
+
+`Statement.lean` now freezes the object-level proposition
+`Stage1Instances.THM_M_0783.MartinsAxiom`. It fixes the convention that smaller conditions are
+stronger, defines compatibility, ccc, density, and forcing filters locally, and states `MA(kappa)`
+for every `kappa < Cardinal.continuum`. The indexed family has `Cardinal.mk I <= kappa`.
+
+The statement uses only `Mathlib.SetTheory.Cardinal.Continuum`. A checked definitional transport expands the canonical
+target, four expression-level mutations are distinguished, and the empty-family boundary has a
+kernel-checked witness. Exact fingerprints and conventions are recorded in `statement.json`.
+
+Crucially, the Lean file defines a `Prop`; it neither declares an axiom nor constructs an inhabitant.
+Statement elaboration therefore preserves the intake's `H5` barrier and supplies no proof credit.
+
 ## Status
 
-Lifecycle is `planned`. Audit completion and theorem completion are both false. Master acceptance
-is pending, and no later phase or checklist state is claimed here.
+Lifecycle is `planned`. The statement phase is self-tested pending master acceptance. Audit
+completion and theorem completion are both false, and no later phase or checklist state is claimed.

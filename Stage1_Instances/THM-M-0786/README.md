@@ -1,0 +1,17 @@
+# THM-M-0786 rev-5.6 intake
+
+This directory is the fail-closed `planned` intake for Martin's Borel determinacy theorem. The
+repository phrase "Borel games are determined" is provisionally scoped to Gale-Stewart games in
+which two players alternately choose natural numbers and the resulting play belongs, or does not
+belong, to a Borel payoff set in Baire space.
+
+Donald A. Martin's 1975 paper *Borel Determinacy* is identified as the primary source candidate.
+The paper's exact definitions, theorem wording, foundation assumptions, page-level proof crosswalk,
+and errata have not been independently inspected and accepted. In particular, this intake does not
+silently replace arbitrary Borel payoff sets by open, closed, finite, or otherwise easier games.
+
+The manifest label `已验证` is untrusted metadata and provides no human-proof or machine-proof
+credit. The provisional root is `[H1, M4, R3]`: a published complete human proof is identified but
+not source-audited, no exact Lean target or usable formal proof has been accepted, and only an
+intake-level route exists. No accepted proof state, audit completion, or theorem completion is
+claimed.

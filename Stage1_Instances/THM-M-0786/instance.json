@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0786",
+  "item_id": "S56-M-0786-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 791,
+  "legacy_priority_slot": null,
+  "name_zh": "马丁定理",
+  "name_en": "Martin's Borel determinacy theorem",
+  "category": "mathematical logic / set theory",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim": "波雷尔博弈的决定性 (determinacy of Borel games)",
+  "canonical_claim_status": "provisional_human_scope_frozen_exact_source_and_formal_statement_open",
+  "canonical_claim": "For every Borel payoff set A in Baire space, the Gale-Stewart game in which two players alternately choose natural numbers and Player I wins exactly when the resulting sequence lies in A is determined: one of the two players has a winning strategy.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_definition_and_game_encoding"
+  },
+  "domain_and_universes": "Provisional play space is Baire space, encoded as Nat -> Nat; strategies act on finite positions of the appropriate parity. Exact history, legality, and strategy encodings remain for the statement phase.",
+  "quantifiers": [
+    "every payoff set A contained in Baire space",
+    "a proof that A is Borel under the source-selected Baire topology",
+    "the disjunction that Player I or Player II has a winning strategy"
+  ],
+  "hypotheses": [
+    "A is Borel",
+    "players alternate natural-number moves for omega many rounds",
+    "perfect information and the source-selected winning convention"
+  ],
+  "conclusion": "The game is determined: one player has a strategy winning against every opponent strategy.",
+  "statement_choices_requiring_source_audit": [
+    "the source's exact game and strategy definitions",
+    "whether Borel means generated from open sets in omega^omega and which topology presentation is used",
+    "the payoff convention for Player I and its complement for Player II",
+    "the foundation in which the theorem is stated and the choice or transfinite-recursion principles used",
+    "whether the paper states a broader move space or an equivalent coding"
+  ],
+  "excluded_degenerate_cases": "Open, closed, clopen, finite-horizon, finite-move, countable-payoff, and assumed-determined games are not substitutes for arbitrary Borel payoff sets. The axiom of determinacy and projective determinacy are separate claims.",
+  "source_status": "primary_1975_paper_identified; exact statement, definitions, proof pages, assumptions, errata, immutable copy, and independent review open",
+  "source_revisions": {
+    "repository_base": "444819795285695894ff7b29af5c2419e0e000fa",
+    "repository_source": "Docs/researches/math_theorems.md:5782-5787",
+    "primary_candidate": "Donald A. Martin, Borel Determinacy, Annals of Mathematics (2) 102 (1975), no. 2, 363-371, DOI 10.2307/1971035",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "scope_nodes": [
+    "BD-ROOT arbitrary Borel payoff game is determined",
+    "BD-GAME infinite alternating perfect-information game semantics",
+    "BD-BOREL Baire topology and Borel payoff predicate",
+    "BD-STRAT strategies, compatible plays, and winning predicates",
+    "BD-RANK source proof's Borel-rank or inductive machinery, to be audited",
+    "BD-COMP source proof's child-to-root composition, to be audited"
+  ],
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Expected classical set-theoretic mathematics with transfinite arguments; exact ZF/ZFC and choice dependence remains open and no axiom profile is accepted at intake.",
+  "tcb_profile": "Lean 4 kernel and pinned mathlib; exact imports and transitive dependency closure remain open.",
+  "computation_profile": "Noncomputable strategy existence is expected; no executable solver, oracle, certificate, or external theorem is credited.",
+  "formal_system": "Lean 4 plus pinned mathlib, with imports deferred to the statement phase",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0786"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned",
+    "formal_reviewer": "unassigned"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the selected source claim, source edition, game/strategy/Borel encoding, Lean target, toolchain or mathlib pin, foundation profile, validator, or rev-5.6 standard.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake pending master acceptance. Exact source acceptance, canonical Lean elaboration, anchor audit, obligation freeze, proof, trust and provenance checks, hermetic replay, and independent verification remain open; no H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+}

@@ -106,3 +106,21 @@ The generated artifact hashes were
 `typed-graphs.json`. The pre-existing untracked `.lake` link/artifact was used without mutation.
 This architecture self-test accepts no proof body or composition certificate and makes no theorem-
 completion claim; master acceptance remains required.
+
+## Proof phase (2026-07-12)
+
+Base revision: `444819795285695894ff7b29af5c2419e0e000fa`.
+
+`Proof.lean` closes the exact frozen `CanonicalTarget` with a local composition wrapper. It first
+checks `Cardinal.mk_powerset` in the required direction and then applies pinned
+`Cardinal.cantor (Cardinal.mk s)`. No dependency was fetched and the pre-existing canonical
+`.lake` symlink was not modified.
+
+| Command | Result |
+|---|---|
+| `LEAN_BIN=$(cd Formalizations/Lean && lake env which lean); LEAN_PATH_BASE=$(cd Formalizations/Lean && lake env printenv LEAN_PATH); TMP=$(mktemp -d); LEAN_PATH="$LEAN_PATH_BASE" "$LEAN_BIN" -o "$TMP/Statement.olean" Stage1_Instances/THM-M-0767/Statement.lean; LEAN_PATH="$TMP:$LEAN_PATH_BASE" "$LEAN_BIN" Stage1_Instances/THM-M-0767/Proof.lean; rm -rf "$TMP"` | exit 0; exact root plus normalization and Cantor bodies elaborated; each axiom report was exactly `propext`, `Classical.choice`, `Quot.sound` |
+| `python3 Stage1_Instances/THM-M-0767/check_proof.py` | exit 0; exact target, frozen denominator, required bridges, and prohibited-token scan passed |
+
+Receipt `S56-M-0767-PROOF-local-20260712T172134+0800` is provisional worker evidence. The root is
+machine-closed at proof phase, but master acceptance, validation, H0, R0, transitive trust closure,
+hermetic replay, and independent release evidence remain open. No theorem-completion claim is made.
