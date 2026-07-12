@@ -1,0 +1,7 @@
+import Mathlib.Analysis.InnerProductSpace.Spectrum
+
+#check IsCompactOperator
+#check LinearMap.IsSymmetric
+#check ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot
+#check ContinuousLinearMap.finite_dimensional_eigenspace
+#check IsCompactOperator.hasEigenvalue_iff_mem_spectrum

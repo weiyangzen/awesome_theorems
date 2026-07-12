@@ -1,0 +1,17 @@
+{
+  "schema_version": "stage1-task-dag/1.0.0",
+  "theorem_id": "THM-M-0316",
+  "lifecycle_mode": "planned",
+  "state_authority": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+  "accepted_states": [],
+  "tasks": [
+    {"id": "S56-M-0316-INTAKE", "depends_on": [], "state": "provisional_worker_complete"},
+    {"id": "S56-M-0316-STATEMENT", "depends_on": ["S56-M-0316-INTAKE"], "state": "open"},
+    {"id": "S56-M-0316-ANCHOR_AUDIT", "depends_on": ["S56-M-0316-STATEMENT"], "state": "open"},
+    {"id": "S56-M-0316-OBLIGATION_TREE", "depends_on": ["S56-M-0316-ANCHOR_AUDIT"], "state": "open"},
+    {"id": "S56-M-0316-PROOF", "depends_on": ["S56-M-0316-OBLIGATION_TREE"], "state": "open"},
+    {"id": "S56-M-0316-VALIDATION", "depends_on": ["S56-M-0316-PROOF"], "state": "open"},
+    {"id": "S56-M-0316-RELEASE", "depends_on": ["S56-M-0316-VALIDATION"], "state": "open"}
+  ],
+  "status_boundary": "This is a dossier-local open-task projection. It does not edit or override the scheduler DAG and contains no accepted item state."
+}

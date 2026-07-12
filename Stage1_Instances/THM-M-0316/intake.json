@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0316-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0316",
+  "canonical_name": "Riesz-Schauder theory",
+  "source_claim_verbatim_translation": "Spectral theory of compact operators.",
+  "canonical_statement": "The repository source names an umbrella theory rather than one proposition. The intended classical core is provisionally scoped as follows: for a compact linear operator T on a complex Banach space, every nonzero point of the spectrum is an eigenvalue; each nonzero eigenspace is finite-dimensional; and zero is the only possible accumulation point of the spectrum. The source audit must decide whether all three clauses, and any algebraic-multiplicity or resolvent clause, belong to the exact root before the statement gate.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_exact_root_selection_and_statement_phase"
+  },
+  "domain_and_universes": "Provisional: a complex Banach space X and a compact continuous linear endomorphism T : X ->L[C] X; exact Lean universes and scalar generality remain open.",
+  "quantifiers": [
+    "complex Banach space X",
+    "compact continuous linear endomorphism T of X",
+    "spectral value lambda != 0",
+    "for the accumulation clause, arbitrary neighborhoods of nonzero spectral values"
+  ],
+  "hypotheses": [
+    "X is complete",
+    "T is linear and continuous",
+    "T is compact",
+    "lambda is nonzero when invoking the eigenvalue and finite-dimensionality clauses"
+  ],
+  "conclusion": "Provisional conjunction: nonzero spectral values are eigenvalues, their eigenspaces are finite-dimensional, and the spectrum has no nonzero accumulation point.",
+  "statement_choices_requiring_source_audit": [
+    "whether the root is the full spectral theorem or only the nonzero-spectrum/eigenvalue equivalence",
+    "complex scalars versus a more general complete nontrivially normed field",
+    "geometric versus algebraic multiplicity",
+    "whether countability, finite spectrum outside every disk about zero, and the Fredholm alternative are root clauses or consequences",
+    "finite-dimensional spaces and the case zero not in the spectrum"
+  ],
+  "alternate_encodings": [
+    {
+      "target": "IsCompactOperator.hasEigenvalue_iff_mem_spectrum for nonzero scalars",
+      "relationship": "candidate for one root clause only",
+      "checked_witness": null
+    },
+    {
+      "target": "finite spectrum outside each positive-radius disk",
+      "relationship": "candidate encoding of zero as the only accumulation point",
+      "checked_witness": null
+    },
+    {
+      "target": "Fredholm alternative for T - lambda I",
+      "relationship": "closely related theorem and likely proof route, not automatically the same root",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "The zero operator, finite-dimensional spaces, lambda = 0, and a spectrum not containing zero are boundary probes. A self-adjoint or Hilbert-space specialization may not replace the Banach-space claim.",
+  "foundation_profile": "Open: classical spectral theory and choice dependencies require a versioned audit.",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib; exact imports, transitive dependency closure, and axiom report remain open.",
+  "computation_profile": "No computation, oracle, or numerical experiment is credited at intake.",
+  "formal_system": "Lean 4 + pinned mathlib candidate",
+  "source_revisions": "Repository source wording and discovery references are crosswalked in source_statement_crosswalk.md; immutable copies, page-level anchors, assumptions, and errata remain open.",
+  "scope_nodes": [
+    "RS-ROOT exact selected Riesz-Schauder proposition",
+    "RS-SPEC nonzero spectrum implies eigenvalue",
+    "RS-FDIM finite-dimensional nonzero eigenspace",
+    "RS-ACC zero-only spectral accumulation",
+    "RS-FRED Fredholm-alternative relation",
+    "RS-BOUND finite-dimensional and zero-spectrum boundary cases"
+  ],
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0316/README.md",
+    "Stage1_Instances/THM-M-0316/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the selected root clauses, scalar/domain assumptions, source pins, Lean target/imports/toolchain, foundation/TCB policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the source ambiguity and a conservative scope map only. It does not select or elaborate an exact Lean proposition, accept a source mapping, credit a formal candidate, or establish theorem completion."
+}

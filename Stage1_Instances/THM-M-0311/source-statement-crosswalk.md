@@ -42,7 +42,13 @@ The candidate implementation is documented in mathlib's
 inspect its exact declaration, terminal proof body, axioms, imports, and provenance after the
 source-faithful statement is frozen.
 
-Before `H0`, an independent reviewer must inspect immutable primary editions, record pinpoint
-statement and definition boundaries, assumptions and errata, and approve the source-to-canonical
-claim mapping. Before statement credit, the chosen claim and every credited alternate form must be
-elaborated and mutation-tested under the pinned environment.
+The statement phase freezes the repository gloss, rather than the unresolved historical variant,
+as `Stage1Instances.THM_M_0311.RieszFischerTarget`. It quantifies over every measurable carrier and
+measure, asserts both real and complex `Lp` completeness at exponent two, and retains zero, empty,
+and infinite-measure cases. The fully qualified direct form has a checked `iff`; structural
+mutations are distinguished by `check_statement.py`.
+
+Before `H0`, an independent reviewer must still inspect immutable primary editions, record pinpoint
+statement and definition boundaries, assumptions and errata, and approve the historical-source to
+repository-gloss mapping. The statement gate therefore resolves the exact Lean target but does not
+resolve or claim the human-source genealogy.

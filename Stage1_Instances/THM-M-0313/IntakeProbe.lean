@@ -1,0 +1,9 @@
+import Mathlib.Analysis.InnerProductSpace.Adjoint
+import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Basic
+
+#check ContinuousLinearMap.adjoint
+#check IsStarNormal
+#check ContinuousFunctionalCalculus
+#check cfcHom
+#check IsStarNormal.instContinuousFunctionalCalculus
+#check continuousFunctionalCalculus_map_id

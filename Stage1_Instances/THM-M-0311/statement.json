@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0311-STATEMENT",
+  "theorem_id": "THM-M-0311",
+  "lifecycle": "planned",
+  "canonical_statement": "For every measurable space alpha and every measure mu on it, the real-valued and complex-valued L2 spaces of measurable functions modulo almost-everywhere equality are complete.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0311/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0311.RieszFischerTarget",
+    "elaborated_expression_sha256": "38cbb055cfb3734633dad981d0bd36dfb2dd89720a64e09659a1c19aae4c3d84",
+    "statement_file_sha256": "e3be486d1197834f25e0ad9f37846f494c9dbf16d1aea8a87a7d4dbe8f4695cb"
+  },
+  "domain_and_universes": "universe u; alpha : Type u; MeasurableSpace alpha; mu : Measure alpha; scalar codomains Real and Complex; exponent (2 : ENNReal); Prop in universe 0",
+  "ordered_binders": [
+    "alpha : Type u",
+    "[MeasurableSpace alpha]",
+    "mu : Measure alpha"
+  ],
+  "hypotheses": [],
+  "conclusion": "CompleteSpace (Lp Real 2 mu) and CompleteSpace (Lp Complex 2 mu).",
+  "minimal_imports": [
+    "Mathlib.MeasureTheory.Function.LpSpace.Complete"
+  ],
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0311.DirectL2Completeness",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0311.rieszFischerTarget_iff_direct"
+    }
+  ],
+  "boundary_cases": "Zero measure, the empty carrier, and infinite measures are included. Statement.lean checks the zero measure on Empty and counting measure on Nat. No sigma-finiteness or finite-measure hypothesis is imposed.",
+  "excluded_cases": [
+    "the historical Fourier-coefficient realization formulation without a checked source bridge",
+    "raw functions without quotienting almost-everywhere equality",
+    "exponents other than 2",
+    "Banach-valued Lp as a broadened canonical target"
+  ],
+  "foundation_profile": "Lean 4 dependent type theory; the statement introduces no axiom. Foundation and axiom use of a later proof body remain to be audited.",
+  "tcb_profile": "Lean kernel 4.29.0 at commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; pinned mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95.",
+  "computation_profile": "No computation, oracle, experiment, or unchecked certificate is credited.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0311/check_statement.py",
+    "killed": [
+      "removed the complex-scalar conjunct",
+      "changed the arbitrary measurable carrier to Bool",
+      "changed the universally bound measure to an existential measure",
+      "added a finite-measure hypothesis"
+    ],
+    "boundary_proofs": [
+      "zero measure on Empty",
+      "counting measure on Nat"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "status_boundary": "This freezes and elaborates the exact repository-gloss target, its direct checked encoding, four structural mutations, and two boundary checks. It supplies statement evidence only: the source genealogy, proof body, provenance, obligation tree, H0/M0/R0, audit completion, and theorem completion remain open."
+}

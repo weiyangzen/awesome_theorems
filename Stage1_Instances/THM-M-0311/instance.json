@@ -13,24 +13,23 @@
   "category": "analysis / functional analysis",
   "target_system": "Lean 4 + mathlib",
   "literal_source_claim": "Completeness of L^2 spaces.",
-  "canonical_claim_status": "human_scope_identified_exact_source_variant_and_formal_target_open",
+  "canonical_claim_status": "repository_gloss_frozen_as_exact_formal_target_primary_source_crosswalk_open",
   "canonical_claim": "The L^2 space of square-integrable scalar-valued measurable functions, identified up to almost-everywhere equality and equipped with the L^2 norm, is complete.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "status": "open_due_to_source_and_domain_conventions",
-    "module_candidates": [
-      "Mathlib.MeasureTheory.Function.LpSpace.Complete"
-    ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+    "status": "elaborated_self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0311/Statement.lean",
+    "minimal_import": "Mathlib.MeasureTheory.Function.LpSpace.Complete",
+    "declaration_or_expression": "Stage1Instances.THM_M_0311.RieszFischerTarget",
+    "elaborated_expression_hash": "sha256:38cbb055cfb3734633dad981d0bd36dfb2dd89720a64e09659a1c19aae4c3d84",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_toolchain-651c8acc_manifest-321626c8_pp-explicit"
   },
-  "domain_and_universes": "Open at intake: a measurable space alpha, measure mu, and scalar codomain Real or Complex; the selected source must decide whether a more general Banach-valued L2 statement is faithful.",
-  "quantifiers": [],
+  "domain_and_universes": "universe u; alpha : Type u; MeasurableSpace alpha; mu : Measure alpha; scalar codomains Real and Complex; exponent (2 : ENNReal)",
+  "quantifiers": ["alpha : Type u", "[MeasurableSpace alpha]", "mu : Measure alpha"],
   "hypotheses": [],
-  "conclusion": "Completeness of the selected L2 quotient space; exact binders and typeclass hypotheses remain to be frozen.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": "No cases are excluded yet. The statement phase must account for zero measure, empty carrier, infinite measure, real versus complex values, and the almost-everywhere quotient rather than silently imposing sigma-finiteness or finite measure.",
+  "conclusion": "CompleteSpace (Lp Real 2 mu) and CompleteSpace (Lp Complex 2 mu).",
+  "alternate_encodings": [{"target": "Stage1Instances.THM_M_0311.DirectL2Completeness", "relationship": "iff", "checked_witness": "Stage1Instances.THM_M_0311.rieszFischerTarget_iff_direct"}],
+  "excluded_degenerate_cases": "None: zero measure, empty carrier, and infinite measures are retained and checked; no sigma-finiteness or finite-measure premise is introduced.",
   "source_status": "repository_secondary_metadata_and_candidate_primary_sources_only_exact_edition_statement_assumptions_errata_and_review_open",
   "source_revisions": {
     "repository_base": "8f8873f36acbc62e9b41b932a8bb65bf355c8ccf",
@@ -41,7 +40,7 @@
   "discovery_protocol_hash": null,
   "root_vector": {
     "H": "H1",
-    "M": "M4",
+    "M": "M3",
     "R": "R4"
   },
   "audit_complete": false,
@@ -68,7 +67,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. Pinned Lp completeness APIs elaborate at exponent two, but no canonical Lean expression, source review, H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Self-tested planned statement pending master acceptance. The exact real-and-complex L2 completeness proposition elaborates with mutations and boundary fixtures, but source review, proof provenance, H0, M0, R0, accepted proof state, audit completion, and theorem completion are not claimed."
 }

@@ -1,0 +1,7 @@
+import Mathlib.Analysis.Normed.Operator.FredholmAlternative
+
+#check IsCompactOperator
+#check IsCompactOperator.hasEigenvalue_or_mem_resolventSet
+#check IsCompactOperator.hasEigenvalue_iff_mem_spectrum
+#check spectrum.mem_resolventSet_iff
+#check ContinuousLinearMap.isUnit_iff_bijective
