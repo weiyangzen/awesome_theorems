@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0992-STATEMENT",
+  "theorem_id": "THM-M-0992",
+  "lifecycle": "planned",
+  "canonical_statement": "For a real-valued random variable X on a probability space with finite second moment, and every real r > 0, the probability of the closed event r <= |X - E[X]| is at most Var(X) / r^2.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0992/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0992.ChebyshevTarget",
+    "elaborated_expression_sha256": "b162195bc3a51eba84565f1c454e9005c8fec36f2e4f9e502a4ac6e8742cb8e2",
+    "statement_file_sha256": "2bd4c5f2c324432d0544203ddb000385a2affbfc25748a415c9771e6469339aa"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; P : Measure Omega; IsProbabilityMeasure P; X : Omega -> Real; r : Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "P : Measure Omega",
+    "[IsProbabilityMeasure P]",
+    "X : Omega -> Real",
+    "MemLp X 2 P",
+    "r : Real",
+    "0 < r"
+  ],
+  "hypotheses": [
+    "P is a probability measure",
+    "MemLp X 2 P",
+    "0 < r"
+  ],
+  "conclusion": "P {omega | r <= abs (X omega - integral X dP)} <= ENNReal.ofReal (variance X P / r^2)",
+  "direct_imports": ["Mathlib.Probability.Moments.Variance"],
+  "checked_transport": "Stage1Instances.THM_M_0992.chebyshevTarget_iff_pinnedIntakeShape",
+  "pinned_source_relationship": "PinnedIntakeShape directly expands the notation of the canonical formula frozen in intake.json; the checked iff is definitional. The historical S1_M_272 file is discovery input and supplies no accepted proof credit at this node.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0992/check_statement.py",
+    "killed": [
+      "replaced probability-space premise with finite-measure premise",
+      "changed arbitrary sample domain to Real",
+      "moved the MemLp premise outside the random-variable binder",
+      "changed the strict-positive threshold premise to allow zero"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0992.positive_threshold_ne_zero",
+      "Stage1Instances.THM_M_0992.closed_deviation_event"
+    ]
+  },
+  "degenerate_cases": "The threshold is strictly positive, so zero and negative thresholds are excluded. The target deliberately retains constant and zero-variance random variables, while variables without MemLp X 2 P are outside scope. The deviation event is closed and two-sided.",
+  "alternate_encodings": {
+    "extended_variance": "The weaker AEStronglyMeasurable/evariance formulation in the historical file is not substituted for this finite-second-moment probability root.",
+    "standard_deviation_multiplier": "Uncredited until a separate checked transport handles the zero-variance boundary."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates only the exact statement selected at intake. It supplies no anchor-audit, proof-body, theorem-completion, or release evidence."
+}

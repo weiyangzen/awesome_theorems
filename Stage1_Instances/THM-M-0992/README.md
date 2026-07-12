@@ -25,5 +25,11 @@ Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first fai
 the exact Lean statement gate: there is no elaborated declaration, normalized expression hash,
 environment fingerprint, checked transport, or mutation evidence. The theorem is not complete.
 
-The structured claim is in `intake.json`, source correspondence and ambiguities are in
+The structured intake claim is in `intake.json`, source correspondence and ambiguities are in
 `source_statement_crosswalk.md`, and exact intake checks are recorded in `validation.md`.
+
+The dependent statement phase is now self-tested pending master acceptance. `Statement.lean`
+freezes `Stage1Instances.THM_M_0992.ChebyshevTarget` over a probability measure with `MemLp X 2 P`,
+a strictly positive real threshold, and the closed two-sided deviation event. `statement.json` and
+`statement-validation.md` bind its expression, imports, environment, mutations, and status boundary.
+No proof or theorem-completion claim follows from statement elaboration.
