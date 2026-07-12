@@ -29,3 +29,17 @@ Lifecycle is `planned`. The intake deliverable is self-tested, while master acce
 still required. The first downstream gate is exact statement identity: an accountable
 source review must choose the general time-indexed formulation or justify the homogeneous
 discrete-time specialization before the Lean statement can receive credit.
+
+## Statement phase handoff
+
+The dependent statement phase now proposes
+`Stage1Instances.THM_M_1091.ChapmanKolmogorovTarget` in `Statement.lean`. It selects the
+homogeneous discrete-time Markov-kernel reading as the narrowest direct formal expansion of the
+repository's "semigroup property of transition probabilities" gloss. `statement.json` freezes
+the explicit expression and environment hashes, while `target_iff_integralTarget` checks the
+measurable-set integral form. Four structural mutations and both zero-step boundaries are tested
+by the recipes in `statement-validation.md`.
+
+This is statement-only evidence pending master acceptance. The general inhomogeneous three-time
+family and continuous-time semigroup remain uncredited alternate scopes, and primary-source
+fidelity remains an anchor-audit obligation. No theorem proof or completion is claimed.
