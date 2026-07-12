@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1024-STATEMENT",
+  "theorem_id": "THM-M-1024",
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite dimension d and Borel probability law mu on real Euclidean d-space, mu is infinitely divisible if and only if it has a unique Levy triplet satisfying the symmetric positive-semidefinite covariance, Levy-measure, and frozen characteristic-exponent conditions.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1024/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1024.LevyKhintchineTarget",
+    "statement_file_sha256": "197a7197043d6645b3a2e0a190c57571f93521686da2a84a264faef959481a87"
+  },
+  "ordered_binders": [
+    "d : Nat",
+    "mu : Measure (EuclideanSpace Real (Fin d))"
+  ],
+  "hypothesis": "InfinitelyDivisible includes mu(univ)=1 and probability convolution roots for every positive n.",
+  "conclusion": "There exists a unique drift/covariance/jump-measure triplet satisfying the frozen representation predicate.",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic"
+  ],
+  "conventions": {
+    "fourier_sign": "+i, matching mathlib charFun",
+    "gaussian_factor": "-1/2",
+    "compensation": "closed unit ball, norm x <= 1",
+    "levy_measure": "nu {0} = 0 and Integrable (min 1 (norm x)^2) nu",
+    "uniqueness": "ExistsUnique at the frozen convention"
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": [
+    "existence without uniqueness",
+    "dimension-one specialization",
+    "Levy integrability without the zero-atom condition",
+    "open rather than closed unit-ball compensation"
+  ],
+  "boundary_tests": [
+    "dimension zero is retained and its Euclidean space is inhabited",
+    "zero covariance and zero jump measures are not excluded by extra nondegeneracy hypotheses"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact local target and structural mutations elaborate. No Levy-Khintchine proof, source audit acceptance, or theorem-completion credit is claimed."
+}

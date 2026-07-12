@@ -18,6 +18,13 @@ The root must cover both directions of the equivalence and the convention-relati
 the triplet. A result merely defining the exponent, proving one direction, or handling only compound
 Poisson laws is not a substitute.
 
+## Statement artifact
+
+The dependent statement phase now provides `Statement.lean`, with the exact local declaration
+`Stage1Instances.THM_M_1024.LevyKhintchineTarget`, and `statement.json`. The target and four
+structural mutations elaborate using one pinned mathlib import. This remains provisional worker
+evidence pending master acceptance and supplies no proof credit.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M4, R3]`. The source theorem is pinpointed,
