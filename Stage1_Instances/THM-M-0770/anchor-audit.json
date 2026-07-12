@@ -1,0 +1,100 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0770-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0770",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "1c79616e19a84057db087026c82a5015599a2b18",
+  "canonical_target": "Stage1Instances.THM_M_0770.ZornsLemmaTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "GitHub repository search for external Lean developments"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_commit_url": "https://github.com/leanprover-community/mathlib4/commit/8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_zorn_source_sha256": "706b55e103d64d65f1bb9668e3b0f821483c0536d6e87875a2717771410de14c",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0770-C01",
+      "project": "awesome_theorems",
+      "revision": "1c79616e19a84057db087026c82a5015599a2b18",
+      "module": "Stage1_Instances/THM-M-0770/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0770.ZornsLemmaTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "canonical proposition definition",
+      "body_provenance": "definition; no proof body",
+      "placeholder_or_axiom_status": "not a theorem declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0770-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Order.Zorn",
+      "declaration": "zorn_le_nonempty",
+      "kind": "exact_upstream_theorem_after_partial-order specialization",
+      "normalized_match": "same binders, nonempty-chain boundedness premise, and IsMax conclusion; upstream accepts the weaker Preorder instance and therefore specializes directly to PartialOrder",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "body_provenance": "source theorem delegates to exists_maximal_of_nonempty_chains_bounded, whose terminal construction uses maxChain_spec from Mathlib.Order.CompleteLattice.Chain",
+      "placeholder_or_axiom_status": "locally elaborated; #print axioms reports propext, Classical.choice, and Quot.sound; no sorryAx reported",
+      "classification": "M0-L_candidate",
+      "integration_status": "already pinned by lake-manifest and exact repo-local wrapper elaborates in AnchorAudit.lean"
+    },
+    {
+      "candidate_id": "S56-M-0770-C03",
+      "project": "sterraf/ChainBounding",
+      "revision": "2a8bf4ff2ef7e5e3b2d0710c554c27b2d9cf9925",
+      "commit_url": "https://github.com/sterraf/ChainBounding/commit/2a8bf4ff2ef7e5e3b2d0710c554c27b2d9cf9925",
+      "module": "GreatestGoodChain",
+      "declaration": "zorn",
+      "kind": "external_related_zorn_proof",
+      "normalized_match": "requires Inhabited and bounds for every chain, then concludes a project-local IsMaximal; bridgeable mathematically but not the exact declaration type",
+      "toolchain": "historical project toolchain not integrated or replayed",
+      "body_provenance": "raw source at immutable commit constructs zorn from its unbounded_chain theorem",
+      "placeholder_or_axiom_status": "the inspected GreatestGoodChain.lean body has no sorry token, but transitive closure and toolchain were not locally validated",
+      "classification": "M3_external_support_only",
+      "integration_status": "not integrated because pinned mathlib already supplies an exact dependency-legal theorem"
+    },
+    {
+      "candidate_id": "S56-M-0770-C04",
+      "project": "MourenZZa/AC_iff_ZL_iff_WOP",
+      "revision": "5259278fcc28d679c15f1bc0d5ca91a9c16760de",
+      "commit_url": "https://github.com/MourenZZa/AC_iff_ZL_iff_WOP/commit/5259278fcc28d679c15f1bc0d5ca91a9c16760de",
+      "module": "AC_iff_ZL_iff_WOP.MyProject.Test",
+      "declarations": ["zorn", "aoc_implies_zorn"],
+      "kind": "external_rejected_placeholder_development",
+      "normalized_match": "project-local relativized predicate has a different and apparently reversed strict conclusion",
+      "body_provenance": "raw source at immutable commit",
+      "placeholder_or_axiom_status": "multiple sorry placeholders occur, including aoc_implies_zorn",
+      "classification": "rejected",
+      "integration_status": "ineligible for proof credit"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Zorn\"+language:Lean",
+      "result": "total_count=2; both repositories audited above",
+      "immutability_boundary": "dated discovery response; each candidate was separately bound to a full commit"
+    },
+    {
+      "surface": "grep.app public code search",
+      "query": "zorn_le_nonempty, language Lean",
+      "result": "HTTP 429 during this run",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M0-L_candidate_pending_downstream_acceptance",
+  "root_classification_reason": "The exact canonical proposition is closed by a narrow local wrapper around zorn_le_nonempty from the already pinned mathlib revision. This audit validates type compatibility and reports the declaration's axioms, but the proof, validation, and release nodes have not accepted the candidate.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the canonical expression, toolchain, mathlib revision, Zorn source digest, declaration type, or reported axiom set changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes a bounded immutable formal-anchor inventory and an exact elaboration check. It does not accept proof-node credit, audit completion, human-source fidelity, obligation composition, release evidence, or theorem completion."
+}

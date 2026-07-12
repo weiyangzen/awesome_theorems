@@ -1,0 +1,134 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0721-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0721",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "4c5f3b4e2345949e13133860c3bbafd5be5d557b",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_0721.ExistsNPCompleteLanguage",
+    "elaborated_expression_sha256": "758b1033903c92b231a24ae3fb5e01e0bbb0d6fdb0bc41f809c062deb7b4b204",
+    "statement_file_sha256": "6761ca3100ebbb97a67dccb11f6ecca6e38c8872f81ceb4a98b89fbf5e2374bd"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "computable_module": "Mathlib.Computability.TuringMachine.Computable",
+    "computable_source_sha256": "acb5fa046c00afd1f85570d4439653b009b7353d7ed93aa7a6fc52dae346a59b",
+    "reduce_module": "Mathlib.Computability.Reduce",
+    "reduce_source_sha256": "30513e477c461fdce1518542f4dc16085f1d98ab47ba2bfbc28d5b741b18e556",
+    "mathlib_license": "Apache-2.0"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0721-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Computability.TuringMachine.Computable",
+      "declarations": [
+        "Turing.TM2ComputableInPolyTime",
+        "Turing.idComputableInPolyTime",
+        "Turing.TM2ComputableInPolyTime.comp"
+      ],
+      "kind": "statement_substrate_only",
+      "normalized_match": "The frozen target uses TM2ComputableInPolyTime for its verifier and reduction witnesses, but the pinned tree has no NP, NP-completeness, SAT, or Cook-Levin root using this interface.",
+      "body_provenance": "The structure and identity machine have bodies in the immutable source; composition is declared with proof_wanted and therefore supplies no checked composition theorem.",
+      "placeholder_or_unsafe_status": "No root candidate exists. The nearby composition declaration is explicitly proof_wanted and cannot receive proof credit.",
+      "classification": "M2_substrate_only",
+      "integration_status": "Already pinned locally; no theorem capable of closing the existential target was found."
+    },
+    {
+      "candidate_id": "S56-M-0721-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Computability.Reduce",
+      "declaration": "ManyOneReducible",
+      "kind": "different_reducibility_notion",
+      "normalized_match": "A computable many-one reduction over Primcodable types, not the frozen TM2 polynomial-time binary-word reduction.",
+      "body_provenance": "Immutable source defines the reduction and proves reflexivity/transitivity.",
+      "placeholder_or_unsafe_status": "Checked mathlib definitions, but no polynomial-time transport or NP-completeness endpoint is present.",
+      "classification": "supporting_anchor_only",
+      "integration_status": "Not an exact target and cannot close either frozen NP conjunct."
+    },
+    {
+      "candidate_id": "S56-M-0721-C03",
+      "project": "AEjonanonymous/Cook-Levin-Lean",
+      "repository": "https://github.com/AEjonanonymous/Cook-Levin-Lean",
+      "revision": "f564ae98d4c5065bda0b1966cc551aab1e32ea7b",
+      "toolchain": "leanprover/lean4:v4.28.0",
+      "mathlib_revision": "v4.28.0",
+      "module": "Cook-Levin-Lean4",
+      "declaration": "cook_levin_final_soundness",
+      "source_sha256": "8c8a0e4ffc8b2eafdf0144d299925349c0745717da6d2652b242fd93bb1c6a26",
+      "kind": "fixed_tableau_encoding_support",
+      "normalized_match": "Proves properties of a parameterized CNF/tableau assignment. It does not define NP, polynomial-time many-one reductions, SAT membership in NP, universal hardness, or an existential NP-complete language.",
+      "body_provenance": "The single immutable Lean file contains concrete clause and tableau proofs; no sorry or axiom token was found by the scoped audit.",
+      "placeholder_or_unsafe_status": "No textual placeholder found, but the advertised Cook-Levin scope is much broader than the terminal theorem type.",
+      "classification": "external_supporting_example_only",
+      "integration_status": "Different toolchain and mathlib pin; no exact or transportable root, so integration is unwarranted."
+    },
+    {
+      "candidate_id": "S56-M-0721-C04",
+      "project": "DominicBreuker/cook-levin-lean",
+      "repository": "https://github.com/DominicBreuker/cook-levin-lean",
+      "revision": "4c0ad8c978b2e4f4026c5e787ad527121b92d380",
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "b9cac3012115e37d51d1b3c9156a94db19d1d064",
+      "module": "CookLevin.Complexity.NP.SAT.CookLevin",
+      "declaration": "CookLevin",
+      "type": "NPcomplete SAT",
+      "source_sha256": "ebf6f47256be9bc23142cc076a2e303b9f24dbdee5e2569bdd5f0b55e2deb3ae",
+      "kind": "headline_root_in_alternate_framework",
+      "normalized_match": "The project has an NP-complete SAT theorem, but its own immutable README reports sorryAx in the headline theorem and a size-bounded, not runtime-bounded, current reduction definition.",
+      "body_provenance": "CookLevin composes project-local reduction endpoints; hardness transitively reaches NPhard_GenNP. The README records seven built-code sorry gaps and two sorry-free vacuous definitions on the proof path.",
+      "placeholder_or_unsafe_status": "README reports #print axioms CookLevin includes sorryAx and explicitly says the theorem is not yet faithful.",
+      "classification": "M5",
+      "integration_status": "Rejected: proof gap, unfaithful reduction contract, different toolchain/dependency closure, and no checked transport to the frozen TM2 verifier target.",
+      "reopen_when": "An immutable revision has no proof gaps or vacuous proof-path definitions, uses a runtime polynomial reduction, and a checked encoding/model transport is locally integrated."
+    },
+    {
+      "candidate_id": "S56-M-0721-C05",
+      "project": "facebookresearch/atlas-lean",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.TheoryOfComputation.code.NPCompleteness",
+      "declaration": "CookLevin.cook_levin",
+      "type": "IsNPComplete SATLang",
+      "source_sha256": "4d18245d2f337f2c01fcc45b8c4e82d43e90f5e4ae9d27f9759b3c34df8b008c",
+      "kind": "headline_root_in_alternate_framework",
+      "normalized_match": "The endpoint is NP-completeness for a formula-valued singleton-word language under an NTM-based framework, not the frozen Bool-word TM2 verifier formulation; a nontrivial transport would be required.",
+      "body_provenance": "The immutable file's root depends on tableau correctness, SAT decision, and polynomial reduction lemmas whose bodies contain sorry.",
+      "placeholder_or_unsafe_status": "Direct sorry bodies occur in root-relevant declarations including tableau_from_accepting_branch, accepts_from_tableau, buildTableauFormula_correct, satNTM_decides, and cookLevinReductionFn_polyTime.",
+      "classification": "M5",
+      "integration_status": "Rejected despite matching local pins: the root is placeholder-dependent and no exact checked transport exists.",
+      "reopen_when": "The root-relevant sorry dependencies are eliminated and an exact transport to the frozen binary-string TM2 target is implemented and audited."
+    }
+  ],
+  "external_search": {
+    "surfaces": [
+      "GitHub public repository search for quoted Cook-Levin plus Lean",
+      "Sourcegraph public Lean search for NPComplete, Cook-Levin, CookLevin, and NP complete"
+    ],
+    "result": "GitHub returned two specifically named Cook-Levin Lean repositories. Sourcegraph reached its 100-match bound across four repositories; the only general headline candidate in the returned Lean code was Atlas, while other hits were domain-specific or unrelated identifier uses.",
+    "limitations": "Bounded, dated discovery evidence only. Sourcegraph reported a shard match limit, so this is not a claim of global absence or exhaustive external coverage."
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "Pinned mathlib supplies only the machine substrate, and every audited external headline candidate is either not an NP-completeness theorem for any faithful framework or is placeholder/contract dependent in a different encoding.",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "faithful SAT syntax and binary encoding",
+      "SAT membership in the frozen verifier-based NP",
+      "runtime-polynomial Cook-Levin reduction from every frozen InNP language",
+      "checked transport from any external machine and encoding framework"
+    ]
+  },
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The immutable candidate inventory and fail-closed classifications complete this anchor-audit node only. No source H0, obligation-tree acceptance, proof closure, validation, independent receipt, or theorem-completion credit is claimed."
+}
