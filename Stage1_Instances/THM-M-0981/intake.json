@@ -7,19 +7,19 @@
   "canonical_statement": "A probability measure assigns zero to the empty event, one to the whole sample space, and is countably additive on pairwise disjoint measurable events.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": "AwesomeTheorems.Stage1.S1_M_261",
-    "declaration_or_expression": "AwesomeTheorems.Stage1.S1_M_261.StatementShape",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "module": "Stage1_Instances/THM-M-0981/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0981.KolmogorovAxiomsTarget",
+    "elaborated_expression_hash": "sha256:1170cf6dac37cd1a8b7dfbda1a3cc3d22ddb94a5c3846f16d90dd27541766c2a",
+    "environment_fingerprint": "See statement.json: Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "gate_state": "self_tested_pending_master_acceptance"
   },
   "domain_and_universes": "Omega : Type u; [MeasurableSpace Omega]; P : Measure Omega; events A : Nat -> Set Omega",
   "quantifiers": ["Omega : Type u", "P : Measure Omega", "A : Nat -> Set Omega"],
   "hypotheses": ["IsProbabilityMeasure P", "every A n is measurable", "the family A is pairwise disjoint"],
   "conclusion": "P empty = 0, P univ = 1, and P (iUnion A) = tsum (fun n => P (A n))",
   "alternate_encodings": [
-    {"target": "ProbabilityMeasure Omega", "relationship": "subtype packaging of a normalized Measure", "checked_witness": "candidate only: probabilityMeasure_toMeasure_axioms; credit deferred to statement phase"},
-    {"target": "Measure Omega plus IsProbabilityMeasure P typeclass", "relationship": "class-based packaging used by the candidate root", "checked_witness": "candidate only: kolmogorovAxioms_of_isProbabilityMeasure; credit deferred to statement phase"}
+    {"target": "ProbabilityMeasure Omega", "relationship": "subtype packaging of a normalized Measure", "checked_witness": "Stage1Instances.THM_M_0981.target_iff_probabilityMeasurePackaging"},
+    {"target": "Measure Omega plus explicit IsProbabilityMeasure P premise", "relationship": "canonical packaging selected at intake", "checked_witness": "Stage1Instances.THM_M_0981.target_iff_pinnedCandidateSourceShape"}
   ],
   "degenerate_cases": "The empty event and empty disjoint family are included. No nonempty sample-space assumption is added; normalization itself makes an empty measurable space uninhabitable as a probability-measure instance.",
   "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",

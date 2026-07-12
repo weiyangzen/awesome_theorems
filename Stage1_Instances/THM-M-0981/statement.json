@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0981-STATEMENT",
+  "theorem_id": "THM-M-0981",
+  "lifecycle": "planned",
+  "canonical_statement": "For every measurable sample type, every measure normalized by IsProbabilityMeasure assigns zero to the empty event, one to the whole space, and is countably additive on pairwise disjoint measurable Nat-indexed event families.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0981/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0981.KolmogorovAxiomsTarget",
+    "elaborated_expression_sha256": "1170cf6dac37cd1a8b7dfbda1a3cc3d22ddb94a5c3846f16d90dd27541766c2a",
+    "statement_file_sha256": "408aadc82cfb3f51828d957ef6f8a0e2b15287060ea0ae8defe56a24af3454b3"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; P : Measure Omega; A : Nat -> Set Omega; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "P : Measure Omega",
+    "IsProbabilityMeasure P",
+    "A : Nat -> Set Omega"
+  ],
+  "hypotheses": [
+    "IsProbabilityMeasure P",
+    "forall n, MeasurableSet (A n)",
+    "Pairwise (Disjoint on A)"
+  ],
+  "conclusion": "P empty = 0 and P univ = 1, and for every measurable pairwise-disjoint event family A, P (iUnion A) = tsum (fun n => P (A n)).",
+  "direct_imports": ["Mathlib.MeasureTheory.Measure.ProbabilityMeasure"],
+  "checked_transports": [
+    "Stage1Instances.THM_M_0981.target_iff_pinnedCandidateSourceShape",
+    "Stage1Instances.THM_M_0981.target_iff_probabilityMeasurePackaging"
+  ],
+  "pinned_source_declaration": "AwesomeTheorems.Stage1.S1_M_261.StatementShape",
+  "pinned_source_relationship": "PinnedCandidateSourceShape is a direct local expansion of the historical candidate at repository base 32f565ebdf8b093386e287c150f0a2c7292903dc. The checked iff uses rfl. The historical broad-import module remains discovery input, not proof evidence.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0981/check_statement.py",
+    "killed": [
+      "removed event measurability premise",
+      "changed Nat-indexed countable family to a Fin 2 family",
+      "changed the universal event-family binder to an existential binder",
+      "removed the probability-normalization premise"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0981.emptyFamilyBoundary"]
+  },
+  "degenerate_cases": "The empty event and constant-empty event family are included. No Nonempty Omega premise is added. IsProbabilityMeasure P itself rules out an inhabitant on an empty sample type, while the universally quantified target remains well formed there.",
+  "alternate_encodings": {
+    "ProbabilityMeasure Omega": "Checked equivalent subtype packaging via target_iff_probabilityMeasurePackaging. The canonical target retains the intake-selected Measure plus explicit IsProbabilityMeasure premise."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected target with one minimal import, two checked statement transports, four structural mutations, and an empty-family boundary. It supplies no proof or dependent-node evidence."
+}

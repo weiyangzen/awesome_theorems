@@ -15,16 +15,21 @@ proof credit from the legacy `S1_M_261.lean` wrapper or from the untrusted sourc
 | Foundations | Lean 4 kernel and pinned mathlib | Exact toolchain, imports, axioms, TCB, and dependency fingerprint remain open |
 
 The structured binder order, hypotheses, conclusion, alternate packaging candidates, and boundary
-cases are frozen in `intake.json`. `source_statement_crosswalk.md` records the primary-source
-location and the work still required for H0.
+cases are frozen in `intake.json`. The statement phase is now self-tested in `Statement.lean`,
+`statement.json`, and `statement-validation.md`: the exact target elaborates with one direct import,
+and checked iff theorems connect both the historical expanded shape and `ProbabilityMeasure`
+subtype packaging. `source_statement_crosswalk.md` records the primary-source location and the work
+still required for H0.
 
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
-Only intake is self-tested here. No dependent phase or theorem-completion gate is claimed.
+Intake and statement are worker-self-tested pending master acceptance. No later phase or
+theorem-completion gate is claimed.
 
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is
-the exact statement gate: there is no accepted normalized expression hash, environment fingerprint,
-checked transport, or mutation result. The theorem is not complete.
+Lifecycle is `planned`; provisional root vector remains `[H1, M3, R3]`. The statement node now has
+a normalized expression hash, environment fingerprint, checked transports, and mutation results,
+but master acceptance is pending. The next dependent gate is anchor audit. The theorem is not
+complete.
