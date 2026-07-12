@@ -128,4 +128,27 @@ def hormanderTarget : Prop :=
 #check hormanderTarget
 #check @hormanderTarget
 
+/-- The exact distribution-level analytic core obtained by expanding `IsHypoelliptic`. -/
+def ExpandedHypoellipticCore : Prop :=
+  forall (n r : Nat) (Omega : TopologicalSpace.Opens (Euclidean n))
+      (X0 : Coefficients n) (X : Fin r -> Coefficients n) (c : Euclidean n -> Real)
+      (mu : Measure (Euclidean n)) (A : SumOfSquaresFormalAdjoint Omega X0 X c),
+    SmoothCoefficients Omega X0 ->
+    (forall j, SmoothCoefficients Omega (X j)) ->
+    ContDiffOn Real ⊤ c (Omega : Set (Euclidean n)) ->
+    BracketGenerating Omega X0 X ->
+    forall T PT : ScalarDistribution Omega,
+      IsDistributionalImage A T PT ->
+      IsSmoothDistribution mu PT ->
+      IsSmoothDistribution mu T
+
+/-- Checked composition certificate from the expanded analytic core to the canonical root. -/
+theorem expandedCore_composes_hormanderTarget
+    (core : ExpandedHypoellipticCore) : hormanderTarget := by
+  intro n r Omega X0 X c mu A hX0 hX hc hbracket T PT himage hsmooth
+  exact core n r Omega X0 X c mu A hX0 hX hc hbracket T PT himage hsmooth
+
+#check ExpandedHypoellipticCore
+#check expandedCore_composes_hormanderTarget
+
 end Stage1Instances.THM_M_1259
