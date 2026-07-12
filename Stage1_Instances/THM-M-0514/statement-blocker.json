@@ -1,0 +1,43 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-0514-STATEMENT",
+  "theorem_id": "THM-M-0514",
+  "base_revision": "e9252b1cfdc99a094324c8a10d260769df2eca15",
+  "verdict": "blocked",
+  "first_failed_gate": "exact_source_statement_identification",
+  "canonical_statement": null,
+  "canonical_formal_target": null,
+  "minimal_pinned_imports": null,
+  "statement_elaborated": false,
+  "reason": "The repository source says only 'class field theory of imaginary quadratic fields'. This names a subject, not a proposition. It does not select the first or second main theorem of complex multiplication, a Hilbert-class-field or ring-class-field formulation, a maximal order or nonmaximal order, a modular function, or a generation versus reciprocity conclusion. Selecting any one of these would substitute mathematics absent from the source record.",
+  "unresolved_inputs": [
+    "an immutable primary-source edition and exact theorem/page or formula locator, with assumptions and errata independently reviewed",
+    "the first main theorem, second main theorem, or another precise theorem family",
+    "the imaginary quadratic field or order, maximality, conductor, discriminant, and complex embedding conventions",
+    "the modular function or CM value and all normalization and exceptional-unit conventions",
+    "the Hilbert class field or ring class field and the exact generation, algebraicity, or Artin-action conclusion",
+    "ordered binders, hypotheses, boundary cases, and a source-faithful Lean encoding"
+  ],
+  "lean_surface_assessment": "The pinned intake probe elaborates NumberField.IsCMField, NumberField.maximalRealSubfield, NumberField.classNumber, ClassGroup, and WeierstrassCurve. These are nearby substrate APIs, not a complex-multiplication class-field theorem. The probe therefore cannot be promoted to the canonical target, and its imports cannot be certified as minimal for an unresolved proposition.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "rejected_substitutions": [
+    "NumberField.IsCMField or a theorem about CM number fields",
+    "positivity or finiteness of NumberField.classNumber",
+    "an elliptic-curve or Weierstrass-curve theorem without the CM class-field conclusion",
+    "Kronecker's Jugendtraum, which is separately tracked as THM-M-0515",
+    "Shimura reciprocity, which is separately tracked as THM-M-0513",
+    "an abstract package that assumes the missing class-field theorem as data"
+  ],
+  "retry_condition": "Pin and independently approve one exact primary-source theorem, freeze all objects, conventions, ordered binders, hypotheses, conclusions, and boundary cases, then encode it with minimized pinned imports, serialize the elaborated expression, check any alternate-encoding transports, and run hypothesis/domain/binder/boundary mutation tests.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "blocked_no_worker_selftest"
+}

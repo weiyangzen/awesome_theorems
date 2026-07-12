@@ -1,0 +1,38 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "THM-M-0500-OBLIGATION-TREE-20260712",
+  "item_id": "S56-M-0500-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0500",
+  "base_revision": "e9252b1cfdc99a094324c8a10d260769df2eca15",
+  "validation_date": "2026-07-12",
+  "registry_version": 1,
+  "registry_denominator_sha256": "c06d16baf16004048b78be89babd76c454d2d44d1ed271ecc51cb376425908a1",
+  "counts": {
+    "obligations": 14,
+    "typed_edges": 26,
+    "graph_families": 7
+  },
+  "root_state": {
+    "machine_debt": "M3",
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "minimal_open_cut": ["M0500-T-NONSUM", "M0500-L-SUPPORT"]
+  },
+  "commands": [
+    {"command": "python3 Docs/tools/check_stage1_standard.py", "exit_code": 0, "summary": "standard and 1546-target projection passed"},
+    {"command": "python3 scripts/stage1_target.py check", "exit_code": 0, "summary": "1546 unique uniform-L0 targets passed"},
+    {"command": "python3 scripts/stage1_target.py show THM-M-0500", "exit_code": 0, "summary": "rank 877, planned, theorem_complete false"},
+    {"command": "python3 Stage1_Instances/THM-M-0500/check_obligation_tree.py", "exit_code": 0, "summary": "14 obligations, 26 typed edges, denominator matched, root open M3"},
+    {"command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0500/ObligationTree.lean", "exit_code": 0, "summary": "conditional exact-root composition elaborated; axioms propext, Classical.choice, Quot.sound"},
+    {"command": "python3 -m json.tool Stage1_Instances/THM-M-0500/{obligation-registry.json,typed-graphs.json,validation-specs.json,obligation-tree-receipt.json,instance.json}", "exit_code": 0, "summary": "each file checked separately; valid JSON"},
+    {"command": "rg -n '\\b(sorry\\|admit)\\b\\|^[[:space:]]*axiom\\b\\|sorryAx' Stage1_Instances/THM-M-0500 -g '*.lean'", "exit_code": 1, "summary": "expected no matches"},
+    {"command": "git diff --check -- Stage1_Instances/THM-M-0500 .stage1-worker-selftest.json", "exit_code": 0, "summary": "no whitespace errors"}
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "known_failures": [
+    "Pinned proof bodies are candidates only and are not integrated or accepted by this phase.",
+    "Primary-source H0, readable R0, full provenance/trust closure, audit completion, release, and theorem completion remain open."
+  ],
+  "status_boundary": "Node-specific receipt for the obligation registry, typed graphs, and conditional composition only. No proof-node acceptance or theorem completion."
+}

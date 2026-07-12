@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-0518-STATEMENT",
+  "theorem_id": "THM-M-0518",
+  "base_revision": "e9252b1cfdc99a094324c8a10d260769df2eca15",
+  "verdict": "blocked",
+  "first_failed_gate": "canonical_formal_target",
+  "canonical_human_statement": "Every semistable elliptic curve over Q is modular.",
+  "canonical_formal_target": null,
+  "reason": "Pinned mathlib supplies rational Weierstrass curves, nonsingularity, local good and multiplicative reduction over one chosen discrete valuation ring, and analytic modular forms. It does not supply the global all-finite-places semistability predicate or the arithmetic relation attaching a rational elliptic curve to a normalized weight-two newform at its conductor. Defining either missing boundary as an unconstrained Prop, or importing the legacy statement-shape records that do so, would not encode Wiles 1995 Theorem 0.4. Therefore there is no exact expression that can truthfully be elaborated, serialized, or mutation-tested.",
+  "unresolved_inputs": [
+    "a pinned Lean model of every finite place of Q and compatible integral/minimal Weierstrass models",
+    "a model-independent global predicate asserting good or multiplicative reduction at every finite place",
+    "an elliptic-curve conductor and its equality with the modular-form level",
+    "normalized weight-two newform or equivalent Hecke-eigenform infrastructure",
+    "an arithmetic attachment relation, such as matching L-series or Galois representations, strong enough to mean genuine modularity",
+    "source-audited choices of level, normalization, coefficient field, and isomorphism transports"
+  ],
+  "lean_surface_assessment": "IntakeProbe.lean elaborates the available local-reduction and analytic-modular-form ingredients under the pinned environment. Repository-local legacy S1_M_064.lean explicitly uses abstract Prop fields for semistability and compatibility and disclaims an exact semistable-modularity theorem. Pinned mathlib and flt-regular contain no terminal semistable elliptic-curve modularity declaration.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "flt_regular_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "probe_sha256": "5e40034134755b909e483850f001a3185016a24e8d53d31667afb8cfce1b07a1"
+  },
+  "retry_condition": "Implement or pin the missing global arithmetic interfaces, audit their definitions against Wiles's conventions, then elaborate the exact universal implication with minimal imports, serialize its expression, check all credited transports, and run the four required mutation classes.",
+  "statement_elaborated": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "gate_state": "blocked_no_worker_selftest"
+}

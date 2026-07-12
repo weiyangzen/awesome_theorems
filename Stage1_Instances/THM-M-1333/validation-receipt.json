@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1333-VALIDATION-local-20260712T132214Z",
+  "item_id": "S56-M-1333-VALIDATION",
+  "theorem_id": "THM-M-1333",
+  "base_revision": "e9252b1cfdc99a094324c8a10d260769df2eca15",
+  "base_tree": "ecdd5f95375e184c9b05439c79293e3c23630fff",
+  "validated_at": "2026-07-12T13:22:14Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "424ef588492ff317278bbe0173753dedc132fb3af027d6f26485837d698ce3ee",
+    "validator_sha256": "0c74058e5b68117066b9e8935a4d4418405195284170f8f1ac96f12b8145f161",
+    "independent_probe_sha256": "84f48dc204b2b18046df8e31af5fcabc1aca61741d85295a84c75e6fd63cbaeb",
+    "statement_sha256": "2ce845ee55e2f9a2b3b1e8850f027b86d1f92a4fba81238da20effdcd6f445da",
+    "obligation_tree_sha256": "e3210141b5569ab100f10fc2408cc7f8050f52af774dcfe5a07a25f669f334e0",
+    "proof_sha256": "f0074aa2b9b0754624f1c7c8505ec50383c228421498880c5eba65037c58dbc1",
+    "proof_receipt_sha256": "2e32bb5c45dbc5364a511ede7c9d523655807c4109fa63f7acfea57649821ce2",
+    "anchor_audit_sha256": "4be35e9f929b18203bd4ba2e9379272fb0c89173107b4cac63e2e74796f7cb0b",
+    "obligation_registry_sha256": "c32f62a2802717fea26db49fdacc462adf5f59dfd05db190577587b865be80de",
+    "typed_graphs_sha256": "e39c4a5455c659587d2f592079b7e069251ba7dfacbd5cf03fbbb68f8524af9b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: owned validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1333/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": ["M1333-L-ZERO-DIM", "M1333-B-DIM", "M1333-T-ASSEMBLE"]
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_statement_packaging_zero_dimension_body_conditional_assembly_and_same_worker_direct_reconstruction",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "pass",
+    "local_provenance_hashes": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "same_worker_differential_probe": "pass_without_importing_Proof_or_ObligationTree",
+    "unconditional_root_proof_body_present": false,
+    "frozen_graph_state": "stale_pre_proof_M4_pending_master_reconciliation",
+    "minimal_mathematical_open_root_cut_set": [
+      "M1333-C-EULER",
+      "M1333-C-INVARIANTS",
+      "M1333-L-COMPACT",
+      "M1333-L-INTEGRAL",
+      "M1333-L-DERIV"
+    ],
+    "hermetic_release_gate": "fail_closed",
+    "independent_distinct_runner_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The exact root is not kernel-closed: the positive-dimensional delayed-Euler, invariant, compactness, integral-limit, and derivative-recovery route has no checked proof body.",
+    "The frozen typed graph predates Proof.lean and still reports every obligation open; only the master may reconcile structured state with proof evidence.",
+    "The run reused shared writable warm .lake artifacts and is not a clean-checkout, cold empty-cache, offline hermetic replay.",
+    "No complete transitive TCB inventory, SBOM/license archive, network-disconnected restoration, or second-platform attestation exists.",
+    "Validation.lean is separately implemented but ran in this worker clone and cache; no distinct verifier identity, independently provisioned runner, second signature, or independently implemented release verifier exists.",
+    "Primary-source H0, readable R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "proof.root_kernel_closure",
+  "retry_condition": "Implement or pin/import exact placeholder-free positive-dimensional Peano existence obligations and reconcile them through the frozen graph; release additionally requires immutable cold offline replay and a distinct signed independent verifier.",
+  "freshness": {
+    "review_due": "before master acceptance and upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "invalidation_inputs": [
+    "validation-spec.json", "check_validation.py", "Validation.lean",
+    "Statement.lean", "ObligationTree.lean", "Proof.lean", "proof-receipt.json",
+    "anchor-audit.json", "obligation-registry.json", "typed-graphs.json",
+    "Lean toolchain", "mathlib revision or source", "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow warm-cache kernel, trust-observation, local provenance, and same-worker differential validation. It is not E0/E1, accepted M0, hermetic or independent-runner evidence, theorem completion, release, or master acceptance."
+}

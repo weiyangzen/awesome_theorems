@@ -16,3 +16,9 @@ mutations serialize differently.
 Lifecycle remains `planned`; the root vector remains `[H1, M4, R3]`. The exact Lean statement is
 self-tested pending master acceptance, but there is no accepted proof state, source H0, audit
 completion, or theorem completion. Statement commands and results are in `statement-validation.md`.
+
+The obligation-tree phase freezes a 17-node ternary circle-method architecture with separate proof,
+refinement, provenance, evidence, trust, documentation, and workflow graphs. The finite-count
+existence bridge and conditional root composition elaborate in `ObligationTree.lean`; the Fourier,
+major-arc, singular-series, and minor-arc leaves remain explicitly open at M4. This architecture
+receipt does not change the lifecycle or root vector and remains pending master acceptance.
