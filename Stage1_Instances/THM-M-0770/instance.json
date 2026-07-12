@@ -1,0 +1,112 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0770-INTAKE",
+  "lifecycle_mode": "planned",
+  "intent": "intake",
+  "theorem_id": "THM-M-0770",
+  "execution_rank": 579,
+  "legacy_priority_slot": null,
+  "canonical_name": "Zorn's lemma",
+  "canonical_statement": "Every nonempty partially ordered set in which every chain has an upper bound in the set has a maximal element.",
+  "canonical_statement_status": "theorem_family_frozen; exact empty-chain convention and source wording remain for the statement phase",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_S56-M-0770-STATEMENT",
+    "discovery_candidates": [
+      "Mathlib.Order.Zorn.zorn_le",
+      "Mathlib.Order.Zorn.zorn_le_nonempty",
+      "Mathlib.Order.Zorn.exists_maximal_of_chains_bounded"
+    ]
+  },
+  "domain_and_universes": "A type alpha in an as-yet-unfixed Lean universe with a PartialOrder instance; a chain is a set of alpha linearly ordered by the inherited <= relation.",
+  "quantifiers": [
+    "for every type alpha with a partial order",
+    "assuming alpha is nonempty",
+    "for every chain c in alpha",
+    "there exists an upper bound of c in alpha",
+    "there exists a maximal element m of alpha"
+  ],
+  "ordered_binders_pending": [
+    "universe level u",
+    "alpha : Type u",
+    "PartialOrder alpha",
+    "Nonempty alpha if the nonempty-chain formulation is selected",
+    "chain upper-bound hypothesis"
+  ],
+  "hypotheses": [
+    "the carrier is nonempty",
+    "the relation is a partial order",
+    "every chain has an upper bound in the carrier"
+  ],
+  "conclusion": "There exists m in the carrier such that no strictly larger carrier element exists (equivalently, m is maximal).",
+  "excluded_degenerate_cases": [
+    "An empty carrier is excluded in the ordinary nonempty-poset formulation",
+    "An upper bound outside the carrier is not sufficient for a subset formulation",
+    "A greatest element is not required",
+    "A maximum of each chain is not required",
+    "Preorders are not silently substituted for partial orders in the canonical human claim"
+  ],
+  "alternate_encodings": [
+    {
+      "target": "all chains, including the empty chain, are bounded above",
+      "relationship": "equivalent candidate because an upper bound for the empty chain supplies an inhabitant",
+      "checked_witness": null,
+      "status": "transport_pending_statement_phase"
+    },
+    {
+      "target": "transitive-relation formulation exists_maximal_of_chains_bounded",
+      "relationship": "more general library formulation whose maximality conclusion specializes to an order",
+      "checked_witness": null,
+      "status": "transport_pending_statement_phase"
+    },
+    {
+      "target": "maximal member of a subset closed under chain upper bounds",
+      "relationship": "relativized formulation requiring membership predicates and an internal upper bound",
+      "checked_witness": null,
+      "status": "not_credited"
+    }
+  ],
+  "foundation_profile": "Lean 4 dependent type theory; classical choice is expected because Zorn's lemma is choice-equivalent, but the exact accepted axiom report is not credited at intake.",
+  "tcb_profile": "Lean 4 kernel v4.29.0 candidate plus mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; exact imports, declaration closure, and axiom report remain open.",
+  "computation_profile": "Noncomputable existence theorem; no native computation, oracle, external solver, or experiment is credited.",
+  "formal_system": "Lean 4 + pinned mathlib",
+  "source_revisions": {
+    "repository_base": "c90787f590a3c33f8b60f77575a97c71b3e93ff6",
+    "metadata_sources": [
+      "Docs/researches/math_theorems.md:5670",
+      "Docs/Stage0_Blueprint.md:21033"
+    ],
+    "mathlib_discovery_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "primary_source_status": "Max Zorn and 1935 are discovery metadata only; publication, edition, page, theorem text, assumptions, and errata are not pinned"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0770/README.md",
+    "Stage1_Instances/THM-M-0770/scope-map.md",
+    "Stage1_Instances/THM-M-0770/source-statement-crosswalk.md"
+  ],
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "S56-M-0770 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the selected source formulation, empty-chain convention, carrier/subset scope, order relation, maximality predicate, Lean target, toolchain/import pins, foundation policy, or rev-5.6 standard.",
+  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "accepted_proof_state": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "A planned intake only. The theorem family and exclusions are frozen, but no exact source pinpoint, canonical Lean expression, statement fingerprint, accepted formal candidate, H0, M0, R0, audit completion, or theorem completion is claimed. The source label 'verified' is untrusted."
+}

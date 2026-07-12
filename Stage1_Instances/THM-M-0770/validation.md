@@ -1,0 +1,28 @@
+# Intake validation
+
+Base revision: `c90787f590a3c33f8b60f77575a97c71b3e93ff6`.
+
+Validation is limited to target/standard consistency, bounded source and formal-candidate discovery,
+JSON syntax, scoped intake invariants, and whitespace. The canonical Lean expression is deliberately
+open, so no exact-type elaboration, axiom report, proof-body acceptance, or kernel-proof result is
+claimed. The worker clone's pre-existing untracked `Formalizations/Lean/.lake` link/artifact is not
+modified or counted as a changed path.
+
+| Command | Result |
+|---|---|
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups, 1546 uniform-L0 Lean 4 targets |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets, ranks 1..1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0770` | exit 0; rank 579, L0/rework_required, planned, theorem_complete false |
+| `rg -n 'theorem.*zorn\|zorn_le\|exists_maximal_of_chains_bounded' Formalizations/Lean/.lake/packages/mathlib/Mathlib --glob '*.lean'` | exit 0; pinned `Mathlib/Order/Zorn.lean` candidates located |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | exit 0; `8a178386ffc0f5fef0b77738bb5449d50efeea95`, matching `lake-manifest.json` |
+
+| `python3 -m json.tool Stage1_Instances/THM-M-0770/{instance,task-dag}.json` (run once per file) | exit 0 for both files |
+| scoped Python intake-invariant check | exit 0; planned lifecycle, zero accepted state, exact owned file set, and all six downstream tasks open |
+| scoped Python prohibited-construct and whitespace check | exit 0; no Lean proof files, forbidden proof constructs, trailing whitespace, tabs, or missing final newlines |
+| `git diff --check` | exit 0; no tracked whitespace errors; the scoped Python check covers this new untracked dossier |
+
+Known downstream failures are primary-source pinning and review, exact statement
+selection and mutation tests, canonical Lean elaboration/fingerprint, candidate and trust audit,
+obligation registry and typed graphs, proof/composition/readability closure, hermetic replay, and
+independent verification. These keep theorem completion false without invalidating this planned
+intake.
