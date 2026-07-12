@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import errno
 import hashlib
 import json
 import os
@@ -462,7 +463,19 @@ def shlex_quote(value: str) -> str:
 def prepare_workspace(slot: int) -> Path:
     workspace = RUNTIME / "workers" / f"slot{slot}"
     if workspace.exists():
-        shutil.rmtree(workspace)
+        # A worker may have just released a clone while its final filesystem
+        # cleanup is still in flight.  Retry ENOTEMPTY rather than aborting
+        # the entire refill pass and leaving otherwise-free slots idle.
+        for attempt in range(6):
+            try:
+                shutil.rmtree(workspace)
+                break
+            except FileNotFoundError:
+                break
+            except OSError as exc:
+                if exc.errno != errno.ENOTEMPTY or attempt == 5:
+                    raise
+                time.sleep(0.2 * (attempt + 1))
     workspace.parent.mkdir(parents=True, exist_ok=True)
     # Shared clones would inherit the 7.5 GiB local Lean build tree.  Create a lightweight
     # source-only worktree instead and let workers inspect the canonical local toolchain read-only.
