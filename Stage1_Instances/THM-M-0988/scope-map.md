@@ -10,12 +10,13 @@
 
 ## Statement-phase decisions
 
-The exact source edition must settle whether variance is required positive or may be zero, and
-whether the theorem states a standard-normal limit after division by the standard deviation or a
-Gaussian with variance `variance X`. The Lean statement must freeze measurability/integrability
-requirements, probability measures, index set, the `n = 0` convention, binder order, universes,
-and the precise `TendstoInDistribution` encoding. Degenerate zero variance must not be silently
-excluded or introduced.
+The exact source edition must still settle whether variance is required positive or may be zero,
+and whether it states a standard-normal limit after division by the standard deviation or a
+Gaussian with variance `variance X`. The statement phase has frozen the Lean encoding matching the
+pinned mathlib declaration: arbitrary source and target universes, explicit probability measures,
+`MemLp (X 0) 2 P`, full-sequence `iIndepFun` and `IdentDistrib`, a target variable with the matching
+Gaussian law, and `TendstoInDistribution` along `atTop`. It includes zero variance. At `n = 0`,
+Lean's total inverse makes `(sqrt 0)⁻¹` zero; this finite initial term does not affect the limit.
 
 ## Explicit exclusions
 
