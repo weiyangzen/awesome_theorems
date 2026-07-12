@@ -1,0 +1,128 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0557-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0557",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "2534080bb6434bc903d482fcebdf9e0a05b94398",
+  "canonical_target": "Stage1Instances.THM_M_0557.HomotopyGroupStructureTarget",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_source_blob": "02446f9239282c4353dba6bcb50655767d91e3f0",
+    "mathlib_source_sha256": "0233597af0b0db82315ec206cacf9b88d62ae7d2cd05a099a8e4c36b17c39104",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "search_protocol": {
+    "order": [
+      "repository-local Lean sources",
+      "all installed dependencies at lake-manifest revisions",
+      "pinned mathlib declaration and terminal-body inspection",
+      "Sourcegraph public Lean index",
+      "GitHub repository and code search"
+    ],
+    "queries": [
+      "HomotopyGroup.Pi",
+      "HomotopyGroup and CommGroup",
+      "homotopy groups",
+      "Lean 4 homotopy groups"
+    ],
+    "cutoff": "2026-07-12",
+    "limitations": "The Sourcegraph searches excluded forks and archived repositories. GitHub repository search exposed jzxia/WhiteheadTheorem, but subsequent API and git access were rate-limited or timed out; unauthenticated GitHub code search returned HTTP 403. These are explicit access limits, not global negative results."
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0557-C01",
+      "project": "awesome_theorems",
+      "revision": "2534080bb6434bc903d482fcebdf9e0a05b94398",
+      "module": "Stage1_Instances/THM-M-0557/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0557.HomotopyGroupStructureTarget",
+      "normalized_match": "exact canonical proposition definition",
+      "body_provenance": "statement only; no theorem body",
+      "placeholder_axiom_unsafe_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as the frozen statement surface; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0557-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Homotopy.HomotopyGroup",
+      "source_path": "Mathlib/Topology/Homotopy/HomotopyGroup.lean",
+      "declarations": [
+        "HomotopyGroup.group",
+        "HomotopyGroup.commGroup"
+      ],
+      "normalized_match": "The local pinnedMathlibCandidate has the literal frozen target type and obtains Group on Pi (n+1) and CommGroup on Pi (n+2) directly from the two instances.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "already materialized at the manifest pin; no dependency mutation required",
+      "terminal_body_provenance": "group transfers the fundamental-group structure along homotopyGroupEquivFundamentalGroup; commGroup applies Eckmann-Hilton after auxGroup_indep, whose proof uses transAt_distrib",
+      "supporting_route": [
+        "GenLoop.loopHomeo",
+        "HomotopyGroup.homotopyGroupEquivFundamentalGroup",
+        "HomotopyGroup.auxGroup_indep",
+        "HomotopyGroup.isUnital_auxGroup",
+        "EckmannHilton.commGroup"
+      ],
+      "placeholder_axiom_unsafe_status": "The terminal source contains no sorry, admit, axiom declaration, unsafe declaration, native_decide, run_tac, or external oracle marker. The exact probe reports no sorryAx. Full transitive trust closure remains downstream.",
+      "classification": "eligible_M0-W_route_pending_dependent_gates",
+      "integration_status": "already in the pinned Lake closure and exact-type checked; obligation-tree, proof integration, transitive provenance/trust, validation, and release receipts remain separate"
+    },
+    {
+      "candidate_id": "S56-M-0557-C03",
+      "project": "awesome_theorems legacy Stage1 surfaces",
+      "revision": "2534080bb6434bc903d482fcebdf9e0a05b94398",
+      "files": [
+        "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_110.lean",
+        "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_035.lean"
+      ],
+      "normalized_match": "only HomotopyGroup.Pi aliases and adjacent uses; no independent exact terminal theorem",
+      "body_provenance": "legacy wrappers over the same mathlib substrate",
+      "classification": "duplicate_legacy_discovery_only",
+      "integration_status": "deduplicated; rev-5.6 inherits no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0557-C04",
+      "project": "jzxia/WhiteheadTheorem",
+      "revision": null,
+      "normalized_match": "repository metadata describes Whitehead's theorem for mathlib homotopy groups, not the group-structure construction; source and terminal declaration could not be immutably inspected",
+      "dependency_feasibility": "not pinned; GitHub API rate limit and git transport timeout prevented immutable revision capture",
+      "classification": "unverified_external_near_miss",
+      "integration_status": "ineligible: no immutable revision, source type, body provenance, dependency graph, or local check"
+    }
+  ],
+  "search_evidence": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global lang:Lean HomotopyGroup.Pi count:100",
+      "result": "matchCount=0 with forks and archived repositories excluded",
+      "response_sha256": "6fe40787c5532e61af034f42521fd89ef627cb41ddb6af24b6b366c4bd6927c2"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global lang:Lean HomotopyGroup CommGroup count:100",
+      "result": "matchCount=0 with forks and archived repositories excluded",
+      "response_sha256": "a915fedb413e5245e4d0fa0e1eb105961263734a82d08fa9cb51c0642d6aa601"
+    },
+    {
+      "surface": "GitHub public APIs and git transport",
+      "query": "Lean 4 homotopy groups; exact HomotopyGroup code",
+      "result": "repository metadata found jzxia/WhiteheadTheorem; code search HTTP 403 rate limit; immutable git inspection timed out",
+      "boundary": "blocked lane; no negative or proof claim"
+    }
+  ],
+  "eligible_anchor": "S56-M-0557-C02",
+  "root_machine_classification_after_node": "M3",
+  "classification_reason": "An exact pinned mathlib route exists and passes a direct kernel probe, but this phase inventories the anchor only. The canonical root remains a proposition definition until the obligation-tree and proof nodes integrate and accept the wrapper with transitive trust and provenance evidence.",
+  "next_integration_action": "After freezing the obligation tree, prove the canonical target with the checked pinnedMathlibCandidate route and audit the transitive bodies and accepted axiom boundary.",
+  "audit_complete_for_phase": true,
+  "audit_complete_for_theorem": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor audit. It assigns no H status, accepts no M0-W root receipt, and does not claim proof, full audit, or theorem completion."
+}

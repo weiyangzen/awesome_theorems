@@ -14,3 +14,8 @@ alternate encoding, environment, and mutation results.
 witness confirms that the two mathlib views cohere, but this statement-phase witness is not proof
 credit for the later proof phase. The provisional root vector remains `[H1, M3, R4]`. No H0 source
 audit, accepted proof state, audit completion, or theorem completion is claimed.
+
+The obligation-tree phase freezes nine semantic obligations in `obligation-registry.json` and
+stores separate typed graphs in `typed-graphs.json`. `ObligationTree.lean` checks only the exact
+child-to-root composition. The audited `rfl` definition remains the open proof-phase obligation
+`M0540-T-UNFOLD`, so the accepted root remains open.

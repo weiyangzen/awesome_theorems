@@ -16,3 +16,9 @@ probe records adjacent APIs only; it is not a proof. The provisional root vector
 The exact formal target and statement-only evidence are recorded in `statement.json` and
 `statement-validation.md`. The scope map, source crosswalk, and open task DAG define downstream
 work. Intake checks remain recorded in `validation.md`.
+
+The obligation-tree phase freezes registry version 1 in `obligation-registry.json` and all seven
+typed graphs in `typed-graphs.json`. Its 35 required mathematical obligations expose the direct
+Finsupp boundary construction, ordered-deletion normalization, cancellation branches, and exact
+root assembly; `M0541-X3` is a non-proof trust overlay. The registry is architecture only: all
+obligations remain open and the first root cut is recorded in `obligation-tree.md`.
