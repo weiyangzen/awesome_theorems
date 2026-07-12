@@ -7,13 +7,13 @@
 - Tempered distributions as continuous linear functionals on that Schwartz space.
 - The exact locally convex topology used on Schwartz space and any asserted topology on its dual.
 
-## Decisions deferred to statement phase
+## Statement decisions
 
-The inspected source must determine whether the result is a definition, an algebraic/topological
-identification, or a representation theorem; whether scalars are real or complex; whether the base
-is `R^n` or a general finite-dimensional real normed space; and whether the dual carries pointwise,
-weak-star, strong, or another topology. It must also fix dimension-zero behavior, universes, binder
-order, continuity structures, and whether equality, equivalence, or homeomorphism is asserted.
+The canonical Lean target uses a general finite-dimensional real normed space, complex-valued
+Schwartz maps and distributions, equality of types, and mathlib's pointwise-convergence topology.
+Dimension zero is included. These choices give an exact elaborated interpretation of the repository
+phrase without upgrading it to a strong-dual homeomorphism. Primary-source review must still decide
+whether this formal target exhausts the intended historical claim before `H0` can be assigned.
 
 ## Explicit exclusions
 

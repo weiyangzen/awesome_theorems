@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1251-STATEMENT",
+  "theorem_id": "THM-M-1251",
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite-dimensional real normed vector space E, complex-valued tempered distributions on E are the complex continuous linear functionals on the complex-valued Schwartz space of E, with the pointwise-convergence topology used by mathlib.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1251/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1251.TemperedDistributionsAreSchwartzDual",
+    "elaborated_expression_sha256": "597f3e4b3a8dd3da2a6eb5e14d5451f854d866cfaa214245b3dfc65c078a8ab9",
+    "statement_file_sha256": "30207dd5e201d4c4a8006af3dd5995ba850cc80bfb572950b682a8dd903277cf"
+  },
+  "domain_and_universes": "universe u; E : Type u; NormedAddCommGroup E; NormedSpace Real E; FiniteDimensional Real E; complex-valued Schwartz maps and complex continuous dual; Prop in Lean universe 0",
+  "ordered_binders": [
+    "E : Type u",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "[FiniteDimensional Real E]"
+  ],
+  "hypotheses": [],
+  "conclusion": "TemperedDistribution E Complex = PointwiseConvergenceCLM (RingHom.id Complex) (SchwartzMap E Complex) Complex",
+  "direct_imports": ["Mathlib.Analysis.Distribution.TemperedDistribution"],
+  "checked_transport": "Stage1Instances.THM_M_1251.target_iff_expandedPointwiseDualTarget",
+  "source_relationship": "The Stage0 phrase is 'the dual of Schwartz space'. The target fixes the finite-dimensional real base and complex scalar convention from the intake scope, and explicitly uses mathlib's documented pointwise-convergence dual. It does not claim equality with a strong-dual topology.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1251/check_statement.py",
+    "killed": [
+      "removed FiniteDimensional Real E assumption",
+      "changed arbitrary finite-dimensional real normed space to EuclideanSpace Real (Fin n)",
+      "moved NormedSpace and FiniteDimensional instances under an inner universal binder"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_1251.zeroDimensional_boundary"]
+  },
+  "degenerate_cases": "Dimension zero is included and kernel-checked. No nonzero-dimension or nontrivial-space assumption is introduced.",
+  "alternate_encodings": {
+    "strong_dual": "Excluded from this statement: mathlib's imported module explicitly uses pointwise convergence rather than the strong topology.",
+    "real_scalars": "Not credited as an alternate encoding; a scalar-change transport has not been supplied."
+  },
+  "foundation_profile": "Lean 4 dependent type theory; the statement and its rfl checks introduce no classical-choice invocation.",
+  "tcb_profile": "Lean kernel 4.29.0, Lake environment, and pinned mathlib revision; only the declared direct import is used.",
+  "computation_profile": "No oracle, native computation, or experimental result.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the pointwise-dual target only. Exact primary-source H0 review, anchor audit, obligation tree, proof, release validation, and theorem completion remain open."
+}

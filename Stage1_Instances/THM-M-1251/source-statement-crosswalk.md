@@ -9,9 +9,10 @@
   on distributions is a modern authoritative candidate, but edition and exact definition/theorem
   anchor remain open.
 
-These are discovery anchors, not `H0` evidence. The statement phase must inspect a stable edition
-and decide whether the repository phrase "the dual of Schwartz space" denotes the continuous dual
-as a set/type or a stronger topological dual identification.
+These are discovery anchors, not `H0` evidence. The statement gate selects the exact interpretation
+already documented by the pinned mathlib module: equality with the complex continuous dual carrying
+pointwise convergence. A stable primary-source inspection is still required to determine whether a
+stronger historical topology was intended; no such stronger claim is credited here.
 
 ## Crosswalk
 
@@ -19,9 +20,9 @@ as a set/type or a stronger topological dual identification.
 |---|---|---|---|
 | "tempered distributions" | continuous functionals on rapidly decreasing tests | `TemperedDistribution E k` or exact replacement | included; parameters open |
 | "Schwartz space" | smooth functions with all polynomially weighted derivatives bounded | `SchwartzMap E k` | included; source convention open |
-| "dual" | continuous linear dual, possibly with specified topology | continuous-linear-map type plus topology | ambiguity explicitly open |
-| base domain | usually `R^n` | finite-dimensional real normed space or Euclidean space | exact domain open |
-| scalars | real or complex distributions | `k = R` or `C` and scalar tower assumptions | open |
+| "dual" | continuous linear dual, possibly with specified topology | `PointwiseConvergenceCLM` over `SchwartzMap` | pointwise topology selected; source-strength audit open |
+| base domain | usually `R^n` | arbitrary finite-dimensional real normed space | selected; includes dimension zero |
+| scalars | real or complex distributions | complex-valued tests and functionals | complex convention selected |
 
 ## Existing Lean boundary
 
@@ -31,6 +32,7 @@ all legacy artifacts unaccepted. Its normalized statement is described as a defi
 pointwise-convergence continuous dual, while it separately records the strong-dual interpretation
 as unresolved. This distinction must be checked against the selected source before elaboration.
 
-Before `H0`, an independent reviewer must verify edition, exact page/theorem or definition, all
-hypotheses, topology and scalar conventions, translations, and errata, and approve every crosswalk
-row. Before `M0`, the chosen Lean expression must elaborate and its proof provenance be audited.
+`Stage1_Instances/THM-M-1251/Statement.lean` elaborates the selected expression and checks its
+direct expansion. Before `H0`, an independent reviewer must verify edition, exact page/theorem or
+definition, all hypotheses, topology and scalar conventions, translations, and errata, and approve
+every crosswalk row. Statement elaboration alone is neither `H0` nor `M0` proof evidence.
