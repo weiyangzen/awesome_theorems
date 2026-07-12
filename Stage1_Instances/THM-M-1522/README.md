@@ -42,3 +42,12 @@ all theorem-completion gates remain open. The theorem is not complete.
 
 The intake commands remain in `validation.md`; exact statement commands and results are recorded
 in `statement-validation.md`.
+
+## Obligation-tree phase
+
+Registry version 1 freezes 16 semantic obligations and seven separate typed graph families. A
+kernel-checked conditional composition consumes the general pointwise-limit package and the
+ergodic invariant-limit identification package to yield the exact root. Those two packages remain
+the open root cut set, so machine debt stays `M3` and no pointwise proof or theorem completion is
+claimed. See `obligation-tree.md` and `obligation-tree-validation.md` for the architecture and exact
+self-test receipt.

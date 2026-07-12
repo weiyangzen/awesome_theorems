@@ -20,12 +20,15 @@ historical-source fidelity still requires independent review.
 | Foundations | Lean 4 kernel and pinned mathlib, with an explicit classical/choice policy | Toolchain, imports, TCB, and axiom profile remain open |
 
 The structured scope is in `intake.json`, source ambiguity and premise mapping are in
-`source_statement_crosswalk.md`, and downstream work is frozen in `task-dag.json`.
+`source_statement_crosswalk.md`, and downstream work is frozen in `task-dag.json`. The obligation
+phase freezes 12 semantic obligations in `obligation-registry.json` and keeps proof, refinement,
+provenance, evidence, trust, documentation, and workflow edges separate in `typed-graphs.json`.
 
 ## Current verdict
 
 Lifecycle remains `planned`; provisional root vector is `[H1, M3, R3]`. `H1` records identified
 primary historical sources without an accepted edition/page/errata review. `M3` records that the
-exact target elaborates but has no credited proof body. The statement node is self-tested pending
-master acceptance. Anchor audit and every later phase remain open; there is no audit-completion or
-theorem-completion claim.
+exact target elaborates but has no credited proof body. The statement, anchor audit, and obligation-
+tree nodes are self-tested pending master acceptance. The minimal open proof cut is the momentum-
+pairing derivative package plus the boundary-along-curve derivative package. Proof, validation, and
+release remain open; there is no audit-completion or theorem-completion claim.

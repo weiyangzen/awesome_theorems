@@ -1,0 +1,145 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1526-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1526",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "2b5a356f0d547597e745bab548db0caac12e6c96",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1526.FreeDiracFactorizationTarget",
+    "statement_file": "Stage1_Instances/THM-M-1526/Statement.lean",
+    "statement_file_sha256": "023a6d029577126ca940736995b65869bc9554d1b81e487c53b322765eb910a2",
+    "elaborated_expression_sha256": "956e5d9f215473f7e3a896cbe5f4e1254d64dd1a29aacd695dc1984a71f06215"
+  },
+  "discovery_order": [
+    "exact repo-local target and legacy discovery source",
+    "complete pinned mathlib Lean source tree",
+    "public Lean code and repository search surfaces",
+    "HEPLean/PhysLean at an immutable commit"
+  ],
+  "search_ledger": [
+    {
+      "surface": "repo-local Lean source",
+      "queries": ["Dirac", "Clifford", "gamma", "Klein-Gordon"],
+      "result": "The frozen proposition and legacy S1_M_194 discovery artifact were found; the legacy file contains adjacent local finite-matrix lemmas but no proof of the frozen target."
+    },
+    {
+      "surface": "mathlib4 complete pinned source tree",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "queries": ["Dirac equation", "Dirac operator", "gamma matrix", "GammaMatrix", "Klein-Gordon", "spinor"],
+      "result": "No matching file or source occurrence. Broader Clifford inspection found the supporting declarations probed in AnchorAudit.lean."
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "Dirac equation Lean theorem prover",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "boundary": "Repository metadata search is bounded discovery only, not proof of global absence."
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "quoted Dirac equation with language Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "boundary": "Blocked lane; no negative result is claimed."
+    },
+    {
+      "surface": "Sourcegraph public search and grep.app",
+      "queries": ["Dirac equation", "Dirac operator", "Klein-Gordon", "GammaMatrix"],
+      "result": "Sourcegraph returned HTTP 502 with an empty body; grep.app returned HTTP 429.",
+      "boundary": "Blocked lanes; no negative result is claimed."
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1526-C01",
+      "project": "awesome_theorems",
+      "revision": "2b5a356f0d547597e745bab548db0caac12e6c96",
+      "module": "Stage1_Instances/THM-M-1526/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1526.FreeDiracFactorizationTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definition of a proposition; no theorem proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as the statement surface; zero proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1526-C02",
+      "project": "mathlib4",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.LinearAlgebra.CliffordAlgebra.Basic",
+        "Mathlib.LinearAlgebra.Matrix.ToLin"
+      ],
+      "declarations": [
+        "CliffordAlgebra",
+        "CliffordAlgebra.ι",
+        "CliffordAlgebra.ι_sq_scalar",
+        "CliffordAlgebra.comp_ι_sq_scalar",
+        "CliffordAlgebra.lift",
+        "CliffordAlgebra.lift_ι_apply",
+        "CliffordAlgebra.ι_mul_ι_add_swap",
+        "Matrix.toLin",
+        "Matrix.toLin_one",
+        "Matrix.toLin_apply",
+        "Matrix.toLin_mul",
+        "Matrix.toLin_mul_apply"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "Clifford generator and matrix-action laws only; no derivative family, slash operator, factorization, or Klein-Gordon consequence",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all twelve declarations elaborate in the pinned Lake environment; no terminal target declaration exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "already pinned and locally checkable, but insufficient for the exact target"
+    },
+    {
+      "candidate_id": "S56-M-1526-C03",
+      "project": "HEPLean/PhysLean",
+      "repository": "https://github.com/HEPLean/PhysLean",
+      "revision": "cd22b0c28882412447d12d5cfde677c4ad999994",
+      "modules": [
+        "Physlib.Relativity.CliffordAlgebra",
+        "Physlib.Relativity.PauliMatrices.CliffordAlgebra"
+      ],
+      "declarations": [
+        "spaceTime.γ0",
+        "spaceTime.γ1",
+        "spaceTime.γ2",
+        "spaceTime.γ3",
+        "spaceTime.γ.γ0_mul_γ0",
+        "spaceTime.γ.γ1_mul_γ1",
+        "spaceTime.γ.γ2_mul_γ2",
+        "spaceTime.γ.γ3_mul_γ3",
+        "spaceTime.γ.ofCliffordAlgebra",
+        "spaceTime.γ.ofCliffordAlgebra_surjective",
+        "PauliMatrix.ofCliffordAlgebra",
+        "PauliMatrix.ofCliffordAlgebra_ι_single"
+      ],
+      "kind": "adjacent_external_gamma_representation",
+      "normalized_match": "Provides concrete 4 by 4 gamma matrices and Clifford maps, but no spacetime derivative operators, free Dirac factor composition, or Klein-Gordon implication. It is not the frozen target or a checked transport to it.",
+      "toolchain": "leanprover/lean4:v4.29.1",
+      "mathlib_revision": "5e932f97dd25535344f80f9dd8da3aab83df0fe6",
+      "source_sha256": {
+        "Physlib/Relativity/CliffordAlgebra.lean": "f85dc696eb4990b2e5ea6322acb55a3c91ad8b20775b02fca042aaaa87258e48",
+        "Physlib/Relativity/PauliMatrices/CliffordAlgebra.lean": "f22c6a33d5c1907e5b30781d889c7821ad851b25112784750fdcb7d8474c482f",
+        "lake-manifest.json": "c191df7004568ad7c6ffd3a92b904f1f3a5f92447d102bc0466adbf94a702bd0",
+        "lean-toolchain": "ae7ee3cb7f6e5e650d3e7c51fa48bc3873d74ffe54411a7630a134176d748d9e"
+      },
+      "body_provenance": "immutable raw source at the recorded commit; gamma square/anticommutation proofs are local simp proofs and Clifford maps use mathlib CliffordAlgebra.lift",
+      "placeholder_or_axiom_status": "No sorry/axiom was observed in the two audited modules. The Dirac Clifford module contains a TODO for injectivity/isomorphism, but that open task is adjacent and no exact target proof exists.",
+      "dependency_feasibility": "Not in this repository's Lake closure. Upstream uses Lean 4.29.1 and mathlib v4.29.1, while this repository pins Lean 4.29.0 and mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95. No fetch, pin change, or compatibility build was permitted or performed.",
+      "classification": "M3_external_support_only",
+      "integration_status": "no terminal proof body to integrate; a later concrete-gamma instantiation may use this only after an explicit compatible pin and checked adapter"
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact local proposition elaborates, but neither pinned mathlib nor the immutable PhysLean candidate supplies a terminal proof of the finite operator factorization and its pointwise consequence. The available declarations are supporting Clifford and matrix infrastructure only.",
+  "debt_classification": "formalization_debt",
+  "integration_blocker": "No exact external Lean 4 closure was located. PhysLean is adjacent infrastructure with a toolchain/dependency mismatch, not a proof body, so there is presently no repo-local integration debt to discharge.",
+  "reopen_condition": "A concrete Lean 4 candidate with immutable revision, compatible license and dependency graph, exact type or checked transport, terminal proof-body provenance, placeholder/axiom/unsafe audit, and a successful repo-local pinned wrapper check.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This is a bounded formal-anchor audit. It does not claim global absence, human-source fidelity, proof closure, audit completion, or theorem completion."
+}

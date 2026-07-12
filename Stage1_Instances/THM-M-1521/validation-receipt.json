@@ -1,0 +1,103 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1521-VALIDATION-local-20260712T002552Z",
+  "item_id": "S56-M-1521-VALIDATION",
+  "theorem_id": "THM-M-1521",
+  "base_revision": "e291daffd22e3ff6fc8031f413e88a1a41b1af26",
+  "base_tree": "181ccf62ecbddb04aafb38fc5a26c8426c0eaafc",
+  "validated_at": "2026-07-12T00:25:52Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "332aa81d4bf7843ed009d0781324745a9170f2ef2679572e80837e0a4c6cca6a",
+    "validator_sha256": "e2818b7104614dc901c17de25c5fc92369bde23db480a86fe475fd83e335bc1d",
+    "independent_probe_sha256": "b3fa4cfe5f4d1d4968db9f0bacf0cc016756d6c465c629ecfdbed0ea3a3e29fe",
+    "statement_sha256": "2345be9208d010b700c5cc52333ea91655efefc37fe5e3b266de9bf2f25c5139",
+    "obligation_tree_sha256": "536ae01b772de7721519cca5358385768d6dc6711502f84eccdd7d7a6235605b",
+    "proof_sha256": "ac49deaabefac7cc40ea49974ad81c3a2e52b80d406651d4a65b1f79151ff191",
+    "obligation_registry_sha256": "954a462063133fb7a2c06bb7b65f54a29dfd2c7dd9d9a43522f99da8f55c6aba",
+    "typed_graphs_sha256": "927a7fb255d60aa868a40f27bbc51d20ad3526d075b741646d0efe0806bf2894",
+    "proof_receipt_sha256": "ba099334f568018e67d844af7a75e0c5f2fd6d6ef5099b436f5dbd33b8212aa8"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: owned validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-1521/check_validation.py"
+    ],
+    "env": {},
+    "timeout_seconds": 120,
+    "network": "denied"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_proof_and_independently_written_exact_target_probe",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "local_provenance_hashes": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "proof_receipt_root_closed_proposal": true,
+    "authoritative_graph_root_closed": false,
+    "authoritative_graph_machine_debt": "M3; stale relative to proof-phase proposal and pending master reconciliation",
+    "authoritative_graph_remaining_root_cut_set": [
+      "M1521-L-CONSERVATIVE",
+      "M1521-L-RECURRENCE"
+    ],
+    "locally_validated_obligation_ids": [
+      "M1521-ROOT",
+      "M1521-N-FINITE",
+      "M1521-L-CONSERVATIVE",
+      "M1521-L-RECURRENCE",
+      "M1521-T-ASSEMBLE"
+    ],
+    "composition_certificates": [
+      "Stage1Instances.THM_M_1521.Proof.poincareRecurrence_proof",
+      "Stage1Instances.THM_M_1521.Validation.independentPoincareRecurrence"
+    ],
+    "hermetic_release_gate": "fail_closed",
+    "independent_distinct_runner_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The authoritative frozen typed graph still reports M1521-L-CONSERVATIVE and M1521-L-RECURRENCE open; only the master may reconcile structured state with proof-phase evidence.",
+    "The run reused a shared writable warm .lake cache, so it is not a cold empty-cache hermetic replay.",
+    "No complete TCB executable/bootstrap inventory, SBOM/license archive, or network-disconnected restoration receipt exists.",
+    "Validation.lean is an independently written direct proof probe, but it ran in the same clone and shared cache; no distinct verifier identity, independently provisioned clean runner, second signature, or independently implemented receipt/graph verifier exists.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "freshness": {
+    "review_due": "before any master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "replace this receipt and fail closed on any source, pin, axiom, graph, validator, cache, or policy drift"
+  },
+  "invalidation_inputs": [
+    "validation-spec.json",
+    "check_validation.py",
+    "Validation.lean",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "proof-receipt.json",
+    "Lean toolchain",
+    "mathlib revision, terminal source, terminal olean, or worktree",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow warm kernel, trust-observation, provenance, and direct-proof validation with explicit failed release gates. It is not E0/E1, accepted M0, independent-runner evidence, theorem completion, release, or master acceptance."
+}
