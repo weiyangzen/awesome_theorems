@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0600-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0600",
+  "base_revision": "63728668acb87acd4bab7e755151dce89dc1eeb4",
+  "canonical_target": "Stage1Instances.THM_M_0600.MorseLemmaTarget",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "repo_local_exact_candidates": [],
+  "mathlib_exact_candidates": [],
+  "external_exact_candidates": [],
+  "ingredient_candidates": [
+    {
+      "module": "Mathlib.LinearAlgebra.QuadraticForm.Real",
+      "declaration": "QuadraticForm.equivalent_one_neg_one_weighted_sum_squared",
+      "role": "finite-dimensional nondegenerate real quadratic-form diagonalization with weights plus or minus one",
+      "exact_root": false,
+      "reason_not_exact": "It diagonalizes a fixed quadratic form linearly; it neither constructs nonlinear local coordinates nor proves local equality for a smooth function."
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.QuadraticForm.Signature",
+      "declaration": "QuadraticForm.sigPos_add_sigNeg_add_radical",
+      "role": "positive, negative, and radical dimension accounting for a quadratic form",
+      "exact_root": false,
+      "reason_not_exact": "It provides inertia bookkeeping only and no smooth local normal form."
+    },
+    {
+      "module": "Mathlib.Analysis.Calculus.InverseFunctionTheorem.ContDiff",
+      "declaration": "ContDiffAt.to_localInverse",
+      "role": "smoothness of a local inverse obtained from an invertible derivative",
+      "exact_root": false,
+      "reason_not_exact": "It is a generic inverse-function ingredient and contains no Morse normal-form construction."
+    },
+    {
+      "module": "Mathlib.Analysis.Calculus.ImplicitContDiff",
+      "declaration": "ContDiffAt.contDiffAt_implicitFunction",
+      "role": "smooth implicit-function construction",
+      "exact_root": false,
+      "reason_not_exact": "It supplies a possible analytic construction tool but does not identify or prove the Morse target."
+    }
+  ],
+  "external_search": {
+    "service": "Sourcegraph global indexed-code search",
+    "queries": [
+      "context:global lang:Lean MorseLemma fork:yes archived:yes",
+      "context:global lang:Lean \"Morse lemma\" fork:yes archived:yes",
+      "context:global lang:Lean \"nondegenerate critical point\" fork:yes archived:yes",
+      "context:global lang:Lean \"Morse theory\" fork:yes archived:yes",
+      "context:global lang:Lean morse_lemma fork:yes archived:yes",
+      "context:global lang:Lean morseLemma fork:yes archived:yes"
+    ],
+    "result": "Each query completed with matchCount 0 on 2026-07-12.",
+    "coverage_boundary": "This is a bounded indexed-code search, not a proof that no unindexed, private, or subsequently published Lean 4 formalization exists. GitHub anonymous code search required sign-in and its REST code-search endpoint returned HTTP 401, so neither is credited as an independently completed search."
+  },
+  "classification": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3",
+    "debt": "formalization_debt",
+    "audit_phase_complete": true,
+    "theorem_complete": false,
+    "status_boundary": "Anchor audit only. No exact repo-local, pinned-mathlib, or bounded external Lean 4 closure was found. Relevant pinned mathlib ingredients elaborate, but none proves or is type-compatible with the canonical MorseLemmaTarget. No M0 or theorem-completion credit is claimed."
+  },
+  "validation": {
+    "probe_module": "Stage1_Instances/THM-M-0600/AnchorAudit.lean",
+    "expected_command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0600/AnchorAudit.lean"
+  }
+}
