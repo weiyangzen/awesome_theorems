@@ -1,0 +1,176 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0012-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0012",
+  "execution_rank": 1062,
+  "base_revision": "02cc55f883d5b5d091ead6851bffe89199eb8391",
+  "base_tree": "035212d041a1e61553b3d2f465964c9bbb35e47d",
+  "audit_date": "2026-07-13",
+  "canonical_target": "Stage1Instances.THM_M_0012.FundamentalTheoremOfAlgebraTarget",
+  "canonical_target_expression_sha256": "d14207f425a984b6daefaa986d8351a1543f58b7631d1c842e51a3ef2392ba74",
+  "canonical_statement_file_sha256": "fce52766380ace58b4b202f267b8a3640f74655d0cacdea897de01bcf956ee46",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "inventory_version": "S56-M-0012-ANCHOR-INVENTORY-20260713-01",
+    "cutoff": "2026-07-13T04:59:41+08:00",
+    "credentials_policy": "anonymous public HTTP only; no GitHub code-search credential was available",
+    "aliases": [
+      "fundamental theorem of algebra",
+      "every nonconstant complex polynomial has a root",
+      "complex polynomial root",
+      "algebraic closure of the complex numbers",
+      "Complex.exists_root",
+      "Complex.isAlgClosed",
+      "IsAlgClosed.exists_root"
+    ],
+    "namespace_queries": [
+      "Complex",
+      "Polynomial",
+      "IsAlgClosed"
+    ],
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib sources and declarations",
+      "public Lean repositories and code indexes",
+      "formal statement or instructional collections"
+    ],
+    "expected_negative_evidence": "Each bounded public query records a response hash or an explicit access failure; no internet-wide absence claim is permitted.",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0012-C01-MATHLIB-DIRECT",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Analysis.Complex.Polynomial.Basic",
+      "file": "Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+      "file_blob": "f3c0eb312143584e6b528ed3da1ab74f55133c46",
+      "file_sha256": "f6159d7625ca323846088b04ae89fca501bb040fcdce982f8f24c453e587d491",
+      "declaration": "Complex.exists_root",
+      "type": "{f : Complex[X]} -> 0 < Polynomial.degree f -> exists z : Complex, Polynomial.IsRoot f z",
+      "normalized_match": "The checked canonical iff to PositiveDegreeRootTarget and the audit-local exact adapter cover the same polynomial carrier, root carrier, binder order, nonconstancy boundary, and IsRoot conclusion.",
+      "local_adapter": "Stage1Instances.THM_M_0012_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "Complex.exists_root",
+      "terminal_proof_body": "Direct Liouville argument in lines 37-48 of the pinned file; the inverse of root-free polynomial evaluation is forced to vanish, then Polynomial.funext gives f = C 0, contradicting positive degree.",
+      "proof_body_location": "pinned mathlib, not repository-local",
+      "historical_provenance": {
+        "lean4_port_commit": "e3d3b979b14ddf6036b965242dc8615dfd337d3d",
+        "conceptual_body_commit": "b6a9eb9c91b5126e59c157f254704af8f3b5cf1c",
+        "both_are_ancestors_of_pin": true,
+        "authors_in_file_header": ["Chris Hughes", "Junyan Xu", "Yury Kudryashov"]
+      },
+      "direct_proof_dependencies": [
+        "Polynomial.differentiable",
+        "Differentiable.inv",
+        "Differentiable.apply_eq_of_tendsto_cocompact",
+        "Filter.tendsto_inv₀_cobounded",
+        "Polynomial.tendsto_norm_atTop",
+        "Polynomial.funext",
+        "Polynomial.eq_C_of_degree_le_zero"
+      ],
+      "direct_module_imports": [
+        "Mathlib.Analysis.Calculus.Deriv.Polynomial",
+        "Mathlib.Analysis.Complex.Liouville",
+        "Mathlib.FieldTheory.PolynomialGaloisGroup",
+        "Mathlib.LinearAlgebra.Complex.FiniteDimensional",
+        "Mathlib.Topology.Algebra.Polynomial"
+      ],
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_bodyless_unsafe_oracle_status": "Lean reports the declaration sorry-free; the declaration body and audit adapter contain no sorry, admit, sorryAx, axiom, unsafe, opaque, native oracle, external code, or generated certificate.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "already pinned and materialized in the repository Lake dependency closure; checked without changing .lake",
+      "candidate_classification": "M0-W",
+      "evidence_level": "E2",
+      "result": "Exact pinned mathlib candidate and local adapter kernel-check. M0-W is a candidate route only until downstream proof, full provenance/trust, composition, and master-acceptance gates supply accepted E1 evidence."
+    },
+    {
+      "candidate_id": "M0012-C02-MATHLIB-ALGEBRAIC-CLOSURE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Complex.Polynomial.Basic",
+      "file": "Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+      "declarations": ["Complex.isAlgClosed", "IsAlgClosed.exists_root"],
+      "generic_source": "Mathlib/FieldTheory/IsAlgClosed/Basic.lean",
+      "generic_source_blob": "cedae2b779fc71b7e1823d7e03a1d1bcbbdb3f26",
+      "generic_source_sha256": "64ac99dafc14d5300f1916ba086afbb471eec48c20ee80aa6a9df25945f08271",
+      "normalized_match": "A stronger packaged algebraic-closedness instance plus a generic consequence can derive the pointwise root target.",
+      "terminal_proof_body": "Complex.isAlgClosed is constructed through IsAlgClosed.of_exists_root using Complex.exists_root; the generic root theorem then uses the instance splits field.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "candidate_classification": "M3_support_duplicate",
+      "result": "Not an independent proof body or additional coverage. For Complex this route is downstream of and deduplicated to Complex.exists_root."
+    },
+    {
+      "candidate_id": "M0012-C03-READ-LEAN-DOCUMENTATION",
+      "project": "madvorak/read-lean",
+      "remote": "https://github.com/madvorak/read-lean",
+      "revision": "ad424b95eba1c815823f295df8eec963d4c57acb",
+      "tree": "9d951f356bf09197874def820bf2dac9956a1705",
+      "readme_sha256": "de11b90ac2d95ee703dae614feed780e18078975dc0317326705f7d7094507e1",
+      "lean_source_sha256": "81b3580c63dfcb2152d4836f1dcb8920fb5535357db65782b396eaa06c36e644",
+      "toolchain": "leanprover/lean4:v4.12.0-rc1",
+      "mathlib_revision": "d389f3c5776952cc91ed619bc1e09ba7aa568648",
+      "license": "Unlicense",
+      "kind": "documentation_duplicate",
+      "normalized_match": "README lines 116-144 quote and explain the mathlib theorem, but ReadLean.lean declares no fundamental-theorem-of-algebra result.",
+      "candidate_classification": "M3_documentation_only",
+      "result": "No independent theorem, wrapper, or proof body to integrate; no machine credit."
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"fundamental theorem of algebra\" Lean&per_page=30",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"Complex.exists_root\"+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e"
+    },
+    {
+      "surface": "grep.app code search",
+      "query": "search?q=Complex.exists_root&regexp=false",
+      "result": "HTTP 429 Vercel Security Checkpoint",
+      "response_sha256": "9ae3a9cbabb2a9502b441e84538e2d20c87860a490396b506de5a0836ff21f12"
+    }
+  ],
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "3/3 classified candidates in frozen inventory S56-M-0012-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of the provisional statement prerequisite and anchor-audit node",
+    "canonical proof-phase wrapper and checked composition",
+    "full transitive declaration/provenance/trust and TCB closure",
+    "primary-source H0 and readable R0 independent review",
+    "hermetic and independent validation plus deterministic release evidence"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This provisional node classifies the bounded anchor inventory and kernel-checks an exact pinned mathlib route. It changes no accepted H1/M3/R4 state, accepts no receipt, and completes neither AUDIT-Z nor the theorem.",
+  "theorem_complete": false
+}
