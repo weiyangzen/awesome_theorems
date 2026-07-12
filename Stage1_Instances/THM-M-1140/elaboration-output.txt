@@ -1,0 +1,49 @@
+def Stage1Instances.THM_M_1140.HarmonicStrongMaximumPrinciple : Prop :=
+∀ (n : Nat) (Omega : Set (Stage1Instances.THM_M_1140.Space n)) (u : Stage1Instances.THM_M_1140.Space n → Real)
+  (x0 : Stage1Instances.THM_M_1140.Space n),
+  @Set.Nonempty (Stage1Instances.THM_M_1140.Space n) Omega →
+    @IsOpen (Stage1Instances.THM_M_1140.Space n)
+        (@PiLp.topologicalSpace
+          (@OfNat.ofNat ENNReal (nat_lit 2)
+            (@instOfNatAtLeastTwo ENNReal (nat_lit 2)
+              (@AddMonoidWithOne.toNatCast ENNReal
+                (@AddCommMonoidWithOne.toAddMonoidWithOne ENNReal instAddCommMonoidWithOneENNReal))
+              PiLp.innerProductSpace._proof_1))
+          (Fin n) (fun x => Real) fun i =>
+          @UniformSpace.toTopologicalSpace Real (@PseudoMetricSpace.toUniformSpace Real Real.pseudoMetricSpace))
+        Omega →
+      @IsConnected (Stage1Instances.THM_M_1140.Space n)
+          (@PiLp.topologicalSpace
+            (@OfNat.ofNat ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne ENNReal instAddCommMonoidWithOneENNReal))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun x => Real) fun i =>
+            @UniformSpace.toTopologicalSpace Real (@PseudoMetricSpace.toUniformSpace Real Real.pseudoMetricSpace))
+          Omega →
+        @Membership.mem (Stage1Instances.THM_M_1140.Space n) (Set (Stage1Instances.THM_M_1140.Space n))
+            (@instMembership (Stage1Instances.THM_M_1140.Space n)) Omega x0 →
+          @HarmonicOnNhd (Stage1Instances.THM_M_1140.Space n)
+              (@PiLp.normedAddCommGroup
+                (@OfNat.ofNat ENNReal (nat_lit 2)
+                  (@instOfNatAtLeastTwo ENNReal (nat_lit 2)
+                    (@AddMonoidWithOne.toNatCast ENNReal
+                      (@AddCommMonoidWithOne.toAddMonoidWithOne ENNReal instAddCommMonoidWithOneENNReal))
+                    PiLp.innerProductSpace._proof_1))
+                (Fin n) (fun x => Real) fact_one_le_two_ennreal (Fin.fintype n) fun i => Real.normedAddCommGroup)
+              (@PiLp.innerProductSpace Real Real.instRCLike (Fin n) (Fin.fintype n) (fun x => Real)
+                (fun i => Real.normedAddCommGroup) fun i => @RCLike.toInnerProductSpaceReal Real Real.instRCLike)
+              ⋯ Real Real.normedAddCommGroup
+              (@toNormedSpace Real Real Real.instRCLike
+                (@NormedAddCommGroup.toSeminormedAddCommGroup Real Real.normedAddCommGroup)
+                (@RCLike.toInnerProductSpaceReal Real Real.instRCLike))
+              u Omega →
+            (∀ (x : Stage1Instances.THM_M_1140.Space n),
+                @Membership.mem (Stage1Instances.THM_M_1140.Space n) (Set (Stage1Instances.THM_M_1140.Space n))
+                    (@instMembership (Stage1Instances.THM_M_1140.Space n)) Omega x →
+                  @LE.le Real Real.instLE (u x) (u x0)) →
+              ∀ (x : Stage1Instances.THM_M_1140.Space n),
+                @Membership.mem (Stage1Instances.THM_M_1140.Space n) (Set (Stage1Instances.THM_M_1140.Space n))
+                    (@instMembership (Stage1Instances.THM_M_1140.Space n)) Omega x →
+                  @Eq Real (u x) (u x0)

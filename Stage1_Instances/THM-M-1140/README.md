@@ -1,34 +1,38 @@
-# THM-M-1140 rev-5.6 intake
+# THM-M-1140 rev-5.6 dossier
 
 This is the planned dossier for the strong maximum principle for harmonic functions. The terse
 Stage0 phrase is interpreted as the classical real-valued Euclidean theorem: on a nonempty,
 connected open domain, a harmonic function that attains an interior maximum is constant. This
-interpretation must still pass source and Lean statement review.
+interpretation must still pass source review. The exact Lean proposition is now frozen in
+`Statement.lean` and described by `statement.json`.
 
 ## Scope map
 
 | Surface | In scope | Intake boundary |
 |---|---|---|
-| Root | Harmonic `u : Omega -> Real`, connected open `Omega`, attained interior maximum, global constancy | Mathematical claim frozen; Lean encoding absent |
+| Root | Harmonic ambient `u : Space n -> Real`, connected open `Omega`, attained interior maximum, global constancy | Exact proposition elaborated; no proof credit |
 | Domain | Finite-dimensional real Euclidean space | Dimension-zero behavior remains a statement mutation probe |
 | Extremum | Global maximum at a domain point | Local-maximum formulation is only an equivalent candidate |
 | Dual form | Strong minimum principle via `-u` | Requires a checked transport and is not root proof credit |
 | Analytic route | Mean-value property, positivity of the averaging gap, local constancy, connected propagation | Architecture hint only; no obligation registry or proof credit |
 | Exclusions | Weak boundary principle, general elliptic operators, subharmonic/manifold/discrete variants | Separate theorems; no broadened claim |
-| Foundations | Lean 4 kernel and pinned mathlib | Exact imports, harmonic API, trust profile, TCB, and environment fingerprint remain open |
+| Foundations | Lean 4 kernel and pinned mathlib | Minimal import and statement environment fingerprint frozen; later trust gates remain open |
 
 The structured binder order, assumptions, exclusions, and status vector are authoritative in
 `intake.json`. Source wording and candidate formal surfaces are crosswalked in
 `source_statement_crosswalk.md`.
 
-## Intake verdict
+## Statement verdict
 
-Lifecycle is `planned`; provisional root vector is `[H2, M4, R3]`. The first failed gate is exact
-statement identification: the repository has no selected Lean declaration/expression, elaboration
-hash, environment fingerprint, or checked encoding transport. No machine closure or theorem
+Lifecycle remains `planned`. `Stage1Instances.THM_M_1140.HarmonicStrongMaximumPrinciple` elaborates
+with the pinned toolchain and the single direct import
+`Mathlib.Analysis.InnerProductSpace.Harmonic.Basic`. A proved iff checks the transport between an
+ambient maximizing point plus membership and the subtype binder recorded at intake. This closes
+only the worker statement phase pending master acceptance. No maximum-principle proof or theorem
 completion is claimed.
 
 ## Validation
 
-`validation.md` records the intake-only structural checks. They validate manifest membership,
-repository consistency, JSON syntax, and dossier hygiene, not the theorem in the Lean kernel.
+`validation.md` records both the intake checks and the statement elaboration recipe. The Lean run
+checks the proposition, structural mutation declarations, and encoding transport, not the strong
+maximum principle itself.

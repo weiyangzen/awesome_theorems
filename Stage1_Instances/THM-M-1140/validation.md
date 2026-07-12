@@ -15,3 +15,19 @@ This is an intake-only node: no Lean declaration is introduced, so no kernel pro
 claimed. The first combined validation attempt exited 9 solely because this hygiene search matched
 a trust-related English word in the draft README; that wording was removed and the complete recipe was
 then rerun successfully.
+
+## Statement validation record
+
+Statement-phase base revision: `797546bf2bab359f9fc5be515c3d4e8943c9d931`.
+
+| Command | Exit | Observed result |
+|---|---:|---|
+| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1140/Statement.lean > ../../Stage1_Instances/THM-M-1140/elaboration-output.txt 2>&1` | 0 | The exact target, five structural mutations, and the proved subtype/ambient encoding iff elaborated; explicit `#print` output was captured |
+| `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | Pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| `sha256sum Stage1_Instances/THM-M-1140/Statement.lean Stage1_Instances/THM-M-1140/elaboration-output.txt` | 0 | Source `c0f7ef8b...f418a`; explicit elaborated output `541e5716...2b3b4` |
+
+The statement uses only `Mathlib.Analysis.InnerProductSpace.Harmonic.Basic`: removing an initially
+tested explicit `PiL2` import still elaborated because `Basic` supplies the Euclidean-space
+instances transitively, so the redundant import was removed. This is statement evidence only and
+does not establish the analytic implication.

@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-1140-STATEMENT",
+  "theorem_id": "THM-M-1140",
+  "phase": "statement",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module_file": "Stage1_Instances/THM-M-1140/Statement.lean",
+    "declaration": "Stage1Instances.THM_M_1140.HarmonicStrongMaximumPrinciple",
+    "elaborated_expression_sha256": "541e5716657e39b56e24f220a7118beecc0fc4f2a196312b7f278af92302b3b4",
+    "statement_file_sha256": "c0f7ef8b8c003598b09d5984804630ca3d47bfde472c7748e5ee2035e6ef418a"
+  },
+  "direct_imports": [
+    "Mathlib.Analysis.InnerProductSpace.Harmonic.Basic"
+  ],
+  "domain_and_universes": "n : Nat; Space n = EuclideanSpace Real (Fin n); Omega : Set (Space n); u : Space n -> Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "Omega : Set (Space n)",
+    "u : Space n -> Real",
+    "x0 : Space n"
+  ],
+  "ordered_hypotheses": [
+    "Omega.Nonempty",
+    "IsOpen Omega",
+    "IsConnected Omega",
+    "x0 in Omega",
+    "InnerProductSpace.HarmonicOnNhd u Omega",
+    "forall x in Omega, u x <= u x0"
+  ],
+  "conclusion": "forall x in Omega, u x = u x0",
+  "harmonicity_decision": "The mathlib predicate HarmonicOnNhd applies to an ambient function and says HarmonicAt u x at every x in Omega; it is therefore used directly rather than extending a subtype-valued function.",
+  "connectedness_decision": "IsConnected already entails nonemptiness in mathlib, but Omega.Nonempty is retained explicitly to preserve the ordered hypotheses frozen by intake.",
+  "dimension_decision": "No positive-dimension premise is added. The dimension-zero instance is meaningful and does not invalidate the implication.",
+  "checked_transport": "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple_iff_subtypeMaximizerEncoding",
+  "structural_mutations": [
+    "mutationRemovedOpenness",
+    "mutationRemovedConnectedness",
+    "mutationRemovedHarmonicity",
+    "mutationChangedExtremumToLocalNeighborhood",
+    "mutationChangedCodomainToComplex"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "statement_elaborated": true,
+  "proof_credit": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node freezes and kernel-elaborates the exact proposition and an encoding transport. It does not prove the strong maximum principle or accept any later execution node."
+}
