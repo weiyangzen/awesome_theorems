@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1019-STATEMENT",
+  "theorem_id": "THM-M-1019",
+  "lifecycle": "planned",
+  "canonical_statement": "For Borel probability measures mu and nu on the real line, equality of their characteristic functions at every real argument implies mu = nu.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1019/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1019.Statement",
+    "elaborated_expression_sha256": "9e3e6807774912fde69809f88fb4928406a4241c5c3df6ff4bbacfe0c92e3d69",
+    "statement_file_sha256": "61b3cfa9d1141ace957b50415d2aaece5a4855001879b8f33e1f66c821137527"
+  },
+  "domain_and_universes": "mu nu : Measure Real with Real's Borel measurable-space instance; proposition in Prop",
+  "ordered_binders": [
+    "mu : Measure Real",
+    "nu : Measure Real",
+    "IsProbabilityMeasure mu",
+    "IsProbabilityMeasure nu",
+    "charFun mu = charFun nu"
+  ],
+  "conclusion": "mu = nu as Borel measures on Real",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic"
+  ],
+  "checked_alternate_forms": [
+    {
+      "declaration": "Stage1Instances.THM_M_1019.IntegralForm",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_1019.statement_iff_integralForm",
+      "integrand": "fun x : Real => Complex.exp (t * x * Complex.I)"
+    }
+  ],
+  "excluded_substitutions": [
+    "moment determinacy",
+    "equality at finitely many frequencies",
+    "a density or moment restricted uniqueness theorem",
+    "a random-variable theorem without a checked pushforward transport"
+  ],
+  "degenerate_cases": "All probability measures are included, including dirac 0 and other atomic laws.",
+  "foundation_profile": "Lean 4 dependent type theory with mathlib measure, integration, complex exponential, and characteristic-function infrastructure; no custom axiom declarations",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable measure-theoretic proposition; no computation or oracle supplies proof credit",
+  "environment_fingerprint": {
+    "base_revision": "f552b1fbe91904b0d46dad9e5e29e9075fc93c1e",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1019/check_statement.py",
+    "validator_sha256": "c67a9fb902e8aa5d5d3bc6746b74d2a227d0f2fb2e6169632837b8053332464c",
+    "distinguished": [
+      "removed both probability-measure hypotheses",
+      "changed the domain from Real to Complex and the API to charFunDual",
+      "restricted the characteristic-function equality binder to nonnegative frequencies",
+      "excluded the boundary case of the Dirac measure at zero"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and elaborates the exact measure-level target and a checked integral encoding only. It supplies no proof, anchor acceptance, H0 source verdict, audit completion, or theorem-completion evidence."
+}
