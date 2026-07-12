@@ -1,0 +1,42 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0603-INTAKE-WORKER-20260712",
+  "item_id": "S56-M-0603-INTAKE",
+  "theorem_id": "THM-M-0603",
+  "intent": "intake",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "base_revision": "83c1cc0af3ba7bd4612988241849d2949fad9e72",
+  "base_tree": "e7ff66969e8c4de88c41e34603fc7879142296b0",
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:5e31be6cd5fc49643de088a15ac70e17e5de710337f29765f750b8539163bf29",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29"
+  },
+  "validated_scope": "planned dossier, scope map, source-statement crosswalk, and open downstream task DAG only",
+  "commands_and_results": [
+    {"command": "python3 Docs/tools/check_stage1_standard.py", "exit_code": 0},
+    {"command": "python3 scripts/stage1_target.py check", "exit_code": 0},
+    {"command": "python3 scripts/stage1_target.py show THM-M-0603", "exit_code": 0},
+    {"command": "python3 -m json.tool Stage1_Instances/THM-M-0603/instance.json", "exit_code": 0},
+    {"command": "python3 -m json.tool Stage1_Instances/THM-M-0603/task-dag.json", "exit_code": 0},
+    {"command": "scoped Python intake invariant assertions", "exit_code": 0},
+    {"command": "cd Formalizations/Lean && lake env lean --version", "exit_code": 0, "output": "Lean 4.29.0; commit 98dc76e3c0a9b856c9b98726b713fb04fab16740"},
+    {"command": "git diff --check -- Stage1_Instances/THM-M-0603 .stage1-worker-selftest.json", "exit_code": 0}
+  ],
+  "root_vector_before": {"H": "unclassified", "M": "unclassified", "R": "unclassified"},
+  "root_vector_after": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "the received classification phrase does not identify one exact primary-source theorem or canonical Lean target",
+  "remaining_root_cut_set": [
+    "S56-M-0603-STATEMENT",
+    "S56-M-0603-ANCHOR_AUDIT",
+    "S56-M-0603-OBLIGATION_TREE",
+    "S56-M-0603-PROOF",
+    "S56-M-0603-VALIDATION",
+    "S56-M-0603-RELEASE"
+  ],
+  "status_boundary": "Worker self-tested intake proposal only; master acceptance is required and no proof or theorem-completion credit is asserted."
+}
