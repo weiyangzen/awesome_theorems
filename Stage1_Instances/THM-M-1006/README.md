@@ -18,17 +18,18 @@ inequalities. It records scope only and inherits no proof credit from the source
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
-The dependent statement task must resolve the discrete/continuous-time ambiguity without weakening
-the classical two-sided theorem. The anchor audit must then map primary-source hypotheses and locate
-any exact Lean declarations before the obligation denominator is frozen.
+The statement task resolved the discrete/continuous-time ambiguity without weakening the classical
+two-sided theorem. The bounded anchor audit found adjacent Doob, Ville, and martingale-transform
+formalizations but no exact Lean declaration; its inventory is in `anchor_audit.json`.
 
 ## Current verdict
 
 Lifecycle remains `planned`. The statement phase selected and locally elaborated the finite
-discrete-time form in `Statement.lean`; `statement.json` freezes its ordered scope. Anchor audit and
-all later phases remain open, and the theorem is not complete.
+discrete-time form in `Statement.lean`; `statement.json` freezes its ordered scope. The anchor audit
+is self-tested pending master acceptance. The obligation tree and all later phases remain open, and
+the theorem is not complete.
 
 ## Validation
 
 Intake checks are recorded in `validation.md`; statement checks are recorded in
-`statement_validation.md`.
+`statement_validation.md`; anchor checks are recorded in `anchor_audit.md`.

@@ -1,0 +1,112 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1006-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1006",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1006.StatementShape",
+  "repository_base_revision": "9d84f229ca62f240f8ad5b6e017c0bfef7b05eae",
+  "search_protocol": {
+    "repo_local": [
+      "case-insensitive ripgrep for Burkholder, Davis-Gundy, BDG, square function, quadratic variation, and martingale maximal inequalities",
+      "inspection of all Mathlib/Probability/Martingale modules in the pinned checkout"
+    ],
+    "external": [
+      "GitHub repository discovery for Lean martingale and Burkholder developments",
+      "immutable GitHub tree and raw-file inspection at recorded commit IDs",
+      "declaration, placeholder-token, toolchain, mathlib-revision, and license inspection"
+    ],
+    "limitations": [
+      "GitHub unauthenticated API rate limiting interrupted a redundant whole-tree content scan; candidate repositories were instead inspected through immutable raw URLs and their immutable tree listings",
+      "no external dependency was cloned, fetched, built, or added to .lake"
+    ]
+  },
+  "pinned_mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "exact_candidate_found": false,
+    "nearest_candidates": [
+      {
+        "module": "Mathlib.Probability.Martingale.OptionalStopping",
+        "declaration": "MeasureTheory.maximal_ineq",
+        "assessment": "Doob maximal inequality for a nonnegative submartingale and a level; it has neither discrete quadratic variation nor the two-sided p-moment comparison and cannot close StatementShape."
+      },
+      {
+        "module": "Mathlib.Probability.Martingale.Basic",
+        "declarations": [
+          "MeasureTheory.Martingale",
+          "MeasureTheory.Martingale.integrable",
+          "MeasureTheory.Martingale.submartingale"
+        ],
+        "assessment": "Object-model and elementary bridge APIs only; no BDG conclusion."
+      }
+    ],
+    "negative_search_result": "No Burkholder, Davis-Gundy, BDG, martingale square-function, or quadratic-variation declaration was found in the pinned Mathlib, Archive, or Counterexamples source trees."
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/SmaniaD/Burkholder",
+      "revision": "afa97ef3c85697fa3b2a67af89af8d6dd09eda69",
+      "revision_date": "2026-05-16T12:32:32Z",
+      "module": "Burkholder.MartingaleTransforms",
+      "declaration": "Lp_Burkholder_inequality_martingaleTransform",
+      "type_summary": "For 1 < p < infinity, a strongly predictable multiplier bounded by 1 gives an upper eLpNorm bound for its finite-time martingale transform.",
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "aa7b3adc05244052861add85ec0ae8d9a664d7fc",
+      "license": "Apache-2.0",
+      "placeholder_scan": "No whole-word sorry, admit, or axiom token in the eight project Lean source files inspected at this revision.",
+      "assessment": "Substantive adjacent formalization, but not an exact candidate: it assumes p > 1 and proves a one-sided martingale-transform estimate, not the p > 0 two-sided maximum/quadratic-variation statement. Its newer incompatible toolchain and mathlib pin are an additional integration barrier.",
+      "credit": "anchor_only_no_machine_closure"
+    },
+    {
+      "repository": "https://github.com/Robby955/formal-martingales",
+      "revision": "1e49307ce983fe472b35400a79052bb607298123",
+      "revision_date": "2026-06-14T09:17:05Z",
+      "modules": [
+        "FormalMartingales.Martingale.Doob",
+        "FormalMartingales.Martingale.Ville"
+      ],
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "25b7ac7d0cf8eef34ced5525f4a62b7613ad649b",
+      "license": "Apache-2.0",
+      "assessment": "Contains finite-horizon Doob and Ville maximal inequalities, not a square-function/quadratic-variation comparison. It is not an exact or transport-complete candidate.",
+      "credit": "anchor_only_no_machine_closure"
+    },
+    {
+      "repository": "https://github.com/RemyDegenne/demo-martingales",
+      "revision": "faff9d466cead73a91c13798023097e17ac21aef",
+      "revision_date": "2025-10-31T13:36:39Z",
+      "module": "Martingales.Martingales",
+      "toolchain": "leanprover/lean4:v4.25.0-rc2",
+      "license": "Apache-2.0",
+      "assessment": "Tutorial wrappers for basic martingale, convergence, and optional-stopping APIs; no BDG or quadratic-variation declaration.",
+      "credit": "discovery_only"
+    }
+  ],
+  "human_sources": [
+    {
+      "citation": "D. L. Burkholder, Distribution Function Inequalities for Martingales, Annals of Probability 1 (1973), 19-42",
+      "doi": "10.1214/aop/1176997023",
+      "role": "primary source for distribution-function and square/maximal-function martingale inequalities",
+      "audit_boundary": "Bibliographic identity and page span are fixed, but a theorem-level premise-to-binder crosswalk and errata review were not established from an immutable accessible copy; this source therefore cannot support H0."
+    },
+    {
+      "citation": "B. Davis, On the integrability of the martingale square function, Israel Journal of Mathematics 8 (1970), 187-190",
+      "doi": "10.1007/BF02771313",
+      "role": "historical primary source for the martingale square-function comparison",
+      "audit_boundary": "Bibliographic and historical anchor only; no exact target crosswalk or errata receipt, so no H0 credit."
+    }
+  ],
+  "classification": {
+    "human": "H2",
+    "machine": "M4",
+    "readability": "R3",
+    "exact_external_closure_exists": false,
+    "repo_local_integration_debt": false,
+    "formalization_debt": true
+  },
+  "verdict": "audit_complete_no_exact_anchor",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "The candidate inventory is complete for the recorded bounded search and identifies no exact closure. Adjacent theorems receive no proof credit. StatementShape remains unproved and later obligation, proof, validation, and release phases remain open."
+}
