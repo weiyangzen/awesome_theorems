@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0993-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0993",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "8fae7de1ca4ed3b0645d51573ac87053fb300f40",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_0993.ChernoffUpperTailTarget",
+    "elaborated_expression_sha256": "ecae1a493dd8be1ab742029ee934c64ecd0595761326dc1efadfa5fb2e590669",
+    "statement_file_sha256": "e515adc0282947df73715cea21b4d646226d50f92ada623d3f933adc58bf5219"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_module": "Mathlib.Probability.Moments.Basic",
+    "mathlib_module_sha256": "9043dc54bc2898ae5a82a89b0f79537f61a6635424360dfb21d49098a63afd73",
+    "mathlib_license": "Apache-2.0"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0993-C01",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Moments.Basic",
+      "declarations": [
+        "ProbabilityTheory.measure_ge_le_exp_mul_mgf",
+        "ProbabilityTheory.iIndepFun.integrable_exp_mul_sum",
+        "ProbabilityTheory.iIndepFun.mgf_sum"
+      ],
+      "kind": "exact_composite_route",
+      "normalized_match": "Their checked composition has the exact frozen universes, probability measure, finite univ sum/product, positive tilt, measurability, independence, exponential-integrability assumptions, non-strict event, and real integral conclusion.",
+      "body_provenance": "Immutable Basic.lean lines 337-386 and 429-446: induction/factorization supplies sum integrability and MGF product; the terminal upper-tail theorem proves exponential Markov directly.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_unsafe_status": "The local exact composition reports no sorryAx and uses no unsafe/oracle boundary.",
+      "classification": "M0-L_candidate_pending_downstream_gates",
+      "integration_status": "Already in the pinned Lake closure; AnchorAudit.lean elaborates an exact direct composition."
+    },
+    {
+      "candidate_id": "S56-M-0993-C02",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "8fae7de1ca4ed3b0645d51573ac87053fb300f40",
+      "module": "AwesomeTheorems.Stage1.S1_M_273",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_273.independentSum_upperTail_mgf_mathlib",
+      "source_sha256": "81fbe5c93a4115f7a1aa9db743b5f4421dd9bc5cc69158f09e2fda64d3580c49",
+      "kind": "legacy_stronger_wrapper",
+      "normalized_match": "A stronger arbitrary-finset/nonnegative-tilt wrapper specializes to the frozen univ/positive-tilt target.",
+      "body_provenance": "Delegates to the same three pinned mathlib declarations audited independently in C01.",
+      "placeholder_or_unsafe_status": "Legacy discovery only; rev-5.6 explicitly grants it no inherited proof credit.",
+      "classification": "legacy_discovery_only",
+      "integration_status": "No dependency is needed; the audit checks the direct mathlib route instead."
+    },
+    {
+      "candidate_id": "S56-M-0993-C03",
+      "project": "facebookresearch/atlas-lean",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.HighDimensionalStatistics.code.Chapter1.Thm_1_9",
+      "declaration": "hoeffding_sum_upper_tail",
+      "source_sha256": "fc6f3ec8074fc192c454d0f84c2a2e14121d0508533d40d6bfbb41722008a028",
+      "kind": "different_specialized_theorem",
+      "normalized_match": "A centered bounded-variable Hoeffding specialization, not the frozen general product-form Chernoff proposition.",
+      "body_provenance": "The immutable source invokes measure_ge_le_exp_mul_mgf and separately derives a product identity.",
+      "placeholder_or_unsafe_status": "No placeholder was found in the inspected file, but it is not an exact root candidate.",
+      "classification": "external_supporting_example_only",
+      "integration_status": "Not integrated: the exact upstream mathlib route is already pinned locally."
+    },
+    {
+      "candidate_id": "S56-M-0993-C04",
+      "project": "YuanheZ/lean-stat-learning-theory",
+      "repository": "https://github.com/YuanheZ/lean-stat-learning-theory",
+      "revision": "be5d5a8a1a1f46f2ec9502980ff10a39e17e3820",
+      "module": "SLT.SmallBallProb",
+      "declaration": "small_ball_prob",
+      "source_sha256": "01f480773fc1d96e0ab7fdead969f6ce6ff2e4fb5fff7b706a11e09556dbf032",
+      "kind": "different_application_of_factorization",
+      "normalized_match": "A small-ball result using iIndepFun.mgf_sum at a negative tilt, not the frozen upper-tail theorem.",
+      "body_provenance": "Immutable source line 288 invokes the same mathlib MGF factorization anchor.",
+      "placeholder_or_unsafe_status": "No exact terminal candidate exists in this file.",
+      "classification": "external_supporting_example_only",
+      "integration_status": "Not integrated: it supplies neither the exact statement nor a distinct terminal body."
+    }
+  ],
+  "external_search": {
+    "surface": "Sourcegraph public code search",
+    "query": "context:global fork:yes archived:yes lang:Lean (measure_ge_le_exp_mul_mgf OR iIndepFun.mgf_sum OR Chernoff bound) count:100",
+    "result": "22 matches across five repositories; 18 were Lean 4. Besides mathlib, hits were special-purpose uses in Atlas, lean-stat-learning-theory, and terminal-bench data, not an exact independent terminal theorem.",
+    "response_sha256": "7381a397c719a80a0d1e652cb142a1f6ba5072f42a893bd62ee39c470adb1699",
+    "limitation": "This is bounded, dated discovery evidence, not a claim of global absence."
+  },
+  "root_machine_classification": "M0-L_candidate_pending_downstream_gates",
+  "root_classification_reason": "The exact frozen proposition is discharged by an independently elaborated composition of three declarations in the immutable pinned mathlib module.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the statement, toolchain, mathlib pin, any of the three declaration types/bodies, or dependency closure changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor audit complete: an exact pinned mathlib route exists. No H0, obligation-tree acceptance, proof-node acceptance, hermetic validation, independent verification, or theorem completion is claimed."
+}

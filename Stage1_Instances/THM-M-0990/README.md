@@ -12,3 +12,7 @@ root vector to `[H2, M3, R4]`, pending master acceptance.
 with joint row independence, explicit moments, the textbook Lyapunov ratio, eventual positive row
 variance, and convergence to `gaussianReal 0 1`. This provisional statement work awaits master
 acceptance. Exact source anchoring, proof closure, and theorem completion remain open.
+
+The obligation-tree phase now freezes 18 semantic obligations and seven separate typed graphs.
+The root remains open at `M3`; `M0990-T-TRIANGULAR-BRIDGE` is the explicit missing terminal body.
+The checked `root_compose` declaration is conditional composition evidence only.
