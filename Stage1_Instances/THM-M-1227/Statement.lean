@@ -95,6 +95,40 @@ def lerayHopfExistenceTarget : Prop :=
     ∃ (u : Real -> Space -> Velocity) (g : Real -> Space -> Gradient),
       IsLerayHopfSolution nu u0 u g
 
+/--
+Conditional composition certificate for the six semantic components of the frozen solution
+predicate.  The obligation-tree phase checks only this assembly step; it does not construct `u`,
+`g`, or any of the component premises.
+-/
+theorem isLerayHopfSolution_compose (nu : Real) (u0 : Space -> Velocity)
+    (u : Real -> Space -> Velocity) (g : Real -> Space -> Gradient)
+    (weakGradient : IsWeakGradient u g)
+    (energyClass : ∀ᵐ t ∂(volume.restrict (Ici (0 : Real))),
+      Integrable (fun x => sqNorm (u t x)) ∧ Integrable (fun x => gradSqNorm (g t x)))
+    (incompressible : ∀ᵐ t ∂(volume.restrict (Ici (0 : Real))), ∀ᵐ x ∂volume,
+      ∑ i, g t x i i = 0)
+    (weakMomentum : ∀ phi, IsSolenoidalTest phi ->
+      Integrable (fun t => integral volume (fun x =>
+        (-∑ i, u t x i * timePartial phi i t x) -
+        (∑ i, ∑ j, u t x i * u t x j * componentSpatialPartial phi i j t x) +
+        nu * (∑ i, ∑ j, g t x i j * componentSpatialPartial phi i j t x)))
+        (volume.restrict (Ici (0 : Real))) ∧
+      (integral (volume.restrict (Ici (0 : Real))) (fun t => integral volume (fun x =>
+        (-∑ i, u t x i * timePartial phi i t x) -
+        (∑ i, ∑ j, u t x i * u t x j * componentSpatialPartial phi i j t x) +
+        nu * (∑ i, ∑ j, g t x i j * componentSpatialPartial phi i j t x))) =
+        integral volume (fun x => dot (u0 x) (phi 0 x))))
+    (initialTrace : Tendsto (fun t => integral volume (fun x => sqNorm (u t x - u0 x)))
+      (nhdsWithin 0 (Ioi 0)) (nhds 0))
+    (energyInequality : ∀ t, 0 ≤ t ->
+      integral volume (fun x => sqNorm (u t x)) +
+        2 * nu * integral (volume.restrict (Set.Icc (0 : Real) t))
+          (fun s => integral volume (fun x => gradSqNorm (g s x))) ≤
+      integral volume (fun x => sqNorm (u0 x))) :
+    IsLerayHopfSolution nu u0 u g :=
+  ⟨weakGradient, energyClass, incompressible, weakMomentum, initialTrace, energyInequality⟩
+
 #check lerayHopfExistenceTarget
+#print axioms isLerayHopfSolution_compose
 
 end Stage1.THM_M_1227

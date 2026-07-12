@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1248-STATEMENT",
+  "theorem_id": "THM-M-1248",
+  "lifecycle": "planned",
+  "canonical_statement": "For every positive integer dimension and every parameter tuple satisfying equations (1.1)-(1.3), (1.5), and the conditional restrictions on pages 259-260 of Caffarelli-Kohn-Nirenberg (1984), there is a positive constant C such that every compactly supported smooth real function on R^n satisfies inequality (1.4).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1248/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1248.CaffarelliKohnNirenbergTarget",
+    "elaborated_expression_sha256": "f6a65804d336bcc7f72d03e35c0e43715fc92c648507b805117a09ec13648d5b",
+    "statement_file_sha256": "e3e257722b165a262b421b602e0a6e898251549b06c8bc65539dc6ebd2403c00"
+  },
+  "ordered_binders": [
+    "n : Nat",
+    "p q r alpha beta gamma sigma a : Real",
+    "admissibility proof",
+    "C : Real with 0 < C",
+    "u : EuclideanSpace Real (Fin n) -> Real",
+    "ContDiff Real top u",
+    "HasCompactSupport u"
+  ],
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.ContDiff.Basic",
+    "Mathlib.Analysis.Calculus.FDeriv.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Integral",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.MeasureTheory.Constructions.Pi"
+  ],
+  "source_snapshot": {
+    "url": "https://www.numdam.org/item/CM_1984__53_3_259_0.djvu",
+    "sha256": "7fe625609501f22377d92977573992ef2863156edd50d4dc9ea644e6d3c86022",
+    "anchor": "unnumbered Theorem, pages 259-260, equations (1.1)-(1.5) and (1.7)",
+    "scope": "existence/inequality iff admissibility; this target freezes the sufficiency direction used by the intake claim and excludes the separate uniform-on-compact-parameter-sets assertion"
+  },
+  "representation": {
+    "test_functions": "ContDiff Real top plus HasCompactSupport",
+    "weighted_norms": "explicit real integrals and Real.rpow, necessary because the source allows target exponent r > 0 rather than only norm exponents at least one",
+    "derivative": "operator norm of fderiv Real u x, equal to the Euclidean gradient norm for scalar-valued u",
+    "measure": "product Lebesgue volume on Fin n -> Real transported to EuclideanSpace through WithLp.toLp"
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1248/check_statement.py",
+    "killed": [
+      "removed the source's critical alpha-sigma restriction",
+      "changed R^n to the one-dimensional real domain",
+      "moved the constant outside all parameter binders",
+      "included the zero-dimensional boundary"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact sufficiency target selected by intake. It supplies no CKN proof, necessity direction, uniform-constant result, or downstream-node evidence."
+}
