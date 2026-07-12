@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0329-STATEMENT",
+  "theorem_id": "THM-M-0329",
+  "lifecycle": "planned",
+  "canonical_statement": "For every bounded coercive real bilinear form B on a real Hilbert space V and every continuous real linear functional F on V, there exists a unique u in V such that B u v = F v for every v in V.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0329/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0329.LaxMilgramTarget",
+    "elaborated_expression_sha256": "1f7b5e8d8098022646a019e1953472658efcd08d8b1af081a6bc6295a1731b93",
+    "statement_file_sha256": "1aa92764d82d20fcb1db4ea2fbfe11c9ee932431bfa9147fb59a50678409d5e6"
+  },
+  "domain_and_universes": "universe u; V : Type u; NormedAddCommGroup V; InnerProductSpace Real V; CompleteSpace V; Prop in Lean universe 0",
+  "ordered_binders": [
+    "V : Type u",
+    "[NormedAddCommGroup V]",
+    "[InnerProductSpace Real V]",
+    "[CompleteSpace V]",
+    "B : V ->L[Real] V ->L[Real] Real",
+    "IsCoercive B",
+    "F : V ->L[Real] Real"
+  ],
+  "hypotheses": [
+    "B is bundled as a continuous real bilinear form",
+    "IsCoercive B, definitionally: there is C > 0 with C * norm u * norm u <= B u u for every u",
+    "V is complete"
+  ],
+  "conclusion": "There exists exactly one u : V satisfying B u v = F v for every v : V.",
+  "direct_imports": ["Mathlib.Analysis.InnerProductSpace.Dual"],
+  "checked_transport": "Stage1Instances.THM_M_0329.target_iff_rieszRepresentativeShape",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0329/check_statement.py",
+    "killed": [
+      "removed the coercivity hypothesis",
+      "changed the arbitrary real Hilbert space to Real",
+      "moved coercivity inside the unique witness predicate",
+      "excluded the zero functional boundary case"
+    ]
+  },
+  "degenerate_cases": "The zero Hilbert space and zero functional remain included. Coercivity requires a strictly positive witness constant. No symmetry or nontrivial-space hypothesis is imposed. The unknown is in the first argument of B.",
+  "alternate_encodings": {
+    "riesz_representative": "RieszRepresentativeShape replaces F with inner f; target_iff_rieszRepresentativeShape is kernel checked using the pinned Riesz equivalence.",
+    "mathlib_continuous_equivalence": "The LaxMilgram module's continuous equivalence remains an anchor candidate for the later anchor-audit phase and is not credited by this statement node."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact conventional variational target with a minimal pre-Lax-Milgram import, a checked Riesz transport, and four distinguished mutations. It supplies no Lax-Milgram proof, H0 source review, anchor audit, or downstream evidence."
+}

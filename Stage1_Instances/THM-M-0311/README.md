@@ -19,6 +19,12 @@ The anchor audit identifies pinned mathlib's `MeasureTheory.Lp.instCompleteSpace
 candidate's transitive axiom report is `propext`, `Classical.choice`, and `Quot.sound`; its visible
 terminal body and bounded external search are recorded in `anchor-audit.json`.
 
+The obligation phase freezes 17 semantic obligations and seven separate typed graphs. It exposes
+the real and complex branches, deduplicates their shared `instCompleteSpace` body, and expands the
+upstream analytic route through the Lp completeness criterion, almost-everywhere limit, norm-limit,
+and `MemLp` obligations. `ObligationTree.lean` checks the conditional scalar-to-root composition;
+it deliberately does not admit either scalar proof body in this phase.
+
 The accepted root remains `[H1, M3, R4]`; candidate closure is not accepted proof state. No
-primary-source review, frozen obligation graph, audit completion, or theorem completion is claimed.
-`statement-validation.md` and `anchor-audit-validation.md` record the exact checks and boundaries.
+primary-source review, accepted root proof, audit completion, or theorem completion is claimed.
+The phase-specific validation records state the exact checks and boundaries.

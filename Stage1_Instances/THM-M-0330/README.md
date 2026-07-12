@@ -10,6 +10,8 @@ inputs only. They do not transfer scope, accepted state, or proof credit to this
 provisionally `[H1, M4, R4]`: published source candidates are known, but no pinpoint source audit or
 exact Lean proposition has been accepted. Audit completion and theorem completion are both false.
 
-The scope map and source-statement crosswalk record the claim boundary; `task-dag.json` records the
-six dependent execution phases that remain open. Exact intake checks and their limits are in
-`validation.md`.
+The statement phase has now selected and kernel-elaborated the real Banach-space contraction form.
+Its concrete generator, semigroup, and resolvent predicates are in `Statement.lean`; the frozen
+expression and environment fingerprint are in `statement.json`, and exact commands are recorded in
+`statement-validation.md`. This is statement-only evidence pending master acceptance: the root
+remains `[H1, M4, R4]`, with no source-fidelity, proof, audit-completion, or theorem-completion claim.

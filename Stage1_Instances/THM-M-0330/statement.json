@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0330-STATEMENT",
+  "theorem_id": "THM-M-0330",
+  "lifecycle": "planned",
+  "selected_variant": "real Banach-space contraction-semigroup Hille-Yosida theorem",
+  "canonical_statement": "A partially defined real-linear operator A on a real Banach space generates a strongly continuous contraction semigroup on nonnegative time if and only if A is closed, its domain is dense, and for every real a > 0 the operator a I - A has a bounded two-sided inverse R satisfying ||R y|| <= a^-1 ||y||.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0330/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0330.HilleYosidaContractionTarget",
+    "elaborated_expression_sha256": "5696285042abd39e340c7e72b2c2855d17e2e335106b1aa6a724056fd68bd75e",
+    "statement_file_sha256": "48028e2850beced6e7778de466876b6f522344f8ab710b761ed42fe7f685d650"
+  },
+  "domain_and_universes": "X : Type u with NormedAddCommGroup X, NormedSpace Real X, CompleteSpace X; A : X ->l.[Real] X; T : NNReal -> X ->L[Real] X",
+  "ordered_binders": ["X and Banach-space instances", "A", "T on the generation side", "a > 0 and R on the resolvent side"],
+  "hypotheses_and_definitions": [
+    "T(0) = I and T(s+t) = T(s) comp T(t)",
+    "each orbit t |-> T(t)x is continuous",
+    "||T(t)x|| <= ||x||",
+    "the graph of A equals the strong right-derivative graph of T at zero",
+    "A.domain is dense and A.graph is closed",
+    "for every a > 0, R is a bounded two-sided inverse of a I - A",
+    "||R y|| <= a^-1 ||y||"
+  ],
+  "conclusion": "the generation side is logically equivalent to the closed/dense/resolvent side",
+  "direct_imports": ["Mathlib.Topology.Algebra.Module.LinearPMap", "Mathlib.Analysis.Normed.Operator.Basic"],
+  "checked_transport": "Stage1Instances.THM_M_0330.target_iff_expanded",
+  "source_relationship": "This freezes the standard contraction form associated with the modern Hille-Yosida generation theorem (Engel-Nagel, One-Parameter Semigroups, Chapter II, Theorem 3.5). Primary-source theorem/page and errata review remain an H-status task and receive no credit here.",
+  "foundation_profile": "Lean 4 dependent type theory; noncomputable definitions; no added axioms or theorem proof",
+  "tcb_profile": "Lean kernel, pinned Lean 4 toolchain, and pinned mathlib LinearPMap/topological/continuous-linear-map APIs",
+  "computation_profile": "noncomputable statement; no native or external computation",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0330/check_statement.py",
+    "killed": ["removed dense-domain condition", "changed positive resolvent axis to nonnegative", "changed nonnegative time to real time"]
+  },
+  "boundary_cases": {
+    "zero_time": "included and T(0)=I is explicit",
+    "zero_resolvent_parameter": "excluded by strict a > 0",
+    "zero_space": "included; no Nontrivial X assumption",
+    "scalar_field": "Real, not Complex",
+    "variant_exclusions": "No M, omega exponentially bounded form; no uniqueness clause separate from generator equality; no Lumer-Phillips substitution"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact selected contraction-form target. It supplies no H0 source audit, anchor acceptance, proof, or theorem-completion evidence."
+}

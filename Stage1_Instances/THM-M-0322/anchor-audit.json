@@ -1,0 +1,96 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0322-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0322",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "8014740e5a37eff82745f6fd2bc69f0ee45e67c9",
+  "canonical_declaration": "Stage1Instances.THM_M_0322.KreinMilmanTarget",
+  "lean_version": "4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0322-C01",
+      "project": "awesome_theorems",
+      "revision": "8014740e5a37eff82745f6fd2bc69f0ee45e67c9",
+      "module": "Stage1_Instances/THM-M-0322/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0322.KreinMilmanTarget",
+      "kind": "exact_statement_with_checked_upstream_wrapper",
+      "normalized_match": "the wrapper universally closes exactly the frozen target",
+      "body_provenance": "one-step wrapper whose terminal proof body is the pinned mathlib declaration closure_convexHull_extremePoints",
+      "placeholder_or_axiom_status": "Statement.lean elaborates without sorry, admit, axiom, unsafe, or oracle declarations",
+      "classification": "local_wrapper_upstream_mathlib",
+      "integration_status": "already repo-local and checked against the pinned dependency"
+    },
+    {
+      "candidate_id": "S56-M-0322-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Convex.KreinMilman",
+      "source_path": "Mathlib/Analysis/Convex/KreinMilman.lean",
+      "declaration": "closure_convexHull_extremePoints",
+      "kind": "exact_terminal_proof",
+      "normalized_match": "exact compactness and real-convexity premises with equality closure (convexHull Real (s.extremePoints Real)) = s",
+      "body_provenance": "source theorem body at pinned commit; immediate named proof dependencies include closure_minimal, convexHull_min, extremePoints_subset, geometric_hahn_banach_closed_point, IsCompact.exists_isMaxOn, IsCompact.extremePoints_nonempty, and linarith",
+      "source_blob": "699ec84030f69d533bc040e02735b8e5fc86beff",
+      "source_sha256": "76a30354400127df51e995389646830f6960ae9c1bb33b2b91a5ad9ab5091e80",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_axiom_status": "kernel elaboration and #print axioms succeed; no source-level sorry, admit, axiom, unsafe, or oracle marker occurs in the audited module",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "classification": "pinned_exact_mathlib_anchor",
+      "integration_status": "present in lake-manifest.json, installed at the exact revision, and checked by the local wrapper"
+    },
+    {
+      "candidate_id": "S56-M-0322-C03",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Convex.KreinMilman",
+      "declaration": "IsCompact.extremePoints_nonempty",
+      "kind": "root_relevant_supporting_lemma",
+      "normalized_match": "strictly weaker extreme-point existence lemma, not a substitute for the canonical equality",
+      "body_provenance": "source proof at the same pinned blob using Zorn minimality and geometric Hahn-Banach separation",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "pinned_support_dependency",
+      "integration_status": "locally checkable and invoked by the exact terminal proof"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (KreinMilman OR Krein-Milman OR Krein Milman OR closure_convexHull_extremePoints) lang:Lean count:100",
+      "result": "matchCount=2 in one repository; both hits are mathlib4 (the theorem source and aggregate import), with no distinct external project candidate",
+      "response_sha256": "0bfea4e84a55e149ccc7c6de59de63aeb8d6c2a6e4388304b58f7f0f0fcd62a6",
+      "immutability_boundary": "dated, content-hashed discovery response; the indexed moving commit is not credited in place of the repository's pinned mathlib revision"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Krein-Milman\"+lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated, content-hashed repository-metadata discovery evidence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"Krein-Milman\"+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "external_distinct_terminal_proof_found": false,
+  "machine_anchor_result": "exact pinned mathlib terminal proof found and repo-local wrapper checked",
+  "machine_debt_after_anchor_audit": "downstream obligation, transitive provenance/trust, validation, and release gates remain; this phase alone does not assign M0 or theorem completion",
+  "human_source_boundary": "The mathlib module cites Barry Simon, Convexity: An Analytic Viewpoint (2011), chapter 8, and Crossref confirms DOI 10.1017/CBO9780511910135. Crossref also confirms the historical paper DOI 10.4064/sm-9-1-133-138 and pages 133-138. Neither primary text, exact theorem/page, assumptions, errata, nor independent review was completed here, so H remains H2.",
+  "root_vector_after": {"H": "H2", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The bounded formal-anchor inventory for this node is complete. It records an exact pinned mathlib proof and checked local wrapper, but gives no obligation-tree, full transitive trust, H0, R0, release, full-audit, or theorem-completion credit."
+}

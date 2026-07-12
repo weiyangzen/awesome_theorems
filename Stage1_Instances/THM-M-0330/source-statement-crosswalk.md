@@ -42,7 +42,8 @@ repo-local discovery leads for the same named family. The legacy `HilleYosidaDat
 generator and resolvent facts as abstract fields, so projection wrappers from that data cannot
 establish the theorem. Cross-target artifacts cannot be inherited by `THM-M-0330` in any event.
 
-Before source fidelity can reach `H0`, an independent reviewer must approve the chosen variant and
-a row-by-row map of every domain, universe, binder, hypothesis, constant, boundary case, and
-conclusion. Before machine status can improve from `M4`, the exact corresponding Lean expression
-must elaborate under pinned imports and pass statement identity checks.
+The statement phase selects the standard real contraction form associated with Engel-Nagel,
+Chapter II, Theorem 3.5: positive resolvent axis, bound `||R(a,A)|| <= 1/a`, and a strongly
+continuous contraction semigroup on nonnegative time. `Statement.lean` elaborates this exact choice
+with concrete predicates. Before source fidelity can reach `H0`, an independent reviewer must still
+inspect the cited source, primary-source counterparts, and errata and approve the row-by-row map.

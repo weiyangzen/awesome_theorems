@@ -2,23 +2,21 @@
 
 ## Included claim
 
-- A Banach space over the real or complex scalar field fixed by the selected source.
+- A real Banach space; the selected contraction variant fixes the scalar field to `Real`.
 - A linear operator with explicitly represented domain, closed graph, and dense domain.
 - A strongly continuous (`C0`) one-parameter semigroup of bounded linear operators on nonnegative
   time, its infinitesimal generator, and any uniqueness conclusion in the selected formulation.
 - The appropriate real half-line in the resolvent set of the operator.
-- The complete family of resolvent-power bounds, with every quantified parameter, exponent,
-  constant, and strict inequality preserved.
+- For every real `a > 0`, a bounded two-sided inverse of `a I - A` with the contraction resolvent
+  estimate `||R y|| <= a^-1 ||y||`.
 - Both directions of the generator characterization for one single, source-backed variant.
 
-## Statement decisions still open
+## Frozen statement decisions
 
-The statement phase must select either the contraction form or the general exponentially bounded
-form with constants such as `M` and `omega`. It must fix real versus complex scalars, the sign of the
-generator, whether the resolvent is written using `lambda I - A`, the range and strictness of
-`lambda`, the positive-power indexing convention, the topology used for strong continuity, and
-whether uniqueness and the growth estimate are inside the equivalence or separate consequences.
-The zero space and all domain/coercion conventions must also be handled explicitly.
+The statement selects the contraction form over a real Banach space, with nonnegative time,
+pointwise orbit continuity, and `||T(t)x|| <= ||x||`. The generator graph is equality with the
+strong right derivative at zero. The zero space is included; `a = 0`, the general `M, omega` form,
+complex scalars, and a separate uniqueness clause are excluded from this variant.
 
 ## Explicit exclusions
 
@@ -29,5 +27,5 @@ The zero space and all domain/coercion conventions must also be handled explicit
   opaque proposition fields.
 - Reuse of `THM-M-1041`, `S1_M_234.lean`, or their wrappers as proof or statement-identity credit.
 
-The later statement phase owns the concrete Lean APIs and elaborated expression. This intake freezes
-the mathematical family and its exclusions without inventing those missing implementation choices.
+`Statement.lean` owns the concrete Lean APIs and elaborated expression. Source-fidelity review and
+all proof obligations remain downstream.

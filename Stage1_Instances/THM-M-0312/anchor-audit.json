@@ -1,0 +1,94 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0312-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0312",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "8014740e5a37eff82745f6fd2bc69f0ee45e67c9",
+  "canonical_declaration": "Stage1Instances.THM_M_0312.UniformBoundednessTarget",
+  "canonical_expression_sha256": "8d8de4ab21686d451342fe90b92b7d11d8719ae9ce140609ce8ee6f3abd53725",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_module_sha256": "737dd81a84049ff08ee79724090c88d5f1d7bacf6a7a465022d6cd8654ad9c61"
+  },
+  "discovery_order": [
+    "repository-local Lean source",
+    "pinned mathlib source and history",
+    "Loogle declaration index",
+    "Sourcegraph global Lean search including archives and forks",
+    "GitHub repository search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0312-C01",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
+      "declaration": "banach_steinhaus",
+      "type_match": "exact after unfolding the frozen proposition definition; checked by Stage1Instances.THM_M_0312.AnchorAudit.exactMathlibWrapper",
+      "terminal_body": "pinned mathlib theorem body at lines 36-40; reduces norm boundedness to equicontinuity and WithSeminorms.banach_steinhaus",
+      "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe token in the direct theorem module or Barrelled.lean terminal-body module",
+      "license": "Apache-2.0 (pinned mathlib LICENSE SHA-256 b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1)",
+      "classification": "M0-W candidate pending downstream acceptance and release-grade evidence",
+      "integration_status": "already in the pinned local dependency closure and exact wrapper elaborates"
+    },
+    {
+      "candidate_id": "S56-M-0312-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
+      "declaration": "banach_steinhaus_iSup_nnnorm",
+      "type_match": "checked iff alternate encoding, not a distinct canonical proof body",
+      "terminal_body": "pinned mathlib wrapper over WithSeminorms.banach_steinhaus",
+      "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "M0-W alternate-form candidate",
+      "integration_status": "locally elaborated; shares the same terminal proof route as C01"
+    },
+    {
+      "candidate_id": "S56-M-0312-C03",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.LocallyConvex.Barrelled",
+      "declaration": "WithSeminorms.banach_steinhaus",
+      "type_match": "strictly more general barrelled-space equicontinuity theorem; not the canonical root type",
+      "terminal_body": "local mathlib body using continuity of the pointwise supremum seminorm",
+      "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+      "classification": "supporting terminal body",
+      "integration_status": "already pinned; C01 transports it to the exact root"
+    },
+    {
+      "candidate_id": "S56-M-0312-C04",
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "module": "Atlas.IntroductionToFunctionalAnalysis.code.UniformBoundedness",
+      "declaration": "UniformBoundedness.uniform_boundedness",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "source_sha256": "b5c26f5f5e140532fed92db39b6f50df60b952dc468f7dc2dc8acfdbfdfd9669",
+      "type_match": "real continuous-linear specialization only; narrower than the polymorphic semilinear canonical root",
+      "terminal_body": "one-line wrapper calling mathlib banach_steinhaus; no independent proof body",
+      "placeholder_scan": "no sorry, admit, axiom declaration, or unsafe token in the candidate file",
+      "classification": "external wrapper, no additional proof credit",
+      "integration_status": "not needed and not imported; same toolchain and mathlib pin but strictly narrower statement"
+    }
+  ],
+  "external_search": {
+    "sourcegraph_query": "context:global archived:yes fork:yes lang:Lean (banach_steinhaus OR Uniform Boundedness Principle OR Banach-Steinhaus) count:100",
+    "sourcegraph_result": "complete; 22 matches in three repositories: mathlib3, mathlib4, and atlas-lean; atlas-lean was the only non-mathlib Lean 4 repository",
+    "sourcegraph_response_sha256": "b36f814cf70e3fb43246c8ce4b725f93b9e2a36c55cb4b593d5f41ac2cc1f9d2",
+    "github_repository_queries": ["Banach-Steinhaus Lean", "Uniform Boundedness Principle Lean"],
+    "github_repository_result": "both complete with total_count=0",
+    "github_response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+    "boundary": "dated, content-hashed discovery evidence; not a claim that all Lean source globally was searched"
+  },
+  "root_machine_classification": "M0-W candidate pending master acceptance and later release gates",
+  "root_vector_after": {"H": "H1", "M": "M0-W_candidate", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node locates and checks an exact pinned mathlib proof candidate. It does not accept proof state, finish the obligation/provenance/trust graphs, establish H0 or R0, or satisfy validation and release gates."
+}

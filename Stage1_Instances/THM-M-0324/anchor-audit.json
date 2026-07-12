@@ -1,0 +1,111 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0324-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0324",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0324.EnfloNoSchauderBasisTarget",
+  "search_order": [
+    "repository-local Lean sources",
+    "pinned mathlib source tree",
+    "public external Lean 4 candidates"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "A-MATHLIB-SCHAUDER-API",
+      "repository": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Normed.Module.Bases",
+      "source_file_sha256": "5daee171c6a9d29bba8c7c7f2683bfeea76b893c137fdc2d2330ca62b8526092",
+      "declarations": [
+        "GeneralSchauderBasis",
+        "SchauderBasis",
+        "GeneralSchauderBasis.linearIndependent",
+        "GeneralSchauderBasis.proj",
+        "GeneralSchauderBasis.range_proj_eq_span",
+        "GeneralSchauderBasis.finrank_range_proj",
+        "SchauderBasis.proj",
+        "SchauderBasis.tendsto_proj",
+        "SchauderBasis.exists_norm_proj_le"
+      ],
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "already pinned by Formalizations/Lean/lake-manifest.json and elaborates locally",
+      "relationship": "object-model and consequence anchors only; every theorem assumes a supplied Schauder basis and none constructs a Banach space without one",
+      "exact_root_closure": false,
+      "proof_body_provenance": "mathlib source bodies at the pinned revision; not terminal bodies for the canonical root",
+      "placeholder_audit": "no candidate is credited as root proof evidence",
+      "classification": "local_wrapper_upstream_mathlib substrate, zero root-proof credit"
+    },
+    {
+      "candidate_id": "A-LOCAL-GROTHENDIECK-SUBSTRATE",
+      "repository": "this repository",
+      "revision": "8014740e5a37eff82745f6fd2bc69f0ee45e67c9",
+      "module": "AwesomeTheorems.Stage1.S1_M_215",
+      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_215.lean",
+      "declarations": [
+        "CompactConvergenceApproximationProperty",
+        "SequentialApproximationWitness",
+        "finiteDimensional_hasSequentialApproximationWitness",
+        "externalLeanAuditSourcesC005"
+      ],
+      "relationship": "adjacent approximation-property vocabulary and finite-dimensional examples only; it explicitly records the terminal infinite-dimensional approximation theorem as open",
+      "exact_root_closure": false,
+      "proof_body_provenance": "repo-local bodies, but no declaration has or implies the Enflo existential target",
+      "placeholder_audit": "the general Grothendieck statement shape uses a local hypothesis interface and is not credited",
+      "classification": "discovery substrate only, zero root-proof credit"
+    },
+    {
+      "candidate_id": "A-EXTERNAL-GAUSSIAN-FIELD",
+      "repository": "https://github.com/mrdouglasny/gaussian-field.git",
+      "revision": "d63a28568a75d99f6cb27af1f888a49a69855a66",
+      "module": "GaussianField.NuclearFactorization",
+      "declarations": [
+        "clm_image_growth",
+        "nuclear_clm_representation"
+      ],
+      "toolchain": "not integrated or locally checked for this audit",
+      "dependency_feasibility": "not present in the pinned dependency closure; no integration is warranted because the inspected immutable source concerns nuclear factorization, not Enflo's counterexample",
+      "relationship": "uses a Schauder expansion as input and proves nuclear-representation infrastructure; no Enflo or no-Schauder-basis terminal declaration was identified",
+      "exact_root_closure": false,
+      "proof_body_provenance": "public source at the immutable revision, anchor-only and uncredited",
+      "placeholder_audit": "not evaluated as proof evidence because its types do not match the root",
+      "classification": "external_upstream_anchor_only, zero root-proof credit"
+    }
+  ],
+  "negative_searches": {
+    "pinned_mathlib_terms": [
+      "Enflo",
+      "ApproximationProperty",
+      "approximation property",
+      "SchauderBasis"
+    ],
+    "repo_local_terms": [
+      "Enflo",
+      "SchauderBasis",
+      "ApproximationProperty",
+      "approximation property"
+    ],
+    "github_repository_metadata_queries": [
+      "Enflo language:Lean",
+      "SchauderBasis language:Lean",
+      "approximation property Banach Lean"
+    ],
+    "result": "No exact terminal Lean 4 proof candidate was identified. GitHub repository metadata returned zero repositories for all three queries. Unauthenticated GitHub code search returned HTTP 401 and grep.app returned HTTP 429, so this is a bounded audit result, not a universal nonexistence claim."
+  },
+  "root_match": {
+    "exact_candidate_found": false,
+    "external_machine_closure_found": false,
+    "integration_required_now": false,
+    "reason": "No external exact closure exists among the identified candidates; therefore there is no discovered repo-local integration debt to discharge."
+  },
+  "debt_classification": "formalization_debt",
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "The node-scoped anchor inventory is complete and locally checked. It found usable pinned Schauder-basis API but no exact Enflo root closure. This does not complete the broader source/proof audit or the theorem."
+}
+
