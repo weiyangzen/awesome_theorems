@@ -1,0 +1,34 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-1021-STATEMENT",
+  "depends_on": ["S56-M-1021-INTAKE"],
+  "theorem_id": "THM-M-1021",
+  "phase": "statement",
+  "state": "provisional_self_tested",
+  "source_file": "Stage1_Instances/THM-M-1021/BochnerStatement.lean",
+  "minimal_imports": ["Mathlib.MeasureTheory.Integral.Bochner.Basic"],
+  "canonical_declaration": "AwesomeTheorems.Stage1.THM_M_1021.BochnerTarget",
+  "ordered_binders": ["phi : Real -> Complex"],
+  "root_shape": "IsCharacteristicFunction phi <-> Continuous phi /\\ phi 0 = 1 /\\ IsPositiveDefinite phi",
+  "positive_definite_encoding": "For every n, t : Fin n -> Real, and c : Fin n -> Complex, the double sum c_j * star(c_k) * phi(t_j-t_k) equals the coercion of some nonnegative real r.",
+  "characteristic_function_encoding": "There exists mu : Measure Real with IsProbabilityMeasure mu and phi(s) equal to the Bochner integral of exp(I * s * x) against mu for every s.",
+  "included_directions": ["representation implies continuity, normalization, and positive definiteness", "continuity, normalization, and positive definiteness imply representation"],
+  "excluded_claims": ["uniqueness of the representing measure", "groups other than Real"],
+  "boundary_cases": {
+    "empty_family": "n = 0 is included by quantification over Nat and Fin 0",
+    "normalization": "phi 0 = 1 is a separate conjunct",
+    "measure": "IsProbabilityMeasure is explicit rather than inferred from normalization",
+    "fourier_sign": "The convention is exp(I * s * x)"
+  },
+  "environment": {
+    "lean": "4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "source_sha256": "e17aaf1304266aba6bb84783cf6709b4eca34e08cc9274aebacf1479ac8762cd",
+  "elaborated_print_sha256": "5b397ee9de0936db2c62ba953794ee0c2b9dc3192370aa06825fdf4aafc8322b",
+  "proof_claimed": false,
+  "theorem_complete": false,
+  "acceptance_boundary": "This receipt establishes only kernel elaboration of the exact proposition in the pinned local environment. It supplies no proof of that proposition and remains provisional until master acceptance."
+}
