@@ -9,15 +9,15 @@
 - Convergence of the distribution function of the normalized `L_N` to the Tracy-Widom
   distribution identified by the source.
 
-## Decisions required at statement freeze
+## Decisions frozen by the statement phase
 
-The statement phase must inspect and select the exact primary theorem, then freeze: the finite
-permutation sample space and uniform measure; indexing convention; strict versus weak increasing
-subsequence; the maximum and empty-size conventions; whether floors or integer thresholds appear;
-the precise centering and scaling; the limiting distribution's analytic definition and
-normalization; whether convergence is pointwise for every real argument or only at continuity
-points; and the binder order between the real threshold and the limit in `N`. It must also decide
-whether `N = 0` is excluded and how real powers and square roots are encoded.
+The source is Theorem 1.1 of arXiv:math/9810105v2. The finite sample space is
+`Equiv.Perm (Fin N)` with uniform probability expressed as a cardinality ratio. Subsequences are
+strictly increasing in both indices and values. The target includes `N = 0` as a harmless initial
+term of the sequence; this cannot affect `atTop`. It uses exactly `2 * Real.sqrt N` and real power
+`N^(1/6)`, with pointwise CDF convergence for every `t : Real`. The Tracy-Widom CDF is exposed by
+the source's Airy/Painleve II asymptotics and integral formula rather than assumed as an opaque
+arbitrary distribution.
 
 These choices affect the exact proposition and cannot be inferred from the theorem name alone.
 
@@ -33,6 +33,5 @@ These choices affect the exact proposition and cannot be inferred from the theor
 - A structure or hypothesis that assumes the desired convergence or limiting distribution.
 - The repository label `已验证` as human-source or kernel evidence.
 
-No canonical Lean expression is frozen at intake. A later statement must expose the finite uniform
-probability model, longest-increasing-subsequence statistic, normalization, and distributional
-limit rather than package the conclusion as input data.
+The canonical Lean expression is now frozen in `Statement.lean` and exposes each of these
+components. The exclusions above remain unchanged.

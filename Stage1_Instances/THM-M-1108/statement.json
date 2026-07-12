@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1108-STATEMENT",
+  "theorem_id": "THM-M-1108",
+  "lifecycle": "planned",
+  "canonical_statement": "Baik--Deift--Johansson (1999), Theorem 1.1: if a permutation of N letters is uniformly distributed and L_N is the length of its longest strictly increasing subsequence, then for every real t, P((L_N - 2 sqrt(N))/N^(1/6) <= t) tends to F(t), where F is the Tracy--Widom distribution defined in source equations (1.4)--(1.6).",
+  "primary_source": {
+    "authors": "Jinho Baik, Percy Deift, Kurt Johansson",
+    "title": "On the distribution of the length of the longest increasing subsequence of random permutations",
+    "edition": "arXiv:math/9810105v2, 1999-03-26",
+    "pin": "sha256:0a432946234949c12a3e379e42d8f79fa646b9002810ffe97817d52aca184a7a",
+    "locator": "Theorem 1.1, displayed definition (1.4)--(1.6), PDF pages 2--3",
+    "url": "https://arxiv.org/pdf/math/9810105"
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "source": "Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1108.CanonicalStatement",
+    "source_sha256": "f298aca248d0c647347bc674ce1378dfb075044a5f2cb9655d444f4940bc46cc",
+    "elaborated_expression_sha256": "77a8060cec0d52904b4e490aba897941da35e272082be2de219d588100ce15c5"
+  },
+  "ordered_binders": [
+    "F : Real -> Real",
+    "IsTracyWidomCDF F",
+    "t : Real",
+    "limit N -> infinity"
+  ],
+  "encoding_decisions": {
+    "sample_space": "Equiv.Perm (Fin N), with probability expressed as finite event cardinality divided by total cardinality",
+    "lis_statistic": "supremum of cardinalities of Finset index sets on which the permutation is strictly increasing",
+    "normalization": "((lisLength sigma : Real) - 2 * Real.sqrt N) / (N : Real) ^ (1/6 : Real)",
+    "convergence": "pointwise convergence of the cumulative probability for every real t",
+    "tracy_widom": "existence of Airy Ai and the Hastings--McLeod Painleve II solution with the source asymptotics, followed by source formula (1.6)"
+  },
+  "direct_imports": [
+    "Mathlib.Analysis.Calculus.Deriv.Basic",
+    "Mathlib.Data.Fintype.Perm",
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1108.canonicalStatement_iff_unfolded",
+  "mutation_tests": [
+    "removed Tracy--Widom model hypothesis",
+    "changed fluctuation exponent from 1/6 to 1/3",
+    "changed real-threshold binder scope",
+    "excluded the N = 0 indexing boundary by shifting N to N+1"
+  ],
+  "foundation_profile": "Lean 4 dependent type theory; the rfl checked transport reports propext, Classical.choice, and Quot.sound through definitions/typeclass synthesis; no custom axioms",
+  "tcb_profile": "Lean kernel; Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable finite cardinalities, real improper integral, derivatives, and filter limits; no numerical computation or simulation receives proof credit",
+  "environment_fingerprint": {
+    "base_revision": "9464c8a759b73fadf4c56c116c00b7ec96409b2a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration only. The source edition has not received independent H0 review, and no anchor, proof, audit-completion, or theorem-completion credit is claimed."
+}
