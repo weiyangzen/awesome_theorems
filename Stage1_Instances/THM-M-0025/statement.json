@@ -1,0 +1,89 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0025-STATEMENT",
+  "theorem_id": "THM-M-0025",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "intake_selected_commutative_one_variable_scope_and_exact_lean_expression_frozen_primary_source_fidelity_open",
+  "canonical_statement": "For every commutative ring R, if R is Noetherian, then the univariate polynomial ring R[X] is Noetherian.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0025/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0025.HilbertBasisTheoremTarget",
+    "elaborated_expression_sha256": "9bb5ed6dd01550f3481d4a66e1d81009272b717997f9752ff422029da2828564",
+    "statement_file_sha256": "d629f0c46384939ddcbaa4c35c3e1c75bb41d39ec3b79cb7355c174028186f6c",
+    "fully_explicit_expression": "∀ {R : Type u} [inst : CommRing.{u} R] [@IsNoetherianRing.{u} R (@CommSemiring.toSemiring.{u} R (@CommRing.toCommSemiring.{u} R inst))], @IsNoetherianRing.{u} (@Polynomial.{u} R (@CommSemiring.toSemiring.{u} R (@CommRing.toCommSemiring.{u} R inst))) (@Polynomial.semiring.{u} R (@CommSemiring.toSemiring.{u} R (@CommRing.toCommSemiring.{u} R inst)))"
+  },
+  "domain_and_universes": "R is an arbitrary implicit Type u carrying CommRing and IsNoetherianRing instances; Polynomial R is in the same universe; no Nontrivial, characteristic, domain, or field premise is present.",
+  "ordered_binders": [
+    "R : Type u (implicit universal)",
+    "CommRing R (instance binder)",
+    "IsNoetherianRing R (instance binder)"
+  ],
+  "hypotheses": [
+    "R has a commutative ring structure",
+    "R is Noetherian"
+  ],
+  "conclusion": "The univariate polynomial ring Polynomial R is Noetherian.",
+  "direct_imports": [
+    "Mathlib.Algebra.Polynomial.Basic",
+    "Mathlib.RingTheory.Noetherian.Defs"
+  ],
+  "minimal_import_basis": "Polynomial.Basic supplies the polynomial carrier and CommRing instance; Noetherian.Defs supplies IsNoetherianRing, ideal finite generation, and their iff. Deleting either import fails, while the proof-bearing Mathlib.RingTheory.Polynomial.Basic module is deliberately not imported.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0025.IdealFiniteGenerationTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0025.hilbertBasisTheoremTarget_iff_idealFiniteGenerationTarget",
+      "boundary": "Directly expands Noetherianity to finite generation of every ideal for both the coefficient and polynomial rings."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "ascending-chain or well-founded-order formulations without a separately checked transport",
+    "finite-variable MvPolynomial and general finite-type algebra strengthenings",
+    "noncommutative left- or right-Noetherian formulations"
+  ],
+  "degenerate_cases": {
+    "included": [
+      "the zero ring and all subsingleton commutative Noetherian rings",
+      "fields, domains, finite rings, and PIDs only as special cases of the general domain"
+    ],
+    "excluded": [],
+    "checked_witnesses": [
+      "Stage1Instances.THM_M_0025.subsingleton_boundary_has_no_nontrivial",
+      "Stage1_Instances/THM-M-0025/BoundaryProbe.lean (PUnit CommRing, IsNoetherianRing, and 0 = 1 checks)"
+    ]
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "polynomial_basic_source_sha256": "496e0db20f617473734767d6ae3ab6dd52bac0fec1264e0272353ae7701e4643",
+    "noetherian_defs_source_sha256": "a0e5c5a1aceb564f885573d5c51ec124be20abbd19fabc6af8c798b637530f0b",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "boundary_probe_sha256": "ba87d3d82c98a50e53bb3ef60c5038af0b72d5690c568ddefeaf21fe11c5e093",
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked statement transport reports only propext, Classical.choice, and Quot.sound; no custom axiom is introduced. Full transitive trust closure is downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The statement imports only carrier/definition modules; the candidate theorem body and its transitive trust closure are not imported, audited, or credited here.",
+  "computation_profile": "No native computation, experiment, oracle, generated instance, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0025/check_statement.py",
+    "killed": [
+      {"kind": "removed_hypothesis", "declaration": "mutationRemovedNoetherianHypothesis"},
+      {"kind": "changed_domain", "declaration": "mutationChangedDomainToField"},
+      {"kind": "changed_binder_scope", "declaration": "mutationChangedBinderScope"},
+      {"kind": "boundary_case", "declaration": "mutationExcludedZeroRing"}
+    ],
+    "method": "Every mutation is separately elaborated, rejected as a term of the canonical proposition by #check_failure, explicitly printed by the validator, and required to have a distinct expression fingerprint."
+  },
+  "source_fidelity_boundary": "The repository gloss and a modern secondary cross-check identify the conventional theorem family, but no independently reviewed primary edition, theorem/page, translation, assumption map, proof boundary, or errata packet has been admitted. This freezes the intake-selected conventional repository scope, not H0 source fidelity.",
+  "status_boundary": "Exact statement elaboration only. This artifact contains no inhabitant of HilbertBasisTheoremTarget, imports no Hilbert basis proof, and supplies no proof, anchor-audit, source-fidelity, audit-completion, or theorem-completion credit."
+}

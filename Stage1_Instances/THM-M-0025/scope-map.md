@@ -8,17 +8,18 @@ its Noetherian hypothesis; the conclusion concerns the polynomial ring over that
 ring.
 
 This is a repository-scope selection from a concise catalog gloss, not an `H0` source finding. The
-statement phase must ratify the convention against an immutable source packet and elaborate the
-canonical Lean expression before tree construction.
+statement phase freezes the conventional scope as an elaborated canonical Lean expression; a
+pinpoint immutable historical source packet and independent source review remain open on the H
+axis.
 
 ## Scope decisions
 
 | Surface | Selected meaning | Open verification |
 |---|---|---|
 | Base object | commutative ring `R` | primary-source convention and exact structure hierarchy |
-| Noetherian hypothesis | every ideal of `R` is finitely generated, equivalently the accepted ascending-chain formulation | checked equivalence and source definition chain |
-| Polynomial ring | one indeterminate over `R` | notation and universe fingerprint |
-| Conclusion | every ideal of `R[X]` is finitely generated | canonical elaboration and transports |
+| Noetherian hypothesis | every ideal of `R` is finitely generated | checked finite-generation iff exists; source definition chain remains open |
+| Polynomial ring | one indeterminate over `R` | exact carrier and universe fingerprint frozen |
+| Conclusion | every ideal of `R[X]` is finitely generated | canonical elaboration and checked iff frozen |
 | Logic | ordinary proposition; no computational output | exact foundation and transitive trust audit |
 
 ## Boundary cases
@@ -50,8 +51,9 @@ canonical Lean expression before tree construction.
 
 ## Downstream handoff
 
-The statement phase must inspect an admitted source passage, fix the Noetherian equivalence used
-by the root, elaborate a minimal-import canonical target, record its expression and environment
-fingerprints, check alternate encodings, and distinguish the four required mutation classes.
-Only the later anchor audit may inspect and classify the proof body and trust closure of
-`Polynomial.isNoetherianRing`.
+The statement phase has fixed the Noetherian finite-generation encoding, elaborated the target
+with two statement-only imports, recorded expression and environment fingerprints, checked its
+credited alternate encoding and zero-ring boundary, and distinguished all four required mutation
+classes. Only the later anchor audit may inspect and classify the proof body and trust closure of
+`Polynomial.isNoetherianRing`; `BoundaryProbe.lean` separately validates `PUnit` as a concrete
+zero-ring coefficient antecedent. Source fidelity remains independently open.

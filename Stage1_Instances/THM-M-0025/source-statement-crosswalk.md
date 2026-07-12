@@ -30,9 +30,9 @@ review.
 
 | Catalog component | Intake-selected meaning | Pinned Lean candidate | Status |
 |---|---|---|---|
-| "Noetherian ring" | commutative `R` in which every ideal is finitely generated | `[CommRing R] [IsNoetherianRing R]`; `isNoetherianRing_iff_ideal_fg` | convention selected; source ratification and checked alternate encoding open |
-| "polynomial ring over" | univariate polynomials with coefficients in the same `R` | `Polynomial R`, notation `R[X]` | carrier candidate authenticated |
-| "is still Noetherian" | every ideal of the polynomial ring is finitely generated | `IsNoetherianRing (Polynomial R)` | conclusion candidate authenticated |
+| "Noetherian ring" | commutative `R` in which every ideal is finitely generated | `[CommRing R] [IsNoetherianRing R]`; `isNoetherianRing_iff_ideal_fg` | checked iff frozen; source ratification open |
+| "polynomial ring over" | univariate polynomials with coefficients in the same `R` | `Polynomial R`, notation `R[X]` | exact carrier and universe frozen |
+| "is still Noetherian" | every ideal of the polynomial ring is finitely generated | `IsNoetherianRing (Polynomial R)` | canonical target elaborated and fingerprinted |
 | David Hilbert / 1890 | historical catalog attribution | no formal component | pinpoint primary source and review open |
 | `已验证` | catalog status label | no formal component | explicitly no H/M credit |
 
@@ -47,13 +47,16 @@ Polynomial.isNoetherianRing {R : Type u} [CommRing R] [IsNoetherianRing R] :
 ```
 
 The immutable mathlib revision is `8a178386ffc0f5fef0b77738bb5449d50efeea95`. The candidate is
-an unusually close formal match, but intake records only its module, name, and checked type. It
-does not credit the body, source fidelity, transitive dependencies, trust profile, or proof closure.
-Those are statement/anchor-audit/proof/validation responsibilities.
+an unusually close formal match. The statement phase freezes a canonical proposition with the
+same implicit ring and instance binders without importing this proof-bearing module, and checks an
+iff to the every-ideal-is-finitely-generated encoding. It does not credit the candidate body,
+source fidelity, transitive dependencies, trust profile, or proof closure. Those remain
+anchor-audit/proof/validation responsibilities.
 
 ## Exactness risks held open
 
-The statement phase must confirm rather than assume that the catalog uses the commutative
-convention, one variable, finite-generation/ACC equivalence, inclusion of the zero ring, and no
-extra nontriviality premise. The finite-variable `MvPolynomial` instance, the finite-type algebra
-theorem, and any noncommutative one-sided theorem are related candidates, not silent replacements.
+The statement phase freezes the conventional commutative, one-variable reading, the
+finite-generation encoding, inclusion of the zero ring, and absence of an extra nontriviality
+premise. Pinpoint historical-source ratification and the ACC transport remain open. The
+finite-variable `MvPolynomial` instance, the finite-type algebra theorem, and any noncommutative
+one-sided theorem are related candidates, not silent replacements.

@@ -1,0 +1,181 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "schema_status": "provisional_local_record_shape_pending_published_strict_repository_schema",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0032",
+  "item_id": "S56-M-0032-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1076,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "奥斯兰德-布赫斯包姆定理",
+  "name_en": "Auslander-Buchsbaum theorem (unique factorization in regular local rings)",
+  "canonical_name": "Auslander-Buchsbaum unique-factorization theorem for regular local rings",
+  "category": "代数学 / 环论",
+  "category_en": "algebra / ring theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "正则局部环是UFD",
+  "literal_source_claim_en": "A regular local ring is a unique factorization domain.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "exact_primary_theorem_text_located_but_inherited_definitions_assumption_transport_and_independent_review_not_frozen",
+  "canonical_claim": null,
+  "statement_blocker": "The primary paper's Theorem 5 matches the catalog wording, but the paper imports its regular-local-ring, homological-dimension, and ring conventions from earlier work and uses a Nagata reduction for the unrestricted dimension. Before freezing a canonical proposition, an independent reviewer must admit and map those definitions, resolve the catalog's 1958 versus publication's 1959 date, ratify commutative/unital/nontrivial/domain and UFD conventions, and then elaborate and mutation-test an exact Lean target.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.RingTheory.RegularLocalRing.Defs",
+      "Mathlib.RingTheory.UniqueFactorizationDomain.Defs"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "(R : Type u) [CommRing R] [IsRegularLocalRing R] : UniqueFactorizationMonoid R",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_source_definition_transport_independent_review_and_exact_statement_gate",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open pending source ratification: an arbitrary universe-u commutative ring with identity, with local, Noetherian, and regular structure; exact nontriviality and derived-domain conventions must be mapped. The prospective conclusion uses mathlib's UniqueFactorizationMonoid on the same carrier.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open as a canonical encoding: the primary theorem says the regular local ring is a unique factorization domain, but exact source definitions and the accepted Lean UFD transport are not frozen.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before source conventions are ratified. The statement phase must resolve the zero ring, fields and dimension zero, arbitrary positive dimension, completion/localization boundaries, explicit versus derived domain structure, and unit-associated factorization conventions.",
+  "candidate_scope_not_credited": [
+    "the unrestricted primary statement that every regular local ring is a UFD",
+    "the modern Stacks Project formulation at tag 0AG0",
+    "the dimension-at-most-three Corollary 4 in the primary paper",
+    "the height-one-prime-principal characterization of a Noetherian domain being a UFD",
+    "the prospective Lean binder shape (R : Type u) [CommRing R] [IsRegularLocalRing R] : UniqueFactorizationMonoid R"
+  ],
+  "excluded_substitutions": [
+    "the Auslander-Buchsbaum projective-dimension/depth formula",
+    "only the dimension-at-most-three result or a complete-local-ring reduction",
+    "the reverse special case that a local principal ideal domain is a regular local ring",
+    "only regular-local-domain, Noetherian, height-one-prime, or factorial special-case results without a checked transport to the root",
+    "a theorem with added completeness, equicharacteristic, coefficient-field, finite-dimension, or other stronger hypotheses",
+    "a structure or typeclass premise containing UniqueFactorizationMonoid R",
+    "the untrusted verified label, citation, theorem name, API check, or numerical experiment as proof credit"
+  ],
+  "source_status": "H1_exact_primary_root_and_modern_corroboration_located_but_imported_definitions_proof_dependencies_date_discrepancy_errata_and_independent_review_remain_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Maurice Auslander and D. A. Buchsbaum, Unique Factorization in Regular Local Rings, Proceedings of the National Academy of Sciences 45(5), 733-734 (May 1959), DOI 10.1073/pnas.45.5.733, PMCID PMC222624",
+      "stable_locator": "Theorem 5, page 734",
+      "observed_page_sha256": {
+        "733": "ca2e179777de42435f16d87939f22d7b7f58ed789ebd311fa5305cdee2642126",
+        "734": "71ac88eb4b4f68a5eb604b00b2905ff8d788403f0ba3a209510428f0535267ea"
+      },
+      "inspection_status": "Exact theorem text and immediate two-page proof structure inspected. Inherited definitions, cited reduction, complete dependency/errata mapping, date discrepancy, immutable repository admission, and independent review remain open; not H0."
+    },
+    {
+      "citation": "The Stacks Project, Lemma 15.123.2, tag 0AG0, A regular local ring is a UFD",
+      "stable_locator": "https://stacks.math.columbia.edu/tag/0AG0",
+      "observed_sha256": "785af7cb4e040abda98bcbe4414785a4c2367059925a01b6d5524c44455008b7",
+      "inspection_status": "Modern exact-statement and proof-route cross-check only; not the historical source packet and not independently reviewed to H0."
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.RingTheory.RegularLocalRing.Defs",
+      "declarations": [
+        "IsRegularLocalRing",
+        "isRegularLocalRing_iff",
+        "IsRegularLocalRing.iff_finrank_cotangentSpace"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "Regular-local-ring definition interfaces only; no implication to unique factorization was located or credited."
+    },
+    {
+      "module": "Mathlib.RingTheory.UniqueFactorizationDomain.Defs",
+      "declarations": ["UniqueFactorizationMonoid"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "Prospective conclusion interface only; it does not supply a regular-local-ring proof."
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "837792d9180ab731db89c16a5cc22128a9599bc8",
+    "repository_base_tree": "5c5bd784032e9859e4c88b48a886d50194be1732",
+    "repository_record": "Docs/researches/math_theorems.md:249-254",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:992-1017",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "5618ef040b189625471a9661676c1cdea2093dbb55fa81305a759b3196a1d7c9",
+    "stage0_excerpt_sha256": "ce32858f61ece4ab54f7742bc124ae514c37f762ec4b2d761f0d1da32eab738a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "6a7092660da65f6f8e46daa1a724babc65a151a6c45d08abe836dbccbb28e135",
+    "execution_dag_sha256": "72438674d4a872064e64105ff0cbee714b86ec72e77e5c1e00a503e104f20ebc",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "regular_local_ring_defs_sha256": "3031d9946232a1d726a4556d0674632345b0877f049a23c104c495f5b2128c6f",
+    "unique_factorization_defs_sha256": "8813a12c60f360fcbc5fa74bdc5eebd66cb5c9070d0320ba892240e32a4696f7"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; exact classical-choice, quotient, localization, completion, and extensionality use remains downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; canonical imports, theorem body, transitive dependency closure, compiled artifacts, and accepted trust closure remain open",
+  "computation_profile": "kernel-proposition-planned/1.0: no experiment, oracle, generated instance, native shortcut, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0032/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0032/README.md",
+    "Stage1_Instances/THM-M-0032/instance.json",
+    "Stage1_Instances/THM-M-0032/scope-map.md",
+    "Stage1_Instances/THM-M-0032/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0032/task-dag.json",
+    "Stage1_Instances/THM-M-0032/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0032/check_intake.py",
+    "Stage1_Instances/THM-M-0032/validation.md",
+    "Stage1_Instances/THM-M-0032/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "policy_id": "stage1-intake-freshness/1.0",
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, source, date, or scope correction",
+      "primary-source definition, dependency, translation, correction, or errata finding",
+      "commutativity, identity, nontriviality, regularity, domain, UFD, or dimension convention",
+      "canonical Lean target or checked transport",
+      "toolchain, dependency pin, assurance profile, validator, or owned artifact change"
+    ],
+    "incident_path": "revoke or supersede the provisional intake report and issue a freshly self-tested scoped replacement"
+  },
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ]
+}

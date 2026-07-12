@@ -23,27 +23,27 @@
   "literal_source_claim_en": "A polynomial ring over a Noetherian ring is still Noetherian.",
   "source_status_untrusted": "已验证",
   "canonical_statement": "For every commutative ring R, if R is Noetherian, then the univariate polynomial ring R[X] is Noetherian.",
-  "canonical_claim_status": "conventional_commutative_one_variable_repository_scope_selected_at_intake_pending_pinpoint_primary_source_ratification_and_exact_lean_statement_gate",
+  "canonical_claim_status": "intake_selected_commutative_one_variable_scope_and_exact_lean_expression_frozen_primary_source_fidelity_open",
   "canonical_claim": "For every commutative ring R, if every ideal of R is finitely generated, then every ideal of the univariate polynomial ring R[X] is finitely generated.",
-  "statement_blocker": "The catalog omits a source citation and definitions. Before accepting an exact Lean target, the statement phase must admit and independently review a pinpoint source, ratify commutativity, the one-variable reading, the finite-generation/ascending-chain equivalence, inclusion of the zero ring, and absence of a Nontrivial premise, then elaborate and mutation-test the result.",
+  "statement_blocker": "Master acceptance of this self-tested exact conventional repository target is pending. Pinpoint historical source fidelity remains open on H and prevents any H0/source-fidelity claim, but not exact elaboration of the catalog-selected conventional scope.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0025/Statement.lean",
     "module_candidates": [
       "Mathlib.RingTheory.Polynomial.Basic"
     ],
-    "declaration_or_expression": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0025.HilbertBasisTheoremTarget",
     "candidate_declarations": [
       "Polynomial.isNoetherianRing",
       "isNoetherianRing_iff_ideal_fg"
     ],
     "candidate_expression": "forall {R : Type u}, [CommRing R] -> [IsNoetherianRing R] -> IsNoetherianRing (Polynomial R)",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_source_ratification_canonical_elaboration_and_mutation_tests",
+    "elaborated_expression_hash": "sha256:9bb5ed6dd01550f3481d4a66e1d81009272b717997f9752ff422029da2828564",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Polynomial.Basic-Noetherian.Defs_pp-universes-explicit",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
   },
-  "domain_and_universes": "Intake-selected domain: an arbitrary universe-u type R carrying a commutative ring structure, with Polynomial R in the same universe. The exact elaborated universe and instance binder representation remains for the statement gate.",
+  "domain_and_universes": "An arbitrary implicit R : Type u carrying CommRing and IsNoetherianRing instances, with Polynomial R in the same universe. No Nontrivial, characteristic, domain, field, or finiteness premise is present.",
   "quantifiers": [
     "R: an arbitrary commutative ring",
     "a Noetherian-ring hypothesis on R"
@@ -58,9 +58,15 @@
     "every ideal of R is finitely generated (the selected Noetherian convention)"
   ],
   "conclusion": "Every ideal of the univariate polynomial ring R[X] is finitely generated; equivalently, R[X] is Noetherian under the accepted commutative convention.",
-  "alternate_encodings": [],
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0025.IdealFiniteGenerationTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0025.hilbertBasisTheoremTarget_iff_idealFiniteGenerationTarget"
+    }
+  ],
   "excluded_degenerate_cases": [],
-  "degenerate_case_status": "The zero ring is provisionally included and no Nontrivial premise is added. The statement phase must ratify this against the selected source and test zero-ring and representative field/domain instances without changing the root.",
+  "degenerate_case_status": "The zero ring is included and no Nontrivial premise is added. A kernel-checked subsingleton-ring boundary witness and a distinct mutation adding Nontrivial freeze this choice.",
   "candidate_scope_not_credited": [
     "the finite-variable MvPolynomial Noetherian instance",
     "the theorem that every finite type algebra over a Noetherian ring is Noetherian",
@@ -110,8 +116,8 @@
     "repository_record_excerpt_sha256": "3f17cdfd7d25cf040fdf2cb172b6f440f9d344d2f1a82d9762942f00d6fd5eec",
     "stage0_excerpt_sha256": "c33f577e23ea1219532e3761944641a6964c5dec0a766ddb2d27bbb30159dd7e",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "02f31c3bc439908d8fa571acff9ee5f595f173b994b88b3df2ac5688c894f0d2",
-    "execution_dag_sha256": "55a6de4dce1081d2cc7ac662adc6de3e7374f549d381374a7ed19cec0d4c245c",
+    "authoritative_blueprint_sha256": "001dd6c3c6ccc1b1910f0c51201f534f9e37c29df4f5d09a894f1cf30aa116eb",
+    "execution_dag_sha256": "203319f482338106f0e568a85379df8a0434a560b7778b2a7137621df00af3d3",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -137,8 +143,8 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; exact statement transports and proof-specific use of classical principles, choice, quotients, or extensionality remain downstream",
-  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are the intended base; exact canonical imports, terminal proof body, transitive dependencies, compiled artifacts, and accepted trust closure remain open",
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory; the checked finite-generation transport reports propext, Classical.choice, and Quot.sound; proof-specific and transitive axiom closure remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib; two statement-only direct imports are frozen, while the terminal proof body, transitive declarations, and accepted trust closure remain open",
   "computation_profile": "kernel-proposition-planned/1.0: no experiment, oracle, native shortcut, generated instance, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -152,7 +158,13 @@
     "Stage1_Instances/THM-M-0025/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0025/check_intake.py",
     "Stage1_Instances/THM-M-0025/validation.md",
-    "Stage1_Instances/THM-M-0025/intake-receipt.json"
+    "Stage1_Instances/THM-M-0025/intake-receipt.json",
+    "Stage1_Instances/THM-M-0025/BoundaryProbe.lean",
+    "Stage1_Instances/THM-M-0025/Statement.lean",
+    "Stage1_Instances/THM-M-0025/check_statement.py",
+    "Stage1_Instances/THM-M-0025/statement.json",
+    "Stage1_Instances/THM-M-0025/statement-validation.md",
+    "Stage1_Instances/THM-M-0025/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -161,7 +173,7 @@
   },
   "freshness_and_revocation_policy": {
     "policy_id": "stage1-intake-freshness/1.0",
-    "review_due": "before master acceptance or any dependent statement work",
+    "review_due": "at statement-phase master acceptance and before any source or proof-body credit",
     "invalidation_inputs": [
       "catalog, target-set, or source correction",
       "primary-source selection, translation, correction, or errata finding",
@@ -180,7 +192,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "BoundaryProbe.lean",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes a conventional commutative one-variable human claim, source boundaries, a pinned exact formal candidate, exclusions, and the open task DAG. The canonical Lean declaration and fingerprints remain unset for the statement phase, and the formal body is uncredited pending anchor audit. No H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "The exact conventional commutative one-variable target, finite-generation iff, mutations, boundary, minimal imports, expression hash, and environment fingerprint are self-tested pending master acceptance. The formal candidate body remains uncredited pending anchor audit, and pinpoint primary-source fidelity remains open on H. No H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
 }

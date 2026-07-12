@@ -1,0 +1,215 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0030",
+  "item_id": "S56-M-0030-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1075,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "克鲁尔交集定理",
+  "name_en": "Krull intersection theorem",
+  "canonical_name": "Krull intersection theorem for a proper ideal of a commutative Noetherian local ring",
+  "category": "代数学 / 环论",
+  "category_en": "algebra / ring theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "诺特局部环中理想的交集性质",
+  "literal_source_claim_en": "An ideal-intersection property in a Noetherian local ring.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "For every commutative Noetherian local ring R and every proper ideal I of R, the intersection of I^n over all natural numbers n is the zero ideal.",
+  "canonical_claim_status": "conventional_ideal_specialization_selected_at_intake_pending_pinpoint_source_ratification_and_exact_lean_statement_gate",
+  "canonical_claim": "Let R be a commutative Noetherian local ring and I a proper ideal of R. Then the intersection of all natural powers of I is the zero ideal.",
+  "statement_blocker": "The catalog omits a source citation, formula, and definitions. Before accepting an exact Lean target, the statement phase must admit and independently review a pinpoint source, ratify the ideal specialization and the commutative/local/Noetherian/properness/index conventions, then elaborate, transport, and mutation-test the result.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.RingTheory.Filtration"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "Ideal.iInf_pow_eq_bot_of_isLocalRing",
+      "Ideal.iInf_pow_smul_eq_bot_of_isLocalRing",
+      "Ideal.iInf_pow_smul_eq_bot_of_le_jacobson"
+    ],
+    "candidate_expression": "forall {R : Type u}, [CommRing R] -> (I : Ideal R) -> [IsNoetherianRing R] -> [IsLocalRing R] -> I != top -> (iInf fun n : Nat => I ^ n) = bot",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_ratification_canonical_elaboration_checked_specialization_and_mutation_tests",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Intake-selected domain: an arbitrary universe-u type R with a commutative ring structure, Noetherian-ring and local-ring instances, and an ideal I of R. Exact elaborated universes and instance binder representation remain for the statement gate.",
+  "quantifiers": [
+    "R: an arbitrary commutative ring",
+    "Noetherian and local ring hypotheses on R",
+    "I: an arbitrary proper ideal of R",
+    "n: every natural power index inside the intersection"
+  ],
+  "ordered_binders": [
+    "forall R",
+    "given a commutative ring structure on R",
+    "given that R is Noetherian",
+    "given that R is local",
+    "forall I : Ideal R",
+    "given I is proper"
+  ],
+  "hypotheses": [
+    "R is a commutative ring",
+    "R is Noetherian",
+    "R is a local ring",
+    "I is a proper ideal, encoded by I != top"
+  ],
+  "conclusion": "The infimum/intersection of I^n over all n : Nat is the zero ideal.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [
+    "I = top is excluded and is a material counter-boundary because every power is top"
+  ],
+  "degenerate_case_status": "The bottom ideal, maximal ideal, nilpotent ideals, and n = 0 term are provisionally included. Mathlib IsLocalRing includes nontriviality. The statement phase must source-ratify and kernel-test these boundaries.",
+  "candidate_scope_not_credited": [
+    "the stronger finite-module form for the intersection of I^n M",
+    "the Jacobson-radical generalization",
+    "the Noetherian-domain form",
+    "adic Hausdorffness or completion-injectivity consequences",
+    "Artin-Rees and Nakayama as isolated ingredients"
+  ],
+  "excluded_substitutions": [
+    "the integral-domain variant or a claim with an added domain hypothesis",
+    "a theorem only for the maximal ideal, nilpotent ideals, principal ideals, or another strict special class",
+    "the finite-module strengthening without a checked specialization to M = R and the exact ideal root",
+    "adic separatedness, Hausdorffness, completion injectivity, Artin-Rees, or Nakayama alone",
+    "a structure field, instance premise, oracle, experiment, or unchecked certificate that assumes the conclusion",
+    "the catalog's untrusted verified label or the intake API probe as source or proof credit"
+  ],
+  "source_status": "H1_conventional_claim_and_pinned_authoritative_modern_proof_lead_but_historical_source_fidelity_full_definition_assumption_errata_mapping_and_independent_review_are_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Stacks Project, Commutative Algebra, Section 10.51, Lemma 10.51.4, tag 00IP, at revision 3683021e95ea1610e2250658d59abc18fdf0bd7b",
+      "candidate_summary": "Authoritative modern source explicitly titled Krull's intersection theorem: for a proper ideal I of a Noetherian local ring and a finite module M, the intersection of I^n M is zero; the proof invokes Artin-Rees and Nakayama.",
+      "inspection_status": "Pinned source statement and proof inspected; historical 1938 provenance, incorporated definitions, corrections/errata audit, complete proof-node mapping, and independent review remain open, so no H0 credit."
+    },
+    {
+      "citation": "Stacks Project, Commutative Algebra, Remark 10.51.6, tag 00IR, at revision 3683021e95ea1610e2250658d59abc18fdf0bd7b",
+      "candidate_summary": "Explicitly specializes tag 00IP to the intersection of powers of a non-unit ideal in a Noetherian local ring.",
+      "inspection_status": "Pinned exact-scope cross-check only; not an independently accepted H0 source packet."
+    },
+    {
+      "citation": "Wolfgang Krull, 1938 attribution from the repository catalog",
+      "candidate_summary": "Historical lead consistent with the catalog name and year.",
+      "inspection_status": "No title, edition, theorem/page, exact statement, definitions, proof, translation, corrections, or reviewer is supplied or credited."
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.RingTheory.Filtration",
+      "declarations": [
+        "Ideal.iInf_pow_eq_bot_of_isLocalRing"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type": "forall {R : Type u} [CommRing R] (I : Ideal R) [IsNoetherianRing R] [IsLocalRing R], I != top -> (iInf fun n : Nat => I ^ n) = bot",
+      "boundary": "The exact candidate type and reported direct axiom set were authenticated by the intake probe. Canonical statement identity, body provenance, transitive dependencies, trust closure, and M0 classification are not inspected or credited."
+    },
+    {
+      "module": "Mathlib.RingTheory.Filtration",
+      "declarations": [
+        "Ideal.iInf_pow_smul_eq_bot_of_isLocalRing"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type": "forall {R M} [CommRing R] [AddCommGroup M] [Module R M] (I : Ideal R) [IsNoetherianRing R] [IsLocalRing R] [Module.Finite R M], I != top -> (iInf fun n : Nat => I ^ n • top) = bot",
+      "boundary": "This matches the modern source's stronger finite-module form, but it requires a checked M = R specialization before it may connect to the catalog's ideal root. No proof credit is assigned."
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "837792d9180ab731db89c16a5cc22128a9599bc8",
+    "repository_base_tree": "5c5bd784032e9859e4c88b48a886d50194be1732",
+    "repository_record": "Docs/researches/math_theorems.md:235-240",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:938-963",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "0cbe203ceb21e3cb5ef2c3de0e90f1bf93f27a908ca8230ce8ade2215ae1326b",
+    "stage0_excerpt_sha256": "f1d6eff4d4fa97ffa08c7f8250c0a3634271b65baa10b2294b7df9aa78e5c0f3",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "6a7092660da65f6f8e46daa1a724babc65a151a6c45d08abe836dbccbb28e135",
+    "execution_dag_sha256": "72438674d4a872064e64105ff0cbee714b86ec72e77e5c1e00a503e104f20ebc",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "stacks_revision": "3683021e95ea1610e2250658d59abc18fdf0bd7b",
+    "stacks_tree": "b2e7256656ba28ab5d46dc3f36f24c218277ef6f",
+    "stacks_algebra_tex_sha256": "1e18f067d52f88af5c32376c472781624a1aae27f52abf98d182525c6b521a1d",
+    "stacks_tag_00ip_html_observed_sha256": "5943ea151fb2d179972b1b821c69da02ceab4a002555e9cddd2759e8ea82b438",
+    "stacks_tag_00ir_html_observed_sha256": "999888839fc8be602b97afabfdc5e323f8295e3792d9e9f375489f4b8fd45e25",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "filtration_sha256": "b161e2c4ce77f1224648467573dd4ba4c0ebc1ed734118e70df4cb39b33b1a72",
+    "noetherian_defs_sha256": "a0e5c5a1aceb564f885573d5c51ec124be20abbd19fabc6af8c798b637530f0b",
+    "local_ring_defs_sha256": "a1bd9c72c95745af2c58f093cecf1a2d344982e130a877273a3a55968902b55f"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; the discovery probe reports propext, Classical.choice, and Quot.sound for the candidate, while exact statement transports and transitive proof-specific axiom closure remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are the intended base; exact canonical imports, terminal body provenance, transitive dependencies, compiled artifacts, and accepted trust closure remain open",
+  "computation_profile": "kernel-proposition-planned/1.0: no experiment, oracle, native shortcut, generated instance, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0030/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0030/README.md",
+    "Stage1_Instances/THM-M-0030/instance.json",
+    "Stage1_Instances/THM-M-0030/scope-map.md",
+    "Stage1_Instances/THM-M-0030/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0030/task-dag.json",
+    "Stage1_Instances/THM-M-0030/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0030/check_intake.py",
+    "Stage1_Instances/THM-M-0030/validation.md",
+    "Stage1_Instances/THM-M-0030/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "policy_id": "stage1-intake-freshness/1.0",
+    "review_due": "before master acceptance or any dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, source, or scope correction",
+      "primary or modern source selection, translation, correction, or errata finding",
+      "commutativity, locality, Noetherian, properness, module specialization, index, or boundary decision",
+      "canonical Lean target or checked transport",
+      "toolchain, dependency pin, assurance profile, validator, or owned artifact change"
+    ],
+    "incident_path": "revoke or supersede the provisional intake report and issue a freshly self-tested scoped replacement"
+  },
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It selects the conventional proper-ideal claim, records pinned source and formal candidates, fixes exclusions, and opens the downstream DAG. The canonical Lean declaration and fingerprints remain unset, the modern source lacks H0 review, and formal bodies remain uncredited. No H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
