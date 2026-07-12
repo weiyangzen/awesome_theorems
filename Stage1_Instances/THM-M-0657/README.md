@@ -37,9 +37,10 @@ does not supply a proof of Morley's theorem.
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`
 
-`S56-M-0657-INTAKE`, the provisional worker statement node, and the provisional
-worker anchor-audit node are addressed. Master acceptance is still required.
-The obligation-tree and all later phases remain open.
+`S56-M-0657-INTAKE`, the provisional worker statement node, the provisional
+worker anchor-audit node, and the provisional obligation-tree node are
+addressed. Master acceptance is still required. Proof and all later phases
+remain open.
 
 ## Anchor audit
 
@@ -49,6 +50,16 @@ Los-Vaught completeness, and ACF/DLO examples, but no arbitrary-theory Morley
 transfer theorem. The external search likewise found no exact Lean 4 closure.
 The result is self-tested audit evidence pending master acceptance: the root
 stays `M3` with `formalization_debt`, and no proof credit is claimed.
+
+## Obligation tree
+
+`obligation-registry.json` freezes a 14-obligation denominator and
+`typed-graphs.json` separates proof, refinement, source, provenance, trust,
+documentation, and workflow edges. The provisional modern route exposes
+completeness reduction, rank/stability, saturation, exact-cardinality model
+existence, saturated-model uniqueness, and terminal recomposition as distinct
+packages. `ObligationTree.lean` checks only a conditional identity at the exact
+root type; it supplies no open package and no theorem proof.
 
 ## Intake verdict
 
