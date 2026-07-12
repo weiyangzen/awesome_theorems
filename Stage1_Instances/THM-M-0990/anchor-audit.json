@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "theorem_id": "THM-M-0990",
+  "item_id": "S56-M-0990-ANCHOR_AUDIT",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0990.StatementShape",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "terminal_candidate": {
+      "module": "Mathlib.Probability.CentralLimitTheorem",
+      "declaration": "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub",
+      "classification": "adjacent_iid_clt_not_exact",
+      "mismatch": "Requires a single i.i.d. sequence and sqrt(n) normalization; the target permits a non-identically-distributed triangular array and normalizes by each row's variance sum."
+    },
+    "supporting_candidates": [
+      "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum",
+      "ProbabilityTheory.tendsto_charFun_inv_sqrt_mul_pow",
+      "ProbabilityTheory.iIndepFun.charFun_map_fun_finset_sum_eq_prod",
+      "MeasureTheory.taylor_charFun_two",
+      "ProbabilityMeasure.tendsto_iff_tendsto_charFun"
+    ],
+    "exact_terminal_candidate_located": false
+  },
+  "external_candidates": [
+    {
+      "repository": "https://github.com/uw-math-ai/central_limit_theorem",
+      "revision": "0ed57e943d642eaa95fe547780024b9e3a0dfbdf",
+      "toolchain": "leanprover/lean4:v4.13.0-rc3",
+      "declaration": "CLT",
+      "classification": "adjacent_iid_clt_with_placeholders_not_exact",
+      "placeholder_evidence": "CentralLimitTheorem/main_theorem.lean contains sorry in CLT and prerequisite lemmas",
+      "integration_feasible": false
+    },
+    {
+      "repository": "https://github.com/edegeltje/FreeCLT",
+      "revision": "04b5b747538ca59e355908e16effa9b6a8d79b96",
+      "classification": "name_collision_noncommutative_free_probability_template",
+      "integration_feasible": false
+    }
+  ],
+  "search_result": "No exact Lean 4 Lyapunov or Lindeberg-Feller triangular-array CLT declaration was located in pinned mathlib or the audited immutable external candidates.",
+  "machine_state": "M3",
+  "proof_credit": false,
+  "audit_complete_for_phase": true,
+  "theorem_complete": false
+}
