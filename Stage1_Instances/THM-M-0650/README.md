@@ -17,3 +17,10 @@ The historical source is not established by the repository's unsupported `1957` 
 untrusted `已验证` label. Pinpoint primary-source theorem/page, historical directionality,
 assumptions, and errata remain open. The lifecycle is therefore `planned` at `[H1, M3, R3]`, with no
 accepted proof state, audit completion, or theorem completion.
+
+The obligation-tree phase freezes 19 unique semantic obligations and seven separate typed graphs.
+It expands the short substructure wrapper through subtype normalization and the embedding theorem's
+formula recursion, including the nontrivial universal/negated-witness branch. `ObligationTree.lean`
+checks the exact conditional specialization from the embedding package to the canonical root. The
+pinned embedding body remains deliberately uncredited until the downstream proof and provenance
+gates.
