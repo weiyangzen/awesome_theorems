@@ -1,0 +1,85 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0541-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0541",
+  "base_revision": "b76ec411182f176247ffbf5fa8d421890f54e69c",
+  "audit_scope": "repo-local Lean, the pinned dependency closure, and public Lean 4 discovery indexes",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_commit_date": "2026-03-30T18:47:58Z",
+    "mathlib_license": "Apache-2.0"
+  },
+  "candidates": [
+    {
+      "id": "MATHLIB-AFMC",
+      "kind": "adjacent_general_theorem",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.AlgebraicTopology.AlternatingFaceMapComplex",
+      "declarations": [
+        "AlgebraicTopology.AlternatingFaceMapComplex.objD",
+        "AlgebraicTopology.AlternatingFaceMapComplex.d_squared",
+        "AlgebraicTopology.AlternatingFaceMapComplex.obj",
+        "AlgebraicTopology.alternatingFaceMapComplex"
+      ],
+      "source_file_sha256": "7d2f5294902f808ccd5b345f180be016e329db7283911e7ade675a6bdb67e456",
+      "terminal_body": "Mathlib/AlgebraicTopology/AlternatingFaceMapComplex.lean:73-114 proves d_squared by a finite-sum cancellation bijection; obj packages that proof at lines 121-123",
+      "placeholder_scan": "clear for sorry, admit, sorryAx, axiom, and unsafe in the candidate source file",
+      "axiom_report": "d_squared, obj, and alternatingFaceMapComplex use [propext, Classical.choice, Quot.sound]",
+      "exact_target_match": false,
+      "mismatch": "The candidate starts from a SimplicialObject in an arbitrary preadditive category. It does not construct the degreewise free abelian simplicial object from AbstractSimplicialComplex K, nor identify categorical faces with Statement.face on Finsupp basis chains.",
+      "integration_feasibility": "credible after implementing and checking the missing AbstractSimplicialComplex-to-SimplicialObject/free-abelian bridge; not directly wrappable now"
+    },
+    {
+      "id": "MATHLIB-ASC",
+      "kind": "input_definition_only",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.AlgebraicTopology.SimplicialComplex.Basic",
+      "declarations": ["AbstractSimplicialComplex"],
+      "source_file_sha256": "d3137e387ee03b1ec6c492a84a39090b513623203d7fd1944fbba31b7086819a",
+      "placeholder_scan": "clear for sorry, admit, sorryAx, axiom, and unsafe",
+      "exact_target_match": false,
+      "mismatch": "The sole SimplicialComplex module defines complexes and face closure but contains no chain, boundary, or homology construction."
+    },
+    {
+      "id": "MATHLIB-HOMOLOGY",
+      "kind": "downstream_generic_api",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Algebra.Homology.ShortComplex.HomologicalComplex",
+      "declarations": ["HomologicalComplex.homologyFunctor"],
+      "exact_target_match": false,
+      "mismatch": "This consumes a HomologicalComplex after the root's boundary-square construction; it cannot prove that construction."
+    }
+  ],
+  "external_search": {
+    "performed_utc": "2026-07-12",
+    "queries": [
+      "repository-wide rg over all pinned non-mathlib Lean dependencies for simplicial homology, chains, boundary, AbstractSimplicialComplex, and alternatingFaceMapComplex",
+      "GitHub repository API searches: simplicial complex lean4; simplicial homology language:Lean; algebraic topology lean4",
+      "grep.app API searches for AbstractSimplicialComplex and simplicial homology"
+    ],
+    "result": "No credible exact external Lean 4 candidate was located. The pinned non-mathlib dependency closure had no match. GitHub returned no relevant candidate; grep.app returned HTTP 429 and is recorded as an incomplete search surface, not negative evidence.",
+    "immutable_external_candidate_revision": null
+  },
+  "classification": {
+    "machine": "M3",
+    "reason": "The exact statement and useful general infrastructure exist, but the target-specific bridge and exact proof are absent. General d_squared is an anchor only and earns no M0 credit.",
+    "human": "unchanged; source audit is outside this node",
+    "readability": "unchanged; no readable reconstruction was audited"
+  },
+  "exact_candidate_found": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "remaining_anchor_cut_set": [
+    "construct a simplicial abelian group (or equivalent face system) whose degree n object is Statement.Chains K n",
+    "prove its face maps agree with Statement.face on each Finsupp basis generator",
+    "transport AlternatingFaceMapComplex.d_squared through that identification to the exact AddMonoidHom equality",
+    "audit terminal dependencies and axioms of the resulting exact wrapper"
+  ],
+  "status_boundary": "This receipt completes candidate discovery and classification only. It claims neither an exact imported proof nor M0, AUDIT-Z, proof completion, validation, release, or theorem completion."
+}
