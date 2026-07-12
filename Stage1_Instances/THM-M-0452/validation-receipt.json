@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0452-VALIDATION-local-20260712T022112Z",
+  "item_id": "S56-M-0452-VALIDATION",
+  "theorem_id": "THM-M-0452",
+  "base_revision": "2029732601188918961647a1d1565c7d55a46f04",
+  "base_tree": "524e852b15e97e4148ddf50cff7e7f0203d20a6d",
+  "validated_at": "2026-07-12T02:21:12Z",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "validated_obligation_ids": [
+    "M0452-D-WELLDEFINED",
+    "M0452-D-POSITIVE"
+  ],
+  "validated_declarations": [
+    "Stage1Instances.THM_M_0452.quotientPairingCoreOfPolarization",
+    "Stage1Instances.THM_M_0452.quotientPairingCoreTarget_of_polarization",
+    "Stage1Instances.THM_M_0452.Validation.quotient_branch_probe"
+  ],
+  "inputs": {
+    "validation_spec_sha256": "52c900faa9fc951fbd6f884f7a6cf98f1e479283d83b72479d879bf3f9a0d802",
+    "validator_sha256": "28d89ef36988c88ba20dffd55d7ed795e56b1cd2f801a8e1ddd6aa4dad8daf3e",
+    "statement_sha256": "5098fac72e52f6bc732b4fddd4491a9de09561b8708a83b6b66831d4eec24bff",
+    "obligation_tree_sha256": "6b755fad78cd07c39be3f545cb9ba16da349309642284d0e4f467f31f9980c7b",
+    "proof_sha256": "91de5b8f5a61e8aa21495f6126fa9dad721047c86feaa9bd52b0ad1a369c6712",
+    "validation_probe_sha256": "38d59ac287de4424c2aaad1c3026139e2a8166b2f5033b954a782bd7bd5a74ad",
+    "statement_record_sha256": "66fd16281f301d305eff93e778b7de4a7f97a33bedff568bfcbfd47bb8b57ea9",
+    "anchor_audit_sha256": "537965eb7b8130f003153350aea19c9a18975063140d73378ce98ef0fee1f9a1",
+    "obligation_registry_sha256": "cd79a1ce131bbce08cbb79d17cf2c44f10d511f13ac0b0535cab4ee98e7baac5",
+    "typed_graphs_sha256": "cba3a70b3e081e7b60c334bc4bef4297c4551ffc8d1c2d35b50247df494fe2f3",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "provenance": {
+    "proof_body_classification": "repo_local_partial_quotient_descent",
+    "proof_module": "Stage1_Instances/THM-M-0452/Proof.lean",
+    "validation_probe_module": "Stage1_Instances/THM-M-0452/Validation.lean",
+    "terminal_body_boundary": "torsion quotient descent and quotient positive definiteness, conditional on PolarizationCore",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "root_provenance_closure": "open"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "platform": "Linux x86_64",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-0452/check_validation.py"],
+    "env_allowlist": {},
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_frozen_statement_composition_partial_quotient_proof_and_exact_type_probe",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "validated_closed_obligation_ids": ["M0452-D-WELLDEFINED", "M0452-D-POSITIVE"],
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "hermetic_release_gate": "fail_closed",
+    "independent_distinct_runner_gate": "fail_closed"
+  },
+  "known_failures": [
+    "The prerequisite proof phase supplies only the quotient branch; CanonicalHeightCore and PolarizationCore have no proof bodies, so the exact root is open.",
+    "The frozen graph predates the partial proof and still lists M0452-D-POSITIVE in the root cut; only the master may reconcile authoritative state.",
+    "The run reused shared writable warm .lake artifacts and is not an empty-cache hermetic cold replay.",
+    "Validation.lean is an exact-type probe importing Proof.lean in the same worker checkout; it is not an independent implementation or distinct signed runner.",
+    "Complete transitive TCB inventory, SBOM/licenses, offline restoration, deterministic bundle, H0/R0 review, and master acceptance are absent."
+  ],
+  "first_failed_gate": "S56-M-0452-PROOF exact-root closure and master acceptance",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "Implement and master-accept CanonicalHeightCore and PolarizationCore, reconcile the frozen graph, then validate an immutable empty-cache offline snapshot with a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "invalidation_inputs": [
+    "validation-phase-spec.json",
+    "check_validation.py",
+    "Validation.lean",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "statement.json",
+    "anchor-audit.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "Lean toolchain or executable",
+    "mathlib revision, source, or compiled closure",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow partial kernel, trust observation, and provenance validation. It is not E0/E1, root closure, independent validation, release, theorem completion, or master acceptance."
+}
