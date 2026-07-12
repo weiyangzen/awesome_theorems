@@ -60,7 +60,22 @@ density engine, energy recomposition, terminal body, exact adapter, and source/t
 workflow edges separate; `obligation-tree.md` is the readable projection.
 
 `ObligationTree.lean` kernel-checks only the exact root composition from the adapter and pinned
-terminal interfaces. Seventeen internal relations are deliberately recorded as unverified
+terminal interfaces. Eighteen internal relations are deliberately recorded as unverified
 source-body decomposition plans, not composition certificates. The aggregate validation recipe and
 receipt preserve that boundary: zero obligations close, the accepted root remains `[H1, M3, R4]`,
 and audit and theorem completion remain false pending proof-phase certificates and master review.
+
+## Proof result
+
+`Proof.lean` now adopts the explicit `szemeredi_regularity` body from pinned mathlib revision
+`8a178386ffc0f5fef0b77738bb5449d50efeea95`. It checks the exact root both through the frozen
+terminal-adapter composition and through a direct exact-type wrapper. Lean reports the terminal and
+both root wrappers sorry-free, with only `propext`, `Classical.choice`, and `Quot.sound` in their
+axiom closures. The single upstream terminal body is not duplicated.
+
+This is provisional proof-node evidence for an `M0-W` root proposal. The receipt binds exact
+declaration evidence for the root, terminal, and adapter, but credits no frozen obligation as
+accepted or individually closed. It withholds individual closure credit for the 18 internal
+source-body decompositions that still lack abstract-child composition certificates. The accepted
+instance therefore remains `[H1, M3, R4]`, and validation, release, H0/R0, master acceptance, and
+theorem completion remain open.
