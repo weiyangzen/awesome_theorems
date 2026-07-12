@@ -1,0 +1,113 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1133-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1133",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "2029732601188918961647a1d1565c7d55a46f04",
+  "canonical_target": "Stage1Instances.THM_M_1133.HeatEquationWeakMaximumPrinciple",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index and GitHub repository metadata",
+    "external Lean 4 PDE project at an immutable revision"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1133-C01",
+      "project": "awesome_theorems",
+      "revision": "2029732601188918961647a1d1565c7d55a46f04",
+      "module": "Stage1_Instances/THM-M-1133/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1133.HeatEquationWeakMaximumPrinciple",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already present as the statement surface; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1133-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Analysis.Calculus.LocalExtr.Basic",
+        "Mathlib.Analysis.InnerProductSpace.Laplacian",
+        "Mathlib.Topology.Order.Compact"
+      ],
+      "declarations": [
+        "IsCompact.exists_isMaxOn",
+        "IsLocalMax.hasFDerivAt_eq_zero",
+        "IsLocalMax.fderiv_eq_zero",
+        "IsLocalMax.deriv_eq_zero",
+        "InnerProductSpace.laplacian_eq_iteratedFDeriv_orthonormalBasis",
+        "InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "compact-extremum, interior derivative, and Laplacian-coordinate bridges only; no time-dependent parabolic maximum conclusion",
+      "body_provenance": "pinned mathlib source and existing compiled oleans",
+      "placeholder_or_axiom_status": "all six declarations elaborated through the pinned Lake environment; no terminal target was found",
+      "classification": "M3_support_only",
+      "integration_status": "locally checkable substrate, insufficient for an exact wrapper"
+    },
+    {
+      "candidate_id": "S56-M-1133-C03",
+      "project": "weiran-sun/pde",
+      "remote": "https://github.com/weiran-sun/pde",
+      "revision": "0b37f095c5ac3571084f5ea47f0435884452d86a",
+      "archive_sha256": "3c710cdd6a4348b39df5797faf19f55b340cf0141c00e0bc2d97e5db4866783f",
+      "license": "Apache-2.0",
+      "toolchain": "leanprover/lean4:v4.23.0-rc2",
+      "mathlib_revision": "90c0e186fd333cbdddbe0e5148aa3cd2d24dcf9a",
+      "module": "PDE.Basics.Heat.HeatKernel",
+      "declarations": [
+        "Heat.heatKernel",
+        "Heat.heatKernel_pos",
+        "Heat.integral_heatKernel_one_gaussian",
+        "Heat.heatKernel_solves_heat_eq"
+      ],
+      "kind": "adjacent_heat_equation_formalization",
+      "normalized_match": "one-dimensional explicit heat kernel and its PDE identity; no bounded cylinder, parabolic boundary, or maximum conclusion",
+      "body_provenance": "immutable source archive inspected outside the repository; named declarations have proof bodies",
+      "placeholder_or_axiom_status": "the archive's Lake configuration suppresses admission warnings, but the retained HeatKernel file has no admission or axiom declaration; no candidate terminal maximum-principle body exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "not imported: incompatible older toolchain and, decisively, no exact or bridge-closing theorem"
+    }
+  ],
+  "search_ledger": [
+    {
+      "surface": "repo-local tracked Lean source",
+      "query_family": "heat equation, HeatEquation, caloric, parabolic maximum, maximum parabolic",
+      "result": "only the exact local statement plus unrelated heat-equation infrastructure; no proof body for the target"
+    },
+    {
+      "surface": "pinned mathlib source tree",
+      "query_family": "heat equation, HeatEquation, caloric, parabolic maximum/comparison, Laplacian, local maximum, compact maximum",
+      "result": "six retained support declarations; no heat-equation maximum-principle declaration"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query_family": "quoted heat equation + lean; quoted maximum principle + lean; parabolic + lean + theorem; PDE language:Lean",
+      "result": "the exact-name searches found no relevant repository; the broad PDE search exposed weiran-sun/pde for immutable inspection"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query_family": "Lean files containing heat equation, maximum principle, caloric, or HeatEquation",
+      "result": "87 lexical matches in two indexed repositories, all unrelated generated/training text; no terminal candidate",
+      "access_boundary": "bounded public index query, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query_family": "exact Lean declaration/content searches",
+      "result": "not accepted as a negative lane",
+      "access_boundary": "unauthenticated code search unavailable; repository metadata and Sourcegraph were used as bounded fallback discovery"
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "The exact proposition is formally encoded, but neither repo-local source, pinned mathlib, nor the inspected external Lean 4 PDE project supplies a proof of the parabolic weak maximum principle. The located declarations are proof architecture substrate or an adjacent explicit heat-kernel result.",
+  "integration_blocker": "No external immutable revision contains a declaration matching the canonical cylinder maximum conclusion or a checked transport to it. The concrete PDE project also uses Lean 4.23.0-rc2/mathlib 90c0e1 while this repository uses Lean 4.29.0/mathlib 8a1783; compatibility work would not close the missing theorem.",
+  "reopen_condition": "Locate a Lean 4 repository URL, immutable commit, license, toolchain, module, and non-placeholder declaration for the classical parabolic maximum principle; then normalize its domains, regularity, sign, and boundary against the canonical target and run a local checked wrapper plus provenance/axiom audit.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes a bounded formal-anchor inventory only. It does not establish H0, freeze the obligation tree, prove the target, accept a receipt, or claim exhaustive absence from all Lean projects."
+}
