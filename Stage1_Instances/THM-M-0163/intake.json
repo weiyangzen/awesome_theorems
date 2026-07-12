@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0163-INTAKE",
+  "lifecycle_mode": "planned",
+  "theorem_id": "THM-M-0163",
+  "canonical_name": "Geodesic equation",
+  "canonical_statement": "Let (M,g) be a smooth Riemannian manifold with its Levi-Civita connection and let gamma be a C2 curve. In any smooth coordinate chart containing the image under consideration, gamma is a geodesic exactly when each coordinate component satisfies d2 gamma^k/dt2 + sum over i,j of Gamma^k_ij(gamma(t)) (d gamma^i/dt) (d gamma^j/dt) = 0. A regular locally length-minimizing curve satisfies this equation after constant-speed parametrization; no claim is made that every complete geodesic is globally minimizing.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "M is a finite-dimensional smooth real manifold; g is a Riemannian metric; gamma maps a real interval to M and is C2. Exact Lean universes, model-with-corners data, interval representation, and coordinate conventions remain open.",
+  "quantifiers": [
+    "M : smooth finite-dimensional real manifold",
+    "g : Riemannian metric on M",
+    "gamma : C2 curve on a real interval",
+    "a smooth coordinate chart containing the curve segment",
+    "t in the parameter interval",
+    "coordinate index k"
+  ],
+  "hypotheses": [
+    "the connection is the Levi-Civita connection of g",
+    "gamma is twice differentiable on the segment",
+    "the selected chart contains the segment being expressed",
+    "constant-speed parametrization is required when deriving the equation from local length minimization"
+  ],
+  "conclusion": "The intrinsic autoparallel condition is equivalent to the displayed Christoffel-symbol coordinate equations; regular locally minimizing curves in constant-speed parametrization obey them.",
+  "alternate_encodings": [
+    {
+      "target": "covariant acceleration along gamma vanishes: nabla_(gamma') gamma' = 0",
+      "relationship": "expected iff with the coordinate equation",
+      "checked_witness": "none; coordinate-independence and chart transport are deferred to the statement phase"
+    },
+    {
+      "target": "gamma is a critical point of the energy functional with fixed endpoints",
+      "relationship": "expected iff under regularity and fixed-endpoint variation hypotheses",
+      "checked_witness": "none; variational bridge is deferred"
+    },
+    {
+      "target": "gamma is locally length minimizing",
+      "relationship": "implies after constant-speed parametrization; converse only locally on sufficiently short geodesic segments",
+      "checked_witness": "none; deliberately not recorded as an unrestricted iff"
+    }
+  ],
+  "excluded_degenerate_cases": "No assertion that arbitrary parametrizations satisfy the affine geodesic equation, that every geodesic globally minimizes length, or that a single chart covers an arbitrary whole curve. Constant curves may satisfy the intrinsic equation but are excluded from the regular length-minimizer implication. Pseudo-Riemannian free-particle dynamics belongs to THM-P-0639, not this target.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical logic, choice, quotient, and differential-geometric foundation audit remain open",
+  "tcb_profile": "Lean 4 kernel plus pinned mathlib intended; exact imports and transitive closure remain open",
+  "computation_profile": "No numerical integration, symbolic oracle, or external solver is credited at intake",
+  "formal_system": "Lean 4 + repository-pinned mathlib (feasibility and exact target deferred)",
+  "source_revisions": "Repository source: Docs/researches/math_theorems.md lines 1182-1187. Mathematical source candidates: do Carmo, Riemannian Geometry (1992), Chapter 3, section 2; Lee, Riemannian Manifolds, 2nd ed. (2006), Chapter 4. Pinpoint theorem/page, edition hashes, and errata review remain open.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0163/README.md",
+    "Stage1_Instances/THM-M-0163/source_statement_crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, metric/connection/regularity or parametrization conventions, Lean target, source pins, toolchain/imports, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H2",
+    "machine": "M4",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes the intended mathematical scope and open phase DAG only. It does not pass the exact Lean statement gate, accept a source at H0, establish a formal candidate, or prove the theorem."
+}
