@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0349-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0349",
+  "audit_cutoff_utc": "2026-07-12T11:51:26Z",
+  "canonical_target": "Stage1Instances.THM_M_0349.ConjugateFunctionTheoremTarget",
+  "discovery_order": [
+    "repo-local Lean sources and target dossiers",
+    "pinned mathlib source tree",
+    "GitHub public repository registry",
+    "GitLab public project registry",
+    "GitHub code search and grep.app code index"
+  ],
+  "immutable_environment": {
+    "repository_base": "396f523f7db5499e43d86728d9cfe073ac081dfa",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "queries": {
+    "aliases": [
+      "conjugate function",
+      "conjugateFunction",
+      "Hilbert transform",
+      "HilbertTransform",
+      "hilbert_transform",
+      "Marcel Riesz",
+      "Sur les fonctions conjuguees",
+      "Fourier multiplier"
+    ],
+    "repo_local": "rg over Lean, Markdown, and JSON outside the pinned package cache and this target",
+    "mathlib": "rg over pinned Mathlib and Archive Lean sources, followed by declaration inventory of Mathlib/Analysis/Fourier/AddCircle.lean",
+    "github_repository_api": [
+      "conjugate function Lean",
+      "Hilbert transform Lean",
+      "Hilbert Lean theorem prover",
+      "conjugate functions Lean theorem prover",
+      "harmonic analysis Lean4",
+      "singular integral Lean4"
+    ],
+    "gitlab_project_api": [
+      "Hilbert transform Lean",
+      "conjugate function Lean"
+    ],
+    "code_indexes": [
+      "GitHub code search for Hilbert transform in Lean",
+      "grep.app for HilbertTransform, hilbert_transform, conjugate function, and Sur les fonctions conjuguees"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "mathlib-finite-p-fourier-density",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "file": "Mathlib/Analysis/Fourier/AddCircle.lean",
+      "file_sha256": "32363b7144bee4cdc3f96e41237eb6944c8dd6ac92449340a0c27462959e7c81",
+      "declaration": "span_fourierLp_closure_eq_top",
+      "classification": "related_not_exact",
+      "reason": "It proves density of Fourier monomials in finite-exponent Lp. It neither defines the conjugate multiplier on Lp nor constructs g nor proves a uniform operator norm bound.",
+      "local_check": "Stage1Instances.THM_M_0349.AnchorAudit.finiteExponentFourierDensity",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "id": "mathlib-l2-fourier-expansion",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "file": "Mathlib/Analysis/Fourier/AddCircle.lean",
+      "file_sha256": "32363b7144bee4cdc3f96e41237eb6944c8dd6ac92449340a0c27462959e7c81",
+      "declaration": "hasSum_fourier_series_L2",
+      "classification": "related_not_exact",
+      "reason": "It supplies Hilbert-basis Fourier expansion at p = 2 only. The canonical target asks for a conjugate function and a bound for every 1 < p < infinity.",
+      "local_check": "Stage1Instances.THM_M_0349.AnchorAudit.exponentTwoFourierExpansion",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    }
+  ],
+  "external_results": {
+    "exact_candidates": [],
+    "github_repository_matches_relevant_to_target": 0,
+    "gitlab_project_matches": 0,
+    "irrelevant_match": "M6LI/Lean-and-the-Hilbert-Projection-Theorem concerns Hilbert-space projection, not the Hilbert transform or conjugate functions, and was rejected before candidate classification.",
+    "access_failures": [
+      "GitHub code search returned HTTP 401: Requires authentication.",
+      "grep.app returned HTTP 429 with a Vercel security checkpoint.",
+      "Sourcegraph's former search stream endpoint returned HTTP 404."
+    ],
+    "limitations": "Repository APIs and the available local trees do not constitute exhaustive global code search. No external formal candidate was discovered, so there is no external revision to inspect or integrate. This is bounded negative evidence, not a proof of global absence."
+  },
+  "decision": {
+    "machine_debt": "M3",
+    "evidence_level": "E3_related_anchors_only",
+    "exact_external_closure_found": false,
+    "repo_local_integration_debt_created": false,
+    "theorem_proved": false,
+    "theorem_complete": false,
+    "status_boundary": "The bounded anchor inventory is classified and self-tested. It supplies two pinned infrastructure anchors but no exact Lean closure and no theorem-completion credit."
+  },
+  "gate_state": "self_tested_pending_master_acceptance"
+}

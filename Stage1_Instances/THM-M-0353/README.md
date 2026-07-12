@@ -6,10 +6,8 @@ theorem family, but the repository source does not specify the scalar field, und
 normalization of the Hermite polynomials/functions, or a primary theorem citation. Those choices
 change the literal functions and constants even though standard versions are equivalent.
 
-The intake therefore freezes the intended theorem family and its exclusion boundary, while leaving
-the exact source statement and canonical Lean expression to the statement phase. The root remains
-`[H1, M4, R4]`. A pinned Lean probe confirms that mathlib provides probabilists' Hermite
-polynomials, their Gaussian derivative identity, `L^p` spaces, and the abstract `HilbertBasis`
-interface. It does not define the required normalized Hermite functions or prove their
-orthonormality/completeness. Exact commands and results are recorded in `validation.md`.
-
+The statement phase now freezes the standard complex Lebesgue `L^2` formulation using mathlib's
+probabilists' Hermite polynomial and elaborates it in `Statement.lean`. This does not prove the
+integrability, orthonormality, or completeness obligations. The root therefore remains open, and
+no theorem-completion state is claimed. Intake commands are recorded in `validation.md`; exact
+statement commands and the statement-only boundary are recorded in `statement-validation.md`.

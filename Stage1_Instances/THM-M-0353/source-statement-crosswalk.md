@@ -14,10 +14,20 @@ no edition, theorem number, page, normalization, scalar field, measure, assumpti
 errata. The historical attribution and date are therefore inventory metadata, not accepted `H0`
 evidence.
 
-## Required source audit
+## Statement selection and required source audit
 
-The statement phase must inspect an immutable edition of a primary or authoritative analysis
-source that states the complete orthonormal-basis theorem. It must record the exact definition of
+For a literal Lean target, the statement gate selects the standard complex-valued Lebesgue-space
+normalization
+
+`psi_n(x) = pi^(-1/4) / sqrt(n!) He_n(sqrt(2)x) exp(-x^2/2)`,
+
+where `He_n` is mathlib's monic probabilists' `Polynomial.hermite n`. This is the usual normalized
+physicists' Hermite function rewritten through `H_n(x) = 2^(n/2) He_n(sqrt(2)x)`. The canonical
+conclusion identifies these literal functions, almost everywhere, with a `Nat`-indexed complex
+`HilbertBasis` of `Lp Complex 2 volume`.
+
+The source audit must inspect an immutable edition of a primary or authoritative analysis source
+that states the complete orthonormal-basis theorem. It must record the exact definition of
 the Hermite polynomials and normalized functions, the `L^2` measure and scalar field, the theorem
 and page, all assumptions, proof boundary, and errata. An independent reviewer must verify the
 statement and assumption crosswalk before `H0` can be claimed.
@@ -26,11 +36,11 @@ statement and assumption crosswalk before `H0` can be claimed.
 
 | Repository phrase | Mathematical component to freeze | Required Lean component | Intake status |
 |---|---|---|---|
-| "Hermite functions" | exact polynomial convention, Gaussian factor, normalization constant | a concrete `Nat -> Real -> K` followed by `L^2` membership and quotient representatives | normalization and codomain open |
-| "L^2" | real line, Lebesgue measure, real or complex values, a.e. equality | `MeasureTheory.Lp` at exponent `2` with the selected measure/scalars | general pinned API probed; exact type open |
+| "Hermite functions" | exact polynomial convention, Gaussian factor, normalization constant | `hermiteFunction : Nat -> Real -> Complex` | standard probabilists' rewrite frozen and elaborated |
+| "L^2" | real line, Lebesgue measure, real or complex values, a.e. equality | `Lp Complex 2 leb` | complex Lebesgue type frozen and elaborated |
 | "orthonormal" | unit norm and pairwise orthogonality | `Orthonormal K` for the concrete family | abstract interface available; theorem open |
 | "complete" | dense linear span, or equivalently zero orthogonal complement | dense-span proposition and checked equivalence to the chosen basis packaging | abstract `HilbertBasis.mk` API available; Hermite proof open |
-| "basis" | complete orthonormal sequence, not a Hamel basis | `HilbertBasis Nat K E` or an exactly transported equivalent | representation open |
+| "basis" | complete orthonormal sequence, not a Hamel basis | `HilbertBasis Nat Complex (Lp Complex 2 leb)` | canonical representation frozen |
 | `已验证` | untrusted repository label | no proposition or proof credit | rejected as evidence |
 
 ## Pinned Lean boundary
@@ -41,4 +51,3 @@ general `MeasureTheory.Lp` type, and `HilbertBasis` construction/dense-span inte
 source-name search found Hermite polynomial files but no Hermite-function `L^2` basis declaration.
 This is only an intake boundary observation, not the immutable exhaustive anchor audit assigned to
 the later anchor-audit phase.
-
