@@ -12,15 +12,18 @@ not yet been checked against a stable scan, so this is an `H2` discovery anchor 
 | Repository metadata | Intended source component | Required Lean component | Intake status |
 |---|---|---|---|
 | "Hormander condition" | Lie brackets generate tangent directions | vector fields, Lie bracket, pointwise span | bounded; exact quantifiers open |
-| "condition for subelliptic operators" | sum-of-squares operator and regularity gain | differential operator and local Sobolev estimate | ambiguous with hypoellipticity |
-| differential equations / PDE | distributional solution regularity | distributions, smoothness, operator action | included; APIs open |
+| "condition for subelliptic operators" | rank hypothesis used for a sum-of-squares operator | generated brackets and pointwise span | frozen as the condition, not its consequence |
+| differential equations / PDE | vector fields on an open coordinate domain | open set and coordinate vector fields | frozen |
 | 1967 / Lars Hormander | historical Acta Mathematica result | immutable bibliographic anchor | article identified; theorem/page open |
 
-## Fidelity boundary
+## Statement-phase selection
 
-The article title supports a hypoellipticity reading, while the repository wording explicitly says
-"subelliptic." Those claims are related but not interchangeable. The statement phase must inspect
-the article, identify the exact result intended, and record a row-by-row mapping of every operator,
-bracket, locality, regularity, and norm hypothesis. No secondary summary may silently choose a
-stronger or weaker formulation. No repo-local Lean declaration has been credited at intake.
+The adjacent repository row THM-M-1259 separately names "Hormander theorem (subelliptic)" and its
+regularity conclusion. THM-M-1258 therefore freezes the condition itself: the Lie algebra generated
+by the drift and square fields has full pointwise rank. `Statement.lean` maps this to an inductively
+generated bracket family and pointwise `Submodule.span = top`.
 
+This resolves target identity without pretending to resolve source fidelity. The article's exact
+page wording, coefficient regularity assumed when the condition is used, operator convention, and
+errata still require primary-source audit. None of those may be used later to broaden this target
+into THM-M-1259's analytic conclusion.

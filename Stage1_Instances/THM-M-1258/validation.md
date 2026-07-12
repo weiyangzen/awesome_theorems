@@ -15,6 +15,6 @@ whitespace only. No Lean target exists yet, so this phase records no kernel evid
 | scoped Python intake assertions | exit 0; `intake invariant check: ok` |
 | `git diff --check -- Stage1_Instances/THM-M-1258` | exit 0; no output |
 
-Known downstream failures: stable primary-source inspection, exact theorem selection, canonical
-Lean elaboration, anchor audit, obligation expansion, proof, hermetic replay, and independent review
-remain open. They do not invalidate this fail-closed planned intake.
+This is the historical intake receipt. `statement-receipt.md` supersedes its former "no Lean target"
+boundary for the statement node only. Stable primary-source inspection, anchor audit, obligation
+expansion, proof, hermetic replay, and independent review remain open.
