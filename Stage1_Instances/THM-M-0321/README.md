@@ -17,3 +17,10 @@ near hits are statement mismatches or the unrelated Riesz-Markov-Kakutani repres
 The provisional root vector therefore remains `[H2, M3, R4]`. The human primary-source theorem/page
 and errata crosswalk remains open. No proof, accepted state, audit completion, or theorem completion
 is claimed.
+
+The proof architecture is now frozen as a 30-obligation registry with separate proof, refinement,
+provenance, evidence, trust, documentation, and workflow graphs. `ObligationTree.lean` checks the
+exact composition from the finite-subfamily theorem and compact finite-intersection upgrade into
+the canonical target, while assuming rather than proving both packages. The minimal open root cut
+set is the one-map fixed-point engine and the compact finite-intersection bridge. Consequently this
+phase changes no proof credit: the root remains `M3` and every obligation remains open.
