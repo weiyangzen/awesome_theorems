@@ -3980,7 +3980,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1520-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1520`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1520-ANCHOR_AUDIT` / `THM-M-1520` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-1520-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1520`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1520-OBLIGATION_TREE` / `THM-M-1520` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-1520-OBLIGATION_TREE` / `THM-M-1520` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1520-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1520`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1520-PROOF` / `THM-M-1520` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1520-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1520`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -4064,7 +4064,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1527-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1527`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1527-ANCHOR_AUDIT` / `THM-M-1527` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-1527-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1527`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1527-OBLIGATION_TREE` / `THM-M-1527` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
+- [_] `S56-M-1527-OBLIGATION_TREE` / `THM-M-1527` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1527-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1527`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1527-PROOF` / `THM-M-1527` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1527-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1527`. Gate: rev-5.6 node-specific receipt and master acceptance.
