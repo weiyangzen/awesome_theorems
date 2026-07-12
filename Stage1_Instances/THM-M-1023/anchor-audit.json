@@ -1,0 +1,98 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1023-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1023",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "205d13cfc35c45883410c569709a91cb34edce16",
+  "audited_target": {
+    "declaration": "Stage1Instances.THM_M_1023.InfinitelyDivisibleIffLevyKhintchine",
+    "elaborated_expression_sha256": "f84253c83a8c31d9b77246bc0b3eef7715b0d0a04b707bb91cd5c329fdde1a2f",
+    "statement_file_sha256": "ebb29fb83091cddccb5eeeeddd8924b2b7960cff12bbdf492070780d4222e296"
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "characteristic_function_module_sha256": "c25fa7bec393a7ff980b5ab783a71e777916e0de76334b21907e1c79a199546b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "mathlib_candidates": [
+    {
+      "candidate_id": "S56-M-1023-C01",
+      "module": "Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic",
+      "declarations": [
+        "MeasureTheory.charFun",
+        "MeasureTheory.charFun_conv",
+        "MeasureTheory.Measure.ext_of_charFun",
+        "MeasureTheory.charFun_dirac",
+        "MeasureTheory.norm_charFun_le_one"
+      ],
+      "kind": "substrate_only",
+      "type_checked": true,
+      "classification": "partial_anchor_no_root_closure",
+      "reason": "The snapshot provides characteristic functions, convolution multiplicativity, uniqueness from characteristic functions, Dirac evaluation, and the probability norm bound. It provides neither infinite divisibility nor Levy-Khinchin data, exponent representation, existence, or uniqueness of representation data."
+    }
+  ],
+  "local_search": {
+    "roots": [
+      "repository Lean sources excluding THM-M-1023",
+      "all eleven dependencies already present in Formalizations/Lean/lake-manifest.json"
+    ],
+    "terms": [
+      "Levy Khinchin",
+      "Levy Khintchine",
+      "Khintchine",
+      "infinitely divisible",
+      "IsInfinitelyDivisible",
+      "LevyKhintchine"
+    ],
+    "exact_terminal_candidate_count": 0,
+    "result": "No matching dependency Lean source and no repository-local terminal theorem were found. Repository metadata and this target's own statement artifacts were not treated as candidates."
+  },
+  "external_candidates": [
+    {
+      "candidate_id": "S56-M-1023-C02",
+      "project": "facebookresearch/atlas-lean",
+      "repository": "https://github.com/facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.TheoryOfProbability.code.InfinitelyDivisible",
+      "declarations": [
+        "MeasureTheory.Measure.convPow",
+        "IsInfinitelyDivisible"
+      ],
+      "source_sha256": "06331f42a5ef5831c34d1519cd672e3e340ec79846c69949c56a4fb9d2dea711",
+      "manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+      "license": "CC-BY-NC-4.0 with repository no-training rider",
+      "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+      "kind": "definition_only_partial_anchor",
+      "body_provenance": "The immutable 41-line source defines recursive convolution power and infinite divisibility only; it contains no theorem or proof body.",
+      "placeholder_or_unsafe_status": "No placeholder occurs in the inspected file, but there is no terminal theorem to credit.",
+      "normalized_match": "Its root measures are probability measures, but unlike the frozen target the external definition does not separately require IsProbabilityMeasure mu. Its convolution equality orientation and recursive factor order also differ syntactically.",
+      "classification": "anchor_only_no_machine_closure",
+      "integration_status": "Not added as a dependency: it has no Levy-Khinchin representation or bridge theorem, adds no closure beyond local substrate, and its license is unsuitable for vendoring here."
+    }
+  ],
+  "external_search": {
+    "surface": "Sourcegraph public code search",
+    "query": "context:global fork:yes archived:yes lang:Lean (LevyKhinchin OR LevyKhintchine OR infinitely-divisible phrase OR IsInfinitelyDivisible) count:100",
+    "result": "One match in one repository: Atlas InfinitelyDivisible.lean at immutable commit 34ffed3. The completed response reported no skipped repositories.",
+    "response_sha256": "5880c98519e93e7b03c0f54801d3fa6e6ee9076d532a2bcf0c409618a6eb809a",
+    "github_repository_search_limitation": "GitHub's unauthenticated repository-search quota was exhausted (HTTP 403), so it supplied no additional positive or negative evidence.",
+    "limitation": "This is bounded public discovery evidence, not proof that no unindexed or private Lean development exists."
+  },
+  "terminal_result": "No exact or stronger terminal Lean 4 theorem was found. Pinned mathlib supplies essential analytic substrate, while the sole external hit supplies only a related definition.",
+  "root_machine_classification": "M3",
+  "root_human_classification": "H1",
+  "root_readability_classification": "R4",
+  "integration_blocker": "A checked Lean proof of both Levy-Khinchin directions, representation-data uniqueness, Levy-measure integrability, and all analytic bridges is absent from the audited closure.",
+  "reopen_condition": "Re-audit if the statement convention, toolchain, mathlib pin, dependency closure, Atlas revision, or public candidate inventory changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor audit only. Negative search results and substrate declarations provide no proof credit; no H0, M0, audit completion, or theorem completion is claimed."
+}
