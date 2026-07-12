@@ -19,3 +19,9 @@ source crosswalk, and open task DAG define the downstream work; validation evide
 The statement phase now freezes and elaborates the open-cover, integral singular-homology target
 in `Statement.lean`; see `statement-receipt.md`. This is provisional node evidence only and does
 not change the planned lifecycle or claim proof/theorem completion.
+
+The immutable formal-anchor audit is recorded in `anchor-audit.md` and checked by
+`AnchorAudit.lean`. It classifies the pinned absolute singular-homology API, rejects mathlib's
+sheaf-cohomology Mayer-Vietoris theorem as a statement mismatch, and records the immutable head of
+the open relative-singular-homology PR as partial infrastructure only. The exact root remains `M3`;
+this provisional phase evidence claims no accepted state or theorem completion.
