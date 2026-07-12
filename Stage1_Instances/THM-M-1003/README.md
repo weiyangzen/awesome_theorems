@@ -18,6 +18,15 @@ The future proof architecture must expose at least the martingale-to-submartinga
 almost-sure limit, limit `MemLp`, uniform-integrability or domination step, and terminal
 `L^p`-norm convergence composition. No obligation is closed or counted at intake.
 
+## Statement phase
+
+The canonical target is now frozen and kernel-elaborated as
+`Stage1Instances.THM_M_1003.LpMartingaleConvergenceTarget` in `Statement.lean`. It includes the
+strict exponent range in the data, uses one uniform `L^p` bound, and existentially quantifies the
+common almost-sure and `L^p` limit. See `statement.json` and `statement-validation.md` for the exact
+expression fingerprint, environment, mutation checks, and command evidence. This is provisional
+statement-node work only; it proves no convergence theorem.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H3, M3, R3]`. The human-source debt is
