@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0651-PROOF",
+  "theorem_id": "THM-M-0651",
+  "base_revision": "f489f107e7abbb49376144c22d5e41ece02d20ea",
+  "recorded_at": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0651.OmittingTypesTarget",
+  "statement_sha256": "39b09536792acdd585eb62dc09917eca50eff8717211a764bca58d96645d38ea",
+  "statement_record_sha256": "cf4e441e06d3309f010c975b2da9efea08ed805a66627797b7400bae6e503c5b",
+  "obligation_registry_sha256": "9a87b090025b80fde991e80c2eec07a9f67ae84a269802288d30c7ec572d142f",
+  "registry_denominator_sha256": "e739a3f3ee963205d34582d0879d767e928e26670f557de0871addcc176f3805",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "blocked",
+  "machine_classification": "M4",
+  "proof_body_added": false,
+  "root_closed": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M0651-L-DENSE: no placeholder-free Lean proof of the nonprincipality avoidance extension lemma exists in the repository or pinned mathlib closure",
+  "remaining_root_cut_set": [
+    "M0651-L-ENUM",
+    "M0651-L-DENSE",
+    "M0651-L-HENKIN",
+    "M0651-L-OMIT"
+  ],
+  "available_checked_bodies": {
+    "Stage1Instances.THM_M_0651.omits_iff_no_realizing_tuple": "exact checked transport between the frozen omission predicate and absence of a realizing tuple",
+    "Stage1Instances.THM_M_0651.ObligationTree.root_compose": "conditional terminal composition requiring ConstructionInterface and AvoidanceInterface as premises"
+  },
+  "candidate_assessment": {
+    "repo_local": "The dossier contains the exact statement, an omission transport, and conditional root composition, but no proof body for enumeration, the dense avoidance step, the Henkin construction, or omission in the constructed model.",
+    "pinned_mathlib": "Mathlib.ModelTheory.Satisfiability supplies compactness and model construction infrastructure but no omitting-types, partial-type, or nonprincipality theorem closing the frozen target.",
+    "audited_external": "The prerequisite immutable anchor audit found only FirstOrder.Language.omitting_types in a separate Lomega1omega implementation at an incompatible Lean/mathlib revision; it has no checked transport to the frozen mathlib finite-arity target."
+  },
+  "architecture_issue": "The frozen AvoidanceInterface quantifies over every Candidate, while Candidate stores only a countable model of T and no construction invariant. Nonprincipality does not imply that every countable model omits a type. Consequently this interface cannot be discharged from the frozen premises as stated; a real proof must enrich Candidate with avoidance invariants or replace the split with a joint construction-and-omission theorem, then revalidate the obligation tree.",
+  "blocker": "Closing the exact target requires a new placeholder-free formalization of the countable Henkin/Baire construction in pinned mathlib semantics, including fair enumeration, the nonprincipality extension lemma, preservation of consistency, and simultaneous omission for varying finite arities. Assuming either open interface or importing the incompatible external theorem would be prohibited placeholder or substitution work.",
+  "retry_condition": "Resume after the obligation architecture is refined so the constructed candidate carries its avoidance invariants and the four open leaves are implemented locally, or after an immutable compatible exact theorem is available with checked transports and provenance.",
+  "status_boundary": "This is a proof-phase blocker record, not a proof receipt. It does not satisfy S56-M-0651-PROOF and must not be promoted to provisional or accepted completion.",
+  "selftest_manifest_written": false
+}

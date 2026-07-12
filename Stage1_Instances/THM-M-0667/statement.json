@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0667-STATEMENT",
+  "theorem_id": "THM-M-0667",
+  "lifecycle": "planned",
+  "canonical_statement": "The standard two-variable Ackermann-Peter function ack : Nat -> Nat -> Nat is not a binary primitive recursive function.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0667/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0667.AckermannNondefinabilityTarget",
+    "elaborated_expression_sha256": "5e34e0af4e8fd26edeebd02c2494f0efa7e14d4b340b23004e479c186815e7ab",
+    "statement_file_sha256": "b08602621218293de230722de60ce7a0b5dd2131f8d9203e4d61acec54d33652"
+  },
+  "domain_and_universes": "ack : Nat -> Nat -> Nat; Primrec2 over the pinned Primcodable Nat instances; Prop in Lean universe 0",
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Not (Primrec2 ack)",
+  "direct_imports": ["Mathlib.Computability.Ackermann"],
+  "selected_library_declarations": {
+    "function": "Nat.ack",
+    "class": "Primrec2",
+    "equations": ["Nat.ack_zero", "Nat.ack_succ_zero", "Nat.ack_succ_succ"]
+  },
+  "checked_transports": [
+    "Stage1Instances.THM_M_0667.ackermannNondefinabilityTarget_iff_expandedTarget",
+    "Stage1Instances.THM_M_0667.ackermannNondefinabilityTarget_iff_unpairedNat"
+  ],
+  "environment_fingerprint": {
+    "base_revision": "3bbec7282e62d6123372fda54f8eb18cd839d643",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0667/check_statement.py",
+    "killed": [
+      "replaced the binary root by the diagonal unary claim",
+      "replaced primitive recursiveness by general computability",
+      "swapped the ordered arguments",
+      "removed the root negation"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0667.zero_level_boundary",
+      "Stage1Instances.THM_M_0667.successor_zero_boundary",
+      "Stage1Instances.THM_M_0667.successor_successor_boundary"
+    ]
+  },
+  "degenerate_cases": "Both arguments range over every natural number, including zero. All three Ackermann-Peter equations are checked. The diagonal-only theorem, swapped arguments, general computability, and an unsigned membership statement are not substitutes.",
+  "minimal_import_check": "The target uses Nat.ack and the exact pinned Primrec2 API, both exposed by Mathlib.Computability.Ackermann; no broader Mathlib import or repository umbrella module is used.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the exact intake-selected target, two representation transports, four structural mutations, and all three defining boundary equations. The imported module's theorem is not claimed as proof-phase credit here; anchor audit, obligation tree, proof, validation, release, and theorem completion remain open."
+}

@@ -3,7 +3,11 @@
 This directory is the `planned` rev-5.6 instance for "Ackermann function
 non-definability" (`阿克曼函数不可定义性`). It starts from
 `L0 / rework_required`; the repository's historical `已验证` label is discovery
-metadata and supplies no source or proof credit.
+metadata and supplies no source or proof credit. `Statement.lean` now freezes
+and elaborates the exact target `not (Primrec2 Nat.ack)` using only
+`Mathlib.Computability.Ackermann`. Checked transports connect it to the
+uncurried and paired-unary encodings, while the three displayed equations are
+kernel-checked boundary witnesses.
 
 ## Frozen claim
 
@@ -49,10 +53,11 @@ unspecified structure.
 
 ## Status boundary
 
-The provisional root vector is `[H1, M3, R3]`: the historical result and
+The provisional root vector remains `[H1, M3, R3]`: the historical result and
 primary-source family are identified, but the edition/theorem/premise mapping
-has not been independently audited; the exact Lean expression is not yet
-elaborated; and no reviewed readable proof reconstruction exists. This intake
-does not claim `H0`, an `M0` class, audit completion, theorem completion, or
-master acceptance.
-
+has not been independently audited; the exact Lean expression is now locally
+elaborated, while candidate proof equivalence, terminal-body provenance, and
+closure have not passed their later gates; and no reviewed readable proof
+reconstruction exists. This statement phase does not claim `H0`, an `M0`
+class, proof credit, audit completion, theorem completion, or master
+acceptance.
