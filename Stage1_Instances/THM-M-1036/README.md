@@ -32,3 +32,9 @@ no H0 claim is made. The theorem is not complete.
 The commands and exact results for this dossier are recorded in `validation.md`.
 They establish target membership, standard consistency, JSON syntax, and local
 artifact integrity only; no Lean kernel closure is claimed.
+
+The immutable-revision formal-candidate inventory is recorded in
+`anchor-audit.json` and `anchor-audit-validation.md`. It found useful pinned
+mathlib and external Brownian-process substrate, but no exact terminal Lean 4
+SDE existence-and-uniqueness theorem. Those anchors receive no machine proof
+credit, and the root remains `[H2, M4, R3]`.

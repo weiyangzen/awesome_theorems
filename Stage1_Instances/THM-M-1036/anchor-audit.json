@@ -1,0 +1,122 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1036-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1036",
+  "audited_target": "Stage1Instances.THM_M_1036.SdeExistenceUniquenessTarget",
+  "environment": {
+    "repository_base_revision": "bbb17fe085a3545a76988417fdad024a9e9e136a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "network_policy": "Network was used only to download and inspect an immutable external source archive. No Lake dependency, .lake artifact, or lock file was changed."
+  },
+  "searches": [
+    {
+      "surface": "pinned_mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "scope": "Mathlib/**/*.lean",
+      "terms": [
+        "stochastic differential",
+        "StochasticDifferential",
+        "SDE",
+        "StrongSolution",
+        "WeakSolution",
+        "pathwise uniqueness",
+        "ItoIntegral",
+        "StochasticIntegral",
+        "BrownianMotion"
+      ],
+      "terminal_result": "No SDE existence-and-uniqueness declaration or general Ito/stochastic-integral declaration was located.",
+      "adjacent_declarations": [
+        {
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Basic",
+          "declaration": "ProbabilityTheory.IsGaussianProcess",
+          "role": "Gaussian-process substrate only"
+        },
+        {
+          "module": "Mathlib.Probability.Independence.Process.HasIndepIncrements",
+          "declaration": "ProbabilityTheory.HasIndepIncrements",
+          "role": "independent-increments substrate only"
+        },
+        {
+          "module": "Mathlib.Probability.Process.Adapted",
+          "declaration": "MeasureTheory.Adapted",
+          "role": "adapted-process substrate only"
+        }
+      ],
+      "exact_type_match": false,
+      "terminal_proof_body": null,
+      "credit": "none"
+    },
+    {
+      "surface": "repo_local_historical_artifact",
+      "revision": "bbb17fe085a3545a76988417fdad024a9e9e136a",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_229.lean",
+      "sha256": "556a8fbdad0c2fe9840461b99af0c1528233daad6caf6f1acbfd73096c4db169",
+      "candidate": "AwesomeTheorems.Stage1.S1_M_229.StatementShape",
+      "candidate_type_summary": "Quantifies over an abstract SdeProblemData package and concludes an abstract SdeExistUniqueConclusion package.",
+      "relationship_to_target": "Non-exact historical statement shape. Its integral operations and analytic conclusion are packaged fields, it includes uniqueness in law, and it does not inhabit the frozen rev-5.6 StrongSolution target.",
+      "terminal_result": "No theorem proves StatementShape. Projection theorems consume an already supplied SdeExistUniqueConclusion.",
+      "exact_type_match": false,
+      "terminal_proof_body": null,
+      "placeholders_in_candidate_closure": "Not evaluated as a proof closure because there is no terminal proof declaration.",
+      "credit": "discovery_only"
+    },
+    {
+      "surface": "external_lean4",
+      "repository": "https://github.com/RemyDegenne/brownian-motion",
+      "revision": "91885e6172648ea7f9c6a16b3a7069f92c88e023",
+      "source_archive": "https://codeload.github.com/RemyDegenne/brownian-motion/tar.gz/91885e6172648ea7f9c6a16b3a7069f92c88e023",
+      "source_archive_sha256": "74e42a88acbe271a34cba8668ea8bcba8afe38c0818c1de28e42bcd6d53cf20e",
+      "lean_toolchain": "leanprover/lean4:v4.30.0-rc1",
+      "mathlib_revision": "f23306121184717ace04f3ac514be974e3224c8b",
+      "kolmogorov_extension4_revision": "e236e968c2b038b952444df54075a6e8b1058380",
+      "license": "Apache-2.0",
+      "searched_terms": [
+        "stochastic differential",
+        "StochasticDifferential",
+        "SDE",
+        "StrongSolution",
+        "WeakSolution",
+        "pathwise uniqueness",
+        "existence and uniqueness",
+        "SdeExistence"
+      ],
+      "terminal_result": "No source match and no terminal SDE existence-and-uniqueness theorem was located.",
+      "adjacent_declarations": [
+        "ProbabilityTheory.IsPreBrownian",
+        "ProbabilityTheory.IsBrownian",
+        "ProbabilityTheory.IsPreBrownian.hasIndepIncrements",
+        "ProbabilityTheory.brownian",
+        "ProbabilityTheory.wienerMeasure",
+        "ProbabilityTheory.SimpleProcess.integral",
+        "ProbabilityTheory.quadraticVariation"
+      ],
+      "placeholder_scan": {
+        "scope": "BrownianMotion/StochasticIntegral/**/*.lean and BrownianMotion.lean",
+        "result": "12 occurrences of sorry in the stochastic-integral tree, including DoobMeyer.lean, QuadraticVariation.lean, and SquareIntegrable.lean"
+      },
+      "upstream_status": "README states that Brownian motion is complete but stochastic integrals and Ito's lemma are in progress.",
+      "exact_type_match": false,
+      "terminal_proof_body": null,
+      "dependency_feasibility": "blocked: different Lean and mathlib revisions, unfinished stochastic-integral sources, and no terminal theorem to integrate",
+      "credit": "anchor_only_no_machine_credit"
+    }
+  ],
+  "exact_candidate_found": false,
+  "integration_decision": "No candidate may be pinned or wrapped because the bounded immutable-revision audit found no exact terminal Lean 4 theorem. Mathlib substrate and external Brownian infrastructure receive no machine closure credit.",
+  "machine_status": "M4",
+  "human_status": "H2",
+  "readability_status": "R3",
+  "audit_phase_complete": true,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "remaining_root_cut_set": [
+    "a standard Ito integral construction compatible with the frozen target",
+    "existence of a continuous adapted strong solution",
+    "pathwise uniqueness upgraded to indistinguishability",
+    "pinned/imported exact terminal proof or a repo-local proof body"
+  ],
+  "status_boundary": "This is a negative, bounded anchor audit at immutable revisions. It neither proves the SDE theorem nor upgrades the root beyond M4."
+}
+

@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1057-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1057",
+  "base_revision": "8b61d0242da6b4b6810daf423a82881bc4a5c956",
+  "canonical_target": "Stage1Instances.THM_M_1057.KingmanTarget",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "mathlib_candidates": [
+    {
+      "module": "Mathlib.Analysis.Subadditive",
+      "declaration": "Subadditive.tendsto_lim",
+      "role": "Deterministic Fekete convergence for the normalized expectation sequence after expectation subadditivity is established.",
+      "checked_wrapper": "Stage1Instances.THM_M_1057.AnchorAudit.deterministic_fekete_candidate",
+      "match": "supporting_only",
+      "terminal_for_canonical_target": false,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "module": "Mathlib.Dynamics.Ergodic.MeasurePreserving",
+      "declaration": "MeasureTheory.MeasurePreserving.iterate",
+      "role": "Measure preservation of every iterate of the ergodic transformation.",
+      "checked_wrapper": "Stage1Instances.THM_M_1057.AnchorAudit.iterate_measure_preserving_candidate",
+      "match": "supporting_only",
+      "terminal_for_canonical_target": false,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "module": "Mathlib.Dynamics.Ergodic.Function",
+      "declaration": "Ergodic.ae_eq_const_of_ae_eq_comp_ae",
+      "role": "Makes an already obtained measurable invariant limit almost everywhere constant.",
+      "checked_wrapper": "Stage1Instances.THM_M_1057.AnchorAudit.ergodic_constancy_candidate",
+      "match": "supporting_only",
+      "terminal_for_canonical_target": false,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    }
+  ],
+  "terminal_mathlib_search": {
+    "scope": "All pinned Mathlib/**/*.lean files",
+    "query": "case-insensitive Kingman | subadditive ergodic theorem | SubadditiveErgodic",
+    "result_count": 0,
+    "conclusion": "No terminal pinned-mathlib declaration matching the canonical stochastic pointwise theorem was located."
+  },
+  "external_lean4_search": {
+    "queries": [
+      "GitHub repository search: quoted subadditive ergodic plus lean",
+      "GitHub code search: Kingman language:Lean",
+      "GitHub code search: quoted subadditive ergodic theorem language:Lean",
+      "repo-local external tree search over Lean and Markdown sources"
+    ],
+    "results": [
+      "GitHub repository search returned zero repositories.",
+      "GitHub anonymous code search exposed no inspectable result and required sign-in; the REST code-search endpoint returned HTTP 403.",
+      "No external Lean 4 terminal candidate was present in the available local external source tree."
+    ],
+    "immutable_candidate_revisions": [],
+    "conclusion": "No credible terminal external Lean 4 candidate could be pinned or type-audited. The negative result is bounded by the documented code-search access limitation."
+  },
+  "legacy_candidate": {
+    "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_249.lean",
+    "revision": "8b61d0242da6b4b6810daf423a82881bc4a5c956",
+    "classification": "discovery_only",
+    "reason": "It contains checked supporting wrappers and an explicitly unproved statement shape, not a proof of KingmanTarget."
+  },
+  "classification": {
+    "machine_status": "not_repo_local_closed",
+    "debt": "formalization_debt",
+    "root_vector_after_audit": {"human": "H1", "machine": "M3", "readability": "R3"},
+    "theorem_complete": false,
+    "repo_local_integration_debt": false,
+    "reason": "Human mathematics is established, but neither pinned mathlib nor an inspectable external Lean 4 project supplies the terminal pointwise convergence theorem."
+  },
+  "first_open_machine_gate": "Construct the almost-everywhere convergence and invariance branch; the audited Fekete and ergodic-constancy anchors do not compose to KingmanTarget without it.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This receipt completes only the assigned anchor inventory. It gives no proof credit for KingmanTarget and does not claim theorem completion."
+}

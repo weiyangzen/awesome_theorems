@@ -1,0 +1,129 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1054-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1054",
+  "depends_on": ["S56-M-1054-STATEMENT"],
+  "audit_date": "2026-07-12",
+  "base_revision": "fa403ca1dcee36895541a38891b372faf4113aab",
+  "canonical_target": "Stage1Instances.THM_M_1054.VonNeumannL2MeanErgodicTarget",
+  "canonical_target_expression_sha256": "4e5c59cd94c7ec79e12a1f6d97f339f501a0c154a1e45740e42f4561588f0cae",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_repository": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "discovery_scope": {
+    "order": [
+      "repo-local Lean source",
+      "all materialized packages in the pinned Lake closure",
+      "pinned mathlib source",
+      "identified external Lean 4 candidate at an immutable revision"
+    ],
+    "query_terms": [
+      "mean ergodic",
+      "MeanErgodic",
+      "von Neumann",
+      "tendsto_birkhoffAverage_orthogonalProjection",
+      "birkhoffAverage_tendsto_metProjection",
+      "proj_eq_condexp"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "M1054-A-MATHLIB-EXACT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Analysis.InnerProductSpace.MeanErgodic",
+      "source_path": "Mathlib/Analysis/InnerProductSpace/MeanErgodic.lean",
+      "source_sha256": "627c02d75fea2c740dd42d741375b8d38fbc8f85ac4a960ecc9de28995312b9b",
+      "declaration": "ContinuousLinearMap.tendsto_birkhoffAverage_orthogonalProjection",
+      "source_lines": "89-104 (declaration continues through line 107)",
+      "type_relationship": "The exact audit wrapper instantiates the theorem with the real L2 Koopman operator. Its norm is at most one because Lp.compMeasurePreserving_li is a linear isometry. A subsingleton branch discharges the edge case in which mathlib's projection theorem cannot infer Nontrivial L2.",
+      "checked_wrapper": "Stage1Instances.THM_M_1054.AnchorAudit.mathlibCandidateChecksExactTarget",
+      "terminal_provenance": "Pinned mathlib proof body reduces the result to LinearMap.tendsto_birkhoffAverage_of_ker_subset_closure and proves the fixed-space orthogonal-complement condition.",
+      "axioms_reported_by_lean": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_and_unsafe_scan": "No sorry, admit, axiom declaration, or unsafe marker occurs in the terminal declaration body or audit wrapper.",
+      "dependency_feasibility": "Already in the pinned Lake closure and exact-type elaborated with the existing cache.",
+      "classification": "local_wrapper_upstream_mathlib_candidate",
+      "eligible_for_later_proof_phase": true,
+      "rev56_credit": "candidate feasibility only; proof credit belongs to the later proof node"
+    },
+    {
+      "candidate_id": "M1054-A-REPO-LEGACY",
+      "project": "awesome_theorems",
+      "revision": "fa403ca1dcee36895541a38891b372faf4113aab",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "AwesomeTheorems.Stage1.S1_M_246",
+      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_246.lean",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_246.l2_koopman_meanErgodic_from_mathlib",
+        "AwesomeTheorems.Stage1.S1_M_246.statementShape_from_mathlib"
+      ],
+      "type_relationship": "A more general scalar/Hilbert-valued Koopman wrapper whose real-valued specialization covers the frozen target, subject to the same subsingleton edge case handled explicitly by the new exact audit wrapper.",
+      "terminal_provenance": "Alias of the same pinned mathlib proof body; not an independent terminal body.",
+      "placeholder_and_unsafe_scan": "The candidate declarations elaborate from tracked source and delegate to mathlib; no proof credit is inherited under uniform L0 rework.",
+      "classification": "legacy_local_wrapper_discovery_input",
+      "eligible_for_later_proof_phase": true,
+      "rev56_credit": "none at this node"
+    },
+    {
+      "candidate_id": "M1054-A-EXCHANGEABILITY",
+      "project": "cameronfreer/exchangeability",
+      "repository": "https://github.com/cameronfreer/exchangeability.git",
+      "revision": "e9c9ed5341dd8de7aac6e5575dcf3802830e0125",
+      "toolchain": "leanprover/lean4:v4.27.0-rc1",
+      "mathlib_revision": "32d24245c7a12ded17325299fd41d412022cd3fe",
+      "license": "Apache-2.0",
+      "modules": [
+        "Exchangeability.Ergodic.KoopmanMeanErgodic",
+        "Exchangeability.Ergodic.InvariantSigma",
+        "Exchangeability.DeFinetti.ViaKoopman.KoopmanCommutation"
+      ],
+      "source_sha256": {
+        "Exchangeability/Ergodic/KoopmanMeanErgodic.lean": "453e4ffe2e4d1df9a426041dff38d11c22137069dd0e8cde22e6a944b108c5dc",
+        "Exchangeability/Ergodic/InvariantSigma.lean": "2d394f34014143317070d9cd996c5563253a3cad8b92d20ed3516808632fce7f",
+        "Exchangeability/DeFinetti/ViaKoopman/KoopmanCommutation.lean": "77f0b7232a9232a876ff186d9e5b3b1515aa71e18018f6afc89fc9d163ccf333"
+      },
+      "declarations": [
+        "Exchangeability.Ergodic.birkhoffAverage_tendsto_metProjection",
+        "Exchangeability.DeFinetti.proj_eq_condexp",
+        "Exchangeability.DeFinetti.ViaKoopman.birkhoffAverage_tendsto_condexp"
+      ],
+      "type_relationship": "The first declaration is a general real L2 measure-preserving Koopman mean-ergodic theorem close to the frozen target. The latter two add conditional-expectation identification only for the path-space shift specialization.",
+      "terminal_provenance": "The general convergence theorem itself calls mathlib's mean-ergodic theorem; the shift-specific files add nontrivial fixed-space/conditional-expectation bridges.",
+      "placeholder_and_unsafe_scan": "No sorry, axiom, or unsafe declaration was found by the bounded scan of the three content-hashed source files.",
+      "dependency_feasibility": "Not in this repository's Lake closure. Toolchain and mathlib revisions differ, so no import/check was attempted and no dependency was fetched.",
+      "classification": "external_upstream_anchor_only",
+      "eligible_for_later_proof_phase": false,
+      "integration_blocker": "A compatibility and license/SBOM integration pass at the repository's pinned Lean 4.29/mathlib revision is required before any external proof credit. It is unnecessary for the exact root because pinned mathlib already supplies the terminal theorem."
+    }
+  ],
+  "excluded_or_deduplicated": [
+    {
+      "surface": "AwesomeTheorems.Stage1.S1_M_245 and AwesomeTheorems.Stage1.S1_M_190",
+      "reason": "Other historical wrappers around the same terminal mathlib declaration; not distinct proof bodies for THM-M-1054."
+    },
+    {
+      "surface": "other packages in the pinned Lake manifest",
+      "reason": "Bounded source search found no distinct mean-ergodic terminal candidate."
+    }
+  ],
+  "root_decision": {
+    "machine_classification": "M1_candidate_found_not_proof_node_accepted",
+    "kernel_closed_at_audit_surface": true,
+    "exact_mathlib_candidate_found": true,
+    "external_candidate_found": true,
+    "reason": "The pinned mathlib theorem, Koopman linear isometry, and explicit subsingleton case inhabit the exact frozen target in AnchorAudit.lean. This audit records feasibility and provenance only.",
+    "machine_debt": "No mathematical or formalization blocker remains for a later local wrapper proof. Rev-5.6 proof, obligation, validation, provenance-closure, and master-acceptance gates remain open.",
+    "human_debt": "H1 unchanged: this machine-anchor phase does not supply the pending page-level primary-source and errata crosswalk.",
+    "readability_debt": "R3 unchanged: no readable proof reconstruction or independent review is claimed."
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This completes only the bounded immutable candidate inventory and exact-type candidate check for S56-M-1054-ANCHOR_AUDIT. It supplies no accepted proof-node credit and does not claim overall audit or theorem completion."
+}
