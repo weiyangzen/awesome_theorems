@@ -1,0 +1,86 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0698-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0698",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "2ff2721a0184cf5f856054cb7d46b10dbc703f5a",
+  "canonical_target": "Stage1Instances.THM_M_0698.FirstOrderCompactnessTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "manifest-pinned mathlib source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_commit_date": "2026-03-30T18:47:58Z",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0698-C01",
+      "project": "awesome_theorems",
+      "revision": "2ff2721a0184cf5f856054cb7d46b10dbc703f5a",
+      "module": "Stage1_Instances/THM-M-0698/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0698.FirstOrderCompactnessTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition definition",
+      "body_provenance": "definitional proposition; no theorem proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3_statement_surface",
+      "integration_status": "already local and elaborated; supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0698-C02",
+      "project": "mathlib4",
+      "repository": "https://github.com/leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.ModelTheory.Satisfiability",
+      "declaration": "FirstOrder.Language.Theory.isSatisfiable_iff_isFinitelySatisfiable",
+      "source_path": "Mathlib/ModelTheory/Satisfiability.lean",
+      "source_lines": "96-120",
+      "source_sha256": "0abb92d531851a57909945b740981d79a4cbb29238f2a3d21cb5fa57aa143edb",
+      "license": "Apache-2.0",
+      "kind": "exact_pinned_terminal_theorem",
+      "normalized_match": "exact universe-polymorphic equivalence selected by the statement gate",
+      "terminal_body": "forward direction invokes IsSatisfiable.isFinitelySatisfiable; reverse direction constructs an ultraproduct over finite subtheories and packages it as ModelType.of",
+      "body_provenance": "manifest-pinned mathlib source and compiled olean; principal body originates in mathlib commit 4a1f49bf7cc9dd32cb1dffe3687870901edc4193",
+      "placeholder_or_axiom_status": "standalone exact wrapper elaborates; #print axioms reports only propext, Classical.choice, and Quot.sound; no target-specific axiom, sorry, or admit",
+      "classification": "M0-W_candidate",
+      "integration_status": "already inside the pinned dependency closure and checked by an exact repo-local wrapper; proof credit remains reserved for ordered later phases"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes lang:Lean isSatisfiable_iff_isFinitelySatisfiable count:100",
+      "result": "six matches in one repository, mathlib4; the terminal declaration and its uses were returned",
+      "response_sha256": "fa64650303280367c8ad783a0845ae61efd5632523c2c243b689572efcefd0e7",
+      "immutability_boundary": "dated content-hashed discovery response; the accepted candidate is separately bound to the manifest commit"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"first-order compactness\" Lean theorem prover",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated repository-metadata discovery evidence; not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"isSatisfiable_iff_isFinitelySatisfiable\" language:Lean",
+      "result": "HTTP 403 API rate limit exceeded",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M0-W_candidate_pending_ordered_proof_gate",
+  "root_classification_reason": "The exact terminal theorem is already in the manifest-pinned mathlib closure. A standalone wrapper closes the audited target and its axiom report contains only the expected foundational axioms. This phase identifies the candidate but does not promote proof state out of order.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit if the frozen expression, toolchain, mathlib revision, imported source, or accepted foundation profile changes.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes the bounded formal-anchor inventory only. It does not freeze the obligation tree, accept proof-phase credit, establish H0 or R0, run release validation, or claim theorem completion."
+}

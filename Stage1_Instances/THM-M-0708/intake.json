@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-instance/5.6.0",
+  "item_id": "S56-M-0708-INTAKE",
+  "theorem_id": "THM-M-0708",
+  "execution_rank": 749,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Rice's theorem for extensional properties of unary partial-recursive programs",
+  "source_record_claim": "Every nontrivial property of program behavior is undecidable (repository wording: 程序性质的非平凡性不可判定).",
+  "canonical_statement": "Fix the standard enumeration phi_e of unary partial-recursive functions from natural numbers to natural numbers. For every set S of such partial functions that is extensional and nontrivial, the index set {e | phi_e belongs to S} is not computable.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_statement_phase"
+  },
+  "domain_and_universes": "Provisional Lean universe 0: Nat.Partrec.Code as program indices; unary partial functions Nat ->. Nat; an extensional property S : (Nat ->. Nat) -> Prop; computability of the induced predicate on codes.",
+  "quantifiers": [
+    "S : (Nat ->. Nat) -> Prop",
+    "an extensionality condition identifying programs with equal partial functions",
+    "witness partial functions f_in and f_out with S f_in and not S f_out"
+  ],
+  "hypotheses": [
+    "S depends only on the computed partial function, not the syntax or code number",
+    "S is nontrivial: it holds of at least one unary partial-recursive function and fails for at least one",
+    "programs are drawn from a fixed acceptable/effective enumeration of unary partial-recursive functions"
+  ],
+  "conclusion": "The predicate on program codes e given by S (Nat.Partrec.Code.eval e) is not computable.",
+  "alternate_encodings": [
+    {
+      "target": "Rice's original theorem for recursively enumerable sets: every nontrivial index class is recursive only if it is the empty or universal class",
+      "relationship": "equivalent after selecting the accepted numbering and identifying a unary partial function with its graph/range presentation; the transport is not yet checked",
+      "checked_witness": null
+    },
+    {
+      "target": "semantic properties of recognized languages of Turing machines",
+      "relationship": "standard corollary through a checked equivalence between the selected machine semantics and partial-recursive codes; not interchangeable without that bridge",
+      "checked_witness": null
+    },
+    {
+      "target": "Rice-Shapiro theorem for semidecidable extensional properties",
+      "relationship": "strictly stronger refinement with additional topological/finiteness content; excluded as a substitute",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "The empty and universal semantic properties are excluded by nontriviality and are decidable. Syntactic properties of code text, resource bounds, promise problems, and properties that are not invariant under equality of computed partial functions are outside the root. The theorem does not assert that every question mentioning a program is undecidable.",
+  "foundation_profile": "rev-5.6 profile not yet instantiated; classical logic, choice, quotient, and computability-library assumptions remain open",
+  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact toolchain, minimal import, and transitive dependency closure remain open",
+  "computation_profile": "No external computation, native code, oracle, or search result is credited at intake",
+  "formal_system": "Lean 4 plus pinned mathlib; Mathlib.Computability.PartrecCode is a repo-local discovery candidate, not an accepted target or proof",
+  "source_revisions": "The repository records are identified in source-statement-crosswalk.md. Rice's 1953 primary paper is identified by journal metadata and DOI, but an immutable copy, exact theorem text, errata audit, and premise-to-formal mapping remain open.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0708/README.md",
+    "Stage1_Instances/THM-M-0708/scope-map.md",
+    "Stage1_Instances/THM-M-0708/source-statement-crosswalk.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "reviewer": "independent integration-lane reviewer required"
+  },
+  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, enumeration/program semantics, extensionality or nontriviality convention, Lean target, imports/toolchain, source pins, trust policy, or rev-5.6 standard.",
+  "root_vector": {
+    "human": "H1",
+    "machine": "M4",
+    "readability": "R3"
+  },
+  "theorem_complete": false,
+  "status_boundary": "This planned intake freezes a source-faithful theorem scope and its exclusions only. It does not elaborate Lean, accept a formal anchor, establish H0, supply proof credit, or complete Rice's theorem."
+}

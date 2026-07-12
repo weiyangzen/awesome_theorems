@@ -1,0 +1,79 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0705",
+  "item_id": "S56-M-0705-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 746,
+  "legacy_priority_slot": null,
+  "name_zh": "Church-Rosser定理",
+  "name_en": "Church-Rosser theorem",
+  "category": "mathematical logic / proof theory / lambda calculus",
+  "target_system": "Lean 4 + mathlib",
+  "literal_source_claim": "Confluence of lambda calculus.",
+  "canonical_claim_status": "human_scope_provisional_exact_source_statement_and_lean_encoding_open",
+  "canonical_claim": "For untyped lambda terms and the source-selected beta-reduction relation, if a term beta-reduces in zero or more steps to each of two terms, then those two terms beta-reduce in zero or more steps to a common term.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_pending_source_and_lambda_encoding_freeze",
+    "module_candidates": ["Mathlib.Logic.Relation"],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-relation-api-probe-only"
+  },
+  "domain_and_universes": "Untyped lambda terms, provisionally; named/free-variable representation and quotienting by alpha-equivalence remain open.",
+  "quantifiers": [
+    "for every source term M",
+    "for every two reducts N1 and N2",
+    "there exists a common reduct P"
+  ],
+  "hypotheses": [
+    "M reaches N1 by the reflexive-transitive closure of the selected beta-reduction",
+    "M reaches N2 by the reflexive-transitive closure of the same reduction"
+  ],
+  "conclusion": "N1 and N2 each reach a common term P by that reflexive-transitive closure.",
+  "alternate_encodings": [
+    "terms quotiented by alpha-equivalence versus a capture-avoiding nameless representation",
+    "common-reduct confluence versus the conversion/common-reduct Church-Rosser formulation",
+    "beta-only versus beta-eta reduction"
+  ],
+  "excluded_degenerate_cases": "No source term class is excluded provisionally. Reflexive zero-step reductions must be included; open versus closed terms, alpha-equivalence, and beta versus beta-eta boundaries require source confirmation.",
+  "source_status": "repository_secondary_metadata_plus_historical_primary_source_candidate_exact_theorem_page_assumptions_and_errata_open",
+  "source_revisions": {
+    "repository_base": "2ff2721a0184cf5f856054cb7d46b10dbc703f5a",
+    "repository_source_blob_math_theorems": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_source_blob_stage0": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Lean 4 dependent type theory; expected syntactic confluence proof is constructive, but classical logic and choice use remain unfrozen until the encoding and proof route are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact lambda syntax, imports, and transitive declaration closure remain open",
+  "computation_profile": "Inductive syntax and reduction derivations are expected; no oracle, experiment, generated certificate, or unchecked computation is credited",
+  "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0705"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned",
+    "formal_reviewer": "unassigned"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source selection, reduction variant, term representation, canonical wording, Lean target, toolchain, mathlib pin, assurance profile, or validator change; independent reviewers and review due date remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake only. Generic relation APIs elaborate, but no lambda-calculus reduction or exact canonical Lean proposition is frozen. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "theorem_id": "THM-M-0709",
+  "item_id": "S56-M-0709-INTAKE",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 750,
+  "legacy_priority_slot": null,
+  "name_zh": "Post对应问题",
+  "name_en": "Undecidability of Post's correspondence problem",
+  "category": "mathematical logic / computability theory",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim": "Post correspondence problem is undecidable.",
+  "canonical_claim_status": "mathematical_scope_frozen_exact_effective_encoding_and_lean_expression_open",
+  "canonical_claim": "There is no total computable decision procedure which, given an effective code for an arbitrary finite Post correspondence instance over a fixed finite alphabet, returns true exactly when some nonempty finite sequence of tile indices makes the concatenated upper words equal the concatenated lower words.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_pending_statement_phase_encoding_selection",
+    "module_candidates": [
+      "Mathlib.Computability.Halting",
+      "Mathlib.Computability.Reduce",
+      "Mathlib.Data.List.Basic"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-probe-only"
+  },
+  "domain_and_universes": "A fixed finite alphabet with at least two symbols; finite lists of pairs of finite words; nonempty finite lists of valid tile indices; and a concrete effective code type. Exact Lean types and the treatment of malformed codes remain open.",
+  "quantifiers": [
+    "for every effectively encoded finite PCP instance",
+    "the instance has a solution iff there exists a nonempty finite valid index sequence whose upper and lower concatenations agree",
+    "there does not exist a total computable Boolean predicate deciding that solution predicate on every code"
+  ],
+  "hypotheses": [
+    "the alphabet and all tile words are finite and effectively encodable",
+    "the alphabet convention is nondegenerate and fixed independently of the input",
+    "the same ordered index sequence selects upper and lower words"
+  ],
+  "conclusion": "The uniform PCP solvability predicate is not computable/decidable in the selected effective encoding.",
+  "alternate_encodings": [
+    {
+      "target": "modified PCP, where the first tile is prescribed",
+      "relationship": "nearby undecidable problem requiring a checked many-one reduction",
+      "checked_witness": null
+    },
+    {
+      "target": "PCP over a binary alphabet",
+      "relationship": "candidate fixed-alphabet specialization/equivalence requiring checked coding transports",
+      "checked_witness": null
+    },
+    {
+      "target": "no algorithm/Turing machine decides PCP",
+      "relationship": "equivalent only after the chosen machine model is linked to mathlib's computability predicate",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "A decision procedure for one fixed instance, bounded-length matching, an empty index sequence, equality using different upper/lower index sequences, semi-decidability alone, and modified PCP alone do not establish the root. Unary or empty alphabet conventions may collapse the problem and cannot silently replace the fixed nondegenerate alphabet.",
+  "source_status": "primary_1946_article_identified_but_pinpoint_statement_assumptions_errata_and_independent_review_open",
+  "source_revisions": {
+    "repository_base": "2ff2721a0184cf5f856054cb7d46b10dbc703f5a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "human_source_candidate": "Emil L. Post, A variant of a recursively unsolvable problem, Bulletin of the AMS 52 (1946), 264-268, DOI 10.1090/S0002-9904-1946-08555-9"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "foundation_profile": "Lean 4 dependent type theory; the exact classical, choice, quotient, and extensionality footprint remains open until a target and proof body are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are intended; exact imports and transitive declaration closure remain open",
+  "computation_profile": "The root quantifies over effective decision procedures. No evaluator, oracle, external solver, reflection result, or generated certificate is credited at intake.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0709/task-dag.json",
+  "public_merge_targets": ["Stage1_Instances/THM-M-0709"],
+  "owners_and_reviewers": {
+    "owner": "Stage1 rev-5.6 execution lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source edition or interpretation, alphabet or encoding convention, match definition, malformed-code policy, canonical Lean target, toolchain/mathlib pin, foundation/TCB policy, validator, or assurance-standard change.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake only. It identifies the uniform PCP undecidability claim and rejects nearby substitutions, but does not freeze an effective encoding or exact Lean expression, establish H0, credit a formal proof, complete an audit, or complete the theorem."
+}
+
