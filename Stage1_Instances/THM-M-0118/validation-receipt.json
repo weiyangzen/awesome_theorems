@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-worker-validation-receipt/1.0",
+  "item_id": "S56-M-0118-VALIDATION",
+  "theorem_id": "THM-M-0118",
+  "base_revision": "797546bf2bab359f9fc5be515c3d4e8943c9d931",
+  "validated_at": "2026-07-12",
+  "intent": "validate",
+  "result": "blocked",
+  "validated_declaration": "Stage1Instances.THMM0118.Validation.independent_root_countermodel",
+  "validated_claim": "not Stage1Instances.THMM0118.NakanoVanishingTarget.{0,0,0}",
+  "independence_boundary": "The validation probe does not import Proof.lean and uses ZMod 2 rather than the proof phase's Int model. It is an independently implemented local check, not the distinct clean runner and verifier identity required for release.",
+  "kernel_gate": {
+    "result": "pass_for_negative_blocker",
+    "axioms": ["propext", "Quot.sound"],
+    "forbidden_source_tokens": "none"
+  },
+  "trust_gate": {
+    "result": "pass_for_negative_blocker",
+    "foundation_observation": "Lean reports propext and Quot.sound for the checked negative declaration; Quot.sound enters through ZMod."
+  },
+  "provenance_gate": {
+    "result": "pass_for_negative_blocker",
+    "proof_body": "Stage1_Instances/THM-M-0118/Validation.lean",
+    "terminal_body_kind": "repo-local independent countermodel"
+  },
+  "positive_root_precondition": {
+    "result": "fail",
+    "reason": "The frozen universal target has a kernel-checked ZMod 2 countermodel, independently confirming the proof-phase Int countermodel."
+  },
+  "hermetic_release_gate": {
+    "result": "not_run",
+    "reason": "A cold/offline release reproduction cannot validate a nonexistent positive proof and would not repair the false frozen target."
+  },
+  "independent_release_gate": {
+    "result": "not_run",
+    "reason": "No positive evidence bundle exists, and this worker clone cannot supply the required second identity and independently provisioned runner."
+  },
+  "root_vector_after": {"H": "H5", "M": "M5", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "positive exact root eligibility",
+  "remaining_root_cut_set": ["M0118-S-INTERFACES"],
+  "retry_condition": "Replace the disconnected abstract fields with native analytic structures and checked cohomology transports, then refreeze the statement and every dependent obligation before proving and validating the corrected target.",
+  "status_boundary": "This receipt validates a blocker, not Nakano vanishing. It supplies no positive proof, hermetic release attestation, independent-runner attestation, or theorem-completion credit.",
+  "gate_state": "self_tested_pending_master_acceptance"
+}
