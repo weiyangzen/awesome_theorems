@@ -49,7 +49,7 @@ PHASES = (
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 # This is both the lane-concurrency ceiling and the per-tick integration/refill ceiling.
-MAX_WORKERS = 100
+MAX_WORKERS = 12
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
 CODEX_SERVICE_TIER = "default"
@@ -357,6 +357,32 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return kept
 
 
+def enforce_worker_cap(claims: list[dict[str, Any]], max_workers: int) -> list[dict[str, Any]]:
+    """Stop and retain evidence from live lanes outside a newly lowered cap."""
+    retired = 0
+    for claim in claims:
+        slot = claim.get("slot")
+        if claim.get("status") != "live" or not isinstance(slot, int) or slot <= max_workers:
+            continue
+        session = claim.get("session")
+        if isinstance(session, str):
+            run(["tmux", "kill-session", "-t", session], check=False)
+        claim["status"] = "cancelled"
+        claim["cancelled_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        claim["cancel_reason"] = f"worker_cap_reduced_to_{max_workers}"
+        try:
+            changed, snapshot = snapshot_blocked_worker(claim)
+            claim["cancelled_snapshot"] = str(snapshot)
+            claim["cancelled_snapshot_paths"] = changed
+        except ValueError as exc:
+            claim["cancelled_snapshot_rejection_reason"] = str(exc)
+        retired += 1
+    if retired:
+        save_claims(claims)
+        print(f"cap: cancelled {retired} live worker(s) outside 1..{max_workers}")
+    return claims
+
+
 def trim_file(path: Path, max_bytes: int) -> None:
     if path.exists() and path.stat().st_size > max_bytes:
         with path.open("rb") as handle:
@@ -553,6 +579,7 @@ def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list
 def validate_only() -> None:
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
+    claims = enforce_worker_cap(claims, max_workers)
     space_guard(claims)
     todo = write_todo(data, ordered, claims)
     print("validate-only: ok")
