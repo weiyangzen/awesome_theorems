@@ -1,0 +1,91 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0981-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0981",
+  "depends_on": "S56-M-0981-STATEMENT",
+  "base_revision": "72dcbc91b366222bafc8e54d69b5bdd3e463b6cf",
+  "canonical_target": "Stage1Instances.THM_M_0981.KolmogorovAxiomsTarget",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git"
+  },
+  "candidates": [
+    {
+      "candidate_id": "MATHLIB-EMPTY",
+      "kind": "upstream_terminal_lemma",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.OuterMeasure.Basic",
+      "declaration": "MeasureTheory.measure_empty",
+      "source_path": "Mathlib/MeasureTheory/OuterMeasure/Basic.lean",
+      "source_line": 51,
+      "type_checked_by": "Stage1_Instances/THM-M-0981/AnchorAudit.lean",
+      "relationship": "exactly supplies the empty-event conjunct"
+    },
+    {
+      "candidate_id": "MATHLIB-NORMALIZATION",
+      "kind": "upstream_typeclass_field",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.Typeclasses.Probability",
+      "declaration": "MeasureTheory.IsProbabilityMeasure.measure_univ",
+      "source_path": "Mathlib/MeasureTheory/Measure/Typeclasses/Probability.lean",
+      "source_line": 64,
+      "source_blob": "a8f31fc33bfe16ac3711d3d103b3ef0d0805725f",
+      "type_checked_by": "Stage1_Instances/THM-M-0981/AnchorAudit.lean",
+      "relationship": "exactly supplies the unit-mass conjunct after installing the explicit premise as an instance"
+    },
+    {
+      "candidate_id": "MATHLIB-COUNTABLE-ADDITIVITY",
+      "kind": "upstream_terminal_lemma",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.MeasureTheory.Measure.NullMeasurable",
+      "declaration": "MeasureTheory.measure_iUnion",
+      "source_path": "Mathlib/MeasureTheory/Measure/NullMeasurable.lean",
+      "source_line": 238,
+      "source_blob": "97305a1fe079d508d58619e4c6d26f5129835b12",
+      "type_checked_by": "Stage1_Instances/THM-M-0981/AnchorAudit.lean",
+      "relationship": "exactly supplies countable additivity with the target's Pairwise Disjoint and measurability premises"
+    },
+    {
+      "candidate_id": "REPO-LEGACY-WRAPPER",
+      "kind": "repo_local_historical_candidate",
+      "revision": "72dcbc91b366222bafc8e54d69b5bdd3e463b6cf",
+      "last_source_revision": "16d227cffb7cb7d9e8392b6c0ff8211e498e1330",
+      "module": "AwesomeTheorems.Stage1.S1_M_261",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_261.kolmogorovAxioms_of_isProbabilityMeasure",
+        "AwesomeTheorems.Stage1.S1_M_261.statementShape_mathlib_wrapper"
+      ],
+      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_261.lean",
+      "source_blob": "1f69525f06b4314a8405952d193ad674621e0ea4",
+      "validation": "lake env lean AwesomeTheorems/Stage1/S1_M_261.lean exited 0",
+      "relationship": "statement-equivalent historical wrapper with a checked local body; broad adjacent imports make it inferior to the minimal three-anchor route",
+      "credit": "discovery only pending later proof integration and provenance gates"
+    }
+  ],
+  "external_search": {
+    "scope": "all tracked Lean files in this immutable repository snapshot plus the complete pinned mathlib source tree present in .lake",
+    "queries": [
+      "KolmogorovAxioms",
+      "kolmogorovAxioms_of_isProbabilityMeasure",
+      "Kolmogorov axioms",
+      "countable additivity"
+    ],
+    "result": "No additional exact Lean 4 declaration was found. The only exact repo-local declaration family is S1_M_261; mathlib exposes the three constituent anchors rather than a named KolmogorovAxioms theorem.",
+    "network_policy": "No dependency clone, fetch, or update was performed. No separately pinned external Lean 4 project is present, so a moving remote candidate was not treated as evidence."
+  },
+  "preferred_route": {
+    "candidate": "compose MATHLIB-EMPTY, MATHLIB-NORMALIZATION, and MATHLIB-COUNTABLE-ADDITIVITY",
+    "composition_check": "Stage1Instances.THM_M_0981.AnchorAudit.candidateTarget_by_mathlib",
+    "composition_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "contains_sorryAx": false,
+    "dependency_feasibility": "available through the statement phase's single pinned import Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+    "classification": "exact viable anchor route; audit evidence only, not canonical-root proof credit"
+  },
+  "audit_complete_for_phase": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This phase identifies and type-checks exact immutable candidates. It does not modify the canonical statement, integrate its proof declaration, freeze obligations, or claim theorem completion."
+}

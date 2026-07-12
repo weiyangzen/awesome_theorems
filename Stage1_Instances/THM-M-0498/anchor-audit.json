@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0498-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0498",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "01e0cab0efda724de1660ee854e9a38cebf1e0ab",
+  "target": "Stage1Instances.THM_M_0498.RiemannVonMangoldtTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "credible external Lean 4 project at an immutable revision"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0498-C01",
+      "project": "awesome_theorems",
+      "revision": "01e0cab0efda724de1660ee854e9a38cebf1e0ab",
+      "module": "Stage1_Instances/THM-M-0498/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0498.RiemannVonMangoldtTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "proof_device_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0498-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.NumberTheory.Chebyshev",
+        "Mathlib.NumberTheory.LSeries.Dirichlet",
+        "Mathlib.NumberTheory.LSeries.RiemannZeta",
+        "Mathlib.NumberTheory.EulerProduct.DirichletLSeries"
+      ],
+      "declarations": [
+        "Chebyshev.psi",
+        "Chebyshev.theta",
+        "ArithmeticFunction.vonMangoldt",
+        "Chebyshev.psi_eq_sum_theta",
+        "Chebyshev.primeCounting_eq_theta_div_log_add_integral",
+        "ArithmeticFunction.LSeries_vonMangoldt_eq_deriv_riemannZeta_div",
+        "riemannZeta_eulerProduct_exp_log",
+        "riemannZeta_residue_one",
+        "riemannZeta_neg_two_mul_nat_add_one"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "no declaration has the canonical Tendsto conclusion over nontrivial zeros",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "proof_device_status": "all nine names elaborate in the pinned local environment; none is terminal",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checked, but insufficient for the exact theorem"
+    },
+    {
+      "candidate_id": "S56-M-0498-C03",
+      "project": "AlexKontorovich/PrimeNumberTheoremAnd",
+      "revision": "baff9f946bcb5349d35b3eba72e28031748e6388",
+      "toolchain": "leanprover/lean4:v4.28.0",
+      "license": "Apache-2.0",
+      "module": "PrimeNumberTheoremAnd.BKLNW_app",
+      "declaration": "BKLNW_app.bklnw_eq_A_7",
+      "source_file_sha256": "cda975891e59158fea67ecb8266d81ef5f58ef6d5b4da062533bd0a250817be2",
+      "kind": "adjacent_truncated_psi_formula",
+      "normalized_match": "not exact: a finite-height error bound, rather than the canonical limiting equality",
+      "body_provenance": "the theorem body is an admitted incomplete proof at source line 53",
+      "proof_device_status": "ineligible incomplete proof",
+      "classification": "E3_anchor_only",
+      "integration_status": "blocked; cannot be imported for proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0498-C04",
+      "project": "AlexKontorovich/PrimeNumberTheoremAnd",
+      "revision": "baff9f946bcb5349d35b3eba72e28031748e6388",
+      "module": "PrimeNumberTheoremAnd.ZetaDefinitions",
+      "declaration": "riemannZeta.Riemann_vonMangoldt_bound",
+      "source_file_sha256": "f20547faf64165fe28da9bbd1f18617ce375a6e59d0ac6e17e0f57a091bba2ac",
+      "kind": "homonymous_zero_counting_statement",
+      "normalized_match": "excluded: it bounds N(T), not Chebyshev.psi",
+      "body_provenance": "proposition definition only",
+      "proof_device_status": "not a proof declaration",
+      "classification": "excluded_nonmatch",
+      "integration_status": "nothing to integrate for this root"
+    }
+  ],
+  "external_source_receipts": {
+    "remote": "https://github.com/AlexKontorovich/PrimeNumberTheoremAnd",
+    "revision": "baff9f946bcb5349d35b3eba72e28031748e6388",
+    "lean_toolchain_sha256": "26df5f74b79af0cd9e298b6583993699a54938d047ba1919428da80d3ae80c6e",
+    "lake_manifest_sha256": "38c1ad9f603c512849144d4272e91afb229a380be4551421aa03b45ab79cb645",
+    "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "retrieval_boundary": "content was inspected through immutable raw commit URLs; it was not installed or added to the local dependency closure"
+  },
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The exact local artifact is a statement only. Pinned mathlib provides substantial arithmetic and zeta infrastructure but no terminal explicit formula. The closest external truncated psi statement is both non-exact and backed by an incomplete proof.",
+  "integration_blocker": "No eligible exact external proof body exists among the audited candidates. PrimeNumberTheoremAnd is not in the dependency closure, uses Lean 4.28.0 rather than the local 4.29.0, and its closest theorem is non-exact and incomplete.",
+  "reopen_condition": "Locate an exact Lean 4 declaration at an immutable revision, then verify its complete dependency graph, exact normalized type, terminal proof body, proof-device and unsafe/oracle boundaries, license, and repo-local wrapper.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes a bounded formal-anchor audit only. It does not establish global absence, human-source fidelity, an obligation tree, a proof, or theorem completion."
+}
