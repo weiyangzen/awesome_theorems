@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1005-STATEMENT",
+  "theorem_id": "THM-M-1005",
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite-measure space, real-valued discrete-time martingale f, finite horizon n, and exponent 1 < p < infinity, the Lp seminorm of max_{0 <= k <= n} |f k| is at most (p/(p-1)) times the Lp seminorm of f n.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1005/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1005.Statement",
+    "elaborated_expression_sha256": "32343e66034f94d4afabc10f4d15cbae77daf650c757023a2142aafba50366e5",
+    "statement_file_sha256": "03e36de9b3040e757f9620b3eac5e6f95d003abb5b9b2ffb58416b8f478f38f6"
+  },
+  "domain_and_universes": "Omega : Type u; real-valued process f : Nat -> Omega -> Real; exponent p : ENNReal; horizon n : Nat; proposition in Prop",
+  "ordered_binders": [
+    "Omega : Type u",
+    "mOmega : MeasurableSpace Omega",
+    "mu : Measure Omega",
+    "IsFiniteMeasure mu",
+    "G : Filtration Nat mOmega",
+    "f : Nat -> Omega -> Real",
+    "Martingale f G mu",
+    "p : ENNReal",
+    "1 < p",
+    "p < infinity",
+    "n : Nat"
+  ],
+  "conclusion": "eLpNorm (max_{k in range (n+1)} |f k|) p mu <= ofReal (p.toReal / (p.toReal - 1)) * eLpNorm (f n) p mu",
+  "index_convention": "inclusive finite horizon k = 0,...,n; range (n+1) is nonempty even at n=0",
+  "direct_imports": ["Mathlib.Probability.Martingale.OptionalStopping"],
+  "foundation_profile": "Lean 4 dependent type theory with mathlib classical finite-set and measure-theory infrastructure; no custom axiom declarations",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "noncomputable measure-theoretic proposition; no computation or oracle supplies proof credit",
+  "environment_fingerprint": {
+    "base_revision": "656a1be3548d492354ef99a755ef0bbcab9bd22b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1005/check_statement.py",
+    "validator_sha256": "89d0ceca1329cae79e3abebc26474586990ea236e8a603c92778e14faef4df12",
+    "distinguished": [
+      "substituted weak-L1 tail inequality",
+      "changed martingale to nonnegative submartingale",
+      "changed inclusive horizon n to extended horizon n+1",
+      "changed strict exponent boundary 1 < p to 1 <= p"
+    ]
+  },
+  "statement_selection": "The repository's specific gloss 'moment estimate for a martingale maximum' selects the strong Lp martingale form, not the weak-L1 nonnegative-submartingale theorem. Exact primary-source theorem/page review remains an H-axis task and may require an explicitly checked revision rather than silent substitution.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact freezes and elaborates the strong finite-horizon Lp target only. It supplies no proof, anchor acceptance, H0 source verdict, audit completion, or theorem-completion evidence."
+}
