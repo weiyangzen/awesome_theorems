@@ -1,0 +1,112 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0987-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0987",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "a946660d1b30093bec2ff64b9c71d32f5109943e",
+  "canonical_target": "Stage1Instances.THM_M_0987.CentralLimitTheoremTarget",
+  "discovery_protocol": {
+    "order": [
+      "repo-local Lean source and legacy wrapper",
+      "pinned mathlib source and declaration probes",
+      "named external Lean 4 CLT project at an immutable revision"
+    ],
+    "queries": [
+      "central limit theorem",
+      "CentralLimitTheorem",
+      "central_limit_theorem",
+      "tendstoInDistribution_inv_sqrt_mul_sum_sub",
+      "CLT"
+    ],
+    "cutoff": "2026-07-12",
+    "access_policy": "Read repo-local and installed pinned sources; use raw immutable GitHub URLs only for the already identified external candidate; do not fetch or clone dependencies.",
+    "limitations": "This is a bounded candidate audit, not an exhaustive proof that no other public Lean repository exists. GitHub API requests were rate-limited (HTTP 403), so no API-wide negative result is claimed."
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0987-C01",
+      "project": "awesome_theorems",
+      "revision": "a946660d1b30093bec2ff64b9c71d32f5109943e",
+      "module": "Stage1_Instances/THM-M-0987/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0987.CentralLimitTheoremTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "canonical target by definition",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "already in the worker clone",
+      "body_provenance": "Prop definition plus statement-shape equivalence; no CLT proof body",
+      "placeholder_axiom_unsafe_status": "not a proof candidate",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0987-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.CentralLimitTheorem",
+      "source_path": "Mathlib/Probability/CentralLimitTheorem.lean",
+      "source_blob": "e0cfc897a4679025f71712abbf8834c1f318b2c1",
+      "source_sha256": "4b42bad9589ec3772fe0e884ad70789c89fd0c11566d980f3df1c862bbc7f03d",
+      "declaration": "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub",
+      "kind": "exact_pinned_mathlib_proof_candidate",
+      "normalized_match": "The exact-type probe Stage1Instances.THM_M_0987.AnchorAudit.pinnedMathlibCandidate elaborates by direct application with identical universes, probability spaces, HasLaw, MemLp, iIndepFun, IdentDistrib, normalization, and TendstoInDistribution conclusion.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "manifest-pinned and already present in the local Lake closure; no update or fetch needed",
+      "terminal_body_provenance": "public theorem body in pinned mathlib source, lines beginning at the declaration; proof splits variance zero/nonzero and reduces the latter to the centered variance-one characteristic-function CLT",
+      "transitive_route_probes": [
+        "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum",
+        "ProbabilityTheory.charFun_inv_sqrt_mul_sum",
+        "ProbabilityTheory.tendsto_charFun_inv_sqrt_mul_pow",
+        "MeasureTheory.taylor_charFun_two",
+        "MeasureTheory.ProbabilityMeasure.tendsto_iff_tendsto_charFun",
+        "ProbabilityTheory.charFun_gaussianReal"
+      ],
+      "placeholder_axiom_unsafe_status": "No sorry, axiom declaration, admit, or unsafe marker occurs in the terminal module. Lean reports only propext, Classical.choice, and Quot.sound for both the terminal theorem and the exact-type probe.",
+      "license": "Apache-2.0 header in the source module",
+      "classification": "M0-W_candidate",
+      "integration_status": "Eligible exact pinned anchor. Anchor audit establishes the candidate and exact direct wrapper shape only; proof, full transitive trust/provenance, and release receipts remain downstream."
+    },
+    {
+      "candidate_id": "S56-M-0987-C03",
+      "project": "awesome_theorems legacy Stage1",
+      "revision": "a946660d1b30093bec2ff64b9c71d32f5109943e",
+      "module": "AwesomeTheorems.Stage1.S1_M_267",
+      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_267.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_267.centralLimitTheorem_mathlib_wrapper",
+      "kind": "legacy_wrapper_discovery",
+      "normalized_match": "packages the same one-dimensional iid finite-second-moment mathlib theorem but targets the legacy data structure rather than the rev-5.6 canonical Prop directly",
+      "toolchain": "current pinned repository environment; historical acceptance is explicitly revoked by the rev-5.6 baseline",
+      "dependency_feasibility": "repo-local, but not accepted as rev-5.6 evidence",
+      "body_provenance": "direct wrapper around candidate C02",
+      "placeholder_axiom_unsafe_status": "legacy discovery only; not re-admitted by this phase",
+      "classification": "legacy_unaccepted",
+      "integration_status": "useful provenance and search evidence, never inherited proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0987-C04",
+      "project": "uw-math-ai/central_limit_theorem",
+      "revision": "0ed57e943d642eaa95fe547780024b9e3a0dfbdf",
+      "module": "CentralLimitTheorem.main_theorem",
+      "source_path": "CentralLimitTheorem/main_theorem.lean",
+      "source_sha256": "abe8ba1275a542ac81441453ec9bc6645a3f7fd956172ed3cf7a6f84393090ba",
+      "declaration": "CLT",
+      "kind": "adjacent_external_lean4_candidate",
+      "normalized_match": "not exact: standardized mean-zero/unit-variance assumptions and a CDF-difference conclusion, with unresolved X binders in the inspected source",
+      "toolchain": "leanprover/lean4:v4.13.0-rc3",
+      "dependency_feasibility": "not in lake-manifest.json and incompatible moving mathlib dependency; deliberately not cloned or fetched",
+      "terminal_body_provenance": "the CLT declaration ends in sorry; supporting main.lean and mgf_of_sum.lean also contain sorry",
+      "placeholder_axiom_unsafe_status": "rejected: explicit sorry in the terminal declaration and supporting route",
+      "license": "not established by this bounded audit",
+      "classification": "M5_external_placeholder_mismatch",
+      "integration_status": "not eligible for integration or proof credit"
+    }
+  ],
+  "root_machine_classification": "M3",
+  "root_classification_reason": "An exact, locally checkable pinned mathlib proof candidate exists and passes a direct exact-type probe, but this anchor-audit phase does not install the proof of the canonical root or complete the required transitive provenance, trust, composition, and release gates. The current canonical artifact remains a Prop definition.",
+  "eligible_anchor": "S56-M-0987-C02",
+  "rejected_external_anchor": "S56-M-0987-C04",
+  "next_integration_action": "In the proof phase, prove CentralLimitTheoremTarget by unfolding it and applying ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub. Before M0-W acceptance, bind the wrapper to complete transitive dependency/body provenance and accepted axiom/TCB receipts.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes a bounded formal-anchor inventory. It does not assign H status, freeze the obligation tree, accept M0-W, or claim theorem completion."
+}
