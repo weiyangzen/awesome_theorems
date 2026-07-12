@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1550-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1550",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1550.LaxPairIsospectrality",
+  "environment": {
+    "base_revision": "08764d477205bbae07c32197a9a83ac6c07866c9",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git"
+  },
+  "candidates": [
+    {
+      "id": "MATHLIB-SPECTRUM-UNITS-CONJUGATE",
+      "classification": "exact_leaf_anchor",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Algebra.Algebra.Spectrum.Basic",
+      "declaration": "spectrum.units_conjugate",
+      "type": "spectrum R (u * a * u^-1) = spectrum R a",
+      "source_file_sha256": "50c64436767aa6931168db086fbba9cb9470037482e0327ce74f1916634c4152",
+      "terminal_body": "local theorem body in pinned mathlib; proves the result from spectrum.mem_iff and preservation of IsUnit under multiplication",
+      "trust": "Lean theorem; pinned source contains a concrete proof body and its module has no sorry, admit, axiom, or unsafe token",
+      "dependency_feasibility": "already pinned and available in the canonical .lake tree",
+      "disposition": "Use after unpacking each ConjugatesAt witness. This closes only the spectrum-under-unit-conjugation leaf."
+    },
+    {
+      "id": "HISTORICAL-S1-M-209",
+      "classification": "repo_local_discovery_candidate",
+      "project": "awesome_theorems historical Stage1",
+      "revision": "08764d477205bbae07c32197a9a83ac6c07866c9",
+      "module": "AwesomeTheorems.Stage1.S1_M_209",
+      "declarations": [
+        "spectrum_eq_of_units_conjugate",
+        "spectrum_eq_of_conjugatesAt",
+        "isospectralOn_of_conjugates"
+      ],
+      "source_file_sha256": "da94a4a6e346c7b9c3e5e2a8bc54e49f7b7d7f38753987801002caf22f793900",
+      "terminal_body": "thin local wrappers ending at spectrum.units_conjugate",
+      "trust": "historical discovery input only; not accepted proof credit",
+      "dependency_feasibility": "repo-local, but its broader StatementShape is not the frozen rev-5.6 declaration",
+      "disposition": "Architecture hint only. Reimplement against the frozen target rather than importing legacy status."
+    },
+    {
+      "id": "PHYSLIB-IMMUTABLE-TREE",
+      "classification": "external_negative_candidate",
+      "project": "leanprover-community/physlib",
+      "revision": "9492c3877bb7c991cb0db9a25f65b876cf0f518e",
+      "searched_terms": ["lax", "isospectral", "integrable", "toda", "kdv"],
+      "result": "No matching path in the immutable recursive Git tree.",
+      "dependency_feasibility": "not assessed because no candidate module or declaration was located",
+      "disposition": "No anchor and no proof credit."
+    },
+    {
+      "id": "SCILEAN-IMMUTABLE-TREE",
+      "classification": "external_negative_candidate",
+      "project": "lecopivo/SciLean",
+      "revision": "95f8119a2884e9c41f82136523bd5568ea7075c5",
+      "searched_terms": ["lax", "isospectral", "integrable", "toda", "kdv"],
+      "result": "No matching path in the immutable recursive Git tree.",
+      "dependency_feasibility": "not assessed because no candidate module or declaration was located",
+      "disposition": "No anchor and no proof credit."
+    }
+  ],
+  "terminal_candidate_for_entire_target": false,
+  "debt_classification": "formalization_debt",
+  "first_open_bridge": "Compose the supplied ConjugatingEvolutionOn witnesses with spectrum.units_conjugate for the frozen root; the later proof phase must own that composition.",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false
+}
