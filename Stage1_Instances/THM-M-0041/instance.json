@@ -1,0 +1,209 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0041",
+  "item_id": "S56-M-0041-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1081,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "哈密顿-凯莱定理",
+  "name_en": "Cayley-Hamilton theorem",
+  "canonical_name": "Cayley-Hamilton theorem for finite square matrices over a commutative ring",
+  "category": "代数学 / 线性代数",
+  "category_en": "algebra / linear algebra",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "矩阵满足其特征多项式",
+  "literal_source_claim_en": "A matrix satisfies its characteristic polynomial.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "Every finite square matrix over a commutative ring is annihilated by its characteristic polynomial.",
+  "canonical_claim_status": "conventional_finite_square_matrix_over_commutative_ring_scope_selected_at_intake_pending_pinpoint_source_ratification_and_exact_lean_statement_gate",
+  "canonical_claim": "For every finite square matrix A over a commutative ring, evaluating det(X I - A) at A in the matrix algebra yields the zero matrix.",
+  "statement_blocker": "The catalog supplies no source citation or definitions. Before accepting an exact Lean target, the statement phase must admit and independently review a pinpoint source, ratify coefficient-ring and finite-index generality, characteristic-polynomial and evaluation conventions, empty-index and zero-ring boundaries, then elaborate, fingerprint, transport, and mutation-test the result.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Matrix.Charpoly.Basic",
+      "Mathlib.LinearAlgebra.Charpoly.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "Matrix.aeval_self_charpoly",
+      "LinearMap.aeval_self_charpoly"
+    ],
+    "candidate_expression": "∀ {R n} [CommRing R] [DecidableEq n] [Fintype n] (A : Matrix n n R), Polynomial.aeval A A.charpoly = 0",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_ratification_canonical_elaboration_transports_and_mutation_tests",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-axiom-probe-only"
+  },
+  "domain_and_universes": "Intake-selected domain: an arbitrary universe-u commutative ring R and an arbitrary universe-v finite decidable index type n, with A : Matrix n n R. The exact elaborated universes and instance binder order remain for the statement gate.",
+  "quantifiers": [
+    "R: an arbitrary commutative ring",
+    "n: an arbitrary finite decidable matrix index type",
+    "A: an arbitrary square n-by-n matrix over R"
+  ],
+  "ordered_binders": [
+    "forall R and its commutative ring structure",
+    "forall n and its finite decidable index structures",
+    "forall A : Matrix n n R"
+  ],
+  "hypotheses": [
+    "R is a commutative ring",
+    "n is finite and has decidable equality"
+  ],
+  "conclusion": "Polynomial evaluation of A.charpoly at A, with coefficients acting by scalar matrices, equals 0 : Matrix n n R.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "The empty index type and zero ring are provisionally included; no Nonempty or Nontrivial premise is added. The statement phase must ratify and mutation-test them, along with zero, scalar, singular, and nondiagonalizable matrices.",
+  "candidate_scope_not_credited": [
+    "the finite free-module endomorphism formulation LinearMap.aeval_self_charpoly",
+    "minimal-polynomial divisibility by the characteristic polynomial",
+    "reduction of all matrix powers modulo the characteristic polynomial",
+    "field-specialized, complex-matrix, or fixed-dimension statements"
+  ],
+  "excluded_substitutions": [
+    "a theorem only for fields, complex numbers, diagonalizable matrices, invertible matrices, nonempty dimensions, or a fixed matrix size",
+    "a rectangular-matrix statement or a noncommutative coefficient-ring generalization without a source-mapped characteristic-polynomial theory",
+    "minimal-polynomial divisibility, eigenvalue, trace, determinant, recurrence, or matrix-power corollaries alone",
+    "the adjugate determinant identity without the checked polynomial-evaluation composition",
+    "scalar evaluation at an eigenvalue instead of evaluation in the matrix algebra",
+    "Hamiltonian mechanics, Hamiltonian graph theory, a numerical computation, or an unchecked certificate",
+    "the catalog's untrusted verified label or the intake probe as source or proof credit"
+  ],
+  "source_status": "H1_stable_named_theorem_and_primary_publication_lead_but_no_admitted_immutable_pinpoint_statement_definition_assumption_errata_proof_mapping_attribution_reconciliation_or_independent_review",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Arthur Cayley, II. A memoir on the theory of matrices, Philosophical Transactions of the Royal Society of London 148, 17-37 (1858), DOI 10.1098/rstl.1858.0002",
+      "candidate_summary": "Crossref-confirmed primary-publication lead; metadata includes an abstract stating that an unqualified matrix is square and that every matrix satisfies its own algebraic equation.",
+      "inspection_status": "Metadata and abstract only; no admitted immutable primary text, exact theorem/proof page, coefficient-domain and definition mapping, correction audit, catalog-attribution reconciliation, proof-node mapping, or independent review."
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Charpoly.Basic",
+      "declarations": [
+        "Matrix.charpoly",
+        "Matrix.eval_charpoly",
+        "Matrix.aeval_self_charpoly"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type": "{R : Type u} [CommRing R] {n : Type v} [DecidableEq n] [Fintype n] (A : Matrix n n R) : (Polynomial.aeval A) A.charpoly = 0",
+      "boundary": "The relevant definitions, exact candidate type, and reported axioms were authenticated by the intake probe. Source identity, canonical target, terminal body provenance, transitive dependencies, trust closure, and M0 classification are not inspected or credited."
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Charpoly.Basic",
+      "declarations": [
+        "LinearMap.charpoly",
+        "LinearMap.eval_charpoly",
+        "LinearMap.aeval_self_charpoly"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type": "for f : M ->ₗ[R] M with R commutative and M finite free, Polynomial.aeval f f.charpoly = 0",
+      "boundary": "Candidate alternate encoding reducing through a chosen basis to the matrix theorem; no checked transport to the target or proof credit at intake."
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "dc2eb1390c8f2a88e7afcbdbd35f92ab43f64fb8",
+    "repository_base_tree": "25138aaafcff80ee47bf04805bccd804978e6754",
+    "repository_record": "Docs/researches/math_theorems.md:314-319",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1237-1265",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "7bde7a1d620c46ccbb5cf8be7bf43fbd9e5f40d5000be7f2b5a6f42a93f61831",
+    "stage0_excerpt_sha256": "474f685ee1f4bba918038412ea68e4418801a5348b2e1c2127e172c73eaae8f1",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "5b6a3842c4864124352f5b65d05cb1a850afbde06d943b5bcf5b55970c46cc3b",
+    "execution_dag_sha256": "3bbd5e9cc21181e644f574f527f5fdfeb70cc6a25ec73191579b4eea42d92a47",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "matrix_charpoly_basic_sha256": "9e22d8fdace32c7bb8304335027b95ccb4cca18b5d430076ac4f87b2d76ca3f2",
+    "linear_map_charpoly_basic_sha256": "73a84dc426c1182c5d47a5996c09dabac8d8dd1c9565f9d63c38c67556584653",
+    "mathlib_undergrad_map_sha256": "e9c73df318ca44c583da664f9b1cb8dd25569e6d345552b326d61e9768a1b671"
+  },
+  "external_source_locators": {
+    "cayley_1858_doi": "https://doi.org/10.1098/rstl.1858.0002"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; the intake candidate axiom reports list propext, Classical.choice, and Quot.sound, while exact statement transports and full proof-specific transitive closure remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are the intended base; exact canonical imports, terminal bodies, transitive declarations, compiled artifacts, and accepted trust closure remain open",
+  "computation_profile": "kernel-polynomial-evaluation-planned/1.0: no numerical matrix computation, oracle, native shortcut, experiment, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0041/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0041/README.md",
+    "Stage1_Instances/THM-M-0041/instance.json",
+    "Stage1_Instances/THM-M-0041/scope-map.md",
+    "Stage1_Instances/THM-M-0041/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0041/task-dag.json",
+    "Stage1_Instances/THM-M-0041/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0041/check_intake.py",
+    "Stage1_Instances/THM-M-0041/validation.md",
+    "Stage1_Instances/THM-M-0041/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, source, attribution, scope, or boundary correction",
+      "canonical statement, checked transport, or expression fingerprint",
+      "toolchain, import, dependency pin, or formal candidate change",
+      "assurance profile, validator, receipt, or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0042",
+      "name": "Jordan normal form theorem",
+      "boundary": "A normal-form classification is a distinct theorem and is not needed as a premise for Cayley-Hamilton."
+    },
+    {
+      "theorem_id": "THM-M-0043",
+      "name": "Spectral theorem",
+      "boundary": "Self-adjoint/normal spectral decomposition is a strict special-setting theorem and cannot replace Cayley-Hamilton."
+    }
+  ],
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. Conventional matrix scope, historical lead, and pinned candidate interfaces are recorded, but no exact source packet, canonical Lean target, proof body, or accepted receipt exists. No H0, M0, R0, audit completion, or theorem completion is claimed."
+}
