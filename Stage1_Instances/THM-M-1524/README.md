@@ -12,3 +12,6 @@ no proof, source-audit acceptance, audit completion, or theorem completion is cl
 
 The scope map, source crosswalk, and task DAG define downstream work. Intake checks are recorded in
 `validation.md`; exact statement evidence is in `statement.json` and `statement-validation.md`.
+The anchor audit records pinned mathlib leaves and an immutable external Spectra closure candidate
+in `anchor-audit.json`, with validation in `anchor-audit-validation.md`. Spectra is not yet pinned or
+transported to the frozen operator encoding, so the provisional machine classification remains `M2`.

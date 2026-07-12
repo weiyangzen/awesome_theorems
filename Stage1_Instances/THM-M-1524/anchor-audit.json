@@ -1,0 +1,98 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1524-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1524",
+  "base_revision": "286ba271be26ff9620e5969b63a73c14792868af",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1524.HeisenbergUncertaintyTarget",
+  "canonical_target_expression_sha256": "5acc7178fdf52c186852a6c6567826fee3b64f216541cb194d37fb6ea4211891",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "discovery_protocol": {
+    "cutoff": "2026-07-12T08:30:00+08:00",
+    "aliases": ["Heisenberg uncertainty", "Robertson uncertainty", "Schrodinger-Robertson", "uncertainty relation", "canonical commutation relation"],
+    "search_order": ["repository-local Lean", "pinned mathlib source", "public Lean 4 repositories", "immutable candidate source archives"],
+    "limitations": "GitHub code search was unavailable without credentials. Repository search and named-project inspection are bounded discovery, not a proof of global absence. No dependency was cloned, fetched, or added."
+  },
+  "candidates": [
+    {
+      "id": "M1524-A-MATHLIB-CS",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.InnerProductSpace.Basic",
+      "source_sha256": "5b95dccc6230b9251744b12292942814523bf36b7cb41bd50c31d00a99296f3e",
+      "declarations": ["inner_mul_inner_self_le", "norm_inner_le_norm", "inner_self_eq_norm_sq"],
+      "type_role": "Cauchy-Schwarz and squared-norm analytic leaves",
+      "classification": "M0-P",
+      "dependency_feasibility": "already pinned and locally elaborated",
+      "result": "useful leaf anchors; no Robertson, Heisenberg, commutator, variance, or CCR root declaration exists in the pinned mathlib source"
+    },
+    {
+      "id": "M1524-A-MATHLIB-PARTIAL-MAP",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.LinearAlgebra.LinearPMap",
+      "source_sha256": "8ef6785ae8c0507f510e274b62553c6c72884d18bf1a2c91c41fd3de6c0e8343",
+      "declaration": "LinearPMap",
+      "type_role": "linear map with a submodule domain",
+      "classification": "M0-P",
+      "dependency_feasibility": "already pinned and locally elaborated",
+      "result": "object-model anchor only; it provides neither density, an unbounded adjoint/self-adjoint API, nor an uncertainty theorem"
+    },
+    {
+      "id": "M1524-A-LEGACY-BOUNDED",
+      "source": "awesome_theorems repository-local legacy source",
+      "revision": "286ba271be26ff9620e5969b63a73c14792868af",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_192.lean",
+      "source_sha256": "740911dbaaf01a57c55a5d05997bf8b4bb5f6e093d953ea3e50efed31d40d9b7",
+      "declarations": ["AwesomeTheorems.Stage1.S1_M_192.robertson_inequality", "AwesomeTheorems.Stage1.S1_M_192.heisenberg_ccr_inequality"],
+      "normalized_match": "same inequality pattern but observables are everywhere-defined linear maps and only symmetric",
+      "classification": "M3_legacy_discovery_only",
+      "result": "not an exact encoding of the frozen densely-defined self-adjoint target; rev-5.6 grants it no inherited proof credit"
+    },
+    {
+      "id": "M1524-A-SPECTRA",
+      "source": "adambornemann-glitch/Spectra",
+      "remote": "https://github.com/adambornemann-glitch/Spectra.git",
+      "revision": "8dbaaf6728d1342ae16acf79fd7eef7c59b37e63",
+      "modules": ["Spectra.QuantumMechanics.Uncertainty.SchrodingerRobertson", "Spectra.QuantumMechanics.Uncertainty.Heisenberg"],
+      "declarations": ["Spectra.QuantumMechanics.Schrodinger.observable_robertson_stddev", "Spectra.QuantumMechanics.Heisenberg.heisenberg_uncertainty"],
+      "types": ["self-adjoint observables with ShiftedDomainConditions imply the Robertson standard-deviation bound", "a state-local CCR and nonnegative hbar imply the hbar/2 bound"],
+      "source_sha256": ["2d471193b5cdd8d528148db470368031dbe750e2268b22708e49421e3996120b", "a1faa4f7d535963335e7806248c507c707f30925e25dbbb2421c8fd7eee84eeb"],
+      "toolchain": "leanprover/lean4:v4.31.0-rc1",
+      "mathlib_revision": "40f05009d036d2e4b488e8a01f559a6036ec2484",
+      "license": "Apache-2.0",
+      "license_sha256": "3aad5652f43563283ffa6eee1ba8c1ac096317b149574a3842940ea60372d025",
+      "terminal_body_provenance": "Robertson is derived from Schrodinger uncertainty and Cauchy-Schwarz; Heisenberg rewrites the commutator expectation using the CCR and applies observable_robertson_stddev",
+      "placeholder_or_unsafe_status": "no sorry, admit, axiom declaration, unsafe declaration, or implemented_by marker in the four-project-file local import closure of the two declarations; full dependency trust is not validated",
+      "normalized_match": "mathematically closes both selected components, with the external CCR weaker (state-local) than the frozen global CCR premise; the custom Observable and IsSelfAdjoint encodings are not definitionally identical to Spectra's types",
+      "classification": "M1_anchor_only_external",
+      "dependency_feasibility": "not in lake-manifest; toolchain and mathlib revisions differ; no checked transport to the frozen custom encoding exists",
+      "result": "strong exact-mathematics candidate, but not repo-local kernel closure",
+      "integration_blocker": "pin a compatible Spectra revision or port its terminal proof bodies, then implement and kernel-check an explicit transport between the two unbounded-operator/domain/self-adjointness encodings"
+    }
+  ],
+  "external_search": {
+    "repository_queries": ["quantum mechanics language:Lean", "quantum information language:Lean", "Heisenberg uncertainty Lean", "Robertson uncertainty Lean"],
+    "named_candidates_inspected": ["adambornemann-glitch/Spectra", "Hayata-Yamasaki-Group/lean-quantum", "Timeroot/Lean-QuantumInfo", "brayden-gg/Quantum_FPV"],
+    "result": "Spectra was the only inspected project exposing named Robertson and Heisenberg terminal declarations; the others supplied no matching declaration from their indexed names/README surfaces",
+    "github_code_search": "not available anonymously",
+    "limitations": "bounded public discovery only; no absence claim beyond the inspected surfaces"
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "pinned mathlib supplies analytic and partial-map leaves but no root; Spectra supplies the mathematical root at an immutable revision, yet it is outside the dependency closure and lacks a checked encoding transport",
+    "remaining_cut_set": ["materialize a pinned compatible proof body", "checked transport between Observable encodings", "canonical target wrapper", "transitive axiom/provenance validation"]
+  },
+  "human_debt": "H2 unchanged; primary-source fidelity review is not completed by a formal-candidate audit",
+  "readability_debt": "R4 unchanged",
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false
+}
