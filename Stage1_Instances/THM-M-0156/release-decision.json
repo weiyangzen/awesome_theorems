@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0156-RELEASE",
+  "theorem_id": "THM-M-0156",
+  "intent": "release",
+  "verdict": "blocked",
+  "base_revision": "d41c33c7ad196cf30c996231fabd214f4d9f5248",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0156-VALIDATION",
+    "receipt_id": "S56-M-0156-VALIDATION-local-20260712T060736Z",
+    "receipt_sha256": "bb87b3a1291fdc198937e51be6078e20e15b197f402e3ffb84380f91d72cab14",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false,
+    "master_accepted": false
+  },
+  "reconciled_inputs": {
+    "instance.json": "17e689ca914bc8b2d26200d9d7d8f5d5c74fd37819ff07cdf35968de4c6e2d17",
+    "statement.json": "4cb40cd1c7b5dbba572f4fcc500be1231e9aad54f225060fe63f9e065fda77af",
+    "anchor-audit.json": "0466652994262204ba3543c99747a201e367eba42059093115e73d17b8465868",
+    "obligation-registry.json": "9c6ccd84aee3cd37feb3b13cdaaf46cbf99306aa78c2459340fe4e83fd034442",
+    "typed-graphs.json": "eb911c703ed36c3b810ee1094eed423e7e4a4a7e67480b74e355b4d432934227",
+    "Proof.lean": "65a0b652f29bbf57f72eda1ec8bb0656b66af435cc0032a3d68e10916ea670b0",
+    "proof-receipt.json": "61456d043faf8aa75cbc276f53f068a89949ba8aa9a53505e418d10a3b505d75",
+    "validation-spec.json": "f2ce050875edb71fec13954d971ff98a0dd4587ca2fa7807f02653856eddd80e",
+    "validation-receipt.json": "bb87b3a1291fdc198937e51be6078e20e15b197f402e3ffb84380f91d72cab14"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0156-PROOF-local-20260712T060338Z",
+    "S56-M-0156-VALIDATION-local-20260712T060736Z"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R4"],
+    "accepted_after": ["H1", "M3", "R4"],
+    "best_provisional_observation": ["H1", "M0-W", "R4"],
+    "boundary": "The exact rectangular-box root kernel-replays through a pinned mathlib proof body and local adapter, but this is worker-provisional evidence. The planned instance and stale pre-proof typed graph remain authoritative pending master reconciliation."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0156-VALIDATION has only a provisional worker receipt and no master acceptance, so release cannot be dependency-legal."
+  },
+  "first_failed_theorem_gate_after_dependency": {
+    "gate_id": "S56-10.4-STRUCTURED-STATE-RECONCILIATION",
+    "reason": "typed-graphs.json predates proof closure and still records root_closed=false with M0156-B-CANDIDATE as the remaining root cut."
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "root_composition": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "structured_state_freshness": "failed: typed-graphs.json is a frozen pre-proof snapshot with root_closed=false",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_transitive_provenance_and_tcb": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "remaining_root_cut_set": [
+    "Master acceptance of S56-M-0156-VALIDATION and all transitive phase receipts",
+    "Reconciliation of provisional exact root closure into fresh authoritative structured graph and instance state",
+    "AUDIT-Z with complete frozen-inventory and source-boundary classification",
+    "Accepted H0 primary-source edition, theorem/page, assumptions, errata crosswalk, and independent review",
+    "Accepted R0 node-by-node readable reconstruction with formal anchors and independent review",
+    "Complete transitive declaration/body provenance, axiom profile, and content-addressed TCB closure",
+    "Immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "SBOM and license closure plus protected CI and required mutation and metamorphic fixtures",
+    "Two signed attestations from distinct independently provisioned runners without a shared writable cache",
+    "Independently implemented minimal verifier and deterministic content-addressed release bundle",
+    "Master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "The integration lane must first accept the validation dependency and reconcile fresh structured state. A release lane must then close H0/R0, complete provenance and TCB, hermetic supply-chain replay, independent verification, deterministic bundle, and master terminal-decision gates.",
+  "status_boundary": "This is a self-tested negative release decision. It accepts no receipt, changes no lifecycle or root vector, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, or release."
+}
