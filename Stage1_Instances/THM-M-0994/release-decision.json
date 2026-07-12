@@ -1,0 +1,87 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0994-RELEASE",
+  "theorem_id": "THM-M-0994",
+  "intent": "release",
+  "base_revision": "21b5f8a135c40b3fc4f9987beee433d2ebd8bd43",
+  "decided_on": "2026-07-12",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0994-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0994-VALIDATION-local-20260712",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_sha256": "73ecf06a8576aaabfabd593b376d4f12826c559d17eae9d88ec7da1418ab7864"
+  },
+  "reconciled_inputs": {
+    "instance.json": "7d057bb166f9fd351abdaec3bbb3db4701831ae024a165c91f7b91ac2bb434d3",
+    "statement.json": "d05fdd423657a7202dbcb208b81efc609af8b6768319cc535c2d14b47f041b4b",
+    "anchor-audit.json": "4447837b9c049519cf989079b168c7d4662a1104e773d8a2425c4d445e4cc7c6",
+    "obligation-registry.json": "39ffef63f8dace15f8a64ae4f72b73f4d85673aa6fdbb4e8ab52dc61a799bddd",
+    "typed-graphs.json": "0e23619d97201e42cfb28eb42cb0184b374c6fd54f12d283d6bf7ecd6ac0aca5",
+    "proof.json": "b33c7e2d0864b2a56a8a93bad1b506dc66a68e1d9ad205125d35d0225eb564c9",
+    "Proof.lean": "9c295f3e31aef571251e8fd13fb5d02931a0e6ac57101fe8d3fcce5b36b24a7a",
+    "Validation.lean": "627d04b6cb46913b235f22abc57a4b7118644b0f15062e446314e2a15b21bcc4",
+    "validation-receipt.json": "73ecf06a8576aaabfabd593b376d4f12826c559d17eae9d88ec7da1418ab7864"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0994-VALIDATION-local-20260712"
+  ],
+  "root_vector": {
+    "before": ["H2", "M3", "R4"],
+    "after": ["H2", "M3", "R4"],
+    "boundary": "The intake authority remains H2/M3/R4. The older frozen graph says H2/M1/R3 while later worker evidence kernel-checks the exact root; without master reconciliation the weaker accepted boundary controls and no debt is promoted."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0994-VALIDATION has provisional worker self-test support only and no master-accepted receipt, so release is not dependency-legal."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-10.6-HERMETIC-REPRODUCTION",
+    "reason": "The exact root passed only in this mutable worker checkout with the shared warm pinned cache; no immutable empty-cache network-denied cold build or offline archive replay exists."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0994-VALIDATION and all transitive phase receipts",
+    "master reconciliation of the stale frozen graph with the provisional exact-root kernel evidence",
+    "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
+    "accepted R0 structured reconstruction with independent reader review",
+    "complete transitive proof-body provenance, foundation policy, axiom audit, trust, and TCB closure",
+    "immutable clean source snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline archive replay",
+    "SBOM and license closure",
+    "two signed attestations from separately provisioned independent runners without a shared writable cache",
+    "independently implemented minimal release verifier and required mutation and metamorphic gates",
+    "protected CI evidence",
+    "deterministic content-addressed release bundle and master reconciliation"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_check": "provisional_same_workspace_pass",
+    "independent_reconstruction": "provisional_same_workspace_pass",
+    "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "accepted_root_machine_state": "M3",
+    "structured_graph_freshness": "fail_closed: graph predates proof closure and records root_open/M1",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_tcb": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "retry_condition": "Master-accept the dependency chain and reconcile the root graph, then independently close H0/R0, provenance/TCB, hermetic cold offline replay, supply-chain, distinct-runner, verifier, CI, and deterministic-bundle gates before recomputing AUDIT-Z and THEOREM-Z.",
+  "status_boundary": "This is a self-tested negative release reconciliation. It changes no lifecycle or debt state, accepts no receipt, and does not claim AUDIT-Z, THEOREM-Z, release, or theorem completion."
+}
