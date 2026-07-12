@@ -7,13 +7,15 @@
 - A genuine symplectic embedding from the ball into the cylinder.
 - The sharp radius obstruction `r <= R` (equivalently, no such embedding when `R < r`) for positive radii.
 
-## Decisions deferred to statement phase
+## Statement encoding decisions
 
-The selected primary statement must fix whether embeddings are defined only on the open ball or by
-a global ambient map, the differentiability class, the coordinate ordering and two-form sign, and
-whether the theorem is expressed by radii, areas, or capacity. It must also settle `n = 1`, strict
-versus non-strict inequalities, and zero or negative radii. Universes and binder order will follow
-that source-level freeze rather than the legacy module.
+`Statement.lean` uses a total function as Lean's representation of a map whose mathematical domain
+is the open ball; smoothness, injectivity, and preservation of the displayed standard two-form are
+all restricted to that ball. Coordinates are ordered `(q,p)`, the two-form sign is explicit, radii
+are positive, sets use strict inequalities, and the conclusion is `r <= R`. A binder `i : Q`
+includes the two-dimensional `|Q| = 1` case and excludes the zero-dimensional case. The universe and
+binder order are printed by the recorded Lean check. Primary-source approval remains open and can
+invalidate this proposal if its exact result differs.
 
 ## Explicit exclusions
 
@@ -22,5 +24,5 @@ that source-level freeze rather than the legacy module.
 - A structure that assumes form preservation or the desired capacity inequality without connecting it to the source notion of a symplectic embedding.
 - The existing `StatementShape`, capacity targets, audit strings, or reflexive wrapper theorems as terminal proof evidence.
 
-The later statement must use a local embedding on the source ball or supply a checked equivalence
-showing that any chosen ambient-map encoding has exactly the primary theorem's scope.
+The canonical statement uses a local embedding on the source ball. A future alternate encoding must
+supply a checked equivalence rather than silently replacing it.

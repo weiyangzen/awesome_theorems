@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0594-STATEMENT",
+  "theorem_id": "THM-M-0594",
+  "module_file": "Stage1_Instances/THM-M-0594/Statement.lean",
+  "declaration": "Stage1Instances.THM_M_0594.WhitneyEmbeddingTarget",
+  "minimal_imports": [
+    "Mathlib.Geometry.Manifold.WhitneyEmbedding"
+  ],
+  "canonical_statement": "Every finite-dimensional Hausdorff second-countable boundaryless smooth real manifold admits a smooth embedding into some finite-dimensional real Euclidean space.",
+  "domain_and_universes": "universes uE uH uM; E : Type uE; H : Type uH; M : Type uM; result in Prop",
+  "ordered_binders": [
+    "E : Type uE",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "[FiniteDimensional Real E]",
+    "H : Type uH",
+    "[TopologicalSpace H]",
+    "I : ModelWithCorners Real E H",
+    "M : Type uM",
+    "[TopologicalSpace M]",
+    "[ChartedSpace H M]",
+    "[IsManifold I infinity M]",
+    "[T2Space M]",
+    "[SecondCountableTopology M]",
+    "[BoundarylessManifold I M]"
+  ],
+  "conclusion": "There exist n : Nat and e : M -> EuclideanSpace Real (Fin n) such that e is infinitely ContMDiff, IsEmbedding e, and mfderiv I (R n) e x is injective for every x.",
+  "scope_boundaries": {
+    "dimension": "The target dimension is existential; neither the weak 2m+1 nor strong 2m bound is substituted.",
+    "compactness": "No CompactSpace hypothesis occurs; the existing pinned compact theorem is a strict specialization and cannot close this root.",
+    "boundary": "BoundarylessManifold makes the intake exclusion of manifolds with boundary explicit.",
+    "embedding": "The conclusion spells out smoothness, topological embedding, and pointwise injective manifold derivative rather than relying on the currently incomplete Manifold.IsSmoothEmbedding API."
+  },
+  "checked_expansion": "Stage1Instances.THM_M_0594.whitneyEmbeddingTarget_iff_expanded",
+  "elaborated_expression_sha256": "32943593a17c04d3b6fab019d7cf0db88d5e59b59f3d73703e82514987e97ef6",
+  "statement_file_sha256": "a70005e624a0745c077c074e1eacf399c0050b45853721473d318b7eb3651445",
+  "environment": {
+    "base_revision": "45ecc126e04773079f94f7b6f73d4f4c9a6da900",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": "pp.universes=true; pp.explicit=true"
+  },
+  "mutation_test": {
+    "file": "Stage1_Instances/THM-M-0594/StatementMutations.lean",
+    "source_sha256": "c2818e484a60649b8556be92e423202e1bbdafa3fca2bb174b4204afb82c4efc",
+    "expected_exit": 1,
+    "expected_error_count": 4,
+    "mutations": [
+      "removed SecondCountableTopology",
+      "added CompactSpace",
+      "replaced existential target dimension by 2 * finrank Real E + 1",
+      "weakened smooth embedding to continuous injection"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This phase freezes and kernel-elaborates the broad existence-only proposition. It provides no inhabitant of the proposition and makes no proof-completion claim."
+}

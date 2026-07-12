@@ -16,10 +16,10 @@ name "nonsqueezing."
 | Repository/source phrase | Intended mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
 | "symplectic nonsqueezing" | sharp obstruction to a ball entering a thinner cylinder | quantified implication or negated embedding | included; exact source anchor open |
-| standard ball | open ball in `R^(2n)` of radius `r` | normed coordinate space and open set | included; encoding open |
-| symplectic cylinder | `B^2(R) x R^(2n-2)` | distinguished conjugate coordinate plane | included; normalization open |
-| symplectic embedding | smooth embedding pulling back the standard two-form | local map, embedding properties, derivative pullback equality | included; API open |
-| `r <= R` | sharp capacity/radius conclusion | ordered-real conclusion with positivity hypotheses | included; source formulation open |
+| standard ball | open ball in `R^(2n)` of radius `r` | `ball r`, using the coordinate norm and `< r^2` | elaborated; source approval open |
+| symplectic cylinder | `B^2(R) x R^(2n-2)` | `cylinder i R`, bounding one conjugate pair | elaborated; source approval open |
+| symplectic embedding | smooth embedding pulling back the standard two-form | `IsSymplecticEmbeddingOnBall`, with all conditions restricted to the ball | elaborated; source approval open |
+| `r <= R` | sharp capacity/radius conclusion | positive radii and conclusion `r <= R` | elaborated; source approval open |
 
 ## Existing Lean boundary
 
@@ -30,5 +30,6 @@ domain is only the ball, so no exact-statement credit is inherited. Its audit da
 also require fresh verification in the later anchor-audit phase. Reflexive unfolding lemmas and
 the checked supporting definitions do not prove nonsqueezing.
 
+The worker-proposed canonical target is `Stage1.THM_M_0612.StatementShape` in `Statement.lean`.
 Before `H0`, an independent reviewer must approve the primary edition/result/page, every hypothesis
-and convention, errata status, and a row-by-row source-to-Lean mapping.
+and convention, errata status, and this row-by-row source-to-Lean mapping.
