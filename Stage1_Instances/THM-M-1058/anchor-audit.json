@@ -1,0 +1,111 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1058-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1058",
+  "statement_dependency": "S56-M-1058-STATEMENT",
+  "statement_expression_sha256": "60a04b08693660e1b050384acab58541f1a768cc7dfa32da65ac587e47876a33",
+  "audit_date": "2026-07-12",
+  "search_protocol": {
+    "terminal_terms": [
+      "LargeDeviation",
+      "large deviation",
+      "LDP",
+      "RateFunction",
+      "probabilistic Cramer/Cramer theorem",
+      "Sanov",
+      "Varadhan",
+      "Gartner/Gärtner-Ellis",
+      "LaplacePrinciple/Laplace principle"
+    ],
+    "local_surfaces": [
+      "Formalizations/Lean/.lake/packages/mathlib/Mathlib/**/*.lean",
+      "Formalizations/Lean/.lake/packages/**/*.lean",
+      "Formalizations/Lean/AwesomeTheorems/**/*.lean"
+    ],
+    "external_discovery_surfaces": [
+      "GitHub repository search API",
+      "GitHub code search API",
+      "historical repository-local S1_M_250 audit (discovery only)"
+    ]
+  },
+  "immutable_environment": {
+    "repository_base_revision": "14b3498b20eaa72406a51b89bb3c409701a8c903",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "MATHLIB-SUBSTRATE",
+      "source": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+        "Mathlib.Topology.Order.LiminfLimsup",
+        "Mathlib.Topology.Semicontinuity.Defs",
+        "Mathlib.Analysis.SpecialFunctions.Log.ENNRealLog"
+      ],
+      "declarations": [
+        "MeasureTheory.ProbabilityMeasure",
+        "Filter.limsup",
+        "Filter.liminf",
+        "LowerSemicontinuous",
+        "ENNReal.log",
+        "ENNReal.log_zero"
+      ],
+      "relationship_to_target": "required statement substrate only",
+      "exact_terminal_type_match": false,
+      "terminal_proof_body": "none located",
+      "placeholder_or_axiom_status": "the six named substrate declarations elaborate from the pinned package; no terminal LDP declaration exists to audit for proof provenance",
+      "dependency_feasibility": "already pinned and locally elaborated",
+      "classification": "usable_substrate_not_terminal_anchor"
+    },
+    {
+      "candidate_id": "LEGACY-S1-M-250",
+      "source": "repository-local historical module",
+      "revision": "14b3498b20eaa72406a51b89bb3c409701a8c903",
+      "module": "AwesomeTheorems.Stage1.S1_M_250",
+      "declarations": [
+        "LargeDeviationPrinciple",
+        "LargeDeviationProofObligations",
+        "largeDeviationPrinciple_of_obligations"
+      ],
+      "relationship_to_target": "older discovery formulation with abstract extendedLog and an implication whose premise packages the desired upper and lower bounds",
+      "exact_terminal_type_match": false,
+      "terminal_proof_body": "projection from explicitly assumed upper and lower LDP obligations",
+      "placeholder_or_axiom_status": "no placeholder is credited; the implication is circular as a terminal proof candidate because its premise contains both target branches",
+      "dependency_feasibility": "repo-local but rejected for terminal proof credit",
+      "classification": "statement_discovery_only"
+    },
+    {
+      "candidate_id": "UW-CENTRAL-LIMIT-THEOREM",
+      "source": "https://github.com/uw-math-ai/central_limit_theorem",
+      "revision": "0ed57e943d642eaa95fe547780024b9e3a0dfbdf",
+      "module": null,
+      "declarations": [],
+      "relationship_to_target": "historical external search negative retained by the immutable legacy module",
+      "exact_terminal_type_match": false,
+      "terminal_proof_body": "none located by the retained search",
+      "placeholder_or_axiom_status": "legacy audit reports unrelated proof placeholders; no relevant declaration was found",
+      "dependency_feasibility": "not a candidate; no fetch or dependency mutation performed",
+      "classification": "rejected_no_relevant_declaration"
+    }
+  ],
+  "external_search_result": {
+    "verified_immutable_terminal_candidates": 0,
+    "repository_search_note": "Unauthenticated repository search returned no direct LDP/Sanov/Gartner-Ellis/Cramer-probability repository. A Donsker-Varadhan variational repository hit is a different theorem and was not broadened into this target.",
+    "code_search_blocker": "GitHub unauthenticated code search returned an API rate-limit error on 2026-07-12; therefore no unpinned search result is credited.",
+    "integration_action": "none available: there is no exact external repository/commit/module/declaration/proof body to pin or import"
+  },
+  "result": {
+    "audit_complete_for_node": true,
+    "exact_terminal_candidate_found": false,
+    "machine_classification": "M3",
+    "debt_classification": "formalization_debt",
+    "repo_local_integration_debt": false,
+    "theorem_complete": false,
+    "status_boundary": "The audit verifies pinned mathlib substrate and exhausts the recorded candidate surfaces without locating a terminal Lean 4 proof. It supplies no proof of an LDP and does not advance proof, validation, or release phases."
+  }
+}
