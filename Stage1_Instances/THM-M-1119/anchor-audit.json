@@ -1,0 +1,104 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1119-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1119",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "110eef5926707beba105078ad2163c88ae8bf0e8",
+  "target": "Stage1Instances.THM_M_1119.KestenTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index",
+    "GitHub repository metadata"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1119-C01",
+      "project": "awesome_theorems",
+      "revision": "110eef5926707beba105078ad2163c88ae8bf0e8",
+      "module": "Stage1_Instances/THM-M-1119/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1119.KestenTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem proof body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already local as the statement surface; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1119-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+        "Mathlib.Probability.ProductMeasure",
+        "Mathlib.Probability.ProbabilityMassFunction.Constructions"
+      ],
+      "declarations": [
+        "SimpleGraph.Reachable",
+        "Measure.infinitePi",
+        "Measure.infinitePi_pi",
+        "Measure.infinitePi_map_eval",
+        "PMF.bernoulli",
+        "PMF.bernoulli_apply",
+        "PMF.toMeasure",
+        "sInf"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "product measures, Bernoulli coordinates, graph reachability, and infima only; no square-lattice percolation threshold theorem",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all eight probes elaborate locally; no exact terminal declaration exists to audit for proof-body closure",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checkable, but insufficient for the target"
+    },
+    {
+      "candidate_id": "S56-M-1119-C03",
+      "project": "YaelDillies/cam-combi",
+      "revision": "1c8502fd40113ba0141652c23d542e04c1aa872d",
+      "module": "LeanCamCombi.PlainCombi.VanDenBergKesten",
+      "declaration": "Finset.card_certificator_le",
+      "kind": "name-collision_non_candidate",
+      "normalized_match": "finite Van den Berg-Kesten-Reimer inequality, not bond percolation on the square lattice and not a critical probability equality",
+      "body_provenance": "immutable source file; terminal declaration contains sorry",
+      "placeholder_or_axiom_status": "rejected: sorry at source line 105",
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "license": "Apache-2.0",
+      "classification": "M5_rejected_nonexact_placeholder",
+      "integration_status": "not eligible for integration"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (critical probability OR bond percolation OR square lattice) lang:Lean count:100",
+      "result": "matchCount=0, exhaustive=true",
+      "response_sha256": "6906ea4e31bd526007120a1492e1ecfe959321e810745866adcfd3e31ae4deb7",
+      "immutability_boundary": "dated, content-hashed discovery response; not proof of global absence"
+    },
+    {
+      "surface": "Sourcegraph broad public code search",
+      "query": "context:global archived:yes fork:yes (Kesten OR percolation) lang:Lean count:100",
+      "result": "10 exhaustive matches, all unrelated: a finite BK-Reimer inequality and a number-theoretic theorem attributed to Kesten plus a mirror",
+      "response_sha256": "72422e690aa1b0d9b51ced6944a7e28589d6624d3254abeefe8bc3296f46c002",
+      "immutability_boundary": "candidate commits were reported by the index; the only superficially relevant source was inspected at its immutable commit"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "queries": ["percolation lean4", "Kesten Lean"],
+      "result": "total_count=0 and incomplete_results=false for both queries",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated, content-hashed repository discovery responses; not proof of code-level absence"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "No exact Lean 4 proof candidate was found locally, in pinned mathlib, or in the bounded public searches. Mathlib supplies only substrate. The sole Kesten-named combinatorics hit is a different theorem and contains a placeholder.",
+  "integration_blocker": "There is no exact external repository, immutable proof revision, module, and declaration to pin/import/check.",
+  "reopen_condition": "Locate an exact Lean 4 candidate and record its immutable repository revision, toolchain, dependencies, license, module, declaration, exact-type comparison, terminal body, placeholders, axioms, and unsafe/oracle boundary before attempting a local wrapper.",
+  "audit_complete": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the bounded formal-anchor inventory. Negative searches do not establish global absence and provide no human-source, obligation-tree, proof, release, or theorem-completion credit."
+}
+
