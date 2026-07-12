@@ -1,0 +1,135 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1146-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1146",
+  "phase": "anchor_audit",
+  "base_revision": "b24e74e26136fe318a124a7754cc67fdb2a2f24c",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1146.SchwarzReflectionTarget",
+  "canonical_target_expression_sha256": "14336b88fd9aa11228ee9c7a86cc56a3473702bc2f8d77e266f2b4d37deef53d",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "human_source": {
+    "authors": "Sheldon Axler, Paul Bourdon, Wade Ramey",
+    "title": "Harmonic Function Theory",
+    "edition": "Second Edition",
+    "publisher_year": "Springer, 2001; author-hosted PDF dated 2020-07-17",
+    "location": "Chapter 4, Theorem 4.12, printed pages 67-68",
+    "source_url": "https://axler.net/HFT.pdf",
+    "audited_pdf_sha256": "4e64124f7e36993ee784e575a024505f99d484ccf959d2d3864eae9232af8bf1",
+    "statement_crosswalk": "The theorem assumes a domain symmetric about a hyperplane, continuity and harmonicity on its positive side, and zero boundary values; its proof explicitly gives the odd reflected formula. Specializing R^n to C and the hyperplane to im(z)=0 matches the frozen mathematical claim.",
+    "scope_difference": "The source is dimension-general and says the function extends; the frozen target is its complex-plane specialization and names the explicit extension used in the source proof.",
+    "errata_status": "No edition-specific erratum was identified during this bounded audit.",
+    "classification": "H3",
+    "classification_reason": "An exact modern theorem/page crosswalk is present, but the rev-5.6 H0 primary-historical-source and independent-review gates remain open."
+  },
+  "search": {
+    "order": [
+      "repository-local Lean sources",
+      "pinned mathlib source tree",
+      "public Lean 4 repositories"
+    ],
+    "repo_local_result": "Only this target's statement-phase declarations were found; no proof or imported reflection wrapper exists.",
+    "mathlib_queries": [
+      "schwarz.*reflect|reflection.*princip",
+      "odd.*reflect|reflect.*harmonic|harmonic.*reflect",
+      "HarmonicOnNhd and harmonic construction declarations"
+    ],
+    "external_queries": [
+      "GitHub repositories: schwarz reflection lean",
+      "GitHub repositories: schwarz reflection theorem lean4",
+      "GitHub repositories: harmonic reflection lean",
+      "GitHub repositories: harmonic language:Lean"
+    ],
+    "limitations": "GitHub repository search does not provide unauthenticated global code search. The audit is bounded and does not claim that no Lean formalization exists anywhere. No dependency was fetched, cloned, or added."
+  },
+  "candidates": [
+    {
+      "id": "M1146-A-MATHLIB-HARMONIC-NEG",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.InnerProductSpace.Harmonic.Basic",
+      "declaration": "InnerProductSpace.HarmonicOnNhd.neg",
+      "type_summary": "HarmonicOnNhd f s -> HarmonicOnNhd (-f) s",
+      "classification": "supporting lower-branch anchor",
+      "axioms_observed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "exact_root_closure": false,
+      "missing_bridge": "It preserves harmonicity under output negation but neither proves preservation under input conjugation nor glues across the real axis."
+    },
+    {
+      "id": "M1146-A-MATHLIB-LOCALITY",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.InnerProductSpace.Harmonic.Basic",
+      "declarations": [
+        "InnerProductSpace.harmonicAt_congr_nhds",
+        "InnerProductSpace.HarmonicAt.eventually"
+      ],
+      "classification": "supporting locality anchors",
+      "axioms_observed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "exact_root_closure": false,
+      "missing_bridge": "They can transfer local branch identities away from the axis, but provide no boundary gluing theorem."
+    },
+    {
+      "id": "M1146-A-MATHLIB-CONJUGATION",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Complex.Basic",
+      "declaration": "Complex.conjCLE",
+      "classification": "domain reflection map only",
+      "exact_root_closure": false,
+      "missing_bridge": "Pinned harmonic Basic has output-composition lemmas but no theorem that precomposition by this real linear isometry preserves HarmonicAt."
+    },
+    {
+      "id": "M1146-A-MATHLIB-MEAN-VALUE",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Analysis.Complex.Harmonic.MeanValue",
+      "declaration": "InnerProductSpace.HarmonicOnNhd.circleAverage_eq",
+      "classification": "proof ingredient, forward direction",
+      "axioms_observed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "exact_root_closure": false,
+      "missing_bridge": "The source proof uses the converse mean-value property after gluing; pinned mathlib exposes this harmonic-to-average direction, not the required continuous mean-value-to-harmonic converse for the reflected function."
+    },
+    {
+      "id": "M1146-A-EXTERNAL-LEAN-HARMONIC",
+      "source": "mccorvie/lean-harmonic",
+      "remote": "https://github.com/mccorvie/lean-harmonic.git",
+      "revision": "f3b75687e0ff790ab135811db54d5c2e4ea2170b",
+      "toolchain": "leanprover/lean4:nightly-2023-07-12",
+      "source_file": "LeanHarmonic.lean",
+      "source_sha256": "145c3614edd1e7227c25ed9eb8eb13ead1b6fcc8385055188eee7426650ea4a2",
+      "classification": "not a candidate closure",
+      "relationship": "The immutable source contains preliminary polar-sector definitions and no reflection-principle or harmonic-function declaration matching the target.",
+      "dependency_feasibility": "Its old nightly toolchain and unpinned moving mathlib requirement are incompatible with the local pinned closure.",
+      "proof_credit": false,
+      "exact_root_closure": false
+    }
+  ],
+  "exact_candidate_found": false,
+  "root_decision": {
+    "machine_classification": "M4",
+    "kernel_closed": false,
+    "remaining_machine_debt": "formalization_debt",
+    "first_missing_bridge": "A checked boundary-gluing result proving that the continuous odd reflection is harmonic at points of the real axis; supporting conjugation-precomposition harmonicity is also absent as a packaged theorem.",
+    "proof_credit": false
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false
+}
