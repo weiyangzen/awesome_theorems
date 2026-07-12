@@ -1,0 +1,118 @@
+{
+  "schema_version": "5.6",
+  "receipt_id": "S56-M-0098-INTAKE-worker-selftest",
+  "item_id": "S56-M-0098-INTAKE",
+  "theorem_id": "THM-M-0098",
+  "base_revision": "028e2535b68678b8296e63e2cacb05ed9775a2d8",
+  "scope": "intake artifacts only",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-0098"
+      ],
+      "exit_code": 0,
+      "result": "rank 899; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-0098/instance.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-0098/task-dag.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-0098/intake-receipt.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON after receipt finalization"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0098/check_intake.py"
+      ],
+      "exit_code": 0,
+      "result": "IDs and rank agree; lifecycle planned; canonical claim, expression, and hash null; provisional vector H5/M4/R4; empty accepted state; six open dependency-ordered downstream tasks; source literals and artifact inventory agree; audit and theorem completion false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0098/IntakeProbe.lean"
+      ],
+      "exit_code": 0,
+      "result": "six adjacent pinned APIs elaborated under Lean 4.29.0; probe is not a canonical target"
+    },
+    {
+      "argv": [
+        "rg",
+        "-n",
+        "prohibited proof tokens",
+        "Stage1_Instances/THM-M-0098",
+        "-g",
+        "*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match result; no sorry, admit, or axiom in the target Lean probe"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "Stage1_Instances/THM-M-0098",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    }
+  ],
+  "result": "pass",
+  "known_failures": [
+    "The catalog title denotes a Fundamental Lemma while its gloss denotes an automorphic-Galois correspondence; no stable proposition is selected.",
+    "No immutable primary source, theorem/page passage, assumption/errata audit, or independent source review is accepted.",
+    "The canonical Lean expression, expression fingerprint, exact imports, alternate transports, mutation tests, discovery protocol, and obligation registry remain open.",
+    "All statement, anchor-audit, obligation-tree, proof, validation, release, hermetic, and independent-verification gates remain open."
+  ],
+  "status_boundary": "Worker-local evidence for a self-tested planned intake only; not a master acceptance receipt and not source-fidelity, statement, proof, audit-completion, or theorem-completion evidence."
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-0522-STATEMENT",
+  "theorem_id": "THM-M-0522",
+  "phase": "statement",
+  "base_revision": "028e2535b68678b8296e63e2cacb05ed9775a2d8",
+  "repository_state": "nonrelease_dirty: pre-existing untracked Formalizations/Lean/.lake symlink reuses canonical pinned Lake artifacts",
+  "verdict": "blocked",
+  "first_failed_gate": "native_lean_api_availability",
+  "canonical_statement": "For every elliptic curve E over Q, if the Hasse-Weil L-function of E has order of vanishing at s = 1 at most one, then the Mordell-Weil rank of E(Q) equals that order of vanishing and the Tate-Shafarevich group Sha(E/Q) is finite.",
+  "canonical_formal_target": null,
+  "elaborated_expression_hash": null,
+  "reason": "The pinned Lean closure has rational-point groups and generic L-series infrastructure, but no native elliptic-curve Hasse-Weil L-function with analytic order at s = 1 and no Tate-Shafarevich group. It also has no curve-specific Mordell-Weil finite-generation/rank package connecting the rational-point group to the intended natural-valued rank. The intake forbids replacing these objects or the conclusion by assumed record fields, so no exact expression can be formed without implementing substantial missing definitions or substituting a weaker theorem.",
+  "unresolved_native_apis": [
+    "the Hasse-Weil L-function attached to a Weierstrass elliptic curve over Q, including the selected normalization and analytic continuation near s = 1",
+    "a native order-of-vanishing-at-one definition for that elliptic-curve L-function",
+    "the curve-specific Mordell-Weil finite-generation and natural-valued rank bridge for E(Q)",
+    "the Tate-Shafarevich group as the relevant global-to-local Galois-cohomology kernel and a finiteness predicate on that group"
+  ],
+  "rejected_substitutions": [
+    "the generic LSeries of an arbitrary coefficient function",
+    "the Dedekind-domain Selmer group in Mathlib.RingTheory.DedekindDomain.SelmerGroup",
+    "the abstract numeric and proposition fields in legacy S1_M_091",
+    "a Heegner-point-conditional or analytic-rank-one-only theorem in place of the all-E/Q rank-at-most-one root"
+  ],
+  "probe": {
+    "path": "Stage1_Instances/THM-M-0522/StatementProbe.lean",
+    "direct_imports": [
+      "Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point",
+      "Mathlib.NumberTheory.LSeries.Deriv"
+    ],
+    "credit_boundary": "The checked probe establishes only adjacent vocabulary and receives no exact-statement or proof credit."
+  },
+  "mutation_tests": {
+    "removed_hypothesis": "not_runnable_without_canonical_target",
+    "changed_domain": "not_runnable_without_canonical_target",
+    "changed_binder_scope": "not_runnable_without_canonical_target",
+    "boundary_case": "not_runnable_without_canonical_target"
+  },
+  "root_vector_before": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R4"
+  },
+  "root_vector_after": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R4"
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "statement_probe_sha256": "b9f873c84a4347391b2c93ff9316fac21e829df531159bdaec873463dd2e428e"
+  },
+  "statement_elaborated": false,
+  "statement_accepted": false,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "blocked_no_worker_selftest",
+  "retry_condition": "Implement or pin an immutable Lean 4 dependency providing the missing elliptic Hasse-Weil L-function/order, Mordell-Weil rank bridge, and Tate-Shafarevich group, with definitions matching the intake and accepted normalization. Then elaborate and fingerprint the exact root, check any alternate transports, and run the four required mutation classes."
+}

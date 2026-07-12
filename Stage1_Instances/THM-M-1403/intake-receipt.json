@@ -1,0 +1,109 @@
+{
+  "schema_version": "5.6",
+  "receipt_id": "S56-M-1403-INTAKE-worker-selftest",
+  "item_id": "S56-M-1403-INTAKE",
+  "theorem_id": "THM-M-1403",
+  "base_revision": "028e2535b68678b8296e63e2cacb05ed9775a2d8",
+  "scope": "intake artifacts only",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-1403"
+      ],
+      "exit_code": 0,
+      "result": "rank 902; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1403/instance.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1403/task-dag.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-1403/IntakeProbe.lean"
+      ],
+      "exit_code": 0,
+      "result": "six pinned topological-entropy definitions and theorems elaborated under Lean 4.29.0; feasibility evidence only"
+    },
+    {
+      "argv": [
+        "python3",
+        "scoped intake assertions"
+      ],
+      "exit_code": 0,
+      "result": "IDs/rank, planned lifecycle, null claim/target, H5/M3/R4 boundary, empty accepted state, open downstream DAG, and false completion flags agree"
+    },
+    {
+      "argv": [
+        "rg",
+        "prohibited proof constructs",
+        "Stage1_Instances/THM-M-1403",
+        "--glob",
+        "*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match exit; no sorry, admit, or axiom declaration found"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "<each new intake file>"
+      ],
+      "exit_code": 0,
+      "result": "all eight files had only the expected added-content exit 1 and no whitespace-error exit greater than 1"
+    }
+  ],
+  "result": "pass",
+  "known_failures": [
+    "the repository catalog wording is not a stable proposition",
+    "no immutable primary-source passage or independent source review has selected a claim",
+    "the AKM and pinned Bowen-Dinaburg formulations have no accepted crosswalk",
+    "no canonical Lean expression, fingerprint, alternate-encoding witness, or mutation result exists",
+    "all post-intake phases and master acceptance remain open"
+  ],
+  "status_boundary": "Worker-local evidence for a planned intake only; not a master acceptance receipt and not statement, proof, audit-completion, or theorem-completion evidence."
+}
