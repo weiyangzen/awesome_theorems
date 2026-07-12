@@ -35,7 +35,8 @@ Its exact Lean encoding is now self-tested pending master acceptance.
 Stacks tag `00IP` states the stronger finite-module form: for a finite module `M`, the intersection
 of `I ^ n M` is zero. Pinned mathlib exposes this as
 `Ideal.iInf_pow_smul_eq_bot_of_isLocalRing`. It remains uncredited because this statement packet
-does not claim the stronger module form or a specialization transport.
+does not select the stronger module form as its root. The anchor audit now authenticates the pinned
+ideal theorem that specializes this bridge to `M = R`; both remain one deduplicated proof path.
 
 The Jacobson-radical form, the integral-domain form, an adic Hausdorffness or completion statement,
 and a result only for the maximal ideal are related theorems, not substitutions.
@@ -58,4 +59,6 @@ and `Noetherian.Defs`; deleting any one direct import fails. The membership iff,
 boundary witnesses, expression/environment fingerprints, and four required mutation classes are
 recorded in `statement.json` and the provisional statement receipt. The anchor audit alone owns the
 later proof-body, provenance, dependency, axiom, and TCB classification. Historical source
-admission and independent review remain open on H.
+admission and independent review remain open on H. `AnchorAudit.lean` separately copies this exact
+target and checks the pinned mathlib candidate; its candidate classification is provisional
+`M0-W / E2`, while the accepted root stays `M3` pending later gates and master acceptance.

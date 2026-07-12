@@ -1,0 +1,398 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0028-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0028",
+  "execution_rank": 1073,
+  "inventory_version": "THM-M-0028-anchor-inventory/1",
+  "cutoff": "2026-07-13T07:29:00+08:00",
+  "base_revision": "7e54c0fcaf9c0e53fa7afbbeb0a36218152f932c",
+  "base_tree": "80ece87e35401b07ba76abc36ea83440b5fa7f31",
+  "canonical_target": "Stage1Instances.THM_M_0028.IdealAscendingChainTarget",
+  "canonical_target_expression_sha256": "89e7e911ed4a5b75c153d824133091ad74ba20a0ecab19bd609b23a54badbee4",
+  "canonical_statement_file_sha256": "db7cbc8250aa905f1d8a2686ab14e9b31eeeba3409179d22e7169627df02f3a7",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only",
+    "mathlib_clean_tree": true,
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "frozen_before_public_queries_at": "2026-07-13T07:20:00+08:00",
+    "cutoff": "2026-07-13T07:29:00+08:00",
+    "credentials_policy": "anonymous public HTTP and git remote metadata only; no GitHub token or other search credential was used",
+    "network_mutation_policy": "query APIs, immutable raw files, and git ls-remote only; do not clone, fetch, update, build dependencies, or modify .lake",
+    "aliases": [
+      "ascending chain theorem for Noetherian rings",
+      "ascending chain condition for ideals",
+      "Noetherian ring ACC",
+      "every ideal finitely generated iff ACC",
+      "monotone_stabilizes_iff_noetherian",
+      "isNoetherianRing_iff_ideal_fg",
+      "noetherian_fg_iff_acc",
+      "noetherian_ring_iff_acc"
+    ],
+    "namespace_and_declaration_queries": [
+      "monotone_stabilizes_iff_noetherian",
+      "isNoetherianRing_iff_ideal_fg",
+      "noetherian_fg_iff_acc",
+      "NoetherianModules.noetherian_ring_iff_acc"
+    ],
+    "search_order": [
+      "repository-local Lean proof bodies and wrappers",
+      "all locally materialized packages at lake-manifest revisions, especially pinned mathlib",
+      "official or primary public Lean formalization projects",
+      "other public Lean repositories through GitHub repository and code search",
+      "public code indexes through grep.app and Sourcegraph"
+    ],
+    "negative_evidence_policy": "record a dated HTTP status and response hash or bounded local-query result; access failures are limitations, never negative search results",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0028-C01-MATHLIB-COMPOSITION",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.RingTheory.Noetherian.Defs",
+      "file": "Mathlib/RingTheory/Noetherian/Defs.lean",
+      "file_blob": "66ddf1f73601e7dbeb04e37b95fcc61e34ee3c14",
+      "file_sha256": "a0e5c5a1aceb564f885573d5c51ec124be20abbd19fabc6af8c798b637530f0b",
+      "body_lines": "159-162 and 193-204",
+      "body_sha256": "15ae568432091fd1cc53f8136d5c12d441abf60af630459c4d27e4d3627c8ebc",
+      "declarations": [
+        "monotone_stabilizes_iff_noetherian",
+        "isNoetherianRing_iff_ideal_fg"
+      ],
+      "source_types": [
+        "(forall f : Nat ->o Submodule R M, exists n, forall m, n <= m -> f n = f m) iff IsNoetherian R M",
+        "IsNoetherianRing R iff forall I : Ideal R, I.FG"
+      ],
+      "normalized_match": "The local adapter converts the exact explicit finite-generation premise to IsNoetherianRing R, specializes the generic regular-module chain theorem to M := R, and returns the exact one-way conclusion. Ideal R is definitionally Submodule R R. The universe, CommRing binder, Nat OrderHom chain, equality tail, and zero-ring boundary match the frozen target.",
+      "role": "two pinned mathlib terminal declarations behind one exact repo-local audit wrapper",
+      "local_adapter": "Stage1Instances.THM_M_0028_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declarations": [
+        "monotone_stabilizes_iff_noetherian",
+        "isNoetherianRing_iff_ideal_fg"
+      ],
+      "terminal_bodies": [
+        "rw [isNoetherian_iff', wellFoundedGT_iff_monotone_chain_condition]",
+        "isNoetherianRing_iff.trans isNoetherian_def"
+      ],
+      "historical_provenance": {
+        "file_header_authors": [
+          "Mario Carneiro",
+          "Kevin Buzzard"
+        ],
+        "lean4_port_commit": "f411c38bb48177c7d2ea8f45c0540a41aa7f9d25",
+        "lean4_port_tree": "8c9e62184977012a4307e02848a28a5f806294a5",
+        "lean4_port_date": "2023-03-20T19:32:56Z",
+        "lean4_port_author": "Matthew Robert Ballard",
+        "lean4_port_subject": "feat: port RingTheory.Noetherian (#2976)",
+        "port_is_ancestor_of_pin": true,
+        "current_defs_split_commit": "f26c0a21e7f81a4e95e0703e492af2d729da839d",
+        "current_defs_split_tree": "5b7ddcd8b383dd2622bce4b3af25e7b1b272e8a9",
+        "current_defs_split_date": "2024-11-25T13:12:47Z",
+        "current_defs_split_is_ancestor_of_pin": true,
+        "relationship": "History records lineage only; the pinned blob and source-slice hash identify the audited bodies after later maintenance."
+      },
+      "direct_source_imports": [
+        "Mathlib.Order.Filter.AtTopBot.Basic",
+        "Mathlib.RingTheory.Finiteness.Basic"
+      ],
+      "direct_proof_dependencies_observed": [
+        "isNoetherian_iff'",
+        "wellFoundedGT_iff_monotone_chain_condition",
+        "fg_iff_compact",
+        "isNoetherianRing_iff",
+        "isNoetherian_def"
+      ],
+      "support_boundary": {
+        "file": "Mathlib/Order/OrderIsoNat.lean",
+        "file_blob": "531f93b96fe0fe5ef91fc07a8bff0a5cfbfe163f",
+        "file_sha256": "740b10ed011996c3caef968135fc98fddea63c81f3173a9acf052eeaa386b676",
+        "declaration": "wellFoundedGT_iff_monotone_chain_condition",
+        "source_lines": "214-219"
+      },
+      "source_placeholder_audit": "Both terminal declarations have explicit bodies and Lean #print sorries reports 'Declarations are sorry-free!' for both and for the exact adapter. A comment-stripped scoped scan of Defs.lean found no sorry, admit, sorryAx, axiom declaration, unsafe declaration, opaque declaration, or proof_wanted marker. The source scan supplements rather than replaces the machine probe.",
+      "axiom_probe": {
+        "monotone_stabilizes_iff_noetherian": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "isNoetherianRing_iff_ideal_fg": [
+          "propext",
+          "Quot.sound"
+        ],
+        "exact_adapter": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "foundation_assessment": "Only mathlib's standard propositional extensionality, classical choice, and quotient soundness principles were machine-reported; no custom axiom or oracle appeared in the exact adapter's axiom report.",
+      "unsafe_or_oracle_boundary": "No unsafe declaration, native evaluator, external code, generated certificate, solver, experiment, or oracle is invoked by the local adapter or the observed terminal bodies. Complete transitive declaration and release-grade TCB closure remain downstream.",
+      "dependency_feasibility": "The exact mathlib revision is already pinned in lake-manifest.json, its worktree is clean, and the narrow local adapter elaborates through existing artifacts without modifying .lake.",
+      "license": "Apache-2.0",
+      "kernel_check": "passed: cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0028/AnchorAudit.lean",
+      "classification": "M0-W",
+      "evidence_level": "E2",
+      "classification_boundary": "Self-tested exact pinned-library wrapper candidate. E1 acceptance, complete transitive provenance/TCB closure, obligation composition, proof-phase integration, hermetic replay, and master acceptance are not claimed by this phase."
+    },
+    {
+      "candidate_id": "M0028-C02-ATLAS-EXACT-BICONDITIONAL",
+      "project": "facebookresearch/atlas-lean",
+      "canonical_remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "commit_date": "2026-06-02T17:28:59Z",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.ArithmeticGeometry.code.AffineVarieties",
+      "file": "Atlas/ArithmeticGeometry/code/AffineVarieties.lean",
+      "file_blob": "94dcebdb5ab4da6358f7bf3f44e9c7205c58dd0d",
+      "file_sha256": "167d06009cde5f2f64b74883f9b5c23ba5c17292eb9cc4eb9f820976037bf13c",
+      "body_lines": "178-183",
+      "body_sha256": "07d1766ac29778346dd97207a039358dbc603f2ea2b6b4ddda29a8205185c44b",
+      "declaration": "noetherian_fg_iff_acc",
+      "source_type": "(forall I : Ideal R, I.FG) iff forall f : Nat ->o Ideal R, exists n, forall m, n <= m -> f n = f m",
+      "normalized_match": "The forward implication has the exact frozen premise and conclusion, universe, CommRing binder, ideal carrier, Nat OrderHom, stabilization binder order, and zero-ring boundary. The converse is extra packaging and is not credited to the one-way target.",
+      "role": "credible immutable external exact implication, outside the repository dependency closure",
+      "terminal_body": "rw [<- isNoetherianRing_iff_every_ideal_fg, isNoetherianRing_iff_ideal_acc]",
+      "generation_provenance": "The Atlas README describes the corpus as LLM-autoformalized and ongoing machine-generated work. Its internal report marks this declaration compiled, high-confidence, no-sorry, and dependent on the two local wrappers, but that automated report is not independent human review.",
+      "automated_report_boundary": {
+        "targets_blob": "5125c1e7222f0f463f3e07861c4eca29e85d40d1",
+        "report_blob": "4e33abbed95296329ce0b5d361947621e8c9a205",
+        "assessment": "Automated corpus metadata corroborates compilation and no-sorry status but receives no independent-review credit."
+      },
+      "direct_source_imports": [
+        "Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure",
+        "Mathlib.FieldTheory.IntermediateField.Basic",
+        "Mathlib.FieldTheory.Perfect",
+        "Mathlib.FieldTheory.Galois.Infinite",
+        "Mathlib.FieldTheory.IsSepClosed",
+        "Mathlib.RingTheory.MvPolynomial.Basic",
+        "Mathlib.RingTheory.Noetherian.Basic",
+        "Mathlib.RingTheory.Noetherian.Defs",
+        "Mathlib.RingTheory.Polynomial.Basic",
+        "Mathlib.RingTheory.Nullstellensatz"
+      ],
+      "direct_proof_dependencies_observed": [
+        "isNoetherianRing_iff_every_ideal_fg",
+        "isNoetherianRing_iff_ideal_acc",
+        "isNoetherianRing_iff_ideal_fg",
+        "isNoetherianRing_iff",
+        "monotone_stabilizes_iff_noetherian"
+      ],
+      "source_placeholder_audit": "The declaration has an explicit proof and Lean #print sorries reports 'Declarations are sorry-free!'. A whole-file source scan found no sorry, admit, sorryAx, axiom declaration, unsafe declaration, opaque declaration, or proof_wanted marker.",
+      "axiom_probe": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "dependency_feasibility": "The project pins the same Lean and mathlib revisions, and its immutable full source file elaborates against the existing local pinned environment. The project is not a lake-manifest dependency, and its restrictive noncommercial/no-training license is not accepted for repository integration.",
+      "license": "CC BY-NC 4.0 plus a no-training rider; academic and research use only; commercial and ML-training/evaluation use prohibited",
+      "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+      "manifest_blob": "7c315112ff7c5c52ba46b018a7dd6e3e3d58e0c0",
+      "manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+      "toolchain_blob": "d324cad1f905c2b77492e523f863603917a784e4",
+      "toolchain_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+      "kernel_check": "passed: streamed the immutable raw source into lake env lean from Formalizations/Lean; no dependency clone/fetch/build occurred",
+      "classification": "M1",
+      "evidence_level": "E2",
+      "integration_task": "Do not integrate under the current license boundary. Reopen only after integration-lane legal approval of the immutable license terms or discovery of a compatibly licensed independent body; the pinned mathlib M0-W route already avoids this dependency.",
+      "classification_boundary": "Independently reproducible immutable external kernel proof, but not in the local dependency closure and not approved for integration. It is not M0-P and does not advance the accepted root."
+    },
+    {
+      "candidate_id": "M0028-C03-ATLAS-NOETHERIAN-PREDICATE",
+      "project": "facebookresearch/atlas-lean",
+      "canonical_remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Atlas.AlgebraNotes.code.NoetherianModules",
+      "file": "Atlas/AlgebraNotes/code/NoetherianModules.lean",
+      "file_blob": "24d85b76caf8a59ec321c32e31fd211f5325aaf6",
+      "file_sha256": "15d41e5898ee063d29344643d6c135dbe08d6299220b44fc2cf9eb4320b00869",
+      "body_lines": "54-57",
+      "body_sha256": "e7520255be3883fda4624e47e0fba888fd16266165d98cdbfb3877a2673e7822",
+      "declaration": "NoetherianModules.noetherian_ring_iff_acc",
+      "source_type": "IsNoetherianRing R iff forall f : Nat ->o Ideal R, exists n, forall m, n <= m -> f n = f m",
+      "relationship": "Requires the same mathlib finite-generation bridge as C01 and reduces to monotone_stabilizes_iff_noetherian. It is a less direct Atlas wrapper, not an independent terminal proof body and not additional proof coverage.",
+      "source_placeholder_audit": "The declaration has an explicit body and Lean #print sorries reports it sorry-free; the full immutable file elaborates in the pinned local environment.",
+      "axiom_probe": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "license": "same restrictive atlas-lean repository license as C02",
+      "classification": "M3_deduplicated_wrapper",
+      "evidence_level": "E2"
+    },
+    {
+      "candidate_id": "M0028-C04-REPO-INTAKE-PROBE",
+      "project": "awesome_theorems repository-local intake surface",
+      "revision": "7e54c0fcaf9c0e53fa7afbbeb0a36218152f932c",
+      "file": "Stage1_Instances/THM-M-0028/IntakeProbe.lean",
+      "declaration": null,
+      "relationship": "Imports the same proof-bearing mathlib module and #checks both C01 declarations but defines no exact wrapper or independent terminal proof body.",
+      "role": "historical discovery-only duplicate API probe",
+      "terminal_candidate_id": "M0028-C01-MATHLIB-COMPOSITION",
+      "classification": "M3",
+      "evidence_level": "E3"
+    }
+  ],
+  "excluded_or_deduplicated_candidates": [
+    {
+      "candidate": "isNoetherian_iff, isNoetherian_iff', and set_has_maximal_iff_noetherian",
+      "reason": "Related well-foundedness and maximal-element characterizations. They share C01's Noetherian infrastructure and do not independently supply the exact finite-generation-to-ideal-chain body."
+    },
+    {
+      "candidate": "uses of monotone_stabilizes_iff_noetherian in Lasker theory, algebraic geometry, Noetherian filters, Lie algebra, and Orzech-property modules",
+      "reason": "Downstream uses of the same pinned terminal theorem, not independent target bodies."
+    },
+    {
+      "candidate": "principal-ideal ACC, UFD, Artinian, noncommutative one-sided, field, PID, finite-ring, Hilbert-basis, Lasker-Noether, and spectrum variants",
+      "reason": "Strict special cases, different chain direction, or material statement/domain mismatches with the frozen general commutative target."
+    }
+  ],
+  "external_search": {
+    "queries_run_at": "2026-07-13T07:20:00+08:00 through 2026-07-13T07:29:00+08:00",
+    "local_repository_and_pinned_packages": {
+      "query_families": [
+        "ascending chain condition",
+        "monotone_stabilizes_iff_noetherian",
+        "isNoetherianRing_iff_ideal_fg",
+        "Noetherian ring"
+      ],
+      "result": "Outside THM-M-0028, only pinned mathlib supplied relevant declarations and uses. All ten other locally materialized manifest packages had no exact independent target body. This is bounded local evidence only."
+    },
+    "github_repository_queries": [
+      {
+        "query": "quoted ascending chain condition plus Lean 4",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "quoted Noetherian ring plus quoted Lean 4",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "monotone_stabilizes_iff_noetherian",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "isNoetherianRing_iff_ideal_fg",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      }
+    ],
+    "github_code_query": {
+      "query": "monotone_stabilizes_iff_noetherian language:Lean",
+      "http_status": 403,
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "result": "Anonymous API rate limit exhausted; explicit access failure, not negative evidence."
+    },
+    "grep_app_queries": [
+      {
+        "query": "monotone_stabilizes_iff_noetherian",
+        "http_status": 429,
+        "response_sha256": "1e163b411e8b0f149d2aa277a2b7a9a52e93bbc470edadafd3d96453de92e2be",
+        "result": "Vercel Security Checkpoint; explicit access failure, not negative evidence."
+      },
+      {
+        "query": "isNoetherianRing_iff_ideal_fg",
+        "http_status": 429,
+        "response_sha256": "f53c8036060546dd0eeff421742ca5329a9b9ddc03e5b76c1819c8949eaf989f",
+        "result": "Vercel Security Checkpoint; explicit access failure, not negative evidence."
+      },
+      {
+        "query": "Noetherian ring",
+        "http_status": 429,
+        "response_sha256": "ac57097fd810b899a309c4f12313f9b797b27c469ce51ab7743d25d18d651153",
+        "result": "Vercel Security Checkpoint; explicit access failure, not negative evidence."
+      }
+    ],
+    "atlas_immutable_inspection": {
+      "remote_head": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "tree_api_response_sha256": "7ebe7ab672c8f14a05484a46f36bc6d2c92e587cfc5dfe8523ac34de4a62c8ab",
+      "commit_api_response_sha256": "377e6b8fed78cf92666b7752ad4d61daff8c1a62bb3b57e0e288d9899b9a434e",
+      "result": "Two exact-topic wrappers classified as C02 and C03; immutable source, tree, blobs, pins, license, placeholder reports, axiom reports, and local elaboration checked without adding a dependency."
+    },
+    "sourcegraph_queries": [
+      {
+        "query": "context:global monotone_stabilizes_iff_noetherian lang:Lean",
+        "captured_utc": "2026-07-12T23:28:39Z through 2026-07-12T23:28:42Z",
+        "http_stream_exit": 0,
+        "response_sha256": "550e5f6559d1c25d834867f4ed813617bfcf5cd58ea8ed58e2976b5a96c827e7",
+        "result": "15 matches in 5 indexed repositories; includes pinned mathlib, Atlas, and downstream consumers rather than 15 independent proof bodies."
+      },
+      {
+        "query": "context:global noetherian_fg_iff_acc lang:Lean",
+        "captured_utc": "2026-07-12T23:28:39Z through 2026-07-12T23:28:42Z",
+        "http_stream_exit": 0,
+        "response_sha256": "9b599985abd57f47778c0324ed27e0a6d94863cd8854a88cdcc36236077987cb",
+        "result": "Exactly 1 match in 1 indexed repository: Atlas/ArithmeticGeometry/code/AffineVarieties.lean at revision 34ffed396f376454c1a9b297f3fd74c5c801fb50."
+      },
+      {
+        "query": "context:global noetherian_ring_iff_acc lang:Lean",
+        "captured_utc": "2026-07-12T23:28:39Z through 2026-07-12T23:28:42Z",
+        "http_stream_exit": 0,
+        "response_sha256": "91734bd65fd03e790096362b63cdcee44930fbde67b6513fbf498b4e8729940b",
+        "result": "Exactly 1 match in 1 indexed repository: Atlas/AlgebraNotes/code/NoetherianModules.lean at revision 34ffed396f376454c1a9b297f3fd74c5c801fb50."
+      }
+    ],
+    "result": "The bounded search established the exact pinned mathlib composition and an exact immutable Atlas biconditional. The latter is outside the dependency closure and license-blocked; its second wrapper is deduplicated. No additional independent exact Lean 4 terminal body was established.",
+    "limitations": "Repository metadata search is not exhaustive code search. GitHub code search and grep.app were inaccessible, no credential was available, Atlas was not cloned or fetched, and discovery saturation is not claimed. Sourcegraph excluded 279 forks and 92504 archived repositories by default."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "4/4 frozen candidates classified; one exact pinned mathlib composition, one exact external M1 wrapper, one deduplicated external wrapper, and one duplicate repo probe",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2",
+    "human_debt": "H1",
+    "readability_debt": "R3",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "S56-M-0028-OBLIGATION_TREE",
+      "S56-M-0028-PROOF",
+      "S56-M-0028-VALIDATION",
+      "S56-M-0028-RELEASE",
+      "primary-source H0 and independent source review",
+      "readable reconstruction and independent review",
+      "full transitive provenance, trust and TCB acceptance",
+      "master acceptance"
+    ],
+    "status_boundary": "The bounded immutable formal-candidate inventory and exact pinned-mathlib adapter are self-tested pending master acceptance. The exact Atlas M1 candidate is classified but not integrated. This node does not freeze the obligation tree, accept M0-W/E1, establish H0 or R0, complete AUDIT-Z, or complete the theorem."
+  }
+}

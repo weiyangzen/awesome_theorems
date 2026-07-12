@@ -56,11 +56,19 @@ Ideal.iInf_pow_smul_eq_bot_of_isLocalRing
   (⨅ n : ℕ, I ^ n • ⊤) = ⊥
 ```
 
-The exact Lean types are authenticated by `IntakeProbe.lean`. The first declaration closely matches the
-catalog's ideal-only gloss. The second matches Stacks tag `00IP` and is a stronger source-form
-candidate. Intake records their module, names, and checked types only. It does not accept canonical
-statement identity, inspect or credit terminal proof bodies, close transitive provenance or trust,
-or derive M0.
+The anchor audit authenticates the first declaration against a literal copy of the frozen Lean
+target. The only syntactic interface difference is harmless binder ordering: mathlib places `I`
+before the Noetherian and local instance arguments, and the checked adapter introduces the frozen
+binders before invoking it. Its transparent body specializes the second declaration at `M = R` and
+converts `I ^ n • top` back to the ideal `I ^ n`. The second declaration matches Stacks tag `00IP`
+and reduces through the Jacobson-radical bridge. These are one proof path, not independent bodies.
+
+At the pinned revision Lean reports the terminal theorem and both supporting bridges sorry-free and
+reports only `propext`, `Classical.choice`, and `Quot.sound`. Bounded external search finds the name
+only as downstream uses in Atlas and FLT, not as an independent Lean 4 proof. This supports a
+provisional exact `M0-W / E2` candidate, not accepted M0/E1 or theorem completion. Complete
+transitive provenance/TCB closure, proof-phase integration, hermetic and independent validation,
+and master acceptance remain downstream.
 
 ## Exactness and source gate
 
@@ -69,5 +77,5 @@ versus-modern provenance, map all definitions and assumptions, check corrections
 map material proof transitions. For statement identity, pinned Stacks tag `00IR` explicitly ratifies
 the ideal specialization of tag `00IP`. The exact Lean context, expression and environment
 fingerprints, membership iff, boundary behavior, and required mutations are now self-tested in the
-statement packet. The pinned proof declarations remain candidates pending anchor audit, and the
-planned root remains `[H1, M3, R3]` with no proof or H0 credit.
+statement packet. The exact pinned declaration is now a self-tested anchor candidate. The accepted
+planned root remains `[H1, M3, R3]` with no accepted proof or H0 credit.

@@ -110,7 +110,7 @@
       "inspection_status": "No title, edition, theorem/page, exact statement, definitions, proof, translation, corrections, or reviewer is supplied or credited."
     }
   ],
-  "formal_candidates_not_credited": [
+  "formal_candidates": [
     {
       "module": "Mathlib.RingTheory.Filtration",
       "declarations": [
@@ -118,7 +118,7 @@
       ],
       "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
       "candidate_type": "forall {R : Type u} [CommRing R] (I : Ideal R) [IsNoetherianRing R] [IsLocalRing R], I ≠ ⊤ -> (iInf fun n : Nat => I ^ n) = ⊥",
-      "boundary": "The exact candidate type and reported direct axiom set were authenticated by the intake probe. Canonical statement identity, body provenance, transitive dependencies, trust closure, and M0 classification are not inspected or credited."
+      "boundary": "AnchorAudit.lean now checks a zero-strengthening wrapper for the exact frozen target, prints the transparent terminal body, reports it sorry-free, and reports only propext, Classical.choice, and Quot.sound. This is a provisional M0-W/E2 candidate pending master acceptance and downstream trust, proof, validation, and release gates."
     },
     {
       "module": "Mathlib.RingTheory.Filtration",
@@ -127,9 +127,23 @@
       ],
       "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
       "candidate_type": "forall {R M} [CommRing R] [AddCommGroup M] [Module R M] (I : Ideal R) [IsNoetherianRing R] [IsLocalRing R] [Module.Finite R M], I ≠ ⊤ -> (iInf fun n : Nat => I ^ n • ⊤) = ⊥",
-      "boundary": "This matches the modern source's stronger finite-module form, but it requires a checked M = R specialization before it may connect to the catalog's ideal root. No proof credit is assigned."
+      "boundary": "This matches the modern source's stronger finite-module form. The pinned exact theorem performs the checked M = R specialization and ideal/submodule conversion; this declaration is a same-path supporting bridge, not a second proof body."
     }
   ],
+  "anchor_audit": {
+    "item_id": "S56-M-0030-ANCHOR_AUDIT",
+    "inventory": "Stage1_Instances/THM-M-0030/anchor-audit.json",
+    "discovery_protocol": "Stage1_Instances/THM-M-0030/discovery-protocol.json",
+    "candidate_declaration": "Ideal.iInf_pow_eq_bot_of_isLocalRing",
+    "candidate_classification": "M0-W",
+    "candidate_evidence_level": "E2",
+    "candidate_kernel_checked": true,
+    "candidate_master_accepted": false,
+    "external_independent_candidate_found": false,
+    "accepted_root_machine_debt": "M3",
+    "status": "self_tested_pending_master_acceptance",
+    "boundary": "Exact pinned mathlib candidate and bounded external inventory only. No accepted receipt, M0/E1 promotion, obligation closure, AUDIT-Z, or theorem completion is claimed."
+  },
   "source_revisions": {
     "repository_base": "94f6abf9359f26384e0f68bef694dc5b9aae624c",
     "repository_base_tree": "e0083f4f402c93febe4419b51498afa8ecf81c06",
@@ -162,7 +176,7 @@
     "local_ring_defs_sha256": "a1bd9c72c95745af2c58f093cecf1a2d344982e130a877273a3a55968902b55f"
   },
   "obligation_registry_hash": null,
-  "discovery_protocol_hash": null,
+  "discovery_protocol_hash": "sha256:19dd018cf76446992cb59d3a46d054e71b65c37742a79a01e6fb3e7a81965fe2",
   "root_vector": {
     "H": "H1",
     "M": "M3",
@@ -173,7 +187,7 @@
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
   "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory; the checked membership transport and boundary witnesses report propext, Classical.choice, and Quot.sound; proof-specific and transitive axiom closure remain downstream",
-  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib; three direct imports are deletion-minimal for this statement artifact, while the terminal proof body, transitive declarations, and accepted trust closure remain open",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib; the exact transparent terminal body and immediate bridge chain are source-inspected and machine-probed, while complete transitive declaration/TCB closure and acceptance remain downstream",
   "computation_profile": "kernel-proposition-planned/1.0: no experiment, oracle, native shortcut, generated instance, or unchecked certificate is credited; the target requires a source-mapped kernel proof",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -192,7 +206,13 @@
     "Stage1_Instances/THM-M-0030/check_statement.py",
     "Stage1_Instances/THM-M-0030/statement.json",
     "Stage1_Instances/THM-M-0030/statement-validation.md",
-    "Stage1_Instances/THM-M-0030/statement-receipt.json"
+    "Stage1_Instances/THM-M-0030/statement-receipt.json",
+    "Stage1_Instances/THM-M-0030/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0030/discovery-protocol.json",
+    "Stage1_Instances/THM-M-0030/anchor-audit.json",
+    "Stage1_Instances/THM-M-0030/check_anchor_audit.py",
+    "Stage1_Instances/THM-M-0030/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0030/anchor-audit-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -225,7 +245,13 @@
     "check_statement.py",
     "statement.json",
     "statement-validation.md",
-    "statement-receipt.json"
+    "statement-receipt.json",
+    "AnchorAudit.lean",
+    "discovery-protocol.json",
+    "anchor-audit.json",
+    "check_anchor_audit.py",
+    "anchor-audit-validation.md",
+    "anchor-audit-receipt.json"
   ],
-  "status_boundary": "The exact conventional proper-ideal target, membership iff, mutations, boundaries, minimal imports, expression hash, and environment fingerprint are self-tested pending master acceptance. The formal candidate body remains uncredited pending anchor audit, and historical primary-source fidelity remains open on H. No H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "The exact conventional proper-ideal target and an exact pinned mathlib M0-W/E2 candidate are self-tested pending master acceptance. The accepted root remains [H1, M3, R3]; historical source fidelity, complete transitive trust, proof-phase integration, and every later phase remain open. No H0, accepted M0, R0, accepted execution state, AUDIT-Z, theorem completion, or master acceptance is claimed."
 }

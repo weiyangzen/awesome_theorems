@@ -63,5 +63,9 @@ The statement phase has frozen the commutative, one-way, natural-chain, ideal, m
 zero-ring choices; used the sole minimal `Finiteness.Defs` import; elaborated and fingerprinted the
 canonical target; checked its carrier and monotone-function encodings; and exercised all four
 mutation classes. Complete
-historical-domain fidelity and independent source review remain open. Only the later anchor audit
-may classify the located mathlib bodies and their provenance or trust.
+historical-domain fidelity and independent source review remain open. The anchor audit has now
+authenticated the exact pinned mathlib composition, checked its bodies, placeholder and axiom
+reports, provenance boundary, and literal adapter, and classified it as an unaccepted
+`M0-W / E2` candidate. It also classifies the exact immutable Atlas wrapper as `M1 / E2` outside
+the dependency and license boundary. Obligation-tree expansion, proof-phase integration, complete
+transitive trust, release-grade evidence, and independent review remain open.

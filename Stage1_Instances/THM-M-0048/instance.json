@@ -1,0 +1,233 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0048",
+  "item_id": "S56-M-0048-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1088,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "柯西-比内公式",
+  "name_en": "Cauchy-Binet formula",
+  "canonical_name": "Cauchy-Binet determinant formula family for matrix products",
+  "category": "代数学 / 线性代数",
+  "category_en": "algebra / linear algebra",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "矩阵乘积的行列式公式",
+  "literal_source_claim_en": "The determinant formula for a matrix product.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognized_cauchy_binet_family_but_catalog_does_not_distinguish_full_rectangular_minor_sum_from_square_determinant_multiplicativity_or_fix_domains_conventions_and_boundaries",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies only a theorem name and the gloss 'determinant formula for a matrix product'. It gives no pinpoint source, coefficient domain, matrix dimensions, summation carrier, minor ordering, dimension inequality, or degenerate-case policy, and does not distinguish the full rectangular Cauchy-Binet sum from square determinant multiplicativity. Selecting an exact root at intake would invent proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+      "Mathlib.Order.Hom.PowersetCard"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "Matrix.det_mul",
+      "Matrix.det_mul_aux",
+      "Matrix.det_submatrix_equiv_self",
+      "Set.powersetCard.ofFinEmbEquiv"
+    ],
+    "candidate_expression": "fun {m n : Nat} {R : Type} [CommRing R] (A : Matrix (Fin m) (Fin n) R) (B : Matrix (Fin n) (Fin m) R) => (A * B).det = sum S : Set.powersetCard (Fin n) m, (A.submatrix id (Set.powersetCard.ofFinEmbEquiv.symm S)).det * (B.submatrix (Set.powersetCard.ofFinEmbEquiv.symm S) id).det",
+    "candidate_expression_status": "elaborated_discovery_shape_only_not_source_ratified_fingerprinted_or_credited",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_identity_domain_dimensions_minor_conventions_and_boundary_policy",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-candidate-shape-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the coefficient ring or field, universe, rectangular dimensions, finite index types or Fin indices, decidability and ordering instances, and whether a dimension inequality is explicit.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: either the full source-specified rectangular minor-sum determinant identity or a source-justified narrower square multiplicativity claim; no exact conclusion is selected at intake.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a source proposition is selected; the statement phase must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the conventional rectangular minor-sum identity for A : Matrix (Fin m) (Fin n) R and B : Matrix (Fin n) (Fin m) R over a commutative ring",
+    "the same formula over arbitrary finite linearly ordered index types",
+    "a version requiring m <= n",
+    "a version covering m > n by an empty subset sum",
+    "the square specialization det (A * B) = det A * det B"
+  ],
+  "degenerate_cases_to_resolve": [
+    "m = 0 and the empty determinant",
+    "n = 0 with m positive",
+    "m greater than n",
+    "m = n and reconciliation with determinant multiplicativity",
+    "zero and low-dimensional matrices",
+    "the zero commutative ring and characteristic two"
+  ],
+  "excluded_substitutions": [
+    "Matrix.det_mul used as the full rectangular Cauchy-Binet theorem without an accepted scope decision and checked transport",
+    "the Sylvester or Weinstein-Aronszajn determinant identity det(1 + A * B) = det(1 + B * A)",
+    "Laplace expansion, determinant multilinearity, or one minor identity without the final Cauchy-Binet sum",
+    "a rank inequality, Gram determinant consequence, compound-matrix identity, or Cauchy-Binet inequality",
+    "field-only, fixed-dimension, full-rank, real-only, or complex-only special cases unless the accepted source root is exactly that narrow",
+    "a structure or hypothesis storing the desired formula",
+    "numerical determinant experiments, residual checks, or unchecked certificates",
+    "the catalog verified label or the intake probe used as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0041",
+      "name": "哈密顿-凯莱定理",
+      "boundary": "characteristic-polynomial annihilation is distinct from determinant expansion of a rectangular product"
+    },
+    {
+      "theorem_id": "THM-M-0044",
+      "name": "奇异值分解定理",
+      "boundary": "SVD is a factorization theorem; Gram determinant uses do not transfer its proof or scope"
+    },
+    {
+      "theorem_id": "THM-M-0047",
+      "name": "LU分解定理",
+      "boundary": "triangular factorization may use determinant multiplicativity but does not provide the minor-sum identity"
+    },
+    {
+      "theorem_id": "THM-M-0050",
+      "name": "西尔维斯特惯性定律",
+      "boundary": "inertia under congruence is unrelated to both Cauchy-Binet and the distinct Sylvester determinant identity"
+    }
+  ],
+  "source_status": "H1_published_complete_proof_lead_identified_but_exact_theorem_assumptions_definitions_errata_historical_attribution_source_to_catalog_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Takis Konstantopoulos, A multilinear algebra proof of the Cauchy-Binet formula and a multilinear version of Parseval's identity, arXiv:1305.0644v1, 3 May 2013, printed pages 1 and 3-4, formulas (1), (6), and (9), Theorem 1",
+      "candidate_locator": "https://arxiv.org/pdf/1305.0644v1; observed PDF sha256 5a989fa3b4262ed6d964fd6e0002bc3cf60688c0edeec7c6c509edcffc52680f",
+      "candidate_summary": "states the classical rectangular formula over the reals or any field with n <= N and proves a general exterior-power identity from which the determinant formula follows",
+      "inspection_status": "immutable versioned source lead inspected; not catalog-cited or primary, field-to-commutative-ring generalization unapproved, complete definition/node mapping and independent review open, and apparent prose and bibliography defects require errata review"
+    },
+    {
+      "citation": "Jiang Zeng, A bijective proof of Muir's identity and the Cauchy-Binet formula, Linear Algebra and its Applications 184 (1993), 79-82, DOI 10.1016/0024-3795(93)90371-T",
+      "candidate_summary": "published article explicitly presenting a proof of the named formula",
+      "inspection_status": "bibliographic and publisher metadata inspected; exact theorem passage, definitions, assumptions, proof crosswalk, errata, immutable source admission, and independent review remain open"
+    },
+    {
+      "citation": "Augustin Cauchy / Jacques Binet, 1812 historical attribution",
+      "candidate_summary": "catalog attribution and date only",
+      "inspection_status": "no primary edition, page, translation, displayed formula, proof, priority analysis, or correction history inspected"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+      "declaration": "Matrix.det_mul",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "kernel-checked square determinant multiplicativity over a commutative ring; strict specialization or related theorem, not automatically the full rectangular minor-sum root"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic and Mathlib.Order.Hom.PowersetCard",
+      "declaration": "candidate expression in IntakeProbe.lean",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "the general rectangular proposition shape elaborates, but it has no proof body, source ratification, expression fingerprint, checked transports, or canonical-root status"
+    },
+    {
+      "project": "leanprover/hex-determinant",
+      "revision": "20f5785e9c85e9faa481d6b67c1382b6655b842e",
+      "module": "HexDeterminant.CauchyBinet",
+      "declarations": [
+        "Hex.Matrix.det_columnSumMatrix_eq_sum_columnTuples",
+        "Hex.Matrix.det_gramMatrix_eq_sum_columnTuples"
+      ],
+      "source_file_sha256": "1b75c932339f8f89864fcbc5c1a924321d3e4dde2065962eee45812769a624d6",
+      "boundary": "immutable external lead using a custom matrix determinant and ordered-column-tuple or Gram form under Lean 4.32.0-rc1; absent from the pinned dependency closure and without a checked bridge to the standard subset-minor root"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; exact classical decidability, choice, quotient, extensionality, ring, and finite-order assumptions remain open until the source proposition is selected",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact canonical imports, terminal bodies, transitive declarations, compiled artifacts, and accepted trust closure remain open",
+  "computation_profile": "kernel-finite-algebra-planned/1.0: no floating-point determinant routine, native shortcut, oracle, experiment, or unchecked certificate is credited; the intended theorem requires exact kernel-checked finite algebra",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "540472523b6c0717ed925193071191f81f62d6eb",
+    "repository_base_tree": "64b0c81418ef2c97b0250188444c672b9ae885d0",
+    "repository_record": "Docs/researches/math_theorems.md:363-368",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1429-1454",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "269f10a7ad9473ed0bea5a971869521df7e090a7cb3195974bb5af2083bbb0c2",
+    "stage0_excerpt_sha256": "15630d50ef225ce69ae9d2f5ec35125cdc9c8979ea7cafbca4aedc8a8e60396e",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "ca8885f9c340db27e99505eb3a580061f692efcee9c8731b8f9baf3bc647d762",
+    "execution_dag_sha256": "662fe8784f391c2b62b32958609d352ba1c099dbec98a6bf40983ddb4475d134",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "determinant_basic_source_sha256": "18fd46c88d720a62e6ffc03b220827109dd812caa3a7f51683bb36265aaa9bd8",
+    "powerset_card_source_sha256": "bb568d0db21b8f2cf4b531cf88d00bc5ff044df56699c3bdec1f399e17e0592d",
+    "inspected_konstantopoulos_pdf_sha256": "5a989fa3b4262ed6d964fd6e0002bc3cf60688c0edeec7c6c509edcffc52680f"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0048/README.md",
+    "Stage1_Instances/THM-M-0048/instance.json",
+    "Stage1_Instances/THM-M-0048/scope-map.md",
+    "Stage1_Instances/THM-M-0048/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0048/task-dag.json",
+    "Stage1_Instances/THM-M-0048/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0048/check_intake.py",
+    "Stage1_Instances/THM-M-0048/validation.md",
+    "Stage1_Instances/THM-M-0048/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, source, attribution, scope, or boundary correction",
+      "full-versus-square root decision, domain, dimension, minor, order, sign, or boundary convention",
+      "canonical statement, checked transport, mutation, or expression fingerprint",
+      "toolchain, import, dependency pin, or formal candidate change",
+      "assurance profile, validator, receipt, or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "open_task_dag": "Stage1_Instances/THM-M-0048/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, full-versus-square ambiguity, candidate rectangular family, source and formal leads, proposition-changing choices, exclusions, and open task DAG. No canonical proposition, exact Lean target, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

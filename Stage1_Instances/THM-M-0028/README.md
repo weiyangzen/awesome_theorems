@@ -41,14 +41,23 @@ function-plus-monotonicity source spelling, four structural mutations are distin
 subsingleton boundary plus a concrete `PUnit` probe confirm that the target does not silently add
 `Nontrivial`.
 
-At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
-`Mathlib.RingTheory.Noetherian.Defs` contains an exact type for the adjacent candidate
-`monotone_stabilizes_iff_noetherian` and the finite-generation characterization
-`isNoetherianRing_iff_ideal_fg`. Their terminal bodies, provenance, dependencies, and trust closure
-remain for the later anchor audit and receive no proof credit here.
+At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the fresh anchor
+audit composes `isNoetherianRing_iff_ideal_fg` with
+`monotone_stabilizes_iff_noetherian` behind a literal exact-target adapter. Lean prints both bodies,
+reports both terminals and the adapter sorry-free, and reports only `propext`,
+`Classical.choice`, and `Quot.sound` for the adapter. This is a self-tested `M0-W / E2`
+candidate, not accepted proof state.
+
+The immutable Atlas project also contains the exact biconditional `noetherian_fg_iff_acc` at
+revision `34ffed396f376454c1a9b297f3fd74c5c801fb50`. It elaborates against the same pinned
+Lean/mathlib environment, but it is outside the dependency closure, reduces to the same mathlib
+route, and has a restrictive noncommercial/no-training license. It is classified `M1 / E2`
+corroboration and is not integrated. Atlas describes this corpus as LLM-autoformalized; its
+automated report is recorded as provenance, not as independent human review.
 
 The planned vector is `[H1, M3, R3]`: a stable conventional claim plus source leads support `H1`;
-exact pinned formal interfaces support only `M3` until anchor-audit and proof gates run; and
+an exact pinned formal route is an unaccepted `M0-W / E2` candidate while the accepted root remains
+`M3` until proof, composition, provenance/trust, validation, and master-acceptance gates run; and
 the dossier maps scope without providing a reviewed proof reconstruction. The statement proposal
-is self-tested pending master acceptance, and all five later tasks remain open. No accepted
+and anchor inventory are self-tested pending master acceptance, and all downstream tasks remain open. No accepted
 execution state, audit completion, theorem completion, or master acceptance is claimed.

@@ -1,0 +1,284 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0030-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0030",
+  "execution_rank": 1075,
+  "inventory_version": "THM-M-0030-anchor-inventory/1",
+  "protocol_frozen_at": "2026-07-13T07:26:30+08:00",
+  "cutoff": "2026-07-13T07:40:00+08:00",
+  "base_revision": "7e54c0fcaf9c0e53fa7afbbeb0a36218152f932c",
+  "base_tree": "80ece87e35401b07ba76abc36ea83440b5fa7f31",
+  "canonical_target": "Stage1Instances.THM_M_0030.KrullIntersectionTarget",
+  "canonical_target_expression_sha256": "53389852e2c0875086c2c28cb4a60448670ee29145e13d86b4b1ad3e9df8861e",
+  "canonical_statement_file_sha256": "737a2cf8a656d39617aecf8aa7d8b2bb3d5739807ea34f6e75dbb833f3c6978e",
+  "discovery_protocol": {
+    "path": "Stage1_Instances/THM-M-0030/discovery-protocol.json",
+    "sha256": "19dd018cf76446992cb59d3a46d054e71b65c37742a79a01e6fb3e7a81965fe2",
+    "negative_evidence_policy": "Dated bounded zero results carry their query and response hash. HTTP access failures are limitations rather than negative evidence.",
+    "saturation_claim": false
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only",
+    "materialized_packages": "all 11 manifest packages matched their immutable revisions and had clean worktrees",
+    "mathlib_clean_tree": true,
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0030-C01-MATHLIB-EXACT",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.RingTheory.Filtration",
+      "file": "Mathlib/RingTheory/Filtration.lean",
+      "immutable_url": "https://github.com/leanprover-community/mathlib4/blob/8a178386ffc0f5fef0b77738bb5449d50efeea95/Mathlib/RingTheory/Filtration.lean#L430-L435",
+      "file_blob": "c4fc3737f1859f1e22d387b199b46fe32d5f5093",
+      "file_sha256": "b161e2c4ce77f1224648467573dd4ba4c0ebc1ed734118e70df4cb39b33b1a72",
+      "body_lines": "430-435",
+      "body_sha256": "bed35e82de1fe7cbabba8e7db71f6c1d606c5b76547a3740c93089490775bf49",
+      "declaration": "Ideal.iInf_pow_eq_bot_of_isLocalRing",
+      "source_type": "{R : Type u} -> [CommRing R] -> (I : Ideal R) -> [IsNoetherianRing R] -> [IsLocalRing R] -> I != top -> (iInf fun n : Nat => I ^ n) = bottom",
+      "normalized_match": "Exact hypotheses and conclusion. Mathlib places I before the Noetherian and local instances while the frozen closed proposition places I after them; the zero-strengthening local adapter introduces the frozen binders and invokes the candidate without changing any assumption, domain, boundary, index, or conclusion.",
+      "role": "pinned mathlib terminal declaration behind a repo-local audit adapter",
+      "local_adapter": "Stage1Instances.THM_M_0030_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "Ideal.iInf_pow_eq_bot_of_isLocalRing",
+      "terminal_body": "A transparent conversion specializes the finite-module theorem to M := R and rewrites I^n acting on the top submodule to the ideal I^n.",
+      "direct_source_imports": [
+        "Mathlib.Algebra.Polynomial.Module.Basic",
+        "Mathlib.RingTheory.Finiteness.Nakayama",
+        "Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic",
+        "Mathlib.RingTheory.ReesAlgebra"
+      ],
+      "direct_proof_dependencies_observed": [
+        "Ideal.iInf_pow_smul_eq_bot_of_isLocalRing",
+        "smul_eq_mul",
+        "Ideal.one_eq_top",
+        "mul_one"
+      ],
+      "source_placeholder_audit": "The terminal theorem and two supporting bridge declarations have transparent bodies; Lean #print sorries reports all three sorry-free. A comment-stripped scoped source scan found no sorry, admit, sorryAx, declared axiom, unsafe, opaque, proof_wanted, implemented_by, or extern marker in the audited body slice.",
+      "axiom_probe": "Terminal theorem and local adapter each report only propext, Classical.choice, and Quot.sound. The finite-module and Jacobson bridge declarations report the same set.",
+      "unsafe_or_oracle_boundary": "No unsafe declaration, native evaluator, external code, generated certificate, solver, experiment, or oracle is invoked by the adapter or observed terminal chain. Release-grade transitive TCB closure remains downstream.",
+      "dependency_feasibility": "The exact revision is already pinned by lake-manifest.json, and the local adapter elaborates through the existing artifacts without modifying .lake.",
+      "license": "Apache-2.0",
+      "kernel_check": "passed: cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0030/AnchorAudit.lean",
+      "classification": "M0-W",
+      "evidence_level": "E2",
+      "classification_boundary": "Self-tested exact pinned-library wrapper candidate only. E1 acceptance, downstream proof-phase integration, complete transitive provenance/TCB closure, obligation composition, hermetic replay, independent validation, and master acceptance are not claimed."
+    },
+    {
+      "candidate_id": "M0030-C02-MATHLIB-FINITE-MODULE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.RingTheory.Filtration",
+      "file": "Mathlib/RingTheory/Filtration.lean",
+      "declaration": "Ideal.iInf_pow_smul_eq_bot_of_isLocalRing",
+      "source_type": "[IsNoetherianRing R] [IsLocalRing R] [Module.Finite R M] -> I != top -> (iInf fun n : Nat => I ^ n smul top) = bottom",
+      "relationship": "Stronger finite-module source form and the direct parent of C01 after M := R plus the checked conversion in C01.",
+      "body_lines": "424-428",
+      "terminal_candidate_id": "M0030-C01-MATHLIB-EXACT",
+      "classification": "M2_supporting_bridge",
+      "evidence_level": "E2",
+      "deduplication_boundary": "Supporting bridge on the same proof path; it is not a second terminal body and cannot inflate coverage."
+    },
+    {
+      "candidate_id": "M0030-C03-MATHLIB-JACOBSON",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.RingTheory.Filtration",
+      "file": "Mathlib/RingTheory/Filtration.lean",
+      "declaration": "Ideal.iInf_pow_smul_eq_bot_of_le_jacobson",
+      "source_type": "[IsNoetherianRing R] [Module.Finite R M] -> I <= jacobson bottom -> (iInf fun n : Nat => I ^ n smul top) = bottom",
+      "relationship": "General Jacobson-radical bridge used by C02 after le_maximalIdeal and maximalIdeal_le_jacobson; it is not the local-ring ideal target by itself.",
+      "body_lines": "415-422",
+      "terminal_candidate_id": "M0030-C01-MATHLIB-EXACT",
+      "classification": "M2_supporting_bridge",
+      "evidence_level": "E2",
+      "deduplication_boundary": "Supporting bridge on the same proof path; it is not a second terminal body."
+    },
+    {
+      "candidate_id": "M0030-C04-REPO-INTAKE-PROBE",
+      "project": "awesome_theorems repository-local intake surface",
+      "revision": "7e54c0fcaf9c0e53fa7afbbeb0a36218152f932c",
+      "file": "Stage1_Instances/THM-M-0030/IntakeProbe.lean",
+      "declaration": null,
+      "relationship": "Checks the same mathlib names but defines no exact wrapper and no independent proof body.",
+      "terminal_candidate_id": "M0030-C01-MATHLIB-EXACT",
+      "classification": "M3_duplicate_discovery_probe",
+      "evidence_level": "E3"
+    },
+    {
+      "candidate_id": "M0030-C05-ATLAS-CONSUMERS",
+      "project": "facebookresearch/atlas-lean",
+      "canonical_remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "files": [
+        "Atlas/NumberTheoryI/code/Thm1023.lean",
+        "Atlas/NumberTheoryI/code/KroneckerWeber.lean"
+      ],
+      "relationship": "Three immutable public matches only invoke mathlib's declaration in downstream arguments. They do not declare or wrap the frozen universally quantified root.",
+      "dependency_feasibility": "Toolchain and mathlib pins match this repository, but there is no independent candidate to integrate.",
+      "classification": "M3_external_consumers_only",
+      "evidence_level": "E4"
+    },
+    {
+      "candidate_id": "M0030-C06-FLT-CONSUMERS",
+      "project": "ImperialCollegeLondon/FLT",
+      "canonical_remote": "https://github.com/ImperialCollegeLondon/FLT.git",
+      "revision": "c541ddcef7c95308113bed83c0c9460926bcb706",
+      "toolchain": "leanprover/lean4:v4.31.0-rc2",
+      "mathlib_revision": "96fd0fff3b8837985ae21dd02e712cb5df72ec05",
+      "files": [
+        "FLT/Patching/Algebra.lean",
+        "FLT/Patching/Utils/AdicTopology.lean"
+      ],
+      "relationship": "Four immutable public matches only invoke mathlib's theorem in downstream work. They provide no independent declaration or exact root wrapper.",
+      "dependency_feasibility": "Different Lean and mathlib pins; source-inspected only, with no clone, fetch, or build. There is no independent proof candidate to integrate.",
+      "classification": "M3_external_consumers_only",
+      "evidence_level": "E4"
+    }
+  ],
+  "proof_body_provenance": {
+    "current_slice": "Mathlib/RingTheory/Filtration.lean:392-435 at the pinned file blob",
+    "current_slice_sha256": "96c9f9e4da837d7b086b151455f1bcf04f528dced20da5da5625dfc00bd15e62",
+    "terminal_chain": [
+      "Ideal.iInf_pow_eq_bot_of_isLocalRing",
+      "Ideal.iInf_pow_smul_eq_bot_of_isLocalRing",
+      "Ideal.iInf_pow_smul_eq_bot_of_le_jacobson",
+      "Ideal.mem_iInf_smul_pow_eq_bot_iff",
+      "Submodule.exists_mem_and_smul_eq_self_of_fg_of_le_smul"
+    ],
+    "supporting_source_blobs": {
+      "Mathlib/RingTheory/Finiteness/Nakayama.lean": "2ec71ea73c3b8e45cb27c597ae51fb94d5d82b07",
+      "Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean": "9d336345775f1676fb0685c8a1fb8e4e2bdf27ff"
+    },
+    "historical_lineage": [
+      {
+        "commit": "c639b48cbbeedd2e3ecc46ec6a68d087a93f4189",
+        "date": "2023-06-01T12:52:01Z",
+        "role": "Initial Lean 4 port of the Lean 3 Filtration module by Jason Yuen; lineage only, not the current immutable body."
+      },
+      {
+        "commit": "b762bad24737d74f31018671eea72cc51d5efa17",
+        "date": "2024-11-12T11:09:08Z",
+        "role": "LocalRing to IsLocalRing rename touching the exact wrapper."
+      },
+      {
+        "commit": "5ba6c80982d319e191fda59a1b55ca7af9a5284c",
+        "date": "2025-02-10T20:18:57Z",
+        "role": "Introduced the current local-via-Jacobson bridge organization."
+      }
+    ],
+    "lineage_boundary": "Git history explains lineage; the pinned tree, blob, source hashes, kernel output, and local adapter identify the audited candidate."
+  },
+  "external_search": {
+    "queries_run_at": "2026-07-13T07:26:45+08:00 through 2026-07-13T07:30:00+08:00",
+    "local_repository_and_pinned_packages": {
+      "query_families": [
+        "Krull intersection",
+        "iInf_pow_eq_bot_of_isLocalRing",
+        "iInf_pow_smul_eq_bot",
+        "mem_iInf_smul_pow"
+      ],
+      "result": "Outside the target-owned probes, only pinned mathlib supplied the declaration and same-body consumers. The other ten materialized packages contained no independent candidate. This is bounded local evidence only."
+    },
+    "sourcegraph_exact_declaration_query": {
+      "query": "context:global fork:yes archived:yes file:\\.lean$ iInf_pow_eq_bot_of_isLocalRing patternType:literal",
+      "response_sha256": "bfd4e6336f39f92b2835692205ee4809320236dc133a5b6604d94bd2d865ada4",
+      "result": "done=true, skipped=[], 11 matches in 6 files and 3 repositories: the mathlib declaration/uses and downstream uses in Atlas and FLT. No independent external declaration appeared.",
+      "limitations": "This exact-name index query was exhaustive for its query, not for all possible aliases or unindexed repositories."
+    },
+    "github_repository_queries": [
+      {
+        "query": "quoted Krull intersection theorem plus Lean",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "quoted Krull intersection plus Lean4",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "iInf_pow_eq_bot_of_isLocalRing",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+        "boundary": "Repository metadata search, not code search."
+      }
+    ],
+    "github_code_query": {
+      "query": "iInf_pow_eq_bot_of_isLocalRing language:Lean",
+      "http_status": 401,
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "result": "Requires authentication; access limitation, not negative evidence."
+    },
+    "grep_app_queries": [
+      {
+        "query": "iInf_pow_eq_bot_of_isLocalRing",
+        "http_status": 429,
+        "response_sha256": "7477799ede402798a489aa05bfb1f5344f34c0f16dd597a7977d4a494caa7704",
+        "result": "Vercel Security Checkpoint; access limitation, not negative evidence."
+      },
+      {
+        "query": "Krull intersection",
+        "http_status": 429,
+        "response_sha256": "0003b038707f78d4dba0463a9b7087e0bf3d5208f1212fefab6e92781fc43fbb",
+        "result": "Vercel Security Checkpoint; access limitation, not negative evidence."
+      }
+    ],
+    "immutable_external_metadata": {
+      "atlas_toolchain_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+      "atlas_manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+      "flt_toolchain_sha256": "71c46c6d6420351cccb5765129bf9609c4a7970a23e2f6ec6b6355504042d708",
+      "flt_manifest_sha256": "3ce7bf3049d61e0da0f94594dcfacf91d95b617b86ba648da08b01d0acc973c5"
+    },
+    "result": "One exact pinned mathlib terminal body and its supporting bridge chain were established. No independent external Lean 4 proof declaration was established; Atlas and FLT hits are downstream consumers.",
+    "limitations": "Discovery saturation is not claimed. Generic aliases may be absent from indexes; GitHub code search and grep.app were inaccessible; no external dependency was cloned, fetched, or built."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "6/6 frozen candidates classified: one exact terminal declaration, two same-path supporting bridges, one duplicate local probe, and two external consumer sets",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2",
+    "human_debt": "H1",
+    "readability_debt": "R3",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "S56-M-0030-OBLIGATION_TREE",
+      "S56-M-0030-PROOF",
+      "S56-M-0030-VALIDATION",
+      "S56-M-0030-RELEASE",
+      "primary-source H0 and independent source review",
+      "readable reconstruction and independent review",
+      "full transitive provenance, trust, and TCB acceptance",
+      "master acceptance"
+    ],
+    "status_boundary": "The bounded immutable candidate inventory and exact pinned-mathlib audit adapter are self-tested pending master acceptance. This node does not freeze the obligation tree, accept M0-W/E1, establish H0 or R0, complete AUDIT-Z, or complete the theorem."
+  }
+}

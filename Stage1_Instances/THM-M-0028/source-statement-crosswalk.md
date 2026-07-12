@@ -72,13 +72,18 @@ same file at lines 195-204 declares
 `isNoetherianRing_iff_ideal_fg`, which identifies the ring predicate with finite generation of all
 ideals. It also exposes well-founded-order and maximal-element characterizations.
 
-`IntakeProbe.lean` checks these APIs and reports that
-`monotone_stabilizes_iff_noetherian` depends on `propext`, `Classical.choice`, and `Quot.sound` in
-the pinned environment. This is discovery evidence only. Intake does not freeze target identity,
-inspect terminal bodies or transitive dependencies, accept the proof axiom profile, or establish
-`M0`. `Statement.lean` now elaborates the exact ideal-chain target from the strictly smaller
-`Mathlib.RingTheory.Finiteness.Defs` import, checks the regular-submodule and explicit-monotone
-function transports, and freezes four mutations without importing the candidate chain theorem.
+`AnchorAudit.lean` now checks a literal copy of the frozen target through these two declarations.
+Lean prints both terminal bodies, reports them and the adapter sorry-free, and reports only
+`propext`, `Classical.choice`, and `Quot.sound` for the complete adapter. The pinned mathlib route
+is a self-tested `M0-W / E2` candidate; complete transitive trust/provenance, proof-phase
+integration, `E1`, and master acceptance remain downstream.
+
+At immutable revision `34ffed396f376454c1a9b297f3fd74c5c801fb50`, the external Atlas
+project declares `noetherian_fg_iff_acc`, whose forward direction is exactly the frozen target.
+The complete source elaborates under the same pinned Lean/mathlib environment and is sorry-free,
+but it reduces to the same mathlib theorems, lies outside the dependency closure, and carries a
+restrictive noncommercial/no-training license. It is classified `M1 / E2` corroboration, not an
+integrated proof body. Its `NoetherianModules.noetherian_ring_iff_acc` wrapper is deduplicated.
 
 ## Exactness risks held open
 
