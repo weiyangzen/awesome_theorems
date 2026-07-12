@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0644-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0644",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "34b51889997c961b0ad69413dae1dc249a8cf744",
+  "canonical_target": "Stage1.THM_M_0644.CompactnessTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source and installed olean",
+    "public Lean source index",
+    "GitHub repository and code search"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0644-C01",
+      "project": "awesome_theorems",
+      "revision": "34b51889997c961b0ad69413dae1dc249a8cf744",
+      "module": "Stage1_Instances/THM-M-0644/Statement.lean",
+      "declaration": "Stage1.THM_M_0644.CompactnessTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "the frozen proposition expands to the candidate type",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0644-C02",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "module": "Mathlib.ModelTheory.Satisfiability",
+      "source_path": "Mathlib/ModelTheory/Satisfiability.lean",
+      "source_sha256": "0abb92d531851a57909945b740981d79a4cbb29238f2a3d21cb5fa57aa143edb",
+      "declaration": "FirstOrder.Language.Theory.isSatisfiable_iff_isFinitelySatisfiable",
+      "type": "forall {L : FirstOrder.Language.{u,v}} {T : L.Theory}, T.IsSatisfiable iff T.IsFinitelySatisfiable",
+      "kind": "exact_proof_candidate",
+      "normalized_match": "exact binder domains and conclusion of the frozen canonical target",
+      "body_provenance": "mathlib source lines 100-119: easy direction by IsSatisfiable.isFinitelySatisfiable; hard direction constructs a product over Ultrafilter.of (atTop on finite subtheories), applies the ultraproduct sentence-realization theorem, and packages the resulting model",
+      "placeholder_or_axiom_status": "source scan found no sorry/admit at the declaration; Lean reports only propext, Classical.choice, and Quot.sound",
+      "unsafe_or_oracle_status": "no unsafe declaration or external oracle is used by the displayed terminal body; full transitive trust closure is deferred to validation",
+      "classification": "M0-L_candidate",
+      "integration_status": "already pinned as the canonical mathlib dependency; exact repo-local wrapper elaborates in AnchorAudit.lean",
+      "terminal_body_origin": "introduced in mathlib commit 4a1f49bf7cc9 (2023-05-25), with later maintenance edits visible in immutable blame at the audited revision"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes exact declaration name, lang:Lean, count:100",
+      "result": "matchCount=0",
+      "response_sha256": "fb2c109b28b21779eaa91e65cdf854d8e959065a01949771c80af8eddb741201",
+      "immutability_boundary": "dated content-hashed discovery response, not proof evidence; Sourcegraph did not index the pinned local match"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=quoted compactness theorem + Lean theorem prover",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated content-hashed discovery response, not a proof candidate"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=exact declaration name+language:Lean",
+      "result": "API rate limit exceeded for the unauthenticated address",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "immutability_boundary": "blocked lane; no negative result claimed"
+    }
+  ],
+  "selected_candidate": "S56-M-0644-C02",
+  "root_machine_classification": "M0-L_candidate_pending_later_gates",
+  "root_classification_reason": "The pinned mathlib declaration exactly inhabits the frozen target type, its source body is present, and the repo-local wrapper elaborates against the installed immutable revision. This anchor audit does not freeze the obligation denominator or establish the later transitive provenance, composition, hermetic, freshness, and independent-verification receipts required for accepted M0.",
+  "integration_blocker": null,
+  "reopen_condition": "Re-audit on any target, mathlib revision, toolchain, source hash, declaration type, license, axiom profile, or terminal-body change.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Anchor candidate and exact wrapper only. This node supplies no accepted proof state, H0 source fidelity, frozen obligation tree, release validation, or theorem-completion claim."
+}

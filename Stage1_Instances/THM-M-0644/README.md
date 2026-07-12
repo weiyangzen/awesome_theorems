@@ -20,3 +20,10 @@ The statement phase now freezes and self-tests `Stage1.THM_M_0644.CompactnessTar
 mutations. `statement.json`, `statement-receipt.json`, and `statement-validation.md` record the
 provisional `[_]` evidence. Master acceptance and every later phase remain open; this adds no proof
 or theorem-completion claim.
+
+The anchor audit identifies the exact pinned mathlib declaration at revision
+`8a178386ffc0f5fef0b77738bb5449d50efeea95` and checks an exact-type wrapper in
+`AnchorAudit.lean`. `anchor-audit.json` records its terminal body, license, source hash, axiom
+profile, and bounded external searches. This is provisional anchor evidence only: the obligation
+tree, accepted proof credit, full trust/provenance closure, validation, and theorem completion
+remain open.
