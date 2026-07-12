@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1255-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1255",
+  "base_revision": "4d48a3c5fbec6d005a64a99338e40c001656264c",
+  "audit_scope": "Exact normalized target in statement.json; repo-local sources, every dependency already pinned by lake-manifest.json, and public Lean 4 discovery queries.",
+  "mathlib": {
+    "repository": "https://github.com/leanprover-community/mathlib4.git",
+    "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "terminal_candidate_found": false,
+    "searched_roots": ["Mathlib", "Archive"],
+    "exact_name_terms": ["Malgrange", "Ehrenpreis"],
+    "semantic_terms": ["fundamental solution", "constant coefficient PDE", "division of distributions", "Bernstein-Sato", "D-module", "holonomic"],
+    "positive_anchors": [
+      {"module": "Mathlib.Analysis.Distribution.TemperedDistribution", "declaration": "TemperedDistribution.delta", "role": "Dirac distribution object", "terminal": false},
+      {"module": "Mathlib.Analysis.Distribution.TemperedDistribution", "declaration": "TemperedDistribution.delta_apply", "role": "Dirac evaluation equation", "terminal": false},
+      {"module": "Mathlib.Analysis.Distribution.DerivNotation", "declaration": "LineDeriv.lineDerivOpCLM", "role": "continuous distributional directional derivative", "terminal": false},
+      {"module": "Mathlib.Analysis.Distribution.TemperedDistribution", "declaration": "TemperedDistribution.fourier_lineDerivOp_eq", "role": "Fourier-side derivative identity with 2*pi*i convention", "terminal": false},
+      {"module": "Mathlib.Analysis.Distribution.FourierMultiplier", "declaration": "TemperedDistribution.smulLeftCLM", "role": "tempered-distribution multiplier action", "terminal": false},
+      {"module": "Mathlib.RingTheory.MvPolynomial.Basic", "declaration": "MvPolynomial", "role": "polynomial symbol object", "terminal": false}
+    ],
+    "missing_bridges": [
+      "commuting coordinate derivatives assembled as the required MvPolynomial algebra homomorphism",
+      "division or inverse-symbol construction for an arbitrary nonzero multivariate polynomial",
+      "tempered fundamental-solution existence and the final P(D)E = delta equation"
+    ]
+  },
+  "repo_local_candidate": {
+    "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_160.lean",
+    "revision": "4d48a3c5fbec6d005a64a99338e40c001656264c",
+    "classification": "discovery_only_nonterminal",
+    "reason": "It defines interfaces and checks nearby mathlib lemmas, but explicitly provides no value of FundamentalSolutionConstruction and no theorem of the frozen root type."
+  },
+  "external_lean4_search": {
+    "searched_at_utc": "2026-07-11T23:59:00Z",
+    "github_repository_queries": [
+      {"query": "\"Malgrange-Ehrenpreis\" Lean", "result_count": 0},
+      {"query": "\"fundamental solution\" PDE Lean theorem", "result_count": 0}
+    ],
+    "installed_pinned_projects_checked": [
+      {"name": "flt-regular", "revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27"},
+      {"name": "mathlib", "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"}
+    ],
+    "candidate_found": false,
+    "qualification": "The negative result is bounded to the recorded repo, pinned dependency, and public discovery searches; it is not a claim that no Lean proof exists anywhere. No moving dependency was fetched."
+  },
+  "classification": {
+    "machine_state": "M3",
+    "proof_provenance": "not_repo_local_closed",
+    "integration_debt": "No exact external theorem was located, so there is currently no identified external proof to pin/import/check.",
+    "anchor_audit_complete": true,
+    "theorem_complete": false
+  },
+  "first_failed_later_gate": "No terminal declaration or proof body inhabits Stage1Instances.THM_M_1255.MalgrangeEhrenpreisTarget.",
+  "status_boundary": "This receipt completes candidate discovery and anchor classification only, pending master acceptance. Positive object-layer anchors do not prove the root theorem and earn no M0 credit."
+}

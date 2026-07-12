@@ -31,8 +31,10 @@ proof and does not resolve the primary-source status of the tempered-distributio
 ## Open task DAG
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
-The next phase must audit primary sources and Lean
-anchors, freeze typed obligation graphs, close proof bodies, and run the full release protocol.
+The Lean anchor audit is self-tested pending master acceptance. It found six useful object-layer
+anchors in pinned mathlib but no terminal mathlib, repo-local, or external Lean 4 proof candidate;
+see `anchor-audit.md` and `anchor-audit.json`. Later phases must freeze typed obligation graphs,
+close proof bodies, and run the full release protocol.
 
 ## Intake verdict
 
