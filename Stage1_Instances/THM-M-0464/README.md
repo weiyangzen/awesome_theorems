@@ -17,12 +17,24 @@ publication date and provides no proof or machine credit.
 | Uniformity | constants may depend on the definable set and `epsilon`; family-uniform refinements are separate | Uniform variants and algebraic-point variants are excluded from the root unless source audit proves they are the intended item |
 | Foundations | Lean 4 kernel plus a pinned mathlib environment | Toolchain, imports, axioms, TCB, and computation profiles remain open |
 
+## Statement phase
+
+The exact root is now frozen as Pila-Wilkie (2006), Theorem 1.8, first version. The canonical Lean
+expression is `AwesomeTheorems.THM_M_0464.PilaWilkieStatement` in `Statement.lean`; it elaborates
+against the pinned Lean 4.29.0/mathlib environment. `statement.json` records binder order, source
+snapshot, hashes, imports, and exactness decisions, while `statement_validation.md` records the
+node-scoped commands and output.
+
+This is statement evidence, not proof evidence. The declaration is a definition of a `Prop`, with
+no theorem declaration or proof body. Machine state is therefore `M3`, and theorem completion is
+false.
+
 ## Intake verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M4, R3]`. A primary source and theorem
-pinpoint have been located, but the terse repository metadata does not determine the exact variant,
-and no canonical Lean expression has been elaborated. The first failed theorem gate is therefore
-the exact-statement gate. This intake makes no theorem-completion or machine-proof claim.
+Lifecycle remains `planned`; the intake vector `[H1, M4, R3]` is superseded for the machine
+statement component by the provisional vector `[H1, M3, R3]`. The first-version variant and a
+canonical Lean expression are now frozen, but no representation transport, proof, or closure is
+credited. This dossier makes no theorem-completion or machine-proof claim.
 
 The structured claim and exclusions are in `intake.json`; the source relationship and precise
 ambiguities are recorded in `source_statement_crosswalk.md`. Validation evidence is in

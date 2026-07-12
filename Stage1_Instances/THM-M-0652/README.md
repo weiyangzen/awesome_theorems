@@ -44,3 +44,13 @@ and supplies no proof or theorem-completion credit.
 Commands and exact results for base revision `9c650bd6aac0dca129c8bc8ac01e0d7432669386`
 are recorded in `validation.md`. They establish target membership, standard consistency, JSON
 syntax, scoped references, and whitespace hygiene only.
+
+## Provisional anchor-audit result
+
+The pinned mathlib snapshot supplies checked first-order semantics, compactness, and language-map
+infrastructure, but no Craig interpolation root. The historical `S1_M_298` artifact is conditional
+architecture rather than a root proof. A sorry-free external Lean theorem was audited at an
+immutable revision, but it concerns propositional modal Goedel-Loeb logic and is not a candidate
+for the frozen first-order target. Exact candidates and reproducible checks are recorded in
+`anchor-audit.json` and `anchor-audit-validation.md`. The root remains `M3`; the theorem is not
+complete.

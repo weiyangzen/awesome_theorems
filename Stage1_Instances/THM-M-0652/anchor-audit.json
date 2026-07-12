@@ -1,0 +1,109 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0652-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0652",
+  "phase": "anchor_audit",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "eb5c892a92c1c04b8fef2fcfa1216419112ad294",
+  "canonical_target": "Stage1Instances.THM_M_0652.Statement",
+  "canonical_target_expression_sha256": "31ddfe8d7d426cacfb1acb17e443bbaa59a0e975fb92fb47916a600964362c6a",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_semantics_sha256": "3baef41c7aba65bbf86e842a307c464fa9041f329308a762783d92fdf48d4fd3"
+  },
+  "search_terms": [
+    "Craig",
+    "interpolation",
+    "interpolant",
+    "Robinson",
+    "Beth",
+    "cut elimination",
+    "sequent calculus",
+    "first-order completeness"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "LOCAL-CANONICAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "eb5c892a92c1c04b8fef2fcfa1216419112ad294",
+      "module": "Stage1_Instances/THM-M-0652/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0652.Statement",
+      "kind": "exact_statement_only",
+      "classification": "M3",
+      "proof_credit": false,
+      "result": "The exact proposition elaborates, but no proof body is present."
+    },
+    {
+      "candidate_id": "MATHLIB-MODEL-THEORY-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Mathlib.ModelTheory.Semantics",
+        "Mathlib.ModelTheory.Equivalence"
+      ],
+      "declarations": [
+        "FirstOrder.Language.Theory.isSatisfiable_iff_isFinitelySatisfiable",
+        "FirstOrder.Language.LHom.realize_onSentence",
+        "FirstOrder.Language.Theory.ModelType"
+      ],
+      "kind": "supporting_infrastructure",
+      "classification": "M3_support_only",
+      "proof_credit": false,
+      "result": "Pinned compactness, semantics, and language-map APIs elaborate. A source scan found no first-order Craig interpolation or terminal interpolant declaration."
+    },
+    {
+      "candidate_id": "LOCAL-LEGACY-S1-M-298",
+      "project": "awesome_theorems",
+      "revision": "eb5c892a92c1c04b8fef2fcfa1216419112ad294",
+      "module": "AwesomeTheorems.Stage1.S1_M_298",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_298.StatementShape",
+      "kind": "alternate_statement_and_partial_architecture",
+      "classification": "M3_support_only",
+      "proof_credit": false,
+      "result": "The historical four-language shape does not enforce exact vocabulary intersection. Its SemanticToDerivabilityBridge and InterpolantExtractionRules are assumed structure inputs; terminal semantic obligations are fields supplied by a caller. It contains no exact root proof body and no checked transport to the frozen target."
+    },
+    {
+      "candidate_id": "EXTERNAL-GL-COALGEBRAS",
+      "project": "mgignoux/lean4-gl-coalgebras",
+      "remote": "https://github.com/mgignoux/lean4-gl-coalgebras",
+      "revision": "1faed382f0c4d2b6656801a595b9dd2a4b0c2ea6",
+      "toolchain": "leanprover/lean4:v4.28.0",
+      "mathlib_revision": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+      "module": "GL.Interpolation.Interpolation",
+      "declaration": "interpolation",
+      "type": "(phi psi : Formula) -> valid (phi implies psi) -> exists chi, isInterpolant phi psi chi",
+      "source_sha256": "b5fbbcc1440c2284d2f2e8e10c09bbfad69eea134ccbd29c63124b194fbd88bb",
+      "manifest_sha256": "7cdad6184eff514da06bbb728783333ccf50374ba28318ca1f6256e33e32c7ee",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "kind": "credible_external_different_theorem",
+      "classification": "excluded_domain_mismatch",
+      "proof_credit": false,
+      "result": "The immutable source gives a sorry-free Craig interpolation proof for propositional modal Goedel-Loeb logic. Its Formula, validity, and finite propositional vocabulary are not the frozen arbitrary first-order Language/Sentence/Structure target, so it is neither a transport nor an integration candidate."
+    }
+  ],
+  "search": {
+    "repo_local": "Scanned the canonical dossier and historical S1_M_298 declaration bodies and status boundaries.",
+    "pinned_mathlib": "Scanned all Mathlib Lean sources for Craig/interpolant/interpolation and proof-calculus terms; only unrelated analytic and polynomial interpolation hits were returned.",
+    "external": "GitHub repository searches for Lean 4 Craig and first-order interpolation located the GL modal project. Commit search of a2435191/lean-logic-formalization returned zero interpolation commits. The GL candidate was inspected through immutable raw URLs.",
+    "limitations": "GitHub core API quota was exhausted after repository discovery and grep.app returned a Vercel security checkpoint. This is a bounded candidate audit, not an exhaustive global nonexistence claim. No dependency was fetched, cloned, or added."
+  },
+  "root_decision": {
+    "classification": "M3",
+    "kernel_closed": false,
+    "reason": "The pinned environment supplies first-order semantic infrastructure but no interpolation theorem. The repo-local legacy work is conditional architecture, and the credible external theorem is for modal GL rather than first-order logic.",
+    "debt_type": "formalization_debt",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "a checked first-order completeness or semantic-to-derivability bridge",
+      "a checked cut-free first-order calculus and interpolation extraction",
+      "proofs of both semantic entailment legs and exact common-vocabulary support"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false
+}

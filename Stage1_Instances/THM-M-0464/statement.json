@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/5.6.0",
+  "item_id": "S56-M-0464-STATEMENT",
+  "depends_on": ["S56-M-0464-INTAKE"],
+  "theorem_id": "THM-M-0464",
+  "source_variant": "Pila-Wilkie 2006, Theorem 1.8, first version",
+  "source_snapshot": {
+    "title": "The rational points of a definable set",
+    "authors": ["J. Pila", "A. J. Wilkie"],
+    "publication": "Duke Mathematical Journal 133 (2006), 591-616",
+    "doi": "10.1215/S0012-7094-06-13336-7",
+    "checked_copy_url": "https://eprints.maths.manchester.ac.uk/942/1/The_rational_points.pdf",
+    "checked_copy_sha256": "81071938707150caedbcc640cdd426ca8f2ca98bc016aac2dde054d9d45f4d2f",
+    "source_locations": ["Definition 1.3", "Definition 1.5", "Definition 1.7", "Theorem 1.8, first version"]
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module_file": "Stage1_Instances/THM-M-0464/Statement.lean",
+    "declaration_or_expression": "AwesomeTheorems.THM_M_0464.PilaWilkieStatement",
+    "kind": "definition_of_prop_without_proof_body",
+    "file_sha256": "17f12ef1ddf29bd25ef0928243339acd452b7d1534aa7a73efca01686ae81917",
+    "elaborator_output_sha256": "5f467e148ffd7fe060f55e1371cf8be5ce9aee16770c53cb868b6dcf427ecd92"
+  },
+  "environment_fingerprint": {
+    "base_revision": "9a198a2d8ff0981d17df1c1b8d4b11e4babaf7ed",
+    "lean": "4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "binder_order": [
+    "o-minimal structure S over the real field",
+    "ambient dimension n with 1 <= n",
+    "X subset of R^n definable in S",
+    "epsilon > 0",
+    "there exists c : R",
+    "for every natural T with 1 <= T"
+  ],
+  "conclusion": "The rational-point set is finite, and the real coercion of its cardinality is at most c * T^epsilon.",
+  "exactness_notes": [
+    "Height is max(|a|, b) for the reduced rational a/b and coordinatewise maximum on Q^n, as in Definition 1.3; it is not projective height.",
+    "The algebraic part is the union of connected positive-dimensional semialgebraic subsets of X, as in Definition 1.5.",
+    "For connected semialgebraic subsets of real space, positive dimension is represented by non-subsingleton; this equivalence remains a later proof obligation, not proof credit in this phase.",
+    "The first-version individual-set result is selected, not the uniform family results in Theorems 1.9 or 1.10.",
+    "No positivity hypothesis on c is added because Theorem 1.8 states only that a constant exists.",
+    "The source convention T >= 1 is explicit, and epsilon = 0 is excluded.",
+    "Finiteness is explicit before Set.ncard is used, so Lean's zero convention for ncard of an infinite set cannot weaken the target."
+  ],
+  "imports": [
+    "Mathlib.Data.Fin.Tuple.Reflection",
+    "Mathlib.Data.Set.Card",
+    "Mathlib.Data.Set.Finite.Basic",
+    "Mathlib.NumberTheory.Height.Basic",
+    "Mathlib.RingTheory.MvPolynomial.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    "Mathlib.Topology.Connected.Basic",
+    "Mathlib.Topology.Instances.Real.Lemmas"
+  ],
+  "machine_state": "M3",
+  "theorem_complete": false,
+  "status_boundary": "The exact proposition and its source-level definitions elaborate in the pinned Lean environment. No theorem declaration, proof body, closure, transport, anchor, or release claim is supplied."
+}
