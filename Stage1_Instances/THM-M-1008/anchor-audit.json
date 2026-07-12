@@ -1,0 +1,104 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1008-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1008",
+  "base_revision": "73ef7b942ea9b981648b4c8bc90d810d9a5340a5",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_1008.HewittSavageZeroOneTarget",
+  "canonical_target_expression_sha256": "2d9e3cd06b290ffddd906b177c7400dc999028ef45dc0134d845621a4aa7b76c",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "M1008-A-REPO-HISTORICAL",
+      "source": "repo-local discovery input",
+      "revision": "73ef7b942ea9b981648b4c8bc90d810d9a5340a5",
+      "module": "AwesomeTheorems.Stage1.S1_M_288",
+      "declaration": "StatementShape",
+      "type": "a structure-packaged iid symmetric-event zero-one statement",
+      "classification": "M2",
+      "placeholders_or_axioms": "the root is a definition, not a proof; the file contains checked route lemmas but no declaration inhabiting StatementShape",
+      "result": "statement-shape and proof-route anchors only; it is not definitionally the frozen binder-explicit target and supplies no root proof"
+    },
+    {
+      "id": "M1008-A-MATHLIB-IID-PERMUTATION",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.IdentDistribIndep",
+      "declarations": [
+        "ProbabilityTheory.iIndepFun.precomp",
+        "ProbabilityTheory.IdentDistrib.pi",
+        "ProbabilityTheory.IdentDistrib.measure_preimage_eq"
+      ],
+      "type": "permutation preserves independence; coordinatewise identical laws plus independence give identical path laws; measurable preimages then have equal measure",
+      "classification": "M0-P for these proper sub-obligations only",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "checked route anchors, but no finite-support symmetry-to-zero-one theorem and no exact root closure"
+    },
+    {
+      "id": "M1008-A-MATHLIB-SELF-INDEPENDENCE",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Independence.ZeroOne",
+      "declaration": "ProbabilityTheory.measure_eq_zero_or_one_of_indepSet_self",
+      "type": "IndepSet t t mu -> mu t = 0 or mu t = 1 for a finite measure",
+      "classification": "M0-P for the terminal algebra sub-obligation only",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "requires self-independence, which the frozen root does not assume and the candidate does not derive"
+    },
+    {
+      "id": "M1008-A-MATHLIB-KOLMOGOROV",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Independence.ZeroOne",
+      "declaration": "ProbabilityTheory.measure_zero_or_one_of_measurableSet_limsup_atTop",
+      "type": "a measurable event in the limsup/tail sigma-algebra of independent sigma-algebras has measure zero or one",
+      "classification": "M0-P for Kolmogorov's distinct theorem only",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "not the Hewitt-Savage root; finite-permutation invariance has not been transported to the required tail-measurability premise"
+    },
+    {
+      "id": "M1008-A-EXTERNAL-SURVEY",
+      "source": "five public Lean 4 probability repositories",
+      "revision": "immutable revisions listed in external_search.repositories",
+      "declaration": "none located",
+      "type": "no Hewitt-Savage terminal candidate matched the normalized search",
+      "classification": "M2",
+      "result": "immutable archive inspection found no exact or credible terminal theorem to pin/import/check"
+    }
+  ],
+  "external_search": {
+    "method": "Downloaded GitHub codeload archives at already-recorded immutable commits into a temporary directory, searched Lean sources, and deleted the directory; no dependency was cloned, fetched, or added.",
+    "normalized_terms": [
+      "Hewitt Savage",
+      "Hewitt-Savage",
+      "finite-support/finite-coordinate permutation plus zero/one",
+      "symmetric event plus zero/one"
+    ],
+    "repositories": [
+      {"repository": "wellecks/lean4_information_theory", "revision": "2c2cc3894f747d81cb2ad46b6d59638d8b345968", "toolchain": "leanprover/lean4:v4.24.0", "terminal_hits": 0, "lean_files_with_placeholder_tokens": 1},
+      {"repository": "mlinegar/FormalProbability", "revision": "718126e150c4798739b585f9505176ce8cf5ae3b", "toolchain": "leanprover/lean4:v4.27.0-rc1", "terminal_hits": 0, "lean_files_with_placeholder_tokens": 1},
+      {"repository": "BasharHamade12/MarkovChain_Formalisation_Lean", "revision": "24d6140363c42bb4d3931afda66f4d1f3ef62eed", "toolchain": "leanprover/lean4:v4.24.0", "terminal_hits": 0, "lean_files_with_placeholder_tokens": 0},
+      {"repository": "abenenson/channel-capacity", "revision": "a212a605d3ec5a23034e0c40f51b2b92d594efa5", "toolchain": "leanprover/lean4:v4.29.1", "terminal_hits": 0, "lean_files_with_placeholder_tokens": 1},
+      {"repository": "slink/LeanLevy", "revision": "b71b38e93b75a7089391131c0c24dade0c6fdef2", "toolchain": "leanprover/lean4:v4.29.0-rc3", "terminal_hits": 0, "lean_files_with_placeholder_tokens": 2}
+    ],
+    "limitations": "This bounded negative survey is not a proof that no Lean formalization exists anywhere. It establishes that no integration candidate was found in the audited immutable candidate set."
+  },
+  "root_decision": {
+    "classification": "M2",
+    "kernel_closed": false,
+    "reason": "the pinned closure contains exact supporting APIs and Kolmogorov's distinct zero-one theorem, but no declaration deriving the frozen symmetric-event iid root; the bounded external survey found no terminal candidate",
+    "integration_tasks": [],
+    "remaining_cut_set": [
+      "derive self-independence or an equivalent approximation limit from finite-permutation invariance and iid",
+      "compose that bridge with the checked self-independence zero-one endpoint"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false
+}
