@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1082-STATEMENT",
+  "theorem_id": "THM-M-1082",
+  "lifecycle": "planned",
+  "canonical_statement": "A stochastic process is Gaussian if and only if each restriction to a finite set of indices has a Gaussian law.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1082/Statement.lean",
+    "declaration_or_expression": "AwesomeTheorems.THM_M_1082.gaussianProcess_iff_finiteDimensionalGaussian",
+    "elaborated_expression_sha256": "26f4a571d703862aca5ccf41d7b75c6166d2fa67ca78a23db60d3f674d5ea592",
+    "statement_file_sha256": "a744c3af153df269d6a69f5ad8e18a7fa6e832841bac28ff43538df2e646efdd"
+  },
+  "domain_and_universes": "Omega : Type u_1, E : Type u_2, T : Type u_3; proposition in Prop",
+  "ordered_binders": [
+    "Omega : Type u_1",
+    "E : Type u_2",
+    "T : Type u_3",
+    "mOmega : MeasurableSpace Omega",
+    "MeasurableSpace E",
+    "TopologicalSpace E",
+    "AddCommMonoid E",
+    "Module Real E",
+    "X : T -> Omega -> E",
+    "P : Measure Omega"
+  ],
+  "conclusion": "ProbabilityTheory.IsGaussianProcess X P iff for every I : Finset T, ProbabilityTheory.HasGaussianLaw (fun omega => I.restrict (X . omega)) P",
+  "boundary_convention": "The empty finite index set is included. No nondegeneracy, centeredness, continuity, independence, or covariance hypothesis is added.",
+  "direct_imports": [
+    "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def"
+  ],
+  "alternate_encodings": [
+    {
+      "target": "forall I : Finset T, HasGaussianLaw (fun omega => I.restrict (X . omega)) P",
+      "relationship": "iff",
+      "checked_witness": "AwesomeTheorems.THM_M_1082.gaussianProcess_iff_finiteDimensionalGaussian"
+    }
+  ],
+  "foundation_profile": "Lean 4 dependent type theory and pinned mathlib measure-theory/Gaussian definitions; no custom axiom declarations",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "computation_profile": "Noncomputable measure-theoretic proposition; no oracle or computation supplies proof credit",
+  "environment_fingerprint": {
+    "base_revision": "7c40b39aac30d12a21a2ca13ebe9406d4d57b383",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "mutation_tests": [
+    "removed Module Real E instance",
+    "changed measure domain from Omega to T",
+    "moved finite-set binder out of scope",
+    "excluded the empty finite index set"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This artifact elaborates only the exact finite-dimensional characterization. It supplies no H0 source verdict, anchor acceptance, downstream proof credit, audit completion, or theorem-completion evidence."
+}
