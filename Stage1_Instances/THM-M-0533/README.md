@@ -15,3 +15,7 @@ The provisional root vector is `[H3, M4, R4]`. This intake claims neither an exa
 source fidelity (`H0`), kernel closure, audit completion, nor theorem completion. The scope map,
 source crosswalk, and open task DAG define the downstream work; validation evidence is recorded in
 `validation.md`.
+
+The statement phase now freezes and elaborates the open-cover, integral singular-homology target
+in `Statement.lean`; see `statement-receipt.md`. This is provisional node evidence only and does
+not change the planned lifecycle or claim proof/theorem completion.

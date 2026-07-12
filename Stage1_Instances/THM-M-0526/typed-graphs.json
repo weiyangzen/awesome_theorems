@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-typed-graph-bundle/1.0",
+  "item_id": "S56-M-0526-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0526",
+  "registry": "obligation-registry.json",
+  "graphs": {
+    "proof": [
+      ["SVK-UP", "SVK-ROOT", "required_child"],
+      ["SVK-SQUARE", "SVK-UP", "required_child"], ["SVK-EXISTS", "SVK-UP", "required_child"], ["SVK-UNIQUE", "SVK-UP", "required_child"],
+      ["SVK-MAP-FUNCTORIALITY", "SVK-SQUARE", "required_child"],
+      ["SVK-LOOP-SUBDIVISION", "SVK-EXISTS", "required_child"], ["SVK-CHANGE-BASEPATH", "SVK-EXISTS", "required_child"], ["SVK-WORD-EVALUATION", "SVK-EXISTS", "required_child"], ["SVK-LIFT-HOM", "SVK-EXISTS", "required_child"],
+      ["SVK-LEBESGUE-NUMBER", "SVK-LOOP-SUBDIVISION", "required_child"],
+      ["SVK-WORD-DEFINITION", "SVK-WORD-EVALUATION", "required_child"], ["SVK-WORD-INDEPENDENCE", "SVK-WORD-EVALUATION", "required_child"],
+      ["SVK-REFINEMENT-INVARIANCE", "SVK-WORD-INDEPENDENCE", "required_child"], ["SVK-HOMOTOPY-INVARIANCE", "SVK-WORD-INDEPENDENCE", "required_child"],
+      ["SVK-GENERATION", "SVK-UNIQUE", "required_child"], ["SVK-AGREEMENT-ON-WORDS", "SVK-UNIQUE", "required_child"]
+    ],
+    "refinement": [
+      ["SVK-ROOT", "SVK-UP", "specialize_cover_data"], ["SVK-UP", "SVK-SQUARE", "project_conjunct"],
+      ["SVK-UP", "SVK-EXISTS", "split_exists_unique"], ["SVK-UP", "SVK-UNIQUE", "split_exists_unique"]
+    ],
+    "provenance": [
+      ["Mathlib@8a178386ffc0f5fef0b77738bb5449d50efeea95:FundamentalGroup.map", "SVK-MAP-FUNCTORIALITY", "support_boundary"],
+      ["anchor-audit.json", "SVK-ROOT", "negative_candidate_inventory"], ["source-statement-crosswalk.md", "SVK-ROOT", "human_source_boundary"]
+    ],
+    "evidence": [
+      ["ObligationTree.lean:compose_pushout", "SVK-UP", "composition_check"], ["ObligationTree.lean:compose_root", "SVK-ROOT", "composition_check"],
+      ["obligation-tree-validation.md", "SVK-ROOT", "worker_validation_record"]
+    ],
+    "trust": [
+      ["Lean-4.29.0-kernel", "ObligationTree.lean:compose_pushout", "checks"],
+      ["propext", "ObligationTree.lean:compose_root", "axiom_dependency"], ["Classical.choice", "ObligationTree.lean:compose_root", "axiom_dependency"], ["Quot.sound", "ObligationTree.lean:compose_root", "axiom_dependency"]
+    ],
+    "documentation": [
+      ["proof-outline.md#svk-root", "SVK-ROOT", "explains"], ["proof-outline.md#open-leaves", "SVK-LEBESGUE-NUMBER", "explains_open_boundary"]
+    ],
+    "workflow": [
+      ["S56-M-0526-ANCHOR_AUDIT", "S56-M-0526-OBLIGATION_TREE", "depends_on"],
+      ["S56-M-0526-OBLIGATION_TREE", "S56-M-0526-PROOF", "enables"],
+      ["S56-M-0526-PROOF", "S56-M-0526-VALIDATION", "depends_on"], ["S56-M-0526-VALIDATION", "S56-M-0526-RELEASE", "depends_on"]
+    ]
+  },
+  "composition_certificates": [
+    {"parent": "SVK-UP", "declaration": "Stage1Instances.THM_M_0526.compose_pushout", "required_children": ["SVK-SQUARE", "SVK-EXISTS", "SVK-UNIQUE"], "checked": true},
+    {"parent": "SVK-ROOT", "declaration": "Stage1Instances.THM_M_0526.compose_root", "required_children": ["SVK-UP"], "checked": true, "note": "The root harness exposes the UP node through its three typed package interfaces; none is implemented here."}
+  ],
+  "deduplication": {"aliases": [], "wrappers": [], "transports": [], "distinct_terminal_proof_bodies": 0},
+  "status_boundary": "Graph typing and composition interfaces are checked; graph nodes remain open and receive no proof-body credit."
+}

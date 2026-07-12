@@ -12,17 +12,16 @@
 This is the narrow reading fixed by the Stage0 text: "homotopy equivalent spaces have the same
 homology groups." Here "same" means isomorphic, not definitionally equal.
 
-## Statement-phase decisions
+## Frozen statement conventions
 
-The exact source must fix whether "homology" means unreduced singular homology, reduced homology,
-or a stated general homology theory; the coefficient ring/module; natural-number or integer grading;
-and the category in which the group/module isomorphism lives. It must also settle universe and
-topological-space binders, whether the result quantifies over a packaged `HomotopyEquiv`, and how
-degree-zero, empty-space, and negative-degree cases are represented.
+`Target.lean` fixes unreduced singular homology with integral coefficients, valued in
+`ModuleCat ℤ`, and indexed by `n : ℕ`. It quantifies over base-universe types with topologies and a
+packaged `ContinuousMap.HomotopyEquiv`; the asserted morphism is the image of `e.toFun` under the
+degree-`n` singular homology functor and the conclusion is `IsIso` for that exact morphism.
 
-The preferred formal shape is a degreewise isomorphism induced by an actual homotopy equivalence,
-not a bare existential isomorphism. Binder order, imports, and the precise expression remain open
-until these decisions are source-checked and elaborated.
+Degree zero and empty spaces are included without side conditions. Negative degrees are excluded by
+the natural-number grading. This induced-map formulation is stronger and more informative than a
+bare existential isomorphism while matching the repository phrase "have the same homology groups."
 
 ## Explicit exclusions
 
