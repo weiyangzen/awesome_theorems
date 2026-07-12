@@ -1,0 +1,94 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0772-RELEASE",
+  "theorem_id": "THM-M-0772",
+  "intent": "release",
+  "base_revision": "ed3ed0f054485ec0127b6322b75cd061be59d105",
+  "evaluated_at": "2026-07-12T14:00:00+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0772-VALIDATION",
+    "authoritative_state": "open",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0772-VALIDATION-local-20260712T050310Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_release_grade": false,
+    "receipt_sha256": "210cbe08b72c5ee329024d741dda053c0f5e452ebaec2a08e088ffebd0657ac3"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0772-PROOF-local-20260712",
+    "S56-M-0772-VALIDATION-local-20260712T050310Z"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "best_provisional_machine_evidence": {
+    "classification": "candidate_M0-W_pending_authoritative_reconciliation_and_release_gates",
+    "declarations": [
+      "Stage1Instances.THM_M_0772.Proof.hausdorffMaximalPrinciple",
+      "Stage1Instances.THM_M_0772.Proof.expandedHausdorffMaximalPrinciple"
+    ],
+    "terminal_body": "Mathlib.Order.CompleteLattice.Chain.maxChain_spec",
+    "terminal_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "boundary": "Narrow warm-cache kernel replay is useful provisional evidence, but it cannot alter the planned instance, open task DAG, or stale pre-proof graph and is not E1 release evidence."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0772-VALIDATION remains open in the structured task DAG and has only a provisional non-release worker receipt, so release is not dependency-legal."
+  },
+  "next_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "The validation receipt explicitly reused a shared warm .lake cache and records no empty-cache network-denied cold build or offline restoration."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance and structured reconciliation of the statement, anchor, obligation-tree, proof, and validation dependency chain",
+    "reconciliation of the stale pre-proof typed graph and instance vector with the provisional exact-root proof evidence",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata crosswalk, and independent source review",
+    "accepted R0 anchored structured reconstruction and independent reader review",
+    "complete transitive declaration, axiom, provenance, trust, and TCB closure",
+    "immutable clean source snapshot and content-addressed release inputs",
+    "empty-cache network-denied cold build and offline archive replay",
+    "complete SBOM, license, and restorable dependency archive",
+    "two signed attestations from independently provisioned clean runners without shared writable caches",
+    "independently implemented minimal release verifier and required mutation/metamorphic fixtures",
+    "deterministic content-addressed evidence bundle, protected CI evidence, and master acceptance"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_and_root_kernel_replay": "provisional_same_worker_pass",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "same_worker_independent_implementation": "pass_via_IsChain.exists_maxChain_but_not_a_distinct_release_runner",
+    "authoritative_dependency_acceptance": "missing",
+    "authoritative_graph_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_archive": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "retry_condition": "The master must first accept and reconcile the dependency chain and authoritative root state. A separately provisioned release lane must then close H0/R0 review, complete trust and supply-chain inventories, cold offline reproduction, independent signed verification, adversarial fixtures, deterministic bundling, and final master acceptance.",
+  "status_boundary": "This is a self-tested fail-closed worker release decision. It creates no accepted receipt, lifecycle transition, debt promotion, AUDIT-Z, THEOREM-Z, theorem-completion claim, or master acceptance."
+}
