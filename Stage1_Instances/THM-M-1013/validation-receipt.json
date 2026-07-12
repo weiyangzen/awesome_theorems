@@ -1,0 +1,82 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1013-VALIDATION-local-20260712T020435Z",
+  "item_id": "S56-M-1013-VALIDATION",
+  "theorem_id": "THM-M-1013",
+  "base_revision": "eb5c892a92c1c04b8fef2fcfa1216419112ad294",
+  "base_tree": "57f0262412936dcf4583373445e087794846937b",
+  "validated_at": "2026-07-12T02:04:35Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "ce39df63f19bd700b3a05a64a27996bb482518ae3b2f015fbe3fa73b6d2b4fdb",
+    "validator_sha256": "feb522cc758927744c4cd27bbc8e72fa37eb9b0dc1ade42c66d4194cf4412897",
+    "statement_sha256": "76a798216239a16d9ea0fa55d2dd69c41f1e757de9c99deae69f2e9462076c0b",
+    "obligation_tree_sha256": "f9bfee6551a02d20ac436a70282f914a2ba49f3e41ea0e17a38d9d9a409de8ec",
+    "proof_sha256": "a06c23901f366aa546d16a566c244533748a910582cb101acb860e61b5b9e4f1",
+    "obligation_registry_sha256": "0eed5f1306be5125db5cb59a25c1bd71fe66601f6876a6be7de52dad2806e84a",
+    "typed_graphs_sha256": "f16a090bc3689074d951e5d7f7b180d18bcb401ee5bf005be2d41d0ea6799f38",
+    "proof_receipt_sha256": "56a176de05937e648ba1b001ce14a7a38489a3d91168e3a1a3e4c586f96c25d5"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1013/check_validation.py"],
+    "env": {},
+    "timeout_seconds": 120,
+    "network": "not_used"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_exact_statement_composition_and_root_proof",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "local_provenance_hashes": "pass_with_stale_graph_finding",
+    "dependency_pin_and_cleanliness": "pass",
+    "root_closed_by_checked_proof": true,
+    "authoritative_graph_root_closed": false,
+    "composition_certificates": [
+      "Stage1Instances.THM_M_1013.ObligationTree.compose_directions",
+      "Stage1Instances.THM_M_1013.Proof.cramerWold"
+    ],
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still reports the root open; only the master may reconcile authoritative state.",
+    "The run reused shared writable warm .lake artifacts, so it is not a cold empty-cache hermetic replay.",
+    "No complete transitive TCB inventory, SBOM/license archive, offline restoration, or second-platform attestation exists.",
+    "No independently provisioned clean runner, distinct verifier identity, second signature, or independently implemented minimal verifier exists.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "freshness": {
+    "review_due": "before master acceptance and upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "replace this receipt and fail closed on source, hash, pin, axiom, graph, validator, or policy drift"
+  },
+  "invalidation_inputs": [
+    "validation-spec.json",
+    "check_validation.py",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "proof-receipt.json",
+    "Lean toolchain",
+    "mathlib revision or worktree",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow exact-root validation with explicit failed hermetic and independent gates. It is not E0/E1, accepted M0, theorem completion, release, or master acceptance."
+}

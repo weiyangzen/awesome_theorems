@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0468-STATEMENT",
+  "theorem_id": "THM-M-0468",
+  "lifecycle": "planned",
+  "canonical_statement": "For an abelian variety over a number field, an ample symmetric line bundle L, and a closed geometrically integral subvariety X, the geometric points of X of canonical height at most epsilon are Zariski dense in X for every positive real epsilon if and only if X is a translate of an abelian subvariety by a torsion point.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0468/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0468.BogomolovTarget",
+    "elaborated_expression_sha256": "def6574c2c00a69cc99528ad59a0aed50a3ea74be6b4302f0427c5ed5485fa0e",
+    "statement_file_sha256": "84151eb96c1159df08e882934dfc3b8652b1bb38cf150a521c09708a727dbc8c"
+  },
+  "domain_and_universes": "universes uPoint uSubvariety uAbelianSubvariety uLineBundle; BogomolovData packages the geometric-point, subvariety, abelian-subvariety, line-bundle, group-law, canonical-height, torsion, and Zariski-density semantic surfaces for an abelian variety over a number field",
+  "ordered_binders": [
+    "D : BogomolovData",
+    "L : D.LineBundle",
+    "X : D.Subvariety",
+    "epsilon : Real"
+  ],
+  "hypotheses": [
+    "D represents an abelian variety over a number field",
+    "L is ample",
+    "L is symmetric",
+    "X is closed and geometrically integral",
+    "epsilon is positive"
+  ],
+  "conclusion": "The points x in X with canonicalHeight L x <= epsilon are Zariski dense in X for every positive epsilon if and only if X equals a translate t + B for an abelian subvariety B and torsion point t.",
+  "direct_imports": ["Mathlib.Data.Real.Basic"],
+  "checked_transport": "Stage1Instances.THM_M_0468.bogomolovTarget_exact_type",
+  "formalization_boundary": "Pinned mathlib has no abelian-variety, Neron-Tate-height, or algebraic-subvariety API. BogomolovData therefore exposes these source-level notions as typed semantic operations and predicates. It contains no theorem-result field, and BogomolovTarget still asserts the full equivalence.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0468/check_statement.py",
+    "killed": [
+      "removed ampleness",
+      "removed symmetry",
+      "removed closed geometric integrality",
+      "removed torsion from the special-locus predicate"
+    ]
+  },
+  "degenerate_cases": "X equal to the whole ambient variety and zero-dimensional geometrically integral X remain included. Empty or non-geometrically-integral loci, nonample heights, nonsymmetric heights, and nontorsion translates are excluded by explicit hypotheses or the special-locus conclusion.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected Ullmo-Zhang target and distinguishes four structural weakenings. It does not prove either implication, establish an anchor, or claim theorem completion."
+}
