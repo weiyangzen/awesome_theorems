@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0983-STATEMENT",
+  "theorem_id": "THM-M-0983",
+  "lifecycle": "planned",
+  "canonical_statement": "For a jointly independent identically distributed sequence of real-valued Bernoulli trials on a probability space, with success probability p identified by the expectation of the reference trial, the empirical frequency converges almost surely to p.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0983/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0983.BernoulliStrongLawTarget",
+    "elaborated_expression_sha256": "4ede545e65b98238682074217b653440c28d5e840f9ef21e74180a862d473845",
+    "statement_file_sha256": "ee2bcf84a0ecabfdecd39b079957f6df58d48bf41ff0485ce8ebf96399f3d871"
+  },
+  "domain_and_universes": "universe u; Omega : Type u; MeasurableSpace Omega; probability measure mu; X : Nat -> Omega -> Real; p : Real; Prop in Lean universe 0",
+  "ordered_binders": [
+    "Omega : Type u",
+    "[MeasurableSpace Omega]",
+    "mu : Measure Omega",
+    "[IsProbabilityMeasure mu]",
+    "X : Nat -> Omega -> Real",
+    "p : Real"
+  ],
+  "hypotheses": [
+    "X 0 is integrable with respect to mu",
+    "X is jointly independent via ProbabilityTheory.iIndepFun X mu",
+    "each X i is identically distributed with X 0 under mu",
+    "each X i is {0,1}-valued mu-almost everywhere",
+    "the expectation integral mu[X 0] equals p"
+  ],
+  "conclusion": "For mu-almost every omega, Tendsto (fun n => empiricalFrequency X n omega) atTop (nhds p).",
+  "direct_imports": ["Mathlib.Probability.StrongLaw"],
+  "checked_transport": "Stage1Instances.THM_M_0983.target_iff_expandedIntakeShape",
+  "source_boundary": "This elaborates the exact strong, almost-sure Bernoulli-frequency reading selected by intake. Primary-source edition, theorem/page, assumptions, and errata remain anchor-audit work; the historical S1_M_263 module receives no statement or proof credit.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0983/check_statement.py",
+    "killed": [
+      "removed joint-independence hypothesis",
+      "changed real-valued observations to natural-valued observations",
+      "moved p from a universal binder to an existential conclusion",
+      "removed the probability-measure typeclass"
+    ],
+    "boundary_proofs": ["Stage1Instances.THM_M_0983.empiricalFrequency_zero"]
+  },
+  "degenerate_cases": "p = 0 and p = 1 remain included. The n = 0 empirical frequency is definitionally the empty sum divided by zero in Real and is proved equal to zero; this single initial value does not change the stated atTop limit. No nondegeneracy assumption is added.",
+  "alternate_encodings": {
+    "pairwise_package": "The historical FrequencyLawData pairwise-independent package is not the canonical target; the selected target uses the intake-required family-level iIndepFun interface.",
+    "convergence_in_probability": "The historical TendstoInMeasure form is strictly weaker and is not substituted for the almost-sure root."
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact target, direct expansion, mutations, and n=0 boundary elaborate with the pinned minimal import. No source acceptance, proof closure, or downstream node completion is claimed."
+}
