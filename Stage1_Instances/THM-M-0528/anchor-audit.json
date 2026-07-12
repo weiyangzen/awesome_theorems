@@ -1,0 +1,113 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0528-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0528",
+  "audit_date": "2026-07-12",
+  "base_revision": "32ebb5b683ce29d721974e08403e48f86ecd7bd9",
+  "canonical_target": "Stage1Instances.THM_M_0528.CoveringLiftUniquenessTarget",
+  "canonical_expression_sha256": "722b820b9322f8eba435ecaad4432c680f6301bad55f585aa73c60878ad40376",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_source_sha256": "c9f48cf15f3740dea92c17c6943bf718865d9e4d28410433f4cf219f17843890",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "order": [
+      "repository-local Lean source",
+      "all dependencies already pinned by lake-manifest.json",
+      "Sourcegraph public Lean index",
+      "GitHub repository and code search"
+    ],
+    "aliases": [
+      "IsCoveringMap.eq_of_comp_eq",
+      "covering lift uniqueness",
+      "uniqueness of lifts",
+      "Proposition 1.34 covering"
+    ],
+    "limitations": "Public searches are bounded discovery evidence, not proof of global absence. No dependency was cloned, fetched, updated, or added."
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0528-MATHLIB-EXACT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Covering.Basic",
+      "file": "Mathlib/Topology/Covering/Basic.lean",
+      "declaration": "IsCoveringMap.eq_of_comp_eq",
+      "source_location": "lines 366-369 at the pinned revision",
+      "documented_source": "Proposition 1.34 of Hatcher 2002",
+      "normalized_match": "Exact pointwise closure of every binder in the frozen universally quantified target; AnchorAudit.lean provides the checked adapter.",
+      "terminal_body": "hf.isSeparatedMap.eq_of_comp_eq hf.isLocalHomeomorph.isLocallyInjective h1 h2 he a ha",
+      "terminal_dependencies": [
+        "IsCoveringMap.isSeparatedMap",
+        "IsCoveringMap.isLocalHomeomorph",
+        "IsSeparatedMap.eq_of_comp_eq",
+        "IsLocalHomeomorph.isLocallyInjective"
+      ],
+      "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_unsafe_status": "No sorry/admit/axiom declaration or unsafe/oracle boundary occurs in the scoped terminal body; complete transitive trust closure remains a validation-phase gate.",
+      "dependency_feasibility": "Already present at the exact lake-manifest revision and elaborated with the existing pinned artifacts.",
+      "classification": "M1",
+      "proof_credit_at_this_phase": false
+    },
+    {
+      "candidate_id": "M0528-LOCAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "32ebb5b683ce29d721974e08403e48f86ecd7bd9",
+      "module": "Stage1_Instances/THM-M-0528/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0528.CoveringLiftUniquenessTarget",
+      "normalized_match": "Canonical target definition only",
+      "classification": "M3_statement_only",
+      "proof_credit_at_this_phase": false
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public Lean code search",
+      "query": "context:global archived:yes fork:yes lang:Lean quoted IsCoveringMap.eq_of_comp_eq count:100",
+      "result": "matchCount=0 on the indexed surface",
+      "response_sha256": "bf042b4ef1d43209f04d57836c90811ebfad14ef1184617d0ceaa35e4e076e6f"
+    },
+    {
+      "surface": "Sourcegraph public Lean code search",
+      "query": "context:global archived:yes fork:yes lang:Lean quoted Proposition 1.34 and covering count:100",
+      "result": "matchCount=0 on the indexed surface",
+      "response_sha256": "e693d85155c0b497b237c00269dc9b655d3148ef2976dd5277a8226af2651a19"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=quoted covering map and quoted Lean 4",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=quoted IsCoveringMap.eq_of_comp_eq language:Lean",
+      "result": "anonymous API rate-limit failure; no negative result claimed",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e"
+    }
+  ],
+  "root_decision": {
+    "classification": "M1",
+    "kernel_closed": false,
+    "reason": "The exact immutable mathlib terminal theorem and a full-target adapter elaborate locally. This phase inventories and validates the anchor but does not install the proof-phase canonical wrapper or accept downstream trust and composition receipts.",
+    "recommended_route": "Use IsCoveringMap.eq_of_comp_eq as the unique terminal body after freezing the obligation registry.",
+    "remaining_cut_set": [
+      "obligation registry and typed composition graph",
+      "proof-phase canonical wrapper",
+      "transitive provenance and trust closure",
+      "node-specific proof, validation, and release receipts"
+    ]
+  },
+  "human_status_boundary": "The mathlib comment identifies Hatcher Proposition 1.34, but primary-edition theorem/page/assumption/errata acceptance was not performed here; no H0 claim is made.",
+  "audit_complete_for_phase": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This completes only the bounded immutable formal-anchor inventory. It does not accept the obligation, proof, validation, release, H0, AUDIT-Z, or THEOREM-Z gates."
+}
