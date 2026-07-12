@@ -1,0 +1,13 @@
+def Stage1Instances.THM_M_0646.LoewenheimSkolemTarget.{u, v, w, w'} : Prop :=
+∀ (L : FirstOrder.Language.{u, v}) (M : Type w') [inst : L.Structure M] [Infinite.{w' + 1} M] (κ : Cardinal.{w}),
+  @LE.le.{w + 1} Cardinal.{w} Cardinal.instLE.{w} Cardinal.aleph0.{w} κ →
+    @LE.le.{max (max (u + 1) (v + 1)) (w + 1)} Cardinal.{max (max u v) w} Cardinal.instLE.{max (max u v) w} L.card.lift
+        κ.lift →
+      @LE.le.{max (w + 1) (w' + 1)} Cardinal.{max w' w} Cardinal.instLE.{max w w'} (Cardinal.mk.{w'} M).lift κ.lift →
+        ∃ N,
+          And
+            (@FirstOrder.Language.ElementarilyEquivalent.{u, v, w', w} L M
+              (@CategoryTheory.Bundled.α.{w, max (max u v) w} L.Structure N) inst
+              (@CategoryTheory.Bundled.structure.{u, v, w} L N))
+            (@Eq.{w + 2} Cardinal.{w} (Cardinal.mk.{w} (@CategoryTheory.Bundled.α.{w, max (max u v) w} L.Structure N))
+              κ)

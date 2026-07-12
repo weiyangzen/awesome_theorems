@@ -1,0 +1,104 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0320-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0320",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "5467f527e0c402d2d52235957d4f316892fcfb75",
+  "target": "Stage1Instances.THM_M_0320.KakutaniFixedPointTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index",
+    "GitHub repository search",
+    "immutable external candidate source archive"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-0320-C01",
+      "project": "awesome_theorems",
+      "revision": "5467f527e0c402d2d52235957d4f316892fcfb75",
+      "module": "Stage1_Instances/THM-M-0320/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0320.KakutaniFixedPointTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already local as the statement surface and supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-0320-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Topology.Semicontinuity.Hemicontinuity",
+        "Mathlib.Topology.MetricSpace.Bounded"
+      ],
+      "declarations": [
+        "UpperHemicontinuousOn",
+        "UpperHemicontinuousOn.upperHemicontinuousWithinAt",
+        "UpperHemicontinuousAt.mem_of_tendsto",
+        "upperHemicontinuousOn_iff_forall_isOpen",
+        "Metric.isCompact_of_isClosed_isBounded",
+        "IsCompact.isSeqCompact",
+        "Convex"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "hemicontinuity, closed-bounded compactness, sequential closure, and convexity APIs only; no set-valued fixed-point theorem",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "all selected declarations elaborate in the pinned Lake environment; no exact terminal theorem exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checked, but insufficient for the exact target"
+    },
+    {
+      "candidate_id": "S56-M-0320-C03",
+      "project": "harfe/fixed-point-theorems-lean4",
+      "repository": "https://github.com/harfe/fixed-point-theorems-lean4",
+      "revision": "11a9f041246d28374edae384241757f9a0cbd5e4",
+      "archive_sha256": "08749ae7e97b6125a68ae89e1a5ef59e3a2c9793bb850d6ae3b5d96bb2388d70",
+      "module": "FixedPointTheorems.kakutani",
+      "declaration": "kakutani_fixed_point",
+      "source_file_sha256": "c73b57bb952ceed4f4716c00de4e723dbacdff8d074369df6a96bce54e404903",
+      "toolchain": "leanprover/lean4:v4.21.0-rc3",
+      "mathlib_revision": "c873c5d1d1eb371ddca7f0f5eab48e80ed10b7cb",
+      "license": "no license file or repository license metadata located",
+      "kind": "credible_external_near_match",
+      "normalized_match": "same finite-dimensional compact-convex correspondence fixed-point conclusion, expressed on a subtype and assuming a closed graph",
+      "statement_differences": [
+        "external domain is an arbitrary finite-dimensional real normed space and assumes IsCompact; the target is Euclidean and assumes IsClosed plus Bornology.IsBounded",
+        "external correspondence has type s -> Set V; the target uses an ambient function V -> Set V with hypotheses restricted to K",
+        "external regularity premise is closedGraph f; the target premise is UpperHemicontinuousOn F K together with pointwise closed values",
+        "a checked wrapper must derive compactness and the subtype closed-graph premise, then transport the subtype witness back to ambient membership"
+      ],
+      "body_provenance": "theorem body in FixedPointTheorems/kakutani.lean depends on the project's local Brouwer proof, partition of unity, Caratheodory, and a sequential compactness argument",
+      "placeholder_or_axiom_status": "no sorry, admit, axiom declaration, unsafe declaration, or implemented_by marker matched any Lean source in the immutable archive; uses ordinary Classical choice",
+      "upstream_validation": "repository README claims complete proofs with no sorry; not treated as local kernel evidence",
+      "classification": "M1_near_match_with_transport_and_integration_debt",
+      "integration_status": "not in the local dependency closure; Lean and mathlib revisions differ; exact wrapper, local kernel validation, axiom closure, and license permission remain open"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes Kakutani lang:Lean count:100",
+      "result": "33 textual matches, all visible matches were Riesz-Markov-Kakutani material rather than the fixed-point theorem; the harfe project was found separately by repository search",
+      "immutability_boundary": "dated discovery result; not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=Kakutani+Lean4 and repositories?q=\"Kakutani fixed point\"",
+      "result": "identified harfe/fixed-point-theorems-lean4; later API requests were rate-limited, so the candidate revision was fixed independently with git ls-remote",
+      "immutability_boundary": "discovery response led to the separately immutable commit archive"
+    }
+  ],
+  "root_machine_classification": "M1",
+  "root_classification_reason": "A substantive placeholder-free external Lean 4 proof of the corresponding compact-convex closed-graph theorem was located, but it is absent from the pinned local dependency closure and does not have the exact target type. Compactness, ambient/subtype, and upper-hemicontinuity-to-closed-graph transports remain unchecked, and upstream license permission is unresolved.",
+  "machine_debt": "repo_local_integration_debt plus exact-wrapper transport debt",
+  "integration_blocker": "The proof phase must first resolve licensing, pin a compatible immutable dependency or vendor with permission, validate its terminal body, and implement a placeholder-free exact-type wrapper deriving IsCompact K and closedGraph for the subtype correspondence from the frozen hypotheses. This audit did not clone, fetch, build, or mutate Lake dependencies.",
+  "reopen_condition": "Resolved license plus a compatible immutable pin and a locally checked exact-type wrapper from kakutani_fixed_point to KakutaniFixedPointTarget, with axiom, placeholder, dependency, and provenance checks.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes bounded candidate discovery and classification only. It supplies no exact machine closure, no human-source H0 decision, no obligation tree, and no theorem-completion claim."
+}
+

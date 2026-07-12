@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0318-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0318",
+  "base_revision": "ba66c12eb0b1828b8aa19b6fa8eb2171a454e162",
+  "audit_date": "2026-07-12",
+  "canonical_target": "Stage1Instances.THM_M_0318.SchauderFixedPointTarget",
+  "canonical_target_expression_sha256": "2605ac76f3d50dddcc135d3094639fbed3de58a10b26a8f9eeb504101e556b5f",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "manifest": "Formalizations/Lean/lake-manifest.json"
+  },
+  "search_protocol": {
+    "cutoff": "2026-07-12 Asia/Shanghai",
+    "repo_local": "Search all repository Lean, Markdown, and JSON outside this target for case-insensitive schauder and fixed-point spellings; inspect neighboring theorem dossiers only as discovery leads.",
+    "pinned_dependencies": "Verify the mathlib worktree revision and cleanliness; search every pinned mathlib Lean source for Schauder and fixed-point spellings; inspect exact nearby declarations and elaborate them with axiom reports.",
+    "external": "Search public GitHub repositories by Schauder/Lean and fixed-point/Lean terms without fetching dependencies; resolve a credible result to an immutable commit and inspect raw source, toolchain, and dependency lock.",
+    "limitations": "Unauthenticated GitHub code search and grep.app were rate-limited, so repository search plus a public repository query was used. No dependency was cloned, fetched, added, or built. The external project was source-audited, not locally kernel-checked."
+  },
+  "search_protocol_sha256": "71f56216dbe79c237f192a58dfc98cf143decc4c4af85367577bc6f73a3d6b63",
+  "candidates": [
+    {
+      "id": "M0318-A-MATHLIB-EXACT",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": null,
+      "declaration": null,
+      "type": "No declaration matching the arbitrary-dimensional compact-convex target was found.",
+      "classification": "M4",
+      "evidence_tier": "E3 search inventory",
+      "result": "Case-insensitive searches found no Schauder fixed-point declaration; Schauder hits concern bases, and fixed-point hits concern narrower theorems."
+    },
+    {
+      "id": "M0318-A-MATHLIB-CONTRACTION",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.MetricSpace.Contracting",
+      "declaration": "ContractingWith.exists_fixedPoint'",
+      "type": "For a complete invariant subset, a contracting restriction and a finite-distance start yield a fixed point, convergence, and estimates.",
+      "classification": "M5 statement mismatch",
+      "evidence_tier": "E1 for its own declaration only",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "Kernel-checked nearby anchor, but contraction and completeness are not hypotheses of the frozen Schauder target and cannot be manufactured."
+    },
+    {
+      "id": "M0318-A-MATHLIB-INTERVAL",
+      "source": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declaration": "exists_mem_Icc_isFixedPt_of_mapsTo",
+      "type": "A continuous self-map of a nonempty closed interval in a densely ordered conditionally complete linear order has a fixed point in that interval.",
+      "classification": "M2 special case only",
+      "evidence_tier": "E1 for its own declaration only",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "result": "Kernel-checked one-dimensional interval branch; it does not quantify over arbitrary real normed spaces or compact convex sets."
+    },
+    {
+      "id": "M0318-A-HARFE-BROUWER",
+      "source": "harfe/fixed-point-theorems-lean4",
+      "revision": "11a9f041246d28374edae384241757f9a0cbd5e4",
+      "module": "FixedPointTheorems.brouwer",
+      "declaration": "brouwer_fixed_point",
+      "type": "For finite-dimensional real normed V, every continuous subtype self-map of a nonempty compact convex s has a fixed point.",
+      "toolchain": "leanprover/lean4:v4.21.0-rc3",
+      "mathlib_revision": "c873c5d1d1eb371ddca7f0f5eab48e80ed10b7cb",
+      "classification": "M2 external finite-dimensional branch",
+      "evidence_tier": "E3",
+      "result": "Immutable exact source anchor for Brouwer's finite-dimensional specialization, not Schauder's arbitrary-dimensional root; it is outside the local dependency closure and was not kernel-built here."
+    }
+  ],
+  "root_decision": {
+    "classification_before": "M3",
+    "classification_after": "M3",
+    "kernel_closed": false,
+    "reason": "The pinned environment contains no exact root. Checked mathlib anchors require contraction or cover only an interval; the external Brouwer candidate requires finite dimensionality. None implies the arbitrary-dimensional target without the missing Schauder approximation argument.",
+    "remaining_cut_set": [
+      "finite-dimensional approximation/retraction construction for a compact set",
+      "finite-dimensional Brouwer integration compatible with the local pin",
+      "compactness limit argument producing an exact fixed point"
+    ]
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_phase_complete": true,
+  "theorem_complete": false,
+  "status_boundary": "Candidate inventory and immutable-revision classification only. No candidate closes the canonical root; no proof, H0, audit completion, or theorem completion is claimed."
+}

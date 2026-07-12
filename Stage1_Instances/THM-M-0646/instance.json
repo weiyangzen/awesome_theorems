@@ -12,8 +12,8 @@
   "name_en": "Loewenheim-Skolem theorem",
   "category": "mathematical logic / model theory",
   "target_system": "Lean 4 + mathlib",
-  "canonical_claim_status": "human_scope_frozen_formal_statement_open",
-  "canonical_claim": "Given an infinite structure M for a first-order language L and every sufficiently large infinite cardinal kappa, there is an L-structure N of cardinality kappa that is elementarily equivalent to M. The statement phase must decide whether the checked presentation uses the direct equivalence theorem or the stronger upward elementary-extension form.",
+  "canonical_claim_status": "human_scope_and_formal_statement_frozen",
+  "canonical_claim": "Given an infinite structure M for a first-order language L and every infinite cardinal kappa at least as large as both the language and M, there is an L-structure N of cardinality kappa that is elementarily equivalent to M.",
   "source_phrase": "无穷模型有任意大的初等等价模型",
   "source_status": "repository_wording_frozen_historical_attribution_and_pinpoint_primary_source_open",
   "root_vector": {
@@ -26,19 +26,30 @@
   "accepted_proof_state": [],
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": "toolchain leanprover/lean4:v4.29.0; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; exact minimal imports and options open"
+    "module": "Stage1_Instances/THM-M-0646/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0646.LoewenheimSkolemTarget",
+    "elaborated_expression_hash": "sha256:60759741f71ff69531857f6ed68ac5b989f60dec9d4d7faed08564cce2b16dfc",
+    "environment_fingerprint": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; import Mathlib.ModelTheory.Satisfiability; pp.explicit=true; pp.universes=true"
   },
-  "domain_and_universes": "A first-order language L, an L-structure M, a target cardinal kappa, and an output L-structure N; precise universe lifts remain for the statement phase.",
-  "quantifiers": "Intended order: L, M with an L-structure, infinitude of M, kappa, cardinal lower bounds, then existential N and an elementary embedding M to N.",
-  "hypotheses": "M is infinite; kappa is at least the relevant language and source-model cardinalities. Exact lift equations and whether aleph_0 is explicit remain open.",
-  "conclusion": "An L-structure N of cardinality kappa elementarily equivalent to M; a stronger elementary-extension witness may be used only with a checked implication bridge.",
-  "alternate_encodings": [],
+  "domain_and_universes": "L : FirstOrder.Language.{u,v}; M : Type w' with L.Structure M; kappa : Cardinal.{w}; N : CategoryTheory.Bundled L.Structure in universe w. All cross-universe cardinal comparisons use the lifts printed in statement-elaboration.txt.",
+  "quantifiers": "L, M, the L.Structure M instance, Infinite M, kappa, aleph_0 <= kappa, lift L.card <= lift kappa, lift #M <= lift kappa, then existential N.",
+  "hypotheses": "Infinite M; aleph_0 <= kappa; Cardinal.lift.{w} L.card <= Cardinal.lift.{max u v} kappa; Cardinal.lift.{w} #M <= Cardinal.lift.{w'} kappa.",
+  "conclusion": "There exists a bundled L-structure N with M elementarily equivalent to N and #N = kappa.",
+  "alternate_encodings": [
+    {
+      "target": "exists N, Nonempty (M ↪ₑ[L] N) and #N = kappa",
+      "relationship": "implies",
+      "checked_witness": "Stage1Instances.THM_M_0646.elementaryExtension_implies_target"
+    },
+    {
+      "target": "FirstOrder.Language.exists_elementarilyEquivalent_card_eq",
+      "relationship": "implies",
+      "checked_witness": "Stage1Instances.THM_M_0646.pinned_mathlib_implies_target"
+    }
+  ],
   "excluded_degenerate_cases": "Finite source structures; target cardinals below the required bounds; a merely equicardinal type without an L-structure; or a model with no checked elementary relationship to M.",
-  "foundation_profile": "Lean 4 dependent type theory; classical/cardinal-choice dependencies not yet frozen",
-  "tcb_profile": "Lean kernel, repository toolchain, and pinned mathlib; exact import closure remains open",
+  "foundation_profile": "Lean 4 dependent type theory plus the classical/cardinal choice principles in the pinned mathlib declaration dependency closure; no new axiom is introduced by this statement module",
+  "tcb_profile": "Lean 4.29.0 kernel and pinned mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95 through the single direct import Mathlib.ModelTheory.Satisfiability",
   "computation_profile": "noncomputable model-existence theorem expected; no oracle or experimental evidence credited",
   "formal_system": "Lean 4 + mathlib, rev-5.6 adapter",
   "source_revisions": {
@@ -60,7 +71,12 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
+    "Statement.lean",
+    "StatementMutations.lean",
+    "statement-elaboration.txt",
+    "statement-receipt.json",
+    "statement-validation.md",
     "validation.md"
   ],
-  "status_boundary": "A planned intake only: no exact Lean expression, H0, M0, R0, audit completion, or theorem completion is claimed."
+  "status_boundary": "The exact Lean statement is elaborated and mutation-tested. This statement-phase evidence grants no proof credit, H0, M0, R0, audit completion, or theorem completion."
 }
