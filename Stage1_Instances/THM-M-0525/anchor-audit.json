@@ -1,0 +1,114 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0525-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0525",
+  "execution_rank": 582,
+  "audit_date": "2026-07-12",
+  "lifecycle_mode": "planned",
+  "canonical_target": "THM_M_0525.Statement",
+  "audit_scope": "Repo-local sources, pinned mathlib, and credible public formalizations of the based topological fundamental group available through the recorded search protocol.",
+  "immutable_environment": {
+    "repository_base_revision": "1c79616e19a84057db087026c82a5015599a2b18",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0"
+  },
+  "mathlib_candidates": [
+    {
+      "id": "ML-FUNDAMENTAL-GROUP",
+      "module": "Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup",
+      "file": "Mathlib/AlgebraicTopology/FundamentalGroupoid/FundamentalGroup.lean",
+      "git_blob": "b65e9b431853f16e9cb312225192c4ef25d4412b",
+      "sha256": "4d38953d013f239ed987fb0e1d46bdb440a9366420d456d550fd4719c2c94a2d",
+      "declarations": ["FundamentalGroup", "instGroupFundamentalGroup"],
+      "role": "Carrier and inherited vertex-group instance.",
+      "exactness": "Carrier exact by definitional equality; identity and inverse operations exact; multiplication is reversed because CategoryTheory.End.mul_def states xs * ys = ys >> xs.",
+      "terminal_body": "FundamentalGroupoid.instGroupoid together with CategoryTheory.End.group",
+      "placeholder_scan": "No sorry, admit, axiom, or unsafe declaration in the audited declaration bodies.",
+      "integration": "already pinned and locally importable",
+      "classification": "partial_exact_anchor_not_exact_root_closure"
+    },
+    {
+      "id": "ML-QUOTIENT-LAWS",
+      "module": "Mathlib.AlgebraicTopology.FundamentalGroupoid.Basic",
+      "file": "Mathlib/AlgebraicTopology/FundamentalGroupoid/Basic.lean",
+      "git_blob": "5a4acdd017cd528261b7a834aead2df9cea0b65e",
+      "sha256": "3574eb339dcfa87a57bde1a54d441eda7a2abea7b3c42093f19e6c0bb17f9fd6",
+      "declarations": [
+        "Path.Homotopic.Quotient.refl_trans",
+        "Path.Homotopic.Quotient.trans_refl",
+        "Path.Homotopic.Quotient.trans_assoc",
+        "Path.Homotopic.Quotient.trans_symm",
+        "Path.Homotopic.Quotient.symm_trans"
+      ],
+      "role": "The five quotient-level laws required to build the exact forward-concatenation Group in Statement.lean.",
+      "exactness": "Exact law signatures for the frozen carrier, multiplication, identity, and inverse.",
+      "terminal_body": "Quotient induction reducing to explicit endpoint-fixed path homotopies in the same module; raw quotient operations originate in Mathlib.Topology.Homotopy.Path.",
+      "machine_axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_scan": "No sorry, admit, axiom, or unsafe declaration in the audited declaration bodies.",
+      "integration": "already pinned and locally importable",
+      "classification": "exact_proof_components_available"
+    }
+  ],
+  "external_candidates": [
+    {
+      "project": "owen-milner/Lean_Fundamental_Group",
+      "revision": "ed415401c987b907dbe2b78984e7d3200d3e9b6c",
+      "tree": "1d84cb910096355cbab71b20f7d89a9cdf041587",
+      "toolchain": "Lean 3 leanpkg project",
+      "files": ["src/basic.lean", "src/lemmas.lean"],
+      "declaration": "based.Fundamental_Group",
+      "assessment": "Defines only the loop quotient in the audited revision; no Group instance or exact Lean 4 closure. Incompatible toolchain and not pinned locally.",
+      "classification": "external_upstream_anchor_only_ineligible"
+    },
+    {
+      "project": "Mak1Haru/Lean_Fundamental_Group",
+      "revision": "79a34ce4d7a9e498ee603eeca5554f9a5539f593",
+      "tree": "64852de6ccf5ce9bd4e8b2c191cb383acf8ee7a5",
+      "toolchain": "Lean 3 with mathlib submodule 773a7a4253335e5fadda5c4761f5c9fc00175e75",
+      "file": "src/Fundamental_Group.lean",
+      "declarations": ["Alg_Top.pi1", "Alg_Top.group_structure"],
+      "assessment": "Closest external construction, but Lean 3, unlicensed in repository metadata, not pinned locally, and not an importable Lean 4 candidate. Superseded by pinned mathlib for this target.",
+      "classification": "external_upstream_anchor_only_ineligible"
+    },
+    {
+      "project": "prakol16/lean-fundamental-groupoid",
+      "revision": "cf1b62f2c89d476fee80699f836694370f3c560c",
+      "tree": "00dbb4e6e58c0f3cae599b4b9ac3f66a160f57af",
+      "toolchain": "Lean 3 leanpkg project",
+      "assessment": "Fundamental-groupoid product and connectedness work, not the exact based-loop Group construction; incompatible toolchain and not pinned locally.",
+      "classification": "related_not_candidate"
+    },
+    {
+      "project": "chrisflav/pi1",
+      "revision": "5c5c0171efc863ce9990171bdf46d7cb5fd582fb",
+      "tree": "8680793712f51b2277907cb13d094c001eb69e5d",
+      "toolchain": "Lean 4",
+      "assessment": "Formalizes the etale fundamental group of schemes, not the based topological path-homotopy group frozen here.",
+      "classification": "different_theorem"
+    }
+  ],
+  "search_protocol": {
+    "performed_utc": "2026-07-12",
+    "repo_local": "rg over Lean sources for FundamentalGroup, CanonicalBasedLoopGroup, and Path.Homotopic.Quotient",
+    "pinned_mathlib": "rg plus source and git-object inspection at the manifest revision",
+    "external": "GitHub repository search query quoted fundamental group language:Lean, followed by immutable commit/tree and raw-source inspection of plausible repositories",
+    "limitations": "Unauthenticated GitHub repository search is not exhaustive code search. Candidate conclusions are bounded to the recorded public search and inspected revisions. No dependency was cloned or fetched."
+  },
+  "audit_result": {
+    "candidate_inventory_complete_for_protocol": true,
+    "exact_external_closure_found": false,
+    "exact_pinned_components_found": true,
+    "exact_root_declaration_found": false,
+    "root_machine_debt": "M2",
+    "debt_class": "formalization_debt",
+    "first_open_gate": "Construct and kernel-check THM_M_0525.Statement from the five pinned quotient laws after the obligation registry is frozen.",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This node audits candidates only. It gives no proof-body credit to external anchors and does not claim the frozen Statement is closed. Master acceptance remains required."
+}

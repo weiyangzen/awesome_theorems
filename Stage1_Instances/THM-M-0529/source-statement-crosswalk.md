@@ -26,9 +26,9 @@ modern bridge. These citations are candidate anchors only, not source acceptance
 
 | Repository component | Mathematical component to freeze | Required Lean component | Intake status |
 |---|---|---|---|
-| "topological space" | category and admissible spaces | `TopCat` or an explicitly chosen equivalent category | included; encoding open |
-| "homology groups" | theory, degree, reduced/absolute choice, coefficients | concrete homology functor/object | family included; choices open |
-| "invariant" | homeomorphisms induce isomorphisms | induced map plus isomorphism/inverse laws | intended minimal meaning; exact form open |
+| "topological space" | all topological spaces, including empty spaces | `X Y : TopCat` | exact formal encoding frozen |
+| "homology groups" | ordinary unreduced absolute singular homology, integral coefficients, `n : ℕ` | `((singularHomologyFunctor AddCommGrpCat n).obj (AddCommGrpCat.of ℤ)).obj X` | exact formal encoding frozen |
+| "invariant" | a homeomorphism induces an invertible homology morphism | `IsIso (...map (TopCat.isoOfHomeo e).hom)` | exact formal encoding frozen |
 | Poincare / 1895 | historical invariant and definitions | source-to-modern transport, if credited | unverified metadata |
 | `已验证` | repository source-status label | no Lean component and no proof credit | explicitly untrusted |
 

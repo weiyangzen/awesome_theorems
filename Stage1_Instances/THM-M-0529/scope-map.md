@@ -11,15 +11,13 @@
   isomorphism between the degree-`n` homology objects, with inverse induced by the inverse
   homeomorphism.
 
-## Decisions deferred to statement freeze
+## Statement freeze decisions
 
-The source phrase does not specify singular, simplicial, cellular, Cech, or another homology theory;
-integral or general coefficients; reduced or unreduced homology; absolute or relative groups; the
-range of degrees; or whether "invariant" means equality, group isomorphism, a natural isomorphism,
-or only equality of numerical invariants. The statement phase must choose an immutable primary
-source and map every one of those decisions to ordered Lean binders, hypotheses, and a conclusion.
-It must also define behavior for the empty space, degree zero, and coefficient degeneracies rather
-than silently excluding them.
+The canonical target selects ordinary, unreduced, absolute singular homology with integral
+coefficients, degrees `n : ℕ`, and invariance as invertibility of the functorial induced morphism in
+`AddCommGrpCat`. Its ordered binders are `n`, `X`, `Y`, then the homeomorphism `e`. It makes no
+connectedness, nonemptiness, or positive-degree assumption. The primary-source pinpoint and its
+historical-to-modern crosswalk remain an anchor-audit responsibility and receive no H credit here.
 
 ## Explicit exclusions
 
@@ -30,5 +28,6 @@ than silently excluding them.
 - An abstract structure that assumes the desired induced isomorphism as a field.
 - The manifest's historical date, attribution, or `已验证` label as proof evidence.
 
-No Lean declaration is canonical at intake. A later target must use concrete homology objects and
-the map induced by the selected homeomorphism; it may not encode the conclusion as an assumption.
+The canonical Lean declaration is `AwesomeTheorems.THM_M_0529.CanonicalTarget` in `Statement.lean`.
+It uses concrete homology objects and the map induced by the selected homeomorphism; the conclusion
+is not encoded as an assumption.

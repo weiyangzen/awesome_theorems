@@ -50,3 +50,13 @@ self-tested statement evidence pending master acceptance, not proof or theorem-c
 Exact commands and results are recorded in `validation.md`. They establish manifest consistency,
 JSON validity, dossier-local hygiene, and narrow candidate-API elaboration only. Master acceptance
 and every dependent phase remain outstanding.
+
+## Anchor-audit handoff
+
+`anchor-audit.json`, `anchor-audit.md`, and `AnchorAudit.lean` inventory the pinned mathlib and
+bounded external candidates. The audit found an important convention boundary: mathlib's
+`FundamentalGroup` uses endomorphism multiplication `p * q = q.trans p`, while the exact statement
+freezes forward concatenation `p.trans q`. The five exact quotient laws needed to construct that
+group are already available in pinned mathlib, but no exact root declaration is credited. The root
+therefore remains open at `M2` pending obligation-tree freeze and proof construction; audit-wide
+and theorem-wide completion remain false.

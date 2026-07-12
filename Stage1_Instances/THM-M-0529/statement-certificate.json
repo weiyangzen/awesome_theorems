@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-statement-certificate/1.0",
+  "theorem_id": "THM-M-0529",
+  "item_id": "S56-M-0529-STATEMENT",
+  "canonical_name": "Integral singular homology is invariant under homeomorphism",
+  "canonical_statement": "For every natural-number degree n, topological spaces X and Y, and homeomorphism e : X ≃ₜ Y, the map on integral singular homology induced by e is an isomorphism.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0529/Statement.lean",
+    "declaration_or_expression": "AwesomeTheorems.THM_M_0529.CanonicalTarget",
+    "elaborated_expression": "∀ (n : ℕ) (X Y : TopCat) (e : ↑X ≃ₜ ↑Y), IsIso (((singularHomologyFunctor AddCommGrpCat n).obj (AddCommGrpCat.of ℤ)).map (TopCat.isoOfHomeo e).hom)",
+    "elaborated_expression_hash": "sha256:346202448f85225bd2460d494524132adb745ad2711c1c4c587a816499c30aea",
+    "source_hash": "sha256:3e40221253a26e8c00fe59a84cf516f01fdcce7fbeb6e8d1b4aaba3b11590ff9"
+  },
+  "domain_and_universes": "n : ℕ; X Y : TopCat at the default universe selected by the checked declaration; integral coefficients are the object AddCommGrpCat.of ℤ",
+  "quantifiers": ["n : ℕ", "X : TopCat", "Y : TopCat", "e : X ≃ₜ Y"],
+  "hypotheses": ["e is a homeomorphism from X to Y"],
+  "conclusion": "The morphism obtained by applying the degree-n integral singular-homology functor to TopCat.isoOfHomeo(e).hom has a CategoryTheory.IsIso instance.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": "None: n = 0 and empty spaces are included and checked by StatementBoundary.lean.",
+  "foundation_profile": "Lean 4 dependent type theory; statement elaboration invokes no local axiom and carries no proof credit.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; shared canonical .lake artifacts used read-only.",
+  "computation_profile": "The singular-homology functor is noncomputable; this statement gate performs elaboration only.",
+  "minimal_imports": [
+    "Mathlib.AlgebraicTopology.SingularHomology.Basic",
+    "Mathlib.Algebra.Category.Grp.AB"
+  ],
+  "environment_fingerprint": {
+    "lean": "4.29.0; commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda",
+    "platform": "x86_64-unknown-linux-gnu"
+  },
+  "mutation_tests": [
+    {"kind": "removed_hypothesis", "file": "MutationRemovedHomeomorphism.lean", "expected": "elaboration failure"},
+    {"kind": "changed_domain", "file": "MutationChangedDomain.lean", "expected": "elaboration failure"},
+    {"kind": "changed_binder_scope", "file": "MutationChangedBinderScope.lean", "expected": "elaboration failure"},
+    {"kind": "boundary_case", "file": "StatementBoundary.lean", "expected": "elaboration success"}
+  ],
+  "source_revisions": "Repository base 8cd5bc5a3f94397a9ec5148db97a8631552f37ec; toolchain and mathlib as fingerprinted above.",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "status_boundary": "Exact statement elaboration only. No human-source acceptance, proof-body audit, obligation closure, audit completion, or theorem completion is claimed."
+}
