@@ -17,7 +17,9 @@ elaborates and has only `propext`, `Classical.choice`, and `Quot.sound` in its r
 set. Candidate inventory, immutable revisions, external discovery limits, and commands are in
 `anchor-audit.md`.
 
-This completes only the assigned anchor-audit phase pending master acceptance. The provisional root
-vector remains `[H1, M4, R4]`: the accepted proof declaration, obligation registry, proof and
-release validation remain open. Intake and statement receipts remain in `validation.md` and
-`statement-validation.md`.
+`Proof.lean` now gives a placeholder-free proof of the exact target. It separately checks both
+induced inverse laws and installs the inverse map in `IsIso`; `proof-receipt.json` and
+`proof-validation.md` record the provisional proof-node evidence. This closes the local machine
+root for the proof phase pending master acceptance, but it does not claim theorem completion:
+source/readability acceptance, hermetic validation, independent verification, and release remain
+open. Intake and statement receipts remain in `validation.md` and `statement-validation.md`.
