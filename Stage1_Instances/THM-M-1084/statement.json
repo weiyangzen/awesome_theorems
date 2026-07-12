@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1084-STATEMENT",
+  "theorem_id": "THM-M-1084",
+  "lifecycle": "planned",
+  "canonical_statement": "For a centered sample-separable real Gaussian process whose canonical increment pseudometric is totally bounded and has finite entropy integral, the expected based supremum is at most 12 times the open-ball covering-number entropy integral from zero to half the diameter.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1084/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1084.DudleyEntropyBoundTarget",
+    "elaborated_expression_sha256": "25bdfe85eaaa67694f865e6af60c240b013b2fbcd9acfb2949e5abdb0b34ca99",
+    "statement_file_sha256": "75ce1fe27d00a5b5f42d0fe6bfc961e9e836145cb2f608faab5ddb122ba98222"
+  },
+  "domain_and_universes": "universes u v; T : Type u with PseudoMetricSpace and Nonempty; Omega : Type v with MeasurableSpace; mu : Measure Omega; X : T -> Omega -> Real",
+  "ordered_binders": ["T", "PseudoMetricSpace T", "Nonempty T", "Omega", "MeasurableSpace Omega", "mu", "X", "t0", "dense"],
+  "hypotheses": [
+    "all finite linear combinations of X have a Gaussian law under mu",
+    "every coordinate has integral zero",
+    "dist equals the square root of the second moment of each increment",
+    "univ is totally bounded",
+    "dense has dense range and realizes every samplewise based supremum",
+    "the entropy integrand is integrable on [0, diam(univ)/2]"
+  ],
+  "conclusion": "The samplewise based supremum is integrable and its integral is at most 12 times entropyIntegral T.",
+  "normalization": "Open balls dist t c < epsilon; least finite-cover cardinality as Nat sInf; real log and square root; interval integral from 0 to Metric.diam univ / 2; constant 12.",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+    "Mathlib.Probability.Distributions.Gaussian.HasGaussianLaw.Basic",
+    "Mathlib.Topology.MetricSpace.Bounded"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1084.target_iff_expandedSourceShape",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1084/check_statement.py",
+    "killed": ["removed centering", "changed arbitrary index type to Fin n", "moved process and separating sequence under existential binders"],
+    "boundary_proof": "Stage1Instances.THM_M_1084.singleton_coveringNumber"
+  },
+  "degenerate_cases": "T is required nonempty. Pseudometric zero-distance identifications are retained. The checked singleton lemma shows that every positive-radius open-ball covering number of PUnit is one; no main-theorem proof is inferred from this boundary calculation.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates one exact constant-12 normalization. It does not establish fidelity to a pinpoint primary-source statement, prove Dudley's bound, or provide downstream anchor, proof, validation, or release evidence."
+}

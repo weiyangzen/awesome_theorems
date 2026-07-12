@@ -1,0 +1,108 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1078-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1078",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "40b00afc847f5216750db3225d428712dd401350",
+  "target": "Stage1Instances.THM_M_1078.MartingaleTransformTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "public Lean source index",
+    "GitHub repository and code search",
+    "immutable external candidate source archive"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1078-C01",
+      "project": "awesome_theorems",
+      "revision": "40b00afc847f5216750db3225d428712dd401350",
+      "module": "Stage1_Instances/THM-M-1078/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1078.MartingaleTransformTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical target",
+      "body_provenance": "definitional proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "already local as the statement surface and supplies no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1078-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Probability.Martingale.Basic",
+      "declarations": [
+        "MeasureTheory.IsPredictable.measurable_add_one",
+        "MeasureTheory.isPredictable_iff_measurable_add_one",
+        "MeasureTheory.Submartingale.sum_mul_sub'"
+      ],
+      "kind": "supporting_infrastructure",
+      "normalized_match": "predictability indexing and transform closure, but no Lp martingale-transform inequality",
+      "body_provenance": "pinned mathlib source and compiled oleans",
+      "placeholder_or_axiom_status": "declarations elaborate in the pinned Lake environment; no exact terminal theorem exists to credit",
+      "classification": "M3_support_only",
+      "integration_status": "pinned and locally checked, but insufficient for the target norm estimate"
+    },
+    {
+      "candidate_id": "S56-M-1078-C03",
+      "project": "SmaniaD/Burkholder",
+      "repository": "https://github.com/SmaniaD/Burkholder",
+      "revision": "afa97ef3c85697fa3b2a67af89af8d6dd09eda69",
+      "release_tag_revision": "v0.1.0 peeled to fd97e5fd8448b08d53aacdf1bf5154646590b389",
+      "archive_sha256": "d3b0dbda0daa4fc5f52c744a0f1aca846566f73893bd4128a7e566a7b1230a60",
+      "module": "Burkholder.MartingaleTransforms",
+      "declaration": "MeasureTheory.Lp_Burkholder_inequality_martingaleTransform",
+      "source_file_sha256": "fbd4b5b2830d22c22d898c3548ceba9ed3b278b1a0c157853c62676a566ee72d",
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "aa7b3adc05244052861add85ec0ae8d9a664d7fc",
+      "license": "Apache-2.0",
+      "kind": "credible_external_near_match",
+      "normalized_match": "same non-endpoint discrete real martingale-transform inequality with explicit Burkholder constant, but not an exact wrapper",
+      "statement_differences": [
+        "external transform sums indices 0 through n and includes w 0 * f 0; the frozen target sums increments 1 through n",
+        "external hypothesis is IsStronglyPredictable, while the frozen target uses IsPredictable",
+        "external multiplier bound is almost-everywhere; the frozen pointwise bound implies this but requires a checked bridge",
+        "external theorem assumes MemLp (f k) p mu for every k; the frozen target assumes only MemLp (f n) p mu",
+        "external conclusion uses eLpNorm and an ENNReal constant; the frozen target uses real lpNorm and a real constant",
+        "external theorem assumes IsFiniteMeasure, implied by the frozen probability-measure instance but not yet transported in a wrapper"
+      ],
+      "body_provenance": "theorem body at lines 1422 onward depends on the repository's explicit Burkholder-majorant development; immutable archive inspected",
+      "placeholder_or_axiom_status": "no sorry, admit, axiom, constant declaration, skip-kernel option, or unsafe declaration matched in the archive's Lean sources",
+      "upstream_validation": "main-branch build badge reported passing on audit date, but was not treated as local kernel evidence",
+      "classification": "M1_near_match_with_bridge_debt",
+      "integration_status": "not in the local dependency closure; toolchain and mathlib revisions differ; exact-type wrapper and all statement transports remain unproved"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (martingale transform OR martingaleTransform OR Burkholder) lang:Lean count:100",
+      "result": "matchCount=0",
+      "response_sha256": "4f7c680369c3367c1f8ce8480ab31dfb093713e105c51d8d0b758d095fcb9e56",
+      "immutability_boundary": "dated, content-hashed discovery response; not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=martingale transform lean and repositories?q=Burkholder Lean",
+      "result": "both returned total_count=1, incomplete_results=false, identifying SmaniaD/Burkholder",
+      "response_sha256": "14b6d0c6a8dbcc11ddb5f2d1d0276fcc0977f37d5d54a8679a69f419783d78a5",
+      "immutability_boundary": "discovery response led to the separately immutable commit candidate"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=martingale transform+language:Lean",
+      "result": "HTTP rate-limit error; no negative result claimed",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "immutability_boundary": "blocked search lane"
+    }
+  ],
+  "root_machine_classification": "M2",
+  "root_classification_reason": "A substantive external Lean 4 proof closes a closely related martingale-transform inequality, but no checked exact wrapper closes the frozen target. The external project is absent from the pinned local dependency closure and differs in transform indexing, predictability, MemLp assumptions, norm codomain, toolchain, and mathlib revision.",
+  "integration_blocker": "Pinning alone is insufficient: a future proof phase must establish exact checked transports for the zero initial coefficient/index shift, IsPredictable versus IsStronglyPredictable, terminal MemLp versus all-time MemLp, and lpNorm versus eLpNorm, then validate the external body in the repository's closure. This worker did not fetch or mutate Lake dependencies.",
+  "reopen_condition": "An immutable compatible pin plus a placeholder-free local exact-type wrapper from MeasureTheory.Lp_Burkholder_inequality_martingaleTransform to MartingaleTransformTarget, with axiom and provenance checks.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes candidate discovery and classification only. It supplies no exact machine closure, no human-source H classification, no obligation tree, and no theorem-completion claim."
+}
+
