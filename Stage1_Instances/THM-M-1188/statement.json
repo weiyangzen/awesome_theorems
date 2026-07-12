@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1188-STATEMENT",
+  "theorem_id": "THM-M-1188",
+  "lifecycle": "planned",
+  "canonical_statement": "For a nonempty bounded open subset U of finite-dimensional real Euclidean space and T > 0, every real-valued function continuous on closure(U) x [0,T], twice continuously differentiable in space and once continuously differentiable in time in U x (0,T], and satisfying u_t - Laplacian u <= 0 there, attains a value on the initial-plus-lateral parabolic boundary that dominates all its values on the closed cylinder.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1188/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1188.HeatEquationWeakMaximumPrincipleTarget",
+    "elaborated_expression_sha256": "0564abe47c982ec2eea57b707d8e761b8f00999b3d35fc307f18e406c163ffd8",
+    "statement_file_sha256": "1e84c9edaec0f86f93e7f8ad8e0eca243fa5ba0efa3c3cb8bfc329bff9d0a4b0"
+  },
+  "domain_and_universes": "n : Nat with 1 <= n; Euclidean n := EuclideanSpace Real (Fin n); U : Set (Euclidean n); T : Real; u : Euclidean n x Real -> Real; Prop in universe 0",
+  "ordered_binders": [
+    "n : Nat",
+    "1 <= n",
+    "U : Set (Euclidean n)",
+    "U.Nonempty",
+    "IsOpen U",
+    "Bornology.IsBounded U",
+    "T : Real",
+    "0 < T",
+    "u : Euclidean n x Real -> Real"
+  ],
+  "hypotheses": [
+    "ContinuousOn u (closure U x [0,T])",
+    "for every t in (0,T], the spatial slice is ContDiffOn Real 2 on U",
+    "for every x in U, the temporal slice is ContDiffOn Real 1 on (0,T]",
+    "for every x in U and t in (0,T], deriv_t u - Laplacian_x u <= 0"
+  ],
+  "conclusion": "There exists b on (closure U x {0}) union (frontier U x [0,T]) such that every z in closure U x [0,T] satisfies u z <= u b.",
+  "direct_imports": [
+    "Mathlib.Analysis.InnerProductSpace.Laplacian"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1188.target_iff_pointwiseMaximumForm",
+  "encoding_decisions": {
+    "space": "EuclideanSpace Real (Fin n), so mathlib's Laplacian instance is available",
+    "closed_cylinder": "closure U x Set.Icc 0 T",
+    "parabolic_boundary": "(closure U x {0}) union (frontier U x Set.Icc 0 T)",
+    "interior_time_range": "Set.Ioc 0 T, matching the standard Q_T convention U x (0,T]",
+    "maximum": "an attained boundary witness dominating the closed cylinder, equivalent to equality of attained maxima once both maxima are packaged"
+  },
+  "environment_fingerprint": {
+    "base_revision": "31b7ab5b3902c4a80878c2007218f90566a8b85c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1188/check_statement.py",
+    "killed": [
+      "removed the heat-subsolution hypothesis",
+      "changed arbitrary positive finite dimension to dimension one",
+      "moved the boundary witness inside the universal cylinder-point binder",
+      "incorrectly included the terminal face closure U x {T} in the boundary"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1188.initialFace_mem_parabolicBoundary"
+    ]
+  },
+  "degenerate_cases": "The target excludes n = 0, the empty spatial domain, T <= 0, and unbounded U. The terminal face over interior U is not boundary data. Weak, viscosity, distributional, variable-coefficient, manifold, strong-principle, and equality-classification variants remain excluded.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence: the exact target, direct pointwise transport, mutations, and initial-face boundary fact elaborate in the pinned environment. No maximum-principle proof, anchor/source acceptance, audit completion, or theorem completion is claimed."
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-1171-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1171",
+  "audit_date": "2026-07-12",
+  "repository_base_revision": "31b7ab5b3902c4a80878c2007218f90566a8b85c",
+  "canonical_target": "Stage1Instances.THM_M_1171.CalderonZygmundEstimateTarget",
+  "discovery_order": [
+    "repo-local Lean source",
+    "pinned mathlib source",
+    "Sourcegraph public Lean index",
+    "GitHub repository and code search"
+  ],
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "candidates": [
+    {
+      "candidate_id": "S56-M-1171-C01",
+      "project": "awesome_theorems",
+      "revision": "31b7ab5b3902c4a80878c2007218f90566a8b85c",
+      "module": "Stage1_Instances/THM-M-1171/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_1171.CalderonZygmundEstimateTarget",
+      "kind": "exact_statement_only",
+      "normalized_match": "exact canonical proposition",
+      "body_provenance": "definition of a proposition; no theorem body",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "classification": "M3",
+      "integration_status": "statement surface only; no proof credit"
+    },
+    {
+      "candidate_id": "S56-M-1171-C02",
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Analysis.Calculus.FDeriv.Symmetric",
+        "Mathlib.Analysis.InnerProductSpace.Laplacian",
+        "Mathlib.Analysis.Distribution.SchwartzSpace.Deriv",
+        "Mathlib.MeasureTheory.Function.LpSeminorm.Basic"
+      ],
+      "declarations": [
+        "ContDiffAt.isSymmSndFDerivAt",
+        "bilinearIteratedFDerivTwo_eq_iteratedFDeriv",
+        "InnerProductSpace.laplacian_eq_iteratedFDeriv_orthonormalBasis",
+        "InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis",
+        "SchwartzMap.laplacian_eq_sum",
+        "MeasureTheory.eLpNorm_mono"
+      ],
+      "kind": "supporting_derivative_laplacian_lp_infrastructure",
+      "normalized_match": "definitions and identities only; no Hessian-by-Laplacian Lp bound",
+      "body_provenance": "kernel-checked pinned mathlib source and compiled artifacts",
+      "placeholder_or_axiom_status": "selected declarations elaborated through the pinned Lake environment",
+      "classification": "M3_support_only",
+      "integration_status": "useful for derivative and norm transports, but it supplies no singular-integral boundedness or exact root closure"
+    },
+    {
+      "candidate_id": "S56-M-1171-C03",
+      "project": "fpvandoorn/carleson",
+      "revision": "fdcce451b494680b1fd5534236a71d9b258860b2",
+      "module": "Carleson.TwoSidedCarleson.WeakCalderonZygmund",
+      "declaration": "czOperator_weak_1_1",
+      "kind": "external_related_singular_integral_anchor",
+      "normalized_match": "weak (1,1) bound for a project-specific truncated Calderon-Zygmund operator, not the strong Lp Hessian-by-Laplacian estimate",
+      "toolchain": "leanprover/lean4:v4.30.0-rc2",
+      "mathlib_revision": "1a4917a18b30ea1333c195e597067fe044ac9176",
+      "source_sha256": "2c4fe4ac1248a43d4f7e5903633dd921780d824e6fab66f2e53e96e5a4f49495",
+      "body_provenance": "theorem body inspected in raw source bound to the immutable commit",
+      "placeholder_or_axiom_status": "no sorry or axiom token in the inspected module; transitive project audit and local elaboration were not performed",
+      "classification": "M3_external_support_only",
+      "integration_status": "not exact, different dependency closure, and missing the strong-type interpolation, fundamental-solution/Riesz-transform representation, Hessian assembly, and encoding transports"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (Calderon-Zygmund OR CalderonZygmund OR accented variants OR RieszTransform) lang:Lean count:100",
+      "result": "18 matches in three repositories; fpvandoorn/carleson was the only substantive singular-integral development, while Seed-Prover duplicated snippets and DeGiorgi hits concerned decomposition/BMO",
+      "response_sha256": "d5846c1fa9d525a699fb98374a498e077e8f3dfa4d3f70678d6479cf864a4b53",
+      "immutability_boundary": "dated content-hashed discovery response; candidate source separately bound to a commit"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=Calderon-Zygmund+Lean",
+      "result": "total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "immutability_boundary": "dated content-hashed discovery response, not proof of global absence"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=Calderon-Zygmund+language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "immutability_boundary": "blocked search lane; no negative result claimed"
+    }
+  ],
+  "root_machine_classification": "M4",
+  "root_classification_reason": "The local exact artifact is only a proposition definition. Pinned mathlib contains derivative, Laplacian, Schwartz, and Lp infrastructure but no Calderon-Zygmund or Riesz-transform terminal theorem. The related external Carleson declaration is a weak (1,1) operator estimate with a different type and dependency pin, not the canonical strong Lp PDE estimate.",
+  "integration_blocker": "A proof still needs a singular-integral representation of every Hessian component from the Laplacian, strong Lp boundedness for 1 < p < infinity, finite-dimensional component-to-operator-norm assembly, and checked transports to the dossier's Frechet Hessian, trace Laplacian, ENNReal eLpNorm, and compact-support encoding.",
+  "reopen_condition": "An immutable Lean 4 declaration with the exact normalized type, or dependency-legal anchors closing every listed bridge, followed by proof-body, axiom, placeholder, unsafe/oracle, license, and local elaboration checks.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This node completes a bounded formal-anchor inventory only. It does not establish human-source fidelity, an obligation tree, proof closure, validation, release, or theorem completion."
+}

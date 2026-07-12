@@ -1,0 +1,109 @@
+{
+  "schema_version": "stage1-anchor-audit/5.6.0",
+  "item_id": "S56-M-1177-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-1177",
+  "depends_on": "S56-M-1177-STATEMENT",
+  "base_revision": "ebd311cf50e67029e9794aa8f09ab3cee28a745f",
+  "canonical_target": {
+    "module": "Stage1_Instances/THM-M-1177/Statement.lean",
+    "declaration": "Stage1Instances.THM_M_1177.AlexandrovBakelmanPucciTarget",
+    "expression_sha256": "bb3ff2384920048fe79eb0bad3c47a32db31bdaf4e4595898cbd5c7dbfb6ac41"
+  },
+  "environment": {
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_commit_date": "2026-03-30T18:47:58Z"
+  },
+  "exact_candidate": null,
+  "mathlib_search": {
+    "scope": "all Mathlib Lean sources at the pinned revision",
+    "name_and_text_queries": [
+      "alexandrov|aleksandrov|bakelman|pucci|maximum principle|maximum_principle",
+      "convexEnvelope|convex envelope|upperContact|contactSet|areaFormula|changeOfVariables",
+      "det.*trace|trace.*det"
+    ],
+    "result": "No ABP theorem, ABP-specific contact-set API, or exact target declaration was found. Alexandrov hits concern Alexandrov-discrete topology; maximum-principle hits concern convex or complex analysis.",
+    "classification": "M4 for the exact root"
+  },
+  "component_candidates": [
+    {
+      "module": "Mathlib.MeasureTheory.Function.Jacobian",
+      "declarations": [
+        "MeasureTheory.lintegral_abs_det_fderiv_eq_addHaar_image",
+        "MeasureTheory.lintegral_image_eq_lintegral_abs_det_fderiv_mul",
+        "MeasureTheory.integral_image_eq_integral_abs_det_fderiv_smul"
+      ],
+      "relationship": "Higher-dimensional injective change-of-variables results; potential area-formula ingredients, not an ABP estimate and not directly applicable to the noninjective gradient image without a decomposition argument.",
+      "credit": "anchor only"
+    },
+    {
+      "module": "Mathlib.Analysis.MeanInequalities",
+      "declarations": ["Real.geom_mean_le_arith_mean"],
+      "relationship": "Scalar finite-family AM-GM; a possible ingredient in a determinant/trace bound, but no matrix ABP bridge was located.",
+      "credit": "anchor only"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.PosDef and Mathlib.Analysis.Matrix.PosDef",
+      "declarations": [
+        "Matrix.posDef_iff_dotProduct_mulVec",
+        "Matrix.PosDef.det_pos"
+      ],
+      "relationship": "Matches the positive-definite coefficient interface and supplies determinant positivity, not the PDE maximum estimate.",
+      "credit": "anchor only"
+    },
+    {
+      "module": "Mathlib.Analysis.Convex.Jensen",
+      "declarations": ["ConvexOn.exists_ge_of_mem_convexHull"],
+      "relationship": "A finite convex maximum principle; it does not define the upper contact set or establish the ABP normal-map inclusion.",
+      "credit": "related only"
+    }
+  ],
+  "external_search": {
+    "protocol": "Repository-local sources, pinned dependency closure, GitHub repository metadata/tree API, anonymous GitHub code-search web surface, and grep.app were queried on 2026-07-12.",
+    "audited_revisions": [
+      {
+        "repository": "lecopivo/SciLean",
+        "revision": "95f8119a2884e9c41f82136523bd5568ea7075c5",
+        "result": "No ABP-, elliptic-, PDE-, Hessian-, contact-set-, or maximum-principle-named path in the immutable tree."
+      },
+      {
+        "repository": "Project-Navi/cd-formalization",
+        "revision": "eb9364ad2154c1dbc823c0ccbf37517eb5b65d23",
+        "result": "No matching ABP/PDE component path in the immutable tree."
+      },
+      {
+        "repository": "raphaelrrcoelho/formal-mathfin",
+        "revision": "29ae0e91669ac23f29f7714d15742c0c1127730d",
+        "result": "Only Black-Scholes PDE paths matched; no ABP candidate."
+      },
+      {
+        "repository": "vporton/atgt",
+        "revision": "087c4089fcee44527486b6fb995b5f7ab3d92290",
+        "result": "No matching ABP/PDE component path in the immutable tree."
+      },
+      {
+        "repository": "SmaniaD/BesovSpacesGoodGrid",
+        "revision": "182e3864891111d746b0f1325c16c85f359cb04d",
+        "result": "No matching ABP/PDE component path in the immutable tree."
+      }
+    ],
+    "limitations": [
+      "Anonymous GitHub code-search results require authentication and therefore supplied no auditable code hits.",
+      "grep.app returned an HTTP 429 security challenge.",
+      "Absence from the searched names, trees, and repositories is not a proof that no Lean formalization exists anywhere."
+    ],
+    "result": "No credible exact external Lean 4 candidate was located."
+  },
+  "classification": {
+    "human": "H1 unchanged; this phase does not complete the edition-locked human-source audit",
+    "machine": "M4; exact target remains without a usable formal artifact",
+    "readability": "R3 unchanged",
+    "strongest_evidence": "E3 component anchors only; no exact-root evidence"
+  },
+  "proof_body_provenance": "No exact candidate body exists in the audited closure, so no proof body, wrapper, axiom report, or machine-completion credit is assigned to the root.",
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This receipt completes candidate discovery for the anchor-audit node only. It does not close any ABP proof obligation or promote the exact root beyond M4."
+}
