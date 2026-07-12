@@ -26,11 +26,11 @@ the proof/construction to obligation nodes, check errata, and obtain independent
 
 | Repository component | Intended mathematical component | Required Lean component | Intake status |
 |---|---|---|---|
-| "topological space" | arbitrary space `X` | `TopCat` or a type with `TopologicalSpace` | included; representation open |
+| "topological space" | arbitrary space `X` | `X : Type` with `[TopologicalSpace X]`, passed as `TopCat.of X` | frozen for small spaces |
 | "singular simplex" | continuous map from standard `q`-simplex to `X` | mathlib singular-set simplex model | included; exact type open |
-| singular chains | free coefficient object on singular simplices | `singularChainComplexFunctor` specialized to chosen coefficients | API anchor checked; convention open |
-| boundary | alternating sum of face restrictions | `SSet.singularChainComplexFunctor` / alternating face-map complex | API anchor checked; exact law target open |
-| "homology" | cycles modulo boundaries in degree `n` | `singularHomologyFunctor C n` applied to coefficients and `X` | API anchor checked; coefficient category open |
+| singular chains | free integral chains on singular simplices | `singularChainComplexFunctor (ModuleCat ℤ)` at `ModuleCat.of ℤ ℤ` | canonical left construction frozen |
+| boundary | alternating sum of face restrictions | inherited from `SSet.singularChainComplexFunctor` / alternating face-map complex | construction convention frozen |
+| "homology" | cycles modulo boundaries in degree `n` | `singularHomologyFunctor (ModuleCat ℤ) n` | canonical result frozen |
 | continuous map | induced chain map and homology map | functorial `map` | included; exact formal conclusion open |
 
 ## Existing Lean boundary
@@ -42,6 +42,7 @@ names elaborate in the repository toolchain. This establishes credible interface
 material (`M3`), not exact-root closure: no canonical theorem expression, terminal proof body,
 transitive provenance, axiom report, or source equivalence has been audited.
 
-The statement phase must choose a source-faithful theorem-shaped target and distinguish a checked
-definition/interface from a proof. It must not claim that merely evaluating the functor name proves
-all mathematical properties ordinarily bundled under "singular homology."
+The statement phase chooses the construction identity in `Statement.lean`, with a checked direct
+encoding transport and negative mutations. This is still interface-level `M3`: the definitional
+witness establishes coherent elaboration and must not be credited as proof-phase closure or as all
+mathematical properties ordinarily bundled under "singular homology."

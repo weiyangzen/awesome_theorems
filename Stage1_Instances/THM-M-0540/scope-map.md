@@ -13,18 +13,16 @@ topological space" does not state a numerical calculation, invariance theorem, o
 theorem. The statement phase must turn this scope into one exact theorem-shaped Lean proposition,
 rather than silently replacing it by a nearby theorem.
 
-## Decisions reserved for the statement phase
+## Statement decisions
 
-The exact source formulation must decide integral coefficients versus a general coefficient ring
-or an object in a suitable preadditive category; reduced versus unreduced conventions; the precise
-standard-simplex model; universes; grading; and whether the canonical target asserts construction,
-the boundary-square-zero law, a natural isomorphism, or the complete functor package. Binder order,
-typeclasses, foundation profile, and degenerate cases must then be frozen and mutation-tested.
+The canonical target uses integral coefficients (`ModuleCat.of ℤ ℤ`), ordinary unreduced homology,
+mathlib's singular-set model, small spaces `X : Type`, and natural grading. It asserts the central
+construction identity: singular homology is homology of the singular chain complex. This is the
+narrow theorem-shaped reading of the source phrase, not a claim that every theorem about singular
+homology has been formalized.
 
-Degree zero and the empty space must be addressed explicitly. Negative grading is outside
-mathlib's current `n : Nat` singular-homology API unless the chosen source target requires an
-extension. A general coefficient-category target may not be substituted for a source claim whose
-assumptions support only ordinary integral homology.
+Degree zero and the empty space are included by a checked boundary fixture. Negative grading,
+higher-universe spaces, reduced homology, and nonintegral coefficients are explicit exclusions.
 
 ## Explicit exclusions
 

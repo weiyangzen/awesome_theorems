@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "theorem_id": "THM-M-0540",
+  "item_id": "S56-M-0540-STATEMENT",
+  "lifecycle": "planned",
+  "state": "provisional_worker_self_tested",
+  "canonical_name": "Integral singular homology as homology of the singular chain complex",
+  "canonical_human_statement": "For every small topological space X and natural degree n, ordinary unreduced singular homology with integer coefficients is the degree-n homology object of the chain complex freely generated over the integers by continuous singular simplices, whose differential is the alternating face map.",
+  "canonical_formal_target": {
+    "backend": "Lean 4",
+    "file": "Stage1_Instances/THM-M-0540/Statement.lean",
+    "declaration": "Stage1.THM_M_0540.CanonicalTarget",
+    "expression": "forall (X : Type) [TopologicalSpace X] (n : Nat), IntegralSingularHomology X n = (HomologicalComplex.homologyFunctor (ModuleCat Int) (ComplexShape.down Nat) n).obj (IntegralSingularChains X)",
+    "statement_file_sha256": "934792c9ddc0adee6580c78a8979c91764cfaa1e94cd7019112aad64ae00e5ce",
+    "elaboration_status": "passed"
+  },
+  "minimal_imports": [
+    "Mathlib.AlgebraicTopology.SingularHomology.Basic",
+    "Mathlib.Algebra.Category.ModuleCat.Abelian",
+    "Mathlib.Algebra.Category.ModuleCat.Colimits"
+  ],
+  "domain_and_universes": "X : Type (small spaces in the same universe as ModuleCat Int); n : Nat; coefficients are the object ModuleCat.of Int Int in ModuleCat Int.",
+  "ordered_quantifiers": ["X : Type", "[TopologicalSpace X]", "n : Nat"],
+  "hypotheses": ["TopologicalSpace X"],
+  "conclusion": "IntegralSingularHomology X n equals the degree-n homology functor applied to IntegralSingularChains X.",
+  "alternate_encodings": [{
+    "relationship": "iff",
+    "target": "the fully expanded singularHomologyFunctor/singularChainComplexFunctor expression",
+    "checked_witness": "Stage1.THM_M_0540.canonicalTarget_iff_direct"
+  }],
+  "boundary_cases": "n = 0 and X = Empty are included and checked by the final example in Statement.lean; there is no negative degree because the pinned chain complex is Nat-indexed.",
+  "excluded_cases": ["large topological spaces in a higher universe", "reduced homology", "nonintegral coefficients", "negative grading", "homotopy invariance, excision, and computations"],
+  "foundation_profile": "Lean 4 dependent type theory plus the instances required by mathlib's abelian ModuleCat homology construction; no new axiom or declaration is introduced.",
+  "tcb_profile": "Lean kernel; leanprover/lean4:v4.29.0; mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95.",
+  "computation_profile": "noncomputable categorical construction; no executable computation or oracle is credited.",
+  "environment_fingerprint": {
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "platform": "Linux x86_64",
+    "options": "Lean defaults; autoImplicit false only in negative mutation fixtures"
+  },
+  "mutation_tests": [
+    {"kind": "removed binder", "file": "MutationRemovedDegree.lean", "expected": "reject", "observed": "exit 1; unknown identifier n"},
+    {"kind": "changed domain", "file": "MutationChangedDomain.lean", "expected": "reject", "observed": "exit 1; Nat is not a Type argument to TopCat.of"},
+    {"kind": "changed binder scope", "file": "MutationBinderScope.lean", "expected": "reject", "observed": "exit 1; X out of scope and TopologicalSpace instance unavailable"},
+    {"kind": "changed boundary domain", "file": "MutationNegativeDegree.lean", "expected": "reject", "observed": "exit 1; Int degree rejected by the Nat-graded singular homology API"},
+    {"kind": "boundary case", "file": "Statement.lean", "expected": "accept", "observed": "exit 0 for X = Empty and n = 0"}
+  ],
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "status_boundary": "This phase freezes and elaborates one exact construction-level target selected from the underspecified Stage0 phrase. It provides M3 statement evidence only. The checked definitional witness is not accepted proof-phase credit, and H0, M0, R0, audit completion, and theorem completion remain unclaimed."
+}
