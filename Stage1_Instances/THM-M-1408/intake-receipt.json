@@ -1,0 +1,115 @@
+{
+  "schema_version": "stage1-worker-receipt/1.0",
+  "receipt_id": "S56-M-1408-INTAKE-worker-selftest",
+  "item_id": "S56-M-1408-INTAKE",
+  "theorem_id": "THM-M-1408",
+  "base_revision": "9cf9d5b9dab219e460bb264ec1e565b071591d89",
+  "scope": "planned intake dossier, scope map, source-statement crosswalk, open downstream task DAG, and pinned API probe",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-1408"
+      ],
+      "exit_code": 0,
+      "result": "rank 907; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1408/instance.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1408/task-dag.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1408/check_intake.py"
+      ],
+      "exit_code": 0,
+      "result": "planned/null-target/empty-acceptance/open-DAG/false-completion and owned-artifact invariants passed"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-1408/IntakeProbe.lean"
+      ],
+      "exit_code": 0,
+      "result": "eight adjacent pinned product-measure, measure-preserving, measurable-equivalence, and scalar-entropy APIs elaborated under Lean 4.29.0"
+    },
+    {
+      "argv": [
+        "rg",
+        "-n",
+        "bounded target-name query",
+        "Formalizations/Lean/.lake/packages/mathlib/Mathlib"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match result for Ornstein, Bernoulli shift, Kolmogorov-Sinai, and measure-entropy target names"
+    },
+    {
+      "argv": [
+        "rg",
+        "-n",
+        "prohibited proof constructs",
+        "Stage1_Instances/THM-M-1408/*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected no-match result; no proof escape or assumed declaration"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "Stage1_Instances/THM-M-1408",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    }
+  ],
+  "result": "pass",
+  "known_failures": [
+    "The exact immutable primary-source definition/theorem passage, assumptions, proof boundary, errata, and independent review remain open.",
+    "No canonical Lean target or expression fingerprint is frozen; mutation tests therefore remain open.",
+    "Formal anchor audit, discovery and obligation freezes, proof, composition, hermetic validation, and independent release review remain open."
+  ],
+  "status_boundary": "Worker-local planned-intake evidence only; not master acceptance, statement evidence, proof evidence, audit completion, or theorem completion."
+}

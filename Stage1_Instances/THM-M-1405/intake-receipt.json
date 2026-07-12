@@ -1,0 +1,129 @@
+{
+  "schema_version": "5.6",
+  "receipt_id": "S56-M-1405-INTAKE-worker-selftest",
+  "item_id": "S56-M-1405-INTAKE",
+  "theorem_id": "THM-M-1405",
+  "base_revision": "028e2535b68678b8296e63e2cacb05ed9775a2d8",
+  "base_tree": "2845b046547e71984e5d93f4f04045663bd3bcbb",
+  "scope": "planned intake artifacts only",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-1405"
+      ],
+      "exit_code": 0,
+      "result": "rank 904; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "exit_code": 0,
+      "result": "initial status contained only the pre-existing untracked Formalizations/Lean/.lake link; preserved and outside this packet"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1405/instance.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-1405/task-dag.json"
+      ],
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "argv": [
+        "python3",
+        "scoped intake assertions"
+      ],
+      "exit_code": 0,
+      "result": "THM-M-1405 intake invariant check: ok"
+    },
+    {
+      "argv": [
+        "rg",
+        "bounded target-name patterns",
+        "Formalizations/Lean/.lake/packages/mathlib/Mathlib",
+        "--glob",
+        "*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected negative result: no target-specific name match in the pinned mathlib source tree"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-1405/IntakeProbe.lean"
+      ],
+      "exit_code": 0,
+      "result": "six adjacent measure-preserving, ergodic, probability, measurable-space, and partition APIs elaborated under Lean 4.29.0"
+    },
+    {
+      "argv": [
+        "rg",
+        "prohibited Lean constructs",
+        "Stage1_Instances/THM-M-1405",
+        "--glob",
+        "*.lean"
+      ],
+      "exit_code": 1,
+      "result": "expected negative result: no sorry, admit, sorryAx, or bodyless axiom match"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "Stage1_Instances/THM-M-1405"
+      ],
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    },
+    {
+      "argv": [
+        "python3",
+        "scoped loop invoking git diff --no-index --check for each new dossier file"
+      ],
+      "exit_code": 0,
+      "result": "new-file whitespace check: ok"
+    }
+  ],
+  "result": "pass",
+  "status_boundary": "Worker-local evidence for a planned intake only; not a master acceptance receipt and not exact-statement, human-source-acceptance, or theorem evidence."
+}

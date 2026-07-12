@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0500-VALIDATION",
+  "theorem_id": "THM-M-0500",
+  "depends_on": ["S56-M-0500-PROOF"],
+  "recipes": [
+    {
+      "recipe_id": "M0500-validation-narrow-fail-closed-runner",
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0500/check_validation.py"],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC"
+      },
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS S56-M-0500-VALIDATION and explicit STALE/BLOCKED summaries"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0500-ROOT",
+        "M0500-S-SCOPE",
+        "M0500-S-FOUNDATION",
+        "M0500-N-CHAR",
+        "M0500-L-LSERIES",
+        "M0500-L-NONVANISH",
+        "M0500-C-AUX",
+        "M0500-L-LOWER",
+        "M0500-L-NONPRIME",
+        "M0500-T-NONSUM",
+        "M0500-L-SUPPORT",
+        "M0500-T-ASSEMBLE",
+        "M0500-X-PROVENANCE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0500.dirichletPrimesInAPTarget_iff_unbounded",
+        "Stage1Instances.THM_M_0500.ObligationTree.root_of_terminal_packages",
+        "Stage1Instances.THM_M_0500.dirichletPrimesInAP_proof",
+        "Nat.infinite_setOf_prime_and_eq_mod",
+        "Nat.forall_exists_prime_gt_and_eq_mod",
+        "Stage1Instances.THM_M_0500.Validation.independentlyReconstructedDirichletPrimesInAP"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1407-INTAKE-WORKER-20260712",
+  "item_id": "S56-M-1407-INTAKE",
+  "theorem_id": "THM-M-1407",
+  "intent": "intake",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "base_revision": "9cf9d5b9dab219e460bb264ec1e565b071591d89",
+  "base_tree": "46f90dd210855e316cd38ea3a576490f8462cc54",
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:ebc4f4f400b2ec423f970d002b51e019f15f0b5a0de803508b6867c8c9ad638f",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8"
+  },
+  "validated_scope": "planned theorem dossier, scope map, source-statement crosswalk, open downstream task DAG, and discovery-only pinned Lean API probe",
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "ok: 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "ok: 1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1407",
+      "exit_code": 0,
+      "result": "rank 906; planned; L0/rework_required; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "command": "python3 -m json.tool Stage1_Instances/THM-M-1407/instance.json",
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool Stage1_Instances/THM-M-1407/task-dag.json",
+      "exit_code": 0,
+      "result": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool Stage1_Instances/THM-M-1407/intake-receipt.json",
+      "exit_code": 0,
+      "result": "valid JSON after receipt finalization"
+    },
+    {
+      "command": "python3 -m json.tool .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "valid worker self-test JSON"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1407/IntakeProbe.lean",
+      "exit_code": 0,
+      "result": "five generic infinite-product, reindexing, coordinate, measure-preservation, and ergodicity APIs elaborated under Lean 4.29.0; no target statement or proof credit"
+    },
+    {
+      "command": "rg -n -i 'Bernoulli[ _-]?(shift|system)|shift[ _-]?Bernoulli' Formalizations/Lean/.lake/packages/mathlib/Mathlib --glob '*.lean'",
+      "exit_code": 1,
+      "result": "expected no-match result in the pinned mathlib sources; bounded intake name search only"
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-1407/check_intake.py",
+      "exit_code": 0,
+      "result": "IDs, rank, planned lifecycle, null canonical target, empty accepted state, six open downstream tasks, false completion flags, receipt boundary, and artifact inventory agree"
+    },
+    {
+      "command": "rg -n prohibited proof constructs Stage1_Instances/THM-M-1407 -g '*.lean'",
+      "exit_code": 1,
+      "result": "expected no-match result; no sorry, admit, axiom, or opaque declaration in target Lean files"
+    },
+    {
+      "command": "git diff --check -- Stage1_Instances/THM-M-1407 .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    }
+  ],
+  "root_vector_before": {"H": "unclassified", "M": "unclassified", "R": "unclassified"},
+  "root_vector_after": {"H": "H4", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "the repository title and classification gloss do not identify one exact primary-source proposition or canonical Lean target",
+  "remaining_root_cut_set": [
+    "S56-M-1407-STATEMENT",
+    "S56-M-1407-ANCHOR_AUDIT",
+    "S56-M-1407-OBLIGATION_TREE",
+    "S56-M-1407-PROOF",
+    "S56-M-1407-VALIDATION",
+    "S56-M-1407-RELEASE"
+  ],
+  "known_failures": [
+    "No immutable pinpoint primary source or independent source review has selected an exact theorem.",
+    "The construction/property/classification ambiguity and overlap with THM-M-1408 remain unresolved.",
+    "No canonical Lean expression, statement fingerprint, mutation certificate, obligation registry, proof, hermetic replay, or independent release evidence exists."
+  ],
+  "status_boundary": "Worker self-tested intake proposal only; master acceptance is required and no statement, proof, audit-completion, or theorem-completion credit is asserted."
+}
