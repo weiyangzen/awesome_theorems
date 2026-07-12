@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0986-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0986",
+  "base_revision": "1d8a539081efa179b9394093ae54c756f3e17ea4",
+  "cutoff": "2026-07-12T00:00:00+08:00",
+  "dependency": {
+    "item_id": "S56-M-0986-STATEMENT",
+    "state_observed": "[_]",
+    "target_declaration": "Stage1Instances.THM_M_0986.KhinchinWeakLawTarget",
+    "target_expression_sha256": "9a4e61a6c5dea73eb277213b8f95796bcff74d53f63c13fd0d5317ebde502204"
+  },
+  "discovery_protocol": {
+    "order": [
+      "repository-local Lean sources",
+      "pinned mathlib source tree",
+      "all pinned Lake package source trees",
+      "public Lean repository indexes"
+    ],
+    "aliases": [
+      "KhinchinWeakLaw",
+      "Khinchin weak law",
+      "Khintchine law",
+      "weak law of large numbers",
+      "law of large numbers",
+      "TendstoInMeasure average expectation",
+      "strong_law_ae"
+    ],
+    "local_queries": [
+      "rg -n -i 'weak[_ -]?law|khin(ch|t)in|khintchine|law[_ ]of[_ ]large[_ ]numbers'",
+      "rg -n 'TendstoInMeasure|tendstoInMeasure_of_tendsto_ae|strong_law_ae'"
+    ],
+    "external_queries": [
+      "GitHub repository search: Khinchin Lean4",
+      "GitHub repository search: Khintchine Lean theorem",
+      "GitHub repository search: weak law large numbers Lean",
+      "grep.app code search for the four principal aliases"
+    ],
+    "access_policy": "Anonymous read-only HTTP only; no dependency fetch, clone, or Lake mutation."
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree_clean": true,
+    "mathlib_source_sha256": "b74c93434df44eb75b2567f43a58b9e0353138660ad07b99263d8019bcf4f1c6",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "C-LOCAL-LEGACY-WRAPPER",
+      "project": "awesome_theorems",
+      "revision": "1d8a539081efa179b9394093ae54c756f3e17ea4",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_266.lean",
+      "source_sha256": "ea84fd02b65861e8fdc1c82b6ca1ce29372d5e585f26c4d4fb61d0f6bde656c0",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_266.khinchinWeakLaw_inMeasure_from_strongLaw_wrapper",
+      "role": "historical repo-local wrapper and discovery input",
+      "normalized_match": "The declaration is Banach-valued; its specialization to Real has the frozen hypotheses, average, expectation, and TendstoInMeasure conclusion. It is not itself the frozen root declaration.",
+      "terminal_declaration": "ProbabilityTheory.strong_law_ae",
+      "classification": "M0-W candidate for the exact Real specialization; no legacy acceptance credit",
+      "integration": "Already in the repository and the pinned Lake closure; narrow elaboration succeeds. Downstream proof/provenance gates must decide whether to reuse or replace it."
+    },
+    {
+      "candidate_id": "C-MATHLIB-STRONG-LAW",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Mathlib/Probability/StrongLaw.lean",
+      "source_sha256": "b74c93434df44eb75b2567f43a58b9e0353138660ad07b99263d8019bcf4f1c6",
+      "declaration": "ProbabilityTheory.strong_law_ae",
+      "role": "stronger terminal theorem",
+      "normalized_match": "Same integrability, pairwise independence, identical distribution, empirical average, and expectation; almost-everywhere pointwise convergence is stronger than the target's convergence in measure.",
+      "bridge_declaration": "MeasureTheory.tendstoInMeasure_of_tendsto_ae",
+      "local_adapter": "Stage1Instances.THM_M_0986.AnchorAudit.exactTarget_from_strong_law",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "placeholder_or_unsafe_findings": [],
+      "classification": "M0-W candidate",
+      "integration": "Pinned in lake-manifest.json and kernel-checked through the exact local adapter."
+    }
+  ],
+  "negative_results": {
+    "pinned_packages": "No separately named Khinchin/Khintchine weak-law Lean declaration was found outside the recorded mathlib strong-law route.",
+    "github_repository_search": "All three anonymous repository queries returned total_count 0; each response SHA-256 was 08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2.",
+    "grep_app": "All four code-search requests returned HTTP 429. No negative completeness inference is made from this unavailable service.",
+    "limitations": "GitHub code search was unavailable without authentication. The audit therefore does not claim exhaustive public-repository discovery or saturation."
+  },
+  "classification": {
+    "human": "H1 unchanged: the immutable primary-source transcription and assumption/errata crosswalk remain open.",
+    "machine": "An exact, locally checkable M0-W route is located at the candidate level. This does not promote the theorem instance or satisfy later obligation, proof, validation, release, provenance, or independent-review gates.",
+    "readability": "R3: candidate mapping is recorded, but no complete node-by-node reconstruction has been reviewed."
+  },
+  "gate_state": "self_tested_pending_master_acceptance",
+  "theorem_complete": false,
+  "status_boundary": "Anchor audit only. It identifies and checks an exact mathlib-backed route without claiming master acceptance, audit completion, or theorem completion."
+}

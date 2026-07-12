@@ -15,3 +15,8 @@ The fresh anchor audit records pinned mathlib infrastructure and an external Lea
 the named theorem, but the external theorem and its dependencies contain `sorry`; it is not proof
 evidence or an integration target. The scope map, source crosswalk, and open task DAG define the
 downstream work. Phase checks and their exact results are recorded in `validation.md`.
+
+The obligation-tree phase now freezes 26 obligations and seven separate typed graphs. A checked
+conditional composition reduces the exact root to the explicit squared-radius geometric package;
+that nonlinear package remains open, so the root vector and all completion boundaries are
+unchanged. See `obligation-tree.md` and `obligation-tree-validation.md`.
