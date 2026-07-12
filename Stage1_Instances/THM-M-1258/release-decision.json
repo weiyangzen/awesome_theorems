@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1258-RELEASE",
+  "theorem_id": "THM-M-1258",
+  "intent": "release",
+  "base_revision": "22755e611bc984d98b9d6525b69d8d6120b1c4dd",
+  "evaluated_at": "2026-07-12T12:00:00+08:00",
+  "input_receipt_id": "S56-M-1258-VALIDATION-local-20260712T032327Z",
+  "input_receipt_sha256": "f2a1f855cacf953df0b3a49e75d8d3bec7edf7e310d812756f94d777afa335de",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": {
+    "H": "H2",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H2",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "authoritative_root_closed": false,
+  "first_failed_gate": {
+    "gate": "dependency_legal_accepted_state",
+    "reason": "The instance lifecycle is planned, the authoritative task DAG has no accepted states, and S56-M-1258-VALIDATION remains open. A provisional worker receipt cannot satisfy release dependency or master acceptance.",
+    "retry_condition": "The master must accept dependency-legal predecessor evidence and reconcile the structured instance, task DAG, and typed graphs against an immutable snapshot before release is reconsidered."
+  },
+  "remaining_root_cut_set": [
+    "M1258-L-SPAN"
+  ],
+  "failed_release_gates": [
+    "accepted AUDIT-Z",
+    "accepted exact-root M0 status and reconciled composition/provenance graph",
+    "H0 primary-source crosswalk and independent review",
+    "R0 anchored reconstruction and independent review",
+    "cold empty-cache hermetic build with network-denied offline replay",
+    "complete TCB, SBOM, license, and restorable dependency archive",
+    "two independent signed clean-runner attestations",
+    "independently implemented minimal verifier",
+    "mutation and metamorphic P0 fixtures",
+    "deterministic current release bundle",
+    "master acceptance"
+  ],
+  "evidence_classification": "The validation receipt is useful nonrelease warm-cache evidence for the declarations it covers. It is provisional, comes from a dirty worker checkout with a shared writable dependency cache, and explicitly sets release_grade=false.",
+  "status_boundary": "This release phase is self-tested only as a fail-closed blocked decision. It proposes no accepted state, debt-vector promotion, audit completion, theorem completion, or release receipt."
+}
