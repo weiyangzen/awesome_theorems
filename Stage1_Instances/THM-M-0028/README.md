@@ -1,4 +1,4 @@
-# THM-M-0028 rev-5.6 intake
+# THM-M-0028 rev-5.6 dossier
 
 `THM-M-0028` is the catalog item named "Noetherian ring structure theorem." The repository gloss
 says that it concerns the ascending chain condition for ideals, attributes it to Emmy Noether in
@@ -6,7 +6,7 @@ says that it concerns the ascending chain condition for ideals, attributes it to
 
 ## Planned scope
 
-This intake selects the source-matched chain theorem for later statement review: for every
+The dossier selects the source-matched chain theorem: for every
 commutative ring `R` in which every ideal is finitely generated, every ascending sequence of ideals
 eventually stabilizes. A chain stabilizes when some index `n` has the same ideal at every later
 index. The modern Lean candidate uses a unital `CommRing`; no `Nontrivial`, domain, characteristic,
@@ -33,16 +33,22 @@ complete terminology/premise/proof mapping, errata review, and independent revie
 
 ## Formal boundary
 
+The statement phase freezes the modern unital specialization as
+`Stage1Instances.THM_M_0028.IdealAscendingChainTarget`. It elaborates with the sole import
+`Mathlib.RingTheory.Finiteness.Defs`, strictly below the module containing the adjacent
+Noetherian chain theorem. Checked iff transports cover the regular-submodule carrier and the
+function-plus-monotonicity source spelling, four structural mutations are distinguished, and a
+subsingleton boundary plus a concrete `PUnit` probe confirm that the target does not silently add
+`Nontrivial`.
+
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
 `Mathlib.RingTheory.Noetherian.Defs` contains an exact type for the adjacent candidate
 `monotone_stabilizes_iff_noetherian` and the finite-generation characterization
-`isNoetherianRing_iff_ideal_fg`. `IntakeProbe.lean` authenticates their types using the pinned
-toolchain. Intake does not freeze the canonical elaborated expression, check the transport from
-regular-submodule chains to the selected ideal wording, inspect terminal proof bodies, or credit
-machine closure.
+`isNoetherianRing_iff_ideal_fg`. Their terminal bodies, provenance, dependencies, and trust closure
+remain for the later anchor audit and receive no proof credit here.
 
 The planned vector is `[H1, M3, R3]`: a stable conventional claim plus source leads support `H1`;
-exact pinned formal interfaces support only `M3` until statement and anchor-audit gates run; and
-the dossier maps scope without providing a reviewed proof reconstruction. All six downstream tasks
-remain open. No accepted execution state, audit completion, theorem completion, or master
-acceptance is claimed.
+exact pinned formal interfaces support only `M3` until anchor-audit and proof gates run; and
+the dossier maps scope without providing a reviewed proof reconstruction. The statement proposal
+is self-tested pending master acceptance, and all five later tasks remain open. No accepted
+execution state, audit completion, theorem completion, or master acceptance is claimed.

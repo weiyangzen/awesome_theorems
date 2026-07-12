@@ -8,28 +8,29 @@ sequence `I_0 <= I_1 <= ...` of ideals of `R` eventually stabilizes.
 "Eventually stabilizes" means that there is an index `n` such that `I_m = I_n` for every
 `m >= n`. The ordered mathematical binders are the carrier `R`, its commutative-ring structure,
 the finite-generation premise, and the monotone ideal chain. The conclusion supplies a
-stabilization index and the tail equality. The modern Lean encoding is planned over unital rings;
-the historical source explicitly did not require a unit, so this transport remains open.
+stabilization index and the tail equality. The exact Lean target freezes a modern unital
+specialization; the historical source explicitly did not require a unit, so fidelity to the wider
+historical domain remains open rather than hidden.
 
 This is a repository-scope selection from a short catalog gloss, not an `H0` source finding. The
-statement phase must ratify the convention against an immutable reviewed source packet and
-elaborate the exact Lean expression before proof-tree construction.
+statement phase has elaborated and fingerprinted that explicitly bounded modern target. A complete
+historical-domain translation and independent source review remain open on the H axis.
 
 ## Scope decisions
 
 | Surface | Selected meaning | Open verification |
 |---|---|---|
-| Base object | arbitrary commutative ring `R`; planned Lean encoding is unital | historical nonunital-to-modern-unital specialization and exact hierarchy |
-| Chain | natural-number-indexed monotone sequence of ideals under inclusion | source equivalence to unrestricted ACC and Lean `OrderHom` encoding |
-| Stabilization | some `n` satisfies `I_m = I_n` for all `m >= n` | binder order, equality, and order-direction fingerprint |
-| Premise | every ideal of `R` is finitely generated | checked transport through `IsNoetherianRing` and `Ideal.FG` |
+| Base object | arbitrary unital commutative ring `R` | historical nonunital-domain fidelity remains open |
+| Chain | natural-number-indexed monotone sequence of ideals under inclusion | exact `OrderHom` encoding frozen; source equivalence to unrestricted ACC remains open |
+| Stabilization | some `n` satisfies `I_m = I_n` for all `m >= n` | binder order, equality, and order-direction fingerprint frozen |
+| Premise | every ideal of `R` is finitely generated | exact explicit premise frozen; predicate reformulation remains an adjacent uncredited candidate |
 | Root relation | finite generation implies chain stabilization | exact source-to-Lean ratification; converse remains a related form |
 | Logic | ordinary proposition with no computational output | foundation and transitive trust audit |
 
 ## Domain and boundary cases
 
-- The zero ring is provisionally included. Lean's `CommRing` does not require `Nontrivial`, and the
-  catalog supplies no exclusion.
+- The zero ring is included. Lean's `CommRing` does not require `Nontrivial`; a subsingleton witness,
+  concrete `PUnit` probe, and boundary mutation freeze this choice.
 - The sequence may be constant from the start; `n = 0` is allowed. Repeated equal ideals do not
   violate monotonicity.
 - The condition quantifies over all natural-number-indexed monotone chains, including chains with
@@ -58,8 +59,9 @@ elaborate the exact Lean expression before proof-tree construction.
 
 ## Downstream handoff
 
-The statement phase must admit and independently review a pinpoint source; ratify the
-commutative, one-way, natural-chain, ideal, unital-specialization, and zero-ring conventions; choose the minimal
-import; elaborate and fingerprint the canonical target; check all credited alternate encodings;
-and exercise removed-hypothesis, changed-domain, changed-binder-scope, and boundary mutations.
-Only the later anchor audit may classify the located mathlib bodies and their provenance or trust.
+The statement phase has frozen the commutative, one-way, natural-chain, ideal, modern-unital, and
+zero-ring choices; used the sole minimal `Finiteness.Defs` import; elaborated and fingerprinted the
+canonical target; checked its carrier and monotone-function encodings; and exercised all four
+mutation classes. Complete
+historical-domain fidelity and independent source review remain open. Only the later anchor audit
+may classify the located mathlib bodies and their provenance or trust.

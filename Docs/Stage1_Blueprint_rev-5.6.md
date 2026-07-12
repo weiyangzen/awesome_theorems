@@ -16352,7 +16352,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0027-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0027`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0028-INTAKE` / `THM-M-0028` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0028`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0028-STATEMENT` / `THM-M-0028` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
+- [_] `S56-M-0028-STATEMENT` / `THM-M-0028` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0028-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0028`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0028-ANCHOR_AUDIT` / `THM-M-0028` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0028-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0028`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -16380,7 +16380,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0029-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0029`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0030-INTAKE` / `THM-M-0030` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0030`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0030-STATEMENT` / `THM-M-0030` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
+- [_] `S56-M-0030-STATEMENT` / `THM-M-0030` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0030-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0030`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0030-ANCHOR_AUDIT` / `THM-M-0030` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions.
   Depends: `S56-M-0030-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0030`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -16504,7 +16504,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0043-PROOF`. Owned paths: `Stage1_Instances/THM-M-0043`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0043-RELEASE` / `THM-M-0043` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0043-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0043`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0044-INTAKE` / `THM-M-0044` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
+- [_] `S56-M-0044-INTAKE` / `THM-M-0044` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0044`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0044-STATEMENT` / `THM-M-0044` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-0044-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0044`. Gate: rev-5.6 node-specific receipt and master acceptance.

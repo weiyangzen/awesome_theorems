@@ -36,8 +36,8 @@ full source-to-proof-node mapping, and independent review remain open.
 | Catalog component | Intake-selected mathematical meaning | Pinned Lean candidate | Intake status |
 |---|---|---|---|
 | "Noetherian local ring" | arbitrary commutative Noetherian local ring `R` | `[CommRing R] [IsNoetherianRing R] [IsLocalRing R]` | conventional scope selected; source ratification open |
-| "ideal" | arbitrary proper ideal `I` | `(I : Ideal R)` and `(h : I != top)` | exact candidate interface authenticated |
-| "intersection property" | intersection of every natural power is zero | `(iInf fun n : Nat => I ^ n) = bot` | conventional conclusion selected; canonical expression not frozen |
+| "ideal" | arbitrary proper ideal `I` | `(I : Ideal R)` and `(h : I ≠ ⊤)` | exact candidate interface authenticated |
+| "intersection property" | intersection of every natural power is zero | `(iInf fun n : Nat => I ^ n) = bot` | exact canonical expression self-tested pending master acceptance |
 | Wolfgang Krull / 1938 | catalog attribution | no formal component | historical primary-source packet open |
 | `已验证` | untrusted inventory label | no formal component | no H/M credit |
 
@@ -64,9 +64,10 @@ or derive M0.
 
 ## Exactness and source gate
 
-Before H0 or statement acceptance, accountable reviewers must preserve the relevant source
-edition, resolve the historical-versus-modern provenance, map all definitions and assumptions,
-check corrections and errata, approve the ideal specialization, and map material proof transitions.
-The statement phase must separately freeze the exact Lean context, expression and environment
-fingerprints, boundary behavior, checked alternate forms, and required mutations. Until then the
-pinned declarations are candidates and the planned root remains `[H1, M3, R3]`.
+Before H0, accountable reviewers must preserve the relevant source edition, resolve the historical-
+versus-modern provenance, map all definitions and assumptions, check corrections and errata, and
+map material proof transitions. For statement identity, pinned Stacks tag `00IR` explicitly ratifies
+the ideal specialization of tag `00IP`. The exact Lean context, expression and environment
+fingerprints, membership iff, boundary behavior, and required mutations are now self-tested in the
+statement packet. The pinned proof declarations remain candidates pending anchor audit, and the
+planned root remains `[H1, M3, R3]` with no proof or H0 credit.

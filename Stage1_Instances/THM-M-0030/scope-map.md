@@ -7,18 +7,18 @@ the intersection of the ideals `I ^ n` over every natural number `n` is the zero
 
 The ordered mathematical binders are `R`, its commutative-ring structure, its Noetherian and local
 ring hypotheses, `I`, and the properness hypothesis. The conclusion concerns the ideal lattice of
-the same ring. This is a repository-scope selection from a short catalog gloss, not an H0 finding
-or an accepted canonical Lean statement.
+the same ring. This is a repository-scope selection from a short catalog gloss, not an H0 finding.
+Its exact Lean encoding is now self-tested pending master acceptance.
 
 ## Scope decisions
 
 | Surface | Intake-selected meaning | Open verification |
 |---|---|---|
-| Ring | arbitrary commutative Noetherian local ring `R` | historical source convention and exact Lean universe/context |
-| Ideal | arbitrary proper `I : Ideal R` | source definition and checked encoding of properness as `I != top` |
-| Powers | ordinary ideal powers indexed by every `n : Nat`, starting at zero | notation, index, and expression fingerprint |
-| Intersection | infimum of all `I ^ n` in the ideal lattice | membership/intersection alternate encoding and checked transport |
-| Conclusion | the intersection equals the zero ideal | canonical elaboration and statement mutations |
+| Ring | arbitrary commutative Noetherian local ring `R` | exact `Type u` and typeclass context frozen; historical fidelity open |
+| Ideal | arbitrary proper `I : Ideal R` | checked encoding as the proposition `I ≠ ⊤` |
+| Powers | ordinary ideal powers indexed by every `n : Nat`, starting at zero | exact notation, index, and expression frozen |
+| Intersection | infimum of all `I ^ n` in the ideal lattice | membership alternate encoding connected by checked iff |
+| Conclusion | the intersection equals the zero ideal | canonical elaboration and four mutation classes self-tested |
 
 ## Boundary cases
 
@@ -28,15 +28,14 @@ or an accepted canonical Lean statement.
 - The maximal ideal, nilpotent ideals, and nonmaximal proper ideals are included as instances of
   the general ideal binder, not separate roots.
 - No domain, reducedness, completeness, dimension, principal-ideal, or characteristic premise is
-  added. Mathlib's `IsLocalRing` convention includes nontriviality; the statement phase must record
-  and source-map that convention rather than hide it.
+  added. Mathlib's `IsLocalRing` convention includes nontriviality, which the frozen context records.
 
 ## Related forms not credited as the root
 
 Stacks tag `00IP` states the stronger finite-module form: for a finite module `M`, the intersection
 of `I ^ n M` is zero. Pinned mathlib exposes this as
-`Ideal.iInf_pow_smul_eq_bot_of_isLocalRing`. A later statement phase may connect it to the ideal
-root only by a checked specialization with `M = R`.
+`Ideal.iInf_pow_smul_eq_bot_of_isLocalRing`. It remains uncredited because this statement packet
+does not claim the stronger module form or a specialization transport.
 
 The Jacobson-radical form, the integral-domain form, an adic Hausdorffness or completion statement,
 and a result only for the maximal ideal are related theorems, not substitutions.
@@ -52,10 +51,11 @@ and a result only for the maximal ideal are related theorems, not substitutions.
 - Do not treat the catalog's verified label, a declaration name, `#check`, or `#print axioms` as
   source or proof credit.
 
-## Downstream handoff
+## Statement evidence and downstream handoff
 
-The statement phase must admit and review a pinpoint source, ratify the ideal specialization and
-all conventions above, elaborate a minimal-import target, preserve its expression and environment
-fingerprints, check the module specialization transport if credited, and distinguish removed-
-hypothesis, changed-domain, binder-scope, and boundary mutations. The anchor audit alone owns the
-later proof-body, provenance, dependency, axiom, and TCB classification.
+`Statement.lean` elaborates the exact ideal target using only `Ideal.Operations`, `LocalRing.Defs`,
+and `Noetherian.Defs`; deleting any one direct import fails. The membership iff, top and bottom
+boundary witnesses, expression/environment fingerprints, and four required mutation classes are
+recorded in `statement.json` and the provisional statement receipt. The anchor audit alone owns the
+later proof-body, provenance, dependency, axiom, and TCB classification. Historical source
+admission and independent review remain open on H.

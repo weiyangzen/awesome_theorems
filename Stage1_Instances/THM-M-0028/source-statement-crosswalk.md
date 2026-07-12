@@ -47,10 +47,10 @@ historical fidelity, premise/definition/proof mapping, errata, and review remain
 
 | Catalog component | Intake-selected meaning | Pinned Lean candidate | Status |
 |---|---|---|---|
-| "ring" | historical commutative ring, not necessarily unital; planned Lean root is the unital specialization | `[CommRing R]` | domain transport and source ratification open |
-| "ideal ascending chain" | every `f : Nat ->o Ideal R` is constant from some index onward | specialization of `monotone_stabilizes_iff_noetherian` to the regular module | candidate authenticated; exact ideal/submodule expression and fingerprint open |
-| "Noetherian ring" | every ideal of `R` is finitely generated | `IsNoetherianRing R`; `isNoetherianRing_iff_ideal_fg R` | candidate authenticated; checked transport open |
-| theorem relation | finite ideal bases imply ACC stabilization | specialize and apply `monotone_stabilizes_iff_noetherian` after finite-generation transport | scope selected; canonical root and composition declaration open |
+| "ring" | historical commutative ring, not necessarily unital; Lean root is the explicitly bounded unital specialization | `[CommRing R]` | exact modern domain frozen; wider historical-domain fidelity open |
+| "ideal ascending chain" | every `f : Nat →o Ideal R` is constant from some index onward | exact `OrderHom` carrier in `IdealAscendingChainTarget` | elaborated and fingerprinted; proof uncredited |
+| "Noetherian ring" | every ideal of `R` is finitely generated | exact explicit `Ideal.FG` premise; adjacent `IsNoetherianRing R` candidate | explicit premise frozen; predicate transport uncredited |
+| theorem relation | finite ideal bases imply ACC stabilization | exact one-way implication in `IdealAscendingChainTarget` | target frozen; no inhabitant or proof credit |
 | Emmy Noether / 1921 | historical catalog attribution | no formal component | pinpoint primary-source audit and independent review open |
 | `已验证` | catalog status label | no formal component | explicitly no H/M credit |
 
@@ -75,14 +75,15 @@ ideals. It also exposes well-founded-order and maximal-element characterizations
 `IntakeProbe.lean` checks these APIs and reports that
 `monotone_stabilizes_iff_noetherian` depends on `propext`, `Classical.choice`, and `Quot.sound` in
 the pinned environment. This is discovery evidence only. Intake does not freeze target identity,
-prove that the displayed specialization elaborates with `Ideal R` as selected, inspect terminal
-bodies or transitive dependencies, accept the axiom profile, or establish `M0`.
+inspect terminal bodies or transitive dependencies, accept the proof axiom profile, or establish
+`M0`. `Statement.lean` now elaborates the exact ideal-chain target from the strictly smaller
+`Mathlib.RingTheory.Finiteness.Defs` import, checks the regular-submodule and explicit-monotone
+function transports, and freezes four mutations without importing the candidate chain theorem.
 
 ## Exactness risks held open
 
-The statement phase must confirm the one-way named theorem and separately map the converse,
-commutativity, the historical nonunital domain versus the modern unital specialization,
-natural-sequence stabilization rather than another ACC formulation, the order direction, equality
-after the stabilization index, finite generation of all ideals, and inclusion of the zero ring. It
-must also distinguish definitional equality from a theorem-level transport between `Ideal R` and
-`Submodule R R`. None of those decisions may be inferred merely from a close declaration name.
+The statement phase freezes the one-way implication, commutativity, the explicitly bounded modern
+unital specialization, natural-sequence stabilization, inclusion order, equality after the
+stabilization index, finite generation of all ideals, and inclusion of the zero ring. It does not
+claim fidelity to Noether's wider nonunital domain or credit the converse/full equivalence. Those
+source and related-form questions remain downstream and cannot be inferred from a close name.
