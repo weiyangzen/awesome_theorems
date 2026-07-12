@@ -124,3 +124,32 @@ checks `Cardinal.mk_powerset` in the required direction and then applies pinned
 Receipt `S56-M-0767-PROOF-local-20260712T172134+0800` is provisional worker evidence. The root is
 machine-closed at proof phase, but master acceptance, validation, H0, R0, transitive trust closure,
 hermetic replay, and independent release evidence remain open. No theorem-completion claim is made.
+
+## Validation phase (2026-07-12)
+
+Base revision: `5314165df54baa70993fddf08cc142a9739a74e0`.
+
+`check_validation.py` replayed `Statement.lean`, `Proof.lean`, and the separately written
+`Validation.lean` in an isolated temporary olean directory. The exact proof root and independent
+reconstruction both elaborated. Their reported axiom set was exactly `propext`,
+`Classical.choice`, and `Quot.sound`. The validator also checked the frozen denominator, proof
+receipt inputs, placeholder exclusions, clean pinned mathlib revision/tree, terminal source hash,
+and Lean executable hash. No network or `.lake` mutation command was used.
+
+| Command | Result |
+|---|---|
+| `python3 Stage1_Instances/THM-M-0767/check_validation.py` | exit 0; exact proof and independent root replay passed; pinned trust/provenance checks passed; release gates explicitly blocked |
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; all 15 assurance groups and 1546 uniform-L0 targets passed |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets and ranks passed |
+| `python3 scripts/stage1_target.py show THM-M-0767` | exit 0; rank 777, planned, theorem incomplete |
+| `python3 Stage1_Instances/THM-M-0767/check_proof.py` | exit 0; exact frozen target and required proof components passed |
+| `python3 Stage1_Instances/THM-M-0767/check_obligation_tree.py` | exit 0; 28 obligations, 46 typed edges, frozen root remains open M3 |
+| `python3 -m json.tool` on `validation-spec.json` and `validation-receipt.json` | exit 0 |
+| `git diff --check -- Stage1_Instances/THM-M-0767 .stage1-worker-selftest.json` | exit 0; no output |
+
+Receipt `S56-M-0767-VALIDATION-local-20260712T173127+0800` is provisional, nonrelease worker
+evidence. The first failed node gate is proof-dependency master acceptance. The run reused the warm
+canonical pinned cache and its independent reconstruction ran in the same checkout, so cold
+empty-cache hermetic replay and distinct-runner independence both fail closed. The immutable
+pre-proof graph still records root `M3`; full transitive trust/TCB closure, H0, R0, `AUDIT-Z`,
+`THEOREM-Z`, release, and master acceptance remain open. No theorem-completion claim is made.

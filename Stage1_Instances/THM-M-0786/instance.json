@@ -13,17 +13,17 @@
   "category": "mathematical logic / set theory",
   "target_system": "Lean 4 + pinned mathlib",
   "literal_source_claim": "波雷尔博弈的决定性 (determinacy of Borel games)",
-  "canonical_claim_status": "provisional_human_scope_frozen_exact_source_and_formal_statement_open",
+  "canonical_claim_status": "gale_stewart_formal_statement_self_tested_pending_master_acceptance_source_fidelity_open",
   "canonical_claim": "For every Borel payoff set A in Baire space, the Gale-Stewart game in which two players alternately choose natural numbers and Player I wins exactly when the resulting sequence lies in A is determined: one of the two players has a winning strategy.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_source_definition_and_game_encoding"
+    "module": "Stage1_Instances/THM-M-0786/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0786.BorelDeterminacyTarget",
+    "elaborated_expression_hash": "sha256:4cca4f76eee94e303392ae7902f318fd730387b29587330e643fab8af10ef97a",
+    "environment_fingerprint": "Lean 4.29.0@98dc76e3; mathlib@8a178386; import Mathlib.MeasureTheory.Constructions.Pi; pp.explicit=true",
+    "gate_state": "self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "Provisional play space is Baire space, encoded as Nat -> Nat; strategies act on finite positions of the appropriate parity. Exact history, legality, and strategy encodings remain for the statement phase.",
+  "domain_and_universes": "Play = Nat -> Nat, History = List Nat, Strategy = History -> Nat, all in Type 0; compatibility consults Player I at even history lengths and Player II at odd lengths.",
   "quantifiers": [
     "every payoff set A contained in Baire space",
     "a proof that A is Borel under the source-selected Baire topology",
@@ -68,7 +68,7 @@
   "foundation_profile": "Expected classical set-theoretic mathematics with transfinite arguments; exact ZF/ZFC and choice dependence remains open and no axiom profile is accepted at intake.",
   "tcb_profile": "Lean 4 kernel and pinned mathlib; exact imports and transitive dependency closure remain open.",
   "computation_profile": "Noncomputable strategy existence is expected; no executable solver, oracle, certificate, or external theorem is credited.",
-  "formal_system": "Lean 4 plus pinned mathlib, with imports deferred to the statement phase",
+  "formal_system": "Lean 4 plus pinned mathlib; statement import Mathlib.MeasureTheory.Constructions.Pi",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "public_merge_targets": ["Stage1_Instances/THM-M-0786"],
   "owners_and_reviewers": {
@@ -84,7 +84,11 @@
     "source-statement-crosswalk.md",
     "task-dag.json",
     "IntakeProbe.lean",
-    "validation.md"
+    "validation.md",
+    "Statement.lean",
+    "statement.json",
+    "check_statement.py",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake pending master acceptance. Exact source acceptance, canonical Lean elaboration, anchor audit, obligation freeze, proof, trust and provenance checks, hermetic replay, and independent verification remain open; no H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
+  "status_boundary": "Planned lifecycle with the intake-selected Gale-Stewart Lean statement self-tested pending master acceptance. Exact primary-source acceptance remains H1; anchor audit, obligation freeze, proof, trust and provenance checks, hermetic replay, and independent verification remain open. No H0, M0, R0, accepted proof state, audit completion, or theorem completion is claimed."
 }

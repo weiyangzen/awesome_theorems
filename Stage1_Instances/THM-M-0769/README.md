@@ -23,3 +23,11 @@ The proof phase adds `Proof.lean`, whose explicit fiber selector invokes
 `Classical.choice` and whose root theorem proves the exact frozen target.
 `proof-receipt.json` and `proof-validation.md` record provisional worker
 evidence; downstream validation, release, and master acceptance remain open.
+
+The validation phase adds a fresh-directory kernel replay and a separately
+written `Pi.instNonempty` route in `Validation.lean`. Narrow kernel, axiom,
+placeholder, pin, and local provenance checks pass. The result remains
+fail-closed at hermetic replay and distinct-runner independent verification;
+the frozen pre-proof graph also awaits master reconciliation. Exact commands,
+gate decisions, and the provisional receipt are in `validation-phase.md` and
+`validation-receipt.json`. No theorem completion or release is claimed.

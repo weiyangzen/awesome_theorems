@@ -26,3 +26,10 @@ and workflow edges separate. The architecture expands the statement/foundation, 
 normalization, strict-order branches, singleton construction, diagonal engine, imported boundary,
 and exact-root composition layers. All nodes remain open; the checked anchor is not admitted as
 proof evidence by this phase.
+
+The proof phase subsequently kernel-checked an exact local wrapper, and the validation phase
+replayed it alongside a separately written exact-root reconstruction. Both report only `propext`,
+`Classical.choice`, and `Quot.sound`; pinned mathlib source and environment hashes also pass the
+narrow validator. This remains nonrelease worker evidence: proof master acceptance, graph
+reconciliation, cold/offline hermetic replay, a distinct independent runner, full transitive trust,
+H0, R0, `AUDIT-Z`, and `THEOREM-Z` are open.

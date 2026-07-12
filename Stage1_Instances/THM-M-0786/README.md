@@ -11,7 +11,8 @@ and errata have not been independently inspected and accepted. In particular, th
 silently replace arbitrary Borel payoff sets by open, closed, finite, or otherwise easier games.
 
 The manifest label `已验证` is untrusted metadata and provides no human-proof or machine-proof
-credit. The provisional root is `[H1, M4, R3]`: a published complete human proof is identified but
-not source-audited, no exact Lean target or usable formal proof has been accepted, and only an
-intake-level route exists. No accepted proof state, audit completion, or theorem completion is
+credit. The provisional root remains `[H1, M4, R3]`: a published complete human proof is identified
+but not source-audited, and no usable formal proof has been accepted. The intake-selected
+Gale-Stewart target now elaborates in `Statement.lean` and is self-tested pending master acceptance;
+this supplies no proof credit. No accepted proof state, audit completion, or theorem completion is
 claimed.
