@@ -1,0 +1,113 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0985-VALIDATION-local-20260712T092546+0800",
+  "item_id": "S56-M-0985-VALIDATION",
+  "theorem_id": "THM-M-0985",
+  "base_revision": "0b8b65976c8cabfaf26316eaee8539caba8f60d0",
+  "base_tree": "6f82937c4b1b1ca391c7138296f6186a04aed4c9",
+  "validated_at": "2026-07-12T09:25:46+08:00",
+  "attestor": "stage1-rev56-worker-slot8",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "statement_sha256": "fcb79399c252cb97fab9451553ad9eedd32b45c5b825236d89575d9355377e26",
+    "obligation_tree_sha256": "e3b4eb955e87a8d22fa433089703b69ade6b08c3fa88f39537dfee3b0ea7e765",
+    "proof_sha256": "bc1451484199a95b45833767148501a5972d1d78985101a670b45d090cc2006d",
+    "independent_probe_sha256": "661d26a7dc8facaf51d5c63eeef64b81b8d1fc94a710f3ffe9ba14dc441d0c21",
+    "obligation_registry_sha256": "332f3711ab63e09caec03b4ff0ec693c330f2d96020f4755b493687876a998e7",
+    "typed_graphs_sha256": "3ed6f6feff698faa38c00c1aa097e709309f5881226d23f7e56cb3c3bfb18019",
+    "validation_spec_sha256": "d2b008ebc4ea378ed4129d37c3f1660f1aa4b2521c65f88506910367177849d4",
+    "validator_sha256": "ba0ef48d52d2e7708932f052e908e4da9abd893b6e84821ecdd9c1ffcba24f41",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_terminal_source_sha256": "b74c93434df44eb75b2567f43a58b9e0353138660ad07b99263d8019bcf4f1c6",
+    "network": "not_used",
+    "dependency_cache": "pre-existing canonical pinned .lake symlink reused without update, build, fetch, or clone",
+    "worktree_classification": "nonrelease worker checkout with validation artifacts and pre-existing untracked .lake symlink"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "Stage1_Instances/THM-M-0985/check_validation.py"
+    ],
+    "env_allowlist": {
+      "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+      "LANG": "C.UTF-8",
+      "TZ": "UTC"
+    },
+    "timeout_seconds": 120,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": [
+      "M0985-ROOT",
+      "M0985-S-FOUNDATION",
+      "M0985-L-PINNED-STRONG-LAW",
+      "M0985-T-ASSEMBLE",
+      "M0985-X-PROVENANCE",
+      "M0985-X-VALIDATION"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Exact proof root and same-checkout independent reconstruction elaborated; proof input hashes, clean dependency pin, terminal provenance, placeholder policy, and observed classical axiom set passed. Hermetic and distinct-runner release gates failed closed.",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "local_provenance": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "validated_closed_obligation_ids": [
+      "M0985-ROOT",
+      "M0985-N-MUTUAL-TO-PAIRWISE",
+      "M0985-L-PINNED-STRONG-LAW",
+      "M0985-T-ASSEMBLE"
+    ],
+    "root_closed_locally": true,
+    "root_machine_debt_proposal": "M0-W pending master acceptance; not a release or theorem-completion decision",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "validation_state_proposal": "worker self-test passed for truthful narrow validation; pending master acceptance"
+  },
+  "known_failures": [
+    "The run reused shared writable warm .lake artifacts, so it is not a clean-checkout empty-cache cold build or offline restoration.",
+    "No complete TCB executable/imported-olean inventory, SBOM/license archive, deterministic release bundle, or protected CI attestation exists.",
+    "Validation.lean does not import Proof.lean, but ran in the same mutable checkout with the same toolchain and shared dependencies; it is not a distinct independent runner.",
+    "No second signed attestation or independently implemented minimal verifier exists.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "additional_failed_gate": "S56-10.7-INDEPENDENT-VERIFICATION",
+  "retry_condition": "Validate an immutable clean snapshot from content-addressed offline inputs with empty caches and network denied, complete the TCB/SBOM bundle, and obtain a second signed attestation from a distinctly provisioned runner using an independently implemented minimal verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "fail closed and replace this receipt on any source, hash, pin, axiom, validator, toolchain, or policy drift"
+  },
+  "invalidation_inputs": [
+    "validation-phase-spec.json",
+    "check_validation.py",
+    "Validation.lean",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "Proof.lean",
+    "proof-receipt.json",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "Lean toolchain",
+    "mathlib revision or source worktree",
+    "foundation/TCB policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Self-tested worker evidence for narrow exact-root, trust-observation, provenance, and same-checkout reconstruction checks. It is not hermetic E0/E1 evidence, distinct-runner independent verification, theorem completion, release, or master acceptance."
+}

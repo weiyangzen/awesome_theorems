@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0983-VALIDATION-local-20260712",
+  "item_id": "S56-M-0983-VALIDATION",
+  "theorem_id": "THM-M-0983",
+  "depends_on": ["S56-M-0983-PROOF"],
+  "base_revision": "8079a8a9396157a95ec61c2b3d868e7cca33e7cd",
+  "base_tree": "2ffbed92ad4f5133b1a9251110d347fb86be7256",
+  "validated_at": "2026-07-12T00:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot9",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "Statement.lean": "ee2bcf84a0ecabfdecd39b079957f6df58d48bf41ff0485ce8ebf96399f3d871",
+    "ObligationTree.lean": "be7500588020e57af35389d4759829a0af415177307fccc54ad2c17d2f2e76cd",
+    "Proof.lean": "6834296be8f27073b674a7f004fcbd0da4097af74927ad6e22fc6c97ea9c03dc",
+    "Validation.lean": "18d31aa962cdce3ef7638e44e4a0147a480897a90713eb7b91f07ed25732586a",
+    "statement.json": "e72186a4e36c3a229efa1e71c1f15b13595d4b7af311f9b078464789619ec81a",
+    "obligation-registry.json": "769cc1dafbc2e39f29914b9bae77066da92b77a6eed9af2ebec020925b3fbd1b",
+    "typed-graphs.json": "332db6b96cbd1dadd5acbd92c84f70a6b816b50d6eb264054e780ced7d15eadf",
+    "validation-phase-spec.json": "110ed8db456ff7104e37f43d7f5bbaa5985ece5f7822d021467f608a22cc1fe3"
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "strong_law_source_sha256": "b74c93434df44eb75b2567f43a58b9e0353138660ad07b99263d8019bcf4f1c6",
+    "strong_law_source_defining_commit": "6fcaafd4817fca8d7d4481f8a25ca95305c2b14b",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm and unmodified by worker",
+    "worktree_classification": "nonrelease worker checkout with validation artifacts and pre-existing untracked .lake symlink",
+    "network": "not used by validation commands; host-level network isolation not established"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "exact statement root, package composition, and independently reconstructed exact root passed",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "dependency_pin_and_cleanliness": "pass",
+    "terminal_declaration": "ProbabilityTheory.strong_law_ae_real",
+    "terminal_source": "Mathlib/Probability/StrongLaw.lean",
+    "root_kernel_closed": true,
+    "structured_state_freshness": "fail_closed: typed-graphs.json predates the proof node and still records root_closed false/M3",
+    "machine_debt": "M1",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still records the root as open M3; only the master may reconcile authoritative structured state.",
+    "The worker reused shared writable warm .lake artifacts, so it did not perform an empty-cache cold hermetic build or offline archive restoration.",
+    "No complete transitive declaration/body provenance graph, accepted foundation profile, hashed TCB inventory, SBOM/license archive, deterministic evidence bundle, or signed attestation exists.",
+    "Validation.lean is independently implemented but ran in the same mutable checkout and shared cache; it is not a distinct independently provisioned runner or second verifier identity.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "first_failed_gate": "structured_state.fresh_root_reconciliation",
+  "first_failed_release_gate": "hermetic.cold_empty_cache",
+  "retry_condition": "Master-reconcile the proof receipt into the authoritative graphs, then replay an immutable clean snapshot with empty caches, complete trust/provenance/SBOM evidence, offline restoration, and a distinct independently provisioned verifier.",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "revocation_state": "not_revoked",
+    "incident_path": "master integration lane"
+  },
+  "status_boundary": "Self-tested nonrelease worker evidence for exact kernel closure, observed classical axiom output, pinned local provenance, and same-workspace independent reconstruction. It is not hermetic or distinct-runner evidence, E0/E1, accepted M0, theorem completion, release, or master acceptance."
+}

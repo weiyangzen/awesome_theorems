@@ -1,0 +1,38 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "VAL-M0985-VALIDATION-PHASE",
+  "item_id": "S56-M-0985-VALIDATION",
+  "theorem_id": "THM-M-0985",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "Stage1_Instances/THM-M-0985/check_validation.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 120,
+  "network_policy": "denied",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "must contain PASS, the exact root declarations, observed axiom set, and explicit failed release gates"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0985-ROOT",
+    "M0985-S-FOUNDATION",
+    "M0985-L-PINNED-STRONG-LAW",
+    "M0985-T-ASSEMBLE",
+    "M0985-X-PROVENANCE",
+    "M0985-X-VALIDATION"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THMM0985.Proof.kolmogorovStrongLaw",
+    "Stage1Instances.THMM0985.Validation.kolmogorovStrongLaw_independent",
+    "ProbabilityTheory.strong_law_ae"
+  ]
+}
