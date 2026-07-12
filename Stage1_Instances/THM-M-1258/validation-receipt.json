@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1258-VALIDATION-local-20260712T032327Z",
+  "item_id": "S56-M-1258-VALIDATION",
+  "theorem_id": "THM-M-1258",
+  "base_revision": "723677fe13f105920423b0f6bf1a88edcdbfffbe",
+  "base_tree": "d70d140ff79b60bd299993cedab606cf8be34bd5",
+  "validated_at": "2026-07-12T03:23:27Z",
+  "attestor": "stage1-rev56-worker-slot5",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "inputs": {
+    "validation_spec_sha256": "e6c6f09b2e63eb8265ad0b48d0fa08cce23990f00346373e16e6942bd6967f12",
+    "validator_sha256": "70aa50952826571dc7ff18ff3d04fb564b7849155d57d7b0056ffe610acced64",
+    "statement_sha256": "dcc96ffafc032a8a8c0d5131874bdc6a3681663cb1957b64caf3fd2c244fa7d6",
+    "obligation_tree_sha256": "8985b8f6368fc2946d2d2be20f2ebd931f28839c58b657ed2ee44ab2707d5aab",
+    "proof_sha256": "0021fd6b3ff2030e7bc1fd8cbc482131d5e6cf3ee9abf101072b9f04d54ea35c",
+    "independent_reconstruction_sha256": "60df058ce714c783b12c9235bb04a4dbac258ca55c30d20fbf7dfb0481d4cf4e",
+    "obligation_registry_sha256": "39975a12fabfb734fd472991af0edd2885207f77fd8235f8e5e2bfbfd335a554",
+    "typed_graphs_sha256": "349258a249e2a09f775374467c9e71394a65861b063b410d40eb05489614c48e"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "toolchain": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; Lake 5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used",
+    "dependency_cache": "shared canonical pinned .lake symlink; warm, clean, and unmodified by worker",
+    "worktree_classification": "nonrelease: validation artifacts and pre-existing .lake symlink are untracked"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": ["python3", "Stage1_Instances/THM-M-1258/check_validation.py"],
+    "env": {"ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"},
+    "timeout_seconds": 120,
+    "network": "denied"
+  },
+  "result": {
+    "exit_code": 0,
+    "kernel_replay": "pass_for_statement_composition_concrete_proof_and_local_differential_reconstruction",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "local_provenance_hashes": "pass_with_stale_graph_finding",
+    "dependency_pin_and_cleanliness": "pass",
+    "locally_checked_obligation_ids": ["M1258-ROOT", "M1258-S-DOMAIN", "M1258-S-GENERATED", "M1258-N-POINTWISE", "M1258-L-SPAN"],
+    "checked_composition": "Stage1Instances.THM_M_1258.of_pointwise_span",
+    "checked_concrete_witness": "Stage1Instances.THM_M_1258.coordinateFields_hormanderCondition",
+    "differential_reconstruction": "Stage1Instances.THM_M_1258_Validation.independentlyReconstructed_coordinateCondition",
+    "authoritative_root_closed": false,
+    "authoritative_root_cut_set": ["M1258-L-SPAN"],
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The frozen typed graph predates Proof.lean and still records root_closed=false and M1258-L-SPAN as the root cut; only the master may reconcile authoritative state.",
+    "The run reused shared writable warm .lake artifacts, so it is not the section 10.6 cold empty-cache hermetic replay.",
+    "No complete TCB/SBOM/license archive, offline restoration, deterministic signed release bundle, or second-platform attestation exists.",
+    "Validation.lean is an independently written local reconstruction but not a distinct verifier identity or independently provisioned clean runner under section 10.7.",
+    "H0, R0, AUDIT-Z, THEOREM-Z, release, and master acceptance remain open."
+  ],
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional worker receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "replace and revoke this receipt on hash, pin, axiom, graph, validator, or policy drift"
+  },
+  "invalidation_inputs": ["validation-spec.json", "check_validation.py", "Statement.lean", "ObligationTree.lean", "Proof.lean", "Validation.lean", "obligation-registry.json", "typed-graphs.json", "Lean toolchain", "mathlib revision or worktree", "rev-5.6 assurance standard"],
+  "status_boundary": "Self-tested worker evidence for narrow warm validation with explicit failed release gates. It is not E0/E1, accepted M0, distinct-runner independent evidence, theorem completion, release, or master acceptance."
+}
