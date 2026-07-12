@@ -50,9 +50,9 @@ PHASES = (
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 MAX_WORKERS = 12
 CODEX_MODEL = "gpt-5.6-sol"
-CODEX_REASONING_EFFORT = "xhigh"
+CODEX_REASONING_EFFORT = "ultra"
 CODEX_SERVICE_TIER = "default"
-ALLOWED_REASONING_EFFORTS = {"low", "medium", "high", "xhigh"}
+ALLOWED_REASONING_EFFORTS = {"low", "medium", "high", "xhigh", "ultra"}
 
 
 def fail(message: str) -> NoReturn:
