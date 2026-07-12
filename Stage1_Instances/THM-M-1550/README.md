@@ -18,6 +18,14 @@ The source label `已验证` is untrusted metadata. The intake does not broaden 
 universal existence theorem for Lax representations. The provisional statement instead isolates
 the standard spectral-conservation implication that the cited primary paper actually supports.
 
+## Statement phase
+
+`Statement.lean` now freezes that conditional target with explicit universes, finite complex
+matrices, the real time domain, the Lax-equation premise, the conjugating-evolution premise, and
+the algebra-spectrum conclusion. `statement.json` and `statement-validation.md` record its
+expression fingerprint, pinned environment, checked direct expansion, mutations, and boundary
+policy. This elaboration is statement evidence only; it is not a proof of the target.
+
 ## Intake verdict
 
 Lifecycle is `planned`; provisional root vector is `[H1, M3, R3]`. The first failed theorem gate is

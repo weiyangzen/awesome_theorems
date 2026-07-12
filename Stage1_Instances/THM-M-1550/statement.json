@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1550-STATEMENT",
+  "theorem_id": "THM-M-1550",
+  "lifecycle": "planned",
+  "canonical_statement": "For a finite-dimensional complex matrix path L on a real time domain, a Lax equation dL/dt = [P,L] together with explicitly supplied conjugating evolution preserves the spectrum of L across the domain.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1550/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1550.LaxPairIsospectrality",
+    "elaborated_expression_sha256": "657174522ed3122ec3776afaa7bcb826593d652cd089e6bc4e15e6ee1ecc194c",
+    "statement_file_sha256": "232e1c7f713584cfd9634914f2ee90886eeae50fbf11f531a7653a4d0d49952c"
+  },
+  "domain_and_universes": "universe u; n : Type u; Fintype n; DecidableEq n; L P : Real -> Matrix n n Complex; timeDomain : Set Real; Prop in universe 0",
+  "ordered_binders": [
+    "n : Type u",
+    "[Fintype n]",
+    "[DecidableEq n]",
+    "L P : Real -> Matrix n n Complex",
+    "timeDomain : Set Real"
+  ],
+  "hypotheses": [
+    "LaxEquationOn L P timeDomain",
+    "ConjugatingEvolutionOn L timeDomain"
+  ],
+  "conclusion": "IsospectralOn L timeDomain: for any t0 and t in the domain, spectrum Complex (L t) = spectrum Complex (L t0)",
+  "direct_imports": [
+    "Mathlib.Analysis.Matrix.Normed",
+    "Mathlib.Analysis.Calculus.Deriv.Basic"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1550.laxPairIsospectrality_iff_pinnedCandidateSourceShape",
+  "source_relationship": "The checked iff directly expands the finite-matrix Lax equation, conjugation, and spectrum predicates selected at intake. The historical local module remains discovery input and supplies no proof credit.",
+  "environment_fingerprint": {
+    "base_revision": "535a525f487a46804fc0abc236b3e993110c3c9d",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1550/check_statement.py",
+    "validator_sha256": "059aafb46862e9ebcb14005829c2d51bbdec63cd5455d9379a3f19145d4bd9c3",
+    "killed": [
+      "removed the Lax-equation hypothesis and its P binder",
+      "changed the arbitrary finite index type to Fin n",
+      "changed binder scope to require one global conjugating unit",
+      "excluded the empty time-domain boundary"
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_1550.emptyTimeDomainBoundary",
+      "zero-dimensional Fin 0 elaboration example"
+    ]
+  },
+  "degenerate_cases": "The empty time domain, singleton domains, constant paths, and zero-dimensional finite matrix models remain admitted. No connectedness or nonempty-domain condition is silently added.",
+  "excluded_scope": [
+    "universal existence of Lax representations for every notion of integrable system",
+    "construction of conjugating evolution from analytic ODE hypotheses",
+    "unbounded operators, PDE domains, and inverse-scattering completeness"
+  ],
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the exact intake-selected conditional target with two pinned imports, a checked direct expansion, four structural mutations, and boundary checks. It provides no proof of the Lax theorem or any dependent phase."
+}
