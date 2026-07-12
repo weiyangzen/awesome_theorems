@@ -12,6 +12,8 @@ formal artifact. The provisional root vector is `[H1, M4, R4]`: the classical th
 source family are identified, but pinpoint source fidelity, the exact Lean target, and a readable
 proof reconstruction remain open.
 
-The scope map, source-statement crosswalk, and open task DAG define the downstream work. Exact
-intake checks and their results are recorded in `validation.md`. No statement, proof, audit, or
-theorem-completion credit is claimed.
+The statement phase now freezes and elaborates the analytic `C2` minimal-surface-equation target
+in `Statement.lean`, using only the pinned calculus definitions import. Its explicit expression,
+environment fingerprint, and four structural mutation checks are recorded in `statement.json` and
+`statement-validation.md`. This is provisional statement-only evidence. No proof, anchor audit,
+geometric/PDE equivalence, or theorem-completion credit is claimed.

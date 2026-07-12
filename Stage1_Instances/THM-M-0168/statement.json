@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0168-STATEMENT",
+  "theorem_id": "THM-M-0168",
+  "lifecycle": "planned",
+  "canonical_statement": "Every twice continuously differentiable real-valued function on all of R^2 satisfying the two-variable nonparametric minimal-surface equation is affine.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0168/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget",
+    "elaborated_expression_sha256": "b5cef8a8bb3b5505be6670f226315884282c53bb0040c30345f4fb0dc33254f5",
+    "statement_file_sha256": "5e773260e93f29c5da263e749b8bd5208a7b61e344d45b588ad9cda65d311a78"
+  },
+  "domain_and_universes": "u : (Real x Real) -> Real; the domain is the entire product plane; Prop in Lean universe 0",
+  "ordered_binders": ["u", "regularity", "minimal_surface_equation", "a", "b", "c", "p"],
+  "hypotheses": [
+    "ContDiff Real 2 u",
+    "at every p, (1 + u_y^2) u_xx - 2 u_x u_y u_xy + (1 + u_x^2) u_yy = 0"
+  ],
+  "conclusion": "There exist a b c : Real such that for every p : Real x Real, u p = a * p.1 + b * p.2 + c.",
+  "direct_imports": ["Mathlib.Analysis.Calculus.ContDiff.Defs"],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0168/check_statement.py",
+    "killed": [
+      "removed minimal-surface hypothesis",
+      "changed R^2 domain to R",
+      "moved affine coefficients outside the function binder",
+      "added the stronger hypothesis u_x = 0"
+    ]
+  },
+  "degenerate_cases": "Constant functions and tilted affine functions remain included. The total-function domain excludes local graphs. The fixed Real x Real domain prevents substitution of a higher-dimensional Bernstein claim.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only evidence. The geometric/PDE equivalence, pinpoint source audit, proof, dependent nodes, and theorem completion remain open."
+}
