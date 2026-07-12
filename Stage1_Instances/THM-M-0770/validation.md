@@ -26,3 +26,41 @@ selection and mutation tests, canonical Lean elaboration/fingerprint, candidate 
 obligation registry and typed graphs, proof/composition/readability closure, hermetic replay, and
 independent verification. These keep theorem completion false without invalidating this planned
 intake.
+
+## Validation-phase execution
+
+Item: `S56-M-0770-VALIDATION`
+
+Base revision: `b17067c5d92786b270337cbdd3bfaf74df7773f9`
+
+Validation timestamp: `2026-07-12T05:00:34Z`
+
+The proof-phase declaration was kernel-replayed against the exact frozen target. A separate
+`Validation.lean` reconstruction calls `zorn_le`, explicitly handles the empty-chain case, and
+therefore does not reuse the proof phase's `zorn_le_nonempty` invocation. The fail-closed validator
+also checked input hashes, the proof receipt closure set, the clean pinned mathlib revision and
+Zorn source, the local placeholder policy, and both axiom reports.
+
+```text
+python3 Docs/tools/check_stage1_standard.py
+python3 scripts/stage1_target.py check
+python3 scripts/stage1_target.py show THM-M-0770
+python3 Stage1_Instances/THM-M-0770/check_statement.py
+python3 Stage1_Instances/THM-M-0770/check_anchor_audit.py
+python3 Stage1_Instances/THM-M-0770/check_obligation_tree.py
+python3 Stage1_Instances/THM-M-0770/check_proof.py
+  all exit 0
+(cd Formalizations/Lean && bash ../../Stage1_Instances/THM-M-0770/check_proof.sh)
+  exit 0: zornsLemma depends on [propext, Classical.choice, Quot.sound]
+python3 Stage1_Instances/THM-M-0770/check_validation.py
+  exit 0: exact proof root and independent zorn_le reconstruction passed;
+  pinned provenance/trust checks passed; release-only gates remain blocked
+```
+
+This is nonrelease worker evidence. The proof dependency lacks master acceptance, and the frozen
+typed graph still records its pre-proof `root_closed=false` / `M3` boundary. The run reused the
+canonical pinned warm `.lake` cache, so it is not a cold empty-cache hermetic replay. The independent
+probe ran in this checkout with that shared cache, not on a distinct independently provisioned
+runner. Complete transitive provenance/TCB, offline restoration, SBOM/license evidence, H0/R0,
+deterministic release bundling, and master acceptance remain open. `audit_complete=false` and
+`theorem_complete=false`.
