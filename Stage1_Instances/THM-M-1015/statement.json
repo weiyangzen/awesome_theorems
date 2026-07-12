@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-1015-STATEMENT",
+  "theorem_id": "THM-M-1015",
+  "lifecycle": "planned",
+  "canonical_statement": "For real-valued random variables X_n and Y_n on a common probability space, if X_n converges in distribution to Z and Y_n converges in probability to the constant c, then (X_n,Y_n), X_n+Y_n, and X_n*Y_n converge in distribution to (Z,c), Z+c, and Z*c; when c is nonzero, X_n/Y_n converges in distribution to Z/c.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-1015/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_1015.Statement",
+    "elaborated_expression_sha256": "8a9448c3ebc73ab5f6bec86b4ca9f25e4f400f2b5dba7276fddd30f641d48e97",
+    "statement_file_sha256": "ec54dada8ac9c934b8863d5e1ae96c5502e6f93f2bb1ef35cb5b488372744fb1"
+  },
+  "domain_and_universes": "universes u v w; index iota : Type u; common source Omega : Type v; limit source OmegaL : Type w; real-valued functions; Prop in universe 0",
+  "ordered_binders": [
+    "iota : Type u",
+    "Omega : Type v",
+    "OmegaL : Type w",
+    "MeasurableSpace Omega and MeasurableSpace OmegaL",
+    "mu : Measure Omega and IsProbabilityMeasure mu",
+    "muL : Measure OmegaL and IsProbabilityMeasure muL",
+    "l : Filter iota and l.IsCountablyGenerated",
+    "X Y : iota -> Omega -> Real",
+    "Z : OmegaL -> Real",
+    "c : Real"
+  ],
+  "hypotheses": [
+    "TendstoInDistribution X l Z (fun _ => mu) muL",
+    "TendstoInMeasure mu Y l (fun _ => c)",
+    "forall n, AEMeasurable (Y n) mu"
+  ],
+  "conclusion": "Pair, sum, and product convergence in distribution, together with c != 0 implying quotient convergence in distribution.",
+  "direct_imports": [
+    "Mathlib.MeasureTheory.Function.ConvergenceInDistribution"
+  ],
+  "checked_transport": "Stage1Instances.THM_M_1015.statement_iff_expanded (Iff.rfl)",
+  "legacy_relationship": "The historical AwesomeTheorems.Stage1.S1_M_294.StatementShape is a strict partial package because it has only pair, sum, and product branches. It is not credited as an equivalent encoding.",
+  "degenerate_cases": "c = 0 is included for pair, sum, and product and excluded only from the quotient implication. No independence assumption is present. The index type is arbitrary, subject to the countably generated filter required by the pinned API.",
+  "foundation_profile": "Lean 4 dependent type theory with mathlib measure/topology infrastructure; no custom axioms or proof declarations are introduced by this statement node.",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95.",
+  "computation_profile": "Proposition elaboration and expression hashing only; no computation or oracle supplies theorem proof credit.",
+  "environment_fingerprint": {
+    "base_revision": "b2c5ff63ca2e762d1b24d1dc514782747d1a6e1b",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_option": "pp.explicit=true"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-1015/check_statement.py",
+    "validator_sha256": "b43164f411d56f4430747d1ab2b4eeac594a400c000a5dfff87b9e084115575b",
+    "killed": [
+      "removed the AEMeasurable premise",
+      "changed the arbitrary index domain to Nat",
+      "moved the constant from universal scope to an existential conclusion",
+      "required quotient convergence at the excluded c = 0 boundary"
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and elaborates the full four-branch Slutsky target with the pinned minimal import. It supplies no Slutsky proof, anchor-audit acceptance, source acceptance, or theorem-completion evidence."
+}
