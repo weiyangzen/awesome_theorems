@@ -863,10 +863,13 @@ def launch(max_workers: int) -> None:
         print(f"tick: saturated ({len(live)} live, {len(slot_reservations) - len(live)} handoff pending/{max_workers} slots)")
         write_todo(data, ordered, claims)
         return
+    # A blocked worker is a durable negative receipt, not a lease forever.
+    # Keep only live workers and pending handoffs reserved so a three-minute
+    # refill can retry eligible work and maintain the operator's lane target.
     claimed_ids = {
         claim.get("item_id")
         for claim in claims
-        if claim.get("status") in {"live", "finished", "finished_integrated", "blocked"}
+        if claim.get("status") in {"live", "finished"}
     }
     states_by_id = {item["id"]: item["state"] for item in ordered}
     # Phase artifacts are allowed to advance from a self-tested predecessor;
@@ -910,6 +913,7 @@ def launch(max_workers: int) -> None:
             "item_id": item["id"], "theorem_id": item["theorem_id"], "depends_on": item["depends_on"],
             "owned_paths": item["owned_paths"], "session": session, "slot": slot, "workspace": str(workspace),
             "status": "live", "pid": int(pid_text) if pid_text.isdigit() else None, "claimed_at": timestamp,
+            "retry_count": sum(1 for claim in claims if claim.get("item_id") == item["id"]),
             "base_revision": run(["git", "rev-parse", "HEAD"]).stdout.strip(), "output_log": str(output),
             "runtime_config": {
                 "model": CODEX_MODEL,
