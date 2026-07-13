@@ -1,0 +1,249 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0935",
+  "item_id": "S56-M-0935-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1474,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Dias da Silva-Hamidoune定理",
+  "name_en": "Dias da Silva-Hamidoune theorem",
+  "canonical_name": "Dias da Silva-Hamidoune restricted-sumset theorem family (general h-fold root versus Erdos-Heilbronn h = 2 specialization open)",
+  "category": "组合数学 / 计数组合",
+  "category_en": "combinatorics / enumerative combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim_zh": "Erdős-Heilbronn猜想的证明",
+  "literal_source_claim_en": "Proof of the Erdos-Heilbronn conjecture.",
+  "source_attribution": "J. A. Dias da Silva and Y. O. Hamidoune; 1994 (catalog metadata crosschecked against DOI 10.1112/blms/26.2.140)",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_published_restricted_sumset_family_but_catalog_proof_gloss_does_not_choose_general_h_fold_root_versus_h_equals_two_specialization_and_primary_statement_is_uninspected",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a prime p, a finite subset A of the field or cyclic group of order p, and an admissible natural h, the set of sums of h pairwise distinct members of A has cardinality at least min(p, h * (|A| - h) + 1); its h = 2 case is the Erdos-Heilbronn self-sumset bound min(p, 2 * |A| - 3).",
+  "target_disposition": "retain the published Dias da Silva-Hamidoune restricted-sumset family at provisional H1/M4/R4, freeze no canonical proposition, and require primary-source review plus explicit general-h/h=2 and THM-M-0934 ownership resolution",
+  "statement_blocker": "The catalog supplies only 'proof of the Erdos-Heilbronn conjecture', not a proposition. Accessible scholarly sources call either the general h-fold restricted-sumset bound or its h = 2 specialization the Dias da Silva-Hamidoune theorem, while the primary 1994 article text and internal theorem locator were not accessible. The catalog omits the selected root, field/group and set encoding, binder order, h range, nonemptiness, pairwise-distinct representation, arithmetic convention, boundary cases, and relationship to THM-M-0934. Selecting a canonical target now would invent, broaden, narrow, or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Data.Finset.Powerset",
+      "Mathlib.Combinatorics.Additive.SubsetSum",
+      "Mathlib.Combinatorics.Additive.CauchyDavenport"
+    ],
+    "declaration_candidate": null,
+    "candidate_expression": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_primary_source_root_general_h_versus_h_equals_two_domain_range_and_neighbor_transport_open",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Expected finite subsets of F_p or ZMod p with p prime, a natural restricted-sum cardinal h, and natural cardinality bounds. Exact universe serialization, set/finset representation, decidable equality, field/group transport, coercions, and typeclass context remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the general fixed-cardinality restricted subset-sum lower bound, only its h = 2 unequal-pair specialization, or a source-approved package with a checked specialization transport.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before target selection; primality, empty and singleton sets, h = 0, 1, 2, and |A|, h > |A|, natural subtraction, the saturation branch, and duplicate/order conventions must be explicitly resolved and mutation-tested.",
+  "candidate_scope_not_credited": [
+    "general h-fold theorem with 0 <= h <= |A| as in Balandraud Theorem 2",
+    "general k-fold theorem with 1 <= k <= |A| as in Feher-Nagy Theorem 3.1",
+    "h = 2 Erdos-Heilbronn self-sumset specialization",
+    "a conjunction of the general theorem and a checked specialization/neighbor transport"
+  ],
+  "degenerate_cases_to_resolve": [
+    "p equal to zero or one and composite p",
+    "A empty, singleton, and the full finite field",
+    "h equal to zero, one, two, or A.card, and h greater than A.card",
+    "A.card less than two in the h = 2 natural-number formula",
+    "the bound-saturation branch at p",
+    "multiple subsets with equal modular sum",
+    "ordered tuple permutations versus unordered h-element subsets",
+    "F_p versus ZMod p and cardinal/coercion conventions"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0934 Erdos-Heilbronn conjecture silently merged with this target or sharing future receipts without checked ownership and transport",
+    "THM-M-0936 Cauchy-Davenport ordinary sumset theorem without pairwise-distinct summands",
+    "the unequal-two-set Alon-Nathanson-Ruzsa extension",
+    "inverse, composite-modulus, arbitrary-group, weighted, signed, or linear restricted-sumset variants",
+    "the paper's cyclic-subspace or Grassmann-derivative theorem substituted for the catalog's additive restricted-sumset conclusion",
+    "Finset.subsetSum over all subset sizes used as the fixed-cardinality restricted sumset",
+    "a premise or structure that assumes the desired lower bound",
+    "finite testing, native evaluation, an external solver, experiment, or unchecked certificate",
+    "the catalog's untrusted verified label, bibliographic metadata, bounded search, or API probe treated as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0934",
+      "name": "Erdős-Heilbronn猜想",
+      "relationship": "adjacent conjecture target; the h = 2 theorem may close it through a future checked source and Lean transport, but roots, receipts, and status are not shared"
+    },
+    {
+      "theorem_id": "THM-M-0936",
+      "name": "Cauchy-Davenport定理",
+      "relationship": "ordinary two-set sumset lower bound; it does not impose pairwise-distinct summands and cannot replace this target"
+    },
+    {
+      "theorem_id": "THM-M-0932",
+      "name": "零和序列",
+      "relationship": "neighboring additive-combinatorics family with different zero-sum conclusions and no shared proof credit"
+    }
+  ],
+  "source_status": "H1_exact_primary_paper_bibliographic_identity_and_precise_scholarly_statement_leads_identified_but_primary_theorem_definitions_assumptions_proof_errata_general_h_h2_catalog_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "J. A. Dias da Silva and Y. O. Hamidoune, Cyclic Spaces for Grassmann Derivatives and Additive Theory, Bulletin of the London Mathematical Society 26(2), March 1994, 140-146, DOI 10.1112/blms/26.2.140",
+      "bibliographic_observations": "Crossref response observed 2026-07-13, SHA-256 c839748e0188aa4ce482fa18f5e3759ea0a622fba7819edaaa4de2e0f9477293; title, authors, journal, volume, issue, date, pages, and DOI confirmed",
+      "inspection_status": "bibliographic record only; publisher article text was access-blocked, so exact theorem locator, definitions, assumptions, proof boundary, corrections or errata, preservation, and independent review were not inspected or accepted"
+    },
+    {
+      "citation": "Eric Balandraud, Addition theorems in Fp via the polynomial method, arXiv:1702.06419v1, Definition 1 and Theorem 2, printed p.2",
+      "observed_statement": "For A in F_p and natural h in [0, |A|], |h^A| >= min(p, h(|A|-h)+1), where h^A uses h pairwise distinct elements.",
+      "observed_pdf_sha256": "479d268d10d987942924681dcbc14bfa2eb1e47e415357de91af5d29ad8c78bf",
+      "status": "precise later proof/statement lead citing the primary paper; not an admitted primary-source crosswalk or canonical target"
+    },
+    {
+      "citation": "Laszlo M. Feher and Janos Nagy, Additive combinatorics using equivariant cohomology, arXiv:1610.02539v4, Theorem 3.1, printed p.6",
+      "observed_statement": "For |A| = n and 1 <= k <= n in F_p, |k^A| >= min((n-k)k+1,p).",
+      "observed_pdf_sha256": "2d2d3b703428a28cc94191f065c4df6ff820ba7ac3d9194c2708ae07138aef59",
+      "status": "precise later proof/statement lead citing the primary paper; not an admitted primary-source crosswalk or canonical target"
+    },
+    {
+      "citation": "Suren M. Jayasuriya, Steven D. Reich, and Jeffrey Paul Wheeler, On the Inverse Erdos-Heilbronn Problem for Restricted Set Addition in Finite Groups, arXiv:1210.6509v2, Theorem 2.2 and Remark 2.3, printed p.3",
+      "observed_statement": "Uses the Dias da Silva-Hamidoune theorem name for the A = B, h = 2 Erdos-Heilbronn bound and distinguishes the later A != B extension.",
+      "observed_pdf_sha256": "fb3e54b877a46c4bd3677f50061d2cb39de1a88aec48a7c6e4a019918135b26c",
+      "status": "scope-discrimination lead only; not an admitted primary-source statement or H0 crosswalk"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Data.Finset.Powerset",
+      "declarations": [
+        "Finset.powersetCard",
+        "Finset.mem_powersetCard",
+        "Finset.card_powersetCard"
+      ],
+      "boundary": "fixed-cardinality subset infrastructure only; no restricted-sumset lower bound"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Additive.SubsetSum",
+      "declarations": [
+        "Finset.subsetSum",
+        "Finset.mem_subsetSum_iff"
+      ],
+      "boundary": "unions sums of subsets of every cardinality; it is not the source's fixed-h restricted sumset or theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Additive.CauchyDavenport",
+      "declarations": [
+        "ZMod.cauchy_davenport"
+      ],
+      "boundary": "ordinary sumset bound for two nonempty finsets; equal summands are permitted and no restricted theorem follows without substantial new work"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "fb0baac89ea0633612be3b47448464b4b8e4bef7",
+    "repository_base_tree": "018557070da18ea1733a82de81a238750c59aa84",
+    "repository_record": "Docs/researches/math_theorems.md:6833-6838",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:25498-25523",
+    "neighbor_repository_records": "Docs/researches/math_theorems.md:6826-6845",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_block_sha256": "347b8ca24f10ea5f76f6a9b444a0a5e5ff27ddfcd4a87526b156c3044c2e1db6",
+    "stage0_projection_block_sha256": "6cc431d8cf354313cca7e79717cd89cb2bfa5c8f3ef150c68261baefb1c6564c",
+    "neighbor_catalog_block_sha256": "708546b3fb4d845ccaf8e52d1794e8e4976c83f148f98fc88e364db58707e2ad",
+    "manifest_entry_canonical_sha256": "eff1511437195339696f861f5cb6f6b6572f91830cf21d44fec811e988556468",
+    "target_dag_rows_canonical_sha256": "5cfabeec2497b535d00cdc9fc88734e610eaa11e83362e2f1d3bda02d462ae7f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "ae7f4edd81d797bd787af12e2e198aa65a9278b2344f90a2cbf237f1fe800acb",
+    "execution_dag_sha256": "4d99af637f1def5364e71db1878231719cac2f2c6a08f324ce2ca7cc1cb06e15",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source_crossref_response_sha256": "c839748e0188aa4ce482fa18f5e3759ea0a622fba7819edaaa4de2e0f9477293",
+    "primary_source_crossref_response_size_bytes": 2558,
+    "zbmath_record": "Zbl 0819.11007; document id 695039",
+    "zbmath_response_sha256": "17ccea166c1c4c37a5e0dc9e91a0d6e0dd87d92aa8a113940692b7df0816b234",
+    "zbmath_response_size_bytes": 3612,
+    "zbmath_summary_boundary": "The record summarizes the general m-subset-sum bound and Grassmann result but omits the admissible m range and internal primary theorem/page locator; it is source-close discovery metadata, not primary proof admission.",
+    "balandraud_pdf_sha256": "479d268d10d987942924681dcbc14bfa2eb1e47e415357de91af5d29ad8c78bf",
+    "balandraud_pdf_size_bytes": 189018,
+    "feher_nagy_pdf_sha256": "2d2d3b703428a28cc94191f065c4df6ff820ba7ac3d9194c2708ae07138aef59",
+    "feher_nagy_pdf_size_bytes": 369241,
+    "jayasuriya_reich_wheeler_pdf_sha256": "fb3e54b877a46c4bd3677f50061d2cb39de1a88aec48a7c6e4a019918135b26c",
+    "jayasuriya_reich_wheeler_pdf_size_bytes": 198290,
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_powerset_source_sha256": "8258811b25be77c6eb5ac680775a2e2665735d646d14de793a257992cd66b032",
+    "mathlib_subset_sum_source_sha256": "1540c73f26079001b51bc3d2109e9f953d94a1ef86bc2e6518b589d2337b8e59",
+    "mathlib_cauchy_davenport_source_sha256": "74c249c283b315f5916043e9c9a03ce238f4d3f083146ba70869514eed116c2f"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; finite-set classical decidability, quotienting ordered distinct tuples by permutation, propositional and finset extensionality, field/group transports, and the accepted axiom policy remain open until the exact source proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, target expression, terminal declarations, proof-body provenance, transitive dependencies, axioms, and trust closure remain open",
+  "computation_profile": "Finite-set evaluation may test future mutations only; no brute-force enumeration, native evaluator, random experiment, external solver, oracle, or unchecked certificate is credited toward the universal theorem",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0935/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0935/README.md",
+    "Stage1_Instances/THM-M-0935/instance.json",
+    "Stage1_Instances/THM-M-0935/scope-map.md",
+    "Stage1_Instances/THM-M-0935/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0935/task-dag.json",
+    "Stage1_Instances/THM-M-0935/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0935/check_intake.py",
+    "Stage1_Instances/THM-M-0935/validation.md",
+    "Stage1_Instances/THM-M-0935/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent additive-combinatorics/source reviewer",
+    "formal_reviewer": "unassigned independent Lean/additive-combinatorics reviewer",
+    "neighbor_scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent reviewers must approve the primary source edition and locator, general-h versus h=2 ownership, every definition and endpoint, the catalog and THM-M-0934 mapping, and the source-identical Lean encoding before statement acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support theorem release",
+  "review_due": "before master acceptance or dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects, revokes, or supersedes the provisional receipt, records the reason, invalidates dependent provisional work, and requires a fresh scoped intake against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; external PDFs are identified by public version and observed digest but are not claimed as a release archive, and the primary article must be lawfully reauthenticated.",
+  "freshness_and_revocation_policy": "Invalidate on source edition, correction or erratum, exact primary theorem locator, general-h versus h=2 target choice, h endpoint, domain or set/tuple encoding, distinctness and arithmetic convention, THM-M-0934 ownership or transport, canonical Lean target, toolchain or dependency pin, assurance profile, validator, receipt, worker packet, or any owned artifact. Independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, primary bibliographic identity, precise scholarly statement leads, general-h/h=2 scope fork, proposition-changing choices, generic pinned API boundary, exclusions, neighbor ownership, and six open tasks. No canonical proposition, inspected primary theorem or proof, H0 source, exact Lean target, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
