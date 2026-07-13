@@ -1,0 +1,223 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0631",
+  "item_id": "S56-M-0631-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1324,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "贝尔纲定理",
+  "name_en": "Baire category theorem",
+  "canonical_name": "Complete metric spaces and the Baire category property (exact proposition open)",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "完备度量空间是第二纲集",
+  "literal_source_claim_en": "A complete metric space is of second category.",
+  "source_attribution": "Rene Baire, 1899 (catalog metadata only; no work, edition, theorem, or page is cited)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_recognizable_classical_result_and_primary_bibliographic_lead_but_no_admitted_pinpoint_statement_clause_map_errata_audit_or_independent_review",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_baire_category_family_but_second_category_empty_space_and_metric_encoding_choices_change_the_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not decide whether 'second category' means that the whole space is nonmeagre or the stronger BaireSpace property. Literal nonmeagreness requires a nonempty boundary because the empty complete metric space is meagre. It also does not fix metric versus pseudometric, displayed versus merely compatible complete metric, category encoding, binder order, or boundary cases. Selecting the convenient pinned BaireSpace instance now would silently strengthen or repair the received claim.",
+  "target_decision": "retain a planned exact-topic intake and require one immutable independently reviewed source proposition before statement execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.Baire.CompleteMetrizable",
+      "Mathlib.Topology.Baire.Lemmas",
+      "Mathlib.Topology.GDelta.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "BaireSpace.of_completelyPseudoMetrizable",
+      "BaireSpace.baire_property",
+      "dense_iInter_of_isOpen_nat",
+      "not_isMeagre_of_isOpen",
+      "isMeagre_iff_countable_union_isNowhereDense"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_does_not_choose_baire_property_or_nonmeagre_space_and_empty_space_boundary",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-empty-space-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must choose the ambient type and universe, displayed metric or pseudometric versus a compatible completely (pseudo)metrizable topology, completeness and separation structures, topology compatibility, nonemptiness if required, and every typeclass assumption.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not decide between the BaireSpace dense-intersection property, every nonempty open set being nonmeagre, or the whole space being nonmeagre.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake. Source review must settle empty and singleton spaces, separated metrics versus pseudometrics, discrete spaces, empty or repeated open-set families, and the distinction between vacuous BaireSpace and false whole-space nonmeagreness on Empty.",
+  "candidate_scope_not_credited": [
+    "every natural-number-indexed intersection of dense open sets is dense",
+    "every countably indexed intersection of dense open sets is dense",
+    "every nonempty open set is nonmeagre",
+    "the whole space is nonmeagre in itself",
+    "a complete metric space is a Baire space",
+    "a complete pseudometric space is a Baire space",
+    "a topology admitting a compatible complete metric or pseudometric is a Baire space"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the empty complete metric space, where BaireSpace is vacuous but Set.univ is meagre",
+    "singleton and finite discrete complete metric spaces",
+    "nonseparated complete pseudometric spaces versus separated metric spaces",
+    "empty, constant, or repeated families of open dense sets",
+    "natural-number, arbitrary countable type, or countable-set indexing",
+    "whole-space, subspace, open-set, residual-set, and nowhere-dense-cover formulations"
+  ],
+  "excluded_substitutions": [
+    "the locally compact R1 second Baire theorem",
+    "THM-M-0632 Baire-Hausdorff theorem",
+    "whole-space nonmeagreness without a source-sanctioned nonempty boundary",
+    "BaireSpace chosen merely because pinned mathlib supplies the instance",
+    "a specialized real, Banach, compact, locally compact, finite, or discrete case",
+    "a typeclass, axiom, certificate, structure field, or hypothesis that assumes the desired category property",
+    "the catalog title or untrusted verified label used as source or proof evidence",
+    "an API probe or unrelated successful build used as exact-statement or theorem evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0628",
+      "name": "局部紧性定理",
+      "relationship": "separately owns an unspecified local-compactness claim; a locally compact Baire consequence transfers no statement or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0632",
+      "name": "贝尔-豪斯多夫定理",
+      "relationship": "separately owns the catalog gloss 'properties of Baire spaces'; no source, statement, proof, or receipt credit transfers"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "lead": "R. Baire, Sur les fonctions de variables reelles, Annali di Matematica Pura ed Applicata, series III 3, 1-123 (1899), DOI 10.1007/BF02419243",
+      "evidence": "Crossref and the publisher landing page establish immutable bibliographic identity; the advertised PDF endpoint returned HTML in this run",
+      "status": "primary bibliographic lead only; exact theorem/section/page, definitions, statement, proof boundary, translation, correction history, errata, and independent review not obtained"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Baire.CompleteMetrizable",
+      "declaration": "BaireSpace.of_completelyPseudoMetrizable",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a completely pseudometrizable topological space has a BaireSpace instance",
+      "status": "exact-topic pinned bridge elaborates, including on Empty, but the catalog has not selected its stronger BaireSpace conclusion"
+    },
+    {
+      "module": "Mathlib.Topology.Defs.Basic",
+      "declaration": "BaireSpace.baire_property",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "natural-number-indexed intersections of open dense sets are dense",
+      "status": "definition projection for the strong category formulation only"
+    },
+    {
+      "module": "Mathlib.Topology.Baire.Lemmas",
+      "declaration": "not_isMeagre_of_isOpen",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a nonempty open set in a Baire space is not meagre",
+      "status": "candidate bridge to second-category wording; explicit nonemptiness exposes the unresolved empty-space boundary"
+    },
+    {
+      "module": "Mathlib.Topology.GDelta.Basic",
+      "declaration": "isMeagre_iff_countable_union_isNowhereDense",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "meagreness is equivalent to containment in a countable union of nowhere-dense sets",
+      "status": "candidate category encoding only; not a selected root"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d1b510bacab792f84a99231485cf4429fdb78978",
+    "repository_base_tree": "f77c4e4db196fc0ecc271815514a411d06ea6053",
+    "repository_record": "Docs/researches/math_theorems.md:4678-4683",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:17260-17285",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "2ded4e07bba54ced38a7824c72ebb6fef9ed3f84c2899749b0d22b7ae3e77a3e",
+    "stage0_projection_excerpt_sha256": "3b31d1643f066e43ba5976a0a289cfa55d3b5517ac9dfdf768ef029fe71213c8",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f79eb00e787d3356209879a046caae86de60d355daf11ae8923d6e90c511c625",
+    "execution_dag_sha256": "ba0a151d3cb8c7fc6fbc0db54fe0653663c09d40c83790cd0ba185794d0931f8",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_complete_metrizable_source_sha256": "dffa124bdec1f341b083393cda293e65dd89e130af507d5ded8372273f2c88fb",
+    "mathlib_baire_lemmas_source_sha256": "4ca317d2355f4767dec9f00ba992212425f3a12449b2a88a11d5bd96ada58c1f",
+    "mathlib_gdelta_basic_source_sha256": "0cc213a4e590ce89c0002af5b49bcf4b65a88b4f7c870b73cfca5ff4bb9f2322",
+    "mathlib_topology_defs_basic_source_sha256": "db2c0b80e2976b2de31bd62b1aca210d591b2960361357c11ce3105d4a30bfc5",
+    "mathlib_completely_metrizable_source_sha256": "99d22919a3207cb886546faa49a48b3a5e86015ea2d401e487370007118b7ca6",
+    "crossref_baire_1899_response_sha256": "5c7aede997927a012832dec67e0b6357a2aca2918305604f512d419e77af4c85",
+    "crossref_baire_1899_response_bytes": 4113,
+    "springer_baire_1899_landing_sha256": "b9a74acab6c1b794abab29c0c0161d53b9db7ed984d7c55da9e55242f12b6341",
+    "springer_baire_1899_landing_bytes": 217743,
+    "springer_pdf_endpoint_result": "returned_HTML_not_PDF",
+    "springer_pdf_endpoint_response_sha256": "20fde7ee5101751a4f9b303f7d99571ca2cdc99c436baaa4b33e63ee2ff04421",
+    "springer_pdf_endpoint_response_bytes": 217777
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_scope": "Provisional exact-topic intake assessment only. A primary bibliographic lead and pinned formal interfaces exist, but no admitted pinpoint source proposition, canonical expression, checked source transport, accepted anchor audit, or target proof evidence is frozen.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, topology and metric foundations, separation, nonemptiness, and imported-theorem policy remain open until an exact source proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, target expression, terminal declarations, transitive dependencies, axioms, compiled artifacts, and trust acceptance remain open",
+  "computation_profile": "No numerical experiment, native shortcut, external oracle, solver, assumed certificate, or unchecked result is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0631/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0631/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0631/README.md",
+    "Stage1_Instances/THM-M-0631/check_intake.py",
+    "Stage1_Instances/THM-M-0631/instance.json",
+    "Stage1_Instances/THM-M-0631/intake-receipt.json",
+    "Stage1_Instances/THM-M-0631/scope-map.md",
+    "Stage1_Instances/THM-M-0631/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0631/task-dag.json",
+    "Stage1_Instances/THM-M-0631/validation.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent topology and historical-source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned independent point-set topology reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition and pinpoint theorem, category convention, domain, completeness, separation and nonemptiness premises, binders, conclusion, boundary cases, and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support theorem or release claims",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier and transient network responses have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition, theorem locator, translation or erratum; category, metric, completeness, separation, nonemptiness, binder or boundary decision; canonical Lean target, transport, toolchain or dependency pin; assurance profile, validator, structured recipe, public reconstruction, or any owned artifact change.",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, scope ambiguity, empty-space discriminator, bibliographic lead, exact-topic formal candidates, exclusions, and open task DAG. No canonical proposition, exact Lean statement, accepted primary source, proof body for this target, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

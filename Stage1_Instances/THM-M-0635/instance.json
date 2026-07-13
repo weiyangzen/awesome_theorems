@@ -1,0 +1,193 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0635",
+  "item_id": "S56-M-0635-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1328,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "极值定理",
+  "name_en": "Extreme value theorem",
+  "canonical_name": "compact-domain extreme value theorem family",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "紧集上连续函数可取到最大最小值",
+  "literal_source_claim_en": "A continuous function on a compact set attains maximum and minimum values.",
+  "source_attribution_untrusted": "Karl Weierstrass, 1860",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "compact_domain_two_sided_extreme_value_family_identified_but_catalog_omits_nonemptiness_domain_ordered_codomain_continuity_encoding_and_exact_binders",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected nonempty compact subset K of a topological space and a source-selected real-valued or suitably ordered-codomain function f continuous on K, there exist possibly different points of K realizing the minimum and maximum of f on K.",
+  "target_disposition": "requires_source_selection_and_exact_scope_freeze_before_statement_execution",
+  "statement_blocker": "The catalog does not specify nonemptiness, domain, codomain, order/topology assumptions, continuity on the set versus globally or on a subtype, ordered binders, the relationship between the two witnesses, or exact conclusion encoding. The literal witness claim fails on the empty compact set. Choosing the generic mathlib ordered-codomain pair or a familiar real-valued specialization without an admitted source would add proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.Order.Compact"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations_not_credited": [
+      "IsCompact.exists_isMinOn",
+      "IsCompact.exists_isMaxOn",
+      "isMinOn_iff",
+      "isMaxOn_iff"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_statement_not_binder_complete",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-axiom-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix the domain or ambient topological space, compact subset or compact carrier, ordered codomain and topology, universes, coercions, and typeclass assumptions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: expected family is existence of a minimum witness and a maximum witness on the selected nonempty compact domain, but the catalog does not fix their encoding, order, or whether they are bundled.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is silently excluded before source selection; empty and singleton domains, constant functions, distinct extrema witnesses, unsuitable codomains, weakened compactness, and wrong-domain continuity must be resolved and mutation-tested later.",
+  "candidate_scope_not_credited": [
+    "a real-valued ContinuousOn function on a nonempty compact subset of an arbitrary topological space attains both extrema",
+    "a function into a linearly ordered space with the source-selected closed-ray topology assumptions attains both extrema on a nonempty compact subset",
+    "a continuous real-valued function on a nonempty compact-space carrier attains both extrema",
+    "compactness of the image followed by existence of its least and greatest values with checked witness transports"
+  ],
+  "excluded_substitutions": [
+    "only boundedness of the image or existence of supremum and infimum without attainment",
+    "only minimum attainment or only maximum attainment",
+    "uniform continuity, intermediate value, maximum-modulus, PDE maximum-principle, Fermat stationary-point, or optimization theorems",
+    "a compact-interval calculus specialization silently replacing the point-set-topology family",
+    "a structure or hypothesis storing the desired extrema witnesses",
+    "a numerical optimizer, theorem name, API check, or the untrusted verified label used as proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0633",
+      "name": "一致连续性定理",
+      "relationship": "compact-domain uniform continuity is a neighboring theorem, not extrema attainment"
+    },
+    {
+      "theorem_id": "THM-M-0634",
+      "name": "介值定理",
+      "relationship": "the connected-image/intermediate-value family is distinct and does not supply extrema attainment"
+    },
+    {
+      "theorem_id": "THM-M-0265",
+      "name": "魏尔斯特拉斯逼近定理",
+      "relationship": "polynomial approximation shares a Weierstrass attribution but is a separate theorem family"
+    },
+    {
+      "theorem_id": "THM-M-1490",
+      "name": "优化理论",
+      "relationship": "the broad optimization field may use compact minimizer existence but cannot own or replace this two-sided root"
+    }
+  ],
+  "source_status": "H1_classical_published_family_known_but_catalog_has_no_pinpoint_source_complete_assumption_definition_proof_errata_crosswalk_or_independent_review",
+  "source_candidates_not_credited": [],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Order.Compact",
+      "declarations": [
+        "IsCompact.exists_isMinOn",
+        "IsCompact.exists_isMaxOn"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "direct proof-bearing generic minimum and maximum interfaces documented as the extreme value theorem; no source-approved combined canonical root, exact-type transport, or terminal provenance audit yet"
+    },
+    {
+      "module": "Mathlib.Order.Filter.Extr",
+      "declarations": [
+        "IsMinOn",
+        "IsMaxOn",
+        "isMinOn_iff",
+        "isMaxOn_iff"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "extremum predicates and inequality equivalences only"
+    }
+  ],
+  "bounded_discovery_result": "Pinned mathlib contains direct generic minimum and maximum declarations explicitly documented as the extreme value theorem. Repository-local Lean also uses these APIs in other targets, but no THM-M-0635 root exists. This is bounded intake discovery, not the exhaustive immutable anchor audit or proof-body provenance closure.",
+  "source_revisions": {
+    "repository_base": "0e5ae82e6d507ee607c3f011900571ffd8096800",
+    "repository_base_tree": "400e6edf1f69b971b60a367e3ea29be359b07907",
+    "repository_record": "Docs/researches/math_theorems.md:4706-4711",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:17368-17393",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "9ff5f5c6dd52b607c93c31450931bcecacbc64ac4513a6d631979f500a666414",
+    "stage0_projection_excerpt_sha256": "f0eabb01b841f04fc1811a69afa631da57240f04e6baa45b01ec92028164cf7b",
+    "canonical_manifest_entry_sha256": "25e4cf6b97b36f066d07c6d68a3c3038091e6ae205fe3ae8c5e7f034aaa64137",
+    "intake_dag_entry_sha256": "e33edf0bd2760477763a3dbeb9752b7edc0667a6423baaceea565e1007080fc5",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "de6aa1e0d959d06feb390f9938ea78e9d43008fafc16e96141483f9c198eda22",
+    "execution_dag_sha256": "d811d528aa5f9a83a03f5de32ca443180218e6357c4131b50c64fc63553accac",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_order_compact_source_sha256": "bf00e5c54860bc821e8310f4901ff38071f41099c274d5a34ab9ef46e7ff6ac1",
+    "mathlib_order_extr_source_sha256": "9172090b702dcf58e74f42c8e8af47e0e9d6407abb84edfaf57c43295055dc85"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, order duality, source-selected codomain topology, and noncomputability policies remain open until the exact proposition is frozen and audited",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact root imports, expression identity, terminal declarations, transitive dependencies, and accepted trust policy remain open",
+  "computation_profile": "No numerical extremum search, approximation, floating-point computation, optimizer, oracle, experiment, or unchecked certificate is credited; the intended result requires exact kernel evidence",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0635/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0635/README.md",
+    "Stage1_Instances/THM-M-0635/instance.json",
+    "Stage1_Instances/THM-M-0635/scope-map.md",
+    "Stage1_Instances/THM-M-0635/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0635/task-dag.json",
+    "Stage1_Instances/THM-M-0635/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0635/check_intake.py",
+    "Stage1_Instances/THM-M-0635/validation.md",
+    "Stage1_Instances/THM-M-0635/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent analysis/topology reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source, target, attribution, nonemptiness, domain, codomain, order-topology, continuity, extrema encoding, binder, transport, or boundary decision, canonical Lean target, toolchain or dependency pin, assurance profile, validator, receipt, or owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the literal catalog gloss, two-sided extreme-value family, omitted nonemptiness/domain/codomain/continuity/binder choices, neighbor exclusions, direct pinned formal leads, and open task DAG. No exact source proposition, canonical Lean statement, accepted source, canonical proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
