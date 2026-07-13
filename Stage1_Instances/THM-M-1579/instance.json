@@ -1,0 +1,213 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1579",
+  "item_id": "S56-M-1579-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1202,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "信道容量",
+  "name_en": "Channel capacity",
+  "canonical_name": "Shannon channel-capacity definition and theorem family",
+  "category": "其他重要领域 / 离散数学",
+  "category_en": "other important fields / discrete mathematics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "信道的最大传输速率",
+  "literal_source_claim_en": "The maximum transmission rate of a channel.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_identifies_the_channel_capacity_family_but_not_one_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies a noun and maximum-rate gloss but does not select a definition or theorem. Shannon 1948 separately gives a noiseless asymptotic definition, a finite-state determinant theorem, a noisy discrete maximum-information-rate definition, an operational limit theorem, and a continuous-channel definition. It fixes none of the channel class, rate/error semantics, maximum versus supremum, limit hypotheses, normalization, ordered binders, or boundary cases. Selecting a familiar capacity formula would invent, narrow, or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.SpecialFunctions.BinaryEntropy",
+      "Mathlib.InformationTheory.Coding.UniquelyDecodable",
+      "Mathlib.InformationTheory.Hamming",
+      "Mathlib.InformationTheory.KullbackLeibler.ChainRule",
+      "Mathlib.Probability.Kernel.Basic",
+      "Mathlib.Probability.ProbabilityMassFunction.Basic"
+    ],
+    "namespace": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_one_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted target decision must fix the channel class, input/output/state/signal alphabets or spaces, finite or measurable structures, source/process class, time or block carriers, probability objects, rate codomain, logarithm base, optimizer domain, convergence structure, and all universe and typeclass data.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not state whether the conclusion is a capacity definition, existence of a limit or maximum, a finite-state determinant formula, an operational equality, a capacity-achieving input result, or a continuous-channel characterization.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; every alphabet, state, duration, probability, rate, error, optimizer, limit, and boundary choice in scope-map.md remains for the statement phase.",
+  "candidate_scope_not_credited": [
+    "Shannon 1948 Part I Section 1's discrete noiseless capacity definition as asymptotic allowed-signal growth",
+    "Shannon 1948 Part I Section 1 Theorem 1's determinant and largest-real-root formula for finite-state constrained noiseless channels",
+    "Shannon 1948 Part II Sections 11-12's noisy discrete capacity definition as maximum information rate over input sources",
+    "Shannon 1948 Section 14 Theorem 12's operational asymptotic characterization using N(T,q)",
+    "Shannon 1948 Part IV Section 24's continuous bandlimited-channel capacity definition",
+    "a modern finite-alphabet discrete memoryless channel formula or capacity-achieving input-distribution theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty or singleton input, output, state, and signal alphabets or an empty allowed-signal language",
+    "zero-duration symbols, zero or infinite time, and block lengths zero and one",
+    "zero-capacity, noiseless, deterministic, completely noisy, reducible, or nonergodic channels",
+    "no admissible input source, unattained supremum, nonunique optimizer, and maximum versus supremum",
+    "nonexistent or infinite entropy rates and capacity and failure of ordinary limits versus limsup or liminf",
+    "error tolerances zero and one, decoder ties, zero-probability transitions, and logarithm of zero",
+    "nonexistence or multiplicity of the largest real root in the finite-state determinant formula"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1577 information theory, THM-M-1578 Shannon entropy, THM-M-1580 noisy-channel coding theorem, or THM-M-1581 noiseless coding theorem as inherited scope or evidence",
+    "Stage0 computer-science records for channel coding, noisy-channel coding, capacity converse, joint source-channel coding, or Gaussian capacity substituted for this rev-5.6 target",
+    "binary entropy, KL divergence, a Markov-kernel API, Hamming distance, or uniquely-decodable source coding presented as channel capacity",
+    "a binary symmetric channel, Gaussian channel, finite numerical example, or fixed special rate regime substituted for a selected general claim",
+    "a structure or hypothesis that assumes the desired capacity value, maximizing input, operational equality, decoder, or reliability result",
+    "simulation, floating-point optimization, unchecked external declarations, or the untrusted verified label"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1577",
+      "name": "信息论",
+      "relationship": "broader subject target; no statement or proof credit shared"
+    },
+    {
+      "theorem_id": "THM-M-1578",
+      "name": "香农熵",
+      "relationship": "entropy target; definitions may be dependencies but no root credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1580",
+      "name": "香农噪声信道编码定理",
+      "relationship": "reliable-coding target; Shannon Theorem 11 must not be substituted for capacity"
+    },
+    {
+      "theorem_id": "THM-M-1581",
+      "name": "香农无噪声编码定理",
+      "relationship": "distinct source-coding/noiseless target; no scope or proof credit shared"
+    }
+  ],
+  "source_status": "exact_primary_result_family_identified_but_repository_gloss_does_not_select_a_source_faithful_proposition",
+  "primary_source_candidates_not_credited": [
+    {
+      "citation": "Claude E. Shannon, A Mathematical Theory of Communication, Bell System Technical Journal 27 (1948), Part I 379-423, DOI 10.1002/j.1538-7305.1948.tb01338.x; Part II 623-656, DOI 10.1002/j.1538-7305.1948.tb00917.x",
+      "candidate_locator": "Part I Section 1 definition and Theorem 1; Part II Sections 11-14 including the capacity definition and Theorem 12; Part IV Section 24; consolidated corrected-copy pages 3-4, 19-25, and 41-42",
+      "candidate_summary": "exact author/year/family match containing distinct noiseless, noisy discrete, operational, and continuous capacity definitions or theorems",
+      "immutable_copy_sha256": "6e4e3411984f3edf99dbfe8b941cb5e8a321379ff0cae6ae5c1f592ad8882ca8",
+      "status": "strong primary discovery identity and scope-discrimination evidence only; exact root, artifact kind, incorporated definitions, assumptions, correction and errata mapping, and independent review remain open"
+    }
+  ],
+  "external_formal_candidate_leads_not_credited": [
+    {
+      "repository": "https://github.com/abenenson/channel-capacity",
+      "revision": "a212a605d3ec5a23034e0c40f51b2b92d594efa5",
+      "located_via": "repo-local immutable audit metadata in Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_288.lean",
+      "observed_modules": [
+        "ChannelCapacity.Capacity",
+        "ChannelCapacity.Finite"
+      ],
+      "observed_declarations": [
+        "ChannelCapacity.channelCapacity",
+        "ChannelCapacity.exists_capacity_achieving_prior",
+        "ChannelCapacity.EntropyFormula.exists_unique_capacity_achieving_prior_of_finite"
+      ],
+      "status": "unaudited downstream candidate lead only; not pinned in this project's dependency closure, not exact-type matched to an unselected root, not placeholder/axiom/provenance audited here, and not credited"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_record": "Docs/researches/math_theorems.md:11637-11642",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:42931-42956",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "e59488b81c4e4aed660017c71b4d6586da1e405d1002d703437cd1a670e208b6",
+    "stage0_record_excerpt_sha256": "5533da9127f8028ede4907967469932e32a1b4505a999f452dd3f2340cf20484",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "cs_boundary_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "primary_source_pdf_sha256": "6e4e3411984f3edf99dbfe8b941cb5e8a321379ff0cae6ae5c1f592ad8882ca8",
+    "primary_source_extracted_text_sha256": "9a2aa6ad93890df38c11813c8ee89f36559a79f0e204a2a56e7f1f7721dba410",
+    "crossref_part1_response_sha256": "8c2ca33b9ff3dda723482dbc0bba534b8c2b8df29ece4665ebd08fa809f1c077",
+    "crossref_part2_response_sha256": "1641593c17928793ead6f5c610554493af96d011d0e932a5c85bb4647b165fbc",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "binary_entropy_source_sha256": "6f7f092b8f6e35c15509c7e6388ef0cd18ec582631b351912b7601d16eacf0f4",
+    "kl_basic_source_sha256": "f013e7060601d5bb39efe5137c314240fdf5261cc06eec121f4ae0e6d5bd98d9",
+    "kl_chain_rule_source_sha256": "7cfbfc972c134864031de87e3b5157be2d7af83e375a2c0e1cc9ff7db598678d",
+    "kernel_defs_source_sha256": "f9836e940781ca536d8deec8f489cf05d05ad80c46410bf90967af535c5f54fc",
+    "pmf_basic_source_sha256": "5292f6a3729f6212b3dfa09942f7d649e706ec11331e4935fc7905f8118c0453",
+    "uniquely_decodable_source_sha256": "1d77f6aaa753df530e96edf4819026a453d32ae6fc473ac307ea722c26a6c807",
+    "hamming_source_sha256": "2552acbec60f1a370482bbdadee849049aa2c7c32452cbcf84d1dbca39e8ccf8"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "human_debt_scope": "H5 applies only to the literal repository noun and gloss because they do not select one stable proposition; Shannon's published definitions and theorems must be reclassified after an approved target correction or source selection",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical finite probability, choice, real logarithms, limits, suprema, determinants, ergodic or measure-theoretic principles, and continuous probability remain open until a source-faithful proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, terminal declarations, dependency closure, information-theory interfaces, executables, and trust policy remain open",
+  "computation_profile": "No simulation, floating-point capacity optimizer, random experiment, empirical error curve, oracle, or unchecked certificate is credited; any future finite or analytic computation requires exact replayable certification under an approved profile",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1579/README.md",
+    "Stage1_Instances/THM-M-1579/instance.json",
+    "Stage1_Instances/THM-M-1579/scope-map.md",
+    "Stage1_Instances/THM-M-1579/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1579/task-dag.json",
+    "Stage1_Instances/THM-M-1579/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1579/check_intake.py",
+    "Stage1_Instances/THM-M-1579/validation.md",
+    "Stage1_Instances/THM-M-1579/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "boundary_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected artifact kind or theorem variant, source edition or errata finding, channel/capacity/rate/error/optimizer/limit/boundary decision, neighbor reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the vague catalog claim, exact primary result family, candidate definitions and theorems, proposition-changing choices, and open task DAG. The API probe supplies no target statement or proof credit. No canonical mathematical or Lean proposition, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

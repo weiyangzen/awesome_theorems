@@ -1,0 +1,200 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0265",
+  "item_id": "S56-M-0265-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1273,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "魏尔斯特拉斯逼近定理",
+  "name_en": "Weierstrass approximation theorem",
+  "canonical_name": "Weierstrass uniform polynomial-approximation theorem family (exact source formulation open)",
+  "category": "分析学 / 实分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "连续函数可用多项式一致逼近",
+  "literal_source_claim_en": "Continuous functions can be uniformly approximated by polynomials.",
+  "source_attribution": "Karl Weierstrass, 1885 (untrusted catalog metadata; no cited work or theorem locator)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_weierstrass_approximation_family_but_catalog_omits_domain_scalars_function_carrier_topology_quantifiers_polynomial_encoding_and_boundary_cases",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not fix the interval or compact domain, scalar field, bundled or unbundled function carrier, uniform topology or norm, density/closure/epsilon/sequence conclusion, quantifier order, polynomial evaluation, or boundary cases. Pinned mathlib supplies several exact real closed-interval variants, but choosing one before an immutable source crosswalk would invent proposition-changing mathematics; choosing Stone-Weierstrass would broaden the target and overlap THM-M-0266.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": ["Mathlib.Topology.ContinuousMap.Weierstrass"],
+    "declaration_candidates": [
+      "polynomialFunctions_closure_eq_top'",
+      "polynomialFunctions_closure_eq_top",
+      "continuousMap_mem_polynomialFunctions_closure",
+      "exists_polynomial_near_continuousMap",
+      "exists_polynomial_near_of_continuousOn"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_immutable_primary_source_selection_crosswalk_and_exact_statement_elaboration"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the function domain, compactness or interval assumptions, input and output scalar fields, polynomial coefficient field and evaluation, function carrier, topology/norm, universes, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose density/closure equality, closure membership, positive-epsilon polynomial existence, or existence of a uniformly convergent polynomial sequence.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve all endpoint orderings, empty/singleton domains, tolerance signs, scalar choices, and carrier/topology conventions in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "every continuous real-valued function on [0,1] is uniformly approximable by real polynomials",
+    "every real function continuous on [a,b] is within each positive epsilon of an evaluated real polynomial throughout [a,b]",
+    "polynomial functions are dense in the continuous real-valued maps on every real closed interval",
+    "there exists a sequence of polynomials converging uniformly to each continuous interval function",
+    "polynomial functions are dense on arbitrary compact subsets of the real line"
+  ],
+  "degenerate_cases_to_resolve": [
+    "a < b, a = b, and b < a, including an empty closed interval",
+    "empty and singleton domains, zero and constant functions",
+    "positive, zero, and negative tolerances",
+    "degree-zero polynomials and any degree-bound convention",
+    "real versus complex coefficients and values",
+    "bundled subtype maps versus total functions continuous on a set",
+    "closure or norm formulation versus a pointwise absolute-value inequality"
+  ],
+  "excluded_substitutions": [
+    "Stone-Weierstrass or a general separating-subalgebra density theorem",
+    "Bernstein approximation on [0,1] alone if the source-selected root is the general interval theorem",
+    "Taylor, Fourier, trigonometric, Runge, Mergelyan, analytic, or pointwise approximation",
+    "a fixed interval, function, epsilon, coefficient field, or degree special case selected without source authority",
+    "an assumption, structure field, axiom, oracle, numerical experiment, or unchecked certificate containing the requested polynomial",
+    "the catalog verified label, theorem name, module documentation, or intake probe used as source identity or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0266",
+      "name": "斯通-魏尔斯特拉斯定理",
+      "relationship": "separately cataloged general continuous-function-algebra density theorem; no scope or proof credit is shared"
+    }
+  ],
+  "source_status": "H1_authoritative_modern_edition_record_supplies_named_weierstrass_source_lead_but_text_exact_statement_assumptions_proof_errata_and_review_are_uninspected",
+  "human_source_candidates_not_credited": [
+    {
+      "citation": "Karl Weierstrass, Über die analytische Darstellbarkeit sogenannter willkürlicher Functionen reeller Argumente, Mathematische Werke, Cambridge University Press modern edition, pages 1-38",
+      "stable_identifier": "DOI 10.1017/CBO9781139567886.002; ISBN 9781108059152 / 9781139567886",
+      "discovery_evidence": "Crossref DOI record observed 2026-07-13; 1881-byte JSON; SHA-256 fe4fc307bfb6cc1959ca1cf5523034818843759aba077fe097490351c4bee44b",
+      "status": "authoritative edition metadata lead only; chapter text, relationship to the 1885 parts, exact theorem and incorporated definitions, premise/conclusion/proof map, translation, corrections, errata, and independent review were not inspected or credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.ContinuousMap.Weierstrass",
+      "declaration": "polynomialFunctions_closure_eq_top'",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "unit-interval polynomial-density interface; the source has not selected the unit interval"
+    },
+    {
+      "module": "Mathlib.Topology.ContinuousMap.Weierstrass",
+      "declaration": "polynomialFunctions_closure_eq_top",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "real closed-interval density equality, including degenerate orientations; source identity and transports remain open"
+    },
+    {
+      "module": "Mathlib.Topology.ContinuousMap.Weierstrass",
+      "declaration": "continuousMap_mem_polynomialFunctions_closure",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "bundled continuous-map closure membership; exact carrier and conclusion form are not sourced"
+    },
+    {
+      "module": "Mathlib.Topology.ContinuousMap.Weierstrass",
+      "declaration": "exists_polynomial_near_continuousMap",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "positive-epsilon supremum-norm approximation for bundled maps; no canonical target selected"
+    },
+    {
+      "module": "Mathlib.Topology.ContinuousMap.Weierstrass",
+      "declaration": "exists_polynomial_near_of_continuousOn",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "most literal unbundled epsilon candidate, but its real interval, continuity, epsilon, and evaluation clauses are absent from the catalog"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "e179b2be594419aa5fb33c3862f73491fdaf113e",
+    "repository_base_tree": "8c1da8dad4712804811f550b583129e7b73effdc",
+    "repository_record": "Docs/researches/math_theorems.md:1908-1913",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:7333-7358",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "318a8fd3b7b200aac7f9f4e1d4a3e3238086ceaec15b8cf9ee42a683425f29bc",
+    "stage0_projection_excerpt_sha256": "601a337e5de5f86c05a4df2265dc6eb0f108f88b53adcc629278d87e8da53a3e",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2f84e18ec955dacb1273c091dc8a1860f3be32346aaea704195362477872d4cc",
+    "execution_dag_sha256": "6f939490c5b5ce8e97f03a0b3c0d6713945e5e4dec17add371ddd71ff9b8786f",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_weierstrass_source_sha256": "671efc224525ad0e72e357f84fda45e9b703dde1be473898d5fc3e99bde74bda",
+    "mathlib_bernstein_source_sha256": "25671448786716ef72ed551144b7948d81d8cd2092fc663a2403151b8502bcd9",
+    "mathlib_stone_weierstrass_source_sha256": "a38987686de10fd538e8b029e2341b4177bd836e236f43bcf4c0c7ff0f2e6088"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; candidate axiom reports include propext, Classical.choice, and Quot.sound, while exact foundation acceptance remains open until the canonical target and trust policy are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, target expression, terminal body, transitive dependencies, axioms, and trust acceptance remain open",
+  "computation_profile": "No sampled approximation, numerical optimization, floating-point error, oracle, experiment, generated polynomial, native computation, or unchecked certificate is credited; the expected conclusion is kernel-checked existential or density evidence",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0265/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0265/README.md",
+    "Stage1_Instances/THM-M-0265/instance.json",
+    "Stage1_Instances/THM-M-0265/scope-map.md",
+    "Stage1_Instances/THM-M-0265/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0265/task-dag.json",
+    "Stage1_Instances/THM-M-0265/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0265/check_intake.py",
+    "Stage1_Instances/THM-M-0265/validation.md",
+    "Stage1_Instances/THM-M-0265/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent real-analysis reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "support_window": "provisional planned intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes this provisional dossier, records the reason, and requires fresh scoped intake evidence against current immutable inputs.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition, theorem locator, statement, definitions, assumptions, proof, translation or erratum; domain, scalar, carrier, topology, norm, polynomial, quantifier, conclusion or boundary convention; neighbor-target decision; canonical Lean target or transport; toolchain or dependency pin; assurance profile, validator, receipt, or any owned artifact change.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog gloss, source absence, proposition-changing scope choices, five direct pinned formal candidates, the Stone-Weierstrass exclusion, and an open task DAG. M3 supplies no canonical-root or proof credit. No exact statement, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
