@@ -1,0 +1,174 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "decision_id": "S56-M-0498-RELEASE-local-20260714T034500+0800",
+  "item_id": "S56-M-0498-RELEASE",
+  "theorem_id": "THM-M-0498",
+  "execution_rank": 258,
+  "phase": "release",
+  "intent": "release",
+  "verdict": "blocked",
+  "base_revision": "bad90e2e2479d376609447202eb4f437789d0d11",
+  "base_tree": "df3ade7b4d06057f8aac33369c3d69bd391aa05a",
+  "decided_at": "2026-07-14T03:45:00+08:00",
+  "attestor": "stage1-rev56-worker-slot20",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "release_grade": false,
+  "content_addressed_release_evidence": false,
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "canonical_target_expression_sha256": "4de2508b7d4cc86d13c5d51e1b5d6b8c61e43dec6655035224c21e25745af526",
+  "registry_denominator_sha256": "8a964cd4c13dc98d9bfa75e22cf5bab2af31d96d83bde13600049c669d88f144",
+  "dependency": {
+    "item_id": "S56-M-0498-VALIDATION",
+    "authoritative_projection": "[_]",
+    "receipt_id": "S56-M-0498-VALIDATION-local-20260714T032500+0800",
+    "receipt_sha256": "3dbf281ed889c416655a8535e9d261d97b479ada0f79b299a6164977db41495b",
+    "receipt_base_revision": "823dfcd5e231e84436ac3d88948d8e669c168fdb",
+    "receipt_base_tree": "a87f5f99350f49ddeb9d7df23dc6e0fe6fe3011f",
+    "support_state": "provisional_worker_selftest",
+    "proposed_state": "[_]",
+    "accepted": false,
+    "release_grade": false,
+    "content_addressed_release_evidence": false,
+    "master_accepted": false
+  },
+  "reconciled_inputs": {
+    "intake.json": "88c8a77eec98f7f745fbe23427a61ae116cb5aaeb2bec227d7e318dbb440ed9a",
+    "statement.json": "895b79efd4b5bbd99e2b146c694ba40cd9756366222098cff34e2adb800d8201",
+    "anchor-audit.json": "98722578675a0d2c4259792c5564bbb8072314111c75c9e43cdd8af2256c3312",
+    "obligation-registry.json": "8707ec15002e01d30c5fbaf9b413f5e19aa5a91fd62949c3fd63152cd5d7e12b",
+    "typed-graphs.json": "3f56008f4190bf3e50bb3117e2d57e6860c37080c68f5603a178759ce2f11210",
+    "Statement.lean": "ffdaf423ec563b3f6a33e7611e1627b01a8d1299c9afb62cbef2342dd54c623a",
+    "ObligationTree.lean": "f6f710870505be57520ebd92305033876744d8c058a2a8837421200ea008efd6",
+    "Proof.lean": "ccd61a7ac076de1226504ba53e95d1da6cb6485db1b52eac255a0678b5efc6df",
+    "Validation.lean": "c32210a93ec0ca0ec5fa1056299a54a2a1003ea70f048d710abc91ad9a8d49d9",
+    "proof-blocker.json": "8fba334340a27581d7057f3b3a39c95725006f39e7b02961e01cfe8219e27754",
+    "proof-receipt.json": "90e3ac70da5b338e19c94cf1fb91a17693fb57fe03985f6526ff283b8248bba9",
+    "validation-spec.json": "d9f6f2839b50f60218f1c2720b3f608de5aea14abaa881b5e6256fdaf41093f0",
+    "validation-receipt.json": "3dbf281ed889c416655a8535e9d261d97b479ada0f79b299a6164977db41495b",
+    "check_validation.py": "1a19fe06b62c3fc52c06b6253417dc92246f52a32363b0c4304324e62056d0c5"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0498-PROOF-partial-20260713T173819Z",
+    "S56-M-0498-VALIDATION-local-20260714T032500+0800"
+  ],
+  "root_vector": {
+    "accepted_before": [
+      "H3",
+      "M4",
+      "R4"
+    ],
+    "accepted_after": [
+      "H3",
+      "M4",
+      "R4"
+    ],
+    "best_provisional_evidence": [
+      "H3",
+      "M4",
+      "R4"
+    ],
+    "stale_intake_projection": [
+      "H2",
+      "M3",
+      "R3"
+    ],
+    "boundary": "The frozen typed graph and current validation receipt supersede the intake-era projection for release reconciliation. The root remains H3/M4/R4, and the checked logarithmic-derivative wrapper plus conditional compositions close no whole frozen root obligation."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false,
+    "master_acceptance": false
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0498-VALIDATION is only provisional worker evidence: the DAG projects [_], its receipt has accepted=false and release_grade=false, and no master-accepted receipt exists."
+  },
+  "next_failed_theorem_gate": {
+    "gate_id": "S56-M-0498-ROOT-KERNEL-CLOSURE",
+    "reason": "M0498-T-ANALYTIC has no placeholder-free Lean proof body. Both root composition declarations require that analytic package as an explicit premise, so the exact root remains M4 and kernel_closed=false."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Available Lean evidence reuses the scheduler-provided shared warm .lake symlink, whose unrelated flt-regular package was previously reconciled and left without compiled artifacts; there is no immutable empty-cache cold build or network-disconnected archive restoration."
+  },
+  "remaining_root_cut_set": [
+    "dependency-legal master acceptance of S56-M-0498-VALIDATION and every transitive phase receipt",
+    "M0498-T-ANALYTIC: placeholder-free kernel closure of the analytic explicit-formula package and its Perron, contour, residue, trivial-zero, and nontrivial-zero convergence obligations",
+    "checked realizability or nonvacuity evidence for NontrivialZeroEnumeration",
+    "authoritative reconciliation of every required obligation and exact child-to-parent composition with accepted node-scoped receipts",
+    "AUDIT-Z inventory, source-boundary, evidence, typed-graph, and public-projection reconciliation",
+    "accepted H0 primary-source edition, theorem/page locator, assumptions, errata crosswalk, and independent source review",
+    "accepted R0 node-by-node readable reconstruction with formal anchors, substantive ledgers, and independent reader review",
+    "complete accepted root provenance, foundation and axiom policy, transitive declaration/import/artifact closure, and Lean/compiler/bootstrap/plugin/native/checker TCB inventory",
+    "immutable clean source and dependency snapshot",
+    "empty-cache network-denied cold build and network-disconnected offline archive replay",
+    "complete SBOM, license, and offline-restoration closure",
+    "two signed attestations from distinct independently provisioned clean runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI plus required mutation, adversarial, differential, and metamorphic gates",
+    "build-twice deterministic content-addressed release bundle and master reconciliation of AUDIT-Z and THEOREM-Z"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "provisional_pass",
+    "logarithmic_derivative_bridge": "provisional_pass_for_intended_subbranch_only",
+    "conditional_root_composition": "provisional_pass_but_requires_unproved_analytic_package",
+    "same_worker_differential_composition": "provisional_pass_but_not_independent_and_requires_unproved_analytic_package",
+    "observed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "placeholder_and_unsafe_scan": "provisional_pass_within_observed_local_and_selected_terminal_boundary",
+    "accepted_closed_obligation_ids": [],
+    "exact_root_kernel_closure": false,
+    "root_machine_debt": "M4",
+    "minimal_open_root_cut": [
+      "M0498-T-ANALYTIC"
+    ],
+    "zero_enumeration_realizability": "missing",
+    "validation_dependency_acceptance": "missing",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_foundation_tcb_closure": "missing",
+    "immutable_clean_release_input": "missing",
+    "hermetic_cold_offline_replay": "missing",
+    "sbom_license_archive_closure": "missing",
+    "independent_clean_runner_attestations": "missing",
+    "independently_implemented_minimal_verifier": "missing",
+    "protected_ci_and_mutation_gates": "missing",
+    "deterministic_release_bundle": "missing",
+    "audit_z_accepted": false,
+    "theorem_z_accepted": false,
+    "master_acceptance": false
+  },
+  "known_failures": [
+    "The validation dependency and all predecessor receipts remain provisional rather than dependency-ordered and master accepted.",
+    "The exact root remains H3/M4/R4 with no accepted closed obligation; M0498-T-ANALYTIC and all substantive analytic supports lack proof bodies.",
+    "The genuine pinned logarithmic-derivative wrapper supports only an intended subbranch whose frozen formal target is still planned; it earns no whole-obligation or root closure.",
+    "No checked inhabitant or realizability witness for NontrivialZeroEnumeration exists.",
+    "The intake-era H2/M3/R3 projection is stale relative to the frozen typed graph and current validation H3/M4/R4 boundary.",
+    "Primary-source H0 and independently reviewed readable R0 evidence are absent, so AUDIT-Z is also blocked.",
+    "Accepted complete provenance, foundation, axiom, transitive artifact, executable/compiler/bootstrap/plugin TCB, SBOM, and license closure are absent.",
+    "The shared warm .lake cache is contaminated nonrelease evidence and cannot substitute for a clean empty-cache cold build or offline archive restoration.",
+    "The differential probes share this worker, checkout, kernel, and cache; no qualifying second signed runner or independently implemented minimal verifier exists.",
+    "Protected critical mutation gates, a deterministic content-addressed release bundle, THEOREM-Z, release acceptance, and master acceptance are absent."
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0498/check_release.py",
+    "Stage1_Instances/THM-M-0498/release-decision.json",
+    "Stage1_Instances/THM-M-0498/release-validation.md"
+  ],
+  "retry_condition": "First implement and validate M0498-T-ANALYTIC and its frozen supporting obligations, establish NontrivialZeroEnumeration realizability, reconcile all node-scoped state, close independently reviewed H0/R0 and complete provenance/foundation/TCB records, and obtain dependency-legal master acceptance. Then use separately provisioned immutable release runners for cold offline restoration, full SBOM/license evidence, independent attestations, a minimal independent verifier, protected adversarial CI, a reproducible deterministic bundle, and master reconciliation.",
+  "worktree_classification": "nonrelease worker handoff: owned release artifacts and the root worker packet are untracked outputs, and the scheduler-provided Formalizations/Lean/.lake symlink is a pre-existing untracked shared warm cache",
+  "status_boundary": "Self-tested negative release reconciliation only. This decision accepts no receipt, advances no lifecycle or debt state, and establishes neither H0, accepted M0, R0, AUDIT-Z, THEOREM-Z, theorem completion, release-grade evidence, nor master acceptance."
+}
