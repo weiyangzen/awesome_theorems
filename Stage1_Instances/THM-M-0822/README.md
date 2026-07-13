@@ -41,3 +41,22 @@ mutations. `check_statement.py`, `statement.json`, `statement-validation.md`, an
 The vector remains `[H1, M3, R4]`. This is a worker-self-tested statement proposal pending
 dependency-ordered master acceptance; no universal upper-bound proof body, equality
 classification, `H0`, `M0`, `R0`, audit completion, theorem completion, or release is claimed.
+
+## Obligation-tree result
+
+Registry version 1 freezes 27 canonical obligations before proof-phase adoption. The machine proof
+spine separates exact root assembly, the target-owned star-attainment branch, and the pinned
+`Finset.erdos_ko_rado` upper-bound bridge. The visible Kruskal-Katona source-body route is expanded
+as informational expository nodes sharing the terminal proof-body identity, so wrappers and
+presentation splits cannot inflate proof coverage.
+
+`typed-graphs.json` keeps proof, refinement, provenance, evidence, trust, documentation, and
+workflow relations separate. `ObligationTree.lean` checks the local attainment package, the literal
+pinned terminal, its binder adapter, exact two-child assembly, and the assembly-to-root identity.
+These are provisional interfaces only: the accepted obligation set remains empty and the root stays
+`[H1, M3, R4]`. The target-owned attainment expansion is hierarchical: construction consumes the
+ground-element child, cardinality consumes the image child, and attainment consumes construction,
+intersection, sizing, and cardinality through checked abstract-child harnesses.
+`obligation-tree.md`, `validation-specs.json`, and `obligation-tree-receipt.json` record the readable
+architecture, structured replay, and exact boundary. H0/R0 review, proof adoption, transitive E1
+trust, validation, release, `AUDIT-Z`, theorem completion, and master acceptance remain open.

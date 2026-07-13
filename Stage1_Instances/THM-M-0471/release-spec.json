@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0471-RELEASE-local-v1",
+  "item_id": "S56-M-0471-RELEASE",
+  "theorem_id": "THM-M-0471",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0471/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 360,
+  "network_policy": "denied",
+  "network_enforcement": "Bubblewrap --unshare-net enforces denial for every nested Lean subprocess. Runner-wide network denial is not established for the outer observational Python reconciliation, which made no network request; this mismatch is a recorded nonrelease failure.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line release reconciliation summary"
+    }
+  ],
+  "decision_covered_obligation_ids": [
+    "M0471-ROOT",
+    "M0471-S-INTERFACE",
+    "M0471-S-BOUNDARY",
+    "M0471-S-TRANSPORT",
+    "M0471-S-FOUNDATION",
+    "M0471-T-ROOT-COMPOSE",
+    "M0471-T-ASSEMBLE",
+    "M0471-C-WITNESS",
+    "M0471-L-NONEMPTY",
+    "M0471-N-NONZERO",
+    "M0471-L-PRIMALITY",
+    "M0471-L-PRODUCT",
+    "M0471-L-UNIQUENESS",
+    "M0471-L-PERM-PRODUCT",
+    "M0471-L-PRIME-DVD-PRODUCT",
+    "M0471-L-MEM-PRIME-DIVISOR",
+    "M0471-C-ERASE-PERM",
+    "M0471-N-CANCEL-HEAD",
+    "M0471-X-SOURCE",
+    "M0471-X-PROVENANCE",
+    "M0471-X-READABLE",
+    "M0471-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0471.FundamentalTheoremOfArithmeticTarget",
+    "Stage1Instances.THM_M_0471.Proof.fundamentalTheoremOfArithmetic",
+    "Stage1Instances.THM_M_0471.Proof.fundamentalTheoremOfArithmetic_via_frozen_composition",
+    "Stage1Instances.THM_M_0471.Validation.independentlyReconstructedFundamentalTheoremOfArithmetic"
+  ],
+  "scope_boundary": "All 22 obligation IDs are covered only as fail-closed release-decision state reconciliation. The narrow kernel replay checks the four named declarations over the existing pinned warm cache. The outer Python process is observational and made no network request; bubblewrap enforces network denial only for the nested Lean subprocesses. This is not whole-recipe network isolation, dependency acceptance, a cold empty-cache offline build, complete provenance/foundation/TCB or SBOM closure, accepted H0/R0 review, independent signed verification, a deterministic release bundle, or master acceptance."
+}
