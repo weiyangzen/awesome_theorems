@@ -23,15 +23,20 @@
   "literal_source_claim_en": "(p - 1)! is congruent to -1 modulo p.",
   "source_attribution": "John Wilson, 1770 (untrusted catalog metadata only)",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "forward_wilson_factorial_congruence_family_identified_with_direct_pinned_candidate_but_prime_premise_domain_congruence_encoding_source_mapping_and_boundary_contract_not_frozen",
-  "canonical_claim": null,
-  "candidate_family_not_credited_as_statement": "For every natural number p, if p is prime, then the factorial of p - 1 is congruent to -1 modulo p.",
-  "target_disposition": "requires_exact_source_domain_hypothesis_direction_encoding_and_boundary_freeze_before_statement_or_proof_execution",
-  "statement_blocker": "The catalog formula leaves the domain of p, primality premise, ordered binders, congruence representation, meaning of -1, and boundary cases implicit. It also does not say whether only the displayed forward direction or the stronger primality characterization is intended. No primary edition, theorem/page, assumption and definition crosswalk, correction or errata audit, or independent review is recorded. Selecting a canonical expression at intake would silently supply proposition-changing choices.",
+  "canonical_statement": "For every natural number p, if p is prime, then the factorial of p - 1 is congruent to -1 modulo p, represented as equality in ZMod p.",
+  "canonical_claim_status": "intake_selected_conventional_forward_natural_prime_scope_frozen_primary_source_fidelity_open",
+  "canonical_claim": "For every p : Nat, p.Prime implies that the cast of Nat.factorial (p - 1) into ZMod p equals the additive inverse of one.",
+  "target_disposition": "exact_conventional_catalog_interpretation_elaborated_pending_master_acceptance_and_primary_source_review",
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "status": "self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0476/Statement.lean",
+    "minimal_imports": [
+      "Mathlib.Data.Nat.Factorial.Basic",
+      "Mathlib.Data.Nat.Prime.Defs",
+      "Mathlib.Data.ZMod.Defs"
+    ],
     "module_candidates": [
       "Mathlib.NumberTheory.Wilson",
       "Mathlib.Data.ZMod.Basic",
@@ -42,23 +47,34 @@
       "ZMod.prod_Ico_one_prime",
       "Nat.prime_iff_fac_equiv_neg_one"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "blocked_exact_source_domain_prime_hypothesis_direction_encoding_and_boundaries_not_frozen",
+    "declaration_or_expression": "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+    "elaborated_expression_hash": "sha256:ee76edb160426d3e8d95b11bfedca7febcfe915f50007e042875c922ebc8a4ac",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Nat.Factorial.Basic+Nat.Prime.Defs+ZMod.Defs_pp-explicit-universes",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.NumberTheory.Wilson_intake-api-probe-only"
   },
-  "domain_and_universes": "Candidate family: p : Nat, hp : p.Prime, factorial in Nat cast into ZMod p, with the target a Prop in universe 0. Exact source approval, binder order, congruence representation, and every typeclass and foundation choice remain open.",
-  "ordered_binders": [],
-  "quantifiers": [],
-  "hypotheses": [],
-  "conclusion": "Open at exact-statement level: the source-selected factorial of p - 1 is congruent to the residue -1 modulo a source-selected prime modulus p.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is formally excluded before a canonical proposition is frozen. The statement phase must include p = 2 under the prime premise, exclude 0, 1, and composite moduli only through that premise, and account for the accidental equality in ZMod 1 when separating the converse or iff form.",
+  "domain_and_universes": "p : Nat; hp : Nat.Prime p; Nat.factorial (p - 1) cast into ZMod p; equality with (-1 : ZMod p); the closed target is Prop in Lean universe 0.",
+  "ordered_binders": [
+    "p : Nat",
+    "hp : p.Prime"
+  ],
+  "quantifiers": [
+    "p : Nat"
+  ],
+  "hypotheses": [
+    "hp : p.Prime"
+  ],
+  "conclusion": "((p - 1)! : ZMod p) = -1",
+  "alternate_encodings": [
+    {
+      "target": "forall (p : Nat) [Fact p.Prime], ((p - 1)! : ZMod p) = -1",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0476.wilsonTheoremTarget_iff_factTarget"
+    }
+  ],
+  "excluded_degenerate_cases": "p = 0, p = 1, and every composite modulus are excluded only because they fail p.Prime. p = 2 is included. No odd-prime side condition is added.",
+  "degenerate_case_status": "The forward target includes p = 2. Natural truncated subtraction is harmless under p.Prime. The accidental equality in ZMod 1 is outside the root because 1 is not prime and remains relevant only to the uncredited converse or iff characterization.",
   "candidate_scope_not_credited": [
-    "the explicit-hypothesis forward ZMod equality forall p, p.Prime -> ((p - 1)! : ZMod p) = -1",
-    "the Fact p.Prime form of ZMod.wilsons_lemma",
     "the natural congruence Nat.ModEq p (p - 1)! (p - 1)",
     "the integer congruence ((p - 1)! : Int) congruent to -1 modulo p",
     "divisibility of (p - 1)! + 1 by p",
@@ -66,13 +82,9 @@
     "the product over nonzero residues or units of ZMod p"
   ],
   "degenerate_cases_to_resolve": [
-    "p = 2 as an included prime boundary",
-    "p = 0 and p = 1",
-    "composite positive moduli, including p = 4",
-    "natural truncated subtraction at zero",
-    "the subsingleton equality in ZMod 1 and the converse theorem's n != 1 premise",
-    "forward direction versus converse or iff characterization",
-    "ZMod equality versus natural or integer congruence and divisibility forms"
+    "primary-source confirmation of the selected natural domain, prime premise, forward direction, and p = 2 boundary",
+    "the uncredited converse theorem's n != 1 premise and accidental equality in ZMod 1",
+    "checked transports for any future Nat.ModEq, integer congruence, divisibility, or product encoding"
   ],
   "excluded_substitutions": [
     "the converse alone or full Nat.prime_iff_fac_equiv_neg_one characterization substituted for the displayed forward direction",
@@ -115,7 +127,7 @@
       "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
       "type_summary": "for p : Nat with [Fact p.Prime], the cast of (p - 1)! into ZMod p equals -1",
       "proof_body_location": "pinned mathlib source at Mathlib/NumberTheory/Wilson.lean",
-      "boundary": "direct forward exact-topic candidate; the explicit-hypothesis wrapper, canonical expression, source transport, terminal provenance, transitive trust, and anchor-audit acceptance remain open"
+      "boundary": "direct forward exact-topic candidate; the statement phase checks only the explicit-hypothesis/typeclass binder transport. Candidate invocation, terminal provenance, transitive trust, source fidelity, and anchor-audit acceptance remain open"
     },
     {
       "module": "Mathlib.NumberTheory.Wilson",
@@ -135,8 +147,10 @@
     }
   ],
   "source_revisions": {
-    "repository_base": "67d32ab26aba14b674ae8a1b919e6935812190c3",
-    "repository_base_tree": "8a1d264cf3331992fbbc3a4fffca285af0b88929",
+    "repository_base": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "repository_base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "intake_evidence_base": "67d32ab26aba14b674ae8a1b919e6935812190c3",
+    "intake_evidence_base_tree": "8a1d264cf3331992fbbc3a4fffca285af0b88929",
     "repository_record": "Docs/researches/math_theorems.md:3497-3502",
     "stage0_projection": "Docs/Stage0_Blueprint.md:13055-13080",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
@@ -145,8 +159,8 @@
     "repository_record_excerpt_sha256": "d47b7fb05f872cbb588c1e12e0e9a0f7edaf7697407e55a751662259a9939523",
     "stage0_excerpt_sha256": "0b83c0c073eb108a83427224fdf24de1995afcf604a6a7aa23f841702a3c7b6b",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "68a35cecca97039995e754fcbf7a09ecf37beb623bd15fb88d3b37dbbe034aaa",
-    "execution_dag_sha256": "042a95899d66a3b7ae2e4545cddecb6cbfd110d87f4cd435c2f7dcdfe94ee52e",
+    "authoritative_blueprint_sha256": "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256": "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -172,8 +186,8 @@
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
   "foundation_profile": "Lean 4 dependent type theory is intended. The inspected pinned candidates report propext, Classical.choice, and Quot.sound; exact transitive trust and the accepted foundation policy remain downstream.",
-  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base. The probe imports Mathlib.NumberTheory.Wilson; exact target imports, terminal bodies, transitive dependency closure, executable identity, and trust policy remain open.",
-  "computation_profile": "No primality test, factorial evaluation, native shortcut, oracle, experiment, or unchecked certificate is credited. Decidable small boundary examples in the intake probe only distinguish scope and do not prove the quantified target.",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base. Exact primitive statement imports are frozen; terminal bodies, transitive dependency closure, executable identity, and trust-policy acceptance remain open.",
+  "computation_profile": "No primality test, factorial evaluation, native shortcut, oracle, experiment, or unchecked certificate is credited. Decidable intake examples and statement mutations only distinguish scope and do not prove the quantified target.",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "open_task_dag": "Stage1_Instances/THM-M-0476/task-dag.json",
@@ -186,7 +200,12 @@
     "Stage1_Instances/THM-M-0476/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0476/check_intake.py",
     "Stage1_Instances/THM-M-0476/validation.md",
-    "Stage1_Instances/THM-M-0476/intake-receipt.json"
+    "Stage1_Instances/THM-M-0476/intake-receipt.json",
+    "Stage1_Instances/THM-M-0476/Statement.lean",
+    "Stage1_Instances/THM-M-0476/check_statement.py",
+    "Stage1_Instances/THM-M-0476/statement.json",
+    "Stage1_Instances/THM-M-0476/statement-receipt.json",
+    "Stage1_Instances/THM-M-0476/statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -195,8 +214,8 @@
     "scope_reviewer": "unassigned integration reviewer",
     "reviewer_policy": "Source and formal reviewers must independently approve the exact domain, primality premise, theorem direction, congruence encoding, binders, boundary cases, source mapping, and Lean transport; the integration lane separately decides node acceptance."
   },
-  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
-  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional statement evidence only; expires on any invalidation input and cannot support release",
+  "review_due": "at statement-node master acceptance and before dependent anchor-audit acceptance",
   "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
   "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
   "freshness_and_revocation_policy": "Invalidate on source correction, edition, attribution, translation, erratum, domain, prime hypothesis, direction, binder, factorial/cast/congruence representation, boundary or transport decision, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
@@ -209,7 +228,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes the catalog formula, conventional forward prime family, proposition-changing choices, direct pinned candidates, non-substitution boundary, and open downstream DAG. H1 records unresolved source reconstruction; M3 records usable exact-topic interfaces without a canonical target or accepted proof; R4 records no source-faithful proof reconstruction. No canonical expression, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Self-tested statement proposal pending master acceptance. It freezes the conventional forward natural-prime ZMod target, minimal imports, explicit-to-Fact transport, expression fingerprint, and four required mutations. H1 records unresolved primary-source fidelity; M3 records statement/interface debt without proof credit; R4 records no source-faithful proof reconstruction. No H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
 }

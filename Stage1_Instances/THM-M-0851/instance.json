@@ -1,0 +1,227 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0851",
+  "item_id": "S56-M-0851-INTAKE",
+  "lifecycle": "planned",
+  "lifecycle_mode": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_artifacts_accepted": false,
+  "execution_rank": 1406,
+  "legacy_priority_slot": null,
+  "name_zh": "连通性阈值",
+  "name_en": "Connectivity threshold in random graphs (exact theorem variant open)",
+  "canonical_name": "Random-graph connectivity-threshold family (exact source proposition open)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "intake_score": 86,
+  "source_status_untrusted": "已验证",
+  "target_system": "Lean 4 + pinned mathlib",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "source_attribution": "Erdos/Renyi; 1959 (catalog metadata only)",
+  "literal_source_claim_zh": "随机图连通的阈值",
+  "literal_source_claim_en": "The threshold for connectivity of a random graph.",
+  "source_status": "H1_named_1959_primary_source_candidate_but_exact_proposition_definitions_formula_proof_errata_and_review_open",
+  "canonical_claim_status": "repository_gloss_identifies_a_connectivity_threshold_family_but_not_one_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim": null,
+  "statement_family_frozen_not_credited_as_exact_statement": "A candidate family concerns the asymptotic probability that a labelled random graph becomes connected near an n-log-n edge scale; the graph law, exact scale, limiting formula, binder order, and source proposition remain open.",
+  "statement_blocker": "The repository does not select the fixed-edge model G(n,m), independent-edge G(n,p), or a coupled graph process; a one-sided, two-sided, sharp, critical-window, or hitting-time result; the exact parameterization, rounding, and binder order; the limiting conclusion; or connectivity and finite boundary conventions. Choosing a familiar variant would substitute unstated mathematics.",
+  "target_decision": "retain the catalog topic family as a planned intake and require an independently reviewed immutable proposition-level source before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+      "Mathlib.Probability.Combinatorics.BinomialRandomGraph.Defs"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "SimpleGraph.Connected",
+      "SimpleGraph.binomialRandom"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_due_to_source_statement_and_model_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_connectivity-binomial-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix the labelled finite vertex carrier, simple-graph law or process, asymptotic index, edge-count or probability parameter functions, event and convergence codomain, universes, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the source gloss does not say whether connectivity probability tends to zero or one, converges to an explicit critical-window value, has a sharp threshold, or corresponds to a graph-process stopping law.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every finite-carrier, endpoint, rounding, logarithm, inequality, and connectivity convention listed in scope-map.md.",
+  "degenerate_cases_to_resolve": [
+    "vertex counts zero, one, and two",
+    "edge counts below zero or above the complete-graph edge count, after integer encoding",
+    "independent-edge probabilities p = 0 and p = 1",
+    "small n for logarithms, scaling, floors, ceilings, and strict inequalities",
+    "connected versus preconnected and the nonempty-carrier convention",
+    "isolated-vertex versus full-connectivity events and any source-claimed asymptotic equivalence"
+  ],
+  "candidate_scope_not_credited": [
+    "a one-sided high-probability connectivity bound in G(n,p) or G(n,m)",
+    "a two-sided zero-one connectivity threshold",
+    "a critical-window limiting probability in the fixed-edge or independent-edge model",
+    "a connectivity hitting-time law in the successive-edge random graph process",
+    "an asymptotic equivalence between connectivity and absence of isolated vertices"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0849 giant-component theorem or the separately cataloged random-graph phase transition",
+    "THM-M-0852 Hamilton-cycle threshold or a deterministic connectivity criterion",
+    "edge-connectivity, vertex-connectivity, minimum-degree, or reachability infrastructure alone",
+    "an independent-edge theorem silently replacing a fixed-edge or graph-process proposition, or conversely",
+    "a coarse or one-sided bound when a selected source has a stronger critical-window or stopping-law conclusion",
+    "simulations, heuristics, assumed conclusions, structures carrying the result, axioms, or the untrusted verified label"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0849",
+      "name": "相变现象",
+      "relationship": "separately cataloged random-graph phase-transition family; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0850",
+      "name": "巨分量定理",
+      "relationship": "separately cataloged giant-component result; it cannot select or prove the connectivity root"
+    },
+    {
+      "theorem_id": "THM-M-0852",
+      "name": "Hamilton圈阈值",
+      "relationship": "separately cataloged Hamiltonicity threshold; a stronger graph property with a different threshold family"
+    }
+  ],
+  "human_source_leads_not_credited": [
+    {
+      "citation": "P. Erdos and A. Renyi, On Random Graphs I, Publicationes Mathematicae Debrecen 6 (1959), 290-297",
+      "candidate_locator": "Renyi Institute Erdos archive, 1959-11.pdf",
+      "identity_basis": "title, authors, year, fixed-edge random-graph model, and connectivity theorems match the catalog family",
+      "candidate_variants": [
+        "Theorem 1: fixed-edge complete-connectivity limiting probability near the n-log-n scale",
+        "Theorem 4: number of successively chosen edges required for complete connectivity"
+      ],
+      "inspection_status": "candidate scan pages 290-291 inspected: equation (1) sets N_c = floor((n log n)/2 + c n) for fixed real c and Theorem 1 gives limiting complete-connectivity probability exp(-exp(-2c)); the complete proof, incorporated definitions, references, corrections, errata, edition identity, and independent review remain open",
+      "credit": "H1 source-family discovery only; not H0 and no proposition selection"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Probability.Combinatorics.BinomialRandomGraph.Defs",
+      "declaration": "SimpleGraph.binomialRandom",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "independent-edge probability measure only; module documentation distinguishes it from the historical fixed-edge Erdos-Renyi model; no connectivity threshold"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+      "declaration": "SimpleGraph.Connected",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "connectivity predicate and boundary conventions only; no probability law, asymptotic parameter, or threshold theorem"
+    }
+  ],
+  "bounded_discovery_ledger": {
+    "searched_on": "2026-07-13",
+    "roots": [
+      "repository catalog and Stage0 projection",
+      "pinned mathlib Mathlib source tree",
+      "repo-local Lean source tree",
+      "Renyi Institute Erdos archive candidate scan"
+    ],
+    "queries": [
+      "connectivity threshold",
+      "random graph connected",
+      "binomialRandom Connected",
+      "On Random Graphs I"
+    ],
+    "result": "A historically matching primary-source family and adjacent pinned measure/connectivity APIs were found, but no exact repo-local or pinned connectivity-threshold declaration was identified. This bounded intake discovery is not the exhaustive anchor audit."
+  },
+  "source_revisions": {
+    "repository_base": "1c0c5fc6f43e6ae5ecc3b50589b45c3628e0ead4",
+    "repository_base_tree": "61214aa2a03c032134ddc4958b1df63df3430a85",
+    "repository_record": "Docs/researches/math_theorems.md:6243-6248",
+    "duplicate_repository_record": "Docs/researches/math_theorems.md:8164-8169",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23225-23250",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "71ab0316f30d8c8710802d942600b00b92354da1d5aaa92f6c74a75e52e40983",
+    "duplicate_record_excerpt_sha256": "71ab0316f30d8c8710802d942600b00b92354da1d5aaa92f6c74a75e52e40983",
+    "stage0_projection_excerpt_sha256": "dc288c5f6c9d2300628d07132f80eb815d64969fab00f1a22fb61c27339fd7d1",
+    "manifest_entry_sha256": "6cb8b8cf948491d581abdd6103999366c87931da20a8210cd4c923541e81dfea",
+    "execution_dag_target_entries_sha256": "90ca6d3b76e47cd2617c9f917b35dc923e22c58b5af159733bdd023db180cadb",
+    "manifest_entry_canonical_sha256": "ff861cd138f78d4d782d562aa4c257d0144b2048b6ee0c720872020c767dc4ef",
+    "execution_dag_target_entries_canonical_sha256": "8562bf914e6b53fdebf62f170718e53f0f7b2ece4033dc2ce2ad23a8e2682781",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1ee37014b14d18de2edf7762729cb4afb2e27c2fd7a9919541e2bca0cbccbd9",
+    "execution_dag_sha256": "ad73d0383ddb3c54f01ff916bc9a74fcd58de6cc98ee60b10962991401c16f44",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_binomial_random_graph_source_sha256": "c8effb70a7e4605a077198e04a771ecc8cba255a2243de9cd76a162788766dc7",
+    "mathlib_connected_source_sha256": "9171842c49be5f8951c6a2d5c39ae374279d46eaa317efd69bdf3039d289eeff"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical probability, finite combinatorics, asymptotic limits, and any choice or quotient principles remain open because no exact proposition or terminal proof body is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, event measurability, model transport, terminal declaration, transitive dependencies, axioms, and trust policy remain open",
+  "computation_profile": "No simulation, random sampling run, finite enumeration, numerical limit, oracle, native shortcut, unchecked certificate, or generated result receives theorem credit",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0851/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0851/README.md",
+    "Stage1_Instances/THM-M-0851/instance.json",
+    "Stage1_Instances/THM-M-0851/scope-map.md",
+    "Stage1_Instances/THM-M-0851/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0851/task-dag.json",
+    "Stage1_Instances/THM-M-0851/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0851/check_intake.py",
+    "Stage1_Instances/THM-M-0851/validation.md",
+    "Stage1_Instances/THM-M-0851/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent random-graph source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned probabilistic-combinatorics reviewer",
+    "reviewer_policy": "Independent source and probabilistic-combinatorics reviewers must approve the selected proposition, graph model, scale, limit formula, source mapping, proof and errata boundary, and degenerate cases; a formal reviewer must approve the Lean target; the integration lane separately decides master acceptance."
+  },
+  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional planned intake only; invalidated by any listed input change and unsupported for theorem or release claims",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "revocation_and_incident_procedure": "The integration lane rejects, revokes, or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "freshness_and_revocation_policy": "Invalidate on catalog, target, duplicate, source, formula, correction, erratum, or review change; graph-law, carrier, connectivity-event, threshold, parameter, binder, convergence, rounding, or boundary decision; Lean target, checked transport, expression fingerprint, toolchain, dependency, assurance profile, validator, recipe, receipt, or owned artifact change. Independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Worker self-tested planned intake proposal only. H1 records a named 1959 primary-source family whose exact proposition and mapping remain open; M4 records that no usable exact formal artifact is identified; R4 records that no source-faithful reconstruction can attach to an unfrozen root. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

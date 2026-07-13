@@ -23,15 +23,15 @@ definition and assumption, inspect corrections or errata, and obtain independent
 
 ## Clause crosswalk
 
-| Catalog component | Conventional interpretation | Pinned Lean surface | Intake status |
+| Catalog component | Conventional interpretation | Pinned Lean surface | Statement status |
 |---|---|---|---|
-| `p` | natural modulus | `p : Nat`; modular values in `ZMod p` | domain absent from catalog; candidate only |
-| hidden premise | `p` is prime | explicit `hp : p.Prime`; candidate uses `[Fact p.Prime]` | indispensable premise to be source-approved and wrapped |
-| `p - 1` | natural predecessor under primality | `Nat` subtraction; primality gives `1 <= p` | truncation harmless under candidate premise; boundary audit open |
-| factorial | product `1 * ... * (p - 1)` | `Nat.factorial (p - 1)`, cast into `ZMod p` | direct notation match; cast and product normalization open |
-| congruent modulo `p` | equality of residue classes | `((p - 1)! : ZMod p) = -1` | direct candidate encoding, not yet canonical |
-| `-1` | additive inverse of the unit residue | `(-1 : ZMod p)` | natural-residue and divisibility transports remain uncredited |
-| displayed direction | prime implies factorial congruence | `ZMod.wilsons_lemma` after explicit-hypothesis wrapper | direct pinned formal lead only |
+| `p` | natural modulus | `p : Nat`; modular values in `ZMod p` | conventionally selected and elaborated; absent from literal catalog |
+| hidden premise | `p` is prime | explicit `hp : p.Prime` | conventionally selected and elaborated; primary-source approval open |
+| `p - 1` | natural predecessor under primality | `Nat` subtraction | frozen; truncation is harmless under the explicit prime premise |
+| factorial | product `1 * ... * (p - 1)` | `Nat.factorial (p - 1)`, cast into `ZMod p` | frozen exact statement encoding |
+| congruent modulo `p` | equality of residue classes | `((p - 1)! : ZMod p) = -1` | frozen exact statement encoding |
+| `-1` | additive inverse of the unit residue | `(-1 : ZMod p)` | frozen; natural-residue and divisibility transports remain uncredited |
+| displayed direction | prime implies factorial congruence | `Stage1Instances.THM_M_0476.WilsonTheoremTarget` | frozen forward target; converse/iff not substituted |
 | classical iff | factorial congruence characterizes primes, excluding `1` | `Nat.prime_iff_fac_equiv_neg_one` | stronger related theorem; explicitly not substituted |
 | `已验证` | untrusted inventory label | no expression, source review, or receipt | rejected as evidence |
 
@@ -54,16 +54,16 @@ The same module contains `ZMod.prod_Ico_one_prime` and
 nonzero residues, identifies those residues with the units of `ZMod p`, and applies the product of
 all units. That architecture is a downstream proof-tree lead, not an intake obligation registry.
 
-`IntakeProbe.lean` imports the proof-bearing module, checks the named declarations, installs
-`Fact p.Prime` from an explicit hypothesis in a candidate wrapper, reports candidate axioms, and
-checks representative boundary behavior. The successful probe establishes usable exact-topic
-interfaces, so the provisional machine level is `M3`; it does not freeze the root, audit the
-terminal body or transitive dependency closure, or confer `M0-W` proof credit.
+`Statement.lean` deliberately does not import this proof-bearing module. It uses only
+`Mathlib.Data.Nat.Factorial.Basic`, `Mathlib.Data.Nat.Prime.Defs`, and
+`Mathlib.Data.ZMod.Defs`, freezes the explicit-prime root, and checks an `Iff` transport to the
+`[Fact p.Prime]` binder form. The successful elaboration establishes statement/interface evidence
+at `M3`; it does not audit or invoke the Wilson proof body and confers no `M0-W` credit.
 
-## First downstream gate
+## Remaining source and downstream gates
 
-Before statement acceptance, an independent source review must approve the forward prime-modulus
-claim and every material domain, binder, hypothesis, notation, direction, and boundary row. The
-statement phase must then elaborate and fingerprint one exact expression using declared minimal
-imports, check the explicit-hypothesis/typeclass and alternate-encoding transports, and reject the
-required removed-hypothesis, changed-domain, changed-scope, and boundary mutations.
+The formal statement selection is now explicit and machine-tested, but no primary or authoritative
+human source passage has been admitted. An independent source review must still approve the forward
+prime-modulus claim and every material domain, hypothesis, notation, direction, and boundary row;
+until then the source status remains `H1`. Formal candidate provenance/trust audit, obligation
+freeze, proof, readable reconstruction, hermetic validation, and release remain downstream.

@@ -1,0 +1,271 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0874",
+  "item_id": "S56-M-0874-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1428,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Babai算法",
+  "name_en": "Babai's graph-isomorphism algorithm",
+  "canonical_name": "Babai deterministic quasipolynomial-time Graph Isomorphism algorithm family",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Babai算法",
+  "literal_source_claim_zh": "图同构的准多项式算法",
+  "literal_source_claim_en": "A quasipolynomial algorithm for graph isomorphism.",
+  "source_attribution": "Laszlo Babai, 2015 (catalog metadata; post-fix source family inspected independently)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_human_result_and_post_fix_detailed_reconstruction_identified_but_complete_correction_node_assumption_errata_crosswalk_and_independent_acceptance_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "stable_human_result_family_identified_from_post_fix_source_but_exact_binder_complete_mathematical_and_formal_computation_bound_contract_open",
+  "canonical_claim": null,
+  "provisional_human_claim_not_frozen": "A deterministic algorithm decides whether two finite graphs are isomorphic with worst-case running time exp((log n)^(O(1))) in the number n of vertices.",
+  "statement_blocker": "The source-level theorem is identifiable, but the repository and source shorthand do not fix a binder-complete formal proposition. They omit a canonical graph-pair serialization, malformed-input policy, Boolean versus witness or coset output, exact deterministic machine and primitive-cost model, vertex-count versus encoding-length bridge, constants and threshold in exp(C*(log n)^c), rounding and small-input conventions, and the checked Graph Isomorphism to String Isomorphism reduction. The v2 proof also requires reconciliation with the UPCC and Design Lemma corrections and the post-fix reconstruction. Choosing these details at intake would invent proposition-changing formal scope.",
+  "target_decision": "preserve the stable human Graph Isomorphism quasipolynomial-time result while requiring independent approval of a complete corrected source bundle and an exact formal computation/bound contract before statement elaboration",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "Mathlib.Computability.Language",
+      "Mathlib.Computability.Reduce",
+      "Mathlib.Computability.TuringMachine.Computable"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "SimpleGraph.Iso",
+      "Language",
+      "ManyOneReducible",
+      "Turing.TM2OutputsInTime",
+      "Turing.TM2ComputableInTime",
+      "Turing.TM2ComputableInPolyTime"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_formal_encoding_machine_cost_bound_and_corrected_source_contract_open",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open at formal level: an approved statement must fix finite graph and vertex representations, simple versus colored/directed/multigraph scope, graph-pair serialization, input alphabet, malformed inputs, Boolean/witness/coset output, deterministic machine state and alphabets, step cost, time codomain, size measure, and every finiteness, decidability, and universe context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Provisional human conclusion only: a deterministic Graph Isomorphism solver is correct and has worst-case quasipolynomial running time. Exact formal output, totality, constants, threshold, size variable, and bound representation remain open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake; statement work must resolve empty and singleton graphs, unequal orders, isolated vertices, graph variants, invalid encodings, zero/one logarithms, natural rounding, asymptotic thresholds, and every small-input output convention.",
+  "candidate_scope_not_credited": [
+    "correctness and totality of a fully specified deterministic Graph Isomorphism decision procedure",
+    "worst-case quasipolynomial runtime of that exact procedure",
+    "a conjunction of decision correctness, totality, and the runtime bound",
+    "Babai v2 Theorem 1.1.1 for String Isomorphism plus a checked graph-to-string reduction yielding Corollary 1.1.2",
+    "the post-fix Bourbaki Theorem 1.1 and Corollary 1.2, including optional isomorphism-coset output",
+    "Coset Intersection or colored-graph refinements as separately owned branches"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, unequal-order, edgeless, complete, and isolated-vertex graphs",
+    "simple undirected versus directed, colored, labeled, looped, or parallel-edge graph models",
+    "same versus different vertex carriers and Boolean versus witness or coset output",
+    "valid, duplicate, noncanonical, padded, malformed, or truncated graph-pair encodings",
+    "vertex count versus encoded length and polynomial overhead of graph-to-string conversion",
+    "deterministic totality, halting, primitive-step cost, uniformity, and worst-case quantification",
+    "logarithm base, constants, exponents, ceilings, thresholds, and natural-number time bounds"
+  ],
+  "excluded_substitutions": [
+    "plain graph-isomorphism decidability, brute-force enumeration, or membership in NP",
+    "a special-class polynomial algorithm, average-case result, or canonical-labeling claim without a checked transport to the selected root",
+    "THM-M-0873 generic graph-isomorphism complexity result",
+    "THM-M-0875 Weisfeiler-Leman algorithm or heuristic",
+    "THM-M-0876 P/NP-position catalog record or THM-M-1567 generic duplicate-domain record",
+    "String Isomorphism or Coset Intersection alone without the complete checked graph-root derivation",
+    "an oracle, stored solver/correctness hypothesis, simulation, benchmark, or unchecked certificate",
+    "generic SimpleGraph.Iso, Language, computability, or unbounded-reduction APIs presented as the algorithm or bound",
+    "the untrusted catalog label or pre-fix v2/STOC source presented as final source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0873",
+      "name": "图的同构问题",
+      "relationship": "generic graph-isomorphism complexity/quasipolynomial result; statement and proof credit remain separately owned"
+    },
+    {
+      "theorem_id": "THM-M-0875",
+      "name": "Weisfeiler-Lehman算法",
+      "relationship": "separate graph-refinement algorithm family; it does not replace Babai's general algorithm"
+    },
+    {
+      "theorem_id": "THM-M-0876",
+      "name": "图同构的复杂性",
+      "relationship": "separate record about Graph Isomorphism relative to P and NP"
+    },
+    {
+      "theorem_id": "THM-M-1567",
+      "name": "图同构问题",
+      "relationship": "separate duplicate-domain generic Graph Isomorphism record; it supplies no proof credit here"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Laszlo Babai, Graph Isomorphism in Quasipolynomial Time, arXiv:1512.03547v2, 19 January 2016",
+      "candidate_locator": "abstract; PDF page 4, Section 1.1.1, Theorem 1.1.1 and Corollary 1.1.2",
+      "candidate_summary": "defines quasipolynomial boundedness, states String Isomorphism in quasipolynomial time, and derives Graph Isomorphism and Coset Intersection",
+      "status": "inspected primary source lead whose timing analysis was later invalidated and repaired; not a final corrected proof source or H0 packet"
+    },
+    {
+      "citation": "Laszlo Babai, Fixing the UPCC case of Split-or-Johnson, 14 January 2017",
+      "candidate_locator": "entire four-page author correction note; Theorem 3.4 and Lemma 3.5",
+      "candidate_summary": "replaces the malignant UPCC recursive call and explains restoration of the quasipolynomial recurrence",
+      "status": "inspected correction component; it explicitly leaves a separate Design Lemma correction to a future update and is not a complete standalone edition"
+    },
+    {
+      "citation": "Harald Andres Helfgott, Jitendra Bajpai, Daniele Dona, Graph isomorphisms in quasi-polynomial time, arXiv:1710.04574v1, 12 October 2017",
+      "candidate_locator": "abstract and PDF pages 1-2, introduction, Theorem 1.1 and Corollary 1.2; detailed body and Appendix B",
+      "candidate_summary": "post-fix Bourbaki reconstruction states the String and Graph Isomorphism results, describes the reduction, and reports that the repaired proof is correct",
+      "status": "strong detailed post-fix review lead; full correction, premise, proof-node, errata, and independent acceptance crosswalk remains open, so no H0 credit"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "declaration": "SimpleGraph.Iso",
+      "boundary": "graph-isomorphism witness substrate only; no finite serialization, decision algorithm, or runtime"
+    },
+    {
+      "module": "Mathlib.Computability.Language",
+      "declaration": "Language",
+      "boundary": "formal-language predicate substrate only; no chosen graph encoding or GI language"
+    },
+    {
+      "module": "Mathlib.Computability.Reduce",
+      "declarations": ["ManyOneReducible", "OneOneReducible"],
+      "boundary": "computable reductions without the polynomial resource bound required for the source graph-to-string reduction"
+    },
+    {
+      "module": "Mathlib.Computability.TuringMachine.Computable",
+      "declarations": ["Turing.TM2OutputsInTime", "Turing.TM2ComputableInTime", "Turing.TM2ComputableInPolyTime"],
+      "boundary": "generic bundled machine/time interfaces; no quasipolynomial predicate, GI encoding, Babai machine, or proof"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "748243faadc15828fb087059337fd05b7be9fdeb",
+    "repository_base_tree": "e46d642646f80980838b6f016f5d69b817bd464d",
+    "repository_records": [
+      "Docs/researches/math_theorems.md:6404-6409",
+      "Docs/researches/math_theorems.md:11551-11556"
+    ],
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23846-23871",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "68db393c06a3b0ac7a1c432ad47bbb6b61ef8822f18554c2b556bbb40884d57c",
+    "repository_duplicate_excerpt_sha256": "68db393c06a3b0ac7a1c432ad47bbb6b61ef8822f18554c2b556bbb40884d57c",
+    "stage0_projection_excerpt_sha256": "f685c62eb10864cc03d3bbfb0921d18555ce225d9298f22b924960a126b36bbb",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_targets_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "8b93d52d753cdb6e3462080cf7f8315c9e8a07ef921a1b93a535a5fcba41f6c2",
+    "execution_dag_sha256": "fcd54bfe658aa1577667cc24b732b82d3425164fbfcad212107c0a3b696a0431",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source": {
+      "citation": "Laszlo Babai, Graph Isomorphism in Quasipolynomial Time, arXiv:1512.03547v2",
+      "observed_pdf_sha256": "b6393ff36f4ff1c9646d7b9c5ea9ef78cfb222d52634ffdef2f05fa77daa9c62",
+      "observed_pdf_bytes": 843393,
+      "observed_pdf_pages": 89,
+      "observed_extracted_pages_1_6_sha256": "f903dcd460b3b62f8ff29da456922a22452b93b2a65b7da7af8cadd029055268",
+      "inspected_boundary": "abstract; Section 1.1.1, quasipolynomial definition, Theorem 1.1.1, Corollary 1.1.2, and graph-to-string reduction",
+      "credit": "strong primary family lead only; pre-fix analysis prevents final proof-source or H0 credit"
+    },
+    "correction_sources": {
+      "author_update_sha256": "d96a4083ffd3b0b6931500f13e81a33ecb3ec5ab9eebadb64c2fca476faf42ca",
+      "author_update_observed_bytes": 4776,
+      "upcc_fix_pdf_sha256": "e4438bf10d131f4642bee9aa29dfbd9fc133776705c85c3fe3d466da38b95653",
+      "upcc_fix_pdf_bytes": 168694,
+      "upcc_fix_pdf_pages": 4,
+      "upcc_fix_text_sha256": "61bba0898663165e52a47fd53ef630c26cdce5664a726972db1e2d56a1e26f07",
+      "boundary": "author update and UPCC repair inspected; complete Design Lemma correction and unified final-edition mapping remain open"
+    },
+    "post_fix_source": {
+      "citation": "Helfgott, Bajpai, Dona, Graph isomorphisms in quasi-polynomial time, arXiv:1710.04574v1",
+      "observed_pdf_sha256": "f16a953a084a4bc4b77e30b5d0fb35557a566d5d869bf42de155400466b9f2d2",
+      "observed_pdf_bytes": 659668,
+      "observed_pdf_pages": 67,
+      "arxiv_api_sha256": "c55ea278dad64047bc7c46917087074fc4713a3b266da758f1c9cd24ad3fa8d3",
+      "inspected_boundary": "abstract and introduction through Theorem 1.1 and Corollary 1.2; detailed proof and appendix identified but no complete node crosswalk performed",
+      "credit": "strong post-fix reconstruction/review lead, not an accepted H0 packet"
+    },
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_simplegraph_maps_sha256": "60bcb9baa33451ed189091e3254004bf77f9b814a87a6ce9709042c4db6d7d2a",
+    "mathlib_language_sha256": "f4c3964d5713b752c02906354e5366a8367b94804b4dcdac9b07964c36bb8d2e",
+    "mathlib_reduce_sha256": "30513e477c461fdce1518542f4dc16085f1d98ab47ba2bfbc28d5b741b18e556",
+    "mathlib_turing_computable_sha256": "acb5fa046c00afd1f85570d4439653b009b7353d7ed93aa7a6fc52dae346a59b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "debt_classification": {
+    "human": "source_reconstruction_debt: stable result and post-fix detailed proof lead identified, but complete correction, definition, premise, proof-node, errata, and independent-review mapping remains open",
+    "machine": "full formalization debt: no source-identical graph encoding, GI language, machine, quasipolynomial bound, checked reduction, algorithm implementation, or proof body is credited",
+    "readability": "full reconstruction debt: no accepted node-level route can be anchored until source corrections and the formal root are frozen"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; finite encodings, quotients or equivalences, classical finite choice, real logarithm/exponential asymptotics, Turing-machine semantics, and all accepted axioms remain open until the exact formal claim is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, algorithm implementation, terminal declarations, transitive dependencies, axioms, executable semantics, and trust closure remain open",
+  "computation_profile": "No external GI executable, brute-force run, benchmark, native evaluator, oracle, heuristic, randomized shortcut, or unchecked certificate is credited; a future algorithm and cost result require kernel-checked semantics and replayable evidence",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0874/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0874/README.md",
+    "Stage1_Instances/THM-M-0874/instance.json",
+    "Stage1_Instances/THM-M-0874/scope-map.md",
+    "Stage1_Instances/THM-M-0874/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0874/task-dag.json",
+    "Stage1_Instances/THM-M-0874/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0874/check_intake.py",
+    "Stage1_Instances/THM-M-0874/validation.md",
+    "Stage1_Instances/THM-M-0874/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent computational-complexity/source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned graph-isomorphism algorithms reviewer",
+    "reviewer_policy": "Independent reviewers must approve the complete corrected source bundle, source-node and errata mapping, graph/input/output and machine/cost semantics, exact bound and reduction, boundary cases, and formal expression; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; invalidated by any listed input change and unusable for theorem release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; externally inspected source copies must be lawfully preserved and rehashed before source admission.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source edition or repair, proof-status or errata finding, graph/input/output encoding, machine/cost/size/bound/reduction decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, receipt, or any owned-artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. H1 records an identifiable human result and detailed post-fix reconstruction while complete source/correction/node mapping and independent acceptance remain open. M4 records no usable exact formal artifact. No canonical Lean target, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

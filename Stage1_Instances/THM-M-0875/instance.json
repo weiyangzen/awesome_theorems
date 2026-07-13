@@ -1,0 +1,240 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0875",
+  "item_id": "S56-M-0875-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1429,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Weisfeiler-Lehman算法",
+  "name_en": "Weisfeiler-Leman algorithm",
+  "canonical_name": "Weisfeiler-Leman graph-isomorphism heuristic/refinement family (exact proposition open)",
+  "category": "组合数学 / 图论",
+  "category_en": "Combinatorics / Graph Theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Weisfeiler-Lehman算法",
+  "literal_source_claim_zh": "图同构的启发式算法",
+  "literal_source_claim_en": "A heuristic algorithm for graph isomorphism.",
+  "source_attribution": "Weisfeiler/Lehman, 1968 (catalog metadata only; no work, edition, theorem, section, or page is cited)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_algorithm_family_gloss_only_no_selected_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_weisfeiler_lehman_graph_isomorphism_heuristic_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies only an algorithm-family label and the gloss 'a heuristic algorithm for graph isomorphism'. It does not select the original ordered-arc/coherent-closure procedure, modern 1-WL vertex color refinement, k-WL tuple refinement, or another variant; nor does it select invariance, sound rejection, stabilization, complexity, class-specific completeness, a limitation, or a counterexample as the theorem. It fixes no graph model, colors, update, stopping rule, output, cost model, ordered binders, hypotheses, conclusion, or boundary cases. Generic graph-isomorphism completeness would be a false substitution: the inspected 2018 preface says the original completeness conjectures were incorrect.",
+  "target_decision": "redirect the catalog algorithm-family gloss to one corrected, independently reviewed, immutable-source proposition before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "Mathlib.Combinatorics.SimpleGraph.Maps"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "SimpleGraph",
+      "SimpleGraph.Iso",
+      "SimpleGraph.Iso.mapNeighborSet",
+      "SimpleGraph.Iso.card_eq",
+      "SimpleGraph.Iso.degree_eq",
+      "SimpleGraph.neighborSet",
+      "SimpleGraph.neighborFinset",
+      "SimpleGraph.degree",
+      "SimpleGraph.card_neighborFinset_eq_degree",
+      "Finset.filter",
+      "Fintype.card"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix the graph representation and vertex universes, simple/directed/colored/labeled/looped/multigraph conventions, finiteness and decidability context, algorithm variant and dimension, color carrier and initialization, refinement update and color-renaming semantics, comparison and stopping rule, output, cost and computation model, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose well-definedness, isomorphism invariance, sound rejection, stabilization, a runtime bound, class-specific completeness, coherent-closure correctness, a limitation, a counterexample, or another proposition.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve empty and singleton graphs, unequal vertex counts, zero rounds or dimension, initial-color and stable-partition edge cases, loops/directions/multiplicity/labels, separate versus disjoint-union comparison, indistinguishable nonisomorphic graphs, malformed encodings, hash collisions, and small-input cost conventions.",
+  "candidate_scope_not_credited": [
+    "isomorphism invariance of one-dimensional vertex color refinement",
+    "sound graph-nonisomorphism rejection from unequal stable color data",
+    "stabilization within a source-selected refinement-round bound",
+    "polynomial runtime under a fixed representation, implementation, and cost model",
+    "correct computation of the coherent closure or another invariant from the original ordered-arc procedure",
+    "invariance, monotonicity, or complexity of k-dimensional tuple refinement",
+    "completeness on a precisely source-selected graph class",
+    "a source-selected limitation or counterexample to generic completeness"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton graphs, unequal vertex cardinalities, and empty tuple types",
+    "zero rounds and dimension zero or one",
+    "constant, non-surjective, or differently encoded initial colors",
+    "isolated vertices, complete or edgeless graphs, loops, parallel edges, labels, and directed asymmetry",
+    "already stable or fully discrete partitions and ties under canonical renaming",
+    "one disjoint-union refinement versus separate runs and cross-graph color alignment",
+    "nonisomorphic graphs indistinguishable by the selected fixed-dimensional method",
+    "exact colors versus hashes, collision assumptions, malformed inputs, overflow, and zero-size runtimes"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0873 generic graph-isomorphism/quasipolynomial record",
+    "THM-M-0874 Babai algorithm",
+    "THM-M-0876 graph-isomorphism complexity-position record",
+    "THM-M-1567 duplicate-domain generic graph-isomorphism record",
+    "the original ordered-arc algorithm, modern 1-WL, k-WL, or individualization-refinement silently substituted for one another",
+    "an unconditional claim that a fixed-dimensional Weisfeiler-Leman method decides all graph isomorphism instances",
+    "generic graph, isomorphism, neighborhood, degree, partition, multiset, or finite-map substrate alone",
+    "a structure or hypothesis that stores the desired correctness, stabilization, complexity, or completeness conclusion",
+    "an example run, benchmark, random test, hash digest, floating-point experiment, or unchecked certificate",
+    "the untrusted catalog label 已验证, bibliographic metadata, API probe, or bounded search treated as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0873",
+      "name": "图的同构问题",
+      "relationship": "separately owns the generic graph-isomorphism/quasipolynomial catalog record"
+    },
+    {
+      "theorem_id": "THM-M-0874",
+      "name": "Babai算法",
+      "relationship": "separately owns the Babai quasipolynomial graph-isomorphism algorithm"
+    },
+    {
+      "theorem_id": "THM-M-0876",
+      "name": "图同构的复杂性",
+      "relationship": "separately owns the unresolved graph-isomorphism complexity-position record"
+    },
+    {
+      "theorem_id": "THM-M-1567",
+      "name": "图同构问题",
+      "relationship": "a separate duplicate-domain generic graph-isomorphism catalog record; it supplies no proof credit here"
+    }
+  ],
+  "source_candidates_not_credited": [
+    {
+      "citation": "B. Yu. Weisfeiler and A. A. Leman, The Reduction of a Graph to Canonical Form and the Algebra Which Appears Therein; English translation by Grigory Ryabov of the original Russian paper",
+      "candidate_locator": "University of West Bohemia WL2018 original-paper page; translation abstract and Sections 1-3; historical preface paragraphs on the algorithm, coherent closure, and incorrect completeness conjectures",
+      "observed_translation_pdf_sha256": "4dd47b0568910d2ccb787b192a870aeeb9a2b7802dff54d92486d2f3181a55af",
+      "observed_original_scan_sha256": "3bb783bde4360767e73e0a349dae88eb24d1904808609fd3c0ff566b113ef93c",
+      "observed_preface_html_sha256": "ed622e1e5d65c14d13643e9a22f37e23821bb82772a408b79ead36b2afacd4a6",
+      "candidate_summary": "Strong historical source-family lead for a finite-multigraph canonical-form and coherent-closure procedure; the preface also supplies negative boundary evidence that the original generic graph-isomorphism completeness conjectures were incorrect.",
+      "status": "bounded dated discovery only; the repository does not cite these materials, and source edition/publication metadata, exact incorporated proposition and proof boundary, translation fidelity, correction history, and independent review are not admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "declarations": [
+        "SimpleGraph.Iso",
+        "SimpleGraph.Iso.mapNeighborSet",
+        "SimpleGraph.Iso.card_eq"
+      ],
+      "boundary": "finite graph-isomorphism witness and transported neighborhood/cardinality substrate only; no refinement algorithm or target theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "declarations": [
+        "SimpleGraph.neighborFinset",
+        "SimpleGraph.degree",
+        "SimpleGraph.Iso.degree_eq"
+      ],
+      "boundary": "finite-neighborhood and degree substrate, including isomorphism preservation of degree, but no colors, refinement rounds, stable partition, complexity, or completeness result"
+    }
+  ],
+  "bounded_search_result": "A bounded case-insensitive search of repo-local Lean and pinned mathlib for Weisfeiler/Leman spellings, color refinement, 1-WL, and k-WL found no source-identical implementation or theorem. This is intake discovery, not a complete anchor audit or global absence claim.",
+  "source_revisions": {
+    "repository_base": "748243faadc15828fb087059337fd05b7be9fdeb",
+    "repository_base_tree": "e46d642646f80980838b6f016f5d69b817bd464d",
+    "repository_record": "Docs/researches/math_theorems.md:6411-6416",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23873-23898",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "7816a183bee35c5c23bd01b3fa9c1f55ae44f7f766a6c00c8f67a280a5974776",
+    "stage0_projection_excerpt_sha256": "f2136c409f7d99912e0ebc2356982e684fef0991718b328fe440290d7c4151f6",
+    "neighbor_catalog_excerpt_sha256": "fa773ec8777d51a93b4ea5ec957251f529869fe6a1463b65944b93343405ecac",
+    "manifest_entry_sha256": "8805e9a1b7e976a41397c9dde28d974d28d521680d280cebd89eec180b41e484",
+    "execution_dag_intake_entry_sha256": "fae763377b8aa83c183130af01a82939f2e10fbb8e825c47a69a8d6846003d06",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "8b93d52d753cdb6e3462080cf7f8315c9e8a07ef921a1b93a535a5fcba41f6c2",
+    "execution_dag_sha256": "fcd54bfe658aa1577667cc24b732b82d3425164fbfcad212107c0a3b696a0431",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "observed_wl_translation_pdf_sha256": "4dd47b0568910d2ccb787b192a870aeeb9a2b7802dff54d92486d2f3181a55af",
+    "observed_wl_original_scan_sha256": "3bb783bde4360767e73e0a349dae88eb24d1904808609fd3c0ff566b113ef93c",
+    "observed_wl_preface_html_sha256": "ed622e1e5d65c14d13643e9a22f37e23821bb82772a408b79ead36b2afacd4a6",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_simple_graph_finite_sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8",
+    "mathlib_simple_graph_maps_sha256": "60bcb9baa33451ed189091e3254004bf77f9b814a87a6ce9709042c4db6d7d2a"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_scope": "Provisional assessment of the catalog wording only: no canonical mathematical statement or obligation root exists; historical materials and the bounded formal search are discovery inputs, not accepted source or proof evidence.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical principles, quotients for colors or graph isomorphism, finiteness and decidability policies, and any extensionality or choice use remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, algorithm definitions, expression identity, terminal declaration, axioms, transitive dependencies, generated code, and trust policy remain open",
+  "computation_profile": "No executable refinement implementation, hash-based color compression, native evaluation, external graph canonizer, benchmark, random test, oracle, experiment, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0875/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0875/README.md",
+    "Stage1_Instances/THM-M-0875/instance.json",
+    "Stage1_Instances/THM-M-0875/scope-map.md",
+    "Stage1_Instances/THM-M-0875/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0875/task-dag.json",
+    "Stage1_Instances/THM-M-0875/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0875/check_intake.py",
+    "Stage1_Instances/THM-M-0875/validation.md",
+    "Stage1_Instances/THM-M-0875/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent Weisfeiler-Leman primary-source and corrections reviewer",
+    "scope_reviewer": "unassigned independent graph-isomorphism and color-refinement reviewer",
+    "formal_reviewer": "unassigned independent Lean statement reviewer",
+    "reviewer_policy": "Independent source and domain reviewers must approve the selected corrected proposition, historical/modern variant boundary, neighboring-target ownership, definitions, assumptions, conclusion, correction mapping, and degenerate cases; a formal reviewer must approve the Lean target; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the externally observed materials are not vendored and this unaccepted worker dossier has no independent release archive.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source edition/proposition/translation/correction/review finding, historical-versus-modern variant or neighboring-target reconciliation, graph/color/update/stopping/output/complexity/quantifier/conclusion/computation/boundary decision, Lean target, toolchain or dependency pin, assurance profile, validator, receipt, or any owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog algorithm-family gloss as not a stable proposition; it does not refute established Weisfeiler-Leman results. The historical materials and pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

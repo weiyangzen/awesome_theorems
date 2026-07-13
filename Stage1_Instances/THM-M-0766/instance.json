@@ -1,0 +1,225 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0766",
+  "item_id": "S56-M-0766-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1352,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "线性有界自动机",
+  "name_en": "Linear-bounded automaton",
+  "canonical_name": "Unresolved linear-bounded-automaton / context-sensitive-language theorem family",
+  "category": "数理逻辑 / 递归论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "上下文有关语言",
+  "literal_source_claim_en": "Context-sensitive languages.",
+  "source_attribution": "Seymour Ginsburg/Sheila Greibach; 1963 (catalog metadata only; bounded audit found no matching joint work)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "catalog_object_name_language_family_gloss_and_attribution_do_not_determine_one_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog names an automaton model and a language family but states no relation between them. Its Ginsburg/Greibach 1963 attribution does not match the located literature. Deterministic LBA-to-type-1 inclusion (Landweber 1963), nondeterministic LBA iff context-sensitive language (Kuroda 1964), and later Ginsburg/Greibach mapping results are materially different roots. A master-approved correction, exact immutable source proposition, complete crosswalk, and independent review are required before statement freeze.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Computability.Language",
+      "Mathlib.Computability.TuringMachine.Tape",
+      "Mathlib.Computability.TuringMachine.PostTuringMachine",
+      "Mathlib.Computability.TuringMachine.Computable"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_target_correction_source_acceptance_exact_encoding_and_independent_review",
+    "probe": "Stage1_Instances/THM-M-0766/IntakeProbe.lean",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_adjacent-api-probe-only"
+  },
+  "domain_and_universes": "Open: a corrected source must select finite alphabets, words/languages, deterministic or nondeterministic finite-control machines, tape and linear-bound representations, grammar syntax and derivations, acceptance semantics, encodings, universes, and typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository supplies no asserted relation. Candidate conclusions include only deterministic-LBA-to-type-1 inclusion or the stronger nondeterministic-LBA/context-sensitive equivalence, neither of which is adopted at intake.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is canonically excluded. Empty alphabet, empty word, empty language, zero-length input, singleton alphabet, start-to-empty grammar rules, endmarkers, tape-bound constant, nonhalting runs, and acceptance convention all remain open.",
+  "degenerate_cases_to_resolve": [
+    "empty word and whether context-sensitive grammars permit a special start-to-empty production",
+    "empty and singleton alphabets and empty languages",
+    "zero-length input and the meaning of a tape bound proportional to input length",
+    "exact-input tape cells, endmarkers, or a constant-multiple linear work region",
+    "nonhalting, stuck, and rejecting runs under deterministic and nondeterministic semantics",
+    "acceptance by state, tape exit, or halting configuration",
+    "one-tape versus multitape machines and checked resource-preserving transports"
+  ],
+  "candidate_scope_not_credited": [
+    "Landweber 1963 Theorem 3: deterministic linear-bounded automaton language implies type-1/context-sensitive language",
+    "Kuroda 1964: nondeterministic linear-bounded automaton languages are exactly context-sensitive languages",
+    "a definition and operational semantics for one selected linear-bounded-automaton model",
+    "a checked equivalence between noncontracting grammar and context-sensitive-production conventions",
+    "a constant-factor transport among common linear tape-bound conventions"
+  ],
+  "excluded_substitutions": [
+    "THM-C-0152 CSL/LBA equivalence silently adopted without a target-correction and ownership decision",
+    "deterministic and nondeterministic LBA equivalence claims treated as interchangeable",
+    "an unrestricted Turing-machine recognizability or computability theorem",
+    "a finite-automaton, pushdown-automaton, regular-language, or context-free-language theorem",
+    "closure of context-sensitive languages under complement or another operation",
+    "the Chomsky hierarchy or Immerman-Szelepcsenyi theorem",
+    "one fixed machine, grammar, alphabet, input length, or computation",
+    "a structure field or hypothesis that assumes the desired equivalence",
+    "the catalog's untrusted verified label or the discovery-only probe as statement or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-C-0152",
+      "name": "CSL与LBA等价性",
+      "relationship": "separate Stage0 computer-science target explicitly owning the Kuroda 1964 equivalence; it supplies a correction clue but no state or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0763",
+      "name": "乔姆斯基层次",
+      "relationship": "separate mathematical target for the broader language hierarchy"
+    },
+    {
+      "theorem_id": "THM-M-0765",
+      "name": "图灵机可识别语言",
+      "relationship": "separate target for unrestricted Turing-recognizable languages"
+    }
+  ],
+  "source_status": "H5_unstable_nonproposition_catalog_record_with_unsupported_attribution_and_multiple_materially_distinct_candidate_roots",
+  "human_source_discovery_not_credited": [
+    {
+      "lead": "S.-Y. Kuroda, Classes of Languages and Linear-Bounded Automata, Information and Control 7(2), 207-223 (1964), DOI 10.1016/S0019-9958(64)90120-2",
+      "status": "primary candidate for nondeterministic equivalence; bibliographic record and contemporary review inspected, but complete article, theorem/definition chain, proof boundary, errata, and independent source review not accepted"
+    },
+    {
+      "lead": "Peter S. Landweber, Three Theorems on Phrase Structure Grammars of Type 1, Information and Control 6(2), 131-136 (1963), DOI 10.1016/S0019-9958(63)90169-4",
+      "status": "primary candidate for deterministic LBA-to-type-1 direction; Theorem 3 relationship confirmed through a contemporary review, but complete paper not inspected or credited"
+    },
+    {
+      "lead": "Richard Stanley review of Landweber, Journal of Symbolic Logic 32(1), page 116 (1967), DOI 10.2307/2271265; followed by Peter S. Landweber's review of Kuroda on pages 116-117, DOI 10.2307/2271266",
+      "status": "publisher page-116 preview inspected as contemporary disambiguation evidence; neither review is a primary proof source or accepted H0 crosswalk"
+    },
+    {
+      "lead": "Seymour Ginsburg and Sheila A. Greibach, Mappings which Preserve Context Sensitive Languages, Information and Control 9(6), 563-582 (1966), DOI 10.1016/S0019-9958(66)80016-5",
+      "status": "related joint work located, but its date and subject do not support the received 1963 LBA attribution"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Computability.Language",
+      "declarations": ["Language"],
+      "boundary": "formal languages as sets of finite words only; no context-sensitive predicate or grammar"
+    },
+    {
+      "module": "Mathlib.Computability.TuringMachine.Tape",
+      "declarations": ["Turing.Tape", "Turing.Dir"],
+      "boundary": "generic doubly-infinite deterministic tape substrate; no input-linear accessible-region invariant"
+    },
+    {
+      "module": "Mathlib.Computability.TuringMachine.PostTuringMachine",
+      "declarations": [
+        "Turing.TM0.Machine",
+        "Turing.TM0.Cfg",
+        "Turing.TM0.step",
+        "Turing.TM0.Reaches",
+        "Turing.TM0.init",
+        "Turing.TM0.eval",
+        "Turing.TM0.Supports"
+      ],
+      "boundary": "deterministic Turing-machine operations and finite state support only; no LBA language theorem"
+    },
+    {
+      "module": "Mathlib.Computability.TuringMachine.Computable",
+      "declarations": ["Turing.FinTM2", "Turing.FinTM2.step"],
+      "boundary": "finite bundled stack-machine substrate; no linear space bound, context-sensitive grammar, or equivalence"
+    },
+    {
+      "module": "Stage1_Instances/THM-M-0766/IntakeProbe.lean",
+      "boundary": "discovery-only #check surface; declares no theorem, canonical target, or proof body"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "fd0fab2ab7f4f514a5cc625bbce92879e718ba13",
+    "repository_base_tree": "4116d53bcf2573069e4b67205353fe3469dbe7bd",
+    "repository_record": "Docs/researches/math_theorems.md:5640-5645",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:20920-20945",
+    "separate_csl_lba_record": "Docs/researches/cs_theorems.md:261 and Docs/Stage0_Blueprint.md:85682-85709",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_repository_cs_source_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9fb2a8c23ea139862dc81fd6c9f801432e85e263699063dc931ca23c31db6e17",
+    "execution_dag_sha256": "647793a61571f1ade4bc86447efe5220ee5fce79e643e2a50e3f4641238c30d9",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "language_source_sha256": "f4c3964d5713b752c02906354e5366a8367b94804b4dcdac9b07964c36bb8d2e",
+    "tape_source_sha256": "6d31abda8202e7c1354edbb9de4059c0a40330c2a375465bbf58a648a338b5af",
+    "post_turing_source_sha256": "f3e4f93baca39c93f60f9c561d98ecd7fbbbe06f354a8e92fbdbd5a20801efbd"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H5", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, quotient, extensionality, grammar inductive closure, finite-choice, and nondeterministic reachability principles remain open until a corrected exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, target expression, terminal declarations, transitive dependencies, axioms, and trust closure remain open",
+  "computation_profile": "No automaton simulation, bounded model check, native computation, oracle, external solver, generated grammar, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0766/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0766/README.md",
+    "Stage1_Instances/THM-M-0766/instance.json",
+    "Stage1_Instances/THM-M-0766/scope-map.md",
+    "Stage1_Instances/THM-M-0766/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0766/task-dag.json",
+    "Stage1_Instances/THM-M-0766/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0766/check_intake.py",
+    "Stage1_Instances/THM-M-0766/validation.md",
+    "Stage1_Instances/THM-M-0766/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "target_correction_authority": "Stage1 master/integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on target correction or ownership, source proposition or attribution, machine/grammar/bound/acceptance/epsilon convention, Lean target/import/fingerprint, toolchain/dependency pin, assurance profile, validator, source correction, or any owned-artifact change; review is due before master acceptance or dependent statement work.",
+  "review_due": "before master acceptance or any dependent statement work; no calendar expiry is claimed for this unaccepted worker proposal",
+  "support_window": "provisional worker proposal only; no accepted maintenance or release support window",
+  "revocation_and_incident_procedure": "The integration lane rejects, revokes, or supersedes this proposal on any invalidation input or conflicting evidence and requires a fresh scoped intake self-test.",
+  "archive_and_recovery_boundary": "Remote metadata and the publisher preview are discovery observations, not a complete archived source edition. Canonical acceptance must archive lawful immutable source evidence and the final receipt bundle outside this self-referential dossier.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. The received target is provisionally H5 because it is not a stable proposition. Adjacent pinned APIs elaborate, but no source proposition, canonical Lean target, proof body, accepted task state, audit completion, or theorem completion is claimed."
+}

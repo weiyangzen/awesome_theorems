@@ -1,0 +1,147 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0476-STATEMENT",
+  "theorem_id": "THM-M-0476",
+  "execution_rank": 1357,
+  "lifecycle_mode": "planned",
+  "canonical_name": "forward Wilson factorial congruence for natural primes",
+  "canonical_statement": "For every natural number p, if p is prime, then the factorial of p - 1 is congruent to -1 modulo p, represented as equality in ZMod p.",
+  "canonical_claim_status": "intake_selected_conventional_forward_natural_prime_scope_frozen_primary_source_fidelity_open",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0476/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+    "statement_file_sha256": "3903de3f1e1cdd6d2f048917005da8f2b744d6726507d09120661e79d217dff9",
+    "elaborated_expression_sha256": "ee76edb160426d3e8d95b11bfedca7febcfe915f50007e042875c922ebc8a4ac",
+    "fully_explicit_expression": "forall (p : Nat), Nat.Prime p -> @Eq.{1} (ZMod p) (@Nat.cast.{0} (ZMod p) (@AddMonoidWithOne.toNatCast.{0} (ZMod p) (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod p) (@Ring.toAddGroupWithOne.{0} (ZMod p) (@CommRing.toRing.{0} (ZMod p) (ZMod.commRing p))))) (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) p (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))).factorial) (@Neg.neg.{0} (ZMod p) (@NegZeroClass.toNeg.{0} (ZMod p) (@SubNegZeroMonoid.toNegZeroClass.{0} (ZMod p) (@SubtractionMonoid.toSubNegZeroMonoid.{0} (ZMod p) (@SubtractionCommMonoid.toSubtractionMonoid.{0} (ZMod p) (@AddCommGroup.toDivisionAddCommMonoid.{0} (ZMod p) (@Ring.toAddCommGroup.{0} (ZMod p) (@CommRing.toRing.{0} (ZMod p) (ZMod.commRing p)))))))) (@OfNat.ofNat.{0} (ZMod p) (nat_lit 1) (@One.toOfNat1.{0} (ZMod p) (@AddMonoidWithOne.toOne.{0} (ZMod p) (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod p) (@Ring.toAddGroupWithOne.{0} (ZMod p) (@CommRing.toRing.{0} (ZMod p) (ZMod.commRing p))))))))",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_master_acceptance"
+  },
+  "domain_and_universes": "p : Nat; hp : Nat.Prime p; Nat.factorial (p - 1) cast into ZMod p; equality with (-1 : ZMod p); the closed target is Prop in Lean universe 0.",
+  "quantifiers": [
+    "p : Nat"
+  ],
+  "ordered_binders": [
+    "p : Nat",
+    "hp : p.Prime"
+  ],
+  "hypotheses": [
+    "hp : p.Prime"
+  ],
+  "conclusion": "((p - 1)! : ZMod p) = -1",
+  "encoding_decisions": {
+    "domain": "Natural modulus p, as conventionally supplied to the abbreviated catalog formula.",
+    "direction": "Only the displayed forward implication is selected; the converse and primality iff are not substituted.",
+    "factorial": "Nat.factorial (p - 1), using natural subtraction under the explicit prime premise.",
+    "congruence": "Equality in ZMod p.",
+    "negative_one": "The additive inverse of one in ZMod p.",
+    "prime_premise": "An explicit hp : p.Prime binder at the root."
+  },
+  "alternate_encodings": [
+    {
+      "target": "forall (p : Nat) [Fact p.Prime], ((p - 1)! : ZMod p) = -1",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0476.wilsonTheoremTarget_iff_factTarget"
+    }
+  ],
+  "uncredited_related_encodings": [
+    "Nat.ModEq p (p - 1)! (p - 1)",
+    "integer congruence of (p - 1)! with -1 modulo p",
+    "divisibility of (p - 1)! + 1 by p",
+    "Nat.prime_iff_fac_equiv_neg_one with its n != 1 side condition",
+    "the product of nonzero residues or units in ZMod p"
+  ],
+  "boundary_and_degenerate_cases": {
+      "p_equals_two": "Included without an odd-prime side condition.",
+    "p_equals_zero_or_one": "Outside the root only because neither value is prime.",
+    "composite_moduli": "Outside the root only because they fail p.Prime; no unrestricted congruence is asserted.",
+    "zmod_one": "The accidental subsingleton equality is irrelevant to the forward root and matters only to the uncredited converse or iff.",
+    "natural_subtraction": "Primality forces p >= 2, so p - 1 has the intended predecessor meaning."
+  },
+  "source_boundary": {
+    "repository_record": "Docs/researches/math_theorems.md:3497-3502 at source-record commit bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "literal_claim": "(p-1)! is congruent to -1 modulo p",
+    "status": "The record omits the natural domain and prime premise. The selected root is the conventional forward interpretation identified at intake, not a newly accepted primary-source claim. No primary edition, theorem/page, definition and assumption mapping, correction or errata audit, or independent review is recorded, so H1 remains unchanged."
+  },
+  "direct_imports": [
+    "Mathlib.Data.Nat.Factorial.Basic",
+    "Mathlib.Data.Nat.Prime.Defs",
+    "Mathlib.Data.ZMod.Defs"
+  ],
+  "minimal_import_result": "All three primitive modules are necessary under independent deletion tests, and every one- or two-module subset fails to provide the complete target vocabulary. Mathlib.NumberTheory.Wilson is deliberately absent because it contains the later proof candidate.",
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "Stage1Instances.THM_M_0476.mutationRemovedPrimeHypothesis",
+      "mutation": "remove p.Prime",
+      "result": "rejected as exact type/definitional identity by Lean #check_failure and explicit-expression comparison; no claim of logical non-implication"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "Stage1Instances.THM_M_0476.mutationChangedDomainToUInt64",
+      "mutation": "replace the natural binder by a UInt64 modulus represented through toNat",
+      "result": "rejected as exact type/definitional identity by Lean #check_failure and explicit-expression comparison; no claim of logical non-implication"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "Stage1Instances.THM_M_0476.mutationChangedPrimeBinderScope",
+      "mutation": "replace the universal prime modulus by an existential witness",
+      "result": "rejected as exact type/definitional identity by Lean #check_failure and explicit-expression comparison; no claim of logical non-implication"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "Stage1Instances.THM_M_0476.mutationIncludedCompositeFour",
+      "mutation": "broaden the premise to include the composite modulus p = 4",
+      "result": "rejected as exact identity and kernel-refuted by Stage1Instances.THM_M_0476.mutationIncludedCompositeFour_false using the decidable p = 4 counterexample"
+    }
+  ],
+  "environment_fingerprint": {
+    "base_revision": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "authoritative_blueprint_sha256": "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256": "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": {
+      "Mathlib.Data.Nat.Factorial.Basic": "5978ee423d84693e2f488fc0ef1566508499581c0afdd7f0b0d2c3c4ce0b94f3",
+      "Mathlib.Data.Nat.Prime.Defs": "fb7b8f26c48fdb96c39d264574b70ba382d700a9a97a06ee41bb05377dfc68a4",
+      "Mathlib.Data.ZMod.Defs": "d8817b7d6b21da3f09e2d97ac52a01dbd2adf0104c9376f8f7e3f1e1d02bd837"
+    },
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory. The checked explicit-to-Fact Iff reports propext and Quot.sound. No custom axiom, unsafe declaration, oracle, placeholder, or proof of the canonical target is introduced.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus manifest-pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; exact primitive import sources and dependency lock are receipt-bound. Full transitive trust and proof-body review remain downstream.",
+  "computation_profile": "No primality test, factorial evaluation, native execution, solver, external oracle, experiment, or unchecked certificate is used or credited.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "Exact statement elaboration completes only the worker-local statement deliverable. The intake already classified the direct exact-topic interface as M3; no proof body, primary-source acceptance, or readable proof reconstruction is supplied, so no H/M/R promotion is proposed.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_pending_master_acceptance",
+  "status_boundary": "Worker-self-tested exact statement proposal only. It freezes the conventional forward natural-prime ZMod target, minimal imports, one checked binder transport, expression fingerprint, and four mutations. It is not a proof, H0/R0 acceptance, audit completion, theorem completion, or master acceptance."
+}

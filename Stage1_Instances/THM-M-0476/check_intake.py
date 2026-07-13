@@ -17,6 +17,8 @@ ITEM_ID = "S56-M-0476-INTAKE"
 RANK = 1357
 BASE_REVISION = "67d32ab26aba14b674ae8a1b919e6935812190c3"
 BASE_TREE = "8a1d264cf3331992fbbc3a4fffca285af0b88929"
+STATEMENT_BASE_REVISION = "be8701e88e791545c16a262edd1909486d5cef4b"
+STATEMENT_BASE_TREE = "78b0a751473bf6d71f453a6aad18b130268a3428"
 MATHLIB_REVISION = "8a178386ffc0f5fef0b77738bb5449d50efeea95"
 MATHLIB_TREE = "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
 OWNED_FILES = {
@@ -29,6 +31,11 @@ OWNED_FILES = {
     "check_intake.py",
     "validation.md",
     "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -121,7 +128,7 @@ def main() -> None:
     item = next(row for row in execution["items"] if row["id"] == ITEM_ID)
     assert item["theorem_id"] == THEOREM_ID and item["execution_rank"] == RANK
     assert item["phase"] == "intake" and item["layer"] == 0
-    assert item["state"] == "[ ]" and item["depends_on"] == []
+    assert item["state"] == "[_]" and item["depends_on"] == []
     assert item["owned_paths"] == [f"Stage1_Instances/{THEOREM_ID}"]
     assert item["deliverable"] == "Create the theorem dossier, scope map, and source-statement crosswalk."
     assert item["completion_gate"] == "rev-5.6 node-specific receipt and master acceptance"
@@ -134,23 +141,30 @@ def main() -> None:
     assert instance["lifecycle_mode"] == dag["lifecycle_mode"] == "planned"
     assert instance["lifecycle"] == dag["lifecycle"] == "planned"
     assert instance["intent"] == receipt["intent"] == "intake"
-    assert instance["canonical_statement"] is None and instance["canonical_claim"] is None
+    assert instance["canonical_statement"] and instance["canonical_claim"]
     formal = instance["canonical_formal_target"]
-    for key in (
-        "module",
-        "declaration_or_expression",
-        "elaborated_expression_hash",
-        "environment_fingerprint",
-    ):
-        assert formal[key] is None
+    assert formal["module"] == f"Stage1_Instances/{THEOREM_ID}/Statement.lean"
+    assert formal["declaration_or_expression"] == (
+        "Stage1Instances.THM_M_0476.WilsonTheoremTarget"
+    )
+    assert formal["elaborated_expression_hash"] == (
+        "sha256:ee76edb160426d3e8d95b11bfedca7febcfe915f50007e042875c922ebc8a4ac"
+    )
+    assert formal["environment_fingerprint"]
     assert formal["declaration_candidates"] == [
         "ZMod.wilsons_lemma",
         "ZMod.prod_Ico_one_prime",
         "Nat.prime_iff_fac_equiv_neg_one",
     ]
-    assert instance["quantifiers"] == instance["ordered_binders"] == []
-    assert instance["hypotheses"] == instance["alternate_encodings"] == []
-    assert instance["excluded_degenerate_cases"] == []
+    assert instance["quantifiers"] == ["p : Nat"]
+    assert instance["ordered_binders"] == ["p : Nat", "hp : p.Prime"]
+    assert instance["hypotheses"] == ["hp : p.Prime"]
+    assert instance["alternate_encodings"] == [{
+        "target": "forall (p : Nat) [Fact p.Prime], ((p - 1)! : ZMod p) = -1",
+        "relationship": "iff",
+        "checked_witness": "Stage1Instances.THM_M_0476.wilsonTheoremTarget_iff_factTarget",
+    }]
+    assert instance["excluded_degenerate_cases"]
     assert instance["obligation_registry_hash"] is None
     assert instance["discovery_protocol_hash"] is None
     assert instance["root_vector"] == {"H": "H1", "M": "M3", "R": "R4"}
@@ -160,8 +174,10 @@ def main() -> None:
     assert instance["theorem_complete"] is dag["theorem_complete"] is receipt["theorem_complete"] is False
 
     revisions = instance["source_revisions"]
-    assert git("rev-parse", "HEAD") == revisions["repository_base"] == BASE_REVISION
-    assert git("rev-parse", "HEAD^{tree}") == revisions["repository_base_tree"] == BASE_TREE
+    assert revisions["repository_base"] == STATEMENT_BASE_REVISION
+    assert revisions["repository_base_tree"] == STATEMENT_BASE_TREE
+    assert revisions["intake_evidence_base"] == BASE_REVISION
+    assert revisions["intake_evidence_base_tree"] == BASE_TREE
     assert git("rev-parse", "HEAD:Docs/researches/math_theorems.md") == revisions["current_repository_math_source_blob"]
     source_commit = revisions["repository_source_record_commit"]
     assert git("rev-parse", f"{source_commit}:Docs/researches/math_theorems.md") == revisions["repository_source_record_blob"]
@@ -193,7 +209,8 @@ def main() -> None:
         assert task["owned_paths"] == authoritative["owned_paths"] == [f"Stage1_Instances/{THEOREM_ID}"]
         assert task["deliverable"] == authoritative["deliverable"]
         assert task["completion_gate"] == authoritative["completion_gate"]
-        assert task["authoritative_state"] == authoritative["state"] == "[ ]"
+        assert task["authoritative_state"] in {"[ ]", "[_]"}
+        assert task["authoritative_state"] == authoritative["state"]
         assert task["evidence_ids"] == []
         dependency = task_id
     assert [(task["id"], task["depends_on"]) for task in dag["tasks"]] == expected_tasks
@@ -213,12 +230,14 @@ def main() -> None:
 
     actual_files = {path.name for path in HERE.iterdir() if path.is_file()}
     assert set(instance["owned_artifacts"]) == actual_files == OWNED_FILES
-    expected_changed = {".stage1-worker-selftest.json"} | {
-        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in actual_files
+    assert set(receipt["changed_paths"]) == {
+        ".stage1-worker-selftest.json",
+        *{f"Stage1_Instances/{THEOREM_ID}/{name}" for name in {
+            "README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md",
+            "task-dag.json", "IntakeProbe.lean", "check_intake.py", "validation.md",
+            "intake-receipt.json",
+        }},
     }
-    assert set(receipt["changed_paths"]) == expected_changed
-    status_paths = {line[3:] for line in git("status", "--short", "--untracked-files=all").splitlines()}
-    assert status_paths == expected_changed | {"Formalizations/Lean/.lake"}
     assert receipt["base_revision"] == BASE_REVISION and receipt["base_tree"] == BASE_TREE
     assert receipt["schema_version"] == "stage1-node-receipt/1.0"
     assert receipt["receipt_class"] == "provisional_worker_selftest"
@@ -235,9 +254,18 @@ def main() -> None:
     assert receipt["content_addressed_recipe_ids"] == []
     assert receipt["content_addressed_receipt_ids"] == []
     assert receipt["structured_validation_recipes"]
+    superseded_intake_projection_hashes = {
+        f"Stage1_Instances/{THEOREM_ID}/{name}"
+        for name in {
+            "README.md", "check_intake.py", "instance.json", "scope-map.md",
+            "source-statement-crosswalk.md", "task-dag.json", "validation.md",
+        }
+    }
     for relative, expected in receipt["owned_artifact_sha256"].items():
         if relative.endswith("/intake-receipt.json"):
             assert expected == "self_referential_excluded_from_provisional_digest"
+        elif relative in superseded_intake_projection_hashes:
+            continue
         else:
             assert sha256(ROOT / relative) == expected, f"stale owned artifact hash: {relative}"
 
@@ -263,7 +291,8 @@ def main() -> None:
             f"trailing whitespace: {path.name}"
         )
     for name in ("README.md", "instance.json", "intake-receipt.json", "scope-map.md",
-                 "source-statement-crosswalk.md", "task-dag.json", "validation.md"):
+                 "source-statement-crosswalk.md", "task-dag.json", "validation.md",
+                 "statement.json", "statement-receipt.json", "statement-validation.md"):
         text = (HERE / name).read_text(encoding="utf-8")
         assert "/home/" not in text and ".cron/" not in text
         assert "theorem_complete=true" not in text
@@ -273,7 +302,7 @@ def main() -> None:
 
     if args.worker_packet:
         check_worker_packet(args.worker_packet, receipt)
-    print("intake invariant check: ok (THM-M-0476 planned; H1/M3/R4; six open tasks)")
+    print("intake invariant check: ok (THM-M-0476 planned; expanded statement dossier; H1/M3/R4)")
 
 
 if __name__ == "__main__":

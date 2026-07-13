@@ -1,0 +1,235 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0861",
+  "item_id": "S56-M-0861-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1415,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "König边着色定理",
+  "name_en": "König's edge-coloring theorem",
+  "canonical_name": "König edge-coloring theorem for finite bipartite multigraphs",
+  "category": "组合数学 / 图论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "二部图的边色数等于最大度",
+  "literal_source_claim_en": "The edge chromatic number of a bipartite graph equals its maximum degree.",
+  "source_attribution": "Dénes König, 1916 (catalog metadata; matched to the inspected primary paper)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "For every finite bipartite multigraph G, the edge chromatic number of G equals its maximum degree, with edge multiplicity counted in degree.",
+  "canonical_claim_status": "primary_source_identifies_finite_bipartite_multigraph_proper_edge_coloring_upper_bound_but_modern_equality_transport_and_exact_lean_encoding_are_not_independently_frozen",
+  "canonical_claim": "Source-backed mathematical family only: König's finite bipartite multigraph proper-edge-coloring bound, transported to the catalog's chromatic-index equality after the maximum-degree lower bound; exact formal definitions and degenerate-case convention remain the dependent statement gate.",
+  "planned_scope_boundary": "The authoritative rev-5.6 execution DAG assigns exact Lean elaboration to the dependent STATEMENT node. This planned intake freezes the human source-backed claim, multigraph-versus-simple-graph boundary, unresolved proposition-changing choices, and open tasks; it deliberately leaves the exact Lean expression, binders, transports, and fingerprints open as hard statement-gate blockers rather than inventing them.",
+  "target_disposition": "preserve the primary source's finite bipartite multigraph scope and require independent source acceptance plus exact multigraph encoding at statement freeze",
+  "statement_blocker": "The 1916 source permits parallel edges and states the proper k-edge-coloring upper-bound form, while the catalog uses modern chromatic-index equality language. Pinned mathlib's convenient lineGraph and maxDegree APIs are for SimpleGraph and cannot silently replace the source multigraph. The statement phase must independently approve a finite multigraph and loop policy faithful to the source's pair-of-vertices model, bipartite and incidence predicates, multiplicity-counted degree and maximum, proper edge coloring, chromatic-index minimum, the elementary lower-bound bridge, binders, profiles, and boundary cases.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Graph.Basic",
+      "Mathlib.Combinatorics.SimpleGraph.Bipartite",
+      "Mathlib.Combinatorics.SimpleGraph.EdgeLabeling",
+      "Mathlib.Combinatorics.SimpleGraph.LineGraph"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_accepted_source_to_equality_map_and_source_faithful_multigraph_encoding",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: the source fixes finite bipartite multigraphs with parallel-edge identity through a pair-of-vertices edge model. The statement must fix vertex and edge universes, incidence and loop policy, finiteness and decidability instances, bipartition encoding, and whether any source-faithful reduction to simple graphs is used.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open formal encoding of the source-faithful claim that a finite bipartite multigraph has a proper edge coloring using its maximum degree many colors, together with or transported to the catalog equality between chromatic index and maximum degree.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before the exact proposition is frozen; every case listed in scope-map.md must be resolved without adding connectedness, regularity, simplicity, or nonemptiness hypotheses.",
+  "candidate_scope_not_credited": [
+    "a proper edge coloring of every finite bipartite multigraph with colors Fin Delta",
+    "chromatic index of a finite bipartite multigraph equals its multiplicity-counted maximum degree",
+    "a checked equivalence between the existence upper bound plus maximum-degree lower bound and the equality",
+    "the specialization to finite bipartite simple graphs via vertex coloring of the line graph",
+    "decomposition of a regular bipartite multigraph into Delta perfect matchings"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty vertex type, edgeless graph, isolated vertices, and maximum degree zero",
+    "one edge, matchings, stars, paths, even cycles, and disconnected graphs",
+    "parallel edges sharing both endpoints and their multiplicity in incidence degree",
+    "empty bipartition side, explicit versus existential bipartition, and nonunique partitions",
+    "regular versus nonregular graphs and absence of a connectedness premise",
+    "color type Fin Delta at Delta zero and chromatic-index minimum for the empty edge set",
+    "ENat versus Nat equality and coercion if a simple line-graph transport is credited"
+  ],
+  "excluded_substitutions": [
+    "finite bipartite simple graphs without a source-preserving multigraph transport",
+    "ordinary vertex two-colorability instead of proper edge coloring",
+    "Vizing's general simple-graph Delta or Delta-plus-one theorem",
+    "Shannon's multigraph upper bound",
+    "Satz B regular factorization or a matching decomposition alone instead of the nonregular Satz C root",
+    "list edge coloring, total coloring, Galvin's theorem, or a special graph-family result",
+    "a structure or hypothesis storing the desired coloring, minimum, or equality",
+    "a theorem name, citation, API probe, finite enumeration, or the untrusted verified label as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0859",
+      "name": "Vizing定理",
+      "relationship": "general finite simple-graph edge-coloring bound; distinct domain and conclusion"
+    },
+    {
+      "theorem_id": "THM-M-0860",
+      "name": "Shannon定理",
+      "relationship": "general multigraph edge-coloring upper bound; weaker than bipartite equality"
+    },
+    {
+      "theorem_id": "THM-M-0812",
+      "name": "柯尼希定理",
+      "relationship": "bipartite matching versus vertex-cover theorem; distinct result despite shared attribution"
+    },
+    {
+      "theorem_id": "THM-M-0862",
+      "name": "Menger定理",
+      "relationship": "connectivity versus disjoint paths; unrelated graph-theory target"
+    }
+  ],
+  "source_status": "H1_primary_1916_Satz_C_and_complete_proof_inspected_with_finite_bipartite_multigraph_scope_but_independent_transcription_translation_equality_bridge_correction_errata_and_node_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Dénes König, Über Graphen und ihre Anwendung auf Determinantentheorie und Mengenlehre, Mathematische Annalen 77(4), 1916, 453-465, DOI 10.1007/BF01456961",
+      "candidate_locator": "definitions on printed pages 453-454; Satz C and proof on printed pages 455-456; open scan at Zenodo record 2395248",
+      "observed_pdf_sha256": "46ad3d33fd7dc835ea0e1d1f12b56302988bff0e2ac898bfa72549d0560bb7eb",
+      "candidate_summary": "For a finite bipartite multigraph with at most k incident edges at every vertex, assign k indices to edges so incident edges have distinct indices; proof by edge induction and alternating two-index recoloring.",
+      "inspection_status": "primary statement and proof inspected; repository admission, independent transcription and translation, modern equality bridge, complete premise/node map, correction and errata disposition, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Graph.Basic",
+      "declarations": ["Graph", "Graph.IsLink", "Graph.Inc", "Graph.incidenceSet"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "source-relevant multigraph representation with edge identity, parallel edges, loops, links, and incidence; no multigraph bipartiteness, finite degree, proper edge coloring, chromatic index, or König theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Bipartite",
+      "declarations": ["SimpleGraph.IsBipartite", "SimpleGraph.IsBipartiteWith"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "simple-graph bipartite substrate only; does not retain parallel edges or state edge coloring"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.LineGraph",
+      "declarations": ["SimpleGraph.lineGraph", "SimpleGraph.lineGraph_adj_iff_exists"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "supports a simple-graph edge-coloring encoding through vertex coloring; no source-faithful multigraph transport or König theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Coloring and Mathlib.Combinatorics.SimpleGraph.Finite",
+      "declarations": ["SimpleGraph.Coloring", "SimpleGraph.chromaticNumber", "SimpleGraph.maxDegree", "SimpleGraph.degree_le_maxDegree"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "vertex-coloring and simple-graph degree infrastructure; chromaticNumber is ENat while maxDegree is Nat"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.EdgeLabeling",
+      "declarations": ["SimpleGraph.EdgeLabeling"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "arbitrary simple-edge labels only; module documentation explicitly reserves edge-colouring for a missing proper-incidence condition"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; finite choice, classical decidability, quotient edge representations, minima, and cardinality principles remain downstream until the exact encoding is accepted",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact multigraph representation, imports, terminal declarations, transitive dependencies, compiled artifacts, and trust closure remain open",
+  "computation_profile": "konig-edge-coloring-planned/1.0: no enumeration, unchecked coloring, native shortcut, oracle, experiment, or generated certificate is credited; any constructive algorithm or certificate must be kernel-replayed under a later accepted specification",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "464759128569180ab640c412cd80bc5dd2c3b44a",
+    "repository_base_tree": "8da3c9130640d08d4e179450a0418368d0454745",
+    "repository_record": "Docs/researches/math_theorems.md:6313-6318",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23495-23520",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "8cb6303c46b850d800bba4b6f8292496d8f86905c4267d50e23f6fa6de814555",
+    "stage0_projection_excerpt_sha256": "eddd8e94f30160998dabb7dec1783cb9e0bc723040146a2d209486ee3fc5539e",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "1e508ba6dea246337ac6daf72d8d58fef1ec2d44422ab5fff19db56fac83d00b",
+    "execution_dag_sha256": "b0a766fc806a0dc4e9a8b4400e6ab0c92e39ca9265a23cd3a2feab451a63e4a9",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "konig_crossref_canonical_metadata_sha256": "9af7ab092e5d8a810840a6a3ef296710a06837845572eba51aabcd9c86a63254",
+    "konig_zenodo_canonical_metadata_sha256": "37c024b2bb83b57ee519d5f6157eec357ccc9118e4c1485275fcc0ebdeb06aa8",
+    "inspected_konig_pdf_sha256": "46ad3d33fd7dc835ea0e1d1f12b56302988bff0e2ac898bfa72549d0560bb7eb",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "bipartite_source_sha256": "5402f4cd073b757a9d1bd127cbbca9f9a2b0750c8c9edb7e2361df32312acf3f",
+    "line_graph_source_sha256": "8d938aa393a544cb7f20fe34176ec005702363991f978f7ccb394c7276ab401f",
+    "coloring_source_sha256": "42c4c6ac9c763df08f33a9fc4cf329e19908dacc630be771a547fcb583f7be56",
+    "finite_source_sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8",
+    "edge_labeling_source_sha256": "6f0181a9b0a003bd703d81f609d5e30779d5543aa31dfc32f4b15c6e6c51b3f9",
+    "graph_basic_source_sha256": "dc3f9c7793f8de09261868afeb7e1d8804914b90b1fc4615feb139f2452dd2b9"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0861/README.md",
+    "Stage1_Instances/THM-M-0861/instance.json",
+    "Stage1_Instances/THM-M-0861/scope-map.md",
+    "Stage1_Instances/THM-M-0861/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0861/task-dag.json",
+    "Stage1_Instances/THM-M-0861/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0861/check_intake.py",
+    "Stage1_Instances/THM-M-0861/validation.md",
+    "Stage1_Instances/THM-M-0861/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-theory and German-source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned multigraph edge-coloring reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or any dependent statement work",
+    "invalidation_inputs": [
+      "catalog, attribution, source, translation, theorem-family, or chronology correction",
+      "graph or multigraph representation, loops, parallel edges, incidence, bipartition, degree, coloring, chromatic-index, equality, binder, or boundary decision",
+      "source edition, theorem/page, proof, correction, erratum, preservation, equality bridge, or independent review",
+      "canonical Lean target, transport, mutation, toolchain, dependency, profile, validator, receipt, or owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires fresh scoped validation"
+  },
+  "open_task_dag": "Stage1_Instances/THM-M-0861/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only when accompanied by the provisional receipt and worker packet. It supplies no accepted source review, exact canonical Lean statement, proof body, obligation registry, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance."
+}

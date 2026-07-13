@@ -1,5 +1,13 @@
 # Intake validation
 
+This file records the historical intake-phase validation. Statement-phase commands and results are
+recorded separately in `statement-validation.md` and `statement-receipt.json`; later dossier
+expansion does not retroactively change the scope or hashes of the intake receipt.
+The receipt's bound public projections have since changed during this statement phase, so its
+`current_unsuperseded_worker_report` field describes only the historical intake snapshot and is no
+longer current authority for those files. `statement-receipt.json` records the superseding
+provisional worker snapshot; neither receipt is master-accepted.
+
 Base revision: `67d32ab26aba14b674ae8a1b919e6935812190c3` (tree
 `8a1d264cf3331992fbbc3a4fffca285af0b88929`). Validation date: 2026-07-13
 (Asia/Shanghai).
@@ -47,13 +55,12 @@ mutation was performed. This dirty worker run is nonrelease evidence.
 
 ## Known open gates
 
-An admitted immutable primary or authoritative statement, pinpoint theorem/page, historical
-attribution and date audit, definitions, assumptions, correction or errata review, and independent
-source approval remain open. So do the exact domain, prime premise, forward/iff boundary,
-factorial/cast/congruence encoding, binder order, boundary contract, expression and environment
-fingerprints, checked alternate transports, and statement mutations. The exhaustive formal-anchor,
-terminal-body, provenance, dependency, axiom, and TCB audits; discovery and obligation freezes;
-typed graphs; proof and composition; readable reconstruction; hermetic replay; deterministic bundle;
-independent verification; audit completion; theorem completion; and master acceptance also remain
-open. These gates prevent any theorem-completion claim but do not invalidate a truthful self-tested
-`planned` intake.
+At this historical intake snapshot, the exact domain, prime premise, direction, encoding, binders,
+fingerprints, transports, and mutations were open. `Statement.lean`, `statement.json`, and
+`statement-receipt.json` now freeze and self-test the conventional formal target, while primary or
+authoritative source fidelity, pinpoint theorem/page, historical attribution and date audit,
+definitions, assumptions, correction or errata review, and independent source approval remain
+open. So do formal-anchor and terminal-body provenance, dependency, axiom and TCB audits; discovery
+and obligation freezes; typed graphs; proof and composition; readable reconstruction; hermetic
+replay; deterministic bundle; independent verification; audit completion; theorem completion; and
+master acceptance. These gates prevent any theorem-completion claim.

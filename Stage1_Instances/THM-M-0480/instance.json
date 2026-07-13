@@ -1,0 +1,274 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0480",
+  "item_id": "S56-M-0480-INTAKE",
+  "execution_rank": 1361,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "素数定理",
+  "name_en": "Prime number theorem",
+  "canonical_name": "Prime number theorem (exact source formulation open)",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "π(x) ~ x/ln(x)",
+  "literal_source_claim_en": "pi(x) is asymptotically equivalent to x / log(x)",
+  "source_attribution": "Jacques Hadamard and Charles de la Vallee Poussin, 1896 (untrusted catalog metadata; the catalog cites no work or theorem locator)",
+  "source_status_untrusted": "已验证",
+  "canonical_claim_status": "recognizable_prime_number_theorem_family_but_catalog_omits_definitions_domain_filter_asymptotic_semantics_binders_and_source_locator",
+  "canonical_statement": null,
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "The ordinary prime-counting function is asymptotically equivalent to x / log(x) as x tends to positive infinity.",
+  "target_disposition": "requires_immutable_source_selection_and_prime_counting_asymptotic_encoding_review_before_statement_execution",
+  "statement_blocker": "The catalog gives no primary or authoritative source and does not define pi, its endpoint convention, the natural or real input domain, the limiting filter, floor and cast semantics, the meaning of asymptotic equivalence, the logarithm convention, ordered binders, alternate transports, or boundary cases. Pinned mathlib supplies prime-counting, asymptotic, Chebyshev, and reduction interfaces but no located terminal PNT declaration; choosing a familiar encoding as the root before a reviewed source crosswalk would infer proposition identity that intake has not established.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_pending_immutable_source_crosswalk_and_exact_statement_elaboration",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "module_candidates_not_credited": [
+      "Mathlib.NumberTheory.PrimeCounting",
+      "Mathlib.NumberTheory.Chebyshev",
+      "Mathlib.Analysis.Asymptotics.AsymptoticEquivalent",
+      "Mathlib.NumberTheory.LSeries.Nonvanishing"
+    ],
+    "declaration_candidates_not_credited": [
+      "Nat.primeCounting",
+      "Asymptotics.IsEquivalent",
+      "Chebyshev.primeCounting_eq_theta_div_log_add_integral",
+      "Chebyshev.integral_theta_div_log_sq_isLittleO",
+      "Chebyshev.primeCounting_sub_theta_div_log_isBigO",
+      "Chebyshev.eventually_primeCounting_le"
+    ],
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix a natural sequence or real-variable formulation, the prime-counting definition and endpoint, atTop domain, Real codomain and casts, floor extension if any, logarithm, equivalence relation, all binders and coercions, and boundary semantics; no nontrivial universes are expected.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open beyond the literal pi(x) ~ x/log(x) family: prime-counting, domain, filter, floor/cast, logarithm, equivalence, binder, alternate-form, and boundary conventions are not source-approved.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "natural sequence: (fun n : Nat => (Nat.primeCounting n : Real)) is asymptotically equivalent at natural atTop to (fun n => (n : Real) / Real.log n)",
+    "real extension: (fun x : Real => (Nat.primeCounting (Nat.floor x) : Real)) is asymptotically equivalent at real atTop to (fun x => x / Real.log x)",
+    "ratio form: pi(x) / (x / log x) tends to one, with eventual nonzero proof",
+    "normalized form: pi(x) * log(x) / x tends to one",
+    "Chebyshev theta or psi is asymptotically equivalent to the identity",
+    "the nth prime is asymptotically equivalent to n * log n"
+  ],
+  "excluded_degenerate_cases": [],
+  "unresolved_boundary_and_mutation_cases": [
+    "x or n equal to zero or one where logarithm or division is exceptional",
+    "negative real inputs and the totalization of a real prime-counting extension",
+    "values between integers, floor versus ceil, and inclusion of a prime endpoint",
+    "natural atTop versus real atTop and all Nat-to-Real coercions",
+    "natural logarithm versus a different base and its constant factor",
+    "asymptotic equivalence versus ratio limit, one-sided Big-O, little-o, or explicit epsilon formulations",
+    "changed input, function, limit, and asymptotic-relation binder scope"
+  ],
+  "excluded_substitutions": [
+    "Chebyshev one-sided or two-sided estimates used as the PNT asymptotic root",
+    "THM-M-0481 Bertrand's postulate or THM-M-0482 Chebyshev estimates",
+    "THM-M-0498 Riemann-von Mangoldt explicit formula or THM-M-0499 de la Vallee Poussin error term",
+    "the prime number theorem for arithmetic progressions, Dirichlet's theorem, nth-prime asymptotics, or a theta/psi form without checked source-approved transports",
+    "zeta nonvanishing or a Tauberian theorem used as the terminal conclusion rather than a dependency",
+    "finite computation, sampled ratios, or numerical prime tables",
+    "a structure, hypothesis, axiom, oracle, or statement-shaped definition that stores the desired result",
+    "the untrusted source label, theorem name, API probe, or bounded search treated as source identity or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0479",
+      "name": "狄利克雷定理",
+      "relationship": "infinitude of primes in reduced arithmetic progressions, not the ordinary prime-counting asymptotic"
+    },
+    {
+      "theorem_id": "THM-M-0481",
+      "name": "伯特兰假设",
+      "relationship": "a prime-in-an-interval theorem that cannot substitute for PNT"
+    },
+    {
+      "theorem_id": "THM-M-0482",
+      "name": "切比雪夫估计",
+      "relationship": "coarser distribution bounds separately owned and strictly short of the PNT asymptotic"
+    },
+    {
+      "theorem_id": "THM-M-0498",
+      "name": "黎曼-冯·曼戈尔特公式",
+      "relationship": "an explicit-formula target involving zeta zeros, not the PNT statement"
+    },
+    {
+      "theorem_id": "THM-M-0499",
+      "name": "素数定理的误差项",
+      "relationship": "a later quantitative refinement that cannot be substituted for the bare asymptotic root"
+    }
+  ],
+  "foundation_profile": {
+    "status": "open",
+    "required_action": "select a versioned accepted and disallowed logical-principle profile after exact target freeze",
+    "candidate_axioms_observed_not_accepted": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "tcb_profile": {
+    "status": "open",
+    "required_action": "freeze Lean kernel, elaborator, Lake, dependency, native/external tool, and validator trust policy"
+  },
+  "computation_profile": {
+    "status": "open",
+    "current_boundary": "no computation, certificate, oracle, experiment, or generated proof is credited at intake"
+  },
+  "formal_system": {
+    "backend": "Lean 4",
+    "adapter": "repository Lake environment",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu"
+  },
+  "source_revisions": {
+    "repository_base": "748243faadc15828fb087059337fd05b7be9fdeb",
+    "repository_base_tree": "e46d642646f80980838b6f016f5d69b817bd464d",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "5cd2aef6b7ec93e7910619bd69a033fbaefd30eba554c03b0a240b1ecb7a92a1",
+    "stage0_projection_excerpt_sha256": "f81a5376a065f25af139ef8f372ffd2d6705587780dfde0fdf7deae00812dc70",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "8b93d52d753cdb6e3462080cf7f8315c9e8a07ef921a1b93a535a5fcba41f6c2",
+    "execution_dag_sha256": "fcd54bfe658aa1577667cc24b732b82d3425164fbfcad212107c0a3b696a0431",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "repository_adjacent_s1_m_259_sha256": "2d65025db006f10ca68463f9cb2741dac0882ab26e52948adf62cb01a017ad87",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_prime_counting_source_sha256": "ab721488feeb7d0e5668758e29e0ca20543e16e738f80b632c5cabe9e949ff25",
+    "mathlib_chebyshev_source_sha256": "6e69d416fc028b21782762876ee70af3f052295057b75baab1dac17d406abf98",
+    "mathlib_asymptotic_equivalent_source_sha256": "c8f8e086bdab26a07798730d328669a6fde3816162e134ad675fd55e0a54ec28",
+    "mathlib_nonvanishing_source_sha256": "68e8ee0b84be31e98292b946b29017b7d2f3c19880a0ebfb3cbc2ed0be5f7193"
+  },
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.NumberTheory.PrimeCounting",
+      "declarations": ["Nat.primeCounting", "Nat.tendsto_primeCounting"],
+      "candidate_scope": "the ordinary natural prime-counting function and its divergence to infinity",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "classification": "definition and basic interface only; no PNT asymptotic"
+    },
+    {
+      "module": "Mathlib.Analysis.Asymptotics.AsymptoticEquivalent",
+      "declarations": ["Asymptotics.IsEquivalent", "Asymptotics.isEquivalent_iff_tendsto_one"],
+      "candidate_scope": "generic asymptotic equivalence and a ratio-limit characterization under eventual nonvanishing",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "classification": "statement encoding infrastructure only"
+    },
+    {
+      "module": "Mathlib.NumberTheory.Chebyshev",
+      "declarations": [
+        "Chebyshev.theta",
+        "Chebyshev.psi",
+        "Chebyshev.primeCounting_eq_theta_div_log_add_integral",
+        "Chebyshev.integral_theta_div_log_sq_isLittleO",
+        "Chebyshev.primeCounting_sub_theta_div_log_isBigO",
+        "Chebyshev.eventually_primeCounting_le"
+      ],
+      "candidate_scope": "Chebyshev functions, prime-counting reduction, remainder estimate, and a one-sided upper bound",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "classification": "proved adjacent reductions and estimates; no theta asymptotic or terminal PNT declaration"
+    },
+    {
+      "module": "AwesomeTheorems.Stage1.S1_M_259",
+      "declarations": [
+        "AwesomeTheorems.Stage1.S1_M_259.realPrimeCounting",
+        "AwesomeTheorems.Stage1.S1_M_259.primeCounting_eq_theta_div_log_add_integral_wrapper",
+        "AwesomeTheorems.Stage1.S1_M_259.primeCounting_sub_theta_div_log_isBigO_wrapper"
+      ],
+      "candidate_scope": "legacy adjacent RH-consequence statement shapes and wrappers",
+      "revision": "748243faadc15828fb087059337fd05b7be9fdeb",
+      "classification": "repo-local discovery input for a different target; explicitly statement/wrapper-only and not PNT proof closure"
+    }
+  ],
+  "bounded_discovery": {
+    "scope": "repository-local Lean and pinned mathlib Lean source",
+    "queries": [
+      "Prime Number Theorem and PrimeNumberTheorem spellings",
+      "primeCounting combined with IsEquivalent or x/log",
+      "theta combined with IsEquivalent"
+    ],
+    "result": "No terminal PNT declaration was located. Pinned definitions, prerequisites, reductions and upper estimates plus legacy statement/audit metadata were located. This bounded lexical intake search is not the exhaustive anchor audit and does not establish global absence."
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0480/README.md",
+    "Stage1_Instances/THM-M-0480/instance.json",
+    "Stage1_Instances/THM-M-0480/scope-map.md",
+    "Stage1_Instances/THM-M-0480/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0480/task-dag.json",
+    "Stage1_Instances/THM-M-0480/validation.md"
+  ],
+  "owners_and_reviewers": {
+    "intake_owner": "Stage1 rev-5.6 worker for S56-M-0480-INTAKE",
+    "master_acceptance_owner": "Stage1 rev-5.6 integration lane",
+    "source_reviewer": null,
+    "lean_reviewer": null,
+    "independence_boundary": "worker self-review is not independent source, Lean, or release review"
+  },
+  "freshness_and_revocation_policy": {
+    "support_state": "provisional_worker_only",
+    "review_due": "before master acceptance or any dependent statement work",
+    "invalidation_inputs": [
+      "source edition, theorem locator, wording, definition, premise, conclusion, proof, attribution, translation, correction, or erratum",
+      "prime-counting, endpoint, domain, filter, floor, cast, logarithm, equivalence, binder, transport, or boundary convention",
+      "canonical Lean target, toolchain, dependency, or source pin",
+      "assurance profile, validator, receipt, worker packet, or owned artifact"
+    ],
+    "revocation_and_incident_path": "integration lane rejects or supersedes the report, records the reason, and requires a fresh scoped self-test",
+    "upgrade_policy": "any Lean, Lake, mathlib, toolchain, manifest, candidate source, checker, or assurance change requires fresh discovery and structural validation"
+  },
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_basis": {
+    "H1": "The classical theorem is published and recognizable, but no immutable primary or authoritative edition, exact proposition and definition locator, assumptions, proof boundary, errata mapping, or independent review is accepted.",
+    "M3": "Pinned exact-topic definitions, asymptotic interfaces, reductions and one-sided estimates elaborate, but no source-identical canonical target, checked transport, expression fingerprint, terminal PNT body, or accepted proof evidence exists.",
+    "R4": "No readable, source-faithful node-by-node proof reconstruction exists for an exact accepted root."
+  },
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Planned intake only. The exact human claim and Lean target remain open; formal interfaces receive discovery credit only. No accepted task, proof, H0, M0, R0, audit completion, theorem completion, or master acceptance is asserted."
+}
