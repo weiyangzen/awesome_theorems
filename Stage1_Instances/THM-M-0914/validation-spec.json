@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0914-VALIDATION",
+  "theorem_id": "THM-M-0914",
+  "recipe_id": "S56-M-0914-VALIDATION-network-isolated-v1",
+  "cwd": ".",
+  "argv": [
+    "bash",
+    "Stage1_Instances/THM-M-0914/check_validation.sh"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 300,
+  "network_policy": "denied",
+  "network_enforcement": "Lean replay runs in bubblewrap with a read-only host root, a fresh writable temporary module directory, --unshare-net, --trust=0, and fixed locale and timezone. The canonical pinned .lake source and compiled artifacts are reused warm and read-only, so this is not section 10.6 cold release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact single PASS line naming network-isolated exact proof and differential replay, 15 sorry-free declarations, the allowed axiom ceiling, and an empty unsafe/bodyless-nonaxiom closure"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0914-ROOT",
+    "M0914-T-ROOT-COMPOSE",
+    "M0914-N-FIN-CARD-INEQUALITY",
+    "M0914-A-FINTYPE-WRAPPER",
+    "M0914-N-FIN-CARD-IDENTITY",
+    "M0914-N-SUCCESSOR-LT",
+    "M0914-L-FINSET-COLLISION",
+    "M0914-N-UNIV-MAPS-TO",
+    "M0914-L-CARD-INJON-BOUND",
+    "M0914-L-NO-COLLISION-INJON",
+    "M0914-X-PROVENANCE",
+    "M0914-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0914.PigeonholeTarget",
+    "Stage1Instances.THM_M_0914.Proof.pigeonholeTarget_proof",
+    "Stage1Instances.THM_M_0914.Proof.pigeonholeTarget_via_frozen_children",
+    "Stage1Instances.THM_M_0914.Validation.pigeonholeTarget_differential",
+    "Fintype.exists_ne_map_eq_of_card_lt",
+    "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
+    "Finset.card_le_card_of_injOn",
+    "Fintype.not_injective_of_card_lt",
+    "Function.not_injective_iff"
+  ],
+  "scope_boundary": "Node-scoped nonrelease replay of the exact frozen root, frozen proof composition, selected pinned source/body provenance, direct trust observations, and a same-worker differential noninjectivity reconstruction. Provenance and trust obligation coverage is a fail-closed assessment, not accepted closure. Proof master acceptance, complete transitive provenance/TCB/SBOM closure, a clean empty-cache offline rebuild, and distinct signed independent verification remain open."
+}
