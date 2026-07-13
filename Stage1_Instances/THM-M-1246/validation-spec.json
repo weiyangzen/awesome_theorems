@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1246-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1246-VALIDATION",
+  "theorem_id": "THM-M-1246",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1246/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through Bubblewrap with an unshared network namespace, a read-only host root, and only a disposable /tmp module directory writable. Tool and evidence checks make no network request.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED summary from the hash-bound validator",
+      "semantic_sha256": "69a146f1821082a68f2fd55e9bbd2fb7661ba00592887bbf8eb4296e98a4f842",
+      "bytes": 926
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1246-ROOT",
+    "M1246-T-ANALYTIC",
+    "M1246-T-ROOT-TRANSPORT"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1246.hardyInequalityTarget_iff_expanded",
+    "Stage1Instances.THM_M_1246.ObligationTree.root_of_hardyTerminal",
+    "Stage1Instances.THM_M_1246.Proof.hardyTerminal",
+    "Stage1Instances.THM_M_1246.Proof.hardyInequality",
+    "Stage1Instances.THM_M_1246.Validation.independentlyReconstructedHardyTerminal",
+    "Stage1Instances.THM_M_1246.Validation.independentlyReconstructedHardyInequality"
+  ],
+  "scope_boundary": "Network-isolated trust-zero replay over the pinned shared warm dependency cache. It checks the exact statement, frozen composition, analytic terminal/root, recursive sorry closure, exact observed axioms, selected local and mathlib provenance, and a replay that is independent only of the Proof wrapper module and its olean. It grants no closure credit to unreconciled frozen internal leaf IDs and is not an empty-cache cold replay, complete TCB/provenance bundle, independently reasoned proof, distinct signed runner, accepted M0 state, or theorem completion."
+}
