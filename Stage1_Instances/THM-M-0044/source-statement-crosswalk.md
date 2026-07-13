@@ -60,17 +60,29 @@ orthonormal eigenvector bases and unitary diagonalization for self-adjoint/Hermi
 `Mathlib.LinearAlgebra.UnitaryGroup` and matrix star/conjugate-transpose infrastructure specify the
 square unitary boundary. These are plausible prerequisites, not the arbitrary rectangular SVD.
 
-`IntakeProbe.lean` checks selected types and prints axiom reports for singular-value support and the
-Hermitian matrix spectral theorem. A bounded exact-topic search found no pinned declaration named
-or documented as singular value decomposition and no theorem concluding with both unitary factors
-and a rectangular diagonal equality. That negative observation is an intake lead only, not an
-exhaustive anchor audit or `M4` claim.
+`AnchorAudit.lean` checks eleven selected declarations and prints their axiom reports. The audited
+proof-bearing prerequisites use only `propext`, `Classical.choice`, and `Quot.sound`; the elementary
+Gram-matrix Hermitian lemma omits `Classical.choice`. A bounded all-package search found no pinned
+declaration named or documented as singular value decomposition and no theorem concluding with both
+unitary factors and a rectangular diagonal equality.
+
+At `facebookresearch/atlas-lean@34ffed396f376454c1a9b297f3fd74c5c801fb50`,
+`Atlas.HighDimensionalStatistics.code.Chapter4.Def_4_1` defines a Real-only compact `SVD` record and
+reconstruction predicate. Its vector families carry no orthonormality conditions and no theorem
+establishes existence for every matrix, so it is a statement mismatch rather than a proof anchor.
+
+At `mrdouglasny/gaussian-field@d63a28568a75d99f6cb27af1f888a49a69855a66`,
+`GaussianField.nuclear_sequence_svd` is a substantive source-level SVD-like theorem for summable
+sequences into separable infinite-dimensional real Hilbert spaces. It neither covers complex finite
+matrices nor constructs two square unitary matrices or the frozen rectangular equality. The project
+uses Lean 4.30.0 and a different mathlib pin and was not integrated. The complete candidate and
+search boundary, including blocked and result-limited public searches, is recorded in
+`anchor-audit.json`; global discovery saturation is not claimed.
 
 ## Exactness risks held open
 
-The statement phase must resolve real versus complex polymorphism, rectangular index conventions,
-full versus thin factor shapes, transpose versus conjugate transpose, the precise rectangular
-diagonal predicate, nonnegative-real embedding, ordering and multiplicity, empty dimensions, and
-the matrix/linear-map direction. Singular values alone, or spectral diagonalization of `Aᴴ A`, do
-not supply the catalog conclusion without constructing left singular vectors, completing bases,
-and checking the final multiplication identity.
+The statement phase resolved the frozen representation choices. The proof still must diagonalize
+`Aᴴ A`, construct and normalize left singular vectors for positive singular values, handle the zero
+tail and rank-deficient cases, complete both systems to full bases, convert them to square unitary
+matrices, align the `min m n` indices with the dependent rectangular `Sigma`, prove the final
+multiplication identity in the selected orientation, and cover both fields and empty dimensions.

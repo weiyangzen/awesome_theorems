@@ -31,13 +31,20 @@ credit `H0`.
 
 Pinned mathlib defines singular values of finite-dimensional linear maps and proves their
 nonnegativity, ordering, eigenvalue relation, and support. It also provides spectral, diagonal,
-adjoint, and unitary-matrix infrastructure. The bounded intake search found no terminal theorem
-constructing both factors and proving `A = U * Sigma * Vᴴ`. `IntakeProbe.lean` authenticates only
-these adjacent interfaces; it is not the downstream anchor audit and gives no proof credit.
+adjoint, basis-extension, and unitary-matrix infrastructure. The anchor audit authenticates eleven
+such interfaces at mathlib revision `8a178386...ea95`, but finds no terminal theorem constructing
+both factors and proving `A = U * Sigma * Vᴴ`.
+
+Two external Lean 4 near-misses were inspected at immutable revisions. Atlas defines a Real-only
+rank-indexed `SVD` record whose vector fields are not required to be orthonormal and supplies no
+existence theorem. Gaussian-field proves an SVD-like result for summable nuclear sequences into an
+infinite-dimensional real Hilbert space, not arbitrary finite Real-and-Complex matrices with two
+square unitary factors. Neither statement matches or implies the frozen target, and neither project
+was added to the local dependency closure.
 
 The planned vector remains `[H1, M3, R3]`: a published proof and source lead are known but exact source
 fidelity and independent review are open; useful formal definitions and prerequisite interfaces are
 present and the exact target elaborates, but no decomposition proof is credited; and this dossier
-maps scope rather than reconstructing a proof. The statement node is self-tested pending master
-acceptance; all later tasks remain open. No accepted execution state, audit completion, theorem
-completion, or master acceptance is claimed.
+maps scope rather than reconstructing a proof. The anchor node is self-tested pending master
+acceptance; the obligation-tree and later tasks remain open. No accepted execution state, audit
+completion, theorem completion, or master acceptance is claimed.

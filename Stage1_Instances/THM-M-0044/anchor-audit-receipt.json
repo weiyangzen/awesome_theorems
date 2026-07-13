@@ -1,0 +1,171 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0044-ANCHOR-AUDIT-WORKER-20260713",
+  "item_id": "S56-M-0044-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0044",
+  "phase": "anchor_audit",
+  "intent": "audit",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "72f928bdf1a47d7c119826db45575bd02a3a63ce",
+  "base_tree": "171a6bfae88220f5df9b39cdd6c7e1bf17639889",
+  "validated_at": "2026-07-13T07:48:09+08:00",
+  "review_due": "before master acceptance or dependent obligation-tree work",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0044/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0044/README.md",
+    "Stage1_Instances/THM-M-0044/anchor-audit-receipt.json",
+    "Stage1_Instances/THM-M-0044/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0044/anchor-audit.json",
+    "Stage1_Instances/THM-M-0044/check_anchor_audit.py",
+    "Stage1_Instances/THM-M-0044/check_intake.py",
+    "Stage1_Instances/THM-M-0044/instance.json",
+    "Stage1_Instances/THM-M-0044/source-statement-crosswalk.md"
+  ],
+  "diff_summary": "froze and classified a three-candidate inventory, kernel-checked pinned mathlib SVD prerequisites, rejected two immutable external statement mismatches, and recorded the remaining exact full-SVD construction cut set",
+  "covered_node_ids": [
+    "S56-M-0044-ANCHOR_AUDIT"
+  ],
+  "covered_declarations": [
+    "LinearMap.singularValues",
+    "LinearMap.singularValues_nonneg",
+    "LinearMap.sq_singularValues_fin",
+    "LinearMap.hasEigenvalue_adjoint_comp_self_sq_singularValues",
+    "LinearMap.support_singularValues",
+    "Matrix.isHermitian_conjTranspose_mul_self",
+    "Matrix.IsHermitian.eigenvectorUnitary",
+    "Matrix.IsHermitian.spectral_theorem",
+    "Orthonormal.exists_orthonormalBasis_extension_of_card_eq",
+    "LinearIsometryEquiv.toMatrix_mem_unitaryGroup",
+    "Matrix.toEuclideanLin_conjTranspose_eq_adjoint",
+    "facebookresearch/atlas-lean:SVD",
+    "mrdouglasny/gaussian-field:GaussianField.nuclear_sequence_svd"
+  ],
+  "statement_fingerprints": [
+    "sha256:f9a0f27af3e6287fc303bfbd9ecf382111bd44ed8d60e27cff6d0acc59b1052b"
+  ],
+  "immutable_inputs": {
+    "repository_revision": "72f928bdf1a47d7c119826db45575bd02a3a63ce",
+    "repository_tree": "171a6bfae88220f5df9b39cdd6c7e1bf17639889",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "atlas_revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+    "atlas_tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+    "atlas_archive_sha256": "925cc0fa8d32dbdf6e8dc893e2fb9d34eed3dfdc8603dc5ae09804f8c3db9aa2",
+    "gaussian_field_revision": "d63a28568a75d99f6cb27af1f888a49a69855a66",
+    "gaussian_field_archive_sha256": "3d0504de255e7684f9f7badebff98dcb05619dfe180dbfa56d55c94bcdc4961c"
+  },
+  "candidate_result": {
+    "inventory_count": 3,
+    "exact_candidate_found": false,
+    "strongest_classification": "M3_support_only",
+    "evidence_level": "E3",
+    "support_candidates_kernel_checked": true,
+    "external_candidates_source_checked": true,
+    "proof_body_location": null,
+    "master_accepted": false
+  },
+  "lean_output_sha256": "1b0e9a5fd645b5cdbec4adc6982c14521f1808d039f1b35caf89f38e576b245b",
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0044-ANCHOR-AUDIT-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0044/AnchorAudit.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "eleven exact declarations must print; nine proof-bearing anchors must report propext/Classical.choice/Quot.sound and the Gram-Hermitian lemma must report propext/Quot.sound"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0044-ANCHOR_AUDIT"
+      ],
+      "covered_declarations": [
+        "LinearMap.singularValues",
+        "LinearMap.support_singularValues",
+        "Matrix.IsHermitian.spectral_theorem",
+        "Orthonormal.exists_orthonormalBasis_extension_of_card_eq"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0044-ANCHOR-AUDIT-LEDGER",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0044/check_anchor_audit.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 240,
+      "network_policy": "immutable HTTPS archive reads permitted only when the content-addressed /tmp audit cache is absent; no dependency or workspace mutation",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must report three classified candidates, checked pinned support, no exact candidate, accepted root M3, and audit/theorem false"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0044-ANCHOR_AUDIT"
+      ],
+      "covered_declarations": [
+        "facebookresearch/atlas-lean:SVD",
+        "mrdouglasny/gaussian-field:GaussianField.nuclear_sequence_svd"
+      ]
+    }
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_candidate_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "known_failures": [
+    "The statement prerequisite and this anchor-audit node have provisional worker evidence but still require dependency-ordered master acceptance.",
+    "No exact Lean 4 proof body for the frozen full rectangular Real-and-Complex SVD target was identified or integrated.",
+    "Atlas supplies a Real-only underconstrained data record without an all-matrix existence theorem; gaussian-field supplies an infinite-dimensional real nuclear-sequence result. Both are statement mismatches.",
+    "One broad Sourcegraph query hit its result limit and GitHub code search returned HTTP 403 at the anonymous rate limit; exhaustive discovery saturation is not claimed.",
+    "Primary-source H0, readable R0, obligation composition, proof construction, full transitive provenance/trust closure, hermetic replay, independent verification, deterministic release evidence, AUDIT-Z, and theorem completion remain open."
+  ],
+  "remaining_root_cut_set": [
+    "S56-M-0044-OBLIGATION_TREE",
+    "S56-M-0044-PROOF",
+    "S56-M-0044-VALIDATION",
+    "S56-M-0044-RELEASE",
+    "primary-source H0 and independent review",
+    "readable R0 and independent review",
+    "full transitive provenance, trust and TCB acceptance",
+    "master acceptance"
+  ],
+  "first_failed_gate": "exact formal completion candidate not located",
+  "status_boundary": "Provisional node-specific worker receipt only. It self-tests the bounded immutable anchor inventory and pinned prerequisite interfaces; it accepts no receipt, changes no accepted root vector, integrates no external proof body, does not finish AUDIT-Z, and does not complete the theorem."
+}

@@ -35,6 +35,11 @@ OWNED_FILES = {
     "statement.json",
     "statement-validation.md",
     "statement-receipt.json",
+    "AnchorAudit.lean",
+    "anchor-audit.json",
+    "check_anchor_audit.py",
+    "anchor-audit-validation.md",
+    "anchor-audit-receipt.json",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -245,7 +250,8 @@ def main() -> None:
     # nine-artifact packet; later statement artifacts do not rewrite it.
     intake_files = OWNED_FILES - {
         "Statement.lean", "check_statement.py", "statement.json", "statement-validation.md",
-        "statement-receipt.json"
+        "statement-receipt.json", "AnchorAudit.lean", "anchor-audit.json",
+        "check_anchor_audit.py", "anchor-audit-validation.md", "anchor-audit-receipt.json"
     }
     expected_intake_changed = {".stage1-worker-selftest.json"} | {
         f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_files
