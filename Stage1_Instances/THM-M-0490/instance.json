@@ -1,0 +1,217 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0490",
+  "item_id": "S56-M-0490-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1367,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "张益唐定理",
+  "name_en": "Zhang's bounded-prime-gap theorem",
+  "canonical_name": "Bounded gaps between consecutive primes below seventy million (published consequence; exact Lean encoding open)",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim_zh": "存在无穷多对素数差小于7000万",
+  "literal_source_claim_en": "There are infinitely many pairs of primes whose difference is less than seventy million.",
+  "source_attribution": "Yitang Zhang, 2013 (catalog metadata; primary paper published in 2014)",
+  "canonical_statement": null,
+  "canonical_claim_status": "published_consecutive_prime_liminf_consequence_identified_but_indexing_infinitude_cast_subtraction_transport_and_independent_review_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "If p_n denotes the nth prime in increasing order, then liminf as n tends to infinity of p_(n+1) - p_n is strictly less than 70,000,000; a candidate discrete Lean encoding says that for every index cutoff N there is n >= N with the zero-indexed adjacent natural-prime gap strictly below 70,000,000.",
+  "target_disposition": "preserve_the_published_consecutive_prime_consequence_and_require_checked_source_to_Lean_transport_before_statement_or_proof_execution",
+  "statement_blocker": "The primary source fixes the consecutive-prime liminf consequence, but intake lacks an independent source review and checked equivalence to a precise Lean formulation. Zero- versus one-indexing, real liminf versus an eventually-unbounded witness or Frequently-atTop predicate, natural versus coerced gaps, subtraction semantics, ordered binders, and mutations are not frozen. The stronger admissible-tuple Theorem 1 must remain a proof-source node rather than a substituted root.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.NumberTheory.PrimeCounting",
+      "Mathlib.Data.Nat.Prime.Nth",
+      "Mathlib.Data.Nat.Prime.Infinite"
+    ],
+    "declaration_candidates": [
+      "Nat.nth",
+      "Nat.infinite_setOf_prime",
+      "Nat.prime_nth_prime",
+      "Nat.nth_strictMono"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_checked_liminf_infinitely_often_transport_indexing_gap_domain_and_independent_source_review_not_frozen",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.NumberTheory.PrimeCounting_nth-prime-api-and-candidate-type-probe-only"
+  },
+  "domain_and_universes": "Published family: the increasing prime sequence p_n, positive integer indexing, natural adjacent gaps interpreted in the source liminf. Candidate Lean family: N n : Nat, zero-indexed Nat.nth Nat.Prime, natural subtraction, and a Prop in universe 0. The exact cast/codomain used for liminf or its checked discrete equivalent remains open.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open at exact-Lean-statement level: the gaps between consecutive primes are strictly below 70,000,000 for arbitrarily large indices, in an encoding checked equivalent to the source's strict liminf bound.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded by a canonical expression at intake. The statement phase must resolve the first-prime index, zero- versus one-indexing, n+1 overflow semantics in Nat, subtraction/cast order, finite cutoffs, and the strict-bound boundary.",
+  "candidate_scope_not_credited": [
+    "for every N : Nat there exists n >= N whose zero-indexed adjacent natural-prime gap is below 70000000",
+    "Frequently in Filter.atTop, the adjacent nth-prime gap is below 70000000",
+    "the source's real-valued liminf of consecutive prime gaps is below 7 * 10^7",
+    "infinitely many ordered consecutive prime pairs have positive difference below 70000000",
+    "Zhang's stronger admissible-tuple Theorem 1 with k0 at least 3.5 million"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero-indexed Lean sequence versus the source's positive-indexed p_n",
+    "n = 0 and the first adjacent pair 2, 3",
+    "natural subtraction after a separately checked strict-monotonicity fact",
+    "coercion before or after subtraction in a literal liminf encoding",
+    "strict < 70000000 versus non-strict <= 70000000",
+    "unboundedly many indices versus merely infinitely many pair values",
+    "consecutive ordered distinct primes versus arbitrary or repeated prime pairs",
+    "the bounded-gap consequence versus the admissible-tuple source theorem"
+  ],
+  "excluded_substitutions": [
+    "the twin-prime, Polignac, Maynard-improvement, or prime-number theorem targets",
+    "Euclid's infinitude of primes or unbounded prime enumeration without a bounded adjacent gap",
+    "arbitrary prime pairs without consecutiveness, ordering, distinctness, and unbounded-index semantics",
+    "a non-strict bound, different constant, finite computational search, or empirical prime-gap table",
+    "the admissible-tuple Theorem 1 silently substituted for its bounded-gap consequence",
+    "a premise, structure, custom axiom, oracle, or unchecked certificate storing the desired conclusion",
+    "the catalog verified label, source truth, theorem name, candidate type, or successful API probe used as machine-proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0489",
+      "name": "孪生素数猜想",
+      "boundary": "gap exactly two is a stronger open target and is not implied by Zhang's historical seventy-million bound"
+    },
+    {
+      "theorem_id": "THM-M-0491",
+      "name": "梅纳德定理",
+      "boundary": "later bounded-gap methods and improved constants are separate theorem and provenance targets"
+    },
+    {
+      "theorem_id": "THM-M-0492",
+      "name": "波利尼亚克猜想",
+      "boundary": "infinitely many occurrences of every positive even gap is not Zhang's bounded consecutive-gap consequence"
+    }
+  ],
+  "source_status": "H1_primary_publication_abstract_and_theorem_consequence_inspected_but_independent_review_full_assumption_definition_proof_node_errata_translation_and_Lean_transport_crosswalk_open",
+  "human_source_candidates_not_credited": [
+    {
+      "citation": "Yitang Zhang, Bounded gaps between primes, Annals of Mathematics 179 (2014), 1121-1174, DOI 10.4007/annals.2014.179.3.7",
+      "publisher_pdf_sha256": "231a33cffb19a76305df262e3ab1fac4142865493d6350c6bc142011e1c8a7a1",
+      "publisher_pdf_bytes": 621946,
+      "publisher_landing_page_sha256": "791b2e24c4e2423fc65037a2753be02c04cf233dad4bc90f430b46ab7d25906c",
+      "publisher_landing_page_bytes": 76046,
+      "crossref_response_sha256": "4a8b649869c1db146e03b7f0fa260c2fe233baaaab413362c83163778f4b0f17",
+      "crossref_response_bytes": 3195,
+      "pinpoint": "abstract, journal page 1121; Theorem 1 and consequence (1.5), journal page 1122",
+      "source_statement": "liminf as n tends to infinity of (p_(n+1)-p_n) is strictly less than 7 times 10^7, where p_n is the nth prime",
+      "inspection_status": "primary statement and stronger source theorem inspected; complete proof-node crosswalk, incorporated dependencies, correction/errata audit, Chinese-gloss fidelity, liminf transport, and independent review remain open, so H0 is not credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.NumberTheory.PrimeCounting",
+      "declarations": [
+        "Nat.nth",
+        "Nat.infinite_setOf_prime",
+        "Nat.prime_nth_prime",
+        "Nat.nth_strictMono",
+        "Nat.primeCounting"
+      ],
+      "boundary": "prime enumeration, primality, monotonicity, and counting substrate only; no bounded-gap conclusion or usable exact Zhang proof body was located in the bounded intake search"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "997541734bb32f987fb15f163335a82512992120",
+    "repository_base_tree": "2c866b9d840d48c48ac839740c62d3b9440be0e5",
+    "repository_record": "Docs/researches/math_theorems.md:3595-3600",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:13433-13458",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "ef2ff4b697184264ff0dd7dcd34b3d37e0d9de34ca430fcefaf4a89dd14492c4",
+    "stage0_excerpt_sha256": "f41c11892919910ff8f7c0da2e0650a582a02534836d5ab8fc5c0914ad99669b",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2c66d377a102a7eadd62d2f08027250b93f3152fac6800ef9eff3854d3ebaf7e",
+    "execution_dag_sha256": "5cb34447671a155ad02ffe0c01c925b3bbd3fa32f6c91dcd9c56941c6481f66e",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_publisher_pdf_sha256": "231a33cffb19a76305df262e3ab1fac4142865493d6350c6bc142011e1c8a7a1",
+    "primary_publisher_landing_page_sha256": "791b2e24c4e2423fc65037a2753be02c04cf233dad4bc90f430b46ab7d25906c",
+    "primary_crossref_response_sha256": "4a8b649869c1db146e03b7f0fa260c2fe233baaaab413362c83163778f4b0f17",
+    "primary_first_two_pages_text_sha256": "50b6a60f218e7cb81dec2afa97f599d8fb7a21b314ffa514e365aba7df9c6521",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_prime_counting_blob": "9d6e69649ea35677a8a26235d53fe3a9a52e54d1",
+    "mathlib_prime_counting_sha256": "ab721488feeb7d0e5668758e29e0ca20543e16e738f80b632c5cabe9e949ff25",
+    "mathlib_prime_nth_blob": "6860d5ad3e27517c7182f164bdeaf946cc3b3a28",
+    "mathlib_prime_nth_sha256": "bca5c5b6643560c7e25145e0d23739300007fe8b6ec1d213bd991703a6ee1cec",
+    "mathlib_prime_infinite_blob": "f9e54e918ade47764270abd3b8546b851219a4f0",
+    "mathlib_prime_infinite_sha256": "a466db9136dd0e4d239badd1cc0b7413eb49b618391c3f11e2cf807cb0135616"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice enters Nat.nth's noncomputable enumeration, but exact canonical target, alternate transports, source proof, terminal body, transitive axioms, and accepted logical policy remain downstream",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; the probe imports Mathlib.NumberTheory.PrimeCounting, while exact minimal imports, terminal declarations, compiled-artifact provenance, transitive dependency closure, and trust acceptance remain open",
+  "computation_profile": "No prime table, finite search, native computation, external oracle, solver, experiment, generated certificate, or unchecked numerical bound is credited. The prospective root is an unbounded mathematical proposition and requires kernel-checked proof.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0490/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0490/README.md",
+    "Stage1_Instances/THM-M-0490/instance.json",
+    "Stage1_Instances/THM-M-0490/scope-map.md",
+    "Stage1_Instances/THM-M-0490/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0490/task-dag.json",
+    "Stage1_Instances/THM-M-0490/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0490/check_intake.py",
+    "Stage1_Instances/THM-M-0490/validation.md",
+    "Stage1_Instances/THM-M-0490/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent analytic-number-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Source and formal reviewers must independently approve the primary consequence, consecutive-prime semantics, liminf/infinitely-often equivalence, indexing, gap domain, strict bound, correction status, and Lean encoding; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent source archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, source file or landing-page drift, edition, theorem locator, erratum, translation, consequence-versus-Theorem-1 selection, prime indexing, infinitude or liminf encoding, gap domain, cast/subtraction semantics, strict bound, binder or boundary decision, Lean target or transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It preserves the primary consecutive-prime bounded-gap consequence, identifies the stronger admissible-tuple source theorem, records proposition-changing encoding choices, authenticates pinned nth-prime substrate, and keeps the downstream DAG open. H1 records incomplete independent source and transport review; M4 records no usable exact bounded-gap formal artifact; R4 records no source-faithful proof reconstruction. No canonical expression, H0, M0, R0, accepted state, audit completion, theorem completion, or master acceptance is claimed."
+}

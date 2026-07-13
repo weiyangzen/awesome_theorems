@@ -1,0 +1,187 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0744",
+  "item_id": "S56-M-0744-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1331,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "s-m-n定理",
+  "name_en": "s-m-n theorem (parameter theorem)",
+  "canonical_name": "computability-theoretic parameter theorem family",
+  "category": "mathematical logic / recursion theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "参数定理",
+  "literal_source_claim_en": "Parameter theorem.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "smn_parameter_theorem_family_identified_but_source_identity_arity_index_model_transformer_strength_and_encoding_transports_are_unresolved",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "Program indices can be effectively specialized by fixing parameters, yielding an index for the residual partial computable function; the exact arities, numbering model, effectiveness class, semantics, and transports remain unresolved.",
+  "statement_blocker": "The repository gives only the name parameter theorem and an outside-scope duplicate gloss. An authoritative secondary source states an all-arities natural-index theorem with a primitive-recursive transformer, whereas pinned mathlib exposes a packed unary Code theorem whose proposition asserts only a computable transformer. Selecting either or silently identifying them without a primary-source decision and checked arity/index/effectiveness/semantic transports would broaden or substitute the target.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Computability.PartrecCode"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_identity_and_encoding_transport_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-candidate-probe-only"
+  },
+  "domain_and_universes": "Open: the approved statement must fix an acceptable numbering or Code model, all arities, tuple/pair encodings, partial-function codomain and equality, and any Primcodable structure. The pinned candidate lives in Prop/Type 0 over Nat.Partrec.Code, Nat, and Part Nat.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose the all-n,m natural-index primitive-recursive specialization theorem, mathlib's one-fixed/one-residual packed Code formulation, or a checked equivalence between them.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "for all natural arities n and m, a primitive-recursive index transformer specializes the first m arguments of every indexed (n+m)-ary partial computable function",
+    "there exists f : Code -> Nat -> Code with Computable₂ f and pointwise eval (f c n) x = eval c (Nat.pair n x)",
+    "the stronger pinned witness fact that Nat.Partrec.Code.curry is Primrec₂",
+    "an acceptable-numbering-independent formulation connected to the selected Lean code model by checked transports"
+  ],
+  "excluded_degenerate_cases": [
+    "a noncomputable or merely existential index transformation",
+    "only a pairing function, universal evaluator, or one hard-coded specialization",
+    "syntactic equality of indices in place of semantic agreement of partial computations",
+    "the recursion, fixed-point, halting, Rice, or universal-function theorem substituted for parameterization",
+    "a theorem that assumes the required specialized index or transformer as input",
+    "the catalog's untrusted verified label or the discovery probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0742",
+      "name": "递归定理",
+      "relationship": "separately owned recursion/self-reference root; s-m-n may be a dependency but no evidence is shared"
+    },
+    {
+      "theorem_id": "THM-M-0743",
+      "name": "不动点定理",
+      "relationship": "separately owned fixed-point root; s-m-n may be a dependency but no evidence is shared"
+    },
+    {
+      "theorem_id": "THM-C-0005",
+      "name": "s-m-n定理（参数定理）",
+      "relationship": "outside the closed Stage1 target set; its index-plus-parameter gloss is duplicate-boundary evidence only and receives no Stage1 slot or credit"
+    }
+  ],
+  "source_status": "H1_repository_family_authoritative_secondary_exact_statement_and_primary_bibliographic_lead_identified_but_primary_identity_passage_proof_errata_exact_target_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Walter Dean and Alberto Naibo, Recursive Functions, Stanford Encyclopedia of Philosophy, Spring 2024 archive, Section 3.1, Theorem 3.1",
+      "source_url": "https://plato.stanford.edu/archives/spr2024/entries/recursive-functions/",
+      "observed_source_sha256": "7d856ecda491ab83814622f4a75d277552b8750816412bca215b4a461d0b0af1",
+      "candidate_summary": "states the all-n,m natural-index form with a primitive-recursive specialization transformer",
+      "inspection_status": "authoritative secondary source inspected; not a primary proof source, accepted canonical statement, H0 record, immutable repository copy, or independent review"
+    },
+    {
+      "citation": "S. C. Kleene, Recursive Predicates and Quantifiers, Transactions of the American Mathematical Society 53(1), 1943, 41-73, DOI 10.1090/S0002-9947-1943-0007371-8",
+      "observed_metadata_sha256": "8883e9053f23489ef3abb13b1b316611e1593574490afbbf5cdd2b2286610be0",
+      "inspection_status": "Crossref bibliographic metadata only; the SEP theorem is not attributed to this paper and the version-of-record request returned HTTP 429, so no theorem passage, definitions, proof, corrections, or errata are credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Computability.PartrecCode",
+      "declaration": "Nat.Partrec.Code.smn",
+      "type": "∃ f, Computable₂ f ∧ ∀ (c : Nat.Partrec.Code) (n x : ℕ), (f c n).eval x = c.eval (Nat.pair n x)",
+      "upstream_label": "The S_n^m theorem",
+      "proof_term_summary": "witness curry; Primrec₂.to_comp primrec₂_curry; eval_curry",
+      "axioms_observed": ["propext", "Classical.choice", "Quot.sound"],
+      "boundary": "strong evidence candidate for the packed-unary Code formulation; not credited until source identity, arbitrary-arity/natural-index transports, semantic equivalence, and transformer-strength mapping are checked"
+    },
+    {
+      "module": "Mathlib.Computability.PartrecCode",
+      "declaration": "Nat.Partrec.Code.primrec₂_curry",
+      "type": "Primrec₂ Nat.Partrec.Code.curry",
+      "boundary": "stronger witness-effectiveness fact relevant to SEP's primitive-recursive conclusion, but not itself the parameter theorem or a checked bridge to the general source statement"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "0e5ae82e6d507ee607c3f011900571ffd8096800",
+    "repository_base_tree": "400e6edf1f69b971b60a367e3ea29be359b07907",
+    "repository_record": "Docs/researches/math_theorems.md:5486-5491",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:20326-20351",
+    "outside_scope_duplicate": "Docs/Stage0_Blueprint.md:81344-81371",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_origin_commit": "16d227cffb7cb7d9e8392b6c0ff8211e498e1330",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "de6aa1e0d959d06feb390f9938ea78e9d43008fafc16e96141483f9c198eda22",
+    "execution_dag_sha256": "d811d528aa5f9a83a03f5de32ca443180218e6357c4131b50c64fc63553accac",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "inspected_sep_source_sha256": "7d856ecda491ab83814622f4a75d277552b8750816412bca215b4a461d0b0af1",
+    "kleene_crossref_response_sha256": "8883e9053f23489ef3abb13b1b316611e1593574490afbbf5cdd2b2286610be0",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "partrec_code_source_blob": "6a5a8cd7a1819f65ca068a13e8216714fa9c9401",
+    "partrec_code_source_sha256": "543fdfc34bbc62e0d2bdff524be58e58abdd4ebded0ca25fac7edf791aadb2df",
+    "partrec_source_blob": "d9498647fa60fca76cce99b3caf3d5fb96a83f3d",
+    "partrec_source_sha256": "616c4db4cef1081062d5aa8d5992cd10c8d81b5c66dfc8cb512b46ea42e79899",
+    "mathlib_1000_source_blob": "3e681315f501e3487e117071b1ec8710e7d95176",
+    "mathlib_1000_sha256": "12792e25ca081fb16c149223f9920c0dff1214ebe5e46b026e15829862a0130c",
+    "mathlib_references_blob": "47ffaebdad1117ba952ec009b67c0ff0a609792a",
+    "mathlib_references_sha256": "9f6b3a98cd6cd044736db1e6ac08fd766cc8d492b31d19643a82ee31ac995c11"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the pinned candidate reports propext, Classical.choice, and Quot.sound, but their acceptance and the exact human-source foundation remain open until the canonical root is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact target imports, elaborated expression, terminal declaration ownership, dependency closure, compiled-artifact provenance, and trust acceptance remain downstream",
+  "computation_profile": "Codes, pairing, partial evaluations, and computability predicates are mathematical objects inside Lean. No native execution, oracle, external evaluator, experiment, or unchecked certificate is credited; closure requires kernel-checked semantic transports for the selected numbering and arity model.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0744/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0744/README.md",
+    "Stage1_Instances/THM-M-0744/instance.json",
+    "Stage1_Instances/THM-M-0744/scope-map.md",
+    "Stage1_Instances/THM-M-0744/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0744/task-dag.json",
+    "Stage1_Instances/THM-M-0744/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0744/check_intake.py",
+    "Stage1_Instances/THM-M-0744/validation.md",
+    "Stage1_Instances/THM-M-0744/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "target_identity_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or attribution correction, exact theorem selection, THM-C-0005 ownership reconciliation, numbering/code model, arity, pairing, effectiveness class, semantic equality, canonical Lean target, toolchain or dependency pin, assurance profile, validator, or owned-artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the literal catalog record, a standard secondary statement, primary bibliographic lead and access blocker, duplicate boundary, candidate mathematical shapes, pinned candidate declarations, and open task DAG. No canonical proposition, accepted primary source, exact Lean target, checked transport, proof-body credit, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

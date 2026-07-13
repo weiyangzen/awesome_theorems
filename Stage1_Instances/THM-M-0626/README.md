@@ -1,4 +1,4 @@
-# THM-M-0626 rev-5.6 intake
+# THM-M-0626 rev-5.6 dossier
 
 This directory is the self-tested `planned` intake dossier for `连通性定理` (continuous images
 preserve connectedness). The repository gives the literal claim `连通集的连续像连通` ("the
@@ -21,10 +21,27 @@ Pinned mathlib has the direct formal candidate `IsConnected.image` in
 encoding; a checked relation to the globally continuous Stacks statement remains statement-phase
 work. Candidate discovery does not supply accepted proof credit.
 
-The provisional vector is `[H1, M3, R4]`: a complete modern proof source lead is known but its
-identity with the uncited catalog record and historical provenance remain unreviewed; a usable
-pinned statement/proof candidate exists but no canonical expression, transport, provenance audit,
-or receipt is frozen; and no reviewed source-faithful reconstruction exists. `instance.json` is the
-structured scope authority and `task-dag.json` keeps all six downstream phases open. No H0, M0,
-R0, accepted execution state, audit completion, theorem completion, or master acceptance is
-claimed.
+The intake's provisional vector is `[H1, M3, R4]`: a complete modern proof source lead is known but
+its identity with the uncited catalog record and historical provenance remain unreviewed; a usable
+pinned statement/proof candidate was found; and no reviewed source-faithful reconstruction exists.
+`instance.json` remains the intake authority and `task-dag.json` keeps all six downstream phases
+open. The statement proposal below adds a canonical expression, transport, and receipt without
+changing that debt vector or claiming H0, M0, R0, acceptance, audit completion, or theorem
+completion.
+
+## Provisional statement freeze
+
+`Statement.lean` now freezes the inspected source formulation as
+`Stage1Instances.THM_M_0626.ConnectedImageTarget`: arbitrary topological spaces, an implicit
+subset `s`, `IsConnected s`, a globally `Continuous` map `f`, and the direct-image conclusion
+`IsConnected (f '' s)`. This selects the Stacks Project's global-continuity wording rather than
+silently strengthening the catalog claim to the sharper local `ContinuousOn` theorem. The latter
+is recorded as an alternate and has a checked one-way implication to the canonical target.
+
+The statement checker serializes and fingerprints the explicit universe-polymorphic expression,
+verifies the single direct import, rejects mutations removing either hypothesis, changing the
+domain or binder scope, and allowing the empty source, and kernel-checks empty, singleton, and
+constant-map boundaries. These are worker-local statement artifacts only. The provisional intake
+has not been master-accepted, and its requested independent source/convention review is still
+absent. Anchor audit, proof architecture, proof, validation, release, and every theorem-completion
+gate remain open.

@@ -1,0 +1,119 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0626-STATEMENT",
+  "theorem_id": "THM-M-0626",
+  "execution_rank": 1320,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Continuous images preserve connectedness",
+  "canonical_statement": "For arbitrary topological spaces X and Y, a subset E of X, and a globally continuous map f : X -> Y, if E is connected in the nonempty convention then the direct set image f(E) is connected in that same convention.",
+  "statement_selection": {
+    "catalog_claim": "The continuous image of a connected set is connected.",
+    "selected_form": "The canonical root follows the inspected Stacks Project Lemma 5.7.2 wording: global Continuous f, direct image f '' s, and nonempty IsConnected.",
+    "local_global_resolution": "Pinned mathlib's ContinuousOn statement is strictly more general. It is recorded as an alternate that implies the global root through Continuous.continuousOn; the reverse implication is not claimed.",
+    "review_boundary": "This resolves the intake's formal local-versus-global choice source-faithfully. Intake master acceptance, an independent review of the source/convention map, historical source identity, complete correction disposition, and H0 remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0626/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0626.ConnectedImageTarget",
+    "elaborated_expression_sha256": "5c32b45abf131975cd4673ca095ca1a8e0122e4104bf616a4afab09a03289231",
+    "environment_fingerprint_sha256": "aee8c1e19573413be5fb0ad0c854de55a1cfc41e45f473e37b2a886c9b587eac",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_predecessor_and_master_acceptance"
+  },
+  "elaborated_expression": "∀ {α : Type u} {β : Type v} [inst : TopologicalSpace.{u} α] [inst_1 : TopologicalSpace.{v} β] {s : Set.{u} α},\n  @IsConnected.{u} α inst s →\n    ∀ (f : α → β), @Continuous.{u, v} α β inst inst_1 f → @IsConnected.{v} β inst_1 (@Set.image.{u, v} α β f s)",
+  "domain_and_universes": "universes u v; implicit alpha : Type u and beta : Type v; arbitrary TopologicalSpace instances on both; implicit s : Set alpha; total f : alpha -> beta",
+  "ordered_binders": [
+    "universe u",
+    "universe v",
+    "implicit alpha : Type u",
+    "implicit beta : Type v",
+    "implicit TopologicalSpace alpha instance",
+    "implicit TopologicalSpace beta instance",
+    "implicit s : Set alpha",
+    "hypothesis hs : IsConnected s",
+    "f : alpha -> beta",
+    "hypothesis hf : Continuous f"
+  ],
+  "hypotheses": [
+    "IsConnected s, definitionally s.Nonempty and IsPreconnected s",
+    "Continuous f on the full source space"
+  ],
+  "conclusion": "IsConnected (f '' s), using direct set image and the same nonempty convention.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0626.ExpandedConnectedImageTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0626.connectedImageTarget_iff_expanded",
+      "status": "credited definitional expansion"
+    },
+    {
+      "target": "Stage1Instances.THM_M_0626.ContinuousOnConnectedImageTarget",
+      "relationship": "implies",
+      "checked_witness": "Stage1Instances.THM_M_0626.continuousOnTarget_implies_connectedImageTarget",
+      "status": "credited sharper alternate implies canonical root; converse deliberately unclaimed"
+    }
+  ],
+  "boundary_cases": {
+    "empty_source": "excluded because IsConnected empty is false; kernel-checked by empty_source_not_connected",
+    "singleton_source": "included; singleton_image_connected checks every singleton image",
+    "constant_map": "included; constant_image_connected checks every connected nonempty source",
+    "other_included_cases": "noninjective and nonsurjective maps, empty ambient source only when an IsConnected subset can be supplied, non-Hausdorff and indiscrete spaces",
+    "excluded_substitutions": "IsPreconnected as the root, whole-space range forms, subtype/surjectivity forms, path connectedness, and any extra separation, injectivity, or surjectivity premise"
+  },
+  "direct_imports": [
+    "Mathlib.Topology.Connected.Basic"
+  ],
+  "minimal_import_result": "The module has exactly one direct import. Deleting it from a temporary copy makes Lean reject the exact module; no broader aggregate import is used.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0626/check_statement.py",
+    "killed": [
+      "removed the IsConnected hypothesis",
+      "removed the Continuous hypothesis",
+      "specialized the codomain to the source domain and universe",
+      "changed the universal function binder to an existential binder",
+      "changed the empty-set boundary from IsConnected to IsPreconnected"
+    ],
+    "method": "Each mutation has a Lean #check_failure identity probe and a separately serialized expression unequal to the canonical expression."
+  },
+  "environment_fingerprint": {
+    "base_revision": "0f70149d61a952d44f907f4662a143372bcb4c44",
+    "base_tree": "35328e4f56f47446a4e1dfdbe361a1b70a4b18a7",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "929f0e1c789b8c0ed10c3164aa174e369b9b250317c525a8ad2f2dcca2a65e9c",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory. The definitional expansion is axiom-free; the checked local-to-global wrapper reports mathlib's standard propext, Classical.choice, and Quot.sound dependencies. No new axiom or proof of the root is introduced.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus pinned mathlib revision 8a178386; the exact import source, dependency lock, serialization options, and statement checker are evidence-bound.",
+  "computation_profile": "Pure proposition elaboration and kernel checking only; no numerical experiment, native computation, external oracle, assumed certificate, or unchecked result is credited.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The statement phase freezes and fingerprints the formal interface but supplies no proof-body, anchor provenance, independent source acceptance, or readable proof review; the conservative root debt vector therefore does not change.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "status_boundary": "Worker-self-tested exact statement proposal only. The intake predecessor is still provisional and its requested independent source/convention review is absent. This artifact is not proof evidence, H0/R0 acceptance, audit completion, theorem completion, or master acceptance."
+}

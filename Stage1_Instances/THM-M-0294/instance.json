@@ -1,0 +1,259 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0294",
+  "item_id": "S56-M-0294-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1298,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "普朗歇尔定理",
+  "name_en": "Plancherel theorem",
+  "canonical_name": "Plancherel L2 Fourier-isometry family (exact source proposition open)",
+  "category": "分析学 / 实分析",
+  "category_en": "analysis / real analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_attribution": "Michel Plancherel; 1910 (catalog metadata only)",
+  "literal_source_claim_zh": "L^2函数的傅里叶变换等距性",
+  "literal_source_claim_en": "Isometry of the Fourier transform for L2 functions.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_plancherel_family_and_direct_pinned_l2_fourier_interfaces_identified_but_primary_source_domain_values_normalization_binders_conclusion_and_duplicate_target_identity_open",
+  "canonical_claim": null,
+  "statement_family_frozen_not_credited_as_exact_statement": "A candidate Euclidean family says that the correctly normalized Fourier transform extends to an isometry on complex-valued L2 over finite-dimensional real Euclidean space; the exact source scope, normalization, carrier, conclusion, and relation to THM-M-0342 remain open.",
+  "statement_blocker": "The catalog does not select R, R^n, an arbitrary finite-dimensional inner-product space, or an LCA group; scalar versus Hilbert-valued functions; Fourier sign, character, 2*pi, and measure normalization; representatives versus Lp classes; ordered binders; norm equality versus inner-product preservation, unitary equivalence, inversion, or surjectivity; or degenerate cases. THM-M-0342 is a likely duplicate but cannot be merged or used as source authority by this worker.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "candidate_expression": "For n : Nat and f : Lp (alpha := EuclideanSpace Real (Fin n)) Complex 2, the pinned normalized L2 Fourier transform satisfies norm (Fourier f) = norm f; exact source selection remains open.",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_primary_source_selection_duplicate_adjudication_and_exact_statement_elaboration",
+    "module_candidate": "Mathlib.Analysis.Fourier.LpSpace",
+    "declaration_candidates": [
+      "MeasureTheory.Lp.fourierTransformₗᵢ",
+      "MeasureTheory.Lp.norm_fourier_eq",
+      "MeasureTheory.Lp.inner_fourier_eq"
+    ],
+    "candidate_relationship": "Pinned mathlib directly supplies an L2 complex linear isometry equivalence plus norm and inner-product interfaces. No reviewed source decision or checked duplicate transport selects one as this catalog root.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-LpSpace_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an exact source must fix the spatial domain and dual, scalar or Hilbert codomain, measurable/topological/inner-product structures, Haar or volume measures, L2 construction, Lean universes, and every typeclass assumption.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: expected family is Fourier-transform isometry on L2, but the source record does not select norm preservation, inner-product preservation, linear-isometry extension, unitary equivalence, inversion, surjectivity, or a conjunction.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "norm preservation for complex-valued L2 functions on EuclideanSpace Real (Fin n)",
+    "inner-product preservation on the same L2 space",
+    "the L2 Fourier transform as a complex linear isometry equivalence",
+    "the theorem on R or R^n for functions represented modulo almost-everywhere equality",
+    "a source-approved LCA-group Plancherel theorem under paired Haar measures"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_cases_to_resolve": [
+    "zero- and one-dimensional domains and the zero function",
+    "null modifications and functions not initially in L1",
+    "Schwartz or L1-intersection-L2 dense subspaces and extension independence",
+    "real versus complex inputs and scalar versus Hilbert-valued outputs",
+    "Fourier sign, 2*pi convention, measure scaling, and normalization constants",
+    "norm-only versus inner-product, inversion, surjectivity, or unitary conclusions"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0342 or its selected Euclidean root, proof wrapper, receipts, or status transferred without accepted duplicate identity and ownership review",
+    "Parseval for Fourier series, an orthonormal basis, a torus, a finite group, or a Schwartz-only identity used as the all-L2 Fourier transform root",
+    "the L1-to-Linfinity bound, Hausdorff-Young inequality, Fourier inversion, Riemann-Lebesgue lemma, or Poisson summation used as Plancherel by adjacency",
+    "a one-dimensional special case, broader LCA-group generalization, or Hilbert-valued generalization silently replacing a source-selected scope",
+    "a structure field, hypothesis, axiom, oracle, numerical experiment, or unchecked certificate storing norm preservation",
+    "the untrusted verified label, theorem name, API probe, legacy wrapper, or sibling artifact used as accepted source or machine-proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0342",
+      "name": "普朗歇尔定理",
+      "catalog_claim": "L^2傅里叶变换的等距性",
+      "relationship": "likely harmonic-analysis duplicate with substantial provisional artifacts; no scope, receipt, proof, debt, or state transfer before integration adjudication"
+    },
+    {
+      "theorem_id": "THM-M-0295",
+      "name": "豪斯多夫-杨不等式",
+      "catalog_claim": "傅里叶变换的L^p估计",
+      "relationship": "neighboring Lp Fourier estimate; it neither selects nor proves the Plancherel root"
+    },
+    {
+      "theorem_id": "THM-M-0341",
+      "name": "傅里叶变换反演公式",
+      "catalog_claim": "傅里叶变换的逆变换",
+      "relationship": "related inversion target under separate ownership; inversion cannot substitute for isometry without checked source mapping"
+    },
+    {
+      "theorem_id": "THM-M-1214",
+      "name": "Cazenave-Weissler定理",
+      "catalog_claim": "临界正则性下的NLS适定性",
+      "relationship": "legacy artifact contains a Plancherel API wrapper only as PDE infrastructure; its theorem root and evidence are unrelated"
+    }
+  ],
+  "source_status": "H1_primary_work_metadata_match_and_classical_published_theorem_family_known_but_exact_edition_theorem_definitions_assumptions_proof_normalization_errata_translation_duplicate_mapping_and_independent_review_open",
+  "human_source_leads_not_credited": [
+    {
+      "citation": "Michel Plancherel, Contribution a l'etude de la representation d'une fonction arbitraire par des integrales definies, Rendiconti del Circolo Matematico di Palermo 30 (1910), 289-335, DOI 10.1007/BF03014877",
+      "identity_basis": "Crossref metadata matches the catalog author, year, and theorem-family attribution",
+      "metadata_anomaly": "The Crossref payload also lists Mittag Leffler as an additional author. That anomalous field is not treated as authoritative authorship and requires source-catalog review.",
+      "observed_crossref_payload_sha256": "956922b769c5aad3016ecfdef88298598c492572b024141e4091bad1a30b16ce",
+      "publisher_endpoint_observed_sha256": "3dd71d12ce2899b12461baae873aca9fdc8c1891e5cb18f11ebeba97622d2ca7",
+      "access_status": "publisher PDF endpoint returned a 229355-byte HTML access page rather than article text",
+      "status": "primary-work metadata lead only; exact theorem/page within the article, definitions, assumptions, proof boundary, corrections, errata, translation, and independent review were not inspected or admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Fourier.LpSpace",
+      "declaration": "MeasureTheory.Lp.fourierTransformₗᵢ",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "complex linear isometry equivalence on L2 for a finite-dimensional real inner-product domain and complex Hilbert codomain",
+      "status": "direct exact-topic interface elaborates; source identity, exact target, normalization transport, terminal provenance, trust, and acceptance remain downstream"
+    },
+    {
+      "module": "Mathlib.Analysis.Fourier.LpSpace",
+      "declaration": "MeasureTheory.Lp.norm_fourier_eq",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the L2 Fourier transform preserves the norm of every input",
+      "status": "direct Plancherel interface and likely exact conclusion candidate; no source-selected binders or accepted root wrapper"
+    },
+    {
+      "module": "Mathlib.Analysis.Fourier.LpSpace",
+      "declaration": "MeasureTheory.Lp.inner_fourier_eq",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the L2 Fourier transform preserves the complex inner product",
+      "status": "related alternate-form candidate; inclusion in the root and checked source relationship remain open"
+    },
+    {
+      "path": "Stage1_Instances/THM-M-0342",
+      "declarations": [
+        "Stage1Instances.THM_M_0342.PlancherelTarget",
+        "Stage1Instances.THM_M_0342.plancherelTarget_proof"
+      ],
+      "candidate_type_summary": "sibling dossier selects a complex scalar Euclidean norm target and wraps pinned norm_fourier_eq",
+      "status": "substantive provisional duplicate candidate only; its statement, ownership, receipts, and proof credit are not transferable"
+    },
+    {
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_153.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_153.l2_fourier_norm_eq",
+      "candidate_type_summary": "legacy wrapper of norm_fourier_eq over EuclideanSpace Real (Fin n)",
+      "status": "belongs to THM-M-1214 and serves only as unrelated PDE infrastructure; no target or receipt credit"
+    }
+  ],
+  "bounded_discovery_ledger": {
+    "searched_on": "2026-07-13",
+    "roots": [
+      "repository catalog and Stage0 projection",
+      "pinned mathlib Mathlib source tree",
+      "repo-local Lean source tree",
+      "Stage1_Instances/THM-M-0342"
+    ],
+    "queries": [
+      "Plancherel",
+      "fourier isometry",
+      "norm_fourier_eq",
+      "fourierTransform linear isometry"
+    ],
+    "result": "Direct pinned L2 isometry/norm/inner-product interfaces and two repo-local candidate surfaces were found. This bounded intake discovery is not the exhaustive anchor audit."
+  },
+  "source_revisions": {
+    "repository_base": "f294137feee7840fd105a4d3f6073d5cf45508ea",
+    "repository_base_tree": "234b8f273d252c2c42ce6860315ed973049c871a",
+    "repository_record": "Docs/researches/math_theorems.md:2111-2116",
+    "duplicate_repository_record": "Docs/researches/math_theorems.md:2493-2498",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:8116-8141",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "a15c3d0785a2b79a52597b90b575b565a7a430dbd7a313674489686994f58fb4",
+    "duplicate_record_excerpt_sha256": "8b901bbd0b03b02547578da1022e88f0692be9e6c3ddb1bd18e6d55ff7b28a21",
+    "stage0_projection_excerpt_sha256": "7e6d16e4bb2bc54bba9cfd20dcb60bdc3a02ef23c2cf742bd2bc6cf2c7a9d8c6",
+    "manifest_entry_sha256": "26ad9bfe4a08205e83f75bc219a07463d18b2476730e726fa0216993c0a0f684",
+    "execution_dag_target_entries_sha256": "8c3473f2ed5fa285ea7928ffb3ada742df6a3db15a8c98532acfccbd7b1614c9",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9f9dd604f34faa25808139e50d6f9da00c2464d86f97e3e4126fe4750e36a834",
+    "execution_dag_sha256": "83c85def18eae002ea4bbd7818232d2b57e6368fc6f3c3feb3cadf5f3fcc7da0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "inspected_crossref_payload_sha256": "956922b769c5aad3016ecfdef88298598c492572b024141e4091bad1a30b16ce",
+    "observed_publisher_html_sha256": "3dd71d12ce2899b12461baae873aca9fdc8c1891e5cb18f11ebeba97622d2ca7",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_lp_space_source_sha256": "17a9c60b5e6ca3cd7e97e908b2f4bed28c5db077309e1ec5f5981803dee4fcab",
+    "mathlib_fourier_transform_source_sha256": "f6bdd15fbd5b97c6e6b474f07a4e9aed46af2a8a61a9e4c7275656d72b6f185f",
+    "duplicate_instance_blob": "76d28690e380d13b41d4acb65ee40a1f73961eca",
+    "duplicate_proof_blob": "00235b97d5d72583e91dda1f429f40c05a14314b",
+    "duplicate_instance_sha256": "250bfd64afa5f04ca3a5775a5fd85ef78c82709f2a3fac3dfc700287b6666f43",
+    "duplicate_proof_sha256": "f2da8011e98f3b5ab923f560833827b6c1aebadac0ba6579bfcdc174cf6918ce"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the pinned candidate is noncomputable and may use classical choice, quotient soundness, and propositional extensionality, but no exact target or accepted transitive axiom profile is frozen at intake",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, source and duplicate transports, terminal proof-body provenance, declaration dependencies, axioms, and transitive trust closure remain open",
+  "computation_profile": "No numerical Fourier transform, approximation experiment, native oracle, unchecked certificate, or external computation is credited; the intended result requires a kernel-checked analytic extension",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; no canonical THM-M-0294 target is encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0294/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0294/README.md",
+    "Stage1_Instances/THM-M-0294/instance.json",
+    "Stage1_Instances/THM-M-0294/scope-map.md",
+    "Stage1_Instances/THM-M-0294/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0294/task-dag.json",
+    "Stage1_Instances/THM-M-0294/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0294/check_intake.py",
+    "Stage1_Instances/THM-M-0294/validation.md",
+    "Stage1_Instances/THM-M-0294/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent Fourier-analysis history reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "duplicate_scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the selected proposition, normalization, source crosswalk, duplicate identity, boundary cases, and formal target; the integration lane separately decides ownership and master acceptance."
+  },
+  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional planned intake only; invalidated by any listed input change and unsupported for release",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, primary edition or erratum, THM-M-0342 identity or ownership decision, selected domain/value/carrier/measure/character/sign/constant/conclusion/boundary convention, canonical Lean target or checked transport, toolchain or dependency pin, assurance profile, validator, or any owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the literal L2 Fourier-isometry gloss, source and duplicate ambiguity, direct pinned interfaces, candidate repo-local surfaces, non-substitution boundary, and open task DAG. No exact canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
