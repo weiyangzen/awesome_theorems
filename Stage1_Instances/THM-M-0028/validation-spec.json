@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0028-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0028-VALIDATION",
+  "theorem_id": "THM-M-0028",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0028/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Declared recipe policy. This worker observed no network use but did not provision a kernel network namespace, so the release hermetic gate remains fail-closed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-0028 narrow validation"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0028-ROOT",
+    "M0028-T-ROOT-COMPOSE",
+    "M0028-B-FG-NOETHERIAN",
+    "M0028-B-NOETHERIAN-CHAIN",
+    "M0028-X-FG-BODY",
+    "M0028-X-CHAIN-BODY",
+    "M0028-N-RING-REGULAR",
+    "M0028-D-NOETHERIAN-CLASS",
+    "M0028-N-CHAIN-IFF",
+    "M0028-N-NOETHERIAN-WF",
+    "M0028-L-FG-COMPACT",
+    "M0028-C-LATTICE-WF",
+    "M0028-L-WF-CHAIN",
+    "M0028-L-PREORDER-CHAIN",
+    "M0028-L-PARTIAL-EQUALITY"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0028.IdealAscendingChainTarget",
+    "isNoetherianRing_iff_ideal_fg",
+    "monotone_stabilizes_iff_noetherian",
+    "Stage1Instances.THM_M_0028.Proof.finiteGenerationToNoetherian",
+    "Stage1Instances.THM_M_0028.Proof.noetherianToChainStabilization",
+    "Stage1Instances.THM_M_0028.Proof.idealAscendingChainTheorem_direct",
+    "Stage1Instances.THM_M_0028.Proof.idealAscendingChainTheorem_via_frozen_composition",
+    "Stage1Instances.THM_M_0028.Validation.differentialIdealAscendingChainTheorem"
+  ],
+  "scope_boundary": "Warm node-scoped worker validation of the exact root, two pinned terminal bodies, frozen composition, local trust observations, and same-worker differential wrapper. Cold hermetic release replay, complete transitive TCB/provenance closure, and distinct-runner independent verification are fail-closed."
+}
