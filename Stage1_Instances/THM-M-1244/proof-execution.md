@@ -1,9 +1,7 @@
 # Proof execution receipt
 
-Node: `S56-M-1244-PROOF`. Base revision:
-`b7c765f2f1db6817d5fc702500f1eb40ae8fd350`. Date: 2026-07-12. The pre-existing
-untracked `Formalizations/Lean/.lake` link was reused read-only. No Lake update, build, dependency
-clone, fetch, or manifest change was run.
+Node: `S56-M-1244-PROOF`. This earlier partial receipt is superseded by
+`proof-validation.md` and `proof-receipt.json`, which record the complete proof-phase execution.
 
 ## Implemented proof bodies
 
@@ -30,7 +28,7 @@ theorems kernel-check using only the reported standard mathlib axioms.
 
 ## Blocker and status boundary
 
-The proof phase is not complete. `M1244-L-UPSTREAM` remains open: the only audited Gaussian
+At the time of this partial execution, `M1244-L-UPSTREAM` remained open: the only audited Gaussian
 logarithmic Sobolev theorem is in `lean-stat-learning-theory` at pinned commit
 `7b82b1323c80f0c21ca449fd12e1c24315ae9782`, but that project is absent from the repository's
 pinned Lake environment and uses a different Lean/mathlib revision. Worker policy forbids fetching
@@ -41,4 +39,6 @@ or mutating dependencies. Consequently there is no repo-local terminal proof bod
 The remaining root cut set is exactly `M1244-L-UPSTREAM` together with its measure, entropy,
 regularity, zero-mass, and boundary transports. Root state remains M4 and theorem completion is
 false. Because the assigned proof phase is blocked rather than complete, no root
-`.stage1-worker-selftest.json` is emitted and no master acceptance is claimed.
+`.stage1-worker-selftest.json` was emitted and no master acceptance was claimed. The later complete
+receipt vendors and validates that immutable closure; this paragraph is retained only as historical
+execution provenance and must not be used as the current proof status.
