@@ -63,4 +63,6 @@ must carry the subgroup structure used by the claimed `MulEquiv`.
 
 The exact Lean expression, one directional alternate-encoding transport, mutation classes, and
 environment fingerprint are frozen provisionally by the statement artifacts. No canonical
-obligation registry, proof state, accepted receipt, or theorem-completion state is frozen.
+proof state, accepted receipt, or theorem-completion state is frozen. The separate
+`obligation-registry.json` now freezes the provisional semantic denominator for the obligation-tree
+phase; it changes no accepted state and grants no proof credit.
