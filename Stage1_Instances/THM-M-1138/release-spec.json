@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1138-RELEASE-RECONCILIATION-v1",
+  "item_id": "S56-M-1138-RELEASE",
+  "theorem_id": "THM-M-1138",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1138/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes check_proof.sh inside Bubblewrap with the host mounted read-only, a disposable /tmp, and --unshare-net. The replay uses only the existing pinned local Lean dependency closure and cannot fetch or mutate it. It remains warm nonrelease evidence rather than a cold empty-cache build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release decision summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1138-ROOT",
+    "M1138-T-BOUNDARY-MAX",
+    "M1138-T-ROOT-TRANSPORT"
+  ],
+  "reconciled_inventory_ids": [
+    "M1138-ROOT",
+    "M1138-S-DEFINITIONS",
+    "M1138-S-BOUNDARIES",
+    "M1138-S-FOUNDATION",
+    "M1138-N-COMPACT-CLOSURE",
+    "M1138-C-CLOSURE-MAXIMIZER",
+    "M1138-B-MAXIMIZER-LOCATION",
+    "M1138-L-INTERIOR-LOCAL",
+    "M1138-L-CONNECTED-PROPAGATION",
+    "M1138-L-FRONTIER-NONEMPTY",
+    "M1138-L-CONTINUITY-EXTENSION",
+    "M1138-T-BOUNDARY-MAX",
+    "M1138-T-ROOT-TRANSPORT",
+    "M1138-X-SOURCE",
+    "M1138-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1138.HarmonicWeakMaximumPrinciple",
+    "Stage1Instances.THM_M_1138.root_of_boundaryMaximumPackage",
+    "Stage1Instances.THM_M_1138.Proof.boundaryMaximumPackage",
+    "Stage1Instances.THM_M_1138.Proof.harmonicWeakMaximumPrinciple"
+  ],
+  "coverage_semantics": "covered_obligation_ids are the nodes supported by the checker-invoked exact-root Lean observation and checked package/composition boundaries. reconciled_inventory_ids are structurally inspected only to derive a fail-closed terminal decision and receive no proof-closure credit.",
+  "scope_boundary": "Fail-closed current-snapshot reconciliation of provisional proof and validation evidence. The checker verifies hashes, receipt fields, graph state, source hygiene, and invokes check_proof.sh to re-elaborate the exact package and root. That warm replay is not cold, hermetic, or independent. The recipe cannot master-accept the validation dependency, reconcile the frozen proof route, establish accepted M0-L/E0, supply H0/R0 or AUDIT-Z, close foundation/provenance/TCB, provide a clean cold offline build, independent attestations or verifier, protected CI, or assemble a deterministic release bundle."
+}
