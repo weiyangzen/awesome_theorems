@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0931-RELEASE-negative-v1",
+  "item_id": "S56-M-0931-RELEASE",
+  "theorem_id": "THM-M-0931",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0931/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker runs the existing validation Lean replay through bubblewrap --unshare-net with a read-only host root and a fresh writable output directory. Host-side authority, pin, hash, and trust observations make no network request. The shared warm dependency cache remains nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0931-ROOT",
+    "M0931-S-INTERFACE",
+    "M0931-S-BOUNDARY",
+    "M0931-S-COUNT-TRANSPORT",
+    "M0931-S-RESIDUE-TRANSPORT",
+    "M0931-S-FOUNDATION",
+    "M0931-T-ROOT-COMPOSE",
+    "M0931-A-MULTISET-EGZ",
+    "M0931-N-ENUMERATE",
+    "M0931-L-INDEXED-EGZ",
+    "M0931-B-INDUCTION",
+    "M0931-B-ZERO",
+    "M0931-B-ONE",
+    "M0931-B-PRIME",
+    "M0931-T-PRIME-CAST",
+    "M0931-L-ZMOD-PRIME",
+    "M0931-C-POLYNOMIALS",
+    "M0931-L-DEGREE-BOUND",
+    "M0931-X-CHEVALLEY-WARNING",
+    "M0931-L-NONZERO-SOLUTION",
+    "M0931-L-PRIME-CARD",
+    "M0931-L-PRIME-SUM",
+    "M0931-B-COMPOSITE",
+    "M0931-C-DISJOINT-BLOCKS",
+    "M0931-L-INNER-INDUCTION",
+    "M0931-L-OUTER-INDUCTION",
+    "M0931-T-COMPOSITE-ASSEMBLE",
+    "M0931-X-SOURCE",
+    "M0931-X-PROVENANCE",
+    "M0931-X-TRUST",
+    "M0931-X-READABLE",
+    "M0931-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0931.ErdosGinzburgZivTarget",
+    "Stage1Instances.THM_M_0931.Proof.erdosGinzburgZiv_via_frozen_composition",
+    "Stage1Instances.THM_M_0931.Proof.erdosGinzburgZiv_direct",
+    "Stage1Instances.THM_M_0931.Proof.erdosGinzburgZiv",
+    "Stage1Instances.THM_M_0931.Validation.independentlyReconstructedErdosGinzburgZiv",
+    "Int.erdos_ginzburg_ziv_multiset",
+    "Int.erdos_ginzburg_ziv",
+    "char_dvd_card_solutions_of_add_lt"
+  ],
+  "scope_boundary": "Fail-closed release reconciliation plus the existing same-worker, network-isolated, warm-cache Lean replay. This recipe does not provide master-accepted dependencies, accepted H0/R0 or full trust closure, an immutable clean empty-cache offline build, two independent signed runners, an independently implemented minimal verifier, protected release CI, or a deterministic content-addressed release bundle."
+}
