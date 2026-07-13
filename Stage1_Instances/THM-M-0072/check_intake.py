@@ -15,8 +15,8 @@ ROOT = HERE.parents[1]
 THEOREM_ID = "THM-M-0072"
 ITEM_ID = "S56-M-0072-INTAKE"
 RANK = 1102
-BASE_REVISION = "59c86ca38b16fe4d3901ba66530aae4df0e881b0"
-BASE_TREE = "2b8fc12c558d4fe807d7b4ac4b2c9a127002338e"
+BASE_REVISION = "b99cf0ffec59c781f8bd25309bdfa53e77372a0a"
+BASE_TREE = "e015394246c3919236f2c6ba1a8184c37130f1e4"
 MATHLIB_REVISION = "8a178386ffc0f5fef0b77738bb5449d50efeea95"
 MATHLIB_TREE = "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
 OWNED_FILES = {
@@ -29,6 +29,11 @@ OWNED_FILES = {
     "check_intake.py",
     "validation.md",
     "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md",
 }
 SOURCE_HASH_FIELDS = {
     "target_manifest_sha256": "Docs/Stage1_Targets_rev-5.6.json",
@@ -40,6 +45,22 @@ SOURCE_HASH_FIELDS = {
     "stage0_blueprint_sha256": "Docs/Stage0_Blueprint.md",
     "lean_toolchain_file_sha256": "Formalizations/Lean/lean-toolchain",
     "lake_manifest_sha256": "Formalizations/Lean/lake-manifest.json",
+}
+EXPECTED_CHANGED = {
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0072/README.md",
+    "Stage1_Instances/THM-M-0072/Statement.lean",
+    "Stage1_Instances/THM-M-0072/check_intake.py",
+    "Stage1_Instances/THM-M-0072/check_statement.py",
+    "Stage1_Instances/THM-M-0072/instance.json",
+    "Stage1_Instances/THM-M-0072/intake-receipt.json",
+    "Stage1_Instances/THM-M-0072/scope-map.md",
+    "Stage1_Instances/THM-M-0072/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0072/statement-receipt.json",
+    "Stage1_Instances/THM-M-0072/statement-validation.md",
+    "Stage1_Instances/THM-M-0072/statement.json",
+    "Stage1_Instances/THM-M-0072/task-dag.json",
+    "Stage1_Instances/THM-M-0072/validation.md",
 }
 
 
@@ -69,6 +90,8 @@ def main() -> None:
     instance = load(HERE / "instance.json")
     dag = load(HERE / "task-dag.json")
     receipt = load(HERE / "intake-receipt.json")
+    statement = load(HERE / "statement.json")
+    statement_receipt = load(HERE / "statement-receipt.json")
 
     target = next(row for row in manifest["targets"] if row["theorem_id"] == THEOREM_ID)
     assert target["execution_rank"] == instance["execution_rank"] == RANK
@@ -87,7 +110,7 @@ def main() -> None:
     intake_item = next(row for row in execution["items"] if row["id"] == ITEM_ID)
     assert intake_item["theorem_id"] == THEOREM_ID and intake_item["execution_rank"] == RANK
     assert intake_item["phase"] == "intake" and intake_item["layer"] == 0
-    assert intake_item["state"] == "[ ]" and intake_item["depends_on"] == []
+    assert intake_item["state"] == "[_]" and intake_item["depends_on"] == []
     assert intake_item["owned_paths"] == [f"Stage1_Instances/{THEOREM_ID}"]
     assert intake_item["deliverable"] == "Create the theorem dossier, scope map, and source-statement crosswalk."
 
@@ -97,17 +120,21 @@ def main() -> None:
     assert instance["item_id"] == receipt["item_id"] == ITEM_ID
     assert instance["lifecycle"] == dag["lifecycle"] == "planned"
     assert instance["intent"] == receipt["intent"] == "intake"
-    assert instance["canonical_statement"] is None and instance["canonical_claim"] is None
+    assert instance["canonical_statement"] == statement["canonical_statement"]
+    assert instance["canonical_claim"] is not None and instance["statement_blocker"] is None
     formal = instance["canonical_formal_target"]
-    for key in ("module", "declaration_or_expression", "elaborated_expression_hash", "environment_fingerprint"):
-        assert formal[key] is None
-    assert instance["ordered_binders"] == instance["quantifiers"] == []
-    assert instance["hypotheses"] == instance["alternate_encodings"] == []
-    assert instance["excluded_degenerate_cases"] == []
+    assert formal["module"] == "Stage1_Instances/THM-M-0072/Statement.lean"
+    assert formal["declaration_or_expression"] == "Stage1Instances.THM_M_0072.ThompsonTransferLemmaTarget"
+    assert formal["elaborated_expression_hash"] == "sha256:" + statement["canonical_formal_target"]["elaborated_expression_sha256"]
+    assert formal["environment_fingerprint"] is not None
+    assert instance["ordered_binders"] and instance["quantifiers"]
+    assert instance["hypotheses"] and instance["alternate_encodings"]
+    assert instance["excluded_degenerate_cases"]
     assert instance["obligation_registry_hash"] is None
     assert instance["discovery_protocol_hash"] is None
     assert instance["root_vector"] == {"H": "H1", "M": "M3", "R": "R4"}
     assert instance["accepted_proof_state"] == instance["accepted_receipt_ids"] == []
+    assert statement["accepted_receipt_ids"] == statement_receipt["accepted_receipt_ids"] == []
     assert dag["accepted_states"] == []
     assert instance["audit_complete"] is dag["audit_complete"] is receipt["audit_complete"] is False
     assert instance["theorem_complete"] is dag["theorem_complete"] is receipt["theorem_complete"] is False
@@ -168,14 +195,18 @@ def main() -> None:
 
     actual_files = {path.name for path in HERE.iterdir() if path.is_file()}
     assert set(instance["owned_artifacts"]) == actual_files == OWNED_FILES
-    expected_changed = {".stage1-worker-selftest.json"} | {
-        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in OWNED_FILES
+    assert set(statement_receipt["changed_paths"]) == EXPECTED_CHANGED
+    status_paths = {
+        line[3:] if line.startswith("?? ") else line[2:].lstrip()
+        for line in git("status", "--porcelain=v1", "--untracked-files=all").splitlines()
+        if line[3:] != "Formalizations/Lean/.lake"
     }
-    assert set(receipt["changed_paths"]) == expected_changed
-    assert receipt["proposed_state"] == "[_]" and receipt["accepted"] is False
+    assert status_paths == EXPECTED_CHANGED, f"actual changed paths differ: {sorted(status_paths)}"
+    assert statement_receipt["proposed_state"] == "[_]" and statement_receipt["accepted"] is False
     assert receipt["accepted_receipt_ids"] == []
-    assert receipt["canonical_obligation_ids"] == receipt["statement_fingerprints"] == []
-    assert receipt["remaining_root_cut_set"] == expected_ids
+    assert statement_receipt["canonical_obligation_ids"] == []
+    assert statement_receipt["statement_fingerprints"] == [formal["elaborated_expression_hash"]]
+    assert statement_receipt["remaining_root_cut_set"] == expected_ids
 
     probe = (HERE / "IntakeProbe.lean").read_text(encoding="utf-8")
     assert "def NoIndexTwoSubgroup" in probe
@@ -187,12 +218,12 @@ def main() -> None:
 
     if args.worker_packet:
         packet = load(args.worker_packet.resolve())
-        assert packet["item_id"] == ITEM_ID
+        assert packet["item_id"] == "S56-M-0072-STATEMENT"
         assert packet["theorem_id"] == THEOREM_ID
         assert packet["state"] == "[_]"
         assert packet["base_revision"] == BASE_REVISION
-        assert set(packet["changed_paths"]) == expected_changed
-        assert packet["known_failures"] == receipt["known_failures"]
+        assert set(packet["changed_paths"]) == EXPECTED_CHANGED
+        assert packet["known_failures"] == statement_receipt["known_failures"]
 
     print("THM-M-0072 intake invariant check: ok")
 

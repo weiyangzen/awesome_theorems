@@ -1,5 +1,10 @@
 # Intake validation
 
+Historical scope note: this record describes the intake node at its original base snapshot. Its
+statements that no canonical target had yet been frozen are superseded in the live dossier by
+`statement.json` and the provisional `statement-receipt.json`; they remain accurate descriptions of
+what the intake run itself validated and do not grant or revoke statement-node acceptance.
+
 Base revision: `59c86ca38b16fe4d3901ba66530aae4df0e881b0` (tree
 `2b8fc12c558d4fe807d7b4ac4b2c9a127002338e`). Validation date: 2026-07-13
 (Asia/Shanghai).

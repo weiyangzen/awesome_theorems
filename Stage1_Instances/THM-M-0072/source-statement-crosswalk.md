@@ -72,6 +72,28 @@ by name alone.
 | parts (a)(ii), (b) | centralizer and elementary-2-group consequences | separate possible obligations or out of scope | target boundary unresolved |
 | catalog `已验证` | untrusted inventory status | receipts would be required | no H or M credit |
 
+## Frozen statement decision
+
+The statement phase selects the exact universal clause printed as Thompson 1968 Lemma 5.38(a)(i)
+as the catalog root. This is not a choice based on the generic repository gloss alone: the primary
+paper supplies the exact clause and proof, and Lynd's immutable version explicitly identifies
+Thompson's Lemma 5.38 as the classical Thompson transfer lemma. The catalog's 1964 date remains a
+known metadata conflict and prevents `H0`; it does not justify substituting the distinct 1964 normal
+`p`-complement paper for the eponymously identified conjugacy lemma.
+
+The canonical Lean declaration is
+`Stage1Instances.THM_M_0072.ThompsonTransferLemmaTarget`. It preserves the printed even-order and
+no-index-two premises, exact order-two involution, maximal proper subgroup, source binder order, and
+ambient conjugacy with explicit nested coercions. Parts (a)(ii) and (b) are further conclusions and
+are outside this root. Lynd's `u ∉ M` formulation is credited only through the kernel-checked
+`thompsonTransferLemmaTarget_iff_outsideMaximalTarget`; the reverse direction treats `u ∈ M` by
+self-conjugacy. `thompsonTransferLemmaTarget_iff_ambientOrderTarget` checks the alternate spelling
+where the involution's order is measured after coercion to `G`.
+
+This freeze resolves proposition identity and the formal statement gate while retaining source
+debt: source preservation, incorporated-definition and errata review, translation checks, and
+independent `H0` acceptance remain open. No theorem proof body or anchor receives credit here.
+
 ## Pinned Lean discovery boundary
 
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`,
@@ -86,12 +108,15 @@ declaration, no `2-perfect` or `p-perfect` predicate, and no exact theorem concl
 a maximal subgroup of a Sylow 2-subgroup. The available transfer and focal results are substantive
 proof substrate and justify provisional `M3`; they do not close or replace the source theorem.
 
+`Statement.lean` requires only the narrower direct import `Mathlib.GroupTheory.Sylow`. Removing it
+fails elaboration. Importing transfer or focal theory in the statement module would broaden the
+declared import surface without changing the target and would improperly mingle statement evidence
+with later anchor and proof work.
+
 ## Source gate
 
-Before the canonical claim is frozen, accountable reviewers must approve that this catalog title
-denotes Thompson 1968 Lemma 5.38(a)(i), resolve the catalog's 1964/1968 conflict and full-lemma
-boundary, preserve and audit the source and errata, map each definition and premise, and decide
-whether the universal printed statement or restricted modern form is primary. Only the statement
-phase may then freeze a minimal-import Lean expression, expression and environment fingerprints,
-checked alternate transports, and the required removed-hypothesis, changed-domain, binder-scope,
-and boundary mutations.
+The proposition and universal/restricted relationship are frozen, but `H0` still requires an
+accountable independent reviewer to approve the title-to-clause crosswalk, correction of the
+1964/1968 metadata conflict, preservation and errata record, incorporated definitions, translation,
+and complete source-to-obligation mapping. The statement receipt remains provisional pending master
+acceptance, and all proof, anchor, provenance, trust, readability, and release gates remain open.

@@ -1,0 +1,280 @@
+{
+  "schema_version": "stage1-statement-blocker/1.0",
+  "item_id": "S56-M-0091-STATEMENT",
+  "theorem_id": "THM-M-0091",
+  "intent": "statement",
+  "proposed_state": "[ ]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "base_revision": "d266c6f5ce5732e1fccd687e2f9ce9aa2a0ed1fe",
+  "base_tree": "e77c8d6d5b41cb13d9d8acab2753ac37c4ebd6b4",
+  "worker_branch_or_worktree": "isolated Stage1 rev-5.6 automation clone",
+  "worktree_state": "nonrelease dirty due to the two owned blocker artifacts and a pre-existing automation-provided untracked Formalizations/Lean/.lake symlink",
+  "preexisting_untracked_paths": [
+    "Formalizations/Lean/.lake"
+  ],
+  "prerequisite_state": {
+    "item_id": "S56-M-0091-INTAKE",
+    "authoritative_state": "[_]",
+    "accepted": false,
+    "accepted_receipt_ids": [],
+    "issue": "The intake is provisional worker evidence rather than a master-accepted dependency; its historical validator expects the former authoritative [ ] state and does not replay after integration recorded [_]."
+  },
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:26564244eacfb89ff8c952b762c437c55e8a0ccdd991b1c590941f83b1711d18",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:b653b9667a6568aa9fdda855f24cd7a285a8951d8a06b2464954902b75176803",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f"
+  },
+  "received_claim": {
+    "name": "Weyl dimension formula",
+    "literal_source_claim": "Dimensions of irreducible representations of compact Lie groups.",
+    "historical_attribution": "Hermann Weyl, 1925",
+    "historical_lead": "H. Weyl, Theorie der Darstellung kontinuierlicher halb-einfacher Gruppen durch lineare Transformationen. I, Mathematische Zeitschrift 23(1), 271-309, DOI 10.1007/BF01506234",
+    "source_boundary": "Repository metadata and DOI metadata only; no exact lawful theorem passage, formula, definition chain, translation, correction record, assumption crosswalk, or independent review is available."
+  },
+  "modern_source_candidate": {
+    "citation": "Pavel Etingof, 18.755 S24 Full Lecture Notes: Lie Groups and Lie Algebras I & II, section 26.5, Proposition 26.8, printed page 142, MIT OpenCourseWare, 2024",
+    "official_url": "https://ocw.mit.edu/courses/18-755-lie-groups-and-lie-algebras-ii-spring-2024/mit18_755_s24_lec_full.pdf",
+    "inspected_pdf_sha256": "9604129911b24dc6602a263e066992df378bded27a5b30a93467ad4f2ef5b8d4",
+    "formula": "dim L_lambda = product over alpha in R+ of (alpha, lambda + rho) divided by (alpha, rho)",
+    "scope": "finite-dimensional irreducible module L_lambda of dominant integral highest weight lambda for a complex semisimple Lie algebra with fixed Cartan and positive roots",
+    "credit_boundary": "This is a precise Lie-algebra candidate, not the catalog's literal unrestricted compact-Lie-group proposition. Separate representation-equivalence and compact-group structure results do not by themselves settle connectedness, central-torus, disconnected, or modern-transport choices. Accountable selection and a checked transport remain required."
+  },
+  "unresolved_statement_choices": [
+    "compact connected semisimple versus compact connected reductive group, and disconnected-group scope",
+    "continuous finite-dimensional complex group representation versus highest-weight Lie-algebra module",
+    "maximal torus and positive-root system",
+    "highest-weight dominance and integrality and Weyl-vector convention",
+    "root versus coroot pairing and normalization",
+    "product codomain, coercions, and denominator nonvanishing",
+    "central-torus, empty-root, rank-zero, trivial-weight, and other boundary cases",
+    "independent product root versus checked specialization of the Weyl character formula at the identity"
+  ],
+  "excluded_substitutions": [
+    "the Weyl character formula without a checked identity specialization or limit",
+    "the highest-weight theorem without the numerical product identity",
+    "an abstract root-system product detached from an irreducible representation",
+    "a special rank, classical family, or SU(2) calculation",
+    "a structure, predicate, hypothesis, axiom, or table that stores the desired equality",
+    "the catalog verified label or adjacent API names as statement or proof evidence"
+  ],
+  "statement_gate": {
+    "canonical_statement": null,
+    "canonical_formal_target": null,
+    "minimal_direct_imports": null,
+    "elaborated_expression_sha256": null,
+    "environment_expression_fingerprint": null,
+    "credited_alternate_encodings": [],
+    "mutation_tests": {
+      "removed_hypothesis": "not_meaningful_without_a_canonical_statement",
+      "changed_domain": "not_meaningful_without_a_canonical_statement",
+      "changed_binder_scope": "not_meaningful_without_a_canonical_statement",
+      "boundary_case": "not_meaningful_without_a_canonical_statement"
+    }
+  },
+  "lean_surface_assessment": {
+    "probe": "Stage1_Instances/THM-M-0091/IntakeProbe.lean",
+    "probe_sha256": "c5bfab730a8b12b1c7ec0d2240aad8a71c61c07caf2239c3b38736d0ea87091a",
+    "probe_direct_imports": [
+      "Mathlib.Algebra.Lie.Weights.RootSystem",
+      "Mathlib.Geometry.Manifold.Algebra.LieGroup",
+      "Mathlib.LinearAlgebra.RootSystem.Base",
+      "Mathlib.RepresentationTheory.Character"
+    ],
+    "adjacent_declarations": [
+      "RootPairing",
+      "RootPairing.Base",
+      "RootPairing.Base.IsPos",
+      "RootPairing.Base.isPos_of_mem_support",
+      "LieModule.Weight",
+      "LieAlgebra.IsKilling.rootSystem",
+      "LieAlgebra.IsKilling.apply_coroot_eq_cast",
+      "Representation",
+      "FDRep",
+      "FDRep.char_one",
+      "Representation.char_one",
+      "LieGroup"
+    ],
+    "probe_stdout_sha256": "aaaff85b6fe2b320be4102feb62ab447710b4e428e120a35b3926936d63704de",
+    "assessment": "The probe elaborates adjacent pinned interfaces but defines no canonical target, checked source transport, product formula, or proof body. Its imports cannot be certified minimal for an absent target."
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "root_system_source_sha256": "1912f5af53a4f749aa6715946c7583045495e8ca45a11953c1ced44ea784d5e8",
+    "lie_group_source_sha256": "2ecc19306d5132c15b9bd988324aa6fc4ce39574648d5b6878bef76a1a8162c0",
+    "root_pairing_base_source_sha256": "2d789b8189200f032e3906e738194e3d58efa0a0186dc24bbe72e37758e6b1b5",
+    "character_source_sha256": "fba5f95dd3b9346579b3ac042b9d8cb84bc7de8e400e4dc6c17ecf9e3b6a3b77",
+    "lake_symlink_target_string_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "dependency_mode": "existing canonical pinned .lake artifacts used read-only; no update, build, clone, fetch, or dependency mutation"
+  },
+  "commands_and_results": [
+    {
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0091"],
+      "exit_code": 0,
+      "result": "rank 1108; planned; L0/rework_required; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": ["git", "status", "--short", "--untracked-files=all"],
+      "exit_code": 0,
+      "result": "pre-edit status contained only the automation-provided Formalizations/Lean/.lake symlink; preserved read-only"
+    },
+    {
+      "argv": ["git", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "base revision d266c6f5ce5732e1fccd687e2f9ce9aa2a0ed1fe; tree e77c8d6d5b41cb13d9d8acab2753ac37c4ebd6b4"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, x86_64-unknown-linux-gnu, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, Release"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "--version"],
+      "exit_code": 0,
+      "result": "Lake 5.0.0-src+98dc76e, Lean 4.29.0"
+    },
+    {
+      "argv": ["git", "-C", "Formalizations/Lean/.lake/packages/mathlib", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; tree bdc39a3123201dae413a9d9be56ec242c19e5c2b; package worktree clean"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0091/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "twelve adjacent APIs elaborated; five inspected theorem interfaces reported only propext, Classical.choice, and Quot.sound; no canonical target or proof body declared; complete stdout sha256 aaaff85b6fe2b320be4102feb62ab447710b4e428e120a35b3926936d63704de"
+    },
+    {
+      "argv": ["rg", "-n", "-i", "--glob", "*.lean", "(weyl.{0,80}dimens|dimens.{0,80}weyl|dimension formula)", "Formalizations/Lean/.lake/packages/mathlib/Mathlib", "Formalizations/Lean/AwesomeTheorems", "Stage1_Instances/THM-M-0091"],
+      "exit_code": 0,
+      "result": "bounded search found no relevant Weyl-dimension declaration or complete representation-to-root-data/product bridge; hits were unrelated formulas and this target's intake prose"
+    },
+    {
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0091/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "exit_code": 1,
+      "result": "historical intake replay stops at the assertion that the authoritative intake item state is [ ]; integration now records provisional [_]"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0091/statement-blocker.json"],
+      "exit_code": 0,
+      "result": "structured blocker parsed as valid JSON; a scoped invariant check also passed"
+    },
+    {
+      "argv": ["rg", "-n", "--glob", "*.lean", "sorry|admit|sorryAx|^[[:space:]]*axiom|^[[:space:]]*constant|^[[:space:]]*opaque|^[[:space:]]*unsafe", "Stage1_Instances/THM-M-0091"],
+      "exit_code": 1,
+      "expected_no_match": true,
+      "result": "no prohibited Lean proof escape or bodyless declaration in the owned Lean probe"
+    },
+    {
+      "argv": ["git", "diff", "--no-index", "--check", "/dev/null", "Stage1_Instances/THM-M-0091/statement-blocker.md"],
+      "exit_code": 1,
+      "result": "expected new-file difference status; no whitespace diagnostics"
+    },
+    {
+      "argv": ["git", "diff", "--no-index", "--check", "/dev/null", "Stage1_Instances/THM-M-0091/statement-blocker.json"],
+      "exit_code": 1,
+      "result": "expected new-file difference status; no whitespace diagnostics"
+    },
+    {
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0091"],
+      "exit_code": 0,
+      "result": "no tracked whitespace diagnostics"
+    },
+    {
+      "argv": ["test", "!", "-e", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "worker self-test manifest intentionally absent because the exact-statement deliverable did not pass"
+    }
+  ],
+  "changed_paths": [
+    "Stage1_Instances/THM-M-0091/statement-blocker.md",
+    "Stage1_Instances/THM-M-0091/statement-blocker.json"
+  ],
+  "debt_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta": "none",
+  "accepted_receipt_ids": [],
+  "statement_fingerprints": [],
+  "canonical_obligation_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0091"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0091/statement-blocker.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0091-STATEMENT"
+  ],
+  "remaining_root_cut_set": [
+    "S56-M-0091-STATEMENT",
+    "S56-M-0091-ANCHOR_AUDIT",
+    "S56-M-0091-OBLIGATION_TREE",
+    "S56-M-0091-PROOF",
+    "S56-M-0091-VALIDATION",
+    "S56-M-0091-RELEASE"
+  ],
+  "known_failures": [
+    "The prerequisite intake is provisional worker state [_], not master-accepted state [x], and its historical validator no longer matches the authoritative intake state.",
+    "No independently approved immutable primary or authoritative theorem passage fixes every incorporated definition, binder, hypothesis, conclusion, normalization, correction, erratum, and boundary case.",
+    "Group connectedness and reductivity, representation category, torus/root data, positive roots, highest weight, Weyl vector, pairing normalization, product codomain, denominators, and boundary cases remain open.",
+    "Canonical Lean target, minimal imports, elaborated expression and environment fingerprints, checked transports, and all four required mutation classes are undefined.",
+    "Pinned mathlib exposes adjacent root, Lie-weight, representation, character-at-one, and Lie-group APIs but no credited Weyl-dimension declaration or complete bridge.",
+    "Anchor and proof-body audit, obligation freeze, typed graphs, proof, composition, readable reconstruction, hermetic validation, independent verification, release, and master acceptance remain downstream."
+  ],
+  "retry_condition": "Preserve and hash one lawful immutable primary or authoritative source passage, select and independently approve one exact modern Weyl-dimension proposition, and transcribe every incorporated definition, ordered binder, hypothesis, conclusion, correction, erratum, normalization, coercion, denominator condition, and boundary case. Fix and check any transport from the historical semisimple formulation to the selected compact-group formulation. A fresh statement run may then encode that source model exactly, minimize pinned imports, serialize and hash the elaborated expression and environment, compile every credited transport, and execute the removed-hypothesis, changed-domain, changed-binder-scope, and boundary-case mutations. The integration lane must revalidate and master-accept the intake dependency before accepting any resulting statement transition.",
+  "first_failed_gate": "S56-M-0091-STATEMENT: no exact independently approved proposition is available to elaborate",
+  "owner": "Stage1 integration lane",
+  "validated_at": "2026-07-13 Asia/Shanghai",
+  "review_due": "after intake master acceptance and exact source review",
+  "support_state": "blocked_worker_report_only",
+  "supersession_state": "current_unsuperseded_worker_blocker",
+  "invalidation_inputs": [
+    "intake master-acceptance or authority state",
+    "source or target correction",
+    "source edition, theorem passage, incorporated definitions, translation, correction, errata, or independent-review finding",
+    "group, representation, torus, root system, positive roots, highest weight, Weyl vector, pairing, product, codomain, coercion, denominator, or boundary-case convention",
+    "Lean target, import, checked transport, expression fingerprint, toolchain, or dependency pin",
+    "assurance profile or validator"
+  ],
+  "incident_path": "The integration lane may supersede this blocker only after the retry inputs are accepted and a fresh scoped statement validation passes.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "blocked_no_worker_selftest",
+  "status_boundary": "This is a fail-closed statement-blocker report. The adjacent pinned API probe elaborates, but there is no exact independently approved proposition. No minimal target import claim, expression fingerprint, checked transport, mutation certificate, statement-node receipt, worker [_] completion claim, proof credit, anchor audit, audit completion, theorem completion, or master acceptance is claimed."
+}

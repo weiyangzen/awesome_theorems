@@ -14,7 +14,7 @@
   "intake_score": 86,
   "name_zh": "汤普森转移引理",
   "name_en": "Thompson transfer lemma",
-  "canonical_name": "Thompson transfer lemma (1968 Lemma 5.38(a)(i) source candidate; identity review open)",
+  "canonical_name": "Thompson transfer lemma (1968 Lemma 5.38(a)(i))",
   "category": "代数学 / 群论",
   "category_en": "algebra / group theory",
   "target_lane": "hard_statement_first_partial_verification",
@@ -23,16 +23,16 @@
   "literal_source_claim_en": "About the relation between local and global properties of groups.",
   "source_attribution": "John Thompson, 1964 (catalog metadata only; conflicts with the located 1968 primary source)",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "primary_clause_and_eponym_crosswalk_located_but_catalog_identity_year_full_lemma_boundary_and_independent_review_open",
-  "canonical_claim": null,
-  "source_candidate_statement_not_yet_canonical": "Let G be a finite group of even order with no subgroup of index two. If S is a Sylow 2-subgroup of G and M is a maximal subgroup of S, then every involution of S has a G-conjugate in M.",
+  "canonical_statement": "Let G be a finite group of even order with no subgroup of index two. If S is a Sylow 2-subgroup of G and M is a maximal subgroup of S, then every involution of S has a G-conjugate in M.",
+  "canonical_claim_status": "thompson_1968_lemma_5_38_a_i_universal_clause_frozen_from_primary_clause_and_versioned_eponym_crosswalk_H0_review_open",
+  "canonical_claim": "For every finite group G, if Nat.card G is even and every subgroup of G has index different from two, then for every Sylow 2-subgroup S, every maximal proper subgroup M of S, and every u in S of order exactly two, there is m in M such that u and m are conjugate in G.",
+  "source_candidate_statement_selected_as_canonical": "Let G be a finite group of even order with no subgroup of index two. If S is a Sylow 2-subgroup of G and M is a maximal subgroup of S, then every involution of S has a G-conjugate in M.",
   "source_candidate_locator": "John G. Thompson, Bull. Amer. Math. Soc. 74 (1968), Lemma 5.38(a)(i), printed page 411, DOI 10.1090/S0002-9904-1968-11953-6",
-  "target_disposition": "requires_source_identity_and_exact_root_freeze_before_canonical_lean_statement",
-  "statement_blocker": "The catalog gives no formula or citation and dates the result to 1964. A precise primary clause was located in Thompson 1968 through Lynd's eponym crosswalk, but an independent reviewer has not accepted that identity, the full Lemma 5.38 versus part (a)(i) boundary, or the relationship between Thompson's universal involution clause and Lynd's restricted u outside M form. Choosing one as canonical now would overstate the intake evidence.",
+  "target_disposition": "exact_statement_self_tested_pending_master_acceptance_with_source_fidelity_review_open",
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0072/Statement.lean",
     "module_candidates": [
       "Mathlib.GroupTheory.Transfer",
       "Mathlib.GroupTheory.Focal"
@@ -45,36 +45,62 @@
       "Subgroup.transferFocal",
       "Subgroup.commutator_inf_eq_focalSubgroup"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0072.ThompsonTransferLemmaTarget",
+    "elaborated_expression_hash": "sha256:c8a89538bd8b492ba31ce5d516a0f8fefef70a550e1d2fe74e39a4cba7849051",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.GroupTheory.Sylow_pp-universes-explicit",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
-    "gate_state": "blocked_pending_source_identity_root_boundary_binder_and_transport_freeze"
+    "gate_state": "self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "Prospective source scope: a finite group G; its natural cardinality and subgroup indices; a Sylow 2-subgroup S represented as a nested carrier; a maximal proper subgroup M of S; an involution u in S; and ambient-G conjugacy. Exact universe and typeclass binders remain for the statement phase.",
-  "ordered_binders": [],
-  "quantifiers": [],
-  "hypotheses": [],
-  "conclusion": "Prospective source conclusion only: every source-defined involution in S has an ambient-G conjugate whose nested subgroup carrier lies in M. Exact witness and coercion encoding remain open.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is excluded before a canonical proposition is accepted; even/odd order, trivial carriers, order-two groups, trivial Sylow or maximal subgroups, involutions already in M, identity-versus-order-two encoding, and nested coercion cases remain explicit review items.",
+  "domain_and_universes": "universe u; G : Type u; Group G; Finite G; S : Sylow 2 G; M : Subgroup S; u : S; m : M; target Prop in universe 0.",
+  "ordered_binders": [
+    "G : Type u (universal)",
+    "[Group G] (implicit instance)",
+    "[Finite G] (implicit instance)",
+    "Even (Nat.card G) (antecedent)",
+    "NoIndexTwoSubgroup G (antecedent)",
+    "S : Sylow 2 G (universal)",
+    "M : Subgroup S (universal)",
+    "IsCoatom M (antecedent)",
+    "u : S (universal)",
+    "orderOf u = 2 (antecedent)",
+    "m : M (existential)"
+  ],
+  "quantifiers": [
+    "forall G with Group and Finite instances",
+    "forall S : Sylow 2 G",
+    "forall M : Subgroup S",
+    "forall u : S",
+    "exists m : M"
+  ],
+  "hypotheses": [
+    "Even (Nat.card G)",
+    "NoIndexTwoSubgroup G, definitionally forall H : Subgroup G, H.index != 2",
+    "IsCoatom M",
+    "orderOf u = 2"
+  ],
+  "conclusion": "There exists m : M such that IsConj (u : G) ((m : S) : G), i.e. u and the nested subgroup witness are conjugate in the ambient group G.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0072.OutsideMaximalTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0072.thompsonTransferLemmaTarget_iff_outsideMaximalTarget"
+    },
+    {
+      "target": "Stage1Instances.THM_M_0072.AmbientOrderTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0072.thompsonTransferLemmaTarget_iff_ambientOrderTarget"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "the trivial group and all odd-order groups, excluded by the printed even-order premise",
+    "the identity element, excluded by orderOf u = 2"
+  ],
+  "degenerate_case_status": "Order-two ambient groups, bottom as a maximal subgroup of an order-two Sylow subgroup, and all other cases satisfying every premise remain included. Involutions already in M remain included and satisfy the conclusion by self-conjugacy. Nested M-to-S-to-G coercions and ambient conjugacy are explicit.",
   "candidate_scope_not_credited": [
-    "the exact universal printed clause Thompson 1968 Lemma 5.38(a)(i)",
-    "Lynd's restricted nontrivial formulation with u outside the maximal subgroup",
     "a package containing Lemma 5.38(a)(i), its centralizer consequence (a)(ii), and elementary-2-group consequence (b)",
-    "a Lean formulation using no subgroup of index two, Sylow 2, IsCoatom, orderOf, and IsConj",
     "a local definition of 2-perfect equivalent to the source's no-index-two premise"
   ],
-  "degenerate_cases_to_resolve": [
-    "the source's even-order premise and whether any formal restatement makes it redundant",
-    "the trivial group and odd-order groups",
-    "groups of order two and groups possessing an index-two subgroup",
-    "an involution already in the chosen maximal subgroup",
-    "u squared equals one without u nonidentity versus orderOf u equals two",
-    "bottom as a maximal subgroup of an order-two Sylow subgroup",
-    "coercions M to S to G and the orientation of the ambient conjugacy witness"
-  ],
+  "degenerate_cases_to_resolve": [],
   "explicit_substitutions_excluded": [
     "Burnside normal p-complement theorem",
     "focal subgroup theorem",
@@ -89,21 +115,21 @@
     "THM-M-0070 Feit-Thompson theorem is a separate target and supplies no status here.",
     "Lynd's fusion-system theorem is a later generalization and is not substituted for the classical group lemma."
   ],
-  "foundation_profile": "Lean 4 dependent type theory is intended. Classical choice, quotient soundness, propositional extensionality, finite-group instances, and any transfer-specific principles must be audited after the exact target and proof route are selected.",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal proof bodies, transitive dependencies, unsafe/oracle boundaries, and accepted trust policy remain downstream gates.",
+  "foundation_profile": "Lean 4 dependent type theory under the pinned mathlib environment. The checked restricted-form transport reports only propext, Classical.choice, and Quot.sound; no custom axiom or proof of the canonical target is introduced. Full transitive trust closure is downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The statement has the sole direct import Mathlib.GroupTheory.Sylow; proof bodies and their transitive trust closure are not credited here.",
   "computation_profile": "No computation, native oracle, experiment, finite-group database, or unchecked certificate is credited; the expected argument is structural transfer theory.",
-  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0 and the rev-5.6 statement adapter",
   "source_revisions": {
-    "repository_base": "59c86ca38b16fe4d3901ba66530aae4df0e881b0",
-    "repository_base_tree": "2b8fc12c558d4fe807d7b4ac4b2c9a127002338e",
+    "repository_base": "b99cf0ffec59c781f8bd25309bdfa53e77372a0a",
+    "repository_base_tree": "e015394246c3919236f2c6ba1a8184c37130f1e4",
     "repository_record": "Docs/researches/math_theorems.md:533-538",
     "stage0_projection": "Docs/Stage0_Blueprint.md:2082-2105",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
     "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
     "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "4b956678d79cc436bfcc086142fee9e66fbc91e375485989df5bf540cdb36ad5",
-    "execution_dag_sha256": "4672e34bef2a141f436fdaa27dcf848e1d092b4576dfc63255183aa5cc4cf79f",
+    "authoritative_blueprint_sha256": "2b7379e68c5128a15c8629a3e37e56fb23860caa78a50145a8bf26bc5ceb0cab",
+    "execution_dag_sha256": "27ac03624ee1659077c0081b0e75c9d38f4ea245c7803c780eeb6039fe0bf090",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -114,6 +140,7 @@
     "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
     "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
     "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "sylow_source_sha256": "065f21a50a881e60f2353ebc1fb9b75b6afe88faeab891883af07bcae93754a6",
     "transfer_source_sha256": "36b42d3505db3e7dd2af186b8749f9389a994790700ad048030bfa3e5e350889",
     "focal_source_sha256": "5c560a5657761caec391376581dd39fcccc43d7686577f96c8a6cce2c603712b",
     "is_perfect_source_sha256": "a3ea837927738d7c96733ed7583624afef3f978dd949945b8f3890f83d97b891",
@@ -175,7 +202,12 @@
     "Stage1_Instances/THM-M-0072/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0072/check_intake.py",
     "Stage1_Instances/THM-M-0072/validation.md",
-    "Stage1_Instances/THM-M-0072/intake-receipt.json"
+    "Stage1_Instances/THM-M-0072/intake-receipt.json",
+    "Stage1_Instances/THM-M-0072/Statement.lean",
+    "Stage1_Instances/THM-M-0072/check_statement.py",
+    "Stage1_Instances/THM-M-0072/statement.json",
+    "Stage1_Instances/THM-M-0072/statement-receipt.json",
+    "Stage1_Instances/THM-M-0072/statement-validation.md"
   ],
   "owned_artifacts": [
     "README.md",
@@ -186,7 +218,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -194,5 +231,5 @@
     "formal_reviewer": "unassigned independent reviewer"
   },
   "freshness_and_revocation_policy": "Invalidate on catalog or source correction, source identity, date, lemma-boundary, terminology, erratum, premise, conclusion, alternate-form, coercion, Lean target, dependency pin, assurance profile, validator, or owned-artifact change; independent review and master acceptance remain open.",
-  "status_boundary": "Self-tested planned intake only. It freezes the catalog gap, pinpoint primary and eponym leads, proposition-changing scope decisions, pinned formal substrate, non-substitution boundary, and open task DAG. No canonical proposition, exact Lean statement, accepted H0 source, proof body credit, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Self-tested statement proposal only. The exact printed universal target, minimal import, checked restricted-form transport, mutations, boundaries, and fingerprints are frozen pending master acceptance. Source-level H0 review, proof body credit, M0, R0, accepted execution state, audit completion, theorem completion, and all downstream gates remain open."
 }

@@ -2,34 +2,34 @@
 
 ## Preserved theorem family
 
-The intake preserves the finite-group transfer/conjugacy theorem family named by the catalog. The
-leading source identification is Thompson 1968, Lemma 5.38(a)(i): in a finite even-order group with
+The canonical root is the finite-group transfer/conjugacy theorem identified as Thompson 1968,
+Lemma 5.38(a)(i): in a finite even-order group with
 no subgroup of index two, involutions in a Sylow 2-subgroup can be conjugated into each maximal
-subgroup of that Sylow subgroup. This is the proposed source scope, not yet the accepted canonical
-proposition.
+subgroup of that Sylow subgroup. This is the exact printed universal clause.
 
 The source theorem relates local Sylow-subgroup structure to ambient-group conjugacy through the
 transfer homomorphism. The repository's generic local/global gloss is too weak to determine that
-claim on its own; the title-to-source crosswalk and the catalog date conflict require review.
+claim on its own. Lynd's versioned eponym crosswalk resolves the theorem-name identity strongly
+enough to freeze the statement while the catalog date conflict and independent `H0` review remain
+explicit source debt.
 
-## Decisions required at statement freeze
+## Statement-freeze decisions
 
-1. Approve Thompson 1968 Lemma 5.38(a)(i) as the root represented by the catalog title, or record a
-   different pinpoint primary source rather than choosing from memory.
-2. Decide whether the canonical root is the exact printed universal statement, Lynd's restricted
-   `u ∉ M` form, or a package with an explicit checked relationship between them.
-3. Fix finite-group and even-order encodings, the subgroup-index convention, and whether
-   "2-perfect" is a defined abbreviation or the literal no-index-two premise.
-4. Represent a Sylow 2-subgroup and a maximal proper subgroup without losing the nested coercions
-   from `M` to `S` to `G`.
-5. Fix involution as order exactly two, rather than merely `u ^ 2 = 1`, and state ambient `G`
-   conjugacy with an explicit witness or `IsConj`.
-6. Decide the quantifier order over the Sylow subgroup, maximal subgroup, involution, and conjugacy
-   witness, including every typeclass and finiteness dependency.
-7. Decide whether Lemma 5.38(a)(ii) and (b) are out of scope, alternate consequences, or separate
-   obligations, and map any incorporated Definition 2.8 notation.
-8. Freeze the foundation, TCB, computation, source preservation, and correction profiles, then add
-   checked transports for every credited alternate encoding.
+1. Thompson 1968 Lemma 5.38(a)(i) is the root represented by the catalog title; the decision rests
+   on the pinpoint primary clause and Lynd's explicit classical-Thompson-transfer-lemma crosswalk.
+2. The exact printed universal statement is canonical. Lynd's restricted `u ∉ M` form is a credited
+   alternate with a checked `iff` transport.
+3. Finiteness is `[Finite G]`, even order is `Even (Nat.card G)`, and no index-two subgroup is the
+   literal `forall H : Subgroup G, H.index != 2`; it is not replaced by `Group.IsPerfect`.
+4. `S : Sylow 2 G`, `M : Subgroup S`, and `IsCoatom M` preserve the maximal-proper subgroup and
+   nested carrier structure.
+5. Involution means `orderOf u = 2`; the conclusion uses ambient `IsConj` with explicit `M` to `S`
+   to `G` coercions.
+6. Binders follow the source order: `G`, the two ambient premises, `S`, `M`, maximality, `u`, exact
+   order, then the conjugate witness.
+7. Lemma 5.38(a)(ii) and (b) are outside this root and receive no statement or proof credit here.
+8. Foundation, TCB, computation, import, serialization, and mutation profiles are frozen in
+   `statement.json`; source preservation, correction review, and `H0` approval remain downstream.
 
 ## Degenerate and boundary cases
 
@@ -39,8 +39,11 @@ order-two Sylow subgroup; maximal subgroups including the bottom subgroup; an in
 the maximal subgroup; an element satisfying `u ^ 2 = 1` but equal to the identity; coercions between
 the nested subgroup carriers; and whether conjugacy is written `g⁻¹ug`, `gug⁻¹`, or via `IsConj`.
 
-No case is excluded at intake. Thompson's even-order premise and universal quantification must not
-be deleted merely because a restricted formulation makes some cases vacuous or immediate.
+The target excludes the trivial and all odd-order groups through the printed even-order premise. It
+also excludes the identity from the involution binder through exact order two. It includes the
+order-two and bottom-maximal cases whenever all ambient premises hold, and includes involutions
+already in `M`; `insideMaximal_hasConjugate` checks the latter boundary. The changed-order
+`orderOf u = 4` structural mutation is deliberately distinct from the involution binder.
 
 ## Explicit substitutions excluded
 
@@ -62,8 +65,8 @@ be deleted merely because a restricted formulation makes some cases vacuous or i
 targets retain separate scope and status. Their artifacts grant no credit here. Lynd's
 Thompson-Lyons theorem is a generalization lead, not a replacement target.
 
-No canonical Lean expression is frozen at intake. `IntakeProbe.lean` checks the pinned types and
-transfer/focal declarations needed for a future exact encoding. The bounded search result is not an
-exhaustive external anchor audit or a proof of global absence. The statement phase remains blocked
-on source identity approval, exact root and alternate-form selection, binder and coercion freeze,
-and expression/environment fingerprints.
+`Stage1Instances.THM_M_0072.ThompsonTransferLemmaTarget` is the canonical Lean target.
+`Statement.lean` elaborates it from the sole direct import `Mathlib.GroupTheory.Sylow`, preserves the
+fully explicit printed expression, and checks the restricted-form transport. This statement freeze
+is provisional pending master acceptance. The bounded search remains neither an exhaustive anchor
+audit nor proof of absence, and no root proof body is credited.
