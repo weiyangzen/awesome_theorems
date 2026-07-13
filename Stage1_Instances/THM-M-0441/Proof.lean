@@ -94,6 +94,47 @@ theorem finite_transcendentalRationalPoints
     (transcendentalRationalPoints X T).Finite := by
   exact (finite_point_height_le n T).subset fun _q hq => hq.2
 
+/-- Removing the geometric conditions cannot increase the bounded-height
+rational slice. -/
+theorem ncard_transcendentalRationalPoints_le_height_slice
+    (X : Set (Fin n -> Real)) (T : Nat) :
+    (transcendentalRationalPoints X T).ncard <=
+      ({q : RationalPoint n | pointHeight q <= T} :
+        Set (RationalPoint n)).ncard := by
+  apply Set.ncard_le_ncard
+  · intro q hq
+    exact hq.2
+  · exact finite_point_height_le n T
+
+/-- In affine dimension zero there is at most one rational point, so the
+counting estimate holds uniformly with the positive constant `1`. -/
+theorem countingConclusion_zero_dimensional
+    (X : Set (Fin 0 -> Real)) {epsilon : Real} (hEpsilon : 0 < epsilon) :
+    CountingConclusion X epsilon := by
+  refine ⟨1, by norm_num, fun T hT => ?_⟩
+  constructor
+  · exact finite_transcendentalRationalPoints X T
+  · have hncard : (transcendentalRationalPoints X T).ncard <= 1 :=
+      Set.ncard_le_one_of_subsingleton _
+    calc
+      ((transcendentalRationalPoints X T).ncard : Real) <= 1 := by
+        exact_mod_cast hncard
+      _ <= 1 * (T : Real) ^ epsilon := by
+        simp only [one_mul]
+        exact Real.one_le_rpow (by exact_mod_cast hT) hEpsilon.le
+
+/-- Binder-preserving specialization of the frozen target to affine ambient
+dimension zero. The definability premises remain explicit even though the
+cardinality argument does not need them. -/
+theorem pilaWilkie_zero_dimensional :
+    forall (L : Language.{0, 0}) [L.Structure Real],
+      IsOMinimalExpansion L ->
+      forall (X : Set (Fin 0 -> Real)),
+        (Set.univ : Set Real).Definable L X ->
+        forall epsilon : Real, 0 < epsilon -> CountingConclusion X epsilon := by
+  intro _L _ _hOM X _hDef epsilon hEpsilon
+  exact countingConclusion_zero_dimensional X hEpsilon
+
 /-- The quantitative tail holds when the transcendental part is empty. The
 constant is `1` because the frozen target explicitly requires positivity. -/
 theorem countingConclusion_of_diff_eq_empty
@@ -134,6 +175,9 @@ theorem countingConclusion_empty {n : Nat} {epsilon : Real} :
 #print axioms finite_rat_height_le
 #print axioms finite_point_height_le
 #print axioms finite_transcendentalRationalPoints
+#print axioms ncard_transcendentalRationalPoints_le_height_slice
+#print axioms countingConclusion_zero_dimensional
+#print axioms pilaWilkie_zero_dimensional
 #print axioms countingConclusion_of_diff_eq_empty
 #print axioms countingConclusion_of_semialgebraic_preconnected_nontrivial
 #print axioms countingConclusion_empty
