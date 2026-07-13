@@ -1,0 +1,19 @@
+import Mathlib.Topology.ContinuousMap.StoneWeierstrass
+
+/-!
+# THM-M-0266 discovery-only intake probe
+
+These checks authenticate the real and RCLike Stone-Weierstrass interfaces in the pinned mathlib
+snapshot. They do not select a source-faithful canonical target, establish statement identity,
+audit terminal proof bodies, or supply proof credit.
+-/
+
+#check ContinuousMap.subalgebra_topologicalClosure_eq_top_of_separatesPoints
+#check ContinuousMap.continuousMap_mem_subalgebra_closure_of_separatesPoints
+#check ContinuousMap.exists_mem_subalgebra_near_continuousMap_of_separatesPoints
+#check ContinuousMap.exists_mem_subalgebra_near_continuous_of_separatesPoints
+#check ContinuousMap.exists_mem_subalgebra_near_continuous_of_isCompact_of_separatesPoints
+#check ContinuousMap.starSubalgebra_topologicalClosure_eq_top_of_separatesPoints
+
+#print axioms ContinuousMap.subalgebra_topologicalClosure_eq_top_of_separatesPoints
+#print axioms ContinuousMap.starSubalgebra_topologicalClosure_eq_top_of_separatesPoints

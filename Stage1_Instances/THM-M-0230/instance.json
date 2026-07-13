@@ -1,0 +1,271 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0230",
+  "item_id": "S56-M-0230-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1242,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "魏尔斯特拉斯分解定理",
+  "name_en": "Weierstrass factorization theorem",
+  "canonical_name": "Weierstrass entire-function factorization theorem family",
+  "category": "分析学 / 复分析",
+  "category_en": "Analysis / Complex Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "魏尔斯特拉斯分解定理",
+  "literal_source_claim_zh": "整函数的无穷乘积表示",
+  "literal_source_claim_en": "Infinite-product representation of entire functions.",
+  "source_attribution": "Karl Weierstrass, 1876 (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_named_historically_established_family_and_source_leads_but_exact_edition_statement_assumptions_errata_mapping_and_independent_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_Weierstrass_factorization_family_but_catalog_gloss_does_not_select_one_exact_source_proposition",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected nonzero entire complex function, or for source-selected discrete zero data, construct an exact source-selected canonical product using Weierstrass primary factors and account for the origin multiplicity and represent the residual zero-free entire factor as an exponential.",
+  "target_disposition": "select and independently review one immutable source proposition before statement or proof execution",
+  "statement_blocker": "The catalog gloss does not choose prescribed-zero construction versus factorization of a given function; define the entire predicate; exclude or classify the identically-zero function; encode the zero divisor, multiplicities, enumeration and local finiteness; separate the origin order; define primary factors and genus choices; specify local-uniform product convergence and the residual exponential; or select existence, converse and uniqueness clauses. Choosing a textbook formula at intake would add proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Analytic.Order",
+      "Mathlib.Analysis.Analytic.IsolatedZeros",
+      "Mathlib.Analysis.Normed.Module.MultipliableUniformlyOn",
+      "Mathlib.Analysis.Complex.LocallyUniformLimit",
+      "Mathlib.Analysis.Complex.CanonicalDecomposition",
+      "Mathlib.Analysis.SpecialFunctions.Trigonometric.EulerSineProd"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "analyticOrderAt",
+      "AnalyticAt.eventually_eq_zero_or_eventually_ne_zero",
+      "Summable.hasProdLocallyUniformlyOn_nat_one_add",
+      "TendstoLocallyUniformlyOn.differentiableOn",
+      "MeromorphicOn.extract_zeros_poles",
+      "Complex.canonicalFactor",
+      "Complex.tendsto_euler_sin_prod",
+      "HasProd",
+      "tprod"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_gloss_does_not_select_one_source_exact_Weierstrass_factorization_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix Complex as scalar/domain, the given-function or prescribed-zero input, entire-function predicate, zero-data carrier and universes, multiplicity and local-finiteness conditions, product convergence semantics, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not select a construction or given-function root, the exact product equality, the primary-factor and genus witnesses, zero-divisor preservation, residual exponential, converse, uniqueness, or boundary clauses.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; statement work must resolve every zero-function, constant, finite-product, origin, multiplicity, enumeration, accumulation, convergence and normalization case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "construction of an entire function with a prescribed locally finite zero divisor",
+    "factorization of a given nonzero entire function into an origin power, zero-free exponential and canonical product",
+    "a checked equivalence between the prescribed-zero and given-function formulations",
+    "Hadamard factorization under finite-order growth hypotheses",
+    "a finite-support meromorphic zero/pole extraction theorem",
+    "Euler's sine product as a special case"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the identically-zero function and the nonzero-input hypothesis",
+    "nonzero constants and entire functions with no nonzero zeros",
+    "finitely many zeros, polynomial cases and empty or finite products",
+    "zero at the origin with multiplicity zero or positive finite multiplicity",
+    "repeated nonzero zeros and invariance under enumeration or permutation",
+    "a proposed zero sequence containing zero or having a finite accumulation point",
+    "genus values including zero and the exact growth or summability condition",
+    "pointwise, compact-uniform or locally uniform product convergence",
+    "existence, converse, equality, normalization and uniqueness boundaries"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0231 Mittag-Leffler partial-fraction decomposition",
+    "THM-M-0251 inner-outer factorization",
+    "THM-M-0265 Weierstrass approximation, THM-M-0266 Stone-Weierstrass, or THM-M-0264/THM-M-0619 Bolzano-Weierstrass",
+    "Hadamard finite-order factorization silently substituted for the unrestricted theorem",
+    "PowerSeries.exists_isWeierstrassFactorization or another Weierstrass preparation theorem",
+    "Complex.canonicalFactor, which is a disk/Blaschke factor rather than the primary factor E_p",
+    "MeromorphicOn.extract_zeros_poles, which assumes finite divisor support and uses a finite product",
+    "Complex.tendsto_euler_sin_prod or another single-function infinite-product identity",
+    "a structure field or hypothesis that directly stores the requested factorization or zero-divisor equality",
+    "a generic infinite-product convergence theorem, theorem name, API check, or the catalog's untrusted verified label"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0231",
+      "name": "米塔格-勒夫勒定理",
+      "relationship": "prescribed principal parts of meromorphic functions; no statement or proof credit transfers"
+    },
+    {
+      "theorem_id": "THM-M-0251",
+      "name": "内函数-外函数分解",
+      "relationship": "different function-space factorization boundary"
+    },
+    {
+      "theorem_id": "THM-M-0265",
+      "name": "魏尔斯特拉斯逼近定理",
+      "relationship": "real-analysis approximation theorem sharing Weierstrass's name"
+    },
+    {
+      "theorem_id": "THM-M-0266",
+      "name": "斯通-魏尔斯特拉斯定理",
+      "relationship": "real/functional-analysis density theorem sharing Weierstrass's name"
+    },
+    {
+      "theorem_id": "THM-M-0264",
+      "name": "波尔查诺-魏尔斯特拉斯定理",
+      "relationship": "compactness/subsequence theorem sharing Weierstrass's name"
+    },
+    {
+      "theorem_id": "THM-M-0619",
+      "name": "波尔查诺-魏尔斯特拉斯定理",
+      "relationship": "separate topological duplicate of the subsequence theorem"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "K. Weierstrass, Zur Theorie der eindeutigen analytischen Functionen, Functionenlehre, 1900, 1-52, DOI 10.1007/978-3-662-43012-5_1",
+      "candidate_locator": "Crossref bibliographic metadata observed on 2026-07-13; separate erratum metadata at DOI 10.1007/978-3-662-43012-5_8, page 261",
+      "candidate_summary": "plausible collected-work primary-source lead for the classical theorem family",
+      "status": "bibliographic lead only; primary text, exact theorem/page, incorporated definitions, assumptions, proof, relation to the catalog's 1876 date, erratum applicability and independent review were not inspected"
+    },
+    {
+      "citation": "NIST Digital Library of Mathematical Functions, section 1.10(ix), Infinite Products, paragraph Weierstrass Product, equation 1.10.22",
+      "candidate_locator": "live DLMF HTML observed on 2026-07-13; notes cite Titchmarsh 1962, pages 13-19 and 246-250",
+      "candidate_summary": "special prescribed-zero product using genus-one factors under a summability condition",
+      "status": "mutable secondary-source snapshot and special case only; not the broad given-entire-function factorization, not independently reviewed and not H0"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Analytic.Order and Mathlib.Analysis.Analytic.IsolatedZeros",
+      "declarations": [
+        "analyticOrderAt",
+        "AnalyticAt.eventually_eq_zero_or_eventually_ne_zero"
+      ],
+      "boundary": "local zero-order and isolated-zero infrastructure only; no global zero enumeration or product factorization"
+    },
+    {
+      "module": "Mathlib.Analysis.Normed.Module.MultipliableUniformlyOn and Mathlib.Analysis.Complex.LocallyUniformLimit",
+      "declarations": [
+        "Summable.hasProdLocallyUniformlyOn_nat_one_add",
+        "TendstoLocallyUniformlyOn.differentiableOn"
+      ],
+      "boundary": "generic locally uniform product and holomorphic-limit infrastructure only"
+    },
+    {
+      "module": "Mathlib.Analysis.Meromorphic.FactorizedRational",
+      "declaration": "MeromorphicOn.extract_zeros_poles",
+      "boundary": "finite-support divisor factorization by finprod on an open set; cannot represent the universal infinite-support entire-function target"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.CanonicalDecomposition",
+      "declaration": "Complex.canonicalFactor",
+      "boundary": "disk/Blaschke factor; not the Weierstrass primary factor E_p, and its file leaves the full disk canonical decomposition as a TODO"
+    },
+    {
+      "module": "Mathlib.Analysis.SpecialFunctions.Trigonometric.EulerSineProd",
+      "declaration": "Complex.tendsto_euler_sin_prod",
+      "boundary": "proved Euler product for sine only; no universal factorization"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "c6fd6dad8fcfe5fd464416cd452f50286b546978",
+    "repository_base_tree": "5a80b61d8fa09336779f8d1453dcfe4299c9472f",
+    "repository_record": "Docs/researches/math_theorems.md:1661-1666",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6383-6408",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "e31976866d78503e9ae81b4ce287306ce2fc1c10fef21836293d07438c9e87d0",
+    "stage0_projection_excerpt_sha256": "1fd3d83e053b4c6e4394737da62613572e497cf8284d8069a899764a5858fe92",
+    "neighbor_catalog_excerpt_sha256": "cbd879bbd79cbbf21270ebcf277e5ef0af347f571a8a21d5145cefdc53eb269d",
+    "manifest_entry_sha256": "bec629eeda28a541301e48d58073cc8d9be0f3cb23136fa3d22992c76066d834",
+    "execution_dag_intake_entry_sha256": "09fc7679d074a2a4d0fa43875828877b57adc81fee1c1db3cb05b4b81ee2ec9d",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9601541c3966336c2ea27797f4ff93e3dd3d7adc4de88410cc8a6b60a7782190",
+    "execution_dag_sha256": "1e2eb8e8c86ccef96bb4dcd85b33f1a06fcf76a7c54c0b51772ddc0b6cebe2c5",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "observed_weierstrass_crossref_response_sha256": "5b2756586fcd0e910a41443825ef4fc7cbe147d1ee27cdf4f094b97f28282be7",
+    "observed_erratum_crossref_response_sha256": "8c18da9122ca0f7e6dbea0de83290f635a492f85f8c0b930d4f213784a01f6f2",
+    "observed_dlmf_html_sha256": "02a8b046c01e0f8c8b013bf9c5a46f30019079c731cb1e65b6bfabd292c791cb",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_analytic_order_source_sha256": "1085251ba8b16a2c9865f2685900f9a5daa7bde25b391ebec02eb506ece79a17",
+    "mathlib_analytic_isolated_zeros_source_sha256": "6b3d76d7e2957d3ca41e0118feb896698226125aae5eccb856a96adaa2e7c814",
+    "mathlib_multipliable_uniformly_on_source_sha256": "377c370a58e89b32594e5dab4a76aaf53d822a315fea9a255cfc469d5e53488b",
+    "mathlib_locally_uniform_limit_source_sha256": "7429feade1e1f7a6a43881ab7ce5dc67ac9edac3c477cf4a0c5e86def88205c6",
+    "mathlib_euler_sine_prod_source_sha256": "78dd822240eac41e0708b0a3656cb49fbf409c27cb1716a8bd207345c71edfdf",
+    "mathlib_canonical_decomposition_source_sha256": "e1f3598f2e9502c38d7fca481333b7a701b13521b9a839053d41657f69b107ac",
+    "mathlib_factorized_rational_source_sha256": "600d41ae575c666cf952e656a6e62776eb5fa518711fc08063563fa590022a1f"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, quotients, complex analysis, locally finite zero selection, infinite products, holomorphic logarithms and noncomputability policies remain open until an exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, terminal declarations, transitive dependencies, external formal candidates and accepted trust policy remain open",
+  "computation_profile": "No numerical zero finder, sampled product, floating-point approximation, symbolic factorization, native shortcut, oracle, generated certificate or unchecked convergence test is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0230/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0230/README.md",
+    "Stage1_Instances/THM-M-0230/instance.json",
+    "Stage1_Instances/THM-M-0230/scope-map.md",
+    "Stage1_Instances/THM-M-0230/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0230/task-dag.json",
+    "Stage1_Instances/THM-M-0230/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0230/check_intake.py",
+    "Stage1_Instances/THM-M-0230/validation.md",
+    "Stage1_Instances/THM-M-0230/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent complex-analysis source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned complex-analysis reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition and errata, construction/factorization root, entire predicate, zero divisor and multiplicities, origin order, primary factors, genus and convergence, residual exponential, quantifiers and boundary cases; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; externally observed metadata and DLMF bytes are not vendored and this unaccepted dossier has no release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, attribution or date, source edition or errata, construction/factorization root choice, entire predicate, zero-divisor carrier, multiplicities, enumeration, origin order, primary-factor or genus definition, convergence mode, residual exponential, converse or uniqueness decision, neighbor ownership, Lean target, formal-candidate finding, toolchain or dependency pin, assurance profile, validator or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the sparse catalog wording, source leads, proposition-changing construction/factorization alternatives, neighbor and namesake boundaries, adjacent pinned APIs and open task DAG. No canonical proposition, H0, source-identical Lean artifact, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt or master acceptance is claimed."
+}
