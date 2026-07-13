@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0424-PROOF",
+  "theorem_id": "THM-M-0424",
+  "recorded_at": "2026-07-14T00:59:44+08:00",
+  "base_revision": "c45f3c7090cb4adf616d45e5414985f956e807b2",
+  "base_tree": "da6f991c07f11e8608ddc090af9356558d64d360",
+  "canonical_target": "Stage1Instances.THM_M_0424.BrauerGroupStatement",
+  "canonical_target_expression_sha256": "62cfee70820b2f8bc4e924505b8984993322f623109868957b726b3446fc3aa8",
+  "statement_sha256": "e6ee85656ac5bf9576546f2d56ab6e9ff20eb85452be4a9be4ea6a06a55ae7e9",
+  "obligation_tree_sha256": "f5a825653aabeb9365b86ab7c1c91a2291291258a5ba7131cab2027127ec10cb",
+  "obligation_registry_sha256": "2886ccb997b40e63b7bee6241954eaca770db39a71ce9a701af890f600a0f6f5",
+  "typed_graphs_sha256": "079c3176794bd6caf665cd0bcac2cb14fcf8b6a1c99a39256728d5fb16df69cd",
+  "registry_denominator_sha256": "83afccaebaea7322e89808dde65a4cff0cd758498ff63f70fbf8b00cf1e42a00",
+  "anchor_audit_sha256": "7b2941e9728a1a0913168ae4ae336bdfd009d53181bc9f5f537d591c3b9adc60",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "network": "not_used",
+    "dependency_cache": "pre-existing worker link to canonical pinned Lake artifacts; used read-only"
+  },
+  "outcome": "blocked",
+  "state": "[ ]",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "proof_body_added": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "first_failed_gate": "M0424-C-TENSOR-CSA: the pinned Lean closure has no placeholder-free construction proving that the tensor product of two finite-dimensional central simple K-algebras is again central simple; Mathlib.Algebra.BrauerGroup.Defs explicitly leaves the induced abelian group law as TODO 1",
+  "remaining_root_cut_set": [
+    "M0424-C-TENSOR-CSA",
+    "M0424-C-TENSOR-CONGR",
+    "M0424-C-ONE",
+    "M0424-C-OPPOSITE",
+    "M0424-L-DESCENT",
+    "M0424-L-ASSOC",
+    "M0424-L-COMM",
+    "M0424-L-UNIT",
+    "M0424-L-INVERSE"
+  ],
+  "nested_open_dependency": "M0424-C-TENSOR-CSA additionally requires M0424-C-TENSOR-ALG",
+  "available_checked_bodies": {
+    "Stage1Instances.THM_M_0424.brauerGroupStatement_of_lawData": "exact conditional composition requiring the complete universal BrauerGroupLawData package as its premise",
+    "Stage1Instances.THM_M_0424.AnchorAudit.quotient_eq_iff": "quotient equality only; strictly weaker than the root",
+    "Stage1Instances.THM_M_0424.AnchorAudit.wedderburnArtin": "supporting matrix-over-division-ring normal form only",
+    "Stage1Instances.THM_M_0424.AnchorAudit.brauerEquivalent_to_morita": "one direction of a supporting Morita bridge only"
+  },
+  "candidate_assessment": {
+    "repo_local": "The owned dossier and legacy S1_M_078 module contain definitions, supporting wrappers, target interfaces, quotient descent conditional on supplied tensor data, and an exact conditional root adapter. No declaration inhabits BrauerGroupLawData.",
+    "pinned_mathlib": "BrauerGroup.Defs defines CSA, IsBrauerEquivalent, Brauer.CSA_Setoid, and the quotient BrauerGroup, then explicitly lists the tensor-product abelian group structure as TODO 1. A source-wide search found no CommGroup (BrauerGroup K) body. Algebra.Central.TensorProduct proves only that centrality of a tensor product implies centrality of a factor, not the needed forward preservation or simplicity theorem.",
+    "pinned_external_dependencies": "The immutable dependency closure contains no non-mathlib occurrence supplying BrauerGroup, IsBrauerEquivalent, or a terminal Brauer-group law body; the prerequisite anchor audit found no exact external closure to pin or import."
+  },
+  "statement_boundary_risk": "M0424-C-ONE also exposes an independent universe defect: the frozen target quantifies arbitrary unrelated u and v but requires oneRep : CSA.{u,v} K and an algebra equivalence from its Type v carrier to arbitrary K : Type u. The standard base-field representative is available when the carrier universe can hold K; no size relation or Small hypothesis is present. Repairing this boundary requires a newly frozen statement and registry and cannot be substituted during this proof phase.",
+  "blocker": "Closing the exact target requires local placeholder-free implementations of the tensor-CSA, stable-equivalence congruence, base and opposite representatives, quotient descent, associativity, commutativity, unit, and inverse packages, or an immutable compatible Lean 4 terminal body integrated into the pinned closure. Supplying BrauerGroupLawData as an assumption, axiom, bodyless declaration, or opaque interface would be a prohibited placeholder; returning the existing conditional adapter would weaken the theorem.",
+  "retry_condition": "First reopen the statement phase to resolve the independent-universe size boundary and freeze a new exact target and obligation registry. Then resume only after placeholder-free bodies for the new tensor-product and group-law obligations exist locally, or after discovery of an immutable compatible Lean 4 proof that can be pinned, exact-type transported, and checked without fetching a moving dependency.",
+  "validation_summary": {
+    "standard_and_manifest": "passed: 1546 unique uniform-L0 targets; THM-M-0424 rank 78, planned, theorem_complete false",
+    "statement": "passed: exact expression elaborated, four mutations killed, expression sha256 62cfee70820b2f8bc4e924505b8984993322f623109868957b726b3446fc3aa8",
+    "anchor_audit": "passed: six immutable candidates classified; exact root remains M3",
+    "obligation_tree": "passed: 18 obligations, 35 typed edges, open M3 root, nine direct substantive cut-set nodes",
+    "lean_composition": "passed: the conditional composition module elaborated and reported only propext, Classical.choice, and Quot.sound",
+    "universe_probe": "passed outside the repository: a minimal base-field construction elaborated as Probe.baseCSA : CSA.{u,u} K and reported only propext, Classical.choice, and Quot.sound; this confirms the standard construction at matched universes but supplies no construction for arbitrary unrelated u and v",
+    "placeholder_scan": "passed for the scoped Lean sources; no sorry, admit, declared axiom, unsafe declaration, or sorryAx",
+    "dependency_integrity": "pinned mathlib revision matched the manifest and its source checkout was clean"
+  },
+  "status_boundary": "This blocker record is fresh proof-phase evidence only. It is not a proof receipt, does not satisfy S56-M-0424-PROOF, proposes no state change, and supports no audit-complete, theorem-complete, release, or master-acceptance claim.",
+  "selftest_manifest_written": false
+}

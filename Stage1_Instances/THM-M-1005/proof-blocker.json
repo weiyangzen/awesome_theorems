@@ -2,29 +2,40 @@
   "schema_version": "stage1-proof-blocker/1.0",
   "item_id": "S56-M-1005-PROOF",
   "theorem_id": "THM-M-1005",
-  "base_revision": "31c0253e7592e9a19dd9571adcf10eb0023effda",
-  "verdict": "blocked",
+  "base_revision": "bb6fb28ac1c55ecb52f3f1c84e7fbb35c26b47ad",
+  "verdict": "resolved_by_provisional_proof_receipt",
   "implemented_declarations": [
     "Stage1Instances.THM_M_1005.Proof.absSubmartingale",
     "Stage1Instances.THM_M_1005.Proof.measurable_runningAbsMax",
-    "Stage1Instances.THM_M_1005.Proof.weakMaximal_abs"
+    "Stage1Instances.THM_M_1005.Proof.weakMaximal_abs",
+    "MeasureTheory.maximal_ineq_Lp",
+    "Stage1Instances.THM_M_1005.Proof.doobLpMomentEstimate",
+    "Stage1Instances.THM_M_1005.Proof.doobLpMomentEstimate_via_frozen_composition"
   ],
   "closed_obligations": [
     "M1005-N-ABS-SUBMARTINGALE",
     "M1005-C-MAXIMUM",
-    "M1005-L-WEAK-MAXIMAL"
-  ],
-  "first_failed_gate": "M1005-L-LAYER-CAKE",
-  "remaining_root_cut_set": [
+    "M1005-L-WEAK-MAXIMAL",
     "M1005-L-LAYER-CAKE",
     "M1005-L-HOLDER",
     "M1005-L-CONSTANT",
     "M1005-T-STRONG-ESTIMATE",
+    "M1005-T-ROOT-TRANSPORT",
     "M1005-ROOT"
   ],
-  "blocker": "Pinned mathlib provides the weak maximal inequality but no strong Doob Lp theorem. The exact strong target additionally requires a placeholder-free layer-cake identity, Holder-duality estimate, and ENNReal constant normalization; those proof bodies were not completed in this bounded execution.",
-  "reopen_condition": "Implement the remaining frozen analytic obligations locally without placeholders, or pin an immutable exact Lean 4 proof and validate its terminal body and exact-type transport.",
-  "root_closed": false,
+  "first_failed_gate": null,
+  "remaining_root_cut_set": [],
+  "remaining_proof_cut_set": [],
+  "remaining_release_cut_set": [
+    "M1005-S-FOUNDATION",
+    "M1005-X-SOURCE"
+  ],
+  "blocker": null,
+  "reopen_condition": null,
+  "resolution": "Vendored the Apache-2.0 analytic proof from immutable, unmerged mathlib PR 39349 commit 4b63335c679c15aab74a00d37714d41aa99d701d and kernel-checked its exact ENNReal transport and frozen composition.",
+  "status_boundary": "Proof closure is provisional worker evidence pending master acceptance; validation, release, trust, source, readability, and theorem-completion gates remain open.",
+  "root_closed": true,
+  "accepted_root_closed": false,
   "theorem_complete": false,
-  "selftest_manifest_written": false
+  "selftest_manifest_written": true
 }

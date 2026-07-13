@@ -1,45 +1,53 @@
-# THM-M-1005 proof execution
+# THM-M-1005 proof-phase validation
 
-Item: `S56-M-1005-PROOF`  
-Date: `2026-07-12` (`Asia/Shanghai`)  
-Base revision: `31c0253e7592e9a19dd9571adcf10eb0023effda`
+Item: `S56-M-1005-PROOF`
 
-## Verdict
+Base revision: `bb6fb28ac1c55ecb52f3f1c84e7fbb35c26b47ad`
 
-`blocked`. `Proof.lean` adds three genuine placeholder-free proof bodies. `absSubmartingale`
-normalizes a real martingale to the nonnegative submartingale `|f|` using the supremum of `f` and
-`-f`. `measurable_runningAbsMax` proves measurability of the inclusive finite maximum.
-`weakMaximal_abs` then applies pinned `MeasureTheory.maximal_ineq` to that absolute process with the
-exact running maximum from the frozen statement.
+Validation date: `2026-07-14` (`Asia/Shanghai`)
 
-These bodies close `M1005-N-ABS-SUBMARTINGALE`, `M1005-C-MAXIMUM`, and
-`M1005-L-WEAK-MAXIMAL`, but not the assigned proof phase. The first unavailable analytic leaf is
-`M1005-L-LAYER-CAKE`; `M1005-L-HOLDER` and `M1005-L-CONSTANT` also remain open. Consequently no
-body inhabits `M1005-T-STRONG-ESTIMATE`, the canonical root remains open at `M3`, and no exact
-strong `L^p` theorem or theorem completion is claimed. `.stage1-worker-selftest.json` is
-deliberately absent because the assigned proof deliverable is incomplete.
+## Implemented proof
 
-## Narrow validation evidence
+`DoobLp.lean` vendors the complete real-valued analytic proof through
+`MeasureTheory.maximal_ineq_Lp` from mathlib PR `#39349`, immutable commit
+`4b63335c679c15aab74a00d37714d41aa99d701d`. The Apache-2.0 copyright header is
+preserved. The source is truthfully classified as a closed, unmerged submission labeled
+LLM-generated, not an accepted theorem in pinned mathlib. The unrelated Banach corollary was omitted.
 
-All commands ran in this worker clone and reused the existing pinned Lake artifacts. No update,
-build, dependency clone/fetch, or `.lake` mutation was performed.
+The vendored body supplies the frozen layer-cake, Fubini, Holder, constant, truncation, and rpow
+inversion obligations. `Proof.lean` applies it to the proved absolute-value submartingale,
+transports `p.toReal` back to the exact finite `ENNReal` exponent, and inhabits the unchanged
+`Stage1Instances.THM_M_1005.Statement`. A second declaration consumes that body through the root
+composer frozen in `ObligationTree.lean` before proof search.
+
+The executable source contains no `sorry`, `admit`, custom axiom, `sorryAx`, unsafe/opaque
+declaration, native oracle, external declaration, or `implemented_by`. Lean reports exactly
+`propext`, `Classical.choice`, and `Quot.sound` for the vendored terminal and exact root.
+
+## Commands and results
+
+Validation used the automation-provided canonical `.lake` symlink read-only. No `lake update`,
+`lake build`, dependency clone/fetch, installation, or `.lake` mutation ran.
 
 | Command | Exit | Exact result |
 |---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 targets passed |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and all 1546 uniform-L0 targets passed |
 | `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
-| `python3 scripts/stage1_target.py show THM-M-1005` | 0 | rank 285, planned, L0/rework-required, theorem incomplete |
-| `python3 Stage1_Instances/THM-M-1005/check_obligation_tree.py` | 0 | 14 obligations and 48 typed edges passed; frozen pre-proof root open `M3` |
-| `python3 Stage1_Instances/THM-M-1005/check_statement.py` | 0 | exact expression hash `32343e66034f94d4afabc10f4d15cbae77daf650c757023a2142aafba50366e5`; four mutations distinguished |
-| temporary `Statement.olean`, then `LEAN_PATH=<temporary>:$(lake env printenv LEAN_PATH) lake env lean ../../Stage1_Instances/THM-M-1005/Proof.lean` from `Formalizations/Lean` | 0 | all three declarations elaborated; each axiom report was exactly `propext`, `Classical.choice`, `Quot.sound` |
-| forbidden-token scan of `Proof.lean` | 1 | expected no-match result; no `sorry`, `admit`, `sorryAx`, `axiom`, or `unsafe` |
-| `sha256sum Stage1_Instances/THM-M-1005/{Statement.lean,Proof.lean}` | 0 | statement `03e36de9...f38f6`; proof `d041cfaf...036d` |
-| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
-| `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
-| `git diff --check -- Stage1_Instances/THM-M-1005` | 0 | no whitespace errors |
+| `python3 scripts/stage1_target.py show THM-M-1005` | 0 | rank 285, planned, theorem incomplete |
+| `cd Formalizations/Lean && bash ../../Stage1_Instances/THM-M-1005/check_proof.sh` | 0 | isolated statement, obligation tree, vendored proof, and exact wrapper elaborated; all six axiom reports were exactly `propext`, `Classical.choice`, `Quot.sound` |
+| `python3 -B Stage1_Instances/THM-M-1005/check_proof.py` | 0 | exact target, frozen inputs, provenance, source hashes, license, receipt, placeholder boundary, and worker packet passed |
+| `python3 -B Stage1_Instances/THM-M-1005/check_obligation_tree.py` | 0 | frozen denominator and 48 typed edges remained unchanged; accepted pre-proof root remained open pending master acceptance |
+| `python3 -B Stage1_Instances/THM-M-1005/check_statement.py` | 0 | canonical expression SHA-256 `32343e66034f94d4afabc10f4d15cbae77daf650c757023a2142aafba50366e5`; four mutations distinguished |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD HEAD^{tree}` | 0 | revision `8a178386...ea95`, tree `bdc39a31...c2b` |
+| `git -C Formalizations/Lean/.lake/packages/mathlib status --short` | 0 | empty; pinned dependency worktree remained clean |
+| `python3 -m json.tool` on proof receipt, resolved blocker, and worker self-test | 0 | all structured artifacts parsed |
+| `git diff --check -- Stage1_Instances/THM-M-1005 .stage1-worker-selftest.json` | 0 | no whitespace errors |
 
-## Reopen condition
+## Status boundary
 
-Resume after implementing the remaining frozen layer-cake, Holder, and constant obligations, or
-after locating an immutable exact Lean 4 strong-Doob proof whose type, terminal body, trust closure,
-and local pinned integration all validate. A related weak theorem cannot close this target.
+This is provisional proof-phase evidence and proposes root `M0-L` only after master acceptance,
+because the terminal proof body is vendored into the repository rather than imported as a wrapper.
+The authoritative accepted state remains `H2/M3/R4`; neither the generated checklist nor task DAG
+was edited. Validation, release, H0, R0, full transitive provenance and TCB closure, hermetic cold
+replay, independent verification, and deterministic release evidence remain open. No audit or
+theorem completion is claimed.

@@ -1,57 +1,43 @@
-# THM-M-1009 proof-phase attempt
+# THM-M-1009 proof-phase implementation
 
-Item: `S56-M-1009-PROOF`  
-Base revision: `11ec0ea4b441f1e6bc5580ca9a037509892e8c92`  
-Attempt date: 2026-07-12
+Item: `S56-M-1009-PROOF`
 
-## Implemented proof bodies
+Base revision: `bb6fb28ac1c55ecb52f3f1c84e7fbb35c26b47ad`
 
-`Proof.lean` provides checked local bodies for the following frozen proof
-architecture inputs:
+Attempt date: 2026-07-13
 
-- nonnegativity of the numerator, denominator, and finite ratio;
-- positivity of the ordered double-intersection denominator when the single
-  probability sum is positive;
-- measurability, integrability, and pointwise nonnegativity of the finite event
-  count;
-- the first-moment identity between the event-count integral and
-  `partialEventMass`;
-- the pointwise square expansion and second-moment identity between the
-  squared event-count integral and `pairwiseEventMass`.
+## Implemented route
 
-All declarations are proof-bearing and use only the pinned mathlib import.
-The four representative axiom reports contain only mathlib's ordinary
-foundation profile: `propext`, `Classical.choice`, and `Quot.sound`.
+This attempt supersedes the earlier blocked attempt. `Proof.lean` now imports
+the exact definitions and target from `Statement.lean` and proves the frozen
+`ErdosRenyiLowerBoundTarget` without an added premise.
 
-## Honest completion boundary
+The local proof builds the finite indicator count and checks its first and
+second moments. A finite Cauchy-Schwarz estimate bounds the squared first
+moment by the measure of its support times the second moment. Applying this to
+initial segments gives the finite ratio bound, including the zero-denominator
+case fixed by ordinary real division.
 
-This attempt does not close `ErdosRenyiLowerBoundTarget`. The remaining root
-cut set is:
+For a fixed index `m`, the same estimate is applied to the window `[m,n)`. The
+window square is bounded by the full initial-segment square, yielding
 
-1. the finite Cauchy-Schwarz lower bound relating the positive support of the
-   event count to its first and second moments;
-2. the shifted-window comparison that turns the finite lower bound into the
-   frozen initial-segment `Filter.limsup` ratio under divergence;
-3. continuity from above for the measurable tail unions and their exact
-   identification with `limsup A atTop`;
-4. unconditional assembly of these results into the canonical root.
+```text
+eventMassRatio n <= measure(eventTail m) + 2 * partialEventMass m / partialEventMass n.
+```
 
-The second item is the first failed gate. Neither pinned mathlib nor the
-audited local sources expose that exact analytic bridge, and implementing it
-was not completed in this execution. Consequently this proof node is blocked,
-the root remains open, and no worker self-test manifest is emitted.
+The divergence hypothesis sends the error to zero. The ratio is globally
+nonnegative and at most one, so its filter limsup is bounded by every tail
+measure. Finally, continuity from above and the checked identity between the
+intersection of the tails and `limsup A atTop` give the exact root inequality.
 
-## Validation record
+## Status boundary
 
-Working directory for the Lean commands was `Formalizations/Lean`.
+The exact frozen root has a repo-local, placeholder-free proof body that
+elaborates in the pinned Lean environment. This supports only a provisional
+worker proposal for `M0-L` and item state `[_]`. The frozen architecture files
+truthfully retain their pre-proof open state. Master acceptance, H0/R0,
+transitive provenance and trust review, hermetic replay, independent
+verification, validation, release, and theorem completion remain open.
 
-| Command | Exit | Result |
-|---|---:|---|
-| `lake env lean ../../Stage1_Instances/THM-M-1009/Proof.lean` | 0 | all local proof bodies elaborate; representative axiom reports contain only `propext`, `Classical.choice`, and `Quot.sound` |
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and all 1546 targets validate |
-| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all uniform L0/rework-required |
-| `python3 scripts/stage1_target.py show THM-M-1009` | 0 | rank 289, planned, theorem incomplete |
-| `rg -n '\b(sorry\|admit)\b\|(^\|[^A-Za-z])axiom[[:space:]]+[A-Za-z_]' Stage1_Instances/THM-M-1009/Proof.lean` | 1 | no placeholder terms or axiom declarations in the proof source; exit 1 means no matches |
-| `git diff --check -- Stage1_Instances/THM-M-1009` | 0 | no whitespace errors |
-
-No dependency update, build, clone, or fetch command was run.
+Exact commands and results are recorded in `proof-validation.md`; the
+node-specific provisional receipt is `proof-receipt.json`.

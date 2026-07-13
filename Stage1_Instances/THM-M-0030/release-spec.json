@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0030-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0030-RELEASE",
+  "theorem_id": "THM-M-0030",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0030/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes the existing proof replay, which reads only the pinned local dependency closure and writes isolated modules under /tmp. No network operation is requested. This narrow warm-cache replay is explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact five-line PASS/BLOCKED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0030-ROOT",
+    "M0030-S-INTERFACE",
+    "M0030-S-MEMBERSHIP-TRANSPORT",
+    "M0030-S-PROPER-BOUNDARY",
+    "M0030-S-FOUNDATION",
+    "M0030-X-MATHLIB-BODY",
+    "M0030-N-FINITE-MODULE",
+    "M0030-N-JACOBSON",
+    "M0030-N-LOCAL-CONTAINMENT",
+    "M0030-L-PROPER-MAXIMAL",
+    "M0030-L-MAXIMAL-JACOBSON",
+    "M0030-L-JACOBSON-UNIT",
+    "M0030-X-JACOBSON-UNIT-SOURCE",
+    "M0030-N-FIXEDPOINT-IFF",
+    "M0030-T-FIXEDPOINT-COMPOSE",
+    "M0030-C-INFIMUM-SUBMODULE",
+    "M0030-C-STABLE-INTERSECTION",
+    "M0030-L-STABILIZATION-INDEX",
+    "M0030-T-STABILITY-EVALUATE",
+    "M0030-L-FG-NAKAYAMA",
+    "M0030-B-FIXEDPOINT-FORWARD",
+    "M0030-B-FIXEDPOINT-BACKWARD",
+    "M0030-L-POWER-INDUCTION",
+    "M0030-X-SOURCE",
+    "M0030-X-PROVENANCE",
+    "M0030-X-TRUST",
+    "M0030-X-READABLE",
+    "M0030-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0030.KrullIntersectionTarget",
+    "Stage1Instances.THM_M_0030.Proof.krullIntersection_direct",
+    "Stage1Instances.THM_M_0030.Proof.krullIntersection_via_pinned_anchor",
+    "Stage1Instances.THM_M_0030.Proof.krullIntersection_via_frozen_composition"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation of immutable provisional proof and validation packets plus a fresh narrow Lean replay. It cannot supply master acceptance, H0/R0 review, a clean empty-cache cold build, complete provenance/TCB/SBOM closure, independent attestations, or a deterministic release bundle."
+}

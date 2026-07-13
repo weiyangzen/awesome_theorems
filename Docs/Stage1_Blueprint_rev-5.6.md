@@ -3702,7 +3702,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1184-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1184`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1184-OBLIGATION_TREE` / `THM-M-1184` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1184-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1184`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1184-PROOF` / `THM-M-1184` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-1184-PROOF` / `THM-M-1184` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1184-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1184`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1184-VALIDATION` / `THM-M-1184` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1184-PROOF`. Owned paths: `Stage1_Instances/THM-M-1184`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -5326,7 +5326,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1005-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1005`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1005-OBLIGATION_TREE` / `THM-M-1005` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1005-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1005`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1005-PROOF` / `THM-M-1005` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-1005-PROOF` / `THM-M-1005` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1005-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1005`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1005-VALIDATION` / `THM-M-1005` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1005-PROOF`. Owned paths: `Stage1_Instances/THM-M-1005`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -5382,7 +5382,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1009-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1009`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1009-OBLIGATION_TREE` / `THM-M-1009` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1009-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1009`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1009-PROOF` / `THM-M-1009` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-1009-PROOF` / `THM-M-1009` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1009-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1009`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1009-VALIDATION` / `THM-M-1009` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1009-PROOF`. Owned paths: `Stage1_Instances/THM-M-1009`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -5466,7 +5466,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1016-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-1016`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1016-OBLIGATION_TREE` / `THM-M-1016` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-1016-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1016`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1016-PROOF` / `THM-M-1016` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-1016-PROOF` / `THM-M-1016` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1016-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1016`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1016-VALIDATION` / `THM-M-1016` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1016-PROOF`. Owned paths: `Stage1_Instances/THM-M-1016`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -11294,7 +11294,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0667-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0667`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0667-VALIDATION` / `THM-M-0667` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0667-PROOF`. Owned paths: `Stage1_Instances/THM-M-0667`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0667-RELEASE` / `THM-M-0667` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0667-RELEASE` / `THM-M-0667` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0667-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0667`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0668-INTAKE` / `THM-M-0668` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0668`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -16390,7 +16390,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0030-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0030`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0030-VALIDATION` / `THM-M-0030` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0030-PROOF`. Owned paths: `Stage1_Instances/THM-M-0030`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0030-RELEASE` / `THM-M-0030` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0030-RELEASE` / `THM-M-0030` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0030-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0030`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0032-INTAKE` / `THM-M-0032` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0032`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -20646,7 +20646,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0821-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0821`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0821-VALIDATION` / `THM-M-0821` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0821-PROOF`. Owned paths: `Stage1_Instances/THM-M-0821`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0821-RELEASE` / `THM-M-0821` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0821-RELEASE` / `THM-M-0821` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0821-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0821`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0822-INTAKE` / `THM-M-0822` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0822`. Gate: rev-5.6 node-specific receipt and master acceptance.

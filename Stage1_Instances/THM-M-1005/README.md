@@ -16,4 +16,11 @@ The rev-5.6 statement and bounded anchor audit now select and elaborate the stro
 `L^p` target. The obligation-tree phase freezes its 14 canonical obligations and seven typed graphs
 in `obligation-registry.json`, `typed-graphs.json`, and `obligation-tree.md`. The exact root remains
 open at `M3`; the minimal open cut is the strong analytic estimate, not the checked weak mathlib
-anchor. No proof, audit completion, or theorem completion is claimed.
+anchor.
+
+The proof phase now vendors the complete real-valued analytic proof from immutable, unmerged
+mathlib PR `#39349` at commit `4b63335c679c15aab74a00d37714d41aa99d701d`, preserving its
+Apache-2.0 attribution. `Proof.lean` applies that theorem to `|f|`, transports `p.toReal` back to
+the exact finite `ENNReal` exponent, and checks the result through the frozen root composer. This
+is provisional worker evidence only: master acceptance, validation, release, source/readability
+review, and theorem completion remain downstream.

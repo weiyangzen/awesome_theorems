@@ -1,0 +1,121 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1184-PROOF-local-20260714T011100+0800",
+  "item_id": "S56-M-1184-PROOF",
+  "theorem_id": "THM-M-1184",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "c45f3c7090cb4adf616d45e5414985f956e807b2",
+  "base_tree": "da6f991c07f11e8608ddc090af9356558d64d360",
+  "validated_at": "2026-07-14T01:11:00+08:00",
+  "attestor": "stage1-rev56-worker-slot42",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "canonical_target": "Stage1Instances.THM_M_1184.KantorovichDualityTarget",
+  "canonical_statement_source_sha256": "e9f16cca64ccfd408080d8165c852d8b31fe547c6be121e98a2cba931319fbb2",
+  "registry_denominator_sha256": "4626bc02bb751442b67f842fd1e77a79210940bdd405134d5b14c41f1ff07e27",
+  "exact_declarations": [
+    "Stage1Instances.THM_M_1184.productCoupling",
+    "Stage1Instances.THM_M_1184.integral_fst_of_coupling",
+    "Stage1Instances.THM_M_1184.integral_snd_of_coupling",
+    "Stage1Instances.THM_M_1184.dualValue_le_primalValue",
+    "Stage1Instances.THM_M_1184.constantDualPair_nonempty",
+    "Stage1Instances.THM_M_1184.objectiveRanges_wellFounded",
+    "Stage1Instances.THM_M_1184.weakDuality",
+    "Stage1Instances.THM_M_1184.kantorovichDuality_of_reverse"
+  ],
+  "provisionally_closed_obligation_ids": [
+    "M1184-C-PRODUCT",
+    "M1184-C-CONSTANT",
+    "M1184-W-INTEGRATE",
+    "M1184-W-ORDER",
+    "M1184-T-WEAK"
+  ],
+  "accepted_closed_obligation_ids": [],
+  "proof_body": {
+    "classification": "local_proof_body",
+    "source": "Stage1_Instances/THM-M-1184/Proof.lean",
+    "source_sha256": "84313d9f50b96009a524d3fdf310422496208e99c3359e5c6066773875187d30",
+    "body_boundary": "The product-coupling and entire weak-duality route are local. The final root-shaped declaration still consumes ReverseDualityPackage explicitly and receives no root closure credit."
+  },
+  "inputs": {
+    "Statement.lean": "e9f16cca64ccfd408080d8165c852d8b31fe547c6be121e98a2cba931319fbb2",
+    "ObligationTree.lean": "5cf473b0376dc8b49eb498dac0f587a119b72dd9ed366de267c8d599bbfd3f2b",
+    "obligation-registry.json": "0572a71422d4ea4c5cba91e6511ddc49a4dd2144f9e12648a21654351954ee16",
+    "typed-graphs.json": "a8367dd3f4cf8d0077700035489c9b894636af500d0fcec1e5f6c1b63e1f3316",
+    "anchor-audit.json": "c37a2248bf810b313bbe34572abf91cf7391ec6c7572f375d3ceaf59681740a5"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network": "not_used_for_validation",
+    "dependency_cache": "canonical pinned .lake symlink, unmodified by worker"
+  },
+  "recipe": {
+    "cwd": "Formalizations/Lean",
+    "argv_summary": "Use lake env to obtain pinned LEAN_PATH; compile Statement.lean and ObligationTree.lean to isolated /tmp oleans; elaborate Proof.lean with that directory prepended.",
+    "timeout_seconds": 180,
+    "network": "not_used",
+    "covered_ids": [
+      "M1184-C-PRODUCT",
+      "M1184-C-CONSTANT",
+      "M1184-W-INTEGRATE",
+      "M1184-W-ORDER",
+      "M1184-T-WEAK",
+      "M1184-T-ASSEMBLE"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The product coupling, constant feasible pair and objective bounds, two marginal transports, fixed-plan inequality, uniform WeakDualityPackage, and conditional final composition elaborated.",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass: no sorry, admit, sorryAx, bodyless axiom, unsafe, opaque, extern, implemented_by, or native_decide",
+    "weak_package_kernel_closed": true,
+    "root_kernel_closed": false,
+    "accepted_state_changed": false,
+    "theorem_complete": false
+  },
+  "debt_vector": {
+    "accepted_before": {"H": "H3", "M": "M2", "R": "R4"},
+    "proposed_after_proof_master_acceptance": {"H": "H3", "M": "M2", "R": "R4"},
+    "accepted_after_worker_selftest": {"H": "H3", "M": "M2", "R": "R4"}
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1184/Proof.lean",
+    "Stage1_Instances/THM-M-1184/check_proof.py",
+    "Stage1_Instances/THM-M-1184/proof-receipt.json",
+    "Stage1_Instances/THM-M-1184/proof-validation.md"
+  ],
+  "known_failures": [
+    "The compact separation, separator-to-potentials, no-gap, order-limit, and ReverseDualityPackage obligations remain open formalization debt.",
+    "The exact canonical root remains M2 and has no premise-free proof body.",
+    "The predecessor architecture and this proof receipt remain provisional until dependency-ordered master acceptance.",
+    "Source H0, readable R0, complete transitive provenance/trust, validation, hermetic cold replay, independent verification, release, AUDIT-Z, and THEOREM-Z remain open.",
+    "The pre-existing canonical .lake symlink was reused read-only and makes this warm-cache nonrelease evidence."
+  ],
+  "remaining_root_cut_set": [
+    "M1184-S-SEPARATION",
+    "M1184-C-POTENTIALS",
+    "M1184-L-GAP",
+    "M1184-W-REVERSE",
+    "M1184-T-STRONG"
+  ],
+  "first_failed_gate": "M1184-S-SEPARATION: no exact local or pinned separator-to-strong-duality proof body exists",
+  "invalidation_inputs": [
+    "Proof.lean or proof-phase validators",
+    "Statement.lean or canonical target expression",
+    "ObligationTree.lean, obligation-registry.json, typed-graphs.json, or registry denominator",
+    "anchor-audit.json or proof-body provenance",
+    "Lean toolchain, mathlib revision, or axiom policy",
+    "rev-5.6 assurance standard"
+  ],
+  "status_boundary": "Provisional worker evidence for a genuine weak-duality branch only. It is not root closure, master acceptance, theorem completion, or release."
+}
