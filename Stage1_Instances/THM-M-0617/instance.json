@@ -1,0 +1,193 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0617",
+  "item_id": "S56-M-0617-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1311,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "紧致性定理",
+  "name_en": "Compactness preservation under closed subsets and continuous images",
+  "canonical_name": "Two preservation properties of compact sets in general topological spaces",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "紧集的闭子集紧，连续像紧",
+  "literal_source_claim_en": "Closed subsets of compact sets are compact, and continuous images of compact sets are compact.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "Closed subsets of compact sets are compact, and continuous images of compact sets are compact.",
+  "canonical_claim_status": "recognizable_conjunctive_classical_claim_and_direct_pinned_interfaces_but_source_identity_independent_binders_root_packaging_and_boundary_cases_open",
+  "canonical_claim": "The catalog root contains both independent preservation clauses: a closed subset of a compact set is compact, and the image of a compact set under a continuous map is compact. Exact definitions, assumptions, binder scopes, encodings, and root composition remain for source review and the Lean statement gate.",
+  "statement_blocker": "The catalog gives two terse clauses but no source, compactness or continuity definitions, independent binder scopes, subset-closedness encoding, conjunction or child-composition packaging, or boundary decisions. Selecting one exact Lean expression before an admitted source crosswalk and statement gate would silently invent proposition-changing choices.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.Compactness.Compact"
+    ],
+    "declaration_candidates": [
+      "IsCompact.of_isClosed_subset",
+      "IsCompact.image",
+      "IsCompact.image_of_continuousOn"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_source_admission_independent_clause_scope_root_composition_and_statement_elaboration"
+  },
+  "domain_and_universes": "Open: expected universes u and v, a source topological space X, target topological space Y for the image clause, compact s : Set X, independently quantified closed t : Set X, and map f : X -> Y; exact implicit and explicit binders remain to be frozen.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: one root preserving both independently quantified conclusions IsCompact t and IsCompact (f '' s), without coupling irrelevant branch assumptions; exact conjunction or child-composition encoding is unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before the source and statement gates; empty, singleton, universal, non-Hausdorff, constant-map, empty-target, and other cases listed in scope-map.md remain explicit review inputs.",
+  "candidate_scope_not_credited": [
+    "for compact s, every ambient-closed t contained in s is compact",
+    "for compact s, every globally continuous f has compact image f '' s",
+    "the continuous-on-s variant of the image clause",
+    "a conjunction of independently quantified closed-subset and continuous-image clauses",
+    "two canonical child propositions plus a checked composition root"
+  ],
+  "excluded_substitutions": [
+    "model-theoretic compactness (THM-M-0644)",
+    "Heine-Borel, Bolzano-Weierstrass, sequential, countable, local, product, or subbasis compactness theorems",
+    "compact subsets are closed in Hausdorff spaces",
+    "metric-only, compact-space-only, finite-set, embedding, proper-map, homeomorphism, identity-map, or constant-map specializations",
+    "an assumed compactness certificate, theorem name, API probe, or untrusted verified label"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0618",
+      "name": "海涅-博雷尔定理",
+      "relationship": "separately owns the Euclidean closed-and-bounded characterization and transfers no status"
+    },
+    {
+      "theorem_id": "THM-M-0620",
+      "name": "吉洪诺夫定理",
+      "relationship": "separately owns arbitrary product compactness and cannot replace these preservation clauses"
+    },
+    {
+      "theorem_id": "THM-M-0644",
+      "name": "紧致性定理",
+      "relationship": "the same Chinese title names an unrelated first-order model-theory target"
+    }
+  ],
+  "source_status": "H1_classical_published_results_identified_but_no_admitted_edition_pinpoint_statement_definition_assumption_proof_errata_translation_or_independent_review_crosswalk",
+  "human_source_discovery_not_credited": [
+    {
+      "citation": "James R. Munkres, Topology, second edition, Section 26",
+      "status": "bibliographic discovery candidate only; no immutable lawful copy, exact theorem/page, incorporated definition, proof map, correction audit, or independent review was obtained"
+    },
+    {
+      "citation": "historical nineteenth-century attribution to many mathematicians",
+      "status": "catalog metadata only; no primary edition, passage, terminology transport, translation, or proof genealogy was identified"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Compactness.Compact",
+      "declaration": "IsCompact.of_isClosed_subset",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a closed subset t of a compact set s is compact",
+      "status": "direct first-clause interface elaborates; exact source identity, root composition, terminal body provenance, and trust acceptance remain open"
+    },
+    {
+      "module": "Mathlib.Topology.Compactness.Compact",
+      "declaration": "IsCompact.image",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the image of compact s under continuous f is compact",
+      "status": "direct second-clause interface elaborates; independent binder scope, source identity, root composition, provenance, and trust acceptance remain open"
+    },
+    {
+      "module": "Mathlib.Topology.Compactness.Compact",
+      "declaration": "IsCompact.image_of_continuousOn",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the image of compact s under a map continuous on s is compact",
+      "status": "stronger-local related interface; its relationship to globally continuous wording is not yet a credited transport"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d257e1e5e5fa003d6e1f26344c0331bf99374fa9",
+    "repository_base_tree": "fa06b50b528e038d182d5479a18296f63fa5eae5",
+    "repository_record": "Docs/researches/math_theorems.md:4580-4585",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:16882-16907",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "92ecc7af143bf0c75b11cf94d1f88ce6edbcc5217b0defebd68ec097d748afff",
+    "stage0_projection_excerpt_sha256": "3afd0f86c25d7dbebdfcb2806d7d3e675520cb6a41eaa1a3574cad978fb2ec3b",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "211a078d729289deed651d03e71cf74cce8cb0e5001b9a97ce110236897655b6",
+    "execution_dag_sha256": "5c091754245dc1fef96e977027509def199fb67ef9e9f85f68275815a6ba71e0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_filter_defs_source_sha256": "051d5aa8f2b47727b6628582a117984ad268fabab3fa2bbd87d9b4eee3959c7c",
+    "mathlib_compact_source_sha256": "b98c88119c35b7f0a0b8ab922d4f8c63cb2074c3326dbdf58cf1b838b77faf18"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_boundary": "H1 records a classical published proof tradition without an accepted pinpoint source crosswalk. M3 records usable direct pinned statement interfaces without a frozen source-identical root, checked composition or transport, body provenance, or proof credit. R4 records the absence of a source-faithful proof reconstruction for the exact two-clause root.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; candidate axiom reports contain propext, Classical.choice, and Quot.sound, while the accepted foundation and axiom policy remains open until statement and trust review",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, root composition, terminal bodies, transitive dependencies, options, and trust closure remain open",
+  "computation_profile": "No experiment, numerical compactness test, native oracle, unchecked certificate, or generated result is credited; the expected target is a kernel-checked general-topology proposition",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0617/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0617/README.md",
+    "Stage1_Instances/THM-M-0617/instance.json",
+    "Stage1_Instances/THM-M-0617/scope-map.md",
+    "Stage1_Instances/THM-M-0617/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0617/task-dag.json",
+    "Stage1_Instances/THM-M-0617/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0617/check_intake.py",
+    "Stage1_Instances/THM-M-0617/validation.md",
+    "Stage1_Instances/THM-M-0617/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent point-set topology reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned independent reviewer for two-clause root composition"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source admission or correction, compactness or continuity definition, clause interpretation, independent binder or root-composition choice, subset closedness encoding, universe, topology, boundary case, canonical Lean target or checked transport, toolchain or dependency pin, assurance profile, validator, structured recipe, public reconstruction, or any owned artifact; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the two-clause human catalog statement, proposition-changing scope decisions, source boundary, three pinned interfaces, exclusions, profiles, and open downstream DAG. No binder-complete canonical formal proposition, exact Lean root, checked clause composition, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

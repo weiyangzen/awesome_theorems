@@ -1,0 +1,234 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0275",
+  "item_id": "S56-M-0275-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1281,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "一致有界性原理",
+  "name_en": "Uniform Boundedness Principle (Banach-Steinhaus theorem)",
+  "canonical_name": "Uniform Boundedness Principle for a pointwise bounded operator family (exact historical-to-modern scope open)",
+  "category": "分析学 / 实分析",
+  "category_en": "analysis / real analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_attribution": "Stefan Banach/Hugo Steinhaus; 1927 (catalog metadata, supported by inspected publisher record)",
+  "literal_source_claim_zh": "算子族的一致有界性",
+  "literal_source_claim_en": "Uniform boundedness of a family of operators.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_uniform_boundedness_family_primary_sequential_source_and_direct_pinned_interface_identified_but_arbitrary_family_scalar_operator_and_exact_source_transport_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not state operator continuity and linearity, scalar field, domain and codomain structures, domain completeness, index type, ordered binders, pointwise bound scope, conclusion encoding, or boundary cases. The inspected 1927 Lemma 3 is sequence-indexed under historical real-vector conventions, while the catalog says a family and pinned mathlib is arbitrary-indexed and maximally semilinear. Choosing one as the exact root requires an admitted source decision, checked reduction/transport, and independent review.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "candidate_expression": "for all admissible E, F, scalar structures, index types iota, and g : iota -> E ->SL[sigma12] F, CompleteSpace E and (forall x, exists C : Real, forall i, norm (g i x) <= C) imply exists C' : Real, forall i, norm (g i) <= C'",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_primary_source_arbitrary_family_and_scalar_scope_selection_and_exact_statement_elaboration",
+    "module_candidate": "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
+    "declaration_candidates": [
+      "banach_steinhaus",
+      "banach_steinhaus_iSup_nnnorm",
+      "NormedSpace.equicontinuous_TFAE",
+      "WithSeminorms.banach_steinhaus",
+      "BaireSpace.instBarrelledSpace"
+    ],
+    "candidate_relationship": "banach_steinhaus has the conventional arbitrary-family pointwise-bound implication, but its seminormed, two-field semilinear generality is not literal in the 1927 sequence result. The iSup form is a prospective alternate encoding; the barrelled theorem and equicontinuity TFAE are proof-route leads, not substitute roots.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: the conventional candidate has an arbitrary index type, a Banach domain E and normed codomain F over Real or Complex, and continuous linear operators. Pinned mathlib is universe-polymorphic over seminormed additive commutative groups, two nontrivially normed fields, normed-space structures, an isometric ring homomorphism, continuous semilinear maps, and CompleteSpace E. The source uses 1927 real-vector and metric conventions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open exact root; expected family conclusion is existence of one real upper bound for every operator norm, but source-approved index, operator, scalar, space, binder, and encoding choices remain unresolved.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "the historical sequence form for continuous linear functionals from a complete metric real vector space to a normed vector space",
+    "an arbitrary family of continuous real-linear or complex-linear operators from a Banach space to a normed space",
+    "the maximally general continuous semilinear two-field seminormed-space form of pinned banach_steinhaus",
+    "boundedness expressed by real existential upper bounds, bounded ranges, uniform equicontinuity, or an ENNReal supremum",
+    "the barrelled-space theorem as a more general dependency"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_cases_to_resolve": [
+    "empty index types and singleton operator families",
+    "zero domain, zero codomain, and zero operators",
+    "a negative pointwise or conclusion bound in an empty family versus a nonempty family",
+    "removed domain completeness or incorrectly added codomain completeness",
+    "one fixed vector or dense-subset boundedness versus every vector",
+    "one bound uniform over vectors in the premise versus a vector-dependent pointwise bound",
+    "discontinuous, algebraic-only, or nonlinear maps"
+  ],
+  "excluded_substitutions": [
+    "the general barrelled-space/equicontinuity result used as the catalog root without checked specialization",
+    "a sequential special case used as an arbitrary-family root without a checked bridge and source approval",
+    "the maximal semilinear mathlib generalization silently substituted for the historical or conventional common-field theorem",
+    "uniform boundedness of arbitrary functions, measures, integrals, or numerical sequences",
+    "a premise at one point, or on a dense subset without an additional theorem",
+    "a premise already uniform over both operator index and vector",
+    "THM-M-0312 statement, state, evidence, obligation, proof body, or receipt inherited across target IDs",
+    "the untrusted verified label, theorem name, primary-source URL, or intake API probe used as proof credit"
+  ],
+  "duplicate_and_neighbor_boundaries": [
+    {
+      "kind": "literal_duplicate_source_record",
+      "source_locations": [
+        "Docs/researches/math_theorems.md:1978-1983",
+        "Docs/researches/math_theorems.md:2253-2258"
+      ],
+      "relationship": "identical title, attribution, year, gloss, importance, and status collapsed by Stage0 into THM-M-0275; no denominator inflation or duplicate proof credit"
+    },
+    {
+      "kind": "separate_same_family_manifest_target",
+      "theorem_id": "THM-M-0312",
+      "name": "共鸣定理",
+      "catalog_claim": "算子点态有界则一致有界",
+      "relationship": "likely synonymous Banach-Steinhaus/Uniform Boundedness family with different attribution/year metadata; independent target pending integration-lane relationship decision, with no shared status or evidence"
+    }
+  ],
+  "source_status": "H1_matching_primary_1927_paper_and_sequential_theorem_passage_inspected_but_exact_arbitrary_family_mapping_conventions_errata_translation_and_independent_review_open",
+  "primary_source_leads_not_credited_as_H0": [
+    {
+      "citation": "Stefan Banach and Hugo Steinhaus, Sur le principe de la condensation de singularites, Fundamenta Mathematicae 9 (1927), 50-61, DOI 10.4064/fm-9-1-50-61",
+      "publisher_record_status": "authors, title, journal, volume, year, pages, DOI, abstract, and CC-BY download observed",
+      "observed_pdf_sha256": "1ae76c338ac45f26c4da9093435fde2b1db942cc65332569f216139a114e0548",
+      "observed_pdf_size_bytes": 567964,
+      "observed_pdf_sheets": 6,
+      "candidate_locator": "Section 2, Lemma 3 and its proof, journal page 53; definitions on pages 51-52",
+      "candidate_summary": "a sequence of continuous linear functionals pointwise bounded in limsup on a second-category set has bounded operator-norm limsup; the proof obtains a uniform ball bound and scales to the unit ball",
+      "status": "matching inspected primary proof passage, but exact arbitrary-family reduction, historical convention translation, correction or errata audit, immutable admission, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
+      "declaration": "banach_steinhaus",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a pointwise bounded arbitrary family of continuous semilinear maps from a complete seminormed domain has a common real operator-norm bound",
+      "status": "direct pinned interface elaborates; exact root identity, historical/common-field specialization, normalized expression, body provenance, transitive trust, and receipt acceptance remain open"
+    },
+    {
+      "module": "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
+      "declaration": "banach_steinhaus_iSup_nnnorm",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the same arbitrary family using finite ENNReal suprema of nonnegative norms",
+      "status": "prospective alternate encoding only; no checked relation to a source-approved root is frozen"
+    },
+    {
+      "module": "Mathlib.Analysis.LocallyConvex.Barrelled",
+      "declaration": "WithSeminorms.banach_steinhaus",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "pointwise seminorm boundedness for maps from a barrelled space yields uniform equicontinuity",
+      "status": "more general proof-route dependency; excluded as a substitute root"
+    },
+    {
+      "module": "Mathlib.Analysis.Normed.Operator.NormedSpace",
+      "declaration": "NormedSpace.equicontinuous_TFAE",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "equivalence of equicontinuity, common norm bounds, bounded norm range, and finite ENNReal supremum",
+      "status": "encoding and proof-route bridge only; not the pointwise-to-uniform theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "bd81d4853a030765585ef6fed4310484ceb1e458",
+    "repository_base_tree": "fb92fc7476bff9a2ce8c20f1d7be34c6655ca6b4",
+    "repository_records": [
+      "Docs/researches/math_theorems.md:1978-1983",
+      "Docs/researches/math_theorems.md:2253-2258"
+    ],
+    "stage0_projection": "Docs/Stage0_Blueprint.md:7603-7628",
+    "neighbor_record": "Docs/researches/math_theorems.md:2274-2279",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_first_excerpt_sha256": "22fad46afd0b60e0e7d8ae725bdb21bb227b4381ccca941806d2fe3afdcca7df",
+    "repository_record_second_excerpt_sha256": "22fad46afd0b60e0e7d8ae725bdb21bb227b4381ccca941806d2fe3afdcca7df",
+    "neighbor_thm_m_0312_excerpt_sha256": "a150232acc4f2c1be155cf1b2033a7c89ae8bd6c88735f1863029f3b3845f0f7",
+    "stage0_projection_excerpt_sha256": "961c14c0256d47667a13f29f81da017d7422f4c2c85b62cd004d710eca8c2d68",
+    "manifest_entry_sha256": "a1e2a6c8b854974236e4a748366308bd247422baae0178afe91030ad8fcdc72d",
+    "execution_dag_intake_entry_sha256": "120ff7b4bdf14cbb284d45bfed15fe200d2f14e13a468bb1c1e6bf7b4d573ab7",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9da957ca69e4338a96ae99b9e5ad90384ed1994e097482cb8b86313498cd25d1",
+    "execution_dag_sha256": "561c5b4966ca7b5478dcd6ce463847f20906c622517f853051d3a51ad944bd49",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_banach_steinhaus_source_sha256": "737dd81a84049ff08ee79724090c88d5f1d7bacf6a7a465022d6cd8654ad9c61",
+    "mathlib_barrelled_source_sha256": "3f1ba005b971b7ab5662ca865dd7ee981c4798c99480b0683996a8fae03244f1",
+    "mathlib_normed_space_source_sha256": "12e8334b27bee284c957fd2e996ae2ad91d2d6fb0f89ca0da0b72d632a2d5b5e",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "observed_primary_crossref_sha256": "a7eb1d2a8adf8456f77f76748c38a2a940924b70a5e036255efffa952748871f",
+    "observed_primary_publisher_html_sha256": "720f6d7989dd940499f4d4d9b7f2c0f216fca7da7bd585b10ad940d4701b4b9b",
+    "observed_primary_pdf_sha256": "1ae76c338ac45f26c4da9093435fde2b1db942cc65332569f216139a114e0548"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; Baire-category and classical choice requirements are visible in the source/formal route, but no exact target or accepted transitive axiom policy is frozen at intake",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact root imports, checked source transport, terminal proof-body provenance, declaration dependencies, and transitive trust closure remain open",
+  "computation_profile": "No numerical bound search, finite experiment, native evaluator, oracle, generated witness, or unchecked certificate is credited; the intended result is a kernel-checked analytic existence theorem",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0275/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0275/README.md",
+    "Stage1_Instances/THM-M-0275/instance.json",
+    "Stage1_Instances/THM-M-0275/scope-map.md",
+    "Stage1_Instances/THM-M-0275/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0275/task-dag.json",
+    "Stage1_Instances/THM-M-0275/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0275/check_intake.py",
+    "Stage1_Instances/THM-M-0275/validation.md",
+    "Stage1_Instances/THM-M-0275/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent functional-analysis source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "duplicate_scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition and corrections, historical sequence versus modern family mapping, scalar/operator/space scope, bounds, binders, boundary cases, and Lean transports; the integration lane separately decides duplicate reconciliation and node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects, revokes, or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; transient publisher bytes are not vendored and this unaccepted dossier has no release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, primary edition or erratum, historical sequence versus arbitrary-family decision, real/complex/common-field versus semilinear scope, operator and space structures, completeness, bound encoding, binder or boundary decision, THM-M-0312 reconciliation, canonical Lean target or checked transport, toolchain or dependency pin, assurance profile, validator, or any owned-artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the duplicate catalog records, inspected 1927 sequence theorem, conventional arbitrary-family candidate, direct pinned Banach-Steinhaus interfaces, THM-M-0312 boundary, proposition-changing decisions, and open task DAG. No exact canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
