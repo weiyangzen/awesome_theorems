@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0995-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0995-VALIDATION",
+  "theorem_id": "THM-M-0995",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0995/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes check_validation.sh. Every Lean subprocess runs at --trust=0 inside bubblewrap with an unshared network namespace, a read-only host root, fixed locale/timezone, and only a fresh temporary output directory writable. The shared pinned compiled artifacts are read-only warm inputs, so this is not section 10.6 cold hermetic reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact eight-line PASS/FAIL-CLOSED validation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0995-ROOT",
+    "M0995-S-EXACT",
+    "M0995-L-EXP-REMAINDER",
+    "M0995-L-IND-MGF",
+    "M0995-T-IND-MGF",
+    "M0995-L-PREFIX-MGF",
+    "M0995-L-SUM-MGF",
+    "M0995-T-SUM-MGF",
+    "M0995-L-CHERNOFF",
+    "M0995-L-OPTIMIZE-POS",
+    "M0995-L-VAR-ZERO-AE",
+    "M0995-B-ZERO-DENOM",
+    "M0995-B-VAR-ZERO",
+    "M0995-T-VAR-ZERO",
+    "M0995-B-EMPTY",
+    "M0995-T-ASSEMBLE-V2",
+    "M0995-X-MATHLIB",
+    "M0995-X-TCB",
+    "M0995-X-V1-REFUTATION"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0995.StatementShape",
+    "Stage1Instances.THM_M_0995.statementShape_iff_expandedSourceShape",
+    "Stage1Instances.THM_M_0995.ObligationTree.individualMGF_compose",
+    "Stage1Instances.THM_M_0995.ObligationTree.sumMGF_compose",
+    "Stage1Instances.THM_M_0995.ObligationTree.zeroVariance_compose",
+    "Stage1Instances.THM_M_0995.ObligationTree.root_compose_v2",
+    "Stage1Instances.THM_M_0995.Proof.bernsteinInequality_via_registry_v2",
+    "Stage1Instances.THM_M_0995.Proof.bernsteinInequality",
+    "Stage1Instances.THM_M_0995.Proof.not_optimizeExponentPackage",
+    "Stage1Instances.THM_M_0995.Validation.exactRootViaRegistry",
+    "Stage1Instances.THM_M_0995.Validation.exactRootDirect",
+    "Stage1Instances.THM_M_0995.Validation.expandedRoot",
+    "ProbabilityTheory.iIndepFun.mgf_sum₀",
+    "ProbabilityTheory.measure_ge_le_exp_mul_mgf",
+    "ProbabilityTheory.ae_eq_integral_of_variance_eq_zero",
+    "NormedSpace.expSeries_summable'",
+    "Nat.factorial_mul_pow_sub_le_factorial"
+  ],
+  "scope_boundary": "Network-isolated, trust-zero, warm-cache worker replay of the exact proof-phase root, compositions, validation adapters, observed axioms, hygiene, frozen hashes, and selected pinned provenance. It does not cover X-EXTERNAL or X-SOURCE, complete transitive trust/provenance, cold hermetic replay, or distinct-runner verification."
+}
