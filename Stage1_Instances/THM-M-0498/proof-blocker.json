@@ -2,8 +2,8 @@
   "schema_version": "stage1-proof-blocker/1.0",
   "item_id": "S56-M-0498-PROOF",
   "theorem_id": "THM-M-0498",
-  "base_revision": "b781ef440e9de69e6413b608ce5542eed8c0070e",
-  "recorded_at": "2026-07-12",
+  "base_revision": "3bb4cb3ae15dff8b48c93242019edec3bf858e48",
+  "recorded_at": "2026-07-14",
   "canonical_target": "Stage1Instances.THM_M_0498.RiemannVonMangoldtTarget",
   "statement_sha256": "ffdaf423ec563b3f6a33e7611e1627b01a8d1299c9afb62cbef2342dd54c623a",
   "registry_denominator_sha256": "8a964cd4c13dc98d9bfa75e22cf5bab2af31d96d83bde13600049c669d88f144",
@@ -12,7 +12,11 @@
   "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
   "outcome": "blocked",
   "machine_classification": "M4",
-  "proof_body_added": false,
+  "proof_body_added": true,
+  "supported_subbranches": [
+    "M0498-A-DIRICHLET"
+  ],
+  "closed_obligation_ids": [],
   "root_closed": false,
   "theorem_complete": false,
   "first_failed_gate": "M0498-T-ANALYTIC: no placeholder-free Lean body for the analytic explicit-formula package exists in the repository or pinned dependency closure",
@@ -21,7 +25,6 @@
   ],
   "open_supporting_obligations": [
     "M0498-S-FOUNDATION",
-    "M0498-A-DIRICHLET",
     "M0498-A-PERRON",
     "M0498-C-CONTOUR",
     "M0498-B-RESIDUES",
@@ -29,11 +32,12 @@
     "M0498-L-ZERO-SUM"
   ],
   "candidate_assessment": {
+    "repo_local_partial": "Proof.lean supplies a placeholder-free local wrapper over the pinned von Mangoldt logarithmic-derivative theorem. It supports the intended M0498-A-DIRICHLET bridge, but that frozen node has only a planned fingerprint, so this worker conservatively claims no whole obligation closed.",
     "repo_local_historical": "S1_M_258 packages a desired equality in input data and proves only projections or conditional consequences; it has no terminal explicit-formula body.",
-    "pinned_mathlib": "Provides Chebyshev functions, the von Mangoldt logarithmic-derivative identity, the zeta pole, Euler product, and trivial zeros, but no exact or stronger nontrivial-zero explicit-formula declaration.",
+    "pinned_mathlib": "Provides Chebyshev functions, the proved von Mangoldt logarithmic-derivative identity, the zeta pole, Euler product, and trivial zeros, but no exact or stronger nontrivial-zero explicit-formula declaration.",
     "external_audited_candidate": "PrimeNumberTheoremAnd@baff9f946bcb5349d35b3eba72e28031748e6388 contains a non-exact finite-height formula whose root-critical body is incomplete; it is not eligible proof evidence."
   },
-  "blocker": "Closing the exact target requires a new formalization of Perron inversion, zero-avoiding contour displacement and error bounds, all residue families, the trivial-zero logarithmic correction, and convergence of the multiplicity-weighted nontrivial-zero sum under the frozen ordering. No exact eligible proof body is available to import or wrap, and substituting the homonymous zero-counting bound or an assumed analytic package would broaden or assume the task.",
-  "unblock_condition": "Provide local placeholder-free Lean bodies, or an immutable compatible placeholder-free dependency, for M0498-T-ANALYTIC and its frozen supporting obligations; then check exact type, child-to-parent composition, transitive declarations, axioms, unsafe/oracle boundaries, and provenance.",
-  "status_boundary": "This is a proof-phase blocker record, not a proof receipt. S56-M-0498-PROOF is not self-tested complete and must not receive provisional or accepted completion."
+  "blocker": "Closing the exact target still requires a checked realization of the frozen nontrivial-zero enumeration, a specialized Perron bridge for Chebyshev psi, zero-avoiding contour displacement and zeta error bounds, all residue families, the trivial-zero logarithmic correction, and convergence of the multiplicity-weighted nontrivial-zero sum under the frozen ordering. Pinned mathlib has generic Mellin and contour infrastructure but no exact eligible analytic-package body or enumeration-existence theorem to import or wrap; substituting the homonymous zero-counting bound or an assumed analytic package would broaden or assume the task.",
+  "unblock_condition": "Provide local placeholder-free Lean bodies, or an immutable compatible placeholder-free dependency, for M0498-T-ANALYTIC and its remaining frozen supporting obligations; then check exact type, child-to-parent composition, transitive declarations, axioms, unsafe/oracle boundaries, and provenance.",
+  "status_boundary": "This remaining-root blocker coexists with a self-tested partial proof receipt for the logarithmic-derivative bridge. It is not a root proof receipt: enumeration realizability, the analytic package, canonical root, and theorem completion remain open."
 }
