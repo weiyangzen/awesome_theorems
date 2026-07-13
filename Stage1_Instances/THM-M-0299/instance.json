@@ -1,0 +1,240 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0299",
+  "item_id": "S56-M-0299-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1303,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "奇异积分有界性定理",
+  "name_en": "Singular-integral boundedness theorem",
+  "canonical_name": "Calderon-Zygmund singular-integral strong-Lp boundedness family",
+  "category": "分析学 / 实分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "奇异积分的L^p有界性",
+  "literal_source_claim_en": "Lp boundedness of singular integrals.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_calderon_zygmund_strong_Lp_boundedness_family_but_catalog_omits_source_theorem_operator_kernel_domain_truncation_hypotheses_exponent_conclusion_and_boundary_cases",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies only 'Lp boundedness of singular integrals'. It does not select a convolution or general Calderon-Zygmund operator, ambient space and scalars, off-diagonal kernel and size/regularity/cancellation conditions, truncation or principal-value construction, initial domain or L2 premise, exponent range, bounded-extension or norm-estimate conclusion, constant dependence, ordered binders, or endpoint and degenerate cases. Crossref identifies a likely 1952 paper, but no exact theorem passage was retrievable or independently reviewed. Choosing a standard formulation at intake would invent proposition-changing clauses.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+      "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+      "Mathlib.Analysis.Normed.Operator.ContinuousLinearMap"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_theorem_operator_kernel_domain_truncation_hypotheses_exponent_conclusion_and_boundaries",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_adjacent-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix the ambient Euclidean or other measure space, dimension, scalar field, measure, source and target function spaces, a.e. quotient conventions, operator and test-function domain, kernel class, and every universe and typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-selected strong-Lp bounded-extension or quantitative norm-estimate theorem, with exact exponent range, operator construction, assumptions, constants, and endpoint policy.",
+  "alternate_encodings": [
+    {
+      "target": "A homogeneous convolution singular integral with source-approved cancellation and regularity hypotheses extends boundedly on Lp(R^n) for 1 < p < infinity.",
+      "relationship": "candidate classical convolution formulation only; source adoption, definitions, constant quantification, and checked construction are open",
+      "checked_witness": null
+    },
+    {
+      "target": "A source-approved standard Calderon-Zygmund operator that is initially L2-bounded extends boundedly on Lp for 1 < p < infinity.",
+      "relationship": "candidate modern general-operator formulation only; it differs by assuming an operator and an L2 premise",
+      "checked_witness": null
+    },
+    {
+      "target": "There exists C such that norm (T f) at Lp is at most C times norm f at Lp on a dense test-function class.",
+      "relationship": "candidate inequality encoding requiring construction, density, extension, and uniqueness bridges",
+      "checked_witness": null
+    },
+    {
+      "target": "The truncated operators or maximal truncation satisfy uniform Lp estimates and converge to the singular-integral operator.",
+      "relationship": "candidate stronger or auxiliary formulation, not automatically identical to the catalog root",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is silently excluded before proposition selection. The statement phase must resolve zero and identity operators, zero or trivial measures, low dimension, real or complex scalars, diagonal/null-set behavior, dense-domain and a.e.-representative conventions, vanishing or nonintegrable kernels, endpoints p=1 and p=infinity, principal-value failure, and uniqueness of extension.",
+  "candidate_scope_not_credited": [
+    "the classical homogeneous convolution-kernel theorem on real Euclidean space",
+    "a standard Calderon-Zygmund operator theorem assuming initial L2 boundedness",
+    "a dense-class quantitative inequality with a subsequent continuous extension",
+    "uniform truncated-operator or maximal-truncation bounds",
+    "weak type (1,1) plus interpolation as a proof route to strong Lp boundedness"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero, identity, or already-bounded operators",
+    "zero and trivial measures and the lowest admitted dimension",
+    "real versus complex scalars and scalar versus vector-valued functions",
+    "diagonal values and almost-everywhere changes of kernels and functions",
+    "compact test functions, Schwartz functions, and completed Lp representatives",
+    "p=1 and p=infinity endpoints and exponents outside the strong-type range",
+    "truncation limits that exist pointwise, almost everywhere, or only in norm",
+    "uniqueness and representative-independence of the bounded extension"
+  ],
+  "excluded_substitutions": [
+    "the Calderon-Zygmund decomposition without the operator boundedness conclusion",
+    "the broad Calderon-Zygmund theory label without a proposition",
+    "Hilbert-transform, Riesz-transform, Cauchy-integral, or toy finite-kernel special cases used as the general source root",
+    "the T(1) generalized-operator L2 criterion",
+    "a PDE Hessian or second-derivative estimate",
+    "weak type (1,1), maximal truncation, pointwise principal-value existence, or p=2 boundedness alone",
+    "a hypothesis, structure field, or supplied ContinuousLinearMap that already stores the desired bound",
+    "generic measure, integration, Lp, Fourier, or continuous-linear-map infrastructure alone",
+    "the untrusted verified label, DOI metadata, API probe, or a name-level no-match search used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0298",
+      "name": "卡尔德龙-齐格蒙德分解",
+      "relationship": "a classical proof ingredient and separate decomposition target, not the operator boundedness conclusion"
+    },
+    {
+      "theorem_id": "THM-M-0350",
+      "name": "希尔伯特变换有界性",
+      "relationship": "a particular singular integral with its own domain and normalization choices"
+    },
+    {
+      "theorem_id": "THM-M-0352",
+      "name": "卡尔德龙-齐格蒙德理论",
+      "relationship": "a broader subject-area target; it cannot silently select or own this exact boundedness root"
+    },
+    {
+      "theorem_id": "THM-M-0364",
+      "name": "T1定理",
+      "relationship": "a later generalized-operator L2 boundedness criterion with distinct testing hypotheses"
+    },
+    {
+      "theorem_id": "THM-M-0366",
+      "name": "科伊夫曼-麦金托什-迈耶定理",
+      "relationship": "the Cauchy-integral operator boundedness theorem is a particular operator result, not the general source family without an accepted identity decision"
+    },
+    {
+      "theorem_id": "THM-M-1171",
+      "name": "Calderon-Zygmund估计",
+      "relationship": "a PDE second-derivative Lp estimate using singular-integral boundedness as an analytic engine"
+    }
+  ],
+  "source_status": "H1_likely_primary_paper_bibliography_confirmed_but_article_theorem_text_definitions_premises_proof_mapping_errata_snapshot_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "A. P. Calderon and A. Zygmund, On the existence of certain singular integrals, Acta Mathematica 88 (1952), 85-139",
+      "doi": "10.1007/BF02392130",
+      "candidate_locator": "https://doi.org/10.1007/BF02392130; Crossref primary resource points to Project Euclid record euclid.acta/1485888715",
+      "candidate_summary": "bibliography matches the catalog authors, year, and singular-integral subject",
+      "inspection_status": "bibliographic metadata inspected only; article endpoint was access-blocked, so no exact theorem text, proof passage, paper hash, correction audit, or independent review was accepted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "modules": [
+        "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+        "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+        "Mathlib.Analysis.Normed.Operator.ContinuousLinearMap"
+      ],
+      "declarations": [
+        "MeasureTheory.Measure",
+        "MeasureTheory.Measure.restrict",
+        "MeasureTheory.MemLp",
+        "MeasureTheory.Lp",
+        "MeasureTheory.integral",
+        "ContinuousLinearMap",
+        "ContinuousLinearMap.mk"
+      ],
+      "boundary": "generic adjacent infrastructure only; it defines neither a source-selected singular-integral operator and kernel nor the boundedness theorem"
+    }
+  ],
+  "bounded_search_boundary": "A scoped search of the pinned mathlib source tree found no name-level Calderon-Zygmund, singular-integral, weak-type, Hilbert-transform, Riesz-transform, or maximal-truncation declaration under the recorded regex. Repository-local files for other targets were not candidate-audited or claimed absent. This is intake discovery only, not an exhaustive anchor audit or global absence proof.",
+  "source_revisions": {
+    "repository_base": "940588d30669014430d5a1beb187f2bca118e816",
+    "repository_base_tree": "42d80725ccbabcdd826ed2bc8b3622ac31ac7695",
+    "repository_record": "Docs/researches/math_theorems.md:2146-2151",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:8251-8276",
+    "applicable_projection": "Docs/Stage1_Blueprint_Applicable_Theorems.md:1358",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "6e129684e866fd7271fb8911195e085ac3aea9e43279461a8c7b75ea331234dc",
+    "stage0_excerpt_sha256": "297ce4bb2f6ce1e51b3f4862c31efa69c9494d30d654630a81af92a493efb30f",
+    "target_manifest_excerpt_sha256": "c2c05fbc9468b6c8c86cddfc1d967c981c3178a18c91f203cff70de77fce7112",
+    "target_manifest_origin_commit": "16d227cffb7cb7d9e8392b6c0ff8211e498e1330",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "08909af0054f54d0ac8dd28ad295b87428595d89c3266da6a09653573f4ac458",
+    "execution_dag_sha256": "cecbf4cd9e214c479597683c5ffa4c49a4635e198b96563a327df34cc45886a3",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "applicable_projection_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "bibliographic_source": "Crossref/DOI metadata for 10.1007/BF02392130 accessed 2026-07-13; live metadata only, not immutable paper content",
+    "bibliographic_response_sha256": "5af8635179a4781d6eaec95d83d917456c00be5079baf94e0c15b30f94bd8602",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lp_basic_source_sha256": "263bd63b12535957865492a0a0464a515f32a7c013edf74e8d2d7d452067bb27",
+    "bochner_basic_source_sha256": "b2e4b3eb233147e1dc8d2cb8fa4eae1773badbf1e37234dd7e8dfd54d9dd0a0a",
+    "continuous_linear_map_source_sha256": "bb26ac2b8a771841cb6dc83fd8d04865da3e1d66eb68249056a51a0d3b283272"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, function extensionality, a.e.-quotient, noncomputable integration, and operator-extension policies remain open until an exact source-faithful proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, new kernel/operator definitions, terminal declarations, transitive dependencies, axioms, and trust closure remain open",
+  "computation_profile": "No numerical singular-integral experiment, sampled truncation, oracle, unchecked certificate, or external evaluator is credited; the expected theorem requires exact noncomputable analysis",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0299/README.md",
+    "Stage1_Instances/THM-M-0299/instance.json",
+    "Stage1_Instances/THM-M-0299/scope-map.md",
+    "Stage1_Instances/THM-M-0299/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0299/task-dag.json",
+    "Stage1_Instances/THM-M-0299/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0299/check_intake.py",
+    "Stage1_Instances/THM-M-0299/validation.md",
+    "Stage1_Instances/THM-M-0299/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "neighbor_scope_reviewer": "unassigned reviewer for decomposition, special-operator, T1, theory, and PDE-estimate boundaries"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source snapshot/theorem/definition/proof/errata finding, operator/kernel/domain/scalar/truncation/hypothesis/exponent/conclusion/constant/boundary decision, neighbor reconciliation, alternate transport, formal-candidate audit, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact; review is due before master acceptance or dependent statement work, and the integration lane owns rejection, supersession, and incident response.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records likely primary-paper bibliography and explicit open mapping, not H0. M4 records no usable exact formal artifact for the unfrozen target. R4 records no accepted source-faithful proof reconstruction. The API probe and bounded search supply no target statement or proof credit. No accepted state, audit completion, theorem completion, or master acceptance is claimed."
+}

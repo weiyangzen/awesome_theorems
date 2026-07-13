@@ -1,0 +1,188 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0475",
+  "item_id": "S56-M-0475-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1356,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "欧拉定理",
+  "name_en": "Euler's totient theorem",
+  "canonical_name": "Euler's totient theorem family",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim": "a^phi(n) is congruent to 1 modulo n",
+  "source_attribution": "Leonhard Euler, 1763 (uncited catalog metadata)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "conventional_coprime_natural_candidate_identified_but_catalog_omits_a_truth_changing_premise_and_source_exact_scope_is_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For natural numbers a and n, if a is coprime to n, then a^Nat.totient(n) is congruent to 1 modulo n.",
+  "statement_blocker": "The catalog formula omits the indispensable coprimality premise and does not fix the base or modulus domains, ordered binders, totient convention, congruence encoding, positive-modulus policy, or degenerate cases. The unconditional natural reading is false at a=2 and n=4. An immutable source-exact statement and independent review are required before selecting the conventional repair.",
+  "target_disposition": "retain the named theorem family and require source-governed correction before canonical statement freeze",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.FieldTheory.Finite.Basic",
+      "Mathlib.NumberTheory.PowModTotient"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "forall (a n : Nat), Nat.Coprime a n -> Nat.ModEq n (a ^ Nat.totient n) 1",
+    "candidate_declarations": [
+      "Nat.ModEq.pow_totient",
+      "ZMod.pow_totient"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_omits_coprimality_and_source_exact_scope",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open pending source review. The closest pinned candidate uses a n : Nat, Nat.Coprime a n, Nat.totient n, and Nat.ModEq n in Prop at universe 0; integer, positive-natural, and ZMod/unit encodings remain unselected.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog suggests a^phi(n) congruent to 1 modulo n but omits a truth-changing premise and all formal conventions.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is canonically excluded at intake. Under the pinned Nat.ModEq candidate, n=0 is inhabited only by a=1 under coprimality and n=1 admits every a; an accepted source must decide whether those conventions belong to the root.",
+  "candidate_scope_not_credited": [
+    "the natural Nat.ModEq form with Nat.Coprime a n",
+    "the integer-base congruence form",
+    "equality of the corresponding unit power in ZMod n",
+    "a remainder-equality form with an explicit nontrivial-modulus premise",
+    "a positive-modulus or n>1 textbook form"
+  ],
+  "degenerate_cases_to_resolve": [
+    "n=0 under the selected totient and congruence convention",
+    "n=1 and whether congruence modulo one is included",
+    "a=0, a=1, and representatives outside a canonical residue range",
+    "composite n and the exact coprimality or invertibility premise",
+    "natural versus integer base and modulus domains",
+    "whether a remainder-equality encoding introduces n>1"
+  ],
+  "excluded_substitutions": [
+    "the unconditional catalog formula, refuted at a=2 and n=4",
+    "THM-M-0474 Fermat's little theorem, a prime-modulus specialization",
+    "Carmichael's theorem with the generally smaller Carmichael exponent",
+    "Euler's criterion, Euler's identity, Euler's partition theorem, or another Euler namesake",
+    "a ZMod, units, integer, divisibility, or remainder form without source mapping and checked transport",
+    "the untrusted catalog verified label or discovery-only API probe used as proof evidence"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.FieldTheory.Finite.Basic",
+      "declaration": "Nat.ModEq.pow_totient",
+      "type": "{x n : Nat} -> Nat.Coprime x n -> Nat.ModEq n (x ^ Nat.totient n) 1",
+      "boundary": "direct conventional natural candidate; intake probe only, with no canonical statement, terminal-body provenance, transitive trust, or M0 credit"
+    },
+    {
+      "module": "Mathlib.FieldTheory.Finite.Basic",
+      "declaration": "ZMod.pow_totient",
+      "type": "{n : Nat} -> (x : Units (ZMod n)) -> x ^ Nat.totient n = 1",
+      "boundary": "library-declared alternate units form; no checked transport to a source-selected root is credited"
+    },
+    {
+      "module": "Mathlib.NumberTheory.PowModTotient",
+      "declaration": "Nat.pow_totient_mod_eq_one",
+      "boundary": "remainder form with 1<n; it is related but not source-selected or credited"
+    }
+  ],
+  "source_status": "H1_named_classical_theorem_and_bibliographic_lead_only_exact_premises_domains_translation_errata_proof_mapping_and_independent_review_open",
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Leonhard Euler, Theoremata arithmetica nova methodo demonstrata, Novi Commentarii academiae scientiarum Petropolitanae, 1763, pages 74-104, Euler Archive E271",
+      "source_url": "https://scholarlycommons.pacific.edu/euler-works/271/",
+      "observed_landing_page_sha256": "eb19d2ada21b7d7fb890cf4d7adab0e74e401a922e4cd7132fa0881dc8e267a7",
+      "status": "archive landing-page metadata inspected; scan retrieval, exact theorem/page, premises, proof, translation, corrections, errata, preservation, and independent review remain open"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "67d32ab26aba14b674ae8a1b919e6935812190c3",
+    "repository_base_tree": "8a1d264cf3331992fbbc3a4fffca285af0b88929",
+    "repository_record": "Docs/researches/math_theorems.md:3490-3495",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:13028-13053",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "d09593436bfaac6bb9beee0ccd82b18a68a5082f18dd46f5885a270928adc704",
+    "stage0_record_excerpt_sha256": "56ee44368d008ede676f0edc4d96e63f8b1bc340a24a20fb5a9915348abc462c",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "68a35cecca97039995e754fcbf7a09ecf37beb623bd15fb88d3b37dbbe034aaa",
+    "execution_dag_sha256": "042a95899d66a3b7ae2e4545cddecb6cbfd110d87f4cd435c2f7dcdfe94ee52e",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_field_finite_basic_source_sha256": "808bb4eddb8a4b48785e4430f944fe0827c96842dffa0c08cd21b5659bd85d44",
+    "mathlib_pow_mod_totient_source_sha256": "96bc8c40bbeadf212b96fee01a2ec09ea5bbe08076253593a7f123befb6b8853",
+    "mathlib_nat_totient_source_sha256": "bc3be754c653d34785636ed734355fc5e976719b4eddf3cb7f37175265f1c20f",
+    "mathlib_nat_modeq_source_sha256": "247ec25633683d05aa1b7c276d5aebeb80ed4d1db5f07aa1a536a71a3d339054"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended. The discovery candidate reports propext, Classical.choice, and Quot.sound; accepted foundation policy and transitive trust closure remain open.",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact minimal imports, canonical expression, terminal declarations, transitive dependency closure, and trust review remain open.",
+  "computation_profile": "No native computation, experiment, oracle, solver, or unchecked certificate is credited. The concrete decidable counterexample is a statement-scope test only, not proof of the repaired root.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0475/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0475/README.md",
+    "Stage1_Instances/THM-M-0475/instance.json",
+    "Stage1_Instances/THM-M-0475/scope-map.md",
+    "Stage1_Instances/THM-M-0475/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0475/task-dag.json",
+    "Stage1_Instances/THM-M-0475/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0475/check_intake.py",
+    "Stage1_Instances/THM-M-0475/validation.md",
+    "Stage1_Instances/THM-M-0475/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent number-theory source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned source-to-statement reviewer",
+    "reviewer_policy": "Independent reviewers must approve the exact source edition, theorem/proof locator, premises, domains, translations, errata, boundary conventions, and formal mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes this provisional receipt, records the reason, and requires a fresh scoped intake self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus an integration-lane worker snapshot are the intended recovery mechanism after acceptance. This unaccepted dossier and transient external observation have no independent release archive claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source edition or proposition selection, domain, binder, coprimality, totient, congruence, or degenerate-case convention, translation or erratum decision, Lean target or import, formal-candidate finding, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. The named theorem family and direct pinned M3 candidate are identified, but no source-exact mathematical or Lean statement is frozen. No H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

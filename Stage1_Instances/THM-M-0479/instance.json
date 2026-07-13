@@ -1,0 +1,214 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0479",
+  "item_id": "S56-M-0479-INTAKE",
+  "execution_rank": 1360,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "狄利克雷定理",
+  "name_en": "Dirichlet's theorem on primes in arithmetic progressions",
+  "canonical_name": "Dirichlet's theorem on primes in arithmetic progressions (exact source formulation open)",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "等差数列中存在无穷多素数",
+  "literal_source_claim_en": "There are infinitely many primes in arithmetic progressions.",
+  "source_attribution": "Peter Dirichlet, 1837 (untrusted catalog metadata; no cited source or theorem locator)",
+  "source_status_untrusted": "已验证",
+  "canonical_claim_status": "recognizable_dirichlet_primes_in_arithmetic_progressions_family_but_catalog_omits_universal_binders_admissibility_domains_definitions_and_source_locator",
+  "canonical_statement": null,
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For every positive modulus and every residue class coprime to it, infinitely many natural primes belong to that residue class.",
+  "target_disposition": "requires_immutable_source_selection_and_reduced_residue_class_encoding_review_before_statement_execution",
+  "statement_blocker": "The catalog gives no primary or authoritative source and does not state the universal modulus and residue quantifiers, positivity or nonzero condition, coprimality hypothesis, natural or integer domains, progression and congruence conventions, exact infinitude formulation, alternate transports, or boundary cases. Pinned mathlib supplies direct Dirichlet-theorem interfaces, but choosing one as the canonical root before a reviewed source crosswalk would infer proposition identity that intake has not established.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_pending_immutable_source_crosswalk_and_exact_statement_elaboration",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "module_candidates_not_credited": [
+      "Mathlib.NumberTheory.LSeries.PrimesInAP"
+    ],
+    "declaration_candidates_not_credited": [
+      "Nat.infinite_setOf_prime_and_eq_mod",
+      "Nat.forall_exists_prime_gt_and_eq_mod",
+      "Nat.forall_exists_prime_gt_and_zmodEq",
+      "Nat.forall_exists_prime_gt_and_modEq",
+      "Nat.infinite_setOf_prime_and_modEq"
+    ],
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix natural or integer modulus and residue domains, positivity/nonzero and coprimality conventions, prime carrier, congruence encoding, universe-free arithmetic types, and every binder and coercion.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open beyond the literal infinitude-in-arithmetic-progressions family: universal scope, reduced-class condition, prime carrier, congruence encoding, and infinitude convention are not source-approved.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "ZMod set-infinitude form: [NeZero q] -> IsUnit a -> Set.Infinite {p : Nat | p.Prime and (p : ZMod q) = a}",
+    "ZMod unbounded form: every bound has a greater natural prime reducing to a",
+    "integer representative form with IsCoprime and Int.ModEq",
+    "natural representative form with Nat.Coprime and Nat.ModEq",
+    "natural ModEq set-infinitude form"
+  ],
+  "excluded_degenerate_cases": [],
+  "unresolved_boundary_and_mutation_cases": [
+    "zero modulus versus nonzero or positive modulus",
+    "modulus one and its unique residue class",
+    "zero and non-coprime residue representatives",
+    "negative integer representatives and representative normalization",
+    "one fixed progression versus universal quantification over admissible progressions",
+    "natural primes versus signed integer primes",
+    "set infinitude versus existence above every bound",
+    "changed modulus, residue, bound, and prime binder scope"
+  ],
+  "excluded_substitutions": [
+    "infinitude of all primes without a prescribed residue class",
+    "one fixed progression or only primes congruent to one",
+    "a theorem without the essential coprimality or unit hypothesis",
+    "the prime number theorem for arithmetic progressions, equidistribution, density, or error estimates",
+    "prime ideals, irreducibles in another ring, prime powers, or signed integers counted as natural primes",
+    "finite computations or experiments",
+    "THM-M-0500 artifacts or accepted state transferred to this distinct target",
+    "the untrusted source label or a successful API probe treated as source or proof evidence"
+  ],
+  "foundation_profile": {
+    "status": "open",
+    "required_action": "select a versioned accepted and disallowed logical-principle profile after exact target freeze",
+    "candidate_axioms_observed_not_accepted": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "tcb_profile": {
+    "status": "open",
+    "required_action": "freeze Lean kernel, elaborator, Lake, dependency, native/external tool, and validator trust policy"
+  },
+  "computation_profile": {
+    "status": "open",
+    "current_boundary": "no computation, certificate, oracle, experiment, or generated proof is credited at intake"
+  },
+  "formal_system": {
+    "backend": "Lean 4",
+    "adapter": "repository Lake environment",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu"
+  },
+  "source_revisions": {
+    "repository_base": "0f70149d61a952d44f907f4662a143372bcb4c44",
+    "repository_base_tree": "35328e4f56f47446a4e1dfdbe361a1b70a4b18a7",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "1e67501deae125e2a396ff8d2ef791e5ee11e8a9adc52f74d347902e6d8eaaa6",
+    "stage0_projection_excerpt_sha256": "5452b24ba5d6a464950215e5019f3dd5f4a9d4ca608381d1e5e9ede38c0a2ae9",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "4ab62ab0dcbdc6a10fb319b112be7dce0d425b636bfcb82f548ec241203981c0",
+    "execution_dag_sha256": "5b582a1621e8fb8aa1c16fc98fd053e1d50fa6f2b43d28c677ad7a2c890f265c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_primes_in_ap_source_sha256": "d99edfb234cc2c044332951a16f32bbfad58c8c73cc51faf4e9219d3bc6684c2",
+    "mathlib_zmod_coprime_source_sha256": "dd14d00af2533554fb49b5cb0394c6c4c480c2b8ec39f763129a127870c1369d",
+    "mathlib_nat_prime_source_sha256": "b97e83d65681b68b3ad1f4bdfd36defd0a30aa173cf726b3d2807acf8bde5027"
+  },
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.NumberTheory.LSeries.PrimesInAP",
+      "declaration": "Nat.infinite_setOf_prime_and_eq_mod",
+      "candidate_type_summary": "for nonzero natural q and a unit a in ZMod q, infinitely many natural primes reduce to a",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "discovery_state": "direct pinned exact-topic interface elaborated; canonical identity, terminal body, provenance, dependency, license, and trust acceptance not audited"
+    },
+    {
+      "module": "Mathlib.NumberTheory.LSeries.PrimesInAP",
+      "declaration": "Nat.infinite_setOf_prime_and_modEq",
+      "candidate_type_summary": "for nonzero natural q and Nat.Coprime a q, the set of natural primes Nat.ModEq to a modulo q is infinite",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "discovery_state": "direct pinned alternate interface elaborated; no target-specific checked transport or proof credit"
+    },
+    {
+      "module": "Mathlib.NumberTheory.LSeries.PrimesInAP",
+      "declaration": "Nat.forall_exists_prime_gt_and_modEq",
+      "candidate_type_summary": "for nonzero natural q and Nat.Coprime a q, every natural bound has a greater prime Nat.ModEq to a modulo q",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "discovery_state": "direct pinned unbounded alternate elaborated; no canonical selection or proof credit"
+    }
+  ],
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0479/README.md",
+    "Stage1_Instances/THM-M-0479/instance.json",
+    "Stage1_Instances/THM-M-0479/scope-map.md",
+    "Stage1_Instances/THM-M-0479/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0479/task-dag.json",
+    "Stage1_Instances/THM-M-0479/validation.md"
+  ],
+  "owners_and_reviewers": {
+    "intake_owner": "Stage1 rev-5.6 worker for S56-M-0479-INTAKE",
+    "master_acceptance_owner": "Stage1 rev-5.6 integration lane",
+    "source_reviewer": null,
+    "lean_reviewer": null,
+    "independence_boundary": "worker self-review is not independent source, Lean, or release review"
+  },
+  "freshness_and_revocation_policy": {
+    "support_state": "provisional_worker_only",
+    "review_due": "before master acceptance or any dependent statement work",
+    "invalidation_inputs": [
+      "source edition, theorem locator, wording, premise, conclusion, proof, translation, correction, or erratum",
+      "modulus, residue, coprimality, congruence, prime carrier, infinitude, binder, transport, or boundary convention",
+      "canonical Lean target, toolchain, dependency, or source pin",
+      "assurance profile, validator, receipt, worker packet, or owned artifact"
+    ],
+    "revocation_and_incident_path": "integration lane rejects or supersedes the report, records the reason, and requires a fresh scoped self-test",
+    "upgrade_policy": "any Lean, Lake, mathlib, toolchain, manifest, candidate source, checker, or assurance change requires fresh discovery and structural validation"
+  },
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_basis": {
+    "H1": "The classical theorem is published and recognizable, but no immutable primary or authoritative edition, exact theorem and definition locator, assumptions, proof boundary, errata mapping, or independent review is accepted.",
+    "M3": "Direct pinned exact-topic interfaces elaborate, but no source-identical canonical target, checked transport, expression fingerprint, terminal-body audit, or accepted proof evidence exists.",
+    "R4": "No readable, source-faithful node-by-node proof reconstruction exists for an exact accepted root."
+  },
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Planned intake only. The exact human claim and Lean target remain open; formal candidates receive discovery credit only. No accepted task, proof, H0, M0, R0, audit completion, theorem completion, or master acceptance is asserted."
+}
