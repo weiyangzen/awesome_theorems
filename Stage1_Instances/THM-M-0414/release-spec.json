@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0414-RELEASE-NEGATIVE-RECONCILIATION-v1",
+  "item_id": "S56-M-0414-RELEASE",
+  "theorem_id": "THM-M-0414",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0414/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 300,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs no network operation, but this worker did not provision an OS-level network namespace. This is not release-grade network-isolation evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains three PASS lines, three BLOCKED lines, and the exact false terminal decisions"
+    }
+  ],
+  "covered_obligation_ids": [
+    "THM-M-0414-ROOT",
+    "THM-M-0414-UFM",
+    "THM-M-0414-FINPROD",
+    "THM-M-0414-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0414.IdealUniqueFactorizationTarget",
+    "Stage1Instances.THM_M_0414.ObligationTree.components_compose",
+    "Stage1Instances.THM_M_0414.idealUniqueFactorizationMonoid_proof",
+    "Stage1Instances.THM_M_0414.idealFiniteProductFactorization_proof",
+    "Stage1Instances.THM_M_0414.idealUniqueFactorizationTarget_proof",
+    "Stage1Instances.THM_M_0414.Validation.independentExactRoot",
+    "Ideal.uniqueFactorizationMonoid",
+    "Ideal.finprod_heightOneSpectrum_factorization"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation plus a replay of the predecessor's narrow warm-cache Lean validation. The recipe observes all four frozen obligations but accepts none. THM-M-0414-TRUST remains open, and the recipe cannot supply dependency-ordered master acceptance, accepted H0/R0, complete transitive provenance/TCB closure, immutable cold offline reproduction, independent signed runners, protected CI, or a deterministic release bundle."
+}

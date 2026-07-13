@@ -1,0 +1,75 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0476-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0476-VALIDATION",
+  "theorem_id": "THM-M-0476",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0476/check_validation.py"
+  ],
+  "env_allowlist": {
+    "HOME": "/home/sansha-2",
+    "PATH": "/home/sansha-2/.local/bin:/home/sansha-2/.elan/bin:/usr/local/bin:/usr/bin:/bin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs with fixed locale and timezone inside bubblewrap with a read-only host root, only a fresh temporary output directory writable, and an unshared network namespace. LEAN_PATH names only pre-existing compiled-library paths, so the replay performs no manifest resolution or dependency mutation. This is a narrow network-isolated warm-cache replay, not a section 10.6 cold build.",
+  "expected_exit": 0,
+  "observed_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0476-ROOT",
+    "M0476-S-INTERFACE",
+    "M0476-S-BOUNDARY",
+    "M0476-S-FACT-TRANSPORT",
+    "M0476-S-FOUNDATION",
+    "M0476-T-COMPOSE",
+    "M0476-L-WILSON",
+    "M0476-N-FACTORIAL-PRODUCT",
+    "M0476-L-FACTORIAL-INTERVAL",
+    "M0476-T-NAT-CAST-PRODUCT",
+    "M0476-N-PRIME-ENDPOINT",
+    "M0476-C-RESIDUE-UNITS-BIJECTION",
+    "M0476-B-UNIT-VAL-RANGE",
+    "M0476-L-UNIT-VAL-INJECTIVE",
+    "M0476-C-RESIDUE-TO-UNIT",
+    "M0476-T-REPRESENTATIVE-COE",
+    "M0476-L-UNITS-PRODUCT",
+    "M0476-C-INVERSE-PAIRING",
+    "M0476-L-INVERSE-FIXED-POINTS",
+    "M0476-T-INSERT-NEGONE",
+    "M0476-T-UNITS-COE-NEGONE",
+    "M0476-X-PROVENANCE",
+    "M0476-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+    "Stage1Instances.THM_M_0476.ObligationTree.factorialProduct_of_identities",
+    "Stage1Instances.THM_M_0476.ObligationTree.residueUnitsProduct_of_components",
+    "Stage1Instances.THM_M_0476.ObligationTree.unitEraseProduct_of_inversion",
+    "Stage1Instances.THM_M_0476.ObligationTree.unitProductIdentity_of_erase",
+    "Stage1Instances.THM_M_0476.ObligationTree.unitsProductBridge_of_components",
+    "Stage1Instances.THM_M_0476.ObligationTree.factWilsonAnchor_of_bridges",
+    "Stage1Instances.THM_M_0476.ObligationTree.root_of_factWilsonAnchor",
+    "Stage1Instances.THM_M_0476.ObligationTree.root_of_composedTarget",
+    "Stage1Instances.THM_M_0476.Proof.wilsonTheorem",
+    "Stage1Instances.THM_M_0476.Proof.wilsonTheorem_via_frozen_composition",
+    "ZMod.wilsons_lemma",
+    "FiniteField.prod_univ_units_id_eq_neg_one",
+    "Finset.prod_Ico_id_eq_factorial",
+    "Finset.prod_natCast",
+    "Nat.prime_iff_fac_equiv_neg_one",
+    "Stage1Instances.THM_M_0476.Validation.wilsonTheorem_via_primeCharacterization"
+  ],
+  "scope_boundary": "Network-isolated, read-only-root worker replay of the frozen target, frozen composition, proof roots, selected pinned source/body/olean provenance, exact observed axioms, and a Statement-only same-worker differential reconstruction. M0476-S-FOUNDATION is covered only by a fail-closed decision because complete foundation and TCB closure is absent. Covered IDs identify replay scope and grant no accepted closure. Proof master acceptance, complete transitive provenance/trust/SBOM, clean-checkout empty-cache offline replay, and distinct signed independent verification remain open."
+}

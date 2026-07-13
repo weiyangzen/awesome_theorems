@@ -42,8 +42,16 @@ representative-to-unit bijection, inverse pairing, unit product, `Fact` transpor
 `check_proof.sh`, `check_proof.py`, `proof-validation.md`, and `proof-receipt.json` bind this
 placeholder-free proof proposal to the pinned sources and allowlisted axiom closure.
 
+`Validation.lean` reconstructs the exact root through the stronger pinned Wilson characterization
+without importing `Proof` or `ObligationTree`. `check_validation.sh` replays the statement,
+composition, both proof roots, and the differential root with a read-only host filesystem and an
+unshared network namespace. `check_validation.py`, `validation-spec.json`,
+`validation-receipt.json`, and `validation-phase.md` bind selected trust and provenance evidence and
+record the complete foundation/TCB, cold hermetic, and distinct-runner gates as fail-closed.
+
 The accepted vector remains `[H1, M3, R4]`. The proof phase proposes `M0-W`, but only the integration
-lane may accept it; accepted proof state is still empty. Primary-source H0, full provenance and
-trust closure, readable R0, hermetic and independent validation, release assurance, and master
-acceptance remain open. No accepted M0, accepted execution state, audit completion, theorem
-completion, or master acceptance is claimed.
+lane may accept it; accepted proof state is still empty. The validation phase is only self-tested
+worker evidence: primary-source H0, full provenance and trust closure, readable R0, cold hermetic
+and distinct-runner independent validation, release assurance, and master acceptance remain open.
+No accepted M0, accepted execution state, audit completion, theorem completion, or master
+acceptance is claimed.

@@ -1,0 +1,152 @@
+{
+  "schema_version": "stage1-proof-attempt/1.0",
+  "item_id": "S56-M-1234-PROOF",
+  "theorem_id": "THM-M-1234",
+  "intent": "prove",
+  "base_revision": "c45f3c7090cb4adf616d45e5414985f956e807b2",
+  "base_tree": "da6f991c07f11e8608ddc090af9356558d64d360",
+  "recorded_at": "2026-07-14T01:10:29+08:00",
+  "outcome": "blocked",
+  "support_state": "self_checked_partial_body_not_item_complete",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "root_vector_after": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "debt_vector_delta": "none",
+  "accepted_receipt_ids": [],
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1234/ConstructionProof.lean",
+    "Stage1_Instances/THM-M-1234/proof-attempt-2026-07-14.json",
+    "Stage1_Instances/THM-M-1234/proof-attempt-2026-07-14.md"
+  ],
+  "canonical_target": "Stage1Rev56.THMM1234.Statement",
+  "implemented_declarations": [
+    "Stage1Rev56.THMM1234.initialCandidateFields",
+    "Stage1Rev56.THMM1234.candidateConstructionPackage_from_initialData",
+    "Stage1Rev56.THMM1234.initialCandidateFields_trace",
+    "Stage1Rev56.THMM1234.root_of_equationAndTraceClosure"
+  ],
+  "proof_body": {
+    "classification": "local_partial_proof_body",
+    "source": "Stage1_Instances/THM-M-1234/ConstructionProof.lean",
+    "source_sha256": "3bd15a9b96f208f9ae118b0989f0a14d0cfb7a3b73947da9b91fad51f2bb1ae9",
+    "exact_closed_formal_interface": "Stage1Rev56.THMM1234.CandidateConstructionPackage",
+    "semantic_obligation_credit": "none",
+    "reason": "The frozen M1234-A-STRUCTURE node formally targets CandidateConstructionPackage but semantically requires the still-open M1234-A-APPROX, M1234-A-ENERGY, and M1234-A-COMPACT children. The local body closes only the under-specified interface and cannot close that node under the typed graph."
+  },
+  "inputs": {
+    "statement_sha256": "f16005b36837682ec1f63bd6c5d15945e2d4a91402a28f8b80d0d3606da3e503",
+    "obligation_tree_sha256": "24394de823223f372b488151b5b9b31f80a7a248155fb9d7787d04ab6062a1ea",
+    "obligation_registry_sha256": "6d96478457b52f5e86446b08d70f68b1125e460c59987fe17aef60cf4c8b835f",
+    "typed_graphs_sha256": "00dee26be2f658474d72a0355911ec245d2fac94b1ecf253f5b546e1c1888108",
+    "registry_denominator_sha256": "cfa0a02c68993c8b3eefc0edfe7d3d7bd20e2b58d140f47a1f5444a8ba734c5d"
+  },
+  "environment": {
+    "lean": "4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "dependency_cache": "pre-existing canonical .lake symlink used read-only",
+    "network": "not_used"
+  },
+  "validation_recipe": {
+    "cwd": ".",
+    "argv": [
+      "bash",
+      "-c",
+      "set -euo pipefail; tmp=$(mktemp -d /tmp/thm-m-1234-proof.XXXXXX); trap 'rm -rf \"$tmp\"' EXIT; cp Stage1_Instances/THM-M-1234/{Statement,ObligationTree,ConstructionProof}.lean \"$tmp\"; LEAN_BIN=$(cd Formalizations/Lean && lake env which lean); LEAN_PATH_PINNED=$(cd Formalizations/Lean && lake env printenv LEAN_PATH); cd \"$tmp\"; LEAN_PATH=\"$LEAN_PATH_PINNED\" \"$LEAN_BIN\" -o Statement.olean Statement.lean; LEAN_PATH=\".:$LEAN_PATH_PINNED\" \"$LEAN_BIN\" -o ObligationTree.olean ObligationTree.lean; LEAN_PATH=\".:$LEAN_PATH_PINNED\" \"$LEAN_BIN\" ConstructionProof.lean"
+    ],
+    "timeout_seconds": 180,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_declarations": [
+      "Stage1Rev56.THMM1234.candidateConstructionPackage_from_initialData",
+      "Stage1Rev56.THMM1234.initialCandidateFields_trace",
+      "Stage1Rev56.THMM1234.root_of_equationAndTraceClosure"
+    ]
+  },
+  "validation_result": {
+    "exit_code": 0,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "argv": ["bash", "-c", "isolated temporary-directory Lean replay recorded in validation_recipe"],
+      "exit_code": 0,
+      "result": "isolated Statement, ObligationTree, and ConstructionProof replay passed; new declarations reported only propext, Classical.choice, and Quot.sound"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-1234/check_obligation_tree.py"],
+      "exit_code": 0,
+      "result": "14 obligations and 28 typed edges passed; frozen root remained open at M3"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "15 assurance groups and 1546 uniform-L0 targets passed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "1546 unique targets at ranks 1 through 1546 passed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-1234"],
+      "exit_code": 0,
+      "result": "rank 158; planned; L0/rework-required; theorem_complete false"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1234/proof-attempt-2026-07-14.json"],
+      "exit_code": 0,
+      "result": "structured attempt record parsed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-1234"],
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--no-index", "--check", "/dev/null", "each new owned file"],
+      "exit_code": 1,
+      "result": "expected new-file difference for every artifact, with empty diagnostic output and no whitespace errors"
+    }
+  ],
+  "closed_obligation_ids": [],
+  "supported_interfaces": [
+    "M1234-A-STRUCTURE exact formal target only",
+    "M1234-E-TRACE for the specific constant-in-time initial candidate only"
+  ],
+  "remaining_root_cut_set": [
+    "M1234-A-APPROX",
+    "M1234-A-ENERGY",
+    "M1234-A-COMPACT",
+    "M1234-E-CLOSURE"
+  ],
+  "first_failed_gate": "M1234-A-APPROX remains an open required proof child; the formal CandidateConstructionPackage interface does not consume an approximation, estimate, or compactness witness and therefore cannot compose those children truthfully.",
+  "retry_condition": "Repair the obligation architecture with exact child-consuming formal targets and implement the analytic approximation/estimate/compactness route, or pin an immutable exact Lean proof; then implement the remaining momentum closure and re-run exact composition checks.",
+  "known_failures": [
+    "The universal Yudovich Statement is not proved.",
+    "EquationAndTraceClosurePackage remains without a proof body; its universal quantification over every CandidateFields witness is stronger than an ordinary existence construction.",
+    "No frozen semantic obligation is claimed closed because the implemented construction interface does not consume its required proof children.",
+    "The predecessor task is provisional rather than master-accepted, and validation/release gates remain open.",
+    "The pre-existing untracked canonical .lake symlink makes this nonrelease evidence."
+  ],
+  "selftest_manifest_written": false,
+  "status_boundary": "This is a blocked proof-attempt record with a real partial Lean body. It does not satisfy S56-M-1234-PROOF, does not propose [_], and does not claim root, audit, validation, release, or theorem completion."
+}
