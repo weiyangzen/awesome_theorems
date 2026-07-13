@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1553-VALIDATION-network-isolated-replay-v1",
+  "item_id": "S56-M-1553-VALIDATION",
+  "theorem_id": "THM-M-1553",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1553/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through Bubblewrap with --unshare-net, a read-only root, a writable temporary output directory, fixed locale/timezone, and one Lean worker thread. Host-side hash and Git checks make no network request. This remains warm-cache node evidence, not cold hermetic release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1553-ROOT",
+    "M1553-S-CONTEXT",
+    "M1553-N-HIROTA",
+    "M1553-N-TRANSFORM",
+    "M1553-L-REGULARITY",
+    "M1553-L-LOG",
+    "M1553-L-MIXED",
+    "M1553-B-POLYNOMIAL",
+    "M1553-T-ZERO",
+    "M1553-T-ASSEMBLE",
+    "M1553-S-BOUNDARY",
+    "M1553-X-PROVENANCE",
+    "M1553-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1553.hirotaKdVTarget_of_logDerivativeBridge",
+    "Stage1Instances.THM_M_1553.logarithmic_bilinear_identity",
+    "Stage1Instances.THM_M_1553.logDerivativeBridge",
+    "Stage1Instances.THM_M_1553.hirotaKdVTarget_proof",
+    "Stage1Instances.THM_M_1553.Validation.independentlyReconstructedLogarithmicIdentity",
+    "Stage1Instances.THM_M_1553.Validation.independentlyReconstructedHirotaKdVTarget"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1016-VALIDATION",
+  "theorem_id": "THM-M-1016",
+  "recipe_id": "VAL-M1016-PROVISIONAL-WARM",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "Stage1_Instances/THM-M-1016/check_validation.py"
+  ],
+  "env_allowlist": {
+    "LC_CTYPE": "C.UTF-8"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs under bubblewrap with a read-only host root, an isolated network namespace, a writable fresh temporary module directory, and an ephemeral sandbox /dev.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact PASS/STALE/BLOCKED gate lines plus content hashes; timing and temporary paths excluded"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1016-ROOT",
+    "M1016-S-DEFINITIONS",
+    "M1016-S-BOUNDARIES",
+    "M1016-S-FOUNDATION",
+    "M1016-N-TIGHTNESS",
+    "M1016-N-CONCENTRATION",
+    "M1016-C-REMAINDER",
+    "M1016-L-LITTLE-O",
+    "M1016-L-PRODUCT",
+    "M1016-L-LINEAR-MAP",
+    "M1016-T-REMAINDER",
+    "M1016-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1016.deltaMethod_of_remainder",
+    "Stage1Instances.THM_M_1016.Proof.normalizedLawsTight",
+    "Stage1Instances.THM_M_1016.Proof.normalizedTail",
+    "Stage1Instances.THM_M_1016.Proof.inputConvergesInMeasure",
+    "Stage1Instances.THM_M_1016.Proof.scaledRemainderTendstoInMeasure",
+    "Stage1Instances.THM_M_1016.Proof.transformedAEMeasurable",
+    "Stage1Instances.THM_M_1016.Proof.deltaMethod",
+    "Stage1Instances.THM_M_1016.Proof.statementProof",
+    "Stage1Instances.THM_M_1016.Validation.exactRootProbe"
+  ],
+  "obligation_evidence_map": {
+    "M1016-ROOT": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.statementProof", "Stage1Instances.THM_M_1016.Validation.exactRootProbe"],
+      "worker_result": "locally_kernel_closed"
+    },
+    "M1016-S-DEFINITIONS": {
+      "declarations": ["Stage1Instances.THM_M_1016.StatementShape"],
+      "worker_result": "locally_elaborated"
+    },
+    "M1016-S-BOUNDARIES": {
+      "declarations": ["Stage1Instances.THM_M_1016.MutationNoScalingLimit", "Stage1Instances.THM_M_1016.MutationRealDomain", "Stage1Instances.THM_M_1016.MutationVaryingCenter", "Stage1Instances.THM_M_1016.MutationZeroScaling"],
+      "worker_result": "locally_elaborated_and_fingerprint_distinguished"
+    },
+    "M1016-S-FOUNDATION": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.statementProof"],
+      "worker_result": "observed_axioms_only_profile_acceptance_open"
+    },
+    "M1016-N-TIGHTNESS": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.normalizedLawsTight", "Stage1Instances.THM_M_1016.Proof.normalizedTail"],
+      "worker_result": "locally_kernel_closed"
+    },
+    "M1016-N-CONCENTRATION": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.inputConvergesInMeasure"],
+      "worker_result": "locally_kernel_closed"
+    },
+    "M1016-C-REMAINDER": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.scaledRemainderTendstoInMeasure"],
+      "worker_result": "locally_kernel_closed"
+    },
+    "M1016-L-LITTLE-O": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.scaledRemainderTendstoInMeasure"],
+      "worker_result": "locally_kernel_closed_within_remainder_body"
+    },
+    "M1016-L-PRODUCT": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.scaledRemainderTendstoInMeasure"],
+      "worker_result": "locally_kernel_closed_within_remainder_body"
+    },
+    "M1016-L-LINEAR-MAP": {
+      "declarations": ["Stage1Instances.THM_M_1016.deltaMethod_of_remainder"],
+      "worker_result": "locally_kernel_closed"
+    },
+    "M1016-T-REMAINDER": {
+      "declarations": ["Stage1Instances.THM_M_1016.Proof.scaledRemainderTendstoInMeasure"],
+      "worker_result": "locally_kernel_closed"
+    },
+    "M1016-T-ASSEMBLE": {
+      "declarations": ["Stage1Instances.THM_M_1016.deltaMethod_of_remainder", "Stage1Instances.THM_M_1016.Proof.deltaMethod"],
+      "worker_result": "locally_kernel_closed"
+    }
+  },
+  "release_grade": false,
+  "release_exclusion": "The recipe reuses the pre-existing canonical pinned warm dependency cache in one nonrelease worker checkout; this is not an empty-cache cold replay or distinct-runner attestation."
+}
