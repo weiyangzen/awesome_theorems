@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1237-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1237-VALIDATION",
+  "theorem_id": "THM-M-1237",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1237/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through Bubblewrap with --unshare-net, a read-only host filesystem, only its disposable module directory writable, and fixed LANG, LC_ALL, and TZ. Host-side hash and Git checks make no network request.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1237-S",
+    "M1237-C",
+    "M1237-L-VALUE",
+    "M1237-X-TRUST",
+    "M1237-T"
+  ],
+  "covered_declarations": [
+    "Stage1Rev56.THMM1237.Statement",
+    "Stage1Rev56.THMM1237.statement_iff_expanded",
+    "Stage1Rev56.THMM1237.ObligationTree.root_compose",
+    "Stage1Rev56.THMM1237.Proof.representativeFamily",
+    "Stage1Rev56.THMM1237.Proof.not_valueEstimateFamily",
+    "Stage1Rev56.THMM1237.Validation.independentlyRefutedValueEstimateFamily"
+  ],
+  "scope_boundary": "Network-isolated trust-zero replay over the pinned shared warm dependency cache. It validates the exact statement transport, conditional composition, local representative body, and two separately implemented same-worker refutations of the frozen value-estimate interface; it does not close the exact root or satisfy cold-hermetic, complete-trust, or distinct-runner gates."
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0663-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0663-RELEASE",
+  "theorem_id": "THM-M-0663",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0663/check_release.py"
+  ],
+  "env_allowlist": {
+    "PATH": "ambient tool-discovery path; executable identities are verified by digest",
+    "HOME": "ambient elan toolchain root; release evidence remains nonrelease",
+    "LANG": "ambient for host-side Python/Git/Lake checks; Lean replay is forced to C.UTF-8",
+    "LC_ALL": "ambient for host-side Python/Git/Lake checks; Lean replay is forced to C.UTF-8",
+    "TZ": "ambient for host-side Python/Git/Lake checks; Lean replay is forced to UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Lean elaboration runs through bubblewrap --unshare-net with fixed locale and timezone. Host-side hash, manifest, Git, and invariant checks use no network.",
+  "environment_boundary": "Host-side environment is not hermetic and makes this recipe nonrelease evidence. Only the Lean subprocesses run with fixed locale/timezone and network isolation; executable digests are recomputed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line gate and verdict summary retained in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0663-ROOT",
+    "M0663-B-DEGENERATE",
+    "M0663-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0663.OMinimalMonotonicity",
+    "Stage1Instances.THM_M_0663.root_of_partition_package",
+    "Stage1Instances.THM_M_0663.partition_of_subsingleton",
+    "Stage1Instances.THM_M_0663.partition_empty",
+    "Stage1Instances.THM_M_0663.Validation.partitionOfSubsingletonDirect",
+    "Stage1Instances.THM_M_0663.Validation.partitionEmptyDirect"
+  ],
+  "reconciled_inventory_ids": [
+    "M0663-ROOT",
+    "M0663-S-ENCODING",
+    "M0663-N-DOMAIN",
+    "M0663-B-DEGENERATE",
+    "M0663-C-EXCEPTIONAL",
+    "M0663-L-LOCAL-CONT",
+    "M0663-L-LOCAL-ORDER",
+    "M0663-L-FINITENESS",
+    "M0663-T-PARTITION",
+    "M0663-T-ASSEMBLE",
+    "M0663-X-SOURCE",
+    "M0663-X-FOUNDATION",
+    "M0663-X-PROVENANCE",
+    "M0663-X-READABLE"
+  ],
+  "coverage_semantics": "covered_obligation_ids are the nodes directly checked by Lean or exact node-boundary assertions. reconciled_inventory_ids are structurally inspected only to derive a fail-closed terminal decision and receive no proof-closure credit.",
+  "scope_boundary": "Current worker-side fail-closed reconciliation and warm-cache kernel replay. It cannot close the o-minimal monotonicity root, accept the provisional dependency, produce release-grade cold/offline or independent evidence, or perform master acceptance."
+}
