@@ -1,0 +1,43 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1278-VALIDATION",
+  "theorem_id": "THM-M-1278",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-1278-VALIDATION-fail-closed-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-1278/check_validation.py"
+      ],
+      "env_allowlist": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 300,
+      "network_policy": "denied",
+      "network_enforcement": "bubblewrap --unshare-net for every Lean invocation",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-1278 narrow validation and explicit fail-closed root/release gates"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M1278-N-SUBTRACT-MEAN",
+        "M1278-N-ENERGY"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_1278_Obligations.exists_subtract_mean",
+        "Stage1Instances.THM_M_1278_Obligations.dirichletEnergy_subtractMean",
+        "Stage1Instances.THM_M_1278_Validation.independentlyExistsSubtractMean",
+        "Stage1Instances.THM_M_1278_Validation.independentlyDirichletEnergyInvariant"
+      ]
+    }
+  ],
+  "scope_boundary": "Network-denied replay from copied sources using existing pinned warm dependency artifacts. The separately written probe validates only the two partial proof obligations and is neither canonical-root transport, sharp Onofri closure, a distinct runner, a cold empty-cache release build, nor complete trust/provenance closure."
+}
