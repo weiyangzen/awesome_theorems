@@ -1,0 +1,252 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1472",
+  "item_id": "S56-M-1472-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1149,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Lax等价定理",
+  "name_en": "Lax equivalence theorem",
+  "canonical_name": "Lax-Richtmyer equivalence theorem family for linear finite-difference approximations",
+  "category": "其他重要领域 / 数值分析",
+  "category_en": "Other Important Fields / Numerical Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Lax等价定理",
+  "literal_source_claim_zh": "稳定性+相容性=收敛性",
+  "literal_source_claim_en": "Stability plus consistency equals convergence.",
+  "source_attribution": "Peter Lax, 1956 (catalog metadata only; likely incomplete Lax-Richtmyer attribution)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_published_named_theorem_and_formal_source_leads_but_exact_historical_or_generalized_root_source_mapping_errata_and_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_Lax_equivalence_family_but_catalog_slogan_does_not_select_an_exact_formulation_or_direction",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected properly posed linear continuous problem and source-selected consistent approximation family, prove the exact source direction or equivalence between the selected stability and convergence predicates.",
+  "target_disposition": "select and independently review one immutable Lax-Richtmyer or approved generalized proposition before statement or proof execution",
+  "statement_blocker": "The catalog slogan does not fix the historical 1956 versus a later generalized discretization formulation; continuous problem, spaces, scalar field, operator domain/range and well-posedness; approximation family, step filter, discrete spaces/operators and restriction maps; definitions and quantifier order for consistency, stability and convergence; norm, topology, data and time horizon; or whether the conclusion is sufficiency or a genuine equivalence. Translating '+' as conjunction and '=' as iff, or selecting the inspected 2021 sufficiency theorem, would add proposition-changing mathematics without an accepted source decision.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
+      "Mathlib.Analysis.Normed.Operator.Completeness"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "ContinuousLinearMap.le_opNorm",
+      "banach_steinhaus",
+      "banach_steinhaus_iSup_nnnorm",
+      "ContinuousLinearMap.ofTendstoOfBoundedRange",
+      "ContinuousLinearMap.tendsto_of_tendsto_pointwise_of_cauchySeq",
+      "squeeze_zero"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_slogan_does_not_select_one_source_exact_Lax_equivalence_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix real or complex solution and data spaces, completeness, continuous operator domain/range and solution semantics, step-index/filter carrier, discrete spaces and operators, restriction/prolongation maps, universes, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not settle whether consistency and stability imply convergence, convergence under consistency implies stability, or both directions, nor the exact predicates, norms, filters, rates, data classes, and time horizon.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; statement work must resolve every step-set, space, operator, data, time, solvability, uniformity, and arithmetic case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the classical Lax-Richtmyer necessity-and-sufficiency result for a consistent approximation to a properly posed linear initial-value problem",
+    "the Sanz-Serna-Palencia generalized discretization equivalence theorem",
+    "the 2021 Tekriwal-Duraisamy-Jeannin consistency-and-stability-implies-convergence theorem",
+    "a source-specific finite-difference scheme convergence theorem under independently proved consistency and stability",
+    "an abstract operator-error squeeze lemma",
+    "a Banach-Steinhaus necessity-direction bridge"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero, negative, nonreal, or nonadmissible step sizes and whether zero belongs to the step set",
+    "empty, singleton, finite, or non-directed approximation families and failure of zero to be the unique limit point",
+    "zero-dimensional or trivial spaces, zero operators, zero data and solutions, and zero time horizon",
+    "singular or nonunique continuous and discrete problems and unbounded solution or restriction operators",
+    "non-dense consistency cores, incompatible data, and pointwise versus uniform hypotheses",
+    "one-step versus multistep initialization, finite versus infinite time, and mesh-dependent constants",
+    "exact versus floating-point arithmetic, roundoff stability, solver tolerances, and computation boundaries"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1465 finite-difference methods or a convenient stencil-specific result",
+    "THM-M-1471 a priori error estimates, THM-M-1473 CFL, or THM-M-1474 von Neumann stability",
+    "THM-M-0329 Lax-Milgram, THM-M-1201/THM-M-1202 Lax entropy results, or THM-M-1550/THM-M-1551 Lax-pair results",
+    "the 1985 generalized theorem or 2021 Coq statement silently substituted for the unaudited 1956 target",
+    "an arbitrary proposition-level encoding such as (Stable and Consistent) iff Convergent",
+    "a structure field or hypothesis that directly stores the requested stability, consistency, convergence, or implication",
+    "Banach-Steinhaus, an operator-norm inequality, a generic limit, or a squeeze lemma alone",
+    "a finite numerical experiment, convergence table, residual, floating-point plot, or unchecked certificate",
+    "the catalog's untrusted verified label, bibliographic metadata, or the Lean probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1465",
+      "name": "有限差分法",
+      "relationship": "broad finite-difference method family; no statement or proof credit is inherited"
+    },
+    {
+      "theorem_id": "THM-M-1471",
+      "name": "先验误差估计",
+      "relationship": "separate error-estimate target; cannot replace the stability-consistency-convergence relationship"
+    },
+    {
+      "theorem_id": "THM-M-1473",
+      "name": "CFL条件",
+      "relationship": "separate necessary domain-of-dependence condition; no proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1474",
+      "name": "von Neumann稳定性分析",
+      "relationship": "separate Fourier stability-analysis target; cannot substitute for the equivalence theorem"
+    },
+    {
+      "theorem_id": "THM-M-0329",
+      "name": "Lax-Milgram定理",
+      "relationship": "unrelated functional-analysis theorem sharing Lax's name"
+    },
+    {
+      "theorem_id": "THM-M-1201",
+      "name": "Lax熵条件",
+      "relationship": "unrelated conservation-law entropy condition sharing Lax's name"
+    },
+    {
+      "theorem_id": "THM-M-1550",
+      "name": "Lax对",
+      "relationship": "unrelated integrable-systems structure sharing Lax's name"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "P. D. Lax and R. D. Richtmyer, Survey of the stability of linear finite difference equations, Communications on Pure and Applied Mathematics 9(2), 267-293, May 1956, DOI 10.1002/cpa.3160090206",
+      "candidate_locator": "Crossref bibliographic record observed on 2026-07-13; publisher full text returned HTTP 403",
+      "candidate_summary": "likely historical source family matching the catalog year and theorem name; confirms that Richtmyer is a coauthor omitted by the catalog",
+      "status": "bibliographic lead only; original statement, definitions, assumptions, proof, pages within the article, errata, source mapping, and independent review were not inspected"
+    },
+    {
+      "citation": "Mohit Tekriwal, Karthik Duraisamy, and Jean-Baptiste Jeannin, A Formal Proof of the Lax Equivalence Theorem for Finite Difference Schemes, NFM 2021, arXiv:2103.13534, DOI 10.1007/978-3-030-76384-8_20",
+      "candidate_locator": "arXiv paper, Definitions 1-5 and Theorem 1, inspected on 2026-07-13",
+      "candidate_summary": "general normed-space setup following Sanz-Serna and Palencia; consistency plus stability implies convergence; includes a public Coq development",
+      "status": "modern source and formal lead only; not established as source-identical to the 1956 theorem, not independently reviewed, and not H0"
+    }
+  ],
+  "external_formal_candidates_not_credited": [
+    {
+      "formal_system": "Coq",
+      "repository": "https://github.com/mohittkr/Lax_equivalence",
+      "revision": "c19b626513ce8ec1a6426f2364e6c45e8caa85ae",
+      "tree": "2972b15fa05e611a7bf1a1369f71cc68e1aae56b",
+      "module_or_file": "lax_equivalence.v",
+      "declaration": "is_convergent",
+      "declared_dependencies": "Coq 8.9.1, MathComp 1.9.0, Flocq 3.2.0, Coquelicot 3.0.3, coq-interval 3.4.1, BigNums 8.9.0, and external CoqLM",
+      "status": "credible external Coq lead; not a Lean 4 artifact or repo-local dependency, and exact statement, source identity, proof body, axioms, placeholders, build, and dependency closure remain downstream audit work"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Normed.Operator.BanachSteinhaus",
+      "declarations": ["banach_steinhaus", "banach_steinhaus_iSup_nnnorm"],
+      "boundary": "uniform boundedness of pointwise bounded continuous semilinear maps; possible necessity substrate only, with no discretization model"
+    },
+    {
+      "module": "Mathlib.Analysis.Normed.Operator.Completeness",
+      "declarations": ["ContinuousLinearMap.ofTendstoOfBoundedRange", "ContinuousLinearMap.tendsto_of_tendsto_pointwise_of_cauchySeq"],
+      "boundary": "generic continuous-linear-map limit interfaces only; no finite-difference consistency, stability, or convergence theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.Normed.Operator.Basic",
+      "declaration": "ContinuousLinearMap.le_opNorm",
+      "boundary": "operator-norm application inequality only; one proof ingredient, not the target"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "f4efdfc7c685252a98f3508a5974ba81c0377a95",
+    "repository_base_tree": "94a9cfc613f86042a21fdfa174ba887334b93893",
+    "repository_record": "Docs/researches/math_theorems.md:10742-10747",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:40027-40052",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "3a89caacaa9ffba5beafa084731e7c67040e05b2388c1091e46811eedfe4b941",
+    "stage0_record_excerpt_sha256": "aa58eb51fe1e8fb2c47a4d6c788ccd52acd528a928526ea6ec9379a77862c145",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2e0d25fbfb60989e9c661f0c8be09ce1dcb4f1b6688f20a51d4528fea15d76cd",
+    "execution_dag_sha256": "fd43e64009594dbffc9a38d4a1e28f09c75cf84151edbbe6368a80df4bb914d3",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_operator_basic_source_sha256": "58e0278f8a8af3304d31244b01a7157a149e8f8e803a9b352875035b93e75de4",
+    "mathlib_banach_steinhaus_source_sha256": "737dd81a84049ff08ee79724090c88d5f1d7bacf6a7a465022d6cd8654ad9c61",
+    "mathlib_operator_completeness_source_sha256": "793d913a51a025d6e4d15e63c1a569fc096992a0c4df1f5f2a205f843fd12c58",
+    "observed_lax_richtmyer_crossref_sha256": "c1f0b999be1335fec8af248fc79d8624fd897d9b7a79aa59cda8a3644720f3c8",
+    "observed_modern_arxiv_pdf_sha256": "efa90f24bccc18f9cfb04fa958da96a49d27ab094b0b64a7fc3c4aaa157fc1f6",
+    "observed_external_commit_api_sha256": "b8111cd32eaab6831c8ec8b60234b53645648d1cb7107e0fd2f8ee663297cc5a",
+    "observed_external_coq_source_sha256": "0c5fbad0dbfb89a333bd60e47e410948a694b3013d511b3e1e62f6867b93d985",
+    "observed_external_readme_sha256": "ad4760f421bf2bacfac4285bc951eabf42df9bea3da135a25376db4a1b501f24"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; real versus complex scalars, choice, Banach-Steinhaus/Baire category, classical analysis, PDE solution foundations, and noncomputability policies remain open until an exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, terminal declarations, transitive dependencies, external Coq boundaries, and accepted trust policy remain open",
+  "computation_profile": "No finite-difference solver, floating-point run, sampled residual, convergence table, stability plot, benchmark, native shortcut, oracle, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1472/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1472/README.md",
+    "Stage1_Instances/THM-M-1472/instance.json",
+    "Stage1_Instances/THM-M-1472/scope-map.md",
+    "Stage1_Instances/THM-M-1472/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1472/task-dag.json",
+    "Stage1_Instances/THM-M-1472/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1472/check_intake.py",
+    "Stage1_Instances/THM-M-1472/validation.md",
+    "Stage1_Instances/THM-M-1472/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent numerical-analysis source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned numerical-PDE reviewer",
+    "reviewer_policy": "Independent reviewers must approve source edition and errata, historical/generalized formulation, attribution, continuous/discrete problems, predicates, direction, norms, filters, quantifiers, boundary cases, and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; externally observed metadata, paper, and Coq bytes are not vendored and this unaccepted dossier has no release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, attribution, source edition or errata, historical/generalized root choice, continuous/discrete model, spaces, operators, step filter, restriction maps, predicate definitions, implication direction, norm, time/data/quantifier/boundary decision, neighbor ownership, Lean target, external candidate finding, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog wording, missing Richtmyer attribution, source and external Coq leads, proposition-changing alternatives, neighbor boundaries, adjacent pinned APIs, and open task DAG. No canonical proposition, H0, source-identical Lean artifact, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

@@ -1,0 +1,215 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1473",
+  "item_id": "S56-M-1473-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1150,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "CFL条件",
+  "name_en": "Courant-Friedrichs-Lewy condition",
+  "canonical_name": "Courant-Friedrichs-Lewy condition for hyperbolic numerical schemes (exact variant unresolved)",
+  "category": "其他重要领域 / 数值分析",
+  "category_en": "Other Important Fields / Numerical Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "CFL条件",
+  "literal_source_claim_zh": "双曲型方程的稳定性条件",
+  "literal_source_claim_en": "A stability condition for hyperbolic equations.",
+  "source_attribution": "R. Courant, K. Friedrichs, and H. Lewy, 1928 (catalog metadata matches the inspected primary-source family but does not select a proposition)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_matching_primary_source_family_and_passages_located_but_exact_root_full_crosswalk_errata_translation_and_independent_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_CFL_family_but_catalog_conflates_or_leaves_open_necessity_convergence_stability_and_source_specific_variants",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives a CFL family label and calls it a stability condition for hyperbolic equations, but fixes no PDE, scheme, mesh, dependence regions, consistency/convergence/stability notion, norm, quantifier order, necessity or sufficiency direction, hypotheses, conclusion, or boundary cases. The 1928 source contains multiple source-specific nonconvergence and convergence claims. Selecting a generic domain-of-dependence theorem, wave-equation case, scalar-advection Courant bound, or stability theorem without approval would substitute missing mathematics.",
+  "target_decision": "admit and independently review one exact immutable-source CFL proposition or explicitly sourced conjunction before exact statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Algebra.Group.ForwardDiff",
+      "Mathlib.Analysis.InnerProductSpace.LaxMilgram"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "fwdDiff",
+      "fwdDiff_iter_eq_sum_shift",
+      "shift_eq_sum_fwdDiff_iter",
+      "IsCoercive",
+      "IsCoercive.bounded_below",
+      "IsCoercive.antilipschitz",
+      "IsCoercive.continuousLinearEquivOfBilin",
+      "IsCoercive.continuousLinearEquivOfBilin_apply"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_and_variant_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the hyperbolic PDE/system, coefficient and solution carriers, spatial dimension and domain, continuous and discrete spaces, grid/index types, universes, norms, topology, finiteness, and every typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose a necessary domain-of-dependence condition, source-specific nonconvergence result, sufficient convergence theorem, stability bound, Courant-number inequality, equivalence, or conjunction.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every PDE, scheme, grid, ratio, data, dependence-region, stability/convergence, arithmetic, and boundary case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "a general necessary numerical-domain-of-dependence condition for convergence",
+    "the 1928 one-dimensional wave-equation nonconvergence result for a forbidden mesh ratio",
+    "the 1928 wave-equation convergence theorem under source-specific data and mesh hypotheses",
+    "a scalar linear-advection upwind stability theorem with a Courant-number bound",
+    "a source-specific CFL theorem for another finite-difference or finite-volume scheme"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero, negative, unequal, or vanishing mesh widths and undefined or unbounded mesh ratios",
+    "zero speed, discontinuous coefficients, characteristic boundaries, and degenerate hyperbolicity",
+    "empty, singleton, finite, periodic, bounded, or unbounded grids and finite or infinite horizons",
+    "nonsmooth or incompatible data and nonexistent or nonunique PDE solutions",
+    "singular recurrences, missing startup data, equality at the CFL boundary, and wider or implicit stencils",
+    "exact versus floating-point arithmetic, roundoff, solver tolerance, and computation boundaries"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1465 finite-difference methods, THM-M-1472 Lax equivalence, or THM-M-1474 von Neumann stability analysis",
+    "a scalar-advection, wave-equation, or named-scheme theorem chosen without a source decision",
+    "abstract coercivity, forward-difference algebra, Taylor estimates, or a Fourier bound alone",
+    "a structure or hypothesis storing the desired dependence containment, stability, convergence, or conclusion",
+    "a finite computation, numerical residual, simulation, plot, benchmark, or floating-point experiment",
+    "the untrusted catalog label 已验证 or the discovery-only Lean probe"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1465",
+      "name": "有限差分法",
+      "relationship": "broader finite-difference method family; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1472",
+      "name": "Lax等价定理",
+      "relationship": "separate stability-consistency-convergence theorem family; not the CFL dependence condition"
+    },
+    {
+      "theorem_id": "THM-M-1474",
+      "name": "von Neumann稳定性分析",
+      "relationship": "separate Fourier-mode stability analysis; cannot replace CFL necessity or a selected source theorem"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "R. Courant, K. Friedrichs, and H. Lewy, Über die partiellen Differenzengleichungen der mathematischen Physik, Mathematische Annalen 100(1) (1928), 32-74, DOI 10.1007/BF01448839",
+      "source_url": "http://resolver.sub.uni-goettingen.de/purl?GDZPPN002272636",
+      "archive_work": "PPN235181684_0100",
+      "archive_range": "LOG_0005",
+      "observed_at": "2026-07-13",
+      "observed_size_bytes": 3164428,
+      "observed_pdf_pages": 44,
+      "observed_sha256": "2aee594c9a7c3eef1ab28fee1e44333e0e29c621ba60f049d63de107aeb2a30f",
+      "candidate_loci": [
+        "printed page 33: mesh-ratio inequalities determined by characteristic directions",
+        "Part II section 2, printed page 61: domain-of-dependence comparison and nonconvergence regime",
+        "Part II section 3, printed pages 62-65: wave-grid convergence under additional hypotheses"
+      ],
+      "status": "primary source family and passages inspected, but not H0: no root is selected, the full premise/proof/correction/translation crosswalk and independent review are open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Algebra.Group.ForwardDiff",
+      "declarations": ["fwdDiff", "fwdDiff_iter_eq_sum_shift", "shift_eq_sum_fwdDiff_iter"],
+      "boundary": "generic forward-difference algebra only; no PDE, scheme, dependence region, convergence, or stability theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.LaxMilgram",
+      "declarations": ["IsCoercive.bounded_below", "IsCoercive.antilipschitz", "IsCoercive.continuousLinearEquivOfBilin_apply"],
+      "boundary": "abstract coercive bilinear-form bounds only; no hyperbolic recurrence or CFL bridge"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "f4efdfc7c685252a98f3508a5974ba81c0377a95",
+    "repository_base_tree": "94a9cfc613f86042a21fdfa174ba887334b93893",
+    "repository_record": "Docs/researches/math_theorems.md:10749-10754",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:40054-40079",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "0fe18beb3034cc246cb38b2532c82f40d5de5850e271db6ba1aacba6d8165037",
+    "stage0_projection_excerpt_sha256": "a74c91e0fb721e36c5836679f82c9f49e6e1dde88fa0a155d8fab33c76d5e9d9",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2e0d25fbfb60989e9c661f0c8be09ce1dcb4f1b6688f20a51d4528fea15d76cd",
+    "execution_dag_sha256": "fd43e64009594dbffc9a38d4a1e28f09c75cf84151edbbe6368a80df4bb914d3",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_forward_diff_source_sha256": "e36fd10c918fd035c810008598b41565e31984cc520c1b20e8fc4e0d547b529a",
+    "mathlib_lax_milgram_source_sha256": "79643570d2052a66114e0f87f7b284e2dc72f79638b3c6c962ba18300a9abc6d",
+    "observed_crossref_metadata_sha256": "6557f12cdfc5855b76c781edebf1075ffdcf6d1c55e9d8a6d9d747acf86667f5",
+    "observed_gdz_manifest_sha256": "a0e7ecf6e83e06f4b2e1281f30371cdb5369f53f15e15d899bde6ea8c43c399f",
+    "observed_primary_scan_sha256": "2aee594c9a7c3eef1ab28fee1e44333e0e29c621ba60f049d63de107aeb2a30f",
+    "observed_page33_ocr_sha256": "0ccd0aa2583e8d514e0c5410d370ef6e466263f6278e3d92ef687fb1ab3b3a95",
+    "observed_page61_ocr_sha256": "f872a3ace4fe3fa787847bd8c5c3a97012629b7186f02983b2ae118ffac14d7e",
+    "observed_page64_ocr_sha256": "1b3cdf4bb0bb5791be73539feb7f81ac789f451e25a7c9baced4a2f93baf242e"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; real scalars, classical analysis, PDE solution spaces, grids, norms, and logical principles remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, numerical-scheme definitions, terminal declaration, transitive dependencies, and trust policy remain open",
+  "computation_profile": "No finite simulation, stencil run, residual, convergence fit, floating-point result, oracle, native shortcut, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1473/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1473/README.md",
+    "Stage1_Instances/THM-M-1473/instance.json",
+    "Stage1_Instances/THM-M-1473/scope-map.md",
+    "Stage1_Instances/THM-M-1473/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1473/task-dag.json",
+    "Stage1_Instances/THM-M-1473/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1473/check_intake.py",
+    "Stage1_Instances/THM-M-1473/validation.md",
+    "Stage1_Instances/THM-M-1473/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent source and translation reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned numerical-hyperbolic-PDE reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition, selected proposition, PDE, scheme, grids, dependence regions, assumptions, conclusion direction, translation, and formal mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the observed external source bytes and this unaccepted worker dossier have no release archive claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog/source correction, source edition or translation, selected proposition, PDE/scheme/grid/dependence/stability/convergence/boundary decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records a matching primary source family and pinpoint passages, not an accepted exact theorem or H0. M4/R4 remain because no usable formal target or readable proof can attach to an unfrozen root. No canonical statement, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
