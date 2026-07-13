@@ -1,0 +1,271 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1451",
+  "item_id": "S56-M-1451-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1128,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "QR算法",
+  "name_en": "QR algorithm",
+  "canonical_name": "QR iteration for matrix eigenvalue computation theorem family",
+  "category": "其他重要领域 / 数值分析",
+  "category_en": "Other Important Fields / Numerical Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "特征值的QR迭代",
+  "literal_source_claim_en": "QR iteration for eigenvalues.",
+  "source_attribution": "John Francis/Vera Kublanovskaya; 1961 (uncited catalog attribution, not proposition-level evidence)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_published_QR_algorithm_sources_and_an_authoritative_modern_statement_lead_identified_but_exact_root_selection_primary_proof_assumptions_errata_source_to_node_mapping_and_independent_review_open",
+  "canonical_statement": "Provisional theorem-family scope only: a square-matrix QR eigenvalue iteration repeatedly factors A_(k-1) = Q_k R_k and forms A_k = R_k Q_k, with a source-selected exact claim about spectral invariance, structural preservation, or conditional convergence; the algorithm variant, domain, QR convention, hypotheses, conclusion, endpoint, rate, arithmetic model, and boundary cases remain to be source-frozen.",
+  "canonical_claim": null,
+  "canonical_claim_status": "recognizable_QR_eigenvalue_iteration_family_but_catalog_does_not_select_one_truth_valued_proposition",
+  "target_disposition": "requires_source_statement_selection_before_exact_statement_elaboration",
+  "statement_blocker": "The catalog supplies a QR eigenvalue-iteration label, not one exact theorem. It omits the scalar and matrix class, QR existence/selection and normalization, unshifted versus shifted/implicit/deflating variant, spectral hypotheses, diagonalizability/Jordan and initial coordinate-flag/eigenvector overlap genericity, and whether the root is a one-step invariant, cumulative similarity, Hessenberg preservation, convergence, rate, termination, stability, or eigenvalue-recovery theorem. It also omits the topology, Schur or real quasi-Schur endpoint, repeated/equal-modulus cases, shift policy, and exact versus floating-point semantics. Selecting the easy characteristic-polynomial invariant or a conditional convergence theorem at intake would narrow or substitute the target.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+      "Mathlib.LinearAlgebra.Matrix.Charpoly.Eigs",
+      "Mathlib.LinearAlgebra.UnitaryGroup"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "Matrix.charpoly_mul_comm",
+      "Matrix.charpoly_units_conj",
+      "Matrix.mem_spectrum_iff_isRoot_charpoly",
+      "InnerProductSpace.gramSchmidtOrthonormalBasis_inv_blockTriangular",
+      "OrthonormalBasis.toMatrix_orthonormalBasis_mem_unitary",
+      "Matrix.charpoly_of_upperTriangular"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_algorithm_domain_hypothesis_and_conclusion_selection",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix real or complex square matrices, finite ordered index type or dimension, exact matrix class, scalar and topology/norm structures, and universe conventions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not choose recurrence well-definedness, spectral invariance, Hessenberg preservation, convergence, rate, termination, numerical stability, or eigenvalue-recovery correctness.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before an exact source proposition is approved; every matrix-size, singularity, spectral-multiplicity, factor-selection, shift/deflation, convergence, and arithmetic case in scope-map.md remains open.",
+  "candidate_scope_not_credited": [
+    "unshifted exact QR recurrence plus per-step unitary similarity or characteristic-polynomial preservation",
+    "cumulative unitary similarity of every iterate to the input matrix",
+    "conditional convergence of the basic QR iteration to upper-triangular Schur form under distinct eigenvalue-modulus assumptions",
+    "preservation of upper Hessenberg structure under QR iteration",
+    "shifted or implicit Francis double-step convergence and deflation correctness",
+    "finite-precision backward stability or stopping-rule correctness"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero-by-zero and one-by-one matrices, zero and identity matrices, and already triangular input",
+    "singular matrices, rank-deficient iterates, zero diagonal entries, and nonunique QR factors",
+    "repeated eigenvalues, equal eigenvalue magnitudes, zero eigenvalues, and defective or nonnormal matrices",
+    "real matrices with complex-conjugate eigenvalue pairs and upper quasi-triangular rather than triangular endpoints",
+    "shift collision, exceptional shift, exact deflation, stalled iteration, and nontermination",
+    "exact real or complex arithmetic versus roundoff, overflow, residual tolerances, and backward error"
+  ],
+  "excluded_substitutions": [
+    "QR factorization existence without an iteration invariant or selected algorithm conclusion",
+    "characteristic-polynomial preservation of Q*R and R*Q advertised as convergence or numerical correctness",
+    "Schur decomposition existence advertised as proof that a QR iteration reaches Schur form",
+    "power, inverse, Rayleigh-quotient, Jacobi, Lanczos, or Arnoldi iteration",
+    "a symmetric, normal, diagonalizable, invertible, distinct-modulus, fixed-size, or unshifted special case unless source-frozen",
+    "a structure or hypothesis storing the factor sequence, desired endpoint, or convergence conclusion",
+    "a finite floating-point run, plot, residual table, or unchecked computation used as theorem evidence",
+    "the catalog's untrusted verified label, bibliography, or API probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0046",
+      "name": "QR分解定理",
+      "relationship": "QR factorization theorem family is an iteration ingredient, not this eigenvalue-algorithm target"
+    },
+    {
+      "theorem_id": "THM-M-1448",
+      "name": "QR分解",
+      "relationship": "separate QR factorization target; no source, artifact, status, or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1450",
+      "name": "幂迭代",
+      "relationship": "different eigenvalue iteration family"
+    },
+    {
+      "theorem_id": "THM-M-1452",
+      "name": "Lanczos算法",
+      "relationship": "different Krylov eigenvalue algorithm"
+    },
+    {
+      "theorem_id": "THM-M-1453",
+      "name": "Arnoldi迭代",
+      "relationship": "different Krylov eigenvalue algorithm"
+    }
+  ],
+  "source_candidates_not_credited": [
+    {
+      "citation": "Peter Arbenz, Numerical Methods for Solving Large Scale Eigenvalue Problems, Chapter 4, The QR Algorithm, printed pages 63-64, equation (4.1) and Algorithm 4.1",
+      "candidate_locator": "author-hosted chapter PDF https://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter4.pdf observed 2026-07-13",
+      "observed_sha256": "9826e5327bafd4d00c42abf5f643c62ec99bed3644d45b853c176234e323eeac",
+      "candidate_summary": "defines the basic complex QR iteration, proves consecutive iterates are unitarily similar, and sketches conditional triangular/Schur convergence while naming mutually distinct eigenvalue magnitudes",
+      "inspection_status": "inspected authoritative modern statement lead; uncited by catalog, mutable author-hosted file, complete convergence hypotheses including diagonalizability/Jordan and initial-flag genericity remain to be reconstructed, full proof is deferred to a later chapter/source, exact root is not selected, and no immutable admission, errata audit, or independent review exists"
+    },
+    {
+      "citation": "J. G. F. Francis, The QR Transformation A Unitary Analogue to the LR Transformation--Part 1, The Computer Journal 4(3), 1961, 265-271, DOI 10.1093/comjnl/4.3.265",
+      "candidate_locator": "Crossref metadata response observed 2026-07-13; response SHA-256 34a84b152c81a105fe551325aa7d9b6f38bff2bd46c8013c2a8578afefdda0f8",
+      "candidate_summary": "historical lead matching the Francis attribution and 1961 year",
+      "inspection_status": "bibliographic metadata only; publisher PDF returned HTTP 403, so theorem text, assumptions, proof, corrections, and catalog mapping were not inspected"
+    },
+    {
+      "citation": "J. G. F. Francis, The QR Transformation--Part 2, The Computer Journal 4(4), 1962, 332-345, DOI 10.1093/comjnl/4.4.332",
+      "candidate_locator": "Crossref metadata response observed 2026-07-13; response SHA-256 1663bea303c8dcb3e63d6f71e2d027716aef0089463fd28fe6d4bc51b22ef42a",
+      "candidate_summary": "second historical Francis publication lead",
+      "inspection_status": "bibliographic metadata only; primary statement, proof, assumptions, corrections, and relationship to a canonical root remain uninspected"
+    },
+    {
+      "citation": "V. N. Kublanovskaya, On some algorithms for the solution of the complete eigenvalue problem, USSR Computational Mathematics and Mathematical Physics 1(3), 1962, 637-657, DOI 10.1016/0041-5553(63)90168-X",
+      "candidate_locator": "Crossref metadata response observed 2026-07-13; response SHA-256 62f1b53cc9257aa1c750aa133377feb4e1b4450fa606e11cd94d6537df0241a2",
+      "candidate_summary": "historical publication lead supporting the Kublanovskaya attribution",
+      "inspection_status": "metadata only; primary text, theorem and algorithm identity, assumptions, proof, corrections, 1961/1962 chronology, and catalog mapping remain uninspected"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Charpoly.Basic",
+      "declaration": "Matrix.charpoly_mul_comm",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "exact characteristic-polynomial equality for Q*R and R*Q; one-step invariant ingredient only, with no factor construction, iteration sequence, convergence, endpoint, or numerical claim"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Charpoly.Eigs",
+      "declaration": "Matrix.mem_spectrum_iff_isRoot_charpoly",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "spectrum-to-characteristic-root bridge over a field; no QR iteration theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+      "declarations": [
+        "InnerProductSpace.gramSchmidtOrthonormalBasis",
+        "InnerProductSpace.gramSchmidtOrthonormalBasis_inv_blockTriangular"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "orthonormalization and triangular coefficient infrastructure only; no chosen QR factor sequence or eigenvalue-algorithm conclusion"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+      "declarations": [
+        "OrthonormalBasis.toMatrix_orthonormalBasis_mem_unitary",
+        "Matrix.mem_unitaryGroup_iff"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "unitary-matrix interfaces only; no recurrence, convergence, or algorithm correctness"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Charpoly.Basic",
+      "declaration": "Matrix.charpoly_of_upperTriangular",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "triangular endpoint characteristic polynomial only; it does not show a QR iteration reaches that endpoint"
+    }
+  ],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory with classical finite-dimensional linear algebra is intended; the accepted field, matrix topology, sequence/limit, finite-precision, and choice policies remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact imports, terminal declarations, transitive dependencies, compiled artifacts, and trust closure remain open",
+  "computation_profile": "qr-algorithm-planned/1.0: no floating-point run, residual, stopping heuristic, native shortcut, oracle, experiment, or unchecked certificate is credited; a source-selected exact-arithmetic proof or kernel-replayed numerical certificate policy is required",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "source_revisions": {
+    "repository_base": "03bed3c211cb739ccd2629908210fda0f9adf6ca",
+    "repository_base_tree": "a48670276bfe2105ddbfb4057314b21056dae0cb",
+    "repository_record": "Docs/researches/math_theorems.md:10595-10600",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39460-39485",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_origin_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "31e4e112dd4b67271e09c71affa19a226042cfff203dd675aea9c8b7afa08052",
+    "stage0_projection_excerpt_sha256": "3f1ea0ddd22c892759d7fe78d905f0bd9dceb16461375aef961edbfdc114a54f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "c6a128f1f9dcc915f796f296be680af07b9b1bee493aa0c95c16d961d7d3098a",
+    "execution_dag_sha256": "17988e9da662bf0a2cd2bce3fa0741287c64c4407b62a39601e3d5aac223f242",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "inspected_arbenz_chapter4_sha256": "9826e5327bafd4d00c42abf5f643c62ec99bed3644d45b853c176234e323eeac",
+    "francis_part1_crossref_response_sha256": "34a84b152c81a105fe551325aa7d9b6f38bff2bd46c8013c2a8578afefdda0f8",
+    "francis_part2_crossref_response_sha256": "1663bea303c8dcb3e63d6f71e2d027716aef0089463fd28fe6d4bc51b22ef42a",
+    "kublanovskaya_crossref_response_sha256": "62f1b53cc9257aa1c750aa133377feb4e1b4450fa606e11cd94d6537df0241a2",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "charpoly_basic_source_sha256": "9e22d8fdace32c7bb8304335027b95ccb4cca18b5d430076ac4f87b2d76ca3f2",
+    "charpoly_eigs_source_sha256": "1462327c88319a8a173ba85ab3f061e976fc01fd8646892e30387a715e127b01",
+    "gram_schmidt_source_sha256": "0eb98a48c591bfe2c4677a89e719b1973b199a55d6b1cfc9ce73c265ea22288a",
+    "unitary_group_source_sha256": "0136abe584007ffe1b9e9b0016b792ed92bc2de36fa710e87af9cb87d0808f93",
+    "matrix_block_source_sha256": "bdbdc046f6f10fdd634028259bbaae5dce9da670d8b95e37950f0a39390e3762"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "open_task_dag": "Stage1_Instances/THM-M-1451/task-dag.json",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1451/README.md",
+    "Stage1_Instances/THM-M-1451/instance.json",
+    "Stage1_Instances/THM-M-1451/scope-map.md",
+    "Stage1_Instances/THM-M-1451/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1451/task-dag.json",
+    "Stage1_Instances/THM-M-1451/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1451/check_intake.py",
+    "Stage1_Instances/THM-M-1451/validation.md",
+    "Stage1_Instances/THM-M-1451/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent numerical-linear-algebra reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned QR-algorithm reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or any dependent statement work",
+    "invalidation_inputs": [
+      "catalog, attribution, chronology, source, or target correction",
+      "algorithm variant, scalar/matrix domain, QR convention, hypotheses, conclusion, endpoint, rate, arithmetic model, or boundary decision",
+      "source edition, theorem/page, proof, errata, preservation, or independent review",
+      "canonical Lean target, transport, mutation, toolchain, dependency, profile, validator, receipt, or owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires fresh scoped validation"
+  },
+  "status_boundary": "Self-tested planned intake only when accompanied by the provisional receipt and worker packet. It supplies no accepted source, canonical proposition, exact Lean statement, proof body, obligation registry, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance."
+}
