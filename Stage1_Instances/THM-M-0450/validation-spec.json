@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0450-VALIDATION",
+  "theorem_id": "THM-M-0450",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0450-VALIDATION-fail-closed-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0450/check_validation.py"
+      ],
+      "env_allowlist": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 300,
+      "network_policy": "denied",
+      "network_enforcement": "bubblewrap --unshare-net for every Lean invocation",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0450 narrow validation and explicit fail-closed root/release gates"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0450-S",
+        "M0450-T-ASSEMBLE",
+        "M0450-X-TRANSPORT",
+        "M0450-X-PROVENANCE",
+        "M0450-X-TRUST"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0450.Proof.fg_iff_of_addEquiv",
+        "Stage1Instances.THM_M_0450.Proof.finiteIndex_iff_of_addEquiv",
+        "Stage1Instances.THM_M_0450.Proof.comap_doubling_range",
+        "Stage1Instances.THM_M_0450.Proof.doubling_finiteIndex_iff_of_addEquiv",
+        "Stage1Instances.THM_M_0450.Proof.northcott_comp_addEquiv",
+        "Stage1Instances.THM_M_0450.Proof.nonnegative_comp_addEquiv",
+        "Stage1Instances.THM_M_0450.Proof.parallelogram_comp_addEquiv",
+        "Stage1Instances.THM_M_0450.Proof.jacobian_fg_iff_affine_fg",
+        "Stage1Instances.THM_M_0450.Proof.jacobian_doubling_finiteIndex_iff_affine",
+        "Stage1Instances.THM_M_0450.Proof.exactTarget_of_descent_packages",
+        "Stage1Instances.THM_M_0450.Validation.exactTarget_conditional_probe"
+      ]
+    }
+  ],
+  "scope_boundary": "Network-denied replay from copied sources using the existing pinned warm dependency artifacts. The independent-source conditional probe is not a distinct runner, an unconditional root proof, a cold empty-cache release build, or complete TCB closure."
+}
