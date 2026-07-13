@@ -1,0 +1,224 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1464",
+  "item_id": "S56-M-1464-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1141,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "间断Galerkin方法",
+  "name_en": "discontinuous Galerkin method",
+  "canonical_name": "Discontinuous Galerkin method family, historically Reed-Hill transport discretization",
+  "category": "其他重要领域 / 数值分析",
+  "category_en": "Other Important Fields / Numerical Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "间断Galerkin方法",
+  "literal_source_claim_zh": "允许间断的有限元",
+  "literal_source_claim_en": "Finite elements allowing discontinuities.",
+  "source_attribution": "W. H. Reed and T. R. Hill, 1973 (catalog metadata consistent with inspected OSTI report LA-UR-73-479, but not an admitted root statement)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_method_gloss_only_no_selected_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_discretization_family_but_does_not_select_a_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies a DG method label and a short family description, not a proposition. Even the likely Reed-Hill source contains a transport discretization construction plus several empirical stability, accuracy, and iteration comparisons, not one general theorem. The repository fixes no PDE variant, domain, mesh, broken spaces, traces, numerical flux or penalty, boundary data, conclusion, norm, rate, constants, or analytic-versus-experimental boundary. Selecting a Reed-Hill construction, local unisolvence result, modern DG stability/error theorem, or benchmark proposition would change the target.",
+  "target_decision": "redirect the catalog method label to one independently reviewed, immutable-source proposition before exact statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.AffineSpace.Simplex.Basic",
+      "Mathlib.MeasureTheory.Integral.Bochner.Set",
+      "Mathlib.Analysis.InnerProductSpace.LaxMilgram"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "Affine.Simplex",
+      "Affine.Triangle",
+      "Affine.Simplex.faceOpposite",
+      "Affine.Simplex.range_faceOpposite_points",
+      "MeasureTheory.integral_piecewise",
+      "IsCoercive.continuousLinearEquivOfBilin",
+      "IsCoercive.continuousLinearEquivOfBilin_apply",
+      "IsCoercive.unique_continuousLinearEquivOfBilin"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted root must fix the PDE and coefficient domain, physical domain and dimension, mesh and face types, broken trial/test spaces, scalar field, traces and fluxes, norms, universes, finiteness, measurability, completeness, and every typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose construction, unisolvence, consistency, conservation, stability, solvability, convergence, error, complexity, or an exact benchmark result.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every model, mesh, trace, flux, polynomial, solver, arithmetic, and boundary case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "formal construction of the 1973 Reed-Hill explicit discontinuous transport cell equations",
+    "unisolvence or nonsingularity of one Reed-Hill local weighted-residual matrix under fixed weights and geometry",
+    "reproduction of one Reed-Hill S2 benchmark table under exact numerical semantics",
+    "a later source's consistency, conservation, stability, convergence, or a priori error theorem for a fixed DG scheme",
+    "a modern interior-penalty, local-DG, Runge-Kutta-DG, or conservation-law theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, overlapping, hanging, collinear, zero-area, or inconsistently oriented cells and non-regular refinements",
+    "polynomial degree zero or one, malformed interpolation nodes, non-polynomial tests, and singular local matrices",
+    "zero or tangent streaming directions and one or two incoming faces",
+    "vacuum, inflow, reflective, periodic, initial, and physical boundary conditions",
+    "zero, discontinuous, nonsymmetric, noncoercive, or optically thick coefficients and zero source",
+    "negative flux, fixup, scattering/fission source iteration, acceleration, and solver nonconvergence",
+    "exact versus numerical integration, exact versus floating-point arithmetic, and empirical versus theorem claims"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1461 finite element, THM-M-1462 Galerkin, THM-M-1463 Petrov-Galerkin, THM-M-1465 finite difference, or THM-M-1466 finite volume proof credit",
+    "generic Lax-Milgram solvability or assumed coercivity without a checked DG form and bridge",
+    "affine-simplex geometry, piecewise integration, polynomial dimension, or a local matrix inverse alone",
+    "a modern DG scheme not identified by the selected source, or a Reed-Hill transport statement substituted for all modern DG methods",
+    "a hypothesis or structure field that stores the desired nonsingularity, stability, consistency, or error result",
+    "a numerical table, residual, plot, timing run, or floating-point experiment",
+    "the untrusted catalog label 已验证 or the discovery-only Lean probe"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1461",
+      "name": "有限元方法",
+      "relationship": "broader finite-element family; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1462",
+      "name": "Galerkin方法",
+      "relationship": "broader projection/weighted-residual family; no DG interface or closure is inherited"
+    },
+    {
+      "theorem_id": "THM-M-1463",
+      "name": "Petrov-Galerkin方法",
+      "relationship": "distinct trial/test-space family; not a substitute DG root"
+    },
+    {
+      "theorem_id": "THM-M-1465",
+      "name": "有限差分法",
+      "relationship": "different discretization family; no status or evidence is shared"
+    },
+    {
+      "theorem_id": "THM-M-1466",
+      "name": "有限体积法",
+      "relationship": "different discretization family; conservation claims require a separate checked bridge"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Wm. H. Reed and T. R. Hill, Triangular Mesh Methods for the Neutron Transport Equation, Los Alamos report LA-UR-73-479 / CONF-730414--2, OSTI 4491151, October 1973",
+      "source_url": "https://www.osti.gov/servlets/purl/4491151",
+      "observed_at": "2026-07-13",
+      "observed_size_bytes": 591992,
+      "observed_sha256": "ec04436524f01ad10647398d8d8c81cd21f2b15a69cbcb5d3e9f1f70c22c2d89",
+      "observed_pdf_leaves": 23,
+      "candidate_summary": "defines an explicit discontinuous piecewise-polynomial weighted-residual discretization for the two-dimensional discrete-ordinates neutron transport equation on regular triangular meshes and reports numerical accuracy/stability comparisons",
+      "status": "primary source inspected and pinpointed, but not admitted as H0: the catalog selects no root proposition, the source contains multiple construction and empirical claims, and no independent source review or correction audit exists"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.AffineSpace.Simplex.Basic",
+      "declarations": ["Affine.Simplex", "Affine.Triangle", "Affine.Simplex.faceOpposite", "Affine.Simplex.range_faceOpposite_points"],
+      "boundary": "single affine-simplex and face geometry only; no mesh, broken polynomial space, trace, numerical flux, or DG theorem"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.Bochner.Set",
+      "declaration": "MeasureTheory.integral_piecewise",
+      "boundary": "generic measurable set/complement integral decomposition only; no cell/face residual or jump term"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.LaxMilgram",
+      "declarations": ["IsCoercive.continuousLinearEquivOfBilin", "IsCoercive.continuousLinearEquivOfBilin_apply", "IsCoercive.unique_continuousLinearEquivOfBilin"],
+      "boundary": "abstract coercive-bilinear well-posedness only; no selected DG bilinear form, coercivity bridge, transport sweep, or error theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "2d82479e32843fd52283dcd9bb305954729c1199",
+    "repository_base_tree": "30134b43ab41e973d2558be90371bf18d6edb259",
+    "repository_record": "Docs/researches/math_theorems.md:10686-10691",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39811-39837",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "fecfdba83d4c9be9933ff4494ed89bd8f350f474e172a9633ccdfdc7fc9b94aa",
+    "stage0_projection_excerpt_sha256": "9eb018c34d165f1d33af841020b60208850c89b0535dc0908e47a2e4bdb50470",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "c289bdc0ac996ea46d5572abf6fcf668914e0628aaef117c0b7fcbfe0cab6a4d",
+    "execution_dag_sha256": "a4b27794d9a08c4a1059302f4712e571d2b5489bb9e90942e5342bccfe5ab344",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_simplex_source_sha256": "ae1f875bd98114e03aff5f07dc3050ca54267a7b6c20b919243831ad04129414",
+    "mathlib_piecewise_integral_source_sha256": "9f59492f94baadca56ded06a83dc2c3435fec5019725c440230a3fc94a8653ef",
+    "mathlib_lax_milgram_source_sha256": "79643570d2052a66114e0f87f7b284e2dc72f79638b3c6c962ba18300a9abc6d",
+    "observed_osti_api_sha256": "841f59fe6c37395b5faa228492ab364c72ee9a1925374a75eaf5d65596099319",
+    "observed_reed_hill_pdf_sha256": "ec04436524f01ad10647398d8d8c81cd21f2b15a69cbcb5d3e9f1f70c22c2d89"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H5", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; real/complex scalars, classical finite-dimensional bases, choice, measure theory, functional analysis, PDE solution spaces, and numerical-real semantics remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, DG definitions, terminal declaration, transitive dependencies, numerical solvers, and trust policy remain open",
+  "computation_profile": "No transport solve, quadrature run, local linear-system inversion, refinement table, residual, convergence fit, acceleration run, floating-point result, oracle, native shortcut, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1464/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1464/README.md",
+    "Stage1_Instances/THM-M-1464/instance.json",
+    "Stage1_Instances/THM-M-1464/scope-map.md",
+    "Stage1_Instances/THM-M-1464/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1464/task-dag.json",
+    "Stage1_Instances/THM-M-1464/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1464/check_intake.py",
+    "Stage1_Instances/THM-M-1464/validation.md",
+    "Stage1_Instances/THM-M-1464/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned numerical-analysis and DG reviewer",
+    "reviewer_policy": "Independent reviewers must approve the selected proposition, source edition, model, mesh, spaces, traces, flux, conclusion, analytic/experimental boundary, and formal mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the observed external source bytes and this unaccepted worker dossier have no release archive claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected proposition or source edition, PDE/model/domain/mesh/space/trace/flux/boundary/norm/rate/computation decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog method gloss as not yet a stable proposition; it does not refute established DG results. The inspected primary source and pinned API probe supply intake evidence only. No canonical mathematical or Lean statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
