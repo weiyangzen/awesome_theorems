@@ -24,42 +24,69 @@
   "source_attribution": "Denes Konig, 1931",
   "source_status_untrusted": "已验证",
   "canonical_statement": "For every finite bipartite graph, the maximum number of pairwise vertex-disjoint edges equals the minimum number of vertices incident to every edge.",
-  "canonical_claim_status": "human_scope_frozen_from_repository_gloss_and_inspected_translated_primary_text_exact_lean_encoding_open",
+  "canonical_claim_status": "human_scope_frozen_from_repository_gloss_and_inspected_translated_primary_text_exact_lean_incidence_encoding_worker_self_tested_pending_master_acceptance",
   "canonical_claim": "For every finite bipartite graph, the maximum matching edge cardinality equals the minimum vertex-cover cardinality.",
-  "statement_blocker": "The human theorem family and finite bipartite-graph scope are identified, but the statement phase must independently review the 2020 translation against the 1931 Hungarian original and corrections, resolve whether graph conventions admit parallel edges, justify or transport any SimpleGraph specialization, define the maximum matching edge-cardinality invariant absent from pinned mathlib, reconcile it with ENat-valued vertexCoverNum, and freeze binders, transports, mutations, and boundary cases.",
+  "statement_blocker": "The exact two-sorted finite incidence target, compatible natural-number extrema, binders, imports, transports, mutations, and boundary cases are worker-self-tested. Parallel-edge ambiguity is resolved by a checked iff to simple-relation erasure. Dependency-ordered master acceptance remains the statement-node gate. Independent Hungarian-original, translation-fidelity, correction, errata, and source review remain H1 debt for later source assurance, not ambiguity in the frozen translated claim.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0812/Statement.lean",
     "module_candidates": [
       "Mathlib.Combinatorics.SimpleGraph.Bipartite",
       "Mathlib.Combinatorics.SimpleGraph.Matching",
       "Mathlib.Combinatorics.SimpleGraph.VertexCover",
       "Mathlib.Combinatorics.SimpleGraph.Hall"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_exact_extremal_encoding_and_statement_mutation_gate",
+    "declaration_or_expression": "Stage1Instances.THM_M_0812.KonigMatchingCoverTarget",
+    "elaborated_expression_hash": "sha256:b20dc7426179377f6838e3ca384aaa80431d00713953494a5ea789d84ec1d7b4",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_statement-bundle-8b8107e613a5",
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
   },
-  "domain_and_universes": "Human scope: a finite undirected graph with a bipartition. Simple graph versus a parallel-edge-permitting convention, the exact Lean universe and representation, and IsBipartite versus explicitly bound sides remain for statement freeze.",
+  "domain_and_universes": "universes uL uR uE; finite typed vertex sides L : Type uL and R : Type uR; finite edge-identity type E : Type uE; endpoint maps left : E -> L and right : E -> R; the tagged side occurrences represent the disjoint union L ⊕ R; Prop in universe 0",
   "quantifiers": [
-    "for every finite bipartite graph G, under the source-selected simple or parallel-edge convention"
+    "for every finite pair of typed vertex sides L and R",
+    "for every finite edge-identity type E and endpoint maps left and right",
+    "there exists one natural k which is both the maximum matching edge cardinality and minimum vertex-cover cardinality"
   ],
-  "ordered_binders": [],
+  "ordered_binders": [
+    "L : Type uL",
+    "R : Type uR",
+    "E : Type uE",
+    "[Finite L]",
+    "[Finite R]",
+    "[Finite E]",
+    "left : E -> L",
+    "right : E -> R",
+    "k : Nat, existential in the conclusion"
+  ],
   "hypotheses": [
-    "G is finite",
-    "G is bipartite"
+    "L is finite",
+    "R is finite",
+    "E is finite",
+    "Every edge e : E has left endpoint left e : L and right endpoint right e : R, so the bipartition is built into the encoding"
   ],
   "conclusion": "The largest cardinality of a set of pairwise vertex-disjoint edges of G equals the smallest cardinality of a set of vertices meeting every edge of G.",
-  "alternate_encodings": [],
+  "alternate_encodings": [
+    {
+      "encoding": "finite simple bipartite relation on L and R",
+      "declaration": "Stage1Instances.THM_M_0812.SimpleRelationKonigTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0812.konigMatchingCoverTarget_iff_simpleRelationKonigTarget"
+    },
+    {
+      "encoding": "direct binder-complete expansion",
+      "declaration": "Stage1Instances.THM_M_0812.ExpandedKonigMatchingCoverTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0812.konigMatchingCoverTarget_iff_expanded"
+    }
+  ],
   "excluded_degenerate_cases": [],
-  "degenerate_case_status": "The translated source states a finite bipartite graph without excluding empty or trivial graphs. Intake therefore excludes none; the statement phase must check the empty graph, isolated vertices, empty bipartition side, and zero extrema rather than silently impose nonemptiness.",
+  "degenerate_case_status": "The target excludes none. edgelessBoundary checks empty E with arbitrary finite sides and both extrema zero; singleEdgeBoundary checks both extrema one. Empty sides when E is empty, isolated vertices, singleton sides, and parallel edges remain admitted.",
   "candidate_scope_not_credited": [
     "a one-sorted SimpleGraph formulation using IsBipartite and ENat-valued extrema",
-    "a finite bipartite multigraph formulation and a checked transport showing when parallel-edge erasure preserves both extrema",
+    "a transport to Mathlib.Combinatorics.Graph.Basic's bundled multigraph API",
     "a formulation with explicit sides using IsBipartiteWith",
-    "a two-sorted bipartite relation or Boolean matrix formulation",
+    "a Boolean matrix formulation without a checked matrix-to-relation transport",
     "an existence formulation choosing one maximum matching and one minimum cover",
     "the matrix row-and-column corollary in the translated 1931 paper"
   ],
@@ -115,8 +142,8 @@
     }
   ],
   "source_revisions": {
-    "repository_base": "997541734bb32f987fb15f163335a82512992120",
-    "repository_base_tree": "2c866b9d840d48c48ac839740c62d3b9440be0e5",
+    "repository_base": "39704171d88ffcdc33a47365ae9791f855fa3a44",
+    "repository_base_tree": "050ab5c6392560337051d2eadd1b82277dbe1c4f",
     "repository_record": "Docs/researches/math_theorems.md:5970-5975",
     "stage0_projection": "Docs/Stage0_Blueprint.md:22172-22197",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
@@ -125,8 +152,10 @@
     "repository_record_excerpt_sha256": "3e4f9eec33e36f88d79bff3ed91571c25f6b7bab5c46c34b8d0fb8de8e10b6f5",
     "stage0_projection_excerpt_sha256": "895d025a315eb94b9524c5c0487ef0adcdd7cb50712f573b75a04a560afe922e",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "2c66d377a102a7eadd62d2f08027250b93f3152fac6800ef9eff3854d3ebaf7e",
-    "execution_dag_sha256": "5cb34447671a155ad02ffe0c01c925b3bbd3fa32f6c91dcd9c56941c6481f66e",
+    "historical_intake_blueprint_sha256": "2c66d377a102a7eadd62d2f08027250b93f3152fac6800ef9eff3854d3ebaf7e",
+    "historical_intake_execution_dag_sha256": "5cb34447671a155ad02ffe0c01c925b3bbd3fa32f6c91dcd9c56941c6481f66e",
+    "authoritative_blueprint_sha256": "e855533adebfee7df8807e39109e64116ecb8c4efd8d6b3be9e28d719df19ad5",
+    "execution_dag_sha256": "547896837c21613b7c8f784b9af77d8a5320904b677fd48cbfc74bbe19c1b07f",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -154,8 +183,8 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended. Finite extrema may require classical decidability and choice for witness selection; the exact axiom profile and declaration report remain open until statement and proof phases.",
-  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact imports, target expression, terminal proof bodies, transitive dependencies, and trust closure remain open.",
+  "foundation_profile": "Lean 4 dependent type theory with finite-cardinality and Set.ncard APIs. Checked statement transports and boundaries report propext, Classical.choice, and Quot.sound only; the proof-phase terminal axiom profile remains open.",
+  "tcb_profile": "Lean kernel 4.29.0, manifest-pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, and direct imports Mathlib.Data.Finite.Card plus Mathlib.Data.Set.Card. Terminal proof bodies, transitive proof dependencies, and release trust closure remain open.",
   "computation_profile": "No algorithm run, solver result, experiment, oracle, or unchecked certificate is credited. A later alternating-path construction or finite search must be proved correct under an accepted profile.",
   "formal_system": "Lean 4 + mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -168,7 +197,12 @@
     "Stage1_Instances/THM-M-0812/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0812/check_intake.py",
     "Stage1_Instances/THM-M-0812/validation.md",
-    "Stage1_Instances/THM-M-0812/intake-receipt.json"
+    "Stage1_Instances/THM-M-0812/intake-receipt.json",
+    "Stage1_Instances/THM-M-0812/Statement.lean",
+    "Stage1_Instances/THM-M-0812/check_statement.py",
+    "Stage1_Instances/THM-M-0812/statement.json",
+    "Stage1_Instances/THM-M-0812/statement-validation.md",
+    "Stage1_Instances/THM-M-0812/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -176,8 +210,8 @@
     "formal_reviewer": "unassigned independent Lean reviewer",
     "scope_reviewer": "unassigned finite graph-theory reviewer"
   },
-  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
-  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional intake and statement evidence only; expires on any invalidation input and cannot support release",
+  "review_due": "at dependency-ordered master acceptance and on every invalidation input change",
   "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
   "archive_and_recovery_boundary": "Repository history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier has no independent archive or release-recovery claim.",
   "freshness_and_revocation_policy": "Invalidate on catalog or source correction, source edition or translation decision, original-text or errata finding, graph/finiteness/bipartition/matching/cover/cardinality/boundary convention, Lean target, dependency pin, assurance profile, validator, or any owned artifact change; independent review and master acceptance remain open.",
@@ -190,7 +224,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
   ],
-  "status_boundary": "Worker-self-tested planned intake proposal only. The finite bipartite matching-cover claim and translated-primary proof lead are identified, and adjacent pinned APIs elaborate, but the exact Lean target, H0, M0, R0, accepted proof state, audit completion, theorem completion, and master acceptance are not claimed."
+  "status_boundary": "Planned dossier with provisional intake and statement worker receipts. The finite bipartite matching-cover claim, translated-primary proof lead, exact two-sorted incidence target, expanded and simple-relation transports, mutations, and boundaries elaborate. H0, M0, R0, accepted execution state, proof, audit completion, theorem completion, and master acceptance are not claimed."
 }

@@ -20,12 +20,19 @@ was not successfully preserved and inspected in this intake.
 
 Pinned mathlib exposes bipartite-graph, matching, and vertex-cover APIs, including the `ENat`-valued
 `SimpleGraph.vertexCoverNum`, but no maximum-matching-number definition or exact Konig equality was
-found in the bounded intake search. `IntakeProbe.lean` authenticates adjacent interfaces only. The
-exact Lean target remains null until the statement phase resolves the source's simple-versus-
-parallel-edge graph convention, defines compatible extrema, selects and justifies the Lean
-encoding, checks boundary cases and transports, and completes statement mutations.
+found in the bounded intake search. `IntakeProbe.lean` authenticates adjacent interfaces only.
 
-The provisional vector is `[H1, M3, R2]`. The dossier gives a source-derived proof summary, but
+The statement phase now freezes `KonigMatchingCoverTarget` as a finite two-sorted incidence model:
+finite typed vertex sides, a finite edge-identity type, and endpoint maps. Attained witness plus
+universal-bound predicates express the maximum matching edge count and minimum cover vertex count.
+A kernel-checked iff to `SimpleRelationKonigTarget` proves parallel-edge erasure preserves both
+extrema, resolving the translation's silent simple-versus-parallel convention. The expanded iff,
+four structural mutations, and edgeless and single-edge boundaries also elaborate under the two
+minimal pinned imports. Exact details and hashes are in `statement.json` and
+`statement-validation.md`.
+
+The provisional vector remains `[H1, M3, R2]`. The dossier gives a source-derived proof summary, but
 important formal branches, stable obligation anchors, local transition ledgers, and independent
 readability review remain open. No H0, M0, R0, accepted proof state, audit completion,
-theorem completion, or master acceptance is claimed.
+theorem completion, or master acceptance is claimed. The intake and statement worker receipts both
+remain provisional until dependency-ordered integration-lane acceptance.

@@ -8,32 +8,34 @@ edge. Here "maximum" and "minimum" are cardinality extrema, not merely inclusion
 inclusion-minimal witnesses.
 
 This finite graph-theoretic scope agrees with the repository gloss and the inspected translation
-of the 1931 paper. Intake freezes the human claim, but not an exact Lean expression.
+of the 1931 paper. Intake froze the human claim; the statement phase subsequently froze its exact
+Lean expression.
 
-## Statement decisions still open
+## Statement decisions
 
-- Resolve whether the source's graph convention is simple or permits parallel edges. The inspected
-  translation does not say; a `SimpleGraph` specialization needs source justification or a checked
-  transport proving that parallel-edge erasure preserves both extrema.
-- If a simple graph is selected, choose `SimpleGraph.IsBipartite` or an explicitly bound
-  `SimpleGraph.IsBipartiteWith s t`.
-  Mathlib's latter predicate covers graph support, not necessarily isolated vertices, so any
-  transport between the forms must be checked.
-- Define a maximum matching cardinality compatible with mathlib's representation of a matching as
-  `M : G.Subgraph` satisfying `M.IsMatching`. Matching size must count edges, not matched vertices.
-- Reconcile that invariant with `SimpleGraph.vertexCoverNum G : ENat`, or select a checked finite
-  natural-number encoding for both extrema.
-- Freeze the universe, finite-carrier assumptions, ordered binders, decidability and classical
-  principle policy, minimal imports, alternate encodings, and expression/environment hashes.
-- Mutation-test removed finiteness or bipartiteness, a changed graph domain, altered binder scope,
-  and boundary cases before any proof evidence is credited.
+- The canonical target uses finite types `L`, `R`, and `E`, with endpoint maps `E -> L` and
+  `E -> R`. This makes the bipartition explicit and preserves parallel-edge identity.
+- `IsEdgeMatching` requires both endpoint maps to be injective on a selected edge set, so matching
+  size is the number of edges rather than the number of incident vertices.
+- `HasMatchingNumber` and `HasVertexCoverNumber` separately require an attained witness and a
+  universal bound at one shared natural number.
+- `konigMatchingCoverTarget_iff_simpleRelationKonigTarget` kernel-checks that retaining one edge
+  representative per occupied endpoint pair preserves both extrema. Thus the source's silent
+  simple-versus-parallel convention does not change the selected claim.
+- `konigMatchingCoverTarget_iff_expanded` checks the binder-complete expansion. The statement
+  packet freezes universes, ordered binders, two minimal imports, environment/expression hashes,
+  four mutation classes, and boundary proofs.
+- One-sorted `SimpleGraph.IsBipartite`, explicit `IsBipartiteWith`, mathlib `Graph`, and matrix
+  transports remain uncredited alternate interfaces for later audit; they do not make the exact
+  local incidence target ambiguous.
 
 ## Boundary cases
 
 The translated source starts with a finite bipartite graph and imposes no nonempty condition.
-Therefore intake excludes no degenerate graph. Statement work must preserve and test the empty
-graph, an edgeless graph with isolated vertices, an empty bipartition side, singleton carriers,
-and the zero matching/zero cover equality. Isolated vertices do not affect either extremum.
+Therefore the target excludes no degenerate graph. `edgelessBoundary` verifies the zero
+matching/zero cover equality with arbitrary finite sides, including empty sides and isolated
+vertices, while `singleEdgeBoundary` verifies both extrema are one. Singleton carriers and
+parallel edges remain admitted.
 
 ## Candidate proof architecture
 
@@ -67,5 +69,6 @@ a human-source tree.
 - Treating the matrix row/column corollary, a declaration name, an API check, or `已验证` as the
   canonical root or proof evidence.
 
-No canonical Lean expression, statement fingerprint, checked transport, obligation registry,
-proof state, or completion claim is frozen at intake.
+The canonical Lean expression, statement fingerprint, expanded transport, and simple-relation
+transport are now frozen by statement artifacts. No obligation registry, proof state, accepted
+execution state, audit completion, or theorem-completion claim is frozen.

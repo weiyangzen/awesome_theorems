@@ -42,16 +42,16 @@ and independent graph-theory/source review remain open.
 
 ## Proof-boundary crosswalk
 
-| Source component | Human meaning | Planned formal component | Intake status |
+| Source component | Human meaning | Formal component | Current status |
 |---|---|---|---|
-| finite bipartite `G` | finite graph with two vertex sides and only cross-edges; parallel-edge convention unstated | finite graph encoding; `SimpleGraph V` plus `IsBipartite` is one candidate | human scope frozen; graph convention and exact Lean binders open |
-| `M` disjoint edges | maximum-cardinality matching, counted by edges | extremum over `M : G.Subgraph` with `M.IsMatching` | matching substrate exists; extremal invariant absent |
-| vertices covering edges | every graph edge has an endpoint in the set | `SimpleGraph.IsVertexCover G c` | direct pinned predicate |
+| finite bipartite `G` | finite graph with two vertex sides and only cross-edges; parallel-edge convention unstated | finite `L`, `R`, `E` and endpoint maps `left : E -> L`, `right : E -> R` | exact incidence binders frozen; parallel edges preserved |
+| `M` disjoint edges | maximum-cardinality matching, counted by edges | `IsEdgeMatching` plus attained/universally bounded `HasMatchingNumber` | exact edge-count extremum elaborated |
+| vertices covering edges | every graph edge has an endpoint in the set | `IsBipartiteVertexCover` plus attained/universally bounded `HasVertexCoverNumber` | exact typed-side cover extremum elaborated |
 | no augmenting `K`-path | a maximum matching admits no alternating path between unmatched opposite-side vertices | alternating-path lemma and cardinality contradiction | source proof lead only |
 | selected endpoint set | choose one endpoint of each matched edge according to alternating reachability | construct a vertex cover of matching size | four-case source proof lead only |
 | four cases | endpoints unmatched/matched on their respective sides | exhaustive endpoint-membership split proving every edge is covered | not yet an obligation registry |
 | reverse inequality | a cover must meet every pairwise disjoint matching edge at distinct vertices | matching size is at most every cover size | easy but still required composition child |
-| equality | minimum cover size equals maximum matching edge count | exact extremal equality | canonical human root; Lean expression null |
+| equality | minimum cover size equals maximum matching edge count | `KonigMatchingCoverTarget` with one shared extremal `k` | canonical root elaborated and fingerprinted |
 | matrix result | rows/columns covering nonzero entries versus entries in distinct rows/columns | bipartite incidence-matrix corollary | excluded alternate until separately transported |
 
 ## Pinned Lean boundary
@@ -75,9 +75,17 @@ maximum matching-number definition. That is discovery evidence only, not a globa
 the downstream immutable anchor audit. `IntakeProbe.lean` checks the listed interfaces against the
 pinned toolchain but owns no theorem, wrapper, transport, or proof body.
 
-Before H0, accountable reviewers must inspect the original-language source, verify every translated
-premise and inference, audit corrections and errata, map the proof to stable obligations, and
-independently approve the packet. Before machine credit, the statement phase must define compatible
-finite extrema, settle simple versus parallel-edge graphs or check the necessary transport,
-elaborate and fingerprint the exact root, check all credited transports, and run the required
-statement mutations.
+## Statement resolution
+
+`Stage1Instances.THM_M_0812.KonigMatchingCoverTarget` now supplies the exact finite incidence
+encoding. `konigMatchingCoverTarget_iff_expanded` checks its direct binder-complete expansion, and
+`konigMatchingCoverTarget_iff_simpleRelationKonigTarget` proves that erasing parallel-edge identity
+preserves both extrema. Four structural mutations distinguish removed finiteness, changed matching
+cardinality, changed binder scope, and an excluded edgeless boundary; the edgeless and single-edge
+cases are kernel-checked separately. The exact hashes, imports, and environment are recorded in
+`statement.json` and `statement-validation.md`.
+
+Before H0, accountable reviewers must still inspect the original-language source, verify every
+translated premise and inference, audit corrections and errata, map the proof to stable
+obligations, and independently approve the packet. This statement resolution gives no proof,
+anchor-audit, H0, M0, R0, audit-completion, or theorem-completion credit.

@@ -1,0 +1,120 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0812-STATEMENT",
+  "theorem_id": "THM-M-0812",
+  "execution_rank": 1371,
+  "lifecycle": "planned",
+  "canonical_statement": "For every finite bipartite graph, including a finite graph whose edge identity may distinguish parallel edges, the maximum number of pairwise vertex-disjoint edges equals the minimum number of vertices incident to every edge.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0812/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0812.KonigMatchingCoverTarget",
+    "elaborated_expression_sha256": "b20dc7426179377f6838e3ca384aaa80431d00713953494a5ea789d84ec1d7b4",
+    "statement_bundle_sha256": "8b8107e613a53247d69c71d1a838fd4719b3c0330e4a707b54060bd9247dc0f1",
+    "statement_bundle_boundary": "The bundle serializes IsEdgeMatching, IsBipartiteVertexCover, HasMatchingNumber, HasVertexCoverNumber, SimpleRelationKonigTarget, and KonigMatchingCoverTarget with explicit universes; this binds the named support definitions, credited alternate, and root.",
+    "statement_file_sha256": "526bad3f7d42bccb3e9bd263a10c1fc7ebb10e5136eb0ef9cd13131941ea3242"
+  },
+  "domain_and_universes": "universes uL uR uE; L : Type uL and R : Type uR are the two vertex sides; E : Type uE is an independently finite edge-identity type; [Finite L], [Finite R], [Finite E]; left : E -> L; right : E -> R; Prop in Lean universe 0",
+  "ordered_binders": [
+    "L : Type uL",
+    "R : Type uR",
+    "E : Type uE",
+    "[Finite L]",
+    "[Finite R]",
+    "[Finite E]",
+    "left : E -> L",
+    "right : E -> R",
+    "k : Nat, existential in the conclusion"
+  ],
+  "hypotheses": [
+    "L is finite",
+    "R is finite",
+    "E is finite"
+  ],
+  "conclusion": "There exists k : Nat attained by a matching M : Set E whose two endpoint maps are injective on M and bounding every such matching, and attained by a pair of vertex subsets covering every edge and bounding every such cover from below.",
+  "extremum_encoding": {
+    "matching": "HasMatchingNumber requires an attained matching of ncard k and a universal ncard upper bound; matching cardinality counts edges, not endpoints.",
+    "vertex_cover": "HasVertexCoverNumber requires an attained cover with CLeft.ncard + CRight.ncard = k and a universal lower bound; the typed sides represent a disjoint union even when their underlying types coincide.",
+    "equality": "One existential k satisfies both extremal specifications, which is exactly equality of the attained maximum and minimum."
+  },
+  "direct_imports": [
+    "Mathlib.Data.Finite.Card",
+    "Mathlib.Data.Set.Card"
+  ],
+  "minimal_import_result": "The canonical definitions and checked statement transports elaborate with exactly two direct imports. Removing either Mathlib.Data.Finite.Card or Mathlib.Data.Set.Card exits 1 as expected; diagnostics contain random temporary filenames and therefore are not credited as stable evidence.",
+  "checked_transports": [
+    {
+      "relationship": "iff",
+      "witness": "Stage1Instances.THM_M_0812.konigMatchingCoverTarget_iff_expanded",
+      "alternate": "Stage1Instances.THM_M_0812.ExpandedKonigMatchingCoverTarget",
+      "status": "kernel-checked definitional expansion"
+    },
+    {
+      "relationship": "iff",
+      "witness": "Stage1Instances.THM_M_0812.konigMatchingCoverTarget_iff_simpleRelationKonigTarget",
+      "alternate": "Stage1Instances.THM_M_0812.SimpleRelationKonigTarget",
+      "status": "kernel-checked parallel-edge erasure and arbitrary-universe transport"
+    }
+  ],
+  "alternate_encodings_not_credited": [
+    "SimpleGraph V with SimpleGraph.IsBipartite and an ENat supremum of Subgraph.IsMatching edge cardinalities",
+    "Graph alpha beta from Mathlib.Combinatorics.Graph.Basic",
+    "an explicit IsBipartiteWith side partition on a one-sorted vertex type",
+    "a Boolean matrix encoding without a checked matrix-to-relation transport",
+    "an existence statement choosing only one maximum matching and one minimum cover without universal extremal bounds"
+  ],
+  "encoding_decision": "The inspected translation specifies a finite bipartite graph but does not state whether parallel edges are excluded. The canonical Lean target uses a two-sorted finite incidence representation with an independently finite edge type. A checked iff to SimpleRelationKonigTarget proves that retaining one representative per occupied endpoint pair preserves both extrema, resolving the simple-versus-parallel statement convention without assuming Konig's theorem. Pinned mathlib's multigraph Graph API has no bounded-search matching/cover infrastructure, so no library-specific Graph transport is credited.",
+  "source_scope": "The repository gloss and arXiv:2009.03780v1 pages 1-3 freeze finite bipartite matching-cover equality. The translation explicitly partitions the vertex set into two sides, defines the maximum number of edges with no common vertex, constructs a cover of that size, proves the reverse inequality, and concludes m = M.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "finite_card_import_source_sha256": "c23c52d074ba713373b3da5e4b1c1f9a499c514a3bb693612dc376e613a5a1b2",
+    "direct_import_source_sha256": "09942e2b66a4dfafd949dc32da33c41d3ada901769fda4ceb1f7e06dc8b0b5f5",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ]
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0812/check_statement.py",
+    "killed": [
+      "removed finite-edge hypothesis",
+      "changed matching cardinality from edges to incident vertices, doubling nonempty matchings",
+      "moved the endpoint-map binders inside one common extremal-value existential",
+      "excluded the edgeless boundary with Nonempty E"
+    ],
+    "method": "Each mutation is rejected by a Lean #check_failure definitional-equality test and has a fully explicit elaborated expression distinct from the canonical root."
+  },
+  "boundary_proofs": [
+    "Stage1Instances.THM_M_0812.edgelessBoundary",
+    "Stage1Instances.THM_M_0812.singleEdgeBoundary"
+  ],
+  "degenerate_cases": "The canonical target admits empty edge types, empty side types when the edge type is empty, isolated vertices, singleton sides, and parallel edges. The edgeless boundary proves both extrema are zero for arbitrary finite sides; the single-edge boundary proves both extrema are one. No nonempty premise is added.",
+  "foundation_profile": "Lean 4 dependent type theory with finite-cardinality and Set.ncard APIs. The checked expanded and simple-relation transports and boundary proofs report only propext, Classical.choice, and Quot.sound; no custom axiom, sorryAx, unsafe declaration, oracle, or computation result is used.",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. Existing canonical .lake artifacts were used read-only; no build, update, clone, or fetch was performed.",
+  "computation_profile": "No algorithm, solver, native computation, experiment, oracle, or unchecked certificate is credited. Statement fingerprinting is deterministic text hashing of Lean's explicit printed expressions in the pinned environment.",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R2"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R2"
+  },
+  "debt_delta_basis": "The intake already classified the target at M3 because the human theorem family was identified but exact formal encoding was open. This phase closes the exact-statement interface without claiming a proof or changing the root proof-debt class.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "Statement-only worker evidence. It freezes and elaborates the finite bipartite incidence target, support definitions, expanded-form transport, four mutation classes, and two boundary cases. The intake and statement nodes remain unfinished until master acceptance; no source H0, proof, anchor audit, obligation closure, audit completion, theorem completion, or release is claimed."
+}
