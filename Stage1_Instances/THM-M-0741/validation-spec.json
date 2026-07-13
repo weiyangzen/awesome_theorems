@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0741-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0741-VALIDATION",
+  "theorem_id": "THM-M-0741",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0741/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs through bubblewrap --unshare-net with fixed locale and timezone. Host-side pin and provenance checks make no network request. This does not turn the shared warm dependency cache into release-grade cold hermetic evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0741-ROOT",
+    "M0741-N-FIXED-ZERO",
+    "M0741-C-PAIR-ZERO",
+    "M0741-L-RESTRICT",
+    "M0741-X-FIXED-HALTING",
+    "M0741-X-RICE",
+    "M0741-B-FIXED-WITNESSES"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0741.HaltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.ObligationTree.pairZeroEmbedding_computable",
+    "Stage1Instances.THM_M_0741.ObligationTree.pairToFixedRestriction_of_embedding",
+    "Stage1Instances.THM_M_0741.ObligationTree.fixedInputReduction_of_restriction",
+    "Stage1Instances.THM_M_0741.ObligationTree.fixedZeroWitnessPackage",
+    "Stage1Instances.THM_M_0741.ObligationTree.fixedInputZeroUndecidable_of_rice",
+    "Stage1Instances.THM_M_0741.ObligationTree.root_of_reduction_and_fixedInput",
+    "ComputablePred.rice",
+    "ComputablePred.halting_problem",
+    "Stage1Instances.THM_M_0741.Proof.riceBridge_pinned",
+    "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_via_rice",
+    "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_pinned",
+    "Stage1Instances.THM_M_0741.Proof.fixedInputReduction_checked",
+    "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable_via_rice",
+    "Stage1Instances.THM_M_0741.Validation.independentlyReconstructedHaltingProblemUndecidable"
+  ],
+  "scope_boundary": "Network-isolated node-scoped worker replay of the exact frozen root, every frozen composition, all proof declarations, selected pinned terminal provenance, and a Statement-only same-worker differential reconstruction at input one. The obligation IDs identify provisional proof-receipt coverage and grant no accepted closure. Proof master acceptance, accepted foundation/trust state, complete transitive TCB/provenance/SBOM closure, clean-checkout empty-cache offline replay, and distinct signed independent verification remain fail-closed."
+}

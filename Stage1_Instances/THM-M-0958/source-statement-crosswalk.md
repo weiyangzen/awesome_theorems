@@ -20,32 +20,34 @@ pages 886-905, DOI `10.1137/1.9781611973075.72`. The catalog's 2011 date matches
 publication in *Israel Journal of Mathematics* 184(1), pages 93-128, DOI
 `10.1007/s11856-011-0061-1`.
 
-The temporary arXiv v1 PDF was 242,272 bytes with SHA-256
+The arXiv v1 PDF is 242,272 bytes with SHA-256
 `f2be0497fb1be4653343463a6ca95b647c9c880402f4b1115f77e98c5843022b`. It was inspected but not
-added as a repository artifact. Section 2 on printed page 2 defines arithmetic triples,
-progression-free sets, `nu(n)`, `Omega`, and base-2 `log`; Section 3 equation (5) on printed page 3
-states the Behrend comparison bound; and Section 4 equation (12) and its concluding paragraph on
-printed page 6 state the improved construction bound. These passages identify a complete
-self-contained proof route. The final
-journal text was not lawfully preserved and compared against the preprint; no correction or errata
-audit and no independent source review were completed. This supports provisional `H1`, not `H0`.
+added as a repository artifact. ArXiv records only this one version. Section 2 on printed page 2
+defines arithmetic triples, progression-free sets, `nu(n)`, `Omega`, and base-2 `log`; Section 3
+equation (5) on printed page 3 states Elkin's improved extremal bound; and Section 4 equation (12)
+and its concluding paragraph on printed page 6 state the improved construction bound. These
+passages identify a complete self-contained proof route. The statement phase selects this immutable
+arXiv version as its authoritative statement edition. The final journal text was not lawfully
+preserved and compared against the preprint; no correction or errata audit and no independent
+source review were completed. This supports exact statement identity at provisional `H1`, not
+`H0`.
 
 ## Candidate statement map
 
 | Catalog component | Primary-source component | Prospective Lean surface | Intake status |
 |---|---|---|---|
-| Elkin construction | construction in arXiv v1 Section 4 | existential finite set or lower bound on an extremal function | matching family; exact root not frozen |
-| Behrend improvement | factor `Theta(sqrt(log n))` over the cited Behrend bound | exact comparison or the improved lower-bound conclusion | comparison-versus-conclusion choice open |
-| progression-free | no three distinct integers with one the average of the other two | `ThreeAPFree` plus a checked distinct-triple equivalence | source and mathlib encodings not yet transported |
-| `{1, ..., n}` | source interval `[{n}]` | `Finset.Ico 1 (n + 1)` or translated `Finset.range n` | one-based/zero-based transport open |
-| size lower bound | `Omega((log_2 n)^(1/4) * n / 2^(2 sqrt(2) sqrt(log_2 n)))` | explicit positive constant and threshold binders over real coercions | exact binder expansion not frozen |
+| Elkin construction | equation (5) extremal bound, realized by the Section 4 construction | one-based `addRothNumber` root plus explicit witness alternate | root and checked iff frozen |
+| Behrend improvement | factor `Theta(sqrt(log n))` over the cited Behrend bound | exact improved lower-bound conclusion | improved conclusion selected; comparison excluded from root |
+| progression-free | no three distinct integers with one the average of the other two | ordered-middle `SourceProgressionFree` (universal binders cover every permutation) and `ThreeAPFree` | checked iff frozen |
+| `{1, ..., n}` | source interval `[{n}]` | `Finset.Ico 1 (n + 1)` and translated `rothNumberNat n` | checked equality and target iff frozen |
+| size lower bound | `Omega((log_2 n)^(1/4) * n / 2^(2 sqrt(2) sqrt(log_2 n)))` | positive `c`, positive `N`, every `n >= N`, Real-coerced extremum | exact binder expansion frozen |
 | 2011 | journal publication year | immutable edition/revision identity | journal metadata found; journal text/version comparison open |
 | `verified` | untrusted inventory metadata | no declaration or proof body | no H0, machine, or readability credit |
 
 The source defines `Omega` through a positive universal constant and a positive integer threshold,
 then says the result holds for positive `n` while noting that small values can be handled by reducing
-the constant. The exact treatment of this asymptotic-versus-all-positive wording must be reviewed,
-not guessed.
+the constant. The canonical root uses the literal asymptotic expansion. The all-positive form is
+not credited without a separate finite-case transport.
 
 ## Pinned Lean boundary
 
@@ -61,11 +63,15 @@ log normalization and the extra fourth-root logarithmic factor. It is a related 
 not an exact formal anchor. A bounded search found no declaration named for Elkin or the improved
 formula. This is intake discovery only, not a complete local or external anchor audit.
 
-## Required admission
+## Statement resolution and remaining admission
 
-The statement phase must select and lawfully preserve an authoritative edition; compare arXiv,
-proceedings, and journal statements; transcribe and independently review the exact definitions,
-binders, formula, assumptions, conclusion, finite-case convention, corrections, and errata; and
-map each component above. It must then encode that claim in Lean with minimal imports, serialize
-the expression and environment fingerprints, check the interval and progression transports, and
-run all required statement mutations. Until then the canonical target remains null.
+`Statement.lean` and `statement.json` select arXiv v1, transcribe its definitions, binders, formula,
+conclusion, and finite-case convention, elaborate the exact target with deletion-minimal imports,
+serialize expression and environment fingerprints, check interval and progression transports,
+and run all four required mutation classes.
+
+The SODA 2010 and journal 2011 headline formulas agree with arXiv v1, but their complete bodies
+were not compared. The 36-page journal version has many more references and explicitly adds a
+discrete-geometry application, so whole-edition identity is not claimed. Before H0, accountable
+reviewers must lawfully admit the selected source, compare available editions, audit corrections
+and errata, map the source proof to obligations, and independently approve the packet.

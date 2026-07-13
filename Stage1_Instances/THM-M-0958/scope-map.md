@@ -15,7 +15,9 @@ The inspected arXiv v1 candidate reports, using base-2 logarithms, a progression
 (log_2 n)^(1/4) * n / 2^(2 * sqrt(2) * sqrt(log_2 n)).
 ```
 
-This formula is a source locator only. It is not frozen as the canonical statement during intake.
+The statement phase selects the exact arXiv-v1 equation (5) formula above as the canonical
+quantitative scale. It expands `Omega` using the paper's own definition and uses the one-based
+extremal-function conclusion as the root.
 
 ## Proposition-changing decisions
 
@@ -40,7 +42,15 @@ The exact-source statement phase must freeze all of the following:
 9. Whether the source's construction is part of the formal target or only the existential/extremal
    conclusion.
 
-Every alternate form needs a checked relationship witness before statement or proof credit.
+These choices are now resolved by `Statement.lean`: the canonical root is the one-based extremal
+inequality; `Finset.Ico 1 (n + 1)` represents `{1, ..., n}`; `SourceProgressionFree` is checked
+equivalent to `ThreeAPFree`; `c`, `N`, then `n` are the ordered binders; the cardinality is coerced
+to `Real`; every logarithm is `Real.logb 2`; the construction witness and zero-based Roth number
+are credited only through checked iff witnesses; and the relative comparison is not part of the
+root.
+
+The SODA and journal bodies still require full comparison and independent source review. That is
+H1 source-assurance debt, not an unresolved Lean statement encoding.
 
 ## Boundary cases
 
@@ -53,7 +63,10 @@ Every alternate form needs a checked relationship witness before statement or pr
 - Positivity of the real lower-bound expression and conversion of a real inequality to a natural
   cardinality claim.
 
-No case is excluded at intake because no canonical proposition is selected.
+The asymptotic root asserts only indices satisfying `0 < N` and `N <= n`. Thus `n = 0`, `1`, `2`,
+and other small values may lie below the threshold, while the threshold value itself is included.
+The totalized Lean scale and source interval at `n = 0` and `n = 1` are separately checked. No
+floor or ceiling is introduced in the real-cardinality inequality.
 
 ## Explicit exclusions
 
@@ -67,5 +80,6 @@ No case is excluded at intake because no canonical proposition is selected.
 - The catalog's untrusted verified label, the Lean API probe, or the pinned Behrend theorem used as
   target proof credit.
 
-No canonical Lean expression, alternate encoding, discovery protocol, obligation registry, or
-proof state is frozen during intake.
+The canonical Lean expression and two checked alternate encodings are frozen in `Statement.lean`
+and `statement.json`. The anchor discovery protocol, obligation registry, and proof state remain
+downstream and open.

@@ -21,30 +21,58 @@
   "literal_source_claim_zh": "Behrend构造的改进",
   "literal_source_claim_en": "Improvement of the Behrend construction.",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "recognizable_Elkin_progression_free_lower_bound_and_source_equation_identified_but_formal_encoding_source_edition_and_crosswalk_unaccepted",
-  "canonical_claim": null,
-  "statement_blocker": "A matching primary paper and asymptotic formula are identified, but the catalog does not select an edition or freeze whether the root uses an extremal function or per-n witness sets, the one-based versus zero-based interval transport, the distinct-triple predicate, the ordered Omega binders, base-2 logarithm and real coercions, threshold versus all-positive-n treatment, or boundary cases. Freezing an exact proposition before those source and encoding choices are independently reviewed would silently add mathematics.",
+  "canonical_statement": "There are a positive universal real constant c and a positive integer N such that, for every integer n at least N, the maximum size of a three-term-progression-free subset of {1, ..., n} is at least c times (n / 2^(2 sqrt(2) sqrt(log_2 n))) times (log_2 n)^(1/4).",
+  "canonical_claim_status": "arxiv_0801_4310v1_equation_5_and_definitions_selected_exact_lean_statement_worker_self_tested_pending_master_acceptance",
+  "canonical_claim": "Elkin's asymptotic lower bound on the extremal size of a three-term-progression-free subset of the one-based integer interval, with the exact base-two formula and Omega binders.",
+  "statement_blocker": "The exact arXiv v1 statement, one-based extremal root, ordered Omega binders, base-two formula, real coercion, source progression predicate, interval transports, mutations, and boundary policy are worker-self-tested. Dependency-ordered master acceptance remains the statement-node gate. Full SODA/journal comparison, lawful durable source admission, correction and errata audit, source-to-obligation mapping, and independent review remain H1 source debt rather than ambiguity in the frozen arXiv-v1 claim.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0958/Statement.lean",
     "module_candidates": [
       "Mathlib.Combinatorics.Additive.AP.Three.Behrend"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "blocked_source_edition_asymptotic_binders_interval_progression_and_boundary_transport",
+    "declaration_or_expression": "Stage1Instances.THM_M_0958.ElkinConstructionTarget",
+    "elaborated_expression_hash": "sha256:bc0d841038cdbcd4960581583c4ddfb7004d7ad38cf6432ab4803e9908f8f59c",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_statement-bundle-0e90ce5bcd0b",
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
   },
-  "domain_and_universes": "Open: an approved statement must fix natural-number intervals, finite-set and real-cardinality coercions, the positive-real logarithm and power domains, and all arithmetic, order, decidability, and universe contexts.",
-  "quantifiers": [],
-  "ordered_binders": [],
-  "hypotheses": [],
-  "conclusion": "Open: an exact source-faithful asymptotic lower bound, either on the maximum cardinality of a progression-free subset or via an explicit set witness, with the Elkin quantitative factor and all transports fixed.",
-  "alternate_encodings": [],
+  "domain_and_universes": "A closed Prop in universe 0: c and the quantitative expression are Real; N and n are Nat; the source interval is Finset.Ico 1 (n + 1); addRothNumber supplies its Nat-valued extremum, explicitly coerced to Real.",
+  "quantifiers": [
+    "there exists a universal c : Real",
+    "there exists a universal N : Nat",
+    "for every n : Nat with N <= n"
+  ],
+  "ordered_binders": [
+    "c : Real, existential",
+    "hc : 0 < c",
+    "N : Nat, existential",
+    "hN : 0 < N",
+    "n : Nat, universal",
+    "hn : N <= n"
+  ],
+  "hypotheses": [
+    "0 < c",
+    "0 < N",
+    "N <= n"
+  ],
+  "conclusion": "c * elkinScale n <= (addRothNumber (Finset.Ico 1 (n + 1)) : Real), using the exact Elkin base-two scale.",
+  "alternate_encodings": [
+    {
+      "encoding": "explicit source-interval progression-free set witness",
+      "declaration": "Stage1Instances.THM_M_0958.WitnessConstructionTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0958.elkinConstructionTarget_iff_witnessConstructionTarget"
+    },
+    {
+      "encoding": "zero-based mathlib Roth number",
+      "declaration": "Stage1Instances.THM_M_0958.RothNumberTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0958.elkinConstructionTarget_iff_rothNumberTarget"
+    }
+  ],
   "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is excluded before a canonical proposition is selected; the statement phase must resolve every case listed in scope-map.md.",
+  "degenerate_case_status": "The positive threshold excludes n = 0 and permits n = 1, 2, and other small values to remain below threshold, matching the literal Omega statement. N itself is included by N <= n. The totalized scale and one-based intervals at n = 0 and 1 are separately kernel-checked.",
   "candidate_scope_not_credited": [
     "there exist positive universal constants c and N0 such that every n at least N0 admits a progression-free S subset {1,...,n} with card S at least c times the Elkin base-2 lower-bound expression",
     "the corresponding asymptotic lower bound on the source extremal function nu(n)",
@@ -131,20 +159,20 @@
   ],
   "root_vector": {
     "H": "H1",
-    "M": "M4",
+    "M": "M3",
     "R": "R4"
   },
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice for finite maxima or construction selection, real analysis, asymptotic filters, and any noncomputability policy remain open until the exact source proposition is selected",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, accepted axioms, and trust policy remain open",
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's standard classical infrastructure. Checked statement transports and boundary lemmas report only propext, Classical.choice, and Quot.sound; no custom axiom, unsafe declaration, oracle, placeholder, or target proof is added.",
+  "tcb_profile": "Lean kernel 4.29.0, pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, and deletion-minimal direct imports Mathlib.Combinatorics.Additive.AP.Three.Defs plus Mathlib.Analysis.SpecialFunctions.Log.Base. Terminal proof bodies, transitive proof dependencies, and release trust closure remain open.",
   "computation_profile": "No numeric experiment, exhaustive finite search, native decision procedure, oracle, generated certificate, or unchecked computation is credited; the intended theorem requires kernel-checked mathematics",
-  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; exact statement encoded and worker-self-tested, proof open",
   "source_revisions": {
-    "repository_base": "a3b18eec39bf04be025b1641cae02f4d44fdf11a",
-    "repository_base_tree": "fdfff18dea4c6798c5b322b6088dfe556109c134",
+    "repository_base": "c79ae75db8880483f10bba17c9bc9dd91a9febcf",
+    "repository_base_tree": "375fa18a4f8afa63bb51d8b05fb4c804f3bb1240",
     "repository_record": "Docs/researches/math_theorems.md:6994-6999",
     "stage0_projection": "Docs/Stage0_Blueprint.md:26119-26144",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
@@ -154,8 +182,10 @@
     "stage0_record_excerpt_sha256": "1ef454bce672ad8f06bd2f01c6eaa030097cc0eafb93557ba258f80442862712",
     "target_manifest_row_sha256": "0d1a3ba99f60563501e00a3d6c91392a6408abad6053896ee0d017349c9afcbf",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "75e29c1ae280b75e6a1b78c3658106332686beb1f9650f11d30c8624855233c4",
-    "execution_dag_sha256": "603f3aa25a89d483dfbd0c40ccea727937dd4630feab2773b19a124377178b39",
+    "historical_intake_blueprint_sha256": "75e29c1ae280b75e6a1b78c3658106332686beb1f9650f11d30c8624855233c4",
+    "historical_intake_execution_dag_sha256": "603f3aa25a89d483dfbd0c40ccea727937dd4630feab2773b19a124377178b39",
+    "authoritative_blueprint_sha256": "575909a1b0d0d516e667e1b2a377a3a00bbb4af5314b521611ba681d1fbaadd2",
+    "execution_dag_sha256": "b5122c153b03ae4ab41ecc7de4ac26d1ab4d03660eea2ed08c395f82ebe1e823",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -167,6 +197,7 @@
     "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
     "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
     "three_ap_defs_source_sha256": "b325fb632a5398208995fa5beae71c47798086e588f98e46679aa81b923b28e3",
+    "log_base_source_sha256": "585f502f8c45eaac27a8d18548104a6125b0738d2e9e6c7c0e4eaa62f2c4366a",
     "behrend_source_sha256": "1f8c1813a75c722ee4d62d63185c53d0b52d27691e531c05e0ecb6c10c15cf65",
     "roth_source_sha256": "e6a6e421256625cbef836f08aee949b000d299538a898b7c04888e9d6214abb6"
   },
@@ -183,7 +214,12 @@
     "Stage1_Instances/THM-M-0958/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0958/check_intake.py",
     "Stage1_Instances/THM-M-0958/validation.md",
-    "Stage1_Instances/THM-M-0958/intake-receipt.json"
+    "Stage1_Instances/THM-M-0958/intake-receipt.json",
+    "Stage1_Instances/THM-M-0958/Statement.lean",
+    "Stage1_Instances/THM-M-0958/check_statement.py",
+    "Stage1_Instances/THM-M-0958/statement.json",
+    "Stage1_Instances/THM-M-0958/statement-validation.md",
+    "Stage1_Instances/THM-M-0958/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -201,7 +237,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, matching source family, proposition-changing choices, explicit exclusions, pinned formal substrate, and open task DAG. No canonical proposition, exact Lean target, accepted H0 source, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Planned dossier with provisional intake and exact-statement worker evidence. The selected arXiv-v1 claim, exact base-two formula, ordered binders, one-based extremal target, witness and zero-based transports, mutations, and boundaries elaborate. H0, M0, R0, accepted execution state, proof, audit completion, theorem completion, and master acceptance are not claimed."
 }

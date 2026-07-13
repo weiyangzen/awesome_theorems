@@ -1,0 +1,164 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0958-STATEMENT",
+  "theorem_id": "THM-M-0958",
+  "execution_rank": 1492,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_name": "Elkin improved lower bound for three-term-progression-free sets",
+  "canonical_statement": "There are a positive universal real constant c and a positive integer N such that, for every integer n at least N, the maximum size of a three-term-progression-free subset of {1, ..., n} is at least c times (n / 2^(2 sqrt(2) sqrt(log_2 n))) times (log_2 n)^(1/4).",
+  "source_selection": {
+    "authoritative_statement_edition": "Michael Elkin, An Improved Construction of Progression-Free Sets, arXiv:0801.4310v1, submitted 2008-01-28",
+    "immutable_pdf_sha256": "f2be0497fb1be4653343463a6ca95b647c9c880402f4b1115f77e98c5843022b",
+    "definition_locator": "printed pages 1-2: progression-free sets, nu(n), Omega, and base-2 log",
+    "result_locator": "equation (5) and the following finite-case sentence on printed page 3; source construction and equation (12) on printed pages 5-6",
+    "selection_reason": "arXiv records one immutable version and its exact statement, definitions, formula, and asymptotic binders are available; it is selected for statement identity rather than silently claiming access to the later journal body",
+    "version_boundary": "The SODA 2010 and Israel Journal of Mathematics 2011 metadata and headline formula agree, but full body comparison is open. The 36-page journal version advertises added discrete-geometry content and is not claimed identical to the 20-page arXiv text.",
+    "source_assurance": "This exact selection resolves statement identity while remaining H1: lawful durable source admission, complete edition comparison, correction and errata audit, source-to-obligation mapping, and independent additive-combinatorics review remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0958/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0958.ElkinConstructionTarget",
+    "elaborated_expression_sha256": "bc0d841038cdbcd4960581583c4ddfb7004d7ad38cf6432ab4803e9908f8f59c",
+    "statement_bundle_sha256": "0e90ce5bcd0b934e585b550f8f9c465fd4c7d1ca2f01011f40d2c52e60e9a402",
+    "statement_file_sha256": "765d13f4b2fc0bc8bdf0a1211039b62ed6269148819857795aac0c7a42dc40e6",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance"
+  },
+  "domain_and_universes": "A closed Prop in universe 0. The asymptotic index n and threshold N are Nat; c and the quantitative expression are Real; the one-based ambient interval is Finset.Ico 1 (n + 1); its extremal cardinality is addRothNumber and is explicitly coerced to Real.",
+  "quantifiers": [
+    "there exists a universal c : Real",
+    "there exists a universal N : Nat",
+    "for every n : Nat with N <= n"
+  ],
+  "ordered_binders": [
+    "c : Real, existential",
+    "hc : 0 < c",
+    "N : Nat, existential",
+    "hN : 0 < N",
+    "n : Nat, universal",
+    "hn : N <= n"
+  ],
+  "hypotheses": [
+    "the universal multiplicative constant is positive",
+    "the asymptotic threshold is a positive integer",
+    "the index is at least the threshold"
+  ],
+  "conclusion": "c * elkinScale n <= (addRothNumber (Finset.Ico 1 (n + 1)) : Real), where elkinScale n is ((n : Real) / 2^(2 * sqrt 2 * sqrt (logb 2 n))) * (logb 2 n)^(1/4).",
+  "encoding_decisions": {
+    "root_form": "The source headline uses the extremal function nu(n), so the one-based addRothNumber inequality is canonical; a checked iff supplies the explicit witness-set construction form.",
+    "omega": "Expanded into one positive universal real constant, one positive natural threshold, and all indices at least that threshold, exactly matching the source definition.",
+    "interval": "Finset.Ico 1 (n + 1) represents {1, ..., n}; the checked addRothNumber_Ico bridge maps it to rothNumberNat n.",
+    "progression": "SourceProgressionFree normalizes the source's unordered distinct triple by placing its averaged element in the middle binder; universal quantification covers every permutation, and the predicate is checked equivalent to mathlib ThreeAPFree over Nat.",
+    "logarithm": "Real.logb 2 is used for every source log because the source globally declares unqualified log to be base two.",
+    "fractional_power": "Real.rpow is selected by the explicit exponent (1 / 4 : Real); Real.sqrt supplies the nonnegative square roots.",
+    "coercion": "The natural extremal cardinality is coerced to Real before comparison; no unmentioned floor or ceiling changes the bound.",
+    "finite_cases": "The root is the literal asymptotic Omega expansion. n = 0, 1, and other below-threshold values are not universally asserted; totalized expression and interval behavior at 0 and 1 are checked separately."
+  },
+  "direct_imports": [
+    "Mathlib.Combinatorics.Additive.AP.Three.Defs",
+    "Mathlib.Analysis.SpecialFunctions.Log.Base"
+  ],
+  "minimal_import_result": "The canonical statement surface elaborates with exactly these two pinned imports. Deleting Three.Defs makes addRothNumber unavailable; deleting Log.Base removes the required real logarithm, square-root, rpow, and real-number surface. The broader proof-bearing Behrend module is not imported.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0958.WitnessConstructionTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0958.elkinConstructionTarget_iff_witnessConstructionTarget",
+      "boundary": "Expands the attained extremum into a finite set on the source interval with the source distinct-triple predicate and the same real cardinality bound."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0958.RothNumberTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0958.elkinConstructionTarget_iff_rothNumberTarget",
+      "boundary": "Translates the source one-based interval to mathlib's zero-based range without changing n or the quantitative formula."
+    }
+  ],
+  "excluded_alternate_encodings": [
+    "Behrend.roth_lower_bound or any bound without Elkin's fourth-root improvement",
+    "an all-positive-n form until the finite-case constant-shrinking transport is separately checked",
+    "a natural-log or exponential normalization without a checked coefficient transport",
+    "the relative sqrt(log n) improvement comparison alone",
+    "a premise that stores the desired set, extremal inequality, or construction",
+    "finite-field, cyclic-group, cap-set, or longer-progression variants"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0958/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedPositiveConstant",
+        "expression_sha256": "c29bd6ca27fa34bb007e75a2cbf197038477995f637b7f5a75011a8625ce02d4"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationIntegerIndexDomain",
+        "expression_sha256": "15fa43ccf12c6e9571410e3fe850d02cad7846dc5565c4f957cd305bd7b7e54e"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationPerIndexConstant",
+        "expression_sha256": "85ddd4f917e37072ab6b4b8cc1643c0c7704d957177c719235156811246f7490"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationShiftsIntervalEndpoint",
+        "expression_sha256": "6790ff789429be0c8ec69948199ac0255153c76b38455d3d734acad886470ea0"
+      }
+    ],
+    "method": "Lean #check_failure rejects definitional equality for every structural mutation, and the checker serializes every explicit expression and rejects any mutation fingerprint equal to the canonical fingerprint."
+  },
+  "degenerate_cases": {
+    "n_equals_zero": "Outside every instance satisfying the positive-threshold antecedent; elkinScale_zero and oneBasedInterval_zero check the totalized Lean surface.",
+    "n_equals_one": "May lie below the threshold; elkinScale_one and oneBasedInterval_one check the totalized Lean surface.",
+    "threshold_value": "Included by N <= n; mutationShiftsIntervalEndpoint instead omits the source interval's inclusive upper endpoint.",
+    "constant_or_repeated_triples": "Not forbidden by SourceProgressionFree; the checked equivalence to ThreeAPFree retains exactly nontrivial progressions.",
+    "rounding": "No rounding is introduced: a Real lower bound is compared directly with a Real coercion of the Nat cardinality."
+  },
+  "environment_fingerprint": {
+    "base_revision": "c79ae75db8880483f10bba17c9bc9dd91a9febcf",
+    "base_tree": "375fa18a4f8afa63bb51d8b05fb4c804f3bb1240",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": {
+      "Mathlib.Combinatorics.Additive.AP.Three.Defs": "b325fb632a5398208995fa5beae71c47798086e588f98e46679aa81b923b28e3",
+      "Mathlib.Analysis.SpecialFunctions.Log.Base": "585f502f8c45eaac27a8d18548104a6125b0738d2e9e6c7c0e4eaa62f2c4366a"
+    },
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's standard classical infrastructure. Checked source-predicate, extremal-witness, interval, and boundary transports report only propext, Classical.choice, and Quot.sound. No custom axiom, oracle, unsafe declaration, or target proof is added.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0, pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, and the two deletion-minimal statement imports. Terminal proof-body and transitive trust closure remain downstream.",
+  "computation_profile": "No enumeration, solver, native evaluation, external oracle, generated certificate, or unchecked computation is used or credited. Expression fingerprinting hashes Lean's explicit serialization in the pinned environment.",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The exact source-selected proposition, formula, ordered binders, minimal imports, explicit expression and environment fingerprints, progression and interval transports, four mutation classes, and totalized 0/1 boundaries elaborate. This moves machine debt from no usable formal artifact to statement/interface debt; no H0, proof-body, or readable-reconstruction acceptance is supplied.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "Provisional statement-only worker evidence. The intake dependency and this node require dependency-ordered master acceptance. Source H0, anchor and terminal-body audit, obligation freeze, proof, composition, readable reconstruction, hermetic replay, independent verification, release, audit completion, and theorem completion remain open."
+}

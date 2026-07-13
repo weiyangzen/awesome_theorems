@@ -1,4 +1,4 @@
-# THM-M-0958 rev-5.6 intake
+# THM-M-0958 rev-5.6 statement dossier
 
 This directory is the fail-closed `planned` intake dossier for the catalog entry `Elkin
 construction`. The repository supplies only the gloss `improvement of the Behrend construction`,
@@ -20,13 +20,26 @@ machine-checked Behrend lower bound. `IntakeProbe.lean` authenticates those inte
 Behrend result has a different, weaker quantitative bound; it is not Elkin's improvement and is not
 credited as a target proof.
 
-The catalog gloss still does not freeze the domain encoding, ordered asymptotic binders, exact
-base-2 formula, constant and threshold semantics, progression predicate, one-based to zero-based
-transport, or boundary cases. Intake does not silently choose those proposition-changing details.
-The provisional vector is `[H1, M4, R4]`: a matching published proof source is known but not fully
-audited, no usable exact formal artifact is credited, and no source-faithful readable
-proof reconstruction is available.
+The statement phase now designates the SHA-256-pinned arXiv `0801.4310v1` PDF as the authoritative
+statement edition. `Statement.lean` freezes equation (5) as an explicit expansion of the source's
+`Omega` convention: a positive universal real constant, a positive natural threshold, and every
+index at least that threshold. The root uses the source one-based extremal function and the exact
+base-two formula. Checked iff transports expose both an explicit progression-free set witness and
+mathlib's zero-based `rothNumberNat` form. The source distinct-triple predicate is also checked
+against `ThreeAPFree`.
 
-`instance.json` is the structured scope authority and `task-dag.json` keeps all six downstream
-phases open. No canonical proposition, exact Lean target, accepted proof state, audit completion,
-theorem completion, or master acceptance is claimed.
+The two deletion-minimal imports are `Mathlib.Combinatorics.Additive.AP.Three.Defs` and
+`Mathlib.Analysis.SpecialFunctions.Log.Base`. Four structural mutations cover a removed positivity
+hypothesis, changed index domain, changed constant scope, and shifted interval endpoint. The
+totalized scale and one-based interval at `n = 0` and `n = 1` are separately checked. The
+provisional vector is now `[H1, M3, R4]`: the exact statement interface elaborates, but no proof
+body or readable proof reconstruction is credited.
+
+The SODA and journal headline formulas agree with arXiv v1, but their complete bodies were not
+compared. In particular, the substantially longer 2011 journal version advertises an added
+discrete-geometry application. Full edition comparison, correction and errata review, lawful
+durable source admission, source-to-obligation mapping, and independent review remain H1 debt.
+
+`instance.json` is the structured scope authority and `task-dag.json` keeps every downstream phase
+open. The exact statement evidence is provisional pending dependency-ordered master acceptance.
+No target proof, H0, M0, R0, audit completion, theorem completion, or release is claimed.

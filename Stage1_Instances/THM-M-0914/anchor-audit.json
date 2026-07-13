@@ -1,0 +1,373 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0914-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0914",
+  "execution_rank": 1456,
+  "phase": "anchor_audit",
+  "base_revision": "a1c9974d7fb28cd680e6494b968544bf801a93a2",
+  "base_tree": "1fa287bc821355aca2ca9e3ce107830a3eb58e64",
+  "audit_date": "2026-07-13",
+  "audit_cutoff": "2026-07-13T22:30:00+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0914.PigeonholeTarget",
+  "canonical_target_expression_sha256": "faef4a7f73219dc5b6178b8788978e21377c593ad84b845b4d49547218e6ae3b",
+  "canonical_statement_file_sha256": "953cf5ba54e27cf08cce5a91880fd79d36f4b5aa7b92228bd27474a1399233db",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_commit_date": "2026-03-30T18:47:58Z",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "the automation-provided canonical .lake symlink and materialized Git objects were used read-only; no Lake update/build, dependency clone/fetch, checkout, package edit, or .lake mutation ran"
+  },
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:a503b5bbe8ded92348d06711b061737feb0f8939758c25e3a9593bfa8d082d19",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:8ba497bacef09722235917b00b82905075850e83f9d9dbbdedcc209bdfd4343f",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Stage1_Instances/THM-M-0914/Statement.lean": "sha256:953cf5ba54e27cf08cce5a91880fd79d36f4b5aa7b92228bd27474a1399233db"
+  },
+  "discovery_protocol": {
+    "path": "Stage1_Instances/THM-M-0914/anchor-discovery-protocol.json",
+    "sha256": "c303d49d324e32b5dd5d3b212bde7684801b1ca462571592d6daa93eea79fa10",
+    "inventory_version": "S56-M-0914-ANCHOR-INVENTORY-20260713-01",
+    "frozen_before_candidate_classification": true,
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0914-C01-MATHLIB-DIRECT",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Data.Fintype.Pigeonhole",
+      "file": "Mathlib/Data/Fintype/Pigeonhole.lean",
+      "file_blob": "19ebeb40518e099dc572d5b3b627ce2f62c0745a",
+      "file_sha256": "fa4604d2b1ae480f910e6000ca8814a632299082b48a14f598314303b68cc582",
+      "body_lines": "46-49",
+      "body_sha256": "d84d5bc0b4c083cfdfb02001f2def9855531a4c250dbc855132fd9064669eb2f",
+      "declaration": "Fintype.exists_ne_map_eq_of_card_lt",
+      "type": "For finite types alpha and beta, (f : alpha -> beta) and card beta < card alpha imply two distinct inputs with equal images.",
+      "normalized_match": "The general finite-type theorem is stronger only in carrier polymorphism. AnchorAudit.exactTarget_mathlib_candidate specializes alpha to Fin (n + 1), beta to Fin n, and discharges exactly n < n + 1 via Fintype.card_fin, preserving the frozen binder order, total placement, distinct witnesses, collision conclusion, and n = 0 semantics.",
+      "local_adapter": "Stage1Instances.THM_M_0914_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
+      "terminal_candidate_id": "M0914-C02-MATHLIB-FINSET-TERMINAL",
+      "proof_body_location": "pinned mathlib, not repository-local",
+      "direct_proof_dependencies": [
+        "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
+        "Finset.mem_univ"
+      ],
+      "local_adapter_dependencies": [
+        "Fintype.card_fin",
+        "Nat.lt_add_one"
+      ],
+      "direct_module_imports": [
+        "Mathlib.Data.Finset.Union",
+        "Mathlib.Data.Fintype.EquivFin"
+      ],
+      "historical_provenance": {
+        "lean4_port_commit": "cd8f5ab360c369c6283da5513ec8a7c6e9f5ade3",
+        "lean4_port_tree": "ba48f9aa4eef41e50133c58095f7b3520a7550d6",
+        "lean4_port_date": "2023-01-19T11:44:56Z",
+        "lean4_port_author": "Johan Commelin",
+        "port_is_ancestor_of_pin": true,
+        "current_file_header_author": "Mario Carneiro",
+        "boundary": "The port identifies lineage; the pinned file blob and body-slice hash identify the audited wrapper after later changes."
+      },
+      "machine_probe": {
+        "command": "cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-0914/AnchorAudit.lean",
+        "exit": 0,
+        "output_sha256": "e1b4eed99fb2b93f247cebba950d7dd549dd62d29f2ba046b7a9843a66ef9da4",
+        "reported_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorry_reports": "the Fintype wrapper, terminal Finset theorem, and exact adapter are machine-reported sorry-free",
+        "transitive_declaration_closure_count": 3623,
+        "transitive_module_count": 117,
+        "transitive_bodyless_nonaxioms": [],
+        "transitive_unsafe_declarations": []
+      },
+      "placeholder_bodyless_unsafe_oracle_status": "assert_no_sorry and #print sorries pass for the wrapper, terminal body, and exact adapter. Lean environment traversal reports only propext, Classical.choice, and Quot.sound, with no bodyless nonaxioms and no unsafe declarations in the 3,623-declaration closure. Comment-stripped visible-source scans are supplemental; release-grade executable and compiled-artifact TCB closure remains downstream.",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "already pinned and materialized in the repository Lake dependency closure; the exact adapter elaborates read-only without dependency mutation",
+      "candidate_classification": "M3",
+      "candidate_route_if_e1_accepted": "M0-W",
+      "evidence_level": "provisional_worker_check_below_accepted_E1",
+      "evidence_boundary": "The exact source anchor and a nonrelease local kernel compatibility probe are established. E2 is not claimed because there is no independent upstream reproduction receipt; E1 and M0-W are not claimed because this dirty worker audit is not release-grade proof-node integration.",
+      "result": "An exact pinned-library M0-W route is identified and locally compatibility-checked, but the current classification remains M3 until dependency-ordered proof integration, release-grade E1 evidence, and master acceptance."
+    },
+    {
+      "candidate_id": "M0914-C02-MATHLIB-FINSET-TERMINAL",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Data.Finset.Card",
+      "file": "Mathlib/Data/Finset/Card.lean",
+      "file_blob": "d1c2c1e36ea9028aa27c4724c2c9d76afd9af35b",
+      "file_sha256": "5566f2afb81cb80e2aa7349d8b04214f3667d84e4b81d965f85714ec5a8f0e27",
+      "body_lines": "442-449",
+      "body_sha256": "c88e185f9515ef671655ee204e5526c49887f3a23a56b99a0d849074cdcb9707",
+      "declaration": "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
+      "type": "For finite sets s and t, card t < card s and Set.MapsTo f s t imply distinct x,y in s with f x = f y.",
+      "normalized_match": "This is the substantive terminal body used by C01. Specializing s and t to univ yields the same collision family, but its membership and MapsTo binders are implementation infrastructure rather than the frozen root.",
+      "terminal_proof_body": "A classical contradiction assumes every distinct pair in s has unequal images, feeds the resulting injectivity-on-s fact to Finset.card_le_card_of_injOn, and contradicts card t < card s.",
+      "direct_proof_dependencies": [
+        "Finset.card_le_card_of_injOn",
+        "Set.MapsTo",
+        "LT.lt.not_ge",
+        "Mathlib.Tactic.Contrapose.contrapose₁"
+      ],
+      "historical_provenance": {
+        "lean4_port_commit": "4c08b36f2c9aad243e2885bb82693e654be2d98f",
+        "lean4_port_tree": "5f844f5116d6c8da6f29f464045062c889ae0736",
+        "lean4_port_date": "2023-01-16T16:20:32Z",
+        "lean4_port_author": "Ruben Van de Velde",
+        "port_is_ancestor_of_pin": true
+      },
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_status": "machine-reported sorry-free; visible body has no sorry, admit, sorryAx, axiom, unsafe, opaque, native_decide, implemented_by, extern, or proof_wanted marker",
+      "candidate_classification": "M3_terminal_dependency",
+      "evidence_level": "provisional_worker_check_below_accepted_E1",
+      "result": "Terminal dependency and provenance boundary of C01, not independent root coverage."
+    },
+    {
+      "candidate_id": "M0914-C03-MATHLIB-ALTERNATE-INTERFACES",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "declarations": [
+        "Fintype.not_injective_of_card_lt",
+        "Function.Embedding.isEmpty_of_card_lt",
+        "Fin.le_of_injective"
+      ],
+      "modules": [
+        "Mathlib.Data.Fintype.Card",
+        "Mathlib.Data.Fintype.Pigeonhole",
+        "Mathlib.Data.Fin.Pigeonhole"
+      ],
+      "normalized_match": "These encode the same cardinal obstruction as noninjectivity, absence of embeddings, or a numerical consequence of injectivity. None has the frozen existential witnesses as its conclusion without an additional checked conversion.",
+      "types": {
+        "Fintype.not_injective_of_card_lt": "(f : alpha -> beta) -> card beta < card alpha -> not Function.Injective f",
+        "Function.Embedding.isEmpty_of_card_lt": "card beta < card alpha -> IsEmpty (alpha embeds in beta)",
+        "Fin.le_of_injective": "(f : Fin m -> Fin n) -> Function.Injective f -> m <= n"
+      },
+      "terminal_relationship": "not_injective_of_card_lt uses card_le_of_injective; isEmpty_of_card_lt is downstream of C01; Fin.le_of_injective specializes the cardinal inequality interface.",
+      "terminal_body_provenance": "These are shallow alternative interfaces in pinned mathlib: not_injective_of_card_lt calls card_le_of_injective, isEmpty_of_card_lt calls C01 and embedding injectivity, and Fin.le_of_injective calls card_le_of_injective plus card_fin simplification. They are not independent terminal bodies for the frozen collision conclusion.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "already pinned and materialized; no additional dependency is required, but a checked collision-witness conversion would be needed to use the noninjectivity interfaces as the root",
+      "axiom_and_placeholder_boundary": "C01's isEmpty interface is inside the audited closure. The pinned visible sources for all three declarations contain explicit bodies and no scoped sorry, admit, sorryAx, declared axiom, unsafe, opaque, oracle, or external-code marker; full release acceptance is not claimed.",
+      "candidate_classification": "M3_support_or_duplicate",
+      "evidence_level": "E3",
+      "result": "Alternate interfaces only; no independent target body or coverage credit."
+    },
+    {
+      "candidate_id": "M0914-C04-MATHLIB-STRONG-FIBER",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Combinatorics.Pigeonhole",
+      "file": "Mathlib/Combinatorics/Pigeonhole.lean",
+      "file_blob": "35207f37b098217a5cf272a58ea0d8da5139e009",
+      "file_sha256": "f83551a2efb2f2fedf0441d5f73e5d11fcd01da47e057af563f99c9a742399fb",
+      "declaration": "Fintype.exists_lt_card_fiber_of_mul_lt_card",
+      "type": "card beta * k < card alpha -> exists y : beta, k < card {x | f x = y}",
+      "normalized_match": "A stronger fiber-cardinality family with DecidableEq and arithmetic parameters. It does not expression-match the literal collision target and is not selected as the root without a checked specialization and witness extraction.",
+      "terminal_declaration": "Fintype.exists_lt_card_fiber_of_nsmul_lt_card",
+      "terminal_body_provenance": "The declaration is a shallow Nat-multiplication alias of the nsmul fiber theorem, which specializes a Finset univ/maps-to weighted counting theorem. It is a separate stronger family, not a direct terminal body for the frozen collision target.",
+      "direct_module_imports": [
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+        "Mathlib.Data.Fintype.Pigeonhole"
+      ],
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "dependency_feasibility": "already pinned and materialized, but using it for the root would require a checked k = 1 specialization and fiber-cardinality-to-distinct-witness extraction",
+      "axiom_and_placeholder_boundary": "The pinned declaration and visible terminal route have explicit bodies and no scoped sorry, admit, sorryAx, declared axiom, unsafe, opaque, oracle, or external-code marker. It was not added to the exact root closure because it is a nonselected stronger route.",
+      "candidate_classification": "M3_stronger_non_substitute",
+      "evidence_level": "E3",
+      "result": "Useful downstream strengthening only; no separate root or terminal-body credit."
+    },
+    {
+      "candidate_id": "M0914-C05-ZERO-TO-QED",
+      "project": "sdiehl/zero-to-qed",
+      "remote": "https://github.com/sdiehl/zero-to-qed.git",
+      "revision": "877c7cc5a48833bcac5902d04ccdf65dc308aeaf",
+      "tree": "47537dd82603d98271ea1c6b8b855ce226ce9938",
+      "parent": "4df89151544d0ecd6c3be2666b79d37395574f76",
+      "commit_date": "2026-06-14T17:13:38Z",
+      "archive_sha256": "936fbb7be91670a601f227997caf81e56f7d6a7d65a1bdca7821d0dc3717a60e",
+      "module": "ZeroToQED.Proofs.Pigeonhole",
+      "file": "src/ZeroToQED/Proofs/Pigeonhole.lean",
+      "file_blob": "dbe4128f28f28676aeaf445f715c490867316beb",
+      "file_sha256": "30b14833b4c5aec997dd1c9e005b32a0d75f5101ddd0c12e679cd376cf013e44",
+      "declaration": "ZeroToQED.Proofs.pigeonhole",
+      "type": "For finite types alpha and beta, (f : alpha -> beta) and card beta < card alpha imply two distinct inputs with equal images.",
+      "normalized_match": "The declaration has the same general finite-type collision family as C01 and could specialize to the frozen Fin target. Its direct proof is independent of C01's Finset terminal body and instead derives injectivity from the negated collision and contradicts Fintype.card_le_of_injective.",
+      "terminal_declaration": "ZeroToQED.Proofs.pigeonhole",
+      "terminal_proof_body": "Direct by-contradiction proof using push Not, Classical.byContradiction, Fintype.card_le_of_injective, and Nat.not_lt.mpr.",
+      "toolchain": "leanprover/lean4:v4.30.0",
+      "toolchain_file_sha256": "54727eec5cba149c18842e6deb5c41b369d66455c93ce135d7d5347c782b2325",
+      "lake_manifest_sha256": "d52242995e6609b8c551926bcc8ce3c51a8a412c1e09230f74ee365cb78eddf2",
+      "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+      "license": "MIT",
+      "license_sha256": "8759fa1cf9ef841d0358d6d2ca3a7f7756cc2bfd800d58dc584273b8c23f6a34",
+      "placeholder_boundary": "The inspected Pigeonhole.lean source has no prohibited marker, but the larger pedagogical repository contains unrelated sorry and custom axiom examples. No whole-project trust claim follows from this file audit.",
+      "dependency_feasibility": "not in the local dependency closure and pinned to newer Lean 4.30/mathlib. The immutable archive, source, lock, toolchain, and license were inspected; no dependency clone/fetch, installation, build, or .lake mutation ran.",
+      "local_compatibility_probe": {
+        "command": "cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean --stdin < immutable ZeroToQED Pigeonhole.lean bytes",
+        "exit": 0,
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "machine_boundary": "The source elaborated against the already materialized local 4.29 mathlib environment, but the external project's own pinned 4.30 dependency closure was not independently built. This compatibility probe is not E2 upstream evidence and supplies no M1 credit.",
+      "candidate_classification": "M3_external_exact_source_anchor",
+      "evidence_level": "E3",
+      "integration_blocker": "A dependency-legal immutable pin/import or separately provisioned clean upstream build, exact local adapter, full placeholder/axiom/provenance closure, license review, and accepted receipt are required before machine credit.",
+      "result": "Credible independent exact-family source anchor at an immutable revision; not integrated or independently reproduced."
+    },
+    {
+      "candidate_id": "M0914-C06-FORMALBOOK",
+      "project": "mo271/FormalBook",
+      "remote": "https://github.com/mo271/FormalBook.git",
+      "revision": "701731c73f68dbc1559703f3568aa5c4924a7bdc",
+      "tree": "46b452e2b288d837512babfe77aab757518755ed",
+      "parent": "ae36c65ecb027e8751b0de00b3e4a839b2055b37",
+      "commit_date": "2026-05-01T07:12:39Z",
+      "commit_signature_status": "verified on the observed GitHub commit metadata response",
+      "archive_sha256": "8e93c92a7f4a672d9f78c8eb96f4064382f28b632e2520040830243e8d8d8f43",
+      "module": "FormalBook.Chapter_28",
+      "file": "FormalBook/Chapter_28.lean",
+      "file_blob": "9429463c8c7e1398e65f53e40fd18a1bb942454a",
+      "file_sha256": "88cbc6496f36d5bae54bcca63f31c95960263dabb371240b74545a328525c5da",
+      "declaration": "chapter28.pigeon_hole_principle",
+      "type": "(n r : Nat) -> r < n -> (Fin n -> Fin r) -> exists box object1 object2, object1 != object2 and f object1 = box and f object2 = box",
+      "normalized_match": "A stronger numerical family with an explicit shared-box witness; setting object count to n + 1 and box count to n could derive the frozen target. The body is a one-line wrapper over Fintype.exists_ne_map_eq_of_card_lt and therefore shares C01's terminal body.",
+      "terminal_candidate_id": "M0914-C01-MATHLIB-DIRECT",
+      "toolchain": "leanprover/lean4:v4.27.0-rc1",
+      "toolchain_file_blob": "bd19bde0ce12df3a11c3f4fd0b7513c30693d72c",
+      "toolchain_file_sha256": "194fcae7a59d3268baa175bd3e352dafab6954fe08a5b7caec13bedf36f80315",
+      "lake_manifest_blob": "6ff6d0b7c76f661745af602fd5921d0e2b122a26",
+      "lake_manifest_sha256": "5fe58b0519da663bf87ccd6fda9aef13caba7fb2a91e5f3978843c3e115edc17",
+      "lakefile_blob": "86a308a9d3e513549d7a5305b2f619f5bd442a9d",
+      "lakefile_sha256": "0988b546f90f42309f0ce0522e099cb9003416391b867263b2ff9f92218fd76e",
+      "mathlib_revision": "51192f7a45ed5916e5395b2375273662b68a910f",
+      "license": "Apache-2.0",
+      "license_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "candidate_classification": "M3_external_duplicate_wrapper",
+      "evidence_level": "E3",
+      "machine_boundary": "Immutable source, archive, toolchain, lock, and license were inspected. The project was not built; the codeload archive hash is an observed archive identity and is not claimed to reconstruct the Git tree because repository large-file handling may differ.",
+      "result": "Immutable instructional wrapper, not an independent terminal body and not in the local dependency closure."
+    },
+    {
+      "candidate_id": "M0914-C07-PUBLIC-INDEX-RESULTS",
+      "project": "bounded public Lean search results",
+      "indexed_commits": [
+        "dwrensha/compfiles@edf6fd4460c6606a9698925625a63f0846f4272a",
+        "facebookresearch/atlas-lean@34ffed396f376454c1a9b297f3fd74c5c801fb50",
+        "google-deepmind/formal-conjectures@fdbea4653453a764aa7f952d3b45c93007356cc9",
+        "google-deepmind/superhuman@96fa6c4cc3a9bb7450ee7b6773b659d3a030dace",
+        "leanprover/cslib@70c5bf5874a1a511b32ad1ae605c07a13345d071",
+        "the-omega-institute/automath@f76f46f07a1a48d5c12a20c2f8d366bb9df9330"
+      ],
+      "normalized_match": "The completed Sourcegraph exact-declaration query found uses of the mathlib theorem inside unrelated downstream proofs and statement collections, not a second standalone exact target with an independently audited terminal body.",
+      "formal_conjectures_boundary": "The inspected ErdosProblems/56.lean uses the mathlib theorem for a different weak-divisibility result and contains an unrelated sorry at line 150; it supplies no target closure.",
+      "candidate_classification": "M3_consumers_or_statement_collections",
+      "evidence_level": "E5",
+      "result": "Discovery leads classified and deduplicated; no machine credit."
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph global code search",
+      "query": "context:global archived:yes fork:yes lang:Lean exists_ne_map_eq_of_card_lt excluding mathlib4 count:100",
+      "result": "completed; repositoriesCount=10; matchCount=37; no skipped shards",
+      "response_sha256": "48a864b669fb015ce77833b27af9d3aa2bd715a1b87a4d9722d0f58110d43a70",
+      "boundary": "bounded index result at immutable indexed commits, not a proof-saturation or global-absence claim"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "pigeonhole lean theorem",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "quoted pigeonhole principle language:Lean",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "quoted exists_ne_map_eq_of_card_lt language:Lean",
+      "result": "HTTP 403 API rate limit exceeded",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "boundary": "explicit access failure; no negative-result credit"
+    },
+    {
+      "surface": "grep.app code search",
+      "query": "exists_ne_map_eq_of_card_lt",
+      "result": "HTTP 429 Vercel Security Checkpoint",
+      "response_sha256": "f839964e640f5708c641d9162bd7470e54dec1c97646573f7cf87338810e8944",
+      "boundary": "explicit access failure; no negative-result credit"
+    }
+  ],
+  "local_search_result": "Outside THM-M-0914, no repo-local exact collision proof or wrapper was found. Of all eleven materialized packages at manifest revisions, only mathlib contained relevant target or support declarations. This is bounded local evidence only.",
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "7/7 frozen candidate groups classified; one exact pinned route, its substantive terminal body, two mathlib support families, one independent external exact-family source anchor, one duplicate external wrapper, and bounded public consumers",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "eligible_external_integration_debt": true,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_route": "M0-W",
+    "root_machine_candidate_after": "M3",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "provisional_worker_check_below_accepted_E1",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_candidate_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_receipt_ids": [],
+  "remaining_root_cut_set": [
+    "master acceptance of the provisional statement prerequisite and this anchor-audit node",
+    "S56-M-0914-OBLIGATION_TREE",
+    "S56-M-0914-PROOF",
+    "S56-M-0914-VALIDATION",
+    "S56-M-0914-RELEASE",
+    "dependency-legal resolution of the exact external source anchor or an explicit downstream nonselection decision",
+    "full transitive provenance, compiled-artifact trust, and release-grade TCB acceptance",
+    "primary-source H0 and independent source review",
+    "readable R0 reconstruction and independent review",
+    "hermetic replay, independent verification, and deterministic release evidence"
+  ],
+  "gate_state": "worker_self_tested_pending_master_acceptance",
+  "status_boundary": "This provisional node classifies a bounded immutable formal-candidate inventory and kernel-checks an exact pinned-mathlib adapter. It accepts no receipt, changes no accepted H1/M3/R4 state, does not freeze the obligation tree or supply canonical proof-phase composition, and completes neither AUDIT-Z nor the theorem.",
+  "audit_complete": false,
+  "theorem_complete": false
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0626-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0626-VALIDATION",
+  "theorem_id": "THM-M-0626",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0626/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Kernel network isolation is applied to every Lean elaboration with bubblewrap --unshare-net. Host-side read-only pin and provenance checks use no network. This does not turn the shared warm dependency cache into release-grade cold hermetic evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-0626 narrow validation"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0626-ROOT",
+    "M0626-S-GLOBAL-LOCAL",
+    "M0626-N-IMAGE-COVER-TO-SOURCE",
+    "M0626-N-SEPARATION-GOAL",
+    "M0626-C-RELATIVE-PREIMAGES",
+    "M0626-N-WITNESS-PULLBACK",
+    "M0626-L-SOURCE-INTERSECTION",
+    "M0626-T-INTERSECTION-PUSHFORWARD",
+    "M0626-L-IMAGE-PRECONNECTED",
+    "M0626-L-IMAGE-NONEMPTY",
+    "M0626-A-ISCONNECTED-IMAGE",
+    "M0626-T-LOCAL-COMPOSE",
+    "M0626-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0626.ConnectedImageTarget",
+    "IsPreconnected.image",
+    "IsConnected.image",
+    "Stage1Instances.THM_M_0626.Proof.connectedImage",
+    "Stage1Instances.THM_M_0626.Proof.connectedImage_via_components",
+    "Stage1Instances.THM_M_0626.Proof.connectedImage_via_exactAssembly",
+    "Stage1Instances.THM_M_0626.Validation.differentialConnectedImage"
+  ],
+  "scope_boundary": "Network-isolated, node-scoped worker replay of the exact root against existing pinned source and warm compiled artifacts, local trust/provenance observations, and a same-worker differential wrapper. Clean-checkout empty-cache bootstrap, offline restoration, complete transitive TCB/provenance closure, and distinct-runner independent verification remain fail-closed."
+}

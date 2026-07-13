@@ -51,12 +51,22 @@ untracked-file whitespace checks are recorded in `intake-receipt.json`. The publ
 does not depend on the scheduler-only root packet; a separate worker-only invocation checks the
 handoff packet.
 
+## Statement-phase update
+
+The later statement phase selects arXiv `0801.4310v1` as its authoritative statement edition and
+adds `Statement.lean`, `statement.json`, `check_statement.py`, `statement-validation.md`, and a
+provisional statement receipt. That evidence freezes and elaborates the exact source extremal
+inequality, checked witness and zero-based transports, four mutation classes, and boundary
+fixtures. See `statement-validation.md` for its exact commands and results. This section preserves
+the historical intake command record; `check_intake.py` is reconciled to validate the expanded
+dossier without rewriting the provisional intake receipt's historical base or hashes.
+
 ## Status boundary
 
-This is provisional worker self-test evidence for `S56-M-0958-INTAKE` only. It supports a truthful
-`planned` dossier, not an accepted node receipt. Exact source admission and independent review,
-canonical Lean elaboration and statement mutations, complete anchor audit and discovery freeze,
-obligation registry, typed graphs, proof, composition, trust closure, readable reconstruction,
-hermetic replay, deterministic release bundle, and independent verification remain open. These
-failures prevent statement, audit-completion, and theorem-completion claims, but do not invalidate
-the planned intake.
+The intake receipt remains provisional evidence for `S56-M-0958-INTAKE` only. The subsequent exact
+statement evidence is separately provisional for `S56-M-0958-STATEMENT`; neither is an accepted
+node receipt. H0 source admission and independent review, complete anchor audit and discovery
+freeze, obligation registry, typed graphs, proof, composition, trust closure, readable
+reconstruction, hermetic replay, deterministic release bundle, and independent verification
+remain open. These failures prevent audit-completion and theorem-completion claims, but do not
+invalidate the planned dossier or the self-tested statement interface.
