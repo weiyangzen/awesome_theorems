@@ -1,0 +1,554 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0861-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0861",
+  "execution_rank": 1415,
+  "intent": "audit",
+  "base_revision": "9c75282d42a7ef447d885d1d56997a79418bcd8a",
+  "base_tree": "cc5285432a02107fadffb68c698690d1b98ac5f2",
+  "audit_date": "2026-07-13",
+  "audit_timezone": "Asia/Shanghai",
+  "inventory_version": "S56-M-0861-ANCHOR-INVENTORY-20260713-01",
+  "canonical_target": "Stage1Instances.THM_M_0861.KonigEdgeColoringTarget",
+  "canonical_target_expression_sha256": "4e7919ed3b44379a42d69ef88cfb5e512248eccfe755392723cb6769c4f8e197",
+  "canonical_statement_file_sha256": "a6ce9ee3edd720d38fa9306324e38b48d5f0430a8b9513b9207e7808ea1b380d",
+  "canonical_target_summary": "Every multigraph with finite actual vertex and edge sets and a Bool bipartition has least proper edge-color palette equal to its maximum incidence-set cardinality; parallel edge identities are distinct and edgeless cases are included.",
+  "discovery_protocol": {
+    "protocol_id": "S56-M-0861-ANCHOR-DISCOVERY-20260713-01",
+    "path": "Stage1_Instances/THM-M-0861/anchor-discovery-protocol.json",
+    "sha256": "a7813bbe56a888df8ffe12465725f494f55084a6498529a6444db0b672a1a253",
+    "saturation_claim": false
+  },
+  "immutable_environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_revision_date": "2026-03-30T18:47:58Z",
+    "mathlib_worktree_clean": true,
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "The automation-provided canonical .lake symlink and already materialized packages were used read-only. No lake update, lake build, clone, fetch, checkout, or dependency-cache mutation was performed."
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0861-C01-REPO-LOCAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "9c75282d42a7ef447d885d1d56997a79418bcd8a",
+      "tree": "cc5285432a02107fadffb68c698690d1b98ac5f2",
+      "module": "Stage1_Instances/THM-M-0861/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0861.KonigEdgeColoringTarget",
+      "elaborated_expression_sha256": "4e7919ed3b44379a42d69ef88cfb5e512248eccfe755392723cb6769c4f8e197",
+      "normalized_match": "Exact by definition and by the statement-gate elaborated expression fingerprint.",
+      "checked_wrapper_or_conclusion": "A Prop definition only; no inhabitant is declared.",
+      "terminal_declaration": null,
+      "terminal_proof_body": null,
+      "proof_body_location": "none",
+      "dependency_feasibility": "Already repository-local and elaborated under the pinned environment.",
+      "placeholder_bodyless_unsafe_oracle_status": "There is no target proof declaration to inspect or credit. The statement module's separate boundary and transport lemmas are not target inhabitants.",
+      "candidate_classification": "M3_statement_only",
+      "evidence_level": "E3",
+      "result": "Exact statement anchor only."
+    },
+    {
+      "candidate_id": "M0861-C02-MATHLIB-MULTIGRAPH-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Combinatorics.Graph.Basic",
+      "file": "Mathlib/Combinatorics/Graph/Basic.lean",
+      "file_blob": "72ae0789f49228ac2fb458a9bf7da842d0638190",
+      "file_sha256": "dc3f9c7793f8de09261868afeb7e1d8804914b90b1fc4615feb139f2452dd2b9",
+      "source_lines": "79-106, 184-187, 394-404",
+      "declarations": [
+        "Graph",
+        "Graph.IsLink",
+        "Graph.Inc",
+        "Graph.incidenceSet"
+      ],
+      "type_summary": "An edge-identity multigraph representation with vertexSet, edgeSet, endpoint map, link/incidence predicates, and incidence sets.",
+      "normalized_match": "The representation preserves parallel edge identities and supports the frozen degree definition, but the pinned Graph subtree contains only Basic and Subgraph. It has no multigraph bipartiteness, finite-degree maximum, proper edge coloring, chromatic index, or Konig theorem.",
+      "checked_wrapper_or_conclusion": "AnchorAudit.lean #checks the four interfaces and copies the exact target, but declares no wrapper theorem.",
+      "terminal_declaration": null,
+      "terminal_proof_body": null,
+      "proof_body_location": "none for the target",
+      "direct_module_imports": [
+        "Mathlib.Data.Set.Basic",
+        "Mathlib.Data.Sym.Sym2"
+      ],
+      "placeholder_bodyless_unsafe_oracle_status": "Definitions and representation APIs only; no target proof body or oracle is present. Full transitive TCB closure is not claimed.",
+      "dependency_feasibility": "Already pinned and materialized; usable as the selected representation.",
+      "license": "Apache-2.0",
+      "candidate_classification": "M3_substrate_only",
+      "evidence_level": "E3",
+      "result": "Required representation substrate, no theorem closure."
+    },
+    {
+      "candidate_id": "M0861-C03-MATHLIB-SIMPLEGRAPH-COLORING-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "files": [
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Bipartite.lean",
+          "blob": "7263d4c6eed57420f67b01639947965ec952d74c",
+          "sha256": "5402f4cd073b757a9d1bd127cbbca9f9a2b0750c8c9edb7e2361df32312acf3f"
+        },
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/EdgeLabeling.lean",
+          "blob": "2b6c7b330727ccc5de9ab88dbcc71737697cff80",
+          "sha256": "6f0181a9b0a003bd703d81f609d5e30779d5543aa31dfc32f4b15c6e6c51b3f9"
+        },
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/LineGraph.lean",
+          "blob": "786371783f21afc25193d940fb6655c6f196d58c",
+          "sha256": "8d938aa393a544cb7f20fe34176ec005702363991f978f7ccb394c7276ab401f"
+        },
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Coloring.lean",
+          "blob": "8d32158848f9f8d4c34cfdf49bd66fd5604adae1",
+          "sha256": "42c4c6ac9c763df08f33a9fc4cf329e19908dacc630be771a547fcb583f7be56"
+        },
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Finite.lean",
+          "blob": "a111f858a1b79cae5c68eaa94bfdf104c50063cf",
+          "sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8"
+        }
+      ],
+      "declarations": [
+        "SimpleGraph.IsBipartiteWith",
+        "SimpleGraph.IsBipartite",
+        "SimpleGraph.EdgeLabeling",
+        "SimpleGraph.lineGraph",
+        "SimpleGraph.lineGraph_adj_iff_exists",
+        "SimpleGraph.Coloring",
+        "SimpleGraph.chromaticNumber",
+        "SimpleGraph.maxDegree"
+      ],
+      "type_summary": "Simple-graph bipartiteness, arbitrary edge labels, line graph, proper vertex coloring, ENat chromatic number, and Nat maximum degree.",
+      "normalized_match": "These APIs can encode edge coloring only after a simple-graph line-graph transport. They discard parallel-edge multiplicity and do not furnish the frozen Graph multigraph theorem. EdgeLabeling.lean explicitly says proper incident-edge coloring is reserved for a missing condition.",
+      "checked_wrapper_or_conclusion": "AnchorAudit.lean checks the interfaces; no target wrapper can be formed from the located declarations.",
+      "terminal_declaration": "SimpleGraph.lineGraph_adj_iff_exists",
+      "terminal_proof_body": "Pinned proof-bearing line-graph adjacency lemma, not a coloring theorem.",
+      "proof_body_location": "Mathlib/Combinatorics/SimpleGraph/LineGraph.lean:38-46",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_and_trust_boundary": "Lean reports lineGraph_adj_iff_exists sorry-free with only the listed standard axioms. This report covers that adjacent lemma, not a target proof. No unsafe/oracle/external computation appears in the audit adapter; full transitive trust closure remains downstream.",
+      "history": [
+        {
+          "commit": "5010acf37f7bd8866facb77a3b2ad5be17f2510a",
+          "tree": "869f438bf721714dd5f04c9d0768f68f7bfd564c",
+          "subject": "feat(Combinatorics/SimpleGraph): edge labellings (#30047)",
+          "ancestor_of_pin": true,
+          "boundary": "Introduced arbitrary edge labeling, not proper edge coloring."
+        },
+        {
+          "commit": "921b8d39f71a5c813b526f38e4033417d40b4c3d",
+          "tree": "e56d2a515b73aab192f6bc8e06525e63934b66cd",
+          "subject": "feat(Combinatorics/SimpleGraph): bipartite subgraphs and vertex-disjoint graphs for Konig's theorem (#32570)",
+          "ancestor_of_pin": true,
+          "boundary": "Adds bipartite-subgraph and disjoint-vertex helpers for the distinct matching-cover Konig theorem, not edge coloring."
+        }
+      ],
+      "dependency_feasibility": "Already pinned and kernel-checkable, but an exact source-faithful multigraph transport and theorem proof are absent.",
+      "license": "Apache-2.0",
+      "candidate_classification": "M3_substrate_only",
+      "evidence_level": "E3",
+      "result": "Useful adjacent APIs; no exact root closure or integration candidate."
+    },
+    {
+      "candidate_id": "M0861-C04-MATHLIB-HALL-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "files": [
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Hall.lean",
+          "blob": "6bd653c1e0cec51aadbd460e67919d9499226f97",
+          "sha256": "e7ffa1e4de6af950973d02725efd8d2bbbb015e2f05b4b45a52148244a2a5f5e"
+        },
+        {
+          "path": "Mathlib/Combinatorics/Hall/Basic.lean",
+          "blob": "5cda9c0e906803f10f1f50b916d564ebb443ac95",
+          "sha256": "dab48f10ac7d10b7190b88f8b7e2447b55be1af098358a9f5318d66c675b2382"
+        }
+      ],
+      "declarations": [
+        "SimpleGraph.exists_isMatching_of_forall_ncard_le",
+        "SimpleGraph.exists_isPerfectMatching_of_forall_ncard_le",
+        "Finset.all_card_le_biUnion_card_iff_exists_injective"
+      ],
+      "type_summary": "Hall matching and perfect-matching existence for locally finite bipartite simple graphs, plus the finite-family injective-choice form.",
+      "normalized_match": "These results may support a future regular-bipartite factorization route, but they neither handle edge-identity multigraphs nor iterate matchings into a proper Delta-edge-coloring or prove chromatic-index minimality.",
+      "checked_wrapper_or_conclusion": "AnchorAudit.lean checks all three declarations and their two proof-bearing terminal families; no exact target wrapper is declared.",
+      "terminal_declarations": [
+        "SimpleGraph.exists_isPerfectMatching_of_forall_ncard_le",
+        "Finset.all_card_le_biUnion_card_iff_exists_injective"
+      ],
+      "proof_body_location": "Pinned mathlib SimpleGraph/Hall.lean:114-130 and Hall/Basic.lean:106-135.",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_and_trust_boundary": "Lean reports both inspected terminal declarations sorry-free with only the listed axioms. This covers matching support, not the edge-coloring root. No unsafe/oracle/external computation appears in the local adapter; full transitive trust closure is not claimed.",
+      "dependency_feasibility": "Already pinned and available; substantial representation, regularization, deletion/induction, decomposition, and composition obligations remain.",
+      "license": "Apache-2.0",
+      "candidate_classification": "M3_support_only",
+      "evidence_level": "E3",
+      "result": "Proof-bearing Hall support only."
+    },
+    {
+      "candidate_id": "M0861-C05-FORMAL-CONJECTURES-EDGE-PARTITION",
+      "project": "google-deepmind/formal-conjectures",
+      "canonical_remote": "https://github.com/google-deepmind/formal-conjectures.git",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "tree": "40d17fde4b874af651386e646081f453377ea020",
+      "archive_sha256": "e67c2bfe909872e41a64e896837cfa6f0fb0f8ca14b0f7911aa14e4ae29294d3",
+      "recursive_tree_entries": 1204,
+      "recursive_tree_truncated": false,
+      "toolchain": "leanprover/lean4:v4.27.0",
+      "toolchain_file_sha256": "e695e6e5d8e7a8be4d6cf159dfb995847993d26c6cc450353a86f387279025b9",
+      "mathlib_revision": "a3a10db0e9d66acbebf76c5e6a135066525ac900",
+      "manifest_sha256": "5b99b5f4f807cbba67bbcd22e5e486c17d6a8d970ea218de08d05830ab350c26",
+      "module": "FormalConjecturesForMathlib.Combinatorics.SimpleGraph.EdgeColouring",
+      "file": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/EdgeColouring.lean",
+      "file_blob": "ffbc91afd929294affd17f90fe3f78ef45414d4c",
+      "file_sha256": "bb210a857d62dd09f8f14aaf87b37bb8ac88cc0d6c35d9e871f159c5e5714147",
+      "declaration": "SimpleGraph.IsEdgeColouring",
+      "type": "(H : SimpleGraph V) (c : iota -> SimpleGraph V) -> Prop, defined as H = sup_i c i and pairwise disjoint color-class subgraphs",
+      "normalized_match": "This is only a partition of simple-graph edges into indexed classes. It has no requirement that each class is a matching or that co-incident edges have different colors, no multigraph identities, no palette minimum, no maximum degree, and no Konig theorem.",
+      "checked_wrapper_or_conclusion": "Statement/interface definition only; no root wrapper or theorem body was found.",
+      "terminal_declaration": null,
+      "terminal_proof_body": null,
+      "proof_body_location": "none",
+      "placeholder_bodyless_unsafe_oracle_status": "The candidate itself is a definition, not proof closure. No root proof is available for parser-aware trust inspection. The external project was inspected from an immutable archive but not added to the local dependency closure.",
+      "dependency_feasibility": "Absent from local dependencies and pinned to older Lean/mathlib; integrating the mismatched definition would not close any root proof scope.",
+      "license": "Apache-2.0",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "candidate_classification": "M3_mismatched_interface_only",
+      "evidence_level": "E3",
+      "integration_decision": "Do not integrate; it supplies neither properness nor the theorem."
+    },
+    {
+      "candidate_id": "M0861-C06-ATLAS-KONIG-MATCHING-NONSUBSTITUTE",
+      "project": "facebookresearch/atlas-lean",
+      "canonical_remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "archive_sha256": "925cc0fa8d32dbdf6e8dc893e2fb9d34eed3dfdc8603dc5ae09804f8c3db9aa2",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "toolchain_file_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+      "module": "Atlas.CombinatorialOptimization.code.Matching.Konig",
+      "file": "Atlas/CombinatorialOptimization/code/Matching/Konig.lean",
+      "file_blob": "21b72693bd00726262cab7d5faddc44aea8c07dd",
+      "file_sha256": "15aac02e02d67d36d1ff8ec0cda4a73c8bb6270ae88deb2f8519bdb0c99855d1",
+      "declarations": [
+        "SimpleGraph.vertexCoverNum_eq_maxMatching_edgeSet",
+        "SimpleGraph.konig_theorem"
+      ],
+      "types": [
+        "For a bipartite SimpleGraph and a finite maximum matching M, vertexCoverNum G = encard M.edgeSet",
+        "Under the same hypotheses, matchingNum G = vertexCoverNum G"
+      ],
+      "normalized_match": "This is the distinct Konig-Egervary matching-versus-vertex-cover theorem. It neither defines nor proves proper edge coloring, chromatic index, or a multigraph Delta equality.",
+      "checked_wrapper_or_conclusion": "The immutable source chain was narrowly elaborated outside the repository against the same pinned mathlib only to inspect trust; it is not a target wrapper or local dependency.",
+      "terminal_declarations": [
+        "SimpleGraph.vertexCoverNum_eq_maxMatching_edgeSet",
+        "SimpleGraph.konig_theorem"
+      ],
+      "terminal_proof_body": "External body in Konig.lean, transitively depending on the matching development.",
+      "proof_body_location": "Konig.lean:352-370",
+      "transitive_placeholder": {
+        "file": "Atlas/CombinatorialOptimization/code/Matching/Berge.lean",
+        "file_blob": "29772882d034a60eb5ba9ff447ede93f41335eaa",
+        "file_sha256": "3d17baccec2542597e272785c81a68fd4ee20e190b047344ce08f562c0355745",
+        "line": 685,
+        "token": "sorry"
+      },
+      "machine_axioms": [
+        "propext",
+        "sorryAx",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "axiom_probe_stdout_sha256": "2c57b2c795888da70f8257c58c9a6f2922057906fa7220dc649067389a71129f",
+      "placeholder_bodyless_unsafe_oracle_status": "Both inspected declarations report sorryAx through the transitive Berge.lean placeholder. No exact target was checked. Full transitive trust closure is therefore invalid even for the neighboring theorem.",
+      "dependency_feasibility": "Absent from local dependencies. Although its Lean/mathlib pins match, the theorem is a substitution, its transitive body has a placeholder, and the license requires policy review.",
+      "license": "CC BY-NC 4.0 plus a no-training rider",
+      "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+      "candidate_classification": "M5_wrong_theorem_and_placeholder",
+      "evidence_level": "E3",
+      "blocker": "Statement mismatch, sorryAx in the transitive body, restrictive license, and absence from the local dependency closure.",
+      "reopen_condition": "Only an immutable placeholder-free declaration proving the exact multigraph edge-coloring target under compatible pins and an approved license would reopen this project."
+    },
+    {
+      "candidate_id": "M0861-C07-MATHLIB-PR33032-MATCHING-NONSUBSTITUTE",
+      "project": "ksenono/mathlib4 pull-request branch",
+      "canonical_remote": "https://github.com/ksenono/mathlib4.git",
+      "upstream_pull_request": "https://github.com/leanprover-community/mathlib4/pull/33032",
+      "revision": "6cfc4b1f77aef6f7f70f8f733cefa8eafc5a3497",
+      "tree": "a94eee877a43b09cc0748e862fffe774de606ff1",
+      "remote_ref_observed": "refs/heads/konig",
+      "state_at_cutoff": "open and unmerged; upstream PR last updated 2026-04-13",
+      "toolchain": "leanprover/lean4:v4.28.0-rc1",
+      "toolchain_file_sha256": "1a587706fb657f9bc937dd1826920e9e68e34d04505c31524357b4ae3c80d407",
+      "manifest_sha256": "22f354b4a065a7375647505d766655bb82545508ac418a2a900f130b8f20eb1b",
+      "files": [
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Konig/Auxillary.lean",
+          "blob": "4bdc03b6c00cd2e0c3857c11fd4de72372892b06",
+          "sha256": "08c43523974f9225bfa011790a3d3453e22f558125d65221e210a08d3ba091ec"
+        },
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Konig/KonigFin.lean",
+          "blob": "a59c3026476e2c3edb37db2750ea4f3a6fd9ab61",
+          "sha256": "d1f9d3f49dacf31c8d3c5938d07492ade3ecca238a26bbcacc234e8360da305e"
+        },
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Konig/Konig.lean",
+          "blob": "31c555ba2999061756069512fc638719c11d078b",
+          "sha256": "ff10719cc1b01321a849458e5d6a75ca0d406e45550bbabaa6470122a101a6b9"
+        }
+      ],
+      "declarations": [
+        "SimpleGraph.Konig.konig_bipartite_fin",
+        "SimpleGraph.Konig.konig_bipartite"
+      ],
+      "type_summary": "For a bipartite SimpleGraph, a minimum vertex cover C, and a maximum-size matching M, the cardinality of M.edgeSet equals the cardinality of C.",
+      "normalized_match": "Topical name collision only: this is the matching-cover Konig theorem over SimpleGraph, not the finite multigraph edge-coloring/chromatic-index theorem.",
+      "checked_wrapper_or_conclusion": "No local wrapper; immutable raw sources were inspected read-only.",
+      "terminal_proof_body": "External open-PR source, not locally built or in the dependency closure.",
+      "proof_body_location": "KonigFin.lean:197 onward and Konig.lean:165 onward",
+      "placeholder_bodyless_unsafe_oracle_status": "A supplemental textual scan of the three inspected source files found no sorry, admit, axiom, unsafe, or opaque token, but no parser-aware transitive scan, kernel check, or complete dependency/TCB audit ran. Trust status is unknown.",
+      "dependency_feasibility": "Unmerged open PR, older Lean toolchain, different dependency graph, absent from local closure, and mathematically irrelevant to the exact root.",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "candidate_classification": "M5_statement_mismatch",
+      "evidence_level": "E3",
+      "integration_decision": "Do not integrate; it proves a different theorem and is unmerged/unvalidated here."
+    }
+  ],
+  "search_evidence": [
+    {
+      "surface": "repository-local Lean sources outside THM-M-0861 and the dependency cache",
+      "observed_at": "2026-07-13T22:03:16+08:00",
+      "query": "rg -n -i --glob '*.lean' 'K[oöő]nig.*(edge|line|color|colour)|Koenig.*(edge|line|color|colour)|chromatic.?index|edge.?chromatic|proper.*edge.*(color|colour)|edge.*(color|colour).*proper' . --glob '!Formalizations/Lean/.lake/**' --glob '!Stage1_Instances/THM-M-0861/**'",
+      "result": "Only neighboring THM-M-0860 and THM-M-0905 intake disclaimers matched; no proof or wrapper candidate was located.",
+      "result_sha256": "ee3c8df626c507cf0b59f17baf5e31ceb50790ee1b24a727c100f78c3c0356e4",
+      "boundary": "Bounded spelling search, not proof of repository-wide semantic absence."
+    },
+    {
+      "surface": "all locally materialized manifest-pinned package Lean sources",
+      "observed_at": "2026-07-13T22:03:16+08:00",
+      "query": "rg -n -i --glob '*.lean' 'K[oöő]nig.*(edge|line|color|colour)|Koenig.*(edge|line|color|colour)|chromatic.?index|edge.?chromatic|proper.*edge.*(color|colour)|edge.*(color|colour).*proper' Formalizations/Lean/.lake/packages",
+      "result": "No match under the strict root-topic query; broader inspection found only the EdgeLabeling documentation and unrelated vertex-coloring uses.",
+      "strict_query_exit": 1,
+      "strict_result_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "boundary": "The result covers the materialized immutable package corpus at its recorded pins, not all public Lean projects."
+    },
+    {
+      "surface": "pinned mathlib immutable tree and ancestry",
+      "observed_at": "2026-07-13T22:03:16+08:00",
+      "query_family": "git ls-tree path aliases plus history for EdgeLabeling and commits mentioning Konig helpers",
+      "result": "Only unrelated Konigsberg, order-theoretic Konig lemma, and topological Konig paths; EdgeLabeling and matching-cover helper histories do not contain the edge-coloring theorem.",
+      "boundary": "The history check is spelling- and path-bounded."
+    },
+    {
+      "surface": "Sourcegraph public Lean index with archived repositories and forks included",
+      "observed_at_range": "2026-07-13T21:58:00+08:00/2026-07-13T22:01:07+08:00",
+      "queries": [
+        {
+          "query": "context:global lang:Lean IsEdgeColouring count:50 archived:yes fork:yes",
+          "match_count": 6,
+          "repositories_count": 1,
+          "done": true,
+          "skipped": [],
+          "response_sha256": "b91ceb5bc5157147d072eb0d441bdda425cb8db39930ed660ee5f335b69f7aca",
+          "result": "All matches were google-deepmind/formal-conjectures at indexed commit fdbea4653453a764aa7f952d3b45c93007356cc9; the immutable archive candidate is separately inspected and classified."
+        },
+        {
+          "query": "context:global lang:Lean \"Konig edge coloring\" count:50 archived:yes fork:yes",
+          "match_count": 0,
+          "done": true,
+          "skipped": [],
+          "response_sha256": "0f77d8b85a9d2a7c7b69bf986aa31287e0d47d77bad86c2658e6de42e3717b29"
+        },
+        {
+          "query": "context:global lang:Lean chromaticIndex count:50 archived:yes fork:yes",
+          "match_count_so_far": 0,
+          "done": false,
+          "exit": "curl timeout after 30 seconds",
+          "response_sha256": "15b946d088683d124a48359a73139ca372c50a24523be737e61b334668b364c4",
+          "result": "Inconclusive access failure; no negative result claimed."
+        },
+        {
+          "query": "context:global lang:Lean Koenig count:50 archived:yes fork:yes",
+          "match_count": 50,
+          "done": true,
+          "response_sha256": "073386b1406f8de2820e4540aff0a85d406cccf71ec27c6bd90d9265ed253693",
+          "skipped": [
+            "shard-match-limit"
+          ],
+          "result": "Returned unrelated Koenigs complex-analysis declarations from automath and hit a shard limit; no saturation claim."
+        }
+      ],
+      "result_boundary": "Bounded public-index observations. Indexed moving commits are discovery leads, not immutable proof evidence."
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "observed_at_range": "2026-07-13T21:59:10+08:00/2026-07-13T21:59:12+08:00",
+      "queries": [
+        "quoted Konig edge coloring plus Lean",
+        "quoted Konig edge coloring with accented name plus Lean",
+        "quoted chromatic index plus Lean4",
+        "quoted bipartite edge coloring plus Lean"
+      ],
+      "result": "HTTP 200, total_count 0 for all four queries while search quota was available.",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "boundary": "Repository metadata search only, not code-level global absence."
+    },
+    {
+      "surface": "GitHub REST code search",
+      "observed_at_range": "2026-07-13T21:59:26+08:00/2026-07-13T21:59:27+08:00",
+      "queries": [
+        "chromaticIndex language:Lean",
+        "IsEdgeColouring language:Lean",
+        "\"bipartite edge coloring\" language:Lean"
+      ],
+      "result": "HTTP 403 anonymous rate limit exhausted for every query; no negative code result claimed.",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e"
+    },
+    {
+      "surface": "grep.app public code search",
+      "observed_at_range": "2026-07-13T21:59:27+08:00/2026-07-13T21:59:28+08:00",
+      "queries": [
+        {
+          "query": "chromaticIndex",
+          "http_status": 429,
+          "response_sha256": "7bf833e6a146a18af010aede2c9ea0cb84f71adaf92c1fbed59ededdc376b66a"
+        },
+        {
+          "query": "IsEdgeColouring",
+          "http_status": 429,
+          "response_sha256": "ebcd58cc6b5e053ff90d3d6694ec37fef40bf5a6a5b86ab7787e22331bbffe8b"
+        },
+        {
+          "query": "Konig edge coloring",
+          "http_status": 429,
+          "response_sha256": "c45305b8c3842aa04818808a4a88e232379b54cb20cc4c38b0c99f69e22d7610"
+        }
+      ],
+      "result": "Vercel security checkpoint responses; no negative result claimed."
+    },
+    {
+      "surface": "immutable external complete-source archives",
+      "observed_at": "2026-07-13T22:05:13+08:00",
+      "result": "Formal Conjectures (997 Lean files) yielded only the mismatched IsEdgeColouring interface; ATLAS (2654 Lean files) yielded only the distinct matching-cover Konig file under the topical name family. Both are classified above.",
+      "boundary": "Archive scans are alias-bounded and are not a claim about projects outside those revisions."
+    },
+    {
+      "surface": "historical and other proof assistants",
+      "result": "No Lean 4 candidate was promoted from other-assistant or historical search evidence. Human König 1916 Satz C remains the H1 primary source already frozen by the statement dossier.",
+      "boundary": "Other assistants cannot supply requested Lean 4 closure without a checked canonical mapping and Lean backend proof."
+    },
+    {
+      "surface": "moving open mathlib pull-request leads",
+      "leads": [
+        {
+          "pull_request": 33313,
+          "title": "basic SimpleGraph edge-coloring API",
+          "observed_head_ref": "fb95fc99f353dba71ecc727c03c72199812b736f",
+          "assessment": "SimpleGraph line-graph coloring interface only; no Konig equality and no parallel-edge identity."
+        },
+        {
+          "pull_request": 39505,
+          "title": "Vizing theorem for SimpleGraph edge coloring",
+          "observed_head_ref": "29b0f8cd54654bc3e4691a96975753282cae9d54",
+          "assessment": "Different Delta-or-Delta-plus-one simple-graph theorem, not the target."
+        }
+      ],
+      "result": "Both leads were open and absent from the pinned dependency closure. They were not admitted as immutable candidates because complete commit/tree/source/type/trust packets were not established in this run.",
+      "boundary": "Moving issue/PR discovery is E5 research evidence only and receives no M credit."
+    }
+  ],
+  "human_source_boundary": {
+    "classification": "H1",
+    "primary_source": "Denes Konig, Uber Graphen und ihre Anwendung auf Determinantentheorie und Mengenlehre, Mathematische Annalen 77(4), 1916, 453-465, DOI 10.1007/BF01456961",
+    "theorem_locator": "Definitions on printed pages 453-454; Satz C and proof on printed pages 455-456",
+    "observed_pdf_sha256": "46ad3d33fd7dc835ea0e1d1f12b56302988bff0e2ac898bfa72549d0560bb7eb",
+    "status": "This formal-anchor phase does not promote source fidelity. Independent German transcription/translation, correction and errata review, exact source-to-equality node crosswalk, and H0 acceptance remain open."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "7/7 frozen candidate groups classified in S56-M-0861-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": false,
+    "exact_candidate_kernel_checked": false,
+    "substrate_candidates_kernel_checked": true,
+    "independent_external_exact_terminal_body_found": false,
+    "eligible_external_integration_debt": false,
+    "candidate_accepted_by_master": false,
+    "authoritative_root_machine_debt_before": "M4",
+    "root_machine_candidate_after": "M3",
+    "authoritative_root_machine_debt_after": "M4",
+    "candidate_root_evidence_level": "E3",
+    "authoritative_root_vector_before": {
+      "H": "H1",
+      "M": "M4",
+      "R": "R4"
+    },
+    "root_candidate_vector_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "authoritative_root_vector_after": {
+      "H": "H1",
+      "M": "M4",
+      "R": "R4"
+    },
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "dependency-ordered master acceptance of the provisional intake, statement, and this anchor-audit node",
+    "S56-M-0861-OBLIGATION_TREE",
+    "S56-M-0861-PROOF",
+    "S56-M-0861-VALIDATION",
+    "S56-M-0861-RELEASE",
+    "an exact multigraph edge-coloring proof or checked source-faithful reduction and composition",
+    "complete declaration/provenance/trust/TCB closure",
+    "primary-source H0 and independently reviewed readable R0"
+  ],
+  "known_failures": [
+    "The intake and statement prerequisites and this node remain provisional pending dependency-ordered master acceptance.",
+    "No exact Lean 4 proof candidate was located. Pinned mathlib supplies representation, simple-graph coloring, line-graph, and Hall substrate only.",
+    "Formal Conjectures supplies a non-proper simple-edge partition interface, ATLAS proves the wrong Konig theorem with transitive sorryAx, and mathlib PR 33032 is the wrong unmerged matching-cover theorem.",
+    "Public discovery is bounded and not saturated: Sourcegraph had one timeout and a shard limit, GitHub code search was rate-limited, and grep.app returned HTTP 429.",
+    "The obligation tree, proof/composition, full trust closure, H0, R0, hermetic replay, independent verification, deterministic release bundle, AUDIT-Z, and theorem completion remain open."
+  ],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_bounded_inventory_pending_master_acceptance",
+  "status_boundary": "This provisional node freezes and classifies a bounded immutable formal-anchor inventory and kernel-checks only adjacent pinned substrate. It supports a provisional H1/M3/R4 candidate projection but locates no exact Lean proof or integration candidate. The authoritative accepted vector remains H1/M4/R4 because neither the statement nor this node is master-accepted. It accepts no receipt and completes neither AUDIT-Z nor THEOREM-Z."
+}

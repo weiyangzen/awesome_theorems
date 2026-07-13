@@ -1,0 +1,244 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0741-PROOF-local-20260713T221803+0800",
+  "item_id": "S56-M-0741-PROOF",
+  "theorem_id": "THM-M-0741",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "72e9e8092182121a6794921f61fcc9cae22f726d",
+  "base_tree": "0d6c1fdf06d1573c256af331c6b198e5a787af43",
+  "worker_ref": {
+    "worktree": "stage1-rev56 worker slot2 automation clone",
+    "release_clean": false
+  },
+  "validated_at": "2026-07-13T22:18:03+08:00",
+  "review_due": "2026-08-12",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "content_addressed_receipt_id": null,
+  "supersession_state": "active_provisional_until_master_acceptance_or_invalidation",
+  "incident_path": "Stage1 integration lane revocation and requeue for S56-M-0741-PROOF",
+  "diff_summary": "Adds an exact proof module, isolated Lean runner, fail-closed source/pin/graph checker, provisional receipt, proof notes, and worker packet. The canonical statement and frozen obligation artifacts are unchanged.",
+  "exact_statement_delta": "none; Proof.lean consumes the unchanged Stage1Instances.THM_M_0741.HaltingProblemUndecidable target",
+  "typed_graph_delta": "none; Proof.lean realizes the seven frozen required-machine obligations without changing registry version 1 or its denominator",
+  "canonical_target": "Stage1Instances.THM_M_0741.HaltingProblemUndecidable",
+  "canonical_target_expression_sha256": "1a96ad274a14ef0c7285734258d28a7ff6e49febe1470bfbb957d757a92e718c",
+  "registry_denominator_sha256": "ee9b5029b7cb4a820132e16aeeb1a5c6e304e81bb8624f0f931aee9547cb9bcd",
+  "exact_declarations": [
+    "Stage1Instances.THM_M_0741.Proof.riceBridge_pinned",
+    "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_via_rice",
+    "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_pinned",
+    "Stage1Instances.THM_M_0741.Proof.fixedInputReduction_checked",
+    "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable_via_rice"
+  ],
+  "provisionally_closed_proof_obligation_ids": [
+    "M0741-ROOT",
+    "M0741-N-FIXED-ZERO",
+    "M0741-C-PAIR-ZERO",
+    "M0741-L-RESTRICT",
+    "M0741-X-FIXED-HALTING",
+    "M0741-X-RICE",
+    "M0741-B-FIXED-WITNESSES"
+  ],
+  "accepted_closed_obligation_ids": [],
+  "proof_graph_composition": {
+    "root_declarations": [
+      "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable",
+      "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable_via_rice"
+    ],
+    "composition_declarations": [
+      "Stage1Instances.THM_M_0741.ObligationTree.pairToFixedRestriction_of_embedding",
+      "Stage1Instances.THM_M_0741.ObligationTree.fixedInputReduction_of_restriction",
+      "Stage1Instances.THM_M_0741.ObligationTree.fixedInputZeroUndecidable_of_rice",
+      "Stage1Instances.THM_M_0741.ObligationTree.root_of_reduction_and_fixedInput"
+    ],
+    "all_required_proof_edges_consumed": true,
+    "deduplication_boundary": "The direct pinned fixed-input wrapper and the explicit Rice replay share the same pinned Rice body; they are cross-checks and count as one terminal proof route, not two bodies."
+  },
+  "proof_body": {
+    "classification": "local_wrapper_upstream_mathlib_with_repo_local_frozen_composition",
+    "machine_candidate_classification": "M0-W",
+    "source": "Stage1_Instances/THM-M-0741/Proof.lean",
+    "source_sha256": "85b043bac9d0f3e7154f98eebacca0d764dfc2e9e81ca95bc6c1d6b5875cb432",
+    "terminal_declarations": [
+      "ComputablePred.halting_problem",
+      "ComputablePred.rice"
+    ],
+    "terminal_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "terminal_source": "Mathlib/Computability/Halting.lean",
+    "terminal_source_blob": "0834371356762db805d37208b9cf8a1fc0efd217",
+    "terminal_source_sha256": "c2a073a05c631e7fc957577a66025e9ac36dac741f9aa865e0f053b17f0c85de",
+    "rice_body_lines": "208-218",
+    "rice_body_sha256": "7b1ffed124cbbab29edb690e35fedff63aabb101470802ee0d2dbf8c8fd4f7a1",
+    "halting_body_lines": "240-242",
+    "halting_body_sha256": "c79df2fcf31c93fe6ac57f179d2b03c41416baa313d68b9bbe76dc3499c5d41d",
+    "body_location_boundary": "The Rice and fixed-input terminal bodies remain in manifest-pinned mathlib and are not vendored. The exact pair reduction and child-to-parent composition are target-local."
+  },
+  "provisional_obligation_evidence": [
+    {
+      "obligation_id": "M0741-ROOT",
+      "statement_fingerprint": "lean-expression-sha256:1a96ad274a14ef0c7285734258d28a7ff6e49febe1470bfbb957d757a92e718c",
+      "declarations": [
+        "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable",
+        "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable_via_rice"
+      ]
+    },
+    {
+      "obligation_id": "M0741-N-FIXED-ZERO",
+      "statement_fingerprint": "planned:v1:sha256:f0139a75a84f0074bc674e06f7beda094e8301a1fd2c85c092fb7ba4faed3f5c",
+      "declarations": ["Stage1Instances.THM_M_0741.Proof.fixedInputReduction_checked"]
+    },
+    {
+      "obligation_id": "M0741-C-PAIR-ZERO",
+      "statement_fingerprint": "planned:v1:sha256:c3e7fb4f5ff6a8c64fe0e4c0c17aaff35ff6578aaa4179f688a383896e5bf60b",
+      "declarations": ["Stage1Instances.THM_M_0741.ObligationTree.pairZeroEmbedding_computable"]
+    },
+    {
+      "obligation_id": "M0741-L-RESTRICT",
+      "statement_fingerprint": "planned:v1:sha256:a2c259635dc937c1a9f96aeb620420b86626611fb589eca0132cfbbcc8eb9587",
+      "declarations": ["Stage1Instances.THM_M_0741.ObligationTree.pairToFixedRestriction_of_embedding"]
+    },
+    {
+      "obligation_id": "M0741-X-FIXED-HALTING",
+      "statement_fingerprint": "planned:v1:sha256:06cb364542557bfbe4bfa27c44b8dc1fc6e08945c8d5f3d4feca40bad94dfba7",
+      "declarations": [
+        "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_pinned",
+        "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_via_rice"
+      ]
+    },
+    {
+      "obligation_id": "M0741-X-RICE",
+      "statement_fingerprint": "planned:v1:sha256:53937995c077502a4953c0ff22ec304564b0f309d4295a10ebdc56475e062b0d",
+      "declarations": ["Stage1Instances.THM_M_0741.Proof.riceBridge_pinned"]
+    },
+    {
+      "obligation_id": "M0741-B-FIXED-WITNESSES",
+      "statement_fingerprint": "planned:v1:sha256:210a452b7e38f23c354b26a902b5fb4646978fc906d7fdb923eb8066f8bd7554",
+      "declarations": ["Stage1Instances.THM_M_0741.ObligationTree.fixedZeroWitnessPackage"]
+    }
+  ],
+  "inputs": {
+    "statement_sha256": "79e8f14fa5219760ef0fa3b26c95ebe40916f0ed2881a6491fce36944398d4c7",
+    "obligation_tree_sha256": "aa51e74a13003408b26ab1fada33e28705a0ff4f7a3bc20e6afd4a2d8b8222a4",
+    "obligation_registry_sha256": "8183bd5438235801fce2169bb2379653b4f16d0ce374160d793782e96fc819a5",
+    "typed_graphs_sha256": "21a5f7a010d5c98376f125c9bc8d0f8651a849f9332d7459023de773f856dc44",
+    "anchor_audit_sha256": "96b2f1874d80a96e4e4443466a80110262c4665ee99611545bc36a1a2f60360c",
+    "validation_specs_sha256": "05eedca770941f25fe0b61a7d1e8beecc5452ce89d56103cb0e4feb8df922b4c",
+    "check_proof_py_sha256": "0c71f803993ed26daf87d902b4c79374892040d9aa7ad52de8ce7a1732e83485",
+    "check_proof_sh_sha256": "2e1f61810f71d122356ad5ebe33cdf90d3f12e3801321df947da41f87cf3bc92",
+    "proof_validation_sha256": "2aa61f57faa92663a8e760d733fc0f34eb0aea8f3be7ef46321ec9a43c4ff338",
+    "worker_packet_sha256": "65725eeb6e3bfcd228f10db7a2aa2adc611b55cd4e0022a93bafafc721fb532b",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "network": "not_used",
+    "dependency_cache": "automation-provided canonical pinned .lake symlink, reused read-only"
+  },
+  "recipe": {
+    "recipe_id": "S56-M-0741-PROOF-LEAN",
+    "cwd": ".",
+    "argv": ["bash", "Stage1_Instances/THM-M-0741/check_proof.sh"],
+    "env_allowlist": {},
+    "timeout_seconds": 180,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "contains Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable : HaltingProblemUndecidable"
+      },
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "contains exactly 8 Declarations are sorry-free! reports"
+      },
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "contains exactly 8 axiom reports, each equal to [propext, Classical.choice, Quot.sound]"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M0741-ROOT",
+      "M0741-N-FIXED-ZERO",
+      "M0741-C-PAIR-ZERO",
+      "M0741-L-RESTRICT",
+      "M0741-X-FIXED-HALTING",
+      "M0741-X-RICE",
+      "M0741-B-FIXED-WITNESSES"
+    ],
+    "covered_declarations": [
+      "ComputablePred.rice",
+      "ComputablePred.halting_problem",
+      "Stage1Instances.THM_M_0741.Proof.riceBridge_pinned",
+      "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_via_rice",
+      "Stage1Instances.THM_M_0741.Proof.fixedInputZeroUndecidable_pinned",
+      "Stage1Instances.THM_M_0741.Proof.fixedInputReduction_checked",
+      "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable",
+      "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable_via_rice"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Temporary isolated Statement.olean and ObligationTree.olean built; both exact roots, the pinned Rice and fixed-input bridges, the zero-input reduction, and every frozen required-machine child elaborated and were sorry-free.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass: no sorry, admit, custom axiom, sorryAx, unsafe, opaque, native oracle, external declaration, or implementation escape",
+    "root_kernel_closed": true,
+    "accepted_root_closed": false,
+    "theorem_complete": false
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0741/Proof.lean",
+    "Stage1_Instances/THM-M-0741/check_proof.py",
+    "Stage1_Instances/THM-M-0741/check_proof.sh",
+    "Stage1_Instances/THM-M-0741/proof-receipt.json",
+    "Stage1_Instances/THM-M-0741/proof-validation.md"
+  ],
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "proposed_root_vector_after_master_acceptance": {"H": "H1", "M": "M0-W", "R": "R4"},
+  "accepted_root_vector_after_worker_selftest": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "first_failed_gate": "dependency-ordered master acceptance of S56-M-0741-OBLIGATION_TREE",
+  "remaining_root_cut_set": [
+    "M0741-S-FOUNDATION",
+    "M0741-X-SOURCE",
+    "M0741-X-PROVENANCE",
+    "M0741-X-TRUST",
+    "M0741-X-READABLE",
+    "M0741-X-WORKFLOW",
+    "master acceptance of this provisional proof evidence",
+    "downstream validation and release gates"
+  ],
+  "known_failures": [
+    "S56-M-0741-OBLIGATION_TREE and its earlier prerequisites have provisional evidence but await dependency-ordered master acceptance.",
+    "The accepted root remains H1/M3/R4 until master integration; M0-W is only the eligible route shape proposed by this proof receipt.",
+    "Human-source H0, readable R0, full transitive foundation/trust/provenance closure, hermetic replay, independent verification, AUDIT-Z, THEOREM-Z, validation, release, and theorem completion remain open.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was used read-only."
+  ],
+  "invalidation_inputs": [
+    "Proof.lean",
+    "Statement.lean",
+    "ObligationTree.lean",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "anchor-audit.json",
+    "validation-specs.json",
+    "check_proof.sh",
+    "mathlib source, blob, revision, or terminal body hashes",
+    "Lean toolchain or executable hash",
+    "axiom and placeholder policy",
+    "rev-5.6 assurance standard"
+  ]
+}

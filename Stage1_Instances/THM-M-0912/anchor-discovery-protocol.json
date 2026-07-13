@@ -1,0 +1,125 @@
+{
+  "schema_version": "stage1-anchor-discovery-protocol/1.0",
+  "protocol_id": "S56-M-0912-ANCHOR-DISCOVERY-20260713-01",
+  "item_id": "S56-M-0912-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0912",
+  "phase": "anchor_audit",
+  "frozen_at": "2026-07-13T22:18:00+08:00",
+  "cutoff": "2026-07-13T22:18:00+08:00",
+  "base_revision": "72e9e8092182121a6794921f61fcc9cae22f726d",
+  "base_tree": "0d6c1fdf06d1573c256af331c6b198e5a787af43",
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_0912.PascalIdentityTarget",
+    "expression_sha256": "b322549a05e57fbf466b60eb8ff89f4a08c6ee3b68ea5bf3ff3bf86d99521776",
+    "statement": "forall (m n : Nat), n <= m -> 1 <= n -> Nat.choose m n = Nat.choose (m - 1) n + Nat.choose (m - 1) (n - 1)"
+  },
+  "search_order": [
+    "repository-local Lean sources and target dossiers",
+    "all locally materialized packages named by the canonical lake manifest, with the manifest-pinned mathlib searched first",
+    "official or primary public Lean 4 projects",
+    "other public Lean 4 repositories at immutable revisions",
+    "formal statement and conjecture collections",
+    "historical Lean versions and other proof assistants as research-only evidence"
+  ],
+  "query_families": [
+    {
+      "family": "names_and_aliases",
+      "queries": [
+        "Pascal identity",
+        "Pascal's identity",
+        "Pascal rule",
+        "Pascal recurrence",
+        "binomial recurrence"
+      ]
+    },
+    {
+      "family": "lean_declarations",
+      "queries": [
+        "choose_succ_succ",
+        "choose_succ_succ'",
+        "choose_succ_left",
+        "choose_succ_right",
+        "choose_eq_choose_pred_add"
+      ]
+    },
+    {
+      "family": "statement_fragments",
+      "queries": [
+        "choose (m - 1) n + choose (m - 1) (n - 1)",
+        "choose n k = choose (n - 1) (k - 1) + choose (n - 1) k",
+        "Nat.choose (r + 1) (k + 1)"
+      ]
+    }
+  ],
+  "local_scope": {
+    "repository_globs": ["*.lean", "*.md", "*.json", "*.yaml", "*.yml"],
+    "excluded_owned_target": "Stage1_Instances/THM-M-0912",
+    "package_source_scope": "every materialized package directory corresponding to a package in Formalizations/Lean/lake-manifest.json",
+    "result_policy": "record exact paths and declarations; distinguish definitions, terminal bodies, wrappers, uses, and textual mentions"
+  },
+  "external_lanes": [
+    {
+      "service": "GitHub repository search REST API",
+      "endpoint": "https://api.github.com/search/repositories",
+      "queries": [
+        "Pascal identity Lean4",
+        "Pascal identity theorem prover Lean",
+        "binomial recurrence Lean4"
+      ],
+      "limit": 100,
+      "credential_policy": "anonymous only"
+    },
+    {
+      "service": "GitHub code search REST API",
+      "endpoint": "https://api.github.com/search/code",
+      "queries": [
+        "choose_eq_choose_pred_add language:Lean",
+        "choose_succ_succ language:Lean",
+        "Pascal identity language:Lean"
+      ],
+      "limit": 100,
+      "credential_policy": "anonymous only; record authentication failure rather than treating it as a negative result"
+    },
+    {
+      "service": "Sourcegraph streaming search",
+      "endpoint": "https://sourcegraph.com/.api/search/stream",
+      "queries": [
+        "context:global lang:Lean choose_eq_choose_pred_add fork:yes archived:yes count:200",
+        "context:global lang:Lean choose_succ_succ fork:yes archived:yes count:200",
+        "context:global lang:Lean \"Pascal's identity\" fork:yes archived:yes count:200",
+        "context:global lang:Lean \"Pascal identity\" fork:yes archived:yes count:200"
+      ],
+      "limit": 200,
+      "credential_policy": "anonymous only"
+    },
+    {
+      "service": "grep.app search API",
+      "endpoint": "https://grep.app/api/search",
+      "queries": [
+        "choose_eq_choose_pred_add",
+        "choose_succ_succ",
+        "Pascal identity"
+      ],
+      "limit": 100,
+      "credential_policy": "anonymous only; record checkpoint or rate-limit failures"
+    }
+  ],
+  "candidate_inclusion": [
+    "a Lean 4 declaration whose elaborated type is the exact target",
+    "a Lean 4 declaration with a checked implication or equivalence to the exact target",
+    "a stronger Lean 4 theorem for which all representation and domain transports are explicit",
+    "a statement-only or adjacent declaration when clearly classified without proof credit"
+  ],
+  "candidate_exclusion": [
+    "a downstream use of the same pinned mathlib declaration without an independent terminal body",
+    "a binomial theorem, Vandermonde identity, hockey-stick identity, or factorial formula without an exact checked transport",
+    "an unrestricted recurrence counted as statement-identical without retaining the target's domain",
+    "a Lean 3 or other-prover result counted as Lean 4 closure",
+    "an unpinned URL, repository name, search snippet, or prose assertion counted as a proof body"
+  ],
+  "immutable_revision_policy": "Local candidates are bound to the lake-manifest revision, source tree, blob, file hash, and toolchain. Public candidates must be resolved to a full commit and, where available, tree and immutable raw-file hashes before receiving more than search-lead status.",
+  "trust_policy": "Run Lean #print, #print axioms, and #print sorries on selected local declarations; inspect actual source bodies and use a comment-aware supplemental prohibited-construct scan. Unknown transitive trust fails closed.",
+  "negative_evidence_policy": "A zero result is scoped only to the recorded service, query, cutoff, limits, and access state. Truncation, authentication failure, rate limiting, or checkpoints are access limitations, not negative evidence. Discovery saturation is not claimed.",
+  "saturation_claim": false,
+  "dependency_policy": "Use the existing canonical pinned .lake artifacts read-only. Do not update, build, clone, fetch, or otherwise mutate dependencies during this audit."
+}

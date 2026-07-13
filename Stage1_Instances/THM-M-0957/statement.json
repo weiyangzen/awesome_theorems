@@ -1,0 +1,152 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0957-STATEMENT",
+  "theorem_id": "THM-M-0957",
+  "execution_rank": 1491,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Behrend lower-bound construction for three-term-progression-free integer sets",
+  "canonical_statement": "For every positive real epsilon, for all sufficiently large natural N, the maximum cardinality of a subset of the nonnegative integers at most N containing no three distinct terms in arithmetic progression is strictly greater than N raised to 1 - (2 * sqrt(2 * log 2) + epsilon) / sqrt(log N).",
+  "canonical_claim_status": "exact_historical_eventual_inclusive_interval_claim_frozen_primary_source_admission_and_independent_H0_review_open",
+  "source_selection": {
+    "citation": "F. A. Behrend, On Sets of Integers Which Contain No Three Terms in Arithmetical Progression, Proceedings of the National Academy of Sciences 32(12) (1946), 331-332, DOI 10.1073/pnas.32.12.331, PMCID PMC1078964",
+    "definition_locator": "printed page 331",
+    "conclusion_locator": "printed pages 331-332",
+    "observed_page_331_sha256": "fe479d874018a6b91949fd0e12e78fcca52a96f3b416f3d870129d8bb4eed62c",
+    "observed_page_332_sha256": "a39daa5b9856579752f1b56fa3df7982f29fa793d8c55759bfd3ec449afc485f",
+    "relationship_to_catalog": "The selected proposition is the quantitative theorem stated in the inspected primary paper for the catalog's Behrend-construction gloss, not mathlib's later explicit all-N constant-4 lower bound.",
+    "review_boundary": "The exact inspected-page transcription is frozen at H1. The remote scan is not an admitted immutable repository source packet, and log convention, transcription, correction and errata review, complete proof mapping, and accountable independent H0 approval remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0957/Statement.lean",
+    "direct_imports": [
+      "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+      "Mathlib.Combinatorics.Additive.AP.Three.Defs"
+    ],
+    "declaration_or_expression": "Stage1Instances.THM_M_0957.BehrendConstructionTarget",
+    "elaborated_expression_sha256": "e611db43ce6f3419553e3ebe0fe85a3ce89e4d3930b3842f5a09be8a7683d2ed",
+    "statement_bundle_sha256": "dd54684a60e69f61c8feaf6588eae6a1c9aa5931b5f68297badf39e72aed6671",
+    "statement_file_sha256": "b4bda6c926b0568d8b244623c12b4784651d55a9eb7df9d9ba3f512ed2cd9e46",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance"
+  },
+  "domain_and_universes": "Prop in Lean universe 0; epsilon : Real; N0 N : Nat; real logarithm, square root, and real exponentiation; rothNumberNat (N + 1) : Nat cast to Real; alternate finite sets s : Finset Nat.",
+  "quantifiers": [
+    "every epsilon : Real",
+    "hypothesis 0 < epsilon",
+    "an epsilon-dependent threshold N0 : Nat",
+    "every N : Nat satisfying N0 <= N"
+  ],
+  "ordered_binders": [
+    "epsilon : Real",
+    "0 < epsilon",
+    "N0 : Nat (existential)",
+    "N : Nat",
+    "N0 <= N"
+  ],
+  "hypotheses": [
+    "0 < epsilon",
+    "N0 <= N"
+  ],
+  "conclusion": "The real rpow lower bound is strictly less than the real cast of rothNumberNat (N + 1), the maximum size of a ThreeAPFree subset of Finset.range (N + 1).",
+  "source_conventions": {
+    "interval": "The paper's nonnegative integers at most N are represented by Finset.range (N + 1).",
+    "progression": "The literal source predicate excludes pairwise-distinct a, b, c with a + c = b + b; a checked iff relates it to mathlib's ThreeAPFree over Nat.",
+    "logarithm": "Real.log fixes natural logarithm as the formal convention; source-notation and log-base review remain H1 debt.",
+    "power": "Real base and exponent select Real.rpow through HPow Real Real Real.",
+    "sufficiently_large": "exists N0 : Nat, forall N : Nat, N0 <= N",
+    "strictness": "The source's strict lower bound is retained."
+  },
+  "component_transports": [
+    {
+      "target": "Stage1Instances.THM_M_0957.SourceThreeAPFree",
+      "relationship": "iff with mathlib ThreeAPFree over Nat",
+      "checked_witness": "Stage1Instances.THM_M_0957.sourceThreeAPFree_iff_threeAPFree",
+      "boundary": "Predicate-level component transport only; it is not by itself an alternate encoding of the quantitative root."
+    }
+  ],
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0957.BehrendFiniteSetTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0957.behrendConstructionTarget_iff_finiteSet"
+    }
+  ],
+  "boundary_cases": {
+    "N_zero_and_one": "Included syntactically, but an existential sufficiently-large threshold need not admit them. Real.log 0 and Real.log 1 use mathlib's totalized definitions.",
+    "empty_and_singleton_sets": "Remain valid object-model cases. Whether they satisfy the quantitative inequality depends on N and epsilon, and the eventual quantification does not require small N.",
+    "constant_or_repeated_triples": "Allowed and treated as trivial; the source predicate excludes only pairwise-distinct triples, and the checked Nat transport proves exact agreement with ThreeAPFree.",
+    "reversed_endpoints": "Handled symmetrically by endpoint addition.",
+    "epsilon_zero_or_negative": "Excluded by 0 < epsilon.",
+    "inclusive_endpoint": "N itself is included through rothNumberNat (N + 1); replacing it by rothNumberNat N is the boundary mutation.",
+    "rounding": "The natural extremal cardinality is cast to Real before the strict comparison; no rounding operation is inserted."
+  },
+  "minimal_import_evidence": {
+    "result": "deletion-minimal both for an isolated canonical-target fixture and for the complete statement-and-transport module",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real": "Deleting it makes the module fail because the historical real-power expression and its Real analytic vocabulary are unavailable.",
+    "Mathlib.Combinatorics.Additive.AP.Three.Defs": "Deleting it makes the isolated target fail because rothNumberNat is unavailable; the complete module additionally uses ThreeAPFree, its specification, and maximality interface.",
+    "excluded_proof_import": "Mathlib.Combinatorics.Additive.AP.Three.Behrend is deliberately not imported; no proof-bearing Behrend theorem is inspected or credited by this phase."
+  },
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "Stage1Instances.THM_M_0957.mutationRemovedPositiveEpsilon",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "Stage1Instances.THM_M_0957.mutationRationalEpsilon",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "Stage1Instances.THM_M_0957.mutationUniformThreshold",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "Stage1Instances.THM_M_0957.mutationExclusiveInterval",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    }
+  ],
+  "foundation_profile": "Lean 4 dependent type theory. The source-predicate iff reports propext; the extremal/existential iff reports propext, Classical.choice, and Quot.sound. No custom axiom is introduced.",
+  "tcb_profile": "Lean kernel 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; pinned mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95; direct import sources fingerprinted in the node receipt.",
+  "computation_profile": "No computation, oracle, experiment, native decision procedure, or unchecked certificate is credited. Statement transports are kernel-elaborated proofs.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ]
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "Exact historical statement, minimal statement-only imports, two checked transports, explicit expression/environment fingerprints, and four structural mutations only. The intake dependency and this node await dependency-ordered master acceptance. H0 source admission, anchor and proof-body audit, obligation registry, proof, M0, R0, validation, release, audit completion, and theorem completion remain open."
+}

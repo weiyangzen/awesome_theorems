@@ -1,0 +1,254 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "inventory_version": "S56-M-0931-ANCHOR-INVENTORY-20260713-01",
+  "item_id": "S56-M-0931-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0931",
+  "execution_rank": 1470,
+  "intent": "anchor_audit",
+  "base_revision": "a1c9974d7fb28cd680e6494b968544bf801a93a2",
+  "base_tree": "1fa287bc821355aca2ca9e3ce107830a3eb58e64",
+  "audit_cutoff": "2026-07-13T22:30:00+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0931.ErdosGinzburgZivTarget",
+  "canonical_target_expression_sha256": "b872e0de4aedbd0da8825d2c7dd9ecb30e01215131c61e73dc3050776711718a",
+  "canonical_statement_file_sha256": "d0e7e43d896a0625e87b3fac55319d5e999351c8f74cdda4e699d9360d651020",
+  "canonical_statement": "For every positive natural number n, among exactly 2 * n - 1 integer occurrences there are exactly n selected occurrences whose sum is divisible by n.",
+  "discovery_protocol": "Stage1_Instances/THM-M-0931/anchor-discovery-protocol.json",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree": "clean",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_blob": "8dada3edaf50dbc082c9a125058f25def75e625a",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0931-C01-MATHLIB-INT-MULTISET",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Combinatorics.Additive.ErdosGinzburgZiv",
+      "file": "Mathlib/Combinatorics/Additive/ErdosGinzburgZiv.lean",
+      "source_lines": "192-195",
+      "source_git_blob": "dbe223c73d6c612461bc900d3d7dd70be3c1d747",
+      "source_sha256": "13f8adfc07c9cffd89a0c2a2d3c265348b698fbf724d8b74e6de39434bbc79f7",
+      "proof_body_slice_sha256": "8607537347277f54f4096d259d938d96edb8408876cb9e069f52710a6a72cec4",
+      "proof_body_slice_policy": "SHA-256 over exact pinned source bytes for ErdosGinzburgZiv.lean lines 192-195 inclusive",
+      "declaration": "Int.erdos_ginzburg_ziv_multiset",
+      "type": "{n : Nat} -> (s : Multiset Int) -> 2 * n - 1 <= s.card -> exists t <= s, t.card = n and (n : Int) divides t.sum",
+      "normalized_match": "The integer occurrence carrier, submultiset relation, exact witness cardinality, and divisibility conclusion match. The candidate is stronger in admitting all n and at least 2 * n - 1 inputs; the checked adapter uses the frozen equality only in the equality-to-lower-bound direction and leaves the positive-n binder intact.",
+      "local_adapter": "Stage1Instances.THM_M_0931_AnchorAudit.exactTarget_mathlib_candidate",
+      "local_role": "audit-only exact wrapper candidate",
+      "terminal_declaration": "Int.erdos_ginzburg_ziv_multiset",
+      "terminal_proof_body_id": "git-blob:dbe223c73d6c612461bc900d3d7dd70be3c1d747:Int.erdos_ginzburg_ziv_multiset",
+      "proof_body_location": "Pinned mathlib lines 192-195; it enumerates multiset occurrences, invokes Int.erdos_ginzburg_ziv, then maps selected indices back to a submultiset.",
+      "terminal_route": [
+        "Int.erdos_ginzburg_ziv_multiset (lines 192-195)",
+        "Int.erdos_ginzburg_ziv prime-composite induction (lines 110-178)",
+        "Int.erdos_ginzburg_ziv_prime cast bridge (lines 96-99)",
+        "ZMod.erdos_ginzburg_ziv_prime Chevalley-Warning proof (lines 56-90)",
+        "char_dvd_card_solutions_of_add_lt (Mathlib/FieldTheory/ChevalleyWarning.lean lines 189-194)"
+      ],
+      "introduction_revision": "07ede5049b7a9e02db2803d6c0f549d983f95fee",
+      "introduction_tree": "4abdad6b4407bd139b67d69661b896ac224c5740",
+      "introduction_source_blob": "09fd0c79b7e07abe1e429192f301f8085bd2cc9f",
+      "introduction_source_sha256": "80032a2a96444cdb0cd2d13d3275ab8a3e31f72d2c067defcb741c8b84c0ecba",
+      "introduction_subject": "feat: The Erdős–Ginzburg–Ziv theorem (#14000)",
+      "introduction_is_ancestor_of_pin": true,
+      "direct_proof_dependencies": [
+        "Int.erdos_ginzburg_ziv",
+        "Multiset.toEnumFinset",
+        "Multiset.map_fst_le_of_subset_toEnumFinset",
+        "Nat.prime_composite_induction",
+        "Int.erdos_ginzburg_ziv_prime",
+        "ZMod.erdos_ginzburg_ziv_prime",
+        "char_dvd_card_solutions_of_add_lt"
+      ],
+      "direct_module_imports": [
+        {
+          "module": "Mathlib.Algebra.BigOperators.Ring.Finset",
+          "git_blob": "7b038d906ae834581699beb14aa229c91cf95ffb",
+          "source_sha256": "2ed26aa75e75c02914d8a3fdc5ff08a3083937219f4276b6c58f88b1bc9e2674"
+        },
+        {
+          "module": "Mathlib.Data.Multiset.Fintype",
+          "git_blob": "edfb7d5554871ff82e44f4d339724a83ebc64035",
+          "source_sha256": "c67c805b33f5ffd48bdc54e9e8c77912c8fe3cf66b13e138e88dc0930ce0cb77"
+        },
+        {
+          "module": "Mathlib.FieldTheory.ChevalleyWarning",
+          "git_blob": "144087d302ebc67510cc3cf6903ab84706326b41",
+          "source_sha256": "a47186d1cd0c94b9ce1660686e8986df54e338a821e3266a9280e7f28d138684"
+        }
+      ],
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "transitive_sorry_check": "Mathlib.PrintSorries reports the terminal declaration and exact adapter sorry-free in the loaded pinned environment.",
+      "source_marker_scan": "No sorry, admit, sorryAx, axiom declaration, constant declaration, opaque declaration, unsafe declaration, implemented_by, extern, native_decide, run_tac, or proof_wanted marker occurs in the pinned EGZ or Chevalley-Warning source bodies.",
+      "unsafe_or_oracle_boundary": "No unsafe, external-code, native-oracle, or certificate boundary appears in the scoped source or loaded declaration check. Complete transitive declaration and executable TCB closure remains downstream.",
+      "dependency_feasibility": "Already manifest-pinned and materialized; the exact adapter checks with lake env lean without changing .lake.",
+      "license": "Apache-2.0",
+      "candidate_machine_classification": "M0-W_candidate_pending_downstream_acceptance",
+      "evidence_level": "E2_local_nonrelease_kernel_probe",
+      "result": "Exact immutable mathlib route and adapter feasibility are self-tested. The obligation-tree, proof, full provenance/trust, composition, validation, and master-acceptance gates remain open."
+    },
+    {
+      "candidate_id": "M0931-C02-MATHLIB-INDEXED-INT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Combinatorics.Additive.ErdosGinzburgZiv",
+      "file": "Mathlib/Combinatorics/Additive/ErdosGinzburgZiv.lean",
+      "source_lines": "110-178",
+      "declaration": "Int.erdos_ginzburg_ziv",
+      "type": "an indexed Finset occurrence theorem over integer-valued functions, for at least 2 * n - 1 indices",
+      "comparison": "It is the terminal indexed theorem used by the multiset wrapper. A checked occurrence-enumeration transport is already embodied by C01, so this is deduplicated support rather than an independent root body.",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_machine_classification": "M3_support_terminal_dependency",
+      "result": "Proof-body boundary for C01; no duplicate root credit."
+    },
+    {
+      "candidate_id": "M0931-C03-MATHLIB-ZMOD-ALTERNATES",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Combinatorics.Additive.ErdosGinzburgZiv",
+      "file": "Mathlib/Combinatorics/Additive/ErdosGinzburgZiv.lean",
+      "declarations": [
+        "ZMod.erdos_ginzburg_ziv",
+        "ZMod.erdos_ginzburg_ziv_multiset"
+      ],
+      "comparison": "Both change the input carrier to ZMod n and the conclusion to zero sum. The multiset statement phase checked only a same-integer-container divisibility/residue iff, not a ZMod-valued-input equivalence. Both declarations ultimately share the same integer indexed proof route and receive no independent root credit.",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_machine_classification": "M3_related_alternates_deduplicated",
+      "result": "Useful alternate encodings and proof-route provenance only."
+    },
+    {
+      "candidate_id": "M0931-C04-MATHLIB-CHEVALLEY-WARNING",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.FieldTheory.ChevalleyWarning",
+      "file": "Mathlib/FieldTheory/ChevalleyWarning.lean",
+      "file_blob": "144087d302ebc67510cc3cf6903ab84706326b41",
+      "file_sha256": "a47186d1cd0c94b9ce1660686e8986df54e338a821e3266a9280e7f28d138684",
+      "declaration": "char_dvd_card_solutions_of_add_lt",
+      "type": "binary Chevalley-Warning solution-count divisibility theorem",
+      "comparison": "A substantive prime-case dependency in the exact EGZ route, but it does not state a zero-sum selection theorem or close the composite canonical root alone.",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_machine_classification": "M3_support_dependency",
+      "result": "Explicit proof-source boundary only; no independent root coverage."
+    },
+    {
+      "candidate_id": "M0931-C05-REPO-LOCAL-NEIGHBORS",
+      "project": "awesome_theorems",
+      "revision": "a1c9974d7fb28cd680e6494b968544bf801a93a2",
+      "files": [
+        "Stage1_Instances/THM-M-0932/IntakeProbe.lean",
+        "Stage1_Instances/THM-M-0933/IntakeProbe.lean"
+      ],
+      "comparison": "Neighboring dossiers only #check or mention the pinned EGZ family to establish target boundaries. They contain no independent EGZ proof wrapper and cross-target proof credit is forbidden.",
+      "candidate_machine_classification": "M3_discovery_only_no_root_credit",
+      "result": "No repo-local legacy or independent proof candidate was located outside the owned statement dossier."
+    },
+    {
+      "candidate_id": "M0931-C06-PUBLIC-INDEX",
+      "source": "Sourcegraph public Lean index",
+      "query": "context:global archived:yes fork:yes lang:Lean (erdos_ginzburg_ziv OR ErdosGinzburgZiv OR quoted Erdos-Ginzburg-Ziv/Ginzburg-Ziv aliases) count:200",
+      "response_sha256": "0f5de56e86503060e76033faf862a9a68a91aae4795638338c0c536023fa8b53",
+      "result_summary": "Complete response with skipped=[]: 15 matches in one repository, leanprover-community/mathlib4, all in the EGZ module or Mathlib.lean import surface.",
+      "indexed_revision": "12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f",
+      "immutability_boundary": "The moving indexed revision is discovery evidence only. Matching declarations were re-audited at the repository's immutable manifest pin.",
+      "candidate_machine_classification": "no_additional_candidate_in_bounded_index",
+      "result": "No independent public Lean 4 source appeared in this bounded complete index response."
+    },
+    {
+      "candidate_id": "M0931-C07-FORMAL-CONJECTURES-ACCESS",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "readme_sha256": "3f411e55f262474601735b31f1680a1fa409c0dff2503d1c071b86bf1118d45c",
+      "tree_query_result": "GitHub recursive-tree API returned the public anonymous rate-limit response, SHA-256 1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e.",
+      "comparison": "The immutable project README identifies a statement collection, but tree-wide EGZ inspection was blocked. No negative source-content claim is made.",
+      "candidate_machine_classification": "search_access_blocked_no_candidate_claim",
+      "result": "Explicit bounded search failure, not proof of absence."
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {
+        "query": "quoted Erdos-Ginzburg-Ziv Lean",
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "quoted accented Erdős-Ginzburg-Ziv Lean",
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      }
+    ],
+    "github_code_search": "Anonymous GitHub code search returned a rate-limit error rather than results; response SHA-256 1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e.",
+    "grep_app": "The endpoint returned a Vercel Security Checkpoint rather than search results; response SHA-256 da0a115fe5083fe446d2de950fd83b50e779e4e1606463c76b4b58019e571938.",
+    "limitations": "Repository metadata and one complete public code index are bounded discovery evidence. Private, deleted, and unindexed sources were inaccessible; no global absence or discovery saturation is claimed."
+  },
+  "inventory_decision": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "7/7 candidate and search-boundary records classified in S56-M-0931-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": true,
+    "exact_candidate_kernel_probed": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_candidate_classification": "M0-W_candidate_pending_downstream_acceptance",
+    "candidate_evidence_level": "E2_local_nonrelease_kernel_probe",
+    "authoritative_root_vector_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "authoritative_root_vector_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "debt_delta_basis": "This phase locates and directly probes an exact pinned mathlib route but does not install an accepted proof-phase wrapper, freeze the obligation tree, or promote the planned dossier's authoritative proof state.",
+    "kernel_closed_as_accepted_root": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "dependency-ordered master acceptance of the provisional statement predecessor and this anchor-audit node",
+      "freeze the canonical obligation registry and typed proof/provenance/workflow graphs",
+      "install the proof-phase canonical wrapper and checked composition",
+      "complete terminal declaration/provenance/trust and executable TCB closure",
+      "complete independent primary-source H0 and readable R0 review",
+      "complete hermetic replay, independent verification, and deterministic release acceptance"
+    ],
+    "status_boundary": "This self-tested node classifies a bounded immutable formal-candidate inventory and checks an exact mathlib adapter. It proposes no accepted M0, H0, R0, AUDIT-Z, or theorem-completion state."
+  },
+  "gate_state": "worker_self_tested_pending_master_acceptance",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false
+}

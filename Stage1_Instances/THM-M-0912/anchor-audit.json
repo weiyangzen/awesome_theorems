@@ -1,0 +1,287 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "inventory_id": "S56-M-0912-ANCHOR-INVENTORY-20260713-01",
+  "item_id": "S56-M-0912-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0912",
+  "execution_rank": 1454,
+  "phase": "anchor_audit",
+  "intent": "audit",
+  "lifecycle_mode": "planned",
+  "base_revision": "72e9e8092182121a6794921f61fcc9cae22f726d",
+  "base_tree": "0d6c1fdf06d1573c256af331c6b198e5a787af43",
+  "validated_at": "2026-07-13T22:29:37+08:00",
+  "canonical_target": {
+    "module": "Stage1_Instances/THM-M-0912/Statement.lean",
+    "declaration": "Stage1Instances.THM_M_0912.PascalIdentityTarget",
+    "statement": "forall (m n : Nat), n <= m -> 1 <= n -> Nat.choose m n = Nat.choose (m - 1) n + Nat.choose (m - 1) (n - 1)",
+    "expression_sha256": "b322549a05e57fbf466b60eb8ff89f4a08c6ee3b68ea5bf3ff3bf86d99521776",
+    "statement_file_sha256": "63fda2462d33fba5f18ba0c46df33d7c34c2442609992e7435a2ab4ac33e434e",
+    "audit_copy_declaration": "Stage1Instances.THM_M_0912_AnchorAudit.ExactTarget",
+    "statement_match": "The checker compares the fully explicit elaborated expression of the statement declaration with the fully explicit elaborated expression of the literal audit copy."
+  },
+  "discovery_protocol": {
+    "path": "Stage1_Instances/THM-M-0912/anchor-discovery-protocol.json",
+    "sha256": "df2cf140c40d47f2798e7bee90bc75b5b85b0c92905ebd9c22e06a981d68f973",
+    "frozen_before_external_queries": true,
+    "saturation_claim": false
+  },
+  "immutable_environment": {
+    "formal_system": "Lean 4 plus manifest-pinned mathlib",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_revision_date": "2026-03-30T18:47:58Z",
+    "mathlib_worktree_clean": true,
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_blob": "8dada3edaf50dbc082c9a125058f25def75e625a",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only; all eleven manifest packages were observed materialized, at their manifest revisions, and clean at final validation"
+  },
+  "local_search": {
+    "repository_result": "No independent repo-local Pascal-identity proof body was found outside the owned dossier. Neighboring targets mention Pascal identity only as a non-substitute boundary.",
+    "materialized_package_result": "No selected declaration-name occurrence was found in the ten materialized non-mathlib manifest packages. All eleven manifest packages, including mathlib, were observed at their manifest revisions with clean worktrees; this worker did not fetch or modify them.",
+    "mathlib_result": "The sole terminal declaration family is in Mathlib/Data/Nat/Choose/Basic.lean. Other mathlib hits are uses, derived identities, a ring-valued different declaration, or unrelated multichoose recurrences.",
+    "search_terms": [
+      "Pascal identity",
+      "Pascal's identity",
+      "Pascal recurrence",
+      "binomial recurrence",
+      "choose_succ_succ",
+      "choose_succ_succ'",
+      "choose_succ_left",
+      "choose_succ_right",
+      "choose_eq_choose_pred_add"
+    ]
+  },
+  "pinned_mathlib_source": {
+    "module": "Mathlib.Data.Nat.Choose.Basic",
+    "file": "Mathlib/Data/Nat/Choose/Basic.lean",
+    "file_blob": "15a5c95dae82b6fc0ae14eebe85215f89853f7ee",
+    "file_sha256": "b3c40f47d39427428d70518b48adaaf16d3622698b32406fa7745749f1387170",
+    "definition_and_recurrence_lines": "45-82",
+    "definition_and_recurrence_sha256": "d82edaf64d5364335630716fd422c3407a88a46f6ba716fdd3051f0747d516f4",
+    "successor_lines_sha256": "55c3220b696e308198ace15b50eff1fcefaf3420cc1b73d521814fd39c33293f",
+    "positive_predecessor_lines_sha256": "49ba9e7b85eeaaf0b4628141bc5c19a8ff94d39862697d8c294c8ecc90f5e8d0",
+    "direct_imports": [
+      "Mathlib.Data.Nat.Factorial.Basic",
+      "Mathlib.Order.Monotone.Defs"
+    ],
+    "license": "Apache-2.0"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0912-C01-MATHLIB-PREDECESSOR",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Data.Nat.Choose.Basic",
+      "declaration": "Nat.choose_eq_choose_pred_add",
+      "type": "forall {n k : Nat}, 0 < n -> 0 < k -> Nat.choose n k = Nat.choose (n - 1) (k - 1) + Nat.choose (n - 1) k",
+      "relationship_to_target": "Exact after deriving 0 < m from 1 <= n <= m and commuting the two summands.",
+      "checked_adapter": "Stage1Instances.THM_M_0912_AnchorAudit.exactTarget_mathlib_predecessor",
+      "terminal_proof_body": "Mathlib/Data/Nat/Choose/Basic.lean:78-81",
+      "terminal_body_kind": "transparent theorem body using Nat.exists_eq_add_of_le', Nat.choose_succ_right, and Nat.add_one_sub_one",
+      "origin_commit": "435bca7bdf24e76c70561e0d5d7a176de0f2f705",
+      "origin_author": "Calle Sönne",
+      "origin_date": "2024-09-10T10:43:01Z",
+      "origin_change": "feat(Data/Nat/Choose): add basic lemmas (#16448)",
+      "machine_reported_axioms": ["propext"],
+      "machine_reported_sorry_free": true,
+      "placeholder_and_unsafe_scan": "no executable sorry, admit, sorryAx, axiom, constant, opaque, unsafe, extern, or implemented_by marker in the inspected source module",
+      "dependency_feasibility": "already present in the manifest-pinned local dependency closure",
+      "candidate_machine_classification": "M0-W route candidate pending proof-phase adoption, release-grade E1, and master acceptance",
+      "evidence_level": "provisional direct local kernel probe; not accepted E1",
+      "accepted": false
+    },
+    {
+      "candidate_id": "M0912-C02-MATHLIB-SUCCESSOR",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Data.Nat.Choose.Basic",
+      "declaration": "Nat.choose_succ_succ'",
+      "type": "forall n k : Nat, Nat.choose (n + 1) (k + 1) = Nat.choose n k + Nat.choose n (k + 1)",
+      "relationship_to_target": "The theorem is broader than the source statement, but the checked adapter uses it only after the target hypotheses establish positive predecessor reindexing; the adapter's conclusion is exactly the constrained target.",
+      "checked_adapter": "Stage1Instances.THM_M_0912_AnchorAudit.exactTarget_mathlib_successor",
+      "terminal_proof_body": "Mathlib/Data/Nat/Choose/Basic.lean:65-66",
+      "terminal_body_kind": "rfl, definitionally reduced through Nat.choose",
+      "origin_commit": "8c618051cf5dbc6d45d661bd92edd3e8453023b0",
+      "origin_author": "casavaca",
+      "origin_date": "2023-02-07T20:30:35Z",
+      "origin_change": "feat: Port Data.Nat.Choose.Central (#2140)",
+      "machine_reported_axioms": [],
+      "adapter_machine_reported_axioms": ["propext"],
+      "machine_reported_sorry_free": true,
+      "dependency_feasibility": "already present in the manifest-pinned local dependency closure",
+      "candidate_machine_classification": "M0-W route candidate pending proof-phase adoption, release-grade E1, and master acceptance",
+      "evidence_level": "provisional direct local kernel probe; not accepted E1",
+      "accepted": false
+    },
+    {
+      "candidate_id": "M0912-C03-MATHLIB-ADJACENT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Data.Nat.Choose.Basic",
+      "declarations": [
+        "Nat.choose_succ_succ",
+        "Nat.choose_succ_left",
+        "Nat.choose_succ_right"
+      ],
+      "relationship_to_target": "Equivalent or adjacent recurrence interfaces. They share the same terminal Nat.choose definition or the positive-index predecessor family, but are not counted as additional independent proof bodies.",
+      "machine_reported_axioms": {
+        "Nat.choose_succ_succ": [],
+        "Nat.choose_succ_left": ["propext"],
+        "Nat.choose_succ_right": ["propext"]
+      },
+      "machine_reported_sorry_free": true,
+      "candidate_machine_classification": "duplicate or adjacent pinned interface; no separate root credit",
+      "accepted": false
+    },
+    {
+      "candidate_id": "M0912-C04-PUBLIC-DOWNSTREAM-USERS",
+      "project": "multiple immutable public repositories indexed by Sourcegraph",
+      "revisions": [
+        "facebookresearch/atlas-lean@34ffed396f376454c1a9b297f3fd74c5c801fb50",
+        "google-deepmind/superhuman@96fa6c4cc3a9bb7450ee7b6773b659d3a030dace",
+        "google-deepmind/alphaproof-nexus-results@0647711a71183c1ea492ad60860776617ce1ea88",
+        "the-omega-institute/automath@f76f46f07a1a48d5c12a20c2f8d366bb9df9330d",
+        "math-inc/FrontierMathOpen-Hypergraphs@0f5a301e61492e0751a9ed8a04dc946f706941a5",
+        "Verified-zkEVM/CompPoly@0ec1f6e2d9dece6315787d8b2ae0e884779829f6"
+      ],
+      "relationship_to_target": "Sampled matches use Nat.choose_succ_succ or Nat.choose_succ_succ' from mathlib in other proofs. They are downstream consumers, not independent Pascal-identity terminal bodies.",
+      "toolchains_and_dependencies": "not inspected because these matches fail the independent-body inclusion criterion",
+      "candidate_machine_classification": "duplicate dependency use; no root credit",
+      "accepted": false
+    },
+    {
+      "candidate_id": "M0912-C05-HISTORICAL-LEAN",
+      "project": "leanprover-community/mathlib3 and leanprover/lean2",
+      "indexed_revisions": [
+        "leanprover-community/mathlib3@65a1391a0106c9204fe45bc73a039f056558cb83",
+        "leanprover/lean2@8072fdf9a0b31abb9d43ab894d7a858639e20ed7"
+      ],
+      "relationship_to_target": "Historical lineage or similarly named recurrence only; not Lean 4 completion and not counted separately from the pinned port.",
+      "candidate_machine_classification": "research provenance only",
+      "accepted": false
+    }
+  ],
+  "external_query_ledger": [
+    {
+      "service": "GitHub repository search",
+      "query": "Pascal identity Lean4",
+      "observed_at": "2026-07-13T22:19:29+08:00",
+      "http_status": 200,
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "result": "total_count=0, incomplete_results=false",
+      "scope": "repository names, descriptions, topics, and metadata only"
+    },
+    {
+      "service": "GitHub repository search",
+      "query": "Pascal identity theorem prover Lean",
+      "observed_at": "2026-07-13T22:19:30+08:00",
+      "http_status": 200,
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "result": "total_count=0, incomplete_results=false",
+      "scope": "repository names, descriptions, topics, and metadata only"
+    },
+    {
+      "service": "GitHub repository search",
+      "query": "binomial recurrence Lean4",
+      "observed_at": "2026-07-13T22:19:29+08:00",
+      "http_status": 403,
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "result": "anonymous search rate limit exceeded; no result claim"
+    },
+    {
+      "service": "GitHub code search",
+      "query": "choose_eq_choose_pred_add language:Lean",
+      "observed_at": "2026-07-13T22:19:29+08:00",
+      "http_status": 403,
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "result": "anonymous API rate limit exceeded; no negative evidence"
+    },
+    {
+      "service": "Sourcegraph streaming search",
+      "query": "context:global lang:Lean choose_eq_choose_pred_add fork:yes archived:yes count:200",
+      "observed_at": "2026-07-13T22:20:00+08:00",
+      "http_status": 200,
+      "response_sha256": "c4901fbc89bd724b3d50904d030a6c0404c1ab0d3104aac792790a7c7fbb2d54",
+      "result": "done=true, matchCount=1, repositoriesCount=1, skipped=[]; only mathlib4 declaration",
+      "index_revision_boundary": "Sourcegraph indexed mathlib4 at 12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f, not the local pin; this response is discovery-only"
+    },
+    {
+      "service": "Sourcegraph streaming search",
+      "query": "context:global lang:Lean choose_succ_succ fork:yes archived:yes count:200",
+      "observed_at": "2026-07-13T22:20:00+08:00",
+      "http_status": 200,
+      "response_sha256": "7c41483bc986ffe6459143b1a196b20d78db881d6f4f9bf6b485252647992e79",
+      "result": "done=true, matchCount=109, skipped=[] across mathlib4, downstream Lean 4 users, mathlib3, and Lean 2; sampled external Lean 4 matches were dependency uses rather than independent definitions",
+      "boundary": "The broad name query finds uses and overloads; it is not a count of exact target declarations."
+    },
+    {
+      "service": "Sourcegraph streaming search",
+      "query": "context:global lang:Lean Pascal's identity exact phrase, forks and archives included",
+      "observed_at": "2026-07-13T22:22:00+08:00",
+      "http_status": 200,
+      "response_sha256": "c8ba7edcc9905b6a42efc91eaf75c1a968c8ebaad9d16c07c1def2a92f05d6f2",
+      "result": "done=true, matchCount=0, skipped=[]"
+    },
+    {
+      "service": "Sourcegraph streaming search",
+      "query": "context:global lang:Lean Pascal identity exact phrase, forks and archives included",
+      "observed_at": "2026-07-13T22:20:00+08:00",
+      "http_status": 200,
+      "response_sha256": "474e3ed4214a9558f4e522402e0f5530445c704450576a69dcf7b04249830d23",
+      "result": "done=true, matchCount=0, skipped=[]"
+    },
+    {
+      "service": "grep.app API",
+      "queries": ["choose_eq_choose_pred_add", "choose_succ_succ", "Pascal identity"],
+      "observed_at": "2026-07-13T22:19:29+08:00",
+      "http_status": 429,
+      "response_sha256": [
+        "91db1af5995c1951166fc9254e905f532efac3d53f15d5fd84aa3136fe4fbeba",
+        "3908d280ebf37d158ba1e43f65356cf62dc4f711b0b8de8b4babee135d5143f4",
+        "3a796af5b7b2c65e31a6104c06127bb3385451d1d80f3248ad798ee472840bc6"
+      ],
+      "result": "Vercel security checkpoint; no result or negative-evidence claim"
+    }
+  ],
+  "trust_and_provenance": {
+    "foundation_profile": "Lean 4 dependent type theory with Nat recursion; standard propext is allowed for this provisional probe but has not received release TCB acceptance.",
+    "terminal_body_boundary": "Both exact routes reduce to the transparent Nat.choose definition and the recorded Basic.lean theorem bodies. The routes are aliases over the same definition family, not two distinct semantic proof bodies.",
+    "machine_axiom_result": "Nat.choose_succ_succ and Nat.choose_succ_succ' report no axioms. Positive-index predecessor lemmas and both exact adapters report only propext.",
+    "placeholder_result": "Lean reports all seven selected terminal and adapter declarations sorry-free. A comment-aware scan of AnchorAudit.lean and Basic.lean finds no prohibited executable declaration marker.",
+    "unsafe_oracle_result": "No unsafe declaration, extern, implemented_by, oracle, native evaluator, generated certificate, or external-code path is used by the selected declarations or adapters.",
+    "transitive_boundary": "Direct source imports, body locations, origin commits, source blobs, and machine axiom/sorry reports are recorded. Full transitive declaration graph, compiled-object provenance, executable TCB, supply-chain closure, and independent release verification remain downstream."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_pinned_candidate_located": true,
+    "exact_adapter_kernel_checked": true,
+    "candidate_machine_classification": "M0-W route candidate pending proof-phase adoption, release-grade E1, and master acceptance",
+    "candidate_evidence_boundary": "provisional direct local kernel probe; not accepted E1",
+    "accepted_root_machine_debt_after": "M3",
+    "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+    "candidate_vector_after": {"H": "H1", "M": "M0-W", "R": "R4"},
+    "accepted_root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+    "accepted_receipt_ids": [],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "verdict": "no_state_change"
+  },
+  "remaining_root_cut_set": [
+    "dependency-ordered master acceptance of intake, statement, and anchor-audit worker proposals",
+    "S56-M-0912-OBLIGATION_TREE",
+    "S56-M-0912-PROOF",
+    "S56-M-0912-VALIDATION",
+    "S56-M-0912-RELEASE",
+    "primary-source H0 and independent source review",
+    "readable R0 and independent review",
+    "complete transitive provenance, trust, TCB, hermetic, and independent-verification closure"
+  ],
+  "status_boundary": "This is a bounded, provisional anchor inventory. It locates and directly checks an exact pinned mathlib route but does not adopt it in the proof phase, accept E1 or M0-W root state, alter an authoritative task state, complete AUDIT-Z, or complete the theorem."
+}
