@@ -1,0 +1,328 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0043-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0043",
+  "execution_rank": 1083,
+  "base_revision": "72f928bdf1a47d7c119826db45575bd02a3a63ce",
+  "base_tree": "171a6bfae88220f5df9b39cdd6c7e1bf17639889",
+  "audit_date": "2026-07-13",
+  "canonical_target": "Stage1Instances.THM_M_0043.SpectralTheoremTarget",
+  "canonical_target_expression_sha256": "a46ee23911b8027aa5de93149fd781def441429e386cb9181fc2064b2898557a",
+  "canonical_statement_file_sha256": "d2e524169f6c8a4e8d11b5c33eb3c218a62531966953150b3ec77b9a0f9e0d9c",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "inventory_version": "S56-M-0043-ANCHOR-INVENTORY-20260713-02",
+    "cutoff": "2026-07-13T08:20:00+08:00",
+    "credentials_policy": "anonymous public HTTP and read-only git metadata only; no GitHub code-search credential was available",
+    "aliases": [
+      "spectral theorem",
+      "normal matrix",
+      "normal complex matrix",
+      "unitarily diagonalizable",
+      "unitary diagonalization",
+      "orthonormal eigenbasis",
+      "IsStarNormal",
+      "Matrix.unitaryGroup",
+      "normal_complex_unitarily_diagonalizable",
+      "spectral_theorem"
+    ],
+    "namespace_queries": [
+      "Matrix.IsHermitian",
+      "SpectralTheorem",
+      "LinearMap.IsSymmetric",
+      "DirectSum.IsInternal",
+      "OrthonormalBasis"
+    ],
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib sources and declarations",
+      "primary and topic-specific public Lean repositories",
+      "Sourcegraph and GitHub public indexes",
+      "statement and instructional collections"
+    ],
+    "command_forms": [
+      "rg and git grep over repository-local and pinned mathlib *.lean sources",
+      "GitHub REST repository and code queries",
+      "Sourcegraph streaming searches with archived and forked repositories included",
+      "immutable raw/codeload streams and read-only git ls-remote through public HTTPS"
+    ],
+    "expected_negative_evidence": "Each bounded public query records a response hash or explicit access failure; no internet-wide absence claim is permitted.",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0043-C01-ATLAS-EXACT",
+      "project": "facebookresearch/atlas-lean",
+      "remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "37b67629605e8c3b83c538a7c75718d731c2fb40",
+      "archive_sha256": "925cc0fa8d32dbdf6e8dc893e2fb9d34eed3dfdc8603dc5ae09804f8c3db9aa2",
+      "module": "Atlas.AlgebraNotes.code.SpectralTheorem",
+      "file": "Atlas/AlgebraNotes/code/SpectralTheorem.lean",
+      "file_blob": "393e4c75ddc778f12a3b02e3fb1ef19f653cd76a",
+      "file_sha256": "415d4e7784f21d5cf7327a4c6bee96bb3e3ac3e2d7ae18587738785a18b72cc9",
+      "declaration": "SpectralTheorem.normal_complex_unitarily_diagonalizable",
+      "type": "forall {n} [Fintype n] [DecidableEq n] (M : Matrix n n Complex), IsStarNormal M -> exists P, P in Matrix.unitaryGroup n Complex and exists d, star P * M * P = Matrix.diagonal d",
+      "normalized_match": "The candidate is stronger by including the empty index type. Its explicit unitary membership and conjugated-diagonal equation imply the exact frozen target through the checked audit adapter.",
+      "local_adapter": "Stage1Instances.THM_M_0043_AnchorAudit.exactTarget_from_atlasCandidate",
+      "terminal_declaration": "SpectralTheorem.normal_complex_unitarily_diagonalizable",
+      "terminal_proof_body": "Lines 17-138 split M into commuting Hermitian real and imaginary parts, use the joint eigenspace internal direct sum and subordinate orthonormal basis, construct a unitary basis matrix, and prove the conjugated diagonal equation.",
+      "direct_imports": [
+        "Mathlib.Analysis.Matrix.Spectrum",
+        "Mathlib.Analysis.InnerProductSpace.JointEigenspace"
+      ],
+      "principal_dependencies": [
+        "Matrix.isHermitian_iff_isSymmetric",
+        "LinearMap.IsSymmetric.directSum_isInternal_of_commute",
+        "LinearMap.IsSymmetric.orthogonalFamily_eigenspace_inf_eigenspace",
+        "DirectSum.IsInternal.subordinateOrthonormalBasis",
+        "OrthonormalBasis.toMatrix_orthonormalBasis_mem_unitary"
+      ],
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "toolchain_file_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+      "license": "CC BY-NC 4.0 with an additional no-training rider; non-SPDX composite requiring publication and reuse review",
+      "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+      "placeholder_bodyless_unsafe_oracle_status": "The immutable candidate source contains no sorry, admit, axiom, unsafe, or opaque declaration. It elaborates standalone against its exact pinned mathlib imports; full root-reachable transitive trust closure remains downstream.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "dependency_feasibility": "The source uses the same Lean and mathlib pins and elaborates as a streamed temporary standalone module. It is not in the repository dependency closure; pin/import strategy and restrictive license review remain open.",
+      "candidate_classification": "M1",
+      "evidence_level": "E2",
+      "result": "Exact external kernel-checked proof candidate. It is not M0-P because no repo-local immutable dependency, imported terminal declaration, full trust closure, licensed integration decision, or release-grade E1 receipt exists.",
+      "integration_task": "Resolve license/reuse policy, choose a content-addressed pin or independently implement the same route, add an exact local wrapper, and complete root-reachable provenance/trust and E1 checks."
+    },
+    {
+      "candidate_id": "M0043-C02-MATHLIB-HERMITIAN",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Analysis.Matrix.Spectrum",
+      "file": "Mathlib/Analysis/Matrix/Spectrum.lean",
+      "file_blob": "1e6809ddfb7d49841b23b4084e45141277c8daf8",
+      "file_sha256": "1a1a96a6f057a73b0d428b62cdbb3da824981928c162b52a15335abdafc8b0db",
+      "declaration": "Matrix.IsHermitian.spectral_theorem",
+      "type": "A.IsHermitian -> A = Unitary.conjStarAlgAut _ _ hA.eigenvectorUnitary (Matrix.diagonal (RCLike.ofReal composed with hA.eigenvalues))",
+      "normalized_match": "The output adapts to the required unitary-diagonal equation, but IsHermitian is strictly stronger than IsStarNormal and forces real diagonal values.",
+      "local_adapter": "Stage1Instances.THM_M_0043_AnchorAudit.hermitianSpecialization_from_mathlib",
+      "strictness_witness": "Stage1Instances.THM_M_0043_AnchorAudit.normal_not_implies_hermitian gives the one-dimensional matrix with entry Complex.I.",
+      "terminal_proof_body": "Pinned mathlib lines 141-147 compose the Hermitian eigenvector unitary with its conjugated-diagonal theorem.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "Already materialized at the Lake manifest pin and checked without mutating .lake.",
+      "candidate_classification": "M3_strict_specialization",
+      "evidence_level": "E2",
+      "result": "Kernel-checked adjacent branch only; it cannot consume the root normality hypothesis and supplies no exact-root completion credit."
+    },
+    {
+      "candidate_id": "M0043-C03-MATHLIB-COMPOSITION-ROUTE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "files": [
+        {"path": "Mathlib/LinearAlgebra/Complex/Module.lean", "blob": "849e35dcd943e8fcc458903add32331ec08e0013", "sha256": "ca73134270bfa2973baf2545708bcbd78f161f90ef49b8d36aec29f52d45edf7"},
+        {"path": "Mathlib/Analysis/InnerProductSpace/JointEigenspace.lean", "blob": "9342a846990506a5240299915ff3788c89a12856", "sha256": "901b240b008bc3c2e240072ba271db3076c43ea600fd57da95df20d05380902c"},
+        {"path": "Mathlib/Analysis/InnerProductSpace/PiL2.lean", "blob": "1809daf0493b8bbfde55c8f4d1bdcb2eb3feda7a", "sha256": "4df49dd497992b022f3d18ee79ea0ae5536be7a452779b4c2400b1d136b7a2bb"}
+      ],
+      "declarations": [
+        "isStarNormal_iff_commute_realPart_imaginaryPart",
+        "LinearMap.IsSymmetric.directSum_isInternal_of_commute",
+        "LinearMap.IsSymmetric.iSup_iInf_eq_top_of_commute",
+        "DirectSum.IsInternal.subordinateOrthonormalBasis",
+        "OrthonormalBasis.toMatrix_orthonormalBasis_mem_unitary"
+      ],
+      "normalized_match": "These anchors support the same proof architecture as the exact Atlas body, but pinned mathlib does not package the normal-matrix root equation.",
+      "candidate_classification": "M3_support_route",
+      "result": "Useful obligation-tree and implementation route only; no terminal exact theorem in pinned mathlib."
+    },
+    {
+      "candidate_id": "M0043-C04-REPOSITORY-LEGACY-HERMITIAN",
+      "project": "awesome_theorems repository-local legacy source",
+      "revision": "72f928bdf1a47d7c119826db45575bd02a3a63ce",
+      "file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_192.lean",
+      "file_blob": "f988112b0735b33ce558c0124c84eeee8a08d349",
+      "file_sha256": "740911dbaaf01a57c55a5d05997bf8b4bb5f6e093d953ea3e50efed31d40d9b7",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_192.matrix_hermitian_spectral_theorem",
+      "normalized_match": "Wrapper over the same strict Hermitian mathlib theorem in an unrelated legacy theorem slot.",
+      "candidate_classification": "M3_duplicate_wrapper",
+      "result": "No independent proof body and no root credit; legacy artifacts are unaccepted."
+    },
+    {
+      "candidate_id": "M0043-C05-OLIVER-SPECTRAL",
+      "project": "oliver-butterley/SpectralThm",
+      "remote": "https://github.com/oliver-butterley/SpectralThm.git",
+      "revision": "4f15a87cd8eb1c27730373a9c64c1b8ee7d51a7a",
+      "tree": "2c7a9bea25ed46d6f9d9b188b98f22ae4d8e6e95",
+      "archive_sha256": "a07bbe1c8afcacd5fddb195a1e540166246d4fa6970dacefac9c1847841a4316",
+      "file": "SpectralThm/SpectralTheorem.lean",
+      "file_blob": "962563cee3014fe37ba13aa077b7dabf22e4f761",
+      "file_sha256": "54a778b8a186a6f9b1c82145fcb39e16dff12950382f0ae3173de84ad3bb0ce2",
+      "toolchain": "leanprover/lean4:v4.31.0-rc1",
+      "mathlib_revision": "ac90cfa0fee4c6f8dadc5f7bbbfa5d116744efb8",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalized_match": "Infinite-dimensional self-adjoint operator resolution theorem, not finite normal-matrix unitary diagonalization.",
+      "placeholder_status": "15 textual sorry occurrences in the candidate file, including terminal SpectralDecomposition; 34 repository-wide.",
+      "candidate_classification": "M5",
+      "result": "Statement mismatch, incompatible pin, and proof gaps."
+    },
+    {
+      "candidate_id": "M0043-C06-APURVA-LEAN3",
+      "project": "apurvanakade/lean-spectral-theorem",
+      "remote": "https://github.com/apurvanakade/lean-spectral-theorem.git",
+      "revision": "ba9a9746a7041cfb64a6e1a62779e1a10b5aaf3a",
+      "tree": "07ea7ab99cc97b846683bce29592984617a91968",
+      "archive_sha256": "0d3c2eb9d680d4719a101f38fe5f872973737c682b6e781c139dbabf657c68f5",
+      "file": "src/spectral_theorem.lean",
+      "file_blob": "252a08be30095e4fabddc6321de8258bb6567e83",
+      "file_sha256": "006db937b912ea5c616b40744b2321e94453a98cdd9818580ae6d6c1c930dbd1",
+      "toolchain": "leanprover-community/lean:3.17.1",
+      "mathlib_revision": "43ccce552af4206cc5a96916ea72643c51cba0ad",
+      "license": "none located",
+      "normalized_match": "Finite Fin-indexed normal-matrix decomposition in Lean 3, not the requested Lean 4 backend.",
+      "placeholder_status": "Six sorry occurrences in the root file, additional gaps in imported normal/unitary files, 52 repository-wide.",
+      "candidate_classification": "M5",
+      "result": "Wrong backend, proof gaps, and no license."
+    },
+    {
+      "candidate_id": "M0043-C07-CHIMAG-ASSUMED-ROOT",
+      "project": "chimag-arch/SpectralLean",
+      "remote": "https://github.com/chimag-arch/SpectralLean.git",
+      "revision": "bb8a6fc2413f22870aa7963f35aa2a3dc06cae79",
+      "tree": "900b3e8221dc17d0fee2f30d4ad8bc36ed727665",
+      "archive_sha256": "f60f1acb4a551481214f2517ff5f2a9470cfe28125cdc6dff7199a82864e521e",
+      "file": "Project.lean",
+      "file_blob": "600c1156db2479c26dc7ea03969d936326c23e78",
+      "file_sha256": "3c05eaa165506a32c53deedd9dee924ce4f0d7e68dbce626fa487f4cf046f0ca",
+      "toolchain": "none located",
+      "license": "none located",
+      "normalized_match": "Defines an exact-looking NormalSpectralTheorem as a supplied variable and derives only a Hermitian result.",
+      "candidate_classification": "M5",
+      "result": "The root is an assumption rather than a proof body."
+    },
+    {
+      "candidate_id": "M0043-C08-COMPACT-SELFADJOINT",
+      "project": "abenenson/compact-spectral",
+      "remote": "https://github.com/abenenson/compact-spectral.git",
+      "revision": "72cd62dbdd4c397d26fc0c5777d60fea2211e938",
+      "tree": "7911cc0da6e60e82fe70adc837017d4958c5325c",
+      "archive_sha256": "acfb24fab9ad01ab2162016f2df7f129c58338481c33b5cc64ca82cb629ffc30",
+      "file": "CompactSpectral/Analysis/InnerProductSpace/CompactSelfAdjoint/SpectralTheorem.lean",
+      "file_blob": "86eef4c07f01fce6c1955db0e3ee28e5e23bd6f8",
+      "file_sha256": "cfde803eec9cbb470333e45f739075d632b064e91f983e0f41e4854adac20d50",
+      "toolchain": "leanprover/lean4:v4.29.1",
+      "mathlib_revision": "5e932f97dd25535344f80f9dd8da3aab83df0fe6",
+      "license": "Apache-2.0",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "normalized_match": "Hilbert basis theorem for compact self-adjoint operators, with extra compactness and self-adjointness and a different output encoding.",
+      "placeholder_status": "No textual sorry in the file or repository.",
+      "candidate_classification": "M3_support_only",
+      "result": "Credible but nonmatching adjacent formalization; no exact root proof."
+    },
+    {
+      "candidate_id": "M0043-C09-NICO-STARTER",
+      "project": "nicomele1/spectral-thm-lean",
+      "remote": "https://github.com/nicomele1/spectral-thm-lean.git",
+      "revision": "be82ab816f0b666a240bf90aa5931d48e1a2e923",
+      "tree": "061765e86fc001dbc2ca4143eca27d6e1264211c",
+      "archive_sha256": "bd02e99afa6b96280968da232f34ad2ed97dace827d70783bac6ca26a319930c",
+      "files": [
+        {"path": "spectral/Spectral.lean", "sha256": "e8675ac736642b09c960aef5e56059eaff84013594cb0d883d6a2fd6be9e188e"},
+        {"path": "spectral/Spectral/Basic.lean", "sha256": "a88fef4d3efa63c9f9f5c948dd5ba1de3ea09d828ce8388ee83fa3d039e734a4"}
+      ],
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "599a2dc81b8dc063e5d80a843925d4329ac84709",
+      "license": "none located",
+      "normalized_match": "Starter adjoint definitions and a hello declaration; no spectral theorem declaration.",
+      "candidate_classification": "M4_no_candidate",
+      "result": "No formal candidate to integrate."
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"spectral theorem\" language:Lean&per_page=20",
+      "result": "HTTP 200; total_count=5; incomplete_results=false",
+      "response_sha256": "c166b8481ef375e805c5b07e565c87c506da404c65622749dc4db6516c345e75"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"normal matrix\" language:Lean&per_page=20",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"unitarily diagonalizable\" Lean&per_page=20",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"IsStarNormal\" language:Lean&per_page=20",
+      "result": "HTTP 403 API rate limit exceeded; unauthenticated access failure",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e"
+    },
+    {
+      "surface": "Sourcegraph streaming search",
+      "query": "context:global archived:yes fork:yes IsStarNormal lang:Lean count:500",
+      "result": "HTTP 200; located facebookresearch/atlas-lean exact candidate; bounded index result",
+      "response_sha256": "2c37e07920ea9c0e71963a098eaa813aef3e5db7b058cb54237601c98c99e321"
+    },
+    {
+      "surface": "Sourcegraph streaming search",
+      "query": "context:global lang:Lean \"unitarily diagonalizable\"",
+      "result": "HTTP 200; matchCount=0; archived and forked repositories omitted by this phrase probe",
+      "response_sha256": "4ae42c94e5af4fce0dce3a2cf2753ccf2a369d694ace574851cf494f415e516b"
+    },
+    {
+      "surface": "Sourcegraph streaming search",
+      "query": "context:global lang:Lean \"normal matrix\"",
+      "result": "HTTP 200; matchCount=0; archived and forked repositories omitted by this phrase probe",
+      "response_sha256": "72460599e0c46ad41a9ea4a38cb8c8903f1aef9dbf6e8b59224da2439cd90169"
+    },
+    {
+      "surface": "grep.app code search",
+      "query": "IsStarNormal and unitarily diagonalizable with Lean language filter",
+      "result": "HTTP 429 Vercel Security Checkpoint; explicit access failure",
+      "response_sha256": "b791cf340d01486a46eae61283450e7367910a7a7ff7f36802d05a3e65e1e63f"
+    }
+  ],
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "9/9 classified candidate groups in frozen inventory S56-M-0043-ANCHOR-INVENTORY-20260713-02",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M1",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of the provisional statement prerequisite and anchor-audit node",
+    "license/reuse decision and immutable integration or independent local implementation of the Atlas route",
+    "canonical proof-phase wrapper and checked composition",
+    "full transitive declaration/provenance/trust and TCB closure",
+    "primary-source H0 and readable R0 independent review",
+    "hermetic and independent validation plus deterministic release evidence"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This provisional node classifies the bounded inventory and kernel-checks an exact external M1/E2 candidate plus the pinned Hermitian specialization. It changes no accepted H1/M3/R4 state, accepts no receipt, and completes neither AUDIT-Z nor the theorem.",
+  "audit_complete": false,
+  "theorem_complete": false
+}

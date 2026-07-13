@@ -1,0 +1,192 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0045-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0045",
+  "base_revision": "c76fe0f1a7514b41f191d16840eff25e64ee9d17",
+  "base_tree": "388bc991837bae9741d7e7cb88b43c216eab966a",
+  "audit_date": "2026-07-13",
+  "cutoff_timezone": "Asia/Shanghai",
+  "canonical_target": "Stage1Instances.THM_M_0045.SchurTriangularizationTarget",
+  "canonical_target_expression_sha256": "275e1e43027f442607fc48e78ce4e189de66b328d39c61044e87a4c8f85c001b",
+  "canonical_target_summary": "For every n and A : Matrix (Fin n) (Fin n) Complex, there is a unitary U such that star U * A * U is BlockTriangular id.",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree": "clean",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_mode": "automation-provided .lake symlink and already materialized Git objects used read-only"
+  },
+  "discovery_protocol": {
+    "path": "Stage1_Instances/THM-M-0045/anchor-discovery-protocol.json",
+    "inventory_version": "M0045-anchor-inventory-2026-07-13-1",
+    "search_order_completed": [
+      "repository-local proof bodies and wrappers",
+      "pinned mathlib and locally materialized pinned packages",
+      "public Sourcegraph indexed Lean repositories",
+      "GitHub public repository search",
+      "GitHub public code search attempt",
+      "local Git object/ref inspection of the canonical mathlib remote"
+    ],
+    "limitations": "GitHub code search returned HTTP 403 rate-limit denial. No authenticated search or reviewed saturation evidence was available. Public-search zero results are bounded discovery evidence, not a global absence claim."
+  },
+  "candidates": [
+    {
+      "id": "M0045-A-LOCAL-STATEMENT",
+      "source": "repo-local",
+      "revision": "c76fe0f1a7514b41f191d16840eff25e64ee9d17",
+      "module": "Stage1_Instances/THM-M-0045/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0045.SchurTriangularizationTarget",
+      "role": "exact proposition definition",
+      "normalized_comparison": "exact canonical target by definition",
+      "terminal_body": "a Prop definition, not a proof",
+      "classification": "M3",
+      "result": "Exact statement only; it has no inhabitant or proof body."
+    },
+    {
+      "id": "M0045-A-MATHLIB-EIGENSPACE",
+      "source": "pinned-mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree_revision": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.LinearAlgebra.Eigenspace.Triangularizable",
+      "declarations": [
+        "Module.End.exists_eigenvalue",
+        "Module.End.iSup_maxGenEigenspace_eq_top"
+      ],
+      "roles": "eigenvalue and generalized-eigenspace spanning infrastructure",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "normalized_comparison": "strictly weaker interfaces: no invariant orthonormal flag, unitary matrix witness, or upper-triangular conjugate",
+      "source_boundary": "The module TODO explicitly asks to define triangularizable endomorphisms and connect them to the generalized-eigenspace result.",
+      "classification": "M3",
+      "result": "Kernel-checked supporting declarations, not a Schur proof candidate."
+    },
+    {
+      "id": "M0045-A-MATHLIB-HERMITIAN-SPECTRAL",
+      "source": "pinned-mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree_revision": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Analysis.Matrix.Spectrum",
+      "declaration": "Matrix.IsHermitian.spectral_theorem",
+      "role": "unitary diagonalization of a Hermitian matrix",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "normalized_comparison": "strict specialization requiring Matrix.IsHermitian A; the canonical Schur target quantifies over every complex square matrix without Hermitian or normal hypotheses",
+      "classification": "M5",
+      "result": "Statement mismatch for the arbitrary-matrix root; useful only as a special-case proof anchor.",
+      "reopen_when": "Use only for an obligation explicitly restricted to Hermitian matrices; it cannot be upgraded to the unrestricted root without a separate general proof."
+    },
+    {
+      "id": "M0045-A-MATHLIB-GRAM-SCHMIDT",
+      "source": "pinned-mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree_revision": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+      "declarations": [
+        "InnerProductSpace.gramSchmidtOrthonormalBasis_inv_blockTriangular",
+        "OrthonormalBasis.toMatrix_orthonormalBasis_mem_unitary"
+      ],
+      "roles": "upper-triangular coefficient matrix for Gram-Schmidt and unitary change between two orthonormal bases",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "normalized_comparison": "does not construct an invariant basis for an arbitrary endomorphism; triangularity applies to coefficients of the input vector family",
+      "classification": "M3",
+      "result": "Kernel-checked supporting declarations, not a Schur proof candidate."
+    },
+    {
+      "id": "M0045-A-MATHLIB-BRANCH-SCHUR",
+      "source": "external immutable mathlib branch",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "0a539f0ce764fd16726509b62ed7b870461070eb",
+      "tree_revision": "5da322f204f788b5eb2649c51fbfd54ffadb7265",
+      "module": "Mathlib.LinearAlgebra.Matrix.SchurTriangulation",
+      "declaration": "Matrix.schur_triangulation",
+      "type": "A = A.schurTriangulationUnitary * A.schurTriangulation * star A.schurTriangulationUnitary for an algebraically closed RCLike field and finite linearly ordered index type",
+      "terminal_body": "The declaration contains a proof body in the 300-line source; recursive LinearMap.SchurTriangulationAux.of constructs an orthonormal invariant basis.",
+      "normalized_comparison": "At K = Complex and n = Fin d, the unitary subtype property and the UpperTriangular subtype property provide exactly the witnesses expected by the canonical target. The repo-local equationCandidate_implies_targetAt lemma kernel-checks the equation-to-conjugate algebraic bridge using the current unitary and BlockTriangular APIs.",
+      "source_file_sha256": "8fc4d47249d8bcc75c02fedc6d9b0008f7c0127c501f608d4226a7f5872f4bc3",
+      "toolchain": "leanprover/lean4:v4.17.0-rc1",
+      "manifest_sha256": "de1257b378b910cb20c1008126eea23d8e6d7ccbe13a10e710d111ca21c85441",
+      "license": "Apache-2.0",
+      "local_dependency_closure": false,
+      "current_pin_replay": "failed against mathlib 8a178386 with concrete removed/renamed API and declaration-collision diagnostics",
+      "trust_boundary": "No own-pin build/CI receipt, machine axiom report, parser-aware transitive placeholder/unsafe audit, or complete terminal dependency closure was established. The source-only prohibited-token scan was empty.",
+      "classification": "M5",
+      "result": "Highly relevant exact-scope source candidate, but incompatible with the current local pin and lacking E2 evidence; it is neither M1 nor M0-P.",
+      "reopen_when": "In an isolated permitted environment, reproduce commit 0a539f0c at Lean v4.17.0-rc1 and its exact manifest, kernel-check Matrix.schur_triangulation, obtain transitive axioms/placeholders/unsafe/proof-body provenance, then port or pin it and kernel-check an exact wrapper to SchurTriangularizationTarget at the repository pin."
+    }
+  ],
+  "search_evidence": [
+    {
+      "surface": "repository-local Lean source outside this target",
+      "query_family": "Schur decomposition/triangularization/factorization/form and unitary-triangular aliases",
+      "result": "One neighboring QR intake-probe prose match; no declaration or proof body.",
+      "result_file_list_sha256": "b878e989be414984198623d70d53c5a7a26aaeef05c95b25086e8c87b1ce717a"
+    },
+    {
+      "surface": "all locally materialized package Lean sources",
+      "query_family": "Schur decomposition/triangularization/factorization/form and unitary-triangular aliases",
+      "result": "Zero exact-topic textual matches in the pinned working trees.",
+      "result_file_list_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "surface": "Sourcegraph public indexed Lean repositories",
+      "query": "Schur declaration and phrase aliases, archived/forks included, count 100",
+      "result": "complete matchCount=0",
+      "response_sha256": "4601302a82b20fb396488a4f07233a854170157fc0ab1436183e3f8e03da9462"
+    },
+    {
+      "surface": "Sourcegraph public indexed Lean repositories",
+      "query": "unitary triangularization phrase/declaration aliases, archived/forks included, count 100",
+      "result": "complete matchCount=0",
+      "response_sha256": "04e009c7a66988c12583ee4390752dd5255ff37eee1325081a716d08dadc4828"
+    },
+    {
+      "surface": "Sourcegraph public indexed Lean repositories",
+      "query": "BlockTriangular and unitaryGroup conjunction, archived/forks included, count 100",
+      "result": "complete matchCount=0",
+      "response_sha256": "4da5718fc5bbb5363e2305fa2fe5fe5cc38199c626e50f17146e1b92bb9fd022"
+    },
+    {
+      "surface": "Sourcegraph public indexed Lean repositories",
+      "query": "Gram-Schmidt triangular and generalized-eigenspace substrate declarations, archived/forks included, count 100",
+      "result": "complete 9 matches in three repositories: indexed mathlib, atlas-lean JordanForm, and terminal-bench; all are the same interface uses, not the Schur root",
+      "response_sha256": "909a27d1d391e1fc5730be026ca2b9cdcf562f0b42ef1900ffa9a59b02f6b7a3"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "queries": ["quoted Schur decomposition plus Lean", "quoted Schur triangularization plus Lean"],
+      "result": "Both completed with total_count=0 and incomplete_results=false.",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "quoted Schur triangularization, language Lean",
+      "result": "HTTP 403 API rate-limit denial; no negative result claimed.",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e"
+    },
+    {
+      "surface": "canonical mathlib Git remote refs already present locally",
+      "selection": "refs and history containing SchurTriangulation.lean",
+      "result": "Located origin/kuotsanhsu.schur_triangulation at immutable commit 0a539f0c and captured it in external-anchor-snapshot.json without fetch or checkout."
+    }
+  ],
+  "root_decision": {
+    "classification_before": "M3",
+    "classification_after": "M3",
+    "kernel_closed": false,
+    "strongest_external_evidence": "E3",
+    "reason": "The exact local Prop and pinned substrate remain interface-only. The historical mathlib branch is an exact-scope source anchor, but it is outside the dependency closure, fails against the current pin, and lacks independently reproducible own-pin kernel and trust evidence.",
+    "remaining_cut_set": [
+      "external own-pin kernel and trust evidence",
+      "port or immutable dependency integration",
+      "exact repo-local wrapper and composition check"
+    ]
+  },
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This closes only the bounded candidate discovery, inventory, exact-scope comparison, and fail-closed classification required by the assigned anchor-audit node. It does not claim exhaustive discovery, H0, M1, M0, proof, full audit completion, or theorem completion."
+}

@@ -61,3 +61,13 @@ an exact pinned formal route is an unaccepted `M0-W / E2` candidate while the ac
 the dossier maps scope without providing a reviewed proof reconstruction. The statement proposal
 and anchor inventory are self-tested pending master acceptance, and all downstream tasks remain open. No accepted
 execution state, audit completion, theorem completion, or master acceptance is claimed.
+
+## Frozen obligation architecture
+
+Registry `THM-M-0028-OBLIGATIONS-v1` freezes 25 canonical obligations before candidate status is
+credited. Separate proof, refinement, provenance, evidence, trust, documentation, and workflow
+graphs expand the two distinct pinned terminal bodies through their Noetherian-class, compactness,
+complete-lattice, and monotone-chain dependencies. `ObligationTree.lean` checks both child-to-parent
+compositions while keeping finite-generation-to-Noetherianity and Noetherianity-to-chain-
+stabilization as explicit premises. The architecture installs no proof and leaves the accepted
+root at `[H1, M3, R3]` pending master acceptance and every downstream gate.

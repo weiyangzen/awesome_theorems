@@ -1,0 +1,2123 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-0028-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0028",
+  "registry_id": "THM-M-0028-OBLIGATIONS-v1",
+  "registry_denominator_sha256": "65d02abdd95b23837143f3a9562ea2ae68a7f0e32f917af40827e25b2aec121b",
+  "root_node_id": "M0028-ROOT",
+  "edge_endpoint_namespace": "canonical obligation_id",
+  "edge_direction": "proof_requires is parent-to-child; reciprocal composes is child-to-parent; support relations use their declared semantic direction",
+  "nodes": [
+    {
+      "node_id": "THM-M-0028-ROOT",
+      "obligation_id": "M0028-ROOT",
+      "kind": "root",
+      "human_statement": "Prove the exact modern-unital ideal ascending-chain target frozen in Statement.lean.",
+      "formal_target": "Stage1Instances.THM_M_0028.IdealAscendingChainTarget",
+      "output": "Every Nat-indexed ascending ideal chain stabilizes when every ideal is finitely generated.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:canonical-claim",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-T-ROOT-COMPOSE",
+          "M0028-S-INTERFACE",
+          "M0028-S-REGULAR-TRANSPORT",
+          "M0028-S-MONOTONE-TRANSPORT",
+          "M0028-S-ZERO-RING"
+        ],
+        "inference": "Prove the exact modern-unital ideal ascending-chain target frozen in Statement.lean.",
+        "output": "Every Nat-indexed ascending ideal chain stabilizes when every ideal is finitely generated.",
+        "outgoing_use": [
+          "typed support edge or canonical terminal output only"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-root",
+      "validation_spec_id": "VAL-M0028-ROOT",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-S-INTERFACE",
+      "obligation_id": "M0028-S-INTERFACE",
+      "kind": "definition",
+      "human_statement": "Preserve the universe, implicit CommRing binder, explicit every-ideal-FG premise, Nat OrderHom chain, and eventual equality conclusion.",
+      "formal_target": "Stage1Instances.THM_M_0028.IdealAscendingChainTarget",
+      "output": "The canonical interface without Nontrivial, domain, field, characteristic, carrier-finiteness, or countability assumptions.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:scope-boundary",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Preserve the universe, implicit CommRing binder, explicit every-ideal-FG premise, Nat OrderHom chain, and eventual equality conclusion.",
+        "output": "The canonical interface without Nontrivial, domain, field, characteristic, carrier-finiteness, or countability assumptions.",
+        "outgoing_use": [
+          "M0028-ROOT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-s-interface",
+      "validation_spec_id": "VAL-M0028-S-INTERFACE",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/Statement.lean"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-S-REGULAR-TRANSPORT",
+      "obligation_id": "M0028-S-REGULAR-TRANSPORT",
+      "kind": "transport",
+      "human_statement": "Relate ideal chains to regular-submodule chains by definitional equality.",
+      "formal_target": "Stage1Instances.THM_M_0028.idealAscendingChainTarget_iff_regularSubmoduleAscendingChainTarget",
+      "output": "A checked iff between ideal and regular-submodule chain targets.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "formal_transport_not_a_separate_human_claim_pending_review",
+      "provenance_id": "repo-statement-regular-transport",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 15,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Relate ideal chains to regular-submodule chains by definitional equality.",
+        "output": "A checked iff between ideal and regular-submodule chain targets.",
+        "outgoing_use": [
+          "M0028-ROOT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-s-regular-transport",
+      "validation_spec_id": "VAL-M0028-S-REGULAR-TRANSPORT",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/Statement.lean"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-S-MONOTONE-TRANSPORT",
+      "obligation_id": "M0028-S-MONOTONE-TRANSPORT",
+      "kind": "transport",
+      "human_statement": "Relate OrderHom ideal chains to functions carrying an explicit Monotone hypothesis.",
+      "formal_target": "Stage1Instances.THM_M_0028.idealAscendingChainTarget_iff_monotoneIdealSequenceTarget",
+      "output": "A checked iff between OrderHom and function-plus-monotonicity targets.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "formal_transport_not_a_separate_human_claim_pending_review",
+      "provenance_id": "repo-statement-monotone-transport",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 25,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Relate OrderHom ideal chains to functions carrying an explicit Monotone hypothesis.",
+        "output": "A checked iff between OrderHom and function-plus-monotonicity targets.",
+        "outgoing_use": [
+          "M0028-ROOT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-s-monotone-transport",
+      "validation_spec_id": "VAL-M0028-S-MONOTONE-TRANSPORT",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/Statement.lean"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-S-ZERO-RING",
+      "obligation_id": "M0028-S-ZERO-RING",
+      "kind": "branch",
+      "human_statement": "Keep subsingleton commutative rings in scope and forbid insertion of a Nontrivial premise.",
+      "formal_target": "Stage1Instances.THM_M_0028.subsingleton_boundary_has_no_nontrivial plus BoundaryProbe.lean",
+      "output": "The zero-ring boundary remains part of the exact quantifier domain.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:unital-boundary",
+      "provenance_id": "repo-boundary-witness",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Keep subsingleton commutative rings in scope and forbid insertion of a Nontrivial premise.",
+        "output": "The zero-ring boundary remains part of the exact quantifier domain.",
+        "outgoing_use": [
+          "M0028-ROOT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-s-zero-ring",
+      "validation_spec_id": "VAL-M0028-S-ZERO-RING",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/Statement.lean",
+        "Stage1_Instances/THM-M-0028/BoundaryProbe.lean"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-S-FOUNDATION",
+      "obligation_id": "M0028-S-FOUNDATION",
+      "kind": "certificate",
+      "human_statement": "Audit the classical principles, quotient soundness, kernel, imports, and no-oracle computation policy of the exact route.",
+      "formal_target": "planned transitive foundation, computation, and TCB report",
+      "output": "An accepted foundation and trust boundary for both terminal proof bodies.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "formal_trust_boundary_not_a_human_claim_pending_review",
+      "provenance_id": "anchor-audit:C01-axiom-probe",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 45,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Audit the classical principles, quotient soundness, kernel, imports, and no-oracle computation policy of the exact route.",
+        "output": "An accepted foundation and trust boundary for both terminal proof bodies.",
+        "outgoing_use": [
+          "typed support edge or canonical terminal output only"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-s-foundation",
+      "validation_spec_id": "VAL-M0028-S-FOUNDATION",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-T-ROOT-COMPOSE",
+      "obligation_id": "M0028-T-ROOT-COMPOSE",
+      "kind": "terminal",
+      "human_statement": "Package both exact bridge conclusions for the root composition.",
+      "formal_target": "Stage1Instances.THM_M_0028.ObligationTree.BridgePackage",
+      "output": "A conjunction of the two bridge interfaces consumed by root_of_bridgePackage.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:direction",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 15,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-B-FG-NOETHERIAN",
+          "M0028-B-NOETHERIAN-CHAIN"
+        ],
+        "inference": "Package both exact bridge conclusions for the root composition.",
+        "output": "A conjunction of the two bridge interfaces consumed by root_of_bridgePackage.",
+        "outgoing_use": [
+          "M0028-ROOT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-t-root-compose",
+      "validation_spec_id": "VAL-M0028-T-ROOT-COMPOSE",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-B-FG-NOETHERIAN",
+      "obligation_id": "M0028-B-FG-NOETHERIAN",
+      "kind": "bridge",
+      "human_statement": "Convert finite generation of every ideal of R into IsNoetherianRing R.",
+      "formal_target": "Stage1Instances.THM_M_0028.ObligationTree.FiniteGenerationToNoetherian",
+      "output": "IsNoetherianRing R from the exact target premise.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:finite-basis-premise",
+      "provenance_id": "anchor-audit:M0028-C01-MATHLIB-COMPOSITION",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 25,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-X-FG-BODY"
+        ],
+        "inference": "Convert finite generation of every ideal of R into IsNoetherianRing R.",
+        "output": "IsNoetherianRing R from the exact target premise.",
+        "outgoing_use": [
+          "M0028-T-ROOT-COMPOSE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-b-fg-noetherian",
+      "validation_spec_id": "VAL-M0028-B-FG-NOETHERIAN",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-B-NOETHERIAN-CHAIN",
+      "obligation_id": "M0028-B-NOETHERIAN-CHAIN",
+      "kind": "bridge",
+      "human_statement": "Convert IsNoetherianRing R into stabilization of every Nat-indexed ascending ideal chain.",
+      "formal_target": "Stage1Instances.THM_M_0028.ObligationTree.NoetherianToChainStabilization",
+      "output": "The exact eventual-equality conclusion for every ideal OrderHom chain.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:chain-conclusion",
+      "provenance_id": "anchor-audit:M0028-C01-MATHLIB-COMPOSITION",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 25,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-N-CHAIN-IFF"
+        ],
+        "inference": "Convert IsNoetherianRing R into stabilization of every Nat-indexed ascending ideal chain.",
+        "output": "The exact eventual-equality conclusion for every ideal OrderHom chain.",
+        "outgoing_use": [
+          "M0028-T-ROOT-COMPOSE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-b-noetherian-chain",
+      "validation_spec_id": "VAL-M0028-B-NOETHERIAN-CHAIN",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-X-FG-BODY",
+      "obligation_id": "M0028-X-FG-BODY",
+      "kind": "bridge",
+      "human_statement": "Expose the pinned terminal body converting finite generation of every ideal to IsNoetherianRing.",
+      "formal_target": "isNoetherianRing_iff_ideal_fg at pinned mathlib",
+      "output": "The exact forward finite-generation bridge.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:finite-basis-premise",
+      "provenance_id": "anchor-audit:M0028-C01-MATHLIB-COMPOSITION",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 15,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-N-RING-REGULAR",
+          "M0028-D-NOETHERIAN-CLASS"
+        ],
+        "inference": "Expose the pinned terminal body converting finite generation of every ideal to IsNoetherianRing.",
+        "output": "The exact forward finite-generation bridge.",
+        "outgoing_use": [
+          "M0028-B-FG-NOETHERIAN"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-x-fg-body",
+      "validation_spec_id": "VAL-M0028-X-FG-BODY",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-X-CHAIN-BODY",
+      "obligation_id": "M0028-X-CHAIN-BODY",
+      "kind": "bridge",
+      "human_statement": "Expose the pinned terminal body converting module Noetherianity to monotone-chain stabilization.",
+      "formal_target": "monotone_stabilizes_iff_noetherian at pinned mathlib",
+      "output": "The exact forward ascending-chain bridge after regular-module specialization.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:chain-conclusion",
+      "provenance_id": "anchor-audit:M0028-C01-MATHLIB-COMPOSITION",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 15,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-N-NOETHERIAN-WF",
+          "M0028-L-WF-CHAIN"
+        ],
+        "inference": "Expose the pinned terminal body converting module Noetherianity to monotone-chain stabilization.",
+        "output": "The exact forward ascending-chain bridge after regular-module specialization.",
+        "outgoing_use": [
+          "M0028-N-CHAIN-IFF"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-x-chain-body",
+      "validation_spec_id": "VAL-M0028-X-CHAIN-BODY",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-N-RING-REGULAR",
+      "obligation_id": "M0028-N-RING-REGULAR",
+      "kind": "normalization",
+      "human_statement": "Unfold IsNoetherianRing R to Noetherianity of the regular R-module.",
+      "formal_target": "isNoetherianRing_iff",
+      "output": "IsNoetherian R R in the regular-module carrier used by ideals.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "formal_abbreviation_not_a_separate_human_claim_pending_review",
+      "provenance_id": "pinned-mathlib-noetherian-defs",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 10,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Unfold IsNoetherianRing R to Noetherianity of the regular R-module.",
+        "output": "IsNoetherian R R in the regular-module carrier used by ideals.",
+        "outgoing_use": [
+          "M0028-X-FG-BODY"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-n-ring-regular",
+      "validation_spec_id": "VAL-M0028-N-RING-REGULAR",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-D-NOETHERIAN-CLASS",
+      "obligation_id": "M0028-D-NOETHERIAN-CLASS",
+      "kind": "definition",
+      "human_statement": "Package or project the IsNoetherian class field asserting finite generation of every submodule.",
+      "formal_target": "isNoetherian_def and IsNoetherian.mk/noetherian",
+      "output": "The exact equivalence between a Noetherian module instance and finite generation of all submodules.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:finite-basis-premise",
+      "provenance_id": "pinned-mathlib-noetherian-defs",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Package or project the IsNoetherian class field asserting finite generation of every submodule.",
+        "output": "The exact equivalence between a Noetherian module instance and finite generation of all submodules.",
+        "outgoing_use": [
+          "M0028-X-FG-BODY"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-d-noetherian-class",
+      "validation_spec_id": "VAL-M0028-D-NOETHERIAN-CLASS",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-N-CHAIN-IFF",
+      "obligation_id": "M0028-N-CHAIN-IFF",
+      "kind": "reduction",
+      "human_statement": "Reduce the ascending-chain bridge to the generic module theorem specialized to the regular module R over itself.",
+      "formal_target": "monotone_stabilizes_iff_noetherian specialized to M := R",
+      "output": "Chain stabilization for Ideal R, definitionally Submodule R R.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:chain-conclusion",
+      "provenance_id": "pinned-mathlib-noetherian-defs",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-X-CHAIN-BODY"
+        ],
+        "inference": "Reduce the ascending-chain bridge to the generic module theorem specialized to the regular module R over itself.",
+        "output": "Chain stabilization for Ideal R, definitionally Submodule R R.",
+        "outgoing_use": [
+          "M0028-B-NOETHERIAN-CHAIN"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-n-chain-iff",
+      "validation_spec_id": "VAL-M0028-N-CHAIN-IFF",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-N-NOETHERIAN-WF",
+      "obligation_id": "M0028-N-NOETHERIAN-WF",
+      "kind": "reduction",
+      "human_statement": "Identify module Noetherianity with well-founded strict descent in its complete lattice of submodules.",
+      "formal_target": "isNoetherian_iff'",
+      "output": "WellFoundedGT (Submodule R M) from IsNoetherian R M and conversely.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:finite-basis-to-acc",
+      "provenance_id": "pinned-mathlib-noetherian-defs",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 35,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-L-FG-COMPACT",
+          "M0028-C-LATTICE-WF"
+        ],
+        "inference": "Identify module Noetherianity with well-founded strict descent in its complete lattice of submodules.",
+        "output": "WellFoundedGT (Submodule R M) from IsNoetherian R M and conversely.",
+        "outgoing_use": [
+          "M0028-X-CHAIN-BODY"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-n-noetherian-wf",
+      "validation_spec_id": "VAL-M0028-N-NOETHERIAN-WF",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-L-FG-COMPACT",
+      "obligation_id": "M0028-L-FG-COMPACT",
+      "kind": "core_lemma",
+      "human_statement": "Relate finite generation of a submodule to compactness in the complete submodule lattice.",
+      "formal_target": "fg_iff_compact",
+      "output": "s.FG iff IsCompactElement s for each submodule s.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-proof-crosswalk_pending",
+      "provenance_id": "pinned-mathlib-finiteness-basic",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 70,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Relate finite generation of a submodule to compactness in the complete submodule lattice.",
+        "output": "s.FG iff IsCompactElement s for each submodule s.",
+        "outgoing_use": [
+          "M0028-N-NOETHERIAN-WF"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-l-fg-compact",
+      "validation_spec_id": "VAL-M0028-L-FG-COMPACT",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-C-LATTICE-WF",
+      "obligation_id": "M0028-C-LATTICE-WF",
+      "kind": "construction",
+      "human_statement": "Use the complete-lattice equivalence between compact generation of every element and WellFoundedGT.",
+      "formal_target": "CompleteLattice.wellFoundedGT_characterisations",
+      "output": "WellFoundedGT for the submodule lattice exactly when every element is compact.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-proof-crosswalk_pending",
+      "provenance_id": "pinned-mathlib-compactly-generated-basic",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 65,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Use the complete-lattice equivalence between compact generation of every element and WellFoundedGT.",
+        "output": "WellFoundedGT for the submodule lattice exactly when every element is compact.",
+        "outgoing_use": [
+          "M0028-N-NOETHERIAN-WF"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-c-lattice-wf",
+      "validation_spec_id": "VAL-M0028-C-LATTICE-WF",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-L-WF-CHAIN",
+      "obligation_id": "M0028-L-WF-CHAIN",
+      "kind": "core_lemma",
+      "human_statement": "Relate WellFoundedGT in a partial order to eventual equality of every monotone Nat sequence.",
+      "formal_target": "wellFoundedGT_iff_monotone_chain_condition",
+      "output": "The generic well-founded partial-order chain condition.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:chain-conclusion",
+      "provenance_id": "pinned-mathlib-order-iso-nat",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 25,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0028-L-PREORDER-CHAIN",
+          "M0028-L-PARTIAL-EQUALITY"
+        ],
+        "inference": "Relate WellFoundedGT in a partial order to eventual equality of every monotone Nat sequence.",
+        "output": "The generic well-founded partial-order chain condition.",
+        "outgoing_use": [
+          "M0028-X-CHAIN-BODY"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-l-wf-chain",
+      "validation_spec_id": "VAL-M0028-L-WF-CHAIN",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-L-PREORDER-CHAIN",
+      "obligation_id": "M0028-L-PREORDER-CHAIN",
+      "kind": "core_lemma",
+      "human_statement": "For preorders, derive an index after which no later chain value is strictly greater, and reconstruct well-foundedness from that condition.",
+      "formal_target": "wellFoundedGT_iff_monotone_chain_condition'",
+      "output": "The no-strict-growth monotone-chain condition equivalent to WellFoundedGT.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-proof-crosswalk_pending",
+      "provenance_id": "pinned-mathlib-order-iso-nat",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 75,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "For preorders, derive an index after which no later chain value is strictly greater, and reconstruct well-foundedness from that condition.",
+        "output": "The no-strict-growth monotone-chain condition equivalent to WellFoundedGT.",
+        "outgoing_use": [
+          "M0028-L-WF-CHAIN"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-l-preorder-chain",
+      "validation_spec_id": "VAL-M0028-L-PREORDER-CHAIN",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-L-PARTIAL-EQUALITY",
+      "obligation_id": "M0028-L-PARTIAL-EQUALITY",
+      "kind": "core_lemma",
+      "human_statement": "In a partial order, combine chain monotonicity with absence of strict growth to obtain equality at every later index.",
+      "formal_target": "lt_iff_le_and_ne plus OrderHom.mono inside wellFoundedGT_iff_monotone_chain_condition",
+      "output": "a n = a m whenever n <= m after the selected index.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-proof-crosswalk_pending",
+      "provenance_id": "pinned-mathlib-order-iso-nat",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 25,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "In a partial order, combine chain monotonicity with absence of strict growth to obtain equality at every later index.",
+        "output": "a n = a m whenever n <= m after the selected index.",
+        "outgoing_use": [
+          "M0028-L-WF-CHAIN"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-l-partial-equality",
+      "validation_spec_id": "VAL-M0028-L-PARTIAL-EQUALITY",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-X-SOURCE",
+      "obligation_id": "M0028-X-SOURCE",
+      "kind": "certificate",
+      "human_statement": "Map every material premise, transition, and conclusion to pinpoint primary-source records and independent review.",
+      "formal_target": "planned H0 source packet",
+      "output": "Accepted node-level historical and modern-unital source fidelity.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:open-H0-work",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 60,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Map every material premise, transition, and conclusion to pinpoint primary-source records and independent review.",
+        "output": "Accepted node-level historical and modern-unital source fidelity.",
+        "outgoing_use": [
+          "typed support edge or canonical terminal output only"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-x-source",
+      "validation_spec_id": "VAL-M0028-X-SOURCE",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/source-statement-crosswalk.md"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-X-PROVENANCE",
+      "obligation_id": "M0028-X-PROVENANCE",
+      "kind": "certificate",
+      "human_statement": "Resolve local wrapper, terminal bodies, immutable origins, direct dependencies, and transitive declaration provenance.",
+      "formal_target": "planned complete provenance packet",
+      "output": "Accepted provenance closure for both bridge bodies.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "formal_provenance_not_a_human_claim_pending_review",
+      "provenance_id": "anchor-audit:C01-provenance",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 60,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Resolve local wrapper, terminal bodies, immutable origins, direct dependencies, and transitive declaration provenance.",
+        "output": "Accepted provenance closure for both bridge bodies.",
+        "outgoing_use": [
+          "typed support edge or canonical terminal output only"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-x-provenance",
+      "validation_spec_id": "VAL-M0028-X-PROVENANCE",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/anchor-audit.json"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-X-TRUST",
+      "obligation_id": "M0028-X-TRUST",
+      "kind": "certificate",
+      "human_statement": "Close transitive axioms, TCB artifacts, supply-chain identity, computation policy, and independent replay.",
+      "formal_target": "planned trust and TCB packet",
+      "output": "Release-grade trust closure for the exact root.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "formal_trust_boundary_not_a_human_claim_pending_review",
+      "provenance_id": "anchor-audit:C01-foundation-assessment",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 70,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Close transitive axioms, TCB artifacts, supply-chain identity, computation policy, and independent replay.",
+        "output": "Release-grade trust closure for the exact root.",
+        "outgoing_use": [
+          "typed support edge or canonical terminal output only"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-x-trust",
+      "validation_spec_id": "VAL-M0028-X-TRUST",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-X-READABLE",
+      "obligation_id": "M0028-X-READABLE",
+      "kind": "terminal",
+      "human_statement": "Produce short and long node-specific proof reconstructions and obtain independent domain review.",
+      "formal_target": "Stage1_Instances/THM-M-0028/obligation-tree.md plus downstream proof process",
+      "output": "Reviewed readable coverage of every root-critical obligation.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "source-statement-crosswalk:reader-route",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 70,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Produce short and long node-specific proof reconstructions and obtain independent domain review.",
+        "output": "Reviewed readable coverage of every root-critical obligation.",
+        "outgoing_use": [
+          "typed support edge or canonical terminal output only"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-x-readable",
+      "validation_spec_id": "VAL-M0028-X-READABLE",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/obligation-tree.md"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0028-X-WORKFLOW",
+      "obligation_id": "M0028-X-WORKFLOW",
+      "kind": "certificate",
+      "human_statement": "Run proof installation, composition, hermetic validation, deterministic evidence, independent verification, and release in dependency order.",
+      "formal_target": "S56-M-0028-PROOF through S56-M-0028-RELEASE",
+      "output": "Accepted workflow receipts without deriving proof credit from task order.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "workflow_not_a_human_claim_pending_review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-foundation-planned/1.0: propext, Classical.choice, and Quot.sound observed; accepted transitive axiom review pending",
+      "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean 4.29.0 and mathlib 8a178386; complete transitive closure and independent replay pending",
+      "computation_record": "none: no solver, reflection, native evaluator, oracle, experiment, generated certificate, or unchecked computation is credited",
+      "step_budget": 50,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact frozen context; no undeclared premise"
+        ],
+        "inference": "Run proof installation, composition, hermetic validation, deterministic evidence, independent verification, and release in dependency order.",
+        "output": "Accepted workflow receipts without deriving proof credit from task order.",
+        "outgoing_use": [
+          "typed support edge or canonical terminal output only"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0028/obligation-tree.md#m0028-x-workflow",
+      "validation_spec_id": "VAL-M0028-X-WORKFLOW",
+      "status_boundary": "Architecture, interface, or audited-candidate record only; no accepted proof, source, trust, readability, audit-completion, or theorem-completion credit.",
+      "task_ids": [
+        "S56-M-0028-OBLIGATION_TREE",
+        "S56-M-0028-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0028/task-dag.json"
+      ],
+      "owner": "THM-M-0028 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "at master acceptance and after every invalidation input change",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "REQ-ROOT-T-ROOT-COMPOSE",
+          "from": "M0028-ROOT",
+          "type": "proof_requires",
+          "to": "M0028-T-ROOT-COMPOSE",
+          "reciprocal_edge_id": "CMP-T-ROOT-COMPOSE-ROOT"
+        },
+        {
+          "edge_id": "CMP-T-ROOT-COMPOSE-ROOT",
+          "from": "M0028-T-ROOT-COMPOSE",
+          "type": "composes",
+          "to": "M0028-ROOT",
+          "reciprocal_edge_id": "REQ-ROOT-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "REQ-T-ROOT-COMPOSE-B-FG-NOETHERIAN",
+          "from": "M0028-T-ROOT-COMPOSE",
+          "type": "proof_requires",
+          "to": "M0028-B-FG-NOETHERIAN",
+          "reciprocal_edge_id": "CMP-B-FG-NOETHERIAN-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "CMP-B-FG-NOETHERIAN-T-ROOT-COMPOSE",
+          "from": "M0028-B-FG-NOETHERIAN",
+          "type": "composes",
+          "to": "M0028-T-ROOT-COMPOSE",
+          "reciprocal_edge_id": "REQ-T-ROOT-COMPOSE-B-FG-NOETHERIAN"
+        },
+        {
+          "edge_id": "REQ-T-ROOT-COMPOSE-B-NOETHERIAN-CHAIN",
+          "from": "M0028-T-ROOT-COMPOSE",
+          "type": "proof_requires",
+          "to": "M0028-B-NOETHERIAN-CHAIN",
+          "reciprocal_edge_id": "CMP-B-NOETHERIAN-CHAIN-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "CMP-B-NOETHERIAN-CHAIN-T-ROOT-COMPOSE",
+          "from": "M0028-B-NOETHERIAN-CHAIN",
+          "type": "composes",
+          "to": "M0028-T-ROOT-COMPOSE",
+          "reciprocal_edge_id": "REQ-T-ROOT-COMPOSE-B-NOETHERIAN-CHAIN"
+        }
+      ],
+      "out": {
+        "M0028-ROOT": [
+          "REQ-ROOT-T-ROOT-COMPOSE"
+        ],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [
+          "CMP-T-ROOT-COMPOSE-ROOT",
+          "REQ-T-ROOT-COMPOSE-B-FG-NOETHERIAN",
+          "REQ-T-ROOT-COMPOSE-B-NOETHERIAN-CHAIN"
+        ],
+        "M0028-B-FG-NOETHERIAN": [
+          "CMP-B-FG-NOETHERIAN-T-ROOT-COMPOSE"
+        ],
+        "M0028-B-NOETHERIAN-CHAIN": [
+          "CMP-B-NOETHERIAN-CHAIN-T-ROOT-COMPOSE"
+        ],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      },
+      "in": {
+        "M0028-ROOT": [
+          "CMP-T-ROOT-COMPOSE-ROOT"
+        ],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [
+          "REQ-ROOT-T-ROOT-COMPOSE",
+          "CMP-B-FG-NOETHERIAN-T-ROOT-COMPOSE",
+          "CMP-B-NOETHERIAN-CHAIN-T-ROOT-COMPOSE"
+        ],
+        "M0028-B-FG-NOETHERIAN": [
+          "REQ-T-ROOT-COMPOSE-B-FG-NOETHERIAN"
+        ],
+        "M0028-B-NOETHERIAN-CHAIN": [
+          "REQ-T-ROOT-COMPOSE-B-NOETHERIAN-CHAIN"
+        ],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "REF-ROOT-S-INTERFACE",
+          "from": "M0028-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0028-S-INTERFACE"
+        },
+        {
+          "edge_id": "REF-ROOT-S-REGULAR-TRANSPORT",
+          "from": "M0028-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0028-S-REGULAR-TRANSPORT"
+        },
+        {
+          "edge_id": "REF-ROOT-S-MONOTONE-TRANSPORT",
+          "from": "M0028-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0028-S-MONOTONE-TRANSPORT"
+        },
+        {
+          "edge_id": "REF-ROOT-S-ZERO-RING",
+          "from": "M0028-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0028-S-ZERO-RING"
+        },
+        {
+          "edge_id": "REF-B-FG-NOETHERIAN-X-FG-BODY",
+          "from": "M0028-B-FG-NOETHERIAN",
+          "type": "logical_decomposition",
+          "to": "M0028-X-FG-BODY"
+        },
+        {
+          "edge_id": "REF-X-FG-BODY-N-RING-REGULAR",
+          "from": "M0028-X-FG-BODY",
+          "type": "logical_decomposition",
+          "to": "M0028-N-RING-REGULAR"
+        },
+        {
+          "edge_id": "REF-X-FG-BODY-D-NOETHERIAN-CLASS",
+          "from": "M0028-X-FG-BODY",
+          "type": "logical_decomposition",
+          "to": "M0028-D-NOETHERIAN-CLASS"
+        },
+        {
+          "edge_id": "REF-B-NOETHERIAN-CHAIN-N-CHAIN-IFF",
+          "from": "M0028-B-NOETHERIAN-CHAIN",
+          "type": "logical_decomposition",
+          "to": "M0028-N-CHAIN-IFF"
+        },
+        {
+          "edge_id": "REF-N-CHAIN-IFF-X-CHAIN-BODY",
+          "from": "M0028-N-CHAIN-IFF",
+          "type": "logical_decomposition",
+          "to": "M0028-X-CHAIN-BODY"
+        },
+        {
+          "edge_id": "REF-X-CHAIN-BODY-N-NOETHERIAN-WF",
+          "from": "M0028-X-CHAIN-BODY",
+          "type": "logical_decomposition",
+          "to": "M0028-N-NOETHERIAN-WF"
+        },
+        {
+          "edge_id": "REF-X-CHAIN-BODY-L-WF-CHAIN",
+          "from": "M0028-X-CHAIN-BODY",
+          "type": "logical_decomposition",
+          "to": "M0028-L-WF-CHAIN"
+        },
+        {
+          "edge_id": "REF-N-NOETHERIAN-WF-L-FG-COMPACT",
+          "from": "M0028-N-NOETHERIAN-WF",
+          "type": "logical_decomposition",
+          "to": "M0028-L-FG-COMPACT"
+        },
+        {
+          "edge_id": "REF-N-NOETHERIAN-WF-C-LATTICE-WF",
+          "from": "M0028-N-NOETHERIAN-WF",
+          "type": "logical_decomposition",
+          "to": "M0028-C-LATTICE-WF"
+        },
+        {
+          "edge_id": "REF-L-WF-CHAIN-L-PREORDER-CHAIN",
+          "from": "M0028-L-WF-CHAIN",
+          "type": "logical_decomposition",
+          "to": "M0028-L-PREORDER-CHAIN"
+        },
+        {
+          "edge_id": "REF-L-WF-CHAIN-L-PARTIAL-EQUALITY",
+          "from": "M0028-L-WF-CHAIN",
+          "type": "logical_decomposition",
+          "to": "M0028-L-PARTIAL-EQUALITY"
+        }
+      ],
+      "out": {
+        "M0028-ROOT": [
+          "REF-ROOT-S-INTERFACE",
+          "REF-ROOT-S-REGULAR-TRANSPORT",
+          "REF-ROOT-S-MONOTONE-TRANSPORT",
+          "REF-ROOT-S-ZERO-RING"
+        ],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [
+          "REF-B-FG-NOETHERIAN-X-FG-BODY"
+        ],
+        "M0028-B-NOETHERIAN-CHAIN": [
+          "REF-B-NOETHERIAN-CHAIN-N-CHAIN-IFF"
+        ],
+        "M0028-X-FG-BODY": [
+          "REF-X-FG-BODY-N-RING-REGULAR",
+          "REF-X-FG-BODY-D-NOETHERIAN-CLASS"
+        ],
+        "M0028-X-CHAIN-BODY": [
+          "REF-X-CHAIN-BODY-N-NOETHERIAN-WF",
+          "REF-X-CHAIN-BODY-L-WF-CHAIN"
+        ],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [
+          "REF-N-CHAIN-IFF-X-CHAIN-BODY"
+        ],
+        "M0028-N-NOETHERIAN-WF": [
+          "REF-N-NOETHERIAN-WF-L-FG-COMPACT",
+          "REF-N-NOETHERIAN-WF-C-LATTICE-WF"
+        ],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [
+          "REF-L-WF-CHAIN-L-PREORDER-CHAIN",
+          "REF-L-WF-CHAIN-L-PARTIAL-EQUALITY"
+        ],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      },
+      "in": {
+        "M0028-ROOT": [],
+        "M0028-S-INTERFACE": [
+          "REF-ROOT-S-INTERFACE"
+        ],
+        "M0028-S-REGULAR-TRANSPORT": [
+          "REF-ROOT-S-REGULAR-TRANSPORT"
+        ],
+        "M0028-S-MONOTONE-TRANSPORT": [
+          "REF-ROOT-S-MONOTONE-TRANSPORT"
+        ],
+        "M0028-S-ZERO-RING": [
+          "REF-ROOT-S-ZERO-RING"
+        ],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [
+          "REF-B-FG-NOETHERIAN-X-FG-BODY"
+        ],
+        "M0028-X-CHAIN-BODY": [
+          "REF-N-CHAIN-IFF-X-CHAIN-BODY"
+        ],
+        "M0028-N-RING-REGULAR": [
+          "REF-X-FG-BODY-N-RING-REGULAR"
+        ],
+        "M0028-D-NOETHERIAN-CLASS": [
+          "REF-X-FG-BODY-D-NOETHERIAN-CLASS"
+        ],
+        "M0028-N-CHAIN-IFF": [
+          "REF-B-NOETHERIAN-CHAIN-N-CHAIN-IFF"
+        ],
+        "M0028-N-NOETHERIAN-WF": [
+          "REF-X-CHAIN-BODY-N-NOETHERIAN-WF"
+        ],
+        "M0028-L-FG-COMPACT": [
+          "REF-N-NOETHERIAN-WF-L-FG-COMPACT"
+        ],
+        "M0028-C-LATTICE-WF": [
+          "REF-N-NOETHERIAN-WF-C-LATTICE-WF"
+        ],
+        "M0028-L-WF-CHAIN": [
+          "REF-X-CHAIN-BODY-L-WF-CHAIN"
+        ],
+        "M0028-L-PREORDER-CHAIN": [
+          "REF-L-WF-CHAIN-L-PREORDER-CHAIN"
+        ],
+        "M0028-L-PARTIAL-EQUALITY": [
+          "REF-L-WF-CHAIN-L-PARTIAL-EQUALITY"
+        ],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "PROV-FG-BODY",
+          "from": "M0028-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0028-X-FG-BODY"
+        },
+        {
+          "edge_id": "PROV-CHAIN-BODY",
+          "from": "M0028-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0028-X-CHAIN-BODY"
+        },
+        {
+          "edge_id": "SRC-ROOT",
+          "from": "M0028-X-SOURCE",
+          "type": "source_map",
+          "to": "M0028-ROOT"
+        },
+        {
+          "edge_id": "SRC-FG",
+          "from": "M0028-X-SOURCE",
+          "type": "source_map",
+          "to": "M0028-B-FG-NOETHERIAN"
+        },
+        {
+          "edge_id": "SRC-CHAIN",
+          "from": "M0028-X-SOURCE",
+          "type": "source_map",
+          "to": "M0028-B-NOETHERIAN-CHAIN"
+        }
+      ],
+      "out": {
+        "M0028-ROOT": [],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [
+          "SRC-ROOT",
+          "SRC-FG",
+          "SRC-CHAIN"
+        ],
+        "M0028-X-PROVENANCE": [
+          "PROV-FG-BODY",
+          "PROV-CHAIN-BODY"
+        ],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      },
+      "in": {
+        "M0028-ROOT": [
+          "SRC-ROOT"
+        ],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [
+          "SRC-FG"
+        ],
+        "M0028-B-NOETHERIAN-CHAIN": [
+          "SRC-CHAIN"
+        ],
+        "M0028-X-FG-BODY": [
+          "PROV-FG-BODY"
+        ],
+        "M0028-X-CHAIN-BODY": [
+          "PROV-CHAIN-BODY"
+        ],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      }
+    },
+    "evidence": {
+      "edges": [
+        {
+          "edge_id": "EVIDENCE-STATEMENT",
+          "from": "M0028-S-INTERFACE",
+          "type": "evidence_for",
+          "to": "M0028-ROOT"
+        },
+        {
+          "edge_id": "EVIDENCE-COMPOSITION",
+          "from": "M0028-T-ROOT-COMPOSE",
+          "type": "evidence_for",
+          "to": "M0028-ROOT"
+        }
+      ],
+      "out": {
+        "M0028-ROOT": [],
+        "M0028-S-INTERFACE": [
+          "EVIDENCE-STATEMENT"
+        ],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [
+          "EVIDENCE-COMPOSITION"
+        ],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      },
+      "in": {
+        "M0028-ROOT": [
+          "EVIDENCE-STATEMENT",
+          "EVIDENCE-COMPOSITION"
+        ],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      }
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "TRUST-FOUNDATION",
+          "from": "M0028-ROOT",
+          "type": "trusts",
+          "to": "M0028-S-FOUNDATION"
+        },
+        {
+          "edge_id": "TRUST-ROOT",
+          "from": "M0028-ROOT",
+          "type": "trusts",
+          "to": "M0028-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-FG-BODY",
+          "from": "M0028-X-FG-BODY",
+          "type": "trusts",
+          "to": "M0028-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-CHAIN-BODY",
+          "from": "M0028-X-CHAIN-BODY",
+          "type": "trusts",
+          "to": "M0028-X-TRUST"
+        }
+      ],
+      "out": {
+        "M0028-ROOT": [
+          "TRUST-FOUNDATION",
+          "TRUST-ROOT"
+        ],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [
+          "TRUST-FG-BODY"
+        ],
+        "M0028-X-CHAIN-BODY": [
+          "TRUST-CHAIN-BODY"
+        ],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      },
+      "in": {
+        "M0028-ROOT": [],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [
+          "TRUST-FOUNDATION"
+        ],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [
+          "TRUST-ROOT",
+          "TRUST-FG-BODY",
+          "TRUST-CHAIN-BODY"
+        ],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "DOC-ROOT",
+          "from": "M0028-X-READABLE",
+          "type": "documents",
+          "to": "M0028-ROOT"
+        },
+        {
+          "edge_id": "DOC-SOURCE",
+          "from": "M0028-X-READABLE",
+          "type": "documents",
+          "to": "M0028-X-SOURCE"
+        },
+        {
+          "edge_id": "DOC-FG-BODY",
+          "from": "M0028-X-READABLE",
+          "type": "documents",
+          "to": "M0028-X-FG-BODY"
+        },
+        {
+          "edge_id": "DOC-CHAIN-BODY",
+          "from": "M0028-X-READABLE",
+          "type": "documents",
+          "to": "M0028-X-CHAIN-BODY"
+        }
+      ],
+      "out": {
+        "M0028-ROOT": [],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [
+          "DOC-ROOT",
+          "DOC-SOURCE",
+          "DOC-FG-BODY",
+          "DOC-CHAIN-BODY"
+        ],
+        "M0028-X-WORKFLOW": []
+      },
+      "in": {
+        "M0028-ROOT": [
+          "DOC-ROOT"
+        ],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [
+          "DOC-FG-BODY"
+        ],
+        "M0028-X-CHAIN-BODY": [
+          "DOC-CHAIN-BODY"
+        ],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [
+          "DOC-SOURCE"
+        ],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": []
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "FLOW-PROOF",
+          "from": "M0028-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0028-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "FLOW-PROVENANCE",
+          "from": "M0028-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0028-X-PROVENANCE"
+        },
+        {
+          "edge_id": "FLOW-TRUST",
+          "from": "M0028-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0028-X-TRUST"
+        },
+        {
+          "edge_id": "FLOW-READABLE",
+          "from": "M0028-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0028-X-READABLE"
+        }
+      ],
+      "out": {
+        "M0028-ROOT": [],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [],
+        "M0028-X-TRUST": [],
+        "M0028-X-READABLE": [],
+        "M0028-X-WORKFLOW": [
+          "FLOW-PROOF",
+          "FLOW-PROVENANCE",
+          "FLOW-TRUST",
+          "FLOW-READABLE"
+        ]
+      },
+      "in": {
+        "M0028-ROOT": [],
+        "M0028-S-INTERFACE": [],
+        "M0028-S-REGULAR-TRANSPORT": [],
+        "M0028-S-MONOTONE-TRANSPORT": [],
+        "M0028-S-ZERO-RING": [],
+        "M0028-S-FOUNDATION": [],
+        "M0028-T-ROOT-COMPOSE": [
+          "FLOW-PROOF"
+        ],
+        "M0028-B-FG-NOETHERIAN": [],
+        "M0028-B-NOETHERIAN-CHAIN": [],
+        "M0028-X-FG-BODY": [],
+        "M0028-X-CHAIN-BODY": [],
+        "M0028-N-RING-REGULAR": [],
+        "M0028-D-NOETHERIAN-CLASS": [],
+        "M0028-N-CHAIN-IFF": [],
+        "M0028-N-NOETHERIAN-WF": [],
+        "M0028-L-FG-COMPACT": [],
+        "M0028-C-LATTICE-WF": [],
+        "M0028-L-WF-CHAIN": [],
+        "M0028-L-PREORDER-CHAIN": [],
+        "M0028-L-PARTIAL-EQUALITY": [],
+        "M0028-X-SOURCE": [],
+        "M0028-X-PROVENANCE": [
+          "FLOW-PROVENANCE"
+        ],
+        "M0028-X-TRUST": [
+          "FLOW-TRUST"
+        ],
+        "M0028-X-READABLE": [
+          "FLOW-READABLE"
+        ],
+        "M0028-X-WORKFLOW": []
+      }
+    }
+  },
+  "composition_certificates": [
+    {
+      "certificate_id": "M0028-COMP-BRIDGE-PACKAGE-v1",
+      "declaration": "Stage1Instances.THM_M_0028.ObligationTree.bridgePackage_of_bridges",
+      "parent_obligation_id": "M0028-T-ROOT-COMPOSE",
+      "required_child_obligation_ids": [
+        "M0028-B-FG-NOETHERIAN",
+        "M0028-B-NOETHERIAN-CHAIN"
+      ],
+      "binding": "The Lean declaration consumes both exact bridge propositions and returns their conjunction package.",
+      "status": "provisional_conditional_composition_checked",
+      "closure_credit": false
+    },
+    {
+      "certificate_id": "M0028-COMP-ROOT-PACKAGE-v1",
+      "declaration": "Stage1Instances.THM_M_0028.ObligationTree.root_of_bridgePackage",
+      "parent_obligation_id": "M0028-ROOT",
+      "required_child_obligation_ids": [
+        "M0028-T-ROOT-COMPOSE"
+      ],
+      "binding": "The Lean declaration consumes the exact bridge package and returns the canonical Statement.lean target.",
+      "status": "provisional_conditional_composition_checked",
+      "closure_credit": false
+    }
+  ],
+  "closure_boundary": {
+    "accepted_closed_obligations": [],
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set_semantics": "minimal open proof-interface cut plus every independent root-critical release overlay",
+    "remaining_root_cut_set": [
+      "M0028-B-FG-NOETHERIAN",
+      "M0028-B-NOETHERIAN-CHAIN",
+      "M0028-S-FOUNDATION",
+      "M0028-X-SOURCE",
+      "M0028-X-PROVENANCE",
+      "M0028-X-TRUST",
+      "M0028-X-READABLE",
+      "M0028-X-WORKFLOW"
+    ],
+    "reason": "The exact bridge interfaces compose conditionally, but neither pinned bridge is installed or master-accepted and all source/readability/release overlays remain open."
+  }
+}

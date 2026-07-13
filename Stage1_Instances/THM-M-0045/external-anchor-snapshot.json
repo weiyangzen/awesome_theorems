@@ -1,0 +1,78 @@
+{
+  "schema_version": "stage1-external-anchor-snapshot/1.0",
+  "project": "leanprover-community/mathlib4",
+  "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+  "ref_observed_locally": "refs/remotes/origin/kuotsanhsu.schur_triangulation",
+  "revision": "0a539f0ce764fd16726509b62ed7b870461070eb",
+  "tree_revision": "5da322f204f788b5eb2649c51fbfd54ffadb7265",
+  "parent_revision": "1fb10907d924f5106e89a1139a6ea001d43bc555",
+  "merge_base_with_pinned_mathlib": "e05e225065104b31833e1dad5cb06b0862b2fa6d",
+  "divergence_from_pinned_mathlib": {
+    "candidate_only_commits": 2,
+    "pinned_only_commits": 12251
+  },
+  "author_date": "2025-01-14T23:37:52+08:00",
+  "commit_date": "2025-02-09T18:20:12+08:00",
+  "subject": "Apply suggestions from code review",
+  "reachability": {
+    "only_containing_ref": "refs/remotes/origin/kuotsanhsu.schur_triangulation",
+    "containing_tags": [],
+    "contained_by_pinned_mathlib": false,
+    "contained_by_observed_origin_master": false,
+    "commit_signature": "SSH signature present; identity unverified because no allowedSignersFile was available"
+  },
+  "module": "Mathlib.LinearAlgebra.Matrix.SchurTriangulation",
+  "file": "Mathlib/LinearAlgebra/Matrix/SchurTriangulation.lean",
+  "file_git_blob": "cf225860bd6d2fb668d9b86791cb9e6384c967b2",
+  "file_sha256": "8fc4d47249d8bcc75c02fedc6d9b0008f7c0127c501f608d4226a7f5872f4bc3",
+  "file_line_count": 300,
+  "block_api_file_sha256": "a36b132c37221bd8c0bc02e140618299681ca858b5c829787ae05fecfeca84b4",
+  "declaration": "Matrix.schur_triangulation",
+  "declaration_header": "lemma schur_triangulation : A = A.schurTriangulationUnitary * A.schurTriangulation * star A.schurTriangulationUnitary",
+  "parameters": "{n : Type _} {K : Type*} [RCLike K] [IsAlgClosed K] [Fintype n] [DecidableEq n] [LinearOrder n] (A : Matrix n n K)",
+  "witnesses": {
+    "unitary": "Matrix.schurTriangulationUnitary A : Matrix.unitaryGroup n K",
+    "upper_triangular": "Matrix.schurTriangulation A : Matrix.UpperTriangular n K"
+  },
+  "normalized_comparison": "Specialize the field to Complex and the index type to Fin n. The unitary and UpperTriangular subtype properties supply the target hypotheses, and the target-owned equationCandidate_implies_targetAt lemma kernel-checks that the candidate equation gives BlockTriangular (star U * A * U) id, including n = 0.",
+  "toolchain": "leanprover/lean4:v4.17.0-rc1",
+  "lean_toolchain_sha256": "adf9946dff422b26a1197594fbcde7223054005f542b3a14aa04a2029857b101",
+  "lake_manifest_sha256": "de1257b378b910cb20c1008126eea23d8e6d7ccbe13a10e710d111ca21c85441",
+  "lakefile_sha256": "88133bb8b9f910207b1d55c4f41dbe50855f5b5a65bd8f3e834cdc84481f8b22",
+  "dependency_revisions": {
+    "plausible": "59a8514bb0ee5bae2689d8be717b5272c9b3dc1c",
+    "LeanSearchClient": "003ff459cdd85de551f4dcf95cdfeefe10f20531",
+    "importGraph": "5013810061a18ca1f5510106172b94c6fbd0a2fc",
+    "proofwidgets": "8fff3f074da9237cd4e179fd6dd89be6c4022d41",
+    "aesop": "ba9a63be53f16b3b6e4043641c6bad4883e650b4",
+    "Qq": "7b3b0c8327b3c0214ac49ca6d6922edbb81ab8c9",
+    "batteries": "24cbb071689802fd6d3ff42198b19b125004c4e3",
+    "Cli": "a2eb24a3dbf681f2b655f82ba5ee5b139d4a5abc"
+  },
+  "license": "Apache-2.0",
+  "license_file_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+  "defensive_source_scan": {
+    "pattern": "sorry|admit|sorryAx|axiom|constant|opaque|unsafe|native_decide|implemented_by|external",
+    "matches": [],
+    "boundary": "Textual defense only; not parser-aware and not a transitive declaration/trust audit."
+  },
+  "artifact_availability": {
+    "candidate_olean_or_ilean": false,
+    "candidate_toolchain_installed": false,
+    "installed_toolchain": "leanprover/lean4:v4.29.0",
+    "dependency_commit_objects_present": true,
+    "upstream_ci_receipt": "unavailable; live API access was rate-limited and no local receipt was found"
+  },
+  "local_replay_at_current_pin": {
+    "command": "cd Formalizations/Lean && lake env lean /tmp/m0045-audit/SchurTriangulation.lean",
+    "exit": 1,
+    "summary": "The historical source does not elaborate against current mathlib: removed or renamed APIs include sumEquivSigmalCond, orthogonalProjection, sup_orthogonal_of_completeSpace, Basis.empty, and UpperTriangular; two helper declarations now collide; recursion and final theorem elaboration fail.",
+    "credit": "compatibility failure only; no claim about whether the candidate elaborates at its own historical pins"
+  },
+  "immutability_boundary": "The commit, tree, and source blob were already present in the local mathlib Git object store and were inspected without clone, fetch, checkout, or dependency mutation. The ref is not part of the repository lake-manifest dependency closure.",
+  "proof_evidence_boundary": "No upstream build or CI receipt, own-toolchain replay, machine-produced axiom report, parser-aware transitive placeholder scan, or terminal proof-body closure was available in this worker run."
+  ,
+  "classification": "M5",
+  "evidence_tier": "E3",
+  "reopen_when": "Reproduce the commit hermetically at Lean v4.17.0-rc1 and its exact manifest; obtain machine axiom and parser-aware transitive trust evidence; then port or pin it and kernel-check the exact canonical wrapper at the repository pin."
+}

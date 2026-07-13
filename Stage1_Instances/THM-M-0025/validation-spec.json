@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0025-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0025-VALIDATION",
+  "theorem_id": "THM-M-0025",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0025/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Declared recipe policy. This worker observed no network use but did not provision a kernel network namespace, so the release hermetic gate remains fail-closed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-0025 narrow validation"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0025-ROOT",
+    "M0025-T-ROOT-COMPOSE",
+    "M0025-T-IDEAL-FG-COMPOSE",
+    "M0025-X-MATHLIB-BODY",
+    "M0025-N-IDEAL-FG",
+    "M0025-C-WF-MIN",
+    "M0025-L-MIN-DOMINATES",
+    "M0025-C-BOUNDED-GENERATORS",
+    "M0025-L-BOUNDED-SPAN",
+    "M0025-L-GENERATOR-SPAN-SUBSET",
+    "M0025-L-STRONG-INDUCTION-SPAN",
+    "M0025-B-DEGREE-SPLIT",
+    "M0025-B-HIGH-DEGREE-NONTRIVIAL",
+    "M0025-C-LEADING-REPRESENTATIVE",
+    "M0025-L-DEGREE-CANCELLATION",
+    "M0025-T-SPAN-COMPOSE",
+    "M0025-T-FG-COMPOSE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0025.HilbertBasisTheoremTarget",
+    "Polynomial.isNoetherianRing",
+    "Stage1Instances.THM_M_0025.Proof.exactPolynomialAnchor",
+    "Stage1Instances.THM_M_0025.Proof.hilbertBasisTheorem_direct",
+    "Stage1Instances.THM_M_0025.Proof.hilbertBasisTheorem_via_frozen_composition",
+    "Stage1Instances.THM_M_0025.Validation.differentialHilbertBasisTheorem"
+  ],
+  "scope_boundary": "Warm node-scoped worker validation of the exact root, pinned terminal body, frozen composition, local trust observations, and same-worker differential wrapper. Cold hermetic release replay, complete transitive TCB/provenance closure, and distinct-runner independent verification are fail-closed."
+}
