@@ -18,14 +18,19 @@ encoding, distinguishes all four required mutation classes, and exercises groups
 bottom and top subgroups. `check_statement.py` re-elaborates and fingerprints those expressions and
 requires the sole import to be necessary.
 
-Pinned mathlib also contains the close proof candidate `Subgroup.card_subgroup_dvd_card` in
-`Mathlib.GroupTheory.Coset.Card`. `IntakeProbe.lean` remains discovery-only evidence; the statement
-module deliberately does not import that theorem. The anchor-audit phase owns exact candidate
-mapping, terminal-body provenance, transitive dependencies, placeholders, axioms, and trust.
+Pinned mathlib also contains the exact proof candidate `Subgroup.card_subgroup_dvd_card` in
+`Mathlib.GroupTheory.Coset.Card`. The bounded anchor audit checked its finite-scope adapter and
+visible body chain, but candidate evidence remains pending master acceptance and proof-phase
+installation.
 
-The provisional root vector is `[H1, M3, R4]`. The theorem family and a textbook source lead are
+The obligation-tree phase freezes 20 semantic obligations and seven separate typed graphs. It
+expands the short candidate through the quotient-times-subgroup cardinal product and the underlying
+fiber/coset equivalence construction. `ObligationTree.lean` checks conditional child-to-parent
+composition without installing the candidate. The generated additive theorem, quotient-product
+support statement, and Fintype encoding are explicitly deduplicated.
+
+The provisional root vector remains `[H1, M3, R4]`. The theorem family and a textbook source lead are
 known, but no primary edition/theorem/page/proof/errata crosswalk or independent review is
-accepted; the exact root is elaborated but not master-accepted or proved; and no readable proof
-reconstruction exists. The statement worker evidence is provisional, and all five later phases
-remain open. No H0, M0, R0, accepted proof state, audit completion, theorem completion, or master
-acceptance is claimed.
+accepted; the exact root and candidate are not master-accepted; and no independently reviewed
+readable proof reconstruction exists. No H0, accepted M0, R0, accepted proof state, audit
+completion, theorem completion, release, or master acceptance is claimed.
