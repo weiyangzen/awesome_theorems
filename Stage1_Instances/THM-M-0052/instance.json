@@ -1,0 +1,198 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0052",
+  "item_id": "S56-M-0052-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1090,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "潘罗斯-穆尔广义逆",
+  "name_en": "Moore-Penrose generalized inverse",
+  "canonical_name": "Moore-Penrose inverse existence and uniqueness for finite rectangular complex matrices",
+  "category": "代数学 / 线性代数",
+  "category_en": "algebra / linear algebra",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "任意矩阵的广义逆存在唯一",
+  "literal_source_claim_en": "Every matrix has a unique generalized inverse.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_moore_penrose_family_but_catalog_omits_the_defining_equations_scalar_domain_rectangular_binders_and_adjoint_conventions",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not define generalized inverse. It omits the four Moore-Penrose equations, the complex or real scalar choice, finite rectangular dimensions and index types, conjugate-transpose convention, multiplication typing, and empty-dimension behavior. The inspected Penrose Theorem 1 is a strong primary-source lead, but catalog-source identity, the joint Moore attribution, immutable preservation, corrections, transcription, and independent review remain open. Selecting an exact Lean proposition at intake would invent source-identifying mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+      "Mathlib.LinearAlgebra.Matrix.Hermitian",
+      "Mathlib.LinearAlgebra.Matrix.NonsingularInverse"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_definition_domain_binders_and_adjoint_conventions",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must select finite rectangular complex matrices, or explicitly justify a real or inner-product-space transport, and fix Nat/Fin or finite-type indices and universe conventions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: ExistsUnique X of transposed rectangular shape satisfying the source-approved four Moore-Penrose equations; exact matrix domains, equation order, and conjugate-transpose encoding are unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is approved; zero row or column dimensions, the zero matrix, and square invertible matrices must be resolved explicitly.",
+  "candidate_scope_not_credited": [
+    "for A : Matrix (Fin m) (Fin n) Complex, a unique X : Matrix (Fin n) (Fin m) Complex satisfies A*X*A=A, X*A*X=X, (A*X)^H=A*X, and (X*A)^H=X*A",
+    "the corresponding finite rectangular real-matrix theorem with transpose",
+    "a finite-dimensional inner-product-space linear-map formulation",
+    "a definition of a Moore-Penrose inverse followed by an ExistsUnique theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero row dimension, zero column dimension, and the 0 by 0 matrix",
+    "the zero matrix in nonempty rectangular dimensions",
+    "square invertible matrices and agreement with ordinary inverse",
+    "full row rank and full column rank matrices",
+    "rank-deficient rectangular matrices",
+    "real matrices embedded in complex matrices"
+  ],
+  "excluded_substitutions": [
+    "an arbitrary inner or generalized inverse satisfying only A*X*A=A",
+    "a reflexive generalized inverse satisfying only the first two Penrose equations",
+    "the square nonsingular inverse or determinant inverse",
+    "a least-squares solver, normal-equation solution, or minimum-norm result without the four-equation existence-and-uniqueness root",
+    "singular value decomposition, polar decomposition, or the spectral theorem alone",
+    "a numerical pseudoinverse algorithm, tolerance-based rank decision, oracle, or unchecked certificate",
+    "a structure, hypothesis, or axiom storing the desired inverse",
+    "the catalog's untrusted verified label, publisher metadata, or the intake probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0044",
+      "name": "奇异值分解定理",
+      "relationship": "SVD is a standard construction route for the Moore-Penrose inverse, not the requested four-equation existence-and-uniqueness conclusion"
+    },
+    {
+      "theorem_id": "THM-M-0050",
+      "name": "西尔维斯特惯性定律",
+      "relationship": "Hermitian congruence inertia is distinct from pseudoinverse existence and uniqueness"
+    },
+    {
+      "theorem_id": "THM-M-0046",
+      "name": "QR分解定理",
+      "relationship": "QR factorization does not select the Moore-Penrose inverse of a rank-deficient rectangular matrix"
+    }
+  ],
+  "source_status": "H1_primary_penrose_1955_theorem_and_complete_proof_inspected_but_catalog_identity_joint_moore_attribution_immutable_admission_corrections_transcription_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "R. Penrose, A generalized inverse for matrices, Proceedings of the Cambridge Philosophical Society 51(3) (1955), 406-413, DOI 10.1017/S0305004100030401",
+      "candidate_locator": "publisher-served PDF observed 2026-07-13; SHA-256 cec01678759dbde2759e1881fc931a0d4f704cbad33033c3b2ab8fb992992a36",
+      "candidate_summary": "Theorem 1 on printed pages 406-407 states and proves unique solvability of the four Penrose equations for every possibly rectangular complex matrix",
+      "inspection_status": "complete primary article inspected as a source lead; immutable repository admission, correction history, independent transcription check, catalog identity, joint Moore attribution, and reviewer acceptance remain open"
+    },
+    {
+      "citation": "Eliakim Hastings Moore historical generalized-inverse work",
+      "candidate_locator": "catalog attribution only",
+      "candidate_summary": "possible historical basis for the compound Moore-Penrose name",
+      "inspection_status": "no work, edition, passage, definition, theorem, proof, date reconciliation, or relationship to Penrose's four equations was inspected or credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+      "declarations": ["Matrix.conjTranspose", "Matrix.conjTranspose_conjTranspose", "Matrix.conjTranspose_mul"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "rectangular conjugate-transpose and multiplication laws only; no pseudoinverse witnesses or uniqueness theorem"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Hermitian",
+      "declarations": ["Matrix.IsHermitian", "Matrix.isHermitian_mul_conjTranspose_self", "Matrix.isHermitian_conjTranspose_mul_self"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "Hermitian predicates and adjacent facts only; no Moore-Penrose construction"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+      "declarations": ["Matrix.mul_nonsing_inv", "Matrix.nonsing_inv_mul", "Matrix.nonsing_inv_cancel_or_zero"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "square determinant-based inverse only; its module documentation explicitly says pseudoinverses are not considered"
+    }
+  ],
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory with classical finite-dimensional complex linear algebra is intended; exact classical choice, extensionality, star, and inner-product dependencies remain open",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact canonical imports, terminal declarations, transitive dependencies, and trust closure remain open",
+  "computation_profile": "kernel-linear-algebra-planned/1.0: no floating-point pseudoinverse, numerical rank tolerance, native shortcut, oracle, experiment, or unchecked certificate is credited; the intended theorem requires exact kernel-checked algebra",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "c76fe0f1a7514b41f191d16840eff25e64ee9d17",
+    "repository_base_tree": "388bc991837bae9741d7e7cb88b43c216eab966a",
+    "repository_record": "Docs/researches/math_theorems.md:391-396",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1537-1562",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "bb85b35ad3cd91421cd2fddb85338f89a5b9fb12eef1368365a693d57cfb15c1",
+    "stage0_excerpt_sha256": "489774c7d19a7a5b88976646a9083b11c5295140afb91c6745e0709312c50ba9",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "68b83c36ed297007b2001a6bd492808ed6fc8fc0abbc6f5145ac520cb15a9ebb",
+    "execution_dag_sha256": "2907a890bbe7dfedc84af3bca941a837779ff055db628e0bca27d2fc69783dc4",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "inspected_penrose_pdf_sha256": "cec01678759dbde2759e1881fc931a0d4f704cbad33033c3b2ab8fb992992a36",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "conj_transpose_source_sha256": "5faa9a4693e11d03cfb8517bf5afcd781eac53223f0b872456f83bb2b24231ba",
+    "hermitian_source_sha256": "40e15d6eeaf22ac4ec97a7acf02e362dc6f22ae538e6c49640d2005c03927ea7",
+    "nonsingular_inverse_source_sha256": "0ea4aa9845e8e72bf948cfa433dec75e90ded79dc9c5450ba671bcee6074dab9"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0052/README.md",
+    "Stage1_Instances/THM-M-0052/instance.json",
+    "Stage1_Instances/THM-M-0052/scope-map.md",
+    "Stage1_Instances/THM-M-0052/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0052/task-dag.json",
+    "Stage1_Instances/THM-M-0052/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0052/check_intake.py",
+    "Stage1_Instances/THM-M-0052/validation.md",
+    "Stage1_Instances/THM-M-0052/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "historical_attribution_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or catalog correction, attribution finding, Penrose-equation transcription, scalar/domain/index/adjoint/boundary choice, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-0052/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, inspected Penrose source lead, formal substrate, proposition-changing choices, exclusions, and open task DAG. No canonical proposition, exact Lean statement, accepted source crosswalk, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
