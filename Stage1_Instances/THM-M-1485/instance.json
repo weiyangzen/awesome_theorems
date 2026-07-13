@@ -1,0 +1,234 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1485",
+  "item_id": "S56-M-1485-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1162,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "反向传播算法",
+  "name_en": "backpropagation algorithm",
+  "canonical_name": "backpropagation for neural-network training (repository algorithm-family label)",
+  "category": "其他重要领域 / 数值分析",
+  "category_en": "Other Important Fields / Numerical Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "反向传播算法",
+  "literal_source_claim_zh": "神经网络的训练算法",
+  "literal_source_claim_en": "A training algorithm for neural networks.",
+  "source_attribution": "David Rumelhart, Geoffrey Hinton, and Ronald Williams, 1986 (catalog metadata only; no work, edition, or passage is cited)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_backpropagation_algorithm_family_label_only_no_selected_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_backpropagation_training_algorithm_family_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only a backpropagation algorithm label and a neural-network training gloss. It fixes no graph or layer representation, finite index types, parameter and activation domains, activation or loss, data semantics, bias and shared-weight convention, forward semantics, reverse derivative recurrence, update rule, optimizer and learning rate, derivative representation, arithmetic model, quantifier order, boundary cases, or correctness, termination, complexity, convergence, or minimization conclusion. Selecting a familiar finite feed-forward sigmoid-gradient theorem or any training-convergence claim would invent proposition-changing mathematics.",
+  "target_decision": "redirect the catalog algorithm-family label to one corrected, independently reviewed, immutable-source proposition before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Calculus.FDeriv.Comp",
+      "Mathlib.Analysis.Calculus.FDeriv.Add",
+      "Mathlib.Analysis.SpecialFunctions.Sigmoid",
+      "Mathlib.Analysis.InnerProductSpace.Calculus",
+      "Mathlib.LinearAlgebra.Matrix.ToLin"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "HasFDerivAt.comp",
+      "fderiv_comp",
+      "HasFDerivAt.fun_sum",
+      "fderiv_sum",
+      "Real.hasDerivAt_sigmoid",
+      "HasFDerivAt.norm_sq",
+      "Matrix.mulVecLin",
+      "Matrix.mulVecLin_mul"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the network graph or layers, node/edge/case/parameter index types, scalar and parameter carriers, activation and loss domains, data and update state, derivative representation, universes, and every typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose reverse-recurrence derivative correctness, parameter-gradient correctness, program correctness and termination, an update-rule specification, complexity, convergence, minimization, or performance.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; statement work must resolve every empty, zero-depth, disconnected, skipped-layer, shared-parameter, activation, loss, data, update, derivative, arithmetic, and boundary case in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "source-faithful correctness of equations (4)-(7) for a finite acyclic sigmoid network and squared error",
+    "reverse-mode Frechet-derivative or gradient correctness for a selected finite differentiable computation graph",
+    "correctness and termination of one executable backward-sweep program against declarative network semantics",
+    "correctness of the source's plain-gradient equation (8) or momentum equation (9) update",
+    "a complexity result for one network representation and arithmetic or machine cost model"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero-depth and identity networks, no hidden layer, and empty input/output/unit/edge/case types",
+    "isolated units, zero outgoing edges, skipped layers, zero weights, constant activations, and vanishing derivatives",
+    "bias-only nodes, repeated or tied parameters, shared weights, and cyclic or finitely unrolled recurrent graphs",
+    "empty and singleton data sets, batch versus online accumulation, loss normalization, and update ordering",
+    "zero, negative, or unrestricted learning rate and absent prior momentum state",
+    "nondifferentiable activations, derivative conventions, exact equality, and exact-real versus floating-point execution"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1484 neural networks or THM-M-1486 deep learning as broader topic substitutes",
+    "THM-M-1498 gradient descent or THM-M-1499 stochastic gradient descent as optimizer substitutes",
+    "generic chain-rule, finite-sum, sigmoid-derivative, norm-square, or matrix lemmas without a source-selected network and reverse recurrence",
+    "modern ReLU, convolutional, recurrent, stochastic, or automatic-differentiation claims absent from an accepted source root",
+    "a definition or structure field that stores the desired gradient equality and then projects it",
+    "a numerical training run, residual, benchmark, plot, or empirical performance result",
+    "the untrusted catalog label 已验证, the article title, or the discovery probe as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1484",
+      "name": "神经网络",
+      "relationship": "broader neural-network topic; it does not identify backpropagation correctness"
+    },
+    {
+      "theorem_id": "THM-M-1486",
+      "name": "深度学习",
+      "relationship": "broader deep-learning topic with no interchangeable derivative or training theorem"
+    },
+    {
+      "theorem_id": "THM-M-1498",
+      "name": "梯度下降",
+      "relationship": "generic optimizer family; backpropagation derivative computation does not imply optimizer convergence"
+    },
+    {
+      "theorem_id": "THM-M-1499",
+      "name": "随机梯度下降",
+      "relationship": "stochastic optimizer family with distinct sampling and convergence obligations"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "David E. Rumelhart, Geoffrey E. Hinton, and Ronald J. Williams, Learning representations by back-propagating errors, Nature 323(6088) (1986), 533-536, DOI 10.1038/323533a0",
+      "candidate_locator": "author-hosted four-page facsimile inspected on 2026-07-13; observed SHA-256 d26997baf588222109d32545604a2a2ed400dc769a21fd49a5acdc4a955396ae",
+      "candidate_summary": "pages 533-535 specify a layered sigmoid network, squared error, output and hidden derivative recurrences, plain gradient update, and momentum variant; the paper disclaims guaranteed global-minimum convergence",
+      "status": "strong primary-source lead only; the catalog does not cite or choose a result, the remote file is not an admitted immutable source, corrections and variants remain unaudited, and no independent review is recorded"
+    },
+    {
+      "citation": "David E. Rumelhart, Geoffrey E. Hinton, and Ronald J. Williams, Learning Internal Representations by Error Propagation, in Parallel Distributed Processing, vol. 1 (1986), 318-362",
+      "candidate_locator": "cited by the inspected Nature article at page 536",
+      "candidate_summary": "longer source and proof-reconstruction lead for the backpropagation family",
+      "status": "not inspected or admitted during this intake; no exact root or proof boundary is credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Calculus.FDeriv.Comp",
+      "declarations": ["HasFDerivAt.comp", "fderiv_comp"],
+      "boundary": "generic Frechet chain rules only; no network semantics, backward recurrence, gradient algorithm, or source mapping"
+    },
+    {
+      "module": "Mathlib.Analysis.Calculus.FDeriv.Add",
+      "declarations": ["HasFDerivAt.fun_sum", "fderiv_sum"],
+      "boundary": "finite-sum differentiation only; no selected data, outgoing-edge, loss, or parameter accumulation"
+    },
+    {
+      "module": "Mathlib.Analysis.SpecialFunctions.Sigmoid",
+      "declarations": ["Real.sigmoid", "Real.hasDerivAt_sigmoid"],
+      "boundary": "the displayed activation and its derivative only; no layer or backpropagation theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Calculus",
+      "declarations": ["HasFDerivAt.norm_sq"],
+      "boundary": "generic squared-norm derivative only; no source-selected loss or network"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.ToLin",
+      "declarations": ["Matrix.mulVecLin", "Matrix.mulVecLin_mul"],
+      "boundary": "matrix-vector linear semantics only; no forward-layer, reverse, bias, or parameter-gradient mapping"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "e552e0758e29de307cf357a703e6ecd16e40fb69",
+    "repository_base_tree": "492b45021fb6ce4973452d8173d32fe2c212a877",
+    "repository_record": "Docs/researches/math_theorems.md:10854-10859",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:40378-40403",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "33e689c3e2abe644a2d62960c1218344c77ca8ba9d6edfd721a8534686b9bfcc",
+    "stage0_projection_excerpt_sha256": "810d831d1800cbd25372436d0d7d011acf3d67f8d35d01127da5fea878830a14",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "83871cc366fceca7bae1ca9d7eb9e61c51f282b91012ee8cfee983d256a190ff",
+    "execution_dag_sha256": "3ff8beaa6f32c0e296c6250ec271d4ec77ef4f152a5b250d6aa7f3a2b067877d",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_physics_source_sha256": "6abf9da63cf075b0c6a05f3a245838ec0d7848fe873c43f529a7e0ee72cf94fa",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_fderiv_comp_source_sha256": "4454c57eeaec84490722df7a2e522e370d9987a49386e64c0592d0ead7990b65",
+    "mathlib_fderiv_add_source_sha256": "efd9e61f4705028ce9bead35714f8402e1e1540bd9a91687f282626c6738fc2d",
+    "mathlib_sigmoid_source_sha256": "bc08b3333fd03e36051b8f5f6d1eb14938b9a224f7824c64eada330227690541",
+    "mathlib_inner_calculus_source_sha256": "695878ec0ba211d9027445a28f4474ed5716237a1bf960d34375f7233b4906e5",
+    "mathlib_matrix_tolin_source_sha256": "a58c81046f02ed406daaf24bd50ab7a68c5e5b43f906b6c8180aea740c49ac2a",
+    "observed_nature_facsimile_sha256": "d26997baf588222109d32545604a2a2ed400dc769a21fd49a5acdc4a955396ae"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H5", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical finite indexing, real analysis, finite sums, matrices or graph semantics, differentiability, gradients or continuous linear maps, and any executable-algorithm foundations remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, network and algorithm definitions, terminal declarations, transitive dependencies, runtime, and trust policy remain open",
+  "computation_profile": "No native training code, automatic-differentiation engine, floating-point run, compiled executable, benchmark, oracle, generated gradient, numerical residual, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1485/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1485/README.md",
+    "Stage1_Instances/THM-M-1485/instance.json",
+    "Stage1_Instances/THM-M-1485/scope-map.md",
+    "Stage1_Instances/THM-M-1485/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1485/task-dag.json",
+    "Stage1_Instances/THM-M-1485/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1485/check_intake.py",
+    "Stage1_Instances/THM-M-1485/validation.md",
+    "Stage1_Instances/THM-M-1485/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned neural-network optimization reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition and corrections, selected backpropagation proposition, network/activation/loss/data/derivative/update semantics, hypotheses, conclusion, boundary cases, and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support theorem release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier and externally observed facsimile and metadata have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or correction finding, selected proposition, graph/layer/index/parameter representation, activation, loss, data, forward/reverse/update semantics, derivative convention, optimizer, conclusion, arithmetic or boundary decision, neighbor ownership, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog backpropagation label as not yet a stable proposition; it does not refute correctly stated backpropagation results. The inspected source lead and pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
