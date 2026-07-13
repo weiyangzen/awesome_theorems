@@ -1,64 +1,101 @@
-# THM-M-1053 proof-phase validation
+# THM-M-1053 Proof-Phase Validation
 
-Item: `S56-M-1053-PROOF`  
-Base revision: `6c2108d725fc300302148b2400ef718bbed05d76`  
-Validation date: 2026-07-12
+Item: `S56-M-1053-PROOF`. Base revision:
+`309f58b7a54d36653b3483a543c6378eea53882c`.
 
-## Verdict
+## Implemented Bodies
 
-Blocked by an inconsistent frozen child obligation. The exact root statement is
-not refuted, but `ErgodicLimitIdentificationPackage` quantifies over arbitrary
-integrable invariant `g` and requires it to equal the integral of an unrelated
-integrable `f`. `Proof.lean` proves its negation on the one-point probability
-space using `f = 0`, `g = 1`, and the ergodic identity map. Consequently no
-placeholder-free proof body can close `M1053-L-ERGODIC-IDENTIFICATION`, so the
-proof phase is not self-tested as complete and no worker self-test manifest is
-written.
+The complete `MaximalErgodic.lean` and `Birkhoff.lean` proof modules are
+vendored from Apache-2.0 project `marcmorningstar/lean4-ergodic-theory` at
+commit `ed3fa6b8a30594eeb791160563942ba115581aa0`. The compatibility delta is
+limited to the target-local sibling import and the pinned-mathlib spelling
+`integrable_finset_sum`; both files carry modification notices, and the full
+upstream license and exact provenance are included.
 
-The obligation should instead include the missing relation that determines the
-integral of `g`, for example `integral g mu = integral f mu`. After the master
-re-freezes a corrected registry, the still-substantive Birkhoff convergence
-package and the external dependency integration remain open.
+`Proof.lean` uses conditional expectation onto the invariant measurable space
+to implement the frozen `GeneralInvariantLimitPackage`. The general Birkhoff
+theorem proves almost-everywhere convergence, while `integrable_condExp` and
+`condExp_invariants_comp_self` prove the witness's integrability and
+invariance. The exact unchanged `StatementShape` root is then proved directly:
+in the ergodic branch, uniqueness of limits compares the general conditional-
+expectation limit with the port's independently proved space-integral limit.
 
-## Commands and results
+## Frozen-Graph Defect
+
+The pre-proof `ErgodicLimitIdentificationPackage` is false as written. It says
+that every integrable invariant `g` equals the integral of an unrelated
+integrable `f`; it omits an integral-preservation relation between them.
+`not_ergodicLimitIdentificationPackage` remains a kernel-checked counterexample
+using `f = 0` and `g = 1` on the one-point ergodic probability space.
+
+Consequently the exact root is kernel inhabited, but the frozen proof graph is
+not closed through all of its declared edges. It remains open at
+`M1053-L-DENSE-CLASS` (the successful proof uses a different analytic route)
+and `M1053-L-ERGODIC-IDENTIFICATION` (the frozen target is false) until the
+integration lane accepts registry v2 or an append-only correction. No worker
+edit was made to the frozen registry, typed graph, execution DAG, or blueprint
+checklist.
+
+## Obligation Map
+
+| Frozen semantic node | Implementing body or boundary |
+|---|---|
+| `M1053-L-MAXIMAL` | `ErgodicTheory.setIntegral_birkhoffSum_pos_nonneg` and its local supporting lemmas in `MaximalErgodic.lean` |
+| `M1053-L-DENSE-CLASS` | route mismatch: the successful vendored proof uses invariant conditional expectation and one-sided maximal estimates rather than the frozen dense-class decomposition |
+| `M1053-L-AE-CONVERGENCE` | `ErgodicTheory.tendsto_birkhoffAverage_ae` |
+| `M1053-L-LIMIT-INTEGRABLE` | `integrable_condExp` in `generalInvariantLimitPackage_proof` |
+| `M1053-L-LIMIT-INVARIANT` | `ErgodicTheory.condExp_invariants_comp_self` |
+| `M1053-T-GENERAL` | `Stage1.THM_M_1053.generalInvariantLimitPackage_proof` |
+| `M1053-L-ERGODIC-IDENTIFICATION` | inconsistent frozen target, refuted by `not_ergodicLimitIdentificationPackage`; the correct identification is internal to `tendsto_birkhoffAverage_ae_integral` and the exact-root uniqueness argument |
+| `M1053-X-EXTERNAL` | locally vendored, provenance-reconstructable `MaximalErgodic.lean` and `Birkhoff.lean` |
+| `M1053-ROOT` | `Stage1.THM_M_1053.statementShape_proof`, an exact-type alternate composition |
+
+## Commands And Results
+
+Validation ran in this worker clone on 2026-07-14 using only the existing
+pinned Lake environment. No update, build, clone, fetch, or mutation of
+`.lake` was performed.
 
 ```text
-python3 Docs/tools/check_stage1_standard.py
+python3 Stage1_Instances/THM-M-1053/check_proof.py
   exit 0
-  check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy
-  slots, 1546 uniform-L0 Lean 4 targets, execution skill present)
-
-python3 scripts/stage1_target.py check
-  exit 0
-  stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)
-
-python3 scripts/stage1_target.py show THM-M-1053
-  exit 0
-  execution rank 245; lifecycle planned; theorem_complete false
-
-cd Stage1_Instances/THM-M-1053
-LEAN_PATH=$(cd ../../Formalizations/Lean && lake env printenv LEAN_PATH) \
-  $(cd ../../Formalizations/Lean && lake env which lean) -o Statement.olean Statement.lean
-LEAN_PATH=.:$LEAN_PATH \
-  $(cd ../../Formalizations/Lean && lake env which lean) -o ObligationTree.olean ObligationTree.lean
-LEAN_PATH=.:$LEAN_PATH \
-  $(cd ../../Formalizations/Lean && lake env which lean) Proof.lean
-  exit 0 for all three elaboration commands
-  #print axioms not_ergodicLimitIdentificationPackage:
-    [propext, Classical.choice, Quot.sound]
-  temporary Statement.olean and ObligationTree.olean removed
+  Fresh trust-level-zero temporary elaboration passed for Statement,
+  ObligationTree, MaximalErgodic, Birkhoff, and Proof. Three vendored terminal
+  declarations and three local declarations were sorry-free and reported only
+  [propext, Classical.choice, Quot.sound]. Exact StatementShape passed; the
+  checker reported the inconsistent frozen identification child graph-open.
 
 python3 Stage1_Instances/THM-M-1053/check_obligation_tree.py
   exit 0
-  PASS THM-M-1053 obligation tree: 16 obligations, 35 typed edges
-  registry denominator sha256:
-    125e28fed0cbce9e0cbffea0da90b047c35a770c90d3be2a82a42319b8606005
-  root closure: open (M1)
+  Frozen 16-obligation registry and 35 typed edges passed; the pre-proof
+  closure projection remains intentionally unchanged and root-open.
 
-git diff --check -- Stage1_Instances/THM-M-1053
-  exit 0; no output
+python3 Docs/tools/check_stage1_standard.py
+  exit 0
+  15 assurance groups and all 1546 uniform-L0 targets passed.
+
+python3 scripts/stage1_target.py check
+  exit 0
+  1546 unique ordered targets, ranks 1 through 1546.
+
+python3 scripts/stage1_target.py show THM-M-1053
+  exit 0
+  Rank 245, planned, L0/rework-required, theorem_complete=false.
+
+python3 -m json.tool Stage1_Instances/THM-M-1053/proof-receipt.json
+python3 -m json.tool .stage1-worker-selftest.json
+  exit 0 for both files.
+
+git diff --check -- Stage1_Instances/THM-M-1053 \
+  .stage1-worker-selftest.json
+  exit 0; no whitespace errors.
 ```
 
-No `lake update`, `lake build`, dependency fetch, clone, or `.lake` mutation was
-performed. Root status remains `H2/M1/R4`; there is no proof receipt, root
-closure, audit completion, or theorem-completion claim.
+## Status Boundary
+
+This is self-tested proof-node evidence proposing only `[_]`, pending master
+acceptance and graph correction. It establishes a placeholder-free kernel proof
+of the exact canonical root in the current pinned environment; it does not
+establish frozen-graph closure, an accepted state, H0/R0, complete transitive
+trust and provenance, hermetic replay, independent verification, audit
+completion, or theorem completion.

@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1522-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1522-VALIDATION",
+  "theorem_id": "THM-M-1522",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1522/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through Bubblewrap with --unshare-net, a read-only root, a writable temporary output directory, fixed locale/timezone, and one Lean worker thread. Host-side hash and Git checks make no network request. This remains warm-cache node evidence, not cold hermetic release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1522-ROOT",
+    "M1522-S-DEFINITIONS",
+    "M1522-S-DOMAIN",
+    "M1522-S-BOUNDARY",
+    "M1522-S-TRANSPORT",
+    "M1522-S-FOUNDATION",
+    "M1522-N-GENERAL",
+    "M1522-C-LIMIT-DATA",
+    "M1522-L-POINTWISE",
+    "M1522-B-ERGODIC",
+    "M1522-L-INTEGRAL-ID",
+    "M1522-T-IDENTIFY",
+    "M1522-T-ASSEMBLE",
+    "M1522-X-UPSTREAM"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1522.BirkhoffPointwiseErgodicTarget",
+    "Stage1Instances.THM_M_1522.birkhoffTarget_iff_expandedFiniteSumTarget",
+    "Stage1Instances.THM_M_1522.root_of_pointwise_and_identification",
+    "ErgodicTheory.setIntegral_birkhoffSum_pos_nonneg",
+    "ErgodicTheory.tendsto_birkhoffAverage_ae",
+    "ErgodicTheory.tendsto_birkhoffAverage_ae_integral",
+    "Stage1Instances.THM_M_1522.generalPointwiseLimitPackage",
+    "Stage1Instances.THM_M_1522.ergodicInvariantLimitIdentification",
+    "Stage1Instances.THM_M_1522.birkhoffPointwiseErgodicViaFrozenComposition",
+    "Stage1Instances.THM_M_1522.birkhoffPointwiseErgodicDirect",
+    "Stage1Instances.THM_M_1522.Validation.independentlyReconstructedBirkhoffPointwiseErgodic"
+  ],
+  "scope_boundary": "Network-isolated, trust-level-zero, target-scoped worker replay of the exact statement, vendored terminal bodies, frozen composition, proof roots, selected provenance, and a Proof-free same-worker differential root. The obligation IDs describe observed provisional proof coverage only. Proof master acceptance, accepted foundation/profile state, complete transitive declaration and TCB provenance, clean-checkout empty-cache offline replay, SBOM/archive closure, and distinct signed independent verification remain fail-closed."
+}
