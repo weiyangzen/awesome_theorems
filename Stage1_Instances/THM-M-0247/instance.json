@@ -1,0 +1,194 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0247",
+  "item_id": "S56-M-0247-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1257,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "柯尔莫哥洛夫定理",
+  "name_en": "Kolmogorov weak-type theorem for conjugate functions",
+  "canonical_name": "Kolmogorov periodic conjugate-function weak-(1,1) theorem",
+  "category": "分析学 / 复分析",
+  "category_en": "Analysis / Complex Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "柯尔莫哥洛夫定理",
+  "literal_source_claim_zh": "共轭函数的弱型估计",
+  "literal_source_claim_en": "Weak-type estimate for conjugate functions.",
+  "source_attribution": "Andrey Kolmogorov, 1925 (catalog metadata, matched at intake to Kolmogoroff 1925 Theorem I)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_primary_Theorem_I_pinpoint_inspected_but_translation_full_premise_errata_and_independent_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "primary_source_Theorem_I_identified_as_source_exact_candidate_but_formal_representation_and_independent_source_acceptance_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "There exists an absolute constant C such that for every summable periodic function f, its source-normalized almost-everywhere boundary conjugate g, and every positive finite threshold R, angular_measure({theta | |g(theta)| > R}) * R is at most C times the integral of |f| over one angular period.",
+  "target_disposition": "independently review Kolmogoroff 1925 Theorem I, then elaborate the exact source-selected periodic weak-(1,1) proposition with checked representation and normalization bridges",
+  "statement_blocker": "The primary theorem is pinpointed, but statement acceptance must still fix angular Lebesgue versus probability-normalized Haar measure, real or complex inputs, function versus L1-class binders and representative invariance, disk-boundary versus principal-value versus Fourier-multiplier construction of g, additive-constant/zero-mode normalization, the positive finite threshold type, strict versus non-strict level sets and inequalities, and ordered quantifier scope. Choosing these silently at intake would risk a broadened or substituted target.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Fourier.AddCircle",
+      "Mathlib.MeasureTheory.Function.LpSeminorm.ChebyshevMarkov"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "AddCircle.haarAddCircle",
+      "MeasureTheory.Integrable",
+      "MeasureTheory.Lp",
+      "MeasureTheory.eLpNorm",
+      "fourierCoeff",
+      "MeasureTheory.mul_meas_ge_le_pow_eLpNorm'",
+      "MeasureTheory.Lp.meas_ge_le_mul_pow_enorm",
+      "MeasureTheory.Measure.real"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_independent_source_review_and_representation_normalization_freeze",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Source domain: summable periodic scalar functions on the angular interval [-pi, pi], their disk harmonic conjugates and almost-everywhere boundary values, angular Lebesgue measure, and a real threshold. Lean carrier, scalar field, quotient representative policy, universes, and typeclass context remain to be fixed.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open as a canonical Lean target. The source candidate concludes an absolute-constant weak-(1,1) superlevel estimate for the periodic conjugate function.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No formal case is excluded before the target is selected. Statement work must test zero and constant inputs, mean/zero-mode normalization, null-set representative changes, zero-measure superlevel sets, positive finite thresholds approaching zero, and rejected zero/infinite-threshold encodings.",
+  "candidate_scope_not_credited": [
+    "Kolmogoroff 1925 Theorem I in the printed angular-measure form",
+    "the equivalent circular Hilbert-transform weak-(1,1) estimate after a checked operator bridge",
+    "a probability-normalized AddCircle formulation after a checked measure-scaling bridge",
+    "a real-valued theorem and its complexification after a checked decomposition bridge"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0349 or Marcel Riesz strong Lp boundedness for 1 < p < infinity",
+    "generic Chebyshev-Markov applied after assuming the conjugate belongs to L1",
+    "only p=2 Fourier-basis closure, a Fourier coefficient definition, or boundedness stored as an operator field or hypothesis",
+    "Kolmogoroff 1925 Theorem II on |g|^(1-epsilon) integrability or Theorem III on Fourier-sum mean convergence",
+    "the real-line, maximal, weighted, higher-dimensional, BMO, or sharp-constant variants without checked transports",
+    "the catalog's untrusted verified label, a citation, or the Lean API probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0349",
+      "name": "共轭函数定理",
+      "relationship": "separate Marcel Riesz strong-Lp theorem; its dossier explicitly excludes Kolmogorov's weak endpoint theorem"
+    },
+    {
+      "theorem_id": "THM-M-0350",
+      "name": "希尔伯特变换有界性",
+      "relationship": "separate strong-Lp Hilbert-transform boundedness family; no endpoint proof credit is inherited"
+    },
+    {
+      "theorem_id": "THM-M-0245",
+      "name": "法图定理",
+      "relationship": "adjacent boundary-limit theorem family; it cannot replace the weak distribution estimate"
+    }
+  ],
+  "primary_source_candidates_not_credited_as_H0": [
+    {
+      "citation": "A. Kolmogoroff, Sur les fonctions harmoniques conjuguees et les series de Fourier, Fundamenta Mathematicae 7 (1925), 24-29, DOI 10.4064/fm-7-1-24-29",
+      "candidate_locator": "printed page 24 context and principal-value formula; printed page 25, Theorem I",
+      "observed_scan_sha256": "b0567754c1c50a5549f664effcc2e29163b4409de1e4fcc228895e19e803a73b",
+      "candidate_summary": "For E = {theta | |g(theta)| > R}, Mes(E) * R < C times the integral of |f| over [-pi, pi], with C absolute, under the page-24 summability and conjugate-boundary context.",
+      "status": "primary source and pinpoint inspected for intake disambiguation; exact translation, all incorporated premises and cited results, corrections/errata, lawful preservation, assumption-to-node mapping, and independent qualified review remain open, so this is not H0"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Fourier.AddCircle",
+      "declarations": ["AddCircle.haarAddCircle", "fourierCoeff"],
+      "boundary": "probability-normalized circular measure and Fourier coefficient infrastructure only; no conjugate singular-integral construction or weak endpoint theorem"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Function.LpSeminorm.ChebyshevMarkov",
+      "declarations": ["MeasureTheory.mul_meas_ge_le_pow_eLpNorm'", "MeasureTheory.Lp.meas_ge_le_mul_pow_enorm"],
+      "boundary": "generic distribution bounds for functions already in Lp; they neither construct the conjugate nor prove the endpoint map from L1 to weak L1"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "c6fd6dad8fcfe5fd464416cd452f50286b546978",
+    "repository_base_tree": "5a80b61d8fa09336779f8d1453dcfe4299c9472f",
+    "repository_record": "Docs/researches/math_theorems.md:1780-1785",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6842-6863",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "3fe2a8b1c4fade048d68f61f9d7923bf22df2960f4e8370899821557e251d686",
+    "stage0_record_excerpt_sha256": "39bb57a2bb126f6e233d20455865c3a42d7f2f9cc4b6a0aebfcd5cebfdd6922f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9601541c3966336c2ea27797f4ff93e3dd3d7adc4de88410cc8a6b60a7782190",
+    "execution_dag_sha256": "1e2eb8e8c86ccef96bb4dcd85b33f1a06fcf76a7c54c0b51772ddc0b6cebe2c5",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_addcircle_source_sha256": "32363b7144bee4cdc3f96e41237eb6944c8dd6ac92449340a0c27462959e7c81",
+    "mathlib_chebyshev_markov_source_sha256": "a472c0b92463f135c0ade1343cac13fa3e23ddc84c065f955f66ff8b76f8b781",
+    "mathlib_integrable_source_sha256": "b9175c737ba9ee1a56ef9a7348533e4580e5f7ac1a68abff71312b004f8ad551",
+    "observed_primary_scan_sha256": "b0567754c1c50a5549f664effcc2e29163b4409de1e4fcc228895e19e803a73b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, almost-everywhere quotient choice, harmonic-boundary existence, principal-value construction, and noncomputability policy remain to be derived from the selected exact target",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, terminal declarations, transitive dependencies, and accepted trust policy remain open",
+  "computation_profile": "No numerical principal-value approximation, sampled distribution plot, Fourier truncation experiment, native shortcut, oracle, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0247/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0247/README.md",
+    "Stage1_Instances/THM-M-0247/instance.json",
+    "Stage1_Instances/THM-M-0247/scope-map.md",
+    "Stage1_Instances/THM-M-0247/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0247/task-dag.json",
+    "Stage1_Instances/THM-M-0247/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0247/check_intake.py",
+    "Stage1_Instances/THM-M-0247/validation.md",
+    "Stage1_Instances/THM-M-0247/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent harmonic-analysis source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned harmonic analyst",
+    "reviewer_policy": "Independent reviewers must approve the source scan and translation, incorporated premises and errata, angular-measure scaling, scalar/representative/operator/additive-normalization choices, threshold and strictness conventions, and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the observed publisher bytes are not vendored and this unaccepted dossier has no release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition/translation/premise/errata changes, measure scaling, scalar or representative policy, conjugate construction or additive normalization, threshold/strictness/binder decision, neighbor ownership, Lean target, candidate finding, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog wording, pinpointed Theorem I source candidate, source/formal/non-substitution boundaries, adjacent pinned APIs, and open task DAG. No accepted canonical proposition, elaborated expression, H0, source-identical Lean artifact, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

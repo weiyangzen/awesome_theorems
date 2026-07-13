@@ -1,0 +1,221 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0634",
+  "item_id": "S56-M-0634-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1327,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "介值定理",
+  "name_en": "Intermediate value theorem",
+  "canonical_name": "Intermediate-value theorem family on connected or preconnected domains (exact source proposition open)",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_attribution": "Bernard Bolzano; 1817 (catalog metadata only)",
+  "literal_source_claim_zh": "连通空间上连续函数的值域",
+  "literal_source_claim_en": "The range of a continuous function on a connected space.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_bolzano_intermediate_value_family_identified_but_catalog_gloss_omits_the_predicate_ordered_codomain_binders_hypotheses_conclusion_and_boundary_cases",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected connected or preconnected domain and source-selected ordered topological codomain, a continuous function takes every value between two source-selected attained endpoint values.",
+  "target_disposition": "requires_immutable_source_selection_and_THM_M_0626_scope_reconciliation_before_statement_execution",
+  "statement_blocker": "The gloss is not a complete proposition. It can denote general continuous-image connectedness or the ordered intermediate-value property, and it fixes neither the domain/set convention, codomain order and topology, continuity scope, endpoints, orientation, ordered binders, exact conclusion, nor boundary cases. Selecting a familiar real-interval, whole-space, or zero formulation would invent or substitute proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.Connected.Basic",
+      "Mathlib.Topology.Order.IntermediateValue"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_statement_not_truth_valued_or_binder_complete",
+    "declaration_candidates": [
+      "IsConnected.image",
+      "IsPreconnected.image",
+      "IsPreconnected.intermediate_value",
+      "intermediate_value_univ",
+      "intermediate_value_Icc",
+      "intermediate_value_Icc'",
+      "intermediate_value_uIcc"
+    ],
+    "candidate_relationship": "IsConnected.image matches the literal image wording but overlaps THM-M-0626. The ordered declarations match the theorem title and Bolzano attribution but differ in carrier, endpoint, orientation, and generality. No source-approved identity or checked transport is frozen at intake.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the domain type and topology, whole-space or set carrier, connectedness or preconnectedness convention, codomain type with exact order/topology compatibility, all universes, and every typeclass assumption.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not choose connectedness of the image, interval inclusion in an image or range, existence of a preimage for one intermediate value, or a sign-change zero conclusion.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is silently excluded before source selection; empty and singleton carriers, equal endpoints, reversed endpoints and values, constant functions, endpoint witnesses, and zero-at-endpoint cases remain open.",
+  "candidate_scope_not_credited": [
+    "the continuous image of an IsConnected set under a ContinuousOn function is IsConnected",
+    "the image of an IsPreconnected set contains the ordered interval between two endpoint values",
+    "the range of a continuous function on a PreconnectedSpace contains the ordered interval between two endpoint values",
+    "the oriented or unordered closed-interval intermediate-value theorem",
+    "the real sign-change root-existence corollary"
+  ],
+  "degenerate_cases_to_resolve": [
+    "connected versus preconnected and empty versus nonempty domains",
+    "whole-space versus set carrier and global versus on-carrier continuity",
+    "real codomain versus a general ordered topological codomain",
+    "equal, ordered, reversed, or unordered endpoints and endpoint values",
+    "constant functions, singleton images, and the queried value already attained at an endpoint",
+    "strict sign change, non-strict sign conditions, and roots at endpoints if a zero theorem is selected"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0626 continuous-image-connectedness statement or evidence inherited without a target-identity decision",
+    "THM-M-1442 bisection method, whose recurrence, invariant, rate, and algorithm correctness are not supplied by root existence",
+    "a real closed-interval, polynomial, or sign-change specialization replacing a general connected-space theorem without source approval",
+    "a connected-image theorem, order-convex image theorem, endpoint existence theorem, and root corollary treated as definitionally identical",
+    "a premise or structure containing the desired intermediate witness",
+    "the untrusted verified label, declaration name, source comment, or intake API probe used as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0626",
+      "name": "连通性定理",
+      "catalog_claim": "连通集的连续像连通",
+      "relationship": "separate point-set-topology target matching the literal continuous-image reading; no statement, status, obligation, proof-body, or receipt credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1442",
+      "name": "二分法",
+      "catalog_claim": "方程求根的线性方法",
+      "relationship": "separate numerical-method target that may use an intermediate-value theorem only as an existence dependency; no algorithmic credit is shared"
+    }
+  ],
+  "source_status": "H1_classical_published_theorem_family_identified_but_primary_edition_exact_proposition_definitions_assumptions_proof_translation_errata_scope_reconciliation_and_independent_review_open",
+  "primary_source_leads_not_credited": [
+    {
+      "citation": "Bernard Bolzano, Rein analytischer Beweis des Lehrsatzes, dass zwischen je zwey Werthen, die ein entgegengesetztes Resultat gewahren, wenigstens eine reelle Wurzel der Gleichung liege, 1817",
+      "candidate_locator": null,
+      "status": "bibliographic discovery lead only; no immutable edition, exact page or proposition, transcription, incorporated definitions, translation, proof boundary, corrections, errata, or independent review is admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Connected.Basic",
+      "declaration": "IsConnected.image",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the image of a connected set under a function continuous on that set is connected",
+      "status": "direct interface elaborates, but it matches the separate THM-M-0626 wording and is not selected as this root"
+    },
+    {
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declaration": "IsPreconnected.intermediate_value",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "for a preconnected set, the ordered interval between two endpoint values lies in the function image",
+      "status": "direct named candidate; source identity, exact assumptions, expression match, proof-body provenance, and receipt acceptance remain open"
+    },
+    {
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declaration": "intermediate_value_univ",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "on a preconnected space, the ordered interval between f a and f b lies in the range of a continuous function",
+      "status": "leading whole-space candidate, not source-selected"
+    },
+    {
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declarations": [
+        "intermediate_value_Icc",
+        "intermediate_value_Icc'",
+        "intermediate_value_uIcc"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "oriented and unordered closed-interval specializations",
+      "status": "familiar analysis forms, but the catalog does not select an interval domain or orientation"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "0e5ae82e6d507ee607c3f011900571ffd8096800",
+    "repository_base_tree": "400e6edf1f69b971b60a367e3ea29be359b07907",
+    "repository_record": "Docs/researches/math_theorems.md:4699-4704",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:17341-17366",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "51af626002d0cb19ac39f0b8bdc277f0582119513c4e17dc651a1c1e7bf9d88f",
+    "stage0_projection_excerpt_sha256": "aa533fadf54d999196c5802592c51be8f355b86c96845b13553a6e4cf828debb",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "de6aa1e0d959d06feb390f9938ea78e9d43008fafc16e96141483f9c198eda22",
+    "execution_dag_sha256": "d811d528aa5f9a83a03f5de32ca443180218e6357c4131b50c64fc63553accac",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_intermediate_value_source_sha256": "cfa4c897696242691c5545e03d4b9794a1aa8e35c3e7abf9b36b30dfd666f260",
+    "mathlib_connected_basic_source_sha256": "929f0e1c789b8c0ed10c3164aa174e369b9b250317c525a8ad2f2dcca2a65e9c"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, connectedness conventions, order-topology principles, and imported theorem policy remain open until an exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; minimal imports, exact expression identity, terminal declarations, transitive dependencies, axioms, and trust policy remain open",
+  "computation_profile": "No numerical root finder, sampled plot, floating-point experiment, oracle, generated approximation, or unchecked certificate is credited; any future computation must be separately specified and kernel-justified",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0634/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0634/README.md",
+    "Stage1_Instances/THM-M-0634/instance.json",
+    "Stage1_Instances/THM-M-0634/scope-map.md",
+    "Stage1_Instances/THM-M-0634/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0634/task-dag.json",
+    "Stage1_Instances/THM-M-0634/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0634/check_intake.py",
+    "Stage1_Instances/THM-M-0634/validation.md",
+    "Stage1_Instances/THM-M-0634/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent history-of-analysis or real-analysis reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned point-set topology reviewer",
+    "neighbor_scope_reviewer": "unassigned integration reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, primary edition or translation, theorem-family selection, THM-M-0626 reconciliation, carrier, connectedness, codomain, order/topology, continuity, endpoints, orientation, conclusion, binder, boundary, or transport decision, Lean target, toolchain or dependency pin, assurance profile, validator, structured recipe, public reconstruction, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the literal gloss, leading ordered interpretation, proposition ambiguities, source and neighbor boundaries, direct pinned candidate interfaces, and open task DAG. No exact source proposition, canonical Lean statement, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
