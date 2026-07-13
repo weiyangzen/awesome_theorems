@@ -26,14 +26,15 @@ primary historical work. This supports only a provisional H1 classification, nev
 
 | Repository token | Mathematical content that must survive | Candidate Lean representation | Intake boundary |
 |---|---|---|---|
-| `有限群 G` | arbitrary finite multiplicative group | `{G : Type u} [Group G] [Finite G]` | included; exact encoding awaits statement |
-| `子群 H` | arbitrary subgroup of that same group | `(H : Subgroup G)` | included |
-| `H 的阶` | finite cardinality of the subgroup carrier | `Nat.card H` | candidate; `Fintype.card` transport open |
-| `整除` | natural-number divisibility | `∣` on `Nat` | included |
-| `G 的阶` | finite cardinality of the ambient carrier | `Nat.card G` | candidate; `Fintype.card` transport open |
+| `有限群 G` | arbitrary finite multiplicative group | `(G : Type u) [Group G] [Finite G]` | frozen in the canonical target |
+| `子群 H` | arbitrary subgroup of that same group | `(H : Subgroup G)` | frozen as a universal binder |
+| `H 的阶` | finite cardinality of the subgroup carrier | `Nat.card H` | frozen; checked `Fintype.card` alternate |
+| `整除` | natural-number divisibility | `∣` on `Nat` | frozen |
+| `G 的阶` | finite cardinality of the ambient carrier | `Nat.card G` | frozen; checked `Fintype.card` alternate |
 
 The finite premise is semantically meaningful even though the candidate mathlib theorem does not
-need it. Removing it is a domain-broadening mutation, not literal source identity.
+need it. Removing it is a domain-broadening mutation, not literal source identity. `Statement.lean`
+preserves it and kernel-checks its distinction from the broader shape.
 
 ## Pinned Lean candidate
 
@@ -45,9 +46,9 @@ by its short proof. `IntakeProbe.lean` checks the public declaration and prints 
 the observed list is `[propext, Classical.choice, Quot.sound]`.
 
 The file is pinned by the repository manifest and is a strong candidate for a later exact wrapper.
-This intake does not credit it as M0: no canonical target or expression fingerprint has been
-accepted, no source-to-formal identity review exists, and no exhaustive terminal-body, transitive
-dependency, provenance, placeholder, foundation, or TCB audit has run.
+This statement phase does not credit it as M0: the canonical target and expression fingerprint are
+provisional worker evidence, no source-to-formal identity review exists, and no exhaustive
+terminal-body, transitive dependency, provenance, placeholder, foundation, or TCB audit has run.
 
 The legacy file `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_061.lean` is explicitly labeled
 `THM-M-0433` and formalizes a Laurent Lafforgue statement shape. Its numeric slot is a legacy

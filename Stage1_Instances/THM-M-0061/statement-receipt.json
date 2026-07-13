@@ -1,0 +1,251 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0061-STATEMENT-WORKER-20260713",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "content_addressing_boundary": "This mutable unsigned worker receipt is not accepted validation authority. Master acceptance must recapture canonical content-addressed inputs, outputs, logs, recipes, and the accepted node receipt.",
+  "item_id": "S56-M-0061-STATEMENT",
+  "theorem_id": "THM-M-0061",
+  "phase": "statement",
+  "intent": "prove",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "base_revision": "ebd5f75831296a8a35e7b33013b964f2baf31bb9",
+  "base_tree": "d1e4bc83c803eefcd9898aac57352265a29f0658",
+  "worker_reference": "isolated Stage1 rev-5.6 automation clone slot8",
+  "worktree_state": "nonrelease_dirty_due_to_scoped_statement_artifacts_and_the_preexisting_automation_lake_symlink",
+  "preexisting_untracked_paths": [
+    "Formalizations/Lean/.lake"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0061/README.md",
+    "Stage1_Instances/THM-M-0061/Statement.lean",
+    "Stage1_Instances/THM-M-0061/check_statement.py",
+    "Stage1_Instances/THM-M-0061/instance.json",
+    "Stage1_Instances/THM-M-0061/scope-map.md",
+    "Stage1_Instances/THM-M-0061/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0061/statement-receipt.json",
+    "Stage1_Instances/THM-M-0061/statement-validation.md",
+    "Stage1_Instances/THM-M-0061/statement.json",
+    "Stage1_Instances/THM-M-0061/validation.md"
+  ],
+  "diff_summary": "Added an exact Lean statement, checked Fintype-cardinality transport, four mutation classes, three boundary implications, structured statement metadata, a scoped validator, and provisional evidence; reconciled the planned public dossier without editing the task DAG or authoritative checklist.",
+  "exact_statements_added_or_changed": [
+    "Stage1Instances.THM_M_0061.LagrangeDivisibilityTarget: forall G : Type u with Group G and Finite G, forall H : Subgroup G, Nat.card H divides Nat.card G.",
+    "Stage1Instances.THM_M_0061.LagrangeFintypeCardTarget: the checked Fintype.card alternate with an explicit Fintype.ofFinite instance for H."
+  ],
+  "source_revisions": {
+    "repository_base": "ebd5f75831296a8a35e7b33013b964f2baf31bb9",
+    "repository_base_tree": "d1e4bc83c803eefcd9898aac57352265a29f0658",
+    "lean": "4.29.0 at 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "canonical_declaration": "Stage1Instances.THM_M_0061.LagrangeDivisibilityTarget",
+  "statement_fingerprints": [
+    "sha256:adff72e9052ea17e3b6e4349c23028f35f4b8e3c610ea5f9f3b4fc02fe136836"
+  ],
+  "statement_file_sha256": "386d2d25cc7fe5f55f26438e1bc749eb5953e251b48591d3e47247b733bfdc7d",
+  "lean_output_sha256": "cb4d37bde1cf888d2d29ddbae630a78eb8cae0166dca86c98bb1ccacf2702f59",
+  "direct_imports": [
+    "Mathlib.Algebra.Group.Subgroup.Finite"
+  ],
+  "proof_body_locations": [],
+  "checked_transports": [
+    {
+      "declaration": "Stage1Instances.THM_M_0061.lagrangeDivisibilityTarget_iff_fintypeCardTarget",
+      "relationship": "iff",
+      "reported_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedFiniteness",
+      "expression_sha256": "9825de6e6aa8e6ca450954342ba2e4e7da3a4ecb984db868112405d518a6e4fe",
+      "result": "distinct fully explicit expression; Lean rejects using the canonical target as the stronger arbitrary-group mutation"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedToAdditiveDomain",
+      "expression_sha256": "9b4de456cc28c0320386b7d46f114bb23584aaf3ed5e7f62b5eea6c918cfa9df",
+      "result": "distinct fully explicit expression; Lean rejects using the additive-domain mutation as the canonical target"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationExistentialSubgroup",
+      "expression_sha256": "3ee4f0c5f015c4110e95ab40449cc0afea6fb4f0c81e147a4b4aa527259ea8a6",
+      "result": "distinct fully explicit expression; Lean rejects using the existential-subgroup mutation as the canonical target"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationExcludedTrivialGroup",
+      "expression_sha256": "283c665cf036a1a0b4fcc43d4aca9d665f1ed20dcc10c1d80e9d5f44c3728650",
+      "result": "distinct fully explicit expression; Lean rejects using the nontrivial-group-only mutation as the canonical target"
+    }
+  ],
+  "boundary_results": [
+    "target_includes_order_one_group checks that groups of cardinality one are not excluded",
+    "target_includes_bottom_subgroup specializes the canonical binder to the bottom subgroup",
+    "target_includes_top_subgroup specializes the canonical binder to the top subgroup"
+  ],
+  "axiom_and_placeholder_result": "No canonical target proof or bodyless declaration is introduced. The checked cardinality transport and boundary implications report only propext, Classical.choice, and Quot.sound. The scoped prohibited-declaration scan has no match for sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declarations.",
+  "canonical_obligation_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "accepted_receipt_ids": [],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The intake already classified a usable statement interface as M3. This phase replaces the open candidate shape by an exact elaborated expression and checked encoding transport, but supplies no proof body or accepted M0 evidence.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_downstream_gate": "S56-M-0061-ANCHOR_AUDIT: formal candidates, terminal proof bodies, transitive dependencies, provenance, placeholders, axioms, and trust remain unaudited",
+  "remaining_root_cut_set": [
+    "S56-M-0061-ANCHOR_AUDIT",
+    "S56-M-0061-OBLIGATION_TREE",
+    "S56-M-0061-PROOF",
+    "S56-M-0061-VALIDATION",
+    "S56-M-0061-RELEASE"
+  ],
+  "known_failures": [
+    "Master acceptance of S56-M-0061-STATEMENT is pending.",
+    "No immutable pinpoint primary proof source, definition/assumption/errata mapping, or independent H0 review is accepted.",
+    "The arbitrary-group mathlib theorem, additive analogue, quotient-product identity, and subgroup-index form remain uncredited pending the anchor and source audits.",
+    "Formal candidate and terminal proof-body provenance/trust audit, obligation registry, typed graphs, proof, composition, readable reconstruction, hermetic replay, deterministic bundle, and independent release verification remain open.",
+    "The inherited intake checker and provisional intake receipt freeze the earlier intake snapshot and are historical evidence, not current statement validation."
+  ],
+  "validation_recipes": [
+    {
+      "recipe_id": "THM-M-0061-statement-lean",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0061/Statement.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact SHA-256 cb4d37bde1cf888d2d29ddbae630a78eb8cae0166dca86c98bb1ccacf2702f59"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0061-STATEMENT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0061.LagrangeDivisibilityTarget"
+      ]
+    },
+    {
+      "recipe_id": "THM-M-0061-statement-validator",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "python3",
+        "../../Stage1_Instances/THM-M-0061/check_statement.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 90,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "parsed fingerprint, import deletion, mutation, transport, boundary, item identity, metadata, receipt, and pinned environment fields must agree"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0061-STATEMENT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0061.LagrangeDivisibilityTarget",
+        "Stage1Instances.THM_M_0061.lagrangeDivisibilityTarget_iff_fintypeCardTarget"
+      ]
+    }
+  ],
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, and execution skill passed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0061"],
+      "exit_code": 0,
+      "result": "rank 1093; planned; no accepted legacy artifact; theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0061/Statement.lean"],
+      "exit_code": 0,
+      "result": "canonical target, checked Fintype-cardinality transport, four guarded mutation rejections, three boundary implications, axiom reports, and fully explicit expression elaborated; stdout SHA-256 cb4d37bde1cf888d2d29ddbae630a78eb8cae0166dca86c98bb1ccacf2702f59"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "../../Stage1_Instances/THM-M-0061/check_statement.py"],
+      "exit_code": 0,
+      "result": "expression/source/output hashes, sole import deletion, four mutation fingerprints, transport, boundaries, authority item, metadata, worker packet, repository base, toolchain, and mathlib pin agree"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-m", "json.tool", "<each owned JSON and .stage1-worker-selftest.json>"],
+      "exit_code": 0,
+      "result": "all finalized structured artifacts are valid JSON"
+    },
+    {
+      "cwd": ".",
+      "argv": ["rg", "-n", "<prohibited declaration pattern>", "Stage1_Instances/THM-M-0061", "--glob", "*.lean"],
+      "exit_code": 1,
+      "result": "expected no-match exit: no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0061", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "no whitespace errors; per-new-file no-index checks also produced no diagnostics"
+    }
+  ],
+  "support_state": "worker_self_tested_pending_master_acceptance",
+  "supersession_state": "current provisional statement worker receipt",
+  "validated_at": "2026-07-13 Asia/Shanghai",
+  "review_due": "at master integration and on every invalidation input change",
+  "invalidation_inputs": [
+    "Statement.lean, check_statement.py, statement.json, statement-validation.md, or this receipt",
+    "canonical group, finiteness, subgroup, cardinality, divisibility, universe, binder, or boundary scope",
+    "source selection, correction, or erratum",
+    "Lean toolchain, lake-manifest.json, mathlib revision, or direct import",
+    "foundation, TCB, computation, serialization, validator, or rev-5.6 statement policy",
+    "any reconciled owned public artifact"
+  ],
+  "incident_path": "The integration lane rejects or supersedes this report and requires a fresh scoped statement self-test.",
+  "status_boundary": "Worker statement proposal only. This provisional receipt is not content-addressed, signed, or master-accepted and asserts no proof, audit completion, or theorem completion."
+}

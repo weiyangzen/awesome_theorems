@@ -12,20 +12,21 @@ arbitrary subgroup `H <= G`. The conclusion is divisibility in the natural numbe
 properness, nontriviality, commutativity, cyclicity, or chosen coset-representative hypothesis is
 part of the claim.
 
-## Lean encoding decisions reserved for statement
+## Frozen Lean encoding
 
-The likely faithful Lean shape is `{G : Type u} [Group G] [Finite G] (H : Subgroup G)` with
-conclusion `Nat.card H ∣ Nat.card G`. The statement phase must nevertheless freeze and test:
+The canonical declaration is `Stage1Instances.THM_M_0061.LagrangeDivisibilityTarget`:
+`forall (G : Type u) [Group G] [Finite G] (H : Subgroup G), Nat.card H ∣ Nat.card G`.
+The ordered universe and binders, sole direct import, fully explicit elaborated expression, and
+environment are fingerprinted in `statement.json` and `statement-receipt.json`.
 
-- the universe and exact ordered binders;
-- `Finite G` versus `Fintype G`, including any noncomputable instance conversion;
-- `Nat.card` versus `Fintype.card` and checked transports between them;
-- whether the root is a named proposition, theorem declaration, or both;
-- the minimal import and normalized expression/environment fingerprints;
-- whether the additive theorem is merely excluded or recorded as a checked alternate encoding;
-- removed-finiteness, changed-domain, changed-binder-scope, and boundary mutations.
+`lagrangeDivisibilityTarget_iff_fintypeCardTarget` checks the alternate `Fintype.card` encoding.
+The additive theorem remains excluded rather than credited. The statement suite separately
+elaborates mutations that remove finiteness, change to additive groups, replace the arbitrary
+subgroup binder by an existential one, and exclude groups of order one. Lean rejects term-level
+substitution at the relevant boundary, and the validator requires distinct explicit expressions.
 
-These are encoding choices, not permission to weaken or broaden the source claim.
+This is provisional statement evidence pending master acceptance, not permission to weaken or
+broaden the source claim and not proof evidence.
 
 ## Boundary cases included
 

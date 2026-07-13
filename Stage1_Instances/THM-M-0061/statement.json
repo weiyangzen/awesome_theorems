@@ -1,0 +1,123 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0061-STATEMENT",
+  "theorem_id": "THM-M-0061",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "catalog_finite_group_divisibility_scope_elaborated_pending_master_and_independent_source_review",
+  "canonical_statement": "For every finite multiplicative group G and every subgroup H of G, the natural-number order of H divides the natural-number order of G.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0061/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0061.LagrangeDivisibilityTarget",
+    "elaborated_expression_sha256": "adff72e9052ea17e3b6e4349c23028f35f4b8e3c610ea5f9f3b4fc02fe136836",
+    "statement_file_sha256": "386d2d25cc7fe5f55f26438e1bc749eb5953e251b48591d3e47247b733bfdc7d",
+    "fully_explicit_expression": "∀ (G : Type u) [inst : Group.{u} G] [Finite.{u + 1} G] (H : @Subgroup.{u} G inst),\n  @Dvd.dvd.{0} Nat Nat.instDvd (Nat.card.{u} ↥H) (Nat.card.{u} G)"
+  },
+  "domain_and_universes": "G : Type u in an arbitrary universe; Group G and Finite G are ordered typeclass binders; H : Subgroup G is an explicit universal binder; the target is Prop.",
+  "ordered_binders": [
+    "u (universe parameter)",
+    "G : Type u (explicit universal)",
+    "Group G (typeclass binder)",
+    "Finite G (typeclass binder)",
+    "H : Subgroup G (explicit universal)"
+  ],
+  "hypotheses": [
+    "G carries a multiplicative group structure",
+    "the carrier of G is finite",
+    "H is an arbitrary subgroup of that same G"
+  ],
+  "conclusion": "Nat.card H divides Nat.card G in Nat.",
+  "direct_imports": [
+    "Mathlib.Algebra.Group.Subgroup.Finite"
+  ],
+  "minimal_import_basis": "This single statement-vocabulary module supplies finite subgroups, Nat.card/Fintype.card interfaces, and bottom/top subgroup boundary notation. Deleting it makes the module fail to elaborate. The proof-bearing Mathlib.GroupTheory.Coset.Card module is deliberately not imported or credited at this phase.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0061.LagrangeFintypeCardTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0061.lagrangeDivisibilityTarget_iff_fintypeCardTarget",
+      "boundary": "The alternate replaces Finite G and both Nat.card occurrences by Fintype G, an explicit Fintype.ofFinite H, and Fintype.card. It does not change the group, subgroup, universe, binder order, or divisibility conclusion."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the stronger arbitrary-group Nat.card theorem without the catalog's explicit finite premise",
+    "the additive-group analogue",
+    "the quotient-cardinality product identity",
+    "the subgroup-index formula"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0061/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedFiniteness",
+        "expression_sha256": "9825de6e6aa8e6ca450954342ba2e4e7da3a4ecb984db868112405d518a6e4fe"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedToAdditiveDomain",
+        "expression_sha256": "9b4de456cc28c0320386b7d46f114bb23584aaf3ed5e7f62b5eea6c918cfa9df"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationExistentialSubgroup",
+        "expression_sha256": "3ee4f0c5f015c4110e95ab40449cc0afea6fb4f0c81e147a4b4aa527259ea8a6"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludedTrivialGroup",
+        "expression_sha256": "283c665cf036a1a0b4fcc43d4aca9d665f1ed20dcc10c1d80e9d5f44c3728650"
+      }
+    ],
+    "method": "All four mutations elaborate, Lean rejects term-level substitution in the direction that could falsely credit the mutation as the canonical target via #check_failure, and the validator requires five pairwise-distinct fully explicit expression fingerprints."
+  },
+  "degenerate_cases": {
+    "included": [
+      "groups of order one",
+      "the bottom subgroup",
+      "the top subgroup",
+      "arbitrary normal, nonnormal, proper, and improper subgroups of arbitrary finite groups"
+    ],
+    "excluded": [],
+    "checked_witnesses": [
+      "Stage1Instances.THM_M_0061.target_includes_order_one_group",
+      "Stage1Instances.THM_M_0061.target_includes_bottom_subgroup",
+      "Stage1Instances.THM_M_0061.target_includes_top_subgroup"
+    ]
+  },
+  "environment_fingerprint": {
+    "base_revision": "ebd5f75831296a8a35e7b33013b964f2baf31bb9",
+    "base_tree": "d1e4bc83c803eefcd9898aac57352265a29f0658",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "f6b8c03be67cd42c56ed60499ff8f4c86af20caa4ea2e3eb3f7663535a9f4ac5",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "authority_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:28eb9d142682dc5d19223b1a5bb8ceda64581fc504b5f734802a8429c9239814",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:e297091cb871f11918383207802459a86b5762794cee119e8d78c3a19fd5fa24",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked cardinality transport and boundary implications report only propext, Classical.choice, and Quot.sound; no custom axiom or root inhabitant is introduced. Full transitive trust closure remains downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The sole import provides statement vocabulary; the Lagrange proof body, transitive dependencies, and trust remain for anchor audit and validation.",
+  "computation_profile": "No enumeration of a finite group, native computation, computer algebra, experiment, oracle, or unchecked certificate is used or credited.",
+  "source_fidelity_boundary": "The exact catalog sentence fixes the ordinary finite multiplicative-group divisibility claim. No immutable pinpoint proof source, incorporated-definition and errata map, or independent H0 review is accepted, so H remains H1.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration and one cardinality-interface transport only. This artifact contains no inhabitant of LagrangeDivisibilityTarget and supplies no proof, anchor audit, H0, M0, R0, audit completion, theorem completion, or master acceptance."
+}

@@ -1,13 +1,14 @@
-# Intake validation
+# Intake and statement validation boundary
 
 Base revision: `c5f6fb269f6eb84efa935ee66c4e9bab92495e61`; base tree:
 `7a41063c920c1b9cb849aa35c2f02ec4a4733655`.
 
-This validation covers target membership, the planned dossier and open task DAG, repository-source
+The historical intake validation below covers target membership, the planned dossier and open task DAG, repository-source
 provenance, exact human scope and non-substitution boundaries, pinned environment identity, a
 narrow Lean API/finite-scope probe, JSON integrity, prohibited-construct hygiene, and whitespace.
-It does not validate a canonical Lean declaration, expression fingerprint, source proof, or proof
-closure; those are downstream gates.
+The current statement validation is recorded separately in `statement-validation.md`; it now
+kernel-elaborates and fingerprints the canonical declaration and checked cardinality transport.
+Neither record validates a source proof, theorem proof, or proof closure.
 
 The preflight worktree contained only the automation-provided untracked
 `Formalizations/Lean/.lake` symlink to canonical pinned artifacts. It was used read-only. No
@@ -62,13 +63,14 @@ All repository commands ran at the repository root on 2026-07-13 Asia/Shanghai u
 | per-file `git diff --no-index --check /dev/null` for every owned file and root packet | 0 aggregate | no whitespace diagnostics; new-file difference exit is ignored |
 | `git diff --check -- Stage1_Instances/THM-M-0061 .stage1-worker-selftest.json` | 0 | no tracked-diff whitespace diagnostics; untracked files covered by the preceding checks |
 
-## Known downstream failures
+## Historical intake failures and current boundary
 
 - No primary source edition, theorem/page, definitions, proof passage, correction/errata decision,
   source-to-node mapping, or independent H0 review is accepted.
-- No canonical Lean declaration or normalized expression/environment fingerprint is frozen.
-- `Finite`/`Nat.card` versus `Fintype`/`Fintype.card`, the additive boundary, alternate transports,
-  and the required statement mutations remain open.
+- The statement phase now freezes the canonical Lean declaration, normalized expression and
+  environment fingerprints, checks the `Finite`/`Nat.card` versus `Fintype`/`Fintype.card`
+  transport, excludes the additive substitution, and runs all four required mutation classes.
+  Master acceptance of that provisional statement evidence remains open.
 - The close pinned theorem deliberately has a stronger domain than the finite catalog claim; it has
   not undergone exact wrapper identity, terminal-body, transitive provenance, placeholder, axiom,
   or complete TCB audit.
@@ -76,12 +78,12 @@ All repository commands ran at the repository root on 2026-07-13 Asia/Shanghai u
   reconstruction, hermetic replay, deterministic evidence bundle, independent verification,
   release, and master acceptance remain open.
 
-These failures prevent statement, audit-completion, and theorem-completion claims. They do not
-invalidate a truthful self-tested `planned` intake. Only the integration lane may accept the
-provisional worker receipt.
+The remaining failures prevent audit-completion and theorem-completion claims. They do not
+invalidate a truthful self-tested `planned` dossier. Only the integration lane may accept the
+provisional statement receipt.
 
 ## Status boundary
 
-This is provisional worker self-test evidence for `S56-M-0061-INTAKE` only. It supports a planned
-dossier, not an accepted node receipt. No H0, M0, R0, accepted proof state, audit completion,
-theorem completion, or master acceptance is claimed.
+The command table above is the historical intake record. Current statement evidence lives in
+`statement-validation.md` and remains provisional. No H0, M0, R0, accepted proof state, audit
+completion, theorem completion, or master acceptance is claimed.

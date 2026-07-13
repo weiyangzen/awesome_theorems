@@ -1,0 +1,142 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0067-INTAKE-WORKER-20260713",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "item_id": "S56-M-0067-INTAKE",
+  "theorem_id": "THM-M-0067",
+  "phase": "intake",
+  "intent": "intake",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "rev-5.6 integration lane",
+  "base_revision": "9a1ce196889e32911beeeffa685084b48a969866",
+  "base_tree": "00d5c1749015f44fb0c5694181253c3a08db5d47",
+  "worktree_state": "nonrelease_dirty_due_to_owned_untracked_intake_artifacts_and_a_preexisting_automation_lake_symlink",
+  "preexisting_untracked_paths": ["Formalizations/Lean/.lake"],
+  "validated_scope": "planned theorem dossier, scope map, source-statement crosswalk, three pinned formal leads, non-substitution boundary, and six-node open downstream task DAG only",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0067/README.md",
+    "Stage1_Instances/THM-M-0067/instance.json",
+    "Stage1_Instances/THM-M-0067/scope-map.md",
+    "Stage1_Instances/THM-M-0067/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0067/task-dag.json",
+    "Stage1_Instances/THM-M-0067/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0067/check_intake.py",
+    "Stage1_Instances/THM-M-0067/validation.md",
+    "Stage1_Instances/THM-M-0067/intake-receipt.json"
+  ],
+  "diff_summary": "Created a nine-file fail-closed planned intake dossier; no existing or foreign target path was modified.",
+  "exact_statement_change": "No exact mathematical or Lean statement was added. The intake freezes the received Maschke family, missing source and complete-reducibility choices, pinned formal leads, and non-substitution boundary while keeping the canonical target null.",
+  "source_revision_and_proof_body_summary": "Repository provenance and three pinned mathlib Maschke/semisimplicity interfaces are recorded. No human source is accepted to H0, no candidate is transported to a canonical root, and no proof body is credited.",
+  "ownership_and_change_impact": "Only Stage1_Instances/THM-M-0067 and the scheduler-authorized root self-test handoff are changed; no shared authority, generated checklist, execution-DAG state, other target, dependency, or .lake artifact is modified.",
+  "commands_and_results": [
+    {
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, and execution skill presence passed"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0067"],
+      "exit_code": 0,
+      "result": "rank 1098; planned; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": ["git", "status", "--short", "--untracked-files=all"],
+      "exit_code": 0,
+      "result": "initial status contained only the pre-existing automation-provided Formalizations/Lean/.lake symlink; preserved read-only"
+    },
+    {
+      "argv": ["git", "blame", "-L", "498,503", "--", "Docs/researches/math_theorems.md"],
+      "exit_code": 0,
+      "result": "all six uncited catalog fields originate at repository commit bcf3f9fa79ab8c2b6610c9875668c2589b35b74f"
+    },
+    {
+      "argv": ["bash", "-lc", "for doi in 10.1007/BF01448063 10.1007/BF01444297; do curl -fsSL --max-time 30 \"https://api.crossref.org/works/$doi\" | jq -c '{DOI:.message.DOI,title:.message.title,author:.message.author,container:.message[\"container-title\"],volume:.message.volume,issue:.message.issue,page:.message.page,published:.message.published}'; done"],
+      "exit_code": 0,
+      "result": "Crossref returned both 1898 Maschke records with author, title, journal, volume/issue, pages, and publication dates; source relevance and the catalog's 1899 date discrepancy remain open"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0067/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "six Maschke and semisimple-representation APIs plus exact candidate instance synthesis elaborated; five named declarations, including the primary instance and representation/module bridge, report only propext, Classical.choice, and Quot.sound; no canonical target or proof credit asserted"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0067/instance.json"],
+      "exit_code": 0,
+      "result": "structured instance JSON is valid"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0067/task-dag.json"],
+      "exit_code": 0,
+      "result": "open task DAG JSON is valid"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0067/intake-receipt.json"],
+      "exit_code": 0,
+      "result": "provisional receipt JSON is valid before final worker-packet validation"
+    },
+    {
+      "env": {"PYTHONPYCACHEPREFIX": "/tmp/stage1-thm-m-0067-pycache"},
+      "argv": ["python3", "-m", "py_compile", "Stage1_Instances/THM-M-0067/check_intake.py"],
+      "exit_code": 0,
+      "result": "validator compiled with PYTHONPYCACHEPREFIX outside the owned path"
+    },
+    {
+      "argv": ["bash", "-lc", "if rg -n --glob '*.lean' '\\b(sorry|admit|sorryAx)\\b|^[[:space:]]*(axiom|constant|opaque)\\b|\\bunsafe\\b' Stage1_Instances/THM-M-0067; then exit 1; else echo 'prohibited Lean construct scan: no matches'; fi"],
+      "exit_code": 0,
+      "result": "the inner rg returned the expected no-match status; no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration occurs in the API-only probe"
+    },
+    {
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0067/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "manifest and authoritative-DAG identity, H1/M3/R4 planned boundary, null target, source and pin hashes, receipt packet, exact owned inventory, and six open tasks agree"
+    },
+    {
+      "argv": ["bash", "-lc", "for f in .stage1-worker-selftest.json Stage1_Instances/THM-M-0067/*; do [ -f \"$f\" ] || continue; rc=0; out=$(git diff --no-index --check /dev/null \"$f\" 2>&1) || rc=$?; if [ \"$rc\" -gt 1 ] || [ -n \"$out\" ]; then printf '%s\\n' \"$out\"; exit 1; fi; done"],
+      "exit_code": 0,
+      "result": "every new owned file and the worker packet had no whitespace diagnostics; git diff --no-index status 1 was accepted only as the expected content difference"
+    },
+    {
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0067", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "ordinary tracked-diff check emitted no diagnostics"
+    }
+  ],
+  "root_vector_before": {"H": "unclassified", "M": "unclassified", "R": "unclassified"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "debt_delta_basis": "H1 records a named classical theorem family without a primary source crosswalk or independent review. M3 records direct usable formal interfaces without an exact canonical target or accepted complete-reducibility transport. R4 records that no source-faithful proof reconstruction exists.",
+  "axiom_and_placeholder_result": "No target theorem declaration or proof body was added. The scoped Lean scan found no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration. Five inspected Maschke declarations, including the primary instance and representation/module bridge, report [propext, Classical.choice, Quot.sound]; exact transitive trust acceptance remains downstream.",
+  "accepted_receipt_ids": [],
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "S56-M-0067-STATEMENT: exact source-statement identity and complete-reducibility formulation are unresolved",
+  "retry_condition": "Preserve and independently review a primary or authoritative source passage; fix the scalar domain, finite-dimensionality, finiteness and characteristic encodings, complete-reducibility convention, binder order, and boundary cases; then elaborate and mutation-test one exact Lean expression with checked transports.",
+  "remaining_root_cut_set": [
+    "S56-M-0067-STATEMENT",
+    "S56-M-0067-ANCHOR_AUDIT",
+    "S56-M-0067-OBLIGATION_TREE",
+    "S56-M-0067-PROOF",
+    "S56-M-0067-VALIDATION",
+    "S56-M-0067-RELEASE"
+  ],
+  "known_failures": [
+    "The repository catalog supplies no primary source title or theorem passage for its Heinrich Maschke/1899 attribution. Two 1898 bibliographic candidates are recorded, but their primary text, exact relevance, definitions, assumptions, proof boundary, translation, errata, date discrepancy, and independent review remain open.",
+    "The scalar domain, finite-dimensionality, finiteness and group-order encodings, characteristic premise, meaning of complete reducibility, binder order, and boundary cases are unresolved.",
+    "Pinned mathlib contains direct complemented-subrepresentation and group-algebra Maschke declarations, but none is accepted as the canonical catalog target; the module says the usual finite-dimensional direct-sum-of-irreducibles form remains future work.",
+    "Statement mutations, exhaustive anchor and provenance audits, obligation registry, typed graphs, proof and composition credit, readable reconstruction, hermetic replay, independent verification, master acceptance, audit completion, and theorem completion remain open."
+  ],
+  "status_boundary": "Provisional self-tested worker evidence for the planned intake only. It is not a node acceptance receipt and claims no canonical target, H0, M0, R0, audit completion, theorem completion, or master acceptance."
+}
