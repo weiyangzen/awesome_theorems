@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1003-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1003-VALIDATION",
+  "theorem_id": "THM-M-1003",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1003/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs under Bubblewrap with an unshared network namespace, a read-only host root, fixed locale/timezone/thread settings, trust level zero, and a fresh writable temporary module directory.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1003-ROOT",
+    "M1003-S-DEFINITIONS",
+    "M1003-S-BOUNDARY",
+    "M1003-S-FOUNDATION",
+    "M1003-N-L1-BOUND",
+    "M1003-B-ENDPOINTS",
+    "M1003-C-LIMIT",
+    "M1003-L-AE-LIMIT",
+    "M1003-L-LIMIT-MEMLP",
+    "M1003-L-COND-REP",
+    "M1003-L-COND-APPROX",
+    "M1003-T-CANDIDATE",
+    "M1003-T-SAME-EXPONENT",
+    "M1003-T-ASSEMBLE",
+    "M1003-X-SOURCE",
+    "M1003-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1003.LpMartingaleConvergenceTarget",
+    "Stage1Instances.THM_M_1003.root_of_limit_packages",
+    "Stage1Instances.THM_M_1003.Proof.convexOn_univ_norm_rpow",
+    "Stage1Instances.THM_M_1003.Proof.continuous_norm_rpow",
+    "Stage1Instances.THM_M_1003.Proof.eLpNorm_condExp_le",
+    "Stage1Instances.THM_M_1003.Proof.boundedCondExpTendstoLp",
+    "Stage1Instances.THM_M_1003.Proof.unifIntegrableOfAeBound",
+    "Stage1Instances.THM_M_1003.Proof.memLpTendstoCondExp",
+    "Stage1Instances.THM_M_1003.Proof.uniformL1Bound",
+    "Stage1Instances.THM_M_1003.Proof.limitCandidate",
+    "Stage1Instances.THM_M_1003.Proof.candidatePackage",
+    "Stage1Instances.THM_M_1003.Proof.uniformL1UI",
+    "Stage1Instances.THM_M_1003.Proof.sameExponentNormCanonical",
+    "Stage1Instances.THM_M_1003.Proof.sameExponentPackage",
+    "Stage1Instances.THM_M_1003.Proof.target",
+    "Stage1Instances.THM_M_1003.Validation.exactRootTypeProbe"
+  ],
+  "allowed_observed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "release_grade": false,
+  "scope_boundary": "Network-isolated trust-zero temporary-source replay over the existing pinned warm dependency closure, exact-type and transitive-sorry probes, frozen hashes, and selected direct provenance. Proof master acceptance, an accepted theorem-specific foundation/TCB profile, complete transitive provenance, clean-checkout empty-cache offline reproduction, and distinct-runner independent verification are evaluated fail-closed."
+}
