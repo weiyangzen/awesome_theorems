@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1055-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1055-VALIDATION",
+  "theorem_id": "THM-M-1055",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1055/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs with --trust=0 inside bubblewrap --unshare-net. The root filesystem and canonical pinned dependency/toolchain inputs are read-only; only a fresh temporary module directory is writable. This is warm node-scoped replay, not a clean-checkout empty-cache release reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-1055 narrow validation"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1055-ROOT",
+    "M1055-S-DEFINITIONS",
+    "M1055-S-BOUNDARY",
+    "M1055-S-FOUNDATION",
+    "M1055-A-EXTERNAL-INTEGRATION",
+    "M1055-L-POINTWISE-LIMIT",
+    "M1055-L-LIMIT-MEASURABLE",
+    "M1055-L-LIMIT-INVARIANT",
+    "M1055-L-ERGODIC-CONSTANCY",
+    "M1055-L-INTEGRAL-IDENTIFICATION",
+    "M1055-T-INVARIANT-LIMIT",
+    "M1055-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1055.BirkhoffErgodicTarget",
+    "Stage1Instances.THM_M_1055.root_of_invariantLimitPackage",
+    "ErgodicTheory.setIntegral_birkhoffSum_pos_nonneg",
+    "ErgodicTheory.condExp_invariants_comp",
+    "ErgodicTheory.condExp_invariants_comp_self",
+    "ErgodicTheory.ae_tendsto_orbit_div_atTop_zero",
+    "ErgodicTheory.tendsto_birkhoffAverage_ae",
+    "ErgodicTheory.tendsto_birkhoffAverage_ae_integral",
+    "Stage1Instances.THM_M_1055.invariantLimitPackage_proof",
+    "Stage1Instances.THM_M_1055.birkhoffErgodicTarget",
+    "Stage1Instances.THM_M_1055.Validation.differentialBirkhoffErgodicTarget"
+  ],
+  "scope_boundary": "Network-isolated, trust-zero, node-scoped worker replay of the exact root and locally ported terminal bodies against existing pinned warm artifacts, plus direct trust/provenance observations and a same-worker differential wrapper. Proof master acceptance, frozen-route reconciliation, clean empty-cache offline reproduction, complete TCB/provenance, and distinct-runner independent verification remain fail-closed."
+}
