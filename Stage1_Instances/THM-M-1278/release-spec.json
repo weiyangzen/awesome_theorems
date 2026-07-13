@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1278-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1278-RELEASE",
+  "theorem_id": "THM-M-1278",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1278/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker invokes the existing validation recipe, whose four Lean elaborations run through bubblewrap --unshare-net. It makes no network request and does not mutate .lake. Reusing the shared warm pinned cache is explicitly nonrelease evidence, not a cold hermetic build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact five-line PASS/BLOCKED negative release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1278-ROOT",
+    "M1278-S-DEFINITIONS",
+    "M1278-S-AREA",
+    "M1278-S-FINITE",
+    "M1278-S-FOUNDATION",
+    "M1278-N-SUBTRACT-MEAN",
+    "M1278-N-ZERO-MEAN",
+    "M1278-N-ENERGY",
+    "M1278-N-EXP-SHIFT",
+    "M1278-T-SHIFT",
+    "M1278-L-SHARP-ONOFRI",
+    "M1278-L-SOURCE-ROUTE",
+    "M1278-T-COMPOSE",
+    "M1278-X-SOURCE",
+    "M1278-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1278.OnofriInequality",
+    "Stage1Instances.THM_M_1278_Obligations.Root",
+    "Stage1Instances.THM_M_1278_Obligations.exists_subtract_mean",
+    "Stage1Instances.THM_M_1278_Obligations.dirichletEnergy_subtractMean",
+    "Stage1Instances.THM_M_1278_Validation.independentlyExistsSubtractMean",
+    "Stage1Instances.THM_M_1278_Validation.independentlyDirichletEnergyInvariant"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation plus replay of the existing network-denied warm-cache validation recipe. The checker validates the exact blocked verdict and two partial obligations; it does not supply canonical-root closure, accepted H0/R0, immutable clean input, a cold empty-cache or offline build, complete provenance/TCB/SBOM closure, distinct signed runners, an independently implemented verifier, a deterministic release bundle, or master acceptance."
+}
