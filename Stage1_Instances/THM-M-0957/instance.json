@@ -1,0 +1,196 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0957",
+  "item_id": "S56-M-0957-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1491,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Behrend构造",
+  "name_en": "Behrend construction",
+  "canonical_name": "Behrend lower-bound construction for three-term-progression-free integer sets",
+  "category": "组合数学 / 计数组合",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "无3项等差数列的大集合",
+  "literal_source_claim_en": "Large sets without three-term arithmetic progressions.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "matching_primary_paper_and_pinned_formal_candidate_identified_but_source_admission_interval_transport_bound_form_and_exact_root_not_source_frozen",
+  "canonical_claim": null,
+  "statement_blocker": "The inspected source uses v(N) on the inclusive interval of nonnegative integers at most N and an eventual epsilon-dependent strict bound, while pinned mathlib uses rothNumberNat N on range N and an explicit all-N non-strict bound with constant 4. Independent source admission and checked interval, predicate, and bound transports are required before selecting an exact root.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Additive.AP.Three.Behrend",
+      "Mathlib.Combinatorics.Additive.AP.Three.Defs"
+    ],
+    "declaration_candidates": [
+      "Behrend.roth_lower_bound",
+      "Behrend.roth_lower_bound_explicit",
+      "Behrend.card_sphere_le_rothNumberNat",
+      "Behrend.threeAPFree_image_sphere",
+      "rothNumberNat_spec",
+      "threeAPFree_iff_eq_right"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_exact_source_statement_and_checked_transports",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open at canonical-target level: finite subsets of Nat in an inclusive or exclusive initial interval; cardinalities in Nat compared after casts to Real; real logarithm, square root, exponential or real powers; no higher universes expected, but all types and coercions remain to be source-frozen.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the source-reviewed root must choose the historical eventual epsilon-dependent lower bound, a checked modern explicit exponential lower bound, a direct existential-set formulation, or an exact checked relationship among them.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before the proposition is selected; statement review must resolve N=0/1, empty/singleton sets, repeated terms, reversed endpoints, epsilon=0, log N <= 0, cardinality rounding, and the sufficiently-large threshold.",
+  "candidate_scope_not_credited": [
+    "the original v(N) statement on nonnegative integers at most N",
+    "an existential finite-set statement with the historical asymptotic lower bound",
+    "Behrend.roth_lower_bound on mathlib's zero-based exclusive interval",
+    "Behrend.roth_lower_bound_explicit with threshold 4096",
+    "a checked implication from the explicit constant-4 bound to a selected eventual asymptotic form"
+  ],
+  "degenerate_cases_to_resolve": [
+    "N = 0 and N = 1",
+    "empty and singleton extremal sets",
+    "inclusive [0,N] versus exclusive range N",
+    "constant triples, repeated terms, and reversed endpoints",
+    "epsilon equal to zero or negative",
+    "logarithm at zero or one and zero square root",
+    "real lower bounds below one and Nat-to-Real rounding",
+    "strict versus non-strict inequality and the sufficiently-large threshold"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0947 Roth theorem or any upper bound on 3AP-free density",
+    "THM-M-0958 Elkin construction or later improved lower bounds",
+    "cap-set, sum-free, Sidon, Salem-Spencer existence-only, or fixed finite-witness results",
+    "ThreeAPFree or rothNumberNat_spec without the quantitative Behrend lower bound",
+    "a sphere or image-sphere lemma silently substituted for the selected quantitative root",
+    "an assumption, structure field, axiom, oracle, or unchecked computation containing the desired set or bound",
+    "the untrusted verified label or API probe used as accepted source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0947",
+      "name": "Roth定理",
+      "relationship": "an asymptotic upper-density theorem for 3AP-free sets, not Behrend's lower-bound construction"
+    },
+    {
+      "theorem_id": "THM-M-0958",
+      "name": "Elkin构造",
+      "relationship": "a later improvement of Behrend's construction and a separate target"
+    },
+    {
+      "theorem_id": "THM-M-0956",
+      "name": "Erdős-Turán构造",
+      "relationship": "a Sidon-set construction, not a 3AP-free Behrend bound"
+    }
+  ],
+  "source_status": "H1_matching_1946_primary_pages_inspected_and_displayed_claim_transcribed_but_immutable_admission_independent_review_errata_and_complete_mapping_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "F. A. Behrend, On Sets of Integers Which Contain No Three Terms in Arithmetical Progression, Proceedings of the National Academy of Sciences 32(12) (1946), 331-332, DOI 10.1073/pnas.32.12.331, PMCID PMC1078964",
+      "observed_crossref_record_sha256": "4bb5f9c40dd9902953b0ee7c9cc69dc6488da4bc7618cb1cae12c315e2a29fde",
+      "observed_pmc_page_sha256": "340b20bc54163e2183fd8657517ccab7bf5d787450336144cf5bea5bb2d9397e",
+      "observed_page_331_sha256": "fe479d874018a6b91949fd0e12e78fcca52a96f3b416f3d870129d8bb4eed62c",
+      "observed_page_332_sha256": "a39daa5b9856579752f1b56fa3df7982f29fa793d8c55759bfd3ec449afc485f",
+      "inspection_status": "Crossref, PMC metadata, and both scanned primary pages were inspected in temporary storage on 2026-07-13; the source was not added to the repository or admitted as immutable H0 evidence, and independent transcription review, complete definition and boundary mapping, correction and errata audit, and reviewer approval remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "modules": ["Mathlib.Combinatorics.Additive.AP.Three.Behrend"],
+      "declarations": ["Behrend.roth_lower_bound", "Behrend.roth_lower_bound_explicit"],
+      "boundary": "proof-bearing explicit lower bounds in the pinned closure, but exact source identity, indexing and asymptotic transport, terminal-body provenance, axioms, dependencies, and trust have not passed statement and anchor-audit gates"
+    },
+    {
+      "modules": ["Mathlib.Combinatorics.Additive.AP.Three.Behrend"],
+      "declarations": ["Behrend.sphere", "Behrend.map", "Behrend.threeAPFree_sphere", "Behrend.threeAPFree_image_sphere", "Behrend.card_sphere_le_rothNumberNat"],
+      "boundary": "construction and quantitative intermediate interfaces only; no root credit before the root and composition graph are frozen"
+    },
+    {
+      "modules": ["Mathlib.Combinatorics.Additive.AP.Three.Defs"],
+      "declarations": ["ThreeAPFree", "threeAPFree_iff_eq_right", "rothNumberNat", "rothNumberNat_spec"],
+      "boundary": "object model, Nat predicate characterization, and extremal-set realization; not the Behrend lower bound by themselves"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "a3b18eec39bf04be025b1641cae02f4d44fdf11a",
+    "repository_base_tree": "fdfff18dea4c6798c5b322b6088dfe556109c134",
+    "repository_record": "Docs/researches/math_theorems.md:6987-6992",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:26092-26117",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "75e29c1ae280b75e6a1b78c3658106332686beb1f9650f11d30c8624855233c4",
+    "execution_dag_sha256": "603f3aa25a89d483dfbd0c40ccea727937dd4630feab2773b19a124377178b39",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "behrend_source_sha256": "1f8c1813a75c722ee4d62d63185c53d0b52d27691e531c05e0ecb6c10c15cf65",
+    "three_ap_defs_source_sha256": "b325fb632a5398208995fa5beae71c47798086e588f98e46679aa81b923b28e3",
+    "mathlib_candidate_origin_commit": "6dea3c8f057ca9dbe08b7b65edae59374cb13211",
+    "mathlib_candidate_origin_tree": "f7052bb473b8658b4a33d7034eeba3bf91574491"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, real-analysis noncomputability, and acceptable axioms remain open until exact target and terminal dependency closure are audited",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; minimal imports, exact terminal declaration, transitive dependencies, accepted axiom set, and trust closure remain open",
+  "computation_profile": "No exhaustive search, numerical estimate, native-decide result, oracle, generated certificate, experiment, or unchecked computation is credited; the intended construction is kernel-checked but uses noncomputable real-analysis interfaces",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0957/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0957/README.md",
+    "Stage1_Instances/THM-M-0957/instance.json",
+    "Stage1_Instances/THM-M-0957/scope-map.md",
+    "Stage1_Instances/THM-M-0957/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0957/task-dag.json",
+    "Stage1_Instances/THM-M-0957/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0957/check_intake.py",
+    "Stage1_Instances/THM-M-0957/validation.md",
+    "Stage1_Instances/THM-M-0957/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned additive-combinatorics reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, immutable source admission, transcription or erratum finding, interval, nontrivial-progression predicate, extremal versus existential form, asymptotic versus explicit bound, constant, threshold, strictness, cast or boundary decision, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog record, inspected primary-source lead, proposition-changing scope decisions, neighbor exclusions, pinned proof-bearing candidate interfaces, and open task DAG. No accepted source packet, canonical proposition, exact Lean statement, candidate provenance or trust audit, proof credit, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

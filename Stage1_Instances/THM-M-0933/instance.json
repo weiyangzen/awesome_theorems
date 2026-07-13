@@ -1,0 +1,256 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0933",
+  "item_id": "S56-M-0933-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1472,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Olson定理",
+  "name_en": "Olson theorem",
+  "canonical_name": "Olson's Davenport-constant theorem family (exact proposition open)",
+  "category": "组合数学 / 计数组合",
+  "category_en": "combinatorics / enumerative combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "有限阿贝尔群的Davenport常数",
+  "literal_source_claim_en": "The Davenport constant of finite abelian groups.",
+  "source_attribution": "John Olson, 1969 (catalog metadata; primary-paper metadata lead located)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_modern_pinpointed_proof_of_the_finite_abelian_p_group_equality_and_original_Olson_1969_source_lead_located_but_catalog_root_selection_original_body_complete_mapping_corrections_and_independent_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_Olson_Davenport_constant_family_with_strong_p_group_source_candidate_but_catalog_gloss_does_not_select_one_truth_valued_root",
+  "canonical_claim": null,
+  "target_disposition": "requires_independently_reviewed_source_and_proposition_selection_before_exact_statement_elaboration",
+  "statement_blocker": "The repository gives a theorem-family name and the gloss 'the Davenport constant of finite abelian groups', not a proposition. It does not choose Olson's p-group equality D(G)=D*(G), the rank-at-most-two equality, the special value D((Z/nZ)^2)=2n-1, a direct forcing theorem, or an extremal zero-sum-free formulation. It also omits the definition of D(G), sequence/subsequence model, nonemptiness convention, additive versus multiplicative notation, group presentation and subclass, ordered binders, hypotheses, conclusion, and boundary cases. Selecting one candidate without accountable source approval would invent proposition-changing scope.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Algebra.BigOperators.Group.Multiset.Basic",
+      "Mathlib.Combinatorics.Additive.ErdosGinzburgZiv",
+      "Mathlib.GroupTheory.FiniteAbelian.Basic",
+      "Mathlib.GroupTheory.PGroup"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "AddCommGroup.equiv_directSum_zmod_of_finite",
+      "IsPGroup",
+      "IsPGroup.iff_card",
+      "Multiset.card",
+      "Multiset.card_le_card",
+      "Multiset.sum",
+      "ZMod.erdos_ginzburg_ziv_multiset"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_does_not_select_one_source_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix a finite additive abelian group or explicit finite invariant-factor decomposition; a prime and p-group predicate if applicable; the sequence carrier and finiteness model; universes; and all group, finite, decidability, decomposition, positivity, and divisibility data.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not select a value/equality for the Davenport constant, an upper/lower bound pair, a least-length forcing theorem, a maximal zero-sum-free theorem, or one checked equivalence among these forms.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; statement work must resolve the trivial group, empty decomposition, rank one, threshold and nonemptiness cases, duplicate and zero terms, p=2, non-p-groups, rank-three groups, and every representation boundary listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "for a finite abelian p-group G with invariant factors of prime-power order, D(G)=D*(G)=1+sum_i(n_i-1)",
+    "for a finite abelian group of rank at most two, D(G)=D*(G), including D(C_m direct-sum C_n)=m+n-1 when m divides n",
+    "the homocyclic rank-two specialization D((Z/nZ)^2)=2n-1",
+    "every sequence of at least the selected bound has a nonempty zero-sum subsequence",
+    "the maximum zero-sum-free sequence length equals the selected bound minus one"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the trivial group and an empty invariant-factor index type",
+    "cyclic rank one, repeated factors, and exponent-one or zero-exponent encodings",
+    "prime p=2 and whether p is an explicit binder or reconstructed from the group order",
+    "empty, singleton, exactly-threshold, and threshold-minus-one sequences",
+    "sequences containing zero, all-zero sequences, duplicate terms, and length-one zero sums",
+    "the empty subsequence and the requirement that the zero-sum witness be nonempty",
+    "list, multiset, finset, and finitely supported multiplicity sequence encodings",
+    "additive zero-sum versus multiplicative product-one notation",
+    "non-p-groups, rank-three groups, and decomposition presentations with different factor order",
+    "least-positive-number versus infimum/maximum definitions when no witness set has yet been proved nonempty"
+  ],
+  "excluded_substitutions": [
+    "the Olson constant for zero-sum-free subsets, the strong Davenport constant, or the large Davenport constant",
+    "the Erdos-Ginzburg-Ziv constant or a prescribed-length zero-sum theorem",
+    "the p-group equality substituted for a rank-two result, or the rank-two special case substituted for the p-group result",
+    "a finite-abelian-group structure theorem or p-group cardinality characterization advertised as the Davenport equality",
+    "a definition or structure that stores the forcing theorem, extremal sequence, or desired equality",
+    "computed values for finitely many groups, a search result, citation, title match, or the untrusted catalog status used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0931",
+      "name": "Erdős–Ginzburg–Ziv定理",
+      "relationship": "requires a zero-sum subsequence of prescribed length and has a different extremal constant"
+    },
+    {
+      "theorem_id": "THM-M-0932",
+      "name": "零和序列",
+      "relationship": "broad zero-sum topic supplies vocabulary but no inherited root or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0936",
+      "name": "Cauchy-Davenport定理",
+      "relationship": "sumset-cardinality theorem over a prime cyclic group, not the Davenport constant"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "David J. Grynkiewicz, A Generalization of the Chevalley-Warning and Ax-Katz Theorems with a View Towards Combinatorial Number Theory, arXiv:2208.12895v1, 26 August 2022",
+      "candidate_locator": "PDF pages 5 and 17-18; Theorem 1.5; reference [35]",
+      "candidate_summary": "defines D(G) and D*(G), states the finite abelian p-group equality, attributes it to Olson and van Emde Boas-Kruyswijk, and gives a complete modern proof",
+      "inspection_status": "versioned modern proof inspected and hashed; not the catalog-cited source because the catalog has no citation; exact catalog-root selection and independent review remain open"
+    },
+    {
+      "citation": "John E. Olson, A Combinatorial Problem on Finite Abelian Groups I, Journal of Number Theory 1(1) (1969), 8-10, DOI 10.1016/0022-314X(69)90021-3",
+      "candidate_locator": "Crossref, Elsevier, and CORE publisher metadata inspected on 2026-07-13; CORE abstract says the sequence problem is answered for p-groups",
+      "candidate_summary": "primary source lead for the p-group Davenport-constant result",
+      "inspection_status": "bibliographic and abstract metadata inspected; original article body, exact theorem notation, proof nodes, assumptions, corrections, errata, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.GroupTheory.FiniteAbelian.Basic",
+      "declarations": ["AddCommGroup.equiv_directSum_zmod_of_finite"],
+      "boundary": "finite abelian decomposition substrate only; no Davenport definition, zero-sum forcing bound, or equality"
+    },
+    {
+      "module": "Mathlib.GroupTheory.PGroup",
+      "declarations": ["IsPGroup", "IsPGroup.iff_card"],
+      "boundary": "multiplicative p-group predicate and cardinality characterization only; no additive zero-sum theorem"
+    },
+    {
+      "module": "Mathlib.Algebra.BigOperators.Group.Multiset.Basic",
+      "declarations": ["Multiset.sum", "Multiset.card", "Multiset.card_le_card"],
+      "boundary": "sequence sum, length, and submultiset substrate only"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Additive.ErdosGinzburgZiv",
+      "declarations": ["ZMod.erdos_ginzburg_ziv_multiset"],
+      "boundary": "exact pinned prescribed-length zero-sum theorem for a neighboring target, not an Olson/Davenport candidate"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "fb0baac89ea0633612be3b47448464b4b8e4bef7",
+    "repository_base_tree": "018557070da18ea1733a82de81a238750c59aa84",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "a95da813b7a5b1499202b8a89f2b2ff0e18c052686f74f7bb7e511f9790ff42b",
+    "stage0_projection_excerpt_sha256": "40da38a928ceb217acdd3f9fa3847c4892b029d281efbb742d7b0f6ffc06a6ef",
+    "manifest_entry_sha256": "71be7f2f69e890b4407e3961e17e2bf015be6f18d4b133a44e82c140d270c72c",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_targets_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "ae7f4edd81d797bd787af12e2e198aa65a9278b2344f90a2cbf237f1fe800acb",
+    "execution_dag_sha256": "4d99af637f1def5364e71db1878231719cac2f2c6a08f324ce2ca7cc1cb06e15",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean": "4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake": "5.0.0-src+98dc76e",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_symlink_target_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "mathlib_erdos_ginzburg_ziv_source_sha256": "13f8adfc07c9cffd89a0c2a2d3c265348b698fbf724d8b74e6de39434bbc79f7",
+    "mathlib_finite_abelian_basic_source_sha256": "02b8058bf2c84ec16e519370f60044def7ce5060432c30cd30fdb7849d45f648",
+    "mathlib_pgroup_source_sha256": "b31271f20e2dac9b518f8f2c2111c56628088a48788f4bfddc9e1c9b366f9dd0",
+    "mathlib_multiset_sum_source_sha256": "5081b23606593a57b680fd7ebc5ec1112bd7ab307e1f97c5e801457c72e7cb4e",
+    "modern_source": {
+      "arxiv_id": "2208.12895v1",
+      "observed_pdf_sha256": "7a6806ca2a5675d75c2e024faf8acc35a029bee6ce4b1889e1d77a3980ea4bb4",
+      "observed_pdf_bytes": 380049,
+      "observed_pdf_pages": 32,
+      "observed_layout_text_sha256": "08e3da29f114d62ab1ed1789fdc066de20a84ad9e9d00279732df710b13e58ef",
+      "arxiv_api_response_sha256": "8a9f3f3dd44518fccb9bfdbd6858ed46b943bc5929d81087d3ee4d52cc5984c4",
+      "locator": "PDF pages 5 and 17-18; Theorem 1.5; reference [35]",
+      "credit": "H1 source reconstruction lead only; catalog root selection and independent source review remain open"
+    },
+    "olson_primary_source_lead": {
+      "doi": "10.1016/0022-314X(69)90021-3",
+      "crossref_response_sha256": "07082971619b7d354306f4ad5f4cb57a94498b0ea0dd9bd433a6e286c0ed5b32",
+      "core_response_sha256": "eeb8c29dcf2cfbe07c1485d0e23dd72896b359df27c608721add250c52c22c7a",
+      "elsevier_response_sha256": "1201d924f64fd44d906bbd3dfdf27383bb0b238ba2577d49289f3996d35055e1",
+      "article_body_status": "not_retrieved_or_inspected",
+      "credit": "primary bibliographic and abstract lead only; not H0"
+    },
+    "published_ambiguity_crosschecks": {
+      "girard_2018_doi": "10.5802/jep.79",
+      "girard_source_sha256": "fd95cc02724f4aa545b4c073c26963690d3c071c9426a76b29bc108dac5a8ab8",
+      "girard_crossref_response_sha256": "d8071958aa765d018a731ef0347585e22e1e7ce082f6515e85a08e6cc06c0ff3",
+      "wang_2020_doi": "10.3934/math.2020193",
+      "wang_pdf_sha256": "f4017e11980dc55eacd1993e808956dd5ab72531da19c9ceb5cf6a0bff0556af",
+      "wang_layout_text_sha256": "88cc330f7065828c97b1f93b276f28ea467de7627681071cb5d7b914e2e8fafe",
+      "wang_crossref_response_sha256": "8b46e971b468ff4c7fdb449796c16cf89b13602fd258fad21989bc46f2624e85",
+      "boundary": "both distinguish the p-group equality (Olson Part I) from the rank-two equality (Olson Part II); secondary corroboration only"
+    }
+  },
+  "foundation_profile": "planned classical Lean 4 + mathlib profile; no additional axiom is accepted at intake and exact allowed/disallowed principles remain to be frozen with the canonical target",
+  "tcb_profile": "planned pinned Lean kernel, elaborator, Lake manifest, mathlib source/object closure, scoped validator, and later independent verifier; this intake accepts no proof body or trust closure",
+  "computation_profile": "no finite computation, solver output, experiment, oracle, or certificate may establish the theorem; any later computation requires a checked refinement and certificate policy",
+  "formal_system": "Lean 4.29.0 with pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 under the rev-5.6 adapter; exact target adapter pending",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0933/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0933/README.md",
+    "Stage1_Instances/THM-M-0933/check_intake.py",
+    "Stage1_Instances/THM-M-0933/instance.json",
+    "Stage1_Instances/THM-M-0933/intake-receipt.json",
+    "Stage1_Instances/THM-M-0933/scope-map.md",
+    "Stage1_Instances/THM-M-0933/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0933/task-dag.json",
+    "Stage1_Instances/THM-M-0933/validation.md"
+  ],
+  "owners_and_reviewers": {
+    "instance_owner": "Stage1 integration lane",
+    "intake_proposer": "isolated Stage1 rev-5.6 worker slot55",
+    "source_reviewer": "unassigned independent zero-sum-theory reviewer",
+    "scope_reviewer": "unassigned independent theorem-identity reviewer",
+    "lean_reviewer": "unassigned independent Lean reviewer",
+    "acceptance_authority": "Stage1 integration lane only"
+  },
+  "freshness_and_revocation_policy": "Review is due before master acceptance and before dependent statement work. Invalidate on any manifest, blueprint, source edition or correction, target selection, definition, group/sequence boundary, Lean target, import, toolchain, mathlib pin, trust policy, validator, or owned-artifact change. Record rejection, supersession, or incident through the Stage1 integration lane and require fresh scoped evidence.",
+  "review_due": "before master acceptance or S56-M-0933-STATEMENT execution",
+  "support_window": "provisional worker proposal only; no release support window begins before accepted content-addressed evidence",
+  "archive_and_recovery_boundary": "Repository artifacts retain the dossier and hashes; temporary source downloads are not an accepted archive. Revalidation must refetch or admit durable sources and independently verify their identity.",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the failed input or claim, reopens impacted tasks, and requires a fresh worker packet and accepted receipt.",
+  "open_task_dag": "Stage1_Instances/THM-M-0933/task-dag.json",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "debt_classification": {
+    "H": "H1: a pinpointed modern proof and Olson 1969 primary-source lead exist, but catalog-root selection, original proof-body mapping, corrections, and independent review remain open",
+    "M": "M4: bounded pinned-tree discovery found adjacent substrate but no usable exact Olson/Davenport formal artifact",
+    "R": "R4: no source-faithful proof reconstruction can attach until one canonical root is selected"
+  },
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "H1 records a strong source lead, not accepted source closure. M4 records no usable exact formal artifact; adjacent API elaboration is not proof. R4 records an unselected readable root. No canonical proposition, accepted execution state, H0, M0, R0, proof, audit completion, theorem completion, or master acceptance is claimed."
+}
