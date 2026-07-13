@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0989-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0989-VALIDATION",
+  "theorem_id": "THM-M-0989",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0989/check_validation.py"
+  ],
+  "env_allowlist": {
+    "HOME": "inherited only for pinned elan/lake discovery; not visible to network-isolated Lean subprocesses",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "NO_COLOR": "1",
+    "PATH": "inherited only for content-hash-verified Python, Git, Bubblewrap, Lean, and Lake discovery",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 1800,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through bubblewrap --unshare-net with a cleared environment, fixed locale/timezone, and a temporary HOME. Host-side hash, pin, structure, and provenance checks make no network requests but are not themselves network-namespaced. This still reuses the shared warm pinned dependency artifacts and is not a clean-checkout empty-cache cold build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0989-ROOT",
+    "M0989-S-DEFINITIONS",
+    "M0989-S-MEAS",
+    "M0989-S-FOUNDATION",
+    "M0989-C-FACTOR",
+    "M0989-N-MOMENTS",
+    "M0989-L-INFINITESIMAL",
+    "M0989-L-TRUNCATE",
+    "M0989-L-TAYLOR",
+    "M0989-L-PRODUCT",
+    "M0989-T-CHARFUN",
+    "M0989-T-LEVY",
+    "M0989-T-ASSEMBLE",
+    "M0989-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0989.rowSumsAEMeasurable_proof",
+    "Stage1Instances.THM_M_0989.rowCharFun_factorization",
+    "Stage1Instances.THM_M_0989.rowSecondMoment_sum",
+    "Stage1Instances.THM_M_0989.rowExpectation_sum",
+    "Stage1Instances.THM_M_0989.rowGaussianQuadraticCoefficient",
+    "Stage1Instances.THM_M_0989.truncatedSecondMoment_nonneg",
+    "Stage1Instances.THM_M_0989.integrable_truncatedSecondMoment_integrand",
+    "Stage1Instances.THM_M_0989.truncatedSecondMoment_le_secondMoment",
+    "Stage1Instances.THM_M_0989.root_of_row_charFun_convergence",
+    "Stage1Instances.THM_M_0989.ProductLimit.tendsto_row_prod_one_add_of_sum_norm_sq",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_sub_taylor_two_le",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_one_sub_le_sq",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_taylor_two_le",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_taylor_two_le_crude",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_one_sub_le_half_sq",
+    "Stage1Instances.THM_M_0989.rowSecondMoment_mem_unitInterval",
+    "Stage1Instances.THM_M_0989.secondMoment_le_sq_add_truncated",
+    "Stage1Instances.THM_M_0989.tendsto_sum_rowSecondMoment_sq",
+    "Stage1Instances.THM_M_0989.rowLawCharFunConverges_proof",
+    "Stage1Instances.THM_M_0989.lindebergFeller_exact",
+    "Stage1Instances.THM_M_0989.Validation.lindebergFeller_composition_replay",
+    "MeasureTheory.ProbabilityMeasure.tendsto_iff_tendsto_charFun",
+    "ProbabilityTheory.iIndepFun.charFun_map_fun_sum_eq_prod",
+    "ProbabilityTheory.charFun_gaussianReal"
+  ],
+  "scope_boundary": "Network-isolated worker replay of the exact frozen root, proof declarations, selected provenance, and a separately written final composition. It is warm-cache nonrelease evidence, does not resolve the missing canonical expression hash or complete transitive TCB/provenance, and is not a distinct independently provisioned verifier."
+}
