@@ -1,49 +1,80 @@
-# THM-M-1291 proof execution
+# THM-M-1291 proof-phase validation
 
-Item: `S56-M-1291-PROOF`  
-Date: `2026-07-12` (`Asia/Shanghai`)  
-Base revision: `b1720c87b4674563b995fad5e6dd9828348b7230`
+Item: `S56-M-1291-PROOF`. Base revision:
+`35d23d0193cd7c8fccb1d09f22534c6eba066b02`.
 
-## Verdict
+## Implemented proof
 
-`blocked`. `Proof.lean` adds a genuine placeholder-free proof body for the
-frozen `M1291-L-POINTWISE` leaf. From pointwise convergence of `fseq n x`, it
-proves convergence of
-`|fseq n x|^p - |fseq n x - f x|^p` to `|f x|^p` for every real `p > 0`.
-The proof uses continuity of subtraction, norm, and nonnegative real powers.
+`Proof.lean` now gives the exact local declaration
+`Stage1Instances.THM_M_1291.brezisLiebTarget_proof : BrezisLiebTarget`.
+It preserves the frozen arbitrary measure space, complex codomain, almost-everywhere
+convergence, one uniform integral bound, and every real exponent `p > 0`.
 
-This does not complete the assigned proof phase. The pinned mathlib tree has
-no Brezis-Lieb declaration, and the required truncation, uniform-tail, and
-corrected-remainder integral bridge obligations remain open. In particular,
-pointwise convergence cannot be promoted by dominated convergence: the frozen
-hypothesis supplies only a uniform bound on the integrals, not a common
-integrable dominating function. No root declaration or theorem completion is
-claimed. `.stage1-worker-selftest.json` is deliberately absent because the
-assigned proof deliverable is incomplete.
+The proof first obtains integrability of the limiting `p`-power density by Fatou's
+lemma. For `0 < p <= 1`, real-power subadditivity bounds the corrected density by
+the integrable limit density, so dominated convergence applies. For `1 < p`, a
+weighted convexity inequality bounds a nonnegative truncated error. Dominated
+convergence sends that truncation integral to zero, while a uniform bound on the
+remainder integrals controls the discarded epsilon term. Integral subtraction
+then yields the exact splitting limit. The two exponent branches are exhaustive.
 
-## Narrow validation evidence
+This is a provisional `M0-L` proof-body proposal for the 14 frozen required-machine
+obligations. The frozen registry and graph retain their pre-proof open snapshot, as
+required; only the integration lane may accept the proposal or update authority
+state. Human-source, readability, provenance, trust, validation, and release gates
+are not claimed here.
 
-All commands ran in this worker clone and reused the existing pinned Lake
-artifacts. No update, build, dependency clone/fetch, or `.lake` mutation was
+## Commands and results
+
+Commands ran on 2026-07-14 in the worker clone. `check_proof.sh` copied the actual
+owned `Statement.lean` into a fresh temporary directory under the worker root,
+compiled it to `Statement.olean`, then compiled the actual owned `Proof.lean` to a
+fresh `Proof.olean` with the direct pinned Lean executable and `--trust=0`. It used
+only the existing pinned `LEAN_PATH`; the temporary directory was removed on exit.
+No update, build, dependency clone/fetch, network operation, or `.lake` mutation was
 performed.
 
-| Command | Exit | Exact result |
-|---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 targets passed |
-| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
-| `python3 scripts/stage1_target.py show THM-M-1291` | 0 | rank 462, planned, L0/rework-required, theorem incomplete |
-| `python3 Stage1_Instances/THM-M-1291/check_obligation_tree.py` | 0 | 17 obligations and 38 typed edges passed; frozen root open `M3` |
-| temporary copied `Statement.lean` compiled with `lake env lean -R <tmp> -o <tmp>/Statement.olean`, then `LEAN_PATH=<tmp>:$(lake env printenv LEAN_PATH) lake env lean ../../Stage1_Instances/THM-M-1291/Proof.lean` from `Formalizations/Lean` | 0 | proof elaborated; axiom report exactly `propext`, `Classical.choice`, `Quot.sound` |
-| forbidden-token scan of `Proof.lean` | 1 | expected no-match result; no `sorry`, `admit`, `sorryAx`, `axiom`, or `unsafe` |
-| `sha256sum Stage1_Instances/THM-M-1291/{Statement.lean,Proof.lean}` | 0 | statement `ef19e70e...dd92f`; proof `95a67ff8...c425d` |
-| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
-| `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
-| `git diff --check -- Stage1_Instances/THM-M-1291` | 0 | no whitespace errors |
+```text
+bash Stage1_Instances/THM-M-1291/check_proof.sh
+  exit 0: fresh Statement and Proof elaboration passed with --trust=0; exact root
+  axiom report was [propext, Classical.choice, Quot.sound]
 
-## Reopen condition
+python3 -B Stage1_Instances/THM-M-1291/check_proof.py
+  exit 0: exact target, frozen hashes and denominator, local proof surfaces,
+  provisional receipt, pinned mathlib identity, and prohibited constructs passed
 
-Resume by implementing the frozen truncation and uniform-tail estimates and
-their integral composition, or by locating an immutable exact Lean 4
-Brezis-Lieb proof whose terminal body and transitive trust closure can be
-pinned and checked locally. A dominated-convergence theorem without a proof of
-the missing common domination condition does not close this target.
+python3 Stage1_Instances/THM-M-1291/check_obligation_tree.py
+  exit 0: frozen 17-obligation and 38-edge pre-proof architecture still validates
+
+python3 Docs/tools/check_stage1_standard.py
+  exit 0: 15 assurance groups and all 1546 uniform-L0 targets passed
+
+python3 scripts/stage1_target.py check
+  exit 0: 1546 unique targets, ranks 1..1546, all L0/rework-required
+
+python3 scripts/stage1_target.py show THM-M-1291
+  exit 0: rank 462, planned, L0/rework-required, theorem_complete=false
+
+rg -n -i --glob '*.lean' '\b(sorry|admit|sorryAx)\b|^[[:space:]]*(axiom|constant|opaque|unsafe)[[:space:]]|implemented_by|native_decide|extern[[:space:]]' \
+  Stage1_Instances/THM-M-1291/Proof.lean
+  exit 1 with empty output: expected pass, no prohibited construct found
+
+python3 -m json.tool Stage1_Instances/THM-M-1291/proof-receipt.json
+  exit 0: valid JSON
+
+git diff --check -- Stage1_Instances/THM-M-1291 .stage1-worker-selftest.json
+  exit 0: no scoped whitespace errors
+```
+
+The proof source SHA-256 is
+`a5e3f1e9abd93eb15b124eb7bdd8fd3e860154e7f5bada6326f6d88115ecdbc9`;
+the statement source SHA-256 is
+`ef19e70e68cd8c9179130141706954825b7de8529ecef6aec1dc6e87c76dd92f`.
+An independent fresh temporary replay by a second worker agent also exited 0 under
+`--trust=0`, with the same axiom report and source hashes; it is corroboration in
+the same workspace, not the separate-runner verification required for release.
+
+Accepted state remains `[H2, M3, R4]` until master acceptance. The next workflow
+cut is `S56-M-1291-VALIDATION`, followed by release; H0, R0, complete provenance
+and trust, cold hermetic replay, independent verification, `AUDIT-Z`, `THEOREM-Z`,
+and theorem completion all remain open.

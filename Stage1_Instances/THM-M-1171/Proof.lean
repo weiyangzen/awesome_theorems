@@ -1,10 +1,12 @@
 import Mathlib.Analysis.Normed.Operator.Bilinear
+import Mathlib.MeasureTheory.Function.LpSeminorm.TriangleInequality
 
 /-!
 # THM-M-1171 partial proof execution
 
 This module proves the finite-dimensional operator-norm obligation. It does
-not assume or state the unavailable strong `L^p` multiplier estimate.
+not assume or state the unavailable strong `L^p` multiplier estimate. It also
+records the finite-sum `L^p` inequality used by the later assembly step.
 -/
 
 set_option maxHeartbeats 1000000
@@ -95,6 +97,19 @@ theorem opNorm_le_componentSum {n : Nat}
               ‖A (Pi.single i 1) (Pi.single j 1)‖) * ‖x‖ * ‖y‖ := by
               ring
 
+/-- For `p >= 1`, the `L^p` seminorm of a finite scalar sum is bounded by the
+sum of the component seminorms. This is the finite-sum analytic ingredient of
+the frozen assembly obligation; it does not supply any component estimate. -/
+theorem eLpNorm_finset_sum_le {alpha : Type*} [MeasurableSpace alpha]
+    {iota : Type*} (s : Finset iota) (f : iota -> alpha -> Real)
+    (p : ENNReal) (mu : MeasureTheory.Measure alpha)
+    (hf : forall i, i ∈ s -> MeasureTheory.AEStronglyMeasurable (f i) mu)
+    (hp : 1 <= p) :
+    MeasureTheory.eLpNorm (∑ i ∈ s, f i) p mu <=
+      ∑ i ∈ s, MeasureTheory.eLpNorm (f i) p mu := by
+  exact MeasureTheory.eLpNorm_sum_le hf hp
+
 #print axioms opNorm_le_componentSum
+#print axioms eLpNorm_finset_sum_le
 
 end Stage1Instances.THM_M_1171
