@@ -1,0 +1,133 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0034-ANCHOR-AUDIT-WORKER-20260713",
+  "item_id": "S56-M-0034-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0034",
+  "phase": "anchor_audit",
+  "intent": "audit",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "75ab5edd624df749325d391b41b669f8d72774b2",
+  "base_tree": "26562e2b8168d91a92a8164c9d8f0fc55178836e",
+  "validated_at": "2026-07-13T09:04:00+08:00",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0034/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0034/anchor-audit-receipt.json",
+    "Stage1_Instances/THM-M-0034/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0034/anchor-audit.json",
+    "Stage1_Instances/THM-M-0034/anchor-audit.md",
+    "Stage1_Instances/THM-M-0034/anchor-discovery-protocol.json",
+    "Stage1_Instances/THM-M-0034/check_anchor_audit.py"
+  ],
+  "covered_node_ids": ["S56-M-0034-ANCHOR_AUDIT"],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0034_AnchorAudit.ExactTarget",
+    "Stage1Instances.THM_M_0034_AnchorAudit.ExternalFieldCandidate",
+    "Stage1Instances.THM_M_0034_AnchorAudit.externalFieldCandidate_implies_exact",
+    "Stage1Instances.THM_M_0034_AnchorAudit.ExternalPIDCandidate",
+    "Stage1Instances.THM_M_0034_AnchorAudit.externalPIDCandidate_implies_exact",
+    "Module.Projective.iff_split",
+    "Module.Flat.of_projective",
+    "Module.free_of_flat_of_isLocalRing",
+    "Module.freeLocus_eq_univ_iff",
+    "Module.free_of_finite_type_torsion_free'"
+  ],
+  "statement_fingerprints": [
+    "sha256:d80cc9860ed5a53c81a0851b4dc8e702aa5a23d448f373ae6d68ed0c9b5604b1"
+  ],
+  "immutable_inputs": {
+    "repository_revision": "75ab5edd624df749325d391b41b669f8d72774b2",
+    "repository_tree": "26562e2b8168d91a92a8164c9d8f0fc55178836e",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "edmund_quillen_suslin_revision": "e8d85a6f6fa210ba0be12bd02aa22009699f0c35",
+    "edmund_archive_sha256": "6072221d080e634f0a9775518855557fce0495cf4004848e4cb57dda4aa7e6d2",
+    "mbkybky_quillen_suslin_revision": "51ed173b17b274e61f759556ab3e1c090267d1bd",
+    "mbkybky_quillen_suslin_tree": "264c487a24b2158bf8432459fd0b1e326acdf1eb"
+  },
+  "candidate_result": {
+    "inventory_version": "S56-M-0034-ANCHOR-INVENTORY-20260713-01",
+    "classified_records": 5,
+    "exact_external_source_candidate_found": true,
+    "external_kernel_closure_candidate_found": true,
+    "candidate_root_classification": "M1",
+    "accepted_root_classification": "M3",
+    "external_project_locally_checked": false,
+    "master_accepted": false
+  },
+  "anchor_probe_file_sha256": "85ddef200d365bbedd4753c94ae54ccd17d8b1a075a5b8d514b3cb49f47ddea2",
+  "lean_output_sha256": "4e496fba18af17d5ac823408da9019eda983c5e72fb922fd12fcd12fa575a6f3",
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0034-ANCHOR-AUDIT-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0034/AnchorAudit.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must synthesize exact-context flatness, reject exact-context freeness, print selected pinned declarations and standard axioms, check the external PID statement transport, and print the exact target"
+        }
+      ],
+      "covered_obligation_ids": ["S56-M-0034-ANCHOR_AUDIT"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0034_AnchorAudit.ExactTarget",
+        "Stage1Instances.THM_M_0034_AnchorAudit.externalFieldCandidate_implies_exact",
+        "Stage1Instances.THM_M_0034_AnchorAudit.externalPIDCandidate_implies_exact"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0034-ANCHOR-AUDIT-LEDGER",
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0034/check_anchor_audit.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must report five classified records, one exact E3 source anchor, one provisional older-pin M1 candidate, accepted root M3, and audit/theorem completion false"
+        }
+      ],
+      "covered_obligation_ids": ["S56-M-0034-ANCHOR_AUDIT"],
+      "covered_declarations": ["Stage1Instances.THM_M_0034_AnchorAudit.ExactTarget"]
+    }
+  ],
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_candidate_vector_after": {"H": "H1", "M": "M1", "R": "R4"},
+  "accepted_root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "known_failures": [
+    "The statement prerequisite and this anchor-audit node have worker evidence but still require master acceptance.",
+    "The prior statement checker retains a stale authoritative-blueprint fingerprint and exits 1; Statement.lean itself elaborates and this audit binds its exact accepted-source hash, but prerequisite reconciliation remains with the statement/master lanes.",
+    "The intake-only checker rejects the anchor packet and old intake-cursor assumptions; it is not an anchor validation recipe and no intake receipt is reissued here.",
+    "The exact external project is not installed or in the repository dependency closure; no external terminal declaration was replayed by this worker's Lean kernel.",
+    "The selected external project has no LICENSE, COPYING, or NOTICE file, so licensing permission must be established before integration.",
+    "The exact current-pin candidate's raw build and axiom output are not archived, so its prose audit ledger remains E3/M3 pending independent replay; provisional M1 comes only from the older PID candidate's immutable successful CI.",
+    "GitHub code search was denied/rate-limited and Sourcegraph did not index the topic repositories; exhaustive discovery saturation is not claimed.",
+    "The obligation tree, M0 proof integration, full trust/provenance closure, H0, R0, hermetic replay, independent validation, deterministic release evidence, AUDIT-Z, and theorem completion remain open."
+  ],
+  "remaining_root_cut_set": [
+    "S56-M-0034-OBLIGATION_TREE",
+    "S56-M-0034-PROOF",
+    "S56-M-0034-VALIDATION",
+    "S56-M-0034-RELEASE",
+    "external license and integration",
+    "external local kernel/trust/provenance replay",
+    "primary-source H0 and readable R0 review",
+    "master acceptance"
+  ],
+  "status_boundary": "Provisional node-specific worker receipt only. It self-tests a bounded immutable anchor inventory and proposes an M1 external candidate, accepts no receipt, leaves accepted root M3, changes no accepted item state, and does not finish AUDIT-Z or the theorem."
+}

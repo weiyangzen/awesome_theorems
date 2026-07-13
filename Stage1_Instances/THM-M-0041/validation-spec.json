@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0041-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0041-VALIDATION",
+  "theorem_id": "THM-M-0041",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0041/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Declared recipe policy. This worker observed no network use but did not provision a kernel network namespace, so the release hermetic gate remains fail-closed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-0041 narrow validation"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0041-ROOT",
+    "M0041-S-INTERFACE",
+    "M0041-S-CHARPOLY",
+    "M0041-S-BOUNDARY",
+    "M0041-T-CHARPOLY",
+    "M0041-A-MATHLIB-ANCHOR",
+    "M0041-C-ADJUGATE",
+    "M0041-N-MATPOLY",
+    "M0041-L-RIGHT-FACTOR",
+    "M0041-T-SCALAR-EVAL",
+    "M0041-T-BODY-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0041.CayleyHamiltonTarget",
+    "Matrix.aeval_self_charpoly",
+    "Stage1Instances.THM_M_0041.Proof.adjugateIdentity",
+    "Stage1Instances.THM_M_0041.Proof.matrixPolynomialTransport",
+    "Stage1Instances.THM_M_0041.Proof.rightFactorEvaluation",
+    "Stage1Instances.THM_M_0041.Proof.scalarEvaluationTransport",
+    "Stage1Instances.THM_M_0041.Proof.matrixCayleyHamiltonExpanded",
+    "Stage1Instances.THM_M_0041.Proof.pinnedMatrixCayleyHamilton",
+    "Stage1Instances.THM_M_0041.Proof.cayleyHamilton",
+    "Stage1Instances.THM_M_0041.Proof.cayleyHamiltonExpanded",
+    "Stage1Instances.THM_M_0041.Validation.differentialCayleyHamilton"
+  ],
+  "scope_boundary": "Warm node-scoped worker validation of the exact root, pinned terminal body, frozen composition, local trust observations, and same-worker differential wrapper. Cold hermetic release replay, complete transitive TCB/provenance closure, and distinct-runner independent verification are fail-closed."
+}
