@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1009-RELEASE-NEGATIVE-RECONCILIATION-v1",
+  "item_id": "S56-M-1009-RELEASE",
+  "theorem_id": "THM-M-1009",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1009/check_release.py"
+  ],
+  "env_allowlist": {
+    "PYTHONOPTIMIZE": "0"
+  },
+  "timeout_seconds": 420,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs no network operation. The replayed predecessor recipe records contract-level denial without host-level isolation, so this worker evidence is explicitly nonrelease.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains three PASS lines, three BLOCKED lines, and verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1009-ROOT",
+    "M1009-S-EVENTS",
+    "M1009-S-DIVERGE",
+    "M1009-B-ZERO",
+    "M1009-N-COUNT",
+    "M1009-L-SECOND-MOMENT",
+    "M1009-L-TAIL",
+    "M1009-L-RATIO",
+    "M1009-L-CONTINUITY",
+    "M1009-T-ASSEMBLE",
+    "M1009-X-SOURCE",
+    "M1009-X-ANCHOR",
+    "M1009-X-TCB",
+    "M1009-D-READABLE",
+    "M1009-W-VALIDATE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1009.ErdosRenyiLowerBoundTarget",
+    "Stage1Instances.THM_M_1009.erdosRenyiLowerBoundTarget",
+    "Stage1Instances.THM_M_1009.erdosRenyiObligationRoot_via_frozen_composition",
+    "Stage1Instances.THM_M_1009.Validation.independentRootFromInterfaces",
+    "Stage1Instances.THM_M_1009.Validation.exactTargetProbe"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation plus the predecessor's narrow temporary-source kernel replay over existing pinned warm dependencies. The recipe observes all 15 frozen obligations and accepts none. It cannot supply dependency-ordered master acceptance, accepted H0/R0 or AUDIT-Z, fresh structured state, complete transitive provenance/TCB closure, immutable cold offline reproduction, supply-chain closure, two independent signed runners, an independent minimal verifier, protected CI, or a deterministic release bundle."
+}
