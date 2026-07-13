@@ -1,0 +1,119 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1008-RELEASE-local-20260714T031308+0800",
+  "item_id": "S56-M-1008-RELEASE",
+  "theorem_id": "THM-M-1008",
+  "intent": "release",
+  "base_revision": "09a2e94f8f331e8fa7938c55db7dddafb47a6c74",
+  "base_tree": "31b53f41ab005b6c095c80080147c15a11077149",
+  "decided_at": "2026-07-14T03:13:08+08:00",
+  "attestor": "stage1-rev56-worker-slot6",
+  "decision_support": "provisional_worker_selftest",
+  "release_grade": false,
+  "release_accepted": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1008-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1008-VALIDATION-local-20260714T025021+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_release_grade": false,
+    "receipt_sha256": "191c27c81c7b51afb0d197ff6d27b806d1aed1be31539d38c3f7fc074a2959a9"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1008-VALIDATION-local-20260714T025021+0800"
+  ],
+  "reconciled_inputs": {
+    "intake.json": "3ffa07e728c3550950c5f1882ab0edabb6698c2e6de456f9b89b3d0bbaed0c3e",
+    "statement.json": "62a01eeea532a214c6e8f0ebae79c8b831e84c622c7c4d310445c246d48534b4",
+    "anchor-audit.json": "dd1a35659d5f1ee69aa8c1fdb4fbf1ea523535df0ed99a1613948ad49dfccf3d",
+    "obligation-registry.json": "e7a31a8b5aead50a20b1bfa0ea3d76fa5a90fc1780eefa0f53ce35c99fd3d14f",
+    "typed-graphs.json": "50bc3f03b26f4b23212080e4489bf90de1348ab0ef3eea30bb370eab26b34162",
+    "source_statement_crosswalk.md": "5df09f728e30c0fd3cbeab03615f6ef9a378941a3acfa2c4cc6340f87035a497",
+    "Statement.lean": "95e22d470855eae44d723c6c58101abf1211d5405bc36d5c838f623a879febf6",
+    "ObligationTree.lean": "6c9731ae18bc398ce660645f8ba073af562d3e6eb93b0c3765530a478b3a306c",
+    "Proof.lean": "1eba05c2aa6aca47991e95119de172cb83f0f7f9d2196129ae2ac5cba416e6a2",
+    "Validation.lean": "4d9f370fcf85fde3257d7ad2732803f3ce21d4974180a083876e613ba944b33b",
+    "validation-spec.json": "9570d04c1fb0be1b6c9fa3b80ff02dd0ef46317c9a1a3cfa76cd0fd14b16c8a5",
+    "validation-receipt.json": "191c27c81c7b51afb0d197ff6d27b806d1aed1be31539d38c3f7fc074a2959a9",
+    "validation-phase.md": "22c3447144b60ef2e3d3d7f919f381ba21e3ade806f20d33a17b55472cb7b7d4",
+    "check_validation.py": "7e3209ae43bc1459633d0e5e452230c25606330a5b39caf1c20b47091f1fd4b5"
+  },
+  "root_vector": {
+    "recorded_before": [
+      "H1",
+      "M3",
+      "R3"
+    ],
+    "recorded_after": [
+      "H1",
+      "M3",
+      "R3"
+    ],
+    "best_provisional_observation": {
+      "H": "H1; exact primary-source theorem/page, premise and errata mapping, and independent source review are absent",
+      "M": "local exact-root kernel closure observed, but no accepted M0-L; the proof lacks a structured receipt and master acceptance, and its direct idempotence route is unreconciled with the frozen self-independence composition graph",
+      "R": "R3; no independently reviewed node-by-node reconstruction exists"
+    },
+    "boundary": "No execution vector is accepted in the planned lifecycle. The structured intake records H1/M3/R3 while the later provisional graph and validation receipt observe H1/M2/R3; the weaker H1/M3/R3 record controls this no-state-change decision. Local kernel closure cannot create accepted M0-L, E0, AUDIT-Z, or THEOREM-Z."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-1008-VALIDATION is only worker-self-tested [_], explicitly release_grade=false, and not master-accepted [x], so the release transition is not dependency-legal."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "The available validation reuses the automation-provided shared warm pinned .lake closure; it is not a fresh immutable clean checkout with empty caches, network-denied cold bootstrap, and offline-restorable dependencies."
+  },
+  "evidence_reconciliation": {
+    "canonical_target_expression_sha256": "2d9e3cd06b290ffddd906b177c7400dc999028ef45dc0134d845621a4aa7b76c",
+    "exact_statement_elaboration": "pass_as_provisional_worker_evidence",
+    "exact_root_kernel_replay": "pass_as_provisional_worker_evidence",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "transitive_sorry_and_scoped_hygiene": "pass_as_provisional_worker_evidence",
+    "structured_vector_conflict": "intake records H1/M3/R3 while the provisional graph and validation receipt record H1/M2/R3; planned lifecycle accepts neither, and the weaker H1/M3/R3 record controls",
+    "validation_dependency_acceptance": "missing",
+    "proof_receipt_and_master_acceptance": "missing",
+    "authoritative_graph_and_composition_freshness": "missing",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_foundation_and_tcb_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_sbom_and_license_archive": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1008-VALIDATION and every transitive phase receipt",
+    "structured proof receipt and master acceptance for S56-M-1008-PROOF",
+    "fresh authoritative graph and checked-composition reconciliation for the direct idempotence proof route",
+    "complete reconciled inventory, source boundary, evidence state, and debt classification for AUDIT-Z",
+    "accepted H0 primary-source theorem/page/premise/assumption/errata crosswalk with independent source review",
+    "accepted R0 node-by-node reconstruction with independent reader review",
+    "complete transitive declaration/body/import provenance, foundation policy, computation profile, TCB, and SBOM closure",
+    "immutable clean source snapshot and empty-cache network-denied cold build with offline-restorable dependencies",
+    "license and durable supply-chain archive closure",
+    "two signed attestations from separately provisioned independent runners",
+    "independently implemented minimal release verifier and required mutation/differential gates",
+    "deterministic content-addressed signed release bundle, freshness evidence, and master reconciliation",
+    "accepted AUDIT-Z and THEOREM-Z terminal decisions"
+  ],
+  "retry_condition": "After master acceptance of the prerequisite chain, reconcile the proof route with fresh authoritative graphs and composition certificates; complete AUDIT-Z with independently reviewed H0/R0 and transitive trust/provenance; then use separately provisioned release lanes for cold offline replay, supply-chain closure, two signed attestations, minimal-verifier agreement, deterministic bundling, freshness, and master acceptance.",
+  "worktree_classification": "nonrelease worker checkout with owned release artifacts and the pre-existing untracked canonical Formalizations/Lean/.lake symlink",
+  "status_boundary": "This worker artifact self-tests an honest blocked release verdict only. It accepts no receipt, changes no authoritative lifecycle or debt state, and establishes neither AUDIT-Z nor THEOREM-Z nor theorem completion."
+}
