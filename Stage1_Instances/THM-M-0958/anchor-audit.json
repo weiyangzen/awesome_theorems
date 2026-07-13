@@ -1,0 +1,300 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "inventory_version": "S56-M-0958-ANCHOR-INVENTORY-20260713-01",
+  "item_id": "S56-M-0958-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0958",
+  "execution_rank": 1492,
+  "intent": "anchor_audit",
+  "base_revision": "f023dbc3411d83201065d1a1156d7406b81135d4",
+  "base_tree": "3b3a73ec19293a2a9b8d9c7e67f0d25da2a511b4",
+  "audit_cutoff": "2026-07-13T23:16:00+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0958.ElkinConstructionTarget",
+  "canonical_target_expression_sha256": "bc0d841038cdbcd4960581583c4ddfb7004d7ad38cf6432ab4803e9908f8f59c",
+  "canonical_statement_file_sha256": "765d13f4b2fc0bc8bdf0a1211039b62ed6269148819857795aac0c7a42dc40e6",
+  "canonical_statement": "There exist c : Real and N : Nat with 0 < c and 0 < N such that every n >= N satisfies c times ((n / 2^(2 sqrt(2) sqrt(log_2 n))) times (log_2 n)^(1/4)) <= the maximum size of a three-term-progression-free subset of {1, ..., n}.",
+  "discovery_protocol": "Stage1_Instances/THM-M-0958/anchor-discovery-protocol.json",
+  "discovery_protocol_sha256": "4d70485827d3911c1394a2feb17635c6fc51331f3da6650693926011f8542351",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree": "clean",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_blob": "8dada3edaf50dbc082c9a125058f25def75e625a",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0958-C01-REPO-LOCAL-EXACT-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "f023dbc3411d83201065d1a1156d7406b81135d4",
+      "module": "Stage1_Instances/THM-M-0958/Statement.lean",
+      "declaration": "Stage1Instances.THM_M_0958.ElkinConstructionTarget",
+      "type": "The exact one-based Elkin asymptotic lower-bound proposition recorded as the canonical target.",
+      "normalized_match": "exact canonical proposition",
+      "body_provenance": "definition of a proposition plus checked statement transports; no theorem body closes the proposition",
+      "placeholder_or_axiom_status": "not a proof declaration",
+      "candidate_classification": "M3_exact_statement_only",
+      "evidence_level": "statement-phase provisional worker evidence",
+      "result": "The target and its one-based, witness, and rothNumberNat encodings elaborate, but no repo-local Elkin proof body or wrapper was found outside this dossier.",
+      "reopen_condition": "Install a proof-phase declaration with this exact type or a checked composition from dependency-legal proof obligations."
+    },
+    {
+      "candidate_id": "M0958-C02-MATHLIB-BEHREND-LOWER-BOUND",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Combinatorics.Additive.AP.Three.Behrend",
+      "file": "Mathlib/Combinatorics/Additive/AP/Three/Behrend.lean",
+      "file_blob": "7d3eb0e603040dcd72fe35e39c82f4d615b3e254",
+      "file_sha256": "1f8c1813a75c722ee4d62d63185c53d0b52d27691e531c05e0ecb6c10c15cf65",
+      "declaration": "Behrend.roth_lower_bound",
+      "source_lines": "482-488",
+      "body_slice_sha256": "9170a482dacf9791fcc6c5b28a72a9aa2c4c46dfdbca8d7f7421a4c2e8b4f2e5",
+      "type": "For every N : Nat, (N : Real) * exp (-4 * sqrt (log N)) <= (rothNumberNat N : Real).",
+      "normalized_match": "strict mismatch: the theorem has the Behrend natural-log exponential scale, not Elkin's base-two coefficient 2 * sqrt 2 and not the fourth-root logarithmic factor; it is also an all-N zero-based result rather than the frozen positive-constant Omega proposition",
+      "local_adapter": "Stage1Instances.THM_M_0958_AnchorAudit.pinnedBehrendCandidate",
+      "local_role": "audit-only wrapper for the nonidentical Behrend proposition",
+      "terminal_declaration": "Behrend.roth_lower_bound",
+      "terminal_proof_body_id": "git-blob:7d3eb0e603040dcd72fe35e39c82f4d615b3e254:Behrend.roth_lower_bound",
+      "terminal_proof_body": "Splits N = 0, N >= 4096, and the remaining finite range; uses roth_lower_bound_explicit for the asymptotic case and a lower-bound-by-one argument for small positive N.",
+      "direct_route": [
+        "Behrend.roth_lower_bound lines 482-488",
+        "Behrend.roth_lower_bound_explicit lines 420-453",
+        "Behrend.bound_aux lines 267-276",
+        "Behrend.card_sphere_le_rothNumberNat lines 211-226",
+        "Behrend.threeAPFree_image_sphere and ThreeAPFree.le_rothNumberNat"
+      ],
+      "direct_proof_dependencies": [
+        "Behrend.roth_lower_bound_explicit",
+        "Behrend.lower_bound_le_one",
+        "Behrend.bound_aux",
+        "Behrend.card_sphere_le_rothNumberNat",
+        "Behrend.threeAPFree_image_sphere",
+        "ThreeAPFree.le_rothNumberNat",
+        "rothNumberNat.monotone"
+      ],
+      "introduction_revision": "6dea3c8f057ca9dbe08b7b65edae59374cb13211",
+      "introduction_tree": "f7052bb473b8658b4a33d7034eeba3bf91574491",
+      "introduction_date": "2023-06-06T11:47:23Z",
+      "introduction_author": "Jeremy Tan Jie Rui",
+      "introduction_subject": "feat: port Combinatorics.Additive.Behrend (#4730)",
+      "introduction_is_ancestor_of_pin": true,
+      "last_touch_revision": "113db26963a75ab1db50f6068d955c88d38041ea",
+      "last_touch_tree": "990b7aab71ebeced8713aec4d9a0d2ba5ac25cc9",
+      "last_touch_subject": "chore: run rm_set_option.py (#36554)",
+      "machine_probe": {
+        "command": "cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-0958/AnchorAudit.lean",
+        "exit": 0,
+        "output_sha256": "29005d807865eb32c7af8c3db6641e142e7f0f338ead814ad87667d2ec49ac40",
+        "reported_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorry_reports": "the explicit helper, terminal theorem, and audit wrapper are machine-reported sorry-free",
+        "transitive_declaration_closure_count": 28257,
+        "transitive_module_count": 1079,
+        "transitive_bodyless_nonaxioms": [],
+        "transitive_unsafe_declarations": []
+      },
+      "placeholder_bodyless_unsafe_oracle_status": "Lean's loaded-environment checks report no sorry dependency, bodyless nonaxiom, or unsafe declaration in the scoped transitive closure. A comment-stripped visible-source scan finds no sorry, admit, sorryAx, declared axiom, opaque, unsafe, implemented_by, extern, native_decide, run_tac, or proof_wanted marker in Defs.lean or Behrend.lean.",
+      "dependency_feasibility": "Already manifest-pinned, materialized, Apache-2.0 licensed, and importable read-only without changing .lake; integration is rejected for exact-root credit because the proposition is quantitatively weaker.",
+      "license": "Apache-2.0",
+      "candidate_classification": "M0-W_for_nonidentical_behrend_target_no_elkin_root_credit",
+      "evidence_level": "provisional local nonrelease kernel check of the related proposition",
+      "result": "A genuine pinned proof body closes only Behrend's weaker bound. The audit guard rejects definitional identity with the Elkin root, so this candidate contributes no exact-root machine closure.",
+      "reopen_condition": "Use it only as a support obligation if a frozen Elkin proof architecture explicitly requires the Behrend branch; it cannot be promoted into an Elkin wrapper without a proof of the missing quantitative improvement."
+    },
+    {
+      "candidate_id": "M0958-C03-MATHLIB-BEHREND-CONSTRUCTION-SUPPORT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Combinatorics.Additive.AP.Three.Behrend",
+      "file": "Mathlib/Combinatorics/Additive/AP/Three/Behrend.lean",
+      "declarations": [
+        "Behrend.threeAPFree_image_sphere",
+        "Behrend.card_sphere_le_rothNumberNat",
+        "Behrend.exists_large_sphere",
+        "Behrend.bound_aux",
+        "Behrend.roth_lower_bound_explicit"
+      ],
+      "normalized_match": "machine-checked sphere construction, counting, optimization, and explicit Behrend bound; no annulus refinement or Elkin fourth-root improvement",
+      "candidate_classification": "M3_related_support_shared_with_C02",
+      "evidence_level": "E3 support anchor",
+      "result": "Useful construction substrate and potential proof-tree lineage, deduplicated through C02's terminal route; no independent Elkin root credit.",
+      "reopen_condition": "Freeze any reused Behrend lemmas as explicit children before proof work and supply the missing Elkin annulus/concentration/refinement obligations."
+    },
+    {
+      "candidate_id": "M0958-C04-MATHLIB-DEFS-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Combinatorics.Additive.AP.Three.Defs",
+      "file": "Mathlib/Combinatorics/Additive/AP/Three/Defs.lean",
+      "file_blob": "534177a2aa83fa462689226e248953fe38f2e1cc",
+      "file_sha256": "b325fb632a5398208995fa5beae71c47798086e588f98e46679aa81b923b28e3",
+      "declarations": [
+        "ThreeAPFree",
+        "threeAPFree_iff_eq_right",
+        "addRothNumber",
+        "addRothNumber_spec",
+        "rothNumberNat",
+        "rothNumberNat_spec",
+        "addRothNumber_Ico"
+      ],
+      "normalized_match": "exact statement vocabulary and interval/extremum interfaces only",
+      "candidate_classification": "M3_statement_and_transport_substrate",
+      "evidence_level": "E3 support anchor",
+      "result": "These pinned APIs support the exact statement and transports but prove no Elkin quantitative lower bound.",
+      "reopen_condition": "Use as interfaces in the obligation tree; no standalone root promotion is legal."
+    },
+    {
+      "candidate_id": "M0958-C05-PUBLIC-INDEX-EXACT-QUERIES",
+      "source": "Sourcegraph public Lean index",
+      "indexed_mathlib_revision": "12b4b4adf73c3bf0917409bb4b9dd4c8b96f4e8f",
+      "queries": [
+        {
+          "query": "context:global archived:yes fork:yes case:yes lang:Lean Elkin count:100",
+          "result": "matchCount=0, skipped=[]",
+          "response_sha256": "adcfa78d6eeb9984b47b0c7550b2347eec701d5a9df091d12e205e1ff647b14d"
+        },
+        {
+          "query": "context:global archived:yes fork:yes case:yes lang:Lean \"An Improved Construction of Progression-Free Sets\" count:100",
+          "result": "matchCount=0, skipped=[]",
+          "response_sha256": "c66a4626e7c3b0eb11e6e5fd6c0fd115dc3a52e8574e5f99f806865ec32ec752"
+        },
+        {
+          "query": "context:global archived:yes fork:yes case:yes lang:Lean \"Real.logb 2\" count:100",
+          "result": "matchCount=0, skipped=[]",
+          "response_sha256": "1e641e0d2f347c3aa8fd6baa1ab14bc53a7e9da42484e389fbc6aae1a96c3cdf"
+        },
+        {
+          "query": "context:global archived:yes fork:yes case:yes lang:Lean \"2 * Real.sqrt 2\" count:100",
+          "result": "matchCount=0, skipped=[]",
+          "response_sha256": "d9de33a37e66b630df6ee4e7b1154bd9d5fc21591bba9d5832050b3e0c6c2003"
+        },
+        {
+          "query": "context:global archived:yes fork:yes case:yes lang:Lean rothNumberNat count:100",
+          "result": "repositoriesCount=1, matchCount=56, skipped=[]; only mathlib4 Defs, Behrend, Roth, and Ruzsa-Szemeredi surfaces",
+          "response_sha256": "c9abb75d20d4b3181ca3c584e64bdcd1dd734ad894e196ffd9fdea81fc7a772b"
+        },
+        {
+          "query": "context:global archived:yes fork:yes case:yes lang:Lean ThreeAPFree count:100",
+          "result": "repositoriesCount=3, matchCount=25, skipped=[]; mathlib4 plus two unrelated formal-conjecture statement files and a mirror",
+          "response_sha256": "b8883f5e8acb13579b4495b16dc90482a7e7fd178da0e27b41313aaae714e24e"
+        }
+      ],
+      "immutability_boundary": "The dated, content-hashed responses are bounded discovery evidence. The indexed mathlib commit is moving and later than the repository pin; every credited mathlib declaration was re-audited at the manifest revision.",
+      "candidate_classification": "no_exact_candidate_in_bounded_complete_index_responses",
+      "evidence_level": "E5 discovery evidence",
+      "result": "No exact Elkin source appeared in these complete bounded responses; no global absence claim follows.",
+      "reopen_condition": "Repeat the append-only inventory against new indices, aliases, or newly discovered repositories and bind every candidate to an immutable revision."
+    },
+    {
+      "candidate_id": "M0958-C06-FORMAL-CONJECTURES-RELATED-HITS",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "files": [
+        {
+          "path": "FormalConjectures/ErdosProblems/199.lean",
+          "sha256": "d09f943a01101e082d9491e8436d04df9834ba9c7015040118ed858f3f41873e",
+          "declaration": "Erdos199.erdos_199",
+          "relationship": "an unrelated real-set progression-complement statement",
+          "body": "by sorry"
+        },
+        {
+          "path": "FormalConjectures/ErdosProblems/847.lean",
+          "sha256": "3761d6bee3cd80a71c696cdab63fcf73cdc7a4c242fba9012eb766d2d0ada740",
+          "declaration": "Erdos847.erdos_847",
+          "relationship": "an unrelated partition statement using ThreeAPFree",
+          "body": "by sorry"
+        }
+      ],
+      "toolchain": "leanprover/lean4:v4.27.0",
+      "toolchain_file_sha256": "e695e6e5d8e7a8be4d6cf159dfb995847993d26c6cc450353a86f387279025b9",
+      "mathlib_revision": "a3a10db0e9d66acbebf76c5e6a135066525ac900",
+      "manifest_sha256": "5b99b5f4f807cbba67bbcd22e5e486c17d6a8d970ea218de08d05830ab350c26",
+      "license": "Apache-2.0",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "normalized_match": "neither declaration states the Elkin lower bound; both contain placeholders",
+      "dependency_feasibility": "Different Lean/mathlib pins, absent from the local dependency closure, unrelated types, and placeholder-bearing bodies; integration is rejected.",
+      "candidate_classification": "M5_unrelated_placeholder_statements",
+      "evidence_level": "E5 rejected discovery leads",
+      "result": "Rejected as noncandidates; no proof or source credit.",
+      "reopen_condition": "None for these declarations. A distinct exact placeholder-free Elkin declaration would require a new inventory member."
+    },
+    {
+      "candidate_id": "M0958-C07-GITHUB-SEARCH-BOUNDARY",
+      "source": "GitHub REST search",
+      "repository_queries": [
+        "Elkin Lean",
+        "Elkin progression-free",
+        "progression-free Lean",
+        "Behrend Lean",
+        "arithmetic progression Lean theorem prover"
+      ],
+      "repository_result": "HTTP 200, total_count=0, incomplete_results=false for each query",
+      "repository_response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "code_search_result": "HTTP 403 anonymous rate-limit error rather than code results",
+      "code_search_response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "candidate_classification": "bounded_repository_no_match_and_code_search_access_failure",
+      "evidence_level": "E5 discovery boundary",
+      "result": "Repository-name/metadata queries found no project; code search was unavailable. The latter is not treated as negative evidence.",
+      "reopen_condition": "Repeat authenticated or against another complete public code index while preserving the response ledger."
+    }
+  ],
+  "inventory_decision": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "7/7 frozen inventory members classified",
+    "exact_candidate_located": false,
+    "exact_candidate_kernel_probed": false,
+    "related_candidate_kernel_probed": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_classification": "M3",
+    "root_classification_reason": "The exact proposition and checked encodings exist, but no repo-local, pinned mathlib, or bounded external candidate provides the Elkin quantitative proof. Pinned mathlib closes only the strictly weaker Behrend proposition.",
+    "machine_debt_type": "formalization_debt",
+    "authoritative_root_vector_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "authoritative_root_vector_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "debt_delta_basis": "This phase classifies immutable formal anchors and validates the Behrend mismatch. It neither freezes a child obligation graph nor supplies an exact Elkin proof body, so the authoritative root vector does not change.",
+    "kernel_closed_as_accepted_root": false,
+    "first_failed_theorem_gate": "no exact Elkin proof body or checked composition was located in the bounded immutable candidate inventory",
+    "integration_tasks": [
+      "freeze Elkin's shell/annulus concentration and quantitative counting architecture as canonical obligations",
+      "reuse pinned Behrend construction lemmas only where their exact types compose with frozen children",
+      "formalize the missing annulus selection, sphere-intersection averaging, projection/injectivity, and optimized asymptotic estimates yielding the fourth-root logarithmic improvement",
+      "prove checked composition to the frozen one-based target and audit terminal provenance and trust"
+    ],
+    "remaining_root_cut_set": [
+      "dependency-ordered master acceptance of the provisional statement predecessor and this anchor-audit node",
+      "canonical obligation registry and typed proof/provenance/workflow graphs",
+      "Elkin-specific quantitative construction and asymptotic proof",
+      "exact root composition, terminal provenance, trust, and TCB closure",
+      "primary-source H0 and readable R0 independent review",
+      "hermetic replay, independent verification, deterministic release, AUDIT-Z, and THEOREM-Z acceptance"
+    ],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "status_boundary": "This self-tested phase classifies a bounded immutable formal-candidate inventory and directly checks the related Behrend body and mismatch. It proposes no accepted M0, H0, R0, AUDIT-Z, or theorem-completion state."
+  },
+  "gate_state": "worker_self_tested_pending_master_acceptance",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false
+}

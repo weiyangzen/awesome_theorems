@@ -1,4 +1,4 @@
-# THM-M-0487 rev-5.6 statement
+# THM-M-0487 rev-5.6 dossier
 
 This directory is the fail-closed `planned` dossier for `THM-M-0487`, the weak (ternary) Goldbach
 theorem. The frozen human claim is: every odd integer greater than five is a sum of three primes,
@@ -25,3 +25,13 @@ the statement definition nor the boundary witnesses prove the unbounded theorem.
 Status boundary: self-tested statement proposal pending integration-lane acceptance. The provisional
 root vector is `[H1, M3, R3]`; no H0, proof body, M0, R0, accepted state, audit completion, or theorem
 completion is claimed. The authoritative and local task states remain untouched and open.
+
+Registry version 1 now freezes 54 obligations and 297 edges across seven typed graphs. The proof
+architecture separates the analytic range `n >= 10^27` from the finite range below it and expands the common
+Fourier/major/minor-arc route and the finite prime-ladder/certificate route, and checks only their
+conditional range recomposition in `ObligationTree.lean`. The exact endpoint arithmetic is checked;
+the historical computation is not. See `obligation-tree.md` for the frozen route and boundary.
+
+Obligation-tree status: self-tested proposal pending dependency-ordered master acceptance. The
+analytic and finite-upper substantive packages remain `M4`, accepted proof state is empty, and the
+root stays `[H1, M3, R3]`.

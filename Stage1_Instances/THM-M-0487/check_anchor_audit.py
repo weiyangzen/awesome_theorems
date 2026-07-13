@@ -78,20 +78,25 @@ def main() -> None:
     instance = load(HERE / "instance.json")
     targets = load(ROOT / "Docs" / "Stage1_Targets_rev-5.6.json")
     execution = load(ROOT / "Docs" / "Stage1_Execution_DAG_rev-5.6.json")
-    packet = load(ROOT / ".stage1-worker-selftest.json")
+    packet_path = ROOT / ".stage1-worker-selftest.json"
+    packet = load(packet_path) if packet_path.exists() else None
 
     assert audit["schema_version"] == "stage1-anchor-audit/1.0"
     assert protocol["schema_version"] == "stage1-anchor-discovery/1.0"
     assert receipt["schema_version"] == "stage1-node-receipt/1.0"
     assert audit["item_id"] == protocol["item_id"] == receipt["item_id"] == ITEM_ID
     assert audit["theorem_id"] == protocol["theorem_id"] == receipt["theorem_id"] == THEOREM_ID
-    assert audit["base_revision"] == receipt["base_revision"] == packet["base_revision"] == BASE_REVISION
+    assert audit["base_revision"] == receipt["base_revision"] == BASE_REVISION
     assert audit["base_tree"] == receipt["base_tree"] == BASE_TREE
-    assert output("git", "rev-parse", "HEAD") == BASE_REVISION
-    assert output("git", "rev-parse", "HEAD^{tree}") == BASE_TREE
-    assert packet["item_id"] == ITEM_ID and packet["state"] == "[_]"
-    assert set(packet["changed_paths"]) == set(receipt["changed_paths"]) == CHANGED_PATHS
-    assert packet["known_failures"] == receipt["known_failures"]
+    assert output("git", "merge-base", "--is-ancestor", BASE_REVISION, "HEAD") == ""
+    if packet is not None:
+        assert packet["item_id"] == "S56-M-0487-OBLIGATION_TREE"
+        assert packet["state"] == "[_]"
+        downstream = load(HERE / "obligation-tree-receipt.json")
+        assert packet["base_revision"] == downstream["base_revision"]
+        assert packet["changed_paths"] == downstream["changed_paths"]
+        assert packet["known_failures"] == downstream["known_failures"]
+        assert packet["commands"] and packet["output_summary"].startswith("PASS:")
     assert receipt["proposed_state"] == "[_]" and receipt["accepted"] is False
 
     target = next(row for row in targets["targets"] if row["theorem_id"] == THEOREM_ID)

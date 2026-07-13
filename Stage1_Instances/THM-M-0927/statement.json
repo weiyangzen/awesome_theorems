@@ -1,0 +1,206 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0927-STATEMENT",
+  "theorem_id": "THM-M-0927",
+  "execution_rank": 1546,
+  "lifecycle_mode": "planned",
+  "phase": "statement",
+  "canonical_name": "Binet's formula for zero-based Fibonacci numbers",
+  "source_selection": {
+    "source": "NIST DLMF 1.2.7, Section 26.11, equations 26.11.5 and 26.11.7",
+    "permalink": "https://dlmf.nist.gov/26.11.E7",
+    "equation_tex_sha256": "a217ded8cf322e549eba3b2889a18abfea7e01f3d4bdd34e2aed017b25aa2adb",
+    "selection_boundary": "The catalog omits the formula. This phase conservatively selects the only formula-level authoritative lead preserved at intake: DLMF's zero-based Fibonacci definition and nonnegative-integer radical formula. Historical Binet attribution, primary-source fidelity, proof mapping, corrections, errata, and independent H0 review remain open."
+  },
+  "canonical_statement": "For every nonnegative integer n, the zero-based Fibonacci number F_n, viewed as a real number, equals ((1 + sqrt(5))^n - (1 - sqrt(5))^n) / (2^n * sqrt(5)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0927/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0927.BinetFormulaTarget",
+    "elaborated_expression_sha256": "0a05e8c4976c01759ef82d364afc86f498f700edc1a0fcb3f8935765992b5a2f",
+    "statement_file_sha256": "72172fb6015846b808a81dfc4995767dec5381de5845f68c47cbc5fdb2eeed8d",
+    "fully_explicit_expression": "∀ (n : Nat), @Eq.{1} Real (@Nat.cast.{0} Real Real.instNatCast (Nat.fib n)) (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid)) (@HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub) (@HPow.hPow.{0, 0, 0} Real Nat Real (@instHPow.{0, 0} Real Nat (@Monoid.toPow.{0} Real Real.instMonoid)) (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) (Real.sqrt (@OfNat.ofNat.{0} Real (nat_lit 5) (@instOfNatAtLeastTwo.{0} Real (nat_lit 5) Real.instNatCast BinetFormulaTarget._proof_1)))) n) (@HPow.hPow.{0, 0, 0} Real Nat Real (@instHPow.{0, 0} Real Nat (@Monoid.toPow.{0} Real Real.instMonoid)) (@HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub) (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) (Real.sqrt (@OfNat.ofNat.{0} Real (nat_lit 5) (@instOfNatAtLeastTwo.{0} Real (nat_lit 5) Real.instNatCast BinetFormulaTarget._proof_1)))) n)) (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (@HPow.hPow.{0, 0, 0} Real Nat Real (@instHPow.{0, 0} Real Nat (@Monoid.toPow.{0} Real Real.instMonoid)) (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast BinetFormulaTarget._proof_2)) n) (Real.sqrt (@OfNat.ofNat.{0} Real (nat_lit 5) (@instOfNatAtLeastTwo.{0} Real (nat_lit 5) Real.instNatCast BinetFormulaTarget._proof_1)))))",
+    "universe_parameters": [],
+    "ordered_binders": [
+      {
+        "name": "n",
+        "type": "Nat",
+        "role": "nonnegative Fibonacci index"
+      }
+    ],
+    "ordered_hypotheses": [],
+    "conclusion": "(Nat.fib n : Real) = ((1 + Real.sqrt 5)^n - (1 - Real.sqrt 5)^n) / ((2 : Real)^n * Real.sqrt 5)",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_master_acceptance"
+  },
+  "domain_and_universes": "n ranges over Nat, representing every nonnegative integer. Nat.fib is the zero-based natural-valued Fibonacci sequence and is coerced to Real. Real.sqrt is the nonnegative real square root. All carriers and the target Prop are in universe 0; there are no typeclass binders.",
+  "ordered_binders": [
+    "n : Nat (universal)"
+  ],
+  "hypotheses": [],
+  "conclusion": "Exact real equality between Nat.fib n and the DLMF radical expression for every n : Nat.",
+  "definition_profile": "Nat.fib 0 = 0, Nat.fib 1 = 1, and Nat.fib (n + 2) = Nat.fib n + Nat.fib (n + 1). Real.sqrt selects the nonnegative real square root; exponentiation is by Nat; division is exact totalized real division.",
+  "direct_imports": [
+    "Mathlib.Data.Nat.Fib.Basic",
+    "Mathlib.Data.Real.Sqrt"
+  ],
+  "minimal_import_result": "A canonical-target-only fixture elaborates with exactly these two direct definition modules. Removing the Fibonacci module makes Nat.fib unavailable; removing the square-root module makes the Real square-root expression unavailable.",
+  "minimal_import_boundary": "Deletion-minimal for the recorded source-spelled target fixture. The statement phase avoids the proof-bearing Mathlib.NumberTheory.Real.GoldenRatio module; it does not claim a globally smallest transitive dependency closure among every possible refactoring.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0927.FunctionEqualityTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0927.binetFormulaTarget_iff_functionEqualityTarget",
+      "boundary": "The same natural-index source formula expressed as equality of functions."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0927.CharacteristicRootTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0927.binetFormulaTarget_iff_characteristicRootTarget",
+      "boundary": "The same natural-index formula using local roots (1 + sqrt 5) / 2 and (1 - sqrt 5) / 2; no proof-bearing upstream Binet theorem is imported."
+    }
+  ],
+  "excluded_substitutions": [
+    "the integer-index extension with negative indices and integer powers",
+    "a one-based or shifted Fibonacci convention",
+    "the consecutive-ratio limit, golden-ratio asymptotic, or nearest-integer formula",
+    "the recurrence definition alone or an isolated finite computation",
+    "Real.coe_fib_eq or another proof-bearing anchor used as statement-phase proof credit"
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis_or_contract",
+      "declaration": "mutationRemovedConjugateContribution",
+      "expression_sha256": "324dea0021bbe2e3d643603e8af04c7cd4150046ad6b58f9399d19c9f697d56b",
+      "result": "Lean exact-type rejection, a distinct fully explicit expression, and a kernel-checked counterexample at n = 0 after deleting the conjugate-root contribution."
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedDomainToFinTen",
+      "expression_sha256": "1c8011910910a59f5ca28c08d4de16b5353545df6a8ac71925dd56f324ef0b6c",
+      "result": "Lean exact-type rejection, distinct expression, and checked omission of canonical index ten."
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationChangedBinderScope",
+      "expression_sha256": "d1f6e2fcc08e01359024af6d894e49afcdc3c653cc992db2c8310098934c9079",
+      "result": "Lean exact-type rejection and distinct expression after replacing the universal index with an existential."
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationExcludesZeroIndex",
+      "expression_sha256": "1789bde93d5828fe231cea81bcf82a17728007a6f4022d090f5ed9b43fe7e328",
+      "result": "Lean exact-type rejection and distinct expression after adding 1 <= n and excluding the source-admitted zero boundary."
+    }
+  ],
+  "boundary_cases": [
+    {
+      "case": "n = 0",
+      "disposition": "included and exact radical equality kernel-checked",
+      "witness": "Stage1Instances.THM_M_0927.zero_index_formula"
+    },
+    {
+      "case": "removed conjugate contribution at n = 0",
+      "disposition": "the mutated universal formula is kernel-refuted",
+      "witness": "Stage1Instances.THM_M_0927.removed_conjugate_mutation_is_false"
+    },
+    {
+      "case": "n = 1",
+      "disposition": "included and exact radical equality kernel-checked",
+      "witness": "Stage1Instances.THM_M_0927.one_index_formula"
+    },
+    {
+      "case": "sqrt(5) denominator",
+      "disposition": "the exact square-root factor is nonzero",
+      "witness": "Stage1Instances.THM_M_0927.sqrt_five_ne_zero"
+    },
+    {
+      "case": "all nonnegative indices",
+      "disposition": "Nat is unbounded; Fin 10 mutation omits index ten",
+      "witness": "Stage1Instances.THM_M_0927.ten_has_no_fin_ten_representation"
+    }
+  ],
+  "environment_fingerprint": {
+    "canonical_sha256": "e672961e219c6e71f7f867b38d01d2845d0bdc858647e76b1bac2bab42b89dbe",
+    "canonical_serialization": "{\"backend\":\"lean4\",\"direct_imports\":[\"Mathlib.Data.Nat.Fib.Basic\",\"Mathlib.Data.Real.Sqrt\"],\"foundation_profile_id\":\"lean4-dependent-type-theory-nat-real-arithmetic/statement-v1\",\"lean_commit\":\"98dc76e3c0a9b856c9b98726b713fb04fab16740\",\"lean_toolchain\":\"leanprover/lean4:v4.29.0\",\"mathlib_revision\":\"8a178386ffc0f5fef0b77738bb5449d50efeea95\",\"mathlib_tree\":\"bdc39a3123201dae413a9d9be56ec242c19e5c2b\",\"namespace\":\"Stage1Instances.THM_M_0927\",\"serialization_options\":[\"pp.explicit=true\",\"pp.universes=true\"],\"typeclass_context\":[],\"universes\":[]}",
+    "base_revision": "27400857bccc93638c97e9c65859ddf5d5b5f4da",
+    "base_tree": "3762537e0e5ae46cd70b086da49a69e2fd7b275c",
+    "formal_system": "Lean 4 + pinned mathlib",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "nat_fib_basic_source_sha256": "cc677908e449079923644aed447699e331e0100c88597d8a3c6e491db98267a0",
+    "real_sqrt_source_sha256": "b8b93e7e9351184afeb7fd3e6dcfb6f9ccb1e062ee5077f6b2b929871bfa4022",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "namespace": "Stage1Instances.THM_M_0927",
+    "universes": [],
+    "typeclass_context": [],
+    "dependency_mode": "automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory with exact natural recursion and real arithmetic. Checked transports and boundary witnesses report only propext, Classical.choice, and Quot.sound or no axioms; no custom axiom is introduced. Terminal trust closure is downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib definition modules Mathlib.Data.Nat.Fib.Basic and Mathlib.Data.Real.Sqrt. The proof-bearing GoldenRatio module is excluded from the statement import surface. Proof-body provenance and transitive trust acceptance remain downstream.",
+  "computation_profile": "Only exact kernel reduction and tactics are used for n = 0, n = 1, square-root nonzeroness, and a finite-domain omission witness. No native computation, floating-point approximation, oracle, experiment, or finite table is credited as proof of the universal root.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "source_revisions": {
+    "dlmf_equation_response_sha256": "a217ded8cf322e549eba3b2889a18abfea7e01f3d4bdd34e2aed017b25aa2adb",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0927/README.md",
+    "Stage1_Instances/THM-M-0927/Statement.lean",
+    "Stage1_Instances/THM-M-0927/check_statement.py",
+    "Stage1_Instances/THM-M-0927/instance.json",
+    "Stage1_Instances/THM-M-0927/scope-map.md",
+    "Stage1_Instances/THM-M-0927/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0927/statement-receipt.json",
+    "Stage1_Instances/THM-M-0927/statement-validation.md",
+    "Stage1_Instances/THM-M-0927/statement.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent Fibonacci-history or combinatorics reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "at master integration and whenever an invalidation input changes",
+    "invalidation_inputs": [
+      "catalog, DLMF source response, target selection, definition, binder, formula, transport, mutation, or boundary change",
+      "toolchain, dependency, direct import, assurance profile, validator, or owned artifact change"
+    ],
+    "incident_path": "The integration lane rejects or supersedes this provisional receipt and requires a fresh scoped statement run."
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The intake already classified exact pinned Binet interfaces as M3. Statement elaboration now freezes that interface without adding terminal proof evidence or changing H/R debt.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "status_boundary": "Exact source-spelled statement elaboration, two checked transports, four identity mutations, deletion-minimal imports, and boundary witnesses only. The expression hash is Lean's fixed-option fully explicit printed expression, not a backend-independent normal form. No Binet proof body, H0 source admission, M0 proof credit, anchor audit, obligation closure, audit completion, theorem completion, release, or master acceptance is asserted."
+}

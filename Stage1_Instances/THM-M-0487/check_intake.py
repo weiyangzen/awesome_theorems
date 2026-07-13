@@ -36,6 +36,21 @@ OWNED_FILES = {
     "statement.json",
     "statement-receipt.json",
     "statement-validation.md",
+    "AnchorAudit.lean",
+    "anchor-audit.json",
+    "anchor-discovery-protocol.json",
+    "check_anchor_audit.py",
+    "anchor-audit-validation.md",
+    "anchor-audit-receipt.json",
+    "ObligationTree.lean",
+    "build_obligation_artifacts.py",
+    "check_obligation_tree.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "validation-specs.json",
+    "obligation-tree.md",
+    "obligation-tree-validation.md",
+    "obligation-tree-receipt.json",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -168,12 +183,16 @@ def check_instance(instance: dict) -> None:
     assert instance["quantifiers"] and instance["ordered_binders"]
     assert instance["hypotheses"] and instance["alternate_encodings"]
     assert instance["excluded_degenerate_cases"]
-    assert instance["obligation_registry_hash"] is None
-    assert instance["discovery_protocol_hash"] is None
+    assert instance["obligation_registry_hash"] == (
+        "sha256:1d456b6ecd31a58a47bac58a2746bc0f8d16ce4b4e2821348331c511e21c1a41"
+    )
+    assert instance["discovery_protocol_hash"] == (
+        "sha256:000033f4f2a4a7bbafea46190fa559ae973d5e91b10eb97093a4d7d6974ae5b6"
+    )
     assert instance["root_vector"] == {"H": "H1", "M": "M3", "R": "R3"}
     assert instance["audit_complete"] is False and instance["theorem_complete"] is False
     assert instance["accepted_proof_state"] == instance["accepted_receipt_ids"] == []
-    assert "exact statement proposal" in instance["status_boundary"]
+    assert "obligation-registry version 1 proposal" in instance["status_boundary"]
     assert "theorem completion" in instance["status_boundary"]
 
     revisions = instance["source_revisions"]
@@ -320,13 +339,13 @@ def check_worker_packet(path: Path, receipt: dict) -> None:
         "known_failures",
         "state",
     }
-    assert packet["item_id"] == "S56-M-0487-STATEMENT" and packet["state"] == "[_]"
-    assert packet["base_revision"] == "561d83df037004ceb2259292d7c63be930b40391"
-    statement_receipt = load_json(HERE / "statement-receipt.json")
-    assert packet["changed_paths"] == statement_receipt["changed_paths"]
-    assert packet["commands"] == statement_receipt["worker_packet_commands"]
-    assert packet["known_failures"] == statement_receipt["known_failures"]
-    assert isinstance(packet["output_summary"], str) and packet["output_summary"]
+    assert packet["item_id"] == "S56-M-0487-OBLIGATION_TREE"
+    assert packet["state"] == "[_]"
+    downstream = load_json(HERE / "obligation-tree-receipt.json")
+    assert packet["base_revision"] == downstream["base_revision"]
+    assert packet["changed_paths"] == downstream["changed_paths"]
+    assert packet["known_failures"] == downstream["known_failures"]
+    assert packet["commands"] and packet["output_summary"].startswith("PASS:")
 
 
 def check_files(instance: dict, receipt: dict) -> None:
@@ -341,13 +360,27 @@ def check_files(instance: dict, receipt: dict) -> None:
         f"Stage1_Instances/{THEOREM_ID}/{name}" for name in OWNED_FILES
     }
     hashes = receipt["non_self_referential_owned_artifact_sha256"]
-    expected_hashed = set(receipt["changed_paths"]) - {
-        ".stage1-worker-selftest.json",
-        f"Stage1_Instances/{THEOREM_ID}/intake-receipt.json",
+    intake_phase_files = {
+        "IntakeProbe.lean", "README.md", "check_intake.py", "instance.json",
+        "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "validation.md",
     }
-    assert set(hashes) == expected_hashed
+    expected_hashed = {
+        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_phase_files
+    }
+    assert expected_hashed <= set(hashes)
+    downstream_changed = {
+        f"Stage1_Instances/{THEOREM_ID}/README.md",
+        f"Stage1_Instances/{THEOREM_ID}/check_intake.py",
+        f"Stage1_Instances/{THEOREM_ID}/instance.json",
+        f"Stage1_Instances/{THEOREM_ID}/scope-map.md",
+        f"Stage1_Instances/{THEOREM_ID}/source-statement-crosswalk.md",
+        f"Stage1_Instances/{THEOREM_ID}/task-dag.json",
+        f"Stage1_Instances/{THEOREM_ID}/validation.md",
+    }
     for relative, expected in hashes.items():
         assert (ROOT / relative).is_file() and re.fullmatch(r"[0-9a-f]{64}", expected)
+        if relative not in downstream_changed:
+            assert sha256(ROOT / relative) == expected
     assert receipt["supersession_state"].startswith(
         "superseded for current dossier replay by S56-M-0487-STATEMENT"
     )
