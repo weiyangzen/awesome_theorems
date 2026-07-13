@@ -1,0 +1,229 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0973-INTAKE-WORKER-20260713",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "content_addressing_boundary": "This mutable provisional worker receipt is not accepted validation authority. Master acceptance must recapture canonical content-addressed inputs, outputs, logs, recipes, and the accepted node receipt.",
+  "item_id": "S56-M-0973-INTAKE",
+  "theorem_id": "THM-M-0973",
+  "phase": "intake",
+  "intent": "intake",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "base_revision": "fcabbf1e0ad9507eebe91663bccabfa87d22813e",
+  "base_tree": "873e589c594454b7f263c7ed2342089a4d15e842",
+  "worker_branch_or_worktree": "isolated Stage1 rev-5.6 automation worker slot80",
+  "worktree_state": "nonrelease_dirty_due_to_owned_untracked_intake_artifacts_and_a_preexisting_automation_lake_symlink",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0973/README.md",
+    "Stage1_Instances/THM-M-0973/instance.json",
+    "Stage1_Instances/THM-M-0973/scope-map.md",
+    "Stage1_Instances/THM-M-0973/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0973/task-dag.json",
+    "Stage1_Instances/THM-M-0973/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0973/check_intake.py",
+    "Stage1_Instances/THM-M-0973/validation.md",
+    "Stage1_Instances/THM-M-0973/intake-receipt.json"
+  ],
+  "exact_statements_added_or_changed": null,
+  "source_evidence": {
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "catalog_record": "Kim-Vu inequality; Jeong Han Han/Van Vu; 2000; polynomial concentration inequality; high importance; untrusted verified status only",
+    "primary_bibliographic_lead": "Jeong Han Kim and Van H. Vu, Concentration of Multivariate Polynomials and Its Applications, Combinatorica 20(3), 2000, 417-434, DOI 10.1007/s004930070014",
+    "primary_source_boundary": "Crossref and Springer bibliographic metadata plus a formula-stripped publisher abstract inspected; formula-bearing article was access-controlled and an author-hosted PDF lead timed out, so exact theorem, definitions, constants, proof, corrections, and errata were not inspected",
+    "catalog_correction_boundary": "the catalog first-author string Jeong Han Han does not match bibliographic Jeong Han Kim; correction requires accountable review and is not silently applied to authority",
+    "neighbor_boundary": "Janson, Talagrand, Azuma-Hoeffding, McDiarmid, and other concentration targets are distinct roots and share no proof status or receipts",
+    "candidate_formal_status": "generic pinned multivariate-polynomial evaluation, partial-derivative, independent-function, and Bernoulli-product APIs elaborate; bounded exact-topic search located no Kim-Vu or polynomial-concentration declaration",
+    "proof_body_locations": []
+  },
+  "proof_body_locations": [],
+  "commands_and_results": [
+    {
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0973"],
+      "exit_code": 0,
+      "result": "rank 1507; planned; L0/rework_required; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": ["git", "status", "--short", "--untracked-files=all"],
+      "exit_code": 0,
+      "result": "initial status contained only the pre-existing automation-provided Formalizations/Lean/.lake symlink; preserved read-only"
+    },
+    {
+      "argv": ["git", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "base revision fcabbf1e0ad9507eebe91663bccabfa87d22813e; base tree 873e589c594454b7f263c7ed2342089a4d15e842"
+    },
+    {
+      "argv": ["git", "blame", "-L", "7106,7111", "--", "Docs/researches/math_theorems.md"],
+      "exit_code": 0,
+      "result": "all six uncited source-record lines originate at bcf3f9fa79ab8c2b6610c9875668c2589b35b74f"
+    },
+    {
+      "argv": ["curl", "-L", "--fail", "--silent", "--show-error", "--max-time", "30", "https://api.crossref.org/works/10.1007/s004930070014", "-o", "/tmp/kim-vu-crossref.json"],
+      "exit_code": 0,
+      "result": "publisher bibliographic payload SHA-256 5b6d2a3765bd2bd7bcb8f4b5ddfbbdab942338faad21a5766cef03643b6205d4; exact authors, title, journal, March 2000 date, volume, issue, pages, and DOI identified"
+    },
+    {
+      "argv": ["curl", "-I", "-L", "--max-time", "30", "https://doi.org/10.1007/s004930070014"],
+      "exit_code": 0,
+      "result": "DOI redirect and publisher landing path were reachable; this established bibliographic availability only, not exact statement content"
+    },
+    {
+      "argv": ["curl", "-L", "--fail", "--silent", "--show-error", "--max-time", "60", "-o", "/tmp/kim-vu.pdf", "https://link.springer.com/content/pdf/10.1007/s004930070014.pdf"],
+      "exit_code": 0,
+      "result": "endpoint returned access-controlled HTML rather than a PDF; metadata and formula-stripped abstract observed, no primary theorem formula credited"
+    },
+    {
+      "argv": ["curl", "--connect-timeout", "5", "--max-time", "60", "-L", "--fail", "--silent", "--show-error", "-o", "/tmp/concentration.pdf", "https://bpb-us-w2.wpmucdn.com/campuspress.yale.edu/dist/1/1221/files/concentration.pdf"],
+      "exit_code": 28,
+      "result": "author-hosted PDF lead timed out and produced no file; it was not inspected, hashed, admitted, or credited"
+    },
+    {
+      "argv": ["rg", "-n", "-i", "--glob", "*.lean", "Kim.?Vu|KimVu|polynomial concentration|concentration.*polynomial|polynomial.*concentration", "Formalizations/Lean/AwesomeTheorems", "Formalizations/Lean/.lake/packages/mathlib/Mathlib"],
+      "exit_code": 1,
+      "expected_no_match": true,
+      "result": "no Kim-Vu or polynomial-concentration declaration in the bounded pinned and repo-local search; intake discovery only"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0973/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "eight generic pinned APIs elaborated; complete stdout SHA-256 a048f43a0f87ea112ff2d786dce0c806a60a1afe1838cd9893ed684fdf05fbab; empty stderr; no target or proof credit"
+    },
+    {
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0973/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "authority identity, planned H1/M4/R4 boundary, null target, exact inventory and hashes, worker packet, and six open tasks agree"
+    },
+    {
+      "argv": ["rg", "-n", "--glob", "*.lean", "\\b(sorry|admit)\\b|\\bsorryAx\\b|^[[:space:]]*(axiom|constant|opaque|unsafe)[[:space:]]", "Stage1_Instances/THM-M-0973"],
+      "exit_code": 1,
+      "expected_no_match": true,
+      "result": "no prohibited declaration or proof escape in the API-only probe"
+    },
+    {
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0973", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "tracked-diff command emitted no diagnostics; per-file no-index checks supplied untracked new-file coverage"
+    }
+  ],
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0973-INTAKE-RECIPE-STRUCTURE",
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0973/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "exact UTF-8 line: intake invariant check: ok (THM-M-0973 planned; H1/M4/R4; six open tasks)"}],
+      "covered_ids": ["S56-M-0973-INTAKE"],
+      "covered_obligation_ids": [],
+      "covered_declarations": [],
+      "exit_code": 0
+    },
+    {
+      "recipe_id": "S56-M-0973-INTAKE-RECIPE-LEAN-PROBE",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0973/IntakeProbe.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [{"path_or_stream": "stdout", "semantic_hash_policy": "capture complete UTF-8 API-signature output; observed SHA-256 a048f43a0f87ea112ff2d786dce0c806a60a1afe1838cd9893ed684fdf05fbab"}],
+      "covered_ids": ["S56-M-0973-INTAKE"],
+      "covered_obligation_ids": [],
+      "covered_declarations": [],
+      "exit_code": 0
+    }
+  ],
+  "worker_input_hashes": {
+    "lean_toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lake_symlink_target_string": "sha256:e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_mvpolynomial_eval_source_sha256": "9c871fda0b0144174e7c8e20ced395a572fffbb9c3223d71686fa9db5b14af45",
+    "mathlib_mvpolynomial_pderiv_source_sha256": "2c7ce050bb340658878723a0f633c0cc89c1a06892f300868dc8ef49694e4cd4",
+    "mathlib_independence_source_sha256": "67f71d5c3d32371ad4822fc29f0db84bb0cffbbab24f82ae2f88702152ffe33b",
+    "mathlib_set_bernoulli_source_sha256": "0e251471242badf83ec61eec0ce8ab2e774dfd971344da7f30e895e01ddbe5de",
+    "kim_vu_crossref_response_sha256": "5b6d2a3765bd2bd7bcb8f4b5ddfbbdab942338faad21a5766cef03643b6205d4"
+  },
+  "owned_artifact_sha256": {
+    "Stage1_Instances/THM-M-0973/README.md": "21cae9b2db9164d950cb2eccaeec9e11acc0e18d1af042bfd2d321b727f8f6a5",
+    "Stage1_Instances/THM-M-0973/instance.json": "887499387c73b50dbbcf99f90b0df008ad8893bb9c814930c748c6734b4b91b4",
+    "Stage1_Instances/THM-M-0973/scope-map.md": "1db49f30905017d4d61542396145f4c6046bca42a0f15ef48ca65268526245aa",
+    "Stage1_Instances/THM-M-0973/source-statement-crosswalk.md": "bb0f8441aaf9ede644f31f8990e2abd02043f35a327eac11e8facd3d41f76b95",
+    "Stage1_Instances/THM-M-0973/task-dag.json": "72c4c323f4d6be307386c22021347cc5ed03b955977fe460dea19c1336ef26a3",
+    "Stage1_Instances/THM-M-0973/IntakeProbe.lean": "1f2e3017da891801b60829f489df3be6d2545c8537559b103daf393de24427b6",
+    "Stage1_Instances/THM-M-0973/check_intake.py": "b8d09947762df8341196c097671a74000e36a0f68243257c9cdfb486ebbb56a0",
+    "Stage1_Instances/THM-M-0973/validation.md": "e195fb11f7c1dd99795500993444b3657f46921f203d3bb428c722c48b16baa7",
+    "Stage1_Instances/THM-M-0973/intake-receipt.json": "self_referential_excluded_from_provisional_digest"
+  },
+  "axiom_and_placeholder_results": {
+    "scope": "IntakeProbe.lean only; no theorem declaration or proof body was introduced",
+    "prohibited_scan_exit": 1,
+    "prohibited_scan_expected_no_match": true,
+    "result": "no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration; axiom closure is not applicable because no target declaration exists"
+  },
+  "root_vector_before": {"H": "unclassified", "M": "unclassified", "R": "unclassified"},
+  "root_vector_after": {"H": "H1", "M": "M4", "R": "R4"},
+  "proposed_debt_delta": "classify the planned root as H1/M4/R4 without accepting proof state",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "first_failed_gate": "the provisional node receipt has not yet been independently replayed and master-accepted",
+  "first_failed_theorem_gate": "the exact primary source theorem, catalog-author correction, selected variant, polynomial and probability conventions, derivative controls, constants, tail form, and canonical Lean expression are not frozen",
+  "retry_condition": "integration lane replays and accepts this intake; statement work then obtains and independently reviews an immutable primary or approved authoritative source, selects one exact Kim-Vu theorem and variant, resolves the catalog attribution, and freezes one mutation-tested Lean target without importing a remembered formula as authority",
+  "remaining_root_cut_set": [
+    "S56-M-0973-STATEMENT",
+    "S56-M-0973-ANCHOR_AUDIT",
+    "S56-M-0973-OBLIGATION_TREE",
+    "S56-M-0973-PROOF",
+    "S56-M-0973-VALIDATION",
+    "S56-M-0973-RELEASE"
+  ],
+  "known_failures": [
+    "An immutable lawful primary or approved authoritative source must be inspected for the exact numbered theorem, definitions, variable laws, polynomial and coefficient restrictions, degree, derivative controls, constants, parameter ranges, tail conclusion, proof, correction, and errata boundaries and independently reviewed.",
+    "The catalog first-author string must be reconciled explicitly with bibliographic Jeong Han Kim, and the original theorem versus later variants or corollaries remains unselected.",
+    "No canonical Lean expression, exact minimal imports, expression or environment fingerprint, checked alternate transport, or required statement mutations are frozen.",
+    "The pinned APIs are generic polynomial and probability substrate rather than a Kim-Vu artifact; no terminal proof body, source transport, provenance, axioms, TCB, or root closure is audited or credited.",
+    "Discovery and obligation freezes, typed graphs, proof, composition, readable reconstruction, hermetic replay, deterministic evidence bundle, independent release verification, and master acceptance remain open."
+  ],
+  "selftest_result": "pass",
+  "output_summary": "All rev-5.6 preflight, source-boundary, JSON, scoped invariant, pinned Lean API, prohibited-construct, and whitespace checks passed for the planned intake. No canonical statement or proof was tested or claimed.",
+  "owner": "Stage1 integration lane",
+  "validated_at": "2026-07-13T20:53:22+08:00",
+  "review_due": "before master acceptance or dependent statement work",
+  "invalidation_inputs": [
+    "source edition, correction, erratum, catalog-author correction, selected theorem or variant, definition, premise, conclusion, proof, or reviewer disposition",
+    "variable law, polynomial representation, coefficient, degree, derivative, expectation-control, constant, parameter-range, tail-event, or boundary convention",
+    "canonical Lean target, missing probability dependency, toolchain, dependency pin, or generic API source",
+    "assurance profile, validator, receipt, worker packet, or any owned artifact"
+  ],
+  "support_state": "provisional_worker_only",
+  "supersession_state": "current_unsuperseded_worker_report",
+  "revocation_state": "not_revoked_provisional",
+  "incident_path": "The integration lane rejects, revokes, or supersedes this report, records the reason, and requires a fresh scoped intake self-test.",
+  "status_boundary": "Worker self-tested planned intake proposal only. This provisional receipt is not content-addressed, signed, or master-accepted and asserts no canonical statement, exact primary-theorem inspection, proof, audit-completion, or theorem-completion credit."
+}
