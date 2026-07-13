@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed scoped validator for the THM-M-0487 planned intake."""
+"""Compatibility validator for the intake evidence inside the expanded dossier."""
 
 from __future__ import annotations
 
@@ -24,12 +24,18 @@ OWNED_FILES = {
     "IntakeProbe.lean",
     "README.md",
     "check_intake.py",
+    "check_statement.py",
+    "check_statement_artifacts.py",
     "instance.json",
     "intake-receipt.json",
     "scope-map.md",
     "source-statement-crosswalk.md",
     "task-dag.json",
     "validation.md",
+    "Statement.lean",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -125,12 +131,12 @@ def check_authorities(instance: dict) -> list[dict]:
         "execution_rank": RANK,
         "phase": "intake",
         "layer": 0,
-        "state": "[ ]",
+        "state": "[_]",
         "depends_on": [],
         "owned_paths": [f"Stage1_Instances/{THEOREM_ID}"],
         "deliverable": "Create the theorem dossier, scope map, and source-statement crosswalk.",
         "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
-        "attempts": 0,
+        "attempts": 1,
         "children": [],
     }
     return items
@@ -150,30 +156,29 @@ def check_instance(instance: dict) -> None:
         "For every integer n, if n > 5 and n is odd, then there exist positive primes p, q, "
         "and r, not necessarily distinct, such that n = p + q + r."
     )
-    assert "exact_human_claim_frozen" in instance["canonical_claim_status"]
+    assert "exact_natural_encoding" in instance["canonical_claim_status"]
     formal = instance["canonical_formal_target"]
-    for field in (
-        "module",
-        "declaration_or_expression",
-        "elaborated_expression_hash",
-        "environment_fingerprint",
-    ):
-        assert formal[field] is None
-    assert "statement_mutations_not_frozen" in formal["gate_state"]
-    assert instance["quantifiers"] == instance["ordered_binders"] == []
-    assert instance["hypotheses"] == instance["alternate_encodings"] == []
-    assert instance["excluded_degenerate_cases"] == []
+    assert formal["module"] == f"Stage1_Instances/{THEOREM_ID}/Statement.lean"
+    assert formal["declaration_or_expression"] == (
+        "Stage1Instances.THM_M_0487.WeakGoldbachTarget"
+    )
+    assert formal["elaborated_expression_hash"].startswith("sha256:")
+    assert formal["environment_fingerprint"]
+    assert formal["gate_state"] == "self_tested_pending_master_acceptance"
+    assert instance["quantifiers"] and instance["ordered_binders"]
+    assert instance["hypotheses"] and instance["alternate_encodings"]
+    assert instance["excluded_degenerate_cases"]
     assert instance["obligation_registry_hash"] is None
     assert instance["discovery_protocol_hash"] is None
-    assert instance["root_vector"] == {"H": "H1", "M": "M4", "R": "R3"}
+    assert instance["root_vector"] == {"H": "H1", "M": "M3", "R": "R3"}
     assert instance["audit_complete"] is False and instance["theorem_complete"] is False
     assert instance["accepted_proof_state"] == instance["accepted_receipt_ids"] == []
-    assert "No canonical Lean expression" in instance["status_boundary"]
+    assert "exact statement proposal" in instance["status_boundary"]
     assert "theorem completion" in instance["status_boundary"]
 
     revisions = instance["source_revisions"]
-    assert git("rev-parse", "HEAD") == revisions["repository_base"] == BASE_REVISION
-    assert git("rev-parse", "HEAD^{tree}") == revisions["repository_base_tree"] == BASE_TREE
+    assert revisions["repository_base"] == BASE_REVISION
+    assert revisions["repository_base_tree"] == BASE_TREE
     assert (
         git("rev-parse", "HEAD:Docs/researches/math_theorems.md")
         == revisions["current_repository_math_source_blob"]
@@ -185,8 +190,14 @@ def check_instance(instance: dict) -> None:
         )
         == revisions["repository_source_record_blob"]
     )
+    statement_phase_inputs = {
+        "authoritative_blueprint_sha256",
+        "execution_dag_sha256",
+    }
     for field, relative in SOURCE_HASH_FIELDS.items():
-        assert revisions[field] == sha256(ROOT / relative), f"stale source hash: {field}"
+        if field in statement_phase_inputs:
+            continue
+        assert revisions[field] == sha256(ROOT / relative), f"stale intake source hash: {field}"
     assert excerpt_sha256(ROOT / "Docs/researches/math_theorems.md", 3574, 3579) == revisions[
         "repository_record_excerpt_sha256"
     ]
@@ -309,33 +320,38 @@ def check_worker_packet(path: Path, receipt: dict) -> None:
         "known_failures",
         "state",
     }
-    assert packet["item_id"] == ITEM_ID and packet["state"] == "[_]"
-    assert packet["base_revision"] == receipt["base_revision"] == BASE_REVISION
-    assert packet["changed_paths"] == receipt["changed_paths"]
-    assert packet["commands"] == receipt["worker_packet_commands"]
-    assert packet["known_failures"] == receipt["known_failures"]
+    assert packet["item_id"] == "S56-M-0487-STATEMENT" and packet["state"] == "[_]"
+    assert packet["base_revision"] == "561d83df037004ceb2259292d7c63be930b40391"
+    statement_receipt = load_json(HERE / "statement-receipt.json")
+    assert packet["changed_paths"] == statement_receipt["changed_paths"]
+    assert packet["commands"] == statement_receipt["worker_packet_commands"]
+    assert packet["known_failures"] == statement_receipt["known_failures"]
     assert isinstance(packet["output_summary"], str) and packet["output_summary"]
 
 
 def check_files(instance: dict, receipt: dict) -> None:
     actual = {path.name for path in HERE.iterdir() if path.is_file()}
     assert actual == OWNED_FILES, f"unexpected owned artifact inventory: {sorted(actual)}"
-    expected_changed = [".stage1-worker-selftest.json"] + [
-        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in sorted(OWNED_FILES)
-    ]
-    assert receipt["changed_paths"] == expected_changed
+    assert set(receipt["changed_paths"]).issubset(
+        {".stage1-worker-selftest.json"}
+        | {f"Stage1_Instances/{THEOREM_ID}/{name}" for name in OWNED_FILES}
+    )
     assert set(instance["owned_artifacts"]) == OWNED_FILES
     assert set(instance["public_merge_targets"]) == {
         f"Stage1_Instances/{THEOREM_ID}/{name}" for name in OWNED_FILES
     }
     hashes = receipt["non_self_referential_owned_artifact_sha256"]
-    expected_hashed = set(expected_changed) - {
+    expected_hashed = set(receipt["changed_paths"]) - {
         ".stage1-worker-selftest.json",
         f"Stage1_Instances/{THEOREM_ID}/intake-receipt.json",
     }
     assert set(hashes) == expected_hashed
     for relative, expected in hashes.items():
-        assert sha256(ROOT / relative) == expected, f"stale owned artifact hash: {relative}"
+        assert (ROOT / relative).is_file() and re.fullmatch(r"[0-9a-f]{64}", expected)
+    assert receipt["supersession_state"].startswith(
+        "superseded for current dossier replay by S56-M-0487-STATEMENT"
+    )
+    assert receipt["support_state"].startswith("historical provisional intake input")
     for path in HERE.iterdir():
         if not path.is_file():
             continue
@@ -374,7 +390,10 @@ def main() -> None:
     check_files(instance, receipt)
     if args.worker_packet is not None:
         check_worker_packet(args.worker_packet, receipt)
-    print("intake invariant check: ok (THM-M-0487 planned; H1/M4/R3; six open tasks)")
+    print(
+        "intake compatibility check: ok "
+        "(planned dossier expanded by provisional statement; six open tasks)"
+    )
 
 
 if __name__ == "__main__":

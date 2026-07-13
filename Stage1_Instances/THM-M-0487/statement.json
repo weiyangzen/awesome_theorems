@@ -1,0 +1,152 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0487-STATEMENT",
+  "theorem_id": "THM-M-0487",
+  "execution_rank": 1366,
+  "depends_on": [
+    "S56-M-0487-INTAKE"
+  ],
+  "lifecycle_mode": "planned",
+  "canonical_name": "Weak or ternary Goldbach theorem",
+  "canonical_statement": "For every natural number n, if 5 < n and n is odd, then there exist natural primes p, q, and r, not necessarily distinct, such that n = p + q + r.",
+  "canonical_claim_status": "exact_natural_encoding_of_the_frozen_positive_integer_claim_self_tested_pending_master_acceptance_while_full_source_and_computation_review_remain_open",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0487/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0487.WeakGoldbachTarget",
+    "fully_explicit_expression": "forall n : Nat, 5 < n -> Odd n -> exists p q r : Nat, Nat.Prime p and Nat.Prime q and Nat.Prime r and n = p + q + r",
+    "elaborated_expression_sha256": "29ac94dd615869191754270061d8fe7123991d403a07bbdf27a09f706665e703",
+    "statement_file_sha256": "9d0200046173c0b0d9d0b52cbf696087f4beea6946c92bfa41f03402a4090b0d",
+    "direct_imports": [
+      "Mathlib.Algebra.Ring.Int.Parity",
+      "Mathlib.Data.Nat.Prime.Defs"
+    ]
+  },
+  "domain_and_universes": "n p q r : Nat in universe 0; the closed target is a Prop in universe 0 and has no implicit typeclass or universe binders.",
+  "quantifiers": [
+    "for every n : Nat",
+    "there exist p q r : Nat"
+  ],
+  "ordered_binders": [
+    "n : Nat (universal)",
+    "5 < n (antecedent)",
+    "Odd n (antecedent)",
+    "p : Nat (existential)",
+    "q : Nat (existential)",
+    "r : Nat (existential)"
+  ],
+  "hypotheses": [
+    "5 < n",
+    "Odd n"
+  ],
+  "conclusion": "There exist natural p, q, and r with Nat.Prime p, Nat.Prime q, Nat.Prime r, and n = p + q + r; witnesses may repeat and may include the even prime 2.",
+  "direct_imports": [
+    "Mathlib.Algebra.Ring.Int.Parity",
+    "Mathlib.Data.Nat.Prime.Defs"
+  ],
+  "minimal_import_evidence": "Exactly two narrow direct modules supply integer parity transport and natural prime/arithmetic vocabulary. Deleting either import makes elaboration fail; no aggregate Mathlib import is used.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0487.ReversedEqualityWeakGoldbachTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0487.weakGoldbachTarget_iff_reversedEqualityWeakGoldbachTarget",
+      "boundary": "Only the equality orientation changes; all domains, hypotheses, witnesses, and prime predicates agree."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0487.IntegerWeakGoldbachTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0487.weakGoldbachTarget_iff_integerWeakGoldbachTarget",
+      "boundary": "The source premise z > 5 supplies nonnegativity; toNat/natCast parity, bound, witness-prime, and sum-equality transports are kernel-checked."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "an eventual or sufficiently-large three-primes theorem such as THM-M-0508",
+    "a strengthened distinct-primes or three-odd-primes result that excludes n = 7"
+  ],
+  "degenerate_cases": {
+    "excluded_by_antecedent": [
+      "n <= 5",
+      "every even n"
+    ],
+    "included": [
+      "n = 7",
+      "repeated prime summands",
+      "the even prime 2"
+    ],
+    "checked_witnesses": [
+      "Stage1Instances.THM_M_0487.five_excluded",
+      "Stage1Instances.THM_M_0487.five_not_three_prime_sum",
+      "Stage1Instances.THM_M_0487.mutationIncludedFiveBoundary_is_false",
+      "Stage1Instances.THM_M_0487.mutationChangedDomainToFinEight_is_true",
+      "Stage1Instances.THM_M_0487.seven_included",
+      "Stage1Instances.THM_M_0487.seven_repeated_prime_representation",
+      "Stage1Instances.THM_M_0487.eight_not_odd"
+    ]
+  },
+  "source_boundary": "Helfgott's Main Theorem states every odd integer greater than five. Such inputs are positive and therefore correspond uniquely to Nat, so the canonical Nat target preserves the received claim. Full source admission, analytic/computational dependency mapping, errata review, and independent review remain H1 work.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": {
+      "Mathlib.Algebra.Ring.Int.Parity": "d3d4c39ee9a880a9da780c09807fa1e7f612cb2813454716edac0b69da2163f4",
+      "Mathlib.Data.Nat.Prime.Defs": "fb7b8f26c48fdb96c39d264574b70ba382d700a9a97a06ee41bb05377dfc68a4"
+    },
+    "options": [
+      "autoImplicit=false",
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The equality transport reports propext; the checked integer/natural transport reports propext, Classical.choice, and Quot.sound. No target proof or custom axiom is introduced.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. Full transitive proof-body trust is outside the statement phase.",
+  "computation_profile": "Only kernel-checked decidable boundary facts for 5, 7, and 8 are used. No finite Goldbach verification, native computation, experiment, oracle, or unchecked certificate is credited.",
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedOddHypothesis",
+      "result": "Lean rejects the mutation as a term of the canonical target and its explicit expression is distinct."
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedDomainToFinEight",
+      "result": "Lean rejects the Fin 8 input-domain mutation, its explicit expression is distinct, and a boundary theorem proves it collapses to n = 7."
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationChangedBinderScope",
+      "result": "Lean rejects choosing the three witnesses before n and its explicit expression is distinct."
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationIncludedFiveBoundary",
+      "result": "Lean rejects replacing 5 < n by 5 <= n and its explicit expression is distinct; the mutation incorrectly includes odd n = 5."
+    }
+  ],
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "debt_delta_basis": "Exact statement elaboration, a checked presentation transport, four mutation classes, and boundary witnesses support provisional M3 interface status. They add no H0 source review, proof closure, or readable proof reconstruction.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration only. No weak Goldbach proof, H0, M0, R0, accepted state, downstream phase, audit completion, theorem completion, or master acceptance is claimed."
+}

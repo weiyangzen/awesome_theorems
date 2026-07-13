@@ -1,0 +1,230 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0916",
+  "item_id": "S56-M-0916-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1458,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "欧拉五边形数定理",
+  "name_en": "Euler's pentagonal number theorem (exact formulation unresolved)",
+  "canonical_name": "Euler's pentagonal number theorem family (source formulation unresolved)",
+  "category": "组合数学 / 计数组合",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "整数分拆的生成函数恒等式",
+  "literal_source_claim_en": "A generating-function identity for integer partitions.",
+  "source_attribution": "Leonhard Euler, 1750 (catalog metadata only; no citation or locator)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "named_family_and_gloss_do_not_select_one_source_identified_binder_complete_identity_or_encoding",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives no formula, source, ring or convergence regime, generalized-pentagonal indexing convention, infinite-product semantics, partition-number definition, or exact conclusion. It does not decide whether the root is Euler's product-to-pentagonal-series identity, the reciprocal generating function for partition numbers, their conjunction, or the coefficient recurrence. Choosing one would make an unreviewed proposition-changing source decision.",
+  "target_decision": "source_formulation_selection_required_before_ordinary_statement_execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Enumerative.Partition.GenFun"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_and_encoding_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix whether the equality lives in a formal power-series ring, an analytic disk, or another completed ring; its coefficient ring and topology; the natural or integer indexing domains; the representation of partitions; and all universes and typeclass assumptions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not select the infinite product equals signed pentagonal series, the reciprocal equals the ordinary partition generating function, a coefficient recurrence for p(n), or a source-specified package of these claims.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a source proposition is selected; the statement phase must resolve every boundary listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the formal identity product over m >= 1 of (1 - X^m) equals the integer-indexed signed generalized-pentagonal series",
+    "the paired natural-index form with a constant term and exponents k(3k-1)/2 and k(3k+1)/2",
+    "the reciprocal product identity for the generating series of the ordinary partition numbers p(n)",
+    "Euler's generalized-pentagonal recurrence for p(n)",
+    "an analytic q-series version under a source-selected absolute-value hypothesis"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the constant term and whether k = 0 is represented once",
+    "the definition and value of p(0)",
+    "integer versus paired natural indexing and the parity sign for negative indices",
+    "integrality and nonnegativity of k(3k plus or minus 1)/2",
+    "empty partial products and the ordering or filter used for infinite products",
+    "formal power series versus analytic q with |q| < 1, including the boundary q = 0",
+    "coefficient rings of characteristic two or with zero divisors",
+    "recurrence terms whose generalized pentagonal exponent exceeds n"
+  ],
+  "excluded_substitutions": [
+    "Nat.Partition.card_odds_eq_card_distincts, also called Euler's partition theorem, which is a different theorem",
+    "Nat.Partition.hasProd_genFun or genFun_eq_tprod used as the pentagonal expansion without the missing specialization and signed-series identity",
+    "the ordinary partition generating function alone if the selected source root is the product-to-pentagonal-series identity",
+    "the partition recurrence alone if the selected source root is a power-series identity, absent checked coefficient transport",
+    "a finite truncation, numerical coefficient test, experimental expansion, or unchecked computer algebra result",
+    "a definition or hypothesis that stores the desired identity",
+    "THM-M-0915 generating functions, THM-M-0917 partition function, or THM-M-0918 Rogers-Ramanujan identities",
+    "the catalog's untrusted verified label or the API probe used as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0915",
+      "name": "生成函数",
+      "relationship": "broader generating-function-method target; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0917",
+      "name": "分拆函数",
+      "relationship": "separate partition-counting target; definitions may later require a checked crosswalk"
+    },
+    {
+      "theorem_id": "THM-M-0918",
+      "name": "罗杰斯-拉马努金恒等式",
+      "relationship": "separate q-series and partition-identity target"
+    }
+  ],
+  "source_status": "H1_named_theorem_and_matching_primary_proof_located_exact_source_admission_assumption_semantics_errata_mapping_and_independent_review_open",
+  "primary_source_discovery_candidate_not_credited": {
+    "citation": "Leonhard Euler, Demonstratio theorematis circa ordinem in summis divisorum observatum, Novi Commentarii Academiae scientiarum Imperialis Petropolitanae 5 (1760), pages 75-83, Enestrom E244",
+    "translation": "Jordan Bell translation, arXiv:math/0507201v2 (2009)",
+    "translation_pdf_bytes": 88041,
+    "translation_pdf_sha256": "0900718052a4085b7b9b2067fd2710b323223a90f4b8683a0bbe7795f177770e",
+    "candidate_locator": "translation pages 1-2 for the product and expansion; Proposition 3, translation pages 3-5, for the proof and generalized-pentagonal exponent pattern",
+    "inspection_status": "immutable translation inspected as a primary-text lead; source admission, Latin/translation audit, formal-versus-historical semantics, complete proof-node mapping, corrections, and independent review remain open"
+  },
+  "modern_statement_source_candidate_not_credited": {
+    "citation": "NIST Digital Library of Mathematical Functions, section 27.14(ii), equations 27.14.2-27.14.5",
+    "root_locator": "https://dlmf.nist.gov/27.14.E4 and https://dlmf.nist.gov/27.14.E5",
+    "context_locators": [
+      "https://dlmf.nist.gov/27.14.E2",
+      "https://dlmf.nist.gov/27.14.E3"
+    ],
+    "observed_html_boundary": "full section HTML contains dynamic session content and is not used as a replay-stable digest; equation TeX resources below are the recorded statement bytes",
+    "equation_tex_sha256": {
+      "27.14.E2": "678ece35634aba3460abd71fab710f833ba619fc42986733827e0e1759738331",
+      "27.14.E3": "5ccf9eb943d8fa75eb0c3ba5bd74acd66063ee626c8d0a440280e3854664157b",
+      "27.14.E4": "a5f9de98289d8d6872f4b17d1726972d5ba5ed673117c0d586a6321629859191",
+      "27.14.E5": "2e184a4385ee799a583614fa11872cbd6b5d8ff51428ee706f7f7d0e9b2294f5"
+    },
+    "candidate_summary": "E2 defines the product for real |x| < 1, E3 gives its reciprocal partition generating function with p(0) = 1, and E4-E5 explicitly name and state Euler's paired-index pentagonal number theorem.",
+    "inspection_status": "authoritative modern statement lead only; exact source admission, errata and assumption review, source-to-Lean encoding, and independent approval remain open"
+  },
+  "historical_date_evidence_not_credited": {
+    "citation": "Jordan Bell, Euler and the pentagonal number theorem, arXiv:math/0510054v2",
+    "pdf_bytes": 220767,
+    "pdf_sha256": "28623ab30a2a9b025d3c5946f1426366195578b715bffdc53e4874f316f3bcf4",
+    "candidate_summary": "reports the formula in 1748, Euler's proof in a letter to Goldbach dated 9 June 1750, and the fuller E244 publication in 1760",
+    "boundary": "supports a plausible interpretation of the catalog year but is secondary historical evidence and has not received independent review"
+  },
+  "formal_candidates_not_credited": [
+    {
+      "modules": [
+        "Mathlib.Combinatorics.Enumerative.Partition.GenFun"
+      ],
+      "declarations": [
+        "Nat.Partition.genFun",
+        "Nat.Partition.coeff_genFun",
+        "Nat.Partition.hasProd_genFun",
+        "Nat.Partition.genFun_eq_tprod"
+      ],
+      "boundary": "generic weighted partition generating-function infrastructure only; its module documentation marks the ordinary p(n) specialization as TODO and contains no pentagonal-number expansion"
+    },
+    {
+      "modules": [
+        "Mathlib.Combinatorics.Enumerative.Partition.Glaisher"
+      ],
+      "declarations": [
+        "Nat.Partition.card_odds_eq_card_distincts"
+      ],
+      "boundary": "a different result called Euler's partition theorem; it equates two finite partition counts and does not state the pentagonal number theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "db4b8793e70ce8af74c9c9490acfa50aa3684d5e",
+    "repository_base_tree": "6434a20532ae7c523ad293e67a6228ab384bfb8a",
+    "repository_record": "Docs/researches/math_theorems.md:6700-6705",
+    "repository_record_excerpt_sha256": "30db8c5e0e4a3e5e7e3bca4a213cc79290ca6c682c7ef546b7e1686a32f83fb0",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:24985-25010",
+    "stage0_projection_excerpt_sha256": "adbd62c46c4d3ca16cea8c42071cc48f66d6a5b713b418267bd8f86f1e565118",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "5d0eb6d57ec108d3083f15d6e3773447c9e9287fa6d2f811ff6197055aa251f5",
+    "execution_dag_sha256": "7005d2c291a900e175666f0826ee69b15bb77d208b4fb167174d0982f20055a3",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "partition_genfun_source_blob": "50c17055565681d951225eb56d423c6026d3830e",
+    "partition_genfun_source_sha256": "6c100971d90ae521c717e8b2ab58b34362e365704f5e525a4c22522f3bbbc34c",
+    "partition_basic_source_blob": "6ce7063d65d58b25638e14f5bca60a1480511154",
+    "partition_basic_source_sha256": "365f49db37156830a0c14cf5740024dcd8bea923175d4479ee2e370fdf833a09",
+    "partition_glaisher_source_blob": "3337736c91f36168ff50e8774733af81132de1d9",
+    "partition_glaisher_source_sha256": "1609afc1da7752036198d78304607aa7e1e55bbbbe6901fdb96385268b2602bb"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, formal power series, infinite sums/products, topology, coefficient-ring assumptions, and analytic convergence principles remain open until an exact source proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, accepted axioms, and trust policy remain open",
+  "computation_profile": "No finite truncation, coefficient experiment, symbolic algebra output, numerical q-series evaluation, oracle, native computation, or unchecked certificate is credited; the selected identity requires source-faithful kernel evidence",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0916/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0916/README.md",
+    "Stage1_Instances/THM-M-0916/instance.json",
+    "Stage1_Instances/THM-M-0916/scope-map.md",
+    "Stage1_Instances/THM-M-0916/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0916/task-dag.json",
+    "Stage1_Instances/THM-M-0916/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0916/check_intake.py",
+    "Stage1_Instances/THM-M-0916/validation.md",
+    "Stage1_Instances/THM-M-0916/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent q-series/history reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition, date and historical identity, exact identity or recurrence, partition and generalized-pentagonal conventions, formal or analytic semantics, all boundary cases, and source-to-Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction; source edition, date, formula, identity/recurrence selection, ring/topology/convergence regime, product or sum ordering, generalized-pentagonal indexing, sign, p(0), boundary, proof-boundary, correction or errata decision; neighboring-target ownership; canonical Lean target; toolchain or dependency pin; assurance profile; validator; or any owned artifact change. Independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records a recognizable named theorem, a matching immutable translation of Euler's E244 proof, and an authoritative modern statement lead; exact source admission, semantic mapping, errata audit, and independent review remain open. Pinned partition APIs supply no proof credit. No canonical Lean proposition, H0 source, proof body, M0, R0, accepted state, audit completion, theorem completion, or master acceptance is claimed."
+}

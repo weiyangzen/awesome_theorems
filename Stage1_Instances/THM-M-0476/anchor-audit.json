@@ -1,0 +1,252 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "inventory_version": "S56-M-0476-ANCHOR-INVENTORY-20260713-01",
+  "item_id": "S56-M-0476-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0476",
+  "execution_rank": 1357,
+  "intent": "anchor_audit",
+  "base_revision": "db4b8793e70ce8af74c9c9490acfa50aa3684d5e",
+  "base_tree": "6434a20532ae7c523ad293e67a6228ab384bfb8a",
+  "audit_cutoff": "2026-07-13T23:00:00+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+  "canonical_target_expression_sha256": "ee76edb160426d3e8d95b11bfedca7febcfe915f50007e042875c922ebc8a4ac",
+  "canonical_statement_file_sha256": "3903de3f1e1cdd6d2f048917005da8f2b744d6726507d09120661e79d217dff9",
+  "canonical_statement": "For every p : Nat, p.Prime implies ((p - 1)! : ZMod p) = -1.",
+  "discovery_protocol": "Stage1_Instances/THM-M-0476/anchor-discovery-protocol.json",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree": "clean",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0476-C01-MATHLIB-DIRECT",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.NumberTheory.Wilson",
+      "file": "Mathlib/NumberTheory/Wilson.lean",
+      "source_lines": "39-68",
+      "source_git_blob": "9401f7b96b43c2c0afa1f823857bd31a20ae0ac2",
+      "source_sha256": "7bd6ec0e909f037f8632e1b495f9647a61fe950f3bfe3af98a5a22914622aeb7",
+      "proof_body_slice_sha256": "b1c47ff748ace891eec5f93cf3b95c777a338a730d71e0dcbcfe8d3d96328116",
+      "proof_body_slice_policy": "SHA-256 over exact source bytes for pinned Wilson.lean lines 43-68 inclusive",
+      "declaration": "ZMod.wilsons_lemma",
+      "type": "(p : Nat) [Fact p.Prime] : ((p - 1)! : ZMod p) = -1",
+      "normalized_match": "The domain, factorial, direction, and ZMod equality are exact. The candidate's Fact premise is converted from the frozen explicit hp : p.Prime binder by the checked local adapter without strengthening or weakening.",
+      "local_adapter": "Stage1Instances.THM_M_0476_AnchorAudit.exactTarget_mathlib_candidate",
+      "local_role": "audit-only exact wrapper candidate",
+      "terminal_declaration": "ZMod.wilsons_lemma",
+      "terminal_proof_body_id": "git-blob:9401f7b96b43c2c0afa1f823857bd31a20ae0ac2:ZMod.wilsons_lemma",
+      "proof_body_location": "Pinned mathlib source lines 43-68; the factorial becomes an interval product, is bijected with all units of ZMod p, and closes through FiniteField.prod_univ_units_id_eq_neg_one.",
+      "introduction_revision": "f0892dfd3c29e14a975ea0e5f45044ceec9309bc",
+      "introduction_subject": "feat: port NumberTheory.Wilson (#4970)",
+      "introduction_is_ancestor_of_pin": true,
+      "direct_proof_dependencies": [
+        "Finset.prod_Ico_id_eq_factorial",
+        "ZMod.prod_natCast",
+        "Finset.prod_bij",
+        "ZMod.val_injective",
+        "FiniteField.prod_univ_units_id_eq_neg_one",
+        "Units.coeHom"
+      ],
+      "direct_module_imports": [
+        "Mathlib.FieldTheory.Finite.Basic"
+      ],
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "transitive_sorry_check": "Mathlib.PrintSorries reports both the terminal and exact adapter are sorry-free in the loaded pinned environment.",
+      "source_marker_scan": "No sorry, admit, sorryAx, axiom declaration, unsafe declaration, implemented_by, extern, or opaque marker occurs in the pinned Wilson source.",
+      "unsafe_or_oracle_boundary": "No unsafe, external-code, native-oracle, or certificate boundary is visible in the direct source. Complete transitive declaration, executable TCB, and computation closure remains downstream.",
+      "dependency_feasibility": "Already manifest-pinned and materialized; the exact adapter checks with lake env lean without changing .lake.",
+      "license": "Apache-2.0",
+      "candidate_machine_classification": "M0-W_candidate_pending_downstream_acceptance",
+      "evidence_level": "E3_plus_direct_kernel_probe_nonrelease",
+      "result": "Exact immutable mathlib route and adapter feasibility are self-tested. The proof, full provenance/trust, composition, validation, and master-acceptance gates remain open."
+    },
+    {
+      "candidate_id": "M0476-C02-MATHLIB-RELATED-FAMILY",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.NumberTheory.Wilson",
+      "file": "Mathlib/NumberTheory/Wilson.lean",
+      "declarations": [
+        "ZMod.prod_Ico_one_prime",
+        "Nat.prime_of_fac_equiv_neg_one",
+        "Nat.prime_iff_fac_equiv_neg_one"
+      ],
+      "comparison": "The product theorem is an alternate encoding; prime_of is the converse with n != 1; prime_iff is a stronger iff with n != 1. The latter's forward branch invokes ZMod.wilsons_lemma, so these do not provide independent root proof-body credit.",
+      "terminal_candidate_id": "M0476-C01-MATHLIB-DIRECT",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_machine_classification": "M3_related_encodings_deduplicated",
+      "result": "Useful theorem-family and converse discovery only; no duplicate terminal-body coverage."
+    },
+    {
+      "candidate_id": "M0476-C03-MATHLIB-SUPPORT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.FieldTheory.Finite.Basic",
+      "file": "Mathlib/FieldTheory/Finite/Basic.lean",
+      "source_lines": "110-117",
+      "source_git_blob": "fb3668d594f865e52f20c8af45e91e7e3b1eebd8",
+      "source_sha256": "808bb4eddb8a4b48785e4430f944fe0827c96842dffa0c08cd21b5659bd85d44",
+      "declaration": "FiniteField.prod_univ_units_id_eq_neg_one",
+      "type": "[CommRing K] [IsDomain K] [Fintype K^x] : product of all units of K equals -1",
+      "comparison": "A generalized terminal dependency inside wilsons_lemma, not the factorial theorem or an independently credited canonical wrapper.",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_machine_classification": "M3_support_dependency",
+      "result": "Explicit proof-body boundary for the exact route; no separate root credit."
+    },
+    {
+      "candidate_id": "M0476-C04-ADIMCHIMMA-INT-MODEQ",
+      "project": "adimchimma/lean-wilsons-theorem-primes",
+      "canonical_remote": "https://github.com/adimchimma/lean-wilsons-theorem-primes.git",
+      "revision": "441b532e68f39d1d46636be8619d3349a80f253e",
+      "tree": "82a1cac0594c2d5d2cb92c51c9af0aec83f04200",
+      "toolchain": "leanprover/lean4:v4.29.1",
+      "toolchain_sha256": "7dc000621e0046d1aada809e2b7177e64454645cf4c741e9daaf79c99ec2e7a2",
+      "mathlib_revision": "5e932f97dd25535344f80f9dd8da3aab83df0fe6",
+      "manifest_sha256": "e0e4b21aca10ec83fe0bfb94d7bc44f4024ff28baa96ef27fc2f8b7153df7189",
+      "file": "WilsonsTheorem.lean",
+      "source_git_blob": "7da68f757fa0b45eb9484ab5075f93b32712fde0",
+      "source_sha256": "982a9129064f60c223cdd4ff831cf66451b30264e7c3b9a2f4b9d1c747ba551e",
+      "declaration": "Wilson",
+      "type": "(p : Nat) (hp : 1 < p) : Nat.Prime p iff Int.ModEq p (Nat.factorial (p - 1)) (-1)",
+      "comparison": "Related but not exact: it adds a 1 < p parameter, proves an iff, and uses Int.ModEq rather than equality in ZMod p. No checked transport to the frozen target is materialized here.",
+      "proof_body_status": "The 19855-byte immutable source contains an explicit proof and a scoped text scan found no proof-gap, bodyless, unsafe, opaque, external-code, or oracle marker.",
+      "dependency_feasibility": "Different Lean and mathlib pins are not in the local dependency closure; fetching or building them is prohibited in this worker. Exact pinned mathlib already provides a superior direct candidate.",
+      "license": "missing; GitHub license endpoint returned 404 and repository metadata reports no license",
+      "candidate_machine_classification": "M3_related_external_not_integrated",
+      "reopen_when": "A checked Int.ModEq-to-ZMod transport is required for credit, along with a published license, locally materialized immutable dependencies, kernel/axiom checks, and full provenance/trust review.",
+      "result": "Immutable related source anchor only; no root machine credit or integration task."
+    },
+    {
+      "candidate_id": "M0476-C05-TEACHING-CONSUMERS",
+      "projects": [
+        {
+          "project": "ImperialCollegeLondon/formalising-mathematics-2024",
+          "revision": "c4cfdc64d59c12e07e0c88d702bfe654d518c0bd",
+          "file": "FormalisingMathematics2024/Solutions/Section15numberTheory/Sheet8.lean",
+          "use": "Nat.prime_iff_fac_equiv_neg_one"
+        },
+        {
+          "project": "b-mehta/formalising-mathematics-notes",
+          "revision": "d09de250d7dfb46c5f3c15a10d957b88bce5f18c",
+          "file": "FormalisingMathematics2026/Solutions/Section16numberTheory/Sheet8.lean",
+          "use": "ZMod.wilsons_lemma"
+        }
+      ],
+      "comparison": "Both are downstream teaching uses of the mathlib Wilson declarations for a square-root-of-negative-one exercise, not independent Wilson proof bodies or exact canonical declarations.",
+      "candidate_machine_classification": "M3_downstream_consumers_no_root_credit",
+      "result": "Deduplicated external consumers; nothing to integrate."
+    },
+    {
+      "candidate_id": "M0476-C06-FORMAL-CONJECTURES-NEGATIVE-TREE",
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "tree_entries": 1204,
+      "tree_truncated": false,
+      "comparison": "The complete immutable recursive tree has no Wilson- or factorial-named path.",
+      "candidate_machine_classification": "no_candidate_in_bounded_tree",
+      "result": "No statement or proof candidate to integrate; this path-only check is not a content-wide absence claim."
+    },
+    {
+      "candidate_id": "M0476-C07-MATHLIB3-HISTORICAL",
+      "project": "leanprover-community/mathlib3",
+      "revision": "65a1391a0106c9204fe45bc73a039f056558cb83",
+      "file": "src/number_theory/wilson.lean",
+      "declarations": [
+        "zmod.wilsons_lemma",
+        "nat.prime_iff_fac_equiv_neg_one"
+      ],
+      "comparison": "Historical Lean 3 predecessor discovered by the public index. It is the wrong requested backend and does not add independent Lean 4 proof credit.",
+      "candidate_machine_classification": "M5_wrong_backend_historical",
+      "reopen_when": "Not applicable while the exact Lean 4 mathlib descendant remains pinned and locally checkable.",
+      "result": "Historical provenance only."
+    }
+  ],
+  "external_search": {
+    "github_repository_queries": [
+      {
+        "query": "\"Wilson theorem\" Lean",
+        "total_count": 1,
+        "incomplete_results": false,
+        "response_sha256": "87b7e2738b63ae124b03168d1bb7b60403a6e2f3fb4141623b870520ff018bfa",
+        "repositories": [
+          "adimchimma/lean-wilsons-theorem-primes"
+        ]
+      },
+      {
+        "query": "wilsons_lemma Lean",
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      }
+    ],
+    "sourcegraph_query": "context:global archived:yes fork:yes lang:Lean (wilsons_lemma OR prime_iff_fac_equiv_neg_one OR \"Wilson theorem\" OR \"Wilson\\x27s theorem\") count:200",
+    "sourcegraph_response_sha256": "28e8b61728045f3b001230ef87f6afb3ea87e50579623b8e0d74efc71576fb0b",
+    "sourcegraph_result": "Complete response: 16 matches in 5 indexed repositories with skipped=[]; mathlib4, historical mathlib3, and three downstream teaching consumers. No independent exact Lean 4 terminal body appeared.",
+    "github_code_search": "HTTP 401 Requires authentication for wilsons_lemma language:Lean; this is an access failure, not a negative result.",
+    "github_code_search_error_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+    "grep_app": "Vercel Security Checkpoint response; no search-result claim.",
+    "grep_app_response_sha256": "d466b1c77f54c4c43104a38f148e26f1ad5dead858594ce0f6006b634dd0a9f2",
+    "formal_conjectures_tree_response_sha256": "76fa3f96fc2ff7fc85addfd1e85852dae3fcb5022fc1ef35b030a3dc1e3efc61",
+    "limitations": "Bounded public indexes and repository metadata cannot prove global absence. Private, deleted, and unindexed sources were inaccessible; no exhaustive discovery or saturation claim is made."
+  },
+  "inventory_decision": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "7/7 candidate records classified in S56-M-0476-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": true,
+    "exact_candidate_kernel_probed": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_candidate_classification": "M0-W_candidate_pending_downstream_acceptance",
+    "authoritative_root_vector_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "authoritative_root_vector_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "debt_delta_basis": "This phase locates and directly probes an exact pinned mathlib candidate but does not install an accepted proof-phase wrapper, freeze the obligation tree, or promote the planned dossier's authoritative proof state.",
+    "kernel_closed_as_accepted_root": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "master acceptance of the provisional statement predecessor and this anchor-audit node",
+      "freeze the canonical obligation registry and typed graphs",
+      "install the proof-phase canonical wrapper and checked composition",
+      "complete terminal declaration/provenance/trust and TCB closure",
+      "complete primary-source H0 and readable R0 review where required",
+      "complete hermetic replay, independent verification, and deterministic release acceptance"
+    ],
+    "status_boundary": "This self-tested node classifies a bounded immutable formal-candidate inventory and checks an exact mathlib adapter. It proposes no accepted M0, H0, R0, AUDIT-Z, or theorem-completion state."
+  },
+  "gate_state": "worker_self_tested_pending_master_acceptance",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false
+}

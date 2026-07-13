@@ -1,0 +1,309 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0821-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0821",
+  "execution_rank": 1379,
+  "intent": "audit",
+  "audit_date": "2026-07-13",
+  "timezone": "Asia/Shanghai",
+  "base_revision": "39704171d88ffcdc33a47365ae9791f855fa3a44",
+  "base_tree": "050ab5c6392560337051d2eadd1b82277dbe1c4f",
+  "discovery_protocol": "Stage1_Instances/THM-M-0821/anchor-discovery-protocol.json",
+  "discovery_protocol_sha256": "4e4ad386fbf8d4e2bad63c1ac3c3389f564260310f2cb81948ebc55742ab2f78",
+  "inventory_version": "S56-M-0821-ANCHOR-INVENTORY-20260713-01",
+  "canonical_target": {
+    "module": "Stage1_Instances/THM-M-0821/Statement.lean",
+    "declaration": "Stage1Instances.THM_M_0821.SpernerMaximumTarget",
+    "expression_sha256": "8f5d05428a35e3b6f13947097ac52417ba900b3cf9b1b45c0bb173766c914d7c",
+    "statement_file_sha256": "572f1655ca4d40ce6e1ce1bf6567cee2d640eb54534569d8a8980dff184c0100",
+    "claim": "For every finite ground type, a lower-middle-layer antichain attains choose(card alpha, floor(card alpha / 2)), and every antichain has cardinality at most that value.",
+    "scope_boundary": "This is an exact maximum-value claim: both attainability and the universal upper bound are required. It deliberately excludes the stronger classification of every equality family in Sperner's paper."
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lake_manifest": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_cache_boundary": "The canonical .lake symlink and mathlib checkout were used read-only. No Lake update/build, dependency clone/fetch, or dependency-cache mutation was performed."
+  },
+  "search_results": [
+    {
+      "surface": "repo-local Lean source",
+      "query": "Sperner/sperner/HasSpernerProperty/maximum antichain/middle layer/LYM outside this target and .lake",
+      "result": "No independent repo-local proof body or wrapper for the maximum-value target was present at the frozen base. The statement dossier and its intake probe were the only target-relevant local files.",
+      "boundary": "The new AnchorAudit.lean exact wrapper is node output, not pre-search inventory input."
+    },
+    {
+      "surface": "pinned mathlib source",
+      "query": "theorem/lemma declarations containing Sperner aliases plus LYM and middle-layer APIs",
+      "result": "IsAntichain.sperner is the unique Sperner-named terminal theorem. It proves the upper-bound component only. Set.sized_powersetCard, Set.Sized.isAntichain, and Finset.card_powersetCard supply the attaining lower-middle-layer witness.",
+      "boundary": "The LYM module TODO explicitly leaves equality-case classification open; that stronger claim is outside the frozen root."
+    },
+    {
+      "surface": "Sourcegraph public Lean index",
+      "query": "context:global archived:yes fork:yes lang:Lean (Sperner OR sperner_theorem OR boolean_sperner OR IsAntichain.sperner OR HasSpernerProperty) count:200",
+      "result": "matchCount=200 across five returned repositories; shard-match-limit reached",
+      "response_sha256": "6291847b09488d448e3f0063835ce225f95401ec91fe7057efa20d8429fde4b9",
+      "boundary": "Dated bounded discovery only. The shard limit prevents an exhaustive-discovery claim."
+    },
+    {
+      "surface": "Sourcegraph exact cam-combi follow-up",
+      "query": "context:global archived:yes fork:yes lang:Lean repo:^github.com/YaelDillies/cam-combi$ (Sperner OR sperner OR LYM) count:200",
+      "result": "matchCount=6 in one repository; exhaustive=true; no skipped results",
+      "response_sha256": "3f34ebd1fa1fba7237214cffb410df01ab6380176f6b981c57d16c7c6becc036"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "sperner lean language:Lean",
+      "result": "HTTP 200; total_count=1; incomplete_results=false; only Solpin-manai/sperner-lean",
+      "response_sha256": "cc608a1bfabd85736f8efddf1ac2d8aa6c755ca19dc62c175660fd7757aafdde"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "sperner_theorem language:Lean",
+      "result": "HTTP 403 rate limit exceeded",
+      "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+      "boundary": "Access failure, not negative evidence."
+    },
+    {
+      "surface": "grep.app public code search",
+      "query": "sperner_theorem",
+      "result": "HTTP 429 Vercel Security Checkpoint",
+      "response_sha256": "8f1b6d2db12710de674cadb84d4cc37abf5718191d06c3299c464586b124948b",
+      "boundary": "Access failure, not negative evidence."
+    },
+    {
+      "surface": "google-deepmind/formal-conjectures immutable main tree",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "tree": "40d17fde4b874af651386e646081f453377ea020",
+      "tree_response_sha256": "9360adf38f47276b7ab1708b71061f85e14810bc6843349894398f729ba24017",
+      "result": "The complete non-truncated 1204-entry tree has one related DedekindNumber.lean path. It defines and counts Sperner families but has no maximum-antichain theorem and contains sorry in later conjectural declarations.",
+      "source_file_sha256": "9ea897a84987f9d996ca389b9bc3a8e0102dda04786a32a81468fb1601a92dec"
+    },
+    {
+      "surface": "historical and other-prover research queries",
+      "result": "The bounded Sourcegraph Coq query hit a 100-result shard limit in rocq-community/gaia; the Isabelle query returned one unrelated seL4 result. Neither surface supplies Lean 4 completion evidence.",
+      "coq_response_sha256": "0bf375fe9fb25cc546852306855ca6c349a44ea52f34be0f44334553df48dd00",
+      "isabelle_response_sha256": "fe49500575c2193e89120a5a0e3cf1499acf444ae514dfa342db62e54ca98b93"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "M0821-C01-MATHLIB-COMPOSITE",
+      "project": "mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "modules": [
+        "Mathlib.Combinatorics.SetFamily.LYM",
+        "Mathlib.Data.Finset.Slice"
+      ],
+      "files": [
+        {
+          "path": "Mathlib/Combinatorics/SetFamily/LYM.lean",
+          "blob": "0f52fe96b02566b3c69ce0fa6de36619cdbf6c9f",
+          "sha256": "b19d4cbe58af9422dc36864d1ad1eee717c264a90d94fd579d3c8305f0feb630"
+        },
+        {
+          "path": "Mathlib/Data/Finset/Slice.lean",
+          "blob": "b7ae1c4a24366980cfc8412377bff3228d9d7a40",
+          "sha256": "5a3986375f5c0035f8c66760ce41bd66582ac34007d910d56a4e3535cc48cec8"
+        },
+        {
+          "path": "Mathlib/Data/Finset/Powerset.lean",
+          "blob": "d37121600efa7e87bf91092061e541a7ef0463bf",
+          "sha256": "8258811b25be77c6eb5ac680775a2e2665735d646d14de793a257992cd66b032"
+        }
+      ],
+      "declarations": [
+        {
+          "name": "IsAntichain.sperner",
+          "role": "terminal upper-bound theorem",
+          "type": "{alpha : Type u} [Fintype alpha] {A : Finset (Finset alpha)} -> IsAntichain (fun x y => x subset y) (A : Set (Finset alpha)) -> A.card <= Nat.choose (Fintype.card alpha) (Fintype.card alpha / 2)",
+          "body_provenance": "Pinned mathlib source lines 234-245; corollary of Finset.lubell_yamamoto_meshalkin_inequality_sum_inv_choose via Nat.choose_le_middle."
+        },
+        {
+          "name": "Set.sized_powersetCard",
+          "role": "middle-layer size invariant"
+        },
+        {
+          "name": "Set.Sized.isAntichain",
+          "role": "middle-layer antichain proof"
+        },
+        {
+          "name": "Finset.card_powersetCard",
+          "role": "middle-layer cardinality"
+        }
+      ],
+      "normalized_match": "IsAntichain.sperner alone matches only the universal-bound conjunct. Combined with the three middle-layer declarations through the checked local wrapper, the conclusion is the full frozen attainability-plus-bound target at arbitrary finite alpha.",
+      "local_declaration": "Stage1Instances.THM_M_0821.spernerMaximum_mathlib_candidate",
+      "local_role": "derived exact wrapper/composition candidate",
+      "local_source": "Stage1_Instances/THM-M-0821/AnchorAudit.lean",
+      "direct_dependencies": [
+        "IsAntichain.sperner",
+        "Set.sized_powersetCard",
+        "Set.Sized.isAntichain",
+        "Finset.card_powersetCard"
+      ],
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "foundation_fit": "The candidate uses only standard Lean quotient, extensionality, and classical-choice principles already anticipated by the dossier. No native evaluator, oracle, external code, or generated certificate is used.",
+      "placeholder_and_trust_boundary": "The local wrapper and relevant pinned source files contain no sorry, admit, sorryAx, bodyless axiom/constant, opaque, or unsafe token after comment-aware local scanning. Lean #print axioms reports exactly the three listed principles. Full transitive declaration/TCB closure is not claimed in this phase.",
+      "toolchain": "Lean 4.29.0 at 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "Already in the pinned clean local dependency closure; no dependency mutation is needed.",
+      "candidate_classification": "M0-W",
+      "evidence_level": "E2",
+      "kernel_checked": true,
+      "accepted": false,
+      "acceptance_boundary": "This is a provisional anchor-audit candidate. The proof/composition node, complete provenance/trust closure, master acceptance, and later release gates remain open."
+    },
+    {
+      "candidate_id": "M0821-C02-ATLAS-SETSYSTEMS",
+      "project": "facebookresearch/atlas-lean",
+      "remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "archive_sha256": "925cc0fa8d32dbdf6e8dc893e2fb9d34eed3dfdc8603dc5ae09804f8c3db9aa2",
+      "module": "Atlas.ProbabilisticMethodsInCombinatorics.code.Chapter1.SetSystems",
+      "file": "Atlas/ProbabilisticMethodsInCombinatorics/code/Chapter1/SetSystems.lean",
+      "file_blob": "9133bc3339d7ae62cdd06ef2877d4a354c4b85e3",
+      "file_sha256": "48065b38bc1038f110958ed40b606b1eb1e5660ce01d06300e8bcf305481ae2d",
+      "declaration": "SetSystems.sperner_theorem",
+      "type": "(n : Nat) -> (F : Finset (Finset (Fin n))) -> IsAntichain (fun x y => x subset y) (F : Set (Finset (Fin n))) -> F.card <= n.choose (n / 2)",
+      "normalized_match": "Upper bound only and restricted to Fin n. It omits attainability and is therefore not the exact root.",
+      "body_provenance": "The wrapper proves the bound from SetSystems.lym_inequality_general, which directly invokes pinned mathlib Finset.lubell_yamamoto_meshalkin_inequality_sum_inv_choose. It does not own a distinct terminal Sperner proof body.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "toolchain_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+      "license": "Custom CC BY-NC 4.0 plus a no-training rider",
+      "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+      "placeholder_and_trust_boundary": "The inspected file contains no gap/axiom/unsafe marker, but the external project was not materialized or kernel-checked locally and a full transitive parser-aware trust audit was not run.",
+      "dependency_feasibility": "Same Lean/mathlib pins, but Atlas is absent from the local dependency closure and its restrictive license requires policy review. It adds no proof scope beyond the local mathlib route.",
+      "candidate_classification": "M1_upper_bound_only",
+      "integration_decision": "Do not integrate: redundant narrower wrapper, absent attainability, no independent terminal body, and unresolved license policy."
+    },
+    {
+      "candidate_id": "M0821-C03-ATLAS-ORDER",
+      "project": "facebookresearch/atlas-lean",
+      "remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "module": "Atlas.AlgebraicCombinatorics.code.BooleanSperner",
+      "file": "Atlas/AlgebraicCombinatorics/code/BooleanSperner.lean",
+      "file_blob": "3f07ea7dd2002782f4157e47baad9392a4abd17e",
+      "file_sha256": "4db4d6ac4a971752088ffd7ad8492fc4665b28091cbde4969c39949a262eb10d",
+      "support_file": "Atlas/AlgebraicCombinatorics/code/SpernerProperty.lean",
+      "support_file_blob": "d2c7c7e5ac9d03d1b48efed8c3027134750cd8d9",
+      "support_file_sha256": "a1fb725387776a8032dc606743714886964e1ba86a4bb57f566ce61f885aa23e",
+      "declaration": "SpernerProperty.boolean_sperner",
+      "type": "HasSpernerProperty (alpha := BooleanPoset n)",
+      "normalized_match": "HasSpernerProperty bounds antichains by maxRankCount. The candidate has no attaining existential and no checked transport from maxRankCount to choose(n, n/2), so it is not the exact root.",
+      "body_provenance": "Derived from Atlas order-raising and order-matching infrastructure; distinct external source route, but only an abstract upper-bound interface.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "license": "Custom CC BY-NC 4.0 plus a no-training rider",
+      "placeholder_and_trust_boundary": "No gap/axiom/unsafe marker was found in the inspected relevant source files. The external closure was not locally elaborated and its full transitive trust closure remains unaudited.",
+      "candidate_classification": "M1_statement_mismatch",
+      "integration_decision": "Do not integrate without an exact target adapter, immutable local dependency pin, trust audit, and license approval; the pinned mathlib route is already exact and simpler."
+    },
+    {
+      "candidate_id": "M0821-C04-CAM-COMBI-LYM",
+      "project": "YaelDillies/cam-combi",
+      "remote": "https://github.com/YaelDillies/cam-combi.git",
+      "revision": "1c8502fd40113ba0141652c23d542e04c1aa872d",
+      "tree": "9fd03567b9ee8194d4d06b9c0a4eb269c5e02a1c",
+      "archive_sha256": "4da9893c390ff135c4ad49a740fd1dd37574ac5a04ae203d6170a57eddf45bdc",
+      "module": "LeanCamCombi.PlainCombi.ProbLYM",
+      "file": "LeanCamCombi/PlainCombi/ProbLYM.lean",
+      "file_sha256": "618676033aca65115881e5bf0468e90e426004fa301e2ec52f6c9b60ea01c6d3",
+      "declaration": "LYM_inequality",
+      "normalized_match": "An alternate LYM inequality proof by the Katona circle method. It is a support theorem, not an upper-bound wrapper or the attainability-plus-bound root.",
+      "body_provenance": "External local proof body in cam-combi; no gap marker found in the inspected file.",
+      "toolchain": "leanprover/lean4:v4.31.0",
+      "mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "Absent from local dependencies and pinned to newer Lean/mathlib; integrating it would add compatibility work without closing additional root scope.",
+      "candidate_classification": "M3_support_only",
+      "integration_decision": "No integration task: the pinned mathlib terminal is already available and exact after the local witness composition."
+    },
+    {
+      "candidate_id": "M0821-C05-SOLPIN-SPERNER-LEMMA",
+      "project": "Solpin-manai/sperner-lean",
+      "remote": "https://github.com/Solpin-manai/sperner-lean.git",
+      "revision": "3ee6a42104edd6dd775664a40df3edd2038ad17e",
+      "tree": "38c9de073ace72dc163abb9ab52235922bd48081",
+      "archive_sha256": "f93b9cb3e62b3d54d10852fd87ba88c287efcb2536addc71c4b0ec01cd61f473",
+      "module": "Mathlibb.Sperner",
+      "file": "Mathlibb/Sperner.lean",
+      "file_blob": "1797c4bc19a852c22ab2e4efe18c06e931f8784e",
+      "file_sha256": "60e3aa0d4adf1b831c21d4c10f2d4fc909d15bfda061144e81bc7e0bced9b364",
+      "declaration": "strong_sperner",
+      "normalized_match": "Different theorem: the topological Sperner coloring lemma for triangulations, not the maximum cardinality of a Boolean-lattice antichain.",
+      "body_provenance": "Work-in-progress local external body with multiple explicit sorry gaps, including the main parity route.",
+      "toolchain": "leanprover/lean4:v4.27.0-rc1",
+      "mathlib_revision": "c752ef944eba57fd54ec19be3aaff887fd7b140f",
+      "manifest_sha256": "1c7d638ece16520069704cbe4814731edcc103ff57194d9e1b8447290dd70907",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "candidate_classification": "M5",
+      "blocker": "Statement mismatch, explicit proof gaps, incompatible pins, and absence from local dependencies.",
+      "reopen_condition": "Only a new declaration at an immutable revision proving the exact antichain maximum target, without gaps and with compatible pinned integration, would reopen this project as a candidate."
+    }
+  ],
+  "deduplication": {
+    "terminal_body_ids": [
+      "mathlib4@8a178386:Mathlib/Combinatorics/SetFamily/LYM.lean:IsAntichain.sperner",
+      "cam-combi@1c8502fd:LeanCamCombi/PlainCombi/ProbLYM.lean:LYM_inequality",
+      "atlas-lean@34ffed39:Atlas/AlgebraicCombinatorics/order-matching route"
+    ],
+    "aliases_not_counted_as_distinct_bodies": [
+      "Stage1Instances.THM_M_0821.spernerMaximum_mathlib_candidate is a derived composition wrapper over pinned mathlib",
+      "SetSystems.sperner_theorem ultimately reuses the pinned mathlib LYM terminal",
+      "IntakeProbe.lean contains #check commands only"
+    ]
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "5/5 classified canonical candidates in S56-M-0821-ANCHOR-INVENTORY-20260713-01",
+    "exhaustive_discovery_claim": false,
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_classification": "M0-W",
+    "candidate_evidence_level": "E2",
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+    "root_candidate_vector_after": {"H": "H1", "M": "M0-W", "R": "R4"},
+    "accepted_root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "dependency-ordered master acceptance of the provisional statement and anchor-audit receipts",
+    "frozen obligation registry and typed proof/provenance/workflow graphs",
+    "proof-phase adoption and child-to-parent composition evidence for the exact wrapper",
+    "full transitive declaration/provenance/trust and TCB closure",
+    "primary-source H0 and readable R0 independent review",
+    "hermetic and independent validation plus deterministic release evidence"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This provisional node freezes and classifies a bounded formal-anchor inventory and kernel-checks an exact pinned-mathlib composition candidate. It changes no accepted H1/M3/R4 state, accepts no receipt, does not complete the downstream proof phase, and completes neither AUDIT-Z nor THEOREM-Z."
+}

@@ -1,0 +1,12 @@
+import Mathlib.Combinatorics.SimpleGraph.CompleteMultipartite
+import Mathlib.Combinatorics.SimpleGraph.Extremal.TuranDensity
+
+#check SimpleGraph.extremalNumber
+#check SimpleGraph.turanDensity
+#check SimpleGraph.tendsto_turanDensity
+#check SimpleGraph.eventually_isContained_of_card_edgeFinset
+#check SimpleGraph.completeEquipartiteGraph
+#check SimpleGraph.CompleteEquipartiteSubgraph
+#check SimpleGraph.completeEquipartiteGraph_isContained_iff
+#check SimpleGraph.isContained_completeEquipartiteGraph_of_colorable
+#check SimpleGraph.completeMultipartiteGraph.chromaticNumber

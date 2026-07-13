@@ -16,10 +16,9 @@ The received family has:
 - no requirement that the three primes be distinct or ordered; and
 - an unconditional conclusion for every qualifying input, not merely sufficiently large inputs.
 
-For Lean, a natural-number encoding is the leading candidate because `n > 5` makes the integer
-input positive and prime summands are positive. That domain change still requires a checked
-integer/natural transport before statement credit. The likely witness shape is three independent
-`Nat` binders with `Nat.Prime` predicates and equality `n = p + q + r`; it is not frozen here.
+For Lean, the natural-number encoding is canonical because `n > 5` makes every source-admissible
+integer positive, and positive integers correspond uniquely to naturals. `Statement.lean` freezes
+three independent `Nat` witnesses with `Nat.Prime` predicates and equality `n = p + q + r`.
 
 ## Boundary cases to freeze
 
@@ -29,10 +28,10 @@ integer/natural transport before statement credit. The likely witness shape is t
 4. Prime means a positive natural prime, excluding `0`, `1`, negative integers, prime powers, and
    almost-primes.
 5. The summands need not be pairwise distinct, odd, increasing, or canonically ordered.
-6. Equality orientation and addition association must be frozen, with checked transports for any
-   credited alternate form.
-7. The source's integer domain and the candidate natural domain must be related explicitly rather
-   than silently identified.
+6. Equality orientation is frozen; the reversed orientation has a checked `Iff` transport. Addition
+   uses Lean's left-associated `p + q + r` syntax.
+7. The source's integer domain is restricted to naturals using the source premise `n > 5`; no
+   negative or zero input satisfies that premise.
 
 ## Source and proof boundary
 
@@ -56,4 +55,5 @@ not proof authorship.
   the requested representation.
 - The catalog's `已验证` label, a theorem name, or successful API elaboration as proof evidence.
 
-No canonical Lean expression or expression fingerprint is frozen by this intake.
+The canonical Lean expression and fingerprint are recorded in `statement.json`. This statement
+freeze supplies no proof or source-review credit.

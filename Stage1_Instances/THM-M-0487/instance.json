@@ -24,35 +24,68 @@
   "source_attribution": "Historical origin: Christian Goldbach and Leonhard Euler correspondence, 1742; modern exact proof-source lead: Harald A. Helfgott, arXiv:1312.7748v2",
   "source_status_untrusted": "已验证",
   "canonical_statement": "Every odd integer n greater than five can be expressed as the sum of three primes; the three prime summands need not be distinct.",
-  "canonical_claim_status": "exact_human_claim_frozen_from_matching_catalog_and_primary_main_theorem_but_source_admission_full_dependency_and_computation_crosswalk_integer_natural_transport_lean_binders_and_independent_review_open",
+  "canonical_claim_status": "exact_natural_encoding_of_the_frozen_positive_integer_claim_self_tested_pending_master_acceptance_while_source_admission_full_dependency_computation_crosswalk_and_independent_review_remain_open",
   "canonical_claim": "For every integer n, if n > 5 and n is odd, then there exist positive primes p, q, and r, not necessarily distinct, such that n = p + q + r.",
-  "candidate_family_not_credited_as_statement": "For every natural number n, if 5 < n and n is odd, then there exist natural primes p, q, and r, not necessarily distinct, such that n = p + q + r.",
-  "target_disposition": "requires_source_acceptance_and_exact_integer_natural_statement_transport_before_statement_or_proof_execution",
-  "statement_blocker": "The exact human claim is frozen from the matching catalog sentence and Helfgott Main Theorem, but its source packet, analytic dependencies, finite-computation boundary, artifacts, errata, and independent review are not accepted. The candidate Lean target still needs a checked integer-to-natural transport, ordered binders, strict-threshold and parity encoding, prime and repeated-summand conventions, equality orientation, alternate transports, environment fingerprint, and four mutation classes. Freezing a Lean expression at intake would skip the assigned downstream statement gate.",
+  "candidate_family_not_credited_as_statement": "Superseded by the exact elaborated natural target recorded below.",
+  "target_disposition": "exact_statement_self_tested_pending_master_acceptance_and_all_downstream_audit_proof_validation_and_release_gates",
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "module_candidates": [
-      "Mathlib.Data.Nat.Prime.Basic"
+    "status": "self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0487/Statement.lean",
+    "minimal_imports": [
+      "Mathlib.Algebra.Ring.Int.Parity",
+      "Mathlib.Data.Nat.Prime.Defs"
     ],
-    "declaration_candidates": [],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "blocked_source_acceptance_integer_natural_transport_binders_and_statement_mutations_not_frozen",
+    "module_candidates": [
+      "Mathlib.Algebra.Ring.Int.Parity",
+      "Mathlib.Data.Nat.Prime.Defs"
+    ],
+    "declaration_candidates": [
+      "Stage1Instances.THM_M_0487.WeakGoldbachTarget"
+    ],
+    "declaration_or_expression": "Stage1Instances.THM_M_0487.WeakGoldbachTarget",
+    "candidate_expression": "forall n : Nat, 5 < n -> Odd n -> exists p q r : Nat, Nat.Prime p and Nat.Prime q and Nat.Prime r and n = p + q + r",
+    "elaborated_expression_hash": "sha256:29ac94dd615869191754270061d8fe7123991d403a07bbdf27a09f706665e703",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Int.Parity-and-Nat.Prime.Defs_autoImplicit-false_pp-explicit-universes",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.Data.Nat.Prime.Basic_intake-api-and-boundary-probe-only"
   },
-  "domain_and_universes": "Candidate target: n p q r : Nat and a proposition in universe 0. The inspected source lead states n as an integer; positivity from n > 5 should justify the natural restriction only through an explicit checked transport.",
-  "ordered_binders": [],
-  "quantifiers": [],
-  "hypotheses": [],
-  "conclusion": "Open at exact-expression level: every source-qualifying odd input greater than five has an exact representation by three positive primes, with repetition allowed.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is formally excluded before statement freeze. The source scope excludes n <= 5 and even inputs; the statement phase must preserve n = 7, repeated 2 summands, integer/natural domain conversion, prime positivity, and summand-order conventions.",
+  "domain_and_universes": "n p q r : Nat in universe 0; the closed target is a Prop in universe 0 with no implicit typeclass or universe binders. The source's n > 5 restricts its integer input to the positive integers, which correspond uniquely to Nat.",
+  "ordered_binders": [
+    "n : Nat (universal)",
+    "5 < n (antecedent)",
+    "Odd n (antecedent)",
+    "p q r : Nat (existential, in order)"
+  ],
+  "quantifiers": [
+    "for every n : Nat",
+    "there exist p q r : Nat"
+  ],
+  "hypotheses": [
+    "5 < n",
+    "Odd n"
+  ],
+  "conclusion": "There exist p q r : Nat with Nat.Prime p, Nat.Prime q, Nat.Prime r, and n = p + q + r; repetition and the even prime 2 remain permitted.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0487.ReversedEqualityWeakGoldbachTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0487.weakGoldbachTarget_iff_reversedEqualityWeakGoldbachTarget",
+      "status": "kernel-checked statement transport"
+    },
+    {
+      "target": "Stage1Instances.THM_M_0487.IntegerWeakGoldbachTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0487.weakGoldbachTarget_iff_integerWeakGoldbachTarget",
+      "status": "kernel-checked source-domain transport"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "n <= 5 and even n are outside the antecedent; 7 is included"
+  ],
+  "degenerate_case_status": "Statement witnesses kernel-check exclusion of 5, inclusion of odd 7, the repeated/even-prime representation 7 = 2 + 2 + 3, and exclusion of even 8. Four mutation classes have distinct elaborated expressions and fail as canonical terms.",
   "candidate_scope_not_credited": [
-    "the natural target forall n : Nat, 5 < n -> Odd n -> exists p q r : Nat, p.Prime and q.Prime and r.Prime and n = p + q + r",
-    "the source-domain integer target with positive integer primes",
     "the strengthened result that every odd n > 7 is a sum of three odd primes",
     "the finite-check plus analytic-range composition used in the inspected source"
   ],
@@ -63,7 +96,7 @@
     "repeated summands are permitted",
     "the even prime 2 is permitted",
     "summands are positive primes, not zero, one, negative primes, prime powers, or almost-primes",
-    "integer source domain versus natural Lean domain",
+    "integer source domain versus natural Lean domain (resolved by the checked Iff; retained as a review boundary)",
     "summand order, addition association, and equality orientation"
   ],
   "excluded_substitutions": [
@@ -167,17 +200,18 @@
   "discovery_protocol_hash": null,
   "root_vector": {
     "H": "H1",
-    "M": "M4",
+    "M": "M3",
     "R": "R3"
   },
+  "root_vector_status": "provisional_statement_classification_pending_master_acceptance",
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
   "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, analytic foundations, real/complex integration, prime-distribution results, and computation-certificate principles remain open until the exact proof architecture and trust policy are frozen",
-  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; the probe imports Mathlib.Data.Nat.Prime.Basic, while exact target imports, terminal proof bodies, transitive dependency closure, executable identity, and trust policy remain open",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; the exact target and source-domain transport use only Mathlib.Algebra.Ring.Int.Parity and Mathlib.Data.Nat.Prime.Defs, while terminal proof bodies, transitive dependency closure, executable identity, and proof trust policy remain downstream",
   "computation_profile": "No computation, oracle, experiment, native shortcut, or unchecked certificate is credited by this intake. The human proof materially uses a finite verification below the analytic range, so the future computation profile must audit the Helfgott-Platt implementation, independent check, prime certificates, exact range coverage, tools, inputs, and trust boundary.",
-  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; exact canonical statement self-tested pending master acceptance",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "open_task_dag": "Stage1_Instances/THM-M-0487/task-dag.json",
   "public_merge_targets": [
@@ -189,7 +223,13 @@
     "Stage1_Instances/THM-M-0487/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0487/check_intake.py",
     "Stage1_Instances/THM-M-0487/validation.md",
-    "Stage1_Instances/THM-M-0487/intake-receipt.json"
+    "Stage1_Instances/THM-M-0487/intake-receipt.json",
+    "Stage1_Instances/THM-M-0487/Statement.lean",
+    "Stage1_Instances/THM-M-0487/check_statement.py",
+    "Stage1_Instances/THM-M-0487/check_statement_artifacts.py",
+    "Stage1_Instances/THM-M-0487/statement.json",
+    "Stage1_Instances/THM-M-0487/statement-receipt.json",
+    "Stage1_Instances/THM-M-0487/statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -198,8 +238,8 @@
     "formal_reviewer": "unassigned independent Lean reviewer",
     "scope_reviewer": "unassigned integration reviewer"
   },
-  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
-  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional statement only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent anchor-audit work",
   "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
   "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the external source archives are content-hash leads, not a repository-preserved accepted source bundle.",
   "freshness_and_revocation_policy": "Invalidate on source or target correction, source version or erratum, proof dependency or computation finding, domain or prime convention, threshold, parity, binders, summand repetition or order, equality or boundary decision, Lean target or transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
@@ -212,7 +252,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "check_statement_artifacts.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes the exact human claim, inspected primary proof-source lead and analytic/computational split, proposition-changing Lean choices, exclusions, adjacent pinned APIs, and open downstream DAG. No canonical Lean expression or fingerprint, accepted H0 source packet, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Planned intake plus exact statement proposal pending master acceptance. The natural target, checked integer-domain and equality-orientation transports, expression/environment fingerprints, four structural mutations, and 5/7/8 boundary facts are self-tested. Full source review, proof provenance, M0, R0, accepted state, audit completion, theorem completion, and master acceptance remain open."
 }

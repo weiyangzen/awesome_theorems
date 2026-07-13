@@ -36,11 +36,11 @@ Helfgott and the cited dependencies supply the modern proof route.
 
 | Repository/source phrase | Mathematical component | Candidate Lean component | Intake status |
 |---|---|---|---|
-| "odd integer n" | an integer input of odd parity | likely `n : Nat` and `Odd n`, plus checked integer/natural transport | family fixed; encoding not frozen |
-| "greater than 5" | strict lower bound excluding 5 and including 7 | likely `5 < n` | family fixed; boundary transport open |
-| "three primes" | three positive prime witnesses; repetition permitted | likely `p q r : Nat` and three `Nat.Prime` predicates | family fixed; binders not frozen |
-| "sum" / "represented" | exact additive equality | likely `n = p + q + r` | family fixed; expression not frozen |
-| every qualifying input | one universal assertion, not an eventual filter | likely `forall n, 5 < n -> Odd n -> ...` | family fixed; quantifier order open |
+| "odd integer n" | an integer input of odd parity | `n : Nat` and `Odd n`; `n > 5` makes the source input positive | frozen and elaborated |
+| "greater than 5" | strict lower bound excluding 5 and including 7 | `5 < n` | frozen; 5/7 boundaries checked |
+| "three primes" | three positive prime witnesses; repetition permitted | `p q r : Nat` and three `Nat.Prime` predicates | frozen; `2,2,3` checked |
+| "sum" / "represented" | exact additive equality | `n = p + q + r` | frozen; reversed equality checked by `Iff` |
+| every qualifying input | one universal assertion, not an eventual filter | `forall n, 5 < n -> Odd n -> ...` | frozen in this order |
 | analytic range | odd `N >= 10^27` | future major/minor-arc obligation package | primary dependency audit open |
 | finite range | computation through `8.875 * 10^30` closes the gap | future certificate/computation-profile obligations | artifacts and trust audit open |
 | 1742 / Goldbach | historical origin | no Lean proposition or proof credit | provenance only |
@@ -49,7 +49,9 @@ Helfgott and the cited dependencies supply the modern proof route.
 ## Formal boundary
 
 Pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` exposes natural prime,
-parity, arithmetic, and finite-decision APIs. The narrow probe validates only those ingredients.
+parity, arithmetic, and finite-decision APIs. The statement now uses only the narrow modules
+`Mathlib.Algebra.Ring.Int.Parity` and `Mathlib.Data.Nat.Prime.Defs`; deleting either direct import
+makes elaboration fail.
 A bounded source search found no Goldbach or sum-of-three-primes terminal theorem in pinned
 mathlib. The only exact public Lean declaration already recorded by the neighboring `THM-M-0508`
 audit is `TernaryGoldbachConjecture.ternaryGoldbach` in

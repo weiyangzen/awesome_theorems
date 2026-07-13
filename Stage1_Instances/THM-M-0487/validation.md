@@ -1,10 +1,10 @@
-# THM-M-0487 intake validation
+# THM-M-0487 intake validation (historical phase record)
 
 Base revision: `997541734bb32f987fb15f163335a82512992120` (tree
 `2c866b9d840d48c48ac839740c62d3b9440be0e5`). Validation date: 2026-07-13
 (Asia/Shanghai).
 
-This validation covers the planned dossier, source and non-substitution boundaries, six-node open
+This section records the earlier intake validation. It covers the planned dossier, source and non-substitution boundaries, six-node open
 task DAG, structured intake invariants, and a narrow pinned Lean API/boundary probe. It does not
 validate a canonical weak-Goldbach Lean expression or any unbounded proof. The
 automation-provided canonical `.lake` symlink existed before this intake and was used read-only;
@@ -46,7 +46,7 @@ All commands ran from the repository root unless the command shows another worki
 | `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0487/IntakeProbe.lean)` | exit 0; six pinned APIs plus strict `n = 7`, oddness, and repeated/even-prime boundary examples elaborated; prime-two/three axiom reports printed; no target theorem |
 | `python3 -m json.tool` on `instance.json`, `task-dag.json`, `intake-receipt.json`, and `.stage1-worker-selftest.json` | exit 0 for each finalized JSON artifact |
 | `PYTHONPYCACHEPREFIX=/tmp/stage1-thm-m-0487-pycache python3 -m py_compile Stage1_Instances/THM-M-0487/check_intake.py` | exit 0; validator compiled without generated files in the owned path |
-| `python3 -B Stage1_Instances/THM-M-0487/check_intake.py --worker-packet .stage1-worker-selftest.json` | exit 0 after finalization; authority identity, pins, source hashes, frozen human claim, null Lean target, H1/M4/R3 boundary, exact inventory, receipt/packet, and six open tasks agree |
+| `python3 -B Stage1_Instances/THM-M-0487/check_intake.py --worker-packet .stage1-worker-selftest.json` | exit 0 at intake finalization; authority identity, pins, source hashes, frozen human claim, then-null Lean target, H1/M4/R3 intake boundary, exact inventory, receipt/packet, and six open tasks agreed |
 | `rg -n -e '\bsorry\b' -e '\badmit\b' -e '\bsorryAx\b' -e '\baxiom\b' -e '\bconstant\b' -e '\bopaque\b' -e '\bunsafe\b' Stage1_Instances/THM-M-0487 --glob '*.lean'` | exit 1 as expected; no prohibited declaration or proof escape in the discovery-only probe |
 | `git diff --check`, plus `git diff --no-index --check /dev/null <file>` for every untracked changed file | exit 0 for whitespace diagnostics; every changed file passed |
 
@@ -55,6 +55,9 @@ The probe's printed axiom reports say `Nat.prime_two` and `Nat.prime_three` depe
 boundary ingredients; it is not a trust report for a target proof, because no target proof exists.
 
 ## Known open gates
+
+The following list is the intake-time boundary. The statement-phase addendum below supersedes its
+claims that the expression, imports, binders, transports, and mutations are still open.
 
 Immutable source admission, full major-arc/minor-arc/computational dependency mapping, exact
 assumption and errata audit, computation artifacts and trust review, independent source review,
@@ -65,3 +68,11 @@ discovery protocol, obligation registry, typed graphs, proof, composition and tr
 readable reconstruction, hermetic replay, deterministic bundle, independent verification, master
 acceptance, audit completion, and theorem completion. These failures do not invalidate a truthful
 self-tested `planned` intake.
+
+## Statement-phase addendum
+
+`statement-validation.md` records the later scoped statement run against base
+`561d83df037004ceb2259292d7c63be930b40391`. That run freezes and fingerprints the canonical
+natural target with the two necessary narrow imports, integer-domain and equality-orientation transports, four mutation
+classes, and the 5/7/8 boundaries. It supersedes this intake record only for statement status; all
+proof, source-review, audit, validation, release, and master-acceptance gates remain open.
