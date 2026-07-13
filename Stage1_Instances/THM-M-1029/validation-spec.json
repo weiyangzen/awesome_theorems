@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "item_id": "S56-M-1029-VALIDATION",
+  "theorem_id": "THM-M-1029",
+  "recipe_id": "S56-M-1029-VALIDATION-network-isolated-warm-v1",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1029/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs with --trust=0 inside bubblewrap --unshare-net. The root filesystem and pinned dependency/toolchain inputs are read-only; only a fresh temporary module directory is writable. This is a warm node replay, not release-grade cold hermetic reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-1029 narrow validation"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1029-S-DEFINITIONS",
+    "M1029-S-BOUNDARY",
+    "M1029-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1029.root_of_incrementLawPackage",
+    "Stage1Instances.THM_M_1029.Proof.bracketCompensated_deterministicTime_eq",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTimeProcess_continuousPaths",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTimeProcess_monotonePaths",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTimeProcess_startsAtZero",
+    "Stage1Instances.THM_M_1029.Proof.bracketCompensated_martingale_of_quadratic",
+    "Stage1Instances.THM_M_1029.Proof.quadraticCompensated_stronglyAdapted",
+    "Stage1Instances.THM_M_1029.Proof.square_stronglyAdapted",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTime_stronglyAdapted_of_martingales",
+    "Stage1Instances.THM_M_1029.Proof.quadratic_coordinate_integrable",
+    "Stage1Instances.THM_M_1029.Proof.coordinate_memLp_two",
+    "Stage1Instances.THM_M_1029.Proof.increment_memLp_two",
+    "Stage1Instances.THM_M_1029.Proof.increment_square_integrable",
+    "Stage1Instances.THM_M_1029.Proof.increment_condExp_eq_zero",
+    "Stage1Instances.THM_M_1029.Proof.increment_condExp_sq",
+    "Stage1Instances.THM_M_1029.Proof.integral_process_eq_zero",
+    "Stage1Instances.THM_M_1029.Proof.integral_process_sq_eq_time",
+    "Stage1Instances.THM_M_1029.Proof.variance_process_eq_time",
+    "Stage1Instances.THM_M_1029.Proof.zeroElapsedIncrement",
+    "Stage1Instances.THM_M_1029.Proof.hasLaw_gaussianReal_of_charFun",
+    "Stage1Instances.THM_M_1029.Proof.hasLaw_gaussianReal_zero",
+    "Stage1Instances.THM_M_1029.Proof.incrementLawPackage_of_components",
+    "Stage1Instances.THM_M_1029.Proof.incrementLawPackage_of_strict",
+    "Stage1Instances.THM_M_1029.Proof.root_of_assumedIncrementComponents",
+    "Stage1Instances.THM_M_1029.Validation.exactRootOfDirectStrictIncrementLaw"
+  ],
+  "scope_boundary": "Validates only the frozen statement, existing local partial bodies, conditional adapters, selected provenance, and observed axiom profile. It gives no proof credit to the uninhabited strict/Gaussian/independence packages and cannot pass cold-offline hermetic, complete TCB/provenance, or distinct-runner gates."
+}
