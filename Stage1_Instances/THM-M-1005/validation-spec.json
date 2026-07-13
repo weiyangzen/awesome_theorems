@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1005-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1005-VALIDATION",
+  "theorem_id": "THM-M-1005",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1005/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 300,
+  "network_policy": "denied",
+  "network_enforcement": "The validator invokes check_validation.sh, whose Lean subprocesses run under bubblewrap with a read-only host root, a fresh writable temporary output directory, fixed locale/timezone/umask, and an unshared network namespace. It reuses the canonical warm dependency cache read-only, so this is narrow network-isolated replay, not a cold section 10.6 build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1005-ROOT",
+    "M1005-S-DEFINITIONS",
+    "M1005-S-BOUNDARIES",
+    "M1005-N-ABS-SUBMARTINGALE",
+    "M1005-C-MAXIMUM",
+    "M1005-L-WEAK-MAXIMAL",
+    "M1005-L-LAYER-CAKE",
+    "M1005-L-HOLDER",
+    "M1005-L-CONSTANT",
+    "M1005-T-STRONG-ESTIMATE",
+    "M1005-T-ROOT-TRANSPORT",
+    "M1005-X-WEAK-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1005.Statement",
+    "Stage1Instances.THM_M_1005.ObligationTree.root_of_strongDoobTerminal",
+    "MeasureTheory.maximal_ineq_Lp",
+    "Stage1Instances.THM_M_1005.Proof.absSubmartingale",
+    "Stage1Instances.THM_M_1005.Proof.measurable_runningAbsMax",
+    "Stage1Instances.THM_M_1005.Proof.weakMaximal_abs",
+    "Stage1Instances.THM_M_1005.Proof.doobLpMomentEstimate",
+    "Stage1Instances.THM_M_1005.Proof.doobLpMomentEstimate_via_frozen_composition",
+    "Stage1Instances.THM_M_1005.Validation.independentlyReconstructedDoobLpMomentEstimate"
+  ],
+  "scope_boundary": "Network-isolated warm-cache replay of the exact frozen statement, vendored analytic body, proof wrappers, frozen composition, observed axioms, selected immutable provenance, and a separately written exact-root transport over the same vendored terminal. The covered IDs identify corroborated provisional proof evidence and grant no accepted closure. Proof master acceptance, M1005-S-FOUNDATION, complete transitive provenance/TCB/SBOM closure, cold offline restoration, and distinct signed independent verification remain fail-closed."
+}
