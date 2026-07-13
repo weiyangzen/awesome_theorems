@@ -1,0 +1,64 @@
+# Intake validation
+
+Base revision: `0d2c3bdcd192266bc255ac3d5186da604517145a` (tree
+`eafbcb48efd51d9cda34f0fc1afe780434abad64`). Validation date: 2026-07-13
+(Asia/Shanghai).
+
+This validation covers the planned dossier, source-variant and non-substitution boundaries, six-node
+open task DAG, structured intake invariants, and a narrow pinned Lean API probe. It does not validate
+a canonical Peter-Weyl proposition or proof because neither has been frozen. The
+automation-provided canonical `.lake` symlink was pre-existing and used read-only; no dependency
+update, build, clone, fetch, or other `.lake` mutation was performed. This dirty worker run is
+nonrelease evidence.
+
+## Environment
+
+- Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740`, target
+  `x86_64-unknown-linux-gnu`.
+- Lake `5.0.0-src+98dc76e`.
+- Pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, tree
+  `bdc39a3123201dae413a9d9be56ec242c19e5c2b`; package source status was clean.
+- `lean-toolchain` SHA-256:
+  `651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2`.
+- `lake-manifest.json` SHA-256:
+  `321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81`.
+
+## Commands and results
+
+| Command | Exit | Result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 targets, and skill presence passed |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0089` | 0 | rank 1106, planned, no legacy slot, legacy artifacts unaccepted, theorem incomplete |
+| `git status --short --untracked-files=all` | 0 | preflight contained only the pre-existing automation-provided `Formalizations/Lean/.lake` symlink |
+| `git rev-parse HEAD 'HEAD^{tree}'` | 0 | base revision and tree recorded above |
+| `git blame -L 656,661 -- Docs/researches/math_theorems.md` | 0 | all six uncited catalog fields originate in commit `bcf3f9fa79ab8c2b6610c9875668c2589b35b74f` |
+| Crossref DOI/Unixref and GDZ `PPN235181684_0097/LOG_0039` inspection | 0 | bibliographic metadata plus pages 737 and 752-754 inspected; source clauses and domain boundary recorded; H1 only |
+| `(cd Formalizations/Lean && lake env lean --version && lake --version)` | 0 | versions recorded above; no update or build run |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD 'HEAD^{tree}'` | 0 | pinned revision and tree recorded above; package status clean |
+| bounded `rg` search for Peter-Weyl, representative-function, or representation matrix-coefficient completeness in repo-local Lean and pinned mathlib | 1, expected | no exact-topic target found; intake discovery only, not an exhaustive external audit |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0089/IntakeProbe.lean)` | 0 | eight adjacent pinned APIs elaborated; no target declaration or proof body |
+| `python3 -m json.tool` on the three owned JSON files and root worker packet | 0 | structured artifacts are valid JSON after finalization |
+| `python3 -c` with `ast.parse` on `check_intake.py` | 0 | validator parsed without writing generated files into the owned path |
+| `python3 -B Stage1_Instances/THM-M-0089/check_intake.py --worker-packet .stage1-worker-selftest.json` | 0 | target/DAG identity, source and dependency hashes, H1/M4/R4 null target, inventory, packet, and six open tasks agree |
+| `python3 -B Stage1_Instances/THM-M-0089/check_intake.py` | 0 | public replay mode passes without the scheduler-only packet |
+| prohibited Lean construct scan over the owned path | 1, expected | no `sorry`, `admit`, `sorryAx`, `axiom`, `constant`, `opaque`, or `unsafe` declaration |
+| per-new-file `git diff --no-index --check /dev/null` plus scoped `git diff --check` | 0 aggregate | no whitespace diagnostics |
+
+## Known open gates
+
+Canonical selection among the original paper's page 752 Parseval completeness, page 753 uniform
+approximation, page 754 class-character approximation, separation consequences, and modern
+generalizations remains open. So do a complete source definition/assumption/conclusion/proof-node
+map, translation and correction audit, repository source admission, independent review, compact
+group and representation conventions, Haar and topology choices, canonical Lean target and minimal
+imports, expression/environment fingerprints, checked transports, statement mutations, exhaustive
+anchor audit, discovery protocol, obligation registry, typed graphs, proof and composition, trust
+and provenance closure, readable reconstruction, hermetic replay, deterministic bundle, independent
+verification, master acceptance, audit completion, and theorem completion.
+
+## Status boundary
+
+This is provisional worker self-test evidence for `S56-M-0089-INTAKE` only. It supports a planned
+dossier, not an accepted node receipt. No canonical statement, H0 source closure, proof, audit
+completion, theorem completion, or master acceptance is claimed.

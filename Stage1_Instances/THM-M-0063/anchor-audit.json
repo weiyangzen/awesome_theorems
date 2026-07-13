@@ -1,0 +1,263 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0063-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0063",
+  "execution_rank": 1094,
+  "base_revision": "59c86ca38b16fe4d3901ba66530aae4df0e881b0",
+  "base_tree": "2b8fc12c558d4fe807d7b4ac4b2c9a127002338e",
+  "audit_date": "2026-07-13",
+  "audit_timezone": "Asia/Shanghai",
+  "canonical_target": "Stage1Instances.THM_M_0063.CayleyTheoremTarget",
+  "canonical_target_expression_sha256": "40929846f1d1d1ff4479e5be6a989358a65ecebec5a2646f6e2dab508c641a1a",
+  "canonical_statement_file_sha256": "37e52256a1a3d1e5e56a00888309b208d7f2c2ee1b45932ac761c5f01e3bf950",
+  "discovery_protocol": {
+    "protocol_id": "S56-M-0063-ANCHOR-DISCOVERY-20260713-01",
+    "path": "Stage1_Instances/THM-M-0063/anchor-discovery-protocol.json",
+    "sha256": "da155228e0f2baf090e58d2ae7d18a9ae01dc480ccb282c15cc2be9ed9058c32",
+    "inventory_version": "S56-M-0063-ANCHOR-INVENTORY-20260713-01",
+    "saturation_claim": false
+  },
+  "immutable_environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64 GNU/Linux",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree_clean": true,
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0063-C01-MATHLIB-CAYLEY",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "tag_relation": "repository dependency manifest pins the mathlib revision used by Lean 4.29.0",
+      "module": "Mathlib.GroupTheory.Perm.Subgroup",
+      "file": "Mathlib/GroupTheory/Perm/Subgroup.lean",
+      "file_blob": "31512df634de3801bcc4802599139c5e90b84ff1",
+      "file_sha256": "342a5720c959ad335a6f8598ab52f2c12f2a6690f17dc64bfab7157929decd12",
+      "body_lines": "68-73",
+      "body_sha256": "ab83db4a51a8ac5e9f645c00385828f2cb1727ffec6dc2be542071ea583814e8",
+      "declaration": "Equiv.Perm.subgroupOfMulAction",
+      "type": "(G : Type u1) -> (H : Type u2) -> [Group G] -> [MulAction G H] -> [FaithfulSMul G H] -> G ≃* (MulAction.toPermHom G H).range",
+      "normalized_match": "Specializing H to G selects the ordinary left-multiplication action and the right-cancellation FaithfulSMul instance supplied by Group G. The audit wrapper returns Nonempty of exactly the frozen range-subgroup MulEquiv, with the same universe, group binder, carrier, action orientation, and conclusion and with no extra hypothesis.",
+      "local_adapter": "Stage1Instances.THM_M_0063_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "Equiv.Perm.subgroupOfMulAction",
+      "terminal_proof_body": "MulEquiv.ofLeftInverse' is applied to MulAction.toPermHom; Classical.choose_spec obtains a left inverse from MulAction.toPerm_injective.hasLeftInverse.",
+      "proof_body_location": "pinned mathlib, not repository-local",
+      "direct_proof_dependencies": [
+        "MulAction.toPermHom",
+        "MulAction.toPerm_injective",
+        "Function.Injective.hasLeftInverse",
+        "Classical.choose_spec",
+        "MulEquiv.ofLeftInverse'"
+      ],
+      "direct_module_imports": [
+        "Mathlib.Algebra.Group.Action.End",
+        "Mathlib.Algebra.Group.Subgroup.Finite",
+        "Mathlib.Data.Fintype.Perm"
+      ],
+      "historical_provenance": {
+        "file_author": "Eric Wieser",
+        "lean4_port_commit": "200914549b6ed4b3bb06134a25f37927beecd268",
+        "lean4_port_tree": "5dda4026b0a2410a53206fb1c613d1431c099d38",
+        "lean4_port_author": "Moritz Firsching",
+        "lean4_port_date": "2023-02-06T07:44:10Z",
+        "theorem_name_documentation_commit": "98ea690bbd038f69360a745c39e1bcdb84ef8ab8",
+        "theorem_name_documentation_tree": "ace5ca6c433846065bb3e4b55586e901c1eb7129",
+        "theorem_name_documentation_date": "2025-11-24T15:41:23Z",
+        "both_commits_are_ancestors_of_pin": true
+      },
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_bodyless_unsafe_oracle_status": "Lean #print sorries reports sorry-free. The owning source has an explicit noncomputable definition and the scoped parser-defense scan finds no sorry, admit, axiom declaration, unsafe, or opaque construct. Noncomputability is Classical.choice, not an oracle or unsafe boundary.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "Already pinned, materialized, importable, and kernel-checked through the exact local audit adapter without changing .lake.",
+      "candidate_classification": "M0-W",
+      "evidence_level": "E2",
+      "result": "Exact pinned-mathlib candidate route. It remains provisional candidate evidence until the ordered proof, complete provenance/trust, validation, and master-acceptance gates supply accepted E1 evidence."
+    },
+    {
+      "candidate_id": "M0063-C02-MATHLIB-INJECTIVE-COMPOSITE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "modules": [
+        "Mathlib.Algebra.Group.Action.Basic",
+        "Mathlib.Algebra.Group.Action.Faithful",
+        "Mathlib.Algebra.Group.Subgroup.Ker"
+      ],
+      "declarations": [
+        "MulAction.toPerm_injective",
+        "MonoidHom.ofInjective"
+      ],
+      "source_records": [
+        {
+          "file": "Mathlib/Algebra/Group/Action/Basic.lean",
+          "blob": "af1f28cd06a114fb4e8c787c073a5c8277fa0a75",
+          "sha256": "ccdaa363f6e34addf9fb62664cc61795c32cee351569a205aba66c07363210ee",
+          "lines": "40-44",
+          "body_sha256": "e80990f39181873e8b7f8cfe601d6084074820ab2af01be2cc9601f7b052c30d"
+        },
+        {
+          "file": "Mathlib/Algebra/Group/Action/Faithful.lean",
+          "blob": "e64797f425d890654714b1dfefe59cb914ed3e28",
+          "sha256": "ca3171aea3a733052c36cb9d0883dce81bdd665a037f18ca8f50af9174f1e09a",
+          "lines": "68-71",
+          "body_sha256": "1d07a4e4031983eec78a96d43980a558bb71203573ed6d31d680aad1e8b25e00"
+        },
+        {
+          "file": "Mathlib/Algebra/Group/Subgroup/Ker.lean",
+          "blob": "752cf3f7138cea3e653f3764cea5dcb6736293e0",
+          "sha256": "9269396e790bc8dcb0105cfb87897bff48fca981d62dd43e8c6840187217bfa1",
+          "lines": "184-191",
+          "body_sha256": "6592afa1c031687fd6bfbff86a9b9945473cb6e37735e78c664ab45c002ff92a"
+        }
+      ],
+      "normalized_match": "The exact audit wrapper applies MonoidHom.ofInjective to MulAction.toPerm_injective for the inferred left regular action and returns the identical MulEquiv-to-range conclusion.",
+      "local_adapter": "Stage1Instances.THM_M_0063_AnchorAudit.exactTarget_from_injective_candidate",
+      "terminal_proof_body": "Composite of the faithful-action injectivity lemma and mathlib's range equivalence constructor.",
+      "proof_body_location": "pinned mathlib, not repository-local",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_bodyless_unsafe_oracle_status": "Exact wrapper is sorry-free and has no custom axiom, unsafe declaration, oracle, or external computation.",
+      "candidate_classification": "M3_support_duplicate",
+      "result": "Exact compositional fallback exposed by the statement's narrow imports, but not an independent terminal proof body; deduplicated to the same regular-action injectivity argument as C01."
+    },
+    {
+      "candidate_id": "M0063-C03-MATHEMATICS-IN-LEAN",
+      "project": "leanprover-community/mathematics_in_lean",
+      "canonical_remote": "https://github.com/leanprover-community/mathematics_in_lean.git",
+      "revision": "dd6d752fedb14082f557913c2dccb2d4851e5173",
+      "tree": "757ef238a7e2ded30db5b3d388ff299fc28f23d5",
+      "module": "MIL.C09_Groups_and_Rings.S01_Groups",
+      "file": "MIL/C09_Groups_and_Rings/S01_Groups.lean",
+      "file_blob": "f2dc5ebda18a1c119965d6186cb894bb69362638",
+      "file_sha256": "c5f7f3631511e3e27482f7e1946ae842e4dcb4c35a76d0e42b677ba9f8b98709",
+      "declaration": "CayleyIsoMorphism",
+      "type": "(G : Type*) -> [Group G] -> G ≃* (MulAction.toPermHom G G).range",
+      "normalized_match": "Exact pointwise wrapper shape, but it invokes Equiv.Perm.subgroupOfMulAction G G and therefore supplies no independent proof body.",
+      "terminal_declaration": "Equiv.Perm.subgroupOfMulAction",
+      "toolchain": "leanprover/lean4:v4.30.0",
+      "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+      "license": "Apache-2.0",
+      "placeholder_bodyless_unsafe_oracle_status": "CayleyIsoMorphism itself has an explicit one-line body, but its teaching file contains multiple unrelated sorry placeholders. No terminal body independent of mathlib exists.",
+      "dependency_feasibility": "Different and unmaterialized toolchain/dependency pins; integration would duplicate an already pinned, cleaner, direct mathlib declaration.",
+      "candidate_classification": "M3_duplicate_wrapper",
+      "result": "Credible instructional wrapper at an immutable revision, but no new proof coverage or integration task."
+    },
+    {
+      "candidate_id": "M0063-C04-SOURCEGRAPH-DUPLICATE-WRAPPERS",
+      "projects": [
+        "avigad/mathematics_in_lean_source@8e112cd63ff1bf2a1020ff88f22f77288e42b9a9",
+        "fpvandoorn/LeanCourse23@390f7c49ce3ced7ad5ffcf74e039dcc8f912afdf",
+        "fpvandoorn/LeanCourse24@db3b3f07a416cdea6730578dacda24921739d215"
+      ],
+      "declaration_family": "CayleyIsoMorphism or unnamed examples invoking Equiv.Perm.subgroupOfMulAction G G",
+      "normalized_match": "Exact or pointwise-exact teaching wrappers.",
+      "terminal_declaration": "Equiv.Perm.subgroupOfMulAction",
+      "candidate_classification": "M3_duplicate_wrapper_family",
+      "result": "All indexed external hits deduplicate to the pinned mathlib terminal; none supplies an independent Lean 4 proof body."
+    }
+  ],
+  "search_evidence": [
+    {
+      "surface": "repository-local and all non-mathlib manifest-pinned Lean packages",
+      "query": "subgroupOfMulAction, Cayley theorem, Cayley's theorem, toPermHom G G",
+      "result": "No independent candidate outside this dossier and pinned mathlib; unrelated Cayley-Hamilton records were excluded.",
+      "exit_semantics": "rg exit 1 is the expected no-match result for eligible non-mathlib Lean sources"
+    },
+    {
+      "surface": "pinned mathlib immutable git grep and declaration environment",
+      "query": "Cayley aliases, subgroupOfMulAction, target type, #find MulEquiv-to-range and toPerm injectivity",
+      "result": "One named direct Cayley declaration and one injectivity component; no competing direct terminal declaration."
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes (subgroupOfMulAction OR Cayley theorem aliases) lang:Lean count:200",
+      "result": "Bounded index returned mathlib and four downstream teaching wrappers across five repositories; all wrappers invoke the same mathlib terminal.",
+      "response_sha256": "714b17ae1ea448583ae2d8c00b1fa0440af25bdeeda663335a414470e8bb12a1"
+    },
+    {
+      "surface": "GitHub REST focused repository search",
+      "query": "repositories?q=\"Cayley's theorem\" Lean4&per_page=30",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=\"subgroupOfMulAction\"+language:Lean&per_page=100",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e"
+    },
+    {
+      "surface": "grep.app code search",
+      "query": "search?q=subgroupOfMulAction&regexp=false&words=false",
+      "result": "HTTP 429 Vercel Security Checkpoint during the retained discovery run",
+      "response_sha256": "eeb5b5d4ffafc148108f6303f14c9a3f266ee5c21ce172d33c16da269aee1ea4"
+    }
+  ],
+  "human_source_boundary": {
+    "classification": "H1",
+    "lead": "Arthur Cayley, On the theory of groups, as depending on the symbolic equation theta^n = 1, Philosophical Magazine 7(42), 40-47 (1854), DOI 10.1080/14786445408647421",
+    "status": "This phase does not promote source fidelity. Exact passage, historical definitions, assumptions, proof and correction crosswalk, immutable source preservation, and independent source review remain open."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "4/4 frozen candidate groups classified in S56-M-0063-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "independent_external_exact_terminal_body_found": false,
+    "eligible_external_integration_debt": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_route": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2",
+    "root_vector_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "root_candidate_vector_after": {
+      "H": "H1",
+      "M": "M0-W",
+      "R": "R4"
+    },
+    "accepted_root_vector_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of the statement prerequisite and this anchor-audit node",
+    "S56-M-0063-OBLIGATION_TREE",
+    "S56-M-0063-PROOF",
+    "S56-M-0063-VALIDATION",
+    "S56-M-0063-RELEASE",
+    "full transitive declaration/provenance/trust and TCB closure",
+    "primary-source H0 and readable R0 independent review"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This provisional node classifies the bounded immutable candidate inventory and kernel-checks an exact pinned-mathlib route. It accepts no receipt, changes no accepted H1/M3/R4 state, and completes neither AUDIT-Z nor the theorem.",
+  "theorem_complete": false
+}

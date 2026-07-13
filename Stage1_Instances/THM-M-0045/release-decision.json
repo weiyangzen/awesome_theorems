@@ -1,0 +1,119 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0045-RELEASE-local-20260713T015328Z",
+  "item_id": "S56-M-0045-RELEASE",
+  "theorem_id": "THM-M-0045",
+  "intent": "release",
+  "base_revision": "0d2c3bdcd192266bc255ac3d5186da604517145a",
+  "base_tree": "eafbcb48efd51d9cda34f0fc1afe780434abad64",
+  "decided_at": "2026-07-13T01:53:28Z",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0045-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0045-VALIDATION-local-20260713T093647+0800",
+    "receipt_sha256": "9fb418aa8bbc2d55ea7c0e70fbfc3b69f5aab346ca8aed44869a494fe2ffcaa7",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "reconciled_inputs": {
+    "validation-receipt.json": "9fb418aa8bbc2d55ea7c0e70fbfc3b69f5aab346ca8aed44869a494fe2ffcaa7",
+    "proof-receipt.json": "faa5b54a33cd939df8f9f49956a453bdf05137120fb3973271c3b15e4fac01a7",
+    "instance.json": "a7bdfa77bb0859bae0dff654754f8c7b78f9785cf586b3cc4bfa2c41b7ff3bc6",
+    "statement.json": "fa9a12e8cb8947aa88934f7e6fc6c0dd031f9709bb12ffe71901a66f7aa52685",
+    "obligation-registry.json": "d38d6028caf7d3f52ced9655c1623526ff19477f179962de7edc7135635b8478",
+    "typed-graphs.json": "c69409550f84e55a959e314d688744925468ba6d74e4f06d3f2b51beb2c0a244",
+    "task-dag.json": "22c3b8581f215f304cc4d9e2ccfd0130efe9bdb2204d6e3adfd88851decaea65",
+    "Statement.lean": "1964c3edcb6c802bf15183733e98dbfa947d0d20ee125e29b687cf13cd2531f5",
+    "ObligationTree.lean": "6d410104478d6466fae6d0924685c266722bcb0742f27443baeebe47afdc7f3a",
+    "SchurPort.lean": "808342069df1e424bcc157c2245317458f63cb9d47ed402324c07021a474f09d",
+    "Proof.lean": "62cca2b905895d9c2ac3763e0178ec4cc3ff745be7110a200a6cf1bce507248f",
+    "Validation.lean": "60bf15edfb5c6d4a5b8848a36ba0fea8449787baa72131ed3cd4e37354d80e00",
+    "check_validation.py": "8f7abda6d954b985138d682d5c7cccd0847c784fab71115661b8513ce346c5b8",
+    "anchor-audit.json": "beaebc82bf469cf1f2d35179ba4b537dbdc64655f9a1c5bb19c6ef18344f12e1",
+    "anchor-audit-receipt.json": "65d0814bf786fea5ef2be47658e0e1b95185dadbf1e0bd6a908fe1c77865a26e",
+    "source-statement-crosswalk.md": "11317bf60f1ad721f9f2fd458ab27f9cf35be1364202c2c45196ae8e1d57baff"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0045-PROOF-local-20260713T092500+0800",
+    "S56-M-0045-VALIDATION-local-20260713T093647+0800"
+  ],
+  "root_vector": {
+    "accepted_before": [
+      "H1",
+      "M3",
+      "R4"
+    ],
+    "accepted_after": [
+      "H1",
+      "M3",
+      "R4"
+    ],
+    "best_provisional_kernel_evidence": "exact_root_local_kernel_replay_pass; M0-L classification disputed pending foundation-policy and per-obligation reconciliation",
+    "boundary": "The current-pin Schur port and exact canonical wrapper replay as a placeholder-free repo-local proof. However, proof-receipt.json lists all 31 machine IDs, including M0045-S-FOUNDATION, as closed while its own cut set and known failures keep M0045-S-FOUNDATION open. The authoritative instance and typed graph still record H1/M3/R4, root_closed=false, and no accepted receipt or closed obligation, so this contradictory provisional proof packet cannot promote the accepted vector in a worker release decision."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass_for_local_Proof.lean",
+    "differential_exact_root_kernel_replay": "historical_provisional_same_worker_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass_on_five_scoped_Lean_modules",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "accepted_root_machine_state": "M3_open",
+    "structured_state_freshness": "failed: instance.json and typed-graphs.json retain H1/M3/R4, root_closed=false, and no accepted closed obligations or receipts",
+    "receipt_snapshot_freshness": "failed: proof and validation receipts bind earlier pre-integration revisions; check_validation.py also binds its phase-specific self-test packet and cannot serve as a current release recipe",
+    "per_obligation_reconciliation": "conflict: proof-receipt.json lists all 31 required machine IDs as closed, including M0045-S-FOUNDATION, but its remaining cut set and known failures explicitly keep M0045-S-FOUNDATION open; it accepts none and the frozen graph remains root-open",
+    "audit_inventory_reconciliation": "missing: accepted source, provenance, trust, readability, and debt classifications required for AUDIT-Z do not exist",
+    "human_source_acceptance": "missing: root remains H1 without an accepted pinpoint source crosswalk and independent source review",
+    "readability_acceptance": "missing: root remains R4 without a complete structured reconstruction and independent reader review",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0045-VALIDATION has only provisional non-release-grade worker evidence and is not master accepted, so the release node is not dependency-legal."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused shared warm pinned .lake artifacts and did not perform an immutable empty-cache network-denied cold build with offline restoration replay."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0045-VALIDATION and every transitive phase receipt",
+    "fresh authoritative instance, obligation, and typed-graph reconciliation of the provisional exact-root replay and the contradictory 31-ID proof partition, especially open M0045-S-FOUNDATION",
+    "AUDIT-Z reconciliation of the frozen inventory, source boundaries, evidence states, trust boundaries, and every H/M/R debt",
+    "accepted H0 primary-source packet with edition, theorem/page, assumptions, historical-to-modern matrix transport, errata status, node crosswalk, and independent source review",
+    "accepted R0 node-by-node readable reconstruction with substantive ledgers and independent reader review",
+    "complete transitive declaration and proof-body provenance, accepted theorem-specific foundation and axiom profiles, and hashed executable/bootstrap TCB closure",
+    "current content-addressed receipts binding an immutable clean release snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline dependency-archive restoration",
+    "complete SBOM and license closure with durable content-addressed dependency archives",
+    "two signed attestations from distinct independently provisioned clean runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed evidence bundle, signature, public-state reconciliation, and master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "After dependency-ordered master acceptance, reconcile the authoritative 31-obligation machine graph with the exact local proof, complete AUDIT-Z and independent H0/R0 reviews, close transitive provenance and TCB records, then replay an immutable clean snapshot with empty caches and network denied and obtain two qualifying attestations plus independent minimal-verifier acceptance of a deterministic bundle.",
+  "worktree_classification": "nonrelease worker clone: the automation-provided Formalizations/Lean/.lake symlink was present and reused read-only; the release artifacts are untracked worker changes",
+  "status_boundary": "This self-tests only a truthful blocked release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance."
+}
