@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0821-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0821-VALIDATION",
+  "theorem_id": "THM-M-0821",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0821/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs through bubblewrap --unshare-net with fixed locale and timezone. Host-side hash, pin, and provenance checks make no network request. The shared warm canonical .lake remains nonrelease input and is not represented as a cold hermetic cache.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0821-ROOT",
+    "M0821-T-ROOT-COMPOSE",
+    "M0821-B-MAXIMUM",
+    "M0821-T-ATTAIN",
+    "M0821-C-MIDDLE-LAYER",
+    "M0821-L-MIDDLE-ANTICHAIN",
+    "M0821-C-MIDDLE-SIZED",
+    "M0821-L-MIDDLE-CARD",
+    "M0821-T-UPPER",
+    "M0821-L-SPERNER-UPPER"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0821.SpernerMaximumTarget",
+    "Stage1Instances.THM_M_0821_Obligations.root_of_terminal",
+    "Stage1Instances.THM_M_0821_Obligations.compose_root",
+    "Stage1Instances.THM_M_0821_Obligations.maximumSplit_of_packages",
+    "Stage1Instances.THM_M_0821_Obligations.attainment_of_middleLayer",
+    "Stage1Instances.THM_M_0821_Obligations.middleLayerAntichain_of_sized",
+    "Stage1Instances.THM_M_0821_Obligations.upperBound_of_sperner",
+    "IsAntichain.sperner",
+    "Stage1Instances.THM_M_0821.Proof.middleLayerAttainment",
+    "Stage1Instances.THM_M_0821.Proof.universalUpperBound",
+    "Stage1Instances.THM_M_0821.Proof.spernerMaximum",
+    "Stage1Instances.THM_M_0821.Validation.independentMiddleLayerAttainment",
+    "Stage1Instances.THM_M_0821.Validation.independentlyReconstructedSpernerMaximum"
+  ],
+  "scope_boundary": "Network-isolated node-scoped worker replay of the exact frozen root, all six frozen package compositions, the proof declarations, selected pinned Sperner provenance, and a Statement-only same-worker differential reconstruction. The obligation IDs are exact-declaration evidence only: eight internal source-body decomposition plans have no separate composition credit. Proof master acceptance, accepted foundation/trust state, complete transitive TCB/provenance/SBOM closure, clean-checkout empty-cache offline replay, and distinct signed independent verification remain fail-closed."
+}

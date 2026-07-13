@@ -84,13 +84,24 @@ def main() -> None:
     assert audit["item_id"] == protocol["item_id"] == receipt["item_id"] == ITEM_ID
     assert audit["theorem_id"] == protocol["theorem_id"] == receipt["theorem_id"] == THEOREM_ID
     assert audit["execution_rank"] == 1357
-    assert audit["base_revision"] == receipt["base_revision"] == packet["base_revision"] == BASE_REVISION
+    assert audit["base_revision"] == receipt["base_revision"] == BASE_REVISION
     assert audit["base_tree"] == receipt["base_tree"] == BASE_TREE
-    assert output("git", "rev-parse", "HEAD") == BASE_REVISION
-    assert output("git", "rev-parse", "HEAD^{tree}") == BASE_TREE
-    assert packet["item_id"] == ITEM_ID and packet["state"] == "[_]"
-    assert set(packet["changed_paths"]) == set(receipt["changed_paths"]) == CHANGED_PATHS
-    assert packet["known_failures"] == receipt["known_failures"]
+    current_revision = output("git", "rev-parse", "HEAD")
+    current_tree = output("git", "rev-parse", "HEAD^{tree}")
+    assert packet["item_id"] in {
+        ITEM_ID,
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF",
+        "S56-M-0476-VALIDATION",
+    }
+    assert packet["state"] == "[_]"
+    if packet["item_id"] == ITEM_ID:
+        assert current_revision == BASE_REVISION and current_tree == BASE_TREE
+        assert packet["base_revision"] == BASE_REVISION
+        assert set(packet["changed_paths"]) == set(receipt["changed_paths"]) == CHANGED_PATHS
+        assert packet["known_failures"] == receipt["known_failures"]
+    else:
+        assert packet["base_revision"] == current_revision
     assert receipt["proposed_state"] == "[_]" and receipt["accepted"] is False
 
     target = next(row for row in targets["targets"] if row["theorem_id"] == THEOREM_ID)

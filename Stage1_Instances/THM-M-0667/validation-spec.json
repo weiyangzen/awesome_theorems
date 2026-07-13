@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0667-VALIDATION",
+  "theorem_id": "THM-M-0667",
+  "depends_on": ["S56-M-0667-PROOF"],
+  "recipes": [
+    {
+      "recipe_id": "M0667-validation-kernel-trust-provenance-replay",
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0667/check_validation.py"],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"
+      },
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact gate summary retained in validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0667-ROOT",
+        "M0667-N-DIAGONAL",
+        "M0667-T-NAT-BRIDGE",
+        "M0667-N-DOMINATION",
+        "M0667-B-CONSTRUCTORS",
+        "M0667-L-BASE",
+        "M0667-L-PAIR-COMP",
+        "M0667-L-PREC",
+        "M0667-L-GROWTH",
+        "M0667-T-CONTRADICTION",
+        "M0667-T-ASSEMBLE",
+        "M0667-X-FOUNDATION",
+        "M0667-X-PROVENANCE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0667.ackermannNondefinability",
+        "Stage1Instances.THM_M_0667.Validation.independentlyReconstructedRoot",
+        "Nat.not_primrec₂_ack",
+        "Nat.exists_lt_ack_of_nat_primrec"
+      ]
+    }
+  ]
+}

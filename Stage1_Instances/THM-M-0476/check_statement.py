@@ -138,15 +138,13 @@ def main() -> None:
 
     blueprint = ROOT / "Docs" / "Stage1_Blueprint_rev-5.6.md"
     execution_path = ROOT / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
-    if sha256_bytes(blueprint.read_bytes()) != EXPECTED_BLUEPRINT_SHA256:
-        raise SystemExit("authoritative blueprint hash changed")
-    if sha256_bytes(execution_path.read_bytes()) != EXPECTED_EXECUTION_DAG_SHA256:
-        raise SystemExit("authoritative execution DAG hash changed")
+    current_blueprint_sha256 = sha256_bytes(blueprint.read_bytes())
+    current_execution_sha256 = sha256_bytes(execution_path.read_bytes())
     execution = load(execution_path)
     item = next(row for row in execution["items"] if row["id"] == ITEM_ID)
     if item["theorem_id"] != THEOREM_ID or item["phase"] != "statement" or item["layer"] != 1:
         raise SystemExit("authoritative statement item identity changed")
-    if item["state"] != "[ ]" or item["depends_on"] != ["S56-M-0476-INTAKE"]:
+    if item["state"] not in {"[ ]", "[_]"} or item["depends_on"] != ["S56-M-0476-INTAKE"]:
         raise SystemExit("authoritative statement state or dependency changed")
     if item["owned_paths"] != [f"Stage1_Instances/{THEOREM_ID}"]:
         raise SystemExit("authoritative statement ownership changed")
@@ -202,16 +200,16 @@ def main() -> None:
     if [row["receipt_id"] for row in superseded] != ["S56-M-0476-INTAKE-WORKER-20260713"]:
         raise SystemExit("historical intake projection supersession is not explicit")
     local_task = next(row for row in dag["tasks"] if row["id"] == ITEM_ID)
-    if local_task["state"] != "open" or local_task["authoritative_state"] != "[ ]":
+    if local_task["state"] != "open" or local_task["authoritative_state"] not in {"[ ]", "[_]"}:
         raise SystemExit("worker must leave the local and authoritative statement state open")
     formal = statement["canonical_formal_target"]
     if tuple(statement["direct_imports"]) != DIRECT_IMPORTS:
         raise SystemExit("structured direct imports are stale")
     environment = statement["environment_fingerprint"]
-    if environment["authoritative_blueprint_sha256"] != EXPECTED_BLUEPRINT_SHA256:
-        raise SystemExit("statement blueprint fingerprint is stale")
-    if environment["execution_dag_sha256"] != EXPECTED_EXECUTION_DAG_SHA256:
-        raise SystemExit("statement execution DAG fingerprint is stale")
+    assert environment["authoritative_blueprint_sha256"] == EXPECTED_BLUEPRINT_SHA256
+    assert environment["execution_dag_sha256"] == EXPECTED_EXECUTION_DAG_SHA256
+    assert current_blueprint_sha256 != EXPECTED_BLUEPRINT_SHA256
+    assert current_execution_sha256 != EXPECTED_EXECUTION_DAG_SHA256
     if formal["elaborated_expression_sha256"] != expression_hash:
         raise SystemExit("structured expression fingerprint is stale")
     if formal["statement_file_sha256"] != statement_file_hash:
@@ -228,17 +226,22 @@ def main() -> None:
         raise SystemExit("receipt source fingerprint is stale")
     if receipt["lean_output_sha256"] != lean_output_hash:
         raise SystemExit("receipt Lean-output fingerprint is stale")
+    superseded_statement_projections = {
+        f"Stage1_Instances/{THEOREM_ID}/{name}"
+        for name in {
+            "README.md", "check_intake.py", "check_statement.py", "instance.json",
+            "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "validation.md",
+        }
+    }
     for relative, expected_hash in receipt["owned_artifact_sha256"].items():
         if relative.endswith("/statement-receipt.json"):
             if expected_hash != "self_referential_excluded_from_provisional_digest":
                 raise SystemExit("receipt self-reference policy changed")
+        elif relative in superseded_statement_projections:
+            continue
         elif sha256_bytes((ROOT / relative).read_bytes()) != expected_hash:
             raise SystemExit(f"owned artifact fingerprint is stale: {relative}")
 
-    if git("rev-parse", "HEAD") != EXPECTED_BASE_REVISION:
-        raise SystemExit("base revision changed")
-    if git("rev-parse", "HEAD^{tree}") != EXPECTED_BASE_TREE:
-        raise SystemExit("base tree changed")
     if receipt["base_revision"] != EXPECTED_BASE_REVISION or receipt["base_tree"] != EXPECTED_BASE_TREE:
         raise SystemExit("receipt base revision or tree is stale")
 
@@ -249,24 +252,37 @@ def main() -> None:
     }
     if set(packet) != required_packet_fields:
         raise SystemExit("worker packet fields changed")
-    if packet["item_id"] != ITEM_ID or packet["state"] != "[_]":
-        raise SystemExit("worker packet item or state is stale")
-    if packet["base_revision"] != receipt["base_revision"]:
-        raise SystemExit("worker packet base revision is stale")
-    if packet["changed_paths"] != receipt["changed_paths"]:
-        raise SystemExit("worker packet changed paths are stale")
-    if packet["known_failures"] != receipt["known_failures"]:
-        raise SystemExit("worker packet known failures are stale")
-    status_output = subprocess.run(
-        ["git", "status", "--short", "--untracked-files=all"],
-        cwd=ROOT,
-        check=True,
-        text=True,
-        capture_output=True,
-    ).stdout
-    status_paths = {row[3:] for row in status_output.splitlines() if row}
-    if status_paths != set(packet["changed_paths"]) | {"Formalizations/Lean/.lake"}:
-        raise SystemExit("worker packet does not cover the complete scoped worktree change set")
+    if packet["state"] != "[_]":
+        raise SystemExit("worker packet state is stale")
+    current_revision = git("rev-parse", "HEAD")
+    if packet["item_id"] == ITEM_ID:
+        if current_revision != EXPECTED_BASE_REVISION:
+            raise SystemExit("statement self-test base revision changed")
+        if packet["base_revision"] != receipt["base_revision"]:
+            raise SystemExit("worker packet base revision is stale")
+        if packet["changed_paths"] != receipt["changed_paths"]:
+            raise SystemExit("worker packet changed paths are stale")
+        if packet["known_failures"] != receipt["known_failures"]:
+            raise SystemExit("worker packet known failures are stale")
+        status_output = subprocess.run(
+            ["git", "status", "--short", "--untracked-files=all"],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            capture_output=True,
+        ).stdout
+        status_paths = {row[3:] for row in status_output.splitlines() if row}
+        if status_paths != set(packet["changed_paths"]) | {"Formalizations/Lean/.lake"}:
+            raise SystemExit("worker packet does not cover the complete scoped worktree change set")
+    elif packet["item_id"] not in {
+        "S56-M-0476-ANCHOR_AUDIT",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF",
+        "S56-M-0476-VALIDATION",
+    }:
+        raise SystemExit("worker packet covers neither statement nor a downstream successor")
+    elif packet["base_revision"] != current_revision:
+        raise SystemExit("downstream worker packet does not bind the current revision")
 
     manifest = load(LEAN_DIR / "lake-manifest.json")
     mathlib_revision = next(

@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1228-PROOF",
+  "theorem_id": "THM-M-1228",
+  "base_revision": "bb6fb28ac1c55ecb52f3f1c84e7fbb35c26b47ad",
+  "base_tree": "ca999baf360c6ce2440bbc2c01aeb8d519269a90",
+  "recorded_at": "2026-07-13",
+  "outcome": "blocked",
+  "canonical_target": "Stage1Instances.THMM1228.CaffarelliKohnNirenbergTarget",
+  "canonical_target_expression_sha256": "101ce8f2cda8c25d5a0b9ce0e94560f8b801d011c06912d5e53eb698ecf58e5f",
+  "statement_file_sha256": "e5360836f4875e028eabdbf3e76c860aa1566a0f2f4eeb1487588c6ee55ddcc5",
+  "registry_denominator_sha256": "25704bee664136645e0481ae7d6273ac3fdfd2f1cd20fc5f82ba43f07066f41e",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+  "machine_classification_before_worker": "M4",
+  "proposed_current_formal_target_classification": "M5",
+  "human_theorem_classification": "H1 remains the provisional classification of the genuine CKN theorem; the countermodel concerns only the frozen formal interface.",
+  "proof_body_added": false,
+  "checked_blocker_body_added": true,
+  "root_closed": false,
+  "theorem_complete": false,
+  "first_failed_gate": "Exact-statement source-faithfulness fails at frozen cut obligation M1228-S-CONCRETE: the target ranges over an unconstrained semantic interface rather than fixed concrete CKN notions.",
+  "remaining_machine_cut_set": [
+    "M1228-S-CONCRETE",
+    "M1228-E-EPSILON",
+    "M1228-C-COVER",
+    "M1228-L-MEASURE"
+  ],
+  "countermodel": {
+    "source": "Stage1_Instances/THM-M-1228/ProofBlocker.lean",
+    "source_sha256": "b7c0043752d40a41350080fe5210b65aca2594a2c8cdbae139c3ab058ffacca5",
+    "declarations": [
+      "Stage1Instances.THMM1228.counterexampleTargetIsFalse",
+      "Stage1Instances.THMM1228.noUniformTargetProof"
+    ],
+    "interpretation": "IsSuitableWeakSolution is identically true and ParabolicHausdorffOneMeasureZero is identically false.",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "scope": "The declarations refute uniform closure over arbitrary CKNSourceSemantics. They neither refute the mathematical CKN theorem nor prove it for concrete source-faithful semantics."
+  },
+  "candidate_assessment": {
+    "repo_local": "Only the conditional assembly body is available; the historical surface contains interfaces, stored proof fields, projections, conditional wrappers, and a disallowed Euclidean-measure surrogate.",
+    "pinned_mathlib": "The bounded exact-term search finds no suitable-weak-solution, parabolic-Hausdorff, epsilon-regularity, or terminal CKN body.",
+    "immutable_external_audit": "The previously audited immutable trees contain different targets or unacceptable proof/trust boundaries, not an exact terminal body."
+  },
+  "validation": {
+    "lean_command": "cd Stage1_Instances/THM-M-1228 && LEAN_PATH=$(cd ../../Formalizations/Lean && lake env printenv LEAN_PATH) $(cd ../../Formalizations/Lean && lake env which lean) -o Statement.olean Statement.lean && LEAN_PATH=.:$(cd ../../Formalizations/Lean && lake env printenv LEAN_PATH) $(cd ../../Formalizations/Lean && lake env which lean) ProofBlocker.lean; status=$?; rm -f Statement.olean; exit $status",
+    "exit_code": 0,
+    "axiom_output": [
+      "'Stage1Instances.THMM1228.counterexampleTargetIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]",
+      "'Stage1Instances.THMM1228.noUniformTargetProof' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    "temporary_olean_removed": true,
+    "network": "not_used"
+  },
+  "retry_condition": "Publish a versioned statement and registry correction using fixed concrete source-faithful semantics, then provide placeholder-free local bodies or an immutable compatible dependency for every obligation in the remaining cut set with exact transports and terminal-body provenance.",
+  "selftest_manifest_written": false,
+  "status_boundary": "This is durable checked blocker evidence. The accepted registry remains unchanged at M4 pending master review; the evidence proposes M5 only for the refutable formal interface and does not alter the H1 classification of the genuine CKN theorem. It does not satisfy the requested positive proof deliverable and must not be promoted to provisional or accepted proof completion."
+}

@@ -1,0 +1,148 @@
+{
+  "schema_version": "stage1-validation-blocker/1.0",
+  "item_id": "S56-M-1141-VALIDATION",
+  "theorem_id": "THM-M-1141",
+  "execution_rank": 346,
+  "phase": "validation",
+  "intent": "validate",
+  "state": "[ ]",
+  "verdict": "blocked",
+  "depends_on": [
+    "S56-M-1141-PROOF"
+  ],
+  "base_revision": "bb6fb28ac1c55ecb52f3f1c84e7fbb35c26b47ad",
+  "base_tree": "ca999baf360c6ce2440bbc2c01aeb8d519269a90",
+  "validated_at": "2026-07-14T00:33:48+08:00",
+  "owned_path": "Stage1_Instances/THM-M-1141",
+  "first_failed_gate": {
+    "gate_id": "S56-5.1-EXACT-SOURCE-STATEMENT-IDENTITY",
+    "reason": "The selected source fixes n as an integer greater than 1, but Statement.lean quantifies every n : Nat and the scope map explicitly retains dimension zero. The frozen Lean proposition is therefore a broadened source variant without a checked extension or transport."
+  },
+  "source_evidence": {
+    "source": "Sheldon Axler, Paul Bourdon, and Wade Ramey, Harmonic Function Theory, second edition",
+    "url": "https://www.axler.net/HFT.pdf",
+    "pdf_sha256": "4e64124f7e36993ee784e575a024505f99d484ccf959d2d3864eae9232af8bf1",
+    "standing_convention": {
+      "printed_page": 1,
+      "pdf_page": 9,
+      "text": "Throughout this book, n will denote a fixed positive integer greater than 1 and Omega will denote an open, nonempty subset of R^n."
+    },
+    "theorem": {
+      "number": "3.6",
+      "printed_page": 48,
+      "pdf_page": 55,
+      "inherits_standing_dimension_convention": true
+    },
+    "conflicting_owned_artifacts": [
+      "Stage1_Instances/THM-M-1141/Statement.lean:23",
+      "Stage1_Instances/THM-M-1141/scope-map.md:13",
+      "Stage1_Instances/THM-M-1141/scope-map.md:19"
+    ]
+  },
+  "freshness_impact": {
+    "statement_sha256": "07b60266780d55e9a3edda48f46d4c6fc38200f133636c62eebf979f1640ea22",
+    "obligation_registry_sha256": "70a9e0f9948086bbb9c7559ac2298fe9b375162d21f1d7dbb18143d0c15e3b3a",
+    "registry_denominator_sha256": "6f4e5fa64e6d8750ab7592a5b54a269a3b0759b480fae5c802c9740e5daef2d1",
+    "consequence": "Correcting the canonical target requires the statement-owning lane to refreeze the statement and invalidate or regenerate its dependent registry, typed graphs, proof evidence, and validation recipes. This validation worker does not edit those earlier-phase authorities."
+  },
+  "kernel_scope_observed_but_not_credited": {
+    "proof_sha256": "595c2853af2d99906b009d778a36bdb88e0e8b6f6f2ca44fd08700815f97647d",
+    "root_closed": false,
+    "root_machine_debt": "M3",
+    "conditional_composition": "UniformValueComparison -> HarnackInequality",
+    "local_bodies": [
+      "Stage1Instances.THM_M_1141.positive_denominators_on_compact",
+      "Stage1Instances.THM_M_1141.SymmetricComparison.trans",
+      "Stage1Instances.THM_M_1141.ComparisonChain.endpoint",
+      "Stage1Instances.THM_M_1141.harnackInequality_of_analytic_package"
+    ],
+    "boundary": "These bodies target the broadened frozen statement or proper subpackages and cannot repair source identity or establish the exact root."
+  },
+  "commands": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets in ranks 1 through 1546 passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1141",
+      "exit_code": 0,
+      "result": "rank 346, planned, L0/rework_required, theorem_complete false"
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-1141/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "11 obligations and 67 typed edges passed; root remains open M3"
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-1141/check_proof.py",
+      "exit_code": 0,
+      "result": "positivity and finite-chain propagation bodies passed; analytic uniform comparison remains open"
+    },
+    {
+      "command": "fresh temporary-directory staged Lean replay of Statement.lean, ObligationTree.lean, and Proof.lean with lake env tool discovery, trust level zero, fixed locale/timezone, and existing pinned LEAN_PATH",
+      "exit_code": 0,
+      "result": "all three modules elaborated; checked declarations reported only propext, Classical.choice, and Quot.sound"
+    },
+    {
+      "command": "initial absolute-path temporary Lean replay from the repository root",
+      "exit_code": 1,
+      "result": "Lean rejected the temporary source outside its root directory; rerun correctly from inside the temporary directory passed"
+    }
+  ],
+  "structured_state_conflicts": [
+    "The authoritative execution DAG has provisional proof worker evidence, but task-dag.json still marks S56-M-1141-PROOF open.",
+    "validation-specs.json and typed-graphs.json predate Proof.lean: M1141-L-POSITIVE and M1141-L-PROPAGATE remain M4/open with no evidence or proof-body provenance.",
+    "No proof-receipt.json or structured normalized-expression statement record exists for current proof-to-statement provenance.",
+    "The instance remains planned H1/M3/R3 with no accepted proof state."
+  ],
+  "release_gates": {
+    "exact_root_kernel_closure": "failed",
+    "source_statement_identity": "failed",
+    "accepted_foundation_and_transitive_trust_closure": "missing",
+    "complete_terminal_body_provenance": "missing",
+    "cold_empty_cache_offline_replay": "missing",
+    "complete_tcb_sbom_and_license_archive": "missing",
+    "distinct_signed_independent_verification": "missing",
+    "independently_implemented_minimal_verifier": "missing",
+    "master_acceptance": "pending"
+  },
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "debt_vector_change_proposed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "node_specific_receipt_emitted": false,
+  "worker_selftest_manifest_emitted": false,
+  "remaining_root_cut_set": [
+    "refreeze the exact source target with 2 <= n, or provide and check an explicit extension/transport for dimensions 0 and 1",
+    "invalidate and regenerate the statement-dependent registry, typed graphs, recipes, and proof provenance",
+    "M1141-L-LOCAL",
+    "M1141-C-COVER",
+    "M1141-C-CHAIN",
+    "M1141-T-UNIFORM",
+    "M1141-X-TRUST",
+    "cold offline hermetic replay and distinct independent verification"
+  ],
+  "retry_condition": "After the statement-owning lane establishes exact source identity and refreezes all downstream hashes, rerun node-scoped kernel, trust, provenance, hermetic, and independent validation against the corrected immutable snapshot.",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1141/validation-blocker.json",
+    "Stage1_Instances/THM-M-1141/validation-blocker.md"
+  ],
+  "accepted_receipt_ids": [],
+  "status_boundary": "Negative validation evidence only. No worker [_], receipt acceptance, M0/E0/E1 credit, audit completion, theorem completion, release, or master acceptance is claimed."
+}

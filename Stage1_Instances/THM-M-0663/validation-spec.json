@@ -1,0 +1,35 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0663-VALIDATION-local-v1",
+  "item_id": "S56-M-0663-VALIDATION",
+  "theorem_id": "THM-M-0663",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0663/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs through bubblewrap --unshare-net with fixed locale and timezone. Host-side read-only pin and hash checks use no network. The shared warm dependency cache remains nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact five-line gate summary bound in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0663-B-DEGENERATE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0663.OMinimalMonotonicity",
+    "Stage1Instances.THM_M_0663.root_of_partition_package",
+    "Stage1Instances.THM_M_0663.partition_of_subsingleton",
+    "Stage1Instances.THM_M_0663.partition_empty",
+    "Stage1Instances.THM_M_0663.Validation.partitionOfSubsingletonDirect",
+    "Stage1Instances.THM_M_0663.Validation.partitionEmptyDirect"
+  ],
+  "coverage_boundary": "Warm node-scoped declaration validation only. The local declarations establish subsingleton and empty-domain partition witnesses, but the frozen M0663-B-DEGENERATE obligation also requires an exhaustive nondegenerate branch split and lacks an exact accepted fingerprint/receipt. No whole-obligation or root closure, cold hermetic replay, or distinct-runner independent verification is claimed."
+}

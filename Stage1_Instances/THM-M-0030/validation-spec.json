@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0030-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0030-VALIDATION",
+  "theorem_id": "THM-M-0030",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0030/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 300,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs with --trust=0 inside bubblewrap --unshare-net. The root filesystem and pinned dependency/toolchain inputs are read-only; only a fresh temporary module directory is writable. This is a warm node replay, not release-grade cold hermetic reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-0030 narrow validation"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0030-ROOT",
+    "M0030-X-MATHLIB-BODY",
+    "M0030-N-FINITE-MODULE",
+    "M0030-N-JACOBSON",
+    "M0030-N-LOCAL-CONTAINMENT",
+    "M0030-L-PROPER-MAXIMAL",
+    "M0030-L-MAXIMAL-JACOBSON",
+    "M0030-L-JACOBSON-UNIT",
+    "M0030-X-JACOBSON-UNIT-SOURCE",
+    "M0030-N-FIXEDPOINT-IFF",
+    "M0030-T-FIXEDPOINT-COMPOSE",
+    "M0030-B-FIXEDPOINT-FORWARD",
+    "M0030-B-FIXEDPOINT-BACKWARD"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0030.KrullIntersectionTarget",
+    "Ideal.mem_iInf_smul_pow_eq_bot_iff",
+    "Ideal.iInf_pow_smul_eq_bot_of_le_jacobson",
+    "Ideal.iInf_pow_smul_eq_bot_of_isLocalRing",
+    "Ideal.iInf_pow_eq_bot_of_isLocalRing",
+    "Stage1Instances.THM_M_0030.Proof.krullIntersection_direct",
+    "Stage1Instances.THM_M_0030.Proof.krullIntersection_via_pinned_anchor",
+    "Stage1Instances.THM_M_0030.Proof.krullIntersection_via_frozen_composition",
+    "Stage1Instances.THM_M_0030.Validation.differentialKrullIntersection"
+  ],
+  "scope_boundary": "Network-isolated, trust-zero, node-scoped worker replay of the exact root against existing pinned source and warm compiled artifacts, local trust/provenance observations, and a same-worker differential specialization. Clean-checkout empty-cache bootstrap, offline restoration, accepted foundation/TCB closure, and distinct-runner independent verification remain fail-closed."
+}

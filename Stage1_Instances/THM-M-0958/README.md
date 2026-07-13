@@ -43,3 +43,15 @@ durable source admission, source-to-obligation mapping, and independent review r
 `instance.json` is the structured scope authority and `task-dag.json` keeps every downstream phase
 open. The exact statement evidence is provisional pending dependency-ordered master acceptance.
 No target proof, H0, M0, R0, audit completion, theorem completion, or release is claimed.
+
+Registry version 1 now freezes 64 canonical obligations and 85 directed edges across separate
+proof, refinement, provenance, evidence, trust, documentation, and workflow graphs. The
+source-shaped route exposes the parameter and floor normalization, thin-annulus concentration,
+exterior-point bound, growing-dimension lattice discrepancy, no-carry digit embedding, exact
+base-two optimization, and all source and release boundaries. `ObligationTree.lean` checks only
+the exact witness-to-root transport and an abstract-child root composition; it supplies no Elkin
+construction witness.
+
+Obligation-tree status: self-tested proposal pending dependency-ordered master acceptance. The
+exact witness package `M0958-T-WITNESS` is the minimal open machine-proof cut, accepted proof state
+is empty, and the root remains `[H1, M3, R4]`.

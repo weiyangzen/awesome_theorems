@@ -1,0 +1,273 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0476-PROOF-local-20260713T233900+0800",
+  "item_id": "S56-M-0476-PROOF",
+  "theorem_id": "THM-M-0476",
+  "base_revision": "dc600635160cace0916df5234bf8808c39dc656d",
+  "base_tree": "8ee34b31ec38be1ef067aaab38c9a4cb4935b75a",
+  "validated_at": "2026-07-13T23:39:00+08:00",
+  "attestor": "Stage1 rev-5.6 isolated worker slot4",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "canonical_target": "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+  "canonical_target_expression_sha256": "ee76edb160426d3e8d95b11bfedca7febcfe915f50007e042875c922ebc8a4ac",
+  "registry_id": "THM-M-0476-OBLIGATIONS-v1",
+  "registry_denominator_sha256": "9375f9b987132465572c04a019d70b32638823c1279dd91a7935007f108fe62b",
+  "provisionally_closed_proof_obligation_ids": [
+    "M0476-ROOT",
+    "M0476-S-FACT-TRANSPORT",
+    "M0476-T-COMPOSE",
+    "M0476-L-WILSON",
+    "M0476-N-FACTORIAL-PRODUCT",
+    "M0476-L-FACTORIAL-INTERVAL",
+    "M0476-T-NAT-CAST-PRODUCT",
+    "M0476-N-PRIME-ENDPOINT",
+    "M0476-C-RESIDUE-UNITS-BIJECTION",
+    "M0476-B-UNIT-VAL-RANGE",
+    "M0476-L-UNIT-VAL-INJECTIVE",
+    "M0476-C-RESIDUE-TO-UNIT",
+    "M0476-T-REPRESENTATIVE-COE",
+    "M0476-L-UNITS-PRODUCT",
+    "M0476-C-INVERSE-PAIRING",
+    "M0476-L-INVERSE-FIXED-POINTS",
+    "M0476-T-INSERT-NEGONE",
+    "M0476-T-UNITS-COE-NEGONE"
+  ],
+  "required_machine_open_ids": [
+    "M0476-S-INTERFACE",
+    "M0476-S-BOUNDARY",
+    "M0476-S-FOUNDATION"
+  ],
+  "accepted_closed_obligation_ids": [],
+  "exact_root_declarations": [
+    "Stage1Instances.THM_M_0476.Proof.wilsonTheorem",
+    "Stage1Instances.THM_M_0476.Proof.wilsonTheorem_via_frozen_composition"
+  ],
+  "composition_certificates": [
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.factorialProduct",
+      "parent": "M0476-N-FACTORIAL-PRODUCT",
+      "children": [
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.factorialProduct_of_identities"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.residueUnitsProduct",
+      "parent": "M0476-C-RESIDUE-UNITS-BIJECTION",
+      "children": [
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.residueUnitsProduct_of_components"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.unitEraseNegOneProduct",
+      "parent": "M0476-C-INVERSE-PAIRING",
+      "children": [
+        "M0476-L-INVERSE-FIXED-POINTS"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.unitEraseProduct_of_inversion"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.unitProductIdentity_expanded",
+      "parent": "M0476-T-INSERT-NEGONE",
+      "children": [
+        "M0476-C-INVERSE-PAIRING"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.unitProductIdentity_of_erase"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.unitsProductBridge",
+      "parent": "M0476-T-UNITS-COE-NEGONE",
+      "children": [
+        "M0476-T-INSERT-NEGONE"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.unitsProductBridge_of_components"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.factWilsonAnchor_expanded",
+      "parent": "M0476-T-COMPOSE",
+      "children": [
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-T-UNITS-COE-NEGONE"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.factWilsonAnchor_of_bridges"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.wilsonTheorem_after_factTransport",
+      "parent": "M0476-S-FACT-TRANSPORT",
+      "children": [
+        "M0476-T-COMPOSE"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.root_of_factWilsonAnchor"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0476.Proof.wilsonTheorem_via_frozen_composition",
+      "parent": "M0476-ROOT",
+      "children": [
+        "M0476-S-FACT-TRANSPORT"
+      ],
+      "checked_composer": "Stage1Instances.THM_M_0476.ObligationTree.root_of_composedTarget"
+    }
+  ],
+  "proof_body": {
+    "classification": "pinned_mathlib_wilson_body_with_local_exact_wrapper_and_complete_frozen_composition",
+    "credit_class": "M0-W candidate pending master acceptance and validation",
+    "source": "Stage1_Instances/THM-M-0476/Proof.lean",
+    "source_sha256": "265924bd8debdd56d0ce411c98943cd75f85d69f800a405919f7603ad8e67923",
+    "source_git_blob": "9271d6c29273ea96c522f15a54c8f449beb27c69",
+    "source_patch_id": "a1197f80cdf833763fb8c763c4a4d78d3b599dd4",
+    "terminal_modules": [
+      "Mathlib.NumberTheory.Wilson",
+      "Mathlib.FieldTheory.Finite.Basic",
+      "Mathlib.Algebra.BigOperators.Intervals",
+      "Mathlib.Algebra.BigOperators.Ring.Finset"
+    ],
+    "terminal_declarations": [
+      "ZMod.wilsons_lemma",
+      "FiniteField.prod_univ_units_id_eq_neg_one",
+      "Finset.prod_Ico_id_eq_factorial",
+      "Finset.prod_natCast"
+    ],
+    "wilson_source": "Mathlib/NumberTheory/Wilson.lean",
+    "wilson_source_lines": "43-68",
+    "wilson_source_sha256": "7bd6ec0e909f037f8632e1b495f9647a61fe950f3bfe3af98a5a22914622aeb7",
+    "wilson_source_git_blob": "9401f7b96b43c2c0afa1f823857bd31a20ae0ac2",
+    "wilson_proof_body_slice_sha256": "b1c47ff748ace891eec5f93cf3b95c777a338a730d71e0dcbcfe8d3d96328116",
+    "wilson_olean_sha256": "c932050e2dca74d0ba033d36338122b2927bad7800f2ac592a20daf42c91d9eb",
+    "finite_basic_source": "Mathlib/FieldTheory/Finite/Basic.lean",
+    "finite_basic_source_lines": "110-117",
+    "finite_basic_source_sha256": "808bb4eddb8a4b48785e4430f944fe0827c96842dffa0c08cd21b5659bd85d44",
+    "finite_basic_source_git_blob": "fb3668d594f865e52f20c8af45e91e7e3b1eebd8",
+    "finite_basic_olean_sha256": "4cede73b3c7f85692307990d9cdaf819b5ac61dc50272e31586b7899d9f32119",
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "dependency_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "deduplication_boundary": "The direct wrapper, expanded root, related Wilson declarations, and composition interfaces share the pinned terminal bodies and grant no duplicate proof-body credit."
+  },
+  "inputs": {
+    "statement_sha256": "3903de3f1e1cdd6d2f048917005da8f2b744d6726507d09120661e79d217dff9",
+    "obligation_tree_sha256": "9e2b7bfb61e395c370870fa465469358d7380328bd17f513fdce3305939006b0",
+    "obligation_registry_sha256": "68bbd16f469a5a8265730e709ba17f7353a87345170783de328ab987e66ed666",
+    "typed_graphs_sha256": "56f413b974d8e205a4b57469c47a81580bffd484358e94e07ce4e2fc47508904",
+    "anchor_audit_sha256": "5451205a7be624b019b9d8154fb6a42227006606a21578bdccf5bdba6d9eaddf",
+    "validation_specs_sha256": "ef7c9cb15c65387522bfa77f629f267f7438bdb9e16f0e84ab4c1d599fffea08",
+    "check_proof_sh_sha256": "51333a5303d3e8582469615b52ae3bfeea222bc09f4264d2f0b0f9e80c2ea38c",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_output_sha256": "64f24732b3acba31146b7f43f81e83b6fcc45c7bed80ef61e96eb10cfdc8c68f"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "Linux x86_64",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "network": "not_used",
+    "dependency_cache": "automation-provided canonical pinned .lake symlink reused read-only; no update, build, clone, fetch, or dependency mutation"
+  },
+  "recipe": {
+    "recipe_id": "S56-M-0476-PROOF-LEAN",
+    "cwd": ".",
+    "argv": [
+      "bash",
+      "Stage1_Instances/THM-M-0476/check_proof.sh"
+    ],
+    "env_allowlist": {},
+    "timeout_seconds": 180,
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": [
+      "M0476-ROOT",
+      "M0476-S-FACT-TRANSPORT",
+      "M0476-T-COMPOSE",
+      "M0476-L-WILSON",
+      "M0476-N-FACTORIAL-PRODUCT",
+      "M0476-L-FACTORIAL-INTERVAL",
+      "M0476-T-NAT-CAST-PRODUCT",
+      "M0476-N-PRIME-ENDPOINT",
+      "M0476-C-RESIDUE-UNITS-BIJECTION",
+      "M0476-B-UNIT-VAL-RANGE",
+      "M0476-L-UNIT-VAL-INJECTIVE",
+      "M0476-C-RESIDUE-TO-UNIT",
+      "M0476-T-REPRESENTATIVE-COE",
+      "M0476-L-UNITS-PRODUCT",
+      "M0476-C-INVERSE-PAIRING",
+      "M0476-L-INVERSE-FIXED-POINTS",
+      "M0476-T-INSERT-NEGONE",
+      "M0476-T-UNITS-COE-NEGONE"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_0476.Proof.wilsonTheorem",
+      "Stage1Instances.THM_M_0476.Proof.wilsonTheorem_via_frozen_composition"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Isolated Statement, ObligationTree, and Proof elaboration passed. Four pinned upstream declarations and nineteen local proof declarations were transitively sorry-free; every axiom report was a subset of propext, Classical.choice, and Quot.sound; both exact roots closed.",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass: no sorry, admit, sorryAx, bodyless axiom or constant, unsafe, opaque, extern, implemented_by, or native_decide in Proof.lean or the two terminal source modules",
+    "machine_debt_proposal": "M0-W for the exact root and proof bodies, pending dependency-ordered master acceptance and downstream validation",
+    "root_kernel_closed": true,
+    "accepted_root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "proposed_after_proof_master_acceptance": {
+    "H": "H1",
+    "M": "M0-W",
+    "R": "R4"
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0476/Proof.lean",
+    "Stage1_Instances/THM-M-0476/README.md",
+    "Stage1_Instances/THM-M-0476/check_anchor_audit.py",
+    "Stage1_Instances/THM-M-0476/check_intake.py",
+    "Stage1_Instances/THM-M-0476/check_obligation_tree.py",
+    "Stage1_Instances/THM-M-0476/check_proof.py",
+    "Stage1_Instances/THM-M-0476/check_proof.sh",
+    "Stage1_Instances/THM-M-0476/check_statement.py",
+    "Stage1_Instances/THM-M-0476/instance.json",
+    "Stage1_Instances/THM-M-0476/proof-receipt.json",
+    "Stage1_Instances/THM-M-0476/proof-validation.md"
+  ],
+  "known_failures": [
+    "The prerequisite receipts and this proof receipt remain provisional until dependency-ordered master acceptance.",
+    "The accepted instance remains H1/M3/R4 with no accepted proof obligations; this worker proposes but cannot accept M0-W.",
+    "M0476-S-INTERFACE and M0476-S-BOUNDARY are predecessor evidence rather than newly claimed proof nodes; M0476-S-FOUNDATION remains open for full transitive trust and TCB validation.",
+    "H0 source mapping, R0 readable review, complete transitive provenance and trust, hermetic cold replay, independent verification, validation, release, AUDIT-Z, THEOREM-Z, and theorem completion remain open.",
+    "The automation-provided .lake symlink makes this a warm, nonrelease scoped proof check; no .lake mutation was performed."
+  ],
+  "review_due": "at master integration and on every invalidation input change",
+  "invalidation_inputs": [
+    "Proof.lean or its proof validators",
+    "Statement.lean or canonical expression",
+    "ObligationTree.lean, obligation-registry.json, typed-graphs.json, validation-specs.json, or frozen denominator",
+    "anchor-audit.json or terminal proof-body identity",
+    "mathlib sources or oleans, revision, Lean toolchain, lake manifest, or axiom policy",
+    "rev-5.6 assurance standard or predecessor acceptance"
+  ],
+  "status_boundary": "Worker proof-phase proposal only. The exact root is kernel-closed both through pinned ZMod.wilsons_lemma and through every frozen proof-graph child, but this warm-cache receipt is unsigned, nonrelease, unaccepted, and does not claim theorem completion."
+}

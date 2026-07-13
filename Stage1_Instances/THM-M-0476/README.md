@@ -36,8 +36,14 @@ Fact-transport, and exact-root compositions without invoking the audited Wilson 
 `obligation-tree-validation.md`, and `obligation-tree-receipt.json` bind the deterministic freeze
 and provisional node self-test.
 
-The vector remains `[H1, M3, R4]`. The exact statement is self-tested, but primary-source fidelity,
-proof installation, complete provenance and trust closure, readable reconstruction, and release
-assurance remain open. The exact pinned candidate awaits proof-phase admission and master
-acceptance; accepted proof state is empty. No H0, accepted M0, R0, accepted execution state, audit
-completion, theorem completion, or master acceptance is claimed.
+`Proof.lean` installs `ZMod.wilsons_lemma` at the exact frozen root and independently supplies every
+leaf of the frozen factorial-to-units graph. Its expanded route composes the interval factorial,
+representative-to-unit bijection, inverse pairing, unit product, `Fact` transport, and exact root.
+`check_proof.sh`, `check_proof.py`, `proof-validation.md`, and `proof-receipt.json` bind this
+placeholder-free proof proposal to the pinned sources and allowlisted axiom closure.
+
+The accepted vector remains `[H1, M3, R4]`. The proof phase proposes `M0-W`, but only the integration
+lane may accept it; accepted proof state is still empty. Primary-source H0, full provenance and
+trust closure, readable R0, hermetic and independent validation, release assurance, and master
+acceptance remain open. No accepted M0, accepted execution state, audit completion, theorem
+completion, or master acceptance is claimed.

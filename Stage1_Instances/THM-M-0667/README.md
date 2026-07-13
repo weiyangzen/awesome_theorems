@@ -61,3 +61,14 @@ closure have not passed their later gates; and no reviewed readable proof
 reconstruction exists. This statement phase does not claim `H0`, an `M0`
 class, proof credit, audit completion, theorem completion, or master
 acceptance.
+
+## Validation phase
+
+The validation-phase artifacts replay the exact proof root and a separately
+implemented domination-based root, bind the observed axiom set and pinned
+mathlib provenance, and fail closed on the still-missing release gates. See
+`validation-phase.md`, `validation-spec.json`, and `validation-receipt.json`.
+The result is provisional nonrelease evidence: the proof dependency and frozen
+graph await master reconciliation, while cold hermetic replay, full transitive
+TCB/provenance closure, distinct-runner verification, `H0`, and `R0` remain
+open. The theorem is not complete.

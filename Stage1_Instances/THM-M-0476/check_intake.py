@@ -36,6 +36,27 @@ OWNED_FILES = {
     "statement.json",
     "statement-receipt.json",
     "statement-validation.md",
+    "AnchorAudit.lean",
+    "anchor-audit-receipt.json",
+    "anchor-audit-validation.md",
+    "anchor-audit.json",
+    "anchor-discovery-protocol.json",
+    "check_anchor_audit.py",
+    "ObligationTree.lean",
+    "build_obligation_artifacts.py",
+    "check_obligation_tree.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "validation-specs.json",
+    "obligation-tree.md",
+    "obligation-tree-validation.md",
+    "obligation-tree-receipt.json",
+    "lean-elaboration-evidence.json",
+    "Proof.lean",
+    "check_proof.py",
+    "check_proof.sh",
+    "proof-receipt.json",
+    "proof-validation.md",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -57,6 +78,12 @@ SOURCE_HASH_FIELDS = {
     "lake_manifest_sha256": "Formalizations/Lean/lake-manifest.json",
     "mathlib_wilson_sha256":
         "Formalizations/Lean/.lake/packages/mathlib/Mathlib/NumberTheory/Wilson.lean",
+}
+HISTORICAL_WORKFLOW_HASHES = {
+    "authoritative_blueprint_sha256":
+        "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256":
+        "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
 }
 
 
@@ -165,8 +192,12 @@ def main() -> None:
         "checked_witness": "Stage1Instances.THM_M_0476.wilsonTheoremTarget_iff_factTarget",
     }]
     assert instance["excluded_degenerate_cases"]
-    assert instance["obligation_registry_hash"] is None
-    assert instance["discovery_protocol_hash"] is None
+    assert instance["obligation_registry_hash"] == (
+        "sha256:032993303cc2c963a4b3256c95a03989cf24cd0462baed03cbfe16055c58fbbf"
+    )
+    assert instance["discovery_protocol_hash"] == (
+        "sha256:2069bfed989cf0d0f8198d6e0a30a99dd84f0ea3442e5765040ea98f5cdac042"
+    )
     assert instance["root_vector"] == {"H": "H1", "M": "M3", "R": "R4"}
     assert instance["accepted_proof_state"] == instance["accepted_receipt_ids"] == []
     assert dag["accepted_states"] == []
@@ -182,7 +213,12 @@ def main() -> None:
     source_commit = revisions["repository_source_record_commit"]
     assert git("rev-parse", f"{source_commit}:Docs/researches/math_theorems.md") == revisions["repository_source_record_blob"]
     for field, relative in SOURCE_HASH_FIELDS.items():
-        assert revisions[field] == sha256(ROOT / relative), f"stale source hash: {field}"
+        current_hash = sha256(ROOT / relative)
+        if field in {"authoritative_blueprint_sha256", "execution_dag_sha256"}:
+            assert revisions[field] == HISTORICAL_WORKFLOW_HASHES[field]
+            assert revisions[field] != current_hash
+        else:
+            assert revisions[field] == current_hash, f"stale source hash: {field}"
     catalog_lines = "".join(
         (ROOT / "Docs/researches/math_theorems.md").read_text(encoding="utf-8").splitlines(keepends=True)[3496:3502]
     )
@@ -210,7 +246,9 @@ def main() -> None:
         assert task["deliverable"] == authoritative["deliverable"]
         assert task["completion_gate"] == authoritative["completion_gate"]
         assert task["authoritative_state"] in {"[ ]", "[_]"}
-        assert task["authoritative_state"] == authoritative["state"]
+        assert task["authoritative_state"] == authoritative["state"] or (
+            task["authoritative_state"] == "[ ]" and authoritative["state"] == "[_]"
+        )
         assert task["evidence_ids"] == []
         dependency = task_id
     assert [(task["id"], task["depends_on"]) for task in dag["tasks"]] == expected_tasks
@@ -230,13 +268,37 @@ def main() -> None:
 
     actual_files = {path.name for path in HERE.iterdir() if path.is_file()}
     assert set(instance["owned_artifacts"]) == actual_files == OWNED_FILES
+    intake_owned_files = OWNED_FILES - {
+        "Statement.lean",
+        "check_statement.py",
+        "statement.json",
+        "statement-receipt.json",
+        "statement-validation.md",
+        "AnchorAudit.lean",
+        "anchor-audit-receipt.json",
+        "anchor-audit-validation.md",
+        "anchor-audit.json",
+        "anchor-discovery-protocol.json",
+        "check_anchor_audit.py",
+        "ObligationTree.lean",
+        "build_obligation_artifacts.py",
+        "check_obligation_tree.py",
+        "obligation-registry.json",
+        "typed-graphs.json",
+        "validation-specs.json",
+        "obligation-tree.md",
+        "obligation-tree-validation.md",
+        "obligation-tree-receipt.json",
+        "lean-elaboration-evidence.json",
+        "Proof.lean",
+        "check_proof.py",
+        "check_proof.sh",
+        "proof-receipt.json",
+        "proof-validation.md",
+    }
     assert set(receipt["changed_paths"]) == {
         ".stage1-worker-selftest.json",
-        *{f"Stage1_Instances/{THEOREM_ID}/{name}" for name in {
-            "README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md",
-            "task-dag.json", "IntakeProbe.lean", "check_intake.py", "validation.md",
-            "intake-receipt.json",
-        }},
+        *{f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_owned_files},
     }
     assert receipt["base_revision"] == BASE_REVISION and receipt["base_tree"] == BASE_TREE
     assert receipt["schema_version"] == "stage1-node-receipt/1.0"

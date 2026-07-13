@@ -1,0 +1,175 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0927-ANCHOR-AUDIT-WORKER-20260713",
+  "item_id": "S56-M-0927-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0927",
+  "phase": "anchor_audit",
+  "intent": "audit",
+  "proposed_state": "[_]",
+  "verdict": "no_state_change",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_nonrelease",
+  "base_revision": "4a10a7a4ddff88e302d5a303b16dd687d9468f63",
+  "base_tree": "730de242597680b39a7087d3204dfd1e6c41c60e",
+  "validated_at": "2026-07-13T23:50:00+08:00",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0927/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0927/anchor-audit-receipt.json",
+    "Stage1_Instances/THM-M-0927/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0927/anchor-audit.json",
+    "Stage1_Instances/THM-M-0927/anchor-discovery-protocol.json",
+    "Stage1_Instances/THM-M-0927/check_anchor_audit.py"
+  ],
+  "canonical_target": "Stage1Instances.THM_M_0927.BinetFormulaTarget",
+  "canonical_target_expression_sha256": "0a05e8c4976c01759ef82d364afc86f498f700edc1a0fcb3f8935765992b5a2f",
+  "candidate_result": {
+    "classification": "M0-W_candidate_pending_downstream_acceptance",
+    "evidence_level": "E3_plus_direct_kernel_probe_nonrelease",
+    "terminal_declaration": "Real.coe_fib_eq'",
+    "checked_declaration": "Stage1Instances.THM_M_0927_AnchorAudit.exactTarget_mathlib_candidate",
+    "kernel_probe_passed": true,
+    "reported_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "machine_reported_sorry_free": true,
+    "master_accepted": false
+  },
+  "lean_output_sha256": "b068ed13f0100c51b9a0b35ecea9b43d03e0258c38a7f911a97ef85b389f0209",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, and the execution skill passed"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-0927"
+      ],
+      "exit_code": 0,
+      "result": "rank 1546, planned, L0/rework-required, no legacy slot, theorem incomplete"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0927/Statement.lean"
+      ],
+      "exit_code": 0,
+      "result": "frozen exact target and statement transports/mutations re-elaborated; stdout SHA-256 4195b9753c2a0c73835c20766e3d2eeb72ed87f6ee6c624b5c26dc1a1ad23f4b"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0927/AnchorAudit.lean"
+      ],
+      "exit_code": 0,
+      "result": "exact adapter and three mathlib candidates elaborated; four standard axiom reports and four machine sorry-free reports; stdout SHA-256 b068ed13f0100c51b9a0b35ecea9b43d03e0258c38a7f911a97ef85b389f0209"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0927/check_anchor_audit.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "result": "authority identity, exact serialized target equality, pins, seven candidate records, terminal source, adapter, receipt, packet, and narrow Lean replay agreed"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0927/check_statement.py"
+      ],
+      "exit_code": 1,
+      "result": "historical statement receipt has stale Docs/Stage1_Blueprint_rev-5.6.md input after integration; the unchanged Statement.lean itself passes and the successor checker independently binds its file/expression hashes"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "bounded",
+        "repository-local, manifest-package, Sourcegraph, GitHub, grep.app, and immutable raw/tree searches recorded in anchor-audit.json"
+      ],
+      "exit_code": 0,
+      "result": "exact mathlib route, one independent nonexact teaching proof, historical predecessor, and downstream consumers classified; explicit access failures recorded; saturation not claimed"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "<each new JSON artifact and .stage1-worker-selftest.json>"
+      ],
+      "exit_code": 0,
+      "result": "all structured artifacts parsed"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "Stage1_Instances/THM-M-0927",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "result": "no whitespace diagnostics, including explicit no-index checks for new files"
+    }
+  ],
+  "output_summary": "Seven bounded immutable candidate groups are classified. Pinned mathlib supplies an exact natural-index route whose terminal body is Real.coe_fib_eq'; the audit-local adapter kernel-checks the exact DLMF radical target and reports only propext, Classical.choice, and Quot.sound, with all audited declarations machine-reported sorry-free. This is a provisional M0-W route candidate below accepted E1; the accepted root remains H1/M3/R4.",
+  "known_failures": [
+    "The statement predecessor is only provisional [_], so dependency-ordered master acceptance of this node cannot occur first.",
+    "The historical statement checker reports a stale shared-blueprint input after integration; the statement source and serialized expression themselves re-elaborate and are independently bound here.",
+    "Public discovery is bounded rather than saturated; GitHub code search required authentication and grep.app returned security checkpoints.",
+    "LeanCourse23 uses a custom Fibonacci definition, different denominator spelling, Lean 4.2.0, a different mathlib pin, and a source file with unrelated sorry exercises; it has no exact adapter or E2 replay.",
+    "Full transitive declaration/provenance/trust, executable TCB, computation, generated-artifact, license/SBOM, and release-grade E1 closure remain downstream.",
+    "Primary-source H0, readable R0, obligation-tree composition, proof-phase integration, hermetic replay, independent verification, deterministic release evidence, AUDIT-Z, and theorem completion remain open."
+  ],
+  "selftest_result": "pass",
+  "status_boundary": "Provisional worker anchor-audit receipt only. It accepts no proof state, changes no authoritative root vector, and asserts neither AUDIT-Z nor theorem completion."
+}
