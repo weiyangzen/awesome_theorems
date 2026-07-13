@@ -1,0 +1,205 @@
+{
+  "schema_version": "stage1-anchor-discovery-protocol/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0814-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0814",
+  "inventory_version": "THM-M-0814-anchor-inventory/2",
+  "frozen_at": "2026-07-13T22:12:00+08:00",
+  "cutoff": "2026-07-13T22:12:00+08:00",
+  "cutoff_scope": "The cutoff freezes discovery observations and inventory membership only. Classification, replay, consistency review, and receipt validation may occur later and are separately dated; they may not silently add a candidate to this inventory version.",
+  "predecessor_inventory": {
+    "inventory_version": "THM-M-0814-anchor-inventory/1",
+    "cutoff": "2026-07-13T20:43:00+08:00",
+    "protocol_sha256": "fa344e254f0bb75fb8c5623cc3ee46d8e380c554b016cfc79baf09a585993ae8",
+    "supersession_reason": "Two concrete immutable leads observed after the version-1 cutoff were appended and classified in version 2."
+  },
+  "base_revision": "46a0f2a3ea74765a0467c489264b838ffbb70675",
+  "credentials_policy": "Anonymous public HTTP only. No GitHub token, Sourcegraph token, grep.app credential, or other search credential is available or used.",
+  "network_mutation_policy": "Public query and immutable raw-file/tree inspection only. Do not clone, fetch, update, install, build dependencies, or modify the automation-provided .lake closure.",
+  "aliases": [
+    "max-flow min-cut theorem",
+    "max flow min cut theorem",
+    "maximum flow minimum cut theorem",
+    "maximum flow equals minimum cut",
+    "Ford-Fulkerson minimal cut theorem",
+    "minimal cut theorem",
+    "network flow duality",
+    "capacitated network flow",
+    "cut capacity",
+    "maxFlowMinCut",
+    "max_flow_min_cut",
+    "maxflow_mincut",
+    "maxFlow_eq_minCut",
+    "maximumFlow",
+    "minimumCut"
+  ],
+  "namespace_and_declaration_queries": [
+    "MaxFlowMinCut",
+    "maxFlowMinCut",
+    "max_flow_min_cut",
+    "maxflow_mincut",
+    "MaximumFlow",
+    "minimumCut",
+    "NetworkFlow",
+    "FordFulkerson",
+    "cutCapacity",
+    "flowValue"
+  ],
+  "repositories_and_registries": [
+    {
+      "surface": "repository-local Lean source",
+      "selection": "all tracked *.lean files at the base revision, with the owned Statement.lean separately classified"
+    },
+    {
+      "surface": "materialized pinned Lake dependency source",
+      "selection": "all *.lean files under Formalizations/Lean/.lake/packages at every lake-manifest.json revision; mathlib receives a separate declaration and source-boundary audit"
+    },
+    {
+      "surface": "Sourcegraph public code index",
+      "selection": "anonymous streaming queries with archived and forked repositories included, lang:Lean, bounded count"
+    },
+    {
+      "surface": "GitHub REST repository and code search",
+      "selection": "anonymous repository metadata queries and attempted code queries; any candidate ref must be resolved to a commit and tree before classification"
+    },
+    {
+      "surface": "grep.app public code index",
+      "selection": "anonymous exact identifier and phrase queries filtered to Lean when the API permits"
+    },
+    {
+      "surface": "google-deepmind/formal-conjectures",
+      "selection": "complete recursive Git tree at immutable revision b2e608fc52d765510915a244bb69b1a2741acc3c plus relevant raw files, if any"
+    },
+    {
+      "surface": "facebookresearch/atlas-lean",
+      "selection": "immutable Sourcegraph-discovered commit 34ffed396f376454c1a9b297f3fd74c5c801fb50 and its raw MaxFlowMinCut module, imported flow modules, project pins, report metadata, and license"
+    },
+    {
+      "surface": "Shreyas941/maxflowmincutlean4",
+      "selection": "immutable GitLab commit 3433120620d2d31649e355800fc534a775389005 and raw Lean/project files"
+    },
+    {
+      "surface": "amilchew/Max-Flow_Min-Cut",
+      "selection": "immutable GitHub commit 00c4253aa4c71ecea93ca56f6251205adff0855c and raw Lean/project files; historical Lean 3 only"
+    },
+    {
+      "surface": "TankTechnology/CLRS-Lean",
+      "selection": "immutable GitHub commit 4fc689e2aa705703fc946eb4c26a5bb544d9f604 and its chapter-26 flow-network and partial max-flow/min-cut modules plus exact Lean/mathlib pins"
+    },
+    {
+      "surface": "Zetagon/maxflow-mincut",
+      "selection": "immutable GitHub commit 15f69893f60b07f55df161a567d272e2956a1741 and raw Lean 3 source/project pin"
+    },
+    {
+      "surface": "historical or other-prover leads",
+      "selection": "record only concrete public results surfaced by the prescribed queries; never count them as Lean 4 completion"
+    },
+    {
+      "surface": "primary human source",
+      "selection": "the dossier-pinned 1956 Ford-Fulkerson Theorem 1 record is a final search boundary, not a formal candidate or H0 completion"
+    }
+  ],
+  "query_families": [
+    {
+      "id": "Q-LOCAL-EXACT",
+      "terms": "aliases and declaration queries over repo-local Lean, excluding generated prose and classifying owned statement hits separately"
+    },
+    {
+      "id": "Q-PINNED-EXACT",
+      "terms": "aliases and declaration queries over all materialized pinned dependency Lean sources"
+    },
+    {
+      "id": "Q-PINNED-SEMANTIC",
+      "terms": "combinations of flow, capacity, source, sink, cut, graph, network, and Ford/Fulkerson over pinned mathlib graph and optimization modules"
+    },
+    {
+      "id": "Q-PUBLIC-NAMES",
+      "terms": "exact theorem phrases, Ford-Fulkerson, and identifier variants through Sourcegraph, GitHub, and grep.app"
+    },
+    {
+      "id": "Q-PUBLIC-SEMANTIC",
+      "terms": "Lean declarations combining flow with cut/capacity/minimum/maximum through available public indexes"
+    },
+    {
+      "id": "Q-STATEMENT-COLLECTION",
+      "terms": "aliases and identifier variants over the complete immutable formal-conjectures tree"
+    }
+  ],
+  "api_and_command_forms": [
+    {
+      "id": "Q-LOCAL-EXACT",
+      "cwd": ".",
+      "argv_template": ["git", "grep", "-n", "-I", "-E", "-i", "<topic-regex>", "46a0f2a3ea74765a0467c489264b838ffbb70675", "--", "*.lean"],
+      "result_form": "Record every hit and the tracked Lean-file denominator from git ls-tree; classify the owned statement and intake probe separately."
+    },
+    {
+      "id": "Q-PINNED-EXACT",
+      "cwd": ".",
+      "argv_template": ["find", "-L", "Formalizations/Lean/.lake/packages", "-type", "f", "-name", "*.lean", "-exec", "rg", "-n", "-i", "-e", "<topic-regex>", "{}", "+"],
+      "result_form": "Record rg exit, source-file count, and SHA-256 of exact stdout; repeat with the root restricted to the pinned mathlib Mathlib directory."
+    },
+    {
+      "id": "Q-PUBLIC-SOURCEGRAPH",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "60", "--fail-with-body", "--silent", "--show-error", "--get", "https://sourcegraph.com/.api/search/stream", "--data-urlencode", "q=context:global <query> lang:Lean archived:yes fork:yes count:100"],
+      "result_form": "Archive the complete SSE response, timestamp it, and record SHA-256, final done/skipped fields, repositories, commits, paths, and count bounds."
+    },
+    {
+      "id": "Q-PUBLIC-GITHUB",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "30", "--fail-with-body", "--silent", "--show-error", "--get", "https://api.github.com/search/repositories", "--data-urlencode", "q=<query>"],
+      "result_form": "Archive body and headers and record timestamp, HTTP status, SHA-256, total_count, and incomplete_results; use /search/code for the separately recorded authentication probe."
+    },
+    {
+      "id": "Q-PUBLIC-GREPAPP",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "30", "--silent", "--show-error", "--get", "https://grep.app/api/search", "--data-urlencode", "q=<query>", "--data-urlencode", "f.lang=Lean"],
+      "result_form": "Archive body and headers and record timestamp, HTTP status, SHA-256, count, or an explicit access failure."
+    },
+    {
+      "id": "Q-IMMUTABLE-RAW",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "30", "--fail-with-body", "--silent", "--show-error", "https://raw.githubusercontent.com/<owner>/<repo>/<commit>/<path>"],
+      "result_form": "Hash the response before inspection. GitLab raw-file API and GitHub immutable tree/commit endpoints use the same timeout and hash discipline."
+    }
+  ],
+  "search_order": [
+    "repository-local proof bodies, wrappers, and statement surfaces",
+    "pinned mathlib declarations and source boundaries",
+    "other materialized manifest-pinned Lean dependencies",
+    "official or primary Lean formalization projects",
+    "other public Lean repositories at immutable revisions",
+    "formal-conjecture and statement collections",
+    "historical or other-prover leads as research evidence only",
+    "the pinned primary human source as the unresolved-formalization boundary"
+  ],
+  "inventory_members": [
+    "M0814-C01-REPO-LOCAL-EXACT-STATEMENT",
+    "M0814-C02-REPO-LOCAL-NONSUBSTITUTES",
+    "M0814-C03-MATHLIB-EXACT-TOPIC",
+    "M0814-C04-MATHLIB-SUPPORT-AND-NONSUBSTITUTES",
+    "M0814-C05-MANIFEST-PINNED-EXTERNALS",
+    "M0814-C06-PUBLIC-LEAN4-RESULTS",
+    "M0814-C07-FORMAL-CONJECTURES",
+    "M0814-C08-HISTORICAL-LEAN3-RESULTS",
+    "M0814-C09-HUMAN-SOURCE-BOUNDARY",
+    "M0814-C10-CLRS-LEAN-PARTIAL",
+    "M0814-C11-ZETAGON-HISTORICAL-LEAN3"
+  ],
+  "candidate_acceptance_fields_required_for_proof_credit": [
+    "project and canonical remote",
+    "immutable revision and tree",
+    "toolchain and dependency revisions",
+    "module, declaration, exact elaborated type, and normalized target comparison",
+    "wrapper, terminal declaration, and terminal proof-body provenance",
+    "direct and available transitive dependency boundary",
+    "machine-derived axioms where checkable",
+    "parser/elaborator-aware placeholder, bodyless, unsafe, oracle, external-code, and generated-artifact status",
+    "license and local dependency feasibility",
+    "smallest direct check and exact M/E classification"
+  ],
+  "phase_boundary": "This node may classify a candidate with an explicit trust blocker when a required proof-credit field cannot yet be established. Such a candidate cannot receive M1/M0 or exact-root credit; parser-aware transitive trust closure remains a downstream proof/validation prerequisite.",
+  "negative_evidence_policy": "Record each dated query, HTTP status, result count or explicit access failure, and response SHA-256. A blocked index is never a negative result. A bounded no-match is never a claim of global absence.",
+  "saturation_claim": false,
+  "append_only_policy": "A concrete candidate observed after this cutoff is not folded into THM-M-0814-anchor-inventory/2. It must be classified under a new successor inventory before any coverage or saturation claim is recomputed."
+}

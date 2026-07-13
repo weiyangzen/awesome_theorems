@@ -1,0 +1,225 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0927",
+  "item_id": "S56-M-0927-INTAKE",
+  "execution_rank": 1546,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 78,
+  "name_zh": "比内公式",
+  "name_en": "Binet's formula",
+  "canonical_name": "Binet's closed formula for the Fibonacci sequence (exact source formulation open)",
+  "category": "组合数学 / 计数组合",
+  "category_en": "combinatorics / enumerative combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "斐波那契数列的显式公式",
+  "literal_source_claim_en": "An explicit formula for the Fibonacci sequence.",
+  "source_attribution": "Jacques Binet, 1843 (untrusted catalog metadata; no cited edition or theorem locator)",
+  "source_status_untrusted": "已验证",
+  "canonical_claim_status": "recognizable_binet_formula_family_but_catalog_omits_the_formula_index_and_value_domains_conventions_binders_source_locator_and_proof_boundary",
+  "canonical_statement": null,
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a zero-based Fibonacci sequence and a nonnegative integer n, the real value F_n equals the difference of the nth powers of (1 + sqrt 5) / 2 and (1 - sqrt 5) / 2, divided by sqrt 5.",
+  "target_disposition": "requires_immutable_source_selection_and_formula_scope_review_before_statement_execution",
+  "statement_blocker": "The catalog does not print the formula or fix the index domain, indexing convention, value carrier, characteristic-root definitions, square-root and exponent conventions, pointwise versus function equality, ordered binders, boundary cases, or historical source. Pinned mathlib supplies direct Binet interfaces, but selecting one as the canonical root before a reviewed source crosswalk would infer proposition identity not established by intake.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_pending_immutable_source_crosswalk_and_exact_statement_elaboration",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "module_candidates_not_credited": ["Mathlib.NumberTheory.Real.GoldenRatio"],
+    "declaration_candidates_not_credited": [
+      "Real.coe_fib_eq'",
+      "Real.coe_fib_eq",
+      "Real.coe_intFib_eq"
+    ],
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.NumberTheory.Real.GoldenRatio_intake-api-and-axiom-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must select natural or integer indices, zero- or one-based Fibonacci convention, value carrier and coercion, real square-root branch, natural or integer powers, and all implicit structures and universes.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open beyond the literal explicit-formula family: the exact radical expression, index range, codomain, equality form, and incorporated definitions are not source-approved.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "the natural-index pointwise real equality exposed as Real.coe_fib_eq",
+    "the natural-index function equality exposed as Real.coe_fib_eq'",
+    "the integer-index extension exposed as Real.coe_intFib_eq",
+    "the expanded DLMF radical spelling with denominator 2^n * sqrt 5",
+    "an equivalent spelling using named golden ratio and conjugate"
+  ],
+  "excluded_degenerate_cases": [],
+  "unresolved_boundary_and_mutation_cases": [
+    "index zero, index one, and the first recurrence step",
+    "zero- versus one-based indexing and any historical shift",
+    "division by sqrt 5 and its nonzeroness",
+    "natural-to-real coercion and alternate codomains",
+    "negative indices, sign convention, and integer powers if the integer extension is selected",
+    "changed index domain, binder scope, characteristic-root sign, and formula boundary"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0925 Fibonacci sequence or recurrence alone",
+    "THM-M-0924 Lucas numbers or THM-M-0926 Cassini's identity",
+    "THM-M-0048 Cauchy-Binet determinant formula",
+    "the consecutive-ratio limit, golden-ratio asymptotic, or a rounding approximation",
+    "an isolated computed Fibonacci value, table, fast evaluator, or recurrence solver interface",
+    "the integer, generalized-recurrence, or complex formulation silently substituted for the source-selected root",
+    "an axiom, opaque premise, structure field, oracle, certificate, or hypothesis containing the desired conclusion",
+    "the catalog verified label, theorem name, module documentation, API probe, or axiom diagnostic used as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0925",
+      "name": "斐波那契数列",
+      "relationship": "owns the sequence and recurrence family, not this explicit closed-form identity"
+    },
+    {
+      "theorem_id": "THM-M-0924",
+      "name": "卢卡斯数",
+      "relationship": "a related recurrence family, not the Fibonacci closed form"
+    },
+    {
+      "theorem_id": "THM-M-0926",
+      "name": "卡西尼恒等式",
+      "relationship": "a separate Fibonacci identity; no statement or proof credit transfers"
+    },
+    {
+      "theorem_id": "THM-M-0048",
+      "name": "柯西-比内公式",
+      "relationship": "an unrelated determinant formula sharing Binet's name"
+    }
+  ],
+  "source_status": "H1_modern_authoritative_zero_based_statement_and_formula_located_but_primary_historical_source_proof_mapping_corrections_errata_and_independent_review_open",
+  "human_source_candidates_not_credited": [
+    {
+      "citation": "NIST Digital Library of Mathematical Functions, version 1.2.7, section 26.11, equations 26.11.5 and 26.11.7",
+      "equation_26_11_7_tex_sha256": "a217ded8cf322e549eba3b2889a18abfea7e01f3d4bdd34e2aed017b25aa2adb",
+      "status": "pinpoint modern authoritative statement lead for zero-based nonnegative indices; not a primary Binet 1843 proof source, accepted proof crosswalk, correction/errata review, or independent source receipt"
+    },
+    {
+      "citation": "OEIS A000045, Fibonacci numbers",
+      "status": "mutable secondary definition, formula, and bibliography lead only; live HTML embeds request-varying material and is not recorded as a replayable input"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.NumberTheory.Real.GoldenRatio",
+      "declaration": "Real.coe_fib_eq",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "For every natural n, the real coercion of Nat.fib n equals (goldenRatio^n - goldenConj^n) / sqrt 5.",
+      "axioms_reported_by_probe": ["propext", "Classical.choice", "Quot.sound"],
+      "boundary": "direct pointwise natural-index candidate; source identity, exact target, terminal-body provenance, trust acceptance, and M0 credit remain open"
+    },
+    {
+      "module": "Mathlib.NumberTheory.Real.GoldenRatio",
+      "declaration": "Real.coe_fib_eq'",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "Function equality between the real-coerced natural Fibonacci sequence and the named-root closed form.",
+      "axioms_reported_by_probe": ["propext", "Classical.choice", "Quot.sound"],
+      "boundary": "function-form candidate; whether it is canonical or an alternate is source-unresolved"
+    },
+    {
+      "module": "Mathlib.NumberTheory.Real.GoldenRatio",
+      "declaration": "Real.coe_intFib_eq",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "Integer-index extension using Int.fib and integer powers of the two real roots.",
+      "axioms_reported_by_probe": ["propext", "Classical.choice", "Quot.sound"],
+      "boundary": "broader negative-index candidate; it cannot silently replace the conventional natural-index root"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "72e9e8092182121a6794921f61fcc9cae22f726d",
+    "repository_base_tree": "0d6c1fdf06d1573c256af331c6b198e5a787af43",
+    "repository_record": "Docs/researches/math_theorems.md:6777-6782",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:25282-25307",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "589853937d849376054c4d265e9925e3d19934335bbb53fe3dadb75c48d55cf9",
+    "stage0_projection_excerpt_sha256": "1ce8c9a48811039ffa5a83132dfb3979548db920ca79840a6c496c762b153414",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "target_id_set_sha256": "e07deabaab3463cc1f92cdf5c0cf50ad9f8270d35554529c375d20a8512d8f1a",
+    "authoritative_blueprint_sha256": "9551020feb2e8b19470eeb2fd5c08f451700f6bf439ba9fa1618fad20079d807",
+    "execution_dag_sha256": "121d1d88a124cd5eb95400e437485afcd4fe6a2830f7664f2410e514c3f58e59",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_golden_ratio_source_sha256": "e3a6e5160e654dfb4c5594c66a624fa7a5edffa4c1b839d992be7d1ba2dd7ac3",
+    "mathlib_golden_ratio_source_blob": "9e9a9f050354f828a54fb235846405987daa4971",
+    "mathlib_binet_block_sha256": "5e81ecd076a16ff4595f80fc68402868b902cf7373683c8a3c9ada4a951afcc9",
+    "mathlib_root_definition_block_sha256": "dd85ebc445f4ab0e155c9a5087d3bd073d777209f710fc05cc218988e8d31465",
+    "mathlib_nat_fib_basic_source_sha256": "cc677908e449079923644aed447699e331e0100c88597d8a3c6e491db98267a0",
+    "mathlib_nat_fib_basic_source_blob": "178679a3c0c8e1acf89849b902e0d0124ac3baed",
+    "mathlib_nat_fib_definition_block_sha256": "c5bb95842c2d510c7ba4f1dda2bea8ed44f370a32975364b80ad3cd542abff7d",
+    "dlmf_26_11_e7_tex_sha256": "a217ded8cf322e549eba3b2889a18abfea7e01f3d4bdd34e2aed017b25aa2adb",
+    "dlmf_26_11_e5a_tex_sha256": "4861208d1f848b5b939ed87aa134b855702fef94d4281246612132c0a7e64d2b",
+    "dlmf_26_11_e5b_tex_sha256": "b50a026822fc6cd8502fe718db2845c5340e964076efc19efc9faa685124bcfc",
+    "dlmf_26_11_e5c_tex_sha256": "194c9de92b23fc4d5d12245d46567f10cf25ca3eb05650732442bc8d76a16d15",
+    "mathworld_binet_observed_html_sha256": "32e42bc77fa5ede627865dc047c168f8b92040e94e3f5d53a8c6b18db798275c"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; candidate axiom reports include propext, Classical.choice, and Quot.sound, while exact foundation acceptance remains open until the source-identical canonical target and trust policy are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, canonical expression, terminal proof body, transitive declarations, axioms, and trust acceptance remain open",
+  "computation_profile": "No floating-point approximation, nearest-integer computation, finite sample, native evaluator, external solver, oracle, generated certificate, or unchecked computation is credited; the intended result requires kernel-checked exact equality",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "authoritative_target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+  "authoritative_execution_dag": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+  "open_task_dag": "Stage1_Instances/THM-M-0927/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0927/README.md",
+    "Stage1_Instances/THM-M-0927/instance.json",
+    "Stage1_Instances/THM-M-0927/scope-map.md",
+    "Stage1_Instances/THM-M-0927/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0927/task-dag.json",
+    "Stage1_Instances/THM-M-0927/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0927/check_intake.py",
+    "Stage1_Instances/THM-M-0927/validation.md",
+    "Stage1_Instances/THM-M-0927/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent Fibonacci-history and combinatorics reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "worker_role": "provisional intake author only"
+  },
+  "support_window": "provisional planned intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition, formula locator, definition, premise, proof, attribution, correction or erratum; index domain, indexing, codomain, characteristic root, square root, power, denominator, equality form, binder, transport, or boundary convention; canonical Lean target; toolchain or dependency pin; assurance profile, validator, receipt, or any owned artifact change.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog gloss, modern statement leads, proposition-changing scope choices, three direct pinned Binet candidates, explicit non-substitutions, and an open task DAG. M3 supplies no canonical-root or proof credit. No exact statement, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

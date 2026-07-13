@@ -34,3 +34,27 @@ The provisional vector remains `[H1, M3, R4]`. `instance.json` is the structured
 and `task-dag.json` leaves all six downstream phases open pending master acceptance. The statement
 node proposes `[_]`; no H0, M0, R0, accepted execution state, audit completion, theorem completion,
 or master acceptance is claimed.
+
+## Obligation-tree result
+
+Registry version 1 freezes 36 obligations and seven separate typed graphs. The proof architecture
+splits the exact root into forward and reverse correctness terminals, then maps the visible pinned
+source body through the order, least-factor, quadratic-extension, recurrence, closed-form, and
+Legendre-symbol dependencies. `ObligationTree.lean` checks ten exact conditional composition
+interfaces. Seventeen additional source-body relationships remain explicit unverified decomposition
+plans rather than machine-closure certificates. The frozen denominator and accepted state are not
+changed by later proof work.
+
+## Proof result
+
+`Proof.lean` installs `lucas_lehmer_sufficiency` and `lucas_lehmer_necessity` from manifest-pinned
+mathlib at their exact frozen terminal interfaces. It consumes `root_of_directions` and
+`root_of_terminal` to derive the unchanged `LucasLehmerTestTarget`. Trust-zero Lean elaboration
+reports both upstream terminals and all four local declarations sorry-free, with exactly `propext`,
+`Classical.choice`, and `Quot.sound` in each axiom closure.
+
+This is provisional proof-node evidence for an `M0-W` root proposal. The receipt grants exact
+declaration evidence only to the two terminal interfaces, assembly node, and root. It gives no
+individual closure credit to the 17 unverified source-body decompositions and accepts no obligation
+or receipt. The dossier therefore remains `[H1, M3, R4]`; validation, full provenance and TCB,
+primary-source `H0`, readable `R0`, independent replay, release, and theorem completion remain open.

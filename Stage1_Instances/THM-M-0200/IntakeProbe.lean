@@ -1,0 +1,14 @@
+import Mathlib.Analysis.Normed.Affine.Ceva
+
+-- Discovery only: these pinned declarations are not selected as the canonical root at intake.
+#check AffineIndependent.exists_affineCombination_eq_smul_eq
+#check AffineIndependent.exists_affineCombination_eq_smul_eq_of_fintype
+#check Affine.Triangle.prod_eq_prod_one_sub_of_mem_line_point_lineMap
+#check Affine.Triangle.prod_div_one_sub_eq_one_of_mem_line_point_lineMap
+#check Affine.Triangle.prod_dist_eq_prod_dist_of_mem_line_of_mem_line
+#check Affine.Triangle.prod_dist_div_dist_eq_one_of_mem_line_of_mem_line
+
+#print axioms Affine.Triangle.prod_eq_prod_one_sub_of_mem_line_point_lineMap
+#print axioms Affine.Triangle.prod_div_one_sub_eq_one_of_mem_line_point_lineMap
+#print axioms Affine.Triangle.prod_dist_eq_prod_dist_of_mem_line_of_mem_line
+#print axioms Affine.Triangle.prod_dist_div_dist_eq_one_of_mem_line_of_mem_line

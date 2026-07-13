@@ -1,0 +1,278 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "schema_status": "provisional repository-local intake shape; no published strict JSON schema is present in this checkout",
+  "theorem_id": "THM-M-0972",
+  "item_id": "S56-M-0972-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1506,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Janson不等式",
+  "name_en": "Janson inequality (exact variant open)",
+  "canonical_name": "Janson nonoccurrence and lower-tail inequality family",
+  "category": "组合数学 / 计数组合",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "稀有事件的并的概率",
+  "literal_source_claim_en": "The probability of the union of rare events.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "janson_nonoccurrence_and_lower_tail_family_identified_but_catalog_union_gloss_does_not_select_one_source_defined_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only 'the probability of the union of rare events'. Sources distinguish multiple inequivalent Janson bounds for nonoccurrence and the lower tail of a structured dependent-indicator count. The catalog does not select a1, a2, the product refinement, the 1990 lower-tail form, a quadratic corollary, or a conjunction; it also omits the random-subset model, family/index representation, indicator definition, overlap convention, lambda/Delta/DeltaBar definitions, codomains, ordered binders, hypotheses, conclusion direction, and boundary cases. Selecting or complementing one formula at intake would invent or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_due_to_source_variant_and_union_direction_ambiguity",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "module_candidates_not_credited": [
+      "Mathlib.Probability.Distributions.SetBernoulli",
+      "Mathlib.Probability.Independence.Basic",
+      "Mathlib.Probability.Moments.Basic",
+      "Mathlib.MeasureTheory.OuterMeasure.Basic",
+      "Mathlib.Probability.Combinatorics.BinomialRandomGraph.Defs"
+    ],
+    "declaration_candidates_not_credited": [
+      "ProbabilityTheory.setBernoulli",
+      "ProbabilityTheory.iIndepSet",
+      "ProbabilityTheory.iIndepSet.iIndepFun_indicator",
+      "ProbabilityTheory.measure_le_le_exp_mul_mgf",
+      "ProbabilityTheory.measure_le_le_exp_cgf",
+      "MeasureTheory.measure_biUnion_finset_le",
+      "SimpleGraph.binomialRandom"
+    ],
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source and encoding review must fix the finite base carrier, probability parameter family, random-subset probability space, configuration index and subset family, indicator and count codomains, expectation and measure codomains, finiteness and decidability instances, and every coercion.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose a nonoccurrence bound, the entropy-form lower tail, its quadratic weakening, a product refinement, or an explicit conjunction, and does not fix whether its union wording requests a complemented statement.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before one source proposition is selected; the statement phase must resolve every case in scope-map.md.",
+  "candidate_roots_not_credited": [
+    "P(X = 0) <= exp(-lambda + Delta) under the source-defined random-subset and overlap setup",
+    "P(X = 0) <= exp(-lambda^2 / (lambda + 2*Delta)) under its source-defined conditions",
+    "the Boppana-Spencer product refinement of the first nonoccurrence inequality",
+    "Janson's 1990 entropy-form lower-tail estimate for a specially structured indicator sum",
+    "the quadratic lower-tail corollary",
+    "an explicit conjunction of independently approved source inequalities"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty base set, empty configuration family, and an empty configuration",
+    "duplicate or identically supported configurations under distinct indices",
+    "selection probabilities zero or one",
+    "pairwise disjoint configurations and Delta equal to zero",
+    "lambda, Delta, or DeltaBar equal to zero in quotient forms",
+    "threshold t equal to zero or lambda and values outside the source lower-tail range",
+    "single-configuration and deterministic-indicator cases",
+    "measurability and finite-support boundaries in any generic-event encoding"
+  ],
+  "excluded_substitutions": [
+    "the elementary union bound or its complement",
+    "the independent Chernoff, Hoeffding, or Azuma-Hoeffding inequality",
+    "the Lovasz local lemma, Shearer bound, FKG inequality, or second-moment method",
+    "Suen's general dependency-graph inequality for arbitrary indicators",
+    "a special theorem only about G(n,p), triangle counts, or another application",
+    "Bernoulli random-set or binomial-random-graph infrastructure without the selected bound",
+    "a structure that assumes or stores the desired inequality",
+    "numeric simulation, asymptotic sampling, or floating-point probability evidence",
+    "the catalog's untrusted verified label or the discovery probe as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0969",
+      "name": "Lovasz局部引理",
+      "relationship": "related rare-event avoidance result with a different hypothesis and conclusion contract"
+    },
+    {
+      "theorem_id": "THM-M-0971",
+      "name": "Shearer界",
+      "relationship": "optimal local-lemma boundary, not a Janson lower-tail or nonoccurrence statement"
+    },
+    {
+      "theorem_id": "THM-M-0977",
+      "name": "Chernoff界",
+      "relationship": "independent-sum concentration boundary; a limiting or disjoint special case is not the dependent theorem"
+    },
+    {
+      "theorem_id": "THM-M-0978",
+      "name": "Hoeffding不等式",
+      "relationship": "bounded independent-variable concentration result, not an overlap-corrected occurrence bound"
+    }
+  ],
+  "source_status": "H1_complete_published_janson_theorem_family_and_named_1990_source_leads_known_but_exact_root_definitions_assumptions_formula_proof_boundary_pagination_errata_map_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "S. Janson, T. Luczak, and A. Rucinski, An exponential bound for the probability of nonexistence of a specified subgraph in a random graph, Random Graphs '87, Wiley (1990), 73-87",
+      "candidate_locator": "bibliography item a3 in Encyclopedia of Mathematics immutable revision oldid 55421",
+      "candidate_summary": "1990 source lead associated by the secondary entry with a symmetry-restricted precursor of a nonoccurrence bound",
+      "inspection_status": "bibliographic lead only; complete primary text, exact theorem locator, definitions, assumptions, proof boundary, corrections, and independent review were not inspected or credited"
+    },
+    {
+      "citation": "S. Janson, Poisson approximation for large deviations, Random Structures & Algorithms 1(2) (1990), DOI 10.1002/rsa.3240010209",
+      "candidate_locator": "Crossref DOI metadata; Encyclopedia of Mathematics bibliography item a4",
+      "candidate_summary": "published lower-tail source lead for a specially structured sum of indicators",
+      "inspection_status": "metadata and abstract inspected; Crossref reports pages 221-229 while the encyclopedia reports 221-230; full formulas, definitions, assumptions, proof boundary, corrections, and independent review remain open"
+    },
+    {
+      "citation": "Encyclopedia of Mathematics, Janson inequality, revision oldid 55421, adapted from an article attributed to A. Rucinski",
+      "candidate_locator": "immutable web revision last edited 2024-02-10",
+      "candidate_summary": "secondary variant map recording setup, bounds a1-a4, source bibliography, and a Suen boundary",
+      "inspection_status": "secondary source used only to demonstrate ambiguity and locate primary sources; not a primary proof source and not H0"
+    }
+  ],
+  "source_metadata_conflicts": [
+    "the catalog describes a union probability while standard nonoccurrence statements bound the probability of the complementary event X = 0",
+    "the catalog's single 1990 date matches both a conference-proceedings source and Janson's lower-tail journal article but selects neither",
+    "Crossref reports pages 221-229 for the Janson journal article while the immutable secondary entry reports pages 221-230"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "project": "facebookresearch/atlas-lean",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "archive_sha256": "925cc0fa8d32dbdf6e8dc893e2fb9d34eed3dfdc8603dc5ae09804f8c3db9aa2",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "license": "CC BY-NC 4.0 with a no-training rider; commercial use and ML development or evaluation use prohibited by the repository LICENSE",
+      "files": [
+        {
+          "path": "Atlas/ProbabilisticMethodsInCombinatorics/code/Janson.lean",
+          "sha256": "d34a448c94050ac8f4e9e2579a81e0ecc2f4d216488de98cd03124a5d14d286e",
+          "declarations": ["Janson.JansonSetup", "Janson.janson_inequality_I", "Janson.janson_parametric_bound", "Janson.janson_inequality_II_full"],
+          "placeholder_boundary": "janson_inequality_I depends on janson_chain_rule_harris, whose proof is by sorry at line 101; janson_inequality_II_full depends on janson_parametric_bound, whose proof is by sorry at line 662; further applications also contain sorry"
+        },
+        {
+          "path": "Atlas/ProbabilisticMethodsInCombinatorics/code/Chapter8/JansonInequality.lean",
+          "sha256": "0f77f971c6caffb7286467bd43878214a77a11cdb784fad1797ea5bd52e9f57f",
+          "declarations": ["JansonInequality.harris_claim", "JansonInequality.janson_inequality_II"],
+          "placeholder_boundary": "the algebraic optimizer is proved only from an assumed parametric bound; harris_claim is by sorry at line 40"
+        },
+        {
+          "path": "Atlas/ProbabilisticMethodsInCombinatorics/code/Chapter8/LowerTails.lean",
+          "sha256": "ab905a4067d4d132407a5529b1f0c6d2e2df8241d660c48e1d625ed18479c825",
+          "declarations": ["Janson.janson_III_intermediate_bound", "Janson.janson_inequality_III"],
+          "placeholder_boundary": "janson_inequality_III depends on janson_III_intermediate_bound, whose proof is by sorry at line 103"
+        }
+      ],
+      "inspection_status": "temporary source archive at the named immutable commit was inspected without installing or fetching a dependency into .lake; the recorded archive and file digests are uncredited discovery metadata, not durable receipt-bound evidence, and must be independently reacquired or lawfully preserved before admission; no build, exact canonical-statement match, axiom closure, complete transitive placeholder audit, or integration check was performed",
+      "candidate_machine_class": "M5 placeholder-blocked candidate; no root proof credit",
+      "boundary": "strong exact-topic Lean 4 anchor, but its root-relevant proof chains contain explicit sorry and its restrictive license requires a separate integration decision; the unfrozen THM-M-0972 root remains M4 because no usable exact formal artifact is credited"
+    },
+    {
+      "module": "Mathlib.Probability.Distributions.SetBernoulli",
+      "declarations": ["ProbabilityTheory.setBernoulli", "ProbabilityTheory.setBernoulli_apply", "ProbabilityTheory.setBernoulli_ae_subset"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "homogeneous independent random-subset law and elementary properties only; no configuration-count inequality"
+    },
+    {
+      "module": "Mathlib.Probability.Independence.Basic",
+      "declarations": ["ProbabilityTheory.iIndepSet", "ProbabilityTheory.iIndepSet.meas_biInter", "ProbabilityTheory.iIndepSet.iIndepFun_indicator"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "generic event-independence and indicator interfaces only; no overlap-corrected dependent lower tail"
+    },
+    {
+      "module": "Mathlib.Probability.Moments.Basic",
+      "declarations": ["ProbabilityTheory.mgf", "ProbabilityTheory.measure_le_le_exp_mul_mgf", "ProbabilityTheory.measure_le_le_exp_cgf"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "generic lower-tail Chernoff interfaces; the Janson-specific Laplace-transform estimate is absent"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.OuterMeasure.Basic",
+      "declarations": ["MeasureTheory.measure_biUnion_finset_le", "MeasureTheory.measure_iUnion_fintype_le"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "elementary finite union bounds only; explicitly not a substitute for a Janson inequality"
+    },
+    {
+      "module": "Mathlib.Probability.Combinatorics.BinomialRandomGraph.Defs",
+      "declarations": ["SimpleGraph.binomialRandom", "SimpleGraph.binomialRandom_apply"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "binomial random-graph probability law only; no subgraph-count nonoccurrence or lower-tail theorem. The module also contains an unrelated proof_wanted for an edge-count distribution, which receives no proof credit"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "fcabbf1e0ad9507eebe91663bccabfa87d22813e",
+    "repository_base_tree": "873e589c594454b7f263c7ed2342089a4d15e842",
+    "repository_record": "Docs/researches/math_theorems.md:7099-7104",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:26497-26522",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_blob_at_base": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "aec21bb51ecc445fbedfb588f3dfe1c345bb373f386778a6a20610e247771608",
+    "stage0_projection_excerpt_sha256": "457dd05791a76c5613ac934a313467edf0a993543c6bf7e5da5cd05b90606e96",
+    "target_manifest_record_sha256": "aa871ad202b451f5ba52ad2fbb53882c2f95c5f68f2395fc8888512b6658905d",
+    "execution_item_record_sha256": "03677f37675aaa55ec199a8109d5b977ea6210a869c51832140de08b38bb3876",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "8607034eed9f13cd5759de5cd2bc4d41d34a1ed073e6ab07c4b6b3689edde46d",
+    "execution_dag_sha256": "d342e206b1372121057707b034f58b10e2dca2cb3a8468577219af0050dc2f53",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "eom_janson_revision": "https://encyclopediaofmath.org/index.php?title=Janson_inequality&oldid=55421",
+    "crossref_janson_doi": "10.1002/rsa.3240010209",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "independence_basic_source_sha256": "67f71d5c3d32371ad4822fc29f0db84bb0cffbbab24f82ae2f88702152ffe33b",
+    "moments_basic_source_sha256": "9043dc54bc2898ae5a82a89b0f79537f61a6635424360dfb21d49098a63afd73",
+    "set_bernoulli_source_sha256": "0e251471242badf83ec61eec0ce8ab2e774dfd971344da7f30e895e01ddbe5de",
+    "binomial_random_graph_source_sha256": "c8effb70a7e4605a077198e04a771ecc8cba255a2243de9cd76a162788766dc7",
+    "outer_measure_basic_source_sha256": "9e739a4d20704494cc92d11be380512d956500fbc365b2eb3a9221f41a724fc1"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, finite choice, real/ENNReal probability, integration, exponential/logarithmic analysis, and finite combinatorics policies remain open until one exact source proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, accepted axioms, and trust policy remain open",
+  "computation_profile": "No simulation, numeric probability estimate, floating-point exponential evaluation, oracle, native computation, experiment, or unchecked certificate is credited; the intended result requires a general kernel-checked analytic proof",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0972/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0972/README.md",
+    "Stage1_Instances/THM-M-0972/instance.json",
+    "Stage1_Instances/THM-M-0972/scope-map.md",
+    "Stage1_Instances/THM-M-0972/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0972/task-dag.json",
+    "Stage1_Instances/THM-M-0972/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0972/check_intake.py",
+    "Stage1_Instances/THM-M-0972/validation.md",
+    "Stage1_Instances/THM-M-0972/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "probabilistic_combinatorics_scope_reviewer": "unassigned independent domain reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source, catalog, target, variant selection, primary edition, pagination, authorship, correction or erratum finding, random-set model, family/index encoding, indicator, overlap, lambda/Delta/DeltaBar, threshold, codomain, union/nonoccurrence direction, degenerate-case decision, Lean target, toolchain or dependency pin, assurance profile, validator, recipe, public artifact, or reviewer-policy change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, Janson-family and union-direction ambiguity, immutable secondary variant map, primary-source leads, proposition-changing choices, exclusions, neighboring targets, adjacent pinned APIs, and six-node open DAG. No canonical proposition, accepted H0 source, exact Lean statement, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
