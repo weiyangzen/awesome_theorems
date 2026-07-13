@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0995-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0995-RELEASE",
+  "theorem_id": "THM-M-0995",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0995/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker makes no network request and delegates the fresh Lean replay to check_validation.sh, whose Lean subprocesses run at --trust=0 inside bubblewrap --unshare-net with a read-only host root. The automation-provided pinned .lake artifacts are reused read-only, so this remains warm nonrelease evidence rather than a cold hermetic release run.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0995-ROOT",
+    "M0995-S-EXACT",
+    "M0995-L-EXP-REMAINDER",
+    "M0995-L-IND-MGF",
+    "M0995-T-IND-MGF",
+    "M0995-L-PREFIX-MGF",
+    "M0995-L-SUM-MGF",
+    "M0995-T-SUM-MGF",
+    "M0995-L-CHERNOFF",
+    "M0995-L-OPTIMIZE-POS",
+    "M0995-L-VAR-ZERO-AE",
+    "M0995-B-ZERO-DENOM",
+    "M0995-B-VAR-ZERO",
+    "M0995-T-VAR-ZERO",
+    "M0995-B-EMPTY",
+    "M0995-T-ASSEMBLE-V2",
+    "M0995-X-MATHLIB",
+    "M0995-X-EXTERNAL",
+    "M0995-X-SOURCE",
+    "M0995-X-TCB",
+    "M0995-X-V1-REFUTATION"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0995.StatementShape",
+    "Stage1Instances.THM_M_0995.statementShape_iff_expandedSourceShape",
+    "Stage1Instances.THM_M_0995.ObligationTree.individualMGF_compose",
+    "Stage1Instances.THM_M_0995.ObligationTree.sumMGF_compose",
+    "Stage1Instances.THM_M_0995.ObligationTree.zeroVariance_compose",
+    "Stage1Instances.THM_M_0995.ObligationTree.root_compose_v2",
+    "Stage1Instances.THM_M_0995.Proof.bernsteinInequality_via_registry_v2",
+    "Stage1Instances.THM_M_0995.Proof.bernsteinInequality",
+    "Stage1Instances.THM_M_0995.Proof.not_optimizeExponentPackage",
+    "Stage1Instances.THM_M_0995.Validation.exactRootViaRegistry",
+    "Stage1Instances.THM_M_0995.Validation.exactRootDirect",
+    "Stage1Instances.THM_M_0995.Validation.expandedRoot"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation plus a current network-isolated trust-zero replay of the exact proof and validation declarations. It cannot provide dependency or master acceptance, accepted H0/R0 or complete trust closure, immutable clean input, cold empty-cache build, offline restoration, complete SBOM/licenses, two independent signed runners, an independently implemented verifier, protected release CI, or a deterministic release bundle."
+}
