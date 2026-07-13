@@ -23,6 +23,16 @@ solvability and finite-cardinality vocabulary. Three checked `Iff` transports co
 order-one and commutative-group implications protect the source boundary. `check_statement.py`
 re-elaborates, fingerprints, and import-deletion-tests the complete module.
 
-The provisional vector is `[H1, M3, R4]`. Exact statement/interface evidence does not prove the
-root. Anchor audit, obligation tree, proof, validation, and release remain open. No H0, M0, R0,
-accepted proof state, audit completion, theorem completion, or master acceptance is claimed.
+The obligation-tree phase now freezes 61 semantic obligations before proof acceptance. Separate
+typed proof, refinement, provenance, evidence, trust, documentation, and workflow graphs expose the
+minimal-counterexample reduction, all Bender-Glauberman and Peterfalvi section packages, the final
+MathComp capstone, and the still-missing Lean translation. Package nodes are explicitly marked for
+recursive splitting before proof acceptance; `source-obligation-index.json` records 2,084 exact
+source declaration commands and 229 body chunks of at most 80 substantive source lines beneath
+them. Their split ceilings are not proof evidence.
+
+`ObligationTree.lean` checks only the conditional route from a future exact translated body back to
+the canonical target. The external Lean declaration is rejected because its body is a placeholder,
+and the exact MathComp theorem is a different kernel object with no approved Lean bridge. The vector
+remains `[H1, M3, R4]`, accepted proof state is empty, and H0, M0, R0, audit completion, theorem
+completion, release, and master acceptance remain open.
