@@ -1,0 +1,42 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0912-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0912-RELEASE",
+  "theorem_id": "THM-M-0912",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0912/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs no network operation, but this worker did not provision a network namespace; this is not release-grade network isolation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains three PASS lines, two BLOCKED lines, and the exact blocked terminal-decision summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0912-ROOT",
+    "M0912-T-ROOT-COMPOSE",
+    "M0912-T-PREDECESSOR-COMPOSE",
+    "M0912-S-FOUNDATION",
+    "M0912-X-SOURCE",
+    "M0912-X-PROVENANCE",
+    "M0912-X-TRUST",
+    "M0912-X-READABLE",
+    "M0912-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Nat.choose_succ_right",
+    "Nat.choose_eq_choose_pred_add",
+    "Stage1Instances.THM_M_0912.Proof.pascalIdentityTarget_proof",
+    "Stage1Instances.THM_M_0912.Proof.pascalIdentityTarget_via_frozen_children",
+    "Stage1Instances.THM_M_0912.Validation.pascalIdentityTarget_independent_local"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation plus narrow warm-cache Lean replay. This recipe cannot provide master acceptance, cold empty-cache offline reproduction, complete transitive provenance/TCB/SBOM closure, independent H0/R0 review, distinct signed runners, an independently implemented minimal verifier, protected release CI, or a deterministic release bundle."
+}

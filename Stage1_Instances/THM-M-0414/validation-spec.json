@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0414-VALIDATION",
+  "theorem_id": "THM-M-0414",
+  "recipes": [
+    {
+      "recipe_id": "M0414-validation-fail-closed-runner",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0414/check_validation.py"
+      ],
+      "env_allowlist": {
+        "LC_ALL": "C",
+        "TZ": "UTC",
+        "PYTHONOPTIMIZE": "0"
+      },
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0414 narrow validation"
+        }
+      ],
+      "covered_obligation_ids": [
+        "THM-M-0414-ROOT",
+        "THM-M-0414-UFM",
+        "THM-M-0414-FINPROD",
+        "THM-M-0414-TRUST"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0414.ObligationTree.components_compose",
+        "Stage1Instances.THM_M_0414.idealUniqueFactorizationMonoid_proof",
+        "Stage1Instances.THM_M_0414.idealFiniteProductFactorization_proof",
+        "Stage1Instances.THM_M_0414.idealUniqueFactorizationTarget_proof",
+        "Stage1Instances.THM_M_0414.Validation.independentExactRoot",
+        "Ideal.uniqueFactorizationMonoid",
+        "Ideal.finprod_heightOneSpectrum_factorization"
+      ]
+    }
+  ],
+  "coverage_boundary": "The recipe checks the exact mathematical obligations and observes the local trust surface. THM-M-0414-TRUST remains open because complete transitive TCB closure, cold hermetic replay, and distinct-runner verification are unavailable in this worker. The worker executes the argv and fixed environment, but cannot independently attest OS-level network denial."
+}
