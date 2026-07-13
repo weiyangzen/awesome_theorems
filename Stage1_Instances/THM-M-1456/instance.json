@@ -1,0 +1,223 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1456",
+  "item_id": "S56-M-1456-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1133,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "预处理技术",
+  "name_en": "Preconditioning techniques",
+  "canonical_name": "Preconditioning techniques for iterative numerical methods (repository method label)",
+  "category": "其他重要领域 / 数值分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "预处理技术",
+  "literal_source_claim_zh": "加速迭代收敛的技术",
+  "literal_source_claim_en": "Techniques for accelerating iterative convergence.",
+  "source_attribution": "Many mathematicians, twentieth century (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_numerical_method_family_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only a technique label and desired purpose. It fixes no problem class, iterative recurrence, preconditioner object or placement, scalar field or space, invertibility or positivity assumptions, convergence observable, comparator, quantifier order, rate or cost conclusion, arithmetic model, stopping rule, or boundary cases. Choosing solution equivalence, a stationary spectral-radius theorem, a preconditioned-CG condition-number bound, or one concrete construction would invent proposition-changing mathematics.",
+  "target_decision": "redirect the catalog method label to one corrected, independently reviewed, immutable-source proposition before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Matrix.Normed",
+      "Mathlib.Dynamics.FixedPoints.Topology",
+      "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+      "Mathlib.LinearAlgebra.Matrix.PosDef"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the problem carrier, coefficient domain, finite dimensions or function spaces, matrix or operator representation, normed or inner-product structures, universes, finiteness, and typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose solution equivalence, convergence, a convergence-rate comparison, a spectral or condition-number bound, an iteration-count theorem, an operation-cost theorem, or a conjunction of these claims.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every matrix, method, preconditioner, convergence, cost, breakdown, and arithmetic boundary listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "solution equivalence of A x = b and M^-1 A x = M^-1 b for invertible M",
+    "a stationary iteration convergence theorem and the effect of one selected transformed iteration matrix",
+    "an SPD preconditioned conjugate-gradient error estimate in terms of a transformed condition number",
+    "a theorem for a specific Jacobi, SSOR, incomplete factorization, polynomial, domain-decomposition, or multigrid preconditioner",
+    "an algorithm theorem balancing setup and application cost against iteration count or runtime"
+  ],
+  "degenerate_cases_to_resolve": [
+    "identity and scalar-multiple preconditioners, including equality rather than strict improvement",
+    "exact M = A, which may move the full solve into applying the preconditioner",
+    "singular, indefinite, incompatible, or poorly conditioned preconditioners",
+    "zero and identity systems, empty and one-dimensional spaces, and inconsistent or nonunique systems",
+    "already-converged, divergent, cyclic, or breakdown-prone iterations and zero initial residual",
+    "exact versus floating-point arithmetic and whether setup, inner solves, communication, and stopping work count"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1455 conjugate-gradient, THM-M-1454 GMRES, or THM-M-1457 multigrid status or proof credit",
+    "matrix invertibility, positivity, norm submultiplicativity, fixed-point limits, or solution equivalence alone",
+    "a condition-number or spectral theorem that silently selects an iterative method and problem class",
+    "a statement that assumes the desired convergence improvement or iteration reduction",
+    "a fixed numerical example, residual plot, timing benchmark, or floating-point experiment",
+    "the untrusted catalog label 已验证 or the discovery probe as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1454",
+      "name": "GMRES",
+      "relationship": "separately cataloged Krylov method; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1455",
+      "name": "共轭梯度法",
+      "relationship": "separately cataloged SPD Krylov method; a preconditioned-CG theorem cannot be silently made this target's root"
+    },
+    {
+      "theorem_id": "THM-M-1457",
+      "name": "多重网格法",
+      "relationship": "separately cataloged solver and preconditioner family; no status or proof credit is shared"
+    }
+  ],
+  "source_status": "H5_repository_method_gloss_only_no_primary_source_or_stable_truth_valued_proposition",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Richard Barrett et al., Templates for the Solution of Linear Systems: Building Blocks for Iterative Methods, second edition, SIAM, 1994, DOI 10.1137/1.9781611971538, Chapter 3 Section 3.1, printed page 35",
+      "source_url": "https://www.netlib.org/templates/templates.html",
+      "observed_at": "2026-07-13",
+      "observed_size_bytes": 573161,
+      "observed_sha256": "006eb59144d9292245c3b0f9a65d7b60b4f08f196220ebbeecb35f66036b83a3",
+      "observed_http_last_modified": "2006-08-24T22:19:24Z",
+      "candidate_summary": "defines a preconditioner as a matrix producing an equivalent same-solution linear system intended to have more favorable spectral properties, illustrates M^-1 A x = M^-1 b, and distinguishes placement and setup/application cost tradeoffs",
+      "inspection_status": "authoritative specification lead inspected; not cited by the catalog, not independently admitted or reviewed, and does not state that every preconditioner accelerates every iterative method"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+      "declarations": [
+        "Matrix.mul_inv_of_invertible",
+        "Matrix.inv_mul_of_invertible",
+        "Matrix.inv_mulVec_eq_vec",
+        "Matrix.mulVec_injective_of_invertible",
+        "Matrix.mulVec_surjective_of_invertible"
+      ],
+      "boundary": "inverse cancellation and matrix-vector solution substrate only; no preconditioning or acceleration theorem"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+      "declarations": [
+        "Matrix.PosDef",
+        "Matrix.PosDef.isUnit",
+        "Matrix.PosDef.inv",
+        "Matrix.posDef_inv_iff"
+      ],
+      "boundary": "positive-definite inverse substrate only; no selected SPD iteration or convergence comparison"
+    },
+    {
+      "module": "Mathlib.Analysis.Matrix.Normed",
+      "declarations": [
+        "Matrix.linfty_opNorm_mul",
+        "Matrix.linfty_opNorm_mulVec"
+      ],
+      "boundary": "entrywise operator-norm estimates only; no condition-number or accelerated convergence result"
+    },
+    {
+      "module": "Mathlib.Dynamics.FixedPoints.Topology",
+      "declaration": "isFixedPt_of_tendsto_iterate",
+      "boundary": "turns an assumed convergent continuous iteration limit into a fixed point; does not establish or accelerate convergence"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "01a2c11623c3f2f021424380d1c87b42f2d7e0e8",
+    "repository_base_tree": "8d6be645c3940807dbb57edc4fbe6c1485dbf1b6",
+    "repository_record": "Docs/researches/math_theorems.md:10630-10635",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39595-39620",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "7e63f909b5ac1dd34cbc489a083b874d40cac7b47be738dfe4697687184c4a15",
+    "stage0_projection_excerpt_sha256": "760c32e38fa098ee1e0462203778bc20b8ee440cf0a5d8dadf57f98b92d62a37",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "216e859e77e84dd5ac364da6f0c8008b9a7239cfc17cb4dd14ab5f30f5ad2d08",
+    "execution_dag_sha256": "e3e466bb8304e66f4a69a20f6bc5f6b5fd025ff822a4a4df8d2f491e84d19c88",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "matrix_normed_source_sha256": "33781a1c3291560109959d3df772f2008f11872d184ce6356ee260d78c55a8ec",
+    "fixed_points_topology_source_sha256": "1eb8fea134fdb081e42e083fd9bf58e8a98011d97cbaa60f444f12a637bf7711",
+    "matrix_nonsingular_inverse_source_sha256": "0ea4aa9845e8e72bf948cfa433dec75e90ded79dc9c5450ba671bcee6074dab9",
+    "matrix_posdef_source_sha256": "1cacbd8be084246e22537c32defd0e8325a104c02c970c4c7ed49769dbdcaa05",
+    "inspected_netlib_source_sha256": "006eb59144d9292245c3b0f9a65d7b60b4f08f196220ebbeecb35f66036b83a3"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, scalar field, finite-dimensional analysis, spectral theory, completeness, and numerical representation policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declaration, axioms, transitive dependencies, numerical runtime, and trust policy remain open",
+  "computation_profile": "No floating-point solve, residual trajectory, iteration-count experiment, timing benchmark, oracle, native shortcut, generated approximation, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1456/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1456/README.md",
+    "Stage1_Instances/THM-M-1456/instance.json",
+    "Stage1_Instances/THM-M-1456/scope-map.md",
+    "Stage1_Instances/THM-M-1456/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1456/task-dag.json",
+    "Stage1_Instances/THM-M-1456/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1456/check_intake.py",
+    "Stage1_Instances/THM-M-1456/validation.md",
+    "Stage1_Instances/THM-M-1456/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned numerical-analysis reviewer",
+    "reviewer_policy": "Independent source and numerical-analysis reviewers must approve the selected proposition, source mapping, cost convention, and boundary cases; a formal reviewer must approve the Lean target; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected theorem family, problem class, field, dimensions, iterative method, preconditioner object or side, invertibility or positivity assumptions, convergence observable, comparator, cost and arithmetic convention, boundary decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog technique gloss as not yet a stable proposition; it does not refute established preconditioning results. The source lead and pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
