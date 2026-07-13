@@ -1,0 +1,130 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1285-PROOF",
+  "theorem_id": "THM-M-1285",
+  "intent": "prove",
+  "date": "2026-07-14",
+  "timezone": "Asia/Shanghai",
+  "base_revision": "a86029b30f12acc3537f70ab1c167cc25702c09b",
+  "base_tree": "ab12055e811b574338987391b59b010338c120d2",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": [
+    "H2",
+    "M3",
+    "R3"
+  ],
+  "root_vector_after": [
+    "H2",
+    "M3",
+    "R3"
+  ],
+  "exact_root": {
+    "declaration": "Stage1Instances.THM_M_1285.SchwarzRearrangementTarget",
+    "expression_sha256": "ffce741885f8c5eeb87a6dd893e7c5bf6ccc7a7f88fcc37e9fdd8750ab2d41ac",
+    "statement_sha256": "5b3e9ec5606263ee7aac7cd59ba0c7c91c1f8017ba41ada01f8c0327528ac5e6"
+  },
+  "frozen_registry": {
+    "root_obligation_id": "M1285-ROOT",
+    "minimal_open_root_cut": [
+      "M1285-T-PACKAGE"
+    ],
+    "denominator_sha256": "6e441bf6a37b0bb83ae0a752e94b30ebf47c8eb567a9284969e869f68b032e9c",
+    "construction_package_state": "M4",
+    "root_machine_debt": "M3"
+  },
+  "existing_terminal_bodies": [
+    {
+      "declaration": "Stage1Instances.THM_M_1285.isRadial_profile",
+      "body_location": "Stage1_Instances/THM-M-1285/Proof.lean",
+      "classification": "local helper only"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_1285.isRadiallyNonincreasing_profile",
+      "body_location": "Stage1_Instances/THM-M-1285/Proof.lean",
+      "classification": "local helper only"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_1285.measurable_profile",
+      "body_location": "Stage1_Instances/THM-M-1285/Proof.lean",
+      "classification": "conditional local helper only"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_1285.schwarzRearrangementTarget_of_construction",
+      "body_location": "Stage1_Instances/THM-M-1285/ObligationTree.lean",
+      "classification": "conditional composition; no proof credit for its open premise"
+    }
+  ],
+  "lean_environment": {
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "checks": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups and 1546 uniform-L0 targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1285",
+      "exit_code": 0,
+      "result": "rank 456; planned hard-mathlib lane; theorem incomplete"
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-1285/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "16 obligations and 83 typed edges passed; root open M3; construction package M4"
+    },
+    {
+      "command": "temporary-olean lake env lean recipe recorded in the companion Markdown",
+      "exit_code": 0,
+      "result": "Statement.lean, ObligationTree.lean, and Proof.lean elaborated against pinned artifacts"
+    },
+    {
+      "command": "rg -n --pcre2 '\\\\b(?:sorry|admit|axiom)\\\\b|sorryAx|unsafe|implemented_by|native_decide' Stage1_Instances/THM-M-1285 --glob '*.lean'",
+      "exit_code": 1,
+      "result": "expected no-match: no prohibited construct in owned Lean source"
+    }
+  ],
+  "axiom_report": {
+    "schwarzRearrangementTarget_of_construction": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "isRadial_profile": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "isRadiallyNonincreasing_profile": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "measurable_profile": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "first_failed_gate": "M1285-T-PACKAGE has no terminal proof body or compatible pinned import",
+  "known_failures": [
+    "No construction of the strict-superlevel distribution function and its generalized inverse is implemented.",
+    "No radius realization and measurable radial witness is implemented.",
+    "Exact positive strict-superlevel equimeasurability is unproved.",
+    "The existing conditional wrapper does not inhabit SchwarzConstructionPackage."
+  ],
+  "reopen_condition": "Implement the frozen distribution/generalized-inverse/centered-ball construction and prove witness measurability plus exact strict-superlevel equimeasurability, or pin an immutable exact Lean 4 terminal body and validate its full trust boundary.",
+  "worker_selftest_emitted": false,
+  "status_boundary": "Current-base blocker evidence only; no proof receipt, audit completion, validation, release, master acceptance, or theorem completion is claimed."
+}
