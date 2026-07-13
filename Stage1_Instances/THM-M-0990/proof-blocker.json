@@ -1,0 +1,121 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0990-PROOF",
+  "theorem_id": "THM-M-0990",
+  "intent": "prove",
+  "recorded_at": "2026-07-14",
+  "base_revision": "f3a2545c7e6634696c48f725a9581e7e248c8877",
+  "base_tree": "a9ade4224e40322a81336ccd63462829ffedc8eb",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "canonical_target": "Stage1Instances.THM_M_0990.StatementShape",
+  "canonical_statement_source_sha256": "2f5bd7f9563bb7c8c54a614d7f95f10e8f4508d4cce6f3dd8b0cc620dbdbae53",
+  "obligation_tree_source_sha256": "e76c1dfa2dad57e3ec50683ec215cddf9b3150d87fd11d62c0a7aafb0e6badb8",
+  "obligation_registry_sha256": "b2c4ddae47c3b0474899b3a7039ad9f54ff5af3cc2d833e17e08bb92ae08db5b",
+  "typed_graphs_sha256": "164964f565013927072c3657e7c7a35aecc7d7abffd6ae1e453c19ac9f97072d",
+  "registry_denominator_sha256": "fa799ae86623298ad54105d2041f7903144cc398f769b7da7a3865507a9921f6",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_policy": "The automation-provided canonical .lake symlink was reused read-only. No lake update/build, dependency clone/fetch, or dependency mutation was performed."
+  },
+  "root_vector_before": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R4"
+  },
+  "proof_body_added": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "proof_body_locations": [],
+  "available_checked_bodies": {
+    "Stage1Instances.THM_M_0990.ObligationTree.root_compose": "conditional identity composition that consumes an already inhabited exact root; it supplies no triangular-array proof body"
+  },
+  "first_failed_gate": "M0990-L-CHARFUN-ENTRY: the pinned closure has no quantitative 2 + delta characteristic-function remainder theorem uniform over a triangular array",
+  "remaining_root_cut_set": [
+    "M0990-T-TRIANGULAR-BRIDGE"
+  ],
+  "expanded_missing_proof_packages": [
+    "M0990-N-CENTER",
+    "M0990-N-VARIANCE",
+    "M0990-L-MOMENT-TRANSPORT",
+    "M0990-L-INDEPENDENCE",
+    "M0990-L-LYAPUNOV-INF",
+    "M0990-L-CHARFUN-ENTRY",
+    "M0990-L-CHARFUN-PRODUCT",
+    "M0990-L-PRODUCT-LIMIT",
+    "M0990-L-LEVY",
+    "M0990-L-GAUSSIAN",
+    "M0990-T-TRIANGULAR-BRIDGE"
+  ],
+  "candidate_assessment": {
+    "repo_local": "The exact target and conditional composition harness are present, but there is no unconditional inhabitant of the triangular-array bridge. The legacy LyapunovData route assumes a characteristicFunctionTaylorBridge and is therefore ineligible.",
+    "pinned_mathlib": "The only terminal CLT is for one identically distributed sequence. The finite independent-sum product and Levy declarations are useful substrate, while taylor_charFun_two gives only a qualitative little-o statement for one fixed law and cannot close the growing triangular-array remainder.",
+    "audited_external": "The frozen anchor audit found no exact compatible Lean 4 Lyapunov or Lindeberg-Feller triangular-array proof to pin/import; its adjacent external candidate is iid, mismatched, and contains placeholders."
+  },
+  "blocker": "Closing the exact target requires a new placeholder-free formalization of centering and variance normalization on an atTop tail, moment and independence transport, Lyapunov infinitesimality, a quantitative 2 + delta characteristic-function remainder, finite-row product factorization and asymptotics, and Levy/Gaussian transport. Assuming that bridge, using the iid CLT, or presenting root_compose as closure would broaden or substitute the frozen theorem.",
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework-required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-0990",
+      "exit_code": 0,
+      "result": "rank 270, planned, L0/rework-required, theorem incomplete"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0990/Statement.lean",
+      "exit_code": 0,
+      "result": "the exact canonical target and three mutation propositions elaborated and printed"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0990/ObligationTree.lean",
+      "exit_code": 0,
+      "result": "the exact duplicated root and conditional root_compose elaborated; the axiom report was [propext, Classical.choice, Quot.sound]"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0990/AnchorAudit.lean",
+      "exit_code": 0,
+      "result": "the iid CLT and supporting characteristic-function declarations elaborated at their pinned types"
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-0990/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "18 obligations and 43 typed edges passed; denominator fa799ae8...921f6; root remains open M3 at T-TRIANGULAR-BRIDGE"
+    },
+    {
+      "command": "rg -n -i 'lyapunov|lindeberg|triangular[ _-]?array' Formalizations/Lean/.lake/packages/mathlib/Mathlib Formalizations/Lean/.lake/packages/mathlib/Archive Formalizations/Lean/.lake/packages/flt-regular/FltRegular --glob '*.lean'",
+      "exit_code": 1,
+      "result": "no terminal or named supporting declaration matched in the complete pinned source closure"
+    },
+    {
+      "command": "rg -n -i --pcre2 '\\b(?:sorry|admit|axiom)\\b|sorryAx|unsafe|oracle' Stage1_Instances/THM-M-0990 --glob '*.lean'",
+      "exit_code": 1,
+      "result": "no forbidden proof device matched in the owned Lean sources"
+    }
+  ],
+  "retry_condition": "Resume after implementing the frozen triangular-array characteristic-function packages locally without placeholders, or after an immutable compatible Lean 4 Lyapunov/Lindeberg terminal proof becomes available for pinned exact-type integration and provenance validation.",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-0990/proof-blocker.json",
+    "Stage1_Instances/THM-M-0990/proof-execution.md"
+  ],
+  "status_boundary": "This is fresh nonrelease proof-blocker evidence, not a proof receipt. It does not satisfy S56-M-0990-PROOF, proposes no checklist transition, and makes no audit-completion, theorem-completion, release, or master-acceptance claim.",
+  "selftest_manifest_written": false
+}

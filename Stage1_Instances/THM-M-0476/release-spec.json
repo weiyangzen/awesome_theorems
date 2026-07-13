@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0476-RELEASE-local-v1",
+  "item_id": "S56-M-0476-RELEASE",
+  "theorem_id": "THM-M-0476",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0476/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 360,
+  "network_policy": "denied",
+  "network_enforcement": "Bubblewrap --unshare-net denies networking for every nested Lean subprocess. The outer Python reconciliation process is observational, makes no network request, and is not itself placed in a network namespace; that limitation is a recorded nonrelease failure.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line release reconciliation summary"
+    }
+  ],
+  "decision_covered_obligation_ids": [
+    "M0476-ROOT",
+    "M0476-S-INTERFACE",
+    "M0476-S-BOUNDARY",
+    "M0476-S-FACT-TRANSPORT",
+    "M0476-S-FOUNDATION",
+    "M0476-T-COMPOSE",
+    "M0476-L-WILSON",
+    "M0476-N-FACTORIAL-PRODUCT",
+    "M0476-L-FACTORIAL-INTERVAL",
+    "M0476-T-NAT-CAST-PRODUCT",
+    "M0476-N-PRIME-ENDPOINT",
+    "M0476-C-RESIDUE-UNITS-BIJECTION",
+    "M0476-B-UNIT-VAL-RANGE",
+    "M0476-L-UNIT-VAL-INJECTIVE",
+    "M0476-C-RESIDUE-TO-UNIT",
+    "M0476-T-REPRESENTATIVE-COE",
+    "M0476-L-UNITS-PRODUCT",
+    "M0476-C-INVERSE-PAIRING",
+    "M0476-L-INVERSE-FIXED-POINTS",
+    "M0476-T-INSERT-NEGONE",
+    "M0476-T-UNITS-COE-NEGONE",
+    "M0476-X-SOURCE",
+    "M0476-X-PROVENANCE",
+    "M0476-X-TRUST",
+    "M0476-X-READABLE",
+    "M0476-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+    "Stage1Instances.THM_M_0476.Proof.wilsonTheorem",
+    "Stage1Instances.THM_M_0476.Proof.wilsonTheorem_via_frozen_composition",
+    "Stage1Instances.THM_M_0476.Validation.wilsonTheorem_via_primeCharacterization"
+  ],
+  "scope_boundary": "All 26 frozen obligations are covered only for fail-closed release-decision reconciliation. The narrow replay checks the exact target, two proof roots, and same-worker differential root over existing pinned warm artifacts. It is not dependency acceptance, accepted H0/R0 or trust closure, a clean empty-cache offline build, complete SBOM/licenses, distinct signed verification, a deterministic release bundle, or master acceptance."
+}
