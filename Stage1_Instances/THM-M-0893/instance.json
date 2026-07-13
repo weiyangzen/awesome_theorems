@@ -1,0 +1,240 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0893",
+  "item_id": "S56-M-0893-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1442,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Bannai-Ito猜想",
+  "name_en": "Bannai-Ito conjecture",
+  "canonical_name": "Bannai-Ito fixed-valency finiteness conjecture for distance-regular graphs",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "距离正则图直径的界",
+  "literal_source_claim_en": "A bound on the diameter of distance-regular graphs.",
+  "source_attribution": "Eiichi Bannai and Tatsuro Ito, 1984 (catalog metadata; original conjecture locator reported as Algebraic Combinatorics I, p. 237)",
+  "source_status_untrusted": "已证明",
+  "canonical_statement": "For every fixed valency greater than two, there are only finitely many distance-regular graphs.",
+  "canonical_claim_status": "standard_named_human_claim_strongly_identified_but_catalog_diameter_gloss_transport_original_source_admission_and_exact_lean_target_open",
+  "canonical_claim": "For every fixed valency greater than two, there are only finitely many distance-regular graphs.",
+  "statement_blocker": "The catalog gives an unspecified diameter-bound gloss rather than the standard fixed-valency finiteness statement. The proof source identifies the named theorem and explains a diameter-bound reduction, but the original 1984 page, incorporated definitions, exact gloss relationship, correction/errata audit, independent source approval, distance-regularity encoding, isomorphism-class finiteness representation, canonical Lean expression, fingerprints, transports, and mutations remain open.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Diam",
+      "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "Mathlib.Combinatorics.SimpleGraph.Maps"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_expression_status": "no_source_faithful_distance_regular_or_finite_isomorphism_class_expression_selected",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_gloss_transport_source_admission_and_formal_representation",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_graph-api-probe-only"
+  },
+  "domain_and_universes": "Prospective named root: each natural valency k >= 3 and finite connected loopless undirected distance-regular graphs, classified up to graph isomorphism. The vertex-carrier universe, small representative universe, quotient or Fin-normal-form encoding, finiteness predicate, decidability data, and intersection-number representation remain open.",
+  "quantifiers": [
+    "for every natural valency k greater than two",
+    "there are only finitely many distance-regular graph isomorphism classes of valency k"
+  ],
+  "ordered_binders": [
+    "k : Nat",
+    "2 < k",
+    "a finite graph representative or isomorphism class of valency k inside the chosen finiteness encoding"
+  ],
+  "hypotheses": [
+    "the graph is finite",
+    "the graph is connected",
+    "the graph is simple, undirected, and loopless",
+    "the graph is distance-regular under the source intersection-number definition",
+    "the graph has valency k",
+    "k > 2"
+  ],
+  "conclusion": "For each fixed k > 2, the selected small collection of distance-regular graphs of valency k modulo graph isomorphism is finite. Exact Lean representation remains open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "The source threshold intentionally excludes valencies 0, 1, and 2; cycles make inclusion of valency 2 proposition-changing. Empty, singleton, disconnected, diameter-zero, diameter-one, and carrier-universe cases must be resolved by the statement gate rather than hidden by the encoding.",
+  "candidate_scope_not_credited": [
+    "the standard fixed-valency finiteness wording in arXiv 0909.5253v1 Theorem 1.1 before complete source admission and independent review",
+    "a diameter bound depending only on fixed valency as a sufficient bridge to finiteness",
+    "Ivanov's D_Gamma <= F(k) h_Gamma bound as a substitute for either the root or a k-only diameter bound",
+    "generic pinned graph connectedness, regularity, metric, diameter, and isomorphism interfaces"
+  ],
+  "degenerate_cases_to_resolve": [
+    "valencies zero and one",
+    "valency two and the infinite cycle family",
+    "empty, singleton, and subsingleton vertex carriers",
+    "disconnected graphs and natural-valued diameter zero",
+    "complete graphs and diameter one",
+    "finite versus Fintype and decidable-adjacency representations",
+    "raw labeled graphs versus graph isomorphism classes",
+    "small-universe representatives versus arbitrary carrier universes",
+    "fixed k quantification versus global graph-family finiteness",
+    "the exact relationship between a k-only diameter bound, vertex-order bound, and source finiteness theorem"
+  ],
+  "excluded_substitutions": [
+    "the claim that there are only finitely many distance-regular graphs across all valencies",
+    "an arbitrary explicit diameter inequality not selected by the source",
+    "Ivanov's head-dependent diameter bound alone",
+    "distance-transitive, Moore, strongly regular, bipartite, or other special graph classes",
+    "only one fixed valency or the previously proved valencies 3 through 7",
+    "a structure or hypothesis storing the desired bound, finite classification, intersection array, representative list, or isomorphism certificate",
+    "finiteness of intersection arrays without graph reconstruction and isomorphism-class control",
+    "generic graph APIs, the catalog proved label, metadata endpoints, or the intake probe as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0892",
+      "name": "Hoffman-Singleton theorem",
+      "relationship": "a Moore-graph existence, uniqueness, or classification family; it is a special graph topic and supplies no fixed-valency distance-regular finiteness credit"
+    },
+    {
+      "theorem_id": "THM-M-0894",
+      "name": "Distance-regular graphs",
+      "relationship": "a broader theory and definition target; it cannot replace the Bannai-Ito finiteness theorem"
+    },
+    {
+      "theorem_id": "THM-M-0895",
+      "name": "Strongly regular graphs",
+      "relationship": "a diameter-two parameter family rather than the all-diameter fixed-valency finiteness result"
+    }
+  ],
+  "source_status": "H1_exact_proof_statement_and_original_1984_page_lead_identified_but_original_source_definitions_gloss_transport_assumption_proof_boundary_correction_crosswalk_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "E. Bannai and T. Ito, Algebraic Combinatorics I: Association Schemes, Benjamin/Cummings, Menlo Park, 1984, p. 237",
+      "candidate_summary": "proof paper and later survey identify this as the original conjecture locator",
+      "inspection_status": "original page, incorporated definitions, edition history, corrections, errata, and independent review not admitted"
+    },
+    {
+      "citation": "S. Bang, A. Dubickas, J. H. Koolen, V. Moulton, There are only finitely many distance-regular graphs of fixed valency greater than two, Advances in Mathematics 269 (2015), 1-55, DOI 10.1016/j.aim.2014.09.025; arXiv:0909.5253v1",
+      "candidate_locator": "arXiv abstract, Introduction Theorem 1.1, Sections 2.3 and 2.3.2; published pages 1-55",
+      "arxiv_pdf_sha256": "f2ac8503e8b1a5f0b11c455dd605be69db57009f4c0973ed8e18cd5d4804ed92",
+      "crossref_response_sha256": "438a52d5f54a3325c9598a26ab9e6d1d7af9b53a0bae7bc1c973cdde64194b41",
+      "candidate_summary": "states and proves the named fixed-valency finiteness theorem and explains its diameter-bound reduction",
+      "inspection_status": "immutable open preprint and publication metadata inspected; published-version delta, complete premise/proof-node/correction map, catalog-gloss transport, and independent source review remain open"
+    },
+    {
+      "citation": "E. R. van Dam, J. H. Koolen, H. Tanaka, Distance-Regular Graphs, Electronic Journal of Combinatorics Dynamic Survey DS22 (2016), Sections 8 and 18.7, DOI 10.37236/4925",
+      "observed_pdf_sha256": "ef07467d520aaed2f2d92d23a55974ed661a3d9e03eb08b1eca42fc944336de6",
+      "candidate_summary": "states the conjecture as fixed-valency finiteness, outlines the diameter/head proof route, and explains the diameter-bound interpretation without selecting a numerical bound",
+      "inspection_status": "secondary source discriminator only; not primary H0 evidence"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "modules": [
+        "Mathlib.Combinatorics.SimpleGraph.Diam",
+        "Mathlib.Combinatorics.SimpleGraph.Finite",
+        "Mathlib.Combinatorics.SimpleGraph.Maps"
+      ],
+      "declarations": [
+        "SimpleGraph",
+        "SimpleGraph.Connected",
+        "SimpleGraph.IsRegularOfDegree",
+        "SimpleGraph.dist",
+        "SimpleGraph.edist",
+        "SimpleGraph.diam",
+        "SimpleGraph.connected_iff_diam_ne_zero",
+        "SimpleGraph.Iso"
+      ],
+      "boundary": "generic finite graph, connectivity, metric, diameter, regularity, and isomorphism substrate; no distance-regular predicate, finite-isomorphism-class target, Bannai-Ito declaration, or proof body"
+    }
+  ],
+  "bounded_formal_search": {
+    "scope": "repository-local Lean plus pinned mathlib SimpleGraph sources",
+    "patterns": "Bannai, distance-regular spellings, IsDistanceRegular, intersection array",
+    "result": "No exact-topic target or identified distance-regular predicate was found. This is bounded intake discovery, not the exhaustive immutable anchor audit."
+  },
+  "source_revisions": {
+    "repository_base": "0c019b7194c9c43fa5f683fa82d637a0b275410d",
+    "repository_base_tree": "43cf6ac322b1dba09be739b52ab3d02e9f9d8f3e",
+    "repository_record": "Docs/researches/math_theorems.md:6537-6542",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:24359-24384",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "stage0_blueprint_current_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "b4d331c780f48171ca9faf113c1bed0514b084861a025a9862920d0bf515b982",
+    "stage0_projection_excerpt_sha256": "4baa07bc78f8b857524dfe3531efecbe35ba82f35df043693f16df05ac2acc9d",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f3a9c3639f0ecbc01aeb244df252c065b48008addaeb4372d800a0cf8888d156",
+    "execution_dag_sha256": "4fbf77bfb8208457047357932186aa4329f6b04a3d31ec52d04f784c66c9a7db",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "finite_source_sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8",
+    "connected_source_sha256": "9171842c49be5f8951c6a2d5c39ae374279d46eaa317efd69bdf3039d289eeff",
+    "metric_source_sha256": "4fa93451ec543582ab67d24e259914fdf550b65dadcb4bddceac9bec23557b5b",
+    "diam_source_sha256": "a7b99dd89cf14d5beb601585b2a095a6a09fdfa86652deabf8095457a5609831",
+    "maps_source_sha256": "60bcb9baa33451ed189091e3254004bf77f9b814a87a6ce9709042c4db6d7d2a",
+    "lake_symlink_target_string_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: quotienting by graph isomorphism, small representative selection, finite choice, classical decidability, and any cardinal/finiteness principles remain open until the formal target is selected",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and manifest-pinned mathlib are intended; exact target, imports, new definitions, terminal bodies, transitive dependencies, accepted axioms, and trust policy remain open",
+  "computation_profile": "No graph generator, database, exhaustive enumeration, native computation, external solver, oracle, or unchecked classification certificate is credited; any future finite-representative argument must have a kernel-checked construction and certificate policy",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0893/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0893/README.md",
+    "Stage1_Instances/THM-M-0893/instance.json",
+    "Stage1_Instances/THM-M-0893/scope-map.md",
+    "Stage1_Instances/THM-M-0893/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0893/task-dag.json",
+    "Stage1_Instances/THM-M-0893/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0893/check_intake.py",
+    "Stage1_Instances/THM-M-0893/validation.md",
+    "Stage1_Instances/THM-M-0893/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent algebraic-combinatorics source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned independent graph-theory reviewer",
+    "reviewer_policy": "Independent reviewers must approve the original and proof sources, diameter-gloss relationship, distance-regular and finiteness encodings, boundary cases, mutations, and formal trust boundary before dependent acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects, revokes, or supersedes the provisional receipt, records the reason, and requires a fresh scoped self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus an integration-lane durable snapshot are intended recovery mechanisms after acceptance; external source hashes and this unaccepted worker packet are not release archives.",
+  "freshness_and_revocation_policy": "Invalidate on source or catalog correction, original/proof edition or theorem locator, definition, fixed-valency quantifier, threshold, diameter-gloss relationship, isomorphism/finiteness representation, boundary case, Lean target/import/expression/transport/mutation, toolchain or dependency pin, assurance profile, validator, receipt, or owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "status_boundary": "Worker-self-tested planned intake proposal only. H1 identifies the named fixed-valency finiteness theorem and proof source but leaves original-source fidelity, catalog-gloss transport, corrections, and review open; M4 records no usable exact formal artifact; R4 records no accepted source-faithful proof reconstruction. No exact Lean target, H0, M0, R0, accepted execution state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

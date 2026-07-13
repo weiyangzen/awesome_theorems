@@ -15,23 +15,23 @@
 it is outside the 1546-target rev-5.6 manifest. It is duplicate provenance only and supplies no
 second statement, slot, or evidence to this target.
 
-## Candidate mathematical boundary
+## Frozen mathematical boundary
 
-This table records choices exposed by the catalog and inspected primary source. It is planning
-scope, not a canonical proposition.
+The statement phase selects the inspected paper's Theorem 1 rather than a modern directed-flow
+substitute. These choices are represented in `Statement.lean`.
 
-| Component | Primary-paper candidate | Unresolved decision |
+| Component | Frozen statement decision | Remaining review boundary |
 |---|---|---|
-| graph | finite undirected one-dimensional complex with vertices and arcs | graph versus multigraph, loops/parallel arcs, directed versus undirected encoding |
-| terminals | two distinguished vertices `a` and `b`, source and sink | explicit distinctness and membership binders |
-| capacities | a strictly positive number on every arc | `Real` versus `NNReal`, positive versus nonnegative, finite versus infinite values |
-| chain | a non-self-intersecting source-to-sink sequence of distinct arcs and vertices | exact path representation and orientation of traversed undirected arcs |
-| flow | a finite collection of nonnegative weighted source-to-sink chains | collection/multiplicity encoding versus edge flow with conservation and skew symmetry |
-| feasibility | sum of weights of chain flows using each arc does not exceed its capacity | finite sum/index type and treatment of zero-weight chains |
-| flow value | sum of all chain-flow weights | maximum existence versus supremum formulation |
-| disconnecting set | arc set meeting every source-to-sink chain | equivalence to a vertex-partition cut and orientation conventions |
-| cut capacity | sum of capacities of arcs in the disconnecting set | minimum existence and whether only inclusion-minimal cuts are ranged over |
-| conclusion | maximal flow value equals the minimum disconnecting-set capacity | equality of values versus existence of an optimizing flow/cut pair |
+| graph | `Graph V E` over finite ambient vertex and arc types | graph-complex equivalence; loops are inert but historical convention review remains open |
+| terminals | distinct `source` and `sink`, both in `G.vertexSet` | none inside the selected encoding |
+| capacities | strictly positive `NNReal` on every graph arc | source word "number" to nonnegative-real-subtype review |
+| chain | positive-length injective vertex and arc arrays with consecutive `Graph.IsLink` witnesses | historical sequence-notation transport review |
+| flow | `Finsupp` from source-to-sink chains to `NNReal` | repeated equal components normalize by addition |
+| feasibility | each graph-arc load is at most its capacity | none inside the selected encoding |
+| flow value | finite sum of component weights | none inside the selected encoding |
+| disconnecting set | graph-arc set meeting every source-to-sink chain | no partition-cut equivalence is credited |
+| cut capacity | sum of member capacities | all disconnecting sets are ranged over, as in Theorem 1 |
+| conclusion | witnesses both extrema, universally compares them, and equates their values | proof and source acceptance remain downstream |
 
 The familiar directed formulation with edge capacities and flow conservation may be equivalent to
 a suitable translation, but it is not definitionally the 1956 paper's chain-flow proposition. It
@@ -39,23 +39,22 @@ requires an explicit, checked source and representation transport before it can 
 
 ## Binder and boundary ledger
 
-The exact domains, ordered binders, hypotheses, conclusion expression, and alternate encodings in
-`instance.json` remain empty or null because the statement gate has not selected a representation.
-It must resolve at least:
+`statement.json` freezes the exact domains, ordered binders, hypotheses, conclusion, direct imports,
+environment, and expression fingerprints. The boundary decisions are:
 
-- empty vertex or edge types, no source-to-sink chain, and zero-edge networks;
-- source equal to sink and terminals outside the graph's vertex set;
-- loops, parallel arcs, and disconnected or isolated vertices;
-- zero capacities versus the paper's strictly positive capacities;
-- real, rational, natural, or extended-nonnegative capacity codomains;
-- finite chain collections with repeated chains and zero-weight components;
-- circulations, dead-end flow, and antiparallel edge flows omitted by the paper's encoding;
-- disconnecting sets versus vertex-partition cuts and inclusion-minimal cuts;
-- attainment of maximum/minimum rather than equality of suprema/infima;
-- integral-capacity integrality and Ford-Fulkerson algorithm termination, which are not in the
-  catalog gloss or Theorem 1.
+- empty and no-path networks are included; the selected definitions make zero flow and the empty
+  disconnecting set the intended witnesses, though this statement phase adds no boundary proof;
+- equal terminals and terminals outside the graph are excluded by `HasTerminals`;
+- loops, parallel arcs, disconnected vertices, and finite ambient nonvertices/nonedges are allowed;
+  loops cannot occur in injective-vertex chains and their historical-source transport stays open;
+- capacities are `NNReal` and strictly positive on graph arcs; component weights may be zero;
+- repeated equal chain components combine in `Finsupp`, preserving total loads and value;
+- circulations and dead-end flow are absent, as the paper explicitly notes;
+- all disconnecting sets are ranged over, not only inclusion-minimal cuts;
+- actual maximum and minimum witnesses are required;
+- integrality and algorithm termination are excluded from this target.
 
-No degenerate case is excluded at intake.
+The boundary mutation adds a source-to-sink-chain premise and is rejected as a different target.
 
 ## Non-substitution boundary
 
@@ -74,10 +73,10 @@ the exact selected claim:
 
 ## Formal boundary
 
-At mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the probe authenticates
-`Graph`, `Graph.IsLink`, `Graph.Inc`, `Graph.banana`, `Finset.sum`, and `Finset.max'`. These support
-undirected multigraph incidence and finite aggregation. They do not supply a directed network,
-capacity/flow/cut definitions, or max-flow min-cut theorem.
+At mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the statement imports only
+`Mathlib.Algebra.BigOperators.Finsupp.Basic`, `Mathlib.Combinatorics.Graph.Basic`, and
+`Mathlib.Data.NNReal.Defs`. Removing any one makes the module fail. All target-specific definitions
+are local, and no max-flow/min-cut proof declaration is imported.
 
 A bounded exact-topic search over repo-local Lean and pinned mathlib found no declaration matching
 network flow or max-flow min-cut. This is intake discovery only, not a global absence claim or the
@@ -85,8 +84,7 @@ downstream immutable anchor audit.
 
 ## Gate boundary
 
-`S56-M-0814-STATEMENT` must independently approve a primary-source interpretation, freeze the
-network, flow, cut, capacity, binder, and boundary definitions, elaborate one exact Lean target
-under minimal imports, and run the required mutations. The anchor audit, obligation tree, proof,
-validation, and release tasks remain dependency-ordered and open. Intake grants none of their
-state.
+`S56-M-0814-STATEMENT` now has a worker-self-tested canonical target, definition bundle, minimal
+imports, direct respelling, and four mutation classes. Master acceptance remains pending. The
+anchor audit, obligation tree, proof, validation, and release tasks remain dependency-ordered and
+open; no downstream state is claimed.

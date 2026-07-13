@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Validate the fail-closed planned intake for THM-M-0814."""
+"""Historical validator for the superseded THM-M-0814 intake snapshot.
+
+Current statement evidence is validated by check_statement.py and
+check_statement_artifacts.py; this script intentionally remains bound to its
+original null-target intake packet and therefore fails closed after statement work.
+"""
 
 from __future__ import annotations
 

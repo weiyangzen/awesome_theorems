@@ -23,38 +23,64 @@
   "literal_source_claim_en": "The maximum value of a network flow equals the minimum cut capacity.",
   "source_attribution": "L. R. Ford / D. R. Fulkerson, 1956",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "recognizable_max_flow_min_cut_family_with_pinpoint_primary_theorem_but_catalog_does_not_select_network_flow_cut_capacity_encoding_or_boundary_cases",
-  "canonical_claim": null,
-  "candidate_claim_not_credited_as_statement": "For a finite capacitated network with source and sink, the greatest value of a feasible source-to-sink flow equals the least capacity of a source-sink cut; the graph model, capacity codomain, flow representation, cut definition, extrema, binders, and boundary cases are not frozen.",
-  "statement_blocker": "The catalog gives only an equality gloss. The inspected 1956 theorem uses a finite undirected graph, positive numeric arc capacities, and nonnegative weighted simple source-to-sink chain flows, whereas a modern formal target may use directed edge flows and conservation. Selecting either encoding, or silently allowing zero capacities and different cut conventions, would invent proposition-changing details before source review and checked transport.",
+  "canonical_statement": "For every finite undirected graph with distinct source and sink vertices and a strictly positive real capacity on each graph arc, there are a maximal feasible finite nonnegative weighted collection of non-self-intersecting source-to-sink chains and a minimum disconnecting arc set whose values are equal.",
+  "canonical_claim_status": "statement_phase_selected_exact_1956_chain_flow_and_disconnecting_set_interpretation_primary_source_acceptance_open",
+  "canonical_claim": "For every finite undirected graph with distinct source and sink vertices and a strictly positive real capacity on each graph arc, there are a maximal feasible finite nonnegative weighted collection of non-self-intersecting source-to-sink chains and a minimum disconnecting arc set whose values are equal.",
+  "candidate_claim_not_credited_as_statement": null,
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0814/Statement.lean",
     "module_candidates": [
+      "Mathlib.Algebra.BigOperators.Finsupp.Basic",
       "Mathlib.Combinatorics.Graph.Basic",
-      "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
-      "Mathlib.Data.Finset.Max"
+      "Mathlib.Data.NNReal.Defs"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "blocked_source_mapped_network_flow_cut_and_extremum_definitions_not_frozen",
+    "declaration_or_expression": "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+    "elaborated_expression_hash": "sha256:f9fc7813f437ebcd4b2b7327373dd76134d651c1624d2a06f689e84ec571a21e",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Finsupp.Basic-Graph.Basic-NNReal.Defs_pp-universes-explicit",
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
   },
-  "domain_and_universes": "Open: the source-selected target must fix a finite graph or multigraph model, vertex and edge universes, source and sink, capacity codomain, flow representation, cut representation, and all required finiteness and decidability instances.",
-  "quantifiers": [],
-  "ordered_binders": [],
-  "hypotheses": [],
-  "conclusion": "Open as an exact expression: equality between the source-approved maximum feasible flow value and minimum source-sink cut capacity, including attainment if the selected formulation asserts maxima and minima.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is excluded at intake. The statement phase must resolve every case listed in scope-map.md.",
+  "domain_and_universes": "At arbitrary universes uV and uE: finite ambient vertex and arc types V and E; G : Graph V E; distinct source and sink in G.vertexSet; capacity : E -> NNReal; finite nonnegative chain flows; Finset E disconnecting sets.",
+  "quantifiers": [
+    "every finite ambient vertex type V and arc type E",
+    "every undirected Graph V E, source, sink, and NNReal capacity function"
+  ],
+  "ordered_binders": [
+    "V : Type uV",
+    "E : Type uE",
+    "Fintype V",
+    "Fintype E",
+    "G : Graph V E",
+    "source sink : V",
+    "capacity : E -> NNReal",
+    "HasTerminals G source sink",
+    "HasPositiveCapacities G capacity",
+    "flow : Flow G source sink (existential)",
+    "disconnectingSet : Finset E (existential)"
+  ],
+  "hypotheses": [
+    "source and sink belong to G.vertexSet and are distinct",
+    "every graph arc has strictly positive NNReal capacity"
+  ],
+  "conclusion": "There exist a feasible flow and disconnecting arc set that respectively maximize and minimize the defined values among all feasible flows and disconnecting sets, and whose values are equal.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0814.ExpandedTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0814.maxFlowMinCutTarget_iff_expanded"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "source equals sink",
+    "source or sink lies outside G.vertexSet",
+    "zero capacity on a graph arc"
+  ],
+  "degenerate_case_status": "No-path and zero-edge networks are included; zero flow and the empty disconnecting set are the intended witnesses, but this statement phase adds no boundary proof. Parallel arcs, isolated vertices, and inert loops are allowed; historical loop-convention transport remains open on H.",
   "candidate_scope_not_credited": [
-    "the original 1956 finite undirected arc-capacity and weighted-chain-flow theorem",
     "a finite directed network with nonnegative edge capacities, flow conservation at nonterminals, and vertex-partition cuts",
-    "equality of suprema and infima when optimal values are not separately encoded as attained",
-    "existence of an optimal feasible flow and a minimum cut with equal values"
+    "equality of suprema and infima when optimal values are not separately encoded as attained"
   ],
   "degenerate_cases_to_resolve": [
     "empty vertex or edge types and networks with no source-to-sink path",
@@ -162,15 +188,15 @@
   },
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
-  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, real-number order and compactness, finite optimization principles, and any accepted source-to-directed-flow transport remain open until the exact root is frozen",
-  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact minimal imports, terminal declarations, dependency closure, executable identities, and trust policy remain open",
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's standard classical infrastructure permitted for noncomputable finite membership. The checked respelling reports propext, Classical.choice, and Quot.sound; proof-specific trust closure remains downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib with three minimal direct statement imports; terminal proof bodies, transitive declarations, and accepted trust closure remain open.",
   "computation_profile": "No max-flow implementation, linear-programming solver, oracle, native evaluator, unchecked certificate, or fixed-network computation is credited; future computation requires an approved certificate and kernel replay policy",
-  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "open_task_dag": "Stage1_Instances/THM-M-0814/task-dag.json",
   "public_merge_targets": [
@@ -182,7 +208,13 @@
     "Stage1_Instances/THM-M-0814/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0814/check_intake.py",
     "Stage1_Instances/THM-M-0814/validation.md",
-    "Stage1_Instances/THM-M-0814/intake-receipt.json"
+    "Stage1_Instances/THM-M-0814/intake-receipt.json",
+    "Stage1_Instances/THM-M-0814/Statement.lean",
+    "Stage1_Instances/THM-M-0814/check_statement.py",
+    "Stage1_Instances/THM-M-0814/check_statement_artifacts.py",
+    "Stage1_Instances/THM-M-0814/statement.json",
+    "Stage1_Instances/THM-M-0814/statement-validation.md",
+    "Stage1_Instances/THM-M-0814/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -191,8 +223,8 @@
     "scope_reviewer": "unassigned integration reviewer",
     "reviewer_policy": "Source and formal reviewers must independently approve the exact primary proposition, representation transport, binders, assumptions, extrema, and boundary choices; the integration lane separately decides node acceptance."
   },
-  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
-  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional intake and statement proposal only; expires on any invalidation input and cannot support release",
+  "review_due": "at dependency-ordered master acceptance and before any accepted downstream work",
   "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
   "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
   "freshness_and_revocation_policy": "Invalidate on source or target correction, source-edition or errata finding, graph, terminal, capacity, flow, cut, extrema, binder, transport, or boundary decision, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
@@ -205,7 +237,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "check_statement_artifacts.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes the literal catalog scope, pinpoint primary-source lead, representation choices, duplicate and neighbor boundaries, bounded formal discovery, adjacent pinned APIs, and open downstream DAG. No canonical expression, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Self-tested planned intake and statement proposal pending dependency-ordered master acceptance. The exact 1956 chain-flow Lean interface, minimal imports, checked respelling, and mutation suite support M3 only. Source H0, proof bodies, M0, R0, accepted state, audit completion, theorem completion, release, and master acceptance remain open."
 }

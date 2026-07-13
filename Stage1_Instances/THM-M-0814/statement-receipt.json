@@ -1,0 +1,321 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0814-STATEMENT-WORKER-20260713",
+  "item_id": "S56-M-0814-STATEMENT",
+  "theorem_id": "THM-M-0814",
+  "phase": "statement",
+  "intent": "statement",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "3ef3a6bf4f2f9b86930beb27693f7429fea3e63a",
+  "base_tree": "c9eba4c65f6e228f9cefc8bdf62136b7fb69426a",
+  "worker_branch_or_worktree": "isolated Stage1 rev-5.6 automation clone",
+  "worktree_state": "nonrelease dirty due to owned statement changes, the authorized root worker packet, and the pre-existing automation-provided canonical Formalizations/Lean/.lake symlink",
+  "preexisting_untracked_paths": [
+    "Formalizations/Lean/.lake"
+  ],
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:671e5a378ff4eaa940e893e34c38f385f8a019de864453fd8c3666730e68275e",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:a215278a912521011224e7b2a285d9aa035f166aa216b2d52f1e690c114ebcb2",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Docs/Blueprint_Guidelines.md": "sha256:a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "Formalizations/Lean/lean-toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "Formalizations/Lean/lake-manifest.json": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "primary_source_pdf": "sha256:344c1288f84ccddba6e292751813d613657c69fbe71b9bedb7b19df72a3bdf08",
+    "primary_source_text": "sha256:c70d333cecdfff7c0fdc30a7aae11b32e63bb4e6baab3384c5feab4d6d305ab5"
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "direct_import_source_sha256": {
+      "Mathlib.Algebra.BigOperators.Finsupp.Basic": "11ea32d613fd10d2b4b0e1222caac5ca6bf0a16942202f4109c236e5b25580ad",
+      "Mathlib.Combinatorics.Graph.Basic": "dc3f9c7793f8de09261868afeb7e1d8804914b90b1fc4615feb139f2452dd2b9",
+      "Mathlib.Data.NNReal.Defs": "01a2294d1c6bce17e94aed9fbf5c5eaf3558af586f361f362e06552ef067a24e"
+    },
+    "dependency_mode": "existing canonical pinned .lake artifacts used read-only"
+  },
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0814-STATEMENT-RECIPE-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0814/Statement.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact sha256 91195081f17e965f180d57ba502e7c5c8143c663235ecd70464b0998fd3c683b"
+        }
+      ],
+      "covered_obligation_ids": [],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+        "Stage1Instances.THM_M_0814.ExpandedTarget",
+        "Stage1Instances.THM_M_0814.maxFlowMinCutTarget_iff_expanded"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0814-STATEMENT-RECIPE-CHECKER",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "python3",
+        "-B",
+        "../../Stage1_Instances/THM-M-0814/check_statement.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 240,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "parse exact structured payload and compare recorded expression, bundle, source, mutation, import-deletion, toolchain, and mathlib fields"
+        }
+      ],
+      "covered_obligation_ids": [],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0814-STATEMENT-RECIPE-ARTIFACTS",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0814/check_statement_artifacts.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 300,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact text: statement artifact check: ok (THM-M-0814; provisional; theorem_complete false)"
+        }
+      ],
+      "covered_obligation_ids": [],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget"
+      ]
+    }
+  ],
+  "covered_node_ids": [
+    "S56-M-0814-STATEMENT"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0814.Chain",
+    "Stage1Instances.THM_M_0814.HasTerminals",
+    "Stage1Instances.THM_M_0814.HasPositiveCapacities",
+    "Stage1Instances.THM_M_0814.arcLoad",
+    "Stage1Instances.THM_M_0814.flowValue",
+    "Stage1Instances.THM_M_0814.IsFeasible",
+    "Stage1Instances.THM_M_0814.IsDisconnecting",
+    "Stage1Instances.THM_M_0814.cutValue",
+    "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+    "Stage1Instances.THM_M_0814.ExpandedTarget",
+    "Stage1Instances.THM_M_0814.maxFlowMinCutTarget_iff_expanded"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0814/README.md",
+    "Stage1_Instances/THM-M-0814/Statement.lean",
+    "Stage1_Instances/THM-M-0814/check_intake.py",
+    "Stage1_Instances/THM-M-0814/check_statement.py",
+    "Stage1_Instances/THM-M-0814/check_statement_artifacts.py",
+    "Stage1_Instances/THM-M-0814/instance.json",
+    "Stage1_Instances/THM-M-0814/intake-receipt.json",
+    "Stage1_Instances/THM-M-0814/scope-map.md",
+    "Stage1_Instances/THM-M-0814/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0814/statement-receipt.json",
+    "Stage1_Instances/THM-M-0814/statement-validation.md",
+    "Stage1_Instances/THM-M-0814/statement.json",
+    "Stage1_Instances/THM-M-0814/task-dag.json",
+    "Stage1_Instances/THM-M-0814/validation.md"
+  ],
+  "diff_summary": "Froze and self-tested the 1956 finite undirected chain-flow proposition, its local definition bundle, three minimal imports, direct respelling, and four structural mutations; reconciled the planned dossier and marked the mutable intake receipt superseded without editing authoritative scheduler state.",
+  "exact_statement_change": "Created Stage1Instances.THM_M_0814.MaxFlowMinCutTarget with finite undirected Graph data, distinct terminals, strictly positive NNReal arc capacities, Finsupp chain flows, disconnecting Finsets, attained maximum/minimum witnesses, and equality of their values.",
+  "source_revision_and_proof_body_summary": "Ford-Fulkerson 1956 Section 1 definitions and Theorem 1 are selected. Source codomain/loop conventions, correction and errata review, complete proof mapping, and independent H0 acceptance remain open. No target proof body is imported, inspected, or credited.",
+  "statement_fingerprints": [
+    "sha256:f9fc7813f437ebcd4b2b7327373dd76134d651c1624d2a06f689e84ec571a21e"
+  ],
+  "statement_bundle_sha256": "c51536f6da5240e392e1b0b52d040f3c678cdbd84f275c9531dece910b2dbbeb",
+  "statement_file_sha256": "e2493ef46f9bdd5c8d0b30069efaf27b7ad0f69781d4c4c7317b94a63a06755b",
+  "lean_output_sha256": "91195081f17e965f180d57ba502e7c5c8143c663235ecd70464b0998fd3c683b",
+  "direct_imports": [
+    "Mathlib.Algebra.BigOperators.Finsupp.Basic",
+    "Mathlib.Combinatorics.Graph.Basic",
+    "Mathlib.Data.NNReal.Defs"
+  ],
+  "minimal_import_result": "Deleting any direct import makes the exact module fail; no target proof theorem is imported.",
+  "checked_transports": [
+    {
+      "relationship": "iff",
+      "witness": "Stage1Instances.THM_M_0814.maxFlowMinCutTarget_iff_expanded",
+      "target": "Stage1Instances.THM_M_0814.ExpandedTarget"
+    }
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedPositiveCapacity",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationNaturalCapacityDomain",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationExistentialNetwork",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationRequiresSourceSinkChain",
+      "result": "Lean definitional-equality rejection and distinct explicit expression"
+    }
+  ],
+  "axiom_and_placeholder_result": "The canonical target is a Prop definition with no proof body. The checked respelling reports only propext, Classical.choice, and Quot.sound. Scoped source scanning finds no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration.",
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0814"
+  ],
+  "declaration_ownership": [
+    "Stage1Instances.THM_M_0814.Chain",
+    "Stage1Instances.THM_M_0814.Flow",
+    "Stage1Instances.THM_M_0814.HasTerminals",
+    "Stage1Instances.THM_M_0814.HasPositiveCapacities",
+    "Stage1Instances.THM_M_0814.arcLoad",
+    "Stage1Instances.THM_M_0814.flowValue",
+    "Stage1Instances.THM_M_0814.IsFeasible",
+    "Stage1Instances.THM_M_0814.IsDisconnecting",
+    "Stage1Instances.THM_M_0814.cutValue",
+    "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+    "Stage1Instances.THM_M_0814.ExpandedTarget",
+    "Stage1Instances.THM_M_0814.maxFlowMinCutTarget_iff_expanded",
+    "Stage1Instances.THM_M_0814.mutationRemovedPositiveCapacity",
+    "Stage1Instances.THM_M_0814.mutationNaturalCapacityDomain",
+    "Stage1Instances.THM_M_0814.mutationExistentialNetwork",
+    "Stage1Instances.THM_M_0814.mutationRequiresSourceSinkChain"
+  ],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0814/README.md",
+    "Stage1_Instances/THM-M-0814/scope-map.md",
+    "Stage1_Instances/THM-M-0814/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0814/statement-validation.md",
+    "Stage1_Instances/THM-M-0814/statement.json"
+  ],
+  "change_impact_set": [
+    "S56-M-0814-STATEMENT"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "Exact source-shaped statement elaboration, local definition bundle, minimal imports, direct respelling, mutations, and expression/environment fingerprints support M3 statement/interface status. No accepted source translation, proof body, or readable proof reconstruction supports H0, M0, or R0.",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "dependency-ordered master acceptance is pending; source H0 and every downstream anchor, obligation, proof, validation, readability, and release gate remain open",
+  "remaining_root_cut_set": [
+    "S56-M-0814-ANCHOR_AUDIT",
+    "S56-M-0814-OBLIGATION_TREE",
+    "S56-M-0814-PROOF",
+    "S56-M-0814-VALIDATION",
+    "S56-M-0814-RELEASE"
+  ],
+  "known_failures": [
+    "The provisional intake dependency and this statement node require dependency-ordered master acceptance.",
+    "Repository citation identity, the source's numeric and graph-complex conventions, loop treatment, corrections and errata, complete proof mapping, immutable archival acceptance, and independent H0 review remain open.",
+    "No checked transport is credited to directed conservation flows, partition cuts, signed Real flows, or supremum/infimum formulations.",
+    "Formal candidate and terminal proof-body provenance/trust audits, discovery and obligation freezes, proof, composition, readable reconstruction, hermetic replay, deterministic bundle, and independent release verification remain open.",
+    "No accepted execution state, audit completion, theorem completion, release, or master acceptance is claimed."
+  ],
+  "invalidation_inputs": [
+    "Statement.lean, check_statement.py, or check_statement_artifacts.py",
+    "canonical graph, chain, terminal, capacity, flow, feasibility, disconnecting-set, extrema, binder, or boundary definition",
+    "source interpretation, catalog correction, duplicate-target reconciliation, primary-source correction, or errata finding",
+    "Lean toolchain, lake-manifest.json, mathlib revision, or direct import source",
+    "foundation, TCB, computation, serialization, validator, or rev-5.6 statement policy",
+    "any reconciled owned artifact"
+  ],
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-0814",
+      "exit_code": 0,
+      "result": "rank 1373, planned, no legacy slot, legacy artifacts unaccepted, theorem_complete false"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0814/Statement.lean",
+      "exit_code": 0,
+      "result": "root, helper definitions, checked respelling, and four expected mutation rejections elaborated"
+    },
+    {
+      "command": "cd Formalizations/Lean && python3 -B ../../Stage1_Instances/THM-M-0814/check_statement.py",
+      "exit_code": 0,
+      "result": "expression f9fc7813..., bundle c51536f6..., all mutations distinct, each import deletion fails, pinned mathlib agrees"
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-0814/check_statement_artifacts.py",
+      "exit_code": 0,
+      "result": "fresh elaboration, metadata, authority hashes, provisional receipt, and worker handoff agree"
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-0814/check_intake.py",
+      "exit_code": 1,
+      "result": "historical intake-only validator is superseded by current statement artifacts and is not statement evidence"
+    },
+    {
+      "command": "JSON, Python syntax, prohibited Lean construct, mathlib cleanliness, and whitespace checks",
+      "exit_code": 0,
+      "result": "structured artifacts parse; no forbidden construct or whitespace diagnostic; pinned mathlib worktree clean"
+    }
+  ],
+  "selftest_result": "pass",
+  "support_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "supersession_state": "current worker receipt; unaccepted",
+  "validated_at": "2026-07-13 Asia/Shanghai",
+  "review_due": "at dependency-ordered master integration and on every invalidation input change",
+  "incident_path": "integration lane rejects or supersedes this report and requires a fresh scoped self-test",
+  "status_boundary": "Worker statement proposal only. This provisional receipt is unsigned, mutable, nonrelease, not content-addressed, and not master-accepted. It asserts no proof, H0, M0, R0, audit completion, theorem completion, or release credit."
+}

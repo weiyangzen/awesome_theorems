@@ -27,17 +27,17 @@ pages 399-400 and the proof ends on page 402. The source says:
 
 The source explicitly defines the following premises and terms before Theorem 1:
 
-| Source component | Pinpoint source content | Catalog mapping | Intake status |
+| Source component | Pinpoint source content | Frozen Lean mapping | Status |
 |---|---|---|---|
-| graph | page 399: a finite one-dimensional complex of vertices and undirected arcs | supplies a candidate meaning of "network" | inspected lead, not accepted |
-| terminals | page 399: distinguished source `a` and sink `b` | implicit in "network flow" | catalog omission open |
-| chain | page 399: distinct arcs and vertices, no self-intersection | source path representation | inspected lead, exact formal encoding open |
-| capacity | page 399: a positive number associated with each arc | "cut capacity" | codomain and positivity transport open |
-| flow | pages 399-400: collection of nonnegative weighted source-to-sink chain flows subject to per-arc capacity | "network flow" | source uses chain decomposition, not the usual edge-flow definition |
-| flow value | page 400: sum of the numbers in all component chain flows | "maximum value" | exact finite collection and maximum encoding open |
-| disconnecting set | page 400: arc collection meeting every source-to-sink chain | catalog "cut" | source distinguishes disconnecting sets from inclusion-minimal cuts |
-| cut value | page 400: sum of capacities in the disconnecting set | "cut capacity" | exact summation and minimum encoding open |
-| conclusion | page 400, Theorem 1 | maximum flow value equals minimum disconnecting-set value | direct theorem-family match; not yet an accepted canonical statement |
+| graph | page 399: finite one-dimensional complex with undirected arcs | `Graph V E` with finite ambient types | encoded; graph-complex and loop-convention review open |
+| terminals | distinguished source `a` and sink `b` | `HasTerminals G source sink` | encoded |
+| chain | distinct arcs and vertices, no self-intersection | injective arrays and `Graph.IsLink` in `Chain` | encoded |
+| capacity | positive number on each arc | `HasPositiveCapacities` over `NNReal` | encoded; codomain review open |
+| flow | finite nonnegative weighted chains under per-arc capacity | `Finsupp Chain NNReal` plus `IsFeasible` | encoded |
+| flow value | sum of component numbers | `flowValue` | encoded |
+| disconnecting set | arc collection meeting every source-to-sink chain | `IsDisconnecting` | encoded |
+| cut value | sum of member capacities | `cutValue` | encoded |
+| conclusion | page 400, Theorem 1 | `MaxFlowMinCutTarget` with attained extrema and equality | elaborated; proof/source acceptance open |
 
 The proof first establishes attainment using a closed convex polytope of finitely many chain
 coordinates, then constructs a disconnecting set of arcs saturated by every maximal flow. This
@@ -48,29 +48,26 @@ helps locate the mathematical boundary but is not a proof reconstruction or proo
 - The repository does not cite the article, so source identity still requires integration review.
 - The paper's `number`, positivity, finite collection, and graph-complex conventions require exact
   modern definitions rather than silent repair.
-- The chain-flow formulation must be retained or related by a checked theorem to any directed
-  edge-flow/conservation statement.
+- The chain-flow formulation is retained. No directed edge-flow/conservation transport is credited.
 - The source footnote says many unrestricted sources and sinks are reducible, while page 402 gives
   a counterexample for paired source-sink shipment. Neither variant belongs to the root silently.
 - No corrections, errata, later-edition comparison, complete premise-to-formal mapping, or
   independent source-review receipt is recorded.
 
-Thus the source classification is `H1`, not `H0`.
+Thus the source classification remains `H1`, not `H0`, despite exact machine elaboration.
 
 ## Formal crosswalk
 
-| Needed concept | Pinned Lean lead | What the lead establishes | Credit |
+| Needed concept | Pinned Lean realization | What it establishes | Credit |
 |---|---|---|---|
-| undirected finite multigraph substrate | `Mathlib.Combinatorics.Graph.Basic`, `Graph` | vertices, edges, and symmetric incidence | vocabulary only |
-| edge endpoints/incidence | `Graph.IsLink`, `Graph.Inc` | edge-to-vertex relations | vocabulary only |
-| parallel-edge example substrate | `Graph.banana` | an undirected multigraph with common endpoints | boundary probe only |
-| finite capacity/value sums | `Finset.sum` | generic finite aggregation | vocabulary only |
-| attained finite maximum | `Finset.max'` | maximum of a nonempty finite set | generic order API only |
-| network/flow/cut/root theorem | none located in bounded search | no exact candidate credited | `M4` |
+| undirected finite multigraph substrate | `Graph` and `Graph.IsLink` | source graph and chain incidence | statement definition |
+| nonnegative values | `NNReal` | nonnegative-real subtype and strict capacity premise | statement definition |
+| finite collection and sums | `Finsupp.sum` and `Finset.sum` | finite support, loads, and values | statement definition |
+| network/flow/cut/root theorem | local `Statement.lean` declarations | exact proposition elaborates; no proof body | `M3` interface only |
 
-The probe is not a theorem statement, transport, terminal proof body, or closure evidence. The
-statement phase must first freeze the exact source-mapped proposition. The later anchor audit must
-then repeat discovery under an immutable protocol and inspect provenance and trust.
+The earlier probe remains discovery-only. `Statement.lean` supersedes its null-target boundary for
+this phase, but is not a terminal proof body or closure evidence. The later anchor audit must repeat
+discovery under an immutable protocol and inspect provenance and trust.
 
 ## Duplicate and neighbor boundaries
 
@@ -84,7 +81,6 @@ equality without explicit checked bridges.
 
 ## Status boundary
 
-The intake crosswalk freezes the literal catalog wording, inspected primary theorem family,
-proposition-changing choices, formal substrate, duplicates, and exclusions. It does not freeze a
-canonical mathematical or Lean proposition and does not accept a source, proof body, expression
-fingerprint, H0, M0, R0, audit completion, theorem completion, or master acceptance.
+The statement crosswalk maps the selected 1956 proposition and definitions to a fingerprinted Lean
+target. It does not accept the source at H0, inspect or credit a proof body, establish M0/R0,
+complete the audit or theorem, release evidence, or provide master acceptance.

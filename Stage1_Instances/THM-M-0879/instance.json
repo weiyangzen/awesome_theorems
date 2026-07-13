@@ -1,0 +1,228 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0879",
+  "item_id": "S56-M-0879-INTAKE",
+  "execution_rank": 1432,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "多商品流",
+  "name_en": "Multicommodity flow (exact theorem identity open)",
+  "canonical_name": "Multicommodity and concurrent flow theorem family (repository label)",
+  "category": "组合数学 / 图论",
+  "category_en": "Combinatorics / Graph Theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "多商品流",
+  "literal_source_claim_zh": "多种商品的并发流",
+  "literal_source_claim_en": "Concurrent flow of multiple commodities.",
+  "source_attribution": "Many mathematicians, twentieth century (catalog metadata only; no work or passage is cited)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_secondary_metadata_only_no_stable_proposition_primary_theorem_mapping_or_independent_review",
+  "canonical_statement": null,
+  "canonical_claim_status": "catalog_topic_and_gloss_do_not_determine_a_truth_valued_multicommodity_flow_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies only a family gloss. It does not select a network model, commodity and demand data, capacity domain, shared-capacity and conservation conditions, splittable versus integral or unsplittable routing, edge-flow versus path-flow representation, concurrency or other objective, optimum convention, theorem conclusion, ordered binders, or boundary cases. Choosing maximum concurrent flow, feasibility, min-congestion, LP duality, a flow-cut theorem, an approximation result, or an algorithm would invent or substitute proposition-changing mathematics.",
+  "target_decision": "preserve the received multicommodity and concurrent-flow family and require independently reviewed immutable-source selection of one exact proposition before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Graph.Basic",
+      "Mathlib.Combinatorics.SimpleGraph.Paths",
+      "Mathlib.Algebra.BigOperators.Group.Finset.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "Graph",
+      "Graph.IsLink",
+      "Graph.Inc",
+      "SimpleGraph.Walk.IsPath",
+      "SimpleGraph.Path",
+      "Finset.sum"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_and_encoding_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source mapping must fix finite directed, undirected, or multigraph carriers; vertex, edge, and commodity universes; terminal-demand data; capacity, flow, and objective codomains; finiteness and decidability instances; path or edge-flow representation; and all typeclass context.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not choose feasibility, maximum concurrent throughput, minimum congestion, maximum total flow, exact duality, a path-cut or flow-cut relation, integrality, approximation, or algorithmic correctness and complexity.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every network, commodity, capacity, flow, objective, extremum, and boundary convention listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "feasibility of simultaneously routing a finite family of source-sink demands under shared capacities",
+    "existence and value of a maximum common demand-scaling throughput for fractional multicommodity flow",
+    "minimum congestion routing for fixed demands",
+    "strong linear-programming duality with a metric or path-length optimization",
+    "a path-cut or flow-cut-gap theorem related to sparsest cut",
+    "a fully polynomial-time approximation scheme for maximum concurrent flow",
+    "a two-commodity, all-pairs, integral, unsplittable, directed, undirected, or uniform-capacity special case"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty vertex, edge, or commodity types and zero total demand",
+    "source equal to sink, repeated terminal pairs, and disconnected terminal pairs",
+    "zero, negative, or infinite capacities and demands and an unbounded objective",
+    "loops, parallel edges, antiparallel edges, empty paths, cycles, and circulations",
+    "infeasible instances, throughput zero, division by zero in ratios, and nonattainment of extrema",
+    "fractional versus integral or unsplittable routing and exact versus lower-bound demand satisfaction"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0814 single-commodity max-flow min-cut used as a multicommodity theorem",
+    "THM-M-0877 generic network flow or THM-M-0878 minimum-cost flow used without an exact checked bridge",
+    "THM-M-0880 sparse cut or a flow-cut-gap theorem imported without an accepted target-boundary decision",
+    "feasibility or weak duality alone used for an optimum, duality, or approximation target",
+    "an integral, unsplittable, two-commodity, all-pairs, or uniform-capacity special case used as a general result, or conversely",
+    "one routing algorithm, linear-programming solver, or fixed-network computation used as the theorem family",
+    "a structure or hypothesis storing the desired routing, optimum, or dual certificate",
+    "generic graph, path, and sum APIs used as a source-mapped target or proof",
+    "the untrusted catalog label, title match, or bibliographic abstract used as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0814",
+      "name": "最大流最小割定理",
+      "relationship": "single-commodity capacitated-flow equality; related substrate but not multicommodity closure"
+    },
+    {
+      "theorem_id": "THM-M-0877",
+      "name": "网络流",
+      "relationship": "generic network-flow target; definitions or results transfer only through accepted typed bridges"
+    },
+    {
+      "theorem_id": "THM-M-0878",
+      "name": "最小费用流",
+      "relationship": "separately owns a cost-optimization flow family"
+    },
+    {
+      "theorem_id": "THM-M-0880",
+      "name": "稀疏割",
+      "relationship": "separately owns sparse-cut scope; possible flow-cut relations do not transfer state or evidence"
+    }
+  ],
+  "source_candidates_not_credited": [
+    {
+      "citation": "T. C. Hu, Multi-Commodity Network Flows, Operations Research 11(3), 344-360 (1963), DOI 10.1287/opre.11.3.344",
+      "candidate_summary": "Crossref abstract metadata describes maximum simultaneous flows of two commodities in a capacitated network and a max-flow/min-cut generalization under symmetric capacities.",
+      "inspection_status": "mutable Crossref bibliographic and abstract metadata inspected for subject disambiguation only; article theorem text, exact locator, assumption map, corrections, and independent review were not inspected; the catalog does not cite or select this result",
+      "crossref_metadata_sha256": "954ca319f3e94ced89c0e7b3d1e90f1fc0ca784141acc169707b2d4c16166725"
+    },
+    {
+      "citation": "Farhad Shahrokhi and D. W. Matula, The maximum concurrent flow problem, Journal of the ACM 37(2), 318-334 (1990), DOI 10.1145/77600.77620",
+      "candidate_summary": "Crossref abstract metadata defines common throughput under capacity constraints and reports an approximation scheme, an optimization dual, and a path-cut duality for arbitrary demands and uniform capacity.",
+      "inspection_status": "mutable Crossref bibliographic and abstract metadata inspected for candidate-root disambiguation only; article theorem text, exact locators, complete assumptions, corrections, and independent review were not inspected; the catalog selects none of the distinct claims",
+      "crossref_metadata_sha256": "879196da1abaa73eba9be37243c334ba68df370077714b1769433dab57a14378"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Graph.Basic",
+      "declarations": ["Graph", "Graph.IsLink", "Graph.Inc", "Graph.banana"],
+      "boundary": "undirected multigraph incidence substrate only; no capacities, commodities, orientation, flow, objective, or root theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Paths",
+      "declarations": ["SimpleGraph.Walk", "SimpleGraph.Walk.IsPath", "SimpleGraph.Path"],
+      "boundary": "walk and path substrate only; no weighted routing, conservation, demand satisfaction, or shared capacity"
+    },
+    {
+      "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+      "declarations": ["Finset.sum"],
+      "boundary": "generic finite summation only; no flow value, congestion, capacity constraint, or optimization theorem"
+    }
+  ],
+  "bounded_formal_search": {
+    "scope": "repo-local Lean and pinned mathlib Lean sources",
+    "patterns": "multicommodity, multi-commodity, concurrent flow, network flow, max-flow, min-cut, flow-cut, and identifier variants",
+    "result": "No exact multicommodity-flow or network-flow declaration was found. This is a bounded intake observation, not a global absence claim or the immutable downstream anchor audit."
+  },
+  "source_revisions": {
+    "repository_base": "0c019b7194c9c43fa5f683fa82d637a0b275410d",
+    "repository_base_tree": "43cf6ac322b1dba09be739b52ab3d02e9f9d8f3e",
+    "repository_record": "Docs/researches/math_theorems.md:6439-6444",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23981-24006",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "4518402786ce6a0165e1e67ea9ffea6c1026e0c4a2fdd7bb1b7ce91d3f85cb8b",
+    "stage0_projection_excerpt_sha256": "8d551d73cfb45ef52c76e4c0569d4f2c12a5f407100f99f4a2638875e82c2ea2",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_targets_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "f3a9c3639f0ecbc01aeb244df252c065b48008addaeb4372d800a0cf8888d156",
+    "execution_dag_sha256": "4fbf77bfb8208457047357932186aa4329f6b04a3d31ec52d04f784c66c9a7db",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_graph_basic_sha256": "dc3f9c7793f8de09261868afeb7e1d8804914b90b1fc4615feb139f2452dd2b9",
+    "mathlib_simplegraph_paths_sha256": "e5aa067bc2106430bb917da65dda897d8bd67c215706681b41b1078d771b43b5",
+    "mathlib_finset_bigoperators_sha256": "ea7bf2258d1d628feaf1e480f173f5015f1cfbdec5234bf475b50cb0922e1fcb",
+    "hu_crossref_metadata_sha256": "954ca319f3e94ced89c0e7b3d1e90f1fc0ca784141acc169707b2d4c16166725",
+    "shahrokhi_matula_crossref_metadata_sha256": "879196da1abaa73eba9be37243c334ba68df370077714b1769433dab57a14378"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H5", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, real or nonnegative-real optimization, finite-dimensional linear programming, quotient or path-decomposition principles, and optimum-attainment assumptions remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, network-flow encoding, expression identity, terminal declarations, transitive dependencies, axioms, and trust policy remain open",
+  "computation_profile": "No routing algorithm, linear-programming solver, random experiment, numerical optimum, native shortcut, oracle, or unchecked flow or dual certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0879/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0879/README.md",
+    "Stage1_Instances/THM-M-0879/instance.json",
+    "Stage1_Instances/THM-M-0879/scope-map.md",
+    "Stage1_Instances/THM-M-0879/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0879/task-dag.json",
+    "Stage1_Instances/THM-M-0879/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0879/check_intake.py",
+    "Stage1_Instances/THM-M-0879/validation.md",
+    "Stage1_Instances/THM-M-0879/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent multicommodity-flow source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned network-flow optimization reviewer",
+    "reviewer_policy": "Independent source and scope reviewers must approve the selected proposition, every definition and assumption, theorem and proof boundary, version and correction mapping, neighboring-target boundaries, and degenerate cases; a formal reviewer must approve the Lean target; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source/version/errata finding, proposition selection, network/commodity/capacity/flow/objective/extremum/boundary decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, receipt, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, source provenance and leads, theorem-family choices, exclusions, neighboring target boundaries, and adjacent pinned APIs. H5 classifies the received wording as an unstable proposition; it does not claim that standard multicommodity-flow results are false or open. No canonical proposition, accepted source, exact Lean statement, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

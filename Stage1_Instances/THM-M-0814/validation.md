@@ -1,12 +1,15 @@
-# Intake validation
+# Dossier validation history
 
 Base revision: `adc87f8ea24dcc7c5e2668c0a5ede0ca5c5f0f55`; base tree:
 `3c83596059f716cde0d50a5f6b390ada6ca7c8e1`.
 
-This validation covers target membership, the planned dossier and open task DAG, catalog and
-duplicate provenance, the inspected primary-source theorem, structured intake invariants, a narrow
-pinned Lean substrate probe, prohibited-construct hygiene, and whitespace. It does not validate a
-canonical max-flow min-cut statement or proof because the exact representation is not frozen.
+This historical intake validation covered target membership, the planned dossier and open task
+DAG, catalog and duplicate provenance, the inspected primary-source theorem, structured intake
+invariants, a narrow pinned Lean substrate probe, prohibited-construct hygiene, and whitespace. It
+does not validate a canonical max-flow min-cut statement or proof because the exact representation
+was not frozen in that snapshot. The later statement phase is recorded separately in
+`statement-validation.md` and supersedes the null-target replay boundary without altering the
+historical command record below.
 
 The initial worktree contained only the automation-provided untracked
 `Formalizations/Lean/.lake` symlink to canonical pinned artifacts. It was used read-only. No
@@ -21,7 +24,8 @@ Mathematics* 8 (1956), 399-404, was inspected at PDF SHA-256
 Definitions on printed pages 399-400 and Section 1, Theorem 1 on page 400 directly identify the
 finite undirected weighted-chain-flow theorem family. Catalog citation identity, modern directed
 representation transport, correction and errata status, complete mapping, archival acceptance,
-and independent review prevent H0 or statement-freeze credit.
+and independent review prevented statement credit at intake and continue to prevent H0. The later
+statement phase selected the paper's chain-flow formulation and self-tested its exact Lean interface.
 
 ## Environment
 
@@ -60,7 +64,7 @@ is shown.
 | prohibited Lean proof-escape scan over the owned path | 1 (expected no match) | no `sorry`, `admit`, `sorryAx`, `axiom`, `constant`, `opaque`, or `unsafe` declaration |
 | per-file `git diff --no-index --check /dev/null` plus scoped `git diff --check` | 0 aggregate | no whitespace diagnostics; no-index exit 1 for each new file was treated only as the expected difference |
 
-## Known downstream failures
+## Historical downstream failures
 
 - The catalog does not define the network, capacity, feasible flow, cut, extrema, binders, or
   boundary cases, and it does not select chain-flow versus directed edge-flow scope.
@@ -72,6 +76,7 @@ is shown.
   readable reconstruction, hermetic replay, deterministic bundle, independent verification, and
   master acceptance remain open.
 
-These failures prevent statement, audit-completion, and theorem-completion claims. They do not
-invalidate a truthful self-tested `planned` intake. Only the integration lane may accept the
-provisional worker receipt.
+These were the intake-time failures. `statement-validation.md` resolves the machine-interface
+items while leaving source H0, proof, audit, release, and theorem completion open. The intake
+receipt is historical and unaccepted; only the integration lane may accept the current provisional
+statement receipt.
