@@ -1,0 +1,136 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0070-ANCHOR-AUDIT-WORKER-20260713",
+  "item_id": "S56-M-0070-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0070",
+  "phase": "anchor_audit",
+  "intent": "audit",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "d266c6f5ce5732e1fccd687e2f9ce9aa2a0ed1fe",
+  "base_tree": "e77c8d6d5b41cb13d9d8acab2753ac37c4ebd6b4",
+  "validated_at": "2026-07-13T10:39:13+08:00",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0070/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0070/anchor-audit-receipt.json",
+    "Stage1_Instances/THM-M-0070/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0070/anchor-audit.json",
+    "Stage1_Instances/THM-M-0070/anchor-discovery-protocol.json",
+    "Stage1_Instances/THM-M-0070/check_anchor_audit.py"
+  ],
+  "covered_node_ids": ["S56-M-0070-ANCHOR_AUDIT"],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0070_AnchorAudit.ExactTarget",
+    "Stage1Instances.THM_M_0070_AnchorAudit.exactTarget_iff_derivedSeries",
+    "Stage1Instances.THM_M_0070_AnchorAudit.commutative_special_case",
+    "CommGroup.isSolvable",
+    "ianklatzco/odd-order-lean::odd_order_solvable (rejected placeholder)",
+    "math-comp/odd-order::Feit_Thompson (other-prover source anchor only)"
+  ],
+  "statement_fingerprints": [
+    "sha256:51024e84c9b068a6de27ff2d3ba0f1e479c02dfd36d8072f3d243d46f3324c93"
+  ],
+  "immutable_inputs": {
+    "repository_revision": "d266c6f5ce5732e1fccd687e2f9ce9aa2a0ed1fe",
+    "repository_tree": "e77c8d6d5b41cb13d9d8acab2753ac37c4ebd6b4",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_solvable_sha256": "d665fe00fcf4bc1bc072cc053b1e47c8609552627386981feccd81a448b6153b",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "odd_order_lean_revision": "0f4a5daeaf6f26efd5af808ecd05e4744d8a2924",
+    "odd_order_lean_tree": "95e6964049e33a58cadf80851453d64ba48e7441",
+    "odd_order_lean_basic_sha256": "0f7fca62cc11d8ac8acc3c303508b594d8cd849b1f9a4efcdc8a5187f5cc424e",
+    "mathcomp_odd_order_revision": "6afa795b9018c64ab5c7cd2f9b3c9ab5dd45d93f",
+    "mathcomp_pfsection14_sha256": "8153cf86d39adc9d9486a3044e1adeef1d523525d3757346fd0992feb571f9ef"
+  },
+  "candidate_result": {
+    "classification": "M3",
+    "evidence_level": "E3",
+    "exact_lean_proof_found": false,
+    "exact_external_lean_statement_found": true,
+    "exact_external_lean_statement_status": "M5: body is by sorry and pins are incompatible/unmaterialized",
+    "exact_other_prover_source_found": true,
+    "exact_other_prover_status": "E3 source anchor only; no Lean kernel object or approved bridge",
+    "interface_probe_kernel_checked": true,
+    "root_proof_body_location": null,
+    "interface_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "master_accepted": false
+  },
+  "lean_output_sha256": "37c22861db677c70be42128a310c241c848c90eca445cec850ae8d5b03337818",
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0070-ANCHOR-AUDIT-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0070/AnchorAudit.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must print exact interface types, fully explicit target copy, and exactly three propext/Classical.choice/Quot.sound axiom reports without a root inhabitant"
+        }
+      ],
+      "covered_obligation_ids": ["S56-M-0070-ANCHOR_AUDIT"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0070_AnchorAudit.ExactTarget",
+        "Stage1Instances.THM_M_0070_AnchorAudit.exactTarget_iff_derivedSeries",
+        "Stage1Instances.THM_M_0070_AnchorAudit.commutative_special_case"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0070-ANCHOR-AUDIT-LEDGER",
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0070/check_anchor_audit.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "must report six classified candidate groups, no exact Lean proof, rejected exact Lean placeholder, exact Coq E3 anchor, unchanged H1/M3/R4, and both terminal decisions false"
+        }
+      ],
+      "covered_obligation_ids": ["S56-M-0070-ANCHOR_AUDIT"],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0070_AnchorAudit.ExactTarget",
+        "ianklatzco/odd-order-lean::odd_order_solvable",
+        "math-comp/odd-order::Feit_Thompson"
+      ]
+    }
+  ],
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_candidate_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "accepted_root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "known_failures": [
+    "The statement prerequisite and this anchor-audit node have provisional worker evidence but still require master acceptance.",
+    "No exact placeholder-free Lean proof body was found in repo-local source, pinned mathlib/packages, or the bounded external Lean inventory.",
+    "The exact ianklatzco/odd-order-lean declaration has body `by sorry`; its Lean 4.32.0-rc1/mathlib 360da6... pins are unmaterialized and incompatible with this repository's pins.",
+    "The exact MathComp Feit_Thompson source is Coq/Rocq, not Lean; no Coq build/trust replay or approved cross-kernel bridge was available.",
+    "Sourcegraph/GitHub searches were bounded; grep.app returned HTTP 429, so exhaustive discovery saturation is not claimed.",
+    "Full transitive proof provenance/trust and TCB closure is not available because no root Lean proof body was selected.",
+    "Primary-source H0, readable R0, obligation composition, proof implementation, hermetic replay, independent verification, deterministic release evidence, AUDIT-Z, and theorem completion remain open."
+  ],
+  "remaining_root_cut_set": [
+    "S56-M-0070-OBLIGATION_TREE",
+    "S56-M-0070-PROOF",
+    "S56-M-0070-VALIDATION",
+    "S56-M-0070-RELEASE",
+    "placeholder-free exact Lean body or approved checked bridge",
+    "primary-source H0 and independent review",
+    "readable R0 and independent review",
+    "master acceptance"
+  ],
+  "status_boundary": "Provisional node-specific worker receipt only. It self-tests a bounded immutable anchor inventory and Lean interface probe. It accepts no receipt, changes no accepted H1/M3/R4 state, does not finish AUDIT-Z, and does not complete the theorem."
+}

@@ -5,7 +5,7 @@
 | Field | Intake value | Status |
 |---|---|---|
 | repository ID | `THM-M-0079` | frozen |
-| execution item | `S56-M-0079-INTAKE`, rank 1105 | frozen |
+| execution item | `S56-M-0079-STATEMENT`, rank 1105 | self-tested, master acceptance open |
 | catalog name | `尼尔森-施莱尔定理` | frozen |
 | catalog claim | `自由群的子群仍是自由群` | frozen literally |
 | English claim | every subgroup of a free group is free | faithful translation |
@@ -16,24 +16,24 @@ The words "subgroup" and "free" refer to groups. They do not refer to free modul
 groupoids, Schreier domains, or unrelated Nielsen fixed-point theory. The root is the unrestricted
 subgroup-freeness claim only; no rank or index formula is part of the received statement.
 
-## Candidate mathematical boundary
+## Frozen formal boundary
 
-This is an intake scope map, not the accepted canonical Lean expression.
+`Statement.lean` now freezes the provisional canonical expression pending master acceptance.
 
-| Component | Candidate representation | Statement-phase decision |
+| Component | Frozen representation | Statement-phase result |
 |---|---|---|
-| ambient carrier | `G : Type u` | universe and explicit binder order |
-| group structure | `[Group G]` | implicit instance versus explicit structure |
-| ambient freeness | `[IsFreeGroup G]` | exact match to the source definition of a free group |
-| subgroup | `H : Subgroup G` | subtype-carrier and inherited group instance |
-| conclusion | `IsFreeGroup H` | same-universe basis encoding and alternate transports |
-| candidate implication | every `H : Subgroup G` inherits `IsFreeGroup H` | exact expression, hash, and declaration wrapper |
+| ambient carrier | `G : Type u` | universal binder in arbitrary universe |
+| group structure | `[Group G]` | implicit typeclass binder |
+| ambient freeness | `[IsFreeGroup G]` | same-universe free-basis property |
+| subgroup | `H : Subgroup G` | universal binder with inherited group instance |
+| conclusion | `IsFreeGroup H` | checked equivalent to same-universe basis existence |
+| canonical proposition | every `H : Subgroup G` inherits `IsFreeGroup H` | expression fingerprint `bb109f77...a553` |
 
 Pinned mathlib defines `IsFreeGroup G` as the existence, in the same universe as `G`, of a type of
 generators and a `FreeGroupBasis` giving a multiplicative equivalence with the corresponding free
-group. The statement phase must decide whether this generic basis-based formulation is the exact
-canonical root and provide checked transports to a literal ambient `FreeGroup X` formulation if
-that alternate encoding is retained.
+group. The statement phase selects this generic basis-based formulation as the exact canonical root.
+`Statement.lean` checks it equivalent both to the literal ambient `FreeGroup X` formulation and to
+the definition-level existence of a same-universe `FreeGroupBasis` for the subgroup.
 
 ## Included boundary cases
 
@@ -44,9 +44,9 @@ that alternate encoding is retained.
 - every Lean universe supported by the selected same-universe `IsFreeGroup` encoding;
 - an arbitrary group known by a free basis, not only a carrier syntactically equal to `FreeGroup X`.
 
-Intake excludes no subgroup by finite generation, nontriviality, finite index, normality, or a
-chosen generating set. The statement phase must mutation-test those conditions and the universe,
-subtype, and typeclass boundaries.
+No subgroup is excluded by finite generation, nontriviality, finite index, normality, or a chosen
+generating set. Statement mutations remove ambient freeness, restrict the ambient group to a
+commutative domain, weaken the universal subgroup binder, and exclude the bottom subgroup.
 
 ## Explicit non-substitutions
 
@@ -71,14 +71,13 @@ probe reports `propext`, `Classical.choice`, and `Quot.sound` as axioms and chec
 application elaborates.
 
 This is strong bounded discovery evidence and a candidate future pinned-library wrapper route. It
-is not the dependent anchor audit: no canonical expression fingerprint, exact-type wrapper,
+is not the dependent anchor audit: the canonical expression is now frozen, but no proof wrapper,
 terminal-body identity, transitive dependency graph, source-boundary classification, accepted
 foundation profile, or master receipt is frozen here.
 
 ## Gate boundary
 
-`S56-M-0079-STATEMENT` must approve the source-faithful binder-complete proposition, minimal import,
-universe and typeclass order, alternate transports, elaborated expression and environment
-fingerprints, and structural mutations. The anchor audit, obligation tree, proof integration,
-validation, and release tasks then remain dependency-ordered and open. Intake grants none of their
-state.
+`S56-M-0079-STATEMENT` self-tests the binder-complete proposition, sole minimal import, universe and
+typeclass order, alternate transports, elaborated expression and environment fingerprints, and
+structural mutations. Master acceptance remains open. The anchor audit, obligation tree, proof
+integration, validation, and release tasks remain dependency-ordered and open.

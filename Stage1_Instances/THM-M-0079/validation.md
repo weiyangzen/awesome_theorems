@@ -1,4 +1,8 @@
-# Intake validation
+# Historical intake validation
+
+This file preserves the earlier intake run and is not current statement evidence. The intake
+checker pins its pre-statement base, generated authority hashes, and nine-file inventory, so it is
+expected to reject the expanded statement dossier. Current evidence is in `statement-validation.md`.
 
 ## Scope and environment
 

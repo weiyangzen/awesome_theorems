@@ -1,0 +1,184 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0096",
+  "item_id": "S56-M-0096-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1113,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "谢瓦莱基定理",
+  "name_en": "Chevalley basis theorem",
+  "canonical_name": "Chevalley integral-basis theorem family for semisimple Lie algebras",
+  "category": "代数学 / 表示论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "半单李代数的整基",
+  "literal_source_claim_en": "An integral basis of a semisimple Lie algebra.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_chevalley_integral_basis_family_but_catalog_omits_domain_integrality_encoding_root_data_relations_and_conclusion_scope",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only the phrase 'integral basis of a semisimple Lie algebra'. It omits the scalar field, characteristic and finite dimensionality, the semisimplicity encoding, the definition of integral basis, the choice and indexing of Cartan and root data, the required bracket relations and normalization, the relationship to a Z-form, existence versus uniqueness scope, and all boundary cases. Selecting a familiar complex Chevalley-basis or Z-form proposition at intake would add proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Algebra.Lie.Basis",
+      "Mathlib.Algebra.Lie.SerreConstruction",
+      "Mathlib.LinearAlgebra.RootSystem.GeckConstruction.Basis"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_domain_integrality_and_normalization_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: the selected source must fix the scalar field and universe, characteristic, algebraic closure or splitting assumptions, finite-dimensional semisimple Lie algebra, Cartan and root data, basis index, coefficient embedding, and any integral lattice or base-change objects.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not say whether the root asserts existence of a basis with integer bracket constants, a normalized Chevalley basis, a bracket-closed free Z-form whose scalar extension recovers the Lie algebra, compatibility with selected root data, uniqueness, or a sourced conjunction.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is source-selected; scope-map.md lists the boundary decisions.",
+  "candidate_scope_not_credited": [
+    "every finite-dimensional complex semisimple Lie algebra has a Chevalley basis with integral structure constants",
+    "the corresponding theorem over an arbitrary algebraically closed characteristic-zero field",
+    "existence of a bracket-closed free Z-lattice whose scalar extension recovers the Lie algebra",
+    "existence together with uniqueness or equivalence of integral forms under specified choices"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero Lie algebra, empty root system, rank zero, and rank one",
+    "simple versus nonsimple semisimple direct sums and repeated simple factors",
+    "nonreduced, noncrystallographic, or reducible root-system inputs",
+    "non-algebraically-closed, positive-characteristic, and nonsplitting fields",
+    "reductive Lie algebras with center",
+    "dependence on Cartan, positive-root, simple-root, sign, and ordering choices",
+    "basis-with-integral-constants versus Z-form and scalar-extension formulations"
+  ],
+  "excluded_substitutions": [
+    "root-space decomposition or Cartan-subalgebra existence alone",
+    "a crystallographic root system or integer Cartan matrix without a basis construction in the supplied algebra",
+    "the weaker Mathlib LieAlgebra.Basis structure without all Chevalley root-vector bracket constants",
+    "Serre or Geck construction of a new Lie algebra without a checked equivalence to every algebra in the source domain",
+    "classification of semisimple or simple Lie algebras",
+    "Jordan-Chevalley decomposition, Jordan bases, Chevalley-Warning, Chevalley restriction, or Chevalley groups",
+    "an assumption or structure field containing the desired integral basis",
+    "the catalog's untrusted verified label or the discovery probe as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {"theorem_id": "THM-M-0092", "name": "卡当-外尔定理", "relationship": "separate Cartan-Weyl structural theorem family; no status transfers by proximity"},
+    {"theorem_id": "THM-M-0093", "name": "最高权定理", "relationship": "classification of irreducible representations, not existence of an integral Lie-algebra basis"},
+    {"theorem_id": "THM-M-0095", "name": "卡当分解定理", "relationship": "root-space decomposition is potential input, not the integral-basis conclusion"},
+    {"theorem_id": "THM-M-0097", "name": "哈里斯-钱德拉定理", "relationship": "semisimple Lie-group character theorem family, not this Lie-algebra basis target"}
+  ],
+  "source_status": "H1_published_standard_source_lead_named_but_catalog_to_source_identity_exact_theorem_definition_assumption_proof_correction_historical_mapping_preservation_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Jean-Pierre Serre, Complex Semisimple Lie Algebras, translated by G. A. Jones, Springer-Verlag, 1987, Chapter V, Sections 4 and 6",
+      "candidate_locator": "pinned mathlib module citation and docs/references.bib record; ISBN 0-387-96569-6; DOI 10.1007/978-1-4757-3910-7",
+      "candidate_summary": "mathlib identifies these sections as a reference for the Weyl/Chevalley-basis concept",
+      "inspection_status": "bibliographic lead only; the book and exact theorem/proof were not independently inspected, preserved, mapped, correction-audited, or reviewed"
+    },
+    {
+      "citation": "Meinolf Geck, On the construction of semisimple Lie algebras and Chevalley groups, Proc. Amer. Math. Soc. 145 (2017), 3233-3247",
+      "candidate_locator": "pinned mathlib module citation and docs/references.bib record; DOI 10.1090/proc/13600",
+      "candidate_summary": "construction of a semisimple Lie algebra from based crystallographic root data, followed closely by pinned mathlib",
+      "inspection_status": "adjacent construction-source lead only; the paper was not independently inspected and does not identify the catalog's exact arbitrary-semisimple-algebra root"
+    }
+  ],
+  "source_metadata_conflicts": [],
+  "formal_candidates_not_credited": [
+    {
+      "modules": ["Mathlib.Algebra.Lie.Basis"],
+      "declarations": ["LieAlgebra.Basis", "LieAlgebra.Basis.cartanMatrix_base_eq"],
+      "boundary": "integer Cartan matrix and partial Chevalley-Serre basis structure; module explicitly says further axioms are needed for Weyl/Chevalley bases and general existence remains TODO"
+    },
+    {
+      "modules": ["Mathlib.LinearAlgebra.RootSystem.GeckConstruction.Basis"],
+      "declarations": ["RootPairing.GeckConstruction.basis", "RootPairing.GeckConstruction.equivRootSystem"],
+      "boundary": "weaker basis for the particular Geck-constructed Lie algebra from irreducible reduced crystallographic root data; no Chevalley-basis definition or arbitrary semisimple-algebra existence theorem"
+    },
+    {
+      "modules": ["Mathlib.Algebra.Lie.SerreConstruction"],
+      "declarations": ["Matrix.ToLieAlgebra"],
+      "boundary": "quotient Lie algebra constructed from a Cartan matrix by Serre relations; not a basis theorem for a supplied semisimple Lie algebra"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "56cce0660d633175f8e66c4a538e5c7dce64652e",
+    "repository_base_tree": "94920deccabd41cd711821885fe08d62eed67a4e",
+    "repository_record": "Docs/researches/math_theorems.md:705-710",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:2740-2765",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_blob_at_base": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "03e62120084dedadee473b0b4de886cbd010aceb1c3a1b4df6a712a0fabc77eb",
+    "execution_dag_sha256": "fecf43e0511dbbb7f823ce0300b221fe4ec06c4b6c1367d14cff54a641c3f1bf",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lie_basis_source_sha256": "fda0213badfb3f676bd380a623818f52ba19d70ee3862b6224a2c1f3abb7b780",
+    "serre_construction_source_sha256": "4fdfd9c941ba2e980419021c02f87f2bf7cb74c43cb6c70c996ce83ec5132856",
+    "geck_basic_source_sha256": "cca5f79a3f2e180ac2121e360eea8e1f3100618a693d9e3448b5f5dfcfc58c26",
+    "geck_basis_source_sha256": "03a49aabc6b4692cab261d28b841ad993a64157fa19abca4c1f4b6b46fb87ed1",
+    "mathlib_references_sha256": "9f6b3a98cd6cd044736db1e6ac08fd766cc8d492b31d19643a82ee31ac995c11"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice of Cartan and root vectors, quotient or representative encodings, scalar-field policy, and integral-form/base-change principles remain open until an exact source proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, accepted axioms, and trust policy remain open",
+  "computation_profile": "No numerical Lie-bracket computation, root-table experiment, oracle, native computation, unchecked certificate, or sampled basis is credited; the intended existence theorem requires kernel-checked algebraic constructions and transports",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0096/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0096/README.md",
+    "Stage1_Instances/THM-M-0096/instance.json",
+    "Stage1_Instances/THM-M-0096/scope-map.md",
+    "Stage1_Instances/THM-M-0096/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0096/task-dag.json",
+    "Stage1_Instances/THM-M-0096/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0096/check_intake.py",
+    "Stage1_Instances/THM-M-0096/validation.md",
+    "Stage1_Instances/THM-M-0096/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "lie_theory_scope_reviewer": "unassigned independent domain reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, canonical-root selection, edition, definition, hypothesis, conclusion, proof boundary, historical or erratum finding, scalar field, characteristic, dimension, semisimplicity, Cartan/root/sign choice, integral-basis or Z-form encoding, bracket relation, normalization, uniqueness, boundary-case decision, Lean target, toolchain or dependency pin, assurance profile, validator, recipe, public artifact, or reviewer-policy change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, Chevalley-basis scope and substitution boundaries, published and formal leads, neighboring-target boundaries, and the open task DAG. No canonical proposition, accepted H0 source, exact Lean statement, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

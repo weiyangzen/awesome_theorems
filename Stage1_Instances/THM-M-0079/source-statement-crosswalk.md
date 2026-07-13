@@ -35,12 +35,12 @@ texts before correcting attribution, dating, or source ownership.
 
 ## Component crosswalk
 
-| Repository phrase | Mathematical component | Pinned Lean surface | Intake assessment |
+| Repository phrase | Mathematical component | Pinned Lean surface | Current assessment |
 |---|---|---|---|
-| free group | a group admitting a free basis | `IsFreeGroup G`, `FreeGroupBasis` | candidate vocabulary; source-definition mapping open |
-| subgroup | an arbitrary subgroup with inherited group structure | `H : Subgroup G` and its subtype | faithful candidate, no finiteness or normality restriction |
-| remains free | existence of a free basis for the subgroup | `IsFreeGroup H` | candidate conclusion; exact expression not yet frozen |
-| conventional unrestricted reading | all ambient free groups and all subgroups | universe-polymorphic declaration | finite-generation and finite-index restrictions prohibited pending statement review |
+| free group | a group admitting a free basis | `IsFreeGroup G`, `FreeGroupBasis` | selected statement vocabulary; historical source-definition mapping open |
+| subgroup | an arbitrary subgroup with inherited group structure | `H : Subgroup G` and its subtype | selected without finiteness or normality restriction |
+| remains free | existence of a free basis for the subgroup | `IsFreeGroup H` | selected conclusion; basis-existence iff checked |
+| conventional unrestricted reading | all ambient free groups and all subgroups | universe-polymorphic declaration | exact formal target frozen pending master acceptance |
 | 1921 / joint attribution | historical metadata | documentation and provenance only | raises a question against the unpreserved 1927 general-result lead; review required |
 | `已验证` | untrusted inventory label | accepted source and kernel receipts would be required | no H or M credit |
 
@@ -63,10 +63,10 @@ interfaces, and a proposition-shaped application. `#print axioms` reported `prop
 title to this declaration.
 
 This is a credible candidate for a later `M0-W` result, not accepted machine closure. The statement
-phase must freeze exact target identity and transports; the anchor audit must inspect the immutable
-terminal body, dependency and trust closure, source boundaries, and placeholder/unsafe status; and
-proof/validation phases must install and validate the approved wrapper. Until then the root remains
-`M3` with an empty accepted proof state.
+phase now freezes exact target identity and transports without importing this proof-bearing module.
+The anchor audit must inspect the immutable terminal body, dependency and trust closure, source
+boundaries, and placeholder/unsafe status; proof and validation phases must install and validate an
+approved wrapper. Until then the root remains `M3` with an empty accepted proof state.
 
 ## Source gate
 
