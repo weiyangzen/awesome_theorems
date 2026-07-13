@@ -17372,7 +17372,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1468-PROOF`. Owned paths: `Stage1_Instances/THM-M-1468`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1468-RELEASE` / `THM-M-1468` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-1468-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1468`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1469-INTAKE` / `THM-M-1469` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
+- [_] `S56-M-1469-INTAKE` / `THM-M-1469` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-1469`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1469-STATEMENT` / `THM-M-1469` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-1469-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1469`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -17400,7 +17400,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1470-PROOF`. Owned paths: `Stage1_Instances/THM-M-1470`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1470-RELEASE` / `THM-M-1470` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-1470-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1470`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1471-INTAKE` / `THM-M-1471` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
+- [_] `S56-M-1471-INTAKE` / `THM-M-1471` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-1471`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1471-STATEMENT` / `THM-M-1471` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-1471-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1471`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -17442,7 +17442,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1473-PROOF`. Owned paths: `Stage1_Instances/THM-M-1473`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1473-RELEASE` / `THM-M-1473` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-1473-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1473`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1474-INTAKE` / `THM-M-1474` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
+- [_] `S56-M-1474-INTAKE` / `THM-M-1474` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-1474`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1474-STATEMENT` / `THM-M-1474` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports.
   Depends: `S56-M-1474-INTAKE`. Owned paths: `Stage1_Instances/THM-M-1474`. Gate: rev-5.6 node-specific receipt and master acceptance.
