@@ -1,0 +1,198 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0840",
+  "item_id": "S56-M-0840-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1397,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "强完美图定理",
+  "name_en": "Strong perfect graph theorem",
+  "canonical_name": "Strong perfect graph theorem family for finite simple graphs",
+  "category": "组合数学 / 图论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "完美图的禁用子图刻画",
+  "literal_source_claim_en": "Forbidden-subgraph characterization of perfect graphs.",
+  "source_attribution": "Chudnovsky/Robertson/Seymour/Thomas, 2006 (catalog metadata)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_finite_simple_graph_spgt_family_with_primary_theorem_lead_but_exact_formal_definitions_binders_and_source_review_not_frozen",
+  "canonical_claim": null,
+  "statement_blocker": "The inspected primary source identifies Theorem 1.2 as perfect iff Berge for finite simple graphs, but no independently accepted source record yet freezes the incorporated definitions and proof boundary. The Lean target must still choose exact induced-subgraph quantification, ENat/Nat chromatic-number transport, clique-number coercion, chordless odd-hole and odd-antihole encodings, complement transport, typeclasses, binders, and boundary cases. Selecting an expression at intake would bypass the assigned statement phase.",
+  "target_decision": "preserve the source-backed strong-perfect-graph theorem family and require independent source acceptance plus exact encoding freeze in the statement phase",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "Mathlib.Combinatorics.SimpleGraph.Paths"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_accepted_source_definitions_and_exact_lean_encoding",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted statement must quantify over finite simple graphs and fix the vertex type universe, Fintype versus Finite presentation, decidable equality and adjacency boundary, and induced-subgraph representation.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open formal encoding of the source theorem that a finite simple graph is perfect if and only if it is Berge, equivalently that perfect graphs are exactly those with no odd hole or odd antihole.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before the exact proposition is frozen; the statement phase must resolve every case listed in scope-map.md without silently adding source-external hypotheses.",
+  "candidate_scope_not_credited": [
+    "Perfect G iff Berge G, with Perfect quantifying over all induced subgraphs and Berge excluding odd holes and odd antiholes",
+    "a direct forbidden-induced-subgraph statement excluding odd cycles of length at least five in G and its complement",
+    "a formulation over finite graph structures rather than Fintype-indexed SimpleGraph",
+    "the easy direction Perfect G implies Berge G",
+    "the hard direction Berge G implies Perfect G"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, and two-to-four-vertex graphs",
+    "empty induced vertex subsets and preservation of finiteness under induce",
+    "complete and edgeless graphs, bipartite graphs, and complements",
+    "cycles of length three, four, five, and even or odd larger lengths",
+    "chorded cycles versus induced chordless cycles",
+    "ENat-valued chromatic number versus Nat-valued clique number and exclusion of top"
+  ],
+  "excluded_substitutions": [
+    "the weak perfect graph theorem that complements preserve perfectness",
+    "only Perfect implies Berge or only Berge implies Perfect",
+    "excluding ordinary odd cycles instead of induced odd holes",
+    "excluding only odd holes or only odd antiholes",
+    "a theorem only for bipartite, chordal, comparability, or another specialized graph class",
+    "perfect matching, perfect group, perfect field, PerfectRing, or strongly regular graph results",
+    "a structure or hypothesis that stores the desired perfection or forbidden-subgraph conclusion",
+    "the untrusted catalog label 已验证 or discovery probe as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0839",
+      "name": "完美图定理",
+      "relationship": "weak perfect graph theorem: a graph is perfect iff its complement is perfect; distinct from the forbidden odd-hole/antihole characterization"
+    },
+    {
+      "theorem_id": "THM-M-0833",
+      "name": "四色定理",
+      "relationship": "planar graph coloring theorem; coloring infrastructure does not transfer its statement or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0834",
+      "name": "五色定理",
+      "relationship": "planar graph coloring bound; distinct graph class and conclusion"
+    }
+  ],
+  "source_status": "H1_primary_published_complete_proof_and_exact_theorem_family_inspected_but_immutable_source_admission_definition_premise_proof_node_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Maria Chudnovsky, Neil Robertson, Paul Seymour, and Robin Thomas, The strong perfect graph theorem, Annals of Mathematics 164(1) (2006), 51-229",
+      "doi": "10.4007/annals.2006.164.51",
+      "candidate_locator": "abstract and article pages 51-52 for definitions and Theorem 1.2; article pages 52-229 for proof",
+      "observed_pdf_sha256": "f70115028dea55dec5a97f3a50af82686782821a612ca672ad666a19c0eba4c2",
+      "candidate_summary": "For finite simple graphs, perfect means every induced subgraph has chromatic number equal to maximum-clique size; Berge excludes odd holes and odd antiholes; Theorem 1.2 states perfect iff Berge and the paper proves it.",
+      "inspection_status": "primary source lead inspected; repository-owned immutable preservation, complete incorporated-definition/premise/proof-node/correction crosswalk, and independent review remain open"
+    },
+    {
+      "citation": "Chudnovsky-Robertson-Seymour-Thomas, The strong perfect graph theorem, arXiv:math/0212070v1 (2002)",
+      "candidate_locator": "arXiv abstract metadata and immutable version identifier",
+      "candidate_summary": "Earlier public version with matching authors and theorem abstract.",
+      "inspection_status": "revision lead only; relationship and semantic/textual delta against the 2006 published edition are unaudited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "declarations": ["SimpleGraph.induce", "SimpleGraph.compl_adj"],
+      "boundary": "induced-graph and complement substrate only; no Perfect or Berge predicate"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Paths",
+      "declarations": ["SimpleGraph.Walk.IsCycle", "SimpleGraph.Walk.IsCycle.three_le_length"],
+      "boundary": "cycle infrastructure only; it does not package holes, antiholes, induced chordlessness, odd length at least five, or the root theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "declarations": ["SimpleGraph.chromaticNumber", "SimpleGraph.cliqueNum", "SimpleGraph.cliqueNum_le_chromaticNumber"],
+      "boundary": "coloring and clique-number substrate plus the universal easy inequality only; perfectness requires equality for every induced subgraph"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "repository_base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "repository_record": "Docs/researches/math_theorems.md:6166-6171",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22928-22953",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256": "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice and noncomputability policies for chromatic and clique numbers remain open until the exact proposition and dependency closure are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal proof bodies, axiom closure, transitive dependencies, and trust policy remain open",
+  "computation_profile": "No graph enumeration, decision procedure, SAT solver, oracle, experiment, or unchecked certificate is credited; the intended root is the general analytic/combinatorial theorem",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0840/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0840/README.md",
+    "Stage1_Instances/THM-M-0840/instance.json",
+    "Stage1_Instances/THM-M-0840/scope-map.md",
+    "Stage1_Instances/THM-M-0840/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0840/task-dag.json",
+    "Stage1_Instances/THM-M-0840/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0840/check_intake.py",
+    "Stage1_Instances/THM-M-0840/validation.md",
+    "Stage1_Instances/THM-M-0840/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent perfect-graph-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean graph-theory reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the primary edition, exact source crosswalk, formal encoding, and neighbor boundary before dependent work."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the external primary source must be lawfully preserved and rehashed for source admission.",
+  "freshness_and_revocation_policy": "Invalidate on source edition or correction, perfect/Berge/hole/antihole definition, graph finiteness or simplicity convention, induced-subgraph or complement encoding, chromatic/clique number transport, quantifier or boundary case, Lean target, dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. A primary theorem and proof source lead is identified, but exact source acceptance and formal encoding remain open. Pinned APIs supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

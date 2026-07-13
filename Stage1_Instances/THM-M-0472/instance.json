@@ -1,0 +1,239 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0472",
+  "item_id": "S56-M-0472-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1354,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "欧几里得算法",
+  "name_en": "Euclidean algorithm",
+  "canonical_name": "Euclidean algorithm for greatest common divisors",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "求最大公约数的算法",
+  "literal_source_claim_en": "An algorithm for finding the greatest common divisor.",
+  "source_attribution": "Euclid, circa 300 BCE (uncited catalog metadata)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "euclidean_gcd_algorithm_family_identified_but_catalog_does_not_select_recurrence_termination_total_correctness_or_program_refinement_and_exact_source_scope_is_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For two natural-number inputs, repeated remainder reduction terminates and returns a value that divides both inputs and is divisible by every common divisor.",
+  "statement_blocker": "The catalog supplies only an algorithm name/gloss. It does not choose input and output domains, subtraction or remainder presentation, pair orientation, division convention, stopping rule, termination measure, recurrence versus total-correctness versus refinement root, ordered binders, or zero/equal/relative-prime boundaries. No accepted edition, exact proposition/proof locator, translation/errata audit, or independent review licenses one selection.",
+  "target_disposition": "retain the classical Euclidean-gcd algorithm family and require a source-governed exact correctness contract before statement freeze",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Init.Data.Nat.Gcd"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "A source-selected contract built from Nat.gcd recurrence/termination and its common-divisor/greatest-divisor specification.",
+    "candidate_declarations": [
+      "Nat.gcd",
+      "Nat.gcd_zero_left",
+      "Nat.gcd_def",
+      "Nat.gcd_rec",
+      "Nat.gcd.induction",
+      "Nat.gcd_dvd_left",
+      "Nat.gcd_dvd_right",
+      "Nat.dvd_gcd",
+      "Nat.gcd_eq_iff"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_algorithm_contract_source_domain_orientation_and_boundaries_not_frozen",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_import-Init.Data.Nat.Gcd_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open pending source review. The closest pinned candidate takes m n : Nat and returns Nat in universe 0; positive-number, nonnegative-integer, signed-integer, and abstract Euclidean-domain encodings remain unselected.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open at exact-statement level: termination and/or correctness of a source-selected Euclidean gcd algorithm for a source-selected input domain.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is canonically excluded at intake. The statement phase must decide (0,0), exactly one zero input, equal inputs, ordered inputs, relatively-prime inputs, unit inputs, and signs if an integer domain is selected.",
+  "candidate_scope_not_credited": [
+    "the recurrence identity gcd(m,n)=gcd(n mod m,m)",
+    "termination of repeated remainder descent",
+    "a total-correctness specification combining termination and the universal gcd property",
+    "an explicit trace or executable algorithm refined to Nat.gcd",
+    "the repeated-subtraction presentation in Euclid Elements Book VII",
+    "the signed-integer or abstract Euclidean-domain algorithm"
+  ],
+  "degenerate_cases_to_resolve": [
+    "m=0 and n=0",
+    "exactly one input is zero",
+    "m=n and one input divides the other",
+    "relatively-prime inputs ending at one",
+    "ordered versus unordered inputs and recurrence orientation",
+    "positive-only versus natural inputs",
+    "negative inputs and remainder/sign normalization if integers are selected",
+    "subtraction versus division/remainder presentations"
+  ],
+  "excluded_substitutions": [
+    "a single concrete gcd computation",
+    "existence or characterization of a gcd without the source-selected algorithm behavior",
+    "only recurrence or only termination when the selected root requires total correctness",
+    "Bezout identity or the extended Euclidean algorithm used as the ordinary algorithm root",
+    "Euclid's lemma, prime factorization, Chinese remainder theorem, or another neighboring theorem",
+    "an arbitrary Euclidean-domain generalization silently substituted for the elementary root",
+    "a structure, hypothesis, custom axiom, oracle, unsafe path, or unchecked certificate containing the output or correctness result",
+    "the untrusted catalog verified label, theorem name, or API probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0471",
+      "name": "Fundamental theorem of arithmetic",
+      "boundary": "unique prime factorization is neither the Euclidean recurrence nor the algorithm correctness root"
+    },
+    {
+      "theorem_id": "THM-M-0473",
+      "name": "Bezout's identity",
+      "boundary": "the extended Euclidean algorithm can compute Bezout coefficients, but coefficient existence is a distinct theorem root"
+    },
+    {
+      "theorem_id": "THM-M-0477",
+      "name": "Chinese remainder theorem",
+      "boundary": "a downstream application of gcd and Bezout infrastructure, not algorithm correctness"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Init.Data.Nat.Gcd",
+      "declarations": [
+        "Nat.gcd",
+        "Nat.gcd_zero_left",
+        "Nat.gcd_def",
+        "Nat.gcd_rec",
+        "Nat.gcd.induction"
+      ],
+      "boundary": "direct natural-number logical model, base case, recurrence, and induction APIs; no source-selected canonical contract, expression fingerprint, runtime-override audit, terminal provenance, trust closure, or proof credit"
+    },
+    {
+      "module": "Init.Data.Nat.Gcd",
+      "declarations": [
+        "Nat.gcd_dvd_left",
+        "Nat.gcd_dvd_right",
+        "Nat.dvd_gcd",
+        "Nat.gcd_eq_iff"
+      ],
+      "boundary": "candidate correctness-characterization components; they do not by themselves select or connect an independently described algorithm root"
+    },
+    {
+      "module": "Mathlib.Data.Int.GCD",
+      "declarations": [
+        "Nat.xgcd",
+        "Nat.gcd_eq_gcd_ab",
+        "Int.gcd_eq_gcd_ab"
+      ],
+      "boundary": "extended-algorithm and Bezout infrastructure belongs directly to THM-M-0473 and is not imported or credited by this intake probe"
+    }
+  ],
+  "source_status": "H1_classical_algorithm_family_and_historical_proposition_leads_but_no_accepted_primary_edition_exact_combined_contract_definitions_translation_errata_mapping_or_independent_review",
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Euclid, Elements, Book VII, Propositions 1 and 2, in David E. Joyce's online English presentation",
+      "urls": [
+        "https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII1.html",
+        "https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html"
+      ],
+      "observed_sha256": [
+        "c7dc63ce4fb8244930f9343e9762800b1b88ad23eb4585b151ef3441063b76c7",
+        "c1974e37cfcce18c27840cce2f8270ae9787d1360fe979496d6c25a4c8f3499a"
+      ],
+      "status": "online translation pages inspected as discovery leads; lawful preservation, edition/translation review, incorporated definitions, modern combined-contract mapping, zero/equal-input policy, corrections/errata, and independent approval remain open"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "902d9ce008e88a35a2307c85355560a230cc33c2",
+    "repository_base_tree": "dfc20d8141f18f6b09a03e818acfff408e836714",
+    "repository_record": "Docs/researches/math_theorems.md:3469-3474",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:12947-12972",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "5341754d4b03798b52c6118ebc9200178540fe802834e6c10f57eebd46ce6019",
+    "stage0_record_excerpt_sha256": "babd053f8f5695282dec2b7b38ba407f9c61676e880e58d425921873526c9073",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "target_entry_canonical_sha256": "f77a4082a30f044783ae173273e75038207e5d9a0e6cc4edec702dea7bf814ba",
+    "authoritative_blueprint_sha256": "34e913419c1f9e24ed1d91fda9f1450d19f01ab22d60a7af5f9a00152cb04373",
+    "execution_dag_sha256": "b1cd5bf2e918865015bab425e20c42df1c2ad26aff9a4e849960d8bc7539e58c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "euclid_joyce_vii_1_sha256": "c7dc63ce4fb8244930f9343e9762800b1b88ad23eb4585b151ef3441063b76c7",
+    "euclid_joyce_vii_2_sha256": "c1974e37cfcce18c27840cce2f8270ae9787d1360fe979496d6c25a4c8f3499a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_nat_gcd_basic_blob": "26cceb810a4f00ee7e7f975c2e918143e248bb31",
+    "mathlib_nat_gcd_basic_sha256": "14a4b4f6236964d4bea971bf8e9a32410caef76d4475049df9539c1457ccc8a0",
+    "lean_nat_gcd_logical_model_sha256": "ae6a232a214dcac26f74475b685686736b620f5b3b2f529b70e28862593eda08"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean dependent type theory is intended; the probed recurrence and gcd characterization report propext and Quot.sound, while accepted root policy and transitive trust closure remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 plus manifest-pinned mathlib environment; the probe imports only Init.Data.Nat.Gcd while exact target imports, executable/logical-model boundary, runtime overrides, terminal bodies, transitive dependencies, and trust policy remain open",
+  "computation_profile": "kernel-decision-probe-only/1.0: decide checks gcd(48,18)=6 as a boundary example but supplies no root proof credit. Nat.gcd has kernel/compiler arbitrary-precision overrides whose correspondence and TCB impact remain downstream; no external solver, oracle, experiment, or unchecked certificate is accepted.",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0472/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0472/README.md",
+    "Stage1_Instances/THM-M-0472/instance.json",
+    "Stage1_Instances/THM-M-0472/scope-map.md",
+    "Stage1_Instances/THM-M-0472/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0472/task-dag.json",
+    "Stage1_Instances/THM-M-0472/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0472/check_intake.py",
+    "Stage1_Instances/THM-M-0472/validation.md",
+    "Stage1_Instances/THM-M-0472/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent history-of-number-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the Euclid-to-modern algorithm mapping, exact recurrence/termination/correctness boundary, domains, executable/logical-model relationship, transports, and trust evidence; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or dependent statement execution",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog, attribution, source edition/translation/correction/errata, algorithm or target change; domain, remainder, orientation, recurrence, termination, correctness, trace, runtime, or boundary decision; Lean target, toolchain or dependency pin; assurance profile, validator, or any owned artifact change.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake pending master acceptance. The algorithm family, ambiguity map, historical leads, pinned formal candidates, profiles, ownership, and six-node open DAG are recorded. There is no canonical Lean expression or fingerprint, credited proof body, accepted receipt, H0, M0, R0, audit completion, theorem completion, or release."
+}

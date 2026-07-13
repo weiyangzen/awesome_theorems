@@ -1,0 +1,219 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0483",
+  "item_id": "S56-M-0483-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1364,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "梅森素数判定",
+  "name_en": "Mersenne primality determination",
+  "canonical_name": "Mersenne primality-determination family (exact 1876 source proposition open)",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_attribution": "Edouard Lucas; 1876 (catalog metadata only)",
+  "literal_source_claim_zh": "梅森数的素性检验",
+  "literal_source_claim_en": "Primality testing/determination of Mersenne numbers.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "Repository catalog wording (not yet an exact proposition): 梅森数的素性检验 (English translation: primality testing/determination of Mersenne numbers).",
+  "canonical_claim_status": "mersenne_primality_family_identified_but_exact_1876_result_criterion_quantifiers_hypotheses_conclusion_and_boundary_with_THM-M-0484_open",
+  "canonical_claim": "The repository owns the Mersenne-primality theorem family described by its literal catalog gloss and Lucas/1876 metadata; the exact mathematical proposition remains blocked on the source and cross-target choices recorded in the scope map.",
+  "statement_blocker": "The catalog supplies no formula, quantifier, Mersenne-number definition, recurrence, hypothesis, conclusion, source title, edition, page, or theorem locator. Its 1876 date closely matches Lucas's proof that the exponent-127 Mersenne number is prime, while the generic test reading overlaps the distinct 1930 Lucas-Lehmer target THM-M-0484. Selecting either without an admitted source and independent cross-target review would invent or substitute scope.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "candidate_expressions": [
+      "Nat.Prime (mersenne 127)",
+      "forall p : Nat, Nat.Prime (mersenne p) -> Nat.Prime p",
+      "forall p : Nat, 3 <= p -> (LucasLehmerTest p <-> Nat.Prime (mersenne p))"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_primary_source_and_THM-M-0484_scope_disambiguation",
+    "module_candidates": [
+      "Mathlib.NumberTheory.LucasLehmer",
+      "Archive.Examples.MersennePrimes"
+    ],
+    "declaration_candidates": [
+      "mersenne",
+      "Nat.Prime.of_mersenne",
+      "LucasLehmer.LucasLehmerTest",
+      "LucasLehmer.lucasLehmerResidue",
+      "lucas_lehmer_sufficiency",
+      "lucas_lehmer_necessity"
+    ],
+    "candidate_relationship": "Pinned APIs cover a necessary exponent property, modern Lucas-Lehmer directions, and certified finite examples. The source mapping and ownership of the general criterion versus THM-M-0484 are unresolved, so none is canonical or credited.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: candidate encodings use natural exponents and natural subtraction in mersenne p = 2 ^ p - 1, but the source may fix exponent 127 or specify a historical sequence and congruence. Domain, subtraction, modular carrier, recurrence, and implicit-parameter choices require source approval.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not choose primality of one Mersenne number, a necessary exponent condition, a historical test criterion, the modern Lucas-Lehmer correctness equivalence, or an algorithmic decision claim.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "Lucas's 1876 result that the Mersenne number 2 ^ 127 - 1 is prime",
+    "if 2 ^ p - 1 is prime then the natural exponent p is prime",
+    "for 3 <= p, the modern Lucas-Lehmer residue test holds exactly when 2 ^ p - 1 is prime",
+    "a source-defined historical Lucas recurrence or congruence criterion",
+    "certified computation of one or more concrete Mersenne primes"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_cases_to_resolve": [
+    "exponents 0 and 1 under natural subtraction",
+    "exponent 2, for which mersenne 2 is prime but LucasLehmerTest 2 is false",
+    "composite exponents and whether exponent primality is a premise or consequence",
+    "recurrence indexing p - 2 and its behavior below the intended lower bound",
+    "zero modulus or trivial ZMod behavior induced by boundary exponents"
+  ],
+  "excluded_substitutions": [
+    "the distinct THM-M-0484 Lucas-Lehmer fast-test target without explicit reviewed target reallocation",
+    "the generic Mathlib.NumberTheory.LucasPrimality certificate as a Mersenne-specific root",
+    "Nat.Prime.of_mersenne alone as a complete primality-test correctness theorem",
+    "a finite list or single convenient Mersenne-prime example replacing a source-defined general criterion",
+    "a predicate, premise, or certificate that assumes the desired primality or test result",
+    "the untrusted verified label, a theorem name, source URL, or intake probe used as statement or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0484",
+      "name": "卢卡斯-莱默检验",
+      "relationship": "adjacent 1930 Lucas/Lehmer fast-test target; the modern recurrence iff is presumptively its scope and no status or proof credit transfers"
+    },
+    {
+      "theorem_id": "THM-M-0405",
+      "name": "Bilu theorem",
+      "relationship": "another target whose audit classifies Lucas-Lehmer primality as a nearby non-target while studying primitive divisors; its artifacts grant no credit here"
+    }
+  ],
+  "source_status": "H1_strong_1876_Lucas_source_lead_and_formal_corroboration_but_no_immutable_pinpoint_primary_statement_premise_crosswalk_errata_audit_or_independent_review",
+  "human_source_candidates_not_credited": [
+    {
+      "citation": "An exact 1876 publication by Edouard Lucas concerning large prime numbers and Mersenne numbers (title, edition, archival identifier, section, and page still to be admitted)",
+      "status": "strong historical lead from catalog metadata and modern corroboration; exact statement, definition chain, proof boundary, correction status, and review remain open"
+    },
+    {
+      "citation": "Pinned mathlib Archive/Examples/MersennePrimes.lean at revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, lines 64-66",
+      "status": "labels and checks (mersenne 127).Prime as Edouard Lucas (1876); modern formal discovery evidence, not the required primary-source crosswalk"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.NumberTheory.LucasLehmer",
+      "declaration": "Nat.Prime.of_mersenne",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "Nat.Prime (mersenne p) implies Nat.Prime p",
+      "status": "exact-topic necessary condition only; not a complete primality test and no source mapping"
+    },
+    {
+      "module": "Mathlib.NumberTheory.LucasLehmer",
+      "declaration": "lucas_lehmer_sufficiency",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "for 1 < p, LucasLehmerTest p implies Nat.Prime (mersenne p)",
+      "status": "one modern correctness direction; likely THM-M-0484 scope and no accepted target mapping"
+    },
+    {
+      "module": "Mathlib.NumberTheory.LucasLehmer",
+      "declaration": "lucas_lehmer_necessity",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "for 3 <= p, Nat.Prime (mersenne p) implies LucasLehmerTest p",
+      "status": "converse modern direction with a stronger lower bound; no unqualified iff or accepted target mapping"
+    },
+    {
+      "module": "Archive.Examples.MersennePrimes",
+      "declaration": "anonymous example at lines 65-66",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "Nat.Prime (mersenne 127), labeled Edouard Lucas (1876)",
+      "status": "strong finite candidate and date corroboration; anonymous archive example is not an admitted canonical declaration or primary source"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "2226f559136f12fde46b1bf73cdf629043b8a648",
+    "repository_base_tree": "33cb254ed06b1391379b8e7f88c5e23188957b62",
+    "repository_record": "Docs/researches/math_theorems.md:3546-3551",
+    "neighbor_repository_record": "Docs/researches/math_theorems.md:3553-3558",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:13244-13269",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "f38c5bc96d27a4ac8a740f0725a6d0762d62c685c2b71e1be2103eceab8df48b",
+    "stage0_projection_excerpt_sha256": "84d10d3669aa9cfb2851532415d9763cfc779d9fa3ffa4d9939f5af287d4d302",
+    "manifest_entry_sha256": "9efd4017ad8eb888de6c78bb3bc28fd31a7b43fdfd53cfa0e5a39a04cb4c9793",
+    "execution_dag_intake_entry_sha256": "64311c6d515d5aeefc33d21a25b23290ad9ec0b82f4357207f1c126bfea2167d",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "c45d12e751608e41bc01441789450fdd35808c8ae58fa64370e4c32a2eeab096",
+    "execution_dag_sha256": "c3785ddf761245d5d0d421940ce4c06ff01c607e2478ffd13e356a3fc1d87829",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_lucas_lehmer_source_sha256": "6321c156165f59d49954c0e6e47706e765c0277df20b97a20333ceba29e8bead",
+    "mathlib_mersenne_examples_source_sha256": "282263345e54382728a88aaa4069a301fd4451de94026f9c48c50b4907fe5ff0"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "stage1-foundation-profile/1.0-planned: Lean 4 dependent type theory is intended; nearby pinned theorem probes report propext, Classical.choice, and Quot.sound, but no exact target or accepted transitive axiom policy is frozen at intake",
+  "tcb_profile": "stage1-tcb-profile/1.0-planned: Lean kernel 4.29.0 and pinned mathlib are the intended base; exact root imports, terminal proof-body provenance, transitive dependencies, computation path, and trust closure remain open",
+  "computation_profile": "stage1-computation-profile/1.0-planned: no probable-prime test, sampled exponent, unchecked recurrence output, native oracle, or generated certificate is credited; any computational root must use a source-approved exact domain and kernel-replayed certificate",
+  "formal_system": "lean4-mathlib-adapter/1.0-planned under machine-theorem-assurance/1.0",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0483/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0483/README.md",
+    "Stage1_Instances/THM-M-0483/instance.json",
+    "Stage1_Instances/THM-M-0483/scope-map.md",
+    "Stage1_Instances/THM-M-0483/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0483/task-dag.json",
+    "Stage1_Instances/THM-M-0483/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0483/check_intake.py",
+    "Stage1_Instances/THM-M-0483/validation.md",
+    "Stage1_Instances/THM-M-0483/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent number-theory and historical-source reviewer",
+    "formal_reviewer": "unassigned independent Lean number-theory reviewer",
+    "cross_target_scope_reviewer": "unassigned reviewer for the THM-M-0483 / THM-M-0484 boundary",
+    "reviewer_policy": "Source, formal, and cross-target reviewers must independently approve the exact statement, historical source, formal transports, and ownership boundary; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition, theorem locator, definition chain, proof boundary, attribution, translation, correction or erratum, cross-target allocation, Mersenne definition, exponent domain, recurrence, residue, lower bound, binder, hypothesis, conclusion or boundary choice, canonical Lean target or transport, toolchain or dependency pin, assurance profile, validator, or any owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the literal catalog family, Lucas/1876 lead, preferred exponent-127 disambiguation candidate, exact-topic pinned APIs, THM-M-0484 boundary, proposition-changing choices, exclusions, and open task DAG. No exact canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
