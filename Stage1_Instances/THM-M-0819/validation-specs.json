@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "lifecycle_mode": "executing",
+  "item_id": "S56-M-0819-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0819",
+  "registry_denominator_sha256": "3e19428b16575891198438f798957373f440bf15623c22c44df4c1f69239742c",
+  "registry_sha256": "745b3cd0536f5a84912eeaa88a41b0b26a39158ed81a47b66850e51cb0fae1f8",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0819-OBLIGATION-STRUCTURE-AND-LEAN",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0819/check_obligation_tree.py"
+      ],
+      "env_allowlist": {
+        "LC_ALL": "C",
+        "LANG": "C",
+        "NO_COLOR": "1",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "timeout_seconds": 240,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "report exact obligation, edge, ledger, open-composition, denominator, Lean-output, and false-completion values"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0819-ROOT",
+        "M0819-S-DEFINITIONS",
+        "M0819-S-DOMAIN",
+        "M0819-S-TRANSPORT",
+        "M0819-S-FOUNDATION",
+        "M0819-N-FINITE-RESTRICTION",
+        "M0819-N-COLORING",
+        "M0819-B-WIDTH-ZERO",
+        "M0819-B-WIDTH-POSITIVE",
+        "M0819-C-LOCAL-COLORINGS",
+        "M0819-L-FINITE-DILWORTH",
+        "M0819-B-FINITE-INDUCTION",
+        "M0819-C-ADJOIN-ELEMENT",
+        "M0819-L-LOW-WIDTH-INDEX",
+        "M0819-L-DUAL-INDEX",
+        "M0819-X-FINITE-TAIL",
+        "M0819-L-FINITE-EXACTNESS",
+        "M0819-L-RADO-SELECTION",
+        "M0819-C-GLOBAL-COLORING",
+        "M0819-L-GLOBAL-PROPER",
+        "M0819-C-COLOR-CLASSES",
+        "M0819-L-FIBERS-CHAIN",
+        "M0819-L-UNIQUE-MEMBERSHIP",
+        "M0819-T-POSITIVE-ASSEMBLE",
+        "M0819-T-WIDTH-BRANCHES",
+        "M0819-T-ROOT-ASSEMBLE",
+        "M0819-X-PRIMARY-SOURCE",
+        "M0819-X-FINITE-CANDIDATE",
+        "M0819-X-RADO-PROVENANCE",
+        "M0819-X-PROVENANCE",
+        "M0819-X-TRUST",
+        "M0819-X-READABLE",
+        "M0819-X-WORKFLOW"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0819.DilworthPrimaryTarget",
+        "Stage1Instances.THM_M_0819_Obligations.zeroWidth_of_statement",
+        "Stage1Instances.THM_M_0819_Obligations.widthBranches_of_positive_and_zero",
+        "Stage1Instances.THM_M_0819_Obligations.expanded_of_widthBranches",
+        "Stage1Instances.THM_M_0819_Obligations.checked_root_transport",
+        "Stage1Instances.THM_M_0819_Obligations.root_of_widthBranches",
+        "Stage1Instances.THM_M_0819_Obligations.root_of_terminal"
+      ],
+      "coverage_boundary": "The recipe structurally covers every frozen obligation. Kernel coverage is limited to the named exact target, zero-width theorem, and conditional composition declarations; it supplies no positive-width inhabitant or accepted closure."
+    }
+  ],
+  "status_boundary": "This bundle recipe validates the frozen registry, graph structure, substrate anchor, and conditional Lean interfaces only. Structural coverage of an obligation supplies no kernel or semantic proof closure for it."
+}

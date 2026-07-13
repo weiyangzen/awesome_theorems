@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1184-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1184-RELEASE",
+  "theorem_id": "THM-M-1184",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1184/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Every fresh Lean subprocess runs inside bubblewrap --unshare-net. The checker makes no network request and reuses the automation-provided pinned .lake artifacts read-only; this remains warm nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line positive narrow-replay and blocked terminal-decision summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1184-ROOT",
+    "M1184-S-DEFINITIONS",
+    "M1184-S-FOUNDATION",
+    "M1184-C-PRODUCT",
+    "M1184-C-CONSTANT",
+    "M1184-W-INTEGRATE",
+    "M1184-W-ORDER",
+    "M1184-T-WEAK",
+    "M1184-S-SEPARATION",
+    "M1184-C-POTENTIALS",
+    "M1184-L-GAP",
+    "M1184-W-REVERSE",
+    "M1184-T-STRONG",
+    "M1184-T-ASSEMBLE",
+    "M1184-X-SOURCE",
+    "M1184-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1184.KantorovichDualityTarget",
+    "Stage1Instances.THM_M_1184.root_of_duality_packages",
+    "Stage1Instances.THM_M_1184.weakDuality",
+    "Stage1Instances.THM_M_1184.kantorovichDuality_of_reverse",
+    "Stage1Instances.THM_M_1184.Validation.differentialWeakDuality",
+    "Stage1Instances.THM_M_1184.ReleaseCheck.localWeakDuality",
+    "Stage1Instances.THM_M_1184.ReleaseCheck.differentialWeakDuality",
+    "Stage1Instances.THM_M_1184.ReleaseCheck.conditionalRoot"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation plus a trust-zero, network-isolated, fresh-output replay of the statement, conditional composition, local weak-duality proof, and same-worker differential weak proof. It cannot close reverse duality or the exact root, accept the validation dependency, supply H0/R0 or complete provenance/TCB, perform a clean empty-cache cold/offline reproduction, provide distinct signed runners or an independent minimal verifier, assemble a deterministic release bundle, or establish AUDIT-Z/THEOREM-Z."
+}

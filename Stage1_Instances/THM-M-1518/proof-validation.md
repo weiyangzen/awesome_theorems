@@ -1,49 +1,61 @@
-# THM-M-1518 proof attempt
+# THM-M-1518 proof-phase validation
 
-Item: `S56-M-1518-PROOF`  
-Date: `2026-07-12`  
-Base revision: `6799b5daa49cdaafb2a4d4eab837b06d9f795666`
+Item: `S56-M-1518-PROOF`
+Date: `2026-07-14`
+Base revision: `bb6fb28ac1c55ecb52f3f1c84e7fbb35c26b47ad`
 
 ## Verdict
 
-`blocked`: the exact theorem has no eligible proof body in the repository or
-the pinned mathlib closure. `ObligationTree.exactTarget_of_packages` is a real
-kernel-checked composition theorem, but it requires inhabitants of
-`FirstVariationFormula` and `WeakToPointwise`. Neither inhabitant exists. The
-frozen minimum root cut set is `M1518-N-DIFFERENTIATE`, `M1518-L-IBP`, and
-`M1518-L-FUNDAMENTAL`.
+`provisional_worker_selftest`: the exact frozen Lean target is kernel-closed.
+`Proof.lean` proves the first-variation identity by differentiating under the
+interval integral. `WeakToPointwise.lean` proves the analytic bridge using
+fixed-endpoint integration by parts, the smooth-test fundamental lemma, and a
+continuity upgrade. `ExactProof.lean` composes both packages with the frozen
+`ObligationTree.exactTarget_of_packages` certificate.
 
-Closing those nodes requires substantial new variational-analysis
-formalization: differentiation of the parameterized interval action,
-fixed-endpoint integration by parts for the momentum term, and a fundamental
-lemma plus continuity upgrade producing the pointwise `HasDerivAt` conclusion.
-Pinned mathlib contains prerequisite APIs but no terminal declaration. The
-audited Physlib declarations are nonterminal, use different pins, and are not
-in this repository's dependency closure. The historical `S1_M_187` proves the
-opposite implication and cannot be substituted.
+The public declarations `firstVariationFormula`, `weakToPointwise`, and
+`stationaryActionEulerLagrange` report exactly `propext`, `Classical.choice`,
+and `Quot.sound`. Transitive `assert_no_sorry` checks pass. No axiom,
+placeholder, unsafe declaration, oracle, broadened theorem, or unpinned
+dependency was added.
 
-No proof source, axiom, placeholder, unsafe declaration, weakened statement,
-or unpinned dependency was added. Because the assigned proof phase is not
-self-tested complete, this attempt deliberately does not create
-`.stage1-worker-selftest.json`.
+This is proof-phase evidence, not theorem completion. The frozen obligation
+graph still records its pre-proof M4 observation, and the accepted state is
+unchanged until the integration lane reviews the receipt. Validation, release,
+complete trust/provenance review, cold offline replay, independent verification,
+H0/R0, AUDIT-Z, and THEOREM-Z remain open.
 
-## Narrow validation evidence
+## Proof route
 
-All commands ran from the worker clone on `2026-07-12`. The pre-existing
-`Formalizations/Lean/.lake` symlink points at the canonical pinned artifacts;
-it was reused but not modified. No update, build, clone, fetch, or dependency
-mutation was run.
+The first-variation proof obtains a compact uniform bound for the parameter
+derivative over `[-1, 1] × uIcc a b`, then applies
+`intervalIntegral.hasDerivAt_integral_of_dominated_loc_of_deriv_le`.
+
+For the pointwise equation, the proof sets the position derivative to `A` and
+velocity derivative to `P`. For arbitrary `v`, it tests the scalar residual
+`A t v - deriv P t v` against every smooth compactly supported `g` in the open
+interval. The variation `g • v` is admissible, integration by parts removes
+`deriv g`, and the fundamental lemma makes the residual almost everywhere
+zero. `Measure.eqOn_open_of_ae_eq` upgrades this to pointwise equality by
+continuity; extensionality in `v` yields the continuous-linear-map derivative.
+
+## Commands and results
+
+All commands ran in the worker clone with the existing pinned Lean artifacts.
+No `lake update`, `lake build`, clone, fetch, or `.lake` mutation was run.
 
 | Command | Exit | Result |
 |---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | Standard passes: 15 assurance groups and 1546 uniform-L0 Lean 4 targets. |
-| `python3 scripts/stage1_target.py check` | 0 | Manifest passes: 1546 unique targets, ranks 1 through 1546, all L0/rework-required. |
-| `python3 scripts/stage1_target.py show THM-M-1518` | 0 | Rank 187, planned, hard-mathlib-anchor lane, theorem incomplete. |
-| `python3 Stage1_Instances/THM-M-1518/check_obligation_tree.py` | 0 | Statement and conditional composition elaborate with `lake env lean`; 12 obligations and 26 typed edges pass; root remains open at M4. |
-| `rg -n -i 'StationaryActionEulerLagrangeTarget\|FirstVariationFormula\|WeakToPointwise\|stationary action\|least action\|Euler[-_ ]?Lagrange\|fundamental theorem of variational' --glob '*.lean' Stage1_Instances/THM-M-1518 Formalizations/Lean/AwesomeTheorems Formalizations/Lean/.lake/packages/mathlib/Mathlib` | 0 | Hits contain this conditional dossier, historical metadata/wrappers, and prerequisite APIs; no exact terminal proof body was found. |
-| `rg -n '^\\s*(sorry\|admit\|axiom)(\\s\|$)\|sorryAx\|unsafe' Stage1_Instances/THM-M-1518 -g '*.lean'` | 1 | No prohibited Lean declaration token found; exit 1 means no match. |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 targets passed. |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique ranks and the ordered manifest passed. |
+| `python3 scripts/stage1_target.py show THM-M-1518` | 0 | Rank 187; authoritative state remains planned and theorem incomplete. |
+| `python3 Stage1_Instances/THM-M-1518/check_statement.py` | 0 | Exact-expression SHA-256 `4cc157...979f`; all four statement mutations were distinguished. |
+| `python3 Stage1_Instances/THM-M-1518/check_obligation_tree.py` | 0 | Frozen registry, 12 obligations, 26 typed edges, and conditional composition passed; its pre-proof root boundary remains open. |
+| `python3 Stage1_Instances/THM-M-1518/check_proof.py` | 0 | Fresh temporary `--trust=0` oleans elaborated the statement, tree, both analytic packages, and exact root; axiom and transitive-sorry checks passed. |
+| `python3 -m json.tool Stage1_Instances/THM-M-1518/proof-receipt.json` | 0 | Provisional node receipt is valid JSON. |
+| `rg -n '\b(sorry\|admit\|sorryAx\|implemented_by\|native_decide)\b\|^[[:space:]]*(axiom\|unsafe\|opaque\|external\|constant)\b' Stage1_Instances/THM-M-1518 -g '*.lean'` | 1 | Expected no-match exit; no prohibited Lean construct. |
+| `git diff --check -- Stage1_Instances/THM-M-1518 .stage1-worker-selftest.json` | 0 | No whitespace errors. |
+| `git diff --no-index --check /dev/null <new-file>` for each new owned proof artifact and the worker packet | 1 each | Expected new-file difference exits with no whitespace diagnostics. |
 
-The obligation-tree Lean run reports that
-`exactTarget_of_packages` depends only on `propext`, `Classical.choice`, and
-`Quot.sound`. That establishes conditional composition only; it does not
-inhabit either open analytic package or close the canonical root.
+The node-specific provisional receipt is `proof-receipt.json`. Only the
+integration lane may accept it or change authoritative item state.
