@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "recipe_id": "S56-M-1011-VALIDATION-network-isolated-v1",
+  "item_id": "S56-M-1011-VALIDATION",
+  "theorem_id": "THM-M-1011",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1011/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean invocation runs through bubblewrap with a read-only host root, fresh writable /tmp outputs, --unshare-net, --trust=0, fixed locale/timezone/thread count, and an explicit LEAN_PATH. The canonical pinned compiled artifacts are reused warm and read-only, so this is narrow nonrelease replay rather than a section 10.6 cold build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact PASS line naming the network-isolated trust-zero replay, observed classical axioms, and all fail-closed authority/release gates"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1011-ROOT",
+    "M1011-S-DEFINITIONS",
+    "M1011-S-DOMAIN",
+    "M1011-S-BOUNDARY",
+    "M1011-S-TRANSPORT",
+    "M1011-S-FOUNDATION",
+    "M1011-N-SEPARATION",
+    "M1011-B-TIGHT-COMPACT",
+    "M1011-B-COMPACT-TIGHT",
+    "M1011-L-PROKHOROV",
+    "M1011-L-COMPACT-TIGHT",
+    "M1011-T-ASSEMBLE",
+    "M1011-X-SOURCE",
+    "M1011-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1011.CanonicalStatement",
+    "Stage1Instances.THM_M_1011.ObligationTree.canonical_of_t2",
+    "Stage1Instances.THM_M_1011.Proof.canonical",
+    "Stage1Instances.THM_M_1011.Validation.independentlyReconstructedCanonical",
+    "MeasureTheory.isCompact_closure_of_isTightMeasureSet",
+    "MeasureTheory.isTightMeasureSet_of_isCompact_closure"
+  ],
+  "scope_boundary": "Network-isolated warm-cache replay of the exact statement, frozen conditional composition, repo-local quotient proof, same-worker differential quotient reconstruction, observed axioms, parser-aware sorry checks, and selected pinned source/blob/olean/license provenance. Covered obligation IDs denote provisional corroboration only. Proof master acceptance, quotient-route graph reconciliation, accepted foundation policy, complete transitive declaration/TCB/SBOM closure, cold offline restoration, and distinct signed independent verification remain fail-closed."
+}
