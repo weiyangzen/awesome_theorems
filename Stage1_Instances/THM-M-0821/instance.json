@@ -1,0 +1,213 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0821",
+  "item_id": "S56-M-0821-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1379,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Sperner定理",
+  "name_en": "Sperner's theorem",
+  "canonical_name": "Sperner's theorem for antichains in a finite Boolean lattice (exact claim variant open)",
+  "category": "组合数学 / 图论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "幂集反链的最大大小",
+  "literal_source_claim_en": "The maximum size of an antichain in a power set.",
+  "source_attribution": "Emanuel Sperner; 1928 (catalog metadata, confirmed by the inspected primary paper)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "the_source_theorem_family_is_identified_but_the_catalog_does_not_select_upper_bound_attainment_or_full_equality_classification",
+  "canonical_claim": null,
+  "statement_blocker": "The inspected primary theorem states the middle-binomial upper bound, attainability by middle layers, and the complete even/odd equality classification, while the catalog says only 'maximum size'. Selecting the available mathlib upper-bound declaration as the root would silently omit potentially intended source content. Independent source review and an explicit variant decision must precede statement freeze.",
+  "target_decision": "retain the source-defined finite Boolean-lattice theorem family at provisional H1/M3/R4 and freeze no canonical proposition until the statement variant is independently reviewed",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": ["Mathlib.Combinatorics.SetFamily.LYM"],
+    "declaration_candidate": "IsAntichain.sperner",
+    "candidate_expression": "{alpha : Type u} [Fintype alpha] {A : Finset (Finset alpha)} -> IsAntichain (fun x y => x \u2286 y) (A : Set (Finset alpha)) -> A.card \u2264 Nat.choose (Fintype.card alpha) (Fintype.card alpha / 2)",
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_exact_claim_variant_and_independent_source_review_open",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Candidate domain: a finite type alpha in an arbitrary Lean universe and a finite family A of finite subsets of alpha. The canonical ground-set and family encodings, universe, decidable equality, coercions, and transports are not frozen.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open variant: universal upper bound only, exact maximum with an attaining middle layer, or upper bound plus the full equality classification from the primary source.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_cases_to_resolve": [
+    "empty ground set n = 0 and its unique middle layer",
+    "one-element ground set n = 1 and the two adjacent middle layers",
+    "empty and singleton antichain families",
+    "natural-number division and lower-versus-upper middle rank when n is odd",
+    "strict versus non-strict inclusion and equality of two family members",
+    "literal equality of extremal families versus equivalence under relabeling or complement"
+  ],
+  "candidate_scope_not_credited": [
+    "the upper bound alone as stated by pinned IsAntichain.sperner",
+    "the maximum-cardinality equality obtained by adjoining a middle-layer witness",
+    "the full primary-source characterization of equality for even and odd ground-set sizes",
+    "the LYM inequality and local shadow inequalities used in mathlib's proof architecture",
+    "an abstract Sperner-order theorem transported to the finite Boolean lattice"
+  ],
+  "excluded_substitutions": [
+    "LYM, a shadow inequality, or a middle-layer count used in place of the root conclusion",
+    "a theorem for an arbitrary finite poset without a checked Boolean-lattice specialization",
+    "Dilworth, Mirsky, Erdos-Ko-Rado, or another neighboring theorem",
+    "multiset, weighted, infinite, uniform-only, or cross-Sperner generalizations",
+    "a structure that stores the desired bound or equality cases as assumptions",
+    "enumeration, numerical experiments, or unchecked certificates",
+    "the untrusted catalog label or the intake API probe treated as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0819",
+      "name": "Dilworth定理",
+      "relationship": "general finite-poset chain decomposition; no root proof or source credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0820",
+      "name": "Mirsky定理",
+      "relationship": "dual chain/antichain decomposition theorem; separate target"
+    },
+    {
+      "theorem_id": "THM-M-0822",
+      "name": "Erdos-Ko-Rado定理",
+      "relationship": "maximum intersecting uniform-family theorem; separate hypotheses and extremizers"
+    }
+  ],
+  "source_status": "H1_primary_statement_and_proof_pages_inspected_but_accountable_translation_full_mapping_errata_audit_and_independent_review_open",
+  "primary_source": {
+    "citation": "Emanuel Sperner, Ein Satz uber Untermengen einer endlichen Menge, Mathematische Zeitschrift 27 (1928), 544-548",
+    "doi": "10.1007/BF01171114",
+    "archive": "Goettingen Digitization Centre, PPN266833020_0027 / LOG_0034",
+    "stable_purl": "http://resolver.sub.uni-goettingen.de/purl?GDZPPN002369915",
+    "observed_pdf_sha256": "236629931717954288c77d99e487a1ff98c40af2fb29908eb06738ee253bbbde",
+    "observed_pdf_bytes": 447376,
+    "observed_pages": "printed pages 544-548; six-page PDF includes one archive cover/terms page",
+    "statement_locator": "printed page 544",
+    "proof_locator": "printed pages 545-548",
+    "inspection_status": "source theorem family, bound, attainability observation, and equality cases inspected; accountable translation, complete node mapping, correction/errata audit, and independent review remain open; archive reproduction terms are respected by recording only locators and digests rather than vendoring the PDF"
+  },
+  "bibliographic_crosscheck": {
+    "source": "Crossref API work record for DOI 10.1007/BF01171114",
+    "observed_json_sha256": "bbc733df69e609e38875f64569f7f77586f48bff317b772ae39989f0c543bb7a",
+    "observed_json_bytes": 2314,
+    "boundary": "confirms author, year, volume, issue, pages, and DOI; returned title contains a replacement character and is not used for exact transcription"
+  },
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SetFamily.LYM",
+      "declaration": "IsAntichain.sperner",
+      "boundary": "pinned upper-bound declaration elaborates and is documented as Sperner's theorem; exact root identity, terminal body provenance, trust closure, and source transport are not audited at intake"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SetFamily.LYM",
+      "declarations": [
+        "Finset.lubell_yamamoto_meshalkin_inequality_sum_card_div_choose",
+        "Finset.lubell_yamamoto_meshalkin_inequality_sum_inv_choose"
+      ],
+      "boundary": "candidate proof dependencies only; not substitutes for the root and not provenance-audited"
+    },
+    {
+      "modules": [
+        "Mathlib.Data.Finset.Slice",
+        "Mathlib.Data.Finset.Powerset"
+      ],
+      "declarations": [
+        "Finset.powersetCard",
+        "Finset.card_powersetCard",
+        "Set.sized_powersetCard",
+        "Finset.slice"
+      ],
+      "boundary": "middle-layer and finite-family substrate only; no equality-classification proof"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "902d9ce008e88a35a2307c85355560a230cc33c2",
+    "repository_base_tree": "dfc20d8141f18f6b09a03e818acfff408e836714",
+    "repository_record": "Docs/researches/math_theorems.md:6033-6038",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22415-22440",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_block_sha256": "ef68654e36992bb713ce6fc9d6d2e5ab349888080a58b4d9fc63d94204fcd650",
+    "stage0_projection_block_sha256": "094590af5afd926edda1294015a88c8b1362efa373342d003a64560a68c4d01a",
+    "manifest_entry_canonical_sha256": "9ad45db31fd49d60a05d91fb8fddd26c2515c19d2451eb1638369a830231215a",
+    "target_dag_rows_canonical_sha256": "e054f17f16c1e945f84531040fe01145595a892185f8b322ba8e6ce124a0756c",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "34e913419c1f9e24ed1d91fda9f1450d19f01ab22d60a7af5f9a00152cb04373",
+    "execution_dag_sha256": "b1cd5bf2e918865015bab425e20c42df1c2ad26aff9a4e849960d8bc7539e58c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_lym_source_sha256": "b19d4cbe58af9422dc36864d1ad1eee717c264a90d94fd579d3c8305f0feb630",
+    "mathlib_slice_source_sha256": "5a3986375f5c0035f8c66760ce41bd66582ac34007d910d56a4e3535cc48cec8",
+    "primary_source_pdf_sha256": "236629931717954288c77d99e487a1ff98c40af2fb29908eb06738ee253bbbde",
+    "primary_source_manifest_sha256": "6fbefd2f63309c5c990f5f226064004d0197e5a91fac13c970e08dd7e8747848",
+    "crossref_metadata_sha256": "bbc733df69e609e38875f64569f7f77586f48bff317b772ae39989f0c543bb7a"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical reasoning, finite choice, quotient, propositional extensionality, and accepted-axiom policies remain to be derived from the exact terminal closure",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, normalized expression, terminal declarations, transitive dependencies, axioms, and trust closure remain open",
+  "computation_profile": "No exhaustive enumeration, native evaluator, oracle, experiment, generated extremizer, or unchecked certificate is credited; finite cardinal arithmetic and any equality decision must remain kernel checked",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0821/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0821/README.md",
+    "Stage1_Instances/THM-M-0821/instance.json",
+    "Stage1_Instances/THM-M-0821/scope-map.md",
+    "Stage1_Instances/THM-M-0821/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0821/task-dag.json",
+    "Stage1_Instances/THM-M-0821/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0821/check_intake.py",
+    "Stage1_Instances/THM-M-0821/validation.md",
+    "Stage1_Instances/THM-M-0821/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent combinatorics/German-source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source edition, translation, correction or erratum; selection among upper bound, attainment, or equality classification; ground-set, family, relation, parity, division, extremizer, or boundary convention; Lean target; toolchain or dependency pin; assurance profile; validator; or any owned-artifact change. Independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It identifies and inspects the primary theorem family, freezes the upper-bound-versus-equality ambiguity, records the exact pinned upper-bound candidate, and leaves six downstream tasks open. No canonical proposition, accepted H0 source, exact target fingerprint, proof-body credit, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

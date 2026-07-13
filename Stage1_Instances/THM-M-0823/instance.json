@@ -1,0 +1,209 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0823",
+  "item_id": "S56-M-0823-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1381,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Kruskal算法",
+  "name_en": "Kruskal's algorithm",
+  "canonical_name": "Kruskal minimum-spanning-tree algorithm theorem family (exact correctness root open)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "最小生成树的贪心算法",
+  "literal_source_claim_en": "A greedy algorithm for a minimum spanning tree.",
+  "source_attribution": "Joseph Kruskal, 1956 (catalog metadata only; no citation supplied)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "catalog_names_an_algorithm_family_but_does_not_select_one_binder_complete_correctness_uniqueness_total_correctness_or_complexity_proposition",
+  "canonical_claim": null,
+  "candidate_statement_family_not_credited": "For a finite connected graph with positive real pairwise-distinct edge lengths, Kruskal 1956 Construction A repeatedly selects a shortest unchosen edge that forms no cycle and returns a shortest spanning tree; modern variants relax distinctness through a fixed or arbitrary tie policy.",
+  "statement_blocker": "The uncited catalog gloss does not select Construction A correctness, minimum-tree existence, distinct-weight uniqueness, bundled total correctness, or complexity. It omits the graph and edge representation, weight domain, tie semantics, algorithm state, termination, objective, output contract, binders, and boundary cases. Selecting an exact proposition at intake would invent or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Acyclic",
+      "Mathlib.Combinatorics.SimpleGraph.Subgraph"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_source_root_graph_weight_algorithm_objective_and_boundary_selection",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_adjacent-simplegraph-api-probe-only"
+  },
+  "domain_and_universes": "Prospective finite vertex type and finite undirected graph, an edge-weight type and order, a representation of admissibly ordered edges, and a returned spanning subgraph. Exact universes, finiteness instances, graph type, edge type, decidability, weight algebra, and algorithm state remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not select termination, preservation of acyclicity, spanning output, minimum total weight, uniqueness, failure behavior for disconnected input, complexity, or a conjunction of these properties.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "Kruskal 1956 Construction A returns a shortest spanning tree for finite connected graphs with positive pairwise-distinct real edge lengths",
+    "for arbitrary tied weights, every admissible tie-breaking execution of Kruskal's algorithm returns a minimum spanning tree",
+    "a deterministic executable implementation parameterized by a stable sorted edge list is totally correct",
+    "distinct edge weights imply the minimum spanning tree is unique",
+    "on a disconnected graph the construction returns a minimum spanning forest"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, and two-vertex types",
+    "connected versus disconnected graphs and spanning tree versus spanning forest",
+    "graphs with no edges, isolated vertices, and complete graphs",
+    "simple graphs versus loops or parallel edges in a multigraph representation",
+    "zero, negative, equal, incomparable, or pairwise-distinct edge weights",
+    "multiple minimum spanning trees and all versus one tie-breaking execution",
+    "an empty accepted-edge state and the exact termination condition",
+    "equality of returned edge sets, subgraphs, or spanning-tree structures"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake; the source-approved statement must decide every convention and establish any transport between encodings.",
+  "excluded_substitutions": [
+    "the Kruskal-Katona set-family theorem",
+    "Prim's algorithm or another minimum-spanning-tree algorithm",
+    "the separate Stage0 THM-C-0094 record treated as authority or inherited evidence",
+    "unweighted spanning-tree existence without the named greedy construction and minimum objective",
+    "distinct-weight uniqueness without algorithm correctness unless independently selected as the root",
+    "a special complete graph, fixed finite instance, or uniquely weighted restriction substituted for a broader approved root",
+    "an implementation whose correctness predicates are assumed as inputs",
+    "the untrusted catalog label 已验证 used as human-source or machine evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0824",
+      "name": "Prim算法",
+      "relationship": "a distinct greedy minimum-spanning-tree algorithm and not a source or proof substitute"
+    },
+    {
+      "theorem_id": "THM-C-0094",
+      "name": "Kruskal算法正确性",
+      "relationship": "a separate Stage0 algorithm-correctness record outside the rev-5.6 target manifest; boundary provenance only"
+    }
+  ],
+  "source_status": "H5_catalog_algorithm_family_gloss_is_not_one_stable_truth_valued_proposition_despite_an_inspected_primary_1956_construction_and_exchange_proof_lead",
+  "human_source_discovery_not_credited": [
+    {
+      "citation": "Joseph B. Kruskal Jr., On the shortest spanning subtree of a graph and the traveling salesman problem, Proceedings of the American Mathematical Society 7(1) (1956), 48-50, DOI 10.1090/S0002-9939-1956-0078686-7",
+      "locator": "page 48 assumptions and uniqueness statement; pages 48-49 Problem 1 and Construction A; page 50 exchange proof",
+      "discovery_pdf_sha256": "b77f9dc058b996b0f78bb90b0f6af733338df63839d4d2e81ab194fa36870bd5",
+      "status": "official discovery copy inspected; strong source-family lead only; catalog identity, exact root, admitted immutable preservation, complete definition and assumption mapping, tie generalization, corrections, errata, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Acyclic",
+      "declarations": [
+        "SimpleGraph.IsAcyclic",
+        "SimpleGraph.IsTree",
+        "SimpleGraph.Connected.exists_isTree_le"
+      ],
+      "boundary": "unweighted acyclicity, tree, and spanning-tree-existence substrate only; no weight, greedy state, objective, or Kruskal correctness"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Subgraph",
+      "declarations": [
+        "SimpleGraph.Subgraph.IsSpanning",
+        "SimpleGraph.Subgraph.edgeSet",
+        "SimpleGraph.Subgraph.spanningCoe"
+      ],
+      "boundary": "subgraph representation substrate only; no weighted minimum or algorithm theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SetFamily.KruskalKatona",
+      "declarations": ["Finset.kruskal_katona"],
+      "boundary": "surname collision concerning shadows of uniform set families; explicitly unrelated"
+    }
+  ],
+  "bounded_formal_search": {
+    "scope": "repo-local Lean plus pinned mathlib Mathlib sources",
+    "patterns": "Kruskal, minimum spanning, shortest spanning, minimum-weight spanning, spanning tree algorithm",
+    "result": "Only unrelated Kruskal-Katona occurrences and generic simple-graph infrastructure were found. This bounded intake discovery is not the immutable anchor audit and makes no global-absence claim."
+  },
+  "source_revisions": {
+    "repository_base": "902d9ce008e88a35a2307c85355560a230cc33c2",
+    "repository_base_tree": "dfc20d8141f18f6b09a03e818acfff408e836714",
+    "repository_record": "Docs/researches/math_theorems.md:6047-6052",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22469-22494",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "e771798d79226004acfb6e0dd63d2d5fe7c49fdeec9dd19e962f1cffca68f408",
+    "stage0_projection_excerpt_sha256": "6b1107023b203998c47ee30d1883092f60c0ceb1c62a70888fdd94746e9d6a48",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "34e913419c1f9e24ed1d91fda9f1450d19f01ab22d60a7af5f9a00152cb04373",
+    "execution_dag_sha256": "b1cd5bf2e918865015bab425e20c42df1c2ad26aff9a4e849960d8bc7539e58c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "kruskal_1956_doi": "10.1090/S0002-9939-1956-0078686-7",
+    "kruskal_1956_discovery_pdf_sha256": "b77f9dc058b996b0f78bb90b0f6af733338df63839d4d2e81ab194fa36870bd5",
+    "kruskal_crossref_response_sha256": "ed5d69a3f96c7f280ad55584e340fbd2380706fcb22c8457d529b74034945687",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_simplegraph_acyclic_sha256": "94a3dad09f48c9a2b1d0dc68914f4060bec2943e2977a7cdf4e2105df7afe50a",
+    "mathlib_simplegraph_subgraph_sha256": "64d84d818d1ec275dfa5b342b9e608e01bddfc6050a9f3a9f50df9d003ae1acc"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, finite enumeration, decidable graph relations, ordered-weight assumptions, quotient edge representations, and proof-specific axioms remain open until the exact target and route are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, algorithm definitions, terminal declarations, transitive dependencies, and trust closure remain open",
+  "computation_profile": "No executable Kruskal implementation, priority queue, union-find oracle, external optimizer, sampled graph experiment, native computation, or unchecked certificate is credited; an eventual implementation must be proved correct or replayed by the kernel",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0823/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0823/README.md",
+    "Stage1_Instances/THM-M-0823/instance.json",
+    "Stage1_Instances/THM-M-0823/scope-map.md",
+    "Stage1_Instances/THM-M-0823/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0823/task-dag.json",
+    "Stage1_Instances/THM-M-0823/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0823/check_intake.py",
+    "Stage1_Instances/THM-M-0823/validation.md",
+    "Stage1_Instances/THM-M-0823/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-theory source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned algorithms and graph-theory reviewer",
+    "reviewer_policy": "Source and formal reviewers must independently approve the exact root, source edition, definition and assumption chain, algorithm semantics, proof boundary, tie transport, corrections and errata, and formal encoding; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "freshness_and_revocation_policy": "Invalidate on target or source identity, source edition, proposition or proof locator, definition, premise, correction or erratum, graph or edge representation, weight domain, positivity or distinctness, tie policy, algorithm transition, termination, output, objective, uniqueness or boundary convention, Lean target or transport, toolchain or dependency pin, assurance profile, validator, or any owned-artifact change; the integration lane owns rejection, supersession and incident response.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the received algorithm-family gloss as not one stable truth-valued proposition; it does not refute established Kruskal-algorithm results. The inspected primary Construction A and exchange-proof lead is discovery evidence only. M4 records no usable source-approved exact formal artifact. R4 records no proof reconstruction. No canonical mathematical or Lean proposition, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

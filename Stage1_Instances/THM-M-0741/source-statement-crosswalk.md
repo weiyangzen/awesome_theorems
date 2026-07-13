@@ -31,12 +31,12 @@ review is accepted. The bibliography is a discovery lead only, not `E4` or `H0` 
 
 ## Component crosswalk
 
-| Repository or source-family phrase | Material mathematical component | Pinned Lean surface | Intake assessment |
+| Repository or source-family phrase | Material mathematical component | Pinned Lean surface | Current assessment |
 |---|---|---|---|
-| "halting problem" | a program/machine model, input encoding, and finite termination semantics | `Nat.Partrec.Code`, `Code.eval`, and `Part.Dom` | credible candidate model; source does not select it |
-| "arbitrary machine and input" | universal domain of valid program/input pairs | `Nat.Partrec.Code × Nat` | prospective encoding only; malformed-code and model transport open |
-| "decides" | one total effective Boolean procedure correct in both directions | `ComputablePred` | relevant API; exact decider contract not source-frozen |
-| "undecidable" | negation of existence of that effective uniform decider | prospectively `¬ComputablePred fun p => (Code.eval p.1 p.2).Dom` | expression shape elaborates, but is not the canonical target |
+| "halting problem" | a program/machine model, input encoding, and finite termination semantics | `Nat.Partrec.Code`, `Code.eval`, and `Part.Dom` | selected conventional machine model; primary-source transport open |
+| "arbitrary machine and input" | universal domain of valid program/input pairs | `Nat.Partrec.Code × Nat` | frozen pair domain; every Code is valid; Turing-machine transport open |
+| "decides" | one total effective Boolean procedure correct in both directions | `ComputablePred` | frozen effective-decider contract; historical terminology mapping open |
+| "undecidable" | negation of existence of that effective uniform decider | `¬ComputablePred Halts` | exact canonical target elaborated and fingerprinted |
 | fixed-input halting | undecidability over all codes at one selected input | `ComputablePred.halting_problem n` | pinned proof-bearing lead; not the arbitrary-pair statement and not credited at intake |
 | semidecidability | effective enumeration of halting computations | `ComputablePred.halting_problem_re n` | neighboring true result, not the root conclusion |
 | `已验证` | untrusted catalog status | no expression or proof object | no H or M credit |
@@ -45,15 +45,16 @@ review is accepted. The bibliography is a discovery lead only, not `E4` or `H0` 
 
 `THM-M-0707` is a separately scheduled theorem with different repository identity, category, rank,
 owned path, receipts, and reviewers. Its artifacts may guide discovery, but they cannot be imported
-as accepted state, and this intake does not edit or depend on that target. A master reviewer must
+as accepted state, and this dossier does not edit or depend on that target. A master reviewer must
 later decide whether the two catalog records receive an explicit checked equivalence, remain
 separate source interpretations, or are reconciled by the target-set governance process. This
 worker does not change the closed target set.
 
-At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the bounded intake probe
-checks the adjacent partial-recursive-code and halting interfaces and a prospective pair-predicate
-shape. This is not an exhaustive anchor audit. Before statement credit, reviewers must approve the
-exact source interpretation, elaborate and fingerprint the canonical expression under minimal
-imports, compile every credited transport, and distinguish removed-hypothesis, changed-domain,
-changed-binder-scope, and boundary-case mutations. Before `H0`, an independent source reviewer must
-approve the immutable primary passage, assumptions, proof mapping, correction, and errata record.
+At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, `Statement.lean` freezes
+the pair predicate with the sole direct import `Mathlib.Computability.Halting`. A checked
+definitional iff reaches its expanded form, and the validator fingerprints it and four changed
+contract/domain/scope/boundary shapes. This is still not an exhaustive anchor audit and supplies no
+proof-body credit. Before `H0`, an independent source reviewer must approve the immutable primary
+passage, assumptions, proof mapping, correction and errata record, and translation to this model.
+Before crediting a concrete Turing-machine alternate, a checked transport in the required direction
+must elaborate.

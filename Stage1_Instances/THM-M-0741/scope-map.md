@@ -13,26 +13,30 @@ retain all of these material components:
   pointwise `Decidable` instances; and
 - the conclusion that no such sound-and-complete uniform decider exists.
 
-This scope identifies a theorem family. It is not yet an exact source statement, Lean target, or
-proof architecture.
+The statement phase freezes these components in mathlib's universal partial-recursive-code model.
+This is an exact conventional Lean target, but it is not yet an accepted source-exact translation,
+proof architecture, or proof.
 
-## Decisions required at statement freeze
+## Frozen statement decisions
 
-1. Inspect and independently review an immutable primary or authoritative source passage, with
-   exact edition, page or section, definitions, assumptions, conclusion, proof boundary,
-   translation, corrections, and errata.
-2. Select the formal computation model: Turing machines, partial-recursive codes, another universal
-   model, or one model plus a checked equivalence to the source wording.
-3. Fix program and input encodings, valid versus malformed codes, configurations, transition or
-   evaluation semantics, initial and halting states, and the treatment of divergence.
-4. Define effective decidability precisely, including totality and both correctness directions;
-   distinguish it from semidecidability and Lean's unrestricted propositional `Decidable`.
-5. Freeze ordered binders and decide whether the root quantifies over arbitrary `(program, input)`
-   pairs, a fixed input, diagonal self-input, or uses checked reductions among these formulations.
-6. Resolve boundary cases: initially halted machines, empty input, invalid codes, programs that
-   return without output, infinite execution, and any zero-code or indexing convention.
-7. Freeze the foundation, TCB, computation, minimal-import, expression-fingerprint, alternate-
-   encoding, and four statement-mutation profiles required by rev-5.6.
+1. Programs are `Nat.Partrec.Code`; inputs are `Nat`; both are concrete universe-0 types.
+2. Every code constructor is valid, so no malformed-code premise is introduced.
+3. Execution is `Code.eval`; halting is its `Part.Dom` proposition, including every returned value.
+4. Effective decision is `ComputablePred`, not semidecidability or unrestricted `Decidable`.
+5. The root is one predicate on arbitrary `(program, input)` pairs. Fixed-input, existentially
+   fixed-input, and diagonal self-input variants are explicit uncredited mutations.
+6. `Code.zero` authenticates termination on every input; `Code.rfind' Code.succ` authenticates
+   divergence on every input.
+7. The sole direct import, expression and environment fingerprints, checked expanded-form iff,
+   foundation/TCB/computation profiles, and four required mutation classes are recorded.
+
+## Open source decision
+
+An accountable review must still inspect and independently approve an immutable primary passage,
+including its edition, definitions, assumptions, proof boundary, historical-to-modern translation,
+correction, and errata. A concrete Turing-machine formulation may receive alternate-encoding
+credit only after a checked transport to the frozen root. These source tasks keep `H1`; they do not
+undo exact elaboration of the conventional machine target.
 
 ## Explicit exclusions
 
@@ -49,5 +53,5 @@ proof architecture.
   before exact statement identity and provenance are checked for this target.
 - Treating the catalog label `已验证` as human-source, kernel, or theorem-completion evidence.
 
-No canonical statement, formal expression, alternate transport, obligation registry, discovery
-protocol, accepted proof state, or completion claim is frozen at intake.
+No obligation registry, discovery protocol, proof body, accepted execution state, audit completion,
+or theorem completion is claimed by the statement freeze.

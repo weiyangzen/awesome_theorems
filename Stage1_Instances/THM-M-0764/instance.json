@@ -1,0 +1,246 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0764",
+  "item_id": "S56-M-0764-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1350,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "下推自动机",
+  "name_en": "Pushdown automata and recognition of context-free languages",
+  "canonical_name": "pushdown-automaton/context-free-language recognition theorem family",
+  "category": "数理逻辑 / 递归论",
+  "category_en": "mathematical logic / recursion theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "上下文无关语言的识别",
+  "literal_source_claim_en": "Recognition of context-free languages.",
+  "source_attribution": "many mathematicians, twentieth century (catalog metadata; no citation supplied)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_pushdown_automaton_context_free_language_theorem_family_but_catalog_does_not_fix_direction_machine_model_acceptance_semantics_binders_or_neighbor_identity",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "A source-specified class of nondeterministic pushdown automata recognizes exactly the source-specified class of context-free languages, or one source-selected direction or construction-correctness component of that equivalence; no direction or encoding is adopted at intake.",
+  "statement_blocker": "The catalog supplies no exact source, CFG and PDA definitions, theorem direction, transition relation, epsilon-move policy, stack-bottom convention, acceptance semantics, finiteness assumptions, binder order, hypotheses, conclusion, or boundary cases. The outside-Stage1 record THM-C-0141 explicitly names CFG/PDA equivalence but has no accepted alias or evidence-ownership mapping. Selecting the familiar biconditional or one direction now would invent, broaden, or copy missing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Computability.ContextFreeGrammar",
+      "Mathlib.Computability.TuringMachine.StackTuringMachine"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_direction_pda_model_acceptance_transport_and_neighbor_identity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the terminal alphabet and finite-word language universe, grammar nonterminal carrier and rule finiteness, PDA finite control and stack alphabet, transition and run semantics, acceptance convention, and every Lean universe and typeclass assumption.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose CFG-to-PDA recognition, PDA-to-CFG generation, their biconditional, or word-level correctness of one named conversion.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a source proposition is selected; statement work must resolve every boundary in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "for every language L over a finite alphabet, L is context-free if and only if some nondeterministic pushdown automaton accepts L",
+    "every context-free grammar can be transformed into a nondeterministic pushdown automaton accepting the same language",
+    "every nondeterministic pushdown automaton can be transformed into a context-free grammar generating the same language",
+    "acceptance by final state and acceptance by empty stack define the same language class under explicitly checked conversions",
+    "word-level soundness and completeness of a source-selected grammar/automaton conversion"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty alphabet, empty word, and empty language",
+    "grammars with no rules, epsilon rules, unit rules, useless nonterminals, or left recursion",
+    "empty or singleton control and stack alphabets and explicit stack-bottom markers",
+    "epsilon input moves, no-op pushes or pops, and infinite epsilon runs",
+    "stuck configurations, acceptance in the initial configuration, unread input, and rejection or halting conventions",
+    "final-state versus empty-stack acceptance and conversions in both directions",
+    "finite carriers versus finite reachable support inside larger types"
+  ],
+  "excluded_substitutions": [
+    "Language.IsContextFree or ContextFreeGrammar.language alone",
+    "closure of context-free languages under reversal",
+    "the deterministic multi-stack Turing.TM2 model without a checked source-matched PDA specialization",
+    "finite automata, regular expressions, linear-bounded automata, or unrestricted Turing machines",
+    "only one implication presented as the biconditional",
+    "the outside-Stage1 THM-C-0141 gloss or state copied into this target",
+    "a structure, axiom, hypothesis, conversion, or acceptance-equivalence field that assumes the desired root",
+    "the catalog verified label, bibliographic metadata, bounded search, or intake probe used as proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0762",
+      "name": "上下文无关语言的性质",
+      "relationship": "neighboring generic CFL-properties family; closure or pumping results do not supply PDA recognition equivalence"
+    },
+    {
+      "theorem_id": "THM-M-0763",
+      "name": "乔姆斯基层次",
+      "relationship": "language-class hierarchy is a distinct classification target and does not fix this PDA equivalence encoding"
+    },
+    {
+      "theorem_id": "THM-M-0765",
+      "name": "图灵机可识别语言",
+      "relationship": "Turing-recognizable or recursively enumerable languages use a stronger machine model and are not context-free-language recognition"
+    },
+    {
+      "theorem_id": "THM-C-0141",
+      "name": "CFG与PDA等价性",
+      "relationship": "outside the closed rev-5.6 target set; its explicit equivalence gloss is ambiguity and possible duplicate evidence only, with no accepted alias, dependency, state, receipt, statement, or proof credit"
+    }
+  ],
+  "source_status": "H1_repository_theorem_family_and_primary_bibliographic_leads_identified_but_exact_source_statement_definitions_direction_proof_mapping_errata_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "M. P. Schuetzenberger, On Context-Free Languages and Push-Down Automata, Information and Control 6(3), September 1963, 246-264, DOI 10.1016/S0019-9958(63)90306-1",
+      "metadata_status": "Crossref and DBLP bibliographic metadata observed during intake",
+      "candidate_summary": "historically relevant primary publication whose title matches the target family",
+      "inspection_status": "article text, exact result, incorporated definitions, assumptions, conclusions, proof, correction or errata record, relationship to the modern biconditional, immutable source packet, and independent review were not accepted or credited"
+    },
+    {
+      "citation": "Noam Chomsky, Context-free grammars and push-down storage, 1962",
+      "metadata_status": "title, author, and year observed only in Crossref reference metadata for the Schuetzenberger article and in the repository's uncited neighbor attribution",
+      "candidate_summary": "historical source-family lead for grammar and pushdown-storage correspondence",
+      "inspection_status": "venue, edition, full text, exact passage, definitions, proof, corrections, errata, and independent review remain open"
+    },
+    {
+      "citation": "Sipser (2012) and Hopcroft, Motwani, Ullman (2006), as listed generically in Docs/researches/cs_theorems.md",
+      "metadata_status": "repository bibliography only",
+      "candidate_summary": "possible modern textbook sources for an exact theorem and acceptance-convention transports",
+      "inspection_status": "edition-specific section, theorem, page, assumptions, proof boundary, errata, and independent review not inspected; E5 lead only"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Computability.ContextFreeGrammar",
+      "declarations": [
+        "ContextFreeRule",
+        "ContextFreeGrammar",
+        "ContextFreeGrammar.Produces",
+        "ContextFreeGrammar.Derives",
+        "ContextFreeGrammar.Generates",
+        "ContextFreeGrammar.language",
+        "Language.IsContextFree"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "direct CFG-side definitions and language interface; no pushdown automaton, conversion, or equivalence root"
+    },
+    {
+      "module": "Mathlib.Computability.ContextFreeGrammar",
+      "declaration": "Language.IsContextFree.reverse",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "closure under language reversal, not PDA recognition or CFG/PDA equivalence"
+    },
+    {
+      "module": "Mathlib.Computability.TuringMachine.StackTuringMachine",
+      "declarations": [
+        "Turing.TM2.Stmt",
+        "Turing.TM2.Cfg",
+        "Turing.TM2.step",
+        "Turing.TM2.Reaches",
+        "Turing.TM2.init",
+        "Turing.TM2.eval"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "deterministic arbitrary-multi-stack Turing substrate with internal memory; not a source-matched nondeterministic one-stack PDA or equivalence theorem"
+    }
+  ],
+  "bounded_formal_search_observation": "A case-insensitive exact-topic search of repo-local and pinned mathlib Lean sources found no explicitly named PushdownAutomaton, PDA, or context-free/PDA equivalence declaration. This is intake discovery only, not a complete external anchor audit or a global absence claim.",
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, finite-choice principles, quotient or extensionality use, and source-specific foundations remain open until an exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependency and proof-body provenance, and trust acceptance remain downstream",
+  "computation_profile": "The intended recognition claim concerns inductively defined or relational machine runs and language equality. No native execution, timeout, oracle, external parser, experiment, or unchecked certificate is credited; executable conversions would require kernel-checked correctness and termination where claimed.",
+  "formal_system": "Lean 4 + pinned mathlib adapter under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "fd0fab2ab7f4f514a5cc625bbce92879e718ba13",
+    "repository_base_tree": "4116d53bcf2573069e4b67205353fe3469dbe7bd",
+    "repository_record": "Docs/researches/math_theorems.md:5626-5631",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:20866-20891",
+    "neighbor_repository_record": "Docs/researches/cs_theorems.md:241-250",
+    "neighbor_stage0_projection": "Docs/Stage0_Blueprint.md:85358-85385",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "cf2c3c79c4643376e86adf8d22e397f7e846bd399d70e72da519c3619be80f4a",
+    "stage0_excerpt_sha256": "7661c3b0ed1afd64aacd4f8cd86806a4842cb6f6e9e3daf84f6c5168f8d0e715",
+    "neighbor_repository_excerpt_sha256": "5eaff2c09594561d3000c1c471f7a21ee8da7589874e0f0fa301b2ab15bc6411",
+    "neighbor_stage0_excerpt_sha256": "ec1a0aa14bc0486be734169ee9a09addc442ed1cbbdc9589eaf4a2199c0644fe",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9fb2a8c23ea139862dc81fd6c9f801432e85e263699063dc931ca23c31db6e17",
+    "execution_dag_sha256": "647793a61571f1ade4bc86447efe5220ee5fce79e643e2a50e3f4641238c30d9",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "context_free_grammar_source_blob": "19ca90add5f6158ff4d3600656c5d0423e57902d",
+    "context_free_grammar_source_sha256": "d0e893c76496af0851a6f669fe5881a106f2158e042d953c15f21f9c836c3f19",
+    "language_source_blob": "77ee584adef1ceaf9deb19af755aace1b46aba0d",
+    "language_source_sha256": "f4c3964d5713b752c02906354e5366a8367b94804b4dcdac9b07964c36bb8d2e",
+    "stack_turing_machine_source_blob": "77dcba24dc80da6bae230331696ee8a451d9d5e6",
+    "stack_turing_machine_source_sha256": "c78f9028503580f9dfd42700be75577e18357c496c76b08c2adc7045e85f3246",
+    "schuetzenberger_crossref_response_sha256": "373c7211c0a41dbe2e4684bece09a36bdc12e4b6b386bdd39b620b2cb897ba36",
+    "schuetzenberger_dblp_response_sha256": "4db625c39120e075d2708017c61bf11545581473e1543b065293cc31fbd5a97f"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0764/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0764/README.md",
+    "Stage1_Instances/THM-M-0764/instance.json",
+    "Stage1_Instances/THM-M-0764/scope-map.md",
+    "Stage1_Instances/THM-M-0764/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0764/task-dag.json",
+    "Stage1_Instances/THM-M-0764/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0764/check_intake.py",
+    "Stage1_Instances/THM-M-0764/validation.md",
+    "Stage1_Instances/THM-M-0764/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "target_identity_reviewer": "unassigned integration reviewer"
+  },
+  "support_window": "provisional worker evidence pending master acceptance; no release support window is claimed",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped run after any invalidating input changes.",
+  "archive_and_recovery_boundary": "Repository history can preserve admitted dossier files after integration. Temporary bibliographic API responses are represented by hashes and discovery metadata only, not durable primary-source archives.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction; source edition, result locator, attribution, date, translation, correction, erratum, or proof mapping; CFG or PDA model, theorem direction, transition or acceptance semantics, finiteness, binder, transport, or boundary convention; neighbor-target identity; canonical Lean target; toolchain or dependency pin; assurance profile, validator, or any owned artifact. Independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the literal catalog record, recognized theorem family, source and neighbor leads, proposition-changing choices, directly relevant pinned CFG interfaces, adjacent stack-machine boundary, exclusions, and open task DAG. H1 is provisional source-discovery status; M3 is definition/interface debt, not root proof credit; R4 records that no source-faithful proof reconstruction exists. No canonical proposition, exact Lean statement, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

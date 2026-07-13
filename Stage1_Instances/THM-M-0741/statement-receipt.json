@@ -1,0 +1,274 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0741-STATEMENT-WORKER-20260713",
+  "item_id": "S56-M-0741-STATEMENT",
+  "theorem_id": "THM-M-0741",
+  "phase": "statement",
+  "intent": "statement",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "base_revision": "d05520867fab3367a9b61b9544c3e12241204f54",
+  "base_tree": "fb2cfc62077d5b53e9938632cd6361dd60872067",
+  "worker_branch_or_worktree": "isolated Stage1 rev-5.6 automation clone",
+  "worktree_state": "nonrelease dirty due to owned statement changes, the authorized root worker packet, and a pre-existing automation-provided canonical Formalizations/Lean/.lake symlink",
+  "preexisting_untracked_paths": [
+    "Formalizations/Lean/.lake"
+  ],
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:58f0fe34e1443dd92bc0f587793dcba33c9e03931fa08df3af7d587919537b64",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:5279ae201a4642841cd6bda73600a6e979d402e1ef3fe059c226ecd3602cd7e9",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Docs/Blueprint_Guidelines.md": "sha256:a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "Docs/researches/cs_theorems.md": "sha256:32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "Formalizations/Lean/lean-toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "Formalizations/Lean/lake-manifest.json": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "direct_import": "Mathlib.Computability.Halting",
+    "direct_import_sha256": "c2a073a05c631e7fc957577a66025e9ac36dac741f9aa865e0f053b17f0c85de",
+    "dependency_mode": "existing canonical pinned .lake symlink used read-only"
+  },
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0741-STATEMENT-RECIPE-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0741/Statement.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {"path_or_stream": "stdout", "semantic_hash_policy": "exact sha256 497f631dcf379ceda776d1fa348273e291933508150eb51857d647a9f6cb579e"}
+      ],
+      "covered_obligation_ids": [],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0741.HaltingProblemUndecidable",
+        "Stage1Instances.THM_M_0741.ExpandedHaltingProblemUndecidable",
+        "Stage1Instances.THM_M_0741.haltingProblemUndecidable_iff_expanded"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0741-STATEMENT-RECIPE-CHECKER",
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "-B", "../../Stage1_Instances/THM-M-0741/check_statement.py"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {"path_or_stream": "stdout", "semantic_hash_policy": "record exact structured payload"}
+      ],
+      "covered_obligation_ids": [],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0741.HaltingProblemUndecidable"
+      ]
+    }
+  ],
+  "covered_node_ids": [
+    "S56-M-0741-STATEMENT"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0741.Halts",
+    "Stage1Instances.THM_M_0741.HaltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.ExpandedHaltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.haltingProblemUndecidable_iff_expanded",
+    "Stage1Instances.THM_M_0741.zero_halts",
+    "Stage1Instances.THM_M_0741.rfind_succ_does_not_halt"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0741/README.md",
+    "Stage1_Instances/THM-M-0741/Statement.lean",
+    "Stage1_Instances/THM-M-0741/check_intake.py",
+    "Stage1_Instances/THM-M-0741/check_statement.py",
+    "Stage1_Instances/THM-M-0741/instance.json",
+    "Stage1_Instances/THM-M-0741/intake-receipt.json",
+    "Stage1_Instances/THM-M-0741/scope-map.md",
+    "Stage1_Instances/THM-M-0741/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0741/statement-receipt.json",
+    "Stage1_Instances/THM-M-0741/statement-validation.md",
+    "Stage1_Instances/THM-M-0741/statement.json",
+    "Stage1_Instances/THM-M-0741/task-dag.json",
+    "Stage1_Instances/THM-M-0741/validation.md"
+  ],
+  "diff_summary": "Froze and self-tested the conventional arbitrary-program/arbitrary-input halting-undecidability proposition, minimal defining import, checked expanded-form iff, four structural mutations, two operational boundaries, expression and environment fingerprints, and provisional node receipt; reconciled the planned dossier and marked the mutable intake receipt superseded without editing authoritative state.",
+  "exact_statement_change": "Created Stage1Instances.THM_M_0741.HaltingProblemUndecidable as Not (ComputablePred Halts), with Halts over Nat.Partrec.Code x Nat defined by the domain of Code.eval.",
+  "source_revision_and_proof_body_summary": "The fuller repository computability wording supports arbitrary machine/input scope, while the target-bearing gloss and Turing 1936 bibliography do not supply an accepted source-exact model translation. The human axis remains H1. No proof body, including the pinned fixed-input halting theorem, was inspected or credited.",
+  "ownership_and_change_impact": "Only Stage1_Instances/THM-M-0741 and the scheduler-authorized root self-test handoff changed. No authoritative DAG/checklist, dependency, .lake artifact, other target, or THM-M-0707 artifact was modified.",
+  "statement_fingerprints": [
+    "sha256:1a96ad274a14ef0c7285734258d28a7ff6e49febe1470bfbb957d757a92e718c"
+  ],
+  "statement_file_sha256": "79e8f14fa5219760ef0fa3b26c95ebe40916f0ed2881a6491fce36944398d4c7",
+  "lean_output_sha256": "497f631dcf379ceda776d1fa348273e291933508150eb51857d647a9f6cb579e",
+  "direct_imports": [
+    "Mathlib.Computability.Halting"
+  ],
+  "minimal_import_result": "Exactly one narrow direct import is declared. It defines ComputablePred and publicly imports Code/eval. Replacing it with Mathlib.Computability.PartrecCode exits 1 because ComputablePred is unknown.",
+  "checked_transports": [
+    {
+      "relationship": "iff",
+      "witness": "Stage1Instances.THM_M_0741.haltingProblemUndecidable_iff_expanded",
+      "target": "Stage1Instances.THM_M_0741.ExpandedHaltingProblemUndecidable"
+    }
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis_or_contract",
+      "declaration": "mutationRemovedEffectivity",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedDomainToPrograms",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationChangedBinderScope",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationChangedBoundaryToSelfInput",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    }
+  ],
+  "boundary_results": [
+    "zero_halts kernel-checks that Code.zero halts on every natural input",
+    "rfind_succ_does_not_halt kernel-checks divergence on every natural input"
+  ],
+  "axiom_and_placeholder_result": "No canonical target proof is declared. The checked definitional iff reports propext, Classical.choice, and Quot.sound. The scoped scan finds no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration.",
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0741/Statement.lean"
+  ],
+  "declaration_ownership": [
+    "Stage1Instances.THM_M_0741.Halts",
+    "Stage1Instances.THM_M_0741.HaltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.ExpandedHaltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.haltingProblemUndecidable_iff_expanded",
+    "Stage1Instances.THM_M_0741.zero_halts",
+    "Stage1Instances.THM_M_0741.rfind_succ_does_not_halt"
+  ],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0741/README.md",
+    "Stage1_Instances/THM-M-0741/scope-map.md",
+    "Stage1_Instances/THM-M-0741/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0741/statement-validation.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0741-STATEMENT"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "Exact conventional statement elaboration, minimal import, checked expanded transport, four mutation classes, two execution boundaries, and expression/environment fingerprints support M3 statement/interface status. No accepted primary-source translation, proof body, or readable proof reconstruction supports H0, M0, or R0.",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "dependency-ordered master acceptance is pending; exact primary-source fidelity and all downstream anchor, obligation, proof, validation, readability, and release gates remain open",
+  "remaining_root_cut_set": [
+    "S56-M-0741-ANCHOR_AUDIT",
+    "S56-M-0741-OBLIGATION_TREE",
+    "S56-M-0741-PROOF",
+    "S56-M-0741-VALIDATION",
+    "S56-M-0741-RELEASE"
+  ],
+  "known_failures": [
+    "The provisional intake dependency and this statement node require dependency-ordered master acceptance.",
+    "No immutable independently reviewed Turing 1936-1937 passage, historical definition and assumption transport, modern arbitrary-machine/input derivation, proof mapping, translation, correction, or errata disposition is accepted; H0 remains open.",
+    "The concrete Turing-machine alternate, fixed-input family, existential fixed-input form, and diagonal self-input form have no credited checked transports to the canonical root.",
+    "Formal candidate and terminal proof-body provenance/trust audits, discovery and obligation freezes, proof, composition, readable reconstruction, hermetic replay, deterministic bundle, and independent release verification remain open.",
+    "No accepted execution state, audit completion, theorem completion, release, or master acceptance is claimed."
+  ],
+  "invalidation_inputs": [
+    "Statement.lean or check_statement.py",
+    "canonical program/input domain, evaluator, halting predicate, effective-decider contract, binder scope, boundary policy, or checked alternate encoding",
+    "source interpretation, target correction, duplicate-target reconciliation, primary-source or errata finding",
+    "Lean toolchain, lake-manifest.json, mathlib revision, or direct import",
+    "foundation, TCB, computation, serialization, validator, or rev-5.6 statement policy",
+    "any reconciled owned artifact"
+  ],
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0741"],
+      "exit_code": 0,
+      "result": "rank 1329, planned, no legacy slot, legacy artifacts unaccepted, theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0741/Statement.lean"],
+      "exit_code": 0,
+      "result": "canonical target, expanded iff, four expected exact-type rejections, two operational boundaries, axiom report, and explicit expression elaborated; output sha256 497f631dcf379ceda776d1fa348273e291933508150eb51857d647a9f6cb579e"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "-B", "../../Stage1_Instances/THM-M-0741/check_statement.py"],
+      "exit_code": 0,
+      "result": "expression, source, output, mutation, minimal-import negative, structured record, packet, base, and pinned dependency checks passed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0741/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "expanded planned H1/M3/R4 dossier, exact artifact inventory, open DAG, provisional receipt, and worker packet agree"
+    },
+    {
+      "cwd": ".",
+      "command": "scoped JSON, prohibited Lean construct, pinned mathlib cleanliness, and whitespace checks",
+      "exit_code": 0,
+      "result": "all JSON valid; prohibited scan returned expected no-match; mathlib worktree clean; no whitespace diagnostics"
+    }
+  ],
+  "selftest_result": "pass",
+  "support_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "supersession_state": "current worker receipt; unaccepted",
+  "validated_at": "2026-07-13 Asia/Shanghai",
+  "review_due": "at dependency-ordered master integration and on every invalidation input change",
+  "incident_path": "integration lane rejects or supersedes this report and requires a fresh scoped self-test",
+  "status_boundary": "Worker statement proposal only. This provisional receipt is unsigned, mutable, nonrelease, not content-addressed, and not master-accepted. It asserts no proof, H0, M0, R0, audit completion, theorem completion, or release credit."
+}

@@ -1,0 +1,218 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0487",
+  "item_id": "S56-M-0487-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1366,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "弱哥德巴赫猜想",
+  "name_en": "Weak Goldbach theorem",
+  "canonical_name": "Weak or ternary Goldbach theorem",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "大于5的奇数可表为三素数之和",
+  "literal_source_claim_en": "Every odd number greater than five can be represented as a sum of three primes.",
+  "source_attribution": "Historical origin: Christian Goldbach and Leonhard Euler correspondence, 1742; modern exact proof-source lead: Harald A. Helfgott, arXiv:1312.7748v2",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "Every odd integer n greater than five can be expressed as the sum of three primes; the three prime summands need not be distinct.",
+  "canonical_claim_status": "exact_human_claim_frozen_from_matching_catalog_and_primary_main_theorem_but_source_admission_full_dependency_and_computation_crosswalk_integer_natural_transport_lean_binders_and_independent_review_open",
+  "canonical_claim": "For every integer n, if n > 5 and n is odd, then there exist positive primes p, q, and r, not necessarily distinct, such that n = p + q + r.",
+  "candidate_family_not_credited_as_statement": "For every natural number n, if 5 < n and n is odd, then there exist natural primes p, q, and r, not necessarily distinct, such that n = p + q + r.",
+  "target_disposition": "requires_source_acceptance_and_exact_integer_natural_statement_transport_before_statement_or_proof_execution",
+  "statement_blocker": "The exact human claim is frozen from the matching catalog sentence and Helfgott Main Theorem, but its source packet, analytic dependencies, finite-computation boundary, artifacts, errata, and independent review are not accepted. The candidate Lean target still needs a checked integer-to-natural transport, ordered binders, strict-threshold and parity encoding, prime and repeated-summand conventions, equality orientation, alternate transports, environment fingerprint, and four mutation classes. Freezing a Lean expression at intake would skip the assigned downstream statement gate.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Data.Nat.Prime.Basic"
+    ],
+    "declaration_candidates": [],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_acceptance_integer_natural_transport_binders_and_statement_mutations_not_frozen",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.Data.Nat.Prime.Basic_intake-api-and-boundary-probe-only"
+  },
+  "domain_and_universes": "Candidate target: n p q r : Nat and a proposition in universe 0. The inspected source lead states n as an integer; positivity from n > 5 should justify the natural restriction only through an explicit checked transport.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open at exact-expression level: every source-qualifying odd input greater than five has an exact representation by three positive primes, with repetition allowed.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is formally excluded before statement freeze. The source scope excludes n <= 5 and even inputs; the statement phase must preserve n = 7, repeated 2 summands, integer/natural domain conversion, prime positivity, and summand-order conventions.",
+  "candidate_scope_not_credited": [
+    "the natural target forall n : Nat, 5 < n -> Odd n -> exists p q r : Nat, p.Prime and q.Prime and r.Prime and n = p + q + r",
+    "the source-domain integer target with positive integer primes",
+    "the strengthened result that every odd n > 7 is a sum of three odd primes",
+    "the finite-check plus analytic-range composition used in the inspected source"
+  ],
+  "degenerate_cases_to_resolve": [
+    "n = 5 is excluded by the strict threshold",
+    "n = 7 is included and represented as 2 + 2 + 3",
+    "even inputs greater than five are outside the implication",
+    "repeated summands are permitted",
+    "the even prime 2 is permitted",
+    "summands are positive primes, not zero, one, negative primes, prime powers, or almost-primes",
+    "integer source domain versus natural Lean domain",
+    "summand order, addition association, and equality orientation"
+  ],
+  "excluded_substitutions": [
+    "binary or strong Goldbach",
+    "THM-M-0508 or any merely sufficiently-large or eventual three-primes theorem",
+    "an almost-all, density-one, bounded-exception, or fixed-cutoff result",
+    "a distinct-primes-only or three-odd-primes-only strengthening that loses n = 7",
+    "a sum involving prime powers, almost-primes, signed primes, or a different number of summands",
+    "a finite computation without the analytic proof above its verified range",
+    "a structure, hypothesis, custom axiom, oracle, unchecked certificate, or placeholder containing the desired representation",
+    "the catalog verified label, a theorem name, or the intake probe used as proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0486",
+      "name": "Goldbach conjecture",
+      "relationship": "the binary conjecture concerns even inputs and two primes and remains a distinct stronger problem"
+    },
+    {
+      "theorem_id": "THM-M-0508",
+      "name": "Vinogradov's three-primes theorem",
+      "relationship": "the eventual sufficiently-large result is a strict precursor and cannot substitute for all odd inputs greater than five"
+    },
+    {
+      "theorem_id": "THM-M-0509",
+      "name": "Chen's theorem",
+      "relationship": "the prime-plus-almost-prime binary result has a different domain and conclusion"
+    }
+  ],
+  "source_status": "H1_exact_modern_main_theorem_and_proof_split_inspected_but_source_bundle_dependency_computation_errata_assumption_mapping_and_independent_review_not_accepted",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Harald A. Helfgott, The ternary Goldbach conjecture is true, arXiv:1312.7748v2, DOI 10.48550/arXiv.1312.7748",
+      "candidate_locator": "immutable source archive https://arxiv.org/src/1312.7748v2; archive sha256 f2be46b7480bae643083e211dc19b539018950384dc59c1c5faa6e263fd2b366; ternvin.tex sha256 86ea555015d974174c744dbf7b78d777015e959f2986c0b9b6873634f44e0fed",
+      "candidate_summary": "the Main Theorem at source lines 123-127 exactly matches the repository claim; lines 5372-5391 expose the analytic and finite-computation composition",
+      "inspection_status": "exact primary proof-source lead inspected; admission, complete dependency and computation boundary, assumptions, corrections, errata, and independent review remain open"
+    },
+    {
+      "citation": "Harald A. Helfgott and David J. Platt, Numerical Verification of the Ternary Goldbach Conjecture up to 8.875 x 10^30, Experimental Mathematics 22(4), 406-409 (2013), DOI 10.1080/10586458.2013.831742; arXiv:1305.3062v2",
+      "candidate_locator": "companion computation source lead cited by the main proof",
+      "candidate_summary": "supplies the finite-range component used to bridge the analytic threshold to all odd inputs greater than five",
+      "inspection_status": "source lead only; implementation, certificates, independent checks, dependencies, trust, preservation, errata, and review are not audited or credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "project": "mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Data.Nat.Prime.Basic",
+      "declarations": [
+        "Nat.Prime",
+        "Nat.prime_two",
+        "Nat.prime_three",
+        "Odd",
+        "Nat.not_even_iff_odd",
+        "Nat.lt_iff_add_one_le"
+      ],
+      "boundary": "statement substrate and n = 7 boundary ingredients only; bounded source search found no Goldbach terminal theorem"
+    },
+    {
+      "project": "google-deepmind/formal-conjectures",
+      "revision": "b2e608fc52d765510915a244bb69b1a2741acc3c",
+      "module": "FormalConjectures.Wikipedia.GoldbachConjecture",
+      "declaration": "TernaryGoldbachConjecture.ternaryGoldbach",
+      "source_sha256": "bf6a587c50ba159af919fbe9afa09f04375608c33c68361ffc52246018a5b447",
+      "boundary": "exact statement lead whose body is literally by sorry; forbidden, not imported, and receives no M or proof credit"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "997541734bb32f987fb15f163335a82512992120",
+    "repository_base_tree": "2c866b9d840d48c48ac839740c62d3b9440be0e5",
+    "repository_record": "Docs/researches/math_theorems.md:3574-3579",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:13352-13377",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "257b0e135256e83eabe601486665cab32dbc91c633d21359fef177b612b964f7",
+    "stage0_projection_excerpt_sha256": "e1cf6285b67de19822947e602c4bff7a5a1a2f1d6356a54fba837674562e9bdb",
+    "manifest_entry_sha256": "68cdc9edca1f12f1ee88ceee167bbb422b88734a2d950573bc4a5f2c06443ae2",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2c66d377a102a7eadd62d2f08027250b93f3152fac6800ef9eff3854d3ebaf7e",
+    "execution_dag_sha256": "5cb34447671a155ad02ffe0c01c925b3bbd3fa32f6c91dcd9c56941c6481f66e",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_prime_basic_sha256": "b97e83d65681b68b3ad1f4bdfd36defd0a30aa173cf726b3d2807acf8bde5027",
+    "helfott_main_source_url": "https://arxiv.org/src/1312.7748v2",
+    "helfgott_main_source_archive_sha256": "f2be46b7480bae643083e211dc19b539018950384dc59c1c5faa6e263fd2b366",
+    "helfgott_main_tex_sha256": "86ea555015d974174c744dbf7b78d777015e959f2986c0b9b6873634f44e0fed",
+    "helfgott_main_statement_excerpt_sha256": "2c71c462f5a2ad3bc7ebae1c3e2c2f7167d4783b497692b1ee3b7fe032ab3b02",
+    "helfgott_main_conclusion_excerpt_sha256": "c6c9ab8994498a2496bc58fa446a2949a2502be48dddf78cf76bccae74e407da"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, analytic foundations, real/complex integration, prime-distribution results, and computation-certificate principles remain open until the exact proof architecture and trust policy are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; the probe imports Mathlib.Data.Nat.Prime.Basic, while exact target imports, terminal proof bodies, transitive dependency closure, executable identity, and trust policy remain open",
+  "computation_profile": "No computation, oracle, experiment, native shortcut, or unchecked certificate is credited by this intake. The human proof materially uses a finite verification below the analytic range, so the future computation profile must audit the Helfgott-Platt implementation, independent check, prime certificates, exact range coverage, tools, inputs, and trust boundary.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0487/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0487/README.md",
+    "Stage1_Instances/THM-M-0487/instance.json",
+    "Stage1_Instances/THM-M-0487/scope-map.md",
+    "Stage1_Instances/THM-M-0487/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0487/task-dag.json",
+    "Stage1_Instances/THM-M-0487/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0487/check_intake.py",
+    "Stage1_Instances/THM-M-0487/validation.md",
+    "Stage1_Instances/THM-M-0487/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent analytic-number-theory reviewer",
+    "computation_reviewer": "unassigned independent computational-number-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the external source archives are content-hash leads, not a repository-preserved accepted source bundle.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source version or erratum, proof dependency or computation finding, domain or prime convention, threshold, parity, binders, summand repetition or order, equality or boundary decision, Lean target or transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the exact human claim, inspected primary proof-source lead and analytic/computational split, proposition-changing Lean choices, exclusions, adjacent pinned APIs, and open downstream DAG. No canonical Lean expression or fingerprint, accepted H0 source packet, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

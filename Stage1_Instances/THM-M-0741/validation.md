@@ -4,7 +4,7 @@ Base revision: `0e5ae82e6d507ee607c3f011900571ffd8096800` (tree
 `400e6edf1f69b971b60a367e3ea29be359b07907`). Validation date: 2026-07-13
 (Asia/Shanghai).
 
-This validation covers target membership, the planned dossier, the halting-undecidability scope
+This historical validation covers target membership, the original planned intake dossier, the halting-undecidability scope
 boundary, source-statement crosswalk, duplicate-target boundary, open task DAG, JSON/scoped
 invariants, and a narrow pinned Lean API/prospective-shape probe. It does not validate a canonical
 source statement or proof because the primary passage, machine model, encoding, semantics, and
@@ -40,18 +40,18 @@ mutation was performed. This dirty worker result is nonrelease evidence.
 | `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0741/IntakeProbe.lean)` | exit 0; eight pinned APIs and two prospective arbitrary-pair shapes elaborated; no theorem declaration or proof body added; stdout SHA-256 `a4997862a110c81887f9cf5535e9bd2d5afb395118acf2f9e1d9c060aa6cd88e` |
 | `python3 -m json.tool` on `instance.json`, `task-dag.json`, `intake-receipt.json`, and the worker packet | exit 0 for each after finalization |
 | `PYTHONPYCACHEPREFIX=/tmp/stage1-thm-m-0741-pycache python3 -m py_compile Stage1_Instances/THM-M-0741/check_intake.py` | exit 0; scoped validator compiled without creating an owned generated file |
-| `python3 -B Stage1_Instances/THM-M-0741/check_intake.py --worker-packet .stage1-worker-selftest.json` | exit 0 after finalization; target/DAG identity, null canonical target, H1/M4/R4 boundary, duplicate boundary, artifact inventory, input hashes, worker packet, and six open tasks agree |
+| original intake-time scoped checker | exit 0 at intake; the historical null-target H1/M4/R4 snapshot passed before statement reconciliation |
 | `rg -n --glob '*.lean' '\b(sorry\|admit)\b\|\bsorryAx\b\|^[[:space:]]*(axiom\|constant\|opaque\|unsafe)[[:space:]]' Stage1_Instances/THM-M-0741` | exit 1 as expected for no match; no prohibited declaration or proof escape |
 | `git diff --check -- Stage1_Instances/THM-M-0741 .stage1-worker-selftest.json` plus per-file `git diff --no-index --check /dev/null <new-file>` | exit 0 for the tracked check; every no-index command found only the expected new-file difference and no whitespace diagnostic |
 
 ## Known open gates
 
-Primary full-text acquisition, exact proposition locator, complete definition, premise, conclusion,
+This intake snapshot is superseded for current dossier replay by the statement phase. Primary
+full-text acquisition, exact proposition locator, complete definition, premise, conclusion,
 proof-boundary, correction/errata and translation crosswalk, and independent source review remain
-open. So do the machine model and encoding choice, operational semantics, validity and boundary
-policies, effective-decider contract, arbitrary-pair/fixed-input/self-input transports, canonical
-Lean expression and environment fingerprints, semantic mutations, discovery protocol, obligation
-registry, typed graphs, formal anchor and provenance audit, proof and composition, trust closure,
-readable reconstruction, hermetic replay, deterministic evidence bundle, independent verification,
-master acceptance, audit completion, and theorem completion. These failures do not invalidate a
-truthful self-tested `planned` intake.
+open. Current machine model, effective-decider contract, expression fingerprints, mutations, and
+boundaries are recorded in `statement-validation.md`; concrete Turing-machine and fixed/self-input
+transports, discovery protocol, obligation registry, typed graphs, formal anchor and provenance
+audit, proof and composition, trust closure, readable reconstruction, hermetic replay, deterministic
+evidence bundle, independent verification, master acceptance, audit completion, and theorem
+completion remain open. These failures do not invalidate the historical truthful `planned` intake.

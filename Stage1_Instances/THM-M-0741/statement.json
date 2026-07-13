@@ -1,0 +1,115 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0741-STATEMENT",
+  "theorem_id": "THM-M-0741",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "exact_standard_arbitrary_program_and_input_interpretation_frozen_primary_source_fidelity_open",
+  "canonical_statement": "There is no total effective Boolean procedure which, for every encoded program and every natural-number input, decides whether the program's universal partial evaluation terminates.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0741/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0741.HaltingProblemUndecidable",
+    "elaborated_expression_sha256": "1a96ad274a14ef0c7285734258d28a7ff6e49febe1470bfbb957d757a92e718c",
+    "statement_file_sha256": "79e8f14fa5219760ef0fa3b26c95ebe40916f0ed2881a6491fce36944398d4c7",
+    "fully_explicit_expression": "Not (@ComputablePred.{0} (Prod.{0, 0} Code Nat) (@Primcodable.prod.{0, 0} Code Nat (@Primcodable.ofDenumerable.{0} Code Code.instDenumerable) (@Primcodable.ofDenumerable.{0} Nat Denumerable.nat)) Halts)"
+  },
+  "domain_and_universes": "programInput : Nat.Partrec.Code x Nat in universe 0; the target is Prop in universe 0. Every inductive Code is valid and every Nat input, including zero, is included.",
+  "ordered_binders": [
+    "programInput : Nat.Partrec.Code x Nat (implicit universal binder supplied to the predicate)"
+  ],
+  "hypotheses": [],
+  "conclusion": "Not (ComputablePred Halts), where Halts programInput is the domain proposition of Nat.Partrec.Code.eval programInput.1 programInput.2.",
+  "direct_imports": [
+    "Mathlib.Computability.Halting"
+  ],
+  "minimal_import_basis": "ComputablePred is defined in Mathlib.Computability.Halting, which publicly imports the universal Code evaluator from PartrecCode. Replacing the direct import by Mathlib.Computability.PartrecCode makes ComputablePred unavailable, so no narrower defining module elaborates this target.",
+  "machine_model": "Nat.Partrec.Code, mathlib's denumerable inductive syntax for universal partial-recursive programs",
+  "input_type": "Nat",
+  "execution_semantics": "Nat.Partrec.Code.eval : Nat.Partrec.Code -> Nat ->. Nat",
+  "halting_predicate": "(Nat.Partrec.Code.eval program input).Dom, meaning that universal partial evaluation produces some natural output",
+  "decider_contract": "ComputablePred Halts: existence of one DecidablePred instance whose Boolean indicator is total and Computable in mathlib's partial-recursive sense",
+  "validity_policy": "Every Nat.Partrec.Code constructor denotes a program; there is no malformed-code side condition. The pair predicate ranges uniformly over every code and every natural input.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0741.ExpandedHaltingProblemUndecidable",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0741.haltingProblemUndecidable_iff_expanded",
+      "boundary": "The alternate only unfolds the local Halts name; code/input domain, evaluator, domain predicate, and computable-decider conclusion are identical."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the fixed-input theorem family forall n, Not (ComputablePred fun code => (Code.eval code n).Dom)",
+    "one existentially selected fixed-input theorem",
+    "the diagonal self-input predicate using Code.encodeCode",
+    "a concrete Turing-machine transition-system statement without a checked compiler/equivalence transport",
+    "non-recursive-enumerability of the halting predicate",
+    "classical nonexistence of an arbitrary Boolean characteristic function with no effectivity condition"
+  ],
+  "boundary_policy": {
+    "included": [
+      "input zero and every natural-number input",
+      "programs which halt immediately or return zero",
+      "programs which diverge forever"
+    ],
+    "checked_witnesses": [
+      "Stage1Instances.THM_M_0741.zero_halts",
+      "Stage1Instances.THM_M_0741.rfind_succ_does_not_halt"
+    ],
+    "meaning": "Halting is definedness of partial evaluation, not production of a special output, bounded execution, or timeout observation."
+  },
+  "source_interpretation": "The target-bearing catalog gloss is the standard halting-undecidability family. The repository's fuller computability catalog wording explicitly says that no Turing machine decides whether an arbitrary Turing machine halts on a given input. This statement phase selects the conventional arbitrary-program/arbitrary-input partial-recursive-code realization. It does not claim a source-exact Turing 1936 translation or transfer state from duplicate THM-M-0707.",
+  "environment_fingerprint": {
+    "repository_base": "d05520867fab3367a9b61b9544c3e12241204f54",
+    "repository_base_tree": "fb2cfc62077d5b53e9938632cd6361dd60872067",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "c2a073a05c631e7fc957577a66025e9ac36dac741f9aa865e0f053b17f0c85de",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked definitional iff reports propext, Classical.choice, and Quot.sound through the imported computability and encoding surface; no custom axiom or proof escape is introduced.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. This statement phase does not inspect or credit the pinned halting theorem's proof body.",
+  "computation_profile": "Partial evaluation and computability occur as mathematical objects in the proposition. No native execution, timeout, oracle, generated instance, experiment, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0741/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis_or_contract",
+        "declaration": "mutationRemovedEffectivity",
+        "change": "removes computability from the total Boolean decider contract"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedDomainToPrograms",
+        "change": "replaces one pair predicate by a family of fixed-input code predicates"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope",
+        "change": "selects one existential fixed input instead of ranging over arbitrary pairs"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationChangedBoundaryToSelfInput",
+        "change": "restricts inputs to each program's own code number"
+      }
+    ],
+    "method": "Lean rejects direct exact-type interchange in the tested directions, and the validator serializes every fully explicit expression and rejects any mutation fingerprint equal to the canonical fingerprint. This is an exact structural identity test, not a claim that every mutation is logically inequivalent."
+  },
+  "source_fidelity_boundary": "Turing's 1936-1937 article and correction remain bibliographic leads: no accepted immutable passage, definition chain, modern machine/input translation, proof map, correction/errata disposition, or independent review is present. The human-source axis therefore remains H1 even though the conventional machine target is exactly elaborated.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "This freezes and self-tests the conventional arbitrary-program/arbitrary-input Lean proposition only. It supplies no proof-body, anchor-audit, source H0, M0, R0, audit-completion, theorem-completion, release, or master-acceptance credit."
+}

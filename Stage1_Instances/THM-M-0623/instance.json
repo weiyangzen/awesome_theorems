@@ -1,0 +1,213 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0623",
+  "item_id": "S56-M-0623-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "execution_rank": 1317,
+  "intake_score": 86,
+  "name_zh": "乌雷松度量化定理",
+  "name_en": "Urysohn metrization theorem",
+  "canonical_name": "Urysohn metrization theorem (regularity convention and exact formulation open)",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "第二可数正则空间可度量化",
+  "literal_source_claim_en": "A second-countable regular space is metrizable.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_urysohn_metrization_family_and_exact_topic_pinned_candidates_but_regular_separation_convention_metric_meaning_and_source_transport_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not define whether regular includes T0, T1, or Hausdorff separation, nor whether metrizable means metric or pseudometric. Under pinned mathlib, bare RegularSpace plus SecondCountableTopology yields only PseudoMetrizableSpace; MetrizableSpace requires T3Space, equivalently RegularSpace plus T0Space. Selecting either candidate without an accepted source convention would weaken or strengthen the received claim.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.Metrizable.Urysohn"
+    ],
+    "declaration_candidates": [
+      "TopologicalSpace.PseudoMetrizableSpace.of_regularSpace_secondCountableTopology",
+      "TopologicalSpace.metrizableSpace_of_t3_secondCountable"
+    ],
+    "construction_candidates": [
+      "TopologicalSpace.exists_isInducing_l_infty",
+      "TopologicalSpace.exists_embedding_l_infty"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_source_regularity_convention_metric_meaning_and_checked_transport"
+  },
+  "domain_and_universes": "Open: the likely domain is a universe-polymorphic type X with a topology, but the accepted source must fix the regularity/separation convention, countability and metrizability meanings, universe, and exact typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: existence of a metric or pseudometric structure compatible with the given topology. The exact structure and topology-equality encoding remain open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before source acceptance; empty, singleton, finite, non-T0 indiscrete, discrete, and already metrizable spaces must be addressed under the selected convention.",
+  "candidate_scope_not_credited": [
+    "T3Space plus SecondCountableTopology implies MetrizableSpace",
+    "RegularSpace plus T0Space plus SecondCountableTopology implies MetrizableSpace",
+    "bare RegularSpace plus SecondCountableTopology implies PseudoMetrizableSpace",
+    "existence of an inducing map into bounded real sequences",
+    "existence of an embedding into bounded real sequences"
+  ],
+  "scope_decisions_open": [
+    "whether the catalog word regular includes T0, T1, or Hausdorff separation",
+    "whether metrizable requires a genuine metric or permits a pseudometric",
+    "T3Space versus separate RegularSpace and T0Space binders",
+    "compatible structure versus explicit topology equality, inducing-map, or embedding encoding",
+    "universe, binder order, implicit typeclass context, and empty or singleton cases",
+    "non-T0 indiscrete counterexamples under the weak regularity convention",
+    "Urysohn versus Tychonoff attribution and version boundary"
+  ],
+  "excluded_substitutions": [
+    "bare RegularSpace to MetrizableSpace under mathlib conventions",
+    "PseudoMetrizableSpace substituted for a source-required metric conclusion",
+    "T3Space or T0 silently added without source authority",
+    "Urysohn's lemma or Tietze extension used as the root",
+    "Nagata-Smirnov or Bing metrization used as the root",
+    "an inducing map or embedding without an accepted checked relationship to metrizability",
+    "first countability, separability, converse claims, or degenerate special cases",
+    "a premise, axiom, structure field, or certificate that assumes the desired conclusion",
+    "the catalog's untrusted verified label, theorem-name match, or API probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0621",
+      "name": "乌雷松引理",
+      "relationship": "a potential proof dependency but a separate theorem; no state or proof credit transfers"
+    },
+    {
+      "theorem_id": "THM-M-0622",
+      "name": "蒂策扩张定理",
+      "relationship": "a neighboring extension theorem, not the metrization root"
+    },
+    {
+      "theorem_id": "THM-M-0624",
+      "name": "Nagata-Smirnov度量化定理",
+      "relationship": "a different metrization characterization with separately owned hypotheses and proof"
+    },
+    {
+      "theorem_id": "THM-M-0625",
+      "name": "Bing度量化定理",
+      "relationship": "a different metrization theorem; no source, statement, or receipt credit transfers"
+    }
+  ],
+  "source_status": "H1_historical_primary_publication_lead_and_exact_topic_formal_candidates_identified_but_theorem_passage_regularity_definition_assumptions_proof_boundary_translation_errata_transport_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Paul Urysohn, Zum Metrisationsproblem, Mathematische Annalen 94(1), 1925, 309-315, DOI 10.1007/BF01208661",
+      "status": "Crossref and publisher bibliographic metadata inspected; primary full text was access gated and no theorem passage or definition crosswalk was accepted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Metrizable.Urysohn",
+      "declaration": "TopologicalSpace.PseudoMetrizableSpace.of_regularSpace_secondCountableTopology",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "for X with TopologicalSpace, RegularSpace, and SecondCountableTopology, provides PseudoMetrizableSpace X",
+      "status": "pinned declaration elaborates; it is not a metric-root substitute and source identity, provenance, trust, and transport remain downstream"
+    },
+    {
+      "module": "Mathlib.Topology.Metrizable.Urysohn",
+      "declaration": "TopologicalSpace.metrizableSpace_of_t3_secondCountable",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "for X with TopologicalSpace, T3Space, and SecondCountableTopology, provides MetrizableSpace X",
+      "status": "pinned declaration elaborates; the extra separation convention is not yet source-transported and terminal proof provenance/trust remain downstream"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "5bc32428da3d17f138ceca67f30fbc2d149da1ba",
+    "repository_base_tree": "7d2433c3e014a9cc8c4d061bcc1b7d5c637ce33f",
+    "repository_record": "Docs/researches/math_theorems.md:4622-4627",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:17044-17069",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "ca30c926459debf5baa76592d1860ba94820f3c1c19ef80b6374e631d125193f",
+    "stage0_projection_excerpt_sha256": "16ccac325589e57c1fdcb870fdaa1152c2855b6104c1e8b60919411e05a54a1f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "0ad83b1e2be2ebd75cf307334948fd3a6347435df605140484e75ed74389e08f",
+    "execution_dag_sha256": "bf164d9974376dde827d50b07725bc7692a36dea3a203ac67b0ee24cd1db3dd1",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_urysohn_source_sha256": "f3ff7368d39fdff7848c7a9c696be962a0347dc9043ae4b658e66430e300feb0",
+    "mathlib_regular_source_sha256": "6ad253a3f2869c1ad6597e28bed1b0d58c4f60aa5450df52a76545f9fd9426a5",
+    "mathlib_metrizable_basic_source_sha256": "8f348ee88d6ac7666c6559820ddcd501267d116d40a5b997273792dd7f464856",
+    "mathlib_current_split_origin_commit": "442eef6fd3ba9cfc24dfbff647325d9d0afad2f9",
+    "mathlib_original_lean4_port_commit": "94a92f15abf662169585a587b5f0569744f50b55",
+    "crossref_metadata_sha256": "fa259d8fd226f398a941744d25cda1eac0127bc13ec8a1542f28923dde17de47"
+  },
+  "external_source_locators": {
+    "primary_article": "Paul Urysohn, Zum Metrisationsproblem, Mathematische Annalen 94(1), 1925, 309-315",
+    "doi": "10.1007/BF01208661",
+    "crossref_api": "https://api.crossref.org/works/10.1007/BF01208661",
+    "publisher_page": "https://link.springer.com/article/10.1007/BF01208661"
+  },
+  "external_source_hash_boundary": "Bibliographic metadata and the publisher article page were inspected outside the repository. The primary PDF endpoint returned an access page rather than the article, so no source text was added or accepted. Integration must lawfully preserve and independently review the complete selected source before H0.",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; propext, Classical.choice, and Quot.sound appear in both candidate axiom reports, but the accepted foundation and transitive axiom policy remain open until the canonical target is frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, target expression, transports, terminal proof bodies, transitive dependencies, and trust closure remain open",
+  "computation_profile": "No native computation, numerical experiment, external oracle, assumed certificate, or unchecked result is credited; the expected theorem is a noncomputable topological existence result",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0623/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0623/README.md",
+    "Stage1_Instances/THM-M-0623/instance.json",
+    "Stage1_Instances/THM-M-0623/scope-map.md",
+    "Stage1_Instances/THM-M-0623/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0623/task-dag.json",
+    "Stage1_Instances/THM-M-0623/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0623/check_intake.py",
+    "Stage1_Instances/THM-M-0623/validation.md",
+    "Stage1_Instances/THM-M-0623/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent point-set topology reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "historical_attribution_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition, theorem passage, regularity/separation or metrizability convention, attribution/version, binder, boundary case, canonical target or transport, toolchain or dependency pin, assurance profile, validator, structured recipe, public reconstruction, or any owned artifact; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Worker-self-tested planned intake only. It freezes the catalog gloss, regularity and metric-convention ambiguity, counterexample boundary, historical source lead, pinned exact-topic candidates, and open task DAG. No canonical mathematical or Lean proposition, source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
