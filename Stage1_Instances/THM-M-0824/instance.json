@@ -1,0 +1,223 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0824",
+  "item_id": "S56-M-0824-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1382,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Prim算法",
+  "name_en": "Prim's algorithm",
+  "canonical_name": "Prim minimum-spanning-tree algorithm family (repository label)",
+  "category": "组合数学 / 图论",
+  "category_en": "Combinatorics / Graph Theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Prim算法",
+  "literal_source_claim_zh": "最小生成树的另一种算法",
+  "literal_source_claim_en": "Another algorithm for minimum spanning trees.",
+  "source_attribution": "Robert Prim, 1957 (catalog metadata only; no work or passage is cited)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_algorithm_family_gloss_only_no_selected_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_the_prim_minimum_spanning_tree_algorithm_family_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only an algorithm-family label and purpose gloss. It fixes no finite graph representation, directedness or multiedge policy, weight carrier and order, connectedness or nonemptiness assumptions, start vertex, frontier and tie semantics, state transition, termination rule, output representation, ordered binders, or conclusion. Selecting termination, spanning-tree validity, minimum-weight optimality, uniqueness, implementation refinement, complexity, or a conjunction would invent or substitute proposition-changing mathematics.",
+  "target_decision": "redirect the catalog algorithm-family label to one corrected, independently reviewed, immutable-source proposition before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Acyclic",
+      "Mathlib.Combinatorics.SimpleGraph.Subgraph",
+      "Mathlib.Combinatorics.SimpleGraph.Finite"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "SimpleGraph.Subgraph.IsSpanning",
+      "SimpleGraph.IsTree",
+      "SimpleGraph.edgeFinset",
+      "SimpleGraph.Connected.exists_isTree_le"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix the finite vertex and edge types, simple-graph or multigraph representation, edge-weight carrier, addition and comparison structure, decidability, finiteness, start-vertex type, algorithm state and result types, universes, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose termination, construction of a subgraph or tree, spanning validity, minimum total weight, tie-independent weight, uniqueness, executable refinement, a comparison/runtime bound, or an exact conjunction of these claims.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every graph, weight, start, connectivity, tie, stopping, failure, output, arithmetic, and resource boundary listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "existence of a tree subgraph in every finite connected simple graph",
+    "a cut or exchange lemma for minimum spanning trees",
+    "preservation of an acyclic connected-growth invariant by one source-selected Prim step",
+    "termination of a source-selected Prim iteration",
+    "spanning-tree validity and minimum-total-weight optimality of a complete run",
+    "tie-independent optimal total weight or uniqueness under distinct weights",
+    "a heap-, matrix-, or adjacency-list-specific complexity result"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton vertex types, empty edge sets, and disconnected graphs",
+    "loops and parallel edges if a nonsimple graph representation is selected",
+    "equal-weight frontier edges, nondeterministic choices, and nonunique minimum spanning trees",
+    "negative, zero, unbounded, infinite, or noncomputably ordered weights",
+    "a missing start vertex, stuck states, repeated vertices or edges, and partial failure outputs",
+    "exact weights versus bounded integers or floating point, including overflow and unstable comparisons"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0823 Kruskal's algorithm or a generic greedy/matroid theorem without a checked Prim transport",
+    "THM-M-0825 Dijkstra's algorithm despite its superficially similar frontier selection",
+    "Stage0 record THM-C-0095 treated as an accepted alias, source, proof, or separate rev-5.6 target",
+    "generic tree existence, finite-edge, minimum-selection, cut-property, or exchange infrastructure alone",
+    "an algorithm definition, pseudocode trace, executable test, benchmark, or computed example",
+    "a structure or hypothesis storing the desired run, tree, minimality, or complexity conclusion",
+    "the untrusted catalog label 已验证 or the discovery-only probe as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0823",
+      "name": "Kruskal算法",
+      "relationship": "a separately cataloged minimum-spanning-tree algorithm; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0825",
+      "name": "Dijkstra算法",
+      "relationship": "a separately cataloged shortest-path algorithm; similar frontier syntax does not transfer correctness"
+    },
+    {
+      "theorem_id": "THM-C-0095",
+      "name": "Prim算法正确性",
+      "relationship": "a related Stage0 computer-science record absent from the rev-5.6 manifest; the repository exposes no accepted alias/deduplication crosswalk or proof credit"
+    }
+  ],
+  "source_candidates_not_credited": [
+    {
+      "citation": "R. C. Prim, Shortest Connection Networks And Some Generalizations, Bell System Technical Journal 36(6), pages 1389-1401, November 1957, DOI 10.1002/j.1538-7305.1957.tb01515.x",
+      "candidate_locator": "Crossref and Unpaywall DOI metadata observed 2026-07-13",
+      "candidate_summary": "bibliographically matches the catalog author and year and is a strong historical source-family lead",
+      "inspection_status": "bibliographic metadata only; the repository does not cite it, Unpaywall reports closed access, no article body or exact algorithm/theorem/proof/correction passage was inspected, and no independent review occurred"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Subgraph",
+      "declaration": "SimpleGraph.Subgraph.IsSpanning",
+      "boundary": "spanning-subgraph predicate only; no weights, tree property, algorithm, or optimality"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Acyclic",
+      "declaration": "SimpleGraph.IsTree",
+      "boundary": "connected acyclic simple-graph predicate only; no input-subgraph or minimum-weight claim"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Acyclic",
+      "declaration": "SimpleGraph.Connected.exists_isTree_le",
+      "boundary": "existence of a tree subgraph only; no Prim construction or weight optimality"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "declaration": "SimpleGraph.edgeFinset",
+      "boundary": "finite edge representation only; no edge-weight sum, frontier, state, or correctness"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "902d9ce008e88a35a2307c85355560a230cc33c2",
+    "repository_base_tree": "dfc20d8141f18f6b09a03e818acfff408e836714",
+    "repository_record": "Docs/researches/math_theorems.md:6054-6059",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22496-22521",
+    "related_cs_record": "Docs/researches/cs_theorems.md:170",
+    "related_cs_stage0_projection": "Docs/Stage0_Blueprint.md:83999-84026",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_cs_record_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_repository_cs_source_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "repository_record_excerpt_sha256": "30782b39e8cfab66dc80e1e46685d38ccd03fa7101e1b02c6f4c3f7e9842fdab",
+    "stage0_projection_excerpt_sha256": "b80783c57d5eece5dd8672b06281621af04a2c7505bc35b0013f46ecce5e8977",
+    "related_cs_record_excerpt_sha256": "77a33cbb5241f82fc8da4a2f21d82830ba5cee220cce6fe421eb088788823779",
+    "related_cs_stage0_excerpt_sha256": "d0efae73de55d315605ecf30a1ba13d7aeb6b0e05ba8bd4d023daed3fec35336",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "34e913419c1f9e24ed1d91fda9f1450d19f01ab22d60a7af5f9a00152cb04373",
+    "execution_dag_sha256": "b1cd5bf2e918865015bab425e20c42df1c2ad26aff9a4e849960d8bc7539e58c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_acyclic_source_sha256": "94a3dad09f48c9a2b1d0dc68914f4060bec2943e2977a7cdf4e2105df7afe50a",
+    "mathlib_subgraph_source_sha256": "64d84d818d1ec275dfa5b342b9e608e01bddfc6050a9f3a9f50df9d003ae1acc",
+    "mathlib_finite_source_sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8",
+    "crossref_metadata_sha256": "1f28b63b15a3a31a716dc13a2db0e0fc5431a163136b5134871e5f9632d79d05",
+    "unpaywall_metadata_sha256": "12f7aae5095796d655d9406b93427f5a51a6645339cbfd752dc030bc359b9b34"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, finite minima, graph quotients, ordered weight sums, and executable decidability requirements remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, algorithm implementation, terminal declaration, axioms, transitive dependencies, and trust policy remain open",
+  "computation_profile": "No executable Prim run, pseudocode interpreter, random tie selection, benchmark, floating-point calculation, native shortcut, oracle, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0824/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0824/README.md",
+    "Stage1_Instances/THM-M-0824/instance.json",
+    "Stage1_Instances/THM-M-0824/scope-map.md",
+    "Stage1_Instances/THM-M-0824/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0824/task-dag.json",
+    "Stage1_Instances/THM-M-0824/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0824/check_intake.py",
+    "Stage1_Instances/THM-M-0824/validation.md",
+    "Stage1_Instances/THM-M-0824/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-algorithms source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned minimum-spanning-tree and algorithms reviewer",
+    "reviewer_policy": "Independent source and graph-algorithm reviewers must approve the selected proposition, graph and weight model, Prim transition and tie semantics, correctness boundary, source mapping, and degenerate cases; a formal reviewer must approve the Lean target; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source or errata finding, proposition selection, graph/weight/start/transition/tie/stopping/output/correctness/resource/boundary decision, neighboring-target or Stage0-alias reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, receipt, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog algorithm-family gloss as not yet a stable proposition; it does not refute established Prim correctness results. The bibliographic lead and pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

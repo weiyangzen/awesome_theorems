@@ -1,0 +1,206 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0629",
+  "item_id": "S56-M-0629-INTAKE",
+  "execution_rank": 1322,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "一点紧化定理",
+  "name_en": "Alexandroff one-point compactification theorem",
+  "canonical_name": "Alexandroff one-point compactification family for locally compact Hausdorff spaces",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_attribution": "Pavel Alexandrov; 1924 (catalog metadata only)",
+  "literal_source_claim_zh": "局部紧Hausdorff空间的一点紧化",
+  "literal_source_claim_en": "The one-point compactification of a locally compact Hausdorff space.",
+  "source_status_untrusted": "已验证",
+  "canonical_claim_status": "classical_one_point_compactification_family_and_direct_pinned_interfaces_identified_but_exact_source_property_bundle_and_noncompactness_policy_open",
+  "canonical_statement": null,
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected locally compact Hausdorff space X, adjoin one point and embed X as its one-point complement in a compact Hausdorff space; determine from the source whether density and therefore noncompactness, and whether uniqueness, belong to the root.",
+  "statement_blocker": "The catalog does not select construction, compact-Hausdorff extension, open or dense embedding, singleton complement, uniqueness, or an exact conjunction. It also omits whether X must be noncompact: mathlib deliberately adds an isolated point when X is compact, so density requires NoncompactSpace X. Choosing a property bundle or adding noncompactness at intake would invent proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_exact_source_property_bundle_and_noncompactness_policy",
+    "module_candidate": "Mathlib.Topology.Compactification.OnePoint.Basic",
+    "declaration_candidates": [
+      "OnePoint",
+      "OnePoint.compl_range_coe",
+      "OnePoint.isOpenEmbedding_coe",
+      "OnePoint.denseRange_coe",
+      "OnePoint.isDenseEmbedding_coe",
+      "OnePoint.instCompactSpace",
+      "OnePoint.equivOfIsEmbeddingOfRangeEq"
+    ],
+    "candidate_relationship": "Pinned mathlib implements the classical construction and its component properties, but no single declaration or source-approved conjunction is established as the catalog root.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an admitted source must fix the universe-polymorphic input type and topology, local-compactness convention, Hausdorff and noncompactness assumptions, compactification carrier and embedding data, and all typeclass contexts.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open: expected family combines some of construction, compactness, Hausdorffness, embedding, density, one-point complement, and uniqueness, but the catalog selects no exact conclusion.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton spaces",
+    "compact locally compact Hausdorff spaces, where the added point is isolated",
+    "noncompact locally compact Hausdorff spaces, where the canonical embedding is dense",
+    "finite and infinite discrete spaces",
+    "connected and disconnected spaces",
+    "non-Hausdorff or merely R1 inputs used as statement mutations",
+    "one-point-complement embeddings whose image is open but not dense"
+  ],
+  "candidate_scope_not_credited": [
+    "construction of OnePoint X with neighborhoods of infinity given by complements of closed compact subsets",
+    "unconditional compactness of OnePoint X",
+    "T4 and hence compact Hausdorff conclusion under weak local compactness and T2",
+    "canonical open embedding with singleton complement",
+    "dense embedding under an additional NoncompactSpace assumption",
+    "homeomorphic uniqueness of compact Hausdorff extensions with exactly one point outside the image"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0628 generic local-compactness topic or evidence",
+    "THM-M-0630 Stone-Cech compactification and its maximality property",
+    "one-point compactification of Euclidean space as a sphere or of a field as a projective line",
+    "compactness, Hausdorffness, density, complement, or uniqueness alone substituted for an unresolved property bundle",
+    "a structure or hypothesis which already stores the desired compactification",
+    "the untrusted verified label or discovery probe treated as exact statement or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0628",
+      "name": "局部紧性定理",
+      "relationship": "owns the broad local-compactness topic; no source, statement, or proof credit transfers"
+    },
+    {
+      "theorem_id": "THM-M-0630",
+      "name": "斯通-切赫紧化",
+      "relationship": "owns the distinct Stone-Cech maximal compactification family; no universal-property substitution or shared credit is allowed"
+    }
+  ],
+  "source_status": "H1_primary_1924_fundamentalsatz_and_proof_passage_located_but_historical_terminology_dependency_assumption_proof_errata_mapping_and_independent_review_open",
+  "human_source_leads_not_credited": [
+    {
+      "citation": "Paul Alexandroff, Uber die Metrisation der im Kleinen kompakten topologischen Raume, Mathematische Annalen 92 (1924), 294-301, DOI 10.1007/BF01448011",
+      "status": "primary archival scan inspected: Section 1 definitions on page 294 and Fundamentalsatz 1 plus proof on page 296; historical terminology, imported definitions and results, exact modern transport, corrections, errata, and independent review remain open"
+    },
+    {
+      "citation": "P. Alexandroff, Sur les espaces localement compacts",
+      "status": "earlier work named only in the 1924 publisher reference metadata; edition, year, text, relationship, and priority remain unaudited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Compactification.OnePoint.Basic",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "declarations": [
+        "OnePoint",
+        "OnePoint.compl_range_coe",
+        "OnePoint.isOpenEmbedding_coe",
+        "OnePoint.denseRange_coe",
+        "OnePoint.isDenseEmbedding_coe",
+        "OnePoint.equivOfIsEmbeddingOfRangeEq"
+      ],
+      "candidate_type_summary": "construction, canonical open embedding, singleton complement, conditional density, compactness and separation instances, and homeomorphic uniqueness for one-point-complement compact Hausdorff extensions",
+      "status": "direct family interfaces elaborate; exact root selection, expression identity, composition, proof-body provenance, dependencies, trust, and accepted receipt remain open"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d1b510bacab792f84a99231485cf4429fdb78978",
+    "repository_base_tree": "f77c4e4db196fc0ecc271815514a411d06ea6053",
+    "repository_record": "Docs/researches/math_theorems.md:4664-4669",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:17206-17231",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "6ce2b36c98b74ae7b52b29ce182f12a429b58b5d6f41e584c03b8beb29c59b1c",
+    "stage0_projection_excerpt_sha256": "38feb83193b893ff7a504b393cf84f344913c46bb9330e41cb5519925aab77b5",
+    "manifest_entry_sha256": "dc07d4ceebdf6116063b587b36e4f37a194b8e9787037a0bc1b620ad4d271bcf",
+    "execution_dag_intake_entry_sha256": "4e5ac32aa1757aa0249eb10e523d1ad6c517c58f60efddf5598ce387ea469c4a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f79eb00e787d3356209879a046caae86de60d355daf11ae8923d6e90c511c625",
+    "execution_dag_sha256": "ba0a151d3cb8c7fc6fbc0db54fe0653663c09d40c83790cd0ba185794d0931f8",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_one_point_basic_sha256": "4cafeabe9d0c45884b7648c9417bf854f3e154127c975e0c8bade0eb96722376",
+    "crossref_metadata_observation_sha256": "741f0eb58928015a7eda8b07e19248e1e2a63f5bf6e2b5e6ff0d91c30dbb2292",
+    "crossref_metadata_locator": "https://api.crossref.org/works/10.1007/BF01448011",
+    "publisher_locator": "https://link.springer.com/article/10.1007/BF01448011/fulltext.html",
+    "primary_archive_purl": "http://resolver.sub.uni-goettingen.de/purl?GDZPPN002270099",
+    "primary_archive_pdf": "https://gdz.sub.uni-goettingen.de/download/pdf/PPN235181684_0092/LOG_0024.pdf",
+    "primary_archive_pdf_sha256": "27697384150aac1383aa684ccf0743e7ce5494a27d714431dbb4692422c65cfa",
+    "primary_archive_pdf_bytes": 772797,
+    "primary_archive_iiif_manifest": "https://manifests.sub.uni-goettingen.de/iiif/presentation/PPN235181684_0092/manifest?version=7a696723",
+    "primary_archive_iiif_manifest_sha256": "8ba6a0bb625e92a2ab3140c2194cd9fa3b20eb82f76644080a6ead0b7dc73e98"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the probed declarations report propext, Classical.choice, and Quot.sound, but no exact target or accepted transitive axiom profile is frozen at intake",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact root imports, expression identity, component composition, terminal proof-body provenance, declaration dependencies, and transitive trust closure remain open",
+  "computation_profile": "No experiment, external oracle, native computation, generated topology certificate, or unchecked result is credited; the intended theorem requires kernel-checked topology",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0629/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0629/README.md",
+    "Stage1_Instances/THM-M-0629/instance.json",
+    "Stage1_Instances/THM-M-0629/scope-map.md",
+    "Stage1_Instances/THM-M-0629/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0629/task-dag.json",
+    "Stage1_Instances/THM-M-0629/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0629/check_intake.py",
+    "Stage1_Instances/THM-M-0629/validation.md",
+    "Stage1_Instances/THM-M-0629/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent point-set topology reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "neighbor_scope_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, primary edition or erratum, construction or compactification definition, local-compactness, Hausdorff, noncompactness, density, embedding, complement, uniqueness, binder or boundary decision, neighbor-scope reconciliation, canonical Lean target or transport, toolchain or dependency pin, assurance profile, validator, recipe, or any owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Worker self-tested planned intake only. It freezes the catalog gloss, pinpoint primary and formal leads, proposition-changing compactification choices, exclusions, and open task DAG. No canonical proposition, exact Lean statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
