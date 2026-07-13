@@ -1,0 +1,225 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0828",
+  "item_id": "S56-M-0828-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1386,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Edmonds-Karp算法",
+  "name_en": "Edmonds-Karp algorithm",
+  "canonical_name": "Edmonds-Karp maximum-flow correctness and polynomial-complexity theorem family (exact conjunction open)",
+  "category": "组合数学 / 图论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "最大流的多项式算法",
+  "literal_source_claim_en": "A polynomial-time algorithm for maximum flow.",
+  "source_attribution": "Jack Edmonds/Richard Karp; 1972 (catalog metadata and bibliographic DOI crosscheck)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_algorithmic_theorem_family_but_catalog_omits_network_flow_residual_bfs_correctness_output_and_cost_model_clauses",
+  "canonical_claim": null,
+  "statement_blocker": "The Stage1-bearing catalog record says only 'a polynomial-time algorithm for maximum flow'. It does not define the network, capacity and flow domains, source/sink hypotheses, residual semantics, breadth-first augmenting-path rule, output, correctness theorem, cost model, or exact polynomial bound. A companion non-Stage1 computer-science record says O(VE^2), but importing that clause as authority would broaden this target. The 1972 paper's bibliographic identity was crosschecked, while its primary text could not be inspected. Selecting a precise proposition now would invent or substitute mathematics.",
+  "target_decision": "retain the Edmonds-Karp correctness-and-complexity family at provisional H1/M4/R4, freeze no canonical proposition, and require primary-text review plus explicit reconciliation of polynomial versus O(VE^2) scope",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Quiver.Path.Weight",
+      "Mathlib.Combinatorics.Digraph.Basic",
+      "Mathlib.Combinatorics.SimpleGraph.Metric",
+      "Mathlib.Combinatorics.SimpleGraph.Walks.Counting"
+    ],
+    "declaration_candidate": null,
+    "candidate_expression": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_network_algorithm_correctness_and_complexity_model_open",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix a finite directed network or edge-indexed multigraph, vertex and edge universes, distinguished source and sink, a capacity codomain, flow and residual representations, executable or relational state, and the cost/input-size model.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-selected conjunction or separation of feasible-flow preservation, termination, maximum-flow correctness, optional minimum-cut certificate, and a precise worst-case polynomial bound such as O(V * E^2).",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "termination and maximum-flow correctness of repeated BFS-shortest residual augmentation on finite directed networks with natural capacities",
+    "the usual worst-case O(V * E^2) complexity theorem under an explicitly fixed elementary-operation and edge-count model",
+    "a checked conjunction of correctness, maximum-flow/minimum-cut certification, and the complexity bound",
+    "an executable queue-based implementation related to an abstract shortest-residual-path transition system",
+    "a generalization from integral capacities to rational or real capacities when the source and termination proof permit it"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty or singleton vertex type and source equal to sink",
+    "no source-to-sink path, no edges, or zero maximum flow",
+    "zero-capacity edges, self-loops, parallel edges, and antiparallel edges",
+    "integral versus rational or real capacities and fractional bottlenecks",
+    "irrelevant disconnected components",
+    "zero-length paths and forward/reverse residual-edge identity",
+    "multiple BFS-shortest augmenting paths and tie breaking",
+    "whether V and E count all represented or only active edges",
+    "flow-only output versus flow/value/cut/certificate output"
+  ],
+  "excluded_substitutions": [
+    "arbitrary-path Ford-Fulkerson in place of breadth-first shortest augmentation",
+    "maximum-flow/minimum-cut alone without the Edmonds-Karp algorithm and complexity result",
+    "Dinic, push-relabel, capacity scaling, or bipartite matching",
+    "undirected SimpleGraph shortest-walk distance presented as a residual directed network",
+    "a fixed graph example, enumeration, timing experiment, native evaluation, or unchecked certificate",
+    "a structure or hypothesis storing a maximum flow, optimal cut, path oracle, or desired complexity bound",
+    "the companion THM-C-0097 O(VE^2) gloss silently imported as the Stage1 root",
+    "the catalog's untrusted verified label, DOI metadata, bounded no-match search, or API probe treated as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0827",
+      "name": "Floyd-Warshall算法",
+      "relationship": "all-pairs shortest paths are distinct; generic shortest-path reasoning does not provide residual-flow correctness"
+    },
+    {
+      "theorem_id": "THM-M-0829",
+      "name": "Dinic算法",
+      "relationship": "a distinct level-graph/blocking-flow algorithm with a different complexity proof"
+    },
+    {
+      "theorem_id": "THM-M-0830",
+      "name": "Push-Relabel算法",
+      "relationship": "a distinct preflow and local-push algorithm, not an augmenting-path theorem"
+    },
+    {
+      "theorem_id": "THM-C-0097",
+      "name": "Edmonds-Karp算法",
+      "relationship": "separate Stage0 computer-science UID with an O(VE^2) gloss; ambiguity evidence only, not Stage1 source or proof authority"
+    }
+  ],
+  "source_status": "H1_exact_bibliographic_primary_paper_lead_and_companion_complexity_gloss_identified_but_primary_text_statement_assumptions_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Jack Edmonds and Richard M. Karp, Theoretical Improvements in Algorithmic Efficiency for Network Flow Problems, Journal of the ACM 19(2) (1972), 248-264",
+      "doi": "10.1145/321694.321699",
+      "bibliographic_observations": "Crossref JSON observed 2026-07-13, 5971 bytes, SHA-256 25aa7ca0f3f4b1e93644a2e83cd5e2ea03639615f87502f8d579c0e46622d079; DBLP independently agrees on title, authors, venue, volume, pages, year, and DOI",
+      "inspection_status": "bibliographic lead only; ACM primary PDF returned HTTP 403, so statement, definitions, assumptions, proofs, variants, corrections, and errata were not inspected"
+    },
+    {
+      "citation": "Docs/researches/cs_theorems.md:172 and Stage0 THM-C-0097",
+      "candidate_summary": "separate catalog record gives the familiar O(VE^2) maximum-flow-algorithm gloss",
+      "inspection_status": "repository boundary evidence only; not a primary source and not authority to alter THM-M-0828"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Quiver.Path.Weight",
+      "declarations": ["Quiver.Path", "Quiver.Path.addWeight", "Quiver.Path.addWeight_comp"],
+      "boundary": "directed paths and additive weights only; no capacity bottleneck, feasible flow, residual state, BFS, maximum-flow correctness, or complexity"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Digraph.Basic",
+      "declarations": ["Digraph", "Digraph.Adj"],
+      "boundary": "directed adjacency relations only; no edge identities for parallel arcs, capacities, paths/BFS, feasible flow, residual update, or algorithm theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Metric",
+      "declarations": ["SimpleGraph.edist", "SimpleGraph.Reachable.exists_walk_length_eq_edist", "SimpleGraph.Walk.isPath_of_length_eq_dist"],
+      "boundary": "undirected shortest-walk existence only; not a directed residual network or executable BFS"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walks.Counting",
+      "declarations": ["SimpleGraph.finsetWalkLengthLT", "SimpleGraph.fintypeSetWalkLengthLT"],
+      "boundary": "finite bounded-walk enumeration substrate only; no flow state or algorithm proof"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "repository_base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "repository_record": "Docs/researches/math_theorems.md:6082-6087",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22604-22629",
+    "companion_cs_record": "Docs/researches/cs_theorems.md:172",
+    "companion_cs_stage0_projection": "Docs/Stage0_Blueprint.md:84057-84084",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_repository_cs_source_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "repository_record_block_sha256": "c9981f5642276c6b25e73d7841f3965d4c60c0dfe9f7872a275b44b6096e8afe",
+    "stage0_projection_block_sha256": "328beb6daffab8b24e5266b877d47f74d8a00bfde2cacc85a1dee932acb1aa24",
+    "companion_cs_record_block_sha256": "77e79b3a95f1d74f38e94f8b0f61dab9fd04efefe7f554c0cc6b908419daa012",
+    "companion_cs_stage0_block_sha256": "df722627141c7e6a870be2715630a9a6df775cfef0a895ba26c961bcb75b1044",
+    "neighbor_catalog_block_sha256": "e9637a308dbbbef9734f3f95330258bd230d4c9008edac01ab68fbffeb1f7e53",
+    "manifest_entry_canonical_sha256": "3d02a8e3d0cc723be2d952e1395201f6ee47540b16b46b3b00c40e5dbafb1e5b",
+    "target_dag_rows_canonical_sha256": "dabe349a068056bf01aea6195d76ceccca9d04cf6f20af38507e6a04875bfd0e",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256": "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_quiver_path_weight_source_sha256": "0e29fbdc2cea79e0cac5ad564f9c6b6181baf0057ccafdcbce88e3d92f9c4178",
+    "mathlib_digraph_basic_source_sha256": "3062fbe7844161d29d885206e013c2c644e3f855f3603956bc3f243ab4808d81",
+    "mathlib_simplegraph_metric_source_sha256": "4fa93451ec543582ab67d24e259914fdf550b65dadcb4bddceac9bec23557b5b",
+    "mathlib_simplegraph_walk_counting_source_sha256": "f06e98f2d787a7b2b86e0006905371421abcf7db06583790558eac6b97ed5738",
+    "crossref_metadata_sha256": "25aa7ca0f3f4b1e93644a2e83cd5e2ea03639615f87502f8d579c0e46622d079"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice for selecting a shortest path, finite choice, quotient or multigraph encodings, extensionality, and accepted-axiom policy remain open until the exact source proposition and implementation relation are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, axioms, runtime extraction boundary, and trust closure remain open",
+  "computation_profile": "No queue implementation, evaluator, timing experiment, native execution, path oracle, solver, or unchecked certificate is credited; a future executable algorithm and asymptotic analysis must be connected to the abstract theorem by kernel-checked correctness and a source-approved cost model",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0828/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0828/README.md",
+    "Stage1_Instances/THM-M-0828/instance.json",
+    "Stage1_Instances/THM-M-0828/scope-map.md",
+    "Stage1_Instances/THM-M-0828/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0828/task-dag.json",
+    "Stage1_Instances/THM-M-0828/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0828/check_intake.py",
+    "Stage1_Instances/THM-M-0828/validation.md",
+    "Stage1_Instances/THM-M-0828/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent network-flow/source reviewer",
+    "formal_reviewer": "unassigned independent Lean/algorithms reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source edition, correction or erratum; reconciliation of polynomial versus O(VE^2) scope; network, capacity, flow, residual, BFS, output, correctness, cost, asymptotic, or boundary convention; Lean target; toolchain or dependency pin; assurance profile; validator; or any owned-artifact change. Independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, bibliographic source lead, companion-record ambiguity, proposition-changing choices, generic pinned API boundary, exclusions, and six open downstream tasks. No canonical proposition, inspected primary proof, H0 source, exact Lean target, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

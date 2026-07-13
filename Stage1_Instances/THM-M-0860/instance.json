@@ -1,0 +1,211 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0860",
+  "item_id": "S56-M-0860-INTAKE",
+  "execution_rank": 1414,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_artifacts_accepted": false,
+  "legacy_priority_slot": null,
+  "name_zh": "Shannon定理",
+  "name_en": "Shannon multigraph edge-colouring theorem (exact proposition open)",
+  "canonical_name": "Shannon chromatic-index upper-bound theorem family",
+  "category": "组合数学 / 图论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "source_status_untrusted": "已验证",
+  "intake_score": 86,
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "边色数的上界",
+  "literal_source_claim_en": "upper bound for the chromatic index",
+  "canonical_claim_status": "matching_Shannon_1949_multigraph_edge_colouring_family_identified_but_exact_source_defined_proposition_not_frozen",
+  "canonical_statement": null,
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "Every finite loopless multigraph G has chromatic index at most floor (3 * maximumDegree(G) / 2), equivalently it admits a proper edge-colouring using at most that many colours.",
+  "target_disposition": "requires_primary_source_admission_and_exact_scope_review_before_statement_execution",
+  "statement_blocker": "The catalog and matching bibliographic record identify Shannon's 1949 multigraph edge-colouring bound, but the primary theorem text was unavailable. The received record does not freeze the finite network model, loop exclusion, parallel-edge identity, degree and maximum-degree conventions, proper edge-colouring and chromatic-index definitions, rounding, ordered binders, boundary cases, or whether sharpness is part of the root. Selecting the familiar modern formulation as canonical would import unreviewed proposition-changing choices.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_due_to_unadmitted_exact_primary_statement_and_missing_multigraph_colouring_interfaces",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "module_candidates_not_credited": [
+      "Mathlib.Combinatorics.Graph.Basic",
+      "Mathlib.Combinatorics.Graph.Subgraph",
+      "Mathlib.Combinatorics.SimpleGraph.EdgeLabeling",
+      "Mathlib.Combinatorics.SimpleGraph.Finite"
+    ],
+    "declaration_candidates_not_credited": [
+      "Graph",
+      "Graph.IsLink",
+      "Graph.Inc",
+      "Graph.IsLoopAt",
+      "Graph.IsNonloopAt",
+      "Graph.IsSubgraph",
+      "SimpleGraph.EdgeLabeling",
+      "SimpleGraph.degree",
+      "SimpleGraph.maxDegree"
+    ],
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted primary source and encoding review must fix vertex and edge carrier universes, explicit graph support, finiteness, looplessness, parallel-edge identity, decidability and cardinality instances, palette type, and every coercion.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository gives only an upper-bound gloss and does not freeze the exact chromatic-index inequality, equivalent existence form, arithmetic rounding, or sharpness boundary.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "every finite loopless multigraph has chromatic index at most floor (3 * maximum degree / 2)",
+    "every finite loopless multigraph admits a proper edge-colouring with a Fin (3 * Delta / 2) palette",
+    "the inequality together with sharpness on a three-vertex parallel-edge family",
+    "an explicit-edge Graph encoding versus a faithful incidence or line-graph transport"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no exact proposition is selected; empty graphs, edgeless graphs, maximum degrees zero and one, parallel-edge pairs, disconnected graphs, infinite ambient carriers with finite support, and loop-containing inputs remain statement decisions.",
+  "degenerate_cases_to_resolve": [
+    "empty vertex and edge sets and the maximum-degree convention",
+    "edgeless and isolated-vertex graphs",
+    "maximum degree zero and one under natural-number division",
+    "two vertices joined by parallel edges",
+    "three-vertex extremal multigraphs for even and odd maximum degree",
+    "disconnected graphs",
+    "finite graph support inside infinite ambient carrier types",
+    "loop-containing inputs and whether the source excludes them"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0858 Brooks vertex-colouring theorem",
+    "THM-M-0859 Vizing simple-graph edge-colouring theorem",
+    "THM-M-0861 Konig bipartite edge-colouring theorem",
+    "a simple-graph line-graph coloring that collapses parallel-edge identity",
+    "an arbitrary SimpleGraph.EdgeLabeling without proper-incidence and palette-size conditions",
+    "a theorem assuming the desired colouring or bound as a premise",
+    "a finite computation, algorithm run, or experiment without a general kernel-checked correctness proof",
+    "the untrusted catalog label 已验证 used as human-source or kernel evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0858",
+      "name": "Brooks定理",
+      "relationship": "vertex chromatic-number upper bound; not an edge-colouring target"
+    },
+    {
+      "theorem_id": "THM-M-0859",
+      "name": "Vizing定理",
+      "relationship": "adjacent simple-graph edge-colouring bound; it cannot replace the parallel-edge Shannon root"
+    },
+    {
+      "theorem_id": "THM-M-0861",
+      "name": "König边着色定理",
+      "relationship": "adjacent bipartite edge-colouring equality; stronger on a narrower domain and not a universal Shannon substitute"
+    }
+  ],
+  "source_status": "H1_matching_primary_publication_and_complete_theorem_family_identified_exact_text_definitions_assumptions_proof_boundary_errata_mapping_and_independent_review_open",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "Claude E. Shannon, A Theorem on Coloring the Lines of a Network, Journal of Mathematics and Physics 28(1-4), April 1949, 148-152, DOI 10.1002/sapm1949281148",
+      "candidate_summary": "matching primary publication for the graph-theoretic Shannon edge-colouring theorem",
+      "inspection_status": "Crossref bibliographic metadata and Unpaywall access status inspected; publisher theorem text, definitions, exact assumptions, formula, proof boundary, correction state, and independent review were unavailable and unaccepted"
+    },
+    {
+      "citation": "Pierre Aboulker, Guillaume Aubian, and Chien-Chung Huang, Vizing's and Shannon's Theorems for Defective Edge Colouring, Electronic Journal of Combinatorics 29(4), 2022, P4.1, DOI 10.37236/11049",
+      "candidate_summary": "inspected modern secondary source that states the d=1 Shannon case as the floor (3 Delta / 2) chromatic-index bound for finite undirected loopless multigraphs",
+      "inspection_status": "statement-family corroboration only; not the primary source and not independently admitted as authority for the canonical target"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Graph.Basic",
+      "declarations": ["Graph", "Graph.IsLink", "Graph.Inc", "Graph.IsLoopAt", "Graph.IsNonloopAt", "Graph.Adj"],
+      "boundary": "explicit-edge multigraph and incidence substrate only; bounded Graph search located no degree, maximum-degree, proper edge-colouring, chromatic-index, or Shannon layer"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Graph.Subgraph",
+      "declarations": ["Graph.IsSubgraph"],
+      "boundary": "explicit-edge subgraph substrate only; no coloring or chromatic-index theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.EdgeLabeling",
+      "declarations": ["SimpleGraph.EdgeLabeling"],
+      "boundary": "arbitrary labels on simple-graph edges only; the module explicitly reserves edge-colouring for an unimplemented proper-incidence condition, and simple edges do not retain parallel-edge identity"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "declarations": ["SimpleGraph.degree", "SimpleGraph.maxDegree"],
+      "boundary": "degree APIs for simple graphs only, not the explicit-edge multigraph target"
+    }
+  ],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, finite maxima, palette cardinality, quotient or Sym2 transports, and any noncomputability policy remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, axioms, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No enumeration, SAT or ILP solver, native execution, oracle, experiment, or unchecked certificate is credited; the universal bound requires a kernel-checked proof or checked certificate semantics",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "source_revisions": {
+    "repository_base": "464759128569180ab640c412cd80bc5dd2c3b44a",
+    "repository_base_tree": "8da3c9130640d08d4e179450a0418368d0454745",
+    "repository_record": "Docs/researches/math_theorems.md:6306-6311",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23468-23493",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "55a3fb7a6b38ee200ef48149de04ce935bbe68a0ef648b323b59ac1445f029c3",
+    "stage0_projection_excerpt_sha256": "e6e9d656cb3ca3ca464ed99520a87e80a2bbb74395fc95a21f4851ce23a936b5",
+    "target_manifest_record_sha256": "69be4205d0675f0471df33cb46215c96fa24fe202d7dd57d1e537f7c416e0a1b",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "1e508ba6dea246337ac6daf72d8d58fef1ec2d44422ab5fff19db56fac83d00b",
+    "execution_dag_sha256": "b0a766fc806a0dc4e9a8b4400e6ab0c92e39ca9265a23cd3a2feab451a63e4a9",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "shannon_crossref_normalized_sha256": "36b60a492c1c3d77c9e57f8aa05f4d9886960e4e1a7c61abb1b0834123d48920",
+    "shannon_unpaywall_normalized_sha256": "95c3516d5f9238b04dc41783edb493c6e6a120c1cc0eb753dacd80cfb8678954",
+    "secondary_source_pdf_sha256": "05805185b2608d8b48efbd7e6c74e155d5b1ea0e199f121c2206d4c8d48b1242",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0860/README.md",
+    "Stage1_Instances/THM-M-0860/instance.json",
+    "Stage1_Instances/THM-M-0860/scope-map.md",
+    "Stage1_Instances/THM-M-0860/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0860/task-dag.json",
+    "Stage1_Instances/THM-M-0860/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0860/check_intake.py",
+    "Stage1_Instances/THM-M-0860/validation.md",
+    "Stage1_Instances/THM-M-0860/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on primary-source edition or text, graph carrier, finiteness, loop, multiplicity, incidence, degree, maximum-degree, coloring, palette, chromatic-index, rounding, sharpness, binder, boundary-case, neighbor transport, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned-artifact change; independent reviewers and master acceptance remain open.",
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It identifies the graph-theoretic Shannon family, primary bibliographic lead, modern secondary corroboration, exact scope decisions, neighboring theorem boundaries, and adjacent pinned APIs. No canonical proposition, accepted primary-source crosswalk, exact Lean target, expression fingerprint, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

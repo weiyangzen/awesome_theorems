@@ -1,0 +1,99 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0821-STATEMENT",
+  "theorem_id": "THM-M-0821",
+  "execution_rank": 1379,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Sperner's maximum-size theorem for a finite Boolean lattice",
+  "canonical_statement": "For every finite ground set of cardinality n, an antichain of its subsets has maximum possible cardinality choose(n, floor(n/2)): a lower-middle-layer antichain attains that cardinality, and every antichain has cardinality at most it.",
+  "source_selection": {
+    "repository_claim": "Docs/researches/math_theorems.md:6033-6038: maximum size of an antichain in a power set",
+    "citation": "Emanuel Sperner, Ein Satz uber Untermengen einer endlichen Menge, Mathematische Zeitschrift 27 (1928), 544-548, DOI 10.1007/BF01171114",
+    "statement_locator": "printed page 544",
+    "proof_locator": "printed pages 545-548",
+    "observed_pdf_sha256": "236629931717954288c77d99e487a1ff98c40af2fb29908eb06738ee253bbbde",
+    "variant_decision": "The catalog literally asks for a maximum size, so the root includes both a universal sharp upper bound and an attaining antichain. An upper bound alone would not establish a maximum. The paper's additional classification of all equality families is stronger than the catalog gloss and is not silently added to this root.",
+    "review_boundary": "The source scan and intake crosswalk support this provisional variant decision, but accountable translation, complete proof mapping, corrections or errata review, independent H0 review, and master acceptance remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0821/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0821.SpernerMaximumTarget",
+    "elaborated_expression_sha256": "8f5d05428a35e3b6f13947097ac52417ba900b3cf9b1b45c0bb173766c914d7c",
+    "statement_file_sha256": "572f1655ca4d40ce6e1ce1bf6567cee2d640eb54534569d8a8980dff184c0100",
+    "serialization_options": ["pp.explicit=true", "pp.universes=true"],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_master_acceptance"
+  },
+  "domain_and_universes": "At arbitrary universe u: alpha : Type u with Fintype alpha; A : Finset (Finset alpha); propositions remain in Lean universe 0.",
+  "ordered_binders": [
+    "alpha : Type u",
+    "Fintype alpha",
+    "A : Finset (Finset alpha) (existential attaining family)",
+    "A : Finset (Finset alpha) (universal bounded family)",
+    "hA : IsSpernerFamily A"
+  ],
+  "hypotheses": [
+    "alpha is finite",
+    "for the universal bound, distinct members of A are incomparable under Finset subset"
+  ],
+  "conclusion": "There exists an antichain with cardinality Nat.choose (Fintype.card alpha) (Fintype.card alpha / 2), and every antichain has cardinality at most that value.",
+  "encoding_decisions": {
+    "ground_set": "An arbitrary finite type alpha; the theorem depends only on Fintype.card alpha and therefore covers every finite labeled ground set without fixing Fin n.",
+    "family": "A finite family Finset (Finset alpha). Every subset of a finite type has a Finset representative, and duplicate family members are absent by construction.",
+    "antichain": "IsAntichain (fun x y : Finset alpha => x subset y) on the coerced family; IsAntichain tests distinct members, matching the source's phrase that no member is a subset of another such member.",
+    "maximum": "Attainability and the upper bound are conjoined. The checked alternate chooses the concrete lower middle layer powersetCard (card alpha / 2) univ as witness.",
+    "middle_rank": "Natural-number division card alpha / 2 is floor(n/2). For odd n the upper middle layer has the same size, but is not needed for the maximum-value claim.",
+    "boundary": "Empty and singleton ground types, empty and singleton families, and both parities are included. The concrete lower-middle witness is {empty} for Fin 0 and Fin 1.",
+    "equality_classification": "The stronger statement that these are the only equality families, with the even/odd cases on source page 544, is not a credited alternate and remains downstream source/proof work if the integration lane expands the root."
+  },
+  "direct_imports": ["Mathlib.Data.Finset.Slice"],
+  "minimal_import_result": "The canonical target definitions elaborate with the sole direct import and fail when it is removed. The complete statement/transport module also elaborates. The proof-bearing Mathlib.Combinatorics.SetFamily.LYM module and IsAntichain.sperner are deliberately not imported or credited by the statement phase.",
+  "minimal_import_boundary": "This establishes necessity among the declared imports for the canonical target fixture. It does not claim that no differently factored collection of lower mathlib modules has a smaller transitive closure.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0821.MiddleLayerMaximumTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0821.spernerMaximumTarget_iff_middleLayerMaximumTarget",
+      "boundary": "The alternate replaces only the existential attaining family with the explicit lower middle layer; it retains the identical universal upper-bound component."
+    }
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0821/check_statement.py",
+    "killed": [
+      "removed the antichain hypothesis from the universal bound",
+      "changed family members from Finset alpha to Set alpha",
+      "changed the universally bounded family binder to existential scope",
+      "excluded the empty ground-set boundary"
+    ],
+    "mechanism": "Lean #check_failure rejects definitional equality and the checker verifies four distinct fully explicit expression fingerprints."
+  },
+  "environment_fingerprint": {
+    "base_revision": "561d83df037004ceb2259292d7c63be930b40391",
+    "base_tree": "6eb02475bf5a70139d60615c924b31c930efc2bb",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "5a3986375f5c0035f8c66760ce41bd66582ac34007d910d56a4e3535cc48cec8",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's standard classical infrastructure permitted. The checked existential/concrete transport reports propext, Classical.choice, and Quot.sound. No target proof, custom axiom, unsafe declaration, or oracle is added.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and the one direct statement import. Terminal proof-body and transitive trust closure are downstream gates.",
+  "computation_profile": "No enumeration, native evaluation, solver, external oracle, experiment, or unchecked certificate is used or credited. Natural cardinal arithmetic remains a kernel expression.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "debt_delta_basis": "The exact maximum-value proposition now elaborates and resolves the intake's claim-variant blocker, but intake already recorded a usable upper-bound interface at M3. This phase adds no proof-body, accepted source review, or readable proof reconstruction.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "status_boundary": "Worker-self-tested statement proposal only. It freezes the catalog's maximum-value claim as attainability plus the sharp bound, checks a concrete-middle-layer iff, covers n=0 and n=1, minimizes imports, and distinguishes four structural mutations. It supplies no Sperner upper-bound proof, equality classification, H0, M0, R0, audit completion, theorem completion, release, or master acceptance."
+}

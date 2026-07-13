@@ -1,0 +1,226 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0867",
+  "item_id": "S56-M-0867-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1421,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Robertson-Seymour图子式定理",
+  "name_en": "Robertson-Seymour graph minor theorem",
+  "canonical_name": "Well-quasi-ordering theorem for finite graphs under graph minors (exact encoding unresolved)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "图子式良拟序定理",
+  "literal_source_claim_en": "The well-quasi-ordering theorem for graph minors.",
+  "source_attribution": "Neil Robertson and Paul Seymour, 2004 (catalog metadata)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_finite_graph_minor_wqo_family_but_graph_model_minor_relation_representation_formulation_and_source_transport_are_not_frozen",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "Every infinite sequence of finite graphs contains indices i < j such that the earlier graph is isomorphic to a minor of the later graph, after an admitted source fixes the graph model and minor relation.",
+  "statement_blocker": "The catalog gives only a WQO gloss. It does not fix the finite graph model, loop or parallel-edge convention, representation across vertex types, quotient by isomorphism, minor definition and orientation, infinite-set versus sequence versus WQO formulation, ordered binders, or boundary cases. The inspected primary paper identifies the family but its complete definition chain, alternate-form transports, corrections, and independent review are open. Selecting a Lean target now would invent proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Order.WellQuasiOrder",
+      "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "Mathlib.Combinatorics.SimpleGraph.DeleteEdges"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "WellQuasiOrdered",
+      "wellQuasiOrdered_iff_exists_monotone_subseq",
+      "SimpleGraph.Iso",
+      "SimpleGraph.induce",
+      "SimpleGraph.deleteEdges",
+      "SimpleGraph.map"
+    ],
+    "candidate_expression": null,
+    "candidate_expression_status": "generic_wqo_and_adjacent_simple_graph_interfaces_elaborated_for_discovery_only_but_minor_relation_finite_graph_carrier_source_transport_and_root_expression_are_missing",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_definition_graph_model_minor_relation_representation_formulation_binders_boundaries_and_independent_review",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source and formal design must fix finite graph objects, vertex universes, simple versus directed or multi-graph structure, quotient/canonical/heterogeneous representation, finiteness and decidability witnesses, and every relation/typeclass universe.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: in every infinite set or sequence of finite graphs, one graph occurs in the source-directed minor relation to another; exact indexing, isomorphism, relation orientation, and formulation are open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake; the statement phase must resolve empty, singleton, edgeless, isolated-vertex, loop, parallel-edge, constant-sequence, repeated-isomorphism, and empty-family conventions.",
+  "candidate_scope_not_credited": [
+    "infinite-set formulation from the paper abstract",
+    "countable-sequence directed-graph strengthening in paper Theorem 10.5",
+    "standard undirected finite-graph sequence formulation",
+    "WellQuasiOrdered applied to a source-selected finite-graph minor preorder",
+    "finite excluded-minor basis consequences"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton graphs, edgeless graphs, isolated vertices, and the zero-vertex type",
+    "simple versus looped or parallel-edge graph models and simplification after contraction",
+    "different vertex types, isomorphic duplicates, quotient representatives, and canonical Fin n encodings",
+    "empty and finite sets versus genuinely infinite sets, constant sequences, and repeated terms",
+    "reflexive minor relation versus proper minor and the direction of relation arguments",
+    "vertex deletion, edge deletion, contraction, branch-set, and transitive-closure equivalences"
+  ],
+  "excluded_substitutions": [
+    "finite-carrier WQO used in place of the unbounded family of all finite graphs",
+    "induced-subgraph, embedding, homomorphism, edge-deletion-only, or matroid-minor order used as graph minors",
+    "a special graph class such as trees, planar graphs, bounded treewidth graphs, or excluded-H graphs used as the root",
+    "a structure or hypothesis storing the desired WQO conclusion",
+    "THM-M-0868 or another neighboring target used without explicit source and ownership reconciliation",
+    "the catalog verified label, primary-source lead, bounded search, or API probe used as proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0868",
+      "name": "图子式定理",
+      "boundary": "separate catalog target glossed as the proof of Wagner's conjecture; overlapping literature gives no automatic source or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0866",
+      "name": "Wagner定理",
+      "boundary": "planarity characterization by forbidden minors, not the all-finite-graphs WQO theorem"
+    },
+    {
+      "theorem_id": "THM-M-0870",
+      "name": "树宽",
+      "boundary": "related graph-minor infrastructure topic, not the root theorem"
+    }
+  ],
+  "source_status": "H1_matching_primary_work_and_key_passages_inspected_but_admitted_edition_complete_definition_and_statement_mapping_transports_corrections_errata_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Neil Robertson and P. D. Seymour, Graph Minors. XX. Wagner's conjecture, Journal of Combinatorial Theory, Series B 92(2) (2004), 325-357, DOI 10.1016/j.jctb.2004.08.001",
+      "candidate_locator": "author-hosted 34-page PDF, abstract; Introduction first paragraph; Theorem 10.5 on paper page 29",
+      "observed_pdf_sha256": "327694f043a8809dfb0255171c470ae4ba5b15d7fedbad861c43f1f3a05caa91",
+      "observed_pdf_size_bytes": 251605,
+      "observed_pdf_pages": 34,
+      "crossref_response_sha256": "ca748048c60371506a6189b73555d68cfe88c6f7def29a14674e4b71bc6927fa",
+      "inspection_status": "matching primary work and relevant passages inspected; version-of-record reconciliation, complete incorporated definitions, set/sequence/WQO and directed/undirected transports, correction/errata audit, durable admitted source packet, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Order.WellQuasiOrder",
+      "declarations": ["WellQuasiOrdered", "wellQuasiOrdered_iff_exists_monotone_subseq"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "generic WQO statement interface only; it supplies neither the finite-graph carrier nor graph-minor relation"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "declarations": ["SimpleGraph.Iso", "SimpleGraph.induce", "SimpleGraph.map"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "graph representation, isomorphism, induced-graph, and map infrastructure only; no graph-minor predicate, contraction semantics, or WQO theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.DeleteEdges",
+      "declaration": "SimpleGraph.deleteEdges",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "edge deletion only; not a complete minor relation or theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "748243faadc15828fb087059337fd05b7be9fdeb",
+    "repository_base_tree": "e46d642646f80980838b6f016f5d69b817bd464d",
+    "repository_record": "Docs/researches/math_theorems.md:6355-6360",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23657-23682",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "b59ffde87f27fa92c934e2b53c79a10db77fe27e85c5cb66c7b69028e5277a7d",
+    "stage0_excerpt_sha256": "0b4047831baf09f4c74d5a19cb8e7e5a93ba10c97f368bd372ac0ba162e5902b",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_targets_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "8b93d52d753cdb6e3462080cf7f8315c9e8a07ef921a1b93a535a5fcba41f6c2",
+    "execution_dag_sha256": "fcd54bfe658aa1577667cc24b732b82d3425164fbfcad212107c0a3b696a0431",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_wqo_source_sha256": "79f20664c3db8f28595cda8227e1e64b2158ce5ba44e866df9857c25d594afe7",
+    "mathlib_simplegraph_basic_sha256": "ae6fd7c95ad151f84eb316d32c518485e9877bdda0d9eb6b4aac9e041676ad1e",
+    "mathlib_simplegraph_maps_sha256": "60bcb9baa33451ed189091e3254004bf77f9b814a87a6ce9709042c4db6d7d2a",
+    "mathlib_simplegraph_delete_edges_sha256": "39d507049981f5ec04925fd35e4b33a202d6d1dc3c49616ffa12846e486de9a7",
+    "primary_pdf_sha256": "327694f043a8809dfb0255171c470ae4ba5b15d7fedbad861c43f1f3a05caa91",
+    "crossref_response_sha256": "ca748048c60371506a6189b73555d68cfe88c6f7def29a14674e4b71bc6927fa"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_status": "provisional_intake_classification_only",
+  "debt_classification": {
+    "human": "source reconstruction and independent review debt; the matching primary work is known but H0 mapping is not closed",
+    "machine": "statement/interface debt; generic WQO and adjacent graph APIs exist, but the finite-graph carrier, graph-minor relation, canonical target, transport, and root proof are absent",
+    "readability": "full source-faithful proof reconstruction debt"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; classical choice, quotient, graph representation, finiteness, decidability, and relation assumptions remain open until statement freeze",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact imports, target, terminal bodies, transitive dependencies, compiled artifacts, and trust closure remain open",
+  "computation_profile": "kernel-exact-graph-theory-planned/1.0: no graph enumeration, solver, native shortcut, oracle, experiment, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0867/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0867/README.md",
+    "Stage1_Instances/THM-M-0867/instance.json",
+    "Stage1_Instances/THM-M-0867/scope-map.md",
+    "Stage1_Instances/THM-M-0867/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0867/task-dag.json",
+    "Stage1_Instances/THM-M-0867/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0867/check_intake.py",
+    "Stage1_Instances/THM-M-0867/validation.md",
+    "Stage1_Instances/THM-M-0867/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-minor-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned finite-graph representation reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, attribution, primary-source, or neighboring-target correction",
+      "graph model, finite-graph representation, minor definition/orientation, formulation, binder, or boundary decision",
+      "canonical statement, checked transport, mutation, or expression fingerprint",
+      "toolchain, import, dependency pin, or formal candidate change",
+      "assurance profile, validator, receipt, or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the catalog wording, matching primary-source lead, proposition-changing graph/minor/WQO choices, adjacent pinned interfaces, exclusions, and open task DAG. No canonical proposition, exact Lean target, accepted source, proof body, H0, M0, R0, accepted state, audit completion, theorem completion, or master acceptance is claimed."
+}

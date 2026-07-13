@@ -1,0 +1,257 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0820",
+  "item_id": "S56-M-0820-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1378,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Mirsky定理",
+  "name_en": "Mirsky's theorem",
+  "canonical_name": "Mirsky's antichain-cover theorem for finite partially ordered sets (exact source and encoding open)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "偏序集分解为反链的最小数目",
+  "literal_source_claim_en": "The minimum number of antichains in a decomposition of a partially ordered set.",
+  "source_attribution": "Leon Mirsky, 1971 (catalog metadata; primary bibliography identified)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "finite_poset_antichain_cover_equals_maximum_chain_cardinality_family_identified_but_exact_primary_passage_height_convention_cover_partition_transport_and_formal_expression_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a finite partially ordered set, the least cardinality of a family of antichains covering the full carrier equals the greatest cardinality of a chain; the partition form requires a checked cover-disjointization transport.",
+  "statement_blocker": "The repository supplies no source locator, finite-carrier or nonempty premise, height convention, definition of decomposition, minimization encoding, ordered binders, boundary cases, or Lean expression. The strong 1971 primary bibliographic lead was inaccessible for theorem-text inspection. An inspected Coq source uses a possibly overlapping antichain cover on a finite inhabited carrier, so selecting a Finpartition, silently equating cover with partition, or choosing another height convention now would invent proposition-changing details.",
+  "target_decision": "retain the standard finite-poset Mirsky theorem family at provisional H1 and require an independently reviewed immutable source passage before freezing one formal target",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Order.Antichain",
+      "Mathlib.Order.Height",
+      "Mathlib.Order.Partition.Finpartition",
+      "Mathlib.Order.RelSeries"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "IsAntichain",
+      "Set.chainHeight",
+      "Set.exists_eq_chainHeight_of_finite",
+      "Set.encard_le_chainHeight_of_isChain",
+      "subsingleton_of_isChain_of_isAntichain",
+      "Finpartition",
+      "Finpartition.card_mono",
+      "IsChain"
+    ],
+    "candidate_expression": "For a selected finite poset carrier, the minimum cardinality of a family covering the carrier whose members are IsAntichain under <= equals the maximum chain cardinality represented by Set.chainHeight; an exact partition form and an LTSeries step-length form are alternate candidates requiring checked transports.",
+    "candidate_expression_status": "discovery_only_source_and_representation_decisions_remain_open",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_primary_statement_and_formal_encoding_not_selected",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_order-antichain-height-finpartition-api-probe-only"
+  },
+  "domain_and_universes": "Open: likely a universe-polymorphic finite type alpha with PartialOrder alpha and necessary decidability instances, or a finite subset of a larger poset. The source and statement phase must fix carrier finiteness, nonemptiness, relation, and all universe/typeclass binders.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open exact encoding: the least cardinality of a full-carrier antichain cover equals the greatest chain cardinality, with cover/partition transport, height convention, and empty-carrier policy fixed from the selected source.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "an equality between minimum cardinality of a Finpartition of Finset.univ with antichain parts and Set.chainHeight univ (<=)",
+    "existence of a height-indexed antichain partition plus the lower bound that every antichain partition has at least maximum-chain cardinality many parts",
+    "a coloring of the comparability graph using exactly the poset height",
+    "a finite-subset formulation inside an arbitrary partial order",
+    "a strict-chain LTSeries formulation with an explicit plus-one transport to chain cardinality",
+    "an empty-inclusive version with matching zero conventions"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty versus explicitly nonempty posets and the zero/one minimum convention",
+    "singleton poset",
+    "finite total orders, whose antichain parts are singletons",
+    "finite discrete orders, whose nonempty carrier is one antichain",
+    "chain height counted as elements versus strict-order steps",
+    "duplicate or empty indexed parts, overlapping covers, and unused colors",
+    "finite type versus finite subset and inherited-order coercions"
+  ],
+  "excluded_substitutions": [
+    "Dilworth's chain-partition equals maximum-antichain theorem",
+    "Sperner's maximum-antichain theorem for a Boolean lattice",
+    "existence of an antichain cover without optimality",
+    "only the lower bound obtained by intersecting a chain with each antichain",
+    "an abstract structure or hypothesis that stores the desired optimal partition",
+    "an infinite-poset, ordinal-rank, graph-coloring, or well-founded-height statement without checked equivalence",
+    "a theorem name, bounded no-match search, API probe, or untrusted verified label used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0819",
+      "name": "Dilworth定理",
+      "relationship": "dual decomposition theorem exchanging chains and antichains; not the requested antichain-cover root"
+    },
+    {
+      "theorem_id": "THM-M-0821",
+      "name": "Sperner定理",
+      "relationship": "maximum antichain size in the Boolean lattice; a specialization in a different optimization direction"
+    },
+    {
+      "theorem_id": "THM-M-0817",
+      "name": "拉姆齐定理",
+      "relationship": "neighboring combinatorics target with no source or proof credit for poset decomposition"
+    }
+  ],
+  "source_status": "H1_primary_bibliography_and_standard_finite_poset_family_identified_but_article_text_exact_statement_definitions_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "L. Mirsky, A Dual of Dilworth's Decomposition Theorem, The American Mathematical Monthly 78(8), October 1971, 876-877, DOI 10.1080/00029890.1971.11992886; alias DOI 10.2307/2316481",
+      "crossref_lookup": "https://api.crossref.org/works/10.2307/2316481",
+      "candidate_summary": "primary bibliographic identity for the theorem family described by the repository gloss",
+      "inspection_status": "Crossref metadata inspected; publisher and JSTOR full-text links were not usable in this run, so the theorem passage, incorporated definitions, assumptions, proof, corrections, errata, and exact catalog mapping were not inspected or credited"
+    },
+    {
+      "citation": "Abhishek Kr Singh, Formalization of some central theorems in combinatorics of finite sets, arXiv:1703.10977v1, 31 March 2017",
+      "observed_pdf_sha256": "929c77c123421d5bade2ccfc4e40085afe827f558bf8661d16977c9581c46d8a",
+      "arxiv_api_response_sha256": "4bb95b176fe2a8a5df03645062bb886e66930d3b037479d0d9cc7dec3c408cd0",
+      "candidate_summary": "printed pages 3-4 and 7-8 plus Appendix pages 18-19 specify a finite inhabited poset, maximum chain cardinality, and minimum cardinality of a possibly overlapping antichain cover; the Coq theorem Dual_Dilworth concludes their equality",
+      "inspection_status": "inspected secondary exposition and Coq formalization precisely identifying the theorem family and source boundary; not the primary Mirsky article, not independently reviewed H0 evidence, and not Lean proof credit"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Order.Antichain",
+      "declarations": [
+        "IsAntichain",
+        "subsingleton_of_isChain_of_isAntichain",
+        "inter_subsingleton_of_isChain_of_isAntichain"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "antichain and lower-bound vocabulary only; no optimal full-carrier partition theorem"
+    },
+    {
+      "module": "Mathlib.Order.Height",
+      "declarations": [
+        "Set.chainHeight",
+        "Set.exists_eq_chainHeight_of_finite",
+        "Set.encard_le_chainHeight_of_isChain"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "maximum-chain-cardinality interface only; no antichain partition or minimum bridge"
+    },
+    {
+      "module": "Mathlib.Order.Partition.Finpartition",
+      "declarations": [
+        "Finpartition",
+        "Finpartition.card_mono"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "exact finite-partition infrastructure only; no poset-antichain constraint or Mirsky theorem"
+    },
+    {
+      "module": "Mathlib.Order.RelSeries",
+      "declarations": [
+        "LTSeries",
+        "LTSeries.longestOf"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "strict-chain interface only; its length counts strict steps and requires an explicit transport to chain cardinality"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "902d9ce008e88a35a2307c85355560a230cc33c2",
+    "repository_base_tree": "dfc20d8141f18f6b09a03e818acfff408e836714",
+    "repository_record": "Docs/researches/math_theorems.md:6026-6031",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22388-22413",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "07277e098e590c9d06714423d72d02e8ea6a226a1e59b763a2946cdfe7745dd3",
+    "stage0_projection_excerpt_sha256": "ce00827562a22895d5a35daa3c75b20dc3e357e37c8ad87a4304498bc1e6cba9",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "target_entry_canonical_sha256": "7fae6e9ffe36176f2b6d4086576e75ba697da859b2c5b72bdb4182321ce62938",
+    "authoritative_blueprint_sha256": "34e913419c1f9e24ed1d91fda9f1450d19f01ab22d60a7af5f9a00152cb04373",
+    "execution_dag_sha256": "b1cd5bf2e918865015bab425e20c42df1c2ad26aff9a4e849960d8bc7539e58c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_antichain_source_blob": "65126484292f6fdc68c80f96fcd537a85a9378dd",
+    "mathlib_antichain_source_sha256": "d124c384df09f812df642ddffa03acf2cf12d45e307f839dc7d91efb41ef677d",
+    "mathlib_height_source_blob": "248a84a984a85e5867d816055d67a8c39bd02bf3",
+    "mathlib_height_source_sha256": "800a7db6f57477f80b6d58f753cd25f107b9a979aec5fc05ff2fc02999517425",
+    "mathlib_finpartition_source_blob": "56f3e7b01ce904e6b81569b2bd0758893793c629",
+    "mathlib_finpartition_source_sha256": "c34ea7741eacabfe52e1ab91f2c962ccdc5460e942f21d5444cf7e37b2fa0495",
+    "mathlib_relseries_source_blob": "14132caa579bd69432040a0c6163bb92da0a7278",
+    "mathlib_relseries_source_sha256": "3be25a0ecc7b40551cac9210a5a87f813746272238a1167fe04d75aa425c7e18",
+    "mirsky_crossref_url": "https://api.crossref.org/works/10.2307/2316481",
+    "mirsky_primary_doi": "10.1080/00029890.1971.11992886",
+    "mirsky_doi_alias": "10.2307/2316481",
+    "singh_arxiv_id": "1703.10977v1",
+    "singh_arxiv_pdf_sha256": "929c77c123421d5bade2ccfc4e40085afe827f558bf8661d16977c9581c46d8a",
+    "singh_arxiv_api_response_sha256": "4bb95b176fe2a8a5df03645062bb886e66930d3b037479d0d9cc7dec3c408cd0",
+    "mirsky_crossref_response_sha256": "65039965eefb0bf1c1b971310423b63102936848872211aa6ffd042000681dd1"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean dependent type theory is intended; classical choice, finite minimization, quotient/extensionality, decidable relation, and any additional logical principles remain uncredited until the exact source-faithful target is frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, transitive dependency closure, compiled-artifact provenance, axiom policy, and trust acceptance remain downstream",
+  "computation_profile": "No brute-force partition search, graph-coloring solver, optimization oracle, native evaluation, experiment, generated witness, or unchecked certificate is credited; any future finite computation requires checked semantics and a kernel-checked certificate/soundness path",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0820/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0820/README.md",
+    "Stage1_Instances/THM-M-0820/instance.json",
+    "Stage1_Instances/THM-M-0820/scope-map.md",
+    "Stage1_Instances/THM-M-0820/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0820/task-dag.json",
+    "Stage1_Instances/THM-M-0820/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0820/check_intake.py",
+    "Stage1_Instances/THM-M-0820/validation.md",
+    "Stage1_Instances/THM-M-0820/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent order-theory/combinatorics reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "target_identity_reviewer": "unassigned integration reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or errata, finite/nonempty carrier, relation, chain/height convention, partition or cover encoding, minimization formulation, binder, hypothesis, conclusion, boundary-case or computation policy, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records a strong primary bibliography and standard finite-poset theorem family but no inspected theorem passage, proof, errata map, or independent review. M3 records elaborated adjacent statement/reduction interfaces only. No canonical expression, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

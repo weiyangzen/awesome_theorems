@@ -1,6 +1,6 @@
 # THM-M-0821 rev-5.6 intake
 
-This directory is the fail-closed `planned` intake dossier for `Sperner定理` (Sperner's
+This directory began as the fail-closed `planned` intake dossier for `Sperner定理` (Sperner's
 theorem). The repository supplies the attribution Emanuel Sperner, the year 1928, and the gloss
 `幂集反链的最大大小` (maximum size of an antichain in a power set), but no citation,
 binder-complete statement, equality convention, or formal artifact. Its `已验证` label is untrusted
@@ -26,3 +26,19 @@ The provisional root vector is `[H1, M3, R4]`. `instance.json` is the structured
 downstream phases remain open in `task-dag.json`. This is a self-tested worker proposal only: no
 canonical statement, H0, M0, R0, accepted execution state, audit completion, theorem completion,
 or master acceptance is claimed.
+
+## Statement-phase result
+
+The statement phase provisionally resolves the catalog's variant ambiguity by reading "maximum
+size" literally: `SpernerMaximumTarget` conjoins an attaining antichain with the universal sharp
+middle-binomial upper bound. This is stronger than the available upper-bound interface alone but
+does not silently add the 1928 paper's stronger classification of every equality family.
+
+`Statement.lean` uses only `Mathlib.Data.Finset.Slice`, not the proof-bearing LYM module. It checks
+an iff to the concrete lower-middle-layer witness, the `Fin 0` and `Fin 1` boundaries, and four
+structural mutations. `check_statement.py`, `statement.json`, `statement-validation.md`, and
+`statement-receipt.json` bind the exact elaborated expression and pinned environment.
+
+The vector remains `[H1, M3, R4]`. This is a worker-self-tested statement proposal pending
+dependency-ordered master acceptance; no upper-bound proof body, full equality classification,
+`H0`, `M0`, `R0`, audit completion, theorem completion, or release is claimed.
