@@ -21,7 +21,7 @@ supports discovery and a stable theorem-family reading, not `H0`.
 
 | Catalog component | Provisional mathematical meaning | Pinned Lean surface | Intake result |
 |---|---|---|---|
-| integer greater than one | positive integer represented by `n : Nat` and `1 < n` | `Nat`, `Nat.primeFactorsList` | domain frozen provisionally; exact target open |
+| integer greater than one | positive integer represented by `n : Nat` and `1 < n` | `Nat`, `Nat.primeFactorsList` | exact Nat domain now elaborated; master acceptance pending |
 | factorization | a finite list of prime naturals with product `n` | `Nat.prod_primeFactorsList`; primality via `Nat.prime_of_mem_primeFactorsList` | close candidate APIs elaborate |
 | unique | every prime list with product `n` is equal up to order | `Nat.primeFactorsList_unique` returning `List.Perm` | direct theorem-family candidate, not accepted root proof |
 | product of primes | repetition allowed, equivalently finite prime exponents | `Nat.prod_factorization_pow_eq_self`, `Nat.prod_pow_factorization_eq_self`, `Nat.factorizationEquiv` | alternate exponent representation; transport open |
@@ -63,9 +63,9 @@ injectivity, inverse reconstruction, and `Nat.factorizationEquiv`.
 
 `IntakeProbe.lean` checks the exact names and representative boundaries against the existing pinned
 toolchain. This is a bounded repo-local/mathlib discovery probe, not the downstream exhaustive
-candidate audit. No target expression, checked list-to-exponent transport, terminal proof-body
-resolution, transitive dependency audit, placeholder/axiom closure, wrapper, or M0 credit is
-claimed.
+candidate audit. The statement phase now owns an exact prime-list target and checked direct
+expansion, but no checked list-to-exponent transport, terminal proof-body resolution, transitive
+dependency audit, placeholder/axiom closure, proof wrapper, or M0 credit is claimed.
 
 ## Admission requirement
 
@@ -73,5 +73,6 @@ Before `H0`, a source reviewer must preserve a lawful immutable edition, locate 
 and incorporated definition used for both existence and uniqueness, map the ancient number and
 measurement conventions to the modern natural-number claim, record translation and errata status,
 and obtain independent review. Before formal statement acceptance, the integration lane must
-separately approve the exact Lean expression, representation transports, fingerprints, and
-mutation suite. Neither source confidence nor the pinned candidate can substitute for the other.
+separately approve the now-elaborated Lean expression, checked direct-expansion transport,
+fingerprints, and mutation suite. Neither source confidence nor the pinned candidate can substitute
+for the other.

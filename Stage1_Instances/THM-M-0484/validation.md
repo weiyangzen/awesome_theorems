@@ -4,11 +4,13 @@ Base revision: `2226f559136f12fde46b1bf73cdf629043b8a648` (tree
 `33cb254ed06b1391379b8e7f88c5e23188957b62`). Validation date: 2026-07-13
 (Asia/Shanghai).
 
-This validation covers target membership, the planned dossier and open task DAG, the catalog and
-source boundary, exact-topic pinned Lean candidate discovery, the candidate direction composition,
-and the `p = 2` counterexample to an unconditional iff. It does not execute the statement,
-anchor-audit, proof, or release phases and establishes no canonical expression fingerprint,
-source-fidelity closure, terminal-body provenance, or proof credit. Initial status contained only
+This intake validation covers target membership, the planned dossier and open task DAG, the catalog
+and source boundary, exact-topic pinned Lean candidate discovery, direction composition, and the
+`p = 2` counterexample. The later statement record now additionally freezes and elaborates the
+exact intake-selected target, fingerprints its expression and environment, checks two representation
+transports, and rejects four structural mutations; its commands are in `statement-validation.md`.
+Neither phase executes anchor-audit, proof, or release work or establishes source-fidelity closure,
+terminal-body provenance, or proof credit. Initial status contained only
 the automation-provided untracked `Formalizations/Lean/.lake` symlink. The canonical pinned
 artifacts behind it were used read-only; no update, build, clone, fetch, or dependency mutation was
 run. This dirty worker run is nonrelease evidence.
@@ -50,10 +52,11 @@ scan, and whitespace checks are recorded after receipt finalization in `intake-r
 
 The repository supplies no citation or exact source proposition. The primary Lehmer article and
 complete proof were not inspected; source corrections, errata, Lucas/Lehmer attribution, the
-odd-prime versus all-natural domain, recurrence indexing, congruence representation, correctness
-directions, and any performance claim lack independent approval. The exact Lean expression and
-environment fingerprints, checked source transports, and required statement mutations remain
-open. So do the exhaustive anchor and terminal-provenance audit, discovery protocol, obligation
+odd-prime versus all-natural domain, recurrence indexing, conventional congruence representation,
+correctness directions, and any performance claim lack independent source approval. The exact
+formal expression, environment, two representation transports, and required mutations are now
+self-tested pending master acceptance; conventional source-domain and one-based-index transports
+remain open. So do the exhaustive anchor and terminal-provenance audit, discovery protocol, obligation
 registry and typed graphs, proof/composition credit, trust closure, readable reconstruction,
 hermetic replay, deterministic bundle, independent verification, and master acceptance. These
 failures prevent every theorem-completion claim but do not invalidate a truthful self-tested

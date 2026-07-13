@@ -1,0 +1,127 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0471-STATEMENT",
+  "theorem_id": "THM-M-0471",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_name": "Fundamental theorem of arithmetic for natural numbers greater than one",
+  "canonical_statement": "For every natural number n with 1 < n, there exists a finite nonempty list of prime natural numbers whose product is n, and any two lists of prime natural numbers with product n differ only by permutation.",
+  "canonical_claim_status": "intake_frozen_natural_prime_list_scope_exactly_elaborated_primary_source_fidelity_open",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0471/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0471.FundamentalTheoremOfArithmeticTarget",
+    "direct_imports": [
+      "Mathlib.Data.Nat.Prime.Defs"
+    ],
+    "statement_file_sha256": "775b86743247571a1a5e5e7f1aa099683f26368e4dd7bee9e23a0b2a2ddbc715",
+    "elaborated_expression_sha256": "07ae92b7b398b89a1bbe8413563f1c30da5b8bbd0522f6d070fd62dcea0ac4e4"
+  },
+  "domain_and_universes": "n : Nat and l k : List Nat in Lean universe 0; primality is Nat.Prime, product is List.prod, uniqueness is List.Perm, and the closed target is Prop.",
+  "quantifiers": [
+    "for every n : Nat",
+    "there exists l : List Nat",
+    "for every alternative k : List Nat"
+  ],
+  "ordered_binders": [
+    "n : Nat",
+    "hn : 1 < n",
+    "l : List Nat as an existential witness",
+    "k : List Nat inside the witness's uniqueness clause"
+  ],
+  "hypotheses": [
+    "hn : 1 < n",
+    "l is nonempty",
+    "every member of l is Nat.Prime and l.prod = n",
+    "every compared k consists only of Nat.Prime values and k.prod = n"
+  ],
+  "conclusion": "There is a nonempty prime factor list l for n, and every prime factor list k for n satisfies k.Perm l.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0471.ExpandedPrimeListTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0471.fundamentalTheoremOfArithmeticTarget_iff_expanded"
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "Nat.primeFactorsList as a sorted canonical representative",
+    "Nat.factorization as a finitely supported prime-exponent map",
+    "positive Int factorization with explicit sign and unit normalization"
+  ],
+  "degenerate_cases": {
+    "n_equals_zero_or_one": "excluded by the explicit 1 < n antecedent",
+    "n_equals_two": "included; two_boundary_in_domain kernel-checks the least antecedent instance and mutationExcludedTwo is distinguished",
+    "prime_n": "included and expected to admit a singleton factor list",
+    "repeated_factors": "included because l and k are lists rather than duplicate-free containers",
+    "different_orders": "identified by List.Perm rather than literal list equality",
+    "negative_integers": "outside the selected Nat target; no sign or unit convention is silently introduced"
+  },
+  "minimal_import_basis": "The exact target elaborates with the sole direct import Mathlib.Data.Nat.Prime.Defs. Its public dependency closure already supplies List.prod and List.Perm; omitting it removes Nat.Prime and fails elaboration. The proof-bearing Mathlib.Data.Nat.Factors module is deliberately absent.",
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "Stage1Instances.THM_M_0471.mutationRemovedGreaterThanOne",
+      "mutation": "remove 1 < n",
+      "result": "distinct fully explicit elaborated expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "Stage1Instances.THM_M_0471.mutationChangedDomainToInt",
+      "mutation": "quantify over Int and factor natAbs",
+      "result": "distinct fully explicit elaborated expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "Stage1Instances.THM_M_0471.mutationChangedWitnessBinderScope",
+      "mutation": "move the existential factor list outside the universal n binder",
+      "result": "distinct fully explicit elaborated expression"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "Stage1Instances.THM_M_0471.mutationExcludedTwo",
+      "mutation": "replace 1 < n by 2 < n and exclude n = 2",
+      "result": "distinct fully explicit elaborated expression; canonical boundary antecedent separately checked"
+    }
+  ],
+  "source_fidelity_boundary": "The repository record is uncited secondary metadata. The exact Nat/list/permutation statement realizes the conservative positive-integer scope frozen at intake; pinpoint Euclid edition, translation, modern existence-and-uniqueness derivation, errata review, and independent source approval remain open.",
+  "foundation_profile": "lean4-foundation-statement/1.0: the target is a definition in Prop and has no proof body; the checked expansion transport reports propext only, with no custom axiom, unsafe declaration, oracle, or placeholder introduced",
+  "tcb_profile": "lean4-mathlib-tcb-statement/1.0: Lean kernel 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740 plus manifest-pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; transitive proof-body and release trust closure remain downstream",
+  "computation_profile": "kernel-statement-elaboration/1.0: only target, transport, mutation, and the finite arithmetic boundary antecedent are kernel-checked; no solver, native computation, oracle, experiment, or unchecked certificate proves the target",
+  "environment_fingerprint": {
+    "repository_base": "902d9ce008e88a35a2307c85355560a230cc33c2",
+    "repository_base_tree": "dfc20d8141f18f6b09a03e818acfff408e836714",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "direct_import_source_sha256": {
+      "Mathlib.Data.Nat.Prime.Defs": "fb7b8f26c48fdb96c39d264574b70ba382d700a9a97a06ee41bb05377dfc68a4"
+    },
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ]
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact elaboration of the intake-frozen Nat prime-list target and its direct expansion only. No source acceptance, proof-body credit, anchor audit, obligation freeze, proof, validation, release, audit completion, theorem completion, or master acceptance is claimed."
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the fail-closed THM-M-0484 planned intake."""
+"""Validate the THM-M-0484 planned dossier through its statement proposal."""
 
 from __future__ import annotations
 
@@ -31,6 +31,12 @@ OWNED_FILES = {
     "check_intake.py",
     "validation.md",
     "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "check_statement_artifacts.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -140,9 +146,9 @@ def check_authorities(instance: dict, dag: dict) -> list[dict]:
         "intake_score",
         "source_status_untrusted",
         "lifecycle_mode",
-        "theorem_complete",
     ):
         assert instance[field] == target[field]
+    assert instance["theorem_complete"] is target["theorem_complete"] is False
     assert instance["name_zh"] == target["name"]
     assert instance["category"] == target["category"]
 
@@ -154,12 +160,12 @@ def check_authorities(instance: dict, dag: dict) -> list[dict]:
         "execution_rank": RANK,
         "phase": "intake",
         "layer": 0,
-        "state": "[ ]",
+        "state": "[_]",
         "depends_on": [],
         "owned_paths": [f"Stage1_Instances/{THEOREM_ID}"],
         "deliverable": "Create the theorem dossier, scope map, and source-statement crosswalk.",
         "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
-        "attempts": 0,
+        "attempts": 1,
         "children": [],
     }
 
@@ -186,11 +192,16 @@ def check_instance(instance: dict, dag: dict) -> None:
     assert instance["lifecycle_mode"] == instance["lifecycle"] == "planned"
     assert dag["lifecycle_mode"] == dag["lifecycle"] == "planned"
     assert instance["intent"] == "intake"
-    assert instance["canonical_statement"].startswith("Candidate intake scope:")
+    assert instance["canonical_statement"].startswith("For every natural p with 3 <= p")
     formal = instance["canonical_formal_target"]
-    assert formal["module"] is None and formal["declaration_or_expression"] is None
-    assert formal["elaborated_expression_hash"] is None
-    assert formal["environment_fingerprint"] is None
+    assert formal["module"] == f"Stage1_Instances/{THEOREM_ID}/Statement.lean"
+    assert formal["declaration_or_expression"] == (
+        "Stage1Instances.THM_M_0484.LucasLehmerTestTarget"
+    )
+    assert formal["elaborated_expression_hash"] == (
+        "sha256:6bd6024bd44d0bd9c50f6425b9ce5fdaecaf783ac84d32688717d3bde3151aea"
+    )
+    assert formal["environment_fingerprint"] is not None
     assert formal["module_candidates"] == ["Mathlib.NumberTheory.LucasLehmer"]
     assert formal["declaration_candidates"] == PROBE_DECLARATIONS
     assert formal["candidate_expression"].startswith("forall p : Nat, 3 <= p")
@@ -205,11 +216,11 @@ def check_instance(instance: dict, dag: dict) -> None:
     assert dag["accepted_states"] == []
     assert instance["audit_complete"] is dag["audit_complete"] is False
     assert instance["theorem_complete"] is dag["theorem_complete"] is False
-    assert "does not freeze a canonical Lean expression" in instance["status_boundary"]
+    assert "exact statement proposal" in instance["status_boundary"]
 
     revisions = instance["source_revisions"]
-    assert git("rev-parse", "HEAD") == revisions["repository_base"] == BASE_REVISION
-    assert git("rev-parse", "HEAD^{tree}") == revisions["repository_base_tree"] == BASE_TREE
+    assert revisions["repository_base"] == BASE_REVISION
+    assert revisions["repository_base_tree"] == BASE_TREE
     assert git("rev-parse", "HEAD:Docs/researches/math_theorems.md") == revisions[
         "current_repository_math_source_blob"
     ]
@@ -221,7 +232,15 @@ def check_instance(instance: dict, dag: dict) -> None:
         f'{revisions["repository_source_record_commit"]}:Docs/researches/math_theorems.md',
     ) == revisions["repository_source_record_blob"]
     for field, relative in SOURCE_HASH_FIELDS.items():
-        assert revisions[field] == sha256(ROOT / relative), f"stale source hash: {field}"
+        if relative.startswith("Formalizations/Lean/.lake/"):
+            assert revisions[field] == sha256(ROOT / relative), f"stale dependency hash: {field}"
+            continue
+        base_bytes = subprocess.check_output(
+            ["git", "show", f"{BASE_REVISION}:{relative}"], cwd=ROOT, stderr=subprocess.DEVNULL
+        )
+        assert revisions[field] == hashlib.sha256(base_bytes).hexdigest(), (
+            f"integrated intake source snapshot changed: {field}"
+        )
 
     mathlib = ROOT / "Formalizations/Lean/.lake/packages/mathlib"
     assert git("rev-parse", "HEAD", cwd=mathlib) == revisions["mathlib"] == MATHLIB_REVISION
@@ -286,9 +305,10 @@ def check_receipt(receipt: dict, dag: dict) -> None:
         "Formalizations/Lean/.lake"
     ]
     for relative, tagged_digest in receipt["source_inputs"].items():
-        assert tagged_digest == f"sha256:{sha256(ROOT / relative)}", (
-            f"stale receipt input hash: {relative}"
+        base_bytes = subprocess.check_output(
+            ["git", "show", f"{BASE_REVISION}:{relative}"], cwd=ROOT, stderr=subprocess.DEVNULL
         )
+        assert tagged_digest == f"sha256:{hashlib.sha256(base_bytes).hexdigest()}"
     recipes = receipt["structured_validation_recipes"]
     assert {recipe["recipe_id"] for recipe in recipes} == {
         "S56-M-0484-INTAKE-RECIPE-STRUCTURE",
@@ -320,17 +340,30 @@ def check_files(instance: dict, receipt: dict) -> None:
     actual = {path.name for path in HERE.iterdir() if path.is_file()}
     assert actual == OWNED_FILES
     assert set(instance["owned_artifacts"]) == actual
+    intake_files = actual - {
+        "Statement.lean",
+        "check_statement.py",
+        "check_statement_artifacts.py",
+        "statement.json",
+        "statement-receipt.json",
+        "statement-validation.md",
+    }
     expected_changed = [".stage1-worker-selftest.json"] + [
-        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in sorted(actual)
+        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in sorted(intake_files)
     ]
     assert receipt["changed_paths"] == expected_changed
     digests = receipt["owned_artifact_sha256"]
-    assert set(digests) == {f"Stage1_Instances/{THEOREM_ID}/{name}" for name in actual}
+    assert set(digests) == {f"Stage1_Instances/{THEOREM_ID}/{name}" for name in intake_files}
     for relative, expected in digests.items():
         if relative.endswith("/intake-receipt.json"):
             assert expected == "self_referential_excluded_from_provisional_digest"
         else:
-            assert sha256(ROOT / relative) == expected, f"stale artifact hash: {relative}"
+            base_bytes = subprocess.check_output(
+                ["git", "show", f"HEAD:{relative}"], cwd=ROOT, stderr=subprocess.DEVNULL
+            )
+            assert hashlib.sha256(base_bytes).hexdigest() == expected, (
+                f"integrated intake snapshot hash changed: {relative}"
+            )
     for path in HERE.iterdir():
         if not path.is_file():
             continue

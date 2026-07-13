@@ -43,5 +43,21 @@ verifies the single direct import, rejects mutations removing either hypothesis,
 domain or binder scope, and allowing the empty source, and kernel-checks empty, singleton, and
 constant-map boundaries. These are worker-local statement artifacts only. The provisional intake
 has not been master-accepted, and its requested independent source/convention review is still
-absent. Anchor audit, proof architecture, proof, validation, release, and every theorem-completion
-gate remain open.
+absent.
+
+## Provisional anchor audit
+
+The bounded immutable inventory finds an exact pinned-mathlib route. `IsConnected.image` proves the
+sharper `ContinuousOn` form in `Mathlib.Topology.Connected.Basic`; `AnchorAudit.lean` checks a
+literal copy of the global root by applying it to `Continuous.continuousOn`. The terminal theorem,
+its substantive dependency `IsPreconnected.image`, and the adapter are sorry-free and report only
+`propext`, `Classical.choice`, and `Quot.sound`. This is an `M0-W` candidate, while the accepted
+root remains `M3` until proof integration, transitive provenance/trust validation, and master
+acceptance.
+
+The external search found a commit-pinned `formal-conjectures` wrapper expressing the same global
+claim, but its body calls the same mathlib theorem and supplies no independent terminal proof.
+Repository-local sources, every materialized non-mathlib package, and the bounded public queries
+found no additional independent Lean 4 body. Code-search authentication and rate-limit failures are
+recorded, so exhaustive discovery is not claimed. Proof architecture, proof acceptance, H0/R0,
+hermetic validation, release, and every theorem-completion gate remain open.

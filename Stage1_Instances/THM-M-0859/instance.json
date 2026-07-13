@@ -1,0 +1,216 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0859",
+  "item_id": "S56-M-0859-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1413,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Vizing定理",
+  "name_en": "Vizing's theorem",
+  "canonical_name": "Vizing edge-coloring theorem family for finite loopless graphs",
+  "category": "组合数学 / 图论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "图的边色数",
+  "literal_source_claim_en": "The edge chromatic number of a graph.",
+  "source_attribution": "Vadim Vizing, 1964 (catalog metadata)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_vizing_edge_coloring_family_with_secondary_statement_and_primary_bibliographic_leads_but_catalog_variant_primary_source_and_exact_formal_target_not_frozen",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only an edge-chromatic-number topic gloss. The inspected secondary source states both the finite loopless-multigraph bound Delta <= chi' <= Delta + mu and its finite-simple-graph specialization Delta <= chi' <= Delta + 1, but the 1964 primary paper was not inspected and the catalog does not choose a variant. The statement phase must source-approve that choice and freeze graph/multiplicity representation, finiteness, edge adjacency, proper coloring, chromatic-index minimum versus coloring existence, line-graph transport, maximum degree, lower-bound composition, binders, typeclasses, imports, and boundary cases.",
+  "target_decision": "preserve the full source-backed Vizing edge-coloring family without silently narrowing the loopless-multigraph theorem to mathlib SimpleGraph; require primary-source acceptance and an explicit root/specialization decision in the statement phase",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.LineGraph",
+      "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "Mathlib.Combinatorics.SimpleGraph.Finite"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_primary_source_variant_decision_and_exact_lean_encoding",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted statement must choose a finite loopless multigraph or finite simple graph, fix vertex and edge universes, parallel-edge representation, finiteness and decidability presentation, and line-graph or direct edge-coloring encoding.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open formal encoding of the source-selected Vizing bound: the loopless-multigraph inequality Delta(G) <= chi'(G) <= Delta(G) + mu(G), or its explicitly justified finite-simple-graph specialization Delta(G) <= chi'(G) <= Delta(G) + 1.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before the exact proposition is frozen; the statement phase must resolve every case listed in scope-map.md without silently adding source-external hypotheses.",
+  "candidate_scope_not_credited": [
+    "the general finite loopless-multigraph bound Delta(G) <= chi'(G) <= Delta(G) + mu(G)",
+    "the finite-simple-graph specialization Delta(G) <= chi'(G) <= Delta(G) + 1",
+    "the upper-bound existence formulation that a finite simple graph has a proper edge coloring with Delta(G) + 1 colors",
+    "a line-graph formulation G.lineGraph.Colorable (G.maxDegree + 1)",
+    "a numerical line-graph chromatic-number conjunction including both lower and upper bounds"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty vertex type and edgeless nonempty graphs",
+    "one edge, matchings, paths, stars, and disconnected graphs with isolated vertices",
+    "odd and even cycles and complete graphs attaining either bound",
+    "maximum degree zero and palette size one",
+    "parallel-edge bundles and multiplicity zero or one if the multigraph theorem is selected",
+    "loop exclusion and whether finite/decidable typeclasses add unintended premises"
+  ],
+  "excluded_substitutions": [
+    "Shannon's 3 Delta / 2 multigraph edge-coloring bound",
+    "Konig's equality of chromatic index and maximum degree only for bipartite graphs",
+    "Brooks' vertex-coloring theorem",
+    "Vizing's total-coloring or list-edge-coloring conjectures",
+    "Vizing's planar class-one theorem or adjacency lemma",
+    "only the elementary lower bound Delta <= chi' when the source root includes the upper bound",
+    "an arbitrary EdgeLabeling without the properness condition for incident edges",
+    "a structure or hypothesis that stores the desired coloring conclusion",
+    "finite computations, the untrusted catalog label 已验证, or the API probe as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0858",
+      "name": "Brooks定理",
+      "relationship": "vertex chromatic-number upper bound; line-graph coloring substrate does not identify it with Vizing's edge-coloring theorem"
+    },
+    {
+      "theorem_id": "THM-M-0860",
+      "name": "Shannon定理",
+      "relationship": "different multigraph chromatic-index upper bound, traditionally 3 Delta / 2"
+    },
+    {
+      "theorem_id": "THM-M-0861",
+      "name": "König边着色定理",
+      "relationship": "exact chromatic-index equality restricted to bipartite graphs"
+    }
+  ],
+  "source_status": "H1_standard_published_theorem_and_primary_bibliographic_lead_identified_from_inspected_secondary_source_but_primary_text_variant_definitions_assumptions_proof_errata_translation_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "V. G. Vizing, On an estimate of the chromatic class of a p-graph, Diskret. Anal. 3 (1964), 25-30 (Russian)",
+      "candidate_locator": "pages 25-30; exact theorem and proof locator not inspected",
+      "candidate_summary": "Primary bibliographic lead cited by the inspected Encyclopedia of Mathematics Vizing-theorem entry and by Vizing's 1965 multigraph paper.",
+      "inspection_status": "primary text not obtained or inspected; edition, translation, definitions, theorem/proof boundary, corrections, and independent review remain open"
+    },
+    {
+      "citation": "Encyclopedia of Mathematics, Vizing theorem, permanent revision 51407",
+      "permanent_url": "https://encyclopediaofmath.org/index.php?title=Vizing_theorem&oldid=51407",
+      "revision_timestamp": "2021-01-19T09:33:10Z",
+      "mediawiki_revision_sha1": "16e31a879da9712db3fadd1c487c4180b0a04d3b",
+      "observed_api_response_sha256": "297d62ed131d0525be872a166fab52dc58076390c1d5108c0fc45ab3d9a667dc",
+      "candidate_summary": "Defines the finite undirected loopless multigraph conventions, maximum multiplicity, chromatic index, and maximum degree; states Delta <= chi' <= Delta + mu and the simple-graph Delta + 1 specialization.",
+      "inspection_status": "immutable secondary statement source inspected; useful for disambiguation and bibliography but insufficient for primary-source H0"
+    },
+    {
+      "citation": "V. G. Vizing, The chromatic class of a multigraph, Cybernetics 1(3) (1965), 32-41",
+      "doi": "10.1007/BF01885700",
+      "observed_crossref_response_sha256": "f181278eff02d585bc149fdb8975097c438480e3721b9143ba9bd0862bcd4f69",
+      "candidate_summary": "Related paper whose Crossref bibliography cites the 1964 primary lead and distinguishes nearby Vizing publications.",
+      "inspection_status": "bibliographic metadata inspected; publisher full text not obtained; no source or proof credit"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.LineGraph",
+      "declarations": ["SimpleGraph.lineGraph", "SimpleGraph.lineGraph_adj_iff_exists"],
+      "boundary": "finite-simple-graph edge-adjacency substrate only; no multigraph representation, chromatic-index definition, Vizing bound, or checked direct-edge-coloring transport"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "declarations": ["SimpleGraph.Coloring", "SimpleGraph.Colorable", "SimpleGraph.chromaticNumber"],
+      "boundary": "vertex-coloring infrastructure usable on a line graph; it does not state the target or establish source identity"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "declarations": ["SimpleGraph.maxDegree", "SimpleGraph.degree_le_maxDegree"],
+      "boundary": "finite-simple-graph maximum-degree infrastructure only"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.EdgeLabeling",
+      "declarations": ["SimpleGraph.EdgeLabeling"],
+      "boundary": "arbitrary edge labeling only; the module explicitly distinguishes it from proper edge coloring"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "464759128569180ab640c412cd80bc5dd2c3b44a",
+    "repository_base_tree": "8da3c9130640d08d4e179450a0418368d0454745",
+    "repository_record": "Docs/researches/math_theorems.md:6299-6304",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23441-23466",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "1e508ba6dea246337ac6daf72d8d58fef1ec2d44422ab5fff19db56fac83d00b",
+    "execution_dag_sha256": "b0a766fc806a0dc4e9a8b4400e6ab0c92e39ca9265a23cd3a2feab451a63e4a9",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_line_graph_source_sha256": "8d938aa393a544cb7f20fe34176ec005702363991f978f7ccb394c7276ab401f",
+    "mathlib_coloring_source_sha256": "42c4c6ac9c763df08f33a9fc4cf329e19908dacc630be771a547fcb583f7be56",
+    "mathlib_finite_source_sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8",
+    "mathlib_edge_labeling_source_sha256": "6f0181a9b0a003bd703d81f609d5e30779d5543aa31dfc32f4b15c6e6c51b3f9"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, minimum-existence, and noncomputability policies for chromatic index remain open until the exact proposition and dependency closure are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact graph representation, imports, expression identity, direct/line-graph transport, terminal proof bodies, axiom closure, transitive dependencies, and trust policy remain open",
+  "computation_profile": "No graph enumeration, coloring algorithm run, SAT solver, oracle, experiment, or unchecked certificate is credited; the intended root is the general finite theorem",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0859/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0859/README.md",
+    "Stage1_Instances/THM-M-0859/instance.json",
+    "Stage1_Instances/THM-M-0859/scope-map.md",
+    "Stage1_Instances/THM-M-0859/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0859/task-dag.json",
+    "Stage1_Instances/THM-M-0859/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0859/check_intake.py",
+    "Stage1_Instances/THM-M-0859/validation.md",
+    "Stage1_Instances/THM-M-0859/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-theory reviewer with access to the 1964 primary source",
+    "formal_reviewer": "unassigned independent Lean graph-theory reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the primary edition/translation, multigraph-versus-simple root, exact crosswalk, formal encoding, and neighbor boundary before dependent work."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the primary source and any translation must be lawfully preserved and rehashed for source admission.",
+  "freshness_and_revocation_policy": "Invalidate on source edition, translation, correction, multigraph/simple choice, graph or multiplicity convention, chromatic-index or edge-adjacency definition, direct/line-graph transport, maximum-degree encoding, lower-bound composition, quantifier or boundary case, Lean target, dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. A secondary source and primary bibliographic lead identify the theorem family, but the primary source, catalog variant, and formal encoding remain open. Pinned APIs supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

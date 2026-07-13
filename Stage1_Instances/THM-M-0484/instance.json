@@ -23,13 +23,17 @@
   "literal_source_claim_en": "A fast test for Mersenne primes.",
   "source_attribution": "Edouard Lucas/Derrick Lehmer, 1930 (catalog metadata only; no cited work or passage)",
   "source_status_untrusted": "已验证",
-  "canonical_claim_status": "candidate_lucas_lehmer_correctness_scope_identified_but_source_domain_indexing_representation_and_performance_boundaries_not_accepted",
-  "canonical_statement": "Candidate intake scope: for every natural p with 3 <= p, the zero-based Lucas-Lehmer residue after p - 2 updates from seed 4 modulo 2^p - 1 is zero if and only if the Mersenne number 2^p - 1 is prime.",
+  "canonical_claim_status": "intake_selected_all_natural_exponents_at_least_three_formal_scope_frozen_while_source_domain_indexing_and_performance_boundaries_remain_unaccepted",
+  "canonical_statement": "For every natural p with 3 <= p, the zero-based Lucas-Lehmer residue after p - 2 updates from seed 4 modulo 2^p - 1 is zero if and only if the Mersenne number 2^p - 1 is prime.",
   "canonical_claim": "For p at least 3, the Lucas-Lehmer test accepts p exactly when the Mersenne number 2^p - 1 is prime; source-domain and indexing transport remain unaccepted.",
-  "statement_blocker": "The catalog supplies only a performance-flavored gloss. Before the exact statement gate, an independent reviewer must approve an immutable source theorem and its complete proof/correction boundary; choose odd-prime versus all-natural p >= 3 scope; map one-based S_(p-1) to zero-based residue p-2; choose divisibility, remainder, or ZMod equality; decide correctness directions and any cost claim; and protect p=2 and truncated-subtraction boundaries. The canonical Lean expression, fingerprints, transports, and mutations remain downstream.",
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "status": "self_tested_pending_master_acceptance",
+    "module": "Stage1_Instances/THM-M-0484/Statement.lean",
+    "minimal_imports": [
+      "Mathlib.NumberTheory.LucasLehmer"
+    ],
     "module_candidates": [
       "Mathlib.NumberTheory.LucasLehmer"
     ],
@@ -43,15 +47,15 @@
       "lucas_lehmer_sufficiency",
       "lucas_lehmer_necessity"
     ],
-    "declaration_or_expression": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0484.LucasLehmerTestTarget",
     "candidate_expression": "forall p : Nat, 3 <= p -> (LucasLehmer.LucasLehmerTest p <-> Nat.Prime (mersenne p))",
-    "candidate_expression_status": "pinned definitions and directions elaborate and compose in the intake probe; canonical source selection, normalized expression serialization, transports, mutations, provenance, and proof credit remain downstream",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_source_transport_and_statement_phase",
+    "candidate_expression_status": "selected as the canonical formal target; conventional odd-prime source-domain and one-based-index transport remains uncredited",
+    "elaborated_expression_hash": "sha256:6bd6024bd44d0bd9c50f6425b9ce5fdaecaf783ac84d32688717d3bde3151aea",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-NumberTheory.LucasLehmer_autoImplicit-false_pp-explicit-universes",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-NumberTheory.LucasLehmer_intake-candidate-probe-only"
   },
-  "domain_and_universes": "Candidate scope is universe-free arithmetic in Lean universe 0: p : Nat, mersenne p : Nat, the recurrence in Int or ZMod (2^p - 1), and Nat.Prime (mersenne p). Source review must decide whether p.Prime is an explicit premise or a consequence and must bind the lower limit.",
+  "domain_and_universes": "Universe-free arithmetic in Lean universe 0: p : Nat, mersenne p : Nat, the recurrence in Int or ZMod (2^p - 1), and Nat.Prime (mersenne p). The selected formal target uses all natural p with 3 <= p and no redundant p.Prime premise.",
   "ordered_binders": [
     "p : Nat",
     "hp : 3 <= p"
@@ -60,7 +64,7 @@
     "for every natural exponent p at least 3"
   ],
   "hypotheses": [
-    "3 <= p in the sharper pinned candidate; an explicit odd-prime premise is conventional but not yet selected"
+    "hp : 3 <= p"
   ],
   "conclusion": "LucasLehmerTest p if and only if Nat.Prime (mersenne p), with the test defined as zero residue after p - 2 zero-based recurrence updates.",
   "alternate_encodings": [
@@ -73,8 +77,8 @@
     {
       "target": "LucasLehmer.sMod p (p - 2) = 0 in Int",
       "relationship": "iff under 1 < p",
-      "checked_witness": null,
-      "status": "pinned residue representation theorem exists but is not credited as a statement transport at intake"
+      "checked_witness": "Stage1Instances.THM_M_0484.lucasLehmerTestTarget_iff_integerResidueTarget",
+      "status": "checked statement transport under the canonical lower bound"
     },
     {
       "target": "test-passing implies Mersenne primality",
@@ -92,10 +96,9 @@
   "excluded_degenerate_cases": [
     "p = 0, p = 1, and p = 2 are excluded by the candidate 3 <= p premise; p=2 is a genuine counterexample to the unconditional iff"
   ],
-  "degenerate_case_status": "The statement phase must mutation-test removal of 3 <= p, the p=2 boundary, an explicit prime-exponent domain, recurrence index shifts, Nat/Int/ZMod representations, binder scope, and truncated subtraction.",
+  "degenerate_case_status": "The statement module rejects removal of 3 <= p, a prime-exponent domain, changed lower-bound scope, and inclusion of p=2; it kernel-checks the p=2 counterexample and the ZMod/Int representation transport.",
   "candidate_scope_not_credited": [
     "the conventional odd-prime one-based Lucas-Lehmer criterion",
-    "the sharper all-natural p >= 3 mathlib candidate",
     "either correctness direction in isolation",
     "a certified executable decision procedure or a complexity theorem for the adjective fast",
     "individual Mersenne-prime certificates produced by norm_num"
@@ -201,10 +204,10 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended; the candidate bodies report propext, Classical.choice, and Quot.sound, while accepted source foundations, axiom policy, and complete transitive trust closure remain downstream",
-  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact target imports, normalized expression, terminal bodies, transitive declarations, compiled artifacts, meta norm_num boundary, and trust acceptance remain downstream",
+  "foundation_profile": "Lean 4 dependent type theory under the pinned mathlib environment. The checked statement transports report propext, Classical.choice, and Quot.sound; accepted source foundations, terminal-body axiom policy, and complete transitive trust closure remain downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib. The exact target import and normalized expression are frozen; correctness terminal bodies, transitive declarations, compiled artifacts, meta norm_num boundary, and trust acceptance remain downstream.",
   "computation_profile": "Ordinary kernel-checked theorem reasoning is the correctness target. The module also offers a kernel-reduction norm_num extension for concrete residues, but no experiment, benchmark, native computation, oracle, solver, or unchecked certificate is credited and no complexity claim is frozen.",
-  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; exact-topic candidate discovered but canonical target not yet encoded",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; exact canonical statement self-tested pending master acceptance",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "open_task_dag": "Stage1_Instances/THM-M-0484/task-dag.json",
   "public_merge_targets": [
@@ -216,7 +219,13 @@
     "Stage1_Instances/THM-M-0484/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0484/check_intake.py",
     "Stage1_Instances/THM-M-0484/validation.md",
-    "Stage1_Instances/THM-M-0484/intake-receipt.json"
+    "Stage1_Instances/THM-M-0484/intake-receipt.json",
+    "Stage1_Instances/THM-M-0484/Statement.lean",
+    "Stage1_Instances/THM-M-0484/check_statement.py",
+    "Stage1_Instances/THM-M-0484/check_statement_artifacts.py",
+    "Stage1_Instances/THM-M-0484/statement.json",
+    "Stage1_Instances/THM-M-0484/statement-receipt.json",
+    "Stage1_Instances/THM-M-0484/statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -234,7 +243,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "check_statement_artifacts.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Worker-self-tested planned intake proposal only. It freezes the catalog gloss, candidate correctness scope, source and exact-topic formal leads, indexing/domain/low-exponent boundaries, exclusions, profiles, and open task DAG. It does not freeze a canonical Lean expression or fingerprint, accept source fidelity or proof provenance, or claim H0, M0, R0, accepted state, audit completion, theorem completion, or master acceptance."
+  "status_boundary": "Planned intake plus exact statement proposal pending master acceptance. The all-natural p >= 3 target, two representation transports, expression/environment fingerprints, four structural mutations, and p=2 counterexample are self-tested. Conventional source-domain/index transport, H0, proof provenance, M0, R0, accepted state, audit completion, theorem completion, and master acceptance remain open."
 }

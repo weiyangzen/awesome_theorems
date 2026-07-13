@@ -1,0 +1,82 @@
+{
+  "schema_version": "stage1-anchor-discovery-protocol/1.0",
+  "item_id": "S56-M-0626-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0626",
+  "inventory_version": "S56-M-0626-ANCHOR-INVENTORY-20260713-01",
+  "cutoff": "2026-07-13T18:55:25+08:00",
+  "credentials_policy": "anonymous public HTTP only; authenticated GitHub code search was unavailable",
+  "repositories_and_registries": [
+    {
+      "surface": "repository-local Lean sources",
+      "selection_rule": "all tracked Lean files outside Stage1_Instances/THM-M-0626 at repository revision 1c0c5fc6f43e6ae5ecc3b50589b45c3628e0ead4"
+    },
+    {
+      "surface": "materialized Lake dependency sources",
+      "selection_rule": "all eleven packages at the immutable revisions in Formalizations/Lean/lake-manifest.json, with pinned mathlib audited first"
+    },
+    {
+      "surface": "mathlib declaration source and local Git ancestry",
+      "selection_rule": "Mathlib.Topology.Connected.Basic at pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 plus locally available ancestor commits"
+    },
+    {
+      "surface": "GitHub repository and code search",
+      "selection_rule": "three anonymous REST repository queries and one code query; response hashes or explicit access failures recorded"
+    },
+    {
+      "surface": "Sourcegraph global code search",
+      "selection_rule": "anonymous context:global lang:Lean query for IsConnected.image; returned commit-qualified indexed matches with forks and archives excluded"
+    },
+    {
+      "surface": "grep.app code search",
+      "selection_rule": "anonymous IsConnected.image query; HTTP result and response hash recorded"
+    }
+  ],
+  "aliases": [
+    "continuous images preserve connectedness",
+    "continuous image of a connected set is connected",
+    "connected image theorem",
+    "IsConnected.image",
+    "IsPreconnected.image",
+    "Continuous.isConnectedMap",
+    "isConnected_range",
+    "Function.Surjective.connectedSpace",
+    "\u8fde\u901a\u6027\u5b9a\u7406",
+    "\u8fde\u901a\u96c6\u7684\u8fde\u7eed\u50cf\u8fde\u901a"
+  ],
+  "namespace_and_declaration_queries": [
+    "IsConnected",
+    "IsPreconnected",
+    "Continuous",
+    "ContinuousOn",
+    "Set.image",
+    "ConnectedSpace",
+    "IsConnectedMap"
+  ],
+  "search_order": [
+    "existing repo-local proof bodies and wrappers",
+    "pinned mathlib declarations and their source boundary",
+    "official or primary Lean 4 formalization projects",
+    "other public Lean repositories at immutable revisions",
+    "formal statement collections",
+    "historical versions or other proof assistants"
+  ],
+  "query_forms": [
+    "rg over repository-local Lean files for IsConnected.image, IsPreconnected.image, and continuous/connected/image aliases",
+    "rg over each materialized Lake package for exact declarations and aliases",
+    "GitHub repositories: quoted continuous image connected Lean 4; IsConnected.image Lean 4; connectedness theorem lean4",
+    "GitHub code: IsConnected.image language:Lean",
+    "Sourcegraph: context:global lang:Lean IsConnected.image",
+    "grep.app: IsConnected.image"
+  ],
+  "expected_negative_evidence": "Every bounded query records immutable local revisions, a hashed public response, or an explicit access failure. Zero matches are never treated as internet-wide absence.",
+  "inventory_members": [
+    "M0626-C01-MATHLIB-DIRECT",
+    "M0626-C02-MATHLIB-SUBSTRATE",
+    "M0626-C03-MATHLIB-NONSUBSTITUTES",
+    "M0626-C04-FORMAL-CONJECTURES-DUPLICATE",
+    "M0626-C05-MANIFEST-EXTERNAL-CLOSURE",
+    "M0626-C06-PUBLIC-INDEX-RESULTS"
+  ],
+  "saturation_claim": false,
+  "append_only_policy": "New discoveries create a successor inventory version and do not erase this bounded result."
+}

@@ -4,10 +4,12 @@ Base revision: `8a13381618b241479a4786ca67704af7322f77aa` (tree
 `0cc75f807f4c75d2a0aa8a72062e025083bd18ad`). Validation date: 2026-07-13
 (Asia/Shanghai).
 
-This validation covers the planned dossier, natural-number scope, source-statement crosswalk,
-open task DAG, JSON and scoped invariants, and a narrow pinned Lean API probe. It does not validate
-a canonical THM-M-0471 expression or proof because exact representation selection and expression
-fingerprinting belong to the dependent statement phase. The automation-provided canonical `.lake`
+The intake validation below covers the planned dossier, natural-number scope,
+source-statement crosswalk, open task DAG, JSON and scoped invariants, and a narrow pinned Lean API
+probe. It did not validate a canonical THM-M-0471 expression or proof because exact representation
+selection and expression fingerprinting originally belonged to the dependent statement phase.
+That phase now has its own
+`statement-validation.md` and provisional receipt. The automation-provided canonical `.lake`
 symlink pre-existed this work and was used read-only. No `lake update`, `lake build`, dependency
 clone/fetch, or other `.lake` mutation was performed. This dirty worker packet is nonrelease
 evidence.
@@ -42,18 +44,18 @@ evidence.
 | `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0471/IntakeProbe.lean` | 0 | nine pinned list/exponent APIs and representative 2, 6-ordering, 0, and 1 boundaries elaborated; exact stdout hash is recorded in the receipt, with empty stderr |
 | `python3 -m json.tool` on all owned JSON artifacts and the root worker packet | 0 | valid JSON |
 | `PYTHONPYCACHEPREFIX=/tmp/stage1-thm-m-0471-pycache python3 -m py_compile Stage1_Instances/THM-M-0471/check_intake.py` | 0 | scoped validator compiled without generated files in the owned path |
-| `python3 -B Stage1_Instances/THM-M-0471/check_intake.py --worker-packet .stage1-worker-selftest.json` | 0 | manifest/DAG identity, source pins, null target, H1/M3/R4 boundary, artifact inventory, worker packet, and six open tasks agree |
+| `python3 -B Stage1_Instances/THM-M-0471/check_intake.py --worker-packet .stage1-worker-selftest.json` | 0 | originally validated intake identity and the then-null target; the reconciled checker now validates the exact target, expanded artifact inventory, worker packet, H1/M3/R4 boundary, and open tasks |
 | `python3 -B Stage1_Instances/THM-M-0471/check_intake.py` | 0 | public replay mode passed |
 | prohibited-construct scan over the owned path | 0 policy result | no `sorry`, `admit`, `sorryAx`, `axiom`, `constant`, `opaque`, or `unsafe` Lean declaration token found |
 | scoped per-new-file whitespace checks plus `git diff --check` | 0 | no whitespace errors |
 
 ## Evidence boundary
 
-The Lean probe proves only that the named pinned declarations and small boundary examples
-elaborate. It does not freeze the exact root, map the ancient source to one formal encoding, inspect
-or credit terminal proof bodies, or establish release-grade trust. The original-language/edition
-and translation audit, full source proof crosswalk, independent review, exact statement and
-mutations, candidate/provenance audit, obligation registry and typed graphs, proof and composition,
-readable reconstruction, hermetic replay, deterministic bundle, and independent verification all
-remain open. These boundaries prevent audit and theorem completion but do not invalidate a
-self-tested `planned` intake.
+The intake Lean probe proves only that the named pinned declarations and small boundary examples
+elaborate. The later statement packet freezes the root separately; neither packet maps the ancient
+source to an accepted formal encoding, credits terminal proof bodies, or establishes release-grade
+trust. The original-language/edition and translation audit, full source proof crosswalk,
+independent review, candidate/provenance audit, obligation registry and typed graphs, proof and
+composition, readable reconstruction, hermetic replay, deterministic bundle, and independent
+verification all remain open. These boundaries prevent audit and theorem completion but do not
+invalidate the planned dossier.

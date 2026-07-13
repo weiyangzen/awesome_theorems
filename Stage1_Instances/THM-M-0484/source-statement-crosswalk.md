@@ -61,9 +61,10 @@ control the candidate boundary.
 
 `Archive/Examples/MersennePrimes.lean` at the same pin explicitly demonstrates both
 `Not (LucasLehmerTest 2)` and `Nat.Prime (mersenne 2)`. Therefore an unconditional iff and an iff
-assuming only `p.Prime` are false. `IntakeProbe.lean` checks the candidate iff under `3 <= p` and
-the exception, but the statement phase must still freeze the source-faithful canonical target,
-expression and environment hashes, transports, and mutations.
+assuming only `p.Prime` are false. `Statement.lean` now freezes the intake-selected sharper iff
+under `3 <= p`, its expression and environment fingerprints, two representation transports, four
+structural mutations, and the exception. This formal freeze does not turn the unresolved
+conventional-source mapping into `H0`.
 
 ## Open source gate
 

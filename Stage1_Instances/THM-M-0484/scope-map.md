@@ -11,10 +11,11 @@ scope preserved at intake is the correctness criterion below:
 - the recurrence starts with `s_0 = 4` and satisfies `s_(n+1) = s_n^2 - 2`, computed modulo `M_p`;
 - `M_p` is prime if and only if the residue after `p - 2` recurrence updates is zero.
 
-This is a candidate scope, not the statement-phase canonical declaration. The catalog says none of
-the formula, binder, hypothesis, recurrence, indexing, or low-exponent boundary explicitly.
+This is now the statement-phase canonical formal scope in `Statement.lean`. The catalog itself says
+none of the formula, binder, hypothesis, recurrence, indexing, or low-exponent boundary explicitly,
+so human-source fidelity and the conventional-source transport remain open.
 
-## Candidate Lean encoding
+## Canonical Lean encoding
 
 At the pinned mathlib revision, the natural-number Mersenne function is `mersenne p = 2^p - 1`.
 `LucasLehmer.s` is the integer recurrence with zero-based seed `s 0 = 4`;
@@ -26,25 +27,23 @@ Mathlib exposes the two directions separately:
 - a passing test implies primality under `1 < p`;
 - Mersenne primality implies a passing test under `3 <= p`.
 
-Their shared exact candidate scope is therefore `3 <= p -> (LucasLehmerTest p <->
-(mersenne p).Prime)`. No separate `p.Prime` premise is needed for that candidate: primality of
+Their shared exact formal scope is therefore `3 <= p -> (LucasLehmerTest p <->
+(mersenne p).Prime)`. No separate `p.Prime` premise is needed for this target: primality of
 `mersenne p` implies primality of `p` on the right, while a passing test already suffices on the
-left. A source reviewer must decide whether to retain the conventional explicit odd-prime premise
-or admit the sharper natural-number formulation through a checked source transport.
+left. The statement phase selects the sharper natural-number formulation; a source reviewer must
+still decide whether and how the conventional explicit odd-prime formulation transports to it.
 
-## Required statement decisions
+## Remaining source decisions
 
-1. Select an immutable, independently reviewed source proposition and decide whether `p` is an odd
-   prime, any natural with `3 <= p`, or another explicitly equivalent domain.
-2. Fix zero-based versus one-based recurrence indexing and prove the `p - 2` term transport.
-3. Fix whether recurrence values live in integers with divisibility, natural remainders, or
-   `ZMod (2^p - 1)`, and compile every credited equivalence.
-4. Decide whether the theorem is the iff, only a certification/sufficiency direction, only the
-   necessity direction, or also an algorithmic correctness and complexity statement.
-5. Separate mathematical correctness from the catalog adjective "fast". Any runtime claim needs a
+1. Independently review an immutable source proposition and its complete proof/correction boundary.
+2. Check the conventional odd-prime, one-based recurrence against the selected all-natural
+   `p >= 3`, zero-based `p - 2` target.
+3. Review the checked `ZMod`/integer-remainder representation transports before source credit.
+4. Keep the selected correctness iff separate from any certification-only or necessity-only claim.
+5. Keep mathematical correctness separate from the catalog adjective "fast". Any runtime claim needs a
    cost model, arithmetic representation, algorithm, and asymptotic or concrete bound.
-6. Freeze ordered binders, hypotheses, conclusion, minimal imports, normalized expression,
-   foundation/TCB/computation profiles, and all required statement mutations.
+6. Preserve the frozen ordered binders, hypotheses, conclusion, import, expression and environment
+   fingerprints, profiles, and statement mutations during later work.
 
 ## Boundary cases
 
@@ -72,7 +71,6 @@ or admit the sharper natural-number formulation through a checked source transpo
 
 ## Formal boundary
 
-`IntakeProbe.lean` imports the exact-topic mathlib module, checks the definitions and both theorem
-directions, reports their axioms, composes the candidate iff, and verifies the `p = 2` exception.
-It does not freeze the canonical statement, establish the source/index transport, conduct the
-exhaustive anchor or provenance audit, or install proof credit.
+`Statement.lean` freezes the canonical target and representation transports and verifies the
+`p = 2` exception plus required structural mutations. It does not establish the conventional
+source/index transport, conduct the exhaustive anchor or provenance audit, or install proof credit.

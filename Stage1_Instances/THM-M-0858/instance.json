@@ -1,0 +1,189 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0858",
+  "item_id": "S56-M-0858-INTAKE",
+  "execution_rank": 1412,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Brooks定理",
+  "name_en": "Brooks's graph-coloring theorem",
+  "canonical_name": "Brooks's 1941 graph-coloring theorem (original n > 2 componentwise form, source admission open)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "图的色数上界",
+  "literal_source_claim_en": "An upper bound for the chromatic number.",
+  "source_attribution": "Rowland Brooks, 1941 (uncited catalog metadata; the located paper is signed R. L. Brooks)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "pinpoint_original_1941_theorem_paragraph_located_and_source_shaped_lean_envelope_elaborated_but_complete_source_admission_graph_model_transport_errata_review_and_independent_acceptance_open",
+  "canonical_claim": null,
+  "candidate_statement_family_not_credited": "For every natural n greater than 2, a possibly infinite loopless network with at most n incident lines at each node and with no connected component a complete graph on n + 1 nodes can be properly colored with n colors.",
+  "statement_blocker": "The publisher first-page facsimile identifies a precise candidate root, but the complete four-page source has not been admitted or independently reviewed and the source's network/line semantics have not been proved equivalent to Lean's loopless no-parallel-edge SimpleGraph model. The statement phase must resolve those points and freeze, fingerprint, transport, and mutation-test the exact expression without substituting the familiar finite connected modern form.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "Mathlib.Combinatorics.SimpleGraph.Finite"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_complete_source_admission_graph_model_transport_and_statement_phase",
+    "probe_expression": "Stage1Instances.THM_M_0858.Brooks1941SourceEnvelope",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_two-import-source-envelope-only"
+  },
+  "domain_and_universes": "Candidate: universe u; V : Type u; G : SimpleGraph V; G.LocallyFinite; n : Nat; connected components of G; target Prop in universe 0. No Finite V, Fintype V, or planarity premise.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open pending statement freeze. The candidate conclusion is G.Colorable n after 2 < n, pointwise degree at most n, and componentwise non-n-simplex hypotheses.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": {
+    "lean_envelope": "forall arbitrary locally finite SimpleGraph G and Nat n, 2 < n implies pointwise degree <= n implies no component isomorphic to completeGraph (Fin (n + 1)) implies G.Colorable n",
+    "modern_form": "for a finite connected simple graph, chromatic number is at most maximum degree unless the graph is complete or an odd cycle",
+    "relationship": "closely related but not credited as equality, iff, implication, or source identity until checked in the statement phase"
+  },
+  "degenerate_cases_to_resolve": [
+    "n = 0, 1, and 2 are outside the printed n > 2 domain; n = 2 is materially tied to the odd-cycle exception",
+    "empty vertex carrier and the absence of connected components",
+    "isolated vertices and singleton components",
+    "the exact n + 1 arithmetic and complete-graph isomorphism convention",
+    "possible parallel lines in the source network terminology and their contribution to degree",
+    "components with fewer or more than n + 1 vertices that contain a clique of size n + 1 without being that complete component",
+    "infinite carriers with bounded finite degree and any countability fact used only in the proof"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case beyond the printed 2 < n restriction is excluded at intake; all other boundary behavior must follow the admitted source and checked encoding.",
+  "explicit_substitutions_excluded": [
+    "the finite connected maximum-degree formulation with complete and odd-cycle exceptions, absent checked source transport",
+    "a finite-only or connected-only root",
+    "a theorem including n = 2 without the odd-cycle boundary",
+    "clique-free, regular, minimum-degree, average-degree, or degeneracy bounds",
+    "edge coloring, list coloring, or later Brooks-type refinements",
+    "Robert Brooks's essential-spectrum theorem, separately represented as THM-M-1329",
+    "a structure field, hypothesis, axiom, placeholder, example, or untrusted status label that supplies the desired coloring"
+  ],
+  "source_status": "H1_pinpoint_primary_statement_and_proof_lead_located_but_complete_source_preservation_semantic_crosswalk_errata_and_independent_review_open",
+  "human_source_discovery_not_credited": [
+    {
+      "citation": "R. L. Brooks, On colouring the nodes of a network, Proceedings of the Cambridge Philosophical Society 37(2), April 1941, 194-197, DOI 10.1017/S030500410002168X",
+      "locator": "printed page 194, theorem paragraph and immediately following n-simplex and infinite/nonplanar sentences",
+      "observed_first_page_sha256": "10837123a6d5f8a87d70fdfe6628799a0710ab4cd6efe292717e282f281ee9c4",
+      "status": "pinpoint H1 lead only; complete immutable source, proof crosswalk, corrections, errata and independent review not accepted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "declarations": [
+        "SimpleGraph.Colorable",
+        "SimpleGraph.ConnectedComponent.toSimpleGraph",
+        "SimpleGraph.colorable_iff_forall_connectedComponents"
+      ],
+      "boundary": "statement and component-composition substrate only; no degree-bound Brooks theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "declarations": [
+        "SimpleGraph.LocallyFinite",
+        "SimpleGraph.degree"
+      ],
+      "boundary": "bounded-degree substrate only; no coloring conclusion"
+    },
+    {
+      "module": "Stage1_Instances/THM-M-0858/IntakeProbe.lean",
+      "declarations": [
+        "Stage1Instances.THM_M_0858.IsNSimplex",
+        "Stage1Instances.THM_M_0858.Brooks1941SourceEnvelope"
+      ],
+      "boundary": "noncanonical source-scope envelope that elaborates but has no proof body or statement-gate fingerprint"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "561d83df037004ceb2259292d7c63be930b40391",
+    "repository_base_tree": "6eb02475bf5a70139d60615c924b31c930efc2bb",
+    "repository_record": "Docs/researches/math_theorems.md:6292-6297",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23414-23439",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "4e82319d3837b9ca2ee8ec52272aa92cee2ff6dfa2eb6b7c1d6aa7a1cf077425",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "18d0d349f9108142784ac31f2b7dde5562b4c70dc6b4565a45aa915a00c27290",
+    "execution_dag_sha256": "3080f2fd70f4072f451fa25c213422dde8f940a73aa3a1eddc14b3a2382b0ea2",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "brooks_1941_doi": "10.1017/S030500410002168X",
+    "brooks_1941_publisher_first_page_sha256": "10837123a6d5f8a87d70fdfe6628799a0710ab4cd6efe292717e282f281ee9c4",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_coloring_source_sha256": "42c4c6ac9c763df08f33a9fc4cf329e19908dacc630be771a547fcb583f7be56",
+    "mathlib_finite_source_sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8",
+    "mathlib_connected_source_sha256": "9171842c49be5f8951c6a2d5c39ae374279d46eaa317efd69bdf3039d289eeff"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "foundation_profile": "Lean 4 dependent type theory is intended. Classical logic, choice, quotient, compactness or de Bruijn-Erdos-style principles needed for the infinite case, and their accepted policy remain open until proof architecture and trust closure are audited.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The probe has two direct imports; a canonical target, minimal imports, terminal proof bodies, transitive dependencies, and accepted axiom closure remain open.",
+  "computation_profile": "No graph enumeration, finite coloring search, SAT solver, native computation, oracle, experiment, or unchecked certificate is credited; the intended root includes arbitrary carriers and requires kernel-checked mathematical reasoning.",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0 and the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "authoritative_target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+  "authoritative_execution_dag": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+  "open_task_dag": "Stage1_Instances/THM-M-0858/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0858/README.md",
+    "Stage1_Instances/THM-M-0858/instance.json",
+    "Stage1_Instances/THM-M-0858/scope-map.md",
+    "Stage1_Instances/THM-M-0858/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0858/task-dag.json",
+    "Stage1_Instances/THM-M-0858/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0858/check_intake.py",
+    "Stage1_Instances/THM-M-0858/validation.md",
+    "Stage1_Instances/THM-M-0858/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "graph_model_reviewer": "unassigned independent graph-theory reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, source edition, author identity, theorem/proof boundary, graph or multigraph semantics, loop or parallel-edge interpretation, n-domain, degree or component encoding, simplex definition, modern-form transport, boundary-case decision, Lean target, toolchain or dependency pin, assurance profile, validator, recipe, public artifact, or reviewer-policy change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog provenance, pinpoint 1941 source lead, original-versus-modern and graph-model boundaries, source-shaped pinned Lean envelope, formal substrate, and open task DAG. It does not freeze or accept a canonical proposition, H0 source crosswalk, expression fingerprint, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance."
+}

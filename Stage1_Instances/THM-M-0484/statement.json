@@ -1,0 +1,135 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0484-STATEMENT",
+  "theorem_id": "THM-M-0484",
+  "execution_rank": 1365,
+  "depends_on": [
+    "S56-M-0484-INTAKE"
+  ],
+  "lifecycle_mode": "planned",
+  "canonical_name": "Lucas-Lehmer primality criterion for Mersenne numbers",
+  "canonical_statement": "For every natural exponent p with 3 <= p, the Lucas-Lehmer residue after p - 2 zero-based updates from seed 4 is zero modulo 2^p - 1 if and only if the Mersenne number 2^p - 1 is prime.",
+  "canonical_claim_status": "intake_selected_all_natural_exponents_at_least_three_scope_frozen_while_primary_source_domain_and_index_transport_remain_open",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0484/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0484.LucasLehmerTestTarget",
+    "direct_imports": [
+      "Mathlib.NumberTheory.LucasLehmer"
+    ],
+    "statement_file_sha256": "1baec8791288b46d6df61e060be07aa190ac1d0424229595523a095e8259c8dc",
+    "elaborated_expression_sha256": "6bd6024bd44d0bd9c50f6425b9ce5fdaecaf783ac84d32688717d3bde3151aea"
+  },
+  "domain_and_universes": "p : Nat in Lean universe 0; LucasLehmer.lucasLehmerResidue p : ZMod (2^p - 1); mersenne p : Nat; the closed target is Prop in universe 0.",
+  "quantifiers": [
+    "for every p : Nat"
+  ],
+  "ordered_binders": [
+    "p : Nat",
+    "hp : 3 <= p"
+  ],
+  "hypotheses": [
+    "hp : 3 <= p"
+  ],
+  "conclusion": "LucasLehmer.LucasLehmerTest p if and only if Nat.Prime (mersenne p). The test definition is LucasLehmer.lucasLehmerResidue p = 0, with residue sZMod p (p - 2).",
+  "direct_imports": [
+    "Mathlib.NumberTheory.LucasLehmer"
+  ],
+  "minimal_import_evidence": "The sole direct import is the exact-topic public module defining mersenne, the recurrence, residue, and test. Removing it makes the statement module fail. No aggregate Mathlib import or additional direct module is present. Because the vocabulary itself is owned by this module, a smaller direct-import set cannot state the selected target.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0484.LucasLehmerResidueTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0484.lucasLehmerTestTarget_iff_residueTarget",
+      "boundary": "Definitionally expands LucasLehmerTest to equality of the ZMod residue with zero."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0484.LucasLehmerIntegerResidueTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0484.lucasLehmerTestTarget_iff_integerResidueTarget",
+      "boundary": "Uses LucasLehmer.residue_eq_zero_iff_sMod_eq_zero under the canonical lower bound to transport from ZMod equality to the reduced integer recurrence."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the conventional odd-prime, one-based S_(p-1) source formulation until its domain and index transports receive independent source review",
+    "raw divisibility of the unrestricted integer recurrence term without a checked representation transport",
+    "either correctness direction alone",
+    "an executable decision procedure or complexity theorem interpreting the catalog adjective fast"
+  ],
+  "degenerate_cases": {
+    "excluded": [
+      "p = 0 and p = 1, where natural subtraction and degenerate moduli do not encode the standard test",
+      "p = 2, where mersenne 2 = 3 is prime but the zero-based residue at index 0 is 4 mod 3 = 1"
+    ],
+    "included": [
+      "all natural exponents p >= 3, including composite exponents; no redundant p.Prime premise is added"
+    ],
+    "checked_boundary": "Stage1Instances.THM_M_0484.exponentTwo_boundary kernel-checks the genuine p=2 counterexample."
+  },
+  "source_boundary": "The repository gives only an uncited performance-flavored gloss. The modern PrimePages lead states the conventional criterion for odd prime p with one-based S_(p-1), but its displayed proof omits necessity and the primary 1930 article was not inspected. The sharper all-natural p >= 3 target is the precise intake-selected formal scope; this statement gate does not claim H0 or credit the conventional source transport.",
+  "environment_fingerprint": {
+    "repository_base": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "repository_base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lucas_lehmer_source_sha256": "6321c156165f59d49954c0e6e47706e765c0277df20b97a20333ceba29e8bead",
+    "serialization_options": [
+      "autoImplicit=false",
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under the pinned mathlib environment. The definitional residue transport reports propext and Quot.sound; the integer-residue transport reports propext, Classical.choice, and Quot.sound. No custom axiom or proof of the canonical target is introduced.",
+  "tcb_profile": "Lean kernel 4.29.0 plus manifest-pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. This phase checks statement transports only; terminal correctness proof bodies and transitive trust remain downstream.",
+  "computation_profile": "Kernel elaboration plus small closed boundary proofs are used. No benchmark, native oracle, external solver, experiment, or unchecked certificate is credited, and no performance theorem is stated.",
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "Stage1Instances.THM_M_0484.mutationRemovedLowerBound",
+      "result": "Lean type rejection, distinct explicit expression, and kernel refutation at p=2"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "Stage1Instances.THM_M_0484.mutationChangedDomainToPrimeExponent",
+      "result": "Lean type rejection, distinct explicit expression, and kernel refutation at the prime exponent p=2"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "Stage1Instances.THM_M_0484.mutationChangedLowerBoundScope",
+      "result": "Lean type rejection, distinct explicit expression, and kernel refutation at p=0"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "Stage1Instances.THM_M_0484.mutationIncludedExponentTwo",
+      "result": "Lean type rejection, distinct explicit expression, and kernel refutation at p=2"
+    }
+  ],
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The exact interface is frozen at M3. Statement elaboration supplies neither independently accepted human-source closure nor canonical proof closure or readable reconstruction, so no H/M/R promotion is proposed.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact elaboration of the intake-selected all-natural p >= 3 target, two checked representation transports, four structural mutations, and low-exponent counterexamples only. Source fidelity, formal anchor and terminal-body audit, obligation freeze, proof credit, readability, validation, release, audit completion, theorem completion, and master acceptance remain open."
+}

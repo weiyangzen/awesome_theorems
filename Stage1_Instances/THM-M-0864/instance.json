@@ -1,0 +1,237 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0864",
+  "item_id": "S56-M-0864-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1418,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Tutte连通度定理",
+  "name_en": "Tutte's wheel theorem / connectivity theorem",
+  "canonical_name": "Tutte wheel theorem family for finite 3-connected graphs (exact variant open)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim_zh": "3-连通图的轮分解",
+  "literal_source_claim_en": "Wheel decomposition of 3-connected graphs.",
+  "source_attribution": "William Tutte, 1961 (catalog metadata)",
+  "canonical_statement": null,
+  "canonical_claim_status": "tutte_wheel_family_identified_but_catalog_does_not_select_minimal_characterization_or_reduction_construction_form_and_omits_definitions_operations_and_boundaries",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog phrase 'wheel decomposition of 3-connected graphs' is not an exact proposition. It does not select the modern minimal characterization, an edge-contraction reduction sequence, an inverse edge-splitting construction, or another decomposition form; nor does it define 3-connectivity, wheels, contraction/simplification, permitted operations, graph carriers, binders, hypotheses, conclusion, or boundary cases. The primary article identity is confirmed but its exact statement was not inspected. Selecting one familiar variant at intake would invent or substitute mathematics.",
+  "target_decision": "preserve the source-backed Tutte wheel theorem family while deferring exact source and encoding selection to the statement phase",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Circulant",
+      "Mathlib.Combinatorics.SimpleGraph.Connectivity.Subgraph",
+      "Mathlib.Combinatorics.SimpleGraph.Operations"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_exact_source_variant_graph_operations_and_lean_encoding",
+    "direct_theorem_candidate": null,
+    "candidate_relationship": "ordinary connectivity, vertex deletion, cycle graphs, graph isomorphism, and local graph operations only; no direct 3-vertex-connectivity, wheel, contraction, minimality, decomposition, or Tutte wheel theorem declaration located",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must select finite simple graphs, multigraphs at contraction boundaries, or another carrier; fix vertex universes, finiteness and decidability assumptions; and state every carrier transport.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-selected wheel-isomorphism characterization or a precisely typed reduction/construction sequence for finite 3-connected graphs.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "every minimally 3-connected finite graph is a wheel, where every edge deletion and contraction destroys 3-connectivity",
+    "every finite 3-connected graph can be reduced to a wheel by connectivity-preserving edge contractions",
+    "every finite 3-connected graph can be constructed from a wheel by source-specified edge additions and splitting operations",
+    "a planar or polyhedral specialization of a reduction/construction form"
+  ],
+  "degenerate_cases_to_resolve": [
+    "graphs on zero through four vertices and the minimum cardinality implicit in 3-connectivity",
+    "K4 and the minimum permitted rim size",
+    "empty, singleton, two-vertex, and three-vertex cycleGraph conventions",
+    "loops and parallel edges introduced by contraction and any simplification convention",
+    "deletion or contraction of rim edges and spokes",
+    "empty reduction sequences and graphs already isomorphic to a wheel",
+    "disconnected, complete, edgeless, and low-degree graphs",
+    "finite simple input graphs versus intermediate multigraphs"
+  ],
+  "excluded_substitutions": [
+    "Tutte's perfect-matching theorem",
+    "a planar or polyhedral-only theorem substituted for a general 3-connected-graph root",
+    "Whitney ear decomposition, Menger connectivity, the splitter theorem, SPQR decomposition, graph-minor decomposition, or a 4-connected decomposition",
+    "ordinary connectivity, edge connectivity, minimum degree at least three, or cycle existence alone",
+    "SimpleGraph.IsFiveWheelLike substituted for an ordinary wheel graph",
+    "a fixed wheel, fixed-size graph, one implication, or special graph family",
+    "a structure or hypothesis storing the desired wheel or reduction sequence",
+    "the catalog's untrusted verified label, a citation, bounded search, or discovery probe used as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0862",
+      "name": "Menger定理",
+      "relationship": "vertex connectivity and disjoint paths may support a future 3-connectivity encoding but are a distinct theorem root"
+    },
+    {
+      "theorem_id": "THM-M-0863",
+      "name": "Whitney定理",
+      "relationship": "2-connected ear decomposition is an analogous but weaker and distinct structural theorem"
+    },
+    {
+      "theorem_id": "THM-M-0865",
+      "name": "Kuratowski定理",
+      "relationship": "planarity by forbidden subdivisions is distinct from Tutte's wheel theorem"
+    },
+    {
+      "theorem_id": "THM-M-0866",
+      "name": "Wagner定理",
+      "relationship": "planarity by forbidden minors is distinct even if contractions become shared infrastructure"
+    }
+  ],
+  "source_status": "H1_primary_bibliographic_identity_and_precise_versioned_modern_restatement_inspected_but_original_statement_variant_mapping_corrections_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "W. T. Tutte, A theory of 3-connected graphs, Indagationes Mathematicae (Proceedings) 64 (1961), 441-455, DOI 10.1016/S1385-7258(61)50045-5",
+      "candidate_locator": "Crossref and Elsevier metadata; PII S1385725861500455",
+      "candidate_summary": "primary publication bibliographically matching the catalog attribution and year",
+      "inspection_status": "bibliographic identity only; full text, exact theorem/page, incorporated definitions, proof, correction history, and independent review not inspected"
+    },
+    {
+      "citation": "Johannes Carmesin and Jan Kurkofka, Canonical Decompositions of 3-Connected Graphs, arXiv:2304.00945v3, Section 2.7, Theorem 2.7.1, page 56",
+      "candidate_locator": "versioned arXiv PDF sha256 6856032350da337d118b9954cdcecd0558685e2af57f10d78eb262fa30cbbadd",
+      "candidate_summary": "defines minimal 3-connectivity using deletion and contraction of every edge and states that every minimally 3-connected finite graph is a wheel",
+      "inspection_status": "precise modern theorem-family lead; catalog-to-variant choice, primary-source equivalence, complete definition/proof mapping, corrections, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Connectivity.Subgraph",
+      "declarations": ["SimpleGraph.Connected", "SimpleGraph.Subgraph.deleteVerts"],
+      "boundary": "ordinary connectivity and vertex deletion substrate only; no 3-vertex-connectivity predicate"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Circulant",
+      "declarations": ["SimpleGraph.cycleGraph", "SimpleGraph.cycleGraph.cycle"],
+      "boundary": "rim/cycle infrastructure only; no hub-plus-rim wheel predicate or Tutte theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Operations",
+      "declarations": ["SimpleGraph.replaceVertex", "SimpleGraph.edge", "SimpleGraph.Subgraph.deleteEdges"],
+      "boundary": "local graph modification and edge deletion infrastructure; no edge contraction or reduction-sequence theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Tutte and Mathlib.Combinatorics.SimpleGraph.FiveWheelLike",
+      "declarations": ["SimpleGraph.tutte", "SimpleGraph.IsFiveWheelLike"],
+      "boundary": "explicit non-substitutes: perfect matching and a different extremal wheel-like structure"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "3ef3a6bf4f2f9b86930beb27693f7429fea3e63a",
+    "repository_base_tree": "c9eba4c65f6e228f9cefc8bdf62136b7fb69426a",
+    "repository_record": "Docs/researches/math_theorems.md:6334-6339",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23576-23601",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "ca65be54cd21fb694c43897a2022f7648ddf3c1cc4b1926880e9b2e7617b0de2",
+    "stage0_excerpt_sha256": "5e354ee3485ecfb224ea954ea477adf92f5c2a029848c4602862322b8ef81810",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "671e5a378ff4eaa940e893e34c38f385f8a019de864453fd8c3666730e68275e",
+    "execution_dag_sha256": "a215278a912521011224e7b2a285d9aa035f166aa216b2d52f1e690c114ebcb2",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_crossref_query_sha256": "8770bf01cf15d0d717000fdde2ae3d67f7347cb4847053455bf3c09ac564d44c",
+    "primary_doi_metadata_sha256": "25678653ba55322d3f142cad88ef36c5ae28fa2790bd850c6068dde031d56ad6",
+    "primary_crossref_work_sha256": "6949aa5fd1722d42200280a4139f9ea900a09a687de9c1d479d5c53040a3ff22",
+    "primary_crossref_unixref_sha256": "9fbd52203c8437240aeafdd38a6896168be15aa80798c1d4c6c3d4b1be04589b",
+    "modern_source_arxiv_atom_sha256": "6400b7d4ed84d920f151a1f55f18ebb69a978df23197bb181b18bf2c2e01d064",
+    "modern_source_pdf_sha256": "6856032350da337d118b9954cdcecd0558685e2af57f10d78eb262fa30cbbadd",
+    "modern_source_text_sha256": "8728c815039e306acd3a241785a441bc80b820d378b649a1192b9a97d7df73ac",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_circulant_sha256": "0ecc5fc7ad478ecb0d7f9b0f13e07d1f72e79e5c0d5a3725e49a9f60826e386b",
+    "mathlib_subgraph_sha256": "64d84d818d1ec275dfa5b342b9e608e01bddfc6050a9f3a9f50df9d003ae1acc",
+    "mathlib_connected_sha256": "9171842c49be5f8951c6a2d5c39ae374279d46eaa317efd69bdf3039d289eeff",
+    "mathlib_operations_sha256": "1ebac8bef9890e35e8a4a9159c5a87038bfcbde41261551bca0051cc5f32035c",
+    "mathlib_tutte_sha256": "47072b914aa564222ef8013092c38fa62227fea8230e308cc3eb5f11afcdffc3",
+    "mathlib_five_wheel_like_sha256": "63ed99eb59dd84fb3112244e309dd7065b549291cf2c70017163a22e4e31f38d"
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "probe_output_sha256": "3d6040d1564a9ea4fc42594ec8e9ca555a38d4122be45de05f15b28dacf94fcb",
+    "dependency_mode": "existing canonical pinned .lake artifacts used read-only; no update, build, clone, fetch, or dependency mutation"
+  },
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical finite choice, graph quotient, and multigraph transport principles remain open until the exact proposition and carrier are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, local definitions, terminal proof bodies, axiom closure, dependencies, and trust policy remain open",
+  "computation_profile": "No graph enumeration, contraction algorithm, native evaluator, SAT solver, oracle, experiment, generated reduction sequence, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0864/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0864/README.md",
+    "Stage1_Instances/THM-M-0864/instance.json",
+    "Stage1_Instances/THM-M-0864/scope-map.md",
+    "Stage1_Instances/THM-M-0864/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0864/task-dag.json",
+    "Stage1_Instances/THM-M-0864/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0864/check_intake.py",
+    "Stage1_Instances/THM-M-0864/validation.md",
+    "Stage1_Instances/THM-M-0864/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean graph-theory reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the exact source variant, operation semantics, formal encoding, and neighbor boundaries before dependent work."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; external source leads must be lawfully preserved and rehashed for source admission.",
+  "freshness_and_revocation_policy": "Invalidate on catalog correction, source edition or theorem locator, minimal-characterization versus construction/reduction decision, graph carrier, 3-connectivity, wheel, deletion, contraction, simplification or sequence semantics, binder or boundary convention, Lean target, dependency pin, assurance profile, validator, or owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. The theorem family, primary bibliographic identity, a precise versioned modern restatement, source ambiguity, and adjacent pinned Lean interfaces are recorded, but no canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

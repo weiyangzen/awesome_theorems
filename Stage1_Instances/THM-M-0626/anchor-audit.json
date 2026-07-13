@@ -1,0 +1,245 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0626-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0626",
+  "execution_rank": 1320,
+  "base_revision": "1c0c5fc6f43e6ae5ecc3b50589b45c3628e0ead4",
+  "base_tree": "61214aa2a03c032134ddc4958b1df63df3430a85",
+  "audit_date": "2026-07-13",
+  "canonical_target": "Stage1Instances.THM_M_0626.ConnectedImageTarget",
+  "canonical_target_expression_sha256": "5c32b45abf131975cd4673ca095ca1a8e0122e4104bf616a4afab09a03289231",
+  "canonical_statement_file_sha256": "eb03b777ac803b993a4787a8b58bd3f8f132218bda961bec4b4d1445a88bcca6",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_tag": "v4.29.0",
+    "mathlib_revision_date": "2026-03-30T18:47:58Z",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_blob": "8dada3edaf50dbc082c9a125058f25def75e625a",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "discovery_protocol": {
+    "inventory_version": "S56-M-0626-ANCHOR-INVENTORY-20260713-01",
+    "path": "Stage1_Instances/THM-M-0626/anchor-discovery-protocol.json",
+    "sha256": "efa0a992f3eef81af2e9b5df65d61aaa179f48ba4f71330744443a7650e4c4ef",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0626-C01-MATHLIB-DIRECT",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Topology.Connected.Basic",
+      "file": "Mathlib/Topology/Connected/Basic.lean",
+      "file_blob": "d3fdb9332b203fe7bb9e932a5136c7c6c9824f82",
+      "file_sha256": "929f0e1c789b8c0ed10c3164aa174e369b9b250317c525a8ad2f2dcca2a65e9c",
+      "source_region_lines": "274-297",
+      "source_region_sha256": "346812463a258d99049e9ebb1c0f405bb97de0ebf9f432c92699d78bbfc06c9c",
+      "declaration": "IsConnected.image",
+      "type": "{s : Set alpha} -> IsConnected s -> (f : alpha -> beta) -> ContinuousOn f s -> IsConnected (f '' s)",
+      "normalized_match": "The candidate has the same arbitrary topological spaces, set, direct-image conclusion, nonempty IsConnected convention, and universe-polymorphic carriers as the frozen target. It is stronger because it needs only ContinuousOn f s. The audit-local adapter applies Continuous.continuousOn to the frozen global Continuous hypothesis, with no converse or target broadening.",
+      "local_adapter": "Stage1Instances.THM_M_0626_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "IsConnected.image",
+      "terminal_proof_body": "Pair image_nonempty.mpr H.nonempty with H.isPreconnected.image f hf",
+      "proof_body_location": "pinned mathlib source, lines 295-297; the substantive preconnected-image proof is lines 274-292",
+      "historical_provenance": {
+        "lean4_port_commit": "94459ebed234410abf772d714e865f51e33fddeb",
+        "lean4_port_tree": "da11d7f3b7de247511a4711d419da79e45e51212",
+        "lean4_port_date": "2023-02-02T04:56:52Z",
+        "lean4_port_author": "Yury G. Kudryashov",
+        "lean4_port_subject": "feat: port Topology.Connected (#1934)",
+        "current_nonempty_api_commit": "4bd6aa25b85c3d8548582d98e1409e1d35d1cc49",
+        "both_are_ancestors_of_pin": true
+      },
+      "direct_proof_dependencies": [
+        "Set.image_nonempty.mpr",
+        "IsConnected.nonempty",
+        "IsConnected.isPreconnected",
+        "IsPreconnected.image"
+      ],
+      "direct_module_imports": [
+        "Mathlib.Topology.Connected.Basic"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_bodyless_unsafe_oracle_status": "Lean reports IsConnected.image, IsPreconnected.image, and the exact local adapter sorry-free. A comment-stripped audit-adapter scan and a source scan find no sorry, admit, sorryAx, bodyless axiom, unsafe, or opaque declaration in the inspected module. No native evaluator, external code, generated certificate, or oracle occurs in this route. Full transitive declaration and TCB closure remains downstream.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "already pinned and materialized in the repository Lake dependency closure; checked read-only without changing .lake",
+      "candidate_classification": "M0-W",
+      "evidence_level": "E2_worker_candidate_check",
+      "result": "An exact pinned-mathlib wrapper route kernel-checks. M0-W is a provisional candidate classification only; accepted root state remains M3 pending obligation architecture, proof-phase integration, full provenance/trust, validation, and master acceptance."
+    },
+    {
+      "candidate_id": "M0626-C02-MATHLIB-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Connected.Basic",
+      "declaration": "IsPreconnected.image",
+      "type": "IsPreconnected s -> ContinuousOn f s -> IsPreconnected (f '' s)",
+      "terminal_proof_body": "Pull back two open sets along the ContinuousOn map, use source preconnectedness on their relative-open preimages, and push a point in their intersection to the image intersection.",
+      "direct_dependencies": [
+        "continuousOn_iff'",
+        "Set.image_subset_iff",
+        "Set.preimage_union",
+        "IsPreconnected"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_classification": "M3_support_duplicate",
+      "result": "This is the substantive terminal dependency used by IsConnected.image, not an independent proof body and not the root: IsPreconnected permits the empty source and image."
+    },
+    {
+      "candidate_id": "M0626-C03-MATHLIB-NONSUBSTITUTES",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Connected.Basic",
+      "declarations": [
+        "isConnected_range",
+        "Function.Surjective.connectedSpace"
+      ],
+      "normalized_match": "Both concern the image or codomain of a whole ConnectedSpace. They add whole-space or surjectivity structure absent from the frozen arbitrary-subset theorem.",
+      "candidate_classification": "M5_statement_mismatch",
+      "result": "Checked nearby APIs only; neither may substitute for the canonical set-image target."
+    },
+    {
+      "candidate_id": "M0626-C04-FORMAL-CONJECTURES-DUPLICATE",
+      "project": "google-deepmind/formal-conjectures",
+      "remote": "https://github.com/google-deepmind/formal-conjectures.git",
+      "revision": "fdbea4653453a764aa7f952d3b45c93007356cc9",
+      "tree": "b019949e2c03da3a3457bf7d956f85c3cb0dc69e",
+      "file": "FormalConjectures/Mathoverflow/235893.lean",
+      "file_sha256": "fec0599bb2aed605ddded16b55fc06e0490202c3de98a457740d7c5b5ae0be41",
+      "declaration": "Mathoverflow235893.Continuous.isConnectedMap",
+      "type_summary": "Continuous f -> forall connected s, IsConnected (f '' s)",
+      "body": "fun _ h => IsConnected.image h f (Continuous.continuousOn hf)",
+      "toolchain": "leanprover/lean4:v4.27.0",
+      "mathlib_revision": "a3a10db0e9d66acbebf76c5e6a135066525ac900",
+      "license": "Apache-2.0",
+      "immutable_artifact_hashes": {
+        "lean_toolchain_sha256": "e695e6e5d8e7a8be4d6cf159dfb995847993d26c6cc450353a86f387279025b9",
+        "lake_manifest_sha256": "5b99b5f4f807cbba67bbcd22e5e486c17d6a8d970ea218de08d05830ab350c26",
+        "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "normalized_match": "The wrapper expresses the same global-continuity claim, packaged as IsConnectedMap, but its only terminal proof step invokes mathlib IsConnected.image and Continuous.continuousOn.",
+      "placeholder_or_unsafe_status": "The inspected wrapper body contains no placeholder, but the project was source-inspected only and was not added to or replayed in this repository's dependency closure.",
+      "candidate_classification": "M3_external_duplicate_wrapper",
+      "evidence_level": "E3_immutable_source_anchor",
+      "result": "Credible immutable Lean 4 wrapper but no independent terminal proof body or new root coverage. Integration would duplicate the already pinned mathlib route and is not required."
+    },
+    {
+      "candidate_id": "M0626-C05-MANIFEST-EXTERNAL-CLOSURE",
+      "project": "all non-mathlib packages in Formalizations/Lean/lake-manifest.json",
+      "revision_set": "flt-regular@56161b6eb5281fbfe9c38f2bcec0f429ebc11a27; checkdecls@3d425859e73fcfbef85b9638c2a91708ef4a22d4; plausible@83e90935a17ca19ebe4b7893c7f7066e266f50d3; LeanSearchClient@c5d5b8fe6e5158def25cd28eb94e4141ad97c843; importGraph@48d5698bc464786347c1b0d859b18f938420f060; proofwidgets@3c52dee17f0cd89c1ec14de78920d1bdaa3d26b3; aesop@7152850e7b216a0d409701617721b6e469d34bf6; Qq@707efb56d0696634e9e965523a1bbe9ac6ce141d; batteries@756e3321fd3b02a85ffda19fef789916223e578c; Cli@7802da01beb530bf051ab657443f9cd9bc3e1a29",
+      "kind": "bounded_negative_inventory",
+      "search_terms": [
+        "IsConnected.image",
+        "IsPreconnected.image",
+        "continuous image of a connected set",
+        "continuous images preserve connectedness",
+        "isConnected_range",
+        "Surjective.connectedSpace"
+      ],
+      "searched_lean_file_count": 668,
+      "package_revision_and_cleanliness_check": "all eleven materialized package HEADs agree with the manifest and all package worktrees are clean",
+      "candidate_classification": "M4_no_separate_candidate_located",
+      "result": "No separate exact candidate occurred in repository-local or materialized non-mathlib dependency sources. This is bounded local evidence, not a global absence claim."
+    },
+    {
+      "candidate_id": "M0626-C06-PUBLIC-INDEX-RESULTS",
+      "project": "bounded public repository and code indexes",
+      "kind": "bounded_query_inventory",
+      "github_repository_queries": [
+        {
+          "query": "\"continuous image\" connected Lean 4",
+          "total_count": 0,
+          "incomplete_results": false,
+          "response_sha256": "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+        },
+        {
+          "query": "IsConnected.image Lean 4",
+          "total_count": 0,
+          "incomplete_results": false,
+          "response_sha256": "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+        },
+        {
+          "query": "connectedness theorem lean4",
+          "total_count": 0,
+          "incomplete_results": false,
+          "response_sha256": "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+        }
+      ],
+      "sourcegraph": {
+        "query": "context:global lang:Lean IsConnected.image",
+        "result": "7 matches in 4 repositories at immutable indexed commits; mathlib supplies the only declaration, formal-conjectures and its OpenCode snapshot supply the same wrapper, and atlas-lean supplies application use sites",
+        "response_sha256": "adb734a45ac635d6b3a53008f2cc14673cc7e134a27ca3ee91e016e0b0e027b0",
+        "limitations": "forks and archives were excluded; indexed search is not exhaustive discovery"
+      },
+      "github_code_search": {
+        "query": "IsConnected.image language:Lean",
+        "result": "HTTP 401 Requires authentication",
+        "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e"
+      },
+      "grep_app": {
+        "query": "IsConnected.image",
+        "result": "HTTP 429 Vercel Security Checkpoint",
+        "response_sha256": "07a40fb3a4ae80f21ce6bae3c7a401144393dfb5da77a3ca12544b88ce96e0d8"
+      },
+      "candidate_classification": "M4_no_additional_independent_candidate_located",
+      "result": "No independent Lean 4 terminal body was discovered. Access failures and index exclusions are explicit, so exhaustive saturation and a universal absence claim are forbidden."
+    }
+  ],
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "6/6 classified candidate groups in frozen inventory S56-M-0626-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "independent_external_lean4_terminal_body_found": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2_worker_candidate_check",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The bounded audit exposes a kernel-checked M0-W candidate route but does not integrate or accept proof credit. The conservative accepted root therefore stays H1/M3/R4 until downstream ordered gates and master acceptance.",
+  "integration_decision": "Use the already pinned mathlib IsConnected.image route in the proof phase. Do not add the external duplicate wrapper as a dependency because it terminates at the same mathlib theorem and adds no independent proof coverage.",
+  "reopen_condition": "Create a successor inventory if a distinct Lean 4 terminal proof body, a materially different exact wrapper route, a source or mathlib correction, or dependency/toolchain drift is identified.",
+  "human_debt": "H1 unchanged; historical source identity, complete proof/assumption/correction mapping, and independent source review are outside this formal anchor node.",
+  "readability_debt": "R4 unchanged; no independently reviewed readable proof reconstruction is claimed.",
+  "gate_state": "self_tested_pending_predecessor_and_master_acceptance",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "status_boundary": "This provisional node classifies a bounded immutable anchor inventory and kernel-checks an exact pinned-mathlib wrapper candidate. It accepts no receipt, changes no accepted H1/M3/R4 state, does not integrate proof credit, and completes neither AUDIT-Z nor the theorem."
+}
