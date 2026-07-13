@@ -1,0 +1,251 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1481",
+  "item_id": "S56-M-1481-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1158,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "模拟退火",
+  "name_en": "Simulated annealing",
+  "canonical_name": "Simulated annealing global stochastic optimization family (repository method label)",
+  "category": "其他重要领域 / 数值分析",
+  "category_en": "Other Important Fields / Numerical Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "模拟退火",
+  "literal_source_claim_zh": "全局优化的随机方法",
+  "literal_source_claim_en": "A randomized method for global optimization.",
+  "source_attribution": "Scott Kirkpatrick, 1983 (catalog metadata only; likely incomplete Kirkpatrick-Gelatt-Vecchi attribution)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_method_family_gloss_only_no_selected_primary_source_or_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_simulated_annealing_family_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only the method label simulated annealing and a purpose gloss. It fixes no state space, objective, global-minimum set, proposal graph or kernel, acceptance law, temperature convention, cooling schedule, stochastic-process construction, initial state, convergence mode, quantifier order, complexity claim, arithmetic model, or boundary cases. Selecting an algorithm definition, fixed-temperature invariance result, finite-state convergence theorem, Hajek schedule criterion, or a concrete optimization instance would invent proposition-changing mathematics.",
+  "target_decision": "redirect the catalog family label to one corrected, independently reviewed, immutable-source proposition before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Probability.Kernel.Invariance",
+      "Mathlib.Probability.Kernel.Irreducible",
+      "Mathlib.Data.Finset.Max"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "ProbabilityTheory.Kernel",
+      "ProbabilityTheory.IsMarkovKernel",
+      "ProbabilityTheory.Kernel.Invariant",
+      "ProbabilityTheory.Kernel.IsReversible",
+      "ProbabilityTheory.Kernel.IsReversible.invariant",
+      "ProbabilityTheory.Kernel.IsIrreducible",
+      "Finset.exists_min_image"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the state carrier and finiteness or measurable/topological structure, objective codomain and minimizers, proposal graph or kernel, temperature and schedule, path construction, universes, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose an algorithm-definition result, invariant-law theorem, cooling-schedule convergence theorem, global-minimum concentration claim, almost-sure statement, finite-time guarantee, or complexity bound.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every state-space, objective, proposal, acceptance, temperature, schedule, convergence, arithmetic, and boundary case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the 1983 Kirkpatrick-Gelatt-Vecchi simulated-annealing framework and its concrete applications",
+    "a source-selected finite-state convergence-in-probability theorem under a specified cooling condition",
+    "Hajek's 1988 necessary and sufficient schedule condition and logarithmic-schedule threshold",
+    "fixed-temperature Metropolis reversibility or Gibbs-distribution invariance",
+    "a correctness or finite-time theorem for one implemented annealing heuristic"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty or singleton state spaces and the existence of a global minimizer",
+    "constant cost, every state minimizing, repeated minima, and zero-depth landscapes",
+    "disconnected proposal graphs, isolated states, self-loops, and zero transition probabilities",
+    "equal-energy, downhill, and uphill moves and acceptance at zero or infinite temperature",
+    "schedule indexing, positivity, monotonicity, logarithm domain, and critical-threshold equality",
+    "arbitrary initial states versus distributions and marginal versus pathwise convergence",
+    "exact versus floating-point exponential evaluation, random-number assumptions, and stopping rules"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1100 MCMC, THM-M-1101 Metropolis-Hastings, or THM-M-1102 Gibbs sampling",
+    "THM-M-1479 Monte Carlo methods or THM-M-1480 quasi-Monte Carlo methods",
+    "THM-M-1482 genetic algorithms or THM-M-1483 particle-swarm optimization",
+    "the 1988 Hajek theorem silently substituted for the unaudited 1983 method-family target",
+    "a definition or structure field storing the requested optimizer convergence as its proof",
+    "generic finite minima, kernels, invariance, reversibility, irreducibility, or convergence infrastructure alone",
+    "a sampled trajectory, finite benchmark, success rate, floating-point plot, or unchecked random computation",
+    "the untrusted catalog label 已验证 or the discovery probe as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1100",
+      "name": "马尔可夫链蒙特卡洛",
+      "relationship": "general MCMC family; generic invariant-chain results do not establish annealing under cooling"
+    },
+    {
+      "theorem_id": "THM-M-1101",
+      "name": "Metropolis-Hastings算法",
+      "relationship": "owns the fixed-target accept-reject MCMC algorithm; it may be substrate but cannot replace simulated annealing"
+    },
+    {
+      "theorem_id": "THM-M-1102",
+      "name": "Gibbs采样",
+      "relationship": "owns conditional-update MCMC and its invariant or convergence questions"
+    },
+    {
+      "theorem_id": "THM-M-1479",
+      "name": "Monte Carlo方法",
+      "relationship": "broad random sampling or integration family; no global-optimization theorem is inherited"
+    },
+    {
+      "theorem_id": "THM-M-1480",
+      "name": "拟Monte Carlo方法",
+      "relationship": "low-discrepancy deterministic integration family, not annealing"
+    },
+    {
+      "theorem_id": "THM-M-1482",
+      "name": "遗传算法",
+      "relationship": "distinct evolutionary optimization heuristic with separate statement and proof obligations"
+    },
+    {
+      "theorem_id": "THM-M-1483",
+      "name": "粒子群优化",
+      "relationship": "distinct population-based optimization heuristic with separate statement and proof obligations"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Scott Kirkpatrick, C. Daniel Gelatt Jr., and Mario P. Vecchi, Optimization by Simulated Annealing, Science 220(4598), 671-680, 13 May 1983, DOI 10.1126/science.220.4598.671, PMID 17813860",
+      "candidate_locator": "Crossref and NLM PubMed metadata plus an 11-page course-hosted JSTOR scan observed and inspected on 2026-07-13; publisher endpoint separately returned HTTP 403",
+      "candidate_summary": "strong historical source lead matching the catalog year and named author; confirms two omitted coauthors; pp. 671-673 describe a heuristic, Metropolis acceptance and staged cooling, while p. 679 reports trial-and-error schedules and numerically suggested result quality",
+      "status": "inspected primary-source lead but not H0; the catalog does not cite it, it states no exact general global-optimization proposition matching the gloss, and no complete theorem/assumption/proof/errata crosswalk or independent review exists"
+    },
+    {
+      "citation": "Bruce Hajek, Cooling Schedules for Optimal Annealing, Mathematics of Operations Research 13(2), 311-329, May 1988, DOI 10.1287/moor.13.2.311",
+      "candidate_locator": "Crossref publisher-deposited bibliographic metadata and abstract observed on 2026-07-13",
+      "candidate_summary": "later exact-theorem lead reporting a necessary and sufficient cooling condition for convergence in probability and a logarithmic-schedule depth threshold",
+      "status": "statement-selection lead only; article body, definitions, theorem locator, proof, corrections, and independent review were not admitted, and it is not automatically source-identical to the 1983 catalog target"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Probability.Kernel.Invariance",
+      "declarations": [
+        "ProbabilityTheory.Kernel.Invariant",
+        "ProbabilityTheory.Kernel.IsReversible",
+        "ProbabilityTheory.Kernel.IsReversible.invariant"
+      ],
+      "boundary": "generic single-kernel invariant-measure and reversibility interfaces; no temperature schedule, annealing process, or optimizer convergence"
+    },
+    {
+      "module": "Mathlib.Probability.Kernel.Irreducible",
+      "declarations": ["ProbabilityTheory.Kernel.IsIrreducible"],
+      "boundary": "generic phi-irreducibility predicate; no source-selected proposal graph or inhomogeneous cooling chain"
+    },
+    {
+      "module": "Mathlib.Data.Finset.Max",
+      "declarations": ["Finset.exists_min_image"],
+      "boundary": "finite minimum existence only; no stochastic search or convergence"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "8a6dba9921138a63027dc802b77a4cc3a01f3f60",
+    "repository_base_tree": "1afb3440a5a33640728678de56e261f9470af1d1",
+    "repository_record": "Docs/researches/math_theorems.md:10826-10831",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:40270-40295",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "stable_theorem_id_assignment_commit": "c61be3c80710c07c5f7626e3404e51f40ecb39a6",
+    "target_manifest_introduction_commit": "16d227cffb7cb7d9e8392b6c0ff8211e498e1330",
+    "execution_dag_introduction_commit": "169f3c0a297253bc530a6a9709f215ce66515f42",
+    "repository_record_excerpt_sha256": "ca36c6e63bb6e95631a79a79cc0bca7dc9b9ac9638ddce930e4283a85d8d7f8d",
+    "stage0_projection_excerpt_sha256": "5f4c69b4855331140fc35f7724d898761cffc7ca468fcb514c3ca0e1c0efbb7a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "83871cc366fceca7bae1ca9d7eb9e61c51f282b91012ee8cfee983d256a190ff",
+    "execution_dag_sha256": "3ff8beaa6f32c0e296c6250ec271d4ec77ef4f152a5b250d6aa7f3a2b067877d",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_kernel_invariance_source_sha256": "ad390deb7496f24e47083b7471d93f6867d83b0b92367f694d45c156934c1be5",
+    "mathlib_kernel_irreducible_source_sha256": "c138faae55c73fa703a9a5cee3e11a0872277db01308ed4a727debc5bba7f558",
+    "mathlib_kernel_defs_source_sha256": "f9836e940781ca536d8deec8f489cf05d05ad80c46410bf90967af535c5f54fc",
+    "mathlib_finset_max_source_sha256": "9eedb2d575fbf11a34aecc84bb6c515bfca033650d4835968f41e3f5f4d38904",
+    "observed_pubmed_metadata_sha256": "9b1c64b16a09292c388c05916171d7f6832ca51c2be07310210bc5e737ca6574",
+    "observed_science_crossref_unixref_sha256": "fa100894025239dd38e04cfb797e0576b092aa7422b407fd40ba480e1b0e2254",
+    "observed_hajek_crossref_unixref_sha256": "cccb01df53c5c9a02ed2dace716163d1903bdad70c0ed6096705c544ea6a1d6a",
+    "observed_science_scan_bytes": 581070,
+    "observed_science_scan_sha256": "d0fedd367a09e978538839da68f32f91ec3f9713d1a7c7a2ac783e28e250b6b0",
+    "observed_science_scan_text_bytes": 98776,
+    "observed_science_scan_text_sha256": "6789a7b5566f3e7e46e0029610550bdcaf0630d977f6d6cd507cd4fbe009f8d6",
+    "observed_science_scan_license_boundary": "course-hosted JSTOR scan carries personal/noncommercial-use notice; inspected transiently and not vendored"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H5", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical probability, choice, measure theory, finite combinatorics, real exponential and logarithm, stochastic-process foundations, and noncomputability policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, annealing definitions, terminal declarations, transitive dependencies, random execution boundary, and accepted trust policy remain open",
+  "computation_profile": "No random run, pseudorandom generator, sampled trajectory, floating-point exponential, benchmark, native shortcut, oracle, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1481/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1481/README.md",
+    "Stage1_Instances/THM-M-1481/instance.json",
+    "Stage1_Instances/THM-M-1481/scope-map.md",
+    "Stage1_Instances/THM-M-1481/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1481/task-dag.json",
+    "Stage1_Instances/THM-M-1481/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1481/check_intake.py",
+    "Stage1_Instances/THM-M-1481/validation.md",
+    "Stage1_Instances/THM-M-1481/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned stochastic-optimization reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition and corrections, selected annealing proposition, state and cost spaces, proposal and acceptance law, schedule and barrier definitions, process construction, convergence mode, quantifiers, boundary cases, and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier and externally observed metadata have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or errata finding, selected state or cost space, proposal or acceptance rule, schedule or depth definition, process or convergence convention, quantifier or boundary decision, neighbor ownership, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog simulated-annealing method label as not yet a stable proposition; it does not refute correctly stated annealing results. Source leads and the pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
