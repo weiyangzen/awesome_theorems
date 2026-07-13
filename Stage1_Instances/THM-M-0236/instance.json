@@ -1,0 +1,230 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0236",
+  "item_id": "S56-M-0236-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1248,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "单值性定理",
+  "name_en": "Monodromy theorem",
+  "canonical_name": "Monodromy theorem for analytic continuation (exact formulation open)",
+  "category": "分析学 / 复分析",
+  "category_en": "Analysis / Complex Analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "全纯函数沿曲线的解析延拓",
+  "literal_source_claim_en": "Analytic continuation of holomorphic functions along paths.",
+  "source_attribution": "many mathematicians, nineteenth century (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_recognizable_classical_theorem_family_and_published_source_leads_but_exact_statement_definitions_proof_errata_and_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_monodromy_theorem_family_but_catalog_gloss_does_not_select_homotopy_or_simply_connected_formulation",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "Either prove homotopy invariance of analytic continuation of one germ along endpoint-fixed homotopic paths, or prove single-valuedness when that germ continues along every path in a simply-connected domain; the repository does not select between these formulations.",
+  "target_disposition": "select and independently review one immutable definition-complete monodromy proposition before statement or proof execution",
+  "statement_blocker": "The catalog gives only a topic-level gloss. It omits the domain and topology, analytic element or germ model, codomain, basepoint, path and homotopy conventions, continuation existence and uniqueness predicates, quantifier order, endpoint, simple-connectedness assumptions, exact conclusion, and boundary cases. Selecting either the homotopy-invariance or simply-connected single-valuedness theorem would add proposition-changing mathematics without an accepted source decision.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.Homotopy.Lifting"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "IsLocalHomeomorph.monodromy_theorem",
+      "SimplyConnectedSpace.paths_homotopic",
+      "IsCoveringMap.existsUnique_continuousMap_lifts"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_gloss_does_not_select_one_definition_complete_monodromy_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix a complex domain, Riemann surface, Riemann domain, or analytic manifold; scalar and codomain; analytic-element or germ model; basepoint and endpoint; topology and connectedness classes; paths and homotopies; and all universe and typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not settle whether the conclusion is equality of terminal analytic elements along homotopic paths, path independence in a simply-connected domain, or existence and uniqueness of a global single-valued analytic function.",
+  "alternate_encodings": [
+    {
+      "target": "homotopy invariance of terminal analytic germs",
+      "relationship": "candidate source branch",
+      "checked_witness": null
+    },
+    {
+      "target": "single-valued global branch on a simply-connected domain",
+      "relationship": "candidate consequence after continuation, topology, and germ-to-section bridges",
+      "checked_witness": null
+    },
+    {
+      "target": "endpoint invariance of lifts through a separated local homeomorphism",
+      "relationship": "candidate abstract formal encoding requiring a checked analytic etale-space bridge",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; statement work must resolve every domain, path, homotopy, continuation, lift, endpoint, germ, connectedness, and separatedness case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the homotopy-invariance theorem for analytic continuation of a germ",
+    "the simply-connected single-valuedness corollary",
+    "the abstract separated-local-homeomorphism endpoint theorem in pinned mathlib",
+    "a global-section existence and uniqueness formulation after an analytic etale-space construction"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, disconnected, non-path-connected, or non-locally-path-connected domains",
+    "constant or identical paths, loops, endpoints outside the starting component, and trivial homotopies",
+    "analytic elements with zero, constant, or empty representatives and equality of representatives versus germs",
+    "failure of continuation along one path or one member of a homotopy family",
+    "nonunique continuation, non-separated etale spaces, and missing identity-principle hypotheses",
+    "connected but non-simply-connected domains and simply-connected spaces under competing definitions",
+    "empty or singleton continuation/lift families and vacuous quantification",
+    "piecewise smooth versus continuous paths and parametrization or reparametrization conventions"
+  ],
+  "excluded_substitutions": [
+    "the identity theorem or uniqueness of analytic continuation on one connected open set",
+    "path or homotopy lifting through an arbitrary local homeomorphism without the selected analytic bridge",
+    "covering-space monodromy actions, monodromy representations, or the monodromy functor",
+    "analytic continuation of a particular special function such as zeta, gamma, or an L-function",
+    "a convenient simply-connected plane-domain special case selected without an approved source",
+    "a structure field or hypothesis that directly stores the desired terminal equality, path independence, or global branch",
+    "the mathlib theorem name or docstring, the API probe, or the catalog's untrusted verified label used as target proof credit",
+    "a placeholder, axiom, oracle, sampled path computation, or numerical experiment"
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Monodromy theorem, Encyclopedia of Mathematics, permanent revision 36520, 27 June 2015; adapted from an article by E. D. Solomentsev",
+      "candidate_locator": "the entry's opening formulation and reference tables",
+      "candidate_summary": "states both simply-connected single-valuedness and homotopy-invariance formulations and mentions Riemann surfaces and Riemann domains",
+      "status": "lawfully inspected secondary statement discriminator only; it contains no accepted primary proof or independent review"
+    },
+    {
+      "citation": "A. I. Markushevich, Theory of Functions of a Complex Variable, volume 2, Chelsea, 1977",
+      "candidate_locator": "bibliographic reference in Encyclopedia of Mathematics revision 36520",
+      "candidate_summary": "published textbook lead for the classical theorem family",
+      "status": "book-level lead only; exact edition bytes, theorem and page, definitions, assumptions, proof, corrections, and errata were not inspected"
+    },
+    {
+      "citation": "J. B. Conway, Functions of One Complex Variable I, second edition, Graduate Texts in Mathematics 11, Springer, DOI 10.1007/978-1-4612-6313-5",
+      "candidate_locator": "lawfully inspected Springer front matter locates Chapter IX section 2 Analytic Continuation Along A Path at page 213, section 3 Monodromy Theorem at page 217, section 5 The Sheaf of Germs of Analytic Functions on an Open Set at page 227, and section 7 Covering spaces at page 245",
+      "candidate_summary": "published textbook lead with an exact chapter-section-page discovery locator for a one-variable formulation",
+      "status": "front-matter and table-of-contents lead only; theorem and proof pages, definitions, assumptions, proof boundary, corrections, and errata were not inspected"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "formal_system": "Lean 4",
+      "revision": "mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Homotopy.Lifting",
+      "declaration": "IsLocalHomeomorph.monodromy_theorem",
+      "introduction_revision": "9994bf5ce8169d080d40ef2652ad7fdca3eb49a5",
+      "boundary": "kernel-checked abstract endpoint invariance for lifts through a separated local homeomorphism; the analytic germ etale-space construction, continuation correspondence, source identity, and simply-connected global branch are not established",
+      "status": "strong pinned candidate for downstream exact anchor audit; not credited as M0, M1, or an exact target statement at intake"
+    },
+    {
+      "formal_system": "Lean 4",
+      "revision": "mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected",
+      "declaration": "SimplyConnectedSpace.paths_homotopic",
+      "boundary": "supplies homotopy of paths in a simply-connected space but no analytic element, continuation, lift family, or global branch"
+    },
+    {
+      "formal_system": "Lean 4",
+      "revision": "mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.Topology.Homotopy.Lifting",
+      "declaration": "IsCoveringMap.existsUnique_continuousMap_lifts",
+      "boundary": "adjacent unique lifting theorem for covering maps, not a theorem about analytic germs or source-selected continuation"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "c6fd6dad8fcfe5fd464416cd452f50286b546978",
+    "repository_base_tree": "5a80b61d8fa09336779f8d1453dcfe4299c9472f",
+    "repository_record": "Docs/researches/math_theorems.md:1703-1708",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6545-6570",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "5969229810e482cd9f79e0e8cba956000051eadfdfaadf54b5afc304ac44bf1d",
+    "stage0_record_excerpt_sha256": "79eedd76d3c0ac26f30cd008a0dbb7acaaa71f234cbce226c5611df8e7f96f54",
+    "target_set_digest": "e07deabaab3463cc1f92cdf5c0cf50ad9f8270d35554529c375d20a8512d8f1a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9601541c3966336c2ea27797f4ff93e3dd3d7adc4de88410cc8a6b60a7782190",
+    "execution_dag_sha256": "1e2eb8e8c86ccef96bb4dcd85b33f1a06fcf76a7c54c0b51772ddc0b6cebe2c5",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "encyclopedia_monodromy_revision": "36520 (2015-06-27T10:59:00Z)",
+    "encyclopedia_monodromy_url": "https://encyclopediaofmath.org/index.php?title=Monodromy_theorem&oldid=36520",
+    "observed_encyclopedia_html_sha256": "650a8625f7689c69ba125e06589a232579a528896ea9b36b78b4073a1cd72ed1",
+    "conway_doi": "10.1007/978-1-4612-6313-5",
+    "observed_conway_frontmatter_pdf_sha256": "39977896558b0a427fe78ce2fc5a52e0bd72d5bd4f87b17a674d57de1615f332",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_monodromy_introduction_revision": "9994bf5ce8169d080d40ef2652ad7fdca3eb49a5",
+    "mathlib_homotopy_lifting_source_sha256": "e47671e27a60b6e7f3699df8b2ba1a3c40bc2c939971e972c8d6acb7bfc73291",
+    "bounded_formal_search_sha256": "69dff3ada8c8fed8b422e3a9ea458ac22f02d4c10aec303f7f49581a011cc966"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, quotients, analytic germs, sheaves, etale spaces, connectedness, simple connectedness, and identity-principle assumptions remain open until an exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, analytic objects and bridges, terminal declaration identity, transitive dependencies, candidate axiom closure, and accepted trust policy remain open",
+  "computation_profile": "No numerical analytic continuation, discretized path, sampled homotopy, symbolic continuation engine, oracle, generated branch, or unchecked certificate is credited; the intended target is analytic and topological",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0236/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0236/README.md",
+    "Stage1_Instances/THM-M-0236/instance.json",
+    "Stage1_Instances/THM-M-0236/scope-map.md",
+    "Stage1_Instances/THM-M-0236/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0236/task-dag.json",
+    "Stage1_Instances/THM-M-0236/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0236/check_intake.py",
+    "Stage1_Instances/THM-M-0236/validation.md",
+    "Stage1_Instances/THM-M-0236/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent complex-analysis source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned reviewer for homotopy and simply-connected formulation boundaries",
+    "reviewer_policy": "Independent reviewers must approve the source edition and errata, analytic-element and continuation definitions, formulation, domains, hypotheses, binders, conclusion, boundary cases, and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the observed encyclopedia bytes are not vendored and this unaccepted dossier has no release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected edition or erratum, homotopy versus simply-connected formulation, domain, analytic element or germ, continuation, path, homotopy, endpoint, connectedness, conclusion, boundary convention, formal candidate finding, analytic etale-space bridge, Lean target or import, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog wording, two standard source-supported branches, proposition-changing choices, a strong pinned abstract Lean candidate, its analytic bridge boundary, adjacent APIs, and the open task DAG. H1 does not mean an exact source statement is accepted; M4 records that no exact source-identical artifact is usable for target credit. No canonical proposition, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
