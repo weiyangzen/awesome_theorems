@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1272-VALIDATION",
+  "theorem_id": "THM-M-1272",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-1272-VALIDATION-fail-closed-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/bash",
+        "Stage1_Instances/THM-M-1272/check_validation.sh"
+      ],
+      "env_allowlist": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "PATH": "explicitly variable for tool discovery; every invoked executable is identity-checked"
+      },
+      "timeout_seconds": 900,
+      "network_policy": "denied",
+      "network_enforcement": "the complete Python recipe and every child process run inside bubblewrap --unshare-net with --clearenv and a read-only host filesystem",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-1272 narrow validation and explicit fail-closed root and release gates"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M1272-L-LEVEL-BOUNDED",
+        "M1272-L-PS-SUBSEQUENCE",
+        "M1272-L-LIMIT-PASSAGE",
+        "M1272-T-CRITICAL-LEVELS"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_1272.bounded_values_of_level_tendsto",
+        "Stage1Instances.THM_M_1272.palaisSmale_subsequence",
+        "Stage1Instances.THM_M_1272.critical_point_at_level_of_subsequence",
+        "Stage1Instances.THM_M_1272.fountainLimitPackage_proof",
+        "Stage1Instances.THM_M_1272.Validation.convergent_level_has_bounded_range",
+        "Stage1Instances.THM_M_1272.Validation.extract_level_subsequence",
+        "Stage1Instances.THM_M_1272.Validation.identify_level_limit",
+        "Stage1Instances.THM_M_1272.Validation.independentlyReconstructedLimitPackage"
+      ]
+    }
+  ],
+  "scope_boundary": "Network-denied replay from copied sources using the existing pinned warm dependency artifacts. The separately written probe validates only the four provisional compactness obligations. Conditional exact-root declarations are observed but not credited: FountainMinimaxPackage remains open. This is neither cold empty-cache hermetic release evidence nor distinct-runner independent verification."
+}

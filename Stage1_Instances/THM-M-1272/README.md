@@ -13,5 +13,9 @@ no rev-5.6 proof credit. The provisional root vector is `[H2, M3, R4]`: the sele
 self-tested pending master acceptance, while source audit and every proof gate remain open. No
 audit completion or theorem completion is claimed.
 
-The scope map, source crosswalk, and open task DAG define downstream work. Intake checks and exact
-results are recorded in `validation.md`.
+The scope map, source crosswalk, and open task DAG define downstream work. Intake checks are
+recorded in `validation.md`. The later `validation-spec.json`, `check_validation.sh`,
+`check_validation.py`, `Validation.lean`, `validation-run.log`, `validation-receipt.json`, and
+`validation-phase.md` preserve a blocked, network-denied replay of the partial compactness proof.
+They explicitly do not close the minimax branch or the rev-5.6 hermetic, complete-trust, and
+distinct-runner gates.
