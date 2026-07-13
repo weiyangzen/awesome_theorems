@@ -1,79 +1,112 @@
-# THM-M-1148 proof-phase result
+# THM-M-1148 proof-phase validation
 
-Date: 2026-07-12
+Item: `S56-M-1148-PROOF`. Base revision
+`0afbf514f9bd5f339943542106f6b811869fe572`, tree
+`adbd9c80e360931a3e7c51cae73dda809b5bed65`.
 
-Item: `S56-M-1148-PROOF`
+## Implemented proof route
 
-Base revision: `374f59f3f7c9671f848b5708d8b6787d91aaf98b`
+`PoissonUnitDisk.lean` proves the Poisson extension theorem on the unit disk.
+It identifies the Poisson integral with the real part of a Herglotz integral,
+proves interior harmonicity, rewrites the integral through a Mobius
+transformation of the circle, obtains boundary convergence by dominated
+convergence, and joins the interior and boundary pieces continuously. It then
+pulls the construction back along `w |-> (w - c) / R` for an arbitrary center
+and positive radius.
 
-Verdict: blocked; the proof phase is not self-tested as complete and no worker
-self-test manifest is emitted.
-
-## Implemented proof body
-
-`Proof.lean` proves the non-circular bridge
-`interiorFormula_of_harmonicContOnCl_of_eqOn`. Given a function already
-harmonic on the disk, continuous on its closure, and equal to the boundary
-data on the circle, it uses the pinned mathlib theorem
-`HarmonicContOnCl.circleAverage_poissonKernel_smul` plus
-`circleAverage_congr_sphere` to derive the exact interior formula with the
-original boundary function `g`.
-
-`dirichletExtension_to_root` then kernel-checks composition of that bridge
-with the remaining extension package. Neither declaration assumes the
-interior formula being proved, and neither uses `sorry`, `axiom`, or an
-unproved local declaration.
-
-## Blocking cut
-
-The target still requires construction, from every continuous `g` on the
-circle, of a `u` that is harmonic in the disk, continuous on the closed disk,
-and has trace `g`. The installed pinned mathlib module proves Poisson
-representation only for an already harmonic and closure-continuous function;
-it has no Dirichlet extension theorem. Thus `DirichletExtension` remains an
-explicit premise of the composition theorem, not a proved declaration.
-
-This leaves the frozen analytic cut set open, in particular `M1148-C`,
-`M1148-L1`, `M1148-B`, and `M1148-N3`. The exact root remains `M4`; no proof,
-validation, release, or theorem-completion state is claimed.
-
-## Validation transcript
-
-Working directory for Lean: `Formalizations/Lean`.
-
-Command:
+`Proof.lean` packages that construction as `dirichletExtension`, uses the
+pinned mathlib Poisson representation theorem for the formula, and proves
 
 ```text
-lake env lean ../../Stage1_Instances/THM-M-1148/Proof.lean
+Stage1Instances.THM_M_1148.Proof.poissonIntegralFormula :
+  Stage1Instances.THM_M_1148.PoissonIntegralFormula
 ```
 
-Exit code: `0`.
+The declaration is the unchanged elaborated target from `Statement.lean`.
+It has no additional premise, substituted domain, or weakened conclusion.
 
-Output:
+## Provenance and boundary
+
+The Herglotz and Mobius boundary-convergence developments are adapted from
+`facebookresearch/atlas-lean`, commit
+`34ffed396f376454c1a9b297f3fd74c5c801fb50`, file
+`Atlas/ComplexVariables/code/Lecture16.lean`, regions 38-194, 196-768, and
+770-789. The immutable source SHA-256 is
+`e6eee1fa36081cf1a83c1394541fdefe5714d8b42d86bcb88210e1dbd94628da`.
+The exact adapted declaration list and local additions are recorded in
+`proof-receipt.json`; the complete upstream license is retained in
+`ATLAS-LICENSE`.
+
+ATLAS permits adapted material only for noncommercial use and adds a rider
+prohibiting use to train, fine-tune, distill, evaluate, or otherwise develop
+ML models. Compatibility with this repository and automation context has not
+been reviewed. This is an explicit proof-acceptance and release blocker, not
+a passed supply-chain gate.
+
+## Status boundary
+
+The exact root kernel declaration is closed locally and is an `M0-L`
+candidate. It is not accepted `M0-L` or accepted root closure: this warm,
+dirty worker receipt is not E0, is not content-addressed, and receives no
+individual frozen-obligation credit. The frozen internal targets mostly have
+only planned prose fingerprints, and the checked proof replaces the planned
+near/far-arc route with a Mobius-transform route. Therefore
+`closed_obligation_ids=[]`, `accepted_root_closed=false`, and internal
+composition credit remains false pending master review or an architecture
+supersession.
+
+The authoritative accepted vector remains `H2/M4/R4`. H0, R0, complete
+provenance/trust review, validation, hermetic replay, independent verification,
+license acceptance, release, and master acceptance remain open.
+`theorem_complete=false`.
+
+## Commands and results
+
+Validation ran on 2026-07-14 local time (2026-07-13 UTC). An earlier
+Lake-based checker invocation unexpectedly attempted to materialize the
+missing pinned `flt-regular` package through the shared canonical `.lake`
+symlink. It left an incomplete Git directory and violated this worker lane's
+no-fetch/no-mutation rule. The worker did not repair or delete that shared
+state. The final proof recipe invokes the pinned Lean executable directly
+with explicit paths to already present compiled mathlib and transitive
+dependency artifacts, and does not invoke Lake or perform network/dependency
+operations. Those transitive artifact revisions are not fully bound here, so
+this remains warm provisional evidence rather than E0 or release evidence.
 
 ```text
-'Stage1Instances.THM_M_1148.Proof.interiorFormula_of_harmonicContOnCl_of_eqOn' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
-'Stage1Instances.THM_M_1148.Proof.dirichletExtension_to_root' depends on axioms: [propext, Classical.choice, Quot.sound]
-```
+bash Stage1_Instances/THM-M-1148/check_proof.sh
+  exit 0: temporary --trust=0 elaboration passed for Statement.lean,
+  PoissonUnitDisk.lean, and Proof.lean; all 28 recorded declarations reported
+  exactly propext, Classical.choice, and Quot.sound; packet bindings passed
 
-Additional commands, run from the repository root, all exited `0`:
-
-```text
 python3 Docs/tools/check_stage1_standard.py
+  exit 0: 15 assurance groups and all 1546 uniform-L0 targets passed
+
 python3 scripts/stage1_target.py check
+  exit 0: 1546 unique targets at ranks 1 through 1546 passed
+
 python3 scripts/stage1_target.py show THM-M-1148
+  exit 0: execution rank 353; planned; theorem_complete=false
+
 python3 Stage1_Instances/THM-M-1148/check_statement.py
+  exit 0: expression fingerprint and five structural mutations passed; this
+  ancillary checker completed after the shared environment became usable
+  again, but the final proof recipe remains the direct-Lean recipe above
+
 python3 Stage1_Instances/THM-M-1148/check_anchor_audit.py
+  exit 0: pinned mathlib anchor audit passed
+
 python3 Stage1_Instances/THM-M-1148/check_obligation_tree.py
-git diff --check -- Stage1_Instances/THM-M-1148
+  exit 0: frozen 26-obligation, 51-edge architecture passed structurally;
+  its accepted root remained open at M4
+
+env PYTHONOPTIMIZE=1 python3 Stage1_Instances/THM-M-1148/check_proof.py
+  exit 1 as expected: fail-closed checker rejected disabled assertions
+
+git diff --check -- Stage1_Instances/THM-M-1148 .stage1-worker-selftest.json
+  exit 0: no whitespace diagnostics
 ```
 
-Structural summaries were respectively: standard OK for 1546 targets; target
-manifest OK for ranks 1 through 1546; target shown as L0/rework-required and
-not theorem-complete; statement fingerprint and five mutations passed; anchor
-audit agreed with pinned mathlib revision
-`8a178386ffc0f5fef0b77738bb5449d50efeea95`; obligation tree passed with 26
-obligations and 51 typed edges while reporting the root open at M4; diff
-whitespace check produced no output.
+This is self-tested proof-phase evidence pending dependency-ordered master
+acceptance. It does not claim validation, release, audit completion, or
+theorem completion.

@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1177-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1177-RELEASE",
+  "theorem_id": "THM-M-1177",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1177/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 360,
+  "network_policy": "denied",
+  "network_enforcement": "When the pinned Lean artifact closure is usable, every fresh Lean subprocess runs inside bubblewrap --unshare-net. The checker never fetches or updates dependencies. A missing or corrupt pinned artifact is recorded as a blocker and the release decision remains fail-closed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1177-ROOT",
+    "M1177-S-DATA",
+    "M1177-S-FOUNDATION",
+    "M1177-B-SPLIT",
+    "M1177-B-DEGENERATE",
+    "M1177-B-POSITIVE",
+    "M1177-C-CONTACT",
+    "M1177-L-SLOPE-BALL",
+    "M1177-L-GRADIENT-IMAGE",
+    "M1177-L-AREA",
+    "M1177-L-HESSIAN",
+    "M1177-L-DET-TRACE",
+    "M1177-L-OPERATOR",
+    "M1177-L-INTEGRAL",
+    "M1177-L-BALL-VOLUME",
+    "M1177-L-SUP",
+    "M1177-T-POSITIVE",
+    "M1177-T-ASSEMBLE",
+    "M1177-X-SOURCE",
+    "M1177-X-PROVENANCE",
+    "M1177-X-TCB"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1177.AlexandrovBakelmanPucciTarget",
+    "Stage1Instances.THM_M_1177.root_of_architecture",
+    "Stage1Instances.THM_M_1177.degenerateMaximumPackage",
+    "Stage1Instances.THM_M_1177.abpTarget_of_positiveMaximumPackage",
+    "Stage1Instances.THM_M_1177.Validation.differentialDegenerateMaximumPackage",
+    "Stage1Instances.THM_M_1177.ReleaseCheck.localDegenerateMaximumPackage",
+    "Stage1Instances.THM_M_1177.ReleaseCheck.differentialDegenerateMaximumPackage",
+    "Stage1Instances.THM_M_1177.ReleaseCheck.conditionalRoot"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Current-snapshot fail-closed release reconciliation. If the existing pinned dependency artifacts are usable, it additionally performs a trust-zero, fresh-output, network-isolated replay of the exact statement, conditional composition, two implementations of the degenerate branch, and a conditional root probe. It cannot accept the validation dependency, provide the missing positive-maximum package or premise-free exact root, supply H0/R0 or complete foundation/provenance/TCB closure, perform a clean cold/offline supply-chain replay, provide distinct signed runners or an independent minimal verifier, assemble a deterministic release bundle, or establish AUDIT-Z/THEOREM-Z."
+}
