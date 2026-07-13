@@ -1,0 +1,466 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "inventory_version": "THM-M-0484-anchor-inventory/1",
+  "item_id": "S56-M-0484-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0484",
+  "execution_rank": 1365,
+  "intent": "anchor_audit",
+  "base_revision": "0c019b7194c9c43fa5f683fa82d637a0b275410d",
+  "base_tree": "43cf6ac322b1dba09be739b52ab3d02e9f9d8f3e",
+  "audit_cutoff": "2026-07-13T20:05:00+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0484.LucasLehmerTestTarget",
+  "canonical_target_expression_sha256": "6bd6024bd44d0bd9c50f6425b9ce5fdaecaf783ac84d32688717d3bde3151aea",
+  "canonical_statement_file_sha256": "1baec8791288b46d6df61e060be07aa190ac1d0424229595523a095e8259c8dc",
+  "canonical_statement": "For every p : Nat with 3 <= p, LucasLehmer.LucasLehmerTest p if and only if Nat.Prime (mersenne p).",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_revision": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree": "clean",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_blob": "8dada3edaf50dbc082c9a125058f25def75e625a",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "compiled_module": "Formalizations/Lean/.lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/LucasLehmer.olean",
+    "compiled_module_sha256": "c02832844a7c1605945cf05750cbcc0909909124ea7ba45f335888bae0157844",
+    "compiled_module_bytes": 516240,
+    "import_graph_remote": "https://github.com/leanprover-community/import-graph",
+    "import_graph_revision": "48d5698bc464786347c1b0d859b18f938420f060",
+    "import_graph_tree": "f646a0443163d1c7a53305a1b60407fc4e79c4cd",
+    "import_graph_required_modules_blob": "7eaa8035d1d1ea4f116ec634224aacf7f1625602",
+    "import_graph_required_modules_sha256": "376952cd46c9bc674ab92ce443e0a3fb51a10a58c426b0cdf76fdbdb5ce8d00f",
+    "import_graph_license": "Apache-2.0",
+    "import_graph_license_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "import_graph_license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "discovery_protocol": {
+    "protocol_version": "THM-M-0484-anchor-discovery/1",
+    "cutoff": "2026-07-13T20:05:00+08:00",
+    "credentials_policy": "anonymous public HTTP only; no authenticated GitHub code-search credential was available",
+    "network_policy": "remote index, repository metadata, and immutable raw-source inspection only; no dependency clone, fetch, update, build, or Lake mutation",
+    "search_order": [
+      "repository-local Lean bodies and wrappers",
+      "all 8374 Lean source files in the manifest-pinned mathlib commit plus every manifest-pinned package",
+      "official or primary Lean formalization projects",
+      "public Lean repositories indexed by Sourcegraph, including forks and archives",
+      "google-deepmind/formal-conjectures at its indexed immutable revision",
+      "historical Lean 3 mathlib as uncredited provenance research",
+      "human primary-source leads already bounded at H1 by intake"
+    ],
+    "aliases": [
+      "Lucas-Lehmer test",
+      "Lucas Lehmer test",
+      "LucasLehmerTest",
+      "lucasLehmerResidue",
+      "lucas_lehmer_sufficiency",
+      "lucas_lehmer_necessity",
+      "Mersenne primality test",
+      "mersenne prime iff residue zero",
+      "卢卡斯-莱默检验"
+    ],
+    "namespace_queries": [
+      "LucasLehmer",
+      "LucasLehmer.LucasLehmerTest",
+      "LucasLehmer.lucasLehmerResidue",
+      "mersenne",
+      "Nat.Prime"
+    ],
+    "local_commands": [
+      "git grep -i -E 'lucas.?lehmer|lucaslehmer' 8a178386ffc0f5fef0b77738bb5449d50efeea95 -- '*.lean'",
+      "git grep -i -E 'mersenne' 8a178386ffc0f5fef0b77738bb5449d50efeea95 -- '*.lean'",
+      "rg -i 'lucas.?lehmer|lucaslehmer|mersenne' over every manifest-pinned package Lean source",
+      "rg -i 'lucas.?lehmer|lucaslehmer' over tracked repository Lean sources excluding the owned target"
+    ],
+    "public_api_form": "curl --max-time 90 -L --silent --show-error --get --data-urlencode 'q=<query>' --data-urlencode 'v=V3' https://sourcegraph.com/.api/search/stream",
+    "expected_negative_evidence": "Every prescribed public query records an observation time, HTTP result, response byte count and SHA-256, or an explicit access failure; bounded index results do not imply internet-wide absence.",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0484-C01-MATHLIB-EXACT-COMPOSITION",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.NumberTheory.LucasLehmer",
+      "file": "Mathlib/NumberTheory/LucasLehmer.lean",
+      "file_blob": "36af70028d43c613055738999815ed2e88e84bd4",
+      "file_sha256": "6321c156165f59d49954c0e6e47706e765c0277df20b97a20333ceba29e8bead",
+      "file_bytes": 27142,
+      "declarations": [
+        "lucas_lehmer_sufficiency",
+        "lucas_lehmer_necessity"
+      ],
+      "types": [
+        "(p : Nat) -> 1 < p -> LucasLehmerTest p -> Nat.Prime (mersenne p)",
+        "(p : Nat) -> 3 <= p -> Nat.Prime (mersenne p) -> LucasLehmerTest p"
+      ],
+      "normalized_match": "The target's hp : 3 <= p discharges the sufficiency premise 1 < p; the two declarations then supply respectively the forward and reverse directions with identical p, test predicate, Mersenne function, and Nat.Prime conclusion.",
+      "local_adapter": "Stage1Instances.THM_M_0484.AnchorAudit.exactTarget_mathlib_candidate",
+      "local_role": "audit-only exact composition candidate",
+      "terminal_declarations": [
+        "lucas_lehmer_sufficiency",
+        "lucas_lehmer_necessity"
+      ],
+      "terminal_proof_body_ids": [
+        "sha256:8ec5fa60da0232f21b8a79ca9a7a846be51b71ed8b5bae0016943f880599efaf",
+        "sha256:8f45e13a6d27e866e46e24320d770ad4c0a4e1b01412b2c32e708c00a29d01dd"
+      ],
+      "terminal_source_lines": [
+        "581-591",
+        "593-608"
+      ],
+      "combined_terminal_slice_sha256": "02f91496f97c76dca5e982eecba7b79b463e5c4a597c8e1067113aa38b37f266",
+      "definition_slice_sha256": "f54dee29843278dbc3ac1359691af19faee2cf264dd751909daf2114976c861a",
+      "direct_proof_dependencies": {
+        "lucas_lehmer_sufficiency": [
+          "LucasLehmer.order_ineq",
+          "Nat.minFac_sq_le_self",
+          "mersenne_pos"
+        ],
+        "lucas_lehmer_necessity": [
+          "LucasLehmer.sZMod_eq_s",
+          "LucasLehmer.X.closed_form",
+          "LucasLehmer.X.omega_pow_trace",
+          "legendreSym_mersenne_three",
+          "legendreSym_mersenne_two",
+          "Nat.Prime.of_mersenne",
+          "succ_mersenne"
+        ]
+      },
+      "direct_module_imports": [
+        {
+          "module": "Mathlib.NumberTheory.Fermat",
+          "file": "Mathlib/NumberTheory/Fermat.lean",
+          "blob": "8a760d4760f40b13f6e3ce1a46f7eb047d7893fc",
+          "sha256": "76e727f0870871215bbbe8516bd8d8790312d4c88bf543e18b824a69f51d2c4d"
+        },
+        {
+          "module": "Mathlib.RingTheory.Fintype",
+          "file": "Mathlib/RingTheory/Fintype.lean",
+          "blob": "2c5ef98aab5853f73596ab92ec3df6a2fbafd252",
+          "sha256": "91ab66f32f1ec6c7f16a1b8b4aff445d77bd8d0d5a3fb1f081eb21293402acd1"
+        }
+      ],
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "transitive_declaration_audit": {
+        "method": "ImportGraph NameSet.transitivelyUsedConstants over both terminal declarations and the exact audit wrapper in a trust-zero Lean replay",
+        "declaration_count": 35389,
+        "module_count": 1243,
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "bodyless_nonaxioms": [],
+        "unsafe_declarations": [],
+        "closure_serialization_boundary": "Counts and machine classifications are retained; a complete sorted 35,389-name closure and release-grade closure hash remain a downstream provenance/TCB gate."
+      },
+      "transitive_sorry_check": "Mathlib.Util.AssertNoSorry passed for both terminal declarations and the audit wrapper; Mathlib.PrintSorries reported 'Declarations are sorry-free!'.",
+      "source_marker_scan": "No sorry, admit, sorryAx, axiom, constant, opaque, unsafe, implemented_by, extern, proof_wanted, or placeholder marker occurs in the exact source module outside comments/doc prose; parser-aware Lean checks are authoritative for the terminal closure.",
+      "unsafe_or_oracle_boundary": "The transitive declaration walk reports no unsafe declaration and the axiom closure is exactly the selected classical mathlib trio. Full executable TCB, imported-olean provenance, native/external evaluator, and release computation audit remains downstream.",
+      "historical_provenance": {
+        "lean4_sufficiency_port_commit": "94f9f7afaacb5fe196fd1d362bf025fdb84e859c",
+        "lean4_sufficiency_port_tree": "478a079cad39f824d8f03f8a487559c2b85d03f7",
+        "lean4_sufficiency_port_blob": "0a434a3f72b8f5d741bfaa1bc180f78df112e968",
+        "lean4_sufficiency_port_source_sha256": "f8cee2cda7e109e32a257802a6b87100afba260636beaa95edf7d22f75be9be6",
+        "lean4_sufficiency_port_date": "2023-04-15T00:49:34Z",
+        "necessity_introduction_commit": "9067089938d4c3675c1193f1b6e8378620ea611a",
+        "necessity_introduction_tree": "8163efabbdf7fc3f12b6c1a969ae3968c26c61a2",
+        "necessity_introduction_blob": "9fa4212b889643e8cfa602f364839df96f21a56a",
+        "necessity_introduction_source_sha256": "70732587d047688683b08142bae00c0945a929383eee9b014e1a6c483e9c5086",
+        "necessity_introduction_date": "2025-08-13T10:56:12Z",
+        "both_are_ancestors_of_pin": true,
+        "pinned_authors": [
+          "Mario Carneiro",
+          "Alastair Irving",
+          "Kim Morrison",
+          "Ainsley Pahljina"
+        ]
+      },
+      "dependency_feasibility": "Already materialized at the manifest pin and imported by the canonical statement module; no dependency change is required.",
+      "license": "Apache-2.0",
+      "candidate_machine_classification": "M0-W",
+      "evidence_level": "E2_nonrelease_worker_probe",
+      "result": "Exact pinned mathlib composition and audit adapter kernel-check at --trust=0. This node locates the route; proof-phase installation, accepted E1 provenance/trust, and master acceptance remain downstream."
+    },
+    {
+      "candidate_id": "M0484-C02-MATHLIB-RELATED-SURFACES",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.LucasLehmer",
+      "declarations": [
+        "mersenne",
+        "LucasLehmer.s",
+        "LucasLehmer.sZMod",
+        "LucasLehmer.sMod",
+        "LucasLehmer.lucasLehmerResidue",
+        "LucasLehmer.LucasLehmerTest",
+        "LucasLehmer.residue_eq_zero_iff_sMod_eq_zero"
+      ],
+      "comparison": "Definitions and a checked ZMod/integer-residue transport only; none independently proves the correctness iff.",
+      "candidate_machine_classification": "M3_support_duplicate",
+      "result": "Supporting interface and transport inventory; no additional terminal proof body or root credit."
+    },
+    {
+      "candidate_id": "M0484-C03-MATHLIB-ARCHIVE-EXAMPLES",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "file": "Archive/Examples/MersennePrimes.lean",
+      "file_blob": "075dc359123c781b8a77ea0b6e969bafb4f28887",
+      "file_sha256": "282263345e54382728a88aaa4069a301fd4451de94026f9c48c50b4907fe5ff0",
+      "comparison": "Concrete primality certificates and the p = 2 counterexample, all downstream of the correctness directions; no universal theorem declaration.",
+      "candidate_machine_classification": "M3_examples_duplicate",
+      "result": "Boundary and computation examples only; deduplicated from the exact terminal pair."
+    },
+    {
+      "candidate_id": "M0484-C04-FORMALBOOK-CONSUMER",
+      "project": "mo271/FormalBook",
+      "canonical_remote": "https://github.com/mo271/FormalBook.git",
+      "revision": "701731c73f68dbc1559703f3568aa5c4924a7bdc",
+      "file": "FormalBook/Chapter_01.lean",
+      "file_sha256": "eb70ec30830f158b328a599c1cbe4a9286a4226ded00956e8ca68473b81f4b64",
+      "comparison": "Imports mathlib's LucasLehmer module and uses mersenne/one_lt_mersenne in a different infinitude theorem; it declares no correctness test theorem.",
+      "candidate_machine_classification": "M3_downstream_consumer_no_root_credit",
+      "result": "Immutable false positive; no integration task."
+    },
+    {
+      "candidate_id": "M0484-C05-IMO-STEPS-NAMESPACE-FALSE-POSITIVE",
+      "project": "roozbeh-mohit/IMO-Steps",
+      "canonical_remote": "https://github.com/roozbeh-mohit/IMO-Steps.git",
+      "revision": "ad033c0d090ca6ed275f9ab81c46726a9c35026c",
+      "file": "Lean_v20/imo_proofs/imo_1990_p3.lean",
+      "file_sha256": "78906f1fb6b315f4b021a3683c6beb84af57c4a5531e0b56b6e98a09aa1f78be",
+      "comparison": "Uses only an unrelated declaration under the LucasLehmer namespace in an IMO proof.",
+      "candidate_machine_classification": "M5_statement_mismatch",
+      "reopen_when": "An immutable revision exposes a theorem whose elaborated statement maps exactly to the frozen Lucas-Lehmer criterion.",
+      "result": "Name-only false positive; no root credit."
+    },
+    {
+      "candidate_id": "M0484-C06-COMPPOLY-DIFFERENT-LUCAS-TEST",
+      "project": "Verified-zkEVM/CompPoly",
+      "canonical_remote": "https://github.com/Verified-zkEVM/CompPoly.git",
+      "revision": "f06b8361f10b4feb9af97f26a3c7691e2d1cd899",
+      "file": "CompPoly/Fields/PrattCertificate.lean",
+      "file_sha256": "ad8e0e207f0d35c5a2e596a4cf3b1769880eed878c79f9c191609413612a1a36",
+      "comparison": "The file expressly implements the different Lucas primality test and says it is not the Lucas-Lehmer test for Mersenne primes.",
+      "candidate_machine_classification": "M5_statement_mismatch",
+      "reopen_when": "A later immutable revision declares an exact Mersenne Lucas-Lehmer correctness theorem rather than the generic Lucas test.",
+      "result": "Different algorithm and statement; no root credit."
+    },
+    {
+      "candidate_id": "M0484-C07-FORMAL-CONJECTURES-NEGATIVE",
+      "project": "google-deepmind/formal-conjectures",
+      "canonical_remote": "https://github.com/google-deepmind/formal-conjectures.git",
+      "revision": "fdbea4653453a764aa7f952d3b45c93007356cc9",
+      "comparison": "Exact LucasLehmer, Lucas-Lehmer, and lucas_lehmer repository queries each returned zero matches. Broader Mersenne hits are different conjectures and include answer(sorry), so they cannot supply a proof candidate.",
+      "candidate_machine_classification": "no_candidate",
+      "result": "Immutable indexed statement-collection boundary classified; nothing to integrate."
+    },
+    {
+      "candidate_id": "M0484-C08-MATHLIB3-HISTORICAL",
+      "project": "leanprover-community/mathlib3",
+      "revision": "65a1391a0106c9204fe45bc73a039f056558cb83",
+      "file": "src/number_theory/lucas_lehmer.lean",
+      "comparison": "Archived Lean 3 source contains sufficiency-era declarations but is the wrong backend and predates the Lean 4 necessity closure.",
+      "candidate_machine_classification": "M5_wrong_backend_partial",
+      "reopen_when": "Not applicable to this pin; only a Lean 4 exact candidate with reproducible immutable closure could be integrated.",
+      "result": "Historical provenance only; no requested-backend credit."
+    }
+  ],
+  "search_evidence": {
+    "repository_local": {
+      "tracked_lean_files": 2281,
+      "query": "lucas.?lehmer|lucaslehmer, excluding Stage1_Instances/THM-M-0484",
+      "matching_lines": 44,
+      "matching_files": [
+        "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_018.lean",
+        "Stage1_Instances/THM-M-0405/AnchorAudit.lean",
+        "Stage1_Instances/THM-M-0483/IntakeProbe.lean"
+      ],
+      "result": "All hits belong to separate BHV/Mersenne targets or explicitly non-target discovery probes; no reusable repo-local proof body or wrapper exists."
+    },
+    "pinned_mathlib": {
+      "lean_files": 8374,
+      "lucas_query_matching_lines": 81,
+      "lucas_query_matching_files": [
+        "Mathlib/NumberTheory/LucasLehmer.lean",
+        "Archive/Examples/MersennePrimes.lean",
+        "Archive/Wiedijk100Theorems/PerfectNumbers.lean",
+        "Mathlib/NumberTheory/LucasPrimality.lean",
+        "Mathlib.lean"
+      ],
+      "mersenne_query_matching_lines": 133,
+      "mersenne_query_matching_files": 8,
+      "monolithic_iff_declaration_result": "no match; the exact root is a composition of the two terminal directions"
+    },
+    "pinned_packages": {
+      "package_count": 11,
+      "package_name_list_sha256": "f0ba21450dfa4fab42f78775355ec0f0b65c434a4aa82db6cd69a646e221dec8",
+      "all_package_worktrees_clean": true,
+      "result": "Only mathlib has exact-topic Lean declarations; Batteries matches are the unrelated Mersenne Twister and flt-regular has no topic hit."
+    },
+    "sourcegraph_queries": [
+      {
+        "observed_at": "2026-07-13T11:48:39Z",
+        "query": "context:global LucasLehmerTest lang:Lean fork:yes archived:yes count:all",
+        "http_status": 200,
+        "response_bytes": 5662,
+        "response_sha256": "0196185d32426a7249fd69114234c86b71a66ecbb58bcbebc0750dae503bccad",
+        "done": true,
+        "skipped": [],
+        "match_count": 26,
+        "repository_count": 1,
+        "result": "Only indexed mathlib4."
+      },
+      {
+        "observed_at": "2026-07-13T11:49:50Z",
+        "query": "context:global lucas_lehmer_necessity lang:Lean fork:yes archived:yes count:all",
+        "http_status": 200,
+        "response_bytes": 2792,
+        "response_sha256": "dca8f74b87ffae8f4348cefd9d5d6f8e9d1f221e0b5710d2370f68ac6dce210b",
+        "done": true,
+        "skipped": [],
+        "match_count": 3,
+        "repository_count": 1,
+        "result": "Only indexed mathlib4."
+      },
+      {
+        "observed_at": "2026-07-13T11:50:07Z",
+        "query": "context:global lucas_lehmer_sufficiency lang:Lean fork:yes archived:yes count:all",
+        "http_status": 200,
+        "response_bytes": 9779,
+        "response_sha256": "4b84b4329c9a65d24eaef548369b684a96a99316b205713f715470a79acafbfc",
+        "done": true,
+        "skipped": [],
+        "match_count": 37,
+        "repository_count": 2,
+        "result": "mathlib4 plus archived Lean 3 mathlib3; no independent Lean 4 project."
+      },
+      {
+        "observed_at": "2026-07-13T11:50:12Z",
+        "query": "context:global lucasLehmerResidue lang:Lean fork:yes archived:yes count:all",
+        "http_status": 200,
+        "response_bytes": 3597,
+        "response_sha256": "86793cedb4bf6427a87667d59f0a81e07d22b75e5256486d606c9a418f7e3399",
+        "done": true,
+        "skipped": [],
+        "match_count": 14,
+        "repository_count": 1,
+        "result": "Only indexed mathlib4."
+      },
+      {
+        "observed_at": "2026-07-13T11:53:36Z",
+        "query": "context:global LucasLehmer lang:Lean fork:yes archived:yes count:all",
+        "http_status": 200,
+        "response_bytes": 12945,
+        "response_sha256": "3a3f043f9a04fd381048500a41b5b99746df121b7d4a721322f6ffad222ca9f5",
+        "done": true,
+        "skipped": [],
+        "match_count": 57,
+        "result": "mathlib plus two classified downstream/name-only false positives."
+      },
+      {
+        "observed_at": "2026-07-13T11:57:30Z",
+        "query": "context:global lucas-lehmer lang:Lean fork:yes archived:yes count:all",
+        "http_status": 200,
+        "response_bytes": 9179,
+        "response_sha256": "058eea511b01055f4a49f531172c100f7b647e349e45ad3758a7196149d3b178",
+        "done": true,
+        "skipped": [],
+        "match_count": 17,
+        "result": "mathlib4/mathlib3 plus CompPoly's explicitly different Lucas primality test."
+      }
+    ],
+    "formal_conjectures_queries": [
+      {
+        "query": "repo:^github.com/google-deepmind/formal-conjectures$ LucasLehmer count:all",
+        "http_status": 200,
+        "response_bytes": 250,
+        "response_sha256": "0a5f4f308d62bd014370f637bdba0031b2431de166a36c6368ed2f71752c6885",
+        "match_count": 0
+      },
+      {
+        "query": "repo:^github.com/google-deepmind/formal-conjectures$ Lucas-Lehmer count:all",
+        "http_status": 200,
+        "response_bytes": 249,
+        "response_sha256": "cc93514170a2f59c26b9159bec66802f69e94f9a5ba9e4d2b0c3787c709152e6",
+        "match_count": 0
+      },
+      {
+        "query": "repo:^github.com/google-deepmind/formal-conjectures$ lucas_lehmer count:all",
+        "http_status": 200,
+        "response_bytes": 251,
+        "response_sha256": "9dc8622b1a6f910f41e6dfe4eee50810d207096ac7df1380f7a56ced7514d6dd",
+        "match_count": 0
+      }
+    ],
+    "access_failures": [
+      {
+        "surface": "GitHub REST code search",
+        "observed_at": "2026-07-13T11:52:39Z",
+        "queries": [
+          "LucasLehmerTest language:Lean",
+          "lucas_lehmer_sufficiency language:Lean",
+          "lucas_lehmer_necessity language:Lean",
+          "lucasLehmerResidue language:Lean",
+          "Lucas-Lehmer Lean language:Lean"
+        ],
+        "http_status": 403,
+        "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+        "result": "Unauthenticated rate limit; no negative result claimed."
+      },
+      {
+        "surface": "grep.app API",
+        "observed_at": "2026-07-13T11:52:25Z",
+        "queries": [
+          "LucasLehmerTest",
+          "lucas_lehmer_sufficiency",
+          "lucas_lehmer_necessity",
+          "lucasLehmerResidue",
+          "Lucas-Lehmer Lean"
+        ],
+        "http_status": 429,
+        "result": "Vercel security checkpoint; per-query response hashes are retained in the worker research log, and no negative result is claimed."
+      }
+    ],
+    "limitations": "Sourcegraph results are exhaustive only within its public index and may omit private, unindexed, or newly created repositories. Its indexed mathlib commit differs from the manifest pin, so all proof credit rests on the locally checked immutable pin. GitHub and grep.app code search were rate-limited. No internet-wide absence or reviewed saturation is claimed."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "8/8 frozen candidates classified in THM-M-0484-anchor-inventory/1",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2_nonrelease_worker_probe",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of this provisional anchor-audit receipt",
+    "freeze the canonical obligation registry and typed proof/provenance/trust/workflow graphs",
+    "install the proof-phase canonical wrapper and composition evidence",
+    "complete content-addressed transitive provenance, imported-olean and executable TCB closure",
+    "complete primary-source H0 and readable R0 independent review",
+    "complete hermetic replay, independent verification, deterministic release evidence, and master acceptance"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This provisional node classifies a bounded immutable formal-candidate inventory and trust-zero kernel-checks the exact pinned mathlib composition. It changes no accepted H1/M3/R4 state, accepts no receipt, and completes neither AUDIT-Z nor the theorem."
+}

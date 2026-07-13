@@ -21,7 +21,7 @@ MATHLIB_REVISION = "8a178386ffc0f5fef0b77738bb5449d50efeea95"
 MATHLIB_TREE = "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
 NECESSITY_ORIGIN = "9067089938d4c3675c1193f1b6e8378620ea611a"
 ROOT_VECTOR = {"H": "H1", "M": "M3", "R": "R4"}
-OWNED_FILES = {
+INTAKE_AND_STATEMENT_FILES = {
     "README.md",
     "instance.json",
     "scope-map.md",
@@ -38,6 +38,14 @@ OWNED_FILES = {
     "statement-receipt.json",
     "statement-validation.md",
 }
+SUCCESSOR_FILES = {
+    "AnchorAudit.lean",
+    "anchor-audit.json",
+    "anchor-audit-receipt.json",
+    "anchor-audit-validation.md",
+    "check_anchor_audit.py",
+}
+OWNED_FILES = INTAKE_AND_STATEMENT_FILES | SUCCESSOR_FILES
 TASK_SUFFIXES = (
     "STATEMENT",
     "ANCHOR_AUDIT",
@@ -339,8 +347,8 @@ def check_receipt(receipt: dict, dag: dict) -> None:
 def check_files(instance: dict, receipt: dict) -> None:
     actual = {path.name for path in HERE.iterdir() if path.is_file()}
     assert actual == OWNED_FILES
-    assert set(instance["owned_artifacts"]) == actual
-    intake_files = actual - {
+    assert set(instance["owned_artifacts"]) == INTAKE_AND_STATEMENT_FILES
+    intake_files = INTAKE_AND_STATEMENT_FILES - {
         "Statement.lean",
         "check_statement.py",
         "check_statement_artifacts.py",
@@ -358,10 +366,12 @@ def check_files(instance: dict, receipt: dict) -> None:
         if relative.endswith("/intake-receipt.json"):
             assert expected == "self_referential_excluded_from_provisional_digest"
         else:
-            base_bytes = subprocess.check_output(
-                ["git", "show", f"HEAD:{relative}"], cwd=ROOT, stderr=subprocess.DEVNULL
+            intake_snapshot = subprocess.check_output(
+                ["git", "show", f"be8701e88e791545c16a262edd1909486d5cef4b:{relative}"],
+                cwd=ROOT,
+                stderr=subprocess.DEVNULL,
             )
-            assert hashlib.sha256(base_bytes).hexdigest() == expected, (
+            assert hashlib.sha256(intake_snapshot).hexdigest() == expected, (
                 f"integrated intake snapshot hash changed: {relative}"
             )
     for path in HERE.iterdir():

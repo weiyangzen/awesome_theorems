@@ -14,33 +14,32 @@ The wording identifies the Banach-space open mapping theorem. It excludes the di
 complex-analytic open mapping theorem `THM-M-0235`, whose claim concerns nonconstant holomorphic
 functions.
 
-## Candidate classical boundary
+## Frozen statement boundary
 
 A familiar form says that a surjective bounded linear operator between real or complex Banach
-spaces maps every open subset of its domain to an open subset of its codomain. This is a scope
-description, not the frozen root. The statement phase must fix:
+spaces maps every open subset of its domain to an open subset of its codomain. The immutable
+Rotem/Tzorani source fixes its scalar convention to real or complex at TeX line 36, defines Banach
+space at line 52, and supplies the open-map definition and Theorem 2.2.11 at lines 1133-1143. The
+statement phase therefore freezes these choices:
 
-1. Whether scalars are `ℝ`, `ℂ`, either field, or a supported general nontrivially normed field.
-2. Whether the domain and codomain are both explicitly complete normed spaces. Omitting either
-   completeness hypothesis changes the theorem and permits counterexamples.
-3. Whether "bounded linear operator" is represented by a bundled `ContinuousLinearMap`, or by a
-   linear map plus a boundedness/continuity hypothesis and a checked equivalence.
-4. Whether the operator is ordinary same-field linear or semilinear over a specified isometric
-   scalar equivalence. Pinned mathlib's direct theorem is more general than the ordinary textbook
-   form.
-5. Whether surjectivity is `Function.Surjective f`, `LinearMap.range f = ⊤`, or another checked
-   equivalent.
-6. Whether "open" is `IsOpenMap f`, its expansion over images of every open set, or a local ball
-   formulation with a checked bridge.
-7. Ordered binders, universe levels, topology instances, the exact conclusion, and every alternate
-   encoding with a checked direction.
+1. The root is a closed conjunction of the `Real` and `Complex` cases, not an open `RCLike` or
+   arbitrary nontrivially normed-field quantification.
+2. Domain and codomain are each explicitly complete normed spaces. Omitting either completeness
+   hypothesis changes the proposition.
+3. "Bounded linear operator" is the ordinary same-field bundled `ContinuousLinearMap`.
+4. Surjectivity is `Function.Surjective f`.
+5. Openness is `IsOpenMap f`, with a checked definitional `Iff` to the source expansion over images
+   of every open set.
+6. Domain and codomain live in independent universes, and the structure, operator, and antecedent
+   binders are ordered explicitly in `Statement.lean`.
 
 ## Boundary cases
 
-The exact source crosswalk must resolve zero or trivial domain/codomain spaces, the zero map onto a
-trivial codomain, noninjective quotient maps, real versus complex scalars, and incomplete source or
-target spaces. Injectivity is not a hypothesis of the received theorem. A bijective bounded map
-having bounded inverse is a corollary, not an equivalent root without an explicit bridge.
+Zero or trivial domain/codomain spaces, the zero map onto a trivial codomain, and noninjective
+surjective maps remain admitted. Injectivity, finite dimensionality, separability, and nontrivial
+carriers are not hypotheses. Incomplete source or target spaces are excluded by the two
+`CompleteSpace` binders. A bijective bounded map having bounded inverse is a corollary, not an
+equivalent root.
 
 ## Pinned Lean boundary
 
@@ -60,7 +59,8 @@ Supporting declarations expose the proof architecture: `exists_approx_preimage_n
 Baire category, `exists_preimage_norm_le` turns approximate preimages into exact controlled ones,
 and `isQuotientMap` is a corollary. `LinearEquiv.continuous_symm` is the bijective bounded-inverse
 consequence. These direct interfaces justify provisional `M3`; their names and successful
-elaboration do not choose a source-faithful target, audit terminal bodies, or supply proof credit.
+elaboration do not audit terminal bodies or supply proof credit. The statement root instead uses
+the lighter non-proof import `Mathlib.Analysis.Complex.Basic`.
 
 ## Explicit exclusions
 

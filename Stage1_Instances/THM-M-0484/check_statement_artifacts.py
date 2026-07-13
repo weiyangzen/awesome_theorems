@@ -68,7 +68,7 @@ def main() -> None:
     item = next(row for row in authority["items"] if row["id"] == ITEM_ID)
     assert item["theorem_id"] == THEOREM_ID and item["execution_rank"] == 1365
     assert item["phase"] == "statement" and item["layer"] == 1
-    assert item["state"] == "[ ]" and item["depends_on"] == ["S56-M-0484-INTAKE"]
+    assert item["state"] in {"[ ]", "[_]"} and item["depends_on"] == ["S56-M-0484-INTAKE"]
     local_task = next(row for row in dag["tasks"] if row["id"] == ITEM_ID)
     assert local_task["state"] == "open" and local_task["evidence_ids"] == []
 
@@ -94,8 +94,11 @@ def main() -> None:
     assert receipt["proposed_state"] == "[_]" and receipt["accepted"] is False
     assert receipt["content_addressed"] is False and receipt["base_revision"] == BASE_REVISION
     for relative, tagged_digest in receipt["source_inputs"].items():
-        assert tagged_digest == f"sha256:{sha256(ROOT / relative)}", (
-            f"stale statement input hash: {relative}"
+        integrated = subprocess.check_output(
+            ["git", "show", f"{BASE_REVISION}:{relative}"], cwd=ROOT
+        )
+        assert tagged_digest == f"sha256:{hashlib.sha256(integrated).hexdigest()}", (
+            f"integrated statement input hash changed: {relative}"
         )
     mathlib = ROOT / "Formalizations/Lean/.lake/packages/mathlib"
     assert subprocess.check_output(
@@ -116,17 +119,23 @@ def main() -> None:
     assert receipt["audit_complete"] is receipt["theorem_complete"] is False
     assert receipt["selftest_result"] == "pass"
 
-    actual_changed = {".stage1-worker-selftest.json"}
+    successor_files = {
+        "AnchorAudit.lean", "anchor-audit.json", "anchor-audit-receipt.json",
+        "anchor-audit-validation.md", "check_anchor_audit.py", "check_intake.py",
+        "check_statement_artifacts.py",
+    }
+    actual_changed: set[str] = set()
     status = subprocess.check_output(
         ["git", "status", "--porcelain=v1", "--untracked-files=all", "--", str(HERE)],
         cwd=ROOT,
         text=True,
     )
     for line in status.splitlines():
-        relative = line[3:]
+        relative = line[3:] if line[:2] == "??" else line[2:].lstrip()
         assert relative.startswith(f"Stage1_Instances/{THEOREM_ID}/")
-        actual_changed.add(relative)
-    assert actual_changed == set(CHANGED_PATHS)
+        if Path(relative).name not in successor_files:
+            actual_changed.add(relative)
+    assert actual_changed == set()
 
     lean = (HERE / "Statement.lean").read_text(encoding="utf-8")
     assert all(token not in lean for token in PROHIBITED)

@@ -28,29 +28,32 @@ standard cover is `⋃ n, T(B_X(0,n))`. As printed, the displayed Baire inferenc
 obvious repair is not accepted silently at intake.
 
 This is a versioned, exact-topic modern statement and recognizable proof-route lead, not an
-accepted complete proof source. It is not H0: the printed Baire-cover typo needs a source correction
-or independently reviewed repair; the catalog does not cite the notes; the notation `L(X,Y)` and
-its incorporated boundedness convention need a reviewed definition chain; catalog attribution/year
-are not mapped to a primary historical source; and the real/complex textbook form has not been
-transported to the more general pinned Lean interface. Because the only inspected proof source has
-a known printed gap and no accepted repair, the provisional human status is H2.
+accepted complete proof source. Its standing convention at TeX line 36 restricts the scalar field
+to `Real` or `Complex`; its Banach-space definition at line 52 incorporates completeness; its
+bounded-operator notation is introduced before the theorem; and its open-map definition is
+immediately adjacent. Those passages now select the exact statement proposal. It is still not H0:
+the printed Baire-cover typo needs a source correction or independently reviewed repair; the
+catalog does not cite the notes; the full notation chain lacks independent review; catalog
+attribution/year are not mapped to a primary historical source; and the general pinned theorem has
+not been transported to the selected closed real-and-complex root. The provisional human status
+therefore remains H2.
 
 ## Crosswalk
 
 | Repository/source phrase | Mathematical decision | Prospective Lean component | Intake status |
 |---|---|---|---|
-| "bounded linear operator" | an everywhere-defined continuous linear operator | `f : E ->L[𝕜] F`, or a linear map plus a checked continuity/boundedness bridge | exact encoding open |
-| implicit scalar field | source lead uses real or complex scalars | `𝕜 = ℝ` or `𝕜 = ℂ`; a general `NontriviallyNormedField` form is broader | root field open |
-| "Banach spaces" | both normed spaces are complete | `NormedAddCommGroup`, `NormedSpace`, and `CompleteSpace` on both `E` and `F` | omitted by catalog; source lead supplies it |
-| "surjective" / "onto" | every codomain point has a preimage | `Function.Surjective f` or checked `range f = ⊤` | encoding open |
-| "open map" | every open domain set has open image | `IsOpenMap f` | direct prospective match; exact expression unfrozen |
+| "bounded linear operator" | an everywhere-defined continuous linear operator | ordinary same-field `f : E ->L[Real] F` and `f : E ->L[Complex] F` | frozen bundled encoding |
+| implicit scalar field | standing convention uses real or complex scalars | closed conjunction of the `Real` and `Complex` cases | frozen without open-class broadening |
+| "Banach spaces" | both normed spaces are complete | `NormedAddCommGroup`, `NormedSpace`, and `CompleteSpace` on both `E` and `F` | frozen from source definition chain |
+| "surjective" / "onto" | every codomain point has a preimage | `Function.Surjective f` | frozen encoding |
+| "open map" | every open domain set has open image | `IsOpenMap f` | frozen with checked definitional expansion |
 | semilinear generalization | compatible scalar-field equivalence | `f : E ->SL[sigma] F` plus inverse/isometry instances | pinned generalization, not selected root |
 | `已验证` | untrusted inventory label | no proposition or proof object | rejected as evidence |
 
-The central source-to-Lean gap is not whether an exact-topic theorem exists. It is whether the
-accepted root should be the real/complex same-field textbook statement or mathlib's semilinear
-generalization, and how the source's bounded-operator and open-map definitions transport to the
-chosen encoding without broadening or narrowing the claim.
+The source-to-Lean statement gap is now closed provisionally by
+`Stage1Instances.THM_M_0276.BanachOpenMappingTarget`. The remaining formal gap is downstream: a
+checked specialization of the stronger semilinear theorem, terminal-body provenance, and trust
+closure have not been audited or credited.
 
 ## Pinned formal candidates
 
@@ -63,15 +66,17 @@ The pinned module `Mathlib.Analysis.Normed.Operator.Banach` contains:
 - `LinearEquiv.continuous_symm`: the bijective bounded-inverse consequence.
 
 `IntakeProbe.lean` authenticates these pinned APIs and representative axiom reports. They remain
-M3 candidates. Exact source identity, minimal imports, elaborated expression and environment
-fingerprints, checked same-field/semilinear transport, terminal-body provenance, placeholder and
-trust closure, and integration acceptance belong to downstream phases. No proof body is credited
-by this dossier.
+M3 candidates. `Statement.lean` separately records the exact source-selected root with the single
+direct import `Mathlib.Analysis.Complex.Basic`, its elaborated expression and environment
+fingerprints, an expanded-open-map transport, and structural mutations. The same-field/semilinear
+proof transport, terminal-body provenance, placeholder and trust closure, and integration
+acceptance remain downstream. No proof body is credited by this dossier.
 
 ## Required downstream decision
 
-The statement phase must admit and independently review a precise source formulation, fix the
-scalar and completeness boundary, and elaborate that exact proposition. It must not silently use
-the broader semilinear theorem, the narrower bijective inverse result, or an incomplete-space
-variant. The anchor audit can then determine whether a checked specialization or wrapper around
-the pinned declaration closes the accepted target.
+The integration lane must re-elaborate and decide whether to accept the provisional statement
+receipt. Independent source work must resolve the printed proof gap and primary-history mapping
+before H0. The anchor audit can then determine whether checked Real and Complex specializations or
+another exact wrapper around the pinned semilinear declaration close the accepted target. It must
+not substitute the broader semilinear theorem, the narrower bijective inverse result, or an
+incomplete-space variant for the frozen root.

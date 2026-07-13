@@ -14,7 +14,7 @@
   "intake_score": 86,
   "name_zh": "开映射定理",
   "name_en": "Banach open mapping theorem",
-  "canonical_name": "Banach open mapping theorem family (exact scalar and encoding open)",
+  "canonical_name": "Banach open mapping theorem over real and complex Banach spaces",
   "category": "分析学 / 实分析",
   "target_lane": "hard_statement_first_partial_verification",
   "target_system": "Lean 4 + pinned mathlib",
@@ -22,13 +22,13 @@
   "literal_source_claim_en": "A surjective bounded linear operator is an open map.",
   "source_attribution": "Stefan Banach, 1929 (catalog metadata only; not a source citation)",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "recognizable_classical_Banach_open_mapping_family_and_direct_pinned_interface_but_exact_scalar_completeness_bounded_operator_semilinear_and_openness_encoding_open",
-  "canonical_claim": null,
-  "statement_blocker": "The catalog omits the scalar field, the Banach/completeness assumptions on both spaces, the exact bounded-linear-operator encoding, ordinary versus semilinear scope, and the definition of open map. Selecting mathlib's more general semilinear theorem or a narrower real/bijective form at intake would silently alter the received claim.",
+  "canonical_statement": "For both real and complex scalars, every surjective bounded linear operator between Banach spaces is an open map.",
+  "canonical_claim_status": "immutable_modern_source_real_and_complex_Banach_space_statement_frozen_source_proof_gap_and_independent_review_open",
+  "canonical_claim": "Closed conjunction of the ordinary same-field Real and Complex Banach open mapping propositions.",
+  "statement_blocker": "Master acceptance remains pending. The exact statement is elaborated, but its H2 source has a known printed Baire-cover proof gap and no accepted correction or independent review; the stronger pinned semilinear theorem has not been transported or audited for proof credit.",
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0276/Statement.lean",
     "module_candidates": [
       "Mathlib.Analysis.Normed.Operator.Banach"
     ],
@@ -39,20 +39,53 @@
       "ContinuousLinearMap.isQuotientMap",
       "LinearEquiv.continuous_symm"
     ],
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0276.BanachOpenMappingTarget",
+    "elaborated_expression_hash": "sha256:0cfb9796471903d081ad67551a3f9c2c3414cce1f7adbf79394d364a467c82fa",
+    "named_root_expression_hash": "sha256:ec2954c0a55ee364e73f3b49407d1ef62ba1ff03807b1e53771181ef27f04d80",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Analysis.Complex.Basic_pp-universes-explicit",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
-    "gate_state": "open_pending_immutable_source_crosswalk_and_exact_statement_elaboration"
+    "gate_state": "worker_self_tested_pending_master_acceptance"
   },
-  "domain_and_universes": "Open: an accepted source must fix real, complex, or general compatible nontrivially normed scalar fields; universe-polymorphic normed additive commutative groups and normed spaces E and F; completeness of both spaces; and ordinary or semilinear operator structure.",
-  "quantifiers": [],
-  "ordered_binders": [],
-  "hypotheses": [],
-  "conclusion": "Open: IsOpenMap f or a source-faithful expanded/local formulation connected by a checked witness.",
-  "alternate_encodings": [],
-  "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is formally excluded before a proposition is selected; the statement phase must resolve every boundary case in scope-map.md.",
+  "domain_and_universes": "Independent universes u and v; closed Real-and-Complex conjunction; E : Type u and F : Type v with NormedAddCommGroup, same-field NormedSpace, and CompleteSpace structures; ordinary ContinuousLinearMap operators.",
+  "quantifiers": [
+    "real case and complex case (conjunction)",
+    "E : Type u and F : Type v (universal)",
+    "normed additive group, same-field normed-space, and complete-space instances on E and F",
+    "f : E ->L[Real] F or f : E ->L[Complex] F (universal)",
+    "Function.Surjective f (antecedent)"
+  ],
+  "ordered_binders": [
+    "real case, then complex case",
+    "E : Type u",
+    "F : Type v",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E] or [NormedSpace Complex E]",
+    "[CompleteSpace E]",
+    "[NormedAddCommGroup F]",
+    "[NormedSpace Real F] or [NormedSpace Complex F]",
+    "[CompleteSpace F]",
+    "f : ContinuousLinearMap",
+    "Function.Surjective f"
+  ],
+  "hypotheses": [
+    "both spaces are complete normed spaces over the same selected scalar field",
+    "f is a bundled ordinary bounded linear operator",
+    "f is surjective"
+  ],
+  "conclusion": "IsOpenMap f, definitionally expanded by the checked transport to forall open U : Set E, IsOpen (f '' U).",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0276.ExpandedOpenMappingTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0276.banachOpenMappingTarget_iff_expandedOpenMappingTarget"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "incomplete domain or codomain normed spaces",
+    "maps that are not surjective",
+    "semilinear maps between distinct scalar fields"
+  ],
+  "degenerate_case_status": "Trivial spaces, zero maps onto trivial codomains, noninjective surjective maps, and arbitrary independent universes remain included; no injectivity, finite-dimensionality, separability, or nontrivial-carrier premise is added.",
   "candidate_scope_not_credited": [
     "for real or complex Banach spaces E and F, every surjective continuous linear map f : E ->L[k] F is an open map",
     "the pinned semilinear generalization over compatible nontrivially normed fields",
@@ -129,8 +162,8 @@
     }
   ],
   "source_revisions": {
-    "repository_base": "bd81d4853a030765585ef6fed4310484ceb1e458",
-    "repository_base_tree": "fb92fc7476bff9a2ce8c20f1d7be34c6655ca6b4",
+    "repository_base": "902d9ce008e88a35a2307c85355560a230cc33c2",
+    "repository_base_tree": "dfc20d8141f18f6b09a03e818acfff408e836714",
     "repository_record": "Docs/researches/math_theorems.md:1985-1990; exact duplicate at 2260-2265",
     "stage0_projection": "Docs/Stage0_Blueprint.md:7630-7655",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
@@ -140,8 +173,10 @@
     "repository_duplicate_excerpt_sha256": "be93eb081d599e7c4564dcd771df6af8138adb0d7c8406d921bb1515cf26c72f",
     "stage0_projection_excerpt_sha256": "e13d15e4bba3744826a007620d257a6616585a2b9c7b5156fa8ac9c5cb945dc1",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "9da957ca69e4338a96ae99b9e5ad90384ed1994e097482cb8b86313498cd25d1",
-    "execution_dag_sha256": "561c5b4966ca7b5478dcd6ce463847f20906c622517f853051d3a51ad944bd49",
+    "historical_intake_blueprint_sha256": "9da957ca69e4338a96ae99b9e5ad90384ed1994e097482cb8b86313498cd25d1",
+    "historical_intake_execution_dag_sha256": "561c5b4966ca7b5478dcd6ce463847f20906c622517f853051d3a51ad944bd49",
+    "authoritative_blueprint_sha256": "34e913419c1f9e24ed1d91fda9f1450d19f01ab22d60a7af5f9a00152cb04373",
+    "execution_dag_sha256": "b1cd5bf2e918865015bab425e20c42df1c2ad26aff9a4e849960d8bc7539e58c",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -154,6 +189,7 @@
     "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
     "banach_source_sha256": "b046e38a239014c32e2313b4a216edd89198e57351d9c6068a3de7811680bf6c",
     "topology_defs_source_sha256": "db2c0b80e2976b2de31bd62b1aca210d591b2960361357c11ce3105d4a30bfc5",
+    "statement_complex_basic_source_sha256": "2233a892e4a9cbdc9250806652511d921b081773edf6f33e94e5652bb49f1b93",
     "inspected_rotem_notes_commit": "6aeecbd2a7d6df63455f3d7beb273b6b4512dfbc",
     "inspected_rotem_notes_archive_sha256": "664a51f3cdf150ac6522702c67677bde27beb3e291e64dcbfa0b5f1a877dfa47",
     "inspected_rotem_notes_tex_sha256": "2b1acb4cd1e680e4a0e348c48dbd1c07eee1a8847f7b373f00129afccada9bd4",
@@ -170,8 +206,8 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended; representative pinned candidates report propext, Classical.choice, and Quot.sound, while exact foundation acceptance remains open until the target and trust policy are frozen",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, source transport, terminal proof bodies, transitive dependencies, placeholder audit, axioms, and trust closure remain open",
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked definitional statement transport reports propext, Classical.choice, and Quot.sound; no custom axiom or proof of the canonical target is introduced. Full proof trust acceptance remains downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and the single direct statement import Mathlib.Analysis.Complex.Basic. Terminal proof bodies, transitive dependencies, and proof trust closure remain downstream.",
   "computation_profile": "No numerical experiment, floating-point approximation, oracle, native shortcut, generated certificate, or unchecked computation is credited; the intended result is a kernel-checked functional-analysis theorem",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -185,14 +221,20 @@
     "Stage1_Instances/THM-M-0276/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0276/check_intake.py",
     "Stage1_Instances/THM-M-0276/validation.md",
-    "Stage1_Instances/THM-M-0276/intake-receipt.json"
+    "Stage1_Instances/THM-M-0276/intake-receipt.json",
+    "Stage1_Instances/THM-M-0276/Statement.lean",
+    "Stage1_Instances/THM-M-0276/check_statement.py",
+    "Stage1_Instances/THM-M-0276/statement.json",
+    "Stage1_Instances/THM-M-0276/statement-validation.md",
+    "Stage1_Instances/THM-M-0276/statement-receipt.json",
+    "Stage1_Instances/THM-M-0276/validate_statement_artifacts.py"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
     "source_reviewer": "unassigned independent functional-analysis reviewer",
     "formal_reviewer": "unassigned independent Lean reviewer"
   },
-  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or erratum, scalar or completeness boundary, bounded-operator or semilinear encoding, surjectivity or openness definition, boundary decision, canonical target or checked transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact; independent review and master acceptance remain open.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or erratum, scalar or completeness boundary, bounded-operator or semilinear encoding, surjectivity or openness definition, binder or boundary decision, canonical target or checked transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact; independent review and master acceptance remain open.",
   "owned_artifacts": [
     "README.md",
     "instance.json",
@@ -202,7 +244,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json",
+    "validate_statement_artifacts.py"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog gloss, source lead and gaps, proposition-changing scope choices, pinned interfaces, exclusions, and open task DAG. No canonical proposition, source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Worker-self-tested exact statement proposal only. It freezes the ordinary Real-and-Complex Banach open-mapping proposition and a definitional open-map transport, while the H2 source proof gap, independent review, anchor/provenance audit, and all proof/release work remain open. No H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
 }

@@ -1,0 +1,214 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0911",
+  "item_id": "S56-M-0911-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1453,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "二项式定理",
+  "name_en": "Binomial theorem",
+  "canonical_name": "finite binomial expansion of a natural power of a sum",
+  "category": "组合数学 / 计数组合",
+  "category_en": "combinatorics / enumerative combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "(a+b)^n的展开公式",
+  "literal_source_claim_en": "The expansion formula for (a + b)^n.",
+  "source_attribution": "many mathematicians, antiquity (untrusted catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_binomial_expansion_family_identified_with_direct_pinned_candidates_but_coefficient_domain_commutativity_coefficient_sum_exponent_source_mapping_and_boundary_contract_not_frozen",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For every natural n and elements a and b of a commutative semiring, (a + b)^n equals the finite sum from m = 0 through n of a^m times b^(n-m) times the binomial coefficient n choose m.",
+  "target_disposition": "requires_exact_source_domain_commutativity_coefficient_sum_exponent_and_boundary_freeze_before_statement_or_proof_execution",
+  "statement_blocker": "The catalog phrase leaves the coefficient domain, commutativity premise, ordered binders, coefficient cast or scalar action, finite index set, exponent order, and boundary convention implicit. It does not select the commutative-semiring theorem, the more general commuting-elements theorem, or an antidiagonal encoding. No primary edition, theorem/page, assumption and definition crosswalk, correction or errata audit, or independent review is recorded. Selecting a canonical expression at intake would silently supply proposition-changing choices.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Data.Nat.Choose.Sum"
+    ],
+    "declaration_candidates": [
+      "add_pow",
+      "Commute.add_pow",
+      "Commute.add_pow'"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_exact_source_domain_commutativity_coefficient_sum_exponent_and_boundaries_not_frozen",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.Data.Nat.Choose.Sum_intake-api-probe-only"
+  },
+  "domain_and_universes": "Candidate family: R : Type u, a b : R, n : Nat, with either [CommSemiring R] or [Semiring R] plus Commute a b, and the target a Prop. Exact source approval, universe and binder order, algebraic premises, coefficient action, and every foundation choice remain open.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open at exact-statement level: the source-selected natural power of a sum equals a source-selected finite sum of binomial-coefficient-weighted monomials.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is formally excluded before a canonical proposition is frozen. The statement phase must include n = 0 and n = 1 and resolve zero summands, zero or subsingleton coefficient types, characteristic-specific behavior, and the two zero-element boundaries.",
+  "candidate_scope_not_credited": [
+    "the CommSemiring range-sum formula exposed by add_pow",
+    "the Semiring formula under an explicit Commute a b hypothesis exposed by Commute.add_pow",
+    "the antidiagonal natural-scalar-action formula exposed by Commute.add_pow'",
+    "the reversed-exponent range sum using choose symmetry",
+    "polynomial, formal-power-series, natural, integer, rational, real, or complex specializations",
+    "subtraction and multinomial variants"
+  ],
+  "degenerate_cases_to_resolve": [
+    "n = 0 and the single m = 0 term",
+    "n = 1",
+    "a = 0 and b = 0",
+    "the zero or subsingleton coefficient semiring",
+    "positive characteristic and binomial coefficient casts",
+    "commutative structure versus explicit element commutation",
+    "range-sum versus antidiagonal indexing and natural subtraction",
+    "forward equality orientation versus symmetric or reversed-exponent forms"
+  ],
+  "excluded_substitutions": [
+    "a fixed exponent, fixed coefficient type, or numerical example substituted for the general selected root",
+    "an unrestricted noncommutative-semiring statement with no commutation premise",
+    "the multinomial theorem, Pascal's identity, inclusion-exclusion, or a generating-function identity",
+    "the subtraction formula, Frobenius formula, sum of a Pascal row, or another special evaluation",
+    "a polynomial or formal-power-series identity used without a checked relationship to the selected elementwise root",
+    "a reversed power or antidiagonal encoding used without a checked equality or Iff to the selected root",
+    "a structure, hypothesis, custom axiom, oracle, computation, or unchecked certificate containing the desired equality",
+    "the catalog verified label, theorem-name match, API output, or intake probe used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0912",
+      "name": "帕斯卡恒等式",
+      "boundary": "the recurrence for binomial coefficients is a proof ingredient, not the root expansion formula"
+    },
+    {
+      "theorem_id": "THM-M-0913",
+      "name": "容斥原理",
+      "boundary": "a distinct alternating counting principle with no inherited scope or status"
+    },
+    {
+      "theorem_id": "THM-M-0915",
+      "name": "生成函数",
+      "boundary": "a broad method family that can encode binomial coefficients but is not this theorem"
+    },
+    {
+      "theorem_id": "THM-M-0921",
+      "name": "卡塔兰数",
+      "boundary": "a separate combinatorial sequence whose formulas do not replace the binomial expansion"
+    }
+  ],
+  "source_status": "H1_recognizable_classical_theorem_family_and_catalog_phrase_but_no_accepted_primary_edition_pinpoint_domain_premise_definition_errata_mapping_or_independent_review",
+  "human_source_candidates_not_credited": [],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Data.Nat.Choose.Sum",
+      "declaration": "add_pow",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "type_summary": "for a b in a commutative semiring and n : Nat, the range-sum binomial expansion of (a + b)^n",
+      "proof_body_location": "pinned mathlib source at Mathlib/Data/Nat/Choose/Sum.lean",
+      "boundary": "direct conventional exact-topic candidate; canonical expression, source transport, terminal provenance, transitive trust, and anchor-audit acceptance remain open"
+    },
+    {
+      "module": "Mathlib.Data.Nat.Choose.Sum",
+      "declaration": "Commute.add_pow",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "type_summary": "the same range-sum formula in a semiring under the explicit hypothesis Commute a b",
+      "proof_body_location": "pinned mathlib source at Mathlib/Data/Nat/Choose/Sum.lean",
+      "boundary": "more general algebra but with an explicit premise absent from the catalog; it cannot silently replace a source-selected commutative formulation"
+    },
+    {
+      "module": "Mathlib.Data.Nat.Choose.Sum",
+      "declaration": "Commute.add_pow'",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "type_summary": "an antidiagonal binomial expansion using Nat scalar action and no Nat subtraction",
+      "proof_body_location": "pinned mathlib source at Mathlib/Data/Nat/Choose/Sum.lean",
+      "boundary": "alternate-encoding lead only; its relationship to a selected range-sum root must be checked"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "39704171d88ffcdc33a47365ae9791f855fa3a44",
+    "repository_base_tree": "050ab5c6392560337051d2eadd1b82277dbe1c4f",
+    "repository_record": "Docs/researches/math_theorems.md:6665-6670",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:24850-24875",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "a72890a234410179c2d8a58a5d98ac264cfdef5a8a098ebb678b30c1f791569d",
+    "stage0_excerpt_sha256": "e15d0eba4343c17e5966d0ecdc33767db5e04698c6f0f34a1e74a9b4fd43a8f9",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_projection_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "e855533adebfee7df8807e39109e64116ecb8c4efd8d6b3be9e28d719df19ad5",
+    "execution_dag_sha256": "547896837c21613b7c8f784b9af77d8a5320904b677fd48cbfc74bbe19c1b07f",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_choose_sum_blob": "9f2e202cc1f691f55bad4368c33c48ebad63daab",
+    "mathlib_choose_sum_sha256": "24629e74afa48706f470fccab4c8bfadd229e42e07ce8ba2e192aee4af6d3fe3"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended. The inspected pinned candidates report propext, Classical.choice, and Quot.sound; exact transitive trust and the accepted foundation policy remain downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base. The probe imports Mathlib.Data.Nat.Choose.Sum; exact target imports, terminal bodies, transitive dependency closure, executable identity, and trust policy remain open.",
+  "computation_profile": "No symbolic algebra shortcut, native evaluation, oracle, experiment, or unchecked certificate is credited. Kernel-checked small boundary examples in the intake probe only distinguish scope and do not prove or freeze the quantified target.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0911/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0911/README.md",
+    "Stage1_Instances/THM-M-0911/instance.json",
+    "Stage1_Instances/THM-M-0911/scope-map.md",
+    "Stage1_Instances/THM-M-0911/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0911/task-dag.json",
+    "Stage1_Instances/THM-M-0911/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0911/check_intake.py",
+    "Stage1_Instances/THM-M-0911/validation.md",
+    "Stage1_Instances/THM-M-0911/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent history-of-mathematics or combinatorics reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Source and formal reviewers must independently approve the exact coefficient domain, commutativity contract, coefficient and sum conventions, exponents, binders, boundary cases, source mapping, and Lean transports; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source correction, edition, attribution, translation, erratum, coefficient domain, commutativity premise, coefficient action, sum bounds, exponent order, binder, boundary or transport decision, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog phrase, conventional binomial family, proposition-changing choices, direct pinned candidates, non-substitution boundary, and open downstream DAG. H1 records unresolved source reconstruction; M3 records usable exact-topic interfaces without a canonical target or accepted proof; R4 records no source-faithful proof reconstruction. No canonical expression, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
