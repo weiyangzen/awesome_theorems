@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1055-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1055-RELEASE",
+  "theorem_id": "THM-M-1055",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1055/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes the narrow proof replay inside Bubblewrap --unshare-net. The root filesystem is mounted read-only, then Formalizations/Lean is rebound writable because the existing replay script creates and removes a temporary module there; the checker rejects any leftover replay directory. The shared warm dependency cache and writable project subtree make this explicitly nonrelease evidence rather than a cold hermetic release reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1055-ROOT",
+    "M1055-S-DEFINITIONS",
+    "M1055-S-BOUNDARY",
+    "M1055-S-FOUNDATION",
+    "M1055-A-EXTERNAL-INTEGRATION",
+    "M1055-L-POINTWISE-LIMIT",
+    "M1055-L-LIMIT-MEASURABLE",
+    "M1055-L-LIMIT-INVARIANT",
+    "M1055-L-ERGODIC-CONSTANCY",
+    "M1055-L-INTEGRAL-IDENTIFICATION",
+    "M1055-T-INVARIANT-LIMIT",
+    "M1055-T-ASSEMBLE",
+    "M1055-X-SOURCE",
+    "M1055-X-PROVENANCE"
+  ],
+  "kernel_replayed_obligation_ids": [
+    "M1055-ROOT",
+    "M1055-T-INVARIANT-LIMIT",
+    "M1055-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1055.BirkhoffErgodicTarget",
+    "Stage1Instances.THM_M_1055.root_of_invariantLimitPackage",
+    "ErgodicTheory.setIntegral_birkhoffSum_pos_nonneg",
+    "ErgodicTheory.condExp_invariants_comp",
+    "ErgodicTheory.ae_tendsto_orbit_div_atTop_zero",
+    "ErgodicTheory.tendsto_birkhoffAverage_ae",
+    "ErgodicTheory.tendsto_birkhoffAverage_ae_integral",
+    "Stage1Instances.THM_M_1055.invariantLimitPackage_proof",
+    "Stage1Instances.THM_M_1055.birkhoffErgodicTarget"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation of immutable provisional proof and validation receipts plus a fresh narrow warm-cache Lean replay. It cannot master-accept the validation dependency, reconcile the frozen external route or authoritative graph, supply H0/R0 or AUDIT-Z, accept foundation/provenance/TCB closure, provide a clean cold offline build, independent attestations or verifier, protected CI, or assemble a deterministic release bundle."
+}
