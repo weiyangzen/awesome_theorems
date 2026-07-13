@@ -1,0 +1,115 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0063-STATEMENT",
+  "theorem_id": "THM-M-0063",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "intake_selected_conventional_regular_action_scope_and_exact_lean_expression_frozen_primary_source_fidelity_open",
+  "canonical_statement": "For every group G, the left-regular permutation action identifies G with its image subgroup in the full permutation group on the underlying set of G.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0063/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0063.CayleyTheoremTarget",
+    "elaborated_expression_sha256": "40929846f1d1d1ff4479e5be6a989358a65ecebec5a2646f6e2dab508c641a1a",
+    "statement_file_sha256": "37e52256a1a3d1e5e56a00888309b208d7f2c2ee1b45932ac761c5f01e3bf950",
+    "serialization": "Statement.lean emits the target with pp.universes=true and pp.explicit=true. check_statement.py extracts the exact printed expression bytes and binds them to the expression and complete Lean-output SHA-256 values."
+  },
+  "domain_and_universes": "universe u; G : Type u; [Group G]; target Prop in universe 0; the permutation group and range subgroup are constructed on the same carrier G without finiteness or decidable-equality assumptions.",
+  "ordered_binders": [
+    "G : Type u (universal)",
+    "[Group G] (implicit typeclass binder)",
+    "Nonempty of the multiplicative equivalence (conclusion)"
+  ],
+  "hypotheses": [
+    "Group G"
+  ],
+  "conclusion": "Nonempty (G ≃* (MulAction.toPermHom G G).range), where the inferred Monoid.toMulAction is left multiplication and the codomain is the image subgroup in Equiv.Perm G.",
+  "direct_imports": [
+    "Mathlib.Algebra.Group.Action.End",
+    "Mathlib.Algebra.Group.Subgroup.Ker"
+  ],
+  "minimal_import_basis": "The first module supplies MulAction.toPermHom and permutation-group vocabulary; the second supplies MonoidHom.range and its Subgroup carrier. Deleting either direct import makes Statement.lean fail. The broader proof-bearing Mathlib.GroupTheory.Perm.Subgroup module is deliberately absent and Equiv.Perm.subgroupOfMulAction is checked unavailable.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0063.PermutationSubgroupExistenceTarget",
+      "relationship": "implies",
+      "checked_witness": "Stage1Instances.THM_M_0063.cayleyTheoremTarget_implies_permutationSubgroupExistenceTarget",
+      "boundary": "This is the catalog's literal existence of some permutation subgroup, using the same underlying carrier. Only the checked canonical-to-existential direction is credited."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "isomorphism to an existential subgroup of Equiv.Perm X for a separately quantified carrier X",
+    "an injective homomorphism into a permutation group without the checked isomorphism-to-range bridge",
+    "the generalized faithful-action theorem Equiv.Perm.subgroupOfMulAction G H"
+  ],
+  "degenerate_cases": {
+    "included": [
+      "the trivial group",
+      "finite groups",
+      "infinite groups and groups acting on infinite underlying carriers"
+    ],
+    "excluded_assumptions": [
+      "Nontrivial G",
+      "Finite G or Fintype G",
+      "DecidableEq G",
+      "CommGroup G",
+      "countability"
+    ],
+    "checked_surfaces": [
+      "Stage1Instances.THM_M_0063.trivialGroupBoundary",
+      "Stage1Instances.THM_M_0063.infiniteCarrierBoundary"
+    ]
+  },
+  "regular_action_orientation": "The inferred Monoid.toMulAction uses left multiplication, so MulAction.toPermHom sends g to the permutation x |-> g * x. No right-action, opposite-group, or inversion transport is credited.",
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "action_end_source_sha256": "befe42ad32661f6f92d22a27e876403849d8044e439c362e745c8d64ff142bda",
+    "subgroup_ker_source_sha256": "9269396e790bc8dcb0105cfb87897bff48fca981d62dd43e8c6840187217bfa1",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory. The checked statement transport reports propext, Classical.choice, and Quot.sound; no custom axiom is introduced. Complete transitive trust closure is downstream.",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib revision 8a178386ffc0. Only two statement-vocabulary imports are frozen. The terminal Cayley proof body, declaration provenance, and trust closure are not inspected or credited here.",
+  "computation_profile": "kernel-existence-only-planned/1.0: no enumeration, finite Cayley table, experiment, native computation, oracle, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0063/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "surface": "the target body with [Group G] removed",
+        "result": "Lean rejects the expression because the required group and multiplication instances cannot be synthesized"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedDomain",
+        "result": "the arbitrary group domain is restricted to CommGroup and the explicit expression differs"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope",
+        "result": "the universal group binder becomes existential and the explicit expression differs"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludedTrivialBoundary",
+        "result": "adding Nontrivial G excludes the trivial boundary and the explicit expression differs"
+      }
+    ]
+  },
+  "source_fidelity_boundary": "The repository gloss and intake identify the conventional modern theorem, but no independently reviewed primary edition, passage, historical definition transport, proof crosswalk, or errata packet is accepted. This freezes the conventional repository scope, not H0 source fidelity.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration, one checked implication transport, mutation tests, boundary surfaces, and import-deletion tests only. The proof-bearing Cayley anchor is excluded from the import closure. Anchor audit, obligation tree, proof, validation, release, audit completion, theorem completion, and master acceptance remain open."
+}

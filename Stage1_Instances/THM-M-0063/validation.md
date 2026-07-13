@@ -1,11 +1,12 @@
-# Intake validation
+# Historical intake validation
 
 ## Boundary
 
-This validates only the `S56-M-0063-INTAKE` dossier. It checks target membership, the planned
+This records the earlier `S56-M-0063-INTAKE` worker run at its cited base. It checked target membership, the planned
 scope packet and open task DAG, exact source-record provenance, dependency pins, and the adjacent
-Cayley-theorem API plus its regular-action specialization. It does not accept a canonical Lean
-target or validate theorem closure.
+Cayley-theorem API plus its regular-action specialization. It did not accept a canonical Lean
+target or validate theorem closure. The later statement node supersedes its open-statement claims;
+its commands and hashes are historical and are not cited as current statement evidence.
 
 The immutable worker base is Git revision
 `c5f6fb269f6eb84efa935ee66c4e9bab92495e61`, tree
@@ -14,6 +15,10 @@ The immutable worker base is Git revision
 the canonical pinned environment. The symlink and packages were used read-only. No `lake update`,
 `lake build`, clone, fetch, or dependency mutation was run; this dirty worker packet is nonrelease
 evidence.
+
+The historical `check_intake.py` intentionally binds that pre-statement shape and no longer exits
+zero on the expanded dossier. Current statement validation is owned by `check_statement.py` and
+`statement-validation.md`; the old intake command results below are not replay claims for HEAD.
 
 ## Commands and results
 
@@ -34,8 +39,9 @@ evidence.
 
 ## Result
 
-The intake is self-tested and proposes `[_]` for integration review. Lifecycle remains `planned`;
+At the cited intake snapshot, the intake was self-tested and proposed `[_]` for integration review.
+Lifecycle remains `planned`;
 the provisional root is `[H1, M3, R4]`; `audit_complete=false` and `theorem_complete=false`. The
-first unclosed acceptance gate is integration-lane replay and master acceptance. The first
-downstream mathematical gate is an independently approved source statement and exact regular-action
-encoding suitable for pinned Lean elaboration, fingerprinting, and statement mutations.
+first unclosed intake acceptance gate is integration-lane replay and master acceptance. The exact
+regular-action target is now provisionally elaborated and fingerprinted by the separate statement
+artifacts; H0 source fidelity, all proof gates, and master acceptance remain open.

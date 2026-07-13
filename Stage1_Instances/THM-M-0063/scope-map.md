@@ -7,27 +7,31 @@ group. In the standard modern reading, an arbitrary group `G` maps each `g` to t
 `x |-> g * x` of its underlying set. This left-regular representation is injective, so `G` is
 isomorphic to its image, a subgroup of `Equiv.Perm G`.
 
-That paragraph is a scope description, not the frozen canonical proposition. The statement phase
-must select an exact, source-reviewed encoding and elaborate it in the pinned environment.
+The statement phase freezes that conventional repository scope as
+`Stage1Instances.THM_M_0063.CayleyTheoremTarget`. It is not an H0 claim about an independently
+reviewed historical passage.
 
 ## Decisions required at statement freeze
 
-1. Fix the group carrier universe, the `[Group G]` binder, and whether the theorem is represented as
-   a universally quantified declaration or as a construction parameterized by `G`.
-2. Define "permutation group" as a subgroup of `Equiv.Perm X` for an explicitly quantified carrier
-   `X`; decide whether `X` is existential or fixed to the underlying type `G`.
-3. Fix the regular-action orientation. The usual map `g |-> (x |-> g * x)` is a homomorphism under
+The following choices are now fixed by `Statement.lean`:
+
+1. The carrier is `G : Type u`, universally quantified before the implicit `[Group G]` binder.
+2. "Permutation group" is the range subgroup of `Equiv.Perm G`; a checked implication connects it
+   to an existential subgroup formulation on the same carrier.
+3. The regular-action orientation is left multiplication. The map `g |-> (x |-> g * x)` is a homomorphism under
    mathlib's permutation multiplication; right multiplication may require inversion or an
    opposite-group transport.
-4. Decide whether the conclusion exposes an injective `MonoidHom`, an isomorphism to its range, an
-   existential subgroup plus `MulEquiv`, or checked equivalent formulations. An injection alone is
-   not silently identified with the catalog's isomorphism wording.
-5. If `Equiv.Perm.subgroupOfMulAction G G` is selected, fix the action/typeclass synthesis and check
-   the exact specialization, expression fingerprint, minimal import, and declaration provenance.
-6. Freeze the foundation, choice and quotient policy. The inspected declaration reports `propext`,
-   `Classical.choice`, and `Quot.sound`; no smaller trust claim is made at intake.
-7. Resolve all ordered binders, implicit typeclasses, conclusion, alternate directions, mutation
-   tests, environment fingerprint, source passage, correction history, and independent review.
+4. The conclusion is `Nonempty` of a `MulEquiv` to the regular image range, not merely an injective
+   homomorphism. The reverse direction from the existential subgroup form is not credited.
+5. The exact explicit expression fingerprint is
+   `sha256:40929846f1d1d1ff4479e5be6a989358a65ecebec5a2646f6e2dab508c641a1a`.
+6. The statement vocabulary uses the minimal tested pair `Mathlib.Algebra.Group.Action.End` and
+   `Mathlib.Algebra.Group.Subgroup.Ker`; the proof-bearing anchor remains outside the import closure.
+7. The checked transport reports `propext`, `Classical.choice`, and `Quot.sound`. Full transitive
+   trust closure remains downstream.
+
+Exact primary-source passage review, correction history, independent source review, anchor
+provenance, and proof closure remain open.
 
 ## Degenerate and boundary cases
 
@@ -57,5 +61,6 @@ must carry the subgroup structure used by the claimed `MulEquiv`.
 - The catalog's `已验证` label, a successful `#check`, or an upstream theorem name is not accepted
   source or proof evidence.
 
-No canonical Lean expression, statement fingerprint, alternate encoding, obligation registry, or
-proof state is frozen by this intake.
+The exact Lean expression, one directional alternate-encoding transport, mutation classes, and
+environment fingerprint are frozen provisionally by the statement artifacts. No canonical
+obligation registry, proof state, accepted receipt, or theorem-completion state is frozen.

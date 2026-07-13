@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "item_id": "S56-M-0043-VALIDATION",
+  "theorem_id": "THM-M-0043",
+  "recipe_id": "VAL-M0043-NARROW-KERNEL-TRUST-PROVENANCE-DIFFERENTIAL",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0043/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The recipe performs no network operation; this worker did not provision a kernel network namespace, so absence of observed network use is not release-grade network isolation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact five-line PASS/STALE/BLOCKED gate summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0043-ROOT",
+    "M0043-N-NORMAL-COMMUTE",
+    "M0043-C-HERMITIAN-PARTS",
+    "M0043-L-H-HERMITIAN",
+    "M0043-L-K-HERMITIAN",
+    "M0043-T-M-RECONSTRUCT",
+    "M0043-L-HK-COMMUTE",
+    "M0043-T-LINEAR-COMMUTE",
+    "M0043-C-JOINT-EIGENSPACE",
+    "M0043-L-JOINT-DECOMP",
+    "M0043-L-JOINT-ORTHOGONAL",
+    "M0043-L-FINITE-EIGENVALUES",
+    "M0043-B-NONZERO-SUBTYPE",
+    "M0043-L-SUBORDINATE-BASIS",
+    "M0043-C-BASIS-REINDEX",
+    "M0043-C-EIGENVALUES",
+    "M0043-L-BASIS-EIGENVECTORS",
+    "M0043-L-UNITARY-BASIS",
+    "M0043-C-UNITARY-MATRIX",
+    "M0043-L-MATRIX-EIGEN-RELATION",
+    "M0043-T-CONJUGATED-DIAGONAL",
+    "M0043-T-ROOT-COMPOSE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0043.ObligationTree.root_of_exactConjugatedDiagonalAnchor",
+    "Stage1Instances.THM_M_0043.Proof.commutingHermitianParts_conjugatedDiagonal",
+    "Stage1Instances.THM_M_0043.Proof.normalComplexConjugatedDiagonal",
+    "Stage1Instances.THM_M_0043.Proof.spectralTheorem_via_frozen_composition",
+    "Stage1Instances.THM_M_0043.Validation.differentialCommutingHermitianDiagonalization",
+    "Stage1Instances.THM_M_0043.Validation.differentialSpectralTheorem"
+  ],
+  "coverage_boundary": "Narrow warm-cache trust-level-zero replay covers the 22 proof IDs mapped by the proof receipt's three composition certificates, exact local input and selected dependency provenance, and a same-worker duplicate proof route with independently inlined root composition. M0043-T-OPERATOR-DECOMP is not mapped by any proof-receipt certificate and is excluded. This is not implementation-diverse corroboration. Cold hermetic/offline replay, complete transitive TCB/SBOM closure, master reconciliation, and distinct-runner independent verification are fail-closed."
+}
