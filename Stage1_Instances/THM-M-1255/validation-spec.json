@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1255-VALIDATION-local-v1",
+  "item_id": "S56-M-1255-VALIDATION",
+  "theorem_id": "THM-M-1255",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1255/check_validation.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 1200,
+  "network_policy": "denied",
+  "network_enforcement": "Each Lean subprocess runs under bubblewrap --unshare-net with a read-only host root, a writable disposable output directory, and a cleared environment.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact summary and SHA-256 recorded in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1255-S-DEFINITIONS",
+    "M1255-L-COMMUTE",
+    "M1255-C-ACTION",
+    "M1255-T-ASSEMBLE"
+  ],
+  "audited_open_obligation_ids": [
+    "M1255-ROOT",
+    "M1255-N-FOURIER",
+    "M1255-L-DIVISION",
+    "M1255-C-FUNDSOL",
+    "M1255-S-BOUNDARY",
+    "M1255-S-FOUNDATION",
+    "M1255-X-SOURCE",
+    "M1255-X-PROVENANCE",
+    "M1255-X-READABLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1255.MalgrangeEhrenpreisTarget",
+    "Stage1Instances.THM_M_1255.root_of_action_and_fundamental_packages",
+    "Stage1Instances.THM_M_1255.Proof.coordinateDerivatives_commute",
+    "Stage1Instances.THM_M_1255.Proof.exponentAction_single",
+    "Stage1Instances.THM_M_1255.Proof.polynomialAction_map_X",
+    "Stage1Instances.THM_M_1255.Proof.polynomialActionPackage",
+    "Stage1Instances.THM_M_1255.Validation.differentialCoordinateDerivativesCommute",
+    "Stage1Instances.THM_M_1255.Validation.differentialPolynomialActionExists"
+  ],
+  "scope_boundary": "Trust-zero, fresh-output, network-isolated worker replay of the canonical statement source, conditional composition, local commutation/action proofs, and a non-Proof-importing differential reconstruction. Exact canonical linkage is limited by ObligationTree duplicating rather than importing Statement. The Fourier/division/fundamental-solution root branch is open; complete provenance/TCB, cold empty-cache reproduction, and distinct-runner verification fail closed."
+}
