@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1009-VALIDATION-local-v1",
+  "item_id": "S56-M-1009-VALIDATION",
+  "theorem_id": "THM-M-1009",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "Stage1_Instances/THM-M-1009/check_validation.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 360,
+  "network_policy": "denied_by_recipe_contract_not_host_enforced",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "gate decisions and boundaries are reproduced in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1009-ROOT",
+    "M1009-S-EVENTS",
+    "M1009-S-DIVERGE",
+    "M1009-B-ZERO",
+    "M1009-N-COUNT",
+    "M1009-L-SECOND-MOMENT",
+    "M1009-L-TAIL",
+    "M1009-L-RATIO",
+    "M1009-L-CONTINUITY",
+    "M1009-T-ASSEMBLE",
+    "M1009-X-ANCHOR",
+    "M1009-X-TCB",
+    "M1009-W-VALIDATE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1009.ErdosRenyiLowerBoundTarget",
+    "Stage1Instances.THM_M_1009.erdosRenyiLowerBoundTarget",
+    "Stage1Instances.THM_M_1009.erdosRenyiObligationRoot_via_frozen_composition",
+    "Stage1Instances.THM_M_1009.Validation.independentRootFromInterfaces",
+    "Stage1Instances.THM_M_1009.Validation.exactTargetProbe"
+  ],
+  "allowed_observed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "release_grade": false,
+  "scope_boundary": "Fresh temporary-source kernel replay over the existing pinned warm dependency closure, local trust/provenance checks, and an independently written final-composition probe. Cold empty-cache offline hermetic reproduction and distinct-runner independent verification are evaluated fail-closed."
+}

@@ -127,19 +127,24 @@ if selftest_path.exists():
         == {"item_id", "changed_paths", "commands", "output_summary", "base_revision", "known_failures", "state"},
         "wrong self-test schema",
     )
-    require(selftest["item_id"] == "S56-M-1009-PROOF", "wrong self-test item")
     require(selftest["state"] == "[_]", "wrong self-test state")
-    require(selftest["base_revision"] == receipt["base_revision"], "wrong self-test base")
-    require(selftest["changed_paths"] == receipt["changed_paths"], "self-test paths differ from receipt")
-    require(selftest["known_failures"] == receipt["known_failures"], "self-test failures differ from receipt")
-    status_output = subprocess.check_output(
-        ["git", "status", "--short", "--untracked-files=all"], cwd=ROOT, text=True
-    )
-    actual_changes = {
-        line[3:]
-        for line in status_output.splitlines()
-        if line[3:] != "Formalizations/Lean/.lake"
-    }
-    require(actual_changes == set(selftest["changed_paths"]), "self-test changed-path inventory is stale")
+    if selftest["item_id"] == "S56-M-1009-PROOF":
+        require(selftest["base_revision"] == receipt["base_revision"], "wrong self-test base")
+        require(selftest["changed_paths"] == receipt["changed_paths"], "self-test paths differ from receipt")
+        require(selftest["known_failures"] == receipt["known_failures"], "self-test failures differ from receipt")
+        status_output = subprocess.check_output(
+            ["git", "status", "--short", "--untracked-files=all"], cwd=ROOT, text=True
+        )
+        actual_changes = {
+            line[3:]
+            for line in status_output.splitlines()
+            if line[3:] != "Formalizations/Lean/.lake"
+        }
+        require(actual_changes == set(selftest["changed_paths"]), "self-test changed-path inventory is stale")
+    else:
+        require(
+            selftest["item_id"] == "S56-M-1009-VALIDATION",
+            "self-test belongs to an unrelated item",
+        )
 
 print("PASS THM-M-1009 proof phase: exact frozen root is provisionally kernel-closed")
