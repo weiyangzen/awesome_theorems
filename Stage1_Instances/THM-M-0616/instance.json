@@ -1,0 +1,194 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0616",
+  "item_id": "S56-M-0616-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1310,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "连续性定义",
+  "name_en": "Equivalence of epsilon-delta and open-preimage continuity",
+  "canonical_name": "Equivalence of metric epsilon-delta and topological open-preimage definitions of continuity",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "ε-δ定义与开集原像定义等价",
+  "literal_source_claim_en": "The epsilon-delta definition and the open-preimage definition are equivalent.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_continuity_equivalence_family_with_inspected_real_source_route_and_direct_pinned_interfaces_but_exact_domain_scope_predicates_binders_and_transport_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not choose real, metric, or pseudometric domain and codomain; global, pointwise, or on-set continuity; open-preimage versus local-neighborhood packaging; epsilon-delta quantifier order and strictness; topology-distance compatibility; ordered binders; or boundary cases. The inspected modern source proves a real-to-real route, while the direct pinned Lean candidate is a universe-polymorphic two-pseudometric-space characterization. Selecting either as the canonical root at intake would add unapproved generality or substitute a special case.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+      "Mathlib.Topology.Continuous",
+      "Mathlib.Topology.Defs.Basic"
+    ],
+    "declaration_candidates": [
+      "continuous_def",
+      "Metric.continuous_iff",
+      "Metric.continuousAt_iff",
+      "Metric.continuousOn_iff"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression_status": "direct_open_preimage_and_global_pointwise_relative_epsilon_delta_interfaces_authenticated_for_discovery_only_no_source_ratified_root_or_checked_composition",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Pseudo.Defs_intake-api-probe-only",
+    "gate_state": "blocked_pending_source_root_domain_scope_and_checked_transport_selection"
+  },
+  "domain_and_universes": "Open: an approved source must choose Real -> Real or universe-polymorphic metric or pseudometric spaces, fix the induced topology relationship, and specify all universe and typeclass binders.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: one exact equality or iff between a selected epsilon-delta predicate and the selected open-preimage or local-neighborhood predicate.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; empty and singleton spaces, constant functions, nonseparated pseudometric spaces, empty subsets, and positivity and inequality boundaries remain open.",
+  "candidate_scope_not_credited": [
+    "global continuity between two pseudometric spaces via Metric.continuous_iff composed with continuous_def",
+    "continuity at a point via Metric.continuousAt_iff and a local topological-neighborhood predicate",
+    "continuity on a subset via Metric.continuousOn_iff and an appropriate subspace or within-set topological predicate",
+    "the real-to-real global theorem proved through Lemmas 5.1.1 and 5.1.2 of the inspected modern source",
+    "closed-set, filter, sequential, or neighborhood formulations only after checked source-approved transports"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton source or target spaces",
+    "constant functions and identity functions",
+    "distinct points at pseudodistance zero",
+    "empty subsets and points outside the subset for relative continuity",
+    "epsilon or delta at zero and nonpositive mutations",
+    "strict versus non-strict distance inequalities",
+    "ordinary pointwise versus uniform dependence of delta"
+  ],
+  "excluded_substitutions": [
+    "uniform continuity or THM-M-0633 compact-set uniform continuity",
+    "a pointwise or on-set theorem silently substituted for global continuity",
+    "a real-only theorem silently substituted for a general metric-space theorem or conversely",
+    "sequential, filter, closed-preimage, limit-preservation, or local-neighborhood continuity without checked equivalence",
+    "Lipschitz, Holder, differentiable, measurable, open-map, homeomorphism, or inverse-continuity results",
+    "an assumed desired equivalence, structure projection, theorem-name match, API probe, or untrusted catalog status used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0633",
+      "name": "一致连续性定理",
+      "relationship": "separate theorem that continuous functions on compact sets are uniformly continuous; it supplies no root identity or proof credit here"
+    }
+  ],
+  "source_status": "H1_complete_modern_real_to_real_proof_route_inspected_but_catalog_source_identity_general_metric_scope_definition_transport_errata_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Sidney A. Morris, Topology Without Tears: Including a Graduate Course on Topological Groups, version of August 6, 2024, Section 5.1, printed pages 110-112",
+      "source_url": "https://www.topologywithouttears.net/topbook.pdf",
+      "observed_pdf_sha256": "59f33c9ffc8199210ffff837ca3d18589de69ace6518cf537c8f040e1bf1fbaa",
+      "observed_pdf_size_bytes": 8926811,
+      "candidate_locator": "epsilon-delta definition on page 110; Lemma 5.1.1 on page 111; Lemma 5.1.2 and Definition 5.1.3 on page 112",
+      "candidate_summary": "proves the real-to-real epsilon-delta to local-neighborhood route, the local-neighborhood to open-preimage equivalence, and defines general topological continuity by open preimages",
+      "inspection_status": "author-hosted modern source inspected for theorem-family and proof-route discrimination only; catalog identity, general metric transport, full assumption/conclusion crosswalk, corrections or errata, immutable repository archive, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Continuous",
+      "declaration": "continuous_def",
+      "boundary": "direct explicit open-preimage spelling of Continuous; not the epsilon-delta equivalence by itself"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+      "declaration": "Metric.continuous_iff",
+      "boundary": "direct global epsilon-delta characterization on pseudometric spaces; source-approved generality and composition with the expanded open-preimage predicate remain open"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+      "declaration": "Metric.continuousAt_iff and Metric.continuousOn_iff",
+      "boundary": "distinct pointwise and relative interfaces that demonstrate scope ambiguity rather than root closure"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d257e1e5e5fa003d6e1f26344c0331bf99374fa9",
+    "repository_base_tree": "fa06b50b528e038d182d5479a18296f63fa5eae5",
+    "repository_record": "Docs/researches/math_theorems.md:4573-4578",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:16855-16880",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "211a078d729289deed651d03e71cf74cce8cb0e5001b9a97ce110236897655b6",
+    "execution_dag_sha256": "5c091754245dc1fef96e977027509def199fb67ef9e9f85f68275815a6ba71e0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "inspected_morris_pdf_sha256": "59f33c9ffc8199210ffff837ca3d18589de69ace6518cf537c8f040e1bf1fbaa",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_topology_basic_source_sha256": "db2c0b80e2976b2de31bd62b1aca210d591b2960361357c11ce3105d4a30bfc5",
+    "mathlib_continuous_source_sha256": "352cf4cfbacd5041f609d35a2ac8e58d9e0bfdc83220b75bbe84a377d20d3699",
+    "mathlib_pseudo_defs_source_sha256": "7eccdb0c28bf560f2eb49ca8fd893e1f75e4cdc80f09d4af872fdf017f076c4e",
+    "lake_symlink_target_string_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the probe reports no axioms for continuous_def and propext, Classical.choice, and Quot.sound for the metric candidates, but the exact target and accepted transitive axiom policy remain open",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are intended; minimal imports, normalized expression, checked composition, terminal bodies, transitive declarations, placeholder and unsafe scan, and trust acceptance remain downstream",
+  "computation_profile": "No experiment, numerical continuity test, floating-point estimate, oracle, native shortcut, or unchecked certificate is credited; the expected result is a kernel-checked logical equivalence",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0616/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0616/README.md",
+    "Stage1_Instances/THM-M-0616/instance.json",
+    "Stage1_Instances/THM-M-0616/scope-map.md",
+    "Stage1_Instances/THM-M-0616/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0616/task-dag.json",
+    "Stage1_Instances/THM-M-0616/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0616/check_intake.py",
+    "Stage1_Instances/THM-M-0616/validation.md",
+    "Stage1_Instances/THM-M-0616/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent topology source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned point-set topology reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction; source edition, proof, correction, or erratum finding; real, metric, or pseudometric domain; global, pointwise, relative, neighborhood, open-preimage, quantifier, inequality, topology-distance, binder, alternate-encoding, or boundary decision; Lean target, toolchain or dependency pin, assurance profile, validator, recipe, or owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the catalog gloss, inspected modern real-to-real proof route, proposition-changing scope choices, direct pinned interfaces, exclusions, profiles, and six-node open DAG. No canonical mathematical or Lean proposition, source transport, H0, M0, R0, accepted proof state, audit completion, theorem completion, release, or master acceptance is claimed."
+}
