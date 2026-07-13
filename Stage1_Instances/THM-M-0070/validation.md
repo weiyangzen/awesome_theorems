@@ -6,8 +6,9 @@ Base revision: `2bfb272c83b2089e9b285d48dce2c30616ff6c36`; base tree:
 This validation covers target membership, the planned dossier and open task DAG, repository-source
 provenance, human claim and non-substitution boundaries, primary root-statement inspection, bounded
 external/Lean discovery, pinned environment identity, a narrow Lean vocabulary/proposition-shape
-probe, structured integrity, proof-escape hygiene, and whitespace. It does not validate a canonical
-Lean expression, complete primary proof, external Coq build, or proof closure.
+probe, structured integrity, proof-escape hygiene, and whitespace. Current canonical-statement
+validation is recorded separately in `statement-validation.md`; neither record validates a
+complete primary proof, external Coq build, or proof closure.
 
 The preflight worktree contained only the automation-provided untracked
 `Formalizations/Lean/.lake` symlink to canonical pinned artifacts. It was used read-only. No
@@ -72,22 +73,20 @@ Commands ran from the repository root on 2026-07-13 Asia/Shanghai unless a `cwd`
 
 - No complete primary proof boundary, incorporated assumption ledger, correction/errata decision,
   source-to-node map, or independent H0 review is accepted.
-- No canonical Lean declaration or normalized expression/environment fingerprint is frozen.
-- `Finite`/`Nat.card` versus `Fintype`/`Fintype.card`, oddness encoding, binder order, alternate
-  transports, boundary cases, and required statement mutations remain open.
+- The canonical Lean declaration, expression/environment fingerprints, three encoding transports,
+  binder order, two-import minimality, boundary implications, and required mutation classes are
+  worker-self-tested; master acceptance remains open.
 - The external Coq theorem was not built, trust-audited, pinned as a repository dependency, or
   integrated with Lean, and the bounded pinned-Lean search found no target root.
 - Discovery freeze, obligation registry, typed graphs, proof/composition, readable reconstruction,
   hermetic replay, deterministic bundle, independent verification, release, and master acceptance
   remain open.
 
-These failures prevent statement, audit-completion, and theorem-completion claims. They do not
-invalidate a truthful self-tested `planned` intake. Only the integration lane may accept the
-provisional worker receipt.
+These failures prevent proof, audit-completion, and theorem-completion claims. They do not
+invalidate a truthful self-tested statement proposal. Only the integration lane may accept it.
 
 ## Status boundary
 
-This is provisional worker self-test evidence for `S56-M-0070-INTAKE` only. It supports a planned
-dossier, not an accepted node receipt. No canonical Lean statement, H0, M0, R0, accepted external
-machine status, accepted execution state, audit completion, theorem completion, or master acceptance
-is claimed.
+The command table above is the historical intake record. Current statement evidence lives in
+`statement-validation.md` and remains provisional. No H0, M0, R0, accepted proof state, audit
+completion, theorem completion, or master acceptance is claimed.

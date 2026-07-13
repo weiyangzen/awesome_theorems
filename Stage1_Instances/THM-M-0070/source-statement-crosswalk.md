@@ -31,16 +31,16 @@ mapping, and independent review remain open. Consequently source status is H1, n
 
 | Source token | Content that must survive | Candidate Lean representation | Intake status |
 |---|---|---|---|
-| `All` | universal quantification over group carriers | `{G : Type u}` | candidate; order open |
-| `finite groups` | group structure plus finite carrier | `[Group G] [Finite G]` | included |
-| `order` | cardinality of the group carrier | `Nat.card G` | candidate |
-| `odd` | natural-number oddness of that cardinality | `Odd (Nat.card G)` | candidate |
-| `solvable` | derived series eventually becomes trivial | `IsSolvable G` | pinned vocabulary, mapping review open |
+| `All` | universal quantification over group carriers | `(G : Type u)` | frozen explicit binder |
+| `finite groups` | group structure plus finite carrier | `[Group G] [Finite G]` | frozen ordered binders |
+| `order` | cardinality of the group carrier | `Nat.card G` | frozen; checked `Fintype.card` alternate |
+| `odd` | natural-number oddness of that cardinality | `Odd (Nat.card G)` | frozen; checked modulo-two alternate |
+| `solvable` | derived series eventually becomes trivial | `IsSolvable G` | frozen; checked explicit witness alternate |
 
-The candidate proposition shape is
-`{G : Type u} -> [Group G] -> [Finite G] -> Odd (Nat.card G) -> IsSolvable G`.
-It elaborates in `IntakeProbe.lean` as a `Prop` boundary, but intake does not accept it as the
-canonical Lean expression or fingerprint. That belongs to the statement phase.
+The canonical declaration is `Stage1Instances.THM_M_0070.OddOrderSolvabilityTarget` with shape
+`(G : Type u) -> [Group G] -> [Finite G] -> Odd (Nat.card G) -> IsSolvable G`.
+`Statement.lean` elaborates and serializes its fully explicit expression. This is statement
+identity evidence only, not an inhabitant or proof of the declaration.
 
 ## Formalization record and Lean boundary
 
@@ -68,8 +68,8 @@ nor fixes the exact root's future foundation and TCB profiles.
 
 - accept the complete primary edition and proof boundary, assumptions, corrections, errata, and
   source-to-obligation map under independent review;
-- freeze `Finite`/`Nat.card` versus `Fintype`/`Fintype.card`, oddness representation, binder order,
-  explicit/typeclass solvability encoding, transports, and boundary mutations;
+- obtain master acceptance of the worker-self-tested statement expression, transports, mutations,
+  boundary implications, and minimal-import evidence;
 - perform immutable repo-local, mathlib, and external Lean 4 discovery, while separately deciding
   whether and how the Coq artifact can be pinned or translated without false Lean proof credit;
 - freeze the obligation registry and typed graphs before measuring closure;

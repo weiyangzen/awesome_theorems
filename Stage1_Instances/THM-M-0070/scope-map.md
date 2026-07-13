@@ -16,19 +16,17 @@ primary theorem. "Order" means the cardinality of the group carrier, not the ord
 "Solvable" means group solvability, provisionally represented by mathlib's derived-series
 predicate `IsSolvable`.
 
-## Candidate mathematical boundary
+## Frozen Lean boundary
 
-This is a scope map, not the canonical Lean proposition.
-
-| Component | Candidate representation | Statement-phase decision |
+| Component | Canonical representation | Statement status |
 |---|---|---|
-| group carrier | `G : Type u` | universe and binder order |
-| group structure | `[Group G]` | implicit instance versus explicit parameter |
-| finite premise | `[Finite G]` | `Finite` versus `Fintype` and transports |
-| group order | `Nat.card G` | exact cardinality encoding |
-| oddness | `Odd (Nat.card G)` | factorization versus congruence encoding |
-| solvability | `IsSolvable G` | typeclass conclusion versus explicit derived-series witness |
-| candidate implication | `Odd (Nat.card G) -> IsSolvable G` | exact binder-complete expression and fingerprint |
+| group carrier | `G : Type u` | frozen at arbitrary universe `u` |
+| group structure | `[Group G]` | ordered typeclass binder |
+| finite premise | `[Finite G]` | frozen; checked `Fintype` alternate |
+| group order | `Nat.card G` | frozen; checked `Fintype.card` alternate |
+| oddness | `Odd (Nat.card G)` | frozen; checked `% 2 = 1` alternate |
+| solvability | `IsSolvable G` | frozen; checked explicit derived-series alternate |
+| canonical implication | `Odd (Nat.card G) -> IsSolvable G` | elaborated and fingerprinted |
 
 The primary paper states that all groups considered are finite unless explicitly stated otherwise
 and its displayed root theorem explicitly says "finite groups." Finiteness therefore belongs in
@@ -43,7 +41,8 @@ the source-faithful root even if a later encoding makes it inferable in another 
 - every universe in which the selected finite-group encoding elaborates.
 
 No nontriviality, simplicity, faithfulness, commutativity, or fixed cardinality premise may be added.
-The order-one probe confirms that this included boundary is expressible; it does not prove the root.
+The generic order-one implication and rejected exclusion mutation confirm inclusion of that boundary;
+neither proves the root.
 
 ## Explicit non-substitutions
 
@@ -60,13 +59,14 @@ The order-one probe confirms that this included boundary is expressible; it does
 
 At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, module
 `Mathlib.GroupTheory.Solvable` defines `IsSolvable G` by eventual triviality of `derivedSeries`.
-Additional imports expose `Nat.card`, `Odd`, and the trivial group. The probe validates vocabulary
-and a proposition-shaped expression only. A bounded search of repo-local Lean, pinned mathlib
+`Statement.lean` additionally imports only `Mathlib.SetTheory.Cardinal.Finite`; deleting either
+direct import fails elaboration. Its checked transports freeze the cardinality, oddness, and
+solvability representations. A bounded search of repo-local Lean, pinned mathlib
 sources, and pinned mathlib docs found the Feit-Thompson title only in `docs/1000.yaml`, with no
 declaration mapping. This is intake discovery, not a global absence claim or anchor audit.
 
 ## Gate boundary
 
-`S56-M-0070-STATEMENT` must freeze the exact ordered binders, minimal imports, canonical Lean
-expression, fingerprints, checked alternate encodings, and mutations. The anchor audit must then
-audit Lean and external candidates at immutable revisions. Intake grants no downstream state.
+`S56-M-0070-STATEMENT` is worker-self-tested but awaits master acceptance. The anchor audit must
+next audit Lean and external candidates at immutable revisions. No statement proof credit or
+downstream task state is granted by this dossier.

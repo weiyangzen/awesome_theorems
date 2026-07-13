@@ -1,4 +1,4 @@
-# THM-M-0070 rev-5.6 intake
+# THM-M-0070 rev-5.6 statement dossier
 
 This directory is the fail-closed `planned` intake dossier for `THM-M-0070`, the
 Feit-Thompson odd order theorem. The catalog gloss `奇数阶群可解` is resolved by the
@@ -16,6 +16,13 @@ and checks the order-one boundary. A bounded exact-topic search found no Lean Fe
 the upstream machine-checked result described in the repository is Coq/MathComp, not part of this
 Lean dependency closure.
 
-The provisional vector is `[H1, M4, R4]`. `instance.json` is the structured scope authority and
-`task-dag.json` leaves all six downstream phases open. No canonical Lean expression, H0, M0, R0,
+`Statement.lean` now freezes the exact root as
+`Stage1Instances.THM_M_0070.OddOrderSolvabilityTarget`. Its two inclusion-minimal imports expose
+solvability and finite-cardinality vocabulary. Three checked `Iff` transports cover the
+`Fintype.card`, modulo-two, and explicit derived-series shapes. Four mutation classes and generic
+order-one and commutative-group implications protect the source boundary. `check_statement.py`
+re-elaborates, fingerprints, and import-deletion-tests the complete module.
+
+The provisional vector is `[H1, M3, R4]`. Exact statement/interface evidence does not prove the
+root. Anchor audit, obligation tree, proof, validation, and release remain open. No H0, M0, R0,
 accepted proof state, audit completion, theorem completion, or master acceptance is claimed.

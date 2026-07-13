@@ -24,25 +24,25 @@
   "source_attribution": "Walter Feit and John G. Thompson, 1963",
   "source_status_untrusted": "已验证",
   "canonical_statement": "Every finite group of odd order is solvable.",
-  "canonical_claim_status": "human_mathematical_scope_crosswalked_to_primary_root_exact_lean_expression_fingerprint_and_transports_reserved_for_statement_phase",
+  "canonical_claim_status": "human_scope_and_exact_lean_statement_frozen_worker_self_tested_pending_master_acceptance",
   "canonical_claim": "Every finite group of odd order is solvable.",
-  "statement_blocker": "The human claim is stable and primary-root wording is pinpointed, but the statement phase must accept one exact Lean expression and decide universe and binder order, Finite versus Fintype, Nat.card versus Fintype.card, Odd versus congruence, explicit versus typeclass solvability, checked transports, fingerprints, and mutations.",
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0070/Statement.lean",
     "module_candidates": [
       "Mathlib.GroupTheory.Solvable",
       "Mathlib.SetTheory.Cardinal.Finite"
     ],
-    "declaration_or_expression": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0070.OddOrderSolvabilityTarget",
     "candidate_expression": "{G : Type u} -> [Group G] -> [Finite G] -> Odd (Nat.card G) -> IsSolvable G",
-    "candidate_expression_status": "proposition_shape_elaborated_for_intake_feasibility_only_no_canonical_declaration_or_expression_identity_accepted",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_exact_expression_fingerprint_transports_and_mutations",
+    "candidate_expression_status": "selected_as_canonical_expression_and_worker_self_tested_pending_master_acceptance",
+    "elaborated_expression_hash": "sha256:51024e84c9b068a6de27ff2d3ba0f1e479c02dfd36d8072f3d243d46f3324c93",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_imports-Solvable-Cardinal.Finite_pp-universes-explicit",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-vocabulary-and-shape-probe-only"
   },
-  "domain_and_universes": "Candidate scope: G : Type u in an arbitrary universe, with Group G and Finite G; no nontriviality, simplicity, or commutativity assumption. Exact universe declaration and finite-cardinality interfaces remain statement-phase choices.",
+  "domain_and_universes": "G : Type u in an arbitrary universe, with ordered Group G and Finite G typeclass binders, followed by an explicit Odd (Nat.card G) premise; no nontriviality, simplicity, or commutativity assumption.",
   "quantifiers": [
     "for every finite multiplicative group G"
   ],
@@ -58,14 +58,28 @@
     "the carrier of G is finite",
     "the natural-number cardinality of G is odd"
   ],
-  "conclusion": "G is solvable, provisionally represented by mathlib's IsSolvable derived-series predicate.",
-  "alternate_encodings": [],
+  "conclusion": "G is solvable, represented by mathlib's IsSolvable predicate and checked equivalent to eventual triviality of derivedSeries.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0070.OddOrderFintypeCardTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0070.oddOrderSolvabilityTarget_iff_fintypeCardTarget"
+    },
+    {
+      "target": "Stage1Instances.THM_M_0070.OddOrderModTwoTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0070.oddOrderSolvabilityTarget_iff_modTwoTarget"
+    },
+    {
+      "target": "Stage1Instances.THM_M_0070.OddOrderDerivedSeriesTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0070.oddOrderSolvabilityTarget_iff_derivedSeriesTarget"
+    }
+  ],
   "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No finite odd-order group is excluded. The trivial group of order one is explicitly in scope. The statement phase must test order one, prime order, finite abelian odd order, and representations of finite cardinality and oddness.",
+  "degenerate_case_status": "No finite odd-order group is excluded. Generic boundary implications check inclusion of groups of order one and all finite commutative odd-order groups; the order-one exclusion mutation is rejected.",
   "candidate_scope_not_credited": [
-    "a Fintype.card formulation with a checked equivalence still to be supplied",
-    "Odd (Nat.card G) replaced by Nat.card G modulo 2 equals 1",
-    "IsSolvable expanded to existence of a derived-series index reaching bottom",
+    "the checked Fintype.card, modulo-two, and derived-series forms are alternate encodings, not additional proof targets",
     "the externally machine-checked Coq/MathComp theorem before immutable dependency and cross-system integration review"
   ],
   "excluded_substitutions": [
@@ -164,15 +178,15 @@
   "discovery_protocol_hash": null,
   "root_vector": {
     "H": "H1",
-    "M": "M4",
+    "M": "M3",
     "R": "R4"
   },
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended; the adjacent commutative-group probe reports propext, Classical.choice, and Quot.sound, but the exact root and allowed principle set are not frozen",
-  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact imports, root expression, terminal proof bodies, transitive dependencies, external projects, executable identities, and trust policy remain open",
+  "foundation_profile": "lean4-foundation-planned/1.0: the checked statement transports and boundary implications report only propext, Classical.choice, and Quot.sound; no custom axiom or root inhabitant is introduced, while transitive proof trust remains downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and manifest-pinned mathlib; the two inclusion-minimal statement imports and exact expression are frozen, while terminal proof bodies, transitive dependencies, and accepted trust closure remain open",
   "computation_profile": "No finite-group database, character table, computer algebra system, oracle, native decision result, or unchecked certificate is credited; later computation must be source-mapped and certificate-checked under an approved profile",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -186,7 +200,12 @@
     "Stage1_Instances/THM-M-0070/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0070/check_intake.py",
     "Stage1_Instances/THM-M-0070/validation.md",
-    "Stage1_Instances/THM-M-0070/intake-receipt.json"
+    "Stage1_Instances/THM-M-0070/intake-receipt.json",
+    "Stage1_Instances/THM-M-0070/Statement.lean",
+    "Stage1_Instances/THM-M-0070/check_statement.py",
+    "Stage1_Instances/THM-M-0070/statement.json",
+    "Stage1_Instances/THM-M-0070/statement-receipt.json",
+    "Stage1_Instances/THM-M-0070/statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -209,7 +228,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only. It freezes the human root claim and boundary map, exact primary statement witness, external Coq lead, bounded Lean discovery, pinned vocabulary probe, and open downstream DAG. No canonical Lean expression, complete source audit, accepted external machine evidence, proof credit, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Planned dossier with a worker-self-tested exact statement pending master acceptance. It freezes the canonical Lean expression and environment fingerprints, three checked encoding transports, four mutation classes, and included boundary cases. It supplies no complete source audit, proof credit, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance."
 }

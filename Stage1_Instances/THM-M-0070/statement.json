@@ -1,0 +1,118 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0070-STATEMENT",
+  "theorem_id": "THM-M-0070",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "primary_root_scope_and_exact_lean_expression_frozen_worker_self_tested_pending_master_acceptance",
+  "canonical_statement": "Every finite multiplicative group of odd natural-number cardinality is solvable.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0070/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0070.OddOrderSolvabilityTarget",
+    "elaborated_expression_sha256": "51024e84c9b068a6de27ff2d3ba0f1e479c02dfd36d8072f3d243d46f3324c93",
+    "statement_file_sha256": "9e1c126d56f87c1d7dee24d17b13c9c9822ffba13142e836ecbe2a85055a7dcf",
+    "fully_explicit_expression": "∀ (G : Type u) [inst : Group.{u} G] [Finite.{u + 1} G],\n  @Odd.{0} Nat Nat.instSemiring (Nat.card.{u} G) → @IsSolvable.{u} G inst"
+  },
+  "domain_and_universes": "G : Type u in an arbitrary universe; Group G and Finite G are ordered typeclass binders; the odd-cardinality premise is explicit; the conclusion and complete target are Prop.",
+  "ordered_binders": [
+    "u (universe parameter)",
+    "G : Type u (explicit universal)",
+    "Group G (typeclass binder)",
+    "Finite G (typeclass binder)",
+    "Odd (Nat.card G) (explicit antecedent)"
+  ],
+  "hypotheses": [
+    "G carries a multiplicative group structure",
+    "the carrier of G is finite",
+    "the natural-number cardinality of G is odd"
+  ],
+  "conclusion": "Mathlib's IsSolvable G proposition holds, equivalently some derivedSeries G n is the bottom subgroup.",
+  "direct_imports": [
+    "Mathlib.GroupTheory.Solvable",
+    "Mathlib.SetTheory.Cardinal.Finite"
+  ],
+  "minimal_import_basis": "The solvability module supplies Group, IsSolvable, derivedSeries, and Subgroup; the cardinal module supplies Nat.card, Finite/Fintype cardinality transport, and oddness vocabulary. Deleting either direct import makes the complete statement module fail to elaborate. No aggregate Mathlib import, PUnit boundary import, or proof-bearing odd-order theorem is present.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0070.OddOrderFintypeCardTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0070.oddOrderSolvabilityTarget_iff_fintypeCardTarget",
+      "boundary": "Replaces Finite/Nat.card by Fintype/Fintype.card without changing the group, oddness meaning, universe, or conclusion."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0070.OddOrderModTwoTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0070.oddOrderSolvabilityTarget_iff_modTwoTarget",
+      "boundary": "Replaces Odd (Nat.card G) by Nat.card G % 2 = 1 with the same ordered group and finiteness binders."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0070.OddOrderDerivedSeriesTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0070.oddOrderSolvabilityTarget_iff_derivedSeriesTarget",
+      "boundary": "Expands IsSolvable G to existence of n with derivedSeries G n equal to bottom."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "solvability only for commutative groups, simple groups, Z-groups, or fixed orders",
+    "the external Coq/MathComp target without a checked cross-system integration bridge",
+    "a finite simple odd-order corollary substituted for the full finite-group claim"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0070/check_statement.py",
+    "killed": [
+      {"kind": "removed_hypothesis", "declaration": "mutationRemovedOddness", "expression_sha256": "64acfaf13e733049b90de8c62b7a24c3833653c3b8368ed753e839e7b40533ac"},
+      {"kind": "changed_domain", "declaration": "mutationChangedToCommutativeDomain", "expression_sha256": "62fcb6dacb2efbe63e71486fc7d34f7d35678d50ba8dd38d5440befe75715c41"},
+      {"kind": "changed_binder_scope", "declaration": "mutationChangedOddnessScope", "expression_sha256": "f5806501666717e86ed3b56f9aff2e2b5920e3f368cf90d5503b14b2bbaa266a"},
+      {"kind": "boundary_case", "declaration": "mutationChangedToEvenOrder", "expression_sha256": "abb87ef51f9e80e99680069b25034919ce2a87d434d113ef1abcb5bc3003c8f9"}
+    ],
+    "method": "Each mutation elaborates as a proposition, Lean rejects the term-level substitution relevant to false canonical credit, and the validator requires five pairwise-distinct fully explicit expressions."
+  },
+  "degenerate_cases": {
+    "included": [
+      "groups of order one",
+      "finite commutative odd-order groups",
+      "finite noncommutative odd-order groups",
+      "prime, prime-power, and composite odd orders"
+    ],
+    "excluded": [],
+    "checked_witnesses": [
+      "Stage1Instances.THM_M_0070.target_includes_order_one_group",
+      "Stage1Instances.THM_M_0070.target_includes_commutative_groups"
+    ]
+  },
+  "environment_fingerprint": {
+    "base_revision": "0d2c3bdcd192266bc255ac3d5186da604517145a",
+    "base_tree": "eafbcb48efd51d9cda34f0fc1afe780434abad64",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "solvable_import_source_sha256": "d665fe00fcf4bc1bc072cc053b1e47c8609552627386981feccd81a448b6153b",
+    "cardinal_finite_import_source_sha256": "8de62ef138473b4c4b77917aa453f67b8e203cfb1d2e2c6cb6ebbabf62a9356f",
+    "serialization_options": ["pp.universes=true", "pp.explicit=true"],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "authority_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:7e6d066d7fd1b65c6efde347943fbbc27ded6500dbf7489228b5ab17b5f01bb1",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:f5ccfa9bf564e9a7d6fc31d6953f07c3c0d45eeb5f20106dca8b2fbf66cd7020",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The three checked transports and two boundary implications report only propext, Classical.choice, and Quot.sound; no custom axiom or root inhabitant is introduced. Full transitive proof trust remains downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The two inclusion-minimal imports provide statement interfaces; the odd-order proof, terminal bodies, and transitive trust are not present or credited.",
+  "computation_profile": "No group enumeration, character table, computer algebra, native computation, experiment, oracle, or unchecked certificate is used or credited.",
+  "source_fidelity_boundary": "The inspected primary root exactly says all finite groups of odd order are solvable, but the complete proof boundary, corrections, errata, source-to-node map, and independent H0 review remain open.",
+  "root_vector_before": {"H": "H1", "M": "M4", "R": "R4"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration, three checked encoding transports, four mutation classes, two boundary implications, and minimal-import tests only. No inhabitant of OddOrderSolvabilityTarget, proof credit, M0, audit completion, theorem completion, or master acceptance is claimed."
+}
