@@ -1,0 +1,206 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0975",
+  "item_id": "S56-M-0975-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1509,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Azuma-Hoeffding不等式",
+  "name_en": "Azuma-Hoeffding inequality",
+  "canonical_name": "Azuma-Hoeffding concentration family for martingale differences (exact finite or asymptotic root open)",
+  "category": "组合数学 / 计数组合",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "鞅差序列的集中",
+  "literal_source_claim_en": "Concentration of martingale difference sequences.",
+  "source_attribution": "Kazuoki Azuma / Wassily Hoeffding, 1967 (duplicated catalog metadata; complete attribution audit open)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_azuma_hoeffding_family_primary_azuma_source_and_pinned_exact_topic_candidate_identified_but_exact_root_duplicate_target_boundary_premises_normalization_and_transport_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a finite real martingale-difference sequence with deterministic almost-sure increment bounds, or more generally conditional sub-Gaussian MGF parameters, a one-sided upper-tail probability for the finite sum decays like exp(-epsilon^2/(2 times the summed variance proxy)); lower and two-sided forms are prospective checked descendants.",
+  "target_disposition": "requires_exact_source_and_duplicate_target_resolution_before_statement_or_proof_execution",
+  "statement_blocker": "The duplicated catalog gloss does not select a finite tail versus Azuma's original weighted-sum asymptotic result, martingale versus difference-process encoding, bounded-increment versus conditional sub-Gaussian premises, weights and indexing, one- versus two-sided direction, constants, probability/event encoding, or degenerate cases. It also overlaps the separately owned THM-M-1080 Azuma target. Selecting a familiar modern form at intake would invent a proposition-changing distinction.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Probability.Moments.SubGaussian",
+      "Mathlib.Probability.Martingale.Basic"
+    ],
+    "declaration_candidates": [
+      "ProbabilityTheory.measure_sum_ge_le_of_hasCondSubgaussianMGF",
+      "ProbabilityTheory.HasSubgaussianMGF.sum_of_hasCondSubgaussianMGF",
+      "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc_of_integral_eq_zero"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_source_approved_root_and_checked_source_to_mathlib_transport"
+  },
+  "domain_and_universes": "Open: an approved source must fix the sample-space universe and measurability assumptions, probability measure, natural or finite horizon, filtration, real process or difference sequence, weights, conditional expectation and adaptedness interfaces, bound or variance-proxy type, and all coercions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: an exponential upper, lower, or two-sided tail bound, or an original asymptotic weighted-sum result, for martingale differences. Exact event, sum, exponent, and quantification are open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before statement freeze; empty horizon, zero threshold, zero summed parameter, zero increments, zero measure versus probability measure, a.e. exceptional-set scope, and real division by zero require explicit source and Lean decisions.",
+  "candidate_scope_not_credited": [
+    "finite one-sided upper tail for conditionally sub-Gaussian martingale differences",
+    "finite one-sided upper tail for almost-sure bounded martingale increments",
+    "lower tail obtained by negation",
+    "two-sided absolute tail obtained by a union bound",
+    "Azuma's 1967 weighted-sum MGF and asymptotic results"
+  ],
+  "excluded_substitutions": [
+    "the separately owned THM-M-1080 Azuma statement, graph, receipt, or proof evidence",
+    "independent-variable Hoeffding concentration with no filtration",
+    "McDiarmid, Freedman, Bernstein, maximal, convergence, or iterated-logarithm results",
+    "a uniform-bound special case presented as a varying-bound root",
+    "conditional sub-Gaussian premises silently identified with almost-sure bounded increments without a checked bridge",
+    "a structure or premise that assumes the desired tail or MGF conclusion",
+    "a duplicate catalog record, theorem name, #check, URL, or untrusted verified label used as proof credit"
+  ],
+  "source_status": "H1_matching_Azuma_1967_primary_core_and_exact_topic_pinned_candidate_identified_but_exact_catalog_root_Hoeffding_genealogy_definition_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Kazuoki Azuma, Weighted sums of certain dependent random variables, Tohoku Mathematical Journal, Second Series 19(3) (1967), 357-367, DOI 10.2748/tmj/1178243286; section 1, Lemma 1, and Remark 1 on printed pages 357-358",
+      "observed_pdf_sha256": "cf45e97090958a8d4ab5dae3364cc064bfc6c4611d057bc55f078e68f79464d9",
+      "observed_pdf_bytes": 537047,
+      "status": "J-STAGE scan inspected as a matching historical MGF and bounded-martingale-difference core; exact modern root, Hoeffding contribution, complete definition and proof mapping, corrections or errata, lawful immutable admission, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declaration": "ProbabilityTheory.measure_sum_ge_le_of_hasCondSubgaussianMGF",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "one-sided upper-tail bound for a finite sum of a strongly adapted real process whose initial term is sub-Gaussian and later terms are conditionally sub-Gaussian",
+      "status": "pinned exact-topic declaration elaborates; canonical root, bounded-increment bridge, exact type match, terminal-body provenance, and accepted trust receipt remain downstream"
+    },
+    {
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declaration": "ProbabilityTheory.HasSubgaussianMGF.sum_of_hasCondSubgaussianMGF",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "conditional sub-Gaussian finite-sum MGF aggregation",
+      "status": "supporting bridge only; it cannot select or close the catalog root"
+    },
+    {
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declaration": "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc_of_integral_eq_zero",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "ordinary Hoeffding lemma for a bounded mean-zero random variable",
+      "status": "ordinary rather than conditional interface; no filtration-aware bounded-increment transport is inferred"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "9c75282d42a7ef447d885d1d56997a79418bcd8a",
+    "repository_base_tree": "cc5285432a02107fadffb68c698690d1b98ac5f2",
+    "repository_records": [
+      "Docs/researches/math_theorems.md:7120-7125",
+      "Docs/researches/math_theorems.md:7287-7292"
+    ],
+    "stage0_projection": "Docs/Stage0_Blueprint.md:26578-26603",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "manifest_entry_sha256": "3fea0402da93569ff5cd75a9c74681db4c8564212e6f6d6c7ebd64f69ae8d094",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "8b838b50928f814c8f1250be02504dd42366e1d50b3fc2c885e8b2b0d3b3bbbd",
+    "execution_dag_sha256": "4e9660ad9c7ae52649dc1744e8bb25c1a9d0ac25f7c2566a3ef05fb9d0b836e7",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_record_excerpt_sha256": "2d225e60a0296fac77d1cbafff43935841005ea39d5918e332f49c9e4086fa11",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "stage0_excerpt_sha256": "414b5ff1877acbd13136b60e5519458903cc41e9ccf4929ccd0b6edf03e05186",
+    "azuma_1967_doi": "10.2748/tmj/1178243286",
+    "azuma_1967_jstage_pdf_sha256": "cf45e97090958a8d4ab5dae3364cc064bfc6c4611d057bc55f078e68f79464d9",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_subgaussian_source_sha256": "1261993867efbddb6781a6ce9d0855335fab6891f819062ac83b8d9f6d94c440"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the pinned candidate reports propext, Classical.choice, and Quot.sound, but exact target imports, allowed principles, and accepted foundation profile remain downstream",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact declaration, terminal body, transitive dependencies, executable identities, and trust policy remain open",
+  "computation_profile": "No simulation, numerical tail estimate, oracle, native decision result, or unchecked certificate is credited; the expected route is an ordinary kernel-checked measure-theoretic proof",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0975/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0975/README.md",
+    "Stage1_Instances/THM-M-0975/instance.json",
+    "Stage1_Instances/THM-M-0975/scope-map.md",
+    "Stage1_Instances/THM-M-0975/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0975/task-dag.json",
+    "Stage1_Instances/THM-M-0975/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0975/check_intake.py",
+    "Stage1_Instances/THM-M-0975/validation.md",
+    "Stage1_Instances/THM-M-0975/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent probability-history reviewer",
+    "formal_reviewer": "unassigned independent Lean probability reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Source and formal reviewers must independently approve the exact finite or asymptotic root, martingale-difference definitions, Hoeffding attribution, constants, indexing, degenerate cases, and source-to-Lean transport; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier and external source observation have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source correction, attribution finding, duplicate-target disposition, canonical root, premise or normalization decision, Lean target or transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1080",
+      "name": "Azuma inequality",
+      "boundary": "same catalog gloss but independently owned target, category, lane, scope, statements, receipts, and proof state"
+    },
+    {
+      "theorem_id": "THM-M-0978",
+      "name": "Hoeffding inequality",
+      "boundary": "independent bounded-variable concentration does not by itself establish the martingale-difference theorem"
+    },
+    {
+      "theorem_id": "THM-M-0976",
+      "name": "McDiarmid inequality",
+      "boundary": "bounded-difference functions of independent inputs are a distinct target"
+    }
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the duplicated catalog gloss, inspected Azuma source core, duplicate-target firewall, proposition-changing choices, pinned exact-topic candidate, and open downstream DAG. H1 does not claim an accepted source crosswalk; M3 supplies no canonical-root or proof credit; R4 records no proof reconstruction. No H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
