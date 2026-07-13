@@ -1,0 +1,212 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0618",
+  "item_id": "S56-M-0618-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1312,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "海涅-博雷尔定理",
+  "name_en": "Heine-Borel theorem",
+  "canonical_name": "Heine-Borel compact iff closed-and-bounded theorem family for finite-dimensional real Euclidean space (exact source proposition open)",
+  "category": "拓扑学 / 点集拓扑",
+  "category_en": "topology / point-set topology",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_attribution": "Eduard Heine/Emile Borel; 1895 (catalog metadata only)",
+  "literal_source_claim_zh": "R^n中有界闭集等价于紧集",
+  "literal_source_claim_en": "In R^n, a set is bounded and closed if and only if it is compact.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_finite_dimensional_real_heine_borel_family_and_direct_pinned_interface_identified_but_primary_source_Rn_encoding_dimension_boundedness_binders_and_boundary_cases_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not cite an exact source proposition, define R^n, specify whether n is positive or natural, choose EuclideanSpace Real (Fin n) versus a function-space encoding, define boundedness, state ordered binders or conjunction orientation, or resolve the empty and zero-dimensional cases. Selecting these details, or silently replacing R^n by every proper pseudometric space, would add or broaden unapproved mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "candidate_expression": "forall n : Nat, forall s : Set (EuclideanSpace Real (Fin n)), IsCompact s iff IsClosed s and Bornology.IsBounded s",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_primary_source_selection_Rn_encoding_and_exact_statement_elaboration",
+    "module_candidates": [
+      "Mathlib.Topology.MetricSpace.Bounded",
+      "Mathlib.Analysis.InnerProductSpace.PiL2",
+      "Mathlib.Analysis.Normed.Module.FiniteDimension"
+    ],
+    "declaration_candidates": [
+      "Metric.isCompact_iff_isClosed_bounded",
+      "Metric.isCompact_of_isClosed_isBounded",
+      "Bornology.IsBounded.isCompact_closure",
+      "IsCompact.isClosed",
+      "IsCompact.isBounded",
+      "FiniteDimensional.proper"
+    ],
+    "candidate_relationship": "Metric.isCompact_iff_isClosed_bounded is explicitly documented as Heine-Borel for proper Hausdorff pseudometric spaces. FiniteDimensional.proper can supply properness for a selected finite-dimensional real carrier, but no source-approved checked specialization to the catalog's R^n is frozen at intake.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: the conventional candidate uses n : Nat and subsets of EuclideanSpace Real (Fin n), while the pinned root is universe-polymorphic over a proper Hausdorff pseudometric space. An admitted source must fix the dimension range, carrier encoding, topology, norm, and universe context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: expected family is IsCompact s iff IsClosed s and Bornology.IsBounded s for every subset of real n-space, but dimension, carrier, boundedness, binder order, conjunction orientation, and source-incorporated general facts are not frozen.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "every subset of EuclideanSpace Real (Fin n) is compact if and only if it is closed and bornologically bounded",
+    "the same proposition on Fin n -> Real under the product Euclidean topology and norm",
+    "coordinatewise boundedness transported to bornological boundedness",
+    "closed and bounded implies compact together with separately incorporated compact-implies-closed-and-bounded facts",
+    "the general proper Hausdorff pseudometric-space equivalence specialized to finite-dimensional real space"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_cases_to_resolve": [
+    "n = 0 versus a source convention requiring positive dimension",
+    "the empty set and singleton or finite sets",
+    "all of R^n and other closed unbounded sets",
+    "bounded nonclosed sets and open balls",
+    "closed and open balls, boxes, and boundary-only sets",
+    "empty or fixed subset binders introduced by malformed encodings"
+  ],
+  "excluded_substitutions": [
+    "the general proper-space theorem replacing the literal R^n root without source approval and a checked specialization",
+    "only the closed-and-bounded-implies-compact direction replacing the catalog equivalence",
+    "sequential compactness, total boundedness plus completeness, local compactness, compact closure, or Bolzano-Weierstrass used as an untransported substitute",
+    "a theorem only for intervals, balls, boxes, R, finite sets, or a fixed positive dimension",
+    "an infinite-dimensional normed-space claim, which is false in general",
+    "a ProperSpace instance, theorem name, successful API probe, or premise containing compactness used as root proof credit",
+    "the untrusted verified label used as source or kernel evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0617",
+      "name": "紧致性定理",
+      "catalog_claim": "紧集的闭子集紧，连续像紧",
+      "relationship": "adjacent general compactness facts may be dependencies but do not supply the Euclidean closed-bounded characterization"
+    },
+    {
+      "theorem_id": "THM-M-0619",
+      "name": "波尔查诺-魏尔斯特拉斯定理",
+      "catalog_claim": "紧度量空间序列有收敛子列",
+      "relationship": "sequential compactness formulation is a separate target and grants no statement, proof, or receipt credit here"
+    }
+  ],
+  "source_status": "H1_classical_published_theorem_family_identified_but_primary_edition_exact_proposition_definitions_dimension_assumptions_proof_translation_errata_and_independent_review_open",
+  "human_source_leads_not_credited": [
+    {
+      "lead": "Eduard Heine and Emile Borel historical attribution, with 1895 supplied by the catalog",
+      "status": "catalog-level bibliographic lead only; no immutable edition, theorem/page, exact passage, definitions, assumption map, proof boundary, translation, errata audit, or independent review is admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.MetricSpace.Bounded",
+      "declaration": "Metric.isCompact_iff_isClosed_bounded",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "in a proper Hausdorff pseudometric space, a set is compact if and only if it is closed and bornologically bounded",
+      "status": "direct named interface elaborates; source identity, R^n specialization, expression match, proof-body provenance, dependencies, trust, and receipt acceptance remain open"
+    },
+    {
+      "module": "Mathlib.Analysis.Normed.Module.FiniteDimension",
+      "declaration": "FiniteDimensional.proper",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a finite-dimensional normed space over a locally compact normed field is proper",
+      "status": "specialization bridge ingredient only; carrier and source mapping are not frozen"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Bounded",
+      "declaration": "Metric.isCompact_of_isClosed_isBounded",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a closed bounded set in a proper pseudometric space is compact",
+      "status": "one equivalence direction only; not the catalog root by itself"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Bounded",
+      "declaration": "Bornology.IsBounded.isCompact_closure",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the closure of a bounded set in a proper pseudometric space is compact",
+      "status": "related consequence and possible proof bridge, not the exact root"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d257e1e5e5fa003d6e1f26344c0331bf99374fa9",
+    "repository_base_tree": "fa06b50b528e038d182d5479a18296f63fa5eae5",
+    "repository_record": "Docs/researches/math_theorems.md:4587-4592",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:16909-16934",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "934a7a370ef8ab1a4bd22f8def786f5fe65de4e19e18f65de750063845167a99",
+    "stage0_projection_excerpt_sha256": "2828bc72d12ea80fb4e6eeaaf2f5e5de5aeed859078f159871af2eb2cadf3704",
+    "manifest_entry_sha256": "3c4078fd428b786a1e2644c5cacd4eea6c691c1fc837d2357bf2218277c0713b",
+    "execution_dag_intake_entry_sha256": "79027ea4c4ab1d680143e41fe54652a41ce6165290ef5674cb3828713fb4da64",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "211a078d729289deed651d03e71cf74cce8cb0e5001b9a97ce110236897655b6",
+    "execution_dag_sha256": "5c091754245dc1fef96e977027509def199fb67ef9e9f85f68275815a6ba71e0",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_metric_bounded_sha256": "434872d266b7ccede0f880b48d653cb37d98bf8897910aaacd0b740d717921f6",
+    "mathlib_finite_dimension_sha256": "9a9b89f4afd9aa812106f5d1e97eb0fc7e1f7bfe51378983d76c179a9bb9905f",
+    "mathlib_euclidean_space_sha256": "4df49dd497992b022f3d18ee79ea0ae5536be7a452779b4c2400b1d136b7a2bb"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the direct pinned candidates report propext, Classical.choice, and Quot.sound, but no exact target or accepted transitive axiom policy is frozen at intake",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact root imports, Euclidean specialization, terminal proof-body provenance, declaration dependencies, and transitive trust closure remain open",
+  "computation_profile": "No numerical compactness experiment, solver output, oracle, generated cover, native evaluator, or unchecked certificate is credited; the intended result is a kernel-checked noncomputable existence/equivalence theorem",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0618/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0618/README.md",
+    "Stage1_Instances/THM-M-0618/instance.json",
+    "Stage1_Instances/THM-M-0618/scope-map.md",
+    "Stage1_Instances/THM-M-0618/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0618/task-dag.json",
+    "Stage1_Instances/THM-M-0618/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0618/check_intake.py",
+    "Stage1_Instances/THM-M-0618/validation.md",
+    "Stage1_Instances/THM-M-0618/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, primary edition or erratum, attribution or date resolution, R^n carrier or dimension choice, boundedness, equivalence direction, binder or boundary decision, canonical Lean target or checked specialization, toolchain or dependency pin, assurance profile, validator, or any owned-artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the literal R^n closed-bounded-compact gloss, conventional Euclidean candidate, direct pinned Heine-Borel and finite-dimensional properness interfaces, unresolved proposition choices, and open task DAG. No exact canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
