@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-release-recipe/1.0",
+  "recipe_id": "S56-M-1520-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1520-RELEASE",
+  "theorem_id": "THM-M-1520",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1520/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 120,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker performs structural and content-addressed reconciliation only and makes no network request. It deliberately does not invoke the historical validation checker, which is bound to its prior base and phase-specific worker packet rather than this integrated revision.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact five-line negative release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1520-ROOT",
+    "M1520-S-FOUNDATION",
+    "M1520-C-VARIATION",
+    "M1520-T-ALL-TIMES",
+    "M1520-T-ASSEMBLE",
+    "M1520-X-SOURCE",
+    "M1520-X-PROVENANCE",
+    "M1520-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_1520.LiouvilleStatement",
+    "Stage1.THM_M_1520.LiouvilleAnalyticPackage",
+    "Stage1.THM_M_1520.liouvilleStatement_of_analyticPackage"
+  ],
+  "scope_boundary": "Fail-closed reconciliation of the current structured authority and provisional validation receipt. This recipe proves only the negative release verdict. It cannot supply dependency acceptance, the missing analytic package, H0/R0 review, complete provenance/TCB/SBOM, cold offline reproduction, distinct-runner verification, a deterministic bundle, or master acceptance."
+}
