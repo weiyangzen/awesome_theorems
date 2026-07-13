@@ -1,0 +1,110 @@
+# THM-M-0119 proof-phase recheck at base 499a718c
+
+Item: `S56-M-0119-PROOF`
+
+Intent: `prove`
+
+Recheck date: 2026-07-14 (Asia/Shanghai)
+
+Base revision: `499a718cc7926abaf61e9721fe0d7485059403e6`
+
+Base tree: `ed2a23c0266f4d921ad97562392226015eee80be`
+
+## Verdict
+
+`blocked`. No consistent positive proof body exists for the exact frozen Lean
+target. The existing placeholder-free declaration
+
+```text
+Stage1Instances.THMM0119.not_kawamataViehwegVanishingTarget :
+  Not (Stage1Instances.THMM0119.KawamataViehwegVanishingTarget.{0, 0})
+```
+
+kernel-checks at trust level zero against a freshly compiled temporary
+`Statement.olean`. A universe-polymorphic proof of the positive target would
+specialize to universes `(0, 0)` and contradict this declaration.
+
+The model takes `k := Rat`, `X := Spec Rat`, unit divisor types, every named
+geometric proposition equal to `True`, and every cohomology group equal to
+`Int`. Specializing a purported root proof at degree one produces
+`Subsingleton Int`, so `Subsingleton.elim` forces `(0 : Int) = 1`, contrary to
+`Int.zero_ne_one`. Lean reports exactly `propext`, `Classical.choice`, and
+`Quot.sound` for the refutation.
+
+This refutes the frozen abstract encoding, not the mathematical
+Kawamata--Viehweg vanishing theorem. The geometric propositions and
+`cohomologyModelsDivisorialSheaf` are independent fields, with no law tying
+them to the arbitrary `cohomology` family. Adding such a law during this phase
+would change the frozen target. The conditional composition lemmas in
+`ObligationTree.lean` consume degreewise vanishing or an already-proved
+vanishing conclusion and therefore cannot supply the missing proof.
+
+No positive proof body, proof receipt, or frozen-obligation closure was added.
+The proof item remains `[ ]`; the authoritative predecessor vector remains
+`[H4, M3, R4]`. `M5` is only the proposed diagnosis for this refutable
+encoding. Audit completion, validation, release, theorem completion, and
+master acceptance remain open. Because the assigned positive phase is not
+complete, `.stage1-worker-selftest.json` is deliberately absent.
+
+## Failed Gate And Retry
+
+The first failed gate is `S56-5.1-EXACT-TARGET-CONSISTENCY` at `M0119-S-DATA`
+and `M0119-S-HYP`. The remaining root cut set is
+`S56-M-0119-STATEMENT`, `M0119-S-DATA`, `M0119-S-HYP`, and `M0119-ROOT`.
+
+Positive proof work can resume only after reopening the statement phase,
+replacing the disconnected stand-ins with native or law-bearing definitions
+that genuinely tie the klt, divisor, positivity, divisorial-sheaf, and
+cohomology data together without assuming vanishing, accepting a new statement
+fingerprint and obligation-registry version, and rerunning statement mutation,
+anchor audit, obligation-tree construction, and proof execution.
+
+## Validation
+
+Checks ran in this worker clone against the existing pinned Lake closure. The
+automation-provided untracked `Formalizations/Lean/.lake` symlink was reused
+read-only. No `lake update`, `lake build`, dependency clone/fetch, network
+access, or `.lake` mutation was performed. Temporary Lean outputs were written
+under `/tmp`. The first anchor-audit run passed. During final validation, the
+shared canonical `flt-regular` package was concurrently replaced by an
+incomplete repository with no resolvable `HEAD`; the final rerun therefore
+failed closed. This worker did not repair or fetch the dependency.
+
+| Command | Exit | Exact result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | `check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)` |
+| `python3 scripts/stage1_target.py check` | 0 | `stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)` |
+| `python3 scripts/stage1_target.py show THM-M-0119` | 0 | Rank 38; lifecycle `planned`; baseline `L0/rework_required`; legacy artifacts unaccepted; theorem incomplete. |
+| `python3 Stage1_Instances/THM-M-0119/check_obligation_tree.py` | 0 | 33 obligations and 42 typed edges passed; denominator `d9c76b6b...92db`; root remains `M3`. |
+| `python3 Stage1_Instances/THM-M-0119/check_anchor_audit.py` | 0, then 1 | The first run passed. The final rerun failed at `git rev-parse HEAD` for the concurrently replaced shared `flt-regular` package; no moving dependency was fetched. |
+| Direct pinned `lean --trust=0 -t0` replay below | 0 | The exact statement and countermodel refutation elaborated; Lean reports `[propext, Classical.choice, Quot.sound]`. Statement-output SHA-256: `e7402bc1bb4f1bc6255436b7d7635869788000c47450782fa75cf8272dac644b`; proof-output SHA-256: `c6b29f07f5d9175a9aa2439c336d176a5cb200801d6a2769f0fa01754003eb42`. |
+| `rg -n --pcre2 '\b(?:sorry\|admit\|sorryAx\|native_decide)\b\|^[[:space:]]*(?:axiom\|unsafe\|external)\b\|implemented_by' Stage1_Instances/THM-M-0119 --glob '*.lean'` | 1 | Expected no-match result: no prohibited construct occurs in the owned Lean sources. |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD HEAD^{tree}; git -C Formalizations/Lean/.lake/packages/mathlib status --porcelain` | 0 | Mathlib `8a178386...ea95`, tree `bdc39a31...c2b`; the pinned worktree is clean. |
+| `test ! -e .stage1-worker-selftest.json && test ! -e Stage1_Instances/THM-M-0119/proof-receipt.json` | 0 | Completion self-test manifest and positive proof receipt deliberately absent. |
+
+Exact direct Lean replay, run from the repository root:
+
+```bash
+set -euo pipefail
+repo_root=$PWD
+lean_root=$repo_root/Formalizations/Lean
+target=$repo_root/Stage1_Instances/THM-M-0119
+tmp=$(mktemp -d /tmp/thm-m-0119-prooftest.XXXXXX)
+trap 'rm -rf "$tmp"' EXIT
+lean=$HOME/.elan/toolchains/leanprover--lean4---v4.29.0/bin/lean
+lean_path="$(find -L "$lean_root/.lake/packages" \
+  -path '*/.lake/build/lib/lean' -type d -print | sort | paste -sd:)"\
+":$(readlink -f "$lean_root/.lake")/build/lib/lean"\
+":$HOME/.elan/toolchains/leanprover--lean4---v4.29.0/lib/lean"
+cd "$target"
+LEAN_NUM_THREADS=1 LEAN_PATH="$lean_path" timeout 300 \
+  "$lean" --trust=0 -t0 -o "$tmp/Statement.olean" Statement.lean \
+  >"$tmp/statement.log" 2>&1
+LEAN_NUM_THREADS=1 LEAN_PATH="$tmp:$lean_path" timeout 300 \
+  "$lean" --trust=0 -t0 Proof.lean >"$tmp/proof.log" 2>&1
+sha256sum "$tmp/statement.log" "$tmp/proof.log"
+```
+
+The exact hashes, environment, negative declaration, failed gate, and retry
+condition are bound in `proof-recheck-2026-07-14-head-499a718c.json`. This is
+durable blocker evidence, not a positive proof receipt.
