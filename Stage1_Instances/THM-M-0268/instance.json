@@ -1,0 +1,228 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0268",
+  "item_id": "S56-M-0268-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1275,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "勒贝格控制收敛定理",
+  "name_en": "Lebesgue dominated convergence theorem",
+  "canonical_name": "Lebesgue dominated convergence theorem family (exact source and variant open)",
+  "category": "分析学 / 实分析",
+  "category_en": "analysis / real analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_attribution": "Henri Lebesgue; 1902 (catalog metadata only)",
+  "literal_source_claim_zh": "积分与极限交换的条件",
+  "literal_source_claim_en": "Conditions for exchanging an integral and a limit.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_dominated_convergence_family_and_direct_pinned_interfaces_but_exact_source_integral_codomains_ae_conventions_hypotheses_conclusion_bundle_and_transport_open",
+  "canonical_claim": null,
+  "statement_blocker": "The uncited catalog supplies only a theorem name and a broad gloss. It does not fix Bochner integral versus nonnegative lintegral, scalar or normed-space codomain, sequence versus countably generated filter, ordinary or almost-everywhere strong measurability, everywhere or almost-everywhere convergence and domination, the dominator encoding, ordered binders, companion integrability or L1 conclusions, or a pinpoint source proposition. Choosing one pinned declaration as the root at intake would invent or substitute these proposition-changing decisions.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "candidate_expression": "forall F f bound, (forall n, AEStronglyMeasurable (F n) mu) -> Integrable bound mu -> (forall n, norm (F n x) <= bound x almost everywhere) -> (F n x tends to f x almost everywhere) -> integral (F n) tends to integral f",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_primary_source_selection_exact_variant_and_statement_elaboration",
+    "module_candidates": [
+      "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+      "Mathlib.MeasureTheory.Integral.Lebesgue.DominatedConvergence"
+    ],
+    "declaration_candidates": [
+      "MeasureTheory.tendsto_integral_of_dominated_convergence",
+      "MeasureTheory.tendsto_integral_filter_of_dominated_convergence",
+      "MeasureTheory.tendsto_lintegral_of_dominated_convergence",
+      "MeasureTheory.tendsto_lintegral_of_dominated_convergence'",
+      "MeasureTheory.tendsto_lintegral_filter_of_dominated_convergence",
+      "MeasureTheory.hasFiniteIntegral_of_dominated_convergence",
+      "MeasureTheory.tendsto_lintegral_norm_of_dominated_convergence"
+    ],
+    "candidate_relationship": "Pinned mathlib directly labels and implements Bochner and nonnegative lintegral dominated-convergence families. They are exact-topic formal interfaces, but the catalog does not select one variant or provide a source-to-Lean statement transport.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an admitted source must select the measurable carrier and measure, index, scalar field and codomain, integral model, topology, universe levels, and all Lean typeclass assumptions. The leading pinned candidate is universe-polymorphic over a measurable carrier and a real normed-space codomain.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: expected family exchanges the limit and integral under domination, but the catalog does not select a Bochner or lintegral conclusion, sequence or filter convergence, equality versus Tendsto encoding, or companion integrability and L1 conclusions.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "a natural-number sequence of real-, complex-, or real normed-space-valued almost-everywhere strongly measurable functions dominated in norm by one integrable real function and converging almost everywhere, whose Bochner integrals converge",
+    "a sequence of measurable or almost-everywhere measurable nonnegative ENNReal-valued functions order-dominated by a function with finite lintegral, whose lintegrals converge",
+    "a countably generated filter version of either dominated-convergence family",
+    "the limit has finite integral and the sequence converges to it in L1 in addition to convergence of integrals"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the zero measure and measures of infinite total mass",
+    "zero or negative-valued real dominators and whether nonnegativity is derived from domination",
+    "functions or limits changed on null sets",
+    "ordinary versus almost-everywhere measurable representatives",
+    "the limit not separately assumed measurable or integrable",
+    "incomplete normed codomains in mathlib's zero-integral convention",
+    "constant and eventually constant sequences",
+    "bounds finite only almost everywhere or only term by term"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake. The source-approved statement and mutations must resolve every boundary and convention without strengthening hypotheses to assume the conclusion.",
+  "excluded_substitutions": [
+    "monotone convergence, Fatou's lemma, bounded convergence, Vitali convergence, or uniform convergence used as the root target",
+    "a nonnegative lintegral theorem substituted for a source-selected signed or Bochner theorem, or conversely",
+    "a countably generated filter generalization substituted for a sequence theorem without checked specialization",
+    "a series, interval-integral, conditional-expectation, parametric-continuity, or application-specific corollary",
+    "only integrability of the limit or only a limsup inequality used as the exchange-of-integral-and-limit root",
+    "a premise that assumes convergence of integrals, integrability of the limit, or L1 convergence",
+    "the untrusted verified label, declaration name, documentation, API probe, or axiom report used as statement or proof credit"
+  ],
+  "source_status": "H1_classical_published_theorem_family_and_matching_1902_primary_bibliographic_lead_identified_but_exact_edition_proposition_definitions_assumptions_proof_translation_errata_and_independent_review_open",
+  "human_source_leads_not_credited": [
+    {
+      "citation": "H. Lebesgue, Intégrale, Longueur, Aire, 1902, pages 231-359, DOI 10.1007/BF02420592",
+      "status": "Crossref bibliographic metadata inspected and consistent with the catalog attribution and year; no exact proposition, definition chain, proof passage, translation, correction record, lawful immutable source capture, or independent review admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+      "declaration": "MeasureTheory.tendsto_integral_of_dominated_convergence",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a Nat-indexed sequence of almost-everywhere strongly measurable real normed-space-valued functions, uniformly dominated in norm by an integrable real function and converging almost everywhere, has convergent Bochner integrals",
+      "status": "direct exact-topic interface elaborates; source identity, exact expression, proof-body provenance, dependencies, trust and receipt acceptance remain open"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+      "declaration": "MeasureTheory.tendsto_integral_filter_of_dominated_convergence",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "countably generated filter generalization of the Bochner-integral convergence theorem",
+      "status": "stronger indexing interface not selected by the catalog"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.Lebesgue.DominatedConvergence",
+      "declaration": "MeasureTheory.tendsto_lintegral_of_dominated_convergence",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "measurable nonnegative ENNReal-valued sequences with an order dominator of finite lintegral have convergent lintegrals",
+      "status": "direct exact-topic nonnegative variant with a different codomain, integral, and domination convention"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.Lebesgue.DominatedConvergence",
+      "declaration": "MeasureTheory.tendsto_lintegral_of_dominated_convergence'",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "almost-everywhere measurable nonnegative variant",
+      "status": "variant-specific measurability choice absent from the catalog"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.Lebesgue.DominatedConvergence",
+      "declaration": "MeasureTheory.tendsto_lintegral_filter_of_dominated_convergence",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "countably generated filter generalization of the measurable nonnegative lintegral theorem",
+      "status": "combines a broader index/filter encoding with the nonnegative lintegral variant; neither choice is selected by the catalog"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Function.L1Space.HasFiniteIntegral",
+      "declaration": "MeasureTheory.hasFiniteIntegral_of_dominated_convergence",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the pointwise almost-everywhere limit has finite integral under domination",
+      "status": "companion integrability conclusion, not integral convergence by itself"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Function.L1Space.HasFiniteIntegral",
+      "declaration": "MeasureTheory.tendsto_lintegral_norm_of_dominated_convergence",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the lintegral of the norm difference tends to zero under domination",
+      "status": "L1 convergence companion route, not selected as the literal root"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "c2e294becadae6ce784f27ee69f2e8dbf57e0b30",
+    "repository_base_tree": "3f567e7f76b189432b73444354070c0ff75925b9",
+    "repository_record": "Docs/researches/math_theorems.md:1929-1934",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:7414-7439",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "81fca7c7753f2df01239d9dd0cc06b239786902a8810a9f9799f24930315d1d4",
+    "stage0_projection_excerpt_sha256": "4aba16dc67a11e0aff65c0d56d13018a569eb3a0b994346fd3b9041dd3d7d839",
+    "manifest_entry_sha256": "0828141b46f0a56afbeef29dd716743683851ac708b39641018688c0252dd5fc",
+    "execution_dag_intake_entry_sha256": "79ad9e594a2fb24422781a396a93894667591873ee5a4e719ff89d43eb90bc49",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "13afa1e9120c53816fd8462eb0a9b491dc14cdc3559693cb3c30ec5b9a86ea4a",
+    "execution_dag_sha256": "630806d05004080984d3404b702208a056ac363d0f07fbd684533824c84ecfbb",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "crossref_doi": "10.1007/BF02420592",
+    "crossref_observed_response_sha256": "14ecc7075ac6e618289d49db57b98661635a0609e7d509daefacd3a02d5400ac",
+    "crossref_observation_boundary": "mutable bibliographic service response observed for discovery only; not an admitted immutable primary proof source",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_bochner_dominated_convergence_sha256": "967aff89500aeff8a1a94358c79bb3200c4e77bdfabe1e6481d2beeda67f6191",
+    "mathlib_lintegral_dominated_convergence_sha256": "2353c65d6289962c7a46181545950b64fd9b17f6692120ab6beebec27f12d70c",
+    "mathlib_has_finite_integral_sha256": "7ac055f2e01a69099b508ff0b6738d8bb2b9e360902774ce608dc982a9f17655",
+    "probe_output_sha256": "834ccd18e768f3995086da58e3d02c89a3e51d12881731300802c066d4e73ebe"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the representative pinned candidates report propext, Classical.choice, and Quot.sound, but no source-selected target or accepted transitive axiom profile is frozen at intake",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal proof-body provenance, declaration dependencies, normalized expression match, and transitive trust closure remain open",
+  "computation_profile": "No numerical integration, sampled convergence, floating-point bound, oracle, native evaluator, generated witness, or unchecked certificate is credited; the intended result requires kernel-checked measure theory",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0268/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0268/README.md",
+    "Stage1_Instances/THM-M-0268/instance.json",
+    "Stage1_Instances/THM-M-0268/scope-map.md",
+    "Stage1_Instances/THM-M-0268/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0268/task-dag.json",
+    "Stage1_Instances/THM-M-0268/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0268/check_intake.py",
+    "Stage1_Instances/THM-M-0268/validation.md",
+    "Stage1_Instances/THM-M-0268/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent real-analysis and measure-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "integration_reviewer": "unassigned rev-5.6 integration reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "freshness_and_revocation_policy": "Invalidate on target or source correction, primary edition, proposition, definition, proof, translation or erratum finding, integral/codomain/index/measurability/convergence/domination/conclusion/binder or boundary decision, canonical Lean target, checked transport, toolchain or dependency pin, assurance profile, validator, reviewer, recipe, or any owned-artifact change; the integration lane owns rejection, supersession and incident response.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the literal catalog gloss, recognizable dominated-convergence variants, a bibliographic source lead, direct pinned exact-topic interfaces, proposition-changing decisions, exclusions, and the open task DAG. H1 records incomplete source mapping; M3 records interfaces without a frozen target or proof credit; R4 records no proof reconstruction. No exact canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "stage1-open-task-dag/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0269",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_states": [],
+  "tasks": [
+    {
+      "id": "S56-M-0269-INTAKE",
+      "depends_on": [],
+      "state": "self_tested_pending_master_acceptance",
+      "phase": "intake",
+      "layer": 0,
+      "owned_paths": ["Stage1_Instances/THM-M-0269"],
+      "deliverable": "Create the theorem dossier, scope map, and source-statement crosswalk.",
+      "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+      "evidence_ids": ["S56-M-0269-INTAKE-WORKER-20260713"],
+      "status_boundary": "provisional worker self-test only; no accepted state or master receipt"
+    },
+    {
+      "id": "S56-M-0269-STATEMENT",
+      "depends_on": ["S56-M-0269-INTAKE"],
+      "state": "open",
+      "phase": "statement",
+      "layer": 1,
+      "owned_paths": ["Stage1_Instances/THM-M-0269"],
+      "deliverable": "Elaborate the exact Lean 4 target with the minimal pinned imports.",
+      "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+      "evidence_ids": [],
+      "first_blocker": "admit and independently review an immutable exact source proposition, resolving the measure space, value type, positivity, measurability, pointwise versus AE monotonicity, supremum versus explicit limit, integral codomain, binder, attribution, and boundary choices in the scope map"
+    },
+    {
+      "id": "S56-M-0269-ANCHOR_AUDIT",
+      "depends_on": ["S56-M-0269-STATEMENT"],
+      "state": "open",
+      "phase": "anchor_audit",
+      "layer": 2,
+      "owned_paths": ["Stage1_Instances/THM-M-0269"],
+      "deliverable": "Audit mathlib and external Lean 4 candidates at immutable revisions.",
+      "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+      "evidence_ids": []
+    },
+    {
+      "id": "S56-M-0269-OBLIGATION_TREE",
+      "depends_on": ["S56-M-0269-ANCHOR_AUDIT"],
+      "state": "open",
+      "phase": "obligation_tree",
+      "layer": 3,
+      "owned_paths": ["Stage1_Instances/THM-M-0269"],
+      "deliverable": "Freeze the obligation registry and typed proof/provenance/workflow graphs.",
+      "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+      "evidence_ids": []
+    },
+    {
+      "id": "S56-M-0269-PROOF",
+      "depends_on": ["S56-M-0269-OBLIGATION_TREE"],
+      "state": "open",
+      "phase": "proof",
+      "layer": 4,
+      "owned_paths": ["Stage1_Instances/THM-M-0269"],
+      "deliverable": "Implement or pin/import the required proof bodies without placeholders.",
+      "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+      "evidence_ids": []
+    },
+    {
+      "id": "S56-M-0269-VALIDATION",
+      "depends_on": ["S56-M-0269-PROOF"],
+      "state": "open",
+      "phase": "validation",
+      "layer": 5,
+      "owned_paths": ["Stage1_Instances/THM-M-0269"],
+      "deliverable": "Run hermetic kernel, trust, provenance, and independent validation gates.",
+      "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+      "evidence_ids": []
+    },
+    {
+      "id": "S56-M-0269-RELEASE",
+      "depends_on": ["S56-M-0269-VALIDATION"],
+      "state": "open",
+      "phase": "release",
+      "layer": 6,
+      "owned_paths": ["Stage1_Instances/THM-M-0269"],
+      "deliverable": "Reconcile evidence and decide the exact theorem-completion verdict.",
+      "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+      "evidence_ids": []
+    }
+  ]
+}
