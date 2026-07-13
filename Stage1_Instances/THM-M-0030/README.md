@@ -1,4 +1,4 @@
-# THM-M-0030 rev-5.6 anchor audit
+# THM-M-0030 rev-5.6 obligation tree
 
 `THM-M-0030` is the repository's Krull intersection theorem item. The catalog describes it only
 as an ideal-intersection property in a Noetherian local ring, attributes it to Wolfgang Krull in
@@ -42,8 +42,23 @@ and exclusion of the bottom-ideal boundary. Kernel witnesses show that `I = top`
 counter-boundary and `I = bot` remains in scope. The proof-bearing `Filtration` module is not
 imported by the statement.
 
-The exact mathlib route is a self-tested `M0-W / E2` candidate. The accepted vector remains
-`[H1, M3, R3]` because this receipt is provisional and pending master acceptance. Historical source
-fidelity, complete transitive trust, the obligation tree, proof-phase integration, validation,
+The exact mathlib route is a self-tested pinned `E2` candidate; `M0-W` remains conditional on
+later `E1` admission. The accepted vector remains
+`[H1, M3, R3]` because the receipts are provisional and pending master acceptance.
+
+## Frozen architecture
+
+`obligation-registry.json` freezes 28 semantic obligations before accepted closure is observed. The
+root route exposes the exact mathlib body, its finite-module specialization, the proper-local-ideal
+to Jacobson reduction, the fixed-point characterization, stable intersection submodule,
+finite-generation/Nakayama witness, and both directions of the power-membership iff. The audit
+wrapper and future proof wrapper are deduplicated from the one terminal body.
+
+`typed-graphs.json` keeps proof, refinement, provenance, evidence, trust, documentation, and
+workflow edges separate. `ObligationTree.lean` checks seven conditional compositions while leaving
+the pinned terminal theorem and the central fixed-point and Jacobson-unit facts as explicit
+premises. These checks validate interfaces only; they neither install the proof nor close a root.
+
+Historical source fidelity, complete transitive trust, proof-phase integration, validation,
 release, audit completion, and theorem completion remain open. No H0, accepted M0/E1, R0, accepted
 execution state, `AUDIT-Z`, theorem completion, or master acceptance is claimed.

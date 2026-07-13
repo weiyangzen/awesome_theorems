@@ -58,3 +58,13 @@ checks the transport and conditional child composition but does not install an a
 The vector remains `[H1, M3, R3]`. No obligation is accepted closed. Pinpoint H0, independently
 reviewed R0, release-grade E1, full provenance/trust, proof installation, hermetic and independent
 validation, release, audit completion, and theorem completion remain open.
+
+## Proof phase handoff
+
+`Proof.lean` now supplies the four interfaces exposed by `ObligationTree.lean`, composes them into a
+local replay of the visible upstream architecture, pins `Matrix.aeval_self_charpoly` as the single
+terminal body, and closes the exact frozen target through both routes. The root and supporting
+declarations elaborate with only `propext`, `Classical.choice`, and `Quot.sound`. This is a
+provisional `M0-W` proof-node proposal pending master acceptance and the separate foundation,
+provenance, trust, validation, source, readability, and release gates. The authoritative vector
+therefore remains `[H1, M3, R3]`, and theorem completion is not claimed.

@@ -1,0 +1,160 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0064-INTAKE-WORKER-20260713",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "content_addressing_boundary": "This mutable provisional worker receipt is not accepted validation authority. Master acceptance must recapture canonical content-addressed inputs, outputs, logs, recipes, and the accepted node receipt.",
+  "item_id": "S56-M-0064-INTAKE",
+  "theorem_id": "THM-M-0064",
+  "phase": "intake",
+  "intent": "intake",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "rev-5.6 integration lane",
+  "base_revision": "c5f6fb269f6eb84efa935ee66c4e9bab92495e61",
+  "base_tree": "7a41063c920c1b9cb849aa35c2f02ec4a4733655",
+  "worker_branch_or_worktree": "isolated Stage1 rev-5.6 automation worker slot12",
+  "worktree_state": "nonrelease_dirty_due_to_owned_untracked_intake_artifacts_and_a_preexisting_automation_lake_symlink",
+  "preexisting_untracked_paths": ["Formalizations/Lean/.lake"],
+  "attestor": {
+    "kind": "scheduler_worker_agent",
+    "identity": "Stage1 rev-5.6 worker slot12",
+    "signature": null,
+    "signature_status": "unsigned_provisional_worker_report"
+  },
+  "platform": {
+    "operating_system": "Linux",
+    "architecture": "x86_64",
+    "lean_target": "x86_64-unknown-linux-gnu",
+    "timezone": "Asia/Shanghai",
+    "workspace": "isolated automation clone",
+    "environment_boundary": "inherited nonhermetic worker environment; no release-grade clean-room or independent-runner claim"
+  },
+  "owner": "Stage1 integration lane",
+  "reviewer_policy": "An independent source reviewer, formal reviewer, and integration reviewer must recheck the intake boundary before master acceptance or downstream statement work.",
+  "validated_at": "2026-07-13",
+  "review_due": "before master acceptance or any dependent statement work",
+  "support_state": "provisional_worker_only",
+  "supersession_state": "current_unsuperseded_worker_report",
+  "revocation_state": "not_revoked",
+  "incident_path": "integration lane rejects, revokes, or supersedes this receipt, records the reason in the scheduler ledger, and requires a fresh scoped self-test",
+  "invalidation_inputs": [
+    "source or target correction and any source edition, attribution, date, translation, erratum, definition, assumption, conclusion, or proof-boundary change",
+    "general-polynomial semantics, degree quantification, fields, irreducibility, separability, radical-solvability, roots-of-unity, Galois-group, or boundary convention",
+    "canonical Lean target, checked transport, toolchain, dependency pin, assurance profile, validator, structured recipe, or any owned artifact"
+  ],
+  "source_evidence": {
+    "repository_record": "Docs/researches/math_theorems.md:477-482 at source-record commit bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1866-1891",
+    "primary_lead": "Niels Henrik Abel, Demonstration de l'impossibilite de la resolution algebrique des equations generales qui passent le quatrieme degre, collected edition pages 66-94, DOI 10.1017/CBO9781139245807.008",
+    "primary_lead_boundary": "publisher citation metadata inspected; content access, exact passage, definitions, proof, edition history, translation, corrections, errata, immutable admission, and independent review open",
+    "proof_body_locations": []
+  },
+  "formal_evidence": {
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "module": "Mathlib.FieldTheory.AbelRuffini",
+    "checked_declarations": [
+      "solvableByRad",
+      "isSolvable_gal_minpoly",
+      "isSolvable_gal_of_irreducible",
+      "Equiv.Perm.fin_5_not_solvable",
+      "Equiv.Perm.not_solvable"
+    ],
+    "boundary": "Adjacent definitions and partial ingredients only. No canonical root, generic polynomial Galois realization, exact statement match, or proof credit is claimed.",
+    "axiom_report": "isSolvable_gal_of_irreducible and Equiv.Perm.fin_5_not_solvable each report [propext, Classical.choice, Quot.sound] in the pinned probe; root trust remains unresolved."
+  },
+  "lean_probe_stdout_sha256": "96d030328a73b562111064cf5510c5dd9a8f1feeee4b555df31ce0c2f889f4ee",
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, and execution skill presence passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-0064",
+      "exit_code": 0,
+      "result": "rank 1095; planned; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0064/IntakeProbe.lean",
+      "exit_code": 0,
+      "result": "five adjacent pinned APIs and two axiom reports elaborated; no target declaration or proof body"
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-0064/check_intake.py --worker-packet .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "target, authoritative DAG, source and dependency hashes, null target, H1/M3/R4 boundary, probe replay, packet agreement, and six open tasks agree"
+    },
+    {
+      "command": "rg -n prohibited constructs Stage1_Instances/THM-M-0064 --glob '*.lean'",
+      "exit_code": 1,
+      "expected_no_match": true,
+      "result": "no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration"
+    },
+    {
+      "command": "git diff --check -- Stage1_Instances/THM-M-0064 .stage1-worker-selftest.json plus per-file no-index checks",
+      "exit_code": 0,
+      "result": "no whitespace diagnostics"
+    }
+  ],
+  "covered_node_ids": ["S56-M-0064-INTAKE"],
+  "actual_source_ownership": ["Stage1_Instances/THM-M-0064/IntakeProbe.lean"],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0064/README.md",
+    "Stage1_Instances/THM-M-0064/scope-map.md",
+    "Stage1_Instances/THM-M-0064/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0064/validation.md"
+  ],
+  "change_impact_set": ["S56-M-0064-INTAKE"],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0064/README.md",
+    "Stage1_Instances/THM-M-0064/instance.json",
+    "Stage1_Instances/THM-M-0064/scope-map.md",
+    "Stage1_Instances/THM-M-0064/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0064/task-dag.json",
+    "Stage1_Instances/THM-M-0064/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0064/check_intake.py",
+    "Stage1_Instances/THM-M-0064/validation.md",
+    "Stage1_Instances/THM-M-0064/intake-receipt.json"
+  ],
+  "root_vector_before": {"H": "unclassified", "M": "unclassified", "R": "unclassified"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "debt_delta_basis": "H1 records named primary source leads and explicit unresolved source mapping. M3 records usable pinned radical/Galois and group-solvability interfaces without a canonical expression or generic-polynomial bridge. R4 records that no source-faithful proof reconstruction exists.",
+  "accepted_receipt_ids": [],
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "master acceptance of the provisional S56-M-0064-INTAKE worker receipt is pending",
+  "first_failed_downstream_gate": "S56-M-0064-STATEMENT: exact source-statement identity, general-polynomial semantics, degree quantification, field and radical encoding, Galois bridge, and boundary policy are unresolved",
+  "retry_condition": "Admit and independently review one immutable primary proposition; resolve attribution and edition history; fix general-versus-existential scope, degree quantification, fields, radical and Galois encodings, and boundary cases; then elaborate, fingerprint, transport, and mutation-test one exact Lean expression.",
+  "remaining_root_cut_set": [
+    "S56-M-0064-STATEMENT",
+    "S56-M-0064-ANCHOR_AUDIT",
+    "S56-M-0064-OBLIGATION_TREE",
+    "S56-M-0064-PROOF",
+    "S56-M-0064-VALIDATION",
+    "S56-M-0064-RELEASE"
+  ],
+  "known_failures": [
+    "master acceptance of S56-M-0064-INTAKE is pending",
+    "the catalog supplies no bibliography, displayed proposition, definition of general polynomial, coefficient or extension fields, quantifier order, radical-solution semantics, proof mapping, errata, or reviewer",
+    "Abel source leads are identified, but exact text, definitions, proof, attribution and date reconciliation, translation, correction and errata audit, immutable admission, and independent review are open",
+    "generic-formula versus existential-counterexample scope, degree exactly five versus every degree at least five, field and characteristic, irreducibility and separability, one root versus splitting field, roots of unity, and degenerate cases remain statement decisions",
+    "pinned mathlib proves the radical-solvable-root to solvable-Galois direction and nonsolvability of symmetric groups, but no checked generic-polynomial Galois realization or source-faithful root bridge exists",
+    "no canonical Lean expression, environment fingerprint, checked transport, statement mutation suite, exhaustive anchor/provenance audit, obligation registry, typed graphs, proof, composition, readable reconstruction, hermetic replay, independent verification, audit completion, or theorem completion exists"
+  ],
+  "status_boundary": "Provisional self-tested worker evidence for the planned intake only. It is not a node acceptance receipt and claims no canonical target, H0, M0, R0, audit completion, theorem completion, or master acceptance."
+}

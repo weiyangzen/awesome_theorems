@@ -1,0 +1,3382 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-0030-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0030",
+  "registry_id": "THM-M-0030-OBLIGATIONS-v1",
+  "registry_denominator_sha256": "2c8a394f62ce23e20c104f25129c82e7966b24cc2ac991a50f9d7a68ce1c6a45",
+  "root_node_id": "M0030-ROOT",
+  "edge_endpoint_namespace": "canonical obligation_id",
+  "edge_direction": "proof_requires is parent-to-child; reciprocal composes is child-to-parent",
+  "workflow_task_projection": {
+    "S56-M-0030-ANCHOR_AUDIT": {
+      "projects_to": "M0030-X-MATHLIB-BODY",
+      "depends_on": [
+        "S56-M-0030-STATEMENT"
+      ]
+    },
+    "S56-M-0030-OBLIGATION_TREE": {
+      "projects_to": "M0030-ROOT",
+      "depends_on": [
+        "S56-M-0030-ANCHOR_AUDIT"
+      ]
+    },
+    "S56-M-0030-PROOF": {
+      "projects_to": "M0030-X-PROVENANCE",
+      "depends_on": [
+        "S56-M-0030-OBLIGATION_TREE"
+      ]
+    },
+    "S56-M-0030-VALIDATION": {
+      "projects_to": "M0030-X-TRUST",
+      "depends_on": [
+        "S56-M-0030-PROOF"
+      ]
+    },
+    "S56-M-0030-RELEASE": {
+      "projects_to": "M0030-X-WORKFLOW",
+      "depends_on": [
+        "S56-M-0030-VALIDATION"
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "node_id": "THM-M-0030-ROOT",
+      "obligation_id": "M0030-ROOT",
+      "kind": "root",
+      "human_statement": "Prove the exact proper-ideal Krull intersection target frozen in Statement.lean.",
+      "formal_target": "Stage1Instances.THM_M_0030.KrullIntersectionTarget",
+      "output": "The intersection of all natural powers of every proper ideal in a commutative Noetherian local ring is bottom.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked conditional composition; required child premises remain open",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-X-MATHLIB-BODY"
+        ],
+        "inference": "Prove the exact proper-ideal Krull intersection target frozen in Statement.lean.",
+        "output": "The intersection of all natural powers of every proper ideal in a commutative Noetherian local ring is bottom.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-ROOT-STEP-01",
+            "premise_ids": [
+              "M0030-X-MATHLIB-BODY"
+            ],
+            "inference_or_source": "root_of_exactMathlibAnchor: introduce the canonical binders and reorder only the source interface",
+            "output_claim": "The intersection of all natural powers of every proper ideal in a commutative Noetherian local ring is bottom.",
+            "outgoing_use_ids": [
+              "M0030-ROOT-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-root",
+      "validation_spec_id": "VAL-M0030-ROOT",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-S-INTERFACE",
+      "obligation_id": "M0030-S-INTERFACE",
+      "kind": "definition",
+      "human_statement": "Preserve the universe, CommRing, IsNoetherianRing, IsLocalRing, ideal, properness, and natural-power binder order.",
+      "formal_target": "Stage1Instances.THM_M_0030.KrullIntersectionTarget",
+      "output": "The canonical root interface with no domain, completeness, reducedness, dimension, characteristic, or principal-ideal premise.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked local interface; no proof-closure credit",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 24,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Preserve the universe, CommRing, IsNoetherianRing, IsLocalRing, ideal, properness, and natural-power binder order.",
+        "output": "The canonical root interface with no domain, completeness, reducedness, dimension, characteristic, or principal-ideal premise.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-S-INTERFACE-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "freeze R : Type u with CommRing, IsNoetherianRing, and IsLocalRing",
+            "output_claim": "the exact ring and typeclass context",
+            "outgoing_use_ids": [
+              "M0030-S-INTERFACE-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-S-INTERFACE-STEP-02",
+            "premise_ids": [
+              "M0030-S-INTERFACE-STEP-01"
+            ],
+            "inference_or_source": "freeze I : Ideal R and I != top after the ring context",
+            "output_claim": "the exact proper-ideal binder context",
+            "outgoing_use_ids": [
+              "M0030-S-INTERFACE-STEP-03"
+            ]
+          },
+          {
+            "step_id": "M0030-S-INTERFACE-STEP-03",
+            "premise_ids": [
+              "M0030-S-INTERFACE-STEP-02"
+            ],
+            "inference_or_source": "freeze iInf over every n : Nat with conclusion bottom",
+            "output_claim": "The canonical root interface with no domain, completeness, reducedness, dimension, characteristic, or principal-ideal premise.",
+            "outgoing_use_ids": [
+              "M0030-S-INTERFACE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-s-interface",
+      "validation_spec_id": "VAL-M0030-S-INTERFACE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/Statement.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-S-MEMBERSHIP-TRANSPORT",
+      "obligation_id": "M0030-S-MEMBERSHIP-TRANSPORT",
+      "kind": "transport",
+      "human_statement": "Relate ideal equality to elementwise membership in every power in both checked directions.",
+      "formal_target": "Stage1Instances.THM_M_0030.krullIntersectionTarget_iff_membershipTarget",
+      "output": "A checked iff between the canonical ideal equality and its elementwise membership form.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked local interface; no proof-closure credit",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 24,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Relate ideal equality to elementwise membership in every power in both checked directions.",
+        "output": "A checked iff between the canonical ideal equality and its elementwise membership form.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-S-MEMBERSHIP-TRANSPORT-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "Ideal.mem_iInf.mpr and rewrite by the root equality",
+            "output_claim": "root implies MembershipTarget",
+            "outgoing_use_ids": [
+              "M0030-S-MEMBERSHIP-TRANSPORT-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-S-MEMBERSHIP-TRANSPORT-STEP-02",
+            "premise_ids": [
+              "M0030-S-MEMBERSHIP-TRANSPORT-STEP-01"
+            ],
+            "inference_or_source": "Ideal.mem_iInf.mp, ideal extensionality, and bot_le",
+            "output_claim": "A checked iff between the canonical ideal equality and its elementwise membership form.",
+            "outgoing_use_ids": [
+              "M0030-S-MEMBERSHIP-TRANSPORT-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-s-membership-transport",
+      "validation_spec_id": "VAL-M0030-S-MEMBERSHIP-TRANSPORT",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/Statement.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-S-PROPER-BOUNDARY",
+      "obligation_id": "M0030-S-PROPER-BOUNDARY",
+      "kind": "branch",
+      "human_statement": "Exclude I = top as a counter-boundary while retaining I = bottom and the n = 0 power.",
+      "formal_target": "Stage1Instances.THM_M_0030.topIdeal_is_counterboundary and bottomIdeal_is_in_scope",
+      "output": "The exact properness boundary required by the root, with both sides checked in Lean.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked local interface; no proof-closure credit",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 28,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Exclude I = top as a counter-boundary while retaining I = bottom and the n = 0 power.",
+        "output": "The exact properness boundary required by the root, with both sides checked in Lean.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-S-PROPER-BOUNDARY-STEP-01",
+            "premise_ids": [
+              "M0030-S-INTERFACE"
+            ],
+            "inference_or_source": "evaluate every power of top and use top_ne_bot",
+            "output_claim": "I = top falsifies the conclusion",
+            "outgoing_use_ids": [
+              "M0030-S-PROPER-BOUNDARY-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-S-PROPER-BOUNDARY-STEP-02",
+            "premise_ids": [
+              "M0030-S-INTERFACE"
+            ],
+            "inference_or_source": "evaluate the n = 1 bound for bottom and use bot_ne_top",
+            "output_claim": "I = bottom is proper and satisfies the conclusion",
+            "outgoing_use_ids": [
+              "M0030-S-PROPER-BOUNDARY-STEP-03"
+            ]
+          },
+          {
+            "step_id": "M0030-S-PROPER-BOUNDARY-STEP-03",
+            "premise_ids": [
+              "M0030-S-PROPER-BOUNDARY-STEP-01",
+              "M0030-S-PROPER-BOUNDARY-STEP-02"
+            ],
+            "inference_or_source": "combine the excluded and included boundary witnesses",
+            "output_claim": "The exact properness boundary required by the root, with both sides checked in Lean.",
+            "outgoing_use_ids": [
+              "M0030-S-PROPER-BOUNDARY-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-s-proper-boundary",
+      "validation_spec_id": "VAL-M0030-S-PROPER-BOUNDARY",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/Statement.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-S-FOUNDATION",
+      "obligation_id": "M0030-S-FOUNDATION",
+      "kind": "certificate",
+      "human_statement": "Audit propext, Classical.choice, Quot.sound, kernel, imports, computation policy, and the complete TCB.",
+      "formal_target": "planned transitive foundation, axiom, computation, and TCB report",
+      "output": "An accepted foundation boundary for every terminal declaration and composition.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 55,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Audit propext, Classical.choice, Quot.sound, kernel, imports, computation policy, and the complete TCB.",
+        "output": "An accepted foundation boundary for every terminal declaration and composition.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-S-FOUNDATION-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "planned transitive foundation, axiom, computation, and TCB report",
+            "output_claim": "An accepted foundation boundary for every terminal declaration and composition.",
+            "outgoing_use_ids": [
+              "M0030-S-FOUNDATION-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-s-foundation",
+      "validation_spec_id": "VAL-M0030-S-FOUNDATION",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-X-MATHLIB-BODY",
+      "obligation_id": "M0030-X-MATHLIB-BODY",
+      "kind": "bridge",
+      "human_statement": "Install or otherwise validate the exact pinned Ideal.iInf_pow_eq_bot_of_isLocalRing body without duplicating its audit wrapper.",
+      "formal_target": "Ideal.iInf_pow_eq_bot_of_isLocalRing",
+      "output": "The exact mathlib-order anchor consumed by the checked binder-order adapter to the root.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "exact pinned E2 candidate; accepted classification remains M3 until E1 proof-phase admission",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "anchor-audit:M0030-C01-MATHLIB-EXACT",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 32,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-N-FINITE-MODULE"
+        ],
+        "inference": "Install or otherwise validate the exact pinned Ideal.iInf_pow_eq_bot_of_isLocalRing body without duplicating its audit wrapper.",
+        "output": "The exact mathlib-order anchor consumed by the checked binder-order adapter to the root.",
+        "outgoing_use": [
+          "M0030-ROOT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-X-MATHLIB-BODY-STEP-01",
+            "premise_ids": [
+              "M0030-N-FINITE-MODULE"
+            ],
+            "inference_or_source": "specialize the finite-module theorem at M = R",
+            "output_claim": "iInf (I^n smul top : Submodule R R) = bottom",
+            "outgoing_use_ids": [
+              "M0030-X-MATHLIB-BODY-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-X-MATHLIB-BODY-STEP-02",
+            "premise_ids": [
+              "M0030-X-MATHLIB-BODY-STEP-01"
+            ],
+            "inference_or_source": "convert submodules to ideals using smul_eq_mul, one_eq_top, and mul_one",
+            "output_claim": "The exact mathlib-order anchor consumed by the checked binder-order adapter to the root.",
+            "outgoing_use_ids": [
+              "M0030-ROOT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-x-mathlib-body",
+      "validation_spec_id": "VAL-M0030-X-MATHLIB-BODY",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-N-FINITE-MODULE",
+      "obligation_id": "M0030-N-FINITE-MODULE",
+      "kind": "reduction",
+      "human_statement": "For every finite module M, the intersection of I^n acting on top is bottom for a proper ideal of a Noetherian local ring.",
+      "formal_target": "Stage1Instances.THM_M_0030.ObligationTree.FiniteModuleIntersectionTarget",
+      "output": "The exact finite-module intersection proposition consumed by the M = R specialization.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked conditional composition; required child premises remain open",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-N-JACOBSON",
+          "M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "inference": "For every finite module M, the intersection of I^n acting on top is bottom for a proper ideal of a Noetherian local ring.",
+        "output": "The exact finite-module intersection proposition consumed by the M = R specialization.",
+        "outgoing_use": [
+          "M0030-X-MATHLIB-BODY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-N-FINITE-MODULE-STEP-01",
+            "premise_ids": [
+              "M0030-N-LOCAL-CONTAINMENT"
+            ],
+            "inference_or_source": "obtain I <= Ideal.jacobson bottom from properness and locality",
+            "output_claim": "the exact Jacobson containment premise",
+            "outgoing_use_ids": [
+              "M0030-N-FINITE-MODULE-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-N-FINITE-MODULE-STEP-02",
+            "premise_ids": [
+              "M0030-N-JACOBSON",
+              "M0030-N-FINITE-MODULE-STEP-01"
+            ],
+            "inference_or_source": "apply the general Jacobson-intersection child",
+            "output_claim": "The exact finite-module intersection proposition consumed by the M = R specialization.",
+            "outgoing_use_ids": [
+              "M0030-X-MATHLIB-BODY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-n-finite-module",
+      "validation_spec_id": "VAL-M0030-N-FINITE-MODULE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-N-JACOBSON",
+      "obligation_id": "M0030-N-JACOBSON",
+      "kind": "reduction",
+      "human_statement": "For every finite module M, I below the Jacobson radical of bottom forces the intersection of I^n acting on top to be bottom.",
+      "formal_target": "Stage1Instances.THM_M_0030.ObligationTree.JacobsonIntersectionTarget",
+      "output": "The exact general Jacobson-intersection proposition consumed by local specialization.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked conditional composition; required child premises remain open",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 28,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-N-FIXEDPOINT-IFF",
+          "M0030-L-JACOBSON-UNIT"
+        ],
+        "inference": "For every finite module M, I below the Jacobson radical of bottom forces the intersection of I^n acting on top to be bottom.",
+        "output": "The exact general Jacobson-intersection proposition consumed by local specialization.",
+        "outgoing_use": [
+          "M0030-N-FINITE-MODULE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-N-JACOBSON-STEP-01",
+            "premise_ids": [
+              "M0030-N-FIXEDPOINT-IFF"
+            ],
+            "inference_or_source": "for x in the intersection obtain r in I with r smul x = x",
+            "output_claim": "a fixed-point witness r for x",
+            "outgoing_use_ids": [
+              "M0030-N-JACOBSON-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-N-JACOBSON-STEP-02",
+            "premise_ids": [
+              "M0030-L-JACOBSON-UNIT",
+              "M0030-N-JACOBSON-STEP-01"
+            ],
+            "inference_or_source": "use I <= jacobson bottom to prove IsUnit (1-r)",
+            "output_claim": "an invertible scalar 1-r",
+            "outgoing_use_ids": [
+              "M0030-N-JACOBSON-STEP-03"
+            ]
+          },
+          {
+            "step_id": "M0030-N-JACOBSON-STEP-03",
+            "premise_ids": [
+              "M0030-N-JACOBSON-STEP-01",
+              "M0030-N-JACOBSON-STEP-02"
+            ],
+            "inference_or_source": "cancel the unit action and simplify sub_smul using r smul x = x",
+            "output_claim": "x = 0",
+            "outgoing_use_ids": [
+              "M0030-N-JACOBSON-STEP-04"
+            ]
+          },
+          {
+            "step_id": "M0030-N-JACOBSON-STEP-04",
+            "premise_ids": [
+              "M0030-N-JACOBSON-STEP-03"
+            ],
+            "inference_or_source": "eq_bot_iff",
+            "output_claim": "The exact general Jacobson-intersection proposition consumed by local specialization.",
+            "outgoing_use_ids": [
+              "M0030-N-FINITE-MODULE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-n-jacobson",
+      "validation_spec_id": "VAL-M0030-N-JACOBSON",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-N-LOCAL-CONTAINMENT",
+      "obligation_id": "M0030-N-LOCAL-CONTAINMENT",
+      "kind": "reduction",
+      "human_statement": "Every proper ideal in a commutative local ring lies below the Jacobson radical of bottom.",
+      "formal_target": "Stage1Instances.THM_M_0030.ObligationTree.LocalProperIdealJacobsonTarget",
+      "output": "The exact local containment consumed together with the general Jacobson theorem.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked conditional composition; required child premises remain open",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-L-PROPER-MAXIMAL",
+          "M0030-L-MAXIMAL-JACOBSON"
+        ],
+        "inference": "Every proper ideal in a commutative local ring lies below the Jacobson radical of bottom.",
+        "output": "The exact local containment consumed together with the general Jacobson theorem.",
+        "outgoing_use": [
+          "M0030-N-FINITE-MODULE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-N-LOCAL-CONTAINMENT-STEP-01",
+            "premise_ids": [
+              "M0030-L-PROPER-MAXIMAL"
+            ],
+            "inference_or_source": "map a proper ideal into the unique maximal ideal",
+            "output_claim": "I <= IsLocalRing.maximalIdeal R",
+            "outgoing_use_ids": [
+              "M0030-N-LOCAL-CONTAINMENT-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-N-LOCAL-CONTAINMENT-STEP-02",
+            "premise_ids": [
+              "M0030-L-MAXIMAL-JACOBSON"
+            ],
+            "inference_or_source": "map the unique maximal ideal into Ideal.jacobson bottom",
+            "output_claim": "IsLocalRing.maximalIdeal R <= Ideal.jacobson bottom",
+            "outgoing_use_ids": [
+              "M0030-N-LOCAL-CONTAINMENT-STEP-03"
+            ]
+          },
+          {
+            "step_id": "M0030-N-LOCAL-CONTAINMENT-STEP-03",
+            "premise_ids": [
+              "M0030-N-LOCAL-CONTAINMENT-STEP-01",
+              "M0030-N-LOCAL-CONTAINMENT-STEP-02"
+            ],
+            "inference_or_source": "transitivity of ideal inclusion",
+            "output_claim": "The exact local containment consumed together with the general Jacobson theorem.",
+            "outgoing_use_ids": [
+              "M0030-N-FINITE-MODULE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-n-local-containment",
+      "validation_spec_id": "VAL-M0030-N-LOCAL-CONTAINMENT",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-L-PROPER-MAXIMAL",
+      "obligation_id": "M0030-L-PROPER-MAXIMAL",
+      "kind": "core_lemma",
+      "human_statement": "Every proper ideal in a local ring lies below its unique maximal ideal.",
+      "formal_target": "Stage1Instances.THM_M_0030.ObligationTree.ProperToMaximalTarget",
+      "output": "I <= IsLocalRing.maximalIdeal R.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "located pinned supporting declaration/body; node evidence is unaccepted",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Every proper ideal in a local ring lies below its unique maximal ideal.",
+        "output": "I <= IsLocalRing.maximalIdeal R.",
+        "outgoing_use": [
+          "M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-L-PROPER-MAXIMAL-STEP-01",
+            "premise_ids": [
+              "M0030-S-INTERFACE"
+            ],
+            "inference_or_source": "pinned IsLocalRing.le_maximalIdeal applied to I != top",
+            "output_claim": "I <= IsLocalRing.maximalIdeal R.",
+            "outgoing_use_ids": [
+              "M0030-N-LOCAL-CONTAINMENT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-l-proper-maximal",
+      "validation_spec_id": "VAL-M0030-L-PROPER-MAXIMAL",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean#IsLocalRing.le_maximalIdeal"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-L-MAXIMAL-JACOBSON",
+      "obligation_id": "M0030-L-MAXIMAL-JACOBSON",
+      "kind": "core_lemma",
+      "human_statement": "The unique maximal ideal of a local ring lies below the Jacobson radical of bottom.",
+      "formal_target": "Stage1Instances.THM_M_0030.ObligationTree.MaximalToJacobsonTarget",
+      "output": "IsLocalRing.maximalIdeal R <= Ideal.jacobson bottom.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "located pinned supporting declaration/body; node evidence is unaccepted",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "The unique maximal ideal of a local ring lies below the Jacobson radical of bottom.",
+        "output": "IsLocalRing.maximalIdeal R <= Ideal.jacobson bottom.",
+        "outgoing_use": [
+          "M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-L-MAXIMAL-JACOBSON-STEP-01",
+            "premise_ids": [
+              "M0030-S-INTERFACE"
+            ],
+            "inference_or_source": "pinned IsLocalRing.maximalIdeal_le_jacobson at bottom",
+            "output_claim": "IsLocalRing.maximalIdeal R <= Ideal.jacobson bottom.",
+            "outgoing_use_ids": [
+              "M0030-N-LOCAL-CONTAINMENT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-l-maximal-jacobson",
+      "validation_spec_id": "VAL-M0030-L-MAXIMAL-JACOBSON",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean#IsLocalRing.maximalIdeal_le_jacobson"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-L-JACOBSON-UNIT",
+      "obligation_id": "M0030-L-JACOBSON-UNIT",
+      "kind": "bridge",
+      "human_statement": "Turn r in the Jacobson radical into invertibility of 1-r and cancel its scalar action.",
+      "formal_target": "Stage1Instances.THM_M_0030.ObligationTree.JacobsonUnitTarget",
+      "output": "An invertible scalar 1-r for the terminal fixed-point cancellation.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked conditional composition; required child premises remain open",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 45,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-X-JACOBSON-UNIT-SOURCE"
+        ],
+        "inference": "Turn r in the Jacobson radical into invertibility of 1-r and cancel its scalar action.",
+        "output": "An invertible scalar 1-r for the terminal fixed-point cancellation.",
+        "outgoing_use": [
+          "M0030-N-JACOBSON"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-L-JACOBSON-UNIT-STEP-01",
+            "premise_ids": [
+              "M0030-X-JACOBSON-UNIT-SOURCE"
+            ],
+            "inference_or_source": "instantiate the source theorem at s = 1-r",
+            "output_claim": "(1-r)-1 in the Jacobson radical implies IsUnit (1-r)",
+            "outgoing_use_ids": [
+              "M0030-L-JACOBSON-UNIT-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-L-JACOBSON-UNIT-STEP-02",
+            "premise_ids": [
+              "M0030-L-JACOBSON-UNIT-STEP-01"
+            ],
+            "inference_or_source": "use additive closure under negation and simplify (1-r)-1 = -r",
+            "output_claim": "An invertible scalar 1-r for the terminal fixed-point cancellation.",
+            "outgoing_use_ids": [
+              "M0030-N-JACOBSON"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-l-jacobson-unit",
+      "validation_spec_id": "VAL-M0030-L-JACOBSON-UNIT",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-X-JACOBSON-UNIT-SOURCE",
+      "obligation_id": "M0030-X-JACOBSON-UNIT-SOURCE",
+      "kind": "core_lemma",
+      "human_statement": "If s-1 lies in the Jacobson radical of bottom, then s is a unit.",
+      "formal_target": "Stage1Instances.THM_M_0030.ObligationTree.JacobsonUnitSourceTarget",
+      "output": "The source-shaped unit proposition consumed by the checked sign adapter.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "located pinned supporting declaration/body; node evidence is unaccepted",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "If s-1 lies in the Jacobson radical of bottom, then s is a unit.",
+        "output": "The source-shaped unit proposition consumed by the checked sign adapter.",
+        "outgoing_use": [
+          "M0030-L-JACOBSON-UNIT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-X-JACOBSON-UNIT-SOURCE-STEP-01",
+            "premise_ids": [
+              "M0030-X-JACOBSON-UNIT-SOURCE-COMM-RING-CONTEXT",
+              "M0030-X-JACOBSON-UNIT-SOURCE-JACOBSON-MEMBERSHIP"
+            ],
+            "inference_or_source": "pinned Ideal.isUnit_of_sub_one_mem_jacobson_bot",
+            "output_claim": "The source-shaped unit proposition consumed by the checked sign adapter.",
+            "outgoing_use_ids": [
+              "M0030-L-JACOBSON-UNIT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-x-jacobson-unit-source",
+      "validation_spec_id": "VAL-M0030-X-JACOBSON-UNIT-SOURCE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/RingTheory/Jacobson/Ideal.lean#Ideal.isUnit_of_sub_one_mem_jacobson_bot"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-N-FIXEDPOINT-IFF",
+      "obligation_id": "M0030-N-FIXEDPOINT-IFF",
+      "kind": "core_lemma",
+      "human_statement": "Characterize membership in the intersection of I^n times top by a coefficient r in I fixing the element.",
+      "formal_target": "Ideal.mem_iInf_smul_pow_eq_bot_iff",
+      "output": "For each x, intersection membership iff there exists r in I with r smul x = x.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "located pinned supporting declaration/body; node evidence is unaccepted",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 70,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-T-FIXEDPOINT-COMPOSE"
+        ],
+        "inference": "Characterize membership in the intersection of I^n times top by a coefficient r in I fixing the element.",
+        "output": "For each x, intersection membership iff there exists r in I with r smul x = x.",
+        "outgoing_use": [
+          "M0030-N-JACOBSON"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-N-FIXEDPOINT-IFF-STEP-01",
+            "premise_ids": [
+              "M0030-T-FIXEDPOINT-COMPOSE"
+            ],
+            "inference_or_source": "identify the composed forward/backward interface with the pinned fixed-point declaration",
+            "output_claim": "For each x, intersection membership iff there exists r in I with r smul x = x.",
+            "outgoing_use_ids": [
+              "M0030-N-JACOBSON"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-n-fixedpoint-iff",
+      "validation_spec_id": "VAL-M0030-N-FIXEDPOINT-IFF",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/RingTheory/Filtration.lean#Ideal.mem_iInf_smul_pow_eq_bot_iff"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-T-FIXEDPOINT-COMPOSE",
+      "obligation_id": "M0030-T-FIXEDPOINT-COMPOSE",
+      "kind": "terminal",
+      "human_statement": "Compose the forward and backward fixed-point directions into the exact iff used by the Jacobson proof.",
+      "formal_target": "visible body of Ideal.mem_iInf_smul_pow_eq_bot_iff",
+      "output": "The complete fixed-point characterization, with both directions consumed.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "kernel-checked conditional composition; required child premises remain open",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-B-FIXEDPOINT-FORWARD",
+          "M0030-B-FIXEDPOINT-BACKWARD"
+        ],
+        "inference": "Compose the forward and backward fixed-point directions into the exact iff used by the Jacobson proof.",
+        "output": "The complete fixed-point characterization, with both directions consumed.",
+        "outgoing_use": [
+          "M0030-N-FIXEDPOINT-IFF"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-T-FIXEDPOINT-COMPOSE-STEP-01",
+            "premise_ids": [
+              "M0030-B-FIXEDPOINT-FORWARD"
+            ],
+            "inference_or_source": "export the forward branch",
+            "output_claim": "the forward implication",
+            "outgoing_use_ids": [
+              "M0030-T-FIXEDPOINT-COMPOSE-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-T-FIXEDPOINT-COMPOSE-STEP-02",
+            "premise_ids": [
+              "M0030-B-FIXEDPOINT-BACKWARD"
+            ],
+            "inference_or_source": "export the backward branch",
+            "output_claim": "the backward implication",
+            "outgoing_use_ids": [
+              "M0030-T-FIXEDPOINT-COMPOSE-STEP-03"
+            ]
+          },
+          {
+            "step_id": "M0030-T-FIXEDPOINT-COMPOSE-STEP-03",
+            "premise_ids": [
+              "M0030-T-FIXEDPOINT-COMPOSE-STEP-01",
+              "M0030-T-FIXEDPOINT-COMPOSE-STEP-02"
+            ],
+            "inference_or_source": "construct the exact iff with no omitted branch",
+            "output_claim": "The complete fixed-point characterization, with both directions consumed.",
+            "outgoing_use_ids": [
+              "M0030-N-FIXEDPOINT-IFF"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-t-fixedpoint-compose",
+      "validation_spec_id": "VAL-M0030-T-FIXEDPOINT-COMPOSE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0030/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-C-INFIMUM-SUBMODULE",
+      "obligation_id": "M0030-C-INFIMUM-SUBMODULE",
+      "kind": "construction",
+      "human_statement": "Define N as the infimum of I^n times top and prove N is contained in every power term.",
+      "formal_target": "let N := iInf fun i : Nat => I ^ i smul top; iInf_le",
+      "output": "A well-defined submodule N with all power-containment interfaces needed downstream.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 40,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Define N as the infimum of I^n times top and prove N is contained in every power term.",
+        "output": "A well-defined submodule N with all power-containment interfaces needed downstream.",
+        "outgoing_use": [
+          "M0030-B-FIXEDPOINT-FORWARD",
+          "M0030-C-STABLE-INTERSECTION",
+          "M0030-T-STABILITY-EVALUATE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-C-INFIMUM-SUBMODULE-STEP-01",
+            "premise_ids": [
+              "M0030-S-INTERFACE"
+            ],
+            "inference_or_source": "define N := iInf fun i : Nat => I^i smul top",
+            "output_claim": "a submodule N",
+            "outgoing_use_ids": [
+              "M0030-C-INFIMUM-SUBMODULE-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-C-INFIMUM-SUBMODULE-STEP-02",
+            "premise_ids": [
+              "M0030-C-INFIMUM-SUBMODULE-STEP-01"
+            ],
+            "inference_or_source": "iInf_le at each k",
+            "output_claim": "A well-defined submodule N with all power-containment interfaces needed downstream.",
+            "outgoing_use_ids": [
+              "M0030-B-FIXEDPOINT-FORWARD",
+              "M0030-C-STABLE-INTERSECTION",
+              "M0030-T-STABILITY-EVALUATE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-c-infimum-submodule",
+      "validation_spec_id": "VAL-M0030-C-INFIMUM-SUBMODULE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-C-STABLE-INTERSECTION",
+      "obligation_id": "M0030-C-STABLE-INTERSECTION",
+      "kind": "construction",
+      "human_statement": "Intersect the stable I-power filtration with the trivial filtration at N and retain the resulting Stable witness.",
+      "formal_target": "Ideal.stableFiltration_stable, Ideal.Filtration.Stable.inter_right, and Ideal.trivialFiltration",
+      "output": "Stability of the intersection filtration, without prematurely asserting N = I smul N.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "located pinned supporting declaration/body; node evidence is unaccepted",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 55,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-C-INFIMUM-SUBMODULE"
+        ],
+        "inference": "Intersect the stable I-power filtration with the trivial filtration at N and retain the resulting Stable witness.",
+        "output": "Stability of the intersection filtration, without prematurely asserting N = I smul N.",
+        "outgoing_use": [
+          "M0030-B-FIXEDPOINT-FORWARD",
+          "M0030-L-STABILIZATION-INDEX",
+          "M0030-T-STABILITY-EVALUATE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-C-STABLE-INTERSECTION-STEP-01",
+            "premise_ids": [
+              "M0030-C-INFIMUM-SUBMODULE"
+            ],
+            "inference_or_source": "construct the stable power filtration and trivial filtration at N",
+            "output_claim": "two I-filtrations",
+            "outgoing_use_ids": [
+              "M0030-C-STABLE-INTERSECTION-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-C-STABLE-INTERSECTION-STEP-02",
+            "premise_ids": [
+              "M0030-C-STABLE-INTERSECTION-STEP-01"
+            ],
+            "inference_or_source": "Ideal.stableFiltration_stable followed by Stable.inter_right",
+            "output_claim": "Stability of the intersection filtration, without prematurely asserting N = I smul N.",
+            "outgoing_use_ids": [
+              "M0030-B-FIXEDPOINT-FORWARD",
+              "M0030-L-STABILIZATION-INDEX",
+              "M0030-T-STABILITY-EVALUATE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-c-stable-intersection",
+      "validation_spec_id": "VAL-M0030-C-STABLE-INTERSECTION",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/RingTheory/Filtration.lean#Ideal.Filtration.Stable.inter_right"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-L-STABILIZATION-INDEX",
+      "obligation_id": "M0030-L-STABILIZATION-INDEX",
+      "kind": "core_lemma",
+      "human_statement": "Choose an index k at which the stable intersection filtration satisfies I smul F.N k = F.N (k+1).",
+      "formal_target": "Ideal.Filtration.Stable",
+      "output": "An explicit k and the stabilization equality at k.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "located pinned supporting declaration/body; node evidence is unaccepted",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-C-STABLE-INTERSECTION"
+        ],
+        "inference": "Choose an index k at which the stable intersection filtration satisfies I smul F.N k = F.N (k+1).",
+        "output": "An explicit k and the stabilization equality at k.",
+        "outgoing_use": [
+          "M0030-T-STABILITY-EVALUATE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-L-STABILIZATION-INDEX-STEP-01",
+            "premise_ids": [
+              "M0030-C-STABLE-INTERSECTION"
+            ],
+            "inference_or_source": "unpack Stable as an eventual equality witness",
+            "output_claim": "an index k and forall n >= k, I smul F.N n = F.N (n+1)",
+            "outgoing_use_ids": [
+              "M0030-L-STABILIZATION-INDEX-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-L-STABILIZATION-INDEX-STEP-02",
+            "premise_ids": [
+              "M0030-L-STABILIZATION-INDEX-STEP-01"
+            ],
+            "inference_or_source": "specialize the witness at n = k and le_refl k",
+            "output_claim": "An explicit k and the stabilization equality at k.",
+            "outgoing_use_ids": [
+              "M0030-T-STABILITY-EVALUATE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-l-stabilization-index",
+      "validation_spec_id": "VAL-M0030-L-STABILIZATION-INDEX",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/RingTheory/Filtration.lean#Ideal.Filtration.Stable (definition dependency; no proof-body credit)"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-T-STABILITY-EVALUATE",
+      "obligation_id": "M0030-T-STABILITY-EVALUATE",
+      "kind": "terminal",
+      "human_statement": "Evaluate both stabilized filtration terms as N and derive N <= I smul N.",
+      "formal_target": "the hN evaluation and hk k step in Ideal.mem_iInf_smul_pow_eq_bot_iff",
+      "output": "The exact self-similarity premise N <= I smul N used by finite generation.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 35,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-C-INFIMUM-SUBMODULE",
+          "M0030-C-STABLE-INTERSECTION",
+          "M0030-L-STABILIZATION-INDEX"
+        ],
+        "inference": "Evaluate both stabilized filtration terms as N and derive N <= I smul N.",
+        "output": "The exact self-similarity premise N <= I smul N used by finite generation.",
+        "outgoing_use": [
+          "M0030-L-FG-NAKAYAMA"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-T-STABILITY-EVALUATE-STEP-01",
+            "premise_ids": [
+              "M0030-C-INFIMUM-SUBMODULE",
+              "M0030-C-STABLE-INTERSECTION"
+            ],
+            "inference_or_source": "prove hN j: the stable intersection filtration term at every j equals N",
+            "output_claim": "F.N k = N and F.N (k+1) = N",
+            "outgoing_use_ids": [
+              "M0030-T-STABILITY-EVALUATE-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-T-STABILITY-EVALUATE-STEP-02",
+            "premise_ids": [
+              "M0030-L-STABILIZATION-INDEX",
+              "M0030-T-STABILITY-EVALUATE-STEP-01"
+            ],
+            "inference_or_source": "rewrite both sides of the specialized stability equality by hN",
+            "output_claim": "I smul N = N",
+            "outgoing_use_ids": [
+              "M0030-T-STABILITY-EVALUATE-STEP-03"
+            ]
+          },
+          {
+            "step_id": "M0030-T-STABILITY-EVALUATE-STEP-03",
+            "premise_ids": [
+              "M0030-T-STABILITY-EVALUATE-STEP-02"
+            ],
+            "inference_or_source": "reverse the equality and take its le direction",
+            "output_claim": "The exact self-similarity premise N <= I smul N used by finite generation.",
+            "outgoing_use_ids": [
+              "M0030-L-FG-NAKAYAMA"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-t-stability-evaluate",
+      "validation_spec_id": "VAL-M0030-T-STABILITY-EVALUATE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-L-FG-NAKAYAMA",
+      "obligation_id": "M0030-L-FG-NAKAYAMA",
+      "kind": "bridge",
+      "human_statement": "Use Noetherian finite generation and N <= I smul N to obtain one r in I fixing every element of N.",
+      "formal_target": "Submodule.exists_mem_and_smul_eq_self_of_fg_of_le_smul",
+      "output": "A uniform coefficient r in I with r smul n = n for all n in N.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "machine_candidate_status": "located pinned supporting declaration/body; node evidence is unaccepted",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 70,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-T-STABILITY-EVALUATE"
+        ],
+        "inference": "Use Noetherian finite generation and N <= I smul N to obtain one r in I fixing every element of N.",
+        "output": "A uniform coefficient r in I with r smul n = n for all n in N.",
+        "outgoing_use": [
+          "M0030-B-FIXEDPOINT-FORWARD"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-L-FG-NAKAYAMA-STEP-01",
+            "premise_ids": [
+              "M0030-C-INFIMUM-SUBMODULE"
+            ],
+            "inference_or_source": "IsNoetherian.noetherian N supplies N.FG",
+            "output_claim": "finite generation of N",
+            "outgoing_use_ids": [
+              "M0030-L-FG-NAKAYAMA-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-L-FG-NAKAYAMA-STEP-02",
+            "premise_ids": [
+              "M0030-T-STABILITY-EVALUATE",
+              "M0030-L-FG-NAKAYAMA-STEP-01"
+            ],
+            "inference_or_source": "apply Submodule.exists_mem_and_smul_eq_self_of_fg_of_le_smul",
+            "output_claim": "A uniform coefficient r in I with r smul n = n for all n in N.",
+            "outgoing_use_ids": [
+              "M0030-B-FIXEDPOINT-FORWARD"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-l-fg-nakayama",
+      "validation_spec_id": "VAL-M0030-L-FG-NAKAYAMA",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95:Mathlib/RingTheory/Finiteness/Nakayama.lean#Submodule.exists_mem_and_smul_eq_self_of_fg_of_le_smul"
+      ],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-B-FIXEDPOINT-FORWARD",
+      "obligation_id": "M0030-B-FIXEDPOINT-FORWARD",
+      "kind": "branch",
+      "human_statement": "From x in every I-power, construct r in I with r smul x = x using the stable finitely generated intersection N.",
+      "formal_target": "forward branch of Ideal.mem_iInf_smul_pow_eq_bot_iff",
+      "output": "The forward implication from intersection membership to a fixed-point witness.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 60,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-C-INFIMUM-SUBMODULE",
+          "M0030-C-STABLE-INTERSECTION",
+          "M0030-L-FG-NAKAYAMA"
+        ],
+        "inference": "From x in every I-power, construct r in I with r smul x = x using the stable finitely generated intersection N.",
+        "output": "The forward implication from intersection membership to a fixed-point witness.",
+        "outgoing_use": [
+          "M0030-T-FIXEDPOINT-COMPOSE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-B-FIXEDPOINT-FORWARD-STEP-01",
+            "premise_ids": [
+              "M0030-C-INFIMUM-SUBMODULE",
+              "M0030-C-STABLE-INTERSECTION"
+            ],
+            "inference_or_source": "interpret hx as x in the stable intersection N",
+            "output_claim": "x belongs to the finitely generated stable intersection N",
+            "outgoing_use_ids": [
+              "M0030-B-FIXEDPOINT-FORWARD-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-B-FIXEDPOINT-FORWARD-STEP-02",
+            "premise_ids": [
+              "M0030-L-FG-NAKAYAMA",
+              "M0030-B-FIXEDPOINT-FORWARD-STEP-01"
+            ],
+            "inference_or_source": "specialize the uniform Nakayama witness at x",
+            "output_claim": "The forward implication from intersection membership to a fixed-point witness.",
+            "outgoing_use_ids": [
+              "M0030-T-FIXEDPOINT-COMPOSE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-b-fixedpoint-forward",
+      "validation_spec_id": "VAL-M0030-B-FIXEDPOINT-FORWARD",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-B-FIXEDPOINT-BACKWARD",
+      "obligation_id": "M0030-B-FIXEDPOINT-BACKWARD",
+      "kind": "branch",
+      "human_statement": "From r in I fixing x, prove by induction that x lies in every I-power acting on top.",
+      "formal_target": "backward branch of Ideal.mem_iInf_smul_pow_eq_bot_iff",
+      "output": "The backward implication from a fixed-point witness to intersection membership.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 50,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0030-L-POWER-INDUCTION"
+        ],
+        "inference": "From r in I fixing x, prove by induction that x lies in every I-power acting on top.",
+        "output": "The backward implication from a fixed-point witness to intersection membership.",
+        "outgoing_use": [
+          "M0030-T-FIXEDPOINT-COMPOSE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-B-FIXEDPOINT-BACKWARD-STEP-01",
+            "premise_ids": [
+              "M0030-L-POWER-INDUCTION"
+            ],
+            "inference_or_source": "obtain x in I^n smul top for every n",
+            "output_claim": "pointwise membership in every power term",
+            "outgoing_use_ids": [
+              "M0030-B-FIXEDPOINT-BACKWARD-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-B-FIXEDPOINT-BACKWARD-STEP-02",
+            "premise_ids": [
+              "M0030-B-FIXEDPOINT-BACKWARD-STEP-01"
+            ],
+            "inference_or_source": "Submodule.mem_iInf",
+            "output_claim": "The backward implication from a fixed-point witness to intersection membership.",
+            "outgoing_use_ids": [
+              "M0030-T-FIXEDPOINT-COMPOSE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-b-fixedpoint-backward",
+      "validation_spec_id": "VAL-M0030-B-FIXEDPOINT-BACKWARD",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-L-POWER-INDUCTION",
+      "obligation_id": "M0030-L-POWER-INDUCTION",
+      "kind": "core_lemma",
+      "human_statement": "Establish the zero power base and successor step by rewriting powers and using r in I.",
+      "formal_target": "Nat induction with Submodule.smul_mem_smul",
+      "output": "Membership of x in I^n times top for every natural n.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "pinned-visible-terminal-body",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 45,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Establish the zero power base and successor step by rewriting powers and using r in I.",
+        "output": "Membership of x in I^n times top for every natural n.",
+        "outgoing_use": [
+          "M0030-B-FIXEDPOINT-BACKWARD"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-L-POWER-INDUCTION-STEP-01",
+            "premise_ids": [
+              "M0030-L-POWER-INDUCTION-FIXED-POINT-CONTEXT"
+            ],
+            "inference_or_source": "base n = 0: simplify I^0 smul top to top",
+            "output_claim": "x belongs to the zero power term",
+            "outgoing_use_ids": [
+              "M0030-L-POWER-INDUCTION-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0030-L-POWER-INDUCTION-STEP-02",
+            "premise_ids": [
+              "M0030-L-POWER-INDUCTION-FIXED-POINT-CONTEXT",
+              "M0030-L-POWER-INDUCTION-INDUCTION-HYPOTHESIS"
+            ],
+            "inference_or_source": "successor: rewrite pow_succ and smul_smul, replace x by r smul x",
+            "output_claim": "x belongs to I^(n+1) smul top",
+            "outgoing_use_ids": [
+              "M0030-L-POWER-INDUCTION-STEP-03"
+            ]
+          },
+          {
+            "step_id": "M0030-L-POWER-INDUCTION-STEP-03",
+            "premise_ids": [
+              "M0030-L-POWER-INDUCTION-STEP-01",
+              "M0030-L-POWER-INDUCTION-STEP-02"
+            ],
+            "inference_or_source": "Nat induction",
+            "output_claim": "Membership of x in I^n times top for every natural n.",
+            "outgoing_use_ids": [
+              "M0030-B-FIXEDPOINT-BACKWARD"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-l-power-induction",
+      "validation_spec_id": "VAL-M0030-L-POWER-INDUCTION",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-X-SOURCE",
+      "obligation_id": "M0030-X-SOURCE",
+      "kind": "terminal",
+      "human_statement": "Pinpoint and independently review the historical and modern source assumptions, proof steps, definitions, and errata for every material node.",
+      "formal_target": "non-machine primary-source crosswalk",
+      "output": "Human-source evidence without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 85,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Pinpoint and independently review the historical and modern source assumptions, proof steps, definitions, and errata for every material node.",
+        "output": "Human-source evidence without machine proof credit.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-X-SOURCE-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "non-machine primary-source crosswalk",
+            "output_claim": "Human-source evidence without machine proof credit.",
+            "outgoing_use_ids": [
+              "M0030-X-SOURCE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-x-source",
+      "validation_spec_id": "VAL-M0030-X-SOURCE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-X-PROVENANCE",
+      "obligation_id": "M0030-X-PROVENANCE",
+      "kind": "certificate",
+      "human_statement": "Resolve wrapper, terminal body, source blob, imports, licenses, direct declarations, and transitive declaration origins.",
+      "formal_target": "planned machine-derived provenance closure",
+      "output": "Release provenance without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 65,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Resolve wrapper, terminal body, source blob, imports, licenses, direct declarations, and transitive declaration origins.",
+        "output": "Release provenance without mathematical proof credit.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-X-PROVENANCE-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "planned machine-derived provenance closure",
+            "output_claim": "Release provenance without mathematical proof credit.",
+            "outgoing_use_ids": [
+              "M0030-X-PROVENANCE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-x-provenance",
+      "validation_spec_id": "VAL-M0030-X-PROVENANCE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-X-TRUST",
+      "obligation_id": "M0030-X-TRUST",
+      "kind": "certificate",
+      "human_statement": "Resolve kernel, compiled artifacts, executables, axiom closure, supply chain, and offline replay boundaries.",
+      "formal_target": "planned release trust and TCB closure",
+      "output": "Release trust evidence without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 65,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Resolve kernel, compiled artifacts, executables, axiom closure, supply chain, and offline replay boundaries.",
+        "output": "Release trust evidence without mathematical proof credit.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-X-TRUST-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "planned release trust and TCB closure",
+            "output_claim": "Release trust evidence without mathematical proof credit.",
+            "outgoing_use_ids": [
+              "M0030-X-TRUST-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-x-trust",
+      "validation_spec_id": "VAL-M0030-X-TRUST",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-X-READABLE",
+      "obligation_id": "M0030-X-READABLE",
+      "kind": "terminal",
+      "human_statement": "Produce and independently review a complete readable reconstruction of the fixed-point and Jacobson route.",
+      "formal_target": "planned node-specific readable reconstruction",
+      "output": "Readable coverage and review without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 95,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Produce and independently review a complete readable reconstruction of the fixed-point and Jacobson route.",
+        "output": "Readable coverage and review without machine proof credit.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-X-READABLE-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "planned node-specific readable reconstruction",
+            "output_claim": "Readable coverage and review without machine proof credit.",
+            "outgoing_use_ids": [
+              "M0030-X-READABLE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-x-readable",
+      "validation_spec_id": "VAL-M0030-X-READABLE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0030-X-WORKFLOW",
+      "obligation_id": "M0030-X-WORKFLOW",
+      "kind": "certificate",
+      "human_statement": "Bind proof, validation, release, freshness, revocation, and independent-verification task acceptance.",
+      "formal_target": "planned Stage1 workflow receipts",
+      "output": "Workflow acceptance without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "machine_candidate_status": "planned architecture only",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 50,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact formal context and no undeclared mathematical premise"
+        ],
+        "inference": "Bind proof, validation, release, freshness, revocation, and independent-verification task acceptance.",
+        "output": "Workflow acceptance without mathematical proof credit.",
+        "outgoing_use": [
+          "typed support edge only or canonical terminal output"
+        ],
+        "steps": [
+          {
+            "step_id": "M0030-X-WORKFLOW-STEP-01",
+            "premise_ids": [
+              "M0030-ROOT"
+            ],
+            "inference_or_source": "planned Stage1 workflow receipts",
+            "output_claim": "Workflow acceptance without mathematical proof credit.",
+            "outgoing_use_ids": [
+              "M0030-X-WORKFLOW-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0030/obligation-tree.md#m0030-x-workflow",
+      "validation_spec_id": "VAL-M0030-X-WORKFLOW",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted proof state, H0, R0, or theorem completion.",
+      "task_ids": [
+        "S56-M-0030-OBLIGATION_TREE",
+        "S56-M-0030-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0030 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "REQ-M0030-ROOT-M0030-X-MATHLIB-BODY",
+          "from": "M0030-ROOT",
+          "type": "proof_requires",
+          "to": "M0030-X-MATHLIB-BODY",
+          "reciprocal_edge_id": "CMP-M0030-X-MATHLIB-BODY-M0030-ROOT"
+        },
+        {
+          "edge_id": "CMP-M0030-X-MATHLIB-BODY-M0030-ROOT",
+          "from": "M0030-X-MATHLIB-BODY",
+          "type": "composes",
+          "to": "M0030-ROOT",
+          "reciprocal_edge_id": "REQ-M0030-ROOT-M0030-X-MATHLIB-BODY"
+        },
+        {
+          "edge_id": "REQ-M0030-X-MATHLIB-BODY-M0030-N-FINITE-MODULE",
+          "from": "M0030-X-MATHLIB-BODY",
+          "type": "proof_requires",
+          "to": "M0030-N-FINITE-MODULE",
+          "reciprocal_edge_id": "CMP-M0030-N-FINITE-MODULE-M0030-X-MATHLIB-BODY"
+        },
+        {
+          "edge_id": "CMP-M0030-N-FINITE-MODULE-M0030-X-MATHLIB-BODY",
+          "from": "M0030-N-FINITE-MODULE",
+          "type": "composes",
+          "to": "M0030-X-MATHLIB-BODY",
+          "reciprocal_edge_id": "REQ-M0030-X-MATHLIB-BODY-M0030-N-FINITE-MODULE"
+        },
+        {
+          "edge_id": "REQ-M0030-N-FINITE-MODULE-M0030-N-JACOBSON",
+          "from": "M0030-N-FINITE-MODULE",
+          "type": "proof_requires",
+          "to": "M0030-N-JACOBSON",
+          "reciprocal_edge_id": "CMP-M0030-N-JACOBSON-M0030-N-FINITE-MODULE"
+        },
+        {
+          "edge_id": "CMP-M0030-N-JACOBSON-M0030-N-FINITE-MODULE",
+          "from": "M0030-N-JACOBSON",
+          "type": "composes",
+          "to": "M0030-N-FINITE-MODULE",
+          "reciprocal_edge_id": "REQ-M0030-N-FINITE-MODULE-M0030-N-JACOBSON"
+        },
+        {
+          "edge_id": "REQ-M0030-N-FINITE-MODULE-M0030-N-LOCAL-CONTAINMENT",
+          "from": "M0030-N-FINITE-MODULE",
+          "type": "proof_requires",
+          "to": "M0030-N-LOCAL-CONTAINMENT",
+          "reciprocal_edge_id": "CMP-M0030-N-LOCAL-CONTAINMENT-M0030-N-FINITE-MODULE"
+        },
+        {
+          "edge_id": "CMP-M0030-N-LOCAL-CONTAINMENT-M0030-N-FINITE-MODULE",
+          "from": "M0030-N-LOCAL-CONTAINMENT",
+          "type": "composes",
+          "to": "M0030-N-FINITE-MODULE",
+          "reciprocal_edge_id": "REQ-M0030-N-FINITE-MODULE-M0030-N-LOCAL-CONTAINMENT"
+        },
+        {
+          "edge_id": "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-PROPER-MAXIMAL",
+          "from": "M0030-N-LOCAL-CONTAINMENT",
+          "type": "proof_requires",
+          "to": "M0030-L-PROPER-MAXIMAL",
+          "reciprocal_edge_id": "CMP-M0030-L-PROPER-MAXIMAL-M0030-N-LOCAL-CONTAINMENT"
+        },
+        {
+          "edge_id": "CMP-M0030-L-PROPER-MAXIMAL-M0030-N-LOCAL-CONTAINMENT",
+          "from": "M0030-L-PROPER-MAXIMAL",
+          "type": "composes",
+          "to": "M0030-N-LOCAL-CONTAINMENT",
+          "reciprocal_edge_id": "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-PROPER-MAXIMAL"
+        },
+        {
+          "edge_id": "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-MAXIMAL-JACOBSON",
+          "from": "M0030-N-LOCAL-CONTAINMENT",
+          "type": "proof_requires",
+          "to": "M0030-L-MAXIMAL-JACOBSON",
+          "reciprocal_edge_id": "CMP-M0030-L-MAXIMAL-JACOBSON-M0030-N-LOCAL-CONTAINMENT"
+        },
+        {
+          "edge_id": "CMP-M0030-L-MAXIMAL-JACOBSON-M0030-N-LOCAL-CONTAINMENT",
+          "from": "M0030-L-MAXIMAL-JACOBSON",
+          "type": "composes",
+          "to": "M0030-N-LOCAL-CONTAINMENT",
+          "reciprocal_edge_id": "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-MAXIMAL-JACOBSON"
+        },
+        {
+          "edge_id": "REQ-M0030-N-JACOBSON-M0030-N-FIXEDPOINT-IFF",
+          "from": "M0030-N-JACOBSON",
+          "type": "proof_requires",
+          "to": "M0030-N-FIXEDPOINT-IFF",
+          "reciprocal_edge_id": "CMP-M0030-N-FIXEDPOINT-IFF-M0030-N-JACOBSON"
+        },
+        {
+          "edge_id": "CMP-M0030-N-FIXEDPOINT-IFF-M0030-N-JACOBSON",
+          "from": "M0030-N-FIXEDPOINT-IFF",
+          "type": "composes",
+          "to": "M0030-N-JACOBSON",
+          "reciprocal_edge_id": "REQ-M0030-N-JACOBSON-M0030-N-FIXEDPOINT-IFF"
+        },
+        {
+          "edge_id": "REQ-M0030-N-JACOBSON-M0030-L-JACOBSON-UNIT",
+          "from": "M0030-N-JACOBSON",
+          "type": "proof_requires",
+          "to": "M0030-L-JACOBSON-UNIT",
+          "reciprocal_edge_id": "CMP-M0030-L-JACOBSON-UNIT-M0030-N-JACOBSON"
+        },
+        {
+          "edge_id": "CMP-M0030-L-JACOBSON-UNIT-M0030-N-JACOBSON",
+          "from": "M0030-L-JACOBSON-UNIT",
+          "type": "composes",
+          "to": "M0030-N-JACOBSON",
+          "reciprocal_edge_id": "REQ-M0030-N-JACOBSON-M0030-L-JACOBSON-UNIT"
+        },
+        {
+          "edge_id": "REQ-M0030-L-JACOBSON-UNIT-M0030-X-JACOBSON-UNIT-SOURCE",
+          "from": "M0030-L-JACOBSON-UNIT",
+          "type": "proof_requires",
+          "to": "M0030-X-JACOBSON-UNIT-SOURCE",
+          "reciprocal_edge_id": "CMP-M0030-X-JACOBSON-UNIT-SOURCE-M0030-L-JACOBSON-UNIT"
+        },
+        {
+          "edge_id": "CMP-M0030-X-JACOBSON-UNIT-SOURCE-M0030-L-JACOBSON-UNIT",
+          "from": "M0030-X-JACOBSON-UNIT-SOURCE",
+          "type": "composes",
+          "to": "M0030-L-JACOBSON-UNIT",
+          "reciprocal_edge_id": "REQ-M0030-L-JACOBSON-UNIT-M0030-X-JACOBSON-UNIT-SOURCE"
+        }
+      ],
+      "out": {
+        "M0030-ROOT": [
+          "REQ-M0030-ROOT-M0030-X-MATHLIB-BODY"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [
+          "CMP-M0030-X-MATHLIB-BODY-M0030-ROOT",
+          "REQ-M0030-X-MATHLIB-BODY-M0030-N-FINITE-MODULE"
+        ],
+        "M0030-N-FINITE-MODULE": [
+          "CMP-M0030-N-FINITE-MODULE-M0030-X-MATHLIB-BODY",
+          "REQ-M0030-N-FINITE-MODULE-M0030-N-JACOBSON",
+          "REQ-M0030-N-FINITE-MODULE-M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "M0030-N-JACOBSON": [
+          "CMP-M0030-N-JACOBSON-M0030-N-FINITE-MODULE",
+          "REQ-M0030-N-JACOBSON-M0030-N-FIXEDPOINT-IFF",
+          "REQ-M0030-N-JACOBSON-M0030-L-JACOBSON-UNIT"
+        ],
+        "M0030-N-LOCAL-CONTAINMENT": [
+          "CMP-M0030-N-LOCAL-CONTAINMENT-M0030-N-FINITE-MODULE",
+          "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-PROPER-MAXIMAL",
+          "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-MAXIMAL-JACOBSON"
+        ],
+        "M0030-L-PROPER-MAXIMAL": [
+          "CMP-M0030-L-PROPER-MAXIMAL-M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "M0030-L-MAXIMAL-JACOBSON": [
+          "CMP-M0030-L-MAXIMAL-JACOBSON-M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "M0030-L-JACOBSON-UNIT": [
+          "CMP-M0030-L-JACOBSON-UNIT-M0030-N-JACOBSON",
+          "REQ-M0030-L-JACOBSON-UNIT-M0030-X-JACOBSON-UNIT-SOURCE"
+        ],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [
+          "CMP-M0030-X-JACOBSON-UNIT-SOURCE-M0030-L-JACOBSON-UNIT"
+        ],
+        "M0030-N-FIXEDPOINT-IFF": [
+          "CMP-M0030-N-FIXEDPOINT-IFF-M0030-N-JACOBSON"
+        ],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      },
+      "in": {
+        "M0030-ROOT": [
+          "CMP-M0030-X-MATHLIB-BODY-M0030-ROOT"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [
+          "REQ-M0030-ROOT-M0030-X-MATHLIB-BODY",
+          "CMP-M0030-N-FINITE-MODULE-M0030-X-MATHLIB-BODY"
+        ],
+        "M0030-N-FINITE-MODULE": [
+          "REQ-M0030-X-MATHLIB-BODY-M0030-N-FINITE-MODULE",
+          "CMP-M0030-N-JACOBSON-M0030-N-FINITE-MODULE",
+          "CMP-M0030-N-LOCAL-CONTAINMENT-M0030-N-FINITE-MODULE"
+        ],
+        "M0030-N-JACOBSON": [
+          "REQ-M0030-N-FINITE-MODULE-M0030-N-JACOBSON",
+          "CMP-M0030-N-FIXEDPOINT-IFF-M0030-N-JACOBSON",
+          "CMP-M0030-L-JACOBSON-UNIT-M0030-N-JACOBSON"
+        ],
+        "M0030-N-LOCAL-CONTAINMENT": [
+          "REQ-M0030-N-FINITE-MODULE-M0030-N-LOCAL-CONTAINMENT",
+          "CMP-M0030-L-PROPER-MAXIMAL-M0030-N-LOCAL-CONTAINMENT",
+          "CMP-M0030-L-MAXIMAL-JACOBSON-M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "M0030-L-PROPER-MAXIMAL": [
+          "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-PROPER-MAXIMAL"
+        ],
+        "M0030-L-MAXIMAL-JACOBSON": [
+          "REQ-M0030-N-LOCAL-CONTAINMENT-M0030-L-MAXIMAL-JACOBSON"
+        ],
+        "M0030-L-JACOBSON-UNIT": [
+          "REQ-M0030-N-JACOBSON-M0030-L-JACOBSON-UNIT",
+          "CMP-M0030-X-JACOBSON-UNIT-SOURCE-M0030-L-JACOBSON-UNIT"
+        ],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [
+          "REQ-M0030-L-JACOBSON-UNIT-M0030-X-JACOBSON-UNIT-SOURCE"
+        ],
+        "M0030-N-FIXEDPOINT-IFF": [
+          "REQ-M0030-N-JACOBSON-M0030-N-FIXEDPOINT-IFF"
+        ],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "REF-ROOT-INTERFACE",
+          "from": "M0030-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0030-S-INTERFACE"
+        },
+        {
+          "edge_id": "REF-ROOT-BOUNDARY",
+          "from": "M0030-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0030-S-PROPER-BOUNDARY"
+        },
+        {
+          "edge_id": "EQ-ROOT-MEMBERSHIP",
+          "from": "M0030-ROOT",
+          "type": "equivalent_to",
+          "to": "M0030-S-MEMBERSHIP-TRANSPORT"
+        },
+        {
+          "edge_id": "EQ-MEMBERSHIP-ROOT",
+          "from": "M0030-S-MEMBERSHIP-TRANSPORT",
+          "type": "equivalent_to",
+          "to": "M0030-ROOT"
+        },
+        {
+          "edge_id": "REF-M0030-N-FIXEDPOINT-IFF-M0030-T-FIXEDPOINT-COMPOSE",
+          "from": "M0030-N-FIXEDPOINT-IFF",
+          "type": "logical_decomposition",
+          "to": "M0030-T-FIXEDPOINT-COMPOSE"
+        },
+        {
+          "edge_id": "REF-M0030-T-FIXEDPOINT-COMPOSE-M0030-B-FIXEDPOINT-FORWARD",
+          "from": "M0030-T-FIXEDPOINT-COMPOSE",
+          "type": "logical_decomposition",
+          "to": "M0030-B-FIXEDPOINT-FORWARD"
+        },
+        {
+          "edge_id": "REF-M0030-T-FIXEDPOINT-COMPOSE-M0030-B-FIXEDPOINT-BACKWARD",
+          "from": "M0030-T-FIXEDPOINT-COMPOSE",
+          "type": "logical_decomposition",
+          "to": "M0030-B-FIXEDPOINT-BACKWARD"
+        },
+        {
+          "edge_id": "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-C-INFIMUM-SUBMODULE",
+          "from": "M0030-B-FIXEDPOINT-FORWARD",
+          "type": "logical_decomposition",
+          "to": "M0030-C-INFIMUM-SUBMODULE"
+        },
+        {
+          "edge_id": "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-C-STABLE-INTERSECTION",
+          "from": "M0030-B-FIXEDPOINT-FORWARD",
+          "type": "logical_decomposition",
+          "to": "M0030-C-STABLE-INTERSECTION"
+        },
+        {
+          "edge_id": "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-L-FG-NAKAYAMA",
+          "from": "M0030-B-FIXEDPOINT-FORWARD",
+          "type": "logical_decomposition",
+          "to": "M0030-L-FG-NAKAYAMA"
+        },
+        {
+          "edge_id": "REF-M0030-C-STABLE-INTERSECTION-M0030-C-INFIMUM-SUBMODULE",
+          "from": "M0030-C-STABLE-INTERSECTION",
+          "type": "logical_decomposition",
+          "to": "M0030-C-INFIMUM-SUBMODULE"
+        },
+        {
+          "edge_id": "REF-M0030-L-STABILIZATION-INDEX-M0030-C-STABLE-INTERSECTION",
+          "from": "M0030-L-STABILIZATION-INDEX",
+          "type": "logical_decomposition",
+          "to": "M0030-C-STABLE-INTERSECTION"
+        },
+        {
+          "edge_id": "REF-M0030-T-STABILITY-EVALUATE-M0030-C-INFIMUM-SUBMODULE",
+          "from": "M0030-T-STABILITY-EVALUATE",
+          "type": "logical_decomposition",
+          "to": "M0030-C-INFIMUM-SUBMODULE"
+        },
+        {
+          "edge_id": "REF-M0030-T-STABILITY-EVALUATE-M0030-C-STABLE-INTERSECTION",
+          "from": "M0030-T-STABILITY-EVALUATE",
+          "type": "logical_decomposition",
+          "to": "M0030-C-STABLE-INTERSECTION"
+        },
+        {
+          "edge_id": "REF-M0030-T-STABILITY-EVALUATE-M0030-L-STABILIZATION-INDEX",
+          "from": "M0030-T-STABILITY-EVALUATE",
+          "type": "logical_decomposition",
+          "to": "M0030-L-STABILIZATION-INDEX"
+        },
+        {
+          "edge_id": "REF-M0030-L-FG-NAKAYAMA-M0030-T-STABILITY-EVALUATE",
+          "from": "M0030-L-FG-NAKAYAMA",
+          "type": "logical_decomposition",
+          "to": "M0030-T-STABILITY-EVALUATE"
+        },
+        {
+          "edge_id": "REF-M0030-B-FIXEDPOINT-BACKWARD-M0030-L-POWER-INDUCTION",
+          "from": "M0030-B-FIXEDPOINT-BACKWARD",
+          "type": "logical_decomposition",
+          "to": "M0030-L-POWER-INDUCTION"
+        }
+      ],
+      "out": {
+        "M0030-ROOT": [
+          "REF-ROOT-INTERFACE",
+          "REF-ROOT-BOUNDARY",
+          "EQ-ROOT-MEMBERSHIP"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [
+          "EQ-MEMBERSHIP-ROOT"
+        ],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [
+          "REF-M0030-N-FIXEDPOINT-IFF-M0030-T-FIXEDPOINT-COMPOSE"
+        ],
+        "M0030-T-FIXEDPOINT-COMPOSE": [
+          "REF-M0030-T-FIXEDPOINT-COMPOSE-M0030-B-FIXEDPOINT-FORWARD",
+          "REF-M0030-T-FIXEDPOINT-COMPOSE-M0030-B-FIXEDPOINT-BACKWARD"
+        ],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [
+          "REF-M0030-C-STABLE-INTERSECTION-M0030-C-INFIMUM-SUBMODULE"
+        ],
+        "M0030-L-STABILIZATION-INDEX": [
+          "REF-M0030-L-STABILIZATION-INDEX-M0030-C-STABLE-INTERSECTION"
+        ],
+        "M0030-T-STABILITY-EVALUATE": [
+          "REF-M0030-T-STABILITY-EVALUATE-M0030-C-INFIMUM-SUBMODULE",
+          "REF-M0030-T-STABILITY-EVALUATE-M0030-C-STABLE-INTERSECTION",
+          "REF-M0030-T-STABILITY-EVALUATE-M0030-L-STABILIZATION-INDEX"
+        ],
+        "M0030-L-FG-NAKAYAMA": [
+          "REF-M0030-L-FG-NAKAYAMA-M0030-T-STABILITY-EVALUATE"
+        ],
+        "M0030-B-FIXEDPOINT-FORWARD": [
+          "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-C-INFIMUM-SUBMODULE",
+          "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-C-STABLE-INTERSECTION",
+          "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-L-FG-NAKAYAMA"
+        ],
+        "M0030-B-FIXEDPOINT-BACKWARD": [
+          "REF-M0030-B-FIXEDPOINT-BACKWARD-M0030-L-POWER-INDUCTION"
+        ],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      },
+      "in": {
+        "M0030-ROOT": [
+          "EQ-MEMBERSHIP-ROOT"
+        ],
+        "M0030-S-INTERFACE": [
+          "REF-ROOT-INTERFACE"
+        ],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [
+          "EQ-ROOT-MEMBERSHIP"
+        ],
+        "M0030-S-PROPER-BOUNDARY": [
+          "REF-ROOT-BOUNDARY"
+        ],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [
+          "REF-M0030-N-FIXEDPOINT-IFF-M0030-T-FIXEDPOINT-COMPOSE"
+        ],
+        "M0030-C-INFIMUM-SUBMODULE": [
+          "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-C-INFIMUM-SUBMODULE",
+          "REF-M0030-C-STABLE-INTERSECTION-M0030-C-INFIMUM-SUBMODULE",
+          "REF-M0030-T-STABILITY-EVALUATE-M0030-C-INFIMUM-SUBMODULE"
+        ],
+        "M0030-C-STABLE-INTERSECTION": [
+          "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-C-STABLE-INTERSECTION",
+          "REF-M0030-L-STABILIZATION-INDEX-M0030-C-STABLE-INTERSECTION",
+          "REF-M0030-T-STABILITY-EVALUATE-M0030-C-STABLE-INTERSECTION"
+        ],
+        "M0030-L-STABILIZATION-INDEX": [
+          "REF-M0030-T-STABILITY-EVALUATE-M0030-L-STABILIZATION-INDEX"
+        ],
+        "M0030-T-STABILITY-EVALUATE": [
+          "REF-M0030-L-FG-NAKAYAMA-M0030-T-STABILITY-EVALUATE"
+        ],
+        "M0030-L-FG-NAKAYAMA": [
+          "REF-M0030-B-FIXEDPOINT-FORWARD-M0030-L-FG-NAKAYAMA"
+        ],
+        "M0030-B-FIXEDPOINT-FORWARD": [
+          "REF-M0030-T-FIXEDPOINT-COMPOSE-M0030-B-FIXEDPOINT-FORWARD"
+        ],
+        "M0030-B-FIXEDPOINT-BACKWARD": [
+          "REF-M0030-T-FIXEDPOINT-COMPOSE-M0030-B-FIXEDPOINT-BACKWARD"
+        ],
+        "M0030-L-POWER-INDUCTION": [
+          "REF-M0030-B-FIXEDPOINT-BACKWARD-M0030-L-POWER-INDUCTION"
+        ],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "SRC-ROOT",
+          "from": "M0030-X-SOURCE",
+          "type": "source_map",
+          "to": "M0030-ROOT"
+        },
+        {
+          "edge_id": "SRC-FIXEDPOINT",
+          "from": "M0030-X-SOURCE",
+          "type": "source_map",
+          "to": "M0030-N-FIXEDPOINT-IFF"
+        },
+        {
+          "edge_id": "SRC-NAKAYAMA",
+          "from": "M0030-X-SOURCE",
+          "type": "source_map",
+          "to": "M0030-L-FG-NAKAYAMA"
+        },
+        {
+          "edge_id": "PROV-BODY",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-X-MATHLIB-BODY"
+        },
+        {
+          "edge_id": "PROV-FINITE-MODULE",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-N-FINITE-MODULE"
+        },
+        {
+          "edge_id": "PROV-JACOBSON",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-N-JACOBSON"
+        },
+        {
+          "edge_id": "PROV-PROPER-MAXIMAL",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-L-PROPER-MAXIMAL"
+        },
+        {
+          "edge_id": "PROV-MAXIMAL-JACOBSON",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-L-MAXIMAL-JACOBSON"
+        },
+        {
+          "edge_id": "PROV-FIXEDPOINT",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-N-FIXEDPOINT-IFF"
+        },
+        {
+          "edge_id": "PROV-UNIT",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-X-JACOBSON-UNIT-SOURCE"
+        },
+        {
+          "edge_id": "PROV-STABLE",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-C-STABLE-INTERSECTION"
+        },
+        {
+          "edge_id": "PROV-NAKAYAMA",
+          "from": "M0030-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0030-L-FG-NAKAYAMA"
+        }
+      ],
+      "out": {
+        "M0030-ROOT": [],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [
+          "SRC-ROOT",
+          "SRC-FIXEDPOINT",
+          "SRC-NAKAYAMA"
+        ],
+        "M0030-X-PROVENANCE": [
+          "PROV-BODY",
+          "PROV-FINITE-MODULE",
+          "PROV-JACOBSON",
+          "PROV-PROPER-MAXIMAL",
+          "PROV-MAXIMAL-JACOBSON",
+          "PROV-FIXEDPOINT",
+          "PROV-UNIT",
+          "PROV-STABLE",
+          "PROV-NAKAYAMA"
+        ],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      },
+      "in": {
+        "M0030-ROOT": [
+          "SRC-ROOT"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [
+          "PROV-BODY"
+        ],
+        "M0030-N-FINITE-MODULE": [
+          "PROV-FINITE-MODULE"
+        ],
+        "M0030-N-JACOBSON": [
+          "PROV-JACOBSON"
+        ],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [
+          "PROV-PROPER-MAXIMAL"
+        ],
+        "M0030-L-MAXIMAL-JACOBSON": [
+          "PROV-MAXIMAL-JACOBSON"
+        ],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [
+          "PROV-UNIT"
+        ],
+        "M0030-N-FIXEDPOINT-IFF": [
+          "SRC-FIXEDPOINT",
+          "PROV-FIXEDPOINT"
+        ],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [
+          "PROV-STABLE"
+        ],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [
+          "SRC-NAKAYAMA",
+          "PROV-NAKAYAMA"
+        ],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      }
+    },
+    "evidence": {
+      "edges": [
+        {
+          "edge_id": "EVID-BODY",
+          "from": "M0030-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0030-X-MATHLIB-BODY"
+        },
+        {
+          "edge_id": "EVID-WORKFLOW",
+          "from": "M0030-X-WORKFLOW",
+          "type": "evidence_for",
+          "to": "M0030-ROOT"
+        }
+      ],
+      "out": {
+        "M0030-ROOT": [],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [
+          "EVID-BODY"
+        ],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": [
+          "EVID-WORKFLOW"
+        ]
+      },
+      "in": {
+        "M0030-ROOT": [
+          "EVID-WORKFLOW"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [
+          "EVID-BODY"
+        ],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      }
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "TRUST-ROOT-FOUNDATION",
+          "from": "M0030-ROOT",
+          "type": "trusts",
+          "to": "M0030-S-FOUNDATION"
+        },
+        {
+          "edge_id": "TRUST-ROOT-TCB",
+          "from": "M0030-ROOT",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-BODY-TCB",
+          "from": "M0030-X-MATHLIB-BODY",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-N-FINITE-MODULE-TCB",
+          "from": "M0030-N-FINITE-MODULE",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-N-JACOBSON-TCB",
+          "from": "M0030-N-JACOBSON",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-L-PROPER-MAXIMAL-TCB",
+          "from": "M0030-L-PROPER-MAXIMAL",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-L-MAXIMAL-JACOBSON-TCB",
+          "from": "M0030-L-MAXIMAL-JACOBSON",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-X-JACOBSON-UNIT-SOURCE-TCB",
+          "from": "M0030-X-JACOBSON-UNIT-SOURCE",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-N-FIXEDPOINT-IFF-TCB",
+          "from": "M0030-N-FIXEDPOINT-IFF",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-C-STABLE-INTERSECTION-TCB",
+          "from": "M0030-C-STABLE-INTERSECTION",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-M0030-L-FG-NAKAYAMA-TCB",
+          "from": "M0030-L-FG-NAKAYAMA",
+          "type": "trusts",
+          "to": "M0030-X-TRUST"
+        }
+      ],
+      "out": {
+        "M0030-ROOT": [
+          "TRUST-ROOT-FOUNDATION",
+          "TRUST-ROOT-TCB"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [
+          "TRUST-BODY-TCB"
+        ],
+        "M0030-N-FINITE-MODULE": [
+          "TRUST-M0030-N-FINITE-MODULE-TCB"
+        ],
+        "M0030-N-JACOBSON": [
+          "TRUST-M0030-N-JACOBSON-TCB"
+        ],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [
+          "TRUST-M0030-L-PROPER-MAXIMAL-TCB"
+        ],
+        "M0030-L-MAXIMAL-JACOBSON": [
+          "TRUST-M0030-L-MAXIMAL-JACOBSON-TCB"
+        ],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [
+          "TRUST-M0030-X-JACOBSON-UNIT-SOURCE-TCB"
+        ],
+        "M0030-N-FIXEDPOINT-IFF": [
+          "TRUST-M0030-N-FIXEDPOINT-IFF-TCB"
+        ],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [
+          "TRUST-M0030-C-STABLE-INTERSECTION-TCB"
+        ],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [
+          "TRUST-M0030-L-FG-NAKAYAMA-TCB"
+        ],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      },
+      "in": {
+        "M0030-ROOT": [],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [
+          "TRUST-ROOT-FOUNDATION"
+        ],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [
+          "TRUST-ROOT-TCB",
+          "TRUST-BODY-TCB",
+          "TRUST-M0030-N-FINITE-MODULE-TCB",
+          "TRUST-M0030-N-JACOBSON-TCB",
+          "TRUST-M0030-L-PROPER-MAXIMAL-TCB",
+          "TRUST-M0030-L-MAXIMAL-JACOBSON-TCB",
+          "TRUST-M0030-X-JACOBSON-UNIT-SOURCE-TCB",
+          "TRUST-M0030-N-FIXEDPOINT-IFF-TCB",
+          "TRUST-M0030-C-STABLE-INTERSECTION-TCB",
+          "TRUST-M0030-L-FG-NAKAYAMA-TCB"
+        ],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "DOC-READABLE-ROOT",
+          "from": "M0030-X-READABLE",
+          "type": "documents",
+          "to": "M0030-ROOT"
+        },
+        {
+          "edge_id": "DOC-READABLE-FIXEDPOINT",
+          "from": "M0030-X-READABLE",
+          "type": "documents",
+          "to": "M0030-N-FIXEDPOINT-IFF"
+        },
+        {
+          "edge_id": "DOC-READABLE-NAKAYAMA",
+          "from": "M0030-X-READABLE",
+          "type": "documents",
+          "to": "M0030-L-FG-NAKAYAMA"
+        },
+        {
+          "edge_id": "DOC-SOURCE-ROOT",
+          "from": "M0030-X-SOURCE",
+          "type": "documents",
+          "to": "M0030-ROOT"
+        }
+      ],
+      "out": {
+        "M0030-ROOT": [],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [
+          "DOC-SOURCE-ROOT"
+        ],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [
+          "DOC-READABLE-ROOT",
+          "DOC-READABLE-FIXEDPOINT",
+          "DOC-READABLE-NAKAYAMA"
+        ],
+        "M0030-X-WORKFLOW": []
+      },
+      "in": {
+        "M0030-ROOT": [
+          "DOC-READABLE-ROOT",
+          "DOC-SOURCE-ROOT"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [
+          "DOC-READABLE-FIXEDPOINT"
+        ],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [
+          "DOC-READABLE-NAKAYAMA"
+        ],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [],
+        "M0030-X-TRUST": [],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": []
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "FLOW-TREE-ANCHOR",
+          "from": "M0030-ROOT",
+          "type": "workflow_depends_on",
+          "to": "M0030-X-MATHLIB-BODY"
+        },
+        {
+          "edge_id": "FLOW-PROOF-TREE",
+          "from": "M0030-X-PROVENANCE",
+          "type": "workflow_depends_on",
+          "to": "M0030-ROOT"
+        },
+        {
+          "edge_id": "FLOW-VALIDATION-PROOF",
+          "from": "M0030-X-TRUST",
+          "type": "workflow_depends_on",
+          "to": "M0030-X-PROVENANCE"
+        },
+        {
+          "edge_id": "FLOW-RELEASE-VALIDATION",
+          "from": "M0030-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0030-X-TRUST"
+        },
+        {
+          "edge_id": "FLOW-RELEASE-READABLE",
+          "from": "M0030-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0030-X-READABLE"
+        },
+        {
+          "edge_id": "FLOW-RELEASE-SOURCE",
+          "from": "M0030-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0030-X-SOURCE"
+        }
+      ],
+      "out": {
+        "M0030-ROOT": [
+          "FLOW-TREE-ANCHOR"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [],
+        "M0030-X-PROVENANCE": [
+          "FLOW-PROOF-TREE"
+        ],
+        "M0030-X-TRUST": [
+          "FLOW-VALIDATION-PROOF"
+        ],
+        "M0030-X-READABLE": [],
+        "M0030-X-WORKFLOW": [
+          "FLOW-RELEASE-VALIDATION",
+          "FLOW-RELEASE-READABLE",
+          "FLOW-RELEASE-SOURCE"
+        ]
+      },
+      "in": {
+        "M0030-ROOT": [
+          "FLOW-PROOF-TREE"
+        ],
+        "M0030-S-INTERFACE": [],
+        "M0030-S-MEMBERSHIP-TRANSPORT": [],
+        "M0030-S-PROPER-BOUNDARY": [],
+        "M0030-S-FOUNDATION": [],
+        "M0030-X-MATHLIB-BODY": [
+          "FLOW-TREE-ANCHOR"
+        ],
+        "M0030-N-FINITE-MODULE": [],
+        "M0030-N-JACOBSON": [],
+        "M0030-N-LOCAL-CONTAINMENT": [],
+        "M0030-L-PROPER-MAXIMAL": [],
+        "M0030-L-MAXIMAL-JACOBSON": [],
+        "M0030-L-JACOBSON-UNIT": [],
+        "M0030-X-JACOBSON-UNIT-SOURCE": [],
+        "M0030-N-FIXEDPOINT-IFF": [],
+        "M0030-T-FIXEDPOINT-COMPOSE": [],
+        "M0030-C-INFIMUM-SUBMODULE": [],
+        "M0030-C-STABLE-INTERSECTION": [],
+        "M0030-L-STABILIZATION-INDEX": [],
+        "M0030-T-STABILITY-EVALUATE": [],
+        "M0030-L-FG-NAKAYAMA": [],
+        "M0030-B-FIXEDPOINT-FORWARD": [],
+        "M0030-B-FIXEDPOINT-BACKWARD": [],
+        "M0030-L-POWER-INDUCTION": [],
+        "M0030-X-SOURCE": [
+          "FLOW-RELEASE-SOURCE"
+        ],
+        "M0030-X-PROVENANCE": [
+          "FLOW-VALIDATION-PROOF"
+        ],
+        "M0030-X-TRUST": [
+          "FLOW-RELEASE-VALIDATION"
+        ],
+        "M0030-X-READABLE": [
+          "FLOW-RELEASE-READABLE"
+        ],
+        "M0030-X-WORKFLOW": []
+      }
+    }
+  },
+  "closure_boundary": {
+    "checked_interface_obligations": [
+      "M0030-S-INTERFACE",
+      "M0030-S-MEMBERSHIP-TRANSPORT",
+      "M0030-S-PROPER-BOUNDARY"
+    ],
+    "conditional_composition_obligations": [
+      "M0030-L-JACOBSON-UNIT",
+      "M0030-N-FINITE-MODULE",
+      "M0030-N-JACOBSON",
+      "M0030-N-LOCAL-CONTAINMENT",
+      "M0030-ROOT",
+      "M0030-T-FIXEDPOINT-COMPOSE",
+      "M0030-X-MATHLIB-BODY"
+    ],
+    "accepted_closed_obligations": [],
+    "root_closed": false,
+    "root_machine_debt": "M3",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "M0030-X-MATHLIB-BODY",
+      "M0030-X-SOURCE",
+      "M0030-S-FOUNDATION",
+      "M0030-X-PROVENANCE",
+      "M0030-X-TRUST",
+      "M0030-X-READABLE",
+      "M0030-X-WORKFLOW"
+    ],
+    "composition_certificates": [
+      {
+        "declaration": "Stage1Instances.THM_M_0030.ObligationTree.root_of_exactMathlibAnchor",
+        "parent": "M0030-ROOT",
+        "required_children": [
+          "M0030-X-MATHLIB-BODY"
+        ],
+        "status": "conditional_kernel_checked"
+      },
+      {
+        "declaration": "Stage1Instances.THM_M_0030.ObligationTree.exactMathlibAnchor_of_finiteModuleIntersection",
+        "parent": "M0030-X-MATHLIB-BODY",
+        "required_children": [
+          "M0030-N-FINITE-MODULE"
+        ],
+        "status": "conditional_kernel_checked"
+      },
+      {
+        "declaration": "Stage1Instances.THM_M_0030.ObligationTree.finiteModuleIntersection_of_jacobson",
+        "parent": "M0030-N-FINITE-MODULE",
+        "required_children": [
+          "M0030-N-JACOBSON",
+          "M0030-N-LOCAL-CONTAINMENT"
+        ],
+        "status": "conditional_kernel_checked"
+      },
+      {
+        "declaration": "Stage1Instances.THM_M_0030.ObligationTree.localProperIdealJacobson_of_bounds",
+        "parent": "M0030-N-LOCAL-CONTAINMENT",
+        "required_children": [
+          "M0030-L-PROPER-MAXIMAL",
+          "M0030-L-MAXIMAL-JACOBSON"
+        ],
+        "status": "conditional_kernel_checked"
+      },
+      {
+        "declaration": "Stage1Instances.THM_M_0030.ObligationTree.jacobsonIntersection_of_fixedPoint",
+        "parent": "M0030-N-JACOBSON",
+        "required_children": [
+          "M0030-N-FIXEDPOINT-IFF",
+          "M0030-L-JACOBSON-UNIT"
+        ],
+        "status": "conditional_kernel_checked"
+      },
+      {
+        "declaration": "Stage1Instances.THM_M_0030.ObligationTree.jacobsonUnit_of_source",
+        "parent": "M0030-L-JACOBSON-UNIT",
+        "required_children": [
+          "M0030-X-JACOBSON-UNIT-SOURCE"
+        ],
+        "status": "conditional_kernel_checked"
+      },
+      {
+        "declaration": "Stage1Instances.THM_M_0030.ObligationTree.fixedPointCharacterization_of_branches",
+        "parent": "M0030-T-FIXEDPOINT-COMPOSE",
+        "required_children": [
+          "M0030-B-FIXEDPOINT-FORWARD",
+          "M0030-B-FIXEDPOINT-BACKWARD"
+        ],
+        "status": "conditional_kernel_checked"
+      }
+    ],
+    "reason": "All compositions are conditional and accepted state is empty. The pinned terminal theorem remains uninstalled until proof-phase validation and master acceptance."
+  }
+}

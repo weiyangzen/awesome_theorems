@@ -1,0 +1,174 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0061",
+  "item_id": "S56-M-0061-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1093,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "拉格朗日定理",
+  "name_en": "Lagrange's theorem for finite groups",
+  "canonical_name": "Lagrange divisibility theorem for a subgroup of a finite group",
+  "category": "代数学 / 群论",
+  "category_en": "algebra / group theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "有限群G的子群H的阶整除G的阶",
+  "literal_source_claim_en": "The order of a subgroup H of a finite group G divides the order of G.",
+  "source_attribution": "Joseph-Louis Lagrange, 1771 (unverified catalog metadata)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "For every finite group G and every subgroup H of G, the finite order of H divides the finite order of G.",
+  "canonical_claim_status": "human_mathematical_scope_frozen_exact_lean_declaration_expression_fingerprint_and_transports_reserved_for_statement_phase",
+  "canonical_claim": "For every finite group G and every subgroup H of G, the finite order of H divides the finite order of G.",
+  "statement_blocker": "The human claim is stable, but the statement phase must accept one exact Lean expression and decide universe and binder order, Finite versus Fintype, Nat.card versus Fintype.card, the additive boundary, checked transports, expression/environment fingerprints, and required mutations.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": ["Mathlib.GroupTheory.Coset.Card"],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "Subgroup.card_subgroup_dvd_card",
+      "Subgroup.card_eq_card_quotient_mul_card_subgroup"
+    ],
+    "candidate_expression": "{G : Type u} -> [Group G] -> [Finite G] -> (H : Subgroup G) -> Nat.card H divides Nat.card G",
+    "candidate_expression_status": "finite_scope_example_elaborated_for_intake_feasibility_only_no_canonical_declaration_or_expression_identity_accepted",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_exact_expression_fingerprint_transports_and_mutations",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.GroupTheory.Coset.Card_intake-api-probe-only"
+  },
+  "domain_and_universes": "Candidate scope: G : Type u in an arbitrary universe, with Group G and Finite G; H : Subgroup G. The exact universe declaration and finite-cardinality interface remain statement-phase choices.",
+  "quantifiers": [
+    "for every finite multiplicative group G",
+    "for every subgroup H of G"
+  ],
+  "ordered_binders": [
+    "universe u",
+    "G : Type u",
+    "Group G",
+    "Finite G",
+    "H : Subgroup G"
+  ],
+  "hypotheses": [
+    "G carries a group structure",
+    "the carrier of G is finite",
+    "H is a subgroup of G"
+  ],
+  "conclusion": "The natural-number cardinality of H divides the natural-number cardinality of G.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No finite group or subgroup boundary is excluded. The statement suite must cover the trivial group, bottom subgroup, and top subgroup, and distinguish any mutation that adds normality, properness, or nontriviality.",
+  "candidate_scope_not_credited": [
+    "the stronger arbitrary-group Nat.card declaration without an explicit finite premise",
+    "a Fintype.card version with a checked equivalence still to be supplied",
+    "the additive-group analogue",
+    "the quotient-cardinality product identity and group-index formulations"
+  ],
+  "excluded_substitutions": [
+    "element order divides group order",
+    "only normal, proper, nontrivial, abelian, cyclic, or concrete finite groups",
+    "the additive theorem without a checked and source-approved relationship",
+    "a quotient-cardinality or index identity without a checked implication to the divisibility root",
+    "the legacy numeric slot S1_M_061, which belongs to THM-M-0433",
+    "a declaration name, API probe, or the untrusted verified label used as proof credit"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.GroupTheory.Coset.Card",
+      "declarations": [
+        "Subgroup.card_subgroup_dvd_card",
+        "Subgroup.card_eq_card_quotient_mul_card_subgroup"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "The public declaration is a close, stronger-domain candidate and a finite-scope example elaborates. Exact statement identity, accepted wrapper, terminal body, transitive provenance, placeholder and axiom closure, and M0 credit remain downstream."
+    }
+  ],
+  "source_status": "H1_standard_proved_theorem_family_and_textbook_lead_identified_but_primary_source_edition_theorem_page_definitions_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "David S. Dummit and Richard M. Foote, Abstract Algebra, third edition, section 3.2, Lagrange's Theorem",
+      "candidate_summary": "A standard modern proof-source lead matching the finite-group subgroup-order divisibility claim.",
+      "inspection_status": "Bibliographic discovery lead only; no stable copy, exact theorem/page, incorporated definitions, proof boundary, corrections, errata, or independent review was admitted."
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "c5f6fb269f6eb84efa935ee66c4e9bab92495e61",
+    "repository_base_tree": "7a41063c920c1b9cb849aa35c2f02ec4a4733655",
+    "repository_record": "Docs/researches/math_theorems.md:456-461",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1785-1808",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "23840e114596e350bdb2495d1ba045c9e968534bcc5e7d81253079736fe32a2e",
+    "stage0_projection_excerpt_sha256": "2d17ac002f109613c6737c42caaa9e7a668a7e64bd75db9b91057714ec7226bb",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "49f3623f04ff85b81408f90fcb3b8aa3d3d2538365601449af058026da127144",
+    "execution_dag_sha256": "2aa5dbf1d399d69a356af2922e45fedacdd0422cdc844ac0f805b875d3c6acd4",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_coset_card_source_sha256": "cb3efb11057211d161637ba7e6c75d64271faa95e5bdafff96f82168329b236e"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; the imported candidate reports propext, Classical.choice, and Quot.sound, while exact-root allowed principles and transitive closure remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 plus manifest-pinned mathlib; exact root imports, executable identities, terminal proof body, transitive dependencies, and accepted trust closure remain open",
+  "computation_profile": "kernel-exact-cardinality-planned/1.0: no finite-group database, enumeration, computer algebra, oracle, native shortcut, experiment, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0061/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0061/README.md",
+    "Stage1_Instances/THM-M-0061/instance.json",
+    "Stage1_Instances/THM-M-0061/scope-map.md",
+    "Stage1_Instances/THM-M-0061/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0061/task-dag.json",
+    "Stage1_Instances/THM-M-0061/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0061/check_intake.py",
+    "Stage1_Instances/THM-M-0061/validation.md",
+    "Stage1_Instances/THM-M-0061/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent group-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the primary-source crosswalk, exact finite-scope Lean target, cardinality transports, boundaries, and trust mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog, attribution, source, theorem or target correction; finite/group/subgroup/cardinality/divisibility scope decision; Lean target, transport, toolchain or dependency pin; assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the human mathematical claim, scope and boundary map, source-statement crosswalk, close pinned formal candidate, and open downstream DAG. The API probe supplies M3 feasibility evidence but no canonical Lean declaration, expression fingerprint, source acceptance, proof credit, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance."
+}
