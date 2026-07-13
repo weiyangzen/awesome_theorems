@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0498-VALIDATION",
+  "theorem_id": "THM-M-0498",
+  "depends_on": [
+    "S56-M-0498-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0498-VALIDATION-WARM-NETWORK-ISOLATED-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0498/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean invocation runs under bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary module directory writable. Python, Lake, and Git orchestration runs on the host and is checked to perform local inspection only; host-wide network denial for orchestration is not claimed.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six UTF-8 summary lines bound by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0498-A-DIRICHLET",
+        "M0498-T-ASSEMBLE",
+        "M0498-T-ANALYTIC",
+        "M0498-ROOT",
+        "M0498-X-PROVENANCE",
+        "M0498-S-FOUNDATION"
+      ],
+      "covered_declarations": [
+        "ArithmeticFunction.LSeries_vonMangoldt_eq_deriv_riemannZeta_div",
+        "Stage1Instances.THM_M_0498.LSeries_vonMangoldt_logDerivative",
+        "Stage1Instances.THM_M_0498.root_of_analytic_package",
+        "Stage1Instances.THM_M_0498.Validation.logDerivativeDirect",
+        "Stage1Instances.THM_M_0498.Validation.rootConditionalProbe"
+      ],
+      "scope_boundary": "Network-isolated trust-zero Lean replay from copied sources against the existing compiled package roots required by THM-M-0498. Orchestration uses local host tools without a recipe-wide network namespace and the final replay makes no fetch request. The shared cache is contaminated by the separately disclosed accidental flt-regular reconciliation and is nonrelease. Covered obligation IDs are corroborated surfaces, not accepted closure: the Dirichlet node still has a planned fingerprint, both root compositions require the unproved analytic package, and complete provenance/TCB, cold hermetic, and distinct-runner independent gates remain fail-closed."
+    }
+  ]
+}
