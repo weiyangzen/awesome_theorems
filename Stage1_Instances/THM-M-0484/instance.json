@@ -1,0 +1,240 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0484",
+  "item_id": "S56-M-0484-INTAKE",
+  "execution_rank": 1365,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "卢卡斯-莱默检验",
+  "name_en": "Lucas-Lehmer test",
+  "canonical_name": "Lucas-Lehmer primality criterion for Mersenne numbers",
+  "category": "数论 / 初等数论",
+  "category_en": "number theory / elementary number theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "梅森素数的快速检验",
+  "literal_source_claim_en": "A fast test for Mersenne primes.",
+  "source_attribution": "Edouard Lucas/Derrick Lehmer, 1930 (catalog metadata only; no cited work or passage)",
+  "source_status_untrusted": "已验证",
+  "canonical_claim_status": "candidate_lucas_lehmer_correctness_scope_identified_but_source_domain_indexing_representation_and_performance_boundaries_not_accepted",
+  "canonical_statement": "Candidate intake scope: for every natural p with 3 <= p, the zero-based Lucas-Lehmer residue after p - 2 updates from seed 4 modulo 2^p - 1 is zero if and only if the Mersenne number 2^p - 1 is prime.",
+  "canonical_claim": "For p at least 3, the Lucas-Lehmer test accepts p exactly when the Mersenne number 2^p - 1 is prime; source-domain and indexing transport remain unaccepted.",
+  "statement_blocker": "The catalog supplies only a performance-flavored gloss. Before the exact statement gate, an independent reviewer must approve an immutable source theorem and its complete proof/correction boundary; choose odd-prime versus all-natural p >= 3 scope; map one-based S_(p-1) to zero-based residue p-2; choose divisibility, remainder, or ZMod equality; decide correctness directions and any cost claim; and protect p=2 and truncated-subtraction boundaries. The canonical Lean expression, fingerprints, transports, and mutations remain downstream.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.NumberTheory.LucasLehmer"
+    ],
+    "declaration_candidates": [
+      "mersenne",
+      "LucasLehmer.s",
+      "LucasLehmer.sZMod",
+      "LucasLehmer.sMod",
+      "LucasLehmer.lucasLehmerResidue",
+      "LucasLehmer.LucasLehmerTest",
+      "lucas_lehmer_sufficiency",
+      "lucas_lehmer_necessity"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "forall p : Nat, 3 <= p -> (LucasLehmer.LucasLehmerTest p <-> Nat.Prime (mersenne p))",
+    "candidate_expression_status": "pinned definitions and directions elaborate and compose in the intake probe; canonical source selection, normalized expression serialization, transports, mutations, provenance, and proof credit remain downstream",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_transport_and_statement_phase",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-NumberTheory.LucasLehmer_intake-candidate-probe-only"
+  },
+  "domain_and_universes": "Candidate scope is universe-free arithmetic in Lean universe 0: p : Nat, mersenne p : Nat, the recurrence in Int or ZMod (2^p - 1), and Nat.Prime (mersenne p). Source review must decide whether p.Prime is an explicit premise or a consequence and must bind the lower limit.",
+  "ordered_binders": [
+    "p : Nat",
+    "hp : 3 <= p"
+  ],
+  "quantifiers": [
+    "for every natural exponent p at least 3"
+  ],
+  "hypotheses": [
+    "3 <= p in the sharper pinned candidate; an explicit odd-prime premise is conventional but not yet selected"
+  ],
+  "conclusion": "LucasLehmerTest p if and only if Nat.Prime (mersenne p), with the test defined as zero residue after p - 2 zero-based recurrence updates.",
+  "alternate_encodings": [
+    {
+      "target": "for odd prime p, M_p divides the one-based term S_(p-1) if and only if M_p is prime",
+      "relationship": "expected iff after domain, index, and congruence transports",
+      "checked_witness": null,
+      "status": "modern human-source form; no checked source-to-Lean witness yet"
+    },
+    {
+      "target": "LucasLehmer.sMod p (p - 2) = 0 in Int",
+      "relationship": "iff under 1 < p",
+      "checked_witness": null,
+      "status": "pinned residue representation theorem exists but is not credited as a statement transport at intake"
+    },
+    {
+      "target": "test-passing implies Mersenne primality",
+      "relationship": "implied_by the candidate iff",
+      "checked_witness": "discovery-only composition uses lucas_lehmer_sufficiency",
+      "status": "candidate direction only; no accepted proof receipt"
+    },
+    {
+      "target": "Mersenne primality implies test-passing",
+      "relationship": "implied_by the candidate iff",
+      "checked_witness": "discovery-only composition uses lucas_lehmer_necessity",
+      "status": "candidate direction only; no accepted proof receipt"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "p = 0, p = 1, and p = 2 are excluded by the candidate 3 <= p premise; p=2 is a genuine counterexample to the unconditional iff"
+  ],
+  "degenerate_case_status": "The statement phase must mutation-test removal of 3 <= p, the p=2 boundary, an explicit prime-exponent domain, recurrence index shifts, Nat/Int/ZMod representations, binder scope, and truncated subtraction.",
+  "candidate_scope_not_credited": [
+    "the conventional odd-prime one-based Lucas-Lehmer criterion",
+    "the sharper all-natural p >= 3 mathlib candidate",
+    "either correctness direction in isolation",
+    "a certified executable decision procedure or a complexity theorem for the adjective fast",
+    "individual Mersenne-prime certificates produced by norm_num"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0483 Mersenne primality criterion or any evidence owned by that separate target",
+    "Lucas primality, Fermat, Proth, Pocklington, trial-division, or generic certificate tests",
+    "the Bilu-Hanrot-Voutier primitive-divisor theorem for Lucas and Lehmer sequences",
+    "only mersenne definitions, only the recurrence, or only computed examples presented as universal correctness",
+    "a structure, hypothesis, axiom, opaque predicate, oracle, benchmark, or unchecked certificate storing the desired conclusion",
+    "the catalog's untrusted verified label, theorem-name match, source URL, or discovery probe used as accepted proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0483",
+      "name": "梅森素数判定",
+      "relationship": "a separate, broadly worded Mersenne primality-test entry; no statement, source, proof, or status transfers"
+    },
+    {
+      "theorem_id": "THM-M-0405",
+      "name": "比拉斯基定理",
+      "relationship": "the repository's legacy BHV Lucas/Lehmer primitive-divisor work is a distinct theorem family"
+    }
+  ],
+  "source_status": "H1_conventional_criterion_and_complete_1930_bibliographic_lead_identified_but_primary_article_proof_errata_catalog_identity_index_transport_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Chris Caldwell, A proof of the Lucas-Lehmer Test, PrimePages",
+      "candidate_locator": "https://primes.utm.edu/notes/proofs/LucasLehmer.html; displayed Lucas-Lehmer Test (1930) and sufficiency proof; observed 2026-07-13 SHA-256 0a0921d7ff7b5eda6f64df75a1a32efcf0ffa408591df23bfb32ce472782adba",
+      "candidate_summary": "states the odd-prime, one-based iff and gives a modern sufficiency proof",
+      "inspection_status": "authoritative educational source lead only; page explicitly says necessity proof is not typed, catalog identity and index transport are unreviewed, and no independent review is accepted"
+    },
+    {
+      "citation": "D. H. Lehmer, An extended theory of Lucas' functions, Annals of Mathematics 31(3), 1930, 419-448, DOI 10.2307/1968235",
+      "candidate_locator": "PrimePages bibliography plus Crossref work metadata observed 2026-07-13; Crossref response SHA-256 117d3f60f2bb1a35f4286ad13fe0af40556137609b7880f3ff694e3120746f13",
+      "candidate_summary": "historical primary-source bibliographic lead matching the catalog author and year",
+      "inspection_status": "article text, exact theorem, definitions, complete proof, corrections, errata, and relationship to Lucas were not inspected or credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "project": "mathlib",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.NumberTheory.LucasLehmer",
+      "declarations": [
+        "mersenne",
+        "LucasLehmer.s",
+        "LucasLehmer.sZMod",
+        "LucasLehmer.sMod",
+        "LucasLehmer.lucasLehmerResidue",
+        "LucasLehmer.LucasLehmerTest",
+        "lucas_lehmer_sufficiency",
+        "lucas_lehmer_necessity"
+      ],
+      "candidate_type_summary": "both correctness directions compose into LucasLehmerTest p iff Nat.Prime (mersenne p) for every p with 3 <= p",
+      "observed_axioms_for_correctness_bodies": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "status": "exact-topic prospective M0-W route; intake authenticates only the immutable pin, exposed types, composition, axiom print, and low-index exception. Canonical source transport, terminal-body and transitive provenance, full trust and placeholder audit, wrapper installation, validation, and master acceptance remain downstream."
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "2226f559136f12fde46b1bf73cdf629043b8a648",
+    "repository_base_tree": "33cb254ed06b1391379b8e7f88c5e23188957b62",
+    "repository_record": "Docs/researches/math_theorems.md:3553-3558",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:13271-13296",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "c45d12e751608e41bc01441789450fdd35808c8ae58fa64370e4c32a2eeab096",
+    "execution_dag_sha256": "c3785ddf761245d5d0d421940ce4c06ff01c607e2478ffd13e356a3fc1d87829",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_lucas_lehmer_blob": "36af70028d43c613055738999815ed2e88e84bd4",
+    "mathlib_lucas_lehmer_source_sha256": "6321c156165f59d49954c0e6e47706e765c0277df20b97a20333ceba29e8bead",
+    "mathlib_mersenne_examples_blob": "075dc359123c781b8a77ea0b6e969bafb4f28887",
+    "mathlib_mersenne_examples_source_sha256": "282263345e54382728a88aaa4069a301fd4451de94026f9c48c50b4907fe5ff0",
+    "mathlib_necessity_origin_commit": "9067089938d4c3675c1193f1b6e8378620ea611a",
+    "mathlib_necessity_origin_tree": "8163efabbdf7fc3f12b6c1a969ae3968c26c61a2",
+    "mathlib_necessity_origin_blob": "9fa4212b889643e8cfa602f364839df96f21a56a"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "provisional_intake_classification_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the candidate bodies report propext, Classical.choice, and Quot.sound, while accepted source foundations, axiom policy, and complete transitive trust closure remain downstream",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact target imports, normalized expression, terminal bodies, transitive declarations, compiled artifacts, meta norm_num boundary, and trust acceptance remain downstream",
+  "computation_profile": "Ordinary kernel-checked theorem reasoning is the correctness target. The module also offers a kernel-reduction norm_num extension for concrete residues, but no experiment, benchmark, native computation, oracle, solver, or unchecked certificate is credited and no complexity claim is frozen.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; exact-topic candidate discovered but canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0484/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0484/README.md",
+    "Stage1_Instances/THM-M-0484/instance.json",
+    "Stage1_Instances/THM-M-0484/scope-map.md",
+    "Stage1_Instances/THM-M-0484/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0484/task-dag.json",
+    "Stage1_Instances/THM-M-0484/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0484/check_intake.py",
+    "Stage1_Instances/THM-M-0484/validation.md",
+    "Stage1_Instances/THM-M-0484/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent number-theory source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on catalog, source, attribution, correction, or erratum change; exponent domain, recurrence seed/index, modulus, representation, correctness-direction, performance, binder, hypothesis, conclusion, or boundary decision; canonical Lean target, toolchain or dependency pin; assurance profile, validator, structured recipe, public reconstruction, or any owned artifact change. Independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Worker-self-tested planned intake proposal only. It freezes the catalog gloss, candidate correctness scope, source and exact-topic formal leads, indexing/domain/low-exponent boundaries, exclusions, profiles, and open task DAG. It does not freeze a canonical Lean expression or fingerprint, accept source fidelity or proof provenance, or claim H0, M0, R0, accepted state, audit completion, theorem completion, or master acceptance."
+}

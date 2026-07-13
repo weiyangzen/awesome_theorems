@@ -1,0 +1,195 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0481",
+  "item_id": "S56-M-0481-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1362,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "伯特兰假设",
+  "name_en": "Bertrand's postulate",
+  "canonical_name": "Bertrand's postulate for positive natural numbers",
+  "category": "数论 / 初等数论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "n与2n之间必有素数",
+  "literal_source_claim_en": "There is a prime between n and 2n.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_bertrand_postulate_family_but_catalog_omits_domain_positivity_endpoint_and_boundary_conventions",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not specify the domain, a positivity premise, or whether the upper endpoint 2*n is included. The unrestricted natural reading is false at n=0, and the positive half-closed and strict formulations differ at n=1. The pinned mathlib theorem is a strong candidate but cannot be silently substituted for an uncited ambiguous source gloss. Selecting an exact proposition at intake would invent or substitute proposition-changing clauses.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.NumberTheory.Bertrand"
+    ],
+    "declaration_candidates": [
+      "Nat.exists_prime_lt_and_le_two_mul",
+      "Nat.bertrand"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_domain_positivity_endpoint_and_boundary_conventions",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.NumberTheory.Bertrand_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must select Nat with n != 0 or 0 < n, Nat with 1 < n, positive naturals, or another explicit domain; the likely target is Prop in Lean universe 0.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: existence of a natural prime p with n < p and either p <= 2*n or p < 2*n, under a source-selected positivity premise.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; n=0 must be rejected and n=1 decides the relationship between the common endpoint and premise conventions.",
+  "candidate_scope_not_credited": [
+    "for every n : Nat with n != 0, there exists a prime p with n < p and p <= 2*n",
+    "for every n : Nat with 1 < n, there exists a prime p with n < p and p < 2*n",
+    "an equivalent nonempty interval, Finset, Set, or prime-counting formulation after checked transport"
+  ],
+  "degenerate_cases_to_resolve": [
+    "n = 0, where the unrestricted natural statement is false",
+    "n = 1, where the half-closed form holds with p=2 but the strict form fails",
+    "n = 2 and the first nontrivial strict-interval witness p=3",
+    "natural versus positive-natural or integer domain",
+    "strict lower endpoint and strict versus inclusive upper endpoint",
+    "existential witness versus nonempty interval or prime-counting conclusion"
+  ],
+  "excluded_substitutions": [
+    "the eventually-large branch alone",
+    "a real-variable prime interval statement",
+    "a general prime-gap estimate",
+    "Chebyshev estimates or the prime number theorem",
+    "a central-binomial, primorial, or analytic inequality used only as an ingredient",
+    "a result for a finite list of small n values",
+    "a structure or hypothesis storing the desired prime witness",
+    "Bertrand's closed-orbit theorem from the physics catalog",
+    "the catalog's untrusted verified label or the discovery probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0480",
+      "name": "素数定理",
+      "relationship": "a much stronger asymptotic distribution theorem, not inherited proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0482",
+      "name": "切比雪夫估计",
+      "relationship": "related estimates may contextualize a proof but are a separate target"
+    }
+  ],
+  "source_status": "H1_named_classical_theorem_and_modern_proof_leads_known_but_primary_statement_domain_assumptions_endpoint_errata_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Joseph Bertrand, 1845 historical source",
+      "candidate_locator": "catalog attribution only",
+      "candidate_summary": "historical attribution for the named theorem family",
+      "inspection_status": "no primary edition, exact passage, translation, definitions, assumptions, proof boundary, correction history, immutable artifact, or independent review was inspected or credited"
+    },
+    {
+      "citation": "Martin Aigner and Gunter M. Ziegler, Proofs from THE BOOK; Shigenori Tochiori, Considering the Proof of There is a Prime between n and 2n; Mario Carneiro, Arithmetic in Metamath, Case Study: Bertrand's Postulate",
+      "candidate_locator": "references listed in pinned Mathlib.NumberTheory.Bertrand module and pinned docs/references.bib",
+      "candidate_summary": "modern proof and formalization leads for the Erdos-style argument used by mathlib",
+      "inspection_status": "bibliographic discovery leads only; no source-preservation, pinpoint statement/proof crosswalk, errata audit, or independent review credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.NumberTheory.Bertrand",
+      "declaration": "Nat.exists_prime_lt_and_le_two_mul",
+      "type": "(n : Nat) -> n != 0 -> Exists fun p => Nat.Prime p and n < p and p <= 2*n",
+      "boundary": "strong direct pinned candidate for the positive half-closed formulation; exact source identity, proof-body provenance, trust closure, and M0-W credit are deferred"
+    },
+    {
+      "module": "Mathlib.NumberTheory.Bertrand",
+      "declaration": "Nat.bertrand",
+      "type": "alias of Nat.exists_prime_lt_and_le_two_mul",
+      "boundary": "alias only; no distinct proof-body or coverage credit"
+    },
+    {
+      "module": "Mathlib.NumberTheory.Bertrand",
+      "declaration": "Nat.exists_prime_lt_and_le_two_mul_eventually",
+      "type": "(n : Nat) -> 512 <= n -> Exists fun p => Nat.Prime p and n < p and p <= 2*n",
+      "boundary": "large-n branch only, not the requested all-positive root"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the accepted logical-principle and transitive axiom profile remain open until the exact target and terminal body are audited",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal statement imports, terminal declarations, transitive dependencies, and trust policy remain open",
+  "computation_profile": "No floating-point estimate, oracle, experiment, unchecked primality certificate, native computation, or generated finite table is credited; the intended theorem requires kernel-checked mathematics",
+  "formal_system": "Lean 4 + mathlib adapter under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "bd80ad137c187dda02bcfcb2529360ef6d9b53eb",
+    "repository_base_tree": "65fb1d54476897700b46e671380377bdd27c4e0b",
+    "repository_record": "Docs/researches/math_theorems.md:3532-3537",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:13190-13215",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_statement_sha256": "df368dff769cd482316d067701b0cc7cf9cf92258fada1c2e26b157651c77fab",
+    "target_id_set_sha256": "e07deabaab3463cc1f92cdf5c0cf50ad9f8270d35554529c375d20a8512d8f1a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "b06fe98b9547ad6f6e007acbeb18caf36d5ca2cb95a73532ba8e31627cac87ae",
+    "execution_dag_sha256": "3ca414a896892deca50c2351b4ee04f3a84e2eb750828cbdf6807b96193672bc",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "bertrand_source_blob": "9e3752f27172341ba6b5d9d22f17a160f5a68b15",
+    "bertrand_source_sha256": "ca1588962a2c598e0f089bda6ab9fa108e89c3ee479c76bab4914f754508eb26"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0481/README.md",
+    "Stage1_Instances/THM-M-0481/instance.json",
+    "Stage1_Instances/THM-M-0481/scope-map.md",
+    "Stage1_Instances/THM-M-0481/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0481/task-dag.json",
+    "Stage1_Instances/THM-M-0481/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0481/check_intake.py",
+    "Stage1_Instances/THM-M-0481/validation.md",
+    "Stage1_Instances/THM-M-0481/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, primary edition or errata finding, domain, positivity, endpoint, binder, conclusion or boundary convention, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-0481/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, ambiguity and boundary ledger, exclusions, source and formal leads, and open task DAG. No canonical proposition, exact Lean statement, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
