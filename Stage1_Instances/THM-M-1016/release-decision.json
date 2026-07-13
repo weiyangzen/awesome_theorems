@@ -1,0 +1,198 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1016-RELEASE-local-20260713T191118Z",
+  "item_id": "S56-M-1016-RELEASE",
+  "theorem_id": "THM-M-1016",
+  "intent": "release",
+  "base_revision": "8c4a58ee73da7fa8dce7a9f9bfcc0ec5fd713588",
+  "base_tree": "3fa6104e948efe18f95dcfc23e9d2bf7f3dad150",
+  "decided_at": "2026-07-14T03:11:18+08:00",
+  "attestor": "Stage1 rev-5.6 isolated worker slot15",
+  "decision_support": "provisional_worker_selftest",
+  "release_grade": false,
+  "release_accepted": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1016-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1016-VALIDATION-local-20260713T183614Z",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_accepted": false,
+    "receipt_release_grade": false,
+    "receipt_sha256": "e6baff984e92e075e033e114d05743768ecead8aa6f073416c34249561d4b86f"
+  },
+  "reconciled_inputs": {
+    "instance.json": "1e2a72aec53c73e5d407a355781aafd147305b1414515a8fd65761e1c5429c80",
+    "task-dag.json": "10ba187bf8314e9541ec2fd8ac050f3fbd3c46ede3c63f24e6326855b4a73b4a",
+    "README.md": "d819de2aac31698a9f25aa923a63b5af44f9bf6e3ea6e92d0270187d9092766c",
+    "source-statement-crosswalk.md": "282065aa0a6156868e052ad6f65e03135b781166288579a5501ef3279a50dc53",
+    "Statement.lean": "75d7800ccedfe5499e997adb68acbb9f7bef828815cdf2802b4735babaa5f011",
+    "statement.json": "d13f68e5c331537b1f701ddb6aeac63329a2194b04ae47e4b4ca695b55b13c81",
+    "anchor-audit.json": "0fc50ec020adcd90b00e12e75e083bf9f785a02df13f3ff22480bb9da4d4a829",
+    "obligation-registry.json": "5f0efabd00ce7236b0319b8800f38230404495fc01481d6c23d993d651d6a8cc",
+    "typed-graphs.json": "c5a024eac21553cb02848024d7e7957ca80a2c095e920e4578313fc5677d1f68",
+    "ObligationTree.lean": "4e740dd14d4efa9440ea7bb48803b9cd664e41e1dbe2eb7422b01eb6e85694cd",
+    "Proof.lean": "64af1c77d3819ed735f7953b8ac62c2b43e77c4acc82f1af2fae839499393bac",
+    "proof-receipt.json": "05045132b311970ba0d7eb9cd96fe36e3e072c5cfb2fd277cad3d96bc1a3409f",
+    "Validation.lean": "ddd214e7013a802f5d5f3a498a40bd46d2f8afd8831fd525ba4c9d6998f9b448",
+    "validation-spec.json": "60654897c290ad7c84e891a9f2cbc6f4a6b3066d0e40755a4f5dce5eee9e31af",
+    "validation-receipt.json": "e6baff984e92e075e033e114d05743768ecead8aa6f073416c34249561d4b86f",
+    "validation-phase.md": "a62f17e126c0ad7a18fa80730740cca766d359ef9f5c49ae2a83c1828b444cab",
+    "check_validation.py": "98d362ce2820acdcbd1c98b366fc279b12bab4bb04e365998076fbb165fcc4e1"
+  },
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1016-PROOF-local-20260713T165001Z",
+    "S56-M-1016-VALIDATION-local-20260713T183614Z"
+  ],
+  "accepted_receipt_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "root_vector": {
+    "authoritative_planned_before": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "authoritative_planned_after": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "best_provisional_observation": {
+      "H": "H2; candidate sources exist, but no pinpoint primary-source assumption/errata crosswalk or independent source review has been accepted",
+      "M": "M0-L candidate only; the exact root kernel-checked locally, but proof acceptance, structured-state reconciliation, foundation/TCB closure, and release evidence are absent",
+      "R": "R4; no independently reviewed structured readable reconstruction exists"
+    },
+    "boundary": "The weaker current structured planned projection controls; it is not accepted execution state. Provisional local kernel closure cannot create accepted M0-L, E0, AUDIT-Z, or theorem completion."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "scope": "first dependency-acceptance gate evaluated for the release node",
+    "reason": "S56-M-1016-VALIDATION is worker-self-tested [_], explicitly unaccepted and nonrelease, and not master-accepted [x], so the release node is not dependency-legal."
+  },
+  "failed_release_assurance_gate": {
+    "gate_id": "S56-7.3-7.4-TRANSITIVE-PROVENANCE-TCB-CLOSURE",
+    "reason": "The receipt binds local sources and three named mathlib source/olean pairs, but no accepted complete transitive declaration/body/import/compiled-artifact provenance, foundation profile, executable/plugin/evaluator inventory, or TCB closure exists."
+  },
+  "first_failed_reproduction_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "The available validation used a shared warm .lake cache and was not a fresh empty-cache, network-denied, offline-restored cold build."
+  },
+  "predecessor_recipe_replay": {
+    "argv": [
+      "env",
+      "-i",
+      "/usr/bin/python3",
+      "Stage1_Instances/THM-M-1016/check_validation.py"
+    ],
+    "exit_code": 1,
+    "result": "blocked_before_lean_replay",
+    "failure": "FileNotFoundError: [Errno 2] No such file or directory: 'lake'",
+    "reason": "The recorded recipe clears PATH, check_validation.py invokes bare lake, and this checkout provides lake only outside os.defpath. No alternate command is credited as the recorded recipe."
+  },
+  "evidence_reconciliation": {
+    "canonical_target_expression_sha256": "9cdb0281811565d62d5b8a7cc2933f27facd49e39aff10c29fe1d7702797dbee",
+    "registry_denominator_sha256": "a0552dc7b546e055218200f066ebeb2cce448a60ac46a162949c1a57647fcef4",
+    "exact_statement_elaboration": "pass_as_prior_provisional_worker_evidence",
+    "exact_root_kernel_replay": "pass_as_prior_provisional_worker_evidence_but_not_replayed_by_release_worker",
+    "frozen_child_composition": "pass_as_prior_provisional_worker_evidence",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "local_placeholder_unsafe_oracle_scan": "pass_as_prior_provisional_worker_evidence",
+    "provisional_closed_obligation_ids": [
+      "M1016-ROOT",
+      "M1016-S-DEFINITIONS",
+      "M1016-S-BOUNDARIES",
+      "M1016-N-TIGHTNESS",
+      "M1016-N-CONCENTRATION",
+      "M1016-C-REMAINDER",
+      "M1016-L-LITTLE-O",
+      "M1016-L-PRODUCT",
+      "M1016-L-LINEAR-MAP",
+      "M1016-T-REMAINDER",
+      "M1016-T-ASSEMBLE"
+    ],
+    "accepted_closed_obligation_ids": [],
+    "authoritative_graph_reconciled": false,
+    "structured_state_fresh": false,
+    "audit_inventory_complete_and_accepted": false,
+    "pinpoint_h0_and_independent_source_review": false,
+    "independent_r0_review": false,
+    "complete_transitive_provenance_foundation_tcb": false,
+    "immutable_clean_release_input": false,
+    "shared_dependency_cache_remained_unmodified_during_worker_run": false,
+    "predecessor_recipe_replay_currently_passes": false,
+    "hermetic_cold_offline_replay": false,
+    "sbom_license_offline_archive_closure": false,
+    "two_independent_signed_runner_attestations": false,
+    "independently_implemented_minimal_release_verifier": false,
+    "protected_ci_and_required_adversarial_gates": false,
+    "deterministic_content_addressed_release_bundle": false,
+    "master_acceptance": false
+  },
+  "structured_authority_disagreements": [
+    "instance.json remains planned at H2/M4/R4 with no accepted proof state, while later proof and validation receipts report only provisional local root closure.",
+    "task-dag.json records all downstream tasks open and accepted_states empty, while the generated execution DAG projects the first six phase workers as provisional [_].",
+    "typed-graphs.json is the frozen pre-proof observation: it records root_closed=false, no evidence IDs, and M1016-T-REMAINDER as the machine cut even though Proof.lean later supplies a provisional body.",
+    "The validation receipt records a passing predecessor run, but its exact recorded env-cleared recipe is not replayable in this checkout because bare lake cannot be resolved."
+  ],
+  "frozen_not_locally_closed_obligation_ids": [
+    "M1016-ROOT",
+    "M1016-S-FOUNDATION",
+    "M1016-N-TIGHTNESS",
+    "M1016-N-CONCENTRATION",
+    "M1016-C-REMAINDER",
+    "M1016-L-LITTLE-O",
+    "M1016-L-PRODUCT",
+    "M1016-T-REMAINDER",
+    "M1016-X-SOURCE",
+    "M1016-X-PROVENANCE"
+  ],
+  "frozen_locally_closed_but_not_master_accepted_obligation_ids": [
+    "M1016-S-DEFINITIONS",
+    "M1016-S-BOUNDARIES",
+    "M1016-L-LINEAR-MAP",
+    "M1016-T-ASSEMBLE"
+  ],
+  "frozen_preproof_machine_cut_set": [
+    "M1016-T-REMAINDER"
+  ],
+  "remaining_root_cut_set": [
+    "dependency-ordered master acceptance of S56-M-1016-VALIDATION and its transitive provisional phase evidence",
+    "accepted reconciliation of the provisional exact-root proof and validation observations into current registry, graph, instance, task, and public state",
+    "a corrected structured predecessor recipe that replays exactly and the rerun receipt that supersedes the currently non-replayable validation evidence",
+    "AUDIT-Z with complete accepted discovery, inventory, source-boundary, graph, debt, and evidence reconciliation",
+    "accepted H0 primary-source edition, theorem/page/formula, assumptions, errata crosswalk, and independent source review",
+    "accepted R0 node-by-node reconstruction with formal anchors, substantive ledgers, and independent reader review",
+    "complete transitive declaration/body/import/compiled-artifact provenance, accepted foundation and axiom profiles, and hashed TCB closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "complete SBOM and license archive plus protected CI and required adversarial fixtures",
+    "two signed attestations from distinct independently provisioned runners with no shared writable cache",
+    "independently implemented minimal release verifier and deterministic content-addressed release bundle",
+    "master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "known_failures": [
+    "S56-M-1016-VALIDATION is provisional [_], its transitive phase evidence is not dependency-ordered master accepted, and the dossier lacks accepted receipts for the phase chain.",
+    "The current structured lifecycle remains planned at H2/M4/R4; this is not accepted execution state, and the frozen graph has no accepted evidence ID and still records root_closed=false.",
+    "The recorded env-cleared validation recipe currently exits 1 before Lean because it invokes bare lake with no resolvable PATH; the release worker does not credit an altered recipe.",
+    "Discovery is not exhaustive, and the candidate-source crosswalk lacks an accepted pinpoint primary-source statement, assumptions, errata mapping, node mapping, and independent review, so H0 and AUDIT-Z are false.",
+    "No independently reviewed R0 node-by-node reconstruction exists.",
+    "Complete transitive provenance, foundation, TCB, SBOM, license, executable, plugin/evaluator, and imported-olean closure is absent.",
+    "The worker checkout and shared warm .lake cache are not immutable clean empty-cache cold reproduction or offline restoration evidence.",
+    "A diagnostic invocation indirectly caused Lake to delete/reclone or reconcile the canonical shared flt-regular package at its pinned manifest revision. This violated the no-.lake-mutation constraint, changed shared-cache timestamps/state, is not validation evidence, and requires operator integrity review rather than worker repair.",
+    "No two signed independent-runner attestations, independent minimal verifier, protected release CI, deterministic evidence bundle, THEOREM-Z, or master acceptance exists."
+  ],
+  "retry_condition": "First repair and rerun the exact structured validation recipe, then obtain dependency-ordered master acceptance and reconcile proof, validation, graph, instance, task, source/readability, and trust state. Close H0/R0 and AUDIT-Z, execute the immutable cold/offline supply-chain protocol, obtain two clean-runner attestations plus an independent minimal verifier, and build a current deterministic bundle for master THEOREM-Z reconciliation.",
+  "status_boundary": "Self-tested worker decision that release is blocked. It accepts no receipt, advances no lifecycle or H/M/R state, and does not claim E0, accepted M0-L, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}
