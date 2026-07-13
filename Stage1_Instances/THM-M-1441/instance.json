@@ -1,0 +1,196 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1441",
+  "item_id": "S56-M-1441-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1120,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "割线法",
+  "name_en": "Secant method",
+  "canonical_name": "Secant method for equation root finding (repository method label)",
+  "category": "其他重要领域 / 数值分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "割线法",
+  "literal_source_claim_zh": "方程求根的超线性方法",
+  "literal_source_claim_en": "A superlinear method for finding roots of equations.",
+  "source_attribution": "Many mathematicians, twentieth century (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_root_finding_method_and_rate_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only a method name and a superlinear root-finding gloss. It fixes no function or domain, root, secant recurrence, initial pair, denominator-safety rule, regularity and simple-root assumptions, neighborhood, convergence mode, definition or order of superlinearity, error or stopping conclusion, ordered binders, or boundary cases. Choosing the familiar local order-golden-ratio theorem, a Q-superlinear theorem, recurrence well-definedness, or an algorithm-correctness theorem would invent proposition-changing mathematics.",
+  "target_decision": "redirect the catalog method label to a corrected, independently reviewed, source-selected exact proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Asymptotics.Defs",
+      "Mathlib.NumberTheory.Real.GoldenRatio"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must first choose a scalar equation, system, or equation in a more general space, then fix the domain/codomain and scalar field when applicable; function; root; two starting points; sequence/state and universes; topology, norm, differentiability, arithmetic, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose recurrence well-definedness, local or global convergence, Q- or R-superlinear convergence, precise convergence order, error bounds, stopping correctness, root correctness, or a conjunction of these results.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every start, denominator, domain, root, regularity, convergence, asymptotic-error, and arithmetic case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the two-point secant recurrence and its well-definedness",
+    "local convergence near a simple root",
+    "Q-superlinear convergence defined by a next-error/current-error ratio tending to zero",
+    "convergence with exact order equal to the golden ratio",
+    "a globalized, safeguarded, error-bound, or finite-precision solver theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "equal starts, an exact-root start, and zero initial or later secant denominators",
+    "equal function values, zero divided differences, and collision of consecutive iterates",
+    "absent, multiple, or non-simple roots and convergence to an unintended root",
+    "iterates outside the function domain, cycles, divergence, and local versus global basins",
+    "nondifferentiable functions and vanishing first or second derivative at the root",
+    "zero error denominators in rate expressions and eventual exact convergence",
+    "exact arithmetic versus cancellation, rounding, stagnation, overflow, and stopping in finite precision"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1440 Newton iteration or quadratic convergence",
+    "THM-M-1442 bisection or linear convergence",
+    "THM-M-1443 generic fixed-point iteration or THM-M-1444 Banach fixed-point theorem",
+    "a constant or linear toy-function theorem",
+    "a theorem that assumes the desired convergence, rate, estimate, root correctness, or denominator safety",
+    "a finite sampled trajectory, plot, floating-point experiment, or empirical stopping event",
+    "general asymptotic, sequence, division, derivative, or golden-ratio APIs without an accepted source mapping",
+    "the untrusted catalog label 已验证 as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1440",
+      "name": "牛顿迭代法",
+      "relationship": "separately cataloged derivative-based one-point method with a quadratic-rate gloss; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1442",
+      "name": "二分法",
+      "relationship": "separately cataloged bracketing method with a linear-rate gloss; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1443",
+      "name": "不动点迭代",
+      "relationship": "separately cataloged generic iteration method; it cannot replace the two-point secant method"
+    },
+    {
+      "theorem_id": "THM-M-1444",
+      "name": "Banach不动点定理",
+      "relationship": "separately cataloged contraction theorem; its hypotheses and conclusions cannot be silently assigned to this method label"
+    }
+  ],
+  "source_status": "H5_repository_method_and_rate_gloss_only_no_primary_source_or_stable_truth_valued_proposition",
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Asymptotics.Defs",
+      "declaration": "Asymptotics.IsLittleO",
+      "boundary": "general little-o relation that can express one possible superlinear-rate definition; it does not define secant iteration or prove convergence"
+    },
+    {
+      "module": "Mathlib.Order.Filter.Defs",
+      "declaration": "Filter.Tendsto",
+      "boundary": "general convergence predicate only; it supplies no recurrence, hypotheses, limit, or rate theorem"
+    },
+    {
+      "module": "Mathlib.NumberTheory.Real.GoldenRatio",
+      "declaration": "Real.goldenRatio",
+      "boundary": "the real constant used in one classical convergence-order formulation; its availability supplies no secant-method theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "ee8c1843ef3ce74178a990f4e64554c1558c51fa",
+    "repository_base_tree": "3a34df1cc2089854dc563ab4909cc0586713ad20",
+    "repository_record": "Docs/researches/math_theorems.md:10525-10530",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39190-39215",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob_at_origin": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "stage0_projection_current_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "6a6862099a1c6a185f32da9c69f076eeea68b286890be14aa2ffd1caf2187b14",
+    "stage0_projection_excerpt_sha256": "eae4b8dc28303108e69244c78f95763b6be7d043cc0e075f041255be7510b05c",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "e5ada7a151ab5b85cf5747286c7486481078f5042694549a72a0d0726bf8dbb0",
+    "execution_dag_sha256": "11d87e3517f3d53edaebd14a6b73cefe797c0bb6e787265a43bf4a77cc2ac51c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_scope": "provisional catalog-target assessment only; no canonical statement or obligation root exists, the bounded search is not an anchor audit, and this vector is neither accepted state nor target-specific proof evidence",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, real or complex analysis, completeness, function extensionality, quotients, noncomputability, and numerical-representation policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declaration, transitive dependencies, trust closure, numerical runtime, and release policy remain open",
+  "computation_profile": "No numerical trajectory, floating-point convergence experiment, empirical rate, stopping event, oracle, generated approximation, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1441/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1441/README.md",
+    "Stage1_Instances/THM-M-1441/instance.json",
+    "Stage1_Instances/THM-M-1441/scope-map.md",
+    "Stage1_Instances/THM-M-1441/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1441/task-dag.json",
+    "Stage1_Instances/THM-M-1441/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1441/check_intake.py",
+    "Stage1_Instances/THM-M-1441/validation.md",
+    "Stage1_Instances/THM-M-1441/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned numerical-analysis reviewer",
+    "reviewer_policy": "Independent source, numerical-analysis, and formal reviewers must approve the selected proposition, source crosswalk, rate definition, recurrence safety, and neighboring-target boundary before master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this provisional dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, theorem choice, recurrence, domain, starting pair, denominator policy, root or multiplicity, regularity, neighborhood, convergence or rate definition, conclusion, boundary decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog method/rate gloss as not yet a stable proposition; it does not refute established secant-method theorems. The pinned API probe is discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

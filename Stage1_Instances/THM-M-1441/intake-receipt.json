@@ -1,0 +1,321 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1441-INTAKE-WORKER-PROVISIONAL-20260713",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "proposed_state": "[_]",
+  "selftest_result": "pass",
+  "theorem_id": "THM-M-1441",
+  "item_id": "S56-M-1441-INTAKE",
+  "intent": "intake",
+  "verdict": "no_state_change",
+  "lifecycle_before": "absent_at_uniform_L0_baseline",
+  "lifecycle_after": "planned_provisional_worker_dossier",
+  "base_revision": "ee8c1843ef3ce74178a990f4e64554c1558c51fa",
+  "base_tree": "3a34df1cc2089854dc563ab4909cc0586713ad20",
+  "worktree_classification": "nonrelease worker evidence; pre-existing automation-provided Formalizations/Lean/.lake symlink remained untracked and read-only",
+  "self_reference_boundary": "worker_output_hashes binds every nonreceipt dossier file and the root worker packet; the provisional receipt cannot hash itself and remains non-content-addressed",
+  "worker_output_hashes": {
+    "Stage1_Instances/THM-M-1441/README.md": "sha256:46b6d7a39e3bade0420cf0fb636fa4791545c923802a5bb741b9e33897b16321",
+    "Stage1_Instances/THM-M-1441/instance.json": "sha256:ddfd9026e939a85745ad232da7a03e4764c5e7662e20287db95408c8d75b92bf",
+    "Stage1_Instances/THM-M-1441/scope-map.md": "sha256:ac27c406a4a354c0d5b3d51f7a4bc92291716de51eaa13d66116975d53d74519",
+    "Stage1_Instances/THM-M-1441/source-statement-crosswalk.md": "sha256:d9b2cbe53f678d1dd100fcbeaaacbe12ab12f43bb4c28bc7c884a22745329a82",
+    "Stage1_Instances/THM-M-1441/task-dag.json": "sha256:155695e6794dd0ba6d93d8c1c999707eb3ec5e7baf87d8b9e11efa288a4d80ca",
+    "Stage1_Instances/THM-M-1441/IntakeProbe.lean": "sha256:b5224187561589b44a98170b9f78c9430be8ea997fd27c66e8dfec9e3a970a78",
+    "Stage1_Instances/THM-M-1441/check_intake.py": "sha256:23e7ab86082b795b112aae14b5e9d243e73977ad164d7d5ec646ba4831a0450f",
+    "Stage1_Instances/THM-M-1441/validation.md": "sha256:52a961ab70476c33578782e8613ab2721120f4c6ac0aabf868ec12f0bd2b25dc",
+    ".stage1-worker-selftest.json": "sha256:a3b028fe9c69367898cd98473dd4b58ab43759bb713246c39ceac34e4115e928"
+  },
+  "worker_packet_commands": [
+    "python3 Docs/tools/check_stage1_standard.py",
+    "python3 scripts/stage1_target.py check",
+    "python3 scripts/stage1_target.py show THM-M-1441",
+    "sha256sum Docs/Stage1_Targets_rev-5.6.json Docs/Stage1_Blueprint_rev-5.6.md Docs/Stage1_Execution_DAG_rev-5.6.json skills/execute-stage1-rev56/SKILL.md Docs/Blueprint_Guidelines.md Docs/researches/math_theorems.md Docs/Stage0_Blueprint.md Formalizations/Lean/lean-toolchain Formalizations/Lean/lake-manifest.json Formalizations/Lean/.lake/packages/mathlib/Mathlib/Analysis/Asymptotics/Defs.lean Formalizations/Lean/.lake/packages/mathlib/Mathlib/NumberTheory/Real/GoldenRatio.lean",
+    "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1441/IntakeProbe.lean",
+    "rg -n -i --glob '*.lean' 'secant method|secant iteration|secant_method|secantMethod|chord method|regula falsi|secant.*converg|converg.*secant' Formalizations/Lean/.lake/packages/mathlib/Mathlib Formalizations/Lean/AwesomeTheorems Stage1_Instances",
+    "python3 -m json.tool Stage1_Instances/THM-M-1441/instance.json",
+    "python3 -m json.tool Stage1_Instances/THM-M-1441/task-dag.json",
+    "python3 -m json.tool Stage1_Instances/THM-M-1441/intake-receipt.json",
+    "python3 -m json.tool .stage1-worker-selftest.json",
+    "PYTHONPYCACHEPREFIX=/tmp/stage1-thm-m-1441-pycache python3 -m py_compile Stage1_Instances/THM-M-1441/check_intake.py",
+    "python3 -B Stage1_Instances/THM-M-1441/check_intake.py --worker-packet .stage1-worker-selftest.json",
+    "rg -n -i --glob '*.lean' 'sorry|admit|sorryax|axiom|constant|opaque|unsafe' Stage1_Instances/THM-M-1441",
+    "git diff --check -- Stage1_Instances/THM-M-1441 .stage1-worker-selftest.json",
+    "bash -lc 'for file in .stage1-worker-selftest.json Stage1_Instances/THM-M-1441/*; do git diff --no-index --check /dev/null \"$file\" >/tmp/thm-m-1441-diffcheck 2>&1; status=$?; if [ \"$status\" -ne 0 ] && [ \"$status\" -ne 1 ]; then cat /tmp/thm-m-1441-diffcheck; exit \"$status\"; fi; if [ -s /tmp/thm-m-1441-diffcheck ]; then cat /tmp/thm-m-1441-diffcheck; exit 2; fi; done'"
+  ],
+  "source_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:e5ada7a151ab5b85cf5747286c7486481078f5042694549a72a0d0726bf8dbb0",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:11d87e3517f3d53edaebd14a6b73cefe797c0bb6e787265a43bf4a77cc2ac51c",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Docs/Blueprint_Guidelines.md": "sha256:a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "Formalizations/Lean/lean-toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "Formalizations/Lean/lake-manifest.json": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "source_evidence": {
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob_at_origin": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "catalog_record": "secant-method label, collective twentieth-century attribution, superlinear root-finding gloss, importance, and untrusted verified status only",
+    "primary_source_status": "the catalog supplies no bibliography, edition, theorem/page, recurrence, assumptions, proof, or errata record; no source proposition is selected or credited",
+    "candidate_formal_status": "pinned asymptotic, convergence, division, iteration, and golden-ratio APIs elaborated; bounded search found no numerical secant-method theorem; substrate supplies discovery evidence only",
+    "proof_body_locations": []
+  },
+  "worker_input_hashes": {
+    "lean_toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lake_symlink_target_string": "sha256:e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_asymptotics_defs_sha256": "580417cb7100ae5a88ae66159fa08fc238408b8ed1d8ec591c626f5ca43b9165",
+    "mathlib_golden_ratio_sha256": "e3a6e5160e654dfb4c5594c66a624fa7a5edffa4c1b839d992be7d1ba2dd7ac3"
+  },
+  "validated_scope": "planned theorem dossier, scope map, source-statement crosswalk, open downstream task DAG, and discovery-only pinned Lean API probe",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1441/README.md",
+    "Stage1_Instances/THM-M-1441/instance.json",
+    "Stage1_Instances/THM-M-1441/scope-map.md",
+    "Stage1_Instances/THM-M-1441/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1441/task-dag.json",
+    "Stage1_Instances/THM-M-1441/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1441/check_intake.py",
+    "Stage1_Instances/THM-M-1441/validation.md",
+    "Stage1_Instances/THM-M-1441/intake-receipt.json"
+  ],
+  "diff_summary": "Created a nine-file fail-closed planned intake dossier; no existing or foreign target path was modified.",
+  "output_summary": "All rev-5.6 preflight, provenance, JSON, scoped invariant, pinned Lean API, prohibited-construct, and whitespace checks passed for the planned intake. No exact statement or proof was tested or claimed.",
+  "exact_statement_change": "No exact mathematical or Lean statement was added. The intake freezes that the supplied method/rate label is not a stable proposition and leaves the canonical target null.",
+  "source_revision_and_proof_body_summary": "Repository provenance and pinned substrate APIs are recorded. No primary source or exact theorem is selected or audited to H0, and no Lean proof body is credited.",
+  "ownership_and_change_impact": "Only Stage1_Instances/THM-M-1441 and the scheduler-authorized root self-test handoff are changed; no shared authority, generated checklist, execution-DAG state, other target, dependency, or .lake artifact is modified.",
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-1441-INTAKE-RECIPE-STRUCTURE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-1441/check_intake.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 30,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact UTF-8 line: intake invariant check: ok (THM-M-1441 planned; H5/M4/R4; six open tasks)"
+        }
+      ],
+      "covered_obligation_ids": [],
+      "covered_declarations": [],
+      "covered_ids": ["S56-M-1441-INTAKE"],
+      "exit_code": 0
+    },
+    {
+      "recipe_id": "S56-M-1441-INTAKE-RECIPE-LEAN-PROBE",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-1441/IntakeProbe.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "capture complete UTF-8 API-signature output; observed SHA-256 3277bc3a41b43734b1488b0691c26fcdf838218b00470ef5bdfc7b1e6523ad3c"
+        }
+      ],
+      "covered_obligation_ids": [],
+      "covered_declarations": [],
+      "covered_ids": ["S56-M-1441-INTAKE"],
+      "exit_code": 0
+    }
+  ],
+  "commands_and_results": [
+    {
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-1441"],
+      "exit_code": 0,
+      "result": "rank 1120; planned; L0/rework_required; no legacy slot; legacy artifacts unaccepted; theorem_complete false"
+    },
+    {
+      "argv": ["git", "status", "--short", "--untracked-files=all"],
+      "exit_code": 0,
+      "result": "preflight status contained only the automation-provided Formalizations/Lean/.lake symlink; preserved read-only"
+    },
+    {
+      "argv": ["git", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "base revision ee8c1843ef3ce74178a990f4e64554c1558c51fa; base tree 3a34df1cc2089854dc563ab4909cc0586713ad20"
+    },
+    {
+      "argv": ["git", "blame", "-L", "10525,10530", "--", "Docs/researches/math_theorems.md"],
+      "exit_code": 0,
+      "result": "all six uncited catalog lines originate at bcf3f9fa79ab8c2b6610c9875668c2589b35b74f"
+    },
+    {
+      "argv": ["sha256sum", "Docs/Stage1_Targets_rev-5.6.json", "Docs/Stage1_Blueprint_rev-5.6.md", "Docs/Stage1_Execution_DAG_rev-5.6.json", "skills/execute-stage1-rev56/SKILL.md", "Docs/Blueprint_Guidelines.md", "Docs/researches/math_theorems.md", "Docs/Stage0_Blueprint.md", "Formalizations/Lean/lean-toolchain", "Formalizations/Lean/lake-manifest.json", "Formalizations/Lean/.lake/packages/mathlib/Mathlib/Analysis/Asymptotics/Defs.lean", "Formalizations/Lean/.lake/packages/mathlib/Mathlib/NumberTheory/Real/GoldenRatio.lean"],
+      "exit_code": 0,
+      "result": "input hashes recorded in instance.json and this receipt"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "--version"],
+      "exit_code": 0,
+      "result": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, x86_64 Linux"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "--version"],
+      "exit_code": 0,
+      "result": "Lake 5.0.0-src+98dc76e; no update or build was run"
+    },
+    {
+      "argv": ["git", "-C", "Formalizations/Lean/.lake/packages/mathlib", "rev-parse", "HEAD", "HEAD^{tree}"],
+      "exit_code": 0,
+      "result": "revision 8a178386ffc0f5fef0b77738bb5449d50efeea95; tree bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1441/IntakeProbe.lean"],
+      "exit_code": 0,
+      "result": "eight pinned asymptotic, convergence, division, iteration, and golden-ratio APIs elaborated; complete output SHA-256 3277bc3a41b43734b1488b0691c26fcdf838218b00470ef5bdfc7b1e6523ad3c; no target theorem"
+    },
+    {
+      "argv": ["rg", "-n", "-i", "--glob", "*.lean", "secant method|secant iteration|secant_method|secantMethod|chord method|regula falsi|secant.*converg|converg.*secant", "Formalizations/Lean/.lake/packages/mathlib/Mathlib", "Formalizations/Lean/AwesomeTheorems", "Stage1_Instances"],
+      "exit_code": 1,
+      "result": "expected no-match for numerical secant-method declarations; broader secant vocabulary was geometric or convex-analysis material only; intake discovery, not an anchor audit"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1441/instance.json"],
+      "exit_code": 0,
+      "result": "instance manifest is valid JSON"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1441/task-dag.json"],
+      "exit_code": 0,
+      "result": "open task DAG is valid JSON"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1441/intake-receipt.json"],
+      "exit_code": 0,
+      "result": "provisional receipt is valid JSON"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "worker handoff is valid JSON"
+    },
+    {
+      "env": {"PYTHONPYCACHEPREFIX": "/tmp/stage1-thm-m-1441-pycache"},
+      "argv": ["python3", "-m", "py_compile", "Stage1_Instances/THM-M-1441/check_intake.py"],
+      "exit_code": 0,
+      "result": "scoped intake validator compiles without adding generated files to the owned path"
+    },
+    {
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-1441/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "target and item identity, planned H5/M4/R4 boundary, null target, exact artifact inventory, hashes, worker packet, and six open tasks agree"
+    },
+    {
+      "argv": ["rg", "-n", "-i", "--glob", "*.lean", "sorry|admit|sorryax|axiom|constant|opaque|unsafe", "Stage1_Instances/THM-M-1441"],
+      "exit_code": 1,
+      "result": "expected no-match; no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration in the API-only probe"
+    },
+    {
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-1441", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "tracked-diff command emitted no diagnostics"
+    },
+    {
+      "argv": ["bash", "-lc", "for file in .stage1-worker-selftest.json Stage1_Instances/THM-M-1441/*; do git diff --no-index --check /dev/null \"$file\" >/tmp/thm-m-1441-diffcheck 2>&1; status=$?; if [ \"$status\" -ne 0 ] && [ \"$status\" -ne 1 ]; then cat /tmp/thm-m-1441-diffcheck; exit \"$status\"; fi; if [ -s /tmp/thm-m-1441-diffcheck ]; then cat /tmp/thm-m-1441-diffcheck; exit 2; fi; done"],
+      "exit_code": 0,
+      "result": "all untracked changed files passed no-index whitespace checks with no diagnostics"
+    }
+  ],
+  "root_vector_before": {
+    "H": "unclassified",
+    "M": "unclassified",
+    "R": "unclassified"
+  },
+  "root_vector_after": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_scope": "provisional catalog-target assessment only; no canonical statement or obligation root exists, the bounded search is not an anchor audit, and this vector is neither accepted state nor target-specific proof evidence",
+  "debt_delta_basis": "H5 records that the catalog method/rate label is not one stable proposition, not that established secant-method theorems are false or open. No source-identical usable formal artifact or proof reconstruction is identified.",
+  "axiom_and_placeholder_result": "No theorem declaration or proof body was added. The scoped Lean scan found no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration in the API-only probe. Candidate axiom and trust closure remain downstream and are not credited.",
+  "actual_source_ownership": ["Stage1_Instances/THM-M-1441"],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1441/README.md",
+    "Stage1_Instances/THM-M-1441/scope-map.md",
+    "Stage1_Instances/THM-M-1441/source-statement-crosswalk.md"
+  ],
+  "change_impact_set": ["S56-M-1441-INTAKE"],
+  "covered_node_ids": ["S56-M-1441-INTAKE"],
+  "covered_declaration_ids": [],
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "accepted_receipt_ids": [],
+  "owner": "Stage1 integration lane",
+  "reviewer_policy": "Independent source, numerical-analysis, and formal reviewers must approve the selected proposition, source crosswalk, recurrence and rate boundary; the integration lane must separately approve ownership and scope before master acceptance.",
+  "validation_started_at": "2026-07-13T11:03:39+08:00",
+  "validation_ended_at": "2026-07-13T11:12:00+08:00",
+  "validated_at": "2026-07-13T11:12:00+08:00",
+  "review_due": "before master acceptance or any dependent statement work",
+  "invalidation_inputs": [
+    "source or target correction and exact theorem selection",
+    "source edition, theorem/page, assumptions, proof boundary, errata finding, or independent review",
+    "recurrence, domain, starting points, denominator policy, root, multiplicity, regularity, neighborhood, rate definition, conclusion, or boundary case",
+    "neighbor-target reconciliation",
+    "toolchain, dependency, assurance profile, validator, or any owned artifact change"
+  ],
+  "revocation_procedure": "The integration lane rejects or supersedes this provisional receipt, records the invalidating input, and requires a fresh scoped self-test.",
+  "archive_and_recovery_boundary": "No release archive claim. Repository Git history and the integration lane's durable worker snapshot are the intended recovery surfaces after acceptance.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "canonical human-claim identity and primary-source statement selection remain open for the downstream statement phase",
+  "remaining_root_cut_set": [
+    "S56-M-1441-STATEMENT",
+    "S56-M-1441-ANCHOR_AUDIT",
+    "S56-M-1441-OBLIGATION_TREE",
+    "S56-M-1441-PROOF",
+    "S56-M-1441-VALIDATION",
+    "S56-M-1441-RELEASE"
+  ],
+  "known_failures": [
+    "No immutable primary or approved authoritative source, edition, theorem/page, proof boundary, errata audit, or independent source review identifies one exact proposition.",
+    "No function/domain, secant recurrence, two starts, denominator policy, root and multiplicity, regularity, basin, convergence notion, rate definition, conclusion, or boundary-case policy is frozen.",
+    "No canonical Lean expression, minimal import set, expression or environment fingerprint, checked alternate transport, or statement mutation suite exists.",
+    "Discovery protocol, formal-candidate audit, obligation registry, typed graphs, proof, composition, provenance, trust closure, readable reconstruction, hermetic replay, independent verifier, deterministic release bundle, and master acceptance remain open."
+  ],
+  "status_boundary": "Provisional worker self-test of a planned intake only. The receipt is not content-addressed or accepted and cannot advance the authoritative item state. No H0/M0/R0, exact statement, proof, audit completion, theorem completion, or release claim is made."
+}

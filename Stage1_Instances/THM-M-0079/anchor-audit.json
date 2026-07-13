@@ -1,0 +1,312 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0079-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0079",
+  "execution_rank": 1105,
+  "base_revision": "250f9e73cbbb3ebd2da9d0cefff78f0ab8c0d056",
+  "base_tree": "b6e8138c58e31e82f8209cb70fbc0fb253f3654a",
+  "audit_date": "2026-07-13",
+  "canonical_target": "Stage1Instances.THM_M_0079.NielsenSchreierTarget",
+  "canonical_target_expression_sha256": "bb109f77dcbd6884a4ac90b32230cc213c08f19df6bc797ad04afac1a10da553",
+  "canonical_statement_file_sha256": "fdacf7f7c9a39400ce02e8d82e3ed2a3a66e33dcd57b553d9e01a1dd991878c5",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_tag": "v4.29.0",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "discovery_protocol": {
+    "inventory_version": "S56-M-0079-ANCHOR-INVENTORY-20260713-01",
+    "path": "Stage1_Instances/THM-M-0079/anchor-discovery-protocol.json",
+    "sha256": "195bb96e9077294ab58e87b0a37ad1cf819493a7b8c14f4ab7616e51fa99ddad",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0079-C01-MATHLIB-DIRECT",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.GroupTheory.FreeGroup.NielsenSchreier",
+      "file": "Mathlib/GroupTheory/FreeGroup/NielsenSchreier.lean",
+      "file_blob": "08cc647c220b852784860c281f06a6ede45bb06f",
+      "file_sha256": "e777c40c3902fd54747eac57d2952b985aff464e5d6bf803c5c78037e4c0c847",
+      "source_region_lines": "313-316",
+      "source_region_sha256": "1ab685e13340e3ee539c977dcd78b5f83b2cf8614feb23e5efef6b918cf6557d",
+      "declaration": "subgroupIsFreeOfIsFree",
+      "type": "{G : Type u} -> [Group G] -> [IsFreeGroup G] -> (H : Subgroup G) -> IsFreeGroup H",
+      "normalized_match": "The declaration has the same universe-polymorphic ambient group, Group and IsFreeGroup typeclass premises, arbitrary Subgroup binder, and IsFreeGroup conclusion as the frozen target. The local adapter proves a literal copy of that target by direct application.",
+      "local_adapter": "Stage1Instances.THM_M_0079_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "subgroupIsFreeOfIsFree",
+      "terminal_proof_body": "IsFreeGroup.ofMulEquiv (CategoryTheory.ActionCategory.endMulEquivSubgroup H)",
+      "proof_body_location": "pinned mathlib source, lines 313-316",
+      "historical_provenance": {
+        "lean4_port_commit": "a39a8f5be13335d6d0cc64fd5752f729935c9cc3",
+        "lean4_port_commit_tree": "a5c34a13a8b0cd22185162f33b3aeceeb342f25f",
+        "lean4_port_date": "2023-05-15T14:58:21Z",
+        "lean4_port_author": "Yuma Mizuno",
+        "lean4_port_subject": "feat: port GroupTheory.NielsenSchreier (#3981)",
+        "path_move_commit": "7916792c6939de87261827767e630150f43e3f9c",
+        "both_are_ancestors_of_pin": true,
+        "source_header_author": "David Waern (recorded in source as David Wärn)",
+        "source_header_copyright_year": 2021
+      },
+      "direct_proof_dependencies": [
+        "IsFreeGroup.ofMulEquiv",
+        "CategoryTheory.ActionCategory.endMulEquivSubgroup"
+      ],
+      "direct_module_imports": [
+        "Mathlib.CategoryTheory.Action",
+        "Mathlib.Combinatorics.Quiver.Arborescence",
+        "Mathlib.Combinatorics.Quiver.ConnectedComponent",
+        "Mathlib.GroupTheory.FreeGroup.IsFreeGroup"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_bodyless_unsafe_oracle_status": "Lean reports the terminal declaration, three proof-bearing substrate declarations, and local adapter sorry-free. A comment-stripped scan of the audit adapter and pinned candidate module finds no sorry, admit, sorryAx, bodyless axiom declaration, unsafe declaration, or opaque declaration. No native evaluator, external code, solver, generated certificate, or oracle occurs in the visible candidate route. Full transitive declaration and TCB closure remains a downstream gate.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "already pinned and materialized in the repository Lake dependency closure; checked read-only without changing .lake",
+      "candidate_classification": "M0-W",
+      "evidence_level": "E2_worker_candidate_check",
+      "result": "An exact pinned-mathlib wrapper route kernel-checks. M0-W is a provisional candidate classification only; accepted root state stays M3 pending the obligation, proof integration, full provenance/trust, validation, and master gates."
+    },
+    {
+      "candidate_id": "M0079-C02-MATHLIB-PROOF-SUBSTRATE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.GroupTheory.FreeGroup.NielsenSchreier",
+      "declarations": [
+        "CategoryTheory.ActionCategory.endMulEquivSubgroup",
+        "IsFreeGroupoid.actionGroupoidIsFree",
+        "IsFreeGroupoid.SpanningTree.endIsFree",
+        "IsFreeGroupoid.endIsFreeOfConnectedFree",
+        "IsFreeGroup.ofMulEquiv"
+      ],
+      "proof_architecture": "Represent H as the vertex group of the action groupoid for the transitive coset action G on G/H; prove the action groupoid free; use a geodesic spanning tree to show a vertex end group free; transport that freeness through endMulEquivSubgroup.",
+      "direct_import_source_fingerprints": [
+        "Mathlib/CategoryTheory/Action.lean:sha256:9a3ccec0f4a02143b425d7563061b7b066c71f4418c84ccad22f54bd4eda8cdd",
+        "Mathlib/Combinatorics/Quiver/Arborescence.lean:sha256:4653df221c528c1ab125af7d56407d7186ca6fff6fefdff7c81cf7d9e1d68a25",
+        "Mathlib/Combinatorics/Quiver/ConnectedComponent.lean:sha256:f659393134bb9370a0692d899585ff28241ec1decf90c4de13c4f84dc5b5a675",
+        "Mathlib/GroupTheory/FreeGroup/IsFreeGroup.lean:sha256:b5d6c1ae4fbeb1c2a5256d16d652a43f1615e4c945e03dcbf99f0cbb12558905"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_classification": "M3_support_duplicate",
+      "rejected_adjacent_module": {
+        "module": "Mathlib.GroupTheory.Schreier",
+        "file_blob": "1c443e4dd44315d4f145a51af33e9b3873325939",
+        "file_sha256": "a50ca00cc96b48e26ae531cb7bfcc20b17ffd51980598fcebf774a536fff305b",
+        "declarations": [
+          "closure_mul_image_eq",
+          "fg_of_index_ne_zero",
+          "rank_le_index_mul_rank"
+        ],
+        "classification": "M5_statement_mismatch",
+        "reason": "Schreier's lemma supplies finite-generation and rank bounds, not the unrestricted freeness conclusion, and cannot substitute for the frozen target."
+      },
+      "result": "These declarations expose the terminal theorem's architecture and direct route; they are not independent proof bodies and receive no duplicate root coverage."
+    },
+    {
+      "candidate_id": "M0079-C03-DWARN-LEAN3-HISTORICAL",
+      "project": "dwarn/nielsen-schreier-lean",
+      "remote": "https://github.com/dwarn/nielsen-schreier-lean",
+      "revision": "99fb30c0bf321c651edbb7524101604cf0242ea1",
+      "revision_source": "GitHub commit Atom feed at immutable commit link",
+      "commit_date": "2020-03-21T10:41:40Z",
+      "archive_sha256": "890e50577f6da4da4d8fc557df3bdb412328b39e0febbd25735da17610aed43a",
+      "tree_archive_files": [
+        "src/main.lean",
+        "src/action.lean",
+        "readme.txt",
+        "leanpkg.toml"
+      ],
+      "declaration": "nielsen_schreier",
+      "file": "src/main.lean",
+      "file_sha256": "e250adb75ce0c567cc8dd9cb98b76f623dd5e32e52749a418f102ea3298de627",
+      "support_file_sha256": "deaf7929c68336b5adb59dc85cf29ef448365bc05f5fbaac17290c83532d1316",
+      "type": "For H : set (free_group alpha) with is_subgroup H, exists R, nonempty (H isomorphic-as-group to free_group R), plus a categorified index formula.",
+      "normalized_match": "The first conjunct is a Lean 3 literal-FreeGroup version of Nielsen-Schreier and is mathematically relevant, but it is not the selected Lean 4 backend target or the generic mathlib IsFreeGroup interface.",
+      "toolchain": "leanprover-community/lean:3.7.1",
+      "dependency": "Lean 3 mathlib revision 34bac8d3688807417caaac4a794241ccbbcc95c0",
+      "manifest_sha256": "fd8c488813a4d7b3a1019c48644c12e14870467eb308cb9c8ca395400da212e6",
+      "license": "unknown; no license file or license field occurs in the immutable archive",
+      "placeholder_scan": "The two Lean source files contain no sorry, admit, or bodyless axiom token, but no Lean 3 toolchain/dependency closure was materialized or executed in this worker.",
+      "candidate_classification": "M5_backend_toolchain_and_license_mismatch",
+      "evidence_level": "E3_historical_source_anchor",
+      "result": "Credible historical formal proof source, but not a Lean 4 candidate, not in the local dependency closure, not kernel-replayed here, and license status is unresolved. Reopen only with a license decision and a pinned Lean 4 integration or accepted historical research use."
+    },
+    {
+      "candidate_id": "M0079-C04-DWARN-LEAN3-SECOND-HISTORICAL",
+      "project": "dwarn/nielsen-schreier-2",
+      "remote": "https://github.com/dwarn/nielsen-schreier-2",
+      "revision": "e51a8c6511d374dc584698c7fa236a5be47e7dbe",
+      "revision_source": "GitHub codeload ZIP archive comment resolved the observed master snapshot to its immutable commit despite REST API rate exhaustion",
+      "observed_master_archive_sha256": "54fa2f26fe0d3cfcdf41707a87cd08d4ce71ef13bc2661102e12efac434c1f22",
+      "immutable_archive_url": "https://codeload.github.com/dwarn/nielsen-schreier-2/tar.gz/e51a8c6511d374dc584698c7fa236a5be47e7dbe",
+      "immutable_archive_format": "tar.gz",
+      "immutable_archive_sha256": "b210b00f60b3981102ca471ef7b7a595f50141d0cdcc3dcf9ce08a97ba60c4ff",
+      "observed_repository_pushed_at": "2021-03-13T17:21:11Z",
+      "declaration": "subgroup_is_free",
+      "file": "src/result.lean",
+      "observed_file_sha256": "bd5fa0bce8c6ff3e0519d9c18a158bab906f2ac69c6e54978f39e5783633032b",
+      "type_and_body": "{G} -> [group G] -> [is_free_group G] -> (H : subgroup G) -> is_free_group H, by is_free_group_mul_equiv (End_mul_equiv_subgroup H)",
+      "toolchain": "Lean 3.27.0",
+      "dependency": "Lean 3 mathlib revision 9f0f05eee872a4fa66fa15d51b0ba1c1cf58c9b4",
+      "manifest_sha256": "e27c3ed5f1c03ca5b842dccdf5de519e58be69061ad00610a93bd518d678e45d",
+      "license": "unknown; no license or copying file occurs in the immutable archive",
+      "placeholder_scan": "No sorry, admit, axiom, sorryAx, or bodyless constant token occurs across the nine immutable Lean sources; the sources were not kernel-replayed.",
+      "candidate_classification": "M5_backend_toolchain_and_license_mismatch",
+      "evidence_level": "E3_historical_source_anchor",
+      "result": "A second exact-shaped immutable Lean 3 source anchor, but it uses the wrong backend/toolchain, has no recorded license, and was not replayed. It receives no proof credit and reopens only after licensing and Lean 4 integration."
+    },
+    {
+      "candidate_id": "M0079-C05-MANIFEST-EXTERNAL-CLOSURE",
+      "project": "all non-mathlib packages in Formalizations/Lean/lake-manifest.json",
+      "revision_set": "flt-regular@56161b6eb5281fbfe9c38f2bcec0f429ebc11a27; checkdecls@3d425859e73fcfbef85b9638c2a91708ef4a22d4; plausible@83e90935a17ca19ebe4b7893c7f7066e266f50d3; LeanSearchClient@c5d5b8fe6e5158def25cd28eb94e4141ad97c843; importGraph@48d5698bc464786347c1b0d859b18f938420f060; proofwidgets@3c52dee17f0cd89c1ec14de78920d1bdaa3d26b3; aesop@7152850e7b216a0d409701617721b6e469d34bf6; Qq@707efb56d0696634e9e965523a1bbe9ac6ce141d; batteries@756e3321fd3b02a85ffda19fef789916223e578c; Cli@7802da01beb530bf051ab657443f9cd9bc3e1a29",
+      "kind": "bounded_negative_inventory",
+      "search_terms": [
+        "Nielsen",
+        "Schreier",
+        "subgroupIsFreeOfIsFree",
+        "IsFreeGroup H",
+        "subgroup of a free group"
+      ],
+      "candidate_classification": "M4_no_separate_candidate_located",
+      "result": "No separate exact candidate occurred in repository-local or materialized non-mathlib dependency sources. This is bounded local evidence, not a global absence claim."
+    },
+    {
+      "candidate_id": "M0079-C06-PUBLIC-INDEX-RESULTS",
+      "project": "bounded public repository and code indexes",
+      "kind": "bounded_query_inventory",
+      "candidate_classification": "M4_no_additional_lean4_candidate_located",
+      "result": "GitHub repository search found the two immutable Lean 3 projects C03 and C04. Anonymous GitHub code search was unavailable. Fork/archive-inclusive Sourcegraph searches found only indexed mathlib4 for Lean 4 declaration aliases and mathlib3 for the historical snake-case alias; quoted phrase searches returned zero. grep.app returned HTTP 429. No exhaustive discovery or absence claim is made."
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "queries": [
+        "quoted Nielsen-Schreier plus Lean",
+        "quoted Nielsen Schreier plus Lean4",
+        "quoted subgroup of a free group plus Lean",
+        "NielsenSchreier language:Lean",
+        "subgroupIsFreeOfIsFree language:Lean"
+      ],
+      "result": "HTTP 200; the original exact-topic family returned dwarn/nielsen-schreier-lean and a follow-up nielsen-schreier-2 query returned the second historical project; the other recorded Lean 4/declaration families returned total_count=0 and incomplete_results=false",
+      "response_sha256s": [
+        "c21300a49301a51f260f08ed36f3bf01279c18b04b69664a47c9268bcda1d716",
+        "06a80cd14c2e97be36466a8ad783b2cea740333e732ee8447ef92f6039319752",
+        "4af480b8ee5b87b369a76c49bd22c9a783908272ebffbe97898f8ab0f0772a5f"
+      ]
+    },
+    {
+      "surface": "GitHub REST code search",
+      "queries": [
+        "Nielsen-Schreier language:Lean",
+        "subgroupIsFreeOfIsFree language:Lean",
+        "IsFreeGroup H language:Lean",
+        "NielsenSchreier language:Lean",
+        "subgroup of a free group is free language:Lean"
+      ],
+      "result": "HTTP 401 Requires authentication for all five queries",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e"
+    },
+    {
+      "surface": "Sourcegraph global code search",
+      "queries": [
+        "subgroupIsFreeOfIsFree",
+        "Nielsen-Schreier",
+        "NielsenSchreier",
+        "IsFreeGroup H",
+        "subgroup of a free group is free"
+      ],
+      "result": "HTTP 200 and completed matchCount=0 for all five indexed Lean queries; default search excluded forks and archives",
+      "response_sha256s": [
+        "dfe1980eea00c0803eae77a47f1a24b512626e10b168c4c90f1af92730d22f73",
+        "6b39d05f6d46c28b3e985cf88ce0de58e2109fbd8830bf5c866ad5a22b011e8b",
+        "d54bdbcea4362185270d27d5f2718a0c300c013bad85ba5c35ccbc9199fa3dba",
+        "d57f11ed6ccf0a359a6d0fe522dec0e5f70ec6f14833e32bfd07620e05c9b9b5",
+        "4ea3cb2ed5012b1c228a2a49d425e280dd4699822df274a1be61d9613f5322ab"
+      ]
+    },
+    {
+      "surface": "Sourcegraph global code search with forks and archives included",
+      "queries": [
+        "subgroupIsFreeOfIsFree",
+        "NielsenSchreier",
+        "nielsen_schreier",
+        "quoted Nielsen-Schreier",
+        "quoted subgroup of a free group"
+      ],
+      "result": "Only an indexed mathlib4 snapshot matched the Lean 4 aliases and only an indexed mathlib3 snapshot matched the historical snake-case alias; both phrase queries returned zero and no query reported skipped repositories",
+      "response_sha256s": [
+        "a162c25ceb54f89f1515ee554144cb8f3bc8ad1fdb653782fc0ac2e03e14579e",
+        "d62f4904fdaa9e63d57d7d6e6c7104f9971bc99c2463d11f043b5882b1394f75",
+        "72449bcd6d0d5aa8c63e47ba9de9d8139893d2d8ee0b65b5244f36074f3f1038",
+        "d2a59e821c0008373d0f4bcc444914c2bd5a17ae979d21d713f5789b2f402a7d",
+        "2bc63bc0523c1d563c5cc00664a4f5a1c1c93df25de1011377b9241524dbf4b3"
+      ]
+    },
+    {
+      "surface": "grep.app code search",
+      "queries": [
+        "Nielsen-Schreier",
+        "subgroupIsFreeOfIsFree",
+        "IsFreeGroup H",
+        "NielsenSchreier",
+        "subgroup of a free group is free"
+      ],
+      "result": "HTTP 429 Vercel Security Checkpoint for all queries",
+      "response_sha256s": [
+        "afe02105639658f661e0e8327c89783d3021cd732375c1ffe825d2664b41ae6d",
+        "bde2829dffed2b741935a0831ff3c540a72bdc0944ce758f45f9c4b94ae724aa",
+        "453c405df639b4b0cc389bd1cb3d414adc5ff0561599ffb067cc8648fbf1867a",
+        "5e0d60f7b4d8145c77f1216b54dcdd957e358ff2ca1074df8789fe798a06970e",
+        "dce991376d0659bcb95a2526e025e56c6dc01e9db51bf6208b191a2e9ecfd7f1"
+      ]
+    }
+  ],
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "6/6 classified candidate groups in frozen inventory S56-M-0079-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "independent_external_lean4_terminal_body_found": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2_worker_candidate_check",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of the provisional statement prerequisite and this anchor-audit node",
+    "S56-M-0079-OBLIGATION_TREE",
+    "S56-M-0079-PROOF with canonical wrapper/composition and terminal-body provenance",
+    "full transitive declaration, trust, TCB, and computation closure",
+    "primary-source H0 and readable R0 independent review",
+    "hermetic replay, independent validation, deterministic release evidence, and master acceptance"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This provisional node classifies a bounded immutable anchor inventory and kernel-checks an exact pinned-mathlib wrapper candidate. It accepts no receipt, changes no accepted H1/M3/R4 state, does not integrate proof credit, and completes neither AUDIT-Z nor the theorem.",
+  "theorem_complete": false
+}

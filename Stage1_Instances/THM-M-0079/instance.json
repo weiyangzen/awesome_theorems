@@ -137,14 +137,14 @@
     "lake_symlink_target_sha256": "e7d8a6bce8b934a5b0dc162324c830c4f26e1146c65bb31e8063491a3f47bfcc"
   },
   "obligation_registry_hash": null,
-  "discovery_protocol_hash": null,
+  "discovery_protocol_hash": "sha256:195bb96e9077294ab58e87b0a37ad1cf819493a7b8c14f4ab7616e51fa99ddad",
   "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
   "audit_complete": false,
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
   "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory; the checked statement transports report propext, Classical.choice, and Quot.sound, with no custom axiom; proof-specific transitive axiom closure remains downstream",
-  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib; the sole statement-vocabulary import and exact expression are frozen, while the Nielsen-Schreier proof body, provenance, transitive dependencies, and complete trust closure remain open",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib; the exact Nielsen-Schreier wrapper candidate, terminal body, major proof substrate, and direct import boundary are provisionally audited, while full transitive declaration/TCB closure and acceptance remain downstream",
   "computation_profile": "No finite-group enumeration, rewriting oracle, native decision, external solver, or unchecked certificate is credited; the located candidate is an ordinary noncomputable kernel theorem subject to downstream provenance and trust review",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -163,7 +163,13 @@
     "Stage1_Instances/THM-M-0079/check_statement.py",
     "Stage1_Instances/THM-M-0079/statement.json",
     "Stage1_Instances/THM-M-0079/statement-receipt.json",
-    "Stage1_Instances/THM-M-0079/statement-validation.md"
+    "Stage1_Instances/THM-M-0079/statement-validation.md",
+    "Stage1_Instances/THM-M-0079/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0079/anchor-discovery-protocol.json",
+    "Stage1_Instances/THM-M-0079/anchor-audit.json",
+    "Stage1_Instances/THM-M-0079/anchor-audit-receipt.json",
+    "Stage1_Instances/THM-M-0079/anchor-audit-validation.md",
+    "Stage1_Instances/THM-M-0079/check_anchor_audit.py"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -172,11 +178,28 @@
     "scope_reviewer": "unassigned group-theory reviewer",
     "reviewer_policy": "Independent reviewers must approve the unrestricted primary theorem, Nielsen/Schreier historical boundary, definitions, assumptions, proof mapping, corrections and errata, exact Lean expression and transports; the integration lane separately decides node acceptance."
   },
-  "support_window": "provisional intake and statement evidence only; expires on any invalidation input and cannot support release",
-  "review_due": "at statement master acceptance and before dependent anchor work",
+  "support_window": "provisional intake, statement, and anchor-audit evidence only; expires on any invalidation input and cannot support release",
+  "review_due": "at statement and anchor-audit master acceptance and before dependent obligation-tree work",
   "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
   "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
   "freshness_and_revocation_policy": "Invalidate on catalog or source correction; Nielsen/Schreier source, date, attribution, definition, assumption, proof-boundary, correction, or erratum finding; universe, group, freeness, subgroup, subtype, conclusion, boundary, alternate-encoding, or excluded-formula decision; formal candidate or provenance finding; Lean target, toolchain or dependency pin; assurance profile, validator, recipe, or any owned artifact change; independent review and master acceptance remain open.",
-  "owned_artifacts": ["README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "IntakeProbe.lean", "check_intake.py", "validation.md", "intake-receipt.json", "Statement.lean", "check_statement.py", "statement.json", "statement-receipt.json", "statement-validation.md"],
-  "status_boundary": "Self-tested planned statement proposal. It freezes and fingerprints the unrestricted generic IsFreeGroup target, its literal FreeGroup and basis-existence equivalents, minimal import, mutations, and boundary specializations. The proof-bearing mathlib candidate remains uncredited: no H0, accepted M0, R0, proof state, audit completion, theorem completion, release, or master acceptance is claimed."
+  "owned_artifacts": ["README.md", "instance.json", "scope-map.md", "source-statement-crosswalk.md", "task-dag.json", "IntakeProbe.lean", "check_intake.py", "validation.md", "intake-receipt.json", "Statement.lean", "check_statement.py", "statement.json", "statement-receipt.json", "statement-validation.md", "AnchorAudit.lean", "anchor-discovery-protocol.json", "anchor-audit.json", "anchor-audit-receipt.json", "anchor-audit-validation.md", "check_anchor_audit.py"],
+  "provisional_anchor_audit": {
+    "item_id": "S56-M-0079-ANCHOR_AUDIT",
+    "inventory_version": "S56-M-0079-ANCHOR-INVENTORY-20260713-01",
+    "inventory_classified": true,
+    "exact_candidate": "subgroupIsFreeOfIsFree",
+    "candidate_classification": "M0-W",
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_candidate_vector": {"H": "H1", "M": "M0-W", "R": "R4"},
+    "accepted_root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+    "historical_external_candidates": ["dwarn/nielsen-schreier-lean@99fb30c0bf321c651edbb7524101604cf0242ea1", "dwarn/nielsen-schreier-2@e51a8c6511d374dc584698c7fa236a5be47e7dbe"],
+    "historical_external_boundary": "Lean 3/backend/license mismatch; no Lean 4 credit",
+    "current_repository_base": "250f9e73cbbb3ebd2da9d0cefff78f0ab8c0d056",
+    "current_blueprint_sha256": "2efe811a528096b02c3e1d311a315e5754298b40b6a1bb466fc90ee3fe454d00",
+    "current_execution_dag_sha256": "4f2a73882aeefb5ca1a2ae5e9145962f8168af54f1663bcfd997e8bef7124649",
+    "gate_state": "self_tested_pending_master_acceptance"
+  },
+  "status_boundary": "Self-tested planned statement and anchor-audit proposal. The unrestricted generic IsFreeGroup target is frozen and an exact pinned-mathlib M0-W wrapper candidate is kernel-checked, but it remains provisional. No H0, accepted M0, R0, proof state, audit completion, theorem completion, release, or master acceptance is claimed."
 }
