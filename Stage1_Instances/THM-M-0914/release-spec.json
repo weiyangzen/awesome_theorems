@@ -1,0 +1,41 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "recipe_id": "S56-M-0914-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0914-RELEASE",
+  "theorem_id": "THM-M-0914",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0914/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs its Lean replay through the validation recipe's bubblewrap network namespace, read-only host mount, fresh temporary module directory, fixed locale/timezone, and Lean --trust=0. It reuses the canonical pinned mathlib source and compiled artifacts warm and read-only, so this is not section 10.6 cold release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line result: three PASS lines, two BLOCKED lines, and verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0914-ROOT",
+    "M0914-T-ROOT-COMPOSE",
+    "M0914-S-FOUNDATION",
+    "M0914-X-SOURCE",
+    "M0914-X-PROVENANCE",
+    "M0914-X-TRUST",
+    "M0914-X-READABLE",
+    "M0914-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0914.PigeonholeTarget",
+    "Stage1Instances.THM_M_0914.Proof.pigeonholeTarget_proof",
+    "Stage1Instances.THM_M_0914.Proof.pigeonholeTarget_via_frozen_children",
+    "Stage1Instances.THM_M_0914.Validation.pigeonholeTarget_differential"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation plus a fresh network-isolated warm-cache Lean replay. This recipe cannot provide dependency-ordered master acceptance, AUDIT-Z, accepted M0-W/E1, a cold empty-cache offline reproduction, complete transitive provenance/foundation/TCB/SBOM closure, independent H0/R0 review, distinct signed runners, an independently implemented minimal verifier, protected release CI, or a deterministic content-addressed release bundle."
+}

@@ -1,59 +1,97 @@
 # THM-M-0995 obligation registry and typed graphs
 
-Registry version 1 freezes thirteen obligations before proof closure is observed. Proof,
-refinement, provenance, evidence, trust, documentation, and workflow edges are separate; every
-proof-requires edge has a reciprocal composition edge.
+Registry version 2 preserves the exact statement and the full version-1 denominator history. It
+corrects one proof-architecture defect discovered during execution: version 1 required
+`OptimizeExponentPackage`, but that interface is false at `v = 0`, `b = 1`, `t = 1`. The local
+kernel theorem `Proof.not_optimizeExponentPackage` supplies the counterexample. The append-only
+delta retires that ID, replaces the terminal assembly ID, and adds the missing positive-variance,
+zero-variance, scalar-series, and finite-prefix semantic nodes. No theorem target was weakened.
 
 ## root
-The exact bounded independent-summand upper-tail Bernstein target remains open at `M3`.
+The exact bounded independent-summand upper-tail Bernstein target is provisionally machine-closed
+by `Proof.bernsteinInequality_via_registry_v2`.
 
 ## s-exact
-Preserve the frozen package, hypotheses, non-strict event, constants, and totalized division.
+The checked statement preserves every binder, hypothesis, non-strict event, constant, and
+totalized division boundary.
+
+## l-exp-remainder
+Expand `exp x - 1 - x` as its power-series tail, bound `2 * 3^n` by `(n+2)!`, dominate by the
+geometric series with ratio `abs x / 3`, and weaken `abs x <= c` in the positive denominator.
 
 ## l-ind-mgf
-Derive the variance-sensitive individual MGF inequality for `0 <= s` and `s*b < 3`. This is the
-critical missing mathematical bridge; mathlib's Hoeffding MGF result has a different exponent.
+Apply the scalar remainder pointwise to `s * X_i`, integrate the bound, cancel the centered linear
+term, identify the second moment with the variance, and use `1 + y <= exp y`.
+
+## t-ind-mgf
+`individualMGF_compose` checks the exact scalar-to-individual-MGF child composition.
+
+## l-prefix-mgf
+Truncate the process outside `range n`, preserve independence and a.e. measurability, and apply
+mathlib's whole-family finite-set MGF product theorem.
 
 ## l-sum-mgf
-Use independence to factor the MGF, combine individual bounds, and apply the variance budget.
+Bound every product factor, turn the product of exponentials into an exponential of a sum, and
+apply the frozen variance budget through the positive tilt denominator.
+
+## t-sum-mgf
+`sumMGF_compose` checks the exact individual/prefix-to-sum-MGF child composition.
 
 ## l-chernoff
-Apply exponential Markov to the exact partial sum and upper-tail event. Mathlib provides a relevant
-anchor, but its specialization to this interface is deferred to the proof phase.
+Bound the partial sum almost surely to obtain exponential integrability, then specialize mathlib's
+exponential Markov inequality to the exact event.
 
-## l-optimize
-For a positive denominator, choose `s = t/(v+b*t/3)`, prove admissibility, and check the exact
-exponent inequality.
+## l-optimize-pos
+For positive variance, the denominator is positive, the chosen tilt is nonnegative and strictly
+inside `s*b < 3`, and field normalization proves the exact exponent comparison.
+
+## l-var-zero-ae
+If the variance budget is zero, nonnegativity forces every summand variance to zero. The zero-mean
+variance characterization makes every prefix summand zero almost everywhere, hence so is the sum.
 
 ## b-zero-denom
-Handle `v+b*t/3 = 0` separately. Lean's real division is totalized, so the right side is one; the
-ordinary positive-denominator tilt argument is not silently applied here.
+When the displayed denominator is zero, totalized division makes the right side one and the
+probability-measure bound closes the branch.
+
+## b-var-zero
+At threshold zero use the probability bound. At positive threshold the almost-everywhere zero sum
+makes the tail event null.
+
+## t-var-zero
+`zeroVariance_compose` checks the zero-denominator and almost-everywhere-zero branch composition.
 
 ## b-empty
-Keep `n = 0` and the zero partial sum inside the theorem boundary.
+The empty prefix is retained inside the statement boundary and has sum zero.
 
-## t-assemble
-Split on the denominator and compose the five substantive packages into the exact root.
+## t-assemble-v2
+Split exhaustively on `varianceBudget = 0`. The zero branch consumes `B-VAR-ZERO`; the positive
+branch consumes the sum MGF, Chernoff, and positive-variance optimizer packages.
+`root_compose_v2` checks the exact child-to-root composition.
 
 ## x-mathlib
-Pin the Chernoff, independent-sum, variance, and Hoeffding-support bodies at mathlib revision
-`8a178386ffc0f5fef0b77738bb5449d50efeea95`. They are supporting anchors, not an exact proof.
+Mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` supplies supporting exponential
+series, variance, independence, MGF, and Chernoff declarations. It is not counted as an exact
+Bernstein terminal body.
 
 ## x-external
-Record HighDimProb revision `8d4eec8bc06d80e8436ab3505000fca999b46546` as a materially mismatched
-anchor. It supplies no completion credit without a checked exact transport and local integration.
+HighDimProb revision `8d4eec8bc06d80e8436ab3505000fca999b46546` remains a mismatched anchor and
+supplies no proof credit.
 
 ## x-source
-A primary theorem/page, assumption crosswalk, proof reconstruction, errata review, and independent
-human-source review remain open.
+Primary-source pinpointing, errata review, H0 reconstruction, and independent review remain open.
 
 ## x-tcb
-The release-grade transitive dependency, axiom, executable, computation, and platform audit remains
-open.
+Release-grade transitive dependency, executable, platform, SBOM/license, cold-build, and
+independent-verification work remains open.
+
+## x-v1-refutation
+`Proof.not_optimizeExponentPackage` is the kernel-checked counterexample that triggered the
+registry-v2 correction; it supplies audit evidence but no positive root proof credit.
 
 ## Closure boundary
 
-`ObligationTree.root_compose` checks exact conditional parent composition. It does not discharge its
-premises. No obligation is recorded closed. The root cut set is `L-IND-MGF`, `L-SUM-MGF`,
-`L-CHERNOFF`, `L-OPTIMIZE`, and `B-ZERO-DENOM`; every current semantic unit has a budget of at most
-100 steps, but those budgets are plans rather than closure evidence.
+All sixteen machine-required registry-v2 obligations have local or checked imported proof bodies,
+and the exact root is provisionally `M0-L`. This proof-phase result is not theorem completion:
+human-source, readable reconstruction, full trust/provenance, hermetic validation, independent
+replay, release, and master-acceptance gates remain open. Registry-v1's denominator and failed
+optimizer ID remain reportable in `obligation-registry.json`.

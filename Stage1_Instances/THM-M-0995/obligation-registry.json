@@ -2,48 +2,174 @@
   "schema_version": "stage1-obligation-registry/1.0",
   "item_id": "S56-M-0995-OBLIGATION_TREE",
   "theorem_id": "THM-M-0995",
-  "registry_version": 1,
+  "registry_version": 2,
   "frozen_at": "2026-07-12T00:00:00+08:00",
-  "freeze_basis": "The exact elaborated statement and immutable anchor inventory determine this Bernstein MGF/Chernoff/optimization architecture before proof closure is observed.",
+  "amended_at": "2026-07-13T00:00:00+08:00",
+  "freeze_basis": "Version 2 preserves the exact frozen statement and corrects only the proof architecture after registry-v1's optimizer was kernel-refuted at v=0, b=1, t=1.",
   "frozen_against_statement_sha256": "33903f9a1be5ef4708e3502d1b14089f17fe2914088bc8701c9b8479f2696c7d",
   "frozen_against_anchor_audit_sha256": "2d537d4b61da85531850fdc3c3feb749d6202414abb7685caf610b522cd50c5c",
   "root_obligation_id": "M0995-ROOT",
-  "denominator_sha256": "40ec266a8614befd347bb0f00848703182aac04f6446a113a6a2e6b1a0348794",
-  "frozen_denominators": {
-    "inventory": [
+  "denominator_sha256": "29fa162b68c22ecc1c0b1edb83306a411eb8ddea7a4b546fbeb082270a425b18",
+  "registry_history": [
+    {
+      "registry_version": 1,
+      "registry_sha256": "1150adeecf0ca78639706ee32c082dfebbbd58d576db1d17ca039852d0bce100",
+      "denominator_sha256": "40ec266a8614befd347bb0f00848703182aac04f6446a113a6a2e6b1a0348794",
+      "inventory": [
+        "M0995-ROOT",
+        "M0995-S-EXACT",
+        "M0995-L-IND-MGF",
+        "M0995-L-SUM-MGF",
+        "M0995-L-CHERNOFF",
+        "M0995-L-OPTIMIZE",
+        "M0995-B-ZERO-DENOM",
+        "M0995-B-EMPTY",
+        "M0995-T-ASSEMBLE",
+        "M0995-X-MATHLIB",
+        "M0995-X-EXTERNAL",
+        "M0995-X-SOURCE",
+        "M0995-X-TCB"
+      ],
+      "supersession_reason": "M0995-L-OPTIMIZE was false on an allowed positive-denominator, zero-variance input; the root requires an explicit zero/positive variance split."
+    }
+  ],
+  "append_only_delta": {
+    "from_version": 1,
+    "to_version": 2,
+    "preserved_ids": [
       "M0995-ROOT",
       "M0995-S-EXACT",
       "M0995-L-IND-MGF",
       "M0995-L-SUM-MGF",
       "M0995-L-CHERNOFF",
-      "M0995-L-OPTIMIZE",
       "M0995-B-ZERO-DENOM",
       "M0995-B-EMPTY",
-      "M0995-T-ASSEMBLE",
       "M0995-X-MATHLIB",
       "M0995-X-EXTERNAL",
       "M0995-X-SOURCE",
       "M0995-X-TCB"
     ],
+    "retired_ids": [
+      {
+        "obligation_id": "M0995-L-OPTIMIZE",
+        "reason": "false_interface_refuted_by_local_kernel_proof",
+        "replacement_ids": [
+          "M0995-L-OPTIMIZE-POS",
+          "M0995-L-VAR-ZERO-AE",
+          "M0995-B-VAR-ZERO",
+          "M0995-T-VAR-ZERO"
+        ]
+      }
+    ],
+    "replaced_ids": [
+      {
+        "old_id": "M0995-T-ASSEMBLE",
+        "new_id": "M0995-T-ASSEMBLE-V2",
+        "reason": "composition now consumes the exhaustive zero/positive variance branches"
+      }
+    ],
+    "added_ids": [
+      "M0995-L-EXP-REMAINDER",
+      "M0995-T-IND-MGF",
+      "M0995-L-PREFIX-MGF",
+      "M0995-T-SUM-MGF",
+      "M0995-L-OPTIMIZE-POS",
+      "M0995-L-VAR-ZERO-AE",
+      "M0995-B-VAR-ZERO",
+      "M0995-T-VAR-ZERO",
+      "M0995-X-V1-REFUTATION"
+    ],
+    "eligibility_changes": [],
+    "status_only_updates": [
+      {
+        "obligation_id": "M0995-ROOT",
+        "field": "terminal_proof_body_id",
+        "old": null,
+        "new": "Stage1Instances.THM_M_0995.Proof.bernsteinInequality_via_registry_v2"
+      },
+      {
+        "obligation_id": "M0995-L-IND-MGF",
+        "field": "proof_evidence",
+        "old": "open",
+        "new": "Stage1Instances.THM_M_0995.Proof.individualMGFPackage"
+      },
+      {
+        "obligation_id": "M0995-L-SUM-MGF",
+        "field": "proof_evidence",
+        "old": "open",
+        "new": "Stage1Instances.THM_M_0995.Proof.sumMGFPackage"
+      },
+      {
+        "obligation_id": "M0995-L-CHERNOFF",
+        "field": "proof_evidence",
+        "old": "anchor_only",
+        "new": "Stage1Instances.THM_M_0995.Proof.chernoffPackage"
+      },
+      {
+        "obligation_id": "M0995-B-ZERO-DENOM",
+        "field": "proof_evidence",
+        "old": "open",
+        "new": "Stage1Instances.THM_M_0995.Proof.zeroDenominatorPackage"
+      }
+    ]
+  },
+  "frozen_denominators": {
+    "inventory": [
+      "M0995-ROOT",
+      "M0995-S-EXACT",
+      "M0995-L-EXP-REMAINDER",
+      "M0995-L-IND-MGF",
+      "M0995-T-IND-MGF",
+      "M0995-L-PREFIX-MGF",
+      "M0995-L-SUM-MGF",
+      "M0995-T-SUM-MGF",
+      "M0995-L-CHERNOFF",
+      "M0995-L-OPTIMIZE-POS",
+      "M0995-L-VAR-ZERO-AE",
+      "M0995-B-ZERO-DENOM",
+      "M0995-B-VAR-ZERO",
+      "M0995-T-VAR-ZERO",
+      "M0995-B-EMPTY",
+      "M0995-T-ASSEMBLE-V2",
+      "M0995-X-MATHLIB",
+      "M0995-X-EXTERNAL",
+      "M0995-X-SOURCE",
+      "M0995-X-TCB",
+      "M0995-X-V1-REFUTATION"
+    ],
     "required_machine": [
       "M0995-ROOT",
       "M0995-S-EXACT",
+      "M0995-L-EXP-REMAINDER",
       "M0995-L-IND-MGF",
+      "M0995-T-IND-MGF",
+      "M0995-L-PREFIX-MGF",
       "M0995-L-SUM-MGF",
+      "M0995-T-SUM-MGF",
       "M0995-L-CHERNOFF",
-      "M0995-L-OPTIMIZE",
+      "M0995-L-OPTIMIZE-POS",
+      "M0995-L-VAR-ZERO-AE",
       "M0995-B-ZERO-DENOM",
+      "M0995-B-VAR-ZERO",
+      "M0995-T-VAR-ZERO",
       "M0995-B-EMPTY",
-      "M0995-T-ASSEMBLE"
+      "M0995-T-ASSEMBLE-V2"
     ],
     "required_human_source": [
       "M0995-ROOT",
+      "M0995-L-EXP-REMAINDER",
       "M0995-L-IND-MGF",
+      "M0995-T-IND-MGF",
+      "M0995-L-PREFIX-MGF",
       "M0995-L-SUM-MGF",
+      "M0995-T-SUM-MGF",
       "M0995-L-CHERNOFF",
-      "M0995-L-OPTIMIZE",
+      "M0995-L-OPTIMIZE-POS",
+      "M0995-L-VAR-ZERO-AE",
       "M0995-B-ZERO-DENOM",
-      "M0995-T-ASSEMBLE",
+      "M0995-B-VAR-ZERO",
+      "M0995-T-VAR-ZERO",
+      "M0995-T-ASSEMBLE-V2",
       "M0995-X-MATHLIB",
       "M0995-X-EXTERNAL",
       "M0995-X-SOURCE"
@@ -51,26 +177,35 @@
     "required_readable": [
       "M0995-ROOT",
       "M0995-S-EXACT",
+      "M0995-L-EXP-REMAINDER",
       "M0995-L-IND-MGF",
+      "M0995-T-IND-MGF",
+      "M0995-L-PREFIX-MGF",
       "M0995-L-SUM-MGF",
+      "M0995-T-SUM-MGF",
       "M0995-L-CHERNOFF",
-      "M0995-L-OPTIMIZE",
+      "M0995-L-OPTIMIZE-POS",
+      "M0995-L-VAR-ZERO-AE",
       "M0995-B-ZERO-DENOM",
+      "M0995-B-VAR-ZERO",
+      "M0995-T-VAR-ZERO",
       "M0995-B-EMPTY",
-      "M0995-T-ASSEMBLE",
+      "M0995-T-ASSEMBLE-V2",
       "M0995-X-MATHLIB",
       "M0995-X-EXTERNAL",
       "M0995-X-SOURCE",
-      "M0995-X-TCB"
+      "M0995-X-TCB",
+      "M0995-X-V1-REFUTATION"
     ],
     "informational_overlays": [
       "M0995-X-MATHLIB",
       "M0995-X-EXTERNAL",
       "M0995-X-SOURCE",
-      "M0995-X-TCB"
+      "M0995-X-TCB",
+      "M0995-X-V1-REFUTATION"
     ]
   },
-  "delta_policy": "Any correction, split, merge, eligibility, exclusion, or risk change requires registry version 2 and an append-only ID delta.",
+  "delta_policy": "Any further correction, split, merge, eligibility, exclusion, risk, or proof-body identity change requires registry version 3 and another append-only delta; v1 and v2 denominators remain reportable.",
   "obligations": [
     {
       "obligation_id": "M0995-ROOT",
@@ -82,7 +217,7 @@
       "readable_eligibility": "required",
       "risk_class": "critical",
       "exclusion_reason": null,
-      "terminal_proof_body_id": null
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.bernsteinInequality_via_registry_v2"
     },
     {
       "obligation_id": "M0995-S-EXACT",
@@ -97,6 +232,18 @@
       "terminal_proof_body_id": null
     },
     {
+      "obligation_id": "M0995-L-EXP-REMAINDER",
+      "statement_fingerprint": "planned:v2:sha256:98a97898197cdab7651920880ec2ac040b19077de1cbbd7387c3a803cc29b68b",
+      "kind": "core_lemma",
+      "root_relevant": true,
+      "machine_eligibility": "required",
+      "human_source_eligibility": "required",
+      "readable_eligibility": "required",
+      "risk_class": "critical",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.exp_sub_one_sub_le_quadratic"
+    },
+    {
       "obligation_id": "M0995-L-IND-MGF",
       "statement_fingerprint": "planned:v1:sha256:8eb3bda5a6931360db2c8ff0bda5454c4c7edc92ca60c26592b0030820ca5fde",
       "kind": "core_lemma",
@@ -107,6 +254,30 @@
       "risk_class": "critical",
       "exclusion_reason": null,
       "terminal_proof_body_id": null
+    },
+    {
+      "obligation_id": "M0995-T-IND-MGF",
+      "statement_fingerprint": "planned:v2:sha256:e40b27094c20ac6856cd92481e21df7f0d208872c4e647fe88dd645935c5e8dd",
+      "kind": "terminal",
+      "root_relevant": true,
+      "machine_eligibility": "required",
+      "human_source_eligibility": "required",
+      "readable_eligibility": "required",
+      "risk_class": "high",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.individualMGFAssemblyPackage"
+    },
+    {
+      "obligation_id": "M0995-L-PREFIX-MGF",
+      "statement_fingerprint": "planned:v2:sha256:831de259b440c0b19ab4a595fc3eb8b5b82ac89de10c72a487e22649891ff919",
+      "kind": "bridge",
+      "root_relevant": true,
+      "machine_eligibility": "required",
+      "human_source_eligibility": "required",
+      "readable_eligibility": "required",
+      "risk_class": "critical",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.partialSum_mgf_eq_prod"
     },
     {
       "obligation_id": "M0995-L-SUM-MGF",
@@ -121,6 +292,18 @@
       "terminal_proof_body_id": null
     },
     {
+      "obligation_id": "M0995-T-SUM-MGF",
+      "statement_fingerprint": "planned:v2:sha256:26aa297fde619e9825285c768e418c5a13b299e2d5ee1aba84916996a056ef84",
+      "kind": "terminal",
+      "root_relevant": true,
+      "machine_eligibility": "required",
+      "human_source_eligibility": "required",
+      "readable_eligibility": "required",
+      "risk_class": "high",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.sumMGFAssemblyPackage"
+    },
+    {
       "obligation_id": "M0995-L-CHERNOFF",
       "statement_fingerprint": "planned:v1:sha256:db78bc6d09fd49b3959fefbfa46de07544db777f7d9f829c6f161a00aa066087",
       "kind": "bridge",
@@ -133,8 +316,8 @@
       "terminal_proof_body_id": "mathlib:8a178386:ProbabilityTheory.measure_ge_le_exp_mul_mgf"
     },
     {
-      "obligation_id": "M0995-L-OPTIMIZE",
-      "statement_fingerprint": "planned:v1:sha256:6322c786c644c80a3543805c95404087a8ae01282e1311351e3a0ee9028523a3",
+      "obligation_id": "M0995-L-OPTIMIZE-POS",
+      "statement_fingerprint": "planned:v2:sha256:bfecd99c03f0c91bff9bb7859200644118d2ef5458dbe63dd94663d966fb8973",
       "kind": "core_lemma",
       "root_relevant": true,
       "machine_eligibility": "required",
@@ -142,7 +325,19 @@
       "readable_eligibility": "required",
       "risk_class": "critical",
       "exclusion_reason": null,
-      "terminal_proof_body_id": null
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.optimizeExponentPackage_of_pos"
+    },
+    {
+      "obligation_id": "M0995-L-VAR-ZERO-AE",
+      "statement_fingerprint": "planned:v2:sha256:ee543c051099b992014ed6760af70c440623f3ad23ac78adf56f1fc01e0a821a",
+      "kind": "core_lemma",
+      "root_relevant": true,
+      "machine_eligibility": "required",
+      "human_source_eligibility": "required",
+      "readable_eligibility": "required",
+      "risk_class": "critical",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.partialSum_ae_zero_of_varianceBudget_eq_zero"
     },
     {
       "obligation_id": "M0995-B-ZERO-DENOM",
@@ -157,6 +352,30 @@
       "terminal_proof_body_id": null
     },
     {
+      "obligation_id": "M0995-B-VAR-ZERO",
+      "statement_fingerprint": "planned:v2:sha256:f051f83ba847267df51518582133f2aafc823a9b2a8b20ffeb09d44882f4f799",
+      "kind": "branch",
+      "root_relevant": true,
+      "machine_eligibility": "required",
+      "human_source_eligibility": "required",
+      "readable_eligibility": "required",
+      "risk_class": "critical",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.zeroVariancePackage"
+    },
+    {
+      "obligation_id": "M0995-T-VAR-ZERO",
+      "statement_fingerprint": "planned:v2:sha256:910dfdd66683d994911860f91c2269a401c69fb675a88b6254306b4bf929e105",
+      "kind": "terminal",
+      "root_relevant": true,
+      "machine_eligibility": "required",
+      "human_source_eligibility": "required",
+      "readable_eligibility": "required",
+      "risk_class": "high",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.zeroVarianceAssemblyPackage"
+    },
+    {
       "obligation_id": "M0995-B-EMPTY",
       "statement_fingerprint": "planned:v1:sha256:3431851d351b3db3c97dea9e9652c34b8fc56c43a4ecf8728b4fa81514d8ef34",
       "kind": "branch",
@@ -169,8 +388,8 @@
       "terminal_proof_body_id": "repo:Stage1Instances.THM_M_0995.emptyPartialSum"
     },
     {
-      "obligation_id": "M0995-T-ASSEMBLE",
-      "statement_fingerprint": "planned:v1:sha256:86005852ef19a98e0bae0cdefe6b4effb4a98153182dd43437cef6894c0765ec",
+      "obligation_id": "M0995-T-ASSEMBLE-V2",
+      "statement_fingerprint": "planned:v2:sha256:59dcbfc7a26b5658457f44322863ebae9cdd0cf989aca1299eedff9e6f35a1f2",
       "kind": "terminal",
       "root_relevant": true,
       "machine_eligibility": "required",
@@ -178,7 +397,7 @@
       "readable_eligibility": "required",
       "risk_class": "critical",
       "exclusion_reason": null,
-      "terminal_proof_body_id": "repo:Stage1Instances.THM_M_0995.ObligationTree.root_compose"
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.assemblyPackageV2"
     },
     {
       "obligation_id": "M0995-X-MATHLIB",
@@ -227,6 +446,18 @@
       "risk_class": "high",
       "exclusion_reason": null,
       "terminal_proof_body_id": null
+    },
+    {
+      "obligation_id": "M0995-X-V1-REFUTATION",
+      "statement_fingerprint": "planned:v2:sha256:67e4ebc49b428adb3e24182d1e8250a821d4a1a19493c5304503527379dbde82",
+      "kind": "certificate",
+      "root_relevant": false,
+      "machine_eligibility": "informational",
+      "human_source_eligibility": "not_applicable",
+      "readable_eligibility": "required",
+      "risk_class": "critical",
+      "exclusion_reason": null,
+      "terminal_proof_body_id": "Stage1Instances.THM_M_0995.Proof.not_optimizeExponentPackage"
     }
   ]
 }
