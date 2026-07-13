@@ -1,0 +1,230 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0923",
+  "item_id": "S56-M-0923-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1465,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "贝尔数",
+  "name_en": "Bell numbers",
+  "canonical_name": "Bell-number set-partition counting theorem family",
+  "category": "组合数学 / 计数组合",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "集合划分的计数",
+  "literal_source_claim_en": "Counting set partitions.",
+  "source_attribution": "Eric Bell, 1934 (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "catalog_names_bell_number_set_partition_counting_concept_but_not_one_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only a concept/definition gloss. It fixes no sequence definition, finite carrier or partition representation, equality notion, ordered binders, boundary convention, or conclusion, and it does not choose a partition-cardinality characterization, Stirling-number sum, recurrence, generating function, Dobinski formula, or fixed-block-size result. Pinned mathlib defines Nat.bell recursively but explicitly leaves its indicated set-partition counting interpretation unproved. Selecting one candidate now would invent or substitute proposition-changing mathematics.",
+  "target_decision": "preserve the conventional Bell-number and finite-set-partition family while redirecting the dependent statement phase to one independently approved source proposition; do not treat a definition, recurrence, or docstring as the absent cardinality theorem",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Enumerative.Bell",
+      "Mathlib.Combinatorics.Enumerative.Stirling"
+    ],
+    "declaration_or_expression": null,
+    "declaration_candidates": [
+      "Nat.bell",
+      "Nat.bell_succ",
+      "Nat.bell_succ'",
+      "Multiset.bell",
+      "Multiset.bell_mul_eq",
+      "Nat.stirlingSecond"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_concept_heading_does_not_select_one_truth_valued_bell_number_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Expected finite labeled carriers and natural-valued counts, with no nontrivial universe issue for a Fin n encoding; the exact carrier, arbitrary-finite-type transport, partition representation, decidability instances, quotient equality, arithmetic codomain, and any analytic universe or topology remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not say whether to define Bell numbers by set-partition cardinality or prove a cardinality characterization, Stirling sum, recurrence, generating function, Dobinski formula, asymptotic, or another exact proposition.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before target selection; the empty carrier and B(0)=1, empty and repeated blocks, ordered versus unordered blocks, k=0 and k>n, arbitrary finite carriers, summation endpoints, recurrence reindexing, casts, and analytic convergence must be explicitly dispositioned.",
+  "candidate_scope_not_credited": [
+    "B(n) defined as or proved equal to the cardinality of partitions of an n-element labeled set",
+    "B(n) = sum from k=0 to n of the Stirling numbers S(n,k)",
+    "B(0)=1 together with B(n+1)=sum from k=0 to n of choose(n,k) times B(k)",
+    "the exponential generating function exp(exp(x)-1)",
+    "Dobinski's formula with exact convergence and rounding conventions",
+    "Multiset.bell or Nat.uniformBell for prescribed block-size data"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the empty carrier, empty partition, and B(0)=1 convention",
+    "empty blocks, repeated blocks, ordered blocks, and blocks outside the carrier",
+    "exactly zero blocks for empty and nonempty carriers and exactly k>n blocks",
+    "Fin n versus arbitrary finite labeled carriers and invariance under equivalence",
+    "setoid, equivalence-relation, Finpartition, or block-family encodings and extensional equality",
+    "Stirling summation endpoints, zero extension, and recurrence index changes",
+    "natural-number equality versus integer, rational, real, formal-power-series, or analytic casts",
+    "infinite-sum convergence and exponential/factorial conventions for analytic formulas"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0922's Stirling-number target used as the unrestricted Bell-number root",
+    "integer partitions, permutations into cycles, or multiset partitions used as labeled set partitions",
+    "fixed block-size or equal-block-size counts used as the unrestricted count",
+    "Nat.bell_succ or a recursive unfolding presented as proof that Nat.bell counts set partitions",
+    "the values B(0), B(1), B(2), a finite table, numerical experiment, or structure field used as the general theorem",
+    "DLMF prose, a mathlib docstring or TODO, the untrusted catalog label 已验证, or the intake probe used as source or kernel completion evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0922",
+      "name": "斯特林数",
+      "relationship": "distinct refinement by block count; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0921",
+      "name": "卡塔兰数",
+      "relationship": "separate enumerative sequence; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0925",
+      "name": "斐波那契数列",
+      "relationship": "separate recurrence sequence; no statement or proof credit is shared"
+    }
+  ],
+  "source_status": "H5_catalog_concept_heading_not_yet_a_stable_proposition_despite_modern_definition_and_historical_bibliographic_leads",
+  "source_candidates_not_credited": [
+    {
+      "citation": "NIST Digital Library of Mathematical Functions, version 1.2.7, Chapter 26, Section 26.7, Set Partitions: Bell Numbers, release 2026-06-15",
+      "permalink": "https://dlmf.nist.gov/26.7",
+      "observed_scope": "B(n) is the number of partitions of {1,...,n}; B(0)=1; the section separately records a Stirling sum, Dobinski formula, exponential generating function, recurrence, and asymptotics",
+      "section_html_observed_sha256": "8941e6f15a173d9a669ac5d5d3bd46e26df0fc572fa2d9819f79943c2a0d833c",
+      "section_html_bytes": 79724,
+      "hash_boundary": "observed response provenance only; dynamic delivery material makes the full HTML digest unsuitable as immutable source identity",
+      "status": "strong modern scope and formula-family lead only; the catalog does not select a proposition, complete proof and incorporated definitions were not admitted, cited sources were not inspected, and independent review remains open"
+    },
+    {
+      "citation": "E. T. Bell, Exponential Numbers, The American Mathematical Monthly 41(7), August 1934, 411-419, DOI 10.1080/00029890.1934.11987615",
+      "located_via": "Crossref metadata response sha256 101f1591dfaa7c58bbc10d756275de670d6f2d55260e4fd6c6756f6b8c0a1376",
+      "status": "historical bibliographic lead matching author and year only; publisher and JSTOR article access was blocked, so no statement, proof, definition, correction, or source-to-catalog mapping is credited"
+    },
+    {
+      "citation": "Louis Comtet, Advanced Combinatorics, 1974, pages 210-211",
+      "located_via": "DLMF Section 26.7(i) notes",
+      "status": "bibliographic definition/source lead only; edition pages and proof were not inspected or admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Enumerative.Bell",
+      "declarations": ["Nat.bell", "Nat.bell_succ", "Nat.bell_succ'", "Nat.bell_zero", "Nat.bell_one", "Nat.bell_two"],
+      "boundary": "exact-topic recursive sequence and recurrence/value interfaces; the module explicitly leaves proving the set-partition counting interpretation as TODO, so no source-root or M0 credit"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Enumerative.Bell",
+      "declarations": ["Multiset.bell", "Multiset.bell_mul_eq", "Nat.uniformBell", "Nat.uniformBell_mul_eq"],
+      "boundary": "arithmetic formulas for prescribed block sizes; no counted partition type or checked bridge to unrestricted Nat.bell cardinality"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Enumerative.Stirling",
+      "declarations": ["Nat.stirlingSecond", "Nat.stirlingSecond_succ_succ"],
+      "boundary": "recursive second-kind Stirling interfaces adjacent to a possible Bell sum; no inspected theorem connects them to Nat.bell or to a finite partition cardinality"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "fb0baac89ea0633612be3b47448464b4b8e4bef7",
+    "repository_base_tree": "018557070da18ea1733a82de81a238750c59aa84",
+    "repository_record": "Docs/researches/math_theorems.md:6749-6754",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:25174-25199",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "ae7f4edd81d797bd787af12e2e198aa65a9278b2344f90a2cbf237f1fe800acb",
+    "execution_dag_sha256": "4d99af637f1def5364e71db1878231719cac2f2c6a08f324ce2ca7cc1cb06e15",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_bell_source_sha256": "7dea512d945e42244e25b83453331498b346774dfa64b61c2f6d0108c1bf888d",
+    "mathlib_stirling_source_sha256": "a73d2d2eac293e87def7ee0484133ed193bcf1ac6bcbb545ca4c809ca9d94cdd",
+    "dlmf_version": "1.2.7",
+    "dlmf_release_date": "2026-06-15",
+    "dlmf_section_permalink": "https://dlmf.nist.gov/26.7",
+    "dlmf_section_html_observed_sha256": "8941e6f15a173d9a669ac5d5d3bd46e26df0fc572fa2d9819f79943c2a0d833c",
+    "dlmf_equation_tex_sha256": {
+      "26.7.1": "dddb131a2468a4f396780819aa2516c6a046fa8dfc63433b90a11ba7458db4e4",
+      "26.7.2": "4d8482c0ea955470735bae3a69136a7d7e9170347ec18e3cf7817dbeb6a961a7",
+      "26.7.3": "549dae6aaed43ade923f7f94c76efcced7d204030e24709c7e87a7c2db350c93",
+      "26.7.4": "e3967269afc3eae49db3f60811669911bfe60f7aa5cc2159f954e1ed8487f4cc",
+      "26.7.5": "4653d68f5a3675514d4d6a72d126de9fb872fd153425e3bb3d80d5e5e77b3a5a",
+      "26.7.6": "0d62a7f4ce79e6213cf437e708b9a5f3e2a5794ac18df94228accd1740ee577f"
+    },
+    "crossref_bell_metadata_sha256": "101f1591dfaa7c58bbc10d756275de670d6f2d55260e4fd6c6756f6b8c0a1376"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory with finite types, quotients or setoids, natural-number recursion, and possibly classical finite decidability is the intended base; exact logical principles and accepted axiom set remain open until the canonical target and representation are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; the probe checks candidate declarations only, while exact target identity, imports, terminal bodies, transitive dependencies, axioms, and trust policy remain downstream",
+  "computation_profile": "No finite table, native evaluation, external oracle, experiment, floating-point approximation, or unchecked certificate is credited; future computation must use an approved exact certificate or kernel reduction against the selected proposition",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0923/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0923/README.md",
+    "Stage1_Instances/THM-M-0923/instance.json",
+    "Stage1_Instances/THM-M-0923/scope-map.md",
+    "Stage1_Instances/THM-M-0923/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0923/task-dag.json",
+    "Stage1_Instances/THM-M-0923/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0923/check_intake.py",
+    "Stage1_Instances/THM-M-0923/validation.md",
+    "Stage1_Instances/THM-M-0923/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent enumerative-combinatorics and history reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "boundary_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent reviewers must approve the preserved proposition, Bell and partition definitions, source locator and corrections, exact binders and boundaries, and source-identical Lean encoding before statement acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support theorem release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, revokes dependent provisional credit, and requires a fresh scoped intake against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; fetched DLMF and Crossref responses are recorded by digest but are not claimed as a complete release archive.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, proposition selection, Bell or partition definition, carrier or equality encoding, binder order, hypothesis, conclusion, boundary convention, DLMF or mathlib candidate change, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the catalog wording, modern and historical leads, proposition ambiguity, boundary cases, non-substitutes, pinned definition and recurrence candidates, mathlib's explicit counting-correspondence TODO, and the open task DAG. No exact target, H0, M0, R0, accepted task or receipt, audit completion, theorem completion, or master acceptance is claimed."
+}

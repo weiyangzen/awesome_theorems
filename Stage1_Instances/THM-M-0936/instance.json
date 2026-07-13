@@ -1,0 +1,217 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0936",
+  "item_id": "S56-M-0936-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1475,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Cauchy-Davenport定理",
+  "name_en": "Cauchy-Davenport theorem",
+  "canonical_name": "Cauchy-Davenport sumset lower-bound theorem family (exact source formulation open)",
+  "category": "组合数学 / 计数组合",
+  "category_en": "Combinatorics / Enumerative Combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "有限域上子集和的下界",
+  "literal_source_claim_en": "A lower bound for subset sums over a finite field.",
+  "source_attribution": "Augustin Cauchy / Harold Davenport, 1813 (catalog metadata only; the single date does not represent Davenport's later independent proof)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_standard_Cauchy_Davenport_family_and_exact_topic_pinned_candidate_but_catalog_finite_field_wording_source_selected_root_and_checked_transport_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a prime p and nonempty finite subsets A and B of Z/pZ, the sumset A+B has cardinality at least min(p, |A|+|B|-1).",
+  "statement_blocker": "The catalog gives only 'a lower bound for subset sums over a finite field'. It does not state two input sets, prime modulus, nonemptiness, sumset semantics, cardinal encoding, capped formula, subtraction convention, or boundary cases. An arbitrary finite-field version capped by field cardinality is false for extension fields with proper additive subgroups, while the conventional theorem is over Z/pZ and a valid group/finite-field generalization caps by minimal nontrivial element order/characteristic. No catalog-cited primary edition, exact premise/proof/errata map, source-adoption decision, or independent review is admitted. Selecting ZMod.cauchy_davenport now would add proposition-changing mathematics without accepted source authority.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Additive.CauchyDavenport"
+    ],
+    "declaration_candidates": [
+      "ZMod.cauchy_davenport",
+      "cauchy_davenport_minOrder_add"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "ZMod.cauchy_davenport: for prime p and nonempty s,t : Finset (ZMod p), min p (s.card + t.card - 1) <= (s+t).card",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-axiom-probe-only",
+    "gate_state": "open_pending_immutable_source_statement_prime_field_vs_finite_field_root_selection_and_checked_source_to_mathlib_transport"
+  },
+  "domain_and_universes": "Open for the canonical root. The closest pinned encoding uses p : Nat with p.Prime and s t : Finset (ZMod p) in universe 0; alternatives over the prime field, arbitrary finite fields, finite additive groups, or finite Sets require explicit source selection and checked transports.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: the cardinality of a source-selected pointwise sumset is bounded below by a source-selected cap and |A|+|B|-1 term; exact domain, cap, orientation, encoding, and boundary convention remain open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected. Statement work must resolve p=2, invalid moduli, empty and singleton inputs, saturated bounds, Nat truncated subtraction, duplicate sums, extension-field additive subgroups, and every alternate carrier listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the conventional prime-cyclic Finset implication represented by ZMod.cauchy_davenport",
+    "the same theorem over the prime field F_p with finite Set cardinality",
+    "an arbitrary finite-field result capped by the characteristic rather than field cardinality",
+    "the additive-group generalization represented by cauchy_davenport_minOrder_add",
+    "a conjunction with saturation, equality-case, or inverse-theorem consequences"
+  ],
+  "excluded_substitutions": [
+    "the false arbitrary-extension-field formula capped by the full field cardinality",
+    "the torsion-free, linearly ordered semigroup, arbitrary-group, or locally compact group generalization substituted for the source-selected classical theorem",
+    "the restricted-summand Erdos-Heilbronn or Dias da Silva-Hamidoune result",
+    "Vosper, Kneser, or Kemperman inverse/structural theorems",
+    "a one-set subset-sum, iterated sumset, multiset, ordered-pair, or convolution-count theorem",
+    "a weakened consequence or a structure/hypothesis that stores the requested lower bound",
+    "finite enumeration, a theorem name, the untrusted verified label, or the discovery probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0934",
+      "name": "Erdős-Heilbronn猜想",
+      "relationship": "restricted sumsets with distinct summands, not the unrestricted two-set Cauchy-Davenport theorem"
+    },
+    {
+      "theorem_id": "THM-M-0935",
+      "name": "Dias da Silva-Hamidoune定理",
+      "relationship": "proof/generalization of the restricted-sumset conjecture, not this target"
+    },
+    {
+      "theorem_id": "THM-M-0937",
+      "name": "Vosper定理",
+      "relationship": "an inverse/equality-structure theorem for Cauchy-Davenport, not the lower bound itself"
+    },
+    {
+      "theorem_id": "THM-M-0938",
+      "name": "Kneser定理",
+      "relationship": "an abelian-group structural sumset theorem with stabilizers, not a substitute root"
+    }
+  ],
+  "source_status": "H1_named_classical_family_and_versioned_modern_theorem_history_lead_located_but_catalog_to_source_adoption_primary_editions_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Jeffrey Paul Wheeler, The Cauchy-Davenport Theorem for Finite Groups, arXiv:1202.1816v1 (2012), Definition 1.1 page 2 and Theorem 1.4 page 3",
+      "versioned_locator": "https://arxiv.org/pdf/1202.1816v1",
+      "observed_sha256": "eb4bbc4d75ffab654b43a49495b6a24124da446edd16ff8771603b46b244f4fb",
+      "candidate_summary": "defines A+B and states the conventional nonempty Z/pZ theorem with p prime and min(p, |A|+|B|-1); records Cauchy 1813, Davenport 1935, and Davenport 1947 historical references",
+      "status": "versioned modern source lead inspected; not the catalog-cited primary proof source, not independently reviewed, and not H0"
+    },
+    {
+      "citation": "A. Cauchy, Recherches sur les nombres, J. Ecole Polytechnique 9 (1813), 99-116",
+      "candidate_summary": "historical primary source identified by the modern lead",
+      "status": "exact edition bytes, theorem passage, definition and premise map, proof boundary, corrections/errata, and independent review not admitted"
+    },
+    {
+      "citation": "H. Davenport, On the addition of residue classes, Journal of the London Mathematical Society 10 (1935), 30-32; A historical note, volume 22 (1947), 100-101",
+      "candidate_summary": "independent proof and later historical attribution identified by the modern lead",
+      "status": "exact editions, theorem/proof mapping, corrections/errata, and independent review not admitted"
+    }
+  ],
+  "source_metadata_conflicts": [
+    "the catalog's finite-field wording is broader than the conventional prime-field/cyclic-group theorem if read as all finite extension fields with a field-cardinality cap",
+    "the Chinese phrase for subset sums does not explicitly distinguish a two-set sumset from sums selected from one set",
+    "the single 1813 date applies to Cauchy's historical proof and does not date Davenport's independent 1935 proof",
+    "the untrusted verified label has no cited formal artifact or validation record"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Additive.CauchyDavenport",
+      "declaration": "ZMod.cauchy_davenport",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "For prime p and nonempty Finsets s,t in ZMod p, min p (card s + card t - 1) <= card (s+t).",
+      "status": "exact-topic pinned declaration elaborates; source identity, canonical target, checked transport, terminal proof-body provenance, complete trust closure, and M0 classification remain downstream"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Additive.CauchyDavenport",
+      "declaration": "cauchy_davenport_minOrder_add",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "For nonempty Finsets in an additive group with decidable equality, cardinality is bounded below by the minimum nontrivial element order and card-sum-minus-one.",
+      "status": "stronger general interface elaborates; not a source-selected replacement and no proof credit is assigned"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "fb0baac89ea0633612be3b47448464b4b8e4bef7",
+    "repository_base_tree": "018557070da18ea1733a82de81a238750c59aa84",
+    "repository_record": "Docs/researches/math_theorems.md:6840-6845",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:25525-25550",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "89c3e8ab10beb82224072de1cb1e5c63a6f397dcb4cf1777a16a0eb1b5013efb",
+    "stage0_record_excerpt_sha256": "1e9b4c17395a366cbcd575ed5b93b64b439ca169f6c2ef86cd117aeee9ccfe9a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "ae7f4edd81d797bd787af12e2e198aa65a9278b2344f90a2cbf237f1fe800acb",
+    "execution_dag_sha256": "4d99af637f1def5364e71db1878231719cac2f2c6a08f324ce2ca7cc1cb06e15",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "inspected_wheeler_arxiv_id": "1202.1816v1",
+    "inspected_wheeler_pdf_sha256": "eb4bbc4d75ffab654b43a49495b6a24124da446edd16ff8771603b46b244f4fb",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_cauchy_davenport_source_sha256": "74c249c283b315f5916043e9c9a03ce238f4d3f083146ba70869514eed116c2f",
+    "mathlib_group_min_order_source_sha256": "2d1ca9408fcd1765e9d2dc833c7f4cbefad14ad1a3c169f30ede2989831b39df",
+    "mathlib_candidate_introduction_commit": "75d413be2ff5a21f77a63ca465194c5159bb22d2"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the candidate reports propext, Classical.choice, and Quot.sound, while exact source principles, accepted axiom set, and transitive proof closure remain open until the target and trust profiles are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, canonical expression, terminal proof body, transitive declaration and compiled-artifact dependencies, and accepted trust closure remain open",
+  "computation_profile": "No finite exhaustive enumeration, native computation, computer algebra, experiment, oracle, or unchecked certificate is credited; the expected result is a kernel-checked combinatorial theorem",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0936/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0936/README.md",
+    "Stage1_Instances/THM-M-0936/instance.json",
+    "Stage1_Instances/THM-M-0936/scope-map.md",
+    "Stage1_Instances/THM-M-0936/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0936/task-dag.json",
+    "Stage1_Instances/THM-M-0936/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0936/check_intake.py",
+    "Stage1_Instances/THM-M-0936/validation.md",
+    "Stage1_Instances/THM-M-0936/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent additive-combinatorics source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned independent additive-combinatorics reviewer",
+    "reviewer_policy": "Independent reviewers must approve the adopted source, prime-field/finite-field scope, sumset and cardinal encodings, premises, cap, boundary cases, historical provenance, and formal transport; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier makes no release-archive claim, and the modern source lead must be independently reacquired and rehashed.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source edition or erratum, historical attribution, root domain, prime or field assumptions, set/sumset/cardinal encoding, nonemptiness, cap, subtraction, boundary convention, canonical Lean target or transport, formal-candidate finding, dependency pin, assurance profile, validator, or any owned artifact; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog record, recognizable Cauchy-Davenport family, finite-field ambiguity and false-broadening guard, versioned modern source crosswalk, exact-topic pinned candidates, exclusions, and open downstream DAG. No canonical proposition, source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
