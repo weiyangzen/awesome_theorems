@@ -1,0 +1,225 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0830",
+  "item_id": "S56-M-0830-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1388,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Push-Relabel算法",
+  "name_en": "Push-Relabel algorithm",
+  "canonical_name": "Goldberg-Tarjan push-relabel maximum-flow algorithm theorem family",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "最大流的推送重标算法",
+  "literal_source_claim_en": "The push-relabel algorithm for maximum flow.",
+  "source_attribution": "Andrew Goldberg/Robert Tarjan; 1988 (uncited catalog attribution consistent with the inspected JACM paper)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_primary_Goldberg_Tarjan_algorithm_definitions_and_complete_correctness_termination_and_FIFO_complexity_proof_routes_inspected_but_exact_catalog_root_assumption_mapping_errata_and_independent_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_published_push_relabel_maximum_flow_result_family_but_catalog_does_not_select_correctness_termination_or_complexity_root",
+  "canonical_claim": null,
+  "target_disposition": "requires_source_statement_selection_before_exact_statement_elaboration",
+  "statement_blocker": "The math catalog gives an algorithm label rather than one exact truth-valued proposition. It does not select generic correctness, generic termination and O(n^2 m) basic operations, FIFO implementation correctness and O(n^3) time, another scheduling rule, or a conjunction. It also omits the directed-network and capacity representation, flow/preflow/residual definitions, source/sink and graph assumptions, initialization, scheduling, output relation, termination semantics, computational cost model, asymptotic variables, and degenerate cases. The distinct CS record's O(V^3) wording cannot silently redefine this target.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Digraph.Basic",
+      "Mathlib.Combinatorics.Quiver.Path.Weight",
+      "Mathlib.Algebra.BigOperators.Group.Finset.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "Digraph",
+      "Digraph.Adj",
+      "Quiver.Path",
+      "Quiver.Path.length",
+      "Quiver.Path.addWeight",
+      "Finset.sum"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_root_network_algorithm_cost_and_boundary_selection",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved root must fix a finite directed network representation; vertex, edge, source and sink conventions; real, rational, natural, or nonnegative-real capacities and flows; finite-sum and asymptotic carriers; universes; and every typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the catalog does not choose maximum-flow output correctness, generic termination, an O(n^2 m) basic-operation bound, FIFO O(n^3) time, or an exact conjunction of these results.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every graph, capacity, source/sink, reachability, execution, scheduling, termination, and cost case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "generic push-relabel conditional correctness at termination with finite labels",
+    "generic push-relabel termination and O(n^2 m) basic operations",
+    "a composite theorem that every generic execution terminates and returns a maximum flow",
+    "FIFO discharge implementation correctness and O(n^3) running time",
+    "maximum-distance or wave selection with O(n^3) running time",
+    "dynamic-tree, parallel, or distributed push-relabel bounds"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, and two-vertex networks; source equal to sink; source or sink absent from an embedded vertex set",
+    "no edges, disconnected networks, unreachable sinks, and the zero maximum flow",
+    "zero or negative capacities versus the paper's positive-on-edge convention",
+    "self-loops, parallel edges, antiparallel edges, and capacities extended to all ordered vertex pairs",
+    "real versus integral capacities and exact versus executable arithmetic",
+    "initially empty active queue, arbitrary edge-list order, scheduling nondeterminism, and stalled or invalid executions",
+    "the paper's m >= n - 1 time-bound convention and asymptotics at small n or m",
+    "unit-cost arithmetic, queue operations, edge scans, storage, and any bit-complexity claim"
+  ],
+  "excluded_substitutions": [
+    "maximum-flow/min-cut existence or Ford-Fulkerson correctness without the push-relabel algorithm",
+    "Edmonds-Karp, Dinic, Karzanov, highest-label, wave, dynamic-tree, parallel, distributed, or minimum-cost-flow results",
+    "generic conditional correctness advertised as termination or O(n^3) FIFO complexity",
+    "Theorem 4.5 advertised as maximum-flow output correctness without its generic and refinement dependencies",
+    "a restricted capacity domain, fixed-size graph, assumed execution trace, stored maximum witness, or stored cost certificate not selected by source",
+    "a finite run, benchmark, residual table, floating-point result, or unchecked complexity experiment",
+    "the separate THM-C-0099 wording or the catalog's untrusted verified label used as source or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0828",
+      "name": "Edmonds-Karp算法",
+      "relationship": "augmenting-path maximum-flow algorithm, not push-relabel"
+    },
+    {
+      "theorem_id": "THM-M-0829",
+      "name": "Dinic算法",
+      "relationship": "layered-network maximum-flow algorithm, not push-relabel"
+    },
+    {
+      "theorem_id": "THM-C-0099",
+      "name": "Push-Relabel算法",
+      "relationship": "distinct non-Stage1-math CS record whose O(V^3) gloss suggests the FIFO complexity candidate but supplies no target or proof credit"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Andrew V. Goldberg and Robert E. Tarjan, A New Approach to the Maximum-Flow Problem, Journal of the ACM 35(4) (1988), 921-940, DOI 10.1145/48014.61051",
+      "candidate_locator": "Princeton-hosted PDF https://www.cs.princeton.edu/courses/archive/fall07/cos521/handouts/p921-goldberg.pdf observed 2026-07-13; SHA-256 e0c93940c1f450c801443af639fff047ac49c9bc43f9f55c9f2ac5d5889fb808",
+      "candidate_summary": "defines the generic preflow/push/relabel method; proves conditional correctness, termination with O(n^2 m) basic operations, and FIFO O(n^3) time",
+      "inspection_status": "primary source inspected; catalog root selection, exact composite boundary, complete definition and premise mapping, correction or errata audit, stable archival admission, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Digraph.Basic",
+      "declarations": ["Digraph", "Digraph.Adj"],
+      "boundary": "generic directed adjacency relation only; no capacities, flow, residual network, or algorithm"
+    },
+    {
+      "module": "Mathlib.Combinatorics.Quiver.Path.Weight",
+      "declarations": ["Quiver.Path.length", "Quiver.Path.addWeight"],
+      "boundary": "generic path and additive-weight infrastructure only; no reachability distance, residual paths, or push-relabel invariant"
+    },
+    {
+      "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+      "declaration": "Finset.sum",
+      "boundary": "finite aggregation substrate only; no conservation, excess, flow value, or maximality theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "repository_base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "repository_record": "Docs/researches/math_theorems.md:6096-6101",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22658-22694",
+    "neighbor_cs_record": "Docs/researches/cs_theorems.md:174 and Docs/Stage0_Blueprint.md:84115-84155 (THM-C-0099)",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_cs_source_record_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_repository_cs_source_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "repository_record_excerpt_sha256": "b97996a99ef63ab3bb48a972a906a2e35841ba295b6b1dd3fe0c18af18b8dbfc",
+    "stage0_projection_excerpt_sha256": "bea86ce229445891ed103aa9301ce4e89ec25e58c40f0521f74ad682313eff5a",
+    "neighbor_cs_record_sha256": "70e03767e748ef238e888681895c0143e4b406296d53555e25fb73ee445eba6f",
+    "neighbor_stage0_excerpt_sha256": "880331cc123e03b6dd660ba9df75094dfd70eb1911ef3e0555b52f35e423aabd",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256": "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source": {
+      "authors": "Andrew V. Goldberg and Robert E. Tarjan",
+      "title": "A New Approach to the Maximum-Flow Problem",
+      "journal_volume_pages_year": "Journal of the ACM 35(4), 921-940 (1988)",
+      "doi": "10.1145/48014.61051",
+      "observed_locator": "https://www.cs.princeton.edu/courses/archive/fall07/cos521/handouts/p921-goldberg.pdf",
+      "observed_pdf_sha256": "e0c93940c1f450c801443af639fff047ac49c9bc43f9f55c9f2ac5d5889fb808",
+      "observed_text_sha256": "916a88fceac832d4732c6d52e46cb88e16c95f73d08309275ff070c180ae78d4",
+      "inspected_boundary": "printed pages 923-931: network/preflow/push/relabel definitions, Theorem 3.4 conditional correctness, Lemmas 3.5-3.10 and Theorem 3.11 termination and O(n^2 m) operations, FIFO implementation, Theorem 4.2, Lemma 4.3, Corollary 4.4, and Theorem 4.5 O(n^3) time",
+      "credit": "primary proof source supporting H1; exact catalog root, complete mapping, corrections, preservation, and independent review remain open"
+    },
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_digraph_basic_sha256": "3062fbe7844161d29d885206e013c2c644e3f855f3603956bc3f243ab4808d81",
+    "mathlib_quiver_path_weight_sha256": "0e29fbdc2cea79e0cac5ad564f9c6b6181baf0057ccafdcbce88e3d92f9c4178"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; finite types, classical decidability/choice, real arithmetic, asymptotic foundations, and any executable algorithm principles remain open until the exact root is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, algorithm definitions, terminal declarations, transitive dependencies, runtime bridge, and trust policy remain open",
+  "computation_profile": "No extracted push-relabel executable, native computation, benchmark, floating-point run, oracle, experiment, or unchecked cost certificate is credited; any future algorithm and cost bridge must be kernel-checked under a frozen model",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0830/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0830/README.md",
+    "Stage1_Instances/THM-M-0830/instance.json",
+    "Stage1_Instances/THM-M-0830/scope-map.md",
+    "Stage1_Instances/THM-M-0830/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0830/task-dag.json",
+    "Stage1_Instances/THM-M-0830/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0830/check_intake.py",
+    "Stage1_Instances/THM-M-0830/validation.md",
+    "Stage1_Instances/THM-M-0830/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent algorithms/source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned network-flow algorithms reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "freshness_and_revocation_policy": "Invalidate on source or catalog correction, selected root or source edition, network/capacity/flow/preflow/residual/label/algorithm/scheduling/output/termination/cost/asymptotic/boundary convention, neighboring-target scope, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; exact source admission, independent reviews, and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. The primary source establishes a published result family but the repository does not yet select one exact proposition. No canonical mathematical or Lean statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

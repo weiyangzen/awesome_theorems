@@ -1,0 +1,222 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0831",
+  "item_id": "S56-M-0831-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1389,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Karger算法",
+  "name_en": "Karger algorithm",
+  "canonical_name": "Karger randomized global minimum-cut algorithm family",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Karger算法",
+  "literal_source_claim_zh": "全局最小割的随机算法",
+  "literal_source_claim_en": "A randomized algorithm for global minimum cut.",
+  "source_attribution": "David Karger, 1993 (catalog metadata consistent with the inspected SODA 1993 paper, but the catalog contains no citation)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_algorithm_gloss_only_no_source_selected_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_randomized_global_minimum_cut_algorithm_but_does_not_select_a_stable_correctness_probability_amplification_or_complexity_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only Karger's algorithm name and a randomized-global-minimum-cut slogan. It does not fix the graph and cut model, contraction state and transition, output relation, single-run versus repeated algorithm, success event, exact or asymptotic probability, independence and failure parameter, weighted encoding, executable semantics, cost model, complexity conclusion, ordered binders, hypotheses, or boundary cases. The inspected primary paper contains several distinct matching theorems, so selecting one without accountable source approval would invent proposition-changing scope.",
+  "target_decision": "redirect the catalog method label to one independently reviewed source-selected exact Karger probability, correctness, amplification, or complexity proposition before ordinary statement and proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Graph.Basic",
+      "Mathlib.Probability.Distributions.Uniform"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "Graph",
+      "Graph.IsLink",
+      "Graph.Inc",
+      "Graph.Adj",
+      "Graph.IsLoopAt",
+      "PMF.uniformOfFinset",
+      "PMF.ofMultiset"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix finite connected undirected multigraph or weighted-graph data, vertex and edge carriers, cuts and equality up to complement, contraction states, finite randomness semantics, output and cost types, universes, and all decidability and finiteness context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose the fixed-minimum-cut single-run probability bound, an amplified high-probability result, algorithm correctness, weighted reduction, sequential complexity, space bound, RNC result, or a conjunction of separately modeled claims.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No boundary case is excluded at intake because no proposition is selected; statement work must resolve every graph, cut, contraction, sampling, repetition, probability, and complexity case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "Theorem 2.1 single-trial lower bound that a fixed global minimum cut is returned with probability at least 1 / binom(n, 2)",
+    "the asymptotic Omega(n^-2) wording of Theorem 2.1",
+    "Corollary 2.1 amplification by O(n^2 log n) independent trials with high probability",
+    "correctness and termination of an executable contraction algorithm",
+    "weighted-graph reduction or proportional-weight sampling correctness",
+    "sequential time and space or parallel RNC complexity results"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, two-vertex, and disconnected graphs",
+    "graphs with no edges, input loops, parallel edges, and zero global cut value",
+    "multiple minimum cuts and equality of cuts up to complement",
+    "contraction states with no selectable edge and preservation or deletion of loops",
+    "denominator-zero and small-n behavior of 1 / binom(n, 2)",
+    "zero, negative, nonintegral, and multiplicity-encoded weights",
+    "zero or one repetition, dependence between trials, ties, and best-output selection",
+    "exact versus asymptotic probability and sequential versus PRAM cost semantics"
+  ],
+  "excluded_substitutions": [
+    "max-flow/min-cut duality, an s-t min-cut theorem, or a deterministic min-cut algorithm",
+    "Push-Relabel, Stoer-Wagner, or another cataloged graph algorithm",
+    "a simple-graph-only contraction that loses source-required parallel edges without a checked transport",
+    "directed graphs, hypergraphs, vertex cuts, multiway cuts, approximate cuts, or network reliability",
+    "cut survival conditioned on avoiding its edges without the probability and output composition",
+    "a random-permutation or minimum-spanning-tree formulation without checked equivalence to the selected source semantics",
+    "a structure or hypothesis storing the desired cut, transition, probability, or complexity result",
+    "simulation, benchmarking, pseudocode, a URL, or the untrusted catalog label 已验证 as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0830",
+      "name": "Push-Relabel算法",
+      "relationship": "a max-flow algorithm is not Karger's randomized global-minimum-cut contraction theorem"
+    },
+    {
+      "theorem_id": "THM-M-0832",
+      "name": "Stoer-Wagner算法",
+      "relationship": "a deterministic weighted global-minimum-cut algorithm is a distinct target"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "David R. Karger, Global Min-cuts in RNC, and Other Ramifications of a Simple Min-Cut Algorithm, SODA 1993, 21-30",
+      "candidate_locator": "author-hosted PDF https://people.csail.mit.edu/karger/Papers/mincut.pdf observed 2026-07-13; DBLP conf/soda/Karger93",
+      "candidate_summary": "Section 2 defines random multigraph contraction; Theorem 2.1 gives fixed-minimum-cut success probability Omega(n^-2) with explicit proof lower bound 1 / binom(n, 2); Corollary 2.1 amplifies independent trials",
+      "status": "strong inspected primary-source lead; catalog citation identity, target selection, complete incorporated-definition and premise crosswalk, asymptotic/exact reconciliation, corrections audit, immutable repository admission, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Graph.Basic",
+      "declaration": "Graph",
+      "boundary": "general undirected multigraph substrate with explicit edge identities, parallel edges, and loops; no finiteness package, cuts, contraction, trajectory, or Karger theorem"
+    },
+    {
+      "module": "Mathlib.Probability.Distributions.Uniform",
+      "declaration": "PMF.uniformOfFinset",
+      "boundary": "uniform finite sampling primitive; no current-edge construction or contraction transition"
+    },
+    {
+      "module": "Mathlib.Probability.Distributions.Uniform",
+      "declaration": "PMF.ofMultiset",
+      "boundary": "multiplicity-sensitive sampling primitive; no graph or algorithm semantics"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "repository_base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "repository_record": "Docs/researches/math_theorems.md:6103-6108",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22685-22710",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "d56fad6a108d910b6f1f0ddf10c241eb3ffe493ee32ef823ac3698306f317310",
+    "stage0_excerpt_sha256": "22105ee65fd7269b0468220b11722cafdb566c5d28e924d19321317fe01ee78b",
+    "target_manifest_excerpt_sha256": "eaf9651d7fa86860f27566b0da2161a9646e114bd6d17598c8391b4989a68d50",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256": "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source": {
+      "authors": "David R. Karger",
+      "title": "Global Min-cuts in RNC, and Other Ramifications of a Simple Min-Cut Algorithm",
+      "venue_pages_year": "SODA 1993, pages 21-30; manuscript dated 1992-10-30",
+      "bibliographic_locator": "https://dblp.org/rec/conf/soda/Karger93",
+      "author_pdf_locator": "https://people.csail.mit.edu/karger/Papers/mincut.pdf",
+      "observed_pdf_sha256": "f090415d0aeeeaa7c907f76bb78fc2ce9293fd45c6bbca19276a5a5eb0c354cd",
+      "observed_pdf_bytes": 224338,
+      "observed_pdf_pages": 10,
+      "observed_text_sha256": "78976ca293150e16fa33322eb1279b78882a55f7dea0b84a0ecce2cee98f9890",
+      "observed_dblp_bib_sha256": "b05e844f0af9317c7ad4416b3a155f8060374e63b09be04e9b13a66586941aff",
+      "inspected_boundary": "Section 1 connected global-cut model; Section 2 multigraph contraction definition; Theorem 2.1 on PDF pages 2-3 and its explicit 1 / binom(n, 2) lower-bound proof; Corollary 2.1 amplification",
+      "credit": "strong primary-source lead supporting the algorithm family only; no H0 or canonical-statement credit"
+    },
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_graph_basic_sha256": "dc3f9c7793f8de09261868afeb7e1d8804914b90b1fc4615feb139f2452dd2b9",
+    "mathlib_uniform_sha256": "bc9a1d7af292b6ee01ed129bcf3a03087c6f8410500becde660c5ddd07a0072f"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical finite-set reasoning, quotients or partitions for contraction, finite probability, rational or ENNReal bounds, and asymptotic foundations remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, graph and probability model, algorithm implementation, terminal declarations, transitive dependencies, runtime, and trust policy remain open",
+  "computation_profile": "No random execution, simulator, benchmark, native evaluator, PRNG, oracle, empirical success frequency, generated graph, or unchecked certificate is credited; a future algorithm must have kernel-checked transition and probability semantics plus any claimed cost bridge",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0831/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0831/README.md",
+    "Stage1_Instances/THM-M-0831/instance.json",
+    "Stage1_Instances/THM-M-0831/scope-map.md",
+    "Stage1_Instances/THM-M-0831/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0831/task-dag.json",
+    "Stage1_Instances/THM-M-0831/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0831/check_intake.py",
+    "Stage1_Instances/THM-M-0831/validation.md",
+    "Stage1_Instances/THM-M-0831/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent randomized-algorithms/source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned graph-algorithms reviewer",
+    "reviewer_policy": "Independent reviewers must approve the selected source proposition, graph/cut and contraction semantics, probability and complexity clauses, assumptions, boundary cases, and formal mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier and observed external source copy have no independent release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected theorem or source edition, graph/cut/weight model, contraction/sampling/repetition semantics, probability or complexity conclusion, boundary case, neighboring-target scope, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned-artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog algorithm gloss as not yet a stable proposition; it does not refute Karger's established results. The inspected primary-source lead and pinned multigraph/probability probe are discovery evidence only. No canonical mathematical or Lean statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

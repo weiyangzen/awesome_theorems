@@ -1,0 +1,170 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0761",
+  "item_id": "S56-M-0761-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1347,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "泵引理",
+  "name_en": "Pumping lemmas for regular and context-free languages",
+  "canonical_name": "Regular-language and context-free-language pumping lemmas (collective source family; exact statement open)",
+  "category": "mathematical logic / recursion theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim": "正则语言与上下文无关语言的泵引理 (the pumping lemmas for regular and context-free languages)",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_collective_claim_identifies_two_standard_pumping_lemma_families_but_supplies_no_exact_source_selected_conjunction_or_formal_statement",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog intentionally bundles the regular-language and context-free-language pumping lemmas but gives no theorem-grade formulas or primary-source locator. It does not fix the alphabet and language encodings, pumping-length quantifiers, factor order, length/nonemptiness constraints, simultaneous-pumping convention, boundary cases, or whether the root is one conjunction with shared or branch-local binders. Choosing only the pinned DFA lemma would weaken the collective target; inventing the missing CFL branch would exceed intake.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Computability.DFA",
+      "Mathlib.Computability.ContextFreeGrammar"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_primary_source_and_exact_two_branch_statement_freeze",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_two-branch-adjacent-api-only"
+  },
+  "domain_and_universes": "Expected words are finite lists over an alphabet type. The regular branch additionally requires a finite state type or an equivalent regular-language witness; the context-free branch requires a selected grammar or language-level witness. Universe levels, alphabet finiteness, decidable equality, and whether branch alphabets are shared remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Expected collective family: both the source-selected regular-language pumping property and the source-selected context-free-language pumping property. Their exact ordered binders, decomposition clauses, bounds, and Lean conjunction or structure remain open.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": {
+    "regular_language_textbook_shape": "For every regular language L, there exists p > 0 such that every w in L with p <= |w| decomposes as x ++ y ++ z with y nonempty, |x ++ y| <= p, and x ++ y^i ++ z in L for every natural i.",
+    "regular_dfa_shape": "For a finite-state DFA M and accepted word w at least as long as the state-cardinality bound, DFA.pumping_lemma gives factors a, b, c and language inclusion {a} * {b}* * {c} <= M.accepts.",
+    "context_free_textbook_shape": "For every context-free language L, there exists p > 0 such that every w in L with p <= |w| decomposes as u ++ v ++ x ++ y ++ z with |v ++ x ++ y| <= p, v ++ y nonempty, and u ++ v^i ++ x ++ y^i ++ z in L for every natural i.",
+    "collective_root_shape": "A conjunction or explicitly indexed two-component bundle retaining both lemmas without sharing branch-local alphabets, witnesses, or pumping lengths unless a reviewed source requires sharing.",
+    "required_transports": "DFA-level to Language.IsRegular, grammar-level to Language.IsContextFree, singleton/Kleene-star language inclusion to pointwise natural-power wording, and any branch-to-collective composition all require checked witnesses."
+  },
+  "degenerate_cases_to_resolve": [
+    "empty and singleton alphabets and empty languages",
+    "the empty word and words exactly at the pumping-length boundary",
+    "whether pumping length must be strictly positive or may be a zero-valued representation with a separate bound",
+    "zero-state or empty state types versus a DFA structure that requires a start state",
+    "epsilon-generating context-free grammars and grammars with no productive rules",
+    "whether the regular decomposition bound is |x ++ y| <= p or |x| < p",
+    "whether CFL nonemptiness is |v ++ y| > 0, v nonempty, y nonempty, or a disjunction",
+    "whether natural pumping exponents include zero",
+    "associativity and factor-order conventions for five-way list concatenation"
+  ],
+  "excluded_substitutions": [
+    "proving only the regular-language lemma or only the context-free-language lemma",
+    "using the regular pumping property as an if-and-only-if characterization of regular languages",
+    "replacing the context-free pumping lemma by the stronger Ogden lemma without a checked implication to the selected branch",
+    "a pumping lemma for deterministic context-free, indexed, context-sensitive, omega, tree, or formal power-series languages",
+    "a finite-state loop decomposition that omits acceptance preservation for every pumping exponent",
+    "a decomposition assumed as a hypothesis, structure field, axiom, oracle, or unchecked certificate",
+    "THM-C-0133 or THM-C-0144 state, receipts, or artifacts transferred across target identity",
+    "the catalog label 已验证 treated as human-source, kernel, or theorem-completion evidence"
+  ],
+  "related_repository_records": [
+    {
+      "theorem_id": "THM-C-0133",
+      "relationship": "computer-science catalog record for the regular-language pumping lemma",
+      "credit": "scope-disambiguation only; outside this target's owned path and not a dependency or source of state"
+    },
+    {
+      "theorem_id": "THM-C-0144",
+      "relationship": "computer-science catalog record for the context-free-language pumping lemma",
+      "credit": "scope-disambiguation only; outside this target's owned path and not a dependency or source of state"
+    }
+  ],
+  "source_status": "repository_secondary_metadata_plus_Bar-Hillel_Perles_Shamir_1961_bibliographic_lead_only; exact primary passages, definitions, assumptions, component mapping, proof boundaries, corrections, errata, and independent review open",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "Yehoshua Bar-Hillel, Micha Perles, and Eli Shamir, On formal properties of simple phrase structure grammars, Zeitschrift fuer Phonetik, Sprachwissenschaft und Kommunikationsforschung 14 (1961), 143-172, DOI 10.1524/stuf.1961.14.14.143",
+      "status": "Crossref metadata inspected and publisher PDF request returned an empty body; no theorem text, page-level component locator, proof map, correction or errata disposition, or independent review accepted",
+      "credit": "historical bibliographic lead only, not E4 or H0"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "d05520867fab3367a9b61b9544c3e12241204f54",
+    "repository_base_tree": "fb2cfc62077d5b53e9938632cd6361dd60872067",
+    "repository_record": "Docs/researches/math_theorems.md:5605-5610",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:20785-20810",
+    "related_cs_records": "Docs/researches/cs_theorems.md:232,248",
+    "related_stage0_records": "Docs/Stage0_Blueprint.md:85121-85149,85445-85473",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_cs_source_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "1fdd52cef99b37942397b089956978cb307f22f9c2a51285e3376173aea632d4",
+    "related_cs_records_excerpt_sha256": "4a164f8cdb68aa9d45b461de965db57bcbbc604a5b99e8c9622e3edaab516a3b",
+    "stage0_projection_excerpt_sha256": "726175e496ca64a3e117df02dd7ef54031756b2fd40af232106c28f167b235b6",
+    "related_stage0_records_excerpt_sha256": "4d6913c57429b81d59d8e8edbf0f839e2dd082a24a320f296075d9d600aad436",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "58f0fe34e1443dd92bc0f587793dcba33c9e03931fa08df3af7d587919537b64",
+    "execution_dag_sha256": "5279ae201a4642841cd6bda73600a6e979d402e1ef3fe059c226ecd3602cd7e9",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source_metadata_sha256": "afcb615bb06c96f9e3e0622997b18239d22708f3d89dc6ebffff88943a49a850",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, quotienting, finiteness witnesses, and language-extensionality policies remain open until the exact two-branch statement and proof closure are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, canonical declarations, transitive dependency closures, axioms, and trust policy remain open",
+  "computation_profile": "Finite words, automaton evaluation, grammar derivations, and natural pumping exponents are mathematical objects in the prospective target; no executable test, enumeration, native oracle, generated decomposition, or unchecked certificate is proof evidence",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0761/README.md",
+    "Stage1_Instances/THM-M-0761/instance.json",
+    "Stage1_Instances/THM-M-0761/scope-map.md",
+    "Stage1_Instances/THM-M-0761/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0761/task-dag.json",
+    "Stage1_Instances/THM-M-0761/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0761/check_intake.py",
+    "Stage1_Instances/THM-M-0761/validation.md",
+    "Stage1_Instances/THM-M-0761/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target reconciliation, primary-edition or errata finding, branch membership, alphabet or language encoding, pumping-length or decomposition convention, bounds, nonemptiness, exponent, conjunction, binder, boundary, alternate transport, Lean target, toolchain or dependency pin, assurance profile, validator, or owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records two standard theorem families and a historical bibliography while exact primary passages, assumptions, proof maps, errata, and independent review remain open. Pinned branch-adjacent APIs elaborate, but no canonical collective target or proof is credited. No H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

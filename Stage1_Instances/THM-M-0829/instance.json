@@ -1,0 +1,225 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0829",
+  "item_id": "S56-M-0829-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1387,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Dinic算法",
+  "name_en": "Dinic/Dinitz algorithm",
+  "canonical_name": "Dinic/Dinitz layered maximum-flow correctness and complexity theorem family (exact conjunction and version open)",
+  "category": "组合数学 / 图论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "最大流的分层算法",
+  "literal_source_claim_en": "A layered algorithm for maximum flow.",
+  "source_attribution": "Yefim Dinitz; 1970 (catalog metadata plus a publisher bibliographic crosscheck through the author's 2006 retrospective)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_algorithmic_theorem_family_but_catalog_omits_network_flow_residual_level_blocking_flow_correctness_version_and_cost_model_clauses",
+  "canonical_claim": null,
+  "statement_blocker": "The Stage1-bearing catalog record says only 'a layered algorithm for maximum flow'. It does not define the network, capacity and flow domains, source/sink hypotheses, residual semantics, level graph, blocking flow, state update, output, correctness theorem, termination argument, implementation version, or exact polynomial bound. A companion non-Stage1 computer-science record lists O(V^2 E) and O(V E log V) without distinguishing variants, while publisher metadata only confirms separate 1970 original-paper and 1983 dynamic-tree bibliographic entries. The primary texts and the bound-to-variant mapping were not inspected. Selecting a precise proposition now would invent, merge, or substitute mathematics.",
+  "target_decision": "retain the Dinic/Dinitz layered maximum-flow correctness-and-complexity family at provisional H1/M4/R4, freeze no canonical proposition, and require primary-text review plus explicit original/dynamic-tree/specialized-variant reconciliation",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Quiver.Path.Weight",
+      "Mathlib.Combinatorics.SimpleGraph.Metric",
+      "Mathlib.Combinatorics.SimpleGraph.Walks.Counting"
+    ],
+    "declaration_candidate": null,
+    "candidate_expression": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_network_algorithm_version_correctness_and_complexity_model_open",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix a finite directed network or edge-indexed multigraph, vertex and edge universes, distinguished source and sink, capacity codomain, flow and residual representations, level/blocking-flow state, executable or relational semantics, and the cost/input-size model.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-selected conjunction or separation of feasibility preservation, blocking-flow phase progress, termination, maximum-flow correctness, optional minimum-cut certificate, and a precise version-specific bound such as O(V^2 E).",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "termination and maximum-flow correctness of repeated level-graph blocking-flow phases on finite directed networks with natural capacities",
+    "the usual general-network O(V^2 E) complexity theorem under an explicitly fixed original algorithm and elementary-operation model",
+    "a prospective later O(V E log V) dynamic-tree implementation, admitted only with an exact source and checked relationship to the abstract blocking-flow phases",
+    "specialized unit-capacity or unit-network complexity theorems under exact graph-class definitions",
+    "a checked conjunction of correctness, maximum-flow/minimum-cut certification, and a selected complexity bound",
+    "an executable BFS plus blocking-flow implementation related to an abstract residual-network transition system"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty or singleton vertex type and source equal to sink",
+    "no source-to-sink path, no edges, or zero maximum flow",
+    "zero-capacity edges, self-loops, parallel edges, and antiparallel edges",
+    "integral versus rational or real capacities and fractional bottlenecks",
+    "irrelevant disconnected components and unreachable level values",
+    "zero-length paths and forward/reverse residual-edge identity",
+    "multiple level-graph paths and nonunique blocking flows",
+    "whether a zero or partial blocking flow is permitted and what proves phase progress",
+    "whether V and E count all represented or only active edges and how dynamic-tree operations are costed",
+    "flow-only output versus flow/value/cut/certificate output"
+  ],
+  "excluded_substitutions": [
+    "Edmonds-Karp or arbitrary-path Ford-Fulkerson in place of level graphs and blocking flows",
+    "maximum-flow/minimum-cut alone without the Dinic algorithm and selected complexity result",
+    "push-relabel, capacity scaling, or bipartite matching",
+    "undirected SimpleGraph shortest-walk distance presented as a residual directed level graph",
+    "the later dynamic-tree bound or a specialized unit-network bound attributed to the unchanged 1970 implementation",
+    "a fixed graph example, enumeration, timing experiment, native evaluation, or unchecked certificate",
+    "a structure or hypothesis storing a maximum flow, optimal cut, blocking-flow oracle, level-progress theorem, or desired complexity bound",
+    "the companion THM-C-0098 complexity gloss silently imported as the Stage1 root",
+    "the catalog's untrusted verified label, bibliographic metadata, bounded no-match search, or API probe treated as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0814",
+      "name": "最大流最小割定理",
+      "relationship": "optimality theorem may become a dependency; it does not define or analyze Dinic execution"
+    },
+    {
+      "theorem_id": "THM-M-0828",
+      "name": "Edmonds-Karp算法",
+      "relationship": "a distinct shortest-single-augmentation algorithm and complexity proof"
+    },
+    {
+      "theorem_id": "THM-M-0830",
+      "name": "Push-Relabel算法",
+      "relationship": "a distinct preflow and local-push algorithm, not a blocking-flow theorem"
+    },
+    {
+      "theorem_id": "THM-C-0098",
+      "name": "Dinic算法",
+      "relationship": "separate Stage0 computer-science UID with O(V^2E) or O(VE log V) wording; ambiguity evidence only, not Stage1 source or proof authority"
+    }
+  ],
+  "source_status": "H1_exact_bibliographic_original_paper_lead_via_author_retrospective_and_companion_complexity_ambiguity_identified_but_primary_text_statement_assumptions_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Yefim Dinitz, Dinitz' Algorithm: The Original Version and Even's Version, pages 218-240, Springer, 2006, DOI 10.1007/11685654_10",
+      "bibliographic_observations": "Crossref publisher JSON observed 2026-07-13, 10822 bytes, SHA-256 711584c4a0f8846ab6120135c54878bdcba727aa393996d8be40fcdcee50ce60; title, author, pages, year, and publisher metadata inspected",
+      "inspection_status": "bibliographic record and reference list only; full chapter text, statements, variants, proofs, corrections, and errata were not inspected"
+    },
+    {
+      "citation": "E. A. Dinic, An algorithm for the solution of the max-flow problem with the polynomial estimation, Doklady Akademii Nauk SSSR 194(4) (1970); English translation, Soviet Mathematics Doklady 11, 1277-1280 (1970)",
+      "bibliographic_observations": "publisher-supplied reference 10_CR4 in the author's 2006 retrospective record",
+      "inspection_status": "primary bibliographic lead only; no scan or exact theorem/proof text was inspected or immutably admitted"
+    },
+    {
+      "citation": "Docs/researches/cs_theorems.md:173 and Stage0 THM-C-0098",
+      "candidate_summary": "separate catalog record gives O(V^2E) or O(VE log V) maximum-flow wording",
+      "inspection_status": "repository boundary and variant-ambiguity evidence only; not a primary source and not authority to alter THM-M-0829"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Quiver.Path.Weight",
+      "declarations": ["Quiver.Path", "Quiver.Path.addWeight", "Quiver.Path.addWeight_comp"],
+      "boundary": "directed paths and additive weights only; no capacity bottleneck, feasible flow, residual state, level graph, blocking flow, maximum-flow correctness, or complexity"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Metric",
+      "declarations": ["SimpleGraph.edist", "SimpleGraph.Reachable.exists_walk_length_eq_edist", "SimpleGraph.Walk.isPath_of_length_eq_dist"],
+      "boundary": "undirected shortest-walk existence only; not a directed residual network or executable BFS level construction"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walks.Counting",
+      "declarations": ["SimpleGraph.finsetWalkLengthLT", "SimpleGraph.fintypeSetWalkLengthLT"],
+      "boundary": "finite bounded-walk enumeration substrate only; no flow state or algorithm proof"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "be8701e88e791545c16a262edd1909486d5cef4b",
+    "repository_base_tree": "78b0a751473bf6d71f453a6aad18b130268a3428",
+    "repository_record": "Docs/researches/math_theorems.md:6089-6094",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22631-22656",
+    "companion_cs_record": "Docs/researches/cs_theorems.md:173",
+    "companion_cs_stage0_projection": "Docs/Stage0_Blueprint.md:84086-84113",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_repository_cs_source_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "repository_record_block_sha256": "1ef766db55a4c82383248a8e186aa8dfa9c21d9c0fcec452ce3d555ccf375ac3",
+    "stage0_projection_block_sha256": "e6c040e95c9d5a3218d9babdba3df53b7e0b9516b37364fe7c13ee1eeadea601",
+    "companion_cs_record_block_sha256": "c6c92a76d20ac5a24de7fc3d1c7883be4f47b8afc8756ed11393e8fe9e7ea0c1",
+    "companion_cs_stage0_block_sha256": "a2d8fe4944cb7af615036dfed3fee449a2e32ff70d642203270823abbd2ff0df",
+    "neighbor_catalog_block_sha256": "ab7cbfa92e9bfd9303c36a56b01c896961c7717aa6e6a1fe381a0c8a00fa6415",
+    "manifest_entry_canonical_sha256": "28b98f0e3466b74cd29bd36d39b571e3a87e6b7e2f253b6a99cf25897f33e07b",
+    "target_dag_rows_canonical_sha256": "ab08f5648ac6b5d18f6a66651b8637a2ae5347893ed17b087af40994d2cd039a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "201ff7722835a8360e3400c6f173b1e6684462b46ce5ed02e6b37ba51baf81bb",
+    "execution_dag_sha256": "0e2192895bfd08136cf7d965e1c9d942ff0d040568b72552bc7869c5801b41fb",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "retrospective_crossref_sha256": "711584c4a0f8846ab6120135c54878bdcba727aa393996d8be40fcdcee50ce60",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_quiver_path_weight_source_sha256": "0e29fbdc2cea79e0cac5ad564f9c6b6181baf0057ccafdcbce88e3d92f9c4178",
+    "mathlib_simplegraph_metric_source_sha256": "4fa93451ec543582ab67d24e259914fdf550b65dadcb4bddceac9bec23557b5b",
+    "mathlib_simplegraph_walk_counting_source_sha256": "f06e98f2d787a7b2b86e0006905371421abcf7db06583790558eac6b97ed5738"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice for selecting level/blocking-flow witnesses, finite choice, quotient or multigraph encodings, extensionality, and accepted-axiom policy remain open until the exact source proposition and implementation relation are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, axioms, runtime extraction boundary, and trust closure remain open",
+  "computation_profile": "No BFS queue, blocking-flow routine, dynamic-tree operation, evaluator, timing experiment, native execution, path oracle, solver, or unchecked certificate is credited; a future executable algorithm and asymptotic analysis must be connected to the abstract theorem by kernel-checked correctness and a source-approved cost model",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0829/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0829/README.md",
+    "Stage1_Instances/THM-M-0829/instance.json",
+    "Stage1_Instances/THM-M-0829/scope-map.md",
+    "Stage1_Instances/THM-M-0829/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0829/task-dag.json",
+    "Stage1_Instances/THM-M-0829/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0829/check_intake.py",
+    "Stage1_Instances/THM-M-0829/validation.md",
+    "Stage1_Instances/THM-M-0829/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent network-flow/source reviewer",
+    "formal_reviewer": "unassigned independent Lean/algorithms reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source edition, correction or erratum; reconciliation of layered, O(V^2 E), O(V E log V), or specialized scope; network, capacity, flow, residual, level, blocking-flow, output, correctness, cost, algorithm-version, asymptotic, or boundary convention; Lean target; toolchain or dependency pin; assurance profile; validator; or any owned-artifact change. Independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, bibliographic source lead, companion-record and algorithm-version ambiguity, proposition-changing choices, generic pinned API boundary, exclusions, and six open downstream tasks. No canonical proposition, inspected primary proof, H0 source, exact Lean target, proof body, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

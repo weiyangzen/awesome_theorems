@@ -1,0 +1,200 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0856",
+  "item_id": "S56-M-0856-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1410,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Tutte定理",
+  "name_en": "Tutte's theorem",
+  "canonical_name": "Tutte's 1-factor theorem for finite graphs",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "完美匹配存在的条件",
+  "literal_source_claim_en": "A condition for the existence of a perfect matching.",
+  "source_attribution": "William Tutte, 1947 (catalog metadata; primary article identity strongly supported but exact source mapping unreviewed)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "A finite graph has a perfect matching if and only if, for every set U of vertices, deleting U leaves at most |U| connected components of odd order.",
+  "canonical_claim_status": "human_scope_identified_from_catalog_and_primary_identity_lead_but_exact_source_statement_and_canonical_lean_target_pending_ordered_statement_gate",
+  "canonical_claim": "A finite graph has a perfect matching if and only if, for every set U of vertices, deleting U leaves at most |U| connected components of odd order.",
+  "statement_blocker": "The repository gives no primary citation or source text. A strong 1947 article identity and a direct pinned mathlib candidate exist, but an authoritative primary edition, exact theorem locator and incorporated definitions, assumption/correction review, independent source approval, canonical expression selection, checked transports, expression/environment fingerprinting, and mutations remain open.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": ["Mathlib.Combinatorics.SimpleGraph.Tutte"],
+    "declaration_or_expression": null,
+    "candidate_declaration": "SimpleGraph.tutte",
+    "candidate_expression": "{V : Type u} -> {G : SimpleGraph V} -> [Finite V] -> ((Exists fun M : G.Subgraph => M.IsPerfectMatching) <-> (forall u : Set V, not (G.IsTutteViolator u)))",
+    "candidate_expression_status": "direct_proof_bearing_pinned_candidate_type_probed_at_intake_not_selected_or_fingerprinted_as_canonical",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_primary_source_approval_and_ordered_statement_gate",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_module-SimpleGraph.Tutte_intake-candidate-probe-only"
+  },
+  "domain_and_universes": "Prospective candidate: V : Type u in any universe, G : SimpleGraph V, and [Finite V], with no explicit Fintype, DecidableEq, adjacency-decidability, connectedness, nonemptiness, or even-cardinality binder. Exact source and canonical encoding approval remain open.",
+  "quantifiers": [
+    "for every finite simple graph G",
+    "for every vertex subset U"
+  ],
+  "ordered_binders": [
+    "universe u",
+    "V : Type u",
+    "G : SimpleGraph V",
+    "Finite V",
+    "U : Set V inside the right side of the equivalence"
+  ],
+  "hypotheses": [
+    "the vertex carrier is finite",
+    "G is represented as a simple undirected loopless graph"
+  ],
+  "conclusion": "The existence of a spanning matching subgraph of G is equivalent to every deleted vertex set leaving no more odd connected components than its cardinality.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No finite carrier is provisionally excluded. Empty and singleton carriers, odd total order detected at U = empty, isolated vertices, disconnected graphs, and empty/full deletion sets must be preserved or explicitly source-resolved by the statement gate.",
+  "candidate_scope_not_credited": [
+    "the exact displayed type of pinned SimpleGraph.tutte before canonical statement selection and source review",
+    "the proof-bearing mathlib body before ordered provenance, trust, placeholder, and wrapper audit",
+    "the necessity lemma not_isTutteViolator_of_isPerfectMatching or sufficiency lemma exists_isTutteViolator as a substitute for the full equivalence"
+  ],
+  "excluded_substitutions": [
+    "Hall's marriage theorem for bipartite graphs",
+    "Petersen's perfect-matching theorem for cubic bridgeless graphs",
+    "Tutte's 3-connected wheel-decomposition theorem",
+    "Tutte-Berge, maximum matching, f-factor, infinite, or locally finite variants",
+    "only one implication, an even-order corollary, or a special graph class",
+    "a premise, structure, or data field that assumes the perfect matching or odd-component condition",
+    "the catalog status, source name, direct candidate name, or intake probe as accepted proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0857",
+      "name": "Petersen定理",
+      "relationship": "separate cubic-bridgeless perfect-matching target; no statement or evidence transfers"
+    },
+    {
+      "theorem_id": "THM-M-0864",
+      "name": "Tutte连通度定理",
+      "relationship": "separate 3-connected wheel-decomposition target; the shared eponym supplies no credit"
+    }
+  ],
+  "source_status": "H1_standard_published_result_and_exact_1947_article_identity_strongly_supported_but_primary_text_locator_definitions_assumptions_proof_boundary_corrections_crosswalk_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "W. T. Tutte, The Factorization of Linear Graphs, Journal of the London Mathematical Society s1-22(2) (1947), 107-111, DOI 10.1112/jlms/s1-22.2.107",
+      "metadata_evidence": "Crossref and OpenAlex records confirm title, author, April 1947 publication, journal, volume, issue, and pages; OpenAlex reports no open full text",
+      "inspection_status": "strong primary identity lead only; no admitted full primary text, exact internal theorem locator, incorporated definitions, proof/correction/errata map, repository archive, or independent review",
+      "crossref_response_sha256": "5d0dbb46d7395bb994d7ed157678601ad36e87d3fdcdd5a9cc9ee6d43b4022a5",
+      "openalex_response_sha256": "d3c5f6ab3bee71286d6da6d49480eba308df7dd3af4567bfa41a1e049f792532"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "project": "mathlib",
+      "module": "Mathlib.Combinatorics.SimpleGraph.Tutte",
+      "declaration": "SimpleGraph.tutte",
+      "candidate_type": "[Finite V] -> ((exists M : G.Subgraph, M.IsPerfectMatching) <-> forall u, not (G.IsTutteViolator u))",
+      "supporting_declarations": [
+        "SimpleGraph.IsTutteViolator",
+        "SimpleGraph.Subgraph.IsPerfectMatching",
+        "SimpleGraph.not_isTutteViolator_of_isPerfectMatching",
+        "SimpleGraph.exists_isTutteViolator"
+      ],
+      "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "origin_commit": "358193a686dedec6d9d4d69374d1bdd6ecad9b25",
+      "boundary": "direct proof-bearing pinned candidate with an intake-elaborated type and axiom report; canonical statement identity, expression hash, minimal imports, mutations, terminal-body provenance and complete dependency/trust closure remain downstream, so no M0 credit"
+    }
+  ],
+  "bounded_formal_search": {
+    "scope": "repository-local Lean and pinned mathlib SimpleGraph sources",
+    "patterns": "Tutte, IsTutteViolator, theorem tutte, perfect matching",
+    "result": "The direct SimpleGraph.tutte candidate and supporting matching/odd-component declarations were found in pinned mathlib; no repo-local THM-M-0856 module exists. This is bounded intake discovery, not the exhaustive immutable anchor audit."
+  },
+  "source_revisions": {
+    "repository_base": "1c0c5fc6f43e6ae5ecc3b50589b45c3628e0ead4",
+    "repository_base_tree": "61214aa2a03c032134ddc4958b1df63df3430a85",
+    "repository_record": "Docs/researches/math_theorems.md:6278-6283",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23360-23385",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "stage0_blueprint_current_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "6d5d0dda2383443693ae3968358567274c87be79179ed41d7f00065ef86743d9",
+    "stage0_projection_excerpt_sha256": "490a8f766160978377dcc46591e0b2b33fddf69a06376d8218f4044520f1c981",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1ee37014b14d18de2edf7762729cb4afb2e27c2fd7a9919541e2bca0cbccbd9",
+    "execution_dag_sha256": "ad73d0383ddb3c54f01ff916bc9a74fcd58de6cc98ee60b10962991401c16f44",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_tutte_source_sha256": "47072b914aa564222ef8013092c38fa62227fea8230e308cc3eb5f11afcdffc3",
+    "mathlib_matching_source_sha256": "7e8b873ee73808358dd1d1a36e0c72cd4b27f95b7ba29f23286d3f076f8abc4b",
+    "mathlib_tutte_origin_commit": "358193a686dedec6d9d4d69374d1bdd6ecad9b25",
+    "mathlib_tutte_origin_tree": "303d9cba6ad7f192e97af85ef1ab581e4d5d564a",
+    "lake_symlink_target_string_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: classical principles are expected; the intake candidate reports propext, Classical.choice, and Quot.sound, but allowed/disallowed policy and transitive proof trust are not frozen",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and manifest-pinned mathlib; exact canonical target, minimal imports, terminal body, transitive dependency closure, and accepted axiom policy remain open",
+  "computation_profile": "No external solver, native computation, randomized search, oracle, generated matching, or unchecked certificate is credited; finite cardinality and connectivity reasoning must remain kernel-checked under an approved profile",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0856/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0856/README.md",
+    "Stage1_Instances/THM-M-0856/instance.json",
+    "Stage1_Instances/THM-M-0856/scope-map.md",
+    "Stage1_Instances/THM-M-0856/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0856/task-dag.json",
+    "Stage1_Instances/THM-M-0856/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0856/check_intake.py",
+    "Stage1_Instances/THM-M-0856/validation.md",
+    "Stage1_Instances/THM-M-0856/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-theory source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent reviewers must approve the primary result and incorporated definitions, source crosswalk, exact Lean encoding and mutations, candidate provenance/trust boundary, and neighbor exclusions before dependent acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects, revokes, or supersedes the provisional receipt, records the reason, and requires a fresh scoped self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus an integration-lane durable snapshot are intended recovery mechanisms after acceptance; mutable metadata endpoints and this unaccepted worker packet are not release archives.",
+  "freshness_and_revocation_policy": "Invalidate on catalog/source correction, primary edition or theorem locator, graph/matching/deletion/odd-component convention, domain or binder decision, boundary case, candidate finding, Lean target/import/expression/mutation, toolchain or dependency pin, assurance profile, validator, receipt, or owned-artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "status_boundary": "Worker-self-tested planned intake proposal only. H1 records a strongly identified published result with incomplete primary-source fidelity review; M3 records a direct proof-bearing pinned candidate before canonical statement and anchor-audit acceptance; R4 records no accepted source-faithful proof reconstruction. No H0, M0, R0, accepted execution state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
