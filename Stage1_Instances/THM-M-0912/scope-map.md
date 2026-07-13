@@ -27,21 +27,23 @@ zero. They strictly include index pairs excluded by the displayed DLMF constrain
 uses truncated natural subtraction and a different binder/side-condition presentation. They are
 closely related, but source fidelity and any credited transport must be checked rather than assumed.
 
-## Decisions required before statement freeze
+## Statement-phase decisions
 
-The statement phase must independently approve and freeze:
+The statement phase now provisionally freezes the source-restricted predecessor formula, natural
+binders, `Nat.choose` encoding, ordered premises, conclusion, checked transports, and all listed
+boundary dispositions. Dependency-ordered master acceptance remains open. The following source and
+review decisions are still required for H0 and later release, but no longer make the conservative
+H1 statement expression ambiguous:
 
 1. The exact source edition and locator, including whether the modern DLMF formulation is accepted
    as the canonical source or only a lead toward a historical/primary proof source.
-2. The definition of the binomial coefficient: subset cardinality on valid indices, factorial
-   quotient, recursively defined zero-extended `Nat.choose`, or another checked encoding.
-3. The ordered row and column binders and whether they range over natural numbers only.
-4. Whether the canonical claim includes `m >= n >= 1`, merely `0 < n`, or all natural indices.
-5. The indexing transport between `(m,n)` and successor variables `(r+1,k+1)` and every credited
-   alternate expression.
-6. Whether the recurrence alone is the root or whether boundary equations are incorporated into a
+2. The historical relationship between the source's binomial coefficient and the provisionally
+   selected recursively defined `Nat.choose` encoding.
+3. Independent review of the ordered natural binders and the selected `m >= n >= 1` domain.
+4. Independent review of the checked indexing transports and their source fidelity.
+5. Whether the recurrence alone is the root or whether boundary equations are incorporated into a
    larger recursive characterization. This intake excludes the latter unless a source requires it.
-7. The foundation, TCB, computation, freshness, and source-review profiles for the exact target.
+6. The foundation, TCB, computation, freshness, and source-review profiles for the exact target.
 
 ## Degenerate and boundary cases
 
@@ -61,5 +63,5 @@ hypotheses rule these cases out from the all-natural zero-extended recurrence th
 - A finite numerical table, a recursive definition stated as if it were independently sourced, or
   the untrusted `已验证` label supplies no theorem credit.
 
-Statement ambiguity blocks obligation-tree construction. No canonical expression fingerprint,
-discovery-protocol hash, obligation-registry hash, graph, or closure state is frozen by this intake.
+The statement phase supplies a provisional canonical expression fingerprint. No discovery-protocol
+hash, obligation-registry hash, typed graph, accepted task state, or proof closure is frozen yet.

@@ -1,6 +1,6 @@
-# THM-M-0856 rev-5.6 intake
+# THM-M-0856 rev-5.6 dossier
 
-This directory is the fail-closed `planned` intake dossier for `THM-M-0856`, the repository's
+This directory is the fail-closed `planned` dossier for `THM-M-0856`, the repository's
 `Tutte定理` (Tutte theorem). The catalog gives William Tutte, 1947, and only the gloss
 `完美匹配存在的条件` (a condition for the existence of a perfect matching). Its `已验证`
 field is untrusted metadata and supplies no source or proof credit.
@@ -26,6 +26,21 @@ intake discovery, but statement identity, minimal-import and mutation gates, ter
 provenance, and master acceptance belong to later ordered phases. The candidate is classified
 provisionally as `M3`, not credited as `M0-W`.
 
-The provisional vector is `[H1, M3, R4]`. All six downstream tasks remain open. No canonical Lean
-statement, accepted proof state, H0, M0, R0, audit completion, theorem completion, accepted receipt,
-or master acceptance is claimed.
+The intake's provisional vector is `[H1, M3, R4]`. Its historical receipt supplies no canonical
+Lean statement, accepted proof state, H0, M0, R0, audit completion, theorem completion, accepted
+receipt, or master acceptance.
+
+## Statement result
+
+`Statement.lean` now freezes the intake-selected conventional claim as
+`Stage1Instances.THM_M_0856.TutteOneFactorTarget`: every finite simple graph has a perfect matching
+if and only if every vertex deletion leaves at most as many odd connected components as deleted
+vertices. Its only direct import is `Mathlib.Combinatorics.SimpleGraph.Matching`, which provides the
+statement vocabulary without importing the proof-bearing `SimpleGraph.Tutte` module.
+
+`check_statement.py`, `statement.json`, `statement-validation.md`, and `statement-receipt.json`
+record the explicit expression and environment fingerprints, two checked `Iff` transports, sole-
+import deletion, and the four required structural mutations. `check_statement_artifacts.py`
+replays and reconciles that packet. This is a worker-self-tested statement proposal pending
+dependency-ordered master acceptance. The vector remains `[H1, M3, R4]`; no upstream proof body,
+anchor audit, accepted state, audit completion, or theorem completion is claimed.

@@ -14,31 +14,35 @@ undirected `SimpleGraph V`, and `[Finite V]`. A matching is a subgraph of `G`; p
 matching and spanning. The deletion condition quantifies every `U : Set V` and counts the odd
 connected components of the graph remaining after deleting `U`.
 
-## Decisions required at statement freeze
+## Frozen Lean-facing decisions
 
-The statement phase must independently approve the primary source edition and exact result, then
-freeze the following proposition-changing details:
+The worker statement proposal freezes the intake-selected conventional claim using the following
+Lean-facing decisions. Independent approval of the primary edition, exact result, incorporated
+definitions, and corrections remains open on the `H` axis and may invalidate this proposal:
 
-1. Whether the canonical human wording uses finite simple graphs and 1-factors exactly, and how the
-   source treats loops, parallel edges, isolated vertices, and graph order.
-2. Whether the Lean carrier uses `[Finite V]` or `[Fintype V]`, and whether any decidable equality or
-   adjacency instances are explicit rather than implementation details.
-3. Whether a perfect matching is a spanning matching subgraph, an edge set, an involution, or
-   another representation, together with checked transports for credited alternates.
-4. Whether deletion is induced deletion of all vertices in `U`, and whether odd components are
-   counted by finite cardinality of their vertex supports.
-5. The exact inequality form: at most `|U|` odd components, equivalently the absence of a strict
-   `IsTutteViolator` inequality, for every `U`.
-6. Ordered binders, universes, classical principles, source definitions, proof boundary,
-   corrections, and all four required statement mutations.
+1. The formal domain is an arbitrary universe-polymorphic `SimpleGraph V` under `[Finite V]`, with
+   no `Fintype`, decidable equality, adjacency decidability, connectedness, nonemptiness, or graph-
+   order premise.
+2. A perfect matching is represented as `M : G.Subgraph` satisfying `M.IsPerfectMatching`, hence a
+   matching that is spanning in mathlib's pinned definition.
+3. Deletion is induced deletion from the top subgraph by every `U : Set V`; odd components are
+   counted by `.oddComponents.ncard`.
+4. The root uses the direct inequality `oddComponents.ncard ≤ U.ncard`. Checked `Iff` transports
+   cover its inline expansion and a local no-strict-violator spelling.
+5. Empty and odd-order carriers, isolated vertices, disconnected graphs, and empty/full deletions
+   stay in scope. Four mutations test finiteness, graph domain, graph-binder scope, and the empty-
+   carrier boundary.
+6. The proof-bearing `Mathlib.Combinatorics.SimpleGraph.Tutte` module is excluded from statement
+   imports; candidate proof and trust inspection remain anchor-audit work.
 
 ## Degenerate and boundary cases
 
-No finite vertex carrier is excluded provisionally. The empty graph satisfies the criterion and has
-the empty perfect matching under the pinned representation. A graph of odd total order fails the
-condition already at `U = ∅`, while an even total order alone is not sufficient. Isolated vertices,
-empty or full deletion sets, disconnected graphs, and singleton components must remain visible to
-the exact statement and its mutation tests rather than being silently removed.
+No finite vertex carrier is excluded. The graph on the empty vertex carrier satisfies the criterion
+and has the empty perfect matching under the pinned representation. An edgeless graph on a nonempty
+carrier is still in scope, but both sides of the equivalence are false. A graph of odd total order
+fails the condition already at `U = ∅`, while even total order alone is not sufficient. Isolated
+vertices, empty or full deletion sets, disconnected graphs, and singleton components remain visible
+to the exact statement and its mutation tests rather than being silently removed.
 
 ## Explicit exclusions
 
@@ -56,7 +60,6 @@ the exact statement and its mutation tests rather than being silently removed.
 ## Formal discovery boundary
 
 Pinned mathlib's `SimpleGraph.tutte` is a direct candidate whose displayed type matches this scope.
-Its proof-bearing source is present at an immutable dependency revision, but intake has not run the
-ordered exact-statement gate, expression serialization, checked alternate transports, mutations,
-or terminal proof-body and transitive trust audit. Those omissions keep the candidate at `M3` and
-the canonical formal target unset during intake.
+The statement proposal now supplies the local target, expression serialization, checked alternate
+transports, and mutations without importing that proof. Terminal-body provenance, transitive trust,
+wrapper, and candidate acceptance remain ordered anchor-audit work, so the vector stays `M3`.

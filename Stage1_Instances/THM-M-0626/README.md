@@ -61,3 +61,21 @@ Repository-local sources, every materialized non-mathlib package, and the bounde
 found no additional independent Lean 4 body. Code-search authentication and rate-limit failures are
 recorded, so exhaustive discovery is not claimed. Proof architecture, proof acceptance, H0/R0,
 hermetic validation, release, and every theorem-completion gate remain open.
+
+## Provisional obligation architecture
+
+Registry version 1 freezes 22 semantic obligations before proof installation or accepted closure
+metrics. The
+typed proof route separates the global-to-local continuity transport, image nonemptiness, and the
+substantive arbitrary-open proof of `IsPreconnected.image`. That proof owns distinct obligations
+for relative-preimage construction, image-cover normalization, witness pullback, source
+intersection, and intersection pushforward. Source, provenance, evidence, trust, documentation,
+and workflow relations remain separate graphs and cannot supply proof credit.
+
+`ObligationTree.lean` checks conditional compositions for the separation engine, the preconnected
+image, the local connected-image body, its candidate-interface identity, terminal global assembly,
+and the exact root identity. The imported candidate and local reconstruction are modeled as
+alternative, deduplicated routes rather than mandatory copies of one another. Every mathematical
+leaf remains an explicit premise; the audited `IsConnected.image` candidate is not installed. The
+registry therefore preserves the accepted
+root `[H1, M3, R4]`, an empty accepted-proof set, and false audit/theorem completion flags.

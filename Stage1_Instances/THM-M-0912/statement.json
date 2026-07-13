@@ -1,0 +1,186 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0912-STATEMENT",
+  "theorem_id": "THM-M-0912",
+  "execution_rank": 1454,
+  "lifecycle_mode": "planned",
+  "phase": "statement",
+  "canonical_name": "Pascal's identity for binomial coefficients",
+  "source_selection": {
+    "source": "NIST DLMF 1.2.7, Section 26.3(iii), equation 26.3.5",
+    "permalink": "https://dlmf.nist.gov/26.3.E5",
+    "equation_tex_sha256": "af43da30b9553896c868f2202e16a0b0a72984111ba0e169bf07814a940663a4",
+    "selection_boundary": "The catalog does not print a formula. This statement phase conservatively selects the only preserved formula-level published lead from intake, including its displayed domain m >= n >= 1. Historical Pascal-source ratification and H0 review remain open."
+  },
+  "canonical_statement": "For natural numbers m and n satisfying m >= n >= 1, the binomial coefficient C(m,n) equals C(m-1,n) plus C(m-1,n-1).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0912/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0912.PascalIdentityTarget",
+    "elaborated_expression_sha256": "b322549a05e57fbf466b60eb8ff89f4a08c6ee3b68ea5bf3ff3bf86d99521776",
+    "statement_file_sha256": "63fda2462d33fba5f18ba0c46df33d7c34c2442609992e7435a2ab4ac33e434e",
+    "universe_parameters": [],
+    "ordered_binders": [
+      {"name": "m", "type": "Nat", "role": "binomial row"},
+      {"name": "n", "type": "Nat", "role": "binomial column"}
+    ],
+    "ordered_hypotheses": [
+      {"name": "hnm", "expression": "n <= m", "source_clause": "m >= n"},
+      {"name": "hn", "expression": "1 <= n", "source_clause": "n >= 1"}
+    ],
+    "conclusion": "Nat.choose m n = Nat.choose (m - 1) n + Nat.choose (m - 1) (n - 1)",
+    "serialization_options": ["pp.explicit=true", "pp.universes=true"],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_master_acceptance"
+  },
+  "domain_and_universes": "The ordered row and column binders m and n range over Nat; the proposition has no universe or typeclass parameters.",
+  "ordered_binders": ["m : Nat", "n : Nat", "hnm : n <= m", "hn : 1 <= n"],
+  "hypotheses": ["n <= m", "1 <= n"],
+  "conclusion": "Nat.choose m n = Nat.choose (m - 1) n + Nat.choose (m - 1) (n - 1)",
+  "definition_profile": "Nat.choose is the pinned mathlib recursively defined, zero-extended natural binomial coefficient. The canonical implication restricts the claimed recurrence to the DLMF domain, so zero-extension does not broaden the root claim.",
+  "direct_imports": ["Mathlib.Data.Nat.Choose.Basic"],
+  "minimal_import_result": "A canonical-target-only fixture elaborates with the sole direct import and fails when that import is deleted.",
+  "minimal_import_boundary": "Minimality is deletion-minimal for this target fixture. It does not assert that no differently factored lower-level module collection could have a smaller transitive closure.",
+  "alternate_encodings": [
+    {
+      "declaration": "Stage1Instances.THM_M_0912.pascalIdentityTarget_iff_dlmfConjunctionTarget",
+      "target": "DLMFConjunctionTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0912.pascalIdentityTarget_iff_dlmfConjunctionTarget",
+      "boundary": "source constraint represented as a conjunction"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0912.pascalIdentityTarget_iff_mathlibSummandOrderTarget",
+      "target": "MathlibSummandOrderTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0912.pascalIdentityTarget_iff_mathlibSummandOrderTarget",
+      "boundary": "same restricted formula with mathlib predecessor-lemma summand order"
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0912.pascalIdentityTarget_iff_restrictedSuccessorTarget",
+      "target": "RestrictedSuccessorTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0912.pascalIdentityTarget_iff_restrictedSuccessorTarget",
+      "boundary": "domain-preserving predecessor-to-successor reindexing with k <= r retained"
+    }
+  ],
+  "excluded_substitutions": [
+    "the unrestricted all-natural Nat.choose_succ_succ recurrence",
+    "a factorial quotient encoding",
+    "a larger recursive characterization including boundary equations",
+    "the binomial theorem, Vandermonde identity, or hockey-stick identity"
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedPositiveColumnHypothesis",
+      "expression_sha256": "dd9f57774542cf577b878942c0b2a9220d52fcb1144f99b4c371238a5e8d6894",
+      "semantic_boundary": "admits n = 0, where the truncated predecessor formula is false",
+      "result": "distinct explicit expression, expected Lean exact-type rejection, and checked false (0,0) counterexample"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedDomainToFinTen",
+      "expression_sha256": "fdb4064d7046a1fc78fcecc3ba9844a31fa53997cf3a61eea27ab38fa9666f4f",
+      "semantic_boundary": "changes both source binders from Nat to the finite domain below ten",
+      "result": "distinct explicit expression, expected Lean exact-type rejection, and checked absence of a Fin 10 representation for canonical row ten"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationChangedColumnBinderScope",
+      "expression_sha256": "77ba9541a7607ba133799d3f7e6d49c406e1d31a6ab33a70009a61f140d3be8d",
+      "semantic_boundary": "replaces the universally quantified column with an existential",
+      "result": "distinct explicit expression, expected Lean exact-type rejection, and checked failure of the existential-column mutation at row zero"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationExcludesDiagonal",
+      "expression_sha256": "30558493efc6954cfff41fe8dc12cfb371ac200dc3f7610350521ca880bb8c98",
+      "semantic_boundary": "replaces n <= m by n < m and excludes the admitted diagonal",
+      "result": "distinct explicit expression, expected Lean exact-type rejection, and checked exclusion of every diagonal by the strict premise"
+    }
+  ],
+  "boundary_cases": [
+    {
+      "case": "positive diagonal n = m",
+      "disposition": "included",
+      "witness": "Stage1Instances.THM_M_0912.pascalIdentityTarget_includes_diagonal"
+    },
+    {
+      "case": "first admissible pair (1,1)",
+      "disposition": "included and computed",
+      "witness": "Stage1Instances.THM_M_0912.first_admissible_pair"
+    },
+    {
+      "case": "column zero",
+      "disposition": "excluded by 1 <= n; removing the premise admits the false (0,0) formula",
+      "witness": "Stage1Instances.THM_M_0912.column_zero_is_excluded and positivity_hypothesis_is_semantic"
+    },
+    {
+      "case": "out-of-range n > m",
+      "disposition": "excluded by n <= m",
+      "witness": "Stage1Instances.THM_M_0912.out_of_range_is_excluded and unrestricted_successor_is_broader"
+    }
+  ],
+  "environment_fingerprint": {
+    "canonical_sha256": "8e8dc7bd4f64ddaca552ca92399f15d52a008ac0d44ad8db83731f9c453b0749",
+    "canonical_serialization": "{\"backend\":\"lean4\",\"direct_imports\":[\"Mathlib.Data.Nat.Choose.Basic\"],\"foundation_profile_id\":\"lean4-dependent-type-theory-nat-recursion/statement-v1\",\"lean_commit\":\"98dc76e3c0a9b856c9b98726b713fb04fab16740\",\"lean_toolchain\":\"leanprover/lean4:v4.29.0\",\"mathlib_revision\":\"8a178386ffc0f5fef0b77738bb5449d50efeea95\",\"mathlib_tree\":\"bdc39a3123201dae413a9d9be56ec242c19e5c2b\",\"namespace\":\"Stage1Instances.THM_M_0912\",\"serialization_options\":[\"pp.explicit=true\",\"pp.universes=true\"],\"typeclass_context\":[],\"universes\":[]}",
+    "base_revision": "fb0baac89ea0633612be3b47448464b4b8e4bef7",
+    "base_tree": "018557070da18ea1733a82de81a238750c59aa84",
+    "formal_system": "Lean 4 + pinned mathlib",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "b3c40f47d39427428d70518b48adaaf16d3622698b32406fa7745749f1387170",
+    "options": ["pp.explicit=true for expression serialization", "pp.universes=true for expression serialization"],
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory with Nat recursion; the target is a Prop definition and imports no custom axiom.",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib supply elaboration and Nat.choose. Transport axiom reports are recorded, but terminal proof-body trust belongs to downstream audit and proof phases.",
+  "computation_profile": "Only closed boundary examples use kernel-reduced decide. No computation, native code, external oracle, or finite table is credited as a proof of the universally quantified root.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "source_revisions": {
+    "dlmf_equation_response_sha256": "af43da30b9553896c868f2202e16a0b0a72984111ba0e169bf07814a940663a4",
+    "dlmf_section_observed_response_sha256": "c7db2eeb4bb7633436f976a7ff048173a4c9c1ed8a7b7569d030856d4d29ad97",
+    "dlmf_section_hash_boundary": "observed response provenance only; dynamic delivery content prevents treating this as an immutable full-context archive",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0912/README.md",
+    "Stage1_Instances/THM-M-0912/Statement.lean",
+    "Stage1_Instances/THM-M-0912/statement.json",
+    "Stage1_Instances/THM-M-0912/statement-validation.md",
+    "Stage1_Instances/THM-M-0912/statement-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent combinatorics/history reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "at master integration and whenever an invalidation input changes",
+    "invalidation_inputs": [
+      "catalog, preserved source, target, checked transport, mutation, or boundary change",
+      "toolchain, dependency, import, assurance profile, validator, or owned artifact change"
+    ],
+    "incident_path": "The integration lane rejects or supersedes this provisional receipt and requests a fresh scoped statement run."
+  },
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "debt_delta_basis": "The exact constrained proposition now elaborates and resolves the intake's canonical-domain ambiguity, while intake already classified exact pinned statement interfaces as M3. No terminal proof body, accepted source audit, or readable proof reconstruction is added.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "status_boundary": "Exact statement elaboration and identity testing only. The expression fingerprint hashes Lean's fixed-option fully explicit pretty-printed kernel expression rather than a backend-independent normal form. No root proof body, H0 source admission, M0 proof credit, obligation closure, audit completion, theorem completion, release, or master acceptance is asserted."
+}

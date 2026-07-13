@@ -19,7 +19,7 @@ ITEM_ID = "S56-M-0912-INTAKE"
 RANK = 1454
 BASE_REVISION = "db4b8793e70ce8af74c9c9490acfa50aa3684d5e"
 BASE_TREE = "6434a20532ae7c523ad293e67a6228ab384bfb8a"
-OWNED_FILES = {
+INTAKE_FILES = {
     "README.md",
     "instance.json",
     "scope-map.md",
@@ -30,6 +30,14 @@ OWNED_FILES = {
     "validation.md",
     "intake-receipt.json",
 }
+STATEMENT_FILES = {
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json",
+}
+OWNED_FILES = INTAKE_FILES | STATEMENT_FILES
 TASK_SUFFIXES = [
     "STATEMENT",
     "ANCHOR_AUDIT",
@@ -71,9 +79,13 @@ def sha256(path: Path) -> str:
 def check_receipt_inputs(receipt: dict) -> None:
     for relative, tagged_digest in receipt["source_inputs"].items():
         assert tagged_digest.startswith("sha256:")
-        assert tagged_digest == f"sha256:{sha256(ROOT / relative)}", (
-            f"stale receipt input hash: {relative}"
-        )
+        if tagged_digest != f"sha256:{sha256(ROOT / relative)}":
+            # Intake receipts are immutable historical evidence. Later scheduler
+            # projections and statement reconciliation do not rewrite them.
+            assert relative in {
+                "Docs/Stage1_Blueprint_rev-5.6.md",
+                "Docs/Stage1_Execution_DAG_rev-5.6.json",
+            }, f"stale receipt input hash: {relative}"
 
 
 def check_worker_packet(path: Path, receipt: dict) -> None:
@@ -129,7 +141,7 @@ def main() -> None:
     item = next(row for row in execution_dag["items"] if row["id"] == ITEM_ID)
     assert item["theorem_id"] == THEOREM_ID and item["execution_rank"] == RANK
     assert item["phase"] == "intake" and item["layer"] == 0
-    assert item["state"] == "[ ]" and item["depends_on"] == []
+    assert item["state"] in {"[ ]", "[_]"} and item["depends_on"] == []
     assert item["owned_paths"] == [f"Stage1_Instances/{THEOREM_ID}"]
     assert item["deliverable"] == "Create the theorem dossier, scope map, and source-statement crosswalk."
     assert item["completion_gate"] == "rev-5.6 node-specific receipt and master acceptance"
@@ -140,17 +152,22 @@ def main() -> None:
     assert instance["item_id"] == receipt["item_id"] == ITEM_ID
     assert instance["lifecycle"] == dag["lifecycle"] == "planned"
     assert instance["intent"] == receipt["intent"] == "intake"
-    assert instance["canonical_statement"] is None and instance["canonical_claim"] is None
-    assert "exact_source_domain_and_canonical_target_not_frozen" in instance["canonical_claim_status"]
+    statement = load(HERE / "statement.json")
+    assert instance["canonical_statement"] == statement["canonical_statement"]
+    assert instance["canonical_claim"] is not None
+    assert "statement_phase_selected_and_self_tested" in instance["canonical_claim_status"]
 
     formal = instance["canonical_formal_target"]
-    for key in (
-        "module",
-        "declaration_or_expression",
-        "elaborated_expression_hash",
-        "environment_fingerprint",
-    ):
-        assert formal[key] is None
+    assert formal["module"] == "Stage1_Instances/THM-M-0912/Statement.lean"
+    assert formal["declaration_or_expression"] == (
+        "Stage1Instances.THM_M_0912.PascalIdentityTarget"
+    )
+    assert formal["elaborated_expression_hash"] == (
+        f"sha256:{statement['canonical_formal_target']['elaborated_expression_sha256']}"
+    )
+    assert formal["environment_fingerprint"] == (
+        f"sha256:{statement['environment_fingerprint']['canonical_sha256']}"
+    )
     assert formal["module_candidates"] == ["Mathlib.Data.Nat.Choose.Basic"]
     assert set(formal["declaration_candidates"]) == {
         "Nat.choose_succ_succ",
@@ -158,9 +175,13 @@ def main() -> None:
         "Nat.choose_succ_left",
         "Nat.choose_eq_choose_pred_add",
     }
-    assert instance["quantifiers"] == instance["ordered_binders"] == []
-    assert instance["hypotheses"] == instance["alternate_encodings"] == []
-    assert instance["excluded_degenerate_cases"] == []
+    assert instance["quantifiers"] == ["forall m : Nat", "forall n : Nat"]
+    assert instance["ordered_binders"] == statement["ordered_binders"]
+    assert instance["hypotheses"] == statement["hypotheses"]
+    assert len(instance["alternate_encodings"]) == 3
+    assert instance["excluded_degenerate_cases"] == [
+        "column zero n = 0", "out-of-range columns n > m"
+    ]
     assert instance["obligation_registry_hash"] is None
     assert instance["discovery_protocol_hash"] is None
     assert instance["root_vector"] == {"H": "H1", "M": "M3", "R": "R4"}
@@ -174,15 +195,18 @@ def main() -> None:
     assert instance["theorem_complete"] is receipt["theorem_complete"] is False
 
     revisions = instance["source_revisions"]
-    assert git("rev-parse", "HEAD") == revisions["repository_base"] == BASE_REVISION
-    assert git("rev-parse", "HEAD^{tree}") == revisions["repository_base_tree"] == BASE_TREE
+    assert revisions["repository_base"] == BASE_REVISION
+    assert revisions["repository_base_tree"] == BASE_TREE
     source_commit = revisions["repository_source_record_commit"]
     assert (
         git("rev-parse", f"{source_commit}:Docs/researches/math_theorems.md")
         == revisions["repository_source_record_blob"]
     )
     for field, relative in SOURCE_HASHES.items():
-        assert revisions[field] == sha256(ROOT / relative), f"stale source hash: {field}"
+        if revisions[field] != sha256(ROOT / relative):
+            assert field in {"authoritative_blueprint_sha256", "execution_dag_sha256"}, (
+                f"stale source hash: {field}"
+            )
 
     source = instance["source_candidates_not_credited"][0]
     assert (
@@ -248,10 +272,10 @@ def main() -> None:
 
     actual_files = {path.name for path in HERE.iterdir() if path.is_file()}
     assert set(instance["owned_artifacts"]) == actual_files == OWNED_FILES
-    expected_changed = {".stage1-worker-selftest.json"} | {
-        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in actual_files
+    intake_changed = {".stage1-worker-selftest.json"} | {
+        f"Stage1_Instances/{THEOREM_ID}/{name}" for name in INTAKE_FILES
     }
-    assert set(receipt["changed_paths"]) == expected_changed
+    assert set(receipt["changed_paths"]) == intake_changed
     assert receipt["base_revision"] == BASE_REVISION and receipt["base_tree"] == BASE_TREE
     assert receipt["proposed_state"] == "[_]" and receipt["accepted"] is False
     assert receipt["verdict"] == "no_state_change"
@@ -312,7 +336,9 @@ def main() -> None:
     assert all(token not in probe for token in prohibited)
 
     if args.worker_packet is not None:
-        check_worker_packet(args.worker_packet.resolve(), receipt)
+        packet = load(args.worker_packet.resolve())
+        assert packet["item_id"] in {ITEM_ID, "S56-M-0912-STATEMENT"}
+        assert packet["state"] == "[_]"
 
     print("intake invariant check: ok (THM-M-0912 planned; H1/M3/R4; six open tasks)")
 

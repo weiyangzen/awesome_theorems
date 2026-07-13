@@ -1,0 +1,133 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0856-STATEMENT",
+  "theorem_id": "THM-M-0856",
+  "execution_rank": 1410,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_name": "Tutte's 1-factor theorem for finite simple graphs",
+  "canonical_claim_status": "intake_selected_conventional_scope_frozen_primary_source_fidelity_open",
+  "canonical_statement": "For every finite simple graph G, G has a perfect matching if and only if, for every vertex set U, deleting U leaves at most |U| connected components of odd order.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0856/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0856.TutteOneFactorTarget",
+    "elaborated_expression_sha256": "5364250d1d4e132aaf1d5ce8ad5425369546963189991202f49b2fcf65095bae",
+    "statement_file_sha256": "cd7ec3e97a02ccc24578de4431a1a8ebf0e9572f9616b271b67f145d72fbedce",
+    "fully_explicit_expression": "∀ {V : Type u} (G : SimpleGraph.{u} V) [Finite.{u + 1} V],\n  Iff (∃ M, @SimpleGraph.Subgraph.IsPerfectMatching.{u} V G M)\n    (@Stage1Instances.THM_M_0856.OddComponentCondition.{u} V G)"
+  },
+  "domain_and_universes": "universe u; V : Type u; G : SimpleGraph V; [Finite V]; U : Set V; the target is Prop in universe 0",
+  "ordered_binders": [
+    "V : Type u (implicit universal)",
+    "G : SimpleGraph V (universal)",
+    "[Finite V]",
+    "M : G.Subgraph (existential on the left side)",
+    "U : Set V (universal on the right side)"
+  ],
+  "hypotheses": [
+    "the vertex carrier V is finite",
+    "G is represented as an undirected loopless SimpleGraph"
+  ],
+  "conclusion": "The existence of a spanning matching subgraph is equivalent to every induced deletion having no more odd connected components than removed vertices.",
+  "direct_imports": [
+    "Mathlib.Combinatorics.SimpleGraph.Matching"
+  ],
+  "minimal_import_basis": "The single Matching module supplies SimpleGraph.Subgraph.IsPerfectMatching and publicly imports the finite connected-component, subgraph-deletion, and cardinality interfaces needed by the explicit condition. Removing it makes the statement module fail. The proof-bearing Mathlib.Combinatorics.SimpleGraph.Tutte module is not imported.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0856.ExpandedTutteOneFactorTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0856.tutteOneFactorTarget_iff_expanded",
+      "boundary": "Direct inline expansion of OddComponentCondition with identical domains, binders, and inequality."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0856.NoTutteViolatorTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0856.tutteOneFactorTarget_iff_noTutteViolatorTarget",
+      "boundary": "Local strict-inequality violator spelling corresponding to the interface shape of pinned SimpleGraph.tutte; the upstream declaration and proof body are neither imported nor credited here."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "perfect matchings represented as edge sets or fixed-point-free involutions",
+    "finite multigraph or looped-graph formulations",
+    "Tutte-Berge maximum-matching, f-factor, infinite, and locally finite variants",
+    "only one implication or a special graph class"
+  ],
+  "degenerate_cases": {
+    "included": [
+      "the graph on the empty vertex carrier, with its empty perfect matching",
+      "edgeless graphs on nonempty carriers, for which both sides are false",
+      "singleton and other odd-order carriers",
+      "graphs with isolated vertices",
+      "disconnected graphs",
+      "empty and full deletion sets"
+    ],
+    "excluded": [],
+    "policy": "No Nonempty, connectedness, positive-order, even-cardinality, or decidability premise is added. 'Empty graph' is not used ambiguously: only the graph on the empty carrier has the empty perfect matching. Odd total order is detected by the U = empty instance of the condition rather than excluded."
+  },
+  "environment_fingerprint": {
+    "base_revision": "748243faadc15828fb087059337fd05b7be9fdeb",
+    "base_tree": "e46d642646f80980838b6f016f5d69b817bd464d",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": "7e8b873ee73808358dd1d1a36e0c72cd4b27f95b7ba29f23286d3f076f8abc4b",
+    "serialization_options": [
+      "autoImplicit=false",
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The two checked statement transports report only propext, Classical.choice, and Quot.sound; no custom axiom is introduced. Complete transitive trust closure remains downstream.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and the sole direct statement import. The upstream Tutte proof and its transitive dependency closure are outside this phase.",
+  "computation_profile": "No native computation, exhaustive graph search, solver, experiment, oracle, or unchecked certificate is used or credited.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0856/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedFiniteness"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedDomainToCompleteGraphs"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedGraphBinderScope"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludedEmptyCarrier"
+      }
+    ],
+    "method": "Lean #check_failure rejects reflexive definitional equality between the canonical target and each mutation, and the checker verifies a distinct fully explicit expression fingerprint for each. These identity tests do not claim logical nonequivalence or falsity."
+  },
+  "source_fidelity_boundary": "The theorem name, 1947 attribution, perfect-matching gloss, strong article identity lead, and standard finite 1-factor formulation select this conventional scope. No admitted primary text, exact theorem locator, incorporated-definition packet, errata disposition, or independent source review supports H0.",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The intake already classified a direct pinned candidate as M3. Exact local statement elaboration, transports, mutations, and environment fingerprints retain that statement/interface status but do not inspect or credit a proof body, source packet, or readable proof reconstruction.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "Exact statement elaboration and two checked transports only. No proof-bearing Tutte import, proof body, H0, M0, R0, anchor audit, obligation tree, audit completion, theorem completion, release, accepted receipt, or master acceptance is claimed."
+}

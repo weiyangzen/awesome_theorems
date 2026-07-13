@@ -58,10 +58,16 @@ mathlib body for `Nat.choose_succ_succ` is a definitional `rfl`, but proof-body 
 to `THM-M-0912` until the statement phase fixes the exact source claim and later provenance/trust
 gates accept the match. The provisional machine status is `M3`, not `M0-W`.
 
-## Source gate
+## Statement-phase selection
 
-Before exact statement work can close, independent reviewers must approve a preserved source,
-select the source-restricted or zero-extended target, map the binomial-coefficient definition and
-every binder/side condition/conclusion, disposition the historical attribution and corrections,
-and require checked Lean transports and boundary mutations. Until then the DLMF formula and pinned
-mathlib declarations are uncredited candidates, not a broadened or substituted theorem.
+The statement phase conservatively selects the DLMF-constrained predecessor formula as the exact
+provisional root because it is the only formula-level published statement preserved by intake. The
+ordered natural binders, both displayed side conditions, conclusion, `Nat.choose` definition
+boundary, three domain-preserving encodings, and row/column boundaries are frozen in
+`Statement.lean` and `statement.json`. The all-natural successor recurrence remains an explicitly
+excluded broader substitution.
+
+This selection is worker-self-tested, not accepted source completion. Dependency-ordered master
+acceptance, historical Pascal-source fidelity, complete proof and correction mapping, preservation
+of the DLMF side-condition context beyond the observed-response digest, and independent H0 review
+remain open. Pinned mathlib declarations still receive no terminal proof-body credit in this phase.
