@@ -1,0 +1,191 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0228",
+  "item_id": "S56-M-0228-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1240,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "皮卡小定理",
+  "name_en": "Little Picard theorem",
+  "canonical_name": "Little Picard theorem (classical entire-function value-distribution family)",
+  "category": "analysis / complex analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "非常值整函数取遍所有复数值至多一个例外",
+  "literal_source_claim_en": "A nonconstant entire function takes all complex values with at most one exception.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_theorem_family_but_exact_source_definition_chain_logical_encoding_and_formal_target_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies no source edition or definition chain and does not fix the formal meaning of entire, nonconstant, range, or at most one exception. The statement phase must select a pinpoint source and freeze the ordered binders and checked equivalences among range-complement subsingleton, encard, pairwise omitted-value, and exceptional-witness forms. Selecting a familiar encoding at intake would skip the required source and transport review.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Complex.Liouville",
+      "Mathlib.Analysis.Complex.OpenMapping",
+      "Mathlib.Analysis.Complex.ValueDistribution.FirstMainTheorem",
+      "Mathlib.Data.Set.Card"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_pinpoint_source_crosswalk_and_statement_phase",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Prospective source domain is a function f from mathlib Complex to Complex, with global complex differentiability or analyticity, and a Prop-valued conclusion in universe 0. The exact source convention and explicit versus definition-carried assumptions remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective conclusion: the complex values omitted by f form a subsingleton. Exact range, cardinality, pairwise, or exceptional-witness encoding and quantifier order remain open.",
+  "alternate_encodings": [
+    {
+      "target": "For every globally complex-differentiable f : Complex -> Complex satisfying not (exists c, f = Function.const Complex c), the complement of Set.range f is a subsingleton.",
+      "relationship": "standard direct candidate, not selected or credited",
+      "checked_witness": null
+    },
+    {
+      "target": "For every eligible f, the extended natural cardinality of the complement of Set.range f is at most one.",
+      "relationship": "candidate cardinality form, expected equivalent to subsingleton but no target-specific checked transport is credited",
+      "checked_witness": null
+    },
+    {
+      "target": "For every eligible f and any complex a and b, if both a and b are omitted then a = b.",
+      "relationship": "candidate pairwise form, not selected or credited",
+      "checked_witness": null
+    },
+    {
+      "target": "For every eligible f, there exists a complex a such that every w distinct from a lies in Set.range f.",
+      "relationship": "candidate exceptional-witness form allowing the witness itself to be attained; exact logical transport remains open",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": "Constant functions are outside the recognizable source hypothesis. No nonconstant boundary case is excluded at intake: affine and other surjective entire functions must satisfy the zero-exception case, while functions with one omitted value must satisfy the one-exception case. The statement phase must mutation-test removal of nonconstancy, the entire-domain/codomain choices, binder scope, and the surjective boundary.",
+  "candidate_scope_not_credited": [
+    "the complement of the range of a nonconstant entire f : Complex -> Complex is a subsingleton",
+    "any two complex values omitted by a nonconstant entire function are equal",
+    "there is a possibly attained exceptional complex value outside of which f is surjective"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0229 Big Picard near an essential singularity",
+    "THM-M-0224 Liouville or THM-M-0235 open mapping presented as the target root",
+    "a polynomial-only, exponential-only, meromorphic, punctured-domain, or arbitrary-Riemann-surface special case",
+    "a theorem requiring an actually omitted value, exactly one exception, or infinite multiplicity absent from the catalog",
+    "a hypothesis or structure that assumes the desired omitted-value conclusion",
+    "the untrusted verified label or adjacent API checks as source or proof credit"
+  ],
+  "source_status": "H1_historically_proved_recognizable_theorem_family_but_no_accepted_pinpoint_statement_definition_chain_proof_boundary_errata_mapping_or_independent_review",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Encyclopedia of Mathematics, Picard theorem, immutable revision 48178 (6 June 2020), lines stating Little Picard and its omitted-two-points formulation",
+      "source_url": "https://encyclopediaofmath.org/index.php?title=Picard_theorem&oldid=48178",
+      "observed_dynamic_response_sha256": "a8dfc1c128ae962f9dc3fabddc057a4e191c1ea8631fee95bac4d894c9cf09d7",
+      "inspection_status": "pinpoint authoritative secondary statement and bibliography lead inspected; the oldid fixes the content revision but live HTML wrapper bytes vary and no response is preserved in the repository; no primary proof passage, definition-chain/errata audit, immutable source packet, or independent review is accepted"
+    },
+    {
+      "citation": "E. Picard, Sur une classe de fonctions non uniformes, Bulletin de la Societe Mathematique de France 7 (1879), 102-104, DOI 10.24033/bsmf.163",
+      "observed_source_sha256": "e2f43381fbf5bb4b51dbf6509386b73d45f784ed6a157a4967ce687d66c563af",
+      "inspection_status": "NUMDAM archival copy inspected and rejected as a theorem source: it concerns multivalued-function series near branch points, not the catalog entire-function range claim"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Complex.Liouville",
+      "declarations": ["Differentiable.exists_const_forall_eq_of_bounded"],
+      "boundary": "bounded-entire Liouville substrate only; it does not give the Little Picard omitted-value conclusion"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.OpenMapping",
+      "declarations": ["AnalyticOnNhd.is_constant_or_isOpenMap"],
+      "boundary": "open-mapping substrate only; an open range may still omit more than one value"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.ValueDistribution.FirstMainTheorem",
+      "declarations": ["ValueDistribution.isBigO_characteristic_sub_characteristic_shift"],
+      "boundary": "first-main-theorem value-distribution substrate only; no second-main or Little Picard terminal theorem was identified"
+    },
+    {
+      "module": "Mathlib.Data.Set.Card",
+      "declarations": ["Set.encard_le_one_iff_subsingleton"],
+      "boundary": "conclusion-encoding transport substrate only; it supplies no analytic proof"
+    },
+    {
+      "module": "Mathlib.Analysis.SpecialFunctions.Complex.Log",
+      "declarations": ["Complex.differentiable_exp", "Complex.range_exp"],
+      "boundary": "kernel-checked sharp one-exception example for the exponential only; it does not prove the universal theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "c6fd6dad8fcfe5fd464416cd452f50286b546978",
+    "repository_base_tree": "5a80b61d8fa09336779f8d1453dcfe4299c9472f",
+    "repository_record": "Docs/researches/math_theorems.md:1647-1652",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6329-6354",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9601541c3966336c2ea27797f4ff93e3dd3d7adc4de88410cc8a6b60a7782190",
+    "execution_dag_sha256": "1e2eb8e8c86ccef96bb4dcd85b33f1a06fcf76a7c54c0b51772ddc0b6cebe2c5",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "picard_1879_numdam_pdf_sha256": "e2f43381fbf5bb4b51dbf6509386b73d45f784ed6a157a4967ce687d66c563af",
+    "encyclopedia_of_mathematics_revision": "Picard theorem oldid=48178, revision timestamp 2020-06-06T08:06:07Z, MediaWiki content SHA-1 b700a53886c2ce3d8280ee4c064e2bf82c06e0af",
+    "encyclopedia_of_mathematics_observed_dynamic_response_sha256": "a8dfc1c128ae962f9dc3fabddc057a4e191c1ea8631fee95bac4d894c9cf09d7",
+    "encyclopedia_of_mathematics_response_boundary": "oldid 48178 fixes the article revision, but live HTML wrapper bytes varied across requests; the observed response hash is not presented as a stable content pin",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R3"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, complex-analysis completeness, set extensionality, cardinality, and noncomputability policies remain open until the exact source-faithful target and proof route are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, terminal declarations, transitive dependencies, executables, and trust policy remain open",
+  "computation_profile": "No numerical value sampling, symbolic range experiment, oracle, native computation, or unchecked certificate is credited; the expected theorem is analytic and noncomputable",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0228/README.md",
+    "Stage1_Instances/THM-M-0228/instance.json",
+    "Stage1_Instances/THM-M-0228/scope-map.md",
+    "Stage1_Instances/THM-M-0228/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0228/task-dag.json",
+    "Stage1_Instances/THM-M-0228/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0228/check_intake.py",
+    "Stage1_Instances/THM-M-0228/validation.md",
+    "Stage1_Instances/THM-M-0228/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source-edition or theorem-passage finding, errata, entire/nonconstant/range/exception encoding, binder or boundary decision, alternate-form transport, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, classical theorem-family scope, proposition-changing decisions, source gaps, and formal substrate. The archival and Lean probes supply no accepted source statement or proof credit. No canonical mathematical or Lean proposition, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

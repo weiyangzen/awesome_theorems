@@ -1,0 +1,236 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0222",
+  "item_id": "S56-M-0222-INTAKE",
+  "execution_rank": 1235,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "柯西积分公式",
+  "name_en": "Cauchy integral formula",
+  "canonical_name": "Cauchy integral formula (exact source formulation open)",
+  "category": "分析学 / 复分析",
+  "category_en": "analysis / complex analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim_zh": "全纯函数由边界值表示",
+  "literal_source_claim_en": "A holomorphic function is represented by its boundary values.",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_cauchy_integral_formula_family_and_strong_pinned_formal_candidates_but_exact_source_contour_domain_regularity_normalization_and_derivative_scope_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected holomorphic function and positively oriented boundary enclosing an interior point, recover the value at that point by integrating boundary values against the Cauchy kernel with the source-selected normalization.",
+  "statement_blocker": "The catalog gloss does not fix scalar versus Banach-valued codomain, circle versus general contour or domain, function domain, continuity and holomorphicity assumptions, exceptional sets, positive orientation and winding convention, normalization, evaluation point, inclusion of derivative formulas, ordered binders, hypotheses, conclusion, or boundary cases. NIST DLMF and pinned mathlib provide strong but differently scoped candidates. Selecting one before an approved source decision and checked transport would narrow, broaden, or substitute the received claim.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "status": "open_pending_source_variant_and_checked_statement_mapping",
+    "module": null,
+    "module_candidates_not_credited": [
+      "Mathlib.Analysis.Complex.CauchyIntegral"
+    ],
+    "declaration_candidates_not_credited": [
+      "Complex.two_pi_I_inv_smul_circleIntegral_sub_inv_smul_of_differentiable_on_off_countable",
+      "Complex.circleIntegral_sub_inv_smul_of_differentiable_on_off_countable",
+      "DiffContOnCl.two_pi_i_inv_smul_circleIntegral_sub_inv_smul",
+      "DifferentiableOn.circleIntegral_sub_inv_smul",
+      "Complex.circleIntegral_div_sub_of_differentiable_on_off_countable"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_variant_and_source_to_lean_transport_open",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix a complex-valued function or a function into a complete normed complex vector space, its domain or global extension, the boundary path or circle, universe levels, and all topology, norm, scalar-action, completeness, continuity, and differentiability structures.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: an interior value f(w) equals a source-normalized contour or circle integral of the boundary function against the Cauchy kernel; whether derivatives are included is unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; radius, evaluation location, contour degeneracy and orientation, winding number, regularity failures, exceptional sets, and scalar/Banach specialization must all be resolved by the statement phase.",
+  "candidate_scope_not_credited": [
+    "scalar complex-valued formula on a positively oriented simple closed contour",
+    "Banach-valued formula on a circle with continuity on the closed disk and differentiability in the open disk",
+    "off-countable differentiability generalization",
+    "closed-ball DifferentiableOn wrapper",
+    "formula at the center versus any point in the open disk",
+    "normalized inverse-two-pi-i equality versus unnormalized integral equality",
+    "higher-derivative Cauchy formulas",
+    "general winding-number formulation for a closed path"
+  ],
+  "degenerate_cases_to_resolve": [
+    "positive, zero, or negative circle radius",
+    "evaluation point at the center, arbitrary interior, boundary, or exterior",
+    "constant and zero functions",
+    "empty, degenerate, reversed, self-intersecting, or nonclosed contours",
+    "winding number zero, one, negative one, or other integer",
+    "boundary continuity versus only interior holomorphicity",
+    "exceptional countable set containing the evaluation point",
+    "scalar specialization of a Banach-valued target",
+    "value formula alone versus derivative formulas"
+  ],
+  "excluded_substitutions": [
+    "Cauchy-Goursat integral theorem owned by THM-M-0221",
+    "residue theorem owned by THM-M-0223",
+    "Liouville theorem, maximum modulus, Cauchy estimates, or power-series analyticity consequences",
+    "a center-only, polynomial-only, constant-only, or fixed-unit-circle special case used as an unsourced general root",
+    "a derivative formula substituted for the value formula or conversely",
+    "a circle theorem substituted for a source-selected general-contour theorem without checked transport",
+    "a structure or hypothesis storing the desired integral equality",
+    "the catalog's untrusted verified label, theorem-name match, axiom report, foreign wrapper, or intake probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0221",
+      "name": "柯西积分定理",
+      "relationship": "vanishing contour-integral theorem; a likely ingredient, not the representation formula"
+    },
+    {
+      "theorem_id": "THM-M-0223",
+      "name": "留数定理",
+      "relationship": "residue evaluation theorem; related generalization, separately owned"
+    },
+    {
+      "theorem_id": "THM-M-0224",
+      "name": "刘维尔定理",
+      "relationship": "downstream complex-analysis consequence, not the formula root"
+    },
+    {
+      "theorem_id": "THM-M-1145",
+      "name": "Cauchy估计",
+      "relationship": "derivative-bound consequence of the formula, separately owned"
+    },
+    {
+      "theorem_id": "THM-M-1559",
+      "name": "Riemann-Hilbert问题",
+      "relationship": "legacy module contains a checked Cauchy formula wrapper as adjacent discovery input; ownership and credit do not transfer"
+    }
+  ],
+  "source_status": "H1_classical_proved_family_and_authoritative_modern_formula_lead_inspected_but_catalog_source_identity_historical_1831_statement_definition_assumption_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "NIST Digital Library of Mathematical Functions, version 1.2.7, release 2026-06-15, section 1.9(iii), Cauchy's Integral Formula, equations 1.9.E30 and 1.9.E31",
+      "stable_locators": [
+        "https://dlmf.nist.gov/1.9.E30",
+        "https://dlmf.nist.gov/1.9.E31"
+      ],
+      "candidate_summary": "scalar formula on a positively oriented simple closed contour, continuous on and within the contour and analytic inside; followed by higher-derivative formulas",
+      "status": "authoritative modern source lead inspected; not cited by the catalog, not a historical 1831 edition, and no definition-chain, genealogy, correction/errata, or independent review is accepted"
+    },
+    {
+      "citation": "Augustin Cauchy, 1831 historical attribution",
+      "stable_locators": [],
+      "candidate_summary": "catalog attribution only",
+      "status": "no primary edition, publication title, passage, translation, definition chain, proof boundary, correction history, or independent review was inspected or credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "project": "pinned mathlib",
+      "module": "Mathlib.Analysis.Complex.CauchyIntegral",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "declarations": [
+        "Complex.two_pi_I_inv_smul_circleIntegral_sub_inv_smul_of_differentiable_on_off_countable",
+        "Complex.circleIntegral_sub_inv_smul_of_differentiable_on_off_countable",
+        "DiffContOnCl.circleIntegral_sub_inv_smul",
+        "DiffContOnCl.two_pi_i_inv_smul_circleIntegral_sub_inv_smul",
+        "DifferentiableOn.circleIntegral_sub_inv_smul",
+        "Complex.circleIntegral_div_sub_of_differentiable_on_off_countable"
+      ],
+      "candidate_type_summary": "normalized and unnormalized Banach-valued circle formulas plus a scalar division form under several regularity packages",
+      "status": "pinned declarations and representative axiom reports elaborate; exact source match, expression serialization, alternate-form transports, terminal-body provenance, transitive dependencies, and complete trust audit remain downstream"
+    },
+    {
+      "project": "repo-local foreign legacy target",
+      "module": "AwesomeTheorems.Stage1.S1_M_178",
+      "declaration": "cauchy_integral_formula_anchor",
+      "repository_file": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_178.lean",
+      "candidate_type_summary": "Banach-valued closed-ball DifferentiableOn wrapper around pinned mathlib",
+      "status": "belongs to THM-M-1559 and is discovery input only; no source identity, target ownership, accepted state, or proof credit transfers"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_record": "Docs/researches/math_theorems.md:1605-1610",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6167-6192",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "1c31231598289cf3e34fbcd4fedda3e41f778c4e34c318713ebd2fc2a0f2cf92",
+    "stage0_projection_excerpt_sha256": "e814dbdf0c5d55ae1af334461fa4b9bf26ec08d5883855d70192586f5ced8cf0",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "dlmf_section_raw_response_observed_nonreplaystable_sha256": "1c99d0a548a9611f4da907d080d9103f325cab3d7dbccaa8eade59a99548cfe9",
+    "dlmf_equation_1_9_E30_tex_sha256": "83befa67dddfe60a55973cb2716a52c498004f380ad0e9dfe3a2d13d28080466",
+    "dlmf_equation_1_9_E31_tex_sha256": "b18ce1076e4f8b82314fb6749ba8623c73d18ec23bdec40050b3ec98f6464cc2",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_cauchy_integral_source_sha256": "3a3f12ae2edf91d33c87bf2e414aea774cbe5d7fad3ba5ad45159cf0d8bd8885",
+    "mathlib_circle_integral_source_sha256": "edd8bb8aac4a7fd68e438580c73b12cd83b28e0737ae7bf755bda27d8b4d7206",
+    "foreign_legacy_wrapper_sha256": "feab847fa74e339b230193feb8f1753619f22e0a7b4cacc175ef788a472701a2"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the probed candidate axiom reports include propositional extensionality, classical choice, and quotient soundness, but the accepted foundation profile and transitive closure remain open until the exact target is frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, source transport, terminal proof bodies, transitive dependencies, axioms, licenses, and trust closure remain open",
+  "computation_profile": "No numerical quadrature, sampled contour, floating-point approximation, external oracle, experiment, native-code result, or unchecked certificate is credited; the intended result requires kernel-checked analysis",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0222/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0222/README.md",
+    "Stage1_Instances/THM-M-0222/instance.json",
+    "Stage1_Instances/THM-M-0222/scope-map.md",
+    "Stage1_Instances/THM-M-0222/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0222/task-dag.json",
+    "Stage1_Instances/THM-M-0222/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0222/check_intake.py",
+    "Stage1_Instances/THM-M-0222/validation.md",
+    "Stage1_Instances/THM-M-0222/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_partition_reviewer": "unassigned reviewer for the Cauchy theorem/formula/residue/estimate boundaries"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, historical edition, translation, correction or erratum, contour/domain/codomain/regularity/orientation/winding/normalization/evaluation/derivative/binder/hypothesis/conclusion/boundary decision, neighbor-target partition, canonical target or transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, classical theorem-family and non-substitution boundary, an authoritative modern source lead, strong pinned formal candidates, and the open task DAG. No canonical mathematical or Lean proposition, accepted source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

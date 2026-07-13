@@ -1,0 +1,203 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0235",
+  "item_id": "S56-M-0235-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1247,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "开映射定理",
+  "name_en": "Open mapping theorem for holomorphic functions",
+  "canonical_name": "Complex-analytic open mapping theorem family (exact domain formulation open)",
+  "category": "分析学 / 复分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "非常值全纯函数是开映射",
+  "literal_source_claim_en": "Nonconstant holomorphic functions are open maps.",
+  "source_attribution": "Many mathematicians, nineteenth century (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_complex_open_mapping_family_and_direct_pinned_interfaces_but_exact_source_domain_holomorphicity_nonconstancy_openness_encoding_and_transport_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not fix the complex domain or whether it is definitionally nonempty, open, and connected; distinguish connected from preconnected; encode holomorphicity or nonconstancy on that domain; or decide between relative images of ambient-open subsets, an open map on a domain subtype, and total IsOpenMap. Selecting the whole-plane corollary or another familiar formulation at intake would silently narrow or otherwise alter the received claim.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Complex.OpenMapping",
+      "Mathlib.Analysis.Complex.CauchyIntegral"
+    ],
+    "declaration_candidates": [
+      "AnalyticAt.eventually_constant_or_nhds_le_map_nhds",
+      "AnalyticOnNhd.is_constant_or_isOpen",
+      "AnalyticOnNhd.is_constant_or_isOpenMap",
+      "DifferentiableOn.analyticOnNhd",
+      "Complex.analyticOnNhd_iff_differentiableOn"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_immutable_source_crosswalk_and_exact_statement_elaboration"
+  },
+  "domain_and_universes": "Open: an accepted source must fix a complex domain U, its ambient or subtype topology, nonemptiness/openness/connectedness conventions, the function domain and complex codomain, all universes, and the exact analytic structure assumptions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: images of every ambient-open subset contained in U are open in Complex, an IsOpenMap claim for a restriction to the domain subtype, or total IsOpenMap for an entire function; exact scope and encoding are unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is formally excluded before a proposition is selected; the statement phase must resolve every boundary case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "a nonconstant holomorphic function on a nonempty connected open subset U of Complex maps each open subset s contained in U to an open image",
+    "the restriction of a nonconstant holomorphic function to a complex domain subtype is an open map",
+    "a nonconstant entire function Complex to Complex is an IsOpenMap",
+    "the higher-dimensional-domain mathlib generalization g : E -> Complex for a complex normed space E"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, disconnected, and whole-plane domains",
+    "constant functions and functions constant on one connected component but not globally",
+    "preconnected versus connected or explicitly nonempty domains",
+    "the empty open subset, the full domain, and ambient-open versus subtype-open subsets",
+    "functions with irrelevant behavior outside U and functions analytic only on a neighborhood of U",
+    "the source's meaning of nonconstant and its interaction with empty-domain vacuity"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0276, the Banach open mapping theorem for surjective bounded linear operators",
+    "the whole-plane entire-function corollary unless a checked specialization from the accepted domain theorem is part of the target mapping",
+    "only the local neighborhood alternative, identity theorem, isolated-zero theorem, maximum-modulus theorem, inverse-function theorem, or a polynomial special case",
+    "a theorem for one connected component when the accepted target quantifies over the entire domain",
+    "a structure or premise storing the desired open-map conclusion",
+    "the untrusted catalog label 已验证 or the API probe used as source, statement-identity, or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0276",
+      "name": "开映射定理",
+      "relationship": "separate functional-analysis theorem for surjective bounded linear operators; no statement or proof credit is shared"
+    }
+  ],
+  "source_status": "H1_named_authoritative_modern_complete_theorem_and_proof_lead_pinned_but_catalog_source_identity_nonemptiness_convention_Lean_transport_corrections_errata_and_independent_review_open",
+  "human_source_candidates_not_credited": [
+    {
+      "citation": "Jiří Lebl, Guide to Cultivating Complex Analysis: Working the Complex Field, version 1.9, Definition 1.1 (PDF page 13) and Theorem 5.5.1 with proof (PDF pages 144-145), July 11, 2026",
+      "candidate_locator": "GitHub repository jirilebl/ca, immutable tag v1.9 at commit a4d25d9ba37a486a5a020219eb8bd4e6602fd14c; release archive SHA-256 1d50a21c5e07e3b6d77b13b01974480ad9d3d29281513cd1e09fe9e2789b4c33; ca.tex SHA-256 a99ed1bfceca960f98abd08e7d3c4f20d907b2fa392c211b522c06283ac61935",
+      "candidate_summary": "defines a domain as an open connected subset of Complex and proves that a holomorphic nonconstant f : U -> Complex maps every open V subset U to an open set",
+      "inspection_status": "complete authoritative modern theorem and proof lead inspected; the catalog does not cite it, its footnoted nonemptiness convention and subtype-to-ambient Lean transport remain open, correction/errata disposition is not accepted, and no independent review is recorded"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Complex.OpenMapping",
+      "declaration": "AnalyticOnNhd.is_constant_or_isOpen",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "analytic g : E -> Complex on a preconnected U is constant on U or maps every ambient-open subset s contained in U to an open image",
+      "status": "closest connected-set interface; source domain convention, nonconstancy elimination, E versus Complex specialization, expression identity, and checked transport remain open"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.OpenMapping",
+      "declaration": "AnalyticOnNhd.is_constant_or_isOpenMap",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "an entire analytic g : E -> Complex is constant or an IsOpenMap",
+      "status": "whole-domain specialization only; it cannot silently replace a theorem about functions on arbitrary complex domains"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.OpenMapping",
+      "declaration": "AnalyticAt.eventually_constant_or_nhds_le_map_nhds",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "local analytic-at dichotomy between eventual constancy and the neighborhood filter inequality characterizing local openness",
+      "status": "local proof ingredient, not the global source claim"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.CauchyIntegral",
+      "declaration": "Complex.analyticOnNhd_iff_differentiableOn",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "on an open complex set, AnalyticOnNhd is equivalent to complex DifferentiableOn",
+      "status": "candidate terminology bridge only; exact source holomorphicity predicate and transport remain open"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "c6fd6dad8fcfe5fd464416cd452f50286b546978",
+    "repository_base_tree": "5a80b61d8fa09336779f8d1453dcfe4299c9472f",
+    "repository_record": "Docs/researches/math_theorems.md:1696-1701",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6518-6543",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "fe39ee637142a87776b2104fff5b940b3bc67b627a49b3e53ab41fb5e0fdc4c7",
+    "stage0_projection_excerpt_sha256": "8fa89902570fa4f0206ab2cc926347e970e90f4f61adb313079e0a1cce4ade0f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9601541c3966336c2ea27797f4ff93e3dd3d7adc4de88410cc8a6b60a7782190",
+    "execution_dag_sha256": "1e2eb8e8c86ccef96bb4dcd85b33f1a06fcf76a7c54c0b51772ddc0b6cebe2c5",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "open_mapping_source_sha256": "352dd28e4e85d7c15c69ad792b6db68d2bab2e18c652b461823002a0cba755e6",
+    "cauchy_integral_source_sha256": "3a3f12ae2edf91d33c87bf2e414aea774cbe5d7fad3ba5ad45159cf0d8bd8885",
+    "topology_defs_source_sha256": "db2c0b80e2976b2de31bd62b1aca210d591b2960361357c11ce3105d4a30bfc5",
+    "inspected_lebl_v1_9_tag_commit": "a4d25d9ba37a486a5a020219eb8bd4e6602fd14c",
+    "inspected_lebl_v1_9_archive_sha256": "1d50a21c5e07e3b6d77b13b01974480ad9d3d29281513cd1e09fe9e2789b4c33",
+    "inspected_lebl_ca_tex_sha256": "a99ed1bfceca960f98abd08e7d3c4f20d907b2fa392c211b522c06283ac61935",
+    "inspected_lebl_domain_excerpt_sha256": "5fa687a04daa72bb304d4eef9fae306cfef49f62b78b18c3c542311a15a08861",
+    "inspected_lebl_open_mapping_excerpt_sha256": "0b6124d1b3474e43289d1ccb6eb2dafe2c73a7a20f8b4103e476355f62ad9cf8"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; representative pinned candidates report propext, Classical.choice, and Quot.sound, while exact foundation acceptance remains open until the target and trust policy are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, source transport, terminal proof bodies, transitive dependencies, placeholder audit, axioms, and trust closure remain open",
+  "computation_profile": "No numerical image sampler, plotting experiment, floating-point approximation, oracle, native shortcut, generated certificate, or unchecked computation is credited; the intended result is a kernel-checked analytic theorem",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0235/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0235/README.md",
+    "Stage1_Instances/THM-M-0235/instance.json",
+    "Stage1_Instances/THM-M-0235/scope-map.md",
+    "Stage1_Instances/THM-M-0235/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0235/task-dag.json",
+    "Stage1_Instances/THM-M-0235/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0235/check_intake.py",
+    "Stage1_Instances/THM-M-0235/validation.md",
+    "Stage1_Instances/THM-M-0235/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent complex-analysis reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or erratum, domain/nonemptiness/openness/connectedness convention, holomorphicity or nonconstancy predicate, relative/total openness encoding, ambient/function domain, boundary decision, canonical target or checked transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog gloss, source gaps, proposition-changing scope decisions, direct pinned interfaces, exclusions, and open task DAG. No canonical proposition, source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

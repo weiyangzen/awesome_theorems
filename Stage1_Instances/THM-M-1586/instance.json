@@ -1,0 +1,232 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1586",
+  "item_id": "S56-M-1586-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1208,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Hamming界",
+  "name_en": "Hamming bound",
+  "canonical_name": "Hamming sphere-packing bound (repository theorem-family label)",
+  "category": "其他重要领域 / 离散数学",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Hamming界",
+  "literal_source_claim_zh": "纠错码的球包装界",
+  "literal_source_claim_en": "The sphere-packing bound for error-correcting codes.",
+  "source_attribution": "Richard Hamming, 1950 (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_identifies_the_classical_hamming_sphere_packing_family_but_does_not_select_one_exact_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository fixes no alphabet, code object, block length, pairwise-distance or correction-radius contract, Hamming-ball definition, finite versus asymptotic scope, linear versus arbitrary specialization, exact inequality, ordered binders, arithmetic casts, or boundary cases. It also gives no pinpoint source statement. Choosing the familiar finite q-ary formula would substitute proposition-changing mathematics.",
+  "target_decision": "retain the classical sphere-packing-bound family at H1 and require an independently reviewed immutable source selection plus duplicate and neighbor reconciliation before exact statement execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.InformationTheory.Hamming",
+      "Mathlib.Data.Fintype.BigOperators",
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Finset.Card"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_variant_and_exact_statement_not_selected",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix a finite alphabet or field, word index type or natural length, arbitrary-set versus linear code model, Hamming distance and ball representations, universes and typeclass data, and finite versus asymptotic setting.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not select a finite binary or q-ary packing inequality, an extremal-size upper bound, a linear dimension/cardinality corollary, a perfect-code equality statement, or an asymptotic rate bound.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every alphabet, length, code, distance, radius, finite-sum, arithmetic, equality, and asymptotic boundary listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the finite q-ary arbitrary-code inequality |C| times the radius-t Hamming-ball volume at most q^n under pairwise distance at least 2*t+1",
+    "the minimum-distance form with radius floor((d-1)/2), including all natural subtraction and floor conventions",
+    "the binary specialization whose ball volume is the sum of binomial coefficients",
+    "the linear [n,k,d]_q corollary obtained by replacing code cardinality with q^k",
+    "a perfect-code equality characterization or an asymptotic entropy-rate upper bound"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty alphabets and alphabet cardinality q equal to zero or one",
+    "block length n equal to zero and empty coordinate types",
+    "empty and singleton codes and whether minimum distance over distinct pairs exists",
+    "correction radius t equal to zero, minimum distance d equal to zero or one, and d greater than n",
+    "radius greater than block length, empty or truncated sums, and whether the ball-volume formula remains source-identical",
+    "natural subtraction at q-1 and d-1, multiplication versus division, and all natural/integer/rational/real casts",
+    "strict versus non-strict pairwise separation and the equivalence of 2*t < d with 2*t+1 <= d",
+    "perfect-code equality and whether it is included or only a separate corollary",
+    "relative-distance endpoints, logarithm base, limit versus limsup, and rate normalization in asymptotic forms"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1585 coding theory, THM-M-1587 Singleton bound, THM-M-1588 Gilbert-Varshamov bound, or THM-M-1589 linear-code theory",
+    "the duplicate computer-science catalog row treated as accepted source or proof evidence",
+    "a binary statement presented as the q-ary theorem or a linear statement as the arbitrary-code theorem without an accepted checked transport",
+    "a Hamming-code construction or perfect-code equality substituted for the sphere-packing upper bound",
+    "a generic disjoint-union count, metric triangle inequality, or Hamming-distance API presented as the complete coding theorem",
+    "a structure, predicate, theorem hypothesis, axiom, opaque declaration, or unsafe mechanism that assumes the desired inequality",
+    "finite enumeration, random testing, simulation, or numerical entropy estimates used as a proof of the universal theorem",
+    "the untrusted catalog label 已验证 used as source or kernel evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1585",
+      "name": "编码理论",
+      "relationship": "broader coding-theory topic; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1587",
+      "name": "Singleton界",
+      "relationship": "different code-size upper bound based on projection or puncturing; no root credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1588",
+      "name": "Gilbert-Varshamov界",
+      "relationship": "covering or existence lower bound paired with but distinct from the Hamming packing upper bound"
+    },
+    {
+      "theorem_id": "THM-M-1589",
+      "name": "线性码",
+      "relationship": "linear-code topic; does not select an arbitrary-code versus linear Hamming-bound root"
+    },
+    {
+      "theorem_id": "THM-C-0380",
+      "name": "Hamming码",
+      "relationship": "construction target outside Stage1 rev-5.6; not the sphere-packing bound"
+    }
+  ],
+  "source_status": "H1_classical_proved_family_with_bibliographically_identified_1950_primary_source_lead_but_no_inspected_pinpoint_statement_errata_mapping_or_independent_review",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "R. W. Hamming, Error Detecting and Error Correcting Codes, Bell System Technical Journal 29(2), April 1950, 147-160",
+      "doi": "10.1002/j.1538-7305.1950.tb00463.x",
+      "candidate_locator": "exact theorem, section, equation, and proof locator not inspected; Crossref fixes only article-level pages 147-160",
+      "candidate_summary": "exact author/year/coding-family bibliographic match and likely historical source for binary error-correcting-code sphere packing",
+      "crossref_response_sha256": "55bb5c6edb8dffc69fa290c9c357b7c61fe5bf9bcfb592701ff673af13941473",
+      "crossref_response_bytes": 1595,
+      "crossref_unixref_sha256": "1717b02a5c67d27f09b804e4c77ffa7f080fa66b8e482f3c8f8b798ba9de3a69",
+      "semantic_scholar_response_sha256": "19d5209ecac3fab086b084133a163afc1d15ef9c890d1ffd10c8086d9c9ce69e",
+      "semantic_scholar_scan_candidate": "https://calhoun.nps.edu/bitstreams/0d21de63-5f08-4f42-899d-7ccb9b07980f/download",
+      "access_result": "Crossref metadata was inspected; DOI landing returned an automated-access challenge and the scan host timed out before connection, so no primary text was admitted",
+      "status": "bibliographic discovery evidence supporting H1 only; no lawful immutable paper copy, pinpoint statement, incorporated definitions, proof boundary, correction or errata decision, canonical transcription, or independent H0 review is credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.InformationTheory.Hamming",
+      "declarations": [
+        "hammingDist",
+        "hammingDist_comm",
+        "hammingDist_triangle",
+        "hammingDist_le_card_fintype",
+        "Hamming",
+        "Hamming.dist_eq_hammingDist"
+      ],
+      "boundary": "Hamming metric substrate only; no code object, minimum-distance function, finite ball-cardinality formula, packing inequality, or Hamming-bound theorem"
+    },
+    {
+      "module": "Mathlib.Data.Fintype.BigOperators and core finite combinatorics",
+      "declarations": [
+        "Fintype.card_fun",
+        "Nat.choose"
+      ],
+      "boundary": "ambient function-space cardinality and binomial substrate only; no source-selected code-ball counting theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_math_record": "Docs/researches/math_theorems.md:11686-11691",
+    "repository_cs_record": "Docs/researches/cs_theorems.md:614",
+    "stage0_math_projection": "Docs/Stage0_Blueprint.md:43120-43145",
+    "stage0_hamming_code_boundary": "Docs/Stage0_Blueprint.md:92409-92434",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_math_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_cs_source_record_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_cs_source_current_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "repository_record_excerpt_sha256": "8807045eebbff9d71ac32dd715240f35a380bd26e8f9c9eff621157b0251e410",
+    "stage0_record_excerpt_sha256": "7c1882fd909df29e4933bf969c60ac12e85dade92b464ebaf8396bd847167e81",
+    "repository_cs_record_excerpt_sha256": "afeb98320e9d7c039e9915736e138ab6d8bcb07a7f3b7aa7c063cc93a6c654ae",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_hamming_source_sha256": "2552acbec60f1a370482bbdadee849049aa2c7c32452cbcf84d1dbca39e8ccf8"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "human_debt_scope": "H1 records the classical proved family and credible primary-source identity while the exact source statement, incorporated definitions, assumptions, proof boundary, errata, catalog mapping, and independent review remain unresolved",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; finite classical choice, decidable equality, finite-set cardinality, quotient/extensionality, finite-field, real logarithm, asymptotic limit, and entropy policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, axioms, transitive dependency closure, executables, and trust policy remain open",
+  "computation_profile": "No brute-force code search, random sampling, simulation, native oracle, generated certificate, or numerical entropy approximation is credited; a selected universal theorem requires kernel-checked mathematics under an approved profile",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1586/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1586/README.md",
+    "Stage1_Instances/THM-M-1586/instance.json",
+    "Stage1_Instances/THM-M-1586/scope-map.md",
+    "Stage1_Instances/THM-M-1586/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1586/task-dag.json",
+    "Stage1_Instances/THM-M-1586/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1586/check_intake.py",
+    "Stage1_Instances/THM-M-1586/validation.md",
+    "Stage1_Instances/THM-M-1586/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent coding-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "duplicate_scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the selected finite or asymptotic proposition, source crosswalk, code and ball definitions, parameter and boundary conventions, and formal encoding; the integration lane must separately reconcile duplicate and neighbor ownership before master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier and temporary metadata responses have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, duplicate or neighbor reconciliation, selected binary/q-ary/linear/arbitrary/finite/asymptotic theorem, source edition, locator, assumptions, proof boundary or errata, alphabet, code, block length, distance, radius, ball volume, arithmetic, equality or endpoint convention, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog family, bibliographically identified 1950 source lead, candidate roots, proposition-changing choices, duplicate and neighbor boundaries, adjacent pinned APIs, and open task DAG. No canonical proposition, accepted source crosswalk, exact Lean statement, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

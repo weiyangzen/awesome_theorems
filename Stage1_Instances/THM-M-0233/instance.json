@@ -1,0 +1,237 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0233",
+  "item_id": "S56-M-0233-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1245,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "辐角原理",
+  "name_en": "Argument principle",
+  "canonical_name": "Argument principle (classical zero-and-pole count theorem family)",
+  "category": "analysis / complex analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "全纯函数零点与极点个数公式",
+  "literal_source_claim_en": "A formula for the numbers of zeros and poles of a holomorphic function.",
+  "source_attribution": "Augustin Cauchy, 1831 (catalog attribution only; not a pinpoint primary-source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_argument_principle_family_but_catalog_wording_is_not_definition_or_binder_complete_and_calls_a_function_with_poles_holomorphic",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not cite a source or fix the contour, orientation, interior, function domain, meromorphic versus analytic-except-poles convention, boundary nonvanishing and pole exclusions, finiteness and multiplicity counts, normalization, phase-change clause, binders, or degenerate cases. Its literal holomorphic-function wording is inconsistent with poles unless an unstated convention is supplied. DLMF 1.10.9 is a strong inspected source lead, but selecting it as the canonical root at intake would still substitute an uncited proposition and inherited definitions without independent approval.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Complex.CauchyIntegral",
+      "Mathlib.Analysis.Complex.JensenFormula",
+      "Mathlib.Analysis.Meromorphic.Divisor",
+      "Mathlib.Analysis.SpecialFunctions.Complex.LogDeriv"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_exact_source_contour_function_domain_and_conclusion_clauses_open",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix a complex domain, a contour or cycle and its interior, a meromorphic or analytic-except-poles scalar function, the topology and differentiability structures, and whether infinity is in scope. The expected proposition is in universe 0, but its exact objects and contexts are not frozen.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-faithful equality between the signed multiplicity count N-P and a normalized logarithmic-derivative contour integral, optionally also the normalized phase change or winding count. The root clauses, sign, codomain coercions, and normalization are unresolved.",
+  "alternate_encodings": [
+    {
+      "target": "The signed sum of meromorphic divisor coefficients inside a positively oriented simple contour equals the normalized contour integral of logDeriv f.",
+      "relationship": "standard general-contour candidate, not selected or credited",
+      "checked_witness": null
+    },
+    {
+      "target": "The same signed count equals the winding number or normalized phase change of f along the contour.",
+      "relationship": "standard phase-change candidate; inclusion in the root and transport to the integral form are open",
+      "checked_witness": null
+    },
+    {
+      "target": "For a circle, a finsum of divisor coefficients in the enclosed ball equals a normalized circleIntegral of logDeriv f.",
+      "relationship": "mathlib-shaped circle specialization, not equivalent to the general contour family without a checked reduction",
+      "checked_witness": null
+    }
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every contour, function, boundary, multiplicity, orientation, traversal, and infinity case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "DLMF 1.10.9 with both the logarithmic-derivative integral and phase-change equalities",
+    "a general divisor-sum theorem for positively oriented Jordan or piecewise-smooth contours",
+    "a circle-integral specialization over a closed ball",
+    "a holomorphic specialization that counts zeros and has no poles"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the zero function and nonzero constant functions",
+    "no enclosed zeros or poles and cancellation in the signed count",
+    "zeros or poles on the contour and functions undefined on the contour",
+    "reversed orientation, repeated traversal, and self-intersecting contours",
+    "constant or radius-zero contours and empty interiors",
+    "infinitely many or nonisolated singularities and accumulation at the boundary",
+    "the point at infinity and planar versus Riemann-sphere formulations"
+  ],
+  "excluded_substitutions": [
+    "a circle-only, polynomial-only, rational-only, or holomorphic-zero-only special case offered as the full theorem",
+    "Jensen's formula, the residue theorem, Rouché's theorem, or the fundamental theorem of algebra",
+    "a count omitting poles, multiplicity, orientation, or boundary hypotheses",
+    "the phase-change equality substituted for the integral equality or conversely without source selection and a checked transport",
+    "a reversed sign or orientation convention chosen from memory",
+    "a structure or hypothesis storing the requested identity",
+    "a numerical contour integral, plot, sampled phase unwrap, or unchecked winding certificate",
+    "the catalog's untrusted verified label or the discovery probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0223",
+      "name": "留数定理",
+      "relationship": "the residue theorem is a likely proof ingredient but is a distinct contour-integral root"
+    },
+    {
+      "theorem_id": "THM-M-0232",
+      "name": "鲁歇定理",
+      "relationship": "a zero-count comparison theorem; related but not an argument-principle substitute"
+    },
+    {
+      "theorem_id": "THM-M-0234",
+      "name": "儒歇定理",
+      "relationship": "a separate catalog record about stability of zero counts; no source or proof credit is shared"
+    }
+  ],
+  "source_status": "H1_authoritative_modern_argument_principle_statement_lead_inspected_but_catalog_source_identity_inherited_definitions_complete_assumption_and_correction_crosswalk_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "NIST Digital Library of Mathematical Functions, version 1.2.7, section 1.10(iv), Phase (or Argument) Principle, equation 1.10.9",
+      "candidate_locator": "https://dlmf.nist.gov/1.10.E9 observed 2026-07-13; section HTML sha256 605d1f8cddb8c4bf4ff9d2dd3da566f27f103586c06fdc544818a7fae3f9896a; equation TeX sha256 ac880fe15cdce1bffdf22aa43d3a4234df29b24fde2f18889b5580bb67940e23",
+      "candidate_summary": "states N-P equals the normalized logarithmic-derivative contour integral and normalized phase change; zeros and poles are counted with multiplicity and the contour is traversed positively",
+      "inspection_status": "inspected authoritative modern lead; not cited by the catalog, not independently reviewed, and inherited contour/interior and analytic conventions are not yet transcribed into an accepted immutable source crosswalk"
+    },
+    {
+      "citation": "Augustin Cauchy, 1831 historical attribution",
+      "candidate_locator": "catalog attribution only",
+      "candidate_summary": "historical discovery metadata for the theorem family",
+      "inspection_status": "no primary work, edition, passage, translation, definition chain, correction history, or proof crosswalk inspected"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Meromorphic.Divisor",
+      "declarations": [
+        "meromorphicOrderAt",
+        "MeromorphicOn.divisor",
+        "MeromorphicOn.divisor_apply"
+      ],
+      "boundary": "point orders and locally finite signed divisors only; no enclosed count or contour-integral equality"
+    },
+    {
+      "module": "Mathlib.Analysis.SpecialFunctions.Complex.LogDeriv",
+      "declarations": [
+        "logDeriv",
+        "MeromorphicOn.logDeriv"
+      ],
+      "boundary": "logarithmic derivative and its meromorphicity only; no argument-principle bridge"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.CauchyIntegral",
+      "declarations": [
+        "circleIntegral.integral_sub_inv_of_mem_ball"
+      ],
+      "boundary": "circle-integral/Cauchy substrate for simple pole factors; no signed divisor sum or general contour theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.JensenFormula",
+      "declarations": [
+        "MeromorphicOn.circleAverage_log_norm"
+      ],
+      "boundary": "Jensen's logarithmic norm-average formula with a divisor correction; related but not the argument principle"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, complex integration, finite-support extraction, orientation, winding or phase lifts, and any Riemann-sphere principles remain open until the exact source proposition and proof route are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, accepted axiom profile, and trust closure remain open",
+  "computation_profile": "No floating-point contour quadrature, sampled phase unwrap, plot, oracle, native computation, experiment, or unchecked winding certificate is credited; any computational route must use a kernel-replayed certificate under a selected policy",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "c6fd6dad8fcfe5fd464416cd452f50286b546978",
+    "repository_base_tree": "5a80b61d8fa09336779f8d1453dcfe4299c9472f",
+    "repository_record": "Docs/researches/math_theorems.md:1682-1687",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6464-6489",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "9601541c3966336c2ea27797f4ff93e3dd3d7adc4de88410cc8a6b60a7782190",
+    "execution_dag_sha256": "1e2eb8e8c86ccef96bb4dcd85b33f1a06fcf76a7c54c0b51772ddc0b6cebe2c5",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "meromorphic_divisor_source_sha256": "f7836d59a35f52940554b23d216e5b9cc249b826af7f3e336176968eddf651a4",
+    "meromorphic_order_source_sha256": "087a10fd6e1b60682d359bd62bceb2b3e5b2f8c32d29fb65d6b3ae7ab7ba3135",
+    "log_deriv_source_sha256": "47759d4ff074fd3111c2d342a4e184ad303c327f673a70fb83b9504fcab135f8",
+    "circle_integral_source_sha256": "edd8bb8aac4a7fd68e438580c73b12cd83b28e0737ae7bf755bda27d8b4d7206",
+    "cauchy_integral_source_sha256": "3a3f12ae2edf91d33c87bf2e414aea774cbe5d7fad3ba5ad45159cf0d8bd8885",
+    "jensen_formula_source_sha256": "e1c5fdf7c8cc97f63cd2dbb518b53aa3054c97ccd4542dfef5ccdf629bcd3e73",
+    "dlmf_version": "1.2.7 (2026-06-15)",
+    "dlmf_section_html_sha256": "605d1f8cddb8c4bf4ff9d2dd3da566f27f103586c06fdc544818a7fae3f9896a",
+    "dlmf_equation_tex_sha256": "ac880fe15cdce1bffdf22aa43d3a4234df29b24fde2f18889b5580bb67940e23",
+    "dlmf_errata_html_sha256": "a99035dc32e51b17da018d37f7fb971e9ce74075bd627f4d5012a74bfbff555a"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0233/README.md",
+    "Stage1_Instances/THM-M-0233/instance.json",
+    "Stage1_Instances/THM-M-0233/scope-map.md",
+    "Stage1_Instances/THM-M-0233/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0233/task-dag.json",
+    "Stage1_Instances/THM-M-0233/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0233/check_intake.py",
+    "Stage1_Instances/THM-M-0233/validation.md",
+    "Stage1_Instances/THM-M-0233/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned complex-analysis reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or errata finding, contour, interior, orientation, function-domain, analyticity/meromorphicity, boundary, multiplicity, normalization, conclusion-clause, infinity, or degenerate-case convention, Lean target, checked transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-0233/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog wording, the inspected DLMF statement lead, proposition-changing choices, non-substitution boundaries, adjacent pinned APIs, and open task DAG. It supplies no accepted source, canonical proposition, exact Lean statement, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance."
+}
