@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0276-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0276-VALIDATION",
+  "theorem_id": "THM-M-0276",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0276/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs through bubblewrap --unshare-net with fixed locale and timezone. Host-side read-only hash and Git pin checks use no network. The shared warm dependency cache remains nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS THM-M-0276 narrow validation and explicit fail-closed release gates"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0276-ROOT",
+    "M0276-N-SAME-FIELD",
+    "M0276-T-ASSEMBLE",
+    "M0276-T-ADAPTER",
+    "M0276-T-UPSTREAM",
+    "M0276-B-REAL",
+    "M0276-B-COMPLEX",
+    "M0276-T-ISOPENMAP",
+    "M0276-L-EXACT-PREIMAGE",
+    "M0276-L-APPROX-PREIMAGE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0276.BanachOpenMappingTarget",
+    "ContinuousLinearMap.exists_approx_preimage_norm_le",
+    "ContinuousLinearMap.exists_preimage_norm_le",
+    "ContinuousLinearMap.isOpenMap",
+    "Stage1Instances.THM_M_0276.Proof.pinnedApproximatePreimage",
+    "Stage1Instances.THM_M_0276.Proof.pinnedExactPreimage",
+    "Stage1Instances.THM_M_0276.Proof.pinnedOpenMap",
+    "Stage1Instances.THM_M_0276.Proof.pinnedMathlibTerminal",
+    "Stage1Instances.THM_M_0276.Proof.realOpenMapping",
+    "Stage1Instances.THM_M_0276.Proof.complexOpenMapping",
+    "Stage1Instances.THM_M_0276.Proof.banachOpenMapping_direct",
+    "Stage1Instances.THM_M_0276.Proof.banachOpenMapping_via_frozen_composition",
+    "Stage1Instances.THM_M_0276.Proof.expandedBanachOpenMapping",
+    "Stage1Instances.THM_M_0276.Validation.differentialBanachOpenMapping"
+  ],
+  "scope_boundary": "Network-isolated node-scoped replay from copied source against existing pinned warm artifacts, selected terminal provenance and trust observations, and a same-worker differential wrapper. Dependency-ordered master acceptance, complete transitive provenance/TCB closure, clean empty-cache offline reproduction, and distinct-runner independent verification remain fail-closed."
+}
