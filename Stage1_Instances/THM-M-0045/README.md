@@ -47,3 +47,16 @@ immutable source preservation, definition and matrix/operator transport, correct
 independent source review remain open; no formal root proof or source-faithful reconstruction
 exists. No H0, M0, R0, accepted state, audit completion, theorem completion, or master acceptance
 is claimed.
+
+The version-1 obligation architecture now freezes 37 semantic obligations before proof closure is
+credited. It expands the immutable historical source through the dimension split, eigenvalue and
+eigenspace construction, orthogonal-complement recursion, finrank descent, collected orthonormal
+basis, three coefficient cases plus one impossible index placement, matrix transport, unitary and
+triangular witnesses, final equation,
+source, provenance, trust, and readability boundaries. The seven typed graphs keep proof,
+refinement, provenance, evidence, trust, documentation, and workflow roles separate.
+
+`ObligationTree.lean` checks only the exact conditional adapter from a global equation witness
+package to `SchurTriangularizationTarget`. It does not construct that package or install the
+external source. Revision `0a539f0c` remains `M5/E3`, every internal reverse edge remains an
+unverified logical decomposition, and the current classified vector remains `[H1, M3, R4]`.

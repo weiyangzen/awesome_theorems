@@ -1,0 +1,234 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0065-INTAKE-WORKER-20260713",
+  "item_id": "S56-M-0065-INTAKE",
+  "theorem_id": "THM-M-0065",
+  "intent": "intake",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "content_addressed": false,
+  "lifecycle_before": "no_instance_at_L0_baseline",
+  "lifecycle_after": "planned",
+  "base_revision": "75ab5edd624df749325d391b41b669f8d72774b2",
+  "base_tree": "26562e2b8168d91a92a8164c9d8f0fc55178836e",
+  "validated_at": "2026-07-13T08:59:17+08:00",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0065/README.md",
+    "Stage1_Instances/THM-M-0065/instance.json",
+    "Stage1_Instances/THM-M-0065/scope-map.md",
+    "Stage1_Instances/THM-M-0065/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0065/task-dag.json",
+    "Stage1_Instances/THM-M-0065/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0065/check_intake.py",
+    "Stage1_Instances/THM-M-0065/validation.md",
+    "Stage1_Instances/THM-M-0065/intake-receipt.json"
+  ],
+  "owned_artifact_sha256": {
+    "Stage1_Instances/THM-M-0065/README.md": "ad69517ba908ff7b7efa80d4b0cb684f61f60bae1f44d086054e3661b230de02",
+    "Stage1_Instances/THM-M-0065/instance.json": "72627e47a88efc4b22f23df218ce9a3df0696f18c07d6ceb49b1413100db2902",
+    "Stage1_Instances/THM-M-0065/scope-map.md": "b49c00269ec6297019240b67af45d513a13a6772b57467872cff8f1a21594450",
+    "Stage1_Instances/THM-M-0065/source-statement-crosswalk.md": "5b13031d8937e4c53c4e279e3a672ada62603fcc05cdb33b67f0127e662a909f",
+    "Stage1_Instances/THM-M-0065/task-dag.json": "c91b0395414a9073260a12311e4e6d08a392e68c1d12694f4116ec46953c8a4f",
+    "Stage1_Instances/THM-M-0065/IntakeProbe.lean": "72a54752d9b56fc15d8ba9806723762299b3065c7dbfeb08248db9764df090b0",
+    "Stage1_Instances/THM-M-0065/check_intake.py": "c6e72e8ab826d9e5f51ca02ef1924815bc7d6c7d7fe708e36a673e6c595b29f9",
+    "Stage1_Instances/THM-M-0065/validation.md": "78fe42922895fc57545b2bf64d6f868e01cc1e4df53f8d1953e3360b61dc0ab3",
+    "Stage1_Instances/THM-M-0065/intake-receipt.json": "self_referential_excluded_from_provisional_digest"
+  },
+  "dirty_input_evidence": {
+    "classification": "nonrelease_dirty_worker_input",
+    "preexisting_untracked_paths": [
+      "Formalizations/Lean/.lake"
+    ],
+    "boundary": "The canonical automation-provided .lake artifact existed before work. All other untracked paths are this item's provisional artifacts. No release cleanliness is claimed."
+  },
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0065-INTAKE-STANDARD",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "covered_ids": [
+        "S56-M-0065-INTAKE"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0065-INTAKE-TARGET-CHECK",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "covered_ids": [
+        "S56-M-0065-INTAKE"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0065-INTAKE-LEAN-PROBE",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0065/IntakeProbe.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout_sha256": "7190f0200066dabb70ed6a7281d3c8a35037d57ecab827a24206e5444b1bc6e5",
+      "covered_ids": [
+        "S56-M-0065-INTAKE"
+      ],
+      "covered_declarations": [
+        "JordanHolderLattice",
+        "CompositionSeries",
+        "CompositionSeries.Equivalent",
+        "CompositionSeries.Equivalent.length_eq",
+        "CompositionSeries.jordan_holder"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0065-INTAKE-SCOPED-CHECKER",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0065/check_intake.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "covered_ids": [
+        "S56-M-0065-INTAKE"
+      ]
+    }
+  ],
+  "commands_and_exit_codes": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups and all 1546 uniform-L0 targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-0065",
+      "exit_code": 0,
+      "result": "rank 1096 planned target, theorem_complete false"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0065/IntakeProbe.lean",
+      "exit_code": 0,
+      "result": "generic Jordan-Holder APIs elaborated; axiom report propext, Classical.choice, Quot.sound; no group theorem declared"
+    },
+    {
+      "command": "PYTHONPYCACHEPREFIX=/tmp/stage1-thm-m-0065-pycache python3 -m py_compile Stage1_Instances/THM-M-0065/check_intake.py",
+      "exit_code": 0,
+      "result": "scoped intake validator compiled"
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-0065/check_intake.py --worker-packet .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "structured intake, receipt, worker packet, pins, hashes, and open task DAG agree"
+    },
+    {
+      "command": "rg -n '\\b(sorry|admit|sorryAx|axiom|constant|opaque|unsafe)\\b' Stage1_Instances/THM-M-0065 --glob '*.lean'",
+      "exit_code": 1,
+      "expected_no_match": true,
+      "result": "no prohibited Lean construct"
+    },
+    {
+      "command": "git diff --check -- Stage1_Instances/THM-M-0065 .stage1-worker-selftest.json plus per-new-file git diff --no-index --check /dev/null",
+      "exit_code": 0,
+      "result": "no whitespace diagnostics"
+    }
+  ],
+  "root_vector_before": {
+    "H": "unclassified",
+    "M": "unclassified",
+    "R": "unclassified"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4",
+    "boundary": "provisional planned intake projection only; master acceptance pending"
+  },
+  "debt_vector_change_proposed": true,
+  "debt_vector_change_boundary": "The proposed H1/M3/R4 classification records open debt and generic interface feasibility only; it grants no accepted source, group statement, proof, or terminal state.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0065"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0065/README.md",
+    "Stage1_Instances/THM-M-0065/scope-map.md",
+    "Stage1_Instances/THM-M-0065/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0065/validation.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0065-INTAKE"
+  ],
+  "first_failed_gate": "master_acceptance_of_provisional_intake",
+  "retry_condition": "The integration lane independently rechecks the source and formal boundaries, reruns the structured recipes on the exact artifacts, recaptures content-addressed evidence, and accepts the node-specific intake receipt.",
+  "remaining_root_cut_set": [
+    "S56-M-0065-STATEMENT",
+    "S56-M-0065-ANCHOR_AUDIT",
+    "S56-M-0065-OBLIGATION_TREE",
+    "S56-M-0065-PROOF",
+    "S56-M-0065-VALIDATION",
+    "S56-M-0065-RELEASE"
+  ],
+  "known_failures": [
+    "the catalog does not define group composition series, exact domain, ordered binders, existence premise, endpoints, quotient construction, or factor-equivalence conclusion",
+    "the inspected modern source is not catalog-cited or immutable in-repository and lacks a completed correction, historical-genealogy, exact-domain, source-to-node, and independent-review audit",
+    "no canonical group Lean expression, expression/environment fingerprint, checked alternate encoding, or statement mutation exists",
+    "the close pinned abstract theorem lacks a faithful Subgroup G realization, proof-carrying successor normality, quotient-factor Iso transport, accepted wrapper, and terminal-body provenance closure",
+    "obligation registry, typed graphs, group proof, composition, readable reconstruction, hermetic replay, deterministic evidence bundle, independent verification, release, and master acceptance remain open"
+  ],
+  "owner": "Stage1 integration lane",
+  "reviewer_policy": "Independent group-theory, Lean, and integration review is required; this worker cannot accept its own receipt.",
+  "review_due": "before master acceptance or dependent statement execution",
+  "support_state": "provisional_worker_evidence_only",
+  "supersession_state": "current_until_any_invalidation_input_or_master_decision",
+  "revocation_state": "revocable_and_not_release_eligible",
+  "incident_path": "Stage1 integration lane rejects or supersedes the worker receipt and requests a fresh intake against corrected inputs.",
+  "invalidation_inputs": [
+    "catalog or source correction",
+    "canonical domain, composition-series, quotient, or equivalence decision",
+    "toolchain, dependency, assurance-profile, validator, or owned-artifact change"
+  ],
+  "status_boundary": "Worker-self-tested planned intake proposal only. This provisional receipt is neither content-addressed nor master-accepted and asserts no exact group statement, source-fidelity closure, group proof, audit completion, or theorem completion."
+}

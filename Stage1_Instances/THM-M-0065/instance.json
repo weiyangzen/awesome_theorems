@@ -1,0 +1,208 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0065",
+  "item_id": "S56-M-0065-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1096,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "若尔当-赫尔德定理",
+  "name_en": "Jordan-Holder theorem",
+  "canonical_name": "Jordan-Holder uniqueness of group composition factors",
+  "category": "代数学 / 群论",
+  "category_en": "algebra / group theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "群的合成列在同构意义下唯一",
+  "literal_source_claim_en": "A group's composition series is unique up to isomorphism.",
+  "source_attribution": "Camille Jordan and Otto Holder, 1889 (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "group_composition_factor_uniqueness_family_identified_but_exact_domain_series_encoding_source_mapping_and_group_transport_open",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For a source-selected finite group, or more generally a group admitting finite composition series, any two composition series have equal finite length and their simple successive quotient groups are isomorphic after a permutation of factors.",
+  "target_disposition": "requires_exact_source_and_group_composition_series_freeze_before_statement_or_proof_execution",
+  "statement_blocker": "The catalog does not define a composition series, fix finite-group versus conditional finite-length scope, choose chain orientation and endpoints, state successor normality and quotient simplicity, decide whether existence is included, or define uniqueness as a permutation matching quotient groups. Milne v4.01 is a strong modern source lead but is uncited and unreviewed. Pinned mathlib proves only the abstract JordanHolderLattice theorem and explicitly lacks the subgroup realization. Selecting an exact proposition now would invent or substitute proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Order.JordanHolder"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_exact_source_mapped_group_statement_and_checked_subgroup_transport_not_frozen",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must select a finite group G or an arbitrary group supplied with finite composition series, then freeze the carrier universe, Group and finiteness interfaces, proof-carrying subnormal chain representation, endpoints, quotient construction, and normality witnesses.",
+  "ordered_binders": [],
+  "quantifiers": [],
+  "hypotheses": [],
+  "conclusion": "Open: exact equal-length and factor-permutation conclusion, including the quotient group isomorphism type and whether existence is part of the root, is not selected.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no canonical proposition is frozen; the trivial group, simple groups, zero- and one-factor series, identical series, repeated isomorphic factors, infinite finite-length groups, chain orientation, and invalid repeated or nonsimple steps remain explicit statement decisions.",
+  "candidate_scope_not_credited": [
+    "Milne Theorem 6.2 for every finite group and two descending composition series",
+    "Milne Remark 6.3 for any group possessing a finite composition series",
+    "conditional uniqueness for two supplied finite composition series without separately proving existence",
+    "an ascending proof-carrying subgroup-series encoding transported to the descending source convention",
+    "the abstract CompositionSeries.jordan_holder theorem after a checked faithful group realization"
+  ],
+  "degenerate_cases_to_resolve": [
+    "the trivial group and a length-zero series",
+    "a simple group and its one-factor series",
+    "two definitionally equal or extensionally identical series",
+    "repeated isomorphic factors and the non-uniqueness of the matching permutation",
+    "finite groups where composition-series existence is derived versus supplied",
+    "infinite groups that possess finite composition series",
+    "descending source chains versus ascending Lean RelSeries orientation",
+    "repeated subgroup terms, nonsimple factors, and invalid quotient normality"
+  ],
+  "excluded_substitutions": [
+    "equality of composition-series lengths without isomorphism of quotient factors",
+    "existence of a composition series without uniqueness",
+    "Schreier refinement without the final composition-factor equivalence",
+    "chief, derived, central, global-normal, or arbitrary subgroup series",
+    "a module, category-theoretic, monoid, or abstract-lattice theorem without a checked group transport",
+    "a structure, predicate, hypothesis, or typeclass that assumes factor equivalence as data",
+    "the untrusted verified label, a declaration name, a #check, or an upstream URL as proof credit"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Order.JordanHolder",
+      "declarations": [
+        "JordanHolderLattice",
+        "CompositionSeries",
+        "CompositionSeries.Equivalent",
+        "CompositionSeries.Equivalent.length_eq",
+        "CompositionSeries.jordan_holder"
+      ],
+      "boundary": "close abstract lattice architecture, but no Subgroup G instance, proof-carrying successor normality, quotient-group Iso interpretation, source-domain transport, or exact group wrapper exists"
+    },
+    {
+      "module": "Mathlib.RingTheory.SimpleModule.Basic",
+      "declarations": [
+        "JordanHolderModule.instJordanHolderLattice"
+      ],
+      "boundary": "concrete submodule realization only; it cannot substitute for the group theorem"
+    }
+  ],
+  "source_status": "H1_complete_modern_proof_lead_identified_but_exact_catalog_domain_historical_genealogy_errata_source_mapping_and_independent_review_open",
+  "human_source_candidates_not_credited": [
+    {
+      "citation": "J. S. Milne, Group Theory, version 4.01 (2025), Definition 6.1, Theorem 6.2, and Remark 6.3(a), printed pages 87-89",
+      "candidate_summary": "finite-group Jordan-Holder theorem with equal lengths and a permutation matching quotient groups; conditional extension to groups with finite composition series",
+      "observed_copy_sha256": "826a86c9faebaa3a8f398655da515a0ee8cd922a05787fdc3a1f21a16db73633",
+      "status": "complete modern proof source lead; mutable author-hosted copy, one-day front-matter/revision-history date discrepancy, catalog provenance, errata, exact domain choice, and independent review remain open"
+    },
+    {
+      "citation": "O. Holder, Zuruckfuhrung einer beliebigen algebraischen Gleichung auf eine Kette von Gleichungen, Mathematische Annalen 34 (1889), 26-56, DOI 10.1007/BF01446791",
+      "candidate_summary": "historical primary lead whose reference list points to Jordan's 1870 treatise at pages 269-270",
+      "observed_crossref_sha256": "35cbb8661e80d3a3a675b017159c62528ff5a0d7eb7a918de5af07ded7735d0f",
+      "status": "bibliographic lead only; article theorem passage, definitions, proof, translation, corrections, and source-to-target mapping not inspected"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "75ab5edd624df749325d391b41b669f8d72774b2",
+    "repository_base_tree": "26562e2b8168d91a92a8164c9d8f0fc55178836e",
+    "repository_record": "Docs/researches/math_theorems.md:484-489",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1893-1918",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2ba7c42258be5f502acbdb74e0900874bb60763cb40885ac97aa2589d0edd3a0",
+    "execution_dag_sha256": "6fcc1d56e07b2a4063d9b69bea5bd27984b870701fe8a28c1674056f3a6dbf47",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "milne_group_theory_v4_01_sha256": "826a86c9faebaa3a8f398655da515a0ee8cd922a05787fdc3a1f21a16db73633",
+    "holder_crossref_response_sha256": "35cbb8661e80d3a3a675b017159c62528ff5a0d7eb7a918de5af07ded7735d0f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_jordan_holder_source_sha256": "ef0023ea3748db1f212b15f4cf2a284066e1ddd484b543b4b1dbb9a0252d9ef8",
+    "mathlib_simple_module_source_sha256": "52e9a925cdb769e6d5b2cc5116b16520a90254eabe8390cc3094e90e8ac34deb"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the abstract candidate reports propext, Classical.choice, and Quot.sound, but the exact group root, permitted principles, and accepted foundation profile remain downstream",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact group imports, transport declarations, terminal bodies, transitive dependencies, executable identities, and trust policy remain open",
+  "computation_profile": "No finite-group database, computer algebra system, oracle, native decision result, or unchecked certificate is credited; the expected route is ordinary kernel-checked group and lattice theory",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0065/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0065/README.md",
+    "Stage1_Instances/THM-M-0065/instance.json",
+    "Stage1_Instances/THM-M-0065/scope-map.md",
+    "Stage1_Instances/THM-M-0065/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0065/task-dag.json",
+    "Stage1_Instances/THM-M-0065/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0065/check_intake.py",
+    "Stage1_Instances/THM-M-0065/validation.md",
+    "Stage1_Instances/THM-M-0065/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent group-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Source and formal reviewers must independently approve the exact group domain, subnormal-series and quotient definitions, factor equivalence, boundary cases, primary-source genealogy, and Lean group transport; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source correction, historical attribution or translation finding, canonical group domain, series or quotient definition, binder order, boundary decision, Lean target or group transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0061",
+      "name": "Lagrange theorem",
+      "boundary": "subgroup-order divisibility does not establish composition-factor uniqueness"
+    },
+    {
+      "theorem_id": "THM-M-0063",
+      "name": "Cayley theorem",
+      "boundary": "permutation representation does not establish composition-factor uniqueness"
+    },
+    {
+      "theorem_id": "THM-M-0066",
+      "name": "Schur lemma",
+      "boundary": "module/representation simplicity does not replace the group composition-series theorem"
+    }
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog claim, inspected modern source lead, proposition-changing choices, abstract pinned candidate, missing group transport, and open downstream DAG. The API probe supplies M3 feasibility evidence but no exact canonical expression or group proof credit. No H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}
