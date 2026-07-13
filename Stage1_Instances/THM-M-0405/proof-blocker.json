@@ -2,28 +2,43 @@
   "schema_version": "stage1-proof-blocker/1.0",
   "item_id": "S56-M-0405-PROOF",
   "theorem_id": "THM-M-0405",
-  "base_revision": "bb6fb28ac1c55ecb52f3f1c84e7fbb35c26b47ad",
-  "base_tree": "ca999baf360c6ce2440bbc2c01aeb8d519269a90",
-  "recorded_at": "2026-07-14T00:04:29+08:00",
+  "base_revision": "4683af33601abf1185b47caafb86ccd3ddc30158",
+  "base_tree": "9b49ee18fec214315592ea125d7049e4ea668740",
+  "recorded_at": "2026-07-14T02:48:40+08:00",
   "canonical_target": "Stage1.THM_M_0405.Statement",
   "statement_sha256": "db2edf61040b73d00d4d3ab2b7dc227b6ec418793400bf79ac86edc79aa18da1",
   "obligation_tree_sha256": "d43df06faea8c463eb51898e02d8db6fa3c92f7b23cdb4c331d70d9be69c9c9b",
   "obligation_registry_sha256": "85019c33ea774fc20b6011a242f3853dc1a442c3a4cda5495d8df7a628cbd12d",
   "registry_denominator_sha256": "cd9daee4b82734d1e98e216a6371bd83f3fcff1a181e79381773133a6b9da793",
+  "typed_graphs_sha256": "a69a1ee0d5af3657b4807c6d737bc00dbcde74ea7b120bcad08a0c4a5251889b",
   "anchor_audit_sha256": "d23923ab22ce6bc50e4bdd534a1dadd332e8cd147f73306673e8d147318fbcd3",
   "toolchain": "leanprover/lean4:v4.29.0",
   "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
   "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
-  "outcome": "blocked",
+  "outcome": "partial_proof_root_blocked",
   "root_vector_before": {"H": "H1", "M": "M4", "R": "R3"},
   "root_vector_after": {"H": "H1", "M": "M4", "R": "R3"},
-  "proof_body_added": false,
+  "proof_body_added": true,
+  "partial_proof_receipt_id": "S56-M-0405-PROOF-local-20260713T184840Z",
+  "supported_obligation_ids": [],
+  "partial_progress_toward_obligation_ids": [
+    "M0405-N-PAIR-NORMALIZATION",
+    "M0405-T-LUCAS-ADAPTER",
+    "M0405-T-LEHMER-ADAPTER"
+  ],
+  "provisionally_closed_obligation_ids": [],
+  "accepted_closed_obligation_ids": [],
   "root_closed": false,
   "theorem_complete": false,
-  "first_failed_gate": "M0405-X-BHV-BRIDGE: neither the repository nor the pinned mathlib closure contains a placeholder-free Lean proof of the Bilu-Hanrot-Voutier primitive-divisor theorem, and no eligible immutable external Lean 4 terminal proof was identified to pin or import",
+  "first_failed_gate": "M0405-X-BHV-BRIDGE: neither the repository nor the pinned dependency closure contains a placeholder-free Lean proof of the Bilu-Hanrot-Voutier primitive-divisor theorem",
   "remaining_root_cut_set": [
     "M0405-X-BHV-BRIDGE"
   ],
+  "implemented_partial_bodies": {
+    "Stage1.THM_M_0405.ne_of_ratioNotRootOfUnity": "nontorsion quotient implies distinct pair components",
+    "Stage1.THM_M_0405.LucasPair": "nonzero and distinct components, nonzero denominator, discriminant identity, and terms zero and one",
+    "Stage1.THM_M_0405.LehmerPair": "nonzero and distinct components, both nonzero denominators, discriminant identities, and terms one and two"
+  },
   "expanded_missing_proof_packages": [
     "M0405-N-PAIR-NORMALIZATION",
     "M0405-C-CYCLOTOMIC-FACTOR",
@@ -40,18 +55,18 @@
     "M0405-X-PROVENANCE",
     "M0405-ROOT"
   ],
-  "available_checked_bodies": {
-    "Stage1.THM_M_0405.statement_of_branches": "local conditional conjunction composition requiring the complete exact LucasBranch and LehmerBranch as premises",
-    "Stage1.THM_M_0405.lucasBranch_of_statement": "exact left projection from an already supplied canonical root",
-    "Stage1.THM_M_0405.lehmerBranch_of_statement": "exact right projection from an already supplied canonical root"
-  },
   "candidate_assessment": {
-    "repo_local": "The owned dossier has the exact statement and conditional conjunction interface only. The legacy S1_M_018 module has object models, transports, and a Fibonacci index-3 toy proof, but explicitly has no n > 30 BHV existence body.",
-    "pinned_mathlib": "LucasLehmer and LucasPrimality contain non-target primality tests, while LinearRecurrence and cyclotomic modules are substrate only. A source search found no Bilu, Hanrot, Voutier, Zsigmondy, or primitive-divisor terminal theorem.",
-    "audited_external": "The prerequisite anchor audit found no eligible immutable Lean 4 terminal candidate. Its repository-metadata searches returned zero candidates, while the rate-limited code-search surface was honestly left unresolved rather than treated as negative evidence."
+    "repo_local": "The exact statement and conditional conjunction interface are present. Proof.lean adds genuine algebraic normalization leaves, but no primitive-divisor existence body.",
+    "pinned_mathlib": "LucasLehmer and LucasPrimality are different primality tests; recurrence and cyclotomic modules are substrate only. No terminal BHV or Zsigmondy declaration was found.",
+    "audited_external": "Fresh bounded Sourcegraph searches for BHV names, pair names, Zsigmondy, and primitive-divisor terminology returned no compatible Lean result. This is discovery evidence, not a universal nonexistence claim."
   },
-  "blocker": "Closing the exact target requires a new placeholder-free formalization of the frozen BHV normalization, cyclotomic/valuation bounds, large-index exclusion, and defective-pair classification, followed by both exact adapters; alternatively it requires an immutable compatible terminal Lean 4 proof integrated into the pinned closure. Assuming either branch or returning statement_of_branches would add premises and substitute a conditional theorem. The legacy Fibonacci index-3 result is a special case outside n > 30 and cannot receive root proof credit.",
-  "retry_condition": "Resume after the frozen BHV bridge and its dependencies are implemented locally without placeholders, or after discovery of an immutable compatible Lean 4 proof that can be pinned, transported to both exact branch predicates, and checked without changing the dependency lock.",
-  "status_boundary": "This record documents a proof-phase blocker. It is not a proof receipt, does not satisfy S56-M-0405-PROOF, proposes no state change, and must not be promoted to provisional or accepted completion.",
-  "selftest_manifest_written": false
+  "blocker": "The new local bodies establish only algebraic prerequisites. They do not produce a prime divisor, prove its discriminant and earlier-term exclusions, or close any entire frozen prose-level obligation. Closing the target still requires the cyclotomic/valuation bounds, large-index exclusion, defective-pair classification, common BHV bridge, and both exact adapters. Assuming a branch or using statement_of_branches as the proof would broaden the target with premises.",
+  "retry_condition": "Resume after exact typed signatures for the central planned packages are frozen and implemented without placeholders, or after an immutable compatible Lean 4 BHV proof is integrated and transported to both exact branch predicates.",
+  "known_prerequisite_inconsistencies": [
+    "obligation-tree.md reports 12 human-source-required obligations while the authoritative registry reports 11",
+    "typed-graphs.json names nonexistent obligation-graphs.json paths in owned_sources",
+    "the central planned package targets have prose descriptions rather than exact Lean signatures"
+  ],
+  "status_boundary": "This is provisional partial proof evidence only. Zero frozen obligations are claimed closed; the exact root remains M4, and no validation, release, audit, master, or theorem completion is claimed.",
+  "selftest_manifest_written": true
 }

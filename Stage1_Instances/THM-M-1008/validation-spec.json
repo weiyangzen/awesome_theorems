@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1008-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1008-VALIDATION",
+  "theorem_id": "THM-M-1008",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1008/check_validation.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LEAN_NUM_THREADS": "1",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean replay is executed by bubblewrap in an unshared network namespace with a read-only host and a fresh writable temporary output directory.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1008-ROOT",
+    "M1008-S-DEFINITIONS",
+    "M1008-S-BOUNDARY",
+    "M1008-S-FOUNDATION",
+    "M1008-N-CYLINDER",
+    "M1008-C-DISJOINT-BLOCK",
+    "M1008-L-IID-REINDEX",
+    "M1008-L-SYMMETRY-TRANSFER",
+    "M1008-L-BLOCK-INDEPENDENCE",
+    "M1008-L-LIMIT-FACTOR",
+    "M1008-T-SELF-INDEPENDENCE",
+    "M1008-X-ZERO-ONE",
+    "M1008-T-ASSEMBLE",
+    "M1008-X-SOURCE",
+    "M1008-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1008.HewittSavageZeroOneTarget",
+    "Stage1Instances.THM_M_1008.zeroOne_of_selfIndependence",
+    "Stage1Instances.THM_M_1008.root_of_selfIndependencePackage",
+    "Stage1Instances.THM_M_1008.hewittSavageZeroOneTarget",
+    "Stage1Instances.THM_M_1008.Validation.exactRootTypeProbe"
+  ],
+  "allowed_observed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "release_grade": false,
+  "scope_boundary": "Network-isolated temporary-source replay over the existing pinned warm dependency closure, exact-type and transitive-sorry probes, local source hashes, and direct-import provenance. It evaluates cold empty-cache offline reproduction, complete trust/provenance closure, and distinct-runner independent verification fail-closed."
+}
