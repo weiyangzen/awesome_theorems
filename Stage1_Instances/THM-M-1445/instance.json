@@ -1,0 +1,204 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1445",
+  "item_id": "S56-M-1445-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1122,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "高斯消元法",
+  "name_en": "Gaussian elimination",
+  "canonical_name": "Gaussian elimination for linear systems (repository method label)",
+  "category": "其他重要领域 / 数值分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "高斯消元法",
+  "literal_source_claim_zh": "线性方程组的直接解法",
+  "literal_source_claim_en": "A direct method for linear systems.",
+  "source_attribution": "Carl Friedrich Gauss, 1810 (catalog metadata only; attribution boundary disputed by the inspected historical lead)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_an_algorithm_family_and_purpose_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only a method name and purpose. It fixes no coefficient domain, matrix shape, right-hand side, elementary-operation model, pivot policy, output normal form, behavior on singular or inconsistent systems, ordered binders, correctness relation, termination, complexity, or numerical-stability conclusion. Selecting solution-set preservation, echelon existence, executable solver correctness, parametric classification, or triangular factorization would invent proposition-changing mathematics and may collide with the distinct LU target THM-M-1446.",
+  "target_decision": "redirect the catalog method label to a corrected, independently reviewed, source-selected exact proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Matrix.Transvection",
+      "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+      "Mathlib.Tactic.Linarith.Oracle.SimplexAlgorithm.Gauss"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix exact or finite-precision coefficients, square or rectangular matrices, row and column index types and universes, an optional right-hand side, an algorithmic state or relation, pivot policy, and all algebraic and decidability assumptions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose solution-set preservation, echelon or reduced-echelon existence, diagonal reduction, unique-solution computation, singular-system classification, termination, operation count, backward error, stability, or a conjunction of these results.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No boundary case is excluded at intake because no proposition is selected; the statement phase must resolve every empty, singular, rectangular, inconsistent, free-variable, zero-pivot, permutation, and arithmetic case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "each elementary row operation preserves the solution set of an affine linear system",
+    "every finite matrix over a field can be reduced to row-echelon or reduced row-echelon form",
+    "a specified executable Gaussian-elimination algorithm terminates and returns a complete solution or inconsistency certificate",
+    "every invertible square system is solved by elimination and back substitution",
+    "a homogeneous system is represented by a basic/free-variable tableau",
+    "Gaussian elimination produces an LU or pivoted PLU factorization",
+    "a finite-precision pivoted algorithm satisfies an operation-count or backward-stability bound"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty, zero-row, zero-column, and one-dimensional systems",
+    "zero, identity, singular, and invertible square matrices",
+    "overdetermined, underdetermined, consistent, and inconsistent affine systems",
+    "homogeneous systems, free variables, and nonunique solutions",
+    "zero pivots, row and column permutations, and pivot selection ties",
+    "exact fields versus division rings and finite-precision coefficients",
+    "row echelon, reduced row echelon, diagonal, tableau, triangular-factor, and solution outputs"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1446 LU decomposition or THM-M-0047 LU decomposition theorem",
+    "matrix invertibility, determinant nonvanishing, rank-nullity, or unique solvability alone",
+    "Cramer's rule, matrix inverse computation, QR, Cholesky, or another solver",
+    "two-sided transvection diagonalization presented as row-only affine-system correctness",
+    "a homogeneous rational meta tableau implementation presented as a general kernel-checked correctness theorem",
+    "fixed-dimension examples, floating-point experiments, timing benchmarks, or residual checks",
+    "a structure or hypothesis storing the desired output or correctness result",
+    "the untrusted catalog label 已验证 or the discovery probe treated as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1446",
+      "name": "LU分解",
+      "relationship": "separately cataloged numerical-analysis triangular factorization; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0047",
+      "name": "LU分解定理",
+      "relationship": "separately cataloged linear-algebra factorization theorem; its corrected root and counterexample do not select this algorithm target"
+    }
+  ],
+  "source_status": "H5_repository_method_gloss_only_no_cited_source_or_stable_truth_valued_proposition;_historical_specification_lead_inspected",
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Joseph F. Grcar, How Ordinary Elimination Became Gaussian Elimination, Historia Mathematica 38(2) (2011), 163-218, DOI 10.1016/j.hm.2010.06.003, arXiv:0907.2397",
+      "candidate_locator": "arXiv v4 PDF observed 2026-07-13, Section 1.2 and Section 3.3; sha256 e1e0509ea763a44327ce521c39851fdab6e69178ddd6a09de66ab15841f4b2f2",
+      "candidate_summary": "distinguishes the canonical equivalent-system/upper-triangular/back-substitution schoolbook algorithm, the triangular-factorization technical view, and Gauss's 1810 least-squares calculation context",
+      "status": "inspected family and attribution lead only; catalog identity, corrected published edition, proposition selection, full assumptions, errata, preservation policy, node mapping, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Transvection",
+      "declaration": "Matrix.transvection_mul_apply_same",
+      "boundary": "checked semantics for adding a multiple of one row to another; one local operation only"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Transvection",
+      "declaration": "Matrix.Pivot.exists_list_transvec_mul_mul_list_transvec_eq_diagonal",
+      "boundary": "two-sided row and column transvection reduction of a square field matrix to diagonal form; no affine solution-set, executable solver, or substitution conclusion"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+      "declaration": "Matrix.inv_mulVec_eq_vec",
+      "boundary": "invertible matrix-vector solving interface only; does not implement or characterize elimination"
+    },
+    {
+      "module": "Mathlib.Tactic.Linarith.Oracle.SimplexAlgorithm.Gauss",
+      "declaration": "Mathlib.Tactic.Linarith.SimplexAlgorithm.Gauss.getTableau",
+      "boundary": "meta implementation for a homogeneous system and basic/free tableau; no located kernel correctness theorem and no catalog-selected scope"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "b4e1220a37cc10a96534cfd411e3b29523d7fd81",
+    "repository_base_tree": "a67dd08a83c396119f4762e0ff109cd0df43ee60",
+    "repository_record": "Docs/researches/math_theorems.md:10553-10558",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39298-39323",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "3e9229f052da96d1350c797be33f64837b784973cfe904f143f0a12b0f4260b1",
+    "stage0_projection_excerpt_sha256": "f2047316e33d302535b6f49beb697dc367a03132b71018496ee57ddce337f5d3",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "4c9b425b87ebb98c488fa5bb237018a16d9dc04757c89d2012f5e93d6e546c2c",
+    "execution_dag_sha256": "0f1a74af1e415166719dd8c440a31fa96428b549f761156eaefe185c54c171e6",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_transvection_source_sha256": "edd3aba3ce58ff197b3daceb43a56333eebe2bba59dabf08c9a6f19400c0a0b6",
+    "mathlib_nonsingular_inverse_source_sha256": "0ea4aa9845e8e72bf948cfa433dec75e90ded79dc9c5450ba671bcee6074dab9",
+    "mathlib_gauss_meta_source_sha256": "084a0a12447cb9415bec243e47689421513844c1caf7966618329ddc6455eddb",
+    "inspected_grcar_arxiv_pdf_sha256": "e1e0509ea763a44327ce521c39851fdab6e69178ddd6a09de66ab15841f4b2f2"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; choice, decidable pivot selection, coefficient algebra, matrix index order, quotient/extensionality, and finite-precision foundations remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declaration, transitive dependencies, meta/oracle boundary, runtime, and trust policy remain open",
+  "computation_profile": "No meta oracle, floating-point run, residual experiment, benchmark, generated approximation, native computation, or unchecked certificate is credited; any future executable algorithm must have a kernel-checked specification and correctness bridge",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1445/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1445/README.md",
+    "Stage1_Instances/THM-M-1445/instance.json",
+    "Stage1_Instances/THM-M-1445/scope-map.md",
+    "Stage1_Instances/THM-M-1445/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1445/task-dag.json",
+    "Stage1_Instances/THM-M-1445/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1445/check_intake.py",
+    "Stage1_Instances/THM-M-1445/validation.md",
+    "Stage1_Instances/THM-M-1445/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent history/source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned numerical-linear-algebra reviewer",
+    "reviewer_policy": "Independent reviewers must approve the selected proposition, source edition and attribution boundary, every algorithmic binder and conclusion, neighboring LU scope, and formal relationship; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier and externally observed source PDF have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected theorem, source edition or erratum, coefficient domain, system shape, right-hand side, operation and pivot policy, normal form, solver/certificate output, correctness/termination/complexity/stability conclusion, boundary case, LU-neighbor reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog method gloss as not yet a stable proposition; it does not refute established Gaussian-elimination results. The inspected source lead and pinned probe are discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

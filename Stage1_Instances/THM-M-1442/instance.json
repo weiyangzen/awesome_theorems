@@ -1,0 +1,200 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1442",
+  "item_id": "S56-M-1442-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1121,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "二分法",
+  "name_en": "Bisection method",
+  "canonical_name": "Bisection method for equation root finding (repository method label)",
+  "category": "其他重要领域 / 数值分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "二分法",
+  "literal_source_claim_zh": "方程求根的线性方法",
+  "literal_source_claim_en": "A linear method for finding roots of equations.",
+  "source_attribution": "Many mathematicians, antiquity (catalog metadata only; not a source citation)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_root_finding_method_and_rate_class_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only a method label, purpose, and the adjective linear. It fixes no function, domain, initial bracket, continuity or sign hypotheses, exact recurrence, endpoint-root convention, midpoint or branch rule, approximant, convergence notion, rate or error inequality, stopping criterion, arithmetic model, ordered binders, or conclusion. Choosing root existence, bracket preservation, nested-interval convergence, a geometric error bound, an iteration-complexity theorem, or finite-precision correctness would invent proposition-changing mathematics.",
+  "target_decision": "redirect the catalog method label to a corrected, independently reviewed, source-selected exact proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Topology.Order.IntermediateValue",
+      "Mathlib.Analysis.SpecificLimits.Basic"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the scalar or ordered topological domain, function and codomain, initial interval, arithmetic representation, and all universes and typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose root existence, recurrence well-definedness, sign-bracket invariance, interval nesting, convergence, a linear-rate or error bound, iteration complexity, stopping correctness, or a conjunction of these results.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No boundary case is excluded at intake because no proposition is selected; the statement phase must resolve every bracket, endpoint, midpoint, sign, root, tolerance, and arithmetic case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the intermediate value theorem proving existence of a root in a sign-changing interval",
+    "an exact-arithmetic recurrence that chooses one half of a bracket at each step",
+    "preservation of an ordered sign-changing bracket and nesting of successive intervals",
+    "convergence of endpoints or selected midpoints to some root",
+    "an interval-width or approximation-error bound of geometric order two to the negative iteration count",
+    "a finite iteration bound for a positive tolerance",
+    "finite-precision algorithm correctness, termination, and rounding robustness"
+  ],
+  "degenerate_cases_to_resolve": [
+    "reversed or equal initial endpoints and an empty or singleton domain",
+    "a root at either endpoint or exactly at a midpoint",
+    "same-sign endpoints, zero sign products, and alternative bracket orientations",
+    "discontinuous functions or continuity only on the current interval",
+    "multiple roots, flat zero intervals, and uniqueness versus convergence to some root",
+    "midpoint tie and branch conventions, including which endpoint is retained",
+    "zero or negative tolerance, zero iterations, and exact versus strict error inequalities",
+    "exact real arithmetic versus rational, interval, floating-point, or other approximate arithmetic"
+  ],
+  "excluded_substitutions": [
+    "the intermediate value theorem alone, which establishes root existence but not a bisection recurrence, invariant, rate, error bound, or solver correctness",
+    "THM-M-1440 Newton iteration, THM-M-1441 secant method, or THM-M-1443 fixed-point iteration",
+    "a binary-search theorem for monotone discrete data or an unrelated bisection implementation in a tactic",
+    "a theorem that assumes the desired root, bracket invariant, convergence, estimate, or correctness",
+    "a constant, affine, or polynomial toy example presented as the general method theorem",
+    "a finite sampled trajectory, plot, floating-point experiment, or empirical stopping event",
+    "the untrusted catalog label 已验证 as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1440",
+      "name": "牛顿迭代法",
+      "relationship": "separately cataloged derivative-based root-finding method; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1441",
+      "name": "割线法",
+      "relationship": "separately cataloged secant root-finding method; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-1443",
+      "name": "不动点迭代",
+      "relationship": "separately cataloged fixed-point iteration method; representing bisection as an iteration does not merge the targets"
+    }
+  ],
+  "source_status": "H5_repository_method_gloss_only_no_primary_source_or_stable_truth_valued_proposition",
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declaration": "intermediate_value_Icc",
+      "boundary": "continuous interval image theorem; it can yield root existence under oriented endpoint inequalities but defines no bisection sequence and proves no invariant, convergence rate, error bound, complexity, or solver correctness"
+    },
+    {
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declaration": "intermediate_value_Icc'",
+      "boundary": "reverse-oriented intermediate-value theorem; it is the other sign orientation, not a selected algorithm theorem"
+    },
+    {
+      "module": "Mathlib.Topology.Order.IntermediateValue",
+      "declaration": "intermediate_value_uIcc",
+      "boundary": "unordered-interval intermediate-value theorem; it still supplies only an existence substrate"
+    },
+    {
+      "module": "Mathlib.Analysis.SpecificLimits.Basic",
+      "declaration": "tendsto_pow_atTop_nhds_zero_of_lt_one",
+      "boundary": "generic geometric-decay result; a future proof must first define and relate bisection errors to such a sequence"
+    },
+    {
+      "module": "Mathlib.Tactic.NormNum.Irrational",
+      "declaration": "Tactic.NormNum.findNotPowerCertificateCore",
+      "boundary": "unrelated metaprogram described as using bisection to find a natural power bound; it is a lexical false lead, not equation-root bisection"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "b4e1220a37cc10a96534cfd411e3b29523d7fd81",
+    "repository_base_tree": "a67dd08a83c396119f4762e0ff109cd0df43ee60",
+    "repository_record": "Docs/researches/math_theorems.md:10532-10537",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39217-39242",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "e8ee94242c3c55e59beeb63c72c735146cb048ea0eb1957f075c42eefe6929df",
+    "stage0_projection_excerpt_sha256": "78c4e5e1e094f9d40482ed7584a92069b7123003d69c348fa006aba7b1bce201",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "4c9b425b87ebb98c488fa5bb237018a16d9dc04757c89d2012f5e93d6e546c2c",
+    "execution_dag_sha256": "0f1a74af1e415166719dd8c440a31fa96428b549f761156eaefe185c54c171e6",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, real completeness, exact versus approximate arithmetic, and any computational certificate policy remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declaration, axioms, transitive dependency closure, numerical runtime, and trust policy remain open",
+  "computation_profile": "No numerical run, floating-point trajectory, interval computation, stopping event, oracle, generated approximation, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1442/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1442/README.md",
+    "Stage1_Instances/THM-M-1442/instance.json",
+    "Stage1_Instances/THM-M-1442/scope-map.md",
+    "Stage1_Instances/THM-M-1442/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1442/task-dag.json",
+    "Stage1_Instances/THM-M-1442/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1442/check_intake.py",
+    "Stage1_Instances/THM-M-1442/validation.md",
+    "Stage1_Instances/THM-M-1442/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned numerical-analysis reviewer",
+    "reviewer_policy": "Independent source, numerical-analysis, and formal reviewers must approve the selected proposition, source crosswalk, algorithm boundary, and formal target; the integration lane must separately approve ownership and neighboring-target scope before master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, selected theorem, function, domain, bracket, continuity or sign assumption, recurrence, endpoint or midpoint convention, approximant, convergence or rate conclusion, error or stopping rule, arithmetic model, boundary decision, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog method gloss as not yet a stable proposition; it does not refute established bisection theorems. The pinned API probe supplies discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

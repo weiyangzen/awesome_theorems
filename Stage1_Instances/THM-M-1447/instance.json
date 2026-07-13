@@ -1,0 +1,208 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1447",
+  "item_id": "S56-M-1447-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1124,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Cholesky分解",
+  "name_en": "Cholesky decomposition",
+  "canonical_name": "Cholesky decomposition theorem family with unresolved real/complex and factor-orientation boundary",
+  "category": "其他重要领域 / 数值分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "对称正定矩阵的分解",
+  "literal_source_claim_en": "Decomposition of a symmetric positive-definite matrix.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "catalog_identifies_the_Cholesky_family_but_is_not_binder_complete_and_does_not_select_real_or_complex_domain_factor_orientation_normalization_uniqueness_or_boundary_cases",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies no scalar domain, finite index/order, exact symmetry or positive-definiteness predicate, lower/upper factor orientation, transpose/conjugate-transpose convention, triangular predicate, diagonal normalization, uniqueness clause, or boundary cases. Choosing the conventional real, complex, lower, or upper theorem would add source-absent mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Matrix.PosDef",
+      "Mathlib.Analysis.InnerProductSpace.GramMatrix",
+      "Mathlib.Analysis.Matrix.LDL"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_missing_source_complete_statement",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_positive-definite-api-and-adjacent-LDL-wrapper-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix real symmetric versus complex Hermitian or another ordered star-field domain, a finite linearly ordered index type and universes, and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: existence, and possibly uniqueness, of a source-normalized lower or upper triangular factor satisfying an exact transpose or conjugate-transpose product identity.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before an exact proposition is source-selected; the statement phase must resolve every case in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "real finite symmetric positive-definite A with unique lower triangular L having positive diagonal and A = L * transpose L",
+    "complex finite Hermitian positive-definite A with unique lower triangular L having positive real diagonal and A = L * conjTranspose L",
+    "an upper triangular orientation A = transpose U * U or A = conjTranspose U * U",
+    "existence without uniqueness or diagonal normalization",
+    "positive-semidefinite rank-revealing Gram factorizations"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton finite index types",
+    "zero and identity matrices",
+    "singular and merely positive-semidefinite matrices",
+    "real versus complex scalar domains",
+    "lower versus upper triangular factors and product orientation",
+    "strictly positive diagonal normalization and uniqueness"
+  ],
+  "excluded_substitutions": [
+    "LU, LDU, QR, singular-value, Schur, spectral, polar, or Jordan decomposition",
+    "a positive matrix square root without the requested triangular factor",
+    "a positive-semidefinite or rank-deficient factorization silently replacing positive definiteness",
+    "invertibility, diagonal positivity, or Schur-complement results alone",
+    "factor-to-positive-definite implications used as factor-existence proof",
+    "fixed-size examples, floating-point algorithms, numerical residuals, or unchecked certificates",
+    "a structure or hypothesis storing the requested factor",
+    "the catalog's untrusted verified label or the intake probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1446",
+      "name": "LU分解",
+      "relationship": "general lower-times-upper elimination factorization is distinct from Cholesky"
+    },
+    {
+      "theorem_id": "THM-M-1448",
+      "name": "QR分解",
+      "relationship": "orthogonal/unitary-times-upper factorization is distinct"
+    },
+    {
+      "theorem_id": "THM-M-1449",
+      "name": "奇异值分解",
+      "relationship": "two-sided unitary diagonal factorization is distinct"
+    },
+    {
+      "theorem_id": "THM-M-0046",
+      "name": "QR分解定理",
+      "relationship": "earlier separate QR target; no evidence is shared"
+    },
+    {
+      "theorem_id": "THM-M-0047",
+      "name": "LU分解定理",
+      "relationship": "earlier separate LU target; no evidence is shared"
+    }
+  ],
+  "source_status": "H1_classical_Cholesky_family_and_authoritative_Netlib_source_lead_identified_but_no_catalog_citation_pinpoint_complete_crosswalk_errata_audit_or_independent_review",
+  "source_candidates_not_credited": [
+    {
+      "citation": "LAPACK Users' Guide, section 2.3.4, Computational Routines, Netlib",
+      "candidate_locator": "https://www.netlib.org/lapack/lug/node38.html observed 2026-07-13; sha256 f81af691fc5fa08f7f2e9a93943d03d3ad530c30c1f406c227208cd1a7039621",
+      "candidate_summary": "distinguishes symmetric/Hermitian positive-definite matrices and upper/lower Cholesky triangular factors",
+      "inspection_status": "authoritative source lead inspected; not catalog-cited, not a complete accepted mathematical crosswalk, no preservation receipt or independent review; not H0"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+      "declaration": "Matrix.PosDef",
+      "boundary": "exact positive-definiteness predicate and adjacent Hermitian, diagonal, invertibility, and factor-to-positive-definite results; no Cholesky existence theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.GramMatrix",
+      "declaration": "Matrix.posDef_gram_iff_linearIndependent",
+      "boundary": "positive-definite Gram characterization for a supplied vector family, not construction of a triangular factor from an arbitrary positive-definite matrix"
+    },
+    {
+      "module": "Mathlib.Analysis.Matrix.LDL",
+      "declaration": "LDL.lower_conj_diag",
+      "boundary": "constructs L and diagonal D with L * D * Lᴴ = S, but the module still lists triangularity of LDL.lower as a TODO and does not provide the normalized LLᴴ Cholesky theorem or uniqueness"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, real versus complex scalars, finite index ordering, and uniqueness principles remain open until a source-approved proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact target imports, terminal declarations, transitive dependencies, axioms, and trust policy remain open; the intake API probe is checked separately",
+  "computation_profile": "No floating-point Cholesky routine, experiment, oracle, unchecked certificate, generated approximation, or residual is credited; the intended theorem requires exact kernel-checked mathematics",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; no canonical Cholesky target is encoded",
+  "source_revisions": {
+    "repository_base": "b4e1220a37cc10a96534cfd411e3b29523d7fd81",
+    "repository_base_tree": "a67dd08a83c396119f4762e0ff109cd0df43ee60",
+    "repository_record": "Docs/researches/math_theorems.md:10567-10572",
+    "repository_record_excerpt_sha256": "15900dbefbb7745a587e6e7653ffe302aad22f139f576efeeb664ad1d71d5ec1",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:39352-39377",
+    "stage0_projection_excerpt_sha256": "07ad5908aef8c5ac6815de6d9d239d9a1e90c738cb4a6be8b9450b6d214af887",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "4c9b425b87ebb98c488fa5bb237018a16d9dc04757c89d2012f5e93d6e546c2c",
+    "execution_dag_sha256": "0f1a74af1e415166719dd8c440a31fa96428b549f761156eaefe185c54c171e6",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "matrix_posdef_source_sha256": "1cacbd8be084246e22537c32defd0e8325a104c02c970c4c7ed49769dbdcaa05",
+    "gram_matrix_source_sha256": "8a049a4e9c9097d852f74328339850ccea5e299efa4862ee64c29cb2c11eb68b",
+    "matrix_ldl_source_sha256": "aa35c22bbec7297b71adc1698506626520835012db568036d1b21d7492380df0",
+    "inspected_netlib_lug_section_2_3_4_html_sha256": "f81af691fc5fa08f7f2e9a93943d03d3ad530c30c1f406c227208cd1a7039621"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1447/README.md",
+    "Stage1_Instances/THM-M-1447/instance.json",
+    "Stage1_Instances/THM-M-1447/scope-map.md",
+    "Stage1_Instances/THM-M-1447/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1447/task-dag.json",
+    "Stage1_Instances/THM-M-1447/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1447/check_intake.py",
+    "Stage1_Instances/THM-M-1447/validation.md",
+    "Stage1_Instances/THM-M-1447/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned numerical-linear-algebra reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve the selected proposition, source crosswalk, domain, factor orientation, normalization, uniqueness, and formal boundary; the integration lane separately decides master acceptance."
+  },
+  "review_due": "before master acceptance or any dependent statement work",
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or errata finding, selected scalar/domain, finite index order, symmetry, positivity, triangularity, factor orientation, diagonal normalization, uniqueness or boundary convention, neighboring-target reconciliation, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-1447/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, source ambiguity, candidate family, adjacent pinned APIs, non-substitution boundary, and open task DAG. No canonical proposition, accepted source, exact-root proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
