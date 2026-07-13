@@ -33,8 +33,20 @@ surjectivity, drop the complex case, change binder scope, omit domain completene
 injectivity, and Lean distinguishes each from the root. This is statement identity evidence, not a
 proof.
 
-The vector remains `[H2, M3, R4]`: the exact Lean interface is frozen, while the printed proof gap,
-catalog identity, primary history, independent source review, formal anchor/provenance audit, and
-readable reconstruction remain open. `statement.json` and `statement-receipt.json` record the
-provisional node evidence. No H0, M0, R0, accepted proof state, audit completion, theorem
-completion, or master acceptance is claimed.
+The anchor audit has classified the exact pinned mathlib candidate, and the obligation-tree phase
+now freezes 29 semantic IDs across the visible Baire-category, rescaling, convergent-series, and
+open-image route. `typed-graphs.json` keeps proof, refinement, provenance, evidence, trust,
+documentation, and workflow edges separate. `ObligationTree.lean` checks the literal upstream
+terminal, same-field specialization adapter, and exact root composition; internal source-body
+relations remain explicitly unverified composition plans for the proof phase.
+
+`obligation-registry.json` is the frozen denominator authority. `typed-graphs.json`,
+`validation-specs.json`, `obligation-tree.md`, `obligation-tree-validation.md`, and
+`obligation-tree-receipt.json` record this provisional architecture and its validation boundary.
+Real and Complex are distinct semantic branches but share one generic mathlib terminal-body
+identity, so they cannot duplicate distinct-body credit.
+
+The vector remains `[H2, M3, R4]`: the exact candidate is only unaccepted `M1/E2` evidence, the
+printed human-source proof gap and independent review remain open, and no registry obligation is
+closed. No H0, M0, R0, accepted proof state, audit completion, theorem completion, release, or
+master acceptance is claimed.

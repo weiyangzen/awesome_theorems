@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0276-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0276",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0276-OBLIGATION-BUNDLE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0276/check_obligation_tree.py"
+      ],
+      "env_allowlist": {
+        "LC_ALL": "C",
+        "TZ": "UTC",
+        "PATH": "runner-provided tool path",
+        "HOME": "runner-provided toolchain home",
+        "TMPDIR": "runner-provided temporary directory",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "timeout_seconds": 240,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0276 obligation tree with generated obligation, edge, and ledger counts"
+        },
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains accepted root H2/M3/R4, zero closed obligations, and theorem_complete=false"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0276-ROOT",
+        "M0276-S-TARGET",
+        "M0276-S-BOUNDARY",
+        "M0276-S-OPEN-EXPANSION",
+        "M0276-S-FOUNDATION",
+        "M0276-N-SAME-FIELD",
+        "M0276-T-ASSEMBLE",
+        "M0276-T-ADAPTER",
+        "M0276-T-UPSTREAM",
+        "M0276-B-REAL",
+        "M0276-B-COMPLEX",
+        "M0276-T-ISOPENMAP",
+        "M0276-L-LOCAL-OPEN-BALL",
+        "M0276-L-EXACT-PREIMAGE",
+        "M0276-C-APPROX-SELECTION",
+        "M0276-L-RESIDUAL-GEOMETRIC",
+        "M0276-L-SUMMABLE-SERIES",
+        "M0276-L-TELESCOPE",
+        "M0276-L-LIMIT-IMAGE",
+        "M0276-L-APPROX-PREIMAGE",
+        "M0276-C-BAIRE-COVER",
+        "M0276-L-BAIRE-INTERIOR",
+        "M0276-L-RESCALE-SHELL",
+        "M0276-C-CLOSURE-PAIR",
+        "M0276-X-SOURCE",
+        "M0276-X-PROVENANCE",
+        "M0276-X-TRUST",
+        "M0276-X-READABLE",
+        "M0276-X-WORKFLOW"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0276.BanachOpenMappingTarget",
+        "Stage1Instances.THM_M_0276_Obligations.ExactRoot",
+        "Stage1Instances.THM_M_0276_Obligations.exactRoot_iff_canonicalStatementCopy",
+        "Stage1Instances.THM_M_0276_Obligations.terminal_adapter",
+        "Stage1Instances.THM_M_0276_Obligations.pinned_mathlib_terminal",
+        "Stage1Instances.THM_M_0276_Obligations.compose_root",
+        "ContinuousLinearMap.exists_approx_preimage_norm_le",
+        "ContinuousLinearMap.exists_preimage_norm_le",
+        "ContinuousLinearMap.isOpenMap"
+      ],
+      "coverage_boundary": "The recipe structurally covers every registry node, while kernel coverage is limited to the named statement, adapter, composition, and audited candidate declarations. Internal source-body compositions remain open."
+    }
+  ]
+}

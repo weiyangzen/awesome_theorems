@@ -1,0 +1,1386 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0912-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0912",
+  "registry_id": "THM-M-0912-OBLIGATIONS-v1",
+  "registry_denominator_sha256": "c66f1840e6d1bcc7b0a64f7ecdc24ee2f13adc10098ca8467cd238c649f7432b",
+  "root_node_id": "M0912-ROOT",
+  "edge_endpoint_namespace": "canonical obligation_id",
+  "edge_direction": "proof_requires is parent-to-child; reciprocal composes is child-to-parent",
+  "nodes": [
+    {
+      "node_id": "THM-M-0912-ROOT",
+      "obligation_id": "M0912-ROOT",
+      "kind": "root",
+      "human_statement": "For natural m and n with n <= m and 1 <= n, Pascal's predecessor recurrence holds in the DLMF summand order.",
+      "formal_target": "Stage1Instances.THM_M_0912.PascalIdentityTarget",
+      "output": "The exact frozen constrained Pascal-identity proposition.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 8,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Stage1Instances.THM_M_0912.PascalIdentityTarget",
+        "output": "The exact frozen constrained Pascal-identity proposition.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-root",
+      "validation_spec_id": "VAL-M0912-ROOT",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-S-INTERFACE",
+      "obligation_id": "M0912-S-INTERFACE",
+      "kind": "definition",
+      "human_statement": "Freeze natural row and column binders, premises n <= m and 1 <= n, and the source's predecessor-form conclusion.",
+      "formal_target": "Stage1Instances.THM_M_0912.PascalIdentityTarget",
+      "output": "The exact binder, domain, hypothesis, and conclusion interface.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 10,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Stage1Instances.THM_M_0912.PascalIdentityTarget",
+        "output": "The exact binder, domain, hypothesis, and conclusion interface.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-s-interface",
+      "validation_spec_id": "VAL-M0912-S-INTERFACE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0912/Statement.lean"
+      ],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-S-BOUNDARY",
+      "obligation_id": "M0912-S-BOUNDARY",
+      "kind": "branch",
+      "human_statement": "Include positive diagonals and exclude column zero and columns beyond the row.",
+      "formal_target": "pascalIdentityTarget_includes_diagonal; column_zero_is_excluded; out_of_range_is_excluded",
+      "output": "The complete source-domain boundary policy.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 12,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "pascalIdentityTarget_includes_diagonal; column_zero_is_excluded; out_of_range_is_excluded",
+        "output": "The complete source-domain boundary policy.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-s-boundary",
+      "validation_spec_id": "VAL-M0912-S-BOUNDARY",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0912/Statement.lean"
+      ],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-S-TRANSPORTS",
+      "obligation_id": "M0912-S-TRANSPORTS",
+      "kind": "transport",
+      "human_statement": "Relate the canonical target to the DLMF conjunction, reversed-summand, and restricted successor encodings without broadening the root.",
+      "formal_target": "pascalIdentityTarget_iff_dlmfConjunctionTarget; pascalIdentityTarget_iff_mathlibSummandOrderTarget; pascalIdentityTarget_iff_restrictedSuccessorTarget",
+      "output": "Three checked bidirectional statement transports.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "pascalIdentityTarget_iff_dlmfConjunctionTarget; pascalIdentityTarget_iff_mathlibSummandOrderTarget; pascalIdentityTarget_iff_restrictedSuccessorTarget",
+        "output": "Three checked bidirectional statement transports.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-s-transports",
+      "validation_spec_id": "VAL-M0912-S-TRANSPORTS",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0912/Statement.lean"
+      ],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-S-FOUNDATION",
+      "obligation_id": "M0912-S-FOUNDATION",
+      "kind": "certificate",
+      "human_statement": "Fix Lean natural-number recursion, equality, propositional extensionality policy, and the no-oracle computation boundary.",
+      "formal_target": "Lean 4.29.0 foundation and transitive axiom report",
+      "output": "An accepted foundation, computation, and TCB boundary.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 24,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Lean 4.29.0 foundation and transitive axiom report",
+        "output": "An accepted foundation, computation, and TCB boundary.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-s-foundation",
+      "validation_spec_id": "VAL-M0912-S-FOUNDATION",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-N-POSITIVE-ROW",
+      "obligation_id": "M0912-N-POSITIVE-ROW",
+      "kind": "normalization",
+      "human_statement": "Derive 0 < m from 1 <= n and n <= m.",
+      "formal_target": "Stage1Instances.THM_M_0912.ObligationTree.PositiveRowBridge",
+      "output": "The positive-row premise required by the pinned predecessor recurrence.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 4,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Stage1Instances.THM_M_0912.ObligationTree.PositiveRowBridge",
+        "output": "The positive-row premise required by the pinned predecessor recurrence.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-n-positive-row",
+      "validation_spec_id": "VAL-M0912-N-POSITIVE-ROW",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0912/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-N-SUMMAND-ORDER",
+      "obligation_id": "M0912-N-SUMMAND-ORDER",
+      "kind": "normalization",
+      "human_statement": "Commute the two natural summands returned by mathlib into the DLMF display order.",
+      "formal_target": "Stage1Instances.THM_M_0912.ObligationTree.SummandOrderBridge",
+      "output": "A checked equality transport from b + c to c + b.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 3,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Stage1Instances.THM_M_0912.ObligationTree.SummandOrderBridge",
+        "output": "A checked equality transport from b + c to c + b.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-n-summand-order",
+      "validation_spec_id": "VAL-M0912-N-SUMMAND-ORDER",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0912/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-L-CHOOSE-SUCC-RIGHT",
+      "obligation_id": "M0912-L-CHOOSE-SUCC-RIGHT",
+      "kind": "bridge",
+      "human_statement": "Expand a positive-row coefficient at a successor column into the two predecessor-row coefficients.",
+      "formal_target": "Nat.choose_succ_right",
+      "output": "The imported recurrence used inside Nat.choose_eq_choose_pred_add.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "pinned-mathlib:Nat.choose_succ_right",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 8,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Nat.choose_succ_right",
+        "output": "The imported recurrence used inside Nat.choose_eq_choose_pred_add.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-l-choose-succ-right",
+      "validation_spec_id": "VAL-M0912-L-CHOOSE-SUCC-RIGHT",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-L-POSITIVE-COLUMN-REINDEX",
+      "obligation_id": "M0912-L-POSITIVE-COLUMN-REINDEX",
+      "kind": "core_lemma",
+      "human_statement": "Represent a positive column as k + 1 and cancel the successor predecessor expression.",
+      "formal_target": "Nat.exists_eq_add_of_le'; Nat.add_one_sub_one",
+      "output": "The positive-column reindexing used by the terminal theorem body.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "pinned-mathlib:Nat.exists_eq_add_of_le'+Nat.add_one_sub_one",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 8,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Nat.exists_eq_add_of_le'; Nat.add_one_sub_one",
+        "output": "The positive-column reindexing used by the terminal theorem body.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-l-positive-column-reindex",
+      "validation_spec_id": "VAL-M0912-L-POSITIVE-COLUMN-REINDEX",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-T-PREDECESSOR-COMPOSE",
+      "obligation_id": "M0912-T-PREDECESSOR-COMPOSE",
+      "kind": "terminal",
+      "human_statement": "Compose the positive-column reindexing and choose_succ_right into the exact predecessor recurrence.",
+      "formal_target": "Nat.choose_eq_choose_pred_add",
+      "output": "The exact mathlib-order recurrence anchor.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "anchor-audit:M0912-C01-MATHLIB-PREDECESSOR",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 12,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Nat.choose_eq_choose_pred_add",
+        "output": "The exact mathlib-order recurrence anchor.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-t-predecessor-compose",
+      "validation_spec_id": "VAL-M0912-T-PREDECESSOR-COMPOSE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-T-ROOT-COMPOSE",
+      "obligation_id": "M0912-T-ROOT-COMPOSE",
+      "kind": "terminal",
+      "human_statement": "Consume row positivity, the predecessor recurrence, and summand-order transport to yield the frozen root.",
+      "formal_target": "Stage1Instances.THM_M_0912.ObligationTree.root_of_bridges_and_predecessorAnchor",
+      "output": "The architecture-local root, definitionally identical to the canonical target.",
+      "human_debt": "H1",
+      "machine_debt": "M0-L",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 8,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Stage1Instances.THM_M_0912.ObligationTree.root_of_bridges_and_predecessorAnchor",
+        "output": "The architecture-local root, definitionally identical to the canonical target.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-t-root-compose",
+      "validation_spec_id": "VAL-M0912-T-ROOT-COMPOSE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0912/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-X-SOURCE",
+      "obligation_id": "M0912-X-SOURCE",
+      "kind": "source_boundary",
+      "human_statement": "Pinpoint and independently review the exact primary human proof, assumptions, definitions, historical attribution, and errata.",
+      "formal_target": "primary-source packet and independent review pending",
+      "output": "Human-source coverage without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "primary-source packet and independent review pending",
+        "output": "Human-source coverage without machine proof credit.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-x-source",
+      "validation_spec_id": "VAL-M0912-X-SOURCE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-X-PROVENANCE",
+      "obligation_id": "M0912-X-PROVENANCE",
+      "kind": "certificate",
+      "human_statement": "Audit wrapper/body/conclusion identities, immutable source blobs, origin commits, imports, aliases, and licenses.",
+      "formal_target": "Nat.choose_eq_choose_pred_add at pinned mathlib plus transitive declarations",
+      "output": "Body-level provenance without duplicate semantic credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Nat.choose_eq_choose_pred_add at pinned mathlib plus transitive declarations",
+        "output": "Body-level provenance without duplicate semantic credit.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-x-provenance",
+      "validation_spec_id": "VAL-M0912-X-PROVENANCE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-X-TRUST",
+      "obligation_id": "M0912-X-TRUST",
+      "kind": "certificate",
+      "human_statement": "Audit Lean, mathlib, declaration axioms, compiled objects, unsafe and oracle boundaries, replay, and supply-chain trust transitively.",
+      "formal_target": "Lean 4.29.0; mathlib 8a178386; transitive closure pending",
+      "output": "Release-grade trust inventory without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 35,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Lean 4.29.0; mathlib 8a178386; transitive closure pending",
+        "output": "Release-grade trust inventory without mathematical proof credit.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-x-trust",
+      "validation_spec_id": "VAL-M0912-X-TRUST",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-X-READABLE",
+      "obligation_id": "M0912-X-READABLE",
+      "kind": "terminal",
+      "human_statement": "Provide and independently review a complete readable counting or recursive-definition proof mapped to every mathematical node.",
+      "formal_target": "node-specific readable reconstruction pending",
+      "output": "Readable coverage and reviewer decision without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 35,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "node-specific readable reconstruction pending",
+        "output": "Readable coverage and reviewer decision without machine proof credit.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-x-readable",
+      "validation_spec_id": "VAL-M0912-X-READABLE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0912-X-WORKFLOW",
+      "obligation_id": "M0912-X-WORKFLOW",
+      "kind": "certificate",
+      "human_statement": "Bind proof, validation, release, freshness, revocation, and independent-verification task acceptance.",
+      "formal_target": "Stage1 workflow receipts pending",
+      "output": "Workflow acceptance without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory-nat-recursion; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 20,
+      "semantic_step_ledger": {
+        "premises": "The exact formal context and only conclusions named by incoming proof_requires edges.",
+        "inference": "Stage1 workflow receipts pending",
+        "output": "Workflow acceptance without mathematical proof credit.",
+        "outgoing_use": "Only the declared proof parent or a typed non-proof support edge may consume this output."
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0912/obligation-tree.md#m0912-x-workflow",
+      "validation_spec_id": "VAL-M0912-X-WORKFLOW",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0912-OBLIGATION_TREE",
+        "S56-M-0912-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0912 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "REQ-M0912-ROOT-M0912-T-ROOT-COMPOSE",
+          "from": "M0912-ROOT",
+          "type": "proof_requires",
+          "to": "M0912-T-ROOT-COMPOSE",
+          "reciprocal_edge_id": "CMP-M0912-T-ROOT-COMPOSE-M0912-ROOT"
+        },
+        {
+          "edge_id": "CMP-M0912-T-ROOT-COMPOSE-M0912-ROOT",
+          "from": "M0912-T-ROOT-COMPOSE",
+          "type": "composes",
+          "to": "M0912-ROOT",
+          "reciprocal_edge_id": "REQ-M0912-ROOT-M0912-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "REQ-M0912-T-ROOT-COMPOSE-M0912-N-POSITIVE-ROW",
+          "from": "M0912-T-ROOT-COMPOSE",
+          "type": "proof_requires",
+          "to": "M0912-N-POSITIVE-ROW",
+          "reciprocal_edge_id": "CMP-M0912-N-POSITIVE-ROW-M0912-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "CMP-M0912-N-POSITIVE-ROW-M0912-T-ROOT-COMPOSE",
+          "from": "M0912-N-POSITIVE-ROW",
+          "type": "composes",
+          "to": "M0912-T-ROOT-COMPOSE",
+          "reciprocal_edge_id": "REQ-M0912-T-ROOT-COMPOSE-M0912-N-POSITIVE-ROW"
+        },
+        {
+          "edge_id": "REQ-M0912-T-ROOT-COMPOSE-M0912-T-PREDECESSOR-COMPOSE",
+          "from": "M0912-T-ROOT-COMPOSE",
+          "type": "proof_requires",
+          "to": "M0912-T-PREDECESSOR-COMPOSE",
+          "reciprocal_edge_id": "CMP-M0912-T-PREDECESSOR-COMPOSE-M0912-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "CMP-M0912-T-PREDECESSOR-COMPOSE-M0912-T-ROOT-COMPOSE",
+          "from": "M0912-T-PREDECESSOR-COMPOSE",
+          "type": "composes",
+          "to": "M0912-T-ROOT-COMPOSE",
+          "reciprocal_edge_id": "REQ-M0912-T-ROOT-COMPOSE-M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "REQ-M0912-T-ROOT-COMPOSE-M0912-N-SUMMAND-ORDER",
+          "from": "M0912-T-ROOT-COMPOSE",
+          "type": "proof_requires",
+          "to": "M0912-N-SUMMAND-ORDER",
+          "reciprocal_edge_id": "CMP-M0912-N-SUMMAND-ORDER-M0912-T-ROOT-COMPOSE"
+        },
+        {
+          "edge_id": "CMP-M0912-N-SUMMAND-ORDER-M0912-T-ROOT-COMPOSE",
+          "from": "M0912-N-SUMMAND-ORDER",
+          "type": "composes",
+          "to": "M0912-T-ROOT-COMPOSE",
+          "reciprocal_edge_id": "REQ-M0912-T-ROOT-COMPOSE-M0912-N-SUMMAND-ORDER"
+        },
+        {
+          "edge_id": "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-CHOOSE-SUCC-RIGHT",
+          "from": "M0912-T-PREDECESSOR-COMPOSE",
+          "type": "proof_requires",
+          "to": "M0912-L-CHOOSE-SUCC-RIGHT",
+          "reciprocal_edge_id": "CMP-M0912-L-CHOOSE-SUCC-RIGHT-M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "CMP-M0912-L-CHOOSE-SUCC-RIGHT-M0912-T-PREDECESSOR-COMPOSE",
+          "from": "M0912-L-CHOOSE-SUCC-RIGHT",
+          "type": "composes",
+          "to": "M0912-T-PREDECESSOR-COMPOSE",
+          "reciprocal_edge_id": "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-CHOOSE-SUCC-RIGHT"
+        },
+        {
+          "edge_id": "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-POSITIVE-COLUMN-REINDEX",
+          "from": "M0912-T-PREDECESSOR-COMPOSE",
+          "type": "proof_requires",
+          "to": "M0912-L-POSITIVE-COLUMN-REINDEX",
+          "reciprocal_edge_id": "CMP-M0912-L-POSITIVE-COLUMN-REINDEX-M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "CMP-M0912-L-POSITIVE-COLUMN-REINDEX-M0912-T-PREDECESSOR-COMPOSE",
+          "from": "M0912-L-POSITIVE-COLUMN-REINDEX",
+          "type": "composes",
+          "to": "M0912-T-PREDECESSOR-COMPOSE",
+          "reciprocal_edge_id": "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-POSITIVE-COLUMN-REINDEX"
+        }
+      ],
+      "out": {
+        "M0912-ROOT": [
+          "REQ-M0912-ROOT-M0912-T-ROOT-COMPOSE"
+        ],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [
+          "CMP-M0912-N-POSITIVE-ROW-M0912-T-ROOT-COMPOSE"
+        ],
+        "M0912-N-SUMMAND-ORDER": [
+          "CMP-M0912-N-SUMMAND-ORDER-M0912-T-ROOT-COMPOSE"
+        ],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [
+          "CMP-M0912-L-CHOOSE-SUCC-RIGHT-M0912-T-PREDECESSOR-COMPOSE"
+        ],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [
+          "CMP-M0912-L-POSITIVE-COLUMN-REINDEX-M0912-T-PREDECESSOR-COMPOSE"
+        ],
+        "M0912-T-PREDECESSOR-COMPOSE": [
+          "CMP-M0912-T-PREDECESSOR-COMPOSE-M0912-T-ROOT-COMPOSE",
+          "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-CHOOSE-SUCC-RIGHT",
+          "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-POSITIVE-COLUMN-REINDEX"
+        ],
+        "M0912-T-ROOT-COMPOSE": [
+          "CMP-M0912-T-ROOT-COMPOSE-M0912-ROOT",
+          "REQ-M0912-T-ROOT-COMPOSE-M0912-N-POSITIVE-ROW",
+          "REQ-M0912-T-ROOT-COMPOSE-M0912-T-PREDECESSOR-COMPOSE",
+          "REQ-M0912-T-ROOT-COMPOSE-M0912-N-SUMMAND-ORDER"
+        ],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      },
+      "in": {
+        "M0912-ROOT": [
+          "CMP-M0912-T-ROOT-COMPOSE-M0912-ROOT"
+        ],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [
+          "REQ-M0912-T-ROOT-COMPOSE-M0912-N-POSITIVE-ROW"
+        ],
+        "M0912-N-SUMMAND-ORDER": [
+          "REQ-M0912-T-ROOT-COMPOSE-M0912-N-SUMMAND-ORDER"
+        ],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [
+          "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-CHOOSE-SUCC-RIGHT"
+        ],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [
+          "REQ-M0912-T-PREDECESSOR-COMPOSE-M0912-L-POSITIVE-COLUMN-REINDEX"
+        ],
+        "M0912-T-PREDECESSOR-COMPOSE": [
+          "REQ-M0912-T-ROOT-COMPOSE-M0912-T-PREDECESSOR-COMPOSE",
+          "CMP-M0912-L-CHOOSE-SUCC-RIGHT-M0912-T-PREDECESSOR-COMPOSE",
+          "CMP-M0912-L-POSITIVE-COLUMN-REINDEX-M0912-T-PREDECESSOR-COMPOSE"
+        ],
+        "M0912-T-ROOT-COMPOSE": [
+          "REQ-M0912-ROOT-M0912-T-ROOT-COMPOSE",
+          "CMP-M0912-N-POSITIVE-ROW-M0912-T-ROOT-COMPOSE",
+          "CMP-M0912-T-PREDECESSOR-COMPOSE-M0912-T-ROOT-COMPOSE",
+          "CMP-M0912-N-SUMMAND-ORDER-M0912-T-ROOT-COMPOSE"
+        ],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "REF-ROOT-INTERFACE",
+          "from": "M0912-ROOT",
+          "type": "equivalent_to",
+          "to": "M0912-S-INTERFACE"
+        },
+        {
+          "edge_id": "REF-ROOT-BOUNDARY",
+          "from": "M0912-ROOT",
+          "type": "expository_decomposition",
+          "to": "M0912-S-BOUNDARY"
+        },
+        {
+          "edge_id": "REF-ROOT-TRANSPORTS",
+          "from": "M0912-ROOT",
+          "type": "transports",
+          "to": "M0912-S-TRANSPORTS"
+        }
+      ],
+      "out": {
+        "M0912-ROOT": [
+          "REF-ROOT-INTERFACE",
+          "REF-ROOT-BOUNDARY",
+          "REF-ROOT-TRANSPORTS"
+        ],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      },
+      "in": {
+        "M0912-ROOT": [],
+        "M0912-S-INTERFACE": [
+          "REF-ROOT-INTERFACE"
+        ],
+        "M0912-S-BOUNDARY": [
+          "REF-ROOT-BOUNDARY"
+        ],
+        "M0912-S-TRANSPORTS": [
+          "REF-ROOT-TRANSPORTS"
+        ],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "SRC-ROOT",
+          "from": "M0912-X-SOURCE",
+          "type": "source_map",
+          "to": "M0912-ROOT"
+        },
+        {
+          "edge_id": "SRC-PREDECESSOR",
+          "from": "M0912-X-SOURCE",
+          "type": "source_map",
+          "to": "M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "PROV-PREDECESSOR",
+          "from": "M0912-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "PROV-SUCC-RIGHT",
+          "from": "M0912-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0912-L-CHOOSE-SUCC-RIGHT"
+        }
+      ],
+      "out": {
+        "M0912-ROOT": [],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [
+          "SRC-ROOT",
+          "SRC-PREDECESSOR"
+        ],
+        "M0912-X-PROVENANCE": [
+          "PROV-PREDECESSOR",
+          "PROV-SUCC-RIGHT"
+        ],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      },
+      "in": {
+        "M0912-ROOT": [
+          "SRC-ROOT"
+        ],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [
+          "PROV-SUCC-RIGHT"
+        ],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [
+          "SRC-PREDECESSOR",
+          "PROV-PREDECESSOR"
+        ],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      }
+    },
+    "evidence": {
+      "edges": [
+        {
+          "edge_id": "EVID-ANCHOR",
+          "from": "M0912-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "EVID-WORKFLOW-ROOT",
+          "from": "M0912-X-WORKFLOW",
+          "type": "evidence_for",
+          "to": "M0912-ROOT"
+        }
+      ],
+      "out": {
+        "M0912-ROOT": [],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [
+          "EVID-ANCHOR"
+        ],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": [
+          "EVID-WORKFLOW-ROOT"
+        ]
+      },
+      "in": {
+        "M0912-ROOT": [
+          "EVID-WORKFLOW-ROOT"
+        ],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [
+          "EVID-ANCHOR"
+        ],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      }
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "TRUST-ROOT-FOUNDATION",
+          "from": "M0912-ROOT",
+          "type": "trusts",
+          "to": "M0912-S-FOUNDATION"
+        },
+        {
+          "edge_id": "TRUST-ROOT-CLOSURE",
+          "from": "M0912-ROOT",
+          "type": "trusts",
+          "to": "M0912-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-ANCHOR-CLOSURE",
+          "from": "M0912-T-PREDECESSOR-COMPOSE",
+          "type": "trusts",
+          "to": "M0912-X-TRUST"
+        }
+      ],
+      "out": {
+        "M0912-ROOT": [
+          "TRUST-ROOT-FOUNDATION",
+          "TRUST-ROOT-CLOSURE"
+        ],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [
+          "TRUST-ANCHOR-CLOSURE"
+        ],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      },
+      "in": {
+        "M0912-ROOT": [],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [
+          "TRUST-ROOT-FOUNDATION"
+        ],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [
+          "TRUST-ROOT-CLOSURE",
+          "TRUST-ANCHOR-CLOSURE"
+        ],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "DOC-READABLE-ROOT",
+          "from": "M0912-X-READABLE",
+          "type": "documents",
+          "to": "M0912-ROOT"
+        },
+        {
+          "edge_id": "DOC-READABLE-PREDECESSOR",
+          "from": "M0912-X-READABLE",
+          "type": "documents",
+          "to": "M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "DOC-SOURCE-ROOT",
+          "from": "M0912-X-SOURCE",
+          "type": "documents",
+          "to": "M0912-ROOT"
+        }
+      ],
+      "out": {
+        "M0912-ROOT": [],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [
+          "DOC-SOURCE-ROOT"
+        ],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [
+          "DOC-READABLE-ROOT",
+          "DOC-READABLE-PREDECESSOR"
+        ],
+        "M0912-X-WORKFLOW": []
+      },
+      "in": {
+        "M0912-ROOT": [
+          "DOC-READABLE-ROOT",
+          "DOC-SOURCE-ROOT"
+        ],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [
+          "DOC-READABLE-PREDECESSOR"
+        ],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": []
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "FLOW-PROOF",
+          "from": "M0912-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0912-T-PREDECESSOR-COMPOSE"
+        },
+        {
+          "edge_id": "FLOW-PROVENANCE",
+          "from": "M0912-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0912-X-PROVENANCE"
+        },
+        {
+          "edge_id": "FLOW-TRUST",
+          "from": "M0912-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0912-X-TRUST"
+        },
+        {
+          "edge_id": "FLOW-SOURCE",
+          "from": "M0912-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0912-X-SOURCE"
+        },
+        {
+          "edge_id": "FLOW-READABLE",
+          "from": "M0912-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0912-X-READABLE"
+        }
+      ],
+      "out": {
+        "M0912-ROOT": [],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [],
+        "M0912-X-PROVENANCE": [],
+        "M0912-X-TRUST": [],
+        "M0912-X-READABLE": [],
+        "M0912-X-WORKFLOW": [
+          "FLOW-PROOF",
+          "FLOW-PROVENANCE",
+          "FLOW-TRUST",
+          "FLOW-SOURCE",
+          "FLOW-READABLE"
+        ]
+      },
+      "in": {
+        "M0912-ROOT": [],
+        "M0912-S-INTERFACE": [],
+        "M0912-S-BOUNDARY": [],
+        "M0912-S-TRANSPORTS": [],
+        "M0912-S-FOUNDATION": [],
+        "M0912-N-POSITIVE-ROW": [],
+        "M0912-N-SUMMAND-ORDER": [],
+        "M0912-L-CHOOSE-SUCC-RIGHT": [],
+        "M0912-L-POSITIVE-COLUMN-REINDEX": [],
+        "M0912-T-PREDECESSOR-COMPOSE": [
+          "FLOW-PROOF"
+        ],
+        "M0912-T-ROOT-COMPOSE": [],
+        "M0912-X-SOURCE": [
+          "FLOW-SOURCE"
+        ],
+        "M0912-X-PROVENANCE": [
+          "FLOW-PROVENANCE"
+        ],
+        "M0912-X-TRUST": [
+          "FLOW-TRUST"
+        ],
+        "M0912-X-READABLE": [
+          "FLOW-READABLE"
+        ],
+        "M0912-X-WORKFLOW": []
+      }
+    }
+  },
+  "closure_boundary": {
+    "interface_checked_obligations": [
+      "M0912-N-POSITIVE-ROW",
+      "M0912-N-SUMMAND-ORDER",
+      "M0912-S-BOUNDARY",
+      "M0912-S-INTERFACE",
+      "M0912-S-TRANSPORTS",
+      "M0912-T-ROOT-COMPOSE"
+    ],
+    "candidate_only_obligations": [
+      "M0912-T-PREDECESSOR-COMPOSE"
+    ],
+    "accepted_closed_obligations": [],
+    "root_closed": false,
+    "root_machine_debt": "M3",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "M0912-T-PREDECESSOR-COMPOSE",
+      "M0912-X-SOURCE",
+      "M0912-S-FOUNDATION",
+      "M0912-X-PROVENANCE",
+      "M0912-X-TRUST",
+      "M0912-X-READABLE",
+      "M0912-X-WORKFLOW"
+    ],
+    "composition_certificates": [
+      "Stage1Instances.THM_M_0912.ObligationTree.positiveRowBridge_checked",
+      "Stage1Instances.THM_M_0912.ObligationTree.summandOrderBridge_checked",
+      "Stage1Instances.THM_M_0912.ObligationTree.predecessorRecurrence_of_chooseSuccRight_and_reindex",
+      "Stage1Instances.THM_M_0912.ObligationTree.root_of_bridges_and_predecessorAnchor"
+    ],
+    "reason": "Every root composition is conditional; the exact pinned predecessor anchor remains uninstalled and unaccepted until proof-phase and master validation."
+  }
+}

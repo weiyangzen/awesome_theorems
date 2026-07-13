@@ -1,0 +1,84 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "item_id": "S56-M-0821-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0821",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0821-OBLIGATION-BUNDLE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0821/check_obligation_tree.py"
+      ],
+      "env_allowlist": {
+        "PATH": "runner-provided tool path",
+        "HOME": "runner-provided toolchain home",
+        "TMPDIR": "runner-provided temporary directory",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "timeout_seconds": 240,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains structural PASS line with obligation, edge, ledger, certificate, and plan counts"
+        },
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains accepted root H1/M3/R4, zero closed obligations, theorem_complete=false"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0821-ROOT",
+        "M0821-S-INTERFACE",
+        "M0821-S-BOUNDARY",
+        "M0821-S-TRANSPORT",
+        "M0821-S-FOUNDATION",
+        "M0821-N-LOWER-MIDDLE",
+        "M0821-N-NO-OTHER",
+        "M0821-B-MAXIMUM",
+        "M0821-B-NO-CASES",
+        "M0821-C-MIDDLE-LAYER",
+        "M0821-C-MIDDLE-SIZED",
+        "M0821-L-MIDDLE-ANTICHAIN",
+        "M0821-L-MIDDLE-CARD",
+        "M0821-L-SPERNER-UPPER",
+        "M0821-L-CHOOSE-MIDDLE",
+        "M0821-L-LYM-INV",
+        "M0821-N-FIBERWISE-SLICES",
+        "M0821-L-LYM-CARD",
+        "M0821-L-FALLING-ZERO",
+        "M0821-C-FALLING",
+        "M0821-L-FALLING-TOP",
+        "M0821-B-FALLING-INDUCTION",
+        "M0821-L-SLICE-SHADOW",
+        "M0821-L-DISJOINT-SHADOW",
+        "M0821-L-LOCAL-LYM",
+        "M0821-L-LOCAL-LYM-MUL",
+        "M0821-C-SHADOW",
+        "M0821-L-DOUBLE-COUNT",
+        "M0821-T-ATTAIN",
+        "M0821-T-UPPER",
+        "M0821-T-ROOT-COMPOSE",
+        "M0821-X-SOURCE",
+        "M0821-X-PROVENANCE",
+        "M0821-X-TRUST",
+        "M0821-X-READABLE",
+        "M0821-X-WORKFLOW"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0821.SpernerMaximumTarget",
+        "IsAntichain.sperner",
+        "Stage1Instances.THM_M_0821_Obligations.middleLayerAntichain_of_sized",
+        "Stage1Instances.THM_M_0821_Obligations.attainment_of_middleLayer",
+        "Stage1Instances.THM_M_0821_Obligations.upperBound_of_sperner",
+        "Stage1Instances.THM_M_0821_Obligations.maximumSplit_of_packages",
+        "Stage1Instances.THM_M_0821_Obligations.compose_root",
+        "Stage1Instances.THM_M_0821_Obligations.root_of_terminal"
+      ],
+      "coverage_boundary": "The recipe structurally covers every registry node, but kernel declaration coverage is limited to the named target, terminal, candidate interfaces, and exact package compositions. Internal source-body child-to-parent compositions remain open."
+    }
+  ]
+}
