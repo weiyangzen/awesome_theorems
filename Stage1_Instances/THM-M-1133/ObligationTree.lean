@@ -1,5 +1,4 @@
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.InnerProductSpace.PiL2
+import «Stage1_Instances».«THM-M-1133».Statement
 
 /-!
 # THM-M-1133 conditional obligation composition

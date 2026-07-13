@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1143-PROOF",
+  "theorem_id": "THM-M-1143",
+  "base_revision": "3bb4cb3ae15dff8b48c93242019edec3bf858e48",
+  "base_tree": "8e911f5a101bd92eb0951794fa0d9a3c0c3a2ddc",
+  "recorded_at": "2026-07-14T02:29:13.094183264+08:00",
+  "outcome": "partial_proof_self_tested_root_blocked",
+  "canonical_target": "Stage1Instances.THM_M_1143.BoundedHarmonicIsConstant",
+  "canonical_target_expression_sha256": "e05a7b951bf36aedbc370a3f6ad2950c86b63b4d3a8af1d0e031290b62701610",
+  "registry_denominator_sha256": "af64903cdbdaa77c2ffcbbbf20f444870b91f6e032643c3994d35d2688c20eb7",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "proof_body_added": true,
+  "supported_subbranches": [
+    "M1143-N-BOUND",
+    "M1143-L-LIMIT",
+    "M1143-L-CONSTANT",
+    "M1143-T-ASSEMBLE"
+  ],
+  "closed_obligation_ids": [],
+  "root_vector_before": {
+    "H": "H4",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H4",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M1143-L-GRADIENT: no placeholder-free arbitrary-positive-dimensional interior gradient estimate for HarmonicOnNhd exists in the repository or pinned dependency closure",
+  "remaining_root_cut_set": [
+    "M1143-T-VANISH"
+  ],
+  "first_unavailable_substantive_leaf": "M1143-L-GRADIENT",
+  "candidate_assessment": {
+    "repo_local": "Proof.lean now implements uniform-bound normalization, reciprocal-radius decay to a zero Frechet derivative, the exact zero-derivative constancy package, and conditional root composition. InteriorGradientEstimatePackage remains explicitly uninhabited.",
+    "pinned_mathlib": "Pinned mathlib provides InnerProductSpace.bounded_harmonic_on_complex_plane_is_constant only for Complex as the domain. Its arbitrary finite-dimensional harmonic API provides definitions and elementary closure, but no n-dimensional mean-value, Poisson, maximum-principle, gradient-estimate, or bounded-harmonic Liouville theorem.",
+    "alternative_route": "The Fourier/tempered-distribution API lacks the required bridge from HarmonicOnNhd to distributional Laplacian zero and the zero-frequency support-to-bounded-polynomial constancy chain."
+  },
+  "blocker": "Closing the exact target requires a placeholder-free proof of the frozen arbitrary-dimensional interior gradient estimate, or an immutable compatible Lean 4 proof imported through an exact checked transport. The complex-plane theorem, the conditional InteriorGradientEstimatePackage wrapper, and the radius-limit body cannot substitute for that missing analytic theorem.",
+  "unblock_condition": "Implement M1143-L-GRADIENT locally without placeholders or integrate an immutable compatible Lean 4 terminal proof; then recheck M1143-T-VANISH, exact root composition, provenance, axioms, and the remaining rev-5.6 gates.",
+  "status_boundary": "This remaining-root blocker coexists with a self-tested partial proof receipt. It is not an exact-root proof receipt and makes no theorem-completion claim."
+}
