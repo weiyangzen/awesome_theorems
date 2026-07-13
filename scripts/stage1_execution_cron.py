@@ -50,7 +50,7 @@ PHASES = (
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 # This is both the lane-concurrency ceiling and the per-tick integration/refill ceiling.
-MAX_WORKERS = 80
+MAX_WORKERS = 1
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
 CODEX_SERVICE_TIER = "default"
@@ -359,28 +359,11 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def enforce_worker_cap(claims: list[dict[str, Any]], max_workers: int) -> list[dict[str, Any]]:
-    """Stop and retain evidence from live lanes outside a newly lowered cap."""
-    retired = 0
-    for claim in claims:
-        slot = claim.get("slot")
-        if claim.get("status") != "live" or not isinstance(slot, int) or slot <= max_workers:
-            continue
-        session = claim.get("session")
-        if isinstance(session, str):
-            run(["tmux", "kill-session", "-t", session], check=False)
-        claim["status"] = "cancelled"
-        claim["cancelled_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
-        claim["cancel_reason"] = f"worker_cap_reduced_to_{max_workers}"
-        try:
-            changed, snapshot = snapshot_blocked_worker(claim)
-            claim["cancelled_snapshot"] = str(snapshot)
-            claim["cancelled_snapshot_paths"] = changed
-        except ValueError as exc:
-            claim["cancelled_snapshot_rejection_reason"] = str(exc)
-        retired += 1
-    if retired:
-        save_claims(claims)
-        print(f"cap: cancelled {retired} live worker(s) outside 1..{max_workers}")
+    """Preserve existing lanes when the configured cap is lowered.
+
+    The cap controls new allocation only. In-flight workers retain their
+    worktree and finish naturally, preventing evidence loss on a downscale.
+    """
     return claims
 
 
@@ -856,10 +839,13 @@ def launch(max_workers: int) -> None:
     occupied_slots = {
         claim.get("slot")
         for claim in slot_reservations
-        if isinstance(claim.get("slot"), int) and 1 <= claim["slot"] <= max_workers
+        if isinstance(claim.get("slot"), int) and claim["slot"] >= 1
     }
-    available_slots = [slot for slot in range(1, max_workers + 1) if slot not in occupied_slots]
-    capacity = len(available_slots)
+    # On a downscale, existing workers are grandfathered until they finish.
+    # Do not backfill any lane until the live/pending population is below the
+    # new limit; then reuse the lowest free slot.
+    capacity = max(0, max_workers - len(slot_reservations))
+    available_slots = [slot for slot in range(1, max_workers + len(slot_reservations) + 1) if slot not in occupied_slots][:capacity]
     if capacity <= 0:
         print(f"tick: saturated ({len(live)} live, {len(slot_reservations) - len(live)} handoff pending/{max_workers} slots)")
         write_todo(data, ordered, claims)
