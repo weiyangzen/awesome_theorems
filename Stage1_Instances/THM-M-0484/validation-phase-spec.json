@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0484-VALIDATION",
+  "theorem_id": "THM-M-0484",
+  "depends_on": [
+    "S56-M-0484-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0484-NARROW-FAIL-CLOSED",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0484/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC"
+      },
+      "timeout_seconds": 300,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "reports narrow kernel, trust-observation, and direct-provenance passes; fail-closed authority, transitive TCB, cold-hermetic, and distinct-runner gates; audit_complete=false and theorem_complete=false"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0484-ROOT",
+        "M0484-T-ASSEMBLE",
+        "M0484-T-SUFFICIENCY",
+        "M0484-T-NECESSITY",
+        "M0484-X-PROVENANCE",
+        "M0484-X-TRUST",
+        "M0484-X-WORKFLOW"
+      ],
+      "covered_declarations": [
+        "lucas_lehmer_sufficiency",
+        "lucas_lehmer_necessity",
+        "Stage1Instances.THM_M_0484.ObligationTree.root_of_directions",
+        "Stage1Instances.THM_M_0484.ObligationTree.root_of_terminal",
+        "Stage1Instances.THM_M_0484.Proof.pinnedSufficiency",
+        "Stage1Instances.THM_M_0484.Proof.pinnedNecessity",
+        "Stage1Instances.THM_M_0484.Proof.assembledRoot",
+        "Stage1Instances.THM_M_0484.Proof.lucasLehmerCriterion",
+        "Stage1Instances.THM_M_0484.Validation.differentialResidueCriterion",
+        "Stage1Instances.THM_M_0484.Validation.differentialLucasLehmerCriterion"
+      ],
+      "scope_boundary": "Fresh temporary compilation of local modules against the pinned shared warm cache, exact axiom observation, terminal bodyless/unsafe scan, and direct source/olean provenance only. The network policy declares that the recipe needs no network; host-level denial, cold empty caches, full TCB/SBOM closure, and distinct-runner independence are not established and must fail closed. Covered obligation IDs are corroborated surfaces, not accepted per-node closure."
+    }
+  ]
+}

@@ -79,3 +79,30 @@ alternative, deduplicated routes rather than mandatory copies of one another. Ev
 leaf remains an explicit premise; the audited `IsConnected.image` candidate is not installed. The
 registry therefore preserves the accepted
 root `[H1, M3, R4]`, an empty accepted-proof set, and false audit/theorem completion flags.
+
+## Provisional proof and validation
+
+`Proof.lean` installs the pinned `IsConnected.image` body at the exact frozen global-continuity
+target and separately reconstructs the visible open-set argument through the frozen component
+packages. The direct wrapper, component route, and exact-assembly route all elaborate without
+placeholders. `Validation.lean` gives a separately written exact-target wrapper that imports
+neither the proof nor the obligation tree. The recorded narrow replays report only `propext`,
+`Classical.choice`, and `Quot.sound` for nontrivial declarations.
+
+These are provisional worker checks, not accepted proof or release evidence. The immutable graph
+snapshot predates proof installation and correctly remains `root_closed=false`; the proof and
+validation receipts propose closure without mutating accepted authority. Validation reused the
+shared warm pinned `.lake` artifacts and is neither a cold empty-cache replay nor an independent
+runner attestation. The accepted vector therefore remains `[H1, M3, R4]`, with no accepted receipt
+and both audit and theorem completion false.
+
+## Release reconciliation
+
+The exact worker-side release verdict is `blocked`. `S56-M-0626-VALIDATION` is only provisional
+`[_]`, `accepted=false`, and `release_grade=false`, so dependency acceptance is the first failed
+gate. `AUDIT-Z` is also false because independently accepted H0 source review and R0 readable
+reconstruction are absent. `THEOREM-Z` additionally lacks accepted provenance/foundation/TCB
+closure, a clean cold offline replay, complete SBOM and licenses, two independent signed runner
+attestations, an independently implemented verifier, required CI/mutation evidence, and a
+deterministic content-addressed release bundle. The release handoff advances no lifecycle, debt,
+receipt, audit, theorem-completion, or master state.
