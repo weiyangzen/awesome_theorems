@@ -1,0 +1,36 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1141-VALIDATION-WARM-ISOLATED-REPLAY-v1",
+  "item_id": "S56-M-1141-VALIDATION",
+  "theorem_id": "THM-M-1141",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1141/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 360,
+  "network_policy": "denied",
+  "network_enforcement": "The validator invokes the pinned Lean executable inside bubblewrap with --unshare-net, a read-only host bind, and only a fresh temporary directory writable.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact UTF-8 lines recorded by validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1141-L-POSITIVE",
+    "M1141-L-PROPAGATE",
+    "M1141-T-RATIO"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1141.positive_denominators_on_compact",
+    "Stage1Instances.THM_M_1141.ComparisonChain.endpoint",
+    "Stage1Instances.THM_M_1141.harnackInequality_of_analytic_package",
+    "Stage1Instances.THM_M_1141.Validation.positiveDenominatorsDirect",
+    "Stage1Instances.THM_M_1141.Validation.comparisonChainEndpointDirect"
+  ],
+  "coverage_boundary": "Network-isolated trust-zero warm-cache replay and same-worker import-dependent checks for three local packages only. The source-statement identity gate, analytic root, complete trust/provenance closure, cold hermetic release replay, and independent-runner gate remain fail-closed."
+}
