@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1148-VALIDATION-warm-network-isolated-v1",
+  "item_id": "S56-M-1148-VALIDATION",
+  "theorem_id": "THM-M-1148",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1148/check_validation.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_policy_scope": "Lean subrecipes only; this is not a recipe-level hermetic network guarantee",
+  "network_enforcement": "Every Lean subrecipe runs under bubblewrap --unshare-net; the outer Python metadata checker is not network-sandboxed and performs no network operation; source is copied to a temporary directory and the repository plus pinned dependency closure are read-only for Lean",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact ordered summary lines recorded in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1148-ROOT",
+    "M1148-X",
+    "M1148-T"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.poissonIntegral_eq_re_herglotzIntegral",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.herglotzIntegral_differentiableOn",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.poissonIntegral_harmonic",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.unitDiskExtension_harmonic",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.unitDiskExtension_eqOn_sphere",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.unitDiskExtension_continuousOn",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.unitKernelMass",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.unitPoissonKernel_nonneg",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.boundaryData_uniformContinuousOn",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.continuous_extension_of_sphere",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.invMobiusAngle_mobiusTransform_core",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.poissonIntegral_eq_circleAverage_mobiusTransform",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.mobiusTransform_tendsto_on_circle",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.circleAverage_mobiusTransform_tendsto",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.poissonIntegral_tendsto_boundary",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.bounded_continuous_extension_of_sphere",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.unitDiskConstruction",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.harmonicOnNhd_affine_pullback",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.continuousOn_affine_pullback",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.eqOn_affine_pullback",
+    "Stage1Instances.THM_M_1148.PoissonUnitDisk.generalDiskConstruction",
+    "Stage1Instances.THM_M_1148.Proof.interiorFormula_of_harmonicContOnCl_of_eqOn",
+    "Stage1Instances.THM_M_1148.Proof.dirichletExtension_to_root",
+    "Stage1Instances.THM_M_1148.Proof.rootTarget_to_frozen",
+    "Stage1Instances.THM_M_1148.Proof.dirichletExtension_to_frozen",
+    "Stage1Instances.THM_M_1148.Proof.dirichletExtension",
+    "Stage1Instances.THM_M_1148.Proof.poissonIntegralFormula",
+    "Stage1Instances.THM_M_1148.Proof.unitDiskConstruction_of_boundaryConvergence",
+    "Stage1Instances.THM_M_1148.Validation.reconstructedPoissonIntegralFormula"
+  ],
+  "coverage_boundary": "Replays the exact local root and all 28 proof-phase axiom probes, then rebuilds the root composition without importing Proof.lean. It observes kernel and direct local provenance only; it does not grant frozen per-node closure, prove complete transitive TCB provenance, provide a cold empty-cache build, or satisfy distinct-runner independent verification."
+}
