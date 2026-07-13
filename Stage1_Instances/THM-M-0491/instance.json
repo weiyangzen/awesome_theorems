@@ -1,0 +1,242 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0491",
+  "item_id": "S56-M-0491-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1368,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "梅纳德定理",
+  "name_en": "Maynard's theorem on small gaps between primes",
+  "canonical_name": "Maynard small-prime-gaps and bounded-prime-clusters theorem family",
+  "category": "数论 / 初等数论",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "素数间隙的上界改进",
+  "literal_source_claim_en": "Improvement of the upper bound on prime gaps.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_Maynard_2013_small_prime_gaps_family_but_catalog_does_not_select_one_of_the_distinct_quantitative_conditional_or_tuple_results",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only an attribution, year, and qualitative improvement gloss. Maynard's matching paper has inequivalent Theorems 1.1-1.4 and a separate sieve engine: general m-step bounds, tuple-density, an unconditional adjacent-gap bound of 600, and conditional Elliott-Halberstam bounds. The catalog fixes neither result, constant, gap notion, quantifiers, conditionality, source edition, nor indexing and liminf encoding. Selecting one proposition at intake would invent or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.NumberTheory.PrimeCounting",
+      "Mathlib.NumberTheory.SelbergSieve",
+      "Mathlib.NumberTheory.ArithmeticFunction.VonMangoldt"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_result_constant_quantifiers_conditionality_indexing_and_liminf_encoding",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: the approved source must fix positive versus zero-based naturals, one-based versus zero-based nth-prime indexing, the gap codomain and subtraction, finite-set and tuple encodings if relevant, real/asymptotic structures, filter and liminf conventions, and all universe and coercion choices.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: one approved result from the source family, such as the unconditional general m-step bound, the unconditional adjacent-gap bound 600, a positive-proportion tuple theorem, or an explicitly conditional level-of-distribution conclusion; no one result is selected.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; statement freeze must resolve all indexing, m=0, finite-prefix, equality, subtraction, asymptotic-constant, tuple-cardinality, and conditional-boundary cases listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "Maynard, Small gaps between primes, Theorem 1.1: for positive m, liminf of p_(n+m)-p_n is bounded by an absolute constant times m^3 exp(4m)",
+    "Maynard, Small gaps between primes, Theorem 1.2: a positive proportion of m-subsets in any sufficiently large finite set are prime tuples in the stated infinitude sense",
+    "Maynard, Small gaps between primes, Theorem 1.3: unconditionally liminf of adjacent prime gaps is at most 600",
+    "Maynard, Small gaps between primes, Theorem 1.4: under full level of distribution, adjacent and two-step liminf bounds 12 and 600",
+    "Maynard, Small gaps between primes, Propositions 4.2-4.3: the multidimensional sieve and variational criterion behind the headline consequences",
+    "the abstract's weaker finite-liminf consequence for every positive m"
+  ],
+  "degenerate_cases_to_resolve": [
+    "source positive natural m versus Lean Nat m=0",
+    "source one-based p_1=2 versus Lean zero-based Nat.nth Nat.Prime 0=2",
+    "m-step span and m+1 listed primes versus an interval containing at least m primes",
+    "natural subtraction versus integer, real, EReal, or another ordered codomain",
+    "finite prefixes and the meaning of liminf, frequently, infinitely often, eventually, and universally",
+    "strict versus non-strict numerical bounds, including equality at 600",
+    "absolute implied constant positivity and independence from m",
+    "empty or undersized finite sets, repeated or negative offsets, and denominator positivity in tuple forms",
+    "unconditional roots versus explicit Elliott-Halberstam or level-of-distribution premises"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0490 Zhang's 70000000 bounded-gap theorem",
+    "the twin-prime, Hardy-Littlewood prime-tuples, or Polignac conjecture",
+    "Bertrand's postulate, infinitude of primes, the prime number theorem, or a prime-counting bound",
+    "existence of one small pair of primes instead of infinitely many or a liminf conclusion",
+    "an eventual or universal bound on every adjacent gap instead of an infinite-subsequence liminf result",
+    "the conditional bound 12 asserted without its level-of-distribution premise",
+    "an unconditional Theorem 1.1 or 1.3 root weakened by adding Bombieri-Vinogradov or the sieve conclusion as a root hypothesis",
+    "an arbitrary increasing sequence assumed to enumerate primes",
+    "a structure, hypothesis, axiom, or field storing the desired bounded-gap conclusion",
+    "generic nth-prime, prime-counting, Selberg-sieve, or von Mangoldt substrate",
+    "the catalog's untrusted verified label or the discovery probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0488",
+      "name": "哈代-李特尔伍德猜想",
+      "relationship": "the prime k-tuples conjecture is stronger and open; Maynard proves bounded-cluster and positive-proportion approximation results, not the full conjecture"
+    },
+    {
+      "theorem_id": "THM-M-0489",
+      "name": "孪生素数猜想",
+      "relationship": "fixed gap two is not proved by Maynard's bounded adjacent-gap theorem"
+    },
+    {
+      "theorem_id": "THM-M-0490",
+      "name": "张益唐定理",
+      "relationship": "the separately scheduled 70000000 bound is historical context and a different root"
+    },
+    {
+      "theorem_id": "THM-M-0492",
+      "name": "波利尼亚克猜想",
+      "relationship": "infinitely many occurrences of every fixed even gap is a stronger open conjecture and not this theorem"
+    }
+  ],
+  "source_status": "H1_matching_primary_paper_and_headline_theorem_locators_inspected_but_catalog_to_exact_result_identity_complete_definition_assumption_correction_mapping_immutable_source_admission_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "James Maynard, Small gaps between primes, Annals of Mathematics 181 (2015), issue 1, pages 383-413, DOI 10.4007/annals.2015.181.1.7",
+      "candidate_locator": "official journal article and PDF; Theorems 1.1-1.4 on pages 384-386 and Propositions 4.2-4.3 on pages 388-390",
+      "candidate_summary": "complete published paper matching the author, 2013 preprint date, and small-prime-gap improvement family",
+      "inspection_status": "journal statement family inspected; catalog result selection, complete incorporated definition and proof-boundary mapping, lawful immutable preservation, correction and errata audit, and independent review remain open",
+      "observed_pdf_sha256": "3c24d010f00d1212418351b6f6baed9c94251a3ce958c36f56ebbc450ade9349",
+      "observed_pdf_size_bytes": 528115
+    },
+    {
+      "citation": "James Maynard, Small gaps between primes, arXiv:1311.4600",
+      "candidate_locator": "v1 submitted 2013-11-19; v3 dated 2019-10-28 and marked corrected typos",
+      "candidate_summary": "historical preprint origin explaining the catalog year and exposing revision-sensitive proof corrections",
+      "inspection_status": "v1 and v3 source leads inspected; the final admitted edition and correction relationship remain to be frozen",
+      "observed_v1_source_sha256": "f22c7cf10b89d3b97d521f98da460c0519743eae6b6c2a92797d862e23218067",
+      "observed_v3_source_sha256": "b9b9113d1fa1abb4781d1b4b93b3da80c01a10fbee1166ddc654f003c900a2df"
+    }
+  ],
+  "source_revision_notes": [
+    "Theorem statements 1.1-1.4 are present in v1 and the journal edition, but the proof text changed.",
+    "v1's Theorem 1.3 deduction writes M_105 > 2 although Proposition 4.3 and the journal proof require and state M_105 > 4.",
+    "v2 corrected the final counting denominator in the Theorem 1.2 proof; v3 is marked corrected typos.",
+    "The source notation uses positive naturals and one-based primes, requiring an explicit checked Lean index shift."
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "modules": [
+        "Mathlib.NumberTheory.PrimeCounting"
+      ],
+      "declarations": [
+        "Nat.nth",
+        "Nat.infinite_setOf_prime",
+        "Nat.prime_nth_prime",
+        "Nat.nth_strictMono",
+        "Nat.primeCounting",
+        "Nat.tendsto_primeCounting",
+        "Filter.frequently_atTop"
+      ],
+      "boundary": "prime-sequence and infinitude/filter substrate only; no fixed recurrent prime-gap bound or source-index transport"
+    },
+    {
+      "modules": [
+        "Mathlib.NumberTheory.SelbergSieve"
+      ],
+      "declarations": [
+        "BoundingSieve",
+        "SelbergSieve",
+        "BoundingSieve.siftedSum_le_mainSum_errSum_of_upperMoebius"
+      ],
+      "boundary": "generic one-dimensional Selberg upper-bound sieve interface, not Maynard's multidimensional weights, variational criterion, or bounded-gap conclusion"
+    },
+    {
+      "modules": [
+        "Mathlib.NumberTheory.ArithmeticFunction.VonMangoldt"
+      ],
+      "declarations": [
+        "ArithmeticFunction.vonMangoldt",
+        "ArithmeticFunction.vonMangoldt_apply_prime"
+      ],
+      "boundary": "arithmetic-function substrate only; no distribution-in-progressions or prime-gap result"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "997541734bb32f987fb15f163335a82512992120",
+    "repository_base_tree": "2c866b9d840d48c48ac839740c62d3b9440be0e5",
+    "repository_record": "Docs/researches/math_theorems.md:3602-3607",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:13460-13485",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_block_sha256": "30a55472bdb5ca0bd974a34138af22b39a3eb243b4b92cd7786def2a696e82bb",
+    "stage0_projection_block_sha256": "4207dce4d0f81d947831153f6b5943da4c48a7b4c500ee9f3adaf2efef8ecb26",
+    "manifest_entry_sha256": "8347518828b04e5dc3a49b1ef5943d211fc3571beedab68fa982686f0f8b776a",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2c66d377a102a7eadd62d2f08027250b93f3152fac6800ef9eff3854d3ebaf7e",
+    "execution_dag_sha256": "5cb34447671a155ad02ffe0c01c925b3bbd3fa32f6c91dcd9c56941c6481f66e",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_prime_counting_source_sha256": "ab721488feeb7d0e5668758e29e0ca20543e16e738f80b632c5cabe9e949ff25",
+    "mathlib_selberg_sieve_source_sha256": "4cc822bd3d2662636f0ae20824bbc4e5888c9812091de358bed9a8d64abbc034",
+    "mathlib_von_mangoldt_source_sha256": "346dfed0140f02bb746ddc92c298f39278e25056eb635f9bbfce45b83dcf4987"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, real and asymptotic analysis, filter liminf, finite-set counting, noncomputability, and any proof-dependency foundation requirements remain open until one proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, terminal declarations, transitive dependencies, axioms, native code or oracle boundaries, and trust policy remain open",
+  "computation_profile": "No numerical prime-gap experiment, unpublished tuple list, floating-point optimization, notebook result, external solver, oracle, or unchecked certificate is credited; any future finite computation must use an independently checked certificate under a frozen policy",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0491/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0491/README.md",
+    "Stage1_Instances/THM-M-0491/instance.json",
+    "Stage1_Instances/THM-M-0491/scope-map.md",
+    "Stage1_Instances/THM-M-0491/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0491/task-dag.json",
+    "Stage1_Instances/THM-M-0491/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0491/check_intake.py",
+    "Stage1_Instances/THM-M-0491/validation.md",
+    "Stage1_Instances/THM-M-0491/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, source result or edition selection, prime indexing, gap width or codomain, liminf or infinitude encoding, asymptotic constant, tuple-density, level-of-distribution premise, conditionality, degenerate-case, neighbor-boundary, Lean target, toolchain or dependency pin, assurance profile, validator, source review, or any owned artifact change; recapture worker evidence and require independent review and master acceptance.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. The inspected primary paper identifies a proved theorem family but the catalog does not select an exact result. The pinned API probe and bounded search are discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

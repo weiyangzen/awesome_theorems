@@ -1,0 +1,211 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0814",
+  "item_id": "S56-M-0814-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1373,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "最大流最小割定理",
+  "name_en": "Max-flow min-cut theorem",
+  "canonical_name": "Max-flow min-cut theorem family for finite capacitated networks",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "网络流的最大值等于最小割容量",
+  "literal_source_claim_en": "The maximum value of a network flow equals the minimum cut capacity.",
+  "source_attribution": "L. R. Ford / D. R. Fulkerson, 1956",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_max_flow_min_cut_family_with_pinpoint_primary_theorem_but_catalog_does_not_select_network_flow_cut_capacity_encoding_or_boundary_cases",
+  "canonical_claim": null,
+  "candidate_claim_not_credited_as_statement": "For a finite capacitated network with source and sink, the greatest value of a feasible source-to-sink flow equals the least capacity of a source-sink cut; the graph model, capacity codomain, flow representation, cut definition, extrema, binders, and boundary cases are not frozen.",
+  "statement_blocker": "The catalog gives only an equality gloss. The inspected 1956 theorem uses a finite undirected graph, positive numeric arc capacities, and nonnegative weighted simple source-to-sink chain flows, whereas a modern formal target may use directed edge flows and conservation. Selecting either encoding, or silently allowing zero capacities and different cut conventions, would invent proposition-changing details before source review and checked transport.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.Graph.Basic",
+      "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+      "Mathlib.Data.Finset.Max"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_mapped_network_flow_cut_and_extremum_definitions_not_frozen",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: the source-selected target must fix a finite graph or multigraph model, vertex and edge universes, source and sink, capacity codomain, flow representation, cut representation, and all required finiteness and decidability instances.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open as an exact expression: equality between the source-approved maximum feasible flow value and minimum source-sink cut capacity, including attainment if the selected formulation asserts maxima and minima.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake. The statement phase must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the original 1956 finite undirected arc-capacity and weighted-chain-flow theorem",
+    "a finite directed network with nonnegative edge capacities, flow conservation at nonterminals, and vertex-partition cuts",
+    "equality of suprema and infima when optimal values are not separately encoded as attained",
+    "existence of an optimal feasible flow and a minimum cut with equal values"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty vertex or edge types and networks with no source-to-sink path",
+    "source equal to sink or terminals outside the graph vertex set",
+    "loops, parallel edges, antiparallel edges, disconnected vertices, and circulations",
+    "zero capacities versus the paper's strictly positive capacities",
+    "natural, rational, real, nonnegative-real, or extended-nonnegative capacity values",
+    "empty or repeated chain-flow components and zero component weights",
+    "disconnecting edge sets versus vertex-partition cuts and inclusion-minimal cuts",
+    "attained maximum/minimum versus supremum/infimum",
+    "finite graph as data versus finite ambient vertex and edge types"
+  ],
+  "excluded_substitutions": [
+    "weak duality alone",
+    "Ford-Fulkerson, Edmonds-Karp, Dinic, or push-relabel correctness alone",
+    "the integral-flow theorem or an integer-capacity special case",
+    "Menger's theorem, Hall's marriage theorem, Konig's theorem, or linear-programming duality alone",
+    "the planar-network special case or shortest-path duality in later sections of the 1956 paper",
+    "a fixed finite network computation or solver result",
+    "a structure or hypothesis storing an optimal flow and cut",
+    "generic graph, summation, or maximum APIs from the intake probe",
+    "the catalog's untrusted verified label or the excluded THM-C-0096 record"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.Graph.Basic",
+      "declarations": ["Graph", "Graph.IsLink", "Graph.Inc", "Graph.banana"],
+      "boundary": "undirected multigraph incidence substrate only; no orientation, capacity, flow, cut, or root theorem"
+    },
+    {
+      "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+      "declarations": ["Finset.sum"],
+      "boundary": "generic finite summation only; it does not define flow value or cut capacity"
+    },
+    {
+      "module": "Mathlib.Data.Finset.Max",
+      "declarations": ["Finset.max'"],
+      "boundary": "generic maximum over a nonempty finite set only; no feasible-flow finiteness, optimum, or equality theorem"
+    }
+  ],
+  "bounded_formal_search": {
+    "scope": "repo-local Lean and pinned mathlib Lean sources",
+    "patterns": "max-flow, maximum flow, min-cut, minimum cut, network flow, Ford-Fulkerson, cut capacity, and identifier variants",
+    "result": "No exact network-flow or max-flow min-cut declaration was found. This is a bounded intake observation, not a global absence claim or the immutable downstream anchor audit."
+  },
+  "source_status": "H1_pinpoint_original_theorem_and_definitions_inspected_but_catalog_source_identity_modern_representation_transport_errata_complete_mapping_and_independent_review_open",
+  "primary_source_candidates_not_credited": [
+    {
+      "citation": "L. R. Ford, Jr. and D. R. Fulkerson, Maximal Flow Through a Network, Canadian Journal of Mathematics 8 (1956), 399-404, DOI 10.4153/CJM-1956-045-5",
+      "candidate_locator": "Section 1 definitions on printed pages 399-400; Theorem 1 on page 400; proof through page 402",
+      "candidate_summary": "for a finite undirected network with positive arc capacities and nonnegative weighted simple source-to-sink chain flows, the maximal flow value is the minimum value over disconnecting arc sets",
+      "observed_pdf_url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/5D6E55D3B06C4F7B1043BC1D82D40764/S0008414X00036890a.pdf/div-class-title-maximal-flow-through-a-network-div.pdf",
+      "observed_pdf_sha256": "344c1288f84ccddba6e292751813d613657c69fbe71b9bedb7b19df72a3bdf08",
+      "observed_text_sha256": "c70d333cecdfff7c0fdc30a7aae11b32e63bb4e6baab3384c5feab4d6d305ab5",
+      "status": "pinpoint primary-source lead only; repository citation identity, exact modern definition transport, correction and errata audit, complete proof-node mapping, immutable archive acceptance, and independent review remain open"
+    }
+  ],
+  "duplicate_and_neighbor_boundaries": [
+    {
+      "theorem_id": "THM-C-0096",
+      "relationship": "shorter computer-science duplicate gloss excluded from the rev-5.6 target manifest; provenance only"
+    },
+    {
+      "theorem_id": "THM-M-0813",
+      "relationship": "Menger's disjoint-path theorem may be related by reductions but is not a capacitated-flow equality"
+    },
+    {
+      "theorem_id": "THM-M-0815",
+      "relationship": "Hall's marriage theorem is a distinct matching criterion"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "adc87f8ea24dcc7c5e2668c0a5ede0ca5c5f0f55",
+    "repository_base_tree": "3c83596059f716cde0d50a5f6b390ada6ca7c8e1",
+    "repository_record": "Docs/researches/math_theorems.md:5984-5989",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:22226-22252",
+    "computer_science_duplicate_record": "Docs/researches/cs_theorems.md:171 and Docs/Stage0_Blueprint.md:84028-84053",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "2ce155ced2435749bdf77b568740948b36e3ff1712cfa05cb82d2313e392edc7",
+    "stage0_projection_excerpt_sha256": "4a5054ac1520746d537365ae956ca9336d03ef06cf03153ac55eb26f14606062",
+    "computer_science_record_excerpt_sha256": "aff68f0d89b728b4ed1684771a2adcffec4980e5826f1d638baec36d2b7dffbd",
+    "computer_science_stage0_excerpt_sha256": "0185286d5b88fd8e0df654917cb1ee3520f9ac97e228ba165787310e76d92282",
+    "manifest_entry_sha256": "7de117f4911b9150e64136d9f5a51ef23c9184f4284c2a614df3ab53f22ef580",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "d7052424d11786e40fb24aa5b0808979a8316a24969c6454a88e141fa154a799",
+    "execution_dag_sha256": "b813484def1df910000eb20eb93e4354d73f57d4e708a0267026f44687ee0406",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source_pdf_sha256": "344c1288f84ccddba6e292751813d613657c69fbe71b9bedb7b19df72a3bdf08",
+    "primary_source_text_sha256": "c70d333cecdfff7c0fdc30a7aae11b32e63bb4e6baab3384c5feab4d6d305ab5",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_graph_basic_source_sha256": "dc3f9c7793f8de09261868afeb7e1d8804914b90b1fc4615feb139f2452dd2b9",
+    "mathlib_finset_bigoperators_source_sha256": "ea7bf2258d1d628feaf1e480f173f5015f1cfbdec5234bf475b50cb0922e1fcb",
+    "lake_symlink_target_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, real-number order and compactness, finite optimization principles, and any accepted source-to-directed-flow transport remain open until the exact root is frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact minimal imports, terminal declarations, dependency closure, executable identities, and trust policy remain open",
+  "computation_profile": "No max-flow implementation, linear-programming solver, oracle, native evaluator, unchecked certificate, or fixed-network computation is credited; future computation requires an approved certificate and kernel replay policy",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0814/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0814/README.md",
+    "Stage1_Instances/THM-M-0814/instance.json",
+    "Stage1_Instances/THM-M-0814/scope-map.md",
+    "Stage1_Instances/THM-M-0814/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0814/task-dag.json",
+    "Stage1_Instances/THM-M-0814/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0814/check_intake.py",
+    "Stage1_Instances/THM-M-0814/validation.md",
+    "Stage1_Instances/THM-M-0814/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent network-flow reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Source and formal reviewers must independently approve the exact primary proposition, representation transport, binders, assumptions, extrema, and boundary choices; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source-edition or errata finding, graph, terminal, capacity, flow, cut, extrema, binder, transport, or boundary decision, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the literal catalog scope, pinpoint primary-source lead, representation choices, duplicate and neighbor boundaries, bounded formal discovery, adjacent pinned APIs, and open downstream DAG. No canonical expression, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
