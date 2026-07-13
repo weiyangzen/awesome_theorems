@@ -1,0 +1,128 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0061-RELEASE-local-20260713T111520+0800",
+  "item_id": "S56-M-0061-RELEASE",
+  "theorem_id": "THM-M-0061",
+  "execution_rank": 1093,
+  "phase": "release",
+  "intent": "release",
+  "base_revision": "b4e1220a37cc10a96534cfd411e3b29523d7fd81",
+  "base_tree": "a67dd08a83c396119f4762e0ff109cd0df43ee60",
+  "decided_at": "2026-07-13T11:15:20+08:00",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0061-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0061-VALIDATION-local-20260713T105841+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_accepted": false,
+    "receipt_release_grade": false,
+    "receipt_sha256": "64f823e0055d05afe1ea7fb69fc7fb5be3d3d62c0c1e1f2bd7388b82d8fb9297"
+  },
+  "authority_inputs": {
+    "Docs/Stage1_Blueprint_rev-5.6.md": "4c9b425b87ebb98c488fa5bb237018a16d9dc04757c89d2012f5e93d6e546c2c",
+    "Docs/Stage1_Targets_rev-5.6.json": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "0f1a74af1e415166719dd8c440a31fa96428b549f761156eaefe185c54c171e6",
+    "skills/execute-stage1-rev56/SKILL.md": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8"
+  },
+  "reconciled_inputs": {
+    "instance.json": "1b8c4b6b08faa5ab619880a3fc7826d0fb324d2c7b80de6e686796daa4954e5b",
+    "task-dag.json": "1ae0f73de9c404db7dd535bad7c098ada1a47296754c5979c094878688fa2cfb",
+    "statement.json": "b27ab2139df6f5a8dd45ad146c70438c93372e0039796466b34be5957c10f25b",
+    "obligation-registry.json": "9eb5592fa68b33d6dbb9003607a34c13236f9f78dbb8ea9a0d3df7ff47195451",
+    "typed-graphs.json": "ed8113cfc8540530a5f6743ca8a340fe116597f42a362101f7e4ecbf81d162a3",
+    "Proof.lean": "d9843be41f6ddb7c6cf335a1e242fb0444d37e478f7f7d5b9cb488e86f50fe94",
+    "proof-receipt.json": "0719b7584fef820bf61e2eedbf31635c60dde58182f39f16727ebaed02bd48c0",
+    "Validation.lean": "f0715d0a281586aaa3436c22cc66ba104afa5a0554d80c6f5241056550e0699a",
+    "validation-receipt.json": "64f823e0055d05afe1ea7fb69fc7fb5be3d3d62c0c1e1f2bd7388b82d8fb9297",
+    "validation-spec.json": "113f939e6c399c973cd00135d1e0a514eb3da9efa3bb50827e3fe6bcd61c5065",
+    "check_proof.sh": "26bb20b777ea052137c27231e93df212655ce84a2935f64e346ccfd928970c54"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0061-PROOF-local-20260713T104623+0800",
+    "S56-M-0061-VALIDATION-local-20260713T105841+0800"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "best_provisional_machine_evidence": {
+    "classification": "candidate_M0-L_and_M0-W_pending_authoritative_reconciliation_and_release_gates",
+    "exact_root_declarations": [
+      "Stage1Instances.THM_M_0061.Proof.lagrangeDivisibility",
+      "Stage1Instances.THM_M_0061.Proof.lagrangeDivisibility_mathlib"
+    ],
+    "pinned_terminal_body": "Subgroup.card_subgroup_dvd_card",
+    "terminal_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "boundary": "The exact root, expanded local composition, and pinned wrapper have real warm-cache kernel evidence. The accepted instance and graph nevertheless remain H1/M3/R4 with no accepted obligations, and the evidence is not release-grade E0/E1."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0061-VALIDATION is only a provisional [_] worker projection with accepted=false and release_grade=false, so release is not dependency-legal."
+  },
+  "first_failed_release_specific_gate": {
+    "gate_id": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+    "reason": "The worker snapshot has untracked release artifacts and a shared .lake symlink, so it is nonrelease input rather than an immutable clean release snapshot."
+  },
+  "next_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused the canonical shared warm .lake artifacts; no immutable empty-cache network-denied cold build or offline archive restoration was performed."
+  },
+  "remaining_root_cut_set": [
+    "dependency-ordered master acceptance of S56-M-0061-VALIDATION and every transitive phase receipt",
+    "reconciliation of the authoritative H1/M3/R4 instance and open typed graph with provisional exact-root proof evidence",
+    "accepted theorem-specific foundation policy and complete transitive declaration, provenance, axiom, trust, computation, and TCB closure",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata crosswalk, and independent source review for M0061-X-SOURCE",
+    "accepted R0 node-anchored readable reconstruction and independent reader review for M0061-X-READABLE",
+    "immutable clean source snapshot and empty-cache network-denied cold build with offline restoration",
+    "complete content-addressed SBOM, license closure, and durable dependency archive",
+    "two signed attestations from independently provisioned clean runners with no shared writable cache",
+    "independently implemented minimal release verifier and protected adversarial and mutation gates",
+    "deterministic content-addressed release bundle, clean public-state reconciliation, and master acceptance"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_and_root_kernel_replay": "provisional_same_worker_pass",
+    "expanded_local_composition": "provisional_same_worker_pass",
+    "pinned_exact_wrapper": "provisional_same_worker_pass",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "authoritative_dependency_acceptance": "missing",
+    "authoritative_graph_reconciliation": "missing",
+    "accepted_foundation_and_trust_closure": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_archive": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "worktree_classification": "nonrelease worker handoff: owned release artifacts are untracked and the automation-provided Formalizations/Lean/.lake symlink was pre-existing, shared, warm, and reused without modification",
+  "retry_condition": "First master-accept and reconcile the dependency chain, exact root, graph, H0, R0, foundation, provenance, trust, and TCB state. Then run a separately provisioned immutable release lane with cold offline restoration, complete SBOM/license evidence, two agreeing signed runners, an independent minimal verifier, protected adversarial CI, a reproducible deterministic bundle, and final master reconciliation.",
+  "status_boundary": "Self-tested negative release reconciliation only. It creates no accepted receipt or authoritative state transition and establishes neither AUDIT-Z nor THEOREM-Z, release, or theorem completion."
+}

@@ -1,0 +1,201 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0061-RELEASE-local-20260713T111520+0800",
+  "item_id": "S56-M-0061-RELEASE",
+  "theorem_id": "THM-M-0061",
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0061-VALIDATION"
+  ],
+  "base_revision": "b4e1220a37cc10a96534cfd411e3b29523d7fd81",
+  "base_tree": "a67dd08a83c396119f4762e0ff109cd0df43ee60",
+  "validated_at": "2026-07-13T11:15:20+08:00",
+  "attestor": "stage1-rev56-worker-slot2",
+  "owner": "Stage1 integration lane",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "release_grade": false,
+  "content_addressed_release_evidence": false,
+  "decision_id": "S56-M-0061-RELEASE-local-20260713T111520+0800",
+  "verdict": "blocked",
+  "input_bindings": {
+    "release-spec.json": "55b065ac550d7316588118f4a32c7e1ad484567ae1949c1e843cad51181afd6c",
+    "release-decision.json": "c8c699df8a0387d4ca6c210adda49c6d0f2a5d5fa7d5d439451b90e92f9e492c",
+    "check_release.py": "036f54b031362e2e4e9f27bd0ad659bcfdfef4e94ede9db4f009477c08b8eece",
+    "release-phase.md": "feaceb70974401f9f4081ac2e8f416439d05e8948be51872125bd9723be547c5",
+    "validation-receipt.json": "64f823e0055d05afe1ea7fb69fc7fb5be3d3d62c0c1e1f2bd7388b82d8fb9297",
+    "Proof.lean": "d9843be41f6ddb7c6cf335a1e242fb0444d37e478f7f7d5b9cb488e86f50fe94",
+    "lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake": "5.0.0-src+98dc76e",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_executable_sha256": "a608ff084d7e2af228b92a29d7c2fd083ba0580e46889175ec74a81678c98359",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_symlink_target_policy": "automation-provided canonical checkout cache; exact target is runtime-local and intentionally not published",
+    "network": "not_used; declared denied but not enforced by a kernel network namespace",
+    "dependency_cache": "automation-provided canonical pinned .lake symlink, shared warm and reused without modification",
+    "worktree_classification": "nonrelease worker handoff"
+  },
+  "recipe": {
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "-B",
+      "Stage1_Instances/THM-M-0061/check_release.py"
+    ],
+    "env_allowlist": {
+      "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC"
+    },
+    "timeout_seconds": 180,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "PASS S56-M-0061-RELEASE negative reconciliation; all fourteen proof declarations are sorry-free; dependency, audit, theorem, and release gates remain fail-closed.",
+    "narrow_kernel_replay": "pass_for_fourteen_sorry_free_proof_declarations",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "dependency_master_acceptance": "fail_closed",
+    "authoritative_root_state": "H1/M3/R4_open",
+    "audit_z": "fail_closed",
+    "theorem_z": "fail_closed",
+    "hermetic_release_gate": "fail_closed",
+    "supply_chain_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "deterministic_bundle_gate": "fail_closed",
+    "master_acceptance_gate": "pending",
+    "verdict": "blocked",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "output_evidence": {
+    "stdout_semantic_sha256": "3eb1d867b5ef4ad873458a54b9e3559fccf3ef578ff671e5737d8e0002255dea",
+    "expected_line_count": 5,
+    "exit_code": 0
+  },
+  "timing": {
+    "started_at": "2026-07-13T11:15:20+08:00",
+    "completed_at": "2026-07-13T11:35:57+08:00",
+    "duration_seconds": "not captured precisely; this prevents release-grade timing evidence"
+  },
+  "accepted_receipt_ids": [],
+  "known_failures": [
+    "The validation dependency and every predecessor receipt remain provisional rather than dependency-ordered master-accepted.",
+    "The authoritative planned instance and frozen graph retain H1/M3/R4, no accepted receipts, and an open root despite substantive provisional exact-root proof evidence.",
+    "Accepted theorem-specific foundation, complete transitive provenance, axiom, trust, TCB, and computation closure are absent.",
+    "Pinpoint primary-source H0 evidence and independently reviewed R0 reconstruction are absent.",
+    "The replay uses the automation-provided shared warm .lake artifact and a dirty worker handoff; it is not an immutable clean, cold empty-cache, network-denied offline release run.",
+    "The alternate adapter shares the pinned terminal proof body, worker, checkout, and cache; no distinct signed runner or independently implemented minimal release verifier exists.",
+    "No protected adversarial CI record, deterministic content-addressed bundle, second attestation, release-grade receipt, or master acceptance exists."
+  ],
+  "first_failed_gate": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+  "first_failed_release_gate": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+  "next_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "retry_condition": "First obtain dependency-legal master acceptance and reconcile the exact root, graph, provenance, H0, R0, foundation, and trust state. Then run a separately provisioned immutable release lane that closes cold offline reproduction, supply-chain, independent-verifier, deterministic-bundle, protected-CI, and final master gates.",
+  "remaining_root_cut_set": [
+    "dependency-ordered master acceptance and structured state reconciliation",
+    "accepted foundation, transitive provenance, axiom, trust, computation, and TCB closure",
+    "accepted H0 source crosswalk and R0 readable reconstruction",
+    "cold empty-cache network-denied offline reproduction",
+    "content-addressed SBOM, licenses, and restorable dependency archive",
+    "two independently provisioned signed runners and an independent minimal verifier",
+    "protected adversarial CI, deterministic release bundle, and master acceptance"
+  ],
+  "kernel_replayed_obligation_ids": [
+    "M0061-ROOT",
+    "M0061-S-INTERFACE",
+    "M0061-S-BOUNDARY",
+    "M0061-S-FINTYPE-TRANSPORT",
+    "M0061-T-FINITE-SCOPE",
+    "M0061-A-LAGRANGE",
+    "M0061-L-CARD-PRODUCT",
+    "M0061-L-NATCARD-PROD",
+    "M0061-L-NATCARD-CONGR",
+    "M0061-C-COSET-PRODUCT-EQUIV",
+    "M0061-C-FIBER-DECOMPOSITION",
+    "M0061-T-FIBER-TO-COSET",
+    "M0061-C-LEFT-COSET-EQUIV",
+    "M0061-T-SIGMA-PRODUCT"
+  ],
+  "canonical_obligation_ids": [
+    "M0061-ROOT",
+    "M0061-S-INTERFACE",
+    "M0061-S-BOUNDARY",
+    "M0061-S-FINTYPE-TRANSPORT",
+    "M0061-S-FOUNDATION",
+    "M0061-T-FINITE-SCOPE",
+    "M0061-A-LAGRANGE",
+    "M0061-L-CARD-PRODUCT",
+    "M0061-L-NATCARD-PROD",
+    "M0061-L-NATCARD-CONGR",
+    "M0061-C-COSET-PRODUCT-EQUIV",
+    "M0061-C-FIBER-DECOMPOSITION",
+    "M0061-T-FIBER-TO-COSET",
+    "M0061-C-LEFT-COSET-EQUIV",
+    "M0061-T-SIGMA-PRODUCT",
+    "M0061-X-SOURCE",
+    "M0061-X-PROVENANCE",
+    "M0061-X-TRUST",
+    "M0061-X-READABLE",
+    "M0061-X-WORKFLOW"
+  ],
+  "statement_fingerprint": "sha256:adff72e9052ea17e3b6e4349c23028f35f4b8e3c610ea5f9f3b4fc02fe136836",
+  "typed_graph_changes": "none; release only reconciles the still-open authoritative graph against provisional proof and validation evidence",
+  "composition_certificates": [
+    "Stage1Instances.THM_M_0061.ObligationTree.cosetProduct_of_fiber_engines",
+    "Stage1Instances.THM_M_0061.ObligationTree.cardProduct_of_engines",
+    "Stage1Instances.THM_M_0061.ObligationTree.divisibility_of_cardProduct",
+    "Stage1Instances.THM_M_0061.ObligationTree.finiteScope_of_arbitraryGroup",
+    "Stage1Instances.THM_M_0061.ObligationTree.root_of_finiteScope",
+    "Stage1Instances.THM_M_0061.Proof.cosetProductEquivalence",
+    "Stage1Instances.THM_M_0061.Proof.cardProductIdentity",
+    "Stage1Instances.THM_M_0061.Proof.lagrangeDivisibility"
+  ],
+  "actual_source_ownership": ["Stage1_Instances/THM-M-0061"],
+  "declaration_ownership": [],
+  "readable_ownership": ["Stage1_Instances/THM-M-0061/release-phase.md"],
+  "change_impact_set": ["S56-M-0061-RELEASE"],
+  "worker_reference": {
+    "worktree_class": "stage1-rev56 automation worker slot2",
+    "git_state": "detached HEAD",
+    "diff_summary": "six untracked worker artifacts: three JSON records, one Python checker, one Markdown handoff, and the root self-test packet; no tracked file changed"
+  },
+  "invalidation_inputs": [
+    "release-spec.json, release-decision.json, check_release.py, release-phase.md, or this receipt",
+    "the worker self-test packet or changed-path inventory",
+    "the canonical statement, obligation registry, typed graphs, proof, validation, or any predecessor receipt",
+    "the rev-5.6 blueprint, target manifest, execution DAG, or execution skill",
+    "Lean or Lake executable, toolchain, lake manifest, mathlib revision/tree, or .lake link target",
+    "source, readability, foundation, provenance, trust, TCB, SBOM, hermeticity, independence, bundle, or master-acceptance policy"
+  ],
+  "freshness": {
+    "review_due": "before any retry and upon every invalidation input change",
+    "supersession_state": "current provisional worker release receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "Stage1 integration lane"
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0061/check_release.py",
+    "Stage1_Instances/THM-M-0061/release-decision.json",
+    "Stage1_Instances/THM-M-0061/release-phase.md",
+    "Stage1_Instances/THM-M-0061/release-receipt.json",
+    "Stage1_Instances/THM-M-0061/release-spec.json"
+  ],
+  "status_boundary": "Self-tested negative release reconciliation only. This receipt is not accepted, release-grade, a complete deterministic bundle, independently attested, or evidence of AUDIT-Z, THEOREM-Z, release, or theorem completion."
+}
