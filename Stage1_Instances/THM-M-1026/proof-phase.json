@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-proof-phase/1.0",
+  "item_id": "S56-M-1026-PROOF",
+  "theorem_id": "THM-M-1026",
+  "base_revision": "d3d4bc991fae237427b8ac391bbe701dca8f2af2",
+  "base_tree": "51d54892f625b3b42e3b0c2c6b3c8e173c4ad166",
+  "validated_at": "2026-07-14T04:07:26+08:00",
+  "canonical_expression_sha256": "e39476697d12d054b84ab39c07251418d449ba5ea094c2bb37df9850c7caff93",
+  "inputs": {
+    "proof_source_sha256": "fb6670299962b85b1fd46f56b2511c8e872ff906bee9e032eb707bde0fbd2830",
+    "statement_source_sha256": "f70d267d426daf28a4fbf912fa4215c5f27095a347fe714d83a4cd31eb605e8b",
+    "obligation_tree_source_sha256": "3429c56a3a6acaae51ca5858970e5337acbe5e312a32c4fe4cb42a4ea4bd19ed",
+    "obligation_registry_sha256": "35ab2cdaf9fe3175eef9871a78cee8f7c27d98f94087c80a868e132d9c83f415",
+    "typed_graphs_sha256": "f5cf4765e0825cb911fcb46f449ee0abd1264881c058ba9815567cadf82667d6",
+    "validation_specs_sha256": "180646d0ed9036a227eaaacd0b03203996189a36bd575d16821fdbfdf75004bd",
+    "anchor_audit_sha256": "c410a4e19149d6919ea6ef539c52585c26dfc3d5cc825d712f35fc57d36d42b8",
+    "registry_denominator_sha256": "e74cb65a6278468b7696e4ce10a93ccbe318c57ff57bf51b541680529880f3b2",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_binary_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1fb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "implemented_declarations": [
+    {
+      "declaration": "Stage1Instances.THM_M_1026.Proof.stable_normalizers",
+      "exact_type": "forall {nu : Measure Real}, IsStableLaw nu -> exists a b : Nat -> Real, (forall n, 0 < a n) and forall n, 2 <= n -> normalizedLaw (convPow nu n) (a n) (b n) = nu",
+      "obligation_id": "M1026-C-STABLE-WITNESS",
+      "obligation_statement_fingerprint": "planned:v1:sha256:0854310ff31816c345c3fe652a79c58e455ff73eeae40303529b3f2a7d137f76",
+      "classification": "repo_local_proof_body",
+      "terminal_root_body": false,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_1026.Proof.weaklyConverges_of_eventually_eq",
+      "exact_type": "forall {mu : Nat -> Measure Real} {nu : Measure Real}, (forall n, 2 <= n -> mu n = nu) -> WeaklyConverges mu nu",
+      "obligation_id": "M1026-L-CONSTANT-WEAK-LIMIT",
+      "obligation_statement_fingerprint": "planned:v1:sha256:44c758a8cb329c7a99f80844478835c59035400648feaf455ce3dc5cffc35914",
+      "classification": "repo_local_proof_body",
+      "terminal_root_body": false,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_1026.Proof.converseTerminal",
+      "exact_type": "Stage1Instances.THM_M_1026.ObligationTree.ConverseTerminal",
+      "obligation_id": "M1026-B-CONVERSE",
+      "obligation_statement_fingerprint": "planned:v1:sha256:a693c8e16a8319cd8df1c0177275bb28c033c268e63fdd3c3ce04f48dbd02af5",
+      "classification": "repo_local_terminal_branch_body",
+      "terminal_root_body": false,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_1026.Proof.converseTerminal",
+      "exact_type": "Stage1Instances.THM_M_1026.ObligationTree.ConverseTerminal",
+      "obligation_id": "M1026-T-CONVERSE",
+      "obligation_statement_fingerprint": "planned:v1:sha256:850429d522796419f4dcbed6c053cecdb79f62efb6bd46db269e0d40cda55944",
+      "classification": "repo_local_terminal_branch_body",
+      "terminal_root_body": false,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    }
+  ],
+  "closed_obligation_ids": [
+    "M1026-B-CONVERSE",
+    "M1026-C-STABLE-WITNESS",
+    "M1026-L-CONSTANT-WEAK-LIMIT",
+    "M1026-T-CONVERSE"
+  ],
+  "first_failed_gate": "M1026-C-BLOCK-DECOMPOSITION",
+  "remaining_root_cut_set": ["M1026-T-NECESSITY"],
+  "blocker": "The pinned closure contains convolution, characteristic-function, and Levy weak-convergence infrastructure, but no convergence-of-types theorem or generalized-CLT necessity body. Closing necessity requires a new block-decomposition and limit-comparison formalization without postulated analytic packages.",
+  "root_vector_before": {"H": "H2", "M": "M3", "R": "R4"},
+  "root_vector_after": {"H": "H2", "M": "M2", "R": "R4"},
+  "phase_self_tested": true,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipts": [],
+  "status_boundary": "The complete converse branch is locally kernel-checked. Necessity, exact root composition, master acceptance, validation, release, audit completion, and theorem completion remain open."
+}
