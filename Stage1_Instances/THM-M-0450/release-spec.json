@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0450-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0450-RELEASE",
+  "theorem_id": "THM-M-0450",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0450/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 360,
+  "network_policy": "partially_enforced_nested_lean_only",
+  "network_enforcement": "The release checker itself is not network-namespace isolated. It requests no network operation and replays the validation recipe, whose four Lean invocations use bubblewrap --unshare-net. The outer-process boundary and shared warm pinned dependency cache make this explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS S56-M-0450-RELEASE reconciliation and the exact blocked, unchanged terminal decision"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0450-ROOT",
+    "M0450-S",
+    "M0450-T-ASSEMBLE",
+    "M0450-B-WEAKMW",
+    "M0450-B-KUMMER",
+    "M0450-B-QUOTIENT",
+    "M0450-H-HEIGHT",
+    "M0450-H-NONNEG",
+    "M0450-H-PARALLEL",
+    "M0450-H-NORTHCOTT",
+    "M0450-X-TRANSPORT",
+    "M0450-X-SOURCE",
+    "M0450-X-PROVENANCE",
+    "M0450-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0450.ExactTarget",
+    "Stage1Instances.THM_M_0450.Proof.exactTarget_of_descent_packages",
+    "Stage1Instances.THM_M_0450.Validation.exactTarget_conditional_probe"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation plus the recorded network-denied narrow validation replay. It cannot accept its provisional dependency, construct weak Mordell-Weil or elliptic height inputs, close the exact root, supply H0/R0, complete provenance/TCB/SBOM closure, perform a cold offline build, provide independent attestations or a minimal verifier, assemble a deterministic release bundle, or establish AUDIT-Z or THEOREM-Z."
+}
