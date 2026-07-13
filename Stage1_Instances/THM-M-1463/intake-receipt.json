@@ -1,0 +1,221 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-1463-INTAKE-worker-selftest-20260713",
+  "item_id": "S56-M-1463-INTAKE",
+  "theorem_id": "THM-M-1463",
+  "phase": "intake",
+  "intent": "intake",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "content_addressing_boundary": "This mutable worker receipt is not accepted validation authority. The integration lane must recapture canonical content-addressed inputs, outputs, recipes, logs, and an accepted node receipt.",
+  "verdict": "no_state_change",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "integration lane",
+  "base_revision": "2d82479e32843fd52283dcd9bb305954729c1199",
+  "base_tree": "30134b43ab41e973d2558be90371bf18d6edb259",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1463/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1463/README.md",
+    "Stage1_Instances/THM-M-1463/check_intake.py",
+    "Stage1_Instances/THM-M-1463/instance.json",
+    "Stage1_Instances/THM-M-1463/intake-receipt.json",
+    "Stage1_Instances/THM-M-1463/scope-map.md",
+    "Stage1_Instances/THM-M-1463/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1463/task-dag.json",
+    "Stage1_Instances/THM-M-1463/validation.md"
+  ],
+  "input_bindings": {
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "c289bdc0ac996ea46d5572abf6fcf668914e0628aaef117c0b7fcbfe0cab6a4d",
+    "execution_dag_sha256": "a4b27794d9a08c4a1059302f4712e571d2b5489bb9e90942e5342bccfe5ab344",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "crossref_babuska_1973_sha256": "f6c73f1bbe6095ac594c7185186b1bd087d452f683ef60349b4f4ce6d9e4c8cf"
+  },
+  "owned_artifact_sha256": {
+    "Stage1_Instances/THM-M-1463/IntakeProbe.lean": "a39839615b46d8953af910afdfee52951335582605ea300698be665a44a16b97",
+    "Stage1_Instances/THM-M-1463/README.md": "6fa21617d27a6e34467596d56f253600526138075ed6fe4fb5aec69073022141",
+    "Stage1_Instances/THM-M-1463/check_intake.py": "f49f4293975015a78547a12ecdb412383989c5dd044bbfe704c8dd721e53b800",
+    "Stage1_Instances/THM-M-1463/instance.json": "fcc97873bb2ef52a3ad3c31f79791a44b53aaa702fb438e7aa61d9058a29f318",
+    "Stage1_Instances/THM-M-1463/intake-receipt.json": "self_referential_excluded_from_provisional_digest",
+    "Stage1_Instances/THM-M-1463/scope-map.md": "35e5d013b07f09b1361c01e97c9150a16b14f92c6ec87fdfada314ab1286f516",
+    "Stage1_Instances/THM-M-1463/source-statement-crosswalk.md": "6e11f7788883e67f9aca45ce6ef49ce882eb1314c4c40701fcb36acb7998f36c",
+    "Stage1_Instances/THM-M-1463/task-dag.json": "05b93733dbe258f15ac2e74f17b6aae114ffa5b6ea8dc2fa557fdff2f06731ce",
+    "Stage1_Instances/THM-M-1463/validation.md": "23078f8207f8114bf33e2f96a49728a45a6edfb19abc0b8d73c4bf85fb9e12b3"
+  },
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-1463-INTAKE-STRUCTURE",
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-1463/check_intake.py", "--worker-packet", ".stage1-worker-selftest.json"],
+      "env_allowlist": {},
+      "timeout_seconds": 60,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact_bytes_sha256"
+        }
+      ],
+      "covered_obligation_ids": ["S56-M-1463-INTAKE"],
+      "covered_declarations": []
+    },
+    {
+      "recipe_id": "S56-M-1463-INTAKE-LEAN-PROBE",
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1463/IntakeProbe.lean"],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact_bytes_sha256"
+        }
+      ],
+      "covered_obligation_ids": ["S56-M-1463-INTAKE"],
+      "covered_declarations": [
+        "ContinuousLinearMap",
+        "ContinuousLinearMap.opNorm_le_bound₂",
+        "ContinuousLinearMap.le_opNorm₂",
+        "Submodule.subtypeL",
+        "Submodule.orthogonalProjection",
+        "Submodule.orthogonalProjection_mem_subspace_eq_self",
+        "IsCoercive",
+        "IsCoercive.continuousLinearEquivOfBilin",
+        "IsCoercive.continuousLinearEquivOfBilin_apply",
+        "IsCoercive.unique_continuousLinearEquivOfBilin"
+      ]
+    }
+  ],
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1463",
+      "exit_code": 0,
+      "result": "rank 1140, planned, no legacy slot, legacy artifacts unaccepted, theorem incomplete"
+    },
+    {
+      "command": "Crossref lookup for DOI 10.1007/BF01436561",
+      "exit_code": 0,
+      "result": "Babuska 1973 bibliographic lead identified; exact theorem text and target selection not inspected or credited"
+    },
+    {
+      "command": "cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-1463/IntakeProbe.lean",
+      "exit_code": 0,
+      "result": "ten adjacent pinned APIs elaborated; representative axiom reports printed; no target declaration or proof body"
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-1463/check_intake.py --worker-packet .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "planned intake identity, H5/M4/R4 boundary, pins, artifacts, receipt, worker packet, and six open tasks agree"
+    },
+    {
+      "command": "prohibited Lean construct scan",
+      "exit_code": 1,
+      "expected_no_match": true,
+      "result": "no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration"
+    },
+    {
+      "command": "scoped whitespace checks plus git diff --check",
+      "exit_code": 0,
+      "result": "no whitespace diagnostics"
+    }
+  ],
+  "lean_probe_output_sha256": "fca28174be61b20686a7db6249af514c234e66c209a8d2d81eab76db0f7919a3",
+  "root_vector_before": {
+    "H": "unclassified",
+    "M": "unclassified",
+    "R": "unclassified"
+  },
+  "root_vector_after": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "debt_delta_basis": "H5 records that the catalog method label and generalized-Galerkin gloss are not one stable proposition, not that established Petrov-Galerkin results are false or open. No source-identical usable formal artifact or source-faithful proof reconstruction is identified.",
+  "axiom_and_placeholder_result": "No theorem declaration or proof body was added. The scoped Lean scan found no prohibited construct in the API-only probe. Representative imported APIs report only propext, Classical.choice, and Quot.sound; target trust closure remains downstream and is not credited.",
+  "actual_source_ownership": ["Stage1_Instances/THM-M-1463"],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1463/README.md",
+    "Stage1_Instances/THM-M-1463/scope-map.md",
+    "Stage1_Instances/THM-M-1463/source-statement-crosswalk.md"
+  ],
+  "change_impact_set": ["S56-M-1463-INTAKE"],
+  "covered_node_ids": ["S56-M-1463-INTAKE"],
+  "covered_declaration_ids": [],
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "statement_fingerprints": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "accepted_receipt_ids": [],
+  "owner": "Stage1 integration lane",
+  "reviewer_policy": "Independent source/history, numerical-analysis/finite-element, and Lean reviewers must approve the exact proposition, source crosswalk, spaces, variational form, stability contract, constants, conclusion, and boundary cases before master acceptance.",
+  "validated_at": "2026-07-13T12:24:01+08:00",
+  "review_due": "before master acceptance or any dependent statement work",
+  "invalidation_inputs": [
+    "source or target correction and exact theorem selection",
+    "source edition, theorem or section, assumptions, proof boundary, errata, or independent review",
+    "scalar field, spaces, variational form, right-hand side, inf-sup or kernel condition, norm, constant, conclusion, approximation family, or boundary case",
+    "neighbor-target boundary",
+    "canonical Lean target",
+    "toolchain or dependency pin",
+    "assurance profile or validator",
+    "any owned artifact"
+  ],
+  "support_state": "provisional_worker_only",
+  "support_window": "until any invalidation input changes; never release evidence",
+  "supersession_state": "not_superseded",
+  "revocation_state": "not_accepted_and_revocable_by_integration_lane",
+  "incident_path": "Stage1 integration lane records rejection or supersession and requests a fresh scoped intake",
+  "archive_and_recovery_boundary": "Repository history and integration-lane durable snapshots are the intended recovery mechanism after acceptance; mutable external metadata and this unaccepted receipt are not release archives.",
+  "remaining_root_cut_set": [
+    "S56-M-1463-STATEMENT",
+    "S56-M-1463-ANCHOR_AUDIT",
+    "S56-M-1463-OBLIGATION_TREE",
+    "S56-M-1463-PROOF",
+    "S56-M-1463-VALIDATION",
+    "S56-M-1463-RELEASE"
+  ],
+  "known_failures": [
+    "the catalog method label and generalized-Galerkin gloss do not select one stable truth-valued proposition",
+    "the Babuška 1973 article is identified only bibliographically; exact theorem text, assumptions, proof, corrections, source-to-target selection, and independent review are open",
+    "scalar field, trial and test spaces, variational form, right-hand side, inf-sup and adjoint conditions, approximation family, norms, constants, ordered binders, conclusion, and boundary cases remain open",
+    "no canonical Lean expression, expression or environment fingerprint, checked alternate encoding, or statement mutation exists",
+    "bounded search found only adjacent bilinear-map, projection, and Lax-Milgram substrate, not a source-identical terminal theorem",
+    "formal anchor audit, obligation registry, typed graphs, proof, composition, trust closure, readable reconstruction, hermetic replay, deterministic evidence bundle, independent verification, release, and master acceptance remain open"
+  ],
+  "first_failed_gate": "S56-M-1463-INTAKE master acceptance is pending; a worker self-test cannot perform or claim integration-lane acceptance",
+  "first_failed_theorem_gate": "the catalog names a Petrov-Galerkin method family but omits the mathematical proposition, source, binders, assumptions, constants, and exact conclusion",
+  "retry_condition": "an independently reviewed immutable source correction selects one exact Petrov-Galerkin proposition, freezes every definition, binder, hypothesis, conclusion, constant, alternate encoding, neighbor boundary, and degenerate case, and authorizes the canonical Lean target",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "Self-tested planned intake only. The provisional receipt may support master review of S56-M-1463-INTAKE and nothing downstream. It is unsigned, non-content-addressed, dirty-worktree, nonrelease evidence. No accepted node, exact statement, proof, audit completion, theorem completion, or master acceptance is claimed.",
+  "selftest_result": "pass"
+}
