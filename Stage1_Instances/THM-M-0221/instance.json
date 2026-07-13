@@ -1,0 +1,208 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0221",
+  "item_id": "S56-M-0221-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1234,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "柯西积分定理",
+  "name_en": "Cauchy integral theorem",
+  "canonical_name": "Cauchy integral theorem family (exact contour and domain formulation open)",
+  "category": "分析学 / 复分析",
+  "category_en": "analysis / complex analysis",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "全纯函数沿闭曲线的积分为零",
+  "literal_source_claim_en": "The integral of a holomorphic function along a closed curve is zero.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_cauchy_integral_theorem_family_but_literal_gloss_is_false_without_a_missing_domain_interior_homotopy_winding_or_primitive_condition_and_catalog_does_not_select_one_valid_formulation",
+  "canonical_claim": null,
+  "statement_blocker": "The literal catalog gloss is false for f(z)=1/z on Complex minus zero around the unit circle. The catalog supplies no source edition and does not select filled-region containment, a simply connected domain, null-homotopy, zero winding numbers, a primitive, or a restricted triangle, rectangle, or disk form. It also leaves curve type and regularity, integral encoding, codomain, Cauchy versus Goursat assumptions, binders, and boundary cases open. Selecting a convenient pinned theorem now would silently repair, narrow, or substitute the received target.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Complex.CauchyIntegral",
+      "Mathlib.Analysis.Complex.HasPrimitives",
+      "Mathlib.MeasureTheory.Integral.CurveIntegral.Basic",
+      "Mathlib.MeasureTheory.Integral.CurveIntegral.Poincare"
+    ],
+    "declaration_candidates": [
+      "Complex.integral_boundary_rect_eq_zero_of_differentiableOn",
+      "Complex.circleIntegral_eq_zero_of_differentiable_on_off_countable",
+      "DiffContOnCl.circleIntegral_eq_zero",
+      "DifferentiableOn.isExactOn_ball",
+      "ContinuousMap.Homotopy.curveIntegral_add_curveIntegral_eq_of_diffContOnCl"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "blocked_catalog_gloss_missing_truth_critical_domain_or_topological_hypothesis_and_source_does_not_select_one_valid_form"
+  },
+  "domain_and_universes": "Open: an approved source must fix the complex domain or filled contour, scalar Complex versus a complex Banach codomain, the curve or cycle object and its universe, topology and regularity, and every Lean typeclass.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: a source-eligible holomorphic function has zero contour integral along every source-eligible closed curve or cycle. The eligibility condition and integral representation are unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve empty and disconnected domains, constant paths, zero-radius circles, degenerate rectangles, reversed orientation, self-intersections and retracing, punctured domains, boundary regularity, and cycle multiplicities.",
+  "candidate_scope_not_credited": [
+    "triangle or rectangle boundary whose filled region lies in the holomorphy domain",
+    "circle or disk boundary with holomorphy on an open neighborhood of the filled disk",
+    "every piecewise smooth closed path in an open simply connected domain",
+    "every sufficiently regular null-homotopic closed path in the holomorphy domain",
+    "homological or winding-number-zero cycle form",
+    "closed-path integral of any function already supplied with a primitive",
+    "Banach-valued Cauchy-Goursat variants differentiable off a countable set"
+  ],
+  "excluded_substitutions": [
+    "an arbitrary closed-curve universal assertion with the missing topological hypothesis omitted",
+    "a rectangle, triangle, circle, disk, simply connected, null-homotopic, homological, or primitive form chosen without source authorization",
+    "the Cauchy integral formula owned by THM-M-0222",
+    "the residue theorem owned by THM-M-0223",
+    "Morera's theorem, primitive existence, path independence, or the Poincare lemma used as the root without checked equivalence",
+    "a structure or hypothesis that assumes the desired zero integral, homotopy, or primitive",
+    "the catalog's untrusted verified label, theorem-name match, counterexample, or API probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0222",
+      "name": "柯西积分公式",
+      "relationship": "represents values by a boundary integral and is not the zero-integral root"
+    },
+    {
+      "theorem_id": "THM-M-0223",
+      "name": "留数定理",
+      "relationship": "computes contour integrals by residues and is a distinct later theorem"
+    }
+  ],
+  "source_status": "H1_classical_complete_theorem_family_and_authoritative_modern_source_lead_known_but_literal_catalog_gloss_is_missing_a_truth_critical_hypothesis_and_no_source_exact_form_definition_chain_errata_crosswalk_or_independent_review_is_accepted",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Elias M. Stein and Rami Shakarchi, Complex Analysis, Princeton Lectures in Analysis II, Princeton University Press, 2003, ISBN 978-0-691-11385-2, Chapter 2, printed pages 32-41",
+      "candidate_locator": "publisher-hosted Chapter 2 PDF https://assets.press.princeton.edu/chapters/s02_7563.pdf observed 2026-07-13; sha256 f2b4abefa97631084ee40ef77e18523d6599441e3726aa9a94cbf4595596d25b",
+      "candidate_summary": "states the theorem loosely with closed-curve interior containment, then proves triangle, disk, circle, and toy-contour forms while deferring general curves",
+      "inspection_status": "authoritative modern source lead only; not catalog-cited or historical 1825 source, mutable remote bytes not repository-preserved, and full definition, assumption, proof-node, errata and independent-review admission open"
+    },
+    {
+      "citation": "Augustin Cauchy, 1825 historical source",
+      "candidate_locator": "catalog attribution and year only",
+      "candidate_summary": "historical attribution for the theorem family",
+      "inspection_status": "no primary edition, passage, definition chain, translation, proof boundary, correction history, or independent review inspected or credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Complex.CauchyIntegral",
+      "declaration": "Complex.integral_boundary_rect_eq_zero_of_differentiableOn",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a complex differentiable Banach-valued function on a closed rectangle has zero boundary integral",
+      "boundary": "exact restricted rectangle theorem; cannot select or close an unspecified arbitrary closed-curve target"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.CauchyIntegral",
+      "declaration": "DiffContOnCl.circleIntegral_eq_zero",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a function continuous on a closed disk and differentiable on its interior has zero circle integral",
+      "boundary": "exact restricted disk/circle theorem; source identity and transport are open"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.HasPrimitives",
+      "declaration": "DifferentiableOn.isExactOn_ball",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a holomorphic Banach-valued function on a ball has a primitive",
+      "boundary": "disk primitive ingredient only; the module explicitly leaves simply connected domains as future work"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.CurveIntegral.Poincare",
+      "declaration": "ContinuousMap.Homotopy.curveIntegral_add_curveIntegral_eq_of_diffContOnCl",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "curve-integral equality across a C2-smooth homotopy for a closed one-form",
+      "boundary": "general infrastructure requiring a holomorphic one-form adapter, endpoint terms, null-homotopy and regularity obligations; not a terminal source-identical Cauchy theorem"
+    },
+    {
+      "module": "Mathlib.MeasureTheory.Integral.CircleIntegral",
+      "declaration": "circleIntegral.integral_sub_center_inv",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the integral of (z-c)^-1 around a nonzero-radius circle is 2*pi*I",
+      "boundary": "machine-checked scope counterexample for the false literal reading, not a proof of the intended theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_record": "Docs/researches/math_theorems.md:1598-1603",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6140-6165",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "cc4f47e6f8a86550ff5550510bc55de173535d7724a40639bd4efdd31ad0b340",
+    "stage0_record_excerpt_sha256": "ce7af2481cbf9421b0e86ca622929158980c85c109c5995105766d3eeb2412a0",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_cauchy_integral_source_sha256": "3a3f12ae2edf91d33c87bf2e414aea774cbe5d7fad3ba5ad45159cf0d8bd8885",
+    "mathlib_has_primitives_source_sha256": "f0358edc6b3db9a883aa2f359a88c0f4f719a7d4d1794f943d59941355b52051",
+    "mathlib_circle_integral_source_sha256": "edd8bb8aac4a7fd68e438580c73b12cd83b28e0737ae7bf755bda27d8b4d7206",
+    "mathlib_curve_integral_basic_source_sha256": "05236303169cf11db1158d4c356bcbc412d965dc80546782fcd1d8bc2a8d24a6",
+    "mathlib_curve_integral_poincare_source_sha256": "0f4b0a5514a39e57ddff6fadcb85fc48370b4fee3dabffbc61a140aae5bd04a7"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, quotients, integration, topology and homotopy policies remain open until one source-exact target and proof route are selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression, terminal bodies, transitive dependencies, axioms and trust closure remain open",
+  "computation_profile": "No numerical quadrature, sampled contour, floating-point result, oracle, or unchecked certificate is credited; the expected result is analytic and noncomputable",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0221/README.md",
+    "Stage1_Instances/THM-M-0221/instance.json",
+    "Stage1_Instances/THM-M-0221/scope-map.md",
+    "Stage1_Instances/THM-M-0221/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0221/task-dag.json",
+    "Stage1_Instances/THM-M-0221/validation.md"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "required_source_reviewer": "independent complex-analysis reviewer",
+    "required_formal_reviewer": "independent Lean 4 reviewer",
+    "acceptance_authority": "Stage1 integration lane"
+  },
+  "freshness_and_revocation_policy": "Re-run intake validation after any catalog, source, scope, theorem-family selection, curve or integral encoding, formal-candidate finding, toolchain, dependency, assurance-profile, validator, or owned-artifact change; integration lane rejects or supersedes stale proposals.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ]
+}

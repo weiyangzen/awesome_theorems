@@ -1,0 +1,14 @@
+import Mathlib.Geometry.Euclidean.Angle.Unoriented.RightAngle
+
+open scoped EuclideanGeometry Real
+
+-- Discovery only: these pinned declarations are not selected as the canonical root at intake.
+#check EuclideanGeometry.dist_sq_eq_dist_sq_add_dist_sq_iff_angle_eq_pi_div_two
+#check InnerProductGeometry.norm_add_sq_eq_norm_sq_add_norm_sq_iff_angle_eq_pi_div_two
+#check InnerProductGeometry.norm_add_sq_eq_norm_sq_add_norm_sq'
+#check InnerProductGeometry.norm_sub_sq_eq_norm_sq_add_norm_sq_iff_angle_eq_pi_div_two
+#check norm_add_sq_eq_norm_sq_add_norm_sq_iff_real_inner_eq_zero
+#check norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
+
+#print axioms EuclideanGeometry.dist_sq_eq_dist_sq_add_dist_sq_iff_angle_eq_pi_div_two
+#print axioms InnerProductGeometry.norm_add_sq_eq_norm_sq_add_norm_sq_iff_angle_eq_pi_div_two
