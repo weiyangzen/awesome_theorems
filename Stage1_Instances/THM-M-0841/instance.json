@@ -14,16 +14,16 @@
   "intake_score": 86,
   "name_zh": "Erdős-Stone定理",
   "name_en": "Erdos-Stone theorem",
-  "canonical_name": "Erdos-Stone finite simple-graph extremal theorem family",
+  "canonical_name": "Erdos-Stone finite simple-graph containment theorem",
   "category": "组合数学 / 图论",
   "category_en": "combinatorics / graph theory",
   "target_lane": "hard_statement_first_partial_verification",
   "target_system": "Lean 4 + pinned mathlib",
   "source_status_untrusted": "已验证",
   "literal_source_claim": "A fundamental theorem of extremal graph theory.",
-  "canonical_statement": null,
-  "canonical_claim": null,
-  "canonical_claim_status": "primary_1946_complete_equipartite_family_identified_modern_chromatic_density_variant_and_checked_equivalence_open",
+  "canonical_statement": "For every real epsilon with 0 < epsilon < 1 and every natural r at least two, there is a positive n0 such that for every n > n0, every n-vertex finite simple graph with fewer than (1/(2(r-1)) - epsilon)n^2 edges has r mutually disjoint groups, each of some positive natural size k at least sqrt(l_(r-1)(n)), with no edges between distinct groups.",
+  "canonical_claim": "The unnumbered theorem on printed page 1087 of Erdos and Stone (1946), encoded in its original sparse complementary-graph form.",
+  "canonical_claim_status": "exact_page_1087_sparse_complementary_graph_form_worker_self_tested_pending_master_acceptance",
   "candidate_claims_not_credited_as_statement": [
     "The complement-form theorem on page 1088 of Erdos and Stone (1946): edge count above (1/2 - 1/(2(r-1)) + epsilon) times n squared forces a growing complete r-partite subgraph.",
     "For each fixed finite simple graph H with chromatic number at least two, extremalNumber n H is asymptotic to (1 - 1/(chromaticNumber H - 1)) times n squared over two.",
@@ -31,11 +31,11 @@
   ],
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
-    "declaration_or_expression": null,
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_variant_selection_exact_source_transcription_and_checked_transport",
+    "module": "Stage1_Instances/THM-M-0841/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0841.ErdosStoneTarget",
+    "elaborated_expression_hash": "sha256:ed4a8b422615bfafc69ab9f770dc99b77d308d78bca30e67790206426799a733",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Log.Basic-and-CompleteMultipartite_autoImplicit-false_pp-explicit-universes",
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
     "module_candidates": [
       "Mathlib.Combinatorics.SimpleGraph.CompleteMultipartite",
       "Mathlib.Combinatorics.SimpleGraph.Extremal.TuranDensity"
@@ -50,32 +50,62 @@
       "SimpleGraph.completeEquipartiteGraph_isContained_iff",
       "SimpleGraph.completeMultipartiteGraph.chromaticNumber"
     ],
-    "pinned_exact_conclusion_candidate": null,
+    "pinned_exact_conclusion_candidate": "Stage1Instances.THM_M_0841.ErdosStoneTarget",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
   },
-  "domain_and_universes": "Candidate scope: finite simple graphs, natural vertex counts and part parameters, real edge-density tolerances, graph containment, and finite chromatic number. Exact universes, finiteness instances, coercions, and nondegeneracy conditions remain open.",
-  "quantifiers": [],
-  "ordered_binders": [],
-  "hypotheses": [],
-  "conclusion": "Open: choose and source-review the original complete-equipartite containment statement, the modern fixed-forbidden-graph asymptotic density formula, or a checked equivalence package before freezing one exact conclusion.",
-  "alternate_encodings": [],
+  "domain_and_universes": "Closed Prop in universe 0 over epsilon : Real; r n0 n : Nat; G : SimpleGraph (Fin n); and a local DecidableRel G.Adj instance.",
+  "quantifiers": [
+    "for every epsilon : Real and r : Nat satisfying the source premises",
+    "there exists n0 : Nat with 0 < n0",
+    "for every n : Nat with n0 < n",
+    "for every G : SimpleGraph (Fin n) with decidable adjacency"
+  ],
+  "ordered_binders": [
+    "epsilon : Real",
+    "r : Nat",
+    "0 < epsilon",
+    "epsilon < 1",
+    "2 <= r",
+    "n0 : Nat (existential)",
+    "0 < n0",
+    "n : Nat",
+    "n0 < n",
+    "G : SimpleGraph (Fin n)",
+    "DecidableRel G.Adj",
+    "strict edge-count antecedent"
+  ],
+  "hypotheses": [
+    "0 < epsilon",
+    "epsilon < 1",
+    "2 <= r",
+    "0 < n0",
+    "n0 < n",
+    "the real cast of G.edgeFinset.card is strictly below (1/(2*(r-1)) - epsilon) * n^2"
+  ],
+  "conclusion": "There exists a positive k : Nat with Real.sqrt (iteratedLog (r - 1) n) <= k such that completeEquipartiteGraph r k is contained in G complement.",
+  "alternate_encodings": [
+    {
+      "encoding": "expanded iteratedLog",
+      "declaration": "Stage1Instances.THM_M_0841.ExpandedSourceTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0841.erdosStoneTarget_iff_expandedSourceTarget"
+    }
+  ],
   "candidate_encodings_not_credited": [
-    "explicit exists-threshold/forall-n finite containment",
     "Filter.Eventually atTop containment",
     "Asymptotics.IsEquivalent for extremalNumber",
     "Tendsto of normalized extremalNumber",
     "closed-form equality for turanDensity",
-    "original graph versus complementary graph"
+    "page-1088 dense complementary restatement without a checked tolerance transport"
   ],
-  "excluded_degenerate_cases": [],
+  "excluded_degenerate_cases": [
+    "epsilon = 0 or epsilon >= 1",
+    "r = 0 or r = 1",
+    "n <= n0"
+  ],
   "degenerate_cases_to_resolve": [
-    "empty forbidden graph and empty vertex type",
-    "edgeless forbidden graph and chromatic number zero or one",
-    "bipartite forbidden graph with zero Turan density",
-    "infinite or top-valued chromatic number encodings",
-    "r equal to zero or one and complete-equipartite part size zero",
-    "epsilon outside the original zero-to-one range",
-    "n below the eventual threshold"
+    "the exact positivity threshold at which every iterated logarithm used by the selected source expression is positive",
+    "a future checked transport to the page-1088 dense complement form or modern fixed-H formula"
   ],
   "excluded_substitutions": [
     "Turan's clique-only theorem",
@@ -92,10 +122,12 @@
       "boundary": "Simonovits stability is a distinct stronger structural target."
     }
   ],
-  "source_status": "repository_metadata_plus_inspected_1946_primary_theorem_primary_exact_transcription_modern_equivalence_errata_and_independent_review_open",
+  "source_status": "repository_metadata_plus_page_1087_primary_theorem_exactly_selected_and_transcribed_modern_equivalence_errata_complete_proof_mapping_and_independent_review_open",
   "source_revisions": {
     "repository_base": "444860f481e8bbf64a3357008fd4d01a52006f08",
     "repository_base_tree": "dee24a14497f877ebd81712a99d2da08de62d7ad",
+    "statement_worker_base": "a3b18eec39bf04be025b1641cae02f4d44fdf11a",
+    "statement_worker_base_tree": "fdfff18dea4c6798c5b322b6088dfe556109c134",
     "repository_record": "Docs/researches/math_theorems.md:6173-6178",
     "stage0_projection": "Docs/Stage0_Blueprint.md:22955-22980",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
@@ -103,8 +135,8 @@
     "repository_source_record_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
     "repository_record_excerpt_sha256": "05661b0b9f29d684a5fb950557e355a49bcb78272ab6e4217abbc7f2f0f33929",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "ed5d9ee7195e64cf30505638068c9b030aac5d424dd9ac9d009fee822201211b",
-    "execution_dag_sha256": "31931ede528f702ccf7765dbfaca1e65e6a82029f275aab8b4a966ad6e6ef07c",
+    "authoritative_blueprint_sha256": "75e29c1ae280b75e6a1b78c3658106332686beb1f9650f11d30c8624855233c4",
+    "execution_dag_sha256": "603f3aa25a89d483dfbd0c40ccea727937dd4630feab2773b19a124377178b39",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -114,7 +146,7 @@
     "primary_source_pdf_sha256": "83ae35a7185e2e6462ccc314c3a20c2b6d85fc142a2cc857603fbf9661f550e1",
     "primary_source_pdf_bytes": 432122,
     "primary_source_extracted_text_sha256": "525253ccb9e0b855a7c2a58884d86f47af1026946a0a8ba849eb333ddb083de8",
-    "primary_source_boundary": "Printed pages 1087-1090 inspected: definitions, theorem, complement restatement, induction proof, and extremal example. OCR formula damage, exact transcription, modern-equivalence mapping, corrections, complete node mapping, and independent review remain open.",
+    "primary_source_boundary": "Printed pages 1087-1090 inspected: definitions, theorem, complement restatement, induction proof, and extremal example. The page-1087 proposition is exactly transcribed; modern-equivalence mapping, corrections, complete node mapping, and independent review remain open.",
     "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
     "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
     "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
@@ -124,6 +156,7 @@
     "mathlib_turan_density_sha256": "a2724d485df3a96fcbcf6b7f0cc55ae62dab4251f625a6b85f75bb72692f55e7",
     "mathlib_complete_multipartite_sha256": "47d5f3f6aeef27940353ed98341de68673139973198de234482adbc139afb236",
     "mathlib_coloring_sha256": "42c4c6ac9c763df08f33a9fc4cf329e19908dacc630be771a547fcb583f7be56",
+    "mathlib_log_basic_sha256": "d6caebfcc45de74cf22aeff92815e30596697c39ddb2bd83927b06dccf14e216",
     "unpinned_discovery_lead": "mathlib commit b9df47b72b287802f6d40cf7588dada976bc657d, dated 2026-07-02, adds a minimal-degree Erdos-Stone theorem; it is not an ancestor or file of the pinned tree and is not credited",
     "unpinned_discovery_file_sha256": "455735f55b4f2ec2e5dd94a6ef7cb473121609d3ec35d3522031914b41b11148"
   },
@@ -138,9 +171,9 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "Lean 4 dependent type theory is intended. Classical finite-set reasoning and asymptotic real analysis are plausible dependencies, but no accepted axiom set or exact target axiom report exists at intake.",
-  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib revision 8a178386 are the intended base. Exact imports, target declaration, proof-body provenance, dependency closure, and trust classification remain open.",
-  "computation_profile": "Finite decidable graph data, natural/real coercions, noncomputable limits, and eventual asymptotics are candidate mechanisms. No oracle, experiment, generated certificate, or extracted computation is credited.",
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's standard classical infrastructure. The checked definition-unfolding transport reports propext, Classical.choice, and Quot.sound; no target proof or custom axiom is introduced.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and the two minimal statement imports. Terminal proof-body provenance and transitive trust closure remain downstream gates.",
+  "computation_profile": "Definitional natural iteration and noncomputable real log and sqrt occur in the target. No graph search, experiment, native evaluator, oracle, generated certificate, or unchecked computation is credited.",
   "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
   "public_merge_targets": [
@@ -152,7 +185,13 @@
     "Stage1_Instances/THM-M-0841/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0841/check_intake.py",
     "Stage1_Instances/THM-M-0841/validation.md",
-    "Stage1_Instances/THM-M-0841/intake-receipt.json"
+    "Stage1_Instances/THM-M-0841/intake-receipt.json",
+    "Stage1_Instances/THM-M-0841/Statement.lean",
+    "Stage1_Instances/THM-M-0841/check_statement.py",
+    "Stage1_Instances/THM-M-0841/check_statement_artifacts.py",
+    "Stage1_Instances/THM-M-0841/statement.json",
+    "Stage1_Instances/THM-M-0841/statement-validation.md",
+    "Stage1_Instances/THM-M-0841/statement-receipt.json"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -169,7 +208,13 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "check_statement_artifacts.py",
+    "statement.json",
+    "statement-validation.md",
+    "statement-receipt.json"
   ],
-  "status_boundary": "Self-tested planned intake proposal only. The 1946 theorem family and pinned Lean substrate are identified, but no exact canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+  "status_boundary": "Self-tested planned intake plus exact page-1087 statement proposal pending dependency-ordered master acceptance. This supplies no Erdos-Stone proof, H0, M0, R0, accepted proof state, audit completion, theorem completion, release, or master acceptance."
 }

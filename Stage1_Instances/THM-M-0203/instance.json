@@ -1,0 +1,209 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0203",
+  "item_id": "S56-M-0203-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1535,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 78,
+  "name_zh": "海伦公式",
+  "name_en": "Heron's formula",
+  "canonical_name": "Heron's triangle area formula (exact area encoding and boundary policy open)",
+  "category": "几何学 / 欧几里得几何",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "三角形面积与三边关系",
+  "literal_source_claim_en": "The relationship between a triangle's area and its three sides.",
+  "source_attribution": "Heron of Alexandria; approximately 60 CE (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_heron_triangle_area_family_with_an_exact_topic_pinned_archive_candidate_but_no_reviewed_source_formula_area_encoding_assumptions_or_boundary_contract",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "For source-selected Euclidean triangle vertices or valid side lengths a, b, and c, with semiperimeter s = (a + b + c) / 2, the source-selected nonnegative area equals sqrt (s * (s - a) * (s - b) * (s - c)), or an approved checked equivalent.",
+  "statement_blocker": "The catalog supplies no formula or authoritative source and does not define area, triangle, side ordering, semiperimeter, nondegeneracy, square-root versus squared equality, orientation, binders, hypotheses, conclusion, or degenerate cases. Pinned Theorems100.heron is a strong exact-topic candidate, but selecting its trigonometric area expression, two-side distinctness assumptions, affine generality, and boundary behavior at intake would silently decide proposition-changing clauses.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Archive.Wiedijk100Theorems.HeronsFormula",
+      "Mathlib.Geometry.Euclidean.Triangle"
+    ],
+    "declaration_candidates": [
+      "Theorems100.heron",
+      "EuclideanGeometry.dist_sq_eq_dist_sq_add_dist_sq_sub_two_mul_dist_mul_dist_mul_cos_angle",
+      "EuclideanGeometry.sin_angle_mul_dist_eq_sin_angle_mul_dist",
+      "Real.sin_eq_sqrt_one_sub_cos_sq"
+    ],
+    "candidate_expression": "{p1 p2 p3 : P} -> p1 != p2 -> p3 != p2 -> let a := dist p1 p2; let b := dist p3 p2; let c := dist p1 p3; let s := (a + b + c) / 2; 1 / 2 * a * b * sin (angle p1 p2 p3) = sqrt (s * (s - a) * (s - b) * (s - c))",
+    "candidate_relationship": "Exact-topic pinned formal lead only. The catalog does not select its trigonometric area encoding, hypotheses, domain, point order, or degenerate scope, and the canonical cache lacks a compiled Archive object.",
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-direct-source-probe-only",
+    "gate_state": "blocked_pending_source_admission_area_domain_assumption_equality_and_boundary_selection"
+  },
+  "domain_and_universes": "Open: an accepted source must fix affine points versus abstract side lengths; the Euclidean plane versus a general real inner-product affine space; all point, vector, and scalar universes and structures; the triangle and area objects; and any orientation or measure data.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: a source-selected nonnegative triangle area, or an approved equivalent expression, is related to its three side lengths through the Heron semiperimeter radicand; exact syntax, direction, and squared-versus-square-root form remain open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; repeated or collinear vertices, zero sides, weak versus strict triangle inequalities, ambient dimension, orientation, negative nongeometric radicands, and totalized Real.sqrt behavior must be resolved.",
+  "candidate_scope_not_credited": [
+    "nonnegative geometric triangle area equals the usual semiperimeter square root",
+    "the squared polynomial identity area^2 = s * (s-a) * (s-b) * (s-c)",
+    "Theorems100.heron's equality between 1/2 * a * b * sin gamma and the semiperimeter square root",
+    "an oriented determinant or area-form identity followed by an absolute-value transport",
+    "an abstract side-length formulation under strict or weak triangle inequalities"
+  ],
+  "degenerate_cases_to_resolve": [
+    "all three vertices equal or exactly two vertices equal",
+    "three distinct collinear vertices in either betweenness configuration",
+    "zero or one dimensional ambient space and triangles embedded in dimension greater than two",
+    "side triples satisfying equality in a triangle inequality",
+    "arbitrary nonnegative triples violating a triangle inequality",
+    "vertex permutations and orientation reversal",
+    "negative radicands for nongeometric inputs and totalized Real.sqrt",
+    "geometric, signed, absolute, determinant, measure, and trigonometric area encodings"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0202 Brahmagupta's cyclic-quadrilateral formula",
+    "a shoelace, determinant, cross-product, or 1/2 * a * b * sin gamma area formula without the side-only Heron equality",
+    "the law of cosines, Pythagorean theorem, law of sines, or triangle inequality used as the root",
+    "only the squared identity or only the square-root identity when the source selects the other and no checked transport exists",
+    "a numerical triangle example, diagram, floating-point result, or unchecked algebraic normalization",
+    "a structure, hypothesis, axiom, oracle, or certificate that stores the desired equality",
+    "the untrusted catalog label 已验证, a source citation, theorem name, source replay, or intake probe used as proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0193",
+      "name": "勾股定理",
+      "relationship": "a distinct right-triangle squared-side theorem that may become a proof dependency only after obligation freeze"
+    },
+    {
+      "theorem_id": "THM-M-0202",
+      "name": "婆罗摩笈多公式",
+      "relationship": "a distinct cyclic-quadrilateral area formula; not this triangle root"
+    },
+    {
+      "theorem_id": "THM-M-0204",
+      "name": "斯图尔特定理",
+      "relationship": "a distinct triangle cevian-length theorem"
+    }
+  ],
+  "source_status": "H1_classical_published_and_proved_family_with_primary_and_modern_source_leads_but_no_admitted_immutable_exact_statement_definition_assumption_proof_errata_mapping_or_independent_review",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Heron of Alexandria, Metrica, Book I (catalog-attributed classical source family)",
+      "candidate_locator": "modern secondary leads identify Proposition 1.8; exact critical-edition book, proposition, and page not admitted",
+      "candidate_summary": "classical source family for the triangle area and three-side formula",
+      "status": "no immutable primary text, complete definition and premise mapping, proof transcription, translation audit, correction or errata disposition, dependent source IDs, or independent review accepted"
+    },
+    {
+      "citation": "J. L. Heiberg edition and later historical reconstructions listed by secondary discovery sources",
+      "candidate_locator": "bibliographic lead only",
+      "candidate_summary": "possible critical-edition and proof-reconstruction route",
+      "status": "not preserved, pinpointed, read, hashed, or independently reviewed; no H0 credit"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "project": "mathlib Archive",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Archive.Wiedijk100Theorems.HeronsFormula",
+      "declaration": "Theorems100.heron",
+      "candidate_type_summary": "for three affine Euclidean points with the two sides at p2 nonzero, equates 1/2 * a * b * sin of the included angle to sqrt of the Heron semiperimeter product",
+      "proof_body_location": "pinned mathlib source at Archive/Wiedijk100Theorems/HeronsFormula.lean",
+      "source_sha256": "fc81c1b1a23ff20f5b008d9ee5dcc09abc46ab3cb3e014320c8513bf3cff1d9f",
+      "source_blob": "dc5447dc92b44d441c274c6a88a29eb319bc84dd",
+      "source_replay": "direct pinned source elaboration passed read-only; no prebuilt Archive object or repo-local import closure was available",
+      "status": "strong exact-topic E3 candidate and prospective wrapper route only; source identity, canonical expression, area transport, proof provenance, dependency and axiom closure, trust policy, integration, and acceptance remain open"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "provisional_intake_classification_pending_master_acceptance",
+  "root_vector_boundary": "H1 records a classical proved family and named source leads without an admitted exact crosswalk; M3 records an exact-topic pinned formal source without a frozen root or proof credit; R4 records no source-faithful independently reviewed reconstruction.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended. Classical choice and any other axioms of the eventual terminal route require a downstream exact declaration and trust audit; no foundation profile is accepted from a source replay.",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, Archive integration, terminal declaration, transitive dependencies, axiom closure, unsafe or oracle boundaries, and trust acceptance remain open.",
+  "computation_profile": "No numerical geometry, floating-point area, native oracle, plotted diagram, experiment, or unchecked certificate is credited; the intended equality requires kernel-checked exact real geometry and algebra.",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "5fe11f4b5e32a06ffb4432460319fc8ae906fe7b",
+    "repository_base_tree": "64c5aacf7cf3eb79008f5a1970151e3e53cb9966",
+    "repository_record": "Docs/researches/math_theorems.md:1464-1469",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:5644-5669",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "a3f88a3adf72238bf2bbafe555d63d632ff9ff295e4032bcfe6cfc6ec6a2a167",
+    "stage0_projection_excerpt_sha256": "0e66697bd29c996100e102cd16ef546bfd24fa9ee0e6aaacc98d80401a58286b",
+    "manifest_entry_sha256": "b995ba9864e789f24ce35b9939b5a5b6944fc751e0a32d5121dfba0450112186",
+    "execution_dag_intake_entry_sha256": "61dd410a70d2af111db7ae7256f5e064d354c5a696d1068f70f52f70122d8630",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2d23e1c4b0bbe4f3b679f5852dc5c6a19a6ced4566dae325cadd011c824980e2",
+    "execution_dag_sha256": "c951db2320b85b5f781c60178712509c17d9e59bc76026094d77b04adb358667",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_triangle_source_sha256": "d213d254e278b215ce8d206d4ea2290e3ef39cb4a84e2696c3c08e6639135ade",
+    "mathlib_heron_archive_source_sha256": "fc81c1b1a23ff20f5b008d9ee5dcc09abc46ab3cb3e014320c8513bf3cff1d9f",
+    "mathlib_heron_archive_source_blob": "dc5447dc92b44d441c274c6a88a29eb319bc84dd",
+    "mathlib_100_docs_sha256": "40a696705203719ea7f2d0f776251b510a2a98281429b4c2894e98b075a05086"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0203/README.md",
+    "Stage1_Instances/THM-M-0203/instance.json",
+    "Stage1_Instances/THM-M-0203/scope-map.md",
+    "Stage1_Instances/THM-M-0203/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0203/task-dag.json",
+    "Stage1_Instances/THM-M-0203/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0203/check_intake.py",
+    "Stage1_Instances/THM-M-0203/validation.md",
+    "Stage1_Instances/THM-M-0203/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent history-of-mathematics or Euclidean-geometry reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on catalog, source, target, edition, attribution, translation, definition, premise, proof boundary, correction, erratum, area encoding, point/side domain, dimension, ordering, nondegeneracy, semiperimeter, equality form, square-root convention, orientation, boundary case, Lean target, Archive availability, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-0203/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, exact-topic pinned Archive lead, source and formal gaps, proposition-changing choices, exclusions, and open task DAG. No canonical proposition, exact Lean statement, accepted source or proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

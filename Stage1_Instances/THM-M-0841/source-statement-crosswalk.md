@@ -9,9 +9,9 @@ extremal graph theory"), and `已验证`. All six lines originate at repository 
 proof route, axioms, and formal artifacts open. The rev-5.6 manifest preserves `已验证` only as
 `source_status_untrusted`.
 
-This record identifies a theorem family but not a proposition. In particular it does not choose
-the original complete-equipartite containment form or the now-standard forbidden-graph
-chromatic-density form.
+This record alone identifies a theorem family but not a proposition. The statement phase resolves
+that ambiguity conservatively by selecting the only theorem named in the attributed 1946 paper,
+rather than substituting a later standard corollary.
 
 ## Inspected primary source
 
@@ -34,33 +34,37 @@ The page-1088 restatement is not a definitional same-`epsilon` rewrite: a comple
 tolerance and absorb the linear `n / 2` discrepancy under the eventual threshold.
 
 The scan was visually inspected because extracted OCR damages comparison signs, subscripts, and
-the iterated-log exponent. Exact transcription, errata/corrections, complete proof-node mapping,
-and independent review remain open, so this evidence is `H1`, not `H0`.
+the iterated-log exponent. The page image fixes the statement transcription used by
+`ErdosStoneTarget`; errata/corrections, complete proof-node mapping, and independent review remain
+open, so this evidence is `H1`, not `H0`.
+
+The paper also says that letters such as `n` and `k` usually denote positive integers. Lean uses
+`Nat` binders plus explicit `0 < n0` and `0 < k` conjuncts, so this convention is not silently lost.
 
 ## Component crosswalk
 
 | Mathematical component | Repository | 1946 source | Pinned Lean lead | Intake result |
 |---|---|---|---|---|
 | finite simple graph and edge count | unnamed | definitions, p. 1087 | `SimpleGraph`, `edgeFinset` | compatible nouns only |
-| complementary graph | omitted | definition and main theorem, p. 1087 | `SimpleGraphᶜ` | convention not frozen |
-| `epsilon` and `r` | omitted | `0 < epsilon < 1`, `r >= 2`, p. 1087 | `Real`, `Nat` | binders not frozen |
-| eventual vertex threshold | omitted | `exists n0, forall n > n0`, p. 1087 | `Filter.atTop` or explicit threshold | encoding open |
-| equal independent groups | omitted | `r` groups, explicit iterated-log size, p. 1087 | complete equipartite graph in complement | exact size formula open |
-| complete cross-group form | omitted | complement restatement, p. 1088 | `completeEquipartiteGraph r t` containment | transport open |
+| complementary graph | omitted | definition and main theorem, p. 1087 | `SimpleGraphᶜ` | exact sparse-root convention frozen |
+| `epsilon` and `r` | omitted | `0 < epsilon < 1`, `r >= 2`, p. 1087 | `Real`, `Nat` | exact ordered binders frozen |
+| eventual vertex threshold | omitted | positive integer `n0` and `exists n0, forall n > n0`, p. 1087 | explicit positive threshold | exact source order and integer convention frozen |
+| equal independent groups | omitted | `r` groups of some positive natural `k >= sqrt(l_(r-1)(n))`, p. 1087 | `completeEquipartiteGraph r k` in the complement | exact existential size and lower bound frozen |
+| complete cross-group form | omitted | complement restatement, p. 1088 | `completeEquipartiteGraph r t` containment | neighboring dense transport remains open |
 | extremal sharpness | omitted | disjoint complete graphs, p. 1090 | Turan/complete-multipartite APIs | not audited as a root |
 | modern fixed-`H` density formula | omitted | not stated in this notation | `extremalNumber`, `turanDensity`, `chromaticNumber` | proposition/source bridge open |
 
 ## Pinned formal-source inspection
 
-Pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` provides an exact API
+Pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` provides the exact statement
 substrate but no pinned Erdos-Stone conclusion:
 
 - `Mathlib.Combinatorics.SimpleGraph.Extremal.TuranDensity` defines Turan density, proves its
   convergence, and forces containment above `turanDensity H + epsilon`.
 - `Mathlib.Combinatorics.SimpleGraph.CompleteMultipartite` defines equal-part complete graphs and
   their containment witness.
-- `Mathlib.Combinatorics.SimpleGraph.Coloring` computes the chromatic number of nonempty complete
-  multipartite graphs.
+- `Mathlib.Analysis.SpecialFunctions.Log.Basic` supplies the real logarithm and square root used in
+  the source's explicit growing part-size lower bound.
 
 A documentation index lists the theorem title without a declaration. The package git object store
 also happens to contain later commit `b9df47b72b287802f6d40cf7588dada976bc657d`, whose unpinned file
@@ -70,10 +74,11 @@ downstream discovery lead, never local validation or proof evidence.
 
 ## Honest status
 
-- `H1`: the primary paper and theorem page are identified and inspected, but exact transcription,
-  modern-equivalence mapping, corrections, full premise/proof mapping, and review are unfinished.
-- `M3`: pinned definitions and interfaces elaborate, but no canonical target, exact pinned theorem,
-  checked transport, or proof closure is credited.
+- `H1`: the primary paper and theorem page are identified and the exact displayed proposition is
+  transcribed, but modern-equivalence mapping, corrections, full proof mapping, and review are unfinished.
+- `M3`: the canonical target, definition-unfolding transport, mutations, and boundaries elaborate
+  with pinned minimal imports, but no Erdos-Stone proof closure is credited.
 - `R4`: this crosswalk is an intake boundary, not a readable proof reconstruction.
 
-No canonical obligation ID or statement fingerprint is emitted before statement freeze.
+The statement fingerprint is `sha256:ed4a8b422615bfafc69ab9f770dc99b77d308d78bca30e67790206426799a733`.
+No proof obligation registry is frozen before the later obligation-tree phase.

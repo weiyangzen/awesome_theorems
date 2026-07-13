@@ -1,0 +1,260 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0978",
+  "item_id": "S56-M-0978-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1512,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Hoeffding不等式",
+  "name_en": "Hoeffding inequality",
+  "canonical_name": "Hoeffding inequality for sums of bounded random variables (exact source variant and duplicate-target allocation open)",
+  "category": "组合数学 / 计数组合",
+  "category_en": "combinatorics / enumerative combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "有界随机变量和的集中",
+  "literal_source_claim_en": "Concentration of sums of bounded random variables.",
+  "source_attribution": "Wassily Hoeffding, 1963 (catalog metadata; matching paper and primary repository scan inspected)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_matching_primary_source_Theorem_2_and_proof_inspected_but_exact_catalog_selection_mimeograph_journal_delta_errata_duplicate_ID_mapping_transports_and_independent_review_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "bounded_independent_sum_concentration_family_fixed_but_exact_Hoeffding_variant_source_edition_and_duplicate_THM_M_0994_allocation_open",
+  "canonical_claim": null,
+  "target_disposition": "requires_source_and_duplicate_identity_review_before_exact_statement_elaboration",
+  "statement_blocker": "The catalog provides only a bounded-random-variable-sum concentration gloss and duplicates it almost verbatim as THM-M-0994. It does not select Hoeffding 1963 Theorem 1 or 2, an average or centered-sum form, one-sided or two-sided conclusion, pointwise or almost-sure bounds, indexing convention, strict-positive or nonnegative threshold, exponent normalization, or boundary semantics. The inspected primary theorem is a strong candidate, and pinned exact-topic Lean declarations exist, but choosing or inheriting a convenient statement at intake would substitute proposition-changing mathematics and another target's state.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Probability.Moments.SubGaussian"
+    ],
+    "declaration_candidates": [
+      "ProbabilityTheory.HasSubgaussianMGF.measure_sum_ge_le_of_iIndepFun",
+      "ProbabilityTheory.HasSubgaussianMGF.measure_sum_range_ge_le_of_iIndepFun",
+      "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc_of_integral_eq_zero",
+      "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc"
+    ],
+    "excluded_neighbor_target": "THM-M-0994",
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_pinpoint_source_variant_duplicate_target_allocation_and_checked_source_to_Lean_transport",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source and duplicate-ID decision must fix the finite index carrier and nonemptiness, probability sample-space universe and measurable structure, probability-measure encoding, real-valued measurable variables, expectation and integration package, interval-bound semantics, and all typeclass and coercion contexts.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: an exponential upper bound for the probability that a finite sum or average of bounded independent real random variables exceeds its expectation by a positive threshold. The exact event, threshold, exponent normalization, and boundary semantics are open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve empty and singleton families, zero and negative thresholds, zero total squared width, deterministic variables, reversed bounds, atoms at the event boundary, and pointwise versus almost-sure exceptional sets.",
+  "candidate_scope_not_credited": [
+    "Hoeffding 1963 Theorem 2 in its finite-average pointwise-bound form with t > 0",
+    "the centered finite-sum form obtained prospectively by epsilon = n*t",
+    "an arbitrary finite-index version with almost-sure interval bounds and epsilon >= 0",
+    "the equal-range special case in Hoeffding 1963 Theorem 1",
+    "a lower-tail or two-sided absolute-tail corollary"
+  ],
+  "degenerate_cases_to_resolve": [
+    "n = 0 versus the source's nonempty average notation",
+    "n = 1 and deterministic or constant variables",
+    "t = 0 and t < 0 versus the source's t > 0 domain",
+    "zero-width intervals and zero total squared width",
+    "reversed bounds and vacuous almost-sure interval membership",
+    "closed versus strict tail events and atoms at the threshold",
+    "pointwise bounds versus failure on a null set"
+  ],
+  "excluded_substitutions": [
+    "Azuma-Hoeffding for martingale differences",
+    "McDiarmid's bounded-differences inequality",
+    "generic Chernoff, Bernstein, Bennett, Janson, Kim-Vu, or Talagrand bounds",
+    "sampling-without-replacement or U-statistic extensions",
+    "iid-only, equal-width-only, symmetric, two-sided, fixed-dimension, or numerical special cases used as the unrestricted root",
+    "a hypothesis or sub-Gaussian structure that stores the desired tail bound as input",
+    "THM-M-0994 artifacts or historical S1-M-274 status inherited as target identity or proof credit",
+    "the untrusted verified label, theorem name, citation, URL, or intake probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0975",
+      "name": "Azuma-Hoeffding不等式",
+      "relationship": "martingale or conditionally sub-Gaussian increments, not the independent bounded-summand theorem"
+    },
+    {
+      "theorem_id": "THM-M-0976",
+      "name": "McDiarmid不等式",
+      "relationship": "bounded differences of a general function of independent inputs, not a sum of interval-bounded summands"
+    },
+    {
+      "theorem_id": "THM-M-0977",
+      "name": "Chernoff界",
+      "relationship": "general exponential-moment method and tail family; possible proof technique, not source identity"
+    },
+    {
+      "theorem_id": "THM-M-0994",
+      "name": "霍夫丁不等式",
+      "relationship": "near-verbatim duplicate catalog record in probability foundations with legacy slot S1-M-274; allocation requires master resolution and no state is inherited"
+    },
+    {
+      "theorem_id": "THM-M-0979",
+      "name": "Bernstein不等式",
+      "relationship": "variance-sensitive bounded-sum inequality with a distinct conclusion"
+    },
+    {
+      "theorem_id": "THM-M-0980",
+      "name": "Bennett不等式",
+      "relationship": "a distinct variance-sensitive exponential bound"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Wassily Hoeffding, Probability Inequalities for Sums of Bounded Random Variables, Journal of the American Statistical Association 58(301) (1963), 13-30, DOI 10.1080/01621459.1963.10500830",
+      "candidate_locator": "North Carolina State University repository scan https://repository.lib.ncsu.edu/server/api/core/bitstreams/d0e6ed15-3e1c-432f-8419-e55ffb6f3171/content; observed 2026-07-13; 891780 bytes; 25 PDF pages; sha256 e4c1f30fef09d420bc4b791a53f95cb461f47b363d0d9debaf13e15fbaaef203",
+      "candidate_summary": "Theorem 2, printed page 6, equation (2.10), gives the upper-tail average bound for independent variables with possibly unequal pointwise bounds; Section 3, printed pages 12-13, proves it by the exponential-moment method, a bounded-variable convexity lemma, and optimization",
+      "inspection_status": "matching primary-source repository scan inspected; the scan is a May 1962 UNC mimeograph corresponding to the 1963 journal paper. Exact catalog theorem selection, mimeograph/journal delta, corrections and errata, duplicate-ID allocation, modern source transport, node map, preservation policy, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declaration": "ProbabilityTheory.HasSubgaussianMGF.measure_sum_ge_le_of_iIndepFun",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "upper-tail exponential bound for a finite sum of independent real sub-Gaussian random variables with coordinate-dependent NNReal parameters",
+      "status": "pinned exact-topic declaration elaborates in the intake probe; source identity, bounded-variable reduction, target normalization, terminal provenance, trust closure, and acceptance remain downstream"
+    },
+    {
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declaration": "ProbabilityTheory.HasSubgaussianMGF.measure_sum_range_ge_le_of_iIndepFun",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "initial-segment upper-tail bound with a common sub-Gaussian parameter",
+      "status": "usable interface only; it is more specialized than the unequal-range source candidate and receives no exact-target credit"
+    },
+    {
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declaration": "ProbabilityTheory.hasSubgaussianMGF_of_mem_Icc",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "Hoeffding lemma corollary making an almost-surely bounded real variable centered and sub-Gaussian with parameter ((norm (b-a))/2)^2",
+      "status": "candidate bridge from bounded summands; pointwise-to-AE source transport, interval consistency, parameter algebra, and target composition are unaccepted"
+    },
+    {
+      "module": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_274.lean",
+      "declaration": "AwesomeTheorems.Stage1.S1_M_274.statementShape_from_mathlib",
+      "revision": "repository base 9c75282d42a7ef447d885d1d56997a79418bcd8a",
+      "candidate_type_summary": "historical wrapper for THM-M-0994 using natural initial segments and a nonnegative variance proxy",
+      "status": "other-target legacy discovery only; rev-5.6 manifest rejects inherited status, and no source-identical transport or proof credit is granted to THM-M-0978"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "9c75282d42a7ef447d885d1d56997a79418bcd8a",
+    "repository_base_tree": "cc5285432a02107fadffb68c698690d1b98ac5f2",
+    "repository_record": "Docs/researches/math_theorems.md:7141-7146",
+    "duplicate_repository_record": "Docs/researches/math_theorems.md:7266-7271",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:26659-26684",
+    "duplicate_stage0_projection": "Docs/Stage0_Blueprint.md:27096-27121",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "dcdce4c34838c6016f3c7b48c5fb924b54bd03a8db89268160d4d078f028b5c5",
+    "duplicate_repository_record_excerpt_sha256": "e52a29bb33aa26365c49d09266359a239060cfff474db64550cc4096d3882a2a",
+    "stage0_projection_excerpt_sha256": "16affd47a7184941c02a21116c854cf35a50919550ba7604e27bf353597a327d",
+    "duplicate_stage0_projection_excerpt_sha256": "167492350f8998f03315f6e85ff74cf8b4a3c048d779fae9246487fda96cbed4",
+    "manifest_entry_sha256": "30da3e6bf1febda5cf6a7c619d8b8960cabd47aad0b85eaf1824dd7136b920a4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_targets_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "8b838b50928f814c8f1250be02504dd42366e1d50b3fc2c885e8b2b0d3b3bbbd",
+    "execution_dag_sha256": "4e9660ad9c7ae52649dc1744e8bb25c1a9d0ac25f7c2566a3ef05fb9d0b836e7",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source": {
+      "citation": "Wassily Hoeffding, Probability Inequalities for Sums of Bounded Random Variables, JASA 58(301) (1963), 13-30",
+      "doi": "10.1080/01621459.1963.10500830",
+      "inspected_repository_url": "https://repository.lib.ncsu.edu/server/api/core/bitstreams/d0e6ed15-3e1c-432f-8419-e55ffb6f3171/content",
+      "observed_pdf_sha256": "e4c1f30fef09d420bc4b791a53f95cb461f47b363d0d9debaf13e15fbaaef203",
+      "observed_pdf_bytes": 891780,
+      "observed_pdf_pages": 25,
+      "edition_boundary": "May 1962 University of North Carolina Institute of Statistics Mimeo Series No. 326 scan corresponding to the 1963 journal article; publication delta not audited",
+      "inspected_boundary": "introduction printed page 1; Theorem 2 printed page 6, equation (2.10); proof in Section 3 printed pages 12-13 through equation (3.17)",
+      "credit": "matching primary proof source supporting provisional H1; exact catalog selection, edition reconciliation, corrections, source-node mapping, independent review, and H0 acceptance remain open"
+    },
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lake_symlink_target_string_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_subgaussian_source_sha256": "1261993867efbddb6781a6ce9d0855335fab6891f819062ac83b8d9f6d94c440",
+    "historical_stage1_candidate_sha256": "2ef7e11a3034b0fafb8d4a3b2353e7168525986c814783c564eee4144b342c4d",
+    "duplicate_intake_sha256": "7d057bb166f9fd351abdaec3bbb3db4701831ae024a165c91f7b91ac2bb434d3",
+    "duplicate_crosswalk_sha256": "54e0859fcc1171bc9464960cb91b2afa4772e4bd361d8e7ee23daebc4192823d",
+    "duplicate_statement_sha256": "55d06a8e8d0d3cbc2392b0c4ba69858b4fa208ea22f9bdcfb1bd88bfe55ee7e9"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_classification": {
+    "human": "source-reconstruction debt; a matching complete primary proof was inspected, but exact theorem selection, edition reconciliation, corrections, duplicate allocation, source transports, and independent review remain open",
+    "machine": "statement/interface debt; pinned exact-topic theorem and lemma interfaces exist, but no canonical source-identical target or accepted composition is frozen",
+    "readability": "full reconstruction debt; no complete source-faithful route can attach before target identity and statement are accepted"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical and noncomputable measure/integration principles are expected, but no logical principle or axiom set is accepted for the absent canonical target",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, target serialization, terminal declarations, transitive dependencies, proof bodies, executable identities, and trust policy remain open",
+  "computation_profile": "No simulation, numerical experiment, native oracle, external solver, floating-point estimate, or unchecked certificate is credited; the intended theorem requires kernel-checked probability and real analysis",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0978/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0978/README.md",
+    "Stage1_Instances/THM-M-0978/instance.json",
+    "Stage1_Instances/THM-M-0978/scope-map.md",
+    "Stage1_Instances/THM-M-0978/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0978/task-dag.json",
+    "Stage1_Instances/THM-M-0978/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0978/check_intake.py",
+    "Stage1_Instances/THM-M-0978/validation.md",
+    "Stage1_Instances/THM-M-0978/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent probability-theory/source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "duplicate_identity_decider": "Stage1 integration lane",
+    "reviewer_policy": "Independent source and scope reviewers must approve the exact source theorem, edition relationship, assumptions, normalization, boundary cases, corrections, and duplicate-ID allocation; an independent formal reviewer must approve the Lean target before dependent work."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support theorem release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the external scan must be lawfully reacquired and rehashed for source admission.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, duplicate-target allocation, source edition or theorem selection, pointwise or almost-sure bound transport, finite-index and nonempty convention, average or sum normalization, threshold or event convention, exponent and denominator boundary, canonical Lean target or checked transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. H1 records a matching primary proof lead, M3 records usable pinned exact-topic interfaces, and R4 records the absence of an accepted source-faithful reconstruction. No canonical proposition, source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

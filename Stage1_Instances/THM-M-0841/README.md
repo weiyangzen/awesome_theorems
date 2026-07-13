@@ -1,22 +1,24 @@
 # THM-M-0841: Erdos-Stone theorem
 
-This directory is the rev-5.6 `planned` intake for `S56-M-0841-INTAKE`. The repository catalog
-provides only the name, attribution, year, and gloss "a fundamental theorem of extremal graph
-theory". That gloss does not choose one exact proposition.
+This directory contains the rev-5.6 `planned` intake and the provisional, self-tested statement
+artifact for `S56-M-0841-STATEMENT`. The repository catalog provides only the name, attribution,
+year, and gloss "a fundamental theorem of extremal graph theory". The statement phase therefore
+selects the uniquely named theorem in the attributed 1946 primary paper.
 
-The inspected 1946 primary paper proves a finite complete-equipartite containment theorem in
-complementary form. A common modern formulation instead computes the asymptotic extremal density
-of a fixed graph from its chromatic number. Their equivalence has not been source-audited or
-formalized here, so the canonical human statement and canonical Lean target remain open.
+The canonical root is the page-1087 sparse form: for `0 < epsilon < 1`, `r >= 2`, and sufficiently
+large `n`, every `n`-vertex graph below the printed strict edge threshold contains `r` disjoint
+equal-sized groups, of some positive natural size at least the displayed iterated-log square root, with no
+cross-group edges. `Statement.lean` represents the groups as a complete equipartite graph contained
+in the complement and preserves the source's binder order and strict inequalities.
 
-Pinned mathlib supplies `extremalNumber`, `turanDensity`, containment above Turan density, complete
-equipartite graphs, and related interfaces. It does not contain an Erdos-Stone declaration or the
-needed density computation at the pinned revision. The Lean file in this directory only checks
-those interfaces; it adds no theorem or proof body.
+The exact target elaborates from two narrow pinned imports. A checked `iff` unfolds the local
+iterated-log notation; four structural mutations and five boundary declarations freeze statement
+identity. The page-1088 dense complement form, modern fixed-forbidden-graph density formula, and
+minimum-degree strengthening remain uncredited because no checked transport to them is supplied.
 
-Current boundary: `[H1, M3, R4]`. This is a self-testable intake proposal, not an accepted state,
-exact statement, source-fidelity closure, proof, audit completion, or theorem completion. All six
-downstream tasks remain open, and only the integration lane may accept the provisional receipt.
+Current boundary: `[H1, M3, R4]`. This is an exact-statement proposal, not an accepted state,
+source-fidelity closure, proof, audit completion, or theorem completion. The five later tasks remain
+open, and only the integration lane may accept the provisional intake and statement receipts.
 
 ## Artifacts
 
@@ -24,7 +26,14 @@ downstream tasks remain open, and only the integration lane may accept the provi
 - `scope-map.md`: included theorem family, unresolved choices, and exclusions.
 - `source-statement-crosswalk.md`: repository-to-primary-source-to-Lean component map.
 - `task-dag.json`: six open downstream tasks.
-- `IntakeProbe.lean`: API-only pinned Lean probe.
-- `check_intake.py`: scoped structural and hash validator.
-- `validation.md`: exact command ledger and known failures.
-- `intake-receipt.json`: provisional node receipt awaiting master acceptance.
+- `IntakeProbe.lean`: historical intake API probe.
+- `check_intake.py`: historical nine-file snapshot validator, superseded for current content.
+- `validation.md`: historical intake command ledger, not current statement evidence.
+- `intake-receipt.json`: immutable provisional intake-snapshot receipt; its recorded current-state
+  fields and owned-file hashes are superseded by this statement packet.
+- `Statement.lean`: exact page-1087 target, checked unfolding, mutations, and boundary checks.
+- `check_statement.py`: pinned elaboration, fingerprint, import, and mutation validator.
+- `statement.json`: structured canonical target and environment record.
+- `statement-validation.md`: exact statement command ledger and boundary.
+- `statement-receipt.json`: provisional statement-node receipt awaiting master acceptance.
+- `check_statement_artifacts.py`: fail-closed metadata, receipt, and worker-packet validator.

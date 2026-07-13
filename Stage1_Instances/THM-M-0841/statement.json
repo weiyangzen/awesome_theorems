@@ -1,0 +1,162 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0841-STATEMENT",
+  "theorem_id": "THM-M-0841",
+  "execution_rank": 1398,
+  "depends_on": [
+    "S56-M-0841-INTAKE"
+  ],
+  "lifecycle_mode": "planned",
+  "canonical_name": "Erdos-Stone finite simple-graph containment theorem",
+  "canonical_statement": "For every real epsilon with 0 < epsilon < 1 and every natural r at least two, there is a positive n0 such that for every n > n0, every n-vertex finite simple graph with fewer than (1/(2(r-1)) - epsilon)n^2 edges has r mutually disjoint groups, each of some positive natural size k at least sqrt(l_(r-1)(n)), with no edges between distinct groups.",
+  "canonical_claim_status": "exact_page_1087_sparse_complementary_graph_form_frozen_and_self_tested_pending_master_acceptance",
+  "source_selection": {
+    "citation": "P. Erdos and A. H. Stone, On the structure of linear graphs, Bulletin of the American Mathematical Society 52 (1946), 1087-1091, DOI 10.1090/S0002-9904-1946-08715-7",
+    "definition_locator": "printed page 1087",
+    "theorem_locator": "unnumbered THEOREM, printed page 1087",
+    "proof_locator": "printed pages 1087-1090",
+    "observed_pdf_sha256": "83ae35a7185e2e6462ccc314c3a20c2b6d85fc142a2cc857603fbf9661f550e1",
+    "relationship_to_catalog": "The catalog gives only the theorem name and 1946 attribution. This phase selects the uniquely named theorem in the attributed paper, rather than silently substituting the later fixed-forbidden-graph density corollary or a minimum-degree strengthening.",
+    "review_boundary": "The page image and definitions fix the displayed proposition. Complete correction and errata review, proof-node mapping, modern-equivalence transport, and independent H0 approval remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0841/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0841.ErdosStoneTarget",
+    "elaborated_expression_sha256": "ed4a8b422615bfafc69ab9f770dc99b77d308d78bca30e67790206426799a733",
+    "environment_fingerprint_sha256": "ec81286c0a60baa4a23af792af268e7efe87bed50264292a02f5646443bd276d",
+    "statement_file_sha256": "897dcc398df34c0dd6ad02dc2092a08f46a6cafc908c2e9f8497a895aa66663d",
+    "serialization_options": [
+      "autoImplicit=false",
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance"
+  },
+  "domain_and_universes": "Closed Prop in universe 0: epsilon : Real; r n0 n : Nat; G : SimpleGraph (Fin n); a local DecidableRel G.Adj instance; natural iteration and part size; real edge-count comparison.",
+  "ordered_binders": [
+    "epsilon : Real (universal)",
+    "r : Nat (universal)",
+    "0 < epsilon",
+    "epsilon < 1",
+    "2 <= r",
+    "n0 : Nat (existential)",
+    "0 < n0",
+    "n : Nat (universal)",
+    "n0 < n",
+    "G : SimpleGraph (Fin n) (universal)",
+    "DecidableRel G.Adj (instance)",
+    "strict edge-count antecedent"
+  ],
+  "hypotheses": [
+    "0 < epsilon",
+    "epsilon < 1",
+    "2 <= r",
+    "0 < n0",
+    "n0 < n",
+    "the real cast of G.edgeFinset.card is strictly less than (1/(2*(r-1)) - epsilon) * n^2"
+  ],
+  "conclusion": "There exists a positive k : Nat with sqrt(iteratedLog (r-1) n) <= k such that completeEquipartiteGraph r k is contained in the complement of G; this gives r disjoint equal-sized groups and every cross-group pair is a nonedge of G.",
+  "encoding_decisions": {
+    "finite_graph": "SimpleGraph (Fin n), matching an n-vertex finite loopless simple graph with labeled vertices",
+    "iterated_log": "iteratedLog j x = Real.log^[j] x, matching l_1(x)=ln(x) and l_j(x)=ln(l_(j-1)(x))",
+    "part_size": "an existential natural k with the explicit conjunct 0 < k and sqrt(l_(r-1)(n)) <= k, preserving the source's 'for some k' wording and its positive-integer convention",
+    "groups": "containment of completeEquipartiteGraph r k in G complement; the copy is injective and hence the parts are disjoint, and adjacency in the complement means nonadjacency in G",
+    "threshold": "explicit exists n0, 0 < n0 and forall n, n0 < n, preserving the source's positive-integer convention and strict n > n0",
+    "edge_bound": "strict less-than after casting the finite edge count to Real, preserving 'fewer than'",
+    "boundary": "epsilon endpoints zero and one and r below two are excluded. Values n at or below n0 are outside the conclusion. Eventual largeness handles positivity of the iterated logarithm; no separate domain restriction is invented."
+  },
+  "direct_imports": [
+    "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    "Mathlib.Combinatorics.SimpleGraph.CompleteMultipartite"
+  ],
+  "minimal_import_evidence": "The two narrow direct imports supply Real/log/sqrt/iteration and simple-graph complete-equipartite containment. Deleting either import makes the exact module fail. No Erdos-Stone proof-bearing module is imported.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0841.ExpandedSourceTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0841.erdosStoneTarget_iff_expandedSourceTarget",
+      "boundary": "This only unfolds iteratedLog to Real.log iteration. No fixed-ceil pruning, complement-density, fixed-forbidden-graph, Turan-density, asymptotic-equivalence, or minimum-degree transport is credited."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the page-1088 dense complement restatement, whose same-epsilon translation must account for n.choose 2 rather than n^2/2",
+    "the modern fixed-H chromatic-number extremal-density formula",
+    "the minimum-degree fixed-part strengthening in post-pin mathlib history",
+    "the external Lean project's later constant-part and Turan-density declarations"
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedEpsilonUpperBound",
+      "change": "removes the source premise epsilon < 1",
+      "result": "Lean rejects definitional equality and the fully explicit expression fingerprint is distinct."
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationRationalTolerance",
+      "change": "replaces the Real tolerance binder with Rat",
+      "result": "Lean rejects definitional equality and the fully explicit expression fingerprint is distinct."
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationUniformThreshold",
+      "change": "moves the existential threshold before epsilon and r",
+      "result": "Lean rejects definitional equality and the fully explicit expression fingerprint is distinct."
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationAllowsZeroTolerance",
+      "change": "weakens 0 < epsilon to 0 <= epsilon and admits the source-excluded endpoint epsilon = 0",
+      "result": "Lean rejects definitional equality and the fully explicit expression fingerprint is distinct."
+    }
+  ],
+  "boundary_checks": [
+    "Stage1Instances.THM_M_0841.iteratedLog_zero",
+    "Stage1Instances.THM_M_0841.iteratedLog_one",
+    "Stage1Instances.THM_M_0841.one_part_excluded",
+    "Stage1Instances.THM_M_0841.zero_tolerance_excluded",
+    "Stage1Instances.THM_M_0841.one_tolerance_excluded"
+  ],
+  "environment_fingerprint": {
+    "base_revision": "a3b18eec39bf04be025b1641cae02f4d44fdf11a",
+    "base_tree": "fdfff18dea4c6798c5b322b6088dfe556109c134",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": {
+      "Mathlib.Analysis.SpecialFunctions.Log.Basic": "d6caebfcc45de74cf22aeff92815e30596697c39ddb2bd83927b06dccf14e216",
+      "Mathlib.Combinatorics.SimpleGraph.CompleteMultipartite": "47d5f3f6aeef27940353ed98341de68673139973198de234482adbc139afb236"
+    },
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's standard classical infrastructure. The checked definition-unfolding transport reports propext, Classical.choice, and Quot.sound. No theorem proof or custom axiom is introduced.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and the two minimal statement imports. Terminal proof-body and transitive trust closure remain downstream gates.",
+  "computation_profile": "Only definitional natural iteration and noncomputable real log and sqrt occur in the statement. No graph search, numeric experiment, native evaluator, oracle, generated certificate, or unchecked computation is used or credited.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The exact primary-paper proposition, local logarithm/part-size definitions, minimal imports, checked unfolding, four mutation classes, and expression/environment fingerprints are now frozen. Intake already classified the target as M3, so no debt-vector promotion is proposed.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Statement-only worker evidence. It supplies no Erdos-Stone proof, checked modern equivalence, H0, M0, R0, accepted state, downstream-node evidence, audit completion, theorem completion, release, or master acceptance."
+}

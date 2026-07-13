@@ -20,6 +20,12 @@ permutation, and a prime-supported exponent-map equivalence. `IntakeProbe.lean` 
 and representative boundary instances in the pinned environment. That is real feasibility evidence
 for an `M3` candidate, not an accepted target, terminal-body audit, or theorem proof.
 
+The anchor audit has since classified the exact pinned prime-list family, and the obligation-tree
+phase freezes 22 semantic IDs against the visible recursive bodies in `Factors.lean` and
+`List/Prime.lean`. `typed-graphs.json` keeps proof, refinement, provenance, evidence, trust,
+documentation, and workflow relations separate. `ObligationTree.lean` checks conditional package
+assembly and exact child-to-root composition only; it does not install the candidate.
+
 ## Scope and evidence boundary
 
 `scope-map.md` records the number domain, representation choices, boundary cases, and excluded
@@ -29,8 +35,14 @@ Euclid translation leads, and the pinned Lean candidates. `statement.json` and
 remains the structured planned scope record, and `task-dag.json` keeps authoritative task state open
 pending master acceptance.
 
+`obligation-registry.json` is the frozen denominator authority, `typed-graphs.json` is the typed
+architecture bundle, and `validation-specs.json` gives one structured recipe per obligation. The
+readable route and exact phase evidence are in `obligation-tree.md`,
+`obligation-tree-validation.md`, and `obligation-tree-receipt.json`.
+
 The provisional vector remains `[H1, M3, R4]`: a complete classical proof is known but no pinpoint
 edition-to-modern-statement proof crosswalk or independent source review is accepted; the exact
 canonical expression now elaborates but no proof body is credited; and no source-faithful readable
-proof reconstruction exists. No H0, M0, R0, accepted execution state, audit completion, theorem
+proof reconstruction exists. The exact mathlib family remains an unaccepted candidate for the
+later proof phase. No H0, accepted M0, R0, accepted execution state, audit completion, theorem
 completion, or master acceptance is claimed.

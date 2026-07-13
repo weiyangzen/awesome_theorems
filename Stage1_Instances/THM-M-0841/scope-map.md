@@ -8,53 +8,47 @@
 - Lifecycle: `planned` from the uniform `L0 / rework_required` baseline.
 - The catalog's `已验证` label is untrusted metadata and grants no source or machine credit.
 
-## Included theorem family
+## Selected canonical theorem
 
-The intended family is an asymptotic extremal result for finite simple graphs. It relates high edge
-density, containment of complete equipartite subgraphs, and the chromatic number of a fixed
-forbidden graph. Intake retains both of these closely related forms without declaring them equal:
+The statement phase selects the only theorem named in the attributed primary paper:
 
-1. **Original-paper containment form.** Given `epsilon > 0` and an integer `r >= 2`, every
+1. **Canonical original-paper containment form.** Given `0 < epsilon < 1` and an integer `r >= 2`, every
    sufficiently large graph which has fewer than
    `(1 / (2 * (r - 1)) - epsilon) * n^2` edges contains `r` disjoint vertex groups, each of an
    explicit iterated-logarithmic size, with no cross-group edges. Its dense-complement restatement
    has complete cross-group edges, with eventual slack needed when translating the edge threshold.
-2. **Modern extremal-density form.** For a fixed finite simple graph `H` of chromatic number at
+2. **Uncredited modern extremal-density form.** For a fixed finite simple graph `H` of chromatic number at
    least two, the maximum number of edges in an `H`-free `n`-vertex graph is asymptotic to
    `(1 - 1 / (chi(H) - 1)) * n^2 / 2`; equivalently its Turan density is that coefficient.
 
-The exact correspondence between the 1946 complete-equipartite statement and the modern
-fixed-forbidden-graph formula is proof-bearing mathematics, not a naming convention. It remains a
-statement/source task.
+The exact correspondence between the selected 1946 statement and the modern fixed-forbidden-graph
+formula is proof-bearing mathematics, not a naming convention. It remains downstream work and the
+modern form receives no statement identity or proof credit.
 
-## Decisions deferred to statement freeze
+## Frozen statement decisions
 
-- Whether the root is the paper's finite threshold/containment theorem, the modern chromatic-number
-  extremal-number asymptotic, or a source-reviewed checked equivalence package containing both.
-- Whether density is normalized by `n^2`, `n.choose 2`, or a real-valued interpolation, and how the
-  two normalizations are transported.
-- The exact meaning and domain of chromatic number, especially `chi(H) = 0`, `1`, `2`, or infinity.
-- Whether the forbidden graph is required to be finite, nonempty, to contain an edge, or merely to
-  have finite chromatic number at least two.
-- Strict versus non-strict edge inequalities, natural-to-real coercions, threshold quantifier
-  order, and the exact `epsilon` range.
-- The original paper's complement convention, `r` versus `r + 1` indexing, iterated logarithm,
-  floor/ceiling, and lower-bound convention for the equal part size.
-- Empty vertex types, `r = 0` or `1`, zero part size, empty and complete forbidden graphs, and
-  graphs below the eventual threshold.
+- Root: the sparse page-1087 finite threshold/containment theorem, not the modern density theorem.
+- Edge normalization: the source's `n^2` expression and strict "fewer than" comparison.
+- Quantifiers: `epsilon`, then `r`, their three premises, then existential `n0`, universal `n > n0`,
+  and universal labeled graph with decidable adjacency.
+- Groups: an existential positive natural `k` at least `sqrt(l_(r-1)(n))`, encoded by containment of
+  `completeEquipartiteGraph r k` in the complement.
+- Iterated logarithm: `Real.log^[j] x`, so iteration zero is identity and iteration one is `log`.
+- Boundaries: `epsilon = 0`, `epsilon >= 1`, `r = 0`, `r = 1`, and `n <= n0` are excluded exactly
+  by the antecedents. No fixed-forbidden-graph or chromatic-number data enter the canonical root.
 
 ## Pinned Lean boundary
 
-Pinned mathlib models all major nouns needed to state candidate variants:
+Pinned mathlib models the selected target with exactly two direct imports:
 
-- `SimpleGraph.extremalNumber` and `SimpleGraph.turanDensity`;
-- `SimpleGraph.tendsto_turanDensity` and general containment above Turan density;
-- `SimpleGraph.completeEquipartiteGraph` and `CompleteEquipartiteSubgraph`;
-- complete multipartite graph colorings and chromatic number.
+- `Mathlib.Analysis.SpecialFunctions.Log.Basic` supplies `Real`, natural logarithm, square root,
+  real casts, and the imported iteration vocabulary;
+- `Mathlib.Combinatorics.SimpleGraph.CompleteMultipartite` supplies finite simple graphs, edge
+  finsets, complements, non-induced containment, and equal-part complete graphs.
 
-The pinned tree has no `ErdosStoneSimonovits.lean` module and no theorem computing `turanDensity H`
-from `H.chromaticNumber`. A later commit object visible in the package repository is not an input in
-the pinned dependency tree and receives no proof credit.
+Deleting either direct import makes the exact module fail. The pinned tree has no
+`ErdosStoneSimonovits.lean` module or proof of the target. A later commit object visible in the
+package repository is not an input in the pinned dependency tree and receives no proof credit.
 
 ## Explicit exclusions
 
@@ -69,7 +63,7 @@ the pinned dependency tree and receives no proof credit.
 
 ## Current cut set
 
-Exact variant selection and independent source review, canonical Lean elaboration and mutations,
-formal-candidate/provenance audit, obligation and discovery freezes, proof and composition, readable
-reconstruction, trust closure, hermetic replay, independent release validation, and master
-acceptance all remain open.
+Dependency-ordered master acceptance, independent source review, checked transport to other common
+forms, formal-candidate/provenance audit, obligation and discovery freezes, proof and composition,
+readable reconstruction, trust closure, hermetic replay, independent release validation, and master
+release acceptance remain open.

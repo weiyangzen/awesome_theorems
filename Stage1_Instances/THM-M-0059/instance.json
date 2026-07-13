@@ -1,0 +1,230 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0059",
+  "item_id": "S56-M-0059-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1526,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 78,
+  "name_zh": "阿达马不等式",
+  "name_en": "Hadamard's inequality",
+  "canonical_name": "Hadamard determinant-bound theorem family",
+  "category": "代数学 / 线性代数",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "行列式的上界估计",
+  "literal_source_claim_en": "An upper-bound estimate for a determinant.",
+  "source_attribution": "Jacques Hadamard, 1893 (catalog metadata; exact source proposition not yet admitted)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "named_hadamard_determinant_bound_family_identified_but_catalog_omits_formula_domain_dimensions_row_column_norm_equality_binders_and_boundaries",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only a determinant-upper-bound gloss. It does not fix real versus complex scalars, finite index and dimension, rows versus columns, Euclidean norm and determinant encodings, squared versus unsquared form, equality scope, ordered binders, or degenerate cases. The pinned real volume-form theorem and determinant bridges are strong candidates, but selecting their composition as canonical at intake would silently add clauses and substitute a coordinate-free formulation before source admission and checked transport.",
+  "target_decision": "retain_the_named_hadamard_determinant_bound_family_and_require_independent_source_root_selection_before_statement_execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.InnerProductSpace.Orientation",
+      "Mathlib.LinearAlgebra.Determinant"
+    ],
+    "declaration_candidates": [
+      "Orientation.abs_volumeForm_apply_le",
+      "Orientation.volumeForm_robust'",
+      "Basis.det_apply",
+      "Pi.basisFun_det_apply"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_formula_domain_row_column_norm_equality_and_matrix_transport_not_selected",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_import-Mathlib.Analysis.InnerProductSpace.Orientation_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an admitted source must choose real or complex finite square matrices, an explicit Fin n or arbitrary finite index, or a coordinate-free real n-dimensional inner product space; all universes and instance binders remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: likely the absolute determinant is at most the product of Euclidean row or column norms; the catalog does not specify the formula or whether equality conditions are included.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before root selection; dimension zero and one, zero or singular matrices, zero rows or columns, diagonal and orthogonal-row matrices, proportional rows, empty products, determinant sign, and equality cases all require source-mapped decisions.",
+  "candidate_scope_not_credited": [
+    "for a real square matrix A, abs A.det is at most the product of the Euclidean norms of its rows",
+    "the analogous real column statement obtained by transposition",
+    "the corresponding complex matrix inequality",
+    "the coordinate-free real volume-form inequality Orientation.abs_volumeForm_apply_le",
+    "a squared Gram-determinant formulation",
+    "an inequality together with equality for orthogonal rows or a full equality characterization"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty index type and zero dimension, including the zero-by-zero determinant and empty product",
+    "dimension one and scalar matrices",
+    "zero matrix, zero row or column, and singular matrices",
+    "diagonal, orthogonal-row, orthogonal-column, and unitary or orthogonal matrices",
+    "repeated, proportional, or linearly dependent rows or columns",
+    "negative real determinant and complex determinant phase",
+    "equality with zero factors and whether equality is a one-way orthogonality result or an iff"
+  ],
+  "excluded_substitutions": [
+    "the factorial uniform-entry bound Matrix.det_le",
+    "the entrywise Matrix.hadamard product",
+    "Hadamard three-lines, three-circles, maximal-determinant, or Hadamard-matrix results",
+    "a Gram determinant inequality without a checked equivalence to the selected root",
+    "a fixed-dimension, diagonal-only, orthogonal-only, real-only, row-only, or column-only special case that narrows a source-selected root",
+    "an equality-only result or an equality characterization added when the source selects only the inequality",
+    "a structure, hypothesis, axiom, oracle, experiment, or unchecked certificate storing the desired bound",
+    "the catalog's untrusted verified label or the discovery probe treated as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0058",
+      "name": "冯·诺依曼迹不等式",
+      "relationship": "a distinct singular-value trace bound; no determinant-bound scope or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0044",
+      "name": "奇异值分解定理",
+      "relationship": "may support a proof route for some formulations but is not the Hadamard inequality itself"
+    },
+    {
+      "theorem_id": "THM-M-0060",
+      "name": "史密斯标准形定理",
+      "relationship": "an integral matrix normal-form theorem, not a norm bound on determinants"
+    }
+  ],
+  "source_status": "H1_matching_historical_bibliography_known_but_no_admitted_primary_body_exact_proposition_definition_premise_proof_errata_or_independent_review",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Jacques Hadamard, Resolution d'une question relative aux determinants, Bulletin des Sciences Mathematiques, 2e serie 17 (1893), 240-246",
+      "candidate_locator": "commonly cited historical bibliography matching the catalog author, year, and determinant subject",
+      "candidate_summary": "probable original source for the determinant bound now called Hadamard's inequality",
+      "inspection_status": "no lawful immutable scan or exact proposition/proof passage was admitted; definitions, premises, equality scope, corrections, errata, translation, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Orientation",
+      "declaration": "Orientation.abs_volumeForm_apply_le",
+      "type_summary": "for n vectors in an n-dimensional real inner product space, abs (o.volumeForm v) <= product i, norm (v i)",
+      "boundary": "direct coordinate-free real Hadamard inequality candidate; canonical matrix root, source mapping, bridge composition, terminal-body provenance, transitive trust, and M0-W credit remain later gates"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Orientation",
+      "declaration": "Orientation.abs_volumeForm_apply_of_pairwise_orthogonal",
+      "boundary": "equality for pairwise orthogonal vectors, not a full equality characterization and not necessarily part of the catalog root"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Determinant",
+      "declaration": "Basis.det_apply and Pi.basisFun_det_apply",
+      "boundary": "basis-to-matrix determinant interfaces; an exact row or column transport and composition with the volume-form theorem remain unchecked"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.AbsoluteValue",
+      "declaration": "Matrix.det_le",
+      "boundary": "factorial uniform-entry bound, recorded specifically as a non-substitute"
+    }
+  ],
+  "bounded_search_result": "Repository and pinned-mathlib topic search located the real volume-form inequality, Gram-Schmidt determinant lemma, basis/matrix determinant bridges, the weaker factorial entrywise bound, and the unrelated Hadamard-product module. This intake discovery is not the precommitted exhaustive anchor, provenance, trust, or external-project audit.",
+  "source_revisions": {
+    "repository_base": "5fe11f4b5e32a06ffb4432460319fc8ae906fe7b",
+    "repository_base_tree": "64c5aacf7cf3eb79008f5a1970151e3e53cb9966",
+    "repository_record": "Docs/researches/math_theorems.md:440-445",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1726-1751",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "751bb5a8758b14e97c0f5aae21156b845a083313d2bbdb8a47387641453f5fb2",
+    "stage0_projection_excerpt_sha256": "5db2ff8e194a4d8cd5d57d9aa621a1fbb3618e7d9c6cba129e27d27921fcdac9",
+    "canonical_manifest_entry_sha256": "19a7c97f21fac11a9abe56725b3fee01e24f4b6d353d7af5622e512c922b69a6",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "2d23e1c4b0bbe4f3b679f5852dc5c6a19a6ced4566dae325cadd011c824980e2",
+    "execution_dag_sha256": "c951db2320b85b5f781c60178712509c17d9e59bc76026094d77b04adb358667",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "orientation_source_blob": "48a770f98db49f66802fa18258bc7c023a101129",
+    "orientation_source_sha256": "d3a27e4111ddcf0e84e1b0672d830323279c044cc4fee21516268ea13f6f3375",
+    "gram_schmidt_source_blob": "dd2299104b06cdd0ece6b8c4f43776a7453955c9",
+    "gram_schmidt_source_sha256": "0eb98a48c591bfe2c4677a89e719b1973b199a55d6b1cfc9ce73c265ea22288a",
+    "pi_l2_source_blob": "1809daf0493b8bbfde55c8f4d1bdcb2eb3feda7a",
+    "pi_l2_source_sha256": "4df49dd497992b022f3d18ee79ea0ae5536be7a452779b4c2400b1d136b7a2bb",
+    "determinant_source_blob": "eaff10245c24ac5bb48cfeadd76d684b8713e6ff",
+    "determinant_source_sha256": "56c93a688e80aafce2a540da6459786ac46bd8c267574ceee8f2aad94d19070b",
+    "absolute_value_source_blob": "a1e0318927daea3f324db510765cb351f42720df",
+    "absolute_value_source_sha256": "669153b12324c927649aa5838b2816c4da0bf19d28a3a757b134ced53905f70d",
+    "hadamard_product_source_blob": "f5f14cdc75a2b28061e4ce4651d5e6ebe2de2e11",
+    "hadamard_product_source_sha256": "8c25b4c3c4a5201a8ab82ab67b49642b3c5cff9c4c0e7305a843849bd325dcd2"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice used by finite-dimensional bases and Gram-Schmidt, quotient soundness, propositional extensionality, complex-to-real constructions, and the accepted axiom policy remain open until the exact target and transitive candidate body are audited.",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal statement imports, terminal declaration/body, transitive dependencies, placeholder scan, and accepted trust policy remain later gates.",
+  "computation_profile": "No floating-point determinant or norm computation, numerical experiment, external oracle, unchecked Gram certificate, native computation, or generated certificate is credited; the intended result requires kernel-checked algebra and analysis.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0059/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0059/README.md",
+    "Stage1_Instances/THM-M-0059/instance.json",
+    "Stage1_Instances/THM-M-0059/scope-map.md",
+    "Stage1_Instances/THM-M-0059/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0059/task-dag.json",
+    "Stage1_Instances/THM-M-0059/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0059/check_intake.py",
+    "Stage1_Instances/THM-M-0059/validation.md",
+    "Stage1_Instances/THM-M-0059/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned linear-algebra reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "source edition, exact inequality/equality selection, translation, correction, or erratum",
+      "scalar, finite index, dimension, row/column, Euclidean norm, determinant, orientation, squared/unsquared, Gram, binder, equality, or boundary convention",
+      "matrix-to-volume-form or alternate-encoding transport",
+      "Lean target, import, toolchain, dependency pin, assurance profile, validator, receipt, or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "archive_and_recovery_boundary": "Repository history and an integration-lane durable snapshot are intended recovery mechanisms after acceptance. The unpreserved historical-source lead and this mutable worker packet are not release archives.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the sparse catalog claim, historical and direct pinned formal leads, proposition-changing decisions, exclusions, provisional H1/M3/R4 vector, and six open tasks. No canonical proposition, H0 source closure, exact Lean statement, accepted proof body, M0, R0, accepted execution state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

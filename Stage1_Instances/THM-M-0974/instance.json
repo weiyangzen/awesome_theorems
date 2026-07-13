@@ -1,0 +1,246 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0974",
+  "item_id": "S56-M-0974-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1508,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Talagrand集中不等式",
+  "name_en": "Talagrand concentration inequality",
+  "canonical_name": "Talagrand concentration family for convex Lipschitz functions",
+  "category": "组合数学 / 计数组合",
+  "category_en": "combinatorics / enumerative combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim_zh": "凸Lipschitz函数的集中",
+  "literal_source_claim_en": "Concentration of convex Lipschitz functions.",
+  "source_attribution": "Michel Talagrand, 1995 (catalog metadata only)",
+  "canonical_statement": null,
+  "canonical_claim_status": "convex_Lipschitz_concentration_family_frozen_but_catalog_and_inspected_1995_source_do_not_select_one_exact_functional_proposition",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "A convex Lipschitz real-valued function of independent bounded coordinates has Gaussian-type concentration around a median, with the precise support, norm, center, tail directions, constants, and source derivation still open.",
+  "statement_blocker": "The catalog supplies only 'concentration of convex Lipschitz functions'. It fixes no coordinate spaces or laws, product and support assumptions, ambient norm, convexity domain, Lipschitz constant, measurability, center, tail event, constants, quantifier order, or boundary cases. The inspected 1995 primary paper proves set-fattening and convex-distance inequalities and explicitly gives no abstract functional statement; later functional attributions jointly cite 1995 and 1996 sources. Selecting a formula at intake would invent or substitute mathematics.",
+  "target_decision": "preserve_the_Talagrand_convex_Lipschitz_concentration_family_and_require_an_independently_reviewed_pinpoint_source_or_checked_derivation_before_statement_elaboration",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_exact_source_functional_statement_or_reviewed_derivation_and_all_domain_constant_and_boundary_choices",
+    "module_candidates_not_credited": [
+      "Mathlib.Analysis.Convex.Function",
+      "Mathlib.Topology.MetricSpace.Lipschitz",
+      "Mathlib.Probability.ProductMeasure",
+      "Mathlib.Probability.Moments.SubGaussian"
+    ],
+    "declaration_candidates_not_credited": [
+      "ConvexOn",
+      "LipschitzWith",
+      "MeasureTheory.Measure.pi",
+      "MeasureTheory.Measure.infinitePi",
+      "ProbabilityTheory.HasSubgaussianMGF",
+      "ProbabilityTheory.HasSubgaussianMGF.measure_ge_le"
+    ],
+    "candidate_boundary": "Pinned mathlib supplies adjacent predicates, product measures, and generic assumed-sub-Gaussian tail infrastructure. A bounded intake search found no source-identical Talagrand convex-Lipschitz theorem. None of these declarations supplies the requested root.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an admitted source must fix the finite or infinite coordinate index, coordinate measurable spaces and laws, product support, real vector/normed ambient space, function codomain, all universes, coercions, metrics, measures, and typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-selected upper, lower, or two-sided probability bound for deviations of a convex Lipschitz function from a selected median, mean, or quantile, with exact constants and scaling.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no canonical proposition is selected; every case listed in scope-map.md remains a source and statement decision.",
+  "candidate_scope_not_credited": [
+    "a convex Euclidean-1-Lipschitz function on a product of intervals of maximum diameter d has Gaussian-type one-sided median tails",
+    "a two-sided median concentration corollary derived from Talagrand's 1995 convex-distance set inequality",
+    "an expectation-centered consequence obtained after separately bounding mean-median distance",
+    "a weighted-coordinate or unequal-diameter version",
+    "a concave-function corollary obtained by negation"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero coordinates and zero-dimensional ambient spaces",
+    "empty or singleton coordinate types and point-mass laws",
+    "zero-diameter supports, empty intervals, and infinite or unknown diameters",
+    "constant functions, zero Lipschitz constant, and zero or negative deviation parameter",
+    "nonunique medians, atoms at the center, and undefined or infinite expectation",
+    "convexity only on support, nonmeasurable functions, and almost-everywhere representatives",
+    "one-sided versus two-sided events and strict versus non-strict boundary comparisons",
+    "real, NNReal, and ENNReal coercions when the scale or exponential denominator is zero"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1081 Talagrand configuration-function or convex-distance target",
+    "Talagrand T2 transportation-cost inequality",
+    "THM-M-0996 Gaussian isoperimetric inequality",
+    "McDiarmid, Azuma-Hoeffding, Hoeffding, Chernoff, or generic bounded differences without the source-selected convex theorem",
+    "the 1995 set-only convex-distance theorem without a checked and source-reviewed derivation of the functional conclusion",
+    "a fixed law, fixed dimension, one-sided special case, weakened constant, or asymptotic result substituted for the selected root",
+    "a structure, hypothesis, HasSubgaussianMGF assumption, or predicate that stores the desired tail bound",
+    "the catalog's untrusted verified label, source metadata, or API probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1081",
+      "name": "Talagrand不等式",
+      "relationship": "separate probability/stochastic-process target whose gloss concerns configuration functions and product-space convex distance"
+    },
+    {
+      "theorem_id": "THM-M-0996",
+      "name": "高斯集中不等式",
+      "relationship": "separate Gaussian isoperimetry/concentration target, not bounded-coordinate product concentration"
+    },
+    {
+      "theorem_id": "THM-M-0975",
+      "name": "Azuma-Hoeffding不等式",
+      "relationship": "separate martingale-difference concentration theorem"
+    },
+    {
+      "theorem_id": "THM-M-0976",
+      "name": "McDiarmid不等式",
+      "relationship": "separate bounded-differences theorem without the same convexity mechanism"
+    }
+  ],
+  "duplicate_source_record_boundary": {
+    "repository_records": [
+      "Docs/researches/math_theorems.md:7113-7118",
+      "Docs/researches/math_theorems.md:7301-7306"
+    ],
+    "relationship": "byte-identical source-corpus duplicate collapsed to one rev-5.6 target",
+    "credit": "none"
+  },
+  "source_status": "H1_complete_published_Talagrand_concentration_proof_family_known_but_exact_catalog_statement_assumptions_primary_passage_1995_1996_relationship_and_source_to_root_mapping_unresolved",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Michel Talagrand, Concentration of measure and isoperimetric inequalities in product spaces, Publications Mathematiques de l'IHES 81 (1995), 73-205, DOI 10.1007/BF02699376",
+      "candidate_locator": "publisher-hosted PDF observed 2026-07-13; introduction pp. 74-81 and Section 4.1 beginning p. 123 inspected; sha256 5ec4f90d867170f5b52893055260404ad201a50758be83bce1f20f5158da1524",
+      "candidate_summary": "complete product-space set-fattening theory including a convex-distance inequality and generic discussion of Lipschitz concentration",
+      "inspection_status": "strong primary source-family and derivation lead; introduction explicitly says no abstract functional statement is given, so catalog-root identity, functional derivation, assumptions, exact constants, corrections, errata, and independent review remain open"
+    },
+    {
+      "citation": "Michel Talagrand, A new look at independence, Annals of Probability 24(1) (1996), DOI 10.1214/aop/1042644705",
+      "candidate_locator": "identified through later literature that jointly attributes the convex-Lipschitz result to the 1995 and 1996 papers",
+      "candidate_summary": "primary-author refinement that may contain or sharpen the intended functional surface",
+      "inspection_status": "competing lead only; exact theorem/page, source relation, proof, corrections, constants, and errata not admitted"
+    }
+  ],
+  "secondary_formulation_witnesses_not_credited": [
+    {
+      "citation": "Han Huang and Konstantin Tikhomirov, On dimension-dependent concentration for convex Lipschitz functions in product spaces, Electronic Journal of Probability 28 (2023), DOI 10.1214/23-EJP944, arXiv:2106.06121",
+      "candidate_summary": "calls the uniform-cube convex Euclidean-1-Lipschitz bound a classical Talagrand result jointly citing the 1995 and 1996 papers, while separately presenting a bounded-coordinate-support product extension via a later secondary treatment",
+      "status": "secondary formulation/eponym witness only; the cube result and bounded-support extension are distinct surfaces, with no primary-proof, exact-constant, source-identity, or H0 credit"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Convex.Function",
+      "declarations": ["ConvexOn"],
+      "boundary": "convex-function predicate only; no probability or concentration conclusion"
+    },
+    {
+      "module": "Mathlib.Topology.MetricSpace.Lipschitz",
+      "declarations": ["LipschitzWith"],
+      "boundary": "metric regularity predicate only; no convexity or tail theorem"
+    },
+    {
+      "module": "Mathlib.Probability.ProductMeasure",
+      "declarations": ["MeasureTheory.Measure.pi", "MeasureTheory.Measure.infinitePi"],
+      "boundary": "product probability substrate only; no Talagrand distance or function inequality"
+    },
+    {
+      "module": "Mathlib.Probability.Moments.SubGaussian",
+      "declarations": ["ProbabilityTheory.HasSubgaussianMGF", "ProbabilityTheory.HasSubgaussianMGF.measure_ge_le"],
+      "boundary": "tail consequence from an assumed MGF property; treating that assumption as the target would hide the theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "9c75282d42a7ef447d885d1d56997a79418bcd8a",
+    "repository_base_tree": "cc5285432a02107fadffb68c698690d1b98ac5f2",
+    "repository_record": "Docs/researches/math_theorems.md:7113-7118",
+    "duplicate_repository_record": "Docs/researches/math_theorems.md:7301-7306",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:26551-26576",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "b7858d5746cc69c855357a67c630ab427ae89e05bf4d516c141c87b69bf8c112",
+    "duplicate_record_excerpt_sha256": "b7858d5746cc69c855357a67c630ab427ae89e05bf4d516c141c87b69bf8c112",
+    "stage0_excerpt_sha256": "48e659431a66ff5bf2721b3b07c4aa1f7b085067202c6020d52ad6fed3b224a0",
+    "manifest_entry_sha256": "5fe45f709f9d2682867ba62627d3121d8f58d17781f31c8eb3c9b5fe9bed27be",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "8b838b50928f814c8f1250be02504dd42366e1d50b3fc2c885e8b2b0d3b3bbbd",
+    "execution_dag_sha256": "4e9660ad9c7ae52649dc1744e8bb25c1a9d0ac25f7c2566a3ef05fb9d0b836e7",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "observed_crossref_response_sha256": "b6417f404bb7f6a0f99e43071aad9da6ad7cdf248a2012fc79c222a751bc8a8a",
+    "observed_publisher_pdf_sha256": "5ec4f90d867170f5b52893055260404ad201a50758be83bce1f20f5158da1524",
+    "observed_publisher_article_html_sha256": "b3423f600546a7aa82de7e275855f7910ee35864aff982b1f6af944c1f93e945",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_convex_function_sha256": "28554836e064867e88cde6f75ef1a9936cbb494bc198ba4ab42fb8db5d9a3030",
+    "mathlib_lipschitz_sha256": "8526347ac3d5443d6c26edee0da750d68eda573720193cd86367066249129793",
+    "mathlib_product_measure_sha256": "5f90deb8a7679e5a5631f6dca5615ddefa80ae0776978b9ab1107f256a42d485",
+    "mathlib_subgaussian_sha256": "1261993867efbddb6781a6ce9d0855335fab6891f819062ac83b8d9f6d94c440"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice for medians and convex separation, quotient and almost-everywhere reasoning, product-measure foundations, and accepted/disallowed axioms remain open because no canonical proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, expression identity, terminal declarations, transitive dependencies, proof-body provenance, axioms, and trust closure remain open",
+  "computation_profile": "No sampled probability, numerical constant estimate, floating-point exponential, Monte Carlo run, native shortcut, oracle, or unchecked certificate is credited; the expected inequality requires kernel-checked analysis",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0974/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0974/README.md",
+    "Stage1_Instances/THM-M-0974/instance.json",
+    "Stage1_Instances/THM-M-0974/scope-map.md",
+    "Stage1_Instances/THM-M-0974/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0974/task-dag.json",
+    "Stage1_Instances/THM-M-0974/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0974/check_intake.py",
+    "Stage1_Instances/THM-M-0974/validation.md",
+    "Stage1_Instances/THM-M-0974/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent probability/concentration reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned independent probability-in-Banach-spaces reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; observed source bytes are not vendored and this provisional dossier has no release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source edition, source identity, 1995-to-1996 relationship, derivation boundary, correction or errata status, selected root, coordinate/product/support model, ambient norm, convexity and Lipschitz predicates, center, tail event, constant, quantifier or boundary case, neighbor ownership, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. H1 records a known complete published proof family with unresolved exact statement, assumption, errata, and source-to-root mapping; it does not assert source fidelity for a canonical root. Pinned Lean APIs are substrate only. No canonical statement, expression fingerprint, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

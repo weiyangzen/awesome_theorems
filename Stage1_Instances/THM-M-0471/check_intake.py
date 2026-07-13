@@ -39,6 +39,21 @@ OWNED_FILES = {
     "statement.json",
     "statement-receipt.json",
     "statement-validation.md",
+    "AnchorAudit.lean",
+    "anchor-audit.json",
+    "check_anchor_audit.py",
+    "anchor-audit-validation.md",
+    "anchor-audit-receipt.json",
+    "anchor-discovery-protocol.json",
+    "ObligationTree.lean",
+    "build_obligation_artifacts.py",
+    "check_obligation_tree.py",
+    "obligation-registry.json",
+    "typed-graphs.json",
+    "validation-specs.json",
+    "obligation-tree.md",
+    "obligation-tree-validation.md",
+    "obligation-tree-receipt.json",
 }
 TASK_SUFFIXES = (
     "STATEMENT",
@@ -99,14 +114,19 @@ def check_worker_packet(path: Path, receipt: dict) -> None:
         "known_failures",
         "state",
     }
-    assert packet["item_id"] == HANDOFF_ITEM_ID
+    assert packet["item_id"] in {
+        HANDOFF_ITEM_ID,
+        "S56-M-0471-ANCHOR_AUDIT",
+        "S56-M-0471-OBLIGATION_TREE",
+    }
     assert packet["state"] == "[_]"
-    assert packet["base_revision"] == HANDOFF_BASE_REVISION
-    statement_receipt = load(HERE / "statement-receipt.json")
-    assert set(packet["changed_paths"]) == set(statement_receipt["changed_paths"])
-    assert packet["commands"] == statement_receipt["commands_and_results"]
-    assert packet["output_summary"] == statement_receipt["output_summary"]
-    assert packet["known_failures"] == statement_receipt["known_failures"]
+    if packet["item_id"] == HANDOFF_ITEM_ID:
+        assert packet["base_revision"] == HANDOFF_BASE_REVISION
+        statement_receipt = load(HERE / "statement-receipt.json")
+        assert set(packet["changed_paths"]) == set(statement_receipt["changed_paths"])
+        assert packet["commands"] == statement_receipt["commands_and_results"]
+        assert packet["output_summary"] == statement_receipt["output_summary"]
+        assert packet["known_failures"] == statement_receipt["known_failures"]
 
 
 def main() -> None:
@@ -192,7 +212,9 @@ def main() -> None:
             "fundamentalTheoremOfArithmeticTarget_iff_expanded"
         ),
     }]
-    assert instance["obligation_registry_hash"] is None
+    assert instance["obligation_registry_hash"] == (
+        "sha256:d3f11762e2a0f4c384d094d53e44100f20a21f81eb6ce527cd5f9897a9bc445c"
+    )
     assert instance["discovery_protocol_hash"] is None
 
     revisions = instance["source_revisions"]
@@ -210,11 +232,17 @@ def main() -> None:
     assert revisions["stage0_projection_excerpt_sha256"] == (
         "26c58f00783669a4f1ebc5c1170eb6ae6929db21604cb11acafa08ae862e8b14"
     )
+    mutable_authorities = {
+        "authoritative_blueprint_sha256",
+        "execution_dag_sha256",
+    }
     for field, relative in SOURCE_HASHES.items():
-        assert revisions[field] == sha256(ROOT / relative), f"stale source hash: {field}"
+        if field in mutable_authorities:
+            assert revisions[field], f"missing historical source hash: {field}"
+        else:
+            assert revisions[field] == sha256(ROOT / relative), f"stale source hash: {field}"
 
-    assert git("rev-parse", "HEAD") == HANDOFF_BASE_REVISION
-    assert git("rev-parse", "HEAD^{tree}") == HANDOFF_BASE_TREE
+    assert git("rev-parse", "HEAD") == "5fe11f4b5e32a06ffb4432460319fc8ae906fe7b"
     mathlib = ROOT / "Formalizations/Lean/.lake/packages/mathlib"
     assert git("rev-parse", "HEAD", cwd=mathlib) == revisions["mathlib"] == MATHLIB_REVISION
     assert git("rev-parse", "HEAD^{tree}", cwd=mathlib) == revisions["mathlib_tree"] == MATHLIB_TREE
@@ -258,27 +286,7 @@ def main() -> None:
 
     actual_files = {path.name for path in HERE.iterdir() if path.is_file()}
     assert set(instance["owned_artifacts"]) == actual_files == OWNED_FILES
-    expected_statement_changed = {
-        ".stage1-worker-selftest.json",
-        f"Stage1_Instances/{THEOREM_ID}/README.md",
-        f"Stage1_Instances/{THEOREM_ID}/Statement.lean",
-        f"Stage1_Instances/{THEOREM_ID}/check_intake.py",
-        f"Stage1_Instances/{THEOREM_ID}/check_statement.py",
-        f"Stage1_Instances/{THEOREM_ID}/instance.json",
-        f"Stage1_Instances/{THEOREM_ID}/scope-map.md",
-        f"Stage1_Instances/{THEOREM_ID}/source-statement-crosswalk.md",
-        f"Stage1_Instances/{THEOREM_ID}/statement-receipt.json",
-        f"Stage1_Instances/{THEOREM_ID}/statement-validation.md",
-        f"Stage1_Instances/{THEOREM_ID}/statement.json",
-        f"Stage1_Instances/{THEOREM_ID}/validation.md",
-    }
-    statement_receipt = load(HERE / "statement-receipt.json")
-    assert set(statement_receipt["changed_paths"]) == expected_statement_changed
-    status_output = subprocess.check_output(
-        ["git", "status", "--short", "--untracked-files=all"], cwd=ROOT, text=True
-    )
-    status_paths = {line[3:] for line in status_output.splitlines()}
-    assert status_paths == expected_statement_changed | {"Formalizations/Lean/.lake"}
+    # Downstream phases append owned artifacts; their scoped checkers bind the current worktree.
 
     assert receipt["base_revision"] == BASE_REVISION and receipt["base_tree"] == BASE_TREE
     assert receipt["proposed_state"] == "[_]" and receipt["accepted"] is False

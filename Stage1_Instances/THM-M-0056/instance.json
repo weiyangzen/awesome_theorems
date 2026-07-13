@@ -1,0 +1,232 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0056",
+  "item_id": "S56-M-0056-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1523,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 78,
+  "name_zh": "外尔不等式",
+  "name_en": "Weyl inequality",
+  "canonical_name": "Weyl eigenvalue-inequality and perturbation family for finite Hermitian matrices",
+  "category": "代数学 / 线性代数",
+  "category_en": "algebra / linear algebra",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "Hermite矩阵特征值的扰动理论",
+  "literal_source_claim_en": "Perturbation theory for eigenvalues of Hermitian matrices.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_weyl_hermitian_eigenvalue_inequality_family_but_catalog_does_not_select_additive_upper_lower_or_norm_perturbation_root_or_fix_domain_indices_and_boundary_cases",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies a topic gloss, not a proposition. It does not select the upper additive Weyl family, its lower companion, their conjunction, or an operator-norm perturbation corollary; fix real symmetric versus complex Hermitian matrices, finite dimension, eigenvalue ordering and multiplicity, index arithmetic, norm, or zero-dimensional behavior. Weyl's inspected 1912 source states related inequalities for symmetric integral kernels in reciprocal Fredholm eigenparameter notation, not literally the catalog's finite complex Hermitian-matrix wording. Selecting an exact Lean proposition at intake would invent, broaden, narrow, or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Matrix.Spectrum",
+      "Mathlib.Analysis.InnerProductSpace.Spectrum",
+      "Mathlib.Analysis.InnerProductSpace.Rayleigh"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_variant_domain_indices_norm_and_boundary_cases",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix finite square real symmetric or complex Hermitian matrices, Nat/Fin or arbitrary finite index types, nonempty versus zero dimension, universes, and all Fintype/DecidableEq instances.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: a source-selected upper or lower eigenvalue-of-sum inequality, conjunction of the additive family, endpoint bound, or indexed operator-norm perturbation estimate; exact eigenvalue enumeration, admissible indices, and norm are unresolved.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every boundary case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "for decreasing eigenvalues of n by n complex Hermitian A and B, lambda_(i+j-1)(A+B) <= lambda_i(A) + lambda_j(B) whenever i,j >= 1 and i+j-1 <= n",
+    "the lower companion lambda_(i+j-n)(A+B) >= lambda_i(A) + lambda_j(B) whenever i+j >= n+1",
+    "the conjunction of all admissible upper and lower Weyl inequalities",
+    "for each ordered eigenvalue, abs(lambda_i(A+B) - lambda_i(A)) <= operatorNorm(B)",
+    "equivalently, abs(lambda_i(A) - lambda_i(B)) <= operatorNorm(A-B) for two Hermitian matrices",
+    "the corresponding real symmetric matrix or finite-dimensional self-adjoint operator theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero-dimensional and singleton index types",
+    "zero perturbation, zero matrix, scalar matrices, and commuting matrices",
+    "repeated eigenvalues counted with multiplicity",
+    "positive semidefinite, indefinite, and singular matrices",
+    "endpoint indices and every i+j off-by-one boundary",
+    "ascending versus descending eigenvalue enumeration",
+    "real symmetric versus complex Hermitian matrices",
+    "operator norm versus Frobenius, Schatten, entrywise, or another matrix norm"
+  ],
+  "excluded_substitutions": [
+    "Weyl's asymptotic eigenvalue law or criterion for essential spectrum",
+    "Weyl groups, Weyl chambers, root systems, or the Weyl character formula",
+    "singular-value Weyl inequalities or Hoffman-Wielandt bounds",
+    "Loewner monotonicity, Cauchy interlacing, Lidskii, Schur-Horn, or spectral variation alone",
+    "the spectral theorem, eigenvalue reality, or diagonalization without the selected inequality",
+    "normal, arbitrary nonsymmetric, infinite-dimensional, fixed-size, commuting-only, or numerical special cases",
+    "a hypothesis or structure storing the desired eigenvalue inequality",
+    "a floating-point eigensolver, sampled experiment, oracle, or unchecked certificate",
+    "the catalog's untrusted verified label, a source URL, or the discovery probe as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0055",
+      "name": "瑞利商定理",
+      "relationship": "Rayleigh and minimax characterizations are possible proof ingredients, not the requested perturbation inequality"
+    },
+    {
+      "theorem_id": "THM-M-0057",
+      "name": "霍夫曼-魏兰德特定理",
+      "relationship": "a Frobenius-norm aggregate eigenvalue perturbation bound for normal matrices is distinct from the selected Weyl root"
+    },
+    {
+      "theorem_id": "THM-M-0058",
+      "name": "冯·诺依曼迹不等式",
+      "relationship": "a trace/singular-value inequality is not an ordered Hermitian eigenvalue perturbation theorem"
+    },
+    {
+      "theorem_id": "THM-M-1389",
+      "name": "外尔定律",
+      "relationship": "the spectral asymptotic law is a separate target even though the inspected 1912 paper contains both kernel inequalities and the asymptotic application"
+    }
+  ],
+  "source_status": "H1_primary_weyl_1912_source_family_and_complete_satz_I_proof_inspected_with_modern_exact_matrix_leads_but_catalog_identity_kernel_to_matrix_transport_variant_selection_transcription_errata_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Hermann Weyl, Das asymptotische Verteilungsgesetz der Eigenwerte linearer partieller Differentialgleichungen (mit einer Anwendung auf die Theorie der Hohlraumstrahlung), Mathematische Annalen 71(4) (1912), 441-479, DOI 10.1007/BF01456804",
+      "candidate_locator": "public-domain Zenodo scan https://zenodo.org/record/1526112/files/article.pdf observed 2026-07-13; SHA-256 47a614bca926c86e874335398c589ac4b3fac77452dc2859882f5f6001fda5af",
+      "candidate_summary": "Section 1 pages 443-447 treats symmetric integral kernels; Satz I pages 445-446 states upper and lower inequalities for the positive and negative reciprocal-eigenparameter sequences of K=K'+K'', with a complete proof",
+      "inspection_status": "primary source-family proof lead inspected; it is not literally a finite complex Hermitian-matrix statement, and catalog identity, faithful translation, specialization, notation, corrections, immutable admission, and independent review remain open"
+    },
+    {
+      "citation": "Sai-Nan Zheng, Xi Chen, Lily Li Liu, and Yi Wang, Inertia indices and eigenvalue inequalities for Hermitian matrices, arXiv:1910.01966v4; Linear and Multilinear Algebra 70(8) (2022), 1543-1552, DOI 10.1080/03081087.2020.1765957",
+      "candidate_locator": "versioned PDF https://arxiv.org/pdf/1910.01966v4 observed 2026-07-13; SHA-256 7ac7b4f9ca55ff5c6a5dd31cd92ec4e12672ea9098497faa6ff5359782cdd66a",
+      "candidate_summary": "page 1 fixes decreasing eigenvalues for finite Hermitian matrices and Corollary 2.5 on page 3 states and proves the upper additive Weyl inequality",
+      "inspection_status": "modern exact-family proof lead only; it does not select the catalog root or supply accepted source identity, correction audit, Lean transport, or independent review"
+    },
+    {
+      "citation": "Terence Tao, 254A, Notes 3a: Eigenvalues and sums of Hermitian matrices, 12 January 2010",
+      "candidate_locator": "author-hosted mutable page https://terrytao.wordpress.com/2010/01/12/254a-notes-3a-eigenvalues-and-sums-of-hermitian-matrices/ observed 2026-07-13; no immutable source packet is admitted",
+      "candidate_summary": "records the upper and lower additive inequalities and the operator-norm perturbation and Schatten corollaries, demonstrating the proposition-changing variants hidden by the catalog gloss",
+      "inspection_status": "authoritative expository disambiguation lead, not primary H0 evidence or a selected canonical statement"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Matrix.Spectrum",
+      "declarations": [
+        "Matrix.IsHermitian.eigenvalues₀",
+        "Matrix.IsHermitian.eigenvalues₀_antitone",
+        "Matrix.IsHermitian.mulVec_eigenvectorBasis",
+        "Matrix.IsHermitian.spectral_theorem",
+        "Matrix.IsHermitian.spectrum_real_eq_range_eigenvalues"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "ordered finite Hermitian eigenvalues, eigenvectors, spectrum, and diagonalization only; no eigenvalue-of-sum or perturbation inequality"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Rayleigh",
+      "declarations": [
+        "ContinuousLinearMap.rayleighQuotient_add",
+        "ContinuousLinearMap.rayleighQuotient_le_norm",
+        "ContinuousLinearMap.norm_eq_iSup_rayleighQuotient"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "additivity and norm bounds for Rayleigh quotients are ingredients only; no indexed Courant-Fischer bridge or Weyl conclusion was located"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+      "declarations": [
+        "LinearMap.IsSymmetric.eigenvalues",
+        "LinearMap.IsSymmetric.eigenvalues_antitone",
+        "LinearMap.IsSymmetric.hasEigenvalue_eigenvalues"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "ordered finite-dimensional self-adjoint eigenvalue infrastructure only; no exact Weyl theorem"
+    }
+  ],
+  "provisional_family_intake_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector": null,
+  "root_vector_status": "unclassified_until_canonical_statement_fingerprint_and_root_obligation_are_frozen",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, finite-dimensional eigenbasis selection, real/complex transport, and norm principles remain open until the exact source proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, terminal declarations, transitive dependencies, and trust policy remain open",
+  "computation_profile": "No floating-point eigensolver, numerical experiment, oracle, unchecked certificate, or native computation is credited; the intended theorem requires kernel-checked finite-dimensional algebra and analysis",
+  "formal_system": "Lean 4 + mathlib adapter under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "b56df790fc94c5366cf919a6fe5411d06b427c59",
+    "repository_base_tree": "18ba629d4c00333f6e17018905f4fbd30558bb4c",
+    "repository_record": "Docs/researches/math_theorems.md:419-424",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1645-1672",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_blob_at_base": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "e078a5cb1193ce016a175c924cf0a546322a6b23a26ad80c64e31e76c04666d4",
+    "execution_dag_sha256": "db4c21ecd94512ee191c184fa5efad1a5d5257a0d276e384ad8d326088329f47",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "matrix_spectrum_source_sha256": "1a1a96a6f057a73b0d428b62cdbb3da824981928c162b52a15335abdafc8b0db",
+    "inner_product_spectrum_source_sha256": "49eeec917a355497936a4f779eb6403af0910c66d0f3fbbfd131ad7833c4f555",
+    "rayleigh_source_sha256": "ed4311f88930a0d76dbe901ee12e3fdcf18c0ac24913e75a44d2b91120bb29c6",
+    "inspected_weyl_1912_pdf_sha256": "47a614bca926c86e874335398c589ac4b3fac77452dc2859882f5f6001fda5af",
+    "inspected_zheng_arxiv_pdf_sha256": "7ac7b4f9ca55ff5c6a5dd31cd92ec4e12672ea9098497faa6ff5359782cdd66a"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0056/README.md",
+    "Stage1_Instances/THM-M-0056/instance.json",
+    "Stage1_Instances/THM-M-0056/scope-map.md",
+    "Stage1_Instances/THM-M-0056/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0056/task-dag.json",
+    "Stage1_Instances/THM-M-0056/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0056/check_intake.py",
+    "Stage1_Instances/THM-M-0056/validation.md",
+    "Stage1_Instances/THM-M-0056/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or errata finding, kernel-to-matrix transport, additive or perturbation variant, scalar domain, dimension, eigenvalue enumeration, index, multiplicity, norm or boundary decision, Lean target, toolchain or dependency pin, assurance profile, validator, or owned artifact change; independent review and master acceptance remain open.",
+  "open_task_dag": "Stage1_Instances/THM-M-0056/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, source and formal leads, proposition-changing variants, exclusions, and open task DAG. No canonical proposition, exact Lean statement, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
