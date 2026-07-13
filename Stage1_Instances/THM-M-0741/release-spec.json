@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0741-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0741-RELEASE",
+  "theorem_id": "THM-M-0741",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0741/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The checker runs each Lean elaboration through the existing bubblewrap --unshare-net validation runner. It makes no network request. This does not turn the shared warm dependency cache into release-grade cold hermetic evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0741-ROOT",
+    "M0741-S-TARGET",
+    "M0741-S-BOUNDARY",
+    "M0741-S-FOUNDATION",
+    "M0741-N-FIXED-ZERO",
+    "M0741-C-PAIR-ZERO",
+    "M0741-L-RESTRICT",
+    "M0741-X-FIXED-HALTING",
+    "M0741-X-RICE",
+    "M0741-L-FIXED-POINT",
+    "M0741-C-CONDITIONAL",
+    "M0741-B-MEMBERSHIP",
+    "M0741-B-FIXED-WITNESSES",
+    "M0741-T-COMPOSITION",
+    "M0741-X-SOURCE",
+    "M0741-X-PROVENANCE",
+    "M0741-X-TRUST",
+    "M0741-X-READABLE",
+    "M0741-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0741.HaltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable",
+    "Stage1Instances.THM_M_0741.Proof.haltingProblemUndecidable_via_rice",
+    "Stage1Instances.THM_M_0741.Validation.independentlyReconstructedHaltingProblemUndecidable",
+    "ComputablePred.halting_problem",
+    "ComputablePred.rice"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation and a network-isolated, temporary-directory, warm-cache Lean replay. This recipe does not provide dependency or master acceptance, accepted H0/R0 or trust closure, an immutable clean empty-cache cold build, offline restoration, complete SBOM/licenses, distinct signed runners, an independently implemented verifier, protected release CI, or a deterministic release bundle."
+}

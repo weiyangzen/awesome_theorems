@@ -1,0 +1,185 @@
+{
+  "schema_version": "stage1-anchor-discovery-protocol/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0819-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0819",
+  "inventory_version": "THM-M-0819-anchor-inventory/1",
+  "frozen_at": "2026-07-13T23:02:43+08:00",
+  "cutoff": "2026-07-13T23:02:43+08:00",
+  "cutoff_timezone": "Asia/Shanghai",
+  "cutoff_scope": "The cutoff freezes this bounded discovery inventory. Later classification and validation may not silently add a candidate; a new lead requires an append-only successor inventory.",
+  "base_revision": "27400857bccc93638c97e9c65859ddf5d5b5f4da",
+  "base_tree": "3762537e0e5ae46cd70b086da49a69e2fd7b275c",
+  "credentials_policy": "Anonymous public HTTP only. No GitHub, Sourcegraph, or grep.app credential was available or used.",
+  "network_mutation_policy": "Public queries and immutable raw/archive inspection only. No dependency clone, fetch, checkout, update, install, lake build, or .lake mutation is permitted.",
+  "aliases": [
+    "Dilworth's theorem",
+    "Dilworth theorem",
+    "decomposition theorem for partially ordered sets",
+    "finite-width poset decomposition",
+    "minimum chain partition equals maximum antichain",
+    "minimum chain cover",
+    "maximum antichain",
+    "disjoint chains",
+    "chain partition",
+    "chain cover",
+    "minChainPartition_eq_antichainWidth",
+    "minChainPartition",
+    "antichainWidth",
+    "IsChainPartition",
+    "DilworthPrimaryTarget",
+    "IsDisjointChainDecomposition"
+  ],
+  "namespace_and_declaration_queries": [
+    "Dilworth",
+    "minChainPartition_eq_antichainWidth",
+    "minChainPartition",
+    "antichainWidth",
+    "IsChainPartition",
+    "chainHeight",
+    "IsChain",
+    "IsAntichain"
+  ],
+  "repositories_and_registries": [
+    {
+      "surface": "repository-local Lean source",
+      "selection": "all 2461 tracked *.lean files at the immutable base revision, with the owned statement classified separately"
+    },
+    {
+      "surface": "materialized pinned Lake dependency source",
+      "selection": "all 9676 *.lean files under Formalizations/Lean/.lake/packages; pinned mathlib has 7871 Mathlib/*.lean files and is classified separately"
+    },
+    {
+      "surface": "pinned mathlib history and curated 1000-theorems index",
+      "selection": "immutable mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, materialized ancestors, branch names, docs/1000.yaml, and exact-topic history"
+    },
+    {
+      "surface": "Sourcegraph public code index",
+      "selection": "anonymous Lean 4 exact-name and theorem-name searches; responses are bounded and may time out"
+    },
+    {
+      "surface": "GitHub REST and web search",
+      "selection": "anonymous repository metadata queries and attempted code/commit/tree queries; access failures are recorded rather than treated as negatives"
+    },
+    {
+      "surface": "grep.app public code index",
+      "selection": "anonymous exact-identifier and theorem-name queries; HTTP 429 is an access failure"
+    },
+    {
+      "surface": "vlad902/misc-lean-proofs",
+      "selection": "immutable commit f82f920f05a381bb1ce5e8903bde33e27f4365b6, archive and exact source/lock/license bytes"
+    },
+    {
+      "surface": "Abhishek-TIFR/Dilworth-Hall-Erdos-Theorems",
+      "selection": "immutable commit 74c0cde97967149b7f44b775fabdc7d909760ebd and FiniteDilworth.v as an other-prover research boundary"
+    },
+    {
+      "surface": "primary human source",
+      "selection": "Dilworth 1950 Theorem 1.1 on original page 161 and the previously inspected publisher preview; this is a source boundary, not Lean proof credit"
+    }
+  ],
+  "query_families": [
+    {
+      "id": "Q-LOCAL-EXACT",
+      "terms": "the declaration identifiers and theorem aliases over tracked repository Lean source"
+    },
+    {
+      "id": "Q-PINNED-EXACT",
+      "terms": "Dilworth, minChainPartition, antichainWidth, IsChainPartition, chain partition, chain cover, finite width over materialized pinned dependency source"
+    },
+    {
+      "id": "Q-MATHLIB-HISTORY",
+      "terms": "Dilworth and exact implementation identifiers over the pinned mathlib commit graph, curated index, and materialized branches"
+    },
+    {
+      "id": "Q-PUBLIC-EXACT",
+      "terms": "the theorem name and exact identifiers through Sourcegraph, GitHub, and grep.app"
+    },
+    {
+      "id": "Q-IMMUTABLE-CANDIDATE",
+      "terms": "source, project lock, toolchain, license, terminal declaration, proof body, and current-pin replay for the immutable Vlad Tsyrklevich candidate"
+    },
+    {
+      "id": "Q-OTHER-PROVER",
+      "terms": "the immutable Coq formalization and primary source boundary, without Lean 4 proof credit"
+    }
+  ],
+  "api_and_command_forms": [
+    {
+      "id": "Q-LOCAL-EXACT",
+      "cwd": ".",
+      "argv_template": ["git", "grep", "-n", "-I", "-E", "-i", "<topic-regex>", "27400857bccc93638c97e9c65859ddf5d5b5f4da", "--", "*.lean"],
+      "result_form": "Record every hit and the git ls-tree Lean-file denominator."
+    },
+    {
+      "id": "Q-PINNED-EXACT",
+      "cwd": ".",
+      "argv_template": ["rg", "-n", "-i", "<topic-regex>", "Formalizations/Lean/.lake/packages", "--glob", "*.lean", "--glob", "*.yaml", "--glob", "*.md", "--glob", "*.json"],
+      "result_form": "Record exact hits, source-file denominators, revision/tree, and source hashes."
+    },
+    {
+      "id": "Q-PUBLIC-SOURCEGRAPH",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "60", "--fail-with-body", "--silent", "--show-error", "--get", "https://sourcegraph.com/.api/search/stream", "--data-urlencode", "q=context:global <query> lang:Lean archived:yes fork:yes count:100"],
+      "result_form": "Record the response hash, repositories, commits, paths, result bound, completion, or timeout."
+    },
+    {
+      "id": "Q-PUBLIC-GITHUB",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "60", "--silent", "--show-error", "--get", "https://api.github.com/search/repositories", "--data-urlencode", "q=<query>"],
+      "result_form": "Record HTTP status, response hash, total_count, incomplete_results, or explicit access failure."
+    },
+    {
+      "id": "Q-PUBLIC-GREPAPP",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "60", "--silent", "--show-error", "--get", "https://grep.app/api/search", "--data-urlencode", "q=<query>"],
+      "result_form": "Record HTTP status and response hash or explicit access failure."
+    },
+    {
+      "id": "Q-IMMUTABLE-RAW",
+      "cwd": ".",
+      "argv_template": ["curl", "--max-time", "60", "--fail-with-body", "--silent", "--show-error", "https://raw.githubusercontent.com/<owner>/<repo>/<commit>/<path>"],
+      "result_form": "Hash immutable response bytes and compare them with the preserved archive."
+    },
+    {
+      "id": "Q-CURRENT-PIN-REPLAY",
+      "cwd": "Formalizations/Lean",
+      "argv_template": ["lake", "env", "lean", "/tmp/Dilworth-f82f-check.lean"],
+      "result_form": "Record exit, diagnostics, and full output SHA-256 without writing to .lake."
+    }
+  ],
+  "search_order": [
+    "repository-local proof bodies, wrappers, and exact statement",
+    "pinned mathlib declarations, history, and source boundaries",
+    "other materialized manifest-pinned Lean dependencies",
+    "official or primary Lean formalization projects",
+    "other public Lean repositories at immutable revisions",
+    "formal-statement collections when surfaced by the bounded queries",
+    "historical and other-prover evidence without Lean 4 completion credit",
+    "the primary human source as the remaining formalization boundary"
+  ],
+  "inventory_members": [
+    "M0819-C01-REPO-LOCAL-STATEMENT",
+    "M0819-C02-REPO-LOCAL-NONCANDIDATES",
+    "M0819-C03-MATHLIB-EXACT-TOPIC",
+    "M0819-C04-MATHLIB-SUBSTRATE-AND-LOCATOR",
+    "M0819-C05-MANIFEST-PINNED-EXTERNALS",
+    "M0819-C06-VLAD-FINITE-EQUALITY",
+    "M0819-C07-PUBLIC-SEARCH-BOUNDARY",
+    "M0819-C08-COQ-FINITE-FORMALIZATION",
+    "M0819-C09-HUMAN-SOURCE-BOUNDARY"
+  ],
+  "candidate_acceptance_fields_required_for_proof_credit": [
+    "project and canonical remote",
+    "immutable revision, tree, source hashes, and license",
+    "toolchain and complete dependency revisions",
+    "module, declaration, exact elaborated type, and normalized comparison to the frozen target",
+    "checked wrapper, terminal declaration, terminal proof body, and direct/transitive dependencies",
+    "machine-derived axioms and parser/elaborator-aware placeholder, bodyless, unsafe, oracle, generated, and external-code status",
+    "local dependency feasibility and smallest direct kernel check",
+    "truthful M and E classification plus integration task or reopen condition"
+  ],
+  "negative_evidence_policy": "A bounded no-match records only the searched surface and terms. A rate limit, authentication response, timeout, or security checkpoint is an access failure and never negative evidence.",
+  "saturation_claim": false,
+  "append_only_policy": "A concrete candidate observed after the cutoff creates a successor inventory. It is not folded into version 1 to preserve a favorable classification."
+}

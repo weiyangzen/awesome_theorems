@@ -1,0 +1,73 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0471-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0471-VALIDATION",
+  "theorem_id": "THM-M-0471",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0471/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Every `lake env lean` subprocess runs with fixed locale and timezone inside bubblewrap with a read-only host root, only the fresh temporary output directory writable, and an unshared network namespace. The script fixes LEAN_PATH to pre-existing compiled-library paths so Lake performs no manifest resolution; resolving the whole manifest previously materialized a missing unrelated package. This is narrow network-isolated replay, not a cold section 10.6 build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0471-ROOT",
+    "M0471-S-INTERFACE",
+    "M0471-S-BOUNDARY",
+    "M0471-S-TRANSPORT",
+    "M0471-S-FOUNDATION",
+    "M0471-T-ROOT-COMPOSE",
+    "M0471-T-ASSEMBLE",
+    "M0471-C-WITNESS",
+    "M0471-L-NONEMPTY",
+    "M0471-N-NONZERO",
+    "M0471-L-PRIMALITY",
+    "M0471-L-PRODUCT",
+    "M0471-L-UNIQUENESS",
+    "M0471-L-PERM-PRODUCT",
+    "M0471-L-PRIME-DVD-PRODUCT",
+    "M0471-L-MEM-PRIME-DIVISOR",
+    "M0471-C-ERASE-PERM",
+    "M0471-N-CANCEL-HEAD"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0471.FundamentalTheoremOfArithmeticTarget",
+    "Stage1Instances.THM_M_0471.ObligationTree.exactPrimeListAnchor_of_packages",
+    "Stage1Instances.THM_M_0471.ObligationTree.root_of_exactPrimeListAnchor",
+    "Stage1Instances.THM_M_0471.Proof.nonzeroNormalization",
+    "Stage1Instances.THM_M_0471.Proof.primeDvdProduct",
+    "Stage1Instances.THM_M_0471.Proof.primeDivisorMembership",
+    "Stage1Instances.THM_M_0471.Proof.erasePermutation",
+    "Stage1Instances.THM_M_0471.Proof.cancelCommonHead",
+    "Stage1Instances.THM_M_0471.Proof.primeProductPermutation",
+    "Stage1Instances.THM_M_0471.Proof.witnessNonempty",
+    "Stage1Instances.THM_M_0471.Proof.witnessPrimality",
+    "Stage1Instances.THM_M_0471.Proof.witnessProduct",
+    "Stage1Instances.THM_M_0471.Proof.primeFactorUniqueness",
+    "Stage1Instances.THM_M_0471.Proof.primeFactorUniqueness_via_components",
+    "Stage1Instances.THM_M_0471.Proof.exactPrimeListAnchor",
+    "Stage1Instances.THM_M_0471.Proof.fundamentalTheoremOfArithmetic_via_frozen_composition",
+    "Stage1Instances.THM_M_0471.Proof.fundamentalTheoremOfArithmetic",
+    "Nat.primeFactorsList_ne_nil",
+    "Nat.prime_of_mem_primeFactorsList",
+    "Nat.prod_primeFactorsList",
+    "Nat.primeFactorsList_unique",
+    "perm_of_prod_eq_prod",
+    "Prime.dvd_prod_iff",
+    "mem_list_primes_of_dvd_prod",
+    "List.perm_cons_erase",
+    "mul_right_inj'",
+    "Stage1Instances.THM_M_0471.Validation.independentlyReconstructedFundamentalTheoremOfArithmetic"
+  ],
+  "scope_boundary": "Network-isolated node-scoped worker replay of the frozen target, both compositions, all proof-phase declarations with axiom reports, selected pinned terminal provenance, and a Statement-only same-worker differential reconstruction. M0471-S-FOUNDATION is covered only by a truthful fail-closed decision: a complete foundation/TCB closure is absent. Covered IDs identify provisional replay scope and grant no accepted closure. Proof master acceptance, complete transitive provenance/trust/SBOM, clean-checkout empty-cache offline replay, and distinct signed independent verification remain open."
+}

@@ -1,0 +1,273 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0957-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0957",
+  "execution_rank": 1491,
+  "phase": "anchor_audit",
+  "base_revision": "b243ebc0f9058ba5afafef8240b92c2dfb2edc6e",
+  "base_tree": "b4b092069141ac54ea1ab5a6ea946192a30ec78c",
+  "audit_date": "2026-07-13",
+  "audit_cutoff": "2026-07-13T23:00:00+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0957.BehrendConstructionTarget",
+  "canonical_target_expression_sha256": "e611db43ce6f3419553e3ebe0fe85a3ce89e4d3930b3842f5a09be8a7683d2ed",
+  "canonical_statement_file_sha256": "b4bda6c926b0568d8b244623c12b4784651d55a9eb7df9d9ba3f512ed2cd9e46",
+  "canonical_target_summary": "For every positive real epsilon, eventually in N, the historical real-power lower bound with constant 2*sqrt(2*log 2)+epsilon is strictly below rothNumberNat (N+1), representing the inclusive interval through N.",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "The automation-provided canonical .lake symlink and all materialized package checkouts were used read-only; no Lake update/build, clone, fetch, checkout, package edit, or dependency mutation ran."
+  },
+  "discovery_protocol": {
+    "path": "Stage1_Instances/THM-M-0957/anchor-discovery-protocol.json",
+    "sha256": "2f7789d1f4fd8f64ccf6ada594bd092f1bbfccc568916a2df7ed380ac6805c9b",
+    "inventory_version": "S56-M-0957-ANCHOR-INVENTORY-20260713-01",
+    "frozen_before_candidate_classification": true,
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0957-C01-MATHLIB-TERMINAL-BOUNDS",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.Combinatorics.Additive.AP.Three.Behrend",
+      "file": "Mathlib/Combinatorics/Additive/AP/Three/Behrend.lean",
+      "file_blob": "7d3eb0e603040dcd72fe35e39c82f4d615b3e254",
+      "file_sha256": "1f8c1813a75c722ee4d62d63185c53d0b52d27691e531c05e0ecb6c10c15cf65",
+      "compiled_olean_sha256": "620e1ce9b071dd2049ce734f4e58bc1e2bbdb6fb9bf9f6e17f1b39ad34bb720f",
+      "declarations": [
+        "Behrend.roth_lower_bound_explicit",
+        "Behrend.roth_lower_bound"
+      ],
+      "types": [
+        "For N >= 4096, N * exp(-4*sqrt(log N)) < rothNumberNat N.",
+        "For every N, N * exp(-4*sqrt(log N)) <= rothNumberNat N."
+      ],
+      "terminal_declarations": [
+        "Behrend.roth_lower_bound_explicit",
+        "Behrend.roth_lower_bound"
+      ],
+      "terminal_proof_body_ids": [
+        "mathlib@8a178386:Mathlib/Combinatorics/Additive/AP/Three/Behrend.lean:420-452",
+        "mathlib@8a178386:Mathlib/Combinatorics/Additive/AP/Three/Behrend.lean:482-488"
+      ],
+      "terminal_proof_bodies": "Transparent source bodies are present. The explicit theorem optimizes nValue and dValue through bound_aux; the all-N theorem uses the explicit theorem for N >= 4096 and a lower-bound-by-one argument below the threshold.",
+      "normalized_match": "Statement mismatch at the root. The frozen target is eventual, strict, inclusive through N via rothNumberNat (N+1), and quantifies every positive epsilon with constant 2*sqrt(2*log 2)+epsilon. The terminal theorems use exclusive range N and fixed constant 4. The audit proves the exact candidate-own wrappers, the restricted implication when the requested constant is at least 4, and the strict inequality 2*sqrt(2*log 2)+1 < 4 at an admissible epsilon. Thus index, threshold, and strictness can be transported in the restricted family, but the fixed constant-four conclusion is too weak for the all-positive-epsilon root.",
+      "local_adapters": [
+        "Stage1Instances.THM_M_0957_AnchorAudit.mathlibExplicitCandidate",
+        "Stage1Instances.THM_M_0957_AnchorAudit.mathlibAllNCandidate",
+        "Stage1Instances.THM_M_0957_AnchorAudit.mathlibCandidate_restricted"
+      ],
+      "mismatch_witness": "Stage1Instances.THM_M_0957_AnchorAudit.historicalConstantAtOne_lt_mathlibConstant",
+      "principal_direct_proof_dependencies": [
+        "Behrend.bound_aux",
+        "Behrend.bound",
+        "Behrend.le_N",
+        "Behrend.lower_bound_le_one",
+        "rothNumberNat.mono"
+      ],
+      "direct_module_imports": [
+        "Mathlib.Analysis.Complex.ExponentialBounds",
+        "Mathlib.Analysis.InnerProductSpace.Convex",
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.Combinatorics.Additive.AP.Three.Defs",
+        "Mathlib.Combinatorics.Pigeonhole"
+      ],
+      "historical_provenance": {
+        "lean4_port_commit": "6dea3c8f057ca9dbe08b7b65edae59374cb13211",
+        "lean4_port_tree": "f7052bb473b8658b4a33d7034eeba3bf91574491",
+        "lean4_port_date": "2023-06-06T11:47:23Z",
+        "lean4_port_author": "Jeremy Tan Jie Rui",
+        "is_ancestor_of_pin": true,
+        "current_file_header_authors": ["Yael Dillies", "Bhavik Mehta"]
+      },
+      "machine_probe": {
+        "command": "cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-0957/AnchorAudit.lean",
+        "exit": 0,
+        "output_sha256": "782637a17d30fd6035a11f35e536d234400e4d4653ca80b9bd7f345845de2404",
+        "trust_zero_recheck": "The same command with --trust=0 exited 0; its semantic reports and combined output hash agreed with the normal invocation.",
+        "reported_axioms": ["propext", "Classical.choice", "Quot.sound"],
+        "sorry_reports": "All nine imported or audit-local declarations receive machine-produced sorry-free reports.",
+        "transitive_declaration_closure_count": 28265,
+        "transitive_module_count": 1079,
+        "transitive_bodyless_nonaxioms": [],
+        "transitive_unsafe_declarations": []
+      },
+      "placeholder_bodyless_unsafe_oracle_status": "AssertNoSorry and PrintSorries pass for both terminal bounds, the restricted adapter, and the root-relevant construction route. The Lean environment traversal reports only propext, Classical.choice, and Quot.sound; no bodyless nonaxiom or unsafe declaration occurs in the 28,265-declaration closure. A comment-stripped source scan is supplemental; release-grade executable and compiled-artifact TCB provenance remains downstream.",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "Already pinned and materialized in the repository Lake dependency closure; candidate-own and restricted wrappers elaborate read-only without dependency mutation.",
+      "candidate_classification": "M5_statement_mismatch_root_candidate",
+      "partial_family_classification": "M2_candidate_partial_restricted_family",
+      "evidence_level": "provisional_worker_replay_not_accepted_E2",
+      "result": "Credible placeholder-free pinned proof bodies and a checked restricted family, but no exact wrapper for the frozen root. The later obligation tree may reuse construction nodes; this audit grants no M0 or theorem credit."
+    },
+    {
+      "candidate_id": "M0957-C02-MATHLIB-CONSTRUCTION-FAMILY",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.Combinatorics.Additive.AP.Three.Behrend",
+      "file": "Mathlib/Combinatorics/Additive/AP/Three/Behrend.lean",
+      "declarations": [
+        "Behrend.sphere",
+        "Behrend.map",
+        "Behrend.threeAPFree_sphere",
+        "Behrend.threeAPFree_image_sphere",
+        "Behrend.card_sphere_le_rothNumberNat",
+        "Behrend.bound_aux"
+      ],
+      "terminal_proof_body": "The sphere is three-AP-free by strict convexity; the digit map preserves and injects the construction; a pigeonhole argument selects a large sphere; bound_aux gives an implicit quantitative Roth-number lower bound at constructed sizes.",
+      "normalized_match": "Kernel-closed construction and optimization infrastructure, not the frozen final constant. It supplies root-relevant proof architecture but would require new sharp asymptotic parameter optimization and later checked composition to close the historical target.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "candidate_classification": "M2_candidate_partial_construction_family",
+      "evidence_level": "provisional_worker_replay_not_accepted_E2",
+      "result": "Reusable root-relevant partial formalization. No obligation or coverage credit is assigned before the next phase freezes the objective obligation registry."
+    },
+    {
+      "candidate_id": "M0957-C03-REPO-LOCAL-INVENTORY",
+      "project": "awesome_theorems",
+      "revision": "b243ebc0f9058ba5afafef8240b92c2dfb2edc6e",
+      "kind": "bounded_negative_inventory",
+      "selection_rule": "All tracked repository-local Lean files outside the owned target at the base revision.",
+      "search_terms": ["Behrend", "roth_lower_bound", "rothNumberNat", "ThreeAPFree", "Salem-Spencer", "the exact historical constant"],
+      "candidate_classification": "M4_no_repo_local_proof_candidate",
+      "evidence_level": "E3_bounded_search",
+      "result": "No repository-local proof or wrapper for the frozen Behrend root was found. Other target files contain unrelated Roth-name cautions or discovery prose and receive no candidate credit."
+    },
+    {
+      "candidate_id": "M0957-C04-MANIFEST-EXTERNAL-CLOSURE",
+      "project": "all non-mathlib packages in Formalizations/Lean/lake-manifest.json",
+      "revision_set": "flt-regular@56161b6eb5281fbfe9c38f2bcec0f429ebc11a27; checkdecls@3d425859e73fcfbef85b9638c2a91708ef4a22d4; plausible@83e90935a17ca19ebe4b7893c7f7066e266f50d3; LeanSearchClient@c5d5b8fe6e5158def25cd28eb94e4141ad97c843; importGraph@48d5698bc464786347c1b0d859b18f938420f060; proofwidgets@3c52dee17f0cd89c1ec14de78920d1bdaa3d26b3; aesop@7152850e7b216a0d409701617721b6e469d34bf6; Qq@707efb56d0696634e9e965523a1bbe9ac6ce141d; batteries@756e3321fd3b02a85ffda19fef789916223e578c; Cli@7802da01beb530bf051ab657443f9cd9bc3e1a29",
+      "kind": "bounded_negative_inventory",
+      "worktree_result": "All eleven materialized manifest package checkouts, including mathlib, matched their pinned revisions and were clean.",
+      "candidate_classification": "M4_no_external_manifest_candidate",
+      "evidence_level": "E3_bounded_search",
+      "result": "No Behrend, Roth-number, Salem-Spencer, or exact historical-bound occurrence was found in a non-mathlib materialized package."
+    },
+    {
+      "candidate_id": "M0957-C05-MATHLIB3-HISTORICAL",
+      "project": "leanprover-community/mathlib3",
+      "remote": "https://github.com/leanprover-community/mathlib3.git",
+      "indexed_revision": "65a1391a0106c9204fe45bc73a039f056558cb83",
+      "module": "src/combinatorics/additive/behrend.lean",
+      "source_sha256": "179c4aa887992edc0b1c2c7a3a4f1edd6542ff47a5feaa3bceb60ceedf44e7ca",
+      "toolchain": "Lean 3.51.1",
+      "leanpkg_toml_sha256": "4aafdc59ef81da4104d7444cd843eb60f230d11c02ae21f4f0bf80b6c0857d59",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "relationship": "Historical Lean 3 predecessor of the same fixed-constant-four proof family later ported to mathlib4.",
+      "normalized_match": "Not Lean 4, not in the repository dependency closure, and no sharper historical epsilon target was located. It is duplicate provenance for the mathlib4 body, not an independent exact candidate.",
+      "placeholder_and_source_boundary": "The indexed source contains explicit theorem bodies for the same constant-four family and no placeholder token in the scoped candidate route; it was inspected as immutable public source, not built or admitted into this Lean 4 closure.",
+      "candidate_classification": "M5_backend_and_statement_mismatch_duplicate",
+      "evidence_level": "E3_public_index_anchor",
+      "result": "Research provenance only; no Lean 4 completion credit and no integration task."
+    },
+    {
+      "candidate_id": "M0957-C06-PUBLIC-LEAN4-INDEX-RESULTS",
+      "project": "bounded public Lean code and repository indexes",
+      "search_results": {
+        "sourcegraph": [
+          {"query": "archived/fork-inclusive Lean Behrend literal", "repositories_count": 5, "match_count": 99, "response_sha256": "6117da7df3f4da3a88af7fa1f7179e40565bf6c3055a66a6e883e267c672b5fd", "result": "mathlib4, historical mathlib3, and unrelated IsBehrend density notions; no exact root"},
+          {"query": "archived/fork-inclusive Lean rothNumberNat literal", "repositories_count": 1, "match_count": 56, "response_sha256": "63c7cdf79486b05932591f6aa20fd194801794ca947c417c0a246419a0b206db", "result": "mathlib4 only"},
+          {"query": "archived/fork-inclusive Lean Salem-Spencer regex", "repositories_count": 1, "match_count": 100, "response_sha256": "c7152dc036aba4060b0b4a16a697995b7c0600eb9a0b288d1ff7a89b2b90f945", "result": "historical mathlib3; shard match limit reached, so no negative saturation credit"},
+          {"query": "archived/fork-inclusive Lean BehrendConstruction literal", "repositories_count": 0, "match_count": 0, "response_sha256": "5302032c04d217d471311f5ab976ae16e6b5c46afb9430f9a55c6942fe5e2758", "result": "complete bounded zero"},
+          {"query": "archived/fork-inclusive Lean rothNumberNat followed by N+1 regex", "repositories_count": 0, "match_count": 0, "response_sha256": "5302032c04d217d471311f5ab976ae16e6b5c46afb9430f9a55c6942fe5e2758", "result": "complete bounded zero"},
+          {"query": "archived/fork-inclusive Lean exact historical constant ASCII regex", "repositories_count": 10, "match_count": 33, "response_sha256": "f134572d6e05d78db18d16ae892f5a456b646307a38a97c7147906d41f99e03c", "result": "regex overmatched unrelated square-root/log expressions; manual classification found no exact target"},
+          {"query": "archived/fork-inclusive Lean exact historical constant Unicode regex", "repositories_count": 5, "match_count": 9, "response_sha256": "a485929d24761cb405c653977e8b5ace71cf2c017cd2da71d72ad7d988af30f6", "result": "regex overmatched unrelated expressions; manual classification found no exact target"}
+        ],
+        "github_repository_search": [
+          {"queries": ["Behrend theorem Lean", "Behrend construction Lean4", "Salem Spencer Lean theorem", "rothNumberNat Lean"], "total_count_each": 0, "incomplete_each": false, "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"}
+        ],
+        "access_failures": [
+          {"surface": "GitHub code search", "http_status": 403, "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e", "boundary": "anonymous rate-limit failure, not negative evidence"},
+          {"surface": "grep.app", "http_status": 429, "boundary": "security checkpoint for all attempted exact/topic queries, not negative evidence"}
+        ]
+      },
+      "candidate_classification": "M4_no_additional_exact_candidate_in_bounded_results",
+      "evidence_level": "E3_bounded_public_search",
+      "result": "No additional credible exact Lean 4 candidate was discovered. Search is bounded and reviewed only by this worker; global saturation is not claimed."
+    },
+    {
+      "candidate_id": "M0957-C07-FORMAL-CONJECTURE-FALSE-POSITIVES",
+      "project": "google-deepmind/formal-conjectures and indexed mirrors/results",
+      "indexed_revisions": [
+        "formal-conjectures@fdbea4653453a764aa7f952d3b45c93007356cc9",
+        "alphaproof-nexus-results@0647711a71183c1ea492ad60860776617ce1ea88"
+      ],
+      "files": [
+        "FormalConjectures/ErdosProblems/26.lean",
+        "APNOutputs/ErdosProblems/erdos_26.variants.tenenbaum.lean",
+        "FormalConjectures/ErdosProblems/199.lean",
+        "FormalConjectures/ErdosProblems/847.lean"
+      ],
+      "relationship": "Problem 26's IsBehrend and IsWeaklyBehrend predicates concern density of multiples of sequences. Problems 199 and 847 use ThreeAPFree for different Erdos conjectures and expose placeholder theorem roots. None states the Behrend quantitative lower bound.",
+      "candidate_classification": "M5_semantic_name_collision_or_placeholder_statement_mismatch",
+      "evidence_level": "E3_public_index_anchor",
+      "result": "Rejected name collision. Reopen only if an immutable Lean 4 project publishes a declaration matching the frozen quantitative root."
+    }
+  ],
+  "provenance_packet": {
+    "conclusion_id": "S56-M-0957-ANCHOR_AUDIT:CANDIDATE-PARTIAL-FAMILY",
+    "local_declarations": [
+      "Stage1Instances.THM_M_0957_AnchorAudit.mathlibExplicitCandidate",
+      "Stage1Instances.THM_M_0957_AnchorAudit.mathlibAllNCandidate",
+      "Stage1Instances.THM_M_0957_AnchorAudit.mathlibCandidate_restricted"
+    ],
+    "local_role": "candidate-own wrappers and restricted partial-family adapter; not canonical composition",
+    "terminal_declarations": ["Behrend.roth_lower_bound_explicit", "Behrend.roth_lower_bound"],
+    "terminal_proof_body_ids": [
+      "mathlib@8a178386:Behrend.lean:420-452",
+      "mathlib@8a178386:Behrend.lean:482-488"
+    ],
+    "origins": [
+      {
+        "project": "leanprover-community/mathlib4",
+        "remote": "https://github.com/leanprover-community/mathlib4.git",
+        "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+        "tree_hash": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+        "file": "Mathlib/Combinatorics/Additive/AP/Three/Behrend.lean",
+        "declarations": ["Behrend.roth_lower_bound_explicit", "Behrend.roth_lower_bound"],
+        "source_hash": "sha256:1f8c1813a75c722ee4d62d63185c53d0b52d27691e531c05e0ecb6c10c15cf65"
+      }
+    ],
+    "direct_dependencies": ["Behrend.bound_aux", "Behrend.bound", "Behrend.le_N", "Behrend.lower_bound_le_one", "rothNumberNat.mono"],
+    "transitive_trust_closure": "28265 declarations in 1079 modules; axioms propext, Classical.choice, Quot.sound; no bodyless nonaxioms; no unsafe declarations",
+    "transitive_trust_closure_hash": null,
+    "trust_hash_boundary": "The audit records machine-recomputed counts and semantic sets, but a deterministic serialized declaration-plus-TCB closure hash is deferred to validation/release and receives no E1 credit."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "7/7 frozen inventory candidates classified; this is classification coverage, not exhaustive-discovery saturation",
+    "exact_candidate_located": false,
+    "partial_candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M3_with_prospective_M2_partial_family_pending_obligation_freeze",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "No accepted evidence tier; provisional worker replay for the partial pinned mathlib family and bounded E3-like discovery for exact-root absence",
+    "integration_decision": "Do not create an M1 pin/import task: mathlib is already pinned. Reuse its construction family only after obligation-tree freeze, and implement the sharper historical optimization as new proof work rather than substituting the constant-four theorem.",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R3"},
+  "root_candidate_vector_after": {"H": "H1", "M": "M3", "R": "R3"},
+  "accepted_root_vector_after": {"H": "H1", "M": "M3", "R": "R3"},
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "This worker audit classifies a bounded immutable inventory and kernel-checks pinned mathlib's fixed-constant and construction family. It finds no exact root candidate and neither accepts the provisional statement dependency nor changes accepted H/M/R state. Obligation freeze, sharp-constant proof, composition, H0/R0 work, release evidence, AUDIT-Z, and theorem completion remain open."
+}

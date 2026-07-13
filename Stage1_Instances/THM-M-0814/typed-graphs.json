@@ -1,0 +1,4079 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0814-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0814",
+  "registry_id": "THM-M-0814-OBLIGATIONS-v1",
+  "registry_version": 1,
+  "registry_denominator_sha256": "f0ff554fe8facfa66bbdcbe9f036f7de20ebbe738b1d2cc9b4c06a899d673d7b",
+  "root_node_id": "THM-M-0814-ROOT",
+  "workflow_task_nodes": [
+    "S56-M-0814-ANCHOR_AUDIT",
+    "S56-M-0814-OBLIGATION_TREE",
+    "S56-M-0814-PROOF",
+    "S56-M-0814-VALIDATION",
+    "S56-M-0814-RELEASE"
+  ],
+  "nodes": [
+    {
+      "node_id": "THM-M-0814-ROOT",
+      "obligation_id": "M0814-ROOT",
+      "kind": "root",
+      "human_statement": "Prove the exact finite undirected chain-flow max-flow/min-cut target frozen in Statement.lean.",
+      "formal_target": "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+      "output": "A maximum feasible flow and minimum disconnecting arc set with equal values.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "conditional-local-composition:v1",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-ROOT-1",
+          "premise_ids": [
+            "M0814-T-ASSEMBLE"
+          ],
+          "inference": "Prove the exact finite undirected chain-flow max-flow/min-cut target frozen in Statement.lean.",
+          "source_locator": "architecture:v1:M0814-ROOT",
+          "output": "A maximum feasible flow and minimum disconnecting arc set with equal values.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-root",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-LEAN",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0814/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-S-TARGET",
+      "obligation_id": "M0814-S-TARGET",
+      "kind": "definition",
+      "human_statement": "Preserve all binders, terminals, positive NNReal capacities, attained extrema, and equality of the canonical target.",
+      "formal_target": "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+      "output": "The unchanged canonical target and its exact context.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-S-TARGET-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Preserve all binders, terminals, positive NNReal capacities, attained extrema, and equality of the canonical target.",
+          "source_locator": "architecture:v1:M0814-S-TARGET",
+          "output": "The unchanged canonical target and its exact context.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-s-target",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-S-CHAIN",
+      "obligation_id": "M0814-S-CHAIN",
+      "kind": "definition",
+      "human_statement": "Freeze positive-length simple source-to-sink chains with injective vertex and arc arrays and Graph.IsLink witnesses.",
+      "formal_target": "Stage1Instances.THM_M_0814.Chain",
+      "output": "The finite path objects indexed by the source proof.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-S-CHAIN-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Freeze positive-length simple source-to-sink chains with injective vertex and arc arrays and Graph.IsLink witnesses.",
+          "source_locator": "architecture:v1:M0814-S-CHAIN",
+          "output": "The finite path objects indexed by the source proof.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-s-chain",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-S-FLOW-CUT",
+      "obligation_id": "M0814-S-FLOW-CUT",
+      "kind": "definition",
+      "human_statement": "Freeze Finsupp chain flows, arc loads, feasibility, disconnecting Finsets, and both NNReal value functions.",
+      "formal_target": "Flow; arcLoad; flowValue; IsFeasible; IsDisconnecting; cutValue",
+      "output": "The exact flow, capacity, and cut semantics used downstream.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-S-FLOW-CUT-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Freeze Finsupp chain flows, arc loads, feasibility, disconnecting Finsets, and both NNReal value functions.",
+          "source_locator": "architecture:v1:M0814-S-FLOW-CUT",
+          "output": "The exact flow, capacity, and cut semantics used downstream.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-s-flow-cut",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-S-BOUNDARY",
+      "obligation_id": "M0814-S-BOUNDARY",
+      "kind": "branch",
+      "human_statement": "Retain no-chain and no-edge networks, parallel arcs, isolated vertices, inert loops, zero flow, and empty cut where the frozen definitions allow them.",
+      "formal_target": "canonical no-chain and finite-network boundary package",
+      "output": "An exhaustive boundary policy without an added path-existence premise.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-S-BOUNDARY-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Retain no-chain and no-edge networks, parallel arcs, isolated vertices, inert loops, zero flow, and empty cut where the frozen definitions allow them.",
+          "source_locator": "architecture:v1:M0814-S-BOUNDARY",
+          "output": "An exhaustive boundary policy without an added path-existence premise.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-s-boundary",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-S-TRANSPORT",
+      "obligation_id": "M0814-S-TRANSPORT",
+      "kind": "transport",
+      "human_statement": "Keep the checked ExpandedTarget respelling while rejecting unproved directed-flow, partition-cut, and alternate-capacity transports.",
+      "formal_target": "maxFlowMinCutTarget_iff_expanded",
+      "output": "Only the declared bidirectional direct respelling.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-S-TRANSPORT-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Keep the checked ExpandedTarget respelling while rejecting unproved directed-flow, partition-cut, and alternate-capacity transports.",
+          "source_locator": "architecture:v1:M0814-S-TRANSPORT",
+          "output": "Only the declared bidirectional direct respelling.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-s-transport",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-S-FOUNDATION",
+      "obligation_id": "M0814-S-FOUNDATION",
+      "kind": "certificate",
+      "human_statement": "Audit classical finite enumeration, choice, quotient, imports, compiled artifacts, and the no-oracle computation boundary.",
+      "formal_target": "planned transitive foundation and TCB report",
+      "output": "An accepted foundation, trust, and computation profile.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-S-FOUNDATION-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Audit classical finite enumeration, choice, quotient, imports, compiled artifacts, and the no-oracle computation boundary.",
+          "source_locator": "architecture:v1:M0814-S-FOUNDATION",
+          "output": "An accepted foundation, trust, and computation profile.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-s-foundation",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-N-CHAIN-ENUM",
+      "obligation_id": "M0814-N-CHAIN-ENUM",
+      "kind": "normalization",
+      "human_statement": "Construct a finite duplicate-free enumeration of proof-irrelevant Chain values despite their dependent proof fields.",
+      "formal_target": "planned exact Finite/Fintype quotient or subtype representation of Chain",
+      "output": "Finite coordinates covering every semantic source-to-sink chain.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-N-CHAIN-ENUM-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Construct a finite duplicate-free enumeration of proof-irrelevant Chain values despite their dependent proof fields.",
+          "source_locator": "architecture:v1:M0814-N-CHAIN-ENUM",
+          "output": "Finite coordinates covering every semantic source-to-sink chain.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-n-chain-enum",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-N-FLOW-COORD",
+      "obligation_id": "M0814-N-FLOW-COORD",
+      "kind": "normalization",
+      "human_statement": "Transport Finsupp flows to finite nonnegative coordinate vectors and translate arc loads and flow value exactly.",
+      "formal_target": "planned equivalence between Flow and finite NNReal coordinates",
+      "output": "A finite-dimensional feasible-region representation with checked value/load equations.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-N-FLOW-COORD-1",
+          "premise_ids": [
+            "M0814-N-CHAIN-ENUM",
+            "M0814-S-FLOW-CUT"
+          ],
+          "inference": "Transport Finsupp flows to finite nonnegative coordinate vectors and translate arc loads and flow value exactly.",
+          "source_locator": "architecture:v1:M0814-N-FLOW-COORD",
+          "output": "A finite-dimensional feasible-region representation with checked value/load equations.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-n-flow-coord",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-B-NO-CHAIN",
+      "obligation_id": "M0814-B-NO-CHAIN",
+      "kind": "branch",
+      "human_statement": "Close the no-source-to-sink-chain case with zero flow and empty disconnecting set under the canonical definitions.",
+      "formal_target": "planned exact no-chain branch theorem",
+      "output": "The full root conclusion for networks with no Chain inhabitant.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-B-NO-CHAIN-1",
+          "premise_ids": [
+            "M0814-S-BOUNDARY"
+          ],
+          "inference": "Close the no-source-to-sink-chain case with zero flow and empty disconnecting set under the canonical definitions.",
+          "source_locator": "architecture:v1:M0814-B-NO-CHAIN",
+          "output": "The full root conclusion for networks with no Chain inhabitant.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-b-no-chain",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-B-HAS-CHAIN",
+      "obligation_id": "M0814-B-HAS-CHAIN",
+      "kind": "branch",
+      "human_statement": "Reduce the nonempty-chain case to the finite-coordinate maximal-flow and left-cut construction route.",
+      "formal_target": "planned exact nonempty-chain branch theorem",
+      "output": "The full root conclusion for networks with at least one chain.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-B-HAS-CHAIN-1",
+          "premise_ids": [
+            "M0814-T-ASSEMBLE"
+          ],
+          "inference": "Reduce the nonempty-chain case to the finite-coordinate maximal-flow and left-cut construction route.",
+          "source_locator": "architecture:v1:M0814-B-HAS-CHAIN",
+          "output": "The full root conclusion for networks with at least one chain.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-b-has-chain",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-B-MERGE",
+      "obligation_id": "M0814-B-MERGE",
+      "kind": "transport",
+      "human_statement": "Recombine the no-chain and nonempty-chain branches without changing any canonical binder or conclusion.",
+      "formal_target": "planned checked exhaustive branch merge",
+      "output": "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-B-MERGE-1",
+          "premise_ids": [
+            "M0814-B-NO-CHAIN",
+            "M0814-B-HAS-CHAIN"
+          ],
+          "inference": "Recombine the no-chain and nonempty-chain branches without changing any canonical binder or conclusion.",
+          "source_locator": "architecture:v1:M0814-B-MERGE",
+          "output": "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-b-merge",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-C-FEASIBLE-POLYTOPE",
+      "obligation_id": "M0814-C-FEASIBLE-POLYTOPE",
+      "kind": "construction",
+      "human_statement": "Build the finite closed bounded feasible coordinate polytope from nonnegativity and all arc-capacity inequalities.",
+      "formal_target": "planned compact feasible-flow coordinate set",
+      "output": "A nonempty compact feasible region containing the zero flow.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-C-FEASIBLE-POLYTOPE-1",
+          "premise_ids": [
+            "M0814-N-FLOW-COORD"
+          ],
+          "inference": "Build the finite closed bounded feasible coordinate polytope from nonnegativity and all arc-capacity inequalities.",
+          "source_locator": "architecture:v1:M0814-C-FEASIBLE-POLYTOPE",
+          "output": "A nonempty compact feasible region containing the zero flow.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-c-feasible-polytope",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-MAX-ATTAIN",
+      "obligation_id": "M0814-L-MAX-ATTAIN",
+      "kind": "core_lemma",
+      "human_statement": "Use compactness and continuity of the coordinate sum to obtain a feasible maximum flow.",
+      "formal_target": "Stage1Instances.THM_M_0814_Obligations.MaximalFlowAttainment",
+      "output": "An exact maximum feasible flow with the universal comparison.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "conditional-local-composition:v1",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-MAX-ATTAIN-1",
+          "premise_ids": [
+            "M0814-C-FEASIBLE-POLYTOPE"
+          ],
+          "inference": "Use compactness and continuity of the coordinate sum to obtain a feasible maximum flow.",
+          "source_locator": "Ford-Fulkerson-1956:p400:66-72",
+          "output": "An exact maximum feasible flow with the universal comparison.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-max-attain",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-LEAN",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0814/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-MAX-CONVEX",
+      "obligation_id": "M0814-L-MAX-CONVEX",
+      "kind": "core_lemma",
+      "human_statement": "Show finite convex averages of maximal flows are feasible, maximal, and preserve strict slack on every selected unsaturated arc.",
+      "formal_target": "planned maximal-flow convex-average theorem",
+      "output": "A single maximal flow simultaneously unsaturating finitely many chosen arcs.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-MAX-CONVEX-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Show finite convex averages of maximal flows are feasible, maximal, and preserve strict slack on every selected unsaturated arc.",
+          "source_locator": "architecture:v1:M0814-L-MAX-CONVEX",
+          "output": "A single maximal flow simultaneously unsaturating finitely many chosen arcs.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-max-convex",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-C-SATURATED-CORE",
+      "obligation_id": "M0814-C-SATURATED-CORE",
+      "kind": "construction",
+      "human_statement": "Define S as the graph arcs saturated in every maximal flow and relate membership to arcLoad equality.",
+      "formal_target": "planned Finset of universally saturated arcs",
+      "output": "The finite saturated-core arc set S.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-C-SATURATED-CORE-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Define S as the graph arcs saturated in every maximal flow and relate membership to arcLoad equality.",
+          "source_locator": "architecture:v1:M0814-C-SATURATED-CORE",
+          "output": "The finite saturated-core arc set S.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-c-saturated-core",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-S-DISCONNECTS",
+      "obligation_id": "M0814-L-S-DISCONNECTS",
+      "kind": "core_lemma",
+      "human_statement": "Prove source Lemma 1: S meets every source-to-sink chain by averaging witnesses and increasing that chain's flow.",
+      "formal_target": "planned exact IsDisconnecting theorem for S",
+      "output": "S is a disconnecting set.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-S-DISCONNECTS-1",
+          "premise_ids": [
+            "M0814-C-SATURATED-CORE",
+            "M0814-L-MAX-CONVEX",
+            "M0814-S-CHAIN"
+          ],
+          "inference": "Prove source Lemma 1: S meets every source-to-sink chain by averaging witnesses and increasing that chain's flow.",
+          "source_locator": "Ford-Fulkerson-1956:p400:73-86:Lemma-1",
+          "output": "S is a disconnecting set.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-s-disconnects",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-REROUTE-BASIC",
+      "obligation_id": "M0814-L-REROUTE-BASIC",
+      "kind": "core_lemma",
+      "human_statement": "Formalize chain splicing, loop erasure, Finsupp coefficient updates, feasibility, and value preservation for one rerouting move.",
+      "formal_target": "planned exact rerouting transformation and invariants",
+      "output": "A simple replacement chain and a same-value feasible rerouted flow.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-REROUTE-BASIC-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Formalize chain splicing, loop erasure, Finsupp coefficient updates, feasibility, and value preservation for one rerouting move.",
+          "source_locator": "architecture:v1:M0814-L-REROUTE-BASIC",
+          "output": "A simple replacement chain and a same-value feasible rerouted flow.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-reroute-basic",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-S-ORIENTATION",
+      "obligation_id": "M0814-L-S-ORIENTATION",
+      "kind": "core_lemma",
+      "human_statement": "Show every S arc has one orientation across all positive component chains of all maximal flows, using rerouting and convex averaging.",
+      "formal_target": "planned common-orientation theorem for universally saturated arcs",
+      "output": "A well-defined left and right endpoint for every arc in S.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-S-ORIENTATION-1",
+          "premise_ids": [
+            "M0814-L-REROUTE-BASIC",
+            "M0814-L-MAX-CONVEX"
+          ],
+          "inference": "Show every S arc has one orientation across all positive component chains of all maximal flows, using rerouting and convex averaging.",
+          "source_locator": "Ford-Fulkerson-1956:pp400-401:87-112",
+          "output": "A well-defined left and right endpoint for every arc in S.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-s-orientation",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-C-LEFT-ARCS",
+      "obligation_id": "M0814-C-LEFT-ARCS",
+      "kind": "construction",
+      "human_statement": "Define L as the S arcs whose left endpoint is reachable from the source through arcs unsaturated by some maximal flow.",
+      "formal_target": "planned Finset L with maximal-flow and unsaturated-prefix witnesses",
+      "output": "The source proof's left-arc set L.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-C-LEFT-ARCS-1",
+          "premise_ids": [
+            "M0814-L-S-ORIENTATION",
+            "M0814-C-SATURATED-CORE"
+          ],
+          "inference": "Define L as the S arcs whose left endpoint is reachable from the source through arcs unsaturated by some maximal flow.",
+          "source_locator": "architecture:v1:M0814-C-LEFT-ARCS",
+          "output": "The source proof's left-arc set L.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-c-left-arcs",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-L-DISCONNECTS",
+      "obligation_id": "M0814-L-L-DISCONNECTS",
+      "kind": "core_lemma",
+      "human_statement": "Prove source Lemma 2: the first S arc of any chain is left, using averaged prefix slack and a rerouting contradiction.",
+      "formal_target": "planned exact IsDisconnecting theorem for L",
+      "output": "L is a disconnecting set.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-L-DISCONNECTS-1",
+          "premise_ids": [
+            "M0814-C-LEFT-ARCS",
+            "M0814-L-S-DISCONNECTS",
+            "M0814-L-MAX-CONVEX",
+            "M0814-L-REROUTE-BASIC"
+          ],
+          "inference": "Prove source Lemma 2: the first S arc of any chain is left, using averaged prefix slack and a rerouting contradiction.",
+          "source_locator": "Ford-Fulkerson-1956:p401:113-132:Lemma-2",
+          "output": "L is a disconnecting set.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-l-disconnects",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-L-AT-MOST-ONE",
+      "obligation_id": "M0814-L-L-AT-MOST-ONE",
+      "kind": "core_lemma",
+      "human_statement": "Prove source Lemma 3: a positive component chain of a maximal flow contains at most one L arc.",
+      "formal_target": "planned exact at-most-one crossing theorem",
+      "output": "Every positive component chain crosses L at most once.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-L-AT-MOST-ONE-1",
+          "premise_ids": [
+            "M0814-C-LEFT-ARCS",
+            "M0814-L-MAX-CONVEX",
+            "M0814-L-REROUTE-BASIC"
+          ],
+          "inference": "Prove source Lemma 3: a positive component chain of a maximal flow contains at most one L arc.",
+          "source_locator": "Ford-Fulkerson-1956:pp401-402:133-154:Lemma-3",
+          "output": "Every positive component chain crosses L at most once.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-l-at-most-one",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-L-EXACTLY-ONE",
+      "obligation_id": "M0814-L-L-EXACTLY-ONE",
+      "kind": "core_lemma",
+      "human_statement": "Combine L disconnecting with the at-most-one lemma so every positive component chain crosses L exactly once.",
+      "formal_target": "planned exact one-crossing theorem",
+      "output": "Every positive supported chain crosses L exactly once.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-L-EXACTLY-ONE-1",
+          "premise_ids": [
+            "M0814-L-L-DISCONNECTS",
+            "M0814-L-L-AT-MOST-ONE"
+          ],
+          "inference": "Combine L disconnecting with the at-most-one lemma so every positive component chain crosses L exactly once.",
+          "source_locator": "architecture:v1:M0814-L-L-EXACTLY-ONE",
+          "output": "Every positive supported chain crosses L exactly once.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-l-exactly-one",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-WEAK-DUALITY",
+      "obligation_id": "M0814-L-WEAK-DUALITY",
+      "kind": "core_lemma",
+      "human_statement": "Double-count chain weights against an arbitrary disconnecting set and use arc capacity bounds to prove weak duality.",
+      "formal_target": "Stage1Instances.THM_M_0814_Obligations.WeakDuality",
+      "output": "flowValue flow <= cutValue capacity cut.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "conditional-local-composition:v1",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-WEAK-DUALITY-1",
+          "premise_ids": [
+            "M0814-S-FLOW-CUT",
+            "M0814-S-CHAIN"
+          ],
+          "inference": "Double-count chain weights against an arbitrary disconnecting set and use arc capacity bounds to prove weak duality.",
+          "source_locator": "Ford-Fulkerson-1956:p402:155-160",
+          "output": "flowValue flow <= cutValue capacity cut.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-weak-duality",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-LEAN",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0814/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-L-COUNT-ONCE",
+      "obligation_id": "M0814-L-COUNT-ONCE",
+      "kind": "core_lemma",
+      "human_statement": "Interchange finite sums and use saturation plus exactly-one crossing to identify the selected maximal-flow value with cutValue L.",
+      "formal_target": "planned exact finite sum equality for a maximal flow and L",
+      "output": "flowValue maximalFlow = cutValue capacity L.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-L-COUNT-ONCE-1",
+          "premise_ids": [
+            "M0814-L-L-EXACTLY-ONE",
+            "M0814-C-SATURATED-CORE"
+          ],
+          "inference": "Interchange finite sums and use saturation plus exactly-one crossing to identify the selected maximal-flow value with cutValue L.",
+          "source_locator": "Ford-Fulkerson-1956:p402:155-160",
+          "output": "flowValue maximalFlow = cutValue capacity L.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-l-count-once",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-T-EQUAL-CUT",
+      "obligation_id": "M0814-T-EQUAL-CUT",
+      "kind": "terminal",
+      "human_statement": "Package L, disconnectivity, and the count-once identity for any selected maximum flow.",
+      "formal_target": "Stage1Instances.THM_M_0814_Obligations.EqualCutForMaximalFlow",
+      "output": "An equal-value disconnecting set for every selected maximum flow.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "conditional-local-composition:v1",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-T-EQUAL-CUT-1",
+          "premise_ids": [
+            "M0814-L-L-DISCONNECTS",
+            "M0814-L-COUNT-ONCE"
+          ],
+          "inference": "Package L, disconnectivity, and the count-once identity for any selected maximum flow.",
+          "source_locator": "architecture:v1:M0814-T-EQUAL-CUT",
+          "output": "An equal-value disconnecting set for every selected maximum flow.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-t-equal-cut",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-LEAN",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0814/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-T-CUT-CERT",
+      "obligation_id": "M0814-T-CUT-CERT",
+      "kind": "terminal",
+      "human_statement": "Use weak duality to strengthen the equal cut to a universally minimum cut.",
+      "formal_target": "Stage1Instances.THM_M_0814_Obligations.CutCertificateForMaximalFlow",
+      "output": "A minimum disconnecting set equal in value to the selected maximum flow.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "conditional-local-composition:v1",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-T-CUT-CERT-1",
+          "premise_ids": [
+            "M0814-L-WEAK-DUALITY",
+            "M0814-T-EQUAL-CUT"
+          ],
+          "inference": "Use weak duality to strengthen the equal cut to a universally minimum cut.",
+          "source_locator": "architecture:v1:M0814-T-CUT-CERT",
+          "output": "A minimum disconnecting set equal in value to the selected maximum flow.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-t-cut-cert",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-LEAN",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0814/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-T-ASSEMBLE",
+      "obligation_id": "M0814-T-ASSEMBLE",
+      "kind": "terminal",
+      "human_statement": "Consume maximum-flow attainment and the minimum-cut certificate and construct the exact canonical existential conjunction.",
+      "formal_target": "Stage1Instances.THM_M_0814_Obligations.compose_root",
+      "output": "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "conditional-local-composition:v1",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-T-ASSEMBLE-1",
+          "premise_ids": [
+            "M0814-L-MAX-ATTAIN",
+            "M0814-T-CUT-CERT"
+          ],
+          "inference": "Consume maximum-flow attainment and the minimum-cut certificate and construct the exact canonical existential conjunction.",
+          "source_locator": "architecture:v1:M0814-T-ASSEMBLE",
+          "output": "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-t-assemble",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-LEAN",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0814/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-X-SOURCE",
+      "obligation_id": "M0814-X-SOURCE",
+      "kind": "terminal",
+      "human_statement": "Map definitions, Theorem 1, Lemmas 1-3, and every suppressed rerouting/sum step to the pinned pages and an independent review.",
+      "formal_target": "Ford-Fulkerson 1956 pp. 399-402 source crosswalk",
+      "output": "Human-source evidence without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "ford-fulkerson-1956-theorem1-map-v1-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-X-SOURCE-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Map definitions, Theorem 1, Lemmas 1-3, and every suppressed rerouting/sum step to the pinned pages and an independent review.",
+          "source_locator": "architecture:v1:M0814-X-SOURCE",
+          "output": "Human-source evidence without machine proof credit.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-x-source",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-X-PROVENANCE",
+      "obligation_id": "M0814-X-PROVENANCE",
+      "kind": "certificate",
+      "human_statement": "Bind every future terminal body, wrapper, import, revision, license, source slice, and transitive declaration origin.",
+      "formal_target": "planned content-addressed provenance closure",
+      "output": "Release provenance without semantic proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-X-PROVENANCE-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Bind every future terminal body, wrapper, import, revision, license, source slice, and transitive declaration origin.",
+          "source_locator": "architecture:v1:M0814-X-PROVENANCE",
+          "output": "Release provenance without semantic proof credit.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-x-provenance",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-X-TRUST",
+      "obligation_id": "M0814-X-TRUST",
+      "kind": "certificate",
+      "human_statement": "Close executable, imported-olean, axiom, unsafe/oracle, computation, reproducibility, and independent-verification boundaries.",
+      "formal_target": "planned transitive trust and TCB closure",
+      "output": "Release trust evidence without semantic proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 80,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-X-TRUST-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Close executable, imported-olean, axiom, unsafe/oracle, computation, reproducibility, and independent-verification boundaries.",
+          "source_locator": "architecture:v1:M0814-X-TRUST",
+          "output": "Release trust evidence without semantic proof credit.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-x-trust",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-X-READABLE",
+      "obligation_id": "M0814-X-READABLE",
+      "kind": "terminal",
+      "human_statement": "Produce and independently review a complete node-anchored readable reconstruction including every rerouting invariant.",
+      "formal_target": "planned readable reconstruction",
+      "output": "Readable coverage without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-X-READABLE-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Produce and independently review a complete node-anchored readable reconstruction including every rerouting invariant.",
+          "source_locator": "architecture:v1:M0814-X-READABLE",
+          "output": "Readable coverage without machine proof credit.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-x-readable",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    },
+    {
+      "node_id": "THM-M-0814-X-WORKFLOW",
+      "obligation_id": "M0814-X-WORKFLOW",
+      "kind": "certificate",
+      "human_statement": "Bind proof, validation, release, freshness, revocation, and independent verification tasks.",
+      "formal_target": "planned Stage1 workflow receipts",
+      "output": "Workflow acceptance without proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-mathlib-classical/v1-pending-transitive-review",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386/v1-pending-release-closure",
+      "computation_record": "none credited; finite enumeration and sums require kernel proof",
+      "step_budget": 55,
+      "semantic_step_ledger": [
+        {
+          "step_id": "STEP-M0814-X-WORKFLOW-1",
+          "premise_ids": [
+            "frozen-formal-context"
+          ],
+          "inference": "Bind proof, validation, release, freshness, revocation, and independent verification tasks.",
+          "source_locator": "architecture:v1:M0814-X-WORKFLOW",
+          "output": "Workflow acceptance without proof credit.",
+          "outgoing_use": "Consumed only by declared proof/refinement edges; no closure follows from this ledger."
+        }
+      ],
+      "public_readable_target": "Stage1_Instances/THM-M-0814/obligation-tree.md#m0814-x-workflow",
+      "validation_spec_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "status_boundary": "Open architecture obligation; no M0, accepted proof, H0, or R0 credit.",
+      "task_ids": [
+        "S56-M-0814-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0814 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before any proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation registry",
+          "typed edges",
+          "toolchain"
+        ],
+        "revocation_state": "not-accepted"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "REQ-M0814-ROOT-M0814-T-ASSEMBLE",
+          "from": "M0814-ROOT",
+          "type": "proof_requires",
+          "to": "M0814-T-ASSEMBLE",
+          "reciprocal_edge_id": "CMP-M0814-T-ASSEMBLE-M0814-ROOT"
+        },
+        {
+          "edge_id": "CMP-M0814-T-ASSEMBLE-M0814-ROOT",
+          "from": "M0814-T-ASSEMBLE",
+          "type": "composes",
+          "to": "M0814-ROOT",
+          "reciprocal_edge_id": "REQ-M0814-ROOT-M0814-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "REQ-M0814-T-ASSEMBLE-M0814-L-MAX-ATTAIN",
+          "from": "M0814-T-ASSEMBLE",
+          "type": "proof_requires",
+          "to": "M0814-L-MAX-ATTAIN",
+          "reciprocal_edge_id": "CMP-M0814-L-MAX-ATTAIN-M0814-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "CMP-M0814-L-MAX-ATTAIN-M0814-T-ASSEMBLE",
+          "from": "M0814-L-MAX-ATTAIN",
+          "type": "composes",
+          "to": "M0814-T-ASSEMBLE",
+          "reciprocal_edge_id": "REQ-M0814-T-ASSEMBLE-M0814-L-MAX-ATTAIN"
+        },
+        {
+          "edge_id": "REQ-M0814-T-ASSEMBLE-M0814-T-CUT-CERT",
+          "from": "M0814-T-ASSEMBLE",
+          "type": "proof_requires",
+          "to": "M0814-T-CUT-CERT",
+          "reciprocal_edge_id": "CMP-M0814-T-CUT-CERT-M0814-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "CMP-M0814-T-CUT-CERT-M0814-T-ASSEMBLE",
+          "from": "M0814-T-CUT-CERT",
+          "type": "composes",
+          "to": "M0814-T-ASSEMBLE",
+          "reciprocal_edge_id": "REQ-M0814-T-ASSEMBLE-M0814-T-CUT-CERT"
+        },
+        {
+          "edge_id": "REQ-M0814-T-CUT-CERT-M0814-L-WEAK-DUALITY",
+          "from": "M0814-T-CUT-CERT",
+          "type": "proof_requires",
+          "to": "M0814-L-WEAK-DUALITY",
+          "reciprocal_edge_id": "CMP-M0814-L-WEAK-DUALITY-M0814-T-CUT-CERT"
+        },
+        {
+          "edge_id": "CMP-M0814-L-WEAK-DUALITY-M0814-T-CUT-CERT",
+          "from": "M0814-L-WEAK-DUALITY",
+          "type": "composes",
+          "to": "M0814-T-CUT-CERT",
+          "reciprocal_edge_id": "REQ-M0814-T-CUT-CERT-M0814-L-WEAK-DUALITY"
+        },
+        {
+          "edge_id": "REQ-M0814-T-CUT-CERT-M0814-T-EQUAL-CUT",
+          "from": "M0814-T-CUT-CERT",
+          "type": "proof_requires",
+          "to": "M0814-T-EQUAL-CUT",
+          "reciprocal_edge_id": "CMP-M0814-T-EQUAL-CUT-M0814-T-CUT-CERT"
+        },
+        {
+          "edge_id": "CMP-M0814-T-EQUAL-CUT-M0814-T-CUT-CERT",
+          "from": "M0814-T-EQUAL-CUT",
+          "type": "composes",
+          "to": "M0814-T-CUT-CERT",
+          "reciprocal_edge_id": "REQ-M0814-T-CUT-CERT-M0814-T-EQUAL-CUT"
+        },
+        {
+          "edge_id": "REQ-M0814-T-EQUAL-CUT-M0814-L-L-DISCONNECTS",
+          "from": "M0814-T-EQUAL-CUT",
+          "type": "proof_requires",
+          "to": "M0814-L-L-DISCONNECTS",
+          "reciprocal_edge_id": "DEC-M0814-L-L-DISCONNECTS-M0814-T-EQUAL-CUT"
+        },
+        {
+          "edge_id": "DEC-M0814-L-L-DISCONNECTS-M0814-T-EQUAL-CUT",
+          "from": "M0814-L-L-DISCONNECTS",
+          "type": "logical_decomposition",
+          "to": "M0814-T-EQUAL-CUT",
+          "reciprocal_edge_id": "REQ-M0814-T-EQUAL-CUT-M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "REQ-M0814-T-EQUAL-CUT-M0814-L-COUNT-ONCE",
+          "from": "M0814-T-EQUAL-CUT",
+          "type": "proof_requires",
+          "to": "M0814-L-COUNT-ONCE",
+          "reciprocal_edge_id": "DEC-M0814-L-COUNT-ONCE-M0814-T-EQUAL-CUT"
+        },
+        {
+          "edge_id": "DEC-M0814-L-COUNT-ONCE-M0814-T-EQUAL-CUT",
+          "from": "M0814-L-COUNT-ONCE",
+          "type": "logical_decomposition",
+          "to": "M0814-T-EQUAL-CUT",
+          "reciprocal_edge_id": "REQ-M0814-T-EQUAL-CUT-M0814-L-COUNT-ONCE"
+        },
+        {
+          "edge_id": "REQ-M0814-L-COUNT-ONCE-M0814-L-L-EXACTLY-ONE",
+          "from": "M0814-L-COUNT-ONCE",
+          "type": "proof_requires",
+          "to": "M0814-L-L-EXACTLY-ONE",
+          "reciprocal_edge_id": "DEC-M0814-L-L-EXACTLY-ONE-M0814-L-COUNT-ONCE"
+        },
+        {
+          "edge_id": "DEC-M0814-L-L-EXACTLY-ONE-M0814-L-COUNT-ONCE",
+          "from": "M0814-L-L-EXACTLY-ONE",
+          "type": "logical_decomposition",
+          "to": "M0814-L-COUNT-ONCE",
+          "reciprocal_edge_id": "REQ-M0814-L-COUNT-ONCE-M0814-L-L-EXACTLY-ONE"
+        },
+        {
+          "edge_id": "REQ-M0814-L-COUNT-ONCE-M0814-C-SATURATED-CORE",
+          "from": "M0814-L-COUNT-ONCE",
+          "type": "proof_requires",
+          "to": "M0814-C-SATURATED-CORE",
+          "reciprocal_edge_id": "DEC-M0814-C-SATURATED-CORE-M0814-L-COUNT-ONCE"
+        },
+        {
+          "edge_id": "DEC-M0814-C-SATURATED-CORE-M0814-L-COUNT-ONCE",
+          "from": "M0814-C-SATURATED-CORE",
+          "type": "logical_decomposition",
+          "to": "M0814-L-COUNT-ONCE",
+          "reciprocal_edge_id": "REQ-M0814-L-COUNT-ONCE-M0814-C-SATURATED-CORE"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-DISCONNECTS",
+          "from": "M0814-L-L-EXACTLY-ONE",
+          "type": "proof_requires",
+          "to": "M0814-L-L-DISCONNECTS",
+          "reciprocal_edge_id": "DEC-M0814-L-L-DISCONNECTS-M0814-L-L-EXACTLY-ONE"
+        },
+        {
+          "edge_id": "DEC-M0814-L-L-DISCONNECTS-M0814-L-L-EXACTLY-ONE",
+          "from": "M0814-L-L-DISCONNECTS",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-EXACTLY-ONE",
+          "reciprocal_edge_id": "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-L-L-EXACTLY-ONE",
+          "type": "proof_requires",
+          "to": "M0814-L-L-AT-MOST-ONE",
+          "reciprocal_edge_id": "DEC-M0814-L-L-AT-MOST-ONE-M0814-L-L-EXACTLY-ONE"
+        },
+        {
+          "edge_id": "DEC-M0814-L-L-AT-MOST-ONE-M0814-L-L-EXACTLY-ONE",
+          "from": "M0814-L-L-AT-MOST-ONE",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-EXACTLY-ONE",
+          "reciprocal_edge_id": "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-AT-MOST-ONE"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-C-LEFT-ARCS",
+          "from": "M0814-L-L-DISCONNECTS",
+          "type": "proof_requires",
+          "to": "M0814-C-LEFT-ARCS",
+          "reciprocal_edge_id": "DEC-M0814-C-LEFT-ARCS-M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "DEC-M0814-C-LEFT-ARCS-M0814-L-L-DISCONNECTS",
+          "from": "M0814-C-LEFT-ARCS",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-DISCONNECTS",
+          "reciprocal_edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-C-LEFT-ARCS"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-L-S-DISCONNECTS",
+          "from": "M0814-L-L-DISCONNECTS",
+          "type": "proof_requires",
+          "to": "M0814-L-S-DISCONNECTS",
+          "reciprocal_edge_id": "DEC-M0814-L-S-DISCONNECTS-M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "DEC-M0814-L-S-DISCONNECTS-M0814-L-L-DISCONNECTS",
+          "from": "M0814-L-S-DISCONNECTS",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-DISCONNECTS",
+          "reciprocal_edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-L-S-DISCONNECTS"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-L-MAX-CONVEX",
+          "from": "M0814-L-L-DISCONNECTS",
+          "type": "proof_requires",
+          "to": "M0814-L-MAX-CONVEX",
+          "reciprocal_edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-L-DISCONNECTS",
+          "from": "M0814-L-MAX-CONVEX",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-DISCONNECTS",
+          "reciprocal_edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-L-MAX-CONVEX"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-L-REROUTE-BASIC",
+          "from": "M0814-L-L-DISCONNECTS",
+          "type": "proof_requires",
+          "to": "M0814-L-REROUTE-BASIC",
+          "reciprocal_edge_id": "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-DISCONNECTS",
+          "from": "M0814-L-REROUTE-BASIC",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-DISCONNECTS",
+          "reciprocal_edge_id": "REQ-M0814-L-L-DISCONNECTS-M0814-L-REROUTE-BASIC"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-AT-MOST-ONE-M0814-C-LEFT-ARCS",
+          "from": "M0814-L-L-AT-MOST-ONE",
+          "type": "proof_requires",
+          "to": "M0814-C-LEFT-ARCS",
+          "reciprocal_edge_id": "DEC-M0814-C-LEFT-ARCS-M0814-L-L-AT-MOST-ONE"
+        },
+        {
+          "edge_id": "DEC-M0814-C-LEFT-ARCS-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-C-LEFT-ARCS",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-AT-MOST-ONE",
+          "reciprocal_edge_id": "REQ-M0814-L-L-AT-MOST-ONE-M0814-C-LEFT-ARCS"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-MAX-CONVEX",
+          "from": "M0814-L-L-AT-MOST-ONE",
+          "type": "proof_requires",
+          "to": "M0814-L-MAX-CONVEX",
+          "reciprocal_edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-L-AT-MOST-ONE"
+        },
+        {
+          "edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-L-MAX-CONVEX",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-AT-MOST-ONE",
+          "reciprocal_edge_id": "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-MAX-CONVEX"
+        },
+        {
+          "edge_id": "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-REROUTE-BASIC",
+          "from": "M0814-L-L-AT-MOST-ONE",
+          "type": "proof_requires",
+          "to": "M0814-L-REROUTE-BASIC",
+          "reciprocal_edge_id": "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-AT-MOST-ONE"
+        },
+        {
+          "edge_id": "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-L-REROUTE-BASIC",
+          "type": "logical_decomposition",
+          "to": "M0814-L-L-AT-MOST-ONE",
+          "reciprocal_edge_id": "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-REROUTE-BASIC"
+        },
+        {
+          "edge_id": "REQ-M0814-C-LEFT-ARCS-M0814-L-S-ORIENTATION",
+          "from": "M0814-C-LEFT-ARCS",
+          "type": "proof_requires",
+          "to": "M0814-L-S-ORIENTATION",
+          "reciprocal_edge_id": "DEC-M0814-L-S-ORIENTATION-M0814-C-LEFT-ARCS"
+        },
+        {
+          "edge_id": "DEC-M0814-L-S-ORIENTATION-M0814-C-LEFT-ARCS",
+          "from": "M0814-L-S-ORIENTATION",
+          "type": "logical_decomposition",
+          "to": "M0814-C-LEFT-ARCS",
+          "reciprocal_edge_id": "REQ-M0814-C-LEFT-ARCS-M0814-L-S-ORIENTATION"
+        },
+        {
+          "edge_id": "REQ-M0814-C-LEFT-ARCS-M0814-C-SATURATED-CORE",
+          "from": "M0814-C-LEFT-ARCS",
+          "type": "proof_requires",
+          "to": "M0814-C-SATURATED-CORE",
+          "reciprocal_edge_id": "DEC-M0814-C-SATURATED-CORE-M0814-C-LEFT-ARCS"
+        },
+        {
+          "edge_id": "DEC-M0814-C-SATURATED-CORE-M0814-C-LEFT-ARCS",
+          "from": "M0814-C-SATURATED-CORE",
+          "type": "logical_decomposition",
+          "to": "M0814-C-LEFT-ARCS",
+          "reciprocal_edge_id": "REQ-M0814-C-LEFT-ARCS-M0814-C-SATURATED-CORE"
+        },
+        {
+          "edge_id": "REQ-M0814-L-S-ORIENTATION-M0814-L-REROUTE-BASIC",
+          "from": "M0814-L-S-ORIENTATION",
+          "type": "proof_requires",
+          "to": "M0814-L-REROUTE-BASIC",
+          "reciprocal_edge_id": "DEC-M0814-L-REROUTE-BASIC-M0814-L-S-ORIENTATION"
+        },
+        {
+          "edge_id": "DEC-M0814-L-REROUTE-BASIC-M0814-L-S-ORIENTATION",
+          "from": "M0814-L-REROUTE-BASIC",
+          "type": "logical_decomposition",
+          "to": "M0814-L-S-ORIENTATION",
+          "reciprocal_edge_id": "REQ-M0814-L-S-ORIENTATION-M0814-L-REROUTE-BASIC"
+        },
+        {
+          "edge_id": "REQ-M0814-L-S-ORIENTATION-M0814-L-MAX-CONVEX",
+          "from": "M0814-L-S-ORIENTATION",
+          "type": "proof_requires",
+          "to": "M0814-L-MAX-CONVEX",
+          "reciprocal_edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-S-ORIENTATION"
+        },
+        {
+          "edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-S-ORIENTATION",
+          "from": "M0814-L-MAX-CONVEX",
+          "type": "logical_decomposition",
+          "to": "M0814-L-S-ORIENTATION",
+          "reciprocal_edge_id": "REQ-M0814-L-S-ORIENTATION-M0814-L-MAX-CONVEX"
+        },
+        {
+          "edge_id": "REQ-M0814-L-S-DISCONNECTS-M0814-C-SATURATED-CORE",
+          "from": "M0814-L-S-DISCONNECTS",
+          "type": "proof_requires",
+          "to": "M0814-C-SATURATED-CORE",
+          "reciprocal_edge_id": "DEC-M0814-C-SATURATED-CORE-M0814-L-S-DISCONNECTS"
+        },
+        {
+          "edge_id": "DEC-M0814-C-SATURATED-CORE-M0814-L-S-DISCONNECTS",
+          "from": "M0814-C-SATURATED-CORE",
+          "type": "logical_decomposition",
+          "to": "M0814-L-S-DISCONNECTS",
+          "reciprocal_edge_id": "REQ-M0814-L-S-DISCONNECTS-M0814-C-SATURATED-CORE"
+        },
+        {
+          "edge_id": "REQ-M0814-L-S-DISCONNECTS-M0814-L-MAX-CONVEX",
+          "from": "M0814-L-S-DISCONNECTS",
+          "type": "proof_requires",
+          "to": "M0814-L-MAX-CONVEX",
+          "reciprocal_edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-S-DISCONNECTS"
+        },
+        {
+          "edge_id": "DEC-M0814-L-MAX-CONVEX-M0814-L-S-DISCONNECTS",
+          "from": "M0814-L-MAX-CONVEX",
+          "type": "logical_decomposition",
+          "to": "M0814-L-S-DISCONNECTS",
+          "reciprocal_edge_id": "REQ-M0814-L-S-DISCONNECTS-M0814-L-MAX-CONVEX"
+        },
+        {
+          "edge_id": "REQ-M0814-L-S-DISCONNECTS-M0814-S-CHAIN",
+          "from": "M0814-L-S-DISCONNECTS",
+          "type": "proof_requires",
+          "to": "M0814-S-CHAIN",
+          "reciprocal_edge_id": "DEC-M0814-S-CHAIN-M0814-L-S-DISCONNECTS"
+        },
+        {
+          "edge_id": "DEC-M0814-S-CHAIN-M0814-L-S-DISCONNECTS",
+          "from": "M0814-S-CHAIN",
+          "type": "logical_decomposition",
+          "to": "M0814-L-S-DISCONNECTS",
+          "reciprocal_edge_id": "REQ-M0814-L-S-DISCONNECTS-M0814-S-CHAIN"
+        },
+        {
+          "edge_id": "REQ-M0814-L-MAX-ATTAIN-M0814-C-FEASIBLE-POLYTOPE",
+          "from": "M0814-L-MAX-ATTAIN",
+          "type": "proof_requires",
+          "to": "M0814-C-FEASIBLE-POLYTOPE",
+          "reciprocal_edge_id": "DEC-M0814-C-FEASIBLE-POLYTOPE-M0814-L-MAX-ATTAIN"
+        },
+        {
+          "edge_id": "DEC-M0814-C-FEASIBLE-POLYTOPE-M0814-L-MAX-ATTAIN",
+          "from": "M0814-C-FEASIBLE-POLYTOPE",
+          "type": "logical_decomposition",
+          "to": "M0814-L-MAX-ATTAIN",
+          "reciprocal_edge_id": "REQ-M0814-L-MAX-ATTAIN-M0814-C-FEASIBLE-POLYTOPE"
+        },
+        {
+          "edge_id": "REQ-M0814-C-FEASIBLE-POLYTOPE-M0814-N-FLOW-COORD",
+          "from": "M0814-C-FEASIBLE-POLYTOPE",
+          "type": "proof_requires",
+          "to": "M0814-N-FLOW-COORD",
+          "reciprocal_edge_id": "DEC-M0814-N-FLOW-COORD-M0814-C-FEASIBLE-POLYTOPE"
+        },
+        {
+          "edge_id": "DEC-M0814-N-FLOW-COORD-M0814-C-FEASIBLE-POLYTOPE",
+          "from": "M0814-N-FLOW-COORD",
+          "type": "logical_decomposition",
+          "to": "M0814-C-FEASIBLE-POLYTOPE",
+          "reciprocal_edge_id": "REQ-M0814-C-FEASIBLE-POLYTOPE-M0814-N-FLOW-COORD"
+        },
+        {
+          "edge_id": "REQ-M0814-N-FLOW-COORD-M0814-N-CHAIN-ENUM",
+          "from": "M0814-N-FLOW-COORD",
+          "type": "proof_requires",
+          "to": "M0814-N-CHAIN-ENUM",
+          "reciprocal_edge_id": "DEC-M0814-N-CHAIN-ENUM-M0814-N-FLOW-COORD"
+        },
+        {
+          "edge_id": "DEC-M0814-N-CHAIN-ENUM-M0814-N-FLOW-COORD",
+          "from": "M0814-N-CHAIN-ENUM",
+          "type": "logical_decomposition",
+          "to": "M0814-N-FLOW-COORD",
+          "reciprocal_edge_id": "REQ-M0814-N-FLOW-COORD-M0814-N-CHAIN-ENUM"
+        },
+        {
+          "edge_id": "REQ-M0814-N-FLOW-COORD-M0814-S-FLOW-CUT",
+          "from": "M0814-N-FLOW-COORD",
+          "type": "proof_requires",
+          "to": "M0814-S-FLOW-CUT",
+          "reciprocal_edge_id": "DEC-M0814-S-FLOW-CUT-M0814-N-FLOW-COORD"
+        },
+        {
+          "edge_id": "DEC-M0814-S-FLOW-CUT-M0814-N-FLOW-COORD",
+          "from": "M0814-S-FLOW-CUT",
+          "type": "logical_decomposition",
+          "to": "M0814-N-FLOW-COORD",
+          "reciprocal_edge_id": "REQ-M0814-N-FLOW-COORD-M0814-S-FLOW-CUT"
+        },
+        {
+          "edge_id": "REQ-M0814-L-WEAK-DUALITY-M0814-S-FLOW-CUT",
+          "from": "M0814-L-WEAK-DUALITY",
+          "type": "proof_requires",
+          "to": "M0814-S-FLOW-CUT",
+          "reciprocal_edge_id": "DEC-M0814-S-FLOW-CUT-M0814-L-WEAK-DUALITY"
+        },
+        {
+          "edge_id": "DEC-M0814-S-FLOW-CUT-M0814-L-WEAK-DUALITY",
+          "from": "M0814-S-FLOW-CUT",
+          "type": "logical_decomposition",
+          "to": "M0814-L-WEAK-DUALITY",
+          "reciprocal_edge_id": "REQ-M0814-L-WEAK-DUALITY-M0814-S-FLOW-CUT"
+        },
+        {
+          "edge_id": "REQ-M0814-L-WEAK-DUALITY-M0814-S-CHAIN",
+          "from": "M0814-L-WEAK-DUALITY",
+          "type": "proof_requires",
+          "to": "M0814-S-CHAIN",
+          "reciprocal_edge_id": "DEC-M0814-S-CHAIN-M0814-L-WEAK-DUALITY"
+        },
+        {
+          "edge_id": "DEC-M0814-S-CHAIN-M0814-L-WEAK-DUALITY",
+          "from": "M0814-S-CHAIN",
+          "type": "logical_decomposition",
+          "to": "M0814-L-WEAK-DUALITY",
+          "reciprocal_edge_id": "REQ-M0814-L-WEAK-DUALITY-M0814-S-CHAIN"
+        },
+        {
+          "edge_id": "REQ-M0814-B-MERGE-M0814-B-NO-CHAIN",
+          "from": "M0814-B-MERGE",
+          "type": "proof_requires",
+          "to": "M0814-B-NO-CHAIN",
+          "reciprocal_edge_id": "DEC-M0814-B-NO-CHAIN-M0814-B-MERGE"
+        },
+        {
+          "edge_id": "DEC-M0814-B-NO-CHAIN-M0814-B-MERGE",
+          "from": "M0814-B-NO-CHAIN",
+          "type": "logical_decomposition",
+          "to": "M0814-B-MERGE",
+          "reciprocal_edge_id": "REQ-M0814-B-MERGE-M0814-B-NO-CHAIN"
+        },
+        {
+          "edge_id": "REQ-M0814-B-MERGE-M0814-B-HAS-CHAIN",
+          "from": "M0814-B-MERGE",
+          "type": "proof_requires",
+          "to": "M0814-B-HAS-CHAIN",
+          "reciprocal_edge_id": "DEC-M0814-B-HAS-CHAIN-M0814-B-MERGE"
+        },
+        {
+          "edge_id": "DEC-M0814-B-HAS-CHAIN-M0814-B-MERGE",
+          "from": "M0814-B-HAS-CHAIN",
+          "type": "logical_decomposition",
+          "to": "M0814-B-MERGE",
+          "reciprocal_edge_id": "REQ-M0814-B-MERGE-M0814-B-HAS-CHAIN"
+        },
+        {
+          "edge_id": "REQ-M0814-B-NO-CHAIN-M0814-S-BOUNDARY",
+          "from": "M0814-B-NO-CHAIN",
+          "type": "proof_requires",
+          "to": "M0814-S-BOUNDARY",
+          "reciprocal_edge_id": "DEC-M0814-S-BOUNDARY-M0814-B-NO-CHAIN"
+        },
+        {
+          "edge_id": "DEC-M0814-S-BOUNDARY-M0814-B-NO-CHAIN",
+          "from": "M0814-S-BOUNDARY",
+          "type": "logical_decomposition",
+          "to": "M0814-B-NO-CHAIN",
+          "reciprocal_edge_id": "REQ-M0814-B-NO-CHAIN-M0814-S-BOUNDARY"
+        },
+        {
+          "edge_id": "REQ-M0814-B-HAS-CHAIN-M0814-T-ASSEMBLE",
+          "from": "M0814-B-HAS-CHAIN",
+          "type": "proof_requires",
+          "to": "M0814-T-ASSEMBLE",
+          "reciprocal_edge_id": "DEC-M0814-T-ASSEMBLE-M0814-B-HAS-CHAIN"
+        },
+        {
+          "edge_id": "DEC-M0814-T-ASSEMBLE-M0814-B-HAS-CHAIN",
+          "from": "M0814-T-ASSEMBLE",
+          "type": "logical_decomposition",
+          "to": "M0814-B-HAS-CHAIN",
+          "reciprocal_edge_id": "REQ-M0814-B-HAS-CHAIN-M0814-T-ASSEMBLE"
+        }
+      ],
+      "out": {
+        "M0814-ROOT": [
+          "REQ-M0814-ROOT-M0814-T-ASSEMBLE"
+        ],
+        "M0814-T-ASSEMBLE": [
+          "CMP-M0814-T-ASSEMBLE-M0814-ROOT",
+          "REQ-M0814-T-ASSEMBLE-M0814-L-MAX-ATTAIN",
+          "REQ-M0814-T-ASSEMBLE-M0814-T-CUT-CERT",
+          "DEC-M0814-T-ASSEMBLE-M0814-B-HAS-CHAIN"
+        ],
+        "M0814-L-MAX-ATTAIN": [
+          "CMP-M0814-L-MAX-ATTAIN-M0814-T-ASSEMBLE",
+          "REQ-M0814-L-MAX-ATTAIN-M0814-C-FEASIBLE-POLYTOPE"
+        ],
+        "M0814-T-CUT-CERT": [
+          "CMP-M0814-T-CUT-CERT-M0814-T-ASSEMBLE",
+          "REQ-M0814-T-CUT-CERT-M0814-L-WEAK-DUALITY",
+          "REQ-M0814-T-CUT-CERT-M0814-T-EQUAL-CUT"
+        ],
+        "M0814-L-WEAK-DUALITY": [
+          "CMP-M0814-L-WEAK-DUALITY-M0814-T-CUT-CERT",
+          "REQ-M0814-L-WEAK-DUALITY-M0814-S-FLOW-CUT",
+          "REQ-M0814-L-WEAK-DUALITY-M0814-S-CHAIN"
+        ],
+        "M0814-T-EQUAL-CUT": [
+          "CMP-M0814-T-EQUAL-CUT-M0814-T-CUT-CERT",
+          "REQ-M0814-T-EQUAL-CUT-M0814-L-L-DISCONNECTS",
+          "REQ-M0814-T-EQUAL-CUT-M0814-L-COUNT-ONCE"
+        ],
+        "M0814-L-L-DISCONNECTS": [
+          "DEC-M0814-L-L-DISCONNECTS-M0814-T-EQUAL-CUT",
+          "DEC-M0814-L-L-DISCONNECTS-M0814-L-L-EXACTLY-ONE",
+          "REQ-M0814-L-L-DISCONNECTS-M0814-C-LEFT-ARCS",
+          "REQ-M0814-L-L-DISCONNECTS-M0814-L-S-DISCONNECTS",
+          "REQ-M0814-L-L-DISCONNECTS-M0814-L-MAX-CONVEX",
+          "REQ-M0814-L-L-DISCONNECTS-M0814-L-REROUTE-BASIC"
+        ],
+        "M0814-L-COUNT-ONCE": [
+          "DEC-M0814-L-COUNT-ONCE-M0814-T-EQUAL-CUT",
+          "REQ-M0814-L-COUNT-ONCE-M0814-L-L-EXACTLY-ONE",
+          "REQ-M0814-L-COUNT-ONCE-M0814-C-SATURATED-CORE"
+        ],
+        "M0814-L-L-EXACTLY-ONE": [
+          "DEC-M0814-L-L-EXACTLY-ONE-M0814-L-COUNT-ONCE",
+          "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-DISCONNECTS",
+          "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-AT-MOST-ONE"
+        ],
+        "M0814-C-SATURATED-CORE": [
+          "DEC-M0814-C-SATURATED-CORE-M0814-L-COUNT-ONCE",
+          "DEC-M0814-C-SATURATED-CORE-M0814-C-LEFT-ARCS",
+          "DEC-M0814-C-SATURATED-CORE-M0814-L-S-DISCONNECTS"
+        ],
+        "M0814-L-L-AT-MOST-ONE": [
+          "DEC-M0814-L-L-AT-MOST-ONE-M0814-L-L-EXACTLY-ONE",
+          "REQ-M0814-L-L-AT-MOST-ONE-M0814-C-LEFT-ARCS",
+          "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-MAX-CONVEX",
+          "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-REROUTE-BASIC"
+        ],
+        "M0814-C-LEFT-ARCS": [
+          "DEC-M0814-C-LEFT-ARCS-M0814-L-L-DISCONNECTS",
+          "DEC-M0814-C-LEFT-ARCS-M0814-L-L-AT-MOST-ONE",
+          "REQ-M0814-C-LEFT-ARCS-M0814-L-S-ORIENTATION",
+          "REQ-M0814-C-LEFT-ARCS-M0814-C-SATURATED-CORE"
+        ],
+        "M0814-L-S-DISCONNECTS": [
+          "DEC-M0814-L-S-DISCONNECTS-M0814-L-L-DISCONNECTS",
+          "REQ-M0814-L-S-DISCONNECTS-M0814-C-SATURATED-CORE",
+          "REQ-M0814-L-S-DISCONNECTS-M0814-L-MAX-CONVEX",
+          "REQ-M0814-L-S-DISCONNECTS-M0814-S-CHAIN"
+        ],
+        "M0814-L-MAX-CONVEX": [
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-L-DISCONNECTS",
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-L-AT-MOST-ONE",
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-S-ORIENTATION",
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-S-DISCONNECTS"
+        ],
+        "M0814-L-REROUTE-BASIC": [
+          "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-DISCONNECTS",
+          "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-AT-MOST-ONE",
+          "DEC-M0814-L-REROUTE-BASIC-M0814-L-S-ORIENTATION"
+        ],
+        "M0814-L-S-ORIENTATION": [
+          "DEC-M0814-L-S-ORIENTATION-M0814-C-LEFT-ARCS",
+          "REQ-M0814-L-S-ORIENTATION-M0814-L-REROUTE-BASIC",
+          "REQ-M0814-L-S-ORIENTATION-M0814-L-MAX-CONVEX"
+        ],
+        "M0814-S-CHAIN": [
+          "DEC-M0814-S-CHAIN-M0814-L-S-DISCONNECTS",
+          "DEC-M0814-S-CHAIN-M0814-L-WEAK-DUALITY"
+        ],
+        "M0814-C-FEASIBLE-POLYTOPE": [
+          "DEC-M0814-C-FEASIBLE-POLYTOPE-M0814-L-MAX-ATTAIN",
+          "REQ-M0814-C-FEASIBLE-POLYTOPE-M0814-N-FLOW-COORD"
+        ],
+        "M0814-N-FLOW-COORD": [
+          "DEC-M0814-N-FLOW-COORD-M0814-C-FEASIBLE-POLYTOPE",
+          "REQ-M0814-N-FLOW-COORD-M0814-N-CHAIN-ENUM",
+          "REQ-M0814-N-FLOW-COORD-M0814-S-FLOW-CUT"
+        ],
+        "M0814-N-CHAIN-ENUM": [
+          "DEC-M0814-N-CHAIN-ENUM-M0814-N-FLOW-COORD"
+        ],
+        "M0814-S-FLOW-CUT": [
+          "DEC-M0814-S-FLOW-CUT-M0814-N-FLOW-COORD",
+          "DEC-M0814-S-FLOW-CUT-M0814-L-WEAK-DUALITY"
+        ],
+        "M0814-B-MERGE": [
+          "REQ-M0814-B-MERGE-M0814-B-NO-CHAIN",
+          "REQ-M0814-B-MERGE-M0814-B-HAS-CHAIN"
+        ],
+        "M0814-B-NO-CHAIN": [
+          "DEC-M0814-B-NO-CHAIN-M0814-B-MERGE",
+          "REQ-M0814-B-NO-CHAIN-M0814-S-BOUNDARY"
+        ],
+        "M0814-B-HAS-CHAIN": [
+          "DEC-M0814-B-HAS-CHAIN-M0814-B-MERGE",
+          "REQ-M0814-B-HAS-CHAIN-M0814-T-ASSEMBLE"
+        ],
+        "M0814-S-BOUNDARY": [
+          "DEC-M0814-S-BOUNDARY-M0814-B-NO-CHAIN"
+        ]
+      },
+      "in": {
+        "M0814-T-ASSEMBLE": [
+          "REQ-M0814-ROOT-M0814-T-ASSEMBLE",
+          "CMP-M0814-L-MAX-ATTAIN-M0814-T-ASSEMBLE",
+          "CMP-M0814-T-CUT-CERT-M0814-T-ASSEMBLE",
+          "REQ-M0814-B-HAS-CHAIN-M0814-T-ASSEMBLE"
+        ],
+        "M0814-ROOT": [
+          "CMP-M0814-T-ASSEMBLE-M0814-ROOT"
+        ],
+        "M0814-L-MAX-ATTAIN": [
+          "REQ-M0814-T-ASSEMBLE-M0814-L-MAX-ATTAIN",
+          "DEC-M0814-C-FEASIBLE-POLYTOPE-M0814-L-MAX-ATTAIN"
+        ],
+        "M0814-T-CUT-CERT": [
+          "REQ-M0814-T-ASSEMBLE-M0814-T-CUT-CERT",
+          "CMP-M0814-L-WEAK-DUALITY-M0814-T-CUT-CERT",
+          "CMP-M0814-T-EQUAL-CUT-M0814-T-CUT-CERT"
+        ],
+        "M0814-L-WEAK-DUALITY": [
+          "REQ-M0814-T-CUT-CERT-M0814-L-WEAK-DUALITY",
+          "DEC-M0814-S-FLOW-CUT-M0814-L-WEAK-DUALITY",
+          "DEC-M0814-S-CHAIN-M0814-L-WEAK-DUALITY"
+        ],
+        "M0814-T-EQUAL-CUT": [
+          "REQ-M0814-T-CUT-CERT-M0814-T-EQUAL-CUT",
+          "DEC-M0814-L-L-DISCONNECTS-M0814-T-EQUAL-CUT",
+          "DEC-M0814-L-COUNT-ONCE-M0814-T-EQUAL-CUT"
+        ],
+        "M0814-L-L-DISCONNECTS": [
+          "REQ-M0814-T-EQUAL-CUT-M0814-L-L-DISCONNECTS",
+          "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-DISCONNECTS",
+          "DEC-M0814-C-LEFT-ARCS-M0814-L-L-DISCONNECTS",
+          "DEC-M0814-L-S-DISCONNECTS-M0814-L-L-DISCONNECTS",
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-L-DISCONNECTS",
+          "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-DISCONNECTS"
+        ],
+        "M0814-L-COUNT-ONCE": [
+          "REQ-M0814-T-EQUAL-CUT-M0814-L-COUNT-ONCE",
+          "DEC-M0814-L-L-EXACTLY-ONE-M0814-L-COUNT-ONCE",
+          "DEC-M0814-C-SATURATED-CORE-M0814-L-COUNT-ONCE"
+        ],
+        "M0814-L-L-EXACTLY-ONE": [
+          "REQ-M0814-L-COUNT-ONCE-M0814-L-L-EXACTLY-ONE",
+          "DEC-M0814-L-L-DISCONNECTS-M0814-L-L-EXACTLY-ONE",
+          "DEC-M0814-L-L-AT-MOST-ONE-M0814-L-L-EXACTLY-ONE"
+        ],
+        "M0814-C-SATURATED-CORE": [
+          "REQ-M0814-L-COUNT-ONCE-M0814-C-SATURATED-CORE",
+          "REQ-M0814-C-LEFT-ARCS-M0814-C-SATURATED-CORE",
+          "REQ-M0814-L-S-DISCONNECTS-M0814-C-SATURATED-CORE"
+        ],
+        "M0814-L-L-AT-MOST-ONE": [
+          "REQ-M0814-L-L-EXACTLY-ONE-M0814-L-L-AT-MOST-ONE",
+          "DEC-M0814-C-LEFT-ARCS-M0814-L-L-AT-MOST-ONE",
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-L-AT-MOST-ONE",
+          "DEC-M0814-L-REROUTE-BASIC-M0814-L-L-AT-MOST-ONE"
+        ],
+        "M0814-C-LEFT-ARCS": [
+          "REQ-M0814-L-L-DISCONNECTS-M0814-C-LEFT-ARCS",
+          "REQ-M0814-L-L-AT-MOST-ONE-M0814-C-LEFT-ARCS",
+          "DEC-M0814-L-S-ORIENTATION-M0814-C-LEFT-ARCS",
+          "DEC-M0814-C-SATURATED-CORE-M0814-C-LEFT-ARCS"
+        ],
+        "M0814-L-S-DISCONNECTS": [
+          "REQ-M0814-L-L-DISCONNECTS-M0814-L-S-DISCONNECTS",
+          "DEC-M0814-C-SATURATED-CORE-M0814-L-S-DISCONNECTS",
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-S-DISCONNECTS",
+          "DEC-M0814-S-CHAIN-M0814-L-S-DISCONNECTS"
+        ],
+        "M0814-L-MAX-CONVEX": [
+          "REQ-M0814-L-L-DISCONNECTS-M0814-L-MAX-CONVEX",
+          "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-MAX-CONVEX",
+          "REQ-M0814-L-S-ORIENTATION-M0814-L-MAX-CONVEX",
+          "REQ-M0814-L-S-DISCONNECTS-M0814-L-MAX-CONVEX"
+        ],
+        "M0814-L-REROUTE-BASIC": [
+          "REQ-M0814-L-L-DISCONNECTS-M0814-L-REROUTE-BASIC",
+          "REQ-M0814-L-L-AT-MOST-ONE-M0814-L-REROUTE-BASIC",
+          "REQ-M0814-L-S-ORIENTATION-M0814-L-REROUTE-BASIC"
+        ],
+        "M0814-L-S-ORIENTATION": [
+          "REQ-M0814-C-LEFT-ARCS-M0814-L-S-ORIENTATION",
+          "DEC-M0814-L-REROUTE-BASIC-M0814-L-S-ORIENTATION",
+          "DEC-M0814-L-MAX-CONVEX-M0814-L-S-ORIENTATION"
+        ],
+        "M0814-S-CHAIN": [
+          "REQ-M0814-L-S-DISCONNECTS-M0814-S-CHAIN",
+          "REQ-M0814-L-WEAK-DUALITY-M0814-S-CHAIN"
+        ],
+        "M0814-C-FEASIBLE-POLYTOPE": [
+          "REQ-M0814-L-MAX-ATTAIN-M0814-C-FEASIBLE-POLYTOPE",
+          "DEC-M0814-N-FLOW-COORD-M0814-C-FEASIBLE-POLYTOPE"
+        ],
+        "M0814-N-FLOW-COORD": [
+          "REQ-M0814-C-FEASIBLE-POLYTOPE-M0814-N-FLOW-COORD",
+          "DEC-M0814-N-CHAIN-ENUM-M0814-N-FLOW-COORD",
+          "DEC-M0814-S-FLOW-CUT-M0814-N-FLOW-COORD"
+        ],
+        "M0814-N-CHAIN-ENUM": [
+          "REQ-M0814-N-FLOW-COORD-M0814-N-CHAIN-ENUM"
+        ],
+        "M0814-S-FLOW-CUT": [
+          "REQ-M0814-N-FLOW-COORD-M0814-S-FLOW-CUT",
+          "REQ-M0814-L-WEAK-DUALITY-M0814-S-FLOW-CUT"
+        ],
+        "M0814-B-NO-CHAIN": [
+          "REQ-M0814-B-MERGE-M0814-B-NO-CHAIN",
+          "DEC-M0814-S-BOUNDARY-M0814-B-NO-CHAIN"
+        ],
+        "M0814-B-MERGE": [
+          "DEC-M0814-B-NO-CHAIN-M0814-B-MERGE",
+          "DEC-M0814-B-HAS-CHAIN-M0814-B-MERGE"
+        ],
+        "M0814-B-HAS-CHAIN": [
+          "REQ-M0814-B-MERGE-M0814-B-HAS-CHAIN",
+          "DEC-M0814-T-ASSEMBLE-M0814-B-HAS-CHAIN"
+        ],
+        "M0814-S-BOUNDARY": [
+          "REQ-M0814-B-NO-CHAIN-M0814-S-BOUNDARY"
+        ]
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "REF-ROOT-TARGET",
+          "from": "M0814-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0814-S-TARGET"
+        },
+        {
+          "edge_id": "REF-TARGET-TRANSPORT",
+          "from": "M0814-S-TARGET",
+          "type": "transports",
+          "to": "M0814-S-TRANSPORT"
+        },
+        {
+          "edge_id": "REF-TARGET-BRANCHES",
+          "from": "M0814-S-TARGET",
+          "type": "logical_decomposition",
+          "to": "M0814-B-MERGE"
+        },
+        {
+          "edge_id": "REF-TARGET-FOUNDATION",
+          "from": "M0814-S-TARGET",
+          "type": "logical_decomposition",
+          "to": "M0814-S-FOUNDATION"
+        }
+      ],
+      "out": {
+        "M0814-ROOT": [
+          "REF-ROOT-TARGET"
+        ],
+        "M0814-S-TARGET": [
+          "REF-TARGET-TRANSPORT",
+          "REF-TARGET-BRANCHES",
+          "REF-TARGET-FOUNDATION"
+        ]
+      },
+      "in": {
+        "M0814-S-TARGET": [
+          "REF-ROOT-TARGET"
+        ],
+        "M0814-S-TRANSPORT": [
+          "REF-TARGET-TRANSPORT"
+        ],
+        "M0814-B-MERGE": [
+          "REF-TARGET-BRANCHES"
+        ],
+        "M0814-S-FOUNDATION": [
+          "REF-TARGET-FOUNDATION"
+        ]
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "SOURCE-M0814-ROOT",
+          "from": "M0814-ROOT",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-S-TARGET",
+          "from": "M0814-S-TARGET",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-S-CHAIN",
+          "from": "M0814-S-CHAIN",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-S-FLOW-CUT",
+          "from": "M0814-S-FLOW-CUT",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-S-BOUNDARY",
+          "from": "M0814-S-BOUNDARY",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-N-CHAIN-ENUM",
+          "from": "M0814-N-CHAIN-ENUM",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-N-FLOW-COORD",
+          "from": "M0814-N-FLOW-COORD",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-B-NO-CHAIN",
+          "from": "M0814-B-NO-CHAIN",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-B-HAS-CHAIN",
+          "from": "M0814-B-HAS-CHAIN",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-B-MERGE",
+          "from": "M0814-B-MERGE",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-C-FEASIBLE-POLYTOPE",
+          "from": "M0814-C-FEASIBLE-POLYTOPE",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-MAX-ATTAIN",
+          "from": "M0814-L-MAX-ATTAIN",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-MAX-CONVEX",
+          "from": "M0814-L-MAX-CONVEX",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-C-SATURATED-CORE",
+          "from": "M0814-C-SATURATED-CORE",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-S-DISCONNECTS",
+          "from": "M0814-L-S-DISCONNECTS",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-REROUTE-BASIC",
+          "from": "M0814-L-REROUTE-BASIC",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-S-ORIENTATION",
+          "from": "M0814-L-S-ORIENTATION",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-C-LEFT-ARCS",
+          "from": "M0814-C-LEFT-ARCS",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-L-DISCONNECTS",
+          "from": "M0814-L-L-DISCONNECTS",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-L-L-AT-MOST-ONE",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-L-EXACTLY-ONE",
+          "from": "M0814-L-L-EXACTLY-ONE",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-WEAK-DUALITY",
+          "from": "M0814-L-WEAK-DUALITY",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-L-COUNT-ONCE",
+          "from": "M0814-L-COUNT-ONCE",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-T-EQUAL-CUT",
+          "from": "M0814-T-EQUAL-CUT",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-T-CUT-CERT",
+          "from": "M0814-T-CUT-CERT",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "SOURCE-M0814-T-ASSEMBLE",
+          "from": "M0814-T-ASSEMBLE",
+          "type": "source_map",
+          "to": "M0814-X-SOURCE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-ROOT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-ROOT"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-S-TARGET",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-S-TARGET"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-S-CHAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-S-CHAIN"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-S-FLOW-CUT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-S-FLOW-CUT"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-S-BOUNDARY",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-S-BOUNDARY"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-S-TRANSPORT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-S-TRANSPORT"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-S-FOUNDATION",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-S-FOUNDATION"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-N-CHAIN-ENUM",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-N-CHAIN-ENUM"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-N-FLOW-COORD",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-N-FLOW-COORD"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-B-NO-CHAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-B-NO-CHAIN"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-B-HAS-CHAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-B-HAS-CHAIN"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-B-MERGE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-B-MERGE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-C-FEASIBLE-POLYTOPE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-C-FEASIBLE-POLYTOPE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-MAX-ATTAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-MAX-ATTAIN"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-MAX-CONVEX",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-MAX-CONVEX"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-C-SATURATED-CORE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-C-SATURATED-CORE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-S-DISCONNECTS",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-S-DISCONNECTS"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-REROUTE-BASIC",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-REROUTE-BASIC"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-S-ORIENTATION",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-S-ORIENTATION"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-C-LEFT-ARCS",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-C-LEFT-ARCS"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-L-DISCONNECTS",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-L-AT-MOST-ONE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-L-EXACTLY-ONE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-L-EXACTLY-ONE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-WEAK-DUALITY",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-WEAK-DUALITY"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-L-COUNT-ONCE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-L-COUNT-ONCE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-T-EQUAL-CUT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-T-EQUAL-CUT"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-T-CUT-CERT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-T-CUT-CERT"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-T-ASSEMBLE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-X-READABLE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-X-READABLE"
+        },
+        {
+          "edge_id": "PROVENANCE-M0814-X-WORKFLOW",
+          "from": "M0814-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0814-X-WORKFLOW"
+        }
+      ],
+      "out": {
+        "M0814-ROOT": [
+          "SOURCE-M0814-ROOT"
+        ],
+        "M0814-S-TARGET": [
+          "SOURCE-M0814-S-TARGET"
+        ],
+        "M0814-S-CHAIN": [
+          "SOURCE-M0814-S-CHAIN"
+        ],
+        "M0814-S-FLOW-CUT": [
+          "SOURCE-M0814-S-FLOW-CUT"
+        ],
+        "M0814-S-BOUNDARY": [
+          "SOURCE-M0814-S-BOUNDARY"
+        ],
+        "M0814-N-CHAIN-ENUM": [
+          "SOURCE-M0814-N-CHAIN-ENUM"
+        ],
+        "M0814-N-FLOW-COORD": [
+          "SOURCE-M0814-N-FLOW-COORD"
+        ],
+        "M0814-B-NO-CHAIN": [
+          "SOURCE-M0814-B-NO-CHAIN"
+        ],
+        "M0814-B-HAS-CHAIN": [
+          "SOURCE-M0814-B-HAS-CHAIN"
+        ],
+        "M0814-B-MERGE": [
+          "SOURCE-M0814-B-MERGE"
+        ],
+        "M0814-C-FEASIBLE-POLYTOPE": [
+          "SOURCE-M0814-C-FEASIBLE-POLYTOPE"
+        ],
+        "M0814-L-MAX-ATTAIN": [
+          "SOURCE-M0814-L-MAX-ATTAIN"
+        ],
+        "M0814-L-MAX-CONVEX": [
+          "SOURCE-M0814-L-MAX-CONVEX"
+        ],
+        "M0814-C-SATURATED-CORE": [
+          "SOURCE-M0814-C-SATURATED-CORE"
+        ],
+        "M0814-L-S-DISCONNECTS": [
+          "SOURCE-M0814-L-S-DISCONNECTS"
+        ],
+        "M0814-L-REROUTE-BASIC": [
+          "SOURCE-M0814-L-REROUTE-BASIC"
+        ],
+        "M0814-L-S-ORIENTATION": [
+          "SOURCE-M0814-L-S-ORIENTATION"
+        ],
+        "M0814-C-LEFT-ARCS": [
+          "SOURCE-M0814-C-LEFT-ARCS"
+        ],
+        "M0814-L-L-DISCONNECTS": [
+          "SOURCE-M0814-L-L-DISCONNECTS"
+        ],
+        "M0814-L-L-AT-MOST-ONE": [
+          "SOURCE-M0814-L-L-AT-MOST-ONE"
+        ],
+        "M0814-L-L-EXACTLY-ONE": [
+          "SOURCE-M0814-L-L-EXACTLY-ONE"
+        ],
+        "M0814-L-WEAK-DUALITY": [
+          "SOURCE-M0814-L-WEAK-DUALITY"
+        ],
+        "M0814-L-COUNT-ONCE": [
+          "SOURCE-M0814-L-COUNT-ONCE"
+        ],
+        "M0814-T-EQUAL-CUT": [
+          "SOURCE-M0814-T-EQUAL-CUT"
+        ],
+        "M0814-T-CUT-CERT": [
+          "SOURCE-M0814-T-CUT-CERT"
+        ],
+        "M0814-T-ASSEMBLE": [
+          "SOURCE-M0814-T-ASSEMBLE"
+        ],
+        "M0814-X-PROVENANCE": [
+          "PROVENANCE-M0814-ROOT",
+          "PROVENANCE-M0814-S-TARGET",
+          "PROVENANCE-M0814-S-CHAIN",
+          "PROVENANCE-M0814-S-FLOW-CUT",
+          "PROVENANCE-M0814-S-BOUNDARY",
+          "PROVENANCE-M0814-S-TRANSPORT",
+          "PROVENANCE-M0814-S-FOUNDATION",
+          "PROVENANCE-M0814-N-CHAIN-ENUM",
+          "PROVENANCE-M0814-N-FLOW-COORD",
+          "PROVENANCE-M0814-B-NO-CHAIN",
+          "PROVENANCE-M0814-B-HAS-CHAIN",
+          "PROVENANCE-M0814-B-MERGE",
+          "PROVENANCE-M0814-C-FEASIBLE-POLYTOPE",
+          "PROVENANCE-M0814-L-MAX-ATTAIN",
+          "PROVENANCE-M0814-L-MAX-CONVEX",
+          "PROVENANCE-M0814-C-SATURATED-CORE",
+          "PROVENANCE-M0814-L-S-DISCONNECTS",
+          "PROVENANCE-M0814-L-REROUTE-BASIC",
+          "PROVENANCE-M0814-L-S-ORIENTATION",
+          "PROVENANCE-M0814-C-LEFT-ARCS",
+          "PROVENANCE-M0814-L-L-DISCONNECTS",
+          "PROVENANCE-M0814-L-L-AT-MOST-ONE",
+          "PROVENANCE-M0814-L-L-EXACTLY-ONE",
+          "PROVENANCE-M0814-L-WEAK-DUALITY",
+          "PROVENANCE-M0814-L-COUNT-ONCE",
+          "PROVENANCE-M0814-T-EQUAL-CUT",
+          "PROVENANCE-M0814-T-CUT-CERT",
+          "PROVENANCE-M0814-T-ASSEMBLE",
+          "PROVENANCE-M0814-X-READABLE",
+          "PROVENANCE-M0814-X-WORKFLOW"
+        ]
+      },
+      "in": {
+        "M0814-X-SOURCE": [
+          "SOURCE-M0814-ROOT",
+          "SOURCE-M0814-S-TARGET",
+          "SOURCE-M0814-S-CHAIN",
+          "SOURCE-M0814-S-FLOW-CUT",
+          "SOURCE-M0814-S-BOUNDARY",
+          "SOURCE-M0814-N-CHAIN-ENUM",
+          "SOURCE-M0814-N-FLOW-COORD",
+          "SOURCE-M0814-B-NO-CHAIN",
+          "SOURCE-M0814-B-HAS-CHAIN",
+          "SOURCE-M0814-B-MERGE",
+          "SOURCE-M0814-C-FEASIBLE-POLYTOPE",
+          "SOURCE-M0814-L-MAX-ATTAIN",
+          "SOURCE-M0814-L-MAX-CONVEX",
+          "SOURCE-M0814-C-SATURATED-CORE",
+          "SOURCE-M0814-L-S-DISCONNECTS",
+          "SOURCE-M0814-L-REROUTE-BASIC",
+          "SOURCE-M0814-L-S-ORIENTATION",
+          "SOURCE-M0814-C-LEFT-ARCS",
+          "SOURCE-M0814-L-L-DISCONNECTS",
+          "SOURCE-M0814-L-L-AT-MOST-ONE",
+          "SOURCE-M0814-L-L-EXACTLY-ONE",
+          "SOURCE-M0814-L-WEAK-DUALITY",
+          "SOURCE-M0814-L-COUNT-ONCE",
+          "SOURCE-M0814-T-EQUAL-CUT",
+          "SOURCE-M0814-T-CUT-CERT",
+          "SOURCE-M0814-T-ASSEMBLE"
+        ],
+        "M0814-ROOT": [
+          "PROVENANCE-M0814-ROOT"
+        ],
+        "M0814-S-TARGET": [
+          "PROVENANCE-M0814-S-TARGET"
+        ],
+        "M0814-S-CHAIN": [
+          "PROVENANCE-M0814-S-CHAIN"
+        ],
+        "M0814-S-FLOW-CUT": [
+          "PROVENANCE-M0814-S-FLOW-CUT"
+        ],
+        "M0814-S-BOUNDARY": [
+          "PROVENANCE-M0814-S-BOUNDARY"
+        ],
+        "M0814-S-TRANSPORT": [
+          "PROVENANCE-M0814-S-TRANSPORT"
+        ],
+        "M0814-S-FOUNDATION": [
+          "PROVENANCE-M0814-S-FOUNDATION"
+        ],
+        "M0814-N-CHAIN-ENUM": [
+          "PROVENANCE-M0814-N-CHAIN-ENUM"
+        ],
+        "M0814-N-FLOW-COORD": [
+          "PROVENANCE-M0814-N-FLOW-COORD"
+        ],
+        "M0814-B-NO-CHAIN": [
+          "PROVENANCE-M0814-B-NO-CHAIN"
+        ],
+        "M0814-B-HAS-CHAIN": [
+          "PROVENANCE-M0814-B-HAS-CHAIN"
+        ],
+        "M0814-B-MERGE": [
+          "PROVENANCE-M0814-B-MERGE"
+        ],
+        "M0814-C-FEASIBLE-POLYTOPE": [
+          "PROVENANCE-M0814-C-FEASIBLE-POLYTOPE"
+        ],
+        "M0814-L-MAX-ATTAIN": [
+          "PROVENANCE-M0814-L-MAX-ATTAIN"
+        ],
+        "M0814-L-MAX-CONVEX": [
+          "PROVENANCE-M0814-L-MAX-CONVEX"
+        ],
+        "M0814-C-SATURATED-CORE": [
+          "PROVENANCE-M0814-C-SATURATED-CORE"
+        ],
+        "M0814-L-S-DISCONNECTS": [
+          "PROVENANCE-M0814-L-S-DISCONNECTS"
+        ],
+        "M0814-L-REROUTE-BASIC": [
+          "PROVENANCE-M0814-L-REROUTE-BASIC"
+        ],
+        "M0814-L-S-ORIENTATION": [
+          "PROVENANCE-M0814-L-S-ORIENTATION"
+        ],
+        "M0814-C-LEFT-ARCS": [
+          "PROVENANCE-M0814-C-LEFT-ARCS"
+        ],
+        "M0814-L-L-DISCONNECTS": [
+          "PROVENANCE-M0814-L-L-DISCONNECTS"
+        ],
+        "M0814-L-L-AT-MOST-ONE": [
+          "PROVENANCE-M0814-L-L-AT-MOST-ONE"
+        ],
+        "M0814-L-L-EXACTLY-ONE": [
+          "PROVENANCE-M0814-L-L-EXACTLY-ONE"
+        ],
+        "M0814-L-WEAK-DUALITY": [
+          "PROVENANCE-M0814-L-WEAK-DUALITY"
+        ],
+        "M0814-L-COUNT-ONCE": [
+          "PROVENANCE-M0814-L-COUNT-ONCE"
+        ],
+        "M0814-T-EQUAL-CUT": [
+          "PROVENANCE-M0814-T-EQUAL-CUT"
+        ],
+        "M0814-T-CUT-CERT": [
+          "PROVENANCE-M0814-T-CUT-CERT"
+        ],
+        "M0814-T-ASSEMBLE": [
+          "PROVENANCE-M0814-T-ASSEMBLE"
+        ],
+        "M0814-X-READABLE": [
+          "PROVENANCE-M0814-X-READABLE"
+        ],
+        "M0814-X-WORKFLOW": [
+          "PROVENANCE-M0814-X-WORKFLOW"
+        ]
+      }
+    },
+    "evidence": {
+      "edges": [
+        {
+          "edge_id": "EVIDENCE-M0814-ROOT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-ROOT"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-S-TARGET",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-S-TARGET"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-S-CHAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-S-CHAIN"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-S-FLOW-CUT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-S-FLOW-CUT"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-S-BOUNDARY",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-S-BOUNDARY"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-S-TRANSPORT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-S-TRANSPORT"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-S-FOUNDATION",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-S-FOUNDATION"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-N-CHAIN-ENUM",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-N-CHAIN-ENUM"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-N-FLOW-COORD",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-N-FLOW-COORD"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-B-NO-CHAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-B-NO-CHAIN"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-B-HAS-CHAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-B-HAS-CHAIN"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-B-MERGE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-B-MERGE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-C-FEASIBLE-POLYTOPE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-C-FEASIBLE-POLYTOPE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-MAX-ATTAIN",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-MAX-ATTAIN"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-MAX-CONVEX",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-MAX-CONVEX"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-C-SATURATED-CORE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-C-SATURATED-CORE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-S-DISCONNECTS",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-S-DISCONNECTS"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-REROUTE-BASIC",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-REROUTE-BASIC"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-S-ORIENTATION",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-S-ORIENTATION"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-C-LEFT-ARCS",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-C-LEFT-ARCS"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-L-DISCONNECTS",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-L-AT-MOST-ONE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-L-EXACTLY-ONE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-L-EXACTLY-ONE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-WEAK-DUALITY",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-WEAK-DUALITY"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-L-COUNT-ONCE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-L-COUNT-ONCE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-T-EQUAL-CUT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-T-EQUAL-CUT"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-T-CUT-CERT",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-T-CUT-CERT"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-T-ASSEMBLE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-X-READABLE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-X-READABLE"
+        },
+        {
+          "edge_id": "EVIDENCE-M0814-X-WORKFLOW",
+          "from": "M0814-X-PROVENANCE",
+          "type": "evidence_for",
+          "to": "M0814-X-WORKFLOW"
+        }
+      ],
+      "out": {
+        "M0814-X-PROVENANCE": [
+          "EVIDENCE-M0814-ROOT",
+          "EVIDENCE-M0814-S-TARGET",
+          "EVIDENCE-M0814-S-CHAIN",
+          "EVIDENCE-M0814-S-FLOW-CUT",
+          "EVIDENCE-M0814-S-BOUNDARY",
+          "EVIDENCE-M0814-S-TRANSPORT",
+          "EVIDENCE-M0814-S-FOUNDATION",
+          "EVIDENCE-M0814-N-CHAIN-ENUM",
+          "EVIDENCE-M0814-N-FLOW-COORD",
+          "EVIDENCE-M0814-B-NO-CHAIN",
+          "EVIDENCE-M0814-B-HAS-CHAIN",
+          "EVIDENCE-M0814-B-MERGE",
+          "EVIDENCE-M0814-C-FEASIBLE-POLYTOPE",
+          "EVIDENCE-M0814-L-MAX-ATTAIN",
+          "EVIDENCE-M0814-L-MAX-CONVEX",
+          "EVIDENCE-M0814-C-SATURATED-CORE",
+          "EVIDENCE-M0814-L-S-DISCONNECTS",
+          "EVIDENCE-M0814-L-REROUTE-BASIC",
+          "EVIDENCE-M0814-L-S-ORIENTATION",
+          "EVIDENCE-M0814-C-LEFT-ARCS",
+          "EVIDENCE-M0814-L-L-DISCONNECTS",
+          "EVIDENCE-M0814-L-L-AT-MOST-ONE",
+          "EVIDENCE-M0814-L-L-EXACTLY-ONE",
+          "EVIDENCE-M0814-L-WEAK-DUALITY",
+          "EVIDENCE-M0814-L-COUNT-ONCE",
+          "EVIDENCE-M0814-T-EQUAL-CUT",
+          "EVIDENCE-M0814-T-CUT-CERT",
+          "EVIDENCE-M0814-T-ASSEMBLE",
+          "EVIDENCE-M0814-X-READABLE",
+          "EVIDENCE-M0814-X-WORKFLOW"
+        ]
+      },
+      "in": {
+        "M0814-ROOT": [
+          "EVIDENCE-M0814-ROOT"
+        ],
+        "M0814-S-TARGET": [
+          "EVIDENCE-M0814-S-TARGET"
+        ],
+        "M0814-S-CHAIN": [
+          "EVIDENCE-M0814-S-CHAIN"
+        ],
+        "M0814-S-FLOW-CUT": [
+          "EVIDENCE-M0814-S-FLOW-CUT"
+        ],
+        "M0814-S-BOUNDARY": [
+          "EVIDENCE-M0814-S-BOUNDARY"
+        ],
+        "M0814-S-TRANSPORT": [
+          "EVIDENCE-M0814-S-TRANSPORT"
+        ],
+        "M0814-S-FOUNDATION": [
+          "EVIDENCE-M0814-S-FOUNDATION"
+        ],
+        "M0814-N-CHAIN-ENUM": [
+          "EVIDENCE-M0814-N-CHAIN-ENUM"
+        ],
+        "M0814-N-FLOW-COORD": [
+          "EVIDENCE-M0814-N-FLOW-COORD"
+        ],
+        "M0814-B-NO-CHAIN": [
+          "EVIDENCE-M0814-B-NO-CHAIN"
+        ],
+        "M0814-B-HAS-CHAIN": [
+          "EVIDENCE-M0814-B-HAS-CHAIN"
+        ],
+        "M0814-B-MERGE": [
+          "EVIDENCE-M0814-B-MERGE"
+        ],
+        "M0814-C-FEASIBLE-POLYTOPE": [
+          "EVIDENCE-M0814-C-FEASIBLE-POLYTOPE"
+        ],
+        "M0814-L-MAX-ATTAIN": [
+          "EVIDENCE-M0814-L-MAX-ATTAIN"
+        ],
+        "M0814-L-MAX-CONVEX": [
+          "EVIDENCE-M0814-L-MAX-CONVEX"
+        ],
+        "M0814-C-SATURATED-CORE": [
+          "EVIDENCE-M0814-C-SATURATED-CORE"
+        ],
+        "M0814-L-S-DISCONNECTS": [
+          "EVIDENCE-M0814-L-S-DISCONNECTS"
+        ],
+        "M0814-L-REROUTE-BASIC": [
+          "EVIDENCE-M0814-L-REROUTE-BASIC"
+        ],
+        "M0814-L-S-ORIENTATION": [
+          "EVIDENCE-M0814-L-S-ORIENTATION"
+        ],
+        "M0814-C-LEFT-ARCS": [
+          "EVIDENCE-M0814-C-LEFT-ARCS"
+        ],
+        "M0814-L-L-DISCONNECTS": [
+          "EVIDENCE-M0814-L-L-DISCONNECTS"
+        ],
+        "M0814-L-L-AT-MOST-ONE": [
+          "EVIDENCE-M0814-L-L-AT-MOST-ONE"
+        ],
+        "M0814-L-L-EXACTLY-ONE": [
+          "EVIDENCE-M0814-L-L-EXACTLY-ONE"
+        ],
+        "M0814-L-WEAK-DUALITY": [
+          "EVIDENCE-M0814-L-WEAK-DUALITY"
+        ],
+        "M0814-L-COUNT-ONCE": [
+          "EVIDENCE-M0814-L-COUNT-ONCE"
+        ],
+        "M0814-T-EQUAL-CUT": [
+          "EVIDENCE-M0814-T-EQUAL-CUT"
+        ],
+        "M0814-T-CUT-CERT": [
+          "EVIDENCE-M0814-T-CUT-CERT"
+        ],
+        "M0814-T-ASSEMBLE": [
+          "EVIDENCE-M0814-T-ASSEMBLE"
+        ],
+        "M0814-X-READABLE": [
+          "EVIDENCE-M0814-X-READABLE"
+        ],
+        "M0814-X-WORKFLOW": [
+          "EVIDENCE-M0814-X-WORKFLOW"
+        ]
+      }
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "TRUST-ROOT-FOUNDATION",
+          "from": "M0814-ROOT",
+          "type": "trusts",
+          "to": "M0814-S-FOUNDATION"
+        },
+        {
+          "edge_id": "TRUST-ROOT-BOUNDARY",
+          "from": "M0814-ROOT",
+          "type": "trusts",
+          "to": "M0814-X-TRUST"
+        },
+        {
+          "edge_id": "TRUST-PROVENANCE",
+          "from": "M0814-X-PROVENANCE",
+          "type": "trusts",
+          "to": "M0814-X-TRUST"
+        }
+      ],
+      "out": {
+        "M0814-ROOT": [
+          "TRUST-ROOT-FOUNDATION",
+          "TRUST-ROOT-BOUNDARY"
+        ],
+        "M0814-X-PROVENANCE": [
+          "TRUST-PROVENANCE"
+        ]
+      },
+      "in": {
+        "M0814-S-FOUNDATION": [
+          "TRUST-ROOT-FOUNDATION"
+        ],
+        "M0814-X-TRUST": [
+          "TRUST-ROOT-BOUNDARY",
+          "TRUST-PROVENANCE"
+        ]
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "DOCUMENT-M0814-ROOT",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-ROOT"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-S-TARGET",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-S-TARGET"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-S-CHAIN",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-S-CHAIN"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-S-FLOW-CUT",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-S-FLOW-CUT"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-S-BOUNDARY",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-S-BOUNDARY"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-S-TRANSPORT",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-S-TRANSPORT"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-S-FOUNDATION",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-S-FOUNDATION"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-N-CHAIN-ENUM",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-N-CHAIN-ENUM"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-N-FLOW-COORD",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-N-FLOW-COORD"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-B-NO-CHAIN",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-B-NO-CHAIN"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-B-HAS-CHAIN",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-B-HAS-CHAIN"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-B-MERGE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-B-MERGE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-C-FEASIBLE-POLYTOPE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-C-FEASIBLE-POLYTOPE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-MAX-ATTAIN",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-MAX-ATTAIN"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-MAX-CONVEX",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-MAX-CONVEX"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-C-SATURATED-CORE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-C-SATURATED-CORE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-S-DISCONNECTS",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-S-DISCONNECTS"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-REROUTE-BASIC",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-REROUTE-BASIC"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-S-ORIENTATION",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-S-ORIENTATION"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-C-LEFT-ARCS",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-C-LEFT-ARCS"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-L-DISCONNECTS",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-L-DISCONNECTS"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-L-AT-MOST-ONE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-L-AT-MOST-ONE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-L-EXACTLY-ONE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-L-EXACTLY-ONE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-WEAK-DUALITY",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-WEAK-DUALITY"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-L-COUNT-ONCE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-L-COUNT-ONCE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-T-EQUAL-CUT",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-T-EQUAL-CUT"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-T-CUT-CERT",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-T-CUT-CERT"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-T-ASSEMBLE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-X-PROVENANCE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-X-PROVENANCE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-X-TRUST",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-X-TRUST"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-X-READABLE",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-X-READABLE"
+        },
+        {
+          "edge_id": "DOCUMENT-M0814-X-WORKFLOW",
+          "from": "M0814-X-SOURCE",
+          "type": "documents",
+          "to": "M0814-X-WORKFLOW"
+        }
+      ],
+      "out": {
+        "M0814-X-SOURCE": [
+          "DOCUMENT-M0814-ROOT",
+          "DOCUMENT-M0814-S-TARGET",
+          "DOCUMENT-M0814-S-CHAIN",
+          "DOCUMENT-M0814-S-FLOW-CUT",
+          "DOCUMENT-M0814-S-BOUNDARY",
+          "DOCUMENT-M0814-S-TRANSPORT",
+          "DOCUMENT-M0814-S-FOUNDATION",
+          "DOCUMENT-M0814-N-CHAIN-ENUM",
+          "DOCUMENT-M0814-N-FLOW-COORD",
+          "DOCUMENT-M0814-B-NO-CHAIN",
+          "DOCUMENT-M0814-B-HAS-CHAIN",
+          "DOCUMENT-M0814-B-MERGE",
+          "DOCUMENT-M0814-C-FEASIBLE-POLYTOPE",
+          "DOCUMENT-M0814-L-MAX-ATTAIN",
+          "DOCUMENT-M0814-L-MAX-CONVEX",
+          "DOCUMENT-M0814-C-SATURATED-CORE",
+          "DOCUMENT-M0814-L-S-DISCONNECTS",
+          "DOCUMENT-M0814-L-REROUTE-BASIC",
+          "DOCUMENT-M0814-L-S-ORIENTATION",
+          "DOCUMENT-M0814-C-LEFT-ARCS",
+          "DOCUMENT-M0814-L-L-DISCONNECTS",
+          "DOCUMENT-M0814-L-L-AT-MOST-ONE",
+          "DOCUMENT-M0814-L-L-EXACTLY-ONE",
+          "DOCUMENT-M0814-L-WEAK-DUALITY",
+          "DOCUMENT-M0814-L-COUNT-ONCE",
+          "DOCUMENT-M0814-T-EQUAL-CUT",
+          "DOCUMENT-M0814-T-CUT-CERT",
+          "DOCUMENT-M0814-T-ASSEMBLE",
+          "DOCUMENT-M0814-X-PROVENANCE",
+          "DOCUMENT-M0814-X-TRUST",
+          "DOCUMENT-M0814-X-READABLE",
+          "DOCUMENT-M0814-X-WORKFLOW"
+        ]
+      },
+      "in": {
+        "M0814-ROOT": [
+          "DOCUMENT-M0814-ROOT"
+        ],
+        "M0814-S-TARGET": [
+          "DOCUMENT-M0814-S-TARGET"
+        ],
+        "M0814-S-CHAIN": [
+          "DOCUMENT-M0814-S-CHAIN"
+        ],
+        "M0814-S-FLOW-CUT": [
+          "DOCUMENT-M0814-S-FLOW-CUT"
+        ],
+        "M0814-S-BOUNDARY": [
+          "DOCUMENT-M0814-S-BOUNDARY"
+        ],
+        "M0814-S-TRANSPORT": [
+          "DOCUMENT-M0814-S-TRANSPORT"
+        ],
+        "M0814-S-FOUNDATION": [
+          "DOCUMENT-M0814-S-FOUNDATION"
+        ],
+        "M0814-N-CHAIN-ENUM": [
+          "DOCUMENT-M0814-N-CHAIN-ENUM"
+        ],
+        "M0814-N-FLOW-COORD": [
+          "DOCUMENT-M0814-N-FLOW-COORD"
+        ],
+        "M0814-B-NO-CHAIN": [
+          "DOCUMENT-M0814-B-NO-CHAIN"
+        ],
+        "M0814-B-HAS-CHAIN": [
+          "DOCUMENT-M0814-B-HAS-CHAIN"
+        ],
+        "M0814-B-MERGE": [
+          "DOCUMENT-M0814-B-MERGE"
+        ],
+        "M0814-C-FEASIBLE-POLYTOPE": [
+          "DOCUMENT-M0814-C-FEASIBLE-POLYTOPE"
+        ],
+        "M0814-L-MAX-ATTAIN": [
+          "DOCUMENT-M0814-L-MAX-ATTAIN"
+        ],
+        "M0814-L-MAX-CONVEX": [
+          "DOCUMENT-M0814-L-MAX-CONVEX"
+        ],
+        "M0814-C-SATURATED-CORE": [
+          "DOCUMENT-M0814-C-SATURATED-CORE"
+        ],
+        "M0814-L-S-DISCONNECTS": [
+          "DOCUMENT-M0814-L-S-DISCONNECTS"
+        ],
+        "M0814-L-REROUTE-BASIC": [
+          "DOCUMENT-M0814-L-REROUTE-BASIC"
+        ],
+        "M0814-L-S-ORIENTATION": [
+          "DOCUMENT-M0814-L-S-ORIENTATION"
+        ],
+        "M0814-C-LEFT-ARCS": [
+          "DOCUMENT-M0814-C-LEFT-ARCS"
+        ],
+        "M0814-L-L-DISCONNECTS": [
+          "DOCUMENT-M0814-L-L-DISCONNECTS"
+        ],
+        "M0814-L-L-AT-MOST-ONE": [
+          "DOCUMENT-M0814-L-L-AT-MOST-ONE"
+        ],
+        "M0814-L-L-EXACTLY-ONE": [
+          "DOCUMENT-M0814-L-L-EXACTLY-ONE"
+        ],
+        "M0814-L-WEAK-DUALITY": [
+          "DOCUMENT-M0814-L-WEAK-DUALITY"
+        ],
+        "M0814-L-COUNT-ONCE": [
+          "DOCUMENT-M0814-L-COUNT-ONCE"
+        ],
+        "M0814-T-EQUAL-CUT": [
+          "DOCUMENT-M0814-T-EQUAL-CUT"
+        ],
+        "M0814-T-CUT-CERT": [
+          "DOCUMENT-M0814-T-CUT-CERT"
+        ],
+        "M0814-T-ASSEMBLE": [
+          "DOCUMENT-M0814-T-ASSEMBLE"
+        ],
+        "M0814-X-PROVENANCE": [
+          "DOCUMENT-M0814-X-PROVENANCE"
+        ],
+        "M0814-X-TRUST": [
+          "DOCUMENT-M0814-X-TRUST"
+        ],
+        "M0814-X-READABLE": [
+          "DOCUMENT-M0814-X-READABLE"
+        ],
+        "M0814-X-WORKFLOW": [
+          "DOCUMENT-M0814-X-WORKFLOW"
+        ]
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "FLOW-TREE-ANCHOR",
+          "from": "S56-M-0814-OBLIGATION_TREE",
+          "type": "workflow_depends_on",
+          "to": "S56-M-0814-ANCHOR_AUDIT"
+        },
+        {
+          "edge_id": "FLOW-PROOF-TREE",
+          "from": "S56-M-0814-PROOF",
+          "type": "workflow_depends_on",
+          "to": "S56-M-0814-OBLIGATION_TREE"
+        },
+        {
+          "edge_id": "FLOW-VALIDATION-PROOF",
+          "from": "S56-M-0814-VALIDATION",
+          "type": "workflow_depends_on",
+          "to": "S56-M-0814-PROOF"
+        },
+        {
+          "edge_id": "FLOW-RELEASE-VALIDATION",
+          "from": "S56-M-0814-RELEASE",
+          "type": "workflow_depends_on",
+          "to": "S56-M-0814-VALIDATION"
+        }
+      ],
+      "out": {
+        "S56-M-0814-OBLIGATION_TREE": [
+          "FLOW-TREE-ANCHOR"
+        ],
+        "S56-M-0814-PROOF": [
+          "FLOW-PROOF-TREE"
+        ],
+        "S56-M-0814-VALIDATION": [
+          "FLOW-VALIDATION-PROOF"
+        ],
+        "S56-M-0814-RELEASE": [
+          "FLOW-RELEASE-VALIDATION"
+        ]
+      },
+      "in": {
+        "S56-M-0814-ANCHOR_AUDIT": [
+          "FLOW-TREE-ANCHOR"
+        ],
+        "S56-M-0814-OBLIGATION_TREE": [
+          "FLOW-PROOF-TREE"
+        ],
+        "S56-M-0814-PROOF": [
+          "FLOW-VALIDATION-PROOF"
+        ],
+        "S56-M-0814-VALIDATION": [
+          "FLOW-RELEASE-VALIDATION"
+        ]
+      }
+    }
+  },
+  "composition_certificates": [
+    {
+      "certificate_id": "COMP-M0814-ROOT",
+      "parent_obligation_id": "M0814-ROOT",
+      "parent_statement_fingerprint": "lean-expression-sha256:f9fc7813f437ebcd4b2b7327373dd76134d651c1624d2a06f689e84ec571a21e",
+      "required_child_ids": [
+        "M0814-T-ASSEMBLE"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0814-T-ASSEMBLE": "planned:v1:sha256:0fb8fbda96aa482976631bd731e72889343cf76efebaa308a990576112c9a09a"
+      },
+      "checked_declaration": "Stage1Instances.THM_M_0814_Obligations.root_of_terminal",
+      "certificate_kind": "lean_abstract_child_harness",
+      "status": "provisionally_elaborated_not_accepted",
+      "introduces_undeclared_premises": false
+    },
+    {
+      "certificate_id": "COMP-M0814-T-ASSEMBLE",
+      "parent_obligation_id": "M0814-T-ASSEMBLE",
+      "parent_statement_fingerprint": "planned:v1:sha256:0fb8fbda96aa482976631bd731e72889343cf76efebaa308a990576112c9a09a",
+      "required_child_ids": [
+        "M0814-L-MAX-ATTAIN",
+        "M0814-T-CUT-CERT"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0814-L-MAX-ATTAIN": "planned:v1:sha256:2134590436fe0823d28180987b51af81b9845e2d8561b99bc2ed1aa2da9cd41f",
+        "M0814-T-CUT-CERT": "planned:v1:sha256:d19e0d1553ad1000e169009fb82a08da22cfe40c5ee69b1c5af253cf0e58b6e6"
+      },
+      "checked_declaration": "Stage1Instances.THM_M_0814_Obligations.compose_root",
+      "certificate_kind": "lean_abstract_child_harness",
+      "status": "provisionally_elaborated_not_accepted",
+      "introduces_undeclared_premises": false
+    },
+    {
+      "certificate_id": "COMP-M0814-T-CUT-CERT",
+      "parent_obligation_id": "M0814-T-CUT-CERT",
+      "parent_statement_fingerprint": "planned:v1:sha256:d19e0d1553ad1000e169009fb82a08da22cfe40c5ee69b1c5af253cf0e58b6e6",
+      "required_child_ids": [
+        "M0814-L-WEAK-DUALITY",
+        "M0814-T-EQUAL-CUT"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0814-L-WEAK-DUALITY": "planned:v1:sha256:3082f1e121aeed3cdaa324e087500f1604bf22918de21104879fed610acfee96",
+        "M0814-T-EQUAL-CUT": "planned:v1:sha256:8b91471bd235a0c53387e0ce6d83e66e8c09749bfd3f94c374fcf971621a7035"
+      },
+      "checked_declaration": "Stage1Instances.THM_M_0814_Obligations.cutCertificate_compose",
+      "certificate_kind": "lean_abstract_child_harness",
+      "status": "provisionally_elaborated_not_accepted",
+      "introduces_undeclared_premises": false
+    }
+  ],
+  "unverified_decomposition_plans": [
+    {
+      "plan_id": "DECOMP-M0814-T-EQUAL-CUT",
+      "parent_obligation_id": "M0814-T-EQUAL-CUT",
+      "planned_child_ids": [
+        "M0814-L-L-DISCONNECTS",
+        "M0814-L-COUNT-ONCE"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-COUNT-ONCE",
+      "parent_obligation_id": "M0814-L-COUNT-ONCE",
+      "planned_child_ids": [
+        "M0814-L-L-EXACTLY-ONE",
+        "M0814-C-SATURATED-CORE"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-L-EXACTLY-ONE",
+      "parent_obligation_id": "M0814-L-L-EXACTLY-ONE",
+      "planned_child_ids": [
+        "M0814-L-L-DISCONNECTS",
+        "M0814-L-L-AT-MOST-ONE"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-L-DISCONNECTS",
+      "parent_obligation_id": "M0814-L-L-DISCONNECTS",
+      "planned_child_ids": [
+        "M0814-C-LEFT-ARCS",
+        "M0814-L-S-DISCONNECTS",
+        "M0814-L-MAX-CONVEX",
+        "M0814-L-REROUTE-BASIC"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-L-AT-MOST-ONE",
+      "parent_obligation_id": "M0814-L-L-AT-MOST-ONE",
+      "planned_child_ids": [
+        "M0814-C-LEFT-ARCS",
+        "M0814-L-MAX-CONVEX",
+        "M0814-L-REROUTE-BASIC"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-C-LEFT-ARCS",
+      "parent_obligation_id": "M0814-C-LEFT-ARCS",
+      "planned_child_ids": [
+        "M0814-L-S-ORIENTATION",
+        "M0814-C-SATURATED-CORE"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-S-ORIENTATION",
+      "parent_obligation_id": "M0814-L-S-ORIENTATION",
+      "planned_child_ids": [
+        "M0814-L-REROUTE-BASIC",
+        "M0814-L-MAX-CONVEX"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-S-DISCONNECTS",
+      "parent_obligation_id": "M0814-L-S-DISCONNECTS",
+      "planned_child_ids": [
+        "M0814-C-SATURATED-CORE",
+        "M0814-L-MAX-CONVEX",
+        "M0814-S-CHAIN"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-MAX-ATTAIN",
+      "parent_obligation_id": "M0814-L-MAX-ATTAIN",
+      "planned_child_ids": [
+        "M0814-C-FEASIBLE-POLYTOPE"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-C-FEASIBLE-POLYTOPE",
+      "parent_obligation_id": "M0814-C-FEASIBLE-POLYTOPE",
+      "planned_child_ids": [
+        "M0814-N-FLOW-COORD"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-N-FLOW-COORD",
+      "parent_obligation_id": "M0814-N-FLOW-COORD",
+      "planned_child_ids": [
+        "M0814-N-CHAIN-ENUM",
+        "M0814-S-FLOW-CUT"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-L-WEAK-DUALITY",
+      "parent_obligation_id": "M0814-L-WEAK-DUALITY",
+      "planned_child_ids": [
+        "M0814-S-FLOW-CUT",
+        "M0814-S-CHAIN"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-B-MERGE",
+      "parent_obligation_id": "M0814-B-MERGE",
+      "planned_child_ids": [
+        "M0814-B-NO-CHAIN",
+        "M0814-B-HAS-CHAIN"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-B-NO-CHAIN",
+      "parent_obligation_id": "M0814-B-NO-CHAIN",
+      "planned_child_ids": [
+        "M0814-S-BOUNDARY"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    },
+    {
+      "plan_id": "DECOMP-M0814-B-HAS-CHAIN",
+      "parent_obligation_id": "M0814-B-HAS-CHAIN",
+      "planned_child_ids": [
+        "M0814-T-ASSEMBLE"
+      ],
+      "source_declaration": "Ford-Fulkerson 1956 Theorem 1 proof architecture",
+      "status": "source_body_decomposition_unverified_as_child_to_parent_composition",
+      "required_future_certificate": "An exact Lean abstract-child harness must bind these fingerprints and consume every child before parent closure."
+    }
+  ],
+  "closure_boundary": {
+    "closed_obligations": [],
+    "root_closed": false,
+    "accepted_root_machine_debt": "M3",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "proof_leaf_cut_set": [
+      "M0814-C-SATURATED-CORE",
+      "M0814-L-MAX-CONVEX",
+      "M0814-L-REROUTE-BASIC",
+      "M0814-N-CHAIN-ENUM",
+      "M0814-S-BOUNDARY",
+      "M0814-S-CHAIN",
+      "M0814-S-FLOW-CUT",
+      "M0814-S-FOUNDATION",
+      "M0814-S-TARGET",
+      "M0814-S-TRANSPORT"
+    ],
+    "remaining_release_cut_set": [
+      "M0814-X-SOURCE",
+      "M0814-S-FOUNDATION",
+      "M0814-X-PROVENANCE",
+      "M0814-X-TRUST",
+      "M0814-X-READABLE",
+      "M0814-X-WORKFLOW",
+      "master acceptance"
+    ],
+    "candidate_evidence": "E3 exact-statement evidence only; no exact root proof candidate was located.",
+    "reason": "Only conditional top-spine composition is checked. Every mathematical premise remains open and every deeper source relation requires a future exact certificate."
+  }
+}

@@ -1,0 +1,4096 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-0476-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0476",
+  "registry_id": "THM-M-0476-OBLIGATIONS-v1",
+  "registry_denominator_sha256": "9375f9b987132465572c04a019d70b32638823c1279dd91a7935007f108fe62b",
+  "frozen_task_contract_sha256": "56954b5bd91ba62533ce09b1cf1194a13b342c07b3ed5fd8ebc500aa324c3f6b",
+  "root_node_id": "M0476-ROOT",
+  "edge_endpoint_namespace": "canonical obligation_id",
+  "edge_direction": "proof_requires is parent-to-child; reciprocal composes is child-to-parent; non-proof graphs grant no proof closure",
+  "graph_endpoint_policy": {
+    "proof": {
+      "allowed_types": [
+        "proof_requires",
+        "composes"
+      ],
+      "excluded_endpoint_ids": [
+        "M0476-S-FOUNDATION",
+        "M0476-S-BOUNDARY",
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST",
+        "M0476-X-READABLE",
+        "M0476-X-WORKFLOW"
+      ],
+      "endpoint_kind_policy": "mathematical obligations only; reciprocal exact-child pairs required"
+    },
+    "refinement": {
+      "allowed_types": [
+        "equivalent_to",
+        "transports",
+        "logical_decomposition",
+        "expository_decomposition"
+      ],
+      "excluded_endpoint_ids": [
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST",
+        "M0476-X-READABLE",
+        "M0476-X-WORKFLOW"
+      ],
+      "endpoint_kind_policy": "mathematical obligations only; expository edges never affect machine closure"
+    },
+    "provenance": {
+      "allowed_types": [
+        "source_map",
+        "provenance_of"
+      ],
+      "required_source_ids": [
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE"
+      ],
+      "endpoint_kind_policy": "source/provenance overlays to mathematical obligations, plus pinned-body expansion links"
+    },
+    "evidence": {
+      "allowed_types": [
+        "evidence_for"
+      ],
+      "must_be_empty": true,
+      "endpoint_kind_policy": "empty until external content-addressed receipts exist"
+    },
+    "trust": {
+      "allowed_types": [
+        "trusts"
+      ],
+      "allowed_target_ids": [
+        "M0476-S-FOUNDATION",
+        "M0476-X-TRUST"
+      ],
+      "endpoint_kind_policy": "mathematical obligations to foundation or trust certificate obligations"
+    },
+    "documentation": {
+      "allowed_types": [
+        "documents"
+      ],
+      "allowed_source_ids": [
+        "M0476-X-READABLE"
+      ],
+      "endpoint_kind_policy": "readable overlay documents mathematical obligations"
+    },
+    "workflow": {
+      "allowed_types": [
+        "workflow_depends_on"
+      ],
+      "allowed_source_ids": [
+        "M0476-X-WORKFLOW"
+      ],
+      "endpoint_kind_policy": "obligation overlay only; authoritative tasks live in workflow_task_graph"
+    }
+  },
+  "workflow_task_graph": {
+    "endpoint_namespace": "authoritative Stage1 task id",
+    "task_contract_sha256": "56954b5bd91ba62533ce09b1cf1194a13b342c07b3ed5fd8ebc500aa324c3f6b",
+    "nodes": [
+      {
+        "id": "S56-M-0476-INTAKE",
+        "theorem_id": "THM-M-0476",
+        "execution_rank": 1357,
+        "phase": "intake",
+        "layer": 0,
+        "depends_on": [],
+        "owned_paths": [
+          "Stage1_Instances/THM-M-0476"
+        ],
+        "deliverable": "Create the theorem dossier, scope map, and source-statement crosswalk.",
+        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "children": []
+      },
+      {
+        "id": "S56-M-0476-STATEMENT",
+        "theorem_id": "THM-M-0476",
+        "execution_rank": 1357,
+        "phase": "statement",
+        "layer": 1,
+        "depends_on": [
+          "S56-M-0476-INTAKE"
+        ],
+        "owned_paths": [
+          "Stage1_Instances/THM-M-0476"
+        ],
+        "deliverable": "Elaborate the exact Lean 4 target with the minimal pinned imports.",
+        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "children": []
+      },
+      {
+        "id": "S56-M-0476-ANCHOR_AUDIT",
+        "theorem_id": "THM-M-0476",
+        "execution_rank": 1357,
+        "phase": "anchor_audit",
+        "layer": 2,
+        "depends_on": [
+          "S56-M-0476-STATEMENT"
+        ],
+        "owned_paths": [
+          "Stage1_Instances/THM-M-0476"
+        ],
+        "deliverable": "Audit mathlib and external Lean 4 candidates at immutable revisions.",
+        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "children": []
+      },
+      {
+        "id": "S56-M-0476-OBLIGATION_TREE",
+        "theorem_id": "THM-M-0476",
+        "execution_rank": 1357,
+        "phase": "obligation_tree",
+        "layer": 3,
+        "depends_on": [
+          "S56-M-0476-ANCHOR_AUDIT"
+        ],
+        "owned_paths": [
+          "Stage1_Instances/THM-M-0476"
+        ],
+        "deliverable": "Freeze the obligation registry and typed proof/provenance/workflow graphs.",
+        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "children": []
+      },
+      {
+        "id": "S56-M-0476-PROOF",
+        "theorem_id": "THM-M-0476",
+        "execution_rank": 1357,
+        "phase": "proof",
+        "layer": 4,
+        "depends_on": [
+          "S56-M-0476-OBLIGATION_TREE"
+        ],
+        "owned_paths": [
+          "Stage1_Instances/THM-M-0476"
+        ],
+        "deliverable": "Implement or pin/import the required proof bodies without placeholders.",
+        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "children": []
+      },
+      {
+        "id": "S56-M-0476-VALIDATION",
+        "theorem_id": "THM-M-0476",
+        "execution_rank": 1357,
+        "phase": "validation",
+        "layer": 5,
+        "depends_on": [
+          "S56-M-0476-PROOF"
+        ],
+        "owned_paths": [
+          "Stage1_Instances/THM-M-0476"
+        ],
+        "deliverable": "Run hermetic kernel, trust, provenance, and independent validation gates.",
+        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "children": []
+      },
+      {
+        "id": "S56-M-0476-RELEASE",
+        "theorem_id": "THM-M-0476",
+        "execution_rank": 1357,
+        "phase": "release",
+        "layer": 6,
+        "depends_on": [
+          "S56-M-0476-VALIDATION"
+        ],
+        "owned_paths": [
+          "Stage1_Instances/THM-M-0476"
+        ],
+        "deliverable": "Reconcile evidence and decide the exact theorem-completion verdict.",
+        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "children": []
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "TASK-02",
+        "type": "workflow_depends_on",
+        "from": "S56-M-0476-STATEMENT",
+        "to": "S56-M-0476-INTAKE"
+      },
+      {
+        "edge_id": "TASK-03",
+        "type": "workflow_depends_on",
+        "from": "S56-M-0476-ANCHOR_AUDIT",
+        "to": "S56-M-0476-STATEMENT"
+      },
+      {
+        "edge_id": "TASK-04",
+        "type": "workflow_depends_on",
+        "from": "S56-M-0476-OBLIGATION_TREE",
+        "to": "S56-M-0476-ANCHOR_AUDIT"
+      },
+      {
+        "edge_id": "TASK-05",
+        "type": "workflow_depends_on",
+        "from": "S56-M-0476-PROOF",
+        "to": "S56-M-0476-OBLIGATION_TREE"
+      },
+      {
+        "edge_id": "TASK-06",
+        "type": "workflow_depends_on",
+        "from": "S56-M-0476-VALIDATION",
+        "to": "S56-M-0476-PROOF"
+      },
+      {
+        "edge_id": "TASK-07",
+        "type": "workflow_depends_on",
+        "from": "S56-M-0476-RELEASE",
+        "to": "S56-M-0476-VALIDATION"
+      }
+    ],
+    "task_obligation_links": {
+      "S56-M-0476-INTAKE": [
+        "M0476-S-INTERFACE",
+        "M0476-S-BOUNDARY"
+      ],
+      "S56-M-0476-STATEMENT": [
+        "M0476-ROOT",
+        "M0476-S-INTERFACE",
+        "M0476-S-FACT-TRANSPORT"
+      ],
+      "S56-M-0476-ANCHOR_AUDIT": [
+        "M0476-L-WILSON",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-X-PROVENANCE"
+      ],
+      "S56-M-0476-VALIDATION": [
+        "M0476-S-FOUNDATION",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST"
+      ],
+      "S56-M-0476-RELEASE": [
+        "M0476-ROOT",
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST",
+        "M0476-X-READABLE",
+        "M0476-X-WORKFLOW"
+      ],
+      "S56-M-0476-OBLIGATION_TREE": [
+        "M0476-ROOT",
+        "M0476-S-INTERFACE",
+        "M0476-S-BOUNDARY",
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-S-FOUNDATION",
+        "M0476-T-COMPOSE",
+        "M0476-L-WILSON",
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-C-INVERSE-PAIRING",
+        "M0476-L-INVERSE-FIXED-POINTS",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE",
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST",
+        "M0476-X-READABLE",
+        "M0476-X-WORKFLOW"
+      ],
+      "S56-M-0476-PROOF": [
+        "M0476-ROOT",
+        "M0476-S-INTERFACE",
+        "M0476-S-BOUNDARY",
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-S-FOUNDATION",
+        "M0476-T-COMPOSE",
+        "M0476-L-WILSON",
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-C-INVERSE-PAIRING",
+        "M0476-L-INVERSE-FIXED-POINTS",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST"
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "node_id": "THM-M-0476-ROOT",
+      "obligation_id": "M0476-ROOT",
+      "kind": "root",
+      "human_statement": "Prove the exact forward Wilson factorial congruence frozen in Statement.lean.",
+      "formal_target": "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+      "output": "For every natural prime p, ((p - 1)! : ZMod p) = -1.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 20,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-FACT-TRANSPORT"
+        ],
+        "inference": "Prove the exact forward Wilson factorial congruence frozen in Statement.lean.",
+        "source_anchors": [
+          "Statement.lean; expression sha256 ee76edb160426d3e8d95b11bfedca7febcfe915f50007e042875c922ebc8a4ac"
+        ],
+        "output": "For every natural prime p, ((p - 1)! : ZMod p) = -1.",
+        "outgoing_use": [
+          "M0476-ROOT-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-ROOT-STEP-01",
+            "premise_ids": [
+              "M0476-S-FACT-TRANSPORT"
+            ],
+            "inference_or_source": "root_of_composedTarget after the exact explicit-prime transport",
+            "output_claim": "For every natural prime p, ((p - 1)! : ZMod p) = -1.",
+            "outgoing_use_ids": [
+              "M0476-ROOT-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-root",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-STATEMENT",
+        "S56-M-0476-RELEASE",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-S-INTERFACE",
+      "obligation_id": "M0476-S-INTERFACE",
+      "kind": "definition",
+      "human_statement": "Preserve the natural modulus, explicit primality premise, factorial cast, ZMod equality, and forward direction.",
+      "formal_target": "Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+      "output": "The exact canonical interface without a strengthened, weakened, or substituted theorem.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-ROOT",
+          "M0476-S-INTERFACE-STEP-01"
+        ],
+        "inference": "Preserve the natural modulus, explicit primality premise, factorial cast, ZMod equality, and forward direction.",
+        "source_anchors": [
+          "Statement.lean: WilsonTheoremTarget"
+        ],
+        "output": "The exact canonical interface without a strengthened, weakened, or substituted theorem.",
+        "outgoing_use": [
+          "M0476-S-INTERFACE-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-S-INTERFACE-STEP-01",
+            "premise_ids": [
+              "M0476-ROOT"
+            ],
+            "inference_or_source": "Statement.lean expression fingerprint: preserve p : Nat followed by hp : p.Prime",
+            "output_claim": "the exact ordered binder and natural-modulus context",
+            "outgoing_use_ids": [
+              "M0476-S-INTERFACE-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0476-S-INTERFACE-STEP-02",
+            "premise_ids": [
+              "M0476-S-INTERFACE-STEP-01"
+            ],
+            "inference_or_source": "preserve factorial (p - 1), its cast to ZMod p, equality, and the forward direction",
+            "output_claim": "The exact canonical interface without a strengthened, weakened, or substituted theorem.",
+            "outgoing_use_ids": [
+              "M0476-S-INTERFACE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-s-interface",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-INTAKE",
+        "S56-M-0476-STATEMENT",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/Statement.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-S-BOUNDARY",
+      "obligation_id": "M0476-S-BOUNDARY",
+      "kind": "branch",
+      "human_statement": "Retain p = 2 and exclude zero, one, and composite moduli only through p.Prime.",
+      "formal_target": "the boundary policy of Stage1Instances.THM_M_0476.WilsonTheoremTarget",
+      "output": "An exhaustive degenerate-case policy for the canonical quantifier.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-ROOT"
+        ],
+        "inference": "Retain p = 2 and exclude zero, one, and composite moduli only through p.Prime.",
+        "source_anchors": [
+          "statement.json: boundary_and_degenerate_cases"
+        ],
+        "output": "An exhaustive degenerate-case policy for the canonical quantifier.",
+        "outgoing_use": [
+          "M0476-S-BOUNDARY-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-S-BOUNDARY-STEP-01",
+            "premise_ids": [
+              "M0476-ROOT"
+            ],
+            "inference_or_source": "Nat.Prime excludes 0, 1, and composites while retaining the prime 2",
+            "output_claim": "An exhaustive degenerate-case policy for the canonical quantifier.",
+            "outgoing_use_ids": [
+              "M0476-S-BOUNDARY-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-s-boundary",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-INTAKE",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-S-FACT-TRANSPORT",
+      "obligation_id": "M0476-S-FACT-TRANSPORT",
+      "kind": "transport",
+      "human_statement": "Convert the explicit hp : p.Prime premise to the exact Fact-premise interface.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.root_of_factWilsonAnchor",
+      "output": "The exact canonical root from FactWilsonAnchor without an added premise.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 12,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-T-COMPOSE"
+        ],
+        "inference": "Convert the explicit hp : p.Prime premise to the exact Fact-premise interface.",
+        "source_anchors": [
+          "ObligationTree.lean: root_of_factWilsonAnchor"
+        ],
+        "output": "The exact canonical root from FactWilsonAnchor without an added premise.",
+        "outgoing_use": [
+          "M0476-ROOT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-S-FACT-TRANSPORT-STEP-01",
+            "premise_ids": [
+              "M0476-T-COMPOSE"
+            ],
+            "inference_or_source": "root_of_factWilsonAnchor installs Fact p.Prime from hp : p.Prime",
+            "output_claim": "The exact canonical root from FactWilsonAnchor without an added premise.",
+            "outgoing_use_ids": [
+              "M0476-ROOT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-s-fact-transport",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-STATEMENT",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-S-FOUNDATION",
+      "obligation_id": "M0476-S-FOUNDATION",
+      "kind": "certificate",
+      "human_statement": "Audit propext, classical choice, quotient soundness, the kernel, imports, and the no-oracle policy.",
+      "formal_target": "planned transitive foundation, TCB, and computation report",
+      "output": "An accepted foundation and trust boundary.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 28,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-ROOT",
+          "M0476-S-FOUNDATION-STEP-01"
+        ],
+        "inference": "Audit propext, classical choice, quotient soundness, the kernel, imports, and the no-oracle policy.",
+        "source_anchors": [
+          "ObligationTree.lean: #print axioms",
+          "anchor-audit.json: immutable_environment"
+        ],
+        "output": "An accepted foundation and trust boundary.",
+        "outgoing_use": [
+          "M0476-S-FOUNDATION-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-S-FOUNDATION-STEP-01",
+            "premise_ids": [
+              "M0476-ROOT"
+            ],
+            "inference_or_source": "#print axioms over every conditional composition declaration",
+            "output_claim": "the observed declaration axiom sets",
+            "outgoing_use_ids": [
+              "M0476-S-FOUNDATION-STEP-02"
+            ]
+          },
+          {
+            "step_id": "M0476-S-FOUNDATION-STEP-02",
+            "premise_ids": [
+              "M0476-S-FOUNDATION-STEP-01"
+            ],
+            "inference_or_source": "compare the observed sets with the pending foundation and TCB profiles",
+            "output_claim": "An accepted foundation and trust boundary.",
+            "outgoing_use_ids": [
+              "M0476-S-FOUNDATION-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-s-foundation",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-VALIDATION",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-T-COMPOSE",
+      "obligation_id": "M0476-T-COMPOSE",
+      "kind": "terminal",
+      "human_statement": "Compose the factorial, residue-unit, and unit-product bridges into the exact Fact-premise anchor.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.factWilsonAnchor_of_bridges",
+      "output": "FactWilsonAnchor, conditional on all three material bridges.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 20,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-N-FACTORIAL-PRODUCT",
+          "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "M0476-T-UNITS-COE-NEGONE"
+        ],
+        "inference": "Compose the factorial, residue-unit, and unit-product bridges into the exact Fact-premise anchor.",
+        "source_anchors": [
+          "ObligationTree.lean: factWilsonAnchor_of_bridges"
+        ],
+        "output": "FactWilsonAnchor, conditional on all three material bridges.",
+        "outgoing_use": [
+          "M0476-S-FACT-TRANSPORT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-T-COMPOSE-STEP-01",
+            "premise_ids": [
+              "M0476-N-FACTORIAL-PRODUCT",
+              "M0476-C-RESIDUE-UNITS-BIJECTION",
+              "M0476-T-UNITS-COE-NEGONE"
+            ],
+            "inference_or_source": "factWilsonAnchor_of_bridges chains the three equalities",
+            "output_claim": "FactWilsonAnchor, conditional on all three material bridges.",
+            "outgoing_use_ids": [
+              "M0476-S-FACT-TRANSPORT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-t-compose",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-L-WILSON",
+      "obligation_id": "M0476-L-WILSON",
+      "kind": "bridge",
+      "human_statement": "Expose the exact pinned Wilson body rather than treating its short invocation as a primitive.",
+      "formal_target": "ZMod.wilsons_lemma",
+      "output": "FactWilsonAnchor and the exact three-stage factorial-to-units proof route.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "anchor-audit:M0476-C01-MATHLIB-DIRECT",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 28,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-T-COMPOSE"
+        ],
+        "inference": "Expose the exact pinned Wilson body rather than treating its short invocation as a primitive.",
+        "source_anchors": [
+          "Mathlib/NumberTheory/Wilson.lean:43-68"
+        ],
+        "output": "FactWilsonAnchor and the exact three-stage factorial-to-units proof route.",
+        "outgoing_use": [
+          "M0476-L-WILSON-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-L-WILSON-STEP-01",
+            "premise_ids": [
+              "M0476-T-COMPOSE"
+            ],
+            "inference_or_source": "anchor-audit pins ZMod.wilsons_lemma while provenance maps its visible source route; no local composition certificate or proof credit",
+            "output_claim": "FactWilsonAnchor and the exact three-stage factorial-to-units proof route.",
+            "outgoing_use_ids": [
+              "M0476-L-WILSON-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-l-wilson",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-ANCHOR_AUDIT",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-N-FACTORIAL-PRODUCT",
+      "obligation_id": "M0476-N-FACTORIAL-PRODUCT",
+      "kind": "normalization",
+      "human_statement": "Rewrite the factorial as the cast of the natural interval product.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.factorialProduct_of_identities",
+      "output": "FactorialProductBridge.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-L-FACTORIAL-INTERVAL",
+          "M0476-T-NAT-CAST-PRODUCT"
+        ],
+        "inference": "Rewrite the factorial as the cast of the natural interval product.",
+        "source_anchors": [
+          "Wilson.lean:46-47"
+        ],
+        "output": "FactorialProductBridge.",
+        "outgoing_use": [
+          "M0476-T-COMPOSE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-N-FACTORIAL-PRODUCT-STEP-01",
+            "premise_ids": [
+              "M0476-L-FACTORIAL-INTERVAL",
+              "M0476-T-NAT-CAST-PRODUCT"
+            ],
+            "inference_or_source": "factorialProduct_of_identities rewrites the natural factorial then commutes the cast with the product",
+            "output_claim": "FactorialProductBridge.",
+            "outgoing_use_ids": [
+              "M0476-T-COMPOSE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-n-factorial-product",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-L-FACTORIAL-INTERVAL",
+      "obligation_id": "M0476-L-FACTORIAL-INTERVAL",
+      "kind": "core_lemma",
+      "human_statement": "Prove the primitive product of natural numbers from one through n is n factorial.",
+      "formal_target": "Finset.prod_Ico_id_eq_factorial",
+      "output": "FactorialIntervalIdentity.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "pinned-visible-terminal-chain",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 24,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Prove the primitive product of natural numbers from one through n is n factorial.",
+        "source_anchors": [
+          "Mathlib/Algebra/BigOperators/Intervals.lean:168-172"
+        ],
+        "output": "FactorialIntervalIdentity.",
+        "outgoing_use": [
+          "M0476-N-FACTORIAL-PRODUCT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-L-FACTORIAL-INTERVAL-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "Finset.prod_Ico_id_eq_factorial at pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+            "output_claim": "FactorialIntervalIdentity.",
+            "outgoing_use_ids": [
+              "M0476-N-FACTORIAL-PRODUCT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-l-factorial-interval",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-T-NAT-CAST-PRODUCT",
+      "obligation_id": "M0476-T-NAT-CAST-PRODUCT",
+      "kind": "transport",
+      "human_statement": "Commute the natural cast into ZMod p with the finite product.",
+      "formal_target": "Finset.prod_natCast",
+      "output": "NatIntervalCastIdentity.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "pinned-visible-terminal-chain",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 12,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Commute the natural cast into ZMod p with the finite product.",
+        "source_anchors": [
+          "Mathlib/Algebra/BigOperators/Ring/Finset.lean:247-248"
+        ],
+        "output": "NatIntervalCastIdentity.",
+        "outgoing_use": [
+          "M0476-N-FACTORIAL-PRODUCT"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-T-NAT-CAST-PRODUCT-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "Finset.prod_natCast maps the natural interval product into ZMod p",
+            "output_claim": "NatIntervalCastIdentity.",
+            "outgoing_use_ids": [
+              "M0476-N-FACTORIAL-PRODUCT"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-t-nat-cast-product",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-N-PRIME-ENDPOINT",
+      "obligation_id": "M0476-N-PRIME-ENDPOINT",
+      "kind": "normalization",
+      "human_statement": "Use primality to prove p > 0 and identify succ (p - 1) with the intended interval endpoint.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.primeEndpointIdentity_from_prime",
+      "output": "PrimeEndpointIdentity: (p - 1) + 1 = p for every prime p.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 20,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Use primality to prove p > 0 and identify succ (p - 1) with the intended interval endpoint.",
+        "source_anchors": [
+          "Wilson.lean:52-57,63",
+          "ObligationTree.lean: primeEndpointIdentity_from_prime"
+        ],
+        "output": "PrimeEndpointIdentity: (p - 1) + 1 = p for every prime p.",
+        "outgoing_use": [
+          "M0476-C-RESIDUE-UNITS-BIJECTION"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-N-PRIME-ENDPOINT-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "primeEndpointIdentity_from_prime derives 1 <= p from Fact.out.ne_zero and applies Nat.sub_add_cancel",
+            "output_claim": "PrimeEndpointIdentity: (p - 1) + 1 = p for every prime p.",
+            "outgoing_use_ids": [
+              "M0476-C-RESIDUE-UNITS-BIJECTION"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-n-prime-endpoint",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-C-RESIDUE-UNITS-BIJECTION",
+      "obligation_id": "M0476-C-RESIDUE-UNITS-BIJECTION",
+      "kind": "construction",
+      "human_statement": "Bijection the canonical nonzero representatives with every unit and preserve the product value.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.residueUnitsProduct_of_components",
+      "output": "ResidueUnitsProductBridge.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 26,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-N-PRIME-ENDPOINT",
+          "M0476-B-UNIT-VAL-RANGE",
+          "M0476-L-UNIT-VAL-INJECTIVE",
+          "M0476-C-RESIDUE-TO-UNIT",
+          "M0476-T-REPRESENTATIVE-COE"
+        ],
+        "inference": "Bijection the canonical nonzero representatives with every unit and preserve the product value.",
+        "source_anchors": [
+          "Wilson.lean:53-68",
+          "Finset.prod_bij"
+        ],
+        "output": "ResidueUnitsProductBridge.",
+        "outgoing_use": [
+          "M0476-T-COMPOSE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-C-RESIDUE-UNITS-BIJECTION-STEP-01",
+            "premise_ids": [
+              "M0476-N-PRIME-ENDPOINT",
+              "M0476-B-UNIT-VAL-RANGE",
+              "M0476-L-UNIT-VAL-INJECTIVE",
+              "M0476-C-RESIDUE-TO-UNIT",
+              "M0476-T-REPRESENTATIVE-COE"
+            ],
+            "inference_or_source": "residueUnitsProduct_of_components rewrites the endpoint and applies Finset.prod_bij",
+            "output_claim": "ResidueUnitsProductBridge.",
+            "outgoing_use_ids": [
+              "M0476-T-COMPOSE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-c-residue-units-bijection",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-B-UNIT-VAL-RANGE",
+      "obligation_id": "M0476-B-UNIT-VAL-RANGE",
+      "kind": "branch",
+      "human_statement": "Show each unit value is positive and below p, hence lies in the exact interval.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.unitRepresentativeInPrimeRange_from_unit",
+      "output": "Every unit value satisfies 1 <= val and val < p.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 22,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Show each unit value is positive and below p, hence lies in the exact interval.",
+        "source_anchors": [
+          "Wilson.lean:55-60"
+        ],
+        "output": "Every unit value satisfies 1 <= val and val < p.",
+        "outgoing_use": [
+          "M0476-C-RESIDUE-UNITS-BIJECTION"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-B-UNIT-VAL-RANGE-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "Units.ne_zero and ZMod.val_zero give positivity; ZMod.val_lt gives the strict upper bound",
+            "output_claim": "Every unit value satisfies 1 <= val and val < p.",
+            "outgoing_use_ids": [
+              "M0476-C-RESIDUE-UNITS-BIJECTION"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-b-unit-val-range",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-L-UNIT-VAL-INJECTIVE",
+      "obligation_id": "M0476-L-UNIT-VAL-INJECTIVE",
+      "kind": "core_lemma",
+      "human_statement": "Recover equality of units from equality of their ZMod values.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.unitRepresentativeInjective_from_val",
+      "output": "Injectivity of the representative map.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 14,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Recover equality of units from equality of their ZMod values.",
+        "source_anchors": [
+          "Wilson.lean:61"
+        ],
+        "output": "Injectivity of the representative map.",
+        "outgoing_use": [
+          "M0476-C-RESIDUE-UNITS-BIJECTION"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-L-UNIT-VAL-INJECTIVE-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "Units.ext_iff followed by ZMod.val_injective",
+            "output_claim": "Injectivity of the representative map.",
+            "outgoing_use_ids": [
+              "M0476-C-RESIDUE-UNITS-BIJECTION"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-l-unit-val-injective",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-C-RESIDUE-TO-UNIT",
+      "obligation_id": "M0476-C-RESIDUE-TO-UNIT",
+      "kind": "construction",
+      "human_statement": "Turn each interval representative into a nonzero ZMod element and construct Units.mk0.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.residueRepresentativeSurjectiveAtEndpoint_from_mk0",
+      "output": "Every b with 1 <= b and b < p is the value of a unit.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 26,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Turn each interval representative into a nonzero ZMod element and construct Units.mk0.",
+        "source_anchors": [
+          "Wilson.lean:62-67"
+        ],
+        "output": "Every b with 1 <= b and b < p is the value of a unit.",
+        "outgoing_use": [
+          "M0476-C-RESIDUE-UNITS-BIJECTION"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-C-RESIDUE-TO-UNIT-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "the lower bound proves nonzero, Units.mk0 constructs the unit, and ZMod.val_cast_of_lt fixes its value",
+            "output_claim": "Every b with 1 <= b and b < p is the value of a unit.",
+            "outgoing_use_ids": [
+              "M0476-C-RESIDUE-UNITS-BIJECTION"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-c-residue-to-unit",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-T-REPRESENTATIVE-COE",
+      "obligation_id": "M0476-T-REPRESENTATIVE-COE",
+      "kind": "transport",
+      "human_statement": "Identify the cast of a unit's canonical value with the unit's underlying ZMod element.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.representativeCastAgreement_from_natCast_val",
+      "output": "Product-value preservation for the representative bijection.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 12,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Identify the cast of a unit's canonical value with the unit's underlying ZMod element.",
+        "source_anchors": [
+          "Wilson.lean:68"
+        ],
+        "output": "Product-value preservation for the representative bijection.",
+        "outgoing_use": [
+          "M0476-C-RESIDUE-UNITS-BIJECTION"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-T-REPRESENTATIVE-COE-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "ZMod.natCast_val identifies the cast representative with the underlying residue",
+            "output_claim": "Product-value preservation for the representative bijection.",
+            "outgoing_use_ids": [
+              "M0476-C-RESIDUE-UNITS-BIJECTION"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-t-representative-coe",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-L-UNITS-PRODUCT",
+      "obligation_id": "M0476-L-UNITS-PRODUCT",
+      "kind": "bridge",
+      "human_statement": "Prove that the product of all units of the finite domain ZMod p is negative one.",
+      "formal_target": "FiniteField.prod_univ_units_id_eq_neg_one",
+      "output": "UnitProductIdentity.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "anchor-audit:M0476-C03-MATHLIB-SUPPORT",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 22,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-T-INSERT-NEGONE"
+        ],
+        "inference": "Prove that the product of all units of the finite domain ZMod p is negative one.",
+        "source_anchors": [
+          "Mathlib/FieldTheory/Finite/Basic.lean:110-117"
+        ],
+        "output": "UnitProductIdentity.",
+        "outgoing_use": [
+          "M0476-L-UNITS-PRODUCT-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-L-UNITS-PRODUCT-STEP-01",
+            "premise_ids": [
+              "M0476-T-INSERT-NEGONE"
+            ],
+            "inference_or_source": "anchor-audit pins FiniteField.prod_univ_units_id_eq_neg_one while provenance maps its visible source route; no local composition certificate or proof credit",
+            "output_claim": "UnitProductIdentity.",
+            "outgoing_use_ids": [
+              "M0476-L-UNITS-PRODUCT-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-l-units-product",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-ANCHOR_AUDIT",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-C-INVERSE-PAIRING",
+      "obligation_id": "M0476-C-INVERSE-PAIRING",
+      "kind": "construction",
+      "human_statement": "Pair every unit except negative one with its inverse and cancel every nonfixed pair.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.unitEraseProduct_of_inversion; Finset.prod_involution",
+      "output": "UnitEraseNegOneProduct.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-L-INVERSE-FIXED-POINTS"
+        ],
+        "inference": "Pair every unit except negative one with its inverse and cancel every nonfixed pair.",
+        "source_anchors": [
+          "Finite.Basic.lean:112-116",
+          "Finset/Basic.lean:665-682"
+        ],
+        "output": "UnitEraseNegOneProduct.",
+        "outgoing_use": [
+          "M0476-T-INSERT-NEGONE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-C-INVERSE-PAIRING-STEP-01",
+            "premise_ids": [
+              "M0476-L-INVERSE-FIXED-POINTS"
+            ],
+            "inference_or_source": "unitEraseProduct_of_inversion supplies group inverse laws locally and uses Finset.prod_involution",
+            "output_claim": "UnitEraseNegOneProduct.",
+            "outgoing_use_ids": [
+              "M0476-T-INSERT-NEGONE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-c-inverse-pairing",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-L-INVERSE-FIXED-POINTS",
+      "obligation_id": "M0476-L-INVERSE-FIXED-POINTS",
+      "kind": "core_lemma",
+      "human_statement": "Classify inverse-fixed units as one or negative one, then use erasure and the non-one premise.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.inverseFixedPointClassification_from_units",
+      "output": "Every remaining inverse fixed point is one and is excluded by prod_involution's premise.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 22,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-INTERFACE"
+        ],
+        "inference": "Classify inverse-fixed units as one or negative one, then use erasure and the non-one premise.",
+        "source_anchors": [
+          "Finite.Basic.lean:115",
+          "Mathlib/Algebra/Ring/Commute.lean:239-245"
+        ],
+        "output": "Every remaining inverse fixed point is one and is excluded by prod_involution's premise.",
+        "outgoing_use": [
+          "M0476-C-INVERSE-PAIRING"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-L-INVERSE-FIXED-POINTS-STEP-01",
+            "premise_ids": [
+              "M0476-S-INTERFACE"
+            ],
+            "inference_or_source": "Units.inv_eq_self_iff in the pinned integral-domain unit group",
+            "output_claim": "Every remaining inverse fixed point is one and is excluded by prod_involution's premise.",
+            "outgoing_use_ids": [
+              "M0476-C-INVERSE-PAIRING"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-l-inverse-fixed-points",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-T-INSERT-NEGONE",
+      "obligation_id": "M0476-T-INSERT-NEGONE",
+      "kind": "transport",
+      "human_statement": "Insert negative one back into the erased product and simplify the paired remainder to one.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.unitProductIdentity_of_erase",
+      "output": "UnitProductIdentity.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 12,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-C-INVERSE-PAIRING"
+        ],
+        "inference": "Insert negative one back into the erased product and simplify the paired remainder to one.",
+        "source_anchors": [
+          "Finite.Basic.lean:113,117"
+        ],
+        "output": "UnitProductIdentity.",
+        "outgoing_use": [
+          "M0476-T-UNITS-COE-NEGONE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-T-INSERT-NEGONE-STEP-01",
+            "premise_ids": [
+              "M0476-C-INVERSE-PAIRING"
+            ],
+            "inference_or_source": "unitProductIdentity_of_erase inserts -1 into univ.erase (-1), rewrites the erased product to one, and simplifies",
+            "output_claim": "UnitProductIdentity.",
+            "outgoing_use_ids": [
+              "M0476-T-UNITS-COE-NEGONE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-t-insert-negone",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-T-UNITS-COE-NEGONE",
+      "obligation_id": "M0476-T-UNITS-COE-NEGONE",
+      "kind": "transport",
+      "human_statement": "Map the unit-valued product identity into ZMod p and preserve negative one.",
+      "formal_target": "Stage1Instances.THM_M_0476.ObligationTree.unitsProductBridge_of_components",
+      "output": "UnitsProductBridge.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "local-conditional-composition",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-T-INSERT-NEGONE"
+        ],
+        "inference": "Map the unit-valued product identity into ZMod p and preserve negative one.",
+        "source_anchors": [
+          "Wilson.lean:49-51",
+          "Units.coeHom",
+          "Finset.map_prod"
+        ],
+        "output": "UnitsProductBridge.",
+        "outgoing_use": [
+          "M0476-T-COMPOSE"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-T-UNITS-COE-NEGONE-STEP-01",
+            "premise_ids": [
+              "M0476-T-INSERT-NEGONE"
+            ],
+            "inference_or_source": "unitsProductBridge_of_components maps the locally reconstructed unit product through Units.coeHom and simplifies the value of -1",
+            "output_claim": "UnitsProductBridge.",
+            "outgoing_use_ids": [
+              "M0476-T-COMPOSE"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-t-units-coe-negone",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-LEAN",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0476/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-X-SOURCE",
+      "obligation_id": "M0476-X-SOURCE",
+      "kind": "terminal",
+      "human_statement": "Map every material premise and transition to a reviewed primary source with assumptions and errata.",
+      "formal_target": "node-specific primary-source crosswalk pending",
+      "output": "Human-source evidence without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 60,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-ROOT"
+        ],
+        "inference": "Map every material premise and transition to a reviewed primary source with assumptions and errata.",
+        "source_anchors": [
+          "source-statement-crosswalk.md; pinpoint primary source remains open"
+        ],
+        "output": "Human-source evidence without machine proof credit.",
+        "outgoing_use": [
+          "M0476-X-SOURCE-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-X-SOURCE-STEP-01",
+            "premise_ids": [
+              "M0476-ROOT"
+            ],
+            "inference_or_source": "source-statement-crosswalk.md identifies the catalog claim; pinpoint primary-source premise and transition maps remain open",
+            "output_claim": "Human-source evidence without machine proof credit.",
+            "outgoing_use_ids": [
+              "M0476-X-SOURCE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-x-source",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-RELEASE",
+        "S56-M-0476-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-X-PROVENANCE",
+      "obligation_id": "M0476-X-PROVENANCE",
+      "kind": "certificate",
+      "human_statement": "Bind wrappers, terminal bodies, transitive declarations, source hashes, pins, licenses, and replay evidence.",
+      "formal_target": "planned machine-derived provenance closure",
+      "output": "Release provenance without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 50,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-L-WILSON",
+          "M0476-L-UNITS-PRODUCT"
+        ],
+        "inference": "Bind wrappers, terminal bodies, transitive declarations, source hashes, pins, licenses, and replay evidence.",
+        "source_anchors": [
+          "anchor-audit.json: M0476-C01 and M0476-C03"
+        ],
+        "output": "Release provenance without mathematical proof credit.",
+        "outgoing_use": [
+          "M0476-X-PROVENANCE-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-X-PROVENANCE-STEP-01",
+            "premise_ids": [
+              "M0476-L-WILSON",
+              "M0476-L-UNITS-PRODUCT"
+            ],
+            "inference_or_source": "anchor-audit.json binds the two terminal candidates to immutable revisions and body blobs",
+            "output_claim": "Release provenance without mathematical proof credit.",
+            "outgoing_use_ids": [
+              "M0476-X-PROVENANCE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-x-provenance",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-ANCHOR_AUDIT",
+        "S56-M-0476-VALIDATION",
+        "S56-M-0476-RELEASE",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-X-TRUST",
+      "obligation_id": "M0476-X-TRUST",
+      "kind": "certificate",
+      "human_statement": "Audit the transitive Lean/mathlib closure, executable TCB, axioms, unsafe boundaries, and replay.",
+      "formal_target": "planned trust and TCB closure",
+      "output": "Release trust evidence without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 50,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-S-FOUNDATION"
+        ],
+        "inference": "Audit the transitive Lean/mathlib closure, executable TCB, axioms, unsafe boundaries, and replay.",
+        "source_anchors": [
+          "anchor-audit.json: machine_axioms",
+          "ObligationTree.lean: #print axioms"
+        ],
+        "output": "Release trust evidence without mathematical proof credit.",
+        "outgoing_use": [
+          "M0476-X-TRUST-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-X-TRUST-STEP-01",
+            "premise_ids": [
+              "M0476-S-FOUNDATION"
+            ],
+            "inference_or_source": "bind source hashes, observed axioms, dependency pins, and no-oracle policy without granting proof credit",
+            "output_claim": "Release trust evidence without mathematical proof credit.",
+            "outgoing_use_ids": [
+              "M0476-X-TRUST-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-x-trust",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-VALIDATION",
+        "S56-M-0476-RELEASE",
+        "S56-M-0476-OBLIGATION_TREE",
+        "S56-M-0476-PROOF"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-X-READABLE",
+      "obligation_id": "M0476-X-READABLE",
+      "kind": "terminal",
+      "human_statement": "Produce and independently review a complete node-specific reconstruction of the frozen route.",
+      "formal_target": "planned readable proof outline and process",
+      "output": "Readable coverage without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "primary-source-node-map-pending",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 60,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-ROOT"
+        ],
+        "inference": "Produce and independently review a complete node-specific reconstruction of the frozen route.",
+        "source_anchors": [
+          "obligation-tree.md: architecture only; independent review pending"
+        ],
+        "output": "Readable coverage without machine proof credit.",
+        "outgoing_use": [
+          "M0476-X-READABLE-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-X-READABLE-STEP-01",
+            "premise_ids": [
+              "M0476-ROOT"
+            ],
+            "inference_or_source": "obligation-tree.md publishes every stable node boundary and the complete planned route",
+            "output_claim": "Readable coverage without machine proof credit.",
+            "outgoing_use_ids": [
+              "M0476-X-READABLE-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-x-readable",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-RELEASE",
+        "S56-M-0476-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0476-X-WORKFLOW",
+      "obligation_id": "M0476-X-WORKFLOW",
+      "kind": "certificate",
+      "human_statement": "Bind proof, validation, release, freshness, revocation, and independent-verification acceptance.",
+      "formal_target": "planned Stage1 workflow receipts",
+      "output": "Workflow acceptance without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R4",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory; accepted axiom policy and transitive review pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no native computation, solver, oracle, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "step_budget_semantics": "split_threshold_only_not_readability_or_leaf_adequacy",
+      "semantic_step_ledger": {
+        "premises": [
+          "M0476-ROOT"
+        ],
+        "inference": "Bind proof, validation, release, freshness, revocation, and independent-verification acceptance.",
+        "source_anchors": [
+          "Docs/Stage1_Execution_DAG_rev-5.6.json"
+        ],
+        "output": "Workflow acceptance without mathematical proof credit.",
+        "outgoing_use": [
+          "M0476-X-WORKFLOW-PUBLIC-BOUNDARY"
+        ],
+        "steps": [
+          {
+            "step_id": "M0476-X-WORKFLOW-STEP-01",
+            "premise_ids": [
+              "M0476-ROOT"
+            ],
+            "inference_or_source": "the static seven-task contract projection orders intake through release and links each task to obligations",
+            "output_claim": "Workflow acceptance without mathematical proof credit.",
+            "outgoing_use_ids": [
+              "M0476-X-WORKFLOW-PUBLIC-BOUNDARY"
+            ]
+          }
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0476/obligation-tree.md#m0476-x-workflow",
+      "validation_spec_id": "S56-M-0476-OBLIGATION-TREE-STRUCTURE",
+      "status_boundary": "Frozen architecture, audited candidate, or conditional interface only; no accepted root proof or theorem completion.",
+      "task_ids": [
+        "S56-M-0476-RELEASE",
+        "S56-M-0476-OBLIGATION_TREE"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0476 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "toolchain and dependency pins"
+        ],
+        "revocation_state": "open"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "P01-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-ROOT",
+          "to": "M0476-S-FACT-TRANSPORT",
+          "reciprocal_edge_id": "P01-01-COMP"
+        },
+        {
+          "edge_id": "P01-01-COMP",
+          "type": "composes",
+          "from": "M0476-S-FACT-TRANSPORT",
+          "to": "M0476-ROOT",
+          "reciprocal_edge_id": "P01-01-REQ"
+        },
+        {
+          "edge_id": "P02-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-S-FACT-TRANSPORT",
+          "to": "M0476-T-COMPOSE",
+          "reciprocal_edge_id": "P02-01-COMP"
+        },
+        {
+          "edge_id": "P02-01-COMP",
+          "type": "composes",
+          "from": "M0476-T-COMPOSE",
+          "to": "M0476-S-FACT-TRANSPORT",
+          "reciprocal_edge_id": "P02-01-REQ"
+        },
+        {
+          "edge_id": "P03-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-T-COMPOSE",
+          "to": "M0476-N-FACTORIAL-PRODUCT",
+          "reciprocal_edge_id": "P03-01-COMP"
+        },
+        {
+          "edge_id": "P03-01-COMP",
+          "type": "composes",
+          "from": "M0476-N-FACTORIAL-PRODUCT",
+          "to": "M0476-T-COMPOSE",
+          "reciprocal_edge_id": "P03-01-REQ"
+        },
+        {
+          "edge_id": "P03-02-REQ",
+          "type": "proof_requires",
+          "from": "M0476-T-COMPOSE",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "reciprocal_edge_id": "P03-02-COMP"
+        },
+        {
+          "edge_id": "P03-02-COMP",
+          "type": "composes",
+          "from": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "to": "M0476-T-COMPOSE",
+          "reciprocal_edge_id": "P03-02-REQ"
+        },
+        {
+          "edge_id": "P03-03-REQ",
+          "type": "proof_requires",
+          "from": "M0476-T-COMPOSE",
+          "to": "M0476-T-UNITS-COE-NEGONE",
+          "reciprocal_edge_id": "P03-03-COMP"
+        },
+        {
+          "edge_id": "P03-03-COMP",
+          "type": "composes",
+          "from": "M0476-T-UNITS-COE-NEGONE",
+          "to": "M0476-T-COMPOSE",
+          "reciprocal_edge_id": "P03-03-REQ"
+        },
+        {
+          "edge_id": "P04-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-N-FACTORIAL-PRODUCT",
+          "to": "M0476-L-FACTORIAL-INTERVAL",
+          "reciprocal_edge_id": "P04-01-COMP"
+        },
+        {
+          "edge_id": "P04-01-COMP",
+          "type": "composes",
+          "from": "M0476-L-FACTORIAL-INTERVAL",
+          "to": "M0476-N-FACTORIAL-PRODUCT",
+          "reciprocal_edge_id": "P04-01-REQ"
+        },
+        {
+          "edge_id": "P04-02-REQ",
+          "type": "proof_requires",
+          "from": "M0476-N-FACTORIAL-PRODUCT",
+          "to": "M0476-T-NAT-CAST-PRODUCT",
+          "reciprocal_edge_id": "P04-02-COMP"
+        },
+        {
+          "edge_id": "P04-02-COMP",
+          "type": "composes",
+          "from": "M0476-T-NAT-CAST-PRODUCT",
+          "to": "M0476-N-FACTORIAL-PRODUCT",
+          "reciprocal_edge_id": "P04-02-REQ"
+        },
+        {
+          "edge_id": "P05-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "to": "M0476-N-PRIME-ENDPOINT",
+          "reciprocal_edge_id": "P05-01-COMP"
+        },
+        {
+          "edge_id": "P05-01-COMP",
+          "type": "composes",
+          "from": "M0476-N-PRIME-ENDPOINT",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "reciprocal_edge_id": "P05-01-REQ"
+        },
+        {
+          "edge_id": "P05-02-REQ",
+          "type": "proof_requires",
+          "from": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "to": "M0476-B-UNIT-VAL-RANGE",
+          "reciprocal_edge_id": "P05-02-COMP"
+        },
+        {
+          "edge_id": "P05-02-COMP",
+          "type": "composes",
+          "from": "M0476-B-UNIT-VAL-RANGE",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "reciprocal_edge_id": "P05-02-REQ"
+        },
+        {
+          "edge_id": "P05-03-REQ",
+          "type": "proof_requires",
+          "from": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "to": "M0476-L-UNIT-VAL-INJECTIVE",
+          "reciprocal_edge_id": "P05-03-COMP"
+        },
+        {
+          "edge_id": "P05-03-COMP",
+          "type": "composes",
+          "from": "M0476-L-UNIT-VAL-INJECTIVE",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "reciprocal_edge_id": "P05-03-REQ"
+        },
+        {
+          "edge_id": "P05-04-REQ",
+          "type": "proof_requires",
+          "from": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "to": "M0476-C-RESIDUE-TO-UNIT",
+          "reciprocal_edge_id": "P05-04-COMP"
+        },
+        {
+          "edge_id": "P05-04-COMP",
+          "type": "composes",
+          "from": "M0476-C-RESIDUE-TO-UNIT",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "reciprocal_edge_id": "P05-04-REQ"
+        },
+        {
+          "edge_id": "P05-05-REQ",
+          "type": "proof_requires",
+          "from": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "to": "M0476-T-REPRESENTATIVE-COE",
+          "reciprocal_edge_id": "P05-05-COMP"
+        },
+        {
+          "edge_id": "P05-05-COMP",
+          "type": "composes",
+          "from": "M0476-T-REPRESENTATIVE-COE",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "reciprocal_edge_id": "P05-05-REQ"
+        },
+        {
+          "edge_id": "P06-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-C-INVERSE-PAIRING",
+          "to": "M0476-L-INVERSE-FIXED-POINTS",
+          "reciprocal_edge_id": "P06-01-COMP"
+        },
+        {
+          "edge_id": "P06-01-COMP",
+          "type": "composes",
+          "from": "M0476-L-INVERSE-FIXED-POINTS",
+          "to": "M0476-C-INVERSE-PAIRING",
+          "reciprocal_edge_id": "P06-01-REQ"
+        },
+        {
+          "edge_id": "P07-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-T-INSERT-NEGONE",
+          "to": "M0476-C-INVERSE-PAIRING",
+          "reciprocal_edge_id": "P07-01-COMP"
+        },
+        {
+          "edge_id": "P07-01-COMP",
+          "type": "composes",
+          "from": "M0476-C-INVERSE-PAIRING",
+          "to": "M0476-T-INSERT-NEGONE",
+          "reciprocal_edge_id": "P07-01-REQ"
+        },
+        {
+          "edge_id": "P08-01-REQ",
+          "type": "proof_requires",
+          "from": "M0476-T-UNITS-COE-NEGONE",
+          "to": "M0476-T-INSERT-NEGONE",
+          "reciprocal_edge_id": "P08-01-COMP"
+        },
+        {
+          "edge_id": "P08-01-COMP",
+          "type": "composes",
+          "from": "M0476-T-INSERT-NEGONE",
+          "to": "M0476-T-UNITS-COE-NEGONE",
+          "reciprocal_edge_id": "P08-01-REQ"
+        }
+      ],
+      "out": {
+        "M0476-ROOT": [
+          "P01-01-REQ"
+        ],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [
+          "P01-01-COMP",
+          "P02-01-REQ"
+        ],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [
+          "P02-01-COMP",
+          "P03-01-REQ",
+          "P03-02-REQ",
+          "P03-03-REQ"
+        ],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [
+          "P03-01-COMP",
+          "P04-01-REQ",
+          "P04-02-REQ"
+        ],
+        "M0476-L-FACTORIAL-INTERVAL": [
+          "P04-01-COMP"
+        ],
+        "M0476-T-NAT-CAST-PRODUCT": [
+          "P04-02-COMP"
+        ],
+        "M0476-N-PRIME-ENDPOINT": [
+          "P05-01-COMP"
+        ],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [
+          "P03-02-COMP",
+          "P05-01-REQ",
+          "P05-02-REQ",
+          "P05-03-REQ",
+          "P05-04-REQ",
+          "P05-05-REQ"
+        ],
+        "M0476-B-UNIT-VAL-RANGE": [
+          "P05-02-COMP"
+        ],
+        "M0476-L-UNIT-VAL-INJECTIVE": [
+          "P05-03-COMP"
+        ],
+        "M0476-C-RESIDUE-TO-UNIT": [
+          "P05-04-COMP"
+        ],
+        "M0476-T-REPRESENTATIVE-COE": [
+          "P05-05-COMP"
+        ],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [
+          "P06-01-REQ",
+          "P07-01-COMP"
+        ],
+        "M0476-L-INVERSE-FIXED-POINTS": [
+          "P06-01-COMP"
+        ],
+        "M0476-T-INSERT-NEGONE": [
+          "P07-01-REQ",
+          "P08-01-COMP"
+        ],
+        "M0476-T-UNITS-COE-NEGONE": [
+          "P03-03-COMP",
+          "P08-01-REQ"
+        ],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      },
+      "in": {
+        "M0476-ROOT": [
+          "P01-01-COMP"
+        ],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [
+          "P01-01-REQ",
+          "P02-01-COMP"
+        ],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [
+          "P02-01-REQ",
+          "P03-01-COMP",
+          "P03-02-COMP",
+          "P03-03-COMP"
+        ],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [
+          "P03-01-REQ",
+          "P04-01-COMP",
+          "P04-02-COMP"
+        ],
+        "M0476-L-FACTORIAL-INTERVAL": [
+          "P04-01-REQ"
+        ],
+        "M0476-T-NAT-CAST-PRODUCT": [
+          "P04-02-REQ"
+        ],
+        "M0476-N-PRIME-ENDPOINT": [
+          "P05-01-REQ"
+        ],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [
+          "P03-02-REQ",
+          "P05-01-COMP",
+          "P05-02-COMP",
+          "P05-03-COMP",
+          "P05-04-COMP",
+          "P05-05-COMP"
+        ],
+        "M0476-B-UNIT-VAL-RANGE": [
+          "P05-02-REQ"
+        ],
+        "M0476-L-UNIT-VAL-INJECTIVE": [
+          "P05-03-REQ"
+        ],
+        "M0476-C-RESIDUE-TO-UNIT": [
+          "P05-04-REQ"
+        ],
+        "M0476-T-REPRESENTATIVE-COE": [
+          "P05-05-REQ"
+        ],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [
+          "P06-01-COMP",
+          "P07-01-REQ"
+        ],
+        "M0476-L-INVERSE-FIXED-POINTS": [
+          "P06-01-REQ"
+        ],
+        "M0476-T-INSERT-NEGONE": [
+          "P07-01-COMP",
+          "P08-01-REQ"
+        ],
+        "M0476-T-UNITS-COE-NEGONE": [
+          "P03-03-REQ",
+          "P08-01-COMP"
+        ],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "R01",
+          "type": "equivalent_to",
+          "from": "M0476-ROOT",
+          "to": "M0476-S-INTERFACE"
+        },
+        {
+          "edge_id": "R02",
+          "type": "expository_decomposition",
+          "from": "M0476-ROOT",
+          "to": "M0476-S-BOUNDARY"
+        },
+        {
+          "edge_id": "R03",
+          "type": "transports",
+          "from": "M0476-S-FACT-TRANSPORT",
+          "to": "M0476-ROOT"
+        }
+      ],
+      "out": {
+        "M0476-ROOT": [
+          "R01",
+          "R02"
+        ],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [
+          "R03"
+        ],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      },
+      "in": {
+        "M0476-ROOT": [
+          "R03"
+        ],
+        "M0476-S-INTERFACE": [
+          "R01"
+        ],
+        "M0476-S-BOUNDARY": [
+          "R02"
+        ],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "V01",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-ROOT"
+        },
+        {
+          "edge_id": "V02",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-S-INTERFACE"
+        },
+        {
+          "edge_id": "V03",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-S-BOUNDARY"
+        },
+        {
+          "edge_id": "V04",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-S-FACT-TRANSPORT"
+        },
+        {
+          "edge_id": "V05",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-S-FOUNDATION"
+        },
+        {
+          "edge_id": "V06",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-T-COMPOSE"
+        },
+        {
+          "edge_id": "V07",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "V08",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-N-FACTORIAL-PRODUCT"
+        },
+        {
+          "edge_id": "V09",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-L-FACTORIAL-INTERVAL"
+        },
+        {
+          "edge_id": "V10",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-T-NAT-CAST-PRODUCT"
+        },
+        {
+          "edge_id": "V11",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-N-PRIME-ENDPOINT"
+        },
+        {
+          "edge_id": "V12",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION"
+        },
+        {
+          "edge_id": "V13",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-B-UNIT-VAL-RANGE"
+        },
+        {
+          "edge_id": "V14",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-L-UNIT-VAL-INJECTIVE"
+        },
+        {
+          "edge_id": "V15",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-C-RESIDUE-TO-UNIT"
+        },
+        {
+          "edge_id": "V16",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-T-REPRESENTATIVE-COE"
+        },
+        {
+          "edge_id": "V17",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-L-UNITS-PRODUCT"
+        },
+        {
+          "edge_id": "V18",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-C-INVERSE-PAIRING"
+        },
+        {
+          "edge_id": "V19",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-L-INVERSE-FIXED-POINTS"
+        },
+        {
+          "edge_id": "V20",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-T-INSERT-NEGONE"
+        },
+        {
+          "edge_id": "V21",
+          "type": "provenance_of",
+          "from": "M0476-X-PROVENANCE",
+          "to": "M0476-T-UNITS-COE-NEGONE"
+        },
+        {
+          "edge_id": "S01",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-ROOT"
+        },
+        {
+          "edge_id": "S02",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-S-BOUNDARY"
+        },
+        {
+          "edge_id": "S03",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-T-COMPOSE"
+        },
+        {
+          "edge_id": "S04",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "S05",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-N-FACTORIAL-PRODUCT"
+        },
+        {
+          "edge_id": "S06",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-L-FACTORIAL-INTERVAL"
+        },
+        {
+          "edge_id": "S07",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-T-NAT-CAST-PRODUCT"
+        },
+        {
+          "edge_id": "S08",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-N-PRIME-ENDPOINT"
+        },
+        {
+          "edge_id": "S09",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION"
+        },
+        {
+          "edge_id": "S10",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-B-UNIT-VAL-RANGE"
+        },
+        {
+          "edge_id": "S11",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-L-UNIT-VAL-INJECTIVE"
+        },
+        {
+          "edge_id": "S12",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-C-RESIDUE-TO-UNIT"
+        },
+        {
+          "edge_id": "S13",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-T-REPRESENTATIVE-COE"
+        },
+        {
+          "edge_id": "S14",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-L-UNITS-PRODUCT"
+        },
+        {
+          "edge_id": "S15",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-C-INVERSE-PAIRING"
+        },
+        {
+          "edge_id": "S16",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-L-INVERSE-FIXED-POINTS"
+        },
+        {
+          "edge_id": "S17",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-T-INSERT-NEGONE"
+        },
+        {
+          "edge_id": "S18",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-T-UNITS-COE-NEGONE"
+        },
+        {
+          "edge_id": "S20",
+          "type": "source_map",
+          "from": "M0476-X-SOURCE",
+          "to": "M0476-X-READABLE"
+        },
+        {
+          "edge_id": "E01-01",
+          "type": "provenance_of",
+          "from": "M0476-N-FACTORIAL-PRODUCT",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "E01-02",
+          "type": "provenance_of",
+          "from": "M0476-N-PRIME-ENDPOINT",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "E01-03",
+          "type": "provenance_of",
+          "from": "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "E01-04",
+          "type": "provenance_of",
+          "from": "M0476-L-UNITS-PRODUCT",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "E01-05",
+          "type": "provenance_of",
+          "from": "M0476-T-UNITS-COE-NEGONE",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "E02-01",
+          "type": "provenance_of",
+          "from": "M0476-C-INVERSE-PAIRING",
+          "to": "M0476-L-UNITS-PRODUCT"
+        },
+        {
+          "edge_id": "E02-02",
+          "type": "provenance_of",
+          "from": "M0476-T-INSERT-NEGONE",
+          "to": "M0476-L-UNITS-PRODUCT"
+        }
+      ],
+      "out": {
+        "M0476-ROOT": [],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [
+          "E01-01"
+        ],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [
+          "E01-02"
+        ],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [
+          "E01-03"
+        ],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [
+          "E01-04"
+        ],
+        "M0476-C-INVERSE-PAIRING": [
+          "E02-01"
+        ],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [
+          "E02-02"
+        ],
+        "M0476-T-UNITS-COE-NEGONE": [
+          "E01-05"
+        ],
+        "M0476-X-SOURCE": [
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S12",
+          "S13",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S20"
+        ],
+        "M0476-X-PROVENANCE": [
+          "V01",
+          "V02",
+          "V03",
+          "V04",
+          "V05",
+          "V06",
+          "V07",
+          "V08",
+          "V09",
+          "V10",
+          "V11",
+          "V12",
+          "V13",
+          "V14",
+          "V15",
+          "V16",
+          "V17",
+          "V18",
+          "V19",
+          "V20",
+          "V21"
+        ],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      },
+      "in": {
+        "M0476-ROOT": [
+          "V01",
+          "S01"
+        ],
+        "M0476-S-INTERFACE": [
+          "V02"
+        ],
+        "M0476-S-BOUNDARY": [
+          "V03",
+          "S02"
+        ],
+        "M0476-S-FACT-TRANSPORT": [
+          "V04"
+        ],
+        "M0476-S-FOUNDATION": [
+          "V05"
+        ],
+        "M0476-T-COMPOSE": [
+          "V06",
+          "S03"
+        ],
+        "M0476-L-WILSON": [
+          "V07",
+          "S04",
+          "E01-01",
+          "E01-02",
+          "E01-03",
+          "E01-04",
+          "E01-05"
+        ],
+        "M0476-N-FACTORIAL-PRODUCT": [
+          "V08",
+          "S05"
+        ],
+        "M0476-L-FACTORIAL-INTERVAL": [
+          "V09",
+          "S06"
+        ],
+        "M0476-T-NAT-CAST-PRODUCT": [
+          "V10",
+          "S07"
+        ],
+        "M0476-N-PRIME-ENDPOINT": [
+          "V11",
+          "S08"
+        ],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [
+          "V12",
+          "S09"
+        ],
+        "M0476-B-UNIT-VAL-RANGE": [
+          "V13",
+          "S10"
+        ],
+        "M0476-L-UNIT-VAL-INJECTIVE": [
+          "V14",
+          "S11"
+        ],
+        "M0476-C-RESIDUE-TO-UNIT": [
+          "V15",
+          "S12"
+        ],
+        "M0476-T-REPRESENTATIVE-COE": [
+          "V16",
+          "S13"
+        ],
+        "M0476-L-UNITS-PRODUCT": [
+          "V17",
+          "S14",
+          "E02-01",
+          "E02-02"
+        ],
+        "M0476-C-INVERSE-PAIRING": [
+          "V18",
+          "S15"
+        ],
+        "M0476-L-INVERSE-FIXED-POINTS": [
+          "V19",
+          "S16"
+        ],
+        "M0476-T-INSERT-NEGONE": [
+          "V20",
+          "S17"
+        ],
+        "M0476-T-UNITS-COE-NEGONE": [
+          "V21",
+          "S18"
+        ],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [
+          "S20"
+        ],
+        "M0476-X-WORKFLOW": []
+      }
+    },
+    "evidence": {
+      "edges": [],
+      "out": {
+        "M0476-ROOT": [],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      },
+      "in": {
+        "M0476-ROOT": [],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      }
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "TR01",
+          "type": "trusts",
+          "from": "M0476-ROOT",
+          "to": "M0476-S-FOUNDATION"
+        },
+        {
+          "edge_id": "TR02",
+          "type": "trusts",
+          "from": "M0476-ROOT",
+          "to": "M0476-X-TRUST"
+        },
+        {
+          "edge_id": "TR03",
+          "type": "trusts",
+          "from": "M0476-L-WILSON",
+          "to": "M0476-X-TRUST"
+        },
+        {
+          "edge_id": "TR04",
+          "type": "trusts",
+          "from": "M0476-L-UNITS-PRODUCT",
+          "to": "M0476-X-TRUST"
+        }
+      ],
+      "out": {
+        "M0476-ROOT": [
+          "TR01",
+          "TR02"
+        ],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [
+          "TR03"
+        ],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [
+          "TR04"
+        ],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      },
+      "in": {
+        "M0476-ROOT": [],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [
+          "TR01"
+        ],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [
+          "TR02",
+          "TR03",
+          "TR04"
+        ],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": []
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "D01",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-ROOT"
+        },
+        {
+          "edge_id": "D02",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-S-INTERFACE"
+        },
+        {
+          "edge_id": "D03",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-S-BOUNDARY"
+        },
+        {
+          "edge_id": "D04",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-S-FACT-TRANSPORT"
+        },
+        {
+          "edge_id": "D05",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-S-FOUNDATION"
+        },
+        {
+          "edge_id": "D06",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-T-COMPOSE"
+        },
+        {
+          "edge_id": "D07",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-L-WILSON"
+        },
+        {
+          "edge_id": "D08",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-N-FACTORIAL-PRODUCT"
+        },
+        {
+          "edge_id": "D09",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-L-FACTORIAL-INTERVAL"
+        },
+        {
+          "edge_id": "D10",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-T-NAT-CAST-PRODUCT"
+        },
+        {
+          "edge_id": "D11",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-N-PRIME-ENDPOINT"
+        },
+        {
+          "edge_id": "D12",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-C-RESIDUE-UNITS-BIJECTION"
+        },
+        {
+          "edge_id": "D13",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-B-UNIT-VAL-RANGE"
+        },
+        {
+          "edge_id": "D14",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-L-UNIT-VAL-INJECTIVE"
+        },
+        {
+          "edge_id": "D15",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-C-RESIDUE-TO-UNIT"
+        },
+        {
+          "edge_id": "D16",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-T-REPRESENTATIVE-COE"
+        },
+        {
+          "edge_id": "D17",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-L-UNITS-PRODUCT"
+        },
+        {
+          "edge_id": "D18",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-C-INVERSE-PAIRING"
+        },
+        {
+          "edge_id": "D19",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-L-INVERSE-FIXED-POINTS"
+        },
+        {
+          "edge_id": "D20",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-T-INSERT-NEGONE"
+        },
+        {
+          "edge_id": "D21",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-T-UNITS-COE-NEGONE"
+        },
+        {
+          "edge_id": "D22",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-X-SOURCE"
+        },
+        {
+          "edge_id": "D23",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-X-PROVENANCE"
+        },
+        {
+          "edge_id": "D24",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-X-TRUST"
+        },
+        {
+          "edge_id": "D26",
+          "type": "documents",
+          "from": "M0476-X-READABLE",
+          "to": "M0476-X-WORKFLOW"
+        }
+      ],
+      "out": {
+        "M0476-ROOT": [],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08",
+          "D09",
+          "D10",
+          "D11",
+          "D12",
+          "D13",
+          "D14",
+          "D15",
+          "D16",
+          "D17",
+          "D18",
+          "D19",
+          "D20",
+          "D21",
+          "D22",
+          "D23",
+          "D24",
+          "D26"
+        ],
+        "M0476-X-WORKFLOW": []
+      },
+      "in": {
+        "M0476-ROOT": [
+          "D01"
+        ],
+        "M0476-S-INTERFACE": [
+          "D02"
+        ],
+        "M0476-S-BOUNDARY": [
+          "D03"
+        ],
+        "M0476-S-FACT-TRANSPORT": [
+          "D04"
+        ],
+        "M0476-S-FOUNDATION": [
+          "D05"
+        ],
+        "M0476-T-COMPOSE": [
+          "D06"
+        ],
+        "M0476-L-WILSON": [
+          "D07"
+        ],
+        "M0476-N-FACTORIAL-PRODUCT": [
+          "D08"
+        ],
+        "M0476-L-FACTORIAL-INTERVAL": [
+          "D09"
+        ],
+        "M0476-T-NAT-CAST-PRODUCT": [
+          "D10"
+        ],
+        "M0476-N-PRIME-ENDPOINT": [
+          "D11"
+        ],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [
+          "D12"
+        ],
+        "M0476-B-UNIT-VAL-RANGE": [
+          "D13"
+        ],
+        "M0476-L-UNIT-VAL-INJECTIVE": [
+          "D14"
+        ],
+        "M0476-C-RESIDUE-TO-UNIT": [
+          "D15"
+        ],
+        "M0476-T-REPRESENTATIVE-COE": [
+          "D16"
+        ],
+        "M0476-L-UNITS-PRODUCT": [
+          "D17"
+        ],
+        "M0476-C-INVERSE-PAIRING": [
+          "D18"
+        ],
+        "M0476-L-INVERSE-FIXED-POINTS": [
+          "D19"
+        ],
+        "M0476-T-INSERT-NEGONE": [
+          "D20"
+        ],
+        "M0476-T-UNITS-COE-NEGONE": [
+          "D21"
+        ],
+        "M0476-X-SOURCE": [
+          "D22"
+        ],
+        "M0476-X-PROVENANCE": [
+          "D23"
+        ],
+        "M0476-X-TRUST": [
+          "D24"
+        ],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": [
+          "D26"
+        ]
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "W01",
+          "type": "workflow_depends_on",
+          "from": "M0476-X-WORKFLOW",
+          "to": "M0476-ROOT"
+        },
+        {
+          "edge_id": "W02",
+          "type": "workflow_depends_on",
+          "from": "M0476-X-WORKFLOW",
+          "to": "M0476-X-SOURCE"
+        },
+        {
+          "edge_id": "W03",
+          "type": "workflow_depends_on",
+          "from": "M0476-X-WORKFLOW",
+          "to": "M0476-X-PROVENANCE"
+        },
+        {
+          "edge_id": "W04",
+          "type": "workflow_depends_on",
+          "from": "M0476-X-WORKFLOW",
+          "to": "M0476-X-TRUST"
+        },
+        {
+          "edge_id": "W05",
+          "type": "workflow_depends_on",
+          "from": "M0476-X-WORKFLOW",
+          "to": "M0476-X-READABLE"
+        }
+      ],
+      "out": {
+        "M0476-ROOT": [],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [],
+        "M0476-X-PROVENANCE": [],
+        "M0476-X-TRUST": [],
+        "M0476-X-READABLE": [],
+        "M0476-X-WORKFLOW": [
+          "W01",
+          "W02",
+          "W03",
+          "W04",
+          "W05"
+        ]
+      },
+      "in": {
+        "M0476-ROOT": [
+          "W01"
+        ],
+        "M0476-S-INTERFACE": [],
+        "M0476-S-BOUNDARY": [],
+        "M0476-S-FACT-TRANSPORT": [],
+        "M0476-S-FOUNDATION": [],
+        "M0476-T-COMPOSE": [],
+        "M0476-L-WILSON": [],
+        "M0476-N-FACTORIAL-PRODUCT": [],
+        "M0476-L-FACTORIAL-INTERVAL": [],
+        "M0476-T-NAT-CAST-PRODUCT": [],
+        "M0476-N-PRIME-ENDPOINT": [],
+        "M0476-C-RESIDUE-UNITS-BIJECTION": [],
+        "M0476-B-UNIT-VAL-RANGE": [],
+        "M0476-L-UNIT-VAL-INJECTIVE": [],
+        "M0476-C-RESIDUE-TO-UNIT": [],
+        "M0476-T-REPRESENTATIVE-COE": [],
+        "M0476-L-UNITS-PRODUCT": [],
+        "M0476-C-INVERSE-PAIRING": [],
+        "M0476-L-INVERSE-FIXED-POINTS": [],
+        "M0476-T-INSERT-NEGONE": [],
+        "M0476-T-UNITS-COE-NEGONE": [],
+        "M0476-X-SOURCE": [
+          "W02"
+        ],
+        "M0476-X-PROVENANCE": [
+          "W03"
+        ],
+        "M0476-X-TRUST": [
+          "W04"
+        ],
+        "M0476-X-READABLE": [
+          "W05"
+        ],
+        "M0476-X-WORKFLOW": []
+      }
+    }
+  },
+  "evidence_endpoint_policy": "Receipts are external typed objects. The evidence graph stays empty until content-addressed accepted evidence exists; node evidence_ids will bind it later.",
+  "composition_certificates": [
+    {
+      "certificate_id": "M0476-CERT-ROOT",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.root_of_composedTarget",
+      "parent_id": "M0476-ROOT",
+      "parent_statement_fingerprint": "lean-expression-sha256:ee76edb160426d3e8d95b11bfedca7febcfe915f50007e042875c922ebc8a4ac",
+      "required_child_ids": [
+        "M0476-S-FACT-TRANSPORT"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-S-FACT-TRANSPORT": "planned:v1:sha256:bf37b87640397b51c1807b9509785d4a0166d9dbce0cf028d1c6fa8d47646bda"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    },
+    {
+      "certificate_id": "M0476-CERT-S-FACT-TRANSPORT",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.root_of_factWilsonAnchor",
+      "parent_id": "M0476-S-FACT-TRANSPORT",
+      "parent_statement_fingerprint": "planned:v1:sha256:bf37b87640397b51c1807b9509785d4a0166d9dbce0cf028d1c6fa8d47646bda",
+      "required_child_ids": [
+        "M0476-T-COMPOSE"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-T-COMPOSE": "planned:v1:sha256:186b642901b392d1c56f0742fcc29e4ccb82675c8efed34166633fa7ce4e608e"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    },
+    {
+      "certificate_id": "M0476-CERT-T-COMPOSE",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.factWilsonAnchor_of_bridges",
+      "parent_id": "M0476-T-COMPOSE",
+      "parent_statement_fingerprint": "planned:v1:sha256:186b642901b392d1c56f0742fcc29e4ccb82675c8efed34166633fa7ce4e608e",
+      "required_child_ids": [
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-T-UNITS-COE-NEGONE"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-N-FACTORIAL-PRODUCT": "planned:v1:sha256:906d2b7896a3eed10dd26d95f7377ce477e5d59bddf0b3dd2af448564c332a76",
+        "M0476-C-RESIDUE-UNITS-BIJECTION": "planned:v1:sha256:eccc05ae58e627884596ac3a08b1d8bc9cd93b5118fa62f60d90f7ca61806007",
+        "M0476-T-UNITS-COE-NEGONE": "planned:v1:sha256:3c546d87e6c0cf0737d6f0f5c73271291fdfaabc4af50210a3a582598387cc95"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    },
+    {
+      "certificate_id": "M0476-CERT-N-FACTORIAL-PRODUCT",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.factorialProduct_of_identities",
+      "parent_id": "M0476-N-FACTORIAL-PRODUCT",
+      "parent_statement_fingerprint": "planned:v1:sha256:906d2b7896a3eed10dd26d95f7377ce477e5d59bddf0b3dd2af448564c332a76",
+      "required_child_ids": [
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-L-FACTORIAL-INTERVAL": "planned:v1:sha256:ef4e394a14d5e9b1176d4ba168732998cb81259752af78207f5a8f34abcf82d5",
+        "M0476-T-NAT-CAST-PRODUCT": "planned:v1:sha256:b79879fa3dfee6a62c5f3e2db96aacf1a98a6d48b3f683e538aecd46ab759a2c"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    },
+    {
+      "certificate_id": "M0476-CERT-C-RESIDUE-UNITS-BIJECTION",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.residueUnitsProduct_of_components",
+      "parent_id": "M0476-C-RESIDUE-UNITS-BIJECTION",
+      "parent_statement_fingerprint": "planned:v1:sha256:eccc05ae58e627884596ac3a08b1d8bc9cd93b5118fa62f60d90f7ca61806007",
+      "required_child_ids": [
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-N-PRIME-ENDPOINT": "planned:v1:sha256:aecf8c420579fb0f2140216f760369e128401480d369f27b8ba0754242f4ac91",
+        "M0476-B-UNIT-VAL-RANGE": "planned:v1:sha256:390e377a32f1b55abd85d96864726c902d907242d7e7c3042d98a77a0f63f019",
+        "M0476-L-UNIT-VAL-INJECTIVE": "planned:v1:sha256:6e6835566da4e2ac5acb8a1237371bfa268c648fc6e80dfe789a8ea2e5f462c8",
+        "M0476-C-RESIDUE-TO-UNIT": "planned:v1:sha256:419900d77a9a06501f014dd37efaad50660a7ec0387545d667425141c0218b26",
+        "M0476-T-REPRESENTATIVE-COE": "planned:v1:sha256:40e572097d6f65aabff04eec47c178191ba2071b07b02aa8061a70028ce381ae"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    },
+    {
+      "certificate_id": "M0476-CERT-C-INVERSE-PAIRING",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.unitEraseProduct_of_inversion",
+      "parent_id": "M0476-C-INVERSE-PAIRING",
+      "parent_statement_fingerprint": "planned:v1:sha256:69d81df20353d322f2115daec87d20e659bb46e45d3a5f5ae086e53b9931eab0",
+      "required_child_ids": [
+        "M0476-L-INVERSE-FIXED-POINTS"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-L-INVERSE-FIXED-POINTS": "planned:v1:sha256:75c62e1212ff81ddefd623ce8dab523f3158749d6301bf77311bb2a2fd2ae5a1"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    },
+    {
+      "certificate_id": "M0476-CERT-T-INSERT-NEGONE",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.unitProductIdentity_of_erase",
+      "parent_id": "M0476-T-INSERT-NEGONE",
+      "parent_statement_fingerprint": "planned:v1:sha256:97084517ce47b56ce8215e2a88aec79d41abdb843d78a67c6c5b90c93febc947",
+      "required_child_ids": [
+        "M0476-C-INVERSE-PAIRING"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-C-INVERSE-PAIRING": "planned:v1:sha256:69d81df20353d322f2115daec87d20e659bb46e45d3a5f5ae086e53b9931eab0"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    },
+    {
+      "certificate_id": "M0476-CERT-T-UNITS-COE-NEGONE",
+      "declaration": "Stage1Instances.THM_M_0476.ObligationTree.unitsProductBridge_of_components",
+      "parent_id": "M0476-T-UNITS-COE-NEGONE",
+      "parent_statement_fingerprint": "planned:v1:sha256:3c546d87e6c0cf0737d6f0f5c73271291fdfaabc4af50210a3a582598387cc95",
+      "required_child_ids": [
+        "M0476-T-INSERT-NEGONE"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0476-T-INSERT-NEGONE": "planned:v1:sha256:97084517ce47b56ce8215e2a88aec79d41abdb843d78a67c6c5b90c93febc947"
+      },
+      "conditional": true,
+      "kernel_checked_interface": true,
+      "accepted": false,
+      "status": "conditional_kernel_checked",
+      "statement_fingerprint_binding": "Root identity uses the elaborated expression hash; non-root planned:v1 hashes bind obligation ID, kind, claim, formal target, and output. Checked local declarations additionally carry exact Lean type ascriptions; proof-phase dependency inspection remains open.",
+      "credit_boundary": "conditional exact-child composition only; accepted proof closure remains empty"
+    }
+  ],
+  "metrics": {
+    "inventory_classification": {
+      "numerator_ids": [
+        "M0476-ROOT",
+        "M0476-S-INTERFACE",
+        "M0476-S-BOUNDARY",
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-S-FOUNDATION",
+        "M0476-T-COMPOSE",
+        "M0476-L-WILSON",
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-C-INVERSE-PAIRING",
+        "M0476-L-INVERSE-FIXED-POINTS",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE",
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST",
+        "M0476-X-READABLE",
+        "M0476-X-WORKFLOW"
+      ],
+      "denominator_ids": [
+        "M0476-ROOT",
+        "M0476-S-INTERFACE",
+        "M0476-S-BOUNDARY",
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-S-FOUNDATION",
+        "M0476-T-COMPOSE",
+        "M0476-L-WILSON",
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-C-INVERSE-PAIRING",
+        "M0476-L-INVERSE-FIXED-POINTS",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE",
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST",
+        "M0476-X-READABLE",
+        "M0476-X-WORKFLOW"
+      ],
+      "status": "architecture_classified_unaccepted"
+    },
+    "unique_logical_leaf_closure": {
+      "numerator_ids": [],
+      "denominator_ids": [
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-INVERSE-FIXED-POINTS"
+      ]
+    },
+    "distinct_proof_body_closure": {
+      "numerator_ids": [],
+      "denominator_ids": [
+        "git-blob:9401f7b96b43c2c0afa1f823857bd31a20ae0ac2:ZMod.wilsons_lemma",
+        "git-blob:fb3668d594f865e52f20c8af45e91e7e3b1eebd8:FiniteField.prod_univ_units_id_eq_neg_one",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#factWilsonAnchor_of_bridges",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#factorialProduct_of_identities",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#inverseFixedPointClassification_from_units",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#primeEndpointIdentity_from_prime",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#representativeCastAgreement_from_natCast_val",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#residueRepresentativeSurjectiveAtEndpoint_from_mk0",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#residueUnitsProduct_of_components",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#root_of_factWilsonAnchor",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#unitEraseProduct_of_inversion",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#unitProductIdentity_of_erase",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#unitRepresentativeInPrimeRange_from_unit",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#unitRepresentativeInjective_from_val",
+        "local:Stage1_Instances/THM-M-0476/ObligationTree.lean#unitsProductBridge_of_components",
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95#Finset.prod_Ico_id_eq_factorial",
+        "pinned-mathlib:8a178386ffc0f5fef0b77738bb5449d50efeea95#Finset.prod_natCast"
+      ]
+    },
+    "interface_transport_closure": {
+      "numerator_ids": [],
+      "denominator_ids": [
+        "M0476-S-INTERFACE",
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE"
+      ]
+    },
+    "readable_closure": {
+      "numerator_ids": [],
+      "denominator_ids": [
+        "M0476-ROOT",
+        "M0476-S-INTERFACE",
+        "M0476-S-BOUNDARY",
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-S-FOUNDATION",
+        "M0476-T-COMPOSE",
+        "M0476-L-WILSON",
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-C-INVERSE-PAIRING",
+        "M0476-L-INVERSE-FIXED-POINTS",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE",
+        "M0476-X-SOURCE",
+        "M0476-X-PROVENANCE",
+        "M0476-X-TRUST",
+        "M0476-X-READABLE",
+        "M0476-X-WORKFLOW"
+      ]
+    },
+    "human_source_closure": {
+      "numerator_ids": [],
+      "denominator_ids": [
+        "M0476-ROOT",
+        "M0476-S-BOUNDARY",
+        "M0476-T-COMPOSE",
+        "M0476-L-WILSON",
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-C-INVERSE-PAIRING",
+        "M0476-L-INVERSE-FIXED-POINTS",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE",
+        "M0476-X-SOURCE",
+        "M0476-X-READABLE"
+      ]
+    },
+    "source_boundary_coverage": {
+      "numerator_ids": [],
+      "denominator_ids": [
+        "M0476-ROOT",
+        "M0476-S-INTERFACE",
+        "M0476-S-BOUNDARY",
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-S-FOUNDATION",
+        "M0476-T-COMPOSE",
+        "M0476-L-WILSON",
+        "M0476-N-FACTORIAL-PRODUCT",
+        "M0476-L-FACTORIAL-INTERVAL",
+        "M0476-T-NAT-CAST-PRODUCT",
+        "M0476-N-PRIME-ENDPOINT",
+        "M0476-C-RESIDUE-UNITS-BIJECTION",
+        "M0476-B-UNIT-VAL-RANGE",
+        "M0476-L-UNIT-VAL-INJECTIVE",
+        "M0476-C-RESIDUE-TO-UNIT",
+        "M0476-T-REPRESENTATIVE-COE",
+        "M0476-L-UNITS-PRODUCT",
+        "M0476-C-INVERSE-PAIRING",
+        "M0476-L-INVERSE-FIXED-POINTS",
+        "M0476-T-INSERT-NEGONE",
+        "M0476-T-UNITS-COE-NEGONE"
+      ]
+    },
+    "root_closure": {
+      "accepted": false,
+      "root_id": "M0476-ROOT"
+    },
+    "critical_path_closure": {
+      "numerator_ids": [],
+      "denominator_ids": [
+        "M0476-S-FACT-TRANSPORT",
+        "M0476-L-WILSON",
+        "M0476-T-COMPOSE"
+      ]
+    },
+    "risk_bucket_accepted_coverage": {
+      "critical": {
+        "numerator_ids": [],
+        "denominator_ids": [
+          "M0476-ROOT",
+          "M0476-S-FOUNDATION",
+          "M0476-L-WILSON",
+          "M0476-C-RESIDUE-UNITS-BIJECTION",
+          "M0476-C-RESIDUE-TO-UNIT",
+          "M0476-L-UNITS-PRODUCT",
+          "M0476-C-INVERSE-PAIRING",
+          "M0476-L-INVERSE-FIXED-POINTS",
+          "M0476-X-SOURCE",
+          "M0476-X-PROVENANCE",
+          "M0476-X-TRUST"
+        ]
+      },
+      "high": {
+        "numerator_ids": [],
+        "denominator_ids": [
+          "M0476-S-INTERFACE",
+          "M0476-S-BOUNDARY",
+          "M0476-S-FACT-TRANSPORT",
+          "M0476-T-COMPOSE",
+          "M0476-N-FACTORIAL-PRODUCT",
+          "M0476-L-FACTORIAL-INTERVAL",
+          "M0476-N-PRIME-ENDPOINT",
+          "M0476-B-UNIT-VAL-RANGE",
+          "M0476-L-UNIT-VAL-INJECTIVE",
+          "M0476-T-REPRESENTATIVE-COE",
+          "M0476-T-INSERT-NEGONE",
+          "M0476-T-UNITS-COE-NEGONE",
+          "M0476-X-READABLE",
+          "M0476-X-WORKFLOW"
+        ]
+      },
+      "normal": {
+        "numerator_ids": [],
+        "denominator_ids": [
+          "M0476-T-NAT-CAST-PRODUCT"
+        ]
+      },
+      "low": {
+        "numerator_ids": [],
+        "denominator_ids": []
+      }
+    },
+    "bounds": {
+      "optimistic_closed_ids": [],
+      "pessimistic_closed_ids": [],
+      "disputed_eligibility_ids": []
+    },
+    "metamorphic_boundary": "aliases, wrappers, evidence-row cloning, and presentation splitting grant no accepted IDs and therefore leave all accepted numerators and root closure unchanged"
+  },
+  "closure_boundary": {
+    "conditional_interface_obligations": [
+      "M0476-C-INVERSE-PAIRING",
+      "M0476-C-RESIDUE-UNITS-BIJECTION",
+      "M0476-N-FACTORIAL-PRODUCT",
+      "M0476-N-PRIME-ENDPOINT",
+      "M0476-ROOT",
+      "M0476-S-FACT-TRANSPORT",
+      "M0476-T-COMPOSE",
+      "M0476-T-INSERT-NEGONE",
+      "M0476-T-UNITS-COE-NEGONE"
+    ],
+    "candidate_only_obligations": [
+      "M0476-L-WILSON",
+      "M0476-L-UNITS-PRODUCT"
+    ],
+    "accepted_closed_obligations": [],
+    "root_closed": false,
+    "root_machine_debt": "M3",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "M0476-S-FACT-TRANSPORT"
+    ],
+    "remaining_proof_leaf_frontier": [
+      "M0476-L-FACTORIAL-INTERVAL",
+      "M0476-T-NAT-CAST-PRODUCT",
+      "M0476-N-PRIME-ENDPOINT",
+      "M0476-B-UNIT-VAL-RANGE",
+      "M0476-L-UNIT-VAL-INJECTIVE",
+      "M0476-C-RESIDUE-TO-UNIT",
+      "M0476-T-REPRESENTATIVE-COE",
+      "M0476-L-INVERSE-FIXED-POINTS"
+    ],
+    "remaining_required_machine_assurance_frontier": [
+      "M0476-S-INTERFACE",
+      "M0476-S-BOUNDARY",
+      "M0476-S-FACT-TRANSPORT",
+      "M0476-S-FOUNDATION"
+    ],
+    "remaining_root_critical_nonproof_gates": [
+      "M0476-S-FOUNDATION",
+      "M0476-X-SOURCE",
+      "M0476-X-PROVENANCE",
+      "M0476-X-TRUST",
+      "M0476-X-READABLE",
+      "M0476-X-WORKFLOW"
+    ],
+    "reason": "Conditional interfaces elaborate, but the pinned body is not installed or accepted. H0/R0, transitive provenance/trust, validation, release, and master acceptance remain later gates."
+  }
+}

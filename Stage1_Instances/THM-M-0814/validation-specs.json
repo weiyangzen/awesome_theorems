@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0814-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0814",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0814-OBLIGATION-STRUCTURE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0814/check_obligation_tree.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0814 obligation tree"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0814-ROOT",
+        "M0814-S-TARGET",
+        "M0814-S-CHAIN",
+        "M0814-S-FLOW-CUT",
+        "M0814-S-BOUNDARY",
+        "M0814-S-TRANSPORT",
+        "M0814-S-FOUNDATION",
+        "M0814-N-CHAIN-ENUM",
+        "M0814-N-FLOW-COORD",
+        "M0814-B-NO-CHAIN",
+        "M0814-B-HAS-CHAIN",
+        "M0814-B-MERGE",
+        "M0814-C-FEASIBLE-POLYTOPE",
+        "M0814-L-MAX-ATTAIN",
+        "M0814-L-MAX-CONVEX",
+        "M0814-C-SATURATED-CORE",
+        "M0814-L-S-DISCONNECTS",
+        "M0814-L-REROUTE-BASIC",
+        "M0814-L-S-ORIENTATION",
+        "M0814-C-LEFT-ARCS",
+        "M0814-L-L-DISCONNECTS",
+        "M0814-L-L-AT-MOST-ONE",
+        "M0814-L-L-EXACTLY-ONE",
+        "M0814-L-WEAK-DUALITY",
+        "M0814-L-COUNT-ONCE",
+        "M0814-T-EQUAL-CUT",
+        "M0814-T-CUT-CERT",
+        "M0814-T-ASSEMBLE",
+        "M0814-X-SOURCE",
+        "M0814-X-PROVENANCE",
+        "M0814-X-TRUST",
+        "M0814-X-READABLE",
+        "M0814-X-WORKFLOW"
+      ],
+      "covered_declarations": [],
+      "coverage_boundary": "Checks registry, schemas, graph semantics, source mappings, and open state only; supplies no kernel proof closure."
+    },
+    {
+      "recipe_id": "VAL-M0814-OBLIGATION-LEAN",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0814/check_obligation_tree.py",
+        "--run-lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains Lean composition: pass and no sorryAx"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0814-L-MAX-ATTAIN",
+        "M0814-L-WEAK-DUALITY",
+        "M0814-ROOT",
+        "M0814-T-ASSEMBLE",
+        "M0814-T-CUT-CERT",
+        "M0814-T-EQUAL-CUT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0814_Obligations.MaximalFlowAttainment",
+        "Stage1Instances.THM_M_0814_Obligations.WeakDuality",
+        "Stage1Instances.THM_M_0814_Obligations.EqualCutForMaximalFlow",
+        "Stage1Instances.THM_M_0814_Obligations.CutCertificateForMaximalFlow",
+        "Stage1Instances.THM_M_0814_Obligations.cutCertificate_compose",
+        "Stage1Instances.THM_M_0814_Obligations.compose_root",
+        "Stage1Instances.THM_M_0814_Obligations.root_of_terminal"
+      ],
+      "coverage_boundary": "Kernel-checks exact conditional interfaces and composition only. It supplies none of the mathematical premises and closes no obligation."
+    }
+  ]
+}
