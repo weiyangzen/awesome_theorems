@@ -1,0 +1,147 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-1522-RELEASE",
+  "theorem_id": "THM-M-1522",
+  "intent": "release",
+  "base_revision": "f78ecdb166de720e4af8d8859826b4a22a4c1733",
+  "base_tree": "6d72b645f5722769d4ed5d9eea3559c9e4c69856",
+  "evaluated_at": "2026-07-14T12:00:00+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1522-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1522-VALIDATION-local-20260714T011720+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_accepted": false,
+    "receipt_release_grade": false,
+    "receipt_sha256": "41b78ad4cd0768e6647b6bd15d136d26022a9c8a60c72634bdd52ef0aba5b260"
+  },
+  "reconciled_inputs": {
+    "statement.json": "2812ad428abf680cd4ee518b780b80697cb1fd008c8bbf9c7736ea77f6bd3e75",
+    "anchor-audit.json": "131a286180faec74ffbf95803269dbb0d4119ab2a2cdb95105d322e1dc697e7f",
+    "obligation-registry.json": "46e2fee724bfbd90b554b02daabe0d73d9c9b8eaded63851aad9f80fcf6c52dd",
+    "typed-graphs.json": "9506ce707579e0055afd1ad1edd04ae97bc4dcbc993c04c9db5294647cd935cc",
+    "Proof.lean": "f75d7d98d250bb557188c8a44139d7d5ce05275bd91962f37e51e619aaba797f",
+    "proof-receipt.json": "262d47cd3aee6b7ea0fa92339208a88ae3b13722008ac3f668c023442783346e",
+    "Validation.lean": "e77211bd2ea3ef8220dd05344598d25ce5e6bb923db7a0a1fb9782b81af3b651",
+    "validation-spec.json": "a111434124357601d4e0cf78358b84d49288efe33736f6007ff5568f5873ea68",
+    "validation-receipt.json": "41b78ad4cd0768e6647b6bd15d136d26022a9c8a60c72634bdd52ef0aba5b260",
+    "check_validation.sh": "0655b1c88460a2b5944fa0a2094cf92f9b00ffb12f25ae8683aadc5bb7612013"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1522-VALIDATION-local-20260714T011720+0800"
+  ],
+  "root_vector": {
+    "accepted_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "accepted_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "best_provisional_kernel_evidence": {
+      "H": "H1",
+      "M": "M0-L-candidate",
+      "R": "R3"
+    },
+    "boundary": "The vendored repo-local terminal bodies and exact adapters kernel-replay, but this is only a candidate M0-L classification pending authoritative reconciliation and E0 evidence. It is not M0-P because the proof bodies are vendored locally."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "dependency_gate": "dependency.S56-M-1522-VALIDATION.master_acceptance",
+    "reason": "S56-M-1522-VALIDATION is only a provisional [_] worker projection with accepted=false and release_grade=false, so RELEASE is not dependency-legal."
+  },
+  "nested_predecessor_failure": {
+    "gate_id": "dependency.S56-M-1522-PROOF.master_acceptance",
+    "reason": "The validation receipt itself records proof master acceptance as its first failed gate."
+  },
+  "first_failed_release_assurance_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "The successful network-isolated replay reused the automation-provided shared warm .lake closure rather than a new clean checkout with empty caches and offline-restorable inputs."
+  },
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "pass as provisional worker evidence",
+    "exact_root_kernel_replay": "pass as provisional trust-level-zero warm-cache worker evidence",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass on the target Lean replay",
+    "authoritative_root_closure": "missing; the frozen graph remains M3 with M1522-L-POINTWISE and M1522-T-IDENTIFY open",
+    "proof_classification": "conflict; the proof receipt proposes M0-P for bodies vendored under the target, while rev-5.6 classifies repo-local proof bodies as M0-L candidates",
+    "frozen_upstream_reconciliation": "missing; M1522-X-UPSTREAM names lua-vr/pointwise-birkhoff@fc06094ca0506d8d74eba8b45b34882ce5930bf4, while the proof vendors marcmorningstar/lean4-ergodic-theory@ed3fa6b8a30594eeb791160563942ba115581aa0 without an append-only registry or graph delta",
+    "public_projection_reconciliation": "missing; README and obligation-tree remain pre-proof projections, and obligation-tree reports eleven human-source obligations while the registry contains twelve",
+    "human_source_acceptance": "missing; root remains H1",
+    "readability_acceptance": "missing; root remains R3",
+    "foundation_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1522-VALIDATION and all transitive phase receipts",
+    "append-only reconciliation of the frozen upstream obligation and typed provenance graph with the actually vendored proof body",
+    "correct M0-L candidate classification and dependency-legal reconciliation of M1522-L-POINTWISE and M1522-T-IDENTIFY into the authoritative root",
+    "accepted foundation policy plus complete transitive provenance, axiom, trust, computation, and TCB closure",
+    "accepted H0 primary-source crosswalk and independently reviewed R0 reconstruction",
+    "reconciled structured authority and public projections, including the human-source denominator",
+    "immutable clean source snapshot, cold empty-cache network-denied build, and offline archive replay",
+    "content-addressed SBOM, licenses, and restorable dependency closure",
+    "two signed attestations from separately provisioned runners and an independently implemented minimal verifier",
+    "protected adversarial CI, deterministic release bundle, and final master acceptance"
+  ],
+  "retry_condition": "First master-accept the predecessor chain and append-only reconcile the vendored proof, classification, obligation registry, typed provenance/root state, and public projections. Then close H0/R0, foundation/TCB/SBOM, cold offline reproduction, distinct signed independent verification, deterministic-bundle, and master release gates.",
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records the conflict but does not rewrite predecessor authority",
+  "canonical_obligation_ids": [
+    "M1522-ROOT",
+    "M1522-S-DEFINITIONS",
+    "M1522-S-DOMAIN",
+    "M1522-S-BOUNDARY",
+    "M1522-S-TRANSPORT",
+    "M1522-S-FOUNDATION",
+    "M1522-N-GENERAL",
+    "M1522-C-LIMIT-DATA",
+    "M1522-L-POINTWISE",
+    "M1522-B-ERGODIC",
+    "M1522-L-INTEGRAL-ID",
+    "M1522-T-IDENTIFY",
+    "M1522-T-ASSEMBLE",
+    "M1522-X-UPSTREAM",
+    "M1522-X-SOURCE",
+    "M1522-X-PROVENANCE"
+  ],
+  "statement_fingerprint": "lean-expression-sha256:1ae3d8a352060fb26372a07d0128af2f465933e4c3c08b6c752b0b5fe72c83b5",
+  "composition_certificates": [
+    "Stage1Instances.THM_M_1522.root_of_pointwise_and_identification",
+    "Stage1Instances.THM_M_1522.birkhoffPointwiseErgodicViaFrozenComposition",
+    "Stage1Instances.THM_M_1522.birkhoffPointwiseErgodicDirect"
+  ],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-1522"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1522/release-phase.md"
+  ],
+  "change_impact_set": [
+    "S56-M-1522-RELEASE"
+  ],
+  "status_boundary": "Self-tested negative release reconciliation only. It creates no accepted receipt or state transition and does not claim AUDIT-Z, THEOREM-Z, E0/E1, M0-L acceptance, release grade, theorem completion, independent verification, or master acceptance."
+}

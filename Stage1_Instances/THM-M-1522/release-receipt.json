@@ -1,0 +1,173 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1522-RELEASE-local-20260714T120000+0800",
+  "item_id": "S56-M-1522-RELEASE",
+  "theorem_id": "THM-M-1522",
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-1522-VALIDATION"
+  ],
+  "base_revision": "f78ecdb166de720e4af8d8859826b4a22a4c1733",
+  "base_tree": "6d72b645f5722769d4ed5d9eea3559c9e4c69856",
+  "validated_at": "2026-07-14T12:00:00+08:00",
+  "review_due": "before any retry or 2026-08-13, whichever is earlier",
+  "owner": "THM-M-1522 execution lane",
+  "attestor": "stage1-rev56-worker-slot2",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "release_grade": false,
+  "content_addressed_release_evidence": false,
+  "repository_state": {
+    "base_commit": "f78ecdb166de720e4af8d8859826b4a22a4c1733",
+    "base_tree": "6d72b645f5722769d4ed5d9eea3559c9e4c69856",
+    "initial_status": [
+      "?? Formalizations/Lean/.lake"
+    ],
+    "worktree_classification": "nonrelease worker handoff with owned untracked release artifacts and the automation-provided untracked canonical .lake symlink",
+    "patch_hash": "not_applicable_untracked_owned_artifacts",
+    "dependency_cache": "automation-provided canonical pinned .lake symlink, shared warm cache reused without modification"
+  },
+  "inputs": {
+    "statement.json": "2812ad428abf680cd4ee518b780b80697cb1fd008c8bbf9c7736ea77f6bd3e75",
+    "anchor-audit.json": "131a286180faec74ffbf95803269dbb0d4119ab2a2cdb95105d322e1dc697e7f",
+    "obligation-registry.json": "46e2fee724bfbd90b554b02daabe0d73d9c9b8eaded63851aad9f80fcf6c52dd",
+    "typed-graphs.json": "9506ce707579e0055afd1ad1edd04ae97bc4dcbc993c04c9db5294647cd935cc",
+    "Proof.lean": "f75d7d98d250bb557188c8a44139d7d5ce05275bd91962f37e51e619aaba797f",
+    "proof-receipt.json": "262d47cd3aee6b7ea0fa92339208a88ae3b13722008ac3f668c023442783346e",
+    "Validation.lean": "e77211bd2ea3ef8220dd05344598d25ce5e6bb923db7a0a1fb9782b81af3b651",
+    "validation-spec.json": "a111434124357601d4e0cf78358b84d49288efe33736f6007ff5568f5873ea68",
+    "validation-receipt.json": "41b78ad4cd0768e6647b6bd15d136d26022a9c8a60c72634bdd52ef0aba5b260",
+    "check_validation.sh": "0655b1c88460a2b5944fa0a2094cf92f9b00ffb12f25ae8683aadc5bb7612013",
+    "check_release.py": "f47356c62ad0f7d73e8e2bd8c44e62a78090796e80fc1a0648a6416c1ba855fd",
+    "release-decision.json": "83951ca28102d6cc30ae597b9cfcd233db66b35b2b502178a3d90cfff84d7989",
+    "release-phase.md": "32bd45393a81ef80f568ed0de6540183c4eae7c17aa314c0ec7acc96d46adb17",
+    "release-spec.json": "aef5a2ff46b0bf6f5ab265dc74341d7722864b2e31bd21a090d2aa39728360af"
+  },
+  "recipe": {
+    "recipe_id": "S56-M-1522-RELEASE-negative-reconciliation-v1",
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "-B",
+      "Stage1_Instances/THM-M-1522/check_release.py"
+    ],
+    "env_allowlist": {},
+    "timeout_seconds": 600,
+    "network_policy": "denied",
+    "network_enforcement": "The release checker makes no network request. Its Lean replay delegates to check_validation.sh, whose Lean subprocesses use Bubblewrap --unshare-net and a read-only host root. This is deliberately warm-cache nonrelease evidence.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "exact five-line PASS/BLOCKED status summary"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M1522-ROOT",
+      "M1522-S-FOUNDATION",
+      "M1522-L-POINTWISE",
+      "M1522-T-IDENTIFY",
+      "M1522-X-UPSTREAM",
+      "M1522-X-SOURCE",
+      "M1522-X-PROVENANCE"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_1522.BirkhoffPointwiseErgodicTarget",
+      "Stage1Instances.THM_M_1522.root_of_pointwise_and_identification",
+      "ErgodicTheory.tendsto_birkhoffAverage_ae_integral",
+      "Stage1Instances.THM_M_1522.birkhoffPointwiseErgodicViaFrozenComposition",
+      "Stage1Instances.THM_M_1522.birkhoffPointwiseErgodicDirect",
+      "Stage1Instances.THM_M_1522.Validation.independentlyReconstructedBirkhoffPointwiseErgodic"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "PASS negative reconciliation and fresh narrow Lean replay; BLOCKED dependency, audit, theorem, and release gates.",
+    "narrow_kernel_replay": "pass_provisional_warm_cache_trust_level_zero",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "validation_dependency_master_acceptance": "fail_closed",
+    "authoritative_root_state": "H1/M3/R3_open",
+    "proof_classification_reconciliation": "fail_closed_M0-P_claim_conflicts_with_repo_local_vendoring",
+    "frozen_upstream_reconciliation": "fail_closed_proof_origin_differs_from_frozen_M1522-X-UPSTREAM",
+    "public_projection_reconciliation": "fail_closed",
+    "audit_z": "fail_closed",
+    "theorem_z": "fail_closed",
+    "hermetic_release_gate": "fail_closed",
+    "supply_chain_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "deterministic_bundle_gate": "fail_closed",
+    "master_acceptance_gate": "pending",
+    "verdict": "blocked",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "accepted_receipt_ids": [],
+  "first_failed_gate": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+  "first_failed_dependency_gate": "dependency.S56-M-1522-VALIDATION.master_acceptance",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1522-VALIDATION and all transitive phase receipts",
+    "append-only reconciliation of the frozen upstream obligation and typed provenance graph with the actually vendored proof body",
+    "correct M0-L candidate classification and dependency-legal reconciliation of M1522-L-POINTWISE and M1522-T-IDENTIFY into the authoritative root",
+    "accepted foundation policy plus complete transitive provenance, axiom, trust, computation, and TCB closure",
+    "accepted H0 primary-source crosswalk and independently reviewed R0 reconstruction",
+    "reconciled structured authority and public projections, including the human-source denominator",
+    "immutable clean source snapshot, cold empty-cache network-denied build, and offline archive replay",
+    "content-addressed SBOM, licenses, and restorable dependency closure",
+    "two signed attestations from separately provisioned runners and an independently implemented minimal verifier",
+    "protected adversarial CI, deterministic release bundle, and final master acceptance"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_after_worker_selftest": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1522/check_release.py",
+    "Stage1_Instances/THM-M-1522/release-decision.json",
+    "Stage1_Instances/THM-M-1522/release-phase.md",
+    "Stage1_Instances/THM-M-1522/release-receipt.json",
+    "Stage1_Instances/THM-M-1522/release-spec.json"
+  ],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-1522/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1522/release-phase.md"
+  ],
+  "change_impact_set": [
+    "S56-M-1522-RELEASE"
+  ],
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records conflicts without rewriting predecessor authority",
+  "freshness": {
+    "support_state": "active provisional worker evidence",
+    "supersession_state": "superseded by any changed input or accepted master receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "Stage1 integration lane"
+  },
+  "known_failures": [
+    "The validation prerequisite and every predecessor receipt remain provisional rather than dependency-ordered master-accepted.",
+    "The proof receipt's M0-P proposal conflicts with its repo-local vendored body location; M0-L would be the candidate class, still without E0 acceptance.",
+    "The frozen M1522-X-UPSTREAM target names lua-vr/pointwise-birkhoff, while the proof vendors marcmorningstar/lean4-ergodic-theory without a registry or typed-graph delta.",
+    "The authoritative root remains H1/M3/R3 with M1522-L-POINTWISE and M1522-T-IDENTIFY open, and public projections are not reconciled.",
+    "Accepted H0, independently reviewed R0, foundation, complete trust/provenance/TCB, SBOM, cold offline restoration, two signed independent runners, an independent minimal verifier, protected CI, deterministic bundle, and master acceptance are absent.",
+    "The worker uses the automation-provided shared warm .lake closure and is not release grade."
+  ],
+  "retry_condition": "First master-accept the predecessor chain and append-only reconcile proof classification, upstream provenance, typed graph/root state, and public projections. Then close H0/R0, foundation/TCB/SBOM, cold offline reproduction, independent-verifier, deterministic-bundle, and final master gates.",
+  "status_boundary": "Self-tested negative release reconciliation only. This receipt is not accepted, release grade, E0/E1, an M0-L acceptance, a deterministic bundle, an independent attestation, AUDIT-Z, THEOREM-Z, theorem completion, or master acceptance."
+}
