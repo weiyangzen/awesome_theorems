@@ -1,0 +1,118 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-1011-PROOF-local-20260714T034045+0800",
+  "item_id": "S56-M-1011-PROOF",
+  "theorem_id": "THM-M-1011",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "499a718cc7926abaf61e9721fe0d7485059403e6",
+  "base_tree": "ed2a23c0266f4d921ad97562392226015eee80be",
+  "validated_at": "2026-07-14T03:40:45+08:00",
+  "attestor": "stage1-rev56-worker-slot51",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "canonical_target": "Stage1Instances.THM_M_1011.CanonicalStatement",
+  "canonical_target_expression_sha256": "5711575e18ff4a1eecd2ce047a29817d876a6e44cb86c724b476414314f9e812",
+  "registry_denominator_sha256": "3dd41addcf34fd9ca7d89e9d2231337be0e01df77f497acdcefff743020bdd90",
+  "exact_statement_delta": "none",
+  "proof_route": "Pass to SeparationQuotient X, construct a homeomorphism of Borel probability-measure spaces by quotient and representative pushforwards, transport tightness forward and compact closure backward, and invoke pinned Prokhorov on the metric quotient.",
+  "route_reconciliation": "The frozen M1011-N-SEPARATION obligation asks for a legal resolution of the pseudo-metric separation mismatch. This exact quotient reduction supplies that resolution without adding T2Space X to the target. The immutable pre-proof graph records only the previously known direct-T2 route; downstream integration must reconcile the successful quotient implementation and its terminal bodies before treating the frozen graph as closed.",
+  "exact_declaration": "Stage1Instances.THM_M_1011.Proof.canonical",
+  "supporting_declarations": [
+    "Stage1Instances.THM_M_1011.Proof.continuous_representative",
+    "Stage1Instances.THM_M_1011.Proof.sectionMap_quotientMap",
+    "Stage1Instances.THM_M_1011.Proof.quotientMap_sectionMap",
+    "Stage1Instances.THM_M_1011.Proof.probabilityMeasureHomeomorph",
+    "Stage1Instances.THM_M_1011.Proof.quotientMap_isUniformlyTight",
+    "Stage1Instances.THM_M_1011.Proof.isCompact_closure_iff_quotientMap",
+    "Stage1Instances.THM_M_1011.Proof.tight_to_compact"
+  ],
+  "kernel_evidenced_obligation_ids": [
+    "M1011-ROOT",
+    "M1011-S-DEFINITIONS",
+    "M1011-S-DOMAIN",
+    "M1011-S-BOUNDARY",
+    "M1011-S-TRANSPORT",
+    "M1011-N-SEPARATION",
+    "M1011-B-TIGHT-COMPACT",
+    "M1011-B-COMPACT-TIGHT",
+    "M1011-L-PROKHOROV",
+    "M1011-L-COMPACT-TIGHT",
+    "M1011-T-ASSEMBLE"
+  ],
+  "provisionally_closed_obligation_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "proof_body": {
+    "classification": "repo_local_exact_proof_over_pinned_mathlib_bridges",
+    "source": "Stage1_Instances/THM-M-1011/Proof.lean",
+    "source_sha256": "f8b6582c52e409df8fbace88d59fe8300efc018f07a40bf8f10a43aad75413ed",
+    "terminal_module": "Mathlib.MeasureTheory.Measure.Prokhorov",
+    "terminal_declarations": [
+      "MeasureTheory.isCompact_closure_of_isTightMeasureSet",
+      "MeasureTheory.isTightMeasureSet_of_isCompact_closure",
+      "MeasureTheory.IsTightMeasureSet.map",
+      "MeasureTheory.ProbabilityMeasure.continuous_map",
+      "SeparationQuotient.isInducing_mk",
+      "Inseparable.mem_measurableSet_iff"
+    ],
+    "dependency_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "inputs": {
+    "statement_sha256": "6bf24878f5041dc4aa1e7365b8a0c2b5c7d8fb65fe5ee389597081a8c9511d66",
+    "obligation_tree_sha256": "4395f2cb5f788f3fd9ae19fabfd97659d4edeef88eafb952f1a80f03d2c17c9d",
+    "obligation_registry_sha256": "e427e1638975db782747232bd2dcd9382df41424df592d94035dec05b31aaa40",
+    "typed_graphs_sha256": "38b9505f9643c6a2bac4fd8f65d4723d031cfb18a26d905197bfd4d833819895",
+    "anchor_audit_sha256": "7d75a5b6a347a8d2f23627346953cc5747b119960b4d7d1e5b114f8b506a93a2",
+    "validation_specs_sha256": "ed6f75283414aeb3da94d5f68e403d40e1c4cb1b629bcdec80e0722276dec8a1",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "validation_trust_level": 0,
+    "network_used": false,
+    "lake_mutated": false,
+    "dependency_cache": "automation-provided canonical pinned .lake symlink, reused read-only"
+  },
+  "recipe": {
+    "cwd": "Stage1_Instances/THM-M-1011",
+    "summary": "Resolve the pinned Lean binary and LEAN_PATH with lake env, elaborate Statement.lean to a disposable /tmp olean, prepend that directory to LEAN_PATH, then elaborate Proof.lean with --trust=0 -t0 and LEAN_NUM_THREADS=1.",
+    "timeout_seconds": 120,
+    "network": "not_used"
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "The exact non-T2 canonical root and all separation-quotient support declarations elaborated in an isolated trust-zero replay.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "machine_debt_proposal": "M0-L for the exact root, pending master acceptance and route reconciliation",
+    "root_kernel_closed": true,
+    "frozen_graph_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "supersedes_as_proof_phase_status": [
+    "Stage1_Instances/THM-M-1011/proof-blocker.json",
+    "Stage1_Instances/THM-M-1011/proof-recheck-2026-07-14-head-e8499ef6.json"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1011/Proof.lean",
+    "Stage1_Instances/THM-M-1011/check_proof.py",
+    "Stage1_Instances/THM-M-1011/proof-receipt.json",
+    "Stage1_Instances/THM-M-1011/proof-validation.md"
+  ],
+  "known_failures": [
+    "Master acceptance is pending; no authoritative scheduler or dossier state was changed.",
+    "The frozen typed graph is immutable pre-proof evidence for the direct-T2 route and must be reconciled with this quotient route by the integration lane before graph closure is accepted.",
+    "M1011-S-FOUNDATION still requires the complete transitive trust and TCB audit assigned to downstream validation.",
+    "Human-source H0, readability R0, audit completion, validation, hermetic replay, independent verification, release, and THEOREM-Z remain open.",
+    "The automation-provided Formalizations/Lean/.lake symlink remains untracked nonrelease worker state."
+  ],
+  "status_boundary": "This is provisional self-tested proof-node evidence. It records an exact placeholder-free kernel proof and proposes only worker state [_]; it does not claim master acceptance, audit completion, theorem completion, validation, or release."
+}
