@@ -1,0 +1,94 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1006-PROOF",
+  "theorem_id": "THM-M-1006",
+  "execution_rank": 286,
+  "phase": "proof",
+  "layer": 4,
+  "base_revision": "a7c34044268bf5745e40c011134b447dd1e7cd0f",
+  "recorded_at": "2026-07-14",
+  "verdict": "blocked",
+  "workflow_state_observed": "[ ]",
+  "canonical_target": "Stage1Instances.THM_M_1006.StatementShape",
+  "refuted_specialization": "Stage1Instances.THM_M_1006.StatementShape (1 / 2)",
+  "statement_sha256": "88f12c854469ebbf6a0d1325d4456838c75a155a430820356ae18b5b2c98d4cd",
+  "proof_source_sha256": "08b4daf0e5b8fe530e25d3c3c0ab2c69b6f9af13930165f6d891e6c92d7161bc",
+  "counterexample_source_sha256": "bb936da56d66a509c9009b6819f9fd67b37b7f5ea9798fc10e4c772f42133589",
+  "counterexample_analysis_sha256": "483394d1e32bc8b305143d4dd12611b55b8c082ad6dd0888d1984c545aab9c5e",
+  "obligation_registry_sha256": "6f5150471c09c1c86a9f09883834639c99dba2cc8c09734cf31d960645337132",
+  "typed_graphs_sha256": "78e5dd73dadded668fd1285bb44aa80c2b61373e44f52a9d713b1e0896c22bfc",
+  "obligation_registry_denominator_sha256": "12818dc1f1f77555b23c3fea780e482518d1d5c196dc1390c8175d00914dac6f",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "network_used": false,
+    "dependency_cache": "automation-provided canonical .lake symlink reused read only; no dependency mutation"
+  },
+  "counterexample": {
+    "exponent": "p = 1 / 2",
+    "family": "finite stopped rare-jump martingales on uniform product probability spaces",
+    "parameterization": "at horizon N >= 2, q = 1 / N^2; while active the next increment is +1 with probability 1-q and -(1-q)/q with probability q, after which the process freezes",
+    "lower_maximal_moment_bound": "E[M_N^(1/2)] >= (1/2) * N^(1/2)",
+    "upper_quadratic_variation_moment_bound": "E[Q_N^(1/4)] <= N^(1/4) + 2^(1/4)",
+    "failure": "the ratio is unbounded in N, contradicting a finite constant uniform in the horizon",
+    "human_analysis": "Stage1_Instances/THM-M-1006/counterexample-analysis.md",
+    "checked_component_declarations": [
+      "Stage1Instances.THM_M_1006.Counterexample.half_mem_openUnitInterval",
+      "Stage1Instances.THM_M_1006.Counterexample.upper_transition_centered",
+      "Stage1Instances.THM_M_1006.Counterexample.lower_transition_preserves_mean",
+      "Stage1Instances.THM_M_1006.Counterexample.upper_rare_jump_size",
+      "Stage1Instances.THM_M_1006.Counterexample.lower_escape_multiplier",
+      "Stage1Instances.THM_M_1006.Counterexample.lower_survival_quadratic_variation",
+      "Stage1Instances.THM_M_1006.Counterexample.upper_error_tends_to_zero",
+      "Stage1Instances.THM_M_1006.Counterexample.quarter_power_unbounded"
+    ],
+    "kernel_boundary": "Counterexample.lean checks only algebraic and asymptotic components. It does not encode the product probability spaces, filtration, Martingale witness, exact lintegrals, moment bounds, or Not (StatementShape (1 / 2))."
+  },
+  "machine_derived_axiom_boundary": {
+    "checked_declaration_axiom_union": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "sorryAx_present": false
+  },
+  "authoritative_root_vector_observed": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R3"
+  },
+  "proposed_root_vector_subject_to_master_review": {
+    "H": "H5",
+    "M": "M3",
+    "R": "R3"
+  },
+  "classification_boundary": "The complete human counterexample supports proposed H5. M remains M3 because no full kernel proof of the negated exact target is present. This worker does not rewrite the accepted predecessor registry or debt labels.",
+  "proof_body_added_this_attempt": false,
+  "full_kernel_refutation_present": false,
+  "root_closed": false,
+  "proof_phase_complete": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "selftest_manifest_written": false,
+  "first_failed_gate": "exact-target mathematical truth at M1006-B-P-RANGE: the unrestricted discrete-jump upper comparison is false at p = 1 / 2",
+  "invalidated_root_path": [
+    "M1006-B-P-RANGE",
+    "M1006-T-UPPER",
+    "M1006-T-ASSEMBLE",
+    "M1006-ROOT"
+  ],
+  "remaining_root_cut_set": [
+    "M1006-B-P-RANGE",
+    "M1006-T-UPPER",
+    "M1006-ROOT"
+  ],
+  "repair_steps": [
+    "reopen S56-M-1006-STATEMENT and choose a source-faithful corrected target",
+    "refreeze and accept the statement fingerprint and dependent audit/obligation artifacts",
+    "resume positive proof execution only against the corrected target"
+  ],
+  "retry_condition": "Resume positive proof work only after statement repair and fresh acceptance of invalidated prerequisites, or after explicit redirection to a full kernel-checked counterexample target.",
+  "status_boundary": "Durable negative evidence only. S56-M-1006-PROOF remains [ ]; this packet is not a proof receipt, supplies no root credit, and claims neither provisional proof completion nor theorem completion."
+}
