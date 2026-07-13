@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0484-RELEASE-local-v1",
+  "item_id": "S56-M-0484-RELEASE",
+  "theorem_id": "THM-M-0484",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0484/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 360,
+  "network_policy": "denied",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains PASS S56-M-0484-RELEASE, the first failed dependency-acceptance gate, and the blocked unchanged terminal decision"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0484-ROOT",
+    "M0484-T-ASSEMBLE",
+    "M0484-T-SUFFICIENCY",
+    "M0484-T-NECESSITY"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0484.LucasLehmerTestTarget",
+    "Stage1Instances.THM_M_0484.Proof.lucasLehmerCriterion",
+    "Stage1Instances.THM_M_0484.Validation.differentialLucasLehmerCriterion"
+  ],
+  "negative_status_only_obligation_ids": [
+    "M0484-X-SOURCE",
+    "M0484-S-FOUNDATION",
+    "M0484-X-PROVENANCE",
+    "M0484-X-TRUST",
+    "M0484-X-READABLE",
+    "M0484-X-WORKFLOW"
+  ],
+  "scope_boundary": "Same-worker fail-closed evidence reconciliation plus the predecessor's narrow trust-zero replay. covered_obligation_ids are the locally replayed root route only; negative_status_only_obligation_ids are checked solely to remain open and receive no closure credit. This is not a cold empty-cache offline build, an accepted H0/R0/trust closure, a signed independent runner, an independently implemented release verifier, a deterministic content-addressed release bundle, or master acceptance."
+}

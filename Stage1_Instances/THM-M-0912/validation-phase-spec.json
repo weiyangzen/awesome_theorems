@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0912-VALIDATION",
+  "theorem_id": "THM-M-0912",
+  "recipes": [
+    {
+      "recipe_id": "M0912-validation-kernel-replay",
+      "cwd": ".",
+      "argv": [
+        "bash",
+        "Stage1_Instances/THM-M-0912/check_proof.sh"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact sha256 c992e4e246af412dc7a18bf35e90239c8c91607c7905916109f87a42e27f2726"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0912-ROOT",
+        "M0912-T-ROOT-COMPOSE",
+        "M0912-N-POSITIVE-ROW",
+        "M0912-T-PREDECESSOR-COMPOSE",
+        "M0912-L-CHOOSE-SUCC-RIGHT",
+        "M0912-L-POSITIVE-COLUMN-REINDEX",
+        "M0912-N-SUMMAND-ORDER"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0912.Proof.pascalIdentityTarget_proof",
+        "Stage1Instances.THM_M_0912.Proof.pascalIdentityTarget_via_frozen_children"
+      ]
+    },
+    {
+      "recipe_id": "M0912-validation-differential-probe",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0912/check_validation.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0912 validation: exact warm kernel, trust observation, and pinned local provenance"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0912-ROOT",
+        "M0912-T-PREDECESSOR-COMPOSE"
+      ],
+      "covered_declarations": [
+        "Nat.choose_eq_choose_pred_add",
+        "Stage1Instances.THM_M_0912.Validation.pascalIdentityTarget_independent_local"
+      ]
+    },
+    {
+      "recipe_id": "M0912-validation-fail-closed-verifier",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0912/check_validation.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0912 validation: exact warm kernel, trust observation, and pinned local provenance"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0912-ROOT",
+        "M0912-S-FOUNDATION",
+        "M0912-T-ROOT-COMPOSE",
+        "M0912-T-PREDECESSOR-COMPOSE",
+        "M0912-X-PROVENANCE",
+        "M0912-X-TRUST",
+        "M0912-X-WORKFLOW"
+      ],
+      "covered_declarations": [
+        "Nat.choose_succ_right",
+        "Nat.choose_eq_choose_pred_add",
+        "Stage1Instances.THM_M_0912.Proof.pascalIdentityTarget_proof",
+        "Stage1Instances.THM_M_0912.Proof.pascalIdentityTarget_via_frozen_children",
+        "Stage1Instances.THM_M_0912.Validation.pascalIdentityTarget_independent_local"
+      ]
+    }
+  ],
+  "status_boundary": "Narrow warm-cache worker validation with a same-workspace differential probe. Cold hermetic replay, complete transitive trust/provenance, and distinct-runner independent verification fail closed."
+}
