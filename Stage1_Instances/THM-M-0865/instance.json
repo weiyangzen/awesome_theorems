@@ -1,0 +1,241 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0865",
+  "item_id": "S56-M-0865-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1419,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Kuratowski定理",
+  "name_en": "Kuratowski's theorem",
+  "canonical_name": "Kuratowski forbidden-subdivision characterization of planar graphs (exact encoding open)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "literal_source_claim_zh": "平面图的禁用子图刻画",
+  "literal_source_claim_en": "A characterization of planar graphs by forbidden subgraphs.",
+  "source_attribution": "Kazimierz Kuratowski; 1930 (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "Provisional theorem-family scope: a graph is planar if and only if it contains neither K5 nor K3,3 as a topological minor, equivalently no subgraph isomorphic to a subdivision of either obstruction. Exact graph, planarity, subdivision, containment, and boundary conventions remain to be source-frozen.",
+  "canonical_claim_status": "recognizable_kuratowski_theorem_family_but_catalog_does_not_fix_the_forbidden_subdivision_or_topological_minor_encoding_and_neighbor_wagner_boundary",
+  "canonical_claim": "Every source-approved graph is planar exactly when it contains no source-defined subdivision or topological-minor model of K5 or K3,3, after all representation equivalences are checked.",
+  "statement_blocker": "The catalog says only 'forbidden subgraphs'. It does not distinguish literal subgraphs, subdivisions, topological minors, or ordinary minors; fix finite versus general and simple versus multigraph scope; define planarity, plane embeddings, subdivisions, path-model containment, K5 and K3,3 representations; settle the Wagner ordinary-minor boundary; or state ordered binders, assumptions, conclusion, foundations, and degenerate cases. Selecting one Lean proposition at intake would resolve material source and ownership choices without review.",
+  "target_decision": "preserve the conventional Kuratowski topological-minor/subdivision family, exclude literal-subgraph weakening and silent Wagner-minor substitution, and require independent source and representation review before the statement phase",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Bipartite",
+      "Mathlib.Combinatorics.SimpleGraph.Copy"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "forall (V : Type u) (G : SimpleGraph V), Planar G <-> (not (IsTopologicalMinor (completeGraph (Fin 5)) G) and not (IsTopologicalMinor (completeBipartiteGraph (Fin 3) (Fin 3)) G))",
+    "candidate_expression_status": "shape_only_not_canonical_Lean_target_because_graph_scope_Planar_and_IsTopologicalMinor_are_not_source_frozen_or_available",
+    "candidate_declarations": [
+      "SimpleGraph",
+      "SimpleGraph.Iso",
+      "SimpleGraph.Copy",
+      "SimpleGraph.IsContained",
+      "SimpleGraph.completeGraph",
+      "SimpleGraph.completeBipartiteGraph"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_graph_planarity_subdivision_topological_minor_and_wagner_boundary_freeze",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-predicate-parameterized-schema-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix a finite or general graph carrier, simple or multi-edge structure, all vertex and path universes, planarity/plane-embedding data, subdivision and topological-minor witness types, obstruction vertex types, graph isomorphisms, and every finiteness, topology, decidability, and classical instance.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open formal target: a source-faithful equivalence between planarity and simultaneous absence of K5 and K3,3 subdivisions/topological-minor models, with the ordinary-minor form admitted only under an explicit checked neighbor-ownership decision.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake; the statement phase must resolve empty, singleton, edgeless, disconnected, low-cardinality, looped, parallel-edge, already-subdivided, and embedding-degenerate cases listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "finite simple graph G is planar iff it contains no subdivision of completeGraph (Fin 5) or completeBipartiteGraph (Fin 3) (Fin 3) as a non-induced subgraph",
+    "finite simple graph G is planar iff neither obstruction is a topological minor under an internally vertex-disjoint path model",
+    "the ordinary-minor equivalence from the jointly attributed Kuratowski-Wagner theorem",
+    "a source-faithful plane-embedding formulation with checked invariance under graph isomorphism"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton graphs, edgeless graphs, forests, isolated vertices, bridges, and disconnected graphs",
+    "graphs with fewer than five or six vertices and unused host vertices",
+    "finite versus infinite graphs and every finiteness assumption in source and proof",
+    "simple graphs versus loops and parallel edges and any erasure or transport policy",
+    "plane versus sphere embeddings, crossings, touching arcs, repeated geometric traces, and embedding regularity",
+    "unsubdivided edges, positive path length, pre-existing degree-two vertices, branch vertices, internal vertices, and pairwise path disjointness",
+    "non-induced versus induced subgraph containment, graph isomorphism invariance, and witness composition",
+    "classical topology, choice, quotients, extensionality, decidability, and computation/certificate boundaries"
+  ],
+  "excluded_substitutions": [
+    "literal K5/K3,3 subgraph-freeness without subdivision or topological-minor closure",
+    "THM-M-0866 Wagner ordinary-minor characterization used as the Kuratowski root without explicit ownership and checked equivalence",
+    "one implication only, a 3-connected or connected special case, a fixed graph, or a bounded-size enumeration presented as the general equivalence",
+    "Euler planar formula THM-M-0810, Four Color Theorem THM-M-0833, planarity testing, or a weaker necessary condition",
+    "a Planar, Subdivision, or IsTopologicalMinor predicate or structure that assumes or stores the desired equivalence",
+    "a drawing, heuristic, decision procedure, or certificate without checked semantics and soundness/completeness",
+    "the catalog's untrusted verified label, a DOI, theorem-name match, source lead, or API probe used as proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0866",
+      "name": "Wagner定理",
+      "relationship": "separately owns the forbidden ordinary-minor characterization; its clause is not silently substituted or duplicated here"
+    },
+    {
+      "theorem_id": "THM-M-0868",
+      "name": "图子式定理",
+      "relationship": "general graph-minor theorem family; it supplies no Kuratowski statement or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0869",
+      "name": "禁用子图问题",
+      "relationship": "general forbidden-subgraph problem; it does not determine this target's subdivision semantics"
+    },
+    {
+      "theorem_id": "THM-M-0810",
+      "name": "欧拉公式",
+      "relationship": "related planar-graph invariant but not the forbidden-subdivision characterization"
+    }
+  ],
+  "source_status": "H1_recognizable_proved_theorem_family_and_pinpoint_modern_authoritative_source_lead_but_catalog_source_selection_historical_text_definition_chain_corrections_node_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Casimir Kuratowski, Sur le probleme des courbes gauches en Topologie, Fundamenta Mathematicae 15 (1930), 271-283",
+      "candidate_locator": "DOI 10.4064/fm-15-1-271-283; bibliographic metadata verified through Crossref",
+      "candidate_summary": "historical primary-source lead matching the catalog attribution and year",
+      "inspection_status": "article text, exact theorem locator, definitions, assumptions, proof nodes, corrections, errata, and independent review not inspected or admitted"
+    },
+    {
+      "citation": "Reinhard Diestel, Graph Theory, 6th edition, 2025",
+      "candidate_locator": "author-hosted Chapter 4, Section 4.4, printed pages 107-111, Theorem 4.4.6; Chapter 1, Section 1.1 printed page 2 and Section 1.7 printed pages 18-21",
+      "candidate_summary": "defines subdivision/topological minor and states a complete planarity equivalence with K5 and K3,3 topological-minor and ordinary-minor clauses",
+      "inspection_status": "pinpoint modern source lead inspected; not the catalog-cited or independently reviewed historical edition, complete definition/proof-node/correction crosswalk remains open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Bipartite",
+      "declarations": [
+        "SimpleGraph.completeBipartiteGraph",
+        "SimpleGraph.completeBipartiteGraph_isContained_iff"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "K3,3 and ordinary subgraph-copy substrate only; no subdivision, topological-minor, planarity, or Kuratowski root"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Copy",
+      "declarations": [
+        "SimpleGraph.Copy",
+        "SimpleGraph.IsContained"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "plain non-induced subgraph-copy containment only; it is not topological-minor containment"
+    }
+  ],
+  "bounded_search_result": "No graph-planarity predicate or plane-graph model, subdivision/topological-minor relation, simple-graph minor relation, or Kuratowski theorem was located by the bounded repo-local and pinned SimpleGraph source search. This is intake reconnaissance, not an exhaustive anchor audit or external absence claim.",
+  "source_revisions": {
+    "repository_base": "748243faadc15828fb087059337fd05b7be9fdeb",
+    "repository_base_tree": "e46d642646f80980838b6f016f5d69b817bd464d",
+    "repository_record": "Docs/researches/math_theorems.md:6341-6346",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23603-23628",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "f0c73dd39bf558b0c5950e35cfddda6f295121b6d6d75a2fded78da0413943b1",
+    "stage0_projection_excerpt_sha256": "95f01a1104713396fde8d787a517789de13a1d112c8e81b7010409a193d73e45",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_theorems_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "8b93d52d753cdb6e3462080cf7f8315c9e8a07ef921a1b93a535a5fcba41f6c2",
+    "execution_dag_sha256": "fcd54bfe658aa1577667cc24b732b82d3425164fbfcad212107c0a3b696a0431",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "historical_source_doi": "10.4064/fm-15-1-271-283",
+    "historical_source_metadata_status": "Crossref bibliographic metadata inspected 2026-07-13; article text not admitted",
+    "diestel_chapter4_locator": "Graph Theory 6th ed., author-hosted Chapter 4, Section 4.4, printed pages 107-111, Theorem 4.4.6; inspected 2026-07-13",
+    "diestel_chapter4_pdf_sha256": "bfdfbcb1e7c0df0d6fc1322ae02b11a8c7ef5c6c85f509e96ad20ad7665b15a9",
+    "diestel_chapter1_locator": "Graph Theory 6th ed., author-hosted Chapter 1, Section 1.1 printed page 2 and Section 1.7 printed pages 18-21; inspected 2026-07-13",
+    "diestel_chapter1_pdf_sha256": "ebd9084653a1a534b964cbe327eeb8ab6b46a5e98deeee94280b05ebb6f37b56",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_simple_graph_basic_sha256": "ae6fd7c95ad151f84eb316d32c518485e9877bdda0d9eb6b4aac9e041676ad1e",
+    "mathlib_simple_graph_maps_sha256": "60bcb9baa33451ed189091e3254004bf77f9b814a87a6ce9709042c4db6d7d2a",
+    "mathlib_simple_graph_copy_sha256": "f40e66407ee7bb45be958fee42b54065b547b42ca47aa18c989a04e58a3ffb22",
+    "mathlib_simple_graph_bipartite_sha256": "5402f4cd073b757a9d1bd127cbbca9f9a2b0750c8c9edb7e2361df32312acf3f",
+    "lake_symlink_target_string_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; classical topology, quotient, choice, graph-finiteness, embedding, and path-witness policies remain open because no exact target is frozen",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact imports, planarity/subdivision infrastructure, terminal bodies, transitive declarations, placeholders, unsafe paths, and complete trust closure remain open",
+  "computation_profile": "kernel-certificate-planned/1.0: no drawing, heuristic, unverified planarity test, native shortcut, finite enumeration, or unchecked certificate is credited; future computation requires source-mapped semantics and kernel-checked soundness/completeness",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0865/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0865/README.md",
+    "Stage1_Instances/THM-M-0865/instance.json",
+    "Stage1_Instances/THM-M-0865/scope-map.md",
+    "Stage1_Instances/THM-M-0865/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0865/task-dag.json",
+    "Stage1_Instances/THM-M-0865/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0865/check_intake.py",
+    "Stage1_Instances/THM-M-0865/validation.md",
+    "Stage1_Instances/THM-M-0865/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-theory source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "representation_reviewer": "unassigned independent planarity/topological-minor reviewer",
+    "neighbor_scope_reviewer": "unassigned reviewer for THM-M-0865/0866 ownership"
+  },
+  "freshness_and_revocation_policy": {
+    "policy_id": "stage1-intake-freshness/1.0",
+    "review_due": "before master acceptance or any dependent statement work",
+    "invalidation_inputs": [
+      "catalog, attribution, source edition, theorem locator, correction, erratum, or independent review change",
+      "Kuratowski versus Wagner ownership or subdivision/topological-minor/ordinary-minor root decision",
+      "graph class, finiteness, planarity, embedding, obstruction, containment, binder, assumption, conclusion, foundation, computation, or boundary decision",
+      "canonical Lean target, checked transport, mutation result, toolchain, dependency pin, assurance profile, validator, recipe, receipt, or owned artifact change"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional intake receipt, invalidates dependent proposals, records the reason, and requires a fresh scoped self-test"
+  },
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only when accompanied by its provisional receipt and worker packet. H1 records an inspected pinpoint modern source lead without H0 admission; M4 records no usable planarity/subdivision/topological-minor formal artifact; R3 records a usable scope/status dossier but no source-faithful proof reconstruction. No exact Lean statement, accepted state, audit completion, theorem completion, release, or master acceptance is claimed."
+}
