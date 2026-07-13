@@ -1,0 +1,231 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1598",
+  "item_id": "S56-M-1598-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1218,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Diffie-Hellman密钥交换",
+  "name_en": "Diffie-Hellman key exchange",
+  "canonical_name": "Diffie-Hellman key-agreement protocol and theorem family",
+  "category": "其他重要领域 / 离散数学",
+  "category_en": "other important fields / discrete mathematics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "公钥密码学的开创",
+  "literal_source_claim_en": "The beginning of public-key cryptography.",
+  "source_attribution": "Diffie/Hellman, 1976 (catalog metadata only; no work or passage is cited)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_diffie_hellman_and_historical_significance_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gloss is historical significance, not a proposition. It does not select algebraic agreement, protocol correctness, passive security under a particular hardness assumption, authenticated security, or implementation refinement; nor does it fix the group/domain, parameters, exponent distribution, transcript, validation, key derivation, adversary, hypotheses, conclusion, or boundary cases. Selecting the elementary power identity or a modern security theorem would substitute proposition-changing mathematics.",
+  "target_decision": "redirect the historical label to one immutable, independently reviewed correctness or security proposition before statement execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "IsCyclic",
+      "IsCyclic.exists_generator",
+      "Subgroup.zpowers",
+      "pow_mul",
+      "pow_mul'",
+      "pow_mul_comm",
+      "orderOf",
+      "pow_orderOf_eq_one"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_truth_valued_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an admitted source must fix the group or field/curve domain, public parameters and generator/subgroup data, key/exponent types and distributions, representations, protocol state, adversary and probability spaces, security parameter, and all universes/typeclasses.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose algebraic shared-value equality, primitive/protocol correctness including errors and key derivation, passive secrecy/indistinguishability, authenticated key agreement, or implementation refinement.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; all domain, key, validation, attack, encoding, and execution cases in scope-map.md require a source-mapped decision.",
+  "candidate_scope_not_credited": [
+    "the algebraic equality of the two honest parties' repeated exponentiations",
+    "correctness of a selected finite-field DH primitive including parameter and public-key validation, error behavior, serialization, and key derivation",
+    "passive security under an exact discrete-log, CDH, or DDH experiment and assumption",
+    "authenticated key agreement for a named protocol and active-adversary game",
+    "refinement of a concrete modular-exponentiation and key-derivation implementation"
+  ],
+  "excluded_substitutions": [
+    "the elementary repeated-power identity treated as the full historical, protocol, or security target",
+    "a structure or hypothesis that assumes equal keys, successful agreement, or the desired security conclusion",
+    "discrete-log, CDH, or DDH hardness asserted without an exact experiment and reduction boundary",
+    "security against active man-in-the-middle attack for unauthenticated basic DH",
+    "THM-M-1596 generic cryptography, THM-M-1597 RSA, THM-M-1599 elliptic-curve cryptography, or THM-M-1600 zero-knowledge proofs",
+    "a fixed test vector, simulation, benchmark, executable output, or unchecked certificate",
+    "generic cyclic-group APIs, the untrusted catalog label, or the discovery probe"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1596",
+      "name": "密码学",
+      "relationship": "broader cryptography topic; no statement or proof credit is inherited"
+    },
+    {
+      "theorem_id": "THM-M-1597",
+      "name": "RSA加密",
+      "relationship": "distinct public-key encryption target"
+    },
+    {
+      "theorem_id": "THM-M-1599",
+      "name": "椭圆曲线密码学",
+      "relationship": "may host an elliptic-curve DH instantiation but does not identify this target's root"
+    },
+    {
+      "theorem_id": "THM-M-1600",
+      "name": "零知识证明",
+      "relationship": "distinct cryptographic proof-system target"
+    }
+  ],
+  "source_status": "H5_catalog_historical_significance_gloss_only_no_selected_truth_valued_proposition",
+  "primary_source_candidates_not_credited": [
+    {
+      "citation": "Whitfield Diffie and Martin E. Hellman, New Directions in Cryptography, IEEE Transactions on Information Theory 22(6), November 1976, pages 644-654, DOI 10.1109/TIT.1976.1055638",
+      "candidate_locator": "printed page 649, equations (7)-(12), especially the public-key distribution agreement computation in equations (9)-(12)",
+      "candidate_summary": "prime q, primitive element alpha of GF(q), secret exponents, public exponentials, and the common value alpha^(Xi*Xj) mod q; surrounding prose discusses computational security but does not give a modern proved security theorem",
+      "observed_pdf_sha256": "68e2895c270c8c35f423530fcbce7d9ef7111fd891c542c7299c11081a676e15",
+      "observed_pdf_size_bytes": 2311536,
+      "crossref_response_sha256": "002cc46294d4f57a167771013252ec1dd5a2629e43d120f3090126a87cf4e714",
+      "inspection_status": "strong source-family and algebraic-correctness lead only; catalog identity, exact canonical proposition, incorporated definitions, security boundary, corrections, immutable repository archive, and independent review remain unadmitted"
+    },
+    {
+      "citation": "NIST Special Publication 800-56A Revision 3, Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography, 2018, DOI 10.6028/NIST.SP.800-56Ar3",
+      "candidate_locator": "Section 5.7.1.1, Finite Field Cryptography Diffie-Hellman Primitive, page 48",
+      "candidate_summary": "modern FFC DH primitive with domain/private/public inputs, rejected shared values, encoding, erasure, and error output",
+      "observed_pdf_sha256": "6b315e3a91012981f9a88ad62c97ea7d4b170a7746e713f34dd29538ee46f403",
+      "inspection_status": "scope-discrimination lead only; not catalog-cited and not selected as the root"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic",
+      "declarations": [
+        "IsCyclic",
+        "IsCyclic.exists_generator",
+        "Subgroup.zpowers",
+        "pow_mul",
+        "pow_mul'",
+        "pow_mul_comm",
+        "orderOf",
+        "pow_orderOf_eq_one"
+      ],
+      "assessment": "generic cyclic-group and exponentiation substrate only; no Diffie-Hellman protocol, public-key validation, shared-secret encoding, adversary, hardness assumption, or security conclusion"
+    }
+  ],
+  "bounded_search_result": "No Diffie-Hellman, public-key-distribution, key-exchange, or key-agreement declaration was found in repository-local Lean or pinned mathlib. This is bounded intake discovery, not a global absence claim or external anchor audit.",
+  "foundation_profile": {
+    "status": "planned_not_selected",
+    "required": "freeze accepted and disallowed logical principles, probability/complexity semantics, and cryptographic assumptions with the canonical target"
+  },
+  "tcb_profile": {
+    "status": "planned_not_selected",
+    "required": "freeze Lean kernel, toolchain, imports, transitive declarations, randomness/solver/oracle boundaries, native code, and validator trust before proof credit"
+  },
+  "computation_profile": {
+    "status": "planned_not_selected",
+    "required": "distinguish exact group arithmetic and checked certificates from bounded integers, probabilistic execution, test vectors, timing/side-channel models, and empirical security claims"
+  },
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not selected",
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_record": "Docs/researches/math_theorems.md:11770-11775",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:43444-43469",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "primary_source_pdf_sha256": "68e2895c270c8c35f423530fcbce7d9ef7111fd891c542c7299c11081a676e15",
+    "primary_source_crossref_sha256": "002cc46294d4f57a167771013252ec1dd5a2629e43d120f3090126a87cf4e714",
+    "nist_scope_source_pdf_sha256": "6b315e3a91012981f9a88ad62c97ea7d4b170a7746e713f34dd29538ee46f403",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean": "4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake": "5.0.0-src+98dc76e",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_cyclic_basic_source_sha256": "1629b28e036ca1d50be7ed0ef85c51b8e99e51b75a1809ec2eb6f974e5decbbe"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent cryptography source reviewer",
+    "formal_reviewer": "unassigned independent Lean statement reviewer",
+    "boundary_reviewer": "unassigned integration reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "catalog, attribution, source, or target correction",
+      "selected correctness/security/implementation proposition, edition, locator, incorporated definition, correction, or review finding",
+      "group/domain, parameter, exponent, transcript, validation, error, derivation, adversary, assumption, binder, conclusion, or boundary decision",
+      "canonical Lean target, toolchain, dependency, assurance profile, validator, receipt, or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "archive_and_recovery_boundary": "Repository history and an integration-lane durable snapshot are intended recovery mechanisms after acceptance; mutable external source copies and this unaccepted worker packet are not release archives.",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "statement-blocker.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1598/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1598/README.md",
+    "Stage1_Instances/THM-M-1598/check_intake.py",
+    "Stage1_Instances/THM-M-1598/instance.json",
+    "Stage1_Instances/THM-M-1598/intake-receipt.json",
+    "Stage1_Instances/THM-M-1598/scope-map.md",
+    "Stage1_Instances/THM-M-1598/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1598/statement-blocker.md",
+    "Stage1_Instances/THM-M-1598/task-dag.json",
+    "Stage1_Instances/THM-M-1598/validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. H5 classifies the catalog's historical gloss as not one stable proposition; it does not deny the algebraic correctness of Diffie-Hellman or claim that the protocol/security family is false. Source and pinned API leads supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

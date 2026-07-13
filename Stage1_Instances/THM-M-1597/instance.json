@@ -1,0 +1,222 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1597",
+  "item_id": "S56-M-1597-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1217,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "RSA加密",
+  "name_en": "RSA encryption",
+  "canonical_name": "RSA public-key cryptosystem theorem family",
+  "category": "其他重要领域 / 离散数学",
+  "category_en": "Other Important Fields / Discrete Mathematics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "RSA加密",
+  "literal_source_claim_zh": "公钥加密系统",
+  "literal_source_claim_en": "A public-key encryption system.",
+  "source_attribution": "Rivest/Shamir/Adleman, 1977 (catalog metadata; no repository citation)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_cryptosystem_gloss_only_no_exact_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_RSA_and_a_public_key_cryptosystem_but_does_not_select_one_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies a cryptosystem label and purpose, not a binder-complete theorem. It does not choose construction, all-message round-trip correctness, signature correctness, efficiency, private-key recovery, factoring hardness, or a modern security claim; nor does it fix prime distinctness, exponent congruence, message domain, modular representation, padding, adversary/cost model, exact conclusion, or boundary cases. Choosing textbook RSA correctness or security would change the received target without accountable source redirection.",
+  "target_decision": "redirect the catalog system label to one corrected, immutable, independently reviewed source proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Data.Nat.ModEq",
+      "Mathlib.Data.Nat.Totient",
+      "Mathlib.NumberTheory.PowModTotient",
+      "Mathlib.Data.ZMod.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "Nat.ModEq.pow",
+      "Nat.ModEq.pow_totient",
+      "Nat.pow_add_mul_totient_mod_eq",
+      "Nat.totient_mul",
+      "Nat.totient_prime",
+      "Nat.modEq_and_modEq_iff_modEq_mul",
+      "ZMod.chineseRemainder"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix natural, integer, ZMod, Fin, or algorithmic message and key carriers; prime and modulus representation; public/private key structures; padding/randomness/adversary/cost structures if relevant; universes; and all typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose a construction, one or both round-trip laws, permutation theorem, signature theorem, complexity result, factoring relation, or formal security property.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No boundary case is excluded at intake because no proposition is selected; statement freeze must decide every prime, key, exponent, message, modular, padding, algorithmic, security, and complexity case in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "the Section VI all-message theorem that textbook RSA encryption and decryption are inverse maps under corrected key conditions",
+    "only the encryption-then-decryption direction or only the signature-oriented reverse direction",
+    "existence and computation of inverse exponents from valid prime factors",
+    "correctness and operation complexity of repeated-squaring encryption and decryption",
+    "a reduction between private-key recovery, totient recovery, or factoring",
+    "a modern semantic-security or signature-unforgeability theorem for a specified padded RSA scheme"
+  ],
+  "degenerate_cases_to_resolve": [
+    "equal versus distinct primes, prime 2, prime order, and zero or unit modulus cases",
+    "zero, one, or nonpositive-oriented exponents and the exact modular-inverse orientation",
+    "messages 0 and 1, messages divisible by either prime, endpoints, and representatives outside the canonical range",
+    "whether modular reduction occurs after encryption and decryption and equality in Nat, Fin, or ZMod",
+    "one inverse direction versus both and the relationship between encryption and signature use",
+    "deterministic textbook RSA versus padding, randomness, malformed ciphertexts, and rejection behavior",
+    "security parameter, adversary, experiment, advantage, reduction, and hardness assumption if security is selected",
+    "arithmetic, bit, probabilistic, or machine cost model if efficiency is selected"
+  ],
+  "excluded_substitutions": [
+    "the distinct Stage0 computer-science target THM-C-0201 RSA正确性",
+    "Euler's theorem for only messages coprime to the modulus used as all-message RSA correctness",
+    "a definition of RSA or a key structure storing the desired inverse property",
+    "a single toy key or executable modular computation used as a general theorem",
+    "OAEP, PKCS#1, PSS, Rabin, or another padded, randomized, or related scheme",
+    "factoring hardness, key-recovery hardness, IND-CPA, IND-CCA, or signature unforgeability substituted for functional correctness",
+    "benchmark, probabilistic prime test, implementation, or side-channel result substituted for the mathematical root",
+    "the untrusted catalog label 已验证 or the discovery probe used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-C-0201",
+      "name": "RSA正确性",
+      "relationship": "a distinct Stage0 computer-science record with the sharper gloss RSA encryption/signature correctness; it is outside the Stage1 rev-5.6 target set and supplies no scope or evidence here"
+    },
+    {
+      "theorem_id": "THM-M-1596",
+      "name": "密码学",
+      "relationship": "a neighboring general cryptography label; it cannot determine RSA's exact claim or proof status"
+    },
+    {
+      "theorem_id": "THM-M-1598",
+      "name": "Diffie-Hellman密钥交换",
+      "relationship": "a distinct public-key construction; its algebra and security claims cannot substitute for RSA"
+    },
+    {
+      "theorem_id": "THM-M-1600",
+      "name": "零知识证明",
+      "relationship": "a separate cryptographic proof-system family with no RSA statement or evidence credit"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "R. L. Rivest, A. Shamir, and L. Adleman, A Method for Obtaining Digital Signatures and Public-Key Cryptosystems, Communications of the ACM 21(2) (1978), 120-126, DOI 10.1145/359340.359342",
+      "source_url": "https://people.csail.mit.edu/rivest/Rsapaper.pdf",
+      "observed_pdf_sha256": "f7b1f78d9a7cbeb85e32b8c563a6db60771a5cc4bdc55580645f7cb778a4966b",
+      "observed_pdf_size_bytes": 182059,
+      "candidate_locator": "Sections II and V-VI, especially equations (1)-(5) and the all-message inverse-permutation conclusion; electronic reprint pages 2 and 6-8",
+      "candidate_summary": "defines exponentiation encryption/decryption and proves all-message round-trip correctness using prime cases and recombination; separately discusses algorithms, signatures, and unproved security",
+      "crossref_response_sha256": "73a5f359d2600a87bf31f55fde8198995018bfe9a1178afe3d31b0f7b5f99dca",
+      "status": "primary paper inspected outside the repository for scope discrimination only; no canonical proposition, repository-owned source, complete correction/errata mapping, H0 admission, or independent review is credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.NumberTheory.PowModTotient",
+      "declarations": ["Nat.ModEq.pow_totient", "Nat.pow_totient_mod_eq_one", "Nat.pow_add_mul_totient_mod_eq"],
+      "boundary": "Euler-totient exponent reduction for a base coprime to the modulus; strictly insufficient for the paper's all-message RSA result"
+    },
+    {
+      "module": "Mathlib.Data.Nat.Totient",
+      "declarations": ["Nat.totient_mul", "Nat.totient_prime"],
+      "boundary": "generic totient identities; no RSA key, map, inverse law, or security result"
+    },
+    {
+      "module": "Mathlib.Data.Nat.ModEq / Mathlib.Data.ZMod.Basic",
+      "declarations": ["Nat.ModEq.pow", "Nat.modEq_and_modEq_iff_modEq_mul", "ZMod.chineseRemainder"],
+      "boundary": "generic modular congruence and CRT infrastructure; no source-selected RSA declaration or proof body"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_record": "Docs/researches/math_theorems.md:11763-11768",
+    "computer_science_record": "Docs/researches/cs_theorems.md:339",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:43417-43442",
+    "computer_science_stage0_projection": "Docs/Stage0_Blueprint.md:87128-87154",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_nat_modeq_source_sha256": "247ec25633683d05aa1b7c276d5aebeb80ed4d1db5f07aa1a536a71a3d339054",
+    "mathlib_nat_totient_source_sha256": "bc3be754c653d34785636ed734355fc5e976719b4eddf3cb7f37175265f1c20f",
+    "mathlib_pow_mod_totient_source_sha256": "96bc8c40bbeadf212b96fee01a2ec09ea5bbe08076253593a7f123befb6b8853",
+    "mathlib_zmod_basic_source_sha256": "b150e3bf79b154b28c1d3fa68cbd837f093f4305bf4fd2e9302db29081135358"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H5", "M": "M4", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; finite quotient, natural modular arithmetic, classical decidability, executable algorithm, probability, asymptotic, and cryptographic-game foundations remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, terminal declarations, transitive dependencies, algorithms, oracles, runtime, and trust policy remain open",
+  "computation_profile": "No key generator, primality oracle, native modular exponentiation, benchmark, randomized security experiment, side-channel model, external solver, or unchecked certificate is credited; future computation requires kernel-checked semantics and source-mapped soundness",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1597/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1597/README.md",
+    "Stage1_Instances/THM-M-1597/instance.json",
+    "Stage1_Instances/THM-M-1597/scope-map.md",
+    "Stage1_Instances/THM-M-1597/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1597/task-dag.json",
+    "Stage1_Instances/THM-M-1597/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1597/check_intake.py",
+    "Stage1_Instances/THM-M-1597/validation.md",
+    "Stage1_Instances/THM-M-1597/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent cryptography/source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned number-theory and cryptography reviewer",
+    "reviewer_policy": "Independent reviewers must approve the selected proposition, edition, correction/errata record, key and message model, correctness/security boundary, degenerate cases, and formal mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier and external source observations have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source edition or proposition selection, prime/key/message/modular convention, correction or errata decision, encryption/signature/correctness/security/complexity boundary, padding/randomness/adversary/cost model, boundary case, neighboring-target scope, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog cryptosystem gloss as not yet a stable proposition; it does not refute established RSA correctness. The primary-source lead and pinned arithmetic probe are discovery evidence only. No canonical mathematical or Lean statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

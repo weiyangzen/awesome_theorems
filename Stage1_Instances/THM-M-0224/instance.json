@@ -1,0 +1,202 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0224",
+  "item_id": "S56-M-0224-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1237,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "刘维尔定理",
+  "name_en": "Liouville's theorem for bounded entire functions",
+  "canonical_name": "Complex-analysis Liouville theorem family for bounded entire functions",
+  "category": "分析学 / 复分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "有界整函数必为常数",
+  "literal_source_claim_en": "Every bounded entire function is constant.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_bounded_entire_function_family_and_direct_pinned_interfaces_but_exact_source_definition_binders_conclusion_encoding_generalization_boundary_and_transport_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog identifies the standard complex-analysis family but supplies no source edition or definition chain and does not explicitly fix the scalar Complex-to-Complex carrier, entire-function encoding, boundedness encoding, conclusion encoding, ordered binders, or boundary cases. Pinned mathlib proves a stronger E-to-F normed-space theorem in three conclusion shapes. Selecting that generalization or one encoding at intake without an admitted source and checked transports would invent proposition-changing choices.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.Complex.Liouville"
+    ],
+    "declaration_candidates": [
+      "Differentiable.apply_eq_apply_of_bounded",
+      "Differentiable.exists_const_forall_eq_of_bounded",
+      "Differentiable.exists_eq_const_of_bounded"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only",
+    "gate_state": "open_pending_exact_source_crosswalk_scalar_generalization_decision_and_statement_elaboration"
+  },
+  "domain_and_universes": "Open: the received family conventionally concerns f : Complex -> Complex in universe 0. An approved source must ratify that carrier or explicitly authorize a general complex normed-space domain/codomain statement and its universe and typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective only: existence of c : Complex such that every z : Complex satisfies f z = c. Pairwise equality and function equality with Function.const are candidate encodings whose exact source relationship is not frozen.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is formally excluded before a proposition is selected; the statement phase must resolve every boundary case listed in scope-map.md. Constant functions, including zero, belong to the intended family and must not be removed.",
+  "candidate_scope_not_credited": [
+    "for every f : Complex -> Complex, Differentiable Complex f and Bornology.IsBounded (Set.range f) imply existence of c : Complex with forall z, f z = c",
+    "the pairwise equality form for scalar entire functions",
+    "the function equality form for scalar entire functions",
+    "the pinned generalization to arbitrary complex normed spaces E and F",
+    "an analytic-on-univ or explicit global norm-bound formulation after checked transport"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1520 or other Hamiltonian phase-space volume-preservation theorems sharing Liouville's name",
+    "THM-M-1143 or another bounded-harmonic-function Liouville theorem",
+    "Liouville numbers, approximation or transcendence results, the Liouville arithmetic function, Arnold-Liouville, Sturm-Liouville, or ODE Liouville formulas",
+    "a theorem only on a disk, half-plane, compact set, circle, ray, or outside a compact set",
+    "continuity, real differentiability, local boundedness, meromorphicity, or harmonicity in place of entire complex differentiability",
+    "Cauchy estimates, the maximum-modulus principle, or the fundamental theorem of algebra alone",
+    "a structure or hypothesis that directly assumes the desired constancy",
+    "the catalog's untrusted verified label or the discovery probe used as source, statement-identity, or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0223",
+      "name": "留数定理",
+      "relationship": "neighboring complex-analysis result; it is not the bounded-entire constancy theorem"
+    },
+    {
+      "theorem_id": "THM-M-0225",
+      "name": "最大模原理",
+      "relationship": "a possible proof-route theorem or corollary relationship, not interchangeable root evidence"
+    },
+    {
+      "theorem_id": "THM-M-1143",
+      "name": "Liouville定理",
+      "relationship": "separate bounded-harmonic-function target with different hypotheses and ownership"
+    },
+    {
+      "theorem_id": "THM-M-1520",
+      "name": "刘维尔定理",
+      "relationship": "separate Hamiltonian phase-space volume-preservation target with the same Chinese title"
+    }
+  ],
+  "source_status": "H1_classical_published_family_is_identifiable_but_no_admitted_immutable_source_exact_definition_assumption_conclusion_proof_errata_crosswalk_or_independent_review",
+  "human_source_candidates_not_credited": [
+    {
+      "citation": "Joseph Liouville, 1844 historical attribution from the repository catalog",
+      "status": "bibliographic lead only; no work title, edition, exact passage, definition chain, proof boundary, translation, correction history, or independent review was inspected or admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.Complex.Liouville",
+      "declaration": "Differentiable.apply_eq_apply_of_bounded",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a complex-differentiable map between arbitrary complex normed spaces with bounded range has equal values at every pair of points",
+      "status": "interface and direct axiom report elaborate; scalar source identity, exact expression transport, terminal body, provenance, and trust acceptance remain open"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.Liouville",
+      "declaration": "Differentiable.exists_const_forall_eq_of_bounded",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a complex-differentiable map between arbitrary complex normed spaces with bounded range equals one value at every point",
+      "status": "closest candidate prose shape but still a generalization; no canonical target or proof credit"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.Liouville",
+      "declaration": "Differentiable.exists_eq_const_of_bounded",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a complex-differentiable map between arbitrary complex normed spaces with bounded range is function-equal to Function.const",
+      "status": "alternate conclusion encoding only; source identity, checked scalar transport, and anchor audit remain open"
+    },
+    {
+      "module": "Mathlib.Analysis.Complex.Harmonic.Liouville",
+      "declaration": "InnerProductSpace.bounded_harmonic_on_complex_plane_is_constant",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "bounded harmonic maps on the complex plane are constant",
+      "status": "explicit non-target namesake belonging to a distinct hypothesis and repository target"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_record": "Docs/researches/math_theorems.md:1619-1624",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:6221-6246",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "eb8940dd7c80f50db8de8935fe6349dd3bcbee8217c1ac59034fb9ccb0b729cc",
+    "stage0_projection_excerpt_sha256": "982d7703414f83afa8d38edc41c870c18fd67cc9782807c7025e38ae3df4d458",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "complex_liouville_source_sha256": "de49ced84f5799222893a523667144dd01cfa0b793cf1b2deb72268b3651700d",
+    "harmonic_liouville_source_sha256": "f88a775aac1cda4d11057521a6735f30edfe97dad5645a2bd56cc8a3e0e3f0cd"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; candidate direct axiom reports contain propext, Classical.choice, and Quot.sound, while exact source statement, accepted logical principles, proof-specific axioms, and transitive closure remain open",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, scalar transport, terminal declarations and bodies, transitive dependencies, and complete trust policy remain open",
+  "computation_profile": "No numerical sampler, boundedness experiment, oracle, native computation, unchecked certificate, or empirical plot is credited; the intended theorem requires a kernel-checked analytic proof",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0224/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0224/README.md",
+    "Stage1_Instances/THM-M-0224/instance.json",
+    "Stage1_Instances/THM-M-0224/scope-map.md",
+    "Stage1_Instances/THM-M-0224/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0224/task-dag.json",
+    "Stage1_Instances/THM-M-0224/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0224/check_intake.py",
+    "Stage1_Instances/THM-M-0224/validation.md",
+    "Stage1_Instances/THM-M-0224/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent complex-analysis reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "namesake_scope_reviewer": "unassigned reviewer for harmonic, Hamiltonian, and number-theoretic boundaries"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or erratum, historical attribution, scalar/general carrier, entire/analytic definition, boundedness, conclusion encoding, binder or boundary decision, namesake reconciliation, canonical target or checked transport, toolchain or dependency pin, assurance profile, validator, or any owned artifact; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, classical scalar family, proposition-changing decisions, namesake exclusions, direct pinned exact-topic interfaces, and open task DAG. No canonical mathematical or Lean proposition, checked source transport, proof-body credit, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
