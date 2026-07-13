@@ -44,3 +44,30 @@ import deletion, and the four required structural mutations. `check_statement_ar
 replays and reconciles that packet. This is a worker-self-tested statement proposal pending
 dependency-ordered master acceptance. The vector remains `[H1, M3, R4]`; no upstream proof body,
 anchor audit, accepted state, audit completion, or theorem completion is claimed.
+
+## Anchor-audit result
+
+The immutable anchor inventory identifies one distinct exact terminal body:
+`SimpleGraph.tutte` in pinned mathlib revision `8a178386ffc0`. `AnchorAudit.lean` checks a literal
+adapter from its no-violator interface to the frozen target and reports only `propext`,
+`Classical.choice`, and `Quot.sound`. The Atlas result is a duplicate wrapper over the same body,
+not an independent closure. This is an exact `M0-W`-shaped candidate route, but its worker evidence
+is below release-grade E1 and not master accepted, so the legal root classification remains `M3`.
+
+## Obligation-tree result
+
+`obligation-registry.json` freezes 56 stable semantic obligations before proof-phase credit.
+`typed-graphs.json` separates proof, refinement, provenance, evidence, trust, documentation, and
+workflow edges. The evidence graph is empty because every current worker packet is mutable,
+unaccepted, and non-content-addressed. The proof architecture follows the pinned body through the
+necessity injection, odd/even parity split, maximal matching-free supergraph, universal-vertex
+clique construction, and the nonclique near-matching symmetric-difference argument.
+`ObligationSignatures.lean` elaborates every planned proof-node interface, while
+`ObligationTree.lean` checks only the literal terminal wrapper, exact adapter, and root composition.
+All 16 internal source-body
+relations remain explicitly unverified decomposition plans pending exact child-to-parent harnesses.
+
+This worker-self-tested architecture keeps `accepted_closed_obligations=[]` and the root at
+`[H1, M3, R4]`. Primary-source H0, proof-phase acceptance, release-grade provenance and trust,
+readable R0, hermetic replay, independent validation, `AUDIT-Z`, theorem completion, and master
+acceptance all remain open.

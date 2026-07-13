@@ -1,0 +1,81 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1520-PROOF",
+  "theorem_id": "THM-M-1520",
+  "intent": "prove",
+  "recorded_at": "2026-07-14T02:06:24+08:00",
+  "base_revision": "309f58b7a54d36653b3483a543c6378eea53882c",
+  "base_tree": "1051ab77fe56d6e32ba26761bbcfd3ad8a258743",
+  "canonical_target": "Stage1.THM_M_1520.LiouvilleStatement",
+  "canonical_expression_sha256": "547fe7d61d57e7ea242aaff7a97763a769275f0c6f1c64d03ca5db45e82a012b",
+  "input_sha256": {
+    "Statement.lean": "0b3bb7e3410047f58ca7790fd4640c547604bbf8b2e715b0bf46c32634ce2ef0",
+    "ObligationTree.lean": "e73e0e967957fe57d94dba19206bd7f23e5499f54149e19ca693787500e4d4d0",
+    "obligation-registry.json": "705f92d2c5a61eb289f27aef71ff454d4afc397f7039e57044498af825cad851",
+    "typed-graphs.json": "e4116a46fa9a193b332bc30be1c3c025d258fa2318d328e53b3e7fb1fe866a90",
+    "Proof.lean": "24fe83d637e32fba4339836b621d973364b3aa216d309026919209184d4958ac"
+  },
+  "registry_denominator_sha256": "3e5ecbc29279547f4e05323bfea6cdbda08b8e69545cffba35df81df8b460e4c",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "blocked",
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": ["H2", "M3", "R3"],
+  "root_vector_after": ["H2", "M3", "R3"],
+  "closed_obligation_ids": [],
+  "supported_subbranches": [
+    {
+      "declaration": "Stage1.THM_M_1520.timeZero_measurePreserving",
+      "role": "t = 0 boundary case of M1520-S-BOUNDARY",
+      "source": "pre-existing Proof.lean"
+    },
+    {
+      "declaration": "Stage1.THM_M_1520.zeroDimension_measurePreserving",
+      "role": "n = 0 boundary case of M1520-S-BOUNDARY",
+      "source": "pre-existing Proof.lean"
+    },
+    {
+      "declaration": "Stage1.THM_M_1520.timeMap_bijective",
+      "role": "inverse-time and bijectivity subbranch of M1520-N-FLOW",
+      "source": "FlowAlgebra.lean"
+    },
+    {
+      "declaration": "Stage1.THM_M_1520.measurePreserving_of_det_fderiv_eq_one",
+      "role": "terminal change-of-variables step of M1520-L-CHANGE after upstream analytic hypotheses",
+      "source": "JacobianBridge.lean"
+    }
+  ],
+  "conditional_composer": {
+    "declaration": "Stage1.THM_M_1520.liouvilleStatement_of_analyticPackage",
+    "boundary": "Consumes LiouvilleAnalyticPackage and does not construct it."
+  },
+  "first_failed_completion_gate": "M1520-T-ALL-TIMES",
+  "remaining_root_cut_set": ["M1520-T-ALL-TIMES"],
+  "expanded_missing_proof_packages": [
+    "M1520-N-FLOW",
+    "M1520-B-DIVERGENCE",
+    "M1520-C-VARIATION",
+    "M1520-L-JACOBIAN",
+    "M1520-L-MEASURABLE",
+    "M1520-L-CHANGE",
+    "M1520-T-ALL-TIMES"
+  ],
+  "blocker": "The pinned closure has no theorem deriving spatial differentiability of the given global flow, its variational equation, or determinant-one Jacobian evolution from the frozen orbitwise ODE hypotheses. The new flow-algebra and nonlinear change-of-variables bodies discharge only the algebraic inverse and terminal measure-transport subbranches; they do not construct the missing analytic inputs or LiouvilleAnalyticPackage.",
+  "retry_condition": "Provide placeholder-free positive-dimensional spatial-flow regularity, Hamiltonian zero-divergence, variational/Jacobian evolution, and checked all-times package construction, locally or through an immutable compatible pinned dependency.",
+  "accepted_receipt_ids": [],
+  "selftest_manifest_written": false,
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1520/FlowAlgebra.lean",
+    "Stage1_Instances/THM-M-1520/JacobianBridge.lean",
+    "Stage1_Instances/THM-M-1520/proof-blocker.md",
+    "Stage1_Instances/THM-M-1520/proof-blocker.json"
+  ],
+  "dependency_boundary": "Reused the pre-existing untracked symlink Formalizations/Lean/.lake to canonical pinned artifacts; no update, build, fetch, clone, or .lake mutation was performed.",
+  "status_boundary": "This is a blocked partial-proof record, not a proof receipt. It does not satisfy S56-M-1520-PROOF and must not be promoted to provisional or accepted completion."
+}

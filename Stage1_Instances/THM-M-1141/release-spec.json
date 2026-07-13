@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1141-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1141-RELEASE",
+  "theorem_id": "THM-M-1141",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1141/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 360,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes the pinned Lean executable inside bubblewrap with --unshare-net, a read-only host bind, and only a fresh temporary directory writable. It reuses the automation-provided shared warm .lake artifacts and is therefore explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED terminal-decision summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1141-ROOT",
+    "M1141-L-LOCAL",
+    "M1141-L-POSITIVE",
+    "M1141-C-COVER",
+    "M1141-C-CHAIN",
+    "M1141-L-PROPAGATE",
+    "M1141-T-UNIFORM",
+    "M1141-T-RATIO",
+    "M1141-X-SOURCE",
+    "M1141-X-TRUST",
+    "M1141-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1141.HarnackInequality",
+    "Stage1Instances.THM_M_1141.harnackInequality_of_uniformValueComparison",
+    "Stage1Instances.THM_M_1141.positive_denominators_on_compact",
+    "Stage1Instances.THM_M_1141.ComparisonChain.endpoint",
+    "Stage1Instances.THM_M_1141.harnackInequality_of_analytic_package",
+    "Stage1Instances.THM_M_1141.Validation.positiveDenominatorsDirect",
+    "Stage1Instances.THM_M_1141.Validation.comparisonChainEndpointDirect"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation plus network-isolated trust-zero warm-cache Lean replay. This recipe cannot provide source-statement identity, exact analytic root closure, master acceptance, a clean empty-cache cold build, offline restoration, complete transitive provenance/TCB/SBOM/license closure, independent H0/R0 review, two signed independent runners, an independently implemented minimal verifier, protected release CI, or a deterministic release bundle."
+}
