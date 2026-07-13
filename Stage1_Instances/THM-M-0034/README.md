@@ -32,6 +32,21 @@ boundary. None of this supplies proof credit.
 
 The planned vector remains `[H1, M3, R4]`. The exact Lean expression is self-tested, but the Russian
 source lacks independent translation, errata review, Quillen reconciliation, and master acceptance.
-No formal candidate or proof body is credited, and no readable proof reconstruction exists. All
+No located external candidate or proof body receives closure credit, and no readable proof reconstruction exists. All
 downstream proof and release work remains open. No accepted execution state, audit completion,
 theorem completion, or master acceptance is claimed.
+
+## Obligation architecture
+
+The obligation-tree phase freezes 41 canonical obligations and seven separate typed graph families
+in `obligation-registry.json` and `typed-graphs.json`. The visible route of the selected immutable
+external source is expanded through finite-variable induction, monic localization, Quillen
+patching, fibre freeness, and an independent-universe `ULift` transport. This is architecture, not
+external proof credit. `ObligationTree.lean` checks only that the all-natural-number external field
+statement conditionally implies the positive-variable root.
+
+The first machine cut is `M0034-X-EXTERNAL-BODY`. The source remains outside the dependency closure,
+has no usable license artifact, and has not received a local kernel/axiom replay or complete
+transitive provenance audit. The exact root therefore remains `[H1, M3, R4]` with no accepted closed
+obligation. See `obligation-tree.md` and `obligation-tree-validation.md` for the frozen ledger and
+the exact self-test boundary.

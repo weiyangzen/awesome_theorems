@@ -1,0 +1,123 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0044-RELEASE-local-20260713T013313Z",
+  "item_id": "S56-M-0044-RELEASE",
+  "theorem_id": "THM-M-0044",
+  "intent": "release",
+  "base_revision": "eb9c2192f79a480deff66d2c0f8e31032bcc2d9f",
+  "base_tree": "57b76c2fceacd8819b0ec8b9abcd42cfcc74b8e2",
+  "decided_at": "2026-07-13T01:33:13Z",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0044-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0044-VALIDATION-local-20260713",
+    "receipt_sha256": "1496afeb845007d1d281a26fbc5db82244929a187a9392046092795e98f5e257",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "reconciled_inputs": {
+    "validation-receipt.json": "1496afeb845007d1d281a26fbc5db82244929a187a9392046092795e98f5e257",
+    "proof-receipt.json": "344e11c8355928ed2b0c07e0d3eab8da44c3c03d6955db1f3d21e56825f71d11",
+    "instance.json": "e8b954f762c016aed5ed4e7f94229752f852a60d4b707728bc6498ae209b5f41",
+    "statement.json": "9acf9913ce4a6ddd445563a553dac694fb1f893ba62bfda54efa70ba9ab354c9",
+    "obligation-registry.json": "b0e721bf26c60a775712bdf5c0b2e4454e3ffa4428291da44e86a858bf938be6",
+    "typed-graphs.json": "5bb2d11465b44e54bbad0ad67b9145ff676465645ec52d12417f99d3a8ce6414",
+    "task-dag.json": "3d29b20526511efe982ff031f3402225a0bbbb44e697e8a53c9f77d5f406c1ba",
+    "Statement.lean": "29f45600f5bc00edbd42756c7dd70c8599cdf2f04f07a570eb9f4e9b3d30141c",
+    "ObligationTree.lean": "406d197fd43977485301785df9d96133be5ae0bee01d62d4c662601cf287de45",
+    "Proof.lean": "aed09e85710bdfd9527a25881fcdf147f757b2c268531d05dd0e800a7a4060bc",
+    "Validation.lean": "1f6be5f4b7311620a92b594fc0c070ffe2633e8e4c8949fc5d3b50ad1bfe4d52",
+    "check_validation.py": "956d94237f8f00ed561ea0801875f94117366de8bee497f5e99f6b3c44863737",
+    "source-statement-crosswalk.md": "e6c2ab1c1f1f2bc4ff593aec77b9cbed736d88d71a119fbad3fa63d54a4de8eb",
+    "anchor-audit.json": "d378103f2cae1293337261ff856fbbdd666825a4df72fb4439a8c2cf4cba9e59"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0044-PROOF-local-20260713",
+    "S56-M-0044-VALIDATION-local-20260713"
+  ],
+  "root_vector": {
+    "accepted_before": [
+      "H1",
+      "M3",
+      "R3"
+    ],
+    "accepted_after": [
+      "H1",
+      "M3",
+      "R3"
+    ],
+    "best_provisional_kernel_evidence": [
+      "H1",
+      "M0-L",
+      "R3"
+    ],
+    "boundary": "Proof.lean and the separately written Validation.lean kernel-check the exact Real-and-Complex rectangular SVD root as provisional local evidence. The authoritative instance and frozen graph remain H1/M3/R3 and root-open with no accepted obligations or receipts. The proof receipt also labels its proposed local proof M0-W rather than M0-L, so even provisional debt classification requires master reconciliation."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass_for_local_Proof.lean",
+    "differential_exact_root_kernel_replay": "provisional_same_worker_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass_on_five_scoped_Lean_modules",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "accepted_root_machine_state": "M3_open",
+    "structured_state_freshness": "failed: instance.json and typed-graphs.json predate proof closure, retain H1/M3/R3 and root_closed=false, and list no accepted closed obligations",
+    "receipt_snapshot_freshness": "failed: proof and validation receipts bind pre-integration base revisions rather than this exact immutable release snapshot",
+    "per_obligation_reconciliation": "missing: the proof receipt provisionally maps 30 obligations, leaves three planned machine obligations outside its closed/open partition, and accepts none",
+    "provisional_machine_debt_classification": "conflict: the repository-local proof body supports M0-L terminology, while proof-receipt.json proposes M0-W",
+    "audit_inventory_reconciliation": "missing: discovery is not saturated and the THM-M-1449 duplicate boundary is unresolved",
+    "human_source_acceptance": "missing: root remains H1 without an admitted immutable source packet or independent pinpoint review",
+    "readability_acceptance": "missing: root remains R3 without a complete node reconstruction or independent reader review",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0044-VALIDATION has only provisional non-release-grade worker evidence and is not master accepted, so the release node is not dependency-legal."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused the canonical warm .lake artifacts and did not perform an immutable empty-cache network-denied cold build with offline restoration replay."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0044-VALIDATION and every transitive phase receipt",
+    "fresh authoritative instance, obligation, and typed-graph reconciliation of the provisionally closed exact root and all 39 frozen obligations",
+    "master resolution of the M0-L versus M0-W provisional classification conflict in proof-receipt.json",
+    "AUDIT-Z reconciliation of discovery, duplicate THM-M-1449, source boundaries, evidence states, trust boundaries, and every H/M/R debt",
+    "accepted H0 immutable primary-source packet with edition, theorem/page, assumptions, empty-dimension and ordering boundaries, errata status, node crosswalk, and independent source review",
+    "accepted R0 node-by-node readable reconstruction with substantive ledgers and independent reader review",
+    "complete transitive declaration and proof-body provenance, accepted foundation and axiom profiles, and hashed executable/bootstrap TCB closure",
+    "current content-addressed receipts binding an immutable clean release snapshot and clean-worktree attestation",
+    "empty-cache network-denied cold build and offline dependency-archive restoration",
+    "complete SBOM and license closure with durable content-addressed dependency archives",
+    "two signed attestations from distinct independently provisioned clean runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed evidence bundle, signature, public-state reconciliation, and master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "After dependency-ordered master acceptance, reconcile the authoritative 39-obligation graph and proof classification, complete the audit and independent H0/R0 reviews, close transitive provenance and TCB records, then replay an immutable clean snapshot with empty caches and network denied and obtain two qualifying attestations plus independent minimal-verifier acceptance of a deterministic bundle.",
+  "worktree_classification": "nonrelease worker clone: the automation-provided Formalizations/Lean/.lake symlink was present and reused read-only; the release artifacts are untracked worker changes",
+  "status_boundary": "This self-tests only a truthful blocked release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance."
+}

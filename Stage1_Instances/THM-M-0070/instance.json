@@ -1,0 +1,215 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0070",
+  "item_id": "S56-M-0070-INTAKE",
+  "execution_rank": 1101,
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "费特-汤普森定理",
+  "name_en": "Feit-Thompson theorem",
+  "canonical_name": "Odd order theorem for finite groups",
+  "category": "代数学 / 群论",
+  "category_en": "algebra / group theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "奇数阶群可解",
+  "literal_source_claim_en": "Groups of odd order are solvable.",
+  "source_attribution": "Walter Feit and John G. Thompson, 1963",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "Every finite group of odd order is solvable.",
+  "canonical_claim_status": "human_mathematical_scope_crosswalked_to_primary_root_exact_lean_expression_fingerprint_and_transports_reserved_for_statement_phase",
+  "canonical_claim": "Every finite group of odd order is solvable.",
+  "statement_blocker": "The human claim is stable and primary-root wording is pinpointed, but the statement phase must accept one exact Lean expression and decide universe and binder order, Finite versus Fintype, Nat.card versus Fintype.card, Odd versus congruence, explicit versus typeclass solvability, checked transports, fingerprints, and mutations.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.GroupTheory.Solvable",
+      "Mathlib.SetTheory.Cardinal.Finite"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "{G : Type u} -> [Group G] -> [Finite G] -> Odd (Nat.card G) -> IsSolvable G",
+    "candidate_expression_status": "proposition_shape_elaborated_for_intake_feasibility_only_no_canonical_declaration_or_expression_identity_accepted",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_exact_expression_fingerprint_transports_and_mutations",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-vocabulary-and-shape-probe-only"
+  },
+  "domain_and_universes": "Candidate scope: G : Type u in an arbitrary universe, with Group G and Finite G; no nontriviality, simplicity, or commutativity assumption. Exact universe declaration and finite-cardinality interfaces remain statement-phase choices.",
+  "quantifiers": [
+    "for every finite multiplicative group G"
+  ],
+  "ordered_binders": [
+    "universe u",
+    "G : Type u",
+    "Group G",
+    "Finite G",
+    "Odd (Nat.card G)"
+  ],
+  "hypotheses": [
+    "G carries a group structure",
+    "the carrier of G is finite",
+    "the natural-number cardinality of G is odd"
+  ],
+  "conclusion": "G is solvable, provisionally represented by mathlib's IsSolvable derived-series predicate.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No finite odd-order group is excluded. The trivial group of order one is explicitly in scope. The statement phase must test order one, prime order, finite abelian odd order, and representations of finite cardinality and oddness.",
+  "candidate_scope_not_credited": [
+    "a Fintype.card formulation with a checked equivalence still to be supplied",
+    "Odd (Nat.card G) replaced by Nat.card G modulo 2 equals 1",
+    "IsSolvable expanded to existence of a derived-series index reaching bottom",
+    "the externally machine-checked Coq/MathComp theorem before immutable dependency and cross-system integration review"
+  ],
+  "excluded_substitutions": [
+    "solvability only for commutative groups, Z-groups, groups of prime order, or another special class",
+    "Burnside's p^a q^b theorem or a fixed finite-order case",
+    "classification of finite simple groups or only the simple odd-order corollary",
+    "odd order of an element, automorphism, character, graph, or other object rather than the group carrier",
+    "a premise or data structure that assumes IsSolvable G",
+    "the Coq/MathComp result reported as Lean kernel closure without pin/import/check integration",
+    "the mathlib 1000-title entry or untrusted catalog status used as theorem evidence"
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.GroupTheory.Solvable",
+      "declarations": [
+        "IsSolvable",
+        "isSolvable_def",
+        "derivedSeries",
+        "CommGroup.isSolvable"
+      ],
+      "boundary": "definition and adjacent special-case vocabulary only; no odd-cardinality solvability root"
+    },
+    {
+      "module": "mathlib docs/1000.yaml",
+      "declaration": null,
+      "boundary": "the Feit-Thompson title appears without a declaration mapping and supplies no formal anchor"
+    },
+    {
+      "external_project": "MathComp odd-order for Coq",
+      "candidate_declaration": "Feit_Thompson",
+      "candidate_type": "forall finite group G, odd #|G| -> solvable G",
+      "observed_revision": "6afa795b9018c64ab5c7cd2f9b3c9ab5dd45d93f",
+      "observed_pfsection14_source_sha256": "8153cf86d39adc9d9486a3044e1adeef1d523525d3757346fd0992feb571f9ef",
+      "observed_stripped_source_sha256": "47348f81909ca27ec7618577349acb4da315f0e8ec48a15cb503c1a9917a90ad",
+      "boundary": "credible exact external machine-proof lead in a different prover, but not a pinned dependency or Lean validation closure; no Coq build or transitive trust audit ran, and source equivalence, license, and integration audits remain downstream"
+    }
+  ],
+  "bounded_formal_search": {
+    "scope": "repo-local Lean, pinned mathlib Mathlib sources, and pinned mathlib docs",
+    "patterns": "Feit, Thompson, odd order, odd_order, Odd (Nat.card), solvability APIs",
+    "result": "No Lean odd-order-solvability root was found. The title-only mathlib docs entry and unrelated odd-order facts were found. This is bounded intake discovery, not a global absence claim or immutable anchor audit."
+  },
+  "source_status": "H1_exact_primary_root_statement_and_article_identity_inspected_but_complete_proof_boundary_assumptions_corrections_errata_node_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Walter Feit and John G. Thompson, Solvability of Groups of Odd Order, Pacific Journal of Mathematics 13 (1963), no. 3, 775-1029, DOI 10.2140/pjm.1963.13.775",
+      "candidate_locator": "Chapter I, section 1, printed page 775, displayed THEOREM; section 2 finiteness convention",
+      "candidate_summary": "The displayed root says all finite groups of odd order are solvable and matches the catalog gloss.",
+      "observed_chapter_one_pdf_bytes": 742729,
+      "observed_chapter_one_pdf_sha256": "47e5127ef40e915bc8588a169df432ebab14a68a0f85fbd5b768abc0ca01b574",
+      "status": "exact primary root-statement witness only; the complete proof, corrections, errata, source-to-node map, and independent review were not admitted, so not H0"
+    },
+    {
+      "citation": "Georges Gonthier et al., A Machine-Checked Proof of the Odd Order Theorem, Interactive Theorem Proving 2013, LNCS, 163-179, DOI 10.1007/978-3-642-39634-2_14",
+      "candidate_summary": "Publication lead for the Coq/MathComp formalization described by repository research notes.",
+      "status": "external formalization lead only; neither paper nor Coq source/build is in the pinned Lean validation closure and no M0 or accepted M1 status is claimed"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "2bfb272c83b2089e9b285d48dce2c30616ff6c36",
+    "repository_base_tree": "f44853226ddecdf2a2b462fd6c85e770bbffbaa3",
+    "repository_record": "Docs/researches/math_theorems.md:519-524",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:2028-2053",
+    "repository_formalization_note": "Docs/researches/classified_theorems.md:521-541",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_math_source_current_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "1ff6f51cdee03f5a13c5f30d6f24dd53fc767921afd9ad8d906fc154bd679bd8",
+    "stage0_projection_excerpt_sha256": "110dd5011d3ecc53ce9d5042d58b07b021e4c043da8a60ca6c78f1e84710e26a",
+    "repository_formalization_note_excerpt_sha256": "06671ff363a672b5f8153369ceb55ed423dbb66ccb2ca30b28a0a95cd971fe61",
+    "target_manifest_origin_commit": "16d227cffb7cb7d9e8392b6c0ff8211e498e1330",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "1c9a8feb6385965c9583b786d4cdfc3023f46ea5442a96eec9c83c34cb60db56",
+    "execution_dag_sha256": "ade6989a876d1cbc7898586aed6bfb0740c87b0bf3f3bf29893ad0015508a179",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_classified_source_sha256": "e63fe0cc581a1b7a70eedbb2bbcf96046d6c1bd4418cd13b41fc6de81919d9d5",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_solvable_source_sha256": "d665fe00fcf4bc1bc072cc053b1e47c8609552627386981feccd81a448b6153b",
+    "mathlib_cardinal_finite_source_sha256": "8de62ef138473b4c4b77917aa453f67b8e203cfb1d2e2c6cb6ebbabf62a9356f",
+    "mathlib_punit_source_sha256": "a7647f6743dd9bbe9f23783f281cfec78e36aaf6a15f3fc4a14206ee88faf27d",
+    "mathlib_1000_docs_sha256": "12792e25ca081fb16c149223f9920c0dff1214ebe5e46b026e15829862a0130c",
+    "observed_mathcomp_odd_order_revision": "6afa795b9018c64ab5c7cd2f9b3c9ab5dd45d93f",
+    "observed_mathcomp_pfsection14_sha256": "8153cf86d39adc9d9486a3044e1adeef1d523525d3757346fd0992feb571f9ef",
+    "observed_mathcomp_stripped_theorem_sha256": "47348f81909ca27ec7618577349acb4da315f0e8ec48a15cb503c1a9917a90ad",
+    "lake_symlink_target_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; the adjacent commutative-group probe reports propext, Classical.choice, and Quot.sound, but the exact root and allowed principle set are not frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and manifest-pinned mathlib are the intended base; exact imports, root expression, terminal proof bodies, transitive dependencies, external projects, executable identities, and trust policy remain open",
+  "computation_profile": "No finite-group database, character table, computer algebra system, oracle, native decision result, or unchecked certificate is credited; later computation must be source-mapped and certificate-checked under an approved profile",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0070/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0070/README.md",
+    "Stage1_Instances/THM-M-0070/instance.json",
+    "Stage1_Instances/THM-M-0070/scope-map.md",
+    "Stage1_Instances/THM-M-0070/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0070/task-dag.json",
+    "Stage1_Instances/THM-M-0070/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0070/check_intake.py",
+    "Stage1_Instances/THM-M-0070/validation.md",
+    "Stage1_Instances/THM-M-0070/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent finite-group source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned finite-group reviewer",
+    "reviewer_policy": "Independent reviewers must approve the complete primary proof boundary, assumptions, corrections and errata, exact finite odd-order statement and Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, source edition, proof-boundary or errata decision, group/finiteness/cardinality/oddness/solvability encoding, binder or boundary choice, external formalization finding, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the human root claim and boundary map, exact primary statement witness, external Coq lead, bounded Lean discovery, pinned vocabulary probe, and open downstream DAG. No canonical Lean expression, complete source audit, accepted external machine evidence, proof credit, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

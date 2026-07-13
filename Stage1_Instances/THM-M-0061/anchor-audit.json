@@ -1,0 +1,233 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0061-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0061",
+  "execution_rank": 1093,
+  "base_revision": "eb9c2192f79a480deff66d2c0f8e31032bcc2d9f",
+  "base_tree": "57b76c2fceacd8819b0ec8b9abcd42cfcc74b8e2",
+  "audit_date": "2026-07-13",
+  "canonical_target": "Stage1Instances.THM_M_0061.LagrangeDivisibilityTarget",
+  "canonical_target_expression_sha256": "adff72e9052ea17e3b6e4349c23028f35f4b8e3c610ea5f9f3b4fc02fe136836",
+  "canonical_statement_file_sha256": "386d2d25cc7fe5f55f26438e1bc749eb5953e251b48591d3e47247b733bfdc7d",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "discovery_protocol": {
+    "inventory_version": "S56-M-0061-ANCHOR-INVENTORY-20260713-01",
+    "cutoff": "2026-07-13T09:40:00+08:00",
+    "credentials_policy": "anonymous public HTTP only; authenticated GitHub code search was unavailable",
+    "aliases": [
+      "Lagrange's theorem for finite groups",
+      "order of a subgroup divides order of the group",
+      "subgroup cardinality divisibility",
+      "Subgroup.card_subgroup_dvd_card",
+      "card_eq_card_quotient_mul_card_subgroup",
+      "group index times subgroup order"
+    ],
+    "namespace_queries": [
+      "Subgroup",
+      "AddSubgroup",
+      "QuotientGroup",
+      "Finite",
+      "Fintype"
+    ],
+    "search_order": [
+      "repository-local Lean sources",
+      "pinned mathlib sources and declarations",
+      "other materialized manifest-pinned dependencies",
+      "public Lean repositories and code indexes",
+      "formal statement or instructional collections"
+    ],
+    "expected_negative_evidence": "Each bounded public query records a response hash or access failure; neither zero matches nor an access failure supports an internet-wide absence claim.",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0061-C01-MATHLIB-DIRECT",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.GroupTheory.Coset.Card",
+      "file": "Mathlib/GroupTheory/Coset/Card.lean",
+      "file_blob": "4419736cb7b1155a4080699f1f47e8f1fae09dc2",
+      "file_sha256": "cb3efb11057211d161637ba7e6c75d64271faa95e5bdafff96f82168329b236e",
+      "declaration": "Subgroup.card_subgroup_dvd_card",
+      "type": "{alpha : Type u} -> [Group alpha] -> (H : Subgroup alpha) -> Nat.card H divides Nat.card alpha",
+      "normalized_match": "The result has the exact multiplicative-group, subgroup, Nat.card, and divisibility interfaces. The library theorem has a strictly broader domain because it omits the frozen root's explicit Finite binder; the audit adapter instantiates it without changing or dropping that canonical binder.",
+      "local_adapter": "Stage1Instances.THM_M_0061_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "Subgroup.card_subgroup_dvd_card",
+      "terminal_proof_body": "classical simp [card_eq_card_quotient_mul_card_subgroup s, @dvd_mul_left Nat]",
+      "proof_body_location": "pinned mathlib source, lines 66-70 of the audited file",
+      "historical_provenance": {
+        "nat_card_path_commit": "61b9d5e77adcf9cc825a4993fc4f177ac448a892",
+        "current_path_module_move_commit": "6a54a80825b060ab20dc31751ebdce78b3a3b518",
+        "both_are_ancestors_of_pin": true,
+        "authors_in_file_header": [
+          "Mitchell Rowett",
+          "Kim Morrison"
+        ]
+      },
+      "direct_proof_dependencies": [
+        "Subgroup.card_eq_card_quotient_mul_card_subgroup",
+        "Nat.card_prod",
+        "Nat.card_congr",
+        "Subgroup.groupEquivQuotientProdSubgroup",
+        "dvd_mul_left"
+      ],
+      "direct_module_imports": [
+        "Mathlib.GroupTheory.Coset.Basic",
+        "Mathlib.SetTheory.Cardinal.Finite"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_bodyless_unsafe_oracle_status": "Lean prints concrete direct-candidate and bridge bodies and reports no sorry. A comment-stripped scan of the candidate module and audit adapter finds no sorry, admit, sorryAx, axiom declaration, unsafe declaration, or opaque declaration. No native oracle, external code, or generated certificate appears in that visible source boundary. The module additionally asserts assert_not_exists Field; full transitive trust remains downstream.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "already pinned and materialized in the repository Lake dependency closure; checked read-only without changing .lake",
+      "candidate_classification": "M0-W",
+      "evidence_level": "E2",
+      "result": "Exact finite-root adapter to a pinned mathlib body kernel-checks. M0-W is a provisional candidate route only; accepted root state stays M3 pending proof, full trust/provenance, composition, and master acceptance."
+    },
+    {
+      "candidate_id": "M0061-C02-MATHLIB-PRODUCT-IDENTITY",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.GroupTheory.Coset.Card",
+      "file": "Mathlib/GroupTheory/Coset/Card.lean",
+      "declaration": "Subgroup.card_eq_card_quotient_mul_card_subgroup",
+      "type": "(H : Subgroup G) -> Nat.card G = Nat.card (G quotient H) * Nat.card H",
+      "terminal_proof_body": "rewrite by Nat.card_prod, then Nat.card_congr Subgroup.groupEquivQuotientProdSubgroup",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_classification": "M3_support_duplicate",
+      "result": "This stronger product identity is the direct proof dependency of C01, not an independent proof body or additional coverage."
+    },
+    {
+      "candidate_id": "M0061-C03-MATHLIB-ADDITIVE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.GroupTheory.Coset.Card",
+      "declaration": "AddSubgroup.card_addSubgroup_dvd_card",
+      "type": "{alpha : Type u} -> [AddGroup alpha] -> (H : AddSubgroup alpha) -> Nat.card H divides Nat.card alpha",
+      "generated_from": "Subgroup.card_subgroup_dvd_card by to_additive",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_classification": "M3_domain_mismatch_duplicate",
+      "result": "The additive domain is excluded by the frozen statement and the theorem shares the generated terminal body; no root credit."
+    },
+    {
+      "candidate_id": "M0061-C04-MANIFEST-EXTERNAL-CLOSURE",
+      "project": "all non-mathlib packages in Formalizations/Lean/lake-manifest.json",
+      "revision_set": "flt-regular@56161b6eb5281fbfe9c38f2bcec0f429ebc11a27; checkdecls@3d425859e73fcfbef85b9638c2a91708ef4a22d4; plausible@83e90935a17ca19ebe4b7893c7f7066e266f50d3; LeanSearchClient@c5d5b8fe6e5158def25cd28eb94e4141ad97c843; importGraph@48d5698bc464786347c1b0d859b18f938420f060; proofwidgets@3c52dee17f0cd89c1ec14de78920d1bdaa3d26b3; aesop@7152850e7b216a0d409701617721b6e469d34bf6; Qq@707efb56d0696634e9e965523a1bbe9ac6ce141d; batteries@756e3321fd3b02a85ffda19fef789916223e578c; Cli@7802da01beb530bf051ab657443f9cd9bc3e1a29",
+      "kind": "bounded_negative_inventory",
+      "search_terms": [
+        "lagrange",
+        "card_subgroup_dvd_card",
+        "card_eq_card_quotient_mul_card_subgroup",
+        "order of subgroup",
+        "Nat.card divisibility"
+      ],
+      "candidate_classification": "M4_no_candidate_located",
+      "result": "No separate candidate occurred in the materialized non-mathlib dependency sources. This is bounded local evidence, not a global absence claim."
+    },
+    {
+      "candidate_id": "M0061-C05-PUBLIC-GROUP-THEORY-REPOSITORIES",
+      "project": "bounded GitHub repository discovery results",
+      "immutable_revisions": [
+        {
+          "repository": "Luckyoriginal/Lean-Group-Theory",
+          "revision": "585c5a625302267cdb6d09e2bb0f7128507bd9d4",
+          "tree": "0d0a8b73ef74854bb0102b31ebb65c437dc50058",
+          "tree_api_response_sha256": "48ca0ff41a43e63349c699508fdb6001b331a950ed45ce6f5bc3c4911b0d4194",
+          "result": "Three-entry repository; the sole Lean file was not admitted because raw content retrieval timed out and no toolchain, dependency lock, or license file was present in the immutable tree."
+        },
+        {
+          "repository": "gihanmarasingha/group-theory-lean4",
+          "revision": "3ec80839894db6c3fe285d872f633574ac302c01",
+          "tree": "a8fa80eefdabdb304c52c8c77d7b0f20d6897aee",
+          "tree_api_response_sha256": "343b023cb904384e1d8b06bef7a7d67c81d0b3c4549fd40a813ab0acdb46e219",
+          "toolchain": "leanprover/lean4:v4.7.0",
+          "license": "MIT",
+          "result": "Immutable tree lists introductory group-axiom game levels only; no finite-cardinality, subgroup-order, or Lagrange file. Its toolchain predates the repository pin."
+        }
+      ],
+      "candidate_classification": "M4_no_candidate_located",
+      "result": "No independently usable external theorem was admitted from the bounded repository search."
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "GitHub REST repository search",
+      "queries": [
+        "quoted Lagrange theorem plus Lean 4",
+        "Lagrange theorem prover Lean",
+        "card_subgroup_dvd_card",
+        "quoted order of a subgroup plus Lean"
+      ],
+      "result": "HTTP 200; each exact-topic query returned total_count=0 and incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "lean4 group theory",
+      "result": "HTTP 200; total_count=2; the two immutable repository heads are candidate C05",
+      "response_sha256": "a5f76b2f014b48ac289c8e1d50cb6068b1bbe34b25024c6b6c7a4fd5706a3b56"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "card_subgroup_dvd_card language:Lean",
+      "result": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e"
+    },
+    {
+      "surface": "grep.app code search",
+      "query": "card_subgroup_dvd_card",
+      "result": "HTTP 429 Vercel Security Checkpoint",
+      "response_sha256": "ca5ee7a82a4f81fb28e46baeb3238858a55d2373cce3b1f9ad125d0b2bb7b5d1"
+    }
+  ],
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "5/5 classified candidates in frozen inventory S56-M-0061-ANCHOR-INVENTORY-20260713-01",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of the provisional statement prerequisite and anchor-audit node",
+    "frozen obligation registry and checked proof-phase composition",
+    "full transitive declaration, provenance, trust, and TCB closure",
+    "primary-source H0 and readable R0 independent review",
+    "hermetic and independent validation plus deterministic release evidence"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This provisional node classifies the bounded anchor inventory and kernel-checks an exact finite-root adapter to pinned mathlib. It changes no accepted H1/M3/R4 state, accepts no receipt, and completes neither AUDIT-Z nor the theorem.",
+  "theorem_complete": false
+}

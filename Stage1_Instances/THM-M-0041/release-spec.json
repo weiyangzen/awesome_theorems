@@ -1,0 +1,42 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0041-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0041-RELEASE",
+  "theorem_id": "THM-M-0041",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0041/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "No network operation is performed by this recipe. The worker did not provision a kernel network namespace, so this is not a release-grade network-isolation attestation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "sha256:ff6775b5e53e89ab520a943dd04a89be936acd251f322da7767075cef95897a0"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0041-ROOT"
+  ],
+  "reconciled_open_obligation_ids": [
+    "M0041-T-CHARPOLY",
+    "M0041-A-MATHLIB-ANCHOR",
+    "M0041-X-SOURCE",
+    "M0041-S-FOUNDATION",
+    "M0041-X-PROVENANCE",
+    "M0041-X-TRUST",
+    "M0041-X-READABLE",
+    "M0041-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0041.CayleyHamiltonTarget",
+    "Matrix.aeval_self_charpoly",
+    "Stage1Instances.THM_M_0041.Validation.differentialCayleyHamilton"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation of the accepted authority and provisional node evidence. Only M0041-ROOT receives a fresh provisional Lean replay. The other eight IDs are merely reconciled as open from the content-bound authoritative graph, not machine-validated or closed by this recipe. The recipe does not provide dependency master acceptance, accepted source/readability review, complete trust/provenance, a cold offline build, supply-chain closure, a distinct signed runner, a minimal independent release verifier, or a deterministic release bundle."
+}

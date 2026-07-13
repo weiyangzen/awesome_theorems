@@ -1,0 +1,93 @@
+# Intake validation
+
+Base revision: `2bfb272c83b2089e9b285d48dce2c30616ff6c36`; base tree:
+`f44853226ddecdf2a2b462fd6c85e770bbffbaa3`.
+
+This validation covers target membership, the planned dossier and open task DAG, repository-source
+provenance, human claim and non-substitution boundaries, primary root-statement inspection, bounded
+external/Lean discovery, pinned environment identity, a narrow Lean vocabulary/proposition-shape
+probe, structured integrity, proof-escape hygiene, and whitespace. It does not validate a canonical
+Lean expression, complete primary proof, external Coq build, or proof closure.
+
+The preflight worktree contained only the automation-provided untracked
+`Formalizations/Lean/.lake` symlink to canonical pinned artifacts. It was used read-only. No
+`lake update`, `lake build`, dependency clone or fetch, or other `.lake` mutation was performed.
+The owned intake files and root worker packet make the final tree dirty and nonrelease.
+
+## Source boundary
+
+The catalog record was traced to the initial corpus commit. The journal-hosted Chapter I PDF for
+Feit and Thompson's 1963 paper was inspected and its page 775 displayed root exactly matches "all
+finite groups of odd order are solvable." Only that 17-page chapter endpoint was inspected, not the
+full six-chapter proof. Corrections, errata, incorporated assumptions, source-to-node mapping, and
+independent review remain open, so the source status is H1 rather than H0.
+
+The observed MathComp revision
+`6afa795b9018c64ab5c7cd2f9b3c9ab5dd45d93f` contains `Feit_Thompson` and a stripped bare-Coq
+root. The two raw files were inspected by immutable URL only. No dependency clone, Coq toolchain,
+build, terminal-body/trust audit, license integration, or Lean bridge was performed. The observation
+is an external lead, not repo-local machine closure or accepted M1 status.
+
+## Environment fingerprint
+
+- Platform: Linux x86_64; kernel `7.0.0-27-generic`; timezone `Asia/Shanghai`.
+- Lean: `4.29.0`, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740`.
+- Lake: `5.0.0-src+98dc76e`.
+- Pinned mathlib: revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, tree
+  `bdc39a3123201dae413a9d9be56ec242c19e5c2b`; package worktree clean.
+- `Formalizations/Lean/lean-toolchain` SHA-256:
+  `651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2`.
+- `Formalizations/Lean/lake-manifest.json` SHA-256:
+  `321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81`.
+- `Mathlib/GroupTheory/Solvable.lean` SHA-256:
+  `d665fe00fcf4bc1bc072cc053b1e47c8609552627386981feccd81a448b6153b`.
+
+## Commands and results
+
+Commands ran from the repository root on 2026-07-13 Asia/Shanghai unless a `cwd` is shown.
+
+| Command | Exit | Result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, and the execution skill passed |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0070` | 0 | rank 1101; planned; no legacy slot; legacy artifacts unaccepted; theorem_complete false |
+| initial `git status --short --untracked-files=all` | 0 | only `?? Formalizations/Lean/.lake`; preserved read-only |
+| `git rev-parse HEAD 'HEAD^{tree}'` | 0 | base revision and tree shown above |
+| `git blame -L 519,524 -- Docs/researches/math_theorems.md` | 0 | all six uncited catalog lines originate at `bcf3f9fa79ab8c2b6610c9875668c2589b35b74f` |
+| journal Chapter I PDF download and first-pages `pdftotext` in a temporary directory | 0 | page 775 exact root and finite-group convention inspected; 742,729 bytes; SHA-256 `47e5127e...1b574`; discovery only |
+| immutable raw MathComp source downloads at revision `6afa795b...d93f` | 0 | `Feit_Thompson` and `stripped_Odd_Order` types inspected; raw-source hashes recorded; no clone/build/integration |
+| `(cd Formalizations/Lean && lake env lean --version && lake --version)` | 0 | Lean and Lake agree with the recorded environment; no update/build ran |
+| mathlib revision/tree and package status | 0 | pinned revision/tree above; package worktree clean |
+| bounded exact-topic `rg` over repo-local Lean and pinned mathlib | mixed | title-only docs and unrelated odd-order facts, but no Lean odd-cardinality solvability root; intake result only |
+| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0070/IntakeProbe.lean)` | 0 | solvability APIs, candidate proposition shape, and order-one boundary elaborated; output 364 bytes, 5 lines, SHA-256 `c7a488c0284cf5cd4c146d118ae50d744569f778b659bf3925206bdf373bd628` |
+| `set -e; for f in Stage1_Instances/THM-M-0070/*.json .stage1-worker-selftest.json; do python3 -m json.tool "$f" >/dev/null; done` | 0 | all finalized structured artifacts are valid JSON |
+| Python `ast.parse` on `Stage1_Instances/THM-M-0070/check_intake.py` | 0 | scoped validator parses without generated bytecode |
+| `python3 -B Stage1_Instances/THM-M-0070/check_intake.py` | 0 | public recipe validates target, source pins, H1/M4/R4 boundary, null formal target, inventory, and six open tasks |
+| `python3 -B Stage1_Instances/THM-M-0070/check_intake.py --worker-packet .stage1-worker-selftest.json` | 0 | scheduler handoff additionally agrees with the dossier and provisional receipt |
+| `if rg -n '\b(sorry\|admit\|sorryAx\|axiom\|constant\|opaque\|unsafe)\b' Stage1_Instances/THM-M-0070 -g '*.lean'; then exit 1; fi` | 0 | expected no-match policy passed; no prohibited declaration token |
+| `for f in Stage1_Instances/THM-M-0070/* .stage1-worker-selftest.json; do git diff --no-index --check /dev/null "$f" >/dev/null; test $? -le 1; done` | 0 | every new file passed; exit 1 is the expected new-file diff and greater values fail |
+| `git diff --check -- Stage1_Instances/THM-M-0070 .stage1-worker-selftest.json` | 0 | no scoped tracked-diff whitespace diagnostics |
+
+## Known downstream failures
+
+- No complete primary proof boundary, incorporated assumption ledger, correction/errata decision,
+  source-to-node map, or independent H0 review is accepted.
+- No canonical Lean declaration or normalized expression/environment fingerprint is frozen.
+- `Finite`/`Nat.card` versus `Fintype`/`Fintype.card`, oddness encoding, binder order, alternate
+  transports, boundary cases, and required statement mutations remain open.
+- The external Coq theorem was not built, trust-audited, pinned as a repository dependency, or
+  integrated with Lean, and the bounded pinned-Lean search found no target root.
+- Discovery freeze, obligation registry, typed graphs, proof/composition, readable reconstruction,
+  hermetic replay, deterministic bundle, independent verification, release, and master acceptance
+  remain open.
+
+These failures prevent statement, audit-completion, and theorem-completion claims. They do not
+invalidate a truthful self-tested `planned` intake. Only the integration lane may accept the
+provisional worker receipt.
+
+## Status boundary
+
+This is provisional worker self-test evidence for `S56-M-0070-INTAKE` only. It supports a planned
+dossier, not an accepted node receipt. No canonical Lean statement, H0, M0, R0, accepted external
+machine status, accepted execution state, audit completion, theorem completion, or master acceptance
+is claimed.
