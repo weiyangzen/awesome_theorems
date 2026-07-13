@@ -6,10 +6,10 @@ This directory is the fail-closed `planned` intake dossier for the catalog item 
 1909, and labels it `已验证`. Under rev-5.6 those fields are untrusted inventory metadata, not a
 pinpoint source audit, exact Lean proposition, or proof receipt.
 
-The gloss identifies the finite complex Schur-triangularization family, but it does not fix a
-dimension/index type, upper-versus-lower triangular convention, unitary witness predicate,
-conjugation orientation, or degenerate-case convention. Intake therefore does not silently choose
-one matrix equation from the familiar equivalent formulations.
+The gloss identifies the finite complex Schur-triangularization family, but it does not itself fix
+a dimension/index type, upper-versus-lower triangular convention, unitary witness predicate,
+conjugation orientation, or degenerate-case convention. The statement phase therefore selects and
+records one modern source-rooted encoding rather than treating the one-line gloss as exact.
 
 Schur's primary 1909 paper was located in the GDZ scan of *Mathematische Annalen* 66. Its Satz I,
 printed pages 490-492, gives a unitary matrix `P` for which `P' A P` is triangular (lower triangular
@@ -35,9 +35,15 @@ orthonormal-basis construction with an upper-triangular change-of-basis result, 
 combines them into the exact Schur-triangularization root. Ingredients and the neighboring
 Hermitian spectral theorem are not substitutes for the received theorem.
 
-The provisional vector is `[H1, M3, R4]`: primary and modern complete-theorem source leads are
-known but exact source-statement admission and transport are open; substantial interfaces exist but no canonical
-Lean root or exact formal closure is frozen; and no source-faithful proof reconstruction exists.
-`instance.json` is the structured scope authority, while `task-dag.json` keeps all six downstream
-phases open. No H0, M0, R0, accepted state, audit completion, theorem completion, or master
-acceptance is claimed.
+The statement proposal selects Axler's upper-triangular finite complex theorem, specializes it to
+`Matrix (Fin n) (Fin n) Complex`, includes dimension zero, and uses a unitary `U` with
+`Matrix.BlockTriangular (star U * A * U) id`. `Statement.lean` elaborates and fingerprints that
+target with three individually necessary imports; `BoundaryProbe.lean` checks dimensions zero and
+one plus the upper-triangular and unitary conventions. Four mutations remove unitarity, change the
+domain, change binder scope, or exclude dimension zero. No target inhabitant is provided.
+
+The provisional vector remains `[H1, M3, R4]`: the exact Lean statement is worker-self-tested, but
+immutable source preservation, definition and matrix/operator transport, corrections, and
+independent source review remain open; no formal root proof or source-faithful reconstruction
+exists. No H0, M0, R0, accepted state, audit completion, theorem completion, or master acceptance
+is claimed.

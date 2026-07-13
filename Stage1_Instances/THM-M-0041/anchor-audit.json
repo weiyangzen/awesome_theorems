@@ -1,0 +1,316 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "item_id": "S56-M-0041-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0041",
+  "execution_rank": 1081,
+  "phase": "anchor_audit",
+  "audit_cutoff": "2026-07-13T07:56:38+08:00",
+  "base_revision": "540472523b6c0717ed925193071191f81f62d6eb",
+  "base_tree": "64b0c81418ef2c97b0250188444c672b9ae885d0",
+  "canonical_declaration": "Stage1Instances.THM_M_0041.CayleyHamiltonTarget",
+  "canonical_expression_sha256": "5aad8415af4578ca43d0ec58eee038ed4470dce17896766215d3bf9f49d8e711",
+  "canonical_statement_file_sha256": "3b218c1a96922399bb8ed2d852d556422a92901dca10efdd431a677eaefd2b0b",
+  "canonical_scope": "For every finite square matrix A over an arbitrary commutative ring, including the empty index type and zero ring, Polynomial.aeval A of det (X I - A) is zero.",
+  "discovery_protocol_sha256": "a7e5666c4b8099053b25334d9f16a4df308084646b7c751b71e2715b76190f94",
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "the automation-provided canonical .lake symlink was used read-only; no update, build, clone, fetch, or other dependency mutation was run"
+  },
+  "discovery_protocol": {
+    "inventory_version": "S56-M-0041-ANCHOR-INVENTORY-20260713-02",
+    "supersedes_inventory_version": "S56-M-0041-ANCHOR-INVENTORY-20260713-01",
+    "supersession_reason": "the first draft omitted the pinned finitely-generated-module support candidate; version 02 appends it before final classification and receipt validation",
+    "query_window": "2026-07-13T07:32:37+08:00/2026-07-13T07:56:38+08:00",
+    "frozen_before_candidate_classification": true,
+    "registries_and_repositories": [
+      "repository-local Lean source",
+      "all locally materialized pinned Lake packages",
+      "pinned and locally stored mathlib Git source and history",
+      "Sourcegraph public Lean code search with archived and forked repositories included where supported",
+      "GitHub REST repository and code search",
+      "immutable raw/API snapshots of candidate repositories"
+    ],
+    "aliases": [
+      "Cayley-Hamilton theorem",
+      "Cayley Hamilton theorem",
+      "Hamilton-Cayley theorem",
+      "matrix satisfies its characteristic polynomial",
+      "Matrix.aeval_self_charpoly",
+      "LinearMap.aeval_self_charpoly",
+      "cayleyHamilton",
+      "cayley_hamilton",
+      "charpoly",
+      "charmatrix"
+    ],
+    "namespace_and_api_queries": [
+      "Matrix.charpoly",
+      "Matrix.charmatrix",
+      "Matrix.aeval_self_charpoly",
+      "LinearMap.charpoly",
+      "LinearMap.aeval_self_charpoly",
+      "Polynomial.aeval",
+      "aeval A A.charpoly = 0",
+      "det (X I - A)"
+    ],
+    "search_order": [
+      "repo-local bodies and wrappers",
+      "pinned mathlib and every other locally materialized pinned dependency",
+      "topic-specific and public external Lean 4 repositories at immutable revisions",
+      "historical Lean hits as research-only evidence",
+      "human-source lead retained from intake"
+    ],
+    "credentials_policy": "anonymous public HTTP only; no authenticated GitHub code-search credential was available",
+    "expected_negative_evidence": "local no-match commands preserve their expected exit; public queries have response hashes or explicit access failure; no internet-wide absence claim is permitted",
+    "saturation_claim": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0041-C01-MATHLIB-EXACT",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.LinearAlgebra.Matrix.Charpoly.Basic",
+      "file": "Mathlib/LinearAlgebra/Matrix/Charpoly/Basic.lean",
+      "file_blob": "f9f5b9423cbc597a427c6da31f42ad6466c2940b",
+      "file_sha256": "9e22d8fdace32c7bb8304335027b95ccb4cca18b5d430076ac4f87b2d76ca3f2",
+      "declaration": "Matrix.aeval_self_charpoly",
+      "type": "forall {R : Type u} [CommRing R] {n : Type v} [DecidableEq n] [Fintype n] (A : Matrix n n R), Polynomial.aeval A A.charpoly = 0",
+      "normalized_match": "exact definitional match: Matrix.charmatrix A is scalar n X - A.map C, Matrix.charpoly A is its determinant, and the audit-local characteristicPolynomial_eq_charpoly transport closes by rfl; no Nonempty or Nontrivial premise is introduced",
+      "local_wrapper": "Stage1Instances.THM_M_0041_AnchorAudit.exactMathlibAnchor",
+      "local_transport": "Stage1Instances.THM_M_0041_AnchorAudit.characteristicPolynomial_eq_charpoly",
+      "terminal_declaration": "Matrix.aeval_self_charpoly",
+      "terminal_proof_body": "pinned file lines 211-231: adjugate identity, matPolyEquiv transport, evaluation of a right factor X-C A, and eval/map conversion",
+      "proof_body_location": "pinned mathlib, not repository-local",
+      "direct_proof_dependencies": [
+        "Matrix.adjugate_mul",
+        "Matrix.matPolyEquiv",
+        "Matrix.matPolyEquiv_charmatrix",
+        "Polynomial.eval_mul_X_sub_C",
+        "Matrix.matPolyEquiv_smul_one",
+        "Polynomial.eval_map"
+      ],
+      "direct_module_imports": [
+        "Mathlib.Algebra.Polynomial.Eval.SMul",
+        "Mathlib.LinearAlgebra.Matrix.Adjugate",
+        "Mathlib.LinearAlgebra.Matrix.Block",
+        "Mathlib.RingTheory.MatrixPolynomialAlgebra"
+      ],
+      "direct_dependency_source_blobs": {
+        "Mathlib/LinearAlgebra/Matrix/Adjugate.lean": "a107c6eeecdb1701ddf15fbe937ba235e778ab72",
+        "Mathlib/RingTheory/MatrixPolynomialAlgebra.lean": "23c09d35b90c415307596b9d409d2b284bdfc55e",
+        "Mathlib/Algebra/Polynomial/AlgebraMap.lean": "553373565830d7cdae87a1f5266561b9e43dd873",
+        "Mathlib/Algebra/Polynomial/Eval/Defs.lean": "4beadc8f5cf0ac9558e61a5a788f69b1e72527ad"
+      },
+      "historical_provenance": {
+        "lean4_port_commit": "542f2e564670085b3b5ee475637efdb052dc9c08",
+        "lean4_port_tree": "7ed3eb7d18d1dd9c19ae583c980bd4277880aebe",
+        "lean4_port_date": "2023-05-21T13:02:04Z",
+        "lean4_port_author": "damiano",
+        "current_file_author_header": "Kim Morrison"
+      },
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_bodyless_unsafe_oracle_status": "Lean elaborated the theorem body and wrapper and reported exactly the three listed foundations; a scoped source scan found no sorry, admit, sorryAx, axiom, unsafe, or opaque token in the terminal and related LinearMap files. Full transitive TCB and declaration closure remains a validation-phase gate.",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "license": "Apache-2.0",
+      "dependency_feasibility": "already pinned and materialized in the repository Lake dependency closure; checked without changing .lake",
+      "candidate_classification": "M3",
+      "candidate_route_if_e1_accepted": "M0-W",
+      "evidence_level": "provisional_worker_check_below_accepted_E1",
+      "integration_decision": "retain as the exact M0-W route; the audit wrapper proves feasibility, but an M0-W classification requires accepted release-grade E1 plus canonical proof-node composition, trust closure, and master acceptance"
+    },
+    {
+      "candidate_id": "M0041-C02-MATHLIB-LINEAR-MAP-DUPLICATE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.LinearAlgebra.Charpoly.Basic",
+      "file": "Mathlib/LinearAlgebra/Charpoly/Basic.lean",
+      "file_blob": "d996b467c214c02590600868a4c293e465b97c90",
+      "file_sha256": "73a84dc426c1182c5d47a5996c09dabac8d8dd1c9565f9d63c38c67556584653",
+      "declaration": "LinearMap.aeval_self_charpoly",
+      "type": "for f : M ->_l[R] M with R a commutative ring and M an additive commutative group and finite free R-module, Polynomial.aeval f f.charpoly = 0",
+      "normalized_match": "related finite-free-module encoding, not the canonical matrix target; it adds module structures, defines charpoly through a chosen basis, and does not directly quantify arbitrary Matrix n n R",
+      "terminal_declaration": "Matrix.aeval_self_charpoly",
+      "terminal_proof_body": "the LinearMap body transports through a chosen basis and calls Matrix.aeval_self_charpoly at line 94",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "candidate_classification": "M3",
+      "candidate_role": "support_duplicate",
+      "evidence_level": "E3",
+      "integration_decision": "do not count as an independent body or root proof; retain only as an alternate-encoding lead for later architecture work"
+    },
+    {
+      "candidate_id": "M0041-C03-MATHLIB-FG-MODULE-SUPPORT",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "module": "Mathlib.LinearAlgebra.Matrix.Charpoly.LinearMap",
+      "file": "Mathlib/LinearAlgebra/Matrix/Charpoly/LinearMap.lean",
+      "file_blob": "0e3987ce283f80c9041788f06c4fea620a83759c",
+      "file_sha256": "a4664470ebc00f674350f3a984e98a42f13722aa88ccd36fdf53c78ff3ae6df9",
+      "declarations": [
+        "LinearMap.exists_monic_and_coeff_mem_pow_and_aeval_eq_zero_of_range_le_smul",
+        "LinearMap.exists_monic_and_aeval_eq_zero"
+      ],
+      "normalized_match": "broader coefficient-ring and finitely-generated-module infrastructure that proves existence of some monic annihilating polynomial, not that the determinant-defined characteristic polynomial of the canonical square matrix annihilates it",
+      "terminal_proof_body_provenance": "the construction represents the endomorphism by a matrix and invokes Matrix.aeval_self_charpoly; it is downstream of the exact terminal body",
+      "candidate_classification": "M3",
+      "candidate_role": "support_duplicate",
+      "evidence_level": "E3",
+      "integration_decision": "do not substitute for the canonical theorem or count as an independent body"
+    },
+    {
+      "candidate_id": "M0041-C04-ATLAS-FIN-TWO-SPECIAL-CASE",
+      "project": "facebookresearch/atlas-lean",
+      "remote": "https://github.com/facebookresearch/atlas-lean.git",
+      "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+      "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+      "module": "Atlas.EllipticCurves.code.TateModuleTrace",
+      "file": "Atlas/EllipticCurves/code/TateModuleTrace.lean",
+      "file_blob": "c2961f09e8e1a5791f4718c526e522dbc7544850",
+      "file_sha256": "885d85b3b3e121d0d30c9903e04b61d93feb1b317ad0f45aa55537d338c8110e",
+      "declaration": "Matrix.cayleyHamilton_fin_two",
+      "type": "(n : Nat) (M : Matrix (Fin 2) (Fin 2) (ZMod n)) : M*M - trace(M) smul M + det(M) smul I = 0",
+      "normalized_match": "proper special case only: fixed dimension two, coefficient ring ZMod n, and an expanded quadratic characteristic equation; it cannot replace the universal commutative-ring target",
+      "terminal_declaration": "Matrix.cayleyHamilton_fin_two",
+      "terminal_proof_body": "source-local entrywise Fin 2 calculation using ext, fin_cases, simp, and ring",
+      "placeholder_or_trust_status": "the candidate body itself contains no placeholder, but two later declarations in the same file end in by sorry; the project was not installed and no machine-derived axiom or transitive trust report for this declaration was produced",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+      "license": "CC-BY-NC-4.0 plus project no-training rider",
+      "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+      "dependency_feasibility": "toolchain and mathlib pin match, but the project is outside the local dependency closure, license-restricted, and unnecessary because pinned mathlib already supplies the exact theorem",
+      "candidate_classification": "M3",
+      "candidate_role": "external_special_case_source_only",
+      "evidence_level": "E3",
+      "integration_decision": "reject as a root substitute and do not integrate; it adds no coverage needed by the exact pinned mathlib route"
+    },
+    {
+      "candidate_id": "M0041-C05-AUTOMATH-DOWNSTREAM-CONSUMER",
+      "project": "the-omega-institute/automath",
+      "remote": "https://github.com/the-omega-institute/automath.git",
+      "revision": "f76f46f07a1a48d5c12a20c2f8d366bb9df9330d",
+      "tree": "971613ac246ba81191b7654cc84fff1169ec5188",
+      "module": "Omega.Zeta.SyntaxTraceLinearRecurrence",
+      "file": "lean4/Omega/Zeta/SyntaxTraceLinearRecurrence.lean",
+      "file_blob": "08ccf8667cbf6e04ed669b26c4a755216724a62c",
+      "file_sha256": "f173ee684b46c16013de0e932fec4f56dc2229ff6fe72dfed6db42cd3b956b46",
+      "declaration": "Omega.Zeta.paper_zeta_syntax_trace_linear_recurrence",
+      "normalized_match": "a complex Fin d trace-recurrence consequence with d positive, not the canonical theorem; its proof imports and invokes Matrix.aeval_self_charpoly rather than supplying an independent Cayley-Hamilton body",
+      "terminal_declaration_for_cayley_hamilton_step": "Matrix.aeval_self_charpoly",
+      "terminal_proof_body_provenance": "mathlib at the external project's older pin; the project contributes only a downstream consumer",
+      "toolchain": "leanprover/lean4:v4.28.0",
+      "mathlib_revision": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+      "manifest_sha256": "77f434da0b89ff3ca4ccbc9fe16036b5b60a262d88b49166ca5d75c81838e8aa",
+      "license": "Global Prosperity Open License 1.0",
+      "license_sha256": "8d856dbfb62efb722fe5028460c366241400916b897d43fe32e1a7a2b7a9afa0",
+      "dependency_feasibility": "not in the local closure, uses an older Lean/mathlib pin, has a nonstandard license, and offers no independent root body",
+      "candidate_classification": "M3",
+      "candidate_role": "downstream_consumer_duplicate",
+      "evidence_level": "E3",
+      "integration_decision": "do not integrate or count as an independent proof body"
+    }
+  ],
+  "external_searches": [
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes Matrix.aeval_self_charpoly lang:Lean count:200",
+      "result": "done=true; repositoriesCount=3; matchCount=7; Lean 4 hits were current indexed mathlib and an automath downstream use; the indexed mathlib head is not the repository pin",
+      "response_sha256": "495e6d2baca59d6491d46c0bcd6e9b343ff7cd8dd6f2728c0b96dfcef2236851"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes CayleyHamilton lang:Lean count:200",
+      "result": "done=true; repositoriesCount=4; matchCount=23; Lean 4 repositories were mathlib, Atlas, and automath, with mathlib3 as historical evidence",
+      "response_sha256": "9f7b319ed18c786cb13dab73d301ee218c5fb26fe7896299c52a71c19bae9a8d"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes Cayley-Hamilton lang:Lean count:200",
+      "result": "done=true; matchCount=0 for this literal tokenization; no global absence claim is inferred",
+      "response_sha256": "e336ffb5fd79640639f669af42e866b512cfc47299ce5994d3de3019edac7e10"
+    },
+    {
+      "surface": "Sourcegraph public code search",
+      "query": "context:global archived:yes fork:yes aeval M M.charpoly = 0 lang:Lean count:200",
+      "result": "done=true; matchCount=0 for this literal query; syntactic variants are covered by the declaration-name searches",
+      "response_sha256": "39ed263700e286db1e3c2e778fe83a45efda9491d1085be4020b8deb9fb8d232"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=\"Cayley-Hamilton\" Lean&per_page=30",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "GitHub REST repository search",
+      "query": "repositories?q=charpoly Lean4&per_page=30",
+      "result": "HTTP 200; total_count=0; incomplete_results=false",
+      "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+    },
+    {
+      "surface": "GitHub REST code search",
+      "query": "code?q=Matrix.aeval_self_charpoly+language:Lean&per_page=30",
+      "result": "HTTP 401 Requires authentication; no negative code-search result claimed",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e"
+    }
+  ],
+  "local_search_results": {
+    "repo_local": "No Cayley-Hamilton proof body or wrapper was found outside this dossier; other repo-local charpoly uses concern unrelated targets or consequences.",
+    "pinned_non_mathlib_packages": "No matching declaration or use was found across Cli, LeanSearchClient, Qq, aesop, batteries, checkdecls, flt-regular, importGraph, plausible, and proofwidgets.",
+    "historical_boundary": "mathlib3 contains the historical predecessor but is not Lean 4 and receives no separate completion credit."
+  },
+  "source_boundary": {
+    "primary_human_source_lead": "Arthur Cayley, A memoir on the theory of matrices, Philosophical Transactions of the Royal Society of London 148 (1858), 17-37, DOI 10.1098/rstl.1858.0002",
+    "classification": "H1",
+    "open_work": "pinpoint theorem/proof pages, coefficient-domain and definition mapping, assumption/errata audit, Hamilton/Cayley attribution reconciliation, source-to-proof-node mapping, and independent review remain open; machine-anchor evidence does not promote H"
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "5/5 candidate records classified in frozen inventory S56-M-0041-ANCHOR-INVENTORY-20260713-02",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "independent_external_exact_terminal_body_found": false,
+    "eligible_external_integration_debt": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_route": "M0-W",
+    "root_machine_candidate_after": "M3",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "provisional_worker_check_below_accepted_E1",
+    "root_vector_before": {"H": "H1", "M": "M3", "R": "R3"},
+    "root_vector_after_accepted_evidence": {"H": "H1", "M": "M3", "R": "R3"},
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of the provisional statement prerequisite and anchor-audit node",
+    "frozen obligation registry and checked canonical proof-node composition",
+    "full transitive declaration, provenance, trust, axiom, imported-artifact, and TCB closure",
+    "pinpoint primary-source H0 and readable R0 independent review",
+    "hermetic cold/offline replay, independent validation, and deterministic release evidence"
+  ],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This provisional node classifies a bounded immutable anchor inventory and kernel-checks an exact pinned mathlib route. The current evidence retains M3; that route can become M0-W only with release-grade E1 and master acceptance. The LinearMap route and external consumers are deduplicated; the Atlas theorem is a strict fixed-dimension special case. No H0, R0, accepted M0-W, AUDIT-Z, global discovery saturation, or theorem completion is claimed.",
+  "theorem_complete": false
+}

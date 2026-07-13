@@ -1,0 +1,116 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0045-STATEMENT",
+  "theorem_id": "THM-M-0045",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "Axler_upper_triangular_matrix_specialization_elaborated_pending_master_and_independent_source_review",
+  "canonical_statement": "For every natural number n and every n by n complex matrix A, there is a unitary matrix U such that star U times A times U is upper triangular.",
+  "source_root": {
+    "selection": "finite complex matrix specialization of Axler's upper-triangular operator/orthonormal-basis Schur theorem",
+    "citation": "Sheldon Axler, Linear Algebra Done Right, fourth edition, Section 6B, Theorem 6.38, printed page 204, with upper-triangular definition on page 203",
+    "observed_pdf_sha256": "45f821b6f51e1f6c42728db6254699d89c14c90fcdb2443c1341188672815d03",
+    "review_boundary": "The author-hosted PDF was inspected but remains mutable; pinpoint definition transport, immutable preservation/recovery, correction review, source-to-catalog identity, and independent H0 review remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0045/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0045.SchurTriangularizationTarget",
+    "elaborated_expression_sha256": "275e1e43027f442607fc48e78ce4e189de66b328d39c61044e87a4c8f85c001b",
+    "statement_file_sha256": "1964c3edcb6c802bf15183733e98dbfa947d0d20ee125e29b687cf13cd2531f5",
+    "fully_explicit_expression": "∀ (n : Nat) (A : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex),\n  ∃ U,\n    And\n      (@Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n        (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n          (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n            (@NonAssocSemiring.toMulZeroOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n              (@Matrix.nonAssocSemiring.{0, 0} (Fin n) Complex\n                (@Semiring.toNonAssocSemiring.{0} Complex\n                  (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing)))\n                (Fin.fintype n) (instDecidableEqFin n)))))\n        (@SetLike.instMembership.{0, 0}\n          (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n            (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n              (@NonAssocSemiring.toMulZeroOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n                (@Matrix.nonAssocSemiring.{0, 0} (Fin n) Complex\n                  (@Semiring.toNonAssocSemiring.{0} Complex\n                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing)))\n                  (Fin.fintype n) (instDecidableEqFin n)))))\n          (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n          (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n            (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n              (@NonAssocSemiring.toMulZeroOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n                (@Matrix.nonAssocSemiring.{0, 0} (Fin n) Complex\n                  (@Semiring.toNonAssocSemiring.{0} Complex\n                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing)))\n                  (Fin.fintype n) (instDecidableEqFin n))))))\n        (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing\n          Complex.instStarRing)\n        U)\n      (@Matrix.BlockTriangular.{0, 0, 0} (Fin n) (Fin n) Complex (@instLTFin n) Complex.instZero\n        (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n          (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)\n            Complex.instMul\n            (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex\n              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex\n                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex\n                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex\n                    (@CommRing.toNonUnitalCommRing.{0} Complex Complex.commRing))))))\n          (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n            (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n            (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)\n              Complex.instMul\n              (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex\n                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex\n                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex\n                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex\n                      (@CommRing.toNonUnitalCommRing.{0} Complex Complex.commRing))))))\n            (@star.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)\n              (@Matrix.instStar.{0, 0} (Fin n) Complex\n                (@InvolutiveStar.toStar.{0} Complex\n                  (@StarAddMonoid.toInvolutiveStar.{0} Complex\n                    (@AddCommMonoid.toAddMonoid.{0} Complex\n                      (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex\n                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex\n                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex\n                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex\n                              (@CommRing.toNonUnitalCommRing.{0} Complex Complex.commRing))))))\n                    (@StarRing.toStarAddMonoid.{0} Complex\n                      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex\n                        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex\n                          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex\n                            (@CommRing.toNonUnitalCommRing.{0} Complex Complex.commRing))))\n                      Complex.instStarRing))))\n              U)\n            A)\n          U)\n        (@id.{1} (Fin n)))"
+  },
+  "domain_and_universes": "n is an explicit natural number; A is an explicit Matrix (Fin n) (Fin n) Complex; Fin supplies the canonical finite linear order and decidable equality; the result is Prop.",
+  "ordered_binders": [
+    "n : Nat (explicit universal)",
+    "A : Matrix (Fin n) (Fin n) Complex (explicit universal)",
+    "U : Matrix (Fin n) (Fin n) Complex (existential witness)"
+  ],
+  "hypotheses": [
+    "A is a finite square matrix over Complex",
+    "U is required in the conclusion to belong to Matrix.unitaryGroup (Fin n) Complex"
+  ],
+  "conclusion": "There exists U with U in Matrix.unitaryGroup (Fin n) Complex and Matrix.BlockTriangular (star U * A * U) id.",
+  "direct_imports": [
+    "Mathlib.Data.Complex.Basic",
+    "Mathlib.LinearAlgebra.Matrix.Block",
+    "Mathlib.LinearAlgebra.UnitaryGroup"
+  ],
+  "minimal_import_basis": "Complex.Basic supplies Complex, Matrix.Block supplies Matrix.BlockTriangular, and UnitaryGroup supplies Matrix.unitaryGroup. Deleting each import independently fails elaboration. No eigenvalue, Gram-Schmidt, triangularizable-endomorphism, spectral, or proof-bearing Schur module is imported.",
+  "checked_alternate_encodings": [],
+  "uncredited_alternate_encodings": [
+    "a separately quantified triangular T with star U * A * U = T",
+    "the equivalent reconstruction A = U * T * star U",
+    "the operator/orthonormal-basis formulation in Axler Theorem 6.38",
+    "Schur's original lower-triangular real-or-complex convention"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0045/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedUnitarity"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedDomainToRational"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedMatrixBinderScope"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludedZeroDimension"
+      }
+    ],
+    "method": "All four mutations elaborate, Lean rejects each as a term of the canonical Prop via #check_failure, and the validator requires five pairwise-distinct fully explicit expression fingerprints."
+  },
+  "degenerate_cases": {
+    "included": [
+      "zero by zero and one by one matrices",
+      "zero, scalar, diagonal, already triangular, normal, singular, nilpotent, repeated-eigenvalue, and defective complex matrices"
+    ],
+    "excluded": [
+      "real and rational matrices as scalar-domain replacements",
+      "rectangular matrices",
+      "arbitrary unordered finite index types without a checked reindexing transport"
+    ],
+    "checked_witness": "BoundaryProbe.lean kernel-checks the identity witness in dimensions zero and one and checks the upper-triangular and unitary conventions used by the target."
+  },
+  "boundary_probe_sha256": "aa36ec9e7f97ceea19afed618ffe959b3322c697a0e6d2af954f2a89fdc71b2b",
+  "authority_inputs": {
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:ca8885f9c340db27e99505eb3a580061f692efcee9c8731b8f9baf3bc647d762",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:662fe8784f391c2b62b32958609d352ba1c099dbec98a6bf40983ddb4475d134",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8"
+  },
+  "environment_fingerprint": {
+    "base_revision": "540472523b6c0717ed925193071191f81f62d6eb",
+    "base_tree": "64b0c81418ef2c97b0250188444c672b9ae885d0",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "complex_basic_source_sha256": "b26f6e653e122ea18e2dc1f790e46f6e3218b23bacd5d6b441324f11277c978b",
+    "matrix_block_source_sha256": "bdbdc046f6f10fdd634028259bbaae5dce9da670d8b95e37950f0a39390e3762",
+    "unitary_group_source_sha256": "0136abe584007ffe1b9e9b0016b792ed92bc2de36fa710e87af9cb87d0808f93",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The statement module introduces no axiom or inhabitant of the root; proof-specific transitive trust closure remains downstream.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. The three direct imports provide statement vocabulary only; terminal proof bodies, dependencies, axioms, and trust remain for downstream audit.",
+  "computation_profile": "No floating-point Schur algorithm, QR iteration, native computation, experiment, oracle, generated result, or unchecked certificate is used or credited.",
+  "source_fidelity_boundary": "The target selects Axler's modern upper-triangular complex theorem and a standard explicit matrix/unitary encoding. The source PDF is not immutably preserved, and no independent exact source or matrix-transport review is accepted, so H remains H1.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact statement elaboration only. This artifact contains no inhabitant of SchurTriangularizationTarget and supplies no anchor-audit, proof, H0, M0, R0, audit-completion, or theorem-completion credit."
+}

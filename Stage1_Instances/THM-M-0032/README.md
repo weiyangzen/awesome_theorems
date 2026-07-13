@@ -34,3 +34,16 @@ factorization. The provisional vector is `[H1, M3, R4]`: exact statement/interfa
 self-tested, but the source mapping and independent review remain open and no proof or readable
 reconstruction is credited. The statement proposal awaits master acceptance, and every later task
 remains open. No accepted proof state, audit completion, or theorem completion is claimed.
+
+## Frozen obligation architecture
+
+`obligation-registry.json` now freezes 38 canonical obligations and separate proof, refinement,
+provenance, evidence, trust, documentation, and workflow graphs. The proof route uses Kaplansky's
+criterion: it keeps regular-local domainhood and the theorem that every nonzero prime ideal
+contains a prime element as two explicit open packages. It does not incorrectly require every
+nonzero prime ideal to be principal, which would be too strong in higher dimension.
+
+`ObligationTree.lean` checks only the generic pinned Kaplansky wrapper and the conditional
+three-child composition into the exact root. The substantive packages remain open, the accepted
+proof state is empty, and the root remains `[H1, M3, R4]`. See `obligation-tree.md` and
+`obligation-tree-validation.md` for the frozen route and the provisional worker boundary.

@@ -96,8 +96,10 @@ That is intake discovery only, not an exhaustive external anchor or provenance a
 
 ## First source gate
 
-The statement phase must preserve and independently review a lawful source edition, select the
-exact theorem and incorporated definitions, map each domain, ordered binder, premise, conclusion,
-unitary and triangular convention, matrix equation, and boundary case, and then elaborate and
-mutation-test one exact Lean expression with checked transports. Until then the canonical human
-and Lean targets remain null and the root stays H1/M3/R4.
+The statement proposal selects Axler Theorem 6.38's finite complex upper-triangular form and maps it
+to `Matrix (Fin n) (Fin n) Complex`, a unitary witness `U`, and
+`Matrix.BlockTriangular (star U * A * U) id`. The exact expression elaborates and is mutation-tested
+under pinned Lean; dimensions zero and one are checked. This freezes a provisional target while
+keeping H1: the source edition is mutable, independent review and correction audit are open, and
+the operator/orthonormal-basis to explicit matrix/unitary transport has not been accepted as a
+checked alternate encoding. Schur's original lower-triangular convention is likewise untransported.

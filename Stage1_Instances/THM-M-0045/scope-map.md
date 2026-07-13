@@ -7,48 +7,49 @@ square matrix can be unitarily triangularized." Intake preserves that finite com
 family. It does not silently choose a conjugation equation, an order on matrix indices, or a Lean
 expression that the catalog does not state.
 
-## Candidate mathematical boundary
+## Selected mathematical boundary
 
-A standard matrix reading would include the following, all still subject to accepted source
-transport:
+A modern matrix reading is frozen provisionally as follows, still subject to master acceptance and
+independent source/transport review:
 
-- a natural dimension or finite linearly ordered index type and `A : Matrix n n Complex`;
+- a natural dimension `n` and `A : Matrix (Fin n) (Fin n) Complex`;
 - a unitary matrix `U` under a fixed left/right star-inverse convention;
-- a matrix `T` upper triangular under a fixed row/column ordering; and
-- a unitary-similarity equation such as `star U * A * U = T` or `A = U * T * star U`.
+- upper triangularity under the canonical `Fin n` order, encoded by `Matrix.BlockTriangular _ id`;
+- the conjugated matrix `star U * A * U`; and
+- dimensions zero and one, without any normality or invertibility premise on `A`.
 
-Those equations are mathematically interderivable using unitary inverse identities but are not
-textually identical. They need a checked Lean transport after one is selected as canonical.
+The alternate equation `A = U * T * star U` and the operator/orthonormal-basis formulation are not
+credited without checked transports.
 
-## Decisions required at statement freeze
+## Statement decisions and remaining review
 
 1. Preserve and independently review a lawful primary or authoritative source passage with
    edition, theorem/page, definitions, assumptions, conclusion, proof boundary, and errata state.
 2. Separate the truth of the modern theorem from the unverified details of the Schur/1909
    historical attribution.
-3. Fix complex scalars, matrix dimension and index type, universes, finite-order and decidable
-   equality instances, and whether zero dimension is included.
-4. Fix the unitary predicate, star/conjugate-transpose operation, multiplication convention,
-   conjugation orientation, and equality direction.
-5. Fix upper versus lower triangular form and the order used by the triangular predicate; do not
-   replace triangularity by diagonalizability or a block form.
-6. Decide whether the theorem existentially returns only `U` with its conjugated matrix proved
-   triangular, or separate witnesses `U` and `T` plus an equation.
+3. Complex scalars, `Fin n`, the canonical order, and inclusion of zero dimension are now frozen in
+   the worker statement proposal.
+4. `Matrix.unitaryGroup`, matrix star, `star U * A * U`, and upper `BlockTriangular id` are now
+   frozen in the worker statement proposal.
+5. The target existentially returns only `U`; separate `T` and reconstruction equations remain
+   uncredited alternates.
 7. Register alternate operator/orthonormal-basis and matrix/unitary encodings only after a checked
    transport preserves all binders, assumptions, and boundary cases.
-8. Mutation-test complex versus real scalars, removed unitarity, reversed triangular orientation,
-   altered conjugation order, and the empty-index boundary.
+8. The statement self-test covers removed unitarity, changed scalar domain, changed matrix-binder
+   scope, and exclusion of the zero-dimensional boundary.
 
 ## Degenerate and boundary cases
 
-No case is excluded at intake. The statement phase must explicitly decide:
+The statement includes:
 
 - zero-by-zero and one-by-one matrices;
 - zero, scalar, already triangular, diagonal, normal, and nilpotent matrices;
 - singular and nonnormal matrices;
 - repeated eigenvalues and defective matrices;
-- upper versus lower triangular form after index-order reversal; and
-- arbitrary finite types versus a canonical `Fin n` ordering.
+- defective and repeated-eigenvalue matrices, because no diagonalizability premise is present.
+
+It selects upper triangular form on `Fin n`; lower triangular form and arbitrary finite index types
+remain alternate encodings requiring checked transports.
 
 ## Non-substitution boundary
 
@@ -73,8 +74,8 @@ target boundaries by proximity.
 
 ## Formal boundary
 
-No canonical Lean expression is frozen at intake. The discovery probe checks real pinned APIs for
-eigenvalues, generalized eigenspaces, Gram-Schmidt, upper triangular matrices, unitary
-change-of-basis matrices, and matrix representation. It defines no root theorem and contains no
-proof body. The statement, anchor audit, obligation tree, proof, validation, and release nodes
-remain open.
+The canonical declaration is `Stage1Instances.THM_M_0045.SchurTriangularizationTarget`, with
+expression SHA-256 `275e1e43027f442607fc48e78ce4e189de66b328d39c61044e87a4c8f85c001b`.
+The discovery probe remains interface-only. The statement module defines a proposition and
+mutations, not an inhabitant. Anchor audit, obligation tree, proof, validation, and release remain
+open.
