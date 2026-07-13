@@ -45,6 +45,19 @@ was added to the local dependency closure.
 The planned vector remains `[H1, M3, R3]`: a published proof and source lead are known but exact source
 fidelity and independent review are open; useful formal definitions and prerequisite interfaces are
 present and the exact target elaborates, but no decomposition proof is credited; and this dossier
-maps scope rather than reconstructing a proof. The anchor node is self-tested pending master
-acceptance; the obligation-tree and later tasks remain open. No accepted execution state, audit
-completion, theorem completion, or master acceptance is claimed.
+maps scope rather than reconstructing a proof.
+
+## Frozen obligation architecture
+
+Registry version 1 freezes 39 canonical obligations and seven separate typed graphs. The exact
+root requires separate Real and Complex packages. Each package has an exhaustive empty/nonempty
+dimension split; the empty witnesses elaborate, while both positive-dimensional packages remain
+open. The nonempty route explicitly records linearization, the Gram operator, indexed spectral and
+singular-value alignment, rank bounds, positive and zero branches, left-basis extension, unitary
+orientation, rectangular-tail zeros, the dependent Sigma, and the final entrywise equality.
+
+`ObligationTree.lean` checks only the selected empty-dimension package and the conditional exact-root
+composition. It contains no SVD construction and supplies no accepted proof credit. The registry,
+graphs, recipes, checker, readable ledger, validation record, and provisional worker receipt are
+self-tested pending dependency-ordered master acceptance. No accepted execution state, H0, R0,
+audit completion, theorem completion, release, or master acceptance is claimed.

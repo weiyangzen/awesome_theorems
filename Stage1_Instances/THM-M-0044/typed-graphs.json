@@ -1,0 +1,4576 @@
+{
+  "schema_version": "stage1-typed-graphs/1.0",
+  "item_id": "S56-M-0044-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0044",
+  "registry_id": "THM-M-0044-OBLIGATIONS-v1",
+  "registry_denominator_sha256": "ca7e41568d1de7831322431b4b7821d0c443907eededff9c9d94cb464c44bd91",
+  "root_node_id": "M0044-ROOT",
+  "edge_endpoint_namespace": "canonical obligation_id",
+  "edge_direction": "Proof requirements run parent to child; reciprocal composes edges run child to parent. Other graphs use their named edge semantics and never supply proof credit.",
+  "nodes": [
+    {
+      "node_id": "THM-M-0044-ROOT",
+      "obligation_id": "M0044-ROOT",
+      "kind": "root",
+      "human_statement": "Every finite rectangular real or complex matrix has the frozen full square-factor singular value decomposition.",
+      "formal_target": "Stage1Instances.THM_M_0044.SingularValueDecompositionTarget",
+      "output": "The exact closed Real-and-Complex canonical proposition.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 12,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-T-ASSEMBLE"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.SingularValueDecompositionTarget",
+        "output": "The exact closed Real-and-Complex canonical proposition.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-root",
+      "validation_spec_id": "VAL-M0044-ROOT",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-S-INTERFACE",
+      "obligation_id": "M0044-S-INTERFACE",
+      "kind": "definition",
+      "human_statement": "Preserve finite rectangular dimensions, square unitary factors, nonnegative real singular data, explicit rectangular Sigma, and A = U * Sigma * star V.",
+      "formal_target": "Stage1Instances.THM_M_0044.{IsRectangularDiagonal,IsFullSVD,FullSVDOver,SingularValueDecompositionTarget}",
+      "output": "The exact formal domain, witnesses, invariants, and conclusion.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 24,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.{IsRectangularDiagonal,IsFullSVD,FullSVDOver,SingularValueDecompositionTarget}",
+        "output": "The exact formal domain, witnesses, invariants, and conclusion.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-s-interface",
+      "validation_spec_id": "VAL-M0044-S-INTERFACE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0044/Statement.lean"
+      ],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-S-BOUNDARY",
+      "obligation_id": "M0044-S-BOUNDARY",
+      "kind": "branch",
+      "human_statement": "Close zero-row and zero-column dimensions without positivity, Nonempty, rank, or invertibility assumptions.",
+      "formal_target": "Stage1Instances.THM_M_0044.{zeroByNBoundary,mByZeroBoundary}",
+      "output": "The checked empty-dimension branches for both selected scalar fields.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "repo-local-checked-interface",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 30,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.{zeroByNBoundary,mByZeroBoundary}",
+        "output": "The checked empty-dimension branches for both selected scalar fields.",
+        "outgoing_use": [
+          "M0044-B-REAL-DIMENSIONS",
+          "M0044-B-COMPLEX-DIMENSIONS"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-s-boundary",
+      "validation_spec_id": "VAL-M0044-S-BOUNDARY",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0044/Statement.lean"
+      ],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-S-ENCODING",
+      "obligation_id": "M0044-S-ENCODING",
+      "kind": "transport",
+      "human_statement": "Relate the named root exactly to its direct expansion and only one-way from the stronger open RCLike formulation.",
+      "formal_target": "Stage1Instances.THM_M_0044.{singularValueDecompositionTarget_iff_directFullSVDShape,rclikeFullSVDShape_implies_target}",
+      "output": "Checked transport directions with no thin, compact, real-only, or square substitution.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "repo-local-checked-interface",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.{singularValueDecompositionTarget_iff_directFullSVDShape,rclikeFullSVDShape_implies_target}",
+        "output": "Checked transport directions with no thin, compact, real-only, or square substitution.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-s-encoding",
+      "validation_spec_id": "VAL-M0044-S-ENCODING",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0044/Statement.lean"
+      ],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-S-FOUNDATION",
+      "obligation_id": "M0044-S-FOUNDATION",
+      "kind": "certificate",
+      "human_statement": "Audit classical choice, square roots, basis extension, extensionality, quotients, axioms, imports, computation policy, and the trusted computing base.",
+      "formal_target": "Lean 4.29.0 and pinned mathlib transitive trust closure",
+      "output": "An accepted foundation and TCB boundary for every terminal body.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 45,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "Lean 4.29.0 and pinned mathlib transitive trust closure",
+        "output": "An accepted foundation and TCB boundary for every terminal body.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-s-foundation",
+      "validation_spec_id": "VAL-M0044-S-FOUNDATION",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-B-REAL-DIMENSIONS",
+      "obligation_id": "M0044-B-REAL-DIMENSIONS",
+      "kind": "branch",
+      "human_statement": "Split the real target exhaustively into m=0, n=0, and m>0 with n>0, then recompose FullSVDOver Real.",
+      "formal_target": "planned Nat dimension split and exact Real FullSVDOver recomposition",
+      "output": "The real target for all finite dimensions, including the overlapping 0-by-0 boundary.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 35,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-S-BOUNDARY",
+          "M0044-T-REAL-NONEMPTY"
+        ],
+        "inference": "planned Nat dimension split and exact Real FullSVDOver recomposition",
+        "output": "The real target for all finite dimensions, including the overlapping 0-by-0 boundary.",
+        "outgoing_use": [
+          "M0044-T-REAL"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-b-real-dimensions",
+      "validation_spec_id": "VAL-M0044-B-REAL-DIMENSIONS",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-B-COMPLEX-DIMENSIONS",
+      "obligation_id": "M0044-B-COMPLEX-DIMENSIONS",
+      "kind": "branch",
+      "human_statement": "Split the complex target exhaustively into m=0, n=0, and m>0 with n>0, then recompose FullSVDOver Complex.",
+      "formal_target": "planned Nat dimension split and exact Complex FullSVDOver recomposition",
+      "output": "The complex target for all finite dimensions, including the overlapping 0-by-0 boundary.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 35,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-S-BOUNDARY",
+          "M0044-T-COMPLEX-NONEMPTY"
+        ],
+        "inference": "planned Nat dimension split and exact Complex FullSVDOver recomposition",
+        "output": "The complex target for all finite dimensions, including the overlapping 0-by-0 boundary.",
+        "outgoing_use": [
+          "M0044-T-COMPLEX"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-b-complex-dimensions",
+      "validation_spec_id": "VAL-M0044-B-COMPLEX-DIMENSIONS",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-T-REAL-NONEMPTY",
+      "obligation_id": "M0044-T-REAL-NONEMPTY",
+      "kind": "terminal",
+      "human_statement": "Assemble a full SVD witness for every positive-dimensional real rectangular matrix.",
+      "formal_target": "planned positive-dimension real IsFullSVD composition",
+      "output": "The nonempty branch of FullSVDOver Real.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 42,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-UNITARY",
+          "M0044-L-SINGULAR-NONNEG",
+          "M0044-C-SIGMA",
+          "M0044-L-ENTRYWISE"
+        ],
+        "inference": "planned positive-dimension real IsFullSVD composition",
+        "output": "The nonempty branch of FullSVDOver Real.",
+        "outgoing_use": [
+          "M0044-B-REAL-DIMENSIONS"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-t-real-nonempty",
+      "validation_spec_id": "VAL-M0044-T-REAL-NONEMPTY",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-T-COMPLEX-NONEMPTY",
+      "obligation_id": "M0044-T-COMPLEX-NONEMPTY",
+      "kind": "terminal",
+      "human_statement": "Assemble a full SVD witness for every positive-dimensional complex rectangular matrix.",
+      "formal_target": "planned positive-dimension complex IsFullSVD composition",
+      "output": "The nonempty branch of FullSVDOver Complex.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 42,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-UNITARY",
+          "M0044-L-SINGULAR-NONNEG",
+          "M0044-C-SIGMA",
+          "M0044-L-ENTRYWISE"
+        ],
+        "inference": "planned positive-dimension complex IsFullSVD composition",
+        "output": "The nonempty branch of FullSVDOver Complex.",
+        "outgoing_use": [
+          "M0044-B-COMPLEX-DIMENSIONS"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-t-complex-nonempty",
+      "validation_spec_id": "VAL-M0044-T-COMPLEX-NONEMPTY",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-N-LINEAR-MAP",
+      "obligation_id": "M0044-N-LINEAR-MAP",
+      "kind": "reduction",
+      "human_statement": "Transport an arbitrary m-by-n matrix to the matching finite Euclidean linear map and back, preserving adjoint and multiplication orientation.",
+      "formal_target": "planned Matrix.toEuclideanLin and adjoint/conjugate-transpose compatibility package",
+      "output": "A representation in which the finite-dimensional spectral interfaces apply.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 65,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "planned Matrix.toEuclideanLin and adjoint/conjugate-transpose compatibility package",
+        "output": "A representation in which the finite-dimensional spectral interfaces apply.",
+        "outgoing_use": [
+          "M0044-C-GRAM",
+          "M0044-L-RANK-BOUNDS"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-n-linear-map",
+      "validation_spec_id": "VAL-M0044-N-LINEAR-MAP",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-C-GRAM",
+      "obligation_id": "M0044-C-GRAM",
+      "kind": "construction",
+      "human_statement": "Construct the right Gram operator A* A on the n-dimensional domain, including empty dimensions.",
+      "formal_target": "planned Gram matrix/linear-map construction",
+      "output": "A square endomorphism whose eigenvectors are candidate right singular vectors.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 42,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-N-LINEAR-MAP"
+        ],
+        "inference": "planned Gram matrix/linear-map construction",
+        "output": "A square endomorphism whose eigenvectors are candidate right singular vectors.",
+        "outgoing_use": [
+          "M0044-L-GRAM-HERMITIAN",
+          "M0044-X-SPECTRAL",
+          "M0044-C-SINGULAR-VALUES",
+          "M0044-L-ZERO-KERNEL"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-c-gram",
+      "validation_spec_id": "VAL-M0044-C-GRAM",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-GRAM-HERMITIAN",
+      "obligation_id": "M0044-L-GRAM-HERMITIAN",
+      "kind": "core_lemma",
+      "human_statement": "Prove that A* A is Hermitian/self-adjoint and positive semidefinite in the selected representation.",
+      "formal_target": "Matrix.isHermitian_conjTranspose_mul_self plus linear-map positivity bridges",
+      "output": "Hermitian spectral eligibility and nonnegative eigenvalue data.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "anchor-audit:M0044-C01-MATHLIB-SVD-SUBSTRATE",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 55,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-GRAM"
+        ],
+        "inference": "Matrix.isHermitian_conjTranspose_mul_self plus linear-map positivity bridges",
+        "output": "Hermitian spectral eligibility and nonnegative eigenvalue data.",
+        "outgoing_use": [
+          "M0044-X-SPECTRAL",
+          "M0044-L-SINGULAR-NONNEG",
+          "M0044-L-POSITIVE-LEFT-ON"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-gram-hermitian",
+      "validation_spec_id": "VAL-M0044-L-GRAM-HERMITIAN",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-X-SPECTRAL",
+      "obligation_id": "M0044-X-SPECTRAL",
+      "kind": "bridge",
+      "human_statement": "Apply the pinned symmetric-linear-map eigenvector-basis theorem to A\u2020 A and audit the terminal library body rather than treating the invocation as primitive.",
+      "formal_target": "LinearMap.IsSymmetric.eigenvectorBasis and LinearMap.IsSymmetric.apply_eigenvectorBasis",
+      "output": "A full orthonormal right eigenbasis and diagonal eigenvalue equation.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "anchor-audit:M0044-C01-MATHLIB-SVD-SUBSTRATE",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 36,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-GRAM",
+          "M0044-L-GRAM-HERMITIAN"
+        ],
+        "inference": "LinearMap.IsSymmetric.eigenvectorBasis and LinearMap.IsSymmetric.apply_eigenvectorBasis",
+        "output": "A full orthonormal right eigenbasis and diagonal eigenvalue equation.",
+        "outgoing_use": [
+          "M0044-C-RIGHT-EIGENBASIS"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-x-spectral",
+      "validation_spec_id": "VAL-M0044-X-SPECTRAL",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-C-RIGHT-EIGENBASIS",
+      "obligation_id": "M0044-C-RIGHT-EIGENBASIS",
+      "kind": "construction",
+      "human_statement": "Extract and orient a complete right orthonormal eigenbasis from the spectral theorem.",
+      "formal_target": "planned basis indexed by Fin n with A* A eigenvector equations",
+      "output": "Right singular vectors v_j with a complete orthonormal-basis invariant.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 60,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-X-SPECTRAL"
+        ],
+        "inference": "planned basis indexed by Fin n with A* A eigenvector equations",
+        "output": "Right singular vectors v_j with a complete orthonormal-basis invariant.",
+        "outgoing_use": [
+          "M0044-C-SINGULAR-VALUES",
+          "M0044-N-ORDER-ALIGN",
+          "M0044-C-POSITIVE-LEFT",
+          "M0044-L-ZERO-KERNEL",
+          "M0044-L-BASIS-INVARIANTS",
+          "M0044-C-UNITARY"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-c-right-eigenbasis",
+      "validation_spec_id": "VAL-M0044-C-RIGHT-EIGENBASIS",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-C-SINGULAR-VALUES",
+      "obligation_id": "M0044-C-SINGULAR-VALUES",
+      "kind": "construction",
+      "human_statement": "Use the pinned LinearMap.singularValues sequence and restrict it to the exact Fin (min m n) data after proving the rank and index transports.",
+      "formal_target": "LinearMap.singularValues with planned finite-index restriction",
+      "output": "Real singular data sigma with squared-value equations.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 72,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-GRAM",
+          "M0044-C-RIGHT-EIGENBASIS"
+        ],
+        "inference": "LinearMap.singularValues with planned finite-index restriction",
+        "output": "Real singular data sigma with squared-value equations.",
+        "outgoing_use": [
+          "M0044-L-SINGULAR-NONNEG",
+          "M0044-N-ORDER-ALIGN",
+          "M0044-C-POSITIVE-LEFT",
+          "M0044-L-ZERO-KERNEL",
+          "M0044-C-SIGMA"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-c-singular-values",
+      "validation_spec_id": "VAL-M0044-C-SINGULAR-VALUES",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-SINGULAR-NONNEG",
+      "obligation_id": "M0044-L-SINGULAR-NONNEG",
+      "kind": "core_lemma",
+      "human_statement": "Prove sigma_j is nonnegative and its square is the matching Gram eigenvalue.",
+      "formal_target": "planned Real.sqrt_nonneg and Gram eigenvalue positivity package",
+      "output": "Nonnegativity and normalization equations required by IsFullSVD.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 48,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-SINGULAR-VALUES",
+          "M0044-L-GRAM-HERMITIAN"
+        ],
+        "inference": "planned Real.sqrt_nonneg and Gram eigenvalue positivity package",
+        "output": "Nonnegativity and normalization equations required by IsFullSVD.",
+        "outgoing_use": [
+          "M0044-T-REAL-NONEMPTY",
+          "M0044-T-COMPLEX-NONEMPTY",
+          "M0044-B-SINGULAR-SPLIT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-singular-nonneg",
+      "validation_spec_id": "VAL-M0044-L-SINGULAR-NONNEG",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-RANK-BOUNDS",
+      "obligation_id": "M0044-L-RANK-BOUNDS",
+      "kind": "core_lemma",
+      "human_statement": "For r = finrank(range A), prove r <= n and r <= m, hence r <= min(m,n), with exact Euclidean-space cardinal transports.",
+      "formal_target": "planned LinearMap.finrank_range bounds and FiniteDimensional.finrank_fin compatibility",
+      "output": "The rank inequalities required by positive-prefix, left-extension, and rectangular-tail indices.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 62,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-N-LINEAR-MAP"
+        ],
+        "inference": "planned LinearMap.finrank_range bounds and FiniteDimensional.finrank_fin compatibility",
+        "output": "The rank inequalities required by positive-prefix, left-extension, and rectangular-tail indices.",
+        "outgoing_use": [
+          "M0044-N-ORDER-ALIGN",
+          "M0044-B-SINGULAR-SPLIT",
+          "M0044-L-ZERO-TAIL",
+          "M0044-C-LEFT-COMPLETE",
+          "M0044-N-MIN-INDEX"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-rank-bounds",
+      "validation_spec_id": "VAL-M0044-L-RANK-BOUNDS",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-B-SINGULAR-SPLIT",
+      "obligation_id": "M0044-B-SINGULAR-SPLIT",
+      "kind": "branch",
+      "human_statement": "Split every relevant singular direction into sigma_j > 0 and sigma_j = 0 and prove the split exhaustive.",
+      "formal_target": "planned finite exhaustive positivity/zero branch recomposition",
+      "output": "A complete partition of right singular directions, including rank-deficient tails.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 38,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-L-SINGULAR-NONNEG",
+          "M0044-L-RANK-BOUNDS",
+          "M0044-N-ORDER-ALIGN",
+          "M0044-B-POSITIVE",
+          "M0044-B-ZERO"
+        ],
+        "inference": "planned finite exhaustive positivity/zero branch recomposition",
+        "output": "A complete partition of right singular directions, including rank-deficient tails.",
+        "outgoing_use": [
+          "M0044-L-BASIS-INVARIANTS"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-b-singular-split",
+      "validation_spec_id": "VAL-M0044-B-SINGULAR-SPLIT",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-B-POSITIVE",
+      "obligation_id": "M0044-B-POSITIVE",
+      "kind": "branch",
+      "human_statement": "Handle directions with positive singular value by normalized application of A.",
+      "formal_target": "planned positive-sigma branch",
+      "output": "Left-vector data for every positive singular direction.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 28,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-POSITIVE-LEFT",
+          "M0044-L-POSITIVE-LEFT-ON"
+        ],
+        "inference": "planned positive-sigma branch",
+        "output": "Left-vector data for every positive singular direction.",
+        "outgoing_use": [
+          "M0044-B-SINGULAR-SPLIT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-b-positive",
+      "validation_spec_id": "VAL-M0044-B-POSITIVE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-C-POSITIVE-LEFT",
+      "obligation_id": "M0044-C-POSITIVE-LEFT",
+      "kind": "construction",
+      "human_statement": "For sigma_j > 0 construct u_j = sigma_j^-1 A v_j and prove A v_j = sigma_j u_j.",
+      "formal_target": "planned normalized left-singular-vector construction",
+      "output": "Positive left singular vectors and their defining intertwining equation.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 70,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-RIGHT-EIGENBASIS",
+          "M0044-C-SINGULAR-VALUES"
+        ],
+        "inference": "planned normalized left-singular-vector construction",
+        "output": "Positive left singular vectors and their defining intertwining equation.",
+        "outgoing_use": [
+          "M0044-B-POSITIVE",
+          "M0044-L-POSITIVE-LEFT-ON"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-c-positive-left",
+      "validation_spec_id": "VAL-M0044-C-POSITIVE-LEFT",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-POSITIVE-LEFT-ON",
+      "obligation_id": "M0044-L-POSITIVE-LEFT-ON",
+      "kind": "core_lemma",
+      "human_statement": "Use the Gram eigenvalue equations to prove the positive left singular vectors are orthonormal.",
+      "formal_target": "planned inner-product calculation for normalized images",
+      "output": "An orthonormal positive left family.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 82,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-POSITIVE-LEFT",
+          "M0044-L-GRAM-HERMITIAN",
+          "M0044-N-ORDER-ALIGN"
+        ],
+        "inference": "planned inner-product calculation for normalized images",
+        "output": "An orthonormal positive left family.",
+        "outgoing_use": [
+          "M0044-B-POSITIVE",
+          "M0044-C-LEFT-COMPLETE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-positive-left-on",
+      "validation_spec_id": "VAL-M0044-L-POSITIVE-LEFT-ON",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-B-ZERO",
+      "obligation_id": "M0044-B-ZERO",
+      "kind": "branch",
+      "human_statement": "Handle zero singular directions without dividing by zero and track domain-kernel and codomain-complement dimensions.",
+      "formal_target": "planned zero-singular-value branch",
+      "output": "A complete rank-deficient and zero-tail construction.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 35,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-L-ZERO-KERNEL"
+        ],
+        "inference": "planned zero-singular-value branch",
+        "output": "A complete rank-deficient and zero-tail construction.",
+        "outgoing_use": [
+          "M0044-B-SINGULAR-SPLIT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-b-zero",
+      "validation_spec_id": "VAL-M0044-B-ZERO",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-ZERO-KERNEL",
+      "obligation_id": "M0044-L-ZERO-KERNEL",
+      "kind": "core_lemma",
+      "human_statement": "Show a zero Gram eigenvalue implies A v_j = 0 and characterize the unused left complement needed for a full basis.",
+      "formal_target": "planned norm-square/kernel lemma",
+      "output": "Zero-column equations plus the exact remaining left dimension.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 68,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-GRAM",
+          "M0044-C-RIGHT-EIGENBASIS",
+          "M0044-C-SINGULAR-VALUES"
+        ],
+        "inference": "planned norm-square/kernel lemma",
+        "output": "Zero-column equations plus the exact remaining left dimension.",
+        "outgoing_use": [
+          "M0044-B-ZERO",
+          "M0044-L-ZERO-TAIL"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-zero-kernel",
+      "validation_spec_id": "VAL-M0044-L-ZERO-KERNEL",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-C-LEFT-COMPLETE",
+      "obligation_id": "M0044-C-LEFT-COMPLETE",
+      "kind": "construction",
+      "human_statement": "Extend the positive left family to a full Fin m orthonormal basis; zero/tail columns need no prescribed left vector, including m=0.",
+      "formal_target": "Orthonormal.exists_orthonormalBasis_extension_of_card_eq plus finite cardinal arithmetic",
+      "output": "A complete left orthonormal basis with the prescribed singular-vector prefix.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "anchor-audit:M0044-C01-MATHLIB-SVD-SUBSTRATE",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 85,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-L-POSITIVE-LEFT-ON",
+          "M0044-L-RANK-BOUNDS"
+        ],
+        "inference": "Orthonormal.exists_orthonormalBasis_extension_of_card_eq plus finite cardinal arithmetic",
+        "output": "A complete left orthonormal basis with the prescribed singular-vector prefix.",
+        "outgoing_use": [
+          "M0044-L-BASIS-INVARIANTS",
+          "M0044-C-UNITARY"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-c-left-complete",
+      "validation_spec_id": "VAL-M0044-C-LEFT-COMPLETE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-BASIS-INVARIANTS",
+      "obligation_id": "M0044-L-BASIS-INVARIANTS",
+      "kind": "core_lemma",
+      "human_statement": "Prove all chosen extensions preserve indexing, orthonormality, positive equations, zero equations, and independence of unused choices.",
+      "formal_target": "planned basis-extension invariant package",
+      "output": "Two compatible full bases and all columnwise action equations.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 88,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-B-SINGULAR-SPLIT",
+          "M0044-C-RIGHT-EIGENBASIS",
+          "M0044-C-LEFT-COMPLETE",
+          "M0044-L-ZERO-TAIL"
+        ],
+        "inference": "planned basis-extension invariant package",
+        "output": "Two compatible full bases and all columnwise action equations.",
+        "outgoing_use": [
+          "M0044-C-UNITARY",
+          "M0044-L-ENTRYWISE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-basis-invariants",
+      "validation_spec_id": "VAL-M0044-L-BASIS-INVARIANTS",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-C-UNITARY",
+      "obligation_id": "M0044-C-UNITARY",
+      "kind": "construction",
+      "human_statement": "Convert the left and right orthonormal bases to square unitary matrices in the orientation used by the frozen equality.",
+      "formal_target": "LinearIsometryEquiv.toMatrix_mem_unitaryGroup plus orientation bridges",
+      "output": "Square U and V with membership in Matrix.unitaryGroup.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "anchor-audit:M0044-C01-MATHLIB-SVD-SUBSTRATE",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 62,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-RIGHT-EIGENBASIS",
+          "M0044-C-LEFT-COMPLETE",
+          "M0044-L-BASIS-INVARIANTS"
+        ],
+        "inference": "LinearIsometryEquiv.toMatrix_mem_unitaryGroup plus orientation bridges",
+        "output": "Square U and V with membership in Matrix.unitaryGroup.",
+        "outgoing_use": [
+          "M0044-T-REAL-NONEMPTY",
+          "M0044-T-COMPLEX-NONEMPTY",
+          "M0044-L-ENTRYWISE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-c-unitary",
+      "validation_spec_id": "VAL-M0044-C-UNITARY",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-N-MIN-INDEX",
+      "obligation_id": "M0044-N-MIN-INDEX",
+      "kind": "normalization",
+      "human_statement": "Reindex rank, positive, zero, and tail directions into the exact Fin (min m n) convention without ordering or sign ambiguity.",
+      "formal_target": "planned finite-cardinality and permutation normalization",
+      "output": "The precise dependent indices used by the frozen rectangular diagonal.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 76,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-L-RANK-BOUNDS",
+          "M0044-N-ORDER-ALIGN"
+        ],
+        "inference": "planned finite-cardinality and permutation normalization",
+        "output": "The precise dependent indices used by the frozen rectangular diagonal.",
+        "outgoing_use": [
+          "M0044-C-SIGMA"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-n-min-index",
+      "validation_spec_id": "VAL-M0044-N-MIN-INDEX",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-N-ORDER-ALIGN",
+      "obligation_id": "M0044-N-ORDER-ALIGN",
+      "kind": "normalization",
+      "human_statement": "Align the right eigenbasis index with sq_singularValues_fin and decreasing singular-value order, preserving each exact Fin n column position.",
+      "formal_target": "planned indexed eigenvalue/singularValues/eigenvectorBasis transport",
+      "output": "One stable index relation shared by sigma, v_j, the support cutoff, and Sigma.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 78,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-RIGHT-EIGENBASIS",
+          "M0044-C-SINGULAR-VALUES",
+          "M0044-L-RANK-BOUNDS"
+        ],
+        "inference": "planned indexed eigenvalue/singularValues/eigenvectorBasis transport",
+        "output": "One stable index relation shared by sigma, v_j, the support cutoff, and Sigma.",
+        "outgoing_use": [
+          "M0044-B-SINGULAR-SPLIT",
+          "M0044-L-POSITIVE-LEFT-ON",
+          "M0044-L-ZERO-TAIL",
+          "M0044-N-MIN-INDEX"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-n-order-align",
+      "validation_spec_id": "VAL-M0044-N-ORDER-ALIGN",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-ZERO-TAIL",
+      "obligation_id": "M0044-L-ZERO-TAIL",
+      "kind": "core_lemma",
+      "human_statement": "For every right-basis position at or beyond rank, and every j >= min(m,n) when n>m, prove sigma_j=0 and A v_j=0.",
+      "formal_target": "planned singularValues support cutoff plus ker_adjoint_comp_self argument",
+      "output": "All zero and rectangular-tail column action equations.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 82,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-L-ZERO-KERNEL",
+          "M0044-L-RANK-BOUNDS",
+          "M0044-N-ORDER-ALIGN"
+        ],
+        "inference": "planned singularValues support cutoff plus ker_adjoint_comp_self argument",
+        "output": "All zero and rectangular-tail column action equations.",
+        "outgoing_use": [
+          "M0044-L-BASIS-INVARIANTS",
+          "M0044-L-ENTRYWISE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-zero-tail",
+      "validation_spec_id": "VAL-M0044-L-ZERO-TAIL",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-C-SIGMA",
+      "obligation_id": "M0044-C-SIGMA",
+      "kind": "construction",
+      "human_statement": "Build the explicit m-by-n rectangular Sigma and prove its off-diagonal entries vanish and diagonal entries are the embedded nonnegative sigma values.",
+      "formal_target": "Stage1Instances.THM_M_0044.IsRectangularDiagonal with the frozen dependent if-expression",
+      "output": "The exact rectangular diagonal witness required by IsFullSVD.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 58,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-SINGULAR-VALUES",
+          "M0044-N-MIN-INDEX"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.IsRectangularDiagonal with the frozen dependent if-expression",
+        "output": "The exact rectangular diagonal witness required by IsFullSVD.",
+        "outgoing_use": [
+          "M0044-T-REAL-NONEMPTY",
+          "M0044-T-COMPLEX-NONEMPTY",
+          "M0044-L-ENTRYWISE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-c-sigma",
+      "validation_spec_id": "VAL-M0044-C-SIGMA",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-L-ENTRYWISE",
+      "obligation_id": "M0044-L-ENTRYWISE",
+      "kind": "core_lemma",
+      "human_statement": "Prove A = U * Sigma * star V entrywise from the full-basis column equations, including all zero and rectangular-tail indices.",
+      "formal_target": "planned Matrix.ext and finite-sum orthonormal-basis calculation",
+      "output": "The exact multiplication equality in the selected star orientation.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 100,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-C-UNITARY",
+          "M0044-C-SIGMA",
+          "M0044-L-ZERO-TAIL",
+          "M0044-L-BASIS-INVARIANTS"
+        ],
+        "inference": "planned Matrix.ext and finite-sum orthonormal-basis calculation",
+        "output": "The exact multiplication equality in the selected star orientation.",
+        "outgoing_use": [
+          "M0044-T-REAL-NONEMPTY",
+          "M0044-T-COMPLEX-NONEMPTY"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-l-entrywise",
+      "validation_spec_id": "VAL-M0044-L-ENTRYWISE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-T-REAL",
+      "obligation_id": "M0044-T-REAL",
+      "kind": "transport",
+      "human_statement": "Recompose the real dimension branches into the exact real half of the canonical root.",
+      "formal_target": "Stage1Instances.THM_M_0044.ObligationTree.RealFullSVDPackage",
+      "output": "Stage1Instances.THM_M_0044.ObligationTree.RealFullSVDPackage.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-B-REAL-DIMENSIONS"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.ObligationTree.RealFullSVDPackage",
+        "output": "Stage1Instances.THM_M_0044.ObligationTree.RealFullSVDPackage.",
+        "outgoing_use": [
+          "M0044-T-ASSEMBLE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-t-real",
+      "validation_spec_id": "VAL-M0044-T-REAL",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0044/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-T-COMPLEX",
+      "obligation_id": "M0044-T-COMPLEX",
+      "kind": "transport",
+      "human_statement": "Recompose the complex dimension branches into the exact complex half of the canonical root.",
+      "formal_target": "Stage1Instances.THM_M_0044.ObligationTree.ComplexFullSVDPackage",
+      "output": "Stage1Instances.THM_M_0044.ObligationTree.ComplexFullSVDPackage.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "none",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 18,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-B-COMPLEX-DIMENSIONS"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.ObligationTree.ComplexFullSVDPackage",
+        "output": "Stage1Instances.THM_M_0044.ObligationTree.ComplexFullSVDPackage.",
+        "outgoing_use": [
+          "M0044-T-ASSEMBLE"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-t-complex",
+      "validation_spec_id": "VAL-M0044-T-COMPLEX",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0044/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-T-ASSEMBLE",
+      "obligation_id": "M0044-T-ASSEMBLE",
+      "kind": "terminal",
+      "human_statement": "Consume the exact real and complex packages and form the canonical conjunction.",
+      "formal_target": "Stage1Instances.THM_M_0044.ObligationTree.root_of_real_and_complex",
+      "output": "The exact frozen SingularValueDecompositionTarget.",
+      "human_debt": "H1",
+      "machine_debt": "M3",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "repo-local-checked-interface",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 8,
+      "semantic_step_ledger": {
+        "premises": [
+          "M0044-T-REAL",
+          "M0044-T-COMPLEX"
+        ],
+        "inference": "Stage1Instances.THM_M_0044.ObligationTree.root_of_real_and_complex",
+        "output": "The exact frozen SingularValueDecompositionTarget.",
+        "outgoing_use": [
+          "M0044-ROOT"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-t-assemble",
+      "validation_spec_id": "VAL-M0044-T-ASSEMBLE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [
+        "Stage1_Instances/THM-M-0044/ObligationTree.lean"
+      ],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": "2026-07-13",
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "provisional"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-X-SOURCE",
+      "obligation_id": "M0044-X-SOURCE",
+      "kind": "terminal",
+      "human_statement": "Map every material SVD transition to a reviewed primary theorem, definitions, assumptions, empty-dimension reconciliation, orientation, errata, and historical attribution.",
+      "formal_target": "Axler 4e Section 7E and primary/historical source packet pending",
+      "output": "Human-source coverage without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "support-boundary-pending",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 90,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "Axler 4e Section 7E and primary/historical source packet pending",
+        "output": "Human-source coverage without machine proof credit.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-x-source",
+      "validation_spec_id": "VAL-M0044-X-SOURCE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-X-PROVENANCE",
+      "obligation_id": "M0044-X-PROVENANCE",
+      "kind": "certificate",
+      "human_statement": "Audit wrappers, terminal bodies, aliases, imports, immutable origins, licenses, and revocations without duplicate proof credit.",
+      "formal_target": "terminal proof-body provenance packets pending",
+      "output": "Body-level provenance coverage without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "support-boundary-pending",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 55,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "terminal proof-body provenance packets pending",
+        "output": "Body-level provenance coverage without mathematical proof credit.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-x-provenance",
+      "validation_spec_id": "VAL-M0044-X-PROVENANCE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-X-TRUST",
+      "obligation_id": "M0044-X-TRUST",
+      "kind": "certificate",
+      "human_statement": "Audit Lean, mathlib, axioms, compiled artifacts, unsafe/oracle boundaries, replay, and supply-chain trust transitively.",
+      "formal_target": "Lean 4.29.0 and mathlib 8a178386 transitive closure pending",
+      "output": "Release-grade trust coverage without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "support-boundary-pending",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 55,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "Lean 4.29.0 and mathlib 8a178386 transitive closure pending",
+        "output": "Release-grade trust coverage without mathematical proof credit.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-x-trust",
+      "validation_spec_id": "VAL-M0044-X-TRUST",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-X-READABLE",
+      "obligation_id": "M0044-X-READABLE",
+      "kind": "terminal",
+      "human_statement": "Produce and independently review the complete node-specific mathematical reconstruction.",
+      "formal_target": "proof outline and independent reader receipt pending",
+      "output": "Readable coverage without machine proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "Axler-4e-7E-node-map-pending-independent-review",
+      "provenance_id": "support-boundary-pending",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 90,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "proof outline and independent reader receipt pending",
+        "output": "Readable coverage without machine proof credit.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-x-readable",
+      "validation_spec_id": "VAL-M0044-X-READABLE",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    },
+    {
+      "node_id": "THM-M-0044-X-WORKFLOW",
+      "obligation_id": "M0044-X-WORKFLOW",
+      "kind": "terminal",
+      "human_statement": "Bind proof, composition, source, readability, validation, freshness, revocation, independent verification, and release tasks.",
+      "formal_target": "Stage1 task and receipt closure pending",
+      "output": "Workflow acceptance without mathematical proof credit.",
+      "human_debt": "H1",
+      "machine_debt": "M4",
+      "readability_debt": "R3",
+      "evidence_ids": [],
+      "source_crosswalk_id": "not-applicable-pending-review",
+      "provenance_id": "support-boundary-pending",
+      "foundation_profile": "lean4-dependent-type-theory+classical-finite-linear-algebra; accepted transitive axiom policy pending",
+      "tcb_profile": "lean-4.29.0+mathlib-8a178386; transitive closure and independent replay pending",
+      "computation_record": "none; no numerical SVD, oracle, solver, native shortcut, experiment, or unchecked certificate is credited",
+      "step_budget": 40,
+      "semantic_step_ledger": {
+        "premises": [
+          "exact-formal-context-no-hidden-proof-premise"
+        ],
+        "inference": "Stage1 task and receipt closure pending",
+        "output": "Workflow acceptance without mathematical proof credit.",
+        "outgoing_use": [
+          "typed-non-proof-edge-or-canonical-root-boundary"
+        ]
+      },
+      "public_readable_target": "Stage1_Instances/THM-M-0044/obligation-tree.md#m0044-x-workflow",
+      "validation_spec_id": "VAL-M0044-X-WORKFLOW",
+      "status_boundary": "Frozen architecture or conditional interface only; no accepted root proof, H0, R0, audit completion, or theorem completion.",
+      "task_ids": [
+        "S56-M-0044-OBLIGATION_TREE",
+        "S56-M-0044-PROOF",
+        "S56-M-0044-VALIDATION"
+      ],
+      "owned_sources": [],
+      "owner": "THM-M-0044 proof lane",
+      "reviewer": "independent Stage1 integration lane",
+      "validity": {
+        "validated_at": null,
+        "review_due": "before proof acceptance",
+        "invalidation_inputs": [
+          "Statement.lean",
+          "anchor-audit.json",
+          "obligation-registry.json",
+          "typed-graphs.json",
+          "source crosswalk",
+          "toolchain",
+          "dependency pin"
+        ],
+        "revocation_state": "open"
+      }
+    }
+  ],
+  "graphs": {
+    "proof": {
+      "edges": [
+        {
+          "edge_id": "P01-REQ",
+          "from": "M0044-ROOT",
+          "type": "proof_requires",
+          "to": "M0044-T-ASSEMBLE",
+          "reciprocal_edge_id": "P01-COMP"
+        },
+        {
+          "edge_id": "P01-COMP",
+          "from": "M0044-T-ASSEMBLE",
+          "type": "composes",
+          "to": "M0044-ROOT",
+          "reciprocal_edge_id": "P01-REQ"
+        },
+        {
+          "edge_id": "P02-REQ",
+          "from": "M0044-T-ASSEMBLE",
+          "type": "proof_requires",
+          "to": "M0044-T-REAL",
+          "reciprocal_edge_id": "P02-COMP"
+        },
+        {
+          "edge_id": "P02-COMP",
+          "from": "M0044-T-REAL",
+          "type": "composes",
+          "to": "M0044-T-ASSEMBLE",
+          "reciprocal_edge_id": "P02-REQ"
+        },
+        {
+          "edge_id": "P03-REQ",
+          "from": "M0044-T-ASSEMBLE",
+          "type": "proof_requires",
+          "to": "M0044-T-COMPLEX",
+          "reciprocal_edge_id": "P03-COMP"
+        },
+        {
+          "edge_id": "P03-COMP",
+          "from": "M0044-T-COMPLEX",
+          "type": "composes",
+          "to": "M0044-T-ASSEMBLE",
+          "reciprocal_edge_id": "P03-REQ"
+        },
+        {
+          "edge_id": "P04-REQ",
+          "from": "M0044-T-REAL",
+          "type": "proof_requires",
+          "to": "M0044-B-REAL-DIMENSIONS",
+          "reciprocal_edge_id": "P04-COMP"
+        },
+        {
+          "edge_id": "P04-COMP",
+          "from": "M0044-B-REAL-DIMENSIONS",
+          "type": "composes",
+          "to": "M0044-T-REAL",
+          "reciprocal_edge_id": "P04-REQ"
+        },
+        {
+          "edge_id": "P05-REQ",
+          "from": "M0044-T-COMPLEX",
+          "type": "proof_requires",
+          "to": "M0044-B-COMPLEX-DIMENSIONS",
+          "reciprocal_edge_id": "P05-COMP"
+        },
+        {
+          "edge_id": "P05-COMP",
+          "from": "M0044-B-COMPLEX-DIMENSIONS",
+          "type": "composes",
+          "to": "M0044-T-COMPLEX",
+          "reciprocal_edge_id": "P05-REQ"
+        },
+        {
+          "edge_id": "P06-REQ",
+          "from": "M0044-B-REAL-DIMENSIONS",
+          "type": "proof_requires",
+          "to": "M0044-S-BOUNDARY",
+          "reciprocal_edge_id": "P06-COMP"
+        },
+        {
+          "edge_id": "P06-COMP",
+          "from": "M0044-S-BOUNDARY",
+          "type": "composes",
+          "to": "M0044-B-REAL-DIMENSIONS",
+          "reciprocal_edge_id": "P06-REQ"
+        },
+        {
+          "edge_id": "P07-REQ",
+          "from": "M0044-B-REAL-DIMENSIONS",
+          "type": "proof_requires",
+          "to": "M0044-T-REAL-NONEMPTY",
+          "reciprocal_edge_id": "P07-COMP"
+        },
+        {
+          "edge_id": "P07-COMP",
+          "from": "M0044-T-REAL-NONEMPTY",
+          "type": "composes",
+          "to": "M0044-B-REAL-DIMENSIONS",
+          "reciprocal_edge_id": "P07-REQ"
+        },
+        {
+          "edge_id": "P08-REQ",
+          "from": "M0044-B-COMPLEX-DIMENSIONS",
+          "type": "proof_requires",
+          "to": "M0044-S-BOUNDARY",
+          "reciprocal_edge_id": "P08-COMP"
+        },
+        {
+          "edge_id": "P08-COMP",
+          "from": "M0044-S-BOUNDARY",
+          "type": "composes",
+          "to": "M0044-B-COMPLEX-DIMENSIONS",
+          "reciprocal_edge_id": "P08-REQ"
+        },
+        {
+          "edge_id": "P09-REQ",
+          "from": "M0044-B-COMPLEX-DIMENSIONS",
+          "type": "proof_requires",
+          "to": "M0044-T-COMPLEX-NONEMPTY",
+          "reciprocal_edge_id": "P09-COMP"
+        },
+        {
+          "edge_id": "P09-COMP",
+          "from": "M0044-T-COMPLEX-NONEMPTY",
+          "type": "composes",
+          "to": "M0044-B-COMPLEX-DIMENSIONS",
+          "reciprocal_edge_id": "P09-REQ"
+        },
+        {
+          "edge_id": "P10-REQ",
+          "from": "M0044-T-REAL-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-C-UNITARY",
+          "reciprocal_edge_id": "P10-COMP"
+        },
+        {
+          "edge_id": "P10-COMP",
+          "from": "M0044-C-UNITARY",
+          "type": "composes",
+          "to": "M0044-T-REAL-NONEMPTY",
+          "reciprocal_edge_id": "P10-REQ"
+        },
+        {
+          "edge_id": "P11-REQ",
+          "from": "M0044-T-REAL-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-L-SINGULAR-NONNEG",
+          "reciprocal_edge_id": "P11-COMP"
+        },
+        {
+          "edge_id": "P11-COMP",
+          "from": "M0044-L-SINGULAR-NONNEG",
+          "type": "composes",
+          "to": "M0044-T-REAL-NONEMPTY",
+          "reciprocal_edge_id": "P11-REQ"
+        },
+        {
+          "edge_id": "P12-REQ",
+          "from": "M0044-T-REAL-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-C-SIGMA",
+          "reciprocal_edge_id": "P12-COMP"
+        },
+        {
+          "edge_id": "P12-COMP",
+          "from": "M0044-C-SIGMA",
+          "type": "composes",
+          "to": "M0044-T-REAL-NONEMPTY",
+          "reciprocal_edge_id": "P12-REQ"
+        },
+        {
+          "edge_id": "P13-REQ",
+          "from": "M0044-T-REAL-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-L-ENTRYWISE",
+          "reciprocal_edge_id": "P13-COMP"
+        },
+        {
+          "edge_id": "P13-COMP",
+          "from": "M0044-L-ENTRYWISE",
+          "type": "composes",
+          "to": "M0044-T-REAL-NONEMPTY",
+          "reciprocal_edge_id": "P13-REQ"
+        },
+        {
+          "edge_id": "P14-REQ",
+          "from": "M0044-T-COMPLEX-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-C-UNITARY",
+          "reciprocal_edge_id": "P14-COMP"
+        },
+        {
+          "edge_id": "P14-COMP",
+          "from": "M0044-C-UNITARY",
+          "type": "composes",
+          "to": "M0044-T-COMPLEX-NONEMPTY",
+          "reciprocal_edge_id": "P14-REQ"
+        },
+        {
+          "edge_id": "P15-REQ",
+          "from": "M0044-T-COMPLEX-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-L-SINGULAR-NONNEG",
+          "reciprocal_edge_id": "P15-COMP"
+        },
+        {
+          "edge_id": "P15-COMP",
+          "from": "M0044-L-SINGULAR-NONNEG",
+          "type": "composes",
+          "to": "M0044-T-COMPLEX-NONEMPTY",
+          "reciprocal_edge_id": "P15-REQ"
+        },
+        {
+          "edge_id": "P16-REQ",
+          "from": "M0044-T-COMPLEX-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-C-SIGMA",
+          "reciprocal_edge_id": "P16-COMP"
+        },
+        {
+          "edge_id": "P16-COMP",
+          "from": "M0044-C-SIGMA",
+          "type": "composes",
+          "to": "M0044-T-COMPLEX-NONEMPTY",
+          "reciprocal_edge_id": "P16-REQ"
+        },
+        {
+          "edge_id": "P17-REQ",
+          "from": "M0044-T-COMPLEX-NONEMPTY",
+          "type": "proof_requires",
+          "to": "M0044-L-ENTRYWISE",
+          "reciprocal_edge_id": "P17-COMP"
+        },
+        {
+          "edge_id": "P17-COMP",
+          "from": "M0044-L-ENTRYWISE",
+          "type": "composes",
+          "to": "M0044-T-COMPLEX-NONEMPTY",
+          "reciprocal_edge_id": "P17-REQ"
+        },
+        {
+          "edge_id": "P18-REQ",
+          "from": "M0044-C-GRAM",
+          "type": "proof_requires",
+          "to": "M0044-N-LINEAR-MAP",
+          "reciprocal_edge_id": "P18-COMP"
+        },
+        {
+          "edge_id": "P18-COMP",
+          "from": "M0044-N-LINEAR-MAP",
+          "type": "composes",
+          "to": "M0044-C-GRAM",
+          "reciprocal_edge_id": "P18-REQ"
+        },
+        {
+          "edge_id": "P19-REQ",
+          "from": "M0044-L-GRAM-HERMITIAN",
+          "type": "proof_requires",
+          "to": "M0044-C-GRAM",
+          "reciprocal_edge_id": "P19-COMP"
+        },
+        {
+          "edge_id": "P19-COMP",
+          "from": "M0044-C-GRAM",
+          "type": "composes",
+          "to": "M0044-L-GRAM-HERMITIAN",
+          "reciprocal_edge_id": "P19-REQ"
+        },
+        {
+          "edge_id": "P20-REQ",
+          "from": "M0044-X-SPECTRAL",
+          "type": "proof_requires",
+          "to": "M0044-C-GRAM",
+          "reciprocal_edge_id": "P20-COMP"
+        },
+        {
+          "edge_id": "P20-COMP",
+          "from": "M0044-C-GRAM",
+          "type": "composes",
+          "to": "M0044-X-SPECTRAL",
+          "reciprocal_edge_id": "P20-REQ"
+        },
+        {
+          "edge_id": "P21-REQ",
+          "from": "M0044-X-SPECTRAL",
+          "type": "proof_requires",
+          "to": "M0044-L-GRAM-HERMITIAN",
+          "reciprocal_edge_id": "P21-COMP"
+        },
+        {
+          "edge_id": "P21-COMP",
+          "from": "M0044-L-GRAM-HERMITIAN",
+          "type": "composes",
+          "to": "M0044-X-SPECTRAL",
+          "reciprocal_edge_id": "P21-REQ"
+        },
+        {
+          "edge_id": "P22-REQ",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "proof_requires",
+          "to": "M0044-X-SPECTRAL",
+          "reciprocal_edge_id": "P22-COMP"
+        },
+        {
+          "edge_id": "P22-COMP",
+          "from": "M0044-X-SPECTRAL",
+          "type": "composes",
+          "to": "M0044-C-RIGHT-EIGENBASIS",
+          "reciprocal_edge_id": "P22-REQ"
+        },
+        {
+          "edge_id": "P23-REQ",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "proof_requires",
+          "to": "M0044-C-GRAM",
+          "reciprocal_edge_id": "P23-COMP"
+        },
+        {
+          "edge_id": "P23-COMP",
+          "from": "M0044-C-GRAM",
+          "type": "composes",
+          "to": "M0044-C-SINGULAR-VALUES",
+          "reciprocal_edge_id": "P23-REQ"
+        },
+        {
+          "edge_id": "P24-REQ",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "proof_requires",
+          "to": "M0044-C-RIGHT-EIGENBASIS",
+          "reciprocal_edge_id": "P24-COMP"
+        },
+        {
+          "edge_id": "P24-COMP",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "composes",
+          "to": "M0044-C-SINGULAR-VALUES",
+          "reciprocal_edge_id": "P24-REQ"
+        },
+        {
+          "edge_id": "P25-REQ",
+          "from": "M0044-L-SINGULAR-NONNEG",
+          "type": "proof_requires",
+          "to": "M0044-C-SINGULAR-VALUES",
+          "reciprocal_edge_id": "P25-COMP"
+        },
+        {
+          "edge_id": "P25-COMP",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "composes",
+          "to": "M0044-L-SINGULAR-NONNEG",
+          "reciprocal_edge_id": "P25-REQ"
+        },
+        {
+          "edge_id": "P26-REQ",
+          "from": "M0044-L-SINGULAR-NONNEG",
+          "type": "proof_requires",
+          "to": "M0044-L-GRAM-HERMITIAN",
+          "reciprocal_edge_id": "P26-COMP"
+        },
+        {
+          "edge_id": "P26-COMP",
+          "from": "M0044-L-GRAM-HERMITIAN",
+          "type": "composes",
+          "to": "M0044-L-SINGULAR-NONNEG",
+          "reciprocal_edge_id": "P26-REQ"
+        },
+        {
+          "edge_id": "P27-REQ",
+          "from": "M0044-L-RANK-BOUNDS",
+          "type": "proof_requires",
+          "to": "M0044-N-LINEAR-MAP",
+          "reciprocal_edge_id": "P27-COMP"
+        },
+        {
+          "edge_id": "P27-COMP",
+          "from": "M0044-N-LINEAR-MAP",
+          "type": "composes",
+          "to": "M0044-L-RANK-BOUNDS",
+          "reciprocal_edge_id": "P27-REQ"
+        },
+        {
+          "edge_id": "P28-REQ",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "proof_requires",
+          "to": "M0044-C-RIGHT-EIGENBASIS",
+          "reciprocal_edge_id": "P28-COMP"
+        },
+        {
+          "edge_id": "P28-COMP",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "composes",
+          "to": "M0044-N-ORDER-ALIGN",
+          "reciprocal_edge_id": "P28-REQ"
+        },
+        {
+          "edge_id": "P29-REQ",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "proof_requires",
+          "to": "M0044-C-SINGULAR-VALUES",
+          "reciprocal_edge_id": "P29-COMP"
+        },
+        {
+          "edge_id": "P29-COMP",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "composes",
+          "to": "M0044-N-ORDER-ALIGN",
+          "reciprocal_edge_id": "P29-REQ"
+        },
+        {
+          "edge_id": "P30-REQ",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "proof_requires",
+          "to": "M0044-L-RANK-BOUNDS",
+          "reciprocal_edge_id": "P30-COMP"
+        },
+        {
+          "edge_id": "P30-COMP",
+          "from": "M0044-L-RANK-BOUNDS",
+          "type": "composes",
+          "to": "M0044-N-ORDER-ALIGN",
+          "reciprocal_edge_id": "P30-REQ"
+        },
+        {
+          "edge_id": "P31-REQ",
+          "from": "M0044-B-SINGULAR-SPLIT",
+          "type": "proof_requires",
+          "to": "M0044-L-SINGULAR-NONNEG",
+          "reciprocal_edge_id": "P31-COMP"
+        },
+        {
+          "edge_id": "P31-COMP",
+          "from": "M0044-L-SINGULAR-NONNEG",
+          "type": "composes",
+          "to": "M0044-B-SINGULAR-SPLIT",
+          "reciprocal_edge_id": "P31-REQ"
+        },
+        {
+          "edge_id": "P32-REQ",
+          "from": "M0044-B-SINGULAR-SPLIT",
+          "type": "proof_requires",
+          "to": "M0044-L-RANK-BOUNDS",
+          "reciprocal_edge_id": "P32-COMP"
+        },
+        {
+          "edge_id": "P32-COMP",
+          "from": "M0044-L-RANK-BOUNDS",
+          "type": "composes",
+          "to": "M0044-B-SINGULAR-SPLIT",
+          "reciprocal_edge_id": "P32-REQ"
+        },
+        {
+          "edge_id": "P33-REQ",
+          "from": "M0044-B-SINGULAR-SPLIT",
+          "type": "proof_requires",
+          "to": "M0044-N-ORDER-ALIGN",
+          "reciprocal_edge_id": "P33-COMP"
+        },
+        {
+          "edge_id": "P33-COMP",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "composes",
+          "to": "M0044-B-SINGULAR-SPLIT",
+          "reciprocal_edge_id": "P33-REQ"
+        },
+        {
+          "edge_id": "P34-REQ",
+          "from": "M0044-B-SINGULAR-SPLIT",
+          "type": "proof_requires",
+          "to": "M0044-B-POSITIVE",
+          "reciprocal_edge_id": "P34-COMP"
+        },
+        {
+          "edge_id": "P34-COMP",
+          "from": "M0044-B-POSITIVE",
+          "type": "composes",
+          "to": "M0044-B-SINGULAR-SPLIT",
+          "reciprocal_edge_id": "P34-REQ"
+        },
+        {
+          "edge_id": "P35-REQ",
+          "from": "M0044-B-SINGULAR-SPLIT",
+          "type": "proof_requires",
+          "to": "M0044-B-ZERO",
+          "reciprocal_edge_id": "P35-COMP"
+        },
+        {
+          "edge_id": "P35-COMP",
+          "from": "M0044-B-ZERO",
+          "type": "composes",
+          "to": "M0044-B-SINGULAR-SPLIT",
+          "reciprocal_edge_id": "P35-REQ"
+        },
+        {
+          "edge_id": "P36-REQ",
+          "from": "M0044-B-POSITIVE",
+          "type": "proof_requires",
+          "to": "M0044-C-POSITIVE-LEFT",
+          "reciprocal_edge_id": "P36-COMP"
+        },
+        {
+          "edge_id": "P36-COMP",
+          "from": "M0044-C-POSITIVE-LEFT",
+          "type": "composes",
+          "to": "M0044-B-POSITIVE",
+          "reciprocal_edge_id": "P36-REQ"
+        },
+        {
+          "edge_id": "P37-REQ",
+          "from": "M0044-B-POSITIVE",
+          "type": "proof_requires",
+          "to": "M0044-L-POSITIVE-LEFT-ON",
+          "reciprocal_edge_id": "P37-COMP"
+        },
+        {
+          "edge_id": "P37-COMP",
+          "from": "M0044-L-POSITIVE-LEFT-ON",
+          "type": "composes",
+          "to": "M0044-B-POSITIVE",
+          "reciprocal_edge_id": "P37-REQ"
+        },
+        {
+          "edge_id": "P38-REQ",
+          "from": "M0044-C-POSITIVE-LEFT",
+          "type": "proof_requires",
+          "to": "M0044-C-RIGHT-EIGENBASIS",
+          "reciprocal_edge_id": "P38-COMP"
+        },
+        {
+          "edge_id": "P38-COMP",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "composes",
+          "to": "M0044-C-POSITIVE-LEFT",
+          "reciprocal_edge_id": "P38-REQ"
+        },
+        {
+          "edge_id": "P39-REQ",
+          "from": "M0044-C-POSITIVE-LEFT",
+          "type": "proof_requires",
+          "to": "M0044-C-SINGULAR-VALUES",
+          "reciprocal_edge_id": "P39-COMP"
+        },
+        {
+          "edge_id": "P39-COMP",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "composes",
+          "to": "M0044-C-POSITIVE-LEFT",
+          "reciprocal_edge_id": "P39-REQ"
+        },
+        {
+          "edge_id": "P40-REQ",
+          "from": "M0044-L-POSITIVE-LEFT-ON",
+          "type": "proof_requires",
+          "to": "M0044-C-POSITIVE-LEFT",
+          "reciprocal_edge_id": "P40-COMP"
+        },
+        {
+          "edge_id": "P40-COMP",
+          "from": "M0044-C-POSITIVE-LEFT",
+          "type": "composes",
+          "to": "M0044-L-POSITIVE-LEFT-ON",
+          "reciprocal_edge_id": "P40-REQ"
+        },
+        {
+          "edge_id": "P41-REQ",
+          "from": "M0044-L-POSITIVE-LEFT-ON",
+          "type": "proof_requires",
+          "to": "M0044-L-GRAM-HERMITIAN",
+          "reciprocal_edge_id": "P41-COMP"
+        },
+        {
+          "edge_id": "P41-COMP",
+          "from": "M0044-L-GRAM-HERMITIAN",
+          "type": "composes",
+          "to": "M0044-L-POSITIVE-LEFT-ON",
+          "reciprocal_edge_id": "P41-REQ"
+        },
+        {
+          "edge_id": "P42-REQ",
+          "from": "M0044-L-POSITIVE-LEFT-ON",
+          "type": "proof_requires",
+          "to": "M0044-N-ORDER-ALIGN",
+          "reciprocal_edge_id": "P42-COMP"
+        },
+        {
+          "edge_id": "P42-COMP",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "composes",
+          "to": "M0044-L-POSITIVE-LEFT-ON",
+          "reciprocal_edge_id": "P42-REQ"
+        },
+        {
+          "edge_id": "P43-REQ",
+          "from": "M0044-B-ZERO",
+          "type": "proof_requires",
+          "to": "M0044-L-ZERO-KERNEL",
+          "reciprocal_edge_id": "P43-COMP"
+        },
+        {
+          "edge_id": "P43-COMP",
+          "from": "M0044-L-ZERO-KERNEL",
+          "type": "composes",
+          "to": "M0044-B-ZERO",
+          "reciprocal_edge_id": "P43-REQ"
+        },
+        {
+          "edge_id": "P44-REQ",
+          "from": "M0044-L-ZERO-KERNEL",
+          "type": "proof_requires",
+          "to": "M0044-C-GRAM",
+          "reciprocal_edge_id": "P44-COMP"
+        },
+        {
+          "edge_id": "P44-COMP",
+          "from": "M0044-C-GRAM",
+          "type": "composes",
+          "to": "M0044-L-ZERO-KERNEL",
+          "reciprocal_edge_id": "P44-REQ"
+        },
+        {
+          "edge_id": "P45-REQ",
+          "from": "M0044-L-ZERO-KERNEL",
+          "type": "proof_requires",
+          "to": "M0044-C-RIGHT-EIGENBASIS",
+          "reciprocal_edge_id": "P45-COMP"
+        },
+        {
+          "edge_id": "P45-COMP",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "composes",
+          "to": "M0044-L-ZERO-KERNEL",
+          "reciprocal_edge_id": "P45-REQ"
+        },
+        {
+          "edge_id": "P46-REQ",
+          "from": "M0044-L-ZERO-KERNEL",
+          "type": "proof_requires",
+          "to": "M0044-C-SINGULAR-VALUES",
+          "reciprocal_edge_id": "P46-COMP"
+        },
+        {
+          "edge_id": "P46-COMP",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "composes",
+          "to": "M0044-L-ZERO-KERNEL",
+          "reciprocal_edge_id": "P46-REQ"
+        },
+        {
+          "edge_id": "P47-REQ",
+          "from": "M0044-L-ZERO-TAIL",
+          "type": "proof_requires",
+          "to": "M0044-L-ZERO-KERNEL",
+          "reciprocal_edge_id": "P47-COMP"
+        },
+        {
+          "edge_id": "P47-COMP",
+          "from": "M0044-L-ZERO-KERNEL",
+          "type": "composes",
+          "to": "M0044-L-ZERO-TAIL",
+          "reciprocal_edge_id": "P47-REQ"
+        },
+        {
+          "edge_id": "P48-REQ",
+          "from": "M0044-L-ZERO-TAIL",
+          "type": "proof_requires",
+          "to": "M0044-L-RANK-BOUNDS",
+          "reciprocal_edge_id": "P48-COMP"
+        },
+        {
+          "edge_id": "P48-COMP",
+          "from": "M0044-L-RANK-BOUNDS",
+          "type": "composes",
+          "to": "M0044-L-ZERO-TAIL",
+          "reciprocal_edge_id": "P48-REQ"
+        },
+        {
+          "edge_id": "P49-REQ",
+          "from": "M0044-L-ZERO-TAIL",
+          "type": "proof_requires",
+          "to": "M0044-N-ORDER-ALIGN",
+          "reciprocal_edge_id": "P49-COMP"
+        },
+        {
+          "edge_id": "P49-COMP",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "composes",
+          "to": "M0044-L-ZERO-TAIL",
+          "reciprocal_edge_id": "P49-REQ"
+        },
+        {
+          "edge_id": "P50-REQ",
+          "from": "M0044-C-LEFT-COMPLETE",
+          "type": "proof_requires",
+          "to": "M0044-L-POSITIVE-LEFT-ON",
+          "reciprocal_edge_id": "P50-COMP"
+        },
+        {
+          "edge_id": "P50-COMP",
+          "from": "M0044-L-POSITIVE-LEFT-ON",
+          "type": "composes",
+          "to": "M0044-C-LEFT-COMPLETE",
+          "reciprocal_edge_id": "P50-REQ"
+        },
+        {
+          "edge_id": "P51-REQ",
+          "from": "M0044-C-LEFT-COMPLETE",
+          "type": "proof_requires",
+          "to": "M0044-L-RANK-BOUNDS",
+          "reciprocal_edge_id": "P51-COMP"
+        },
+        {
+          "edge_id": "P51-COMP",
+          "from": "M0044-L-RANK-BOUNDS",
+          "type": "composes",
+          "to": "M0044-C-LEFT-COMPLETE",
+          "reciprocal_edge_id": "P51-REQ"
+        },
+        {
+          "edge_id": "P52-REQ",
+          "from": "M0044-L-BASIS-INVARIANTS",
+          "type": "proof_requires",
+          "to": "M0044-B-SINGULAR-SPLIT",
+          "reciprocal_edge_id": "P52-COMP"
+        },
+        {
+          "edge_id": "P52-COMP",
+          "from": "M0044-B-SINGULAR-SPLIT",
+          "type": "composes",
+          "to": "M0044-L-BASIS-INVARIANTS",
+          "reciprocal_edge_id": "P52-REQ"
+        },
+        {
+          "edge_id": "P53-REQ",
+          "from": "M0044-L-BASIS-INVARIANTS",
+          "type": "proof_requires",
+          "to": "M0044-C-RIGHT-EIGENBASIS",
+          "reciprocal_edge_id": "P53-COMP"
+        },
+        {
+          "edge_id": "P53-COMP",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "composes",
+          "to": "M0044-L-BASIS-INVARIANTS",
+          "reciprocal_edge_id": "P53-REQ"
+        },
+        {
+          "edge_id": "P54-REQ",
+          "from": "M0044-L-BASIS-INVARIANTS",
+          "type": "proof_requires",
+          "to": "M0044-C-LEFT-COMPLETE",
+          "reciprocal_edge_id": "P54-COMP"
+        },
+        {
+          "edge_id": "P54-COMP",
+          "from": "M0044-C-LEFT-COMPLETE",
+          "type": "composes",
+          "to": "M0044-L-BASIS-INVARIANTS",
+          "reciprocal_edge_id": "P54-REQ"
+        },
+        {
+          "edge_id": "P55-REQ",
+          "from": "M0044-L-BASIS-INVARIANTS",
+          "type": "proof_requires",
+          "to": "M0044-L-ZERO-TAIL",
+          "reciprocal_edge_id": "P55-COMP"
+        },
+        {
+          "edge_id": "P55-COMP",
+          "from": "M0044-L-ZERO-TAIL",
+          "type": "composes",
+          "to": "M0044-L-BASIS-INVARIANTS",
+          "reciprocal_edge_id": "P55-REQ"
+        },
+        {
+          "edge_id": "P56-REQ",
+          "from": "M0044-C-UNITARY",
+          "type": "proof_requires",
+          "to": "M0044-C-RIGHT-EIGENBASIS",
+          "reciprocal_edge_id": "P56-COMP"
+        },
+        {
+          "edge_id": "P56-COMP",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "composes",
+          "to": "M0044-C-UNITARY",
+          "reciprocal_edge_id": "P56-REQ"
+        },
+        {
+          "edge_id": "P57-REQ",
+          "from": "M0044-C-UNITARY",
+          "type": "proof_requires",
+          "to": "M0044-C-LEFT-COMPLETE",
+          "reciprocal_edge_id": "P57-COMP"
+        },
+        {
+          "edge_id": "P57-COMP",
+          "from": "M0044-C-LEFT-COMPLETE",
+          "type": "composes",
+          "to": "M0044-C-UNITARY",
+          "reciprocal_edge_id": "P57-REQ"
+        },
+        {
+          "edge_id": "P58-REQ",
+          "from": "M0044-C-UNITARY",
+          "type": "proof_requires",
+          "to": "M0044-L-BASIS-INVARIANTS",
+          "reciprocal_edge_id": "P58-COMP"
+        },
+        {
+          "edge_id": "P58-COMP",
+          "from": "M0044-L-BASIS-INVARIANTS",
+          "type": "composes",
+          "to": "M0044-C-UNITARY",
+          "reciprocal_edge_id": "P58-REQ"
+        },
+        {
+          "edge_id": "P59-REQ",
+          "from": "M0044-N-MIN-INDEX",
+          "type": "proof_requires",
+          "to": "M0044-L-RANK-BOUNDS",
+          "reciprocal_edge_id": "P59-COMP"
+        },
+        {
+          "edge_id": "P59-COMP",
+          "from": "M0044-L-RANK-BOUNDS",
+          "type": "composes",
+          "to": "M0044-N-MIN-INDEX",
+          "reciprocal_edge_id": "P59-REQ"
+        },
+        {
+          "edge_id": "P60-REQ",
+          "from": "M0044-N-MIN-INDEX",
+          "type": "proof_requires",
+          "to": "M0044-N-ORDER-ALIGN",
+          "reciprocal_edge_id": "P60-COMP"
+        },
+        {
+          "edge_id": "P60-COMP",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "composes",
+          "to": "M0044-N-MIN-INDEX",
+          "reciprocal_edge_id": "P60-REQ"
+        },
+        {
+          "edge_id": "P61-REQ",
+          "from": "M0044-C-SIGMA",
+          "type": "proof_requires",
+          "to": "M0044-C-SINGULAR-VALUES",
+          "reciprocal_edge_id": "P61-COMP"
+        },
+        {
+          "edge_id": "P61-COMP",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "composes",
+          "to": "M0044-C-SIGMA",
+          "reciprocal_edge_id": "P61-REQ"
+        },
+        {
+          "edge_id": "P62-REQ",
+          "from": "M0044-C-SIGMA",
+          "type": "proof_requires",
+          "to": "M0044-N-MIN-INDEX",
+          "reciprocal_edge_id": "P62-COMP"
+        },
+        {
+          "edge_id": "P62-COMP",
+          "from": "M0044-N-MIN-INDEX",
+          "type": "composes",
+          "to": "M0044-C-SIGMA",
+          "reciprocal_edge_id": "P62-REQ"
+        },
+        {
+          "edge_id": "P63-REQ",
+          "from": "M0044-L-ENTRYWISE",
+          "type": "proof_requires",
+          "to": "M0044-C-UNITARY",
+          "reciprocal_edge_id": "P63-COMP"
+        },
+        {
+          "edge_id": "P63-COMP",
+          "from": "M0044-C-UNITARY",
+          "type": "composes",
+          "to": "M0044-L-ENTRYWISE",
+          "reciprocal_edge_id": "P63-REQ"
+        },
+        {
+          "edge_id": "P64-REQ",
+          "from": "M0044-L-ENTRYWISE",
+          "type": "proof_requires",
+          "to": "M0044-C-SIGMA",
+          "reciprocal_edge_id": "P64-COMP"
+        },
+        {
+          "edge_id": "P64-COMP",
+          "from": "M0044-C-SIGMA",
+          "type": "composes",
+          "to": "M0044-L-ENTRYWISE",
+          "reciprocal_edge_id": "P64-REQ"
+        },
+        {
+          "edge_id": "P65-REQ",
+          "from": "M0044-L-ENTRYWISE",
+          "type": "proof_requires",
+          "to": "M0044-L-ZERO-TAIL",
+          "reciprocal_edge_id": "P65-COMP"
+        },
+        {
+          "edge_id": "P65-COMP",
+          "from": "M0044-L-ZERO-TAIL",
+          "type": "composes",
+          "to": "M0044-L-ENTRYWISE",
+          "reciprocal_edge_id": "P65-REQ"
+        },
+        {
+          "edge_id": "P66-REQ",
+          "from": "M0044-L-ENTRYWISE",
+          "type": "proof_requires",
+          "to": "M0044-L-BASIS-INVARIANTS",
+          "reciprocal_edge_id": "P66-COMP"
+        },
+        {
+          "edge_id": "P66-COMP",
+          "from": "M0044-L-BASIS-INVARIANTS",
+          "type": "composes",
+          "to": "M0044-L-ENTRYWISE",
+          "reciprocal_edge_id": "P66-REQ"
+        }
+      ],
+      "out": {
+        "M0044-ROOT": [
+          "P01-REQ"
+        ],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [
+          "P06-COMP",
+          "P08-COMP"
+        ],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [
+          "P04-COMP",
+          "P06-REQ",
+          "P07-REQ"
+        ],
+        "M0044-B-COMPLEX-DIMENSIONS": [
+          "P05-COMP",
+          "P08-REQ",
+          "P09-REQ"
+        ],
+        "M0044-T-REAL-NONEMPTY": [
+          "P07-COMP",
+          "P10-REQ",
+          "P11-REQ",
+          "P12-REQ",
+          "P13-REQ"
+        ],
+        "M0044-T-COMPLEX-NONEMPTY": [
+          "P09-COMP",
+          "P14-REQ",
+          "P15-REQ",
+          "P16-REQ",
+          "P17-REQ"
+        ],
+        "M0044-N-LINEAR-MAP": [
+          "P18-COMP",
+          "P27-COMP"
+        ],
+        "M0044-C-GRAM": [
+          "P18-REQ",
+          "P19-COMP",
+          "P20-COMP",
+          "P23-COMP",
+          "P44-COMP"
+        ],
+        "M0044-L-GRAM-HERMITIAN": [
+          "P19-REQ",
+          "P21-COMP",
+          "P26-COMP",
+          "P41-COMP"
+        ],
+        "M0044-X-SPECTRAL": [
+          "P20-REQ",
+          "P21-REQ",
+          "P22-COMP"
+        ],
+        "M0044-C-RIGHT-EIGENBASIS": [
+          "P22-REQ",
+          "P24-COMP",
+          "P28-COMP",
+          "P38-COMP",
+          "P45-COMP",
+          "P53-COMP",
+          "P56-COMP"
+        ],
+        "M0044-C-SINGULAR-VALUES": [
+          "P23-REQ",
+          "P24-REQ",
+          "P25-COMP",
+          "P29-COMP",
+          "P39-COMP",
+          "P46-COMP",
+          "P61-COMP"
+        ],
+        "M0044-L-SINGULAR-NONNEG": [
+          "P11-COMP",
+          "P15-COMP",
+          "P25-REQ",
+          "P26-REQ",
+          "P31-COMP"
+        ],
+        "M0044-L-RANK-BOUNDS": [
+          "P27-REQ",
+          "P30-COMP",
+          "P32-COMP",
+          "P48-COMP",
+          "P51-COMP",
+          "P59-COMP"
+        ],
+        "M0044-B-SINGULAR-SPLIT": [
+          "P31-REQ",
+          "P32-REQ",
+          "P33-REQ",
+          "P34-REQ",
+          "P35-REQ",
+          "P52-COMP"
+        ],
+        "M0044-B-POSITIVE": [
+          "P34-COMP",
+          "P36-REQ",
+          "P37-REQ"
+        ],
+        "M0044-C-POSITIVE-LEFT": [
+          "P36-COMP",
+          "P38-REQ",
+          "P39-REQ",
+          "P40-COMP"
+        ],
+        "M0044-L-POSITIVE-LEFT-ON": [
+          "P37-COMP",
+          "P40-REQ",
+          "P41-REQ",
+          "P42-REQ",
+          "P50-COMP"
+        ],
+        "M0044-B-ZERO": [
+          "P35-COMP",
+          "P43-REQ"
+        ],
+        "M0044-L-ZERO-KERNEL": [
+          "P43-COMP",
+          "P44-REQ",
+          "P45-REQ",
+          "P46-REQ",
+          "P47-COMP"
+        ],
+        "M0044-C-LEFT-COMPLETE": [
+          "P50-REQ",
+          "P51-REQ",
+          "P54-COMP",
+          "P57-COMP"
+        ],
+        "M0044-L-BASIS-INVARIANTS": [
+          "P52-REQ",
+          "P53-REQ",
+          "P54-REQ",
+          "P55-REQ",
+          "P58-COMP",
+          "P66-COMP"
+        ],
+        "M0044-C-UNITARY": [
+          "P10-COMP",
+          "P14-COMP",
+          "P56-REQ",
+          "P57-REQ",
+          "P58-REQ",
+          "P63-COMP"
+        ],
+        "M0044-N-MIN-INDEX": [
+          "P59-REQ",
+          "P60-REQ",
+          "P62-COMP"
+        ],
+        "M0044-N-ORDER-ALIGN": [
+          "P28-REQ",
+          "P29-REQ",
+          "P30-REQ",
+          "P33-COMP",
+          "P42-COMP",
+          "P49-COMP",
+          "P60-COMP"
+        ],
+        "M0044-L-ZERO-TAIL": [
+          "P47-REQ",
+          "P48-REQ",
+          "P49-REQ",
+          "P55-COMP",
+          "P65-COMP"
+        ],
+        "M0044-C-SIGMA": [
+          "P12-COMP",
+          "P16-COMP",
+          "P61-REQ",
+          "P62-REQ",
+          "P64-COMP"
+        ],
+        "M0044-L-ENTRYWISE": [
+          "P13-COMP",
+          "P17-COMP",
+          "P63-REQ",
+          "P64-REQ",
+          "P65-REQ",
+          "P66-REQ"
+        ],
+        "M0044-T-REAL": [
+          "P02-COMP",
+          "P04-REQ"
+        ],
+        "M0044-T-COMPLEX": [
+          "P03-COMP",
+          "P05-REQ"
+        ],
+        "M0044-T-ASSEMBLE": [
+          "P01-COMP",
+          "P02-REQ",
+          "P03-REQ"
+        ],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      },
+      "in": {
+        "M0044-ROOT": [
+          "P01-COMP"
+        ],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [
+          "P06-REQ",
+          "P08-REQ"
+        ],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [
+          "P04-REQ",
+          "P06-COMP",
+          "P07-COMP"
+        ],
+        "M0044-B-COMPLEX-DIMENSIONS": [
+          "P05-REQ",
+          "P08-COMP",
+          "P09-COMP"
+        ],
+        "M0044-T-REAL-NONEMPTY": [
+          "P07-REQ",
+          "P10-COMP",
+          "P11-COMP",
+          "P12-COMP",
+          "P13-COMP"
+        ],
+        "M0044-T-COMPLEX-NONEMPTY": [
+          "P09-REQ",
+          "P14-COMP",
+          "P15-COMP",
+          "P16-COMP",
+          "P17-COMP"
+        ],
+        "M0044-N-LINEAR-MAP": [
+          "P18-REQ",
+          "P27-REQ"
+        ],
+        "M0044-C-GRAM": [
+          "P18-COMP",
+          "P19-REQ",
+          "P20-REQ",
+          "P23-REQ",
+          "P44-REQ"
+        ],
+        "M0044-L-GRAM-HERMITIAN": [
+          "P19-COMP",
+          "P21-REQ",
+          "P26-REQ",
+          "P41-REQ"
+        ],
+        "M0044-X-SPECTRAL": [
+          "P20-COMP",
+          "P21-COMP",
+          "P22-REQ"
+        ],
+        "M0044-C-RIGHT-EIGENBASIS": [
+          "P22-COMP",
+          "P24-REQ",
+          "P28-REQ",
+          "P38-REQ",
+          "P45-REQ",
+          "P53-REQ",
+          "P56-REQ"
+        ],
+        "M0044-C-SINGULAR-VALUES": [
+          "P23-COMP",
+          "P24-COMP",
+          "P25-REQ",
+          "P29-REQ",
+          "P39-REQ",
+          "P46-REQ",
+          "P61-REQ"
+        ],
+        "M0044-L-SINGULAR-NONNEG": [
+          "P11-REQ",
+          "P15-REQ",
+          "P25-COMP",
+          "P26-COMP",
+          "P31-REQ"
+        ],
+        "M0044-L-RANK-BOUNDS": [
+          "P27-COMP",
+          "P30-REQ",
+          "P32-REQ",
+          "P48-REQ",
+          "P51-REQ",
+          "P59-REQ"
+        ],
+        "M0044-B-SINGULAR-SPLIT": [
+          "P31-COMP",
+          "P32-COMP",
+          "P33-COMP",
+          "P34-COMP",
+          "P35-COMP",
+          "P52-REQ"
+        ],
+        "M0044-B-POSITIVE": [
+          "P34-REQ",
+          "P36-COMP",
+          "P37-COMP"
+        ],
+        "M0044-C-POSITIVE-LEFT": [
+          "P36-REQ",
+          "P38-COMP",
+          "P39-COMP",
+          "P40-REQ"
+        ],
+        "M0044-L-POSITIVE-LEFT-ON": [
+          "P37-REQ",
+          "P40-COMP",
+          "P41-COMP",
+          "P42-COMP",
+          "P50-REQ"
+        ],
+        "M0044-B-ZERO": [
+          "P35-REQ",
+          "P43-COMP"
+        ],
+        "M0044-L-ZERO-KERNEL": [
+          "P43-REQ",
+          "P44-COMP",
+          "P45-COMP",
+          "P46-COMP",
+          "P47-REQ"
+        ],
+        "M0044-C-LEFT-COMPLETE": [
+          "P50-COMP",
+          "P51-COMP",
+          "P54-REQ",
+          "P57-REQ"
+        ],
+        "M0044-L-BASIS-INVARIANTS": [
+          "P52-COMP",
+          "P53-COMP",
+          "P54-COMP",
+          "P55-COMP",
+          "P58-REQ",
+          "P66-REQ"
+        ],
+        "M0044-C-UNITARY": [
+          "P10-REQ",
+          "P14-REQ",
+          "P56-COMP",
+          "P57-COMP",
+          "P58-COMP",
+          "P63-REQ"
+        ],
+        "M0044-N-MIN-INDEX": [
+          "P59-COMP",
+          "P60-COMP",
+          "P62-REQ"
+        ],
+        "M0044-N-ORDER-ALIGN": [
+          "P28-COMP",
+          "P29-COMP",
+          "P30-COMP",
+          "P33-REQ",
+          "P42-REQ",
+          "P49-REQ",
+          "P60-REQ"
+        ],
+        "M0044-L-ZERO-TAIL": [
+          "P47-COMP",
+          "P48-COMP",
+          "P49-COMP",
+          "P55-REQ",
+          "P65-REQ"
+        ],
+        "M0044-C-SIGMA": [
+          "P12-REQ",
+          "P16-REQ",
+          "P61-COMP",
+          "P62-COMP",
+          "P64-REQ"
+        ],
+        "M0044-L-ENTRYWISE": [
+          "P13-REQ",
+          "P17-REQ",
+          "P63-COMP",
+          "P64-COMP",
+          "P65-COMP",
+          "P66-COMP"
+        ],
+        "M0044-T-REAL": [
+          "P02-REQ",
+          "P04-COMP"
+        ],
+        "M0044-T-COMPLEX": [
+          "P03-REQ",
+          "P05-COMP"
+        ],
+        "M0044-T-ASSEMBLE": [
+          "P01-REQ",
+          "P02-COMP",
+          "P03-COMP"
+        ],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      }
+    },
+    "refinement": {
+      "edges": [
+        {
+          "edge_id": "R01",
+          "from": "M0044-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0044-S-INTERFACE"
+        },
+        {
+          "edge_id": "R02",
+          "from": "M0044-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0044-S-BOUNDARY"
+        },
+        {
+          "edge_id": "R03",
+          "from": "M0044-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0044-S-ENCODING"
+        },
+        {
+          "edge_id": "R04",
+          "from": "M0044-ROOT",
+          "type": "logical_decomposition",
+          "to": "M0044-S-FOUNDATION"
+        },
+        {
+          "edge_id": "R05",
+          "from": "M0044-C-GRAM",
+          "type": "logical_decomposition",
+          "to": "M0044-L-GRAM-HERMITIAN"
+        },
+        {
+          "edge_id": "R06",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "logical_decomposition",
+          "to": "M0044-L-SINGULAR-NONNEG"
+        },
+        {
+          "edge_id": "R07",
+          "from": "M0044-C-LEFT-COMPLETE",
+          "type": "logical_decomposition",
+          "to": "M0044-L-BASIS-INVARIANTS"
+        }
+      ],
+      "out": {
+        "M0044-ROOT": [
+          "R01",
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [
+          "R05"
+        ],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [
+          "R06"
+        ],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [
+          "R07"
+        ],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      },
+      "in": {
+        "M0044-ROOT": [],
+        "M0044-S-INTERFACE": [
+          "R01"
+        ],
+        "M0044-S-BOUNDARY": [
+          "R02"
+        ],
+        "M0044-S-ENCODING": [
+          "R03"
+        ],
+        "M0044-S-FOUNDATION": [
+          "R04"
+        ],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [
+          "R05"
+        ],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [
+          "R06"
+        ],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [
+          "R07"
+        ],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      }
+    },
+    "provenance": {
+      "edges": [
+        {
+          "edge_id": "V01",
+          "from": "M0044-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0044-ROOT"
+        },
+        {
+          "edge_id": "V02",
+          "from": "M0044-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0044-X-SPECTRAL"
+        },
+        {
+          "edge_id": "V03",
+          "from": "M0044-X-PROVENANCE",
+          "type": "provenance_of",
+          "to": "M0044-T-ASSEMBLE"
+        },
+        {
+          "edge_id": "S01",
+          "from": "M0044-ROOT",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S02",
+          "from": "M0044-S-INTERFACE",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S03",
+          "from": "M0044-S-BOUNDARY",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S04",
+          "from": "M0044-S-ENCODING",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S05",
+          "from": "M0044-S-FOUNDATION",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S06",
+          "from": "M0044-B-REAL-DIMENSIONS",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S07",
+          "from": "M0044-B-COMPLEX-DIMENSIONS",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S08",
+          "from": "M0044-T-REAL-NONEMPTY",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S09",
+          "from": "M0044-T-COMPLEX-NONEMPTY",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S10",
+          "from": "M0044-N-LINEAR-MAP",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S11",
+          "from": "M0044-C-GRAM",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S12",
+          "from": "M0044-L-GRAM-HERMITIAN",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S13",
+          "from": "M0044-X-SPECTRAL",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S14",
+          "from": "M0044-C-RIGHT-EIGENBASIS",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S15",
+          "from": "M0044-C-SINGULAR-VALUES",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S16",
+          "from": "M0044-L-SINGULAR-NONNEG",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S17",
+          "from": "M0044-L-RANK-BOUNDS",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S18",
+          "from": "M0044-B-SINGULAR-SPLIT",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S19",
+          "from": "M0044-B-POSITIVE",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S20",
+          "from": "M0044-C-POSITIVE-LEFT",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S21",
+          "from": "M0044-L-POSITIVE-LEFT-ON",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S22",
+          "from": "M0044-B-ZERO",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S23",
+          "from": "M0044-L-ZERO-KERNEL",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S24",
+          "from": "M0044-C-LEFT-COMPLETE",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S25",
+          "from": "M0044-L-BASIS-INVARIANTS",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S26",
+          "from": "M0044-C-UNITARY",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S27",
+          "from": "M0044-N-MIN-INDEX",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S28",
+          "from": "M0044-N-ORDER-ALIGN",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S29",
+          "from": "M0044-L-ZERO-TAIL",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S30",
+          "from": "M0044-C-SIGMA",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S31",
+          "from": "M0044-L-ENTRYWISE",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S32",
+          "from": "M0044-T-REAL",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S33",
+          "from": "M0044-T-COMPLEX",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "S34",
+          "from": "M0044-T-ASSEMBLE",
+          "type": "source_map",
+          "to": "M0044-X-SOURCE"
+        }
+      ],
+      "out": {
+        "M0044-ROOT": [
+          "S01"
+        ],
+        "M0044-S-INTERFACE": [
+          "S02"
+        ],
+        "M0044-S-BOUNDARY": [
+          "S03"
+        ],
+        "M0044-S-ENCODING": [
+          "S04"
+        ],
+        "M0044-S-FOUNDATION": [
+          "S05"
+        ],
+        "M0044-B-REAL-DIMENSIONS": [
+          "S06"
+        ],
+        "M0044-B-COMPLEX-DIMENSIONS": [
+          "S07"
+        ],
+        "M0044-T-REAL-NONEMPTY": [
+          "S08"
+        ],
+        "M0044-T-COMPLEX-NONEMPTY": [
+          "S09"
+        ],
+        "M0044-N-LINEAR-MAP": [
+          "S10"
+        ],
+        "M0044-C-GRAM": [
+          "S11"
+        ],
+        "M0044-L-GRAM-HERMITIAN": [
+          "S12"
+        ],
+        "M0044-X-SPECTRAL": [
+          "S13"
+        ],
+        "M0044-C-RIGHT-EIGENBASIS": [
+          "S14"
+        ],
+        "M0044-C-SINGULAR-VALUES": [
+          "S15"
+        ],
+        "M0044-L-SINGULAR-NONNEG": [
+          "S16"
+        ],
+        "M0044-L-RANK-BOUNDS": [
+          "S17"
+        ],
+        "M0044-B-SINGULAR-SPLIT": [
+          "S18"
+        ],
+        "M0044-B-POSITIVE": [
+          "S19"
+        ],
+        "M0044-C-POSITIVE-LEFT": [
+          "S20"
+        ],
+        "M0044-L-POSITIVE-LEFT-ON": [
+          "S21"
+        ],
+        "M0044-B-ZERO": [
+          "S22"
+        ],
+        "M0044-L-ZERO-KERNEL": [
+          "S23"
+        ],
+        "M0044-C-LEFT-COMPLETE": [
+          "S24"
+        ],
+        "M0044-L-BASIS-INVARIANTS": [
+          "S25"
+        ],
+        "M0044-C-UNITARY": [
+          "S26"
+        ],
+        "M0044-N-MIN-INDEX": [
+          "S27"
+        ],
+        "M0044-N-ORDER-ALIGN": [
+          "S28"
+        ],
+        "M0044-L-ZERO-TAIL": [
+          "S29"
+        ],
+        "M0044-C-SIGMA": [
+          "S30"
+        ],
+        "M0044-L-ENTRYWISE": [
+          "S31"
+        ],
+        "M0044-T-REAL": [
+          "S32"
+        ],
+        "M0044-T-COMPLEX": [
+          "S33"
+        ],
+        "M0044-T-ASSEMBLE": [
+          "S34"
+        ],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [
+          "V01",
+          "V02",
+          "V03"
+        ],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      },
+      "in": {
+        "M0044-ROOT": [
+          "V01"
+        ],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [
+          "V02"
+        ],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [
+          "V03"
+        ],
+        "M0044-X-SOURCE": [
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S12",
+          "S13",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19",
+          "S20",
+          "S21",
+          "S22",
+          "S23",
+          "S24",
+          "S25",
+          "S26",
+          "S27",
+          "S28",
+          "S29",
+          "S30",
+          "S31",
+          "S32",
+          "S33",
+          "S34"
+        ],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      }
+    },
+    "evidence": {
+      "edges": [],
+      "out": {
+        "M0044-ROOT": [],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      },
+      "in": {
+        "M0044-ROOT": [],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      }
+    },
+    "trust": {
+      "edges": [
+        {
+          "edge_id": "T01",
+          "from": "M0044-ROOT",
+          "type": "trusts",
+          "to": "M0044-S-FOUNDATION"
+        },
+        {
+          "edge_id": "T02",
+          "from": "M0044-ROOT",
+          "type": "trusts",
+          "to": "M0044-X-TRUST"
+        },
+        {
+          "edge_id": "T03",
+          "from": "M0044-X-SPECTRAL",
+          "type": "trusts",
+          "to": "M0044-X-TRUST"
+        },
+        {
+          "edge_id": "T04",
+          "from": "M0044-T-ASSEMBLE",
+          "type": "trusts",
+          "to": "M0044-X-TRUST"
+        }
+      ],
+      "out": {
+        "M0044-ROOT": [
+          "T01",
+          "T02"
+        ],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [
+          "T03"
+        ],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [
+          "T04"
+        ],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      },
+      "in": {
+        "M0044-ROOT": [],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [
+          "T01"
+        ],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [
+          "T02",
+          "T03",
+          "T04"
+        ],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      }
+    },
+    "documentation": {
+      "edges": [
+        {
+          "edge_id": "D01",
+          "from": "M0044-X-READABLE",
+          "type": "documents",
+          "to": "M0044-ROOT"
+        },
+        {
+          "edge_id": "D02",
+          "from": "M0044-X-SOURCE",
+          "type": "documents",
+          "to": "M0044-T-REAL"
+        },
+        {
+          "edge_id": "D03",
+          "from": "M0044-X-SOURCE",
+          "type": "documents",
+          "to": "M0044-T-COMPLEX"
+        },
+        {
+          "edge_id": "D04",
+          "from": "M0044-X-SOURCE",
+          "type": "documents",
+          "to": "M0044-L-ENTRYWISE"
+        }
+      ],
+      "out": {
+        "M0044-ROOT": [],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [
+          "D02",
+          "D03",
+          "D04"
+        ],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [
+          "D01"
+        ],
+        "M0044-X-WORKFLOW": []
+      },
+      "in": {
+        "M0044-ROOT": [
+          "D01"
+        ],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [
+          "D04"
+        ],
+        "M0044-T-REAL": [
+          "D02"
+        ],
+        "M0044-T-COMPLEX": [
+          "D03"
+        ],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": []
+      }
+    },
+    "workflow": {
+      "edges": [
+        {
+          "edge_id": "W01",
+          "from": "M0044-ROOT",
+          "type": "workflow_depends_on",
+          "to": "M0044-X-SOURCE"
+        },
+        {
+          "edge_id": "W02",
+          "from": "M0044-ROOT",
+          "type": "workflow_depends_on",
+          "to": "M0044-X-PROVENANCE"
+        },
+        {
+          "edge_id": "W03",
+          "from": "M0044-ROOT",
+          "type": "workflow_depends_on",
+          "to": "M0044-X-TRUST"
+        },
+        {
+          "edge_id": "W04",
+          "from": "M0044-ROOT",
+          "type": "workflow_depends_on",
+          "to": "M0044-X-READABLE"
+        },
+        {
+          "edge_id": "W05",
+          "from": "M0044-ROOT",
+          "type": "workflow_depends_on",
+          "to": "M0044-X-WORKFLOW"
+        },
+        {
+          "edge_id": "W06",
+          "from": "M0044-X-WORKFLOW",
+          "type": "workflow_depends_on",
+          "to": "M0044-T-ASSEMBLE"
+        }
+      ],
+      "out": {
+        "M0044-ROOT": [
+          "W01",
+          "W02",
+          "W03",
+          "W04",
+          "W05"
+        ],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [],
+        "M0044-X-SOURCE": [],
+        "M0044-X-PROVENANCE": [],
+        "M0044-X-TRUST": [],
+        "M0044-X-READABLE": [],
+        "M0044-X-WORKFLOW": [
+          "W06"
+        ]
+      },
+      "in": {
+        "M0044-ROOT": [],
+        "M0044-S-INTERFACE": [],
+        "M0044-S-BOUNDARY": [],
+        "M0044-S-ENCODING": [],
+        "M0044-S-FOUNDATION": [],
+        "M0044-B-REAL-DIMENSIONS": [],
+        "M0044-B-COMPLEX-DIMENSIONS": [],
+        "M0044-T-REAL-NONEMPTY": [],
+        "M0044-T-COMPLEX-NONEMPTY": [],
+        "M0044-N-LINEAR-MAP": [],
+        "M0044-C-GRAM": [],
+        "M0044-L-GRAM-HERMITIAN": [],
+        "M0044-X-SPECTRAL": [],
+        "M0044-C-RIGHT-EIGENBASIS": [],
+        "M0044-C-SINGULAR-VALUES": [],
+        "M0044-L-SINGULAR-NONNEG": [],
+        "M0044-L-RANK-BOUNDS": [],
+        "M0044-B-SINGULAR-SPLIT": [],
+        "M0044-B-POSITIVE": [],
+        "M0044-C-POSITIVE-LEFT": [],
+        "M0044-L-POSITIVE-LEFT-ON": [],
+        "M0044-B-ZERO": [],
+        "M0044-L-ZERO-KERNEL": [],
+        "M0044-C-LEFT-COMPLETE": [],
+        "M0044-L-BASIS-INVARIANTS": [],
+        "M0044-C-UNITARY": [],
+        "M0044-N-MIN-INDEX": [],
+        "M0044-N-ORDER-ALIGN": [],
+        "M0044-L-ZERO-TAIL": [],
+        "M0044-C-SIGMA": [],
+        "M0044-L-ENTRYWISE": [],
+        "M0044-T-REAL": [],
+        "M0044-T-COMPLEX": [],
+        "M0044-T-ASSEMBLE": [
+          "W06"
+        ],
+        "M0044-X-SOURCE": [
+          "W01"
+        ],
+        "M0044-X-PROVENANCE": [
+          "W02"
+        ],
+        "M0044-X-TRUST": [
+          "W03"
+        ],
+        "M0044-X-READABLE": [
+          "W04"
+        ],
+        "M0044-X-WORKFLOW": [
+          "W05"
+        ]
+      }
+    }
+  },
+  "closure_boundary": {
+    "provisionally_checked_interfaces": [
+      "M0044-S-BOUNDARY",
+      "M0044-S-ENCODING",
+      "M0044-T-ASSEMBLE"
+    ],
+    "accepted_closed_obligations": [],
+    "root_closed": false,
+    "root_machine_debt": "M3",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "composition_certificates": [
+      "Stage1Instances.THM_M_0044.ObligationTree.root_of_real_and_complex"
+    ],
+    "remaining_root_cut_set": [
+      "M0044-T-REAL",
+      "M0044-T-COMPLEX",
+      "M0044-X-SOURCE",
+      "M0044-S-FOUNDATION",
+      "M0044-X-PROVENANCE",
+      "M0044-X-TRUST",
+      "M0044-X-READABLE",
+      "M0044-X-WORKFLOW"
+    ],
+    "reason": "The exact real and complex packages and every substantive positive-dimension construction beneath them remain open; checked conjunction composition does not prove either premise."
+  }
+}

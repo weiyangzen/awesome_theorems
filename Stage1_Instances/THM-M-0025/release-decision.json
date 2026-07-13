@@ -1,0 +1,135 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0025-RELEASE-local-20260713T082418+0800",
+  "item_id": "S56-M-0025-RELEASE",
+  "theorem_id": "THM-M-0025",
+  "intent": "release",
+  "base_revision": "7d0965498598e684e3e3d0a01836c2bf36a02959",
+  "base_tree": "753e16a89fce09f051af066f8b58d3e6b2722ade",
+  "decided_at": "2026-07-13T08:24:18+08:00",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0025-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0025-VALIDATION-local-20260713T080841+0800",
+    "receipt_sha256": "31235df5d765f904eca841ae94c2dbf6fd844298df2f011e2374e1012ad3a62d",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "reconciled_inputs": {
+    "instance.json": "57e4e8e24d4673594c5f61c84b2f0cdd9a2ac7f15fba6e6d1f53ecbab656f0b3",
+    "task-dag.json": "86111357fb1cc8f0a1b99161eb43045193ed537ad902487bbb03c90351b726fb",
+    "statement.json": "5f0883995aba76f452f376446d75de58fcf58d2c3aa88ad40bedf8b5c622ea76",
+    "source-statement-crosswalk.md": "24df0ee5b011c51bc54584b771864386dde4627837ab931351e2da5445075244",
+    "obligation-registry.json": "22a93ca3cb33e21668ac8f408c21ab492c2e32ffcbd68c605c7257a654c727e4",
+    "typed-graphs.json": "d79699d03fb7e5c6cdd7c34ae4566197ad3cc902fdbcea328c2058277f929133",
+    "Proof.lean": "f56efd37d9c1cb4ba650b2e38d9ed4bae11ff6cae3fc25f0cf3f42ce2c829dc8",
+    "proof-receipt.json": "d9c383096fd3d0f4e84ea0765e0a105e4e315b405c93f8022b9ee10863dd0b2a",
+    "Validation.lean": "fd161209b39a82064b7dcca82a66d250cc42d42905648895ce995151bda6b2f6",
+    "validation-receipt.json": "31235df5d765f904eca841ae94c2dbf6fd844298df2f011e2374e1012ad3a62d",
+    "check_validation.py": "74c7f1a8b5a0488f90f66363edb470badcca43c497f09109202a00b38deac3db"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0025-PROOF-local-20260713T074641+0800",
+    "S56-M-0025-VALIDATION-local-20260713T080841+0800"
+  ],
+  "root_vector": {
+    "accepted_before": ["H1", "M3", "R3"],
+    "accepted_after": ["H1", "M3", "R3"],
+    "best_provisional_evidence": ["H1", "M0-W", "R3"],
+    "boundary": "The exact frozen Hilbert-basis root is kernel-closed provisionally by a local wrapper over pinned mathlib and by the frozen composition route. No phase receipt is master accepted, the planned instance has no accepted proof state, and the frozen typed graph remains root-open."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false
+  },
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "frozen_child_composition_kernel_replay": "provisional_pass",
+    "same_workspace_differential_replay": "provisional_pass",
+    "direct_validation_module_invocation": "failed as expected outside its local module layout: lake env lean could not resolve the sibling Statement module before a temporary Statement.olean was built",
+    "proof_body": "local exact wrappers over Polynomial.isNoetherianRing at pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_and_unsafe_scan": "provisional_pass_on_scoped_modules_and_inspected_terminal_body",
+    "structured_state_freshness": "failed: typed-graphs.json predates proof closure and records root_closed=false, M3, and no accepted closed obligations",
+    "local_task_state_freshness": "failed: task-dag.json retains historical planned/open tasks and no accepted state",
+    "recorded_validation_recipe_replay": "failed: check_validation.py binds historical base c76fe0f1 rather than the current integrated snapshot; without a release packet it additionally fails on the absent validation-phase self-test packet",
+    "audit_inventory_reconciliation": "missing",
+    "human_source_acceptance": "missing",
+    "readability_acceptance": "missing",
+    "complete_provenance_and_trust_closure": "missing",
+    "hermetic_release_reproduction": "missing",
+    "supply_chain_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0025-VALIDATION has only provisional non-release-grade worker evidence and is not master accepted, so the release transition is not dependency-legal."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Validation reused the shared warm canonical .lake symlink and did not run an immutable empty-cache network-denied cold build or offline restoration replay."
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0025-VALIDATION and every transitive phase receipt",
+    "fresh authoritative instance, local task DAG, and typed-graph reconciliation of the provisionally closed exact root",
+    "current content-addressed validation receipts with an exactly replayable recipe bound to the immutable release snapshot",
+    "AUDIT-Z with complete discovery, source-boundary, evidence-state, trust-boundary, and debt reconciliation",
+    "accepted H0 primary-source edition, theorem/page, premise and assumption mapping, errata status, node crosswalk, and independent source review",
+    "accepted R0 node-by-node readable reconstruction with formal anchors, substantive <=100-step ledgers, and independent reader review",
+    "complete transitive declaration, proof-body provenance, accepted foundation and axiom profiles, and hashed TCB closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "complete SBOM and license closure with durable content-addressed dependency archives",
+    "two signed attestations from distinct independently provisioned clean runners with no shared writable cache",
+    "independently implemented minimal release verifier",
+    "protected CI and required mutation, differential, and metamorphic gate results",
+    "deterministic content-addressed evidence bundle, signature, public-state reconciliation, and master acceptance of AUDIT-Z and THEOREM-Z"
+  ],
+  "retry_condition": "After dependency-ordered master acceptance, reconcile the instance, local DAG, typed graph, and full audit inventory; obtain independent H0/R0 reviews and complete provenance/TCB records; then replay an immutable clean snapshot with empty caches and network denied and obtain two qualifying attestations plus independent minimal-verifier acceptance of a deterministic bundle.",
+  "worktree_classification": "nonrelease worker clone: the automation-provided Formalizations/Lean/.lake symlink was present and reused read-only; owned release artifacts are worker changes",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0025/check_release.py",
+    "Stage1_Instances/THM-M-0025/release-decision.json",
+    "Stage1_Instances/THM-M-0025/release.md"
+  ],
+  "covered_obligation_ids": [
+    "M0025-ROOT",
+    "M0025-T-ROOT-COMPOSE",
+    "M0025-T-IDEAL-FG-COMPOSE",
+    "M0025-X-MATHLIB-BODY"
+  ],
+  "statement_fingerprints": [
+    "sha256:9bb5ed6dd01550f3481d4a66e1d81009272b717997f9752ff422029da2828564"
+  ],
+  "typed_graph_changes": "none; release reconciliation observes and preserves the frozen root-open authority boundary",
+  "composition_certificates_inspected": [
+    "Stage1Instances.THM_M_0025.ObligationTree.root_of_exactPolynomialAnchor",
+    "Stage1Instances.THM_M_0025.Proof.hilbertBasisTheorem_via_frozen_composition"
+  ],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0025/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0025/release.md"
+  ],
+  "change_impact_set": ["S56-M-0025-RELEASE"],
+  "status_boundary": "This self-tests only a truthful blocked release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and does not claim AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance."
+}

@@ -43,7 +43,18 @@ closure; the statement handoff below supersedes only the canonical-elaboration p
 expression/environment fingerprints, a literal removed-hypothesis failure, three distinct
 structural mutations, and concrete empty-index/zero-ring elaboration probes.
 
-The vector remains `[H1, M3, R3]`. This is exact statement-only evidence pending master acceptance;
-it gives no proof credit. The pinpoint source review, transport to `Matrix.charpoly`, formal anchor
-and body audit, obligation tree, proof, validation, release, audit completion, and theorem completion
-remain open.
+## Anchor and obligation handoff
+
+`anchor-audit.json` classifies a bounded immutable candidate inventory. It checks the definitional
+transport to `Matrix.charpoly` and an exact wrapper around pinned
+`Matrix.aeval_self_charpoly`, while retaining M3 until release-grade E1 and master acceptance.
+
+Registry v1 now freezes 17 canonical obligations and seven typed graph classes. The root proof
+requires the exact characteristic-polynomial transport and pinned mathlib bridge. The imported
+body is expanded, without duplicate proof credit, into adjugate construction, `matPolyEquiv`
+normalization, right-factor evaluation, and scalar-evaluation conversion. `ObligationTree.lean`
+checks the transport and conditional child composition but does not install an accepted proof.
+
+The vector remains `[H1, M3, R3]`. No obligation is accepted closed. Pinpoint H0, independently
+reviewed R0, release-grade E1, full provenance/trust, proof installation, hermetic and independent
+validation, release, audit completion, and theorem completion remain open.

@@ -1,0 +1,221 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0060",
+  "item_id": "S56-M-0060-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1092,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "史密斯标准形定理",
+  "name_en": "Smith normal form theorem",
+  "canonical_name": "Smith normal form theorem family for integer matrices",
+  "category": "代数学 / 线性代数",
+  "category_en": "algebra / linear algebra",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "整数矩阵的等价标准形",
+  "literal_source_claim_en": "An equivalent normal form of integer matrices.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognized_smith_normal_form_family_but_catalog_does_not_fix_matrix_dimensions_equivalence_diagonal_divisibility_associate_uniqueness_or_boundary_conventions",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies only the theorem name and the gloss 'an equivalent normal form of integer matrices'. It gives no pinpoint source, dimensions, definition of matrix equivalence, diagonal and zero conventions, divisibility chain, sign or associate normalization, existence-versus-uniqueness boundary, or matrix-to-module encoding. Selecting an exact root at intake would invent proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.FreeModule.PID",
+      "Mathlib.LinearAlgebra.Matrix.ToLin",
+      "Mathlib.Algebra.Module.PID"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "Module.Basis.SmithNormalForm",
+      "Submodule.exists_smith_normal_form_of_le",
+      "Submodule.smithNormalFormOfLE",
+      "Submodule.smithNormalForm",
+      "Matrix.toLin'",
+      "LinearMap.toMatrix",
+      "Module.equiv_free_prod_directSum"
+    ],
+    "candidate_expression": null,
+    "candidate_expression_status": "pinned_general_pid_basis_and_submodule_interfaces_elaborated_for_discovery_only_but_no_source_ratified_integer_matrix_expression_or_checked_transport",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_identity_matrix_module_scope_dimensions_equivalence_diagonal_divisibility_associate_uniqueness_and_boundary_policy",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix integer matrices versus a general PID, row and column dimensions and orientation, finite index types, matrix or module representation, all algebraic typeclasses, and universe data.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: an exact existence statement, existence plus divisibility-normalized diagonal statement, uniqueness statement, or source-justified equivalent module theorem; no exact conclusion is selected at intake.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a source proposition is selected; the statement phase must resolve every matrix dimension, rank, zero, unit, sign, divisibility, and uniqueness case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "arbitrary rectangular integer matrices under left and right unimodular equivalence",
+    "a general rectangular matrix theorem over a principal ideal domain",
+    "diagonal existence without a divisibility condition",
+    "diagonal existence with consecutive nonzero entries ordered by divisibility",
+    "integer sign normalization and uniqueness of normalized invariant factors",
+    "the equivalent submodule inclusion or finitely generated PID-module decomposition theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero-by-zero, zero-row, and zero-column matrices",
+    "zero matrix, rank zero, rank-deficient matrices, and the placement of zero diagonal entries",
+    "one-dimensional, square, wide, tall, and full-rank cases",
+    "unit diagonal entries, associates and signs, repeated invariant factors, and equality in the divisibility chain",
+    "the zero ring if generalized beyond integers",
+    "existence only versus uniqueness and associated module or cokernel conclusions"
+  ],
+  "excluded_substitutions": [
+    "Submodule.smithNormalForm used as the exact integer-matrix theorem without source selection and a checked matrix-to-submodule transport",
+    "the diagonal basis relation used as if it also proves divisibility or uniqueness",
+    "the PID module structure theorem used without a checked equivalence to the selected matrix claim",
+    "a square, full-rank, nonsingular, fixed-size, or already-diagonal special case used as the general root",
+    "field row reduction or rank normal form used in place of integral or PID Smith form",
+    "Hermite, Jordan, rational canonical, or singular-value normal form",
+    "a hypothesis, structure field, computation, or unchecked certificate that assumes the conclusion",
+    "the catalog verified label or the intake probe used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0047",
+      "name": "LU分解定理",
+      "boundary": "triangular factorization is distinct from integral left/right equivalence and invariant factors"
+    },
+    {
+      "theorem_id": "THM-M-0050",
+      "name": "西尔维斯特惯性定律",
+      "boundary": "congruence classification of symmetric forms is not Smith normal form"
+    },
+    {
+      "theorem_id": "THM-M-0052",
+      "name": "潘罗斯-穆尔广义逆",
+      "boundary": "generalized inverse existence is unrelated to integral diagonalization by base changes"
+    }
+  ],
+  "source_status": "H1_primary_historical_paper_identified_and_metadata_abstract_inspected_but_exact_theorem_definitions_assumptions_proof_boundary_corrections_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Henry John Stephen Smith, XV. On systems of linear indeterminate equations and congruences, Philosophical Transactions of the Royal Society of London 151 (1861), pages 293-326, DOI 10.1098/rstl.1861.0016",
+      "candidate_locator": "Crossref work metadata and supplied abstract; DOI publisher PDF endpoint returned HTTP 403 in this worker",
+      "candidate_summary": "primary historical paper matching the attribution and year; metadata abstract discusses rectangular integral matrices, greatest and minor determinants, and matrix relations for linear indeterminate equations",
+      "inspection_status": "bibliographic metadata and abstract inspected as a primary-source lead; exact theorem/page, incorporated definitions, complete proof, corrections, errata, immutable local source packet, and independent review remain open",
+      "crossref_response_sha256": "a5ea5c9c1cce5a40f9168695ef392853691608d7e329f8ac18996e021c29d16b"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.FreeModule.PID",
+      "declarations": [
+        "Module.Basis.SmithNormalForm",
+        "Submodule.exists_smith_normal_form_of_le",
+        "Submodule.smithNormalFormOfLE",
+        "Submodule.smithNormalForm"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "kernel-checked general-PID basis/submodule diagonalization infrastructure; no source-ratified integer-matrix transport, divisibility-chain field, associate normalization, uniqueness clause, or exact-root status"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.ToLin",
+      "declarations": ["Matrix.toLin'", "LinearMap.toMatrix"],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "matrix-linear-map conversion infrastructure only; no Smith theorem or checked root transport"
+    },
+    {
+      "module": "Mathlib.Algebra.Module.PID",
+      "declaration": "Module.equiv_free_prod_directSum",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "related structure theorem for finitely generated PID modules; not automatically the catalog's integer-matrix statement"
+    }
+  ],
+  "root_vector": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; exact classical choice, quotient, basis, extensionality, decidable equality, domain, PID, and integer assumptions remain open until the source proposition is selected",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact canonical imports, expression, terminal bodies, transitive declarations, compiled artifacts, and accepted trust closure remain open",
+  "computation_profile": "kernel-exact-algebra-planned/1.0: no computer-algebra normal-form output, native shortcut, oracle, experiment, or unchecked certificate is credited; any selected theorem requires exact kernel-checked algebra and transport",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "bba12d6e1323b0998c5f255e488c95ef89ab9e4c",
+    "repository_base_tree": "aa4a56c727a0a616388e4bbdd8ceac1243c3a07d",
+    "repository_record": "Docs/researches/math_theorems.md:447-452",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1753-1778",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "187a4b5af03a99796cedbec43da7a77a8ca440abccc195b277732841e45f4d57",
+    "stage0_excerpt_sha256": "a27b863536fd3b2ca5ff700d12b78426ca2fa3c807eb6bb3afed0bca33fc1505",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "07587cf59584e2eec195d8b58e9efd5a89190bd67644c1ab4b35233b37a71eb6",
+    "execution_dag_sha256": "600ed7bcce52b8e30ea5c49ac53c63878a67a3af2af0c468a12fb696f2c13a50",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "free_module_pid_source_sha256": "55ab3a63c4f146cd563d0b72b35bdefcb18755b987369c096a18860d1e19aafc",
+    "matrix_tolin_source_sha256": "a58c81046f02ed406daaf24bd50ab7a68c5e5b43f906b6c8180aea740c49ac2a",
+    "module_pid_source_sha256": "1ccced240d5434b6879c2d96813525dd7dbb503515ce6a041f1f880fa0747e29",
+    "crossref_response_sha256": "a5ea5c9c1cce5a40f9168695ef392853691608d7e329f8ac18996e021c29d16b"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0060/README.md",
+    "Stage1_Instances/THM-M-0060/instance.json",
+    "Stage1_Instances/THM-M-0060/scope-map.md",
+    "Stage1_Instances/THM-M-0060/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0060/task-dag.json",
+    "Stage1_Instances/THM-M-0060/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0060/check_intake.py",
+    "Stage1_Instances/THM-M-0060/validation.md",
+    "Stage1_Instances/THM-M-0060/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, source, attribution, scope, or boundary correction",
+      "matrix-versus-module decision, dimensions, equivalence, diagonal, divisibility, associate, uniqueness, or boundary convention",
+      "canonical statement, checked transport, mutation, or expression fingerprint",
+      "toolchain, import, dependency pin, or formal candidate change",
+      "assurance profile, validator, receipt, or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "open_task_dag": "Stage1_Instances/THM-M-0060/task-dag.json",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, Smith-form family ambiguity, source and formal leads, proposition-changing choices, exclusions, and open task DAG. No canonical proposition, exact Lean target, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}
