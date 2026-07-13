@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import errno
+import fcntl
 import hashlib
 import json
 import os
@@ -997,6 +998,16 @@ def install(schedule: str) -> None:
 
 
 def main() -> None:
+    # A refill can take longer than its three-minute cadence. Serialize all
+    # scheduler invocations so overlapping ticks cannot allocate the same slot
+    # or orphan an unrecorded tmux worker.
+    lock = runtime_path("scheduler.lock").open("w", encoding="utf-8")
+    try:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        print("scheduler: another invocation is active; skipping overlapping run")
+        lock.close()
+        return
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_mutually_exclusive_group(required=True)
     modes.add_argument("--bootstrap", action="store_true", help="generate the typed 1546-target execution DAG and blueprint appendix")
@@ -1024,6 +1035,7 @@ def main() -> None:
         restart_live_workers(args.workers)
     else:
         install(args.schedule)
+    lock.close()
 
 
 if __name__ == "__main__":
