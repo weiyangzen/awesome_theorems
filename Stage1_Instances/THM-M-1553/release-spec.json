@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1553-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1553-RELEASE",
+  "theorem_id": "THM-M-1553",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1553/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 240,
+  "network_policy": "denied",
+  "network_enforcement": "The checker makes no network request. It hash-binds the narrow runner and the integrated validation receipt, and verifies the separately recorded current-turn run, which executed every Lean process through Bubblewrap with --unshare-net and a read-only root while writing compiled outputs only to a fresh temporary directory. This does not turn the shared warm pinned dependency cache into release-grade cold hermetic evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1553-ROOT",
+    "M1553-S-CONTEXT",
+    "M1553-N-HIROTA",
+    "M1553-N-TRANSFORM",
+    "M1553-L-REGULARITY",
+    "M1553-L-LOG",
+    "M1553-L-MIXED",
+    "M1553-B-POLYNOMIAL",
+    "M1553-T-ZERO",
+    "M1553-T-ASSEMBLE",
+    "M1553-S-BOUNDARY",
+    "M1553-X-SOURCE",
+    "M1553-X-PROVENANCE",
+    "M1553-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1553.HirotaKdVTarget",
+    "Stage1Instances.THM_M_1553.hirotaKdVTarget_of_logDerivativeBridge",
+    "Stage1Instances.THM_M_1553.logarithmic_bilinear_identity",
+    "Stage1Instances.THM_M_1553.logDerivativeBridge",
+    "Stage1Instances.THM_M_1553.hirotaKdVTarget_proof",
+    "Stage1Instances.THM_M_1553.Validation.independentlyReconstructedLogarithmicIdentity",
+    "Stage1Instances.THM_M_1553.Validation.independentlyReconstructedHirotaKdVTarget"
+  ],
+  "scope_boundary": "Worker-side negative release reconciliation plus current network-isolated, temporary-directory, warm-cache Lean replay. This recipe cannot provide dependency or master acceptance, accepted H0/R0 or trust/provenance closure, immutable clean empty-cache cold build, offline restoration, complete SBOM/licenses, distinct signed runners, an independently implemented verifier, protected release CI, or a deterministic release bundle."
+}
