@@ -1,0 +1,224 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1461",
+  "item_id": "S56-M-1461-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1138,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "有限元方法",
+  "name_en": "Finite element method",
+  "canonical_name": "Finite element variational discretization theorem family",
+  "category": "其他重要领域 / 数值分析",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "偏微分方程的变分离散",
+  "literal_source_claim_en": "Variational discretization of partial differential equations.",
+  "source_attribution": "Richard Courant, 1943 (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_finite_element_method_family_but_does_not_select_a_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies no PDE, domain, boundary conditions, continuous or discrete spaces, variational form, mesh or element family, regularity and approximation assumptions, ordered binders, or conclusion. Selecting discrete solvability, Galerkin orthogonality, Cea quasi-optimality, interpolation error, convergence, or an implementation theorem would invent or substitute proposition-changing mathematics.",
+  "target_decision": "redirect the method label to a corrected, independently reviewed, immutable exact proposition before ordinary statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.InnerProductSpace.LaxMilgram",
+      "Mathlib.Analysis.InnerProductSpace.Projection.Basic"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an admitted source must fix the PDE, scalar field, dimension, domain and boundary, solution space, variational form, discrete spaces, meshes and elements, norms, indices, and exact or computational semantics.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose discrete existence or uniqueness, Galerkin orthogonality, best approximation, Cea quasi-optimality, interpolation or a priori error, mesh-refinement convergence, convergence rate, or implementation correctness.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; statement review must resolve every case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "a source-selected finite-dimensional discrete variational problem has a unique solution",
+    "the conforming discrete error satisfies Galerkin orthogonality",
+    "a coercive continuous form yields Cea-type quasi-optimality",
+    "a specified element and mesh family satisfies an interpolation or energy-norm error estimate",
+    "a specified shape-regular approximation family converges to the continuous weak solution"
+  ],
+  "excluded_substitutions": [
+    "Lax-Milgram well-posedness without a finite-element discretization",
+    "orthogonal projection or best approximation without the source-selected PDE and discrete method",
+    "generic Galerkin, Petrov-Galerkin, or discontinuous Galerkin results owned by neighboring targets",
+    "a one-dimensional piecewise-linear Poisson result substituted for an unspecified PDE family",
+    "a structure storing the desired solution, estimate, or convergence claim as an input",
+    "mesh generation, matrix assembly, numerical experiments, API checks, or the untrusted verified label"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-1462",
+      "name": "Galerkin方法",
+      "relationship": "separately owned projection-method family; no statement, proof, or status is inherited"
+    },
+    {
+      "theorem_id": "THM-M-1463",
+      "name": "Petrov-Galerkin方法",
+      "relationship": "separate unequal-trial/test-space family"
+    },
+    {
+      "theorem_id": "THM-M-1464",
+      "name": "间断Galerkin方法",
+      "relationship": "separate discontinuous finite-element family"
+    },
+    {
+      "theorem_id": "THM-M-1465",
+      "name": "有限差分法",
+      "relationship": "different PDE discretization family"
+    },
+    {
+      "theorem_id": "THM-M-1466",
+      "name": "有限体积法",
+      "relationship": "different PDE discretization family"
+    },
+    {
+      "theorem_id": "THM-M-1467",
+      "name": "谱元法",
+      "relationship": "separate high-order element family"
+    }
+  ],
+  "source_status": "H5_catalog_method_gloss_is_not_yet_a_stable_proposition;_this_does_not_refute_established_finite_element_theorems",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Richard Courant, Variational Methods for the Solution of Problems of Equilibrium and Vibrations, Bulletin of the American Mathematical Society 49(1), 1943, 1-23, DOI 10.1090/S0002-9904-1943-07818-4",
+      "observed_crossref_sha256": "d625231e15df8ebbdabb94ef431d21f9c238e274b82d807a4b170e29ec07018d",
+      "inspection_status": "bibliographic metadata only; article body, exact propositions, assumptions, proofs, corrections, catalog root selection, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.LaxMilgram",
+      "declarations": [
+        "IsCoercive.continuousLinearEquivOfBilin",
+        "IsCoercive.continuousLinearEquivOfBilin_apply",
+        "IsCoercive.unique_continuousLinearEquivOfBilin"
+      ],
+      "assessment": "checked coercive-form solvability substrate only; no finite-element mesh, discrete space, error, or convergence result"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+      "declarations": [
+        "Submodule.orthogonalProjection",
+        "Submodule.starProjection_inner_eq_zero",
+        "Submodule.eq_starProjection_of_mem_of_inner_eq_zero",
+        "Submodule.starProjection_minimal",
+        "Submodule.norm_orthogonalProjection_apply_le"
+      ],
+      "assessment": "checked Hilbert-space projection substrate only; no source-selected FEM proposition"
+    }
+  ],
+  "bounded_search_result": "No finite-element-, Galerkin-, Cea-, or variational-discretization-named terminal theorem was found in pinned mathlib or repo-local Lean. This is bounded intake discovery, not a global absence claim or external anchor audit.",
+  "foundation_profile": {
+    "status": "planned_not_selected",
+    "required": "freeze accepted and disallowed logical principles with the canonical target"
+  },
+  "tcb_profile": {
+    "status": "planned_not_selected",
+    "required": "Lean kernel, pinned toolchain and dependencies, imported declarations, native/oracle boundary, and validator trust must be frozen before proof credit"
+  },
+  "computation_profile": {
+    "status": "planned_not_selected",
+    "required": "distinguish exact kernel proof from mesh generation, quadrature, matrix assembly, floating-point solvers, certificates, and numerical experiments"
+  },
+  "formal_system": "Lean 4 + mathlib; canonical target not yet selected",
+  "source_revisions": {
+    "repository_base": "22a0a0cce5163426b024f44f1a7ac09fa81c64a6",
+    "repository_base_tree": "08e2b7d76500c77153cb79a6c9de86989d879cc8",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "2b063a1934a93b28b461b6acd710654ac81bc8a2e4400b4c207ce869256ee482",
+    "stage0_projection_excerpt_sha256": "f00ecbf9aa8717981e09331e641f444bdbadf75ef5e5bfc7d37990292c45c14e",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "8738a4120845f3a87cd2a012c2cf660f9bd07636189423a532de7ae7646c569c",
+    "execution_dag_sha256": "451ea896354ddcb6244d73a37e9eb678ee36caa5e5bb22294b9763b09a936b9e",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean": "4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake": "5.0.0-src+98dc76e",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lax_milgram_source_sha256": "79643570d2052a66114e0f87f7b284e2dc72f79638b3c6c962ba18300a9abc6d",
+    "projection_basic_source_sha256": "0457835f43221940112a96509aa2d33386cf1043ef5cc28e54fd609df66c44e4"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "required_reviewers": [
+      "independent primary-source/history reviewer",
+      "independent numerical-PDE and finite-element reviewer",
+      "independent Lean reviewer"
+    ]
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "source or target correction",
+      "canonical mathematical or Lean statement",
+      "PDE, variational, mesh, element, approximation, error, or boundary convention",
+      "toolchain or dependency pin",
+      "assurance profile or validator",
+      "any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "archive_and_recovery_boundary": "Repository history and the integration lane's durable snapshot are the intended recovery mechanism after acceptance; mutable external metadata and this unaccepted worker packet are not release archives.",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "statement-blocker.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1461/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1461/README.md",
+    "Stage1_Instances/THM-M-1461/check_intake.py",
+    "Stage1_Instances/THM-M-1461/instance.json",
+    "Stage1_Instances/THM-M-1461/intake-receipt.json",
+    "Stage1_Instances/THM-M-1461/scope-map.md",
+    "Stage1_Instances/THM-M-1461/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1461/statement-blocker.md",
+    "Stage1_Instances/THM-M-1461/task-dag.json",
+    "Stage1_Instances/THM-M-1461/validation.md"
+  ],
+  "status_boundary": "This is a planned intake for a catalog target that is not yet a stable proposition. H5 does not refute established finite-element theorems. No accepted state, exact Lean target, proof, audit completion, theorem completion, or master acceptance is claimed."
+}
