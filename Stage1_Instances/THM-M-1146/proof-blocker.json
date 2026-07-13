@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1146-PROOF",
+  "theorem_id": "THM-M-1146",
+  "base_revision": "c45f3c7090cb4adf616d45e5414985f956e807b2",
+  "recorded_at": "2026-07-14",
+  "canonical_target": "Stage1Instances.THM_M_1146.SchwarzReflectionTarget",
+  "canonical_target_expression_sha256": "14336b88fd9aa11228ee9c7a86cc56a3473702bc2f8d77e266f2b4d37deef53d",
+  "statement_source_sha256": "1eed15359d2a23379ba77f1c8773588f4644b8b73f3b21fd981dc68271bdf5dd",
+  "obligation_registry_denominator_sha256": "59b6b2bd91ba7322a290e336203b2793f6c9a21cf216407b03cda9b8ae4207fe",
+  "proof_source_sha256": "31c325c832dab8fbab4eea3f820ed43c4defa9ed182842a2542fa916d759d0c4",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "blocked",
+  "machine_classification": "M3",
+  "proof_body_added": true,
+  "root_closed": false,
+  "theorem_complete": false,
+  "implemented_obligations": {
+    "M1146-L-CONJUGATION": [
+      "Stage1Instances.THM_M_1146.laplacian_comp_conj",
+      "Stage1Instances.THM_M_1146.harmonicAt_comp_conj",
+      "Stage1Instances.THM_M_1146.harmonicOnNhd_comp_conj"
+    ],
+    "M1146-B-UPPER": [
+      "Stage1Instances.THM_M_1146.oddReflection_harmonicAt_of_pos",
+      "Stage1Instances.THM_M_1146.oddReflection_harmonicOnNhd_upperPart"
+    ],
+    "M1146-B-LOWER": [
+      "Stage1Instances.THM_M_1146.harmonicAt_neg_comp_conj",
+      "Stage1Instances.THM_M_1146.oddReflection_harmonicAt_of_neg",
+      "Stage1Instances.THM_M_1146.oddReflection_harmonicAt_of_mem_negative"
+    ]
+  },
+  "partial_obligations": {
+    "M1146-C-REFLECTION": "The two off-axis branch identities are checked; axis compatibility and continuity of the piecewise reflection remain open."
+  },
+  "first_failed_gate": "M1146-L-GLUING: no checked theorem derives HarmonicAt on the reflecting axis from continuity plus harmonicity on the two open sides",
+  "remaining_root_cut_set": [
+    "M1146-B-MERGE"
+  ],
+  "expanded_missing_proof_packages": [
+    "M1146-C-REFLECTION",
+    "M1146-S-BOUNDARY",
+    "M1146-L-GLUING",
+    "M1146-B-AXIS",
+    "M1146-N-LOCALITY",
+    "M1146-B-MERGE"
+  ],
+  "candidate_assessment": {
+    "repo_local": "The exact statement and conditional final assembly exist, and Proof.lean now closes conjugation plus both strict off-axis branches. No axis-gluing body exists.",
+    "pinned_mathlib": "Revision 8a178386 provides HarmonicAt/HarmonicOnNhd definitions, locality, negation, conjugation calculus ingredients, and the forward harmonic-to-circle-average theorem. It provides no converse mean-value, harmonic gluing, or Schwarz reflection theorem.",
+    "audited_external": "The dependency-phase immutable search found no compatible eligible Lean 4 terminal Schwarz-reflection proof to pin and import."
+  },
+  "blocker": "At a point with zero imaginary part, the frozen HarmonicAt predicate requires a C2 germ and a locally zero classical Laplacian. Continuity and the checked harmonicity on both strict sides do not supply that germ. A substantive mean-value/Morera/distributional gluing proof is required; assuming such a package would be a prohibited conditional substitute.",
+  "retry_condition": "Resume after a placeholder-free implementation of M1146-L-GLUING and its continuity/boundary prerequisites, or discovery of an immutable compatible Lean 4 terminal proof that can be pinned, imported, exact-type transported, and checked without mutating dependencies.",
+  "status_boundary": "The listed local bodies are kernel checked, but the assigned proof phase is incomplete. This blocker is not a proof receipt, does not satisfy S56-M-1146-PROOF, and must not be promoted to provisional or accepted completion."
+}
