@@ -45,6 +45,16 @@ finite-sum variance, variance, and strong-law substrate only. The root therefore
 `obligation-registry.json` freezes 19 semantic obligations before proof-phase closure credit, and
 `typed-graphs.json` separates proof, refinement, provenance, evidence, trust, documentation, and
 workflow edges. `ObligationTree.lean` checks only that the exact necessity and sufficiency
-implications assemble into the canonical biconditional. Both implications and every mathematical
-leaf remain open at `M3`; `obligation-tree.md` and `obligation-tree-validation.md` state the frozen
-cut set and the status boundary.
+implications assemble into the canonical biconditional. At the obligation-tree freeze, both
+implications and every mathematical leaf remained open at `M3`; `obligation-tree.md` and
+`obligation-tree-validation.md` state that frozen cut set and status boundary.
+
+## Proof-phase verdict
+
+`Proof.lean` now contains checked local bodies for the truncation, large-jump,
+Borel--Cantelli, finite-prefix transport, and centering packages. It also proves the exact frozen
+sufficiency implication by a target-specialized martingale argument. This is provisional worker
+evidence only: accepted registry state is unchanged, and bounded independent-series necessity,
+the exact biconditional root, validation, release, and theorem completion remain open. See
+`proof-execution.md`, `proof-validation.md`, `proof-receipt.json`, and
+`proof-blocker-2026-07-14.json` for the precise boundary.
