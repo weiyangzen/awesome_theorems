@@ -7,8 +7,10 @@ The intake preserves exactly the catalog family: for every natural number `n`, a
 mathematical content is failure of injectivity when a finite domain has larger cardinality than
 the codomain.
 
-This family description is not yet a canonical Lean proposition. The dependent statement phase
-must select and independently review one exact encoding and every transport it credits.
+The statement phase selects the literal concrete proposition
+`Stage1Instances.THM_M_0914.PigeonholeTarget`: objects are `Fin (n + 1)`, boxes are `Fin n`, and a
+placement is a total function. The root concludes with two distinct objects having equal images.
+Only the explicit shared-box encoding is credited through a checked iff.
 
 ## Proposition-changing decisions
 
@@ -28,16 +30,17 @@ must select and independently review one exact encoding and every transport it c
 6. **Finite structures and universes:** fix the type universes, `Fintype` instances, equality and
    decidability requirements, and any choice or classical policy.
 
-## Boundary cases to resolve
+## Frozen boundary cases
 
-- `n = 0`, including the empty codomain and absence of a placement function;
-- `n = 1`, constant placement of two objects, and the first inhabited case;
-- arbitrary finite types with empty domain or codomain;
-- exactly `n + 1` objects versus any strictly larger finite domain;
-- collision witnesses versus a cardinality-two fiber witness;
-- dependence on the chosen `Fintype` structures and transports across finite equivalences.
+- `n = 0` is included. The function binder is empty because there is no `Fin 1 -> Fin 0`;
+  `no_placement_into_zero_boxes` checks this representation.
+- `n = 1` is included. `one_box_boundary` checks the first inhabited two-object collision.
+- Exactly `n + 1` objects are in the root; arbitrary larger domains are downstream variants.
+- An explicit common-box witness is checked equivalent; a fiber-cardinality predicate is not
+  credited.
+- No `Fintype` structures or finite-equivalence transports occur in the concrete root.
 
-No boundary case is excluded at intake.
+No natural-number case is excluded.
 
 ## Explicit exclusions
 
@@ -71,5 +74,6 @@ Fintype.exists_ne_map_eq_of_card_lt
 ```
 
 The source module also provides the embedding formulation and adjacent finite/infinite variants.
-The probe establishes declaration availability and the reported axiom surface only. It does not
-freeze the catalog's `Fin (n + 1)` target, inspect terminal provenance, or complete an anchor audit.
+The intake probe establishes declaration availability and the reported axiom surface only. The
+statement module separately freezes the catalog's `Fin (n + 1)` target without importing this
+candidate. Terminal provenance and the complete anchor audit remain downstream.

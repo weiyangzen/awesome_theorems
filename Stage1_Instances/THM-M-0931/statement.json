@@ -1,0 +1,139 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0931-STATEMENT",
+  "theorem_id": "THM-M-0931",
+  "execution_rank": 1470,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Erdos-Ginzburg-Ziv theorem for integer occurrences",
+  "canonical_statement": "For every positive natural number n, among exactly 2 * n - 1 integer occurrences there are exactly n selected occurrences whose sum is divisible by n.",
+  "source_selection": {
+    "citation": "P. Erdos, A. Ginzburg, and A. Ziv, Theorem in the additive number theory, Bulletin of the Research Council of Israel, Section F, volume 10 F, number 1 (August 1961), pages 41-43",
+    "theorem_locator": "scan page 1, opening theorem sentence",
+    "observed_statement": "Each set of 2n-1 integers contains some subset of n elements the sum of which is a multiple of n.",
+    "observed_pdf_sha256": "bae3803dc3e04c41ba10f63c112ba48727dacd1f7c4b1388ec21ff3b084a42b9",
+    "interpretation": "The positive n boundary follows the prime/composite proof and ordinary positive-modulus convention. Indexed occurrences in the proof justify Multiset Int, retaining repetitions despite the theorem sentence's set/subset wording.",
+    "review_boundary": "The intake-inspected primary scan supports H1. Independent transcription, positivity and occurrence review, citation pagination, correction and errata review, proof-node mapping, H0 admission, and master acceptance remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0931/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0931.ErdosGinzburgZivTarget",
+    "elaborated_expression_sha256": "b872e0de4aedbd0da8825d2c7dd9ecb30e01215131c61e73dc3050776711718a",
+    "statement_file_sha256": "d0e7e43d896a0625e87b3fac55319d5e999351c8f74cdda4e699d9360d651020",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance"
+  },
+  "domain_and_universes": "n : Nat with 0 < n; s t : Multiset Int; the target is a proposition in Lean universe 0.",
+  "ordered_binders": [
+    "n : Nat",
+    "hPositive : 0 < n",
+    "s : Multiset Int",
+    "hCard : s.card = 2 * n - 1",
+    "t : Multiset Int (existential)"
+  ],
+  "hypotheses": [
+    "0 < n",
+    "s.card = 2 * n - 1"
+  ],
+  "conclusion": "There is t : Multiset Int with t <= s, t.card = n, and (n : Int) dividing t.sum.",
+  "encoding_decisions": {
+    "input_container": "Multiset Int represents integer occurrences and retains repeated values without imposing an order or consecutive-subsequence condition.",
+    "selection": "t <= s is the multiset subobject relation, so an occurrence cannot be selected more often than it occurs in s.",
+    "input_cardinality": "Equality to 2 * n - 1 is source-shaped; the stronger at-least-count proposition is only an alternate that implies the root.",
+    "witness_cardinality": "t.card = n requires exactly n selected occurrences.",
+    "modulus": "n is positive in the canonical root and is cast to Int in the divisibility conclusion.",
+    "sum_condition": "(n : Int) divides t.sum; a checked iff relates this to the same integer sum casting to zero in ZMod n."
+  },
+  "direct_imports": [
+    "Mathlib.Data.ZMod.Basic"
+  ],
+  "minimal_import_result": "The one direct import supplies ZMod, its integer-cast zero/divisibility theorem, Multiset, integer additive structure, and Multiset.sum. Deleting it makes Multiset unknown. The proof-bearing Mathlib.Combinatorics.Additive.ErdosGinzburgZiv module is not imported.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0931.AtLeastCountTarget",
+      "relationship": "implies",
+      "checked_witness": "Stage1Instances.THM_M_0931.atLeastCountTarget_implies_erdosGinzburgZivTarget",
+      "boundary": "This is the all-natural, at-least-input-count proposition shape of the pinned mathlib candidate. Only its checked implication to the positive exact-count root is credited; no proof of AtLeastCountTarget is imported or claimed."
+    },
+    {
+      "target": "Stage1Instances.THM_M_0931.ResidueTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0931.erdosGinzburgZivTarget_iff_residueTarget",
+      "boundary": "The same integer multiset and selected integer submultiset are retained; only divisibility of t.sum is rewritten as its integer cast being zero in ZMod n."
+    }
+  ],
+  "excluded_alternate_encodings": [
+    "Finset Int, which would erase repeated input values",
+    "a consecutive List subsequence or a reordered list without an occurrence-preserving transport",
+    "a ZMod-valued input root rather than the source's integer input",
+    "a nonempty or at-most-n zero-sum selection",
+    "integer sum equal to zero rather than divisible by n",
+    "a prime-only or finite-abelian-group theorem used as the root"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0931/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedPositivity"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationNaturalInputs"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationExistentialModulus"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationAtLeastInputCount"
+      }
+    ],
+    "method": "Lean rejects definitional equality between the canonical target and every mutation; the validator also serializes every fully explicit expression and requires a distinct SHA-256 fingerprint."
+  },
+  "degenerate_cases": "n = 0 is excluded. n = 1 is included. Repeated, all-equal, zero, and negative input integers are included. The input has exactly 2 * n - 1 occurrences; no distinctness, ordering, connectedness, primality, or nonzero-input premise is added.",
+  "environment_fingerprint": {
+    "base_revision": "1168265f6eea33d947ff470fad2ca6fff9e1130b",
+    "base_tree": "0d35608cbc6e281a3d9935d452cf33c88c32aa7e",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": {
+      "Mathlib.Data.ZMod.Basic": "b150e3bf79b154b28c1d3fa68cbd837f093f4305bf4fd2e9302db29081135358"
+    },
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory with mathlib's standard classical infrastructure permitted. The exact-count implication reports propext and Quot.sound; the residue iff reports propext, Classical.choice, and Quot.sound. No target proof, custom axiom, unsafe declaration, oracle, or placeholder is added.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and the sole direct statement import. Terminal proof-body and transitive trust closure remain downstream.",
+  "computation_profile": "No enumeration, solver, native evaluation, experiment, external oracle, generated certificate, or unchecked computation is used or credited.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The intake already assigned M3 from direct pinned candidates. This phase freezes and elaborates the source-shaped positive exact-count target and checked transports but adds no proof body, accepted source review, or readable proof reconstruction, so the debt labels do not change.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "status_boundary": "Worker-self-tested statement proposal only. It freezes the positive exact-count integer-occurrence target, one minimal non-proof import, two checked transports, and four structural mutations. It supplies no accepted intake dependency, anchor audit, proof, H0, M0, R0, audit completion, theorem completion, release, or master acceptance."
+}

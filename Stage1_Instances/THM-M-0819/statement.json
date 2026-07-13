@@ -1,0 +1,149 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0819-STATEMENT",
+  "theorem_id": "THM-M-0819",
+  "execution_rank": 1377,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Dilworth's primary arbitrary-poset finite-width theorem with checked zero-width extension",
+  "canonical_statement": "For every partially ordered set P and natural number k, if every (k + 1)-element subset of P contains two distinct comparable elements and some k-element subset is an antichain, then P is the disjoint set sum of k chains. For positive k this is the literal primary statement; the total-Nat encoding includes a separately checked k = 0 extension.",
+  "canonical_claim_status": "primary_theorem_1_1_positive_width_statement_frozen_zero_width_conservative_extension_checked_source_convention_and_modern_equality_transport_open",
+  "source_selection": {
+    "citation": "R. P. Dilworth, A Decomposition Theorem for Partially Ordered Sets, Annals of Mathematics (2) 51(1), 161-166 (1950), DOI 10.2307/1969503",
+    "theorem_locator": "Theorem 1.1, original page 161",
+    "inspected_preview_sha256": "6af3f64b82c9788779586fbc43d8fa845b24c3ff8f34414c5518aa3545b78243",
+    "inspected_text_sha256": "c05889cda31f656611c864b8f0f1273bea1b5f0e5999c055ad3b304cbc8e3157",
+    "relationship_to_catalog": "This phase selects the primary theorem identified at intake rather than silently choosing the easier modern finite-poset equality exposed by the blocked external Lean candidate. Its positive-width restriction follows the printed statement; k = 0 is an explicit conservative extension.",
+    "review_boundary": "The positive-width statement and page-161 definitions are frozen. The historical range convention for k and approval of the checked zero-width extension remain open, as do original pages 163-166, the complete finite and transfinite proofs, correction and errata status, and an independent H0 review."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0819/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0819.DilworthPrimaryTarget",
+    "elaborated_expression_sha256": "bdf0aa8f8adac4be9bf2080951be62eac168872b8c589a804ac8587c1878bb19",
+    "support_definition_expression_sha256": {
+      "HasExactly": "041a339ae3479561f0f7c02269345a8bc115333567b890a4ab411933ad0cb951",
+      "IsDependent": "42c2ce9e6da22a7a250b48659cc52e5b7b056bbe277f35f362fff92b5001dce5",
+      "IsDisjointChainDecomposition": "7bddad810ecd35520fb73694ebf7cedb90262d493776de6d3d177c21da83e448"
+    },
+    "statement_bundle_sha256": "df437e79e306cbbdca0f9344a6a953a7f27886a197db7c614b995c846f8a2195",
+    "statement_identity_policy": "The semantic statement identity is statement_bundle_sha256 over the explicit root expression and all three explicit support-definition bodies. elaborated_expression_sha256 alone identifies only the root expression that references those supports.",
+    "statement_file_sha256": "c3e600a4a5c2b48686bf244915aea79972e4537a2d89120ad739018716056b52",
+    "serialization_options": [
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance"
+  },
+  "domain_and_universes": "At arbitrary universe u: alpha : Type u with PartialOrder alpha; k : Nat; arbitrary Set alpha witnesses and a Fin k-indexed family of Set alpha chains.",
+  "ordered_binders": [
+    "alpha : Type u",
+    "PartialOrder alpha",
+    "k : Nat",
+    "every exact-(k + 1) set is dependent",
+    "some exact-k set is an antichain",
+    "C : Fin k -> Set alpha (existential)"
+  ],
+  "hypotheses": [
+    "For every s : Set alpha, if s is equivalent to Fin (k + 1), then s contains two distinct comparable elements.",
+    "There exists s : Set alpha equivalent to Fin k that is an antichain under <=."
+  ],
+  "conclusion": "There exists C : Fin k -> Set alpha such that every C i is a chain and every carrier element belongs to exactly one C i.",
+  "encoding_decisions": {
+    "exact_finite_cardinality": "HasExactly k s is Nonempty (s equiv Fin k), avoiding any collapse of infinite cardinalities to Nat zero.",
+    "dependent": "The page-161 definition is encoded directly as existence of distinct comparable elements.",
+    "independent": "The page-161 definition is encoded by mathlib IsAntichain for the partial-order relation <=.",
+    "chain": "The page-161 pairwise-comparability definition is encoded by mathlib IsChain for <=.",
+    "disjoint_set_sum": "A Fin k-indexed chain family with unique membership for every carrier element simultaneously states cover and pairwise disjointness.",
+    "empty_parts": "The encoding does not separately ban empty indexed chains. For k > 0, the exact-k antichain lower bound and k-chain decomposition make every index necessary; k = 0 is handled explicitly.",
+    "boundary": "The total-Nat target includes the empty carrier at k = 0 as a checked conservative extension and the singleton carrier at k = 1. The printed source does not explicitly resolve whether k ranges over zero, so source approval of this boundary remains open. No Finite carrier hypothesis is added."
+  },
+  "direct_imports": [
+    "Mathlib.Order.Antichain"
+  ],
+  "minimal_import_result": "The canonical-target fixture elaborates with the sole direct import and fails when it is removed. No Dilworth theorem or proof-bearing decomposition module is imported. Minimality is necessity of the declared import for this source layout, not an exhaustive comparison with every possible refactoring of mathlib modules.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0819.ExpandedDilworthPrimaryTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0819.dilworthPrimaryTarget_iff_expanded",
+      "boundary": "Only the local chain-decomposition predicate is expanded. No transport to the modern finite-poset minimum-partition equals maximum-antichain equality is credited."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the modern finite-poset minimum chain partition equals maximum antichain equality",
+    "an overlapping chain cover formulation",
+    "an ENat infimum/supremum formulation",
+    "a cardinal-valued infinite-width extension"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0819/check_statement.py",
+    "method": "Lean rejects definitional equality for each changed proposition and the checker verifies distinct fully explicit expression fingerprints.",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedIndependentWitness",
+        "expression_sha256": "17b6291d6d1cb4ed6a04395a6160919193069a4eb49698614f6069f6d39ac96c"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedToNatDomain",
+        "expression_sha256": "4eb45636cbe158330ebda98d0d4650ad56ec9d498ffe9cc8e765628dad2a6a76"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedWidthBinderScope",
+        "expression_sha256": "9c1b006fb2265065d3776d244591664a374621e8f24a9096389f2b8f99eba453"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludesZeroWidth",
+        "expression_sha256": "54363c2525bc5cd4cd18eb54db4b636ec395b33610e85d9ab55ec86a34d17589"
+      }
+    ],
+    "boundary_proofs": [
+      "Stage1Instances.THM_M_0819.zeroWidth_forces_isEmpty",
+      "Stage1Instances.THM_M_0819.zeroWidth_decomposition",
+      "Stage1Instances.THM_M_0819.singletonWidth_decomposition"
+    ]
+  },
+  "environment_fingerprint": {
+    "base_revision": "fcabbf1e0ad9507eebe91663bccabfa87d22813e",
+    "base_tree": "873e589c594454b7f263c7ed2342089a4d15e842",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": {
+      "Mathlib.Order.Antichain": "d124c384df09f812df642ddffa03acf2cf12d45e307f839dc7d91efb41ef677d"
+    },
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory with autoImplicit=false and mathlib's standard propositional extensionality permitted for boundary and definitional transport lemmas. The primary source's transfinite proof and its choice requirements remain an H1 and later trust-audit question; no root proof is added here.",
+  "tcb_profile": "Lean kernel and elaborator 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 and the sole statement import. Terminal proof-body provenance and transitive trust closure remain downstream gates.",
+  "computation_profile": "No evaluator, oracle, search procedure, numerical experiment, generated extremal example, or unchecked certificate is used or credited.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M5",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "debt_delta_basis": "The exact primary proposition, local definitions, one necessary import, checked expansion, boundary lemmas, mutations, and expression/environment fingerprints now elaborate. This is statement/interface evidence only. The incompatible external finite-equality candidate remains separately blocked and supplies no proof credit.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "status_boundary": "Worker-self-tested primary-statement proposal only. It supplies no root proof, complete source proof review, approved modern-equality transport, anchor audit, H0, M0, R0, audit completion, theorem completion, release, or master acceptance."
+}

@@ -42,11 +42,11 @@ select a reviewed modern source of record before H0 can be considered.
 
 | Catalog phrase | Mathematical component | Candidate Lean component | Intake status |
 |---|---|---|---|
-| `n+1个物体` | finite object collection of cardinality `n + 1` | `Fin (n + 1)` or reviewed finite type | family identified; exact binder open |
-| `n个盒子` | finite box collection of cardinality `n` | `Fin n` or reviewed finite type | family identified; exact binder open |
-| `放入` | each object occupies exactly one box | total function `f` | modern source supports total-function reading; source transport open |
-| `一个盒子` | an inhabited codomain witness | `y : Fin n` or a collision image | zero-box representation unresolved |
-| `至少有两个` | two distinct objects have the same box, or a fiber has cardinality at least two | `exists x y, x != y and f x = f y`, or fiber-cardinality predicate | collision candidate pinned; fiber transport open |
+| `n+1个物体` | finite object collection of cardinality `n + 1` | `Fin (n + 1)` | exact concrete binder frozen |
+| `n个盒子` | finite box collection of cardinality `n` | `Fin n` | exact concrete binder frozen |
+| `放入` | each object occupies exactly one box | total function `f : Fin (n + 1) -> Fin n` | exact total-placement binder frozen; H0 source review open |
+| `一个盒子` | a common image of two objects | `BoxWitnessTarget` names `b : Fin n` | checked iff to the collision root; `n = 0` remains vacuous |
+| `至少有两个` | two distinct objects have the same box | `exists x y, x != y and f x = f y` | exact collision conclusion frozen; fiber-cardinality form uncredited |
 | Peter Dirichlet / 1834 | historical provenance | no Lean proposition | uncited and unverified |
 | `已验证` | untrusted inventory status | no proposition or proof credit | explicitly rejected as evidence |
 
@@ -60,15 +60,15 @@ distinct equal-image conclusion described above. `Fintype.card_fin` can support 
 `Function.Embedding.isEmpty_of_card_lt` are alternate interfaces.
 
 These declarations are proof-bearing exact-family candidates, so the provisional machine status
-is `M3`, not an absence claim. Intake only authenticates their types and pin. The statement phase
-must freeze the exact catalog encoding and checked transports; the later anchor audit must resolve
-terminal bodies, dependencies, trust, placeholders, provenance, and source identity before any
-`M0-W` proposal.
+is `M3`, not an absence claim. The statement phase now freezes the concrete catalog encoding and
+its checked shared-box transport without importing a proof candidate. The later anchor audit must
+resolve specialization, terminal bodies, dependencies, trust, placeholders, provenance, and source
+identity before any `M0-W` proposal.
 
 ## Exit gate
 
-Before the statement node can close, an independent reviewer must accept a source-of-record and
-the exact `n` domain, total-placement model, ordered binders, collision/fiber conclusion, zero-box
-semantics, foundation profiles, and source relationship. The chosen Lean expression must then be
-elaborated with minimal pinned imports, serialized and hashed, connected to every credited
-alternate encoding by checked witnesses, and subjected to all four required mutation classes.
+The statement worker has elaborated, serialized, hashed, transported, boundary-checked, and
+mutation-tested the literal concrete target with an empty direct-import set. Master acceptance of
+that provisional packet remains open. Independent source-of-record review, historical disposition,
+complete proof and errata mapping, and H0 remain later source gates rather than statement-proof
+credit.

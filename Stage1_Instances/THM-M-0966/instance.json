@@ -1,0 +1,233 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0966",
+  "item_id": "S56-M-0966-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1500,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Kruskal-Katona定理",
+  "name_en": "Kruskal-Katona theorem",
+  "canonical_name": "Kruskal-Katona minimum lower-shadow theorem family (exact formulation open)",
+  "category": "组合数学 / 计数组合",
+  "category_en": "combinatorics / enumerative combinatorics",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim": "阴影的最小大小 (minimum size of the shadow)",
+  "source_attribution": "Kruskal/Katona, 1963 (catalog metadata)",
+  "canonical_statement": null,
+  "canonical_claim_status": "classical_theorem_family_identified_and_direct_pinned_colex_candidate_found_but_catalog_does_not_select_colex_cascade_iterated_lovasz_attainment_or_equality_form",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only 'minimum size of the shadow'. It does not define the shadow, ambient ground set, family encoding, uniformity, cardinality parameter, colex segment, binomial representation, quantifier order, hypotheses, boundary cases, or whether the conclusion is a comparison, explicit numerical bound, attainment statement, iterated theorem, Lovasz consequence, or equality characterization. Selecting one without reviewed source admission would invent or substitute proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_formulation_selection_and_statement_mutation_gate",
+    "module_candidate": "Mathlib.Combinatorics.SetFamily.KruskalKatona",
+    "declaration_candidate": "Finset.kruskal_katona",
+    "candidate_type": "for an r-uniform finite family A of subsets of Fin n and an r-uniform colex initial segment C with card C <= card A, card (shadow C) <= card (shadow A)",
+    "candidate_relationship": "credible exact candidate for the conditional one-step colex-minimizer comparison; it does not itself state existence of an exact-cardinality initial segment, the numerical binomial/cascade lower bound, an iterated root, or equality classification",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_kruskal-katona-intake-candidate-probe-only"
+  },
+  "domain_and_universes": "Candidate scope is Nat parameters n and r, families A and C of type Finset (Finset (Fin n)), Prop-level uniformity and colex-initial-segment predicates, and Nat cardinality inequalities. The source-selected ground set, family, rank, and numerical-representation encodings remain open.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: select and source-map a colex comparison, exact minimum with attainment, numerical cascade bound, iterated bound, Lovasz consequence, or equality characterization.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_cases_to_resolve": [
+    "n = 0 and empty ground sets",
+    "r = 0, r = 1, and r > n",
+    "empty and singleton families",
+    "empty versus nonempty comparison family C",
+    "card C < card A versus card C = card A",
+    "zero iterations and iteration count above r",
+    "natural subtraction in r - i and binomial coefficients outside their usual range",
+    "zero family cardinality and termination of a binomial/cascade representation",
+    "simple families versus indexed families or multisets with duplicates"
+  ],
+  "candidate_scope_not_credited": [
+    "conditional one-step colex comparison exposed as Finset.kruskal_katona",
+    "existence of a colex initial segment with exactly the family cardinality",
+    "explicit numerical r-binomial or cascade shadow bound",
+    "iterated colex comparison exposed as Finset.iterated_kk",
+    "binomial-threshold consequence exposed as Finset.kruskal_katona_lovasz_form",
+    "classification of all equality cases or minimizers",
+    "abstract finite-ground-type encoding transported from Fin n"
+  ],
+  "excluded_substitutions": [
+    "Sperner, Erdos-Ko-Rado, Hilton-Milner, Lovasz-Kneser, or another extremal set theorem used as the root",
+    "the Lovasz threshold form silently substituted for the full colex or cascade theorem",
+    "an iterated theorem substituted for a one-step root or conversely",
+    "an upper-shadow or complement theorem without checked bidirectional transport and side conditions",
+    "an inequality declaration treated as proving existence, attainment, or equality classification",
+    "an asymptotic estimate, numerical example, assumed minimizer, or convenient restricted domain",
+    "the catalog's untrusted verified label, a source lead, theorem name, docstring, or API probe used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0821",
+      "name": "Sperner定理",
+      "relationship": "neighboring antichain theorem; it does not state the minimum lower shadow"
+    },
+    {
+      "theorem_id": "THM-M-0822",
+      "name": "Erdős-Ko-Rado定理",
+      "relationship": "pinned mathlib derives EKR in the same module, but its intersecting-family bound is a separate root"
+    },
+    {
+      "theorem_id": "THM-M-0964",
+      "name": "Hilton-Milner定理",
+      "relationship": "nontrivial intersecting-family extremal theorem; no shadow-root credit"
+    },
+    {
+      "theorem_id": "THM-M-0967",
+      "name": "Lovász-Kneser定理",
+      "relationship": "graph-coloring theorem, distinct from the Lovasz formulation of Kruskal-Katona"
+    }
+  ],
+  "source_status": "H1_bibliographic_original_source_leads_identified_but_complete_primary_text_exact_theorem_assumption_proof_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Joseph B. Kruskal, The Number of Simplices in a Complex, Mathematical Optimization Techniques (1963), 251-278, DOI 10.1525/9780520319875-014",
+      "observed_crossref_query_sha256": "a35b791653dfbfa39af1c70fd16d849c0ac159f328170c909a014d54e9e02092",
+      "observed_at": "2026-07-13",
+      "inspection_status": "bibliographic metadata only; complete primary text, exact theorem passage, definitions, assumptions, proof boundary, corrections, errata, immutable admission, and independent review remain open"
+    },
+    {
+      "citation": "G. Katona, A Theorem of Finite Sets; inspected metadata for the 2009 reprint in Classic Papers in Combinatorics, 381-401, DOI 10.1007/978-0-8176-4842-8_27",
+      "observed_crossref_record_sha256": "4b83173383a3a105ef6fa3828c2724a731e7ce262c6b956fd20a44cb3f8fbf1f",
+      "observed_at": "2026-07-13",
+      "inspection_status": "reprint bibliographic metadata only; original publication identity, complete text, exact theorem passage, source equivalence, corrections, immutable admission, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SetFamily.KruskalKatona",
+      "declaration": "Finset.kruskal_katona",
+      "relationship": "direct conditional one-step colex lower-shadow comparison candidate"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SetFamily.KruskalKatona",
+      "declaration": "Finset.iterated_kk",
+      "relationship": "iterated-shadow colex comparison; proposition-changing unless iteration is selected"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SetFamily.KruskalKatona",
+      "declaration": "Finset.kruskal_katona_lovasz_form",
+      "relationship": "Lovasz binomial-threshold consequence; not the missing full cascade representation"
+    }
+  ],
+  "bounded_search_result": "A direct pinned mathlib module and three named formal candidates were located. This is bounded intake discovery, not the downstream immutable anchor audit, exact source match, terminal-body audit, or proof credit.",
+  "foundation_profile": {
+    "status": "planned_not_selected",
+    "required": "freeze accepted and disallowed logical principles, extensionality, choice, quotient, and representation principles with the canonical target"
+  },
+  "tcb_profile": {
+    "status": "planned_not_selected",
+    "required": "freeze Lean kernel, exact imports, dependency closure, terminal declarations, axioms, unsafe or oracle boundaries, and validator trust before proof credit"
+  },
+  "computation_profile": {
+    "status": "planned_not_selected",
+    "required": "distinguish kernel-checked combinatorial proof from finite enumeration, native shortcuts, generated cascade certificates, or experimental shadow counts"
+  },
+  "formal_system": "Lean 4 + pinned mathlib; canonical target not yet selected",
+  "source_revisions": {
+    "repository_base": "fcabbf1e0ad9507eebe91663bccabfa87d22813e",
+    "repository_base_tree": "873e589c594454b7f263c7ed2342089a4d15e842",
+    "repository_record": "Docs/researches/math_theorems.md:7057-7062",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:26335-26360",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "ed5832011f56a786464620b582624c24c795d63a7fbbe7df9ae5c64c49cb5613",
+    "stage0_projection_excerpt_sha256": "a84bf9e6dd0dad9efc034a0b5523942c4ecd50853f868650e042cce42b68540d",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "8607034eed9f13cd5759de5cd2bc4d41d34a1ed073e6ab07c4b6b3689edde46d",
+    "execution_dag_sha256": "d342e206b1372121057707b034f58b10e2dca2cb3a8468577219af0050dc2f53",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean": "4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake": "5.0.0-src+98dc76e",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_kruskal_katona_source_sha256": "c6351d7ee422db9eed8f45335f4128eb3a66fe09997d12abc15eba38e9863f1c",
+    "mathlib_shadow_source_sha256": "5a9229847bf3d75d71290ce41d050833b51fbd561617b7651a86a8b6daa5a758",
+    "mathlib_colex_source_sha256": "01a4c1db0cbfa342df0ea338fe6b9fc4faad2bb21258e9d647ac9c5d1227f99c",
+    "mathlib_candidate_introducing_commit": "bf434437a5dbaff9d9bad9107c87447348b1af2f",
+    "observed_kruskal_crossref_query_sha256": "a35b791653dfbfa39af1c70fd16d849c0ac159f328170c909a014d54e9e02092",
+    "observed_katona_crossref_record_sha256": "4b83173383a3a105ef6fa3828c2724a731e7ce262c6b956fd20a44cb3f8fbf1f"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "audit_complete": false,
+  "theorem_complete": false,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0966/task-dag.json",
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent extremal-set-theory source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned Kruskal-Katona formulation reviewer"
+  },
+  "support_window": "provisional intake only; invalidated by any listed input change and unable to support release",
+  "review_due": "before master acceptance or dependent statement work",
+  "freshness_and_revocation_policy": {
+    "invalidation_inputs": [
+      "catalog or target correction",
+      "selected source edition, theorem, definition, proof passage, correction, or erratum",
+      "colex, cascade, shadow, ground-set, family, uniformity, cardinality, iteration, attainment, equality, or boundary convention",
+      "canonical Lean target, toolchain, or dependency pin",
+      "assurance profile, validator, receipt, or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes, or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "archive_and_recovery_boundary": "Repository history and the integration lane's durable snapshot are the intended recovery mechanism after acceptance; mutable external metadata and this unaccepted worker packet are not release archives.",
+  "owned_artifacts": [
+    "IntakeProbe.lean",
+    "README.md",
+    "check_intake.py",
+    "instance.json",
+    "intake-receipt.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "validation.md"
+  ],
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0966/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0966/README.md",
+    "Stage1_Instances/THM-M-0966/check_intake.py",
+    "Stage1_Instances/THM-M-0966/instance.json",
+    "Stage1_Instances/THM-M-0966/intake-receipt.json",
+    "Stage1_Instances/THM-M-0966/scope-map.md",
+    "Stage1_Instances/THM-M-0966/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0966/task-dag.json",
+    "Stage1_Instances/THM-M-0966/validation.md"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records bibliographic source leads with exact proposition and source mapping open. M3 records direct elaborated pinned candidates but no frozen exact root or accepted proof credit. No H0, M0, R0, accepted state, audit completion, theorem completion, release evidence, or master acceptance is claimed."
+}

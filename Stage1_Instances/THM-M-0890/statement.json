@@ -1,0 +1,109 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0890-STATEMENT",
+  "theorem_id": "THM-M-0890",
+  "execution_rank": 1440,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Hoffman's regular-graph independence-number ratio bound",
+  "canonical_statement": "For every finite nonempty simple graph G that is regular of positive natural degree k, if lambda_min is the least real eigenvalue of G's adjacency matrix, then alpha(G) <= |V(G)| * (-lambda_min) / (k - lambda_min).",
+  "canonicalization_decision": {
+    "selected_source": "Willem H. Haemers, Hoffman's ratio bound, Linear Algebra and its Applications 617 (2021), 215-219, DOI 10.1016/j.laa.2021.02.010, immutable arXiv:2102.05529v2",
+    "locator": "Section 2, Theorem 1, arXiv pages 1-2 and journal pages 215-216",
+    "selection_basis": "The repository name and gloss select a Hoffman spectral upper bound for independent sets. Haemers Theorem 1 is the exact modern eponymous result matching that scope: the independence number of a regular simple graph is bounded by its order, degree, and least adjacency eigenvalue.",
+    "excluded_variants": [
+      "the equality consequence following the bound",
+      "the weighted-adjacency and arbitrary-graph extensions",
+      "Laplacian, clique, theta, and strongly regular specializations",
+      "Hoffman's chromatic-number lower bound and the neighboring Wilf target"
+    ],
+    "historical_boundary": "Haemers records that Hoffman communicated but did not publish this independence-number bound and that Hoffman's 1970 coloring paper is a wrong reference for it. The catalog year is therefore retained only as disputed metadata, not as source credit. Full genealogy, corrections, proof mapping, and independent H0 review remain downstream."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0890/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget",
+    "least_eigenvalue_definition": "Stage1Instances.THM_M_0890.leastAdjacencyEigenvalue",
+    "elaborated_expression_sha256": "512ebe658ca83b7fb4bb3d3565122d065e3bc6e589898b4f3cf74ab2e12ea54d",
+    "statement_file_sha256": "beb6cbe0437f78f26188cc3ed1ebe82bed84d2a07f1f8ea1abd78468740a787f"
+  },
+  "domain_and_universes": "universe u; V : Type u; Fintype V; Nonempty V; DecidableEq V; G : SimpleGraph V; DecidableRel G.Adj; k : Nat; least adjacency eigenvalue and conclusion in Real; Prop in universe 0",
+  "ordered_binders": [
+    "V : Type u (implicit)",
+    "[Fintype V]",
+    "[Nonempty V]",
+    "[DecidableEq V]",
+    "G : SimpleGraph V",
+    "[DecidableRel G.Adj]",
+    "k : Nat"
+  ],
+  "hypotheses": [
+    "G.IsRegularOfDegree k",
+    "0 < k"
+  ],
+  "conclusion": "(G.indepNum : Real) <= Fintype.card V * (-leastAdjacencyEigenvalue G / (k - leastAdjacencyEigenvalue G))",
+  "least_eigenvalue_convention": "The real adjacency matrix G.adjMatrix Real is Hermitian. Mathlib's eigenvalues0 enumeration is antitone. The least eigenvalue is its entry at natural index Fintype.card V - 1, made a valid Fin index by Nonempty V.",
+  "denominator_and_boundary_policy": "Haemers states the displayed quotient without a separate nonzero-denominator premise. For the nonempty 0-regular edgeless graph the paper's algebraic derivation divides by zero, while Lean totalizes real division and would make the displayed inequality false. This target conservatively requires 0 < k, excluding exactly that regular edgeless case. Degree one remains included. Acceptance of this explicit source-formalization boundary remains H1 work for the anchor/source audit.",
+  "direct_imports": [
+    "Mathlib.Combinatorics.SimpleGraph.Clique",
+    "Mathlib.Combinatorics.SimpleGraph.LapMatrix"
+  ],
+  "minimal_import_result": "Removing Clique makes SimpleGraph.indepNum unavailable. Removing LapMatrix makes SimpleGraph.isHermitian_adjMatrix unavailable. Spectrum is already a public transitive import of LapMatrix's Analysis.Matrix.Order dependency and is not directly imported.",
+  "alternate_encodings": [],
+  "alternate_encoding_boundary": "No division-free inequality, every-independent-finset form, maximum-independent-set witness form, spectrum-membership form, or equality clause is credited by this statement node. Each requires an explicit later transport or separate obligation.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0890/check_statement.py",
+    "killed": [
+      "removed positive-degree hypothesis",
+      "changed the real matrix-derived spectral value to an explicit rational parameter and rational inequality",
+      "changed the universally quantified graph to an existentially selected graph",
+      "changed the positive-degree boundary to degree at least two"
+    ],
+    "mutation_expression_sha256": {
+      "mutationRemovedPositiveDegree": "60ff2c83eafa6da3f64244bf9fa55c813eeb365a01701114fe0b5f13a44178b1",
+      "mutationRationalSpectralDomain": "f21936085f64075d90090cff2ba96e2a77f375816d19d54c86b3a0d04eb0fe83",
+      "mutationExistentialGraphScope": "811a41e2eef34a5e8a0e8acd444d99b3d1d5168c3d5d7a7cb3236f32999df516",
+      "mutationDegreeAtLeastTwo": "b80290fd58c437cbf6271eef2000128712c43de3374e291c992dc6a74cfaf41e"
+    }
+  },
+  "boundary_checks": [
+    "the edgeless simple graph on Fin 1 elaborates as regular of degree zero",
+    "zero degree fails the selected 0 < k premise",
+    "degree one satisfies 0 < k and is not silently excluded by the degree-at-least-two mutation"
+  ],
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "autoImplicit=false",
+      "pp.explicit=true",
+      "pp.universes=true"
+    ],
+    "dependency_mode": "existing canonical pinned .lake artifacts used read-only; no lake update, lake build, dependency clone or fetch, or dependency mutation"
+  },
+  "source_fidelity_boundary": "The exact conventional regular-graph ratio-bound target is now frozen, but no independent primary/genealogical source approval, complete correction and errata disposition, or proof-node crosswalk is claimed. Human status remains H1.",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "A precise proposition and Lean interface now elaborate under pinned imports, so statement/interface debt is M3 rather than M4. No theorem proof body, formal anchor, H0, or R0 evidence is added.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This worker proposal establishes statement elaboration only. It supplies no Hoffman-bound proof, accepted formal anchor, obligation registry, composition, trust closure, audit completion, release evidence, or theorem completion."
+}

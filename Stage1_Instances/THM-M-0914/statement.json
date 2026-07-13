@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0914-STATEMENT",
+  "theorem_id": "THM-M-0914",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "literal_catalog_scope_frozen_and_exact_lean_statement_self_tested_pending_master_acceptance",
+  "canonical_statement": "For every natural number n and every total placement of n + 1 objects into n boxes, there are two distinct objects placed in the same box.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0914/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0914.PigeonholeTarget",
+    "elaborated_expression_sha256": "faef4a7f73219dc5b6178b8788978e21377c593ad84b845b4d49547218e6ae3b",
+    "statement_file_sha256": "953cf5ba54e27cf08cce5a91880fd79d36f4b5aa7b92228bd27474a1399233db",
+    "fully_explicit_expression": "∀ (n : Nat) (f : Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) → Fin n), @Exists.{1} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) fun x => @Exists.{1} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) fun y => And (@Ne.{1} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) x y) (@Eq.{1} (Fin n) (f x) (f y))"
+  },
+  "domain_and_universes": "n : Nat; objects : Fin (n + 1); boxes : Fin n; placements : Fin (n + 1) -> Fin n; all carriers and the target Prop are in universe 0; no typeclass binder is present.",
+  "ordered_binders": [
+    "n : Nat (universal)",
+    "f : Fin (n + 1) -> Fin n (universal total placement)",
+    "x : Fin (n + 1) (existential)",
+    "y : Fin (n + 1) (existential)"
+  ],
+  "hypotheses": [],
+  "conclusion": "There exist distinct x and y in Fin (n + 1) such that f x = f y in Fin n.",
+  "direct_imports": [],
+  "minimal_import_basis": "The canonical proposition, checked box-witness transport, all four mutations, and both boundary fixtures elaborate from the pinned Lean Init prelude. Therefore the exact minimal direct-import set is empty. No mathlib statement or proof-bearing pigeonhole module is imported.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0914.BoxWitnessTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0914.pigeonholeTarget_iff_boxWitnessTarget",
+      "boundary": "Names the common box explicitly while retaining the same n, placement, and distinct object witnesses."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the arbitrary finite-type theorem under Fintype.card beta < Fintype.card alpha",
+    "noninjectivity as the root conclusion",
+    "a fiber-cardinality-at-least-two formulation",
+    "strong, weighted, infinite, cardinal, measure, geometric, or probabilistic variants"
+  ],
+  "degenerate_cases": {
+    "zero_boxes": "Included. At n = 0 the universal placement binder has no inhabitants because no function Fin 1 -> Fin 0 exists; no_placement_into_zero_boxes kernel-checks this vacuous boundary.",
+    "one_box": "Included. one_box_boundary kernel-checks the first inhabited case: every f : Fin 2 -> Fin 1 collides on objects 0 and 1.",
+    "exact_count": "The root uses exactly Fin (n + 1) objects and Fin n boxes, not an arbitrary strictly larger finite domain."
+  },
+  "environment_fingerprint": {
+    "repository_base": "a3b18eec39bf04be025b1641cae02f4d44fdf11a",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_init_source_sha256": "d60376748327b2721c203911029525506a91a7fb9930f710009c021871b9469e",
+    "lean_init_olean_sha256": "7ccac48ef26289852ecb686826d9e0ce42f3ceb33ba7bdff960c38fb3d9a00c5",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory. The box-witness transport has no reported axioms; the two boundary witnesses report only propext. No custom axiom or classical choice is introduced by the statement module.",
+  "tcb_profile": "lean4-init-tcb-planned/1.0: Lean kernel and Init prelude 4.29.0; the statement has no direct mathlib imports. The repository lock still pins mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95 for downstream work. Proof-body provenance and transitive trust closure remain downstream.",
+  "computation_profile": "finite-pigeonhole-statement/1.0: no enumeration, native shortcut, oracle, generated certificate, experiment, or unchecked computation is used or credited. The n = 1 boundary uses kernel reduction and a decidable inequality only.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0914/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis_or_contract",
+        "declaration": "mutationRemovedDistinctness",
+        "result": "removed the required distinctness conjunct; Lean exact-type rejection and distinct fully explicit expression"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedDomain",
+        "result": "changed Fin (n + 1) objects to Fin (n + 2); Lean exact-type rejection and distinct fully explicit expression"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope",
+        "result": "moved the existential object pair before the placement function; Lean exact-type rejection and distinct fully explicit expression"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationExcludesZeroBoxes",
+        "result": "added 0 < n and excluded the zero-box boundary; Lean exact-type rejection and distinct fully explicit expression"
+      }
+    ]
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "theorem_complete": false,
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates only the literal finite pigeonhole target, its explicit-box iff transport, and its boundary and mutation fixtures. It supplies no proof of PigeonholeTarget, no anchor or source-fidelity acceptance, no audit completion, and no theorem completion."
+}

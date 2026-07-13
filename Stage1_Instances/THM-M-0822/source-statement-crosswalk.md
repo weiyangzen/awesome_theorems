@@ -37,23 +37,23 @@ remarks that the bound is best possible when every member has cardinality `l`: t
 containing a fixed `k`-set; at `k = 1` this is the usual star family. Pages 314-316 prove Theorem 1
 using Sperner's shadow lemma and induction.
 
-This is a direct primary source, but it does not by itself select the repository's exact root. The
-catalog may mean Theorem 1 as printed, its uniform specialization, the upper bound together with
-the star witness, or a modern equality characterization. The scan has no displayed erratum notice,
-but no systematic corrections search or independent reviewer has accepted the crosswalk. Status is
-therefore `H1`, not `H0`.
+This is a direct primary source. Guided by the catalog's literal "maximum size" gloss, the statement
+phase provisionally selects Theorem 1's positive uniform specialization together with the following
+star witness. It does not select the broader printed theorem or a modern equality classification.
+The scan has no displayed erratum notice, but no systematic corrections search or independent
+reviewer has accepted the crosswalk. Status is therefore `H1`, not `H0`.
 
 ## Component crosswalk
 
 | Source/catalog component | Primary-source meaning | Pinned Lean candidate | Intake assessment |
 |---|---|---|---|
-| finite ground set | `[0,m)` has `m` elements | `Fin n` | direct finite model after renaming; transport not frozen |
-| family | a finite indexed antichain of subsets | `Finset (Finset (Fin n))` | duplicates are absent, and distinct fixed-size members are automatically incomparable; exact transport open |
+| finite ground set | `[0,m)` has `m` elements | `Fin n` | selected labeled finite model after renaming; no abstract-type transport credited |
+| family | a finite indexed antichain of subsets | `Finset (Finset (Fin n))` | duplicates are absent; only the uniform specialization is selected |
 | member size | Theorem 1 uses `card <= l` together with incomparability | `Set.Sized r`, hence `card = r` | candidate is the uniform specialization, not the full printed premise |
-| intersecting | distinct members meet in at least one point | `Set.Intersecting`, including the self-pair | agrees for nonempty uniform members; a singleton empty-set family is vacuous in the printed definition but excluded by Lean, so the degenerate transport is open |
-| range | `1 <= l <= m / 2` | `r <= n / 2`, with no positivity premise | candidate additionally handles `r = 0` by forcing the family empty |
+| intersecting | distinct members meet in at least one point | `Set.Intersecting`, including the self-pair | checked equivalent to distinct-pair intersection under selected `1 <= r` and uniformity |
+| range | `1 <= l <= m / 2` | `1 <= r` and `r <= n / 2` | exact positive range selected; equality boundary included |
 | upper bound | `N <= choose (m-1)(l-1)` | `card A <= choose (n-1)(r-1)` | exact for the uniform positive-parameter specialization |
-| sharpness | following remark supplies a star construction | docstring says sharp, declaration has no attainment conclusion | no machine credit for maximum existence |
+| sharpness | following remark supplies a star construction | `erdosKoRadoStar_attains` checks the construction | attainment is checked; universal upper-bound proof remains uncredited |
 | equality cases | no full extremizer classification in Theorem 1 | absent | cannot be inferred from the candidate |
 | `已验证` | untrusted catalog label | no receipt | no H or M credit |
 
@@ -75,9 +75,9 @@ The declaration entered mathlib in commit
 `174e4bd31d28b82604fc68a45c04fbc15140c394` (`feat: The Erdős–Ko–Rado theorem`) and its terminal
 body is in pinned mathlib, not this repository. `IntakeProbe.lean` elaborates the exact declaration
 and reports `[propext, Classical.choice, Quot.sound]`. This establishes a credible pinned candidate
-and supports `M3` discovery status only. The statement phase must select and elaborate the exact
-canonical claim, test boundaries and mutations, and compile any source-to-uniform or
-sharpness/equality transports. The anchor-audit phase must then audit proof-body provenance,
+and supports `M3` discovery status only. The statement phase selects and elaborates the exact
+positive uniform maximum-value claim, tests boundaries and mutations, and compiles the
+source-intersection bridge and concrete-star transport. The anchor-audit phase must next audit proof-body provenance,
 dependencies, placeholders, trust, and candidate completeness before any `M0-W` proposal.
 
 The printed `S(1,l,m)` conditions range over distinct indices. At `l = 1`, a one-member system
@@ -89,8 +89,9 @@ source silently; independent source and correction review must resolve it. Mathl
 
 ## Required source admission
 
-Before leaving H1, accountable reviewers must admit an immutable complete edition, choose the
-source proposition and incorporated remark or a versioned modern formulation, map every binder,
-premise, definition, conclusion, and boundary case, search corrections and errata, and independently
-review the translation. Before machine credit, the same claim must be frozen as a kernel expression
-and its relationship to `Finset.erdos_ko_rado` checked rather than inferred from the eponym.
+Before leaving H1, accountable reviewers must admit an immutable complete edition, review the
+provisional source proposition and incorporated sharpness remark, map every binder, premise,
+definition, conclusion, and boundary case, search corrections and errata, and independently review
+the translation. The statement is now frozen as a kernel expression; before upper-bound proof
+credit, its relationship to `Finset.erdos_ko_rado` must be checked and provenance-audited rather
+than inferred from the eponym.

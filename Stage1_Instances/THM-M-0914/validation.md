@@ -1,4 +1,8 @@
-# THM-M-0914 intake validation
+# THM-M-0914 validation history
+
+Current statement-phase validation is recorded in `statement-validation.md`. The intake record
+below is historical discovery evidence and its mutable replay was superseded when the canonical
+statement changed the dossier authority.
 
 Validation date: 2026-07-13 (Asia/Shanghai). This is nonrelease evidence from an isolated dirty
 worker clone at base commit `db4b8793e70ce8af74c9c9490acfa50aa3684d5e`, tree
@@ -64,7 +68,7 @@ All repository commands ran at the repository root unless a different `cwd` is s
 | prohibited Lean construct scan over the owned path | expected no match | no `sorry`, `admit`, `sorryAx`, `axiom`, `constant`, `opaque`, or `unsafe` declaration in the discovery-only probe |
 | `git diff --check` plus per-new-file `git diff --no-index --check /dev/null FILE` | 0 aggregate | no whitespace diagnostics; each no-index exit 1 was only the expected new-file difference |
 
-## Known open gates
+## Known open gates at intake time
 
 Master acceptance, an admitted source of record, the historical attribution/date audit, complete
 source proof and errata mapping, independent review, concrete-versus-general domain selection,
@@ -77,7 +81,8 @@ release verification.
 
 ## Status boundary
 
-This is provisional worker self-test evidence for `S56-M-0914-INTAKE` only. It supports a truthful
+This is historical provisional worker self-test evidence for `S56-M-0914-INTAKE` only. It supported a truthful
 `planned` dossier with an H1 source lead and an uncredited M3 formal candidate, not an accepted node
-receipt. No canonical statement, H0, M0, R0, proof, audit completion, theorem completion, or master
-acceptance is claimed.
+receipt. It is superseded for current dossier replay by `statement-receipt.json`. This intake
+snapshot claimed no canonical statement, H0, M0, R0, proof, audit completion, theorem completion,
+or master acceptance.

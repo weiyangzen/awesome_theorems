@@ -1,4 +1,4 @@
-# THM-M-0931 rev-5.6 intake
+# THM-M-0931 rev-5.6 intake and statement
 
 This directory is the fail-closed `planned` intake dossier for the Erdős-Ginzburg-Ziv theorem.
 The repository catalog gives the faithful shorthand `2n-1个整数中存在n个和为n的倍数`
@@ -19,8 +19,8 @@ of valid moduli. Its indexed proof makes occurrence selection, rather than dupli
 selection, the source-faithful reading. The paper silently treats `n` as positive; mathlib's natural
 number API also covers `n = 0` by truncated subtraction and an empty witness. These conventions,
 the exact-count versus at-least-count relationship, corrections or errata, and independent review
-must be frozen by the dependent statement phase. Intake therefore records the exact source lead but
-does not prematurely install a canonical expression.
+were left for the dependent statement phase. Intake therefore recorded the exact source lead before
+installing a canonical expression.
 
 ## Lean boundary
 
@@ -31,8 +31,14 @@ Pinned mathlib contains indexed and multiset versions over integers and `ZMod n`
 candidates and their reported axiom surface. It is discovery evidence, not a canonical wrapper,
 source transport, downstream anchor audit, or proof receipt.
 
-The provisional root vector is `[H1, M3, R4]`: the primary theorem and proof were inspected but not
-independently admitted to `H0`; exact pinned formal candidates exist but no source-identical target,
-transport, provenance closure, or accepted `M0` evidence is frozen; and no source-faithful readable
-proof reconstruction exists. All six downstream tasks remain open in `task-dag.json`. No accepted
-state, audit completion, theorem completion, or master acceptance is claimed.
+The statement phase now proposes the positive, exact-count, occurrence-preserving integer root
+`Stage1Instances.THM_M_0931.ErdosGinzburgZivTarget`. Its `Multiset Int` input retains repetitions,
+and its selected submultiset has exactly `n` occurrences and sum divisible by `n`. A single
+non-proof import suffices. Checked transports specialize the at-least-count proposition shape and
+rewrite integer divisibility as equality to zero in `ZMod n`; four mutations distinguish positivity,
+domain, binder scope, and exact-count boundaries.
+
+The provisional root vector remains `[H1, M3, R4]`: the primary theorem and proof were inspected but
+not independently admitted to `H0`; the exact statement is worker-self-tested but dependency-ordered
+behind an unaccepted intake receipt; and no source-faithful readable proof reconstruction exists.
+No proof body, accepted state, audit completion, theorem completion, or master acceptance is claimed.

@@ -1,52 +1,50 @@
 # Scope map
 
-## Candidate core boundary
+## Selected core boundary
 
-The repository gloss and the exact modern source lead point toward Hoffman's ratio bound, but the
-following components remain candidates until an independently reviewed source-selection decision:
+The statement phase selects Haemers 2021, Section 2, Theorem 1 as the exact conventional result
+matching the repository name and independent-set spectral-bound gloss:
 
-- a finite nonempty simple undirected graph `G` of order `n`;
-- `k`-regularity and the real symmetric adjacency matrix `A`;
-- adjacency eigenvalues ordered from largest to smallest, with `lambda_min` the least eigenvalue;
-- the independence number `alpha(G)`, or alternatively the cardinality of each independent set;
-- the inequality `alpha(G) <= n * (-lambda_min) / (k - lambda_min)`;
-- exact casts, denominator/sign hypotheses, and whether the result is stated over real or rational
-  quantities.
+- a finite nonempty simple undirected graph `G`, represented by `SimpleGraph V`;
+- positive natural degree `k` and `G.IsRegularOfDegree k`;
+- the real adjacency matrix and mathlib's descending Hermitian eigenvalue enumeration;
+- `lambda_min` at index `Fintype.card V - 1`;
+- the independence number `G.indepNum` cast to `Real`;
+- the real inequality `alpha(G) <= |V| * (-lambda_min) / (k - lambda_min)`.
 
-These bullets describe a likely statement family, not a frozen theorem.
+This is a frozen statement interface, not a theorem proof or H0 source packet.
 
-## Proposition-changing choices
+## Resolved proposition choices
 
-The statement phase must resolve all of the following:
+1. The carrier has explicit `Fintype`, `Nonempty`, `DecidableEq`, and decidable adjacency instances.
+2. Graph order is definitionally `Fintype.card V`; no separate `n` binder is introduced.
+3. Regularity is graph-theoretic `SimpleGraph.IsRegularOfDegree`.
+4. The least eigenvalue uses `Matrix.IsHermitian.eigenvalues₀` at the last finite index.
+5. The conclusion bounds `SimpleGraph.indepNum`, not a chosen independent finset.
+6. Positive degree is explicit. It excludes the nonempty edgeless `k = lambda_min = 0` case where
+   the paper's algebra divides by zero and Lean's totalized quotient would falsify the display.
+7. Equality information is outside this root.
+8. The target is the unweighted regular simple-graph result only.
 
-1. Whether the graph is finite by a `Fintype` carrier or by a finite set, and whether nonemptiness
-   is explicit.
-2. Whether `n` is a separate natural number with a cardinality hypothesis or is definitionally the
-   vertex-cardinality expression.
-3. Whether regularity is expressed graph-theoretically or as the all-ones adjacency eigenvector.
-4. Whether `lambda_min` is defined by an ordered Hermitian eigenvalue enumeration, by membership
-   and minimality in the real spectrum, or is an assumed lower spectral bound.
-5. Whether the conclusion bounds `SimpleGraph.indepNum`, every independent finset, or a selected
-   maximum independent set.
-6. Whether the denominator is proved positive from a nonempty-edge hypothesis, assumed nonzero,
-   or avoided by a division-free inequality.
-7. Whether equality conditions, such as the constant number of neighbors into an extremal
-   independent set, are part of the target or a separate theorem.
-8. Whether the target includes only regular unweighted simple graphs or a weighted, irregular,
-   Laplacian, strongly regular, clique, or chromatic variant.
+The following remain downstream transport or audit questions rather than statement ambiguity:
 
-## Degenerate cases to resolve
+- prove or check transports to a division-free form and to every-independent-set formulations;
+- prove that the selected eigenvalue index has the intended minimality and denominator sign;
+- independently review the positive-degree source boundary and historical attribution;
+- decide whether equality consequences should become separate obligation nodes.
 
-- empty, singleton, and edgeless graphs, where degree and least-eigenvalue conventions may make the
-  ratio denominator zero;
-- complete graphs and graphs with isolated vertices;
-- disconnected regular graphs and multiplicity of the top or bottom eigenvalue;
-- the possibility `lambda_min = k`, `lambda_min = 0`, or a denominator with an unresolved sign;
-- natural-number independence/cardinality values compared with real-valued spectral expressions;
-- repeated least eigenvalues and the choice of an index witnessing the least value;
-- empty versus nonempty independent sets and maximum versus merely maximal independent sets.
+## Degenerate-case decisions and downstream checks
 
-No degenerate case is silently excluded at intake.
+- Empty carriers are excluded by `Nonempty V`.
+- Zero-degree regular graphs, including singleton and nonempty edgeless graphs, are excluded by
+  `0 < k`; Lean boundary fixtures check this case.
+- Degree-one, disconnected positive-degree regular, complete, and repeated-extreme-eigenvalue cases
+  remain included.
+- Natural independence number and graph order are explicitly cast to `Real`.
+- The last descending eigenvalue index is explicit; its minimality and the denominator sign are
+  downstream proof/transport obligations, not extra statement premises.
+- The conclusion uses the independence number, so empty versus nonempty chosen-set and merely
+  maximal versus maximum-set conventions do not enter the canonical root.
 
 ## Explicit exclusions
 

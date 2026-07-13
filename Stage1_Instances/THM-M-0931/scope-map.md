@@ -54,5 +54,16 @@ These are related candidates, not interchangeable roots at intake.
 - The catalog label, a theorem name, an elaborated candidate, or mathlib documentation treated as
   accepted source fidelity or theorem completion.
 
-Statement review must close these choices before obligation-tree construction. Intake freezes no
-canonical expression fingerprint, obligation registry, discovery protocol, graph, or proof state.
+## Provisional statement resolution
+
+`Statement.lean` resolves the statement-node choices provisionally as follows: `n : Nat` with
+`0 < n`; exactly `2 * n - 1` occurrences in `Multiset Int`; an existential `t <= s` with exactly
+`n` occurrences; and `(n : Int) ∣ t.sum`. Repeated, negative, zero, and all-equal values remain in
+scope. `n = 0` is excluded, while `n = 1` is included.
+
+The exact-count root is distinct from the pinned at-least-count proposition shape, whose checked
+direction is implication to the root. The residue alternate keeps the integer multiset and checks
+only the equivalence between divisibility and the cast sum being zero in `ZMod n`. Finsets,
+consecutive list subsequences, ZMod-valued input roots, and weaker witness-size claims remain
+excluded. This resolution remains worker evidence pending independent source and master review;
+no obligation registry, discovery protocol, graph, or proof state is frozen here.

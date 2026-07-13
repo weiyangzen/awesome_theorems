@@ -1,0 +1,246 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0049",
+  "item_id": "S56-M-0049-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1519,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 78,
+  "name_zh": "弗罗贝尼乌斯不等式",
+  "name_en": "Frobenius rank inequality",
+  "canonical_name": "Frobenius matrix-rank inequality family",
+  "category": "代数学 / 线性代数",
+  "category_en": "algebra / linear algebra",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "矩阵秩的不等式",
+  "literal_source_claim_en": "An inequality of matrix ranks.",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognized_frobenius_rank_inequality_family_but_catalog_omits_the_formula_domain_matrix_shapes_rank_convention_association_and_boundaries",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies only a theorem name and the gloss 'an inequality of matrix ranks'. It gives no source, displayed inequality, coefficient domain, matrix dimensions, binder order, rank convention, multiplication association, or degenerate-case policy. Although a modern source lead states the standard triple-product formula, choosing it as the exact repository root before source review would infer proposition-changing mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.LinearAlgebra.Matrix.Rank"
+    ],
+    "declaration_or_expression": null,
+    "candidate_declarations": [
+      "Matrix.rank_mul_le_left",
+      "Matrix.rank_mul_le_right",
+      "Matrix.rank_mul_le",
+      "Matrix.rank_eq_finrank_range_toLin",
+      "Matrix.rank_add_rank_le_card_of_mul_eq_zero",
+      "LinearMap.rank_comp_le",
+      "LinearMap.finrank_range_add_finrank_ker"
+    ],
+    "candidate_expression": "fun {m n p q : Type} [Fintype n] [Fintype p] [Fintype q] {K : Type} [Field K] (A : Matrix m n K) (B : Matrix n p K) (C : Matrix p q K) => (A * B).rank + (B * C).rank <= B.rank + ((A * B) * C).rank",
+    "candidate_expression_status": "elaborated_discovery_shape_only_not_source_ratified_fingerprinted_or_credited",
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_identity_formula_domain_shapes_rank_convention_association_and_boundary_policy",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-and-candidate-shape-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the coefficient field or ring, four matrix index types or natural-number dimensions, universes, finiteness and decidability instances, and any nontriviality or positivity assumptions.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the conventional candidate is rank (A * B) + rank (B * C) <= rank B + rank (A * B * C), but the repository does not display or select it.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a source proposition is accepted; zero dimensions, empty index types, zero and identity matrices, full-rank factors, equality cases, and the zero or subsingleton scalar structure remain explicit decisions.",
+  "candidate_scope_not_credited": [
+    "the standard field-valued Frobenius triple-product rank inequality rank(AB) + rank(BC) <= rank(B) + rank(ABC)",
+    "the rearranged greater-than-or-equal presentation rank(ABC) + rank(B) >= rank(AB) + rank(BC)",
+    "linear-map and quotient-space encodings transported to finite matrices",
+    "real-matrix or complex-matrix specializations"
+  ],
+  "degenerate_cases_to_resolve": [
+    "zero-sized intermediate or outer index types",
+    "zero and identity matrices",
+    "rank-zero or full-rank middle matrix",
+    "invertible left or right factor and equality cases",
+    "zero or subsingleton coefficient structure",
+    "whether every source dimension is assumed positive"
+  ],
+  "excluded_substitutions": [
+    "the two-factor upper bound rank(A * B) <= min(rank A, rank B)",
+    "the Sylvester rank inequality rank(A * B) >= rank A + rank B - n",
+    "the zero-product bound rank A + rank B <= n under A * B = 0",
+    "a Frobenius norm inequality, Frobenius reciprocity, Frobenius endomorphism, Perron-Frobenius theorem, or Frobenius number result",
+    "an equality characterization or generalized-inverse equation instead of the base inequality",
+    "a real-only, complex-only, square-only, fixed-dimension, invertible-factor, or zero-product special case without an accepted source decision",
+    "a hypothesis, structure field, numerical rank experiment, or unchecked certificate storing or testing the desired conclusion",
+    "the catalog verified label, theorem name, modern source lead, or adjacent API probe used as exact-statement or proof credit"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0048",
+      "name": "柯西-比内公式",
+      "boundary": "determinant minor-sum identity; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0050",
+      "name": "西尔维斯特惯性定律",
+      "boundary": "law of inertia, not the Sylvester rank inequality and not the Frobenius root"
+    },
+    {
+      "theorem_id": "THM-M-0051",
+      "name": "格拉斯曼恒等式",
+      "boundary": "dimension identity that may become a proof dependency but cannot substitute for the root"
+    },
+    {
+      "theorem_id": "THM-M-0066",
+      "name": "佩龙-弗罗贝尼乌斯定理",
+      "boundary": "spectral theorem namesake with no shared statement or proof credit"
+    }
+  ],
+  "source_status": "H1_complete_modern_proof_lead_inspected_but_catalog_source_identity_historical_primary_locator_assumption_errata_translation_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Alex Taylor, An Algorithmic Approach To Solving B = BCX + YAB Using Quotient Spaces, arXiv:1909.13202v1, 29 September 2019, printed page 1",
+      "candidate_locator": "https://arxiv.org/pdf/1909.13202v1; observed PDF sha256 390811a8889f57a2890dd55936be96c8e6d675d7490bd46ac4fc66da4787200a",
+      "candidate_summary": "states rank(ABC) + rank(B) >= rank(AB) + rank(BC) for composable matrices over a field and gives a quotient-space dimension proof",
+      "inspection_status": "immutable complete modern source lead inspected; not catalog-cited or historical primary evidence, and complete assumption, errata, attribution, source-to-node, translation and independent-review gates remain open"
+    },
+    {
+      "citation": "Edward T. H. Wang, A combinatorial application of the Frobenius inequality on rank function to maximum set of commuting nilpotent matrices, Linear and Multilinear Algebra 8 (1979), no. 1, 79-82, DOI 10.1080/03081087908817301",
+      "candidate_summary": "published bibliographic lead confirming use of the Frobenius inequality name in matrix-rank literature",
+      "inspection_status": "Crossref metadata inspected; exact passage, assumptions, proof, immutable full text, genealogy, errata and independent review open"
+    },
+    {
+      "citation": "Ferdinand Frobenius, 1911 historical attribution",
+      "candidate_summary": "catalog attribution and date only; a possible title lead, Ueber den Rang einer Matrix, was not verified against a stable primary scan",
+      "inspection_status": "no accepted primary edition, journal, page, displayed formula, proof, translation, priority analysis or correction history"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+      "declarations": [
+        "Matrix.rank_mul_le_left",
+        "Matrix.rank_mul_le_right",
+        "Matrix.rank_mul_le"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "kernel-checked two-factor rank upper bounds; useful adjacent lemmas but not the candidate full triple-product lower bound"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+      "declaration": "Matrix.rank_add_rank_le_card_of_mul_eq_zero",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "kernel-checked zero-product specialization or ingredient, not the source-identical root"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.Matrix.Rank and imported finite-dimensional modules",
+      "declarations": [
+        "Matrix.rank_eq_finrank_range_toLin",
+        "LinearMap.rank_comp_le",
+        "LinearMap.finrank_range_add_finrank_ker"
+      ],
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "boundary": "rank transport, composition and rank-nullity infrastructure only; no checked source-to-root composition exists"
+    },
+    {
+      "module": "Stage1_Instances/THM-M-0049/IntakeProbe.lean",
+      "declaration": "candidate expression",
+      "revision": "worker-owned provisional intake",
+      "boundary": "the conventional finite field-valued proposition shape elaborates, but it has no theorem name, proof body, source ratification, expression fingerprint, mutation certificate or canonical-root status"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "provisional_theorem_family_classification_only_not_accepted_execution_state",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; exact classical choice, quotient, extensionality, field or ring, finiteness and decidability assumptions remain open until the source proposition is selected",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact canonical imports, terminal bodies, transitive declarations, compiled artifacts and accepted trust closure remain open",
+  "computation_profile": "kernel-linear-algebra-planned/1.0: no floating-point rank routine, numerical experiment, native shortcut, oracle or unchecked certificate is credited; the intended theorem requires exact kernel-checked linear algebra",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "d66b6e80968b53d5b99774584721ae8976f303a5",
+    "repository_base_tree": "aaa82721074fccea81033a9a18d21652af89f8e4",
+    "repository_record": "Docs/researches/math_theorems.md:370-375",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1456-1481",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "18056e85580e7543e2b163815136e528a6de319a04c795968a4a4bd9b8043b38",
+    "stage0_excerpt_sha256": "68663100dd409d4afafbd9d3cb9398d4810a221d5ffe753687e76237fb4f6c26",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "c73766a1a6f2b499a9ed58c4477636000e6c06eee55281a4e948c1ea7a713870",
+    "execution_dag_sha256": "e656b998d3ed9c89d066a5f27080fc33a06211787b2e54e2d2e3427f23f6d1ee",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lake_symlink_target_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_matrix_rank_source_sha256": "089aaaa36409dedbae58f34e90e022f46b9d8cf26ff87c183c3d264c9e78bddb",
+    "mathlib_linear_map_rank_source_sha256": "bca7d80768e7e5a38a8d3bfe54011d3b01f399eaa95ee0ae6325d7d1682b61fa",
+    "mathlib_finite_dimensional_lemmas_sha256": "a42d21accf7593bea9d7cd90313f697f539f84875a17e8940953454bde619030",
+    "inspected_taylor_pdf_sha256": "390811a8889f57a2890dd55936be96c8e6d675d7490bd46ac4fc66da4787200a"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0049/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0049/README.md",
+    "Stage1_Instances/THM-M-0049/instance.json",
+    "Stage1_Instances/THM-M-0049/scope-map.md",
+    "Stage1_Instances/THM-M-0049/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0049/task-dag.json",
+    "Stage1_Instances/THM-M-0049/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0049/check_intake.py",
+    "Stage1_Instances/THM-M-0049/validation.md",
+    "Stage1_Instances/THM-M-0049/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer"
+  },
+  "freshness_and_revocation_policy": {
+    "review_due": "before master acceptance or dependent statement work",
+    "invalidation_inputs": [
+      "catalog, target-set, source, attribution, formula, scope or boundary correction",
+      "domain, shape, rank, multiplication association, inequality orientation or boundary convention",
+      "canonical statement, checked transport, mutation or expression fingerprint",
+      "toolchain, import, dependency pin or formal candidate change",
+      "assurance profile, validator, receipt, public reconstruction or any owned artifact"
+    ],
+    "incident_path": "integration lane rejects, revokes or supersedes the provisional receipt and requires a fresh scoped self-test"
+  },
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog wording, candidate triple-product family, ambiguity, source and pinned formal leads, proposition-changing choices, exclusions and open task DAG. No canonical proposition, exact Lean target, accepted source, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion or master acceptance is claimed."
+}

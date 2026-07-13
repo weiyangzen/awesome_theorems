@@ -1,0 +1,332 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0890-STATEMENT-WORKER-20260713",
+  "receipt_class": "provisional_worker_selftest",
+  "item_id": "S56-M-0890-STATEMENT",
+  "theorem_id": "THM-M-0890",
+  "phase": "statement",
+  "intent": "prove",
+  "base_revision": "46a0f2a3ea74765a0467c489264b838ffbb70675",
+  "base_tree": "7b1b5269d7da840fd086da731d6f92903c209c35",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "content_addressed": false,
+  "verdict": "no_state_change",
+  "selftest_result": "pass",
+  "validated_at": "2026-07-13 Asia/Shanghai",
+  "reviewer_policy": "worker self-test only; integration lane must independently re-elaborate and master-accept",
+  "review_due": "before master acceptance and on any invalidation input change",
+  "support_state": "statement self-tested; source/anchor and all downstream gates open",
+  "incident_path": "revoke this provisional packet and reopen S56-M-0890-STATEMENT on any mismatch",
+  "dependency_state": {
+    "id": "S56-M-0890-INTAKE",
+    "authoritative_worker_state": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0890-INTAKE-WORKER-20260713",
+    "receipt_accepted": false,
+    "accepted_receipt_ids": [],
+    "assessment": "Rev-5.6 permits dependency-ordered later-node work from provisional intake evidence, but statement acceptance cannot outrun master acceptance of its intake dependency."
+  },
+  "canonical_statement": "For every finite nonempty simple graph G that is regular of positive natural degree k, if lambda_min is the least real eigenvalue of G's adjacency matrix, then alpha(G) <= |V(G)| * (-lambda_min) / (k - lambda_min).",
+  "module": "Stage1_Instances/THM-M-0890/Statement.lean",
+  "declaration": "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget",
+  "least_eigenvalue_declaration": "Stage1Instances.THM_M_0890.leastAdjacencyEigenvalue",
+  "direct_imports": [
+    "Mathlib.Combinatorics.SimpleGraph.Clique",
+    "Mathlib.Combinatorics.SimpleGraph.LapMatrix"
+  ],
+  "minimal_import_result": "Both direct imports are necessary in target-only deletion fixtures: Clique owns indepNum and LapMatrix owns isHermitian_adjMatrix. Spectrum is transitive and was removed from the direct imports.",
+  "statement_fingerprints": [
+    "sha256:512ebe658ca83b7fb4bb3d3565122d065e3bc6e589898b4f3cf74ab2e12ea54d"
+  ],
+  "statement_file_sha256": "beb6cbe0437f78f26188cc3ed1ebe82bed84d2a07f1f8ea1abd78468740a787f",
+  "lean_output_sha256": "429d47c401055d5e917a23408c1c6aed5340ae1d3870a4130bdba6bfc98b47d5",
+  "source_selection": {
+    "citation": "Willem H. Haemers, Hoffman's ratio bound, Linear Algebra and its Applications 617 (2021), 215-219, DOI 10.1016/j.laa.2021.02.010, arXiv:2102.05529v2",
+    "locator": "Section 2, Theorem 1, arXiv pages 1-2 / journal pages 215-216",
+    "observed_pdf_sha256": "e2a90698b4d6efa293cf0b486db422b94a6cecc2f9d8101e803b4a9cf0ec22bc",
+    "scope": "regular unweighted simple-graph independence-number inequality only",
+    "boundary": "positive degree makes the printed quotient's omitted edgeless zero-denominator boundary explicit; H1 review remains open",
+    "historical_status": "Haemers says Hoffman did not publish this bound and identifies Hoffman's 1970 coloring paper as a wrong reference; no H0 or catalog-year acceptance is claimed"
+  },
+  "environment_fingerprint": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "platform": "x86_64-unknown-linux-gnu",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "dependency_mode": "existing canonical pinned .lake artifacts used read-only; no update, build, clone, fetch, or dependency mutation"
+  },
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedPositiveDegree",
+      "expression_sha256": "60ff2c83eafa6da3f64244bf9fa55c813eeb365a01701114fe0b5f13a44178b1",
+      "result": "expected Lean equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationRationalSpectralDomain",
+      "expression_sha256": "f21936085f64075d90090cff2ba96e2a77f375816d19d54c86b3a0d04eb0fe83",
+      "result": "expected Lean equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationExistentialGraphScope",
+      "expression_sha256": "811a41e2eef34a5e8a0e8acd444d99b3d1d5168c3d5d7a7cb3236f32999df516",
+      "result": "expected Lean equality rejection and distinct explicit expression"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationDegreeAtLeastTwo",
+      "expression_sha256": "b80290fd58c437cbf6271eef2000128712c43de3374e291c992dc6a74cfaf41e",
+      "result": "expected Lean equality rejection and distinct explicit expression"
+    }
+  ],
+  "boundary_checks": [
+    "Lean checks that the edgeless graph on Fin 1 is 0-regular",
+    "Lean checks that degree zero violates the selected positive-degree premise",
+    "Lean checks that degree one remains admitted and differs from the degree-at-least-two mutation"
+  ],
+  "axiom_and_placeholder_result": "The canonical target and least-eigenvalue helper are definitions with no theorem proof body. Scoped source scanning found no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration. No axiom/trust closure or M0 credit is claimed.",
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates": [],
+  "content_addressed_recipe_ids": [],
+  "content_addressed_receipt_ids": [],
+  "accepted_receipt_ids": [],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0890"
+  ],
+  "declaration_ownership": [
+    "Stage1Instances.THM_M_0890.leastAdjacencyEigenvalue",
+    "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget"
+  ],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0890/README.md",
+    "Stage1_Instances/THM-M-0890/scope-map.md",
+    "Stage1_Instances/THM-M-0890/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0890/statement-validation.md",
+    "Stage1_Instances/THM-M-0890/statement.json"
+  ],
+  "change_impact_set": [
+    "S56-M-0890-STATEMENT"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_delta_basis": "The exact target is now a pinned, mutation-tested Lean interface. No proof, formal anchor, source acceptance, or readable reconstruction is added.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_theorem_gate": "S56-M-0890-ANCHOR_AUDIT and all later proof, trust, readability, reproducibility, and release gates remain open",
+  "remaining_root_cut_set": [
+    "S56-M-0890-ANCHOR_AUDIT",
+    "S56-M-0890-OBLIGATION_TREE",
+    "S56-M-0890-PROOF",
+    "S56-M-0890-VALIDATION",
+    "S56-M-0890-RELEASE"
+  ],
+  "known_failures": [
+    "The intake dependency and this statement node remain provisional worker state, not master-accepted state.",
+    "Independent approval of Haemers Theorem 1 as repository scope, the disputed attribution/year, the positive-degree denominator boundary, proof-source mapping, corrections, and genealogy remain H1 work.",
+    "No formal Hoffman-bound anchor or proof body has been audited or supplied; the machine root is M3, not M0.",
+    "Division-free, every-independent-set, spectral-minimality, denominator-positivity, equality, weighted, and other alternate transports are uncredited.",
+    "Obligation freeze, proof/composition, transitive provenance and trust, readable reconstruction, hermetic replay, independent verification, deterministic release bundle, audit completion, theorem completion, and master acceptance remain open.",
+    "The historical intake checker is intentionally stale against integrated intake state and the expanded statement inventory; it remains earlier-snapshot evidence and was not rewritten."
+  ],
+  "source_inputs": {
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:39fd3d1b8a928c47ba57431542ad8f5a6377a018cf2b572eade6108bace84c0f",
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "sha256:24e24538046572e3f3d12496aa42f8d49b5502c3b5d168618154ab10e55eaa52",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Docs/Blueprint_Guidelines.md": "sha256:a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "Docs/researches/math_theorems.md": "sha256:bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "Docs/Stage0_Blueprint.md": "sha256:ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "Formalizations/Lean/lean-toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "Formalizations/Lean/lake-manifest.json": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "Formalizations/Lean/.lake/packages/mathlib/Mathlib/Combinatorics/SimpleGraph/Clique.lean": "sha256:18cce0904728a2c5db839682aebe39f1f0ebb9213971ef9b09c93ba1a17e9cf2",
+    "Formalizations/Lean/.lake/packages/mathlib/Mathlib/Combinatorics/SimpleGraph/LapMatrix.lean": "sha256:8a8ca58ac3a8c808973531ce8bff0610b4552a07dbfca0f74d2e5e92efa88612",
+    "Formalizations/Lean/.lake/packages/mathlib/Mathlib/Analysis/Matrix/Spectrum.lean": "sha256:1a1a96a6f057a73b0d428b62cdbb3da824981928c162b52a15335abdafc8b0db"
+  },
+  "changed_artifact_hashes": {
+    "Stage1_Instances/THM-M-0890/README.md": "sha256:d9da86725fec39f8aa1818f38cc78b31f77a00628e3c1d00409a6393aee3a01e",
+    "Stage1_Instances/THM-M-0890/Statement.lean": "sha256:beb6cbe0437f78f26188cc3ed1ebe82bed84d2a07f1f8ea1abd78468740a787f",
+    "Stage1_Instances/THM-M-0890/check_statement.py": "sha256:114dc4354935739016792c35483602c0a69e9267379a6ba7c19448d2d3188ca1",
+    "Stage1_Instances/THM-M-0890/check_statement_artifacts.py": "sha256:c2487c63c56abbaec3c9035035389c699caa5066556740b85800f4aecd1389c5",
+    "Stage1_Instances/THM-M-0890/instance.json": "sha256:030d142bc502f89b768709136ebac408d8fe02d2d779de272291944c0ada8101",
+    "Stage1_Instances/THM-M-0890/scope-map.md": "sha256:873147b4d1145cb286c6fe45a348a43cdcf3a92bc8ca16bb55864b9d2a443244",
+    "Stage1_Instances/THM-M-0890/source-statement-crosswalk.md": "sha256:9d1bdd83df32c11c18262a16d5f20ce3e3ab29b2cd73b1e2e1efd14dee2bfebf",
+    "Stage1_Instances/THM-M-0890/statement-validation.md": "sha256:d89c02dffabdb871b4310e8d5b5d187e3662da6708635307bf16e2602aef7237",
+    "Stage1_Instances/THM-M-0890/statement.json": "sha256:dd9b94824f9f5e3a4f8627da05c132a69fcd18cdf476a11046d253ec4d78be21",
+    "Stage1_Instances/THM-M-0890/task-dag.json": "sha256:8540d20add89f3528bbf1d69969025828862dd3043d30eeae2f4db8890dd74c7",
+    "Stage1_Instances/THM-M-0890/statement-receipt.json": "self-referential receipt hash intentionally omitted",
+    ".stage1-worker-selftest.json": "scheduler handoff hash intentionally omitted"
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0890/README.md",
+    "Stage1_Instances/THM-M-0890/Statement.lean",
+    "Stage1_Instances/THM-M-0890/check_statement.py",
+    "Stage1_Instances/THM-M-0890/check_statement_artifacts.py",
+    "Stage1_Instances/THM-M-0890/instance.json",
+    "Stage1_Instances/THM-M-0890/scope-map.md",
+    "Stage1_Instances/THM-M-0890/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0890/statement-receipt.json",
+    "Stage1_Instances/THM-M-0890/statement-validation.md",
+    "Stage1_Instances/THM-M-0890/statement.json",
+    "Stage1_Instances/THM-M-0890/task-dag.json"
+  ],
+  "structured_validation_recipes": [
+    {
+      "recipe_id": "S56-M-0890-STATEMENT-RECIPE-LEAN",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../Stage1_Instances/THM-M-0890/Statement.lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "sha256:429d47c401055d5e917a23408c1c6aed5340ae1d3870a4130bdba6bfc98b47d5"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0890-STATEMENT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0890-STATEMENT-RECIPE-CHECKER",
+      "cwd": "Formalizations/Lean",
+      "argv": [
+        "python3",
+        "../../Stage1_Instances/THM-M-0890/check_statement.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 240,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "JSON fields expression hash, four distinct mutations, two import-deletion failures, toolchain, and mathlib revision must agree"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0890-STATEMENT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget"
+      ]
+    },
+    {
+      "recipe_id": "S56-M-0890-STATEMENT-RECIPE-ARTIFACTS",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0890/check_statement_artifacts.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 300,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact UTF-8 line: statement artifact check: ok (THM-M-0890; provisional M3; theorem_complete false)"
+        }
+      ],
+      "covered_obligation_ids": [
+        "S56-M-0890-STATEMENT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget"
+      ]
+    }
+  ],
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 targets, and execution skill passed"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0890"],
+      "exit_code": 0,
+      "result": "rank 1440, planned, legacy artifacts unaccepted, theorem_complete false"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0890/Statement.lean"],
+      "exit_code": 0,
+      "result": "canonical target elaborated, four expected mutation equality rejections and explicit expression printed; stdout SHA-256 429d47c401055d5e917a23408c1c6aed5340ae1d3870a4130bdba6bfc98b47d5"
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "argv": ["python3", "../../Stage1_Instances/THM-M-0890/check_statement.py"],
+      "exit_code": 0,
+      "result": "expression SHA-256 512ebe658ca83b7fb4bb3d3565122d065e3bc6e589898b4f3cf74ab2e12ea54d; four mutations distinct; both import deletions fail; pinned toolchain and mathlib revision agree"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "Stage1_Instances/THM-M-0890/check_statement_artifacts.py"],
+      "exit_code": 0,
+      "result": "fresh elaboration, source and changed-artifact hashes, statement metadata, receipt, instance, and worker handoff agree"
+    },
+    {
+      "cwd": ".",
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-0890/check_intake.py"],
+      "exit_code": 1,
+      "result": "historical intake replay stops because integrated authority records intake [_] while the frozen earlier checker asserts [ ]; it also predates statement files, so it remains historical evidence rather than being rewritten"
+    },
+    {
+      "cwd": ".",
+      "argv": ["rg", "-n", "--glob", "*.lean", "\\b(sorry|admit)\\b|\\bsorryAx\\b|^[[:space:]]*(axiom|constant|opaque)\\b|^[[:space:]]*unsafe\\b", "Stage1_Instances/THM-M-0890"],
+      "exit_code": 1,
+      "expected_no_match": true,
+      "result": "no sorry, admit, sorryAx, axiom, constant, opaque, or unsafe declaration"
+    },
+    {
+      "cwd": ".",
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0890", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "no whitespace diagnostics"
+    }
+  ],
+  "invalidation_inputs": [
+    "canonical statement or Lean source",
+    "source selection, theorem locator, attribution, correction, errata, or denominator-boundary decision",
+    "graph, regularity, independence-number, eigenvalue-index, cast, or division convention",
+    "direct or transitive imports, Lean toolchain, mathlib pin or tree",
+    "statement validator, mutation inventory, source and artifact hashes",
+    "rev-5.6 standard, manifest, DAG dependency, lifecycle, or master acceptance decision"
+  ],
+  "status_boundary": "Provisional worker statement proposal only. It is neither content-addressed, signed, nor master-accepted and asserts no proof, audit-completion, or theorem-completion credit."
+}

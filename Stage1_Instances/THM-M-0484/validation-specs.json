@@ -1,0 +1,115 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0484-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0484",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0484-STRUCTURE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0484/check_obligation_tree.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0484 obligation tree"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0484-ROOT",
+        "M0484-S-TARGET",
+        "M0484-S-ENCODINGS",
+        "M0484-S-BOUNDARY",
+        "M0484-S-TRANSPORT",
+        "M0484-S-FOUNDATION",
+        "M0484-N-INDEX",
+        "M0484-T-ASSEMBLE",
+        "M0484-T-SUFFICIENCY",
+        "M0484-B-SUFF-CONTRA",
+        "M0484-L-ORDER-INEQ",
+        "M0484-L-ORDER-OMEGA",
+        "M0484-C-OMEGA-UNIT",
+        "M0484-L-OMEGA-NEGONE",
+        "M0484-L-OMEGA-ONE",
+        "M0484-L-OMEGA-FORMULA",
+        "M0484-C-X-RING",
+        "M0484-L-CLOSED-FORM",
+        "M0484-L-MERSENNE-VANISH",
+        "M0484-C-MINFAC",
+        "M0484-L-MINFAC-SQUARE",
+        "M0484-L-X-CARD-UNITS",
+        "M0484-L-TWO-LT-Q",
+        "M0484-T-NECESSITY",
+        "M0484-B-NEC-TRACE",
+        "M0484-N-RECURRENCE-X",
+        "M0484-N-PRIME-EXPONENT",
+        "M0484-L-LEGENDRE-TWO",
+        "M0484-L-LEGENDRE-THREE",
+        "M0484-L-OMEGA-TRACE",
+        "M0484-C-X-FROBENIUS",
+        "M0484-X-SOURCE",
+        "M0484-X-PROVENANCE",
+        "M0484-X-TRUST",
+        "M0484-X-READABLE",
+        "M0484-X-WORKFLOW"
+      ],
+      "covered_declarations": [],
+      "coverage_boundary": "Schema, hashes, graph semantics, source markers, receipt, and open-state consistency only; this recipe supplies no kernel closure for any declaration."
+    },
+    {
+      "recipe_id": "VAL-M0484-LEAN-COMPOSITION",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0484/check_obligation_tree.py",
+        "--run-lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains Lean composition: pass and no sorryAx"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0484-B-NEC-TRACE",
+        "M0484-B-SUFF-CONTRA",
+        "M0484-L-OMEGA-NEGONE",
+        "M0484-L-OMEGA-ONE",
+        "M0484-L-ORDER-INEQ",
+        "M0484-L-ORDER-OMEGA",
+        "M0484-S-TARGET",
+        "M0484-S-TRANSPORT",
+        "M0484-T-ASSEMBLE",
+        "M0484-T-NECESSITY",
+        "M0484-T-SUFFICIENCY"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0484.ObligationTree.root_of_directions",
+        "Stage1Instances.THM_M_0484.ObligationTree.root_of_terminal",
+        "Stage1Instances.THM_M_0484.ObligationTree.sufficiency_of_branch",
+        "Stage1Instances.THM_M_0484.ObligationTree.sufficiency_of_order_and_minFac",
+        "Stage1Instances.THM_M_0484.ObligationTree.necessity_of_branch",
+        "Stage1Instances.THM_M_0484.ObligationTree.orderInequality_of_order_and_card",
+        "Stage1Instances.THM_M_0484.ObligationTree.omegaOrder_of_power_boundaries",
+        "Stage1Instances.THM_M_0484.ObligationTree.omegaPowOne_of_negOne",
+        "Stage1Instances.THM_M_0484.ObligationTree.omegaPowNegOne_of_formula_and_vanishing",
+        "Stage1Instances.THM_M_0484.ObligationTree.necessity_of_recurrence_closedForm_trace",
+        "lucas_lehmer_sufficiency",
+        "lucas_lehmer_necessity"
+      ],
+      "coverage_boundary": "Kernel-checks conditional composition interfaces and inspects pinned terminal types only. It does not install terminal proofs or validate planned internal source-body decompositions."
+    }
+  ]
+}

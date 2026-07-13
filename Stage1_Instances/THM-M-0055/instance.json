@@ -1,0 +1,262 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0055",
+  "item_id": "S56-M-0055-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1522,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 78,
+  "name_zh": "瑞利商定理",
+  "name_en": "Rayleigh quotient theorem",
+  "canonical_name": "Variational characterization of Hermitian-matrix eigenvalues (exact variant unresolved)",
+  "category": "代数学 / 线性代数",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "瑞利商定理",
+  "literal_source_claim_zh": "Hermite矩阵特征值的变分刻画",
+  "literal_source_claim_en": "A variational characterization of the eigenvalues of a Hermite/Hermitian matrix.",
+  "source_attribution": "John William Strutt (Rayleigh), 1870 (catalog metadata; exact historical work and date require review)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_finite_matrix_rayleigh_variational_family_but_catalog_does_not_resolve_hermite_wording_extreme_versus_indexed_eigenvalues_or_exact_conclusion",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog supplies no formula or citation and does not resolve whether Hermite means complex Hermitian or real symmetric, the scalar and finite index type, matrix/operator encoding, Rayleigh quotient convention, eigenvalue order and multiplicity, one or both extreme eigenvalues versus all indexed eigenvalues, max/min versus sup/inf, attainment and extremizer clauses, ordered binders, hypotheses, conclusion, or degenerate cases. A complete real-symmetric modern proof and close pinned mathlib interfaces are leads, but choosing one exact proposition or generalizing it to complex Hermitian matrices without review would invent or substitute mathematics.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Analysis.InnerProductSpace.Rayleigh",
+      "Mathlib.Analysis.InnerProductSpace.Spectrum",
+      "Mathlib.Analysis.Matrix.Hermitian",
+      "Mathlib.Analysis.Matrix.Spectrum"
+    ],
+    "candidate_declarations": [
+      "ContinuousLinearMap.rayleighQuotient",
+      "LinearMap.IsSymmetric.hasEigenvalue_iSup_of_finiteDimensional",
+      "LinearMap.IsSymmetric.hasEigenvalue_iInf_of_finiteDimensional",
+      "Matrix.isHermitian_iff_isSymmetric",
+      "Matrix.IsHermitian.eigenvalues"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_source_statement_variant_and_matrix_transport_ambiguity",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix complex Hermitian versus real symmetric matrices or an RCLike generalization; finite square index type and universe; nonemptiness and decidable equality; and the matrix-to-self-adjoint-map encoding.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose a largest-eigenvalue equality, smallest-eigenvalue equality, their conjunction, attainment or extremizer characterization, full indexed Courant-Fischer theorem, or another variant.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; the statement phase must resolve every boundary case in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "largest and smallest eigenvalues of a finite nonempty complex Hermitian matrix equal the maximum and minimum of its Rayleigh quotient over nonzero vectors",
+    "the analogous two-extrema theorem for a finite-dimensional self-adjoint linear map over an RCLike field",
+    "only the result that the Rayleigh quotient supremum and infimum are eigenvalues",
+    "an iff characterization of maximizing and minimizing vectors by the corresponding eigenspaces",
+    "the full finite-dimensional Courant-Fischer indexed min-max theorem",
+    "a generalized Rayleigh quotient for a Hermitian pair with positive-definite denominator"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton finite index types and zero-dimensional versus nontrivial spaces",
+    "zero and scalar matrices",
+    "repeated top and bottom eigenvalues and multiplicity conventions",
+    "singular and indefinite Hermitian matrices",
+    "the zero vector and denominator convention",
+    "maximum/minimum attainment versus only supremum/infimum",
+    "real symmetric specialization and arbitrary RCLike generalization",
+    "whether intermediate indexed eigenvalues are included or excluded"
+  ],
+  "excluded_substitutions": [
+    "THM-M-1390 Courant min-max principle silently substituted for an extremal Rayleigh theorem, or conversely",
+    "the spectral theorem, an eigenbasis, or a sorted eigenvalue list alone",
+    "a Rayleigh quotient definition, homogeneity, sphere transport, or boundedness alone",
+    "only extremum-implies-eigenvector when the selected source root also requires value equality, attainment, or a converse",
+    "normal, nonsymmetric, generalized-eigenvalue, positive-definite-only, or one-dimensional special cases",
+    "Perron-Frobenius, Gershgorin, Weyl inequalities, power iteration, or numerical Rayleigh iteration",
+    "a structure field or premise that assumes the desired variational equality",
+    "the catalog's untrusted verified label or the API probe used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0043",
+      "name": "谱定理",
+      "relationship": "Hermitian diagonalization and ordered spectral data are ingredients, not the variational characterization"
+    },
+    {
+      "theorem_id": "THM-M-0053",
+      "name": "盖尔圆盘定理",
+      "relationship": "eigenvalue localization is distinct from Rayleigh variational extrema"
+    },
+    {
+      "theorem_id": "THM-M-0054",
+      "name": "佩龙-弗罗贝尼乌斯定理",
+      "relationship": "positive-matrix dominant spectral structure is not the Hermitian Rayleigh quotient theorem"
+    },
+    {
+      "theorem_id": "THM-M-0056",
+      "name": "外尔不等式",
+      "relationship": "perturbation inequalities for Hermitian eigenvalues are a separate target"
+    },
+    {
+      "theorem_id": "THM-M-1390",
+      "name": "Courant极小极大原理",
+      "relationship": "separate indexed eigenvalue min-max target; exact boundary with extremal cases requires source selection"
+    },
+    {
+      "theorem_id": "THM-M-1450",
+      "name": "幂法",
+      "relationship": "an iterative eigenvalue algorithm is not an exact variational theorem"
+    }
+  ],
+  "source_status": "H1_complete_proof_source_for_one_plausible_real_symmetric_extremal_courant_fischer_family_inspected_but_historical_identity_complex_hermitian_transport_exact_root_corrections_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "J. W. Strutt, Some General Theorems relating to Vibrations, Proceedings of the London Mathematical Society, series 1 volume 4 issue 1 (1871), 357-368",
+      "doi": "10.1112/plms/s1-4.1.357",
+      "candidate_locator": "Crossref bibliographic metadata; published November 1871",
+      "candidate_summary": "plausible early Rayleigh variational-method source matching the attribution but not the catalog date",
+      "inspection_status": "bibliographic metadata only; publisher full text access-controlled; no exact theorem, definitions, proof, correction history, or source-to-target mapping inspected"
+    },
+    {
+      "citation": "Daniel A. Spielman, Spectral and Algebraic Graph Theory, incomplete draft, April 2, 2025, Chapter 2",
+      "candidate_locator": "author-hosted PDF http://cs-www.cs.yale.edu/homes/spielman/sagt/sagt.pdf; Theorem 2.0.1 printed page 21; Theorem 2.2.1 and proof printed pages 24-25",
+      "candidate_summary": "defines the real-symmetric Rayleigh quotient, proves largest=max and smallest=min, gives extremizing eigenvectors and the full indexed Courant-Fischer formulas",
+      "observed_source_bytes": 2902506,
+      "observed_source_sha256": "6b70ebd45e3369754ae597a42fda8531a8cb35407d16afef65dfff509369861c",
+      "inspection_status": "complete proof source for one plausible real-symmetric extremal and Courant-Fischer family inspected; mutable draft, real-symmetric rather than complex-Hermitian scope, catalog linkage, corrections, exact variant selection, lawful immutable preservation, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Rayleigh",
+      "declarations": [
+        "ContinuousLinearMap.rayleighQuotient",
+        "ContinuousLinearMap.iSup_rayleigh_eq_iSup_rayleigh_sphere",
+        "ContinuousLinearMap.iInf_rayleigh_eq_iInf_rayleigh_sphere",
+        "IsSelfAdjoint.hasEigenvector_of_isMaxOn",
+        "IsSelfAdjoint.hasEigenvector_of_isMinOn",
+        "LinearMap.IsSymmetric.hasEigenvalue_iSup_of_finiteDimensional",
+        "LinearMap.IsSymmetric.hasEigenvalue_iInf_of_finiteDimensional"
+      ],
+      "boundary": "close extremal Rayleigh infrastructure and finite-dimensional eigenvalue existence; no source-selected matrix endpoint equality, complete extremizer iff, or indexed theorem"
+    },
+    {
+      "module": "Mathlib.Analysis.Matrix.Hermitian",
+      "declaration": "Matrix.isHermitian_iff_isSymmetric",
+      "boundary": "matrix-to-Euclidean-linear-map symmetry bridge only; exact target transport not frozen"
+    },
+    {
+      "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+      "declarations": [
+        "LinearMap.IsSymmetric.eigenvalues",
+        "LinearMap.IsSymmetric.eigenvalues_antitone"
+      ],
+      "boundary": "ordered finite spectral data only; no variational endpoint identity"
+    },
+    {
+      "module": "Mathlib.Analysis.Matrix.Spectrum",
+      "declarations": [
+        "Matrix.IsHermitian.eigenvalues",
+        "Matrix.IsHermitian.eigenvalues₀_antitone"
+      ],
+      "boundary": "Hermitian-matrix eigenvalue enumeration and ordering only; no Rayleigh extremum theorem"
+    }
+  ],
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic, choice, finite-dimensional eigenvalue selection, real/complex spectral conventions, and noncomputability remain open until the exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, target expression, terminal proof bodies, transitive dependency closure, axioms, and trust policy remain open",
+  "computation_profile": "No numerical eigensolver, floating-point Rayleigh quotient, iterative Rayleigh method, optimization oracle, sampled extremum, native computation, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "source_revisions": {
+    "repository_base": "f3910e9d9c9dde383801913343b9244462e6173a",
+    "repository_base_tree": "28f0e995eac01d75999b013a02e02eb792c07754",
+    "repository_record": "Docs/researches/math_theorems.md:412-417",
+    "repository_record_excerpt_sha256": "473afb577426040f052fbfdce2f384017e1d8902e28b45a8cc47a787c9d4cf85",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:1618-1643",
+    "stage0_projection_excerpt_sha256": "d502885d16b9d8551bea3fd7cb7336c6bd801b0294f635e38a5f8eea09e86a04",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_targets_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "c08453fa35ca78457eee2c73973883533c9b5bf6eed7bc66ac26aea67fa42cdc",
+    "execution_dag_sha256": "a119f1535710080ca1a6a2a537a03d54522e4949182dd54de41ba9b3565110ae",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lake_symlink_target_string_sha256": "e8714e9ebb75a5da1eeb16fdb6f50831a6cab29f115df43fa8e7535b38f59826",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "rayleigh_source_sha256": "ed4311f88930a0d76dbe901ee12e3fdcf18c0ac24913e75a44d2b91120bb29c6",
+    "inner_product_spectrum_source_sha256": "49eeec917a355497936a4f779eb6403af0910c66d0f3fbbfd131ad7833c4f555",
+    "matrix_hermitian_source_sha256": "42639f3bb4da2645de07437e789a4184d7242673798fb377453483178f62d969",
+    "matrix_spectrum_source_sha256": "1a1a96a6f057a73b0d428b62cdbb3da824981928c162b52a15335abdafc8b0db",
+    "inspected_spielman_pdf_sha256": "6b70ebd45e3369754ae597a42fda8531a8cb35407d16afef65dfff509369861c"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0055/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0055/README.md",
+    "Stage1_Instances/THM-M-0055/instance.json",
+    "Stage1_Instances/THM-M-0055/scope-map.md",
+    "Stage1_Instances/THM-M-0055/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0055/statement-blocker.md",
+    "Stage1_Instances/THM-M-0055/statement-blocker.json",
+    "Stage1_Instances/THM-M-0055/task-dag.json",
+    "Stage1_Instances/THM-M-0055/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0055/check_intake.py",
+    "Stage1_Instances/THM-M-0055/validation.md",
+    "Stage1_Instances/THM-M-0055/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "scope_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent source and formal reviewers must approve historical identity, literal wording, source edition and proof boundary, extremal-versus-indexed selection, real-to-complex and matrix-to-operator transports, exact Lean target, and neighbor boundaries before master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the mismatch, and requires fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier and temporary external-source inspection have no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, Rayleigh/1870 attribution, Hermite wording, selected source edition or theorem, proof boundary or erratum, scalar or matrix domain, quotient, eigenvalue order, extrema, attainment, indexed scope, boundary or neighbor decision, matrix/operator transport, Lean target, toolchain or dependency pin, assurance profile, validator, receipt, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "statement-blocker.md",
+    "statement-blocker.json",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H1 records a recognizable theorem family and a complete proof source for one plausible real-symmetric extremal/Courant-Fischer family whose historical identity, complex-Hermitian relationship, exact root, corrections, and independent review are open. M3 records close pinned interfaces but no source-approved exact Lean target. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

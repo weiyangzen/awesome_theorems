@@ -19,6 +19,25 @@ report. Its checked type states the standard uniform-family upper bound, includi
 declaration does not assert attainment or characterize equality. This is a credible formal
 candidate, not accepted proof credit for the still-unselected catalog claim.
 
-Accordingly, the intake leaves the canonical mathematical statement and Lean target null, records
-the root as `[H1, M3, R4]`, and opens the six downstream tasks. No exact statement, accepted proof
-state, audit completion, theorem completion, or master acceptance is claimed.
+Accordingly, the historical intake left the canonical mathematical statement and Lean target null,
+recorded the root as `[H1, M3, R4]`, and opened the six downstream tasks. The statement phase below
+supersedes that null-target snapshot for current dossier replay, without adding accepted proof state,
+audit completion, theorem completion, or master acceptance.
+
+## Statement-phase result
+
+The statement phase provisionally resolves the catalog's variant ambiguity by reading "maximum
+size" literally. `ErdosKoRadoMaximumTarget` states the standard positive uniform-family maximum:
+for `1 <= r <= n / 2`, a star attains `choose (n - 1) (r - 1)`, and every intersecting `r`-uniform
+family has at most that cardinality. It neither substitutes the broader original at-most-size
+antichain theorem nor silently adds a classification of all equality families.
+
+`Statement.lean` uses only the low-level `Intersecting` and `Slice` modules, not the proof-bearing
+Kruskal-Katona module. It checks a concrete-star iff, the positive-uniform bridge between self-pair
+and distinct-pair intersection, the small-ground-set and `n = 2r` boundaries, and four structural
+mutations. `check_statement.py`, `statement.json`, `statement-validation.md`, and
+`statement-receipt.json` bind the exact elaborated expression and pinned environment.
+
+The vector remains `[H1, M3, R4]`. This is a worker-self-tested statement proposal pending
+dependency-ordered master acceptance; no universal upper-bound proof body, equality
+classification, `H0`, `M0`, `R0`, audit completion, theorem completion, or release is claimed.

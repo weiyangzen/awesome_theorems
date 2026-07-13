@@ -3,8 +3,8 @@
 ## Preserved theorem family
 
 The repository fixes the eponym, authors, year, and subject "maximum size of an intersecting
-family." The intended statement must remain within the classical finite-set Erdős-Ko-Rado family.
-Intake does not silently choose among these materially different claims:
+family." The statement phase selects the standard positive uniform maximum-value form within the
+classical finite-set Erdős-Ko-Rado family. The following nearby claims remain materially different:
 
 1. **Original at-most-size antichain bound.** If subsets of an `m`-element ground set are pairwise
    incomparable, have size at most `l`, every pair intersects, and `1 <= l <= m / 2`, then the
@@ -21,31 +21,30 @@ Intake does not silently choose among these materially different claims:
 5. **General `t`-intersection and nontrivial-family variants.** These are later, stronger, or
    differently scoped results and are not selected by the eponym alone.
 
-## Decisions required at statement freeze
+## Statement-freeze decisions
 
-1. Admit one primary edition and select the exact theorem, remark, or accepted modern formulation.
-2. Decide whether the root requests only an upper bound, the maximum with an attainment witness,
-   or an equality characterization. A source or docstring saying "sharp" does not add a conclusion
-   absent from the Lean declaration.
-3. Freeze the ground set as an abstract finite type or `Fin n`, and freeze whether the family is a
-   finite set, finite family with no duplicates, or ordinary set with finiteness evidence.
-4. Select the original antichain plus `card <= l` premises or the uniform `card = r` premise, and
-   supply a checked bridge, including automatic incomparability at fixed cardinality, if both are
-   credited.
-5. Fix intersecting semantics. Mathlib's `Set.Intersecting` quantifies a member against itself, so a
+1. The root is the standard uniform maximum value: the universal upper bound plus an attaining
+   star. It is neither the broader original at-most-size antichain theorem nor an all-extremizers
+   equality classification.
+2. The ground set is `Fin n`; the family is `Finset (Finset (Fin n))`, so members and the family
+   contain no duplicates.
+3. Uniformity is `Set.Sized r`, and `1 <= r` is explicit. The original antichain/at-most-size
+   premises receive no statement or proof credit here.
+4. Mathlib's `Set.Intersecting` quantifies a member against itself, so a
    family containing the empty set is not intersecting; a distinct-pairs-only definition treats a
-   singleton empty-set family differently.
-6. Fix `r <= n / 2` versus `2 * r <= n`, natural-number subtraction, binomial conventions, and all
-   coercions before comparing statements.
-7. Resolve `r = 0`, `r = 1`, `n = 0`, `n = 1`, empty family, singleton family, and the exact
-   `n = 2 * r` boundary. Pinned mathlib explicitly handles `r = 0` by forcing the family empty.
+   singleton empty-set family differently. `sized_intersecting_iff_pairwise` checks agreement with
+   distinct-pair intersection for the selected positive uniform domain.
+5. The range is `r <= n / 2`, including equality. Natural subtraction and `Nat.choose` use their
+   Lean meanings. No positive rank is admissible at `n = 0` or `n = 1`; a star is checked at the
+   `n = 2 * r` boundary. Rank zero is excluded.
+6. Pinned mathlib explicitly handles `r = 0` by forcing an intersecting uniform family empty.
    The printed source quantifies intersection only over distinct indices, so a singleton family
    containing the empty set exposes a possible implicit convention or degenerate exception in its
    strict-if-smaller clause; do not claim literal total equivalence before source review.
-8. If equality is included, state whether stars are merely witnesses or the unique extremizers,
-   and state all exceptions.
-9. Freeze foundation, TCB, computation, freshness, statement mutation, and alternate-encoding
-   profiles after the exact root is chosen.
+7. Stars are attainment witnesses only. The target does not classify all extremizers.
+8. `Statement.lean`, `statement.json`, and `statement-receipt.json` freeze the Lean expression,
+   checked alternate forms, profiles, four mutations, and current provisional fingerprints.
+   Independent source admission, corrections review, and master acceptance remain open.
 
 ## Explicit exclusions
 
@@ -57,9 +56,10 @@ Intake does not silently choose among these materially different claims:
 - EKR analogues for permutations, multisets, vector spaces, designs, matchings, independent sets,
   groups, or simplicial complexes.
 - A weakened asymptotic bound, a fixed numerical example, an assumed star construction, or a
-  convenient equality theorem substituted for the unselected catalog claim.
+  convenient equality theorem substituted for the selected maximum-value claim.
 - The catalog's `已验证` label, a theorem name, docstring, `#check`, or axiom report treated as
   human-source, statement-identity, proof, or completion evidence.
 
-No canonical expression, statement fingerprint, checked transport, obligation registry, discovery
-protocol, accepted proof state, or completion claim is frozen at intake.
+The statement phase freezes a provisional canonical expression, fingerprint, and checked
+transports. It does not freeze an obligation registry or discovery protocol, add accepted proof
+state, or make an audit/theorem-completion claim.

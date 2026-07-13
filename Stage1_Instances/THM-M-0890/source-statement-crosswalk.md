@@ -31,7 +31,8 @@ The proof uses the all-ones eigenvector, constructs a positive-semidefinite matr
 a principal submatrix indexed by a maximum independent set, and derives the inequality. The paper
 also records equality information and later generalizations, which are distinct possible targets.
 
-This is an exact published source lead and proof-family discriminator, not an accepted H0 packet.
+This is the statement phase's selected exact conventional target and proof-family discriminator,
+not an accepted H0 packet.
 The paper is a historical/modern reconstruction, not Hoffman's primary publication of the bound:
 its abstract and Section 1 explicitly state that Hoffman did not publish the result. Section 3 says
 that the 1970 paper *On Eigenvalues and Colorings of Graphs* is a wrong reference for the
@@ -44,27 +45,27 @@ transport exists yet.
 
 | Repository or source phrase | Candidate mathematical component | Prospective Lean surface | Intake status |
 |---|---|---|---|
-| `independent sets` | independent set and maximum cardinality `alpha` | `SimpleGraph.IsIndepSet`, `SimpleGraph.indepNum` | adjacent API elaborates; maximum-versus-each-set conclusion open |
-| `spectral` | real eigenvalues of the symmetric adjacency matrix | `SimpleGraph.adjMatrix`, `SimpleGraph.isHermitian_adjMatrix`, `Matrix.IsHermitian.eigenvalues` | adjacent API only; least-eigenvalue encoding not selected |
-| `upper bound` | `alpha <= n(-lambda_min)/(k-lambda_min)` | casted natural cardinality and real inequality | exact modern candidate; absent as a formula from repository source |
-| `regular of degree k` | constant vertex degree | `SimpleGraph.IsRegularOfDegree` | required by Haemers Theorem 1; omitted from catalog |
+| `independent sets` | maximum cardinality `alpha` | `SimpleGraph.indepNum` | selected; every-independent-finset form remains an uncredited alternate |
+| `spectral` | real eigenvalues of the symmetric adjacency matrix | `SimpleGraph.adjMatrix`, `SimpleGraph.isHermitian_adjMatrix`, `Matrix.IsHermitian.eigenvalues₀` | selected; least value is the last descending index |
+| `upper bound` | `alpha <= n(-lambda_min)/(k-lambda_min)` | casted natural cardinality and real inequality | selected from Haemers Theorem 1 |
+| `regular of degree k` | constant positive vertex degree | `SimpleGraph.IsRegularOfDegree` plus `0 < k` | regularity is source-explicit; positivity resolves the quotient's omitted edgeless boundary |
 | `1970` | catalog provenance/attribution field | no Lean proposition | conflicts with modern history for this bound; review required |
 | `verified` | untrusted inventory label | no proof object | explicitly rejected as evidence |
 
 ## Formal boundary
 
-At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, the intake probe
-authenticates independent-set and independence-number definitions, finite-graph regularity, the
-adjacency matrix and its Hermitian property, ordered real eigenvalues for Hermitian matrices, and
-positive-semidefinite matrix vocabulary. A bounded search found no repo-local or pinned-mathlib
-declaration named for Hoffman or the ratio bound. These facts establish feasibility substrate only;
-they do not form an exhaustive anchor audit, select the canonical proposition, or supply a proof.
+At pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`, `Statement.lean`
+elaborates the selected target from two minimal direct imports. `SimpleGraph.indepNum` supplies
+`alpha`; the real adjacency matrix is Hermitian; its `eigenvalues₀` enumeration is antitone; and the
+last valid index supplies `lambda_min`. A bounded search found no repo-local or pinned-mathlib
+declaration named for Hoffman or the ratio bound. This closes the statement interface only; it is
+not the downstream exhaustive anchor audit and supplies no proof.
 
 ## Required source acceptance work
 
-The statement/source phase must obtain independent review of the exact source selection; decide
-whether Haemers Theorem 1 or another primary result is the repository target; reconcile the
-catalog's attribution/year; map all definitions, ordered binders, regularity and nondegeneracy
-assumptions, casts, denominator convention, conclusion, equality clause, proof boundary, and
-correction status; then freeze and mutation-test one Lean expression. Until then the root remains
-`H1/M4/R4`, and no source or machine closure is credited.
+The statement phase selects Haemers Theorem 1 and freezes and mutation-tests its Lean expression,
+moving only the machine interface from `M4` to `M3`. The anchor/source audit must independently
+review that choice; reconcile the catalog's attribution and year; approve the explicit positive-
+degree treatment of the paper's zero-denominator omission; map source definitions, proof boundary,
+corrections, equality material, and genealogy; and audit formal anchors. Until those later gates,
+the root is only proposed as `H1/M3/R4`, with no source or proof closure credited.

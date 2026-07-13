@@ -1,0 +1,158 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0822-STATEMENT",
+  "theorem_id": "THM-M-0822",
+  "execution_rank": 1380,
+  "lifecycle_mode": "planned",
+  "scope_authority": "Stage1_Instances/THM-M-0822/instance.json",
+  "authority_relationship": "This statement certificate supplies the exact expression, environment, source-selection rationale, mutations, and validation details referenced by the reconciled per-theorem instance manifest; it is not a parallel lifecycle authority.",
+  "canonical_name": "Erdos-Ko-Rado maximum size of a uniform intersecting family",
+  "canonical_statement": "For all natural numbers n and r with 1 <= r <= n / 2, the maximum cardinality of an intersecting family of r-element subsets of the labeled ground set Fin n is choose(n - 1, r - 1): a star attains this cardinality and every such family has at most this cardinality.",
+  "source_selection": {
+    "repository_claim": "Docs/researches/math_theorems.md:6040-6045 and duplicate :7036-7041: maximum size of an intersecting family",
+    "citation": "P. Erdos, Chao Ko, and R. Rado, Intersection theorems for systems of finite sets, Quarterly Journal of Mathematics (2) 12 (1961), 313-320, DOI 10.1093/qmath/12.1.313",
+    "statement_locator": "printed page 313, Theorem 1",
+    "sharpness_locator": "printed page 314, the following best-possible construction",
+    "observed_pdf_sha256": "e53f1ec72accc8e55ec8da360588b224542a9133216d4b82a6918bbe309ac821",
+    "variant_decision": "The complete catalog gloss asks for a maximum size, so the root is the standard uniform-family maximum-value formulation: it includes the universal upper bound and an attaining star. The original at-most-size antichain theorem is broader in its premises, while an upper bound alone does not establish a maximum. A classification of all equality families is stronger than the gloss and is excluded, particularly at the included n = 2r boundary where no uniqueness claim is made.",
+    "review_boundary": "The primary theorem and sharpness remark support this provisional selection, but complete accountable translation, correction or errata review, proof mapping, independent H0 review, and master acceptance remain open."
+  },
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0822/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0822.ErdosKoRadoMaximumTarget",
+    "elaborated_expression_sha256": "646e9860afcf5efd962b6f69c9c2825220f23418d05f7675490b783e63afe209",
+    "environment_fingerprint_sha256": "add61107f4c2e18bdf2c58334ca93c4927605f68d9805c32195c9ea964eb1119",
+    "statement_file_sha256": "b91d0fce7cd10a12585860b11af519cbe7496f555d04a751d5b4b6309309582d",
+    "serialization_options": ["pp.explicit=true", "pp.universes=true"],
+    "unresolved_metavariables": false,
+    "gate_state": "worker_self_tested_pending_master_acceptance"
+  },
+  "domain_and_universes": "n r : Nat; A : Finset (Finset (Fin n)); the target and all predicates are propositions in Lean universe 0.",
+  "quantifiers": [
+    "every n r : Nat with 1 <= r <= n / 2",
+    "some attaining family A : Finset (Finset (Fin n))",
+    "every bounded family A : Finset (Finset (Fin n))"
+  ],
+  "ordered_binders": [
+    "n : Nat",
+    "r : Nat",
+    "hr : 1 <= r",
+    "hhalf : r <= n / 2",
+    "A : Finset (Finset (Fin n)) (existential attaining family)",
+    "A : Finset (Finset (Fin n)) (universal bounded family)",
+    "hA : (A : Set (Finset (Fin n))).Intersecting",
+    "hSized : (A : Set (Finset (Fin n))).Sized r"
+  ],
+  "hypotheses": [
+    "the uniform rank r is positive",
+    "r <= n / 2, including equality",
+    "the universally bounded family is intersecting",
+    "every member of the universally bounded family has cardinality r"
+  ],
+  "conclusion": "There exists an intersecting r-uniform family with card choose(n - 1, r - 1), and every intersecting r-uniform family has card at most choose(n - 1, r - 1).",
+  "encoding_decisions": {
+    "ground_set": "Fin n is the labeled n-element ground set named literally in the canonical human claim and used by the pinned formal candidate. No unproved transport from an arbitrary finite type is credited.",
+    "family": "Finset (Finset (Fin n)) represents a finite duplicate-free family of finite subsets.",
+    "uniformity": "Set.Sized r on the coerced family fixes every member cardinality to r; fixed-size distinct members are automatically incomparable.",
+    "intersecting": "Set.Intersecting requires all member pairs, including self-pairs, to be non-disjoint. The checked sized_intersecting_iff_pairwise bridge proves equivalence to distinct-pair intersection when 1 <= r.",
+    "maximum": "Attainability and the universal bound are conjoined. The checked alternate chooses the concrete star of all r-subsets containing one point.",
+    "range": "The source-positive premise 1 <= r is retained, while r <= n / 2 includes the equality boundary. This range implies n is nonzero, so a star center exists.",
+    "bound": "Natural subtraction and Nat.choose use mathlib conventions exactly as (n - 1).choose (r - 1).",
+    "boundary": "No admissible positive rank exists for n = 0 or n = 1. The n = 4, r = 2 equality boundary is kernel-checked to have an attaining star.",
+    "equality_classification": "The target fixes only the maximum value. It neither asserts stars are the only extremizers nor excludes non-star equality families at n = 2r."
+  },
+  "direct_imports": [
+    "Mathlib.Combinatorics.SetFamily.Intersecting",
+    "Mathlib.Data.Finset.Slice"
+  ],
+  "minimal_import_result": "A canonical-target-only fixture elaborates with exactly the two direct imports. Deleting either declared import causes the fixture to fail: Intersecting supplies Set.Intersecting, while Slice supplies Set.Sized and Nat.choose. The full statement and concrete-star transport module also elaborates.",
+  "minimal_import_boundary": "This proves necessity among the declared imports for the canonical target fixture, not global minimality across every differently factored collection or transitive dependency closure. The proof-bearing Mathlib.Combinatorics.SetFamily.KruskalKatona module is deliberately absent.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0822.ConcreteStarMaximumTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0822.erdosKoRadoMaximumTarget_iff_concreteStarMaximumTarget",
+      "boundary": "The alternate replaces the existential attaining family with an explicit star and retains the identical universal upper-bound component."
+    },
+    {
+      "target": "distinct-pair intersection on positive uniform families",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0822.sized_intersecting_iff_pairwise",
+      "boundary": "This local semantic bridge is parameterized by the positive-rank and uniformity hypotheses; it does not identify the r = 0 singleton-empty-family convention."
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "r = 0 is excluded by 1 <= r because self-pair intersection and the source distinct-pair convention diverge on the singleton empty-set family",
+    "n = 0 and n = 1 have no admissible positive r under r <= n / 2"
+  ],
+  "included_boundary_cases": [
+    "empty and singleton families whenever they satisfy the stated hypotheses",
+    "r = 1 for n >= 2",
+    "the equality boundary r = n / 2, including n = 4 and r = 2",
+    "natural-number subtraction in n - 1 and r - 1 under the positive admissible range"
+  ],
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0822/check_statement.py",
+    "killed": [
+      "removed the intersecting hypothesis from the universal bound",
+      "changed family members from Finset (Fin n) to Set (Fin n)",
+      "changed the universally bounded family binder to existential scope",
+      "excluded the equality boundary by replacing r <= n / 2 with r < n / 2"
+    ],
+    "mechanism": "Lean #check_failure rejects definitional equality and the checker verifies four distinct fully explicit expression fingerprints. This is an identity certificate, not a claim of logical inequivalence for every mutation."
+  },
+  "boundary_checks": [
+    "Stage1Instances.THM_M_0822.no_admissible_rank_fin_zero",
+    "Stage1Instances.THM_M_0822.no_admissible_rank_fin_one",
+    "Stage1Instances.THM_M_0822.star_attains_equality_boundary"
+  ],
+  "environment_fingerprint": {
+    "base_revision": "46a0f2a3ea74765a0467c489264b838ffbb70675",
+    "base_tree": "7b1b5269d7da840fd086da731d6f92903c209c35",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lakefile_sha256": "43259bbc1b42b1574b78c8584753029dc5e118c0a0e752ac0a5bad9004b4dcda",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "intersecting_source_sha256": "3982a1a08eccae32db849e5d73a2a62f75f50b3d7751fd292c538b84d919523d",
+    "slice_source_sha256": "5a3986375f5c0035f8c66760ce41bd66582ac34007d910d56a4e3535cc48cec8",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only"
+  },
+  "foundation_profile": "foundation-profile/1.0: Lean 4 dependent type theory; propext, Classical.choice, and Quot.sound are permitted for the checked concrete-star transport. Custom axioms, sorry, unsafe declarations, native-evaluation proof credit, and external oracles are disallowed.",
+  "tcb_profile": "tcb-profile/1.0: Lean kernel and elaborator 4.29.0, Lake 5.0.0, pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, the locked project manifest, and the two direct statement imports. Terminal upper-bound proof provenance and transitive trust closure remain downstream gates.",
+  "computation_profile": "computation-profile/1.0: no exhaustive search, native evaluation, solver, external oracle, experiment, or unchecked certificate is used or credited. The concrete star and finite arithmetic are checked by ordinary kernel terms.",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0822/README.md",
+    "Stage1_Instances/THM-M-0822/Statement.lean",
+    "Stage1_Instances/THM-M-0822/check_statement.py",
+    "Stage1_Instances/THM-M-0822/statement-receipt.json",
+    "Stage1_Instances/THM-M-0822/statement-validation.md",
+    "Stage1_Instances/THM-M-0822/statement.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent combinatorics reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source selection, translation, correction or erratum; uniformity, intersection, positivity, range, maximum, equality, ground-set, family, or boundary convention; Lean expression or transport; toolchain, project, dependency pin, import, assurance profile, checker, or owned-artifact change. Independent review and master acceptance remain open.",
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "root_vector_after": {"H": "H1", "M": "M3", "R": "R4"},
+  "debt_delta_basis": "The exact maximum-value proposition now elaborates and resolves the intake variant blocker, but intake already recorded a usable upper-bound interface at M3. This phase adds no accepted source review, upper-bound proof body, terminal provenance audit, or readable proof reconstruction.",
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "status_boundary": "Worker-self-tested statement proposal only. It freezes the standard positive uniform maximum-value claim, checks a concrete-star iff and the source-intersection semantic bridge, covers the equality boundary, minimizes direct imports, and distinguishes four structural mutations. It supplies no universal EKR upper-bound proof, equality classification, anchor audit, H0, M0, R0, audit completion, theorem completion, release, or master acceptance."
+}

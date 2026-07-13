@@ -72,7 +72,15 @@ axioms`. The feature entered mathlib in commit `07ede5049b7a9e02db2803d6c0f549d9
 a Chevalley-Warning proof.
 
 `IntakeProbe.lean` establishes candidate availability and justifies `M3` discovery status only.
-The statement phase must freeze the positive exact-count root, minimal imports, elaborated expression
-and environment fingerprints, checked equality-to-lower-bound and integer-to-residue transports,
-and mutations. The anchor-audit phase must separately audit terminal bodies, full declaration
-closure, placeholders, axioms, trust, license, and external candidates.
+The statement phase now provisionally freezes the positive exact-count root in
+`Stage1Instances.THM_M_0931.ErdosGinzburgZivTarget`, with explicit expression SHA-256
+`b872e0de4aedbd0da8825d2c7dd9ecb30e01215131c61e73dc3050776711718a`. Its sole direct import is
+`Mathlib.Data.ZMod.Basic`; it deliberately does not import the proof-bearing EGZ module. Checked
+wrappers establish the direction from the at-least-count proposition shape to the exact-count root
+and an iff between integer divisibility and the same sum cast to zero in `ZMod n`. Four mutations
+cover removed positivity, a natural-number input domain, existential modulus scope, and the
+at-least-count boundary.
+
+These are worker-self-tested statement identities, not H0 admission or proof credit. The
+anchor-audit phase must separately audit terminal bodies, full declaration closure, placeholders,
+axioms, trust, license, and external candidates.

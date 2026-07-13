@@ -22,21 +22,21 @@
   "literal_source_claim_en": "If n + 1 objects are placed into n boxes, some box contains at least two objects.",
   "source_attribution": "Peter Dirichlet, 1834 (uncited catalog metadata)",
   "source_status_untrusted": "已验证",
-  "canonical_statement": null,
-  "canonical_claim_status": "recognizable_finite_pigeonhole_family_with_a_modern_source_statement_and_pinned_exact_family_candidate_but_not_source_frozen_or_lean_root_mapped",
-  "canonical_claim": null,
-  "planned_scope_boundary": "The planned intake preserves the catalog's n-plus-one-objects into n-boxes family. The dependent STATEMENT node owns selection of Fin versus arbitrary finite types, total-function placement, collision versus fiber formulation, ordered binders, zero-box semantics, profiles, exact elaboration, transports, fingerprints, and mutations.",
-  "target_disposition": "preserve the literal finite family without broadening; require independently accepted source and exact encoding at statement freeze",
-  "statement_blocker": "The catalog does not define objects, boxes, placement, or 'at least two'; choose a concrete or general finite-type domain; order the binders; or settle n = 0. A modern source and pinned general finite-type candidate identify the intended family but do not authorize silently selecting the canonical source or exact Fin specialization.",
+  "canonical_statement": "For every natural number n and every total placement of n + 1 objects into n boxes, there are two distinct objects placed in the same box.",
+  "canonical_claim_status": "literal_catalog_scope_frozen_and_exact_lean_statement_self_tested_pending_master_acceptance",
+  "canonical_claim": "For every natural number n and every total placement of n + 1 objects into n boxes, there are two distinct objects placed in the same box.",
+  "planned_scope_boundary": "The statement selects the literal concrete encoding Fin (n + 1) -> Fin n, collision witnesses, and inclusive vacuous n = 0 semantics. General finite-type, noninjectivity, and fiber-cardinality roots remain uncredited without later checked relationships.",
+  "target_disposition": "preserve the literal finite family without broadening; the concrete Fin collision root is frozen while historical and H0 source review remains open",
+  "statement_blocker": null,
   "canonical_formal_target": {
     "backend": "lean4",
-    "module": null,
+    "module": "Stage1_Instances/THM-M-0914/Statement.lean",
     "module_candidates": [
       "Mathlib.Data.Fintype.Pigeonhole",
       "Mathlib.Data.Fin.Pigeonhole",
       "Mathlib.Combinatorics.Pigeonhole"
     ],
-    "declaration_or_expression": null,
+    "declaration_or_expression": "Stage1Instances.THM_M_0914.PigeonholeTarget",
     "candidate_declarations": [
       "Fintype.exists_ne_map_eq_of_card_lt",
       "Fintype.not_injective_of_card_lt",
@@ -44,29 +44,45 @@
       "Fintype.exists_lt_card_fiber_of_mul_lt_card"
     ],
     "candidate_expression": "for finite types alpha and beta, if card beta < card alpha, every f : alpha -> beta maps two distinct inputs to the same value",
-    "elaborated_expression_hash": null,
-    "environment_fingerprint": null,
-    "gate_state": "open_pending_source_acceptance_exact_n_plus_one_specialization_and_statement_mutation_gate",
+    "elaborated_expression_hash": "sha256:faef4a7f73219dc5b6178b8788978e21377c593ad84b845b4d49547218e6ae3b",
+    "environment_fingerprint": "lean-4.29.0-98dc76e3_init-only_no-direct-imports_pp-universes-explicit_statement-953cf5ba",
+    "gate_state": "self_tested_pending_master_acceptance",
     "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
   },
-  "domain_and_universes": "Open: the statement must choose n : Nat with Fin (n + 1) objects and Fin n boxes, or universe-polymorphic finite types with a reviewed specialization; it must fix Fintype, decidable equality, and function contexts.",
-  "quantifiers": [],
-  "ordered_binders": [],
+  "domain_and_universes": "n : Nat; objects : Fin (n + 1); boxes : Fin n; total placement f : Fin (n + 1) -> Fin n; all carriers and the target Prop are in universe 0; no typeclass binder is present.",
+  "quantifiers": [
+    "forall n : Nat",
+    "forall f : Fin (n + 1) -> Fin n",
+    "exists x y : Fin (n + 1)"
+  ],
+  "ordered_binders": [
+    "n : Nat (universal)",
+    "f : Fin (n + 1) -> Fin n (universal)",
+    "x : Fin (n + 1) (existential)",
+    "y : Fin (n + 1) (existential)"
+  ],
   "hypotheses": [],
-  "conclusion": "Open formal encoding of a collision between two distinct objects or a box with a fiber of cardinality at least two, with their checked relationship if both are credited.",
-  "alternate_encodings": [],
+  "conclusion": "There exist distinct x and y in Fin (n + 1) such that f x = f y in Fin n.",
+  "alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0914.BoxWitnessTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0914.pigeonholeTarget_iff_boxWitnessTarget"
+    }
+  ],
   "excluded_degenerate_cases": [],
-  "degenerate_case_status": "No case is excluded before an exact proposition is selected; n = 0 and every case listed in scope-map.md must be resolved explicitly.",
+  "degenerate_case_status": "No natural-number case is excluded. At n = 0 the placement binder is empty, kernel-checked by no_placement_into_zero_boxes; at n = 1 one_box_boundary kernel-checks the first inhabited collision case.",
   "candidate_scope_not_credited": [
-    "for every n and f : Fin (n + 1) -> Fin n, there exist distinct x and y with f x = f y",
     "the arbitrary finite-type theorem under card beta < card alpha",
     "noninjectivity of every map from Fin (n + 1) to Fin n",
     "existence of a box whose fiber has cardinality at least two",
-    "checked equivalence or implication transports among collision, noninjectivity, embedding, and fiber formulations"
+    "unchecked equivalence or implication transports among collision, noninjectivity, embedding, and fiber-cardinality formulations"
   ],
-  "degenerate_cases_to_resolve": [
-    "n = 0 and the uninhabited total-function binder Fin 1 -> Fin 0",
-    "n = 1 and the first inhabited collision case",
+  "resolved_statement_boundaries": [
+    "n = 0 is included vacuously; no_placement_into_zero_boxes checks the uninhabited total-function binder Fin 1 -> Fin 0",
+    "n = 1 is included; one_box_boundary checks the first inhabited collision case"
+  ],
+  "downstream_variant_boundaries": [
     "empty arbitrary finite domains and codomains",
     "exactly n + 1 versus any strictly larger finite object type",
     "collision witnesses versus a cardinality-two fiber witness",
@@ -155,13 +171,13 @@
   "theorem_complete": false,
   "accepted_proof_state": [],
   "accepted_receipt_ids": [],
-  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory is intended; classical decidability, finite choice, quotient or truncation principles, and accepted axiom policy remain downstream until an exact target is selected",
-  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 and pinned mathlib are intended; exact imports, target, terminal body, transitive dependencies, compiled artifacts, and trust closure remain open",
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean 4 dependent type theory; the checked box-witness transport reports no axioms and the boundary witnesses report only propext; proof-specific and transitive axiom closure remain downstream",
+  "tcb_profile": "lean4-init-tcb-planned/1.0: Lean kernel and Init prelude 4.29.0; the exact statement has an empty direct-import set; terminal proof body, downstream dependencies, and complete trust closure remain open",
   "computation_profile": "finite-pigeonhole-planned/1.0: no exhaustive enumeration, native shortcut, oracle, generated certificate, experiment, or unchecked computation is credited; the intended root requires kernel-checked mathematics",
-  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter; canonical target not yet encoded",
+  "formal_system": "Lean 4.29.0 Init prelude under the rev-5.6 adapter; pinned mathlib remains the downstream proof environment",
   "source_revisions": {
-    "repository_base": "db4b8793e70ce8af74c9c9490acfa50aa3684d5e",
-    "repository_base_tree": "6434a20532ae7c523ad293e67a6228ab384bfb8a",
+    "repository_base": "a3b18eec39bf04be025b1641cae02f4d44fdf11a",
+    "repository_base_tree": "fdfff18dea4c6798c5b322b6088dfe556109c134",
     "repository_record": "Docs/researches/math_theorems.md:6686-6691",
     "stage0_projection": "Docs/Stage0_Blueprint.md:24931-24956",
     "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
@@ -169,8 +185,8 @@
     "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
     "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
     "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "authoritative_blueprint_sha256": "5d0eb6d57ec108d3083f15d6e3773447c9e9287fa6d2f811ff6197055aa251f5",
-    "execution_dag_sha256": "7005d2c291a900e175666f0826ee69b15bb77d208b4fb167174d0982f20055a3",
+    "authoritative_blueprint_sha256": "75e29c1ae280b75e6a1b78c3658106332686beb1f9650f11d30c8624855233c4",
+    "execution_dag_sha256": "603f3aa25a89d483dfbd0c40ccea727937dd4630feab2773b19a124377178b39",
     "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
     "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
     "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
@@ -179,6 +195,8 @@
     "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
     "dependency_lock": "Formalizations/Lean/lake-manifest.json",
     "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean_init_source_sha256": "d60376748327b2721c203911029525506a91a7fb9930f710009c021871b9469e",
+    "lean_init_olean_sha256": "7ccac48ef26289852ecb686826d9e0ce42f3ceb33ba7bdff960c38fb3d9a00c5",
     "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
     "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
     "fintype_pigeonhole_source_sha256": "fa4604d2b1ae480f910e6000ca8814a632299082b48a14f598314303b68cc582",
@@ -198,7 +216,12 @@
     "Stage1_Instances/THM-M-0914/IntakeProbe.lean",
     "Stage1_Instances/THM-M-0914/check_intake.py",
     "Stage1_Instances/THM-M-0914/validation.md",
-    "Stage1_Instances/THM-M-0914/intake-receipt.json"
+    "Stage1_Instances/THM-M-0914/intake-receipt.json",
+    "Stage1_Instances/THM-M-0914/Statement.lean",
+    "Stage1_Instances/THM-M-0914/check_statement.py",
+    "Stage1_Instances/THM-M-0914/statement.json",
+    "Stage1_Instances/THM-M-0914/statement-receipt.json",
+    "Stage1_Instances/THM-M-0914/statement-validation.md"
   ],
   "owners_and_reviewers": {
     "owner": "Stage1 integration lane",
@@ -207,7 +230,7 @@
     "scope_reviewer": "unassigned finite-combinatorics reviewer"
   },
   "freshness_and_revocation_policy": {
-    "review_due": "before master acceptance or any dependent statement work",
+    "review_due": "before master acceptance of the provisional statement or any dependent anchor work",
     "invalidation_inputs": [
       "catalog, attribution, source, translation, theorem-family, or chronology correction",
       "object, box, placement, count, domain, binder, collision, fiber, noninjectivity, or boundary decision",
@@ -226,7 +249,12 @@
     "IntakeProbe.lean",
     "check_intake.py",
     "validation.md",
-    "intake-receipt.json"
+    "intake-receipt.json",
+    "Statement.lean",
+    "check_statement.py",
+    "statement.json",
+    "statement-receipt.json",
+    "statement-validation.md"
   ],
-  "status_boundary": "Self-tested planned intake only when accompanied by the provisional receipt and worker packet. It records a modern H1 source lead and an exact-family pinned M3 candidate but supplies no accepted source review, exact canonical Lean target, proof body credit, obligation registry, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance."
+  "status_boundary": "Self-tested exact statement proposal pending dependency-ordered master acceptance. The literal Fin collision root, empty direct-import set, checked box-witness transport, four statement mutations, and zero/one-box boundaries elaborate. The root remains H1/M3/R4 with no proof-body credit, accepted execution state, H0, M0, R0, audit completion, theorem completion, or master acceptance."
 }
