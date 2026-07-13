@@ -1,0 +1,210 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0912",
+  "item_id": "S56-M-0912-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1454,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "帕斯卡恒等式",
+  "name_en": "Pascal's identity",
+  "canonical_name": "Pascal recurrence for binomial coefficients",
+  "category": "组合数学 / 计数组合",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "组合数的递推关系",
+  "literal_source_claim_en": "The recurrence relation for binomial coefficients.",
+  "source_attribution": "Blaise Pascal, 1654 (catalog metadata only)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_pascal_binomial_recurrence_family_with_modern_statement_and_pinned_lean_candidates_but_exact_source_domain_and_canonical_target_not_frozen",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog gives only a recurrence-family gloss. It fixes no formula, binomial-coefficient definition, ordered row/column binders, valid-index domain, zero-extension convention, side conditions, historical or primary source, boundary cases, or relationship between predecessor and successor encodings. DLMF 26.3.5 states the predecessor formula for m >= n >= 1, while pinned mathlib's Nat.choose_succ_succ is total on all natural indices through the zero convention. Selecting either domain as canonical before independent source review would broaden, narrow, or substitute proposition-changing mathematics.",
+  "target_decision": "preserve the conventional Pascal-recurrence family while deferring the source-restricted-versus-zero-extended target choice and every checked transport to the dependent statement phase",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Data.Nat.Choose.Basic"
+    ],
+    "declaration_or_expression": null,
+    "declaration_candidates": [
+      "Nat.choose_succ_succ",
+      "Nat.choose_succ_succ'",
+      "Nat.choose_succ_left",
+      "Nat.choose_eq_choose_pred_add"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_pending_source_domain_decision_and_exact_statement_fingerprint",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Expected natural-number row and column indices and natural-valued binomial coefficients; exact valid-index hypotheses versus a total zero-extended Nat.choose domain remain open. No nontrivial universe parameters are expected, but the exact Lean expression and imports are not frozen.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open choice between the source-oriented recurrence C(m,n) = C(m-1,n) + C(m-1,n-1) under m >= n >= 1 and a source-approved all-natural zero-extended successor encoding.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before target selection; row zero, column zero, the diagonal, the first and later out-of-range columns, and predecessor subtraction at zero must be explicitly dispositioned and mutation-tested.",
+  "candidate_scope_not_credited": [
+    "DLMF 26.3.5's predecessor recurrence under m >= n >= 1",
+    "Nat.choose_succ_succ's all-natural successor recurrence",
+    "Nat.choose_succ_succ' as an addition-spelled alternate",
+    "Nat.choose_succ_left under a positive-column hypothesis",
+    "Nat.choose_eq_choose_pred_add under positive-row and positive-column hypotheses"
+  ],
+  "degenerate_cases_to_resolve": [
+    "row zero and column zero",
+    "the first positive row and column",
+    "the diagonal n = m",
+    "the first out-of-range column n = m + 1",
+    "later out-of-range columns n > m + 1",
+    "truncated natural subtraction at n = 0",
+    "source-defined versus zero-extended out-of-range binomial coefficients"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0911's binomial theorem used as the Pascal-identity root",
+    "Vandermonde's identity, the hockey-stick identity, binomial symmetry, or a factorial formula",
+    "multinomial, multichoose, Catalan, or unrelated recurrence theorems",
+    "Pascal-triangle geometry or a finite numerical table used in place of a quantified identity",
+    "a recursive definition or structure field that assumes the desired recurrence presented as source-independent proof",
+    "the untrusted catalog label 已验证 or the intake probe used as source or kernel completion evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0911",
+      "name": "二项式定理",
+      "relationship": "distinct binomial-expansion target; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0913",
+      "name": "容斥原理",
+      "relationship": "distinct counting identity family; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0921",
+      "name": "卡塔兰数",
+      "relationship": "a separate enumerative sequence that may use binomial coefficients but is not this recurrence"
+    }
+  ],
+  "source_status": "H1_modern_published_statement_lead_and_historical_catalog_attribution_identified_but_primary_or_historical_source_complete_proof_definitions_errata_mapping_and_independent_review_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "NIST Digital Library of Mathematical Functions, version 1.2.7, Chapter 26 (D. M. Bressoud), Section 26.3(iii), equation 26.3.5, release 2026-06-15",
+      "permalink": "https://dlmf.nist.gov/26.3.E5",
+      "observed_statement": "C(m,n) = C(m-1,n) + C(m-1,n-1), m >= n >= 1",
+      "equation_tex_sha256": "af43da30b9553896c868f2202e16a0b0a72984111ba0e169bf07814a940663a4",
+      "equation_tex_bytes": 102,
+      "section_html_sha256": "c7db2eeb4bb7633436f976a7ff048173a4c9c1ed8a7b7569d030856d4d29ad97",
+      "section_html_bytes": 123231,
+      "section_html_hash_boundary": "observed response provenance only; dynamic delivery content makes this response digest unsuitable as a stable source identity",
+      "status": "strong modern statement and domain lead only; not the catalog's claimed 1654 source, and complete proof, incorporated definitions, historical attribution, correction/errata mapping, and independent review remain open"
+    },
+    {
+      "citation": "John Riordan, An Introduction to Combinatorial Analysis, 1958, pages 4-5; Louis Comtet, Advanced Combinatorics, 1974, page 10",
+      "located_via": "DLMF Section 26.3(iii) notes",
+      "status": "bibliographic proof-source leads only; editions and cited pages were not inspected or admitted"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Data.Nat.Choose.Basic",
+      "declaration": "Nat.choose_succ_succ",
+      "candidate_type": "(n k : Nat) -> Nat.choose (Nat.succ n) (Nat.succ k) = Nat.choose n k + Nat.choose n (Nat.succ k)",
+      "body_observation": "definitional rfl in pinned source",
+      "boundary": "exact all-natural Lean candidate, but the canonical source domain and checked mapping are not frozen; no M0 credit at intake"
+    },
+    {
+      "module": "Mathlib.Data.Nat.Choose.Basic",
+      "declaration": "Nat.choose_eq_choose_pred_add",
+      "boundary": "conditional predecessor-form candidate with positive row and column hypotheses; exact relationship to DLMF's m >= n >= 1 domain remains to be checked"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "db4b8793e70ce8af74c9c9490acfa50aa3684d5e",
+    "repository_base_tree": "6434a20532ae7c523ad293e67a6228ab384bfb8a",
+    "repository_record": "Docs/researches/math_theorems.md:6672-6677",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:24877-24902",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "5d0eb6d57ec108d3083f15d6e3773447c9e9287fa6d2f811ff6197055aa251f5",
+    "execution_dag_sha256": "7005d2c291a900e175666f0826ee69b15bb77d208b4fb167174d0982f20055a3",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_choose_basic_source_sha256": "b3c40f47d39427428d70518b48adaaf16d3622698b32406fa7745749f1387170",
+    "dlmf_version": "1.2.7",
+    "dlmf_release_date": "2026-06-15",
+    "dlmf_equation_permalink": "https://dlmf.nist.gov/26.3.E5",
+    "dlmf_equation_tex_sha256": "af43da30b9553896c868f2202e16a0b0a72984111ba0e169bf07814a940663a4",
+    "dlmf_section_html_observed_response_sha256": "c7db2eeb4bb7633436f976a7ff048173a4c9c1ed8a7b7569d030856d4d29ad97"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_status": "proposed_pending_master_acceptance",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory with natural-number recursion is intended; exact logical principles and accepted axiom set remain open until the canonical expression and proof-body closure are audited",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; the probe checks candidate declarations only, while exact target identity, terminal body, transitive dependencies, imports, axioms, and trust policy remain downstream",
+  "computation_profile": "No finite table, native computation, external oracle, experiment, or unchecked certificate is credited; future proof evidence must be kernel checked against the selected exact recurrence",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0912/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0912/README.md",
+    "Stage1_Instances/THM-M-0912/instance.json",
+    "Stage1_Instances/THM-M-0912/scope-map.md",
+    "Stage1_Instances/THM-M-0912/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0912/task-dag.json",
+    "Stage1_Instances/THM-M-0912/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0912/check_intake.py",
+    "Stage1_Instances/THM-M-0912/validation.md",
+    "Stage1_Instances/THM-M-0912/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent combinatorics/history reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "boundary_reviewer": "unassigned integration reviewer",
+    "reviewer_policy": "Independent reviewers must approve the preserved mathematical source, its binomial-coefficient definition, exact domain and side conditions, historical and correction boundary, and the source-identical Lean encoding before statement acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support theorem release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, revokes dependent provisional credit, and requires a fresh scoped intake against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the fetched DLMF responses are recorded by digest but are not claimed as a release archive.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, source edition or historical attribution, formula or domain choice, binomial-coefficient definition, row/column binder order, side condition, indexing transport, boundary convention, DLMF or mathlib candidate change, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent review and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. It freezes the catalog wording, DLMF source lead, source-domain versus zero-extension ambiguity, boundary cases, non-substitutes, pinned statement candidates, and open task DAG. The API probe is discovery evidence, not a canonical wrapper. No exact target, H0, M0, R0, accepted task or receipt, audit completion, theorem completion, or master acceptance is claimed."
+}

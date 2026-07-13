@@ -1,0 +1,239 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0909",
+  "item_id": "S56-M-0909-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1451,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Voigt定理",
+  "name_en": "Voigt theorem on a planar graph that is not 4-choosable",
+  "canonical_name": "Existence of a planar graph that is not 4-choosable (exact source encoding open)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "source_status_untrusted": "已验证",
+  "literal_source_claim_zh": "非4-可选的平面图",
+  "literal_source_claim_en": "A planar graph that is not 4-choosable.",
+  "source_attribution": "Margit Voigt, 1993 (catalog metadata; primary paper bibliographically identified)",
+  "canonical_statement": null,
+  "canonical_claim_status": "published_existential_planar_non_4_choosability_family_identified_but_primary_definition_statement_construction_and_formal_encoding_not_frozen",
+  "canonical_claim": null,
+  "candidate_family_not_credited_as_statement": "There exists a finite planar simple graph G, reported in the source review to have 238 vertices, and an assignment of at least four allowed colors to every vertex such that no proper coloring of G selects an allowed color at every vertex.",
+  "statement_blocker": "The primary paper text and construction were not inspected, and the catalog supplies no definitions or binders. An accepted source must fix the finite simple graph and planarity conventions, color and list carriers, exact versus at-least-four cardinality, proper list-coloring predicate, existential versus negated-universal witness form, whether the 238-vertex size belongs to the target, degenerate cases, and the 1993-edition/2006-reprint boundary. Selecting one Lean proposition now would infer proposition-changing details.",
+  "target_decision": "preserve_the_published_planar_non_4_choosability_family_and_require_primary_source_admission_before_canonical_Lean_elaboration",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_source_approved_graph_planarity_list_and_choosability_statement",
+    "module_candidates_not_credited": [
+      "Mathlib.Combinatorics.SimpleGraph.Basic",
+      "Mathlib.Combinatorics.SimpleGraph.Coloring"
+    ],
+    "declaration_candidates_not_credited": [
+      "SimpleGraph",
+      "SimpleGraph.Coloring",
+      "SimpleGraph.Coloring.mk",
+      "SimpleGraph.Coloring.valid",
+      "SimpleGraph.Colorable",
+      "SimpleGraph.Colorable.mono",
+      "SimpleGraph.chromaticNumber",
+      "SimpleGraph.chromaticNumber_le_iff_colorable"
+    ],
+    "candidate_boundary": "Pinned mathlib supplies ordinary proper-coloring substrate only. No list-coloring, choosability, graph-planarity, Voigt, or exact non-4-choosability declaration was located in the bounded intake search; Coloring.lean lists planar graphs as TODO.",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an admitted source must fix a finite simple graph carrier and vertex universe; decidable equality and finiteness instances; planarity or embedding representation; color carrier and palette; finite-list representation; and every coercion, cardinality, and logical binder.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: source review must select existence of a non-4-choosable planar graph, decide whether the 238-vertex size is in the root, and fix negated-universal versus explicit bad-list-witness form.",
+  "alternate_encodings": [],
+  "candidate_scope_not_credited": [
+    "there exists a finite planar simple graph that is not 4-choosable under at-least-four finite allowed-color sets",
+    "there exists a 238-vertex planar simple graph that is not 4-choosable",
+    "there exist a finite planar simple graph and an explicit four-color list assignment for which no proper allowed coloring exists",
+    "the choice number of some finite planar graph is at least five",
+    "a plane-embedding formulation transported to an abstract graph-planarity predicate"
+  ],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no canonical proposition is selected; empty, singleton, edgeless, disconnected and isolated-vertex graphs, empty color types, palette finiteness, duplicate lists, exact/lower-bound cardinality, and proof relevance of embeddings remain source decisions.",
+  "degenerate_cases_to_resolve": [
+    "empty, singleton, edgeless, disconnected, and isolated-vertex graphs",
+    "simple graphs versus plane maps, loops, or parallel edges",
+    "abstract planarity versus supplied plane or sphere embeddings",
+    "empty, finite, or infinite global color carriers",
+    "Finset, set, multiset, or duplicate-bearing list assignments",
+    "exactly four versus at least four distinct available colors",
+    "negated universal choosability versus explicit counterassignment witness",
+    "whether exactly 238 vertices is required by the canonical conclusion"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0833 four-color theorem or ordinary four-colorability",
+    "THM-M-0908 Thomassen five-choosability upper-bound theorem",
+    "a six-choosability theorem or a positive result for a special planar-graph class",
+    "ordinary SimpleGraph.Coloring or chromatic-number infrastructure presented as list choosability",
+    "an arbitrary graph, drawing, or bad list assignment not checked against the selected source construction and planarity definition",
+    "a structure or premise that stores the desired planarity, counterassignment, or non-choosability conclusion",
+    "a finite search, SAT result, native computation, image, or unchecked certificate",
+    "the untrusted catalog label, secondary review, bibliographic metadata, or discovery probe used as H0 or machine-proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0906",
+      "name": "列表着色",
+      "relationship": "general list-coloring topic; definitions or evidence do not construct Voigt's planar counterexample"
+    },
+    {
+      "theorem_id": "THM-M-0908",
+      "name": "Thomassen定理",
+      "relationship": "positive planar five-choosability upper bound; it does not imply existence of a planar graph that is not 4-choosable"
+    },
+    {
+      "theorem_id": "THM-M-0833",
+      "name": "四色定理",
+      "relationship": "ordinary colorability is weaker than list choosability and supplies no counterexample witness"
+    }
+  ],
+  "source_status": "H1_published_primary_paper_and_precise_secondary_review_identify_a_238_vertex_planar_non_4_choosability_result_but_primary_statement_definitions_construction_proof_boundary_errata_and_independent_admission_remain_open",
+  "source_candidates_not_credited": [
+    {
+      "citation": "Margit Voigt, List colourings of planar graphs, Discrete Mathematics 120 (1-3), 1993, 215-219, DOI 10.1016/0012-365X(93)90579-I",
+      "candidate_summary": "catalog-aligned primary paper for a planar graph on 238 vertices that is not 4-choosable",
+      "inspection_status": "Crossref bibliography and a zbMATH review inspected; primary article theorem text, definitions, construction, proof boundary, corrections, errata, lawful immutable source packet, and independent admission not inspected or accepted"
+    },
+    {
+      "citation": "Dan S. Archdeacon, review Zbl 0790.05030",
+      "candidate_summary": "defines k-choosability using lists of at least k colors and reports Voigt's 238-vertex planar non-4-choosable construction",
+      "inspection_status": "precise secondary review used for family discrimination only; not the primary proof source and not H0 evidence"
+    },
+    {
+      "citation": "Margit Voigt, List colourings of planar graphs. (Reprint), Discrete Mathematics 306 (10-11), 2006, 1076-1079, DOI 10.1016/j.disc.2006.03.027",
+      "candidate_summary": "zbMATH-classified reprint of the same-title article",
+      "inspection_status": "bibliographic boundary only; not selected as the source edition, correction, or independent proof"
+    },
+    {
+      "citation": "Shai Gutner, The complexity of planar graph choosability, Discrete Mathematics 159 (1996), 119-130; arXiv:0802.2668v1",
+      "candidate_summary": "secondary later paper restating Voigt's result as existence of a 238-vertex planar graph that is not 4-choosable",
+      "inspection_status": "author manuscript inspected for corroboration and terminology only; not the assigned source proof"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Coloring",
+      "declarations": [
+        "SimpleGraph.Coloring",
+        "SimpleGraph.Colorable",
+        "SimpleGraph.chromaticNumber",
+        "SimpleGraph.chromaticNumber_le_iff_colorable"
+      ],
+      "boundary": "ordinary proper graph coloring only; no allowed-list membership, choosability quantifier, graph-planarity interface, or Voigt construction"
+    },
+    {
+      "project": "bsniegowski/lean-planar-graphs",
+      "revision": "4d560bc5ec87c763d2042b9e7a5dcfc67b6e6c3d",
+      "source_hashes": {
+        "PlanarGraph.lean_sha256": "bae17baf481e3c28b95b83b9a94dfa7bdc5b906df74d7aa1fabb53541fbf8534",
+        "ListColoring.lean_sha256": "1941df1cef6b9476afce7ba4f35a48510d40f7efd552505d873cfba970ffff05",
+        "Thomassen_1994.lean_sha256": "8617847e964841bd13e4d51c02159faf5a2e06f1936f8bdabc69bbf78e1c6f90"
+      },
+      "declarations": [
+        "PlanarGraph.fiveListColorable",
+        "PlanarGraph.fiveColorable"
+      ],
+      "boundary": "a positive Thomassen-family discovery lead, not Voigt's counterexample; read-only inspection of the immutable source extracts found explicit sorry placeholders and a newer incompatible toolchain, so it supplies no proof credit"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "39704171d88ffcdc33a47365ae9791f855fa3a44",
+    "repository_base_tree": "050ab5c6392560337051d2eadd1b82277dbe1c4f",
+    "repository_record": "Docs/researches/math_theorems.md:6649-6654",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:24791-24816",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_record_excerpt_sha256": "115cbb7814d89d7a86d2f8aea1c341b34101f7c25f90d4a40cd5590836087dd0",
+    "stage0_excerpt_sha256": "536669a8b2461f3eedf185e3e0ed7d40de2d26f19f43c6399d368bf0f62b09a8",
+    "manifest_entry_sha256": "45a67aa4c413ed8b186b2ff206bac5aa6037c6bf76e858048c63e5bc6ad52f76",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "e855533adebfee7df8807e39109e64116ecb8c4efd8d6b3be9e28d719df19ad5",
+    "execution_dag_sha256": "547896837c21613b7c8f784b9af77d8a5320904b677fd48cbfc74bbe19c1b07f",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "crossref_1993_normalized_sha256": "3f0a1b23c5901a3d4a720ca91cec056055ec080e9684553b1fd225fa12f28d14",
+    "zbmath_0790_05030_normalized_sha256": "140704e4d27cff1166de2499a955cdb39f0517c7f7481e9d1c1269d1950142fc",
+    "zbmath_reviewer_text_sha256": "1cc31e52655bfe2d19d038a641c3368baacff07e652fbdc9f60c030d002b9df5",
+    "gutner_arxiv_0802_2668_pdf_sha256": "77e79ea70fad690e7e9273d55d004981103730241c223a39cfed0957b9168665",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_coloring_sha256": "42c4c6ac9c763df08f33a9fc4cf329e19908dacc630be771a547fcb583f7be56",
+    "external_planar_graph_revision": "4d560bc5ec87c763d2042b9e7a5dcfc67b6e6c3d",
+    "external_planar_graph_source_hashes": {
+      "PlanarGraph.lean_sha256": "bae17baf481e3c28b95b83b9a94dfa7bdc5b906df74d7aa1fabb53541fbf8534",
+      "ListColoring.lean_sha256": "1941df1cef6b9476afce7ba4f35a48510d40f7efd552505d873cfba970ffff05",
+      "Thomassen_1994.lean_sha256": "8617847e964841bd13e4d51c02159faf5a2e06f1936f8bdabc69bbf78e1c6f90"
+    }
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical logic or choice, finite graph and embedding encodings, finite-list thinning, decidable equality, quotient or topological principles, and exact axiom policy remain open because no canonical statement is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, target expression, terminal declarations, proof-body provenance, axioms, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No drawing, planarity oracle, coloring search, SAT solver, native evaluator, exhaustive enumeration, experiment, generated certificate, or unchecked computation is credited",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0909/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0909/README.md",
+    "Stage1_Instances/THM-M-0909/instance.json",
+    "Stage1_Instances/THM-M-0909/scope-map.md",
+    "Stage1_Instances/THM-M-0909/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0909/task-dag.json",
+    "Stage1_Instances/THM-M-0909/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0909/check_intake.py",
+    "Stage1_Instances/THM-M-0909/validation.md",
+    "Stage1_Instances/THM-M-0909/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent reviewer",
+    "formal_reviewer": "unassigned independent reviewer",
+    "planarity_and_list_coloring_scope_reviewer": "unassigned domain reviewer"
+  },
+  "freshness_and_revocation_policy": "Invalidate on source edition, reprint relationship, statement, definitions, construction, proof boundary, correction or errata status, graph carrier, finiteness, planarity or embedding convention, color/list representation, list cardinality, choosability binder, 238-vertex scope, boundary case, checked transport, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake proposal only. H1 records a published result and precise secondary review whose primary statement, definitions, construction, proof boundary, corrections, errata, and independent source admission are not accepted. Pinned ordinary coloring APIs are substrate only. No canonical statement, expression fingerprint, H0, M0, R0, accepted proof state, audit completion, theorem completion, or master acceptance is claimed."
+}

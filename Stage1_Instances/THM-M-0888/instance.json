@@ -1,0 +1,247 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0888",
+  "item_id": "S56-M-0888-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1438,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Cheeger不等式",
+  "name_en": "Cheeger inequality",
+  "canonical_name": "Graph Cheeger inequality (repository theorem-family label; exact proposition open)",
+  "category": "组合数学 / 图论",
+  "category_en": "Combinatorics / Graph Theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "Cheeger不等式",
+  "literal_source_claim_zh": "图的谱隙与等周常数",
+  "literal_source_claim_en": "The spectral gap and isoperimetric constant of a graph.",
+  "source_attribution": "Jeff Cheeger, 1970 (catalog metadata only; no work, theorem, page, or graph adaptation is cited)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H5_repository_graph_theorem_family_gloss_only_no_selected_stable_truth_valued_proposition",
+  "canonical_statement": null,
+  "canonical_claim_status": "repository_names_a_graph_cheeger_inequality_family_but_supplies_no_stable_truth_valued_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository supplies only a graph spectral-gap/isoperimetric-constant relationship and a Jeff Cheeger/1970 attribution. It does not select finite versus locally finite or infinite, directedness, weights and reversibility, the combinatorial or normalized Laplacian or another operator, eigenvalue versus spectral-infimum and multiplicity or attainment conventions, edge expansion or conductance or another isoperimetric invariant, normalization, subset cutoff, regularity or connectivity premises, constants, one or both inequality directions, ordered binders, conclusion, or boundary cases. The 1970 attribution also points toward the geometric origin without identifying the intended discrete source. Selecting a familiar formula would invent proposition-changing mathematics and could substitute for THM-M-0880, THM-M-0887, or THM-M-0889.",
+  "target_decision": "redirect the catalog theorem-family gloss to one corrected, independently reviewed, immutable-source graph proposition before statement or proof execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.LapMatrix",
+      "Mathlib.Combinatorics.SimpleGraph.Connectivity.EdgeConnectivity"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": null,
+    "candidate_declarations": [
+      "SimpleGraph.edgeFinset",
+      "SimpleGraph.degree",
+      "SimpleGraph.IsRegularOfDegree",
+      "SimpleGraph.adjMatrix",
+      "SimpleGraph.lapMatrix",
+      "SimpleGraph.lapMatrix_toLinearMap₂'",
+      "SimpleGraph.posSemidef_lapMatrix",
+      "SimpleGraph.card_connectedComponent_eq_finrank_ker_toLin'_lapMatrix",
+      "SimpleGraph.IsEdgeConnected"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_target_is_not_a_stable_proposition",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an approved source must fix a finite, locally finite, or infinite and directed or undirected graph or weighted transition structure, vertex universe, finiteness and decidability structures, weight symmetry/nonnegativity/reversibility, operator coefficient domain and realization, eigenvalue or spectrum encoding and attainment, isoperimetric data and value domain, and every typeclass and coercion context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not choose the lower inequality, upper inequality, a two-sided conjunction, the operator and isoperimetric conventions, or any constants.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every empty, singleton, disconnected, isolated-vertex, zero-degree, tested-subset, zero-volume, repeated-zero-eigenvalue, and square-root boundary listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "a two-sided normalized-Laplacian/conductance inequality for a finite graph without isolated vertices",
+    "a degree-dependent combinatorial-Laplacian/edge-isoperimetric inequality for a finite regular graph",
+    "only the lower spectral-to-isoperimetric direction",
+    "only the upper isoperimetric-to-spectral direction",
+    "a weighted reversible Markov-chain version",
+    "Cheeger's geometric manifold inequality rather than its graph analogue"
+  ],
+  "degenerate_cases_to_resolve": [
+    "empty and singleton vertex types",
+    "edgeless, disconnected, complete, and isolated-vertex graphs",
+    "degree zero or one and zero total volume",
+    "empty, full, proper, and exactly-half tested subsets with odd-cardinality rounding",
+    "cardinality versus volume cutoff and boundary counting conventions",
+    "multiple connected components and multiplicity of the zero Laplacian eigenvalue",
+    "zero isoperimetric constant and nonnegativity under squares or square roots",
+    "strict versus non-strict inequalities and equality at endpoint constants"
+  ],
+  "excluded_substitutions": [
+    "THM-M-0881 expander-graph existence or construction",
+    "THM-M-0880 sparse-cut optimization or graph-partition sparsity",
+    "THM-M-0887 general spectral graph theory",
+    "THM-M-0889 Alon-Milman spectral-gap/expansion theorem family",
+    "Cheeger's Riemannian-manifold inequality without an accepted graph-to-geometric target decision",
+    "one inequality direction substituted for a source-owned two-sided result",
+    "a regular finite simple-graph specialization substituted for an irregular or weighted source theorem",
+    "generic graph, matrix, Laplacian, positive-semidefinite, or connectivity APIs without an exact source-mapped bridge",
+    "a structure or premise that assumes the desired inequality",
+    "a computed example, numerical eigenspectrum, external URL, theorem-name match, or the catalog label 已验证 used as proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0880",
+      "name": "稀疏割",
+      "relationship": "separately owns graph-partition sparsity; a conductance or edge-isoperimetric definition may overlap, but no cut objective, statement, or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0881",
+      "name": "扩展图",
+      "relationship": "separately owns existence and construction of expanding graph families; Cheeger inequalities may relate expansion notions but do not discharge that root"
+    },
+    {
+      "theorem_id": "THM-M-0887",
+      "name": "谱图理论",
+      "relationship": "a separately cataloged broad graph-spectral subject; generic spectral facts transfer no target identity or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0889",
+      "name": "Alon-Milman定理",
+      "relationship": "separately owns a spectral-gap/expansion theorem family and may own one historical discrete Cheeger formulation; its exact statement, constants, and provenance must be distinguished from this target"
+    }
+  ],
+  "source_candidates_not_credited": [
+    {
+      "lead": "Jeff Cheeger's 1970 geometric isoperimetric/eigenvalue result",
+      "candidate_summary": "matches the catalog author and year but not by itself the explicit graph gloss",
+      "inspection_status": "historical identity warning only; no primary edition, theorem locator, definition map, graph adaptation, proof boundary, correction audit, or independent review is admitted"
+    },
+    {
+      "lead": "standard modern discrete Cheeger inequalities for graph Laplacians or reversible random walks",
+      "candidate_summary": "matches the graph subject but spans non-equivalent operators, expansion invariants, normalizations, premises, constants, and directions",
+      "inspection_status": "theorem-family discovery only; no source proposition is selected or credited"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "declarations": [
+        "SimpleGraph.edgeFinset",
+        "SimpleGraph.neighborFinset",
+        "SimpleGraph.degree",
+        "SimpleGraph.IsRegularOfDegree"
+      ],
+      "boundary": "finite simple-graph, edge, neighborhood, degree, and regularity substrate only; no isoperimetric invariant or inequality"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.AdjMatrix and Mathlib.Combinatorics.SimpleGraph.LapMatrix",
+      "declarations": [
+        "SimpleGraph.adjMatrix",
+        "SimpleGraph.lapMatrix",
+        "SimpleGraph.lapMatrix_toLinearMap₂'",
+        "SimpleGraph.posSemidef_lapMatrix",
+        "SimpleGraph.card_connectedComponent_eq_finrank_ker_toLin'_lapMatrix"
+      ],
+      "boundary": "combinatorial adjacency and Laplacian substrate, quadratic form, positivity, and kernel/component result only; no selected spectral gap or Cheeger relationship"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Connectivity.EdgeConnectivity",
+      "declaration": "SimpleGraph.IsEdgeConnected",
+      "boundary": "edge-deletion connectivity predicate only; it is not a Cheeger constant, conductance, or source theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "0c019b7194c9c43fa5f683fa82d637a0b275410d",
+    "repository_base_tree": "43cf6ac322b1dba09be739b52ab3d02e9f9d8f3e",
+    "repository_record": "Docs/researches/math_theorems.md:6502-6507",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:24224-24249",
+    "target_manifest_entry": "Docs/Stage1_Targets_rev-5.6.json:21581-21594",
+    "execution_dag_intake_entry": "Docs/Stage1_Execution_DAG_rev-5.6.json:178200-178215",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "416529f6836bf3edb5747c4cce85d7e3fae7ee4d86e402e8ba211e79606a3261",
+    "stage0_projection_excerpt_sha256": "e1c191afc2636cd602ab3a44c1003116381308f91a1f736030dcab4d710dd7fb",
+    "target_manifest_entry_sha256": "f18030f33097a19901192a1d6ba1e9a8acdefb62d33ad77e85f4b4acd9c56255",
+    "execution_dag_intake_entry_sha256": "c8346016d29ad5a276bdd347ea15539c1c4b926e00ecc92491d1e489a224e712",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "applicable_targets_sha256": "779e4bd66e6a1c7615ca2884d899f02a871096125a30b8e229536fa5937cc85c",
+    "authoritative_blueprint_sha256": "f3a9c3639f0ecbc01aeb244df252c065b48008addaeb4372d800a0cf8888d156",
+    "execution_dag_sha256": "4fbf77bfb8208457047357932186aa4329f6b04a3d31ec52d04f784c66c9a7db",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_simplegraph_finite_sha256": "968b2c58d0e77e91c69815bf1ed5e3fafa7302eaebc08139d9fdbb323ad910e8",
+    "mathlib_simplegraph_adjmatrix_sha256": "03a9e47e105ca413481cbca85c5e575bb1aac0077d7671c2bb7fa044b6572292",
+    "mathlib_simplegraph_lapmatrix_sha256": "8a8ca58ac3a8c808973531ce8bff0610b4552a07dbfca0f74d2e5e92efa88612",
+    "mathlib_simplegraph_edgeconnectivity_sha256": "7b4d638ae2e98b8131a3d4eccc53f3e52afab999d39895c5d21bd23b49db06b2"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H5",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; classical choice, finite or infinite spectral theory, quotient, eigenvalue-ordering or spectrum-infimum principles, and selected logical axioms remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact imports, graph and operator definitions, expression identity, terminal declaration, axioms, transitive dependencies, and trust policy remain open",
+  "computation_profile": "No graph generator, numerical eigensolver, floating-point bound, random experiment, native shortcut, oracle, or unchecked certificate is credited; a future exact theorem must use source-approved mathematical definitions and checked computation boundaries",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0888/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0888/README.md",
+    "Stage1_Instances/THM-M-0888/instance.json",
+    "Stage1_Instances/THM-M-0888/scope-map.md",
+    "Stage1_Instances/THM-M-0888/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0888/task-dag.json",
+    "Stage1_Instances/THM-M-0888/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0888/check_intake.py",
+    "Stage1_Instances/THM-M-0888/validation.md",
+    "Stage1_Instances/THM-M-0888/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph Cheeger source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned spectral graph theory reviewer",
+    "reviewer_policy": "Independent source and spectral-graph reviewers must approve the selected proposition, attribution, neighboring-target ownership, definitions, assumptions, constants, directions, and degenerate cases; a formal reviewer must approve the Lean target; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "validated_at": "2026-07-13T20:10:38+08:00",
+  "supersession_state": "none; first provisional intake proposal",
+  "revocation_state": "not revoked; automatically invalid on any listed freshness input",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or target correction, source edition, proposition, attribution, correction, proof boundary or review change, neighboring-target reconciliation, graph/operator/spectrum/isoperimetric/normalization/constant/direction/binder/hypothesis/conclusion/boundary decision, Lean target, toolchain or dependency pin, assurance profile, validator, receipt, or any owned-artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. H5 classifies the catalog graph theorem-family gloss as not a stable proposition; it does not refute established geometric or discrete Cheeger inequalities. The historical lead and pinned API probe supply discovery evidence only. No canonical statement, H0, M0, R0, accepted proof state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}

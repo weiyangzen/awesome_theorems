@@ -1,0 +1,262 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0855",
+  "item_id": "S56-M-0855-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1409,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "Chvátal-Erdős定理",
+  "name_en": "Chvatal-Erdos theorem",
+  "canonical_name": "Chvatal-Erdos Hamiltonicity theorem (1972, Theorem 1)",
+  "category": "组合数学 / 图论",
+  "category_en": "combinatorics / graph theory",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_claim_zh": "Hamilton圈存在的连通度与独立数条件",
+  "literal_source_claim_en": "A connectivity and independence-number condition for the existence of a Hamiltonian cycle.",
+  "source_attribution": "Vaclav Chvatal and Paul Erdos, 1972 (catalog metadata corroborated by the located primary paper)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": "Let G be a graph with at least three vertices. If, for some s, G is s-connected and contains no independent set of more than s vertices, then G has a Hamiltonian circuit.",
+  "canonical_claim_status": "primary_theorem_1_human_scope_frozen_at_intake_incorporated_vertex_connectivity_definition_and_exact_lean_expression_deferred_to_statement_phase",
+  "canonical_claim": "Every finite graph on at least three vertices whose vertex connectivity is at least s and whose independence number is at most s is Hamiltonian, for the source-selected parameter and graph conventions.",
+  "source_candidate_statement_selected_as_canonical": "Chvatal and Erdos 1972, Theorem 1, printed page 111.",
+  "source_candidate_locator": "V. Chvatal and P. Erdos, A note on Hamiltonian circuits, Discrete Mathematics 2(2) (1972), 111-113, Theorem 1 on printed page 111, DOI 10.1016/0012-365X(72)90079-9",
+  "target_disposition": "human_scope_frozen_pending_incorporated_definition_audit_exact_lean_statement_and_master_acceptance",
+  "statement_blocker": "The primary paper does not define s-connected locally and instead invokes Dirac's generalized Menger theorem. Before exact Lean elaboration, reviewers must audit the incorporated vertex-connectivity convention and parameter domain, then freeze the finite simple-graph encoding, at-least-three premise, ordered binders, independence-bound representation, Hamiltonicity convention, transports, and boundary cases. Edge connectivity is not a substitute.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Combinatorics.SimpleGraph.Hamiltonian",
+      "Mathlib.Combinatorics.SimpleGraph.Clique",
+      "Mathlib.Combinatorics.SimpleGraph.Subgraph",
+      "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "For a finite simple graph G on at least three vertices and a source-compatible natural parameter s, a reviewed vertex-s-connectivity predicate together with G.indepNum <= s implies G.IsHamiltonian.",
+    "candidate_expression_status": "discovery_only_source_definition_transport_and_exact_expression_remain_open",
+    "candidate_declarations": [
+      "SimpleGraph.IsHamiltonian",
+      "SimpleGraph.IsIndepSet",
+      "SimpleGraph.IsNIndepSet",
+      "SimpleGraph.IndepSetFree",
+      "SimpleGraph.indepNum",
+      "SimpleGraph.Subgraph.deleteVerts",
+      "SimpleGraph.Connected"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_incorporated_definition_audit_and_statement_phase",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_hamiltonian-clique-subgraph-intake-api-probe-only"
+  },
+  "domain_and_universes": "Prospective finite undirected graph G on a vertex type V in one Lean universe, with at least three vertices and a source-compatible connectivity parameter s. Exact simple-graph, Fintype/Finite, decidability, universe, and parameter-domain choices remain for statement review.",
+  "quantifiers": [
+    "for every source-compatible finite graph G with at least three vertices",
+    "if there exists a source-compatible parameter s for which both hypotheses hold"
+  ],
+  "ordered_binders": [
+    "vertex type and graph G",
+    "finiteness and at-least-three-vertices premise",
+    "connectivity parameter s under the audited source domain",
+    "vertex s-connectivity premise",
+    "independence-number-at-most-s premise"
+  ],
+  "hypotheses": [
+    "G has at least three vertices",
+    "G is vertex s-connected under the source's incorporated convention",
+    "G contains no independent set with more than s vertices"
+  ],
+  "conclusion": "G has a Hamiltonian circuit under a checked encoding of the source convention.",
+  "alternate_encodings": [],
+  "candidate_alternate_encodings_not_credited": [
+    {
+      "target": "the independent-set hypothesis as G.indepNum <= s",
+      "candidate_relationship": "iff",
+      "status": "uncredited; no checked witness"
+    },
+    {
+      "target": "the independent-set hypothesis as G.IndepSetFree (s + 1)",
+      "candidate_relationship": "iff",
+      "status": "uncredited; no checked witness"
+    },
+    {
+      "target": "vertex s-connectivity expressed by connectedness after deletion of every vertex set of cardinality less than s",
+      "candidate_relationship": "source-definition transport to be determined",
+      "status": "uncredited; source definition and checked witness open"
+    },
+    {
+      "target": "Hamiltonian circuit existence as SimpleGraph.IsHamiltonian",
+      "candidate_relationship": "source-convention transport to be determined",
+      "status": "uncredited; source convention and checked witness open"
+    }
+  ],
+  "excluded_degenerate_cases": [
+    "graphs with fewer than three vertices, excluded by the printed source premise"
+  ],
+  "degenerate_case_status": "No other case is excluded at intake. The statement phase must resolve s=0 and s=1, s at or above the vertex cardinality, empty remnants after deletion, exact versus oversized independent sets, complete graphs, and mathlib's singleton Hamiltonicity convention.",
+  "candidate_scope_not_credited": [
+    "the source's Hamiltonian-path Theorem 2",
+    "the source's Hamiltonian-connected Theorem 3",
+    "Dirac, Ore, Nash-Williams/Bondy, or Menger theorems used as the root",
+    "a theorem using edge rather than vertex connectivity",
+    "a theorem using ordinary connectedness only",
+    "a special-cardinality, complete-graph, bipartite, or concrete finite case"
+  ],
+  "excluded_substitutions": [
+    "SimpleGraph.IsEdgeConnected or any edge-cut condition in place of vertex s-connectivity",
+    "THM-M-0853 Dirac's theorem or THM-M-0854 Ore's theorem",
+    "Theorem 2's no-independent-set-of-s+2 premise and Hamiltonian-path conclusion",
+    "Theorem 3's no-independent-set-of-s premise and Hamiltonian-connected conclusion",
+    "an assumed Hamiltonian cycle, connectivity witness, structure, axiom, bodyless declaration, placeholder, unsafe oracle, example, or untrusted verified label"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0853",
+      "name": "Dirac theorem",
+      "relationship": "separate minimum-degree Hamiltonicity criterion; no statement or proof credit is shared"
+    },
+    {
+      "theorem_id": "THM-M-0854",
+      "name": "Ore theorem",
+      "relationship": "separate degree-sum Hamiltonicity criterion; no statement or proof credit is shared"
+    }
+  ],
+  "source_status": "H1_pinpoint_primary_statement_and_proof_located_but_incorporated_vertex_connectivity_definition_corrections_preservation_assumption_mapping_and_independent_review_open",
+  "source_leads": [
+    {
+      "source_id": "SRC-CHVATAL-ERDOS-1972-T1",
+      "citation": "V. Chvatal and P. Erdos, A note on Hamiltonian circuits, Discrete Mathematics 2(2) (1972), 111-113, Theorem 1 on printed page 111",
+      "stable_id": "doi:10.1016/0012-365X(72)90079-9",
+      "observed_scan_url": "https://www.renyi.hu/~p_erdos/1972-02.pdf",
+      "observed_scan_sha256": "a14dc030b3c2c6364aed0e093ced674d03bd2fc3390e660be036e4b5581492a7",
+      "observed_scan_size_bytes": 221449,
+      "observed_scan_pages": 3,
+      "role": "pinpoint primary statement and proof lead",
+      "status": "H1_lead_not_H0_pending_incorporated_definition_correction_preservation_mapping_and_independent_review"
+    },
+    {
+      "source_id": "SRC-ZBMATH-3368669",
+      "citation": "zbMATH Open record 3368669, Zbl 0233.05123",
+      "stable_id": "zbmath:3368669",
+      "role": "independent bibliographic review transcribing Theorems 1-3",
+      "status": "corroborating_review_lead_not_H0_for_the_root"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Hamiltonian",
+      "declarations": ["SimpleGraph.IsHamiltonian", "SimpleGraph.Walk.IsHamiltonianCycle"],
+      "boundary": "Hamiltonicity conclusion substrate only; no connectivity-and-independence implication"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Clique",
+      "declarations": ["SimpleGraph.IsIndepSet", "SimpleGraph.IsNIndepSet", "SimpleGraph.IndepSetFree", "SimpleGraph.indepNum"],
+      "boundary": "independence-bound substrate only; no checked source-root transport or Hamiltonicity theorem"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Subgraph",
+      "declarations": ["SimpleGraph.Subgraph.deleteVerts"],
+      "boundary": "vertex-deletion syntax only; no source-reviewed vertex s-connectivity definition"
+    },
+    {
+      "module": "Mathlib.Combinatorics.SimpleGraph.Connectivity.EdgeConnectivity",
+      "declarations": ["SimpleGraph.IsEdgeConnected"],
+      "boundary": "explicitly edge connectivity and therefore a non-substitute for the source's vertex connectivity"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "1c0c5fc6f43e6ae5ecc3b50589b45c3628e0ead4",
+    "repository_base_tree": "61214aa2a03c032134ddc4958b1df63df3430a85",
+    "repository_record": "Docs/researches/math_theorems.md:6271-6276",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:23333-23358",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "current_stage0_blueprint_blob": "91d7f64fee2f80b00540b105bd6716eb1fdc470f",
+    "repository_record_excerpt_sha256": "8ae379c1f8e01c9888333c6a218af4b1599811f7b26769730b57307494fdd638",
+    "stage0_projection_excerpt_sha256": "9ccdfd7c65686d8daffd7a4b4afc53aface2fd11db9753b4bf9458025779c510",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1ee37014b14d18de2edf7762729cb4afb2e27c2fd7a9919541e2bca0cbccbd9",
+    "execution_dag_sha256": "ad73d0383ddb3c54f01ff916bc9a74fcd58de6cc98ee60b10962991401c16f44",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_hamiltonian_source_sha256": "b23a09b50f86efeefbb04753c332fdecc4f55b6f0d689e4224b4c12512817e6a",
+    "mathlib_clique_source_sha256": "18cce0904728a2c5db839682aebe39f1f0ebb9213971ef9b09c93ba1a17e9cf2",
+    "mathlib_subgraph_source_sha256": "64d84d818d1ec275dfa5b342b9e608e01bddfc6050a9f3a9f50df9d003ae1acc",
+    "mathlib_connected_source_sha256": "9171842c49be5f8951c6a2d5c39ae374279d46eaa317efd69bdf3039d289eeff",
+    "mathlib_edge_connectivity_source_sha256": "7b4d638ae2e98b8131a3d4eccc53f3e52afab999d39895c5d21bd23b49db06b2",
+    "primary_scan_sha256": "a14dc030b3c2c6364aed0e093ced674d03bd2fc3390e660be036e4b5581492a7",
+    "primary_scan_size_bytes": 221449,
+    "primary_scan_pages": 3
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {"H": "H1", "M": "M4", "R": "R4"},
+  "debt_classification": {
+    "human": "source_reconstruction_debt: pinpoint primary statement and proof are known, but incorporated definitions, corrections, preservation, assumption mapping, and independent review remain open",
+    "machine": "full formalization debt: only adjacent encoding APIs were located; no source-identical target or proof artifact is credited",
+    "readability": "full reconstruction debt: the proof sketch is discovery context, not a reviewed node-anchored reconstruction"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "lean4-foundation-planned/1.0: Lean dependent type theory is intended; classical finite-set and graph choices, source-definition transports, and exact root foundation closure remain downstream",
+  "tcb_profile": "lean4-mathlib-tcb-planned/1.0: Lean kernel 4.29.0 plus manifest-pinned mathlib; the discovery probe checks existing APIs while exact imports, terminal bodies, transitive dependencies, axioms, and accepted trust closure remain open",
+  "computation_profile": "api-elaboration-only/1.0: no native shortcut, oracle, external solver, exhaustive finite search, experiment, or unchecked certificate is credited",
+  "formal_system": "Lean 4 + pinned mathlib under machine-theorem-assurance/1.0",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "authoritative_target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+  "authoritative_execution_dag": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+  "open_task_dag": "Stage1_Instances/THM-M-0855/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0855/README.md",
+    "Stage1_Instances/THM-M-0855/instance.json",
+    "Stage1_Instances/THM-M-0855/scope-map.md",
+    "Stage1_Instances/THM-M-0855/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0855/task-dag.json",
+    "Stage1_Instances/THM-M-0855/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0855/check_intake.py",
+    "Stage1_Instances/THM-M-0855/validation.md",
+    "Stage1_Instances/THM-M-0855/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent graph-theory source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "scope_reviewer": "unassigned Hamiltonicity and connectivity reviewer",
+    "reviewer_policy": "Independent reviewers must approve Theorem 1 identity, the incorporated s-connectivity definition and parameter domain, graph and boundary conventions, correction history, assumption mapping, and Lean transport; the integration lane separately decides master acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or dependent statement execution",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the observed external scan must be reacquired and rehashed for admitted source evidence.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, paper or incorporated-definition revision, theorem boundary, graph model, parameter domain, connectivity, independence, Hamiltonicity, quantifier, transport, or boundary decision; Lean target, toolchain or dependency pin; assurance profile, validator, reviewer decision, receipt, or any owned artifact change.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake pending master acceptance. The source-selected human scope, proposition-changing definition boundary, adjacent Lean APIs, profiles, ownership, and six-node open DAG are recorded. There is no canonical Lean expression or fingerprint, checked source-definition transport, credited proof body, accepted receipt, H0, M0, R0, audit completion, theorem completion, or release."
+}
