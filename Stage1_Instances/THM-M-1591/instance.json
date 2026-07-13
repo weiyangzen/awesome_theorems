@@ -1,0 +1,246 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-1591",
+  "item_id": "S56-M-1591-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1212,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "BCH码",
+  "name_en": "BCH codes",
+  "canonical_name": "BCH code theorem family",
+  "category": "其他重要领域 / 离散数学",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "BCH码",
+  "literal_source_claim_zh": "能纠正多个错误的码",
+  "literal_source_claim_en": "Codes capable of correcting multiple errors.",
+  "source_attribution": "Bose/Chaudhuri/Hocquenghem, 1959 (catalog metadata only; a parallel catalog row says 1959-60)",
+  "source_status_untrusted": "已验证",
+  "canonical_statement": null,
+  "canonical_claim_status": "catalog_identifies_the_BCH_code_family_but_not_one_binder_complete_error_correction_proposition",
+  "canonical_claim": null,
+  "statement_blocker": "The repository does not select a BCH construction/existence theorem, the BCH designed-distance bound, an actual minimum-distance result, a dimension/redundancy bound, or a decoder-correctness theorem. It fixes no alphabet or finite field, extension field, block length, primitive and narrow-sense conventions, root interval, designed distance or correction radius, generator/check polynomial, code or decoder representation, ordered binders, exact conclusion, or degenerate cases. Selecting a familiar formulation would substitute proposition-changing mathematics.",
+  "target_decision": "retain the classical BCH theorem-family identity at H1 and require an independently reviewed immutable source proposition before exact statement execution",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.InformationTheory.Hamming",
+      "Mathlib.FieldTheory.Finite.Basic",
+      "Mathlib.RingTheory.Polynomial.Cyclotomic.Roots"
+    ],
+    "declaration_or_expression": null,
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "blocked_catalog_theorem_variant_and_exact_statement_not_selected",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the base finite field or binary specialization, extension field and embedding, word index type and length, cyclic/linear code model, polynomial/root convention, decoder model if any, and all universe and typeclass data.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Open: the repository does not say whether to prove construction/existence, the BCH designed-distance lower bound, correction capability derived from distance, a dimension bound, or decoding correctness.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded at intake because no proposition is selected; the statement phase must resolve every field, length, root, distance, correction-radius, dimension, cyclicity, decoding, and endpoint case listed in scope-map.md.",
+  "candidate_scope_not_credited": [
+    "a general q-ary BCH cyclic code defined by consecutive roots in a finite extension field",
+    "the BCH bound that consecutive roots imply minimum Hamming distance at least a designed distance delta",
+    "a correction consequence for up to floor((delta - 1) / 2) errors under a specified decoding notion",
+    "a primitive narrow-sense BCH specialization of length q^m - 1 with first root exponent one",
+    "a binary primitive t-error-correcting BCH construction with length 2^m - 1 and designed distance 2t + 1",
+    "a dimension or redundancy estimate for a BCH code",
+    "an algebraic decoding algorithm and its correctness theorem"
+  ],
+  "degenerate_cases_to_resolve": [
+    "field cardinality zero or one versus the finite-field prime-power constraint",
+    "extension degree zero, length zero or one, and length not equal to or not dividing q^m - 1",
+    "designed distance zero, one, two, larger than the length, and correction radius zero",
+    "primitive versus nonprimitive and narrow-sense versus non-narrow-sense codes",
+    "root intervals that wrap modulo the multiplicative order, contain duplicates, or meet characteristic-sensitive cases",
+    "zero or unit generator polynomial, the zero/full code, empty root set, and dimension zero or full length",
+    "actual versus designed minimum distance, unique versus bounded-distance decoding, received-word ties, and more errors than the stated radius"
+  ],
+  "excluded_substitutions": [
+    "a definition of a BCH, cyclic, or linear code presented as the requested error-correction theorem",
+    "the generic fact that minimum distance at least 2t + 1 permits t-error correction used without a BCH construction and checked bridge",
+    "a primitive binary special case presented as a general q-ary or nonprimitive theorem",
+    "a designed-distance assertion presented as equality with actual minimum distance",
+    "a dimension bound, cyclicity fact, polynomial-root identity, or decoder example presented as the catalog root",
+    "a hand-picked finite code, exhaustive test, simulation, or numerical decoder run presented as a universal theorem",
+    "the Stage0-only THM-C-0382 record or neighboring code targets used as accepted evidence or to broaden this target",
+    "generic Hamming, finite-field, or cyclotomic APIs presented as a BCH theorem",
+    "the untrusted catalog label 已验证 used as source or kernel evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-C-0382",
+      "name": "BCH码",
+      "relationship": "parallel computer-science Stage0 record with the broader gloss cyclic error-correcting code; outside rev-5.6 Stage1 and grants no scope or evidence"
+    },
+    {
+      "theorem_id": "THM-M-1589",
+      "name": "线性码",
+      "relationship": "broader linear-code topic; linearity alone neither selects nor proves a BCH result"
+    },
+    {
+      "theorem_id": "THM-M-1590",
+      "name": "循环码",
+      "relationship": "broader cyclic-code topic; cyclicity is an ingredient rather than the BCH distance or decoding conclusion"
+    },
+    {
+      "theorem_id": "THM-M-1592",
+      "name": "Reed-Solomon码",
+      "relationship": "neighboring algebraic code family with different evaluation and MDS claims; no proof credit is shared"
+    }
+  ],
+  "source_status": "H1_inspected_1959_primary_report_with_proved_candidate_results_but_catalog_root_Hocquenghem_mapping_exact_assumptions_errata_and_independent_review_open",
+  "bibliographic_discovery_candidates_not_credited": [
+    {
+      "citation": "R. C. Bose and D. K. Ray-Chaudhuri, On a Class of Error Correcting Binary Group Codes, University of North Carolina Institute of Statistics Mimeograph Series No. 240, September 1959",
+      "source_url": "http://www.lib.ncsu.edu/resolver/1840.4/2137",
+      "repository_item_uuid": "e51ec8ca-6490-4cf2-89be-d4784707e58e",
+      "observed_pdf_sha256": "b3beca1aa6fb6f5d47ab94eded5d0119a794b6761de866964a80aece8a3980d8",
+      "observed_pdf_size_bytes": 556750,
+      "observed_pdf_pages": 15,
+      "candidate_locator": "Lemma 1 at printed page 3; Theorem 1 at printed page 6; Lemma 2 at printed pages 9-10; Theorem 3 at printed page 11",
+      "candidate_summary": "Lemma 1 characterizes t-error correction by nonzero word weight at least 2t+1; Theorem 1 gives a binary rank-matrix criterion equivalent to a parity-check-matrix formulation after transport; Theorem 3 constructs a t-error-correcting binary (n,k) group code for n=2^m-1 with k=2^m-1-R(m,t) at least 2^m-1-mt.",
+      "status": "primary report scan inspected for source-family and candidate-root discrimination; catalog root selection, exact assumption and endpoint transcription, Hocquenghem relationship, correction/errata audit, lawful preservation decision, complete node mapping, and independent H0 review remain open"
+    },
+    {
+      "citation": "R. C. Bose and D. K. Ray-Chaudhuri, On a class of error correcting binary group codes, Information and Control 3(1), March 1960, 68-79",
+      "doi": "10.1016/S0019-9958(60)90287-4",
+      "candidate_locator": "journal article metadata and pages 68-79; relationship to the inspected 1959 mimeograph and any editorial changes remain to be audited",
+      "candidate_summary": "authenticated journal publication lead for the Bose-Ray-Chaudhuri binary multiple-error-correcting code family",
+      "status": "Crossref metadata inspected; journal text, differences from the 1959 report, corrections, and independent review are not credited"
+    },
+    {
+      "citation": "R. C. Bose and D. K. Ray-Chaudhuri, Further results on error correcting binary group codes, Information and Control 3(3), September 1960, 279-290",
+      "doi": "10.1016/S0019-9958(60)90870-6",
+      "candidate_locator": "journal article metadata and pages 279-290; exact theorem/page and proof clauses not inspected",
+      "candidate_summary": "authenticated follow-up primary bibliographic lead within the Bose-Ray-Chaudhuri code family",
+      "status": "bibliographic lead only; no statement selection or human-proof credit"
+    },
+    {
+      "citation": "A. Hocquenghem, Codes correcteurs d'erreurs, Chiffres 2 (1959), commonly cited at pages 147-156",
+      "candidate_locator": "catalog attribution plus common secondary bibliographic metadata; primary text not authenticated in this intake",
+      "candidate_summary": "historical lead for the independently introduced BCH family",
+      "status": "unverified bibliographic discovery lead only; exact edition, pages, statement, proof, corrections, translation, and relationship to the Bose-Ray-Chaudhuri formulation remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.InformationTheory.Hamming",
+      "declarations": [
+        "hammingDist",
+        "hammingNorm",
+        "hammingDist_triangle",
+        "hammingDist_le_card_fintype"
+      ],
+      "boundary": "generic Hamming metric and weight substrate only; no code object, BCH construction, designed-distance bound, or decoder"
+    },
+    {
+      "module": "Mathlib.FieldTheory.Finite.Basic",
+      "declarations": [
+        "FiniteField.card",
+        "FiniteField.pow_card"
+      ],
+      "boundary": "finite-field cardinality and Frobenius substrate only; no BCH root interval, code, or error-correction theorem"
+    },
+    {
+      "module": "Mathlib.RingTheory.Polynomial.Cyclotomic.Roots",
+      "declarations": [
+        "Polynomial.IsRoot",
+        "IsPrimitiveRoot",
+        "IsPrimitiveRoot.isRoot_cyclotomic"
+      ],
+      "boundary": "polynomial and root-of-unity substrate only; cyclotomic-polynomial roots are not a BCH generator or distance theorem"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_math_record": "Docs/researches/math_theorems.md:11721-11726",
+    "repository_cs_record": "Docs/researches/cs_theorems.md:627-631",
+    "stage0_math_projection": "Docs/Stage0_Blueprint.md:43255-43280",
+    "stage0_duplicate_projection": "Docs/Stage0_Blueprint.md:92467-92494",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_math_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "repository_cs_source_record_blob": "0a87065663fa7966305127495f50a61c22e57066",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "repository_cs_source_sha256": "32cc0824d326427cc66457b8eaed333a20b82df3269e019d52caa9fb1fccbc1e",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_hamming_source_sha256": "2552acbec60f1a370482bbdadee849049aa2c7c32452cbcf84d1dbca39e8ccf8",
+    "mathlib_finite_field_source_sha256": "808bb4eddb8a4b48785e4430f944fe0827c96842dffa0c08cd21b5659bd85d44",
+    "mathlib_cyclotomic_roots_source_sha256": "bc051df6353916d5a6ff59c1a9691b1e1aabb4963694f973dbc40f477796b2d9"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; finite-field construction, classical choice, polynomial factorization and root selection, finite minima, and decoder existence policies remain open because no exact proposition is selected",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, terminal declarations, axioms, transitive dependency closure, and trust policy remain open",
+  "computation_profile": "No brute-force code search, random test, numerical decoder simulation, native oracle, generated unchecked certificate, or empirical error rate is credited; a selected theorem requires kernel-checked algebra and decoding logic",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-1591/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-1591/README.md",
+    "Stage1_Instances/THM-M-1591/instance.json",
+    "Stage1_Instances/THM-M-1591/scope-map.md",
+    "Stage1_Instances/THM-M-1591/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-1591/task-dag.json",
+    "Stage1_Instances/THM-M-1591/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-1591/check_intake.py",
+    "Stage1_Instances/THM-M-1591/validation.md",
+    "Stage1_Instances/THM-M-1591/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent coding-theory reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "duplicate_scope_reviewer": "unassigned integration reviewer"
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; the NCSU stable resolver can recover the inspected report lead, but this unaccepted worker dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on source or target correction, THM-C-0382 reconciliation, selected construction/distance/dimension/decoder theorem, source edition or erratum, field, extension, length, primitive/narrow-sense, root, generator, distance, correction-radius, code or decoding convention, Lean target, toolchain or dependency pin, assurance profile, validator, or any owned artifact change; independent reviewers and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog BCH family, authenticated primary bibliographic leads, proposition-changing choices, duplicate and neighbor boundaries, adjacent pinned APIs, and six-node open task DAG. No canonical proposition, accepted source crosswalk, exact Lean statement, proof body, H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is claimed."
+}

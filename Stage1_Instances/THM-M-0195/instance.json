@@ -1,0 +1,228 @@
+{
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "theorem_id": "THM-M-0195",
+  "item_id": "S56-M-0195-INTAKE",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "intent": "intake",
+  "baseline": "L0",
+  "rework_required": true,
+  "execution_rank": 1224,
+  "legacy_priority_slot": null,
+  "legacy_artifacts_accepted": false,
+  "intake_score": 86,
+  "name_zh": "欧拉线定理",
+  "name_en": "Euler line theorem",
+  "canonical_name": "Euler line theorem for a Euclidean triangle (exact source formulation open)",
+  "category": "几何学 / 欧几里得几何",
+  "category_en": "Geometry / Euclidean Geometry",
+  "target_lane": "hard_statement_first_partial_verification",
+  "target_system": "Lean 4 + pinned mathlib",
+  "literal_source_title_zh": "欧拉线定理",
+  "literal_source_claim_zh": "三角形垂心、重心、外心共线",
+  "literal_source_claim_en": "The orthocenter, centroid, and circumcenter of a triangle are collinear.",
+  "source_attribution": "Leonhard Euler, 1767 (catalog metadata only; no work, edition, or passage is cited)",
+  "source_status_untrusted": "已验证",
+  "source_status": "H1_matching_euler_E325_primary_work_and_relevant_center_ratio_passages_identified_but_exact_latin_statement_assumption_proof_translation_errata_admission_and_independent_review_mapping_open",
+  "canonical_statement": null,
+  "canonical_claim_status": "recognizable_classical_euler_line_family_and_strong_pinned_formal_interface_but_exact_source_statement_center_definitions_scope_and_transport_open",
+  "canonical_claim": null,
+  "statement_blocker": "The catalog does not cite an exact source or fix the ambient dimension, ordered and nondegenerate triangle representation, definitions of orthocenter, centroid, and circumcenter, rank versus affine-span collinearity encoding, whether the Euler order and ratio are included, or the equilateral and degenerate boundaries. Selecting the familiar affine-simplex collinearity proposition or the stronger pinned position formula now would make proposition-changing choices without a reviewed source transport.",
+  "target_decision": "retain the classical bare-collinearity family and require immutable source admission plus independent source-to-Lean review before freezing one exact target",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": null,
+    "module_candidates": [
+      "Mathlib.Geometry.Euclidean.MongePoint"
+    ],
+    "declaration_or_expression": null,
+    "candidate_expression": "{V P : Type*} [NormedAddCommGroup V] [InnerProductSpace Real V] [MetricSpace P] [NormedAddTorsor V P] (t : Affine.Triangle Real P) -> Collinear Real ({t.orthocenter, t.centroid, t.circumcenter} : Set P)",
+    "candidate_declarations": [
+      "Affine.Triangle",
+      "Affine.Simplex.centroid",
+      "Affine.Simplex.circumcenter",
+      "Affine.Triangle.orthocenter",
+      "Affine.Triangle.orthocenter_eq_mongePoint",
+      "Affine.Triangle.orthocenter_mem_altitude",
+      "Affine.Triangle.orthocenter_eq_smul_vsub_vadd_circumcenter",
+      "Collinear",
+      "collinear_insert_of_mem_affineSpan_pair",
+      "smul_vsub_vadd_mem_affineSpan_pair"
+    ],
+    "elaborated_expression_hash": null,
+    "environment_fingerprint": null,
+    "gate_state": "open_pending_immutable_primary_statement_center_definition_and_bare_collinearity_versus_ratio_transport_review",
+    "probe_environment_fingerprint": "lean-4.29.0-98dc76e3_mathlib-8a178386ffc0_intake-api-probe-only"
+  },
+  "domain_and_universes": "Open: an accepted source must fix the Euclidean plane or affine inner-product carrier, point and vector universes, scalar field, dimension, ordered or unordered triangle representation, nondegeneracy predicate, and every typeclass context.",
+  "quantifiers": [],
+  "ordered_binders": [],
+  "hypotheses": [],
+  "conclusion": "Prospective family only: the source-defined orthocenter, centroid, and circumcenter are collinear; whether order, a unique Euler line, and the ratio OG:GH = 1:2 are included remains open.",
+  "alternate_encodings": [],
+  "excluded_degenerate_cases": [],
+  "degenerate_case_status": "No case is excluded before a proposition is selected; statement work must resolve repeated and collinear vertices, the equilateral coincidence H = G = O, right/obtuse/acute triangles, ambient dimension, and whether the conclusion asserts a unique line or only rank-based set collinearity.",
+  "candidate_scope_not_credited": [
+    "bare set collinearity of the orthocenter, centroid, and circumcenter of an affinely independent triangle",
+    "orthocenter membership in the affine span of the centroid and circumcenter",
+    "the position equation H = O + 3 (G - O)",
+    "the ordered Euler-line ratio OG:GH = 1:2",
+    "a coordinate-plane slope or determinant formulation",
+    "the generalized circumcenter-centroid-Monge-point Euler line for an n-simplex"
+  ],
+  "degenerate_cases_to_resolve": [
+    "three repeated or collinear vertices and whether the triangle or its centers are defined",
+    "equilateral triangles with coincident orthocenter, centroid, and circumcenter and no unique line",
+    "right triangles with the orthocenter at a vertex",
+    "obtuse triangles with an exterior orthocenter",
+    "triangles embedded in an ambient Euclidean space of dimension greater than two",
+    "ordered-vertex reindexing and equivalence to an unordered triangle representation"
+  ],
+  "excluded_substitutions": [
+    "the n-simplex Monge-point Euler-line theorem substituted for the triangle theorem",
+    "the stronger ratio or position equation silently substituted for the catalog's bare collinearity gloss",
+    "the nine-point circle, Feuerbach, Sylvester, altitude-concurrence, or affine-span-membership theorem used as the root",
+    "a coordinate special case used as an unrestricted affine theorem or conversely",
+    "a structure field or premise which assumes the desired collinearity or position equation",
+    "the untrusted label 已验证, a theorem name, module documentation, URL, #check output, or axiom report used as source or proof evidence"
+  ],
+  "neighbor_target_boundaries": [
+    {
+      "theorem_id": "THM-M-0194",
+      "name": "泰勒斯定理",
+      "relationship": "a distinct circle-angle theorem; it supplies no Euler-line root or proof credit"
+    },
+    {
+      "theorem_id": "THM-M-0196",
+      "name": "九点圆定理",
+      "relationship": "a related triangle-center theorem downstream of orthocenter geometry, but not interchangeable with center collinearity"
+    },
+    {
+      "theorem_id": "THM-M-0197",
+      "name": "费马点定理",
+      "relationship": "a distinct triangle-center optimization theorem with different definitions and case split"
+    }
+  ],
+  "source_candidates_not_credited_as_H0": [
+    {
+      "citation": "Leonhard Euler, Solutio facilis problematum quorundam geometricorum difficillimorum, Novi Commentarii academiae scientiarum Petropolitanae 11 (1767), 103-123, Enestrom E325",
+      "candidate_locator": "University of the Pacific Euler Archive record https://scholarlycommons.pacific.edu/euler-works/325/; written 1763, published 1767; opening center definitions and later center-distance relations inspected in the primary scan",
+      "candidate_summary": "Matching primary historical work studies the orthocenter, center of gravity, incenter, and circumcenter and supports a stronger order/ratio form for the relevant three centers.",
+      "observed_archive_html_sha256": "365eafbc7a489c2c840659cd10dee0b6779e8c81812838feb89a656e09e8147e",
+      "observed_archive_pdf_sha256": null,
+      "status": "strong primary-source lead only; remote observations are not admitted immutable repository evidence, and complete Latin transcription, exact statement/proof/assumption mapping, modern notation and ratio translation, corrections or errata, and independent review remain open"
+    }
+  ],
+  "formal_candidates_not_credited": [
+    {
+      "module": "Mathlib.Geometry.Euclidean.MongePoint",
+      "declaration": "Affine.Triangle.orthocenter_eq_smul_vsub_vadd_circumcenter",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "for an affinely independent triangle in a real Euclidean affine space, H = 3 • (G - O) + O",
+      "status": "pinned stronger exact-topic interface elaborates; source identity, canonical target serialization, bare-collinearity transport, terminal-body provenance, and accepted trust receipt remain downstream"
+    },
+    {
+      "module": "Mathlib.Geometry.Euclidean.MongePoint",
+      "declaration": "Affine.Triangle.orthocenter_mem_altitude",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "the candidate orthocenter lies in every altitude of the affinely independent triangle",
+      "status": "supports the intended center semantics but is not Euler-line collinearity and receives no root credit"
+    },
+    {
+      "module": "Mathlib.LinearAlgebra.AffineSpace.FiniteDimensional",
+      "declaration": "Collinear",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "candidate_type_summary": "a point set is collinear when the rank of its vector span is at most one",
+      "status": "plausible conclusion encoding only; source relationship and alternate-form transports remain open"
+    }
+  ],
+  "source_revisions": {
+    "repository_base": "62fad55ced807fdc06921c45d6fcd1f9ad86a1c2",
+    "repository_base_tree": "9d7c8fe49a4c859d90f3069dc47973ffc5ced768",
+    "repository_record": "Docs/researches/math_theorems.md:1408-1413",
+    "stage0_projection": "Docs/Stage0_Blueprint.md:5428-5453",
+    "repository_source_record_commit": "bcf3f9fa79ab8c2b6610c9875668c2589b35b74f",
+    "repository_source_record_blob": "5c1de0c2bda67f7257142dd99b0dd91d69e0a3bf",
+    "current_repository_math_source_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "repository_record_excerpt_sha256": "5470fe3b343b3ba7076de91af9c790e5221d992208834af2805ec16bbeac3ce2",
+    "stage0_projection_excerpt_sha256": "2ce77e71ddb826b54de8789437fa4f6043cb6d01c0296b5a4774af7b725728f7",
+    "neighbor_catalog_excerpt_sha256": "e1cb207e9b9b1e095d027373a8d67130a629b834d8e9324858a3d552cb63e0ff",
+    "manifest_entry_sha256": "6a2220568500c19f6d84c9d5716ec4778ce2ec937aaaf2977ca14e8081c85fb0",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "authoritative_blueprint_sha256": "f1c9b4df95f5a7a0e906979550df528cff599828cc9576f4afabb20386d1825f",
+    "execution_dag_sha256": "f5c1dfb5eaed3928a62e529b6acdef23453d8ceac2e1f897f79d67b0a866e049",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain": "leanprover/lean4:v4.29.0 (98dc76e3c0a9b856c9b98726b713fb04fab16740)",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_mongepoint_source_blob": "ae69754ebc7e8c6957ea1da8f5db20b55d0b1044",
+    "mathlib_mongepoint_source_sha256": "e319a267949c6ec11cdf39f3b9ceb67a186c07d596e94de41dc6a83301211aaf",
+    "mathlib_collinear_source_blob": "b118fc3ce80573caba8ee2a5ec9b4b65df599d72",
+    "mathlib_collinear_source_sha256": "f577cd987a9d868db883917072f826a50cb6218174e9a1b9e7b863d681a925fa",
+    "mathlib_simplex_source_blob": "33f0aa15954352c74cac8434c08c9a78f33789cc",
+    "mathlib_simplex_source_sha256": "ae1f875bd98114e03aff5f07dc3050ca54267a7b6c20b919243831ad04129414",
+    "observed_euler_archive_html_sha256": "365eafbc7a489c2c840659cd10dee0b6779e8c81812838feb89a656e09e8147e",
+    "observed_euler_archive_pdf_sha256": null,
+    "observed_euler_archive_pdf_boundary": "primary scan visually inspected, but unstable partial HTTP responses prevented a reproducible complete-file digest; no PDF hash is admitted"
+  },
+  "obligation_registry_hash": null,
+  "discovery_protocol_hash": null,
+  "root_vector_status": "provisional_intake_classification_pending_master_acceptance",
+  "root_vector_boundary": "H1 records a matching primary work and relevant historical passages without immutable admission, a complete Latin-to-modern statement and proof crosswalk, correction audit, or independent review. M3 records usable pinned definitions and a stronger exact-topic statement interface without a frozen canonical target, checked transport, provenance audit, or proof credit. R4 records the absence of a source-faithful proof reconstruction.",
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "foundation_profile": "Lean 4 dependent type theory is intended; candidate axiom reports include propext, Classical.choice, and Quot.sound, while exact foundation acceptance remains open until a source-identical target and trust policy are frozen",
+  "tcb_profile": "Lean kernel 4.29.0 and pinned mathlib are the intended base; exact minimal imports, expression identity, checked source transport, terminal proof body, transitive dependencies, and accepted trust closure remain open",
+  "computation_profile": "No coordinate approximation, diagram measurement, floating-point collinearity test, native oracle, generated certificate, or unchecked computation is credited; the expected target is a kernel-checked Euclidean-geometry proposition",
+  "formal_system": "Lean 4 + pinned mathlib under the rev-5.6 adapter",
+  "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "open_task_dag": "Stage1_Instances/THM-M-0195/task-dag.json",
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0195/README.md",
+    "Stage1_Instances/THM-M-0195/instance.json",
+    "Stage1_Instances/THM-M-0195/scope-map.md",
+    "Stage1_Instances/THM-M-0195/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0195/task-dag.json",
+    "Stage1_Instances/THM-M-0195/IntakeProbe.lean",
+    "Stage1_Instances/THM-M-0195/check_intake.py",
+    "Stage1_Instances/THM-M-0195/validation.md",
+    "Stage1_Instances/THM-M-0195/intake-receipt.json"
+  ],
+  "owners_and_reviewers": {
+    "owner": "Stage1 integration lane",
+    "source_reviewer": "unassigned independent Euclidean-geometry source reviewer",
+    "formal_reviewer": "unassigned independent Lean reviewer",
+    "reviewer_policy": "Independent reviewers must approve the source edition and corrections, historical attribution, triangle and center definitions, ambient and nondegeneracy scope, exact conclusion and ratio/order boundary, degenerate cases, and source-to-Lean mapping; the integration lane separately decides node acceptance."
+  },
+  "support_window": "provisional intake only; expires on any invalidation input and cannot support theorem release",
+  "review_due": "before master acceptance or any dependent statement work",
+  "revocation_and_incident_procedure": "The integration lane rejects or supersedes the provisional receipt, records the reason, and requires a fresh scoped intake and self-test against current immutable inputs.",
+  "archive_and_recovery_boundary": "Repository Git history plus the integration lane's durable worker snapshot are the intended recovery mechanism after acceptance; this unaccepted dossier has no independent archive or release-recovery claim.",
+  "freshness_and_revocation_policy": "Invalidate on catalog or source correction, source edition or erratum, historical attribution, triangle representation, ambient dimension, nondegeneracy, center definitions, collinearity encoding, ratio/order selection, degenerate-case decision, canonical target or checked transport, toolchain or dependency pin, assurance profile, validator, recipe, or any owned artifact change; independent reviews and master acceptance remain open.",
+  "owned_artifacts": [
+    "README.md",
+    "instance.json",
+    "scope-map.md",
+    "source-statement-crosswalk.md",
+    "task-dag.json",
+    "IntakeProbe.lean",
+    "check_intake.py",
+    "validation.md",
+    "intake-receipt.json"
+  ],
+  "status_boundary": "Self-tested planned intake only. It freezes the catalog gloss, classical-family boundary, proposition-changing scope decisions, pinned formal interfaces, exclusions, and six-task open DAG. The stronger mathlib position theorem is candidate evidence only. No canonical statement, source transport, H0, M0, R0, accepted execution state, audit completion, theorem completion, accepted receipt, or master acceptance is claimed."
+}
