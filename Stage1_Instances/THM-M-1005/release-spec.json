@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "recipe_id": "S56-M-1005-RELEASE-negative-v1",
+  "item_id": "S56-M-1005-RELEASE",
+  "theorem_id": "THM-M-1005",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1005/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes check_validation.sh, whose Lean subprocesses run through bubblewrap with an unshared network namespace, a read-only host root, a fresh writable module directory, fixed locale/timezone/umask, and the pinned Lean executable. Host-side authority, hash, pin, and state reconciliation makes no network request. The shared canonical dependency cache is reused warm and read-only, so this is not section 10.6 release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1005-ROOT",
+    "M1005-S-DEFINITIONS",
+    "M1005-S-BOUNDARIES",
+    "M1005-S-FOUNDATION",
+    "M1005-N-ABS-SUBMARTINGALE",
+    "M1005-C-MAXIMUM",
+    "M1005-L-WEAK-MAXIMAL",
+    "M1005-L-LAYER-CAKE",
+    "M1005-L-HOLDER",
+    "M1005-L-CONSTANT",
+    "M1005-T-STRONG-ESTIMATE",
+    "M1005-T-ROOT-TRANSPORT",
+    "M1005-X-WEAK-PROVENANCE",
+    "M1005-X-SOURCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1005.Statement",
+    "Stage1Instances.THM_M_1005.ObligationTree.root_of_strongDoobTerminal",
+    "MeasureTheory.maximal_ineq_Lp",
+    "Stage1Instances.THM_M_1005.Proof.absSubmartingale",
+    "Stage1Instances.THM_M_1005.Proof.measurable_runningAbsMax",
+    "Stage1Instances.THM_M_1005.Proof.weakMaximal_abs",
+    "Stage1Instances.THM_M_1005.Proof.doobLpMomentEstimate",
+    "Stage1Instances.THM_M_1005.Proof.doobLpMomentEstimate_via_frozen_composition",
+    "Stage1Instances.THM_M_1005.Validation.independentlyReconstructedDoobLpMomentEstimate"
+  ],
+  "scope_boundary": "Fail-closed release reconciliation plus a fresh same-worker, network-isolated, warm-cache Lean replay of the exact proof/composition root and differential transport. The covered obligation IDs are reconciled, not accepted or closed by this negative recipe. It does not provide dependency-ordered master acceptance, accepted H0/R0, complete foundation/provenance/TCB/SBOM closure, an immutable clean empty-cache offline build, distinct signed independent runners, an independently implemented minimal verifier, protected release CI, or a deterministic content-addressed release bundle."
+}

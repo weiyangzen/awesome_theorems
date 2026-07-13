@@ -11,8 +11,16 @@ umask 022
 
 cp "$target"/{Statement,ObligationTree,DoobLp,Proof,Validation}.lean "$tmp/"
 
-lean_bin="$(cd "$lean_root" && lake env which lean)"
-lean_path="$(cd "$lean_root" && lake env printenv LEAN_PATH)"
+lean_bin="$HOME/.elan/toolchains/leanprover--lean4---v4.29.0/bin/lean"
+lean_cache="$(realpath "$lean_cache")"
+lean_path="$lean_cache/build/lib/lean:$lean_cache/packages/mathlib/.lake/build/lib/lean"
+lean_path+=":$lean_cache/packages/batteries/.lake/build/lib/lean"
+lean_path+=":$lean_cache/packages/Qq/.lake/build/lib/lean"
+lean_path+=":$lean_cache/packages/aesop/.lake/build/lib/lean"
+lean_path+=":$lean_cache/packages/proofwidgets/.lake/build/lib/lean"
+lean_path+=":$lean_cache/packages/importGraph/.lake/build/lib/lean"
+lean_path+=":$lean_cache/packages/LeanSearchClient/.lake/build/lib/lean"
+lean_path+=":$lean_cache/packages/plausible/.lake/build/lib/lean"
 test -x "$lean_bin"
 test -f "$lean_cache/packages/mathlib/.lake/build/lib/lean/Mathlib/Probability/Martingale/OptionalStopping.olean"
 

@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1143-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1143-RELEASE",
+  "theorem_id": "THM-M-1143",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1143/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every nested Lean process runs under bubblewrap with --unshare-net, a read-only host root, a cleared environment, and one fresh temporary directory as its only writable bind. The outer Python reconciler performs no network operation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "The exact five UTF-8 release summary lines are checked by check_release.py and bound by release-receipt.json."
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1143-ROOT",
+    "M1143-S-STATEMENT",
+    "M1143-S-FOUNDATION",
+    "M1143-N-BOUND",
+    "M1143-L-GRADIENT",
+    "M1143-L-LIMIT",
+    "M1143-T-VANISH",
+    "M1143-L-CONSTANT",
+    "M1143-T-ASSEMBLE",
+    "M1143-X-PLANE",
+    "M1143-X-SOURCE",
+    "M1143-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1143.BoundedHarmonicIsConstant",
+    "Stage1Instances.THM_M_1143.exists_uniform_abs_bound",
+    "Stage1Instances.THM_M_1143.exists_nonnegative_uniform_abs_bound",
+    "Stage1Instances.THM_M_1143.continuousLinearMap_eq_zero_of_norm_le_div",
+    "Stage1Instances.THM_M_1143.vanishingDerivativePackage_of_interiorGradientEstimate",
+    "Stage1Instances.THM_M_1143.zeroDerivativeConstantPackage",
+    "Stage1Instances.THM_M_1143.root_of_vanishingDerivativePackage",
+    "Stage1Instances.THM_M_1143.root_of_interiorGradientEstimate",
+    "Stage1Instances.THM_M_1143.Validation.uniformAbsBoundDirect",
+    "Stage1Instances.THM_M_1143.Validation.continuousLinearMapEqZeroDirect"
+  ],
+  "coverage_boundary": "This narrow self-test authenticates authority and evidence inputs, reruns the four local modules at trust zero with networking denied, and checks the negative AUDIT-Z/THEOREM-Z decision. It is warm-cache same-worker evidence, not clean cold release evidence or independent verification."
+}

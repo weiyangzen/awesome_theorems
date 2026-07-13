@@ -24,3 +24,11 @@ Apache-2.0 attribution. `Proof.lean` applies that theorem to `|f|`, transports `
 the exact finite `ENNReal` exponent, and checks the result through the frozen root composer. This
 is provisional worker evidence only: master acceptance, validation, release, source/readability
 review, and theorem completion remain downstream.
+
+The release phase now records a self-tested negative reconciliation in `release-decision.json` and
+`release-receipt.json`. Fresh network-isolated warm-cache replay corroborates the exact root, but the
+validation dependency is unaccepted and its receipt is stale after a runner-input change,
+authoritative `M4/M3` state conflicts, `AUDIT-Z` is open, and the cold/offline, trust, source,
+readability, independent-verifier, and deterministic-bundle gates are missing. The exact verdict is
+therefore `blocked`; lifecycle remains `planned`, the accepted vector remains `[H2, M4, R4]`, and
+`theorem_complete=false`.

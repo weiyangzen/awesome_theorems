@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1520-VALIDATION-local-v1",
+  "item_id": "S56-M-1520-VALIDATION",
+  "theorem_id": "THM-M-1520",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1520/check_validation.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "must report trust-zero replay and direct provenance passes; open-root, complete-TCB, cold-hermetic, and distinct-runner gates fail closed"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1520-ROOT",
+    "M1520-S-BOUNDARY",
+    "M1520-N-FLOW",
+    "M1520-B-DIVERGENCE",
+    "M1520-L-MEASURABLE",
+    "M1520-L-CHANGE",
+    "M1520-T-ALL-TIMES",
+    "M1520-T-ASSEMBLE",
+    "M1520-X-PROVENANCE",
+    "M1520-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_1520.LiouvilleStatement",
+    "Stage1.THM_M_1520.timeZero_measurePreserving",
+    "Stage1.THM_M_1520.zeroDimension_measurePreserving",
+    "Stage1.THM_M_1520.timeMap_bijective",
+    "Stage1.THM_M_1520.measurePreserving_of_det_fderiv_eq_one",
+    "Stage1.THM_M_1520.hamiltonianVectorField_contDiff_one",
+    "Stage1.THM_M_1520.timeMap_measurePreserving_of_differentiable_det_eq_one",
+    "Stage1.THM_M_1520.allTimeMaps_measurePreserving_of_differentiable_det_eq_one",
+    "Stage1.THM_M_1520.liouvilleStatement_of_analyticPackage",
+    "Stage1.THM_M_1520.Validation.timeZero_measurePreserving_direct",
+    "Stage1.THM_M_1520.Validation.timeMap_bijective_direct"
+  ],
+  "scope_boundary": "Network-isolated, trust-zero, fresh temporary compilation of the frozen statement and every local partial or conditional proof declaration, plus two same-workspace differential boundary proofs. The exact premise-free Liouville root is absent; complete transitive TCB/provenance, cold empty-cache reproduction, and distinct-runner independent verification are not claimed."
+}
