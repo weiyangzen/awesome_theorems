@@ -1,4 +1,4 @@
-# THM-M-0957 rev-5.6 intake
+# THM-M-0957 rev-5.6 dossier
 
 This directory is the fail-closed `planned` intake dossier for Behrend's construction. The
 repository supplies only the gloss "large sets without three-term arithmetic progressions,"
@@ -24,10 +24,30 @@ extremal-set specification, construction lemmas, and terminal bound
 `rothNumberNat N`, but intake does not claim exact statement identity, audit its terminal body or
 axioms, or promote it to `M0-W`.
 
-The provisional vector is `[H1, M3, R3]`: a matching human proof source and its exact displayed
-claim are identified but not independently admitted; a highly relevant pinned formal statement and
-proof-bearing module are located but not source-matched or audited; and the scope is explained but
-no node-by-node readable proof reconstruction exists. `instance.json` is the structured scope
-authority, while `task-dag.json` keeps all six downstream phases open. No canonical Lean target,
-H0, M0, R0, accepted execution state, audit completion, theorem completion, or master acceptance is
-claimed.
+The statement phase subsequently froze the exact historical inclusive-interval target in
+`Statement.lean`, and the anchor audit classified the pinned construction as a credible partial
+family while excluding the fixed constant-four terminal from the exact root route. Both remain
+provisional pending dependency-ordered master acceptance.
+
+## Obligation-tree result
+
+Registry version 1 freezes 45 canonical architecture records, including 28 required machine
+obligations and non-machine overlays, with denominator
+`84f7eaea7de3659e4324dc64f7849fde4024dd057d4d320c879b0b59dd692a63`. The proof graph uses the
+single pinned `Behrend.bound_aux` bridge and isolates twelve unimplemented mathematical leaves
+after a second split of the high-risk analytic packages. Each unimplemented leaf has an ordered
+local proof plan, but its proof-budget status remains literally `unchecked`. The construction and
+inclusive-index leaves are checked candidates, not accepted closure. The visible sphere and digit
+internals are informational refinements of the same imported terminal body, not duplicate proof
+credit.
+
+`typed-graphs.json` separates proof, refinement, provenance, evidence, trust, documentation, and
+workflow edges. `ObligationTree.lean` checks twelve exact child-to-parent composition certificates,
+including direct `ExactAssembly`-to-root composition, plus the pinned construction and
+inclusive-index adapters. The composed harness checks identity with the actual canonical statement.
+These are conditional architecture checks only. The accepted
+obligation set remains empty, the root stays `[H1, M3, R3]`, and `task-dag.json` remains open. No
+H0, accepted M0, R0, audit completion, theorem completion, release, or master acceptance is claimed.
+Only the root fingerprint is a statement-phase elaborated-expression hash. The other registry
+fingerprints are explicitly planned architecture identities; proof-phase acceptance must replace
+or independently bind them before any M0 claim.
