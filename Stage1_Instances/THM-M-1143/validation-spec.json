@@ -1,0 +1,43 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1143-VALIDATION-WARM-NETWORK-ISOLATED-v1",
+  "item_id": "S56-M-1143-VALIDATION",
+  "theorem_id": "THM-M-1143",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1143/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The validator runs the pinned Lean executable under bubblewrap with --unshare-net, a read-only root bind, a cleared environment, and one fresh temporary directory as the only writable bind.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "The six exact UTF-8 summary lines are bound by validation-receipt.json."
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1143-S-STATEMENT",
+    "M1143-N-BOUND",
+    "M1143-L-LIMIT",
+    "M1143-L-CONSTANT",
+    "M1143-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1143.BoundedHarmonicIsConstant",
+    "Stage1Instances.THM_M_1143.exists_uniform_abs_bound",
+    "Stage1Instances.THM_M_1143.exists_nonnegative_uniform_abs_bound",
+    "Stage1Instances.THM_M_1143.continuousLinearMap_eq_zero_of_norm_le_div",
+    "Stage1Instances.THM_M_1143.vanishingDerivativePackage_of_interiorGradientEstimate",
+    "Stage1Instances.THM_M_1143.zeroDerivativeConstantPackage",
+    "Stage1Instances.THM_M_1143.root_of_vanishingDerivativePackage",
+    "Stage1Instances.THM_M_1143.root_of_interiorGradientEstimate",
+    "Stage1Instances.THM_M_1143.Validation.uniformAbsBoundDirect",
+    "Stage1Instances.THM_M_1143.Validation.continuousLinearMapEqZeroDirect"
+  ],
+  "coverage_boundary": "Network-isolated trust-zero warm-cache replay covers the frozen statement, conditional composition, seven proof-phase declarations, and two same-workspace import-dependent probes. Missing build outputs for unrelated packages are present as nonexistent LEAN_PATH entries but are not imported by these modules. The recipe does not close the interior gradient estimate, primary-source identity, complete trust/provenance, cold empty-cache offline replay, or independent-runner gates."
+}
