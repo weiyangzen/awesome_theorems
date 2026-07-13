@@ -1,0 +1,44 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1518-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1518-VALIDATION",
+  "theorem_id": "THM-M-1518",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1518/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through Bubblewrap with --unshare-net, a read-only host root, a writable temporary output directory, fixed locale/timezone, and one Lean worker thread. Host-side hash and Git checks make no network request. This is warm-cache node evidence, not cold hermetic release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1518-ROOT",
+    "M1518-S-DEFINITIONS",
+    "M1518-S-BOUNDARY",
+    "M1518-S-FOUNDATION",
+    "M1518-N-DIFFERENTIATE",
+    "M1518-N-WEAK",
+    "M1518-L-IBP",
+    "M1518-L-FUNDAMENTAL",
+    "M1518-L-WEAK-POINTWISE",
+    "M1518-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1518.StationaryActionEulerLagrangeTarget",
+    "Stage1Instances.THM_M_1518.ObligationTree.exactTarget_of_packages",
+    "Stage1Instances.THM_M_1518.firstVariationFormula",
+    "Stage1Instances.THM_M_1518.ObligationTree.weakToPointwise",
+    "Stage1Instances.THM_M_1518.stationaryActionEulerLagrange",
+    "Stage1Instances.THM_M_1518.Validation.independentlyRecomposedStationaryActionEulerLagrange"
+  ],
+  "scope_boundary": "Network-isolated, trust-level-zero, target-scoped worker replay of the exact statement, analytic proof packages, frozen composition, exact root, selected provenance, and a same-worker differential composition. The obligation IDs describe observed provisional proof coverage only. Proof master acceptance, accepted foundation/profile state, complete transitive declaration and TCB provenance, clean-checkout empty-cache offline replay, SBOM/archive closure, and distinct signed independent verification remain fail-closed."
+}
