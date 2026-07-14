@@ -50,7 +50,7 @@ PHASES = (
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 # This is both the lane-concurrency ceiling and the per-tick integration/refill ceiling.
-MAX_WORKERS = 1
+MAX_WORKERS = 80
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
 CODEX_SERVICE_TIER = "default"
