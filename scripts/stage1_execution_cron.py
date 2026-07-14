@@ -378,12 +378,13 @@ def trim_file(path: Path, max_bytes: int) -> None:
 
 
 def space_guard(claims: list[dict[str, Any]]) -> None:
-    min_free_gb = int(os.environ.get("MIN_FREE_GB", "30"))
-    danger_free_gb = int(os.environ.get("DANGER_FREE_GB", "15"))
-    max_log_mb = int(os.environ.get("MAX_LOG_MB", "20"))
-    max_keepalive_mb = int(os.environ.get("MAX_KEEPALIVE_MB", "5"))
-    max_root_gb = int(os.environ.get("MAX_CRON_ROOT_GB", "30"))
-    retention_days = int(os.environ.get("LOG_RETENTION_DAYS", "3"))
+    # Keep enough room for the OS, but do not impose a scheduler-local quota
+    # on an execution run explicitly authorized to use the available volume.
+    min_free_gb = int(os.environ.get("MIN_FREE_GB", "1"))
+    danger_free_gb = int(os.environ.get("DANGER_FREE_GB", "1"))
+    max_log_mb = int(os.environ.get("MAX_LOG_MB", "1024"))
+    max_keepalive_mb = int(os.environ.get("MAX_KEEPALIVE_MB", "256"))
+    retention_days = int(os.environ.get("LOG_RETENTION_DAYS", "30"))
     RUNTIME.mkdir(parents=True, exist_ok=True)
     now = time.time()
     for path in RUNTIME.rglob("*"):
@@ -413,8 +414,6 @@ def space_guard(claims: list[dict[str, Any]]) -> None:
         fail(f"blocked_disk_space: only {free_gb} GiB free (danger threshold {danger_free_gb})")
     if free_gb < min_free_gb:
         fail(f"blocked_disk_space: only {free_gb} GiB free (minimum {min_free_gb})")
-    if root_bytes > max_root_gb * 1024**3:
-        fail(f"blocked_disk_space: cron root exceeds {max_root_gb} GiB")
 
 
 def sync_guard() -> None:
