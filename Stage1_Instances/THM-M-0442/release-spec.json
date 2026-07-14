@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0442-RELEASE-local-v1",
+  "item_id": "S56-M-0442-RELEASE",
+  "theorem_id": "THM-M-0442",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0442/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 360,
+  "network_policy": "nested_validation_denied_release_orchestration_not_isolated",
+  "network_enforcement": "Only the temporary current narrow validation replay runs inside Bubblewrap --unshare-net with a read-only host root and private /tmp. Release reconciliation orchestration itself is not network-isolated, uses no network, and is nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0442-ROOT",
+    "M0442-S",
+    "M0442-G",
+    "M0442-G-FIN",
+    "M0442-G-RANK",
+    "M0442-C",
+    "M0442-C-PRIME",
+    "M0442-C-POWER",
+    "M0442-B",
+    "M0442-B-TWO",
+    "M0442-B-INDEX",
+    "M0442-M",
+    "M0442-M-MODULI",
+    "M0442-M-CUSPS",
+    "M0442-M-RATIONAL",
+    "M0442-A",
+    "M0442-A-REDUCTION",
+    "M0442-A-DESCENT",
+    "M0442-T",
+    "M0442-SOURCE",
+    "M0442-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THMM0442.MazurRationalTorsionTarget",
+    "Stage1Instances.THMM0442.mazurRationalTorsionTarget_iff_historicalCandidateShape",
+    "Stage1Instances.THMM0442.ObligationTree.engine_compose",
+    "Stage1Instances.THMM0442.Proof.cyclic_order_le_sixteen",
+    "Stage1Instances.THMM0442.Proof.bicyclic_index_four_mul_le_sixteen",
+    "Stage1Instances.THMM0442.Proof.torsion_ncard_eq_of_hasCyclicTorsionOrder",
+    "Stage1Instances.THMM0442.Proof.torsion_ncard_eq_of_hasBicyclicTorsionIndex",
+    "Stage1Instances.THMM0442.Proof.mazurRationalTorsionTarget_implies_torsionBoundAtMostSixteen",
+    "Stage1Instances.THMM0442.Validation.cyclic_order_le_sixteen",
+    "Stage1Instances.THMM0442.Validation.bicyclic_index_four_mul_le_sixteen",
+    "Stage1Instances.THMM0442.Validation.allowed_shape_cardinality_bound"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation. The checker binds current authority and evidence, proves the predecessor recipe stale, and reruns its substantive hash, provenance, placeholder, axiom, and lake env lean --trust=0 checks after six checkout/projection-only adaptations in a temporary network-isolated copy. It cannot create obligation closure, release hermeticity, independent verification, accepted state, or master acceptance."
+}
