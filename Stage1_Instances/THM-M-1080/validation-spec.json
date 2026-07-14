@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1080-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1080-VALIDATION",
+  "theorem_id": "THM-M-1080",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1080/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 1800,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs inside bubblewrap --unshare-net with the host filesystem read-only except for one disposable /tmp module directory.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "The five exact gate-summary lines are recorded in validation-receipt.json; volatile timing and temporary paths are excluded."
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1080-ROOT",
+    "M1080-S-DEFINITIONS",
+    "M1080-S-SCOPE",
+    "M1080-S-BOUNDARY",
+    "M1080-S-FOUNDATION",
+    "M1080-N-INCREMENTS",
+    "M1080-N-TELESCOPE",
+    "M1080-C-EXPONENTIAL",
+    "M1080-L-COND-HOEFFDING",
+    "M1080-L-MGF-ITERATE",
+    "M1080-L-MARKOV",
+    "M1080-L-OPTIMIZE",
+    "M1080-T-POSITIVE",
+    "M1080-T-ZERO",
+    "M1080-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1080.Statement",
+    "Stage1Instances.THM_M_1080.ObligationTree.azumaUpperTail_of_threshold_packages",
+    "Stage1Instances.THM_M_1080.Proof.sum_increment_eq_sub",
+    "Stage1Instances.THM_M_1080.Proof.exp_secant_bound",
+    "Stage1Instances.THM_M_1080.Proof.condExp_exp_increment_le",
+    "Stage1Instances.THM_M_1080.Proof.exp_endpoint_integrable",
+    "Stage1Instances.THM_M_1080.Proof.exp_increment_sum_integral_le",
+    "Stage1Instances.THM_M_1080.Proof.positiveThreshold",
+    "Stage1Instances.THM_M_1080.Proof.zeroThreshold",
+    "Stage1Instances.THM_M_1080.Proof.azumaUpperTail",
+    "Stage1Instances.THM_M_1080.ExactRoot.positiveThresholdPackage",
+    "Stage1Instances.THM_M_1080.ExactRoot.zeroThresholdPackage",
+    "Stage1Instances.THM_M_1080.ExactRoot.azumaUpperTail_exact",
+    "Stage1Instances.THM_M_1080.Validation.directExactRoot"
+  ],
+  "scope_boundary": "Network-isolated fresh-output replay over the canonical pinned warm dependency cache, plus selected trust and provenance checks and a same-worker differential exact-type bridge. It is not a cold empty-cache hermetic release reproduction, complete transitive provenance/TCB closure, or distinct-runner independent verification."
+}
