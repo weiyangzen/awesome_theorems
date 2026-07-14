@@ -8368,7 +8368,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1026-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1026`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1026-VALIDATION` / `THM-M-1026` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1026-PROOF`. Owned paths: `Stage1_Instances/THM-M-1026`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1026-RELEASE` / `THM-M-1026` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-1026-RELEASE` / `THM-M-1026` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-1026-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1026`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1060-INTAKE` / `THM-M-1060` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-1060`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -8702,7 +8702,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1084-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1084`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1084-PROOF` / `THM-M-1084` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1084-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1084`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1084-VALIDATION` / `THM-M-1084` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
+- [_] `S56-M-1084-VALIDATION` / `THM-M-1084` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1084-PROOF`. Owned paths: `Stage1_Instances/THM-M-1084`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1084-RELEASE` / `THM-M-1084` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-1084-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1084`. Gate: rev-5.6 node-specific receipt and master acceptance.

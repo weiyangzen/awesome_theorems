@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1026-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1026-RELEASE",
+  "theorem_id": "THM-M-1026",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1026/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "runner-provided command discovery; every material executable used by the narrow replay is content-hash checked"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean invocation runs with --trust=0 inside bubblewrap --unshare-net. The host root is read-only and only a fresh temporary target-module directory is writable. The existing pinned shared dependency cache is reused read-only, so this is expressly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1026-ROOT",
+    "M1026-S-DEFINITIONS",
+    "M1026-S-BOUNDARIES",
+    "M1026-S-FOUNDATION",
+    "M1026-N-WEAK-CHARFUN",
+    "M1026-B-NECESSITY",
+    "M1026-C-BLOCK-DECOMPOSITION",
+    "M1026-L-LIMIT-COMPARISON",
+    "M1026-T-NECESSITY",
+    "M1026-B-CONVERSE",
+    "M1026-C-STABLE-WITNESS",
+    "M1026-L-CONSTANT-WEAK-LIMIT",
+    "M1026-T-CONVERSE",
+    "M1026-T-BRANCH-MERGE",
+    "M1026-X-CHARFUN-PROVENANCE",
+    "M1026-X-SOURCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1026.ObligationTree.root_of_directions",
+    "Stage1Instances.THM_M_1026.Proof.stable_normalizers",
+    "Stage1Instances.THM_M_1026.Proof.weaklyConverges_of_eventually_eq",
+    "Stage1Instances.THM_M_1026.Proof.converseTerminal",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedStableNormalizers",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedWeakLimit",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedConverse",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedConditionalRoot"
+  ],
+  "scope_boundary": "Reconciles the frozen 16-obligation inventory and current authority, then replays only the conditional branch merge, the three converse proof declarations, and four separately written converse or conditional-root declarations. It does not provide NecessityTerminal, close M1026-T-NECESSITY or the exact root, make the stale predecessor recipe current, accept any receipt, or supply H0, R0, AUDIT-Z, cold/offline release evidence, independent verification, THEOREM-Z, release, or master acceptance."
+}
