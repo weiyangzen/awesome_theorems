@@ -1,0 +1,181 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1067-PROOF",
+  "theorem_id": "THM-M-1067",
+  "intent": "prove",
+  "recorded_at": "2026-07-15T06:56:43+08:00",
+  "timezone": "Asia/Shanghai",
+  "base_revision": "3d3099d0d4002093cf89da97132bdf954605810b",
+  "base_tree": "17ea0daeddceb9742a5df33c247d624d2842c520",
+  "worker_checkout": "detached Stage1 rev-5.6 worker automation clone slot71",
+  "owned_path": "Stage1_Instances/THM-M-1067",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "canonical_human_claim": "A one-dimensional standard Brownian motion admits a jointly continuous local-time field satisfying the simultaneous occupation-density formula.",
+  "canonical_formal_target": "Stage1Instances.THM_M_1067.BrownianLocalTimeTarget",
+  "canonical_target_expression_sha256": "3a760f8d4cb9898c637755e90fc9ca8402c9427103006981081a7378ec46d2e1",
+  "source_hashes": {
+    "Statement.lean": "00c33bd06b1930a28b92706f9f2064d039bc5280078103814dfe02e1eb437480",
+    "Proof.lean": "efdee3a7b28e682e5a4a929bb95cd52cb7632962bf2bb3bcce903c28ef3d2eca",
+    "obligation-registry.json": "4e7a564ce1b2be77de5115245c0ba484a8f4bc2ed0ee8fa7739218756aa1e92b",
+    "typed-graphs.json": "2593501c7c1404feb2a559521d161adebaf7b8e97e77564f91db04612f108c62"
+  },
+  "registry": {
+    "root_obligation_id": "M1067-ROOT",
+    "denominator_sha256": "7a96f4bf13db4217fbfb692216234f150f00b54bd7b0017662acb6895595d5c1",
+    "obligation_count": 17,
+    "machine_required_count": 15,
+    "typed_edge_count": 71,
+    "closed_obligations_added": [],
+    "typed_graph_changes": []
+  },
+  "worktree_before": {
+    "clean": false,
+    "preexisting_entries": [
+      "?? Formalizations/Lean/.lake"
+    ],
+    "classification": "Automation-provided symlink to the canonical pinned artifacts; reused read-only. This prevents release-grade clean-worktree evidence."
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "validation_trust_level": 0,
+    "network_commands_run": false,
+    "lake_mutated_by_worker": false,
+    "dependency_policy": "The automation-provided symlink to canonical pinned .lake artifacts was reused read-only. No lake update, lake build, dependency clone/fetch, or dependency mutation was run."
+  },
+  "accepted_root_vector_snapshot": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R4"
+  },
+  "frozen_typed_graph_root_vector_snapshot": {
+    "H": "H2",
+    "M": "M4",
+    "R": "R4"
+  },
+  "effective_fail_closed_root_vector_proposed": {
+    "H": "H2",
+    "M": "M5",
+    "R": "R4"
+  },
+  "classification_reconciliation": "The accepted instance surface remains H2/M3/R4 and the frozen typed graph records M4. Neither predecessor authority was rewritten by this proof worker. The newly checked statement mismatch requires an effective fail-closed M5 machine classification under rev-5.6 section 3.2; master reconciliation remains pending.",
+  "debt_vector_delta_proposed": "M3 -> M5 on the machine axis because the formal candidate has a kernel-checked statement mismatch; no accepted state transition is claimed",
+  "positive_root_proof_body_added": false,
+  "checked_statement_defect_bodies_preexisting": true,
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "closed_obligations_added": [],
+  "composition_certificates_added": [],
+  "checked_boundary_declarations": {
+    "Stage1Instances.THM_M_1067.nonnegativeLebesgue_singleton_zero": "The frozen pushforward time measure assigns infinite mass to the singleton zero.",
+    "Stage1Instances.THM_M_1067.occupation_at_zero_false": "At time zero the frozen occupation identity fails for every path and proposed field.",
+    "Stage1Instances.THM_M_1067.no_local_time_of_wiener": "No proposed field satisfies the frozen local-time predicate under a Wiener measure.",
+    "Stage1Instances.THM_M_1067.target_iff_no_wiener_measure": "The frozen target is equivalent to nonexistence of its own Wiener measures."
+  },
+  "machine_derived_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "statement_defect": {
+    "definition": "nonnegativeLebesgue := Measure.map Real.toNNReal volume",
+    "mechanism": "Real.toNNReal maps every nonpositive real to zero, so the preimage of {0} is (-infinity, 0] and has infinite real Lebesgue measure.",
+    "formal_consequence": "BrownianLocalTimeTarget is equivalent to Not (Exists W, IsWienerMeasure W), rather than to Brownian local-time existence.",
+    "mathematical_boundary": "The checked impossibility concerns only the malformed frozen Lean encoding and does not refute the Brownian local-time theorem.",
+    "required_statement_repair": "Use the actual Lebesgue volume measure on NNReal, then rerun statement fidelity and mutation gates and refreeze invalidated downstream artifacts."
+  },
+  "first_failed_gate": "exact-statement fidelity and boundary normalization: the frozen nonnegativeLebesgue is not Lebesgue time and makes the occupation identity impossible at t = 0",
+  "remaining_root_cut_set": [
+    "reopen and repair S56-M-1067-STATEMENT",
+    "rerun the changed-domain, changed-binder-scope, and boundary-case mutation gates",
+    "rerun S56-M-1067-ANCHOR_AUDIT",
+    "freeze and accept a corrected obligation registry and typed graph",
+    "implement or pin the corrected Brownian local-time proof packages without placeholders"
+  ],
+  "candidate_assessment": {
+    "repo_local": "Proof.lean contains a checked statement-defect certificate, not a positive target proof or a Brownian local-time construction.",
+    "pinned_mathlib": "The prerequisite audit found no Brownian-motion or local-time terminal theorem in the pinned mathlib closure.",
+    "audited_external": "The recorded external project has no local-time result, targets a different Lean version, and contains admitted dependencies, so it is ineligible for exact proof credit."
+  },
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 targets passed."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework-required."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1067",
+      "exit_code": 0,
+      "result": "Rank 509; planned; hard-mathlib-anchor-and-wrapper lane; theorem incomplete."
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-1067/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "17 obligations and 71 typed edges passed; denominator 7a96f4bf13db4217fbfb692216234f150f00b54bd7b0017662acb6895595d5c1; root open M4."
+    },
+    {
+      "command": "set -euo pipefail; tmp=$(mktemp -d /tmp/thm-m-1067-trust0.XXXXXX); trap 'rm -rf \"$tmp\"' EXIT; cp Stage1_Instances/THM-M-1067/Statement.lean Stage1_Instances/THM-M-1067/Proof.lean \"$tmp\"/; lean_bin=$(cd Formalizations/Lean && lake env which lean); lean_path=$(cd Formalizations/Lean && lake env printenv LEAN_PATH); LEAN_NUM_THREADS=1 LEAN_PATH=\"$lean_path\" timeout 240 \"$lean_bin\" --trust=0 --root=\"$tmp\" -o \"$tmp/Statement.olean\" \"$tmp/Statement.lean\"; printf 'statement_exit=0\\n'; LEAN_NUM_THREADS=1 LEAN_PATH=\"$tmp:$lean_path\" timeout 240 \"$lean_bin\" --trust=0 --root=\"$tmp\" -o \"$tmp/Proof.olean\" \"$tmp/Proof.lean\"; printf 'proof_exit=0\\n'",
+      "exit_code": 0,
+      "result": "Printed statement_exit=0 and proof_exit=0. The exact target and all four statement-defect declarations elaborated. Each declaration depends exactly on propext, Classical.choice, and Quot.sound."
+    },
+    {
+      "command": "rg -n '\\b(sorry|admit|sorryAx|native_decide|implemented_by)\\b|^[[:space:]]*(axiom|constant|opaque|unsafe|external)([[:space:]]|$)' Stage1_Instances/THM-M-1067/Statement.lean Stage1_Instances/THM-M-1067/ObligationTree.lean Stage1_Instances/THM-M-1067/Proof.lean",
+      "exit_code": 1,
+      "result": "No matches; ripgrep exit 1 is the expected no-match result. Kernel axiom output independently contains no sorryAx."
+    },
+    {
+      "command": "jq -e '[.obligations[] | select(.machine_eligibility == \"required\")] as $required | (($required | length) == 15 and all($required[]; .terminal_proof_body_id == null))' Stage1_Instances/THM-M-1067/obligation-registry.json >/dev/null",
+      "exit_code": 0,
+      "result": "All 15 machine-required obligations remain without terminal proof bodies."
+    },
+    {
+      "command": "python3 -m json.tool Stage1_Instances/THM-M-1067/proof-blocker.json >/dev/null && jq -e '.item_id == \"S56-M-1067-PROOF\" and .base_revision == \"3d3099d0d4002093cf89da97132bdf954605810b\" and .accepted_root_vector_snapshot.M == \"M3\" and .frozen_typed_graph_root_vector_snapshot.M == \"M4\" and .effective_fail_closed_root_vector_proposed.M == \"M5\" and (.root_closed | not) and (.proof_phase_complete | not) and (.theorem_complete | not) and (.accepted_receipt_ids | length == 0) and (.closed_obligations_added | length == 0) and (.selftest_manifest_written | not)' Stage1_Instances/THM-M-1067/proof-blocker.json >/dev/null",
+      "exit_code": 0,
+      "result": "The structured blocker parsed; identity, base, M3/M4 snapshots and effective M5 proposal, open flags, empty proof-credit arrays, and absent self-test claim agreed."
+    },
+    {
+      "command": "git diff --check -- Stage1_Instances/THM-M-1067 .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "No scoped whitespace errors."
+    },
+    {
+      "command": "test ! -e .stage1-worker-selftest.json && ! find Stage1_Instances/THM-M-1067 -maxdepth 1 '(' -name '*.olean' -o -name '*.ilean' -o -name '*.c' ')' -print -quit | grep -q .",
+      "exit_code": 0,
+      "result": "The completion self-test manifest and stray generated outputs are absent."
+    }
+  ],
+  "known_failures": [
+    "The frozen formal target does not faithfully encode the canonical Brownian-local-time existence claim.",
+    "No positive placeholder-free proof body closes the exact root or any registered machine obligation.",
+    "The statement, anchor audit, and obligation tree require re-execution after correcting the time measure.",
+    "After statement repair, the Brownian construction, estimates, convergence, continuity, measurability, and simultaneous occupation-identity packages remain unimplemented.",
+    "H0, R0, validation, release, hermetic replay, independent verification, and master acceptance remain open.",
+    "The automation-provided untracked .lake symlink makes this nonrelease evidence."
+  ],
+  "retry_condition": "Correct and accept the time-measure definition in the statement phase, refreeze every invalidated fingerprint and graph in dependency order, then implement the corrected Brownian local-time construction or integrate an exact compatible placeholder-free proof.",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1067/proof-blocker.json",
+    "Stage1_Instances/THM-M-1067/proof-blocker.md"
+  ],
+  "diff_summary": "Refreshed the stale proof blocker and added a structured current-base blocker packet; no Lean source, authority file, dependency, frozen registry, or unrelated target changed.",
+  "status_boundary": "Current-base proof-phase blocker evidence only. This does not satisfy S56-M-1067-PROOF, close any obligation or the root, change scheduler state, or claim audit completion, theorem completion, validation, release, receipt acceptance, or master acceptance.",
+  "selftest_manifest_written": false
+}
