@@ -1,0 +1,57 @@
+import Proof
+import Mathlib.Util.AssertNoSorry
+import Mathlib.Util.PrintSorries
+
+/-!
+# THM-M-0451 kernel trust probe
+
+The commands below recursively inspect the exact frozen conditional
+composition and every proof-phase declaration credited by its receipt. They
+do not assert that the open elliptic height premises or exact root exist.
+-/
+
+namespace Stage1Instances.THM_M_0451.ProofAudit
+
+open Stage1Instances.THM_M_0451.ObligationTree
+open Stage1Instances.THM_M_0451.Proof
+
+assert_no_sorry engine_compose
+assert_no_sorry tateSequence_tendsto
+assert_no_sorry tateLimit_sub_le
+assert_no_sorry tateLimit_map
+assert_no_sorry limit_formula_of_doubling_bound
+assert_no_sorry bounded_difference_of_doubling_bound
+assert_no_sorry constructedCanonicalHeight_double
+assert_no_sorry constructedCanonicalHeight_nonnegative
+assert_no_sorry constructedCanonicalHeight_parallelogram_of_bounds
+assert_no_sorry constructedCanonicalHeight_quadratic_of_bounds
+assert_no_sorry constructedCanonicalHeight_torsion_zero
+assert_no_sorry torsion_to_zero_of_quadratic
+
+#print sorries engine_compose
+#print sorries tateSequence_tendsto
+#print sorries tateLimit_sub_le
+#print sorries tateLimit_map
+#print sorries limit_formula_of_doubling_bound
+#print sorries bounded_difference_of_doubling_bound
+#print sorries constructedCanonicalHeight_double
+#print sorries constructedCanonicalHeight_nonnegative
+#print sorries constructedCanonicalHeight_parallelogram_of_bounds
+#print sorries constructedCanonicalHeight_quadratic_of_bounds
+#print sorries constructedCanonicalHeight_torsion_zero
+#print sorries torsion_to_zero_of_quadratic
+
+#print axioms engine_compose
+#print axioms tateSequence_tendsto
+#print axioms tateLimit_sub_le
+#print axioms tateLimit_map
+#print axioms limit_formula_of_doubling_bound
+#print axioms bounded_difference_of_doubling_bound
+#print axioms constructedCanonicalHeight_double
+#print axioms constructedCanonicalHeight_nonnegative
+#print axioms constructedCanonicalHeight_parallelogram_of_bounds
+#print axioms constructedCanonicalHeight_quadratic_of_bounds
+#print axioms constructedCanonicalHeight_torsion_zero
+#print axioms torsion_to_zero_of_quadratic
+
+end Stage1Instances.THM_M_0451.ProofAudit

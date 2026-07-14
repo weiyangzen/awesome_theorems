@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0451-VALIDATION",
+  "theorem_id": "THM-M-0451",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0451-VALIDATION-fail-closed-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0451/check_validation.py"
+      ],
+      "env_allowlist": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 1200,
+      "network_policy": "denied",
+      "network_enforcement": "bubblewrap --unshare-net for every Lean invocation; read-only host root and disposable writable module directory",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact seven-line summary with narrow PASS and explicit fail-closed root, authority, hermetic, provenance, TCB, and independence boundaries",
+          "semantic_sha256": "c3f63daa5353abb31a191b72b5a6fe928468cb2ba4d18cdafdce572eded79e91",
+          "bytes": 847
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0451-ASSEMBLE",
+        "M0451-HEIGHT",
+        "M0451-LIMIT",
+        "M0451-BOUNDED",
+        "M0451-QUADRATIC",
+        "M0451-PARALLELOGRAM",
+        "M0451-NONNEGATIVE",
+        "M0451-TORSION-ZERO",
+        "M0451-XHEIGHT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0451.ObligationTree.engine_compose",
+        "Stage1Instances.THM_M_0451.Proof.tateSequence_tendsto",
+        "Stage1Instances.THM_M_0451.Proof.tateLimit_sub_le",
+        "Stage1Instances.THM_M_0451.Proof.tateLimit_map",
+        "Stage1Instances.THM_M_0451.Proof.limit_formula_of_doubling_bound",
+        "Stage1Instances.THM_M_0451.Proof.bounded_difference_of_doubling_bound",
+        "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_double",
+        "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_nonnegative",
+        "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_parallelogram_of_bounds",
+        "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_quadratic_of_bounds",
+        "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_torsion_zero",
+        "Stage1Instances.THM_M_0451.Proof.torsion_to_zero_of_quadratic",
+        "Stage1Instances.THM_M_0451.Validation.exactTarget_conditional_probe"
+      ]
+    }
+  ],
+  "scope_boundary": "Trust-zero, network-denied replay from copied target sources against the canonical pinned warm dependency cache. It validates the Lean statement carrier, frozen conditional composition, eleven proof-phase declarations, recursive sorry absence for the selected declaration closures, exact observed axiom sets, a separately written conditional target adapter, and selected pinned provenance. Source fidelity of the claimed absolute-height normalization remains open. This is not an unconditional root proof, accepted obligation closure, complete transitive provenance/TCB/SBOM evidence, a cold empty-cache offline-restorable build, distinct-runner independent verification, E0/E1, AUDIT-Z, THEOREM-Z, release, or master acceptance."
+}
