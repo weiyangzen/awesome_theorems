@@ -3,17 +3,18 @@ import Statement
 /-!
 # THM-M-1024 proof execution
 
-This module implements the compensated-integrability part of the first analytic
-leaf in the frozen proof architecture: the closed-unit-ball compensated integrand
-in `levyExponent` is Bochner integrable against every locally valid Levy measure.
-It deliberately makes no claim that the whole leaf or the forward, converse, or
-uniqueness packages are complete.
+This module implements substantive parts of the first analytic leaf in the
+frozen proof architecture: the closed-unit-ball compensated integrand in
+`levyExponent` is Bochner integrable against every locally valid Levy measure,
+and the resulting exponent is normalized at zero and continuous. It deliberately
+makes no claim that the whole leaf or the forward, converse, or uniqueness
+packages are complete.
 -/
 
 namespace Stage1Instances.THM_M_1024
 
-open MeasureTheory Set
-open scoped ENNReal
+open Filter MeasureTheory Set TopologicalSpace
+open scoped ENNReal Topology
 
 /-- The closed-unit-ball compensated integrand used by `levyExponent`. -/
 noncomputable def compensatedIntegrand {d : Nat} (u x : Space d) : Complex :=
@@ -24,6 +25,18 @@ noncomputable def compensatedIntegrand {d : Nat} (u x : Space d) : Complex :=
 theorem compensatedIntegrand_zero_right {d : Nat} (u : Space d) :
     compensatedIntegrand u 0 = 0 := by
   simp [compensatedIntegrand]
+
+/-- At zero frequency the entire compensated jump integrand vanishes. -/
+@[simp]
+theorem compensatedIntegrand_zero_left {d : Nat} (x : Space d) :
+    compensatedIntegrand 0 x = 0 := by
+  simp [compensatedIntegrand]
+
+/-- The frozen exponent has the characteristic-function normalization
+`psi(0) = 0`. -/
+theorem levyExponent_zero {d : Nat} (data : LevyTriplet d) :
+    levyExponent data 0 = 0 := by
+  simp [levyExponent]
 
 /-- The frozen compensated integrand is measurable in its jump variable. -/
 theorem measurable_compensatedIntegrand {d : Nat} (u : Space d) :
@@ -131,11 +144,56 @@ theorem integrable_levyExponent_jump {d : Nat} {data : LevyTriplet d}
       data.jumps := by
   simpa only [compensatedIntegrand] using integrable_compensatedIntegrand hdata u
 
+/-- The compensated jump integral varies continuously with frequency. -/
+theorem continuous_integral_compensatedIntegrand {d : Nat}
+    {nu : Measure (Space d)} (hnu : IsLevyMeasure nu) :
+    Continuous (fun u : Space d => integral nu (compensatedIntegrand u)) := by
+  rw [continuous_iff_continuousAt]
+  intro u
+  refine tendsto_integral_filter_of_dominated_convergence
+    (fun x : Space d => (2 + 3 * (‖u‖ + 1) ^ 2) * min 1 (‖x‖ ^ 2)) ?_ ?_ ?_ ?_
+  · filter_upwards [] with v
+    exact (measurable_compensatedIntegrand v).aestronglyMeasurable
+  · filter_upwards [Metric.ball_mem_nhds u (one_pos : (0 : Real) < 1)] with v hv
+    filter_upwards [] with x
+    refine (norm_compensatedIntegrand_le v x).trans ?_
+    have hv_norm : ‖v‖ ≤ ‖u‖ + 1 := by
+      calc
+        ‖v‖ ≤ ‖u‖ + ‖u - v‖ := norm_le_norm_add_norm_sub u v
+        _ ≤ ‖u‖ + 1 := by
+          simpa only [dist_eq_norm, norm_sub_rev, add_comm] using
+            add_le_add_left hv.le ‖u‖
+    gcongr
+  · exact hnu.2.const_mul (2 + 3 * (‖u‖ + 1) ^ 2)
+  · filter_upwards [] with x
+    exact (show Continuous (fun v : Space d => compensatedIntegrand v x) by
+      unfold compensatedIntegrand
+      fun_prop).continuousAt
+
+/-- Every locally valid triplet gives a continuous frozen characteristic
+exponent. -/
+theorem continuous_levyExponent {d : Nat} (data : LevyTriplet d)
+    (hdata : IsLevyMeasure data.jumps) :
+    Continuous (levyExponent data) := by
+  unfold levyExponent
+  have hjump := continuous_integral_compensatedIntegrand hdata
+  change Continuous (fun u : Space d =>
+    Complex.I * ((@inner Real _ _ data.drift u : Real) : Complex)
+      - (1 / 2 : Complex) * ((@inner Real _ _ u (data.covariance u) : Real) : Complex)
+      + integral data.jumps (compensatedIntegrand u))
+  fun_prop
+
 set_option pp.universes true in
 #check integrable_compensatedIntegrand
 
 #print axioms integrable_compensatedIntegrand
 
 #print axioms integrable_levyExponent_jump
+
+#print axioms levyExponent_zero
+
+#print axioms continuous_integral_compensatedIntegrand
+
+#print axioms continuous_levyExponent
 
 end Stage1Instances.THM_M_1024

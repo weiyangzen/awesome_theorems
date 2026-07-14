@@ -2,60 +2,46 @@
   "schema_version": "stage1-proof-blocker/1.0",
   "item_id": "S56-M-1024-PROOF",
   "theorem_id": "THM-M-1024",
-  "base_revision": "c69176e94b59c24862294d8331b61eb1661c53bd",
-  "recorded_at": "2026-07-12",
+  "base_revision": "c470319c4a07f669317557ea705f6546605ac4da",
+  "base_tree": "680bb215853ecfbfa26fe069d1282188ed3944aa",
+  "recorded_at": "2026-07-15T05:44:44+08:00",
   "canonical_target": "Stage1Instances.THM_M_1024.LevyKhintchineTarget",
-  "statement_sha256": "197a7197043d6645b3a2e0a190c57571f93521686da2a84a264faef959481a87",
-  "obligation_registry_sha256": "805d027545115d1078b522f0499a6bf69e11825657af01e9723165e961c78ee5",
-  "registry_denominator_sha256": "09ae507f5852e0e927272c16a31701c7b4e7a9f69359716285d2a915bdb44921",
-  "toolchain": "leanprover/lean4:v4.29.0",
-  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
-  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
-  "outcome": "blocked",
-  "machine_classification": "M4",
-  "proof_body_added": false,
+  "outcome": "partial_proof_self_tested_root_blocked",
+  "proof_body_added": true,
+  "partial_proof_receipt_id": "S56-M-1024-PROOF-partial-20260715T054444+0800",
+  "supported_obligation_ids": [],
+  "partial_progress_toward_obligation_ids": [
+    "M1024-N-EXPONENT"
+  ],
+  "provisionally_closed_obligation_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_proposed": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
   "root_closed": false,
+  "audit_complete": false,
   "theorem_complete": false,
-  "first_failed_gate": "M1024-N-EXPONENT: no checked compensated-exponent analytic package or all-dimensional Levy-Khintchine theorem is present in the pinned dependency closure",
+  "first_failed_gate": "M1024-N-EXPONENT: integrability, zero normalization, and continuity are checked, but the complete exponent-normalization package and its construction interfaces remain open",
   "remaining_root_cut_set": [
     "M1024-T-FORWARD",
     "M1024-T-CONVERSE",
     "M1024-T-UNIQUENESS"
   ],
-  "expanded_missing_proof_packages": [
-    "M1024-N-EXPONENT",
-    "M1024-C-ARRAY",
-    "M1024-L-TIGHTNESS",
-    "M1024-L-FORWARD-IDENTITY",
-    "M1024-B-FORWARD",
-    "M1024-C-REALIZATION",
-    "M1024-L-CONVOLUTION-ROOTS",
-    "M1024-B-CONVERSE",
-    "M1024-L-JUMP-UNIQUENESS",
-    "M1024-L-GAUSSIAN-UNIQUENESS",
-    "M1024-L-DRIFT-UNIQUENESS",
-    "M1024-B-UNIQUENESS",
-    "M1024-T-FORWARD",
-    "M1024-T-CONVERSE",
-    "M1024-T-UNIQUENESS"
-  ],
-  "available_checked_body": {
-    "declaration": "Stage1Instances.THM_M_1024.root_of_packages",
-    "scope": "conditional logical assembly of the forward, converse, and uniqueness packages",
-    "axioms": [
-      "propext",
-      "Classical.choice",
-      "Quot.sound"
-    ],
-    "proof_credit": "composition only; all three mathematical packages remain explicit premises"
+  "implemented_partial_bodies": {
+    "Stage1Instances.THM_M_1024.integrable_compensatedIntegrand": "Bochner integrability of the frozen compensated integrand under IsLevyMeasure",
+    "Stage1Instances.THM_M_1024.levyExponent_zero": "normalization of the frozen exponent at zero frequency",
+    "Stage1Instances.THM_M_1024.continuous_integral_compensatedIntegrand": "dominated-convergence proof of continuity of the jump integral",
+    "Stage1Instances.THM_M_1024.continuous_levyExponent": "continuity of every locally valid frozen exponent"
   },
-  "candidate_assessment": {
-    "repo_local": "The exact statement and conditional composition elaborate, but no inhabitant of any terminal analytic package exists.",
-    "pinned_mathlib": "Characteristic-function and convolution substrate is present, but source search finds no Levy-Khintchine, infinite-divisibility, or Levy-measure theorem family.",
-    "audited_external": "LeanLevy commit 93b635fba23398bfb1f0db8d220f88172f6900b6 is real-only, uses open-ball compensation and scalar covariance, targets a newer incompatible toolchain, and is not locally pinned; it cannot close the all-dimensional frozen target."
-  },
-  "blocker": "Closing the exact target requires a new placeholder-free formalization of the all-dimensional forward representation, converse realization and convolution roots, and convention-relative triplet uniqueness packages. No exact compatible proof body is available locally, and fetching a moving dependency, postulating any package, or substituting the real-only external theorem is forbidden.",
-  "retry_condition": "Resume after the frozen analytic packages are implemented locally without placeholders, or after an immutable all-dimensional compatible Lean 4 proof is available for pinned exact-type integration, axiom inspection, and provenance validation.",
-  "status_boundary": "This is a proof-phase blocker record, not a proof receipt. It does not satisfy S56-M-1024-PROOF and must not be promoted to provisional or accepted completion.",
-  "selftest_manifest_written": false
+  "blocker": "The local bodies establish genuine exponent-normalization ingredients only. They do not construct Levy data from convolution roots, realize arbitrary valid triplets as probability laws, prove convention-relative triplet uniqueness, or inhabit ForwardExistencePackage, ConversePackage, or UniquenessPackage. Pinned mathlib contains no exact Levy-Khintchine theorem family, and the audited LeanLevy candidate is real-only with incompatible covariance and truncation conventions. Assuming a missing package or importing that specialized result as exact would weaken or substitute the frozen theorem.",
+  "retry_condition": "Implement the remaining all-dimensional forward, converse, and uniqueness packages without placeholders, or integrate an immutable exact proof at compatible pins, then rerun exact-type, composition, trust, provenance, and independent validation gates.",
+  "status_boundary": "This is provisional self-tested partial proof evidence. Zero complete frozen obligations and no root are claimed closed; validation, release, master acceptance, audit completion, and theorem completion remain open.",
+  "selftest_manifest_written": true
 }
