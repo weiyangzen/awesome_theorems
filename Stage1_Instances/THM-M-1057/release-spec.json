@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1057-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1057-RELEASE",
+  "theorem_id": "THM-M-1057",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1057/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The checker makes no network request. Its Lean replay invokes the existing target validation shell, which compiles fresh local modules with Lean --trust=0 inside Bubblewrap --unshare-net, a read-only host root, and a disposable writable output directory. The pinned shared warm .lake closure is reused read-only, so this remains nonrelease worker evidence rather than a cold hermetic release run.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1057-ROOT",
+    "M1057-S-DEFINITIONS",
+    "M1057-S-BOUNDARY",
+    "M1057-S-FOUNDATION",
+    "M1057-N-EXPECTATION-SUBADDITIVE",
+    "M1057-L-FEKETE",
+    "M1057-C-BLOCK-DECOMPOSITION",
+    "M1057-L-MAXIMAL-INEQUALITY",
+    "M1057-L-AE-CONVERGENCE",
+    "M1057-L-INVARIANCE",
+    "M1057-L-ERGODIC-IDENTIFICATION",
+    "M1057-T-LIMIT-PACKAGE",
+    "M1057-T-ASSEMBLE",
+    "M1057-X-SOURCE",
+    "M1057-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1057.KingmanTarget",
+    "Stage1Instances.THM_M_1057.root_of_pointwiseLimitPackage",
+    "ErgodicTheory.tendsto_kingman_ergodic_means",
+    "Stage1Instances.THM_M_1057.pointwiseLimitPackage",
+    "Stage1Instances.THM_M_1057.kingmanTarget"
+  ],
+  "scope_boundary": "Reconciles the current structured target, frozen graph, proof receipt, validation receipt, and a fresh narrow exact-root replay into a truthful negative release decision. It cannot supply dependency acceptance, authoritative graph/provenance reconciliation, H0/R0 review, accepted foundation/TCB/SBOM closure, immutable clean input, cold offline restoration, a second independent attestation, a minimal independent verifier, a deterministic bundle, or master acceptance."
+}
