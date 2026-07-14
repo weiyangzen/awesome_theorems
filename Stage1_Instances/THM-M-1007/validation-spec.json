@@ -1,0 +1,102 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1007-VALIDATION-network-isolated-warm-v1",
+  "item_id": "S56-M-1007-VALIDATION",
+  "theorem_id": "THM-M-1007",
+  "cwd": ".",
+  "argv": [
+    "bash",
+    "Stage1_Instances/THM-M-1007/run_validation.sh"
+  ],
+  "env_allowlist": {
+    "HOME": "/home/sansha-2",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "STAGE1_OUTER_SANDBOX": "1",
+    "PATH": "/home/sansha-2/.elan/bin:/home/sansha-2/.local/bin:/usr/local/bin:/usr/bin:/bin"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "run_validation.sh wraps the entire Python recipe in timeout and bubblewrap --unshare-net, clears the inherited environment, and restores only the listed fixed HOME, PATH, locale, timezone, and thread settings. The host is read-only except /tmp; the validator uses a fresh temporary module directory, and every Lean subprocess also runs at trust level zero. This is warm worker replay, not release-grade cold hermetic reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains the seven-line THM-M-1007 fail-closed validation summary bound by validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1007-ROOT",
+    "M1007-S-INTERFACE",
+    "M1007-C-TRUNC-PROPS",
+    "M1007-C-EVENT-INDEP",
+    "M1007-B-LARGE-JUMP-NEC",
+    "M1007-B-LARGE-JUMP-SUFF",
+    "M1007-T-EVENTUAL",
+    "M1007-N-CENTER",
+    "M1007-T-SUFFICIENCY",
+    "M1007-T-ASSEMBLE",
+    "M1007-X-PROVENANCE",
+    "M1007-X-TCB"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1007.KolmogorovThreeSeriesTarget",
+    "Stage1Instances.THM_M_1007.ObligationTree.root_of_directions",
+    "Stage1Instances.THM_M_1007.Proof.measurable_truncationFunction",
+    "Stage1Instances.THM_M_1007.Proof.measurable_truncate",
+    "Stage1Instances.THM_M_1007.Proof.norm_truncate_le",
+    "Stage1Instances.THM_M_1007.Proof.memLp_truncate",
+    "Stage1Instances.THM_M_1007.Proof.integrable_truncate",
+    "Stage1Instances.THM_M_1007.Proof.measurableSet_largeJump",
+    "Stage1Instances.THM_M_1007.Proof.iIndepSet_largeJump",
+    "Stage1Instances.THM_M_1007.Proof.iIndepFun_truncate",
+    "Stage1Instances.THM_M_1007.Proof.largeJump_tsum_ne_top",
+    "Stage1Instances.THM_M_1007.Proof.ae_eventually_no_largeJump",
+    "Stage1Instances.THM_M_1007.Proof.summable_largeJump_of_ae_eventually_no_largeJump",
+    "Stage1Instances.THM_M_1007.Proof.ae_eventually_no_largeJump_of_seriesConverges",
+    "Stage1Instances.THM_M_1007.Proof.summable_largeJump_of_seriesConverges",
+    "Stage1Instances.THM_M_1007.Proof.eventuallyEq_truncate",
+    "Stage1Instances.THM_M_1007.Proof.seriesConverges_iff_of_eventuallyEq",
+    "Stage1Instances.THM_M_1007.Proof.ae_seriesConverges_truncate_iff_of_summable_largeJump",
+    "Stage1Instances.THM_M_1007.Proof.truncate_eq_centeredTruncate_add_mean",
+    "Stage1Instances.THM_M_1007.Proof.measurable_centeredTruncationFunction",
+    "Stage1Instances.THM_M_1007.Proof.measurable_centeredTruncate",
+    "Stage1Instances.THM_M_1007.Proof.iIndepFun_centeredTruncate",
+    "Stage1Instances.THM_M_1007.Proof.integral_centeredTruncate",
+    "Stage1Instances.THM_M_1007.Proof.norm_centeredTruncate_le",
+    "Stage1Instances.THM_M_1007.Proof.memLp_centeredTruncate",
+    "Stage1Instances.THM_M_1007.Proof.variance_centeredTruncate",
+    "Stage1Instances.THM_M_1007.Proof.seriesConverges_add_iff",
+    "Stage1Instances.THM_M_1007.Proof.seriesConverges_centered_iff",
+    "Stage1Instances.THM_M_1007.Proof.eLpNorm_one_le_two",
+    "Stage1Instances.THM_M_1007.Proof.eLpNorm_one_le_sqrt_integral_sq",
+    "Stage1Instances.THM_M_1007.Proof.ae_tendsto_sum_of_indep_centered_L1bdd",
+    "Stage1Instances.THM_M_1007.Proof.ae_seriesConverges_centered_of_variance_summable",
+    "Stage1Instances.THM_M_1007.Proof.ae_seriesConverges_truncate_of_mean_variance",
+    "Stage1Instances.THM_M_1007.Proof.threeSeries_sufficiency",
+    "Stage1Instances.THM_M_1007.Proof.obligationTree_sufficiency",
+    "Stage1Instances.THM_M_1007.Validation.exactSufficiencyTypeProbe",
+    "Stage1Instances.THM_M_1007.Validation.sufficiencyFromExplicitBridges"
+  ],
+  "provisional_kernel_evidence_obligation_ids": [
+    "M1007-T-SUFFICIENCY"
+  ],
+  "fail_closed_evaluation_obligation_ids": [
+    "M1007-ROOT",
+    "M1007-S-INTERFACE",
+    "M1007-T-ASSEMBLE",
+    "M1007-X-PROVENANCE",
+    "M1007-X-TCB"
+  ],
+  "support_only_obligation_ids": [
+    "M1007-C-TRUNC-PROPS",
+    "M1007-C-EVENT-INDEP",
+    "M1007-B-LARGE-JUMP-NEC",
+    "M1007-B-LARGE-JUMP-SUFF",
+    "M1007-T-EVENTUAL",
+    "M1007-N-CENTER"
+  ],
+  "scope_boundary": "Network-isolated trust-zero replay of the frozen statement, conditional root composition, 33 proof declarations, an exact sufficiency type probe, and a same-worker explicit-premise reconstruction. Only M1007-T-SUFFICIENCY receives provisional kernel evidence; six listed subbranches are support-only, while root/interface/assembly/provenance/TCB are covered as explicit fail-closed evaluations. The recipe does not prove bounded-series necessity or the exact biconditional root and does not pass complete trust/provenance, cold hermetic, or distinct-runner independent gates."
+}
