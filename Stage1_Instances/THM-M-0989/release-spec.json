@@ -1,0 +1,91 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0989-RELEASE-RECONCILIATION-v1",
+  "item_id": "S56-M-0989-RELEASE",
+  "theorem_id": "THM-M-0989",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0989/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "inherited only for pinned elan/lake discovery",
+    "PATH": "inherited only for pinned Lean/Lake, Python, Git, Bash, and Bubblewrap discovery",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "NO_COLOR": "1",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_policy_enforced": false,
+  "network_enforcement": "The outer Python reconciliation performs only local hash, Git, JSON, and filesystem checks but is not placed in a network namespace. Every Lean subprocess launched by check_validation.sh runs inside Bubblewrap with --unshare-net, a read-only host bind except for its disposable temporary directory, and --trust=0. This partial enforcement and the existing shared warm Lake closure are nonrelease evidence and fail the release network/hermetic gate closed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line PASS/BLOCKED release-decision summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0989-ROOT",
+    "M0989-S-DEFINITIONS",
+    "M0989-S-MEAS",
+    "M0989-C-FACTOR",
+    "M0989-N-MOMENTS",
+    "M0989-L-INFINITESIMAL",
+    "M0989-L-TRUNCATE",
+    "M0989-L-TAYLOR",
+    "M0989-L-PRODUCT",
+    "M0989-T-CHARFUN",
+    "M0989-T-LEVY",
+    "M0989-T-ASSEMBLE"
+  ],
+  "reconciled_inventory_ids": [
+    "M0989-ROOT",
+    "M0989-S-DEFINITIONS",
+    "M0989-S-MEAS",
+    "M0989-S-FOUNDATION",
+    "M0989-C-FACTOR",
+    "M0989-N-MOMENTS",
+    "M0989-L-INFINITESIMAL",
+    "M0989-L-TRUNCATE",
+    "M0989-L-TAYLOR",
+    "M0989-L-PRODUCT",
+    "M0989-T-CHARFUN",
+    "M0989-T-LEVY",
+    "M0989-T-ASSEMBLE",
+    "M0989-X-SOURCE",
+    "M0989-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0989.rowSumsAEMeasurable_proof",
+    "Stage1Instances.THM_M_0989.rowCharFun_factorization",
+    "Stage1Instances.THM_M_0989.rowSecondMoment_sum",
+    "Stage1Instances.THM_M_0989.rowExpectation_sum",
+    "Stage1Instances.THM_M_0989.rowGaussianQuadraticCoefficient",
+    "Stage1Instances.THM_M_0989.truncatedSecondMoment_nonneg",
+    "Stage1Instances.THM_M_0989.integrable_truncatedSecondMoment_integrand",
+    "Stage1Instances.THM_M_0989.truncatedSecondMoment_le_secondMoment",
+    "Stage1Instances.THM_M_0989.root_of_row_charFun_convergence",
+    "Stage1Instances.THM_M_0989.ProductLimit.tendsto_row_prod_one_add_of_sum_norm_sq",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_sub_taylor_two_le",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_one_sub_le_sq",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_taylor_two_le",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_taylor_two_le_crude",
+    "Stage1Instances.THM_M_0989.CharFunBound.norm_cexp_mul_I_sub_one_sub_le_half_sq",
+    "Stage1Instances.THM_M_0989.rowSecondMoment_mem_unitInterval",
+    "Stage1Instances.THM_M_0989.secondMoment_le_sq_add_truncated",
+    "Stage1Instances.THM_M_0989.tendsto_sum_rowSecondMoment_sq",
+    "Stage1Instances.THM_M_0989.rowLawCharFunConverges_proof",
+    "Stage1Instances.THM_M_0989.lindebergFeller_exact",
+    "Stage1Instances.THM_M_0989.Validation.lindebergFeller_composition_replay",
+    "MeasureTheory.ProbabilityMeasure.tendsto_iff_tendsto_charFun",
+    "ProbabilityTheory.iIndepFun.charFun_map_fun_sum_eq_prod",
+    "ProbabilityTheory.charFun_gaussianReal"
+  ],
+  "coverage_semantics": "The covered obligations and declarations receive a current network-isolated warm-cache kernel observation only. The full inventory is reconciled structurally to derive a fail-closed verdict and receives no accepted proof, source, readability, foundation, provenance, or release credit.",
+  "scope_boundary": "Current-snapshot negative release reconciliation. It binds the manifest, DAG, frozen registry, receipts, source hashes, stale structured authority, and reruns the narrow Lean validation. It cannot master-accept dependencies, create a canonical expression fingerprint, establish H0/R0 or AUDIT-Z, close complete provenance/TCB/SBOM, perform an immutable empty-cache cold/offline build, supply independent attestations or a minimal verifier, or create a deterministic release bundle."
+}
