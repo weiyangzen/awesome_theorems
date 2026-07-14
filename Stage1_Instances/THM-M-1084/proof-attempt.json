@@ -2,10 +2,10 @@
   "schema_version": "stage1-proof-attempt/1.0",
   "item_id": "S56-M-1084-PROOF",
   "theorem_id": "THM-M-1084",
-  "attempt_date": "2026-07-12",
-  "base_revision": "d83bcd9bb91558d5f3e2cd99f964cc161d7a0cc5",
-  "verdict": "blocked",
-  "state": "[ ]",
+  "attempt_date": "2026-07-15",
+  "base_revision": "a1a7e939e58f103f5ff5d23af51437fa8658aa04",
+  "verdict": "no_state_change",
+  "state": "[_]",
   "canonical_target": "Stage1Instances.THM_M_1084.DudleyEntropyBoundTarget",
   "root_machine_state": "M3",
   "first_failed_gate": "exact repo-local kernel closure for M1084-T-INTEGRABLE and M1084-T-ENTROPY",
@@ -13,7 +13,26 @@
     "M1084-T-INTEGRABLE",
     "M1084-T-ENTROPY"
   ],
-  "implemented_proof_bodies": [],
+  "implemented_proof_bodies": [
+    "Stage1Instances.THM_M_1084.Proof.increment_hasGaussianLaw",
+    "Stage1Instances.THM_M_1084.Proof.isProbabilityMeasure_of_process",
+    "Stage1Instances.THM_M_1084.Proof.coordinate_integrable",
+    "Stage1Instances.THM_M_1084.Proof.gaussian_map_eq",
+    "Stage1Instances.THM_M_1084.Proof.hasSubgaussianMGF_of_hasGaussianLaw_of_integral_eq_zero",
+    "Stage1Instances.THM_M_1084.Proof.increment_mgf_eq_dist_sq",
+    "Stage1Instances.THM_M_1084.Proof.increment_hasSubgaussianMGF",
+    "Stage1Instances.THM_M_1084.Proof.gaussianIncrementMGFPackage",
+    "Stage1Instances.THM_M_1084.Proof.exists_openBallCover",
+    "Stage1Instances.THM_M_1084.Proof.exists_minimal_openBallCover",
+    "Stage1Instances.THM_M_1084.Proof.coveringNumber_pos"
+  ],
+  "partial_progress_toward_obligations": [
+    "M1084-N-GAUSSIAN-MGF",
+    "M1084-C-NETS"
+  ],
+  "provisionally_closed_obligations": [
+    "M1084-N-GAUSSIAN-MGF"
+  ],
   "accepted_receipt_ids": [],
   "local_search": {
     "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
@@ -42,14 +61,16 @@
     {"argv": ["python3", "Stage1_Instances/THM-M-1084/check_obligation_tree.py"], "exit_code": 0},
     {"argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1084/Statement.lean"], "cwd": "Formalizations/Lean", "exit_code": 0},
     {"argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-1084/AnchorAudit.lean"], "cwd": "Formalizations/Lean", "exit_code": 0},
-    {"recipe": "copy Statement.lean and ObligationTree.lean into a temporary directory under Formalizations/Lean; compile Statement.olean; elaborate ObligationTree.lean with the temporary directory prepended to LEAN_PATH; remove the temporary directory", "exit_code": 0, "axioms": ["propext", "Classical.choice", "Quot.sound"]}
+    {"recipe": "copy Statement.lean and ObligationTree.lean into a temporary directory under Formalizations/Lean; compile Statement.olean; elaborate ObligationTree.lean with the temporary directory prepended to LEAN_PATH; remove the temporary directory", "exit_code": 0, "axioms": ["propext", "Classical.choice", "Quot.sound"]},
+    {"argv": ["bash", "Stage1_Instances/THM-M-1084/check_proof.sh"], "exit_code": 0, "axioms": ["propext", "Classical.choice", "Quot.sound"], "placeholder_scan": "pass"}
   ],
   "known_failures": [
-    "No proof body exists for either root-cut package.",
+    "No proof body exists for either terminal root-cut package.",
+    "The Gaussian MGF obligation is locally closed, and the finite-net obligation has substantive local bodies, but parent maps, maximum control, sum-to-integral comparison, and the separability limit remain open.",
     "The external near-candidate is unavailable in the pinned dependency closure and is not the exact target."
   ],
   "reopen_condition": "Provide compatible pinned exact bridges and integration, or implement the frozen native chaining obligations through both terminal packages.",
   "theorem_proved": false,
   "theorem_complete": false,
-  "status_boundary": "This is a fail-closed proof-attempt record, not a worker self-test receipt or a completion claim."
+  "status_boundary": "This records self-tested partial proof progress only. The exact root, both terminal packages, validation, release, master acceptance, and theorem completion remain open."
 }
