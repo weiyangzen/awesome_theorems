@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1026-VALIDATION-network-isolated-warm-v1",
+  "item_id": "S56-M-1026-VALIDATION",
+  "theorem_id": "THM-M-1026",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1026/check_validation.py"
+  ],
+  "env_allowlist": {
+    "PATH": "runner-provided command discovery; every resolved executable is content-hash checked",
+    "HOME": "runner-provided only for Lake/Elan discovery; inner Lean sandbox overrides HOME with a fresh temporary directory",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs with --trust=0 inside Bubblewrap with --unshare-net, a read-only host root, a writable fresh temporary module directory, a fixed temporary HOME, C.UTF-8 locale, UTC timezone, umask 022, and one Lean worker thread. The pinned dependency cache is reused read-only, so this is warm node evidence rather than release-grade cold hermetic reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line PASS/OPEN/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1026-B-CONVERSE",
+    "M1026-C-STABLE-WITNESS",
+    "M1026-L-CONSTANT-WEAK-LIMIT",
+    "M1026-T-CONVERSE",
+    "M1026-T-BRANCH-MERGE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1026.ObligationTree.root_of_directions",
+    "Stage1Instances.THM_M_1026.Proof.stable_normalizers",
+    "Stage1Instances.THM_M_1026.Proof.weaklyConverges_of_eventually_eq",
+    "Stage1Instances.THM_M_1026.Proof.converseTerminal",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedStableNormalizers",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedWeakLimit",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedConverse",
+    "Stage1Instances.THM_M_1026.Validation.independentlyReconstructedConditionalRoot"
+  ],
+  "status_boundary": "The recipe validates the exact frozen statement, conditional branch merge, complete converse bodies, and a separately written converse/conditional-root path. Necessity remains an explicit unsupplied premise; the exact root, complete trust/provenance, cold hermetic replay, and distinct-runner verification are not claimed."
+}
