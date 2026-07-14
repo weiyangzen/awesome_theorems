@@ -5,10 +5,11 @@ import Mathlib.Topology.Order.Compact
 /-!
 # THM-M-1271 proof implementation
 
-This module implements the geometric mountain-pass package and the compactness
-and limit-passage part of the analytic package.  The construction of a
-Palais-Smale sequence at the minimax level remains an explicit premise of the
-last theorem; no proof of the canonical root is claimed here.
+This module implements the geometric mountain-pass package, minimax value
+convergence, and the compactness and limit-passage part of the analytic
+package. The derivative-small half of the Palais-Smale sequence construction
+remains an explicit premise of the last theorem; no canonical-root proof is
+claimed here.
 -/
 
 namespace Stage1Instances.THM_M_1271
@@ -59,6 +60,28 @@ theorem alpha_le_pathHeight {Phi : X → ℝ} {rho alpha : ℝ} {e : X} {gamma :
     exact hcompact.bddAbove
   exact (hsphere (gamma t) ht_norm).trans (le_csSup hbdd hmem)
 
+/-- The `sSup` representation of an admissible path height is attained on the
+compact parameter interval. -/
+theorem pathHeight_attained {Phi : X → ℝ} {e : X} {gamma : ℝ → X}
+    (hC1 : ContDiff ℝ 1 Phi) (hgamma : IsAdmissiblePath e gamma) :
+    ∃ t ∈ Icc (0 : ℝ) 1, PathHeight Phi gamma = Phi (gamma t) := by
+  have hcontinuous : ContinuousOn (fun t : ℝ ↦ Phi (gamma t)) (Icc 0 1) :=
+    hC1.continuous.comp_continuousOn hgamma.1
+  obtain ⟨t, ht, hmax⟩ := isCompact_Icc.exists_sSup_image_eq
+    (nonempty_Icc.2 (show (0 : ℝ) ≤ 1 by norm_num)) hcontinuous
+  refine ⟨t, ht, ?_⟩
+  rw [PathHeight]
+  have heq : {r : ℝ | ∃ s ∈ Icc (0 : ℝ) 1, r = Phi (gamma s)} =
+      (fun s : ℝ ↦ Phi (gamma s)) '' Icc 0 1 := by
+    ext r
+    constructor
+    · rintro ⟨s, hs, rfl⟩
+      exact ⟨s, hs, rfl⟩
+    · rintro ⟨s, hs, rfl⟩
+      exact ⟨s, hs, rfl⟩
+  rw [heq]
+  exact hmax
+
 /-- The complete geometric package used by the root composition theorem. -/
 theorem mountainPassBarrierPackage : MountainPassBarrierPackage.{u} := by
   intro X _group _space _complete Phi rho alpha e hC1 _hzero hrho halpha hsphere he _hout
@@ -77,6 +100,43 @@ obligation. -/
 def IsPalaisSmaleSequenceAt (Phi : X → ℝ) (c : ℝ) (x : ℕ → X) : Prop :=
   Tendsto (fun n ↦ Phi (x n)) atTop (nhds c) ∧
   Tendsto (fun n ↦ ‖fderiv ℝ Phi (x n)‖) atTop (nhds 0)
+
+/-- Minimax order and compact path maxima produce points whose functional
+values tend to the mountain-pass level. This is the value-convergence half of
+the still-open Palais-Smale sequence construction. -/
+theorem exists_valueSequence_at_mountainPassLevel
+    {Phi : X → ℝ} {rho alpha : ℝ} {e : X}
+    (hC1 : ContDiff ℝ 1 Phi) (hrho : 0 < rho)
+    (hsphere : ∀ x : X, ‖x‖ = rho → alpha ≤ Phi x) (he : rho < ‖e‖) :
+    ∃ x : ℕ → X, Tendsto (fun n ↦ Phi (x n)) atTop
+      (nhds (MountainPassLevel Phi e)) := by
+  let heights : Set ℝ :=
+    {c : ℝ | ∃ gamma : ℝ → X, IsAdmissiblePath e gamma ∧ c = PathHeight Phi gamma}
+  have hline : IsAdmissiblePath e (fun t : ℝ ↦ t • e) := by
+    refine ⟨(continuous_id.smul continuous_const).continuousOn, ?_, ?_⟩
+    · simp
+    · simp
+  have hheights : heights.Nonempty := by
+    exact ⟨PathHeight Phi (fun t : ℝ ↦ t • e), (fun t : ℝ ↦ t • e), hline, rfl⟩
+  have hbdd : BddBelow heights := by
+    refine ⟨alpha, ?_⟩
+    rintro c ⟨gamma, hgamma, rfl⟩
+    exact alpha_le_pathHeight hC1 hgamma hrho he hsphere
+  obtain ⟨c, _hcmono, hc_lim, hc_mem⟩ := exists_seq_tendsto_sInf hheights hbdd
+  have hc_data : ∀ n, ∃ gamma : ℝ → X,
+      IsAdmissiblePath e gamma ∧ c n = PathHeight Phi gamma := by
+    simpa only [heights] using hc_mem
+  choose gamma hgamma hc_height using hc_data
+  have ht_data : ∀ n, ∃ t ∈ Icc (0 : ℝ) 1,
+      PathHeight Phi (gamma n) = Phi (gamma n t) :=
+    fun n ↦ pathHeight_attained hC1 (hgamma n)
+  choose t _ht htmax using ht_data
+  refine ⟨fun n ↦ gamma n (t n), ?_⟩
+  have heq : (fun n ↦ Phi (gamma n (t n))) = c := by
+    funext n
+    exact ((hc_height n).trans (htmax n)).symm
+  rw [heq]
+  simpa only [MountainPassLevel, heights] using hc_lim
 
 /-- Global Palais-Smale compactness and continuity turn a Palais-Smale
 sequence into a critical point at its limiting value. -/
@@ -116,7 +176,9 @@ theorem mountainPassCriticalPackage_of_psSequence
 
 #print axioms admissiblePath_meets_sphere
 #print axioms alpha_le_pathHeight
+#print axioms pathHeight_attained
 #print axioms mountainPassBarrierPackage
+#print axioms exists_valueSequence_at_mountainPassLevel
 #print axioms exists_criticalPoint_of_psSequence
 #print axioms mountainPassCriticalPackage_of_psSequence
 

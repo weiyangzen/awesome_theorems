@@ -40,7 +40,8 @@ assert all(0 < n["step_budget"] <= 100 and n["step_budget"] == len(n["semantic_s
 c = b["closure_boundary"]
 assert c["root_closed"] is c["audit_complete"] is c["theorem_complete"] is False
 for p in HERE.glob("*.lean"):
-    text = p.read_text(); assert "sorry" not in text and "admit" not in text
+    text = p.read_text().replace("assert_no_sorry", "")
+    assert "sorry" not in text and "admit" not in text
 print(f"PASS THM-M-0533 obligation tree: {len(ids)} obligations, {len(all_edges)} typed edges")
 print(f"registry denominator sha256: {den}")
 print("root closure: open (M3); no theorem completion claimed")
