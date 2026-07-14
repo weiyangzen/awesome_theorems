@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0593-VALIDATION",
+  "theorem_id": "THM-M-0593",
+  "recipe_id": "S56-M-0593-VALIDATION-network-isolated-v1",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0593/check_validation.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The recorded recipe invokes no network-capable operation and runs direct pinned Lean with --trust=0 against fresh module outputs in a temporary directory. Outbound-network denial is not independently enforced in this worker replay, so the network-isolation and hermetic release gates fail closed. Existing pinned compiled dependencies are reused read-only.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line summary naming the passed partial kernel/trust/provenance checks and the fail-closed root, hermetic, and independent-verification gates"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0593-S-DEFINITIONS",
+    "M0593-B-ZERO",
+    "M0593-B-LOWDIM",
+    "M0593-B-MERGE",
+    "M0593-L-DIMENSION-IMAGE",
+    "M0593-S-FOUNDATION",
+    "M0593-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THMM0593.root_of_sard_branches",
+    "Stage1Instances.THMM0593.zeroCodomainBranch_proof",
+    "Stage1Instances.THMM0593.lowDimensionBranch_proof",
+    "Stage1Instances.THMM0593.sardTarget_of_hardDimensionBranch",
+    "Stage1Instances.THMM0593.Validation.exactRoot_iff_frozen",
+    "Stage1Instances.THMM0593.Validation.zeroCodomainBranch_validation",
+    "Stage1Instances.THMM0593.Validation.conditionalExactRoot"
+  ],
+  "scope_boundary": "Node-scoped nonrelease replay of the exact target, conditional composition, two partial proof bodies, a separately implemented zero-codomain proof, selected direct mathlib provenance, and direct axiom/tool observations. Coverage of foundation and provenance obligations is a fail-closed assessment, not closure. HardDimensionBranch, exact root closure, complete transitive provenance/TCB/SBOM, a cold empty-cache offline restoration, and distinct signed independent verification remain open."
+}
