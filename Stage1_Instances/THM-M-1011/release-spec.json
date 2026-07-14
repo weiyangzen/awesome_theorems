@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1011-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1011-RELEASE",
+  "theorem_id": "THM-M-1011",
+  "cwd": ".",
+  "argv": [
+    "bwrap",
+    "--ro-bind",
+    "/",
+    "/",
+    "--dev",
+    "/dev",
+    "--proc",
+    "/proc",
+    "--tmpfs",
+    "/tmp",
+    "--unshare-net",
+    "--die-with-parent",
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1011/check_release.py"
+  ],
+  "env_allowlist": {
+    "PATH": "explicitly_variable",
+    "HOME": "explicitly_variable",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0"
+  },
+  "environment_enforcement": "The exact outer recipe is invoked through env -i with only the listed variables. Bubblewrap preserves the caller's repository working directory. The checker likewise supplies a minimal environment to every local Git, Lake, Lean, and Bubblewrap subprocess and checks material executable digests.",
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The entire release checker runs inside bubblewrap --unshare-net with a read-only host root and writable private /tmp. Lean elaboration/check subprocesses inherit that denied network namespace and write only fresh temporary target outputs. The existing shared warm dependency cache still makes this explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1011-ROOT",
+    "M1011-S-DEFINITIONS",
+    "M1011-S-DOMAIN",
+    "M1011-S-BOUNDARY",
+    "M1011-S-TRANSPORT",
+    "M1011-S-FOUNDATION",
+    "M1011-N-SEPARATION",
+    "M1011-B-TIGHT-COMPACT",
+    "M1011-B-COMPACT-TIGHT",
+    "M1011-L-PROKHOROV",
+    "M1011-L-COMPACT-TIGHT",
+    "M1011-T-ASSEMBLE",
+    "M1011-X-SOURCE",
+    "M1011-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1011.CanonicalStatement",
+    "Stage1Instances.THM_M_1011.ObligationTree.canonical_of_t2",
+    "Stage1Instances.THM_M_1011.Proof.canonical",
+    "Stage1Instances.THM_M_1011.Validation.independentlyReconstructedCanonical",
+    "MeasureTheory.isCompact_closure_of_isTightMeasureSet",
+    "MeasureTheory.isTightMeasureSet_of_isCompact_closure"
+  ],
+  "scope_boundary": "Reconciles the frozen 14-obligation inventory and current authority, then performs a current network-isolated trust-zero warm-cache replay of the existing exact proof root and same-route differential root. It does not reconcile the quotient proof into the frozen direct-T2 graph, make the stale predecessor recipe current, accept any receipt, or supply H0, R0, AUDIT-Z, cold/offline release evidence, independent verification, THEOREM-Z, release, or master acceptance."
+}
