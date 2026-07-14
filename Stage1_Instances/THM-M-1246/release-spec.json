@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1246-RELEASE-reconcile-v1",
+  "item_id": "S56-M-1246-RELEASE",
+  "theorem_id": "THM-M-1246",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1246/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker makes no network request. Its Lean corroboration invokes the existing validation runner, whose Lean subprocesses use Bubblewrap with an unshared network namespace and read-only host root.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact four-line blocked release summary from the hash-bound checker",
+      "semantic_sha256": "bff0b7539b2d5eb3816442779f31272ceab07c83d5d8cf73cbea2232c7bcea9c",
+      "bytes": 240
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1246-ROOT",
+    "M1246-S-DEFINITIONS",
+    "M1246-S-BOUNDARY",
+    "M1246-S-FOUNDATION",
+    "M1246-N-CUTOFF",
+    "M1246-L-DIVERGENCE",
+    "M1246-L-INTEGRATION-BY-PARTS",
+    "M1246-L-DERIVATIVE",
+    "M1246-L-CAUCHY-SCHWARZ",
+    "M1246-L-LIMIT",
+    "M1246-L-REARRANGE",
+    "M1246-T-ANALYTIC",
+    "M1246-T-ROOT-TRANSPORT",
+    "M1246-X-SOURCE",
+    "M1246-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1246.HardyInequalityTarget",
+    "Stage1Instances.THM_M_1246.Proof.hardyTerminal",
+    "Stage1Instances.THM_M_1246.Proof.hardyInequality",
+    "Stage1Instances.THM_M_1246.Validation.independentlyReconstructedHardyInequality"
+  ],
+  "scope_boundary": "Reconciles current target authority, frozen obligation state, proof and validation receipts, and the recorded fresh narrow trust-zero Lean replay into an exact blocked release verdict. The Lean replay is run separately before this deterministic checker. This is same-worker nonrelease evidence, not an immutable cold empty-cache build, accepted dependency receipt, complete trust/source/readability record, independent runner, minimal independent verifier, deterministic release bundle, master acceptance, or theorem completion."
+}
