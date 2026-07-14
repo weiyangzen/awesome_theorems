@@ -1,13 +1,16 @@
 # THM-M-1078 proof-phase blocker
 
 Item: `S56-M-1078-PROOF`  
-Base revision: `888613d9a2a747d4f8fca16dc48f34cc88627ba4`  
-Attempt date: `2026-07-12` (`Asia/Shanghai`)
+Original blocked attempt base revision: `888613d9a2a747d4f8fca16dc48f34cc88627ba4`
+Partial-progress follow-up: `proof-validation.md` at base
+`fb0fd5be494d0813177dbdc959ec911d69a72015`
 
 ## Verdict
 
-The proof phase is blocked and is not self-tested as complete. No proof receipt, machine-closure
-credit, or theorem-completion claim is made.
+The exact root remains blocked and no theorem-completion claim is made. The later follow-up did
+self-test a real proof body for the documented horizon-local `M1078-T-ALLTIME` obligation; see
+`Proof.lean`, `proof-receipt.json`, and `proof-validation.md`. That partial receipt does not close
+the proof node as a whole.
 
 The frozen proof route requires the terminal declaration
 `MeasureTheory.Lp_Burkholder_inequality_martingaleTransform` from
@@ -27,9 +30,10 @@ artifacts, so this missing artifact must be reported rather than manufactured.
 
 The exact wrapper also retains substantive open bridges recorded by the frozen obligation tree:
 
-- terminal `MemLp (f n) p mu` must imply the all-time `MemLp` premise used upstream for arbitrary
-  `1 < p < infinity`; the pinned mathlib search found conditional-expectation `MemLp` closure only
-  at exponent `2`, not the required general exponent;
+- terminal `MemLp (f n) p mu` must supply the upstream all-time premise through a valid
+  horizon-stopped process. The later follow-up proved the documented `k <= n` general-exponent
+  conditional-expectation bridge, but `ObligationTree.EarlierMemLpBridge` mistakenly quantifies
+  over every future `k` and is false in general;
 - mathlib `IsPredictable` must be transported to the external `IsStronglyPredictable` interface;
 - indexing and `eLpNorm`/`lpNorm` transports must be checked against the imported declaration.
 
@@ -59,7 +63,8 @@ No `lake update`, `lake build`, clone, fetch, dependency write, or `.lake` mutat
 ## Reopen condition
 
 Provide an immutable, license-reviewed Burkholder dependency or vendored port compatible with the
-repository's pinned Lean/mathlib closure, including its transitive proof bodies and compiled
-artifacts. Then implement and kernel-check the exact wrapper and every registered bridge, and
-inspect the terminal declaration's axioms and provenance. Until that happens,
-`S56-M-1078-PROOF` remains open and `.stage1-worker-selftest.json` must remain absent.
+repository's pinned Lean/mathlib closure, including its transitive proof bodies. Repair the
+conditional composition interface or specialize the proof to a process stopped at the target
+horizon, then kernel-check every remaining wrapper and bridge and inspect the terminal
+declaration's axioms and provenance. Until that happens, the exact root and proof node remain open.
+The root worker packet may record the self-tested partial body only; it must preserve this boundary.
