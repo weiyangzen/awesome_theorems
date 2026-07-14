@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1024-VALIDATION-network-isolated-warm-v1",
+  "item_id": "S56-M-1024-VALIDATION",
+  "theorem_id": "THM-M-1024",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1024/check_validation.py"
+  ],
+  "env_allowlist": {
+    "PATH": "runner-provided helper discovery; Lean, the Lake launcher, and Bubblewrap are content-hash checked, while the incomplete helper TCB prevents release credit",
+    "HOME": "runner-provided only for Lake/Elan discovery; inner Lean sandbox overrides HOME with a fresh temporary directory",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs with --trust=0 inside Bubblewrap with --unshare-net, a read-only host root, a writable fresh temporary module directory, a fixed temporary HOME, C.UTF-8 locale, UTC timezone, umask 022, and one Lean worker thread. The pinned dependency cache is reused read-only, so this is warm node evidence rather than release-grade cold hermetic reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line PASS/OPEN/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1024-S-DEFINITIONS",
+    "M1024-S-CONVENTIONS",
+    "M1024-S-BOUNDARY",
+    "M1024-N-EXPONENT",
+    "M1024-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1024.root_of_packages",
+    "Stage1Instances.THM_M_1024.compensatedIntegrand_zero_right",
+    "Stage1Instances.THM_M_1024.compensatedIntegrand_zero_left",
+    "Stage1Instances.THM_M_1024.levyExponent_zero",
+    "Stage1Instances.THM_M_1024.measurable_compensatedIntegrand",
+    "Stage1Instances.THM_M_1024.norm_compensatedIntegrand_le_two",
+    "Stage1Instances.THM_M_1024.norm_compensatedIntegrand_le",
+    "Stage1Instances.THM_M_1024.integrable_compensatedIntegrand",
+    "Stage1Instances.THM_M_1024.integrable_levyExponent_jump",
+    "Stage1Instances.THM_M_1024.continuous_integral_compensatedIntegrand",
+    "Stage1Instances.THM_M_1024.continuous_levyExponent",
+    "Stage1Instances.THM_M_1024.Validation.directCompensatedIntegrand_zero_left",
+    "Stage1Instances.THM_M_1024.Validation.directLevyExponent_zero",
+    "Stage1Instances.THM_M_1024.Validation.directMeasurableCompensatedIntegrand",
+    "Stage1Instances.THM_M_1024.Validation.directConditionalRoot"
+  ],
+  "status_boundary": "The recipe validates the exact frozen statement, conditional package composition, ten partial exponent bodies, and four separately written normalization/composition probes. No complete M1024-N-EXPONENT body or forward, converse, uniqueness, or exact-root inhabitant exists; complete trust/provenance, cold hermetic replay, and distinct-runner verification are not claimed."
+}

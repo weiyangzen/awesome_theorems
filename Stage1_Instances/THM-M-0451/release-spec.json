@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0451-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0451-RELEASE",
+  "theorem_id": "THM-M-0451",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0451/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 360,
+  "network_policy": "nested_lean_denied_release_orchestration_not_isolated",
+  "network_enforcement": "Every fresh Lean subprocess is run by the release checker inside Bubblewrap with --unshare-net, a read-only host root, a disposable writable module directory, fixed locale/timezone/thread count, and trust level zero. The outer release reconciliation process is not network-isolated, makes no network request, and never fetches, updates, builds, or mutates dependencies; this is explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED negative release summary",
+      "semantic_sha256": "ba4608a2f9faee8f7ba18e98856ff4c77cd64351ddda17d4fd8a02d52757932a",
+      "bytes": 542
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0451-ROOT",
+    "M0451-ASSEMBLE",
+    "M0451-HEIGHT",
+    "M0451-LIMIT",
+    "M0451-APPROX",
+    "M0451-BOUNDED",
+    "M0451-QUADRATIC",
+    "M0451-PARALLELOGRAM",
+    "M0451-NONNEGATIVE",
+    "M0451-TORSION-KERNEL",
+    "M0451-TORSION-ZERO",
+    "M0451-ZERO-TORSION",
+    "M0451-XHEIGHT",
+    "M0451-FOUNDATION",
+    "M0451-SOURCE",
+    "M0451-PROVENANCE",
+    "M0451-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0451.NeronTateCanonicalHeightTarget",
+    "Stage1Instances.THM_M_0451.ObligationTree.engine_compose",
+    "Stage1Instances.THM_M_0451.Proof.tateSequence_tendsto",
+    "Stage1Instances.THM_M_0451.Proof.tateLimit_sub_le",
+    "Stage1Instances.THM_M_0451.Proof.tateLimit_map",
+    "Stage1Instances.THM_M_0451.Proof.limit_formula_of_doubling_bound",
+    "Stage1Instances.THM_M_0451.Proof.bounded_difference_of_doubling_bound",
+    "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_double",
+    "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_nonnegative",
+    "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_parallelogram_of_bounds",
+    "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_quadratic_of_bounds",
+    "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_torsion_zero",
+    "Stage1Instances.THM_M_0451.Proof.torsion_to_zero_of_quadratic",
+    "Stage1Instances.THM_M_0451.Validation.exactTarget_conditional_probe"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Current-snapshot fail-closed release reconciliation. It performs a fresh trust-zero, network-isolated replay of the exact statement, conditional composition, eleven partial proof declarations, recursive sorry probes, and the same-worker differential conditional adapter against the existing pinned warm dependency artifacts. It cannot accept the validation dependency, inhabit the canonical engine, resolve source normalization, supply H0/R0 or complete provenance/foundation/TCB/SBOM closure, perform cold empty-cache offline restoration, provide distinct signed runners or an independent minimal verifier, assemble a deterministic release bundle, or establish AUDIT-Z/THEOREM-Z."
+}

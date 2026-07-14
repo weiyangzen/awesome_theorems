@@ -1,0 +1,166 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1084-RELEASE-local-20260715T065457+0800",
+  "item_id": "S56-M-1084-RELEASE",
+  "theorem_id": "THM-M-1084",
+  "intent": "release",
+  "base_revision": "111bbeb1a210ae4e8525a4342012921ab60e466f",
+  "base_tree": "8f705aa79622bf1e9be0665ae1254313df21b4f6",
+  "decided_at": "2026-07-15T06:54:57+08:00",
+  "attestor": "stage1-rev56-worker-slot1",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1084-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1084-VALIDATION-local-20260715T063000+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_accepted": false,
+    "receipt_release_grade": false,
+    "receipt_sha256": "cbd1f7054a9b06896c99542229ab0a426dff3e15a65cab981071df974436ff4a"
+  },
+  "reconciled_inputs": {
+    "instance.json": "6610ef0b1862fafd446b143754fb3e32d835d95a581a17ad1938ed8a04503103",
+    "task-dag.json": "d5bf4d607b7bb9283438bbe1b47a79ab6857a4f77f3fe828eac1f4ca3b0754cb",
+    "statement.json": "ea2e93a4d5e878331376aec2724eba0d57a8727e9674e55fb941a110f4cbbe42",
+    "Statement.lean": "75ce1fe27d00a5b5f42d0fe6bfc961e9e836145cb2f608faab5ddb122ba98222",
+    "anchor-audit.json": "7e0e035b4a1a97db174b53d939eec6e946d29339f6c425c03c236bfdbe609976",
+    "AnchorAudit.lean": "d8d2993319211686db17d8e06c5997b8e1899060eb7669dbd85ab843ce446ac5",
+    "obligation-registry.json": "1c447a6f1691e586160ba324c732072ad9604643e2edd7ee3d8fd7a3b4396117",
+    "typed-graphs.json": "38c06677202fa48a54df6b892b4d0790dbf5867b20fec188fe69ff864a0e46ef",
+    "ObligationTree.lean": "8868690697aeac26a40f48b5abb88a5859c632b3eadbc7e63666e427f35aabc6",
+    "GaussianMGFBridge.lean": "721c0fcae4dbcaf106382d7ac01b5239d29aec941502bc9c59ccdf24d4576142",
+    "CoveringNets.lean": "aab49b3768a09f6db7f4925495e6d3113c3c25d3a2bce274bb393079e027a32f",
+    "Validation.lean": "236262c9f0fe969a1e0bc0e928335574f97e5b6c401379318a25682fb098f53e",
+    "proof-attempt.json": "e2120e7140102367186e2e252dd4609d818c4c7194d60b687efcd20725dc26f1",
+    "proof-receipt.json": "8f3217aee237783ed970490ee03c91a355590c6f7236e6e1b0ccb4bc4779c677",
+    "validation-spec.json": "ae891862cc92af0907928cab7f7940631cb6c684bbe536eb599c791c05bce2b1",
+    "validation-receipt.json": "cbd1f7054a9b06896c99542229ab0a426dff3e15a65cab981071df974436ff4a",
+    "check_validation.py": "fdfab82263289490842f7754c092aeaccccbd85cacbea7e29d1df7e02cf76f6c",
+    "source-statement-crosswalk.md": "829cd5942374bdc40b246c99ed2e6502eb919de26ce3117ec815a0f42e670352"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1084-PROOF-local-20260715T054441+0800",
+    "S56-M-1084-VALIDATION-local-20260715T063000+0800"
+  ],
+  "root_vector": {
+    "accepted_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "accepted_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "boundary": "The authoritative planned instance records H1/M3/R3 and the latest provisional validation receipt agrees that the exact root remains M3 and unproved. The frozen graph has no accepted evidence IDs and also records the root open; its older H2/R4 node projections and the anchor audit's M1 slogan are not accepted root promotions."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "dependency_gate": "dependency.S56-M-1084-VALIDATION.master_acceptance",
+    "reason": "S56-M-1084-VALIDATION is only provisional [_] worker evidence with accepted=false and release_grade=false, so RELEASE is not dependency-legal."
+  },
+  "nested_predecessor_failure": {
+    "gate_id": "dependency.S56-M-1084-PROOF.master_acceptance",
+    "reason": "The validation receipt records proof master acceptance as its own first failed gate."
+  },
+  "first_failed_theorem_gate": {
+    "gate_id": "proof.root_kernel_closure",
+    "reason": "M1084-T-INTEGRABLE and M1084-T-ENTROPY have no proof bodies, so the checked composition theorem remains conditional and the exact root is not kernel-closed."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "Only network-isolated warm-cache replay exists; no immutable clean empty-cache cold build or network-disconnected restoration has been performed."
+  },
+  "evidence_reconciliation": {
+    "exact_statement_elaboration": "provisional pass at expression sha256 25bdfe85eaaa67694f865e6af60c240b013b2fbcd9acfb2949e5abdb0b34ca99",
+    "conditional_composition": "provisional pass; root_of_integrability_and_entropy_packages consumes two unproved terminal packages and is not root closure",
+    "partial_kernel_replay": "provisional pass for the Gaussian-MGF package and finite-cover existence, attainment, and positivity declarations",
+    "same_worker_differential_replay": "provisional pass for two independently written partial reconstructions; this is not independent release verification",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_and_unsafe_scan": "provisional pass on all five owned Lean modules",
+    "validation_dependency_acceptance": "failed: validation is provisional, nonrelease, and not master accepted",
+    "root_kernel_closure": "failed: both terminal Dudley packages are unproved and the exact root remains M3",
+    "anchor_machine_projection": "rejected as a root promotion: anchor-audit.json labels an unintegrated non-exact upstream near candidate M1, but section 4 requires E2 for M1 and the candidate was not locally or independently replayed; the later exact-root authority remains M3",
+    "audit_inventory_reconciliation": "missing: source, graph, evidence, debt, and public projections are not accepted or fully synchronized",
+    "human_source_acceptance": "missing: exact theorem/page, assumptions, normalization, errata, node mapping, and independent H0 review remain open",
+    "readability_acceptance": "missing: no complete node-by-node R0 reconstruction with independent reader review exists",
+    "foundation_and_trust_closure": "missing: the foundation profile and complete transitive declaration, provenance, compiled-artifact, axiom, computation, and TCB closure are not accepted",
+    "hermetic_release_reproduction": "missing: the replay reuses the automation-provided canonical warm .lake closure rather than an empty-cache cold offline build",
+    "supply_chain_closure": "missing: no complete SBOM, license set, content-addressed dependency archives, or offline restoration record exists",
+    "independent_release_verification": "missing: no two signed separately provisioned runners and no independently implemented minimal verifier exist",
+    "protected_ci_and_adversarial_gates": "missing",
+    "deterministic_release_bundle": "missing",
+    "master_acceptance": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1084-VALIDATION and every transitive phase receipt",
+    "placeholder-free proof bodies for M1084-T-INTEGRABLE and M1084-T-ENTROPY through M1084-C-CHAIN, M1084-L-MAX-INCREMENT, M1084-L-DYADIC-SUM, and M1084-L-LIMIT",
+    "dependency-legal exact-root composition and authoritative M0 reconciliation",
+    "AUDIT-Z with accepted source-boundary, evidence-state, debt, graph, and public-projection reconciliation",
+    "accepted H0 primary-source pinpoint and assumption/normalization/errata crosswalk with independent review",
+    "accepted R0 anchored readable reconstruction with independent reader review",
+    "accepted foundation profile plus complete transitive proof-body provenance, axiom, computation, compiled-artifact, and TCB closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and network-disconnected archive restoration",
+    "complete content-addressed SBOM and license closure",
+    "two signed attestations from separately provisioned clean runners without shared writable caches",
+    "independently implemented minimal release verifier and protected adversarial CI",
+    "deterministic build-twice content-addressed release bundle, public-state reconciliation, THEOREM-Z, and master acceptance"
+  ],
+  "retry_condition": "First implement both exact terminal packages, complete the chaining route, and obtain dependency-ordered master acceptance through validation. Then accept AUDIT-Z, H0/R0, foundation/provenance/trust closure, and run a separately provisioned cold offline supply-chain and independent-verification protocol that produces a deterministic release bundle for final master reconciliation.",
+  "worktree_classification": "nonrelease worker clone: the automation-provided Formalizations/Lean/.lake symlink is untracked and reused warm without mutation; the owned release artifacts and worker packet are provisional changes",
+  "canonical_obligation_ids": [
+    "M1084-ROOT",
+    "M1084-S-DEFINITIONS",
+    "M1084-S-BOUNDARY",
+    "M1084-S-FOUNDATION",
+    "M1084-N-GAUSSIAN-MGF",
+    "M1084-C-NETS",
+    "M1084-C-CHAIN",
+    "M1084-L-MAX-INCREMENT",
+    "M1084-L-DYADIC-SUM",
+    "M1084-L-LIMIT",
+    "M1084-T-INTEGRABLE",
+    "M1084-T-ENTROPY",
+    "M1084-T-ASSEMBLE",
+    "M1084-X-SOURCE",
+    "M1084-X-EXTERNAL",
+    "M1084-X-PROVENANCE"
+  ],
+  "statement_fingerprint": "lean-expression-sha256:25bdfe85eaaa67694f865e6af60c240b013b2fbcd9acfb2949e5abdb0b34ca99",
+  "registry_denominator_sha256": "a2bf7a0e46b0ca64f3ce1259043f8e1f7c85975bb4762a9e2a5256709555111a",
+  "composition_certificates_inspected": [
+    "Stage1Instances.THM_M_1084.root_of_integrability_and_entropy_packages"
+  ],
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records the open authority and its stale projections without rewriting predecessor state",
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-1084/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1084/release-validation.md"
+  ],
+  "change_impact_set": [
+    "S56-M-1084-RELEASE"
+  ],
+  "status_boundary": "Self-tested negative release reconciliation only. It advances no lifecycle, debt, obligation, audit, or theorem state; accepts no receipt; and does not claim E0/E1, M0 root closure, AUDIT-Z, THEOREM-Z, release grade, theorem completion, independent verification, or master acceptance."
+}

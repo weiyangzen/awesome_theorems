@@ -1,0 +1,222 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0451-RELEASE-worker-20260715T063200+0800",
+  "item_id": "S56-M-0451-RELEASE",
+  "theorem_id": "THM-M-0451",
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0451-VALIDATION"
+  ],
+  "base_revision": "bbe7a5bd1c72a12f3f43b79b6a4cac3f62d2085a",
+  "base_tree": "aa558ed6f23779c7d2d9a8427775f709d8b7e31b",
+  "validated_at": "2026-07-15T06:32:00+08:00",
+  "owner": "THM-M-0451 release lane",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "release_grade": false,
+  "content_addressed_release_evidence": false,
+  "repository_state": {
+    "base_commit": "bbe7a5bd1c72a12f3f43b79b6a4cac3f62d2085a",
+    "base_tree": "aa558ed6f23779c7d2d9a8427775f709d8b7e31b",
+    "initial_status": [
+      "?? Formalizations/Lean/.lake"
+    ],
+    "worktree_classification": "nonrelease worker handoff with owned untracked release artifacts and the automation-provided untracked canonical .lake link",
+    "patch_sha256": "7577546a04e4a36354ea67d8df74cc7631b039619d5f3e4f30536de15fa1f40f",
+    "patch_hash_semantics": "SHA-256 of the newline-terminated, path-sorted ledger of SHA-256, two spaces, and repo-relative path for the four non-self-referential owned release inputs; the receipt and root worker packet are derived outputs",
+    "untracked_input_hashes": {
+      "Stage1_Instances/THM-M-0451/check_release.py": "8e48915cd9233d3e612b8e9618a7976e10842461d90e80209095c9b4b1efda46",
+      "Stage1_Instances/THM-M-0451/release-decision.json": "ec17baeec6663ba62352c6089de38be3b7a209ef3b00ff5653b5dbf957bd8860",
+      "Stage1_Instances/THM-M-0451/release-phase.md": "2b1d6530b7e885ee945b82dc8477355aeee5aa7e6ec207eda35cf5309e726bfb",
+      "Stage1_Instances/THM-M-0451/release-spec.json": "69a57f6db02e449db667fb266e31acce925d1428f9ffb5ff2c582ad9d58252ce"
+    },
+    "dependency_cache": "automation-provided canonical pinned .lake link; shared warm cache used read-only and not mutated"
+  },
+  "inputs": {
+    "release_spec_sha256": "69a57f6db02e449db667fb266e31acce925d1428f9ffb5ff2c582ad9d58252ce",
+    "release_decision_sha256": "ec17baeec6663ba62352c6089de38be3b7a209ef3b00ff5653b5dbf957bd8860",
+    "release_phase_sha256": "2b1d6530b7e885ee945b82dc8477355aeee5aa7e6ec207eda35cf5309e726bfb",
+    "check_release_sha256": "8e48915cd9233d3e612b8e9618a7976e10842461d90e80209095c9b4b1efda46",
+    "validation_receipt_sha256": "d9d96d1bcea7afd6ed43c5d3a6604123f08ab53544e5cecbcc79c219abd36162",
+    "obligation_registry_sha256": "b31f76ecf12e6936dcbfe0e536df7b0a353f0adf83af31d07a96341b130ae100",
+    "typed_graphs_sha256": "b957531c419f6648336d1abbd51c161f81b5cdbd90f3a092335c2dfdabbf57ce"
+  },
+  "recipe": {
+    "recipe_id": "S56-M-0451-RELEASE-negative-reconciliation-v1",
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-0451/check_release.py"
+    ],
+    "env_allowlist": {
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC",
+      "LEAN_NUM_THREADS": "1"
+    },
+    "timeout_seconds": 360,
+    "network_policy": "nested_lean_denied_release_orchestration_not_isolated",
+    "network_enforcement": "Every fresh Lean subprocess is run by the release checker inside Bubblewrap with --unshare-net, a read-only host root, a disposable writable module directory, fixed locale/timezone/thread count, and trust level zero. The outer release reconciliation process is not network-isolated, makes no network request, and never fetches, updates, builds, or mutates dependencies; this is explicitly nonrelease evidence.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "exact six-line PASS/BLOCKED negative release summary",
+        "semantic_sha256": "ba4608a2f9faee8f7ba18e98856ff4c77cd64351ddda17d4fd8a02d52757932a",
+        "bytes": 542
+      }
+    ],
+    "covered_obligation_ids": [
+      "M0451-ROOT",
+      "M0451-ASSEMBLE",
+      "M0451-HEIGHT",
+      "M0451-LIMIT",
+      "M0451-APPROX",
+      "M0451-BOUNDED",
+      "M0451-QUADRATIC",
+      "M0451-PARALLELOGRAM",
+      "M0451-NONNEGATIVE",
+      "M0451-TORSION-KERNEL",
+      "M0451-TORSION-ZERO",
+      "M0451-ZERO-TORSION",
+      "M0451-XHEIGHT",
+      "M0451-FOUNDATION",
+      "M0451-SOURCE",
+      "M0451-PROVENANCE",
+      "M0451-TRUST"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_0451.NeronTateCanonicalHeightTarget",
+      "Stage1Instances.THM_M_0451.ObligationTree.engine_compose",
+      "Stage1Instances.THM_M_0451.Proof.tateSequence_tendsto",
+      "Stage1Instances.THM_M_0451.Proof.tateLimit_sub_le",
+      "Stage1Instances.THM_M_0451.Proof.tateLimit_map",
+      "Stage1Instances.THM_M_0451.Proof.limit_formula_of_doubling_bound",
+      "Stage1Instances.THM_M_0451.Proof.bounded_difference_of_doubling_bound",
+      "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_double",
+      "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_nonnegative",
+      "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_parallelogram_of_bounds",
+      "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_quadratic_of_bounds",
+      "Stage1Instances.THM_M_0451.Proof.constructedCanonicalHeight_torsion_zero",
+      "Stage1Instances.THM_M_0451.Proof.torsion_to_zero_of_quadratic",
+      "Stage1Instances.THM_M_0451.Validation.exactTarget_conditional_probe"
+    ],
+    "covered_decisions": [
+      "AUDIT-Z",
+      "THEOREM-Z"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "stdout_sha256": "ba4608a2f9faee8f7ba18e98856ff4c77cd64351ddda17d4fd8a02d52757932a",
+    "stdout_bytes": 542,
+    "verdict": "blocked",
+    "current_narrow_kernel_replay": "pass_nonclosing",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "recursive_sorry_observation": "pass for twelve proof/assembly declarations and one conditional adapter",
+    "validation_dependency_master_acceptance": "fail_closed",
+    "authoritative_root_state": "H1/M3/R3_open",
+    "root_kernel_closure": "fail_closed_at_M0451-APPROX_and_M0451-ZERO-TORSION",
+    "audit_z": "fail_closed",
+    "theorem_z": "fail_closed",
+    "source_normalization_gate": "fail_closed",
+    "transitive_provenance_tcb_sbom_gate": "fail_closed",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed",
+    "deterministic_bundle_gate": "fail_closed",
+    "master_acceptance_gate": "pending",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "output_summary": [
+    "PASS release inputs: target, DAG, receipts, frozen registry, graphs, and hashes agree",
+    "PASS current narrow replay: trust-zero network-isolated statement, conditional proof, sorry, and axiom probes",
+    "PASS fail-closed state: lifecycle planned; accepted root H1/M3/R3; accepted receipts 0",
+    "BLOCKED S56-10.2-DEPENDENCY-ACCEPTANCE: validation is provisional and not master accepted",
+    "BLOCKED exact root and release: M0451-APPROX and M0451-ZERO-TORSION are open; replay is warm and same-worker",
+    "verdict=blocked audit_complete=false theorem_complete=false"
+  ],
+  "accepted_receipt_ids": [],
+  "first_failed_gate": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+  "first_failed_dependency_gate": "dependency.S56-M-0451-VALIDATION.master_acceptance",
+  "first_failed_theorem_gate": "M0451-APPROX.kernel_closure",
+  "next_failed_theorem_gate": "M0451-ZERO-TORSION.kernel_closure",
+  "first_failed_release_gate": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+  "accepted_remaining_root_cut_set": [
+    "M0451-APPROX",
+    "M0451-LIMIT",
+    "M0451-BOUNDED",
+    "M0451-QUADRATIC",
+    "M0451-PARALLELOGRAM",
+    "M0451-NONNEGATIVE",
+    "M0451-TORSION-ZERO",
+    "M0451-ZERO-TORSION",
+    "M0451-SOURCE",
+    "M0451-PROVENANCE",
+    "M0451-TRUST"
+  ],
+  "proposed_cut_after_proof_acceptance": [
+    "M0451-APPROX",
+    "M0451-ZERO-TORSION",
+    "M0451-SOURCE",
+    "M0451-PROVENANCE",
+    "M0451-TRUST"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_after_worker_selftest": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0451/check_release.py",
+    "Stage1_Instances/THM-M-0451/release-decision.json",
+    "Stage1_Instances/THM-M-0451/release-phase.md",
+    "Stage1_Instances/THM-M-0451/release-receipt.json",
+    "Stage1_Instances/THM-M-0451/release-spec.json"
+  ],
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0451/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0451/release-phase.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0451-RELEASE"
+  ],
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records the open authority without rewriting predecessor state",
+  "known_failures": [
+    "The prerequisite validation receipt is provisional, accepted=false, release_grade=false, and not master accepted.",
+    "The exact root is open at M3; M0451-APPROX and M0451-ZERO-TORSION have no bodies, the canonical engine is uninhabited, and conditional assembly closes no frozen obligation.",
+    "The authoritative graph and local task DAG remain pre-proof/open, while the proof and validation receipts propose only unaccepted partial progress; the M0451-APPROX graph/API bridge is also unreconciled.",
+    "The source calls unscaled Height.logHeight absolute although the pinned number-field formula has total place weight [K:Q]; exact Silverman normalization and a possible degree factor remain unresolved.",
+    "Accepted H0/R0 review, foundation, complete transitive provenance/trust/TCB/SBOM/license closure, cold offline restoration, independent runners/verifier, protected CI, deterministic bundle, AUDIT-Z, THEOREM-Z, and master acceptance are absent.",
+    "The automation-provided .lake link is a shared warm dependency cache; current replay is narrow nonrelease evidence, not an immutable clean empty-cache release build."
+  ],
+  "retry_condition": "First reconcile and master-accept the validation dependency, close M0451-APPROX and M0451-ZERO-TORSION with exact placeholder-free bodies through the frozen root, and resolve the height normalization. Then accept H0/R0, foundation/provenance/TCB/SBOM/license records and run the immutable cold/offline, distinct-runner, independent-verifier, protected-CI, deterministic-bundle protocol before master release acceptance.",
+  "freshness": {
+    "review_due": "before master acceptance and after any invalidation input change",
+    "support_state": "provisional_nonrelease_worker_evidence",
+    "supersession_state": "superseded by any changed input or accepted master receipt",
+    "revocation_state": "unaccepted",
+    "incident_path": "Stage1 integration lane"
+  },
+  "status_boundary": "Self-tested negative release reconciliation only. This receipt is not accepted, release grade, E0/E1, M0 root closure, a deterministic bundle, an independent attestation, AUDIT-Z, THEOREM-Z, theorem completion, an authoritative state change, or master acceptance."
+}
