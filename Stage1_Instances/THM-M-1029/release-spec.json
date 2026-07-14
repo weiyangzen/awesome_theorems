@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1029-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1029-RELEASE",
+  "theorem_id": "THM-M-1029",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1029/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "explicitly_variable; must resolve python3, git, lake, and bwrap; exact invoked executable digests are recorded where material to the partial Lean replay"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean invocation runs with --trust=0 inside bubblewrap --unshare-net. The host and pinned dependencies are read-only; only a fresh temporary target-module directory is writable. The replay reuses the existing shared warm pinned dependency cache and is explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1029-ROOT",
+    "M1029-S-DEFINITIONS",
+    "M1029-S-BOUNDARY",
+    "M1029-S-FOUNDATION",
+    "M1029-N-QUADRATIC-VARIATION",
+    "M1029-C-EXPONENTIAL",
+    "M1029-L-EXPONENTIAL-MARTINGALE",
+    "M1029-L-CONDITIONAL-CHARACTERISTIC",
+    "M1029-L-GAUSSIAN-LAW",
+    "M1029-L-INDEPENDENCE",
+    "M1029-T-INCREMENTS",
+    "M1029-T-ASSEMBLE",
+    "M1029-X-SOURCE",
+    "M1029-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1029.root_of_incrementLawPackage",
+    "Stage1Instances.THM_M_1029.Proof.bracketCompensated_deterministicTime_eq",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTimeProcess_continuousPaths",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTimeProcess_monotonePaths",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTimeProcess_startsAtZero",
+    "Stage1Instances.THM_M_1029.Proof.bracketCompensated_martingale_of_quadratic",
+    "Stage1Instances.THM_M_1029.Proof.quadraticCompensated_stronglyAdapted",
+    "Stage1Instances.THM_M_1029.Proof.square_stronglyAdapted",
+    "Stage1Instances.THM_M_1029.Proof.deterministicTime_stronglyAdapted_of_martingales",
+    "Stage1Instances.THM_M_1029.Proof.quadratic_coordinate_integrable",
+    "Stage1Instances.THM_M_1029.Proof.coordinate_memLp_two",
+    "Stage1Instances.THM_M_1029.Proof.increment_memLp_two",
+    "Stage1Instances.THM_M_1029.Proof.increment_square_integrable",
+    "Stage1Instances.THM_M_1029.Proof.increment_condExp_eq_zero",
+    "Stage1Instances.THM_M_1029.Proof.increment_condExp_sq",
+    "Stage1Instances.THM_M_1029.Proof.integral_process_eq_zero",
+    "Stage1Instances.THM_M_1029.Proof.integral_process_sq_eq_time",
+    "Stage1Instances.THM_M_1029.Proof.variance_process_eq_time",
+    "Stage1Instances.THM_M_1029.Proof.zeroElapsedIncrement",
+    "Stage1Instances.THM_M_1029.Proof.hasLaw_gaussianReal_of_charFun",
+    "Stage1Instances.THM_M_1029.Proof.hasLaw_gaussianReal_zero",
+    "Stage1Instances.THM_M_1029.Proof.incrementLawPackage_of_components",
+    "Stage1Instances.THM_M_1029.Proof.incrementLawPackage_of_strict",
+    "Stage1Instances.THM_M_1029.Proof.root_of_assumedIncrementComponents",
+    "Stage1Instances.THM_M_1029.Validation.exactRootOfDirectStrictIncrementLaw"
+  ],
+  "scope_boundary": "Reconciles the frozen 14-obligation inventory and current authority, then replays only the existing conditional composition, 23 partial proof declarations, and differential conditional adapter. It does not inhabit the increment-law premise, close M1029-T-INCREMENTS or the root, make the stale predecessor recipe current, accept any receipt, or supply H0, R0, AUDIT-Z, cold/offline release evidence, independent verification, THEOREM-Z, release, or master acceptance."
+}
