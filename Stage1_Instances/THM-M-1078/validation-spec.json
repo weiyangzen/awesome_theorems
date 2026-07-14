@@ -1,0 +1,79 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1078-VALIDATION-local-v1",
+  "item_id": "S56-M-1078-VALIDATION",
+  "theorem_id": "THM-M-1078",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/bwrap",
+    "--ro-bind",
+    "/",
+    "/",
+    "--dev",
+    "/dev",
+    "--proc",
+    "/proc",
+    "--tmpfs",
+    "/tmp",
+    "--unshare-net",
+    "--die-with-parent",
+    "--clearenv",
+    "--setenv",
+    "HOME",
+    "/tmp",
+    "--setenv",
+    "PATH",
+    "/usr/bin:/bin",
+    "--setenv",
+    "LANG",
+    "C.UTF-8",
+    "--setenv",
+    "LC_ALL",
+    "C.UTF-8",
+    "--setenv",
+    "TZ",
+    "UTC",
+    "--setenv",
+    "LEAN_NUM_THREADS",
+    "1",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1078/check_validation.py"
+  ],
+  "env_allowlist": {
+    "HOME": "/tmp",
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 1200,
+  "network_policy": "denied",
+  "network_enforcement": "The recorded Bubblewrap argv clears the environment, mounts the host read-only, provides only private writable /tmp, and denies network access for the validator and every child Lean process.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact five-line PASS/OPEN/BLOCKED summary bound by validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1078-S-TARGET",
+    "M1078-T-ALLTIME",
+    "M1078-T-ASSEMBLE",
+    "M1078-C-EXTERNAL-PIN",
+    "M1078-B-PREDICTABLE",
+    "M1078-B-NORM"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1078.MartingaleTransformTarget",
+    "Stage1Instances.THM_M_1078.target_iff_expandedSourceShape",
+    "Stage1Instances.THM_M_1078.ObligationTree.root_of_allTimeMemLpTransformBound",
+    "Stage1Instances.THM_M_1078.ObligationTree.local_target_iff_frozen_target",
+    "Stage1Instances.THM_M_1078.Proof.memLp_condExp_of_one_lt",
+    "Stage1Instances.THM_M_1078.Proof.earlierMemLpUpTo"
+  ],
+  "coverage_boundary": "Network-isolated trust-zero warm-cache replay of the exact frozen statement, generated exact-target transport, conditional composition, and the truthful horizon-local proof unit. The absent external body, invalid all-future interface, exact root, complete trust/provenance closure, cold hermetic reproduction, and distinct-runner verification must fail closed."
+}
