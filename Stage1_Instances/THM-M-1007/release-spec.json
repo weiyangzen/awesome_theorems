@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1007-RELEASE-NEGATIVE-RECONCILIATION-v1",
+  "item_id": "S56-M-1007-RELEASE",
+  "theorem_id": "THM-M-1007",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1007/check_release.py"
+  ],
+  "env_allowlist": {
+    "PYTHONOPTIMIZE": "0"
+  },
+  "timeout_seconds": 120,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker performs deterministic local JSON, hash, Git, source-hygiene, and state reconciliation and does not invoke a network client. The separately recorded narrow Lean command also uses only existing pinned artifacts. This is a contract-level denial without an OS network namespace and remains nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exactly the seven-line fail-closed release summary bound by release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1007-ROOT",
+    "M1007-S-INTERFACE",
+    "M1007-S-BOUNDARY",
+    "M1007-S-FOUNDATION",
+    "M1007-N-TRUNCATE",
+    "M1007-C-TRUNC-PROPS",
+    "M1007-C-EVENT-INDEP",
+    "M1007-B-LARGE-JUMP-NEC",
+    "M1007-B-LARGE-JUMP-SUFF",
+    "M1007-T-EVENTUAL",
+    "M1007-N-CENTER",
+    "M1007-L-BOUNDED-NEC",
+    "M1007-L-BOUNDED-SUFF",
+    "M1007-T-NECESSITY",
+    "M1007-T-SUFFICIENCY",
+    "M1007-T-ASSEMBLE",
+    "M1007-X-SOURCE",
+    "M1007-X-PROVENANCE",
+    "M1007-X-TCB"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1007.KolmogorovThreeSeriesTarget",
+    "Stage1Instances.THM_M_1007.ObligationTree.root_of_directions",
+    "Stage1Instances.THM_M_1007.Proof.obligationTree_sufficiency"
+  ],
+  "scope_boundary": "Fail-closed reconciliation of all 19 frozen obligations, structured authorities, predecessor receipts, exact input hashes, and Lean-source hygiene. The separately recorded current trust-zero Lean command covers only the canonical statement; exact sufficiency and conditional-composition evidence are inspected as hash-bound historical nonrelease receipts whose recipes are stale at current HEAD. The recipe accepts no obligation and cannot supply bounded-series necessity, the exact biconditional root, dependency-ordered master acceptance, accepted H0/R0 or AUDIT-Z, complete provenance/TCB/SBOM closure, immutable empty-cache cold reproduction, offline restoration, two independent runners, an independent minimal verifier, or a deterministic release bundle."
+}
