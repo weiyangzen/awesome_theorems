@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1227-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1227-RELEASE",
+  "theorem_id": "THM-M-1227",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1227/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker makes no network request. Its Lean replay delegates to the hash-bound proof recipe, which reads only the existing pinned dependency closure and writes isolated modules under /tmp. This same-worker warm-cache check is explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "must report a fresh zero-data Lean replay, the unchanged H2/M4/R4 authority, and a blocked release verdict with AUDIT-Z and THEOREM-Z false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1227-ROOT",
+    "M1227-S-EXACT",
+    "M1227-B-ZERO",
+    "M1227-N-DATA",
+    "M1227-N-GLOBAL",
+    "M1227-C-GALERKIN",
+    "M1227-C-BOUNDS",
+    "M1227-C-COMPACT",
+    "M1227-T-ASSEMBLE",
+    "M1227-X-SOURCE",
+    "M1227-X-TCB",
+    "M1227-X-AUTOMATION"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_1227.lerayHopfExistenceTarget",
+    "Stage1.THM_M_1227.isLerayHopfSolution_compose",
+    "Stage1.THM_M_1227.zero_isLerayHopfSolution",
+    "Stage1.THM_M_1227.lerayHopfExistence_of_eq_zero"
+  ],
+  "kernel_replayed_obligation_ids": [
+    "M1227-B-ZERO"
+  ],
+  "kernel_replayed_declarations": [
+    "Stage1.THM_M_1227.zero_isLerayHopfSolution",
+    "Stage1.THM_M_1227.lerayHopfExistence_of_eq_zero"
+  ],
+  "scope_boundary": "Fail-closed current-HEAD reconciliation plus a fresh narrow trust-zero replay of the zero-data branch. It does not replay the historical validation packet as current, construct the general Leray-Hopf root, accept a predecessor receipt, or supply H0/R0, cold hermetic reproduction, complete provenance/TCB/SBOM closure, independent attestations, an independent minimal verifier, a deterministic release bundle, AUDIT-Z, THEOREM-Z, or master acceptance."
+}

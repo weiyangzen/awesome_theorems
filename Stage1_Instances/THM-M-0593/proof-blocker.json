@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0593-PROOF",
+  "theorem_id": "THM-M-0593",
+  "base_revision": "718e166c56e53c552ebb861ee01427f9a606fc72",
+  "recorded_at": "2026-07-15",
+  "canonical_target": "Stage1Instances.THMM0593.SardTarget",
+  "statement_sha256": "dd2a4da4f6cb0b0723a656e627378047834867641d63c6e5a8a0255108aed3bb",
+  "registry_denominator_sha256": "ff56394a72695c35f72ed72fc1c961a3297943517a2e8b8056047678fb1157e2",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "partial_proof_progress_root_blocked",
+  "machine_classification_before": "M4",
+  "machine_classification_after_proposed": "M2",
+  "proof_body_added": true,
+  "closed_obligation_ids": [
+    "M0593-B-ZERO",
+    "M0593-L-DIMENSION-IMAGE",
+    "M0593-B-LOWDIM",
+    "M0593-B-MERGE"
+  ],
+  "root_closed": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M0593-B-HARD: no placeholder-free Lean proof of the 0 < n and n <= m Morse-Sard branch exists in the repository or pinned dependency closure",
+  "remaining_root_cut_set": [
+    "M0593-L-RANK-REDUCTION",
+    "M0593-L-TAYLOR"
+  ],
+  "open_supporting_obligations": [
+    "M0593-S-FOUNDATION",
+    "M0593-N-LOCAL",
+    "M0593-B-HARD",
+    "M0593-C-RANK-STRATA",
+    "M0593-L-RANK-REDUCTION",
+    "M0593-L-HIGHER-STRATA",
+    "M0593-L-TAYLOR",
+    "M0593-L-CUBE-COVER",
+    "M0593-L-NULL-LIMIT",
+    "M0593-T-HARD-LOCAL",
+    "M0593-T-LOCAL-GLOBAL"
+  ],
+  "candidate_assessment": {
+    "repo_local": "Proof.lean now supplies unconditional placeholder-free bodies for the zero-codomain branch and the m < n branch, plus an exact conditional root composition whose only premise is HardDimensionBranch.",
+    "pinned_mathlib": "Hausdorff-dimension and Euclidean-volume infrastructure closes the m < n branch. The only Sard lemma in the hard direction is equal-dimensional and cannot handle arbitrary rectangular nonsurjective derivatives or the full rank stratification.",
+    "external_audited_candidate": "fpvandoorn/sard at immutable commit 77da83ff581fc9bf8af67e18ba8949cf555cc41c leaves the hard m >= n branch and downstream root bodies as sorry; it receives no proof credit and is not in the pinned closure."
+  },
+  "blocker": "Closing the hard branch still requires the frozen coordinate rank-reduction and Taylor image-diameter engines, together with rank strata, cube-cover, null-limit, and local-to-global composition. Pinned mathlib has no exact terminal body for these obligations. Introducing the hard branch as an axiom, treating the conditional composition as a proof, or substituting the fixed equal-dimensional determinant lemma would violate the exact target and placeholder rules.",
+  "unblock_condition": "Implement the remaining hard Morse-Sard obligations locally without placeholders, or provide an immutable compatible placeholder-free dependency containing them; then check exact types, child-to-parent composition, transitive placeholders, axioms, provenance, and trust closure.",
+  "status_boundary": "This is a self-tested partial proof receipt. It closes the zero and dimension-increasing branches and narrows the exact root to HardDimensionBranch. It does not close SardTarget, establish M0, pass validation or release gates, or establish theorem completion."
+}
