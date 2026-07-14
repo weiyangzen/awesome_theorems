@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0559-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0559-VALIDATION",
+  "theorem_id": "THM-M-0559",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0559/check_validation.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every kernel elaboration subprocess runs through Bubblewrap with --unshare-net, a read-only host filesystem, only its fresh temporary module directory writable, and a cleared environment with fixed locale and timezone. Host-side tool discovery, version, hash, and Git checks make no network request but are policy-isolated rather than namespace-isolated.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "must report kernel, hygiene, trust-observation, selected-provenance, and differential-branch passes while dependency authority, exact-root, complete trust/provenance, cold-hermetic, and distinct-runner gates fail closed"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0559-S-DEFINITIONS",
+    "M0559-S-TRANSPORT"
+  ],
+  "observationally_covered_obligation_ids": [
+    "M0559-X-PROVENANCE",
+    "M0559-X-TRUST"
+  ],
+  "partially_covered_obligation_ids": [
+    "M0559-N-COMPONENTS",
+    "M0559-B-EMPTY"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0559.WhiteheadTarget",
+    "Stage1Instances.THM_M_0559.whiteheadTarget_iff_expandedSourceShape",
+    "Stage1Instances.THM_M_0559.Proof.joined_of_component_eq",
+    "Stage1Instances.THM_M_0559.Proof.exists_preimage_joined",
+    "Stage1Instances.THM_M_0559.Proof.joined_of_map_joined",
+    "Stage1Instances.THM_M_0559.Proof.components_surjective_iff",
+    "Stage1Instances.THM_M_0559.Proof.components_injective_iff",
+    "Stage1Instances.THM_M_0559.Proof.components_bijective_iff",
+    "Stage1Instances.THM_M_0559.Proof.nonempty_zerothHomotopy_iff",
+    "Stage1Instances.THM_M_0559.Proof.nonempty_iff_of_components_bijective",
+    "Stage1Instances.THM_M_0559.Proof.empty_branch",
+    "Stage1Instances.THM_M_0559.Validation.empty_branch_direct"
+  ],
+  "scope_boundary": "Network-isolated trust-zero kernel replay over the pinned shared warm dependency cache. Host-side tool discovery and hash/Git checks make no network request but are policy-isolated rather than namespace-isolated. The recipe validates the frozen statement/transport, the nine proof-phase component and empty-branch declarations, and a separately written same-worker empty-branch reconstruction importing only Statement. It does not reach a declaration proving WhiteheadTarget. N-COMPONENTS coverage is partial, B-EMPTY has only candidate coverage, the proof predecessor is unaccepted, and the nonempty cellular root cut is open; complete transitive trust/provenance, cold empty-cache reproduction, and distinct-runner independent verification are not claimed."
+}
