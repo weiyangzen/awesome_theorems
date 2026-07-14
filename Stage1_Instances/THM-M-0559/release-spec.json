@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0559-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0559-RELEASE",
+  "theorem_id": "THM-M-0559",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0559/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "no_network_operation",
+  "network_enforcement": "The checker performs no network operation and revalidates content hashes, structured state, the pinned clean dependency revision, and the previously captured fresh Lean command results. Those Lean commands ran at trust level zero over the shared warm pinned cache, but this checker does not provision a network namespace or rerun them. This is explicitly nonrelease worker reconciliation evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED negative release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0559-S-DEFINITIONS",
+    "M0559-S-TRANSPORT",
+    "M0559-N-COMPONENTS",
+    "M0559-B-EMPTY",
+    "M0559-X-PROVENANCE",
+    "M0559-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0559.WhiteheadTarget",
+    "Stage1Instances.THM_M_0559.whiteheadTarget_iff_expandedSourceShape",
+    "Stage1Instances.THM_M_0559.Proof.joined_of_component_eq",
+    "Stage1Instances.THM_M_0559.Proof.exists_preimage_joined",
+    "Stage1Instances.THM_M_0559.Proof.joined_of_map_joined",
+    "Stage1Instances.THM_M_0559.Proof.components_surjective_iff",
+    "Stage1Instances.THM_M_0559.Proof.components_injective_iff",
+    "Stage1Instances.THM_M_0559.Proof.components_bijective_iff",
+    "Stage1Instances.THM_M_0559.Proof.nonempty_zerothHomotopy_iff",
+    "Stage1Instances.THM_M_0559.Proof.nonempty_iff_of_components_bijective",
+    "Stage1Instances.THM_M_0559.Proof.empty_branch",
+    "Stage1Instances.THM_M_0559.Validation.empty_branch_direct"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Fail-closed evidence reconciliation over fresh recorded warm-cache Lean checks of the exact frozen statement and partial component package. It does not rerun Lean, replay the historical validation recipe whose phase-local worker packet is absent, prove WhiteheadTarget, accept any predecessor receipt, close H0/R0 or transitive trust/provenance, perform a clean empty-cache offline release build, provide independent attestations or a minimal verifier, build a deterministic release bundle, or establish AUDIT-Z or THEOREM-Z."
+}
