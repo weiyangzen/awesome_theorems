@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1018-RELEASE-NARROW-v1",
+  "item_id": "S56-M-1018-RELEASE",
+  "theorem_id": "THM-M-1018",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1018/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean replay is executed through bubblewrap --unshare-net; the checker performs no fetch, build, clone, update, or dependency mutation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "must report five positive narrow checks, then the exact blocked verdict with audit_complete=false and theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1018-ROOT",
+    "M1018-S-EXACT",
+    "M1018-S-KERNEL",
+    "M1018-S-BOUNDARY",
+    "M1018-S-TRANSPORT",
+    "M1018-S-FOUNDATION",
+    "M1018-N-FUBINI",
+    "M1018-N-SCALE",
+    "M1018-B-POSITION",
+    "M1018-C-APPROX",
+    "M1018-L-DIRICHLET",
+    "M1018-L-INTEGRAL-LIMIT",
+    "M1018-L-ENDPOINTS",
+    "M1018-T-ANALYTIC",
+    "M1018-T-ASSEMBLE",
+    "M1018-X-SOURCE",
+    "M1018-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1018.LevyInversionTarget",
+    "Stage1Instances.THM_M_1018.ObligationTree.root_compose",
+    "Stage1Instances.THM_M_1018.Proof.frontier_Ioc_null",
+    "Stage1Instances.THM_M_1018.Proof.tendsto_Ioc_mass_of_tendsto",
+    "Stage1Instances.THM_M_1018.Proof.measureReal_Icc_eq_Ioc",
+    "Stage1Instances.THM_M_1018.Proof.measureReal_Ioo_eq_Ioc",
+    "Stage1Instances.THM_M_1018.Proof.interval_mass_of_weak_limit",
+    "Stage1Instances.THM_M_1018.Validation.frontier_Ioc_null_direct",
+    "Stage1Instances.THM_M_1018.Validation.tendsto_Ioc_mass_of_tendsto_direct",
+    "Stage1Instances.THM_M_1018.Validation.conditionalCanonicalBridge"
+  ],
+  "scope_boundary": "Fresh network-isolated trust-zero elaboration and fail-closed reconciliation against the existing pinned warm dependency artifacts. It verifies the statement, partial bodies, conditional composition, graph boundary, receipts, and negative release decision. It is not a cold dependency build, offline restoration, independent runner, minimal independent verifier, release-grade receipt, or proof of the open analytic root."
+}
