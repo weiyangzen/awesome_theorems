@@ -1,0 +1,172 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1148-RELEASE-worker-20260715T051500+0800",
+  "item_id": "S56-M-1148-RELEASE",
+  "theorem_id": "THM-M-1148",
+  "execution_rank": 353,
+  "phase": "release",
+  "intent": "release",
+  "base_revision": "99cd22cccebeb1f25106f5bdb86b82a536ae1a68",
+  "base_tree": "ac469ca91938094c2987a47d19fc2a457a0d3a97",
+  "decided_at": "2026-07-15T05:15:00+08:00",
+  "attestor": "stage1-rev56-worker-slot1",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "dependency": {
+    "item_id": "S56-M-1148-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1148-VALIDATION-local-20260714T042730+0800",
+    "receipt_sha256": "40c0472362bfc14195fe4a21dd62ebc76dde888d1e33ecde8a712add9cc56abb",
+    "support_state": "provisional_worker_selftest",
+    "accepted": false,
+    "release_grade": false,
+    "content_addressed_release_evidence": false,
+    "recorded_verdict": "blocked",
+    "historical_recipe_currently_replayable": false,
+    "historical_recipe_boundary": "The validation checker is bound to base revision 2d334dfd1443fdb9dbdf08b9d53d6c67399ec7af and that phase's root worker packet; it is not a current release recipe."
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1148-PROOF-local-20260713T193222Z",
+    "S56-M-1148-VALIDATION-local-20260714T042730+0800"
+  ],
+  "authority_reconciliation": {
+    "manifest_lifecycle": "planned",
+    "manifest_theorem_complete": false,
+    "local_task_accepted_states": [],
+    "instance_recorded_root_vector": [
+      "H2",
+      "M3",
+      "R4"
+    ],
+    "frozen_graph_root_vector": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "validation_receipt_accepted_root_vector": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "conservative_release_root_vector": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "conflict_resolution": "The intake instance records M3 while the frozen graph and later validation receipt record M4. No receipt is accepted. Under fail-closed conflict handling the weaker M4 boundary controls this release decision, and the mismatch itself blocks AUDIT-Z until master reconciliation.",
+    "instance_audit_complete": false,
+    "instance_theorem_complete": false,
+    "frozen_closed_obligation_ids": [],
+    "frozen_remaining_root_cut_set": [
+      "M1148-C",
+      "M1148-L1",
+      "M1148-B",
+      "M1148-N3"
+    ]
+  },
+  "best_provisional_evidence": {
+    "canonical_declaration": "Stage1Instances.THM_M_1148.PoissonIntegralFormula",
+    "proof_root_declaration": "Stage1Instances.THM_M_1148.Proof.poissonIntegralFormula",
+    "differential_declaration": "Stage1Instances.THM_M_1148.Validation.reconstructedPoissonIntegralFormula",
+    "canonical_expression_sha256": "4631cdf8cf607ec85b6c0e053d81966f967247daf9952a6edcbdfee6ac4016d8",
+    "registry_denominator_sha256": "a19a68e6b87e8cca5d75a8d15555442289d8760b83f206ab64fc440a189ad243",
+    "kernel_replay": "provisional network-isolated trust-zero warm-cache pass for 29 selected declarations",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_unsafe_oracle_scan": "pass on Statement.lean, PoissonUnitDisk.lean, Proof.lean, and Validation.lean",
+    "root_kernel_declaration_closed": true,
+    "differential_root_kernel_declaration_closed": true,
+    "accepted_root_closed": false,
+    "accepted_closed_obligation_ids": [],
+    "internal_per_node_composition_credit": false,
+    "machine_debt_proposal": "M0-L candidate only; E0, license, graph reconciliation, dependency acceptance, and every release gate remain open"
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "root_vector_after": [
+      "H2",
+      "M4",
+      "R4"
+    ],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "dependency_item_id": "S56-M-1148-VALIDATION",
+      "reason": "The validation dependency is only [_] provisional worker evidence. Its receipt has accepted=false and release_grade=false, and it has no dependency-ordered master acceptance."
+    },
+    "first_failed_substantive_gate": {
+      "gate_id": "S56-M1148-STRUCTURED-STATE-RECONCILIATION",
+      "reason": "The intake instance records M3 while the frozen graph and validation evidence record the accepted boundary as M4; the implemented Mobius-transform route has not been reconciled with the frozen near/far-arc obligation architecture."
+    },
+    "first_failed_release_specific_gate": {
+      "gate_id": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+      "reason": "No immutable master-accepted clean input snapshot exists; this worker checkout uses the automation-provided untracked shared warm .lake symlink."
+    },
+    "next_failed_release_gate": {
+      "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+      "reason": "The replay reuses canonical pinned warm artifacts; there is no empty-cache network-denied cold build or network-disconnected archive restoration."
+    },
+    "remaining_root_cut_set": [
+      "dependency-ordered master acceptance of S56-M-1148-VALIDATION and every transitive phase receipt",
+      "authoritative reconciliation of instance H2/M3/R4 with frozen graph and validation H2/M4/R4",
+      "frozen graph cut M1148-C, M1148-L1, M1148-B, and M1148-N3 or accepted architecture supersession with exact composition certificates",
+      "ATLAS upstream source vendoring or lawful immutable recovery plus compatibility review of CC BY-NC 4.0 and the no-training/no-evaluation rider",
+      "complete accepted transitive declaration, terminal-body, import, axiom, computation, foundation, provenance, executable, and TCB closure",
+      "pinpoint primary-source theorem, edition/page, assumptions, proof, errata crosswalk, and independent H0 review",
+      "node-anchored substantive readable reconstruction and independent R0 reader review",
+      "AUDIT-Z acceptance over the reconciled frozen inventory and public projections",
+      "immutable clean input, empty-cache network-denied cold build, offline restoration, complete SBOM/licenses, and durable archives",
+      "two signed attestations from independently provisioned clean runners with no shared writable cache",
+      "independently implemented minimal release verifier, protected CI, and required adversarial fixtures",
+      "build-twice deterministic content-addressed evidence bundle, THEOREM-Z, and master acceptance"
+    ]
+  },
+  "release_gates": {
+    "dependency_acceptance": "failed",
+    "structured_state_and_composition_reconciliation": "failed",
+    "accepted_exact_root_kernel_closure": "failed_closed_despite_provisional_local_candidate",
+    "audit_z": "failed",
+    "human_source_h0": "missing",
+    "readability_r0": "missing",
+    "provenance_foundation_and_tcb": "incomplete",
+    "license_and_source_archive": "unreviewed_blocker",
+    "immutable_clean_input": "missing",
+    "hermetic_cold_offline_replay": "missing",
+    "supply_chain_sbom_and_licenses": "missing",
+    "independent_verification": "missing",
+    "protected_ci_and_adversarial_gates": "missing",
+    "deterministic_bundle": "missing",
+    "master_acceptance": "pending"
+  },
+  "known_failures": [
+    "S56-M-1148-VALIDATION and every predecessor remain provisional worker evidence, not dependency-ordered master-accepted release-grade receipts.",
+    "The intake instance records H2/M3/R4 while the frozen graph and validation receipt record H2/M4/R4; fail-closed release uses M4 and leaves the structured-state conflict unresolved.",
+    "The exact root and a same-worker differential root kernel-check locally, but no frozen obligation receives accepted closure credit and the Mobius-transform proof route is not reconciled with the near/far-arc architecture.",
+    "The ATLAS upstream source is not vendored for offline comparison, and the CC BY-NC 4.0 license plus no-training/no-evaluation rider has no compatibility decision.",
+    "No accepted complete transitive declaration, proof-body, import, axiom, foundation, computation, executable, provenance, TCB, SBOM, or license closure exists.",
+    "Pinpoint primary-source H0 review, independently accepted node-specific R0 reconstruction, and AUDIT-Z reconciliation are absent.",
+    "The available replay uses a shared warm pinned .lake closure, not an immutable clean empty-cache cold build or network-disconnected offline restoration.",
+    "Validation.lean shares this worker, checkout, Lean binary, and dependency cache; there are no two distinct signed clean runners or independently implemented minimal release verifier.",
+    "Protected release CI, required adversarial evidence, a build-twice deterministic content-addressed bundle, THEOREM-Z, release acceptance, theorem completion, and master acceptance are absent.",
+    "The predecessor validation checker is snapshot-bound to its phase base and worker self-test packet, so it cannot serve as the current release recipe."
+  ],
+  "retry_condition": "First reconcile the frozen graph and instance projection with the implemented proof, resolve the ATLAS source and license boundary, and obtain dependency-legal master acceptance of fresh proof and validation receipts. Then complete independent H0/R0 and AUDIT-Z review, full provenance/foundation/TCB and supply-chain closure, an immutable clean cold offline replay, two distinct signed runners, an independent minimal verifier, protected adversarial CI, deterministic bundling, THEOREM-Z, and final master acceptance.",
+  "status_boundary": "Self-tested negative worker release reconciliation only. It changes no authoritative state, accepts no receipt, and establishes neither H0, M0/E0/E1, R0, AUDIT-Z, THEOREM-Z, release, theorem completion, nor master acceptance."
+}
