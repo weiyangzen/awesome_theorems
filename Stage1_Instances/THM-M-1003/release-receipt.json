@@ -1,0 +1,354 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-1003-RELEASE-worker-20260715T035043+0800",
+  "decision_id": "S56-M-1003-RELEASE-worker-20260715T035043+0800",
+  "item_id": "S56-M-1003-RELEASE",
+  "theorem_id": "THM-M-1003",
+  "execution_rank": 283,
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-1003-VALIDATION"
+  ],
+  "base_revision": "df73b636b3b854e8f045eff38bac636559fcbd23",
+  "base_tree": "05ae7157bcd52673b3ebf1a150e348500c1b55e4",
+  "validated_at": "2026-07-15T03:50:43+08:00",
+  "attestor": "stage1-rev56-worker-slot1",
+  "owner": "S56-M-1003-RELEASE worker slot1",
+  "reviewer_policy": "Independent Stage1 integration-lane review is required; this worker cannot self-accept.",
+  "support_window": "Provisional through the review due time or any earlier invalidation input change.",
+  "archive_and_recovery": "No two-location durable release archive exists. Recovery requires a fresh replay from the repository snapshot and existing pinned local artifacts; this missing release archive is fail-closed.",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 rev-5.6 integration lane",
+  "release_grade": false,
+  "master_accepted": false,
+  "content_addressed_release_evidence": false,
+  "verdict": "blocked",
+  "freshness": {
+    "review_due": "2026-07-16T03:50:43+08:00 or earlier upon any invalidation input change",
+    "support_state": "current provisional negative release decision",
+    "supersession_state": "superseded by any changed invalidation input or accepted master receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "The integration lane rejects or supersedes this packet and requeues S56-M-1003-RELEASE."
+  },
+  "self_hash_boundary": "The provisional receipt does not hash-bind itself, the decision, the recipe, the readable release projection, or the root worker packet. The checker validates all material fields it consumes. This limitation prevents content-addressed or release-grade classification and requires independent integration-lane review.",
+  "dependency_receipt": {
+    "item_id": "S56-M-1003-VALIDATION",
+    "receipt_id": "S56-M-1003-VALIDATION-local-20260714T041055+0800",
+    "receipt_sha256": "1918b92d922ff6c94424ba0b03796a1ec1ab19d3099af0ccb8764c92f14f235a",
+    "base_revision": "d3d4bc991fae237427b8ac391bbe701dca8f2af2",
+    "support_state": "provisional_worker_selftest",
+    "accepted": false,
+    "release_grade": false,
+    "master_accepted": false,
+    "recorded_recipe_current_snapshot_replayable": false
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "python_executable_sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700",
+    "git_executable_sha256": "8a48eefa306b9a2a9c3e576784a74ad7485779279e5a46ec43361a1864760e45",
+    "bash_executable_sha256": "3efccc187bafa75ff1e37d246270ab3e7aa559f242c7a52bf3ec2a1b5450bdbd",
+    "bubblewrap_executable_sha256": "0abea81db798ebf6b4742ac0664802d97521547a353c2a0dbdc21d76cbbfd2c0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "network_used": false,
+    "dependency_cache": "automation-provided shared warm pinned .lake symlink, reused without mutation",
+    "release_classification": "nonrelease worker evidence"
+  },
+  "canonical_target": "Stage1Instances.THM_M_1003.LpMartingaleConvergenceTarget",
+  "canonical_target_expression_sha256": "ead76891696316502f96466e97e0ec725b72cb1f2dfdc6d8afa4e405e79b8e9f",
+  "registry_denominator_sha256": "d44a39b4a9b24a0cce89719cf41820d368483961dc0c2c624423e82136092b3c",
+  "canonical_obligation_ids": [
+    "M1003-ROOT",
+    "M1003-S-DEFINITIONS",
+    "M1003-S-BOUNDARY",
+    "M1003-S-FOUNDATION",
+    "M1003-N-L1-BOUND",
+    "M1003-B-ENDPOINTS",
+    "M1003-C-LIMIT",
+    "M1003-L-AE-LIMIT",
+    "M1003-L-LIMIT-MEMLP",
+    "M1003-L-COND-REP",
+    "M1003-L-COND-APPROX",
+    "M1003-T-CANDIDATE",
+    "M1003-T-SAME-EXPONENT",
+    "M1003-T-ASSEMBLE",
+    "M1003-X-SOURCE",
+    "M1003-X-PROVENANCE"
+  ],
+  "accepted_closed_obligation_ids": [],
+  "recipe": {
+    "recipe_id": "S56-M-1003-RELEASE-negative-reconciliation-v1",
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-1003/check_release.py"
+    ],
+    "env_allowlist": {
+      "HOME": "inherited only for pinned Lean/Lake discovery",
+      "PATH": "inherited only for Python, Git, Bash, Bubblewrap, and pinned Lean/Lake discovery",
+      "LANG": "C",
+      "LC_ALL": "C",
+      "NO_COLOR": "1",
+      "TZ": "UTC"
+    },
+    "timeout_seconds": 600,
+    "network_policy": "denied",
+    "network_policy_enforced": false,
+    "expected_exit": 0,
+    "covered_obligation_ids": [
+      "M1003-ROOT",
+      "M1003-S-DEFINITIONS",
+      "M1003-S-BOUNDARY",
+      "M1003-S-FOUNDATION",
+      "M1003-N-L1-BOUND",
+      "M1003-B-ENDPOINTS",
+      "M1003-C-LIMIT",
+      "M1003-L-AE-LIMIT",
+      "M1003-L-LIMIT-MEMLP",
+      "M1003-L-COND-REP",
+      "M1003-L-COND-APPROX",
+      "M1003-T-CANDIDATE",
+      "M1003-T-SAME-EXPONENT",
+      "M1003-T-ASSEMBLE",
+      "M1003-X-SOURCE",
+      "M1003-X-PROVENANCE"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_1003.LpMartingaleConvergenceTarget",
+      "Stage1Instances.THM_M_1003.root_of_limit_packages",
+      "Stage1Instances.THM_M_1003.Proof.target",
+      "Stage1Instances.THM_M_1003.Validation.exactRootTypeProbe"
+    ],
+    "stdout_semantic_sha256": "608695f965568c460464678bf1dc2afae683f252f1597a673889c9c7d2e9157d",
+    "raw_combined_log_sha256": null,
+    "raw_log_retention_boundary": "Without a raw log hash, immutable clean inputs, and independent attestations, this cannot be a release-grade content-addressed receipt."
+  },
+  "result": {
+    "exit_code": 0,
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": {
+      "H": "H3",
+      "M": "M4",
+      "R": "R3"
+    },
+    "root_vector_after": {
+      "H": "H3",
+      "M": "M4",
+      "R": "R3"
+    },
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false,
+    "accepted_receipt_ids": [],
+    "current_root_kernel_observation": "network-isolated warm-cache trust-zero exact-root, composition, and type-probe replay passed",
+    "validation_dependency_gate": "fail_closed",
+    "authoritative_state_gate": "fail_closed",
+    "source_and_readability_gate": "fail_closed",
+    "foundation_provenance_tcb_gate": "fail_closed",
+    "hermetic_release_gate": "fail_closed",
+    "independent_verification_gate": "fail_closed"
+  },
+  "worker_evidence_packet": {
+    "exact_statements_added_or_changed": "none; release reconciliation does not change the frozen target",
+    "source_revisions_and_proof_body_locations": {
+      "local_terminal_declaration": "Stage1Instances.THM_M_1003.Proof.target",
+      "local_terminal_source": "Stage1_Instances/THM-M-1003/Proof.lean",
+      "local_terminal_source_sha256": "2f4c799b985e1f1e404a1d4ccc21669b0e0b58c0e852618d47822373ace8ec61",
+      "local_terminal_proof_body_id": "git-blob:728fa7b82b5ff961ea45b64ac467a587a8c5c93c",
+      "proof_receipt": "S56-M-1003-PROOF-local-20260714T020944+0800",
+      "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+    },
+    "axiom_and_placeholder_results": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "proof_declaration_count": 13,
+      "placeholder_scan": "provisional_pass"
+    },
+    "debt_vector_changes_proposed": {
+      "accepted_before": {
+        "H": "H3",
+        "M": "M4",
+        "R": "R3"
+      },
+      "accepted_after": {
+        "H": "H3",
+        "M": "M4",
+        "R": "R3"
+      },
+      "change": "none"
+    },
+    "typed_graph_changes": "none; release observes and fails closed on the frozen pre-proof graph",
+    "composition_certificates_inspected": [
+      "Stage1Instances.THM_M_1003.root_of_limit_packages",
+      "Stage1Instances.THM_M_1003.Proof.target",
+      "Stage1Instances.THM_M_1003.Validation.exactRootTypeProbe"
+    ],
+    "actual_source_ownership": [
+      "Stage1_Instances/THM-M-1003/check_release.py"
+    ],
+    "declaration_ownership": [],
+    "readable_ownership": [
+      "Stage1_Instances/THM-M-1003/release-validation.md"
+    ],
+    "change_impact_set": [
+      "S56-M-1003-RELEASE"
+    ]
+  },
+  "known_failures": [
+    "S56-M-1003-VALIDATION and every predecessor phase remain provisional [_] evidence rather than dependency-ordered master-accepted release-grade receipts.",
+    "The validation phase's recorded Python recipe is not replayable at this release snapshot because it requires its prior worker packet and base d3d4bc99; the current shell recipe supplies only fresh corroborating warm evidence.",
+    "The current network-isolated trust-zero replay really kernel-checks the exact frozen root, composition, and exact-type probe without sorry, but it is not accepted M0-L/E0 evidence.",
+    "The frozen graph predates proof closure, remains root-open at M4 with no evidence ID, and lists M1003-T-CANDIDATE plus M1003-T-SAME-EXPONENT as its historical cut; only the master may reconcile it with the later proof receipt.",
+    "The intake structured authority still contains stale pre-statement formal-target fields and a public H3/M3/R3 vector while its boundary and the graph use H3/M4/R3; the weaker H3/M4/R3 controls pending master reconciliation.",
+    "The repository metadata is underspecified and no accepted pinpoint primary source, premise/errata mapping, or independent H0 source review exists.",
+    "Independent R0, an accepted foundation profile, complete transitive provenance/TCB/SBOM, clean cold offline reproduction, independent signed runners, an independently implemented verifier, protected adversarial CI, and a deterministic bundle are absent.",
+    "AUDIT-Z, THEOREM-Z, release acceptance, theorem completion, and master acceptance remain false."
+  ],
+  "invalidation_inputs": [
+    "canonical statement, expression fingerprint, source map, proof body, or composition",
+    "obligation registry, denominator, typed graphs, source/readability records, or public projections",
+    "proof, validation, or release receipts, recipes, validators, dependency acceptance state, or DAG",
+    "Lean toolchain, mathlib sources or objects, foundation/TCB policy, licenses, SBOM, or archives",
+    "rev-5.6 assurance standard, freshness/revocation state, independent attestations, verifier, or CI"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1003/check_release.py",
+    "Stage1_Instances/THM-M-1003/release-decision.json",
+    "Stage1_Instances/THM-M-1003/release-receipt.json",
+    "Stage1_Instances/THM-M-1003/release-spec.json",
+    "Stage1_Instances/THM-M-1003/release-validation.md"
+  ],
+  "worker_commands": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "summary": "15 assurance groups and all 1546 uniform-L0 targets passed"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "summary": "1546 unique ordered targets and ranks passed"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-1003"
+      ],
+      "exit_code": 0,
+      "summary": "rank 283, planned L0/rework-required target, legacy artifacts unaccepted, theorem_complete false"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-1003/check_validation.py"
+      ],
+      "exit_code": 1,
+      "summary": "expected stale phase evidence: prior root worker packet absent and checker bound to base d3d4bc99"
+    },
+    {
+      "argv": [
+        "timeout",
+        "900s",
+        "bash",
+        "Stage1_Instances/THM-M-1003/check_validation.sh"
+      ],
+      "exit_code": 0,
+      "summary": "network-isolated trust-zero exact root, composition, and type probe passed with exactly the recorded axioms and no sorry"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-1003/check_release.py"
+      ],
+      "exit_code": 0,
+      "summary": "current manifest, DAG, hashes, receipts, stale authority, Lean replay, release cut, and blocked decision passed"
+    },
+    {
+      "argv": [
+        "python3",
+        "-c",
+        "import json, pathlib; [json.loads(pathlib.Path(p).read_text()) for p in ('Stage1_Instances/THM-M-1003/release-decision.json','Stage1_Instances/THM-M-1003/release-spec.json','Stage1_Instances/THM-M-1003/release-receipt.json','.stage1-worker-selftest.json')]"
+      ],
+      "exit_code": 0,
+      "summary": "all structured artifacts parse"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "py_compile",
+        "Stage1_Instances/THM-M-1003/check_release.py"
+      ],
+      "exit_code": 0,
+      "summary": "release checker compiled with pycache redirected outside the repository"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "Stage1_Instances/THM-M-1003",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "summary": "no whitespace diagnostics; untracked release files also checked explicitly"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1003/check_statement.py"
+      ],
+      "exit_code": 0,
+      "summary": "canonical expression fingerprint and all four structural mutations passed"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1003/check_anchor_audit.py"
+      ],
+      "exit_code": 0,
+      "summary": "bounded candidate inventory, ten Lean probes, negative boundary, and mathlib pin passed"
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-1003/check_obligation_tree.py"
+      ],
+      "exit_code": 0,
+      "summary": "16 obligations and 37 typed edges passed; frozen graph truthfully remains root-open M4"
+    }
+  ],
+  "status_boundary": "Self-tested negative release reconciliation only. This receipt is provisional, unaccepted, nonrelease-grade, and does not establish E0/E1, accepted M0-L, H0, R0, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}

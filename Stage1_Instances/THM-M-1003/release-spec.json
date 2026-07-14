@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "recipe_id": "S56-M-1003-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1003-RELEASE",
+  "theorem_id": "THM-M-1003",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1003/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "inherited only for pinned Lean/Lake discovery",
+    "PATH": "inherited only for Python, Git, Bash, Bubblewrap, and pinned Lean/Lake discovery",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "NO_COLOR": "1",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_policy_enforced": false,
+  "network_enforcement": "The outer checker performs local Git, hash, JSON, and filesystem reconciliation without a network namespace. Its Lean replay invokes check_validation.sh, whose Lean subprocesses use Bubblewrap --unshare-net, a read-only host root, a fresh writable temporary module directory, and --trust=0. The outer boundary and shared warm Lake closure make this explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line PASS/BLOCKED release-decision summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1003-ROOT",
+    "M1003-S-DEFINITIONS",
+    "M1003-S-BOUNDARY",
+    "M1003-S-FOUNDATION",
+    "M1003-N-L1-BOUND",
+    "M1003-B-ENDPOINTS",
+    "M1003-C-LIMIT",
+    "M1003-L-AE-LIMIT",
+    "M1003-L-LIMIT-MEMLP",
+    "M1003-L-COND-REP",
+    "M1003-L-COND-APPROX",
+    "M1003-T-CANDIDATE",
+    "M1003-T-SAME-EXPONENT",
+    "M1003-T-ASSEMBLE",
+    "M1003-X-SOURCE",
+    "M1003-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1003.LpMartingaleConvergenceTarget",
+    "Stage1Instances.THM_M_1003.root_of_limit_packages",
+    "Stage1Instances.THM_M_1003.Proof.target",
+    "Stage1Instances.THM_M_1003.Validation.exactRootTypeProbe"
+  ],
+  "coverage_semantics": "All frozen obligations are reconciled to a fail-closed decision. The listed declarations receive a current network-isolated warm-cache kernel observation only; no obligation receives accepted proof, source, readability, foundation, provenance, or release credit.",
+  "scope_boundary": "Current-snapshot negative release reconciliation. It binds the target manifest, DAG, frozen statement and registry, proof and validation receipts, source hashes, stale structured authority, and a fresh narrow Lean replay. It cannot master-accept dependencies, establish H0/R0 or AUDIT-Z, close full foundation/provenance/TCB/SBOM, perform an immutable empty-cache cold/offline build, supply independent attestations or a minimal verifier, or create a deterministic release bundle."
+}
