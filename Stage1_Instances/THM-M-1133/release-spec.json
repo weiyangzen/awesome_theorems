@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1133-RELEASE-RECONCILIATION-v1",
+  "item_id": "S56-M-1133-RELEASE",
+  "theorem_id": "THM-M-1133",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1133/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes check_proof.sh inside Bubblewrap with the host mounted read-only, a disposable /tmp, and --unshare-net. It uses only the existing pinned local Lean closure and cannot fetch or mutate it. This is still warm nonrelease evidence, not an empty-cache cold build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1133-ROOT",
+    "M1133-S-INTERFACE",
+    "M1133-S-BOUNDARY",
+    "M1133-N-SUBSOLUTION",
+    "M1133-N-PERTURB",
+    "M1133-L-EXTREMUM",
+    "M1133-B-LOCATION",
+    "M1133-L-SPATIAL",
+    "M1133-B-TIME",
+    "M1133-L-TIME",
+    "M1133-T-STRICT",
+    "M1133-T-LIMIT",
+    "M1133-T-ASSEMBLE"
+  ],
+  "reconciled_inventory_ids": [
+    "M1133-ROOT",
+    "M1133-S-INTERFACE",
+    "M1133-S-BOUNDARY",
+    "M1133-S-FOUNDATION",
+    "M1133-N-SUBSOLUTION",
+    "M1133-N-PERTURB",
+    "M1133-L-EXTREMUM",
+    "M1133-B-LOCATION",
+    "M1133-L-SPATIAL",
+    "M1133-B-TIME",
+    "M1133-L-TIME",
+    "M1133-T-STRICT",
+    "M1133-T-LIMIT",
+    "M1133-T-ASSEMBLE",
+    "M1133-X-SOURCE",
+    "M1133-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1133.HeatEquationWeakMaximumPrinciple",
+    "Stage1Instances.THM_M_1133.caloric_isSubcaloric",
+    "Stage1Instances.THM_M_1133.root_of_subsolutionMaximumPrinciple",
+    "Stage1Instances.THM_M_1133.second_deriv_nonpos_of_localMax",
+    "Stage1Instances.THM_M_1133.iteratedFDeriv_diag_nonpos_of_localMax",
+    "Stage1Instances.THM_M_1133.spatialLaplacian_nonpos_of_localMax",
+    "Stage1Instances.THM_M_1133.deriv_nonneg_of_isLocalMaxOn_Iic",
+    "Stage1Instances.THM_M_1133.strictSubsolutionMaximumPrinciple",
+    "Stage1Instances.THM_M_1133.perturb_isStrictSubcaloric",
+    "Stage1Instances.THM_M_1133.weakSubsolutionMaximumPrinciple",
+    "Stage1Instances.THM_M_1133.heatEquationWeakMaximumPrinciple"
+  ],
+  "coverage_semantics": "covered_obligation_ids receive only provisional warm kernel-observation coverage. reconciled_inventory_ids are inspected to derive a fail-closed terminal decision and receive no accepted closure credit.",
+  "scope_boundary": "Fail-closed current-snapshot reconciliation of provisional proof and validation evidence. The checker verifies hashes, receipt fields, graph state, and re-elaborates the exact root. It cannot master-accept dependencies, establish H0/R0 or AUDIT-Z, accept foundation/provenance/TCB closure, provide a clean cold offline build or independent verification, or assemble a deterministic release bundle."
+}
