@@ -1,6 +1,7 @@
 import Mathlib.Topology.CWComplex.Classical.Basic
 import Mathlib.Topology.Homotopy.Equiv
 import Mathlib.Topology.Homotopy.HomotopyGroup
+import Stage1_Instances.«THM-M-0559».Statement
 
 /-!
 # THM-M-0559 proof work
@@ -20,22 +21,62 @@ universe u v
 
 variable {X : Type u} {Y : Type v} [TopologicalSpace X] [TopologicalSpace Y]
 
--- These definitions are kept definitionally identical to the frozen statement. The standalone
--- worker harness cannot import a module outside the Lake source tree by its repository path.
-def zerothHomotopyMap (f : C(X, Y)) : ZerothHomotopy X -> ZerothHomotopy Y :=
-  Quotient.map f fun _ _ h => Nonempty.map (fun p => p.map f.continuous) h
+open Stage1Instances.THM_M_0559
 
-def genLoopMap (f : C(X, Y)) (n : Nat) (x : X) :
-    GenLoop (Fin n) X x -> GenLoop (Fin n) Y (f x) := fun p =>
-  ⟨f.comp p.1, fun y hy => congrArg f (p.2 y hy)⟩
+/-- An equality of path components produces a path between its chosen representatives. -/
+theorem joined_of_component_eq {x x' : X}
+    (h : (Quotient.mk (pathSetoid X) x : ZerothHomotopy X) =
+      Quotient.mk (pathSetoid X) x') : Joined x x' :=
+  Quotient.exact h
 
-def homotopyGroupMap (f : C(X, Y)) (n : Nat) (x : X) :
-    HomotopyGroup.Pi n X x -> HomotopyGroup.Pi n Y (f x) :=
-  Quotient.map (genLoopMap f n x) fun _ _ h => h.comp_continuousMap f
+/-- Component surjectivity supplies a source point mapping into any chosen target component. -/
+theorem exists_preimage_joined (f : C(X, Y))
+    (hf : Function.Surjective (zerothHomotopyMap f)) (y : Y) :
+    ∃ x : X, Joined (f x) y := by
+  obtain ⟨q, hq⟩ := hf (Quotient.mk (pathSetoid Y) y)
+  refine Quotient.inductionOn q (fun x hx => ⟨x, ?_⟩) hq
+  exact Quotient.exact hx
 
-def IsWeakHomotopyEquivalence (f : C(X, Y)) : Prop :=
-  Function.Bijective (zerothHomotopyMap f) ∧
-    ∀ (x : X) (n : Nat), 1 ≤ n -> Function.Bijective (homotopyGroupMap f n x)
+/-- Component injectivity reflects path-connectedness between source points. -/
+theorem joined_of_map_joined (f : C(X, Y))
+    (hf : Function.Injective (zerothHomotopyMap f)) {x x' : X}
+    (h : Joined (f x) (f x')) : Joined x x' := by
+  change (pathSetoid X).r x x'
+  apply Quotient.exact
+  apply hf
+  exact Quotient.sound h
+
+/-- Component surjectivity is representativewise coverage up to a path. -/
+theorem components_surjective_iff (f : C(X, Y)) :
+    Function.Surjective (zerothHomotopyMap f) ↔
+      ∀ y : Y, ∃ x : X, Joined (f x) y := by
+  constructor
+  · intro hf y
+    exact exists_preimage_joined f hf y
+  · intro hf q
+    refine Quotient.inductionOn q (fun y => ?_)
+    obtain ⟨x, hx⟩ := hf y
+    exact ⟨Quotient.mk (pathSetoid X) x, Quotient.sound hx⟩
+
+/-- Component injectivity is reflection of paths between image points. -/
+theorem components_injective_iff (f : C(X, Y)) :
+    Function.Injective (zerothHomotopyMap f) ↔
+      ∀ x x' : X, Joined (f x) (f x') → Joined x x' := by
+  constructor
+  · intro hf x x' h
+    exact joined_of_map_joined f hf h
+  · intro hf q q'
+    refine Quotient.inductionOn₂ q q' (fun x x' h => ?_)
+    exact Quotient.sound (hf x x' (Quotient.exact h))
+
+/-- Component bijectivity supplies both componentwise coverage and reflection. -/
+theorem components_bijective_iff (f : C(X, Y)) :
+    Function.Bijective (zerothHomotopyMap f) ↔
+      (∀ y : Y, ∃ x : X, Joined (f x) y) ∧
+        ∀ x x' : X, Joined (f x) (f x') → Joined x x' := by
+  change (Function.Injective (zerothHomotopyMap f) ∧
+    Function.Surjective (zerothHomotopyMap f)) ↔ _
+  rw [components_surjective_iff, components_injective_iff, and_comm]
 
 /-- Path components are inhabited exactly when their underlying space is inhabited. -/
 theorem nonempty_zerothHomotopy_iff : Nonempty (ZerothHomotopy X) ↔ Nonempty X := by
@@ -85,7 +126,23 @@ theorem empty_branch (f : C(X, Y)) (hf : IsWeakHomotopyEquivalence f) [IsEmpty X
   ext x
   exact isEmptyElim x
 
-#check empty_branch
+#print axioms joined_of_component_eq
+#print axioms exists_preimage_joined
+#print axioms joined_of_map_joined
+#print axioms components_surjective_iff
+#print axioms components_injective_iff
+#print axioms components_bijective_iff
+#print axioms nonempty_zerothHomotopy_iff
+#print axioms nonempty_iff_of_components_bijective
 #print axioms empty_branch
+#print sorries joined_of_component_eq
+#print sorries exists_preimage_joined
+#print sorries joined_of_map_joined
+#print sorries components_surjective_iff
+#print sorries components_injective_iff
+#print sorries components_bijective_iff
+#print sorries nonempty_zerothHomotopy_iff
+#print sorries nonempty_iff_of_components_bijective
+#print sorries empty_branch
 
 end Stage1Instances.THM_M_0559.Proof

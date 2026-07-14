@@ -1,0 +1,106 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0559-PROOF",
+  "theorem_id": "THM-M-0559",
+  "intent": "prove",
+  "recorded_at": "2026-07-15T06:06:37+08:00",
+  "base_revision": "00f98378e8c1c63097871ae62aeed895d83b0cb4",
+  "base_tree": "4f2396db6d6d1c2b9948f401079f136dd0ed8f16",
+  "outcome": "partial_proof_self_tested_root_blocked",
+  "canonical_target": "Stage1Instances.THM_M_0559.WhiteheadTarget",
+  "canonical_statement_source_sha256": "f6db49c559ac718c96eb566d83e69748ae2d3fd0a1e95396465cbfa1e7328f1c",
+  "registry_denominator_sha256": "040c9f0d06a8432b0cf5768d43391f143d820754686514252ce484f53d3446fc",
+  "new_auxiliary_bodies_added": true,
+  "preexisting_body_revalidated": true,
+  "phase_self_tested": true,
+  "accepted_closed_obligation_ids": [],
+  "provisionally_closed_obligation_ids": [],
+  "provisionally_implemented_obligation_ids": [
+    "M0559-B-EMPTY"
+  ],
+  "partial_progress_toward_obligation_ids": [
+    "M0559-N-COMPONENTS",
+    "M0559-B-EMPTY"
+  ],
+  "obligation_statement_fingerprints": {
+    "M0559-N-COMPONENTS": "planned:v1:sha256:a61f117e109d8f07532a5721b16169023dd8956c1dd4accf9fdb5bcf5a671b17",
+    "M0559-B-EMPTY": "planned:v1:sha256:88b464348899c1bf86fc9c32d442c1c5658f203528e14e15f7c616c78cb9d9e4"
+  },
+  "supported_declarations": [
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.components_surjective_iff",
+      "role": "Characterizes surjectivity of the quotient map by componentwise representative coverage."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.components_injective_iff",
+      "role": "Characterizes injectivity of the quotient map by path reflection between source representatives."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.components_bijective_iff",
+      "role": "Combines componentwise representative coverage and path reflection into the exact bijectivity hypothesis."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.joined_of_component_eq",
+      "role": "Extracts an explicit Joined witness from equality in ZerothHomotopy."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.exists_preimage_joined",
+      "role": "Turns surjectivity on ZerothHomotopy into a source representative joined to an arbitrary target point."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.joined_of_map_joined",
+      "role": "Turns injectivity on ZerothHomotopy into reflection of Joined between source representatives."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.nonempty_zerothHomotopy_iff",
+      "role": "Relates inhabitation of the path-component quotient to inhabitation of the underlying space."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.nonempty_iff_of_components_bijective",
+      "role": "Uses component bijectivity to transfer the empty/nonempty boundary in both directions."
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0559.Proof.empty_branch",
+      "role": "Constructs the unique empty-space homeomorphism, converts it to a homotopy equivalence, and proves its forward map equals the prescribed f."
+    }
+  ],
+  "root_vector_before": {
+    "H": "H3",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after_accepted": {
+    "H": "H3",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M0559-N-COMPONENTS / M0559-B-NONEMPTY: representative-level component lemmas exist, but no placeholder-free component restriction/recomposition and nonempty cellular Whitehead body exists in the repository or pinned dependency closure",
+  "remaining_root_cut_set": [
+    "M0559-N-COMPONENTS",
+    "M0559-T-FORWARD"
+  ],
+  "expanded_missing_proof_packages": [
+    "M0559-B-NONEMPTY",
+    "M0559-B-MERGE",
+    "M0559-N-COMPONENTS",
+    "M0559-C-SKELETON",
+    "M0559-L-EXTENSION",
+    "M0559-L-COLIMIT",
+    "M0559-T-FORWARD",
+    "M0559-ROOT"
+  ],
+  "candidate_assessment": {
+    "repo_local": "Proof.lean supplies a genuine local empty-space branch, while ObligationTree.lean supplies only a conditional exact-root composer whose DirectWhiteheadCore premise remains open.",
+    "pinned_mathlib": "Mathlib revision 8a178386 provides the classical CWComplex class, homotopy groups, and HomotopyEquiv, but no theorem deriving a homotopy inverse from the frozen component and positive homotopy-group bijections.",
+    "external_anchor": "jzxia/WhiteheadTheorem at ee1d4a5 has a placeholder-free terminal WhiteheadTheorem body in its audited archive, but it uses Lean 4.21.0-rc3, mathlib 2239a8d, a custom sequential-colimit CWComplex, one universe, a Nonempty premise, and a different weak-equivalence map. It is not a pinned dependency and no checked representation or predicate transport exists."
+  },
+  "statement_scope_risk": "Pinned Mathlib.Topology.CWComplex.Classical.Basic explicitly does not require Hausdorffness, and the frozen target does not assume T2Space. A disposable trust-zero probe constructed a CWComplex univ instance on two-point indiscrete Bool, confirming that a conventional or external Whitehead proof may not silently introduce the usual Hausdorff scope. The same probe found that example contractible, so it is not claimed as a counterexample.",
+  "blocker": "Closing the exact target requires a new formalization of component reduction, compatible skeletal inverses, cell-extension obstruction arguments, weak-topology colimit continuity, and final packaging at the frozen non-Hausdorff-capable scope, or an authorized immutable port of the external project plus checked bridges for CW representations, induced maps, universes, empty spaces, and exact forward-map equality. Assuming the missing cellular core or adding T2Space would broaden or change the frozen target and is not permitted.",
+  "retry_condition": "Implement the missing frozen packages locally without placeholders, or integrate an immutable compatible exact proof and validate its terminal bodies, statement transport, provenance, dependency, axiom, and trust closure. If Hausdorffness is mathematically required, reopen and refreeze the statement before proof work.",
+  "accepted_receipt_ids": [],
+  "status_boundary": "This is provisional nonrelease evidence for an M0559-B-EMPTY implementation candidate plus a remaining-root blocker. Because the frozen branch has only a planned statement fingerprint, master exact-statement mapping is required before any closed-obligation status. It does not prove the nonempty branch, the direct Whitehead core, or the canonical root and supports neither audit nor theorem completion.",
+  "selftest_manifest_written": true
+}

@@ -1,0 +1,63 @@
+import Proof
+import Mathlib.Util.AssertNoSorry
+import Mathlib.Util.PrintSorries
+
+/-!
+# THM-M-1291 validation probe
+
+This module asks Lean to inspect the existing exact Brezis-Lieb proof and each
+named local support theorem. It deliberately introduces no theorem or proof
+body. Reimplementing the long analytic argument during validation would violate
+the validation-only boundary rather than provide independent verification.
+
+This is a same-worker trust probe, not an independent-runner attestation.
+-/
+
+namespace Stage1Instances.THM_M_1291.Validation
+
+#check Stage1Instances.THM_M_1291.BrezisLiebTarget
+#check Stage1Instances.THM_M_1291.rpow_add_le_weighted
+#check Stage1Instances.THM_M_1291.abs_rpow_norm_sub_rpow_norm_sub_le_weighted
+#check Stage1Instances.THM_M_1291.rpow_coeff_tendsto_zero
+#check Stage1Instances.THM_M_1291.truncatedError_nonneg
+#check Stage1Instances.THM_M_1291.truncatedError_le
+#check Stage1Instances.THM_M_1291.integrable_of_ae_tendsto_of_uniform_integral_bound
+#check Stage1Instances.THM_M_1291.abs_rpow_norm_add_sub_rpow_norm_le
+#check Stage1Instances.THM_M_1291.splittingLimit_subunit
+#check Stage1Instances.THM_M_1291.splittingLimit_superunit
+#check Stage1Instances.THM_M_1291.brezisLiebTarget_proof
+
+assert_no_sorry Stage1Instances.THM_M_1291.rpow_add_le_weighted
+assert_no_sorry Stage1Instances.THM_M_1291.abs_rpow_norm_sub_rpow_norm_sub_le_weighted
+assert_no_sorry Stage1Instances.THM_M_1291.rpow_coeff_tendsto_zero
+assert_no_sorry Stage1Instances.THM_M_1291.truncatedError_nonneg
+assert_no_sorry Stage1Instances.THM_M_1291.truncatedError_le
+assert_no_sorry Stage1Instances.THM_M_1291.integrable_of_ae_tendsto_of_uniform_integral_bound
+assert_no_sorry Stage1Instances.THM_M_1291.abs_rpow_norm_add_sub_rpow_norm_le
+assert_no_sorry Stage1Instances.THM_M_1291.splittingLimit_subunit
+assert_no_sorry Stage1Instances.THM_M_1291.splittingLimit_superunit
+assert_no_sorry Stage1Instances.THM_M_1291.brezisLiebTarget_proof
+
+#print sorries Stage1Instances.THM_M_1291.rpow_add_le_weighted
+#print sorries Stage1Instances.THM_M_1291.abs_rpow_norm_sub_rpow_norm_sub_le_weighted
+#print sorries Stage1Instances.THM_M_1291.rpow_coeff_tendsto_zero
+#print sorries Stage1Instances.THM_M_1291.truncatedError_nonneg
+#print sorries Stage1Instances.THM_M_1291.truncatedError_le
+#print sorries Stage1Instances.THM_M_1291.integrable_of_ae_tendsto_of_uniform_integral_bound
+#print sorries Stage1Instances.THM_M_1291.abs_rpow_norm_add_sub_rpow_norm_le
+#print sorries Stage1Instances.THM_M_1291.splittingLimit_subunit
+#print sorries Stage1Instances.THM_M_1291.splittingLimit_superunit
+#print sorries Stage1Instances.THM_M_1291.brezisLiebTarget_proof
+
+#print axioms Stage1Instances.THM_M_1291.rpow_add_le_weighted
+#print axioms Stage1Instances.THM_M_1291.abs_rpow_norm_sub_rpow_norm_sub_le_weighted
+#print axioms Stage1Instances.THM_M_1291.rpow_coeff_tendsto_zero
+#print axioms Stage1Instances.THM_M_1291.truncatedError_nonneg
+#print axioms Stage1Instances.THM_M_1291.truncatedError_le
+#print axioms Stage1Instances.THM_M_1291.integrable_of_ae_tendsto_of_uniform_integral_bound
+#print axioms Stage1Instances.THM_M_1291.abs_rpow_norm_add_sub_rpow_norm_le
+#print axioms Stage1Instances.THM_M_1291.splittingLimit_subunit
+#print axioms Stage1Instances.THM_M_1291.splittingLimit_superunit
+#print axioms Stage1Instances.THM_M_1291.brezisLiebTarget_proof
+
+end Stage1Instances.THM_M_1291.Validation
