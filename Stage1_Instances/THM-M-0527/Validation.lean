@@ -1,0 +1,66 @@
+import Proof
+import Mathlib.Util.AssertNoSorry
+import Mathlib.Util.PrintSorries
+
+/-!
+# THM-M-0527 validation trust probe
+
+This module adds no mathematical proof content. It imports the proof-phase module and asks Lean to
+recompute the placeholder and axiom reports for every declaration in that module. The enclosing
+validation recipe separately rebuilds `Statement.olean` and elaborates both `Proof.lean` and this
+probe from fresh outputs.
+
+This is same-worker corroboration. It is not a distinct-runner attestation or an independently
+implemented release verifier.
+-/
+
+namespace Stage1Instances.THM_M_0527.Validation
+
+open Stage1Instances.THM_M_0527
+
+assert_no_sorry locPathConnectedSpace_of_isLocalHomeomorph
+assert_no_sorry covering_locPathConnectedSpace
+assert_no_sorry PointedConnectedCover.comparisonLift
+assert_no_sorry PointedConnectedCover.inducedSubgroup_eq_of_isomorphic
+assert_no_sorry PointedConnectedCover.inducedMap_naturality
+assert_no_sorry PointedConnectedCover.inducedMap_surjective
+assert_no_sorry PointedConnectedCover.range_eq_of_comp_eq_of_surjective
+assert_no_sorry PointedConnectedCover.inducedSubgroup_eq_of_naturality
+assert_no_sorry PointedConnectedCover.inducedSubgroup_eq_of_isomorphic_via_naturality
+assert_no_sorry PointedConnectedCover.comparisonMaps_mutualInverse
+assert_no_sorry PointedConnectedCover.comparisonHomeomorph
+assert_no_sorry PointedConnectedCover.isomorphic_of_comparisonMaps
+assert_no_sorry PointedConnectedCover.isomorphic_of_inducedSubgroup_eq
+assert_no_sorry PointedConnectedCover.inducedSubgroup_eq_iff_isomorphic
+
+#print sorries locPathConnectedSpace_of_isLocalHomeomorph
+  covering_locPathConnectedSpace
+  PointedConnectedCover.comparisonLift
+  PointedConnectedCover.inducedSubgroup_eq_of_isomorphic
+  PointedConnectedCover.inducedMap_naturality
+  PointedConnectedCover.inducedMap_surjective
+  PointedConnectedCover.range_eq_of_comp_eq_of_surjective
+  PointedConnectedCover.inducedSubgroup_eq_of_naturality
+  PointedConnectedCover.inducedSubgroup_eq_of_isomorphic_via_naturality
+  PointedConnectedCover.comparisonMaps_mutualInverse
+  PointedConnectedCover.comparisonHomeomorph
+  PointedConnectedCover.isomorphic_of_comparisonMaps
+  PointedConnectedCover.isomorphic_of_inducedSubgroup_eq
+  PointedConnectedCover.inducedSubgroup_eq_iff_isomorphic
+
+#print axioms locPathConnectedSpace_of_isLocalHomeomorph
+#print axioms covering_locPathConnectedSpace
+#print axioms PointedConnectedCover.comparisonLift
+#print axioms PointedConnectedCover.inducedSubgroup_eq_of_isomorphic
+#print axioms PointedConnectedCover.inducedMap_naturality
+#print axioms PointedConnectedCover.inducedMap_surjective
+#print axioms PointedConnectedCover.range_eq_of_comp_eq_of_surjective
+#print axioms PointedConnectedCover.inducedSubgroup_eq_of_naturality
+#print axioms PointedConnectedCover.inducedSubgroup_eq_of_isomorphic_via_naturality
+#print axioms PointedConnectedCover.comparisonMaps_mutualInverse
+#print axioms PointedConnectedCover.comparisonHomeomorph
+#print axioms PointedConnectedCover.isomorphic_of_comparisonMaps
+#print axioms PointedConnectedCover.isomorphic_of_inducedSubgroup_eq
+#print axioms PointedConnectedCover.inducedSubgroup_eq_iff_isomorphic
+
+end Stage1Instances.THM_M_0527.Validation

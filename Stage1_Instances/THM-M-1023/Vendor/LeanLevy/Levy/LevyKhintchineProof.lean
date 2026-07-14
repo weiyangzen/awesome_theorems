@@ -1,0 +1,5275 @@
+/-
+Copyright (c) 2026 LeanLevy Contributors. All rights reserved.
+Released under MIT license as described in the file LICENSE.
+Authors: LeanLevy Contributors
+-/
+import LeanLevy.Levy.InfiniteDivisible
+import LeanLevy.Levy.LevyMeasure
+import LeanLevy.Levy.CompensatedIntegral
+import LeanLevy.Levy.LevyKhintchine
+import LeanLevy.Probability.Characteristic
+import LeanLevy.Levy.CharacteristicExponent
+import LeanLevy.Fourier.Bochner
+import Mathlib.Analysis.Complex.CoveringMap
+import Mathlib.Topology.Homotopy.Lifting
+import Mathlib.Analysis.Convex.Contractible
+import Mathlib.NumberTheory.Real.Irrational
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Sinc
+import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+import Mathlib.Analysis.Real.Pi.Bounds
+
+/-!
+# Lévy-Khintchine Proof Components
+
+Sub-lemmas for the Lévy-Khintchine representation theorem, decomposed into
+four independently provable steps.
+
+## Sub-lemma 1: Non-vanishing
+The characteristic function of an infinitely divisible distribution never vanishes.
+
+## Sub-lemma 2: Continuous logarithm
+An infinitely divisible characteristic function has a unique continuous logarithm.
+
+## Sub-lemma 3: Conditional negative definiteness
+The logarithm of an infinitely divisible char function is conditionally negative definite.
+
+## Sub-lemma 4: Integral representation
+**Lévy-Khintchine assembly**: extract `(b, σ², ν)` along a single subsequence
+(`exists_drift_variance_jumpMeasure_along_seq`) and identify the limit of
+`t⁻¹(charFun μ_t − 1)` with the canonical formula
+(`psi_eq_levyKhintchine_formula`).
+-/
+
+open MeasureTheory MeasureTheory.Measure ProbabilityTheory Complex Filter Topology
+open scoped NNReal ENNReal ComplexOrder
+
+namespace ProbabilityTheory
+
+/-! ## Sub-lemma 1: Non-vanishing -/
+
+section NonVanishing
+
+/-! ### PSD norm bound
+
+The key technical ingredient: if a probability measure `ν` on `ℝ` has `charFun ν ξ₀ = 0`,
+then `‖charFun ν (ξ₀ / 2)‖ ≤ 3/4`.
+
+This follows from positive semi-definiteness of the characteristic function with
+phase-adapted weights. -/
+
+/-- If `charFun ν ξ₀ = 0` for a probability measure `ν`, then `‖charFun ν (ξ₀ / 2)‖ ≤ 3/4`.
+
+**Proof:** Apply positive semi-definiteness of the characteristic function with
+weights `(conj u, -2, u)` and frequencies `(0, ξ₀/2, ξ₀)` where `u = z/‖z‖`
+and `z = charFun ν (ξ₀/2)`. The PSD quadratic form evaluates to
+`2 + 4 - 8‖z‖ ≥ 0`, giving `‖z‖ ≤ 3/4`. -/
+theorem norm_charFun_half_le_of_charFun_eq_zero
+    {ν : Measure ℝ} [IsProbabilityMeasure ν] {ξ₀ : ℝ} (hξ : charFun ν ξ₀ = 0) :
+    ‖charFun ν (ξ₀ / 2)‖ ≤ 3 / 4 := by
+  set z := charFun ν (ξ₀ / 2) with hz_def
+  by_cases hz : z = 0
+  · simp [hz]; positivity
+  · have hr_pos : (0 : ℝ) < ‖z‖ := norm_pos_iff.mpr hz
+    have hr_ne : (‖z‖ : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr (ne_of_gt hr_pos)
+    set u := z / (↑‖z‖ : ℂ) with hu_def
+    -- Wrap ν as ProbabilityMeasure to use PSD
+    set P : ProbabilityMeasure ℝ := ⟨ν, inferInstance⟩
+    -- Key charFun values
+    have hφ0 : charFun ν 0 = 1 := by simp [charFun_zero, Measure.real, measure_univ]
+    -- PSD applied with n=3, ξ = (0, ξ₀/2, ξ₀), c = (conj u, -2, u)
+    have hpsd := MeasureTheory.ProbabilityMeasure.characteristicFun_positiveSemiDefinite P
+      (![0, ξ₀ / 2, ξ₀]) (![(starRingEnd ℂ) u, -2, u])
+    -- Unfold characteristicFun to charFun, replace ↑P with ν
+    simp only [MeasureTheory.ProbabilityMeasure.characteristicFun_def,
+      show (↑P : Measure ℝ) = ν from rfl] at hpsd
+    -- Expand the Fin 3 double sum and evaluate all matrix lookups
+    simp only [Fin.sum_univ_three, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons,
+      Matrix.cons_val_two, Matrix.tail_cons] at hpsd
+    -- Simplify frequency differences to canonical forms
+    rw [show (0 : ℝ) - ξ₀ / 2 = -(ξ₀ / 2) from by ring,
+        show (0 : ℝ) - ξ₀ = -ξ₀ from by ring,
+        show ξ₀ / 2 - ξ₀ = -(ξ₀ / 2) from by ring,
+        show ξ₀ - ξ₀ / 2 = ξ₀ / 2 from by ring] at hpsd
+    -- Substitute charFun values and simplify
+    simp only [_root_.sub_self, _root_.sub_zero, charFun_neg, hξ, hφ0, map_zero,
+      starRingEnd_self_apply, map_neg, map_ofNat, mul_zero, add_zero, mul_one] at hpsd
+    -- hpsd is now: 0 ≤ (u*conj u + u*(-2)*conj z + ... + conj u*u).re
+    -- with all charFun terms being either z or conj z.
+    -- Rewrite the complex expression inside .re using algebraic identities.
+    -- Key identities for our specific u = z/‖z‖:
+    have hu_norm : ‖u‖ = 1 := by
+      rw [hu_def, norm_div, Complex.norm_real, Real.norm_of_nonneg hr_pos.le,
+        div_self (ne_of_gt hr_pos)]
+    -- u * conj u = 1
+    have huu : u * (starRingEnd ℂ) u = 1 := by
+      rw [Complex.mul_conj, Complex.normSq_eq_norm_sq, hu_norm, one_pow, Complex.ofReal_one]
+    -- conj u * u = 1
+    have huu' : (starRingEnd ℂ) u * u = 1 := by rw [mul_comm, huu]
+    -- Substitute these into hpsd
+    simp only [huu, huu'] at hpsd
+    -- hpsd should now be: 0 ≤ (1 + (-2)*(u*conj z) + (-2)*(conj u*z) + 4 + (-2)*(u*conj z) + (-2)*(conj u*z) + 1).re
+    -- which equals 0 ≤ 6 - 4*Re(u*conj z) - 4*Re(conj u*z)
+    -- Now use Re(u*conj z) = ‖z‖ and Re(conj u*z) = ‖z‖
+    have hre1 : (u * (starRingEnd ℂ) z).re = ‖z‖ := by
+      rw [hu_def, div_mul_eq_mul_div, Complex.mul_conj, Complex.normSq_eq_norm_sq]
+      rw [show (↑(‖z‖ ^ 2) : ℂ) / ↑‖z‖ = ↑‖z‖ from by
+        rw [Complex.ofReal_pow, sq, mul_div_cancel_left₀ _ hr_ne]]
+      exact Complex.ofReal_re ‖z‖
+    have hre2 : ((starRingEnd ℂ) u * z).re = ‖z‖ := by
+      have : ((starRingEnd ℂ) u * z).re = (u * (starRingEnd ℂ) z).re := by
+        rw [show ((starRingEnd ℂ) u * z).re = ((starRingEnd ℂ) (u * (starRingEnd ℂ) z)).re from by
+          simp [map_mul]]
+        exact Complex.conj_re _
+      rw [this, hre1]
+    -- Replace charFun ν (ξ₀ / 2) with z in hpsd (they are definitionally equal)
+    change 0 ≤ _ at hpsd
+    simp only [show charFun ν (ξ₀ / 2) = z from rfl] at hpsd
+    -- Now distribute .re over the additions and simplify
+    simp only [Complex.add_re] at hpsd
+    -- All multiplication terms have the form: (a * b * c).re or (a * b).re
+    -- where a, b, c are from {u, conj u, z, conj z, -2, 0, 1}
+    -- Rewrite to use hre1, hre2 for the key Re values
+    -- First, for real scalar (-2): (-2 * X).re = -2 * X.re
+    have hscalar : ∀ (w : ℂ), ((-2 : ℂ) * w).re = -2 * w.re := by
+      intro w; simp [Complex.mul_re]
+    -- Rewrite all triple products to pull -2 out
+    -- (-2) * conj_u * z = (-2) * (conj_u * z)
+    -- (-2) * u * conj_z = (-2) * (u * conj_z)
+    -- u * (-2) * conj_z = (-2) * (u * conj_z)
+    -- conj_u * (-2) * z = (-2) * (conj_u * z)
+    rw [show (-2 : ℂ) * (starRingEnd ℂ) u * z = (-2) * ((starRingEnd ℂ) u * z) from by ring,
+        show (-2 : ℂ) * u * (starRingEnd ℂ) z = (-2) * (u * (starRingEnd ℂ) z) from by ring,
+        show u * (-2 : ℂ) * (starRingEnd ℂ) z = (-2) * (u * (starRingEnd ℂ) z) from by ring,
+        show (starRingEnd ℂ) u * (-2 : ℂ) * z = (-2) * ((starRingEnd ℂ) u * z) from by ring]
+      at hpsd
+    simp only [hscalar, hre1, hre2, Complex.one_re, Complex.zero_re,
+      Complex.neg_re, Complex.re_ofNat] at hpsd
+    -- hpsd: 0 ≤ 1 + -2 * ‖z‖ + (-2 * ‖z‖ + -2 * -2 + -2 * ‖z‖) + (0 + -2 * ‖z‖ + 1)
+    linarith
+
+/-- If `μ` is infinitely divisible and `charFun μ ξ₀ = 0`, then `charFun μ (ξ₀ / 2) = 0`.
+
+**Proof:** For each `n ≥ 1`, the `n`-th root measure `ν_n` satisfies `charFun ν_n ξ₀ = 0`,
+hence `‖charFun ν_n (ξ₀/2)‖ ≤ 3/4` by `norm_charFun_half_le_of_charFun_eq_zero`.
+Then `‖charFun μ (ξ₀/2)‖ = ‖charFun ν_n (ξ₀/2)‖^n ≤ (3/4)^n → 0`. -/
+private theorem charFun_half_eq_zero_of_charFun_eq_zero
+    {μ : Measure ℝ} [IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ)
+    {ξ₀ : ℝ} (hξ : charFun μ ξ₀ = 0) :
+    charFun μ (ξ₀ / 2) = 0 := by
+  rw [← norm_eq_zero]
+  suffices hle : ∀ n : ℕ, 0 < n → ‖charFun μ (ξ₀ / 2)‖ ≤ (3 / 4 : ℝ) ^ n by
+    apply le_antisymm _ (norm_nonneg _)
+    by_contra hc; push_neg at hc
+    have htend : Tendsto (fun n : ℕ => (3 / 4 : ℝ) ^ n) atTop (nhds 0) :=
+      tendsto_pow_atTop_nhds_zero_of_lt_one (by positivity) (by norm_num)
+    have hev := htend.eventually (Iio_mem_nhds hc)
+    obtain ⟨N, hN⟩ := hev.exists_forall_of_atTop
+    have h1 := hle (N + 1) (Nat.succ_pos N)
+    have h2 := hN (N + 1) (by omega)
+    linarith
+  intro n hn
+  obtain ⟨ν, hν_prob, hμ_eq⟩ := h n hn
+  have hpow : ∀ ξ, charFun μ ξ = (charFun ν ξ) ^ n := by
+    intro ξ; rw [hμ_eq, charFun_iteratedConv]
+  have hν_zero : charFun ν ξ₀ = 0 := by
+    have h1 := hpow ξ₀; rw [hξ] at h1
+    exact (pow_eq_zero_iff (by omega : n ≠ 0)).mp h1.symm
+  have hν_half := norm_charFun_half_le_of_charFun_eq_zero hν_zero
+  calc ‖charFun μ (ξ₀ / 2)‖
+      = ‖charFun ν (ξ₀ / 2)‖ ^ n := by rw [hpow, norm_pow]
+    _ ≤ (3 / 4 : ℝ) ^ n := pow_le_pow_left₀ (norm_nonneg _) hν_half n
+
+/-- The characteristic function of an infinitely divisible probability measure never vanishes.
+
+**Proof:** Suppose `charFun μ ξ₀ = 0` for some `ξ₀`. By repeated halving,
+`charFun μ (ξ₀ / 2^k) = 0` for all `k`. But `ξ₀ / 2^k → 0` and `charFun μ` is continuous
+with `charFun μ 0 = 1`, contradiction. -/
+theorem IsInfinitelyDivisible.charFun_ne_zero
+    {μ : Measure ℝ} [IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ) (ξ : ℝ) :
+    charFun μ ξ ≠ 0 := by
+  intro habs
+  have hzero : ∀ k : ℕ, charFun μ (ξ / 2 ^ k) = 0 := by
+    intro k; induction k with
+    | zero => simpa using habs
+    | succ k ih =>
+      rw [show ξ / 2 ^ (k + 1) = ξ / 2 ^ k / 2 from by rw [div_div, ← pow_succ]]
+      exact charFun_half_eq_zero_of_charFun_eq_zero h ih
+  have htend : Tendsto (fun k : ℕ => ξ / (2 : ℝ) ^ k) atTop (nhds 0) := by
+    have h2 : Tendsto (fun k : ℕ => (2 : ℝ) ^ k) atTop atTop :=
+      tendsto_pow_atTop_atTop_of_one_lt (by norm_num : (1 : ℝ) < 2)
+    exact tendsto_const_nhds.div_atTop h2
+  have hcont : Continuous (charFun μ) := MeasureTheory.continuous_charFun
+  have hφ0 : charFun μ 0 = 1 := by simp [charFun_zero, Measure.real, measure_univ]
+  have hlim : Tendsto (fun k => charFun μ (ξ / 2 ^ k)) atTop (nhds 1) := by
+    rw [← hφ0]; exact (hcont.tendsto 0).comp htend
+  have hlim0 : Tendsto (fun k => charFun μ (ξ / 2 ^ k)) atTop (nhds 0) := by
+    rw [show (fun k => charFun μ (ξ / 2 ^ k)) = fun _ => (0 : ℂ) from funext hzero]
+    exact tendsto_const_nhds
+  exact one_ne_zero (tendsto_nhds_unique hlim0 hlim).symm
+
+end NonVanishing
+
+/-! ## Sub-lemma 2: Continuous logarithm -/
+
+/-- An infinitely divisible probability measure has a continuous logarithm of its
+characteristic function: there exists `ψ : ℝ → ℂ` continuous with `ψ 0 = 0` and
+`charFun μ ξ = exp(ψ ξ)` for all `ξ`. -/
+theorem IsInfinitelyDivisible.exists_continuous_log
+    {μ : Measure ℝ} [IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ) :
+    ∃ ψ : ℝ → ℂ, Continuous ψ ∧ ψ 0 = 0 ∧ ∀ ξ, charFun μ ξ = exp (ψ ξ) := by
+  -- The characteristic function is continuous and never vanishes
+  have hcont : Continuous (charFun μ) := MeasureTheory.continuous_charFun
+  have hne : ∀ ξ, charFun μ ξ ≠ 0 := h.charFun_ne_zero
+  -- charFun μ 0 = 1
+  have hφ0 : charFun μ 0 = 1 := by simp [charFun_zero, Measure.real, measure_univ]
+  -- Build the ContinuousMap f : C(ℝ, ℂ) for the characteristic function
+  set f : C(ℝ, ℂ) := ⟨charFun μ, hcont⟩
+  -- exp 0 = 1 = charFun μ 0 = f 0
+  have he : Complex.exp (0 : ℂ) = f (0 : ℝ) := by simp [f, hφ0]
+  -- charFun μ maps into ℂ \ {0}
+  have hs : ∀ ξ : ℝ, f ξ ∈ ({0}ᶜ : Set ℂ) := fun ξ => Set.mem_compl_singleton_iff.mpr (hne ξ)
+  -- Apply the lifting theorem for covering maps:
+  -- exp : ℂ → ℂ is a covering map on {0}ᶜ, ℝ is simply connected and locally path-connected
+  obtain ⟨F, ⟨hF0, hFexp⟩, _⟩ :=
+    Complex.isCoveringMapOn_exp.existsUnique_continuousMap_lifts f he hs
+  -- F is our continuous logarithm
+  exact ⟨F, F.continuous, hF0, fun ξ => by
+    have := congr_fun hFexp ξ
+    simp [Function.comp] at this
+    exact this.symm⟩
+
+/-- Hermitian symmetry of the continuous logarithm: `ψ(-ξ) = conj(ψ(ξ))`.
+
+Both `ψ` and `ξ ↦ conj(ψ(-ξ))` are continuous lifts of `charFun μ` through `exp`,
+both equal to 0 at 0; by uniqueness of covering map lifts they coincide. -/
+theorem IsInfinitelyDivisible.hermitian_log
+    {μ : Measure ℝ} [IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ)
+    {ψ : ℝ → ℂ} (hψ_cont : Continuous ψ) (hψ_zero : ψ 0 = 0)
+    (hψ_exp : ∀ ξ, charFun μ ξ = exp (ψ ξ)) :
+    ∀ ξ, ψ (-ξ) = starRingEnd ℂ (ψ ξ) := by
+  have hcont : Continuous (charFun μ) := MeasureTheory.continuous_charFun
+  have hne : ∀ ξ, charFun μ ξ ≠ 0 := h.charFun_ne_zero
+  have hφ0 : charFun μ 0 = 1 := by simp [charFun_zero, Measure.real, measure_univ]
+  set f : C(ℝ, ℂ) := ⟨charFun μ, hcont⟩
+  have he : Complex.exp (0 : ℂ) = f (0 : ℝ) := by simp [f, hφ0]
+  have hs : ∀ ξ : ℝ, f ξ ∈ ({0}ᶜ : Set ℂ) := fun ξ => Set.mem_compl_singleton_iff.mpr (hne ξ)
+  obtain ⟨F, ⟨_hF0, _hFexp⟩, hF_unique⟩ :=
+    Complex.isCoveringMapOn_exp.existsUnique_continuousMap_lifts f he hs
+  set Ψ : C(ℝ, ℂ) := ⟨ψ, hψ_cont⟩
+  have hΨ_lift : Ψ 0 = 0 ∧ Complex.exp ∘ Ψ = f := by
+    refine ⟨hψ_zero, ?_⟩
+    ext ξ; simp [Ψ, f, hψ_exp ξ]
+  set G : C(ℝ, ℂ) := ⟨fun ξ => starRingEnd ℂ (ψ (-ξ)), by
+    exact continuous_star.comp (hψ_cont.comp continuous_neg)⟩
+  have hG_lift : G 0 = 0 ∧ Complex.exp ∘ G = f := by
+    refine ⟨by simp [G, hψ_zero], ?_⟩
+    ext ξ; simp only [G, ContinuousMap.coe_mk, Function.comp_apply, f]
+    rw [exp_conj, ← hψ_exp (-ξ), charFun_neg, starRingEnd_self_apply]
+  have hΨ_eq : Ψ = F := hF_unique Ψ hΨ_lift
+  have hG_eq : G = F := hF_unique G hG_lift
+  have hΨG : ∀ ξ, ψ ξ = starRingEnd ℂ (ψ (-ξ)) := fun ξ => by
+    have := congr_arg (· ξ) (hΨ_eq.trans hG_eq.symm)
+    exact this
+  intro ξ
+  have := hΨG (-ξ)
+  simp only [neg_neg] at this
+  exact this
+
+/-! ## Sub-lemma 3: Conditional negative definiteness -/
+
+/-- A function `ψ : ℝ → ℂ` is **conditionally negative definite** if for all finite
+sequences `ξ₁, ..., ξₙ` and `c₁, ..., cₙ ∈ ℂ` with `∑ cₖ = 0`,
+the real part of `∑ᵢ ∑ⱼ c̄ᵢ cⱼ ψ(ξᵢ - ξⱼ)` is non-negative.
+
+This convention means `ψ` is "conditionally positive definite" in some references.
+A continuous function `ψ` with `ψ(0) = 0` is CND in this sense iff `exp(tψ)` is
+positive definite for all `t > 0` (Schoenberg's theorem). -/
+def IsConditionallyNegativeDefinite (ψ : ℝ → ℂ) : Prop :=
+  ∀ (n : ℕ) (ξ : Fin n → ℝ) (c : Fin n → ℂ),
+    ∑ i, c i = 0 →
+    0 ≤ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ψ (ξ i - ξ j)).re
+
+/-- For a probability measure, `charFun ν 0 = 1`. -/
+private theorem charFun_zero_eq_one {ν : Measure ℝ} [IsProbabilityMeasure ν] :
+    charFun ν 0 = 1 := by
+  simp [charFun_zero, Measure.real, measure_univ]
+
+/-- When `∑ c = 0`, the constant term `∑ᵢ ∑ⱼ c̄ᵢ cⱼ` equals zero. -/
+private theorem double_sum_conj_mul_eq_zero {n : ℕ} {c : Fin n → ℂ} (hc : ∑ i, c i = 0) :
+    ∑ i : Fin n, ∑ j : Fin n, starRingEnd ℂ (c i) * c j = 0 := by
+  simp_rw [← Finset.mul_sum, ← Finset.sum_mul]
+  simp [hc]
+
+/-! ### Closure algebra for conditionally negative definite functions
+
+A small collection of elementary closure lemmas used to assemble the Lévy–Khintchine
+exponent from its building blocks: sums, non-negative scalings, the imaginary drift
+`ξ ↦ a·ξ·I`, the Gaussian term `ξ ↦ -ξ²`, and `g - 1` for a positive definite `g`. -/
+
+/-- The sum of two conditionally negative definite functions is conditionally negative
+definite. -/
+theorem IsConditionallyNegativeDefinite.add {ψ₁ ψ₂ : ℝ → ℂ}
+    (h₁ : IsConditionallyNegativeDefinite ψ₁) (h₂ : IsConditionallyNegativeDefinite ψ₂) :
+    IsConditionallyNegativeDefinite (fun ξ => ψ₁ ξ + ψ₂ ξ) := by
+  intro n ξ c hc
+  show 0 ≤ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+    (ψ₁ (ξ i - ξ j) + ψ₂ (ξ i - ξ j))).re
+  have e : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        (ψ₁ (ξ i - ξ j) + ψ₂ (ξ i - ξ j))).re
+      = (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ψ₁ (ξ i - ξ j)).re
+        + (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ψ₂ (ξ i - ξ j)).re := by
+    rw [← Complex.add_re]
+    congr 1
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    ring
+  rw [e]
+  exact add_nonneg (h₁ n ξ c hc) (h₂ n ξ c hc)
+
+/-- A non-negative real scaling of a conditionally negative definite function is
+conditionally negative definite. -/
+theorem IsConditionallyNegativeDefinite.smul_nonneg {a : ℝ} {ψ : ℝ → ℂ}
+    (h : IsConditionallyNegativeDefinite ψ) (ha : 0 ≤ a) :
+    IsConditionallyNegativeDefinite (fun ξ => (a : ℂ) * ψ ξ) := by
+  intro n ξ c hc
+  show 0 ≤ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ((a : ℂ) * ψ (ξ i - ξ j))).re
+  have e : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ((a : ℂ) * ψ (ξ i - ξ j))).re
+      = a * (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ψ (ξ i - ξ j)).re := by
+    rw [show (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ((a : ℂ) * ψ (ξ i - ξ j)))
+        = (a : ℂ) * ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * ψ (ξ i - ξ j) from ?_,
+      Complex.re_ofReal_mul]
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    ring
+  rw [e]
+  exact mul_nonneg ha (h n ξ c hc)
+
+/-- The imaginary linear function `ξ ↦ a·ξ·I` is conditionally negative definite:
+the double sum factors through both `∑ c = 0` and `∑ conj c = 0`, hence vanishes. -/
+theorem cnd_imag_linear (a : ℝ) :
+    IsConditionallyNegativeDefinite (fun ξ => (a : ℂ) * ↑ξ * I) := by
+  intro n ξ c hc
+  show 0 ≤ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+    ((a : ℂ) * ↑(ξ i - ξ j) * I)).re
+  have hconj0 : (∑ i, starRingEnd ℂ (c i)) = 0 := by rw [← _root_.map_sum, hc, map_zero]
+  have expand : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        ((↑(ξ i) : ℂ) - ↑(ξ j)))
+      = (∑ i, starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) * (∑ j, c j)
+        - (∑ i, starRingEnd ℂ (c i)) * (∑ j, c j * (↑(ξ j) : ℂ)) := by
+    rw [Finset.sum_mul, Finset.sum_mul, ← Finset.sum_sub_distrib]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    ring
+  have hsum0 : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+      ((a : ℂ) * ↑(ξ i - ξ j) * I)) = 0 := by
+    have factored : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+          ((a : ℂ) * ↑(ξ i - ξ j) * I))
+        = (a : ℂ) * I * (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+          ((↑(ξ i) : ℂ) - ↑(ξ j))) := by
+      rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      push_cast; ring
+    rw [factored, expand, hc, hconj0]; ring
+  rw [hsum0]; simp
+
+/-- The negative square `ξ ↦ -ξ²` is conditionally negative definite: the cross term
+of the expansion contributes `2·conj(W)·W = 2‖W‖²` with `W = ∑ cⱼ ξⱼ`, and the pure
+square terms vanish by the zero-sum condition. -/
+theorem cnd_neg_sq :
+    IsConditionallyNegativeDefinite (fun ξ => -((ξ : ℂ) ^ 2)) := by
+  intro n ξ c hc
+  show 0 ≤ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+    (-((↑(ξ i - ξ j) : ℂ) ^ 2))).re
+  set W : ℂ := ∑ j, c j * (↑(ξ j) : ℂ) with hW
+  have hconj0 : (∑ i, starRingEnd ℂ (c i)) = 0 := by rw [← _root_.map_sum, hc, map_zero]
+  have hcW : (∑ i, starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) = starRingEnd ℂ W := by
+    rw [hW, _root_.map_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [map_mul, Complex.conj_ofReal]
+  have A : (∑ i, ∑ j, -(starRingEnd ℂ (c i) * (↑(ξ i) : ℂ) ^ 2) * c j) = 0 := by
+    refine Finset.sum_eq_zero fun i _ => ?_
+    rw [← Finset.mul_sum, hc, mul_zero]
+  have B : (∑ i, ∑ j, 2 * (starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) * (c j * (↑(ξ j) : ℂ)))
+      = 2 * starRingEnd ℂ W * W := by
+    have hi : ∀ i, (∑ j, 2 * (starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) * (c j * (↑(ξ j) : ℂ)))
+        = 2 * (starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) * W := by
+      intro i; rw [hW, Finset.mul_sum]
+    simp_rw [hi]
+    rw [← Finset.sum_mul, ← Finset.mul_sum, hcW]
+  have C : (∑ i, ∑ j, -(starRingEnd ℂ (c i) * (c j * (↑(ξ j) : ℂ) ^ 2))) = 0 := by
+    have hi : ∀ i, (∑ j, -(starRingEnd ℂ (c i) * (c j * (↑(ξ j) : ℂ) ^ 2)))
+        = starRingEnd ℂ (c i) * (∑ j, -(c j * (↑(ξ j) : ℂ) ^ 2)) := by
+      intro i; rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl fun j _ => by ring
+    simp_rw [hi, ← Finset.sum_mul, hconj0, zero_mul]
+  have key : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * (-((↑(ξ i - ξ j) : ℂ) ^ 2)))
+      = 2 * starRingEnd ℂ W * W := by
+    have step : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * (-((↑(ξ i - ξ j) : ℂ) ^ 2)))
+        = (∑ i, ∑ j, (-(starRingEnd ℂ (c i) * (↑(ξ i) : ℂ) ^ 2) * c j
+            + 2 * (starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) * (c j * (↑(ξ j) : ℂ))
+            + -(starRingEnd ℂ (c i) * (c j * (↑(ξ j) : ℂ) ^ 2)))) := by
+      refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+      push_cast; ring
+    rw [step]
+    rw [show (∑ i, ∑ j, (-(starRingEnd ℂ (c i) * (↑(ξ i) : ℂ) ^ 2) * c j
+          + 2 * (starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) * (c j * (↑(ξ j) : ℂ))
+          + -(starRingEnd ℂ (c i) * (c j * (↑(ξ j) : ℂ) ^ 2))))
+        = (∑ i, ∑ j, -(starRingEnd ℂ (c i) * (↑(ξ i) : ℂ) ^ 2) * c j)
+          + (∑ i, ∑ j, 2 * (starRingEnd ℂ (c i) * (↑(ξ i) : ℂ)) * (c j * (↑(ξ j) : ℂ)))
+          + (∑ i, ∑ j, -(starRingEnd ℂ (c i) * (c j * (↑(ξ j) : ℂ) ^ 2)))
+        from by simp_rw [Finset.sum_add_distrib]]
+    rw [A, B, C]; ring
+  rw [key]
+  have hre : ((2 : ℂ) * starRingEnd ℂ W * W).re = 2 * Complex.normSq W := by
+    rw [mul_assoc, ← Complex.normSq_eq_conj_mul_self]
+    simp [Complex.mul_re]
+  rw [hre]
+  have := Complex.normSq_nonneg W
+  linarith
+
+/-- If `g` is positive definite, then `g - 1` is conditionally negative definite: the
+`-1` contributes `∑∑ conj(cᵢ)cⱼ = 0` under the zero-sum condition, leaving the positive
+definite form. -/
+theorem IsPositiveDefinite.cnd_sub_one {g : ℝ → ℂ} (hg : IsPositiveDefinite g) :
+    IsConditionallyNegativeDefinite (fun ξ => g ξ - 1) := by
+  intro n ξ c hc
+  show 0 ≤ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * (g (ξ i - ξ j) - 1)).re
+  have e : (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * (g (ξ i - ξ j) - 1))
+      = (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * g (ξ i - ξ j))
+        - (∑ i, ∑ j, starRingEnd ℂ (c i) * c j) := by
+    simp_rw [mul_sub, mul_one, Finset.sum_sub_distrib]
+  rw [e, double_sum_conj_mul_eq_zero hc, sub_zero]
+  exact hg.re_nonneg n ξ c
+
+/-- For fixed `x`, the compensated integrand `ξ ↦ f(ξ, x)` is conditionally negative
+definite. It splits as `(exp(ixξ) - 1) + (-x·1_{|x|<1})·ξ·I`: the first summand is
+conditionally negative definite via `isPositiveDefinite_exp_ofReal_mul` and `cnd_sub_one`,
+the second via `cnd_imag_linear` (the indicator coefficient is `ξ`-independent). -/
+theorem cnd_levyCompensatedIntegrand_fixed (x : ℝ) :
+    IsConditionallyNegativeDefinite (fun ξ => levyCompensatedIntegrand ξ x) := by
+  have hexp : IsConditionallyNegativeDefinite
+      (fun ξ => Complex.exp ((x : ℂ) * (ξ : ℂ) * I) - 1) :=
+    (isPositiveDefinite_exp_ofReal_mul x).cnd_sub_one
+  have hlin : IsConditionallyNegativeDefinite
+      (fun ξ => ((if |x| < 1 then -x else 0 : ℝ) : ℂ) * ↑ξ * I) :=
+    cnd_imag_linear _
+  have key : (fun ξ => levyCompensatedIntegrand ξ x)
+      = fun ξ : ℝ => (Complex.exp ((x : ℂ) * ↑ξ * I) - 1)
+          + ((if |x| < 1 then -x else 0 : ℝ) : ℂ) * ↑ξ * I := by
+    funext ξ
+    simp only [levyCompensatedIntegrand_def]
+    by_cases hx : |x| < 1
+    · simp only [if_pos hx]; push_cast; ring
+    · simp only [if_neg hx]; push_cast; ring
+  rw [key]
+  exact hexp.add hlin
+
+/-! ### Integral-level properties of the compensated integrand
+
+The pointwise facts about `levyCompensatedIntegrand` lift to its integral against a Lévy
+measure `ν`: conditional negative definiteness, continuity in the frequency variable, and
+Hermitian symmetry. These feed the converse Lévy–Khintchine construction. -/
+
+/-- Against a Lévy measure, `x ↦ min 1 x²` is Bochner integrable. -/
+theorem IsLevyMeasure.integrable_min_one_sq {ν : Measure ℝ} (hν : IsLevyMeasure ν) :
+    Integrable (fun x : ℝ => min 1 (x ^ 2)) ν := by
+  refine ⟨(continuous_const.min (continuous_pow 2)).aestronglyMeasurable, ?_⟩
+  rw [hasFiniteIntegral_iff_enorm]
+  have henorm : ∀ x : ℝ, ‖min 1 (x ^ 2)‖ₑ = ENNReal.ofReal (min 1 (x ^ 2)) := fun x =>
+    Real.enorm_eq_ofReal (le_min zero_le_one (sq_nonneg x))
+  simp_rw [henorm]
+  exact hν.lintegral_min_one_sq_lt_top
+
+/-- The compensated integrand is continuous in the frequency variable `ξ`. -/
+theorem continuous_levyCompensatedIntegrand_fst (x : ℝ) :
+    Continuous (fun ξ => levyCompensatedIntegrand ξ x) := by
+  unfold levyCompensatedIntegrand
+  by_cases hx : |x| < 1
+  · simp only [if_pos hx, mul_one]; fun_prop
+  · simp only [if_neg hx, mul_zero, sub_zero]; fun_prop
+
+/-- The integral of the compensated integrand against a Lévy measure is conditionally
+negative definite in the frequency variable. -/
+theorem cnd_integral_levyCompensatedIntegrand {ν : Measure ℝ} (hν : IsLevyMeasure ν) :
+    IsConditionallyNegativeDefinite (fun ξ => ∫ x, levyCompensatedIntegrand ξ x ∂ν) := by
+  intro n ξ c hc
+  -- Each `conj (c i) · c j · f(ξᵢ - ξⱼ, ·)` is integrable against `ν`.
+  have hint : ∀ i j : Fin n,
+      Integrable (fun x => starRingEnd ℂ (c i) * c j *
+        levyCompensatedIntegrand (ξ i - ξ j) x) ν :=
+    fun i j => (integrable_levyCompensatedIntegrand hν _).const_mul _
+  have hG_int : Integrable (fun x => ∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+      levyCompensatedIntegrand (ξ i - ξ j) x) ν :=
+    integrable_finset_sum Finset.univ fun i _ =>
+      integrable_finset_sum Finset.univ fun j _ => hint i j
+  -- Pull the finite double sum through the integral (no Fubini).
+  have key : (∫ x, ∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+      levyCompensatedIntegrand (ξ i - ξ j) x ∂ν) =
+      ∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        ∫ x, levyCompensatedIntegrand (ξ i - ξ j) x ∂ν := by
+    rw [integral_finset_sum Finset.univ
+      fun i _ => integrable_finset_sum Finset.univ fun j _ => hint i j]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [integral_finset_sum Finset.univ fun j _ => hint i j]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    exact integral_const_mul _ _
+  show 0 ≤ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+    ∫ x, levyCompensatedIntegrand (ξ i - ξ j) x ∂ν).re
+  rw [← key, show (∫ x, ∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+      levyCompensatedIntegrand (ξ i - ξ j) x ∂ν).re =
+      ∫ x, (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        levyCompensatedIntegrand (ξ i - ξ j) x).re ∂ν from
+    ((@RCLike.reCLM ℂ _).integral_comp_comm hG_int).symm]
+  refine integral_nonneg fun x => ?_
+  exact cnd_levyCompensatedIntegrand_fixed x n ξ c hc
+
+/-- The integral of the compensated integrand against a Lévy measure is continuous in the
+frequency variable. -/
+theorem continuous_integral_levyCompensatedIntegrand {ν : Measure ℝ} (hν : IsLevyMeasure ν) :
+    Continuous (fun ξ => ∫ x, levyCompensatedIntegrand ξ x ∂ν) := by
+  rw [continuous_iff_continuousAt]
+  intro ξ₀
+  -- Dominate near `ξ₀` by `(2 + 3(|ξ₀|+1)²)·min(1, x²)`; the global bound `(2 + 3ξ²)`
+  -- grows in `ξ`, so we work at each point.
+  refine continuousAt_of_dominated
+    (bound := fun x => (2 + 3 * (|ξ₀| + 1) ^ 2) * min 1 (x ^ 2))
+    (Eventually.of_forall fun ξ => (measurable_levyCompensatedIntegrand ξ).aestronglyMeasurable)
+    ?_ (hν.integrable_min_one_sq.const_mul _)
+    (Eventually.of_forall fun x => (continuous_levyCompensatedIntegrand_fst x).continuousAt)
+  have hev : ∀ᶠ ξ in 𝓝 ξ₀, |ξ| < |ξ₀| + 1 :=
+    continuous_abs.continuousAt.eventually_lt continuousAt_const (by linarith)
+  filter_upwards [hev] with ξ hξ
+  filter_upwards with x
+  have hξ2 : ξ ^ 2 ≤ (|ξ₀| + 1) ^ 2 := by
+    nlinarith [sq_abs ξ, hξ.le, abs_nonneg ξ, abs_nonneg ξ₀]
+  have hmin : (0 : ℝ) ≤ min 1 (x ^ 2) := le_min zero_le_one (sq_nonneg x)
+  calc ‖levyCompensatedIntegrand ξ x‖
+      ≤ (2 + 3 * ξ ^ 2) * min 1 (x ^ 2) := norm_levyCompensatedIntegrand_le ξ x
+    _ ≤ (2 + 3 * (|ξ₀| + 1) ^ 2) * min 1 (x ^ 2) := by nlinarith [hξ2, hmin]
+
+/-- Hermitian symmetry of the compensated integral: reflecting the frequency conjugates the
+integral, `∫ f(-ξ, x) ∂ν = conj (∫ f(ξ, x) ∂ν)`. -/
+theorem hermitian_integral_levyCompensatedIntegrand {ν : Measure ℝ} (ξ : ℝ) :
+    ∫ x, levyCompensatedIntegrand (-ξ) x ∂ν =
+      starRingEnd ℂ (∫ x, levyCompensatedIntegrand ξ x ∂ν) :=
+  calc ∫ x, levyCompensatedIntegrand (-ξ) x ∂ν
+      = ∫ x, starRingEnd ℂ (levyCompensatedIntegrand ξ x) ∂ν :=
+        integral_congr_ae (ae_of_all ν fun x => (conj_levyCompensatedIntegrand ξ x).symm)
+    _ = starRingEnd ℂ (∫ x, levyCompensatedIntegrand ξ x ∂ν) := integral_conj
+
+/-- PSD of characteristic function: the Hermitian form with charFun values is non-negative.
+This wraps the ProbabilityMeasure-level statement for bare Measures. -/
+private theorem charFun_psd {ν : Measure ℝ} [IsProbabilityMeasure ν]
+    {n : ℕ} (ξ : Fin n → ℝ) (c : Fin n → ℂ) :
+    0 ≤ (∑ i : Fin n, ∑ j : Fin n,
+      starRingEnd ℂ (c i) * c j * charFun ν (ξ i - ξ j)).re := by
+  exact MeasureTheory.ProbabilityMeasure.characteristicFun_positiveSemiDefinite
+    (⟨ν, inferInstance⟩ : ProbabilityMeasure ℝ) ξ c
+
+/-- When `∑ c = 0`, PSD implies the "1 minus charFun" form is non-positive. -/
+private theorem one_sub_charFun_form_nonpos {ν : Measure ℝ} [IsProbabilityMeasure ν]
+    {n : ℕ} (ξ : Fin n → ℝ) (c : Fin n → ℂ) (hc : ∑ i, c i = 0) :
+    (∑ i : Fin n, ∑ j : Fin n,
+      starRingEnd ℂ (c i) * c j * (1 - charFun ν (ξ i - ξ j))).re ≤ 0 := by
+  have hpsd := charFun_psd ξ c (ν := ν)
+  have hzero := double_sum_conj_mul_eq_zero hc
+  have : ∑ i : Fin n, ∑ j : Fin n,
+      starRingEnd ℂ (c i) * c j * (1 - charFun ν (ξ i - ξ j)) =
+    -(∑ i : Fin n, ∑ j : Fin n,
+      starRingEnd ℂ (c i) * c j * charFun ν (ξ i - ξ j)) := by
+    simp_rw [mul_sub, mul_one, Finset.sum_sub_distrib]
+    simp [hzero]
+  rw [this, Complex.neg_re]
+  linarith
+
+/-- If `(charFun ν)^m = exp(ψ)` where `ψ` is a continuous log with `ψ(0) = 0`,
+then `charFun ν = exp(ψ/m)`.
+
+This uses the uniqueness of lifts through the exponential covering map:
+both `charFun ν` and `exp(ψ/m)` are continuous, map `0 ↦ 1`, and satisfy
+`f^m = exp(ψ)`. -/
+private theorem charFun_eq_exp_div {ν : Measure ℝ} [IsProbabilityMeasure ν]
+    {ψ : ℝ → ℂ} (hψ_cont : Continuous ψ) (hψ_zero : ψ 0 = 0)
+    {m : ℕ} (hm : 0 < m) (hpow : ∀ ξ, (charFun ν ξ) ^ m = exp (ψ ξ)) :
+    ∀ ξ, charFun ν ξ = exp (ψ ξ / ↑m) := by
+  -- Step 1: charFun ν is continuous and never zero (from hpow + exp_ne_zero)
+  have hcont : Continuous (charFun ν) := MeasureTheory.continuous_charFun
+  have hne : ∀ ξ, charFun ν ξ ≠ 0 := by
+    intro ξ habs
+    have : (charFun ν ξ) ^ m = 0 := by rw [habs, zero_pow (by omega)]
+    rw [hpow] at this
+    exact exp_ne_zero _ this
+  -- Step 2: Lift charFun ν through exp to get logν : C(ℝ, ℂ) with logν(0) = 0
+  have hφ0 : charFun ν 0 = 1 := charFun_zero_eq_one
+  set fν : C(ℝ, ℂ) := ⟨charFun ν, hcont⟩
+  have heν : Complex.exp (0 : ℂ) = fν (0 : ℝ) := by simp [fν, hφ0]
+  have hsν : ∀ ξ : ℝ, fν ξ ∈ ({0}ᶜ : Set ℂ) := fun ξ =>
+    Set.mem_compl_singleton_iff.mpr (hne ξ)
+  obtain ⟨logν, ⟨hlogν0, hlogν_exp⟩, hlogν_unique⟩ :=
+    Complex.isCoveringMapOn_exp.existsUnique_continuousMap_lifts fν heν hsν
+  -- logν 0 = 0 and exp ∘ logν = charFun ν
+  -- Step 3: Build the base map g := exp ∘ ψ as a ContinuousMap
+  set g : C(ℝ, ℂ) := ⟨fun ξ => exp (ψ ξ), hψ_cont.cexp⟩
+  -- g maps into ℂ \ {0}
+  have hsg : ∀ ξ : ℝ, g ξ ∈ ({0}ᶜ : Set ℂ) := fun ξ =>
+    Set.mem_compl_singleton_iff.mpr (exp_ne_zero _)
+  have heg : Complex.exp (0 : ℂ) = g (0 : ℝ) := by simp [g, hψ_zero]
+  -- Step 4: ψ is a lift of g through exp
+  set ψ_cm : C(ℝ, ℂ) := ⟨ψ, hψ_cont⟩
+  have hψ_lift_val : ψ_cm (0 : ℝ) = 0 := hψ_zero
+  have hψ_lift_comp : Complex.exp ∘ ψ_cm = g := by
+    ext ξ; simp [ψ_cm, g]
+  -- Step 5: m * logν is also a lift of g through exp
+  set mlogν : C(ℝ, ℂ) := ⟨fun ξ => (↑m : ℂ) * logν ξ,
+    continuous_const.mul logν.continuous⟩
+  have hmlogν_val : mlogν (0 : ℝ) = 0 := by simp [mlogν, hlogν0]
+  have hmlogν_comp : Complex.exp ∘ mlogν = g := by
+    ext ξ
+    simp only [Function.comp_apply, ContinuousMap.coe_mk, mlogν, g]
+    -- exp(m * logν(ξ)) = (exp(logν(ξ)))^m = (charFun ν ξ)^m = exp(ψ ξ)
+    rw [Complex.exp_nat_mul]
+    have hexp_logν : Complex.exp (logν ξ) = charFun ν ξ := by
+      have := congr_fun hlogν_exp ξ
+      simp [Function.comp_apply] at this
+      exact this
+    rw [hexp_logν, hpow]
+  -- Step 6: By uniqueness of lifts, ψ = m * logν
+  obtain ⟨_, ⟨_, _⟩, huniq⟩ :=
+    Complex.isCoveringMapOn_exp.existsUnique_continuousMap_lifts g heg hsg
+  have hψ_eq_mlogν : ψ_cm = mlogν := by
+    have hψ_uniq := huniq ψ_cm ⟨hψ_lift_val, hψ_lift_comp⟩
+    have hmlogν_uniq := huniq mlogν ⟨hmlogν_val, hmlogν_comp⟩
+    rw [hψ_uniq, hmlogν_uniq]
+  -- Step 7: Therefore charFun ν = exp(logν) = exp(ψ/m)
+  intro ξ
+  have hexp_logν : Complex.exp (logν ξ) = charFun ν ξ := by
+    have := congr_fun hlogν_exp ξ
+    simp [Function.comp_apply] at this
+    exact this
+  rw [← hexp_logν]
+  congr 1
+  -- logν ξ = ψ ξ / m, from ψ ξ = m * logν ξ
+  have hψ_eq : ψ ξ = (↑m : ℂ) * logν ξ := by
+    have := congr_fun (congrArg DFunLike.coe hψ_eq_mlogν) ξ
+    simp [ψ_cm, mlogν] at this
+    exact this
+  rw [hψ_eq]
+  rw [mul_div_cancel_left₀]
+  exact Nat.cast_ne_zero.mpr (by omega)
+
+/-- The complex limit `m * (1 - exp(z / m)) → -z` as `m → ∞`. -/
+private theorem tendsto_mul_one_sub_exp_div (z : ℂ) :
+    Tendsto (fun m : ℕ => (↑m : ℂ) * (1 - exp (z / ↑m))) atTop (nhds (-z)) := by
+  by_cases hz : z = 0
+  · -- Case z = 0: everything is zero
+    simp [hz]
+  · -- Case z ≠ 0: use (exp w - 1)/w → 1 as w → 0
+    -- Step 1: The derivative of exp at 0 gives slope cexp 0 → 1 in 𝓝[≠] 0
+    have hslope : Tendsto (slope cexp 0) (𝓝[≠] 0) (nhds 1) := by
+      have h := hasDerivAt_exp (0 : ℂ)
+      rw [exp_zero] at h
+      exact h.tendsto_slope
+    -- Step 2: z / m → 0 as m → ∞ (in ℂ)
+    have hdiv_tendsto : Tendsto (fun m : ℕ => z / (↑m : ℂ)) atTop (nhds 0) := by
+      have hinv : Tendsto (fun m : ℕ => (↑m : ℂ)⁻¹) atTop (nhds 0) := by
+        rw [tendsto_zero_iff_norm_tendsto_zero]
+        have : (fun m : ℕ => ‖(↑m : ℂ)⁻¹‖) = fun m : ℕ => ((↑m : ℝ))⁻¹ := by
+          ext m; rw [norm_inv, Complex.norm_natCast]
+        rw [this]
+        exact tendsto_inv_atTop_zero.comp tendsto_natCast_atTop_atTop
+      rw [show (0 : ℂ) = z * 0 from by ring]
+      simp only [div_eq_mul_inv]
+      exact tendsto_const_nhds.mul hinv
+    -- Step 3: z / m ≠ 0 eventually (since z ≠ 0 and m ≥ 1)
+    have hdiv_ne : ∀ᶠ m : ℕ in atTop, z / (↑m : ℂ) ∈ ({0}ᶜ : Set ℂ) := by
+      filter_upwards [Filter.Ici_mem_atTop 1] with m (hm : 1 ≤ m)
+      exact Set.mem_compl_singleton_iff.mpr
+        (div_ne_zero hz (Nat.cast_ne_zero.mpr (by omega)))
+    -- Step 4: Compose to get slope cexp 0 (z/m) → 1
+    have hcomp : Tendsto (fun m : ℕ => slope cexp 0 (z / (↑m : ℂ))) atTop (nhds 1) :=
+      hslope.comp (tendsto_nhdsWithin_of_tendsto_nhds_of_eventually_within _ hdiv_tendsto hdiv_ne)
+    -- Step 5: slope cexp 0 (z/m) * z → 1 * z = z
+    have hmul_z : Tendsto (fun m : ℕ => slope cexp 0 (z / (↑m : ℂ)) * z) atTop (nhds z) := by
+      have := hcomp.mul_const z
+      rwa [one_mul] at this
+    -- Step 6: -(slope cexp 0 (z/m) * z) → -z
+    have hneg_z : Tendsto (fun m : ℕ => -(slope cexp 0 (z / (↑m : ℂ)) * z)) atTop (nhds (-z)) :=
+      hmul_z.neg
+    -- Step 7: For m ≥ 1, m * (1 - exp(z/m)) = -(slope cexp 0 (z/m) * z)
+    have heq : ∀ᶠ m : ℕ in atTop,
+        (↑m : ℂ) * (1 - exp (z / ↑m)) = -(slope cexp 0 (z / (↑m : ℂ)) * z) := by
+      filter_upwards [Filter.Ici_mem_atTop 1] with m (hm : 1 ≤ m)
+      have hm_ne : (↑m : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+      simp only [slope, sub_zero, exp_zero, vsub_eq_sub, smul_eq_mul]
+      have hz_div_ne : z / (↑m : ℂ) ≠ 0 := div_ne_zero hz hm_ne
+      field_simp
+      ring
+    -- Step 8: Conclude by eventually-equal
+    exact (tendsto_congr' heq).mpr hneg_z
+
+/-- The continuous logarithm of an infinitely divisible characteristic function is
+conditionally negative definite. -/
+theorem IsInfinitelyDivisible.isConditionallyNegativeDefinite_log
+    {μ : Measure ℝ} [IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ)
+    {ψ : ℝ → ℂ} (hψ_cont : Continuous ψ) (hψ_zero : ψ 0 = 0)
+    (hψ_exp : ∀ ξ, charFun μ ξ = exp (ψ ξ)) :
+    IsConditionallyNegativeDefinite ψ := by
+  intro n ξ c hc
+  -- For each m ≥ 1, PSD of the m-th root measure gives:
+  --   (∑ᵢ ∑ⱼ c̄ᵢ cⱼ · m(1 - exp(ψ(ξᵢ-ξⱼ)/m))).re ≤ 0
+  -- As m → ∞, m(1 - exp(z/m)) → -z, so the limit gives CND.
+
+  -- The bound for each m
+  have hbound : ∀ m : ℕ, 0 < m →
+      (∑ i : Fin n, ∑ j : Fin n,
+        starRingEnd ℂ (c i) * c j *
+          ((↑m : ℂ) * (1 - exp (ψ (ξ i - ξ j) / ↑m)))).re ≤ 0 := by
+    intro m hm
+    obtain ⟨ν, hνP, hμ_eq⟩ := h m hm
+    haveI := hνP
+    have hpow : ∀ ξ', (charFun ν ξ') ^ m = exp (ψ ξ') := by
+      intro ξ'; rw [← hψ_exp, hμ_eq, charFun_iteratedConv]
+    have hν_exp := charFun_eq_exp_div hψ_cont hψ_zero hm hpow
+    have hsub : ∀ i j : Fin n,
+        1 - charFun ν (ξ i - ξ j) = 1 - exp (ψ (ξ i - ξ j) / ↑m) := by
+      intro i j; rw [hν_exp]
+    have hnonpos := one_sub_charFun_form_nonpos ξ c hc (ν := ν)
+    simp_rw [hsub] at hnonpos
+    -- Factor out m from each summand
+    have hfactor : ∀ i j : Fin n,
+        starRingEnd ℂ (c i) * c j * ((↑m : ℂ) * (1 - exp (ψ (ξ i - ξ j) / ↑m))) =
+        (↑m : ℂ) * (starRingEnd ℂ (c i) * c j * (1 - exp (ψ (ξ i - ξ j) / ↑m))) := by
+      intro i j; ring
+    simp_rw [hfactor, ← Finset.mul_sum]
+    -- (↑m : ℂ) * S has .re = m * S.re (since m is real, i.e., (↑m).im = 0)
+    have hm_re : ((↑m : ℂ) * (∑ i : Fin n, ∑ j : Fin n,
+        starRingEnd ℂ (c i) * c j * (1 - exp (ψ (ξ i - ξ j) / ↑m)))).re =
+      ↑m * (∑ i : Fin n, ∑ j : Fin n,
+        starRingEnd ℂ (c i) * c j * (1 - exp (ψ (ξ i - ξ j) / ↑m))).re := by
+      rw [Complex.mul_re]
+      simp only [Complex.natCast_re, Complex.natCast_im, zero_mul, sub_zero]
+    rw [hm_re]
+    exact mul_nonpos_of_nonneg_of_nonpos (Nat.cast_nonneg' m) hnonpos
+
+  -- The limit as m → ∞
+  have hlim : Tendsto
+      (fun m : ℕ => (∑ i : Fin n, ∑ j : Fin n,
+        starRingEnd ℂ (c i) * c j *
+          ((↑m : ℂ) * (1 - exp (ψ (ξ i - ξ j) / ↑m)))).re)
+      atTop
+      (nhds (∑ i : Fin n, ∑ j : Fin n,
+        starRingEnd ℂ (c i) * c j * (-ψ (ξ i - ξ j))).re) := by
+    apply Complex.continuous_re.continuousAt.tendsto.comp
+    apply tendsto_finset_sum
+    intro i _
+    apply tendsto_finset_sum
+    intro j _
+    apply Filter.Tendsto.const_mul
+    exact tendsto_mul_one_sub_exp_div (ψ (ξ i - ξ j))
+
+  -- The limit of non-positive values is non-positive
+  have hle : (∑ i : Fin n, ∑ j : Fin n,
+      starRingEnd ℂ (c i) * c j * (-ψ (ξ i - ξ j))).re ≤ 0 :=
+    le_of_tendsto hlim (Eventually.of_forall fun m => by
+      by_cases hm : m = 0
+      · simp [hm]
+      · exact hbound m (Nat.pos_of_ne_zero hm))
+
+  -- ∑ c̄ᵢ cⱼ (-ψ) = -(∑ c̄ᵢ cⱼ ψ), so -(∑ ... ψ).re ≤ 0 ⇒ (∑ ... ψ).re ≥ 0
+  have hneg : (∑ i : Fin n, ∑ j : Fin n,
+      starRingEnd ℂ (c i) * c j * (-ψ (ξ i - ξ j))).re =
+    -(∑ i : Fin n, ∑ j : Fin n,
+      starRingEnd ℂ (c i) * c j * ψ (ξ i - ξ j)).re := by
+    simp_rw [mul_neg, Finset.sum_neg_distrib, Complex.neg_re]
+  linarith [hneg]
+
+/-! ## Schoenberg's theorem -/
+
+/-- **Schoenberg's theorem.** If `ψ : ℝ → ℂ` is continuous, conditionally negative definite
+(CND form `∑∑ c̄ᵢcⱼψ(ξᵢ-ξⱼ).re ≥ 0` for zero-sum weights), and `ψ(0) = 0`, then for
+every `t > 0`, the function `ξ ↦ exp(t · ψ(ξ))` is positive definite.
+
+Note: Our CND convention has the quadratic form ≥ 0, matching the convention where
+`charFun = exp(ψ)`. So `exp(tψ)` (positive sign) is PD, corresponding to the `t`-th
+convolution power of the underlying measure.
+
+## Proof strategy
+
+The standard proof uses the PSD matrix characterization: for CND `ψ` with `ψ(0) = 0`,
+the matrix `Aᵢⱼ = ψ(xᵢ) + conj(ψ(xⱼ)) - ψ(xᵢ - xⱼ)` is positive semidefinite.
+Then `exp(-tA)` (entrywise) is PSD by the Schur product theorem applied to the
+power series, giving PD of `exp(tψ)` after factoring out `exp(tψ(xᵢ)) · exp(t·conj(ψ(xⱼ)))`.
+This requires the Schur product theorem for PSD matrices (not just PD functions),
+which is `IsPositiveDefinite.mul` (proved in PositiveDefinite.lean). -/
+-- Helper: The CND kernel M_{ij} = ψ(ξᵢ-ξⱼ) - ψ(ξᵢ) - conj(ψ(ξⱼ)) is PD.
+-- Proved by instantiating CND at n+1 points [0, ξ₁, ..., ξₙ] with weight c₀ = -∑ cᵢ.
+-- Requires Hermitian symmetry ψ(-ξ) = conj(ψ(ξ)) to relate ψ(-ξⱼ) → conj(ψ(ξⱼ)).
+private theorem cnd_kernel_pd
+    {ψ : ℝ → ℂ} (hψ_cnd : IsConditionallyNegativeDefinite ψ) (hψ_zero : ψ 0 = 0)
+    (hψ_herm : ∀ ξ, ψ (-ξ) = starRingEnd ℂ (ψ ξ))
+    (n : ℕ) (ξ : Fin n → ℝ) (c : Fin n → ℂ) :
+    0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+      (ψ (ξ i - ξ j) - ψ (ξ i) - starRingEnd ℂ (ψ (ξ j))) := by
+  -- Proof: instantiate CND at (n+1) points [0, ξ₁, ..., ξₙ] with c₀ = -∑ cᵢ.
+  -- The (n+1)-point sum expands (using ψ(0)=0 and ψ(-ξ)=conj(ψ(ξ))) to our kernel sum.
+  -- .re ≥ 0 from CND; .im = 0 from kernel Hermitianness.
+  rw [Complex.nonneg_iff]
+  constructor
+  · -- .re ≥ 0: the (n+1)-point CND sum with c₀ = -∑cᵢ, ξ₀ = 0 equals our kernel sum
+    -- after simplification with ψ(0) = 0 and ψ(-ξⱼ) = conj(ψ(ξⱼ)).
+    -- The block expansion:
+    --   (0,0): |c₀|²ψ(0) = 0
+    --   (0,j≥1): c̄₀·cⱼ·ψ(-ξⱼ) = -∑ₖ∑ⱼ c̄ₖcⱼ·conj(ψ(ξⱼ))
+    --   (i≥1,0): c̄ᵢ·c₀·ψ(ξᵢ) = -∑ᵢ∑ₖ c̄ᵢcₖ·ψ(ξᵢ)
+    --   (i≥1,j≥1): ∑∑ c̄ᵢcⱼ·ψ(ξᵢ-ξⱼ)
+    --   Total = ∑∑ c̄ᵢcⱼ·(ψ(ξᵢ-ξⱼ) - ψ(ξᵢ) - conj(ψ(ξⱼ)))
+    -- Build extended vectors: ξ' = (0, ξ₁, ..., ξₙ), c' = (-∑cᵢ, c₁, ..., cₙ)
+    set ξ' : Fin (n + 1) → ℝ := Fin.cons 0 ξ
+    set c' : Fin (n + 1) → ℂ := Fin.cons (-∑ i, c i) c
+    -- c' sums to zero
+    have hc'_sum : ∑ i, c' i = 0 := by
+      simp only [c', Fin.sum_univ_succ, Fin.cons_zero, Fin.cons_succ]
+      ring
+    -- Apply CND to get .re ≥ 0 for the (n+1)-point sum
+    have hcnd := hψ_cnd (n + 1) ξ' c' hc'_sum
+    -- Show the (n+1)-point sum equals our kernel sum
+    suffices heq : (∑ a : Fin (n + 1), ∑ b : Fin (n + 1),
+        starRingEnd ℂ (c' a) * c' b * ψ (ξ' a - ξ' b)).re =
+      (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        (ψ (ξ i - ξ j) - ψ (ξ i) - starRingEnd ℂ (ψ (ξ j)))).re by
+      linarith
+    -- The (n+1)-point CND sum = our kernel sum. Prove by direct algebraic manipulation.
+    -- Key: ∑_{a,b:Fin(n+1)} conj(c'_a) * c'_b * ψ(ξ'_a - ξ'_b)
+    --     = ∑_{i,j:Fin n} conj(c_i) * c_j * (ψ(ξ_i - ξ_j) - ψ(ξ_i) - conj(ψ(ξ_j)))
+    -- Split the (n+1)-sum into head + tail for both indices.
+    have key : ∑ a : Fin (n + 1), ∑ b : Fin (n + 1),
+        starRingEnd ℂ (c' a) * c' b * ψ (ξ' a - ξ' b) =
+      ∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        (ψ (ξ i - ξ j) - ψ (ξ i) - starRingEnd ℂ (ψ (ξ j))) := by
+      -- Split outer and inner sums at index 0
+      simp_rw [Fin.sum_univ_succ]
+      simp only [Fin.cons_zero, Fin.cons_succ, c', ξ']
+      -- Expand and simplify using ψ(0) = 0, ψ(-x) = conj(ψ(x))
+      simp only [sub_zero, hψ_zero, mul_zero, zero_add]
+      -- Goal shape (from trace_state):
+      -- ∑ x, conj(-∑c) * c x * ψ(0 - ξ x) +
+      --   ∑ x, ((conj(c x) * (-∑c)) * ψ(ξ x) + ∑ j, conj(c x) * c j * ψ(ξ x - ξ j))
+      -- = ∑ i, ∑ j, conj(c i) * c j * (ψ(ξ i - ξ j) - ψ(ξ i) - conj(ψ(ξ j)))
+      -- Step 1: Replace ψ(0 - ξ x) → ψ(-ξ x) → conj(ψ(ξ x))
+      simp_rw [show ∀ x, (0 : ℝ) - ξ x = -(ξ x) from fun x => by ring, hψ_herm]
+      -- Step 2: Factor conj(-∑c) = -conj(∑c) and distribute into double sums
+      -- The LHS has three components after expansion:
+      -- T1 = ∑_j conj(-∑c) * c_j * conj(ψ(ξ_j)) = -(∑_i conj(c_i)) * ∑_j c_j * conj(ψ(ξ_j))
+      -- T2 = ∑_i (conj(c_i) * (-∑c)) * ψ(ξ_i) = -∑_i conj(c_i) * (∑_j c_j) * ψ(ξ_i)
+      -- T3 = ∑_i ∑_j conj(c_i) * c_j * ψ(ξ_i - ξ_j)
+      -- We need T1 + T2 + T3 = ∑∑ conj(c_i)*c_j*(ψ(ξ_i-ξ_j) - ψ(ξ_i) - conj(ψ(ξ_j)))
+      -- Proof: factor T1 = -∑∑ conj(c_i)*c_j*conj(ψ(ξ_j))
+      --        factor T2 = -∑∑ conj(c_i)*c_j*ψ(ξ_i)
+      --        then T3 - T2' - T1' = ∑∑ conj(c_i)*c_j*(ψ(ξ_i-ξ_j) - ψ(ξ_i) - conj(ψ(ξ_j)))
+      -- Use transitivity through the double sum form
+      have hT1 : ∑ x, (starRingEnd ℂ) (-∑ i, c i) * c x * (starRingEnd ℂ) (ψ (ξ x)) =
+          -(∑ i, ∑ j, (starRingEnd ℂ) (c i) * c j * (starRingEnd ℂ) (ψ (ξ j))) := by
+        simp_rw [map_neg, _root_.map_sum, neg_mul, Finset.sum_neg_distrib, Finset.sum_mul]
+        rw [Finset.sum_comm]
+      have hT2 : ∀ x, ((starRingEnd ℂ) (c x) * -∑ i, c i) * ψ (ξ x) =
+          -(∑ j, (starRingEnd ℂ) (c x) * c j * ψ (ξ x)) := by
+        intro x; ring_nf
+        congr 1
+        rw [show (starRingEnd ℂ) (c x) * (∑ i, c i) * ψ (ξ x) =
+          (starRingEnd ℂ) (c x) * ψ (ξ x) * ∑ i, c i from by ring]
+        rw [Finset.mul_sum]
+      rw [hT1]; simp_rw [hT2]
+      -- Goal: -∑∑ conj(c_i)*c_j*conj(ψ(ξ_j)) + ∑_x(-∑_j ... + ∑_j ...) = ∑∑ conj(c_i)*c_j*(...)
+      simp_rw [Finset.sum_add_distrib, Finset.sum_neg_distrib, mul_sub, Finset.sum_sub_distrib]
+      ring
+    rw [key]
+  · -- .im = 0: kernel K_{ij} is Hermitian so the quadratic form is real
+    -- K_{ij} = ψ(ξᵢ-ξⱼ) - ψ(ξᵢ) - conj(ψ(ξⱼ))
+    -- conj(K_{ji}) = conj(ψ(ξⱼ-ξᵢ)) - conj(ψ(ξⱼ)) - ψ(ξᵢ) = ψ(ξᵢ-ξⱼ) - conj(ψ(ξⱼ)) - ψ(ξᵢ) = K_{ij}
+    have hK_herm : ∀ i j : Fin n,
+        starRingEnd ℂ (ψ (ξ i - ξ j) - ψ (ξ i) - starRingEnd ℂ (ψ (ξ j))) =
+        ψ (ξ j - ξ i) - ψ (ξ j) - starRingEnd ℂ (ψ (ξ i)) := by
+      intro i j
+      simp only [map_sub, starRingEnd_self_apply]
+      -- Goal: conj(ψ(ξᵢ-ξⱼ)) - conj(ψ(ξᵢ)) - ψ(ξⱼ) = ψ(ξⱼ-ξᵢ) - ψ(ξⱼ) - conj(ψ(ξᵢ))
+      -- Use hψ_herm: conj(ψ(a)) = ψ(-a)
+      rw [← hψ_herm (ξ i - ξ j), show -(ξ i - ξ j) = ξ j - ξ i from by ring]; ring
+    -- conj(∑∑ c̄ᵢcⱼ Kᵢⱼ) = ∑∑ c̄ⱼcᵢ Kⱼᵢ [swap conj inside] = ∑∑ c̄ᵢcⱼ Kᵢⱼ [swap i↔j]
+    have hself_conj : starRingEnd ℂ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        (ψ (ξ i - ξ j) - ψ (ξ i) - starRingEnd ℂ (ψ (ξ j)))) =
+      ∑ i, ∑ j, starRingEnd ℂ (c i) * c j *
+        (ψ (ξ i - ξ j) - ψ (ξ i) - starRingEnd ℂ (ψ (ξ j))) := by
+      simp only [_root_.map_sum, map_mul, starRingEnd_self_apply, hK_herm]
+      -- Goal: ∑_i ∑_j c_i * conj(c_j) * K_{ji} = ∑_i ∑_j conj(c_i) * c_j * K_{ij}
+      -- Swap i ↔ j in the LHS using Finset.sum_comm for the outer pair
+      rw [Finset.sum_comm]
+      congr 1; ext i; congr 1; ext j; ring
+    -- z = conj(z) implies z.im = 0
+    have h := congr_arg Complex.im hself_conj
+    simp only [Complex.conj_im, neg_eq_iff_eq_neg] at h
+    linarith
+
+-- Schur product for PD kernels: if M and N are PD kernels (indexed by Fin n),
+-- then the Hadamard (entrywise) product M ∘ N is also PD.
+-- Uses spectral decomposition of N: N_{ij} = ∑_k λ_k U_{ik} conj(U_{jk}).
+-- Then ∑∑ c̄ᵢcⱼ (M∘N)ᵢⱼ = ∑_k λ_k (∑∑ d̄ᵢdⱼ Mᵢⱼ) where d_i = c_i conj(U_{ik}).
+open Matrix in
+private theorem pd_kernel_to_posSemidef {n : ℕ} {K : Fin n → Fin n → ℂ}
+    (hK : ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * K i j) :
+    (Matrix.of K).PosSemidef := by
+  rw [Matrix.posSemidef_iff_dotProduct_mulVec]
+  refine ⟨?_, fun c => ?_⟩
+  · -- Hermitianness: conj(K j i) = K i j
+    -- From hK: the quadratic form's .im = 0 for all c. This means the sum
+    -- equals its conjugate. Swapping i↔j in the conjugate gives
+    -- ∑∑ c̄ᵢcⱼ conj(Kⱼᵢ) = ∑∑ c̄ᵢcⱼ Kᵢⱼ for all c, forcing conj(K j i) = K i j.
+    -- Step 1: for all c, the sum equals its conjugate (since .im = 0)
+    have hself_conj : ∀ c : Fin n → ℂ,
+        starRingEnd ℂ (∑ i, ∑ j, starRingEnd ℂ (c i) * c j * K i j) =
+        ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * K i j := by
+      intro c
+      have h0 := hK c
+      rw [Complex.nonneg_iff] at h0
+      rw [Complex.conj_eq_iff_im]
+      exact h0.2.symm
+    -- Step 2: conjugating and swapping indices gives ∑∑ c̄ᵢcⱼ conj(Kⱼᵢ) = ∑∑ c̄ᵢcⱼ Kᵢⱼ
+    have hswap : ∀ c : Fin n → ℂ,
+        ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * starRingEnd ℂ (K j i) =
+        ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * K i j := by
+      intro c
+      have h := hself_conj c
+      simp only [_root_.map_sum, map_mul, starRingEnd_self_apply] at h
+      -- h : ∑ i, ∑ j, c i * conj(c j) * conj(K i j) = ∑ i, ∑ j, conj(c i) * c j * K i j
+      rw [Finset.sum_comm] at h
+      -- h : ∑ j, ∑ i, c i * conj(c j) * conj(K i j) = ...
+      -- Rename i↔j: ∑ i, ∑ j, c j * conj(c i) * conj(K j i) = ...
+      -- = ∑ i, ∑ j, conj(c i) * c j * conj(K j i)
+      have := h
+      simp_rw [show ∀ i j : Fin n, c j * (starRingEnd ℂ) (c i) * (starRingEnd ℂ) (K j i) =
+        (starRingEnd ℂ) (c i) * c j * (starRingEnd ℂ) (K j i) from fun i j => by ring] at this
+      exact this
+    -- Step 3: pointwise extraction via Pi.single
+    -- hdiff_zero : ∀ c, ∑∑ c̄ₐcᵦ (Kₐᵦ - conj(Kᵦₐ)) = 0
+    have hdiff_zero : ∀ c : Fin n → ℂ,
+        ∑ a, ∑ b, starRingEnd ℂ (c a) * c b * (K a b - starRingEnd ℂ (K b a)) = 0 := by
+      intro c
+      have h := hswap c
+      have : ∑ a, ∑ b, starRingEnd ℂ (c a) * c b * (K a b - starRingEnd ℂ (K b a)) =
+          (∑ a, ∑ b, starRingEnd ℂ (c a) * c b * K a b) -
+          (∑ a, ∑ b, starRingEnd ℂ (c a) * c b * starRingEnd ℂ (K b a)) := by
+        simp_rw [mul_sub, ← Finset.sum_sub_distrib]
+      rw [this, h, _root_.sub_self]
+    -- For c = Pi.single a 1: sum collapses to D a a = 0
+    have hD_diag : ∀ a : Fin n, K a a - starRingEnd ℂ (K a a) = 0 := by
+      intro a
+      have := hdiff_zero (Pi.single a 1)
+      simp only [Pi.single_apply, apply_ite (starRingEnd ℂ), map_one, map_zero, ite_mul,
+        one_mul, zero_mul, mul_ite, mul_one, mul_zero, Finset.sum_ite_eq',
+        Finset.mem_univ, ite_true] at this
+      exact this
+    -- For off-diagonal: use two test vectors
+    -- hdiff_single : ∀ a b c_a c_b, sum at (Pi.single a c_a + Pi.single b c_b)
+    -- We need: ∀ a b, K a b = conj(K b a)
+    ext i j
+    simp only [conjTranspose_apply, of_apply, star_def]
+    -- Goal: conj(K j i) = K i j, i.e., K i j - conj(K j i) = 0 → conj(K j i) = K i j
+    -- Equivalently: K j i - conj(K i j) = 0 (swapped), then take conj
+    -- Actually we want conj(K j i) = K i j, which is K i j = conj(K j i),
+    -- i.e., K i j - conj(K j i) = 0
+    -- Step: prove ∀ a b, K a b - conj(K b a) = 0
+    suffices hD : ∀ a b : Fin n, K a b - starRingEnd ℂ (K b a) = 0 by
+      have := hD i j; rw [sub_eq_zero] at this; exact this.symm
+    intro a b
+    by_cases hab : a = b
+    · subst hab; exact hD_diag a
+    · -- Use two-point test vectors to show D(a,b) = K(a,b) - conj(K(b,a)) = 0
+      -- Helper: simplify sums at 2-entry vectors using sum_ite_eq'
+      have heval : ∀ s t : ℂ,
+          starRingEnd ℂ s * s * (K a a - starRingEnd ℂ (K a a)) +
+          starRingEnd ℂ s * t * (K a b - starRingEnd ℂ (K b a)) +
+          (starRingEnd ℂ t * s * (K b a - starRingEnd ℂ (K a b)) +
+          starRingEnd ℂ t * t * (K b b - starRingEnd ℂ (K b b))) = 0 := by
+        intro s t
+        have key := hdiff_zero (fun k => (if k = a then s else 0) + (if k = b then t else 0))
+        simp only [map_add, apply_ite (starRingEnd ℂ), map_zero, add_mul, mul_add,
+          ite_mul, mul_ite, mul_zero, zero_mul, Finset.sum_add_distrib,
+          Finset.sum_ite_eq', Finset.mem_univ, ite_true] at key
+        convert key using 1
+        ring
+      -- Specialize: D(a,a) = D(b,b) = 0 simplifies the evaluation
+      have hDa := hD_diag a
+      have hDb := hD_diag b
+      -- Test 1: s = 1, t = 1 gives D(a,b) + D(b,a) = 0
+      have htest1 := heval 1 1
+      simp only [map_one, one_mul, hDa, hDb, mul_zero, zero_add, add_zero] at htest1
+      -- htest1 : (K a b - conj(K b a)) + (K b a - conj(K a b)) = 0
+      -- Test 2: s = 1, t = I gives I·D(a,b) + (-I)·D(b,a) = 0
+      have htest2 := heval 1 I
+      simp only [map_one, one_mul, mul_one, conj_I, hDa, hDb, mul_zero, zero_add,
+        add_zero] at htest2
+      set D₁ := K a b - starRingEnd ℂ (K b a)
+      set D₂ := K b a - starRingEnd ℂ (K a b)
+      have h_sum : D₁ + D₂ = 0 := htest1
+      -- htest2 : I * D₁ + (-I) * D₂ = 0 (or with extra 1)
+      -- Strategy: D₁ + D₂ = 0 and I*D₁ - I*D₂ = 0 → D₁ = D₂, then 2D₁ = 0.
+      have h_eq : D₁ = D₂ := by
+        have h_Idiff : I * D₁ - I * D₂ = 0 := by
+          have := htest2
+          -- htest2 might have form: I * D₁ + -I * D₂ = 0
+          -- Need: I * D₁ - I * D₂ = 0
+          -- -I * D₂ = -(I * D₂), so I*D₁ + (-I)*D₂ = I*D₁ - I*D₂
+          linear_combination this
+        have : I * (D₁ - D₂) = 0 := by rw [mul_sub]; exact h_Idiff
+        exact sub_eq_zero.mp ((mul_eq_zero.mp this).resolve_left I_ne_zero)
+      -- D₁ = D₂ and D₁ + D₂ = 0 → 2D₁ = 0
+      have : D₁ + D₁ = 0 := by rw [show D₁ + D₁ = D₁ + D₂ from by rw [h_eq]]; exact h_sum
+      rw [show D₁ = (2 : ℂ)⁻¹ * (D₁ + D₁) from by ring, this, mul_zero]
+  · change 0 ≤ dotProduct (star c) (mulVec (Matrix.of K) c)
+    have key : dotProduct (star c) (mulVec (Matrix.of K) c) =
+        ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * K i j := by
+      simp only [dotProduct, mulVec, Matrix.of_apply, Pi.star_apply, RCLike.star_def]
+      congr 1; ext i; rw [Finset.mul_sum]; congr 1; ext j; ring
+    rw [key]; exact hK c
+
+private theorem pd_kernel_mul
+    {n : ℕ} {M N : Fin n → Fin n → ℂ}
+    (hM : ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * M i j)
+    (hN : ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * N i j) :
+    ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * (M i j * N i j) := by
+  open Matrix in
+  intro c
+  -- Convert N to PSD matrix and get spectral decomposition
+  have hN_psd := pd_kernel_to_posSemidef hN
+  have hN_herm := hN_psd.isHermitian
+  set B : Matrix (Fin n) (Fin n) ℂ := Matrix.of N
+  set ev := hN_herm.eigenvalues
+  set U : Matrix (Fin n) (Fin n) ℂ := ↑hN_herm.eigenvectorUnitary
+  have hev_nonneg : ∀ k, 0 ≤ ev k := fun k => hN_psd.eigenvalues_nonneg k
+  -- Spectral decomposition: N i j = B i j = ∑_k (ev k : ℂ) * U i k * conj(U j k)
+  have hN_spec : ∀ i j : Fin n, N i j = ∑ k, (↑(ev k) : ℂ) * U i k *
+      starRingEnd ℂ (U j k) := by
+    intro i j
+    have h := hN_herm.spectral_theorem
+    have hBij : B i j = ((Unitary.conjStarAlgAut ℂ _) hN_herm.eigenvectorUnitary
+        (Matrix.diagonal (RCLike.ofReal ∘ hN_herm.eigenvalues))) i j :=
+      congr_fun (congr_fun h i) j
+    rw [show N i j = B i j from rfl, hBij, Unitary.conjStarAlgAut_apply, Matrix.mul_apply]
+    congr 1; ext k
+    simp only [Matrix.star_apply, star_def, Matrix.mul_apply, Matrix.diagonal_apply,
+      Function.comp]
+    have key := Fintype.sum_eq_single k
+      (show ∀ l : Fin n, l ≠ k →
+        (↑hN_herm.eigenvectorUnitary : Matrix _ _ ℂ) i l *
+        (if l = k then (↑(hN_herm.eigenvalues l) : ℂ) else 0) = 0
+      from fun l hlk => by simp [hlk])
+    calc _ = (↑hN_herm.eigenvectorUnitary : Matrix _ _ ℂ) i k *
+            (if k = k then (↑(hN_herm.eigenvalues k) : ℂ) else 0) *
+            starRingEnd ℂ ((↑hN_herm.eigenvectorUnitary : Matrix _ _ ℂ) j k) := by
+              exact congrArg (· * _) key
+         _ = (↑(ev k) : ℂ) * U i k * starRingEnd ℂ (U j k) := by
+              simp only [ite_true, U, ev]; ring
+  -- Weights: d k i = c i * conj(U i k)
+  set d : Fin n → Fin n → ℂ := fun k i => c i * starRingEnd ℂ (U i k)
+  -- The product form = ∑_k ev_k * (M form with d_k)
+  have hsuff : ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * (M i j * N i j) =
+      ∑ k, (↑(ev k) : ℂ) *
+        (∑ i, ∑ j, starRingEnd ℂ (d k i) * d k j * M i j) := by
+    simp_rw [hN_spec]
+    simp_rw [Finset.mul_sum]
+    conv_lhs =>
+      arg 2; ext i; rw [Finset.sum_comm]
+    rw [Finset.sum_comm]
+    congr 1; ext k
+    have hterm : ∀ i j : Fin n,
+        starRingEnd ℂ (c i) * c j * (M i j * (↑(ev k) * U i k * starRingEnd ℂ (U j k)))
+        = ↑(ev k) * (starRingEnd ℂ (d k i) * d k j * M i j) := by
+      intro i j; simp only [d, map_mul, starRingEnd_self_apply]; ring
+    simp_rw [hterm]
+  rw [hsuff]
+  apply Finset.sum_nonneg
+  intro k _
+  exact mul_nonneg (by exact_mod_cast hev_nonneg k) (hM (d k))
+
+-- Entrywise k-th power of PD kernel is PD (by iterated Schur product).
+private theorem pd_kernel_pow
+    {n : ℕ} {M : Fin n → Fin n → ℂ}
+    (hM : ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * M i j)
+    (k : ℕ) :
+    ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * M i j ^ k := by
+  induction k with
+  | zero =>
+    intro c; simp only [pow_zero, mul_one]
+    -- ∑∑ c̄ᵢcⱼ = |∑cᵢ|² ≥ 0
+    -- Factor: ∑_i ∑_j conj(c_i) * c_j = (∑ conj(c_i)) * (∑ c_j) = conj(∑ c_i) * ∑ c_j
+    rw [show ∑ i : Fin n, ∑ j : Fin n, starRingEnd ℂ (c i) * c j =
+        starRingEnd ℂ (∑ i, c i) * ∑ j, c j from by
+      rw [_root_.map_sum]; simp_rw [Finset.sum_mul, Finset.mul_sum]]
+    exact star_mul_self_nonneg _
+  | succ k ih =>
+    intro c
+    have hpow : ∀ i j : Fin n, M i j ^ (k + 1) = M i j ^ k * M i j :=
+      fun i j => pow_succ (M i j) k
+    simp_rw [hpow]
+    exact pd_kernel_mul ih hM c
+
+-- Helper: entrywise exp of PD kernel is PD.
+-- Proof: (1 + tM/N)^N → exp(tM) entrywise as N → ∞.
+-- Each (1 + tM/N)^N is PD (by pd_kernel_pow + the base case 1 + tM/N is PD).
+private theorem exp_pd_kernel
+    {n : ℕ} {M : Fin n → Fin n → ℂ}
+    (hM : ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * M i j)
+    (t : ℝ) (ht : 0 ≤ t) :
+    ∀ c : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (c i) * c j * exp (↑t * M i j) := by
+  intro c
+  -- For large N, define K_N(i,j) = (1 + t·M(i,j)/N)^N
+  -- Step 1: K_N is PD for large N
+  -- 1 + t·M(i,j)/N is PD when N > t·‖M‖:
+  --   ∑∑ c̄ᵢcⱼ (1 + (t/N)·Mᵢⱼ) = |∑cᵢ|² + (t/N)·∑∑ c̄ᵢcⱼ Mᵢⱼ ≥ 0
+  -- Then (1 + tM/N)^N is PD by pd_kernel_pow.
+  have hbase : ∀ᶠ N : ℕ in Filter.atTop,
+      ∀ d : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (d i) * d j *
+        (1 + ↑t / (↑N : ℂ) * M i j) := by
+    filter_upwards [Filter.Ici_mem_atTop 1] with N (hN : 1 ≤ N)
+    intro d
+    have hN_pos : (0 : ℝ) < N := Nat.cast_pos.mpr (by omega)
+    have htN : 0 ≤ t / N := div_nonneg ht (le_of_lt hN_pos)
+    -- ∑∑ c̄ᵢdⱼ(1 + (t/N)Mᵢⱼ) = |∑dᵢ|² + (t/N)·∑∑ c̄ᵢdⱼ Mᵢⱼ
+    -- Split: ∑∑ c̄ᵢdⱼ(1 + (t/N)Mᵢⱼ) = ∑∑ c̄ᵢdⱼ + (t/N)·∑∑ c̄ᵢdⱼ Mᵢⱼ
+    have hsplit : ∑ i : Fin n, ∑ j : Fin n,
+        starRingEnd ℂ (d i) * d j * (1 + ↑t / (↑N : ℂ) * M i j) =
+      ∑ i, ∑ j, starRingEnd ℂ (d i) * d j +
+        (↑t / ↑N : ℂ) * ∑ i, ∑ j, starRingEnd ℂ (d i) * d j * M i j := by
+      trans ∑ i : Fin n, (∑ j, starRingEnd ℂ (d i) * d j +
+        ↑t / ↑N * ∑ j, starRingEnd ℂ (d i) * d j * M i j)
+      · congr 1; ext i
+        trans ∑ j : Fin n, (starRingEnd ℂ (d i) * d j +
+          ↑t / ↑N * (starRingEnd ℂ (d i) * d j * M i j))
+        · congr 1; ext j; ring
+        · rw [Finset.sum_add_distrib, Finset.mul_sum]
+      · rw [Finset.sum_add_distrib, Finset.mul_sum]
+    rw [hsplit]
+    apply add_nonneg
+    · -- |∑dᵢ|² ≥ 0
+      rw [show ∑ i : Fin n, ∑ j : Fin n, starRingEnd ℂ (d i) * d j =
+          starRingEnd ℂ (∑ i, d i) * ∑ j, d j from by
+        rw [_root_.map_sum]; simp_rw [Finset.sum_mul, Finset.mul_sum]]
+      exact star_mul_self_nonneg _
+    · -- (t/N) · (PD sum) ≥ 0
+      have hcoeff : (0 : ℂ) ≤ ↑t / ↑N := by
+        rw [Complex.nonneg_iff]; constructor
+        · simp; exact div_nonneg ht (le_of_lt hN_pos)
+        · simp
+      exact mul_nonneg hcoeff (hM d)
+  -- Step 2: K_N = (1 + tM/N)^N is PD
+  have hpow_pd : ∀ᶠ N : ℕ in Filter.atTop,
+      ∀ d : Fin n → ℂ, 0 ≤ ∑ i, ∑ j, starRingEnd ℂ (d i) * d j *
+        (1 + ↑t / (↑N : ℂ) * M i j) ^ N := by
+    filter_upwards [hbase] with N hN
+    intro d
+    have hpow_eq : ∀ i j, (1 + ↑t / (↑N : ℂ) * M i j) ^ N =
+        (fun i j => 1 + ↑t / (↑N : ℂ) * M i j) i j ^ N := fun i j => rfl
+    simp_rw [hpow_eq]
+    exact pd_kernel_pow hN N d
+  -- Step 3: pointwise convergence (1 + tMᵢⱼ/N)^N → exp(tMᵢⱼ)
+  have hlim : ∀ i j : Fin n, Filter.Tendsto
+      (fun N : ℕ => starRingEnd ℂ (c i) * c j * (1 + ↑t / (↑N : ℂ) * M i j) ^ N)
+      Filter.atTop (nhds (starRingEnd ℂ (c i) * c j * exp (↑t * M i j))) := by
+    intro i j
+    apply Filter.Tendsto.const_mul
+    exact (Complex.tendsto_one_add_div_pow_exp (↑t * M i j)).congr fun N => by
+      by_cases hN : (N : ℕ) = 0
+      · simp [hN]
+      · have hNne : (↑N : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hN
+        congr 1; field_simp
+  -- Step 4: sum convergence (finite sum + pointwise → sum converges)
+  have hsum_lim : Filter.Tendsto
+      (fun N : ℕ => ∑ i : Fin n, ∑ j : Fin n, starRingEnd ℂ (c i) * c j *
+        (1 + ↑t / (↑N : ℂ) * M i j) ^ N)
+      Filter.atTop
+      (nhds (∑ i : Fin n, ∑ j : Fin n, starRingEnd ℂ (c i) * c j * exp (↑t * M i j))) :=
+    tendsto_finset_sum _ fun i _ => tendsto_finset_sum _ fun j _ => hlim i j
+  -- Step 5: limit of nonneg is nonneg
+  exact ge_of_tendsto hsum_lim (by filter_upwards [hpow_pd] with N hN; exact hN c)
+
+theorem schoenberg_exp_of_cnd
+    {ψ : ℝ → ℂ} (_hψ_cont : Continuous ψ) (hψ_zero : ψ 0 = 0)
+    (hψ_cnd : IsConditionallyNegativeDefinite ψ)
+    (hψ_herm : ∀ ξ, ψ (-ξ) = starRingEnd ℂ (ψ ξ))
+    (t : ℝ) (ht : 0 < t) :
+    IsPositiveDefinite (fun ξ => exp (↑t * ψ ξ)) := by
+  intro n x c
+  -- The kernel M_{ij} = ψ(x_i - x_j) - ψ(x_i) - conj(ψ(x_j)) is PD
+  have hM := fun d => cnd_kernel_pd hψ_cnd hψ_zero hψ_herm n x d
+  -- exp(tM) is PD
+  have hexpM := exp_pd_kernel hM t (le_of_lt ht)
+  -- Factorization: exp(t·ψ(x_i-x_j)) = exp(t·ψ(x_i))·exp(t·conj(ψ(x_j)))·exp(t·M_{ij})
+  -- Use d_i = c_i · exp(t · conj(ψ(x_i))) so conj(d_i) = conj(c_i) · exp(t · ψ(x_i))
+  set d : Fin n → ℂ := fun i => c i * exp (↑t * starRingEnd ℂ (ψ (x i)))
+  suffices hsuff : ∀ i j : Fin n,
+      starRingEnd ℂ (c i) * c j * exp (↑t * ψ (x i - x j)) =
+      starRingEnd ℂ (d i) * d j *
+        exp (↑t * (ψ (x i - x j) - ψ (x i) - starRingEnd ℂ (ψ (x j)))) by
+    simp_rw [hsuff]
+    exact hexpM d
+  intro i j
+  simp only [d, map_mul]
+  -- conj(exp(t * conj(ψ(x i)))) = exp(conj(t * conj(ψ(x i)))) = exp(t * ψ(x i))
+  rw [show starRingEnd ℂ (exp (↑t * starRingEnd ℂ (ψ (x i)))) =
+      exp (↑t * ψ (x i)) from by
+    rw [← Complex.exp_conj]; congr 1
+    simp [Complex.conj_ofReal]]
+  -- Now: conj(c i) * exp(t*ψ(x i)) * (c j * exp(t*conj(ψ(x j)))) * exp(t*M_ij)
+  --    = conj(c i) * c j * exp(t*ψ(x i - x j))
+  rw [show starRingEnd ℂ (c i) * exp (↑t * ψ (x i)) *
+      (c j * exp (↑t * starRingEnd ℂ (ψ (x j)))) *
+      exp (↑t * (ψ (x i - x j) - ψ (x i) - starRingEnd ℂ (ψ (x j)))) =
+    starRingEnd ℂ (c i) * c j *
+      (exp (↑t * ψ (x i)) * exp (↑t * starRingEnd ℂ (ψ (x j))) *
+        exp (↑t * (ψ (x i - x j) - ψ (x i) - starRingEnd ℂ (ψ (x j))))) from by ring]
+  congr 1
+  rw [← exp_add, ← exp_add]
+  congr 1; ring
+
+/-! ## Convolution semigroup structure -/
+
+/-- A **convolution semigroup** on `ℝ` is a family of probability measures `μ_t` indexed by
+`t > 0` whose characteristic functions satisfy the semigroup law:
+`charFun(μ_{s+t}) = charFun(μ_s) · charFun(μ_t)` for all `ξ`.
+
+Equivalently, `charFun(μ_t)(ξ) = exp(tψ(ξ))` for a continuous function `ψ` with `ψ(0) = 0`.
+The Lévy-Khintchine theorem extracts the triple `(b, σ², ν)` from `ψ`. -/
+structure ConvolutionSemigroup where
+  /-- The exponent function: `charFun(μ_t) = exp(t · ψ)`. -/
+  exponent : ℝ → ℂ
+  /-- The exponent is continuous. -/
+  exponent_continuous : Continuous exponent
+  /-- The exponent vanishes at 0. -/
+  exponent_zero : exponent 0 = 0
+  /-- For each `t > 0`, a probability measure whose characteristic function is `exp(tψ)`. -/
+  measure : {t : ℝ // 0 < t} → MeasureTheory.ProbabilityMeasure ℝ
+  /-- The characteristic function identity. -/
+  charFun_eq : ∀ (t : {t : ℝ // 0 < t}) (ξ : ℝ),
+    MeasureTheory.ProbabilityMeasure.characteristicFun (measure t) ξ =
+      exp ((↑t.val : ℂ) * exponent ξ)
+
+/-- First-order expansion: `(exp(tz) − 1)/t → z` as `t → 0`.
+This is the derivative of `t ↦ exp(tz)` at `t = 0`, extracted as a slope limit. -/
+lemma exp_first_order (z : ℂ) :
+    Tendsto (fun t : ℝ => (exp ((↑t : ℂ) * z) - 1) / (↑t : ℂ))
+      (𝓝[≠] (0 : ℝ)) (𝓝 z) := by
+  -- The derivative of `t ↦ cexp(tz)` at `t = 0` is `z`.
+  have hg : HasDerivAt (fun t : ℝ => cexp ((↑t : ℂ) * z)) z 0 := by
+    -- Compose: cexp ∘ (t ↦ ↑t * z), derivative at 0 is cexp(0 * z) * z = z.
+    have hf : HasDerivAt (fun t : ℝ => (↑t : ℂ) * z) (1 * z) 0 :=
+      (Complex.ofRealCLM.hasDerivAt (x := (0 : ℝ))).mul_const z
+    have hexp := hf.cexp
+    simp only [ofReal_zero, zero_mul, exp_zero, one_mul, one_mul] at hexp
+    exact hexp
+  -- Step 3: extract the slope limit `(f(0+t) - f(0))/t → f'(0)`.
+  have hslope := hg.tendsto_slope_zero
+  -- Step 4: the slope is exactly `(cexp(↑t * z) - 1) / ↑t` after simplification.
+  simp only [zero_add, ofReal_zero, zero_mul, exp_zero] at hslope
+  exact hslope.congr (fun t => by
+    show t⁻¹ • (cexp ((↑t : ℂ) * z) - 1) = (cexp ((↑t : ℂ) * z) - 1) / (↑t : ℂ)
+    rw [RCLike.real_smul_eq_coe_mul (K := ℂ)]
+    push_cast
+    rw [inv_mul_eq_div]
+    norm_cast)
+
+/-- Third-order Taylor remainder for `exp` along the imaginary axis. For `z : ℝ`
+with `|z| ≤ 1`,
+`‖exp(i·z) − 1 − i·z + z²/2‖ ≤ (2/9)·|z|³`.
+This will be used by the planned δ-truncation proof of the small-jump limit
+identification in the Lévy-Khintchine assembly: the integrand
+`exp(ixξ) − 1 − ixξ` admits the expansion `−(xξ)²/2 + O(|xξ|³)`, and the
+`O(|xξ|³)` term is controlled by this bound combined with the uniform scaled
+second-moment bound.
+
+Direct specialization of `Complex.exp_bound` with `n = 3`, using
+`(i·z)² = −z²` to convert the third-order tail term `(i·z)²/2` into `−z²/2`. -/
+lemma norm_exp_I_mul_real_sub_taylor3_le {z : ℝ} (hz : |z| ≤ 1) :
+    ‖Complex.exp ((↑z : ℂ) * I) - 1 - (↑z : ℂ) * I + (↑z : ℂ) ^ 2 / 2‖ ≤
+      (2 / 9 : ℝ) * |z| ^ 3 := by
+  set w : ℂ := (↑z : ℂ) * I with hw_def
+  have hw_norm : ‖w‖ ≤ 1 := by
+    rw [hw_def, norm_mul, Complex.norm_I, mul_one, Complex.norm_real, Real.norm_eq_abs]
+    exact hz
+  have hbound := Complex.exp_bound hw_norm (n := 3) (by decide)
+  -- Compute ∑_{m<3} w^m/m! = 1 + w + w²/2.
+  have hsum : ∑ m ∈ Finset.range 3, w ^ m / (m.factorial : ℂ) = 1 + w + w ^ 2 / 2 := by
+    rw [show (3 : ℕ) = 2 + 1 from rfl, Finset.sum_range_succ, Finset.sum_range_succ,
+        Finset.sum_range_one]
+    simp [Nat.factorial]
+  rw [hsum] at hbound
+  -- Use w² = −↑z² (from I² = −1) to rewrite the LHS into the target form.
+  have hw_sq : w ^ 2 = -((↑z : ℂ) ^ 2) := by
+    rw [hw_def, mul_pow, Complex.I_sq]; ring
+  have hLHS : ‖Complex.exp w - (1 + w + w ^ 2 / 2)‖ =
+      ‖Complex.exp w - 1 - w + (↑z : ℂ) ^ 2 / 2‖ := by
+    congr 1; rw [hw_sq]; ring
+  rw [hLHS] at hbound
+  have hw_pow : ‖w‖ ^ 3 = |z| ^ 3 := by
+    rw [hw_def, norm_mul, Complex.norm_I, mul_one, Complex.norm_real, Real.norm_eq_abs]
+  calc ‖Complex.exp w - 1 - w + (↑z : ℂ) ^ 2 / 2‖
+      ≤ ‖w‖ ^ 3 * ((Nat.succ 3 : ℝ) * ((3 : ℕ).factorial * 3 : ℝ)⁻¹) := hbound
+    _ = |z| ^ 3 * (4 / 18) := by rw [hw_pow]; norm_num [Nat.factorial]
+    _ = (2 / 9 : ℝ) * |z| ^ 3 := by ring
+
+namespace ConvolutionSemigroup
+
+variable (S : ConvolutionSemigroup)
+
+/-- The semigroup law: `charFun(μ_s) · charFun(μ_t) = charFun(μ_{s+t})` at the level
+of exponents. This follows from the exponential identity `exp(sψ) · exp(tψ) = exp((s+t)ψ)`. -/
+theorem charFun_mul (s t : {r : ℝ // 0 < r}) (ξ : ℝ) :
+    MeasureTheory.ProbabilityMeasure.characteristicFun (S.measure s) ξ *
+    MeasureTheory.ProbabilityMeasure.characteristicFun (S.measure t) ξ =
+    exp ((↑(s.val + t.val) : ℂ) * S.exponent ξ) := by
+  rw [S.charFun_eq s ξ, S.charFun_eq t ξ, ← exp_add]
+  congr 1
+  push_cast; ring
+
+/-- The scaled measure `(1/t) · μ_t`. When `charFun(μ_t) = exp(tψ)`, the scaled measure
+    captures the behaviour of `(exp(tψ) − 1)/t → ψ` as `t → 0⁺`. -/
+noncomputable def scaledMeasure (t : {t : ℝ // 0 < t}) : Measure ℝ :=
+  ENNReal.ofReal t.val⁻¹ • (S.measure t : Measure ℝ)
+
+@[simp]
+theorem scaledMeasure_apply (t : {t : ℝ // 0 < t}) (A : Set ℝ) :
+    S.scaledMeasure t A = ENNReal.ofReal t.val⁻¹ * (S.measure t : Measure ℝ) A := by
+  simp [scaledMeasure, Measure.smul_apply]
+
+/-- Integration against the scaled measure: `∫ f d(scaledMeasure t) = t⁻¹ • ∫ f dμ_t`.
+    Here `•` is the scalar action of `ℝ` on the codomain (typically `ℂ`). -/
+theorem integral_scaledMeasure {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (t : {t : ℝ // 0 < t}) (f : ℝ → E) :
+    ∫ x, f x ∂(S.scaledMeasure t) = t.val⁻¹ • ∫ x, f x ∂(S.measure t : Measure ℝ) := by
+  simp only [scaledMeasure]
+  rw [integral_smul_measure]
+  rw [ENNReal.toReal_ofReal (le_of_lt (inv_pos.mpr t.prop))]
+
+/-- Scaled characteristic function limit: `(charFun(μ_t)(ξ) − 1)/t → ψ(ξ)` as `t → 0⁺`.
+Since `charFun(μ_t)(ξ) = exp(tψ(ξ))`, this follows from `exp_first_order`. -/
+theorem charFun_scaled_limit (ξ : ℝ) :
+    Tendsto (fun t : {t : ℝ // 0 < t} =>
+      (MeasureTheory.ProbabilityMeasure.characteristicFun (S.measure t) ξ - 1) / (↑t.val : ℂ))
+      (comap Subtype.val (𝓝[>] (0 : ℝ))) (𝓝 (S.exponent ξ)) := by
+  -- Rewrite charFun using the semigroup identity.
+  suffices Tendsto (fun t : {t : ℝ // 0 < t} =>
+      (exp ((↑t.val : ℂ) * S.exponent ξ) - 1) / (↑t.val : ℂ))
+      (comap Subtype.val (𝓝[>] (0 : ℝ))) (𝓝 (S.exponent ξ)) by
+    refine this.congr (fun t => ?_)
+    rw [S.charFun_eq t ξ]
+  -- The target is `(exp_first_order ψ(ξ)) ∘ Subtype.val`.
+  exact (exp_first_order (S.exponent ξ)).comp
+    ((tendsto_comap.mono_right (nhdsGT_le_nhdsNE 0) : Tendsto Subtype.val
+      (comap Subtype.val (𝓝[>] (0 : ℝ))) (𝓝[≠] (0 : ℝ))))
+
+end ConvolutionSemigroup
+
+/-! ## Truncation framework
+
+The Lévy-Khintchine formula splits the integral over a Lévy measure into
+"small jump" and "large jump" contributions at the threshold `|x| = 1`.
+We define the corresponding sets and prove a split lemma. -/
+
+/-- The "small jump" set `{x | |x| < 1}`. -/
+def smallSet : Set ℝ := {x | |x| < 1}
+
+/-- The "large jump" set `{x | ε ≤ |x|}`. -/
+def largeSet (ε : ℝ) : Set ℝ := {x | ε ≤ |x|}
+
+@[simp] lemma mem_smallSet {x : ℝ} : x ∈ smallSet ↔ |x| < 1 := Iff.rfl
+
+@[simp] lemma mem_largeSet {x : ℝ} {ε : ℝ} : x ∈ largeSet ε ↔ ε ≤ |x| := Iff.rfl
+
+lemma measurableSet_smallSet : MeasurableSet smallSet :=
+  (isOpen_Iio.preimage continuous_abs).measurableSet
+
+lemma measurableSet_largeSet (ε : ℝ) : MeasurableSet (largeSet ε) :=
+  (isClosed_Ici.preimage continuous_abs).measurableSet
+
+lemma smallSet_eq_compl_largeSet : smallSet = (largeSet 1)ᶜ := by
+  ext x; simp [smallSet, largeSet, not_le]
+
+/-! ## Phase 3: Compactness on large jumps + Lévy measure construction
+
+This section develops the compactness machinery for extracting the Lévy measure
+from the convolution semigroup `{μ_t}_{t>0}`, using the canonical-measure (tilted)
+extraction — no activity hypothesis is required.
+
+**Overview:**
+1. The scaled measures `(1/t)·μ_t` restricted to `{|x| ≥ ε}` have uniformly bounded mass
+   (`scaled_mass_bound_real`).
+2. The `min(1,x²)`-tilted scaled measures `tiltedScaledMeasure t` are uniformly bounded
+   in total mass and tight, with no hypothesis on `μ_t` (`tiltedScaledMeasure_mass_eventually_le`,
+   `tiltedScaledMeasure_largeSet_le`). A single Prokhorov extraction on these tilted
+   measures produces Khintchine's canonical measure `η` (`exists_canonicalMeasure`),
+   which is then untilted (`withDensity` by the pointwise inverse of `min(1,x²)`) to give
+   a σ-finite Lévy measure ν on ℝ\{0} (`exists_levyMeasure`). No per-cutoff extractions,
+   no cross-cutoff consistency, no shell gluing.
+3. The `smallSet`/`largeSet` partition and the scaled-measure infrastructure support
+   both the mass bound argument and the single-extraction route.
+-/
+
+private lemma abs_sub_sin_le_sq_div_two {x : ℝ} (hx : |x| ≤ 1) :
+    |x - Real.sin x| ≤ x ^ 2 / 2 := by
+  by_cases hx0 : 0 ≤ x
+  · -- x ≥ 0: x - sin x ≥ 0
+    have hx1 : x ≤ 1 := (abs_of_nonneg hx0 ▸ hx)
+    rcases eq_or_lt_of_le hx0 with rfl | hx_pos
+    · simp
+    · rw [abs_of_nonneg (sub_nonneg.mpr (Real.sin_le hx0))]
+      have h1 : x - Real.sin x < x ^ 3 / 4 := by linarith [Real.sin_gt_sub_cube hx_pos hx1]
+      nlinarith [sq_nonneg x]
+  · -- x < 0: use sin(-x) = -sin x and (-x) ∈ (0, 1]
+    push_neg at hx0
+    have hmx_pos : 0 < -x := neg_pos.mpr hx0
+    have hmx1 : -x ≤ 1 := by linarith [show |x| = -x from abs_of_neg hx0]
+    rw [show x - Real.sin x = -((-x) - Real.sin (-x)) from by simp [Real.sin_neg]; ring,
+        abs_neg,
+        abs_of_nonneg (sub_nonneg.mpr (Real.sin_le (le_of_lt hmx_pos)))]
+    have h1 : -x - Real.sin (-x) < (-x) ^ 3 / 4 := by
+      linarith [Real.sin_gt_sub_cube hmx_pos hmx1]
+    nlinarith [sq_nonneg x]
+
+/-! ### Sinc identity and two-sided quadratic bounds
+
+The following block supplies the Fourier identity `½ ∫_{-1}^{1} e^{iux} du = sinc x` and the
+two-sided estimate `c · min(1, x²) ≤ 1 − sinc x ≤ C · min(1, x²)` (with `c = 2/(3π²)`,
+`C = 2`). These feed Sato's smearing argument for the uniqueness of the Lévy triple:
+the smeared measure `ρ` has density `1 − sinc x` against the Lévy measure `ν`, the upper
+bound gives `ρ` finite mass, and the lower bound (with positivity) lets one untilt `ρ`
+back to `ν`. Here `Real.sinc x = if x = 0 then 1 else sin x / x`. -/
+
+section SincBounds
+
+open scoped Real
+
+/-- The symmetric exponential average `½ ∫_{-1}^{1} e^{iux} du` equals `Real.sinc x`
+(which is `sin x / x` for `x ≠ 0` and `1` at `x = 0`). This is the Fourier identity behind
+Sato's smearing of the Lévy measure. -/
+theorem intervalIntegral_exp_I_symm (x : ℝ) :
+    (1 / 2 : ℂ) * ∫ u in (-1 : ℝ)..1, Complex.exp (↑u * ↑x * I) = (Real.sinc x : ℂ) := by
+  by_cases hx : x = 0
+  · subst hx
+    have hconst : (fun u : ℝ => Complex.exp (↑u * ↑(0 : ℝ) * I)) = fun _ => (1 : ℂ) := by
+      funext u; simp
+    have hint : (∫ u in (-1 : ℝ)..1, Complex.exp (↑u * ↑(0 : ℝ) * I)) = 2 := by
+      rw [hconst, intervalIntegral.integral_const]
+      show ((1 : ℝ) - (-1 : ℝ)) • (1 : ℂ) = 2
+      rw [RCLike.real_smul_eq_coe_mul (K := ℂ)]
+      push_cast
+      norm_num
+    rw [hint, Real.sinc_zero, Complex.ofReal_one]
+    norm_num
+  · have hxC : (↑x : ℂ) ≠ 0 := by exact_mod_cast hx
+    have hc : (↑x * I : ℂ) ≠ 0 := mul_ne_zero hxC Complex.I_ne_zero
+    have hrw : (∫ u in (-1 : ℝ)..1, Complex.exp (↑u * ↑x * I))
+        = ∫ u in (-1 : ℝ)..1, Complex.exp ((↑x * I) * ↑u) := by
+      refine intervalIntegral.integral_congr (fun u _ => ?_)
+      congr 1
+      ring
+    rw [hrw, integral_exp_mul_complex hc, Real.sinc_of_ne_zero hx, Complex.ofReal_div,
+        Complex.ofReal_sin]
+    have key : Complex.exp (↑x * I * ↑(1 : ℝ)) - Complex.exp (↑x * I * ↑(-1 : ℝ))
+        = 2 * (Complex.sin ↑x * I) := by
+      rw [Complex.ofReal_one, Complex.ofReal_neg, Complex.ofReal_one, mul_one, mul_neg_one,
+          show -(↑x * I) = ((-↑x : ℂ)) * I from by ring, Complex.exp_mul_I, Complex.exp_mul_I,
+          Complex.cos_neg, Complex.sin_neg]
+      ring
+    rw [key]
+    field_simp
+
+/-- `1 - Real.sinc x` is strictly positive for `x ≠ 0`, since `sin x / x < 1` there. -/
+theorem one_sub_sinc_pos {x : ℝ} (hx : x ≠ 0) : 0 < 1 - Real.sinc x := by
+  rw [Real.sinc_of_ne_zero hx,
+      show (1 : ℝ) - Real.sin x / x = (x - Real.sin x) / x from by field_simp, div_pos_iff]
+  rcases lt_or_gt_of_ne hx with hneg | hpos
+  · right
+    refine ⟨?_, hneg⟩
+    have h := Real.sin_lt (neg_pos.mpr hneg)
+    rw [Real.sin_neg] at h
+    linarith
+  · exact Or.inl ⟨by linarith [Real.sin_lt hpos], hpos⟩
+
+/-- Quantitative upper bound on `sin` over `[0, π]`: `sin x ≤ x - (2/(3π²)) x³`.
+Obtained by integrating the quadratic upper bound `cos t ≤ 1 - (2/π²) t²`. -/
+private lemma sin_le_sub_cube {x : ℝ} (hx0 : 0 ≤ x) (hxπ : x ≤ π) :
+    Real.sin x ≤ x - 2 / (3 * π ^ 2) * x ^ 3 := by
+  have hcos : (∫ t in (0 : ℝ)..x, Real.cos t) = Real.sin x := by
+    rw [integral_cos]; simp
+  have hint_g : IntervalIntegrable (fun t : ℝ => 1 - 2 / π ^ 2 * t ^ 2) volume 0 x :=
+    (by fun_prop : Continuous fun t : ℝ => 1 - 2 / π ^ 2 * t ^ 2).intervalIntegrable 0 x
+  have hmono : (∫ t in (0 : ℝ)..x, Real.cos t)
+      ≤ ∫ t in (0 : ℝ)..x, (1 - 2 / π ^ 2 * t ^ 2) := by
+    refine intervalIntegral.integral_mono_on hx0
+      (Real.continuous_cos.intervalIntegrable 0 x) hint_g (fun t ht => ?_)
+    have htabs : |t| ≤ π := by rw [abs_of_nonneg ht.1]; exact ht.2.trans hxπ
+    exact Real.cos_le_one_sub_mul_cos_sq htabs
+  have hval : (∫ t in (0 : ℝ)..x, (1 - 2 / π ^ 2 * t ^ 2))
+      = x - 2 / (3 * π ^ 2) * x ^ 3 := by
+    rw [intervalIntegral.integral_sub intervalIntegrable_const
+        ((by fun_prop : Continuous fun t : ℝ => 2 / π ^ 2 * t ^ 2).intervalIntegrable 0 x),
+        intervalIntegral.integral_const_mul, integral_pow, intervalIntegral.integral_const]
+    simp only [smul_eq_mul, mul_one, sub_zero]
+    ring
+  calc Real.sin x = ∫ t in (0 : ℝ)..x, Real.cos t := hcos.symm
+    _ ≤ ∫ t in (0 : ℝ)..x, (1 - 2 / π ^ 2 * t ^ 2) := hmono
+    _ = x - 2 / (3 * π ^ 2) * x ^ 3 := hval
+
+/-- Cubic Taylor bound on `sin` near `0`: `|sin x - x| ≤ (2/9) |x|³` for `|x| ≤ 1`.
+Extracted as the imaginary part of the repo's third-order exponential bound. -/
+private lemma abs_sin_sub_le_cube {x : ℝ} (hx : |x| ≤ 1) :
+    |Real.sin x - x| ≤ 2 / 9 * |x| ^ 3 := by
+  have h := norm_exp_I_mul_real_sub_taylor3_le hx
+  have him : (Complex.exp ((↑x : ℂ) * I) - 1 - (↑x : ℂ) * I + (↑x : ℂ) ^ 2 / 2).im
+      = Real.sin x - x := by
+    have hcast : (↑x : ℂ) ^ 2 / 2 = ((x ^ 2 / 2 : ℝ) : ℂ) := by push_cast; ring
+    rw [hcast]
+    simp only [Complex.add_im, Complex.sub_im, Complex.exp_ofReal_mul_I_im, Complex.one_im,
+      Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im]
+    ring
+  calc |Real.sin x - x|
+      = |(Complex.exp ((↑x : ℂ) * I) - 1 - (↑x : ℂ) * I + (↑x : ℂ) ^ 2 / 2).im| := by rw [him]
+    _ ≤ ‖Complex.exp ((↑x : ℂ) * I) - 1 - (↑x : ℂ) * I + (↑x : ℂ) ^ 2 / 2‖ :=
+        Complex.abs_im_le_norm _
+    _ ≤ 2 / 9 * |x| ^ 3 := h
+
+/-- Numeric inequality supporting the lower bound in the large-`|x|` regime:
+`2/(3π²) ≤ 1 - 1/π`. -/
+private lemma sinc_lower_const : 2 / (3 * π ^ 2) ≤ 1 - π⁻¹ := by
+  have hπ := Real.pi_gt_three
+  rw [div_le_iff₀ (by positivity : (0 : ℝ) < 3 * π ^ 2)]
+  have hprod : (1 - π⁻¹) * (3 * π ^ 2) = 3 * π ^ 2 - 3 * π := by
+    field_simp
+  rw [hprod]
+  nlinarith [hπ, Real.pi_pos]
+
+/-- Two-sided upper bound: `1 - Real.sinc x ≤ 2 · min(1, x²)` for all `x`. -/
+theorem one_sub_sinc_le_mul_min (x : ℝ) :
+    1 - Real.sinc x ≤ 2 * min 1 (x ^ 2) := by
+  have hsinc : Real.sinc x = Real.sinc |x| := by
+    rcases abs_choice x with h | h <;> simp [h, Real.sinc_neg]
+  rw [hsinc, show x ^ 2 = |x| ^ 2 from (sq_abs x).symm]
+  set y := |x| with hy
+  have hy0 : 0 ≤ y := abs_nonneg x
+  rcases le_or_gt (y ^ 2) 1 with hy1 | hy1
+  · rw [min_eq_right hy1]
+    by_cases hy00 : y = 0
+    · rw [hy00]; simp
+    · have hypos : 0 < y := lt_of_le_of_ne hy0 (Ne.symm hy00)
+      have hyle1 : y ≤ 1 := by nlinarith [hy1, hy0]
+      rw [Real.sinc_of_ne_zero hypos.ne']
+      have hcube := abs_sin_sub_le_cube (x := y) (by rw [abs_of_nonneg hy0]; exact hyle1)
+      rw [abs_of_nonneg hy0] at hcube
+      have hydiff : y - Real.sin y ≤ 2 / 9 * y ^ 3 := by
+        have := (abs_le.mp hcube).1
+        linarith
+      have hkey : 1 - Real.sin y / y ≤ 2 / 9 * y ^ 2 := by
+        rw [show (1 : ℝ) - Real.sin y / y = (y - Real.sin y) / y from by field_simp,
+            div_le_iff₀ hypos]
+        nlinarith [hydiff]
+      nlinarith [hkey, sq_nonneg y]
+  · rw [min_eq_left hy1.le]
+    have := Real.neg_one_le_sinc y
+    linarith
+
+/-- Two-sided lower bound: `(2/(3π²)) · min(1, x²) ≤ 1 - Real.sinc x` for all `x`. -/
+theorem mul_min_le_one_sub_sinc (x : ℝ) :
+    2 / (3 * π ^ 2) * min 1 (x ^ 2) ≤ 1 - Real.sinc x := by
+  have hsinc : Real.sinc x = Real.sinc |x| := by
+    rcases abs_choice x with h | h <;> simp [h, Real.sinc_neg]
+  rw [hsinc, show x ^ 2 = |x| ^ 2 from (sq_abs x).symm]
+  set y := |x| with hy
+  have hy0 : 0 ≤ y := abs_nonneg x
+  by_cases hy00 : y = 0
+  · rw [hy00]; simp
+  · have hypos : 0 < y := lt_of_le_of_ne hy0 (Ne.symm hy00)
+    have hcpos : (0 : ℝ) ≤ 2 / (3 * π ^ 2) := by positivity
+    rcases le_or_gt y π with hyπ | hyπ
+    · have hsin := sin_le_sub_cube hy0 hyπ
+      have hkey : 2 / (3 * π ^ 2) * y ^ 2 ≤ 1 - Real.sinc y := by
+        rw [Real.sinc_of_ne_zero hypos.ne',
+            show (1 : ℝ) - Real.sin y / y = (y - Real.sin y) / y from by field_simp,
+            le_div_iff₀ hypos]
+        nlinarith [hsin]
+      calc 2 / (3 * π ^ 2) * min 1 (y ^ 2)
+          ≤ 2 / (3 * π ^ 2) * y ^ 2 := mul_le_mul_of_nonneg_left (min_le_right _ _) hcpos
+        _ ≤ 1 - Real.sinc y := hkey
+    · have hy2 : 1 ≤ y ^ 2 := by nlinarith [Real.pi_gt_three, hyπ]
+      rw [min_eq_left hy2, mul_one]
+      have hsinc_le : Real.sinc y ≤ y⁻¹ := by
+        have := Real.sinc_le_inv_abs hypos.ne'
+        rwa [abs_of_pos hypos] at this
+      have hinv : y⁻¹ ≤ π⁻¹ := inv_anti₀ Real.pi_pos hyπ.le
+      calc 2 / (3 * π ^ 2) ≤ 1 - π⁻¹ := sinc_lower_const
+        _ ≤ 1 - y⁻¹ := by linarith
+        _ ≤ 1 - Real.sinc y := by linarith
+
+end SincBounds
+
+namespace ConvolutionSemigroup
+
+variable (S : ConvolutionSemigroup)
+
+/-- The integrand `x ↦ exp(i·ξ·x)` is integrable against any finite measure. -/
+private lemma integrable_charFun_integrand {μ : Measure ℝ} [IsFiniteMeasure μ] (ξ : ℝ) :
+    Integrable (fun x : ℝ => exp ((↑(ξ * x) : ℂ) * I)) μ :=
+  Integrable.of_bound
+    ((Complex.continuous_ofReal.comp (continuous_const.mul continuous_id')).mul_const I
+      |>.cexp.aestronglyMeasurable)
+    1 (ae_of_all _ fun _ => le_of_eq (Complex.norm_exp_ofReal_mul_I _))
+
+/-- `Re(1 - charFun μ ξ) = ∫ (1 - cos(ξ·x)) dμ` for probability measures.
+Proof: unfold charFun to ∫ exp(iξx), commute Re through the integral via `integral_re`,
+use `Re(exp(iy)) = cos y`, and combine with `∫ 1 dμ = 1`. -/
+private lemma re_one_sub_charFun_eq_integral
+    {μ : Measure ℝ} [IsProbabilityMeasure μ] (ξ : ℝ) :
+    (1 - charFun μ ξ).re = ∫ x, (1 - Real.cos (ξ * x)) ∂μ := by
+  have hint := integrable_charFun_integrand (μ := μ) ξ
+  -- Express 1 - charFun as a single integral of (1 - exp(iξx))
+  have h1 : 1 - charFun μ ξ = ∫ x : ℝ, (1 - exp ((↑(ξ * x) : ℂ) * I)) ∂μ := by
+    have hcf : charFun μ ξ = ∫ x : ℝ, exp ((↑(ξ * x) : ℂ) * I) ∂μ := by
+      rw [charFun_apply_real]; congr 1; ext x; congr 1; push_cast; ring
+    rw [hcf]
+    have h_one : (1 : ℂ) = ∫ _ : ℝ, (1 : ℂ) ∂μ := by simp [integral_const]
+    conv_lhs => rw [h_one]
+    exact (integral_sub (integrable_const (1 : ℂ)) hint).symm
+  -- Take Re and commute through integral
+  rw [h1, show (∫ x : ℝ, (1 - exp ((↑(ξ * x) : ℂ) * I)) ∂μ).re =
+    ∫ x : ℝ, (1 - exp ((↑(ξ * x) : ℂ) * I)).re ∂μ from
+    (integral_re (Integrable.sub (integrable_const 1) hint)).symm]
+  -- Simplify Re(1 - exp(iξx)) = 1 - cos(ξx)
+  congr 1; ext x
+  simp only [sub_re, one_re, Complex.exp_ofReal_mul_I_re]
+
+/-! ### 3.1 — Uniform boundedness of scaled measures on large sets -/
+
+/-- The integral of `1 - cos(xξ)` is non-negative. -/
+private lemma one_sub_cos_nonneg (ξ : ℝ) (x : ℝ) : 0 ≤ 1 - Real.cos (x * ξ) :=
+  sub_nonneg.mpr (Real.cos_le_one _)
+
+/-- `fun x => 1 - cos(x * ξ)` is integrable against a finite measure restricted to any set. -/
+private lemma integrableOn_one_sub_cos {μ : Measure ℝ} [IsFiniteMeasure μ] (ξ : ℝ) (s : Set ℝ) :
+    IntegrableOn (fun x => 1 - Real.cos (x * ξ)) s μ :=
+  Integrable.of_bound
+    ((continuous_const.sub
+      (Real.continuous_cos.comp (continuous_id'.mul continuous_const))).aestronglyMeasurable)
+    2 (ae_of_all _ fun x => by
+      rw [Real.norm_eq_abs, abs_of_nonneg (one_sub_cos_nonneg ξ x)]
+      linarith [Real.neg_one_le_cos (x * ξ)])
+
+
+/-- **Real-valued scaled mass bound.** The quantity `t⁻¹ · μ_t({|x| ≥ ε})` is
+    uniformly bounded over all `t > 0`.
+
+    **Proof sketch:**
+    1. For `|x| ≥ ε`: `∫₀^{2/ε} (1-cos(xξ)) dξ = 2/ε - sin(2x/ε)/x ≥ 1/ε`.
+    2. By Fubini: `ε⁻¹ · μ({|x| ≥ ε}) ≤ ∫₀^{2/ε} (1 - Re(charFun μ ξ)) dξ`.
+    3. Using `charFun(μ_t)(ξ) = exp(tψ(ξ))` and the bound
+       `t⁻¹(1-Re(exp(tψ))) ≤ 2‖ψ‖` (from `‖exp z - 1‖ ≤ 2‖z‖` for `‖z‖ ≤ 1`
+       and `1-Re(exp(tψ)) ≤ 2` with `t⁻¹ ≤ ‖ψ‖` otherwise):
+       `t⁻¹ · μ_t({|x| ≥ ε}) ≤ 4 · sup_{ξ ∈ [0,2/ε]} ‖ψ(ξ)‖`. -/
+private lemma scaled_mass_bound_real (ε : ℝ) (hε : 0 < ε) :
+    ∃ C : ℝ≥0, ∀ (t : {t : ℝ // 0 < t}),
+      t.val⁻¹ * ((S.measure t : Measure ℝ) (largeSet ε)).toReal ≤ ↑C := by
+  -- The exponent attains a maximum norm M on the compact interval [0, 2/ε].
+  obtain ⟨ξ_max, -, hξ_max⟩ := isCompact_Icc.exists_isMaxOn
+    (⟨0, Set.left_mem_Icc.mpr (by positivity)⟩ : (Set.Icc (0:ℝ) (2/ε)).Nonempty)
+    S.exponent_continuous.norm.continuousOn
+  set M := ‖S.exponent ξ_max‖ with hM_def
+  -- Key uniform bound: t⁻¹ * Re(1-exp(tψ(ξ))) ≤ 2M for ξ ∈ [0,2/ε], t > 0.
+  have hkey : ∀ ξ ∈ Set.Icc (0:ℝ) (2/ε), ∀ (t : {t : ℝ // 0 < t}),
+      t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤ 2 * M := by
+    intro ξ hξ t
+    have hξM : ‖S.exponent ξ‖ ≤ M := hξ_max hξ
+    -- ‖exp(tψ(ξ))‖ ≤ 1 via characteristicFun identity
+    have hexp_le1 : ‖exp ((t.val : ℂ) * S.exponent ξ)‖ ≤ 1 := by
+      have h := (S.measure t).norm_characteristicFun_le_one ξ
+      rwa [S.charFun_eq t ξ] at h
+    -- (1-exp(tψ)).re ≤ 2
+    have hre_le2 : (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤ 2 := by
+      have hge : -1 ≤ (exp ((t.val : ℂ) * S.exponent ξ)).re := by
+        have h1 : |(exp ((t.val : ℂ) * S.exponent ξ)).re| ≤ 1 :=
+          (Complex.abs_re_le_norm _).trans hexp_le1
+        linarith [neg_abs_le (exp ((t.val : ℂ) * S.exponent ξ)).re]
+      simp only [sub_re, one_re]; linarith
+    -- Case split on t * ‖ψ(ξ)‖ ≤ 1 vs > 1
+    by_cases h : t.val * ‖S.exponent ξ‖ ≤ 1
+    · -- Small regime: use norm_exp_sub_one_le
+      have htz : ‖(t.val : ℂ) * S.exponent ξ‖ ≤ 1 := by
+        simp only [norm_mul, Complex.norm_real, Real.norm_of_nonneg t.prop.le]; exact h
+      have h_re : (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤ 2 * t.val * ‖S.exponent ξ‖ :=
+        calc (1 - exp ((t.val : ℂ) * S.exponent ξ)).re
+            ≤ ‖1 - exp ((t.val : ℂ) * S.exponent ξ)‖ := Complex.re_le_norm _
+          _ = ‖exp ((t.val : ℂ) * S.exponent ξ) - 1‖ := norm_sub_rev _ _
+          _ ≤ 2 * ‖(t.val : ℂ) * S.exponent ξ‖ := Complex.norm_exp_sub_one_le htz
+          _ = 2 * t.val * ‖S.exponent ξ‖ := by
+                simp only [norm_mul, Complex.norm_real, Real.norm_of_nonneg t.prop.le]; ring
+      calc t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re
+          ≤ t.val⁻¹ * (2 * t.val * ‖S.exponent ξ‖) :=
+              mul_le_mul_of_nonneg_left h_re (le_of_lt (inv_pos.mpr t.prop))
+        _ = 2 * ‖S.exponent ξ‖ := by field_simp [ne_of_gt t.prop]
+        _ ≤ 2 * M := by linarith
+    · -- Large regime: t⁻¹ ≤ ‖ψ(ξ)‖, use (1-exp).re ≤ 2
+      push_neg at h
+      have hψ_pos : (0 : ℝ) < ‖S.exponent ξ‖ := by
+        rcases ne_or_eq (S.exponent ξ) 0 with hne | h0
+        · exact norm_pos_iff.mpr hne
+        · simp only [h0, norm_zero] at h; linarith
+      have ht_inv : t.val⁻¹ ≤ ‖S.exponent ξ‖ :=
+        (inv_le_iff_one_le_mul₀' t.prop).mpr (le_of_lt h)
+      calc t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re
+          ≤ t.val⁻¹ * 2 :=
+              mul_le_mul_of_nonneg_left hre_le2 (le_of_lt (inv_pos.mpr t.prop))
+        _ ≤ ‖S.exponent ξ‖ * 2 := by nlinarith
+        _ ≤ M * 2 := by nlinarith
+        _ = 2 * M := by ring
+  -- Use C = 4*M + 1 as the uniform bound
+  refine ⟨⟨4 * M + 1, by positivity⟩, fun t => ?_⟩
+  simp only [NNReal.coe_mk]
+  set μ := (S.measure t : Measure ℝ)
+  haveI : IsProbabilityMeasure μ := inferInstance
+  -- The integrand 1-cos(ξ*x) is nonneg and bounded
+  have h_nn : ∀ (ξ x : ℝ), 0 ≤ 1 - Real.cos (ξ * x) := fun ξ x => one_sub_cos_nonneg x ξ
+  -- Integrability of (ξ, x) ↦ 1-cos(ξx) on [0,2/ε] × ℝ under volume × μ
+  -- The product volume.restrict(uIoc) × μ is finite (μ is a prob measure)
+  haveI hfin_restrict : IsFiniteMeasure (volume.restrict (Set.uIoc (0:ℝ) (2/ε))) := by
+    rw [Set.uIoc_of_le (by positivity : (0:ℝ) ≤ 2/ε)]
+    infer_instance
+  have hfubini_int : Integrable (fun p : ℝ × ℝ => 1 - Real.cos (p.1 * p.2))
+      ((volume.restrict (Set.uIoc 0 (2/ε))).prod μ) :=
+    Integrable.of_bound
+      ((continuous_const.sub (Real.continuous_cos.comp
+        (continuous_fst.mul continuous_snd))).aestronglyMeasurable)
+      2
+      (ae_of_all _ fun p => by
+        simp only [Real.norm_eq_abs, abs_of_nonneg (h_nn p.1 p.2)]
+        linarith [Real.neg_one_le_cos (p.1 * p.2)])
+  -- Fubini: ∫_ξ ∫_x (1-cos) dμ dξ = ∫_x ∫_ξ (1-cos) dξ dμ
+  have hfubini : ∫ ξ in (0:ℝ)..(2/ε), ∫ x, (1 - Real.cos (ξ * x)) ∂μ =
+      ∫ x, (∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))) ∂μ :=
+    intervalIntegral_integral_swap hfubini_int
+  -- ∫_ξ ∫_x (1-cos) dμ = ∫_ξ Re(1-exp(tψ)) dξ
+  have hrhs : ∫ ξ in (0:ℝ)..(2/ε), ∫ x, (1 - Real.cos (ξ * x)) ∂μ =
+      ∫ ξ in (0:ℝ)..(2/ε), (1 - exp ((t.val : ℂ) * S.exponent ξ)).re := by
+    congr 1; ext ξ
+    rw [← re_one_sub_charFun_eq_integral ξ]
+    congr 1; congr 1
+    exact S.charFun_eq t ξ
+  -- Integrability of x ↦ ∫_ξ (1-cos) dξ under μ (bounded by 4/ε via |1-cos| ≤ 2)
+  have h_intcont : Continuous (fun x => ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))) :=
+    intervalIntegral.continuous_parametric_intervalIntegral_of_continuous'
+      (f := fun x ξ => 1 - Real.cos (ξ * x))
+      (by fun_prop) 0 (2/ε)
+  have hint_outer : Integrable (fun x => ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))) μ :=
+    Integrable.of_bound
+      h_intcont.aestronglyMeasurable
+      (4/ε)
+      (ae_of_all _ fun x => by
+        rw [Real.norm_eq_abs, abs_of_nonneg
+            (intervalIntegral.integral_nonneg (by positivity) fun ξ _ => h_nn ξ x)]
+        have hfx_int : IntervalIntegrable (fun ξ => 1 - Real.cos (ξ * x)) volume 0 (2/ε) :=
+          (continuous_const.sub (Real.continuous_cos.comp
+            (continuous_id.mul continuous_const))).intervalIntegrable 0 (2/ε)
+        calc ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))
+            ≤ ∫ ξ in (0:ℝ)..(2/ε), (2 : ℝ) :=
+              intervalIntegral.integral_mono_on (by positivity) hfx_int intervalIntegrable_const
+                (fun ξ _ => by linarith [Real.neg_one_le_cos (ξ * x)])
+          _ = 4/ε := by
+              rw [intervalIntegral.integral_const, smul_eq_mul]
+              field_simp; ring)
+  -- Pointwise bound: ∫_0^{2/ε} (1-cos(ξx)) dξ ≥ ε⁻¹ for x ∈ largeSet ε
+  have hpointwise : ∀ x ∈ largeSet ε,
+      ε⁻¹ ≤ ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x)) := by
+    intro x hx
+    have hxε : ε ≤ |x| := mem_largeSet.mp hx
+    have hx_ne : x ≠ 0 := by
+      intro h0; simp only [h0, abs_zero] at hxε; linarith
+    -- The integral of cos(ξx) over ξ ∈ [0, 2/ε]: substitute u = ξ*x
+    have hcos_int : IntervalIntegrable (fun ξ => Real.cos (ξ * x)) volume 0 (2/ε) :=
+      (Real.continuous_cos.comp (continuous_id.mul continuous_const)).intervalIntegrable 0 (2/ε)
+    have hmul : ∫ ξ in (0:ℝ)..(2/ε), Real.cos (ξ * x) = Real.sin (2 * x / ε) / x := by
+      rw [intervalIntegral.integral_comp_mul_right (hc := hx_ne)]
+      simp only [zero_mul, smul_eq_mul]
+      -- integral_cos: ∫ in 0..2/ε*x, cos = sin(2/ε*x) - sin(0)
+      rw [integral_cos, Real.sin_zero, sub_zero]
+      rw [show (2 : ℝ) / ε * x = 2 * x / ε from by ring]
+      rw [div_eq_mul_inv (Real.sin _) x, mul_comm]
+    have hcomp : ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x)) =
+        2/ε - Real.sin (2 * x / ε) / x := by
+      rw [intervalIntegral.integral_sub intervalIntegrable_const hcos_int,
+        intervalIntegral.integral_const, smul_eq_mul, mul_one, hmul]
+      ring
+    rw [hcomp]
+    have hsin_bd : Real.sin (2 * x / ε) / x ≤ 1/ε := by
+      have habs : |Real.sin (2 * x / ε) / x| ≤ 1/ε := by
+        rw [abs_div, div_le_div_iff₀ (abs_pos.mpr hx_ne) hε]
+        nlinarith [Real.abs_sin_le_one (2 * x / ε)]
+      linarith [le_abs_self (Real.sin (2 * x / ε) / x)]
+    have h1e : (1:ℝ)/ε = ε⁻¹ := one_div ε
+    have h2e : (2:ℝ)/ε = 2 * ε⁻¹ := by rw [div_eq_mul_inv]
+    linarith
+  -- Main bound: ε⁻¹ * μ(largeSet ε) ≤ ∫_x ∫_ξ (1-cos) dξ dμ = ∫_ξ ∫_x (1-cos) dμ dξ
+  have hmass : ε⁻¹ * (μ (largeSet ε)).toReal ≤
+      ∫ ξ in (0:ℝ)..(2/ε), (1 - exp ((t.val : ℂ) * S.exponent ξ)).re := by
+    rw [← hrhs, hfubini]
+    rw [show ε⁻¹ * (μ (largeSet ε)).toReal =
+      ∫ _ in largeSet ε, ε⁻¹ ∂μ by
+        rw [setIntegral_const, smul_eq_mul, Measure.real_def, mul_comm]]
+    exact le_trans
+      (setIntegral_mono_on integrableOn_const hint_outer.integrableOn
+        (measurableSet_largeSet ε) (fun x hx => hpointwise x hx))
+      (setIntegral_le_integral hint_outer (ae_of_all _ (fun x =>
+        intervalIntegral.integral_nonneg (by positivity) fun ξ _ => h_nn ξ x)))
+  -- Multiply by t⁻¹: t⁻¹ * ε⁻¹ * μ(largeSet ε) ≤ ∫_ξ t⁻¹*(1-exp).re dξ
+  have ht_inv_nn : 0 ≤ t.val⁻¹ := le_of_lt (inv_pos.mpr t.prop)
+  have hmass_t : t.val⁻¹ * ε⁻¹ * (μ (largeSet ε)).toReal ≤
+      ∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re := by
+    have hrearrange : t.val⁻¹ * ε⁻¹ * (μ (largeSet ε)).toReal =
+        t.val⁻¹ * (ε⁻¹ * (μ (largeSet ε)).toReal) := by ring
+    rw [hrearrange]
+    calc t.val⁻¹ * (ε⁻¹ * (μ (largeSet ε)).toReal)
+        ≤ t.val⁻¹ * (∫ ξ in (0:ℝ)..(2/ε), (1 - exp ((↑t.val : ℂ) * S.exponent ξ)).re) :=
+          mul_le_mul_of_nonneg_left hmass ht_inv_nn
+      _ = ∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((↑t.val : ℂ) * S.exponent ξ)).re := by
+          rw [← intervalIntegral.integral_const_mul]
+  -- IntervalIntegrable for the t-scaled exponent integrand
+  have hint_exp : IntervalIntegrable
+      (fun ξ => t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re) volume 0 (2/ε) :=
+    ((continuous_const.sub
+        (Complex.continuous_re.comp
+          (Complex.continuous_exp.comp
+            (continuous_const.mul S.exponent_continuous)))).const_mul _).intervalIntegrable _ _
+  -- Bound the integrand by 2M (using hkey)
+  have hint_2M : ∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤
+      ∫ ξ in (0:ℝ)..(2/ε), (2 * M) :=
+    intervalIntegral.integral_mono_on (by positivity) hint_exp intervalIntegrable_const
+      (fun ξ hξ => hkey ξ hξ t)
+  -- ∫_0^{2/ε} 2M = 4M/ε
+  have hint_const : ∫ ξ in (0:ℝ)..(2/ε), (2 * M) = 4 * M / ε := by
+    rw [intervalIntegral.integral_const, smul_eq_mul]
+    field_simp [hε.ne']
+    ring
+  -- Combine: t⁻¹ * μ(largeSet ε) ≤ 4M ≤ 4M + 1
+  calc t.val⁻¹ * (μ (largeSet ε)).toReal
+      = ε * (t.val⁻¹ * ε⁻¹ * (μ (largeSet ε)).toReal) := by field_simp [hε.ne', ne_of_gt t.prop]
+    _ ≤ ε * (∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((↑t.val : ℂ) * S.exponent ξ)).re) := by
+        exact mul_le_mul_of_nonneg_left hmass_t (le_of_lt hε)
+    _ ≤ ε * (∫ ξ in (0:ℝ)..(2/ε), (2 * M)) := by
+        apply mul_le_mul_of_nonneg_left hint_2M (le_of_lt hε)
+    _ = ε * (4 * M / ε) := by rw [hint_const]
+    _ = 4 * M := by field_simp [hε.ne']
+    _ ≤ 4 * M + 1 := by linarith
+
+/-- **Real-valued mass bound parameterized by the max of `‖ψ‖` on `[0, 2/ε]`.**
+    Variant of `scaled_mass_bound_real` that exposes the bound `4·M` explicitly,
+    where `M` is the supremum of `‖ψ‖` on `[0, 2/ε]`. This is used for tightness:
+    as `ε → ∞`, the interval `[0, 2/ε]` shrinks to `{0}` and `M → 0` since `ψ(0) = 0`.
+-/
+private lemma scaled_mass_bound_real_with_max (ε : ℝ) (hε : 0 < ε)
+    (M : ℝ) (_hM_nn : 0 ≤ M)
+    (hM : ∀ ξ ∈ Set.Icc (0:ℝ) (2/ε), ‖S.exponent ξ‖ ≤ M) :
+    ∀ (t : {t : ℝ // 0 < t}),
+      t.val⁻¹ * ((S.measure t : Measure ℝ) (largeSet ε)).toReal ≤ 4 * M := by
+  -- Reuses the proof structure of `scaled_mass_bound_real`, replacing the
+  -- internally-computed max with the user-supplied bound `M`.
+  intro t
+  -- Key uniform bound: t⁻¹ * Re(1-exp(tψ(ξ))) ≤ 2M for ξ ∈ [0,2/ε], t > 0.
+  have hkey : ∀ ξ ∈ Set.Icc (0:ℝ) (2/ε),
+      t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤ 2 * M := by
+    intro ξ hξ
+    have hξM : ‖S.exponent ξ‖ ≤ M := hM ξ hξ
+    have hexp_le1 : ‖exp ((t.val : ℂ) * S.exponent ξ)‖ ≤ 1 := by
+      have h := (S.measure t).norm_characteristicFun_le_one ξ
+      rwa [S.charFun_eq t ξ] at h
+    have hre_le2 : (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤ 2 := by
+      have hge : -1 ≤ (exp ((t.val : ℂ) * S.exponent ξ)).re := by
+        have h1 : |(exp ((t.val : ℂ) * S.exponent ξ)).re| ≤ 1 :=
+          (Complex.abs_re_le_norm _).trans hexp_le1
+        linarith [neg_abs_le (exp ((t.val : ℂ) * S.exponent ξ)).re]
+      simp only [sub_re, one_re]; linarith
+    by_cases h : t.val * ‖S.exponent ξ‖ ≤ 1
+    · have htz : ‖(t.val : ℂ) * S.exponent ξ‖ ≤ 1 := by
+        simp only [norm_mul, Complex.norm_real, Real.norm_of_nonneg t.prop.le]; exact h
+      have h_re : (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤ 2 * t.val * ‖S.exponent ξ‖ :=
+        calc (1 - exp ((t.val : ℂ) * S.exponent ξ)).re
+            ≤ ‖1 - exp ((t.val : ℂ) * S.exponent ξ)‖ := Complex.re_le_norm _
+          _ = ‖exp ((t.val : ℂ) * S.exponent ξ) - 1‖ := norm_sub_rev _ _
+          _ ≤ 2 * ‖(t.val : ℂ) * S.exponent ξ‖ := Complex.norm_exp_sub_one_le htz
+          _ = 2 * t.val * ‖S.exponent ξ‖ := by
+                simp only [norm_mul, Complex.norm_real, Real.norm_of_nonneg t.prop.le]; ring
+      calc t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re
+          ≤ t.val⁻¹ * (2 * t.val * ‖S.exponent ξ‖) :=
+              mul_le_mul_of_nonneg_left h_re (le_of_lt (inv_pos.mpr t.prop))
+        _ = 2 * ‖S.exponent ξ‖ := by field_simp [ne_of_gt t.prop]
+        _ ≤ 2 * M := by linarith
+    · push_neg at h
+      have hψ_pos : (0 : ℝ) < ‖S.exponent ξ‖ := by
+        rcases ne_or_eq (S.exponent ξ) 0 with hne | h0
+        · exact norm_pos_iff.mpr hne
+        · simp only [h0, norm_zero] at h; linarith
+      have ht_inv : t.val⁻¹ ≤ ‖S.exponent ξ‖ :=
+        (inv_le_iff_one_le_mul₀' t.prop).mpr (le_of_lt h)
+      calc t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re
+          ≤ t.val⁻¹ * 2 :=
+              mul_le_mul_of_nonneg_left hre_le2 (le_of_lt (inv_pos.mpr t.prop))
+        _ ≤ ‖S.exponent ξ‖ * 2 := by nlinarith
+        _ ≤ M * 2 := by nlinarith
+        _ = 2 * M := by ring
+  set μ := (S.measure t : Measure ℝ)
+  haveI : IsProbabilityMeasure μ := inferInstance
+  have h_nn : ∀ (ξ x : ℝ), 0 ≤ 1 - Real.cos (ξ * x) := fun ξ x => one_sub_cos_nonneg x ξ
+  haveI hfin_restrict : IsFiniteMeasure (volume.restrict (Set.uIoc (0:ℝ) (2/ε))) := by
+    rw [Set.uIoc_of_le (by positivity : (0:ℝ) ≤ 2/ε)]
+    infer_instance
+  have hfubini_int : Integrable (fun p : ℝ × ℝ => 1 - Real.cos (p.1 * p.2))
+      ((volume.restrict (Set.uIoc 0 (2/ε))).prod μ) :=
+    Integrable.of_bound
+      ((continuous_const.sub (Real.continuous_cos.comp
+        (continuous_fst.mul continuous_snd))).aestronglyMeasurable)
+      2
+      (ae_of_all _ fun p => by
+        simp only [Real.norm_eq_abs, abs_of_nonneg (h_nn p.1 p.2)]
+        linarith [Real.neg_one_le_cos (p.1 * p.2)])
+  have hfubini : ∫ ξ in (0:ℝ)..(2/ε), ∫ x, (1 - Real.cos (ξ * x)) ∂μ =
+      ∫ x, (∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))) ∂μ :=
+    intervalIntegral_integral_swap hfubini_int
+  have hrhs : ∫ ξ in (0:ℝ)..(2/ε), ∫ x, (1 - Real.cos (ξ * x)) ∂μ =
+      ∫ ξ in (0:ℝ)..(2/ε), (1 - exp ((t.val : ℂ) * S.exponent ξ)).re := by
+    congr 1; ext ξ
+    rw [← re_one_sub_charFun_eq_integral ξ]
+    congr 1; congr 1
+    exact S.charFun_eq t ξ
+  have h_intcont : Continuous (fun x => ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))) :=
+    intervalIntegral.continuous_parametric_intervalIntegral_of_continuous'
+      (f := fun x ξ => 1 - Real.cos (ξ * x))
+      (by fun_prop) 0 (2/ε)
+  have hint_outer : Integrable (fun x => ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))) μ :=
+    Integrable.of_bound
+      h_intcont.aestronglyMeasurable
+      (4/ε)
+      (ae_of_all _ fun x => by
+        rw [Real.norm_eq_abs, abs_of_nonneg
+            (intervalIntegral.integral_nonneg (by positivity) fun ξ _ => h_nn ξ x)]
+        have hfx_int : IntervalIntegrable (fun ξ => 1 - Real.cos (ξ * x)) volume 0 (2/ε) :=
+          (continuous_const.sub (Real.continuous_cos.comp
+            (continuous_id.mul continuous_const))).intervalIntegrable 0 (2/ε)
+        calc ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x))
+            ≤ ∫ ξ in (0:ℝ)..(2/ε), (2 : ℝ) :=
+              intervalIntegral.integral_mono_on (by positivity) hfx_int intervalIntegrable_const
+                (fun ξ _ => by linarith [Real.neg_one_le_cos (ξ * x)])
+          _ = 4/ε := by
+              rw [intervalIntegral.integral_const, smul_eq_mul]
+              field_simp; ring)
+  have hpointwise : ∀ x ∈ largeSet ε,
+      ε⁻¹ ≤ ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x)) := by
+    intro x hx
+    have hxε : ε ≤ |x| := mem_largeSet.mp hx
+    have hx_ne : x ≠ 0 := by
+      intro h0; simp only [h0, abs_zero] at hxε; linarith
+    have hcos_int : IntervalIntegrable (fun ξ => Real.cos (ξ * x)) volume 0 (2/ε) :=
+      (Real.continuous_cos.comp (continuous_id.mul continuous_const)).intervalIntegrable 0 (2/ε)
+    have hmul : ∫ ξ in (0:ℝ)..(2/ε), Real.cos (ξ * x) = Real.sin (2 * x / ε) / x := by
+      rw [intervalIntegral.integral_comp_mul_right (hc := hx_ne)]
+      simp only [zero_mul, smul_eq_mul]
+      rw [integral_cos, Real.sin_zero, sub_zero]
+      rw [show (2 : ℝ) / ε * x = 2 * x / ε from by ring]
+      rw [div_eq_mul_inv (Real.sin _) x, mul_comm]
+    have hcomp : ∫ ξ in (0:ℝ)..(2/ε), (1 - Real.cos (ξ * x)) =
+        2/ε - Real.sin (2 * x / ε) / x := by
+      rw [intervalIntegral.integral_sub intervalIntegrable_const hcos_int,
+        intervalIntegral.integral_const, smul_eq_mul, mul_one, hmul]
+      ring
+    rw [hcomp]
+    have hsin_bd : Real.sin (2 * x / ε) / x ≤ 1/ε := by
+      have habs : |Real.sin (2 * x / ε) / x| ≤ 1/ε := by
+        rw [abs_div, div_le_div_iff₀ (abs_pos.mpr hx_ne) hε]
+        nlinarith [Real.abs_sin_le_one (2 * x / ε)]
+      linarith [le_abs_self (Real.sin (2 * x / ε) / x)]
+    have h1e : (1:ℝ)/ε = ε⁻¹ := one_div ε
+    have h2e : (2:ℝ)/ε = 2 * ε⁻¹ := by rw [div_eq_mul_inv]
+    linarith
+  have hmass : ε⁻¹ * (μ (largeSet ε)).toReal ≤
+      ∫ ξ in (0:ℝ)..(2/ε), (1 - exp ((t.val : ℂ) * S.exponent ξ)).re := by
+    rw [← hrhs, hfubini]
+    rw [show ε⁻¹ * (μ (largeSet ε)).toReal =
+      ∫ _ in largeSet ε, ε⁻¹ ∂μ by
+        rw [setIntegral_const, smul_eq_mul, Measure.real_def, mul_comm]]
+    exact le_trans
+      (setIntegral_mono_on integrableOn_const hint_outer.integrableOn
+        (measurableSet_largeSet ε) (fun x hx => hpointwise x hx))
+      (setIntegral_le_integral hint_outer (ae_of_all _ (fun x =>
+        intervalIntegral.integral_nonneg (by positivity) fun ξ _ => h_nn ξ x)))
+  have ht_inv_nn : 0 ≤ t.val⁻¹ := le_of_lt (inv_pos.mpr t.prop)
+  have hmass_t : t.val⁻¹ * ε⁻¹ * (μ (largeSet ε)).toReal ≤
+      ∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re := by
+    have hrearrange : t.val⁻¹ * ε⁻¹ * (μ (largeSet ε)).toReal =
+        t.val⁻¹ * (ε⁻¹ * (μ (largeSet ε)).toReal) := by ring
+    rw [hrearrange]
+    calc t.val⁻¹ * (ε⁻¹ * (μ (largeSet ε)).toReal)
+        ≤ t.val⁻¹ * (∫ ξ in (0:ℝ)..(2/ε), (1 - exp ((↑t.val : ℂ) * S.exponent ξ)).re) :=
+          mul_le_mul_of_nonneg_left hmass ht_inv_nn
+      _ = ∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((↑t.val : ℂ) * S.exponent ξ)).re := by
+          rw [← intervalIntegral.integral_const_mul]
+  have hint_exp : IntervalIntegrable
+      (fun ξ => t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re) volume 0 (2/ε) :=
+    ((continuous_const.sub
+        (Complex.continuous_re.comp
+          (Complex.continuous_exp.comp
+            (continuous_const.mul S.exponent_continuous)))).const_mul _).intervalIntegrable _ _
+  have hint_2M : ∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((t.val : ℂ) * S.exponent ξ)).re ≤
+      ∫ ξ in (0:ℝ)..(2/ε), (2 * M) :=
+    intervalIntegral.integral_mono_on (by positivity) hint_exp intervalIntegrable_const
+      (fun ξ hξ => hkey ξ hξ)
+  have hint_const : ∫ ξ in (0:ℝ)..(2/ε), (2 * M) = 4 * M / ε := by
+    rw [intervalIntegral.integral_const, smul_eq_mul]
+    field_simp [hε.ne']
+    ring
+  calc t.val⁻¹ * (μ (largeSet ε)).toReal
+      = ε * (t.val⁻¹ * ε⁻¹ * (μ (largeSet ε)).toReal) := by field_simp [hε.ne', ne_of_gt t.prop]
+    _ ≤ ε * (∫ ξ in (0:ℝ)..(2/ε), t.val⁻¹ * (1 - exp ((↑t.val : ℂ) * S.exponent ξ)).re) := by
+        exact mul_le_mul_of_nonneg_left hmass_t (le_of_lt hε)
+    _ ≤ ε * (∫ ξ in (0:ℝ)..(2/ε), (2 * M)) := by
+        apply mul_le_mul_of_nonneg_left hint_2M (le_of_lt hε)
+    _ = ε * (4 * M / ε) := by rw [hint_const]
+    _ = 4 * M := by field_simp [hε.ne']
+
+/-- **Tail decay of the scaled mass, uniform in `t`.** For every `ε > 0` there is a
+radius `R ≥ 1` beyond which the scaled mass `t⁻¹ · μ_t({|x| ≥ R})` is at most `ε`,
+uniformly over all `t > 0`. Since `ψ` is continuous with `ψ 0 = 0`, its norm is small
+on `[0, 2/R]` for large `R`, and `scaled_mass_bound_real_with_max` converts that into
+a mass bound. This is the tightness input for the canonical-measure extraction. -/
+private lemma scaled_largeSet_mass_le_of_large_radius (ε : ℝ) (hε : 0 < ε) :
+    ∃ R : ℝ, 1 ≤ R ∧ ∀ t : {t : ℝ // 0 < t},
+      t.val⁻¹ * ((S.measure t : Measure ℝ) (largeSet R)).toReal ≤ ε := by
+  -- Since `ψ` is continuous with `ψ 0 = 0`, `‖ψ‖` is small on a neighbourhood of `0`.
+  have hξ_exist : ∃ r : ℝ, 0 < r ∧ ∀ ξ, |ξ| < r → ‖S.exponent ξ‖ < ε/4 := by
+    have htend : Tendsto (fun ξ : ℝ => ‖S.exponent ξ‖) (𝓝 0) (𝓝 0) := by
+      have h1 : Tendsto S.exponent (𝓝 0) (𝓝 0) := by
+        have := S.exponent_continuous.tendsto 0
+        rw [S.exponent_zero] at this
+        exact this
+      have h2 : Tendsto (fun z : ℂ => ‖z‖) (𝓝 0) (𝓝 0) := by
+        have := (continuous_norm (E := ℂ)).tendsto 0
+        simpa using this
+      exact h2.comp h1
+    have hnhds : ∀ᶠ ξ in 𝓝 (0 : ℝ), ‖S.exponent ξ‖ < ε/4 :=
+      htend.eventually (Iio_mem_nhds (by linarith))
+    rw [Metric.eventually_nhds_iff] at hnhds
+    obtain ⟨r, hr_pos, hr⟩ := hnhds
+    exact ⟨r, hr_pos, fun ξ hξ => hr (by simpa [Real.dist_eq, sub_zero] using hξ)⟩
+  obtain ⟨r, hr_pos, hr⟩ := hξ_exist
+  -- Choose `R ≥ 1` large enough that `2/R < r`, so `[0, 2/R] ⊆ [0, r)`.
+  set R := max (1 : ℝ) (2 / r + 1) with hR_def
+  have hR_ge_one : 1 ≤ R := le_max_left _ _
+  have hR_pos : 0 < R := lt_of_lt_of_le one_pos hR_ge_one
+  have hR_inv : 2 / R < r := by
+    have h_denom_pos : (0 : ℝ) < 2 / r + 1 := by positivity
+    have h1 : 2 / R ≤ 2 / (2 / r + 1) :=
+      div_le_div_of_nonneg_left (by norm_num) h_denom_pos (le_max_right _ _)
+    have h2 : 2 / (2 / r + 1) < r := by
+      rw [div_lt_iff₀ h_denom_pos]
+      have h3 : (2 / r + 1) * r = 2 + r := by field_simp
+      linarith [h3]
+    linarith
+  have hM_bound : ∀ ξ ∈ Set.Icc (0:ℝ) (2/R), ‖S.exponent ξ‖ ≤ ε/4 := by
+    intro ξ hξ
+    have h1 : |ξ| < r := by
+      rw [abs_of_nonneg hξ.1]
+      exact lt_of_le_of_lt hξ.2 hR_inv
+    exact le_of_lt (hr ξ h1)
+  refine ⟨R, hR_ge_one, fun t => ?_⟩
+  calc t.val⁻¹ * ((S.measure t : Measure ℝ) (largeSet R)).toReal
+      ≤ 4 * (ε/4) := S.scaled_mass_bound_real_with_max R hR_pos (ε/4) (by positivity) hM_bound t
+    _ = ε := by ring
+
+end ConvolutionSemigroup
+
+/-! ### 3.2c — Atom-free radius selection for finite measures
+
+A finite measure on `ℝ` charges at most countably many spheres `{|x| = ρ}`, so atom-free
+radii are abundant. These measure-generic helpers (independent of any `ConvolutionSemigroup`)
+support choosing a split radius `r` with `ν {|x| = r} = 0` and a null-sphere sequence `δ_m → 0`. -/
+
+/-- A finite measure on `ℝ` charges at most countably many spheres `{|x| = ρ}`, so every
+nonempty interval contains an atom-free radius. -/
+lemma exists_atomFree_radius (ν : Measure ℝ) [IsFiniteMeasure ν] {a b : ℝ} (hab : a < b) :
+    ∃ r, r ∈ Set.Ioc a b ∧ ν {x | |x| = r} = 0 := by
+  -- Only countably many spheres `{|x| = t}` carry positive `ν`-mass (level sets of `|·|`).
+  have key : Set.Countable {t : ℝ | 0 < ν {x : ℝ | |x| = t}} :=
+    countable_meas_level_set_pos continuous_abs.measurable
+  -- A countable set has Lebesgue measure zero, so removing it preserves the volume of `Ioc a b`.
+  have aux : volume (Set.Ioc a b \ {t : ℝ | 0 < ν {x : ℝ | |x| = t}}) = volume (Set.Ioc a b) :=
+    measure_diff_null (key.measure_zero volume)
+  have len_pos : 0 < volume (Set.Ioc a b) := by
+    rw [Real.volume_Ioc]; simp only [ENNReal.ofReal_pos, sub_pos]; exact hab
+  rw [← aux] at len_pos
+  obtain ⟨r, hr⟩ := nonempty_of_measure_ne_zero len_pos.ne'
+  refine ⟨r, hr.1, ?_⟩
+  exact le_antisymm (not_lt.mp hr.2) (zero_le _)
+
+/-! ### 3.2d — Atom-free radius selection for (possibly infinite) Lévy measures
+
+The finite-measure results above generalize to arbitrary `IsLevyMeasure ν`: although `ν` may
+have infinite total mass, every annulus `{x | ε ≤ |x|}` with `ε > 0` carries finite `ν`-mass
+(`IsLevyMeasure.measure_setOf_abs_ge_lt_top`), so the countable-sphere argument applies to the
+finite restriction of `ν` to a suitable annulus. -/
+
+/-- A Lévy measure restricted to the annulus `{x | ε ≤ |x|}` (`ε > 0`) is a finite measure. -/
+theorem IsLevyMeasure.isFiniteMeasure_restrict_largeSet {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    {ε : ℝ} (hε : 0 < ε) : IsFiniteMeasure (ν.restrict (largeSet ε)) :=
+  isFiniteMeasure_restrict.mpr (hν.measure_setOf_abs_ge_lt_top hε).ne
+
+/-- A Lévy measure charges at most countably many spheres `{|x| = ρ}` within each annulus
+bounded away from `0`, so every interval `Ioc a b` with `0 ≤ a < b` contains an atom-free
+radius. Generalizes `exists_atomFree_radius` from `IsFiniteMeasure` to `IsLevyMeasure`. -/
+theorem IsLevyMeasure.exists_atomFree_radius {ν : Measure ℝ} (hν : IsLevyMeasure ν) {a b : ℝ}
+    (ha : 0 ≤ a) (hab : a < b) : ∃ r ∈ Set.Ioc a b, ν {x | |x| = r} = 0 := by
+  have hb_pos : 0 < b := ha.trans_lt hab
+  -- Shrink to the sub-interval `Ioc (max a (b/2)) b`, whose radii all exceed `max a (b/2) > 0`.
+  have hc₀_pos : 0 < max a (b / 2) := lt_of_lt_of_le (by linarith) (le_max_right a (b / 2))
+  have hc₀_lt_b : max a (b / 2) < b := max_lt hab (by linarith)
+  have hc₀_ge_a : a ≤ max a (b / 2) := le_max_left a (b / 2)
+  haveI : IsFiniteMeasure (ν.restrict (largeSet (max a (b / 2) / 2))) :=
+    hν.isFiniteMeasure_restrict_largeSet (by linarith)
+  obtain ⟨r, hr_mem, hr_null⟩ :=
+    ProbabilityTheory.exists_atomFree_radius (ν.restrict (largeSet (max a (b / 2) / 2))) hc₀_lt_b
+  -- Every sphere `{|x| = r}` with `r > max a (b/2)` lies inside the restriction annulus,
+  -- so its `ν`-mass agrees with its mass under the restricted measure.
+  have hsub : {x : ℝ | |x| = r} ⊆ largeSet (max a (b / 2) / 2) := fun x hx => by
+    simp only [Set.mem_setOf_eq] at hx
+    simp only [mem_largeSet, hx]
+    linarith [hr_mem.1]
+  rw [Measure.restrict_apply' (measurableSet_largeSet _),
+    Set.inter_eq_self_of_subset_left hsub] at hr_null
+  exact ⟨r, ⟨hc₀_ge_a.trans_lt hr_mem.1, hr_mem.2⟩, hr_null⟩
+
+/-- Atom-free radii accumulating at `0`, each below the bound `c`, for a (possibly infinite)
+Lévy measure. The `IsLevyMeasure` analogue of `exists_atomFree_radius`, iterated to build a
+null-sphere sequence `δ_m → 0`. -/
+theorem IsLevyMeasure.exists_atomFree_seq_tendsto_zero {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    {c : ℝ} (hc : 0 < c) : ∃ δ : ℕ → ℝ, (∀ m, 0 < δ m) ∧ (∀ m, δ m < c) ∧
+      (∀ m, ν {x | |x| = δ m} = 0) ∧ Tendsto δ atTop (𝓝 0) := by
+  -- For each `m`, choose an atom-free radius in `(0, min (c/2) (1/(m+1))]`.
+  have hb : ∀ m : ℕ, (0 : ℝ) < min (c / 2) (1 / ((m : ℝ) + 1)) := fun m => by positivity
+  choose δ hδ_mem hδ_null using fun m => hν.exists_atomFree_radius le_rfl (hb m)
+  refine ⟨δ, fun m => (hδ_mem m).1, fun m => ?_, hδ_null, ?_⟩
+  · -- `δ m ≤ min (c/2) (1/(m+1)) ≤ c/2 < c`.
+    calc δ m ≤ min (c / 2) (1 / ((m : ℝ) + 1)) := (hδ_mem m).2
+      _ ≤ c / 2 := min_le_left _ _
+      _ < c := by linarith
+  · -- `0 < δ m ≤ 1/(m+1) → 0` squeezes `δ` to `0`.
+    refine tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds
+      tendsto_one_div_add_atTop_nhds_zero_nat (fun m => (hδ_mem m).1.le) (fun m => ?_)
+    exact (hδ_mem m).2.trans (min_le_right _ _)
+
+namespace ConvolutionSemigroup
+
+variable (S : ConvolutionSemigroup)
+
+/-! ### 3.3 — Monotonicity of large sets -/
+
+/-- **Monotonicity of large sets.** For `ε₁ ≤ ε₂`, `largeSet ε₂ ⊆ largeSet ε₁`. -/
+lemma largeSet_antitone {ε₁ ε₂ : ℝ} (h : ε₁ ≤ ε₂) :
+    largeSet ε₂ ⊆ largeSet ε₁ := by
+  intro x hx
+  simp only [mem_largeSet] at hx ⊢
+  linarith
+
+/-! ### 3.4 — Large-jump integrand identification -/
+
+/-- On `{|x| ≥ 1}`, the compensated integrand equals `exp(ixξ) − 1` (indicator vanishes). -/
+theorem levyCompensatedIntegrand_eq_on_large {ξ x : ℝ} (hx : 1 ≤ |x|) :
+    levyCompensatedIntegrand ξ x = exp (↑x * ↑ξ * I) - 1 := by
+  simp [levyCompensatedIntegrand, show ¬(|x| < 1) from not_lt.mpr hx]
+
+/-! ### Phase 4 — Small jump analysis (second moment + quadratic expansion)
+
+The key estimates for the "small jump" part `{|x| < 1}` of the Lévy-Khintchine formula.
+
+**4.1 — Second moment bound:** From `charFun(μ_t)(ξ) = exp(tψ(ξ))`:
+```
+Re(1 - exp(tψ(ξ))) = ∫ (1 - cos(xξ)) dμ_t
+```
+On `{|x| < 1}` with `ξ = 1`: `1 - cos(x) ≥ (2/π²) x²` (Jordan's inequality), so
+```
+(2/π²) ∫_{|x|<1} x² dμ_t ≤ ∫(1-cos(x))dμ_t = Re(1-exp(tψ(1)))
+```
+Dividing by `t`: `(2/(π²t)) ∫_{|x|<1} x² dμ_t ≤ Re(-ψ(1)) + o(1)`.
+
+**4.2 — Quadratic expansion:** The integrand `exp(ixξ) - 1 - ixξ` satisfies
+`|exp(iz)-1-iz| ≤ z²/2`, so the scaled integral on `{|x| < 1}` is controlled by
+the second moment, giving convergence of a subsequence. -/
+
+/-- On `{|x| ≤ π}`, `1 - cos x ≥ (2/π²) · x²`. Wrapper for mathlib's
+`cos_le_one_sub_mul_cos_sq`. -/
+private lemma one_sub_cos_ge_mul_sq {x : ℝ} (hx : |x| ≤ Real.pi) :
+    2 / Real.pi ^ 2 * x ^ 2 ≤ 1 - Real.cos x := by
+  linarith [Real.cos_le_one_sub_mul_cos_sq hx]
+
+/-- The scaled quantity `t⁻¹ · Re(1 - exp(t·z))` converges to `Re(-z)` as `t → 0`.
+This follows from `exp_first_order` composed with the continuous Re projection. -/
+private lemma tendsto_inv_mul_re_one_sub_exp (z : ℂ) :
+    Tendsto (fun t : ℝ => t⁻¹ * (1 - exp (↑t * z)).re) (𝓝[≠] 0) (𝓝 (-z).re) := by
+  -- Step 1: (exp(tz)-1)/t → z, so (1-exp(tz))/t → -z
+  have h2 : Tendsto (fun t : ℝ => (1 - exp ((↑t : ℂ) * z)) / (↑t : ℂ))
+      (𝓝[≠] 0) (𝓝 (-z)) :=
+    (exp_first_order z).neg.congr fun t => by
+      show -((exp ((↑t : ℂ) * z) - 1) / (↑t : ℂ)) = _; ring
+  -- Step 2: Take Re (continuous), get Re((1-exp(tz))/t) → Re(-z)
+  have h3 := (Complex.continuous_re.tendsto _).comp h2
+  -- Step 3: Re(w/↑t) = t⁻¹ · Re(w) for real t
+  exact h3.congr fun t => by
+    simp only [Function.comp_def]
+    by_cases ht : t = 0
+    · simp [ht]
+    · rw [div_eq_mul_inv, ← Complex.ofReal_inv, mul_comm,
+        Complex.re_ofReal_mul]
+
+/-- For each `t > 0`, the scaled second moment is bounded by a multiple of
+`t⁻¹ · Re(1 - exp(tψ(1)))`. Uses the charFun identity and the cos lower bound. -/
+private lemma second_moment_le_scaled_re (t : {t : ℝ // 0 < t}) :
+    2 / Real.pi ^ 2 * (t.val⁻¹ * ∫ x in smallSet, x ^ 2 ∂(S.measure t : Measure ℝ)) ≤
+      t.val⁻¹ * (1 - exp (↑t.val * S.exponent 1)).re := by
+  -- charFun(μ_t)(1) = exp(t·ψ(1))
+  have hcf : charFun (S.measure t : Measure ℝ) 1 = exp (↑t.val * S.exponent 1) := by
+    rw [show charFun (S.measure t : Measure ℝ) 1 =
+      MeasureTheory.ProbabilityMeasure.characteristicFun (S.measure t) 1 from rfl]
+    exact S.charFun_eq t 1
+  -- Re(1 - charFun(μ_t)(1)) = ∫ (1-cos x) dμ_t
+  have hre : (1 - exp (↑t.val * S.exponent 1)).re =
+      ∫ x, (1 - Real.cos (1 * x)) ∂(S.measure t : Measure ℝ) := by
+    rw [← hcf]; exact re_one_sub_charFun_eq_integral 1
+  rw [hre]; simp only [one_mul]
+  -- Goal: 2/π² * (t⁻¹ * ∫_smallSet x²) ≤ t⁻¹ * ∫ (1 - cos x)
+  rw [show 2 / Real.pi ^ 2 * (t.val⁻¹ * ∫ x in smallSet, x ^ 2 ∂(S.measure t : Measure ℝ)) =
+    t.val⁻¹ * (2 / Real.pi ^ 2 * ∫ x in smallSet, x ^ 2 ∂(S.measure t : Measure ℝ)) from by ring]
+  apply mul_le_mul_of_nonneg_left _ (le_of_lt (inv_pos.mpr t.prop))
+  -- Goal: 2/π² * ∫_smallSet x² ≤ ∫ (1 - cos x)
+  have hpi_bound : ∀ x : ℝ, x ∈ smallSet → 2 / Real.pi ^ 2 * x ^ 2 ≤ 1 - Real.cos x := by
+    intro x hx
+    exact one_sub_cos_ge_mul_sq (le_of_lt (lt_of_lt_of_le (mem_smallSet.mp hx)
+      (le_trans (by norm_num : (1 : ℝ) ≤ 2) Real.two_le_pi)))
+  have hint_sq : IntegrableOn (fun x => 2 / Real.pi ^ 2 * x ^ 2) smallSet
+      (S.measure t : Measure ℝ) :=
+    Integrable.of_bound
+      ((continuous_const.mul (continuous_pow 2)).aestronglyMeasurable)
+      (2 / Real.pi ^ 2)
+      (by filter_upwards [ae_restrict_mem measurableSet_smallSet] with x hx
+          have habs : |x| < 1 := mem_smallSet.mp hx
+          have hx_sq : x ^ 2 ≤ 1 := by
+            nlinarith [sq_abs x, mul_le_of_le_one_right (abs_nonneg x) habs.le]
+          rw [Real.norm_eq_abs, abs_of_nonneg (mul_nonneg (by positivity) (sq_nonneg x))]
+          calc 2 / Real.pi ^ 2 * x ^ 2
+              ≤ 2 / Real.pi ^ 2 * 1 := mul_le_mul_of_nonneg_left hx_sq (by positivity)
+            _ = 2 / Real.pi ^ 2 := mul_one _)
+  have hint_cos : IntegrableOn (fun x => 1 - Real.cos x) smallSet
+      (S.measure t : Measure ℝ) :=
+    (Integrable.of_bound
+      ((continuous_const.sub Real.continuous_cos).aestronglyMeasurable)
+      2 (ae_of_all _ fun x => by
+        simp only [Real.norm_eq_abs, abs_of_nonneg (sub_nonneg.mpr (Real.cos_le_one _))]
+        linarith [Real.neg_one_le_cos x])).integrableOn
+  calc 2 / Real.pi ^ 2 * ∫ x in smallSet, x ^ 2 ∂(S.measure t : Measure ℝ)
+      = ∫ x in smallSet, 2 / Real.pi ^ 2 * x ^ 2 ∂(S.measure t : Measure ℝ) :=
+        (integral_const_mul _ _).symm
+    _ ≤ ∫ x in smallSet, (1 - Real.cos x) ∂(S.measure t : Measure ℝ) :=
+        setIntegral_mono_on hint_sq hint_cos measurableSet_smallSet hpi_bound
+    _ ≤ ∫ x, (1 - Real.cos x) ∂(S.measure t : Measure ℝ) :=
+        setIntegral_le_integral
+          (Integrable.of_bound
+            ((continuous_const.sub Real.continuous_cos).aestronglyMeasurable)
+            2 (ae_of_all _ fun x => by
+              simp only [Real.norm_eq_abs, abs_of_nonneg (sub_nonneg.mpr (Real.cos_le_one _))]
+              linarith [Real.neg_one_le_cos x]))
+          (ae_of_all _ fun x => sub_nonneg.mpr (Real.cos_le_one _))
+
+theorem scaledMeasure_small_second_moment_bounded :
+    ∃ C : ℝ, 0 < C ∧ ∀ᶠ (t : {t : ℝ // 0 < t}) in comap Subtype.val (𝓝[>] (0 : ℝ)),
+      t.val⁻¹ * ∫ x in smallSet, x ^ 2 ∂(S.measure t : Measure ℝ) ≤ C := by
+  set L := (-(S.exponent 1)).re
+  -- t⁻¹ * Re(1 - exp(tψ(1))) → L as t → 0+
+  have htend : Tendsto (fun (t : ℝ) => t⁻¹ * (1 - exp ((t : ℂ) * S.exponent 1)).re)
+      (𝓝[>] (0 : ℝ)) (𝓝 L) :=
+    (tendsto_inv_mul_re_one_sub_exp (S.exponent 1)).mono_left
+      (nhdsWithin_mono (0 : ℝ) fun _ hx => ne_of_gt hx)
+  -- Eventually ≤ |L| + 1
+  have hevt : ∀ᶠ (r : ℝ) in 𝓝[>] (0 : ℝ),
+      r⁻¹ * (1 - exp ((r : ℂ) * S.exponent 1)).re ≤ |L| + 1 :=
+    (htend.eventually (Iio_mem_nhds (by linarith [le_abs_self L]))).mono
+      fun _ h => le_of_lt h
+  refine ⟨Real.pi ^ 2 / 2 * (|L| + 1), by positivity, ?_⟩
+  exact (hevt.comap Subtype.val).mono fun t ht => by
+    -- ht : t.val⁻¹ * Re(1 - exp(t.val·ψ(1))) ≤ |L| + 1
+    have hle := le_trans (second_moment_le_scaled_re S t) ht
+    -- hle : 2/π² * (t⁻¹ * ∫ x²) ≤ |L| + 1
+    -- Multiply by π²/2 ≥ 0 and cancel
+    have hfactor := mul_le_mul_of_nonneg_left hle
+      (show (0 : ℝ) ≤ Real.pi ^ 2 / 2 from by positivity)
+    rw [← mul_assoc, show Real.pi ^ 2 / 2 * (2 / Real.pi ^ 2) = 1 from by
+      field_simp, one_mul] at hfactor
+    exact hfactor
+
+/-- The scaled second moment on `smallSet` is eventually bounded along **any** positive-real
+sequence tending to `0`. Direct consequence of `scaledMeasure_small_second_moment_bounded`,
+pulled back along the subtype-valued sequence. -/
+theorem scaled_second_moment_bounded_along_seq
+    {t_seq : ℕ → {t : ℝ // 0 < t}} (ht : Tendsto (fun n => (t_seq n).val) atTop (𝓝 0)) :
+    ∃ C : ℝ, 0 < C ∧ ∀ᶠ n in atTop,
+      (t_seq n).val⁻¹ * ∫ x in smallSet, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ) ≤ C := by
+  obtain ⟨C, hC_pos, hC⟩ := S.scaledMeasure_small_second_moment_bounded
+  refine ⟨C, hC_pos, ?_⟩
+  -- Pull back the eventually statement along the sequence t_seq.
+  have htseq_filter : Tendsto t_seq atTop (Filter.comap Subtype.val (𝓝[>] (0 : ℝ))) := by
+    rw [Filter.tendsto_comap_iff]
+    refine tendsto_nhdsWithin_iff.mpr ⟨ht, ?_⟩
+    exact Filter.Eventually.of_forall (fun n => (t_seq n).prop)
+  exact htseq_filter.eventually hC
+
+/-! ### Phase 5: Drift extraction (first moment limit + drift contribution)
+
+**5.1 — Drift limit:** The scaled first moment on `{|x| < 1}` converges along `t_n → 0`,
+defining the drift `b`. This follows by subtracting the large-jump, quadratic, and remainder
+contributions from the total limit `ψ(ξ)`.
+
+**5.2 — Drift contribution:** The linear term `∫ (x · ξ · I) dμ_t` factors as
+`ξ · I · ∫ x dμ_t`, so after scaling by `1/t` and taking the limit, contributes `b · ξ · I`
+to the decomposition. -/
+
+/-- `x²` is integrable on `smallSet` against any finite measure (bounded by `1` there). -/
+private lemma integrableOn_sq_smallSet (μ : Measure ℝ) [IsFiniteMeasure μ] :
+    IntegrableOn (fun x => x ^ 2) smallSet μ := by
+  refine IntegrableOn.of_bound (measure_lt_top _ _) ?_ 1 ?_
+  · exact ((continuous_pow 2).measurable.aemeasurable.aestronglyMeasurable).restrict
+  · exact (ae_restrict_mem measurableSet_smallSet).mono (fun x hx => by
+      have hxlt : |x| < 1 := mem_smallSet.mp hx
+      simp only [Real.norm_eq_abs]
+      have h2 : x ^ 2 < 1 := by
+        have h3 : |x| ^ 2 < 1 := pow_lt_one₀ (abs_nonneg x) hxlt two_ne_zero
+        rwa [sq_abs] at h3
+      rw [abs_of_nonneg (sq_nonneg x)]; linarith)
+
+/-! ### Canonical (tilted) scaled measures
+
+`min(1, x²) · (t⁻¹ μ_t)` has uniformly bounded mass with NO small-jump hypothesis:
+the tilt kills the small-jump blow-up (second-moment bound) while the tail carries
+the large-jump mass bound. Its weak limit is Khintchine's canonical measure. -/
+
+/-- The scaled measure `t⁻¹ · μ_t` tilted by the density `min 1 x²`. -/
+noncomputable def tiltedScaledMeasure (t : {t : ℝ // 0 < t}) : Measure ℝ :=
+  (S.scaledMeasure t).withDensity (fun x => ENNReal.ofReal (min 1 (x ^ 2)))
+
+/-- A real bound on the scaled mass `t⁻¹ · μ_t(A)` lifts to an `ℝ≥0∞` bound on
+`scaledMeasure t A`. -/
+private lemma scaledMeasure_apply_le_ofReal (t : {t : ℝ // 0 < t}) (A : Set ℝ) (c : ℝ)
+    (h : t.val⁻¹ * ((S.measure t : Measure ℝ) A).toReal ≤ c) :
+    S.scaledMeasure t A ≤ ENNReal.ofReal c := by
+  rw [S.scaledMeasure_apply,
+    show (S.measure t : Measure ℝ) A = ENNReal.ofReal ((S.measure t : Measure ℝ) A).toReal from
+      (ENNReal.ofReal_toReal (measure_ne_top _ _)).symm,
+    ← ENNReal.ofReal_mul (le_of_lt (inv_pos.mpr t.prop))]
+  exact ENNReal.ofReal_le_ofReal h
+
+/-- Integrals against the tilted measure are tilt-weighted integrals against `μ_t`. -/
+lemma tiltedScaledMeasure_integral_eq (t : {t : ℝ // 0 < t}) (g : ℝ → ℝ) :
+    ∫ x, g x ∂(S.tiltedScaledMeasure t) =
+      t.val⁻¹ * ∫ x, g x * min 1 (x ^ 2) ∂(S.measure t : Measure ℝ) := by
+  have hmeas : Measurable (fun x : ℝ => ENNReal.ofReal (min 1 (x ^ 2))) :=
+    ENNReal.measurable_ofReal.comp (measurable_const.min (continuous_pow 2).measurable)
+  have hpt : ∀ x : ℝ,
+      (ENNReal.ofReal (min 1 (x ^ 2))).toReal • g x = g x * min 1 (x ^ 2) := by
+    intro x
+    rw [ENNReal.toReal_ofReal (le_min zero_le_one (sq_nonneg x)), smul_eq_mul, mul_comm]
+  rw [show S.tiltedScaledMeasure t = (S.scaledMeasure t).withDensity
+        (fun x => ENNReal.ofReal (min 1 (x ^ 2))) from rfl,
+    integral_withDensity_eq_integral_toReal_smul hmeas
+      (Eventually.of_forall fun _ => ENNReal.ofReal_lt_top),
+    integral_congr_ae (Eventually.of_forall hpt),
+    S.integral_scaledMeasure, smul_eq_mul]
+
+/-- Eventual uniform total-mass bound on the tilted measures as `t → 0⁺`. -/
+lemma tiltedScaledMeasure_mass_eventually_le :
+    ∃ C : ℝ≥0, 0 < C ∧ ∀ᶠ (t : {t : ℝ // 0 < t}) in comap Subtype.val (𝓝[>] (0 : ℝ)),
+      S.tiltedScaledMeasure t Set.univ ≤ (C : ℝ≥0∞) := by
+  obtain ⟨C₂, hC₂_pos, hC₂⟩ := S.scaledMeasure_small_second_moment_bounded
+  obtain ⟨C_large, hC_large⟩ := S.scaled_mass_bound_real 1 one_pos
+  refine ⟨C₂.toNNReal + C_large + 1, zero_lt_one.trans_le le_add_self, ?_⟩
+  filter_upwards [hC₂] with t ht
+  -- Bound on the small-jump part: tilt = x², controlled by the second moment.
+  have hA : ∫⁻ x in smallSet, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+      ≤ ENNReal.ofReal C₂ := by
+    have hfg : Set.EqOn (fun x : ℝ => ENNReal.ofReal (min 1 (x ^ 2)))
+        (fun x => ENNReal.ofReal (x ^ 2)) smallSet := by
+      intro x hx
+      have hx2 : x ^ 2 ≤ 1 := by nlinarith [sq_abs x, abs_nonneg x, mem_smallSet.mp hx]
+      simp [min_eq_right hx2]
+    rw [setLIntegral_congr_fun measurableSet_smallSet hfg]
+    simp only [scaledMeasure]
+    rw [Measure.restrict_smul, lintegral_smul_measure, smul_eq_mul,
+        ← ofReal_integral_eq_lintegral_ofReal (integrableOn_sq_smallSet (S.measure t : Measure ℝ))
+          (ae_of_all _ fun x => sq_nonneg x),
+        ← ENNReal.ofReal_mul (le_of_lt (inv_pos.mpr t.prop))]
+    exact ENNReal.ofReal_le_ofReal ht
+  -- Bound on the large-jump part: tilt ≤ 1, controlled by the large-jump mass bound.
+  have hB : ∫⁻ x in smallSetᶜ, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+      ≤ ENNReal.ofReal (C_large : ℝ) := by
+    have hle1 : ∫⁻ x in smallSetᶜ, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+        ≤ S.scaledMeasure t smallSetᶜ := by
+      calc ∫⁻ x in smallSetᶜ, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+          ≤ ∫⁻ _ in smallSetᶜ, 1 ∂(S.scaledMeasure t) :=
+            lintegral_mono (fun x => ENNReal.ofReal_le_one.mpr (min_le_left _ _))
+        _ = S.scaledMeasure t smallSetᶜ := setLIntegral_one _
+    refine hle1.trans ?_
+    rw [smallSet_eq_compl_largeSet, compl_compl]
+    exact S.scaledMeasure_apply_le_ofReal t (largeSet 1) (C_large : ℝ) (hC_large t)
+  -- Assemble: total mass = small + large parts.
+  have hmass : S.tiltedScaledMeasure t Set.univ
+      = ∫⁻ x, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t) := by
+    rw [show S.tiltedScaledMeasure t = (S.scaledMeasure t).withDensity
+          (fun x => ENNReal.ofReal (min 1 (x ^ 2))) from rfl,
+      withDensity_apply _ MeasurableSet.univ]
+    exact setLIntegral_univ _
+  have hsplit : ∫⁻ x, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+      = ∫⁻ x in smallSet, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+        + ∫⁻ x in smallSetᶜ, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t) :=
+    (lintegral_add_compl _ measurableSet_smallSet).symm
+  rw [hmass, hsplit]
+  calc ∫⁻ x in smallSet, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+        + ∫⁻ x in smallSetᶜ, ENNReal.ofReal (min 1 (x ^ 2)) ∂(S.scaledMeasure t)
+      ≤ ENNReal.ofReal C₂ + ENNReal.ofReal (C_large : ℝ) := add_le_add hA hB
+    _ ≤ ((C₂.toNNReal + C_large + 1 : ℝ≥0) : ℝ≥0∞) := by
+        have e1 : ENNReal.ofReal C₂ = (↑C₂.toNNReal : ℝ≥0∞) := rfl
+        have e2 : ENNReal.ofReal (C_large : ℝ) = (↑C_large : ℝ≥0∞) := ENNReal.ofReal_coe_nnreal
+        rw [e1, e2, ENNReal.coe_add, ENNReal.coe_add, ENNReal.coe_one]
+        exact le_self_add
+
+/-- Uniform tail bound: for every `ε > 0` some radius `R ≥ 1` has
+`tiltedScaledMeasure t (largeSet R) ≤ ε` for all `t`. -/
+lemma tiltedScaledMeasure_largeSet_le (ε : ℝ) (hε : 0 < ε) :
+    ∃ R : ℝ, 1 ≤ R ∧ ∀ t : {t : ℝ // 0 < t},
+      S.tiltedScaledMeasure t (largeSet R) ≤ ENNReal.ofReal ε := by
+  obtain ⟨R, hR1, hR⟩ := S.scaled_largeSet_mass_le_of_large_radius ε hε
+  refine ⟨R, hR1, fun t => ?_⟩
+  -- On `largeSet R` the tilt equals `1`, so the tilted mass is the plain scaled mass.
+  have hfg : Set.EqOn (fun x : ℝ => ENNReal.ofReal (min 1 (x ^ 2)))
+      (fun _ => (1 : ℝ≥0∞)) (largeSet R) := by
+    intro x hx
+    have hx1 : (1 : ℝ) ≤ x ^ 2 := by
+      nlinarith [sq_abs x, abs_nonneg x, hR1, mem_largeSet.mp hx]
+    simp [min_eq_left hx1]
+  have heq : S.tiltedScaledMeasure t (largeSet R) = S.scaledMeasure t (largeSet R) := by
+    rw [show S.tiltedScaledMeasure t = (S.scaledMeasure t).withDensity
+          (fun x => ENNReal.ofReal (min 1 (x ^ 2))) from rfl,
+      withDensity_apply _ (measurableSet_largeSet R),
+      setLIntegral_congr_fun (measurableSet_largeSet R) hfg, setLIntegral_one]
+  rw [heq]
+  exact S.scaledMeasure_apply_le_ofReal t (largeSet R) ε (hR t)
+
+/-- **Extraction of the canonical measure.** Along some sequence `t_n → 0⁺`, the tilted
+scaled measures converge weakly to a finite measure `η` on `ℝ`, tested against every real
+BCF vanishing at `0`. No small-jump hypothesis: uniform mass comes from
+`tiltedScaledMeasure_mass_eventually_le` and tightness from `tiltedScaledMeasure_largeSet_le`.
+
+The test class is BCFs with `f 0 = 0`; this suffices for the downstream identification and
+lets the Dirac top-up used to normalise the measures drop out of every tested integral (its
+contribution is `f 0 = 0`), avoiding all deficit bookkeeping. -/
+theorem exists_canonicalMeasure :
+    ∃ (η : Measure ℝ) (_ : IsFiniteMeasure η) (t_seq : ℕ → {t : ℝ // 0 < t}),
+      Tendsto (fun n => (t_seq n).val) atTop (𝓝 0) ∧
+      ∀ (f : BoundedContinuousFunction ℝ ℝ), f 0 = 0 →
+        Tendsto (fun n => ∫ x, f x ∂(S.tiltedScaledMeasure (t_seq n)))
+          atTop (𝓝 (∫ x, f x ∂η)) := by
+  -- Step 1: Eventual uniform mass bound; extract an index `n₀` past which it holds.
+  obtain ⟨Cmass, _hCmass_pos, hCmass_ev⟩ := S.tiltedScaledMeasure_mass_eventually_le
+  -- Base sequence `s n = 1/(n+2)` tending to `0⁺`.
+  set s : ℕ → {t : ℝ // 0 < t} := fun n => ⟨1/(n+2), by positivity⟩ with hs_def
+  have hs_tendsto : Tendsto (fun n => (s n).val) atTop (𝓝 0) := by
+    have : Tendsto (fun n : ℕ => 1 / ((n : ℝ) + 1)) atTop (𝓝 0) :=
+      tendsto_one_div_add_atTop_nhds_zero_nat
+    have h2 := this.comp (tendsto_add_atTop_nat 1)
+    refine h2.congr (fun n => ?_)
+    simp [s, Nat.cast_add, Nat.cast_one]
+    ring
+  have hs_filter : Tendsto s atTop (Filter.comap Subtype.val (𝓝[>] (0 : ℝ))) := by
+    rw [Filter.tendsto_comap_iff]
+    refine tendsto_nhdsWithin_iff.mpr ⟨hs_tendsto, ?_⟩
+    exact Filter.Eventually.of_forall (fun n => (s n).prop)
+  have hmass_ev_n : ∀ᶠ n in atTop, S.tiltedScaledMeasure (s n) Set.univ ≤ (Cmass : ℝ≥0∞) :=
+    hs_filter.eventually hCmass_ev
+  obtain ⟨n₀, hn₀⟩ := eventually_atTop.mp hmass_ev_n
+  -- Shifted sequence `t_seq n = s (n + n₀)`, along which the mass bound holds for all `n`.
+  let t_seq : ℕ → {t : ℝ // 0 < t} := fun n => s (n + n₀)
+  have ht_seq_tendsto : Tendsto (fun n => (t_seq n).val) atTop (𝓝 0) :=
+    hs_tendsto.comp (tendsto_add_atTop_nat n₀)
+  -- Step 2: The tilted measures and their uniform total-mass bound.
+  set ν : ℕ → Measure ℝ := fun n => S.tiltedScaledMeasure (t_seq n) with hν_def
+  have hmass : ∀ n, ν n Set.univ ≤ (Cmass : ℝ≥0∞) :=
+    fun n => hn₀ (n + n₀) (Nat.le_add_left n₀ n)
+  have hν_finite : ∀ n, IsFiniteMeasure (ν n) :=
+    fun n => ⟨lt_of_le_of_lt (hmass n) ENNReal.coe_lt_top⟩
+  set Mass : ℝ := (Cmass : ℝ) + 1 with hMass_def
+  have hMass_pos : (0 : ℝ) < Mass := by rw [hMass_def]; positivity
+  have hMass_ge_one : (1 : ℝ) ≤ Mass := by
+    rw [hMass_def]; exact le_add_of_nonneg_left (NNReal.coe_nonneg Cmass)
+  have hν_mass_le_Mass : ∀ n, ν n Set.univ ≤ ENNReal.ofReal Mass := fun n => by
+    calc ν n Set.univ ≤ (Cmass : ℝ≥0∞) := hmass n
+      _ = ENNReal.ofReal (Cmass : ℝ) := ENNReal.ofReal_coe_nnreal.symm
+      _ ≤ ENNReal.ofReal Mass := ENNReal.ofReal_le_ofReal (by rw [hMass_def]; linarith)
+  -- Step 3: Top-up to probability measures via a Dirac at `0`.
+  set p_meas : ℕ → Measure ℝ := fun n =>
+    (ENNReal.ofReal Mass⁻¹) • ν n +
+      (ENNReal.ofReal Mass⁻¹ * (ENNReal.ofReal Mass - ν n Set.univ)) • Measure.dirac 0
+    with hp_meas_def
+  have hp_prob : ∀ n, IsProbabilityMeasure (p_meas n) := by
+    intro n
+    refine ⟨?_⟩
+    have hM_inv_nn : (0 : ℝ) ≤ Mass⁻¹ := le_of_lt (inv_pos.mpr hMass_pos)
+    have h_sum_eq : ν n Set.univ + (ENNReal.ofReal Mass - ν n Set.univ) =
+        ENNReal.ofReal Mass :=
+      add_tsub_cancel_of_le (hν_mass_le_Mass n)
+    calc p_meas n Set.univ
+        = (ENNReal.ofReal Mass⁻¹) * ν n Set.univ +
+            (ENNReal.ofReal Mass⁻¹ * (ENNReal.ofReal Mass - ν n Set.univ)) *
+              Measure.dirac (0 : ℝ) Set.univ := by
+          simp only [hp_meas_def, Measure.add_apply, Measure.smul_apply, smul_eq_mul]
+      _ = (ENNReal.ofReal Mass⁻¹) * ν n Set.univ +
+            (ENNReal.ofReal Mass⁻¹ * (ENNReal.ofReal Mass - ν n Set.univ)) * 1 := by
+          rw [show Measure.dirac (0 : ℝ) Set.univ = 1 from by
+            rw [Measure.dirac_apply' _ MeasurableSet.univ]
+            simp]
+      _ = ENNReal.ofReal Mass⁻¹ *
+            (ν n Set.univ + (ENNReal.ofReal Mass - ν n Set.univ)) := by
+          rw [mul_one]; ring
+      _ = ENNReal.ofReal Mass⁻¹ * ENNReal.ofReal Mass := by rw [h_sum_eq]
+      _ = ENNReal.ofReal ((Mass : ℝ)⁻¹ * (Mass : ℝ)) := (ENNReal.ofReal_mul hM_inv_nn).symm
+      _ = ENNReal.ofReal 1 := by rw [inv_mul_cancel₀ hMass_pos.ne']
+      _ = 1 := ENNReal.ofReal_one
+  set P : ℕ → ProbabilityMeasure ℝ := fun n => ⟨p_meas n, hp_prob n⟩ with hP_def
+  -- Step 4: Tightness of `{P n}` on `ℝ` from the uniform tail bound.
+  have h_tight : IsTightMeasureSet {((μ : ProbabilityMeasure ℝ) : Measure ℝ) | μ ∈ Set.range P} := by
+    rw [isTightMeasureSet_iff_exists_isCompact_measure_compl_le]
+    intro η hη
+    by_cases hη_top : η = ⊤
+    · exact ⟨∅, isCompact_empty, fun _ _ => hη_top ▸ le_top⟩
+    set δ := η.toReal with hδ_def
+    have hδ_pos : 0 < δ := ENNReal.toReal_pos hη.ne' hη_top
+    have hδ_le : ENNReal.ofReal δ ≤ η := by rw [hδ_def, ENNReal.ofReal_toReal hη_top]
+    obtain ⟨R, hR1, hR⟩ := S.tiltedScaledMeasure_largeSet_le (δ/2) (by linarith)
+    have hR_pos : 0 < R := lt_of_lt_of_le one_pos hR1
+    refine ⟨Set.Icc (-R) R, isCompact_Icc, ?_⟩
+    intro μ' hμ'
+    obtain ⟨ν', hν'_range, hν'_eq⟩ := hμ'
+    obtain ⟨n, hPn⟩ := hν'_range
+    rw [← hν'_eq, ← hPn]
+    have hP_unfold : ((P n : ProbabilityMeasure ℝ) : Measure ℝ) = p_meas n := rfl
+    rw [hP_unfold]
+    have h0_in_K : (0 : ℝ) ∈ Set.Icc (-R) R := ⟨by linarith, by linarith⟩
+    have hdirac0 : Measure.dirac 0 (Set.Icc (-R) R)ᶜ = 0 := by
+      rw [Measure.dirac_apply' _ isClosed_Icc.measurableSet.compl, Set.indicator_apply]
+      simp [h0_in_K]
+    have hKc_sub : (Set.Icc (-R) R)ᶜ ⊆ largeSet R := by
+      intro x hx
+      simp only [Set.mem_compl_iff, Set.mem_Icc, not_and_or, not_le] at hx
+      simp only [mem_largeSet]
+      rcases hx with hx | hx
+      · have h_neg : x < 0 := lt_of_lt_of_le hx (neg_nonpos_of_nonneg hR_pos.le)
+        rw [abs_of_neg h_neg]; linarith
+      · have h_pos : 0 < x := lt_of_le_of_lt hR_pos.le hx
+        rw [abs_of_pos h_pos]; linarith
+    have hν_n_Kc : ν n (Set.Icc (-R) R)ᶜ ≤ ENNReal.ofReal (δ/2) := by
+      have h1 : ν n (Set.Icc (-R) R)ᶜ ≤ ν n (largeSet R) := measure_mono hKc_sub
+      have h2 : ν n (largeSet R) ≤ ENNReal.ofReal (δ/2) := hR (t_seq n)
+      exact h1.trans h2
+    have hp_Kc : p_meas n (Set.Icc (-R) R)ᶜ ≤ ENNReal.ofReal Mass⁻¹ * ENNReal.ofReal (δ/2) := by
+      simp only [hp_meas_def, Measure.add_apply, Measure.smul_apply, smul_eq_mul, hdirac0,
+        mul_zero, add_zero]
+      gcongr
+    have hM_inv_le_one : Mass⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; exact hMass_ge_one
+    have hM_inv_nn : (0 : ℝ) ≤ Mass⁻¹ := le_of_lt (inv_pos.mpr hMass_pos)
+    have hfinal_real : Mass⁻¹ * (δ/2) ≤ δ := by
+      calc Mass⁻¹ * (δ/2) ≤ 1 * (δ/2) :=
+            mul_le_mul_of_nonneg_right hM_inv_le_one (by linarith)
+        _ = δ/2 := one_mul _
+        _ ≤ δ := by linarith
+    have hfinal_ennreal : ENNReal.ofReal Mass⁻¹ * ENNReal.ofReal (δ/2) ≤ ENNReal.ofReal δ := by
+      rw [← ENNReal.ofReal_mul hM_inv_nn]; exact ENNReal.ofReal_le_ofReal hfinal_real
+    calc p_meas n (Set.Icc (-R) R)ᶜ
+        ≤ ENNReal.ofReal Mass⁻¹ * ENNReal.ofReal (δ/2) := hp_Kc
+      _ ≤ ENNReal.ofReal δ := hfinal_ennreal
+      _ ≤ η := hδ_le
+  -- Step 5: Prokhorov — extract a subsequential weak limit `P_inf`.
+  have h_compact : IsCompact (closure (Set.range P)) :=
+    isCompact_closure_of_isTightMeasureSet h_tight
+  have h_in_range : ∀ n, P n ∈ closure (Set.range P) :=
+    fun n => subset_closure (Set.mem_range_self n)
+  obtain ⟨P_inf, _, φ, hφ_mono, hP_tendsto⟩ := h_compact.tendsto_subseq h_in_range
+  -- Step 6: Un-normalise, `η := Mass · P_inf`. Any atom at `0` drops out under `f 0 = 0`.
+  let ν_out : Measure ℝ := (ENNReal.ofReal Mass) • (P_inf : Measure ℝ)
+  have hν_out_fin : IsFiniteMeasure ν_out := by
+    constructor
+    simp only [ν_out, Measure.smul_apply, smul_eq_mul]
+    calc ENNReal.ofReal Mass * (P_inf : Measure ℝ) Set.univ
+        ≤ ENNReal.ofReal Mass * 1 := by gcongr; exact prob_le_one
+      _ = ENNReal.ofReal Mass := by rw [mul_one]
+      _ < ⊤ := ENNReal.ofReal_lt_top
+  refine ⟨ν_out, hν_out_fin, t_seq ∘ φ, ht_seq_tendsto.comp hφ_mono.tendsto_atTop, ?_⟩
+  intro f hf0
+  have hP_int := (ProbabilityMeasure.tendsto_iff_forall_integral_tendsto.mp hP_tendsto) f
+  simp only [Function.comp_apply, P, ProbabilityMeasure.coe_mk] at hP_int
+  -- `∫ f dη = Mass · ∫ f dP_inf`.
+  have h_int_ν_out : ∫ x, f x ∂ν_out = Mass * ∫ x, f x ∂(P_inf : Measure ℝ) := by
+    show ∫ x, f x ∂((ENNReal.ofReal Mass) • (P_inf : Measure ℝ)) = Mass * _
+    rw [integral_smul_measure, ENNReal.toReal_ofReal hMass_pos.le, smul_eq_mul]
+  -- `∫ f d(p_meas n) = Mass⁻¹ · ∫ f dν n` (the Dirac at `0` contributes `f 0 = 0`).
+  have h_int_P_eq : ∀ n, ∫ x, f x ∂(p_meas n) = Mass⁻¹ * ∫ x, f x ∂(ν n) := by
+    intro n
+    haveI : IsFiniteMeasure (ν n) := hν_finite n
+    have h_integrable_ν : Integrable f (ν n) := f.integrable (ν n)
+    have h_integrable_dirac : Integrable f (Measure.dirac (0 : ℝ)) :=
+      integrable_dirac (by rw [hf0]; simp)
+    have h_int1 : Integrable f (ENNReal.ofReal Mass⁻¹ • ν n) :=
+      Integrable.smul_measure h_integrable_ν ENNReal.ofReal_ne_top
+    have hcoeff_finite : ENNReal.ofReal Mass⁻¹ * (ENNReal.ofReal Mass - ν n Set.univ) ≠ ⊤ := by
+      apply ENNReal.mul_ne_top ENNReal.ofReal_ne_top
+      exact ne_top_of_le_ne_top ENNReal.ofReal_ne_top tsub_le_self
+    have h_int2 : Integrable f ((ENNReal.ofReal Mass⁻¹ *
+        (ENNReal.ofReal Mass - ν n Set.univ)) • Measure.dirac (0 : ℝ)) :=
+      Integrable.smul_measure h_integrable_dirac hcoeff_finite
+    show ∫ x, f x ∂(((ENNReal.ofReal Mass⁻¹) • ν n) +
+        ((ENNReal.ofReal Mass⁻¹ * (ENNReal.ofReal Mass - ν n Set.univ)) •
+          Measure.dirac (0 : ℝ))) = Mass⁻¹ * _
+    rw [integral_add_measure h_int1 h_int2]
+    rw [integral_smul_measure, integral_smul_measure, integral_dirac _ _]
+    simp only [smul_eq_mul, hf0, mul_zero, add_zero]
+    rw [show (ENNReal.ofReal Mass⁻¹).toReal = Mass⁻¹ from
+      ENNReal.toReal_ofReal (le_of_lt (inv_pos.mpr hMass_pos))]
+  -- Combine: `∫ f dν (φ k) = Mass · ∫ f d(p_meas (φ k)) → Mass · ∫ f dP_inf = ∫ f dη`.
+  have h_int_ν_subseq : Tendsto (fun k => ∫ x, f x ∂(ν (φ k))) atTop
+      (𝓝 (Mass * ∫ x, f x ∂(P_inf : Measure ℝ))) := by
+    have hP_seq : Tendsto (fun k => ∫ x, f x ∂(p_meas (φ k))) atTop
+        (𝓝 (∫ x, f x ∂(P_inf : Measure ℝ))) := hP_int
+    have h_eq' : (fun k => ∫ x, f x ∂(p_meas (φ k))) =
+        (fun k => Mass⁻¹ * ∫ x, f x ∂(ν (φ k))) := funext (fun k => h_int_P_eq (φ k))
+    rw [h_eq'] at hP_seq
+    have h_mul : Tendsto (fun k => Mass * (Mass⁻¹ * ∫ x, f x ∂(ν (φ k)))) atTop
+        (𝓝 (Mass * ∫ x, f x ∂(P_inf : Measure ℝ))) := hP_seq.const_mul Mass
+    refine h_mul.congr (fun k => ?_)
+    rw [← mul_assoc, mul_inv_cancel₀ hMass_pos.ne', one_mul]
+  show Tendsto (fun k => ∫ x, f x ∂(S.tiltedScaledMeasure (t_seq (φ k)))) atTop
+    (𝓝 (∫ x, f x ∂ν_out))
+  rw [h_int_ν_out]
+  exact h_int_ν_subseq
+
+/-- The tilt density `min 1 x²` is strictly positive away from the origin. -/
+private lemma min_one_sq_pos_of_ne_zero {x : ℝ} (hx : x ≠ 0) : 0 < min 1 (x ^ 2) :=
+  lt_min one_pos (by rw [← sq_abs]; exact pow_pos (abs_pos.mpr hx) 2)
+
+/-- **Extraction of a σ-finite Lévy measure — no finiteness hypothesis.** Untilting the
+canonical measure `η` on `{0}ᶜ` yields `ν` with `∫ min(1,x²) dν = η({0}ᶜ) < ∞` by
+construction. The scaled measures `t⁻¹ μ_t` converge to `ν` against every BCF vanishing
+near `0` — the interface downstream identification lemmas consume. -/
+theorem exists_levyMeasure :
+    ∃ (ν : Measure ℝ), IsLevyMeasure ν ∧
+      ∃ (t_seq : ℕ → {t : ℝ // 0 < t}),
+        Tendsto (fun n => (t_seq n).val) atTop (𝓝 0) ∧
+        (∀ (f : BoundedContinuousFunction ℝ ℝ), (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+          Tendsto (fun n => (t_seq n).val⁻¹ *
+              ∫ x, f x ∂(S.measure (t_seq n) : Measure ℝ))
+            atTop (𝓝 (∫ x, f x ∂ν))) := by
+  -- The canonical (tilted) limit from Task 3.
+  obtain ⟨η, hη_fin, t_seq, ht_seq_tendsto, hconv⟩ := S.exists_canonicalMeasure
+  haveI : IsFiniteMeasure η := hη_fin
+  -- Measurability of the tilt density and its (pointwise) inverse.
+  have hmin_meas : Measurable (fun x : ℝ => ENNReal.ofReal (min 1 (x ^ 2))) :=
+    ENNReal.measurable_ofReal.comp (measurable_const.min (continuous_pow 2).measurable)
+  have hdens_meas : Measurable (fun x : ℝ => (ENNReal.ofReal (min 1 (x ^ 2)))⁻¹) :=
+    hmin_meas.inv
+  -- **The σ-finite Lévy measure:** untilt `η` on `{0}ᶜ`.
+  let ν : Measure ℝ :=
+    (η.restrict {0}ᶜ).withDensity (fun x => (ENNReal.ofReal (min 1 (x ^ 2)))⁻¹)
+  -- `ν {0} = 0`: `{0}` is null for `η.restrict {0}ᶜ`.
+  have hbase0 : (η.restrict {0}ᶜ) {0} = 0 := by
+    rw [Measure.restrict_apply (measurableSet_singleton 0)]
+    simp
+  have hν_zero : ν {0} = 0 := by
+    simp only [ν]
+    rw [withDensity_apply _ (measurableSet_singleton 0)]
+    exact setLIntegral_measure_zero _ _ hbase0
+  -- a.e.-on-`{0}ᶜ` the density is finite (needed for the untilt integral lemma).
+  have hdens_ae_lt : ∀ᵐ x ∂(η.restrict {0}ᶜ), (ENNReal.ofReal (min 1 (x ^ 2)))⁻¹ < ⊤ := by
+    filter_upwards [ae_restrict_mem (measurableSet_singleton 0).compl] with x hx
+    have hx0 : x ≠ 0 := by simpa using hx
+    have hpos : 0 < min 1 (x ^ 2) :=
+      min_one_sq_pos_of_ne_zero hx0
+    rw [ENNReal.inv_lt_top]
+    exact ENNReal.ofReal_pos.mpr hpos
+  -- `∫⁻ min(1,x²) dν = η {0}ᶜ < ∞`: the tilt and untilt cancel a.e. on `{0}ᶜ`.
+  have hprod_ae :
+      (fun x => (ENNReal.ofReal (min 1 (x ^ 2)))⁻¹ * ENNReal.ofReal (min 1 (x ^ 2)))
+        =ᵐ[η.restrict {0}ᶜ] (fun _ => 1) := by
+    filter_upwards [ae_restrict_mem (measurableSet_singleton 0).compl] with x hx
+    have hx0 : x ≠ 0 := by simpa using hx
+    have hpos : 0 < min 1 (x ^ 2) :=
+      min_one_sq_pos_of_ne_zero hx0
+    exact ENNReal.inv_mul_cancel (ENNReal.ofReal_pos.mpr hpos).ne' ENNReal.ofReal_ne_top
+  have hν_int : ∫⁻ x, ENNReal.ofReal (min 1 (x ^ 2)) ∂ν < ⊤ := by
+    simp only [ν]
+    rw [lintegral_withDensity_eq_lintegral_mul _ hdens_meas hmin_meas]
+    simp only [Pi.mul_apply]
+    rw [lintegral_congr_ae hprod_ae, lintegral_one]
+    calc (η.restrict {0}ᶜ) Set.univ = η {0}ᶜ := Measure.restrict_apply_univ _
+      _ ≤ η Set.univ := measure_mono (Set.subset_univ _)
+      _ < ⊤ := measure_lt_top η Set.univ
+  have hν_levy : IsLevyMeasure ν := ⟨hν_zero, hν_int⟩
+  -- Transfer of convergence against a BCF vanishing near `0`.
+  refine ⟨ν, hν_levy, t_seq, ht_seq_tendsto, ?_⟩
+  intro f hf
+  obtain ⟨r, hr_pos, hf_zero⟩ := hf
+  -- The transfer function `g = f / min(1,x²)`, packaged as a BCF `G`.
+  have hcont : Continuous (fun x : ℝ => f x / min 1 (x ^ 2)) := by
+    rw [continuous_iff_continuousAt]
+    intro x₀
+    by_cases hx₀ : |x₀| < r
+    · have hmem : {y : ℝ | |y| < r} ∈ 𝓝 x₀ :=
+        (isOpen_lt continuous_abs continuous_const).mem_nhds hx₀
+      have heq : (fun _ : ℝ => (0 : ℝ)) =ᶠ[𝓝 x₀] (fun x => f x / min 1 (x ^ 2)) := by
+        filter_upwards [hmem] with y hy
+        rw [hf_zero y hy, zero_div]
+      exact continuousAt_const.congr heq
+    · push_neg at hx₀
+      have hx0_ne : x₀ ≠ 0 := by rintro rfl; rw [abs_zero] at hx₀; linarith
+      have hden_ne : min 1 (x₀ ^ 2) ≠ 0 :=
+        ne_of_gt (min_one_sq_pos_of_ne_zero hx0_ne)
+      exact f.continuous.continuousAt.div
+        ((continuous_const.min (continuous_pow 2)).continuousAt) hden_ne
+  have hbound : ∀ x, ‖f x / min 1 (x ^ 2)‖ ≤ ‖f‖ / min 1 (r ^ 2) := by
+    intro x
+    rw [Real.norm_eq_abs]
+    have hden_r_pos : 0 < min 1 (r ^ 2) := lt_min one_pos (by positivity)
+    by_cases hx : |x| < r
+    · rw [hf_zero x hx, zero_div, abs_zero]; positivity
+    · push_neg at hx
+      have hxr2 : r ^ 2 ≤ x ^ 2 := by nlinarith [sq_abs x, hx, hr_pos.le, abs_nonneg x]
+      have hmono : min 1 (r ^ 2) ≤ min 1 (x ^ 2) := min_le_min le_rfl hxr2
+      have hden_x_pos : 0 < min 1 (x ^ 2) := lt_of_lt_of_le hden_r_pos hmono
+      have hfx : |f x| ≤ ‖f‖ := by rw [← Real.norm_eq_abs]; exact f.norm_coe_le_norm x
+      rw [abs_div, abs_of_pos hden_x_pos, div_le_div_iff₀ hden_x_pos hden_r_pos]
+      exact mul_le_mul hfx hmono hden_r_pos.le (norm_nonneg f)
+  let G : BoundedContinuousFunction ℝ ℝ :=
+    BoundedContinuousFunction.ofNormedAddCommGroup (fun x => f x / min 1 (x ^ 2)) hcont
+      (‖f‖ / min 1 (r ^ 2)) hbound
+  have hG_apply : ∀ x, G x = f x / min 1 (x ^ 2) := fun _ => rfl
+  have hG0 : G 0 = 0 := by
+    rw [hG_apply, hf_zero 0 (by simpa using hr_pos), zero_div]
+  have hfg_pt : ∀ x, (f x : ℝ) = G x * min 1 (x ^ 2) := by
+    intro x
+    rw [hG_apply x]
+    by_cases hx : |x| < r
+    · rw [hf_zero x hx, zero_div, zero_mul]
+    · push_neg at hx
+      have hx0 : x ≠ 0 := by rintro rfl; rw [abs_zero] at hx; linarith
+      have hden_ne : min 1 (x ^ 2) ≠ 0 :=
+        ne_of_gt (min_one_sq_pos_of_ne_zero hx0)
+      rw [div_mul_cancel₀ _ hden_ne]
+  -- LHS: `t⁻¹ ∫ f dμ_t = ∫ G d(tiltedScaledMeasure t)`.
+  have hLHS : ∀ n, (t_seq n).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq n) : Measure ℝ)
+      = ∫ x, G x ∂(S.tiltedScaledMeasure (t_seq n)) := by
+    intro n
+    rw [S.tiltedScaledMeasure_integral_eq (t_seq n) (fun x => G x)]
+    congr 1
+    exact integral_congr_ae (ae_of_all _ hfg_pt)
+  -- RHS: `∫ f dν = ∫ G dη` — untilt on `{0}ᶜ`, then drop the atom (`G 0 = 0`).
+  have hstep2 : ∫ x, f x ∂ν = ∫ x, G x ∂(η.restrict {0}ᶜ) := by
+    simp only [ν]
+    rw [integral_withDensity_eq_integral_toReal_smul hdens_meas hdens_ae_lt]
+    refine integral_congr_ae ?_
+    filter_upwards [ae_restrict_mem (measurableSet_singleton 0).compl] with x hx
+    have hx0 : x ≠ 0 := by simpa using hx
+    have hpos : 0 < min 1 (x ^ 2) :=
+      min_one_sq_pos_of_ne_zero hx0
+    rw [smul_eq_mul, hG_apply x, ENNReal.toReal_inv, ENNReal.toReal_ofReal hpos.le,
+        div_eq_inv_mul]
+  have hstep1 : ∫ x, G x ∂η = ∫ x, G x ∂(η.restrict {0}ᶜ) := by
+    rw [← integral_add_compl (measurableSet_singleton 0) (G.integrable η),
+        integral_singleton, hG0, smul_zero, zero_add]
+  have hRHS : ∫ x, f x ∂ν = ∫ x, G x ∂η := hstep2.trans hstep1.symm
+  rw [hRHS]
+  simp_rw [hLHS]
+  exact hconv G hG0
+
+/-- The scaled first moment on `{|x| < r}` is eventually bounded along `t_n → 0`, so
+Bolzano-Weierstrass gives a convergent subsequence.  Boundedness follows from the sin
+decomposition: `t⁻¹∫_{|x|<r} x = Im((charFun-1)/t) − t⁻¹∫_{largeSet r} sin + t⁻¹∫_{|x|<r}(x-sin)`,
+where the three terms are respectively eventually bounded (via charFun limit), globally bounded
+(via scaled_mass_bound_real at radius r), and eventually bounded (via the x²/2 bound + the
+second-moment dominated through `{|x|<r} ⊆ smallSet`). -/
+lemma drift_limit
+    {r : ℝ} (hr : 0 < r) (hr1 : r ≤ 1)
+    {t_seq : ℕ → {t : ℝ // 0 < t}} (ht : Tendsto (fun n => (t_seq n).val) atTop (𝓝 0)) :
+    ∃ b : ℝ, ∃ φ : ℕ → ℕ, StrictMono φ ∧
+    Tendsto (fun n =>
+      (t_seq (φ n)).val⁻¹ * ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq (φ n)) : Measure ℝ))
+    atTop (𝓝 b) := by
+  -- The radius-`r` open ball: measurability and complement identity.
+  have hmeas_ball : MeasurableSet {x : ℝ | |x| < r} :=
+    measurableSet_lt continuous_abs.measurable measurable_const
+  have hball_compl : {x : ℝ | |x| < r} = (largeSet r)ᶜ := by
+    ext x; simp only [largeSet, Set.mem_setOf_eq, Set.mem_compl_iff, not_le]
+  have hsubset : {x : ℝ | |x| < r} ⊆ smallSet :=
+    fun x hx => mem_smallSet.mpr (lt_of_lt_of_le hx hr1)
+  -- Pull `t_seq` back through the comap filter used by `charFun_scaled_limit`.
+  have htseq_filter : Tendsto t_seq atTop (Filter.comap Subtype.val (𝓝[>] (0 : ℝ))) := by
+    rw [Filter.tendsto_comap_iff]
+    exact tendsto_nhdsWithin_iff.mpr ⟨ht, Filter.Eventually.of_forall (fun n => (t_seq n).prop)⟩
+  -- Convergence of the charFun quotient Im part at ξ = 1.
+  have hcf_tend : Tendsto
+      (fun n => ((S.measure (t_seq n)).characteristicFun 1 - 1) / ↑(t_seq n).val)
+      atTop (𝓝 (S.exponent 1)) :=
+    (S.charFun_scaled_limit 1).comp htseq_filter
+  -- The Im of the charFun quotient converges to Im(S.exponent 1), hence eventually bounded.
+  have hIm_tend : Tendsto
+      (fun n => (((S.measure (t_seq n)).characteristicFun 1 - 1) / ↑(t_seq n).val).im)
+      atTop (𝓝 (S.exponent 1).im) :=
+    (Complex.continuous_im.tendsto _).comp hcf_tend
+  -- Eventually |Im(charFun/t)| ≤ |Im(ψ(1))| + 1.
+  have hIm_bdd : ∀ᶠ n in atTop, |(((S.measure (t_seq n)).characteristicFun 1 - 1) /
+      ↑(t_seq n).val).im| ≤ |(S.exponent 1).im| + 1 := by
+    have h := hIm_tend.eventually (Metric.ball_mem_nhds (S.exponent 1).im one_pos)
+    filter_upwards [h] with n hn
+    simp only [Real.dist_eq] at hn
+    linarith [abs_sub_abs_le_abs_sub
+      (((S.measure (t_seq n)).characteristicFun 1 - 1) / ↑(t_seq n).val).im
+      (S.exponent 1).im]
+  -- Im((charFun μ 1 - 1)/t) = t⁻¹ * ∫ sin x dμ  (for probability measure μ).
+  have hIm_eq : ∀ n,
+      (((S.measure (t_seq n)).characteristicFun 1 - 1) / ↑(t_seq n).val).im =
+      (t_seq n).val⁻¹ * ∫ x, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ) := by
+    intro n
+    set t := (t_seq n).val
+    set μ : Measure ℝ := (S.measure (t_seq n) : Measure ℝ)
+    haveI : IsProbabilityMeasure μ := (S.measure (t_seq n)).prop
+    have hcf : charFun μ (1 : ℝ) = ∫ x : ℝ, Complex.exp (↑x * I) ∂μ := by
+      rw [charFun_apply_real]; congr 1; ext x; push_cast; ring_nf
+    have hint1 : Integrable (fun x : ℝ => Complex.exp (↑x * I)) μ := by
+      convert integrable_charFun_integrand (μ := μ) 1 using 2; push_cast; ring_nf
+    have hnum : charFun μ (1 : ℝ) - 1 = ∫ x : ℝ, (Complex.exp (↑x * I) - 1) ∂μ := by
+      rw [hcf]
+      conv_lhs => rw [show (1 : ℂ) = ∫ _ : ℝ, (1 : ℂ) ∂μ by simp [integral_const]]
+      rw [← integral_sub hint1 (integrable_const 1)]
+    rw [ProbabilityMeasure.characteristicFun_def, hnum, Complex.div_ofReal_im,
+        show (∫ x : ℝ, (Complex.exp (↑x * I) - 1) ∂μ).im =
+            ∫ x : ℝ, (Complex.exp (↑x * I) - 1).im ∂μ from
+            ((RCLike.imCLM (K := ℂ)).integral_comp_comm
+              (hint1.sub (integrable_const 1))).symm]
+    simp only [Complex.sub_im, Complex.one_im, sub_zero, Complex.exp_ofReal_mul_I_im]
+    rw [div_eq_inv_mul]
+  -- Global bound on t⁻¹ * μ_t(largeSet r) via scaled_mass_bound_real.
+  obtain ⟨C_large, hC_large⟩ := S.scaled_mass_bound_real r hr
+  -- Eventually bounded second moment: t⁻¹ ∫_small x² ≤ C₂.
+  obtain ⟨C₂, hC₂_pos, hC₂⟩ := S.scaled_second_moment_bounded_along_seq ht
+  -- The sequence a_n := t_n⁻¹ ∫_{|x|<r} x dμ_n is eventually in a compact interval.
+  set a : ℕ → ℝ := fun n =>
+    (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ)
+  have ha_bdd : ∀ᶠ n in atTop, a n ∈ Set.Icc (-(|(S.exponent 1).im| + 1 + C_large + C₂))
+      (|(S.exponent 1).im| + 1 + C_large + C₂) := by
+    filter_upwards [hIm_bdd, hC₂] with n hIm hC₂n
+    simp only [Set.mem_Icc]
+    -- sin-decomposition: a_n = Im_n + small_(x-sin) - large_sin
+    -- where Im_n := Im((charFun-1)/t_n)
+    haveI hμ_prob : IsProbabilityMeasure (S.measure (t_seq n) : Measure ℝ) :=
+      (S.measure (t_seq n)).prop
+    have t_pos := (t_seq n).prop
+    -- Integrability lemmas
+    have hint_sin : Integrable (fun x => Real.sin x) (S.measure (t_seq n) : Measure ℝ) :=
+      Integrable.of_bound Real.continuous_sin.aestronglyMeasurable 1
+        (ae_of_all _ fun x => by simp [abs_le.mpr ⟨Real.neg_one_le_sin x,
+          Real.sin_le_one x⟩])
+    have hint_x_small : IntegrableOn (fun x => x) {x | |x| < r}
+        (S.measure (t_seq n) : Measure ℝ) :=
+      IntegrableOn.of_bound (measure_lt_top _ _)
+        continuous_id.aestronglyMeasurable.restrict 1
+        ((ae_restrict_mem hmeas_ball).mono
+          (fun x hx => by
+            simp only [Real.norm_eq_abs]
+            exact (lt_of_lt_of_le hx hr1).le))
+    have hint_sin_small : IntegrableOn (fun x => Real.sin x) {x | |x| < r}
+        (S.measure (t_seq n) : Measure ℝ) :=
+      hint_sin.integrableOn
+    have hint_xsin_small : IntegrableOn (fun x => x - Real.sin x) {x | |x| < r}
+        (S.measure (t_seq n) : Measure ℝ) :=
+      (hint_x_small.sub hint_sin_small)
+    -- ∫_{|x|<r} x = ∫_{|x|<r} (x - sin x) + ∫_{|x|<r} sin x
+    have hsplit_x : ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ) =
+        ∫ x in {x | |x| < r}, (x - Real.sin x) ∂(S.measure (t_seq n) : Measure ℝ) +
+        ∫ x in {x | |x| < r}, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ) := by
+      rw [← integral_add hint_xsin_small hint_sin_small]
+      congr 1; ext x; ring
+    -- ∫_{|x|<r} sin x = ∫ sin x - ∫_{largeSet r} sin x (ball = (largeSet r)ᶜ)
+    have hsplit_sin : ∫ x in {x | |x| < r}, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ) =
+        ∫ x, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ) -
+        ∫ x in largeSet r, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ) := by
+      rw [hball_compl,
+          ← integral_add_compl (measurableSet_largeSet r) hint_sin]
+      ring
+    -- a_n = t⁻¹∫_{|x|<r}(x-sin) + Im(charFun/t) - t⁻¹∫_{largeSet r} sin
+    have ha_eq : a n = (t_seq n).val⁻¹ *
+        ∫ x in {x | |x| < r}, (x - Real.sin x) ∂(S.measure (t_seq n) : Measure ℝ) +
+        (((S.measure (t_seq n)).characteristicFun 1 - 1) / ↑(t_seq n).val).im -
+        (t_seq n).val⁻¹ *
+        ∫ x in largeSet r, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ) := by
+      simp only [a, hIm_eq n, hsplit_x, hsplit_sin]
+      ring
+    -- Bound |t⁻¹∫_{largeSet r} sin x|: each |sin x| ≤ 1, so ≤ t⁻¹ * μ(largeSet r) ≤ C_large
+    have hL : |(t_seq n).val⁻¹ *
+        ∫ x in largeSet r, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ)| ≤ C_large := by
+      have hbound : ‖∫ x in largeSet r, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ)‖ ≤
+          ((S.measure (t_seq n) : Measure ℝ) (largeSet r)).toReal := by
+        have h := norm_setIntegral_le_of_norm_le_const
+            (measure_lt_top (S.measure (t_seq n) : Measure ℝ) (largeSet r))
+            (fun x _ => show ‖Real.sin x‖ ≤ 1 by
+              simp only [Real.norm_eq_abs]
+              exact abs_le.mpr ⟨by linarith [Real.neg_one_le_sin x], Real.sin_le_one x⟩)
+        simpa [one_mul] using h
+      rw [abs_mul, abs_of_pos (inv_pos.mpr t_pos)]
+      calc (t_seq n).val⁻¹ * |∫ x in largeSet r, Real.sin x ∂(S.measure (t_seq n) : Measure ℝ)|
+          ≤ (t_seq n).val⁻¹ * ((S.measure (t_seq n) : Measure ℝ) (largeSet r)).toReal := by
+            apply mul_le_mul_of_nonneg_left _ (inv_nonneg.mpr (le_of_lt t_pos))
+            rwa [Real.norm_eq_abs] at hbound
+        _ ≤ C_large := hC_large (t_seq n)
+    -- x² integrable on smallSet (bounded by 1, finite measure) — for the domination step.
+    have hint_sq_small : IntegrableOn (fun x => x ^ 2) smallSet
+        (S.measure (t_seq n) : Measure ℝ) :=
+      integrableOn_sq_smallSet _
+    -- Domination: ∫_{|x|<r} x² ≤ ∫_small x²  (since {|x|<r} ⊆ smallSet, x² ≥ 0).
+    have hdom : ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ) ≤
+        ∫ x in smallSet, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ) :=
+      setIntegral_mono_set hint_sq_small (ae_of_all _ fun x => sq_nonneg x)
+        (HasSubset.Subset.eventuallyLE hsubset)
+    -- Bound |t⁻¹∫_{|x|<r} (x - sin x)|: |x - sin x| ≤ x²/2 on {|x|<r}, then dominate by smallSet.
+    have hS : |(t_seq n).val⁻¹ *
+        ∫ x in {x | |x| < r}, (x - Real.sin x) ∂(S.measure (t_seq n) : Measure ℝ)| ≤ C₂ := by
+      have habs_bound : ∀ x ∈ {x : ℝ | |x| < r}, |x - Real.sin x| ≤ x ^ 2 / 2 :=
+        fun x hx => abs_sub_sin_le_sq_div_two (le_of_lt (lt_of_lt_of_le hx hr1))
+      have hxsin_norm : ‖∫ x in {x | |x| < r}, (x - Real.sin x)
+            ∂(S.measure (t_seq n) : Measure ℝ)‖ ≤
+          (1/2) * ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ) := by
+        calc ‖∫ x in {x | |x| < r}, (x - Real.sin x) ∂(S.measure (t_seq n) : Measure ℝ)‖
+            ≤ ∫ x in {x | |x| < r}, ‖x - Real.sin x‖ ∂(S.measure (t_seq n) : Measure ℝ) :=
+              norm_integral_le_integral_norm _
+          _ ≤ ∫ x in {x | |x| < r}, x ^ 2 / 2 ∂(S.measure (t_seq n) : Measure ℝ) := by
+              apply setIntegral_mono_on hint_xsin_small.norm
+              · exact ((hint_sq_small.mono_set hsubset).div_const 2)
+              · exact hmeas_ball
+              · intro x hx
+                simp only [Real.norm_eq_abs]
+                exact habs_bound x hx
+          _ = (1/2) * ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ) := by
+              rw [← integral_const_mul]; congr 1; funext x; ring
+      rw [Real.norm_eq_abs, abs_mul, abs_of_pos (inv_pos.mpr t_pos)] at *
+      calc (t_seq n).val⁻¹ *
+            ‖∫ x in {x | |x| < r}, (x - Real.sin x) ∂(S.measure (t_seq n) : Measure ℝ)‖
+          ≤ (t_seq n).val⁻¹ *
+              ((1/2) * ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ)) :=
+            mul_le_mul_of_nonneg_left hxsin_norm (inv_nonneg.mpr (le_of_lt t_pos))
+        _ = (1/2) * ((t_seq n).val⁻¹ *
+              ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ)) := by ring
+        _ ≤ (1/2) * ((t_seq n).val⁻¹ *
+              ∫ x in smallSet, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ)) := by
+            apply mul_le_mul_of_nonneg_left _ (by norm_num)
+            exact mul_le_mul_of_nonneg_left hdom (inv_nonneg.mpr (le_of_lt t_pos))
+        _ ≤ (1/2) * C₂ := by
+            apply mul_le_mul_of_nonneg_left hC₂n (by norm_num)
+        _ ≤ C₂ := by linarith [hC₂_pos]
+    constructor
+    · linarith [ha_eq, (abs_le.mp hS).1, (abs_le.mp hIm).1, (abs_le.mp hL).2]
+    · linarith [ha_eq, (abs_le.mp hS).2, (abs_le.mp hIm).2, (abs_le.mp hL).1]
+  -- Apply Bolzano-Weierstrass to `a`.
+  obtain ⟨b, -, φ, hφ_mono, hb⟩ :=
+    isCompact_Icc.tendsto_subseq' ha_bdd.frequently
+  exact ⟨b, φ, hφ_mono, hb⟩
+
+/-- The drift term contributes `b * ξ * I` to the decomposition.
+Factor out `ξ * I` from the integral of `x * ξ * I`. -/
+lemma drift_term (ξ : ℝ) {r : ℝ}
+    {t_seq : ℕ → {t : ℝ // 0 < t}} (_ht : Tendsto (fun n => (t_seq n).val) atTop (𝓝 0))
+    {b : ℝ} (hb : Tendsto (fun n =>
+      (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ))
+    atTop (𝓝 b)) :
+    Tendsto (fun n =>
+      ((t_seq n).val⁻¹ : ℂ) *
+      ∫ x in {x | |x| < r}, (↑x * ↑ξ * I) ∂(S.measure (t_seq n) : Measure ℝ))
+    atTop (𝓝 (↑b * ↑ξ * I)) := by
+  -- Step 1: Rewrite each summand to factor out the constant (↑ξ * I)
+  suffices h : Tendsto (fun n =>
+      ↑((t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ)) *
+      ((↑ξ : ℂ) * I)) atTop (𝓝 (↑b * ↑ξ * I)) by
+    refine h.congr (fun n => ?_)
+    -- Show the two expressions are equal
+    have : ∫ x in {x | |x| < r}, ((↑x : ℂ) * ↑ξ * I) ∂(S.measure (t_seq n) : Measure ℝ) =
+        ↑(∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ)) * (↑ξ * I) := by
+      simp_rw [mul_assoc]
+      have : ∀ x : ℝ, (↑x : ℂ) * ((↑ξ : ℂ) * I) = (↑x : ℂ) • ((↑ξ : ℂ) * I) := by
+        intro x; rw [smul_eq_mul]
+      simp_rw [this]
+      rw [integral_smul_const]
+      congr 1
+      exact integral_ofReal
+    rw [this]; push_cast; ring
+  -- Step 2: ↑(t⁻¹ * ∫) * (↑ξ * I) → ↑b * (↑ξ * I) = ↑b * ↑ξ * I
+  rw [show (↑b : ℂ) * ↑ξ * I = ↑b * (↑ξ * I) from by ring]
+  exact Filter.Tendsto.mul_const ((↑ξ : ℂ) * I) hb.ofReal
+
+/-- **Per-`t` algebraic identity.** Decomposes `(charFun μ_t ξ − 1) / t` into the three
+contributions that appear in the Lévy-Khintchine formula: the small-jump drift integral
+`iξ · t⁻¹·∫_smallSet x dμ`, the small-jump compensated remainder `t⁻¹·∫_smallSet
+(exp(ixξ)−1−ixξ) dμ`, and the large-jump integral `t⁻¹·∫_{largeSet 1}(exp(ixξ)−1) dμ`.
+
+This is the algebraic backbone of `psi_eq_levyKhintchine_formula`: the LK assembly
+chains subsequential limits of the three RHS terms (`drift_term`, the to-be-proved
+small/large jump identifications) and matches against `charFun_scaled_limit` to
+conclude the formula. -/
+private lemma charFun_sub_one_div_decomp (t : {t : ℝ // 0 < t}) (ξ : ℝ)
+    {r : ℝ} (hr1 : r ≤ 1) :
+    (charFun (S.measure t : Measure ℝ) ξ - 1) / (↑t.val : ℂ) =
+      (↑t.val⁻¹ : ℂ) *
+          ∫ x in {x | |x| < r}, ((↑x : ℂ) * ↑ξ * I) ∂(S.measure t : Measure ℝ)
+      + (↑t.val⁻¹ : ℂ) *
+          ∫ x in {x | |x| < r}, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I)
+            ∂(S.measure t : Measure ℝ)
+      + (↑t.val⁻¹ : ℂ) *
+          ∫ x in largeSet r, (exp ((↑x : ℂ) * ↑ξ * I) - 1)
+            ∂(S.measure t : Measure ℝ) := by
+  set μ : Measure ℝ := (S.measure t : Measure ℝ) with hμ_def
+  have hmeas_ball : MeasurableSet {x : ℝ | |x| < r} :=
+    measurableSet_lt continuous_abs.measurable measurable_const
+  have hball_compl : {x : ℝ | |x| < r} = (largeSet r)ᶜ := by
+    ext x; simp only [largeSet, Set.mem_setOf_eq, Set.mem_compl_iff, not_le]
+  -- Integrability of x ↦ exp(↑x*↑ξ*I) against μ.
+  have hexp_int : Integrable (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I)) μ := by
+    refine (integrable_charFun_integrand (μ := μ) ξ).congr ?_
+    refine Filter.Eventually.of_forall (fun x => ?_)
+    push_cast; ring_nf
+  -- Integrability of x ↦ exp(↑x*↑ξ*I) − 1.
+  have hsub_int : Integrable (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1) μ :=
+    hexp_int.sub (integrable_const _)
+  -- Integrability of x ↦ ↑x*↑ξ*I on {|x|<r} (bounded by |ξ|).
+  have hxi_int : IntegrableOn (fun x : ℝ => (↑x : ℂ) * ↑ξ * I) {x | |x| < r} μ := by
+    refine (integrable_const (|ξ|)).mono' ?_ ?_
+    · exact ((Complex.measurable_ofReal.mul measurable_const).mul
+        measurable_const).aestronglyMeasurable
+    · refine (ae_restrict_iff' hmeas_ball).mpr ?_
+      filter_upwards with x hx
+      have hnorm : ‖((↑x : ℂ) * ↑ξ * I)‖ = |x| * |ξ| := by
+        rw [show ((↑x : ℂ) * ↑ξ * I) = ((↑(x * ξ) : ℂ)) * I from by
+              push_cast; ring,
+            norm_mul, Complex.norm_I, mul_one, Complex.norm_real,
+            Real.norm_eq_abs, abs_mul]
+      rw [hnorm]
+      calc |x| * |ξ| ≤ 1 * |ξ| :=
+            mul_le_mul_of_nonneg_right (le_of_lt (lt_of_lt_of_le hx hr1)) (abs_nonneg _)
+        _ = |ξ| := one_mul _
+  -- Integrability of the compensated remainder on {|x|<r}.
+  have hrem_int : IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) {x | |x| < r} μ :=
+    (hsub_int.integrableOn).sub hxi_int
+  -- Step 1: (charFun μ ξ − 1) = ∫ (exp(ixξ) − 1) dμ.
+  have h_one : (∫ _ : ℝ, (1 : ℂ) ∂μ) = 1 := by simp
+  have h1 : charFun μ ξ - 1 = ∫ x, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂μ := by
+    have hcf : charFun μ ξ = ∫ x, exp ((↑x : ℂ) * ↑ξ * I) ∂μ := by
+      rw [charFun_apply_real]; congr 1; ext x; congr 1; ring
+    calc charFun μ ξ - 1
+        = (∫ x, exp ((↑x : ℂ) * ↑ξ * I) ∂μ) - ∫ _ : ℝ, (1 : ℂ) ∂μ := by
+            rw [hcf, h_one]
+      _ = ∫ x, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂μ :=
+          (integral_sub hexp_int (integrable_const 1)).symm
+  -- Step 2: split via {|x|<r}/largeSet r.
+  have hcompl_ball : ({x : ℝ | |x| < r})ᶜ = largeSet r := by
+    rw [hball_compl, compl_compl]
+  have h2 : ∫ x, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂μ
+      = ∫ x in {x | |x| < r}, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂μ
+        + ∫ x in largeSet r, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂μ := by
+    have hs := (integral_add_compl hmeas_ball hsub_int).symm
+    rw [hcompl_ball] at hs
+    exact hs
+  -- Step 3: split the {|x|<r} integral additively.
+  have h3 : ∫ x in {x | |x| < r}, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂μ
+      = ∫ x in {x | |x| < r}, ((↑x : ℂ) * ↑ξ * I) ∂μ
+        + ∫ x in {x | |x| < r}, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) ∂μ := by
+    rw [← integral_add hxi_int hrem_int]
+    refine setIntegral_congr_fun hmeas_ball (fun x _ => ?_)
+    ring
+  rw [h1, h2, h3]
+  push_cast
+  ring
+
+/-! ### Smooth cutoff BCFs for the LK assembly
+
+To identify the small- and large-jump limit pieces in `psi_eq_levyKhintchine_formula`,
+we need to approximate the indicator `1_{|x| ≥ 1}` (and the related annulus indicator
+near `|x| = 1`) by bounded continuous functions, then apply `h_jump`. -/
+
+/-- Bounded continuous "upper" cutoff approximating `1_{|x| ≥ ρ}` from above.
+
+* `largeUpperBCF ρ n x = 1` for `|x| ≥ ρ`
+* `largeUpperBCF ρ n x = 0` for `|x| ≤ ρ - ρ/(n+1) = ρ(1 - 1/(n+1))`
+* linear ramp from `0` to `1` on `[ρ(1 - 1/(n+1)), ρ]`. -/
+private noncomputable def largeUpperBCF (ρ : ℝ) (_hρ : 0 < ρ) (n : ℕ) :
+    BoundedContinuousFunction ℝ ℝ :=
+  BoundedContinuousFunction.mkOfBound
+    ⟨fun x => min 1 (max 0 ((|x| - ρ) * ((n + 1 : ℝ) / ρ) + 1)),
+      Continuous.min continuous_const
+        (Continuous.max continuous_const
+          (((continuous_abs.sub continuous_const).mul continuous_const).add continuous_const))⟩
+    1
+    (fun x y => by
+      have hbnd : ∀ z : ℝ,
+          0 ≤ min 1 (max 0 ((|z| - ρ) * ((n + 1 : ℝ) / ρ) + 1)) ∧
+          min 1 (max 0 ((|z| - ρ) * ((n + 1 : ℝ) / ρ) + 1)) ≤ 1 := fun z =>
+        ⟨le_min zero_le_one (le_max_left _ _), min_le_left _ _⟩
+      rw [Real.dist_eq]
+      simp only [ContinuousMap.coe_mk]
+      have hx := hbnd x; have hy := hbnd y
+      refine abs_sub_le_iff.mpr ⟨?_, ?_⟩ <;> linarith)
+
+private lemma largeUpperBCF_apply (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (x : ℝ) :
+    largeUpperBCF ρ hρ n x = min 1 (max 0 ((|x| - ρ) * ((n + 1 : ℝ) / ρ) + 1)) := rfl
+
+private lemma largeUpperBCF_nonneg (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (x : ℝ) :
+    0 ≤ largeUpperBCF ρ hρ n x := by
+  rw [largeUpperBCF_apply]; exact le_min zero_le_one (le_max_left _ _)
+
+private lemma largeUpperBCF_le_one (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (x : ℝ) :
+    largeUpperBCF ρ hρ n x ≤ 1 := by
+  rw [largeUpperBCF_apply]; exact min_le_left _ _
+
+private lemma largeUpperBCF_eq_one (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) {x : ℝ} (hx : ρ ≤ |x|) :
+    largeUpperBCF ρ hρ n x = 1 := by
+  rw [largeUpperBCF_apply]
+  have hnn : (0 : ℝ) ≤ (n + 1 : ℝ) / ρ := by positivity
+  have h1 : 0 ≤ (|x| - ρ) * ((n + 1 : ℝ) / ρ) := mul_nonneg (by linarith) hnn
+  have h2 : 1 ≤ (|x| - ρ) * ((n + 1 : ℝ) / ρ) + 1 := by linarith
+  rw [show max 0 ((|x| - ρ) * ((n + 1 : ℝ) / ρ) + 1) = (|x| - ρ) * ((n + 1 : ℝ) / ρ) + 1 from
+      max_eq_right (by linarith)]
+  exact min_eq_left h2
+
+private lemma largeUpperBCF_eq_zero (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) {x : ℝ}
+    (hx : |x| ≤ ρ - ρ/(n + 1 : ℝ)) : largeUpperBCF ρ hρ n x = 0 := by
+  rw [largeUpperBCF_apply]
+  have hn1 : (0 : ℝ) < n + 1 := by positivity
+  have hslope : (0 : ℝ) < (n + 1 : ℝ) / ρ := by positivity
+  have hbnd : (|x| - ρ) * ((n + 1 : ℝ) / ρ) + 1 ≤ 0 := by
+    have h1 : |x| - ρ ≤ -(ρ/(n + 1 : ℝ)) := by linarith
+    have h2 : (|x| - ρ) * ((n + 1 : ℝ) / ρ) ≤ -(ρ/(n + 1 : ℝ)) * ((n + 1 : ℝ) / ρ) :=
+      mul_le_mul_of_nonneg_right h1 hslope.le
+    rw [show -(ρ/(n + 1 : ℝ)) * ((n + 1 : ℝ) / ρ) = -1 from by field_simp] at h2
+    linarith
+  rw [show max 0 ((|x| - ρ) * ((n + 1 : ℝ) / ρ) + 1) = 0 from max_eq_left hbnd]
+  exact min_eq_right zero_le_one
+
+/-- `largeUpperBCF ρ n` vanishes on a neighborhood of `0` for `n ≥ 1`, hence it
+lies in the test class of `h_jump`. -/
+private lemma largeUpperBCF_vanishes_near_zero (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (hn : 1 ≤ n) :
+    ∃ r > (0 : ℝ), ∀ x, |x| < r → largeUpperBCF ρ hρ n x = 0 := by
+  refine ⟨ρ/(n + 2 : ℝ), by positivity, fun x hx => ?_⟩
+  apply largeUpperBCF_eq_zero
+  have hn1 : (0 : ℝ) < n + 1 := by positivity
+  have hn2 : (0 : ℝ) < n + 2 := by positivity
+  have hn_cast : (1 : ℝ) ≤ n := by exact_mod_cast hn
+  have h_ineq : ρ/(n + 2 : ℝ) ≤ ρ - ρ/(n + 1 : ℝ) := by
+    rw [sub_eq_add_neg, ← sub_eq_add_neg, le_sub_iff_add_le, div_add_div _ _ hn2.ne' hn1.ne',
+        div_le_iff₀ (by positivity)]
+    have hn_poly : (n+1:ℝ) + (n+2) ≤ (n+2)*(n+1) := by nlinarith [hn_cast]
+    calc ρ*(n+1) + (n+2)*ρ = ρ*((n+1)+(n+2)) := by ring
+      _ ≤ ρ*((n+2)*(n+1)) := mul_le_mul_of_nonneg_left hn_poly hρ.le
+  linarith [le_of_lt hx]
+
+/-- As `n → ∞`, `largeUpperBCF ρ n x → 1_{|x| ≥ ρ}` pointwise. -/
+private lemma largeUpperBCF_tendsto_indicator (ρ : ℝ) (hρ : 0 < ρ) (x : ℝ) :
+    Tendsto (fun n : ℕ => largeUpperBCF ρ hρ n x) atTop
+      (𝓝 (Set.indicator {y : ℝ | ρ ≤ |y|} (fun _ => (1 : ℝ)) x)) := by
+  by_cases hx : ρ ≤ |x|
+  · rw [Set.indicator_of_mem (show x ∈ {y | ρ ≤ |y|} from hx)]
+    refine tendsto_atTop_of_eventually_const (i₀ := 0) (fun n _ => ?_)
+    exact largeUpperBCF_eq_one ρ hρ n hx
+  · push_neg at hx
+    rw [Set.indicator_of_notMem (show x ∉ {y | ρ ≤ |y|} from not_le.mpr hx)]
+    have h_pos : 0 < ρ - |x| := by linarith
+    obtain ⟨N, hN⟩ := exists_nat_gt (ρ/(ρ - |x|))
+    rw [div_lt_iff₀ h_pos] at hN  -- hN : ρ < ↑N * (ρ - |x|)
+    refine tendsto_atTop_of_eventually_const (i₀ := N) (fun n hn => ?_)
+    apply largeUpperBCF_eq_zero
+    have hn1_pos : (0 : ℝ) < n + 1 := by positivity
+    have hN_le : (N : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+    have h1 : ρ ≤ (ρ - |x|) * (n + 1 : ℝ) := by
+      calc ρ ≤ (N : ℝ) * (ρ - |x|) := le_of_lt hN
+        _ ≤ (n : ℝ) * (ρ - |x|) := mul_le_mul_of_nonneg_right hN_le h_pos.le
+        _ ≤ (n + 1 : ℝ) * (ρ - |x|) :=
+            mul_le_mul_of_nonneg_right (by linarith) h_pos.le
+        _ = (ρ - |x|) * (n + 1 : ℝ) := by ring
+    rw [← div_le_iff₀ hn1_pos] at h1
+    linarith
+
+/-- Bounded continuous "annulus" cutoff centered at `|x| = ρ`.
+
+* `largeAnnulusBCF ρ n x = 1` for `||x| - ρ| ≤ ρ/(n+1)` (plateau on the annulus)
+* `largeAnnulusBCF ρ n x = 0` for `||x| - ρ| ≥ 2ρ/(n+1)` (outside a slightly wider annulus)
+* linear ramp on the transition bands. -/
+private noncomputable def largeAnnulusBCF (ρ : ℝ) (_hρ : 0 < ρ) (n : ℕ) :
+    BoundedContinuousFunction ℝ ℝ :=
+  BoundedContinuousFunction.mkOfBound
+    ⟨fun x => max 0 (1 - ((n + 1 : ℝ) / ρ) * max 0 (|(|x| - ρ)| - ρ/(n + 1 : ℝ))),
+      Continuous.max continuous_const
+        (continuous_const.sub (continuous_const.mul
+          (Continuous.max continuous_const
+            ((continuous_abs.comp (continuous_abs.sub continuous_const)).sub continuous_const))))⟩
+    1
+    (fun x y => by
+      have hbnd : ∀ z : ℝ,
+          0 ≤ max 0 (1 - ((n + 1 : ℝ) / ρ) * max 0 (|(|z| - ρ)| - ρ/(n + 1 : ℝ))) ∧
+          max 0 (1 - ((n + 1 : ℝ) / ρ) * max 0 (|(|z| - ρ)| - ρ/(n + 1 : ℝ))) ≤ 1 := fun z => by
+        refine ⟨le_max_left _ _, max_le zero_le_one ?_⟩
+        have h1 : 0 ≤ ((n + 1 : ℝ) / ρ) * max 0 (|(|z| - ρ)| - ρ/(n + 1 : ℝ)) := by positivity
+        linarith
+      rw [Real.dist_eq]
+      simp only [ContinuousMap.coe_mk]
+      have hx := hbnd x; have hy := hbnd y
+      refine abs_sub_le_iff.mpr ⟨?_, ?_⟩ <;> linarith)
+
+private lemma largeAnnulusBCF_apply (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (x : ℝ) :
+    largeAnnulusBCF ρ hρ n x =
+      max 0 (1 - ((n + 1 : ℝ) / ρ) * max 0 (|(|x| - ρ)| - ρ/(n + 1 : ℝ))) := rfl
+
+private lemma largeAnnulusBCF_nonneg (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (x : ℝ) :
+    0 ≤ largeAnnulusBCF ρ hρ n x := by
+  rw [largeAnnulusBCF_apply]; exact le_max_left _ _
+
+private lemma largeAnnulusBCF_le_one (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (x : ℝ) :
+    largeAnnulusBCF ρ hρ n x ≤ 1 := by
+  rw [largeAnnulusBCF_apply]
+  refine max_le zero_le_one ?_
+  have h1 : 0 ≤ ((n + 1 : ℝ) / ρ) * max 0 (|(|x| - ρ)| - ρ/(n + 1 : ℝ)) := by positivity
+  linarith
+
+private lemma largeAnnulusBCF_eq_one (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) {x : ℝ}
+    (hx : |(|x| - ρ)| ≤ ρ/(n + 1 : ℝ)) : largeAnnulusBCF ρ hρ n x = 1 := by
+  rw [largeAnnulusBCF_apply]
+  have hsub : |(|x| - ρ)| - ρ/(n + 1 : ℝ) ≤ 0 := by linarith
+  rw [show max 0 (|(|x| - ρ)| - ρ/(n + 1 : ℝ)) = 0 from max_eq_left hsub,
+      mul_zero, sub_zero, max_eq_right zero_le_one]
+
+private lemma largeAnnulusBCF_eq_zero (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) {x : ℝ}
+    (hx : 2 * ρ/(n + 1 : ℝ) ≤ |(|x| - ρ)|) : largeAnnulusBCF ρ hρ n x = 0 := by
+  rw [largeAnnulusBCF_apply]
+  have hn1 : (0 : ℝ) < n + 1 := by positivity
+  have h_diff : ρ/(n + 1 : ℝ) ≤ |(|x| - ρ)| - ρ/(n + 1 : ℝ) := by
+    have : 2 * ρ/(n + 1 : ℝ) = ρ/(n + 1 : ℝ) + ρ/(n + 1 : ℝ) := by ring
+    linarith [this ▸ hx]
+  have h_nn : 0 ≤ |(|x| - ρ)| - ρ/(n + 1 : ℝ) := le_trans (by positivity) h_diff
+  rw [max_eq_right h_nn]
+  have h_prod : 1 ≤ ((n + 1 : ℝ) / ρ) * (|(|x| - ρ)| - ρ/(n + 1 : ℝ)) := by
+    have := mul_le_mul_of_nonneg_left h_diff (by positivity : (0 : ℝ) ≤ (n + 1 : ℝ) / ρ)
+    rw [show ((n + 1 : ℝ) / ρ) * (ρ/(n + 1 : ℝ)) = 1 from by field_simp] at this
+    exact this
+  have : 1 - ((n + 1 : ℝ) / ρ) * (|(|x| - ρ)| - ρ/(n + 1 : ℝ)) ≤ 0 := by linarith
+  exact max_eq_left this
+
+/-- `largeAnnulusBCF ρ n` vanishes on a neighborhood of `0` for `n ≥ 2`. -/
+private lemma largeAnnulusBCF_vanishes_near_zero (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (hn : 2 ≤ n) :
+    ∃ r > (0 : ℝ), ∀ x, |x| < r → largeAnnulusBCF ρ hρ n x = 0 := by
+  refine ⟨ρ/(n + 1 : ℝ), by positivity, fun x hx => ?_⟩
+  apply largeAnnulusBCF_eq_zero
+  -- |x| < ρ/(n+1), so |x| - ρ < ρ/(n+1) - ρ ≤ 0 (since n+1 ≥ 3), hence
+  -- ||x| - ρ| = ρ - |x| ≥ ρ - ρ/(n+1) ≥ 2ρ/(n+1) when n ≥ 2.
+  have hn1 : (0 : ℝ) < n + 1 := by positivity
+  have hx_nn : 0 ≤ |x| := abs_nonneg _
+  have hx_lt : |x| < ρ/(n + 1 : ℝ) := hx
+  have h_ratio : ρ/(n + 1 : ℝ) ≤ ρ/3 := by
+    rw [div_le_div_iff₀ hn1 (by norm_num : (0 : ℝ) < 3)]
+    have h3 : (3 : ℝ) ≤ n + 1 := by exact_mod_cast Nat.add_le_add_right hn 1
+    exact mul_le_mul_of_nonneg_left h3 hρ.le
+  have hx_lt_1 : |x| < ρ := by
+    have : ρ/3 < ρ := by linarith [div_lt_self hρ (by norm_num : (1 : ℝ) < 3)]
+    linarith
+  have h_neg : |x| - ρ < 0 := by linarith
+  rw [abs_of_neg h_neg, neg_sub]
+  -- goal: 2ρ/(n+1) ≤ ρ - |x|
+  have h_bound : 2 * ρ/(n + 1 : ℝ) + ρ/(n + 1 : ℝ) ≤ ρ := by
+    rw [← add_div, show (2 : ℝ) * ρ + ρ = 3 * ρ from by ring, div_le_iff₀ hn1]
+    have h3 : (3 : ℝ) ≤ n + 1 := by exact_mod_cast Nat.add_le_add_right hn 1
+    calc 3*ρ = ρ*3 := by ring
+      _ ≤ ρ*(n+1) := mul_le_mul_of_nonneg_left h3 hρ.le
+  linarith
+
+/-- As `n → ∞`, `largeAnnulusBCF ρ n x → 1_{|x| = ρ}` pointwise. -/
+private lemma largeAnnulusBCF_tendsto_indicator (ρ : ℝ) (hρ : 0 < ρ) (x : ℝ) :
+    Tendsto (fun n : ℕ => largeAnnulusBCF ρ hρ n x) atTop
+      (𝓝 (Set.indicator {y : ℝ | |y| = ρ} (fun _ => (1 : ℝ)) x)) := by
+  by_cases hx : |x| = ρ
+  · -- At |x| = ρ, χ_n x = 1 always.
+    rw [Set.indicator_of_mem (show x ∈ {y | |y| = ρ} from hx)]
+    refine tendsto_atTop_of_eventually_const (i₀ := 0) (fun n _ => ?_)
+    apply largeAnnulusBCF_eq_one
+    rw [hx]
+    rw [show ρ - ρ = 0 from sub_self ρ, abs_zero]
+    positivity
+  · -- |x| ≠ ρ: eventually χ_n x = 0.
+    rw [Set.indicator_of_notMem (show x ∉ {y | |y| = ρ} from hx)]
+    have h_pos : 0 < |(|x| - ρ)| := abs_pos.mpr (sub_ne_zero.mpr hx)
+    obtain ⟨N, hN⟩ := exists_nat_gt (2 * ρ/|(|x| - ρ)|)
+    rw [div_lt_iff₀ h_pos] at hN  -- hN : 2ρ < ↑N * |(|x| - ρ)|
+    refine tendsto_atTop_of_eventually_const (i₀ := N) (fun n hn => ?_)
+    apply largeAnnulusBCF_eq_zero
+    -- Goal: 2ρ/(n+1) ≤ |(|x| - ρ)|
+    have hn1_pos : (0 : ℝ) < n + 1 := by positivity
+    have hN_le : (N : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+    have h2 : 2 * ρ ≤ (n + 1 : ℝ) * |(|x| - ρ)| :=
+      calc (2 : ℝ) * ρ ≤ (N : ℝ) * |(|x| - ρ)| := le_of_lt hN
+        _ ≤ (n : ℝ) * |(|x| - ρ)| := mul_le_mul_of_nonneg_right hN_le h_pos.le
+        _ ≤ (n + 1 : ℝ) * |(|x| - ρ)| :=
+            mul_le_mul_of_nonneg_right (by linarith) h_pos.le
+    rw [div_le_iff₀ hn1_pos]; linarith
+
+/-- BCF representing `largeUpperBCF ρ n · g` for a bounded continuous `g`. -/
+private noncomputable def largeUpperMulBCF (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ)
+    (g : ℝ → ℝ) (hg_cont : Continuous g)
+    (M : ℝ) (hg_bnd : ∀ x, |g x| ≤ M) : BoundedContinuousFunction ℝ ℝ :=
+  BoundedContinuousFunction.mkOfBound
+    ⟨fun x => largeUpperBCF ρ hρ n x * g x,
+      (largeUpperBCF ρ hρ n).continuous.mul hg_cont⟩
+    (2 * M)
+    (fun x y => by
+      simp only [ContinuousMap.coe_mk]
+      rw [Real.dist_eq]
+      have hbnd : ∀ z, |largeUpperBCF ρ hρ n z * g z| ≤ M := fun z => by
+        rw [abs_mul, abs_of_nonneg (largeUpperBCF_nonneg ρ hρ n z)]
+        calc largeUpperBCF ρ hρ n z * |g z|
+            ≤ 1 * |g z| :=
+              mul_le_mul_of_nonneg_right (largeUpperBCF_le_one ρ hρ n z) (abs_nonneg _)
+          _ ≤ 1 * M := mul_le_mul_of_nonneg_left (hg_bnd z) zero_le_one
+          _ = M := one_mul _
+      have hx := hbnd x; have hy := hbnd y
+      rw [abs_le] at hx hy
+      refine abs_sub_le_iff.mpr ⟨?_, ?_⟩ <;> linarith)
+
+@[simp]
+private lemma largeUpperMulBCF_apply (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (g : ℝ → ℝ)
+    (hg_cont : Continuous g) (M : ℝ) (hg_bnd : ∀ x, |g x| ≤ M) (x : ℝ) :
+    largeUpperMulBCF ρ hρ n g hg_cont M hg_bnd x = largeUpperBCF ρ hρ n x * g x := rfl
+
+private lemma largeUpperMulBCF_abs_le (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (g : ℝ → ℝ)
+    (hg_cont : Continuous g) (M : ℝ) (hg_bnd : ∀ x, |g x| ≤ M) (x : ℝ) :
+    |largeUpperMulBCF ρ hρ n g hg_cont M hg_bnd x| ≤ M := by
+  rw [largeUpperMulBCF_apply, abs_mul, abs_of_nonneg (largeUpperBCF_nonneg ρ hρ n x)]
+  calc largeUpperBCF ρ hρ n x * |g x|
+      ≤ 1 * M :=
+        mul_le_mul (largeUpperBCF_le_one ρ hρ n x) (hg_bnd x) (abs_nonneg _) zero_le_one
+    _ = M := one_mul _
+
+private lemma largeUpperMulBCF_vanishes_near_zero (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (hn : 1 ≤ n)
+    (g : ℝ → ℝ) (hg_cont : Continuous g) (M : ℝ) (hg_bnd : ∀ x, |g x| ≤ M) :
+    ∃ r > (0 : ℝ), ∀ x, |x| < r → largeUpperMulBCF ρ hρ n g hg_cont M hg_bnd x = 0 := by
+  obtain ⟨r, hr_pos, hr_zero⟩ := largeUpperBCF_vanishes_near_zero ρ hρ n hn
+  refine ⟨r, hr_pos, fun x hx => ?_⟩
+  rw [largeUpperMulBCF_apply, hr_zero x hx, zero_mul]
+
+private lemma largeUpperMulBCF_tendsto_indicator
+    (ρ : ℝ) (hρ : 0 < ρ) (g : ℝ → ℝ) (hg_cont : Continuous g) (M : ℝ)
+    (hg_bnd : ∀ x, |g x| ≤ M) (x : ℝ) :
+    Tendsto (fun n => largeUpperMulBCF ρ hρ n g hg_cont M hg_bnd x) atTop
+      (𝓝 (Set.indicator (largeSet ρ) g x)) := by
+  have h1 := (largeUpperBCF_tendsto_indicator ρ hρ x).mul
+      (tendsto_const_nhds : Tendsto (fun _ : ℕ => g x) atTop (𝓝 (g x)))
+  have h_eq :
+      Set.indicator {y : ℝ | ρ ≤ |y|} (fun _ => (1 : ℝ)) x * g x =
+        Set.indicator (largeSet ρ) g x := by
+    by_cases hx : ρ ≤ |x|
+    · rw [Set.indicator_of_mem (show x ∈ {y : ℝ | ρ ≤ |y|} from hx),
+          Set.indicator_of_mem (show x ∈ largeSet ρ from hx), one_mul]
+    · push_neg at hx
+      rw [Set.indicator_of_notMem (show x ∉ {y : ℝ | ρ ≤ |y|} from not_le.mpr hx),
+          Set.indicator_of_notMem (show x ∉ largeSet ρ from not_le.mpr hx), zero_mul]
+  rw [← h_eq]
+  exact h1.congr (fun n => (largeUpperMulBCF_apply ρ hρ n g hg_cont M hg_bnd x).symm)
+
+/-- Pointwise bound `|largeUpperMulBCF ρ n g x − Set.indicator (largeSet ρ) g x| ≤
+M · largeAnnulusBCF ρ n x`, the key inequality controlling the discrepancy between
+the smooth cutoff product and the true indicator product. -/
+private lemma largeUpperMulBCF_sub_indicator_abs_le
+    (ρ : ℝ) (hρ : 0 < ρ) (n : ℕ) (g : ℝ → ℝ) (hg_cont : Continuous g) (M : ℝ) (hM_nn : 0 ≤ M)
+    (hg_bnd : ∀ x, |g x| ≤ M) (x : ℝ) :
+    |largeUpperMulBCF ρ hρ n g hg_cont M hg_bnd x - Set.indicator (largeSet ρ) g x| ≤
+      M * largeAnnulusBCF ρ hρ n x := by
+  rw [largeUpperMulBCF_apply]
+  by_cases hx : ρ ≤ |x|
+  · -- |x| ≥ ρ: both = g(x), difference 0.
+    rw [Set.indicator_of_mem (show x ∈ largeSet ρ from hx),
+        largeUpperBCF_eq_one ρ hρ n hx, one_mul]
+    rw [show g x - g x = 0 from sub_self (g x), abs_zero]
+    exact mul_nonneg hM_nn (largeAnnulusBCF_nonneg ρ hρ n x)
+  · push_neg at hx
+    rw [Set.indicator_of_notMem (show x ∉ largeSet ρ from not_le.mpr hx), sub_zero,
+        abs_mul, abs_of_nonneg (largeUpperBCF_nonneg ρ hρ n x)]
+    by_cases hx' : |x| ≤ ρ - ρ/(n + 1 : ℝ)
+    · rw [largeUpperBCF_eq_zero ρ hρ n hx', zero_mul]
+      exact mul_nonneg hM_nn (largeAnnulusBCF_nonneg ρ hρ n x)
+    · push_neg at hx'
+      have h_in_annulus : |(|x| - ρ)| ≤ ρ/(n + 1 : ℝ) := by
+        rw [abs_of_nonpos (by linarith : |x| - ρ ≤ 0), neg_sub]; linarith
+      rw [largeAnnulusBCF_eq_one ρ hρ n h_in_annulus, mul_one]
+      calc largeUpperBCF ρ hρ n x * |g x|
+          ≤ 1 * M :=
+            mul_le_mul (largeUpperBCF_le_one ρ hρ n x) (hg_bnd x) (abs_nonneg _) zero_le_one
+        _ = M := one_mul _
+
+/-- **Scalar large-jump limit identification.** For any continuous bounded `g : ℝ → ℝ`,
+under the hypothesis that `ν` has no atom at `|x| = ρ`, the scaled set integral over
+`largeSet ρ` of `g` against `μ_t` converges to the corresponding ν-integral.
+
+The proof is an ε/3 sandwich: approximate `1_{|x| ≥ ρ}` from above by the smooth cutoff
+`largeUpperBCF ρ n`, bound the discrepancy by `largeAnnulusBCF ρ n` (whose ν-integral
+vanishes as `n → ∞` by `hν_atom`), and apply `h_jump` for each fixed `n`. -/
+private lemma scaled_largeSet_integral_tendsto
+    {ρ : ℝ} (hρ : 0 < ρ)
+    (g : ℝ → ℝ) (hg_cont : Continuous g) {M : ℝ} (hM_nn : 0 ≤ M)
+    (hg_bnd : ∀ x, |g x| ≤ M)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν) (hν_atom : ν {x | |x| = ρ} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}}
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+        Tendsto (fun k => (t_seq k).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq k) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) :
+    Tendsto (fun k =>
+      (t_seq k).val⁻¹ * ∫ x in largeSet ρ, g x ∂(S.measure (t_seq k) : Measure ℝ))
+    atTop (𝓝 (∫ x in largeSet ρ, g x ∂ν)) := by
+  -- Composite BCFs `largeUpperBCF ρ n · g` for each n.
+  set φg : ℕ → BoundedContinuousFunction ℝ ℝ :=
+    fun n => largeUpperMulBCF ρ hρ n g hg_cont M hg_bnd with hφg_def
+  -- DCT on ν for the BCFs: ∫ φg n dν → ∫_{largeSet ρ} g dν. For a (possibly σ-finite) Lévy
+  -- measure the constant bound `M` is not integrable, so we dominate the tail `n ≥ 1` (where
+  -- `φg n` vanishes on `{|x| < ρ/2}`) by `M · 1_{largeSet (ρ/2)}` and transfer via a shift.
+  have h_dct_φg : Tendsto (fun n => ∫ x, φg n x ∂ν) atTop
+      (𝓝 (∫ x in largeSet ρ, g x ∂ν)) := by
+    have hρ2 : (0 : ℝ) < ρ / 2 := by positivity
+    have h_bound_int : Integrable (Set.indicator (largeSet (ρ / 2)) (fun _ => M)) ν := by
+      haveI := hν.isFiniteMeasure_restrict_largeSet hρ2
+      exact (integrable_indicator_iff (measurableSet_largeSet (ρ / 2))).mpr (integrable_const M)
+    have h_shift : Tendsto (fun n => ∫ x, φg (n + 1) x ∂ν) atTop
+        (𝓝 (∫ x, Set.indicator (largeSet ρ) g x ∂ν)) := by
+      refine MeasureTheory.tendsto_integral_of_dominated_convergence
+        (bound := Set.indicator (largeSet (ρ / 2)) (fun _ => M))
+        (fun n => (φg (n + 1)).continuous.aestronglyMeasurable)
+        h_bound_int
+        (fun n => Filter.Eventually.of_forall (fun x => ?_))
+        (Filter.Eventually.of_forall (fun x =>
+          (tendsto_add_atTop_iff_nat 1).mpr
+            (largeUpperMulBCF_tendsto_indicator ρ hρ g hg_cont M hg_bnd x)))
+      rw [Real.norm_eq_abs]
+      by_cases hx : x ∈ largeSet (ρ / 2)
+      · rw [Set.indicator_of_mem hx]
+        exact largeUpperMulBCF_abs_le ρ hρ (n + 1) g hg_cont M hg_bnd x
+      · rw [Set.indicator_of_notMem hx]
+        rw [mem_largeSet, not_le] at hx
+        have hn0 : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg n
+        have hxle : |x| ≤ ρ - ρ / ((↑(n + 1) : ℝ) + 1) := by
+          have hcast : (↑(n + 1) : ℝ) + 1 = (n : ℝ) + 2 := by push_cast; ring
+          rw [hcast]
+          have hden : (0 : ℝ) < (n : ℝ) + 2 := by linarith
+          have h1 : ρ / ((n : ℝ) + 2) ≤ ρ / 2 :=
+            (div_le_div_iff_of_pos_left hρ hden (by norm_num)).mpr (by linarith)
+          linarith
+        simp only [hφg_def, largeUpperMulBCF_apply,
+          largeUpperBCF_eq_zero ρ hρ (n + 1) hxle, zero_mul, abs_zero, le_refl]
+    have h_lim := (tendsto_add_atTop_iff_nat (f := fun m => ∫ x, φg m x ∂ν) 1).mp h_shift
+    rwa [integral_indicator (measurableSet_largeSet ρ)] at h_lim
+  -- DCT on ν for χ_n: ∫ χ_n dν → 0, using hν_atom. The tail `n ≥ 2` is supported in
+  -- `largeSet (ρ/3)` (bump around `|x| = ρ`), dominated by `1_{largeSet (ρ/3)}`.
+  have h_dct_χ : Tendsto (fun n => ∫ x, largeAnnulusBCF ρ hρ n x ∂ν) atTop (𝓝 0) := by
+    have hρ3 : (0 : ℝ) < ρ / 3 := by positivity
+    have h_bound_int : Integrable (Set.indicator (largeSet (ρ / 3)) (fun _ => (1 : ℝ))) ν := by
+      haveI := hν.isFiniteMeasure_restrict_largeSet hρ3
+      exact (integrable_indicator_iff (measurableSet_largeSet (ρ / 3))).mpr (integrable_const 1)
+    have h_shift : Tendsto (fun n => ∫ x, largeAnnulusBCF ρ hρ (n + 2) x ∂ν) atTop
+        (𝓝 (∫ x, Set.indicator {y : ℝ | |y| = ρ} (fun _ => (1 : ℝ)) x ∂ν)) := by
+      refine MeasureTheory.tendsto_integral_of_dominated_convergence
+        (bound := Set.indicator (largeSet (ρ / 3)) (fun _ => (1 : ℝ)))
+        (fun n => (largeAnnulusBCF ρ hρ (n + 2)).continuous.aestronglyMeasurable)
+        h_bound_int
+        (fun n => Filter.Eventually.of_forall (fun x => ?_))
+        (Filter.Eventually.of_forall (fun x =>
+          (tendsto_add_atTop_iff_nat 2).mpr (largeAnnulusBCF_tendsto_indicator ρ hρ x)))
+      rw [Real.norm_eq_abs, abs_of_nonneg (largeAnnulusBCF_nonneg ρ hρ (n + 2) x)]
+      by_cases hx : x ∈ largeSet (ρ / 3)
+      · rw [Set.indicator_of_mem hx]; exact largeAnnulusBCF_le_one ρ hρ (n + 2) x
+      · rw [Set.indicator_of_notMem hx]
+        rw [mem_largeSet, not_le] at hx
+        have hn0 : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg n
+        refine le_of_eq (largeAnnulusBCF_eq_zero ρ hρ (n + 2) ?_)
+        have habs : |(|x| - ρ)| = ρ - |x| := by
+          rw [abs_of_nonpos (by linarith : |x| - ρ ≤ 0)]; ring
+        rw [habs]
+        have hcast : (↑(n + 2) : ℝ) + 1 = (n : ℝ) + 3 := by push_cast; ring
+        rw [hcast]
+        have hden : (0 : ℝ) < (n : ℝ) + 3 := by linarith
+        have h1 : 2 * ρ / ((n : ℝ) + 3) ≤ 2 * ρ / 3 :=
+          (div_le_div_iff_of_pos_left (by positivity) hden (by norm_num)).mpr (by linarith)
+        linarith
+    have h_meas_singleton : MeasurableSet {y : ℝ | |y| = ρ} :=
+      (isClosed_singleton.preimage continuous_abs).measurableSet
+    rw [integral_indicator h_meas_singleton] at h_shift
+    have h_zero : ∫ _ in {y : ℝ | |y| = ρ}, (1 : ℝ) ∂ν = 0 := by
+      have : (ν.restrict {y : ℝ | |y| = ρ}) = 0 := by
+        rw [Measure.restrict_eq_zero]; exact hν_atom
+      rw [show (∫ _ in {y : ℝ | |y| = ρ}, (1 : ℝ) ∂ν) =
+            ∫ _, (1 : ℝ) ∂(ν.restrict {y : ℝ | |y| = ρ}) from rfl, this,
+          integral_zero_measure]
+    rw [h_zero] at h_shift
+    exact (tendsto_add_atTop_iff_nat
+      (f := fun m => ∫ x, largeAnnulusBCF ρ hρ m x ∂ν) 2).mp h_shift
+  -- ε/3 argument.
+  rw [Metric.tendsto_atTop]
+  intro ε hε
+  have hMplus : (0 : ℝ) < M + 1 := by linarith
+  have hpos_3 : (0 : ℝ) < ε / 3 := by positivity
+  have hpos_6Mplus : (0 : ℝ) < ε / (6 * (M + 1)) := by positivity
+  -- Choose n₀ ≥ 2 such that |∫ φg n₀ dν - target| < ε/3 AND ∫ χ_{n₀} dν < ε/(6(M+1)).
+  obtain ⟨N₁, hN₁⟩ := (Metric.tendsto_atTop.mp h_dct_φg) (ε / 3) hpos_3
+  obtain ⟨N₂, hN₂⟩ := (Metric.tendsto_atTop.mp h_dct_χ) (ε / (6 * (M + 1))) hpos_6Mplus
+  set n₀ : ℕ := max (max N₁ N₂) 2 with hn₀_def
+  have hn₀_N₁ : N₁ ≤ n₀ := le_trans (le_max_left _ _) (le_max_left _ _)
+  have hn₀_N₂ : N₂ ≤ n₀ := le_trans (le_max_right _ _) (le_max_left _ _)
+  have hn₀_2 : 2 ≤ n₀ := le_max_right _ _
+  have hn₀_1 : 1 ≤ n₀ := le_trans (by norm_num) hn₀_2
+  have h_bnd_φg_int : |∫ x, φg n₀ x ∂ν - ∫ x in largeSet ρ, g x ∂ν| < ε / 3 := by
+    have := hN₁ n₀ hn₀_N₁; rwa [Real.dist_eq] at this
+  have h_χ_int_nn : 0 ≤ ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂ν :=
+    integral_nonneg (fun x => largeAnnulusBCF_nonneg ρ hρ n₀ x)
+  have h_bnd_χ_int : ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂ν < ε / (6 * (M + 1)) := by
+    have := hN₂ n₀ hn₀_N₂
+    rw [Real.dist_eq, sub_zero, abs_of_nonneg h_χ_int_nn] at this
+    exact this
+  -- Apply h_jump to φg n₀ and χ_{n₀}.
+  have h_φg_kjump : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x, φg n₀ x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x, φg n₀ x ∂ν)) :=
+    h_jump (φg n₀) (largeUpperMulBCF_vanishes_near_zero ρ hρ n₀ hn₀_1 g hg_cont M hg_bnd)
+  have h_χ_kjump : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x, largeAnnulusBCF ρ hρ n₀ x ∂ν)) :=
+    h_jump (largeAnnulusBCF ρ hρ n₀) (largeAnnulusBCF_vanishes_near_zero ρ hρ n₀ hn₀_2)
+  obtain ⟨K₁, hK₁⟩ := (Metric.tendsto_atTop.mp h_φg_kjump) (ε / 3) hpos_3
+  obtain ⟨K₂, hK₂⟩ := (Metric.tendsto_atTop.mp h_χ_kjump) (ε / (6 * (M + 1))) hpos_6Mplus
+  refine ⟨max K₁ K₂, fun k hk => ?_⟩
+  have hk_K₁ : K₁ ≤ k := le_trans (le_max_left _ _) hk
+  have hk_K₂ : K₂ ≤ k := le_trans (le_max_right _ _) hk
+  -- Bound on |t_k⁻¹ · ∫ φg n₀ dμ_k - ∫ φg n₀ dν|.
+  have h_bnd_φg_k : |(t_seq k).val⁻¹ *
+      ∫ x, φg n₀ x ∂(S.measure (t_seq k) : Measure ℝ) - ∫ x, φg n₀ x ∂ν| < ε / 3 := by
+    have := hK₁ k hk_K₁; rwa [Real.dist_eq] at this
+  -- Bound on t_k⁻¹ · ∫ χ_{n₀} dμ_k via the limit of ∫ χ dν.
+  have h_bnd_χ_k : (t_seq k).val⁻¹ *
+      ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂(S.measure (t_seq k) : Measure ℝ) ≤
+      2 * (ε / (6 * (M + 1))) := by
+    have h_diff := hK₂ k hk_K₂
+    rw [Real.dist_eq] at h_diff
+    have h_abs_sub := abs_sub_lt_iff.mp h_diff
+    linarith [h_bnd_χ_int, h_abs_sub.1]
+  -- Pointwise bound: |φg n₀ x - indicator g x| ≤ M · χ_{n₀} x.
+  -- Integrate against μ_k: |t_k⁻¹ · ∫ (φg n₀ - indicator g) dμ_k| ≤ M · t_k⁻¹ · ∫ χ_{n₀} dμ_k.
+  have h_int_diff_bnd :
+      |(t_seq k).val⁻¹ * ∫ x, φg n₀ x ∂(S.measure (t_seq k) : Measure ℝ) -
+        (t_seq k).val⁻¹ * ∫ x in largeSet ρ, g x ∂(S.measure (t_seq k) : Measure ℝ)| ≤
+      M * ((t_seq k).val⁻¹ *
+        ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂(S.measure (t_seq k) : Measure ℝ)) := by
+    set μk : Measure ℝ := (S.measure (t_seq k) : Measure ℝ) with hμk_def
+    have h_indicator_int :
+        ∫ x in largeSet ρ, g x ∂μk = ∫ x, Set.indicator (largeSet ρ) g x ∂μk :=
+      (integral_indicator (measurableSet_largeSet ρ)).symm
+    rw [h_indicator_int, ← mul_sub, abs_mul]
+    have h_tinv_nn : (0 : ℝ) ≤ (t_seq k).val⁻¹ :=
+      inv_nonneg.mpr (le_of_lt (t_seq k).prop)
+    rw [abs_of_nonneg h_tinv_nn,
+        show M * ((t_seq k).val⁻¹ * ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂μk) =
+            (t_seq k).val⁻¹ * (M * ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂μk) from by ring]
+    refine mul_le_mul_of_nonneg_left ?_ h_tinv_nn
+    -- |∫ (φg - indicator g) dμk| ≤ M · ∫ χ dμk
+    have h_φg_int : Integrable (φg n₀) μk := (φg n₀).integrable _
+    have h_ind_int : Integrable (Set.indicator (largeSet ρ) g) μk := by
+      have hg_int : Integrable g μk :=
+        Integrable.mono' (integrable_const M)
+          hg_cont.aestronglyMeasurable
+          (Filter.Eventually.of_forall (fun x => by
+            rw [Real.norm_eq_abs]; exact hg_bnd x))
+      exact hg_int.indicator (measurableSet_largeSet ρ)
+    rw [← integral_sub h_φg_int h_ind_int]
+    have h_ptwise : ∀ x, |φg n₀ x - Set.indicator (largeSet ρ) g x| ≤
+        M * largeAnnulusBCF ρ hρ n₀ x := fun x =>
+      largeUpperMulBCF_sub_indicator_abs_le ρ hρ n₀ g hg_cont M hM_nn hg_bnd x
+    calc |∫ x, (φg n₀ x - Set.indicator (largeSet ρ) g x) ∂μk|
+        ≤ ∫ x, M * largeAnnulusBCF ρ hρ n₀ x ∂μk := by
+          have h_bnd_int :=
+            MeasureTheory.norm_integral_le_of_norm_le
+              (((largeAnnulusBCF ρ hρ n₀).integrable μk).const_mul M)
+              (Filter.Eventually.of_forall (fun x => by
+                rw [Real.norm_eq_abs]; exact h_ptwise x))
+          rwa [Real.norm_eq_abs] at h_bnd_int
+      _ = M * ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂μk := integral_const_mul _ _
+  -- Triangle inequality assembly.
+  rw [Real.dist_eq]
+  have h_split :
+      (t_seq k).val⁻¹ * ∫ x in largeSet ρ, g x ∂(S.measure (t_seq k) : Measure ℝ) -
+        ∫ x in largeSet ρ, g x ∂ν =
+      ((t_seq k).val⁻¹ * ∫ x in largeSet ρ, g x ∂(S.measure (t_seq k) : Measure ℝ) -
+          (t_seq k).val⁻¹ * ∫ x, φg n₀ x ∂(S.measure (t_seq k) : Measure ℝ)) +
+        ((t_seq k).val⁻¹ * ∫ x, φg n₀ x ∂(S.measure (t_seq k) : Measure ℝ) -
+          ∫ x, φg n₀ x ∂ν) +
+        (∫ x, φg n₀ x ∂ν - ∫ x in largeSet ρ, g x ∂ν) := by ring
+  rw [h_split]
+  have h_tri : ∀ a b c : ℝ, |a + b + c| ≤ |a| + |b| + |c| := fun a b c => by
+    have h1 : |a + b + c| ≤ |a + b| + |c| := by
+      have := norm_add_le (a + b) c
+      rw [Real.norm_eq_abs, Real.norm_eq_abs, Real.norm_eq_abs] at this; exact this
+    have h2 : |a + b| ≤ |a| + |b| := by
+      have := norm_add_le a b
+      rw [Real.norm_eq_abs, Real.norm_eq_abs, Real.norm_eq_abs] at this; exact this
+    linarith
+  refine lt_of_le_of_lt (h_tri _ _ _) ?_
+  have h_step1 :
+      |(t_seq k).val⁻¹ * ∫ x in largeSet ρ, g x ∂(S.measure (t_seq k) : Measure ℝ) -
+        (t_seq k).val⁻¹ * ∫ x, φg n₀ x ∂(S.measure (t_seq k) : Measure ℝ)| ≤
+      M * ((t_seq k).val⁻¹ *
+        ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂(S.measure (t_seq k) : Measure ℝ)) := by
+    rw [abs_sub_comm]; exact h_int_diff_bnd
+  have h_main_bnd :
+      M * ((t_seq k).val⁻¹ *
+        ∫ x, largeAnnulusBCF ρ hρ n₀ x ∂(S.measure (t_seq k) : Measure ℝ)) ≤
+        M * (2 * (ε / (6 * (M + 1)))) :=
+    mul_le_mul_of_nonneg_left h_bnd_χ_k hM_nn
+  have h_alg : M * (2 * (ε / (6 * (M + 1)))) ≤ ε / 3 := by
+    have hM1 : 0 < M + 1 := by linarith
+    have h_ratio : M / (M + 1) ≤ 1 := by
+      rw [div_le_one hM1]; linarith
+    calc M * (2 * (ε / (6 * (M + 1))))
+        = (M / (M + 1)) * (ε / 3) := by field_simp; ring
+      _ ≤ 1 * (ε / 3) :=
+          mul_le_mul_of_nonneg_right h_ratio (by linarith [hε.le])
+      _ = ε / 3 := one_mul _
+  linarith [h_step1, h_main_bnd, h_alg, h_bnd_φg_k, h_bnd_φg_int]
+
+/-- Bounded continuous integrands are set-integrable against finite measures. -/
+private lemma integrableOn_of_bounded {s : Set ℝ} {μ : Measure ℝ} [IsFiniteMeasure μ]
+    {E : Type*} [NormedAddCommGroup E]
+    {f : ℝ → E} (hf_cont : Continuous f) {M : ℝ} (hf_bnd : ∀ x, ‖f x‖ ≤ M) :
+    IntegrableOn f s μ :=
+  Integrable.mono' (integrable_const M) hf_cont.aestronglyMeasurable
+    (Filter.Eventually.of_forall hf_bnd) |>.integrableOn
+
+/-- Bounded continuous integrands are set-integrable against any measure that is finite on the
+set of integration. This generalizes `integrableOn_of_bounded` to (possibly σ-finite) measures
+by only demanding `μ s < ⊤` rather than global finiteness. -/
+private lemma integrableOn_of_bounded_of_measure_lt_top {s : Set ℝ} {μ : Measure ℝ}
+    (hs : μ s < ⊤) {E : Type*} [NormedAddCommGroup E]
+    {f : ℝ → E} (hf_cont : Continuous f) {M : ℝ} (hf_bnd : ∀ x, ‖f x‖ ≤ M) :
+    IntegrableOn f s μ := by
+  haveI : IsFiniteMeasure (μ.restrict s) := isFiniteMeasure_restrict.mpr hs.ne
+  exact Integrable.mono' (integrable_const M) hf_cont.aestronglyMeasurable
+    (Filter.Eventually.of_forall hf_bnd)
+
+/-- **Large-jump identification (complex), at split radius `ρ`.** The scaled set integral
+over `largeSet ρ` of the characteristic integrand `exp(ix·ξ) − 1` against `μ_t` converges
+to the corresponding ν-integral, obtained from the scalar identification via the Re/Im
+split. -/
+private lemma scaled_largeSet_charFun_tendsto
+    {ρ : ℝ} (hρ : 0 < ρ) (ξ : ℝ)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν) (hν_atom : ν {x | |x| = ρ} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}}
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+        Tendsto (fun k => (t_seq k).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq k) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) :
+    Tendsto (fun k => ((t_seq k).val⁻¹ : ℂ) *
+        ∫ x in largeSet ρ, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in largeSet ρ, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂ν)) := by
+  -- Real and imaginary parts of the complex integrand.
+  set gRe : ℝ → ℝ := fun x => Real.cos (x * ξ) - 1 with hgRe_def
+  set gIm : ℝ → ℝ := fun x => Real.sin (x * ξ) with hgIm_def
+  -- Continuity.
+  have hgRe_cont : Continuous gRe :=
+    (Real.continuous_cos.comp (continuous_id.mul continuous_const)).sub continuous_const
+  have hgIm_cont : Continuous gIm :=
+    Real.continuous_sin.comp (continuous_id.mul continuous_const)
+  -- Bounds: |gRe| ≤ 2, |gIm| ≤ 1.
+  have hgRe_bnd : ∀ x, |gRe x| ≤ 2 := fun x =>
+    abs_le.mpr ⟨by simp only [hgRe_def]; linarith [Real.neg_one_le_cos (x * ξ)],
+                by simp only [hgRe_def]; linarith [Real.cos_le_one (x * ξ)]⟩
+  have hgIm_bnd : ∀ x, |gIm x| ≤ 1 := fun x =>
+    abs_le.mpr ⟨Real.neg_one_le_sin (x * ξ), Real.sin_le_one (x * ξ)⟩
+  -- Pointwise Re/Im of the complex integrand.
+  have hExp_arg : ∀ x : ℝ, (↑x : ℂ) * ↑ξ * I = (↑(x * ξ) : ℂ) * I := fun x => by
+    push_cast; ring
+  have hRe_eq : ∀ x : ℝ, RCLike.re (exp ((↑x : ℂ) * ↑ξ * I) - 1) = gRe x := fun x => by
+    simp only [hgRe_def, RCLike.re_to_complex, Complex.sub_re, Complex.one_re, hExp_arg,
+      Complex.exp_ofReal_mul_I_re]
+  have hIm_eq : ∀ x : ℝ, RCLike.im (exp ((↑x : ℂ) * ↑ξ * I) - 1) = gIm x := fun x => by
+    simp only [hgIm_def, RCLike.im_to_complex, Complex.sub_im, Complex.one_im, hExp_arg,
+      Complex.exp_ofReal_mul_I_im, sub_zero]
+  -- Decomposition of the complex set integral over any measure finite on `largeSet ρ`.
+  have h_decomp : ∀ (m : Measure ℝ), m (largeSet ρ) < ⊤ →
+      ∫ x in largeSet ρ, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂m =
+        (↑(∫ x in largeSet ρ, gRe x ∂m) : ℂ) + (↑(∫ x in largeSet ρ, gIm x ∂m) : ℂ) * I := by
+    intro m hm
+    have h_int : IntegrableOn (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1) (largeSet ρ) m := by
+      refine integrableOn_of_bounded_of_measure_lt_top hm
+        (((Complex.continuous_exp.comp
+          (((Complex.continuous_ofReal.mul continuous_const).mul continuous_const))).sub
+          continuous_const)) (M := 2) (fun x => ?_)
+      rw [show exp ((↑x : ℂ) * ↑ξ * I) - 1 = exp ((↑(x * ξ) : ℂ) * I) - 1 from by
+            rw [hExp_arg]]
+      calc ‖exp ((↑(x * ξ) : ℂ) * I) - 1‖
+          ≤ ‖exp ((↑(x * ξ) : ℂ) * I)‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
+        _ = 2 := by
+            rw [Complex.norm_exp_ofReal_mul_I, norm_one]; norm_num
+    have h := setIntegral_re_add_im h_int
+    simp only [RCLike.I_to_complex] at h
+    have hRe_int : ∫ x in largeSet ρ, RCLike.re (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂m =
+        ∫ x in largeSet ρ, gRe x ∂m :=
+      setIntegral_congr_fun (measurableSet_largeSet ρ) (fun x _ => hRe_eq x)
+    have hIm_int : ∫ x in largeSet ρ, RCLike.im (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂m =
+        ∫ x in largeSet ρ, gIm x ∂m :=
+      setIntegral_congr_fun (measurableSet_largeSet ρ) (fun x _ => hIm_eq x)
+    rw [hRe_int, hIm_int] at h
+    exact h.symm
+  -- Scalar limits for gRe and gIm.
+  have h_re_lim : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x in largeSet ρ, gRe x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in largeSet ρ, gRe x ∂ν)) :=
+    S.scaled_largeSet_integral_tendsto hρ gRe hgRe_cont (by norm_num) hgRe_bnd hν hν_atom h_jump
+  have h_im_lim : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x in largeSet ρ, gIm x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in largeSet ρ, gIm x ∂ν)) :=
+    S.scaled_largeSet_integral_tendsto hρ gIm hgIm_cont (by norm_num) hgIm_bnd hν hν_atom h_jump
+  -- Recombine into the complex limit.
+  have h_re_lim_C : Tendsto (fun k => (↑((t_seq k).val⁻¹ *
+      ∫ x in largeSet ρ, gRe x ∂(S.measure (t_seq k) : Measure ℝ)) : ℂ))
+      atTop (𝓝 (↑(∫ x in largeSet ρ, gRe x ∂ν) : ℂ)) :=
+    (Complex.continuous_ofReal.tendsto _).comp h_re_lim
+  have h_im_lim_C : Tendsto (fun k => (↑((t_seq k).val⁻¹ *
+      ∫ x in largeSet ρ, gIm x ∂(S.measure (t_seq k) : Measure ℝ)) : ℂ) * I)
+      atTop (𝓝 ((↑(∫ x in largeSet ρ, gIm x ∂ν) : ℂ) * I)) :=
+    ((Complex.continuous_ofReal.tendsto _).comp h_im_lim).mul_const I
+  have h_sum := h_re_lim_C.add h_im_lim_C
+  rw [← h_decomp ν (hν.measure_setOf_abs_ge_lt_top hρ)] at h_sum
+  refine h_sum.congr (fun k => ?_)
+  rw [h_decomp (S.measure (t_seq k) : Measure ℝ) (measure_lt_top _ _)]
+  push_cast
+  ring
+
+/-- **Band convergence.** For atom-free radii `0 < δ < ρ`, the scaled band integral of a
+bounded continuous function converges to the `ν`-band integral. Proof: clamp `g` to
+`[-ρ, ρ]` and subtract two `largeSet` limits (`largeSet ρ ⊆ largeSet δ`). -/
+private lemma scaled_band_integral_tendsto
+    {δ ρ : ℝ} (hδ : 0 < δ) (hδρ : δ < ρ)
+    (g : ℝ → ℝ) (hg_cont : Continuous g) {M : ℝ} (hM_nn : 0 ≤ M)
+    (hg_bnd : ∀ x, |g x| ≤ M)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    (hν_δ : ν {x | |x| = δ} = 0) (hν_ρ : ν {x | |x| = ρ} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}}
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+        Tendsto (fun k => (t_seq k).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq k) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) :
+    Tendsto (fun k => (t_seq k).val⁻¹ *
+        ∫ x in {x | δ ≤ |x| ∧ |x| < ρ}, g x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in {x | δ ≤ |x| ∧ |x| < ρ}, g x ∂ν)) := by
+  have hρ : 0 < ρ := hδ.trans hδρ
+  -- Clamp `g` to `[-ρ, ρ]`: `g̃ := g ∘ clamp`, continuous and globally bounded by `M`.
+  set clamp : ℝ → ℝ := fun x => max (-ρ) (min x ρ)
+  have hclamp_cont : Continuous clamp :=
+    continuous_const.max (continuous_id.min continuous_const)
+  set g' : ℝ → ℝ := fun x => g (clamp x)
+  have hg'_cont : Continuous g' := hg_cont.comp hclamp_cont
+  have hg'_bnd : ∀ x, |g' x| ≤ M := fun x => hg_bnd (clamp x)
+  -- The band is `largeSet δ \ largeSet ρ`, with `largeSet ρ ⊆ largeSet δ`.
+  have h_sub : largeSet ρ ⊆ largeSet δ := largeSet_antitone (le_of_lt hδρ)
+  have h_band_eq : {x | δ ≤ |x| ∧ |x| < ρ} = largeSet δ \ largeSet ρ := by
+    ext x
+    simp only [Set.mem_setOf_eq, Set.mem_diff, mem_largeSet, not_le]
+  -- On the band, `clamp x = x`, hence `g' = g`.
+  have h_clamp_eq : ∀ x ∈ {x | δ ≤ |x| ∧ |x| < ρ}, clamp x = x := by
+    intro x hx
+    have hxρ : |x| < ρ := hx.2
+    obtain ⟨hxl, hxr⟩ := abs_lt.mp hxρ
+    show max (-ρ) (min x ρ) = x
+    rw [min_eq_left (le_of_lt hxr), max_eq_right (le_of_lt hxl)]
+  -- For any measure finite on `largeSet δ`, the band integral of `g` equals the difference of
+  -- the two `largeSet` integrals of `g'`.
+  have h_split : ∀ (m : Measure ℝ), m (largeSet δ) < ⊤ →
+      ∫ x in {x | δ ≤ |x| ∧ |x| < ρ}, g x ∂m =
+        (∫ x in largeSet δ, g' x ∂m) - ∫ x in largeSet ρ, g' x ∂m := by
+    intro m hm
+    have hg'_intOn : IntegrableOn g' (largeSet δ) m :=
+      integrableOn_of_bounded_of_measure_lt_top hm hg'_cont
+        (fun x => by simpa [Real.norm_eq_abs] using hg'_bnd x)
+    have h_diff : ∫ x in largeSet δ \ largeSet ρ, g' x ∂m =
+        (∫ x in largeSet δ, g' x ∂m) - ∫ x in largeSet ρ, g' x ∂m :=
+      integral_diff (measurableSet_largeSet ρ) hg'_intOn h_sub
+    have h_congr : ∫ x in {x | δ ≤ |x| ∧ |x| < ρ}, g x ∂m =
+        ∫ x in {x | δ ≤ |x| ∧ |x| < ρ}, g' x ∂m := by
+      refine (setIntegral_congr_fun ?_ (fun x hx => ?_)).symm
+      · rw [h_band_eq]
+        exact (measurableSet_largeSet δ).diff (measurableSet_largeSet ρ)
+      · show g (clamp x) = g x
+        rw [h_clamp_eq x hx]
+    rw [h_congr, h_band_eq, h_diff]
+  -- Two `largeSet` limits for `g'`, then subtract.
+  have h_δ_lim : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x in largeSet δ, g' x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in largeSet δ, g' x ∂ν)) :=
+    S.scaled_largeSet_integral_tendsto hδ g' hg'_cont hM_nn hg'_bnd hν hν_δ h_jump
+  have h_ρ_lim : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x in largeSet ρ, g' x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in largeSet ρ, g' x ∂ν)) :=
+    S.scaled_largeSet_integral_tendsto hρ g' hg'_cont hM_nn hg'_bnd hν hν_ρ h_jump
+  have h_sub_lim := h_δ_lim.sub h_ρ_lim
+  rw [← h_split ν (hν.measure_setOf_abs_ge_lt_top hδ)] at h_sub_lim
+  refine h_sub_lim.congr (fun k => ?_)
+  rw [h_split (S.measure (t_seq k) : Measure ℝ) (measure_lt_top _ _), mul_sub]
+
+/-- `x²` is integrable on the ball `{|x| < r}` under any Lévy measure. On the ball the bound
+`x² ≤ max 1 (r²) · min 1 (x²)` holds pointwise (case on `x² ≤ 1`), so the ν-integral is
+controlled by `∫⁻ min(1, x²) dν < ⊤`. -/
+private lemma sq_integrableOn_ball_levy
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν) (r : ℝ) :
+    IntegrableOn (fun x : ℝ => x ^ 2) {x : ℝ | |x| < r} ν := by
+  set K : ℝ := max 1 (r ^ 2) with hK_def
+  have hK1 : (1 : ℝ) ≤ K := le_max_left _ _
+  have hK_nn : (0 : ℝ) ≤ K := le_trans zero_le_one hK1
+  refine ⟨(continuous_pow 2).aestronglyMeasurable, ?_⟩
+  rw [hasFiniteIntegral_iff_enorm]
+  have hbound : ∫⁻ x in {x : ℝ | |x| < r}, ‖x ^ 2‖ₑ ∂ν ≤
+      ENNReal.ofReal K * ∫⁻ x, ENNReal.ofReal (min 1 (x ^ 2)) ∂ν := by
+    calc ∫⁻ x in {x : ℝ | |x| < r}, ‖x ^ 2‖ₑ ∂ν
+        ≤ ∫⁻ x in {x : ℝ | |x| < r}, ENNReal.ofReal (K * min 1 (x ^ 2)) ∂ν := by
+          refine setLIntegral_mono ?_ (fun x hx => ?_)
+          · exact ENNReal.measurable_ofReal.comp
+              (measurable_const.mul (measurable_const.min (measurable_id'.pow_const 2)))
+          · rw [Real.enorm_eq_ofReal (sq_nonneg x)]
+            refine ENNReal.ofReal_le_ofReal ?_
+            have hxr : |x| < r := hx
+            by_cases hle : x ^ 2 ≤ 1
+            · rw [min_eq_right hle]
+              exact le_mul_of_one_le_left (sq_nonneg x) hK1
+            · rw [min_eq_left (not_le.mp hle).le, mul_one]
+              have hx2 : x ^ 2 < r ^ 2 := by
+                have h := abs_lt.mp hxr
+                nlinarith [h.1, h.2]
+              exact le_trans (le_of_lt hx2) (le_max_right _ _)
+      _ = ∫⁻ x in {x : ℝ | |x| < r}, ENNReal.ofReal K * ENNReal.ofReal (min 1 (x ^ 2)) ∂ν := by
+          refine lintegral_congr (fun x => ?_)
+          rw [ENNReal.ofReal_mul hK_nn]
+      _ ≤ ∫⁻ x, ENNReal.ofReal K * ENNReal.ofReal (min 1 (x ^ 2)) ∂ν :=
+          setLIntegral_le_lintegral _ _
+      _ = ENNReal.ofReal K * ∫⁻ x, ENNReal.ofReal (min 1 (x ^ 2)) ∂ν :=
+          lintegral_const_mul' _ _ ENNReal.ofReal_ne_top
+  exact lt_of_le_of_lt hbound (ENNReal.mul_lt_top ENNReal.ofReal_lt_top hν.2)
+
+/-- The cubic Taylor remainder is integrable on the ball `{|x| < r}` (for `r ≤ 1`) under any
+Lévy measure: on the ball it equals `levyCompensatedIntegrand ξ x + (xξ)²/2`, and both summands
+are ν-integrable (the compensated integrand globally, the quadratic term by
+`sq_integrableOn_ball_levy`). -/
+private lemma remainder_integrableOn_ball_levy
+    {r : ℝ} (hr1 : r ≤ 1) (ξ : ℝ) {ν : Measure ℝ} (hν : IsLevyMeasure ν) :
+    IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+      {x : ℝ | |x| < r} ν := by
+  have hmeas : MeasurableSet {x : ℝ | |x| < r} :=
+    (isOpen_lt continuous_abs continuous_const).measurableSet
+  have hcomp : IntegrableOn (levyCompensatedIntegrand ξ) {x : ℝ | |x| < r} ν :=
+    (integrable_levyCompensatedIntegrand hν ξ).integrableOn
+  have hquad : IntegrableOn (fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2) {x : ℝ | |x| < r} ν := by
+    have hrw : (fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2) =
+        fun x : ℝ => (↑((x ^ 2 * (ξ ^ 2 / 2) : ℝ)) : ℂ) := by
+      funext x; push_cast; ring
+    rw [hrw]
+    exact ((sq_integrableOn_ball_levy hν r).mul_const (ξ ^ 2 / 2)).ofReal
+  have hsum : IntegrableOn
+      (levyCompensatedIntegrand ξ + fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+      {x : ℝ | |x| < r} ν := hcomp.add hquad
+  refine hsum.congr_fun (fun x hx => ?_) hmeas
+  have hx1 : |x| < 1 := lt_of_lt_of_le hx hr1
+  simp only [Pi.add_apply, levyCompensatedIntegrand_def, if_pos hx1]
+  ring
+
+/-- The `ν`-small-ball second moment is dominated by the scaled-second-moment limit:
+`∫_{|x|<r} x² dν ≤ σ_sq_r`. This makes the Gaussian variance
+`σ_G² = σ_sq_r − ∫_{|x|<r} x² dν` nonnegative. -/
+private lemma smallBall_second_moment_nu_le
+    {r : ℝ} (hr : 0 < r)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    (hν_r : ν {x | |x| = r} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}} {σ_sq_r : ℝ}
+    (hσ : Tendsto (fun k => (t_seq k).val⁻¹ *
+        ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ)) atTop (𝓝 σ_sq_r))
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+        Tendsto (fun k => (t_seq k).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq k) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) :
+    ∫ x in {x | |x| < r}, x ^ 2 ∂ν ≤ σ_sq_r := by
+  -- Clamp `x²` to `[0, r²]`: globally bounded, continuous, and equal to `x²` on `{|x|<r}`.
+  set g : ℝ → ℝ := fun x => min (x ^ 2) (r ^ 2) with hg_def
+  have hg_cont : Continuous g := (continuous_pow 2).min continuous_const
+  have hr2_nn : (0 : ℝ) ≤ r ^ 2 := sq_nonneg r
+  have hg_nn : ∀ x, 0 ≤ g x := fun x => le_min (sq_nonneg x) hr2_nn
+  have hg_bnd : ∀ x, |g x| ≤ r ^ 2 := fun x =>
+    abs_le.mpr ⟨le_trans (by linarith [hr2_nn]) (hg_nn x), min_le_right _ _⟩
+  -- On the ball `{|x| < r}`, the clamp is inactive: `g x = x²`.
+  have hg_eq_ball : ∀ x ∈ {x : ℝ | |x| < r}, g x = x ^ 2 := by
+    intro x hx
+    have hx' : |x| < r := hx
+    have : x ^ 2 ≤ r ^ 2 := by
+      have := sq_le_sq' (by linarith [abs_lt.mp hx']) (le_of_lt (abs_lt.mp hx').2)
+      simpa using this
+    exact min_eq_left this
+  have h_meas_ball : MeasurableSet {x : ℝ | |x| < r} :=
+    (isOpen_lt continuous_abs continuous_const).measurableSet
+  -- Atom-free shrinking sequence `δ m ↓ 0` inside `(0, r)`.
+  obtain ⟨δ, hδ_pos, hδ_lt, hδ_null, hδ_tendsto⟩ := hν.exists_atomFree_seq_tendsto_zero hr
+  -- Per-`m` ν-band second moment, bounded by `σ_sq_r`.
+  have h_band_le : ∀ m, ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, x ^ 2 ∂ν ≤ σ_sq_r := by
+    intro m
+    -- The band is measurable and contained in the ball.
+    have h_meas_band : MeasurableSet {x : ℝ | δ m ≤ |x| ∧ |x| < r} :=
+      (measurableSet_le measurable_const continuous_abs.measurable).inter
+        (measurableSet_lt continuous_abs.measurable measurable_const)
+    have h_band_sub : {x : ℝ | δ m ≤ |x| ∧ |x| < r} ⊆ {x : ℝ | |x| < r} :=
+      fun x hx => hx.2
+    -- Step 1: band limit for the clamped `g`, then rewrite to `x²` on both sides.
+    have h_band_lim : Tendsto (fun k => (t_seq k).val⁻¹ *
+        ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ))
+        atTop (𝓝 (∫ x in {x | δ m ≤ |x| ∧ |x| < r}, x ^ 2 ∂ν)) := by
+      have h := S.scaled_band_integral_tendsto (hδ := hδ_pos m) (hδρ := hδ_lt m)
+        g hg_cont hr2_nn hg_bnd hν (hδ_null m) hν_r h_jump
+      -- Swap `g` for `x²` on the band (it lies in the ball where `g = x²`).
+      have hswap : ∀ (μ : Measure ℝ),
+          ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, g x ∂μ =
+            ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, x ^ 2 ∂μ :=
+        fun μ => setIntegral_congr_fun h_meas_band
+          (fun x hx => hg_eq_ball x (h_band_sub hx))
+      simpa only [hswap ν, hswap (S.measure (t_seq _) : Measure ℝ)] using h
+    -- Step 2: per-`k` comparison band ⊆ ball, using the clamped `g` for integrability.
+    have h_compare : ∀ k, (t_seq k).val⁻¹ *
+        ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ) ≤
+        (t_seq k).val⁻¹ *
+          ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ) := by
+      intro k
+      refine mul_le_mul_of_nonneg_left ?_ (le_of_lt (inv_pos.mpr (t_seq k).2))
+      set μ := (S.measure (t_seq k) : Measure ℝ)
+      -- Compare via the clamped `g`, which is integrable on the ball (bounded, finite measure).
+      have hg_int_ball : IntegrableOn g {x : ℝ | |x| < r} μ :=
+        integrableOn_of_bounded hg_cont
+          (fun x => by simpa [Real.norm_eq_abs] using hg_bnd x)
+      have h_band : ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, x ^ 2 ∂μ =
+          ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, g x ∂μ :=
+        (setIntegral_congr_fun h_meas_band
+          (fun x hx => hg_eq_ball x (h_band_sub hx))).symm
+      have h_ball : ∫ x in {x | |x| < r}, x ^ 2 ∂μ =
+          ∫ x in {x | |x| < r}, g x ∂μ :=
+        (setIntegral_congr_fun h_meas_ball hg_eq_ball).symm
+      rw [h_band, h_ball]
+      exact setIntegral_mono_set hg_int_ball
+        (ae_restrict_of_forall_mem h_meas_ball (fun x _ => hg_nn x))
+        (HasSubset.Subset.eventuallyLE h_band_sub)
+    exact le_of_tendsto_of_tendsto' h_band_lim hσ h_compare
+  -- Step 3: `m → ∞`. The bands exhaust the punctured ball; `x²·1_{band m} → x²·1_{ball∖{0}}`
+  -- pointwise off `{0}`, dominated by `r²`, so the band integrals tend to the ball integral.
+  set f : ℕ → ℝ → ℝ := fun m x =>
+    Set.indicator {x : ℝ | δ m ≤ |x| ∧ |x| < r} (fun x => x ^ 2) x with hf_def
+  have h_meas_band' : ∀ m, MeasurableSet {x : ℝ | δ m ≤ |x| ∧ |x| < r} := fun m =>
+    (measurableSet_le measurable_const continuous_abs.measurable).inter
+      (measurableSet_lt continuous_abs.measurable measurable_const)
+  -- Rewrite band/ball integrals as integrals of indicators on all of ℝ.
+  have h_band_int : ∀ m, ∫ x in {x | δ m ≤ |x| ∧ |x| < r}, x ^ 2 ∂ν = ∫ x, f m x ∂ν :=
+    fun m => (integral_indicator (h_meas_band' m)).symm
+  have h_ball_int : ∫ x in {x | |x| < r}, x ^ 2 ∂ν =
+      ∫ x, Set.indicator {x : ℝ | |x| < r} (fun x => x ^ 2) x ∂ν :=
+    (integral_indicator h_meas_ball).symm
+  have h_lim : Tendsto (fun m => ∫ x, f m x ∂ν) atTop
+      (𝓝 (∫ x, Set.indicator {x : ℝ | |x| < r} (fun x => x ^ 2) x ∂ν)) := by
+    refine MeasureTheory.tendsto_integral_of_dominated_convergence
+      (bound := fun x => Set.indicator {x : ℝ | |x| < r} (fun x => x ^ 2) x)
+      (fun m => ((continuous_pow 2).aestronglyMeasurable.indicator (h_meas_band' m)))
+      ?_ ?_ ?_
+    · -- the dominating function `x²·1_ball` is ν-integrable (Lévy small-ball second moment).
+      exact (integrable_indicator_iff h_meas_ball).mpr (sq_integrableOn_ball_levy hν r)
+    · -- domination `|f m x| ≤ x²·1_ball x`.
+      intro m
+      refine Filter.Eventually.of_forall (fun x => ?_)
+      simp only [Real.norm_eq_abs, hf_def, Set.indicator_apply]
+      by_cases hx : x ∈ {x : ℝ | δ m ≤ |x| ∧ |x| < r}
+      · have hxr : x ∈ {x : ℝ | |x| < r} := hx.2
+        rw [if_pos hx, if_pos hxr]
+        exact le_of_eq (abs_of_nonneg (sq_nonneg x))
+      · rw [if_neg hx]
+        simp only [abs_zero]
+        split <;> [exact sq_nonneg x; exact le_refl 0]
+    · -- pointwise convergence ν-a.e. (off the ν-null point `0`).
+      have h_ae : ∀ᵐ x ∂ν, x ≠ 0 := by
+        rw [ae_iff]
+        simpa using hν.1
+      filter_upwards [h_ae] with x hx0
+      by_cases hxr : x ∈ {x : ℝ | |x| < r}
+      · rw [Set.indicator_of_mem hxr]
+        -- eventually `δ m < |x|`, so `x` enters the band and stays.
+        have hx_pos : 0 < |x| := abs_pos.mpr hx0
+        have h_ev : ∀ᶠ m in atTop, δ m < |x| :=
+          (hδ_tendsto.eventually_lt_const hx_pos)
+        refine Filter.Tendsto.congr' ?_ tendsto_const_nhds
+        filter_upwards [h_ev] with m hm
+        have hmem : x ∈ {x : ℝ | δ m ≤ |x| ∧ |x| < r} := ⟨le_of_lt hm, hxr⟩
+        simp only [hf_def, Set.indicator_apply, if_pos hmem]
+      · rw [Set.indicator_of_notMem hxr]
+        refine Filter.Tendsto.congr' ?_ tendsto_const_nhds
+        refine Filter.Eventually.of_forall (fun m => ?_)
+        have hnmem : x ∉ {x : ℝ | δ m ≤ |x| ∧ |x| < r} := fun h => hxr h.2
+        simp only [hf_def, Set.indicator_apply, if_neg hnmem]
+  rw [h_ball_int]
+  exact le_of_tendsto' (h_lim.congr (fun m => (h_band_int m).symm)) h_band_le
+
+/-! ### Phase 4b — Small-jump identification (cubic-remainder / δ-truncation)
+
+The "small jump" analogue of `scaled_largeSet_charFun_tendsto`. The third-order Taylor
+remainder `R ξ x = exp(ixξ) − 1 − ixξ + (ixξ)²/2` is `O(|x|³)` near `0`, so the scaled
+inner-ball contribution is controlled uniformly by the second moment. The band is handled
+by `scaled_band_integral_tendsto` (via the Re/Im split), and the `ν`-tail vanishes as the
+inner radius shrinks. -/
+
+/-- The cubic Taylor remainder `R ξ x = exp(ixξ) − 1 − ixξ + (ixξ)²/2` is continuous in `x`. -/
+private lemma smallBall_remainder_continuous (ξ : ℝ) :
+    Continuous (fun x : ℝ =>
+      exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) := by
+  have h1 : Continuous (fun x : ℝ => (↑x : ℂ) * ↑ξ * I) :=
+    (Complex.continuous_ofReal.mul continuous_const).mul continuous_const
+  have h2 : Continuous (fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2) :=
+    (((Complex.continuous_ofReal.mul continuous_const).pow 2)).div_const 2
+  exact (((Complex.continuous_exp.comp h1).sub continuous_const).sub h1).add h2
+
+/-- **Crude bound on the cubic remainder on the unit ball.** For `|x| ≤ 1`,
+`‖R ξ x‖ ≤ 2 + |ξ| + ξ²/2`. (Triangle inequality; `‖exp(ixξ)‖ = 1`.) -/
+private lemma smallBall_remainder_norm_le_crude {ξ x : ℝ} (hx : |x| ≤ 1) :
+    ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ ≤
+      2 + |ξ| + ξ ^ 2 / 2 := by
+  have harg : (↑x : ℂ) * ↑ξ * I = (↑(x * ξ) : ℂ) * I := by push_cast; ring
+  have hexp_norm : ‖exp ((↑x : ℂ) * ↑ξ * I)‖ = 1 := by
+    rw [harg, Complex.norm_exp_ofReal_mul_I]
+  have hxξ : ‖(↑x : ℂ) * ↑ξ * I‖ = |x| * |ξ| := by
+    rw [norm_mul, norm_mul, Complex.norm_I, mul_one, Complex.norm_real, Complex.norm_real,
+      Real.norm_eq_abs, Real.norm_eq_abs]
+  have hsq : ‖((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ = (|x| * |ξ|) ^ 2 / 2 := by
+    rw [norm_div, norm_pow, norm_mul, Complex.norm_real, Complex.norm_real,
+      Real.norm_eq_abs, Real.norm_eq_abs]
+    norm_num
+  calc ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖
+      ≤ ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I‖ + ‖((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ :=
+        norm_add_le _ _
+    _ ≤ (‖exp ((↑x : ℂ) * ↑ξ * I) - 1‖ + ‖(↑x : ℂ) * ↑ξ * I‖) + ‖((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ := by
+        gcongr; exact norm_sub_le _ _
+    _ ≤ ((‖exp ((↑x : ℂ) * ↑ξ * I)‖ + ‖(1 : ℂ)‖) + ‖(↑x : ℂ) * ↑ξ * I‖) +
+          ‖((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ := by gcongr; exact norm_sub_le _ _
+    _ = 2 + |x| * |ξ| + (|x| * |ξ|) ^ 2 / 2 := by
+        rw [hexp_norm, hxξ, hsq, norm_one]; ring
+    _ ≤ 2 + |ξ| + ξ ^ 2 / 2 := by
+        have hxξ_le : |x| * |ξ| ≤ |ξ| := by
+          calc |x| * |ξ| ≤ 1 * |ξ| := by gcongr
+            _ = |ξ| := one_mul _
+        have hsq_le : (|x| * |ξ|) ^ 2 / 2 ≤ ξ ^ 2 / 2 := by
+          have hnn : (0 : ℝ) ≤ |x| * |ξ| := by positivity
+          have : (|x| * |ξ|) ^ 2 ≤ |ξ| ^ 2 := by gcongr
+          rw [sq_abs] at this; linarith
+        linarith
+
+/-- **Cubic bound on the remainder.** For `|x·ξ| ≤ 1`, `‖R ξ x‖ ≤ (2/9)|ξ|³|x|³`. -/
+private lemma smallBall_remainder_norm_le_cube {ξ x : ℝ} (hxξ : |x * ξ| ≤ 1) :
+    ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ ≤
+      (2 / 9 : ℝ) * |ξ| ^ 3 * |x| ^ 3 := by
+  have h := norm_exp_I_mul_real_sub_taylor3_le (z := x * ξ) hxξ
+  have heq : exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2 =
+      Complex.exp ((↑(x * ξ) : ℂ) * I) - 1 - (↑(x * ξ) : ℂ) * I + (↑(x * ξ) : ℂ) ^ 2 / 2 := by
+    push_cast; ring
+  rw [heq]
+  refine h.trans (le_of_eq ?_)
+  rw [abs_mul, mul_pow]; ring
+
+/-- The clamped cubic remainder `Rc ξ r x := R ξ (clamp_{[-r,r]} x)` is continuous and, for
+`r ≤ 1`, globally bounded by `2 + |ξ| + ξ²/2`. Clamping makes the otherwise-quadratic
+remainder integrable on the whole line. -/
+private lemma remainder_clamp_continuous (r : ℝ) (ξ : ℝ) :
+    Continuous (fun x : ℝ =>
+      (fun y : ℝ => exp ((↑y : ℂ) * ↑ξ * I) - 1 - (↑y : ℂ) * ↑ξ * I + ((↑y : ℂ) * ↑ξ) ^ 2 / 2)
+        (max (-r) (min x r))) :=
+  (smallBall_remainder_continuous ξ).comp
+    (continuous_const.max (continuous_id.min continuous_const))
+
+/-- On the ball `{|x| < r}` (with `r ≤ 1`) the clamp is inactive: `clamp x = x`. -/
+private lemma clamp_eq_of_abs_lt {r x : ℝ} (hx : |x| < r) : max (-r) (min x r) = x := by
+  obtain ⟨hxl, hxr⟩ := abs_lt.mp hx
+  rw [min_eq_left (le_of_lt hxr), max_eq_right (le_of_lt hxl)]
+
+private lemma remainder_clamp_norm_le {r : ℝ} (hr0 : 0 ≤ r) (hr1 : r ≤ 1) (ξ x : ℝ) :
+    ‖(fun y : ℝ => exp ((↑y : ℂ) * ↑ξ * I) - 1 - (↑y : ℂ) * ↑ξ * I + ((↑y : ℂ) * ↑ξ) ^ 2 / 2)
+        (max (-r) (min x r))‖ ≤ 2 + |ξ| + ξ ^ 2 / 2 := by
+  have hc : |max (-r) (min x r)| ≤ 1 := by
+    have h1 : max (-r) (min x r) ≤ r := max_le (by linarith) (min_le_right _ _)
+    have h2 : -r ≤ max (-r) (min x r) := le_max_left _ _
+    rw [abs_le]; exact ⟨by linarith, by linarith⟩
+  exact smallBall_remainder_norm_le_crude hc
+
+/-- The cubic Taylor remainder is integrable on the ball `{|x| < r}` (for `r ≤ 1`) under any
+finite measure: clamp to `[-r, r]` to obtain a globally bounded continuous function that
+agrees with the remainder on the ball. -/
+private lemma remainder_integrableOn_ball
+    {r : ℝ} (hr0 : 0 ≤ r) (hr1 : r ≤ 1) (ξ : ℝ) (m : Measure ℝ) [IsFiniteMeasure m] :
+    IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+      {x : ℝ | |x| < r} m := by
+  have hmeas : MeasurableSet {x : ℝ | |x| < r} :=
+    (isOpen_lt continuous_abs continuous_const).measurableSet
+  have hclamp_int : IntegrableOn
+      (fun x : ℝ =>
+        (fun y : ℝ =>
+          exp ((↑y : ℂ) * ↑ξ * I) - 1 - (↑y : ℂ) * ↑ξ * I + ((↑y : ℂ) * ↑ξ) ^ 2 / 2)
+          (max (-r) (min x r)))
+      {x : ℝ | |x| < r} m :=
+    integrableOn_of_bounded (remainder_clamp_continuous r ξ)
+      (M := 2 + |ξ| + ξ ^ 2 / 2) (remainder_clamp_norm_le hr0 hr1 ξ)
+  refine hclamp_int.congr_fun (fun x hx => ?_) hmeas
+  show (fun y : ℝ =>
+      exp ((↑y : ℂ) * ↑ξ * I) - 1 - (↑y : ℂ) * ↑ξ * I + ((↑y : ℂ) * ↑ξ) ^ 2 / 2)
+      (max (-r) (min x r)) = _
+  rw [clamp_eq_of_abs_lt hx]
+
+/-- **Band convergence for the complex cubic remainder.** For atom-free radii `0 < δ < r`,
+the scaled band integral of the cubic remainder `R ξ x` converges to its `ν`-band integral.
+Re/Im split (à la `scaled_largeSet_charFun_tendsto`), feeding the *clamped* real/imaginary
+parts to `scaled_band_integral_tendsto`. -/
+private lemma remainder_band_tendsto
+    {δ r : ℝ} (hδ : 0 < δ) (hδr : δ < r) (hr1 : r ≤ 1) (ξ : ℝ)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    (hν_δ : ν {x | |x| = δ} = 0) (hν_r : ν {x | |x| = r} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}}
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+        Tendsto (fun k => (t_seq k).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq k) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) :
+    Tendsto (fun k => ((t_seq k).val⁻¹ : ℂ) *
+        ∫ x in {x | δ ≤ |x| ∧ |x| < r},
+          (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+          ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in {x | δ ≤ |x| ∧ |x| < r},
+          (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν)) := by
+  have hr0 : (0 : ℝ) ≤ r := le_of_lt (hδ.trans hδr)
+  set R : ℝ → ℂ := fun x =>
+    exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2 with hR_def
+  -- Clamped real and imaginary parts, globally bounded by `M := 2 + |ξ| + ξ²/2`.
+  set M : ℝ := 2 + |ξ| + ξ ^ 2 / 2 with hM_def
+  have hM_nn : (0 : ℝ) ≤ M := by positivity
+  set Rc : ℝ → ℂ := fun x => R (max (-r) (min x r)) with hRc_def
+  have hRc_cont : Continuous Rc := remainder_clamp_continuous r ξ
+  have hRc_bnd : ∀ x, ‖Rc x‖ ≤ M := remainder_clamp_norm_le hr0 hr1 ξ
+  set gRe : ℝ → ℝ := fun x => (Rc x).re with hgRe_def
+  set gIm : ℝ → ℝ := fun x => (Rc x).im with hgIm_def
+  have hgRe_cont : Continuous gRe := Complex.continuous_re.comp hRc_cont
+  have hgIm_cont : Continuous gIm := Complex.continuous_im.comp hRc_cont
+  have hgRe_bnd : ∀ x, |gRe x| ≤ M := fun x =>
+    (abs_re_le_norm (Rc x)).trans (hRc_bnd x)
+  have hgIm_bnd : ∀ x, |gIm x| ≤ M := fun x =>
+    (abs_im_le_norm (Rc x)).trans (hRc_bnd x)
+  -- The band, measurable and contained in the ball.
+  set band : Set ℝ := {x | δ ≤ |x| ∧ |x| < r} with hband_def
+  have h_meas_band : MeasurableSet band :=
+    (measurableSet_le measurable_const continuous_abs.measurable).inter
+      (measurableSet_lt continuous_abs.measurable measurable_const)
+  -- On the band, `Rc = R` (the clamp is inactive since `|x| < r`).
+  have hRc_eq : ∀ x ∈ band, Rc x = R x := fun x hx => by
+    show R (max (-r) (min x r)) = R x
+    rw [clamp_eq_of_abs_lt hx.2]
+  -- The band has finite `ν`-mass (it avoids a neighbourhood of `0`).
+  have hν_band : ν band < ⊤ :=
+    lt_of_le_of_lt (measure_mono (fun x hx => hx.1)) (hν.measure_setOf_abs_ge_lt_top hδ)
+  -- Decomposition of the complex band integral via Re/Im of `Rc`, for any measure finite on the band.
+  have h_decomp : ∀ (m : Measure ℝ), m band < ⊤ →
+      ∫ x in band, R x ∂m =
+        (↑(∫ x in band, gRe x ∂m) : ℂ) + (↑(∫ x in band, gIm x ∂m) : ℂ) * I := by
+    intro m hm
+    have hR_int : IntegrableOn R band m := by
+      have : IntegrableOn Rc band m :=
+        integrableOn_of_bounded_of_measure_lt_top hm hRc_cont (fun x => by
+          simpa [Real.norm_eq_abs] using hRc_bnd x)
+      exact this.congr_fun hRc_eq h_meas_band
+    have h := setIntegral_re_add_im hR_int
+    simp only [RCLike.I_to_complex] at h
+    have hRe_int : ∫ x in band, RCLike.re (R x) ∂m = ∫ x in band, gRe x ∂m :=
+      setIntegral_congr_fun h_meas_band (fun x hx => by
+        simp only [hgRe_def, RCLike.re_to_complex, hRc_eq x hx])
+    have hIm_int : ∫ x in band, RCLike.im (R x) ∂m = ∫ x in band, gIm x ∂m :=
+      setIntegral_congr_fun h_meas_band (fun x hx => by
+        simp only [hgIm_def, RCLike.im_to_complex, hRc_eq x hx])
+    rw [hRe_int, hIm_int] at h
+    exact h.symm
+  -- Scalar band limits for `gRe`, `gIm`.
+  have h_re_lim : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x in band, gRe x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in band, gRe x ∂ν)) :=
+    S.scaled_band_integral_tendsto hδ hδr gRe hgRe_cont hM_nn hgRe_bnd
+      hν hν_δ hν_r h_jump
+  have h_im_lim : Tendsto (fun k => (t_seq k).val⁻¹ *
+      ∫ x in band, gIm x ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in band, gIm x ∂ν)) :=
+    S.scaled_band_integral_tendsto hδ hδr gIm hgIm_cont hM_nn hgIm_bnd
+      hν hν_δ hν_r h_jump
+  -- Recombine into the complex limit.
+  have h_re_lim_C : Tendsto (fun k => (↑((t_seq k).val⁻¹ *
+      ∫ x in band, gRe x ∂(S.measure (t_seq k) : Measure ℝ)) : ℂ))
+      atTop (𝓝 (↑(∫ x in band, gRe x ∂ν) : ℂ)) :=
+    (Complex.continuous_ofReal.tendsto _).comp h_re_lim
+  have h_im_lim_C : Tendsto (fun k => (↑((t_seq k).val⁻¹ *
+      ∫ x in band, gIm x ∂(S.measure (t_seq k) : Measure ℝ)) : ℂ) * I)
+      atTop (𝓝 ((↑(∫ x in band, gIm x ∂ν) : ℂ) * I)) :=
+    ((Complex.continuous_ofReal.tendsto _).comp h_im_lim).mul_const I
+  have h_sum := h_re_lim_C.add h_im_lim_C
+  rw [← h_decomp ν hν_band] at h_sum
+  refine h_sum.congr (fun k => ?_)
+  rw [h_decomp (S.measure (t_seq k) : Measure ℝ) (measure_lt_top _ _)]
+  push_cast
+  ring
+
+/-- `x²` is integrable on the ball `{|x| < r}` under any finite measure: on the ball
+`x² = min (x²) (r²)`, the latter being globally bounded and continuous. -/
+private lemma sq_integrableOn_ball
+    (r : ℝ) (m : Measure ℝ) [IsFiniteMeasure m] :
+    IntegrableOn (fun x : ℝ => x ^ 2) {x : ℝ | |x| < r} m := by
+  have hmeas : MeasurableSet {x : ℝ | |x| < r} :=
+    (isOpen_lt continuous_abs continuous_const).measurableSet
+  have hg_int : IntegrableOn (fun x : ℝ => min (x ^ 2) (r ^ 2)) {x : ℝ | |x| < r} m := by
+    refine integrableOn_of_bounded ((continuous_pow 2).min continuous_const)
+      (M := r ^ 2) (fun x => ?_)
+    rw [Real.norm_eq_abs]
+    rw [abs_le]
+    constructor
+    · have : (0 : ℝ) ≤ min (x ^ 2) (r ^ 2) := le_min (sq_nonneg x) (sq_nonneg r)
+      linarith [sq_nonneg r]
+    · exact min_le_right _ _
+  refine hg_int.congr_fun (fun x hx => ?_) hmeas
+  have hx' : |x| < r := hx
+  have : x ^ 2 ≤ r ^ 2 := by rw [← sq_abs x]; gcongr
+  exact min_eq_left this
+
+/-- **Inner-ball cube estimate.** For `0 < δ ≤ 1` with `δ·|ξ| ≤ 1`, the scaled inner-ball
+integral of the cubic remainder is dominated by the inner-ball second moment:
+`‖∫_{|x|<δ} R dm‖ ≤ (2/9)|ξ|³·δ·∫_{|x|<δ} x² dm`. (Cube bound `‖R x‖ ≤ (2/9)|ξ|³|x|³`,
+then `|x|³ ≤ δ·x²` on the ball.) -/
+private lemma remainder_inner_ball_norm_le
+    {δ : ℝ} (_hδ : 0 < δ) (_hδ1 : δ ≤ 1) (ξ : ℝ) (hδξ : δ * |ξ| ≤ 1)
+    (m : Measure ℝ)
+    (hRint : IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+      {x : ℝ | |x| < δ} m)
+    (hsqint : IntegrableOn (fun x : ℝ => x ^ 2) {x : ℝ | |x| < δ} m) :
+    ‖∫ x in {x | |x| < δ},
+        (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂m‖ ≤
+      (2 / 9 : ℝ) * |ξ| ^ 3 * δ * ∫ x in {x | |x| < δ}, x ^ 2 ∂m := by
+  have hmeas : MeasurableSet {x : ℝ | |x| < δ} :=
+    (isOpen_lt continuous_abs continuous_const).measurableSet
+  -- Cube bound holds on the ball: for `|x| < δ`, `|x·ξ| ≤ δ·|ξ| ≤ 1`.
+  have hcube : ∀ x ∈ {x : ℝ | |x| < δ},
+      ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ ≤
+        (2 / 9 : ℝ) * |ξ| ^ 3 * |x| ^ 3 := by
+    intro x hx
+    refine smallBall_remainder_norm_le_cube ?_
+    calc |x * ξ| = |x| * |ξ| := abs_mul x ξ
+      _ ≤ δ * |ξ| := by gcongr; exact le_of_lt hx
+      _ ≤ 1 := hδξ
+  -- Step 1: `‖∫ R‖ ≤ ∫ ‖R‖`.
+  have h1 : ‖∫ x in {x | |x| < δ},
+      (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂m‖ ≤
+      ∫ x in {x | |x| < δ},
+        ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ ∂m :=
+    norm_integral_le_integral_norm _
+  -- Integrability of `‖R‖` on the ball (`R` integrable ⟹ `‖R‖` integrable).
+  have hR_int : IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+      {x : ℝ | |x| < δ} m := hRint
+  -- The dominating bound `(2/9)|ξ|³·δ·x²` is integrable on the ball.
+  have hbound_int : IntegrableOn (fun x : ℝ => (2 / 9 : ℝ) * |ξ| ^ 3 * δ * x ^ 2)
+      {x : ℝ | |x| < δ} m :=
+    hsqint.const_mul ((2 / 9 : ℝ) * |ξ| ^ 3 * δ)
+  -- Step 2: monotone comparison `∫ ‖R‖ ≤ ∫ (2/9)|ξ|³·δ·x²`.
+  have hnorm_int : IntegrableOn (fun x : ℝ =>
+      ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖)
+      {x : ℝ | |x| < δ} m := hR_int.norm
+  have h2 : ∫ x in {x | |x| < δ},
+      ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ ∂m ≤
+      ∫ x in {x | |x| < δ}, (2 / 9 : ℝ) * |ξ| ^ 3 * δ * x ^ 2 ∂m := by
+    refine setIntegral_mono_on hnorm_int hbound_int hmeas (fun x hx => ?_)
+    calc ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖
+        ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * |x| ^ 3 := hcube x hx
+      _ ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * δ * x ^ 2 := by
+          have hx' : |x| < δ := hx
+          have hcube_le : |x| ^ 3 ≤ δ * x ^ 2 := by
+            have heq : |x| ^ 3 = |x| * x ^ 2 := by rw [← sq_abs x]; ring
+            rw [heq]
+            gcongr
+          calc (2 / 9 : ℝ) * |ξ| ^ 3 * |x| ^ 3
+              ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * (δ * x ^ 2) := by gcongr
+            _ = (2 / 9 : ℝ) * |ξ| ^ 3 * δ * x ^ 2 := by ring
+  -- Pull the constant out of the dominating integral.
+  have h3 : ∫ x in {x | |x| < δ}, (2 / 9 : ℝ) * |ξ| ^ 3 * δ * x ^ 2 ∂m =
+      (2 / 9 : ℝ) * |ξ| ^ 3 * δ * ∫ x in {x | |x| < δ}, x ^ 2 ∂m := by
+    rw [← integral_const_mul]
+  calc ‖∫ x in {x | |x| < δ},
+        (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂m‖
+      ≤ ∫ x in {x | |x| < δ},
+          ‖exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2‖ ∂m := h1
+    _ ≤ ∫ x in {x | |x| < δ}, (2 / 9 : ℝ) * |ξ| ^ 3 * δ * x ^ 2 ∂m := h2
+    _ = (2 / 9 : ℝ) * |ξ| ^ 3 * δ * ∫ x in {x | |x| < δ}, x ^ 2 ∂m := h3
+
+/-- **Ball = inner-ball ⊎ band split for the cubic remainder.** For `0 < δ < r ≤ 1` and any
+finite measure, the remainder integral over the ball `{|x| < r}` is the sum of the inner-ball
+integral and the band integral. -/
+private lemma remainder_ball_split
+    {δ r : ℝ} (_hδ : 0 < δ) (hδr : δ < r) (_hr1 : r ≤ 1) (ξ : ℝ)
+    (m : Measure ℝ)
+    (hRint : IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+      {x : ℝ | |x| < r} m) :
+    ∫ x in {x | |x| < r},
+        (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂m =
+      (∫ x in {x | |x| < δ},
+          (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂m) +
+      ∫ x in {x | δ ≤ |x| ∧ |x| < r},
+          (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂m := by
+  set R : ℝ → ℂ := fun x =>
+    exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2 with hR_def
+  have h_inner_sub : {x : ℝ | |x| < δ} ⊆ {x : ℝ | |x| < r} := fun x hx => lt_trans hx hδr
+  have h_band_sub : {x : ℝ | δ ≤ |x| ∧ |x| < r} ⊆ {x : ℝ | |x| < r} := fun x hx => hx.2
+  have hR_int_ball : IntegrableOn R {x : ℝ | |x| < r} m := hRint
+  have hR_int_inner : IntegrableOn R {x : ℝ | |x| < δ} m :=
+    hR_int_ball.mono_set h_inner_sub
+  have hR_int_band : IntegrableOn R {x : ℝ | δ ≤ |x| ∧ |x| < r} m :=
+    hR_int_ball.mono_set h_band_sub
+  have h_disj : Disjoint {x : ℝ | |x| < δ} {x : ℝ | δ ≤ |x| ∧ |x| < r} := by
+    rw [Set.disjoint_left]
+    intro x hx hx'
+    exact absurd hx'.1 (not_le.mpr hx)
+  have h_union : {x : ℝ | |x| < r} = {x : ℝ | |x| < δ} ∪ {x : ℝ | δ ≤ |x| ∧ |x| < r} := by
+    ext x
+    simp only [Set.mem_setOf_eq, Set.mem_union]
+    constructor
+    · intro hx
+      rcases lt_or_ge (|x|) δ with h | h
+      · exact Or.inl h
+      · exact Or.inr ⟨h, hx⟩
+    · rintro (h | ⟨_, h⟩)
+      · exact lt_trans h hδr
+      · exact h
+  have h_meas_band : MeasurableSet {x : ℝ | δ ≤ |x| ∧ |x| < r} :=
+    (measurableSet_le measurable_const continuous_abs.measurable).inter
+      (measurableSet_lt continuous_abs.measurable measurable_const)
+  rw [h_union, setIntegral_union h_disj h_meas_band hR_int_inner hR_int_band]
+
+/-- The scaled small-ball integral of the cubic remainder converges to the `ν`-integral.
+δ-truncation: inner ball `O(δ)` by the Taylor bound + uniform second moment; band by
+`scaled_band_integral_tendsto` (Re/Im); ν-tail by dominated convergence as `δ → 0`. -/
+private lemma scaled_smallBall_remainder_tendsto
+    {r : ℝ} (hr : 0 < r) (hr1 : r ≤ 1) (ξ : ℝ)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    (hν_r : ν {x | |x| = r} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}}
+    (hσ_bdd : ∃ C : ℝ, ∀ k, (t_seq k).val⁻¹ *
+        ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ) ≤ C)
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+        Tendsto (fun k => (t_seq k).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq k) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) :
+    Tendsto (fun k => ((t_seq k).val⁻¹ : ℂ) *
+        ∫ x in {x | |x| < r},
+          (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+          ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (∫ x in {x | |x| < r},
+          (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν)) := by
+  -- `ξ = 0`: the remainder is identically `0`; both sides vanish.
+  rcases eq_or_ne ξ 0 with hξ0 | hξ0
+  · subst hξ0
+    have hint0 : ∀ (m : Measure ℝ),
+        ∫ x in {x : ℝ | |x| < r},
+          (exp ((↑x : ℂ) * ↑(0:ℝ) * I) - 1 - (↑x : ℂ) * ↑(0:ℝ) * I
+            + ((↑x : ℂ) * ↑(0:ℝ)) ^ 2 / 2) ∂m = 0 := by
+      intro m
+      have : (fun x : ℝ => exp ((↑x : ℂ) * ↑(0:ℝ) * I) - 1 - (↑x : ℂ) * ↑(0:ℝ) * I
+            + ((↑x : ℂ) * ↑(0:ℝ)) ^ 2 / 2) = fun _ : ℝ => (0 : ℂ) := by
+        funext x; simp
+      simp only [this, integral_zero]
+    simp only [hint0, mul_zero]
+    exact tendsto_const_nhds
+  -- `ξ ≠ 0`: δ-truncation with an atom-free shrinking sequence inside `(0, min r (1/|ξ|))`.
+  obtain ⟨C, hC⟩ := hσ_bdd
+  have hξ_pos : 0 < |ξ| := abs_pos.mpr hξ0
+  have hc_pos : 0 < min r (1 / |ξ|) := lt_min hr (by positivity)
+  obtain ⟨δ, hδ_pos, hδ_lt, hδ_atom, hδ_lim⟩ := hν.exists_atomFree_seq_tendsto_zero hc_pos
+  -- For each `m`: `δ m < r`, `δ m ≤ 1`, `δ m·|ξ| ≤ 1`.
+  have hδ_ltr : ∀ m, δ m < r := fun m => (hδ_lt m).trans_le (min_le_left _ _)
+  have hδ_le1 : ∀ m, δ m ≤ 1 := fun m => le_of_lt ((hδ_ltr m).trans_le hr1)
+  have hδξ : ∀ m, δ m * |ξ| ≤ 1 := fun m => by
+    have h := (hδ_lt m).trans_le (min_le_right _ _)
+    rw [lt_div_iff₀ hξ_pos] at h
+    exact le_of_lt h
+  -- The (finite) `ν`-second moment on the ball, used as the `ν`-inner-ball constant.
+  set Bν : ℝ := ∫ x in {x | |x| < r}, x ^ 2 ∂ν with hBν_def
+  -- Inner-ball `ν`-second moment is bounded by `Bν`.
+  have hν_inner_sq_le : ∀ m, ∫ x in {x | |x| < δ m}, x ^ 2 ∂ν ≤ Bν := by
+    intro m
+    refine setIntegral_mono_set (sq_integrableOn_ball_levy hν r)
+      (ae_restrict_of_forall_mem
+        ((isOpen_lt continuous_abs continuous_const).measurableSet) (fun x _ => sq_nonneg x))
+      (HasSubset.Subset.eventuallyLE (fun x hx => lt_trans hx (hδ_ltr m)))
+  -- Use the `Metric` characterisation of convergence in `ℂ`.
+  rw [Metric.tendsto_atTop]
+  intro ε hε
+  -- Pick `m` so the two inner-ball contributions each drop below `ε/3`.
+  -- `(2/9)|ξ|³·δ m·C → 0` and `(2/9)|ξ|³·δ m·Bν → 0`.
+  have htendC : Tendsto (fun m => (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * C) atTop (𝓝 0) := by
+    have : Tendsto (fun m => (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * C) atTop
+        (𝓝 ((2 / 9 : ℝ) * |ξ| ^ 3 * 0 * C)) := by
+      exact ((tendsto_const_nhds.mul hδ_lim).mul tendsto_const_nhds)
+    simpa using this
+  have htendBν : Tendsto (fun m => (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * Bν) atTop (𝓝 0) := by
+    have : Tendsto (fun m => (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * Bν) atTop
+        (𝓝 ((2 / 9 : ℝ) * |ξ| ^ 3 * 0 * Bν)) := by
+      exact ((tendsto_const_nhds.mul hδ_lim).mul tendsto_const_nhds)
+    simpa using this
+  have hevC : ∀ᶠ m in atTop, (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * C < ε / 3 :=
+    htendC.eventually_lt_const (by linarith)
+  have hevBν : ∀ᶠ m in atTop, (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * Bν < ε / 3 :=
+    htendBν.eventually_lt_const (by linarith)
+  obtain ⟨m, hmC, hmBν⟩ := (hevC.and hevBν).exists
+  -- Band limit for this `m` ⟹ an index `N` controlling the band term.
+  have h_band_lim := S.remainder_band_tendsto (hδ_pos m) (hδ_ltr m) hr1 ξ
+    hν (hδ_atom m) hν_r h_jump
+  rw [Metric.tendsto_atTop] at h_band_lim
+  obtain ⟨N, hN⟩ := h_band_lim (ε / 3) (by linarith)
+  refine ⟨N, fun k hk => ?_⟩
+  -- Abbreviations for the four set integrals at radius `δ m`.
+  set μk : Measure ℝ := (S.measure (t_seq k) : Measure ℝ) with hμk_def
+  set tk : ℝ := (t_seq k).val⁻¹ with htk_def
+  set ck : ℂ := ((t_seq k).val⁻¹ : ℂ) with hck_def
+  have htk_pos : 0 < tk := inv_pos.mpr (t_seq k).2
+  have hck_eq : ck = (↑tk : ℂ) := by rw [hck_def, htk_def]; push_cast; ring
+  -- Split the ball integral (μk and ν) into inner ball + band.
+  have hsplit_μ := remainder_ball_split (hδ_pos m) (hδ_ltr m) hr1 ξ μk
+    (remainder_integrableOn_ball (le_of_lt hr) hr1 ξ μk)
+  have hsplit_ν := remainder_ball_split (hδ_pos m) (hδ_ltr m) hr1 ξ ν
+    (remainder_integrableOn_ball_levy hr1 ξ hν)
+  -- Name the four set-integrals atomically (so `ring` treats them as opaque scalars).
+  set iμ : ℂ := ∫ x in {x | |x| < δ m},
+      (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂μk with hiμ_def
+  set bμ : ℂ := ∫ x in {x | δ m ≤ |x| ∧ |x| < r},
+      (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂μk with hbμ_def
+  set iν : ℂ := ∫ x in {x | |x| < δ m},
+      (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν with hiν_def
+  set bν : ℂ := ∫ x in {x | δ m ≤ |x| ∧ |x| < r},
+      (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν with hbν_def
+  rw [dist_eq_norm]
+  -- The ball integrals now fold to `iμ + bμ` and `iν + bν`.
+  rw [hsplit_μ, hsplit_ν]
+  -- Regroup and split via the triangle inequality.
+  rw [show ck * (iμ + bμ) - (iν + bν) = (ck * iμ - iν) + (ck * bμ - bν) from by ring]
+  refine lt_of_le_of_lt (norm_add_le _ _) ?_
+  -- Band term: bounded by `ε/3` via `hN`.
+  have hband_lt : ‖ck * bμ - bν‖ < ε / 3 := by
+    rw [hbμ_def, hbν_def, hck_def, hμk_def]
+    have hth := hN k hk
+    rwa [dist_eq_norm] at hth
+  -- Inner term: bounded by `ε/3 + ε/3` via the two inner-ball estimates.
+  have hinner_lt : ‖ck * iμ - iν‖ < ε / 3 + ε / 3 := by
+    refine lt_of_le_of_lt (norm_sub_le _ _) ?_
+    -- μ-side inner ball.
+    have hμ_norm : ‖ck * iμ‖ ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * C := by
+      rw [hck_eq, norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_pos htk_pos, hiμ_def]
+      calc tk * ‖∫ x in {x | |x| < δ m},
+            (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂μk‖
+          ≤ tk * ((2 / 9 : ℝ) * |ξ| ^ 3 * δ m * ∫ x in {x | |x| < δ m}, x ^ 2 ∂μk) := by
+            refine mul_le_mul_of_nonneg_left ?_ (le_of_lt htk_pos)
+            exact remainder_inner_ball_norm_le (hδ_pos m) (hδ_le1 m) ξ (hδξ m) μk
+              (remainder_integrableOn_ball (le_of_lt (hδ_pos m)) (hδ_le1 m) ξ μk)
+              (sq_integrableOn_ball (δ m) μk)
+        _ = (2 / 9 : ℝ) * |ξ| ^ 3 * δ m *
+              (tk * ∫ x in {x | |x| < δ m}, x ^ 2 ∂μk) := by ring
+        _ ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * C := by
+            refine mul_le_mul_of_nonneg_left ?_ (by have := hδ_pos m; positivity)
+            calc tk * ∫ x in {x | |x| < δ m}, x ^ 2 ∂μk
+                ≤ tk * ∫ x in {x | |x| < r}, x ^ 2 ∂μk := by
+                  refine mul_le_mul_of_nonneg_left ?_ (le_of_lt htk_pos)
+                  refine setIntegral_mono_set (sq_integrableOn_ball r μk)
+                    (ae_restrict_of_forall_mem
+                      ((isOpen_lt continuous_abs continuous_const).measurableSet)
+                      (fun x _ => sq_nonneg x))
+                    (HasSubset.Subset.eventuallyLE (fun x hx => lt_trans hx (hδ_ltr m)))
+              _ ≤ C := hC k
+    -- ν-side inner ball.
+    have hν_norm : ‖iν‖ ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * Bν := by
+      rw [hiν_def]
+      calc ‖∫ x in {x | |x| < δ m},
+            (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν‖
+          ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * ∫ x in {x | |x| < δ m}, x ^ 2 ∂ν :=
+            remainder_inner_ball_norm_le (hδ_pos m) (hδ_le1 m) ξ (hδξ m) ν
+              (remainder_integrableOn_ball_levy (hδ_le1 m) ξ hν)
+              (sq_integrableOn_ball_levy hν (δ m))
+        _ ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * Bν := by
+            refine mul_le_mul_of_nonneg_left (hν_inner_sq_le m) (by have := hδ_pos m; positivity)
+    calc ‖ck * iμ‖ + ‖iν‖
+        ≤ (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * C + (2 / 9 : ℝ) * |ξ| ^ 3 * δ m * Bν :=
+          add_le_add hμ_norm hν_norm
+      _ < ε / 3 + ε / 3 := by linarith [hmC, hmBν]
+  linarith [hband_lt, hinner_lt]
+
+/-- **Small-jump identification at radius `r`.** The limit is expressed with the
+*remainder* ν-integral; the conversion to `∫ (exp − 1 − ixξ) dν` happens in the final
+assembly, where the `−σ_G²ξ²/2` regrouping is done once. -/
+private lemma scaled_smallBall_compensated_tendsto
+    {r : ℝ} (hr : 0 < r) (hr1 : r ≤ 1) (ξ : ℝ)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    (hν_r : ν {x | |x| = r} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}} {σ_sq_r : ℝ}
+    (hσ : Tendsto (fun k => (t_seq k).val⁻¹ *
+        ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ)) atTop (𝓝 σ_sq_r))
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r > 0, ∀ x, |x| < r → f x = 0) →
+        Tendsto (fun k => (t_seq k).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq k) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) :
+    Tendsto (fun k => ((t_seq k).val⁻¹ : ℂ) *
+        ∫ x in {x | |x| < r}, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I)
+          ∂(S.measure (t_seq k) : Measure ℝ))
+      atTop (𝓝 (-(↑σ_sq_r * ↑ξ ^ 2 / 2)
+          + ∫ x in {x | |x| < r},
+              (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν)) := by
+  -- A convergent real sequence is bounded above; supplies `hσ_bdd` for lemma 1.
+  have hσ_bdd : ∃ C : ℝ, ∀ k, (t_seq k).val⁻¹ *
+      ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ) ≤ C := by
+    obtain ⟨C, hC⟩ := bddAbove_def.mp hσ.isBoundedUnder_le.bddAbove_range
+    exact ⟨C, fun k => hC _ ⟨k, rfl⟩⟩
+  -- Remainder limit from lemma 1.
+  have hrem := S.scaled_smallBall_remainder_tendsto hr hr1 ξ hν hν_r hσ_bdd h_jump
+  -- The quadratic-correction limit: `↑ξ²/2 · ↑(t⁻¹·∫x²dμ_k) → ↑ξ²/2 · ↑σ_sq_r`.
+  have hquad : Tendsto (fun k => (↑ξ ^ 2 / 2 : ℂ) *
+      (↑((t_seq k).val⁻¹ * ∫ x in {x | |x| < r}, x ^ 2
+        ∂(S.measure (t_seq k) : Measure ℝ)) : ℂ))
+      atTop (𝓝 ((↑ξ ^ 2 / 2 : ℂ) * (↑σ_sq_r : ℂ))) :=
+    Tendsto.const_mul _ ((Complex.continuous_ofReal.tendsto _).comp hσ)
+  -- Combine: each `(exp−1−ixξ)`-integral is the remainder integral minus the quadratic term.
+  have hpereq : ∀ k, ((t_seq k).val⁻¹ : ℂ) *
+      ∫ x in {x | |x| < r}, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I)
+        ∂(S.measure (t_seq k) : Measure ℝ) =
+      (((t_seq k).val⁻¹ : ℂ) * ∫ x in {x | |x| < r},
+          (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2)
+          ∂(S.measure (t_seq k) : Measure ℝ)) -
+      (↑ξ ^ 2 / 2 : ℂ) * (↑((t_seq k).val⁻¹ *
+          ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq k) : Measure ℝ)) : ℂ) := by
+    intro k
+    set μk : Measure ℝ := (S.measure (t_seq k) : Measure ℝ) with hμk_def
+    have hmeas : MeasurableSet {x : ℝ | |x| < r} :=
+      (isOpen_lt continuous_abs continuous_const).measurableSet
+    -- Split the `(exp−1−ixξ)` integral into remainder minus the quadratic part.
+    have hRint : IntegrableOn
+        (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I
+          + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) {x : ℝ | |x| < r} μk :=
+      remainder_integrableOn_ball (le_of_lt hr) hr1 ξ μk
+    have hQint : IntegrableOn (fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2) {x : ℝ | |x| < r} μk := by
+      have hrw : (fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2) =
+          fun x : ℝ => (↑((x ^ 2 * (ξ ^ 2 / 2) : ℝ)) : ℂ) := by
+        funext x; push_cast; ring
+      rw [hrw]
+      exact (((sq_integrableOn_ball r μk).mul_const (ξ ^ 2 / 2))).ofReal
+    -- `(exp−1−ixξ) = R − (xξ)²/2` pointwise.
+    have hsub : ∫ x in {x | |x| < r}, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) ∂μk =
+        (∫ x in {x | |x| < r},
+            (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂μk) -
+          ∫ x in {x | |x| < r}, ((↑x : ℂ) * ↑ξ) ^ 2 / 2 ∂μk := by
+      rw [← integral_sub hRint hQint]
+      refine setIntegral_congr_fun hmeas (fun x _ => ?_)
+      ring
+    -- The quadratic part equals `↑ξ²/2 · ↑(∫ x² dμk)`.
+    have hquad_real : ∫ x in {x | |x| < r}, (ξ ^ 2 / 2 * x ^ 2 : ℝ) ∂μk =
+        ξ ^ 2 / 2 * ∫ x in {x | |x| < r}, x ^ 2 ∂μk :=
+      integral_const_mul (ξ ^ 2 / 2) _
+    have hquad_int : ∫ x in {x | |x| < r}, ((↑x : ℂ) * ↑ξ) ^ 2 / 2 ∂μk =
+        (↑ξ ^ 2 / 2 : ℂ) * (↑(∫ x in {x | |x| < r}, x ^ 2 ∂μk) : ℂ) := by
+      have hcongr : ∫ x in {x | |x| < r}, ((↑x : ℂ) * ↑ξ) ^ 2 / 2 ∂μk =
+          ∫ x in {x | |x| < r}, (↑((ξ ^ 2 / 2 * x ^ 2 : ℝ)) : ℂ) ∂μk := by
+        refine setIntegral_congr_fun hmeas (fun x _ => ?_)
+        push_cast; ring
+      rw [hcongr]
+      rw [show (∫ x in {x | |x| < r}, (↑((ξ ^ 2 / 2 * x ^ 2 : ℝ)) : ℂ) ∂μk) =
+          (↑(∫ x in {x | |x| < r}, (ξ ^ 2 / 2 * x ^ 2 : ℝ) ∂μk) : ℂ) from integral_ofReal]
+      rw [hquad_real]
+      push_cast
+      ring
+    rw [hsub, hquad_int, mul_sub]
+    rw [hμk_def]
+    push_cast
+    ring
+  -- Take the limit of the per-`k` identity.
+  have hlim := (hrem.sub hquad).congr (fun k => (hpereq k).symm)
+  -- Match the stated RHS: `∫R dν − ↑ξ²/2·↑σ_sq_r = −(↑σ_sq_r·↑ξ²/2) + ∫R dν`.
+  have hRHS : (∫ x in {x | |x| < r},
+        (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν) -
+        (↑ξ ^ 2 / 2 : ℂ) * (↑σ_sq_r : ℂ) =
+      -(↑σ_sq_r * ↑ξ ^ 2 / 2)
+        + ∫ x in {x | |x| < r},
+            (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν := by
+    ring
+  rw [← hRHS]
+  exact hlim
+
+/-! ### Final assembly of the Lévy-Khintchine triple
+
+The assembly is structured around `exists_drift_variance_jumpMeasure_along_seq`, which
+produces all three witnesses `(b, σ², ν)` along a *single* subsequence, via the
+canonical-measure (tilted) extraction of ν. The key downstream lemmas are:
+
+* `exists_drift_variance_jumpMeasure_along_seq` — the diagonal extraction.
+* `psi_eq_levyKhintchine_formula` — given the diagonal tuple, the formula holds for ψ.
+* `psi_decomposition` — packages the tuple + the formula into a `LevyKhintchineTriple`.
+-/
+
+/-- **Joint extraction of drift, Gaussian variance, and Lévy measure along a single
+subsequence.**
+
+Combines `exists_levyMeasure`, `drift_limit`, and Bolzano-Weierstrass on the scaled
+second moment via three nested subsequence extractions. The outer subsequence comes from
+the Lévy-measure construction; the drift extracts a sub-subsequence; the variance extracts
+a sub-sub-subsequence. All three convergences hold along the final composite subsequence
+since `Tendsto` is preserved under further sub-extraction. -/
+theorem exists_drift_variance_jumpMeasure_along_seq :
+    ∃ (r : ℝ) (b : ℝ) (σ_sq : ℝ≥0) (ν : Measure ℝ), IsLevyMeasure ν ∧
+      ∃ (t_seq : ℕ → {t : ℝ // 0 < t}),
+      r ∈ Set.Ioc (1/2 : ℝ) 1 ∧
+      ν {x | |x| = r} = 0 ∧
+      Tendsto (fun n => (t_seq n).val) atTop (𝓝 0) ∧
+      Tendsto (fun n =>
+        (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ))
+          atTop (𝓝 b) ∧
+      Tendsto (fun n =>
+        (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ))
+          atTop (𝓝 (σ_sq : ℝ)) ∧
+      (∀ (f : BoundedContinuousFunction ℝ ℝ), (∃ r' > 0, ∀ x, |x| < r' → f x = 0) →
+        Tendsto (fun n => (t_seq n).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq n) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν))) := by
+  -- Step 1: Outer extraction — Lévy measure ν and its witnessing sequence t_seq_ν.
+  obtain ⟨ν, hν, t_seq_ν, ht_seq_ν, h_jump_conv⟩ := S.exists_levyMeasure
+  -- Step 1b: an atom-free split radius `r ∈ (1/2, 1]`.
+  obtain ⟨r, hr_mem, hν_r⟩ :=
+    hν.exists_atomFree_radius (by norm_num : (0:ℝ) ≤ 1/2) (by norm_num : (1/2:ℝ) < 1)
+  have hr_pos : (0 : ℝ) < r := by linarith [hr_mem.1]
+  have hr_le1 : r ≤ 1 := hr_mem.2
+  have hmeas_ball : MeasurableSet {x : ℝ | |x| < r} :=
+    measurableSet_lt continuous_abs.measurable measurable_const
+  have hsubset : {x : ℝ | |x| < r} ⊆ smallSet :=
+    fun x hx => mem_smallSet.mpr (lt_of_lt_of_le hx hr_le1)
+  -- Step 2: Drift sub-subsequence φ₁ along t_seq_ν, at radius r.
+  obtain ⟨b, φ₁, hφ₁_mono, hb⟩ := S.drift_limit hr_pos hr_le1 ht_seq_ν
+  -- The composed sequence t_seq_ν ∘ φ₁ still tends to 0.
+  have ht_seq₁ : Tendsto (fun n => (t_seq_ν (φ₁ n)).val) atTop (𝓝 0) :=
+    ht_seq_ν.comp hφ₁_mono.tendsto_atTop
+  -- Step 3: Variance sub-sub-subsequence φ₂ via Bolzano-Weierstrass on Icc 0 C.
+  obtain ⟨C, _hC_pos, hC⟩ := S.scaled_second_moment_bounded_along_seq ht_seq₁
+  set a : ℕ → ℝ := fun n =>
+    (t_seq_ν (φ₁ n)).val⁻¹ *
+      ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq_ν (φ₁ n)) : Measure ℝ) with ha_def
+  have ha_nonneg : ∀ n, 0 ≤ a n := fun n => by
+    have ht_pos : 0 < (t_seq_ν (φ₁ n)).val := (t_seq_ν (φ₁ n)).prop
+    refine mul_nonneg (inv_nonneg.mpr ht_pos.le) ?_
+    exact setIntegral_nonneg hmeas_ball (fun x _ => sq_nonneg x)
+  have ha_bdd : ∀ᶠ n in atTop, a n ∈ Set.Icc (0 : ℝ) C := by
+    filter_upwards [hC] with n hCn
+    refine ⟨ha_nonneg n, ?_⟩
+    -- a n = t⁻¹∫_{|x|<r} x² ≤ t⁻¹∫_small x² ≤ C  (domination over {|x|<r} ⊆ smallSet).
+    have ht_pos : 0 < (t_seq_ν (φ₁ n)).val := (t_seq_ν (φ₁ n)).prop
+    have hint_sq_small : IntegrableOn (fun x => x ^ 2) smallSet
+        (S.measure (t_seq_ν (φ₁ n)) : Measure ℝ) :=
+      integrableOn_sq_smallSet _
+    have hdom : ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq_ν (φ₁ n)) : Measure ℝ) ≤
+        ∫ x in smallSet, x ^ 2 ∂(S.measure (t_seq_ν (φ₁ n)) : Measure ℝ) :=
+      setIntegral_mono_set hint_sq_small (ae_of_all _ fun x => sq_nonneg x)
+        (HasSubset.Subset.eventuallyLE hsubset)
+    calc a n
+        ≤ (t_seq_ν (φ₁ n)).val⁻¹ *
+            ∫ x in smallSet, x ^ 2 ∂(S.measure (t_seq_ν (φ₁ n)) : Measure ℝ) :=
+          mul_le_mul_of_nonneg_left hdom (inv_nonneg.mpr ht_pos.le)
+      _ ≤ C := hCn
+  obtain ⟨σ, hσ_mem, φ₂, hφ₂_mono, hσ⟩ :=
+    isCompact_Icc.tendsto_subseq' ha_bdd.frequently
+  -- Step 4: Assemble the final subsequence t_seq_ν ∘ φ₁ ∘ φ₂.
+  set t_seq : ℕ → {t : ℝ // 0 < t} := fun n => t_seq_ν (φ₁ (φ₂ n)) with ht_seq_def
+  -- t_seq tends to 0.
+  have ht_seq : Tendsto (fun n => (t_seq n).val) atTop (𝓝 0) :=
+    ht_seq₁.comp hφ₂_mono.tendsto_atTop
+  -- Drift convergence along the composite subsequence (at radius r).
+  have hb_final : Tendsto (fun n =>
+      (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ))
+      atTop (𝓝 b) := hb.comp hφ₂_mono.tendsto_atTop
+  -- Variance convergence: σ ≥ 0 so it coerces from Real.toNNReal.
+  have hσ_final : Tendsto (fun n =>
+      (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ))
+      atTop (𝓝 ((Real.toNNReal σ : ℝ≥0) : ℝ)) := by
+    rw [Real.coe_toNNReal σ hσ_mem.1]
+    exact hσ
+  -- Jump-measure convergence: subseq of jump-convergent is still jump-convergent.
+  have h_jump_final : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+      (∃ r' > 0, ∀ x, |x| < r' → f x = 0) →
+      Tendsto (fun n => (t_seq n).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq n) : Measure ℝ))
+        atTop (𝓝 (∫ x, f x ∂ν)) := by
+    intro f hf
+    have h := h_jump_conv f hf
+    exact h.comp ((hφ₁_mono.comp hφ₂_mono).tendsto_atTop)
+  exact ⟨r, b, Real.toNNReal σ, ν, hν, t_seq, hr_mem, hν_r, ht_seq, hb_final,
+    hσ_final, h_jump_final⟩
+
+/-- **ν-side bookkeeping for the LK assembly.** Reorganizes the three subsequential-limit
+contributions (drift, compensated small-jump remainder at radius `r`, large-jump integral
+over `largeSet r`) into the canonical Lévy-Khintchine triple `(b_r + ∫_{r≤|x|<1} x dν,
+σ_sq_r − ∫_{|x|<r} x² dν, ν)`. The key moves are: the small-ball remainder splits off its
+own second moment `∫_{|x|<r} x² dν`; the `largeSet r` integral splits into a band
+`{r≤|x|<1}` and the `largeSet 1` tail; on the band the uncompensated `exp−1` re-expresses
+as the compensated `exp−1−ixξ` plus the drift correction `∫_{r≤|x|<1} x dν`. -/
+private lemma psi_levyKhintchine_algebra
+    {r : ℝ} (hr : r ∈ Set.Ioc (1/2 : ℝ) 1) (ξ : ℝ)
+    {ν : Measure ℝ} (hν : IsLevyMeasure ν) (b_r : ℝ) (σ_sq_r : ℝ≥0) :
+    (↑b_r * ↑ξ * I
+      + (-(↑(σ_sq_r : ℝ) * ↑ξ ^ 2 / 2)
+          + ∫ x in {x | |x| < r},
+              (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν))
+      + ∫ x in largeSet r, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂ν =
+    ↑(b_r + ∫ x in {x | r ≤ |x| ∧ |x| < 1}, x ∂ν) * ↑ξ * I
+      - ↑((σ_sq_r : ℝ) - ∫ x in {x | |x| < r}, x ^ 2 ∂ν) * ↑ξ ^ 2 / 2
+      + ∫ x, levyCompensatedIntegrand ξ x ∂ν := by
+  have hr_pos : (0 : ℝ) < r := by linarith [hr.1]
+  have hr1 : r ≤ 1 := hr.2
+  -- Abbreviations for the sets.
+  set Bball : Set ℝ := {x | |x| < r} with hBball_def
+  set Bband : Set ℝ := {x | r ≤ |x| ∧ |x| < 1} with hBband_def
+  -- Measurability of the sets.
+  have hmeas_ball : MeasurableSet Bball :=
+    measurableSet_lt continuous_abs.measurable measurable_const
+  have hmeas_band : MeasurableSet Bband :=
+    (measurableSet_le measurable_const continuous_abs.measurable).inter
+      (measurableSet_lt continuous_abs.measurable measurable_const)
+  have hmeas_ge1 : MeasurableSet (largeSet 1) := measurableSet_largeSet 1
+  -- `exp(ixξ)−1` is continuous and globally bounded by 2.
+  have hg_cont : Continuous (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1) :=
+    ((Complex.continuous_exp.comp
+      ((Complex.continuous_ofReal.mul continuous_const).mul continuous_const)).sub
+      continuous_const)
+  have hg_bnd : ∀ x : ℝ, ‖exp ((↑x : ℂ) * ↑ξ * I) - 1‖ ≤ 2 := fun x => by
+    rw [show ((↑x : ℂ) * ↑ξ * I) = ((↑(x * ξ) : ℂ)) * I from by push_cast; ring]
+    calc ‖exp ((↑(x * ξ) : ℂ) * I) - 1‖
+        ≤ ‖exp ((↑(x * ξ) : ℂ) * I)‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
+      _ = 2 := by rw [Complex.norm_exp_ofReal_mul_I, norm_one]; norm_num
+  -- Finite ν-mass on the band and the outer tail (Lévy measure).
+  have hν_band_lt : ν Bband < ⊤ :=
+    lt_of_le_of_lt (measure_mono (fun x hx => hx.1)) (hν.measure_setOf_abs_ge_lt_top hr_pos)
+  have hν_ge1_lt : ν (largeSet 1) < ⊤ := hν.measure_setOf_abs_ge_lt_top one_pos
+  -- `exp(ixξ)−1` is integrable on any set of finite ν-mass (bounded by 2).
+  have hexp_int : ∀ s : Set ℝ, ν s < ⊤ →
+      IntegrableOn (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1) s ν :=
+    fun s hs => integrableOn_of_bounded_of_measure_lt_top hs hg_cont hg_bnd
+  -- `ixξ` is integrableOn any finite-mass set contained in {|x|<1} (bounded by |ξ|).
+  have hxi_intOn : ∀ s : Set ℝ, MeasurableSet s → s ⊆ {x : ℝ | |x| < 1} → ν s < ⊤ →
+      IntegrableOn (fun x : ℝ => (↑x : ℂ) * ↑ξ * I) s ν := by
+    intro s hs hsub hfin
+    haveI : IsFiniteMeasure (ν.restrict s) := isFiniteMeasure_restrict.mpr hfin.ne
+    refine (integrable_const (|ξ|)).mono' ?_ ?_
+    · exact ((Complex.measurable_ofReal.mul measurable_const).mul
+        measurable_const).aestronglyMeasurable
+    · refine (ae_restrict_iff' hs).mpr (Filter.Eventually.of_forall (fun x hx => ?_))
+      have hx1 : |x| < 1 := hsub hx
+      have hnorm : ‖((↑x : ℂ) * ↑ξ * I)‖ = |x| * |ξ| := by
+        rw [show ((↑x : ℂ) * ↑ξ * I) = ((↑(x * ξ) : ℂ)) * I from by push_cast; ring,
+            norm_mul, Complex.norm_I, mul_one, Complex.norm_real, Real.norm_eq_abs, abs_mul]
+      rw [hnorm]
+      calc |x| * |ξ| ≤ 1 * |ξ| :=
+            mul_le_mul_of_nonneg_right (le_of_lt hx1) (abs_nonneg _)
+        _ = |ξ| := one_mul _
+  -- Set the three opaque ℂ-atoms `A`, `Bcpx`, `Ctail` and two real atoms.
+  set A : ℂ := ∫ x in Bball, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) ∂ν with hA_def
+  set Bcpx : ℂ := ∫ x in Bband, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) ∂ν with hBcpx_def
+  set Ctail : ℂ := ∫ x in largeSet 1, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂ν with hCtail_def
+  set Pball : ℝ := ∫ x in Bball, x ^ 2 ∂ν with hPball_def
+  set Pbar : ℝ := ∫ x in Bband, x ∂ν with hPbar_def
+  -- Identity 1: remainder split on the ball. The quadratic term is ν-integrable on the ball
+  -- via `sq_integrableOn_ball_levy`; the compensated integrand is the cubic Taylor remainder
+  -- minus the quadratic term (both ν-integrable on the ball for a Lévy measure).
+  have hquad_ball : IntegrableOn (fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2) Bball ν := by
+    have hrw : (fun x : ℝ => ((↑x : ℂ) * ↑ξ) ^ 2 / 2) =
+        fun x : ℝ => (↑((x ^ 2 * (ξ ^ 2 / 2) : ℝ)) : ℂ) := by
+      funext x; push_cast; ring
+    rw [hrw]
+    exact ((sq_integrableOn_ball_levy hν r).mul_const (ξ ^ 2 / 2)).ofReal
+  have hcomp_ball : IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) Bball ν := by
+    -- On `{|x| < r} ⊆ {|x| < 1}` the compensated integrand's indicator fires, so it equals
+    -- `exp(ixξ) − 1 − ixξ`; integrability transfers from the global compensated integrand.
+    refine ((integrable_levyCompensatedIntegrand hν ξ).integrableOn).congr ?_
+    filter_upwards [ae_restrict_mem hmeas_ball] with x hx
+    have hx1 : |x| < 1 := lt_of_lt_of_le hx hr1
+    simp [levyCompensatedIntegrand, hx1]
+  have h_id1 : (∫ x in Bball,
+      (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I + ((↑x : ℂ) * ↑ξ) ^ 2 / 2) ∂ν)
+      = A + (↑Pball : ℂ) * ↑ξ ^ 2 / 2 := by
+    rw [integral_add hcomp_ball hquad_ball, hA_def]
+    congr 1
+    -- The quadratic ν-integral over the ball: pull `↑ξ²/2` out and recognize `∫ x²`.
+    have hquad_eq : ∀ x : ℝ, ((↑x : ℂ) * ↑ξ) ^ 2 / 2 = (↑ξ ^ 2 / 2 : ℂ) * (↑(x ^ 2) : ℂ) := by
+      intro x; push_cast; ring
+    calc (∫ x in Bball, ((↑x : ℂ) * ↑ξ) ^ 2 / 2 ∂ν)
+        = ∫ x in Bball, (↑ξ ^ 2 / 2 : ℂ) * (↑(x ^ 2) : ℂ) ∂ν :=
+          setIntegral_congr_fun hmeas_ball (fun x _ => hquad_eq x)
+      _ = (↑ξ ^ 2 / 2 : ℂ) * ∫ x in Bball, (↑(x ^ 2) : ℂ) ∂ν := integral_const_mul _ _
+      _ = (↑ξ ^ 2 / 2 : ℂ) * (↑Pball : ℂ) := by
+          rw [hPball_def]; congr 1; exact integral_complex_ofReal
+      _ = (↑Pball : ℂ) * ↑ξ ^ 2 / 2 := by ring
+  -- Identity 2: largeSet r splits into band ⊎ largeSet 1.
+  have h_id2 : (∫ x in largeSet r, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂ν)
+      = (∫ x in Bband, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂ν) + Ctail := by
+    have h_disj : Disjoint Bband (largeSet 1) := by
+      rw [Set.disjoint_left]
+      intro x hx hx'
+      exact absurd (mem_largeSet.mp hx') (not_le.mpr hx.2)
+    have h_union : largeSet r = Bband ∪ largeSet 1 := by
+      ext x
+      simp only [largeSet, hBband_def, Set.mem_setOf_eq, Set.mem_union]
+      constructor
+      · intro hx
+        rcases lt_or_ge (|x|) 1 with h | h
+        · exact Or.inl ⟨hx, h⟩
+        · exact Or.inr h
+      · rintro (⟨h, _⟩ | h)
+        · exact h
+        · exact le_trans hr1 h
+    rw [hCtail_def, h_union,
+      setIntegral_union h_disj hmeas_ge1 (hexp_int Bband hν_band_lt)
+        (hexp_int (largeSet 1) hν_ge1_lt)]
+  -- Identity 3: band uncompensated = compensated + drift correction.
+  have hband_sub : Bband ⊆ {x : ℝ | |x| < 1} := fun x hx => hx.2
+  have hxi_band : IntegrableOn (fun x : ℝ => (↑x : ℂ) * ↑ξ * I) Bband ν :=
+    hxi_intOn Bband hmeas_band hband_sub hν_band_lt
+  have hcomp_band : IntegrableOn
+      (fun x : ℝ => exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) Bband ν :=
+    (hexp_int Bband hν_band_lt).sub hxi_band
+  have h_id3 : (∫ x in Bband, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂ν)
+      = Bcpx + (↑Pbar : ℂ) * ↑ξ * I := by
+    have hsplit : (∫ x in Bband, (exp ((↑x : ℂ) * ↑ξ * I) - 1) ∂ν)
+        = Bcpx + ∫ x in Bband, ((↑x : ℂ) * ↑ξ * I) ∂ν := by
+      rw [hBcpx_def, ← integral_add hcomp_band hxi_band]
+      exact setIntegral_congr_fun hmeas_band (fun x _ => by ring)
+    rw [hsplit]
+    congr 1
+    -- The band drift integral: pull `↑ξ·I` out and recognize `∫ x`.
+    calc (∫ x in Bband, ((↑x : ℂ) * ↑ξ * I) ∂ν)
+        = ∫ x in Bband, ((↑ξ * I : ℂ) * (↑x : ℂ)) ∂ν :=
+          setIntegral_congr_fun hmeas_band (fun x _ => by ring)
+      _ = (↑ξ * I : ℂ) * ∫ x in Bband, (↑x : ℂ) ∂ν := integral_const_mul _ _
+      _ = (↑ξ * I : ℂ) * (↑Pbar : ℂ) := by rw [hPbar_def]; congr 1; exact integral_complex_ofReal
+      _ = (↑Pbar : ℂ) * ↑ξ * I := by ring
+  -- Identity 4: global compensated split.
+  have h_levy_int : Integrable (levyCompensatedIntegrand ξ) ν :=
+    integrable_levyCompensatedIntegrand hν ξ
+  -- `levyComp = exp−1−ixξ` on `{|x|<1}` and `= exp−1` on `largeSet 1`.
+  have hlevy_small : ∀ x : ℝ, |x| < 1 →
+      levyCompensatedIntegrand ξ x = exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I := by
+    intro x hx
+    simp only [levyCompensatedIntegrand_def, if_pos hx, mul_one]
+  have hlevy_large : ∀ x : ℝ, x ∈ largeSet 1 →
+      levyCompensatedIntegrand ξ x = exp ((↑x : ℂ) * ↑ξ * I) - 1 :=
+    fun x hx => levyCompensatedIntegrand_eq_on_large (mem_largeSet.mp hx)
+  have h_id4 : (∫ x, levyCompensatedIntegrand ξ x ∂ν) = A + Bcpx + Ctail := by
+    -- Split ℝ = smallSet ⊎ largeSet 1.
+    have hsplit_top : (∫ x, levyCompensatedIntegrand ξ x ∂ν)
+        = (∫ x in smallSet, levyCompensatedIntegrand ξ x ∂ν)
+          + ∫ x in (smallSet)ᶜ, levyCompensatedIntegrand ξ x ∂ν :=
+      (integral_add_compl measurableSet_smallSet h_levy_int).symm
+    have hcompl_small : (smallSet : Set ℝ)ᶜ = largeSet 1 := by
+      rw [smallSet_eq_compl_largeSet, compl_compl]
+    -- On largeSet 1, levyComp = exp−1, giving Ctail.
+    have h_large_eq : (∫ x in (smallSet)ᶜ, levyCompensatedIntegrand ξ x ∂ν) = Ctail := by
+      rw [hcompl_small, hCtail_def]
+      exact setIntegral_congr_fun hmeas_ge1 (fun x hx => hlevy_large x hx)
+    -- On smallSet, levyComp = exp−1−ixξ; split into Bball ⊎ Bband.
+    have h_small_eq : (∫ x in smallSet, levyCompensatedIntegrand ξ x ∂ν) = A + Bcpx := by
+      have h_disj : Disjoint Bball Bband := by
+        rw [Set.disjoint_left]
+        intro x hx hx'
+        exact absurd hx'.1 (not_le.mpr hx)
+      have h_union : (smallSet : Set ℝ) = Bball ∪ Bband := by
+        ext x
+        simp only [mem_smallSet, hBball_def, hBband_def, Set.mem_setOf_eq, Set.mem_union]
+        constructor
+        · intro hx
+          rcases lt_or_ge (|x|) r with h | h
+          · exact Or.inl h
+          · exact Or.inr ⟨h, hx⟩
+        · rintro (h | ⟨_, h⟩)
+          · exact lt_of_lt_of_le h hr1
+          · exact h
+      -- Rewrite levyComp to exp−1−ixξ on smallSet, then split.
+      have hrw : (∫ x in smallSet, levyCompensatedIntegrand ξ x ∂ν)
+          = ∫ x in smallSet, (exp ((↑x : ℂ) * ↑ξ * I) - 1 - (↑x : ℂ) * ↑ξ * I) ∂ν :=
+        setIntegral_congr_fun measurableSet_smallSet
+          (fun x hx => hlevy_small x (mem_smallSet.mp hx))
+      rw [hrw, h_union,
+        setIntegral_union h_disj hmeas_band hcomp_ball hcomp_band, hA_def, hBcpx_def]
+    rw [hsplit_top, h_large_eq, h_small_eq]
+  rw [h_id1, h_id2, h_id3, h_id4]
+  push_cast
+  ring
+
+/-- **The Lévy-Khintchine formula for ψ.** Given the drift `b`, the Gaussian variance
+`σ²`, and an externally-provided Lévy measure `ν` on `ℝ\{0}` (σ-finite with
+`∫ min(1, x²) dν < ∞`, atom-free at the split radius `r`),
+together with the three subsequential limits from
+`exists_drift_variance_jumpMeasure_along_seq`, the exponent `ψ` admits the canonical
+Lévy-Khintchine decomposition.
+
+The hypotheses encode exactly the output of the diagonal extraction:
+* `hb` — drift convergence,
+* `hσ` — second-moment convergence,
+* `h_jump` — vague (vanishing-near-0) convergence of `t⁻¹·μ_t` to `ν`.
+
+**Soundness note (2026-06):** the formula is stated at an extracted *atom-free* split
+radius `r ∈ (1/2, 1]`. The drift `b_r` and Gaussian-variance `σ_sq_r` are the radius-`r`
+subsequential limits; the standard radius-1 compensator is recovered by converting at
+the ν level — the drift correction `∫_{r≤|x|<1} x dν` and the variance correction
+`−∫_{|x|<r} x² dν` (which removes the small-jump second moment the compensated integral
+already carries). An earlier radius-1 statement was *false* (it double-counted the
+small-jump second moment, e.g. for compound Poisson `ν = δ_{1/2}`).
+
+**Proof strategy:**
+Combine the four limit identifications in `𝓝 (S.exponent ξ)` at split radius `r`:
+1. `charFun_scaled_limit`: `t⁻¹·(charFun(μ_t)(ξ) − 1) → ψ(ξ)`.
+2. `drift_term`: `iξ·(t⁻¹·∫_{|x|<r} x dμ_t) → b_r·ξ·I`.
+3. `scaled_smallBall_compensated_tendsto`: the small-jump identification at radius `r`.
+4. `scaled_largeSet_charFun_tendsto`: the large-jump identification at radius `r`.
+The per-`t` identity `charFun_sub_one_div_decomp` lets `tendsto_nhds_unique` equate the
+two limits; `psi_levyKhintchine_algebra` then reorganizes the ν-side integrals into the
+canonical triple. -/
+theorem psi_eq_levyKhintchine_formula
+    {r : ℝ} (hr : r ∈ Set.Ioc (1/2 : ℝ) 1)
+    (b_r : ℝ) (σ_sq_r : ℝ≥0) {ν : Measure ℝ} (hν : IsLevyMeasure ν)
+    (hν_r : ν {x | |x| = r} = 0)
+    {t_seq : ℕ → {t : ℝ // 0 < t}}
+    (ht_seq : Tendsto (fun n => (t_seq n).val) atTop (𝓝 0))
+    (hb : Tendsto (fun n =>
+        (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ∂(S.measure (t_seq n) : Measure ℝ))
+        atTop (𝓝 b_r))
+    (hσ : Tendsto (fun n =>
+        (t_seq n).val⁻¹ * ∫ x in {x | |x| < r}, x ^ 2 ∂(S.measure (t_seq n) : Measure ℝ))
+        atTop (𝓝 ((σ_sq_r : ℝ≥0) : ℝ)))
+    (h_jump : ∀ (f : BoundedContinuousFunction ℝ ℝ),
+        (∃ r' > 0, ∀ x, |x| < r' → f x = 0) →
+        Tendsto (fun n => (t_seq n).val⁻¹ * ∫ x, f x ∂(S.measure (t_seq n) : Measure ℝ))
+          atTop (𝓝 (∫ x, f x ∂ν)))
+    (ξ : ℝ) :
+    S.exponent ξ =
+      ↑(b_r + ∫ x in {x | r ≤ |x| ∧ |x| < 1}, x ∂ν) * ↑ξ * I
+      - ↑((σ_sq_r : ℝ) - ∫ x in {x | |x| < r}, x ^ 2 ∂ν) * ↑ξ ^ 2 / 2
+      + ∫ x, levyCompensatedIntegrand ξ x ∂ν := by
+  have hr_pos : (0 : ℝ) < r := by linarith [hr.1]
+  -- B1: pull `t_seq` back through the comap filter and obtain the LHS limit.
+  have htseq_filter : Tendsto t_seq atTop (Filter.comap Subtype.val (𝓝[>] (0 : ℝ))) := by
+    rw [Filter.tendsto_comap_iff]
+    exact tendsto_nhdsWithin_iff.mpr
+      ⟨ht_seq, Filter.Eventually.of_forall (fun n => (t_seq n).prop)⟩
+  have hLHS : Tendsto (fun n =>
+      (charFun (S.measure (t_seq n) : Measure ℝ) ξ - 1) / (↑(t_seq n).val : ℂ))
+      atTop (𝓝 (S.exponent ξ)) :=
+    (S.charFun_scaled_limit ξ).comp htseq_filter
+  -- B3: the three term-limits (types inferred from the respective lemmas).
+  have hT1 := S.drift_term ξ ht_seq hb
+  have hT2 := S.scaled_smallBall_compensated_tendsto hr_pos hr.2 ξ
+    hν hν_r hσ h_jump
+  have hT3 := S.scaled_largeSet_charFun_tendsto hr_pos ξ
+    hν hν_r h_jump
+  -- B4: sum of the three limits (matching the per-`n` decomposition pointwise).
+  have hRHS_lim := (hT1.add hT2).add hT3
+  -- B2 + B5: the LHS quotient equals the per-`n` sum; uniqueness of limits.
+  -- The decomposition emits `↑(t⁻¹)`; the limit lemmas emit `(↑t)⁻¹`; bridge via `ofReal_inv`.
+  have hLHS_sum := hLHS.congr (fun n => by
+    rw [S.charFun_sub_one_div_decomp (t_seq n) ξ hr.2, Complex.ofReal_inv])
+  have h_eq := tendsto_nhds_unique hLHS_sum hRHS_lim
+  rw [h_eq]
+  -- B6: ν-side algebra (handled by the dedicated identity lemma above).
+  exact psi_levyKhintchine_algebra hr ξ hν b_r σ_sq_r
+
+/-- **Main assembly.** The characteristic exponent `ψ` of `S` decomposes into the
+Lévy-Khintchine triple `(b, σ², ν)` where `ν` is the externally extracted Lévy
+measure on `ℝ\{0}`.
+
+The diagonal extraction `exists_drift_variance_jumpMeasure_along_seq` produces all
+three witnesses along a single subsequence; the formula then follows from
+`psi_eq_levyKhintchine_formula`. -/
+theorem psi_decomposition :
+    ∃ (b : ℝ) (σ_sq : ℝ≥0) (ν : Measure ℝ),
+      IsLevyMeasure ν ∧
+      ∀ ξ : ℝ,
+        S.exponent ξ = ↑b * ↑ξ * I
+          - ↑(σ_sq : ℝ) * ↑ξ ^ 2 / 2
+          + ∫ x, levyCompensatedIntegrand ξ x ∂ν := by
+  obtain ⟨r, b_r, σ_sq_r, ν, hν, t_seq, hr_mem, hν_r, ht_seq, hb, hσ, h_jump⟩ :=
+    S.exists_drift_variance_jumpMeasure_along_seq
+  -- Corrected witnesses: drift `b' = b_r + ∫_{r≤|x|<1} x dν`, Gaussian variance
+  -- `σ_G² = σ_sq_r − ∫_{|x|<r} x² dν` (≥ 0, packaged via `Real.toNNReal`).
+  refine ⟨b_r + ∫ x in {x | r ≤ |x| ∧ |x| < 1}, x ∂ν,
+    Real.toNNReal ((σ_sq_r : ℝ) - ∫ x in {x | |x| < r}, x ^ 2 ∂ν), ν, hν, ?_⟩
+  intro ξ
+  -- σ_G² ≥ 0, so its `Real.toNNReal` coercion is honest (no truncation).
+  have hr_pos : (0 : ℝ) < r := by linarith [hr_mem.1]
+  have hnn : (0 : ℝ) ≤ (σ_sq_r : ℝ) - ∫ x in {x | |x| < r}, x ^ 2 ∂ν := by
+    have := S.smallBall_second_moment_nu_le hr_pos hν hν_r hσ h_jump
+    linarith
+  rw [show (↑(Real.toNNReal ((σ_sq_r : ℝ) - ∫ x in {x | |x| < r}, x ^ 2 ∂ν)) : ℝ)
+        = (σ_sq_r : ℝ) - ∫ x in {x | |x| < r}, x ^ 2 ∂ν from Real.coe_toNNReal _ hnn]
+  exact S.psi_eq_levyKhintchine_formula hr_mem b_r σ_sq_r hν hν_r ht_seq hb hσ h_jump ξ
+
+end ConvolutionSemigroup
+
+/-- Build a convolution semigroup from a CND exponent via Schoenberg + Bochner. -/
+noncomputable def convolutionSemigroupOfCND
+    {ψ : ℝ → ℂ} (hψ_cont : Continuous ψ) (hψ_zero : ψ 0 = 0)
+    (hψ_cnd : IsConditionallyNegativeDefinite ψ)
+    (hψ_herm : ∀ ξ, ψ (-ξ) = starRingEnd ℂ (ψ ξ)) :
+    ConvolutionSemigroup where
+  exponent := ψ
+  exponent_continuous := hψ_cont
+  exponent_zero := hψ_zero
+  measure := fun ⟨t, ht⟩ =>
+    (bochner _ (by fun_prop : Continuous (fun ξ => exp ((↑t : ℂ) * ψ ξ)))
+      (schoenberg_exp_of_cnd hψ_cont hψ_zero hψ_cnd hψ_herm t ht)
+      (by rw [hψ_zero, mul_zero, exp_zero])).choose
+  charFun_eq := fun ⟨t, ht⟩ ξ =>
+    (bochner _ (by fun_prop : Continuous (fun ξ => exp ((↑t : ℂ) * ψ ξ)))
+      (schoenberg_exp_of_cnd hψ_cont hψ_zero hψ_cnd hψ_herm t ht)
+      (by rw [hψ_zero, mul_zero, exp_zero])).choose_spec ξ
+
+/-- Convolution semigroup canonically associated with an infinitely divisible
+probability measure `μ`. By construction, the t=1 member of the semigroup is
+literally `μ` (see `convolutionSemigroupOfMeasure_one`).
+
+This bundles `exists_continuous_log`, `isConditionallyNegativeDefinite_log`,
+`hermitian_log`, and `convolutionSemigroupOfCND`, then patches the t=1 slot to
+be exactly `μ` (rather than the abstract Bochner-extracted measure that merely
+shares its characteristic function). The patch preserves the convolution-semigroup
+laws because `charFun μ = exp ψ` by `exists_continuous_log`. -/
+noncomputable def convolutionSemigroupOfMeasure
+    (μ : Measure ℝ) [hμ : IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ) :
+    ConvolutionSemigroup :=
+  let ψ_data := h.exists_continuous_log
+  let ψ := ψ_data.choose
+  let hψ_cont := ψ_data.choose_spec.1
+  let hψ_zero := ψ_data.choose_spec.2.1
+  let hψ_exp := ψ_data.choose_spec.2.2
+  let hψ_cnd := h.isConditionallyNegativeDefinite_log hψ_cont hψ_zero hψ_exp
+  let hψ_herm := h.hermitian_log hψ_cont hψ_zero hψ_exp
+  let S₀ := convolutionSemigroupOfCND hψ_cont hψ_zero hψ_cnd hψ_herm
+  { exponent := S₀.exponent
+    exponent_continuous := S₀.exponent_continuous
+    exponent_zero := S₀.exponent_zero
+    measure := fun t =>
+      if h1 : t.val = 1 then ⟨μ, hμ⟩ else S₀.measure t
+    charFun_eq := by
+      intro t ξ
+      by_cases ht : t.val = 1
+      · simp only [dif_pos ht]
+        show charFun μ ξ = exp ((↑t.val : ℂ) * S₀.exponent ξ)
+        rw [ht]
+        show charFun μ ξ = exp ((1 : ℂ) * ψ ξ)
+        rw [one_mul, hψ_exp ξ]
+      · simp only [dif_neg ht]
+        exact S₀.charFun_eq t ξ }
+
+/-- The t=1 member of `convolutionSemigroupOfMeasure μ h` is literally `μ`
+(as a `ProbabilityMeasure`). -/
+@[simp]
+theorem convolutionSemigroupOfMeasure_one
+    (μ : Measure ℝ) [hμ : IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ) :
+    ((convolutionSemigroupOfMeasure μ h).measure ⟨1, one_pos⟩ :
+        MeasureTheory.ProbabilityMeasure ℝ) = ⟨μ, hμ⟩ := by
+  show (if _ : (1 : ℝ) = 1 then (⟨μ, hμ⟩ : MeasureTheory.ProbabilityMeasure ℝ) else _) = _
+  rw [dif_pos rfl]
+
+/-- The underlying measure of the t=1 member is `μ`. -/
+@[simp]
+theorem convolutionSemigroupOfMeasure_one_coe
+    (μ : Measure ℝ) [hμ : IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ) :
+    (((convolutionSemigroupOfMeasure μ h).measure ⟨1, one_pos⟩ :
+        MeasureTheory.ProbabilityMeasure ℝ) : Measure ℝ) = μ := by
+  rw [convolutionSemigroupOfMeasure_one]
+  rfl
+
+/-! ## Sub-lemma 4: Integral representation -/
+
+/-- A continuous, conditionally negative definite function `ψ : ℝ → ℂ` with `ψ(0) = 0`
+has the Lévy-Khintchine integral representation.
+
+**Proof:**
+1. By Schoenberg, `exp(tψ)` is PD, continuous, with value 1 at 0 for each `t > 0`.
+2. By Bochner, there exists probability measure `μ_t` with `charFun(μ_t) = exp(tψ)`.
+3. The family `{μ_t}` forms a convolution semigroup (see `convolutionSemigroupOfCND`).
+4. The diagonal extraction yields `(b, σ², ν)` on a single subsequence and
+   `psi_decomposition` packages them into the triple. -/
+theorem levyKhintchine_of_cnd
+    {ψ : ℝ → ℂ} (hψ_cont : Continuous ψ) (hψ_zero : ψ 0 = 0)
+    (hψ_cnd : IsConditionallyNegativeDefinite ψ)
+    (hψ_herm : ∀ ξ, ψ (-ξ) = starRingEnd ℂ (ψ ξ)) :
+    ∃ T : LevyKhintchineTriple, ∀ ξ : ℝ,
+      ψ ξ = ↑T.drift * ↑ξ * I
+        - ↑(T.gaussianVariance : ℝ) * ↑ξ ^ 2 / 2
+        + ∫ x, levyCompensatedIntegrand ξ x ∂T.levyMeasure := by
+  set S := convolutionSemigroupOfCND hψ_cont hψ_zero hψ_cnd hψ_herm
+  obtain ⟨b, σ_sq, ν, hν_levy, hψ_eq⟩ := S.psi_decomposition
+  exact ⟨⟨b, σ_sq, ν, hν_levy⟩, hψ_eq⟩
+
+/-! ## Assembly: Lévy-Khintchine representation -/
+
+/-- **Lévy-Khintchine representation theorem**: every infinitely
+divisible probability measure `μ` on `ℝ` has a characteristic function of the
+form `exp(ibξ − σ²ξ²/2 + ∫ f(ξ,x) dν(x))` with `f = exp(ixξ) − 1 − ixξ·1_{|x|<1}`
+and `ν` a Lévy measure.
+
+**Proof via sub-lemmas:**
+1. `charFun_ne_zero` — characteristic function never vanishes.
+2. `exists_continuous_log` — continuous logarithm `ψ` with `charFun μ = exp ψ`.
+3. `isConditionallyNegativeDefinite_log` — `ψ` is CND.
+4. `levyKhintchine_of_cnd` — `ψ` has the integral representation. -/
+theorem levyKhintchine_representation
+    {μ : Measure ℝ} [IsProbabilityMeasure μ] (h : IsInfinitelyDivisible μ) :
+    ∃ T : LevyKhintchineTriple, ∀ ξ : ℝ,
+      charFun μ ξ = exp (
+        ↑T.drift * ↑ξ * I
+        - ↑(T.gaussianVariance : ℝ) * ↑ξ ^ 2 / 2
+        + ∫ x, levyCompensatedIntegrand ξ x ∂T.levyMeasure) := by
+  -- Note: we route through psi_decomposition on `convolutionSemigroupOfMeasure μ h`
+  -- (rather than on the Bochner-built `convolutionSemigroupOfCND` directly) so that
+  -- the t=1 member is literally μ.
+  set S := convolutionSemigroupOfMeasure μ h
+  obtain ⟨b, σ_sq, ν, hν_levy, hψ_eq⟩ := S.psi_decomposition
+  refine ⟨⟨b, σ_sq, ν, hν_levy⟩, fun ξ => ?_⟩
+  -- charFun μ ξ = exp((1 : ℂ) * S.exponent ξ) via the t=1 patch.
+  have hcharFun_one : (S.measure ⟨1, one_pos⟩ : MeasureTheory.ProbabilityMeasure ℝ) =
+      ⟨μ, by infer_instance⟩ := convolutionSemigroupOfMeasure_one μ h
+  have hcf : charFun μ ξ = exp ((1 : ℂ) * S.exponent ξ) := by
+    have h1 := S.charFun_eq ⟨1, one_pos⟩ ξ
+    rw [show ((⟨1, one_pos⟩ : {t : ℝ // 0 < t}).val : ℂ) = (1 : ℂ) from by norm_cast] at h1
+    rw [show charFun μ ξ = (S.measure ⟨1, one_pos⟩).characteristicFun ξ from by
+      rw [hcharFun_one]; rfl, h1]
+  rw [hcf, one_mul, hψ_eq ξ]
+
+/-! ## Converse: every Lévy-Khintchine triple yields an infinitely divisible law -/
+
+/-- The **Lévy-Khintchine exponent** of a triple `(b, σ², ν)`:
+`ψ_T(ξ) = ibξ − σ²ξ²/2 + ∫ (e^{ixξ} − 1 − ixξ·1_{|x|<1}) dν(x)`.
+
+This is the characteristic exponent whose exponential is the characteristic function of the
+infinitely divisible law associated with `T` (see `levyKhintchine_converse`), and the target
+form identified by `levyKhintchine_representation`. -/
+noncomputable def LevyKhintchineTriple.exponent (T : LevyKhintchineTriple) (ξ : ℝ) : ℂ :=
+  ↑T.drift * ↑ξ * I - ↑(T.gaussianVariance : ℝ) * ↑ξ ^ 2 / 2
+    + ∫ x, levyCompensatedIntegrand ξ x ∂T.levyMeasure
+
+/-- Definitional unfolding of `LevyKhintchineTriple.exponent`. -/
+@[simp]
+theorem LevyKhintchineTriple.exponent_def (T : LevyKhintchineTriple) (ξ : ℝ) :
+    T.exponent ξ = ↑T.drift * ↑ξ * I - ↑(T.gaussianVariance : ℝ) * ↑ξ ^ 2 / 2
+      + ∫ x, levyCompensatedIntegrand ξ x ∂T.levyMeasure := rfl
+
+/-- The Lévy-Khintchine exponent vanishes at `ξ = 0`. -/
+theorem LevyKhintchineTriple.exponent_zero (T : LevyKhintchineTriple) : T.exponent 0 = 0 := by
+  simp [LevyKhintchineTriple.exponent]
+
+/-- The Lévy-Khintchine exponent is continuous. -/
+theorem LevyKhintchineTriple.exponent_continuous (T : LevyKhintchineTriple) :
+    Continuous T.exponent := by
+  unfold LevyKhintchineTriple.exponent
+  have hInt := continuous_integral_levyCompensatedIntegrand T.levyMeasure_isLevyMeasure
+  fun_prop
+
+/-- The Lévy-Khintchine exponent is conditionally negative definite: the imaginary drift
+`ibξ` via `cnd_imag_linear`, the Gaussian term `−σ²ξ²/2` via `cnd_neg_sq` scaled by
+`σ²/2 ≥ 0`, and the jump integral via `cnd_integral_levyCompensatedIntegrand`. -/
+theorem LevyKhintchineTriple.exponent_cnd (T : LevyKhintchineTriple) :
+    IsConditionallyNegativeDefinite T.exponent := by
+  have hDrift := cnd_imag_linear T.drift
+  have hGauss := cnd_neg_sq.smul_nonneg
+    (show (0 : ℝ) ≤ (T.gaussianVariance : ℝ) / 2 by positivity)
+  have hInt := cnd_integral_levyCompensatedIntegrand T.levyMeasure_isLevyMeasure
+  have key : T.exponent = fun ξ : ℝ =>
+      (((T.drift : ℂ) * ↑ξ * I) + (↑((T.gaussianVariance : ℝ) / 2) : ℂ) * (-((↑ξ : ℂ) ^ 2)))
+        + ∫ x, levyCompensatedIntegrand ξ x ∂T.levyMeasure := by
+    funext ξ
+    simp only [LevyKhintchineTriple.exponent]
+    push_cast
+    ring
+  rw [key]
+  exact (hDrift.add hGauss).add hInt
+
+/-- The Lévy-Khintchine exponent is Hermitian: `ψ_T(−ξ) = conj(ψ_T(ξ))`. -/
+theorem LevyKhintchineTriple.exponent_hermitian (T : LevyKhintchineTriple) (ξ : ℝ) :
+    T.exponent (-ξ) = starRingEnd ℂ (T.exponent ξ) := by
+  simp only [LevyKhintchineTriple.exponent, map_add, map_sub,
+    hermitian_integral_levyCompensatedIntegrand ξ,
+    Complex.ofReal_neg, map_mul, map_div₀, map_pow, map_ofNat, Complex.conj_ofReal,
+    Complex.conj_I]
+  ring
+
+/-- **Converse Lévy-Khintchine theorem**: every Lévy-Khintchine triple `T = (b, σ², ν)`
+is realised by an infinitely divisible probability measure `μ` on `ℝ` whose characteristic
+function is `exp(ψ_T)`, where `ψ_T = T.exponent`.
+
+**Proof:** feed `ψ_T` — continuous, conditionally negative definite, `ψ_T(0) = 0`, Hermitian —
+to the forward machinery `convolutionSemigroupOfCND` (Schoenberg + Bochner), obtaining a
+convolution semigroup with `charFun(μ_t) = exp(t·ψ_T)`. Take `μ := μ_1`. Infinite divisibility
+follows because `μ_{1/n}^{∗n}` has characteristic function `exp(n·(1/n)·ψ_T) = exp(ψ_T)`, so
+`μ = μ_{1/n}^{∗n}` by `Measure.ext_of_charFun`. -/
+theorem levyKhintchine_converse (T : LevyKhintchineTriple) :
+    ∃ μ : Measure ℝ, IsProbabilityMeasure μ ∧ IsInfinitelyDivisible μ ∧
+      ∀ ξ : ℝ, charFun μ ξ = Complex.exp (T.exponent ξ) := by
+  set S := convolutionSemigroupOfCND T.exponent_continuous T.exponent_zero
+    T.exponent_cnd T.exponent_hermitian with hS
+  -- Characteristic function of the `t`-member: `charFun(μ_t) = exp(t · ψ_T)`.
+  have hcf : ∀ (t : {t : ℝ // 0 < t}) (ξ : ℝ),
+      charFun (S.measure t : Measure ℝ) ξ = Complex.exp ((↑t.val : ℂ) * T.exponent ξ) :=
+    fun t ξ => S.charFun_eq t ξ
+  refine ⟨(S.measure ⟨1, one_pos⟩ : Measure ℝ), inferInstance, ?_, ?_⟩
+  · -- Infinite divisibility: `μ = μ_{1/n}^{∗n}`.
+    intro n hn
+    have hnpos : (0 : ℝ) < 1 / n := div_pos one_pos (Nat.cast_pos.mpr hn)
+    refine ⟨(S.measure ⟨1 / n, hnpos⟩ : Measure ℝ), inferInstance, ?_⟩
+    apply Measure.ext_of_charFun
+    funext ξ
+    rw [Measure.charFun_iteratedConv, hcf ⟨1 / n, hnpos⟩ ξ, hcf ⟨1, one_pos⟩ ξ,
+      ← Complex.exp_nat_mul]
+    congr 1
+    have hne : (n : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+    simp only [one_div, Complex.ofReal_inv, Complex.ofReal_natCast, Complex.ofReal_one, one_mul]
+    rw [← mul_assoc, mul_inv_cancel₀ hne, one_mul]
+  · -- Characteristic function identity at `t = 1`.
+    intro ξ
+    rw [hcf ⟨1, one_pos⟩ ξ]
+    simp only [Complex.ofReal_one, one_mul]
+
+end ProbabilityTheory

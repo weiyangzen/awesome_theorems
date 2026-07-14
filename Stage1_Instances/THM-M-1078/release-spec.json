@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1078-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1078-RELEASE",
+  "theorem_id": "THM-M-1078",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1078/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "explicitly_variable; must resolve python3, git, lake, and bash; material tool identities are checked against the pinned validation receipt"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker performs no fetch or dependency mutation. Its current Lean replay uses the existing pinned automation-provided cache and is explicitly classified as warm-cache nonrelease evidence; the recorded predecessor Bubblewrap recipe supplied the network-isolated replay but is freshness-stale at this release HEAD.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1078-ROOT",
+    "M1078-S-TARGET",
+    "M1078-S-BOUNDARY",
+    "M1078-S-FOUNDATION",
+    "M1078-C-EXTERNAL-PIN",
+    "M1078-B-INDEX",
+    "M1078-B-PREDICTABLE",
+    "M1078-B-BOUND",
+    "M1078-B-FINITE",
+    "M1078-B-NORM",
+    "M1078-T-ALLTIME",
+    "M1078-T-LOCAL-BODY",
+    "M1078-T-ASSEMBLE",
+    "M1078-X-SOURCE",
+    "M1078-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1078.MartingaleTransformTarget",
+    "Stage1Instances.THM_M_1078.target_iff_expandedSourceShape",
+    "Stage1Instances.THM_M_1078.ObligationTree.root_of_allTimeMemLpTransformBound",
+    "Stage1Instances.THM_M_1078.ObligationTree.local_target_iff_frozen_target",
+    "Stage1Instances.THM_M_1078.Proof.memLp_condExp_of_one_lt",
+    "Stage1Instances.THM_M_1078.Proof.earlierMemLpUpTo"
+  ],
+  "scope_boundary": "Reconciles all 15 frozen obligations and current structured authority, then replays the existing horizon-local proof unit and conditional exact-target composition only. It does not supply the external Burkholder body, repair the all-future interface, close any accepted obligation or exact root, make the stale validation recipe current, accept any receipt, or supply H0, R0, AUDIT-Z, cold/offline release evidence, independent verification, THEOREM-Z, release, or master acceptance."
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1291-RELEASE-local-v1",
+  "item_id": "S56-M-1291-RELEASE",
+  "theorem_id": "THM-M-1291",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1291/check_release.py"
+  ],
+  "env_allowlist": {
+    "PATH": "inherited only for local Python, Git, Bash, Bubblewrap, Lake, Lean, and Elan discovery",
+    "HOME": "inherited only for the pinned Elan toolchain and canonical read-only Lake cache",
+    "LANG": "the nested Lean recipe fixes C.UTF-8",
+    "LC_ALL": "the nested Lean recipe fixes C.UTF-8",
+    "TZ": "the nested Lean recipe fixes UTC",
+    "LEAN_NUM_THREADS": "the nested Lean recipe fixes one thread"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The outer checker performs only local file, Git, and process checks and is policy-denied from network use; the nested Lean replay is additionally namespace-enforced with Bubblewrap --unshare-net. This provisional recipe does not claim namespace enforcement for the outer Python process.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact four-line fail-closed release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1291-ROOT",
+    "M1291-S-STATEMENT",
+    "M1291-S-MEASURABILITY",
+    "M1291-S-BOUNDARY",
+    "M1291-S-FOUNDATION",
+    "M1291-B-SUBUNIT",
+    "M1291-B-SUPERUNIT",
+    "M1291-B-MERGE",
+    "M1291-L-POINTWISE",
+    "M1291-L-TRUNCATION",
+    "M1291-L-TAIL",
+    "M1291-T-INTEGRAL",
+    "M1291-T-ALGEBRA",
+    "M1291-T-ASSEMBLE"
+  ],
+  "negative_status_only_obligation_ids": [
+    "M1291-X-SOURCE",
+    "M1291-X-PROVENANCE",
+    "M1291-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1291.BrezisLiebTarget",
+    "Stage1Instances.THM_M_1291.rpow_add_le_weighted",
+    "Stage1Instances.THM_M_1291.abs_rpow_norm_sub_rpow_norm_sub_le_weighted",
+    "Stage1Instances.THM_M_1291.rpow_coeff_tendsto_zero",
+    "Stage1Instances.THM_M_1291.truncatedError_nonneg",
+    "Stage1Instances.THM_M_1291.truncatedError_le",
+    "Stage1Instances.THM_M_1291.integrable_of_ae_tendsto_of_uniform_integral_bound",
+    "Stage1Instances.THM_M_1291.abs_rpow_norm_add_sub_rpow_norm_le",
+    "Stage1Instances.THM_M_1291.splittingLimit_subunit",
+    "Stage1Instances.THM_M_1291.splittingLimit_superunit",
+    "Stage1Instances.THM_M_1291.brezisLiebTarget_proof"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation over all 17 frozen obligation records plus a fresh target-scoped network-isolated trust-zero Lean replay of the 14 machine obligations through the root and named local proof declarations. Covered IDs are reconciliation subjects, not proof-closure credit; the three governance overlays receive negative-status checks only. The recipe cannot provide prerequisite master acceptance, node-specific evidence reconciliation, immutable clean empty-cache release evidence, independent review, distinct-runner verification, or theorem completion."
+}
