@@ -399,16 +399,9 @@ def space_guard(claims: list[dict[str, Any]]) -> None:
                 trim_file(path, max_log_mb * 1024 * 1024)
     usage = shutil.disk_usage(ROOT)
     free_gb = usage.free // (1024**3)
-    # Worker workspace cleanup races this accounting pass. A vanished path is
-    # no reason to abort scheduling, so skip it and measure the stable files.
-    root_bytes = 0
-    for path in RUNTIME.rglob("*"):
-        try:
-            if path.is_file():
-                root_bytes += path.stat().st_size
-        except FileNotFoundError:
-            continue
-    state = {"free_gb": free_gb, "cron_root_gb": round(root_bytes / 1024**3, 3), "checked_at": dt.datetime.now(dt.timezone.utc).isoformat()}
+    # Do not recursively size active worker worktrees: at high concurrency it
+    # is both a scheduler-local quota and slow enough to delay refills.
+    state = {"free_gb": free_gb, "cron_root_gb": None, "checked_at": dt.datetime.now(dt.timezone.utc).isoformat()}
     atomic_write(runtime_path("space_guard.json"), json.dumps(state, indent=2) + "\n")
     if free_gb < danger_free_gb:
         fail(f"blocked_disk_space: only {free_gb} GiB free (danger threshold {danger_free_gb})")
