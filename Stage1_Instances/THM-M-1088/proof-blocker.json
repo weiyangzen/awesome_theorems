@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1088-PROOF",
+  "theorem_id": "THM-M-1088",
+  "base_revision": "a1a7e939e58f103f5ff5d23af51437fa8658aa04",
+  "base_tree": "d881fd9641fa3e5f3ebe5082b35672981e90adcf",
+  "recorded_at": "2026-07-15T05:17:38+08:00",
+  "canonical_target": "Stage1Instances.THM_M_1088.BorellTISTarget",
+  "outcome": "partial_proof_self_tested_root_blocked",
+  "proof_body_added": true,
+  "partial_proof_receipt_id": "S56-M-1088-PROOF-local-20260715T051738+0800",
+  "partial_progress_toward_obligation_ids": [
+    "M1088-B-POSITIVE-TAIL",
+    "M1088-B-ZERO-TAIL",
+    "M1088-B-MERGE"
+  ],
+  "obligation_statement_fingerprints": {
+    "M1088-B-POSITIVE-TAIL": "planned:v1:sha256:770cebe144409f0bd2a6a860fe4e4a09f6f8e481e6ad5bbe8a806f38f28b64f8",
+    "M1088-B-ZERO-TAIL": "planned:v1:sha256:cc96e7fec16319482327250076443093fa39794cfb673fd659a14e5f8f066b0b",
+    "M1088-B-MERGE": "planned:v1:sha256:707d98d5bf1fb0e0a1334e6298be0fd669a02f8463deeab5ead039ab843e38a3"
+  },
+  "provisionally_closed_obligation_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "root_vector_before": {"H": "H2", "M": "M3", "R": "R4"},
+  "root_vector_proposed": {"H": "H2", "M": "M3", "R": "R4"},
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M1088-L-FINITE-CONCENTRATION: no placeholder-free sharp sub-Gaussian MGF theorem for a finite Gaussian maximum exists in the pinned closure",
+  "remaining_root_cut_set": [
+    "M1088-L-FINITE-CONCENTRATION",
+    "M1088-L-COVARIANCE",
+    "M1088-L-MEAN-LIMIT",
+    "M1088-L-PROBABILITY-LIMIT",
+    "M1088-T-ENGINE"
+  ],
+  "implemented_partial_bodies": {
+    "Stage1Instances.THM_M_1088.Proof.coordinate_hasSubgaussianMGF": "a centered Gaussian-process coordinate has exact variance-parametrized sub-Gaussian MGF",
+    "Stage1Instances.THM_M_1088.Proof.zeroTailBound_of_isGaussianProcess": "the exact strict-event u = 0 bound follows from probability normalization",
+    "Stage1Instances.THM_M_1088.Proof.upperTailBound_of_hasSubgaussianMGF": "a supplied centered-supremum MGF estimate yields every nonnegative strict ENNReal tail bound",
+    "Stage1Instances.THM_M_1088.Proof.upperTailBound_of_process_hasSubgaussianMGF": "the zero and positive branches compose at the exact sigma2 normalization while retaining the missing MGF premise"
+  },
+  "candidate_assessment": {
+    "repo_local": "The local bodies close coordinate MGF and exact tail-conversion ingredients. They do not prove that a finite maximum or countable supremum is sub-Gaussian.",
+    "pinned_mathlib": "Pinned mathlib supplies Gaussian laws, Gaussian scalar MGFs, and Chernoff conversion after HasSubgaussianMGF, but no Borell--TIS, Gaussian isoperimetry, or finite Gaussian maximum concentration engine.",
+    "audited_external": "The immutable LSLT candidate is finite-dimensional and toolchain-incompatible and lacks checked transports for arbitrary covariance, process maxima, and the countable limit. No exact importable terminal body was found."
+  },
+  "blocker": "Closing BorellTISTarget still requires a sharp finite-dimensional Gaussian concentration proof, covariance square-root and Lipschitz normalization, countable finite exhaustion, expectation convergence, and strict-event probability limit. Assuming the centered-supremum MGF estimate would broaden the exact target with a new premise.",
+  "retry_condition": "Resume after the missing finite Gaussian concentration and limit packages are implemented without placeholders, or after an immutable compatible exact Borell--TIS proof is pinned and transported to the frozen target.",
+  "status_boundary": "This packet is provisional self-tested partial proof evidence. Because the three mapped registry targets remain planned prose, zero frozen obligations are claimed closed. The exact root remains M3; no accepted state, validation, release, audit completion, master acceptance, or theorem completion is claimed.",
+  "selftest_manifest_written": true
+}

@@ -2,28 +2,51 @@
   "schema_version": "stage1-proof-blocker/1.0",
   "item_id": "S56-M-0533-PROOF",
   "theorem_id": "THM-M-0533",
-  "base_revision": "0d96c69f4ed36252336c9f7f535191869f854cf6",
-  "recorded_at": "2026-07-12",
+  "base_revision": "a1a7e939e58f103f5ff5d23af51437fa8658aa04",
+  "base_tree": "d881fd9641fa3e5f3ebe5082b35672981e90adcf",
+  "recorded_at": "2026-07-15T05:19:00+08:00",
   "canonical_target": "AwesomeTheorems.THM_M_0533.MayerVietorisSequence",
   "statement_sha256": "cbe35890b43f302b71cf1230a87c21b2ac4eedf196210389598453c61ff18bce",
+  "obligation_tree_sha256": "ded027e2345e1b81568067254d083de705bf062e0f9079fe6d2a427c2c21f3b1",
   "obligation_registry_sha256": "cd0411fccc46ee639e87328a41ce396b92f62467fdffd68d9a39761387c9b630",
+  "typed_graphs_sha256": "6ac4e3d41e8e184c6a88f7ffdcde043a79c43e6766a664caf12453aab66a9a24",
   "registry_denominator_sha256": "238242dfcb6274343a6413ed2628d0944bf0882c280b42608d8e19bad2c88dfc",
   "toolchain": "leanprover/lean4:v4.29.0",
   "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
   "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
-  "outcome": "blocked",
-  "machine_classification": "M3",
-  "proof_body_added": false,
+  "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+  "outcome": "partial_proof_self_tested_root_blocked",
+  "proof_body_added": true,
+  "partial_proof_receipt_id": "S56-M-0533-PROOF-partial-20260715T051900+0800",
+  "partial_progress_toward_obligation_ids": [
+    "M0533-T-CONSTRUCTION"
+  ],
+  "provisionally_closed_obligation_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "root_vector_before": {
+    "H": "H3",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H3",
+    "M": "M3",
+    "R": "R4"
+  },
   "root_closed": false,
+  "audit_complete": false,
   "theorem_complete": false,
-  "first_failed_gate": "M0533-C-SUBDIVISION: the pinned Lean closure has no barycentric-subdivision and chain-homotopy construction proving that cover-small singular chains compute the singular homology of the union",
+  "first_failed_gate": "M0533-C-SUBDIVISION: the pinned Lean closure has no barycentric-subdivision chain operator and chain homotopy proving that cover-small singular chains compute the singular homology of the union",
   "remaining_root_cut_set": [
-    "M0533-T-CONSTRUCTION",
-    "M0533-T-EXACT-INTER",
-    "M0533-T-EXACT-BIPROD",
-    "M0533-T-EXACT-SPACE",
+    "M0533-C-SUBDIVISION",
+    "M0533-L-SMALL-QUASIISO",
+    "M0533-L-CHAIN-KERNEL",
+    "M0533-L-NATURALITY",
     "M0533-T-DEGREE-ZERO"
   ],
+  "implemented_partial_bodies": {
+    "AwesomeTheorems.THM_M_0533.firstMap_comp_secondMap": "the canonical signed inclusion map from intersection homology has zero composite with the sum map to ambient homology"
+  },
   "expanded_missing_proof_packages": [
     "M0533-C-SUBDIVISION",
     "M0533-L-SMALL-QUASIISO",
@@ -39,16 +62,18 @@
     "M0533-T-EXACTNESS"
   ],
   "available_checked_bodies": {
+    "AwesomeTheorems.THM_M_0533.firstMap_comp_secondMap": "local proof of one elementary consecutive-zero identity",
     "AwesomeTheorems.THM_M_0533.canonical_iff_alternate": "definitional equivalence of the two exact target encodings only",
     "AwesomeTheorems.THM_M_0533.root_of_construction_and_exactness": "conditional root composition requiring construction and exactness packages"
   },
   "candidate_assessment": {
-    "repo_local": "The dossier contains the exact statement and conditional composition interface, but no inhabitant of ConstructionPackage or ExactnessPackage for an arbitrary two-open cover.",
-    "pinned_mathlib": "The pinned revision defines absolute singular chains and homology but has no singular-homology excision, relative homology, cover-small chain quasi-isomorphism, or singular Mayer-Vietoris theorem. Its Mayer-Vietoris results concern sheaf cohomology and cannot close this target.",
-    "audited_external": "The prerequisite immutable audit found proposed relative-singular-homology infrastructure only; it contains neither excision nor the exact Mayer-Vietoris target, and no eligible terminal proof was found to pin or import."
+    "repo_local": "Proof.lean now proves the signed firstMap/secondMap composite is zero. The dossier still has no boundary family, ConstructionPackage inhabitant, ExactnessPackage inhabitant, or root proof.",
+    "pinned_mathlib": "The pinned closure supplies absolute singular chains and the generic long exact homology sequence of a short exact sequence, but no singular-homology excision, cover-small-chain quasi-isomorphism, relative singular homology, or singular Mayer-Vietoris theorem. Its sheaf-cohomology Mayer-Vietoris theorem is ineligible.",
+    "audited_external": "The immutable prerequisite audit found proposed relative-singular-homology infrastructure only; it has neither excision nor this exact Mayer-Vietoris target. No exact external terminal proof is available to pin or import."
   },
-  "blocker": "Closing the exact target requires a new placeholder-free formalization of the cover-small singular-chain subdivision argument, the signed short exact chain sequence, induced connecting morphisms, naturality identifications, recurring exactness, and the degree-zero endpoint. Postulating either frozen package, assuming exactness, or importing the sheaf-cohomology theorem would be a prohibited placeholder or theorem substitution.",
-  "retry_condition": "Resume after these frozen singular-chain packages are implemented locally without placeholders, or after an immutable compatible Lean 4 singular-homology Mayer-Vietoris proof is available for pinned exact-type integration and provenance checking.",
-  "status_boundary": "This is a proof-phase blocker record, not a proof receipt. It does not satisfy S56-M-0533-PROOF and must not be promoted to provisional or accepted completion.",
-  "selftest_manifest_written": false
+  "blocker": "Closing the exact target requires a new placeholder-free implementation of the cover-small singular-chain subdivision argument, signed short exact chain sequence, induced connecting maps, naturality transports, recurring exactness, and degree-zero endpoint. The new zero-composite lemma proves only one field of ConstructionPackage. Postulating the remaining fields or importing the sheaf-cohomology theorem would be a placeholder or theorem substitution.",
+  "retry_condition": "Resume after the frozen singular-chain packages are implemented locally without placeholders, or after an immutable compatible Lean 4 singular-homology Mayer-Vietoris proof is available for pinned exact-type integration and provenance checking.",
+  "worktree_boundary": "The pre-existing untracked Formalizations/Lean/.lake symlink was reused read-only. No lake update, lake build, dependency clone/fetch, or .lake mutation was performed; this warm worker replay is nonrelease evidence.",
+  "status_boundary": "This blocker coexists with a self-tested partial proof receipt. No frozen obligation is closed, the exact root remains M3, and no accepted state, validation, release, audit completion, or theorem completion is claimed.",
+  "selftest_manifest_written": true
 }

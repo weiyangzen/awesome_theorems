@@ -1,53 +1,34 @@
 # Proof phase progress and blocker
 
-Item: `S56-M-1088-PROOF`  
-Theorem: `THM-M-1088`  
-Execution date: 2026-07-12 (Asia/Shanghai)  
-Base revision: `3ba2d9fd086e5b49bf2ca5268e302f89ef4a2b03`
+Item: `S56-M-1088-PROOF`
 
-## Implemented proof body
+Theorem: `THM-M-1088`
 
-`Proof.lean` implements
-`Stage1Instances.THM_M_1088.Proof.upperTailBound_of_hasSubgaussianMGF`. Given mathlib's
-`ProbabilityTheory.HasSubgaussianMGF` for the centered supremum, it derives the canonical target's
-strict upper-tail event as an `ENNReal` inequality for every nonnegative `u`. The proof uses
-`HasSubgaussianMGF.measure_ge_le`, monotonicity from the strict event to the non-strict event, and
-the finite-measure `toReal`/`ofReal` conversion. Its kernel axiom report is exactly
-`[propext, Classical.choice, Quot.sound]`; it contains no admitted proof.
+Execution date: 2026-07-15 (Asia/Shanghai)
 
-This is substantive closure of the tail-conversion leaf, including the `u = 0` branch, but it is
-not a proof of `BorellTISTarget`. In particular, `HasSubgaussianMGF` is an explicit premise of this
-lemma and is not claimed to follow from the frozen Gaussian-process hypotheses.
+Base revision: `a1a7e939e58f103f5ff5d23af51437fa8658aa04`
 
-## First open gate
+## Current contribution
 
-The first failed proof gate remains `M1088-L-FINITE-CONCENTRATION`, feeding
-`M1088-T-ENGINE`: the pinned mathlib revision has Chernoff conversion for an already sub-Gaussian
-random variable, but no theorem establishing the sharp sub-Gaussian MGF bound for a finite Gaussian
-maximum or for the centered countable supremum. The earlier immutable-candidate audit likewise
-found no exact importable Borell--TIS engine. Proving this requires new Gaussian concentration
-infrastructure plus the frozen finite-exhaustion, mean-limit, and probability-limit obligations;
-none can truthfully be replaced by the MGF premise used in the implemented leaf.
+The previous 2026-07-12 note was superseded by receipt
+`S56-M-1088-PROOF-local-20260715T051738+0800`. `Proof.lean` now contains four
+placeholder-free local bodies: exact Gaussian coordinate MGF, the exact `u = 0` tail branch,
+generic centered-MGF to strict-tail conversion, and process-level conditional branch composition.
+They elaborate at trust level zero with axioms exactly `propext`, `Classical.choice`, and
+`Quot.sound`.
 
-Consequently the proof phase is blocked before exact-root closure. No worker self-test receipt is
-written, and no `M0`, audit completion, theorem completion, or item completion is claimed. The root
-remains open at `M3`.
+This is substantive partial progress toward `M1088-B-POSITIVE-TAIL`,
+`M1088-B-ZERO-TAIL`, and `M1088-B-MERGE`. Because those registry interfaces are still planned
+prose, zero frozen obligations are claimed closed. The proof-phase packet is self-tested and
+proposes worker state `[_]` for integration review only.
 
-## Validation record
+## Open root
 
-All commands ran in the worker clone and reused the existing pinned Lake environment. No Lake
-update, build, dependency clone, fetch, or manifest mutation was performed.
+The first failed proof gate remains `M1088-L-FINITE-CONCENTRATION`. A centered Gaussian
+coordinate is sub-Gaussian, but no local or pinned theorem proves the sharp MGF estimate for a
+finite Gaussian maximum or countable supremum. Covariance normalization, finite exhaustion, mean
+and event limit passage, and `M1088-T-ENGINE` remain open. The exact root stays `M3`, and no
+accepted state, audit completion, theorem completion, validation, or release is claimed.
 
-| Command | Exit | Exact result |
-|---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | `check_stage1_standard: ok` with 1546 uniform-L0 targets |
-| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all `L0/rework_required` |
-| `python3 scripts/stage1_target.py show THM-M-1088` | 0 | rank 530, planned lifecycle, `theorem_complete: false` |
-| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1088/Statement.lean` | 0 | exact canonical target elaborated and printed |
-| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-1088/Proof.lean` | 0 | proof elaborated; axioms `[propext, Classical.choice, Quot.sound]` |
-| `python3 Stage1_Instances/THM-M-1088/check_obligation_tree.py` | 0 | 19 obligations and 43 typed edges pass; root reported open (`M3`) |
-| `rg -n '\\b(sorry\|axiom)\\b\|placeholder' Stage1_Instances/THM-M-1088/Proof.lean` with inverted success condition | 0 | no forbidden proof tokens found |
-| `git diff --check -- Stage1_Instances/THM-M-1088` | 0 | no whitespace errors |
-
-The workspace already exposed `Formalizations/Lean/.lake` as an untracked reused artifact at
-preflight; it was not changed or claimed as an owned path.
+The exact validation commands and results are recorded in `proof-validation.md`; structured scope,
+hash, pin, blocker, and status evidence is in `proof-receipt.json` and `proof-blocker.json`.
