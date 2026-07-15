@@ -7,6 +7,7 @@ from pathlib import Path
 import hashlib
 import json
 import re
+import subprocess
 import sys
 
 
@@ -17,6 +18,10 @@ APPLICABLE = ROOT / "Docs" / "Stage1_Blueprint_Applicable_Theorems.md"
 TARGET_MANIFEST = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
 EXECUTION_SKILL = ROOT / "skills" / "execute-stage1-rev56" / "SKILL.md"
 EXECUTION_TOOL = ROOT / "scripts" / "stage1_target.py"
+V2_BLUEPRINT = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
+V2_THEOREM_DAG = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
+V2_VALIDATOR = ROOT / "Docs" / "tools" / "check_stage1_theorem_dag_v2.py"
+V2_LEDGER_TEST = ROOT / "scripts" / "test_stage1_execution_cron.py"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import generate_stage1_blueprint as stage1  # noqa: E402
@@ -51,6 +56,29 @@ def main() -> None:
     applicable = APPLICABLE.read_text(encoding="utf-8")
     target_manifest = json.loads(TARGET_MANIFEST.read_text(encoding="utf-8"))
     execution_skill = EXECUTION_SKILL.read_text(encoding="utf-8")
+
+    require(V2_BLUEPRINT.is_file(), "v2 orchestration blueprint is missing")
+    require(V2_THEOREM_DAG.is_file(), "v2 theorem dependency DAG is missing")
+    require(V2_VALIDATOR.is_file(), "v2 theorem DAG validator is missing")
+    require(V2_LEDGER_TEST.is_file(), "v2 dependency ledger regression gate is missing")
+    v2_blueprint = V2_BLUEPRINT.read_text(encoding="utf-8")
+    v2_requirements = (
+        "Stage1 v2 Theorem Dependency and Reuse Blueprint",
+        "all and only the 1546",
+        "direct and transitive parent context",
+        "dependency-reuse-ledger.json",
+        "stage1-dependency-reuse-ledger/1.1",
+        "dependency_context_sha256",
+        "shared_lemma_groups",
+        "v2_execution_rank",
+        "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "[_]",
+        "[x]",
+    )
+    require(
+        all(needle in v2_blueprint for needle in v2_requirements),
+        "v2 orchestration blueprint is missing coverage, reuse, order, or compatibility requirements",
+    )
 
     missing = {
         group: [needle for needle in needles if needle not in standard]
@@ -93,6 +121,13 @@ def main() -> None:
         "theorem_complete",
         "first_failed_gate",
         "remaining_root_cut_set",
+        "Docs/Stage1_Blueprint_v2.md",
+        "Docs/Stage1_Theorem_DAG_v2.json",
+        "dependency-reuse-ledger.json",
+        "stage1-dependency-reuse-ledger/1.1",
+        "dependency_context_sha256",
+        "transitive ancestors",
+        "v2_execution_rank",
     )
     require(
         all(needle in execution_skill for needle in skill_requirements),
@@ -176,11 +211,32 @@ def main() -> None:
         sorted(selected_rows, key=lambda row: int(row[0])) == items,
         "priority slots in full list disagree with generated queue",
     )
+    v2_check = subprocess.run(
+        [sys.executable, str(V2_VALIDATOR)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    require(
+        v2_check.returncode == 0,
+        "v2 theorem DAG validator failed: " + (v2_check.stderr or v2_check.stdout).strip(),
+    )
+    ledger_check = subprocess.run(
+        [sys.executable, "-m", "unittest", "scripts/test_stage1_execution_cron.py"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    require(
+        ledger_check.returncode == 0,
+        "v2 dependency ledger regression gate failed: "
+        + (ledger_check.stderr or ledger_check.stdout).strip(),
+    )
 
     print(
         "check_stage1_standard: ok "
         f"({len(FEATURE_GROUPS)} assurance groups, 41 legacy rows, "
-        "300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)"
+        "300 legacy slots, 1546 uniform-L0 Lean 4 targets, v2 theorem DAG, execution skill present)"
     )
 
 
