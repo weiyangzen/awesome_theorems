@@ -28,11 +28,22 @@ It explicitly records the native API boundaries rather than pretending those
 objects have already been integrated. The anchor audit must re-audit the
 legacy `S1_M_034.lean` file without inheriting proof credit.
 
+The anchor phase has now frozen and self-tested a bounded inventory at pinned
+mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95`. It found
+concrete `Sheaf.H`, stronger-premise zero-sheaf/injective-Ext lemmas, and Proj
+properness as substrate, but no exact mathlib or external Kodaira terminal
+theorem. The legacy file is a different statement shape, and public Kodaira
+name matches are unrelated or placeholder-bearing. More importantly, the
+frozen target's semantic proposition fields do not constrain its actual
+`K`, `L`, or `KTensorL` objects. The object model therefore needs repair and
+checked transports before an ordinary Kodaira theorem could be an exact
+candidate. See `anchor-audit.md` and `anchor-audit.json`.
+
 ## Intake verdict
 
 Lifecycle remains `planned`; the provisional root vector remains
-`[H1, M3, R3]`. The statement is self-tested locally, while the first failed
-workflow gate is dependency-ordered master acceptance. The exact source audit,
-anchor audit, obligation architecture, proof, validation, readability, and
-release gates remain open. The theorem is not complete and no kernel closure
-of its root is claimed.
+`[H1, M3, R3]`. The statement and bounded anchor inventory are self-tested
+locally, while dependency-ordered master acceptance remains pending. The full
+source audit, object-model repair, obligation architecture, proof, validation,
+readability, and release gates remain open. The theorem is not complete and no
+kernel closure of its root is claimed.
