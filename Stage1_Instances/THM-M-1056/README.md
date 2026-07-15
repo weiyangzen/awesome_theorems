@@ -20,8 +20,21 @@ credit.
 
 ## Verdict and task DAG
 
-Lifecycle remains `planned`, with root vector `[H1, M4, R3]`. The exact statement is self-tested
-and pending master acceptance; the theorem is not proved or complete.
+Lifecycle remains `planned`. The authoritative pre-proof vector is `[H1, M3, R3]`; no worker may
+rewrite that authority. The exact statement and frozen obligation architecture are self-tested,
+but downstream acceptance and theorem completion remain open.
 
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
-Intake and statement have worker self-tests; master acceptance and all later nodes remain open.
+
+## Proof-phase worker candidate
+
+`Proof.lean` now supplies a placeholder-free inhabitant of the unchanged canonical target. It
+ports the complete 62-module Apache-2.0 Oseledets source closure to the pinned Lean 4.29/mathlib
+environment, transports the matrix theorem through finite-dimensional coordinates, constructs
+strongly measurable oblique projectors, and pulls the splitting back to the arbitrary fiber.
+
+A fresh trust-zero source replay reports the external terminal and exact root sorry-free with only
+`propext`, `Classical.choice`, and `Quot.sound`. This is provisional proof-node evidence proposing
+an `M0-L/M0-P` candidate only. The frozen graphs still describe the pre-proof open route, so master
+graph/provenance reconciliation, downstream validation, release, `H0`, `R0`, `AUDIT-Z`, and
+`THEOREM-Z` remain open. In particular, `theorem_complete=false`.

@@ -1,0 +1,877 @@
+--- a/ErgodicTheory/Ergodic/MaximalErgodic.lean
++++ b/ErgodicTheory/Ergodic/MaximalErgodic.lean
+@@ -101,7 +101,7 @@
+ theorem integrable_birkhoffSum (hT : MeasurePreserving T μ μ) {g : X → ℝ}
+     (hg : Integrable g μ) (k : ℕ) : Integrable (fun x => birkhoffSum T g k x) μ := by
+   simp only [birkhoffSum]
+-  refine integrable_finsetSum _ (fun j _ => ?_)
++  refine integrable_finset_sum _ (fun j _ => ?_)
+   have : Integrable (g ∘ T^[j]) μ := (hT.iterate j).integrable_comp_of_integrable hg
+   exact this
+ 
+--- a/ErgodicTheory/Ergodic/Kingman/Fekete.lean
++++ b/ErgodicTheory/Ergodic/Kingman/Fekete.lean
+@@ -370,7 +370,7 @@
+     ∫ x, birkhoffAverage ℝ T (g 1) (n + 1) x ∂μ = ∫ x, g 1 x ∂μ := by
+   have hsum : ∫ x, birkhoffSum T (g 1) (n + 1) x ∂μ = ((n : ℝ) + 1) * ∫ x, g 1 x ∂μ := by
+     simp only [birkhoffSum]
+-    rw [integral_finsetSum (f := fun k x => g 1 (T^[k] x)) _
++    rw [integral_finset_sum (f := fun k x => g 1 (T^[k] x)) _
+       (fun j _ => (hT.iterate j).integrable_comp_of_integrable (hint 1))]
+     have : ∀ j ∈ Finset.range (n + 1), ∫ x, g 1 (T^[j] x) ∂μ = ∫ x, g 1 x ∂μ :=
+       fun j _ => integral_comp_iterate hT hint j 1
+--- a/ErgodicTheory/Ergodic/Kingman/Derriennic.lean
++++ b/ErgodicTheory/Ergodic/Kingman/Derriennic.lean
+@@ -341,7 +341,7 @@
+   have hpt : ∫ x in B, (∑ k ∈ Finset.range n, psiCoc (T := T) g (n - k) (T^[k] x)) ∂μ ≤ 0 :=
+     integral_nonpos_of_ae (Filter.Eventually.of_forall (fun x => sum_psiCoc_comp_nonpos g n x))
+   -- Pull the finite sum out and apply the change of variables for `T^[k]`.
+-  rw [integral_finsetSum (μ := μ.restrict B) (Finset.range n)
++  rw [integral_finset_sum (μ := μ.restrict B) (Finset.range n)
+     (f := fun k x => psiCoc (T := T) g (n - k) (T^[k] x))
+     (fun k _ => ((hT.iterate k).integrable_comp_of_integrable
+       (integrable_psiCoc hT hint (n - k))).restrict)] at hpt
+@@ -390,7 +390,7 @@
+     _ = ∑ k ∈ Finset.range m, ∫ x in B, bcoc (T := T) g (m - k) (T^[k] x) ∂μ :=
+         (Finset.sum_congr rfl hcv).symm
+     _ = ∫ x in B, (∑ k ∈ Finset.range m, bcoc (T := T) g (m - k) (T^[k] x)) ∂μ :=
+-        (integral_finsetSum (μ := μ.restrict B) (Finset.range m)
++        (integral_finset_sum (μ := μ.restrict B) (Finset.range m)
+           (f := fun k x => bcoc (T := T) g (m - k) (T^[k] x))
+           (fun k _ => ((hT.iterate k).integrable_comp_of_integrable
+             (integrable_bcoc hT hint (m - k))).restrict)).symm
+--- a/ErgodicTheory/Ergodic/Kingman/Companion.lean
++++ b/ErgodicTheory/Ergodic/Kingman/Companion.lean
+@@ -76,7 +76,7 @@
+   congr 1
+   -- `∫ birkhoffSum T (g 1) (n+1) = (n+1) * ∫ g 1`.
+   simp only [birkhoffSum]
+-  rw [integral_finsetSum (f := fun k x => g 1 (T^[k] x)) _
++  rw [integral_finset_sum (f := fun k x => g 1 (T^[k] x)) _
+     (fun j _ => (hT.iterate j).integrable_comp_of_integrable (hint 1))]
+   have : ∀ j ∈ Finset.range (n + 1), ∫ x, g 1 (T^[j] x) ∂μ = ∫ x, g 1 x ∂μ :=
+     fun j _ => integral_comp_iterate hT hint j 1
+@@ -181,7 +181,7 @@
+       = fun x => g (n * M) x - ∑ i ∈ Finset.range n, g M (T^[i * M] x) := rfl
+   rw [heq]
+   refine (hint (n * M)).sub ?_
+-  exact integrable_finsetSum _
++  exact integrable_finset_sum _
+     (fun i _ => (hT.iterate (i * M)).integrable_comp_of_integrable (hint M))
+ 
+ /-- `T^[M]` is measure-preserving for measure-preserving `T` (stated for downstream use). -/
+@@ -194,7 +194,7 @@
+     (hint : ∀ n, Integrable (g n) μ) (M n : ℕ) :
+     ∫ x, vM (T := T) g M n x ∂μ = (∫ x, g (n * M) x ∂μ) - (n : ℝ) * ∫ x, g M x ∂μ := by
+   have hintsum : Integrable (fun x => ∑ i ∈ Finset.range n, g M (T^[i * M] x)) μ :=
+-    integrable_finsetSum _ (fun i _ => (hT.iterate (i * M)).integrable_comp_of_integrable (hint M))
++    integrable_finset_sum _ (fun i _ => (hT.iterate (i * M)).integrable_comp_of_integrable (hint M))
+   have hsplit : ∫ x, vM (T := T) g M n x ∂μ
+       = (∫ x, g (n * M) x ∂μ) - ∫ x, ∑ i ∈ Finset.range n, g M (T^[i * M] x) ∂μ := by
+     rw [show (fun x => vM (T := T) g M n x)
+@@ -202,7 +202,7 @@
+     exact integral_sub (hint (n * M)) hintsum
+   rw [hsplit]
+   congr 1
+-  rw [integral_finsetSum (f := fun i x => g M (T^[i * M] x)) _
++  rw [integral_finset_sum (f := fun i x => g M (T^[i * M] x)) _
+     (fun i _ => (hT.iterate (i * M)).integrable_comp_of_integrable (hint M))]
+   have : ∀ i ∈ Finset.range n, ∫ x, g M (T^[i * M] x) ∂μ = ∫ x, g M x ∂μ :=
+     fun i _ => integral_comp_iterate hT hint (i * M) M
+--- a/ErgodicTheory/Ergodic/Kingman/BlockSqueeze.lean
++++ b/ErgodicTheory/Ergodic/Kingman/BlockSqueeze.lean
+@@ -3,6 +3,12 @@
+ Released under Apache 2.0 license as described in the file LICENSE.
+ Authors: Marcel Morgenstern
+ -/
++/-
++Port notice: vendored from `marcmorningstar/lean4-ergodic-theory` at commit
++`ed3fa6b8a30594eeb791160563942ba115581aa0`. The upstream sibling import is local.
++Two source-local limsup/liminf composition lemmas replace convenience methods not
++present in pinned Lean 4.29; see `PORT_PROVENANCE.md`.
++-/
+ import ErgodicTheory.Ergodic.Kingman.Companion
+ 
+ /-!
+@@ -23,6 +29,23 @@
+ 
+ variable {X : Type*} [MeasurableSpace X] {μ : Measure X} {T : X → X}
+ 
++private theorem tendsto_limsup_comp_le_limsup {ι α β}
++    [ConditionallyCompleteLattice β] {v : ι → α} {u : α → β}
++    {f : Filter ι} {g : Filter α} (hv : Tendsto v f g)
++    (hvf : (Filter.map v f).IsCoboundedUnder (· ≤ ·) u)
++    (hg : g.IsBoundedUnder (· ≤ ·) u) :
++    Filter.limsup (u ∘ v) f ≤ Filter.limsup u g := by
++  rw [Filter.limsup_comp]
++  exact Filter.limsup_le_limsup_of_le hv hvf hg
++
++private theorem tendsto_liminf_le_liminf_comp {ι α β}
++    [ConditionallyCompleteLattice β] {v : ι → α} {u : α → β}
++    {f : Filter ι} {g : Filter α} (hv : Tendsto v f g)
++    (hvf : (Filter.map v f).IsCoboundedUnder (· ≥ ·) u)
++    (hg : g.IsBoundedUnder (· ≥ ·) u) :
++    Filter.liminf u g ≤ Filter.liminf (u ∘ v) f :=
++  tendsto_limsup_comp_le_limsup (β := βᵒᵈ) hv hvf hg
++
+ /-! ### The `M`-block subsequence squeeze
+ 
+ For a non-positive subadditive cocycle and `M ≥ 1`, the full `EReal` `limsup`/`liminf` of the
+@@ -176,10 +199,11 @@
+               = (fun k => usub g x (k * M)) ∘ (fun j => j / M) := by
+             funext j; simp only [hzdef, usub, Function.comp]
+           rw [hzeq]
+-          exact hkdiv.limsup_comp_le_limsup
++          exact tendsto_limsup_comp_le_limsup (β := EReal) hkdiv
++            (Filter.isCobounded_le_of_bot) (Filter.isBounded_le_of_top)
+   · -- `subseq ≤ full`.
+     have hmul : Tendsto (fun k : ℕ => k * M) atTop atTop := tendsto_mul_const_atTop_nat hM
+-    exact hmul.limsup_comp_le_limsup (u := fun j => usub g x j)
++    exact tendsto_limsup_comp_le_limsup hmul (u := fun j => usub g x j)
+       (Filter.isCobounded_le_of_bot) (Filter.isBounded_le_of_top)
+ 
+ omit [MeasurableSpace X] in
+@@ -193,7 +217,7 @@
+   apply le_antisymm
+   · -- `full ≤ subseq` (easy): `liminf` along the subsequence `(·*M)`.
+     have hmul : Tendsto (fun k : ℕ => k * M) atTop atTop := tendsto_mul_const_atTop_nat hM
+-    exact hmul.liminf_le_liminf_comp (u := fun j => usub g x j)
++    exact tendsto_liminf_le_liminf_comp hmul (u := fun j => usub g x j)
+       (Filter.isCobounded_ge_of_top) (Filter.isBounded_ge_of_bot)
+   · -- `subseq ≤ full` (hard): lower sandwich `g ((k+1)M) x ≤ g j x` + the `c ≥ 1` ratio squeeze.
+     set c' : ℕ → ℝ := fun j => if j = 0 then 1 else (((j / M + 1) * M : ℕ) : ℝ) / (j : ℝ)
+@@ -259,7 +283,7 @@
+           have hweq : (fun k => usub g x (k * M)) ∘ (fun j => j / M + 1)
+               = (fun j => ((w' j : ℝ) : EReal)) := by
+             funext j; simp only [hw'def, usub, Function.comp]
+-          have hstep := hφ.liminf_le_liminf_comp (u := fun k => usub g x (k * M))
++          have hstep := tendsto_liminf_le_liminf_comp hφ (u := fun k => usub g x (k * M))
+             (Filter.isCobounded_ge_of_top) (Filter.isBounded_ge_of_bot)
+           rw [hweq] at hstep
+           exact hstep
+--- a/ErgodicTheory/Cocycle/FurstenbergKesten.lean
++++ b/ErgodicTheory/Cocycle/FurstenbergKesten.lean
+@@ -231,7 +231,7 @@
+     (hf : Integrable f μ) (n : ℕ) :
+     ∫ x, birkhoffSum T f n x ∂μ = n • ∫ x, f x ∂μ := by
+   simp only [birkhoffSum]
+-  rw [integral_finsetSum]
++  rw [integral_finset_sum]
+   · have hk : ∀ k ∈ Finset.range n, ∫ x, f (T^[k] x) ∂μ = ∫ x, f x ∂μ := by
+       intro k _
+       have hmp := hT.iterate k
+--- a/ErgodicTheory/Lyapunov/ForwardMeasurable.lean
++++ b/ErgodicTheory/Lyapunov/ForwardMeasurable.lean
+@@ -50,7 +50,10 @@
+   set L : E →L[ℝ] E := Matrix.toEuclideanCLM (𝕜 := ℝ) P with hL
+   -- `L` is a star projection: self-adjoint and idempotent, transported through the
+   -- star-algebra equivalence `toEuclideanCLM`.
+-  have hLsa : IsSelfAdjoint L := hsa.map (Matrix.toEuclideanCLM (𝕜 := ℝ))
++  have hLsa : IsSelfAdjoint L := by
++    rw [isSelfAdjoint_iff] at hsa ⊢
++    rw [hL]
++    exact (Matrix.toEuclideanCLM (𝕜 := ℝ)).map_star' P ▸ congrArg (Matrix.toEuclideanCLM (𝕜 := ℝ)) hsa
+   have hLidem : IsIdempotentElem L := by
+     have : L * L = L := by
+       rw [hL, ← map_mul, hidem]
+--- a/ErgodicTheory/Lyapunov/ExteriorNorm/Basic.lean
++++ b/ErgodicTheory/Lyapunov/ExteriorNorm/Basic.lean
+@@ -66,6 +66,8 @@
+ 
+ namespace ErgodicTheory.ExteriorNorm
+ 
++set_option maxHeartbeats 1000000
++
+ /-! ## The submultiplicativity engine
+ 
+ We carry explicit linear trivializations `ε : ⋀^k · ≃ₗ EuclideanSpace ℝ (Fin n)` as data and
+@@ -361,9 +363,10 @@
+     (inner ℝ (onbTriv b k x) (onbTriv b k y) : ℝ) = hodgeForm k x y := by
+   classical
+   rw [PiLp.inner_apply, hodgeForm_eq_sum_repr b k x y]
+-  simp only [RCLike.inner_apply, conj_trivial, onbTriv_apply]
++  simp only [onbTriv_apply]
+   refine Fintype.sum_equiv (wIndexEquiv b k).symm _ _ (fun i => ?_)
+-  rw [Basis.repr_reindex_apply, Basis.repr_reindex_apply, mul_comm]
++  rw [Basis.repr_reindex_apply, Basis.repr_reindex_apply]
++  apply RCLike.inner_apply'
+ 
+ end OnbTriv
+ 
+@@ -458,11 +461,12 @@
+     rw [← Real.sqrt_sq (norm_nonneg (g p)), normSq_apply_of_ortho g c hortho p, Real.sqrt_le_iff]
+     refine ⟨by positivity, ?_⟩
+     rw [mul_pow, Real.sq_sqrt (hc i₀), ← real_inner_self_eq_norm_sq, PiLp.inner_apply]
+-    simp only [RCLike.inner_apply, conj_trivial]
+     rw [Finset.mul_sum]
+     apply Finset.sum_le_sum
+     intro i _
+-    rw [show p i * p i = (p i) ^ 2 by ring, mul_comm (c i₀) ((p i) ^ 2)]
++    change (p i) ^ 2 * c i ≤ c i₀ * (p i * p i)
++    have hpow : p i * p i = (p i) ^ 2 := by ring
++    rw [hpow, mul_comm (c i₀) ((p i) ^ 2)]
+     exact mul_le_mul_of_nonneg_left (hi₀ i) (sq_nonneg _)
+   · have hb : ‖EuclideanSpace.basisFun (Fin N) ℝ i₀‖ = 1 :=
+       (EuclideanSpace.basisFun (Fin N) ℝ).orthonormal.1 i₀
+@@ -804,7 +808,12 @@
+       = fun i => lam ((Set.powersetCard.ofFinEmbEquiv.symm S) i) •
+           (g ∘ (Set.powersetCard.ofFinEmbEquiv.symm S)) i := by
+     funext i; simp
+-  rw [hcomp, AlternatingMap.map_smul_univ, prod_ofFinEmbEquiv_symm]
++  rw [hcomp]
++  change (exteriorPower.ιMulti ℝ k).toMultilinearMap
++      (fun i => lam ((Set.powersetCard.ofFinEmbEquiv.symm S) i) •
++        (g ∘ (Set.powersetCard.ofFinEmbEquiv.symm S)) i) = _
++  rw [MultilinearMap.map_smul_univ, prod_ofFinEmbEquiv_symm]
++  rfl
+ 
+ omit [FiniteDimensional ℝ E] in
+ open scoped Classical in
+@@ -875,8 +884,11 @@
+       = (inner ℝ (EuclideanSpace.basisFun (Fin (Module.finrank ℝ (⋀[ℝ]^k F))) ℝ t)
+           (onbTriv bF k Y) : ℝ) := by
+     intro Y
+-    rw [EuclideanSpace.basisFun_apply, EuclideanSpace.inner_single_left]
+-    simp
++    rw [EuclideanSpace.basisFun_apply]
++    change (onbTriv bF k Y) t =
++      inner ℝ (EuclideanSpace.single t (1 : ℝ)) (onbTriv bF k Y)
++    simpa only [map_one, one_mul] using
++      (EuclideanSpace.inner_single_left t (1 : ℝ) (onbTriv bF k Y)).symm
+   rw [hcoord, ← onbTriv_wedge_eq_basisFun bF k t, inner_onbTriv]
+ 
+ open Set.powersetCard in
+@@ -909,8 +921,15 @@
+ private lemma inner_basisFun_toEuclideanLin (M : Matrix (Fin d) (Fin d) ℝ) (p q : Fin d) :
+     (inner ℝ ((EuclideanSpace.basisFun (Fin d) ℝ) p)
+       (Matrix.toEuclideanLin M ((EuclideanSpace.basisFun (Fin d) ℝ) q)) : ℝ) = M p q := by
+-  rw [EuclideanSpace.basisFun_apply, EuclideanSpace.basisFun_apply,
+-    EuclideanSpace.inner_single_left, map_one, one_mul, toEuclideanLin_single_apply]
++  rw [EuclideanSpace.basisFun_apply, EuclideanSpace.basisFun_apply]
++  change inner ℝ (EuclideanSpace.single p (1 : ℝ))
++      (Matrix.toEuclideanLin M (EuclideanSpace.single q (1 : ℝ))) = M p q
++  calc
++    _ = (Matrix.toEuclideanLin M (EuclideanSpace.single q (1 : ℝ))) p := by
++      simpa only [map_one, one_mul] using
++        EuclideanSpace.inner_single_left p (1 : ℝ)
++          (Matrix.toEuclideanLin M (EuclideanSpace.single q (1 : ℝ)))
++    _ = M p q := toEuclideanLin_single_apply M p q
+ 
+ open scoped Classical in
+ open Set.powersetCard in
+@@ -1113,8 +1132,12 @@
+     simp
+   -- `adjoint f ∘ₗ f = toEuclideanLin (Nᵀ N)`.
+   have h2 : LinearMap.adjoint f ∘ₗ f = Matrix.toEuclideanLin (Nᵀ * N) := by
+-    rw [toEuclideanLin_mul, ← Matrix.toEuclideanLin_conjTranspose_eq_adjoint,
+-      Matrix.conjTranspose_eq_transpose_of_trivial]
++    subst f
++    rw [toEuclideanLin_mul]
++    have hadj := Matrix.toEuclideanLin_conjTranspose_eq_adjoint N
++    rw [Matrix.conjTranspose_eq_transpose_of_trivial] at hadj
++    rw [hadj]
++    rfl
+   -- `trace (toEuclideanLin G) = tr G`.
+   rw [h1, h2, Matrix.toEuclideanLin_eq_toLin_orthonormal, Matrix.trace_toLin_eq]
+ 
+@@ -1143,8 +1166,17 @@
+       rw [LinearMap.comp_apply, LinearMap.adjoint_inner_left]
+     rw [hadj]
+     congr 1
+-    rw [← Matrix.toEuclideanLin_conjTranspose_eq_adjoint, ← toEuclideanLin_mul_rect,
+-      Matrix.conjTranspose_eq_transpose_of_trivial, hU]
++    have hadj' := Matrix.toEuclideanLin_conjTranspose_eq_adjoint U
++    rw [Matrix.conjTranspose_eq_transpose_of_trivial] at hadj'
++    have hcomp : LinearMap.adjoint (Matrix.toEuclideanLin U) ∘ₗ Matrix.toEuclideanLin U
++        = Matrix.toEuclideanLin (Uᵀ * U) := by
++      calc
++        LinearMap.adjoint (Matrix.toEuclideanLin U) ∘ₗ Matrix.toEuclideanLin U
++            = Matrix.toEuclideanLin Uᵀ ∘ₗ Matrix.toEuclideanLin U := by
++              rw [hadj']
++              rfl
++        _ = Matrix.toEuclideanLin (Uᵀ * U) := (toEuclideanLin_mul_rect Uᵀ U).symm
++    rw [hcomp, hU]
+     simp
+   nlinarith [norm_nonneg (Matrix.toEuclideanLin U x), norm_nonneg x, hsq]
+ 
+@@ -1157,8 +1189,12 @@
+   set b := hGherm.eigenvectorBasis with hb
+   set W' := Matrix.toEuclideanLin W with hW'
+   have hGlin : Matrix.toEuclideanLin G = LinearMap.adjoint W' ∘ₗ W' := by
+-    rw [hG, toEuclideanLin_mul, ← Matrix.toEuclideanLin_conjTranspose_eq_adjoint,
+-      Matrix.conjTranspose_eq_transpose_of_trivial]
++    subst W'
++    rw [hG, toEuclideanLin_mul]
++    have hadj := Matrix.toEuclideanLin_conjTranspose_eq_adjoint W
++    rw [Matrix.conjTranspose_eq_transpose_of_trivial] at hadj
++    rw [hadj]
++    rfl
+   have hmuleq : hGherm.eigenvalues i = ‖W' (b i)‖ ^ 2 := by
+     have hmv : G *ᵥ ⇑(b i) = hGherm.eigenvalues i • ⇑(b i) := hGherm.mulVec_eigenvectorBasis i
+     have hinner : (inner ℝ (Matrix.toEuclideanLin G (b i)) (b i) : ℝ)
+--- a/ErgodicTheory/Lyapunov/ExteriorNorm/Plucker.lean
++++ b/ErgodicTheory/Lyapunov/ExteriorNorm/Plucker.lean
+@@ -524,10 +524,15 @@
+       = inner ℝ (EuclideanSpace.basisFun (Fin N) ℝ i)
+           (g (EuclideanSpace.basisFun (Fin N) ℝ j)) := by
+     intro i j
+-    rw [hg i, hg j, inner_smul_left, inner_smul_right,
+-      (EuclideanSpace.basisFun (Fin N) ℝ).inner_eq_ite i j]
++    rw [hg i, hg j, inner_smul_left, inner_smul_right]
+     simp only [RCLike.conj_to_real]
+-    by_cases h : i = j <;> simp [h]
++    by_cases h : i = j
++    · subst j
++      rfl
++    · have hij : (inner ℝ (EuclideanSpace.basisFun (Fin N) ℝ i)
++          (EuclideanSpace.basisFun (Fin N) ℝ j) : ℝ) = 0 :=
++        (EuclideanSpace.basisFun (Fin N) ℝ).inner_eq_zero h
++      rw [hij, mul_zero, mul_zero]
+   intro x y
+   have hx := (EuclideanSpace.basisFun (Fin N) ℝ).sum_repr x
+   have hy := (EuclideanSpace.basisFun (Fin N) ℝ).sum_repr y
+@@ -561,8 +566,11 @@
+   -- expand `w` in the standard basis; the Rayleigh quotient is the weighted sum `∑ cᵢ (wᵢ)²`.
+   have hwi₀ : w i₀ = 0 := by
+     have := hw
+-    rw [EuclideanSpace.basisFun_apply, EuclideanSpace.inner_single_right] at this
+-    simpa using this
++    rw [EuclideanSpace.basisFun_apply] at this
++    have hsingle := EuclideanSpace.inner_single_right i₀ (1 : ℝ) w
++    have heq : (inner ℝ w (EuclideanSpace.single i₀ (1 : ℝ)) : ℝ) = w i₀ := by
++      simpa only [one_mul, RCLike.conj_to_real] using hsingle
++    exact heq ▸ this
+   have hexp : w = ∑ i, (w i) • EuclideanSpace.basisFun (Fin N) ℝ i := by
+     conv_lhs => rw [← (EuclideanSpace.basisFun (Fin N) ℝ).sum_repr w]
+     simp only [EuclideanSpace.basisFun_repr]
+@@ -577,16 +585,20 @@
+     rw [hgw, sum_inner]
+     apply Finset.sum_congr rfl
+     intro i _
+-    rw [inner_smul_left, inner_smul_left, EuclideanSpace.basisFun_apply,
+-      EuclideanSpace.inner_single_left, map_one, one_mul]
++    rw [inner_smul_left, inner_smul_left, EuclideanSpace.basisFun_apply]
+     simp only [RCLike.conj_to_real]
++    have hsingle := EuclideanSpace.inner_single_left i (1 : ℝ) w
++    have heq : (inner ℝ (EuclideanSpace.single i (1 : ℝ)) w : ℝ) = w i := by
++      simpa only [map_one, one_mul] using hsingle
++    rw [heq]
+     ring
+   -- `‖w‖² = ∑ (wᵢ)²`.
+   have hnorm : ‖w‖ ^ 2 = ∑ i, (w i) ^ 2 := by
+     rw [← real_inner_self_eq_norm_sq, PiLp.inner_apply]
+     apply Finset.sum_congr rfl
+     intro i _
+-    simp only [RCLike.inner_apply, conj_trivial]; ring
++    change w i * w i = w i ^ 2
++    ring
+   rw [hray, hnorm, Finset.mul_sum]
+   apply Finset.sum_le_sum
+   intro i _
+@@ -1135,7 +1147,11 @@
+       (exteriorPower.ιMulti ℝ k (fun j : Fin k => u ⟨j, lt_of_lt_of_le j.2 hkn⟩)) with hw₀
+   have hwit : (onbChange (EuclideanSpace.basisFun (Fin d) ℝ) u k).symm
+       (EuclideanSpace.basisFun _ ℝ i₀) = w₀ := by
+-    rw [onbChange_symm_apply, hbasis, LinearEquiv.symm_apply_apply, hw₀]
++    rw [onbChange_symm_apply, hbasis]
++    change onbTriv (EuclideanSpace.basisFun (Fin d) ℝ) k
++      ((onbTriv u k).symm (onbTriv u k
++        (exteriorPower.ιMulti ℝ k (fun j : Fin k => u ⟨j, lt_of_lt_of_le j.2 hkn⟩)))) = w₀
++    rw [LinearEquiv.symm_apply_apply, hw₀]
+   rw [hwit] at hv₀norm hv₀ev hv₀ceil
+   refine ⟨hv₀norm, ?_, hgapμ, ?_⟩
+   · rw [← conjExteriorMap_basisFun_toEuclideanLin_eq_compound k Q]; exact hv₀ev
+@@ -1166,6 +1182,7 @@
+     exact Finset.sum_congr rfl
+       (fun a _ => by rw [Matrix.transpose_apply, Matrix.transpose_apply]; ring)
+   rw [hmat]
++  rfl
+ 
+ end StandardCoords
+ 
+--- a/ErgodicTheory/Lyapunov/ExteriorNorm/Weyl.lean
++++ b/ErgodicTheory/Lyapunov/ExteriorNorm/Weyl.lean
+@@ -199,8 +199,8 @@
+ theorem abs_eigenvalues₀_sub_le {A B : Matrix (Fin d) (Fin d) ℝ}
+     (hA : A.IsHermitian) (hB : B.IsHermitian) (i : Fin (Fintype.card (Fin d))) :
+     |hA.eigenvalues₀ i - hB.eigenvalues₀ i| ≤ ‖A - B‖ := by
+-  have hTA : (Matrix.toEuclideanLin A).IsSymmetric := Matrix.isSymmetric_toEuclideanLin_iff.mpr hA
+-  have hTB : (Matrix.toEuclideanLin B).IsSymmetric := Matrix.isSymmetric_toEuclideanLin_iff.mpr hB
++  have hTA : (Matrix.toEuclideanLin A).IsSymmetric := Matrix.isHermitian_iff_isSymmetric.mp hA
++  have hTB : (Matrix.toEuclideanLin B).IsSymmetric := Matrix.isHermitian_iff_isSymmetric.mp hB
+   have key := abs_eigenvalues_sub_le (T := Matrix.toEuclideanLin A) (S := Matrix.toEuclideanLin B)
+     hTA finrank_euclideanSpace hTB (C := ‖A - B‖) (i := i)
+     (fun v => by simpa using matrix_quad_le_opNorm A B v)
+--- a/ErgodicTheory/Lyapunov/OseledetsLimit/SingularValues.lean
++++ b/ErgodicTheory/Lyapunov/OseledetsLimit/SingularValues.lean
+@@ -410,10 +410,15 @@
+ theorem adjoint_comp_self_eq_gram (M : Matrix (Fin d) (Fin d) ℝ) :
+     (Matrix.toEuclideanLin M).adjoint ∘ₗ (Matrix.toEuclideanLin M)
+       = Matrix.toEuclideanLin (Mᵀ * M) := by
+-  rw [← Matrix.toEuclideanLin_conjTranspose_eq_adjoint,
+-    show (Mᵀ * M) = Mᴴ * M by rw [Matrix.conjTranspose_eq_transpose_of_trivial]]
+-  ext v i
+-  simp only [LinearMap.comp_apply, Matrix.toLpLin_apply, Matrix.mulVec_mulVec]
++  have hadj := Matrix.toEuclideanLin_conjTranspose_eq_adjoint M
++  rw [Matrix.conjTranspose_eq_transpose_of_trivial] at hadj
++  calc
++    (Matrix.toEuclideanLin M).adjoint ∘ₗ Matrix.toEuclideanLin M
++        = Matrix.toEuclideanLin Mᵀ ∘ₗ Matrix.toEuclideanLin M := by
++          exact congrArg (fun f => f ∘ₗ Matrix.toEuclideanLin M) hadj.symm
++    _ = Matrix.toEuclideanLin (Mᵀ * M) := by
++      ext v i
++      simp only [LinearMap.comp_apply, Matrix.toLpLin_apply, Matrix.mulVec_mulVec]
+ 
+ set_option linter.unusedSectionVars false in
+ /-- **The eigenvalue bridge.** The squared singular values of `toEuclideanLin M` are the
+@@ -641,7 +646,7 @@
+   set M := cocycle A T n x with hM
+   -- `eigenvalues₀` of the Gram matrix = eigenvalues of `toEuclideanLin (gram)` (linear-map layer).
+   have hsym₁ : (Matrix.toEuclideanLin (gram A T n x)).IsSymmetric :=
+-    Matrix.isSymmetric_toEuclideanLin_iff.mpr (gram_posSemidef A T n x).isHermitian
++    Matrix.isHermitian_iff_isSymmetric.mp (gram_posSemidef A T n x).isHermitian
+   -- The `adjoint ∘ self` operator equals `toEuclideanLin (gram)`.
+   have hop : (Matrix.toEuclideanLin M).adjoint ∘ₗ (Matrix.toEuclideanLin M)
+       = Matrix.toEuclideanLin (gram A T n x) := by
+@@ -651,12 +656,14 @@
+   have hfr : Module.finrank ℝ (EuclideanSpace ℝ (Fin d)) = Fintype.card (Fin d) :=
+     finrank_euclideanSpace
+   -- The two symmetric operators are equal, hence have equal eigenvalue functions.
+-  have heig : hsym₂.eigenvalues hfr = hsym₁.eigenvalues hfr := by
+-    rw [LinearMap.IsSymmetric.eigenvalues_eq_eigenvalues_iff hsym₂ hfr hsym₁ hfr, hop]
+   -- `eigenvalues₀` of the Gram matrix is by definition the linear-map eigenvalues.
+   have hdef : (gram_posSemidef A T n x).isHermitian.eigenvalues₀ i = hsym₁.eigenvalues hfr i := by
+     rfl
+-  rw [hdef, ← heig]
++  rw [hdef]
++  have heig : hsym₁.eigenvalues hfr i = hsym₂.eigenvalues hfr i := by
++    congr 2
++    exact hop.symm
++  rw [heig]
+   -- The bridge: `σᵢ² = eigenvalues (adjoint ∘ self)`.
+   exact (sq_singularValues_eq_gram_eigenvalue M hfr i).symm
+ 
+--- a/ErgodicTheory/Lyapunov/OseledetsLimit/BandProjector.lean
++++ b/ErgodicTheory/Lyapunov/OseledetsLimit/BandProjector.lean
+@@ -142,9 +142,11 @@
+       at this
+   rw [hstar, Matrix.diagonal_mulVec_single]
+   simp only [Function.comp_apply, RCLike.ofReal_real_eq_id, id_eq, mul_one]
+-  rw [show Pi.single j (g (hM.eigenvalues j)) = g (hM.eigenvalues j) • Pi.single j (1:ℝ) from by
+-    rw [← Pi.single_smul, smul_eq_mul, mul_one], Matrix.mulVec_smul,
+-    Matrix.IsHermitian.eigenvectorUnitary_mulVec]
++  have hmul := Matrix.IsHermitian.eigenvectorUnitary_mulVec hM j
++  rw [show Pi.single j (g (hM.eigenvalues j)) =
++      g (hM.eigenvalues j) • (Pi.single j (1 : ℝ) : Fin d → ℝ) from by
++    ext i
++    simp [Pi.single_apply, smul_eq_mul], Matrix.mulVec_smul, hmul]
+ 
+ /-- **CFC acts diagonally on the matrix eigenbasis (Euclidean-linear form).** The `EuclideanSpace`
+ analogue of `cfc_mulVec_eigenvectorBasis`: `toEuclideanLin (cfc g M)` sends the `j`-th eigenvector
+@@ -178,19 +180,17 @@
+   change ‖Matrix.toEuclideanLin (cfc g M) v‖ ≤ c * ‖v‖
+   set w := Matrix.toEuclideanLin (cfc g M) v with hw
+   have hsa : (Matrix.toEuclideanLin (cfc g M)).IsSymmetric := by
+-    rw [Matrix.isSymmetric_toEuclideanLin_iff]
+-    exact (cfc_predicate g M : IsSelfAdjoint (cfc g M)).isHermitian
++    exact Matrix.isHermitian_iff_isSymmetric.mp
++      (cfc_predicate g M : IsSelfAdjoint (cfc g M)).isHermitian
+   have hinner : ∀ i, ⟪hM.eigenvectorBasis i, w⟫_ℝ
+       = g (hM.eigenvalues i) * ⟪hM.eigenvectorBasis i, v⟫_ℝ := by
+     intro i
+     rw [hw, ← hsa (hM.eigenvectorBasis i) v, toEuclideanLin_cfc_eigenvectorBasis M hM g i,
+       inner_smul_left, conj_trivial]
+   have hpars_w : ‖w‖ ^ 2 = ∑ i, ⟪hM.eigenvectorBasis i, w⟫_ℝ ^ 2 := by
+-    rw [← OrthonormalBasis.sum_sq_norm_inner_right hM.eigenvectorBasis w]
+-    exact Finset.sum_congr rfl (fun i _ => by rw [Real.norm_eq_abs, sq_abs])
++    exact (hM.eigenvectorBasis.sum_sq_inner_right w).symm
+   have hpars_v : ‖v‖ ^ 2 = ∑ i, ⟪hM.eigenvectorBasis i, v⟫_ℝ ^ 2 := by
+-    rw [← OrthonormalBasis.sum_sq_norm_inner_right hM.eigenvectorBasis v]
+-    exact Finset.sum_congr rfl (fun i _ => by rw [Real.norm_eq_abs, sq_abs])
++    exact (hM.eigenvectorBasis.sum_sq_inner_right v).symm
+   have hsqbound : ‖w‖ ^ 2 ≤ c ^ 2 * ‖v‖ ^ 2 := by
+     rw [hpars_w, hpars_v, Finset.mul_sum]
+     apply Finset.sum_le_sum
+@@ -277,7 +277,9 @@
+   set e : Fin d ≃ Fin (Fintype.card (Fin d)) :=
+     (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm with he
+   have hbase : (sortedGramEigenbasis A T n x i) = (hM.eigenvectorBasis (e.symm i)) := by
+-    rw [sortedGramEigenbasis, OrthonormalBasis.reindex_apply]
++    change ((gram_posSemidef A T n x).isHermitian.eigenvectorBasis.reindex
++      (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm) i = _
++    rw [OrthonormalBasis.reindex_apply]
+   rw [hbase]
+   have hval : hM.eigenvalues (e.symm i) = hM.eigenvalues₀ i := by
+     rw [Matrix.IsHermitian.eigenvalues]
+@@ -339,9 +341,9 @@
+           (sortedGramEigenbasis A T n x ⟨t, lt_of_lt_of_le t.2 hk⟩) : ℝ) := by
+     rw [PiLp.inner_apply]
+     apply Finset.sum_congr rfl; intro a _
+-    simp only [sortedTopFrame, Matrix.transpose_apply, Matrix.of_apply, RCLike.inner_apply,
+-      conj_trivial]
+-    ring
++    simp only [sortedTopFrame, Matrix.transpose_apply, Matrix.of_apply]
++    change _ * _ = RCLike.re (_ * starRingEnd ℝ _)
++    simp [mul_comm]
+   rw [hinner, (sortedGramEigenbasis A T n x).inner_eq_ite]
+   by_cases hst : s = t
+   · subst hst; simp
+@@ -374,7 +376,10 @@
+     funext b
+     change sortedGramEigenbasis A T n x ⟨j, lt_of_lt_of_le j.2 hk⟩ b
+       = (hM.eigenvectorBasis (e.symm ⟨j, lt_of_lt_of_le j.2 hk⟩)) b
+-    rw [sortedGramEigenbasis, OrthonormalBasis.reindex_apply, he, hMdef, Equiv.symm_symm]
++    change (((gram_posSemidef A T n x).isHermitian.eigenvectorBasis.reindex
++      (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm)
++        ⟨j, lt_of_lt_of_le j.2 hk⟩) b = _
++    rw [OrthonormalBasis.reindex_apply, he, hMdef, Equiv.symm_symm]
+   rw [hcolvec, cfc_mulVec_eigenvectorBasis (gram A T n x) hM g (e.symm ⟨j, lt_of_lt_of_le j.2 hk⟩)]
+   have hval : hM.eigenvalues (e.symm ⟨j, lt_of_lt_of_le j.2 hk⟩)
+       = hM.eigenvalues₀ ⟨j, lt_of_lt_of_le j.2 hk⟩ := by
+@@ -720,7 +725,7 @@
+   apply summable_of_sum_range_le (c := (∑ i ∈ Finset.range N, a i) + (1 - ρ)⁻¹)
+   · intro n; exact ha n
+   intro n
+-  have hgeo : (0:ℝ) ≤ (1 - ρ)⁻¹ := by positivity
++  have hgeo : (0:ℝ) ≤ (1 - ρ)⁻¹ := inv_nonneg.mpr (sub_nonneg.mpr hρ1.le)
+   rcases le_or_gt n N with h | h
+   · have hsub : ∑ i ∈ Finset.range n, a i ≤ ∑ i ∈ Finset.range N, a i :=
+       Finset.sum_le_sum_of_subset_of_nonneg (Finset.range_subset_range.mpr h) (fun i _ _ => ha i)
+--- a/ErgodicTheory/Lyapunov/OseledetsLimit/ProjectorIncrement.lean
++++ b/ErgodicTheory/Lyapunov/OseledetsLimit/ProjectorIncrement.lean
+@@ -285,11 +285,23 @@
+     (LinearMap.adjoint (Matrix.toEuclideanLin (ExteriorNorm.compoundMatrix k (cocycle A T n x))) ∘ₗ
+       Matrix.toEuclideanLin (ExteriorNorm.compoundMatrix k (cocycle A T n x)))
+       = Matrix.toEuclideanLin (ExteriorNorm.compoundMatrix k (gram A T n x)) := by
+-  rw [gram, ExteriorNorm.compoundMatrix_gram,
+-    ← Matrix.toEuclideanLin_conjTranspose_eq_adjoint,
+-    Matrix.conjTranspose_eq_transpose_of_trivial]
+-  ext v i
+-  simp only [LinearMap.comp_apply, Matrix.toLpLin_apply, Matrix.mulVec_mulVec]
++  rw [gram, ExteriorNorm.compoundMatrix_gram]
++  have hadj := Matrix.toEuclideanLin_conjTranspose_eq_adjoint
++    (ExteriorNorm.compoundMatrix k (cocycle A T n x))
++  rw [Matrix.conjTranspose_eq_transpose_of_trivial] at hadj
++  calc
++    LinearMap.adjoint
++          (Matrix.toEuclideanLin (ExteriorNorm.compoundMatrix k (cocycle A T n x))) ∘ₗ
++        Matrix.toEuclideanLin (ExteriorNorm.compoundMatrix k (cocycle A T n x)) =
++        Matrix.toEuclideanLin (ExteriorNorm.compoundMatrix k (cocycle A T n x))ᵀ ∘ₗ
++          Matrix.toEuclideanLin (ExteriorNorm.compoundMatrix k (cocycle A T n x)) := by
++            congr 1
++            exact hadj.symm
++    _ = Matrix.toEuclideanLin
++          ((ExteriorNorm.compoundMatrix k (cocycle A T n x))ᵀ *
++            ExteriorNorm.compoundMatrix k (cocycle A T n x)) := by
++            ext v i
++            simp only [LinearMap.comp_apply, Matrix.toLpLin_apply, Matrix.mulVec_mulVec]
+ 
+ set_option maxHeartbeats 1600000 in -- heavy elaboration; exceeds the default budget
+ -- raised: the `⋀^k`-indexed compound/Plücker Euclidean elaboration is heartbeat-heavy.
+--- a/ErgodicTheory/Lyapunov/OseledetsLimit/Limit.lean
++++ b/ErgodicTheory/Lyapunov/OseledetsLimit/Limit.lean
+@@ -388,7 +388,7 @@
+               bandProjector A T
+                 (Set.indicator (Set.Ioi (Real.exp ((lam k.1 + lam (k.1 - 1)) / 2))) 1) n x)
+         from by funext n; rw [← Finset.sum_attach]]
+-    refine tendsto_finsetSum _ (fun k _ => ?_)
++    refine tendsto_finset_sum _ (fun k _ => ?_)
+     exact (hxblock k.1 k.2).choose_spec
+   -- the block approximant equals cfc (stepVal lam d) (qpow)
+   have hLn_eq : ∀ n, Real.exp (lam (d - 1)) • (1 : Matrix (Fin d) (Fin d) ℝ)
+@@ -482,7 +482,7 @@
+           |(qpow_isSelfAdjoint A T n x).isHermitian.eigenvalues₀ j
+             - stepVal lam d ((qpow_isSelfAdjoint A T n x).isHermitian.eigenvalues₀ j)|)
+           atTop (𝓝 (∑ _j : Fin (Fintype.card (Fin d)), (0 : ℝ))) := by
+-        refine tendsto_finsetSum _ (fun j _ => ?_)
++        refine tendsto_finset_sum _ (fun j _ => ?_)
+         have := (hdevj j).abs
+         simpa using this
+       simpa using hcomp
+--- a/ErgodicTheory/Lyapunov/Forward.lean
++++ b/ErgodicTheory/Lyapunov/Forward.lean
+@@ -131,9 +131,15 @@
+     rw [LinearMap.comp_apply, LinearMap.adjoint_inner_left]
+   rw [hadj]
+   congr 1
+-  rw [← Matrix.toEuclideanLin_conjTranspose_eq_adjoint]
+-  simp only [LinearMap.comp_apply, Matrix.toLpLin_apply, Matrix.mulVec_mulVec]
+-  rw [Matrix.conjTranspose_eq_transpose_of_trivial]
++  have hadjM := Matrix.toEuclideanLin_conjTranspose_eq_adjoint M
++  rw [Matrix.conjTranspose_eq_transpose_of_trivial] at hadjM
++  calc
++    ((Matrix.toEuclideanLin M).adjoint ∘ₗ Matrix.toEuclideanLin M) v
++        = (Matrix.toEuclideanLin Mᵀ ∘ₗ Matrix.toEuclideanLin M) v := by
++          exact congrArg (fun f => (f ∘ₗ Matrix.toEuclideanLin M) v) hadjM.symm
++    _ = Matrix.toEuclideanLin (Mᵀ * M) v := by
++      ext i
++      simp only [LinearMap.comp_apply, Matrix.toLpLin_apply, Matrix.mulVec_mulVec]
+ 
+ /-- **Gram quadratic-form band bound.** For self-adjoint `Q`, a `0/1` band indicator
+ `χ = 𝟙_{(c,∞)}`, and a continuous `f ≥ 0` on the spectrum with `a ≤ f t` whenever
+@@ -192,7 +198,8 @@
+     exact hgnn t ht
+   have hinner_dot : ⟪Matrix.toEuclideanLin (cfc g Q) v, v⟫_ℝ
+       = star (v : Fin d → ℝ) ⬝ᵥ ((cfc g Q) *ᵥ (v : Fin d → ℝ)) := by
+-    rw [EuclideanSpace.inner_eq_star_dotProduct, Matrix.toLpLin_apply]
++    change (v.ofLp ⬝ᵥ star (((Matrix.toEuclideanLin (cfc g Q)) v).ofLp)) = _
++    rw [Matrix.ofLp_toLpLin, Matrix.toLin'_apply]
+     simp only [star_trivial]
+   have hPSDnn : (0 : ℝ) ≤ ⟪Matrix.toEuclideanLin (cfc g Q) v, v⟫_ℝ := by
+     rw [hinner_dot]; exact hgPSD.dotProduct_mulVec_nonneg _
+@@ -606,7 +613,7 @@
+   set b := sortedGramEigenbasis A T n x with hb
+   set G := Matrix.toEuclideanLin (gram A T n x) with hG
+   have hGsym : G.IsSymmetric :=
+-    Matrix.isSymmetric_toEuclideanLin_iff.mpr (gram_posSemidef A T n x).isHermitian
++    Matrix.isHermitian_iff_isSymmetric.mp (gram_posSemidef A T n x).isHermitian
+   rw [← b.sum_inner_mul_inner (G v) v]
+   refine Finset.sum_congr rfl (fun j _ => ?_)
+   have hGbj : G (b j) = (gram_posSemidef A T n x).isHermitian.eigenvalues₀ j • b j :=
+--- a/ErgodicTheory/Lyapunov/ForwardAngle.lean
++++ b/ErgodicTheory/Lyapunov/ForwardAngle.lean
+@@ -121,8 +121,10 @@
+     rw [hμsq, Real.sqrt_sq (le_of_lt hσpos)]
+   -- the gram eigenpair: `adjoint f (f u) = μ • u`.
+   have hadj : LinearMap.adjoint f = Matrix.toEuclideanLin (cocycle A T n x)ᵀ := by
+-    rw [hf, ← Matrix.toEuclideanLin_conjTranspose_eq_adjoint,
+-      Matrix.conjTranspose_eq_transpose_of_trivial]
++    rw [hf]
++    have h := Matrix.toEuclideanLin_conjTranspose_eq_adjoint (cocycle A T n x)
++    rw [Matrix.conjTranspose_eq_transpose_of_trivial] at h
++    exact h.symm
+   have hgram : (LinearMap.adjoint f) ∘ₗ f = Matrix.toEuclideanLin (gram A T n x) := by
+     rw [hadj, hf, gram]
+     exact (Matrix.toLpLin_mul_same 2 _ _).symm
+--- a/ErgodicTheory/Lyapunov/SpectrumResiduals.lean
++++ b/ErgodicTheory/Lyapunov/SpectrumResiduals.lean
+@@ -383,7 +383,7 @@
+     have hsaS : IsSelfAdjoint Qs := slowProjector_isSelfAdjoint A T (Real.exp s) x
+     have hsaT : IsSelfAdjoint Qt := slowProjector_isSelfAdjoint A T (Real.exp t') x
+     have hstar := congrArg star hQtQs
+-    rw [star_mul, hsaS.star_eq, hsaT.star_eq] at hstar
++    rw [Matrix.star_mul, hsaS.star_eq, hsaT.star_eq] at hstar
+     exact hstar
+   -- The difference `D := Qs - Qt`, written as a single CFC.
+   have hcontS : ContinuousOn (Set.indicator (Set.Iic (Real.exp s)) (1 : ℝ → ℝ))
+--- a/ErgodicTheory/Lyapunov/LimitEigenbasis.lean
++++ b/ErgodicTheory/Lyapunov/LimitEigenbasis.lean
+@@ -62,7 +62,10 @@
+   -- Unfold both reindexes down to the underlying eigenvector basis.
+   have hbase : limitEigenbasis A T x e
+       = hM.eigenvectorBasis (e₁.symm ((finCongr (Fintype.card_fin d)).symm e)) := by
+-    rw [limitEigenbasis, OrthonormalBasis.reindex_apply, OrthonormalBasis.reindex_apply]
++    change ((((lambdaHat_isSelfAdjoint A T x).isHermitian.eigenvectorBasis.reindex
++      (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm).reindex
++      (finCongr (Fintype.card_fin d))) e) = _
++    rw [OrthonormalBasis.reindex_apply, OrthonormalBasis.reindex_apply, he₁, hMdef]
+   rw [hbase]
+   set idx : Fin (Fintype.card (Fin d)) := (finCongr (Fintype.card_fin d)).symm e with hidxdef
+   -- `idx = ⟨e, …⟩` since `finCongr.symm` preserves the `ℕ`-value.
+@@ -142,10 +145,11 @@
+   -- Move the self-adjoint projector from `v` onto the eigenvector `b`.
+   have hsa : IsSelfAdjoint
+       (Matrix.toEuclideanCLM (𝕜 := ℝ) (slowProjector A T (Real.exp t) x)) := by
+-    have hstar : star (Matrix.toEuclideanCLM (𝕜 := ℝ) (slowProjector A T (Real.exp t) x))
+-        = Matrix.toEuclideanCLM (𝕜 := ℝ) (star (slowProjector A T (Real.exp t) x)) :=
+-      (map_star (Matrix.toEuclideanCLM (𝕜 := ℝ)) (slowProjector A T (Real.exp t) x)).symm
+-    rw [IsSelfAdjoint, hstar, slowProjector_isSelfAdjoint A T (Real.exp t) x]
++    have hself := slowProjector_isSelfAdjoint A T (Real.exp t) x
++    rw [IsSelfAdjoint]
++    exact (Matrix.toEuclideanCLM (n := Fin d) (𝕜 := ℝ)).map_star'
++        (slowProjector A T (Real.exp t) x) ▸
++      congrArg (Matrix.toEuclideanCLM (n := Fin d) (𝕜 := ℝ)) hself
+   have hcoe : ∀ w, Matrix.toEuclideanLin (slowProjector A T (Real.exp t) x) w
+       = Matrix.toEuclideanCLM (𝕜 := ℝ) (slowProjector A T (Real.exp t) x) w := fun w => by
+     rw [← Matrix.coe_toEuclideanCLM_eq_toEuclideanLin]; rfl
+@@ -169,7 +173,11 @@
+     set e₁ : Fin d ≃ Fin (Fintype.card (Fin d)) :=
+       (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm with he₁
+     have hbase : b = hM.eigenvectorBasis (e₁.symm ((finCongr (Fintype.card_fin d)).symm e)) := by
+-      rw [hb, limitEigenbasis, OrthonormalBasis.reindex_apply, OrthonormalBasis.reindex_apply]
++      rw [hb]
++      change ((((lambdaHat_isSelfAdjoint A T x).isHermitian.eigenvectorBasis.reindex
++        (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm).reindex
++        (finCongr (Fintype.card_fin d))) e) = _
++      rw [OrthonormalBasis.reindex_apply, OrthonormalBasis.reindex_apply, he₁, hMdef]
+     rw [hbase, toEuclideanLin_cfc_eigenvectorBasis (lambdaHat A T x) hM
+       (Set.indicator (Set.Iic (Real.exp t)) (1 : ℝ → ℝ))
+       (e₁.symm ((finCongr (Fintype.card_fin d)).symm e))]
+--- a/ErgodicTheory/TwoSided/SpectralRank.lean
++++ b/ErgodicTheory/TwoSided/SpectralRank.lean
+@@ -60,7 +60,7 @@
+         = hM.eigenvalues j • (hM.eigenvectorBasis j) := by
+       rw [Matrix.toLpLin_apply, hM.mulVec_eigenvectorBasis j]; rfl
+     have hsa : (Matrix.toEuclideanLin M).IsSymmetric :=
+-      Matrix.isSymmetric_toEuclideanLin_iff.mpr hM
++      Matrix.isHermitian_iff_isSymmetric.mp hM
+     have e1 : (inner ℝ (hM.eigenvectorBasis j) (Matrix.toEuclideanLin M v) : ℝ)
+         = c * (inner ℝ (hM.eigenvectorBasis j) v : ℝ) := by rw [hev, inner_smul_right]
+     have e2 : (inner ℝ (Matrix.toEuclideanLin M (hM.eigenvectorBasis j)) v : ℝ)
+--- a/ErgodicTheory/Lyapunov/ChainRecursion.lean
++++ b/ErgodicTheory/Lyapunov/ChainRecursion.lean
+@@ -221,7 +221,9 @@
+   set e : Fin d ≃ Fin (Fintype.card (Fin d)) :=
+     (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm with he
+   have hbase : sortedGramEigenbasis A T m x j = hG.eigenvectorBasis (e.symm j) := by
+-    rw [sortedGramEigenbasis, OrthonormalBasis.reindex_apply]
++    change ((gram_posSemidef A T m x).isHermitian.eigenvectorBasis.reindex
++      (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin d)))).symm) j = _
++    rw [OrthonormalBasis.reindex_apply, he, hGdef]
+   -- bandProjector = cfc (χ ∘ (·^{1/2m})) (gram)
+   set p : ℝ → ℝ := fun t : ℝ => t ^ ((2 * (m : ℝ))⁻¹) with hp
+   have hgsa : IsSelfAdjoint (gram A T m x) := gram_isSelfAdjoint A T m x
+--- a/ErgodicTheory/Lyapunov/ForwardGradedOverlap.lean
++++ b/ErgodicTheory/Lyapunov/ForwardGradedOverlap.lean
+@@ -99,7 +99,7 @@
+         = hM.eigenvalues j • (hM.eigenvectorBasis j) := by
+       rw [Matrix.toLpLin_apply, hM.mulVec_eigenvectorBasis j]; rfl
+     have hsa : (Matrix.toEuclideanLin M).IsSymmetric :=
+-      Matrix.isSymmetric_toEuclideanLin_iff.mpr hM
++      Matrix.isHermitian_iff_isSymmetric.mp hM
+     have e1 : (inner ℝ (hM.eigenvectorBasis j) (Matrix.toEuclideanLin M v) : ℝ)
+         = lam * (inner ℝ (hM.eigenvectorBasis j) v : ℝ) := by rw [hev, inner_smul_right]
+     have e2 : (inner ℝ (Matrix.toEuclideanLin M (hM.eigenvectorBasis j)) v : ℝ)
+@@ -157,8 +157,8 @@
+     |(inner ℝ w u : ℝ)| ≤ B := by
+   -- Pinf self-adjoint ⟹ ⟪w, Pinf u⟫ = ⟪Pinf w, u⟫ = ⟪w, u⟫.
+   have hPinfsym : (Matrix.toEuclideanLin Pinf).IsSymmetric := by
+-    rw [Matrix.isSymmetric_toEuclideanLin_iff]
+-    rwa [Matrix.isHermitian_iff_isSelfAdjoint]
++    exact Matrix.isHermitian_iff_isSymmetric.mp
++      (Matrix.isHermitian_iff_isSelfAdjoint.mpr hPinfsa)
+   have hkey : (inner ℝ w u : ℝ) = (inner ℝ w (Matrix.toEuclideanLin Pinf u) : ℝ) := by
+     rw [← hPinfsym w u, hfix]
+   -- ⟪w, toEuclideanLin (P m) u⟫ → ⟪w, toEuclideanLin Pinf u⟫
+--- a/ErgodicTheory/Lyapunov/SpectralIdentification.lean
++++ b/ErgodicTheory/Lyapunov/SpectralIdentification.lean
+@@ -52,9 +52,9 @@
+   set vj := (hB.eigenvectorBasis j : EuclideanSpace ℝ (Fin d)) with hvj
+   -- `A` and `cfc f A` are symmetric operators on `EuclideanSpace`.
+   have hAsym : (Matrix.toEuclideanLin A).IsSymmetric :=
+-    Matrix.isSymmetric_toEuclideanLin_iff.mpr hA
++    Matrix.isHermitian_iff_isSymmetric.mp hA
+   have hcfcAsym : (Matrix.toEuclideanLin (cfc f A)).IsSymmetric :=
+-    Matrix.isSymmetric_toEuclideanLin_iff.mpr
++    Matrix.isHermitian_iff_isSymmetric.mp
+       (cfc_predicate f A : IsSelfAdjoint (cfc f A)).isHermitian
+   -- Inner products with each `uᵢ`.
+   have hcfc_inner : ∀ i, ⟪u i, Matrix.toEuclideanLin (cfc f A - cfc f B) vj⟫_ℝ
+@@ -81,12 +81,10 @@
+   -- Parseval in the `u`-basis for both sides.
+   have hpars_cfc : ‖Matrix.toEuclideanLin (cfc f A - cfc f B) vj‖ ^ 2
+       = ∑ i, ⟪u i, Matrix.toEuclideanLin (cfc f A - cfc f B) vj⟫_ℝ ^ 2 := by
+-    rw [← OrthonormalBasis.sum_sq_norm_inner_right u]
+-    exact Finset.sum_congr rfl (fun i _ => by rw [Real.norm_eq_abs, sq_abs])
++    exact (OrthonormalBasis.sum_sq_inner_right u _).symm
+   have hpars_mat : ‖Matrix.toEuclideanLin (A - B) vj‖ ^ 2
+       = ∑ i, ⟪u i, Matrix.toEuclideanLin (A - B) vj⟫_ℝ ^ 2 := by
+-    rw [← OrthonormalBasis.sum_sq_norm_inner_right u]
+-    exact Finset.sum_congr rfl (fun i _ => by rw [Real.norm_eq_abs, sq_abs])
++    exact (OrthonormalBasis.sum_sq_inner_right u _).symm
+   rw [hpars_cfc, hpars_mat, Finset.mul_sum]
+   apply Finset.sum_le_sum
+   intro i _
+--- a/ErgodicTheory/TwoSided/KingmanMeans.lean
++++ b/ErgodicTheory/TwoSided/KingmanMeans.lean
+@@ -254,7 +254,7 @@
+     ∫ x, birkhoffAverage ℝ T (g 1) (n + 1) x ∂μ = ∫ x, g 1 x ∂μ := by
+   have hsum : ∫ x, birkhoffSum T (g 1) (n + 1) x ∂μ = ((n : ℝ) + 1) * ∫ x, g 1 x ∂μ := by
+     simp only [birkhoffSum]
+-    rw [integral_finsetSum (f := fun k x => g 1 (T^[k] x)) _
++    rw [integral_finset_sum (f := fun k x => g 1 (T^[k] x)) _
+       (fun j _ => (hT.iterate j).integrable_comp_of_integrable (hint 1))]
+     have : ∀ j ∈ Finset.range (n + 1), ∫ x, g 1 (T^[j] x) ∂μ = ∫ x, g 1 x ∂μ :=
+       fun j _ => km_integral_comp_iterate hT hint j 1
+--- a/ErgodicTheory/Lyapunov/Extensions/ExponentSums.lean
++++ b/ErgodicTheory/Lyapunov/Extensions/ExponentSums.lean
+@@ -241,7 +241,7 @@
+           (singularValues_cocycle_pos hA n x (lt_of_lt_of_le (Finset.mem_range.mp hi) hk))),
+         Finset.mul_sum, Finset.sum_range fun i =>
+           (n : ℝ)⁻¹ * Real.log ((Matrix.toEuclideanLin (cocycle A T n x)).singularValues i)]
+-    exact (tendsto_finsetSum Finset.univ (fun i _ => hx i)).congr (fun n => (hrw n).symm)
++    exact (tendsto_finset_sum Finset.univ (fun i _ => hx i)).congr (fun n => (hrw n).symm)
+   obtain ⟨x, hx, hxsum⟩ := (Filter.Eventually.and (gammaK_tendsto hT hA hAmeas hint hint' hk)
+     hsum).exists
+   exact tendsto_nhds_unique hx hxsum
+--- a/ErgodicTheory/Lyapunov/Extensions/DetIdentity.lean
++++ b/ErgodicTheory/Lyapunov/Extensions/DetIdentity.lean
+@@ -104,8 +104,19 @@
+   have hdet : ∏ i : Fin d,
+         (Matrix.toEuclideanLin M).isSymmetric_adjoint_comp_self.eigenvalues hfin i
+       = LinearMap.det ((Matrix.toEuclideanLin M).adjoint ∘ₗ (Matrix.toEuclideanLin M)) := by
+-    rw [(Matrix.toEuclideanLin M).isSymmetric_adjoint_comp_self.det_eq_prod_eigenvalues hfin]
+-    norm_num
++    let L := (Matrix.toEuclideanLin M).adjoint ∘ₗ (Matrix.toEuclideanLin M)
++    let hL := (Matrix.toEuclideanLin M).isSymmetric_adjoint_comp_self
++    let b := (hL.eigenvectorBasis hfin).toBasis
++    have hdiag : L.toMatrix b b = Matrix.diagonal (hL.eigenvalues hfin) := by
++      ext i j
++      simp [L, b, LinearMap.toMatrix_apply, Matrix.diagonal_apply,
++        hL.apply_eigenvectorBasis hfin]
++      split <;> simp_all
++    calc
++      ∏ i : Fin d, hL.eigenvalues hfin i
++          = (Matrix.diagonal (hL.eigenvalues hfin)).det := by simp
++      _ = (L.toMatrix b b).det := by rw [hdiag]
++      _ = LinearMap.det L := LinearMap.det_toMatrix b L
+   -- The Gram operator is `toEuclideanLin (MᵀM)`, whose determinant is `(det M)²`.
+   have hgram : LinearMap.det
+         ((Matrix.toEuclideanLin M).adjoint ∘ₗ (Matrix.toEuclideanLin M))
+--- a/ErgodicTheory/TwoSided/MeasurableInf.lean
++++ b/ErgodicTheory/TwoSided/MeasurableInf.lean
+@@ -153,7 +153,11 @@
+   -- Transport back: `toEuclideanCLM (star (projComp)) = star (toEuclideanCLM (projComp))`.
+   have himg : Matrix.toEuclideanCLM (𝕜 := ℝ) (star (projComp K L))
+       = Matrix.toEuclideanCLM (𝕜 := ℝ) (projComp K L) := by
+-    rw [map_star, hQsa]
++    calc
++      Matrix.toEuclideanCLM (𝕜 := ℝ) (star (projComp K L))
++          = star (Matrix.toEuclideanCLM (𝕜 := ℝ) (projComp K L)) :=
++              (Matrix.toEuclideanCLM (n := Fin d) (𝕜 := ℝ)).map_star' (projComp K L)
++      _ = Matrix.toEuclideanCLM (𝕜 := ℝ) (projComp K L) := hQsa
+   exact (Matrix.toEuclideanCLM (𝕜 := ℝ) (n := Fin d)).injective himg
+ 
+ /-! ### Eigendata of `S = P_K P_L P_K` -/
+@@ -294,9 +298,19 @@
+       refine Finset.sum_eq_zero fun e he => ?_
+       rw [Finset.mem_filter] at he
+       rw [hzero e he.2, zero_smul, inner_zero_right]
+-    rw [hrest, add_zero]
+-    refine Finset.sum_congr (by rw [hs]) fun e _ => ?_
+-    rw [inner_smul_right, real_inner_comm v (b e)]
++    have hrest' : ∑ x with ¬ μ x = 1, ⟪v, ⟪b x, u⟫ • b x⟫ = 0 := hrest
++    have hsplit :
++        (∑ x with μ x = 1, ⟪v, ⟪b x, u⟫ • b x⟫) +
++            ∑ x with ¬ μ x = 1, ⟪v, ⟪b x, u⟫ • b x⟫
++          = ∑ x with μ x = 1, ⟪v, ⟪b x, u⟫ • b x⟫ := by
++      rw [hrest', add_zero]
++    calc
++      (∑ x with μ x = 1, ⟪v, ⟪b x, u⟫ • b x⟫) +
++            ∑ x with ¬ μ x = 1, ⟪v, ⟪b x, u⟫ • b x⟫
++          = ∑ x with μ x = 1, ⟪v, ⟪b x, u⟫ • b x⟫ := hsplit
++      _ = ∑ e ∈ s, ⟪b e, u⟫ * ⟪b e, v⟫ := by
++        refine Finset.sum_congr (by rw [hs]) fun e _ => ?_
++        rw [inner_smul_right, real_inner_comm v (b e)]
+   have hwu : ⟪w, u⟫ = ∑ e ∈ s, ⟪b e, v⟫ * ⟪b e, u⟫ := by
+     rw [hw, sum_inner]
+     refine Finset.sum_congr rfl fun e _ => ?_
+@@ -336,7 +350,8 @@
+     conv_lhs => rw [← b.sum_repr' v]
+     rw [map_sum]
+     refine Finset.sum_congr rfl fun e _ => ?_
+-    rw [ContinuousLinearMap.map_smul, toEuclideanCLM_projComp_pow_eigenvectorBasis]
++    rw [ContinuousLinearMap.map_smul, toEuclideanCLM_projComp_pow_eigenvectorBasis, hb, hμ]
++    rfl
+   simp only [hexpand]
+   -- The projection equals `∑ e, ⟪b e, v⟫ • (if μ e = 1 then 1 else 0) • b e`.
+   have hlim : (K ⊓ L).starProjection v
+@@ -354,7 +369,7 @@
+     rw [if_pos he.2, one_smul]
+   rw [hlim]
+   -- Termwise convergence and finite sum.
+-  refine tendsto_finsetSum _ fun e _ => ?_
++  refine tendsto_finset_sum _ fun e _ => ?_
+   -- `(μ e)ⁿ → if μ e = 1 then 1 else 0`.
+   have hsc : Tendsto (fun n : ℕ => μ e ^ n) atTop
+       (𝓝 (if μ e = 1 then (1 : ℝ) else 0)) := by
