@@ -50,7 +50,13 @@ PHASES = (
 )
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 # This is both the lane-concurrency ceiling and the per-tick integration/refill ceiling.
+# The scheduler is frozen for intake of new theorem targets.  The operator has
+# set the cron refill and integration budget to zero; master-driven commands
+# may still use the hard ceiling below to finish already-started targets.
 MAX_WORKERS = 80
+DEFAULT_WORKERS = 0
+DEFAULT_INTEGRATION_LIMIT = 0
+STARTED_TARGETS_ONLY = True
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
 CODEX_SERVICE_TIER = "default"
@@ -584,8 +590,8 @@ def validate_only() -> None:
 
 def integrate(limit: int) -> int:
     """Verify worker handoffs and preserve bounded fail-closed reports."""
-    if limit < 1 or limit > MAX_WORKERS:
-        fail(f"--limit must be in 1..{MAX_WORKERS}")
+    if limit < 0 or limit > MAX_WORKERS:
+        fail(f"--limit must be in 0..{MAX_WORKERS}")
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     by_id = {item["id"]: item for item in data["items"]}
@@ -813,8 +819,8 @@ def checkpoint_integration() -> None:
 
 
 def launch(max_workers: int) -> None:
-    if max_workers < 1 or max_workers > MAX_WORKERS:
-        fail(f"--workers must be in 1..{MAX_WORKERS}")
+    if max_workers < 0 or max_workers > MAX_WORKERS:
+        fail(f"--workers must be in 0..{MAX_WORKERS}")
     # A tick begins clean/synced, then drains handoffs, checkpoints them, and only then
     # refills worker capacity. This preserves the worker/master dual cursor across cron ticks.
     sync_guard()
@@ -856,6 +862,11 @@ def launch(max_workers: int) -> None:
         if claim.get("status") in {"live", "finished"}
     }
     states_by_id = {item["id"]: item["state"] for item in ordered}
+    started_targets = {
+        item["theorem_id"]
+        for item in ordered
+        if item["state"] in {"[_]", "[x]"}
+    }
     # Phase artifacts are allowed to advance from a self-tested predecessor;
     # only master acceptance remains strictly `[x]`-ordered.  This lets
     # statement/anchor work begin from the concrete intake dossier while the
@@ -865,6 +876,7 @@ def launch(max_workers: int) -> None:
         for item in ordered
         if item["state"] == "[ ]"
         and item["id"] not in claimed_ids
+        and (not STARTED_TARGETS_ONLY or item["theorem_id"] in started_targets)
         and all(states_by_id.get(dependency) in {"[_]", "[x]"} for dependency in item["depends_on"])
     ]
     # Start a bounded *depth-first* pipeline. Once a target has a self-tested
@@ -918,8 +930,8 @@ def restart_live_workers(max_workers: int) -> None:
     changing only the runtime configuration.  Finished handoffs are left for
     the normal integration path and are never restarted.
     """
-    if max_workers < 1 or max_workers > MAX_WORKERS:
-        fail(f"--workers must be in 1..{MAX_WORKERS}")
+    if max_workers < 0 or max_workers > MAX_WORKERS:
+        fail(f"--workers must be in 0..{MAX_WORKERS}")
     sync_guard()
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
@@ -973,7 +985,7 @@ def cleanup() -> None:
 def install(schedule: str) -> None:
     if not re.fullmatch(r"[^\n]+", schedule):
         fail("schedule must be one crontab line prefix")
-    command = f"{schedule} cd {ROOT} && {ROOT / 'scripts' / 'stage1_execution_cron.py'} --tick --workers {MAX_WORKERS} >> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
+    command = f"{schedule} cd {ROOT} && {ROOT / 'scripts' / 'stage1_execution_cron.py'} --tick --workers {DEFAULT_WORKERS} >> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
     current = run(["crontab", "-l"], check=False).stdout.splitlines()
     current = [line for line in current if "stage1_execution_cron.py" not in line]
     subprocess.run(["crontab", "-"], input="\n".join(current + [command]) + "\n", text=True, check=True)
@@ -1000,8 +1012,8 @@ def main() -> None:
     modes.add_argument("--cleanup", action="store_true", help="remove the cron entry only after every completion gate is true")
     modes.add_argument("--restart-live", action="store_true", help="restart live workers in place using the current scheduler runtime policy")
     modes.add_argument("--install", action="store_true", help="install a bounded scheduler cron entry")
-    parser.add_argument("--workers", type=int, default=MAX_WORKERS, help=f"maximum concurrent tmux Codex workers (1..{MAX_WORKERS})")
-    parser.add_argument("--limit", type=int, default=MAX_WORKERS, help=f"maximum worker handoffs integrated by --integrate (1..{MAX_WORKERS})")
+    parser.add_argument("--workers", type=int, default=DEFAULT_WORKERS, help=f"concurrent-worker refill budget (0..{MAX_WORKERS}; default {DEFAULT_WORKERS})")
+    parser.add_argument("--limit", type=int, default=DEFAULT_INTEGRATION_LIMIT, help=f"handoff integration budget (0..{MAX_WORKERS}; default {DEFAULT_INTEGRATION_LIMIT})")
     parser.add_argument("--schedule", default="*/10 * * * *", help="crontab schedule used by --install")
     args = parser.parse_args()
     if args.bootstrap:
