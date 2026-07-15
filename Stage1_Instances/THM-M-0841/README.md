@@ -20,6 +20,29 @@ Current boundary: `[H1, M3, R4]`. This is an exact-statement proposal, not an ac
 source-fidelity closure, proof, audit completion, or theorem completion. The five later tasks remain
 open, and only the integration lane may accept the provisional intake and statement receipts.
 
+## Anchor-audit result
+
+The bounded immutable audit found no exact Lean 4 proof for the growing-part page-1087 target.
+Pinned mathlib supplies complete-equipartite and Turan-density support interfaces only. A post-pin
+mathlib theorem and an external project prove neighboring dense fixed-part variants, but neither
+supplies the sparse complement polarity, growing iterated-log part size, or checked tolerance
+transport. They receive no proof credit. The accepted root remains `[H1, M3, R4]`.
+
+## Obligation-tree result
+
+`obligation-registry.json` freezes 53 canonical obligations before proof-phase closure credit. Its
+v2 append-only delta records the repaired root spine and preserves the proposed v1 denominator. The
+architecture expands the 1946 proof through its intersection lemma and corollaries, two-part base,
+admissible-tolerance induction, rich-vertex filtering, repeated block deletion, and limiting
+contradiction. It explicitly retains the non-definitional sparse/dense complement bridge and the
+same-part-size stability problem on the final smaller graph.
+
+`typed-graphs.json` separates proof, refinement, provenance, evidence, trust, documentation, and
+workflow relations. `ObligationTree.lean` checks only conditional composition from `DenseBase`,
+`DenseStep`, and `SparseFromDense`; none of those mathematical premises is inhabited. Zero
+obligations close, the root stays `[H1, M3, R4]`, and proof, validation, release, H0/R0, AUDIT-Z,
+theorem completion, and dependency-ordered master acceptance remain open.
+
 ## Artifacts
 
 - `instance.json`: planned intake authority and fail-closed target record.
@@ -32,8 +55,22 @@ open, and only the integration lane may accept the provisional intake and statem
 - `intake-receipt.json`: immutable provisional intake-snapshot receipt; its recorded current-state
   fields and owned-file hashes are superseded by this statement packet.
 - `Statement.lean`: exact page-1087 target, checked unfolding, mutations, and boundary checks.
-- `check_statement.py`: pinned elaboration, fingerprint, import, and mutation validator.
+- `check_statement.py`: pinned elaboration, fingerprint, import, and mutation validator for the
+  immutable statement snapshot.
 - `statement.json`: structured canonical target and environment record.
 - `statement-validation.md`: exact statement command ledger and boundary.
 - `statement-receipt.json`: provisional statement-node receipt awaiting master acceptance.
-- `check_statement_artifacts.py`: fail-closed metadata, receipt, and worker-packet validator.
+- `check_statement_artifacts.py`: fail-closed validator for the immutable statement-phase packet;
+  its owned-file snapshot predates the anchor/tree expansion.
+- `AnchorAudit.lean` and `anchor-audit*.json`/`.md`: pinned support checks and immutable candidate
+  inventory, with no exact-root proof candidate.
+- `check_anchor_audit.py`: fail-closed validator for the immutable anchor-audit snapshot; its
+  repository-base assertion predates this obligation-tree worker packet.
+- `ObligationTree.lean`: exact conditional dense-family and root composition harness.
+- `obligation-registry.json` and `typed-graphs.json`: frozen semantic denominator and seven typed
+  graph families.
+- `build_obligation_artifacts.py` and `check_obligation_tree.py`: deterministic generator and
+  fail-closed structure/Lean validator.
+- `validation-specs.json`, `obligation-tree.md`, `obligation-tree-validation.md`, and
+  `obligation-tree-receipt.json`: structured recipes, readable projection, exact command record,
+  and provisional worker receipt.

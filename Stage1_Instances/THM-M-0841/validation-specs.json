@@ -1,0 +1,127 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0841-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0841",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0841-OBLIGATION-STRUCTURE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0841/check_obligation_tree.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0841 obligation tree"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0841-ROOT",
+        "M0841-S-TARGET",
+        "M0841-S-DEFINITIONS",
+        "M0841-S-DOMAIN",
+        "M0841-S-BOUNDARY",
+        "M0841-S-EXPANDED-TRANSPORT",
+        "M0841-S-COMPLEMENT-TRANSPORT",
+        "M0841-S-FOUNDATION",
+        "M0841-N-DENSE-FORM",
+        "M0841-N-THRESHOLD-PACKAGE",
+        "M0841-N-LOG-ROUNDING",
+        "M0841-N-PART-SIZE-STABILITY",
+        "M0841-N-ASYMPTOTICS",
+        "M0841-L-INTERSECTION-LEMMA",
+        "M0841-L-INTERSECTION-DOUBLE-COUNT",
+        "M0841-L-INTERSECTION-RATIO",
+        "M0841-L-INTERSECTION-LOG",
+        "M0841-B-R-TWO",
+        "M0841-C-HIGH-DEGREE",
+        "M0841-L-HIGH-DEGREE-COUNT",
+        "M0841-L-BASE-COMMON",
+        "M0841-L-BASE-SIZE",
+        "M0841-T-BASE-ASSEMBLE",
+        "M0841-B-R-GE-THREE",
+        "M0841-C-ADMISSIBLE",
+        "M0841-L-ADMISSIBLE-BOUNDS",
+        "M0841-B-C-ZERO",
+        "M0841-B-C-POSITIVE",
+        "M0841-C-COUNTEREXAMPLE",
+        "M0841-C-IH-BLOCKS",
+        "M0841-C-RICH-VERTICES",
+        "M0841-L-RICH-EACH-PART",
+        "M0841-L-ITERATED-INTERSECTION",
+        "M0841-L-RICH-CARD-BOUND",
+        "M0841-C-DELETE-BLOCK",
+        "M0841-L-DELETED-EDGE-BOUND",
+        "M0841-C-DELETION-SEQUENCE",
+        "M0841-L-DELETION-INVARIANT",
+        "M0841-C-STEP-COUNT",
+        "M0841-L-S-ROUNDS",
+        "M0841-L-D-LIMIT",
+        "M0841-L-TAIL-ADMISSIBLE",
+        "M0841-L-GLOBAL-EDGE-INEQUALITY",
+        "M0841-L-LIMIT-PASSAGE",
+        "M0841-L-ALGEBRA-CONTRADICTION",
+        "M0841-T-INDUCTIVE-ASSEMBLE",
+        "M0841-T-DENSE-ASSEMBLE",
+        "M0841-T-ROOT-COMPOSE",
+        "M0841-X-SOURCE",
+        "M0841-X-PROVENANCE",
+        "M0841-X-TRUST",
+        "M0841-X-READABLE",
+        "M0841-X-WORKFLOW"
+      ],
+      "covered_declarations": [],
+      "coverage_boundary": "Checks the frozen registry, node schemas, ledgers, typed graph semantics, reachability, mappings, and open status; supplies no proof closure."
+    },
+    {
+      "recipe_id": "VAL-M0841-OBLIGATION-LEAN",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0841/check_obligation_tree.py",
+        "--run-lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains Lean conditional composition: pass and no sorryAx"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0841-B-R-GE-THREE",
+        "M0841-B-R-TWO",
+        "M0841-N-DENSE-FORM",
+        "M0841-ROOT",
+        "M0841-S-COMPLEMENT-TRANSPORT",
+        "M0841-T-DENSE-ASSEMBLE",
+        "M0841-T-ROOT-COMPOSE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0841.ErdosStoneTarget",
+        "Stage1Instances.THM_M_0841_Obligations.DenseClaim",
+        "Stage1Instances.THM_M_0841_Obligations.DenseBase",
+        "Stage1Instances.THM_M_0841_Obligations.DenseStep",
+        "Stage1Instances.THM_M_0841_Obligations.DenseFamily",
+        "Stage1Instances.THM_M_0841_Obligations.SparseFromDense",
+        "Stage1Instances.THM_M_0841_Obligations.denseFamily_compose",
+        "Stage1Instances.THM_M_0841_Obligations.sparse_compose",
+        "Stage1Instances.THM_M_0841_Obligations.compose_root",
+        "Stage1Instances.THM_M_0841_Obligations.exactRoot_iff_canonical",
+        "Stage1Instances.THM_M_0841_Obligations.root_of_terminal"
+      ],
+      "coverage_boundary": "Kernel-checks exact conditional interfaces and top composition only. It supplies none of DenseBase, DenseStep, or SparseFromDense and closes no obligation."
+    }
+  ]
+}
