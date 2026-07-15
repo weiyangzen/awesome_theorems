@@ -1,0 +1,135 @@
+# THM-M-1036 proof-phase recheck at `c74f595e` (slot30)
+
+Item: `S56-M-1036-PROOF`
+
+Date: `2026-07-15` (`Asia/Shanghai`)
+
+Base revision: `c74f595e99fe574f4619307c859ec20986bb2297`.
+
+Base tree: `b27451453ff7d1e87d296c6634bd270799c666d9`.
+
+## Verdict
+
+`blocked`. A legal positive proof body cannot inhabit the exact frozen target.
+The tracked, placeholder-free declaration
+
+```text
+Stage1Instances.THM_M_1036.Counterexample.not_sdeExistenceUniquenessTarget :
+  Not Stage1Instances.THM_M_1036.SdeExistenceUniquenessTarget.{0}
+```
+
+kernel-checks at trust level zero. `IntegralSemantics` supplies arbitrary
+`timeIntegral` and `itoIntegral` operations, while `standard_time_integral`
+and `standard_ito_integral` are bare propositions imposing no laws on either
+operation. The target nevertheless quantifies over every such semantics and
+concludes strong existence after receiving proofs of those propositions.
+
+`Counterexample.lean` sets both propositions to `True`, uses `Unit` with its
+Dirac probability measure, state dimension one and noise dimension zero, and
+defines `timeIntegral f _ omega = f 0 omega + 1`. At `t = 0`, the required
+integral equation yields `x = x + 1` in coordinate zero. Hence any positive
+proof of the universe-polymorphic target would contradict its checked
+universe-zero specialization.
+
+This refutes the frozen Lean encoding, not the classical SDE theorem. Proving a
+repaired, strengthened, or narrower statement would be a forbidden theorem
+substitution in this item. The existing
+`root_of_existence_and_uniqueness` declaration is only conditional assembly:
+it assumes complete existence and uniqueness packages and supplies neither.
+
+The item remains `[ ]`. No proof body, proof receipt, provisional state, audit
+completion, validation completion, release, theorem completion, or master
+acceptance is claimed. Its prerequisite obligation-tree item is still `[_]`,
+not master-accepted `[x]`.
+
+## Failed Gate And Retry
+
+The first failed gate is
+`S56-5.1-EXACT-TARGET-CONSISTENCY / M1036-X-INTEGRAL-SEMANTICS`. The minimal
+decisive root cut is `M1036-X-INTEGRAL-SEMANTICS`; its invalidated/open chain
+continues through `M1036-T-EXISTENCE` to `M1036-ROOT`.
+
+The frozen registry projects `[H2, M3, R3]`. This recheck proposes machine
+classification `M5`, so `[H2, M3, R3] -> [H2, M5, R3]`, without changing
+accepted state. `H2` stays unchanged because the countermodel diagnoses the
+backend encoding, not the human mathematical theorem.
+
+Replace the bare semantic flags with a source-faithful, law-bearing standard
+time/Ito integral construction or exact sufficient laws. Then publish a new
+statement fingerprint and freshly freeze and master-accept the statement,
+anchor audit, obligation registry, and typed graphs before resuming proof
+work. An explicit redirect to the checked counterexample/barrier target is the
+other legal route.
+
+This directory already contained 23 `proof-recheck-*.json` records and 24
+structured blockers when `proof-blocker.json` was included, while the DAG
+still records proof `attempts: 0` and no children. File counts do not prove
+distinct scheduler ticks, but the master must reconcile them and apply the
+five-tick split rule. Another unchanged positive-proof retry is not useful.
+
+## Validation
+
+All checks ran in this worker clone. The automation-provided untracked
+`Formalizations/Lean/.lake` symlink was treated as read-only. No `lake update`,
+`lake build`, dependency clone/fetch, network action, or deliberate `.lake`
+mutation occurred. Generated Lean output stayed under `/tmp` and was removed.
+The untracked cache symlink makes this nonrelease evidence.
+
+| Command | Exit | Exact result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, and all 1546 uniform-L0 targets passed. |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all `L0/rework_required`. |
+| `python3 scripts/stage1_target.py show THM-M-1036` | 0 | Rank 229; planned; legacy artifacts unaccepted; theorem incomplete. |
+| `python3 Stage1_Instances/THM-M-1036/check_obligation_tree.py` | 0 | 18 obligations and 47 typed edges passed; denominator `7e425556f1efaf61324a9d453d76aa833189110b116824aaf32c2f390b328e69`; root open at M3. |
+| `cd Formalizations/Lean && timeout 45 lake env lean --version` | 124 | Timed out while the canonical cache's `flt-regular` checkout had `HEAD -> refs/heads/.invalid`. The artifact was recorded as broken, not fetched or repaired. |
+| Isolated trust-zero Lean replay below | 0 | `Statement.lean` and `Counterexample.lean` elaborated. Both negative declarations reported exactly `[propext, Classical.choice, Quot.sound]`; output SHA-256 `4b11faa31e8ad2a6401448d63176322e46bf814ff423c23016d4c7bfea426a55`. |
+| Prohibited-device scan over owned `*.lean` | 1 | Expected no-match exit: no `sorry`, `admit`, axiom declaration, unsafe/opaque/extern escape, `sorryAx`, `implemented_by`, or `native_decide`. |
+| `jq empty` plus packet invariant assertions | 0 | Structured blocker JSON parsed and all identity, hash, state, axiom, completion, and self-test-absence invariants agreed. |
+| Scoped `git diff --check` and new-file no-index checks | 0 | No whitespace error in either owned artifact. |
+| `test ! -e .stage1-worker-selftest.json` | 0 | The completion-only self-test manifest is absent. |
+
+The standard `check_statement.py` route was attempted but hit the same
+read-only Lake dependency failure. Its temporary owned copy was removed and
+no artifact remained. The required narrow kernel replay therefore used the
+exact Lean executable selected by the pinned `lean-toolchain` and only
+pre-existing compiled package paths:
+
+```bash
+set -euo pipefail
+root=$PWD
+target=$root/Stage1_Instances/THM-M-1036
+lean=$HOME/.elan/toolchains/leanprover--lean4---v4.29.0/bin/lean
+tmp=$(mktemp -d /tmp/thm-m-1036-proof-head-c74f595e-slot30.XXXXXX)
+trap 'rm -rf "$tmp"' EXIT
+cp "$target/Statement.lean" "$tmp/Statement.lean"
+cp "$target/Counterexample.lean" "$tmp/Counterexample.lean"
+lean_path="$root/Formalizations/Lean/.lake/build/lib/lean"
+for pkg in mathlib batteries Qq aesop proofwidgets LeanSearchClient importGraph plausible; do
+  dir="$root/Formalizations/Lean/.lake/packages/$pkg/.lake/build/lib/lean"
+  test ! -d "$dir" || lean_path="$lean_path:$dir"
+done
+lean_path="$lean_path:$HOME/.elan/toolchains/leanprover--lean4---v4.29.0/lib/lean"
+LEAN_NUM_THREADS=1 LEAN_PATH="$lean_path" timeout --foreground 600 \
+  "$lean" --trust=0 -t0 --root="$tmp" -o "$tmp/Statement.olean" \
+  "$tmp/Statement.lean" >"$tmp/statement.out" 2>&1
+LEAN_NUM_THREADS=1 LEAN_PATH="$tmp:$lean_path" timeout --foreground 600 \
+  "$lean" --trust=0 -t0 --root="$tmp" "$tmp/Counterexample.lean" \
+  >"$tmp/counterexample.out" 2>&1
+cat "$tmp/statement.out" "$tmp/counterexample.out" >"$tmp/kernel-output.txt"
+sha256sum "$tmp/kernel-output.txt" "$tmp/Statement.olean"
+```
+
+Lean was version `4.29.0`, commit
+`98dc76e3c0a9b856c9b98726b713fb04fab16740`; its binary SHA-256 was
+`3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf`.
+`Statement.olean` hashed
+`a3ec6b23bd506207b3cd0aff4175153a56fc3aa87f37cfc0466d3fe46a4812e4`.
+The paired JSON packet binds all source, environment, object, and output
+hashes.
+
+## Status Boundary
+
+This current-base packet is durable blocker evidence, not a proof receipt. It
+does not satisfy `S56-M-1036-PROOF` or support any completion claim. Because
+the assigned proof phase is not genuinely self-tested complete,
+`.stage1-worker-selftest.json` is deliberately absent.
