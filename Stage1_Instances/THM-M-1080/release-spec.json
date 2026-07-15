@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1080-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1080-RELEASE",
+  "theorem_id": "THM-M-1080",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1080/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 1800,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration subprocess runs under bubblewrap with an unshared network, a read-only host root, fixed environment variables, and one fresh temporary module directory as its only writable bind. The direct Lean version probe and outer Python reconciler perform local executable, file, hash, process, and Git checks only; the outer process is not namespace-isolated, so this remains nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line negative release summary bound in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1080-ROOT",
+    "M1080-S-DEFINITIONS",
+    "M1080-S-SCOPE",
+    "M1080-S-BOUNDARY",
+    "M1080-S-FOUNDATION",
+    "M1080-N-INCREMENTS",
+    "M1080-N-TELESCOPE",
+    "M1080-C-EXPONENTIAL",
+    "M1080-L-COND-HOEFFDING",
+    "M1080-L-MGF-ITERATE",
+    "M1080-L-MARKOV",
+    "M1080-L-OPTIMIZE",
+    "M1080-T-POSITIVE",
+    "M1080-T-ZERO",
+    "M1080-T-ASSEMBLE",
+    "M1080-X-MATHLIB",
+    "M1080-X-SOURCE",
+    "M1080-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1080.Statement",
+    "Stage1Instances.THM_M_1080.ObligationTree.azumaUpperTail_of_threshold_packages",
+    "Stage1Instances.THM_M_1080.Proof.sum_increment_eq_sub",
+    "Stage1Instances.THM_M_1080.Proof.exp_secant_bound",
+    "Stage1Instances.THM_M_1080.Proof.condExp_exp_increment_le",
+    "Stage1Instances.THM_M_1080.Proof.exp_endpoint_integrable",
+    "Stage1Instances.THM_M_1080.Proof.exp_increment_sum_integral_le",
+    "Stage1Instances.THM_M_1080.Proof.positiveThreshold",
+    "Stage1Instances.THM_M_1080.Proof.zeroThreshold",
+    "Stage1Instances.THM_M_1080.Proof.azumaUpperTail",
+    "Stage1Instances.THM_M_1080.ExactRoot.positiveThresholdPackage",
+    "Stage1Instances.THM_M_1080.ExactRoot.zeroThresholdPackage",
+    "Stage1Instances.THM_M_1080.ExactRoot.azumaUpperTail_exact",
+    "Stage1Instances.THM_M_1080.Validation.directExactRoot"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This bounded worker recipe authenticates the current immutable base and inspects all 18 frozen obligations, task authority, and the available proof and validation receipts. Earlier predecessor items have no node receipts in the dossier. It replays the exact root and same-worker differential bridge from fresh outputs at trust zero under network isolation. It reuses the scheduler-provided pinned warm cache and cannot accept the validation dependency, reconcile accepted authority, supply independently reviewed source classification/R0 or complete provenance/TCB/SBOM closure, perform an empty-cache cold offline restoration, act as an independent runner or verifier, build a deterministic release bundle, or grant release or master acceptance."
+}
