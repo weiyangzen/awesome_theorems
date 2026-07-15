@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0510-VALIDATION-local-v1",
+  "item_id": "S56-M-0510-VALIDATION",
+  "theorem_id": "THM-M-0510",
+  "depends_on": [
+    "S56-M-0510-PROOF"
+  ],
+  "intent": "validate",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0510-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0510/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "HOME": "runner home used only to address the hash-verified elan launcher",
+        "PATH": "<HOME>/.elan/bin:/usr/bin:/bin"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean replay subprocess runs inside bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary directory writable. The checker performs no dependency update, build, clone, or fetch.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line UTF-8 summary bound by validation-receipt.json"
+        }
+      ],
+      "expected_output_policy": "Six exact summary lines report provisional narrow kernel, trust, and provenance passes plus fail-closed structured-authority, hermetic, and independent gates.",
+      "covered_obligation_ids": [
+        "M0510-N-EULER-PRODUCT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0510.HardyRamanujanAsymptoticTarget",
+        "Stage1Instances.THM_M_0510.coeff_ordinaryPartitionSeries",
+        "Stage1Instances.THM_M_0510.geometricFactor_mul_oneSub",
+        "Stage1Instances.THM_M_0510.hasProd_ordinaryPartitionSeries_geometric",
+        "Stage1Instances.THM_M_0510.ordinaryPartitionSeries_eq_geometricProduct",
+        "Stage1Instances.THM_M_0510.ordinaryPartitionSeries_mul_eulerProduct",
+        "Stage1Instances.THM_M_0510.Validation.differentialCoeffValidationPartitionSeries",
+        "Stage1Instances.THM_M_0510.Validation.differentialOrdinaryPartitionSeriesMulEulerProduct"
+      ],
+      "scope_boundary": "Network-isolated trust-zero replay of the exact statement and the partial Euler-product proof, plus a same-worker no-Proof reconstruction and selected direct source/olean provenance. This does not prove the Hardy-Ramanujan root, reconcile the frozen graph, establish accepted foundation/TCB closure, perform a cold release rebuild, or provide distinct-runner independence."
+    }
+  ],
+  "status_boundary": "A passing recipe self-tests only a truthful blocked validation receipt. It cannot accept the proof dependency, validate the stale M0-L terminal-transport claim, close the root, or establish M0/E0/E1, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}
