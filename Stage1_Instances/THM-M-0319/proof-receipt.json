@@ -1,0 +1,203 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0319-PROOF-local-20260715T122602+0800",
+  "item_id": "S56-M-0319-PROOF",
+  "theorem_id": "THM-M-0319",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "443b8bbc23bf35a1e7a4bb7b3183073f76bbee2b",
+  "base_tree": "c5771c47c12b80aba613e6d844570f83b39ded6d",
+  "validated_at": "2026-07-15T12:26:02+08:00",
+  "attestor": "stage1-rev56-worker-slot68",
+  "owner": "S56-M-0319 proof execution lane",
+  "reviewer": "independent Stage1 integration reviewer required",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "verdict": "no_state_change",
+  "canonical_target": "Stage1Instances.THM_M_0319.BrouwerFixedPointTarget",
+  "canonical_target_expression_sha256": "2e4dc02230de7a1c08fdf4a19ef0ec1da107297972dee0e85d893bdb33d6a514",
+  "registry_denominator_sha256": "9d15b5eafa794b7f3cc1e83d4006447c90a75f8d8175bbaeb4b50fe8306ccee8",
+  "exact_declarations": [
+    "Stage1Instances.THM_M_0319.exists_simplex_approximation",
+    "Stage1Instances.THM_M_0319.hasApproximateFixedPoints",
+    "Stage1Instances.THM_M_0319.exactFixedPoint",
+    "Stage1Instances.THM_M_0319.brouwerFixedPoint"
+  ],
+  "terminal_external_declarations": [
+    "IndexedLOrder.Scarf",
+    "IndexedLOrder.GiComponentStructure_holds",
+    "Brouwer"
+  ],
+  "kernel_inhabited_obligation_ids_observed": [
+    "M0319-ROOT"
+  ],
+  "closed_obligation_ids_proposed": [],
+  "accepted_closed_obligation_ids": [],
+  "accepted_receipt_ids": [],
+  "graph_reconciliation_pending": {
+    "required": true,
+    "reason": "The frozen pre-proof graph models the earlier unintegrated Harfe cube route. This proof instead uses a licensed simplex theorem, finite partition of unity, and compact displacement minimization. The master must reconcile the new route before accepting obligation closure.",
+    "unreconciled_obligation_ids": [
+      "M0319-ROOT",
+      "M0319-S-FOUNDATION",
+      "M0319-R-CONVEX-CUBE",
+      "M0319-L-UNIT-CUBE",
+      "M0319-T-EXTERNAL",
+      "M0319-X-INTEGRATION",
+      "M0319-X-PROVENANCE"
+    ]
+  },
+  "proof_body": {
+    "classification": "repo_local_compact_convex_bridge_over_pinned_vendored_simplex_brouwer",
+    "machine_debt_candidate": "M0-L for local bridge/root bodies and M0-P for the vendored terminal, pending graph/provenance reconciliation and master acceptance",
+    "source": "Stage1_Instances/THM-M-0319/Proof.lean",
+    "source_sha256": "793e81e88075d53b3a1a11226808a12bf910bf89f4323ecee701ae125bdd2f38",
+    "vendor_manifest": "Stage1_Instances/THM-M-0319/vendor-manifest.json",
+    "vendor_manifest_sha256": "d344d645fc61ac6a4cc3e8c22dc803bff84312c1ebe25a508469e6ab54f98bc7",
+    "upstream_project": "math-xmum/Brouwer",
+    "upstream_revision": "c02205edf347ad45f0d62db85497598ba2c4291e",
+    "upstream_tree": "5dda2d10fdd4a0db1aba85f1fa1a7acc509f80e4",
+    "upstream_archive_sha256": "8591fadd6737d75b921eee27dc9d85d5d9f040a83ad7dcb2d81dc208754c04cd",
+    "upstream_toolchain": "leanprover/lean4:v4.31.0",
+    "upstream_mathlib_revision": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+    "vendored_module_count": 3,
+    "vendored_source_bytes": 182363,
+    "license": "MIT",
+    "license_sha256": "956bddafa77f8b8ad428bb35cf59424b0ddd0933ebab506037b97a20fab1a5d0",
+    "normalized_compatibility_patch_sha256": "39fff43f92e646d6365f6279fd565d0d2d7b873f0922a1df9165f880a36b8790",
+    "local_reuse_provenance": "The target-local partition-of-unity and compact-minimization bridge was adapted from repository-local Stage1_Instances/THM-M-0318/Proof.lean; no Harfe source is used.",
+    "adapter_scope": "finite compact cover, subordinate partition of unity, simplex barycentric synthesis, simplex Brouwer approximate fixed point, compact displacement minimization, and exact Euclidean-root specialization"
+  },
+  "composition_certificates": [
+    {
+      "declaration": "Stage1Instances.THM_M_0319.hasApproximateFixedPoints",
+      "terminal_declarations": [
+        "Stage1Instances.THM_M_0319.exists_simplex_approximation",
+        "Brouwer"
+      ]
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0319.exactFixedPoint",
+      "child_declarations": [
+        "Stage1Instances.THM_M_0319.hasApproximateFixedPoints"
+      ]
+    },
+    {
+      "declaration": "Stage1Instances.THM_M_0319.brouwerFixedPoint",
+      "parent_obligation_id": "M0319-ROOT",
+      "checked_transport": "direct inhabitant of the frozen BrouwerFixedPointTarget"
+    }
+  ],
+  "inputs": {
+    "blueprint_sha256": "c09f9f713bdbc820559e41e1e1840423d60cc2af666aeaf5f3c88587de77f161",
+    "execution_dag_sha256": "0bb2f433832fe71156aa46c0828102ec3fb61a00dec81fae129c2826a59f63ca",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "execution_skill_sha256": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "statement_sha256": "1b2804bde5a77937dc470ccf1f6e54856d98b86e268b5dc30fe19f0a84bc440a",
+    "obligation_tree_sha256": "e80086143cdf2bf3b2e5ab42da94217dffddd062dd157609b6565c8a8de67cbd",
+    "obligation_registry_sha256": "6e0d9d0b3ff8044cd0162c47b3f8aee57ecf4070fcc517b38a1b58011e398d2f",
+    "typed_graphs_sha256": "983c863161c535ecaee625f7b34b1f52dc5852beaa75189eaaf561175a644428",
+    "anchor_audit_sha256": "747de378a621b873e2eb5f96016c6d7429c350e7dbb619d20f1994b6af70f524",
+    "build_vendor_manifest_sha256": "0ba2b3b2cdc455542d5e374d53079ba87be68c708dde9f2ec8d0ae6b1e0bb4a4",
+    "check_proof_py_sha256": "95aa841263070ec795b2f011655fe622cb1ce4063bb3e45367e59240bc0ee269",
+    "check_proof_sh_sha256": "3b1f4b0708e13445b5b45a07c1209195e16d2b610e29d83bf4d734b6f3a51b67",
+    "vendor_provenance_sha256": "c6736160e360ea36b3a1be90cd9036716069e56e4b52e9f413ed9d02fdaf8c2f",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "dirty_input_evidence": {
+    "classification": "nonrelease_dirty_worker_input",
+    "preexisting_untracked_paths": [
+      "Formalizations/Lean/.lake"
+    ],
+    "cache_incident": "The shared canonical top-level flt-regular checkout was already incomplete at this run. Validation queried mathlib's Lake project only for the pinned executable and composed LEAN_PATH from existing artifacts; it performed no update, build, clone, fetch, or cache mutation."
+  },
+  "environment": {
+    "timezone": "Asia/Shanghai",
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "validation_trust_level": 0,
+    "network_observation": "No network access was observed or required. The worker recipe did not independently sandbox the network, so the master must enforce strict denial during replay.",
+    "release_classification": "warm-cache nonrelease worker evidence"
+  },
+  "structured_recipe": {
+    "recipe_id": "S56-M-0319-PROOF-LEAN-ISOLATED-V1",
+    "cwd": ".",
+    "argv": [
+      "bash",
+      "Stage1_Instances/THM-M-0319/check_proof.sh"
+    ],
+    "timeout_seconds": 600,
+    "network_policy": "no network operation required or observed; strict network denial must be enforced by the master replay",
+    "expected_exit": 0,
+    "covered_declarations": [
+      "IndexedLOrder.Scarf",
+      "IndexedLOrder.GiComponentStructure_holds",
+      "Brouwer",
+      "Stage1Instances.THM_M_0319.exists_simplex_approximation",
+      "Stage1Instances.THM_M_0319.hasApproximateFixedPoints",
+      "Stage1Instances.THM_M_0319.exactFixedPoint",
+      "Stage1Instances.THM_M_0319.brouwerFixedPoint"
+    ]
+  },
+  "validation_action": {
+    "ended_at": "2026-07-15T12:26:02+08:00",
+    "exit_code": 0,
+    "stdout_bytes": 975,
+    "stdout_sha256": "329383e3b0a5c43ba2a1c8826ea5a3d39cb542e1537693294791657a7d1d7a77",
+    "log_sha256": "329383e3b0a5c43ba2a1c8826ea5a3d39cb542e1537693294791657a7d1d7a77",
+    "log_retention": "The combined stdout/stderr stream was captured outside the repository and hashed; master acceptance must replay and retain its own content-addressed log.",
+    "output_summary": "Statement, three vendored modules, and Proof compiled from source at trust level zero; seven declarations were sorry-free and each reported exactly propext, Classical.choice, and Quot.sound.",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass after nested-comment and string stripping"
+  },
+  "supersedes": {
+    "artifact": "Stage1_Instances/THM-M-0319/proof-blocker.json",
+    "reason": "The historical blocker concerned only the unlicensed Harfe candidate. A later integrated sibling exposed an independent MIT-licensed simplex Brouwer closure, and this run adds the required local compact-convex bridge.",
+    "preserved_boundary": "Harfe remains unlicensed and unused; only its claim to be the sole available exact route is superseded."
+  },
+  "result": {
+    "root_kernel_inhabitant_observed": true,
+    "accepted_root_closed": false,
+    "accepted_state_changed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "machine_debt_proposal": "exact-root M0-L/M0-P candidate after graph/provenance reconciliation and master acceptance"
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "debt_vector_delta": "none accepted; this worker proposes exact-root machine closure only",
+  "first_remaining_gate": "dependency-ordered master reconciliation and acceptance of the new licensed proof route against the frozen typed graph",
+  "remaining_root_cut_set": [
+    "master graph/provenance/composition reconciliation",
+    "accepted predecessor and proof receipts",
+    "full transitive foundation/TCB review",
+    "H0 source review and R0 readable reconstruction",
+    "cold hermetic replay and independent verification",
+    "S56-M-0319-VALIDATION and S56-M-0319-RELEASE"
+  ],
+  "known_failures": [
+    "The prerequisite obligation-tree receipt and this proof receipt remain provisional until dependency-ordered master acceptance.",
+    "The frozen pre-proof graph records the former Harfe/cube route and must be reconciled with this licensed simplex/partition-of-unity route before accepting obligation closure.",
+    "No authoritative DAG, checklist, obligation, or debt-vector state changed in this worker clone.",
+    "The top-level shared flt-regular cache checkout is incomplete, so the proof recipe selected Lean through mathlib and used existing compiled artifacts only.",
+    "H0, R0, accepted E0/E1, full TCB review, downstream validation, cold hermetic replay, independent verification, release, AUDIT-Z, and THEOREM-Z remain open."
+  ],
+  "status_boundary": "Self-tested exact-root proof evidence proposing only [_]. No authoritative state/debt change, accepted obligation closure, validation, release, audit completion, or theorem completion is claimed."
+}

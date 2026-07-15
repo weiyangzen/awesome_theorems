@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "recipe_id": "S56-M-0669-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0669-VALIDATION",
+  "theorem_id": "THM-M-0669",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0669/check_validation.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "HOME": "runner home used only to locate the digest-checked installed Lean toolchain",
+    "PATH": "host path used only to launch the explicitly named Python validator",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "outer_validator_no_network_operations; all_lean_subprocesses_denied",
+  "network_policy_scope": "enforced for every Lean subprocess; the outer validator invokes no network command but is not itself network-sandboxed",
+  "network_enforcement": "Every Lean subprocess runs with --trust=0 inside Bubblewrap --unshare-net. The host root, installed toolchain, and canonical pinned dependency cache are read-only; only a new temporary module directory is writable.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line gate summary bound in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0669-S-THEORY",
+    "M0669-C-ATOMIC",
+    "M0669-C-BOOLEAN",
+    "M0669-I-FORMULA",
+    "M0669-T-ASSEMBLE",
+    "M0669-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_0669.TarskiQuantifierEliminationTarget",
+    "Stage1.THM_M_0669.qfEquivalent_of_isQF",
+    "Stage1.THM_M_0669.atomicEqualityNormalization",
+    "Stage1.THM_M_0669.realize_polynomialOfTerm",
+    "Stage1.THM_M_0669.atomicPolynomialNormalization",
+    "Stage1.THM_M_0669.qfBooleanClosure",
+    "Stage1.THM_M_0669.formulaElimination_of_oneVariable",
+    "Stage1.THM_M_0669.tarskiQuantifierElimination_of_oneVariable",
+    "Stage1.THM_M_0669.Validation.validation_realize_polynomialOfTerm",
+    "Stage1.THM_M_0669.Validation.validationAtomicPolynomialNormalization",
+    "Stage1.THM_M_0669.Validation.validationQfBooleanClosure",
+    "Stage1.THM_M_0669.Validation.validationFormulaElimination",
+    "Stage1.THM_M_0669.Validation.validationConditionalRoot"
+  ],
+  "scope_boundary": "Network-isolated trust-zero warm worker replay of the exact statement, all proof-phase partial bodies and conditional compositions, selected direct pinned provenance, and same-worker no-import differential atomic, Boolean, recursion, and conditional-root checks. The one-variable real-closed-field elimination package, exact root, accepted foundation and complete trust/provenance closure, cold hermetic reproduction, and distinct-runner independent verification remain fail-closed."
+}
