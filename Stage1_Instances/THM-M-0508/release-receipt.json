@@ -1,0 +1,351 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0508-RELEASE-blocked-328adc653776dc0d",
+  "item_id": "S56-M-0508-RELEASE",
+  "theorem_id": "THM-M-0508",
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0508-VALIDATION"
+  ],
+  "base_revision": "4d389eb47e043f6f44925a418baee0d034f764ba",
+  "base_tree": "64faabd76665273032b8cb1554b90655b5c94256",
+  "validated_at": "2026-07-15T16:56:20+08:00",
+  "review_due": "before master acceptance and after any bound input, source, dependency, or gate-status change",
+  "owner": "THM-M-0508 release lane",
+  "reviewer": "independent Stage1 integration lane",
+  "attestor": "stage1-rev56-worker-slot3",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "release_grade": false,
+  "master_accepted": false,
+  "content_addressed_release_evidence": false,
+  "decision_id": "S56-M-0508-RELEASE-blocked-20260715T165620+0800",
+  "decision_sha256": "328adc653776dc0df6bf247f6804237e0cb3ff7cd360cdc0583d0b7a1319db88",
+  "release_spec_sha256": "20450d4fd4cc78d6d100d6d7f31f86f5d5ee7017faa629d5571141657ba2e1d0",
+  "release_validation_sha256": "9b4b4187ddc7219c509b27fddd891096174456d3a7604edc97c131d6cd5435d7",
+  "checker_sha256": "e3fbc757809c2396465ce69b22f99b54b7a9d0ee72fa779362cb138bff4b98cb",
+  "verdict": "blocked",
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_0508.VinogradovThreePrimesTarget",
+    "elaborated_expression_sha256": "54ddaa6fe49c75368fd333adae9bc7ab50a9542516ef24d73fb5e43f0c1ac5fb",
+    "registry_denominator_sha256": "79ff122b736335e90938cf7304db0b680dc23531e4d12d4b8c987d0ddc953bc2"
+  },
+  "dependency": {
+    "item_id": "S56-M-0508-VALIDATION",
+    "scheduler_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0508-VALIDATION-local-20260715T160232+0800",
+    "receipt_sha256": "54cd6cf363b087299b41645585efed4df4960c00a657e480d959866b3d026051",
+    "support_state": "provisional_worker_selftest",
+    "accepted": false,
+    "release_grade": false
+  },
+  "repository_state": {
+    "head": "4d389eb47e043f6f44925a418baee0d034f764ba",
+    "tree": "64faabd76665273032b8cb1554b90655b5c94256",
+    "classification": "nonrelease worker checkout containing the five declared owned release artifacts, the worker packet, and the pre-existing untracked automation-provided .lake symlink",
+    "receipt_boundary": "This provisional receipt hashes its four peer release artifacts and checker but cannot hash its own bytes or the downstream worker packet."
+  },
+  "recipe": {
+    "recipe_id": "S56-M-0508-RELEASE-negative-reconciliation-v1",
+    "cwd": ".",
+    "argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-0508/check_release.py"
+    ],
+    "env_allowlist": {
+      "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC",
+      "LEAN_NUM_THREADS": "1"
+    },
+    "timeout_seconds": 600,
+    "network_policy": "denied",
+    "network_enforcement": "Every Lean process is launched by the checker inside Bubblewrap with an unshared network namespace, a read-only host root, a fresh writable temporary module directory, a cleared environment, and fixed locale, timezone, and thread settings. Python and Git perform local reads only. This does not make the shared warm compiled dependency artifacts cold or release-grade.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "exact deterministic six-line negative release summary checked against release-receipt.json"
+      }
+    ],
+    "covered_obligation_ids": [],
+    "observed_open_state_obligation_ids": [
+      "M0508-ROOT",
+      "M0508-S-COUNT",
+      "M0508-L-COUNT-POS",
+      "M0508-N-FOURIER",
+      "M0508-B-ARCS",
+      "M0508-C-MAJOR",
+      "M0508-L-MAJOR",
+      "M0508-L-SINGULAR",
+      "M0508-C-MINOR",
+      "M0508-L-MINOR",
+      "M0508-L-POSITIVE",
+      "M0508-T-ASSEMBLE",
+      "M0508-X-SOURCE",
+      "M0508-X-FOUNDATION",
+      "M0508-X-PROVENANCE",
+      "M0508-X-READABLE",
+      "M0508-X-WORKFLOW"
+    ],
+    "coverage_semantics": "The 17 obligation IDs are reconciled as the frozen inventory under the weaker accepted-state rule. This recipe supplies proof or acceptance evidence for none of them; it replays only the extant finite-count interface and conditional compositions.",
+    "covered_declarations": [
+      "Stage1Instances.THM_M_0508.ObligationTree.representationCount_pos_iff",
+      "Stage1Instances.THM_M_0508.ObligationTree.root_of_eventualPositiveRepresentationCount",
+      "Stage1Instances.THM_M_0508.Proof.vinogradovThreePrimesTarget_iff_eventualPositiveRepresentationCount",
+      "Stage1Instances.THM_M_0508.Proof.vinogradovThreePrimesTarget_of_eventualPositiveRepresentationCount",
+      "Stage1Instances.THM_M_0508.Validation.rootFromEventualPositiveCount"
+    ],
+    "declaration_coverage_semantics": "These declarations receive current trust-zero elaboration and scoped hygiene evidence only. Every root composition consumes EventualPositiveRepresentationCount as an explicit premise; no covered declaration inhabits that premise, closes a frozen obligation, or closes the canonical root."
+  },
+  "result": {
+    "exit_code": 0,
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": {
+      "H": "H1",
+      "M": "M4",
+      "R": "R3"
+    },
+    "root_vector_after": {
+      "H": "H1",
+      "M": "M4",
+      "R": "R3"
+    },
+    "accepted_receipt_ids": [],
+    "accepted_closed_obligation_ids": [],
+    "mathematical_root_cut_set": [
+      "M0508-N-FOURIER",
+      "M0508-B-ARCS",
+      "M0508-L-MAJOR",
+      "M0508-L-SINGULAR",
+      "M0508-L-MINOR"
+    ],
+    "predecessor_recipe_freshness": "fail_closed_phase_bound_to_old_head_old_dag_state_and_validation_worker_packet",
+    "current_lean_replay": "pass_nonrelease_warm_cache",
+    "current_lean_output_sha256": {
+      "statement": "dc51d7aea3ee9b4a2a258ffa97fcb4f5e74d748329bb3ef95690b54f51a19791",
+      "anchor_audit": "5a07357f6cf3a2ea3fc344856838e2058260a1eaa0d0a20b93eb833b62fc5e87",
+      "obligation_tree": "13c3f7cf67d48dd6d359997222b9a54ec341f1ec73b4423901428a2d18ef0669",
+      "proof": "a1f6e807ce786fcef042d3902cb7464def5b3552e0ba34d02ae7c6119c5d67f8",
+      "validation": "7d7d53835f26c3d90bb7c98d18b88496d6cf20a0525862685b26988b2c0554d0"
+    },
+    "current_trust_closure_observation": {
+      "roots": 5,
+      "declarations": 2567,
+      "modules": 103,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "bodyless_nonaxioms": [],
+      "unsafe_declarations": []
+    },
+    "validation_dependency_master_acceptance": "fail_closed",
+    "root_kernel_closure": "fail_closed",
+    "predecessor_validation_specs_gate": "fail_closed",
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "first_failed_gate": "dependency.S56-M-0508-VALIDATION.master_acceptance",
+    "nested_predecessor_failure": "dependency.S56-M-0508-PROOF.master_acceptance",
+    "first_failed_theorem_gate": "M0508-N-FOURIER",
+    "first_failed_audit_gate": "S56-AUDIT-STATE-RECONCILIATION",
+    "first_failed_release_specific_gate": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+    "first_failed_reproduction_gate": "S56-10.6-HERMETIC-COLD-EMPTY-CACHE"
+  },
+  "commands_and_results": [
+    {
+      "argv": [
+        "python3",
+        "Docs/tools/check_stage1_standard.py"
+      ],
+      "exit_code": 0,
+      "output_summary": "15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 Lean 4 targets passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "output_summary": "1546 unique targets at ranks 1 through 1546, all L0/rework_required."
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/stage1_target.py",
+        "show",
+        "THM-M-0508"
+      ],
+      "exit_code": 0,
+      "output_summary": "Rank 882 remains planned, L0/rework_required, with theorem_complete=false."
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0508/check_anchor_audit.py"
+      ],
+      "exit_code": 0,
+      "output_summary": "Bounded audit, ten pinned probes, rejected placeholder candidate, and immutable mathlib pin passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "Stage1_Instances/THM-M-0508/check_obligation_tree.py"
+      ],
+      "exit_code": 0,
+      "output_summary": "17 obligations and 86 typed edges passed; root remains M4 at the frozen five-node cut."
+    },
+    {
+      "argv": [
+        "bash",
+        "Stage1_Instances/THM-M-0508/check_proof.sh"
+      ],
+      "exit_code": 1,
+      "output_summary": "Both direct and pinned lake env Lean lanes passed before the historical proof checker rejected this release-phase worker packet; the phase-bound checker result is not used as current release validation."
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0508/check_validation.py",
+        "--probe"
+      ],
+      "exit_code": 1,
+      "output_summary": "Historical validation checker rejected current HEAD because it is snapshot-bound to revision 5b35bc15 and its pre-integration DAG/packet."
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0508/check_release.py"
+      ],
+      "exit_code": 0,
+      "output_summary": "Current network-isolated trust-zero replay and truthful blocked release reconciliation passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-0508/release-spec.json"
+      ],
+      "exit_code": 0,
+      "output_summary": "Release spec is valid JSON."
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-0508/release-decision.json"
+      ],
+      "exit_code": 0,
+      "output_summary": "Release decision is valid JSON."
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "Stage1_Instances/THM-M-0508/release-receipt.json"
+      ],
+      "exit_code": 0,
+      "output_summary": "Release receipt is valid JSON."
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "output_summary": "Worker self-test packet is valid JSON."
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "py_compile",
+        "Stage1_Instances/THM-M-0508/check_release.py"
+      ],
+      "exit_code": 0,
+      "output_summary": "Checker syntax compiled with PYTHONPYCACHEPREFIX outside the repository."
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "Stage1_Instances/THM-M-0508",
+        ".stage1-worker-selftest.json"
+      ],
+      "exit_code": 0,
+      "output_summary": "No whitespace diagnostics."
+    }
+  ],
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "lake_executable_sha256": "a608ff084d7e2af228b92a29d7c2fd083ba0580e46889175ec74a81678c98359",
+    "bubblewrap_version": "0.11.1",
+    "bubblewrap_executable_sha256": "0abea81db798ebf6b4742ac0664802d97521547a353c2a0dbdc21d76cbbfd2c0",
+    "python_executable_sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700",
+    "git_executable_sha256": "5516c9f362c29376ab9a499a33082f9f611941d8c75930c880e30ad109e39c9a",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "network": "denied by Bubblewrap for every current Lean process; Python and Git orchestration made local reads only",
+    "dependency_cache": "shared warm canonical .lake, read-only inside replay and therefore nonrelease"
+  },
+  "freshness": {
+    "support_state": "provisional_nonrelease_worker_evidence",
+    "supersession_state": "current_worker_proposal",
+    "revocation_state": "unaccepted",
+    "invalidation_inputs": "Any change to the canonical statement, registry, graph, source crosswalk, proof/validation receipt, dependency pin/artifact, checker, recipe, public reconstruction, or gate status invalidates this packet.",
+    "incident_path": "Revoke and rerun S56-M-0508-RELEASE after any invalidation input or gate-status change."
+  },
+  "output_summary": [
+    "PASS S56-M-0508-RELEASE negative reconciliation",
+    "PASS current trust-zero replay: exact interfaces and conditional compositions only",
+    "BLOCKED dependency.S56-M-0508-VALIDATION.master_acceptance",
+    "BLOCKED exact root: H1/M4/R3 unchanged; five-node analytic cut remains open",
+    "BLOCKED AUDIT-Z and THEOREM-Z: source, state, trust, hermetic, and independent gates open",
+    "verdict=blocked audit_complete=false theorem_complete=false accepted_receipts=0"
+  ],
+  "accepted_receipt_ids": [],
+  "known_failures": [
+    "S56-M-0508-VALIDATION and every transitive phase receipt remain provisional rather than dependency-ordered master accepted.",
+    "No body inhabits EventualPositiveRepresentationCount; the exact Vinogradov root remains kernel-open at M4.",
+    "The Fourier identity, arc partition, major-arc asymptotic, singular-series positivity, minor-arc estimate, and eventual-positivity assembly remain unimplemented.",
+    "The typed graph provisionally labels M0508-L-COUNT-POS and M0508-T-ASSEMBLE M0-L/closed, while both nodes have no evidence IDs and the proof and validation receipts accept zero closed obligations; the weaker zero-credit state controls.",
+    "The predecessor graph names VAL-M0508-* recipes, but validation-specs.json is absent; the validation receipt and this release recipe cannot retroactively satisfy that authority gap.",
+    "The local task DAG remains open and primary source/readable reviews are absent, so inventory, source boundary, evidence state, and public projections are not reconciled and AUDIT-Z is false.",
+    "The committed validation receipt is historical nonrelease evidence; its checker is bound to revision 5b35bc15, the old validation DAG row, and a validation-phase packet, so it is not replayable as the current release recipe.",
+    "Primary-source H0 and independently reviewed readable R0 evidence are absent.",
+    "There is no accepted foundation profile or complete transitive proof-body provenance, declaration, axiom, compiled-artifact, trust, TCB, SBOM, and license closure.",
+    "There is no immutable clean empty-cache cold build, offline archive restoration, two independent signed runners, independently implemented minimal verifier, protected release CI, or deterministic content-addressed release bundle.",
+    "This worker checkout has the automation-provided untracked shared .lake link and declared release artifacts, so it is explicitly nonrelease evidence.",
+    "No receipt is accepted; AUDIT-Z, THEOREM-Z, release, theorem completion, and master acceptance remain open."
+  ],
+  "status_boundary": "Self-tested negative release reconciliation only. It advances no lifecycle, debt, obligation, audit, theorem, or acceptance state; accepts no receipt; and does not claim E0/E1, M0, H0, R0, AUDIT-Z, THEOREM-Z, release grade, theorem completion, independent verification, or master acceptance."
+}
