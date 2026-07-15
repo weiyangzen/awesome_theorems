@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0319-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0319-RELEASE",
+  "theorem_id": "THM-M-0319",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0319/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 120,
+  "network_policy": "denied_not_required",
+  "network_enforcement": "The checker performs repository-local structural and hash reconciliation only. It invokes no network, Lake, dependency, or proof command and does not mutate .lake.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact deterministic six-line negative release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0319-ROOT",
+    "M0319-S-DEFINITIONS",
+    "M0319-S-BOUNDARY",
+    "M0319-S-FOUNDATION",
+    "M0319-T-SUBTYPE",
+    "M0319-N-FINITE-DIM",
+    "M0319-R-CONVEX-CUBE",
+    "M0319-L-UNIT-CUBE",
+    "M0319-T-EXTERNAL",
+    "M0319-X-INTEGRATION",
+    "M0319-X-SOURCE",
+    "M0319-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0319.BrouwerFixedPointTarget",
+    "Stage1Instances.THM_M_0319.brouwerFixedPoint",
+    "Stage1Instances.THM_M_0319.Validation.recomposedBrouwerFixedPoint"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_no_closure_credit",
+  "scope_boundary": "Validates the exact blocked verdict by reconciling current authority, frozen graph state, and provisional proof/validation receipts. It does not rerun Lean, repair the stale validation recipe, accept a receipt or obligation, provide immutable clean input, perform a cold empty-cache offline build, supply independent signed verification, or produce a deterministic release bundle."
+}
