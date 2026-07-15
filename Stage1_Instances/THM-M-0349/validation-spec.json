@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0349-VALIDATION-local-v1",
+  "item_id": "S56-M-0349-VALIDATION",
+  "theorem_id": "THM-M-0349",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0349-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0349-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0349/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "HOME": "inherited runner home; used only to address the hash-verified pinned Lean toolchain",
+        "PATH": "<HOME>/.elan/bin:/usr/bin:/bin",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean invocation runs inside bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary module directory writable. The checker performs local file, hash, and Git-object reads only and invokes no Lake, update, build, clone, fetch, or network operation.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line UTF-8 PASS/OPEN/FAIL-CLOSED summary bound by validation-receipt.json"
+        }
+      ],
+      "expected_output_policy": "Six exact lines report three narrow passes, one open-root boundary, and two fail-closed assurance boundaries.",
+      "covered_obligation_ids": [],
+      "validated_partial_progress_toward_obligation_ids": [
+        "M0349-C-POLYNOMIAL",
+        "M0349-L-L2"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0349.conjugate_l2_bound",
+        "Stage1Instances.THM_M_0349.root_of_conjugate_packages"
+      ],
+      "scope_boundary": "Trust-zero, network-isolated, fresh-output replay of the exact statement, partial L2 proof bodies, and root composition conditional on two unproved all-p packages. It covers zero frozen obligations because M0349-L-L2 lacks an exact frozen type, and it supplies no weak-(1,1), interpolation, all-p proof, cold release replay, or distinct-runner independence."
+    }
+  ],
+  "status_boundary": "Validation-only worker recipe. It adds no mathematical proof, accepts no predecessor, closes no obligation or root, and cannot supply release or master acceptance."
+}
