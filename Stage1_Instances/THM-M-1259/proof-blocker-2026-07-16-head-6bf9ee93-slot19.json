@@ -1,0 +1,138 @@
+{
+  "schema_version": "stage1-proof-blocker/5.6.0",
+  "item_id": "S56-M-1259-PROOF",
+  "theorem_id": "THM-M-1259",
+  "execution_rank": 161,
+  "phase": "proof",
+  "intent": "prove",
+  "recorded_at": "2026-07-16T04:52:27+08:00",
+  "base_revision": "6bf9ee93a322e7d25cf9249226222095f95d1cff",
+  "base_tree": "24acf86e69ab2e6fca9480c6269b6429874ba295",
+  "verdict": "blocked",
+  "reason_code": "canonical_target_refuted",
+  "receipt_type": "negative_kernel_blocker_evidence",
+  "state": "[ ]",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": {
+    "H": "H2",
+    "M": "M4",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H2",
+    "M": "M4",
+    "R": "R3"
+  },
+  "proof_body_added": false,
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "canonical_target_refuted": true,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "canonical_target": "Stage1Instances.THM_M_1259.hormanderTarget",
+  "negative_proof_body": {
+    "source": "Stage1_Instances/THM-M-1259/Counterexample.lean",
+    "source_sha256": "91e1610bf3fab308b7d8025415eae1db9e2d284a7e06c415baf3be47bfa74ad1",
+    "declaration": "Stage1Instances.THM_M_1259.Counterexample.not_hormanderTarget",
+    "type": "Not Stage1Instances.THM_M_1259.hormanderTarget",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "statement_source": {
+    "path": "Stage1_Instances/THM-M-1259/Statement.lean",
+    "sha256": "8258728ff71980a4431fb47213487c8d7655c64d0dd0f3ab2e9b058f8a95c0c7"
+  },
+  "dependency_context": {
+    "ledger_path": "Stage1_Instances/THM-M-1259/dependency-reuse-ledger.json",
+    "observed_theorem_dag_sha256": "73e99d2276c8ba9fec8f89ed41b712308d7f5667e95ba8185e49f1f5bfd40eca",
+    "dependency_context_sha256": "3bfa5a06ad4d83c6a52454c75df9e0215695c841834a0ddf9d49de6df31d1fab",
+    "direct_parent_ids": [],
+    "transitive_ancestor_ids": [],
+    "hard_edge_ids": [],
+    "reuse_hint_ids": [],
+    "shared_group_ids": [
+      "SHARED-MODULE-279c180c9a767195",
+      "SHARED-MODULE-9733949f91268285"
+    ],
+    "reused_declaration_ids": [],
+    "result": "Both weak shared-module groups were inspected and rejected for proof reuse. They supply supporting APIs only and transfer no proof credit."
+  },
+  "counterexample": {
+    "values": "n = 0, r = 0, top open domain, zero coefficients and formal-adjoint operator, and zero measure",
+    "reason": "The tangent space is a subsingleton, so bracket generation holds. The zero operator maps a nonzero evaluation distribution to zero. Zero has a smooth zero density relative to the zero measure, but every distribution represented by a density relative to that measure is zero, so the nonzero evaluation distribution is not smooth in the frozen sense."
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "validation_trust_level": 0,
+    "dependency_policy": "Reused the existing pinned .lake artifacts read-only. No lake update, lake build, dependency clone/fetch, or dependency mutation was run."
+  },
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_theorem_dag_v2.py",
+      "exit_code": 0,
+      "result": "Pre-edit preflight passed: check_stage1_theorem_dag_v2: ok (1546 theorems, 10822 legacy states preserved, 2 hard edges, 5 reuse hints, 310 shared groups, acyclic). The post-edit global validator is expected to remain stale in a worker clone because its inventory includes the new target-owned blocker JSON; workers may not regenerate the authoritative DAG."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1259",
+      "exit_code": 0,
+      "result": "rank 161; lifecycle planned; hard_mathlib_anchor_and_wrapper lane; theorem_complete false"
+    },
+    {
+      "command": "validate Stage1_Instances/THM-M-1259/dependency-reuse-ledger.json with scripts.stage1_execution_cron.validate_dependency_reuse_ledger using the supplied graph digest and base revision",
+      "exit_code": 0,
+      "result": "schema 1.1 accepted; empty hard-parent/ancestor/edge/hint closure and both shared-module decisions exactly cover the current v2 context"
+    },
+    {
+      "command": "tmp=$(mktemp -d) && trap 'rm -rf \"$tmp\"' EXIT && LP=$(cd Formalizations/Lean && lake env printenv LEAN_PATH) && LEAN=$(cd Formalizations/Lean && lake env which lean) && \"$LEAN\" --version && LEAN_PATH=\"$LP\" \"$LEAN\" --trust=0 -R Stage1_Instances/THM-M-1259 -o \"$tmp/Statement.olean\" Stage1_Instances/THM-M-1259/Statement.lean && LEAN_PATH=\"$tmp:$LP\" \"$LEAN\" --trust=0 -R Stage1_Instances/THM-M-1259 Stage1_Instances/THM-M-1259/Counterexample.lean",
+      "exit_code": 0,
+      "result": "Lean 4.29.0 elaborated the exact statement, conditional composition wrapper, and exact negation; #print axioms for not_hormanderTarget reported only propext, Classical.choice, and Quot.sound"
+    },
+    {
+      "command": "python3 Docs/tools/check_stage1_theorem_dag_v2.py (post-edit)",
+      "exit_code": 1,
+      "result": "Expected worker-boundary failure: checked-in theorem DAG differs from a fresh deterministic generation because fresh inventory sees the newly added target-owned blocker JSON. The worker did not edit or regenerate the authoritative DAG."
+    },
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py (post-edit)",
+      "exit_code": 1,
+      "result": "The standard checker propagated the same v2 theorem DAG staleness: v2 theorem DAG validator failed because the checked-in graph differs from fresh deterministic generation. No other standard failure was reported."
+    }
+  ],
+  "first_failed_gate": "exact-target consistency: the frozen canonical Lean proposition is kernel-refuted",
+  "remaining_root_cut_set": [
+    "reopen S56-M-1259-STATEMENT and bind the source-intended reference measure and nondegenerate conditions",
+    "freeze and accept a new statement fingerprint and obligation-registry version",
+    "rerun anchor audit and obligation-tree construction against the repaired statement",
+    "implement or immutably pin the localized commutator estimate and regularity bootstrap",
+    "rerun proof and validation against the repaired exact target"
+  ],
+  "retry_condition": "Resume positive proof work only after the statement phase is reopened and a newly accepted exact target excludes this counterexample without assuming the desired conclusion.",
+  "workflow_limitation": "S56-M-1259-OBLIGATION_TREE remains provisional [_], not master accepted [x]. Exact-target refutation is the earlier semantic failure.",
+  "known_failures": [
+    "The exact frozen root is false, so no consistent positive proof body exists.",
+    "The frozen root universally quantifies an arbitrary measure, while the intended theorem uses a fixed smooth reference measure such as Lebesgue measure.",
+    "The localized commutator estimate and regularity bootstrap would remain substantial formalization work after statement repair.",
+    "The predecessor obligation-tree phase remains [_].",
+    "The automation-provided Formalizations/Lean/.lake entry makes this a dirty nonrelease worker input.",
+    "After writing this required blocker JSON, check_stage1_standard reports that the checked-in v2 DAG differs from fresh discovery because the graph inventory sees new target-owned structured evidence. The worker is forbidden to regenerate or edit the authoritative DAG; integration must reconcile it."
+  ],
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1259/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-1259/proof-blocker-2026-07-16-head-6bf9ee93-slot19.json",
+    "Stage1_Instances/THM-M-1259/proof-blocker-2026-07-16-head-6bf9ee93-slot19.md"
+  ],
+  "status_boundary": "This packet refutes only the overbroad frozen Lean encoding, not Hormander's mathematical theorem. It does not satisfy S56-M-1259-PROOF and claims no audit completion, theorem completion, release, state transition, or master acceptance.",
+  "selftest_manifest_written": false
+}
