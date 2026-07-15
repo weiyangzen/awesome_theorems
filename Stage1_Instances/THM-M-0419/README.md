@@ -25,7 +25,11 @@ worker self-test evidence in `statement.json` and `statement-receipt.md`, but on
 lane may accept it. The bounded anchor audit is recorded in `anchor-audit.json` and
 `anchor-audit-validation.md`, pending master acceptance. Pinned mathlib supplies supporting APIs but
 no terminal converse. The external `atlas-lean` candidate is placeholder-bearing and receives zero
-proof credit. The next dependent gate is the obligation tree. The theorem is not complete.
+proof credit. Registry v1 now freezes 25 obligations and seven typed graph families in
+`obligation-registry.json` and `typed-graphs.json`. `ObligationTree.lean` checks only the positive-
+index transport and conditional cyclic/local/root composition interfaces; all substantive local and
+global packages remain open. This obligation-tree node is worker-self-tested pending master
+acceptance. The theorem is not complete.
 
 ## Validation
 
