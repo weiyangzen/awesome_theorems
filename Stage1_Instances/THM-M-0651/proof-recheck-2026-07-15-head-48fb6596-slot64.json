@@ -1,0 +1,114 @@
+{
+  "schema_version": "stage1-proof-recheck/1.0",
+  "item_id": "S56-M-0651-PROOF",
+  "theorem_id": "THM-M-0651",
+  "base_revision": "48fb6596b1844f4183c411142415d872ff21e842",
+  "base_tree": "eb8dfff0e90b5ce5b11ac2096777060d62874064",
+  "recorded_at": "2026-07-15T15:15:39+08:00",
+  "partial_proof_receipt_id": "S56-M-0651-PROOF-worker-20260715T-slot64",
+  "outcome": "partial_proof_self_tested_root_blocked",
+  "verdict": "no_state_change",
+  "state": "[_]",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "proof_body_added": true,
+  "positive_root_proof_body_added": false,
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "supported_obligation_ids": [],
+  "partial_progress_toward_obligation_ids": [
+    "M0651-L-ENUM",
+    "M0651-L-DENSE",
+    "M0651-B-ARITY0"
+  ],
+  "provisionally_closed_obligation_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "local_proof_bodies": {
+    "source": "Stage1_Instances/THM-M-0651/ProofLemmas.lean",
+    "source_sha256": "47b5cb564dba6793cc10b3b9cf3cd50cd565441a8b2cd97cc346462928e089dc",
+    "declaration_count": 8,
+    "new_declaration": "Stage1Instances.THM_M_0651.ProofLemmas.exists_consistent_avoidance_extension",
+    "placeholder_scan_matches": 0,
+    "machine_derived_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "zero_arity_witness_axioms": []
+  },
+  "first_failed_gate": "M0651-L-HENKIN: no placeholder-free joint construction consumes the schedules and dense extension lemma to produce a countable model carrying omission invariants",
+  "remaining_root_cut_set": [
+    "M0651-L-ENUM",
+    "M0651-L-DENSE",
+    "M0651-L-HENKIN",
+    "M0651-L-OMIT"
+  ],
+  "architecture_issue": "The frozen AvoidanceInterface quantifies over every Candidate although Candidate stores only an arbitrary countable model of T. Nonprincipality does not imply that every countable model omits the type, so a real proof must enrich Candidate with avoidance invariants or combine construction and omission.",
+  "master_acceptance_dependency_boundary": "S56-M-0651-OBLIGATION_TREE is [_] rather than master-accepted, so proof acceptance is dependency-illegal until the predecessor is independently accepted.",
+  "commands_and_results": [
+    {
+      "command": "bash Stage1_Instances/THM-M-0651/check_proof.sh",
+      "exit_code": 0,
+      "output_summary": "Fresh temporary copies of Statement, ObligationTree, and ProofLemmas elaborated with --trust=0; eight partial bodies passed assert_no_sorry and exact axiom-profile checks."
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-0651/check_statement.py",
+      "exit_code": 0,
+      "output_summary": "Canonical expression hash reproduced and both frozen statement mutations were killed."
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-0651/check_obligation_tree.py",
+      "exit_code": 0,
+      "output_summary": "Eleven obligations and twenty-one typed edges passed; denominator reproduced; exact root remains open at M4."
+    },
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "output_summary": "Fifteen assurance groups and all 1546 uniform-L0 targets passed."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "output_summary": "1546 unique targets, ranks 1 through 1546, all L0/rework-required."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-0651",
+      "exit_code": 0,
+      "output_summary": "Rank 697, planned, theorem_complete=false."
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-0651/check_proof.py",
+      "exit_code": 0,
+      "output_summary": "Source, frozen inputs, pin, receipt, recheck, and worker self-test packet passed fail-closed consistency checks."
+    },
+    {
+      "command": "git diff --check -- Stage1_Instances/THM-M-0651 .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "output_summary": "No whitespace errors."
+    }
+  ],
+  "known_failures": [
+    "No entire frozen obligation is claimed closed because the registry uses architecture fingerprints and the new bodies are not consumed by a checked Henkin construction.",
+    "M0651-L-HENKIN and M0651-L-OMIT remain without placeholder-free proof bodies, and the exact canonical root remains open at M4.",
+    "The frozen AvoidanceInterface quantifies over every countable Candidate although Candidate retains no avoidance invariant; that interface is too strong and requires versioned obligation-tree repair before root_compose can close the target.",
+    "The duplicated IsolatesExact and IsNonprincipalExact bodies match the frozen source text, but an exact checked cross-module transport and final composition remain open.",
+    "S56-M-0651-OBLIGATION_TREE remains worker-provisional [_], so this proof packet cannot be master-accepted before dependency-ordered predecessor acceptance.",
+    "Primary human-source H0, readable R0, complete provenance and trust closure, validation, hermetic cold offline replay, independent verification, release, AUDIT-Z, and THEOREM-Z remain open.",
+    "The pre-existing automation-provided .lake symlink makes this warm, dirty, nonrelease evidence; it was reused without mutation."
+  ],
+  "retry_condition": "Version the obligation architecture so the enumeration and dense bodies have exact consumed signatures and the constructed candidate retains avoidance invariants; then implement the joint Henkin and omission packages.",
+  "status_boundary": "Self-tested partial proof progress only. This proposes worker state [_] for integration review but grants no frozen-obligation closure, accepted state, root closure, audit completion, validation/release result, or theorem completion."
+}

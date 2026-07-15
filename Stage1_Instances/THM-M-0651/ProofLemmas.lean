@@ -1,12 +1,13 @@
-import Mathlib.ModelTheory.Encoding
+import Mathlib.ModelTheory.Satisfiability
+import Mathlib.Util.AssertNoSorry
 
 /-!
 # THM-M-0651 proof-phase lemmas
 
 This module contains unconditional, placeholder-free bodies for the countable
-enumeration package used by a future Henkin construction.  It deliberately
-does not assume either open interface from `ObligationTree.lean` and does not
-claim the omitting-types root.
+enumeration package and the central nonprincipality avoidance step used by a
+future Henkin construction. It deliberately does not assume either open
+interface from `ObligationTree.lean` and does not claim the omitting-types root.
 -/
 
 namespace Stage1Instances.THM_M_0651.ProofLemmas
@@ -71,8 +72,8 @@ theorem zero_arity_tuple_requirement_inhabited (arity : Nat -> Nat)
   exact Fin.elim0 (hi ▸ x)
 
 /-- A single fair schedule can visit every syntax or avoidance requirement.
-This establishes only enumeration facts; density, Henkin construction, and the
-term-model omission argument remain separate open obligations. -/
+This establishes only enumeration facts; the construction and term-model
+omission argument remain separate open obligations. -/
 theorem exists_surjective_avoidance_schedule
     (L : Language.{u, v}) (arity : Nat -> Nat)
     [forall n, Countable (L.Functions n)]
@@ -88,6 +89,43 @@ theorem exists_surjective_avoidance_schedule
     countable_avoidance_requirements L arity
   exact exists_surjective_nat _
 
+/-- The exact isolation predicate from `Statement.lean`, repeated here so this
+proof-leaf module remains independently elaborable with the pinned mathlib. -/
+def IsolatesExact {L : Language.{u, v}} (T : L.Theory) {alpha : Type w}
+    (phi : L.Formula alpha) (p : Set (L.Formula alpha)) : Prop :=
+  ((L.lhomWithConstants alpha).onTheory T ∪ {Formula.equivSentence phi}).IsSatisfiable ∧
+    ∀ psi ∈ p, T ⊨ᵇ phi.imp psi
+
+/-- The exact nonprincipality predicate from `Statement.lean`, repeated here
+to expose the proof phase's first substantive density lemma. -/
+def IsNonprincipalExact {L : Language.{u, v}} (T : L.Theory) {alpha : Type w}
+    (p : Set (L.Formula alpha)) : Prop :=
+  ∀ phi, ¬IsolatesExact T phi p
+
+/-- Nonprincipality supplies the dense step used by an omitting-types
+construction: below any condition consistent with `T`, some member of the
+type can still be forced false. -/
+theorem exists_consistent_avoidance_extension
+    {L : Language.{u, v}} {T : L.Theory} {alpha : Type w}
+    {p : Set (L.Formula alpha)}
+    (hnonprincipal : IsNonprincipalExact T p)
+    {phi : L.Formula alpha}
+    (hphi : ((L.lhomWithConstants alpha).onTheory T ∪
+      {Formula.equivSentence phi}).IsSatisfiable) :
+    ∃ psi ∈ p,
+      ((L.lhomWithConstants alpha).onTheory T ∪
+        {(Formula.equivSentence (phi.imp psi)).not}).IsSatisfiable := by
+  classical
+  have hnotall : ¬ ∀ psi ∈ p, T ⊨ᵇ phi.imp psi := by
+    intro hall
+    exact hnonprincipal phi ⟨hphi, hall⟩
+  push Not at hnotall
+  obtain ⟨psi, hpsi, hnotmodels⟩ := hnotall
+  refine ⟨psi, hpsi, ?_⟩
+  rw [Theory.models_formula_iff_onTheory_models_equivSentence,
+    Theory.models_iff_not_satisfiable] at hnotmodels
+  exact Classical.byContradiction hnotmodels
+
 #print axioms countable_symbols
 #print axioms countable_finite_arity_syntax
 #print axioms exists_surjective_formula_schedule
@@ -95,6 +133,16 @@ theorem exists_surjective_avoidance_schedule
 #print axioms zero_arity_formula_requirement_inhabited
 #print axioms zero_arity_tuple_requirement_inhabited
 #print axioms exists_surjective_avoidance_schedule
+#print axioms exists_consistent_avoidance_extension
+
+assert_no_sorry countable_symbols
+assert_no_sorry countable_finite_arity_syntax
+assert_no_sorry exists_surjective_formula_schedule
+assert_no_sorry countable_avoidance_requirements
+assert_no_sorry zero_arity_formula_requirement_inhabited
+assert_no_sorry zero_arity_tuple_requirement_inhabited
+assert_no_sorry exists_surjective_avoidance_schedule
+assert_no_sorry exists_consistent_avoidance_extension
 
 #check exists_surjective_avoidance_schedule
 
