@@ -1,0 +1,53 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0353-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0353-RELEASE",
+  "theorem_id": "THM-M-0353",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0353/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 120,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs only local hash, JSON, Git-state, authority, and receipt reconciliation. It opens no socket and invokes no network-capable package operation. The separately recorded source replay is snapshot-agnostic warm nonrelease evidence, not part of this decision-only recipe.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line negative release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0353-ROOT",
+    "M0353-T-ASSEMBLE",
+    "M0353-P-MEMLP",
+    "M0353-P-BASIS",
+    "M0353-C-LP-VECTORS",
+    "M0353-L-ORTHONORMAL",
+    "M0353-L-DENSE",
+    "M0353-C-HILBERT-BASIS",
+    "M0353-L-GAUSSIAN-ORTH",
+    "M0353-L-POLY-DENSE",
+    "M0353-T-MEASURE",
+    "M0353-S-NORMALIZATION",
+    "M0353-X-HERMITE-POLY",
+    "M0353-X-SOURCE",
+    "M0353-X-TRUST",
+    "M0353-X-PROVENANCE"
+  ],
+  "covered_declarations": [],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_no_closure_credit",
+  "scope_boundary": "This bounded worker recipe decides the current fail-closed release verdict by binding structured authority and provisional evidence. It cannot master-accept the validation dependency, refresh the ancestor-bound validation receipt, reconcile the proof route into accepted graph state, supply H0/R0 or complete trust/provenance/SBOM evidence, perform a cold offline build, act as an independent verifier, or grant release acceptance."
+}
