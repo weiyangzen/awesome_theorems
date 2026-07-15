@@ -1,0 +1,183 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0822-RELEASE-worker-20260715-v1",
+  "item_id": "S56-M-0822-RELEASE",
+  "theorem_id": "THM-M-0822",
+  "execution_rank": 1380,
+  "phase": "release",
+  "intent": "release",
+  "base_revision": "86da50a0693b7d557e5f3bb2c72d42525956526f",
+  "base_tree": "e2c87c9dc7ec274bc22013bc1159aff46bae12aa",
+  "evaluated_at": "2026-07-15T17:56:00+08:00",
+  "attestor": "stage1-rev56-worker-slot8",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0822-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0822-VALIDATION-narrow-20260715T172727+0800",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_accepted": false,
+    "receipt_release_grade": false,
+    "receipt_sha256": "670c21381395479ce69951bf27273b0fdb772f592ca77d5b41fa04fb58c3544e"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0822-INTAKE-WORKER-20260713",
+    "S56-M-0822-STATEMENT-WORKER-646E9860",
+    "S56-M-0822-ANCHOR-AUDIT-WORKER-20260713",
+    "S56-M-0822-OBLIGATION-TREE-WORKER-20260713",
+    "S56-M-0822-PROOF-pinned-20260715T153320+0800",
+    "S56-M-0822-VALIDATION-narrow-20260715T172727+0800"
+  ],
+  "root_vector": {
+    "before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "boundary": "No vector is promoted. The authoritative instance and typed-graph closure both retain H1/M3/R4 with no accepted receipt or closed obligation."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "dependency_gate": "dependency.S56-M-0822-VALIDATION.master_acceptance",
+    "reason": "S56-M-0822-VALIDATION is only a provisional [_] worker projection with accepted=false and release_grade=false, so RELEASE is not dependency-legal for master acceptance."
+  },
+  "nested_predecessor_failure": {
+    "gate_id": "dependency.S56-M-0822-PROOF.master_acceptance",
+    "reason": "The validation receipt records proof master acceptance as its first failed gate."
+  },
+  "first_failed_audit_gate": {
+    "gate_id": "S56-AUDIT-SOURCE-READABILITY-EVIDENCE-RECONCILIATION",
+    "reason": "The accepted graph has no evidence links, accepted H0 primary-source review, or independently reviewed R0 readable reconstruction."
+  },
+  "first_failed_release_specific_gate": {
+    "gate_id": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+    "reason": "This worker handoff is uncommitted nonrelease evidence and reuses the automation-provided shared warm .lake symlink rather than an immutable clean release snapshot."
+  },
+  "next_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "No empty-cache network-denied cold build or content-addressed offline restoration replay exists."
+  },
+  "evidence_reconciliation": {
+    "exact_statement_identity": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_and_selected_provenance_checks": "provisional_pass",
+    "authoritative_instance_task_registry_graph_reconciliation": "missing",
+    "node_specific_proof_and_composition_acceptance": "missing",
+    "accepted_h0_primary_source_review": "missing",
+    "independently_reviewed_r0_reconstruction": "missing",
+    "accepted_foundation_and_complete_transitive_tcb": "missing",
+    "complete_provenance_sbom_and_license_archive": "missing",
+    "immutable_clean_cold_offline_reproduction": "missing",
+    "deterministic_content_addressed_release_bundle": "missing",
+    "distinct_signed_independent_runners": "missing",
+    "independently_implemented_minimal_verifier": "missing",
+    "protected_ci_and_mutation_gates": "missing",
+    "master_acceptance": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0822-VALIDATION and all transitive phase receipts",
+    "authoritative instance, task, registry, graph, proof-body, composition, and evidence-link reconciliation",
+    "M0822-T-ATTAINMENT and M0822-T-MATHLIB-EKR accepted machine closure",
+    "M0822-S-FOUNDATION accepted foundation, computation, and TCB boundary",
+    "M0822-X-SOURCE accepted H0 edition, passages, assumptions, errata, node mapping, and independent review",
+    "M0822-X-PROVENANCE and M0822-X-TRUST complete transitive declaration, compiled-artifact, executable, SBOM, license, and archive closure",
+    "M0822-X-READABLE independently reviewed node-specific R0 reconstruction and M0822-X-WORKFLOW acceptance",
+    "AUDIT-Z acceptance over the reconciled frozen inventory",
+    "immutable clean source snapshot, empty-cache network-denied cold build, offline restoration, and deterministic build-twice release bundle",
+    "two signed attestations from independently provisioned runners, an independently implemented minimal verifier, protected CI, THEOREM-Z, and master acceptance"
+  ],
+  "canonical_obligation_ids": [
+    "M0822-ROOT",
+    "M0822-S-TARGET",
+    "M0822-S-BOUNDARY",
+    "M0822-S-FOUNDATION",
+    "M0822-T-ASSEMBLE",
+    "M0822-T-ATTAINMENT",
+    "M0822-C-STAR",
+    "M0822-L-STAR-IMAGE",
+    "M0822-L-STAR-INTERSECTING",
+    "M0822-L-STAR-SIZED",
+    "M0822-L-STAR-CARD",
+    "M0822-L-GROUND-ELEMENT",
+    "M0822-T-UPPER-ADAPTER",
+    "M0822-T-MATHLIB-EKR",
+    "M0822-B-RZERO",
+    "M0822-C-COMPLEMENTS",
+    "M0822-L-SHADOW-DISJOINT",
+    "M0822-L-COMPLEMENT-CARD",
+    "M0822-L-COMPLEMENT-SIZED",
+    "M0822-L-KK-LOVASZ",
+    "M0822-L-BINOMIAL-CONTRADICTION",
+    "M0822-L-SLICE-CARD",
+    "M0822-X-SOURCE",
+    "M0822-X-PROVENANCE",
+    "M0822-X-TRUST",
+    "M0822-X-READABLE",
+    "M0822-X-WORKFLOW"
+  ],
+  "canonical_target": "Stage1Instances.THM_M_0822.ErdosKoRadoMaximumTarget",
+  "proof_root_declaration": "Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum",
+  "statement_fingerprint": "lean-expression-sha256:646e9860afcf5efd962b6f69c9c2825220f23418d05f7675490b783e63afe209",
+  "registry_denominator_sha256": "40ff944c9434231f2656a60ff306e27b69ef6fe302df8dc1bd56f89d314a8f15",
+  "composition_certificates": [
+    "Stage1Instances.THM_M_0822.ObligationTree.starConstruction_of_groundElement",
+    "Stage1Instances.THM_M_0822.ObligationTree.starCard_of_image",
+    "Stage1Instances.THM_M_0822.ObligationTree.attainment_of_starPackages",
+    "Stage1Instances.THM_M_0822.ObligationTree.upperBound_of_mathlibTerminal",
+    "Stage1Instances.THM_M_0822.ObligationTree.composeRoot",
+    "Stage1Instances.THM_M_0822.ObligationTree.rootOfExactAssembly"
+  ],
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records the open authority without rewriting predecessor state",
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0822/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0822/release-validation.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0822-RELEASE"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0822/check_release.py",
+    "Stage1_Instances/THM-M-0822/release-decision.json",
+    "Stage1_Instances/THM-M-0822/release-receipt.json",
+    "Stage1_Instances/THM-M-0822/release-spec.json",
+    "Stage1_Instances/THM-M-0822/release-validation.md"
+  ],
+  "known_failures": [
+    "S56-M-0822-VALIDATION and all transitive phase receipts remain provisional rather than master accepted.",
+    "The authoritative instance and typed graph retain H1/M3/R4, root_closed=false, and empty accepted receipt, obligation, and evidence-link sets; the instance merge inventory is stale after obligation-tree phase.",
+    "The exact root has real warm-cache trust-zero kernel evidence, but accepted M0 and release-grade E1 are absent.",
+    "Accepted H0 source and errata review, independently reviewed R0 reconstruction, theorem-specific foundation policy, and complete provenance/trust/TCB/SBOM/license/archive closure are absent.",
+    "The worker checkout uses an automation-provided shared warm .lake symlink and supplies no immutable clean empty-cache cold replay, offline restoration archive, or deterministic content-addressed bundle.",
+    "There are no two distinct signed runner attestations, independently implemented minimal verifier, protected release CI, AUDIT-Z, THEOREM-Z, theorem completion, or master acceptance."
+  ],
+  "retry_condition": "First dependency-order review and master-accept the validation chain while reconciling instance, task, registry, graph, node bodies, composition, and evidence links. Then accept theorem-specific H0/R0/foundation/TCB/provenance/SBOM records and run the immutable clean cold/offline deterministic release protocol with distinct signed runners and an independent minimal verifier before final master acceptance.",
+  "status_boundary": "Self-tested negative release reconciliation only. It advances no lifecycle, vector, obligation, audit, or theorem state; creates no accepted receipt; and does not claim M0/E0/E1, AUDIT-Z, THEOREM-Z, release grade, theorem completion, independent verification, or master acceptance."
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0861-VALIDATION",
+  "theorem_id": "THM-M-0861",
+  "depends_on": [
+    "S56-M-0861-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0861-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0861/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line PASS/OPEN/FAIL CLOSED summary; root, proof-dependency, hermetic, and distinct-runner gates remain fail-closed"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0861-ROOT",
+        "M0861-S-TARGET",
+        "M0861-S-REPRESENTATION",
+        "M0861-S-BIPARTITE",
+        "M0861-S-COLORING",
+        "M0861-S-BOUNDARY",
+        "M0861-S-TRANSPORT",
+        "M0861-S-FOUNDATION",
+        "M0861-N-BOUNDED",
+        "M0861-T-ASSEMBLE",
+        "M0861-T-UPPER",
+        "M0861-L-DEGREE-LE-MAX",
+        "M0861-T-LOWER",
+        "M0861-L-INCIDENCE-FIN",
+        "M0861-L-COLOR-INJECTIVE",
+        "M0861-L-SUP-LOWER",
+        "M0861-B-EDGE-INDUCTION",
+        "M0861-B-EDGE-COUNT-SPLIT",
+        "M0861-B-SMALL-EDGE-COUNT",
+        "M0861-L-SMALL-PALETTE-EMBED",
+        "M0861-B-LARGE-EDGE-COUNT",
+        "M0861-L-CHOOSE-ACTUAL-EDGE",
+        "M0861-C-ERASE-EDGE",
+        "M0861-L-ERASE-SETS",
+        "M0861-L-ERASE-CARD",
+        "M0861-L-ERASE-BIPARTITE",
+        "M0861-L-ERASE-DEGREE",
+        "M0861-C-IH-COLORING",
+        "M0861-L-ACTUAL-EDGE-TRANSPORT",
+        "M0861-L-K-POSITIVE-OF-EDGE",
+        "M0861-C-MISSING-COLORS",
+        "M0861-L-PALETTE-PIGEONHOLE",
+        "M0861-B-MISSING-SPLIT",
+        "M0861-B-COMMON-MISSING",
+        "M0861-B-DISTINCT-MISSING",
+        "M0861-L-CROSS-COLOR-PRESENT",
+        "M0861-C-ALT-STATE",
+        "M0861-L-COLOR-UNIQUENESS",
+        "M0861-C-ALTERNATING-TRAIL",
+        "M0861-L-TRAIL-NOREPEAT",
+        "M0861-L-TRAIL-TERMINATES",
+        "M0861-L-TRAIL-ALTERNATES",
+        "M0861-L-ENDPOINT-PARITY",
+        "M0861-L-B-NOT-REACHED",
+        "M0861-C-SWAP",
+        "M0861-L-SWAP-PROPER",
+        "M0861-L-SWAP-MISSING",
+        "M0861-C-EXTEND-EDGE",
+        "M0861-T-SATZ-C"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0861.KonigEdgeColoringTarget",
+        "Stage1Instances.THM_M_0861_Proof.degree_le_maxDegree",
+        "Stage1Instances.THM_M_0861_Proof.incidenceSet_finite",
+        "Stage1Instances.THM_M_0861_Proof.incidentColor_injective",
+        "Stage1Instances.THM_M_0861_Proof.maxDegree_le_of_degree_le",
+        "Stage1Instances.THM_M_0861_Proof.lowerBound",
+        "Stage1Instances.THM_M_0861_Proof.edgePaletteEmbedding",
+        "Stage1Instances.THM_M_0861_Proof.edgeColorable_of_edge_ncard_le",
+        "Stage1Instances.THM_M_0861_Proof.upperBound_of_boundedSatzC",
+        "Stage1Instances.THM_M_0861_Proof.konigEdgeColoring_of_boundedSatzC",
+        "Stage1Instances.THM_M_0861_Validation.rootFromBoundedSatzC"
+      ],
+      "coverage_boundary": "All 49 machine-required frozen IDs are validation subjects, not closure claims. Network-isolated trust-zero warm replay reaches the exact statement, all nine partial proof declarations, and a separately written conditional root composition. No inhabitant of BoundedSatzCTarget or the exact root is checked; complete transitive provenance/TCB, empty-cache cold offline reproduction, and distinct signed verification remain unavailable."
+    }
+  ]
+}

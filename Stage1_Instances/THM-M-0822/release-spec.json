@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0822-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0822-RELEASE",
+  "theorem_id": "THM-M-0822",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0822/check_release.py"
+  ],
+  "env_allowlist": {
+    "PATH": "inherited only for pinned executable discovery",
+    "HOME": "inherited only for the pinned Elan toolchain location"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs local structural reconciliation, then invokes check_validation.sh; every Lean subprocess in that replay runs through Bubblewrap --unshare-net with a read-only host root and a fresh writable temporary output directory.",
+  "dependency_policy": "Reuse the automation-provided canonical pinned mathlib source and compiled artifacts read-only. Do not update, build, clone, fetch, or mutate .lake. This is warm-cache negative release-decision evidence, not cold hermetic release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED negative release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0822-ROOT",
+    "M0822-S-TARGET",
+    "M0822-S-BOUNDARY",
+    "M0822-S-FOUNDATION",
+    "M0822-T-ASSEMBLE",
+    "M0822-T-ATTAINMENT",
+    "M0822-C-STAR",
+    "M0822-L-STAR-IMAGE",
+    "M0822-L-STAR-INTERSECTING",
+    "M0822-L-STAR-SIZED",
+    "M0822-L-STAR-CARD",
+    "M0822-L-GROUND-ELEMENT",
+    "M0822-T-UPPER-ADAPTER",
+    "M0822-T-MATHLIB-EKR",
+    "M0822-B-RZERO",
+    "M0822-C-COMPLEMENTS",
+    "M0822-L-SHADOW-DISJOINT",
+    "M0822-L-COMPLEMENT-CARD",
+    "M0822-L-COMPLEMENT-SIZED",
+    "M0822-L-KK-LOVASZ",
+    "M0822-L-BINOMIAL-CONTRADICTION",
+    "M0822-L-SLICE-CARD",
+    "M0822-X-SOURCE",
+    "M0822-X-PROVENANCE",
+    "M0822-X-TRUST",
+    "M0822-X-READABLE",
+    "M0822-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0822.ErdosKoRadoMaximumTarget",
+    "Stage1Instances.THM_M_0822.ObligationTree.composeRoot",
+    "Finset.erdos_ko_rado",
+    "Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum"
+  ],
+  "scope_boundary": "Self-tests a fail-closed release reconciliation and replays the existing network-isolated trust-zero kernel probe. It supplies no master acceptance, accepted graph closure, H0/R0 review, complete provenance/TCB/SBOM, immutable clean empty-cache reproduction, deterministic bundle, or independent verification."
+}
