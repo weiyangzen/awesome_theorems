@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/rev-5.6",
+  "item_id": "S56-M-1010-VALIDATION",
+  "theorem_id": "THM-M-1010",
+  "depends_on": [
+    "S56-M-1010-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-1010-VALIDATION-network-isolated-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-1010/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "LEAN_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean subprocess runs inside bubblewrap with a read-only host root, one fresh writable /tmp directory, --unshare-net, --clearenv, fixed locale/timezone/thread count, --trust=0, and an explicit pinned LEAN_PATH. The canonical compiled dependency closure is reused read-only and warm, so this is nonrelease narrow replay rather than the section 10.6 cold build.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line gate summary naming the passed narrow checks and the fail-closed root, complete-trust, cold-hermetic, and distinct-verifier gates"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M1010-S-DEFINITIONS",
+        "M1010-S-DOMAIN",
+        "M1010-S-BOUNDARY",
+        "M1010-C-COUPLING",
+        "M1010-L-MEASURABLE",
+        "M1010-L-LAWS",
+        "M1010-T-ASSEMBLE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_1010.Target",
+        "Stage1Instances.THM_M_1010.ObligationTree.target_of_couplingPackage",
+        "Stage1Instances.THM_M_1010.exists_common_space_exact_marginals",
+        "Stage1Instances.THM_M_1010.representation_of_constant_laws",
+        "Stage1Instances.THM_M_1010.target_for_constant_sequence"
+      ],
+      "scope_boundary": "The root declaration is elaborated as a statement and the final composer is checked only conditionally. The three proof declarations cover exact marginals and the constant-law boundary, not an unconditional Skorokhod coupling. Proof/root closure, accepted foundation and complete trust/provenance, cold offline reproduction, and distinct independent verification are evaluated fail closed."
+    }
+  ]
+}
