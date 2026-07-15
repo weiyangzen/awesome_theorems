@@ -22,6 +22,12 @@ substitute root.
 
 The lifecycle remains `planned` at the accepted `[H1, M3, R4]` vector. The exact mathlib route is a
 provisional `M0-W` candidate pending dependency-ordered master acceptance and downstream gates. The
-source edition and pinpoint mapping, obligation tree, release-grade trust/provenance closure,
-readable reconstruction, and release checks remain open. No accepted proof state, audit completion,
-or theorem completion is claimed.
+obligation registry now freezes 28 semantic obligations and seven typed graph families before any
+proof-phase credit. `ObligationTree.lean` checks the sentence/formula adapters only conditionally,
+with the bounded-formula induction left as an explicit premise. This is provisional obligation-tree
+evidence pending dependency-ordered master acceptance, not installation of the candidate.
+
+The source edition and pinpoint mapping, proof-phase integration and remaining composition
+certificates, release-grade trust/provenance closure, independently reviewed readable
+reconstruction, and release checks remain open. No accepted proof state, audit completion, or
+theorem completion is claimed.
