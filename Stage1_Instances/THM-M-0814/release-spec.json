@@ -1,0 +1,87 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0814-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0814-RELEASE",
+  "theorem_id": "THM-M-0814",
+  "phase": "release",
+  "intent": "release",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0814/check_release.py"
+  ],
+  "env_allowlist": {
+    "PATH": "runner-provided only for hash-checked Lake, Bubblewrap, and Git discovery",
+    "HOME": "runner-provided only for the pinned Elan toolchain selected by Lake"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs local reconciliation only. Its fresh Lean subprocesses run inside Bubblewrap with --unshare-net, the repository and pinned dependency closure read-only, and only a temporary directory writable.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0814-ROOT",
+    "M0814-S-TARGET",
+    "M0814-S-CHAIN",
+    "M0814-S-FLOW-CUT",
+    "M0814-S-BOUNDARY",
+    "M0814-S-TRANSPORT",
+    "M0814-S-FOUNDATION",
+    "M0814-N-CHAIN-ENUM",
+    "M0814-N-FLOW-COORD",
+    "M0814-B-NO-CHAIN",
+    "M0814-B-HAS-CHAIN",
+    "M0814-B-MERGE",
+    "M0814-C-FEASIBLE-POLYTOPE",
+    "M0814-L-MAX-ATTAIN",
+    "M0814-L-MAX-CONVEX",
+    "M0814-C-SATURATED-CORE",
+    "M0814-L-S-DISCONNECTS",
+    "M0814-L-REROUTE-BASIC",
+    "M0814-L-S-ORIENTATION",
+    "M0814-C-LEFT-ARCS",
+    "M0814-L-L-DISCONNECTS",
+    "M0814-L-L-AT-MOST-ONE",
+    "M0814-L-L-EXACTLY-ONE",
+    "M0814-L-WEAK-DUALITY",
+    "M0814-L-COUNT-ONCE",
+    "M0814-T-EQUAL-CUT",
+    "M0814-T-CUT-CERT",
+    "M0814-T-ASSEMBLE",
+    "M0814-X-SOURCE",
+    "M0814-X-PROVENANCE",
+    "M0814-X-TRUST",
+    "M0814-X-READABLE",
+    "M0814-X-WORKFLOW"
+  ],
+  "kernel_replayed_obligation_ids": [
+    "M0814-S-TARGET",
+    "M0814-B-NO-CHAIN",
+    "M0814-L-WEAK-DUALITY",
+    "M0814-T-CUT-CERT",
+    "M0814-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0814.MaxFlowMinCutTarget",
+    "Stage1Instances.THM_M_0814.maxFlowMinCutTarget_iff_expanded",
+    "Stage1Instances.THM_M_0814_Obligations.cutCertificate_compose",
+    "Stage1Instances.THM_M_0814_Obligations.compose_root",
+    "Stage1Instances.THM_M_0814_Obligations.root_of_terminal",
+    "Stage1Instances.THM_M_0814_Obligations.weakDuality_proof",
+    "Stage1Instances.THM_M_0814_Obligations.noChain_case",
+    "Stage1Instances.THM_M_0814_Obligations.cutCertificate_of_equalCut",
+    "Stage1Instances.THM_M_0814_Obligations.root_of_maximalFlowAttainment_and_equalCut"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z-blocked",
+    "THEOREM-Z-blocked"
+  ],
+  "scope_boundary": "This recipe self-tests only a negative release reconciliation. Covered obligations are inventory or replay subjects, not closure credit. It cannot provide prerequisite master acceptance, a premise-free root proof, accepted H0/R0, immutable clean release input, cold empty-cache offline restoration, complete TCB/SBOM/provenance, distinct signed runners, an independent minimal verifier, deterministic bundling, release acceptance, or theorem completion."
+}

@@ -1,35 +1,29 @@
-# THM-M-0423 rev-5.6 intake
+# THM-M-0423 rev-5.6 dossier
 
-This directory is the rev-5.6 `planned` instance for the Hasse principle. Because an unrestricted
-local-global principle is false, the frozen mathematical root is the classical Hasse-Minkowski
-theorem for quadratic forms over number fields. The historical Stage1 module is discovery input
-only and contributes no accepted statement or proof evidence.
+This planned instance freezes the classical Hasse-Minkowski theorem for nondegenerate quadratic
+forms over arbitrary number fields. The exact Lean target is
+`Stage1.THM_M_0423.HasseMinkowskiStatement`; it quantifies both finite and infinite completions and
+uses a nonzero isotropic witness. The historical label "Hasse principle" is not broadened to
+general varieties or restricted to the rational field.
 
-## Scope map
+## Current surfaces
 
-| Surface | In scope | Boundary at intake |
-|---|---|---|
-| Exact root | A nondegenerate quadratic form over a number field is isotropic iff it is isotropic over every completion | Prose-level root; exact Lean expression belongs to the dependent statement phase |
-| Global objects | Finite-dimensional vector spaces over a number field and nondegenerate quadratic forms | Dimension conventions and the representation of nondegeneracy must be fixed in Lean |
-| Local objects | Base change to every archimedean and nonarchimedean completion | Places, completions, scalar extension, and local isotropy require exact object models |
-| Directions | Global-to-local base change and local-to-global Hasse-Minkowski implication | Neither direction receives proof credit at intake |
-| Excluded claims | Arbitrary varieties, torsors, cubic forms, integral solutions, and unrestricted local-global equivalence | Hasse principles can fail in these settings; each needs a separate theorem and obstruction theory |
-| Foundations | Lean 4 kernel, pinned mathlib, and a reviewed classical/choice/quotient policy | Toolchain, imports, axioms, and transitive TCB remain open |
+| Surface | Current boundary |
+|---|---|
+| Exact statement | Elaborated expression SHA-256 `4b5061f2c6f01173d7cb6c9b7005ca489aaa1da1f5740e980ea477d37ae04738`; statement evidence is provisional pending master acceptance |
+| Anchor audit | Pinned mathlib supplies support only; both external candidates are Q-only and placeholder-contaminated |
+| Obligation architecture | Registry v2 contains 105 canonical obligations at `32a5c78d7f9cf7b59541a9a35c52331cf5055159b93dbe758b3eb6134f7da866` |
+| Lean work | Scalar-extension witness preservation and global-to-local elaborate; no accepted E0/E1 packet exists |
+| Hard direction | Classification, reciprocity, realization, global Witt uniqueness, cancellation, and extraction are explicit open obligations |
+| Source/readability | Hasse 1924 is H1 only; pinpoint node mapping, errata review, readable R0, and independent reviews remain open |
 
-The initial architecture is: freeze number fields and places; define completed scalar extensions;
-relate isotropy under base change; cover real, complex, and nonarchimedean places; establish the
-Hilbert-symbol/product-formula package; compose the local-to-global implication. This is a scope
-map, not a frozen obligation registry.
+The typed proof graph is separate from source, provenance, evidence, trust, documentation, and
+workflow overlays. All reverse proof edges are unverified `logical_decomposition` edges. The Lean
+directional combinators are conditional harnesses and do not inhabit the open local-to-global
+premise.
 
-## Intake verdict
+## Verdict
 
-Lifecycle is `planned`; provisional root vector is `[H1, M4, R3]`. Primary sources have been
-identified, but edition/page/assumption/errata mapping and independent review are open. No exact
-Lean declaration has been accepted. The first failed theorem gate is the exact statement gate, and
-the theorem is not complete.
-
-## Validation
-
-The exact commands and results in `validation.md` establish manifest membership, rev-5.6 structural
-consistency, valid dossier JSON, reference integrity, and clean whitespace only. They are not Lean
-kernel evidence.
+Lifecycle remains `planned`; root vector is `[H1, M3, R3]`. Accepted closure is empty,
+`audit_complete=false`, and `theorem_complete=false`. Dependency-ordered master acceptance of the
+prior phases and this worker proposal remains required.

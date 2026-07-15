@@ -1,24 +1,19 @@
 # Source-statement crosswalk
 
-| Claim component | Human source anchor | Lean candidate | Intake assessment |
+| Claim component | Human source boundary | Exact Lean surface | Current classification |
 |---|---|---|---|
-| Quadratic forms over number fields obey a local-global isotropy criterion | H. Hasse, *Darstellbarkeit von Zahlen durch quadratische Formen in einem beliebigen algebraischen Zahlkorper*, Journal fur die reine und angewandte Mathematik 153 (1924), pp. 113-130 | No accepted declaration; `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_067.lean` is legacy discovery material | Original proof source identified; theorem/page premise mapping, edition hash, errata search, and independent review remain open: `H1` |
-| Rational-field specialization | H. Minkowski, *Uber die Bedingungen, unter welchen zwei quadratische Formen mit rationalen Koeffizienten ineinander rational transformiert werden konnen*, Journal fur die reine und angewandte Mathematik 106 (1890), pp. 5-26 | Future rational specialization or transport | Historical source candidate only; exact statement crosswalk is not accepted |
-| Global isotropy implies isotropy over every completion | Functorial scalar extension of a zero of the form | Future base-change lemma for `QuadraticForm` | Mathematical interface identified; exact types and checked transport are deferred |
-| Isotropy over all completions implies global isotropy | Hasse's local-global theorem, including archimedean and nonarchimedean places | Future Hasse-Minkowski root declaration | Hard direction; no repo-local closure is credited |
-| Polynomial and coordinate-free formulations agree | Choice of a basis identifies a quadratic form with a homogeneous degree-two polynomial | Future basis/coordinate equivalence | Candidate transport only; it must be elaborated and mutation-tested before credit |
+| Arbitrary-number-field local-global isotropy | H. Hasse, *Darstellbarkeit von Zahlen durch quadratische Formen in einem beliebigen algebraischen Zahlkorper*, Crelle 153 (1924), pp. 113-130 | `Stage1.THM_M_0423.HasseMinkowskiStatement` | H1: paper identified; theorem/page premise map, edition hash, errata audit, and independent review open |
+| Nonzero witness and nondegeneracy | Same source statement must be checked against modern conventions | `IsIsotropic`; `Q.Nondegenerate` | Exact Lean boundary elaborated; human-source convention mapping open |
+| Every finite and infinite completion | Hasse's place-by-place theorem; exact sections still to be mapped | `IsIsotropicAtEveryFinitePlace` and `IsIsotropicAtEveryInfinitePlace` | Exact Lean carriers elaborated; source-place normalization open |
+| Global-to-local direction | Functorial scalar extension | `ObligationTree.global_to_local` | Local candidate body elaborates; M0-L would require accepted E0 and is not projected |
+| Local-to-global direction | Hasse 1924 hard theorem | `ObligationTree.LocalToGlobalObligation` | H1/M4 hard route; no body or accepted proof evidence |
+| Diagonal/invariant route | Candidate reconstruction using local classification, Hilbert reciprocity, realization, and global uniqueness | Planned v2 proof nodes | Source-informed architecture only; no claim this is yet a complete page-faithful reconstruction |
+| Polynomial/coordinate form | Basis-dependent alternate statement | `M0423-S-COORDINATES` | No credit until bidirectional global/local transports elaborate |
 
-The manifest phrase “Hasse principle” cannot truthfully denote an unrestricted theorem: local
-solubility need not imply global solubility for general algebraic varieties. This intake therefore
-selects the historically canonical proved quadratic-form theorem. It includes all places and
-nonzero isotropic vectors and excludes integral-solubility variants.
+The rational-field specialization associated with Minkowski is historical context, not a substitute
+for this target. The two audited external Lean candidates prove only Q-shaped statements and contain
+placeholders at their pinned revisions; they are rejected M5 audit records and never proof premises.
 
-Discovery links, not immutable evidence receipts:
-
-- Hasse bibliographic record: <https://eudml.org/doc/149346>
-- Minkowski digitized volume: <https://eudml.org/doc/149196>
-
-No `H0` or machine-closure claim is made. The statement phase must fix exact universes and imports,
-inspect the actual quadratic-form and completion APIs, elaborate the expression, serialize its
-normalized form and environment, check any coordinate transport, and mutation-test nondegeneracy,
-the nonzero witness, the set of places, and field/domain changes.
+No node is H0. Source review must map every material v2 proof obligation to versioned primary-source
+locators, assumptions, dependencies, corrections, and an independent reviewer before H0 can be
+considered.
