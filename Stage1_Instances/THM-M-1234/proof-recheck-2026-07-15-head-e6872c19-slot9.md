@@ -1,0 +1,137 @@
+# THM-M-1234 proof-phase recheck at `e6872c19` (slot9)
+
+Item: `S56-M-1234-PROOF`
+
+Date: `2026-07-15` (`Asia/Shanghai`)
+
+Base revision: `e6872c1982a47e873d9578f7e8a8fe0d38ffab60`
+
+Base tree: `dd5d4bee8309bdc401f02862404a59f401c0636b`
+
+## Verdict
+
+`blocked`. The exact universal declaration
+`Stage1Rev56.THMM1234.Statement` still has no repo-local or pinned proof body.
+This recheck adds no Lean proof body and closes no obligation. The proof item
+remains `[ ]`, the lifecycle remains `planned`, and the root vector remains
+`[H1, M3, R3] -> [H1, M3, R3]`. No proof, validation, release,
+audit-completion, theorem-completion, or master-acceptance receipt is claimed.
+
+The existing checked source cannot close the target:
+
+- `root_of_construction_and_closure` consumes two packages rather than proving
+  them;
+- constant-in-time initial fields inhabit only the under-specified
+  `CandidateConstructionPackage` and consume none of its frozen approximation,
+  estimate, or compactness children;
+- `zero_data_solution` proves only the strict zero-data boundary case; and
+- `ClosurePackageDiagnostic.lean` shows that the frozen
+  `EquationAndTraceClosurePackage` applies to every unrelated candidate.
+  Applying it to zero fields forces arbitrary admissible initial velocity and
+  vorticity test pairings to vanish. Those are conditional diagnostics, not a
+  proof of the canonical root.
+
+No exact Yudovich, Yudovitch, incompressible-Euler, bounded-vorticity, or
+Biot-Savart terminal theorem was found in the available pinned package sources.
+The legacy `S1_M_158.lean` module records interfaces and explicit noncompletion,
+not a terminal proof body. Available generic analysis APIs do not construct
+Euler approximants, preserve the frozen structure, or pass the nonlinear
+momentum term.
+
+## Failed Gates And Retry
+
+The first failed gate is the dependency gate:
+`S56-M-1234-OBLIGATION_TREE` is worker-provisional `[_]`, not master-accepted
+`[x]`. That predecessor is also not currently acceptable under rev-5.6:
+
+- `typed-graphs.json` names `M1234-ROOT` as `root_node_id`, but no node has that
+  `node_id`; the corresponding node is named `THM-M-1234-ROOT`.
+- All 14 recipes in `validation-specs.json` are shell-string `command` records
+  and omit the structured fields required by blueprint section 10.5.
+- The proof graph requires `M1234-A-APPROX`, `M1234-A-ENERGY`, and
+  `M1234-A-COMPACT` for `M1234-A-STRUCTURE`, but the checked construction body
+  consumes none of them. This violates the child-composition rule.
+- The graph requires `M1234-E-LINEAR`, `M1234-E-NONLINEAR`, and
+  `M1234-E-TRACE` for `M1234-E-CLOSURE`, but there is no composition body and
+  the formal package is over-quantified over candidates unrelated to the
+  construction.
+
+Independently, the first expanded mathematical gap is `M1234-A-APPROX`: there
+is no child-consuming, placeholder-free construction of global smooth Euler
+approximants for every frozen `InitialData` witness. Uniform energy and
+vorticity estimates, nonlinear-compatible compactness, structure preservation,
+linear and quadratic momentum limit passage, and the one-sided initial trace
+also remain open. The direct frozen root cut is `M1234-A-STRUCTURE` plus
+`M1234-E-CLOSURE`.
+
+Before this packet, the owned path contained 35 structured proof-attempt,
+blocker, or recheck JSON packets, while the authoritative proof item still
+records `attempts: 0` and `children: []`. Blueprint section 10.2 requires a
+split after five unresolved execution ticks. The master/scheduler must
+reconcile that stale history instead of issuing another identical unsplit proof
+task.
+
+Retry after the master reopens and repairs the predecessor, publishes an
+append-only registry update with child-consuming construction targets and
+closure tied to the specifically constructed candidate, replaces the malformed
+typed root and validation recipes, and splits the analytic leaves. An immutable
+exact compatible Lean 4 root theorem is an alternative only after exact-type,
+provenance, trust, and composition checks.
+
+## Validation
+
+The automation-provided `.lake` symlink to the canonical pinned cache was
+reused read-only. No `lake update`, `lake build`, dependency clone/fetch,
+network access, or `.lake` mutation was performed. Generated Lean objects and
+logs stayed in a fresh `/tmp` directory and were removed. This is nonrelease
+evidence because the `.lake` symlink is untracked.
+
+| Command | Exit | Exact result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, and all 1546 uniform-L0 targets passed. |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets at ranks 1 through 1546, all `L0/rework_required`, passed. |
+| `python3 scripts/stage1_target.py show THM-M-1234` | 0 | Rank 158; planned; legacy artifacts unaccepted; theorem incomplete. |
+| `git status --short` | 0 | Only the scheduler-provided untracked `Formalizations/Lean/.lake` symlink was present at start. |
+| `python3 Stage1_Instances/THM-M-1234/check_obligation_tree.py` | 0 | 14 obligations and 28 typed edges passed; denominator `cfa0a02c68993c8b3eefc0edfe7d3d7bd20e2b58d140f47a1f5444a8ba734c5d`; root open at M3. This checker misses the typed-root and recipe-schema defects above. |
+| `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740`. |
+| Isolated trust-zero replay below | 0 | All six owned modules elaborated. Printed declarations reported only `propext`, `Classical.choice`, and `Quot.sound`. |
+| Prohibited-device scan over owned `*.lean` | 1 | Expected no-match exit: no `sorry`, `admit`, declared axiom, unsafe/opaque/extern escape, `sorryAx`, `implemented_by`, or `native_decide` was found. |
+| Exact-topic scan over pinned package `*.lean` sources | 1 | Expected no-match exit over 9676 files: no exact-topic terminal candidate was found. |
+| `jq empty Stage1_Instances/THM-M-1234/*.json` | 0 | Every pre-existing owned structured JSON artifact parsed before this packet was written. |
+| Structured predecessor conformance diagnostic | 0 | Confirmed `root_node_id=M1234-ROOT` is absent from `nodes[].node_id`; all 14 recipes use shell-string commands and lack the normative structured fields. |
+| `python3 -m json.tool` for this packet, then `jq empty` over all owned JSON | 0 | This packet and every owned JSON artifact parsed. |
+| `git diff --check` plus per-file `git diff --no-index --check` | 0 | No whitespace error was reported; expected new-file difference statuses were normalized after checking for diagnostics. |
+| `test ! -e .stage1-worker-selftest.json` | 0 | The completion self-test manifest is absent because the proof phase is incomplete. |
+
+The successful narrow replay was:
+
+```bash
+set -euo pipefail
+root=$PWD
+tmp=$(mktemp -d /tmp/thm-m-1234-e6872c19-slot9.XXXXXX)
+trap 'rm -rf "$tmp"' EXIT
+cp Stage1_Instances/THM-M-1234/{Statement,AnchorAudit,ObligationTree,ConstructionProof,Proof,ClosurePackageDiagnostic}.lean "$tmp"/
+lean=$(cd Formalizations/Lean && lake env which lean)
+lean_path=$(cd Formalizations/Lean && lake env printenv LEAN_PATH)
+export LEAN_NUM_THREADS=1
+cd "$tmp"
+LEAN_PATH="$lean_path" timeout --foreground 600 "$lean" --trust=0 -t0 -o Statement.olean Statement.lean
+LEAN_PATH=".:$lean_path" timeout --foreground 600 "$lean" --trust=0 -t0 AnchorAudit.lean
+LEAN_PATH=".:$lean_path" timeout --foreground 600 "$lean" --trust=0 -t0 -o ObligationTree.olean ObligationTree.lean
+LEAN_PATH=".:$lean_path" timeout --foreground 600 "$lean" --trust=0 -t0 ConstructionProof.lean
+LEAN_PATH=".:$lean_path" timeout --foreground 600 "$lean" --trust=0 -t0 Proof.lean
+LEAN_PATH=".:$lean_path" timeout --foreground 600 "$lean" --trust=0 -t0 ClosurePackageDiagnostic.lean
+```
+
+The replay produced `Statement.olean` SHA-256
+`1709e38a5b8cc96159b7042585666cb84536b4b3d9e26a63697992cd9820d308`
+and `ObligationTree.olean` SHA-256
+`2521d53bc0b3ea2c9d0b7e7bcae9854ebe5081fc0cecd39a8a5fdfdf4324fc50`.
+
+## Status Boundary
+
+This target-scoped artifact is the required current-base blocker handoff, not a
+proof receipt. It does not satisfy `S56-M-1234-PROOF`, propose `[_]`, change
+task state, or support a later phase. Because the assigned universal proof
+phase is not genuinely self-tested as complete, `.stage1-worker-selftest.json`
+is deliberately absent.
