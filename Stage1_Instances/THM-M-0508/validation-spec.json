@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0508-VALIDATION",
+  "theorem_id": "THM-M-0508",
+  "phase": "validation",
+  "depends_on": [
+    "S56-M-0508-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0508-VALIDATION-WARM-NETWORK-ISOLATED-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0508/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Each of the five Lean invocations runs under Bubblewrap with an unshared network namespace, read-only host root, fresh writable temporary module directory, cleared environment, and fixed locale/timezone/thread settings. Python and Git orchestration perform local inspection only; recipe-wide host network isolation is not claimed.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line fail-closed summary checked by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0508-S-COUNT",
+        "M0508-L-COUNT-POS",
+        "M0508-L-POSITIVE",
+        "M0508-T-ASSEMBLE",
+        "M0508-X-PROVENANCE",
+        "M0508-X-FOUNDATION",
+        "M0508-X-WORKFLOW",
+        "M0508-ROOT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0508.ObligationTree.representationCount_pos_iff",
+        "Stage1Instances.THM_M_0508.ObligationTree.root_of_eventualPositiveRepresentationCount",
+        "Stage1Instances.THM_M_0508.Proof.vinogradovThreePrimesTarget_iff_eventualPositiveRepresentationCount",
+        "Stage1Instances.THM_M_0508.Proof.vinogradovThreePrimesTarget_of_eventualPositiveRepresentationCount",
+        "Stage1Instances.THM_M_0508.Validation.rootFromEventualPositiveCount"
+      ],
+      "scope_boundary": "Trust-zero, network-isolated replay of extant exact interfaces and conditional compositions against pinned shared warm dependency artifacts. Covered obligation IDs identify inspected surfaces only; no frozen obligation, root, trust closure, release gate, or independent-verification gate is credited closed. The missing predecessor validation-specs.json remains a fail-closed authority gap."
+    }
+  ]
+}
