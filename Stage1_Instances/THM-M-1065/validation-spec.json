@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1065-VALIDATION-narrow-network-isolated-v1",
+  "item_id": "S56-M-1065-VALIDATION",
+  "theorem_id": "THM-M-1065",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1065/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through bubblewrap --unshare-net with a read-only host root, one writable temporary directory, fixed locale/timezone, one Lean thread, and trust level zero. Host-side hash and Git checks make no network request. This remains nonrelease evidence because it reuses the automation-provided shared warm dependency cache.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact ordered PASS/FAIL-CLOSED summary bound by validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1065-S-LAW",
+    "M1065-S-EVENT",
+    "M1065-S-BOUNDARY",
+    "M1065-C-SPACE",
+    "M1065-L-X-LAWS",
+    "M1065-L-X-INDEP",
+    "M1065-L-Y-LAWS",
+    "M1065-L-Y-INDEP",
+    "M1065-L-EVENT-MEAS",
+    "M1065-T-COMPOSE",
+    "M1065-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1065.KMTStrongApproximationTarget",
+    "Stage1Instances.THM_M_1065.target_iff_expandedSourceShape",
+    "Stage1Instances.THM_M_1065.discrepancyEvent_one",
+    "Stage1Instances.THM_M_1065.ObligationTree.kmtTarget_iff_couplingData",
+    "Stage1Instances.THM_M_1065.exists_commonIIDSequences",
+    "Stage1Instances.THM_M_1065.measurableSet_discrepancyEvent",
+    "Stage1Instances.THM_M_1065.AnchorAudit.noRetainedCandidateClaimsTerminalProof",
+    "Stage1Instances.THM_M_1065.AnchorAudit.anchorAuditPermitsTheoremCompletion_eq_false",
+    "Stage1Instances.THM_M_1065.Validation.independentlyReconstructedTargetExpansion",
+    "Stage1Instances.THM_M_1065.Validation.independentlyReconstructedDiscrepancyEventOne"
+  ],
+  "scope_boundary": "Network-isolated node-scoped replay of the exact statement, a separately defined conditional composition interface, two genuine partial proof bodies, two fail-closed anchor decisions, and two same-worker differential statement probes. Covered obligation IDs name the architecture surfaces observed, not closed nodes: every frozen terminal body and validation-spec field remains pending. This recipe does not cover a KMT coupling, maximal-tail proof, exact root closure, complete transitive trust/provenance, cold empty-cache restoration, or distinct-runner independent verification."
+}
