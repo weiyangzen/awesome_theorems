@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1140-RELEASE-RECONCILIATION-v1",
+  "item_id": "S56-M-1140-RELEASE",
+  "theorem_id": "THM-M-1140",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/bwrap",
+    "--ro-bind",
+    "/",
+    "/",
+    "--dev",
+    "/dev",
+    "--proc",
+    "/proc",
+    "--tmpfs",
+    "/tmp",
+    "--unshare-net",
+    "--die-with-parent",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1140/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "Bubblewrap mounts the host read-only, supplies a disposable /tmp, and unshares the network for the entire checker and every subprocess. The checker does not fetch, clone, update, build, or mutate the shared pinned .lake closure. The unresolved flt-regular worktree HEAD and current Lake resolution failure are preserved as fail-closed evidence rather than repaired; the manifest-pinned commit object itself is present locally.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release decision summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1140-ROOT",
+    "M1140-T-ASSEMBLE"
+  ],
+  "reconciled_inventory_ids": [
+    "M1140-ROOT",
+    "M1140-S-DEFINITIONS",
+    "M1140-S-DOMAIN",
+    "M1140-S-BOUNDARY",
+    "M1140-S-FOUNDATION",
+    "M1140-N-MAX-LEVEL",
+    "M1140-L-MEAN-VALUE",
+    "M1140-L-CONTINUITY",
+    "M1140-L-LEVEL-CLOSED",
+    "M1140-L-LEVEL-OPEN",
+    "M1140-L-CONNECTED",
+    "M1140-T-LOCAL-PACKAGE",
+    "M1140-T-PROPAGATION-PACKAGE",
+    "M1140-T-ASSEMBLE",
+    "M1140-X-SOURCE",
+    "M1140-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1140.HarmonicStrongMaximumPrinciple",
+    "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple_of_packages",
+    "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple"
+  ],
+  "coverage_semantics": "The checker hash-binds the exact canonical statement and the prior provisional proof/validation receipts, checks the frozen conditional composition and all inventory states, and reruns current structural metadata checks. The declarations are prior kernel observations only because the existing pinned Lake artifact set cannot currently resolve the flt-regular worktree HEAD; they receive no fresh or accepted proof credit.",
+  "scope_boundary": "Fail-closed release reconciliation only. This recipe cannot master-accept the validation dependency, repair the unresolved pinned dependency worktree, reconcile the Gaussian-barrier method with the frozen architecture, establish H0/R0 or AUDIT-Z, supply complete trust/provenance/SBOM evidence, perform a clean empty-cache cold offline build, provide independent signed runners or an independently implemented verifier, or assemble a deterministic release bundle."
+}
