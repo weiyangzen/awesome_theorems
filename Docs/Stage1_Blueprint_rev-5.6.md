@@ -5202,7 +5202,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0996-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0996`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0996-PROOF` / `THM-M-0996` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0996-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0996`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0996-VALIDATION` / `THM-M-0996` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
+- [_] `S56-M-0996-VALIDATION` / `THM-M-0996` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0996-PROOF`. Owned paths: `Stage1_Instances/THM-M-0996`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0996-RELEASE` / `THM-M-0996` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0996-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0996`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12988,7 +12988,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0339-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0339`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0339-VALIDATION` / `THM-M-0339` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0339-PROOF`. Owned paths: `Stage1_Instances/THM-M-0339`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0339-RELEASE` / `THM-M-0339` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0339-RELEASE` / `THM-M-0339` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0339-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0339`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0340-INTAKE` / `THM-M-0340` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0340`. Gate: rev-5.6 node-specific receipt and master acceptance.

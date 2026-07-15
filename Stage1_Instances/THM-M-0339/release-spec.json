@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0339-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0339-RELEASE",
+  "theorem_id": "THM-M-0339",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0339/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "runner account used only to locate the already installed pinned Lean toolchain",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs local reconciliation and runs the pinned Lean binary under Bubblewrap with an unshared network, read-only host root, fixed environment, and a disposable writable /tmp tree. It performs no Lake resolution, update, build, clone, fetch, checkout, or .lake mutation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact deterministic six-line negative release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0339-ROOT",
+    "M0339-S-EXACT",
+    "M0339-S-PARTITION",
+    "M0339-S-BOUNDARY",
+    "M0339-S-FOUNDATION",
+    "M0339-N-OPERATORS",
+    "M0339-B-RONE",
+    "M0339-B-RMANY",
+    "M0339-C-RANDOM",
+    "M0339-C-MCP",
+    "M0339-L-REALROOTED",
+    "M0339-L-INTERLACING",
+    "M0339-L-BARRIER",
+    "M0339-L-THEOREM14",
+    "M0339-T-COR15",
+    "M0339-T-ASSEMBLE",
+    "M0339-X-UPSTREAM",
+    "M0339-X-SOURCE",
+    "M0339-X-TCB"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_0339.MSSPartitionStatement",
+    "Stage1.THM_M_0339.Proof.one_part",
+    "Stage1.THM_M_0339.Proof.zero_dimension",
+    "Stage1.THM_M_0339.Proof.empty_family",
+    "Stage1.THM_M_0339.Proof.enough_colors",
+    "Stage1.THM_M_0339.Proof.constant_color_large_bound",
+    "Stage1.THM_M_0339.Proof.delta_ge_one",
+    "Stage1.THM_M_0339.Proof.zero_delta",
+    "Stage1.THM_M_0339.Proof.mssPartitionStatement_of_hardRegimeEngine"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_with_current_network_isolated_warm_kernel_observation_no_closure_credit",
+  "scope_boundary": "Self-tests the exact blocked release verdict and replays the frozen statement, seven elementary proof bodies, and root composition conditional on the unproved HardRegimeEngine. It does not prove the exact root or supply immutable clean input, an empty-cache cold build, offline restoration, accepted H0/R0 or foundation/TCB/SBOM closure, distinct signed verification, an independent minimal verifier, a deterministic release bundle, theorem completion, or master acceptance."
+}
