@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0338-VALIDATION-local-v1",
+  "item_id": "S56-M-0338-VALIDATION",
+  "theorem_id": "THM-M-0338",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0338-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0338-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0338/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "HOME": "inherited runner home; used only to address the hash-verified pinned Lean toolchain",
+        "PATH": "<HOME>/.elan/bin:/usr/bin:/bin",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean replay subprocess runs inside bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary module directory writable. The outer checker performs local file, hash, and Git-object reads only; it invokes no Lake command, update, build, clone, fetch, or network operation.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line UTF-8 PASS/OPEN/FAIL-CLOSED summary bound by the provisional node receipt"
+        }
+      ],
+      "expected_output_policy": "Six exact summary lines report three provisional narrow passes, one open-root boundary, and two fail-closed assurance/release boundaries.",
+      "covered_obligation_ids": [],
+      "validated_partial_progress_toward_obligation_ids": [
+        "M0338-E-EXTENSION"
+      ],
+      "validation_subject_obligation_ids": [
+        "M0338-ROOT",
+        "M0338-S-ENCODING",
+        "M0338-C-COMPONENTS",
+        "M0338-E-EXTENSION",
+        "M0338-U-UNIQUE",
+        "M0338-KS-PAVING",
+        "M0338-P-WEAVER",
+        "M0338-W-MSS",
+        "M0338-M-MIXED",
+        "M0338-M-INTERLACE",
+        "M0338-M-REALROOT",
+        "M0338-F-FINITE",
+        "M0338-T-ASSEMBLE",
+        "M0338-X-SOURCE",
+        "M0338-X-FOUNDATION",
+        "M0338-X-PROVENANCE"
+      ],
+      "covered_declarations": [
+        "Stage1.THM_M_0338.KadisonSingerStatement",
+        "Stage1.THM_M_0338.root_of_components",
+        "Stage1.THM_M_0338.extension_exists_for_state",
+        "Stage1.THM_M_0338.extension_exists_for_kadison_singer_input"
+      ],
+      "scope_boundary": "Trust-zero, network-isolated, fresh-output replay of the exact statement, conditional root composition, and two extension-existence declarations. The recipe covers zero frozen obligations because the proof predecessor and M0338-E-EXTENSION proposal lack master acceptance; it supplies no uniqueness, premise-free root proof, release hermeticity, or distinct-runner independence."
+    }
+  ],
+  "status_boundary": "Validation-only worker recipe. It may attest narrow nonrelease checks and fail-closed gates, but cannot add proof content, accept the proof predecessor, close a frozen obligation or root, or supply release and master acceptance."
+}

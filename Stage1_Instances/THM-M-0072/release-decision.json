@@ -1,0 +1,207 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "decision_id": "S56-M-0072-RELEASE-worker-20260715T193200+0800-v1",
+  "item_id": "S56-M-0072-RELEASE",
+  "theorem_id": "THM-M-0072",
+  "execution_rank": 1102,
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0072-VALIDATION"
+  ],
+  "base_revision": "d44ed2b11fb201a761afad9b133caa8bc97fd710",
+  "base_tree": "9602084a1c32fa6685f1c60eff540528226decff",
+  "decided_at": "2026-07-15T19:32:00+08:00",
+  "attestor": "Stage1 rev-5.6 isolated worker slot7",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "release_grade": false,
+  "content_addressed_release_evidence": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_0072.ThompsonTransferLemmaTarget",
+    "elaborated_expression_sha256": "c8a89538bd8b492ba31ce5d516a0f8fefef70a550e1d2fe74e39a4cba7849051",
+    "source_sha256": "0e9a35c7d2a9eaafb2aa6f8357277e9bf1e79e9a5e88500bda6cd8300a6757aa",
+    "registry_denominator_sha256": "7f5030b02a13572f021c17ac32f2472098e2a5de881bc5a4999716dd411f717b",
+    "exact_statement_delta": "none"
+  },
+  "dependency": {
+    "item_id": "S56-M-0072-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0072-VALIDATION-WORKER-20260715",
+    "receipt_sha256": "7c958e00a91a405ea0fcc27dba243ed73b4249459cdda35f0a10ac7a0d7c3b7c",
+    "receipt_base_revision": "97cd9c492d95baa9b55d2d8b341844107f07e686",
+    "receipt_base_tree": "bdd31de5f2fcd38078e4b5793b400a8105a3b8ba",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_accepted": false,
+    "receipt_release_grade": false,
+    "receipt_verdict": "blocked",
+    "historical_input_hashes_current": true,
+    "historical_recipe_currently_replayable": false,
+    "freshness_boundary": "The receipt's theorem inputs remain hash-current, but check_validation.py is intentionally bound to base 97cd9c492d95baa9b55d2d8b341844107f07e686 and fails its HEAD guard on the integrated release base. The release checker therefore performs a fresh current-base Lean replay without treating it as validation acceptance."
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0072-INTAKE-WORKER-20260713",
+    "S56-M-0072-STATEMENT-WORKER-20260713",
+    "S56-M-0072-ANCHOR-AUDIT-WORKER-20260713",
+    "S56-M-0072-OBLIGATION-TREE-WORKER-20260715",
+    "S56-M-0072-PROOF-WORKER-20260715",
+    "S56-M-0072-VALIDATION-WORKER-20260715"
+  ],
+  "root_vector": {
+    "before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R4"
+    },
+    "best_provisional_evidence": {
+      "H": "H1",
+      "M": "M0-L",
+      "R": "R4"
+    },
+    "boundary": "Fresh current-base kernel replay supports only a provisional M0-L proposal. No predecessor receipt is accepted and the authoritative instance and graph remain the pre-proof H1/M3/R4 snapshot, so the weaker accepted vector is unchanged."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false,
+    "master_acceptance": false
+  },
+  "first_failed_gate": {
+    "gate_id": "dependency.S56-M-0072-VALIDATION.master_acceptance",
+    "standard_gate": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "reason": "S56-M-0072-VALIDATION is provisional [_] worker evidence with accepted=false and release_grade=false, not a dependency-ordered master-accepted prerequisite."
+  },
+  "nested_predecessor_failure": {
+    "gate_id": "dependency.S56-M-0072-PROOF.master_acceptance",
+    "reason": "The validation receipt itself fails closed on proof master acceptance; the proof receipt proposes M0-L but accepts no root or obligation."
+  },
+  "first_failed_theorem_gate": {
+    "gate_id": "M0072-T-OUTSIDE.accepted_root_composition",
+    "reason": "The frozen graph remains root_closed=false with M0072-T-OUTSIDE as its remaining machine cut in accepted state. The proof body is provisional and has not been reconciled into accepted graph or composition state."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-10.6-IMMUTABLE-CLEAN-INPUT",
+    "reason": "The worker clone contains an untracked shared .lake symlink and provisional release outputs, and reuses a warm dependency cache. This is not immutable clean release input."
+  },
+  "next_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-EMPTY-CACHE-REPLAY",
+    "reason": "No empty-cache cold build, network-disconnected source/dependency restoration, or reproducible archive replay was performed."
+  },
+  "evidence_reconciliation": {
+    "current_base_exact_root_kernel_replay": "provisional_pass",
+    "current_base_exact_type_alias_replay": "provisional_pass_same_worker",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "validation_receipt_integrity": "all recorded theorem input hashes remain current",
+    "validation_recorded_recipe_freshness": "failed: snapshot-bound checker rejects current HEAD",
+    "dependency_master_acceptance": false,
+    "authoritative_graph_reconciled": false,
+    "accepted_root_m0": false,
+    "accepted_composition_closure": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "complete_provenance_foundation_tcb_closure": false,
+    "immutable_clean_release_input": false,
+    "hermetic_cold_offline_replay": false,
+    "sbom_license_archive_closure": false,
+    "independent_clean_runner_attestations": false,
+    "independently_implemented_minimal_verifier": false,
+    "protected_ci_and_mutation_gates": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "canonical_obligation_ids": [
+    "M0072-ROOT",
+    "M0072-S-TARGET",
+    "M0072-S-DOMAIN",
+    "M0072-S-BOUNDARY",
+    "M0072-S-TRANSPORT",
+    "M0072-S-FOUNDATION",
+    "M0072-N-OUTSIDE",
+    "M0072-B-MEMBERSHIP",
+    "M0072-T-INSIDE",
+    "M0072-C-NORMAL",
+    "M0072-L-INDEX-TWO",
+    "M0072-C-QUOTIENT",
+    "M0072-C-TRANSFER",
+    "M0072-L-SYLOW-ODD",
+    "M0072-C-COSET-ACTION",
+    "M0072-L-FIXED-PARITY",
+    "M0072-L-TRANSFER-FORMULA",
+    "M0072-L-FACTOR-DICHOTOMY",
+    "M0072-L-ODD-PRODUCT",
+    "M0072-L-NOINDEX-TRANSFER",
+    "M0072-B-CONTRADICTION",
+    "M0072-T-OUTSIDE",
+    "M0072-T-ASSEMBLE",
+    "M0072-X-SOURCE",
+    "M0072-X-PROVENANCE",
+    "M0072-X-TRUST",
+    "M0072-X-READABLE",
+    "M0072-X-WORKFLOW"
+  ],
+  "remaining_root_cut_set": [
+    "M0072-T-OUTSIDE"
+  ],
+  "remaining_release_gate_set": [
+    "master acceptance of S56-M-0072-VALIDATION and every transitive phase receipt",
+    "authoritative reconciliation of provisional proof evidence for M0072-T-OUTSIDE and M0072-ROOT",
+    "accepted composition certificates and accepted exact-root M0-L closure",
+    "AUDIT-Z with fully classified and reconciled inventory, graphs, source boundaries, evidence states, tasks, and H/M/R debts",
+    "accepted H0 primary-source pinpoint, 1964/1968 correction and preservation record, complete node crosswalk, and independent source review",
+    "accepted R0 node-anchored reconstruction and independent reader review",
+    "accepted foundation profile and complete transitive declaration, provenance, axiom, computation, compiled-artifact, and TCB closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and network-disconnected restoration",
+    "complete content-addressed SBOM and license closure",
+    "two signed attestations from separately provisioned clean runners without shared writable caches",
+    "independently implemented minimal release verifier and protected adversarial CI",
+    "deterministic build-twice content-addressed release bundle, THEOREM-Z, and master acceptance"
+  ],
+  "known_failures": [
+    "S56-M-0072-VALIDATION and every transitive phase receipt remain provisional rather than dependency-ordered master accepted; validation is explicitly accepted=false and release_grade=false.",
+    "The validation receipt's theorem input hashes remain current, but its recorded checker is snapshot-bound to base 97cd9c492d95baa9b55d2d8b341844107f07e686 and fails its HEAD guard on the current integrated checkout.",
+    "Fresh current-base trust-zero Lean replay closes the exact root provisionally with no placeholder and only propext, Classical.choice, and Quot.sound, but same-worker corroboration is not accepted root, release, or independent verification evidence.",
+    "The planned instance and frozen graph retain H1/M3/R4, root_closed=false, no accepted receipt, no accepted closed obligation, and M0072-T-OUTSIDE as the remaining root cut in accepted state.",
+    "The source is H1 because the catalog's 1964 attribution conflicts with the pinpoint 1968 primary clause and no independent H0 source review, correction, preservation, errata, or complete node crosswalk is accepted.",
+    "No independently accepted R0 node-by-node readable reconstruction exists, so AUDIT-Z and the theorem-critical readability gate remain open.",
+    "No accepted foundation profile or complete transitive declaration, proof-body, compiled-artifact, provenance, axiom, computation, TCB, SBOM, and license closure exists.",
+    "The automation-provided shared warm .lake symlink is reused read-only, so this is not immutable clean input, an empty-cache cold build, offline restoration, or a deterministic release bundle.",
+    "No two distinct signed clean-runner attestations, independently implemented minimal verifier, protected adversarial CI, AUDIT-Z, THEOREM-Z, theorem completion, release, or master acceptance exists."
+  ],
+  "retry_condition": "Master-accept the prerequisite chain in dependency order and reconcile the provisional proof into accepted graph and composition state; then independently close H0/R0, audit, foundation/trust/provenance, supply-chain, immutable cold/offline reproduction, distinct-runner, minimal-verifier, CI, and deterministic-bundle gates before another release decision.",
+  "worktree_classification": "nonrelease worker clone: the automation-provided Formalizations/Lean/.lake symlink is untracked and reuses the canonical shared warm cache without mutation; the owned release artifacts and root worker packet are provisional changes",
+  "statement_fingerprint": "lean-expression-sha256:c8a89538bd8b492ba31ce5d516a0f8fefef70a550e1d2fe74e39a4cba7849051",
+  "registry_denominator_sha256": "7f5030b02a13572f021c17ac32f2472098e2a5de881bc5a4999716dd411f717b",
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records the pre-proof authority and provisional-proof conflict without rewriting predecessor state",
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0072/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0072/release-validation.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0072-RELEASE"
+  ],
+  "status_boundary": "Self-tested negative release reconciliation only. It advances no lifecycle, debt, obligation, audit, or theorem state; accepts no receipt; and does not claim accepted M0-L/E0/E1, AUDIT-Z, THEOREM-Z, release grade, theorem completion, independent verification, or master acceptance."
+}
