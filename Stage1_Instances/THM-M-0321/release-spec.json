@@ -1,0 +1,46 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0321-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0321-RELEASE",
+  "theorem_id": "THM-M-0321",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0321/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "runner-provided local Python and Git command discovery"
+  },
+  "timeout_seconds": 300,
+  "network_policy": "denied_not_required",
+  "network_enforcement": "The structural negative release checker reads only repository-local files, hashes, and Git state and makes no network request. It deliberately does not repair, fetch, build, or mutate the incomplete automation-provided .lake artifact.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line negative release summary ending verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0321-ROOT",
+    "M0321-T-UPGRADE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0321.MarkovKakutaniTarget",
+    "Stage1Instances.THM_M_0321.ObligationTree.CompactnessUpgrade",
+    "Stage1Instances.THM_M_0321.markovKakutani_proof",
+    "Stage1Instances.THM_M_0321.Validation.recomposedMarkovKakutani"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_no_closure_credit",
+  "scope_boundary": "Reconciles the current structured authority, frozen denominator, provisional proof and validation receipts, false frozen composition interface, release evidence requirements, and current missing pinned artifact. Historical Lean results are hash-bound but not rerun or promoted. The recipe creates no accepted state, M0/E0/E1 credit, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}

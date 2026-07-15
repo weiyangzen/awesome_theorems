@@ -10958,7 +10958,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0321-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0321`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0321-VALIDATION` / `THM-M-0321` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0321-PROOF`. Owned paths: `Stage1_Instances/THM-M-0321`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0321-RELEASE` / `THM-M-0321` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0321-RELEASE` / `THM-M-0321` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0321-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0321`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1419-INTAKE` / `THM-M-1419` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-1419`. Gate: rev-5.6 node-specific receipt and master acceptance.
