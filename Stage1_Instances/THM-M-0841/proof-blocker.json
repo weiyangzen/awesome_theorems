@@ -1,0 +1,94 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0841-PROOF",
+  "theorem_id": "THM-M-0841",
+  "base_revision": "aef94f39853f9222e48f83b2358a6822aafd3c50",
+  "base_tree": "8c42e198fdbcc36b0f5cc0f865e0961715a35c17",
+  "recorded_at": "2026-07-15T20:45:07+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0841.ErdosStoneTarget",
+  "statement_sha256": "897dcc398df34c0dd6ad02dc2092a08f46a6cafc908c2e9f8497a895aa66663d",
+  "obligation_tree_sha256": "35b5fb5dd8e85b83b0d86f75b29b601401d3f92f0a8b258ef800a8a732fcabc1",
+  "obligation_registry_sha256": "bb7f423225520286e0942afd1553a37c718ff1a98a14c928d9f716ff3b67c694",
+  "registry_denominator_sha256": "9e59690364fbc34301457900dd8ba573bce76a64a8dbeb9dca38d77e19953617",
+  "typed_graphs_sha256": "494e39a93037052dd903ca1f75f50a80ceee6574fb0cf5cc61ade75429ac48b1",
+  "anchor_audit_sha256": "10275b8946fb134c2788e7104f39c1cf0dbeb6e28bbf293303846726a4f0cc4b",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "exact_transport_body_self_tested_graph_closure_blocked",
+  "proof_body_added": true,
+  "partial_proof_receipt_id": "S56-M-0841-PROOF-local-20260715T204507+0800",
+  "exact_declaration_evidence_ids": [
+    "M0841-S-COMPLEMENT-TRANSPORT"
+  ],
+  "provisionally_closed_obligation_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_proposed": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_accepted": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M0841-S-COMPLEMENT-TRANSPORT graph reconciliation: the exact direct body is checked, but its frozen logical_decomposition children M0841-N-DENSE-FORM and M0841-N-THRESHOLD-PACKAGE remain open and no child-to-parent composition certificate binds them",
+  "remaining_root_cut_set": [
+    "M0841-S-COMPLEMENT-TRANSPORT",
+    "M0841-B-R-TWO",
+    "M0841-B-R-GE-THREE"
+  ],
+  "formal_premise_cut_using_direct_body": [
+    "M0841-B-R-TWO",
+    "M0841-B-R-GE-THREE"
+  ],
+  "remaining_proof_leaf_cut_set": [
+    "M0841-N-THRESHOLD-PACKAGE",
+    "M0841-N-LOG-ROUNDING",
+    "M0841-N-PART-SIZE-STABILITY",
+    "M0841-N-ASYMPTOTICS",
+    "M0841-L-INTERSECTION-DOUBLE-COUNT",
+    "M0841-L-HIGH-DEGREE-COUNT",
+    "M0841-L-BASE-SIZE",
+    "M0841-L-ADMISSIBLE-BOUNDS",
+    "M0841-B-C-ZERO",
+    "M0841-L-RICH-EACH-PART",
+    "M0841-C-STEP-COUNT",
+    "M0841-L-D-LIMIT",
+    "M0841-L-ALGEBRA-CONTRADICTION"
+  ],
+  "implemented_bodies": {
+    "Stage1Instances.THM_M_0841_Proof.cast_choose_two": "normalizes the real cast of n.choose 2 to (n^2-n)/2",
+    "Stage1Instances.THM_M_0841_Proof.card_edgeFinset_compl": "proves the exact finite complement edge-cardinality identity",
+    "Stage1Instances.THM_M_0841_Proof.sparseFromDense": "inhabits the frozen SparseFromDense interface using epsilon/2 slack and an explicit Archimedean threshold",
+    "Stage1Instances.THM_M_0841_Proof.denseFamily_of_base_step": "checks the frozen strong-induction composition while retaining DenseBase and DenseStep as explicit premises",
+    "Stage1Instances.THM_M_0841_Proof.erdosStone_of_dense_base_step": "checks exact root composition with only DenseBase and DenseStep explicit after discharging SparseFromDense"
+  },
+  "candidate_assessment": {
+    "repo_local": "The statement and frozen conditional architecture existed, but no proof-phase body. This packet supplies the exact complement transport only.",
+    "pinned_mathlib": "The pin contains finite graph and Turan-density support but no Erdos-Stone terminal declaration or growing-part theorem.",
+    "audited_external": "The recorded post-pin mathlib and external candidates prove fixed-part dense variants. They do not imply the required k growing at least as sqrt of the iterated logarithm without a new checked argument."
+  },
+  "blocker": "The direct sparseFromDense body proves the exact formal target, but the frozen proof graph models M0841-S-COMPLEMENT-TRANSPORT as a nonleaf requiring M0841-N-DENSE-FORM and M0841-N-THRESHOLD-PACKAGE. Blueprint 6.3 and 6.7 forbid closing a parent with open logical-decomposition children. Accordingly this packet records exact declaration evidence but zero canonical obligation closure. Separately, the formal root still requires the dense r=2 base and r>=3 strong-induction step; their descendants require the finite-family intersection lemma, high-degree base, admissible-tolerance split, iterated intersections, block deletion, asymptotics, and limiting contradiction.",
+  "retry_condition": "First reconcile the frozen transport decomposition through a new reviewed registry/graph version or checked child-to-parent certificates. Then implement DenseBase and DenseStep through their frozen descendants without placeholders, or integrate an immutable compatible Lean 4 proof of the exact growing-part dense family.",
+  "known_failures": [
+    "DenseBase and DenseStep, with their internal 1946 proof packages, remain open; the canonical root is not kernel closed.",
+    "The exact sparseFromDense body does not close its canonical nonleaf obligation while its frozen logical-decomposition children and composition certificate remain open.",
+    "The conditional declaration erdosStone_of_dense_base_step does not prove its explicit DenseBase and DenseStep premises.",
+    "The prerequisite obligation-tree receipt and this proof receipt remain provisional pending dependency-ordered master acceptance.",
+    "H0, R0, complete provenance/trust/TCB closure, validation, hermetic replay, independent verification, release, AUDIT-Z, and THEOREM-Z remain open.",
+    "The accepted state remains H1/M3/R4 with no accepted closed proof obligations.",
+    "The canonical .lake symlink is pre-existing untracked worker state and was used read-only."
+  ],
+  "status_boundary": "This is genuine exact-body evidence for the frozen transport target, but zero canonical obligations are claimed closed because the frozen nonleaf graph is not reconciled. It grants no accepted state, dense base/step proof, root closure, validation, release, audit completion, master acceptance, or theorem completion.",
+  "selftest_manifest_written": true
+}
