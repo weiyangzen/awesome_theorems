@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0651-VALIDATION-local-v1",
+  "item_id": "S56-M-0651-VALIDATION",
+  "theorem_id": "THM-M-0651",
+  "depends_on": [
+    "S56-M-0651-PROOF"
+  ],
+  "intent": "validate",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0651-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0651/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "HOME": "runner home used only to address the hash-verified .elan/bin/lake launcher",
+        "PATH": "/usr/bin:/bin"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean replay subprocess runs inside bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary output directory writable. The outer hash/provenance checker is not network-namespaced but invokes no network-capable command; this is procedural denial outside the Lean subprocesses, not release-grade whole-recipe network isolation.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line UTF-8 summary bound by validation-receipt.json output_evidence.stdout_semantic_sha256"
+        }
+      ],
+      "expected_output_policy": "Six exact summary lines must report three provisional narrow passes and three fail-closed root, assurance, or release boundaries.",
+      "covered_obligation_ids": [],
+      "validated_partial_progress_toward_obligation_ids": [
+        "M0651-L-ENUM",
+        "M0651-L-DENSE",
+        "M0651-B-ARITY0"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0651.OmittingTypesTarget",
+        "Stage1Instances.THM_M_0651.omits_iff_no_realizing_tuple",
+        "Stage1Instances.THM_M_0651.ObligationTree.root_compose",
+        "Stage1Instances.THM_M_0651.ProofLemmas.countable_symbols",
+        "Stage1Instances.THM_M_0651.ProofLemmas.countable_finite_arity_syntax",
+        "Stage1Instances.THM_M_0651.ProofLemmas.exists_surjective_formula_schedule",
+        "Stage1Instances.THM_M_0651.ProofLemmas.countable_avoidance_requirements",
+        "Stage1Instances.THM_M_0651.ProofLemmas.zero_arity_formula_requirement_inhabited",
+        "Stage1Instances.THM_M_0651.ProofLemmas.zero_arity_tuple_requirement_inhabited",
+        "Stage1Instances.THM_M_0651.ProofLemmas.exists_surjective_avoidance_schedule",
+        "Stage1Instances.THM_M_0651.ProofLemmas.exists_consistent_avoidance_extension",
+        "Stage1Instances.THM_M_0651.Validation.differentialOmitsIffNoRealizingTuple",
+        "Stage1Instances.THM_M_0651.Validation.differentialExistsSurjectiveAvoidanceSchedule",
+        "Stage1Instances.THM_M_0651.Validation.differentialExistsConsistentAvoidanceExtension"
+      ],
+      "scope_boundary": "Trust-zero, network-isolated Lean subprocess replay of the exact statement, conditional obligation-tree composition, and eight partial proof bodies, plus separately written same-worker reconstructions of omission transport, fair scheduling, and density. It covers zero frozen obligations and supplies no Henkin construction, omission argument, exact cross-module root composition, release hermeticity, or distinct-runner independence."
+    }
+  ],
+  "status_boundary": "A passing recipe self-tests only a truthful blocked validation packet; it cannot promote the proof dependency, close a frozen obligation or the root, or establish M0/E0/E1, AUDIT-Z, THEOREM-Z, release, or master acceptance."
+}
