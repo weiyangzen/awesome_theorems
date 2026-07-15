@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0419-VALIDATION",
+  "theorem_id": "THM-M-0419",
+  "depends_on": [
+    "S56-M-0419-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0419-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0419/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean replay runs inside bubblewrap with an unshared network namespace, a read-only host root, and only a fresh temporary output directory writable.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact seven-line UTF-8 PASS/FAIL-CLOSED summary bound by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [],
+      "validated_partial_progress_toward_obligation_ids": [
+        "M0419-C-CYCLOTOMIC-IDENTIFY"
+      ],
+      "covered_declarations": [
+        "Stage1.THM_M_0419.Statement",
+        "Stage1.THM_M_0419.ObligationTree.cyclicPrimePower_of_branches",
+        "Stage1.THM_M_0419.ObligationTree.localContainment_of_induction",
+        "Stage1.THM_M_0419.ObligationTree.checkedPositiveTransport",
+        "Stage1.THM_M_0419.ObligationTree.checkedRootAssembly",
+        "Stage1.THM_M_0419.ObligationTree.root_of_packages",
+        "Stage1.THM_M_0419.Proof.cyclotomicIdentify",
+        "Stage1.THM_M_0419.Validation.differentialCyclotomicIdentify",
+        "IsCyclotomicExtension.algEquiv"
+      ],
+      "scope_boundary": "Trust-zero, network-isolated worker replay of the exact statement, conditional compositions, one partial proof transport, and a separately written same-worker no-import reconstruction. It covers zero frozen obligations because the transport has only a planned signature fingerprint and no master-accepted interface mapping. It supplies no local or global Kronecker-Weber package, exact-root proof, release hermeticity, or distinct-runner independence."
+    }
+  ],
+  "legacy_specs_boundary": "validation-specs.json remains the obligation-tree phase artifact. Its 25 recipes are closure-credit false and stale at the integrated HEAD because their checker binds the historical obligation-tree base revision.",
+  "status_boundary": "A passing recipe self-tests only a truthful blocked validation packet. It cannot promote the proof dependency, close a frozen obligation or the root, or establish M0/E0/E1, AUDIT-Z, THEOREM-Z, release, or master acceptance."
+}
