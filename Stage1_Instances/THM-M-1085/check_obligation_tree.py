@@ -3,6 +3,7 @@
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -66,9 +67,15 @@ assert closure["closed_obligations"] == []
 assert closure["root_closed"] is closure["audit_complete"] is closure["theorem_complete"] is False
 assert closure["root_machine_debt"] == "M4"
 assert set(closure["remaining_root_cut_set"]) <= set(den["required_machine"])
+prohibited = re.compile(
+    r"\b(?:sorry|admit|sorryAx|implemented_by|native_decide)\b|"
+    r"^[ \t]*(?:axiom|constant|opaque|unsafe|extern)[ \t]+",
+    re.MULTILINE,
+)
 for path in HERE.glob("*.lean"):
-    source = path.read_text()
-    assert "sorry" not in source and "admit" not in source and "axiom " not in source
+    source = re.sub(r"/-.*?-/", "", path.read_text(), flags=re.DOTALL)
+    source = re.sub(r"--.*", "", source)
+    assert prohibited.search(source) is None, path
 print(f"PASS THM-M-1085 obligation tree: {len(ids)} obligations, {len(edge_ids)} typed edges")
 print(f"registry denominator sha256: {digest}")
 print("root closure: open (M4); no proof or theorem completion claimed")
