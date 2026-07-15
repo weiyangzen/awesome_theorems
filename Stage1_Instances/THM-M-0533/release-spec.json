@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0533-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0533-RELEASE",
+  "theorem_id": "THM-M-0533",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0533/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs under bubblewrap with a read-only host root, a fresh writable temporary bind, a cleared environment, and an unshared network namespace. The outer Python checker performs only local file, hash, Git, and process checks.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line reconciliation summary bound in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0533-ROOT",
+    "M0533-S-DEFINITIONS",
+    "M0533-S-BOUNDARY",
+    "M0533-S-FOUNDATION",
+    "M0533-C-SUBDIVISION",
+    "M0533-L-SMALL-QUASIISO",
+    "M0533-C-CHAIN-SES",
+    "M0533-L-CHAIN-KERNEL",
+    "M0533-C-BOUNDARY",
+    "M0533-L-NATURALITY",
+    "M0533-T-CONSTRUCTION",
+    "M0533-T-EXACT-INTER",
+    "M0533-T-EXACT-BIPROD",
+    "M0533-T-EXACT-SPACE",
+    "M0533-T-DEGREE-ZERO",
+    "M0533-T-EXACTNESS",
+    "M0533-T-ASSEMBLE",
+    "M0533-X-SOURCE",
+    "M0533-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "AwesomeTheorems.THM_M_0533.MayerVietorisSequence",
+    "AwesomeTheorems.THM_M_0533.canonical_iff_alternate",
+    "AwesomeTheorems.THM_M_0533.root_of_construction_and_exactness",
+    "AwesomeTheorems.THM_M_0533.firstMap_comp_secondMap",
+    "AwesomeTheorems.THM_M_0533.Validation.independentlyReconstructedFirstSecond"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This bounded worker recipe authenticates current inputs, replays the exact statement plus conditional and elementary partial bodies at trust zero, and checks a negative release decision. It reuses pinned warm artifacts. It cannot accept the validation dependency, serialize an independently reviewed expression fingerprint, close any substantive obligation or the exact root, supply H0/R0 or complete provenance/TCB evidence, perform a clean cold/offline release build, act as an independent verifier, or grant release/master acceptance."
+}
