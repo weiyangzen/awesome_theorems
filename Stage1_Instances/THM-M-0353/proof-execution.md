@@ -1,4 +1,15 @@
-# THM-M-0353 proof execution receipt
+# THM-M-0353 proof execution history
+
+## Current rev-5.6 execution
+
+The earlier blocked attempt below has been superseded by a provisional exact-root proof packet.
+`Proof.lean` now kernel-checks the unchanged complex Hermite completeness target through a
+byte-identical, immutable Apache-2.0 Hermite development and a repo-local complex adapter. See
+`proof-validation.md`, `proof-receipt.json`, and `VENDOR_PROVENANCE.md` for the current commands,
+hashes, axiom results, graph boundary, and non-completion status. This worker does not overwrite the
+historical record or promote any accepted state.
+
+## Superseded blocked attempt
 
 Item: `S56-M-0353-PROOF`  
 Base revision: `b8a117cd19ae3b30b59087d7bc9c8071ee7212ab`  

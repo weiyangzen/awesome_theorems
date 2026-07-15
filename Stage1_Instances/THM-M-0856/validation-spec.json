@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0856-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0856-VALIDATION",
+  "theorem_id": "THM-M-0856",
+  "cwd": ".",
+  "argv": [
+    "bash",
+    "Stage1_Instances/THM-M-0856/check_validation.sh"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The entire recorded validation recipe re-executes through bubblewrap --unshare-net with fixed locale and timezone; the read-only host bind permits reads while only /tmp is writable. The shared warm canonical .lake remains nonrelease input and is not represented as a cold hermetic cache.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0856-ROOT",
+    "M0856-T-UPSTREAM",
+    "M0856-T-ADAPTER"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0856.TutteOneFactorTarget",
+    "SimpleGraph.tutte",
+    "Stage1Instances.THM_M_0856.ObligationTree.terminal_adapter",
+    "Stage1Instances.THM_M_0856.ObligationTree.pinned_mathlib_terminal",
+    "Stage1Instances.THM_M_0856.ObligationTree.compose_root",
+    "Stage1Instances.THM_M_0856.Proof.pinnedTerminal",
+    "Stage1Instances.THM_M_0856.Proof.tutteOneFactor_via_frozen_composition",
+    "Stage1Instances.THM_M_0856.Proof.tutteOneFactor_direct",
+    "Stage1Instances.THM_M_0856.Validation.tutteOneFactor_differential"
+  ],
+  "scope_boundary": "Network-isolated, node-scoped worker replay of the exact frozen target, pinned terminal, root adapter/composition, proof wrappers, selected pinned provenance, and a Statement-only same-worker differential reconstruction. The three obligation IDs have exact-declaration evidence only: 16 internal source-body decomposition plans lack separate child-to-parent composition credit. Proof master acceptance, accepted foundation/trust state, complete transitive TCB/provenance/SBOM closure, clean-checkout empty-cache offline replay, and distinct signed independent verification remain fail-closed."
+}
