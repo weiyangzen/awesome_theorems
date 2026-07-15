@@ -6,14 +6,17 @@ import Mathlib.Probability.Distributions.Gaussian.Real
 # THM-M-1065 proof-phase substrate
 
 This module constructs, on one product probability space, an iid sequence with an admissible input
-law and an iid standard Gaussian sequence. The two sequences are independent here, so this is only
-common-carrier and marginal-law substrate. It does not provide the dependent KMT coupling or its
-logarithmic maximal-discrepancy tail estimate and therefore does not prove the canonical target.
+law and an iid standard Gaussian sequence. It also proves finite-horizon discrepancy-event
+measurability from measurable increments. The two constructed sequences are independent here, so
+these are only common-carrier, marginal-law, and event-formation substrates. They do not provide the
+dependent KMT coupling or its logarithmic maximal-discrepancy tail estimate and therefore do not
+prove the canonical target.
 -/
 
 noncomputable section
 
 open MeasureTheory
+open Set
 
 namespace Stage1Instances.THM_M_1065
 
@@ -28,6 +31,31 @@ def CommonIIDSequences (mu : Measure Real) : Prop :=
     (forall i, ProbabilityTheory.HasLaw (Y i)
       (ProbabilityTheory.gaussianReal 0 1) P) /\
     ProbabilityTheory.iIndepFun Y P
+
+/-- A finite-horizon discrepancy event is measurable when every increment in both sequences is
+measurable. This is the analytic set-formation lemma needed by the frozen event-measurability
+obligation; it does not construct a KMT coupling or prove the event's probability bound. -/
+theorem measurableSet_discrepancyEvent {Omega : Type*} [MeasurableSpace Omega]
+    (X Y : Nat -> Omega -> Real) (hX : forall i, Measurable (X i))
+    (hY : forall i, Measurable (Y i)) (C x : Real) (n : Nat) :
+    MeasurableSet (DiscrepancyEvent X Y C x n) := by
+  unfold DiscrepancyEvent
+  let A : Nat -> Set Omega := fun k =>
+    {omega |
+      |(Finset.range k).sum (fun i => X i omega) -
+        (Finset.range k).sum (fun i => Y i omega)| > C * Real.log n + x}
+  have hA : forall k, MeasurableSet (A k) := by
+    intro k
+    exact measurableSet_lt measurable_const
+      ((Finset.measurable_fun_sum (Finset.range k) fun i _ => hX i).sub
+        (Finset.measurable_fun_sum (Finset.range k) fun i _ => hY i)).abs
+  change MeasurableSet {omega | exists k, 1 <= k /\ k <= n /\ omega ∈ A k}
+  rw [show {omega | exists k, 1 <= k /\ k <= n /\ omega ∈ A k} =
+      ⋃ k ∈ Finset.Icc 1 n, A k by
+    ext omega
+    simp only [Set.mem_setOf_eq, Set.mem_iUnion, Finset.mem_Icc]
+    aesop]
+  exact Finset.measurableSet_biUnion _ fun k _ => hA k
 
 /-- Product-space construction of the input-law and Gaussian iid sequences. The `Sum Nat Nat`
 index keeps the two families on one carrier while allowing independence to be restricted to each
@@ -62,6 +90,8 @@ theorem exists_commonIIDSequences (mu : Measure Real) (hmu : AdmissibleLaw mu) :
   · exact hZ_indep.precomp Sum.inr_injective
 
 #check exists_commonIIDSequences
+#check measurableSet_discrepancyEvent
 #print axioms exists_commonIIDSequences
+#print axioms measurableSet_discrepancyEvent
 
 end Stage1Instances.THM_M_1065

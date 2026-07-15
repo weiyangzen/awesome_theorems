@@ -1,0 +1,88 @@
+import Proof
+import ObligationTree
+import Mathlib.Util.AssertNoSorry
+import Mathlib.Util.PrintSorries
+
+/-!
+# THM-M-1285 validation probe
+
+This module asks Lean to inspect the frozen statement, conditional composition,
+and existing exact proof. It deliberately adds no theorem, definition, or proof
+body. Reimplementing the construction during validation would cross the
+validation-only boundary rather than establish independent verification.
+
+This is a same-worker trust probe, not an independent-runner attestation.
+-/
+
+namespace Stage1Instances.THM_M_1285.Validation
+
+#check Stage1Instances.THM_M_1285.SchwarzRearrangementTarget
+#check Stage1Instances.THM_M_1285.schwarzRearrangementTarget_iff_expandedTarget
+#check Stage1Instances.THM_M_1285.schwarzRearrangementTarget_of_construction
+#check Stage1Instances.THM_M_1285.isRadial_profile
+#check Stage1Instances.THM_M_1285.isRadiallyNonincreasing_profile
+#check Stage1Instances.THM_M_1285.measurable_profile
+#check Stage1Instances.THM_M_1285.distribution_antitone
+#check Stage1Instances.THM_M_1285.iUnion_strictSuperlevel_gt
+#check Stage1Instances.THM_M_1285.distribution_iSup_rat_gt
+#check Stage1Instances.THM_M_1285.volume_ball_radiusForVolume
+#check Stage1Instances.THM_M_1285.radiusForVolume_nonneg
+#check Stage1Instances.THM_M_1285.radiusForVolume_mono
+#check Stage1Instances.THM_M_1285.starProfile_measurable
+#check Stage1Instances.THM_M_1285.starProfile_antitone
+#check Stage1Instances.THM_M_1285.strictSuperlevel_starProfile
+#check Stage1Instances.THM_M_1285.measure_strictSuperlevel_starProfile
+#check Stage1Instances.THM_M_1285.schwarzRearrangementTarget_proof
+
+assert_no_sorry Stage1Instances.THM_M_1285.schwarzRearrangementTarget_iff_expandedTarget
+assert_no_sorry Stage1Instances.THM_M_1285.schwarzRearrangementTarget_of_construction
+assert_no_sorry Stage1Instances.THM_M_1285.isRadial_profile
+assert_no_sorry Stage1Instances.THM_M_1285.isRadiallyNonincreasing_profile
+assert_no_sorry Stage1Instances.THM_M_1285.measurable_profile
+assert_no_sorry Stage1Instances.THM_M_1285.distribution_antitone
+assert_no_sorry Stage1Instances.THM_M_1285.iUnion_strictSuperlevel_gt
+assert_no_sorry Stage1Instances.THM_M_1285.distribution_iSup_rat_gt
+assert_no_sorry Stage1Instances.THM_M_1285.volume_ball_radiusForVolume
+assert_no_sorry Stage1Instances.THM_M_1285.radiusForVolume_nonneg
+assert_no_sorry Stage1Instances.THM_M_1285.radiusForVolume_mono
+assert_no_sorry Stage1Instances.THM_M_1285.starProfile_measurable
+assert_no_sorry Stage1Instances.THM_M_1285.starProfile_antitone
+assert_no_sorry Stage1Instances.THM_M_1285.strictSuperlevel_starProfile
+assert_no_sorry Stage1Instances.THM_M_1285.measure_strictSuperlevel_starProfile
+assert_no_sorry Stage1Instances.THM_M_1285.schwarzRearrangementTarget_proof
+
+#print sorries Stage1Instances.THM_M_1285.schwarzRearrangementTarget_iff_expandedTarget
+#print sorries Stage1Instances.THM_M_1285.schwarzRearrangementTarget_of_construction
+#print sorries Stage1Instances.THM_M_1285.isRadial_profile
+#print sorries Stage1Instances.THM_M_1285.isRadiallyNonincreasing_profile
+#print sorries Stage1Instances.THM_M_1285.measurable_profile
+#print sorries Stage1Instances.THM_M_1285.distribution_antitone
+#print sorries Stage1Instances.THM_M_1285.iUnion_strictSuperlevel_gt
+#print sorries Stage1Instances.THM_M_1285.distribution_iSup_rat_gt
+#print sorries Stage1Instances.THM_M_1285.volume_ball_radiusForVolume
+#print sorries Stage1Instances.THM_M_1285.radiusForVolume_nonneg
+#print sorries Stage1Instances.THM_M_1285.radiusForVolume_mono
+#print sorries Stage1Instances.THM_M_1285.starProfile_measurable
+#print sorries Stage1Instances.THM_M_1285.starProfile_antitone
+#print sorries Stage1Instances.THM_M_1285.strictSuperlevel_starProfile
+#print sorries Stage1Instances.THM_M_1285.measure_strictSuperlevel_starProfile
+#print sorries Stage1Instances.THM_M_1285.schwarzRearrangementTarget_proof
+
+#print axioms Stage1Instances.THM_M_1285.schwarzRearrangementTarget_iff_expandedTarget
+#print axioms Stage1Instances.THM_M_1285.schwarzRearrangementTarget_of_construction
+#print axioms Stage1Instances.THM_M_1285.isRadial_profile
+#print axioms Stage1Instances.THM_M_1285.isRadiallyNonincreasing_profile
+#print axioms Stage1Instances.THM_M_1285.measurable_profile
+#print axioms Stage1Instances.THM_M_1285.distribution_antitone
+#print axioms Stage1Instances.THM_M_1285.iUnion_strictSuperlevel_gt
+#print axioms Stage1Instances.THM_M_1285.distribution_iSup_rat_gt
+#print axioms Stage1Instances.THM_M_1285.volume_ball_radiusForVolume
+#print axioms Stage1Instances.THM_M_1285.radiusForVolume_nonneg
+#print axioms Stage1Instances.THM_M_1285.radiusForVolume_mono
+#print axioms Stage1Instances.THM_M_1285.starProfile_measurable
+#print axioms Stage1Instances.THM_M_1285.starProfile_antitone
+#print axioms Stage1Instances.THM_M_1285.strictSuperlevel_starProfile
+#print axioms Stage1Instances.THM_M_1285.measure_strictSuperlevel_starProfile
+#print axioms Stage1Instances.THM_M_1285.schwarzRearrangementTarget_proof
+
+end Stage1Instances.THM_M_1285.Validation
