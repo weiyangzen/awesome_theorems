@@ -1,0 +1,80 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1060-VALIDATION",
+  "theorem_id": "THM-M-1060",
+  "phase": "validation",
+  "depends_on": [
+    "S56-M-1060-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-1060-VALIDATION-network-isolated-warm-replay-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-1060/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "HOME": "inherited only for pinned tool discovery before isolation",
+        "PATH": "$HOME/.elan/bin:/usr/bin:/bin",
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean process runs under /usr/bin/bwrap --unshare-net with a read-only host root, a writable fresh /tmp directory, and a cleared fixed environment.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "Require the six fixed PASS/OPEN/FAIL CLOSED summary lines after recomputing all evidence."
+        }
+      ],
+      "covered_obligation_ids": [
+        "M1060-ROOT",
+        "M1060-S-DEFINITIONS",
+        "M1060-S-BOUNDARY",
+        "M1060-S-FOUNDATION",
+        "M1060-N-WIENER",
+        "M1060-N-LDP",
+        "M1060-C-PROJECTION",
+        "M1060-L-GAUSSIAN",
+        "M1060-L-PROJECTED",
+        "M1060-L-MODULUS",
+        "M1060-L-EXP-EQUIV",
+        "M1060-L-RATE-ID",
+        "M1060-T-LOWER",
+        "M1060-T-UPPER",
+        "M1060-C-CM-WITNESS",
+        "M1060-L-RATE-LSC",
+        "M1060-L-SUBLEVEL-BOUND",
+        "M1060-T-GOOD",
+        "M1060-T-COMPOSE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_1060.SchilderTarget",
+        "Stage1Instances.THM_M_1060.target_iff_expandedSourceShape",
+        "Stage1Instances.THM_M_1060.isProbabilityMeasure_of_isWienerMeasure",
+        "Stage1Instances.THM_M_1060.measurableEvaluationLinear",
+        "Stage1Instances.THM_M_1060.continuousScale",
+        "Stage1Instances.THM_M_1060.zeroTimeVarianceAndLaw",
+        "Stage1Instances.THM_M_1060.zeroTimeLaw",
+        "Stage1Instances.THM_M_1060.oneTimeVarianceAndLaw",
+        "Stage1Instances.THM_M_1060.oneTimeLaw",
+        "Stage1Instances.THM_M_1060.isGaussianProcess_of_isWienerMeasure",
+        "Stage1Instances.THM_M_1060.ObligationTree.smallNoiseLDP_of_bounds_and_good",
+        "Stage1Instances.THM_M_1060.ObligationTree.schilderTarget_of_components",
+        "Stage1Instances.THM_M_1060.AnchorAudit.noRetainedCandidateClaimsTerminalProof",
+        "Stage1Instances.THM_M_1060.AnchorAudit.anchorAuditPermitsTheoremCompletion_eq_false"
+      ],
+      "coverage_boundary": "The IDs enumerate validation subjects, not closure credit. The recipe re-elaborates the exact statement, conditional composition interfaces, audited anchors, and eight partial proof bodies; it proves that the graph still closes zero obligations and fails the unavailable complete trust, cold hermetic, and distinct-runner gates closed."
+    }
+  ]
+}
