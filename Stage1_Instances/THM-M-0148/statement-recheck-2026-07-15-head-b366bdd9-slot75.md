@@ -1,0 +1,100 @@
+# THM-M-0148 statement recheck: blocked
+
+Item: `S56-M-0148-STATEMENT`
+
+Base revision: `b366bdd9f72217b5465ccd19133760b911ed0b58` (tree
+`987b635fe76400c0818b485a6e5fc7a7067311e4`). Rechecked on 2026-07-15
+(`Asia/Shanghai`) in worker slot 75.
+
+## Decision
+
+The exact-statement gate is still blocked. The repository record gives the
+title "Mori minimal model program", Mori attribution, the year 1988, and only
+the slogan "birational classification of higher-dimensional algebraic
+varieties". It does not select one truth-valued theorem or give a pinpoint
+primary-source theorem locator.
+
+The omitted choices change the proposition: field and characteristic;
+absolute or relative setting; dimension; variety or log-pair data; boundary
+and singularity class; normality, projectivity, properness, and
+`Q`-factoriality; permitted MMP steps and termination scope; and whether the
+conclusion is a cone theorem, contraction, flip, minimal model, or Mori fibre
+space. Choosing a branch without source authority would narrow, broaden, or
+substitute the received target. Encoding the omissions as arbitrary predicate
+parameters would not establish statement identity.
+
+No authoritative target input has changed since the integrated prior recheck.
+The target manifest, catalog and Stage0 records, legacy Stage1 blueprint,
+execution skill and guidelines, intake dossier, legacy Lean module, toolchain,
+and dependency lock are byte-identical. The rev-5.6 blueprint and execution
+DAG changed only for unrelated integrations; their extracted `THM-M-0148`
+projections are byte-identical. This base adds the preceding slot66 recheck but
+no new statement-selection evidence.
+
+Consequently there is no honest canonical Lean expression whose direct
+imports can be minimized or whose elaborated expression and environment can
+be fingerprinted. Checked alternate transports and the removed-hypothesis,
+changed-domain, changed-binder-scope, and boundary-case mutations remain
+undefined, not passed. The first failed gate remains
+`exact_source_statement_identity_and_named_branch_selection`.
+
+The prerequisite `S56-M-0148-INTAKE` also remains provisional `[_]`, with no
+master acceptance receipt. Lifecycle therefore remains `planned`, the vector
+remains `H5 / M4 / R3`, and this statement node remains `[ ]`. This recheck
+does not claim a proof, statement receipt, debt change, audit completion, or
+theorem completion.
+
+## Pinned Lean Boundary
+
+The legacy discovery module
+`Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_028.lean` was replayed with
+the existing pinned Lake artifacts. It elaborates scheme and rational-map
+substrate plus parameterized statement shapes. Its MMP assumptions and outputs
+are unconstrained `Prop` fields, and its checked blocker declares every MMP
+branch repo-locally open. Successful replay is boundary evidence only; it does
+not elaborate a source-selected target or establish target import minimality.
+
+The replay used Lean `4.29.0` at commit
+`98dc76e3c0a9b856c9b98726b713fb04fab16740`, Lake
+`5.0.0-src+98dc76e`, and mathlib revision
+`8a178386ffc0f5fef0b77738bb5449d50efeea95` (tree
+`bdc39a3123201dae413a9d9be56ec242c19e5c2b`). The automation-provided
+`Formalizations/Lean/.lake` symlink was reused read-only. No update, build,
+clone, fetch, or dependency mutation was performed.
+
+## Validation Record
+
+Commands ran from this worker clone unless a working directory is stated.
+
+| Command | Exit | Exact result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 targets, and skill presence passed |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all `L0/rework_required` |
+| `python3 scripts/stage1_target.py show THM-M-0148` | 0 | rank 28; planned; legacy artifacts unaccepted; theorem incomplete |
+| `git status --short --untracked-files=all`; `git rev-parse HEAD 'HEAD^{tree}'` | 0 | pre-edit status contained only the automation-provided `.lake` symlink; base revision and tree match this record |
+| scoped inspection of the standard, skill, manifest, sources, intake, legacy module, and integrated blockers | 0 | source still supplies only a programme slogan; canonical target and minimal imports remain unfrozen |
+| scoped comparison of `4b5c39ff...HEAD` authoritative inputs and extracted target projections | 0 | target sources, intake, legacy Lean, toolchain, and dependency lock are unchanged; the current and prior `THM-M-0148` manifest/DAG/blueprint projections agree |
+| from `Formalizations/Lean`: `LC_ALL=C TZ=UTC lake env lean AwesomeTheorems/Stage1/S1_M_028.lean` | 0 | legacy discovery module elaborated; output showed substrate, parameterized shapes, open branch ledgers, and no MMP closure claim |
+| from `Formalizations/Lean`: `lake env lean --version`; `lake --version` | 0 | pinned Lean and Lake versions match those above |
+| pinned mathlib `git status --short`; `git rev-parse HEAD 'HEAD^{tree}'` | 0 | package worktree is clean at the revision and tree above |
+| bounded exact-name repo-local and pinned-mathlib Lean search | 0 | pinned mathlib had no exact-name match; repo-local matches were legacy/adjacent artifacts; no source-selected target was found and no exhaustive anchor-audit claim is made |
+| prohibited-construct scan over owned and legacy Lean sources | 1, expected no match | no `sorry`, `admit`, `sorryAx`, `axiom`, `constant`, `opaque`, `unsafe`, `implemented_by`, or `native_decide` occurrence |
+| `python3 -m json.tool` plus scoped invariant and fingerprint checks on the companion recheck JSON | 0 | blocked identity, current hashes, two-file scope, false completion fields, and self-test absence agree |
+| scoped tracked and per-new-file `git diff --check` | 0 | no whitespace diagnostics; validation accepted no-index exit 1 only as the expected new-file difference |
+| final standard/target validator replay | 0 | structural gates still pass and the target remains planned and incomplete |
+| `test ! -e .stage1-worker-selftest.json` | 0 | completion self-test is absent because the exact-statement deliverable failed |
+
+## Retry Condition And Boundary
+
+Retry after the intake is master-accepted and an accountable reviewer selects
+one named MMP theorem branch from an immutable primary source, with exact
+edition/theorem/page, field and characteristic, base, dimension, pair and
+boundary data, singularities, positivity assumptions, ordered binders,
+conclusion, termination boundary, degenerate cases, and errata crosswalk. A
+fresh worker can then encode only that approved claim, minimize imports,
+fingerprint the elaborated expression and environment, compile every credited
+transport, and run all four mutation classes.
+
+This is fresh current-HEAD target-scoped blocker evidence only. Because the
+positive statement deliverable did not pass, `.stage1-worker-selftest.json` is
+intentionally absent and no worker `[_]` or master acceptance is requested.
