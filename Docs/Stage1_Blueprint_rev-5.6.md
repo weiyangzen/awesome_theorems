@@ -10916,7 +10916,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0318-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0318`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0318-VALIDATION` / `THM-M-0318` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0318-PROOF`. Owned paths: `Stage1_Instances/THM-M-0318`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0318-RELEASE` / `THM-M-0318` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0318-RELEASE` / `THM-M-0318` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0318-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0318`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0319-INTAKE` / `THM-M-0319` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0319`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -12986,7 +12986,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0339-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0339`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0339-PROOF` / `THM-M-0339` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0339-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0339`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0339-VALIDATION` / `THM-M-0339` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
+- [_] `S56-M-0339-VALIDATION` / `THM-M-0339` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0339-PROOF`. Owned paths: `Stage1_Instances/THM-M-0339`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0339-RELEASE` / `THM-M-0339` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0339-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0339`. Gate: rev-5.6 node-specific receipt and master acceptance.

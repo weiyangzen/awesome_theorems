@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0318-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0318-RELEASE",
+  "theorem_id": "THM-M-0318",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0318/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "runner account used only to locate the already installed pinned Lean toolchain",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs only repository-local reconciliation and invokes the pinned Lean binary directly against existing read-only dependency outputs. It makes no network request and performs no Lake resolution, update, build, clone, fetch, checkout, or .lake mutation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact deterministic five-line negative release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0318-ROOT",
+    "M0318-S",
+    "M0318-S-TRANSPORT",
+    "M0318-C",
+    "M0318-C-NET",
+    "M0318-C-MAP",
+    "M0318-B-BROUWER",
+    "M0318-L-APPROX",
+    "M0318-L-LIMIT",
+    "M0318-L-CONT",
+    "M0318-X-TRUST",
+    "M0318-T-COMPOSE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0318.SchauderFixedPointTarget",
+    "Stage1Instances.THM_M_0318.compose_schauder",
+    "IndexedLOrder.Scarf",
+    "IndexedLOrder.GiComponentStructure_holds",
+    "Brouwer",
+    "Stage1Instances.THM_M_0318.exists_simplex_approximation",
+    "Stage1Instances.THM_M_0318.hasApproximateFixedPoints",
+    "Stage1Instances.THM_M_0318.approximationEngine",
+    "Stage1Instances.THM_M_0318.compactLimitEngine",
+    "Stage1Instances.THM_M_0318.exactSchauderTarget",
+    "Stage1Instances.THM_M_0318.schauderFixedPoint",
+    "Stage1Instances.THM_M_0318.Validation.validationSimplexApproximation",
+    "Stage1Instances.THM_M_0318.Validation.schauderFixedPoint_validation"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_with_current_warm_kernel_observation_no_closure_credit",
+  "scope_boundary": "Validates the exact blocked release verdict and rechecks the unchanged exact root in a temporary output tree at trust zero. It is not immutable clean input, an empty-cache cold build, offline restoration, an accepted foundation/TCB/SBOM closure, distinct signed verification, an independent minimal verifier, a deterministic release bundle, theorem completion, or master acceptance."
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0339-VALIDATION-local-v1",
+  "item_id": "S56-M-0339-VALIDATION",
+  "theorem_id": "THM-M-0339",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0339-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0339-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0339/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "HOME": "inherited runner home; used only to address the hash-verified pinned Lean toolchain",
+        "PATH": "<HOME>/.elan/bin:/usr/bin:/bin",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean replay subprocess runs inside bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary module directory writable. The outer checker performs local file, hash, and Git-object reads only; it invokes no Lake command, update, build, clone, fetch, or network operation.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line UTF-8 PASS/OPEN/FAIL-CLOSED summary bound by the node receipt"
+        }
+      ],
+      "expected_output_policy": "Six exact summary lines report three provisional narrow passes, one open-root boundary, and two fail-closed assurance/release boundaries.",
+      "covered_obligation_ids": [],
+      "validated_partial_progress_toward_obligation_ids": [
+        "M0339-S-BOUNDARY",
+        "M0339-B-RONE",
+        "M0339-B-RMANY",
+        "M0339-T-COR15",
+        "M0339-T-ASSEMBLE"
+      ],
+      "covered_declarations": [
+        "Stage1.THM_M_0339.MSSPartitionStatement",
+        "Stage1.THM_M_0339.Proof.one_part",
+        "Stage1.THM_M_0339.Proof.zero_dimension",
+        "Stage1.THM_M_0339.Proof.empty_family",
+        "Stage1.THM_M_0339.Proof.enough_colors",
+        "Stage1.THM_M_0339.Proof.constant_color_large_bound",
+        "Stage1.THM_M_0339.Proof.delta_ge_one",
+        "Stage1.THM_M_0339.Proof.zero_delta",
+        "Stage1.THM_M_0339.Proof.mssPartitionStatement_of_hardRegimeEngine"
+      ],
+      "scope_boundary": "Trust-zero, network-isolated, fresh-output replay of the exact statement, seven elementary proof bodies, and the root composition conditional on HardRegimeEngine. The recipe covers zero frozen obligations and supplies no hard MSS engine, unconditional root proof, release hermeticity, or distinct-runner independence."
+    }
+  ],
+  "status_boundary": "Validation-only worker recipe. It may attest narrow nonrelease checks and fail-closed gates, but cannot add proof content, accept the proof predecessor, close a frozen obligation or root, or supply release and master acceptance."
+}
