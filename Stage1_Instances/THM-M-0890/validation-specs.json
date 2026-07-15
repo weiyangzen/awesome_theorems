@@ -1,0 +1,108 @@
+{
+  "schema_version": "stage1-validation-specs/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0890-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0890",
+  "recipes": [
+    {
+      "recipe_id": "VAL-M0890-OBLIGATION-STRUCTURE",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0890/check_obligation_tree.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 120,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0890 obligation tree"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0890-ROOT",
+        "M0890-S-TARGET",
+        "M0890-S-LEAST",
+        "M0890-S-INDEPENDENCE",
+        "M0890-S-BOUNDARY",
+        "M0890-S-TRANSPORT",
+        "M0890-S-FOUNDATION",
+        "M0890-N-MAX-WITNESS",
+        "M0890-N-LEAST-MIN",
+        "M0890-L-LEAST-NEGATIVE",
+        "M0890-N-DENOMINATOR",
+        "M0890-L-REGULAR-ONES",
+        "M0890-L-ONES-ORTHOGONAL",
+        "M0890-C-HOFFMAN-MATRIX",
+        "M0890-L-COMMON-EIGENBASIS",
+        "M0890-L-HOFFMAN-PSD",
+        "M0890-C-PRINCIPAL",
+        "M0890-L-PSD-PRINCIPAL",
+        "M0890-L-INDEPENDENT-ZERO",
+        "M0890-T-RESTRICTED-FORM",
+        "M0890-C-ONES-VECTOR",
+        "M0890-L-QUADRATIC-EVAL",
+        "M0890-B-ALPHA-POSITIVE",
+        "M0890-L-SCALAR-ESTIMATE",
+        "M0890-T-DIVISION-FREE",
+        "M0890-T-ASSEMBLE",
+        "M0890-X-MATHLIB",
+        "M0890-X-SOURCE",
+        "M0890-X-PROVENANCE",
+        "M0890-X-EVIDENCE",
+        "M0890-X-TRUST",
+        "M0890-X-READABLE",
+        "M0890-X-WORKFLOW"
+      ],
+      "covered_declarations": [],
+      "coverage_boundary": "Checks registry, schemas, graph semantics, source mappings, and open state only; supplies no kernel proof closure."
+    },
+    {
+      "recipe_id": "VAL-M0890-OBLIGATION-LEAN",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-B",
+        "Stage1_Instances/THM-M-0890/check_obligation_tree.py",
+        "--run-lean"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 240,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains Lean composition: pass and no sorryAx"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0890-L-SCALAR-ESTIMATE",
+        "M0890-N-DENOMINATOR",
+        "M0890-N-MAX-WITNESS",
+        "M0890-ROOT",
+        "M0890-S-INDEPENDENCE",
+        "M0890-S-TRANSPORT",
+        "M0890-T-ASSEMBLE",
+        "M0890-T-DIVISION-FREE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget",
+        "Stage1Instances.THM_M_0890_Obligations.MaximumIndependentSetWitnessTarget",
+        "Stage1Instances.THM_M_0890_Obligations.MaximumIndependentSetEstimateTarget",
+        "Stage1Instances.THM_M_0890_Obligations.DenominatorPositiveTarget",
+        "Stage1Instances.THM_M_0890_Obligations.DivisionFreeInequalityTarget",
+        "Stage1Instances.THM_M_0890_Obligations.RatioAssemblyTarget",
+        "Stage1Instances.THM_M_0890_Obligations.maximumIndependentSetWitness_checked",
+        "Stage1Instances.THM_M_0890_Obligations.divisionFree_of_maximumEstimate",
+        "Stage1Instances.THM_M_0890_Obligations.assembly_of_children",
+        "Stage1Instances.THM_M_0890_Obligations.root_of_ratio_assembly",
+        "Stage1Instances.THM_M_0890_Obligations.root_of_children"
+      ],
+      "coverage_boundary": "Kernel-checks exact conditional interfaces and composition only. It supplies none of the spectral, positive-semidefinite, denominator, or scalar premises and closes no obligation."
+    }
+  ]
+}
