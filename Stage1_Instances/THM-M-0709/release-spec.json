@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0709-RELEASE-negative-v1",
+  "item_id": "S56-M-0709-RELEASE",
+  "theorem_id": "THM-M-0709",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0709/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker performs only local file, JSON, Git, and authority checks. Its narrow Lean subprocess is `lake env lean --trust=0` from the pinned mathlib workspace, with LEAN_PATH extended only by already present canonical compiled package roots. No update, build, clone, fetch, or cache repair is invoked. This is warm nonrelease evidence, not a clean empty-cache cold build, offline restoration, or independent verification.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line PASS/OPEN/BLOCKED release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0709-S-SEMANTICS",
+    "M0709-S-COMPUTABILITY",
+    "M0709-N-HALTING",
+    "M0709-T-UNDECIDABLE",
+    "M0709-ROOT",
+    "M0709-X-SOURCE",
+    "M0709-X-FOUNDATION",
+    "M0709-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0709.PostCorrespondenceUndecidable"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Fail-closed release reconciliation and the smallest current lake env lean statement replay. It binds the exact target, historical provisional validation receipt, frozen denominator and graph, authority conflicts, and negative terminal decisions. It cannot master-accept the validation dependency, prove the halting-to-binary-PCP reduction, establish H0/R0 or complete provenance/foundation/TCB closure, turn the dirty warm shared cache into immutable release input, perform cold/offline or independent verification, assemble a deterministic release bundle, or establish AUDIT-Z/THEOREM-Z."
+}

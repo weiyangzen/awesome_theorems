@@ -1,0 +1,199 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0709-RELEASE-negative-20260715T135000+0800",
+  "item_id": "S56-M-0709-RELEASE",
+  "theorem_id": "THM-M-0709",
+  "execution_rank": 750,
+  "phase": "release",
+  "intent": "release",
+  "base_revision": "ab6974ae3bcabe677e7138ff057a7c005aac12d4",
+  "base_tree": "c640af240d44f02c83a29dfa2f985f601a0dfcc2",
+  "decided_at": "2026-07-15T13:50:00+08:00",
+  "attestor": "stage1-rev56-worker-slot12",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "accepted_root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "best_provisional_root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "release_accepted": false,
+  "terminal_decisions": {
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "dependency": {
+    "item_id": "S56-M-0709-VALIDATION",
+    "scheduler_projection": "[_]",
+    "receipt_id": "S56-M-0709-VALIDATION-local-20260715T132756+0800",
+    "receipt_sha256": "2ac6b84869b42db3d119db8ee8ac7df7609bacc1d92453a5e3f46b473f670728",
+    "support_state": "provisional_worker_selftest",
+    "accepted": false,
+    "release_grade": false,
+    "master_accepted": false,
+    "current_recipe_replayable": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0709-PROOF-local-20260715T082600+0800",
+    "S56-M-0709-VALIDATION-local-20260715T132756+0800"
+  ],
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_0709.PostCorrespondenceUndecidable",
+    "elaborated_expression_sha256": "5d375802e054a1c87b9fe6c8c24b728e9bcf8bfa20025ebe987d461545926d03",
+    "statement_source_sha256": "354a0a291b2c304451ad1e22157ba233ce18730c792a09d9d339b7df3ab29121",
+    "registry_denominator_sha256": "f3731049c66ed6cf5e4687115b723249d54dae577f83859e130b76911f519b38",
+    "exact_statement_delta": "none"
+  },
+  "evidence_reconciliation": {
+    "current_lake_env_lean_statement_replay": "provisional_pass_at_trust_zero_against_existing_pinned_warm_artifacts",
+    "historical_network_isolated_validation_replay": "provisional_pass_for_exact_statement_root_interface_partial_proof_and_same_worker_conditional_probes",
+    "historical_observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "historical_validation_closure_declarations": 4743,
+    "historical_validation_closure_modules": 163,
+    "historical_validation_bodyless_nonaxioms": [],
+    "historical_validation_unsafe_declarations": [],
+    "validation_receipt_input_hashes_current": true,
+    "validation_recipe_fresh_at_integrated_head": false,
+    "dependency_master_accepted": false,
+    "authoritative_state_reconciled": false,
+    "accepted_closed_obligation_ids": [],
+    "provisionally_closed_obligation_ids": [
+      "M0709-N-HALTING"
+    ],
+    "accepted_root_m0": false,
+    "exact_root_kernel_closed": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_source_review": false,
+    "independent_r0_review": false,
+    "complete_provenance_foundation_tcb_closure": false,
+    "immutable_clean_release_input": false,
+    "lake_manifest_package_closure_usable": false,
+    "hermetic_cold_empty_cache_offline_replay": false,
+    "complete_sbom_license_archive_closure": false,
+    "two_independent_signed_runner_attestations": false,
+    "independently_implemented_minimal_release_verifier": false,
+    "protected_ci_and_adversarial_gates": false,
+    "deterministic_content_addressed_release_bundle": false,
+    "master_acceptance": false
+  },
+  "authority_conflicts": [
+    {
+      "artifact": "instance.json and README.md",
+      "conflict": "The accepted intake projection remains planned at H1/M4/R3 and describes later source, proof, audit, and release work as open; later graph, proof, and validation evidence is provisional only.",
+      "resolution": "Preserve the weaker accepted H1/M4/R3 vector and empty accepted proof state. Record H1/M3/R3 only as the best provisional graph/proof classification pending master reconciliation."
+    },
+    {
+      "artifact": "task-dag.json versus the authoritative execution DAG",
+      "conflict": "The dossier-local task DAG intentionally renders every downstream task open, whereas the authoritative scheduler projection records intake through validation as provisional [_]. Neither surface records master acceptance.",
+      "resolution": "Do not rewrite either authority surface in this worker. Treat every predecessor as unaccepted and record public/evidence reconciliation as an AUDIT-Z blocker."
+    },
+    {
+      "artifact": "typed-graphs.json versus proof-receipt.json",
+      "conflict": "The frozen graph records H1/M3/R3 with empty evidence IDs and includes M0709-N-HALTING in its first open cut; the later proof receipt provisionally closes only that leaf but accepts no obligation.",
+      "resolution": "Keep accepted_closed_obligation_ids empty and preserve the frozen graph until dependency-ordered master reconciliation."
+    }
+  ],
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "detail": "dependency.S56-M-0709-VALIDATION.master_acceptance",
+    "reason": "S56-M-0709-VALIDATION is provisional [_] worker evidence with accepted=false, release_grade=false, and no dependency-ordered master acceptance."
+  },
+  "first_failed_audit_gate": {
+    "gate_id": "AUDIT-Z-AUTHORITY-SOURCE-RECONCILIATION",
+    "reason": "The accepted instance, local task projection, frozen graph evidence links, primary-source boundary, readable records, phase receipts, and public projections are not completely reconciled or independently accepted."
+  },
+  "first_failed_mathematical_gate": {
+    "gate_id": "M0709-C-MACHINE.root_kernel_closure",
+    "reason": "No premise-free computable normalization starts the frozen halting-to-binary-PCP reduction; every terminal assembly retains the many-one reduction as an explicit premise."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-RELEASE-IMMUTABLE-CLEAN-FRESH-INPUT",
+    "reason": "This worker checkout has an untracked symlink to shared warm canonical artifacts, and the pinned flt-regular package has an incomplete Git repository with no resolvable HEAD. The historical validation recipe is also bound to the prior validation base and packet."
+  },
+  "next_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "No immutable clean empty-cache network-denied cold build or network-disconnected archive restoration was performed."
+  },
+  "accepted_state_first_open_cut": [
+    "M0709-N-HALTING",
+    "M0709-C-MACHINE",
+    "M0709-C-MPCP",
+    "M0709-X-SOURCE",
+    "M0709-X-FOUNDATION"
+  ],
+  "remaining_root_cut_set": [
+    "M0709-C-MACHINE",
+    "M0709-C-MPCP",
+    "M0709-T-MPCP-PCP",
+    "M0709-N-BINARY",
+    "M0709-T-REDUCTION"
+  ],
+  "remaining_theorem_completion_gates": [
+    "dependency-ordered master acceptance of intake through validation receipts",
+    "accepted premise-free M0 closure of the complete halting-to-binary-PCP reduction and exact root with checked composition",
+    "complete accepted AUDIT-Z reconciliation of the frozen inventory, typed graphs, source boundaries, H/M/R debts, receipts, and public state",
+    "pinpoint primary-source edition, theorem passage, assumptions, alphabet and variant boundary, corrections, and errata mapping with independent H0 review",
+    "complete node-specific readable reconstruction with independent R0 review",
+    "accepted complete provenance, foundation, axiom-policy, dependency, TCB, SBOM, license, and offline archive closure",
+    "immutable clean input with empty caches, a network-denied cold build, and network-disconnected restoration",
+    "two signed attestations from independently provisioned clean runners with no shared writable cache",
+    "an independently implemented minimal release verifier plus protected mutation, metamorphic, and adversarial CI",
+    "a twice-reproducible deterministic content-addressed release bundle, clean public-state reconciliation, THEOREM-Z, and master acceptance"
+  ],
+  "known_failures": [
+    "S56-M-0709-VALIDATION and every transitive phase receipt remain provisional rather than dependency-ordered master accepted.",
+    "The integrated validation checker is snapshot-bound to base 443b8bbc23bf35a1e7a4bb7b3183073f76bbee2b and the validation-phase worker packet; it is not a current release recipe at base ab6974ae3bcabe677e7138ff057a7c005aac12d4.",
+    "The accepted instance remains H1/M4/R3 with no accepted proof state; H1/M3/R3 and the halting leaf are provisional graph/proof observations only.",
+    "M0709-C-MACHINE, M0709-C-MPCP, M0709-T-MPCP-PCP, M0709-N-BINARY, and M0709-T-REDUCTION remain open, so no premise-free declaration inhabits the exact root.",
+    "Post 1946 is only a locator: exact text, source hash, theorem passage, computability convention, alphabet and modified-to-ordinary PCP boundary, errata, node crosswalk, and independent H0 review remain open.",
+    "No independently accepted R0 reconstruction exists, and intake, local task, graph, receipt, and public projections are not fully reconciled, so AUDIT-Z remains false independently of open proof debt.",
+    "Historical validation observed the three axioms and a 4743-declaration closure, but no accepted theorem-specific foundation policy or complete transitive declaration, body, import, compiled-artifact, executable, computation, provenance, TCB, SBOM, license, or archive closure exists.",
+    "The automation-provided .lake symlink points to shared warm state; the unrelated pinned flt-regular checkout has no resolvable HEAD. This worker neither repairs nor fetches it.",
+    "The smallest current lake env lean statement replay uses existing pinned warm artifacts and an explicit LEAN_PATH extension; it is not immutable clean, empty-cache cold, offline restoration, or release-grade evidence.",
+    "Validation.lean and the current checker share this worker, checkout, Lean binary, and cache. There are no two signed independent runner attestations or an independently implemented minimal verifier.",
+    "No protected adversarial CI record, deterministic twice-built bundle, accepted AUDIT-Z, THEOREM-Z, theorem completion, release acceptance, or master acceptance exists."
+  ],
+  "retry_condition": "First reprovision the exact pinned dependency closure outside this worker, then obtain dependency-ordered master acceptance and reconcile the instance, local task DAG, graph bundle, source/readable records, public projections, and provisional receipts. Implement or immutably integrate the complete placeholder-free computable reduction from the pinned halting predicate through the frozen finite-machine, MPCP, ordinary-PCP, and binary-encoding packages. Finally close H0/R0 and complete provenance/foundation/TCB/supply-chain evidence on an immutable clean cold/offline snapshot, obtain two independent signed attestations and independent minimal-verifier agreement, build a deterministic bundle, decide AUDIT-Z and THEOREM-Z, and submit it for master acceptance.",
+  "worktree_classification": "nonrelease worker checkout: owned release handoff paths plus the pre-existing untracked Formalizations/Lean/.lake symlink to shared state",
+  "freshness": {
+    "owner": "THM-M-0709 release lane",
+    "reviewer": "independent Stage1 integration lane",
+    "review_due": "before master acceptance and after any invalidation input changes",
+    "support_state": "provisional_nonrelease_worker_evidence",
+    "supersession_state": "current_worker_release_proposal",
+    "revocation_state": "unaccepted",
+    "incident_path": "Revoke this decision and rerun release reconciliation after any invalidation input changes."
+  },
+  "status_boundary": "Self-tested negative worker release reconciliation only. It proposes the release node as worker-self-tested [_] while retaining a blocked verdict. It accepts no receipt, advances no lifecycle or debt state, and grants no H0, accepted M0/E0/E1, R0, AUDIT-Z, THEOREM-Z, release, theorem completion, authoritative state change, or master acceptance."
+}
