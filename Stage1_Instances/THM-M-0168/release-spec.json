@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0168-RELEASE-reconciliation-v1",
+  "item_id": "S56-M-0168-RELEASE",
+  "theorem_id": "THM-M-0168",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0168/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The checker verifies that the snapshot-bound historical validation recipe is not a current release recipe, then invokes the separate proof replay. That replay uses only existing pinned local artifacts and invokes no network command; all other release checks are local file, hash, JSON, Git, and process checks.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed release summary bound by check_release.py"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0168-ROOT",
+    "M0168-S-INTERFACE",
+    "M0168-C-GRAPH",
+    "M0168-N-PDE-MINIMAL",
+    "M0168-L-STABILITY",
+    "M0168-C-CUTOFF",
+    "M0168-L-CURVATURE",
+    "M0168-L-DERIVATIVE-RIGIDITY",
+    "M0168-T-INTEGRATE",
+    "M0168-X-SOURCE",
+    "M0168-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget",
+    "Stage1Instances.THM_M_0168_Obligations.compose_root",
+    "Stage1Instances.THM_M_0168_Obligations.constantPartials_to_affine",
+    "Stage1Instances.THM_M_0168_Obligations.constantPartialsToAffine_proof",
+    "Stage1Instances.THM_M_0168_Obligations.bernstein_of_derivativeRigidity",
+    "Stage1Instances.THM_M_0168_Obligations.canonicalTarget_iff_obligationTarget",
+    "Stage1Instances.THM_M_0168_Obligations.canonical_bernstein_of_derivativeRigidity"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This worker recipe authenticates current structured inputs, verifies the predecessor recipe's stale-base/phase-packet boundary, runs a separate direct proof replay, and checks the negative AUDIT-Z, THEOREM-Z, and release decisions. It reuses a pinned warm dependency cache and cannot accept the validation dependency, close the six open Bernstein obligations, supply H0 or R0, perform an empty-cache cold/offline release build, act as a distinct independent verifier, or grant release or master acceptance."
+}
