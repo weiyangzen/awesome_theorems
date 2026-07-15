@@ -1,4 +1,11 @@
-# Proof-phase attempt
+# Superseded proof-phase attempt
+
+This historical attempt predates the immutable ATLAS candidate now integrated
+by `AtlasFourierSeries.lean` and `Proof.lean`. Its negative conclusion was
+correct for the pinned mathlib and external candidates examined at that time,
+but it is no longer the current proof verdict. See `proof-validation.md` and
+`proof-receipt.json` for the exact root wrapper, provenance, validation, and
+open acceptance/license boundaries.
 
 ## Outcome
 

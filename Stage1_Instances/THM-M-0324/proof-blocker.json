@@ -1,0 +1,137 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0324-PROOF",
+  "theorem_id": "THM-M-0324",
+  "intent": "prove",
+  "recorded_at": "2026-07-15T13:08:49+08:00",
+  "timezone": "Asia/Shanghai",
+  "base_revision": "be2be0dfe2f4f2cbdd35f1f2397e5a372d199eb9",
+  "owned_path": "Stage1_Instances/THM-M-0324",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "canonical_formal_target": "Stage1Instances.THM_M_0324.EnfloNoSchauderBasisTarget",
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "proof_body_added": true,
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "implemented_declarations": [
+    "Stage1Instances.THM_M_0324.schauderBasis_hasCompactApproximationProperty",
+    "Stage1Instances.THM_M_0324.noSchauderBasis_of_not_compactApproximationProperty"
+  ],
+  "implemented_scope": "Placeholder-free local implementation of the Schauder-projection branch: finite-dimensional projection ranges, compact-uniform convergence to the identity, the resulting local approximation witness, and its composition with failure of that predicate to exclude Schauder bases.",
+  "closed_obligations_added": [],
+  "closed_obligations_reason": "The bodies implement real substrate for M0324-L-PROJECTIONS and M0324-L-BASIS-TO-AP, but D-APPROX still requires the exact primary-source convention and source crosswalk. No frozen obligation is therefore promoted as closed.",
+  "first_failed_gate": "M0324-C-SPACE: neither the repository nor the pinned dependency closure supplies a placeholder-free construction of Enflo's counterexample space.",
+  "remaining_root_cut_set": [
+    "M0324-C-SPACE",
+    "M0324-X-SOURCE",
+    "M0324-X-FOUNDATION"
+  ],
+  "expanded_missing_proof_packages": [
+    "M0324-D-APPROX",
+    "M0324-C-SPACE",
+    "M0324-C-BANACH",
+    "M0324-L-SEPARABLE",
+    "M0324-L-INFINITE",
+    "M0324-L-NO-AP",
+    "M0324-X-SOURCE",
+    "M0324-X-FOUNDATION",
+    "M0324-X-PROVENANCE"
+  ],
+  "machine_derived_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "validation_trust_level": 0,
+    "network_commands_run": false,
+    "lake_mutated_by_worker": false,
+    "dependency_policy": "The pre-existing automation symlink to canonical pinned Lake artifacts was reused read-only. No lake update, lake build, dependency clone/fetch, network request, or .lake mutation was performed. Lean outputs were confined to a disposable directory and removed."
+  },
+  "commands_and_results": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 Lean 4 targets passed."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework-required."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-0324",
+      "exit_code": 0,
+      "result": "Rank 820; planned; hard-statement-first-partial-verification lane; theorem incomplete."
+    },
+    {
+      "command": "Copy Statement.lean, ObligationTree.lean, and Proof.lean to mktemp; use the pinned Lean 4.29.0 executable and explicit existing-package LEAN_PATH; elaborate the modules in dependency order with LEAN_NUM_THREADS=1, timeout 300, --trust=0, -t0, and temporary oleans; remove mktemp.",
+      "exit_code": 0,
+      "result": "statement_exit=0 obligation_exit=0 proof_exit=0; the exact target and proof branch elaborated, and both new declarations reported exactly propext, Classical.choice, and Quot.sound."
+    },
+    {
+      "command": "From Formalizations/Lean, run the same disposable three-module recipe using lake env lean and lake env printenv LEAN_PATH.",
+      "exit_code": 1,
+      "result": "Lake failed before Lean execution because the pre-existing canonical package flt-regular could not resolve HEAD. No dependency repair or mutation was attempted. The narrow kernel check therefore used lake's pinned Lean 4.29.0 toolchain executable and the already-built pinned package oleans through an explicit LEAN_PATH."
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-0324/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "15 obligations and 55 typed edges passed; denominator 8bfbe3412a12fb869340a975b51d7b8d48ecf9ad1a529f9c9698c99941ff101b; root remains open M3."
+    },
+    {
+      "command": "rg -n '\\b(sorry|admit|sorryAx|native_decide|implemented_by)\\b|^[[:space:]]*(axiom|constant|opaque|unsafe|external)([[:space:]]|$)' Stage1_Instances/THM-M-0324/*.lean",
+      "exit_code": 1,
+      "result": "Expected no-match exit: no prohibited proof device occurs in the owned Lean files."
+    },
+    {
+      "command": "python3 -m json.tool Stage1_Instances/THM-M-0324/proof-blocker.json",
+      "exit_code": 0,
+      "result": "The structured blocker parsed as JSON."
+    },
+    {
+      "command": "git diff --check -- Stage1_Instances/THM-M-0324",
+      "exit_code": 0,
+      "result": "No whitespace errors."
+    },
+    {
+      "command": "test ! -e .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "The completion self-test manifest is absent because the proof phase is incomplete."
+    }
+  ],
+  "known_failures": [
+    "No local or pinned proof body constructs Enflo's counterexample Banach space.",
+    "No local or pinned proof body proves that a constructed witness fails the exact source-faithful approximation property.",
+    "The exact approximation-property convention and primary-source node crosswalk remain open, so the local compact-convergence predicate is not claimed to close M0324-D-APPROX.",
+    "The canonical Lake environment currently rejects commands while inspecting the pre-existing flt-regular package because its HEAD is unresolved; this worker did not mutate or repair .lake.",
+    "The exact existential root has no proof body; validation, release, independent verification, master acceptance, and theorem completion remain open."
+  ],
+  "retry_condition": "Implement Enflo's construction and its Banach, separability, infinite-dimensionality, and exact approximation-property-failure packages without placeholders, after completing the source convention crosswalk; alternatively integrate an immutable compatible Lean 4 proof of the exact target with complete trust and provenance evidence.",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-0324/Proof.lean",
+    "Stage1_Instances/THM-M-0324/proof-blocker.json",
+    "Stage1_Instances/THM-M-0324/proof-execution.md"
+  ],
+  "status_boundary": "Partial proof implementation plus blocker evidence only. This does not satisfy S56-M-0324-PROOF, close a frozen obligation or the root, change scheduler state, or claim audit completion, theorem completion, validation, release, receipt acceptance, or master acceptance.",
+  "selftest_manifest_written": false
+}

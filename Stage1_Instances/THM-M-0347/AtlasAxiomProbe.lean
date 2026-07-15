@@ -1,0 +1,8 @@
+import AtlasFourierSeries
+
+#print axioms FourierSeries.fejer_kernel_properties
+#print axioms FourierSeries.cesaroMean_eq_fejer_convolution
+#print axioms fejerKernel_eq_ofReal
+#print axioms integral_norm_fejerKernel
+#print axioms cesaroMean_uniform_bound
+#print axioms fejer_uniform_convergence
