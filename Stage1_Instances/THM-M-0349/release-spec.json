@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0349-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0349-RELEASE",
+  "theorem_id": "THM-M-0349",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0349/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs under bubblewrap with an unshared network, a read-only host root, fixed environment variables, and a fresh temporary directory as its only writable bind. The outer Python reconciler performs local file, hash, process, and Git checks only.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line negative release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0349-ROOT",
+    "M0349-T-ASSEMBLE",
+    "M0349-P-EXISTENCE",
+    "M0349-P-BOUND",
+    "M0349-D-DENSE",
+    "M0349-C-POLYNOMIAL",
+    "M0349-L-WEAK11",
+    "M0349-L-L2",
+    "M0349-L-INTERPOLATE",
+    "M0349-C-EXTEND",
+    "M0349-L-FOURIER-ID",
+    "M0349-S-ENDPOINTS",
+    "M0349-X-SOURCE",
+    "M0349-X-TRUST",
+    "M0349-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0349.ConjugateFunctionTheoremTarget",
+    "Stage1Instances.THM_M_0349.conjugate_l2_bound",
+    "Stage1Instances.THM_M_0349.root_of_conjugate_packages"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This bounded worker recipe authenticates the current inputs, performs a network-isolated trust-zero narrow replay of the exact statement, L2 candidate, and conditional root composition, and checks a negative release decision. It reuses pinned warm artifacts and cannot master-accept the validation dependency, close a frozen obligation or the exact all-p root, supply H0/R0 or complete trust/provenance evidence, perform a cold offline release build, act as an independent verifier, or grant release acceptance."
+}
