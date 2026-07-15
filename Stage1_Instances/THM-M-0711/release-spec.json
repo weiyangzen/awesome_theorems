@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0711-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0711-RELEASE",
+  "theorem_id": "THM-M-0711",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0711/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "inherited only to locate the hash-verified Elan launcher used by the pinned mathlib environment; Lean subprocesses receive a fixed sandbox environment",
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Each Lean subprocess runs under bubblewrap with an unshared network, read-only host root, fixed environment, and one fresh temporary directory as its only writable bind. The outer Python checker performs local file, hash, process, and Git checks only.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line reconciliation summary bound in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0711-ROOT",
+    "M0711-S-ENCODING",
+    "M0711-S-PRESENTATION",
+    "M0711-S-FOUNDATION",
+    "M0711-N-EVAL",
+    "M0711-N-QUOTIENT",
+    "M0711-B-REDUCTION",
+    "M0711-C-PRESENTATION",
+    "M0711-C-COMPILER",
+    "M0711-C-CORRECT",
+    "M0711-L-HALTING",
+    "M0711-L-MANYONE",
+    "M0711-L-NONCOMP",
+    "M0711-X-SOURCE",
+    "M0711-X-PROVENANCE",
+    "M0711-T-WITNESS",
+    "M0711-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_0711.NovikovBooneTarget",
+    "Stage1.THM_M_0711.novikovBooneTarget_of_witness",
+    "Stage1.THM_M_0711.identityPred_iff_normalClosure",
+    "Stage1.THM_M_0711.not_computablePred_of_manyOneReducible",
+    "Stage1.THM_M_0711.haltingPredicate_not_computable",
+    "Stage1.THM_M_0711.fixedPresentationUndecidable_of_haltingReduction",
+    "Stage1.THM_M_0711.novikovBooneTarget_of_haltingReduction",
+    "Stage1.THM_M_0711.Validation.differentialIdentityPredIffNormalClosure",
+    "Stage1.THM_M_0711.Validation.differentialNotComputablePredOfManyOne",
+    "Stage1.THM_M_0711.Validation.differentialHaltingPredicateNotComputable",
+    "Stage1.THM_M_0711.Validation.differentialConditionalTarget"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This bounded worker recipe authenticates the current target and authority inputs, replays the exact statement plus existing partial and conditional bodies at trust zero, and checks a negative release decision. It reuses pinned warm artifacts and cannot master-accept the validation dependency, close the exact root, supply H0/R0 or complete trust/provenance evidence, perform a clean cold offline release build, act as an independent verifier, or grant release/master acceptance."
+}
