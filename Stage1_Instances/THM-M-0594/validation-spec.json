@@ -1,0 +1,63 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0594-VALIDATION",
+  "theorem_id": "THM-M-0594",
+  "depends_on": [
+    "S56-M-0594-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0594-VALIDATION-network-isolated-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0594/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line PASS/FAIL CLOSED summary"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0594-ROOT",
+        "M0594-S-DEFINITIONS",
+        "M0594-S-BOUNDARY",
+        "M0594-S-FOUNDATION",
+        "M0594-N-EXHAUSTION",
+        "M0594-N-DIMENSION",
+        "M0594-C-LOCAL",
+        "M0594-L-DIFFERENTIAL",
+        "M0594-L-POINT-SEPARATION",
+        "M0594-L-PROPERNESS",
+        "M0594-C-GLOBAL",
+        "M0594-L-TOPOLOGICAL",
+        "M0594-T-ASSEMBLE",
+        "M0594-X-COMPACT",
+        "M0594-X-SOURCE",
+        "M0594-X-PROVENANCE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0594.compactSpecialization_of_mathlib",
+        "Stage1Instances.THM_M_0594.root_of_smooth_embedding_witness",
+        "Stage1Instances.THM_M_0594.exists_compact_exhaustion",
+        "Stage1Instances.THM_M_0594.exists_global_smooth_bump_covering",
+        "Stage1Instances.THM_M_0594.isEmbedding_of_isProperMap_of_injective",
+        "Stage1Instances.THM_M_0594.whitneyEmbeddingTarget_of_isEmpty",
+        "Stage1Instances.THM_M_0594.properInjectiveEuclideanMap_isEmbedding",
+        "Stage1Instances.THM_M_0594.whitneyEmbeddingTarget_of_properInjectiveImmersion",
+        "Stage1Instances.THM_M_0594.Validation.properInjectiveProbe",
+        "Stage1Instances.THM_M_0594.Validation.conditionalExactTargetProbe"
+      ],
+      "coverage_boundary": "The recipe evaluates every frozen obligation gate and kernel-checks all extant local bodies plus two independently written same-worker probes. Open obligations are covered by explicit fail-closed decisions, not proof credit."
+    }
+  ]
+}
