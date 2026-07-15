@@ -1,0 +1,91 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1010-PROOF",
+  "theorem_id": "THM-M-1010",
+  "intent": "prove",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "base_revision": "fd020d65a412e2c870f4bac1fefb9ea4ed5f5fd8",
+  "base_tree": "5fce2f82823f95e5aa2ce97bd08b22091f96aeda",
+  "checked_at": "2026-07-15T13:42:00+08:00",
+  "canonical_declaration": "Stage1Instances.THM_M_1010.Target",
+  "root_vector_before": ["H1", "M3", "R3"],
+  "root_vector_after": ["H1", "M3", "R3"],
+  "proof_body_added": false,
+  "closed_obligations_added": [],
+  "first_failed_gate": "M1010-N-PARTITIONS / M1010-C-COUPLING convergence-compatible Skorokhod construction",
+  "remaining_root_cut_set": [
+    "M1010-N-PARTITIONS",
+    "M1010-C-INTERVAL",
+    "M1010-L-MEASURABLE",
+    "M1010-L-LAWS",
+    "M1010-L-AE-STABILIZE"
+  ],
+  "available_checked_bodies": {
+    "Stage1Instances.THM_M_1010.ObligationTree.target_of_couplingPackage": "Exact conditional composition only; requires the open CouplingPackage premise.",
+    "Stage1Instances.THM_M_1010.representation_of_constant_laws": "Constant-law boundary case only.",
+    "Stage1Instances.THM_M_1010.target_for_constant_sequence": "Constant-law boundary corollary only."
+  },
+  "rejected_substitutions": [
+    "Independent or one-law-at-a-time unit-interval realizations have exact marginals but no convergence relation.",
+    "A common-space convergence-in-measure subsequence theorem neither builds the coupling nor proves convergence of the prescribed full sequence.",
+    "The unit-interval realization lives in Type 0 while the frozen Representation requires sample : Type u; arbitrary-u use needs an additional lifted-space construction and law transport.",
+    "A Borel measurable equivalence does not preserve the Polish topology needed by the conclusion.",
+    "The recorded external Real-only declaration weakens the target and contains sorry."
+  ],
+  "validation": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups and 1546 uniform-L0 targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique ordered targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1010",
+      "exit_code": 0,
+      "result": "rank 290, planned hard_mathlib_anchor_and_wrapper lane, theorem incomplete"
+    },
+    {
+      "command": "direct isolated LEAN_PATH replay of Statement.lean, ObligationTree.lean, and Proof.lean with lean --trust=0 -t0",
+      "exit_code": 0,
+      "result": "all three modules elaborated; axiom reports contain exactly propext, Classical.choice, and Quot.sound; object hashes 2675f2bc2ff9393029eaee82979bacf6b5a5ab29e09917d2da593571af44f3df and a11e8641173626255df08dc9856cbf1b380bbb9e0942628f54b3747d78fa7ca7"
+    },
+    {
+      "command": "timeout 180 python3 -B Stage1_Instances/THM-M-1010/check_obligation_tree.py",
+      "exit_code": 124,
+      "result": "timed out without output in the nested Lake environment query"
+    },
+    {
+      "command": "rg prohibited Lean constructs under Stage1_Instances/THM-M-1010 --glob '*.lean'",
+      "exit_code": 1,
+      "expected_exit": true,
+      "result": "no prohibited construct matched"
+    },
+    {
+      "command": "rg -ni 'skorokhod|skorohod|probability coupling|coupling theorem' Formalizations/Lean/.lake/packages --glob '*.lean' --glob '*.md' --glob '*.tex'",
+      "exit_code": 1,
+      "expected_exit": true,
+      "result": "no matching pinned proof candidate"
+    },
+    {
+      "command": "git -C Formalizations/Lean/.lake/packages/flt-regular rev-parse --verify HEAD",
+      "exit_code": 128,
+      "result": "shared canonical dependency artifact has no resolvable HEAD; not modified by this worker"
+    }
+  ],
+  "environment": {
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lake_mutated": false
+  },
+  "retry_condition": "Implement the five open frozen leaves without placeholders, or pin/import/check an immutable exact arbitrary-Polish-space Lean 4 proof.",
+  "selftest_manifest_emitted": false,
+  "theorem_complete": false,
+  "status_boundary": "Blocker evidence only; no proof, validation, release, or master-acceptance state transition is claimed."
+}
