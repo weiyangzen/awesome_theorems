@@ -29,8 +29,17 @@ the Sylow carrier or after coercion to `G` is equivalent.
 `m : M` ambient-conjugate to `u`, with both nested coercions explicit. Removing the only import
 fails. Four structural mutations and the inside-`M` boundary are checked before any proof evidence.
 
-The vector remains `[H1, M3, R4]`: a primary proof passage, exact statement, and eponym crosswalk are
-known, but source preservation, errata review, and independent source approval remain open; no proof
-of the root has been credited; and no reviewed readable proof reconstruction exists. The statement
-node is provisional pending master acceptance, and all later phases remain open. No H0, M0, R0,
-accepted proof state, audit completion, theorem completion, or master acceptance is claimed.
+The version-1 obligation registry now freezes 28 root-relevant obligations before proof closure is
+observed. It expands Thompson's page-411 route through the inside/outside membership split,
+maximal-subgroup normality and index two, the quotient `S/M`, transfer, odd Sylow index, fixed-coset
+parity, the transfer product, factor/conjugacy membership, and the no-index-two contradiction.
+`typed-graphs.json` keeps proof, refinement, provenance, evidence, trust, documentation, and workflow
+relations separate. Twenty source-derived internal relations remain explicitly unverified
+`logical_decomposition` edges.
+
+`ObligationTree.lean` proves only the inside-`M` boundary and checks conditional composition from an
+explicit outside-transfer premise to the exact printed root. It does not construct transfer or
+inhabit the open premise. The vector remains `[H1, M3, R4]`; the minimal open machine cut is
+`M0072-T-OUTSIDE`, accepted closure is empty, and source H0, readable R0, internal composition,
+transitive provenance/trust, validation, release, audit completion, theorem completion, and master
+acceptance remain open.
