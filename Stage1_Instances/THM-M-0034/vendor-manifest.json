@@ -1,0 +1,307 @@
+{
+  "schema_version": "stage1-vendored-source-closure/1.0",
+  "item_id": "S56-M-0034-PROOF",
+  "theorem_id": "THM-M-0034",
+  "upstream": {
+    "project": "mbkybky/QuillenSuslin",
+    "remote": "https://github.com/mbkybky/QuillenSuslin",
+    "revision": "51ed173b17b274e61f759556ab3e1c090267d1bd",
+    "source_tree": "264c487a24b2158bf8432459fd0b1e326acdf1eb",
+    "source_archive_url": "https://github.com/mbkybky/QuillenSuslin/archive/51ed173b17b274e61f759556ab3e1c090267d1bd.tar.gz",
+    "source_archive_sha256": "ad8bd7662861ddf984f6c244f3b1d3eabbe4b0fd9b33f51dd85e2918d737babf",
+    "toolchain": "leanprover/lean4:v4.28.0-rc1",
+    "mathlib_revision": "9543d5047cb12a05abd2d9b9bc2ea2a604b3be87",
+    "ci_run": 23040772932,
+    "ci_job": 66918384006,
+    "ci_page_sha256": "8ce791017c2a9dd19d9b3803bca1c9ac44606756d7ec0eebed630261dfc5754c"
+  },
+  "target_environment": {
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "license": {
+    "spdx": "Apache-2.0",
+    "basis": "Every upstream production file carries an Apache-2.0 copyright and license notice; the immutable archive omits the referenced root LICENSE.",
+    "path": "Vendor/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "standard_text_supplied_locally": true,
+    "copied_from_upstream_archive": false
+  },
+  "build_order": [
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.UnimodularVector.BivariatePolynomial",
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.UnimodularVector.SuslinMonicPolynomialThm",
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.UnimodularVector.Basic",
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.UnimodularVector.PID",
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.FiniteFreeResolution.Basic",
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.FiniteFreeResolution.Polynomial",
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.FiniteFreeResolution.StablyFree",
+    "Stage1_Instances.THM-M-0034.Vendor.QuillenSuslin.MainTheorem"
+  ],
+  "files": [
+    {
+      "path": "QuillenSuslin/FiniteFreeResolution/Basic.lean",
+      "upstream_sha256": "fa821f42aa065af060d0af552d449946c1424f90ba28c5cd27836c07605652b2",
+      "vendored_sha256": "02b95a0fe71a78f534257fe3507f414e49a2e46e33ff4f4e6a1a25b8b742eb13",
+      "upstream_bytes": 44455,
+      "vendored_bytes": 44543,
+      "modified": true,
+      "compatibility_operations": [
+        {
+          "kind": "insert_once_after",
+          "anchor": "/-\nCopyright (c) 2026 Yongle Hu. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Yongle Hu\n-/\n",
+          "bytes": "/- Port notice: modified for the repository's pinned Lean 4.29/mathlib APIs.\nThe exact compatibility edits are recorded in `../../../PORT_PROVENANCE.md`. -/\n"
+        },
+        {
+          "kind": "replace_once",
+          "from": "        (Module.Free.iff_of_ringEquiv e (semilinearEquiv_compHom e P)).2 inferInstance",
+          "to": "        (Module.Free.iff_of_equiv (semilinearEquiv_compHom e P)).2 inferInstance"
+        },
+        {
+          "kind": "replace_once",
+          "from": "      have : Module.Free A F :=\n        (Module.Free.iff_of_ringEquiv e (semilinearEquiv_compHom e F)).2 inferInstance",
+          "to": "      have : Module.Free A F :=\n        (Module.Free.iff_of_equiv (semilinearEquiv_compHom e F)).2 inferInstance"
+        },
+        {
+          "kind": "replace_once",
+          "from": "  let : Module A F := Module.compHom F e.toRingHom\n  have : Module.Finite A F := moduleFinite_of_ringEquiv e F\n  have : Module.Free A F :=\n    (Module.Free.iff_of_ringEquiv e (semilinearEquiv_compHom e F)).2 inferInstance",
+          "to": "  let : Module A F := Module.compHom F e.toRingHom\n  have : Module.Finite A F := moduleFinite_of_ringEquiv e F\n  have : Module.Free A F :=\n    (Module.Free.iff_of_equiv (semilinearEquiv_compHom e F)).2 inferInstance"
+        },
+        {
+          "kind": "replace_once",
+          "from": "  simpa [hinst] using hA₁",
+          "to": "  rw [hinst] at hA₁\n  exact hA₁"
+        },
+        {
+          "kind": "replace_once",
+          "from": "  simpa [hinst] using hB₁",
+          "to": "  rw [hinst] at hB₁\n  exact hB₁"
+        },
+        {
+          "kind": "replace_once",
+          "from": "        (Module.Free.iff_of_ringEquiv ringEquivULift\n          (semilinearEquivULift P)).2 inferInstance",
+          "to": "        (Module.Free.iff_of_equiv (semilinearEquivULift P)).2 inferInstance"
+        },
+        {
+          "kind": "replace_once",
+          "from": "      have : Module.Free (ULift.{w} S) (ULift.{w} F) :=\n        (Module.Free.iff_of_ringEquiv ringEquivULift (semilinearEquivULift F)).2 inferInstance",
+          "to": "      have : Module.Free (ULift.{w} S) (ULift.{w} F) :=\n        (Module.Free.iff_of_equiv (semilinearEquivULift F)).2 inferInstance"
+        },
+        {
+          "kind": "replace_once",
+          "from": "    (Module.Free.iff_of_ringEquiv ringEquivULift (semilinearEquivULift F)).2 inferInstance",
+          "to": "    (Module.Free.iff_of_equiv (semilinearEquivULift F)).2 inferInstance"
+        }
+      ]
+    },
+    {
+      "path": "QuillenSuslin/FiniteFreeResolution/Polynomial.lean",
+      "upstream_sha256": "01eb31ded76f6a9e6d853516fc9f23d54f2a388b295f95582c75824c3e1a8744",
+      "vendored_sha256": "0e1f11a4825cc5889a581d9ddb446352e308da5c58a7e4d7f8412d79e5785d0a",
+      "upstream_bytes": 40637,
+      "vendored_bytes": 40791,
+      "modified": true,
+      "compatibility_operations": [
+        {
+          "kind": "insert_once_after",
+          "anchor": "/-\nCopyright (c) 2026 Yongle Hu. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Yongle Hu\n-/\n",
+          "bytes": "/- Port notice: modified for the repository's pinned Lean 4.29/mathlib APIs.\nThe exact compatibility edit is recorded in `../../../PORT_PROVENANCE.md`. -/\n"
+        },
+        {
+          "kind": "replace_once",
+          "scope": "localization",
+          "from": "import QuillenSuslin.FiniteFreeResolution.Basic",
+          "to": "import «Stage1_Instances».«THM-M-0034».Vendor.QuillenSuslin.FiniteFreeResolution.Basic"
+        },
+        {
+          "kind": "replace_once",
+          "from": "    intro b x\n    simp [instUB₀, instUB₁, eU, Module.compHom]\n  have hUB₁",
+          "to": "    intro b x\n    rfl\n  have hUB₁"
+        }
+      ]
+    },
+    {
+      "path": "QuillenSuslin/FiniteFreeResolution/StablyFree.lean",
+      "upstream_sha256": "27bf1423baec49d61042b1670ddb681d88a6cb1343273b37b107e736f10b4a6d",
+      "vendored_sha256": "0bcd23fdbc28137cfd0468dc589131a509ade25f2a5672b169915f1f9b0f9a8a",
+      "upstream_bytes": 6112,
+      "vendored_bytes": 6325,
+      "modified": true,
+      "compatibility_operations": [
+        {
+          "kind": "insert_once_after",
+          "anchor": "/-\nCopyright (c) 2026 Yongle Hu. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Yongle Hu\n-/\n",
+          "bytes": "/- Port notice: the sibling import is target-local for the repository's pinned environment.\nThe exact compatibility edit is recorded in `../../../PORT_PROVENANCE.md`. -/\n"
+        },
+        {
+          "kind": "replace_once",
+          "scope": "localization",
+          "from": "import QuillenSuslin.FiniteFreeResolution.Polynomial",
+          "to": "import «Stage1_Instances».«THM-M-0034».Vendor.QuillenSuslin.FiniteFreeResolution.Polynomial"
+        }
+      ]
+    },
+    {
+      "path": "QuillenSuslin/MainTheorem.lean",
+      "upstream_sha256": "55b82438fd10a2f3598b52d51c59257b86850ac873d3359c5c540b54434c4f7f",
+      "vendored_sha256": "7f41f50c1ad55c9e07583cf220c69431f1af95dfe0df5ccd717f050b147f5e50",
+      "upstream_bytes": 12312,
+      "vendored_bytes": 12565,
+      "modified": true,
+      "compatibility_operations": [
+        {
+          "kind": "insert_once_after",
+          "anchor": "/-\nCopyright (c) 2026 Yongle Hu. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Yongle Hu\n-/\n",
+          "bytes": "/- Port notice: sibling imports are target-local for the repository's pinned environment.\nThe exact compatibility edits are recorded in `../../PORT_PROVENANCE.md`. -/\n"
+        },
+        {
+          "kind": "replace_once",
+          "scope": "localization",
+          "from": "import QuillenSuslin.UnimodularVector.PID",
+          "to": "import «Stage1_Instances».«THM-M-0034».Vendor.QuillenSuslin.UnimodularVector.PID"
+        },
+        {
+          "kind": "replace_once",
+          "scope": "localization",
+          "from": "import QuillenSuslin.FiniteFreeResolution.StablyFree",
+          "to": "import «Stage1_Instances».«THM-M-0034».Vendor.QuillenSuslin.FiniteFreeResolution.StablyFree"
+        }
+      ]
+    },
+    {
+      "path": "QuillenSuslin/UnimodularVector/Basic.lean",
+      "upstream_sha256": "3a17838ebaa14eb1d45423309b4e581d60d82717bdce7ba41d7d24fd26843af0",
+      "vendored_sha256": "e6213033db01359e42e1e4bdd177937e3e15cc690a5e20f98bbf50276c37a123",
+      "upstream_bytes": 55393,
+      "vendored_bytes": 55595,
+      "modified": true,
+      "compatibility_operations": [
+        {
+          "kind": "insert_once_after",
+          "anchor": "/-\nCopyright (c) 2026 Yongle Hu. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Yongle Hu\n-/\n",
+          "bytes": "/- Port notice: modified for the repository's pinned Lean 4.29/mathlib APIs.\nThe exact compatibility edits are recorded in `../../../PORT_PROVENANCE.md`. -/\n"
+        },
+        {
+          "kind": "replace_once",
+          "scope": "localization",
+          "from": "import QuillenSuslin.UnimodularVector.BivariatePolynomial",
+          "to": "import «Stage1_Instances».«THM-M-0034».Vendor.QuillenSuslin.UnimodularVector.BivariatePolynomial"
+        },
+        {
+          "kind": "replace_once",
+          "from": "      have hmod : p %ₘ a = p - a * (p /ₘ a) := Polynomial.modByMonic_eq_sub_mul_div p ha",
+          "to": "      have hmod : p %ₘ a = p - a * (p /ₘ a) := Polynomial.modByMonic_eq_sub_mul_div p a"
+        },
+        {
+          "kind": "replace_once",
+          "from": "      using Polynomial.modByMonic_eq_sub_mul_div (v j) hi",
+          "to": "      using Polynomial.modByMonic_eq_sub_mul_div (v j) (v i)"
+        }
+      ]
+    },
+    {
+      "path": "QuillenSuslin/UnimodularVector/BivariatePolynomial.lean",
+      "upstream_sha256": "d1f142dec441dd9ecdaf51a99076eff69c9683f06fa6e94e2112c0fe5a0e2f72",
+      "vendored_sha256": "d1f142dec441dd9ecdaf51a99076eff69c9683f06fa6e94e2112c0fe5a0e2f72",
+      "upstream_bytes": 23436,
+      "vendored_bytes": 23436,
+      "modified": false,
+      "compatibility_operations": []
+    },
+    {
+      "path": "QuillenSuslin/UnimodularVector/PID.lean",
+      "upstream_sha256": "b623f1ec9e5391e296c9b96092267496eac79b72e46372dbd5d5ab8df7062d4b",
+      "vendored_sha256": "aea2cf9c890e3ea4c562464b9e626585159a1c49442ff6263fb1fef1b7f2b1b1",
+      "upstream_bytes": 44095,
+      "vendored_bytes": 44318,
+      "modified": true,
+      "compatibility_operations": [
+        {
+          "kind": "insert_once_after",
+          "anchor": "/-\nCopyright (c) 2026 Yongle Hu. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Yongle Hu\n-/\n",
+          "bytes": "/- Port notice: modified for the repository's pinned Lean 4.29/mathlib APIs.\nThe exact compatibility edits are recorded in `../../../PORT_PROVENANCE.md`. -/\n"
+        },
+        {
+          "kind": "replace_once",
+          "scope": "localization",
+          "from": "import QuillenSuslin.UnimodularVector.Basic",
+          "to": "import «Stage1_Instances».«THM-M-0034».Vendor.QuillenSuslin.UnimodularVector.Basic"
+        },
+        {
+          "kind": "replace_once",
+          "scope": "localization",
+          "from": "import QuillenSuslin.UnimodularVector.SuslinMonicPolynomialThm",
+          "to": "import «Stage1_Instances».«THM-M-0034».Vendor.QuillenSuslin.UnimodularVector.SuslinMonicPolynomialThm"
+        },
+        {
+          "kind": "replace_once",
+          "from": "              simp only [mem_univ, sum_erase_eq_sub, ho0, sub_zero]",
+          "to": "              rw [Finset.sum_erase_eq_sub ho, ho0, sub_zero]"
+        },
+        {
+          "kind": "replace_once",
+          "from": "              simpa only [mem_univ, sum_erase_eq_sub, h_erase] using hs'\n            simpa [h, g, t] using this.symm",
+          "to": "              exact h_erase.symm.trans hs'\n            simpa only [h, g, t, mul_ite, mul_zero] using this.symm"
+        },
+        {
+          "kind": "replace_once",
+          "from": "                _ = X ^ N * ∑ i ∈ t, φ (α (c i)) * uPoly i := by simp only [mul_sum]",
+          "to": "                _ = X ^ N * ∑ i ∈ t, φ (α (c i)) * uPoly i := by rw [mul_sum]"
+        }
+      ]
+    },
+    {
+      "path": "QuillenSuslin/UnimodularVector/SuslinMonicPolynomialThm.lean",
+      "upstream_sha256": "d083e52e23c83700888fbbfd1333fbd227d7620a7226c6ec5865d0cbd3fde688",
+      "vendored_sha256": "0037a897bfc635d4e453bdf804e78a63ec89fafd3f6702872c7dd77ea6e00964",
+      "upstream_bytes": 32636,
+      "vendored_bytes": 33072,
+      "modified": true,
+      "compatibility_operations": [
+        {
+          "kind": "insert_once_after",
+          "anchor": "/-\nCopyright (c) 2026 Yongle Hu. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Yongle Hu\n-/\n",
+          "bytes": "/- Port notice: modified for the repository's pinned Lean 4.29/mathlib APIs.\nThe exact compatibility edits are recorded in `../../../PORT_PROVENANCE.md`. -/\n"
+        },
+        {
+          "kind": "replace_once",
+          "from": "      simp [hPeq]",
+          "to": "      rw [hPeq]\n      simpa only [Polynomial.algebraMap_eq] using\n        Ideal.map_quotient_self (Ideal.map C p)\n    have hI0_ne_top : Ideal.map (algebraMap A A[X]) p ≠ ⊤ := by\n      simpa only [Polynomial.algebraMap_eq] using\n        (Ideal.IsPrime.ne_top (Ideal.isPrime_map_C_iff_isPrime p |>.2 inferInstance))\n    letI : Nontrivial (A[X] ⧸ (Ideal.map (algebraMap A A[X]) p)) :=\n      Ideal.Quotient.nontrivial hI0_ne_top"
+        },
+        {
+          "kind": "replace_once",
+          "from": "      rw [hheight, hQ]\n      simp",
+          "to": "      rw [hheight, hQ, Ideal.height_bot, add_zero]"
+        },
+        {
+          "kind": "replace_once",
+          "from": "lemma bivariate_swap_C {A : Type*} [CommSemiring A] (p : A[X]) :\n    Polynomial.Bivariate.swap (C p) = Polynomial.map C p := by\n  induction p using Polynomial.induction_on' with\n  | add p q hp hq =>\n    have hp' : (aeval Y) p = Polynomial.map C p := by\n      simpa [Polynomial.Bivariate.swap_apply] using hp\n    have hq' : (aeval Y) q = Polynomial.map C q := by\n      simpa [Polynomial.Bivariate.swap_apply] using hq\n    simp [Polynomial.Bivariate.swap_apply, hp', hq', Polynomial.map_add]\n  | monomial n a =>\n    simp [C_mul_X_pow_eq_monomial, Polynomial.map_monomial]",
+          "to": "lemma bivariate_swap_C {A : Type*} [CommSemiring A] (p : A[X]) :\n    Polynomial.Bivariate.swap (C p) = Polynomial.map C p :=\n  Polynomial.Bivariate.swap_C p"
+        },
+        {
+          "kind": "replace_once",
+          "from": "      have hG : G (MvPolynomial.X (Fin.last (n + 1))) = C X := by simp [hG', swapR]",
+          "to": "      have hG : G (MvPolynomial.X (Fin.last (n + 1))) = C X := by\n        simpa [hG', swapR] using\n          (Polynomial.Bivariate.swap_Y (R := MvPolynomial (Fin n) R))"
+        },
+        {
+          "kind": "replace_once",
+          "from": "          have : swapR (C X) = Y := by simp [swapR]",
+          "to": "          have : swapR (C X) = Y := by\n            simpa [swapR] using\n              (Polynomial.Bivariate.swap_X (R := MvPolynomial (Fin n) R))"
+        },
+        {
+          "kind": "replace_once",
+          "from": "    simp [swapS, base, t, K]",
+          "to": "    simp only [map_add, swapS, Polynomial.Bivariate.swap_Y, t, map_pow,\n      Polynomial.Bivariate.swap_X, base]"
+        }
+      ]
+    }
+  ],
+  "closure": {
+    "module_count": 8,
+    "internal_import_edges": 7,
+    "vendored_bytes": 260645,
+    "vendored_lines": 5079,
+    "semantic_diff_sha256": "372acc2ec8f1f0921b9ffe63fda67f4ec40487840d8379af091a7297047d0d19",
+    "normalized_compatibility_patch_sha256": "c76174fb78f391ceb00fc57df79829ef3af99c0dc43b477f444c61085ed02fe3"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0861-PROOF",
+  "theorem_id": "THM-M-0861",
+  "base_revision": "51c2828e82ffb19860830f78b771f80e13ad7dff",
+  "base_tree": "4655b8b40829513de6fb5661344b33fc7cd17cd1",
+  "recorded_at": "2026-07-15T16:38:58+08:00",
+  "canonical_target": "Stage1Instances.THM_M_0861.KonigEdgeColoringTarget",
+  "outcome": "partial_proof_self_tested_root_blocked",
+  "proof_body_added": true,
+  "partial_proof_receipt_id": "S56-M-0861-PROOF-local-20260715",
+  "provisionally_closed_obligation_ids": [
+    "M0861-L-DEGREE-LE-MAX",
+    "M0861-L-INCIDENCE-FIN",
+    "M0861-L-COLOR-INJECTIVE",
+    "M0861-L-SUP-LOWER",
+    "M0861-T-LOWER",
+    "M0861-B-SMALL-EDGE-COUNT",
+    "M0861-L-SMALL-PALETTE-EMBED"
+  ],
+  "accepted_closed_obligation_ids": [],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_proposed": {
+    "H": "H1",
+    "M": "M2",
+    "R": "R4"
+  },
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M0861-T-SATZ-C: the source-strengthened BoundedSatzCTarget has no placeholder-free inhabitant in the pinned dependency closure or this proof packet",
+  "remaining_root_cut_set": [
+    "M0861-T-UPPER"
+  ],
+  "implemented_bodies": {
+    "Stage1Instances.THM_M_0861_Proof.degree_le_maxDegree": "proves the pointwise degree bound needed to instantiate Satz C at maxDegree",
+    "Stage1Instances.THM_M_0861_Proof.incidenceSet_finite": "binds the frozen incidence-finiteness child to an exact Lean declaration",
+    "Stage1Instances.THM_M_0861_Proof.incidentColor_injective": "binds the frozen fixed-vertex coloring-injection child to an exact Lean declaration",
+    "Stage1Instances.THM_M_0861_Proof.maxDegree_le_of_degree_le": "binds the frozen finite-supremum composition child to an exact Lean declaration",
+    "Stage1Instances.THM_M_0861_Proof.lowerBound": "proves the exact LowerBoundTarget by restricting any proper coloring to each incidence subtype and comparing finite cardinalities",
+    "Stage1Instances.THM_M_0861_Proof.edgePaletteEmbedding": "binds the frozen small-palette embedding child to an exact Lean declaration",
+    "Stage1Instances.THM_M_0861_Proof.edgeColorable_of_edge_ncard_le": "colors every actual edge injectively when the palette size bounds the total edge count, closing the small-edge-count branch",
+    "Stage1Instances.THM_M_0861_Proof.upperBound_of_boundedSatzC": "checked conditional upper composition with BoundedSatzCTarget explicit",
+    "Stage1Instances.THM_M_0861_Proof.konigEdgeColoring_of_boundedSatzC": "checked conditional root composition with BoundedSatzCTarget explicit"
+  },
+  "candidate_assessment": {
+    "repo_local": "No pre-existing Proof.lean or inhabitant of BoundedSatzCTarget was present.",
+    "pinned_mathlib": "Graph supplies only the edge-identity multigraph substrate. SimpleGraph Hall and coloring modules do not state the required multigraph edge-coloring theorem.",
+    "audited_external": "The immutable anchor audit found no exact compatible terminal proof body to pin or import."
+  },
+  "blocker": "Completing the upper conjunct requires a new kernel-checked proof of finite bipartite multigraph edge coloring. Under the frozen architecture this includes edge deletion and cardinal transport, construction of missing colors, a terminating alternating two-color trail, the bipartite endpoint argument, a proper color swap, and reinsertion of the erased edge. Assuming BoundedSatzCTarget, silently converting to simple graphs, or postulating any package would violate the target and proof gate.",
+  "retry_condition": "Resume when the frozen M0861-T-SATZ-C package is implemented locally without placeholders, or when an immutable Lean 4 proof of the exact multigraph fixed-palette statement is available for pinned integration and provenance validation.",
+  "status_boundary": "The lower package is genuine self-tested partial proof progress. The upper theorem and exact root remain open, so this does not satisfy theorem completion, validation, release, or master acceptance.",
+  "selftest_manifest_written": true
+}
