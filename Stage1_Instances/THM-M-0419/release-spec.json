@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0419-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0419-RELEASE",
+  "theorem_id": "THM-M-0419",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0419/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs local reconciliation and invokes check_proof.sh, whose trust-zero Lean processes use only the existing pinned environment and a fresh temporary directory. This worker recipe makes no release-grade isolation claim.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line negative release summary bound in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0419-ROOT",
+    "M0419-B-INDUCTION",
+    "M0419-L-TAME",
+    "M0419-L-WILD-ODD",
+    "M0419-L-WILD-TWO",
+    "M0419-C-CYCLOTOMIC-IDENTIFY",
+    "M0419-T-GLOBAL",
+    "M0419-X-SOURCE",
+    "M0419-S-FOUNDATION",
+    "M0419-X-PROVENANCE",
+    "M0419-X-TRUST",
+    "M0419-X-READABLE",
+    "M0419-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_0419.Statement",
+    "Stage1.THM_M_0419.ObligationTree.root_of_packages",
+    "Stage1.THM_M_0419.Proof.cyclotomicIdentify"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This bounded worker recipe authenticates current release inputs, replays the exact statement, conditional composition, and partial cyclotomic-identification body at trust zero, and checks a negative release decision. It cannot accept the validation dependency, construct any of the five open mathematical packages, close the exact root, supply H0/R0 or complete trust/provenance evidence, perform a cold offline release build, act as an independent verifier, or grant release/master acceptance."
+}
