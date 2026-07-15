@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0318-VALIDATION",
+  "theorem_id": "THM-M-0318",
+  "phase": "validation",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0318-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0318-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0318/check_validation.py"
+      ],
+      "env_allowlist": {
+        "HOME": "worker-provided pinned Elan toolchain root; replaced with an empty temporary home for Lean replay",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 900,
+      "network_policy": "denied",
+      "network_enforcement": "The validator locates the already installed pinned toolchain explicitly, fixes LEAN_PATH to pre-existing compiled roots, and runs every Lean process under Bubblewrap with a read-only host root, a disposable writable replay tree, and --unshare-net. It reads the pinned manifest as data but does not invoke Lake manifest resolution or mutate .lake.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact eight-line PASS/FAIL-CLOSED summary and per-stage output SHA-256 values bound by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0318-ROOT",
+        "M0318-C",
+        "M0318-C-NET",
+        "M0318-C-MAP",
+        "M0318-B-BROUWER",
+        "M0318-L-APPROX",
+        "M0318-L-LIMIT",
+        "M0318-L-CONT",
+        "M0318-T-COMPOSE",
+        "M0318-X-TRUST"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0318.SchauderFixedPointTarget",
+        "Stage1Instances.THM_M_0318.compose_schauder",
+        "IndexedLOrder.Scarf",
+        "IndexedLOrder.GiComponentStructure_holds",
+        "Brouwer",
+        "Stage1Instances.THM_M_0318.exists_simplex_approximation",
+        "Stage1Instances.THM_M_0318.hasApproximateFixedPoints",
+        "Stage1Instances.THM_M_0318.approximationEngine",
+        "Stage1Instances.THM_M_0318.compactLimitEngine",
+        "Stage1Instances.THM_M_0318.exactSchauderTarget",
+        "Stage1Instances.THM_M_0318.schauderFixedPoint",
+        "Stage1Instances.THM_M_0318.Validation.validationSimplexApproximation",
+        "Stage1Instances.THM_M_0318.Validation.schauderFixedPoint_validation"
+      ],
+      "scope_boundary": "Network-isolated, trust-zero, fresh-output replay against pinned warm dependency artifacts. Covered IDs identify provisional proof/trust observations, not accepted closure. Proof acceptance, frozen graph/provenance reconciliation, complete foundation/TCB/SBOM closure, clean-checkout empty-cache offline replay, and distinct signed independent verification remain fail-closed."
+    }
+  ]
+}
