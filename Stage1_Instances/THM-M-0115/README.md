@@ -7,11 +7,20 @@ of Grothendieck-Riemann-Roch. [scope-map.md](scope-map.md) records the mathemati
 [source-statement-crosswalk.md](source-statement-crosswalk.md) records the provisional primary-source
 mapping. `instance.json` is scope authority and `task-dag.json` is workflow authority.
 
-Current debt is `H4 / M5 / R4`. No Lean expression has yet been elaborated, no obligation registry
-has been frozen, and no proof or accepted receipt exists. Consequently both audit completion and
-theorem completion are false.
+The statement worker has now elaborated the exact selected target as
+`Stage1Instances.THMM0115.GrothendieckRiemannRochExpandedTarget` in
+[Statement.lean](Statement.lean), with two direct pinned imports, a checked definitional alias,
+four structural mutation kills, expression/environment fingerprints, and a provisional worker
+receipt. Missing native `K_0`, rational Chow, characteristic-class, tangent, and cap APIs are
+represented by conclusion-free typed interfaces with explicit semantic compatibility hypotheses;
+no field assumes the GRR identity.
 
-## Intake Validation
+The proposed debt is `H4 / M3 / R4`. This is statement/interface evidence only. The intake and
+statement still await dependency-ordered master acceptance; the source convention mismatch,
+obligation registry, proof, validation, readability, and release gates remain open. Consequently
+both audit completion and theorem completion are false and no accepted receipt exists.
+
+## Statement Validation
 
 Run from repository root:
 
@@ -19,10 +28,15 @@ Run from repository root:
 python3 Docs/tools/check_stage1_standard.py
 python3 scripts/stage1_target.py check
 python3 scripts/stage1_target.py show THM-M-0115
+cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-0115/Statement.lean
+cd ../.. && LC_ALL=C TZ=UTC python3 Stage1_Instances/THM-M-0115/check_statement.py
 python3 -m json.tool Stage1_Instances/THM-M-0115/instance.json
 python3 -m json.tool Stage1_Instances/THM-M-0115/task-dag.json
+python3 -m json.tool Stage1_Instances/THM-M-0115/statement.json
+python3 -m json.tool Stage1_Instances/THM-M-0115/statement-receipt.json
 git diff --check -- Stage1_Instances/THM-M-0115
 ```
 
-These checks validate target membership and artifact syntax only. They do not validate the source
-pinpoints, the eventual Lean statement, or theorem truth/closure.
+The narrow Lean and checker commands validate statement elaboration, fingerprints, import pins,
+transport, and mutation distinctions. They do not validate source pinpoints or theorem truth and
+closure.

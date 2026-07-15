@@ -1,0 +1,124 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0115-STATEMENT",
+  "theorem_id": "THM-M-0115",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "intake_selected_classical_scope_frozen_primary_source_fidelity_open",
+  "canonical_statement": "For a proper morphism f : X -> Y of nonsingular quasi-projective varieties over a field and every alpha in K_0(X), ch(f_* alpha) cap td(T_Y) = f_*(ch(alpha) cap td(T_X)) in rational Chow homology of Y.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0115/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0115.GrothendieckRiemannRochExpandedTarget",
+    "public_alias": "Stage1Instances.THMM0115.GrothendieckRiemannRochTarget",
+    "elaborated_expression_sha256": "eada246ab2968c378c5b6c31c2ffd84c10873d9206b499457c451ae3848c160e",
+    "statement_file_sha256": "26648a8514a0a9240c831132918c9ad0f735eb7accce33f2287a45961394d538"
+  },
+  "domain_and_universes": "universes u v; k : Type u with Field k; X Y : Scheme.{u}; source and target structure morphisms to Spec k; f : X -> Y; KZero and ChowHomologyQ are Scheme-indexed Type v families with AddCommGroup instances; alpha : KZero X; the target is Prop.",
+  "ordered_binders": [
+    "k : Type u",
+    "[Field k]",
+    "D : GrothendieckRiemannRochData k",
+    "D.sourceStructureMap = D.map >> D.targetStructureMap",
+    "D.sourceIsVarietyOverBase",
+    "D.targetIsVarietyOverBase",
+    "Smooth D.sourceStructureMap",
+    "Smooth D.targetStructureMap",
+    "D.sourceIsQuasiProjectiveOverBase",
+    "D.targetIsQuasiProjectiveOverBase",
+    "IsProper D.map",
+    "the eight typed-interface compatibility hypotheses for K_0, rational Chow homology, both pushforwards, Chern character, tangent bundles, Todd classes, and cap action",
+    "alpha : D.KZero D.X"
+  ],
+  "hypotheses": [
+    "X and Y are varieties over the same field k",
+    "their structure morphisms are smooth, encoding nonsingularity",
+    "X and Y are quasi-projective over k",
+    "f is a k-morphism and is proper",
+    "KZero models K_0 and ChowHomologyQ models rational Chow homology",
+    "the two pushforwards, Chern characters, tangent data, Todd classes, and cap actions have their standard meanings"
+  ],
+  "conclusion": "For every alpha : D.KZero D.X, the equality D.capY (D.chernCharacterY (D.kTheoryPushforward alpha)) (D.toddClassY D.tangentBundleY) = D.chowPushforward (D.capX (D.chernCharacterX alpha) (D.toddClassX D.tangentBundleX)) holds in D.ChowHomologyQ D.Y.",
+  "direct_imports": [
+    "Mathlib.AlgebraicGeometry.Morphisms.Proper",
+    "Mathlib.AlgebraicGeometry.Morphisms.Smooth"
+  ],
+  "minimal_import_basis": "Morphisms.Proper supplies Scheme, Spec, category composition, IsProper, and the algebraic group substrate used by the typed K_0 and Chow families. Morphisms.Smooth supplies the concrete Smooth predicate for the two structure morphisms. Replacing Proper with its weaker Separated dependency makes IsProper unavailable; replacing Smooth with its weaker RingHomProperties dependency makes Smooth unavailable. The checker runs both negative probes; no aggregate Mathlib import is used.",
+  "encoding_boundary": "The pinned snapshot has no combined native scheme-level API for quasi-projective varieties, K_0, rational Chow homology, proper pushforwards on those theories, Chern character, tangent bundles, Todd classes, or cap products. GrothendieckRiemannRochData therefore combines actual pinned Scheme, field, smoothness, and properness surfaces with conclusion-free typed families, operations, and named semantic compatibility hypotheses for exactly the missing notions. No field stores, proves, or definitionally implies the GRR equality.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THMM0115.GrothendieckRiemannRochTarget",
+      "relationship": "equal by definition to the fully expanded target",
+      "checked_witness": "Stage1Instances.THMM0115.grothendieckRiemannRochTarget_iff_expanded",
+      "boundary": "Iff.rfl checks the public alias against the fully expanded expression; it is statement identity evidence, not a GRR proof."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the legacy StatementShape, which receives grrIdentity as an input field",
+    "the legacy CandidateA/CandidateB generic carriers without this checked field-relative variety mapping",
+    "the distinct THM-M-0177 vector-bundle/general-scheme scope",
+    "a singular, stack, analytic, relative, or derived formulation without a checked transport",
+    "a projective-only, closed-immersion-only, structure-sheaf-only, zero-class-only, Euler-characteristic, or numerical specialization"
+  ],
+  "degenerate_and_boundary_cases": "The target quantifies over every alpha, including alpha = 0; the zero-class-only mutation receives no identity credit. Empty varieties are not excluded. The base is an arbitrary field, not silently fixed to C or one characteristic. Singular objects, non-quasi-projective objects, nonproper maps, and maps not over the common base are excluded by hypotheses.",
+  "source_fidelity_boundary": "The intake selects rational Chow homology and cap action, while instance.json's human slogan also says rational Chow ring and uses multiplication. The formal target follows the more explicit intake conclusion and scope map, but exact Fulton/SGA notation, the cap or fundamental-class convention, theorem/page locators, assumptions, errata, and independent review remain open under the anchor-audit node. This statement package does not claim H0.",
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked definitional transport reports only propext, Classical.choice, and Quot.sound; no custom axiom, sorryAx, unsafe declaration, oracle, or bodyless theorem is introduced.",
+  "tcb_profile": "Lean 4.29.0 kernel plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. Imported definitions and instances are statement substrate only and receive no proof-body credit.",
+  "computation_profile": "No native computation, solver, external theorem, numerical experiment, oracle, unsafe declaration, or unchecked certificate is used or credited.",
+  "environment_fingerprint": {
+    "repository_base_revision": "88a5a5c6fe6bac0d813a74ca20fa553eaf2a6d68",
+    "repository_base_tree": "a0a75048a918a3bf566c3dbcf6b4352c3b2ee8e4",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only; no update, build, fetch, clone, or dependency mutation"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0115/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "MutationRemovedProperness"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "MutationChangedBaseDomain"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "MutationChangedAlphaBinderScope"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "MutationOnlyZeroClass"
+      }
+    ],
+    "method": "Each mutation is rejected by a Lean #check_failure exact-type probe and has a distinct fully explicit elaborated expression."
+  },
+  "root_vector_before": {
+    "human": "H4",
+    "machine": "M5",
+    "readability": "R4"
+  },
+  "root_vector_after_proposed": {
+    "human": "H4",
+    "machine": "M3",
+    "readability": "R4"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "Exact M3 statement/interface elaboration only. No GRR proof body, native interface transport, source acceptance, anchor audit, obligation tree, proof, validation, readability acceptance, release, audit completion, theorem completion, or master acceptance is introduced or credited."
+}
