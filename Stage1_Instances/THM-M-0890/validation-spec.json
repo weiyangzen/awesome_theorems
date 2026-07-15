@@ -1,0 +1,96 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0890-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0890-VALIDATION",
+  "theorem_id": "THM-M-0890",
+  "depends_on": [
+    "S56-M-0890-PROOF"
+  ],
+  "intent": "validate",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0890-VALIDATION-narrow-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0890/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "HOME": "runner home used only to address the hash-verified Elan Lake launcher",
+        "PATH": "<HOME>/.elan/bin:/usr/bin:/bin"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean subprocess runs inside Bubblewrap with --unshare-net, a read-only host root, a cleared environment, fixed locale/timezone/thread count, and only a fresh temporary module directory writable. The recipe invokes no update, build, clone, or fetch.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact nine-line UTF-8 PASS/FAIL-CLOSED summary bound by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0890-ROOT",
+        "M0890-S-TARGET",
+        "M0890-S-LEAST",
+        "M0890-S-INDEPENDENCE",
+        "M0890-S-BOUNDARY",
+        "M0890-S-TRANSPORT",
+        "M0890-S-FOUNDATION",
+        "M0890-N-MAX-WITNESS",
+        "M0890-N-LEAST-MIN",
+        "M0890-L-LEAST-NEGATIVE",
+        "M0890-N-DENOMINATOR",
+        "M0890-L-REGULAR-ONES",
+        "M0890-L-ONES-ORTHOGONAL",
+        "M0890-C-HOFFMAN-MATRIX",
+        "M0890-L-COMMON-EIGENBASIS",
+        "M0890-L-HOFFMAN-PSD",
+        "M0890-C-PRINCIPAL",
+        "M0890-L-PSD-PRINCIPAL",
+        "M0890-L-INDEPENDENT-ZERO",
+        "M0890-T-RESTRICTED-FORM",
+        "M0890-C-ONES-VECTOR",
+        "M0890-L-QUADRATIC-EVAL",
+        "M0890-B-ALPHA-POSITIVE",
+        "M0890-L-SCALAR-ESTIMATE",
+        "M0890-T-DIVISION-FREE",
+        "M0890-T-ASSEMBLE",
+        "M0890-X-PROVENANCE",
+        "M0890-X-TRUST"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0890.HoffmanRatioBoundTarget",
+        "Stage1Instances.THM_M_0890_Proof.leastAdjacencyEigenvalue_le_eigenvalue",
+        "Stage1Instances.THM_M_0890_Proof.leastAdjacencyEigenvalue_neg",
+        "Stage1Instances.THM_M_0890_Proof.denominatorPositive_proof",
+        "Stage1Instances.THM_M_0890_Proof.shiftedAdjacency_posSemidef",
+        "Stage1Instances.THM_M_0890_Proof.independentSet_adjacency_quadratic_zero",
+        "Stage1Instances.THM_M_0890_Proof.independentSet_characteristic_norm",
+        "Stage1Instances.THM_M_0890_Proof.regular_adjacency_mulVec_one",
+        "Stage1Instances.THM_M_0890_Proof.independentSet_adjacency_one",
+        "Stage1Instances.THM_M_0890_Proof.one_dotProduct_one_real",
+        "Stage1Instances.THM_M_0890_Proof.centered_shifted_quadratic",
+        "Stage1Instances.THM_M_0890_Proof.independentSet_scalar_nonnegative",
+        "Stage1Instances.THM_M_0890_Proof.indepNum_pos",
+        "Stage1Instances.THM_M_0890_Proof.maximumIndependentSetEstimate_proof",
+        "Stage1Instances.THM_M_0890_Proof.divisionFreeInequality_proof",
+        "Stage1Instances.THM_M_0890_Proof.ratioAssembly_proof",
+        "Stage1Instances.THM_M_0890_Proof.hoffmanRatioBound_proof",
+        "Stage1Instances.THM_M_0890_Validation.exactDivisionFreeReplay",
+        "Stage1Instances.THM_M_0890_Validation.exactRootReplay"
+      ],
+      "scope_boundary": "Network-isolated, trust-zero, fresh-output worker replay of the exact frozen statement, proof root, terminal composition, parser-aware local hygiene, transitive declaration/trust observation, and selected pinned source/object provenance. The aliases add no proof and the ten frozen internal decomposition plans remain unaccepted. Proof master acceptance, accepted foundation/TCB policy, complete provenance/SBOM, clean empty-cache cold replay, and distinct signed independent verification remain fail-closed."
+    }
+  ],
+  "status_boundary": "A passing recipe self-tests a truthful blocked validation packet only. It cannot accept the proof prerequisite, reconcile the pre-proof graph, establish release-grade E0, or claim AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}
