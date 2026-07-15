@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1083-VALIDATION-narrow-v1",
+  "item_id": "S56-M-1083-VALIDATION",
+  "theorem_id": "THM-M-1083",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-1083/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 1800,
+  "network_policy": "denied",
+  "network_enforcement": "The validator invokes check_validation.sh. Every Lean subprocess runs at trust level zero through Bubblewrap with a read-only host root, a fresh writable temporary output tree, fixed locale, timezone, umask, and worker count, and an unshared network namespace. The automation-provided canonical pinned dependency cache is reused read-only, so this is narrow network-isolated warm-cache replay rather than a cold section 10.6 reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact ten-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1083-ROOT",
+    "M1083-S-DEFINITIONS",
+    "M1083-S-BOUNDARY",
+    "M1083-S-FOUNDATION",
+    "M1083-N-KOLMOGOROV",
+    "M1083-N-COVERING",
+    "M1083-T-MODIFICATION",
+    "M1083-T-COMPOSE",
+    "M1083-X-EXTERNAL",
+    "M1083-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1083.Statement",
+    "Stage1Instances.THM_M_1083.ObligationTree.kolmogorovContinuity_of_engine",
+    "ProbabilityTheory.exists_modification_holder",
+    "Stage1Instances.THM_M_1083.Proof.timeInterval_hasBoundedCoveringNumber",
+    "Stage1Instances.THM_M_1083.Proof.isKolmogorovProcess_of_increment",
+    "Stage1Instances.THM_M_1083.Proof.kolmogorovContinuity",
+    "Stage1Instances.THM_M_1083.Proof.canonicalProof"
+  ],
+  "scope_boundary": "Network-isolated trust-zero replay of all 15 vendored source modules, the exact statement, frozen conditional composition, proof bridges, exact root, transitive placeholder collector, observed axioms, and selected immutable provenance. Covered obligation IDs are directly corroborated interfaces or validation overlays and grant no closure credit; the substantive frozen Markov/Borel-Cantelli route remains unreconciled and is not claimed as covered. Proof master acceptance, alternate-route graph reconciliation, accepted foundation and complete transitive TCB/SBOM closure, source/readability review, clean-checkout empty-cache offline replay, and distinct signed independent verification remain fail-closed."
+}
