@@ -532,6 +532,19 @@ def prepare_workspace(slot: int) -> Path:
 
 def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list[dict[str, Any]]) -> Path:
     counts = Counter(item["state"] for item in ordered)
+    theorem_states: dict[str, list[str]] = {}
+    for item in ordered:
+        theorem_states.setdefault(item["theorem_id"], []).append(item["state"])
+    theorem_counts = Counter()
+    for states in theorem_states.values():
+        if all(state == "[x]" for state in states):
+            theorem_counts["completed"] += 1
+        elif all(state == "[_]" for state in states):
+            theorem_counts["fully_self_tested"] += 1
+        elif all(state == "[ ]" for state in states):
+            theorem_counts["unstarted"] += 1
+        else:
+            theorem_counts["partial"] += 1
     claim_by_item = {claim.get("item_id"): claim for claim in claims}
     ready = []
     workers = []
@@ -553,6 +566,10 @@ def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list
         f"Worker self-tested: {counts['[_]']}",
         f"Master accepted: {counts['[x]']}",
         f"Unfinished: {counts['[ ]'] + counts['[_]']}",
+        f"Theorems master-complete [x] x7: {theorem_counts['completed']}",
+        f"Theorems fully self-tested [_] x7: {theorem_counts['fully_self_tested']}",
+        f"Theorems partial [_]/[ ]: {theorem_counts['partial']}",
+        f"Theorems unstarted [ ] x7: {theorem_counts['unstarted']}",
         "DAG cycle check: passed.",
         f"Claim ledger: `.cron/stage1-rev56/claims.json`; live worker claims: {sum(c.get('status') == 'live' for c in claims)}.",
         "",
