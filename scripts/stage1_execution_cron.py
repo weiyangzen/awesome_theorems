@@ -434,6 +434,11 @@ Do not edit the scheduler's authoritative checkout directly: {ROOT}
 
 Active /goal: fully and truthfully expand and validate all 1546 metadata-screened Lean 4 targets under Docs/Stage1_Blueprint_rev-5.6.md. Do not claim theorem completion without every rev-5.6 gate and kernel evidence.
 
+Resume the active `/goal` now. If your current context has reached capacity,
+write the required target-scoped artifact or self-test handoff immediately and
+exit cleanly so the scheduler can integrate it and continue the goal in a
+fresh worker context. Do not wait for an interactive operator message.
+
 Your assigned item is the only item you may claim:
 {item_json}
 
