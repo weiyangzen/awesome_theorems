@@ -1165,6 +1165,13 @@ class IntegrationTransactionTests(unittest.TestCase):
         between = source[source.index("if accepted or preserved_blockers:"):validation]
         self.assertNotIn('if accepted:\n            run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])', between)
 
+    def test_checkpoint_manifest_filters_paths_identical_to_head(self) -> None:
+        source = inspect.getsource(cron._integrate)
+        self.assertIn(
+            "checkpoint_files = [path for path in checkpoint_files if path_differs_from_head(path)]",
+            source,
+        )
+
     def test_invalid_attempts_fail_before_worker_files_are_copied(self) -> None:
         data = copy.deepcopy(cron.read_json(cron.DAG))
         data["items"][0]["attempts"] = None

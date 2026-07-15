@@ -2265,6 +2265,9 @@ def _integrate(
                 if path_differs_from_head(path)
             ),
         })
+        # A blocked snapshot may contain historical files already identical to
+        # HEAD. Bind and stage only the actual checkpoint delta.
+        checkpoint_files = [path for path in checkpoint_files if path_differs_from_head(path)]
         manifest = {
             "schema_version": "stage1-pending-checkpoint/1.0",
             "base_revision": run(["git", "rev-parse", "HEAD"]).stdout.strip(),
