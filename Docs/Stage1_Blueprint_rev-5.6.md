@@ -5120,7 +5120,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0990-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0990`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0990-VALIDATION` / `THM-M-0990` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0990-PROOF`. Owned paths: `Stage1_Instances/THM-M-0990`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0990-RELEASE` / `THM-M-0990` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0990-RELEASE` / `THM-M-0990` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0990-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0990`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0991-INTAKE` / `THM-M-0991` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0991`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -9516,7 +9516,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0527-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0527`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0527-VALIDATION` / `THM-M-0527` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0527-PROOF`. Owned paths: `Stage1_Instances/THM-M-0527`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0527-RELEASE` / `THM-M-0527` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
+- [_] `S56-M-0527-RELEASE` / `THM-M-0527` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-0527-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0527`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0528-INTAKE` / `THM-M-0528` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk.
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0528`. Gate: rev-5.6 node-specific receipt and master acceptance.

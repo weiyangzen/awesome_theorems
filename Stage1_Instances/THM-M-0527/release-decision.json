@@ -1,0 +1,130 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0527-RELEASE-local-20260715T081500+0800",
+  "item_id": "S56-M-0527-RELEASE",
+  "theorem_id": "THM-M-0527",
+  "intent": "release",
+  "base_revision": "a9274bb02f984e5c74d2c97339044c6db8eb14f9",
+  "base_tree": "c72a5af07dd4ab3f7088c516c74235e794a6de09",
+  "decided_at": "2026-07-15T08:15:00+08:00",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "reconciled_inputs": {
+    "Statement.lean": "00d2308cc4275b3ca7958961bc0ffc2c06651a64eff06773960f8aac94251327",
+    "Proof.lean": "a279182be283228fd51f46d15dc5a9f80522d6e367cd1aff111c87af62e41467",
+    "Validation.lean": "e6395dc99a61421c294831058d3ba22aace7637dc8857a9e839c8c9ae35a1e50",
+    "statement.json": "d2c3b10b7c65129e4ac74bc07c53d4631800efdf78ca0d3a28699bcda4adfb8b",
+    "anchor-audit.json": "420dde0497bdb408774de281cd9188a2ba48d626312932a73fa1d123f68e76ee",
+    "obligation-registry.json": "8d63fae58b561e019f54fd213b37c6e055a4f5e96a33b8233128e938c5eab80b",
+    "typed-graphs.json": "f152d6bb427c32658bf62750cb6eca0655575577d297cb17e90bfae27c65d87b",
+    "obligation-tree-receipt.json": "7b8a69c13592e24f5566a924cf135d5b4248a383ae008d6ee1b25f7bd423908a",
+    "proof-receipt.json": "6095c0fe7042c28add83dd77e85d56ed367296dddb304d9dabcb07c1071e0a2e",
+    "proof-blocker.json": "a69b275041b2b0afd09e08bfa2056c4b26be09210116348e88ff178a4ea60d0b",
+    "validation-spec.json": "47ad04785d486455cbb6484bea5efc5b03c2d5b5b6b56d5f404249c5b2f38286",
+    "validation-receipt.json": "7ebdf6ed617ba9f11bb85e15f7cd377d2544e341a88698688290fc3ff7effa90",
+    "check_validation.py": "661e22ac6a8e029a6a96a70a0949f1dc4a11b81d3fc61cc14d289c25f1e45a9c",
+    "source_statement_crosswalk.md": "1dc8b8bab884748ec76b69912036d1bd8c655538782b180ea4c6481f6aaad049"
+  },
+  "authority_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "4f5335b6a1724a2856bb155e3147debd858e7fc1cf07d4b70c757e6515f5dd23"
+  },
+  "dependency": {
+    "item_id": "S56-M-0527-VALIDATION",
+    "worker_projection": "[_]",
+    "receipt_id": "S56-M-0527-VALIDATION-BLOCKED-local-20260715",
+    "receipt_sha256": "7ebdf6ed617ba9f11bb85e15f7cd377d2544e341a88698688290fc3ff7effa90",
+    "support_state": "provisional_worker_selftest",
+    "accepted": false,
+    "release_grade": false,
+    "master_accepted": false,
+    "historical_base_revision": "874745ff39044c1e45ed30a04111d3d84aa0e348",
+    "historical_recipe_currently_replayable": false,
+    "staleness_reason": "The validation checker is snapshot-bound to its prior base and packet; release performs a fresh narrow replay."
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0527-OBLIGATION_TREE-selftest-v1",
+    "S56-M-0527-PROOF-partial-20260715T062104+0800",
+    "S56-M-0527-VALIDATION-BLOCKED-local-20260715"
+  ],
+  "evidence_reconciliation": {
+    "canonical_statement_kernel_replay": "provisional_pass",
+    "partial_fiber_kernel_replay": "provisional_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "accepted_exact_root_kernel_closure": false,
+    "accepted_closed_obligations": [],
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "complete_provenance_foundation_tcb_closure": false,
+    "immutable_clean_release_input": false,
+    "hermetic_cold_offline_replay": false,
+    "sbom_license_archive_closure": false,
+    "independent_clean_runner_attestations": false,
+    "independently_implemented_minimal_verifier": false,
+    "protected_ci_and_adversarial_gates": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "authority_conflicts": [
+    {
+      "artifact": "README.md and task-dag.json",
+      "conflict": "Intake-era projections predate later statement, obligation, proof, validation, and workflow evidence.",
+      "resolution": "Fail AUDIT-Z until projections and accepted evidence are reconciled."
+    },
+    {
+      "artifact": "typed-graphs.json",
+      "conflict": "The frozen graph retains M0527-FIB in its cut without composition evidence, while later partial bodies claim zero closed obligations.",
+      "resolution": "Keep zero accepted obligations and H1/M3/R3 unchanged."
+    }
+  ],
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H1", "M3", "R3"],
+    "root_vector_after": ["H1", "M3", "R3"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "Validation has provisional nonrelease evidence only and no master acceptance."
+    },
+    "first_failed_audit_gate": {
+      "gate_id": "S56-AUDIT-FROZEN-INVENTORY-SOURCE-BOUNDARY-RECONCILIATION",
+      "reason": "Public projections, graphs, sources, readability, and later evidence are unreconciled."
+    },
+    "first_failed_theorem_gate": {
+      "gate_id": "S56-THEOREM-EXACT-ROOT-KERNEL-CLOSURE",
+      "reason": "M0527-EX-COVER and M0527-EX-RANGE lack proof bodies."
+    },
+    "first_failed_release_specific_gate": {
+      "gate_id": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+      "reason": "This worker checkout is bounded nonrelease evidence, not immutable clean input."
+    },
+    "next_failed_release_gate": {
+      "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+      "reason": "No cold empty-cache build, offline restoration, or complete supply-chain archive exists."
+    },
+    "remaining_root_cut_set": ["M0527-EX-COVER", "M0527-EX-RANGE"]
+  },
+  "known_failures": [
+    "Validation and all predecessors remain provisional, not master-accepted release-grade receipts.",
+    "The exact root remains M3 because M0527-EX-COVER and M0527-EX-RANGE lack proof bodies.",
+    "Fourteen checked fiber declarations close zero frozen obligations without reconciled fingerprints and composition certificates.",
+    "AUDIT-Z is false: projections conflict, H1 lacks independent pinpoint source review, and R3 lacks independent readable review.",
+    "Complete transitive provenance, foundation, axiom, executable, computation, and TCB closure is absent.",
+    "The shared warm pinned .lake replay is not a clean empty-cache cold build, offline restoration, or complete SBOM/license archive.",
+    "There are no two independently provisioned signed runners or independent minimal verifier.",
+    "Adversarial CI, deterministic bundle, THEOREM-Z, release, theorem completion, and master acceptance are absent.",
+    "The predecessor validation checker is snapshot-bound to 874745ff39044c1e45ed30a04111d3d84aa0e348 and its prior packet."
+  ],
+  "retry_condition": "Implement and compose M0527-EX-COVER and M0527-EX-RANGE; reconcile graphs and projections; obtain fresh master-accepted proof/validation receipts; then close H0/R0, AUDIT-Z, provenance/TCB/supply-chain, clean cold offline, distinct verifier, adversarial CI, deterministic bundle, THEOREM-Z, and master gates.",
+  "status_boundary": "Self-tested negative release reconciliation only; no accepted receipt, obligation, state change, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}
