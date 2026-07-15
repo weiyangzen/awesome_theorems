@@ -1,0 +1,192 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1286-PROOF",
+  "theorem_id": "THM-M-1286",
+  "phase": "proof",
+  "intent": "prove",
+  "recorded_at": "2026-07-16T04:49:26+08:00",
+  "attestor": "stage1-rev56-worker-slot35",
+  "support_state": "blocked_kernel_refutation_nonrelease_evidence",
+  "base_revision": "6bf9ee93a322e7d25cf9249226222095f95d1cff",
+  "base_tree": "24acf86e69ab2e6fca9480c6269b6429874ba295",
+  "owned_path": "Stage1_Instances/THM-M-1286",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1286/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-1286/proof-refutation-recheck-2026-07-16-head-6bf9ee93-slot35.json",
+    "Stage1_Instances/THM-M-1286/proof-refutation-recheck-2026-07-16-head-6bf9ee93-slot35.md"
+  ],
+  "canonical_target": "Stage1Instances.THM_M_1286.PolyaSzegoTarget",
+  "task_ids": [
+    "S56-M-1286-PROOF"
+  ],
+  "canonical_obligation_ids": [
+    "M1286-ROOT"
+  ],
+  "dependency_context": {
+    "ledger_path": "Stage1_Instances/THM-M-1286/dependency-reuse-ledger.json",
+    "ledger_schema": "stage1-dependency-reuse-ledger/1.1",
+    "ledger_sha256": "3b9635ef2ef087d1626f79f84919a4a1d4bb53105284dd65ee6d32bc2d12ecc7",
+    "observed_theorem_dag_sha256": "73e99d2276c8ba9fec8f89ed41b712308d7f5667e95ba8185e49f1f5bfd40eca",
+    "dependency_context_sha256": "a27c6d321f87a3db44085d50ec9ba7b3c5a343bf53227b1c17c7922356046a57",
+    "direct_parent_ids": [],
+    "transitive_ancestor_ids": [],
+    "hard_edge_ids": [],
+    "reuse_hint_ids": [],
+    "shared_group_ids": [
+      "SHARED-MODULE-279c180c9a767195"
+    ],
+    "inspection_result": "No hard parent or ancestor exists. The sole weak shared-module group was inspected through member THM-M-1245 and rejected as non-applicable because its Sobolev norm estimate supplies none of the rearrangement, equimeasurability, weak-gradient, or energy-comparison proof body required here.",
+    "accepted_reuse_decisions": [],
+    "unresolved_compatibility_obligations": []
+  },
+  "refutation": {
+    "declaration": "Stage1Instances.THM_M_1286.Counterexample.not_polyaSzegoTarget",
+    "exact_type": "Not Stage1Instances.THM_M_1286.PolyaSzegoTarget",
+    "source_path": "Stage1_Instances/THM-M-1286/Counterexample.lean",
+    "source_sha256": "dd227181174b72d4aafd614313499c35f6b930056879764b311a479f06f1f0a6",
+    "specialization": "n = 1, p = 1, u = -log x on (0,1) transported to Fin 1 -> Real, g = 0",
+    "argument": "The input is nonnegative and integrable, with finite and strictly positive measure at every positive superlevel. In the frozen encoding, ContDiff Real top makes every compactly supported test function analytic and hence zero, so HasWeakGradient is vacuous. A pointwise real-valued symmetric-decreasing witness is bounded above by its value at zero, giving an empty superlevel at uStar 0 + 1 and contradicting equimeasurability.",
+    "machine_derived_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "trust_level": 0,
+    "placeholder_free": true,
+    "statement_olean_bytes": 67392,
+    "counterexample_olean_bytes": 218384
+  },
+  "mathematical_boundary": "The checked negation refutes the frozen Lean encoding, not a correctly formulated classical Polya-Szego inequality. This proof worker may not repair, weaken, strengthen, or substitute the target.",
+  "statement_defects": [
+    "ContDiff Real top denotes analytic regularity, so compactly supported test functions vanish and the frozen weak-gradient predicate is vacuous.",
+    "The required pointwise real-valued symmetric-decreasing representative is bounded above by its value at zero, while admissible finite-p inputs may be essentially unbounded.",
+    "Euclidean n is Fin n -> Real with the coordinate supremum norm rather than Euclidean l2 geometry."
+  ],
+  "composition_certificate": {
+    "declaration": "Stage1Instances.THM_M_1286.ObligationTree.exactTarget_of_packages",
+    "role": "conditional child-to-root composition only",
+    "open_premises": [
+      "Stage1Instances.THM_M_1286.ObligationTree.RearrangementConstruction",
+      "Stage1Instances.THM_M_1286.ObligationTree.GradientEstimate"
+    ],
+    "proof_credit": false,
+    "consistency_boundary": "The two positive packages cannot both be implemented in the current consistent environment because their checked composition would contradict not_polyaSzegoTarget."
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "flt_regular_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "flt_regular_tree": "32c9eace926573a9981787ae97643e520353c893",
+    "network_used": false,
+    "dependency_fetch_used": false,
+    "lake_mutated": false,
+    "dependency_policy": "The automation-provided Formalizations/Lean/.lake link was reused read-only. No lake update, lake build, dependency clone/fetch, network action, or dependency mutation was run. Generated oleans were isolated below /tmp and removed."
+  },
+  "source_hashes": {
+    "Statement.lean": "ef428b6d6fbb5a05b9112291cd5e113ff02d58776a03b2765837bd3ddc2039bb",
+    "Counterexample.lean": "dd227181174b72d4aafd614313499c35f6b930056879764b311a479f06f1f0a6",
+    "ProofAudit.lean": "09152048ca2a69b790f9bd1ab8db0e8bf533d7d5873b05d571b64647a1b647a9",
+    "ObligationTree.lean": "31690c4c88849ca069648df8cbc72aaec44ce139e83a9fabda1b5b26093a4d6b",
+    "obligation-registry.json": "c7d331ee666db5ca093880b051d0959395d35735bb2c337dfd7d5c7a91215d20",
+    "typed-graphs.json": "9c225e12b3cb6db6f264b360a5e7c6d418d837efe3214909d5cbd9a664a987e2",
+    "anchor-audit.json": "f05ca7a660c1ba2d5ca1fa359cde5338eaded9355c84795294d1a48e745bd33c",
+    "validation-specs.json": "2ee56fb5cadf7df96cc8d0ba96b6fbacec5cfc7861f2114a6608b444aec44e9a",
+    "dependency-reuse-ledger.json": "3b9635ef2ef087d1626f79f84919a4a1d4bb53105284dd65ee6d32bc2d12ecc7",
+    "lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "outcome": "blocked",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency_state": {
+    "item_id": "S56-M-1286-OBLIGATION_TREE",
+    "authoritative_state": "[_]",
+    "master_accepted": false
+  },
+  "positive_proof_body_added": false,
+  "root_closed": false,
+  "root_refuted": true,
+  "proof_phase_complete": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "first_failed_gate": "exact canonical target consistency: trust-zero Lean proves Not PolyaSzegoTarget",
+  "remaining_root_cut_set": [
+    "S56-M-1286-STATEMENT"
+  ],
+  "commands_and_results": [
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1286",
+      "exit_code": 0,
+      "result": "rank 457; lifecycle planned; lane hard_mathlib_anchor_and_wrapper; theorem incomplete"
+    },
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 1,
+      "result": "pre-existing repository consistency failure: v2 theorem DAG validator reports that the checked-in theorem DAG differs from a fresh deterministic generation"
+    },
+    {
+      "command": "python3 Docs/tools/check_stage1_theorem_dag_v2.py",
+      "exit_code": 1,
+      "result": "pre-existing repository consistency failure: checked-in theorem DAG differs from a fresh deterministic generation; this worker did not modify or regenerate either authoritative DAG"
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-1286/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "PASS: 18 obligations and 23 typed edges; denominator e586a1f546787e50f220dd44608a46061c26fc40bbe80fadf0c5654a39fddaa4; positive root open M4"
+    },
+    {
+      "command": "python3 target-scoped invocation of scripts.stage1_execution_cron.validate_dependency_reuse_ledger with expected graph digest and base revision",
+      "exit_code": 0,
+      "result": "PASS: consumer THM-M-1286; zero hard-parent inspections; one weak shared-group decision"
+    },
+    {
+      "command": "isolated lake env lean --trust=0 -t0 replay of Statement.lean and Counterexample.lean using the exact recipe in the adjacent Markdown file",
+      "exit_code": 0,
+      "result": "both modules elaborated; olean sizes 67392 and 218384 bytes; not_polyaSzegoTarget has exact type Not PolyaSzegoTarget; axioms [propext, Classical.choice, Quot.sound]"
+    },
+    {
+      "command": "rg -n --pcre2 '\\b(?:sorry|admit|axiom)\\b|sorryAx|unsafe|implemented_by|native_decide' Stage1_Instances/THM-M-1286 --glob '*.lean'",
+      "exit_code": 1,
+      "result": "expected no-match result; no prohibited construct occurs in owned Lean source"
+    },
+    {
+      "command": "cd Formalizations/Lean && lake env lean --version && lake --version",
+      "exit_code": 0,
+      "result": "Lean 4.29.0 commit 98dc76e3c0a9b856c9b98726b713fb04fab16740; Lake 5.0.0-src+98dc76e"
+    },
+    {
+      "command": "git rev-parse and diff --quiet for pinned mathlib and flt-regular package worktrees",
+      "exit_code": 0,
+      "result": "mathlib 8a178386ffc0f5fef0b77738bb5449d50efeea95 tree bdc39a3123201dae413a9d9be56ec242c19e5c2b; flt-regular 56161b6eb5281fbfe9c38f2bcec0f429ebc11a27 tree 32c9eace926573a9981787ae97643e520353c893; both worktrees unmodified"
+    },
+    {
+      "command": "test ! -e .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "completion self-test deliberately absent because the assigned positive proof phase is blocked"
+    }
+  ],
+  "preflight_limitations": [
+    "The repository-wide standard and v2 theorem-DAG validators fail because the checked-in authoritative v2 DAG differs from a fresh deterministic generation. This is a pre-existing authority-level inconsistency outside the assigned owned path; this worker did not modify or regenerate either DAG. The scheduler-supplied graph digest still exactly matches the checked-in DAG and the target-scoped dependency ledger validator passes against it."
+  ],
+  "known_failures": [
+    "The exact frozen positive root is kernel-refuted.",
+    "No positive proof body can be supplied without inconsistency or a prohibited assumption.",
+    "The repository-wide standard and v2 theorem-DAG validators report a pre-existing checked-in-versus-generated DAG mismatch outside this worker's ownership.",
+    "The predecessor obligation-tree item is worker-provisional and its positive architecture is stale.",
+    "The automation-provided untracked Formalizations/Lean/.lake link makes this nonrelease evidence."
+  ],
+  "retry_condition": "Reopen S56-M-1286-STATEMENT: use measure-compatible Euclidean l2 geometry, replace analytic order top with the intended smooth order, and choose a rearrangement representation that admits essentially unbounded finite-p inputs. Publish a new statement fingerprint and refreeze every dependent statement, anchor, registry, graph, and obligation-tree artifact before resuming positive proof execution, or explicitly redirect execution to the checked counterexample target.",
+  "selftest_manifest_written": false,
+  "status_boundary": "Current-base target-scoped nonrelease refutation evidence only. It is not a positive proof receipt, does not satisfy S56-M-1286-PROOF, changes no scheduler state, and supports no audit completion, theorem completion, validation, release, receipt acceptance, or master acceptance."
+}
