@@ -1,0 +1,54 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1271-VALIDATION-network-isolated-warm-v1",
+  "item_id": "S56-M-1271-VALIDATION",
+  "theorem_id": "THM-M-1271",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1271/check_validation.py"
+  ],
+  "env_allowlist": {
+    "PATH": "runner-provided helper discovery; Lean, Lake, and Bubblewrap identities are checked",
+    "HOME": "runner-provided only for pinned Lake/Elan discovery; the Lean sandbox uses a temporary HOME",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs at trust zero in Bubblewrap with an unshared network, a read-only host root, a writable disposable module directory, fixed locale and timezone, umask 022, and one Lean thread. Existing pinned compiled dependencies are reused read-only, so this is warm nonrelease evidence rather than a cold hermetic release replay.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact eight-line PASS/OPEN/FAIL-CLOSED summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1271-C-PATH-MAX",
+    "M1271-L-SPHERE-CROSSING",
+    "M1271-T-BARRIER",
+    "M1271-C-PS-SEQUENCE",
+    "M1271-L-PS-COMPACT",
+    "M1271-L-LIMIT-PASSAGE",
+    "M1271-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1271.root_of_barrier_and_critical_packages",
+    "Stage1Instances.THM_M_1271.admissiblePath_meets_sphere",
+    "Stage1Instances.THM_M_1271.alpha_le_pathHeight",
+    "Stage1Instances.THM_M_1271.pathHeight_attained",
+    "Stage1Instances.THM_M_1271.mountainPassBarrierPackage",
+    "Stage1Instances.THM_M_1271.exists_valueSequence_at_mountainPassLevel",
+    "Stage1Instances.THM_M_1271.exists_criticalPoint_of_psSequence",
+    "Stage1Instances.THM_M_1271.mountainPassCriticalPackage_of_psSequence",
+    "Stage1Instances.THM_M_1271.Validation.directAdmissiblePath_meets_sphere",
+    "Stage1Instances.THM_M_1271.Validation.directAlpha_le_pathHeight",
+    "Stage1Instances.THM_M_1271.Validation.directAlpha_le_mountainPassLevel",
+    "Stage1Instances.THM_M_1271.Validation.directConditionalRoot"
+  ],
+  "status_boundary": "The recipe validates the frozen statement, conditional root composition, seven partial proof declarations, and four separately written geometric/composition probes. The derivative-small Palais-Smale sequence, unconditional critical package, and exact root remain unproved. Complete trust/provenance, cold hermetic replay, and distinct-runner verification are not claimed."
+}

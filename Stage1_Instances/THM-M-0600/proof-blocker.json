@@ -2,9 +2,9 @@
   "schema_version": "stage1-proof-blocker/1.0",
   "item_id": "S56-M-0600-PROOF",
   "theorem_id": "THM-M-0600",
-  "base_revision": "e04243daf889845e1649146b8777095223d800ba",
-  "base_tree": "64f87b307e68abee8e4a7a19f511dbf28dbf1e39",
-  "recorded_at": "2026-07-15T00:00:00+08:00",
+  "base_revision": "557b928b377b386864527c9fb4831d45857837aa",
+  "base_tree": "e677879a6eb4cb9d6795ba1bd78726af06ab9465",
+  "recorded_at": "2026-07-15T08:00:57+08:00",
   "canonical_target": "Stage1Instances.THM_M_0600.MorseLemmaTarget",
   "canonical_target_expression_sha256": "6ba927d7712fa05ea04ff656eefe32d16a57a2c45f4aa49a30695b263b04911d",
   "statement_sha256": "40dced107b293e5045af83deaabd2f898bdf16c4b6f4bced61b6a9fbef2b97dc",
@@ -14,9 +14,13 @@
   "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
   "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
   "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
-  "outcome": "blocked",
+  "outcome": "partial_proof_progress_root_blocked",
   "machine_classification": "M3",
-  "proof_body_added": false,
+  "proof_body_added": true,
+  "provisionally_closed_obligation_ids": [
+    "M0600-S-DIMZERO"
+  ],
+  "accepted_closed_obligation_ids": [],
   "root_closed": false,
   "audit_complete": false,
   "theorem_complete": false,
@@ -25,7 +29,6 @@
     "M0600-T-ENGINE"
   ],
   "expanded_missing_proof_packages": [
-    "M0600-S-DIMZERO",
     "M0600-N-CHART",
     "M0600-N-DERIVATIVES",
     "M0600-C-TAYLOR",
@@ -39,19 +42,23 @@
     "M0600-T-ENGINE"
   ],
   "available_checked_bodies": {
+    "Stage1Instances.THM_M_0600.zeroDimensionBranch": "local unconditional proof of the frozen n = 0 branch",
+    "Stage1Instances.THM_M_0600.morseNormalFormEngine_of_positiveDimension": "local conditional composition that combines the checked n = 0 branch with an explicit positive-dimensional premise",
+    "Stage1Instances.THM_M_0600.morseLemmaTarget_of_positiveDimension": "local conditional composition from the explicit positive-dimensional premise to the exact canonical target",
     "Stage1Instances.THM_M_0600.root_of_morseNormalFormEngine": "local conditional composition from an explicit MorseNormalFormEngine premise to the exact canonical target",
     "QuadraticForm.equivalent_one_neg_one_weighted_sum_squared": "pinned mathlib ingredient for diagonalizing a fixed nondegenerate real quadratic form",
     "QuadraticForm.sigPos_add_sigNeg_add_radical": "pinned mathlib ingredient for inertia dimension accounting",
     "ContDiffAt.to_localInverse": "pinned mathlib smooth local-inverse ingredient"
   },
   "candidate_assessment": {
-    "repo_local": "Statement.lean contains the exact target and ObligationTree.lean checks only the final conditional composition. No declaration inhabits MorseNormalFormEngine.",
+    "repo_local": "Proof.lean now proves the n = 0 branch and checks composition from an explicit positive-dimensional premise. No unconditional declaration inhabits MorseNormalFormEngine or MorseLemmaTarget.",
     "pinned_mathlib": "The immutable pinned source contains diagonalization, signature, and inverse/implicit-function ingredients, but no Morse lemma, smooth second-order factorization, parameterized splitting theorem, or exact normal-coordinate construction.",
     "audited_external": "The accepted predecessor anchor audit found no exact immutable Lean 4 proof candidate in its bounded indexed-code search, so there is no eligible external body to pin or import."
   },
-  "blocker": "An exact proof requires the nonlinear analytic engine: bridge the iterated fderiv Hessian to a smooth Taylor factorization, diagonalize with the frozen sign convention, prove a smoothly parameterized splitting construction and its finite induction, obtain a local inverse, construct every SmoothLocalCoordinates field, and transport the identity on an open neighborhood. Assuming MorseNormalFormEngine, importing only a quadratic-form theorem, or proving a pointwise Taylor approximation would add a premise or substitute a weaker theorem.",
+  "blocker": "Proof.lean now supplies an unconditional body for the zero-dimensional case using the supplied coordinates and the subsingleton Euclidean 0 model; its obligation binding is provisional pending master reconciliation. An exact proof still requires the positive-dimensional nonlinear analytic engine: bridge the iterated fderiv Hessian to a smooth Taylor factorization, diagonalize with the frozen sign convention, prove a smoothly parameterized splitting construction and its finite induction, obtain a local inverse, construct every SmoothLocalCoordinates field, and transport the identity on an open neighborhood. Treating the explicit PositiveDimensionMorseNormalFormEngine premise as a proof, importing only a quadratic-form theorem, or proving a pointwise Taylor approximation would add a premise or substitute a weaker theorem.",
   "retry_condition": "Resume after a placeholder-free local implementation of the frozen smooth splitting and normal-form packages is available, or after an immutable compatible Lean 4 Morse-lemma proof is integrated and exact-type transported into the pinned closure.",
   "validation_record": "proof-validation.md",
-  "status_boundary": "This is proof-phase blocker evidence, not a proof receipt. It does not satisfy S56-M-0600-PROOF, change any accepted state, or establish validation, release, audit completion, M0, master acceptance, or theorem completion.",
-  "selftest_manifest_written": false
+  "proof_receipt": "proof-receipt.json",
+  "status_boundary": "This is self-tested partial proof progress. It proposes provisional kernel closure of M0600-S-DIMZERO, pending master reconciliation of the planned registry fingerprint; accepted obligation closure remains empty. The exact root stays M3 with M0600-T-ENGINE open. It does not fully satisfy S56-M-0600-PROOF, change any accepted state, or establish validation, release, audit completion, M0, master acceptance, or theorem completion.",
+  "selftest_manifest_written": true
 }
