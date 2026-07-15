@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/rev-5.6",
+  "item_id": "S56-M-0590-VALIDATION",
+  "theorem_id": "THM-M-0590",
+  "depends_on": [
+    "S56-M-0590-PROOF"
+  ],
+  "recipe_id": "S56-M-0590-VALIDATION-network-isolated-v1",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0590/check_validation.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "LEAN_NUM_THREADS": "1",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs inside Bubblewrap with an unshared network namespace, read-only host root, one disposable writable directory, cleared environment, fixed locale/timezone/umask/thread count, --trust=0, and an explicit pinned LEAN_PATH. Host-side hash, Git, and structural checks issue no network requests. The canonical compiled dependency closure is reused read-only and warm, so this is nonrelease narrow replay rather than a cold section 10.6 build.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS, OPEN, and FAIL-CLOSED gate summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0590-S-DEFINITIONS",
+    "M0590-S-DOMAINS",
+    "M0590-T-ASSEMBLE"
+  ],
+  "observationally_covered_obligation_ids": [
+    "M0590-S-FOUNDATION",
+    "M0590-X-PROVENANCE"
+  ],
+  "partially_covered_obligation_ids": [
+    "M0590-S-BOUNDARY",
+    "M0590-N-CALKIN",
+    "M0590-L-FWD-SPECTRUM"
+  ],
+  "covered_declarations": [
+    "THMM0590.brownDouglasFillmoreTarget",
+    "THMM0590.root_of_directional_packages",
+    "THMM0590.isEssentiallyNormal_of_adjoint_comp_eq_comp_adjoint",
+    "THMM0590.unitaryEquivalentModuloCompacts_refl",
+    "THMM0590.isCompactOperator_unitary_conjugate",
+    "THMM0590.isEssentiallyNormal_unitary_conjugate",
+    "THMM0590.bdfInvariantEquivalence_refl",
+    "THMM0590.Validation.essentiallyNormalOfNormalDirect",
+    "THMM0590.Validation.diagonalInvariantEquivalenceDirect",
+    "THMM0590.Validation.conditionalRootDirect"
+  ],
+  "scope_boundary": "Network-isolated trust-zero replay of fresh local oleans over the pinned shared warm dependency cache. The recipe validates the exact Prop statement, conditional root composition, five partial proof declarations, and three independently written same-worker probes importing only Statement. Both directional BDF packages and the exact root remain open. Complete transitive trust/provenance, cold empty-cache offline reproduction, and distinct signed independent verification are evaluated fail closed."
+}
