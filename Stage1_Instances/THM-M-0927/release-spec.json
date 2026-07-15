@@ -1,0 +1,77 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0927-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0927-RELEASE",
+  "theorem_id": "THM-M-0927",
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0927-VALIDATION"
+  ],
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0927/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "runner account used only to locate the already installed pinned Lean toolchain",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs only local reconciliation and invokes the pinned Lean binary directly against existing read-only dependency outputs. It makes no network request and performs no Lake resolution, update, build, clone, fetch, checkout, or .lake mutation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact deterministic seven-line negative release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0927-ROOT",
+    "M0927-S-INTERFACE",
+    "M0927-S-BOUNDARY",
+    "M0927-S-FUNCTION-TRANSPORT",
+    "M0927-S-RADICAL-TRANSPORT",
+    "M0927-S-FOUNDATION",
+    "M0927-N-ROOT-SPELLING",
+    "M0927-N-FUNCTION-POINTWISE",
+    "M0927-L-RECURRENCE-DEFINITION",
+    "M0927-L-FIB-SOLUTION",
+    "M0927-L-PHI-SOLUTION",
+    "M0927-L-PSI-SOLUTION",
+    "M0927-C-RHS-SOLUTION",
+    "M0927-B-INITIAL-CASES",
+    "M0927-B-INITIAL-ZERO",
+    "M0927-B-INITIAL-ONE",
+    "M0927-X-RECURRENCE-UNIQUENESS",
+    "M0927-T-FUNCTION-BINET",
+    "M0927-T-POINTWISE-BINET",
+    "M0927-T-ROOT-COMPOSE",
+    "M0927-X-SOURCE",
+    "M0927-X-PROVENANCE",
+    "M0927-X-EVIDENCE",
+    "M0927-X-TRUST",
+    "M0927-X-READABLE",
+    "M0927-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0927.BinetFormulaTarget",
+    "Stage1Instances.THM_M_0927.ObligationTree.root_of_terminal_packages",
+    "Real.coe_fib_eq'",
+    "Stage1Instances.THM_M_0927.Proof.functionBinet_proof",
+    "Stage1Instances.THM_M_0927.Proof.binetFormula_proof",
+    "Stage1Instances.THM_M_0927.Validation.independentlyRecomposedBinetFormula"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_no_closure_credit",
+  "scope_boundary": "This bounded worker recipe binds current structured authority, prior provisional receipts, and a current trust-zero warm-cache Lean replay. It cannot master-accept the validation dependency, reconcile provisional proof evidence into authoritative graph state, supply H0/R0 or complete trust/provenance/SBOM evidence, perform a clean empty-cache cold offline build, act as an independent verifier, or grant release acceptance."
+}
