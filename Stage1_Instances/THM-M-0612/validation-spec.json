@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0612-VALIDATION",
+  "theorem_id": "THM-M-0612",
+  "phase": "validation",
+  "depends_on": [
+    "S56-M-0612-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0612-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0612/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean process runs under /usr/bin/bwrap --unshare-net with a read-only host root, a writable fresh /tmp directory, and a cleared fixed environment.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line PASS/OPEN/FAIL CLOSED summary; dependency, universal-root, complete-trust, hermetic, and distinct-runner gates remain fail-closed"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0612-ROOT",
+        "M0612-S-DEFINITIONS",
+        "M0612-S-DIMENSION",
+        "M0612-S-BOUNDARY",
+        "M0612-S-FOUNDATION",
+        "M0612-N-LOCAL",
+        "M0612-N-SCALE",
+        "M0612-B-DIM2",
+        "M0612-B-HIGHER",
+        "M0612-B-MERGE",
+        "M0612-C-CAPACITY",
+        "M0612-C-INVARIANCE",
+        "M0612-L-MONOTONE",
+        "M0612-L-CONFORMAL",
+        "M0612-L-BALL",
+        "M0612-L-CYLINDER",
+        "M0612-C-J",
+        "M0612-L-CURVE",
+        "M0612-L-COMPACT",
+        "M0612-L-ENERGY",
+        "M0612-L-MONOTONICITY",
+        "M0612-T-SQUARED",
+        "M0612-T-ORDER",
+        "M0612-T-ASSEMBLE"
+      ],
+      "covered_declarations": [
+        "Stage1.THM_M_0612.StatementShape",
+        "Stage1.THM_M_0612.symplectic_det_dimTwo",
+        "Stage1.THM_M_0612.image_volume_eq_dimTwo",
+        "Stage1.THM_M_0612.volume_ball_dimTwo",
+        "Stage1.THM_M_0612.dimTwo_radiusSquaredObstruction",
+        "Stage1.THM_M_0612.radius_le_of_sq_le",
+        "Stage1.THM_M_0612.root_of_radiusSquaredObstruction",
+        "Stage1.THM_M_0612.Validation.rootFromRadiusSquaredObstruction"
+      ],
+      "coverage_boundary": "The 24 machine-required IDs are validation subjects, not closure claims. Network-isolated trust-zero warm replay reaches the exact statement, the unconditional Fin 1 proof bodies, and two conditional root compositions. No inhabitant of the universal higher-dimensional RadiusSquaredObstruction or exact StatementShape is checked; complete transitive provenance/TCB, empty-cache cold offline reproduction, and distinct signed verification remain unavailable."
+    }
+  ]
+}
