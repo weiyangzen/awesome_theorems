@@ -1,0 +1,117 @@
+# THM-M-1006 current-base proof recheck
+
+Item: `S56-M-1006-PROOF`
+
+Intent: `prove`
+
+Base revision: `435748c4550bad6c03c34931d309befe9658460d`
+
+Base tree: `5354633764fc606c80fe66838d43b491165ea056`
+
+Recheck date: 2026-07-15 (Asia/Shanghai)
+
+## Verdict
+
+`blocked`. A sound positive proof cannot inhabit the exact frozen target because its unrestricted
+discrete-jump upper comparison is false at `p = 1 / 2`. The finite rare-jump martingales and their
+moment estimates are recorded in `counterexample-analysis.md`. This packet binds that blocker and
+the already checked partial Lean bodies to the current base. The item remains `[ ]`, lifecycle
+remains `planned`, and the authoritative root vector remains `[H2, M3, R3]`. The counterexample
+supports a proposed `H5` classification, subject to master review.
+
+For every `N >= 2`, set `q = 1 / N^2`. While active, a process increments by `+1` with probability
+`1-q` and by `-(1-q)/q` with probability `q`, then freezes after the rare negative jump. Each
+conditional increment is centered. At horizon `N`, its two frozen moments satisfy
+
+```text
+E[M_N^(1/2)] >= (1/2) N^(1/2),
+E[Q_N^(1/4)] <= N^(1/4) + 2^(1/4).
+```
+
+Their ratio is unbounded. This contradicts the one finite `C` quantified before the probability
+space, martingale, and horizon in `StatementShape (1 / 2)`. It refutes this finite discrete-time
+encoding, not the classical continuous-martingale BDG theorem. `Counterexample.lean` checks the
+exponent, transition algebra, jump parameters, and asymptotic ingredients, but it does not encode
+the complete probability spaces, filtration, martingale witness, exact lintegrals, moment bounds,
+or `Not (StatementShape (1 / 2))`. This is a mathematical blocker, not an `M0` kernel-refutation
+receipt.
+
+## Proof Boundary
+
+`Proof.lean` contains placeholder-free proofs of finite telescoping, zero-start reconstruction, and
+the horizon-zero maximum and quadratic variation. The trust-zero replay below succeeded. Every
+printed axiom set was a subset of `propext`, `Classical.choice`, and `Quot.sound`, with no
+`sorryAx`. These bodies cover parts of `M1006-N-DIFFERENCES` and `M1006-S-BOUNDARY`; they do not
+prove `M1006-T-LOWER`, `M1006-T-UPPER`, or `M1006-ROOT`.
+
+`ObligationTree.lean` also rechecked its conditional composition declaration. It requires both
+directional BDG packages as premises, so it receives no directional or root proof credit.
+
+The first failed gate is exact-target mathematical truth at `M1006-B-P-RANGE`. The invalidated
+positive path is
+`M1006-B-P-RANGE -> M1006-T-UPPER -> M1006-T-ASSEMBLE -> M1006-ROOT`.
+The predecessor `S56-M-1006-OBLIGATION_TREE` is only provisional `[_]`, not master-accepted; this
+independently prevents dependency-legal proof-node acceptance.
+
+## Validation
+
+All Lean checks reused the automation-provided canonical `.lake` symlink read only. No `lake
+update`, `lake build`, dependency clone/fetch, network operation, or `.lake` mutation was performed.
+Temporary sources and compiler output were confined to `/tmp` and removed by the command trap.
+
+| Command | Exit | Exact result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | `check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)` |
+| `python3 scripts/stage1_target.py check` | 0 | `stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)` |
+| `python3 scripts/stage1_target.py show THM-M-1006` | 0 | Rank 286; lifecycle `planned`; legacy artifacts unaccepted; theorem incomplete. |
+| `python3 Stage1_Instances/THM-M-1006/check_obligation_tree.py` | 0 | 18 obligations and 49 typed edges passed; denominator `12818dc1...14dac6f`; root open at M3; directional packages M4. |
+| `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e...fab16740`, Release. |
+| Isolated four-module replay below | 0 | All four modules elaborated under `--trust=0 -t0`; printed axiom sets were subsets of `propext`, `Classical.choice`, and `Quot.sound`. |
+| Bounded pinned-mathlib search recorded in the JSON packet | 0 | No exact BDG declaration; only adjacent Doob maximal and unrelated polynomial matches. |
+| Token-anchored prohibited-device scan over owned `*.lean` files | 1 | Expected no-match; no prohibited declaration token was found. |
+| `test ! -e .stage1-worker-selftest.json` | 0 | The incomplete proof phase emitted no completion self-test manifest. |
+| `python3 -m json.tool <packet>; jq -e <identity and blocked-boundary assertions> <packet>` | 0 | The packet is valid JSON and agrees on item, target, base, state, proof boundary, and absent self-test. |
+| Scoped `git diff --check` plus no-index checks for both new packet files | 0 | No whitespace diagnostics; no-index exit 1 was asserted as the expected new-file difference. |
+
+The successful isolated Lean recipe, run from the repository root, was:
+
+```bash
+set -euo pipefail
+root=$PWD
+tmp=$(mktemp -d /tmp/thm1006-slot31-replay.XXXXXX)
+trap 'rm -rf "$tmp"' EXIT
+cp Stage1_Instances/THM-M-1006/Statement.lean "$tmp/Statement.lean"
+cp Stage1_Instances/THM-M-1006/Proof.lean "$tmp/Proof.lean"
+cp Stage1_Instances/THM-M-1006/Counterexample.lean "$tmp/Counterexample.lean"
+cp Stage1_Instances/THM-M-1006/ObligationTree.lean "$tmp/ObligationTree.lean"
+lean_path=$(cd Formalizations/Lean && lake env printenv LEAN_PATH)
+cd Formalizations/Lean
+LEAN_NUM_THREADS=1 LEAN_PATH="$lean_path" timeout --foreground 300 \
+  lake env lean --trust=0 -t0 --root="$tmp" -o "$tmp/Statement.olean" "$tmp/Statement.lean"
+LEAN_NUM_THREADS=1 LEAN_PATH="$tmp:$lean_path" timeout --foreground 300 \
+  lake env lean --trust=0 -t0 --root="$tmp" "$tmp/Proof.lean"
+LEAN_NUM_THREADS=1 LEAN_PATH="$tmp:$lean_path" timeout --foreground 300 \
+  lake env lean --trust=0 -t0 --root="$tmp" "$tmp/Counterexample.lean"
+LEAN_NUM_THREADS=1 LEAN_PATH="$tmp:$lean_path" timeout --foreground 300 \
+  lake env lean --trust=0 -t0 --root="$tmp" "$tmp/ObligationTree.lean"
+```
+
+Pinned environment: Lean `4.29.0`, commit
+`98dc76e3c0a9b856c9b98726b713fb04fab16740`; mathlib
+`8a178386ffc0f5fef0b77738bb5449d50efeea95`; `lake-manifest.json` SHA-256
+`321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81`.
+
+The matching structured record binds the current source hashes, base identity, environment pins,
+commands, failure boundary, and retry condition. It is durable blocker evidence only.
+
+## Retry Condition
+
+Reopen the statement phase and choose a source-faithful valid formulation: restrict the exponent
+range, add sufficient jump control, or formalize the intended continuous-martingale theorem. Then
+freeze and accept a new statement fingerprint and append-only obligation-registry delta before
+resuming positive proof execution. Alternatively, explicitly redirect the item to a complete
+kernel-checked counterexample target.
+
+This is current-base nonrelease blocker evidence, not a proof receipt. It changes no task state,
+closes no root obligation, and claims neither audit nor theorem completion. Because the assigned
+positive proof phase is not complete, `.stage1-worker-selftest.json` is deliberately absent.
