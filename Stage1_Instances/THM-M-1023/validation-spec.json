@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1023-VALIDATION-network-isolated-v1",
+  "item_id": "S56-M-1023-VALIDATION",
+  "theorem_id": "THM-M-1023",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1023/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 3600,
+  "network_policy": "denied",
+  "network_enforcement": "Lean subprocesses run under bubblewrap with a read-only host root, a fresh writable temporary output directory, a cleared environment, fixed locale/timezone/thread count, and an unshared network namespace.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED summary bound by validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1023-ROOT"
+  ],
+  "observed_open_obligation_ids": [
+    "M1023-S-FOUNDATION",
+    "M1023-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1023.root_of_directionPackages",
+    "Stage1Instances.THM_M_1023.infinitelyDivisibleIffLevyKhintchine",
+    "ProbabilityTheory.levyKhintchine_representation",
+    "ProbabilityTheory.levyKhintchine_converse",
+    "ProbabilityTheory.existsUnique_levyKhintchineTriple",
+    "Stage1Instances.THM_M_1023.Validation.independentlyReconstructedRoot"
+  ],
+  "scope_boundary": "Network-isolated trust-zero source replay of the exact statement, frozen conditional composition, all 20 vendored LeanLevy modules, proof root, and separately written same-workspace exact-root reconstruction. The warm pinned mathlib cache is reused read-only. Covered IDs identify corroborated provisional evidence only: proof master acceptance, graph reconciliation, accepted foundation and complete TCB/SBOM provenance, cold empty-cache offline restoration, and distinct signed independent verification remain fail-closed."
+}

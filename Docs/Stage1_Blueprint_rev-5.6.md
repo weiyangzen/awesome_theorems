@@ -8324,7 +8324,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-1023-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-1023`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-1023-PROOF` / `THM-M-1023` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-1023-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-1023`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-1023-VALIDATION` / `THM-M-1023` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
+- [_] `S56-M-1023-VALIDATION` / `THM-M-1023` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-1023-PROOF`. Owned paths: `Stage1_Instances/THM-M-1023`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-1023-RELEASE` / `THM-M-1023` / `release`: Reconcile evidence and decide the exact theorem-completion verdict.
   Depends: `S56-M-1023-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-1023`. Gate: rev-5.6 node-specific receipt and master acceptance.
