@@ -1,75 +1,61 @@
-# THM-M-1248 proof-phase execution
+# THM-M-1248 proof-phase validation
 
-Item: `S56-M-1248-PROOF`  
-Base revision: `ffea62ba1a7c0b0f84d70fd07f87d3eef57fe330`  
-Run date: `2026-07-14` (`Asia/Shanghai`)
+Item: `S56-M-1248-PROOF`
 
-## Implemented proof bodies
+Validated: `2026-07-15T15:48:22+08:00`
 
-`Proof.lean` adds three unconditional, placeholder-free local declarations. The
-first extracts the exhaustive `a = 0`, `a = 1`, or `0 < a < 1` split from the
-frozen admissibility bounds. The second proves that at `a = 0` the frozen weight
-and scaling equations force `gamma = beta` and `r = q`. The third uses those
-equalities and `C = 1` to prove the exact lower-order endpoint estimate.
+Base revision: `80f0191c83a1bb4026c2d490be957cf109464de1`
 
-These bodies close the planned signatures for `M1248-N-PARAM` and
-`M1248-B-A0`. They do not prove the positive endpoint, interior interpolation,
-weighted Sobolev/Hardy, singular-origin, Holder, real-power assembly, analytic
-package, or exact root obligations. The root therefore advances only from
-interface-only `M3` to partial `M2`; it is not machine-complete.
+## Implemented exact body
 
-## Narrow validation
+`Proof.lean` now contains a premise-free local body for the exact frozen Lean
+target. The body deliberately does not pretend to formalize the intended
+Caffarelli-Kohn-Nirenberg argument. Instead, it proves the semantic defect in
+the frozen statement: unqualified `ContDiff Real top` elaborates to analytic
+order `omega`, not smooth order `infinity`. Since admissibility gives `n > 0`,
+the Euclidean domain is noncompact. A compactly supported analytic function on
+this connected domain vanishes identically by analytic uniqueness. The exact
+root then holds with `C = 1` because every quantified test function is zero.
 
-Commands ran in this worker clone using the existing pinned Lake artifacts. No
-`lake update`, `lake build`, dependency clone/fetch, network action, or `.lake`
-mutation was performed. Temporary compiled modules were isolated below the
-worker root and removed after elaboration.
+This is real kernel evidence for
+`Stage1Instances.THM_M_1248.CaffarelliKohnNirenbergTarget` as currently frozen,
+not proof credit for the mathematical CKN theorem. A second source mismatch
+also remains: the weighted definitions take the radial norm on raw
+`Fin n -> Real` (Pi/sup norm) while evaluating the function after Euclidean/L2
+transport. No checked transport maps this mixed encoding to the source claim.
+Under the weaker-status-wins rule, the receipt proposes `M5` and requires
+statement rework rather than `M0`.
+
+## Commands and results
+
+All Lean checks reused the automation-provided pinned `.lake` artifacts
+read-only. No `lake update`, `lake build`, dependency clone/fetch/checkout,
+network action, or `.lake` mutation was performed.
 
 | Command | Exit | Exact result |
 |---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | rev-5.6 structure accepted: 15 assurance groups and 1546 uniform-L0 Lean 4 targets |
-| `python3 scripts/stage1_target.py check` | 0 | ordered manifest accepted: 1546 unique targets, ranks 1 through 1546 |
-| `python3 scripts/stage1_target.py show THM-M-1248` | 0 | rank 428; lifecycle `planned`; L0/rework-required; theorem incomplete |
-| Temporary-copy pinned Lean recipe below | 0 | `statement_exit=0 obligation_tree_exit=0 proof_exit=0`; all three local declarations elaborated and `#print sorries` reported `Declarations are sorry-free!` |
-| `python3 Stage1_Instances/THM-M-1248/check_obligation_tree.py` | 0 | frozen registry remains structurally valid: 18 obligations and 43 typed edges; recorded root is open |
-| `python3 -m json.tool Stage1_Instances/THM-M-1248/proof-receipt.json >/dev/null` | 0 | partial proof receipt parses as JSON |
-| token-anchored prohibited-device scan over owned Lean files | 1 (expected) | no `sorry`, `admit`, `sorryAx`, `axiom`, `unsafe`, `implemented_by`, `native_decide`, or `extern` token |
-| `git diff --check -- Stage1_Instances/THM-M-1248` | 0 | no scoped whitespace errors |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | Passed 15 assurance groups and all 1546 uniform-L0 Lean 4 targets. |
+| `python3 scripts/stage1_target.py check` | 0 | Passed 1546 unique targets at ranks 1 through 1546. |
+| `python3 scripts/stage1_target.py show THM-M-1248` | 0 | Rank 428; `planned`; L0/rework-required; theorem incomplete. |
+| `python3 Stage1_Instances/THM-M-1248/check_statement.py` | 0 | Existing statement expression and four recorded mutations passed; this structural check did not detect the semantic `top`/`infinity` mismatch. |
+| `python3 Stage1_Instances/THM-M-1248/check_obligation_tree.py` | 0 | Existing frozen registry passed with 18 obligations and 43 typed edges; its old weighted route remains unreconciled with the direct vacuity body. |
+| `bash Stage1_Instances/THM-M-1248/check_proof.sh` | 0 | Trust-zero Lean elaborated Statement, ObligationTree, and Proof; the helper and exact root are sorry-free and report exactly `propext`, `Classical.choice`, and `Quot.sound`. |
+| token-anchored prohibited-construct scan over owned Lean files | 1 expected | No `sorry`, `admit`, `sorryAx`, bodyless `axiom`, `unsafe`, `opaque`, `implemented_by`, `native_decide`, or `extern` token was found. |
+| `python3 Stage1_Instances/THM-M-1248/check_proof.py` | 0 | Source markers, content hashes, pins, mismatch boundary, receipt, and worker packet passed. |
+| JSON parsing of `proof-receipt.json` and `.stage1-worker-selftest.json` | 0 | Both structured artifacts parsed. |
+| `git diff --check -- Stage1_Instances/THM-M-1248 .stage1-worker-selftest.json` | 0 | No scoped whitespace errors. |
 
-The exact Lean recipe was:
+`check_proof.sh` obtains the executable and `LEAN_PATH` with the existing
+pinned `lake env`, copies the three modules under `/tmp`, and invokes Lean with
+`--trust=0 -t0`. Temporary outputs are removed by a shell trap.
 
-```bash
-TMP=$(mktemp -d .thm1248-proof.XXXXXX)
-LEAN=$(cd Formalizations/Lean && lake env which lean)
-LP=$(cd Formalizations/Lean && lake env printenv LEAN_PATH)
-cp Stage1_Instances/THM-M-1248/{Statement,ObligationTree,Proof}.lean "$TMP/"
-LEAN_NUM_THREADS=1 LEAN_PATH="$LP" timeout 300 "$LEAN" --trust=0 -t0 \
-  --root="$TMP" -o "$TMP/Statement.olean" "$TMP/Statement.lean"
-LEAN_NUM_THREADS=1 LEAN_PATH="$TMP:$LP" timeout 300 "$LEAN" --trust=0 -t0 \
-  --root="$TMP" -o "$TMP/ObligationTree.olean" "$TMP/ObligationTree.lean"
-LEAN_NUM_THREADS=1 LEAN_PATH="$TMP:$LP" timeout 300 "$LEAN" --trust=0 -t0 \
-  --root="$TMP" "$TMP/Proof.lean"
-rm -rf "$TMP"
-```
+## Status boundary
 
-For `admissible_parameter_split`, `admissible_a_zero_forces_lower_order_parameters`,
-and `caffarelliKohnNirenberg_a_zero`, `#print axioms` reported exactly
-`[propext, Classical.choice, Quot.sound]`, with no `sorryAx`.
-
-## Blocker and boundary
-
-Verdict: `blocked`; the assigned proof phase is incomplete. The immediate
-graph-derived root cut remains `M1248-T-ALL-PARAMS`. Its first unavailable
-analytic dependency is `M1248-L-ORIGIN`: the pinned closure has no proof of the
-measurability, integrability, and limiting facts for the singular radial
-weights. Consequently `M1248-L-WEIGHTED`, the `a = 1` endpoint, and the interior
-Holder/rpow construction cannot be assembled. The audited unweighted Sobolev
-theorem does not state these results and receives no root proof credit.
-
-Retry requires placeholder-free local implementations, or an immutable
-compatible pinned dependency, for the positive and interior weighted analytic
-packages and their exact composition into `CKNAnalyticPackage`. Assuming that
-package, adding an axiom, or substituting an unweighted inequality would violate
-the frozen target. Lifecycle remains `planned`, root vector is provisionally
-`[H1, M2, R3]`, and `theorem_complete=false`. Because the assigned proof phase
-is not complete, no `.stage1-worker-selftest.json` is emitted.
+The proof phase is self-tested for the exact frozen proposition and handed off
+as `[_]` for master review. The master must not grant positive CKN proof credit:
+the exact source-to-formal statement gate fails, the internal frozen analytic
+route is bypassed rather than closed, and the accepted dossier remains
+unchanged. Reopen and version `Statement.lean` using smooth order `infinity`
+and a consistent Euclidean radial encoding, then re-freeze dependent hashes,
+the obligation registry, typed graphs, and proof work. Audit, validation,
+release, independent verification, and theorem completion remain open.

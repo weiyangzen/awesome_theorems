@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0347-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0347-RELEASE",
+  "theorem_id": "THM-M-0347",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0347/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 1800,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker performs local structured reconciliation and runs the existing target-local Lean replay, whose subprocesses use Bubblewrap with --unshare-net, a read-only host root, a cleared environment, and a fresh temporary output directory. It performs no Lake update/build, dependency fetch/clone/checkout, or .lake mutation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact ordered six-line blocked release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0347-ROOT",
+    "M0347-S-INTERFACE",
+    "M0347-N-CONVOLUTION",
+    "M0347-C-KERNEL",
+    "M0347-L-POSITIVITY",
+    "M0347-L-MASS",
+    "M0347-L-CONCENTRATION",
+    "M0347-L-UNIFORM-CONTINUITY",
+    "M0347-L-ESTIMATE",
+    "M0347-T-ASSEMBLE",
+    "M0347-X-SOURCE",
+    "M0347-X-FOUNDATION",
+    "M0347-X-PROVENANCE",
+    "M0347-X-READABLE",
+    "M0347-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0347.FejerTheoremTarget",
+    "Stage1Instances.THM_M_0347.ObligationTree.root_of_uniformFejerEstimate",
+    "FourierSeries.fejer_kernel_properties",
+    "FourierSeries.cesaroMean_eq_fejer_convolution",
+    "fejerKernel_eq_ofReal",
+    "integral_norm_fejerKernel",
+    "cesaroMean_uniform_bound",
+    "fejer_uniform_convergence",
+    "Stage1Instances.THM_M_0347.symmetricFourierPartialSum_apply",
+    "Stage1Instances.THM_M_0347.fejerMean_apply",
+    "Stage1Instances.THM_M_0347.fejerTheorem",
+    "Stage1Instances.THM_M_0347.Validation.reconstructedPartialSum",
+    "Stage1Instances.THM_M_0347.Validation.reconstructedMean",
+    "Stage1Instances.THM_M_0347.Validation.reconstructedFejerTheorem"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z-blocked",
+    "THEOREM-Z-blocked"
+  ],
+  "coverage_boundary": "Self-tests the exact blocked release decision, current authority bindings, and the existing network-isolated trust-zero warm-cache replay. It does not provide dependency master acceptance, accepted per-node composition, license compatibility, H0/R0, AUDIT-Z, immutable clean input, a cold empty-cache build, offline restoration, complete TCB/SBOM closure, independent signed verification, a deterministic release bundle, THEOREM-Z, or theorem completion."
+}

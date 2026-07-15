@@ -1,26 +1,36 @@
 {
   "schema_version": "stage1-node-receipt/1.0",
-  "receipt_id": "S56-M-1248-PROOF-local-partial-20260714",
+  "receipt_id": "S56-M-1248-PROOF-exact-frozen-vacuity-20260715T154822+0800",
   "item_id": "S56-M-1248-PROOF",
   "theorem_id": "THM-M-1248",
   "intent": "prove",
-  "base_revision": "ffea62ba1a7c0b0f84d70fd07f87d3eef57fe330",
-  "validated_at": "2026-07-14T02:33:00+08:00",
-  "attestor": "stage1-rev56-worker-slot68",
-  "support_state": "partial_proof_blocked",
+  "base_revision": "80f0191c83a1bb4026c2d490be957cf109464de1",
+  "base_tree": "b89a01cfc623bf97d1896fb3534a1ac24381fa71",
+  "validated_at": "2026-07-15T15:48:22+08:00",
+  "attestor": "stage1-rev56-worker-slot26",
+  "support_state": "provisional_worker_selftest_exact_frozen_target_only",
+  "proposed_state": "[_]",
+  "accepted": false,
   "exact_declarations": [
-    "Stage1Instances.THM_M_1248.admissible_parameter_split",
-    "Stage1Instances.THM_M_1248.admissible_a_zero_forces_lower_order_parameters",
-    "Stage1Instances.THM_M_1248.caffarelliKohnNirenberg_a_zero"
+    "Stage1Instances.THM_M_1248.compactlySupported_analytic_eq_zero",
+    "Stage1Instances.THM_M_1248.caffarelliKohnNirenbergTarget"
   ],
-  "closed_obligation_ids": [
-    "M1248-N-PARAM",
-    "M1248-B-A0"
+  "provisionally_closed_obligation_ids": [
+    "M1248-ROOT"
   ],
+  "accepted_closed_obligation_ids": [],
   "proof_body": {
-    "classification": "local_proof_body",
+    "classification": "repo_local_exact_frozen_target_via_analytic_compact_support_vacuity",
     "source": "Stage1_Instances/THM-M-1248/Proof.lean",
-    "source_sha256": "cf4af2e4abbfd1d979809a9d1428b5ee875821feb1b81ef0081a79be9f616ec7"
+    "source_sha256": "ff1d55daac75a934bfb807596d424310f080836c02cc13b05c054e81aeac7f13",
+    "terminal_declaration": "Stage1Instances.THM_M_1248.caffarelliKohnNirenbergTarget",
+    "terminal_proof_body_id": "local:sha256:ff1d55daac75a934bfb807596d424310f080836c02cc13b05c054e81aeac7f13#caffarelliKohnNirenbergTarget",
+    "direct_dependencies": [
+      "Stage1Instances.THM_M_1248.compactlySupported_analytic_eq_zero",
+      "ContDiff.analyticOnNhd",
+      "AnalyticOnNhd.eq_of_eventuallyEq",
+      "notMem_tsupport_iff_eventuallyEq"
+    ]
   },
   "inputs": {
     "statement_sha256": "e3e257722b165a262b421b602e0a6e898251549b06c8bc65539dc6ebd2403c00",
@@ -28,71 +38,94 @@
     "obligation_tree_sha256": "97334a1ed6471cf8b07774a877651930a63292706f8cbb9051f90d46c5eee8dd",
     "obligation_registry_sha256": "2e1d91b7ee8ff66bcad84eeeb3c21b5ca9c0b670274cac11fc929b5b5474841e",
     "typed_graphs_sha256": "4b4a42007bfbc4789584aac36e47dadf03da31b57b945a328cc6b2c5bd8b3fad",
+    "anchor_audit_sha256": "2548e53752cf1cffeceb3a288550997500317e8361b6a34ffd9f7b149b3efac5",
     "registry_denominator_sha256": "a0c3a82c3c3655d323873c8e3dc1164bbe6021d60d32521261f7d82cdcceaa11"
   },
-  "toolchain": {
-    "elan_toolchain": "leanprover/lean4:v4.29.0",
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
     "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
-    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "network_used": false,
+    "lake_mutated": false,
+    "dependency_cache": "automation-provided shared pinned oleans reused read-only"
   },
   "recipe": {
+    "recipe_id": "VAL-M1248-PROOF-slot26",
     "cwd": ".",
-    "argv_summary": "Copy Statement.lean, ObligationTree.lean, and Proof.lean into a temporary directory under the worker root; derive Lean and LEAN_PATH using lake env; elaborate all three with --trust=0 and -t0; remove the temporary directory.",
+    "argv": [
+      "bash",
+      "Stage1_Instances/THM-M-1248/check_proof.sh"
+    ],
+    "env_allowlist": {
+      "LEAN_NUM_THREADS": "1"
+    },
     "timeout_seconds_per_module": 300,
-    "network": "not_used",
-    "covered_ids": [
-      "M1248-N-PARAM",
-      "M1248-B-A0"
+    "network_policy": "denied",
+    "expected_exit": 0,
+    "covered_obligation_ids": [
+      "M1248-ROOT"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_1248.compactlySupported_analytic_eq_zero",
+      "Stage1Instances.THM_M_1248.caffarelliKohnNirenbergTarget"
     ]
   },
   "result": {
     "exit_code": 0,
-    "output_summary": "The statement, conditional obligation-tree interface, and all three local declarations elaborated. Each local declaration is sorry-free and reports exactly propext, Classical.choice, and Quot.sound.",
+    "output_summary": "Pinned Lean --trust=0 -t0 elaborated Statement.lean, ObligationTree.lean, and Proof.lean; the exact frozen root and its analytic-vacuity helper are sorry-free and report exactly propext, Classical.choice, and Quot.sound.",
     "axioms": [
       "propext",
       "Classical.choice",
       "Quot.sound"
     ],
     "placeholder_scan": "pass",
-    "root_closed": false,
-    "root_vector_after": {
-      "H": "H1",
-      "M": "M2",
-      "R": "R3"
-    },
-    "proof_phase_complete": false,
+    "exact_frozen_root_kernel_closed": true,
+    "source_claim_proved": false,
+    "proof_phase_self_tested": true,
     "theorem_complete": false
   },
-  "first_failed_completion_gate": "M1248-L-ORIGIN: no local or pinned proof body establishes the singular radial-weight measurability, integrability, and limiting package required by the weighted endpoint",
-  "remaining_root_cut_set": [
-    "M1248-T-ALL-PARAMS"
-  ],
-  "expanded_missing_proof_packages": [
-    "M1248-B-A1",
-    "M1248-B-INTERIOR",
-    "M1248-L-WEIGHTED",
-    "M1248-L-HOLDER",
-    "M1248-L-RPOW",
-    "M1248-L-ORIGIN",
-    "M1248-T-ALL-PARAMS"
+  "debt_vector": {
+    "accepted_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "proposed_after_proof_master_acceptance": {
+      "H": "H5",
+      "M": "M5",
+      "R": "R3"
+    },
+    "accepted_after_worker_selftest": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "proposal_reason": "The frozen Lean proposition has a local kernel proof, but it is an invalid candidate for the intended source claim because unqualified ContDiff Real top denotes analytic order omega rather than smooth order infinity; the mixed Pi/sup and Euclidean/L2 radial encoding is a second unmapped source mismatch. Under the weaker-status-wins rule, this is M5 source-target mismatch evidence, not M0 credit for CKN."
+  },
+  "composition_and_graph_boundary": {
+    "alternate_route": "The direct root body bypasses the frozen weighted analytic branch because all functions admitted by the defective statement are zero.",
+    "closed_internal_branch_ids_added": [],
+    "required_action": "Master must reject M0 credit, reopen and version the statement, then re-freeze the obligation registry and typed graphs before genuine CKN proof execution."
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1248/Proof.lean",
+    "Stage1_Instances/THM-M-1248/check_proof.py",
+    "Stage1_Instances/THM-M-1248/check_proof.sh",
+    "Stage1_Instances/THM-M-1248/proof-receipt.json",
+    "Stage1_Instances/THM-M-1248/proof-validation.md"
   ],
   "known_failures": [
-    "The positive a = 1 and interior 0 < a < 1 branches remain open.",
-    "Pinned mathlib contains only unweighted Sobolev and general Holder infrastructure, not the exact weighted CKN analytic package.",
-    "The exact root, validation and release phases, H0/R0, hermetic replay, independent verification, master acceptance, and theorem completion remain open.",
-    "The pre-existing untracked Formalizations/Lean/.lake link was reused and not modified."
+    "The frozen Lean target is not an exact encoding of the intended Caffarelli-Kohn-Nirenberg theorem: ContDiff Real top denotes analytic order omega, so compact support forces u = 0.",
+    "weightedLp and weightedDerivativeLp use the raw Pi/sup norm for the radial factor but evaluate u and fderiv after Euclidean/L2 transport; no source-to-formal transport is checked.",
+    "No positive M0 proof credit, source H0, audit completion, theorem completion, validation, release, hermetic replay, or independent verification is claimed.",
+    "The direct vacuity proof does not close the frozen weighted analytic internal obligations; those obligations become stale when the statement is corrected and versioned.",
+    "The pre-existing untracked Formalizations/Lean/.lake symlink makes this nonrelease worker evidence."
   ],
-  "invalidation_inputs": [
-    "Proof.lean",
-    "Statement.lean",
-    "ObligationTree.lean",
-    "obligation-registry.json",
-    "typed-graphs.json",
-    "mathlib revision",
-    "Lean toolchain",
-    "axiom policy",
-    "rev-5.6 assurance standard"
-  ],
-  "selftest_manifest_written": false,
-  "status_boundary": "This receipt supports two frozen sub-obligations only. It does not satisfy S56-M-1248-PROOF and must not be promoted to provisional or accepted phase completion."
+  "first_failed_completion_gate": "S56-5.1-EXACT-TARGET-IDENTITY-OR-TRANSPORT",
+  "status_boundary": "This packet truthfully self-tests a premise-free local proof of the exact frozen Lean proposition and exposes why that proposition is a defective CKN encoding. It supports proof-phase handoff for master rejection/rework, not M0 credit or theorem completion."
 }
