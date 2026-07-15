@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0819-VALIDATION",
+  "theorem_id": "THM-M-0819",
+  "recipe_id": "S56-M-0819-VALIDATION-narrow-v1",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0819/check_validation.py"
+  ],
+  "env_allowlist": {
+    "PATH": "inherited only for pinned executable discovery; every credited executable identity is verified",
+    "HOME": "inherited only for the pinned Elan toolchain location",
+    "PYTHONPATH": "ignored by python -I",
+    "LANG": "C.UTF-8 inside every Lean replay process",
+    "LC_ALL": "C.UTF-8 inside every Lean replay process",
+    "TZ": "UTC inside every Lean replay process",
+    "LEAN_NUM_THREADS": "1 inside every Lean replay process"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "check_validation.sh invokes every Lean process through Bubblewrap --unshare-net with a read-only host root; only the fresh disposable output directory is writable",
+  "dependency_policy": "Reuse the existing canonical pinned mathlib source and compiled artifacts read-only. Do not update, build, clone, fetch, or mutate .lake. This is warm-cache node evidence, not cold hermetic release evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact ten-line PASS/FAIL-CLOSED status summary asserted by check_validation.py and mirrored in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0819-ROOT",
+    "M0819-S-TRANSPORT",
+    "M0819-N-FINITE-RESTRICTION",
+    "M0819-N-COLORING",
+    "M0819-B-WIDTH-ZERO",
+    "M0819-B-WIDTH-POSITIVE",
+    "M0819-C-LOCAL-COLORINGS",
+    "M0819-L-FINITE-DILWORTH",
+    "M0819-B-FINITE-INDUCTION",
+    "M0819-C-ADJOIN-ELEMENT",
+    "M0819-L-LOW-WIDTH-INDEX",
+    "M0819-L-DUAL-INDEX",
+    "M0819-X-FINITE-TAIL",
+    "M0819-L-FINITE-EXACTNESS",
+    "M0819-L-RADO-SELECTION",
+    "M0819-C-GLOBAL-COLORING",
+    "M0819-L-GLOBAL-PROPER",
+    "M0819-C-COLOR-CLASSES",
+    "M0819-L-FIBERS-CHAIN",
+    "M0819-L-UNIQUE-MEMBERSHIP",
+    "M0819-T-POSITIVE-ASSEMBLE",
+    "M0819-T-WIDTH-BRANCHES",
+    "M0819-T-ROOT-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0819.DilworthPrimaryTarget",
+    "minAntichainPartition_eq_chainHeight",
+    "minChainPartition_eq_antichainWidth",
+    "Stage1Instances.THM_M_0819_Proof.dilworthPrimary"
+  ],
+  "scope_boundary": "Network-isolated trust-zero target-scoped replay of the unchanged statement, current-pin finite proof, exact arbitrary-poset root, and proof-only trust probe. Coverage IDs are validation subjects, not accepted closure credit. Proof master acceptance, node/body/composition reconciliation, accepted foundation and TCB profiles, complete transitive provenance and SBOM, source/readability gates, clean-checkout empty-cache offline replay, and distinct signed independent verification remain fail-closed."
+}

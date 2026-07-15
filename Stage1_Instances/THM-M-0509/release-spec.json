@@ -1,0 +1,58 @@
+{
+  "schema_version": "stage1-release-recipe/1.0",
+  "item_id": "S56-M-0509-RELEASE",
+  "theorem_id": "THM-M-0509",
+  "recipe_id": "S56-M-0509-RELEASE-negative-reconciliation-v1",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0509/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean process is launched by the checker inside Bubblewrap with an unshared network namespace, a read-only host root, a fresh writable temporary module directory, a cleared environment, and fixed locale, timezone, and thread settings. Python and Git perform local reads only. This does not make the shared warm compiled dependency artifacts cold or release-grade.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact deterministic six-line negative release summary checked against release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [],
+  "observed_open_state_obligation_ids": [
+    "M0509-ROOT",
+    "M0509-S-DEFINITIONS",
+    "M0509-S-BOUNDARY",
+    "M0509-S-FOUNDATION",
+    "M0509-C-REPRESENTATION",
+    "M0509-S-SIEVE-SETUP",
+    "M0509-N-DISTRIBUTION",
+    "M0509-L-WEIGHTED-SIEVE",
+    "M0509-L-SWITCHING",
+    "M0509-L-REMAINDER",
+    "M0509-T-POSITIVITY",
+    "M0509-T-P2-EXTRACTION",
+    "M0509-T-ASSEMBLE",
+    "M0509-X-SOURCE",
+    "M0509-X-PROVENANCE"
+  ],
+  "coverage_semantics": "The 15 obligation IDs are reconciled as the frozen inventory under the weaker accepted-state rule. This recipe supplies proof or acceptance evidence for none of them; it replays only the extant exact interfaces and conditional compositions.",
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0509.Proof.isP2_iff_cardFactors_pos_le_two",
+    "Stage1Instances.THM_M_0509.Proof.representationCount_pos_iff",
+    "Stage1Instances.THM_M_0509.Proof.chenTheoremTarget_iff_eventualPositiveRepresentationCount",
+    "Stage1Instances.THM_M_0509.root_of_sieve_package",
+    "Stage1Instances.THM_M_0509.Validation.rootFromEventualPositiveCount"
+  ],
+  "declaration_coverage_semantics": "These declarations receive current trust-zero elaboration and scoped hygiene evidence only. Both root compositions have explicit premises, EventualPositiveRepresentationCount has no inhabitant, and no covered declaration closes a frozen obligation or the canonical root.",
+  "scope_boundary": "Self-test only for a truthful blocked release reconciliation. The shared pinned cache is warm; no cold build, offline restoration, independent runner, minimal verifier, deterministic release bundle, accepted receipt, or theorem completion is claimed."
+}
