@@ -1,0 +1,51 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0600-RELEASE-negative-v1",
+  "item_id": "S56-M-0600-RELEASE",
+  "theorem_id": "THM-M-0600",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0600/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The release checker runs each Lean process through Bubblewrap with an unshared network namespace, a read-only host filesystem, and only a disposable module directory writable. Host-side hash, Git, JSON, and authority checks make no network request. This is narrow nonrelease evidence, not the required clean empty-cache cold build or offline restoration.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact eight-line PASS/OPEN/BLOCKED release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0600-S-DEFINITIONS",
+    "M0600-T-ASSEMBLE"
+  ],
+  "partially_covered_obligation_ids": [
+    "M0600-S-DIMZERO",
+    "M0600-T-ENGINE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0600.MorseLemmaTarget",
+    "Stage1Instances.THM_M_0600.root_of_morseNormalFormEngine",
+    "Stage1Instances.THM_M_0600.zeroDimensionBranch",
+    "Stage1Instances.THM_M_0600.morseNormalFormEngine_of_positiveDimension",
+    "Stage1Instances.THM_M_0600.morseLemmaTarget_of_positiveDimension",
+    "Stage1Instances.THM_M_0600.Validation.zeroDimensionBranchDirect",
+    "Stage1Instances.THM_M_0600.Validation.conditionalRootDirect"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Fail-closed release reconciliation plus a current network-isolated trust-zero replay against existing pinned warm artifacts. It verifies the exact target surface, conditional composition, zero-dimensional body, same-worker differential probes, source hygiene, selected hashes, and the negative terminal decisions. It cannot accept the provisional validation dependency, prove the positive-dimensional Morse engine, reconcile accepted authority, establish H0/R0 or complete trust/provenance, repair the concurrently incomplete flt-regular package checkout, perform a cold/offline build, provide independent signed runners or a minimal verifier, assemble a deterministic release bundle, or establish AUDIT-Z/THEOREM-Z."
+}
