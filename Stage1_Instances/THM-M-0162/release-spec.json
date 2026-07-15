@@ -1,0 +1,62 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0162-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0162-RELEASE",
+  "theorem_id": "THM-M-0162",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0162/check_release.py"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The exact Lean replay is delegated to check_validation.sh, which runs discovery and every Lean subprocess under bubblewrap with an unshared network, read-only host root, fixed environment, and one fresh temporary directory as its only writable bind. The outer Python reconciler performs local file, hash, process, and Git checks only.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line reconciliation summary bound in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0162-ROOT",
+    "M0162-S-PREMISES",
+    "M0162-S-FOUNDATION",
+    "M0162-F-ORTHONORMAL",
+    "M0162-D-INNER",
+    "M0162-A-DECOMPOSE",
+    "M0162-E-TANGENT",
+    "M0162-C-NORMAL-T",
+    "M0162-C-NORMAL-N",
+    "M0162-C-NORMAL-B",
+    "M0162-E-NORMAL",
+    "M0162-D-CROSS",
+    "M0162-C-BINORMAL",
+    "M0162-E-BINORMAL",
+    "M0162-T-ASSEMBLE",
+    "M0162-X-SOURCE",
+    "M0162-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0162.FrenetSerretTarget",
+    "Stage1Instances.THM_M_0162.root_of_equation_packages",
+    "Stage1Instances.THM_M_0162.tangentEquation",
+    "Stage1Instances.THM_M_0162.normalEquation",
+    "Stage1Instances.THM_M_0162.binormalEquation",
+    "Stage1Instances.THM_M_0162.frenetSerret"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This bounded worker recipe authenticates current inputs, replays the exact statement, frozen composition, three equation packages, and exact root at trust zero with network denied, and checks a negative release decision. It reuses pinned warm artifacts and cannot accept the validation dependency, reconcile the authoritative graph, supply H0/R0 or complete trust/provenance evidence, perform a cold offline release build, act as an independent verifier, or grant release/master acceptance."
+}
