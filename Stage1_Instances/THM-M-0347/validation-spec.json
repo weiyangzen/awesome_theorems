@@ -1,0 +1,55 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0347-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0347-VALIDATION",
+  "theorem_id": "THM-M-0347",
+  "phase": "validation",
+  "intent": "validate",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-B",
+    "Stage1_Instances/THM-M-0347/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The Python runner performs only local file, Git, hash, and subprocess checks. Every Lean subprocess runs through check_validation.sh under Bubblewrap with a read-only host root, a writable temporary output directory, --unshare-net, fixed locale and timezone, and one Lean worker thread. Existing pinned compiled artifacts are read without invoking Lake or mutating .lake.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact ordered nine-line PASS/FAIL-CLOSED summary bound by validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0347-ROOT",
+    "M0347-S-INTERFACE",
+    "M0347-N-CONVOLUTION",
+    "M0347-C-KERNEL",
+    "M0347-L-POSITIVITY",
+    "M0347-L-MASS",
+    "M0347-L-CONCENTRATION",
+    "M0347-L-UNIFORM-CONTINUITY",
+    "M0347-L-ESTIMATE",
+    "M0347-T-ASSEMBLE",
+    "M0347-X-FOUNDATION"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0347.FejerTheoremTarget",
+    "Stage1Instances.THM_M_0347.ObligationTree.root_of_uniformFejerEstimate",
+    "FourierSeries.fejer_kernel_properties",
+    "FourierSeries.cesaroMean_eq_fejer_convolution",
+    "fejerKernel_eq_ofReal",
+    "integral_norm_fejerKernel",
+    "cesaroMean_uniform_bound",
+    "fejer_uniform_convergence",
+    "Stage1Instances.THM_M_0347.symmetricFourierPartialSum_apply",
+    "Stage1Instances.THM_M_0347.fejerMean_apply",
+    "Stage1Instances.THM_M_0347.fejerTheorem",
+    "Stage1Instances.THM_M_0347.Validation.reconstructedPartialSum",
+    "Stage1Instances.THM_M_0347.Validation.reconstructedMean",
+    "Stage1Instances.THM_M_0347.Validation.reconstructedFejerTheorem"
+  ],
+  "scope_boundary": "This recipe replays the exact root, selected supporting declarations, the frozen conditional composition, and a Proof-free differential root at trust zero with network denied. Covered obligation IDs identify provisional observations, not accepted per-node closure. Proof master acceptance, license compatibility, frozen internal composition reconciliation, complete transitive provenance/TCB, cold offline reproduction, and distinct-runner independent verification remain fail-closed."
+}
