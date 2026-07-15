@@ -1,0 +1,90 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "spec_id": "S56-M-0673-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0673-VALIDATION",
+  "theorem_id": "THM-M-0673",
+  "depends_on": ["S56-M-0673-PROOF"],
+  "intent": "validate",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0673-VALIDATION-narrow-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0673/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "HOME": "runner home used only to locate the digest-checked installed Lean toolchain",
+        "PATH": "/usr/bin:/bin",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean subprocess runs inside Bubblewrap with --unshare-net, a read-only host root, a cleared environment, and only a fresh temporary module directory writable. The outer Python checker invokes no network operation but is not itself network-namespaced.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact seven-line UTF-8 gate summary bound by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0673-ROOT",
+        "M0673-T-ADAPTER",
+        "M0673-A-SENTENCE",
+        "M0673-A-FORMULA",
+        "M0673-A-BOUNDED"
+      ],
+      "source_mapped_not_individually_closed_ids": [
+        "M0673-B-FALSUM",
+        "M0673-B-EQUALITY",
+        "M0673-B-RELATION",
+        "M0673-B-IMPLICATION",
+        "M0673-B-UNIVERSAL",
+        "M0673-T-TERM",
+        "M0673-C-PRESTRUCTURE",
+        "M0673-L-FUNMAP",
+        "M0673-L-QUOT-EQ",
+        "M0673-L-QUOT-REL",
+        "M0673-L-ULTRAFILTER-IMP",
+        "M0673-L-QUOT-FORALL",
+        "M0673-T-SNOC",
+        "M0673-C-EPSILON",
+        "M0673-L-EVENTUAL-SET"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0673.LosSentenceTarget",
+        "Stage1Instances.THM_M_0673_Proof.boundedFormulaRealize_pinned",
+        "Stage1Instances.THM_M_0673_Proof.formulaRealize_via_frozen",
+        "Stage1Instances.THM_M_0673_Proof.sentenceRealize_via_frozen",
+        "Stage1Instances.THM_M_0673_Proof.terminalRoot_via_frozen",
+        "Stage1Instances.THM_M_0673_Proof.losSentence_via_frozen",
+        "Stage1Instances.THM_M_0673_Proof.losSentence_pinned",
+        "Stage1Instances.THM_M_0673.Validation.independentlyReconstructedRoot",
+        "FirstOrder.Language.Ultraproduct.boundedFormula_realize_cast",
+        "FirstOrder.Language.Ultraproduct.sentence_realize"
+      ],
+      "scope_boundary": "Network-isolated trust-zero fresh-output replay over a shared warm pinned dependency cache. It checks the exact proof roots, frozen composition, selected terminal provenance, and a same-worker no-Proof/no-ObligationTree adapter. It does not accept the proof dependency, individually close the fifteen source-mapped decomposition nodes, establish a complete TCB/SBOM, perform a cold offline replay, or supply distinct-runner independent verification."
+    }
+  ],
+  "historical_recipe_policy": {
+    "source": "validation-specs.json",
+    "recipe_count": 28,
+    "shared_argv": [
+      "python3",
+      "-B",
+      "Stage1_Instances/THM-M-0673/check_obligation_tree.py"
+    ],
+    "current_replay_expected": "fail_closed_at_historical_base_revision_binding",
+    "boundary": "The obligation-tree recipes are immutable phase-snapshot evidence. Their current-HEAD replay is recorded as stale rather than rewritten or represented as a pass."
+  },
+  "status_boundary": "A passing validator self-tests this truthful blocked packet only. It cannot promote the proof dependency, alter the frozen accepted H1/M3/R4 state, establish E0/E1 or M0-W, or claim audit completion, theorem completion, release, or master acceptance."
+}

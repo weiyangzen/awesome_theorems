@@ -1,0 +1,125 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0110-STATEMENT",
+  "theorem_id": "THM-M-0110",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "intake_selected_algebraic_scope_frozen_primary_source_fidelity_open",
+  "canonical_statement": "Let X be a smooth projective variety over a characteristic-zero field k and L an ample invertible sheaf on X. Then H^i(X, omega_X tensor L) vanishes for every natural degree i > 0.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0110/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0110.KodairaVanishingTarget",
+    "elaborated_expression_sha256": "d0a9a0e873dd388aa37c0bcc77fce1fc38bae5911851a87570b94f50c80eecc6",
+    "statement_file_sha256": "81e89341fc571e588c47c8984d71779fd4b90b2cd55ae70c3392c742655574dd"
+  },
+  "domain_and_universes": "universe u; k : Type u with Field k and CharZero k; D : KodairaVanishingData k contains X : Scheme.{u}, its structure morphism to Spec k, and three actual X.Modules objects K, L, and KTensorL; i : Nat; the target is Prop.",
+  "ordered_binders": [
+    "k : Type u",
+    "[Field k]",
+    "[CharZero k]",
+    "D : KodairaVanishingData k",
+    "IsIntegral D.X",
+    "Smooth D.structureMap",
+    "D.isProjectiveOverBase",
+    "D.KIsCanonicalSheaf",
+    "D.KIsDualizingSheaf",
+    "D.LIsInvertibleSheaf",
+    "D.LIsLocallyFreeRankOne",
+    "D.LIsAmple",
+    "D.KTensorLModelsTensorProduct",
+    "i : Nat",
+    "0 < i"
+  ],
+  "hypotheses": [
+    "k is a field of characteristic zero",
+    "X is integral and smooth over Spec k",
+    "X is projective over Spec k",
+    "K models the canonical and dualizing sheaf omega_X",
+    "L is an invertible, locally free rank-one, ample sheaf",
+    "KTensorL models K tensor L"
+  ],
+  "conclusion": "Subsingleton (D.Cohomology i) for every i : Nat with 0 < i, where D.Cohomology i is definitionally the pinned mathlib Sheaf.H type of the underlying abelian sheaf of D.KTensorL.",
+  "direct_imports": [
+    "Mathlib.AlgebraicGeometry.Modules.Sheaf",
+    "Mathlib.AlgebraicGeometry.Morphisms.Smooth",
+    "Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt",
+    "Mathlib.CategoryTheory.Sites.SheafCohomology.Basic",
+    "Mathlib.Topology.Sheaves.Abelian"
+  ],
+  "minimal_import_basis": "Modules.Sheaf supplies Scheme.Modules and SheafOfModules.toSheaf; Morphisms.Smooth supplies the concrete smoothness and integral-scheme surface; SheafCohomology.Basic supplies Sheaf.H; Topology.Sheaves.Abelian plus GrothendieckCategory.HasExt supply the concrete HasExt instance required to elaborate H at the pinned default heartbeat limit. Removing either of the last two leaves the cohomology typeclass obligation unresolved, and no aggregate Mathlib import is used.",
+  "encoding_boundary": "Pinned mathlib has no combined native scheme-level APIs for projective morphisms, canonical or dualizing sheaves, invertible locally free rank-one sheaves, ampleness, or their sheaf tensor product. KodairaVanishingData therefore uses actual Scheme and Scheme.Modules carriers with named semantic proposition boundaries for exactly those missing notions. No field contains, implies by definition, or assumes cohomology vanishing. The cohomology family is not opaque: it is the concrete pinned Sheaf.H type.",
+  "checked_alternate_encodings": [
+    {
+      "target": "the fully expanded canonical target",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THMM0110.kodairaVanishingTarget_iff_expanded",
+      "boundary": "Iff.rfl expands every binder and hypothesis; it is a statement identity check, not a Kodaira proof."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "H^i(X, L^{-1}) = 0 below dim X via Serre duality",
+    "the compact Kahler analytic positive-line-bundle formulation",
+    "the legacy Stage1.THMM0110.StatementShape, whose projectivity, sheaf objects, and cohomology function are looser interfaces and whose actual namespace differs from the old intake placeholder"
+  ],
+  "degenerate_and_boundary_cases": "Degree zero is excluded. The field is arbitrary of characteristic zero rather than silently specialized to Complex or assumed algebraically closed. X is integral, so a disconnected or reducible smooth projective scheme does not broaden the intake word variety. Positive characteristic, singular, nonprojective, merely nef, noninvertible, and nonample cases are excluded. Dimension zero is not excluded, but its positive-degree claim cannot provide proof credit for other dimensions.",
+  "source_fidelity_boundary": "The repository gloss and intake select this standard algebraic form, but the primary historical source is analytic and Hartshorne's variety convention is over an algebraically closed field. The arbitrary characteristic-zero-field formulation and analytic/algebraic comparison still require source and transport audit; this node remains H1 and does not claim H0.",
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked expansion reports only propext, Classical.choice, and Quot.sound; no custom axiom, bodyless declaration, or theorem proof is introduced.",
+  "tcb_profile": "Lean 4.29.0 kernel plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. Imported definitions and instances are statement substrate only; their transitive trust and proof bodies are not audited or credited here.",
+  "computation_profile": "No native computation, numerical experiment, solver, oracle, unsafe declaration, external result, or unchecked certificate is used or credited.",
+  "environment_fingerprint": {
+    "repository_base_revision": "705caafffbcdaf43757a4468b018716da692307d",
+    "repository_base_tree": "ee88e7872fd1a00bc7c906f6deeb99ecdf7e1a64",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only; no update, build, fetch, or dependency mutation"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0110/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "MutationRemovedAmpleHypothesis"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "MutationRemovedCharacteristicZero"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "MutationChangedDegreeBinderScope"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "MutationIncludesDegreeZero"
+      }
+    ],
+    "method": "Each mutation is rejected by a Lean #check_failure exact-type probe and has a distinct fully explicit elaborated expression."
+  },
+  "root_vector_before": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "root_vector_after_proposed": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "self_tested_pending_master_acceptance",
+  "status_boundary": "Exact target elaboration, concrete Sheaf.H encoding, one definitional expansion, and four structural mutation kills only. No Kodaira proof body is introduced or credited; source admission, anchor audit, obligation tree, proof, validation, readability, release, audit completion, theorem completion, dependency-ordered master acceptance, and every terminal receipt remain open."
+}
