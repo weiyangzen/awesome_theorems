@@ -1,0 +1,192 @@
+{
+  "schema_version": "stage1-proof-blocker/1.1",
+  "item_id": "S56-M-0721-PROOF",
+  "theorem_id": "THM-M-0721",
+  "intent": "prove",
+  "recorded_at": "2026-07-16T04:56:53+08:00",
+  "timezone": "Asia/Shanghai",
+  "base_revision": "6bf9ee93a322e7d25cf9249226222095f95d1cff",
+  "owned_path": "Stage1_Instances/THM-M-0721",
+  "outcome": "blocked",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "canonical_target": "Stage1Instances.THM_M_0721.ExistsNPCompleteLanguage",
+  "canonical_target_expression_sha256": "758b1033903c92b231a24ae3fb5e01e0bbb0d6fdb0bc41f809c062deb7b4b204",
+  "dependency_reuse": {
+    "ledger_path": "Stage1_Instances/THM-M-0721/dependency-reuse-ledger.json",
+    "ledger_schema": "stage1-dependency-reuse-ledger/1.1",
+    "observed_theorem_dag_sha256": "73e99d2276c8ba9fec8f89ed41b712308d7f5667e95ba8185e49f1f5bfd40eca",
+    "dependency_context_sha256": "c197c0de8d5c08009273a57ea96bed698278686bd32d00c24ddd01a6ec6710a6",
+    "direct_parent_ids": [],
+    "transitive_ancestor_ids": [],
+    "hard_edge_ids": [],
+    "reuse_hint_ids": [],
+    "shared_group_ids": [
+      "SHARED-MODULE-b927b79bc1dc8969",
+      "SHARED-MODULE-eb877c60510841ba"
+    ],
+    "inspected_parent_ids": [],
+    "reused_declaration_ids": [],
+    "decision_summary": "Both weak shared-module groups were inspected through current member THM-M-0874 and rejected as proof reuse. They expose only unbounded computable reduction and general TM2 substrate APIs, not an exact proof body or checked transport."
+  },
+  "source_hashes": {
+    "Statement.lean": "6761ca3100ebbb97a67dccb11f6ecca6e38c8872f81ceb4a98b89fbf5e2374bd",
+    "ObligationTree.lean": "59484c4305c2f45ecfa03c0e759bc9a8a0bcbec7e8b90a49a06a8c214a36a10a",
+    "obligation-registry.json": "4d4243a568bf5bb4b2e9079574ac35242b73d892760132a17eb6659ac446a8f2",
+    "typed-graphs.json": "20d3e0ae9595272f22fdf0c4e8a12dbc946e3f93597eca42616b3e18452681d5",
+    "anchor-audit.json": "4c5cc5bcfac5ea3bfe2787169f30a0f01dfd69c23b95e5e4e336befc868a99ea",
+    "validation-specs.json": "21727cf82d15e7d4ef136f777edc961ea7d6f5f906f875323bb4c26d506f8ea8"
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "proof_body_added": false,
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "closed_obligations_added": [],
+  "composition_certificates_added": [],
+  "first_dependency_gate": "S56-M-0721-OBLIGATION_TREE is worker-provisional [_], not master-accepted [x]; exploratory proof work is allowed but proof acceptance remains dependency-illegal.",
+  "first_failed_proof_gate": "M0721-N-SAT-ENCODING has no placeholder-free exact Lean signature/body implementing faithful formula and assignment serialization. The downstream verifier, correctness, runtime, Cook-Levin construction, and exact two terminal packages therefore remain open.",
+  "remaining_root_cut_set": [
+    "M0721-T-SAT-IN-NP",
+    "M0721-T-UNIVERSAL-HARDNESS"
+  ],
+  "open_proof_obligations": [
+    "M0721-N-SAT-ENCODING",
+    "M0721-C-SAT-VERIFIER",
+    "M0721-L-SAT-CORRECT",
+    "M0721-L-SAT-RUNTIME",
+    "M0721-T-SAT-IN-NP",
+    "M0721-N-MACHINE-NORMALIZE",
+    "M0721-C-TABLEAU",
+    "M0721-L-TABLEAU-SOUND",
+    "M0721-L-TABLEAU-COMPLETE",
+    "M0721-L-REDUCTION-RUNTIME",
+    "M0721-T-UNIVERSAL-HARDNESS"
+  ],
+  "candidate_assessment": {
+    "repo_local": "Only the exact statement, encoding-boundary facts, and conditional root_of_candidate_packages composition exist. No exact root or terminal-package proof body exists.",
+    "pinned_mathlib": "The pinned tree supplies the FinTM2/TM2ComputableInPolyTime substrate and identity. TM2ComputableInPolyTime.comp is source-level proof_wanted and is not a checked declaration; no SAT, InNP, Cook-Levin, or NP-completeness endpoint exists.",
+    "shared_groups": "THM-M-0874 belongs to both groups but has only an intake probe and blocked statement phase. Mathlib.Computability.Reduce uses unrestricted Computable reductions, while TuringMachine.Computable is substrate only.",
+    "model_audit": "A temporary trust-zero probe constructed a genuine finite TM2 for constant Boolean functions, confirming that trivial predicates are computable without revealing an oracle weakness. Empty and universal languages are both easy InNP examples but neither is universally hard; identity gives only reflexivity."
+  },
+  "blocker": "Closing the exact target requires a new placeholder-free formalization of a complete binary language, including verifier correctness and polynomial TM2 runtime plus a uniform polynomial-time many-one reduction from every frozen InNP source. In the frozen SAT route this is the eleven-node SAT and Cook-Levin package. No eligible local or pinned body or transport currently supplies it.",
+  "oversized_item_evidence": {
+    "prior_dated_unresolved_json_records": 36,
+    "including_this_record": 37,
+    "mandatory_split_threshold": 5,
+    "authoritative_dag_attempts": 0,
+    "authoritative_dag_children": [],
+    "policy": "The master must split this monolithic proof phase into dependency-ordered exact obligation children; workers may not edit the authoritative DAG."
+  },
+  "commands_and_results": [
+    {
+      "cwd": ".",
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 1,
+      "result": "Preflight failed because the checked-in v2 theorem DAG differs from a fresh deterministic generation after the required untracked dependency ledger entered the target inventory. The graph discovery code excludes ledgers from shared-group discovery but not from evidence_inventory; workers may not modify or regenerate the authoritative DAG."
+    },
+    {
+      "cwd": ".",
+      "command": "python3 Docs/tools/check_stage1_theorem_dag_v2.py",
+      "exit_code": 1,
+      "result": "Failed at the deterministic equality gate for the same ledger-inventory mismatch; all earlier graph digest, coverage, topology, context, and reusable-artifact checks passed."
+    },
+    {
+      "cwd": ".",
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1 through 1546, all L0/rework_required."
+    },
+    {
+      "cwd": ".",
+      "command": "python3 scripts/stage1_target.py show THM-M-0721",
+      "exit_code": 0,
+      "result": "Rank 578, planned L0/rework_required, legacy artifacts unaccepted, theorem_complete false."
+    },
+    {
+      "cwd": ".",
+      "command": "LEAN_NUM_THREADS=1 timeout 600s python3 Stage1_Instances/THM-M-0721/check_statement.py",
+      "exit_code": 0,
+      "result": "The exact target elaborated; expression SHA-256 758b1033903c92b231a24ae3fb5e01e0bbb0d6fdb0bc41f809c062deb7b4b204 matched and four structural mutations were distinguished."
+    },
+    {
+      "cwd": ".",
+      "command": "timeout 180s python3 Stage1_Instances/THM-M-0721/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "Passed 18 obligations and 45 typed edges; denominator 375921a1792cc56322b0f0f3d241a5fa10e02345a66a9f007554978cc932b92a; root remains M3 and both terminal packages remain M4."
+    },
+    {
+      "cwd": ".",
+      "command": "load scripts/stage1_execution_cron.py and call validate_dependency_reuse_ledger(..., expected graph digest and base revision)",
+      "exit_code": 0,
+      "result": "The schema-1.1 ledger passed exact-context validation with zero hard inspections and two not_applicable weak-group decisions."
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "command": "lake env lean --trust=0 -t0 /tmp/m0721_model_audit.lean",
+      "exit_code": 0,
+      "result": "A throwaway constant-function FinTM2 probe elaborated without sorry; #print axioms reported [propext, Classical.choice, Quot.sound]. This tests model strength only and is not a target proof artifact."
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "command": "LEAN_NUM_THREADS=1 timeout 300s lake env lean --trust=0 -t0 ../../Stage1_Instances/THM-M-0721/Statement.lean",
+      "exit_code": 0,
+      "result": "Trust-zero Lean elaborated and printed the exact existential NPComplete target."
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "command": "stream Statement.lean lines 1-95 and ObligationTree.lean lines 9-28 to LEAN_NUM_THREADS=1 timeout 300s lake env lean --trust=0 -t0 --stdin",
+      "exit_code": 0,
+      "result": "The conditional composition elaborated; root_of_candidate_packages reported [propext, Quot.sound] and supplied neither terminal package."
+    },
+    {
+      "cwd": "Formalizations/Lean",
+      "command": "import Computable and #print axioms Turing.TM2ComputableInPolyTime.comp with trust-zero Lean",
+      "exit_code": 1,
+      "expected_exit": 1,
+      "result": "Lean reported Unknown constant, confirming that source-level proof_wanted creates no checked declaration."
+    },
+    {
+      "cwd": ".",
+      "command": "scan target Lean files for sorry, admit, sorryAx, proof_wanted, native_decide, implemented_by, axiom, or unsafe",
+      "exit_code": 1,
+      "expected_exit": 1,
+      "result": "No prohibited proof device occurs in owned Lean sources."
+    },
+    {
+      "cwd": ".",
+      "command": "search repo-local and pinned mathlib Lean sources for Cook-Levin, NPComplete, or SAT-completeness endpoints",
+      "exit_code": 0,
+      "result": "Matches were unrelated model-theory satisfiability and ordinary English uses of complete; no eligible complexity-theory endpoint was found."
+    }
+  ],
+  "known_failures": [
+    "No exact ExistsNPCompleteLanguage proof body exists.",
+    "Neither M0721-T-SAT-IN-NP nor M0721-T-UNIVERSAL-HARDNESS has a checked body.",
+    "Eleven frozen SAT and Cook-Levin obligations remain open with null terminal proof-body IDs.",
+    "The obligation-tree prerequisite is not master accepted.",
+    "The proof item has exceeded the five-tick split threshold but its authoritative DAG node has no children.",
+    "The required new dependency ledger exposes an upstream v2 generator/validator inventory self-reference bug; the worker cannot edit the authoritative DAG or generator.",
+    "Foundation/trust, source H0, provenance, readability, validation, release, hermetic replay, independent verification, and master acceptance remain open.",
+    "The automation-provided untracked Formalizations/Lean/.lake symlink makes this warm-cache nonrelease evidence."
+  ],
+  "retry_condition": "The master should accept or repair the obligation-tree prerequisite, fix ledger exclusion from v2 evidence inventory, and split this oversized proof phase into the eleven dependency-ordered obligation packages. Then implement those exact Lean bodies without placeholders, or add an immutable compatible dependency with exact checked transports and proof provenance.",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-0721/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-0721/proof-recheck-2026-07-16-head-6bf9ee93-slot41.json",
+    "Stage1_Instances/THM-M-0721/proof-recheck-2026-07-16-head-6bf9ee93-slot41.md"
+  ],
+  "status_boundary": "Current-base dependency audit and truthful proof blocker only. No proof body, proof-phase self-test, worker [_] transition, accepted receipt, root closure, audit completion, theorem completion, validation, release, or master acceptance is claimed.",
+  "selftest_manifest_written": false
+}

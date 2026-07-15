@@ -1,0 +1,314 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1045-PROOF",
+  "theorem_id": "THM-M-1045",
+  "intent": "prove",
+  "phase": "proof",
+  "recorded_at": "2026-07-16T04:46:11+08:00",
+  "timezone": "Asia/Shanghai",
+  "base_revision": "6bf9ee93a322e7d25cf9249226222095f95d1cff",
+  "base_tree": "24acf86e69ab2e6fca9480c6269b6429874ba295",
+  "worker_branch_or_worktree": "Stage1 rev-5.6 worker automation clone slot24",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "canonical_target": "Stage1Instances.THM_M_1045.CameronMartinTarget",
+  "canonical_target_expression_sha256": "e1b35bb7a569b9a4279ea7eb729ccd5e45a62663fb645a68aeb03e41274c5cea",
+  "dependency_reuse_ledger": {
+    "path": "Stage1_Instances/THM-M-1045/dependency-reuse-ledger.json",
+    "sha256": "dca3d3511e29db2c9bca89dae7ac7e57dbf3158d58483ca3c8ff2d362d1e6dfa",
+    "schema_version": "stage1-dependency-reuse-ledger/1.1",
+    "observed_theorem_dag_sha256": "73e99d2276c8ba9fec8f89ed41b712308d7f5667e95ba8185e49f1f5bfd40eca",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "direct_parent_ids": [],
+    "transitive_ancestor_ids": [],
+    "hard_edge_ids": [],
+    "reuse_hint_ids": [],
+    "shared_group_ids": [],
+    "inspections": [],
+    "reuse_decisions": [],
+    "unresolved_compatibility_obligations": [],
+    "audit_result": "complete_empty_context"
+  },
+  "preflight": {
+    "execution_rank": 238,
+    "v2_execution_rank": 422,
+    "lane": "hard_mathlib_anchor_and_wrapper",
+    "baseline": "L0",
+    "rework_required": true,
+    "legacy_artifacts_accepted": false,
+    "theorem_complete": false,
+    "worktree_preexisting_entries": [
+      "?? Formalizations/Lean/.lake"
+    ],
+    "worktree_boundary": "The automation-provided untracked symlink to canonical pinned Lake artifacts was reused read-only. This is nonrelease evidence."
+  },
+  "predecessor_dependency_snapshot": {
+    "task_id": "S56-M-1045-OBLIGATION_TREE",
+    "state": "[_]",
+    "attempts": 1,
+    "master_accepted": false,
+    "impact": "The proof task is not dependency-legal for master acceptance. Independently, the frozen exact target has no eligible nonvacuous positive proof because checked target-local evidence makes it equivalent to IsEmpty WienerData."
+  },
+  "registry": {
+    "root_obligation_id": "M1045-ROOT",
+    "first_failed_obligation_id": "M1045-S-DEFINITIONS",
+    "invalidated_obligation_ids": [
+      "M1045-L-PALEY-WIENER"
+    ],
+    "blocked_parent_obligation_ids": [
+      "M1045-B-DENSITY",
+      "M1045-T-ASSEMBLE",
+      "M1045-ROOT"
+    ],
+    "denominator_sha256": "4f4276a1fee35b49c4c791e689aa9ef32bd80319f08f8195a782aa82be8a08e3",
+    "obligation_count": 15,
+    "typed_edge_count": 30,
+    "closed_obligations_added": []
+  },
+  "blocker_evidence": {
+    "declaration": "Stage1Instances.THM_M_1045.no_target_of_wienerData",
+    "normalized_type": "forall (W : Stage1Instances.THM_M_1045.WienerData), Not Stage1Instances.THM_M_1045.CameronMartinTarget",
+    "characterization_declaration": "Stage1Instances.THM_M_1045.target_iff_isEmpty_wienerData",
+    "characterization_normalized_type": "Stage1Instances.THM_M_1045.CameronMartinTarget iff IsEmpty Stage1Instances.THM_M_1045.WienerData",
+    "summary": "WienerData constrains paleyWienerIntegral only by measurability. Replacing that field by the measurable constant-one pairing preserves every Wiener-law field. At h = 0 and g = 0, CameronMartinTarget identifies the self Radon-Nikodym derivative with exp(1), contradicting Measure.rnDeriv_self for every supplied WienerData.",
+    "mathematical_boundary": "The checked declarations characterize the current overbroad Lean interface, not the mathematical Cameron-Martin theorem. They do not construct WienerData or prove an unconditional negation of the target. Empty elimination would be a vacuous substituted proof and receives no positive proof credit.",
+    "machine_derived_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "positive_root_proof_body_added": false,
+    "freshness": "The statement, blocker, characterization, conditional composer, registry, typed graphs, validation specification, Lean toolchain, and lockfile have no diff from the last successful trust-zero replay at revision 93d48ecd1394cfb629b691abfedbb3a9449487b7. Their current hashes are unchanged.",
+    "independent_analysis": "Three read-only analyses in this run agreed that the frozen target has no eligible nonvacuous positive proof or pinned terminal import. No construction of WienerData was found, so this packet does not overclaim unconditional target negation."
+  },
+  "candidate_search": {
+    "pinned_mathlib_terminal_match": false,
+    "repo_local_exact_positive_match": false,
+    "wiener_data_inhabitant_found": false,
+    "closest_anchors": [
+      "ProbabilityTheory.gaussianReal_map_add_const",
+      "Measure.rnDeriv_self",
+      "Measure.rnDeriv_withDensity",
+      "Stage1 legacy CylinderDensityExtensionData.translatedMeasure_eq_withDensity",
+      "Stage1 legacy cameronMartinConclusion_standardRealGaussianShift"
+    ],
+    "legacy_boundary": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_238.lean supplies a one-dimensional Gaussian shift and conditional interfaces, but no infinite-dimensional equivalence, density, or singularity branch for the frozen target."
+  },
+  "additional_statement_risks": [
+    "The path measurable-space definition comaps top and does not establish the advertised cylinder or Borel sigma-algebra.",
+    "timeMeasure pushes real volume through Real.toNNReal, collapsing the negative half-line at zero instead of selecting ordinary volume on NNReal.",
+    "The statement mutation suite does not visibly include the changed-domain and changed-binder-scope cases required by rev-5.6 section 5.1."
+  ],
+  "source_hashes": {
+    "Statement.lean": "13e17c16e7d194910f50bb73002462467424cdacd05fcea77f93a2020fa0fe93",
+    "ObligationTree.lean": "d30fc302a2eda80ddc7ae30697a87dfa00b3027e3d944c157aaf79e2d6fc24b0",
+    "ProofBlockerCurrent.lean": "30101d0ce48924270aa13492a46a03404be4da573b3ce27f01a436e520c8838b",
+    "ProofBlockerCharacterizationHead443b8bbcSlot38.lean": "d19686939e356e0b4a5afa8fa84566c0393fe3e28cc04913df53ab88a6f3a3a6",
+    "statement.json": "dd55d00cacdcfa54595776928d430c72b3b1d78869b58783824217649b277e3b",
+    "anchor-audit.json": "b3db3c9e0fe117523e4372edf9882f7a9328556631cf2e13f310a0ec113ff05a",
+    "obligation-registry.json": "510ac17da08956b91ad5d61348e181e2dc63b02357ce1ef4e1dd1a629147d031",
+    "typed-graphs.json": "ca74e83a738744c5a7e57f61df3e92d305e2eac3a0aa2b0d6f2e36d0c802a189",
+    "validation-specs.json": "f49b23e8865acefb1c92cdef9d834fd5d0bb0b7334b09c3b369c85d74f51a6a4",
+    "dependency-reuse-ledger.json": "dca3d3511e29db2c9bca89dae7ac7e57dbf3158d58483ca3c8ff2d362d1e6dfa"
+  },
+  "authority_hashes": {
+    "Docs/Stage1_Blueprint_v2.md": "52bd099d295cb537212e272cfe5bc494f020ac1a82d4a4e07b600dd0bbc50f5b",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "ea65df5ca888dbfcc69cd2a729c9b94f3eae1b8ca5cfc2db6035ef9f8494e58b",
+    "Docs/Stage1_Targets_rev-5.6.json": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "f0465351c62c18cf5ae60dedf94e280921346ec1632815c70a646b1f0ae27faa",
+    "Docs/Stage1_Theorem_DAG_v2.json": "73e99d2276c8ba9fec8f89ed41b712308d7f5667e95ba8185e49f1f5bfd40eca",
+    "skills/execute-stage1-rev56/SKILL.md": "445d47263e9cd9f465ede7513eabbe1c8f7d058acd4130f75160417f3b68ccbd"
+  },
+  "environment": {
+    "platform": "Linux 7.0.0-27-generic x86_64",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "validation_trust_level": 0,
+    "network_used_for_evidence": false,
+    "lake_mutated_by_worker": false,
+    "lake_boundary": "The automation-provided untracked Formalizations/Lean/.lake symlink points to canonical pinned artifacts and was reused read-only. No lake update, lake build, dependency clone/fetch, or dependency mutation ran.",
+    "temporary_outputs": "/tmp only; removed after validation"
+  },
+  "validation": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit": 1,
+      "output_summary": "Preflight failed because the checked-in theorem DAG necessarily differs from fresh discovery after this proof run creates the mandated dependency-reuse-ledger and blocker packet. Workers may not regenerate or edit Docs/Stage1_Theorem_DAG_v2.json; the integration lane must regenerate it after merging the owned artifacts."
+    },
+    {
+      "command": "python3 Docs/tools/check_stage1_theorem_dag_v2.py",
+      "exit": 1,
+      "output_summary": "Expected worker-handoff inventory mismatch: fresh deterministic discovery sees the new target-owned structured artifacts, while the checked-in v2 DAG remains immutable in this worker."
+    },
+    {
+      "command": "python3 scripts/stage1_execution_cron.py --validate-only --workers 0",
+      "exit": 1,
+      "output_summary": "The validate-only aggregate stopped at the same immutable checked-in theorem-DAG inventory mismatch; no authority file was edited."
+    },
+    {
+      "command": "Load Docs/tools/generate_stage1_theorem_dag_v2.py with Path.write_text intercepted in memory; compare the fresh THM-M-1045 node with the checked-in node without writing authority files",
+      "exit": 0,
+      "output_summary": "Fresh discovery adds only the new ledger and blocker JSON to THM-M-1045's structured inventory. The graph still has 2 hard edges, 5 reuse hints, and 310 shared groups; this target still has no parents, ancestors, hints, or groups and keeps dependency context 068170...5c."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit": 0,
+      "output_summary": "All 1546 unique ordered targets at L0/rework_required passed."
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1045",
+      "exit": 0,
+      "output_summary": "Rank 238; lifecycle planned; legacy artifacts unaccepted; theorem_complete false."
+    },
+    {
+      "command": "python3 -c 'from pathlib import Path; import scripts.stage1_execution_cron as c; p=Path(\"Stage1_Instances/THM-M-1045/dependency-reuse-ledger.json\"); c.validate_dependency_reuse_ledger(p,\"THM-M-1045\",expected_observed_graph_sha256=\"73e99d2276c8ba9fec8f89ed41b712308d7f5667e95ba8185e49f1f5bfd40eca\",expected_repository_revision=\"6bf9ee93a322e7d25cf9249226222095f95d1cff\")'",
+      "exit": 0,
+      "output_summary": "Schema 1.1, graph/context/base bindings, and the complete empty dependency/reuse closure validated."
+    },
+    {
+      "command": "timeout --foreground --kill-after=10s 600 env LEAN_NUM_THREADS=1 python3 -B Stage1_Instances/THM-M-1045/check_statement.py",
+      "exit": 0,
+      "output_summary": "Canonical expression fingerprint e1b35bb7...5cea agreed and all four recorded mutations were distinguished. The separate rev-5.6 audit still finds required changed-domain and changed-binder-scope mutation categories absent."
+    },
+    {
+      "command": "timeout --foreground --kill-after=10s 600 env LEAN_NUM_THREADS=1 python3 -B Stage1_Instances/THM-M-1045/check_anchor_audit.py",
+      "exit": 0,
+      "output_summary": "Target fingerprint, ten Lean probes, candidate inventory, and pinned mathlib revision agreed."
+    },
+    {
+      "command": "python3 -B Stage1_Instances/THM-M-1045/check_obligation_tree.py",
+      "exit": 0,
+      "output_summary": "Fifteen obligations and 30 typed edges passed; root remains M3 and all three proof branches remain M4."
+    },
+    {
+      "command": "Resolve lean and LEAN_PATH with lake env; elaborate Statement.lean, ProofBlockerCurrent.lean, ProofBlockerCharacterizationHead443b8bbcSlot38.lean, and ObligationTree.lean to an isolated /tmp directory with LEAN_NUM_THREADS=1, --trust=0, -t0, and -R; exact shell recipe is in the paired Markdown artifact",
+      "exit": 0,
+      "output_summary": "All four sources elaborated in the pinned environment. Blocker, exact characterization, and conditional composer each report exactly [propext, Classical.choice, Quot.sound].",
+      "statement_log_sha256": "4adb258a91317991276961bad1d03712638888a5a2af84a12240a92e12a8b110",
+      "blocker_log_sha256": "55dcd476292f394eca6e28e17cf180ad4d1773f6601d84fed4adcc8284a58964",
+      "characterization_log_sha256": "38cd8fdac134d193c3293524684a66c80023fb7d9ab84740f0ad23aeb7bfde95",
+      "conditional_composer_log_sha256": "8f9246d00cd8e9461675b69ca071323c2818448bedf026cdf27fbaaac2b43737"
+    },
+    {
+      "command": "rg -n --pcre2 '<prohibited-construct pattern>' Stage1_Instances/THM-M-1045/ProofBlockerCurrent.lean Stage1_Instances/THM-M-1045/ProofBlockerCharacterizationHead443b8bbcSlot38.lean Stage1_Instances/THM-M-1045/ObligationTree.lean",
+      "exit": 1,
+      "expected_no_match": true,
+      "output_summary": "No sorry, admit, axiom declaration, sorryAx, unsafe/oracle, implemented_by, native_decide, bodyless constant/opaque declaration, extern, or external construct was found."
+    },
+    {
+      "command": "git diff --quiet 93d48ecd1394cfb629b691abfedbb3a9449487b7..HEAD -- Stage1_Instances/THM-M-1045/Statement.lean Stage1_Instances/THM-M-1045/ObligationTree.lean Stage1_Instances/THM-M-1045/ProofBlockerCurrent.lean Stage1_Instances/THM-M-1045/ProofBlockerCharacterizationHead443b8bbcSlot38.lean Stage1_Instances/THM-M-1045/statement.json Stage1_Instances/THM-M-1045/anchor-audit.json Stage1_Instances/THM-M-1045/obligation-registry.json Stage1_Instances/THM-M-1045/typed-graphs.json Stage1_Instances/THM-M-1045/validation-specs.json Formalizations/Lean/lake-manifest.json Formalizations/Lean/lean-toolchain",
+      "exit": 0,
+      "output_summary": "No material target source, registry, graph, validation-spec, lockfile, or toolchain delta since the last successful current-base blocker replay."
+    }
+  ],
+  "artifact_validation": {
+    "commands": [
+      {
+        "command": "python3 -m json.tool Stage1_Instances/THM-M-1045/dependency-reuse-ledger.json",
+        "exit": 0,
+        "output_summary": "The dependency/reuse ledger parsed successfully."
+      },
+      {
+        "command": "python3 -m json.tool Stage1_Instances/THM-M-1045/proof-recheck-2026-07-16-head-6bf9ee93-slot24.json",
+        "exit": 0,
+        "output_summary": "The structured blocker packet parsed successfully before final command recording."
+      },
+      {
+        "command": "git diff --check -- Stage1_Instances/THM-M-1045",
+        "exit": 0,
+        "output_summary": "No whitespace errors."
+      },
+      {
+        "command": "test ! -e .stage1-worker-selftest.json",
+        "exit": 0,
+        "output_summary": "No success manifest exists for this blocked proof phase."
+      }
+    ],
+    "recording_boundary": "Commands added after this packet is written validate the packet and current blocker evidence. They do not validate a positive proof."
+  },
+  "root_vector_before": {
+    "human": "H1",
+    "machine": "M3",
+    "readability": "R3"
+  },
+  "root_vector_after_proposed": {
+    "human": "H1",
+    "machine": "M5",
+    "readability": "R3"
+  },
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "content_addressed_receipt_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates_added": [],
+  "placeholder_scan": {
+    "pattern": "\\b(?:sorry|admit|axiom)\\b|sorryAx|unsafe|implemented_by|native_decide|^[[:space:]]*(?:constant|opaque|extern|external)[[:space:]]",
+    "paths": [
+      "Stage1_Instances/THM-M-1045/ProofBlockerCurrent.lean",
+      "Stage1_Instances/THM-M-1045/ProofBlockerCharacterizationHead443b8bbcSlot38.lean",
+      "Stage1_Instances/THM-M-1045/ObligationTree.lean"
+    ],
+    "matches": 0,
+    "ripgrep_exit": 1
+  },
+  "first_failed_gate": "Rev-5.6 section 5.1 exact-target consistency at M1045-S-DEFINITIONS: CameronMartinTarget is equivalent to IsEmpty WienerData because it demands an exact density formula for a Paley-Wiener field constrained only by measurability. This invalidates M1045-L-PALEY-WIENER and blocks M1045-B-DENSITY, M1045-T-ASSEMBLE, and M1045-ROOT.",
+  "remaining_root_cut_set": [
+    "reopen and repair S56-M-1045-STATEMENT",
+    "construct the Paley-Wiener integral or add source-justified noncircular linearity, isometry, Gaussian-law, and compatibility laws",
+    "correct or justify the path measurable-space and NNReal time-measure encodings",
+    "add explicit changed-domain and changed-binder-scope statement mutations",
+    "publish and accept a new canonical statement fingerprint",
+    "rerun and accept the anchor audit and a version-2 obligation registry with refrozen typed graphs",
+    "resume the equivalence, density, and singularity proof branches in dependency order"
+  ],
+  "retry_condition": "Resume positive proof work only after a source-justified statement repair rules out the constant-one replacement without assuming quasi-invariance or the desired density, followed by fresh accepted statement, anchor-audit, and obligation-tree evidence.",
+  "known_failures": [
+    "No eligible nonvacuous body proves the current exact root; the root is equivalent to emptiness of WienerData.",
+    "The reverse emptiness implication is vacuous and cannot count as a proof of Cameron-Martin.",
+    "No construction of WienerData was found, so the blocker does not claim unconditional target negation.",
+    "The predecessor obligation-tree item is worker-provisional [_], not master-accepted [x].",
+    "The selected path measurable-space and NNReal time-measure encodings require source-justified correction or validation.",
+    "The statement mutation suite does not visibly cover changed-domain and changed-binder-scope mutations required by rev-5.6 section 5.1.",
+    "Validation, release-grade independent verification, and master acceptance remain open.",
+    "The worker clone has a pre-existing untracked symlink to canonical .lake artifacts, so this is nonrelease evidence."
+  ],
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1045/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-1045/proof-recheck-2026-07-16-head-6bf9ee93-slot24.json",
+    "Stage1_Instances/THM-M-1045/proof-recheck-2026-07-16-head-6bf9ee93-slot24.md"
+  ],
+  "exact_statements_added_or_changed": [],
+  "source_and_declaration_ownership": [
+    "Stage1_Instances/THM-M-1045/ProofBlockerCurrent.lean#no_target_of_wienerData (pre-existing negative blocker body; no positive root proof credit)",
+    "Stage1_Instances/THM-M-1045/ProofBlockerCharacterizationHead443b8bbcSlot38.lean#target_iff_isEmpty_wienerData (pre-existing exact characterization; no positive root proof credit)",
+    "Stage1_Instances/THM-M-1045/ObligationTree.lean#root_of_branch_packages (pre-existing conditional composer; no branch proof credit)"
+  ],
+  "ownership_and_change_impact": {
+    "owned_path": "Stage1_Instances/THM-M-1045",
+    "canonical_statement_changed": false,
+    "change_impact_set": [
+      "S56-M-1045-PROOF remains blocked",
+      "S56-M-1045-STATEMENT must be reopened before retry"
+    ]
+  },
+  "retry_audit": {
+    "prior_tracked_blocker_or_recheck_packets": 31,
+    "current_packet_ordinal": 32,
+    "split_threshold": 5,
+    "authoritative_dag_attempts_observed": 0,
+    "authoritative_dag_children_observed": [],
+    "boundary": "Repeated target-local blocker packets exceed the split threshold, but the authoritative DAG still records zero proof attempts and no children. This worker did not edit scheduler authority. The first failed node is the predecessor statement, not a divisible proof leaf; the master should reopen that dependency and stop unchanged proof-root retries."
+  },
+  "status_boundary": "Fresh current-base target-scoped blocker handoff with the mandatory empty v2 dependency ledger. It supplies no positive root proof credit and does not satisfy S56-M-1045-PROOF or support a worker self-test, provisional state, audit completion, validation, release, theorem completion, or master acceptance claim.",
+  "selftest_manifest_written": false
+}
