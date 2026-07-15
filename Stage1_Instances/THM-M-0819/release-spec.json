@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0819-RELEASE-v1",
+  "item_id": "S56-M-0819-RELEASE",
+  "theorem_id": "THM-M-0819",
+  "intent": "release",
+  "recipe": {
+    "recipe_id": "S56-M-0819-RELEASE-negative-reconciliation-v1",
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-0819/check_release.py"
+    ],
+    "env_allowlist": {
+      "PATH": "inherited only for pinned executable discovery",
+      "HOME": "inherited only for the pinned Elan toolchain location"
+    },
+    "timeout_seconds": 900,
+    "network_policy": "denied",
+    "network_enforcement": "The checker performs local structural reconciliation, then check_validation.sh runs every Lean subprocess through Bubblewrap --unshare-net with a read-only host root and a fresh writable temporary output directory.",
+    "dependency_policy": "Reuse the automation-provided canonical pinned mathlib source and compiled artifacts read-only. Do not update, build, clone, fetch, or mutate .lake. This is warm-cache negative release-decision evidence, not cold hermetic release evidence.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "exact six-line PASS/BLOCKED negative release summary"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M0819-ROOT",
+      "M0819-B-WIDTH-POSITIVE",
+      "M0819-X-PRIMARY-SOURCE",
+      "M0819-S-FOUNDATION",
+      "M0819-X-RADO-PROVENANCE",
+      "M0819-X-PROVENANCE",
+      "M0819-X-TRUST",
+      "M0819-X-READABLE",
+      "M0819-X-WORKFLOW"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_0819.DilworthPrimaryTarget",
+      "minAntichainPartition_eq_chainHeight",
+      "minChainPartition_eq_antichainWidth",
+      "Stage1Instances.THM_M_0819_Proof.dilworthPrimary"
+    ],
+    "scope_boundary": "Self-tests the fail-closed release reconciliation and replays the existing network-isolated trust-zero kernel probe. It does not supply master acceptance, authoritative graph reconciliation, H0/R0 review, complete provenance/TCB/SBOM, immutable clean empty-cache reproduction, a deterministic bundle, or independent verification."
+  }
+}

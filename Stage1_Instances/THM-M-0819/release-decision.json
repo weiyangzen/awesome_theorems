@@ -1,0 +1,139 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "item_id": "S56-M-0819-RELEASE",
+  "theorem_id": "THM-M-0819",
+  "intent": "release",
+  "base_revision": "ff3db6d51326417873f49c410421f8f3e13be993",
+  "base_tree": "9160a80a3e3588fd96fcd79323230668cc7d3df1",
+  "evaluated_at": "2026-07-15T17:15:00+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-0819-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0819-VALIDATION-worker-20260715-v1",
+    "receipt_support_state": "provisional_worker_selftest",
+    "receipt_accepted": false,
+    "receipt_release_grade": false,
+    "receipt_sha256": "6cdd4509ec19a12b65ac2b4b5f5f84fc237c9ec22dc8578dd4ed7528d78e8961"
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0819-PROOF-local-20260715T180000+0800",
+    "S56-M-0819-VALIDATION-worker-20260715-v1"
+  ],
+  "root_vector": {
+    "typed_graph_and_validation_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "typed_graph_and_validation_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "stale_intake_projection": {
+      "H": "H1",
+      "M": "M5",
+      "R": "R3"
+    },
+    "boundary": "No vector is promoted. The later frozen graph and validation receipt classify the accepted root boundary H1/M3/R3, while the unreconciled intake manifest remains H1/M5/R3 with a null formal target and registry. This disagreement itself fails closed and requires integration-lane reconciliation."
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked"
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "dependency_gate": "dependency.S56-M-0819-VALIDATION.master_acceptance",
+    "reason": "S56-M-0819-VALIDATION is only a provisional [_] worker projection with accepted=false and release_grade=false, so RELEASE is not dependency-legal for master acceptance."
+  },
+  "nested_predecessor_failure": {
+    "gate_id": "dependency.S56-M-0819-PROOF.master_acceptance",
+    "reason": "The validation receipt records proof master acceptance as its first failed gate."
+  },
+  "first_failed_audit_gate": {
+    "gate_id": "S56-AUDIT-AUTHORITY-SOURCE-READABILITY-RECONCILIATION",
+    "reason": "The intake manifest, task DAG, registry, and typed graph have not been reconciled with the provisional proof route, and H0/R0 independent reviews are absent."
+  },
+  "first_failed_release_specific_gate": {
+    "gate_id": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+    "reason": "This worker handoff is uncommitted nonrelease evidence and reuses the automation-provided shared warm .lake symlink rather than an immutable clean release snapshot."
+  },
+  "next_failed_release_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+    "reason": "No empty-cache network-denied cold build or content-addressed offline restoration replay exists."
+  },
+  "evidence_reconciliation": {
+    "exact_statement_identity": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "selected_local_placeholder_and_provenance_checks": "provisional_pass",
+    "authoritative_instance_task_registry_graph_reconciliation": "missing",
+    "node_specific_proof_body_and_composition_acceptance": "missing",
+    "accepted_h0_primary_source_review": "missing",
+    "independently_reviewed_r0_reconstruction": "missing",
+    "accepted_foundation_and_complete_transitive_tcb": "missing",
+    "complete_provenance_sbom_and_license_archive": "missing",
+    "immutable_clean_cold_offline_reproduction": "missing",
+    "deterministic_content_addressed_release_bundle": "missing",
+    "distinct_signed_independent_runners": "missing",
+    "independently_implemented_minimal_verifier": "missing",
+    "master_acceptance": "missing"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0819-VALIDATION and all transitive phase receipts",
+    "instance/task/registry/graph reconciliation with the exact proof route and per-node composition/evidence links",
+    "M0819-X-PRIMARY-SOURCE accepted H0 edition, passage, assumption, errata, node mapping, and independent review",
+    "M0819-X-RADO-PROVENANCE and M0819-X-PROVENANCE complete transitive provenance, SBOM, and license archive closure",
+    "M0819-S-FOUNDATION and M0819-X-TRUST accepted axiom policy and complete declaration, compiled-artifact, executable, bootstrap, plugin, and checker TCB closure",
+    "M0819-X-READABLE independently reviewed node-specific R0 reconstruction",
+    "immutable clean source snapshot, empty-cache network-denied cold build, offline restoration, and deterministic build-twice release bundle",
+    "two signed attestations from independently provisioned runners and an independently implemented minimal verifier",
+    "protected adversarial CI, S56-M-0819-RELEASE master reconciliation, AUDIT-Z acceptance, and THEOREM-Z acceptance"
+  ],
+  "canonical_obligation_ids": [
+    "M0819-ROOT",
+    "M0819-B-WIDTH-POSITIVE",
+    "M0819-X-PRIMARY-SOURCE",
+    "M0819-S-FOUNDATION",
+    "M0819-X-RADO-PROVENANCE",
+    "M0819-X-PROVENANCE",
+    "M0819-X-TRUST",
+    "M0819-X-READABLE",
+    "M0819-X-WORKFLOW"
+  ],
+  "canonical_target": "Stage1Instances.THM_M_0819.DilworthPrimaryTarget",
+  "proof_root_declaration": "Stage1Instances.THM_M_0819_Proof.dilworthPrimary",
+  "statement_fingerprint": "lean-expression-sha256:bdf0aa8f8adac4be9bf2080951be62eac168872b8c589a804ac8587c1878bb19",
+  "registry_denominator_sha256": "3e19428b16575891198438f798957373f440bf15623c22c44df4c1f69239742c",
+  "composition_certificates": [
+    "Stage1Instances.THM_M_0819_Proof.dilworthPrimary"
+  ],
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records the unreconciled open authority without rewriting predecessor state",
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-0819/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-0819/release-phase.md"
+  ],
+  "change_impact_set": [
+    "S56-M-0819-RELEASE"
+  ],
+  "retry_condition": "First dependency-order review and master-accept the validation chain while reconciling instance, task, registry, graph, node bodies, composition, and evidence links. Then accept theorem-specific H0/R0/foundation/TCB/provenance/SBOM records and run the immutable clean cold/offline deterministic release protocol with distinct signed runners and an independent minimal verifier before final master acceptance.",
+  "status_boundary": "Self-tested negative release reconciliation only. It advances no lifecycle, vector, obligation, audit, or theorem state; creates no accepted receipt; and does not claim M0/E0/E1, AUDIT-Z, THEOREM-Z, release grade, theorem completion, independent verification, or master acceptance."
+}
