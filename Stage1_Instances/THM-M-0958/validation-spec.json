@@ -1,0 +1,61 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0958-VALIDATION-local-v1",
+  "item_id": "S56-M-0958-VALIDATION",
+  "theorem_id": "THM-M-0958",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0958/check_validation.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "HOME": "inherited only by the Python recipe for pinned Lake/Elan tool discovery; every Lean subprocess receives a disposable HOME",
+    "PATH": "must contain the pinned elan launcher; resolved executables are digest-checked",
+    "STAGE1_LEAN_BIN": "optional explicit pinned Lean executable override; its digest must match the receipt"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs in bubblewrap with --unshare-net, a read-only host root and shared pinned dependency cache, a disposable HOME, and only a fresh temporary module directory writable. No update, build, clone, fetch, or dependency repair is invoked.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line UTF-8 gate summary bound by validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [],
+  "validated_partial_progress_toward_obligation_ids": [
+    "M0958-C-DIGIT-EMBED",
+    "M0958-L-DIGIT-INJECTIVE",
+    "M0958-L-NO-CARRY",
+    "M0958-L-PROGRESSION-FREE",
+    "M0958-L-EMBED-RANGE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0958.ElkinConstructionTarget",
+    "Stage1Instances.THM_M_0958.ObligationTree.checkedWitnessToRootTransport",
+    "Stage1Instances.THM_M_0958.ObligationTree.rootComposition_checked",
+    "Stage1Instances.THM_M_0958.ObligationTree.root_of_terminal_packages",
+    "Stage1Instances.THM_M_0958.Proof.map_injOn_digit_box",
+    "Stage1Instances.THM_M_0958.Proof.map_add_eq",
+    "Stage1Instances.THM_M_0958.Proof.map_image_threeAPFree",
+    "Stage1Instances.THM_M_0958.Proof.card_map_image",
+    "Stage1Instances.THM_M_0958.Proof.map_image_lt_pow",
+    "Stage1Instances.THM_M_0958.Proof.oneBasedDigitImage_subset",
+    "Stage1Instances.THM_M_0958.Proof.card_oneBasedDigitImage",
+    "Stage1Instances.THM_M_0958.Proof.oneBasedDigitImage_progressionFree",
+    "Stage1Instances.THM_M_0958.Proof.digitEmbeddingPackage_checked",
+    "Stage1Instances.THM_M_0958.Validation.digitEmbeddingPackage_validation",
+    "Stage1Instances.THM_M_0958.Validation.conditionalRoot_validation"
+  ],
+  "scope_boundary": "Network-isolated trust-zero fresh-output replay of the exact statement, three conditional composition declarations, nine partial radix declarations, and two same-worker differential declarations. It covers zero entire frozen obligations and supplies no Elkin-scale witness, unconditional root proof, release hermeticity, or distinct-runner independence."
+}
