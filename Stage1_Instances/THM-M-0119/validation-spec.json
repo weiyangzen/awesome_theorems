@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0119-VALIDATION-local-v1",
+  "item_id": "S56-M-0119-VALIDATION",
+  "theorem_id": "THM-M-0119",
+  "depends_on": [
+    "S56-M-0119-PROOF"
+  ],
+  "intent": "validate",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0119-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0119/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "HOME": "runner home used only to address the hash-verified elan executable",
+        "PATH": "<HOME>/.elan/bin:/usr/bin:/bin",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 900,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean replay subprocess runs inside Bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary output directory writable. Python metadata checks run outside that namespace and invoke no update, build, clone, fetch, or network operation.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact seven-line UTF-8 summary bound by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [],
+      "validated_blocker_obligation_ids": [
+        "M0119-S-DATA",
+        "M0119-S-HYP",
+        "M0119-ROOT"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THMM0119.KawamataViehwegVanishingTarget",
+        "Stage1Instances.THMM0119.not_kawamataViehwegVanishingTarget",
+        "Stage1Instances.THMM0119.ObligationTree.positive_degrees_compose",
+        "Stage1Instances.THMM0119.ObligationTree.implication_compose",
+        "Stage1Instances.THMM0119.Validation.independent_root_countermodel"
+      ],
+      "scope_boundary": "Network-isolated trust-zero fresh-output replay of the frozen statement, proof-phase Int countermodel, two conditional composition declarations, and a same-worker no-Proof-import ZMod 2 differential countermodel. It validates an exact-target blocker and covers no closed frozen obligation. Shared warm dependencies, incomplete accepted trust/provenance, and absence of a distinct signed verifier make this nonrelease evidence."
+    }
+  ],
+  "status_boundary": "A passing recipe self-tests only a truthful blocked validation packet. It cannot accept the proof dependency, close the positive root, establish M0/E0/E1, or satisfy cold hermetic, distinct-runner, AUDIT-Z, THEOREM-Z, release, or master-acceptance gates."
+}
