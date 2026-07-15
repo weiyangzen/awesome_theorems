@@ -1,0 +1,154 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0321-PROOF-local-e34100a1471ea5e2",
+  "item_id": "S56-M-0321-PROOF",
+  "theorem_id": "THM-M-0321",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "5bb515438bd0e1d53584e5243c5d434dfde7158e",
+  "base_tree": "8055b8d863f0978f110a628ab3ccc7ab1e146b12",
+  "validated_at": "2026-07-15T08:38:16+08:00",
+  "attestor": "stage1-rev56-worker-slot68",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "no_state_change",
+  "canonical_target": "Stage1Instances.THM_M_0321.MarkovKakutaniTarget",
+  "canonical_target_expression_sha256": "7a9628fca04eb72d787efad1f852517f4385377b3ad16f3eba662ccea4bb86a5",
+  "registry_denominator_sha256": "9963eb2002e7418a51e79b3ed2dd651e2c29a701cdfa1e18f47123041207f9ac",
+  "exact_declarations": [
+    "Stage1Instances.THM_M_0321.singleMap_fixedPoint",
+    "Stage1Instances.THM_M_0321.finiteFamilyStep",
+    "Stage1Instances.THM_M_0321.continuousCompactnessUpgrade",
+    "Stage1Instances.THM_M_0321.markovKakutani_proof"
+  ],
+  "supported_obligation_ids": [
+    "M0321-ROOT",
+    "M0321-N-FINITE",
+    "M0321-B-FINITE-EMPTY",
+    "M0321-B-FINITE-INSERT",
+    "M0321-B-RECOMPOSE",
+    "M0321-C-FIXSET",
+    "M0321-C-RESTRICT",
+    "M0321-C-AVERAGE",
+    "M0321-C-FIP",
+    "M0321-L-SINGLE",
+    "M0321-L-AVERAGE-IN-K",
+    "M0321-L-AVERAGE-DEFECT",
+    "M0321-L-CLUSTER",
+    "M0321-L-FIXSET-COMPACT",
+    "M0321-L-FIXSET-CONVEX",
+    "M0321-L-COMMUTE-INVARIANT",
+    "M0321-L-FIP-COMPACT",
+    "M0321-T-FINITE",
+    "M0321-T-ASSEMBLE"
+  ],
+  "provisionally_closed_obligation_ids": [
+    "M0321-ROOT",
+    "M0321-N-FINITE",
+    "M0321-B-FINITE-EMPTY",
+    "M0321-B-FINITE-INSERT",
+    "M0321-B-RECOMPOSE",
+    "M0321-C-FIXSET",
+    "M0321-C-RESTRICT",
+    "M0321-C-AVERAGE",
+    "M0321-C-FIP",
+    "M0321-L-SINGLE",
+    "M0321-L-AVERAGE-IN-K",
+    "M0321-L-AVERAGE-DEFECT",
+    "M0321-L-CLUSTER",
+    "M0321-L-FIXSET-COMPACT",
+    "M0321-L-FIXSET-CONVEX",
+    "M0321-L-COMMUTE-INVARIANT",
+    "M0321-L-FIP-COMPACT",
+    "M0321-T-FINITE",
+    "M0321-T-ASSEMBLE"
+  ],
+  "accepted_closed_obligation_ids": [],
+  "proof_body": {
+    "classification": "repo_local_exact_root_proof",
+    "source": "Stage1_Instances/THM-M-0321/Proof.lean",
+    "source_sha256": "e34100a1471ea5e20bb2af9cec123ce21e1fde9a0131baa1381a3a881638b644",
+    "source_line_count": 344,
+    "scope_boundary": "Cesaro averaging proves the one-map fixed-point theorem; induction on finite common fixed loci proves FiniteFamilyStep; the canonical continuity assumptions make the fixed loci closed, and compact finite intersection closes the exact arbitrary-family root.",
+    "terminal_declaration": "Stage1Instances.THM_M_0321.markovKakutani_proof"
+  },
+  "obligation_declaration_map": [
+    {
+      "obligation_ids": ["M0321-C-AVERAGE", "M0321-L-AVERAGE-IN-K"],
+      "declarations": ["Stage1Instances.THM_M_0321.cesaroAverage", "Stage1Instances.THM_M_0321.cesaroAverage_mem"]
+    },
+    {
+      "obligation_ids": ["M0321-L-AVERAGE-DEFECT", "M0321-L-CLUSTER", "M0321-L-SINGLE"],
+      "declarations": ["Stage1Instances.THM_M_0321.cesaro_defect_eq", "Stage1Instances.THM_M_0321.tendsto_cesaro_defect_zero", "Stage1Instances.THM_M_0321.singleMap_fixedPoint"]
+    },
+    {
+      "obligation_ids": ["M0321-N-FINITE", "M0321-B-FINITE-EMPTY", "M0321-B-FINITE-INSERT", "M0321-B-RECOMPOSE", "M0321-C-RESTRICT", "M0321-T-FINITE"],
+      "declarations": ["Stage1Instances.THM_M_0321.commonFixedSet", "Stage1Instances.THM_M_0321.isCompact_commonFixedSet", "Stage1Instances.THM_M_0321.convex_commonFixedSet", "Stage1Instances.THM_M_0321.mapsTo_commonFixedSet_of_commute", "Stage1Instances.THM_M_0321.finiteFamilyStep"]
+    },
+    {
+      "obligation_ids": ["M0321-C-FIP", "M0321-L-FIP-COMPACT", "M0321-ROOT", "M0321-T-ASSEMBLE"],
+      "declarations": ["Stage1Instances.THM_M_0321.continuousCompactnessUpgrade", "Stage1Instances.THM_M_0321.markovKakutani_proof"],
+      "claim_boundary": "The exact root is proved directly from its continuity hypotheses. continuousCompactnessUpgrade realizes the intended mathematical upgrade, but the frozen T-UPGRADE route formally composes through the over-general false ObligationTree.CompactnessUpgrade interface, so that frozen node is not credited."
+    }
+  ],
+  "inputs": {
+    "statement_sha256": "2eed8783dc85ee0ab4f07c68d096c7bab70a3936dfb86d6a30285279b96388dd",
+    "obligation_tree_sha256": "c3b3e313e7db5dcd3b22d2de153ebed8d50697412540b748c0d67bf6b93f7273",
+    "obligation_registry_sha256": "f40fa32165ad49bfed9a7b2db898a9df01380f59d186bb4659fcf3fcb8eb59b0",
+    "typed_graphs_sha256": "a2b9ff8667a791051ec919f63682666e7e739d3b3d1282132c6f3b07ae037d64",
+    "anchor_audit_sha256": "1af5e332cdd5dedd6b3230d0c644a8e14a4313ff3f083256311f9812736e1a75",
+    "check_proof_py_sha256": "3dffbb40a0db936ee4a3effdd6eb49314d212666aa0caaf038488663b5b429e9",
+    "check_proof_sh_sha256": "58aa573d7dd76fd85ddb649e337dc6707e750b49c9586caf05e3be7fa73cd798",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree": "clean",
+    "network": "not_used",
+    "dependency_cache": "automation-provided canonical pinned .lake symlink reused without update, build, fetch, clone, or mutation",
+    "release_classification": "warm-cache nonrelease worker evidence"
+  },
+  "recipe": {
+    "recipe_id": "S56-M-0321-PROOF-isolated-replay-v2",
+    "cwd": ".",
+    "argv": ["bash", "Stage1_Instances/THM-M-0321/check_proof.sh"],
+    "timeout_seconds": 900,
+    "network_policy": "not_enforced; no network operation is invoked",
+    "expected_exit": 0
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Statement, frozen obligation interfaces, and the exact root elaborated in a disposable mirrored tree with --trust=0. Every audited declaration used only propext, Classical.choice, and Quot.sound or no axioms; sorryAx and errors were absent.",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass",
+    "accepted_state_changed": false,
+    "root_machine_classification_before": "M3",
+    "root_machine_classification_after_proposed": "M0-L",
+    "root_closed": true,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": ["M0321-T-UPGRADE"],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0321/Proof.lean",
+    "Stage1_Instances/THM-M-0321/check_proof.py",
+    "Stage1_Instances/THM-M-0321/check_proof.sh",
+    "Stage1_Instances/THM-M-0321/proof-blocker.json",
+    "Stage1_Instances/THM-M-0321/proof-receipt.json",
+    "Stage1_Instances/THM-M-0321/proof-validation.md"
+  ],
+  "known_failures": [
+    "ObligationTree.CompactnessUpgrade omits fixed-set closedness or continuity and is false; M0321-N-INFINITE and the frozen T-UPGRADE composition route require architecture-owner reconciliation even though continuousCompactnessUpgrade proves the intended root-scoped upgrade.",
+    "The exact root bypasses that defective helper by consuming the continuity hypotheses already present in MarkovKakutaniTarget.",
+    "The prerequisite obligation-tree state and this proof receipt remain provisional until dependency-ordered master acceptance.",
+    "Accepted state, validation, release, source H0, readable R0, full provenance/trust closure, hermetic replay, and independent verification remain open.",
+    "The automation-provided .lake symlink is untracked; this dirty warm replay is nonrelease evidence."
+  ],
+  "status_boundary": "The assigned proof phase is self-tested and proposes repo-local exact-root M0-L after master acceptance. E0 acceptance and all validation/release gates remain open; theorem completion is not claimed."
+}
