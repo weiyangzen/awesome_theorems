@@ -1,0 +1,150 @@
+import Proof
+import Mathlib.Util.AssertNoSorry
+import Mathlib.Util.PrintSorries
+
+/-!
+# THM-M-0957 validation probe
+
+This module asks Lean to inspect the existing exact Behrend proof, its named
+support declarations, both statement transports, and the imported
+construction body. It deliberately adds no theorem or proof body: validation
+rechecks proof evidence rather than manufacturing a second proof.
+
+The closure report is a same-worker trust observation, not an independent
+runner attestation or a release-grade TCB inventory.
+-/
+
+namespace Stage1Instances.THM_M_0957.Validation
+
+#check Stage1Instances.THM_M_0957.BehrendConstructionTarget
+#check Stage1Instances.THM_M_0957.sourceThreeAPFree_iff_threeAPFree
+#check Stage1Instances.THM_M_0957.behrendConstructionTarget_iff_finiteSet
+#check Behrend.bound_aux
+#check Stage1Instances.THM_M_0957_ObligationTree.behrendConstructionTarget_proof
+
+assert_no_sorry Stage1Instances.THM_M_0957.sourceThreeAPFree_iff_threeAPFree
+assert_no_sorry Stage1Instances.THM_M_0957.behrendConstructionTarget_iff_finiteSet
+assert_no_sorry Behrend.bound_aux
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.dimensionControl_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.rpowNormalization_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.proxyRpowIdentity_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.proxySlackAbsorption_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.ambientFit_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.linearCeiling_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.linearIncrementAbsorption_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.dimensionSlack_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.logDimensionLoss_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.reciprocalBalancedCore_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.reciprocalDimensionLoss_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.radixBase_eventually_one
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.radixNonzero_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.radixFloor_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.quantitativeConstruction_installed
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.indexMonotonicity_installed
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.parameterAdmissibility_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.proxyLogLower_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.linearDimensionLoss_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.subleadingLoss_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.optimalExponentBridge_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.proxyAsymptotic_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.ratioAsymptotic_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.sharpEstimate_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.sharpParameter_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.exactAssembly_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.exactRoot_proof
+assert_no_sorry Stage1Instances.THM_M_0957_ObligationTree.behrendConstructionTarget_proof
+
+#print sorries Stage1Instances.THM_M_0957.sourceThreeAPFree_iff_threeAPFree
+#print sorries Stage1Instances.THM_M_0957.behrendConstructionTarget_iff_finiteSet
+#print sorries Behrend.bound_aux
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.dimensionControl_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.rpowNormalization_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.proxyRpowIdentity_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.proxySlackAbsorption_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.ambientFit_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.linearCeiling_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.linearIncrementAbsorption_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.dimensionSlack_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.logDimensionLoss_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.reciprocalBalancedCore_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.reciprocalDimensionLoss_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.radixBase_eventually_one
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.radixNonzero_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.radixFloor_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.quantitativeConstruction_installed
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.indexMonotonicity_installed
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.parameterAdmissibility_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.proxyLogLower_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.linearDimensionLoss_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.subleadingLoss_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.optimalExponentBridge_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.proxyAsymptotic_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.ratioAsymptotic_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.sharpEstimate_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.sharpParameter_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.exactAssembly_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.exactRoot_proof
+#print sorries Stage1Instances.THM_M_0957_ObligationTree.behrendConstructionTarget_proof
+
+#print axioms Stage1Instances.THM_M_0957.sourceThreeAPFree_iff_threeAPFree
+#print axioms Stage1Instances.THM_M_0957.behrendConstructionTarget_iff_finiteSet
+#print axioms Behrend.bound_aux
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.dimensionControl_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.rpowNormalization_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.proxyRpowIdentity_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.proxySlackAbsorption_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.ambientFit_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.linearCeiling_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.linearIncrementAbsorption_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.dimensionSlack_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.logDimensionLoss_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.reciprocalBalancedCore_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.reciprocalDimensionLoss_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.radixBase_eventually_one
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.radixNonzero_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.radixFloor_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.quantitativeConstruction_installed
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.indexMonotonicity_installed
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.parameterAdmissibility_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.proxyLogLower_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.linearDimensionLoss_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.subleadingLoss_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.optimalExponentBridge_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.proxyAsymptotic_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.ratioAsymptotic_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.sharpEstimate_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.sharpParameter_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.exactAssembly_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.exactRoot_proof
+#print axioms Stage1Instances.THM_M_0957_ObligationTree.behrendConstructionTarget_proof
+
+open Lean Elab Command in
+elab "#print_validation_closure" : command => liftTermElabM do
+  let roots : Array Name := #[
+    ``Stage1Instances.THM_M_0957.sourceThreeAPFree_iff_threeAPFree,
+    ``Stage1Instances.THM_M_0957.behrendConstructionTarget_iff_finiteSet,
+    ``Behrend.bound_aux,
+    ``Stage1Instances.THM_M_0957_ObligationTree.behrendConstructionTarget_proof
+  ]
+  let closure <- NameSet.transitivelyUsedConstants (.ofArray roots)
+  let axioms <- roots.flatMapM collectAxioms
+  let uniqueAxioms := NameSet.ofArray axioms |>.toArray
+  let env <- getEnv
+  let mut bodyless : Array Name := #[]
+  let mut unsafeDecls : Array Name := #[]
+  let mut modules : NameSet := {}
+  for name in closure do
+    let info <- getConstInfo name
+    if info.isUnsafe then unsafeDecls := unsafeDecls.push name
+    if let .axiomInfo _ := info then
+      if !axioms.contains name then bodyless := bodyless.push name
+    if let some moduleName := env.getModuleFor? name then
+      modules := modules.insert moduleName
+  logInfo m!"VALIDATION_CLOSURE roots={roots.size} declarations={closure.size} modules={modules.size}"
+  logInfo m!"VALIDATION_CLOSURE axioms={uniqueAxioms.qsort Name.lt}"
+  logInfo m!"VALIDATION_CLOSURE bodyless_nonaxioms={bodyless.qsort Name.lt}"
+  logInfo m!"VALIDATION_CLOSURE unsafe={unsafeDecls.qsort Name.lt}"
+
+#print_validation_closure
+
+end Stage1Instances.THM_M_0957.Validation
