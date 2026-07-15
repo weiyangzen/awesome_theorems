@@ -1,8 +1,9 @@
 # THM-M-0122: Faltings' theorem
 
-This directory is the rev-5.6 planned intake dossier for
-`S56-M-0122-INTAKE`. It freezes the intended Mordell-conjecture consequence of
-Faltings' work. It does not claim an exact Lean statement or a proof.
+This directory is the rev-5.6 planned dossier for the Mordell-conjecture
+consequence of Faltings' work. `S56-M-0122-STATEMENT` now has worker-local
+self-tested exact-target evidence; the intake dependency and statement receipt
+remain provisional pending dependency-ordered master acceptance.
 
 ## Status boundary
 
@@ -10,20 +11,36 @@ Faltings' work. It does not claim an exact Lean statement or a proof.
 - Human status: `H4`; the primary paper is identified, but its exact internal
   locator, conventions, assumptions, and errata have not been independently
   audited.
-- Machine status: `M4`; the legacy module contains a useful statement shape,
-  but its natural-number genus slot is not a native geometric genus invariant.
-- Readability status: `R4`; no independently reviewed proof reconstruction
-  exists.
+- Machine status proposed by this worker: `M3`. `FaltingsTarget` elaborates,
+  but no Faltings proof body exists and the concrete H1-based genus
+  normalization still lacks a pinned native K-linear comparison.
+- Readability status proposed by this worker: `R3`; the exact statement and
+  representation boundary are documented but not independently reviewed.
 - Audit complete: no. Theorem complete: no.
 
-The canonical human claim, scope, and debt are recorded in `intake.json`.
-`scope-map.md` prevents common broadenings, and
-`source-statement-crosswalk.md` records the unresolved source fidelity work.
+The canonical formal target is
+`Stage1Instances.THMM0122.FaltingsTarget` in `Statement.lean`. It uses native
+`SmoothOfRelativeDimension 1`, native geometric connectedness, concrete
+projectivity via a closed immersion into finite projective space, concrete
+structure-sheaf `H^1`, and rational points as sections. `statement.json`
+freezes its expression and environment fingerprints. `rationalPointEquivOver`
+and `faltingsTarget_iff_over` check the required slice-category point
+encoding.
+
+Pinned mathlib has no native geometric-genus or K-linear cohomology finrank API
+for a general curve. `HasGeometricGenus K X n` instead requires a concrete
+additive equivalence between `H^1(X, O_X)` and `K^n`. This is derived from
+the actual scheme, unlike a free genus parameter. The standard K-linear
+comparison remains disclosed M3 normalization debt and no proof evidence.
+
+The dated `StatementProbe.lean` and `statement-blocker.md` are historical
+boundary evidence. Their conclusion that no statement artifact could be
+created is superseded by the repository's explicit semantic-interface policy
+used here; they remain useful evidence that a native genus API is unavailable.
 
 ## Open task DAG
 
-1. `S56-M-0122-STATEMENT`: select native curve and genus APIs and elaborate the
-   exact theorem, including checked rational-point encodings.
+1. `S56-M-0122-STATEMENT`: worker-self-tested, pending master acceptance.
 2. `S56-M-0122-ANCHOR_AUDIT`: audit mathlib and external Lean 4 candidates at
    immutable revisions and finish the primary-source locator audit.
 3. `S56-M-0122-OBLIGATION_TREE`: freeze typed proof, provenance, trust,
@@ -33,4 +50,7 @@ The canonical human claim, scope, and debt are recorded in `intake.json`.
    composition, and replay checks.
 6. `S56-M-0122-RELEASE`: reconcile accepted evidence and decide completion.
 
-Validation commands and their results are recorded in `validation.md`.
+`statement-validation.md` records the statement checks and fingerprints.
+`validation.md` remains the historical intake validation record. Neither
+surface claims a proof, accepted receipt, audit completion, or theorem
+completion.
