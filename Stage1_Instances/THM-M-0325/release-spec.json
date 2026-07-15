@@ -1,0 +1,70 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0325-RELEASE-reconciliation-v1",
+  "item_id": "S56-M-0325-RELEASE",
+  "theorem_id": "THM-M-0325",
+  "intent": "release",
+  "base_revision": "34729c0dff13ac1d1a2781d9c1ea4bf7c6a35398",
+  "base_tree": "dde7f823b850641fc7dade0380327b6ac013ac07",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0325/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "The reconciliation checker invokes only local tools and performs no network operation. Each fresh Lean subprocess is additionally enforced inside bubblewrap with --unshare-net and read-only host mounts except for its disposable output directory.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "Exact five-line PASS report states the blocked verdict, unchanged authoritative vector, false terminal decisions, empty accepted-receipt set, first failed gate, and open root cut."
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0325-ROOT",
+    "M0325-S-DEFINITIONS",
+    "M0325-S-BOUNDARY",
+    "M0325-S-FOUNDATION",
+    "M0325-N-FINITE-SPAN",
+    "M0325-N-GRAM",
+    "M0325-K-TRANSFORM",
+    "M0325-R-RANDOM",
+    "M0325-B-MEASURABLE",
+    "M0325-B-SCALAR",
+    "M0325-L-EXPECTATION",
+    "M0325-T-PACKAGE",
+    "M0325-T-ASSEMBLE",
+    "M0325-X-SOURCE",
+    "M0325-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0325.GrothendieckInequalityTarget",
+    "Stage1Instances.THM_M_0325.target_iff_intakeSourceShape",
+    "Stage1Instances.THM_M_0325.empty_scalar_boundary",
+    "Stage1Instances.THM_M_0325.target_of_proofPackage",
+    "Stage1Instances.THM_M_0325.auditedInjectiveLeProjective",
+    "Stage1Instances.THM_M_0325.scalarUnitBoundedBy_apply",
+    "Stage1Instances.THM_M_0325.scalarUnitBoundedBy_of_abs_eq_one",
+    "Stage1Instances.THM_M_0325.nonneg_of_scalarUnitBoundedBy",
+    "Stage1Instances.THM_M_0325.scalarMatrixForm_zero",
+    "Stage1Instances.THM_M_0325.hilbertMatrixForm_zero",
+    "Stage1Instances.THM_M_0325.zero_scalarUnitBoundedBy",
+    "Stage1Instances.THM_M_0325.zero_hilbertUnitBoundedBy",
+    "Stage1Instances.THM_M_0325.abs_real_inner_le_one_of_norm_le_one",
+    "Stage1Instances.THM_M_0325.abs_matrix_inner_term_le",
+    "Stage1Instances.THM_M_0325.abs_hilbertMatrixForm_le_sum_abs",
+    "Stage1Instances.THM_M_0325.hilbertUnitBoundedBy_sum_abs"
+  ],
+  "expected_olean_sha256": {
+    "Statement.olean": "5da713d6cd67197fa4d54b69ee1ac0c6aebaec8d545748297800cf5f09ccdd7d",
+    "ObligationTree.olean": "6588e3bc5a2d045319df89401047b1a133b7d5b0adc47bc8c44e9832931a7d2a",
+    "AnchorAudit.olean": "7e864ef4728c00f185c095d830f32be1cfceedec398dfcdb367e9bbd48ced1d0",
+    "Proof.olean": "3fb550337b224daed7bc786339a3da72f9dc440df0147b028ac2d144bfd6afc1"
+  },
+  "coverage_semantics": "All 15 obligation IDs receive fail-closed reconciliation-status coverage against the frozen registry and graph. Kernel execution coverage is limited to covered_declarations and does not claim bodies for open analytic, source, readability, or provenance obligations.",
+  "scope_boundary": "This recipe self-tests the release evidence reconciliation and a fresh narrow warm-cache Lean replay. It is expected to validate a blocked decision, not exact-root closure, AUDIT-Z, THEOREM-Z, release-grade reproduction, independent verification, or master acceptance."
+}
