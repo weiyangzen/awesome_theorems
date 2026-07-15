@@ -1,0 +1,95 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0927-VALIDATION",
+  "theorem_id": "THM-M-0927",
+  "phase": "validation",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0927-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0927-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/bwrap",
+        "--ro-bind",
+        "/",
+        "/",
+        "--dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--tmpfs",
+        "/tmp",
+        "--unshare-net",
+        "--die-with-parent",
+        "--setenv",
+        "HOME",
+        "/home/sansha-2",
+        "--setenv",
+        "PATH",
+        "/home/sansha-2/.elan/bin:/usr/bin:/bin",
+        "--setenv",
+        "ELAN_TOOLCHAIN",
+        "leanprover/lean4:v4.29.0",
+        "--setenv",
+        "LANG",
+        "C.UTF-8",
+        "--setenv",
+        "LC_ALL",
+        "C.UTF-8",
+        "--setenv",
+        "TZ",
+        "UTC",
+        "--setenv",
+        "LEAN_NUM_THREADS",
+        "1",
+        "--setenv",
+        "STAGE1_OUTER_NETWORK_ISOLATED",
+        "1",
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0927/check_validation.py"
+      ],
+      "env_allowlist": {
+        "HOME": "/home/sansha-2 (Elan discovery only; Lean replay receives an empty temporary HOME)",
+        "PATH": "/home/sansha-2/.elan/bin:/usr/bin:/bin",
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "STAGE1_OUTER_NETWORK_ISOLATED": "1"
+      },
+      "timeout_seconds": 1800,
+      "network_policy": "denied",
+      "network_enforcement": "Bubblewrap encloses the complete validator with a read-only host root, private /tmp, and --unshare-net; the validator also performs a denied-connectivity mutation.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "The exact summary lines and per-module Lean output hashes are bound by validation-receipt.json."
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0927-ROOT",
+        "M0927-T-ROOT-COMPOSE",
+        "M0927-T-FUNCTION-BINET",
+        "M0927-S-FUNCTION-TRANSPORT",
+        "M0927-S-RADICAL-TRANSPORT",
+        "M0927-X-PROVENANCE",
+        "M0927-X-EVIDENCE",
+        "M0927-X-TRUST"
+      ],
+      "covered_declarations": [
+        "Real.coe_fib_eq'",
+        "Stage1Instances.THM_M_0927.Proof.functionBinet_proof",
+        "Stage1Instances.THM_M_0927.Proof.binetFormula_proof",
+        "Stage1Instances.THM_M_0927.Validation.independentlyRecomposedBinetFormula"
+      ],
+      "scope_boundary": "Network-isolated trust-zero fresh-output replay against immutable pinned sources and shared warm dependencies. Covered IDs are exercised provisionally, not accepted. Proof master acceptance, H0/R0, accepted foundation and complete transitive TCB/provenance/SBOM profiles, cold empty-cache restoration, deterministic bundling, and distinct signed independent verification remain failed."
+    }
+  ]
+}
