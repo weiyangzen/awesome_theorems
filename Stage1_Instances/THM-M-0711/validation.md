@@ -88,3 +88,30 @@ obligation module imports the owned statement module without adding either file 
 build. The frozen architecture and final conditional composition are self-tested. The finite
 presentation, compiler, reduction correctness, source acceptance, trust closure, proof, and all
 release gates remain open, so no theorem completion is claimed.
+
+## Proof phase (S56-M-0711-PROOF)
+
+Validation base revision: `443b8bbc23bf35a1e7a4bb7b3183073f76bbee2b`.
+
+| Command | Result |
+|---|---|
+| `bash Stage1_Instances/THM-M-0711/check_proof.sh` | exit 0; isolated `Statement.olean`, `ObligationTree.olean`, and `Proof.lean` elaborated at `--trust=0`; eight local/pinned declarations were sorry-free and reported exactly `[propext, Classical.choice, Quot.sound]` |
+| `python3 Stage1_Instances/THM-M-0711/check_proof.py` | exit 0; exact declarations, frozen fingerprints and denominator, pinned sources, receipt/blocker boundary, worker packet, and changed-path set passed |
+| `python3 Stage1_Instances/THM-M-0711/check_obligation_tree.py` | exit 0; 17 obligations and 38 typed edges passed; root remains open M4 |
+| `python3 Docs/tools/check_stage1_standard.py` | exit 0; 15 assurance groups, 1546 uniform-L0 Lean 4 targets |
+| `python3 scripts/stage1_target.py check` | exit 0; 1546 unique targets, ranks 1..1546, all L0/rework_required |
+| `python3 scripts/stage1_target.py show THM-M-0711` | exit 0; rank 751, planned, theorem_complete false |
+| `git diff --check -- Stage1_Instances/THM-M-0711 .stage1-worker-selftest.json` | exit 0; no whitespace errors |
+
+The proof phase provisionally checks quotient normalization, the pinned halting leaf, and generic
+many-one transfer. Its terminal declarations keep the missing halting-to-finite-presentation
+reduction as an explicit premise and therefore do not close the unconditional witness or root.
+Top-level Lake loading was unavailable because the unrelated shared `flt-regular` checkout could
+not resolve `HEAD`; the narrow recipe selected the matching Lean binary and already pinned build
+closure through the clean mathlib package, adjusted only process-local search paths, and wrote
+target oleans outside `.lake`. No dependency source or artifact was changed. Exact details and
+hashes are recorded in `proof-validation.md` and `proof-receipt.json`.
+
+The first failed gate is `M0711-B-REDUCTION`; `M0711-S-FOUNDATION` is the other member of the frozen
+root cut. The root remains `[H1, M4, R4]`, accepted state is unchanged, and validation, release,
+audit completion, and theorem completion remain open.

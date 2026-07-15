@@ -1,4 +1,6 @@
 import Mathlib.Computability.Reduce
+import Mathlib.Util.AssertNoSorry
+import Mathlib.Util.PrintSorries
 import ObligationTree
 
 /-!
@@ -59,6 +61,27 @@ theorem novikovBooneTarget_of_haltingReduction
   exact novikovBooneTarget_of_witness
     (fixedPresentationUndecidable_of_haltingReduction n rels input hred)
 
+assert_no_sorry PresentedGroup.mk_eq_one_iff
+assert_no_sorry ComputablePred.computable_of_manyOneReducible
+assert_no_sorry ComputablePred.halting_problem
+assert_no_sorry identityPred_iff_normalClosure
+assert_no_sorry not_computablePred_of_manyOneReducible
+assert_no_sorry haltingPredicate_not_computable
+assert_no_sorry fixedPresentationUndecidable_of_haltingReduction
+assert_no_sorry novikovBooneTarget_of_haltingReduction
+
+#print sorries PresentedGroup.mk_eq_one_iff
+#print sorries ComputablePred.computable_of_manyOneReducible
+#print sorries ComputablePred.halting_problem
+#print sorries identityPred_iff_normalClosure
+#print sorries not_computablePred_of_manyOneReducible
+#print sorries haltingPredicate_not_computable
+#print sorries fixedPresentationUndecidable_of_haltingReduction
+#print sorries novikovBooneTarget_of_haltingReduction
+
+#print axioms PresentedGroup.mk_eq_one_iff
+#print axioms ComputablePred.computable_of_manyOneReducible
+#print axioms ComputablePred.halting_problem
 #print axioms identityPred_iff_normalClosure
 #print axioms not_computablePred_of_manyOneReducible
 #print axioms haltingPredicate_not_computable

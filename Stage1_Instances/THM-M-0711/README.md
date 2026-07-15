@@ -22,3 +22,11 @@ The obligation-tree phase freezes 17 canonical semantic obligations and seven se
 graphs. `ObligationTree.lean` checks only that an explicit fixed-presentation noncomputability
 witness assembles into the exact root. The central construction/reduction and foundation audit are
 still open, so this architecture supplies no theorem closure.
+
+The proof phase now checks three substantive pieces: quotient identity normalization, the pinned
+halting-problem theorem, and backwards transfer of noncomputability through a computable many-one
+reduction. `Proof.lean` also checks the terminal composition while keeping the missing
+halting-to-presentation reduction as an explicit premise. It therefore supplies no unconditional
+witness or root proof. The first failed proof gate is `M0711-B-REDUCTION`, the root remains
+`[H1, M4, R4]`, and the exact provisional evidence boundary is recorded in
+`proof-validation.md` and `proof-receipt.json`.
