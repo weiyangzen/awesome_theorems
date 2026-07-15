@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0669-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0669-RELEASE",
+  "theorem_id": "THM-M-0669",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0669/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "HOME": "ambient elan toolchain root; release evidence remains nonrelease",
+    "PATH": "ambient host path; every security-relevant executable used by the checker is selected explicitly and verified by digest",
+    "LANG": "ambient for host-side structural checks; Lean replay is forced to C.UTF-8",
+    "LC_ALL": "ambient for host-side structural checks; Lean replay is forced to C.UTF-8",
+    "TZ": "ambient for host-side structural checks; Lean replay is forced to UTC"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Each Lean subprocess runs under bubblewrap --unshare-net. Host-side JSON, hash, Git, target-manifest, and structural checks perform no network operation.",
+  "environment_boundary": "This is a worker-side negative-decision recipe, not a release-grade hermetic recipe. It reuses pinned compiled artifacts through the automation-provided read-only canonical .lake link and does not rebuild dependencies.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line release-gate summary bound in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0669-S-THEORY",
+    "M0669-C-ATOMIC",
+    "M0669-C-BOOLEAN",
+    "M0669-I-FORMULA",
+    "M0669-T-ASSEMBLE",
+    "M0669-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1.THM_M_0669.TarskiQuantifierEliminationTarget",
+    "Stage1.THM_M_0669.qfEquivalent_of_isQF",
+    "Stage1.THM_M_0669.atomicEqualityNormalization",
+    "Stage1.THM_M_0669.realize_polynomialOfTerm",
+    "Stage1.THM_M_0669.atomicPolynomialNormalization",
+    "Stage1.THM_M_0669.qfBooleanClosure",
+    "Stage1.THM_M_0669.formulaElimination_of_oneVariable",
+    "Stage1.THM_M_0669.tarskiQuantifierElimination_of_oneVariable",
+    "Stage1.THM_M_0669.Validation.validation_realize_polynomialOfTerm",
+    "Stage1.THM_M_0669.Validation.validationAtomicPolynomialNormalization",
+    "Stage1.THM_M_0669.Validation.validationQfBooleanClosure",
+    "Stage1.THM_M_0669.Validation.validationFormulaElimination",
+    "Stage1.THM_M_0669.Validation.validationConditionalRoot"
+  ],
+  "reconciled_inventory_ids": [
+    "M0669-ROOT",
+    "M0669-S-THEORY",
+    "M0669-C-ATOMIC",
+    "M0669-C-BOOLEAN",
+    "M0669-E-ONE-VAR",
+    "M0669-E-SIGN",
+    "M0669-E-ROOTS",
+    "M0669-E-PROJECT",
+    "M0669-E-SEMANTICS",
+    "M0669-I-FORMULA",
+    "M0669-T-ASSEMBLE",
+    "M0669-X-SOURCE",
+    "M0669-X-FOUNDATION",
+    "M0669-X-PROVENANCE"
+  ],
+  "coverage_semantics": "Covered obligations and declarations receive only current provisional narrow-replay corroboration. Reconciled inventory IDs are structurally inspected to derive a fail-closed terminal decision and receive no accepted proof or release credit.",
+  "scope_boundary": "Self-tests the exact blocked release verdict on the integrated target snapshot. It cannot master-accept validation, inhabit OneVariableEliminationPackage, close the exact root, accept H0/R0 or AUDIT-Z, or supply cold/offline, SBOM, independent-runner, minimal-verifier, deterministic-bundle, or THEOREM-Z evidence."
+}
