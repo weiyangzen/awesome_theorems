@@ -1,0 +1,156 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-1250-PROOF",
+  "theorem_id": "THM-M-1250",
+  "execution_rank": 430,
+  "phase": "proof",
+  "intent": "prove",
+  "verdict": "blocked",
+  "state": "[ ]",
+  "recorded_at": "2026-07-15T08:43:00+08:00",
+  "base_revision": "8c045f3d21e3e747c39dd266f581367b08bddd8b",
+  "base_tree": "9910c8170c82875bd17db434d6a9dbf3ac340d94",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "changed_paths": [
+    "Stage1_Instances/THM-M-1250/ProofBlocker.lean",
+    "Stage1_Instances/THM-M-1250/proof-blocker.json",
+    "Stage1_Instances/THM-M-1250/proof-blocker.md"
+  ],
+  "canonical_target": "Stage1Instances.THM_M_1250.SchwartzSpaceCharacterization",
+  "canonical_target_expression_sha256": "367a6b23168c88dcc5023a4d82bff17b496187a25303b4f81871a321750205f0",
+  "source_hashes": {
+    "Statement.lean": "bb3cc8dcc73edcf3d7543e2b8d49df9c4fc46da16d2ab9a712b193c6be82e39f",
+    "ObligationTree.lean": "76d26693fc984527c1e5a0949d863e4d99533a2aa285df7acd6c1e1737a037ed",
+    "ProofBlocker.lean": "15a56bda9b7111bb99e03205a631f8334c55ad10c40a1e9ab230654721e2c873",
+    "obligation-registry.json": "0f6b98553e59a730a54139173576a822ccda1ada4d668f29cb1e9755a7385236",
+    "typed-graphs.json": "fe1712ccca5522befbc7e1fbfd7ad90424cd1d94ded8d717d60c598e3c50d9a5",
+    "anchor-audit.json": "837c895ec8c07e775440d7c52153b528c018f7003e8b1644c9859a2fbd728d5e",
+    "statement.json": "0e489195c2d5936e8d3fe65373187a8d576e0d67c0a93102b34ec9f703319c59",
+    "lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+  },
+  "dependency_gate": {
+    "required_item_id": "S56-M-1250-OBLIGATION_TREE",
+    "observed_state": "[_]",
+    "master_accepted": false,
+    "status": "predecessor provisional; proof acceptance is unavailable independently of the statement defect"
+  },
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "network_used": false,
+    "lake_mutated": false,
+    "dependency_cache": "pre-existing automation symlink to canonical pinned Lake artifacts; reused read-only",
+    "validation_outputs": "fresh temporary directories under /tmp; removed after credited checks"
+  },
+  "formal_diagnosis": {
+    "frozen_regular_order": "top : WithTop ENat (ContDiff analytic order omega)",
+    "structure_regular_order": "((top : ENat) : WithTop ENat) (ContDiff smooth order infinity)",
+    "failed_forward_term": "SchwartzMap.smooth'",
+    "failed_forward_error": "phi.smooth' has type ContDiff Real (up top) phi.toFun but the exact target requires ContDiff Real top phi",
+    "failed_reverse_direct_term": "SchwartzMap.mk f hsmooth hdecay",
+    "failed_reverse_direct_error": "hsmooth has type ContDiff Real top f but the constructor requires ContDiff Real (up top) f",
+    "reverse_repair": "hsmooth.of_le le_top",
+    "kernel_checked_diagnostic_declarations": [
+      "Stage1Instances.THM_M_1250.FrozenSmoothnessMismatch",
+      "Stage1Instances.THM_M_1250.frozen_top_is_analytic_order",
+      "Stage1Instances.THM_M_1250.coerced_enat_top_is_smooth_order",
+      "Stage1Instances.THM_M_1250.reversePackage_from_frozen_conditions"
+    ],
+    "reverse_package_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "generated_failed_attempt_axiom": "sorryAx",
+    "proof_credit": "reverse package is partial progress only; failed generated declarations receive no credit"
+  },
+  "commands": [
+    {
+      "command": "python3 Docs/tools/check_stage1_standard.py",
+      "exit_code": 0,
+      "result": "15 assurance groups and 1546 uniform-L0 Lean 4 targets passed"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py check",
+      "exit_code": 0,
+      "result": "1546 unique targets, ranks 1..1546, all L0/rework_required"
+    },
+    {
+      "command": "python3 scripts/stage1_target.py show THM-M-1250",
+      "exit_code": 0,
+      "result": "rank 430, lifecycle planned, theorem_complete false"
+    },
+    {
+      "command": "isolated pinned Lean --trust=0 replay of Statement.lean and ProofBlocker.lean",
+      "exit_code": 0,
+      "result": "explicit order mismatch probe and reverse package elaborated; reverse package axioms were exactly propext, Classical.choice, Quot.sound"
+    },
+    {
+      "command": "isolated pinned Lean --trust=0 replay of the attempted exact projection/constructor implementation",
+      "exit_code": 1,
+      "result": "both ContDiff order mismatches reproduced; generated declarations depended on sorryAx and were rejected"
+    },
+    {
+      "command": "python3 Stage1_Instances/THM-M-1250/check_obligation_tree.py",
+      "exit_code": 0,
+      "result": "15 obligations and 30 typed edges passed; root remains open M3"
+    },
+    {
+      "command": "rg -n '\\b(sorry|admit|sorryAx)\\b|^[[:space:]]*(axiom|unsafe|opaque)[[:space:]]' Stage1_Instances/THM-M-1250/ProofBlocker.lean",
+      "exit_code": 1,
+      "result": "expected no-match"
+    },
+    {
+      "command": "python3 -m json.tool Stage1_Instances/THM-M-1250/proof-blocker.json",
+      "exit_code": 0,
+      "result": "structured blocker is valid JSON"
+    },
+    {
+      "command": "git diff --check -- Stage1_Instances/THM-M-1250",
+      "exit_code": 0,
+      "result": "no scoped whitespace errors"
+    },
+    {
+      "command": "test ! -e .stage1-worker-selftest.json",
+      "exit_code": 0,
+      "result": "no success manifest exists for the blocked proof phase"
+    }
+  ],
+  "root_vector_before": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R3"
+  },
+  "proposed_machine_diagnosis": "M5",
+  "proof_phase_complete": false,
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "selftest_manifest_written": false,
+  "first_failed_gate": "Stage1 rev-5.6 exact statement gate / M1250-F-SMOOTH: the frozen target requires analytic ContDiff order omega while SchwartzMap supplies smooth order infinity",
+  "remaining_workflow_cut_set": [
+    "S56-M-1250-STATEMENT"
+  ],
+  "remaining_root_cut_set": [
+    "M1250-F-PACKAGE"
+  ],
+  "retry_condition": "Reopen statement phase, replace the ambiguous outer top with ((top : ENat) : WithTop ENat), rerun expression identity and mutations, and publish a versioned obligation-registry/typed-graph delta before another proof attempt.",
+  "known_failures": [
+    "The frozen Lean target does not encode the stated smooth Schwartz-space characterization.",
+    "The existing anchor audit and obligation graph incorrectly treat SchwartzMap.smooth' as exact for the frozen regularity conjunct.",
+    "The prerequisite obligation-tree node remains provisional rather than master-accepted.",
+    "Foundation, source, provenance, trust, readability, validation, independent replay, release, and master acceptance remain open."
+  ],
+  "status_boundary": "Durable proof blocker and partial reverse-package evidence only. No proof receipt, provisional success state, audit completion, validation/release result, master acceptance, or theorem completion is claimed."
+}
