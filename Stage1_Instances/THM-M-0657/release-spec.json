@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0657-RELEASE-NARROW-v1",
+  "item_id": "S56-M-0657-RELEASE",
+  "theorem_id": "THM-M-0657",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0657/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "inherited only to locate the pinned Elan toolchain; every Lean subprocess receives a fresh temporary HOME",
+    "LANG": "the nested Lean replay fixes C.UTF-8",
+    "LC_ALL": "the nested Lean replay fixes C.UTF-8",
+    "TZ": "the nested Lean replay fixes UTC",
+    "LEAN_NUM_THREADS": "the nested Lean replay fixes one thread"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The outer checker invokes only local files, Git, and processes but is not OS-network-sandboxed. Each Lean subprocess runs under Bubblewrap --unshare-net with the host root read-only and only a fresh temporary module directory writable. The full hermetic release gate remains fail-closed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed release reconciliation summary bound in release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0657-ROOT",
+    "M0657-S-ENCODING",
+    "M0657-N-SOURCE-SHAPE",
+    "M0657-L-COMPLETENESS",
+    "M0657-C-MORLEY-RANK",
+    "M0657-L-STABILITY",
+    "M0657-L-SATURATION",
+    "M0657-C-EXISTENCE",
+    "M0657-L-SATURATED-ISO",
+    "M0657-T-TARGET-CAT",
+    "M0657-T-ASSEMBLE",
+    "M0657-X-SOURCE",
+    "M0657-X-FOUNDATION",
+    "M0657-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0657.MorleyCategoricityTarget",
+    "Stage1Instances.THM_M_0657.morleyCategoricityTarget_iff_existentialSourceShape",
+    "Stage1Instances.THM_M_0657.hasModelCardinality_of_uncountably_categorical",
+    "Stage1Instances.THM_M_0657.infinitePart_categorical",
+    "Stage1Instances.THM_M_0657.infinitePart_isComplete",
+    "Stage1Instances.THM_M_0657.categoricalWithExistence_of_categorical",
+    "Stage1Instances.THM_M_0657.morleyCategoricityTarget_of_categoricalTransfer",
+    "Stage1Instances.THM_M_0657.Validation.differentialHasModelCardinality",
+    "Stage1Instances.THM_M_0657.Validation.differentialInfinitePartCategorical",
+    "Stage1Instances.THM_M_0657.Validation.differentialInfinitePartIsComplete",
+    "Stage1Instances.THM_M_0657.Validation.differentialConditionalRoot"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation over all 14 frozen obligation records plus a fresh network-isolated trust-zero replay of the exact statement, two unconditional partial bodies, and conditional root compositions. Covered IDs are reconciliation subjects, not closure credit. The recipe cannot accept the validation dependency, prove the Morley rank/stability/saturation/uniqueness core, provide accepted H0/R0 or trust/provenance closure, perform a clean empty-cache release build, act as a distinct verifier, or grant theorem completion."
+}
