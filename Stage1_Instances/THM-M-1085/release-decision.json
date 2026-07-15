@@ -1,0 +1,234 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1085-RELEASE-blocked-20260715T115941+0800",
+  "item_id": "S56-M-1085-RELEASE",
+  "theorem_id": "THM-M-1085",
+  "execution_rank": 527,
+  "phase": "release",
+  "intent": "release",
+  "base_revision": "443b8bbc23bf35a1e7a4bb7b3183073f76bbee2b",
+  "base_tree": "c5771c47c12b80aba613e6d844570f83b39ded6d",
+  "decided_at": "2026-07-15T11:59:41+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "release_grade": false,
+  "release_accepted": false,
+  "verdict": "blocked",
+  "lifecycle_before": "planned",
+  "lifecycle_after": "planned",
+  "dependency": {
+    "item_id": "S56-M-1085-VALIDATION",
+    "scheduler_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1085-VALIDATION-local-20260715T090900+0800",
+    "receipt_sha256": "5f3ee75d3161179f1c38ed7047ff01a6bb7787f891d0c1b76d07f94a39d4ea58",
+    "support_state": "provisional_worker_selftest",
+    "accepted": false,
+    "release_grade": false,
+    "freshness_at_release_head": "historical_nonrelease_receipt: its committed inputs are hash-bound, but its checker is phase-bound to revision 4ba3f2fd and the validation-phase packet identity; it is not replayable with this release packet or current DAG state"
+  },
+  "accepted_receipt_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1085-PROOF-local-20260715T080832+0800",
+    "S56-M-1085-VALIDATION-local-20260715T090900+0800"
+  ],
+  "canonical_target": "Stage1Instances.THM_M_1085.SlepianTarget",
+  "statement_fingerprint": "lean-expression-sha256:2af285ae0bb208a80c325d1b8ba89cd273b83d01b2fef018b13e2feca9d43315",
+  "registry_denominator_sha256": "c0367c009b2f628b52c7cf782f7785730d0207f7e90ec30afa47c1523a8a4dc4",
+  "canonical_obligation_ids": [
+    "M1085-ROOT",
+    "M1085-S-DEFINITIONS",
+    "M1085-S-DOMAINS",
+    "M1085-S-BOUNDARY",
+    "M1085-S-FOUNDATION",
+    "M1085-N-LAWS",
+    "M1085-N-MATRIX",
+    "M1085-C-INTERPOLATION",
+    "M1085-C-SMOOTHER",
+    "M1085-L-INTERPOLATION-ID",
+    "M1085-L-MIXED-SIGN",
+    "M1085-L-MONOTONE",
+    "M1085-L-LIMIT",
+    "M1085-T-COMPARISON",
+    "M1085-T-COMPOSE",
+    "M1085-X-SOURCE",
+    "M1085-X-PROVENANCE"
+  ],
+  "root_vector": {
+    "before": {
+      "H": "H1",
+      "M": "M4",
+      "R": "R4"
+    },
+    "after": {
+      "H": "H1",
+      "M": "M4",
+      "R": "R4"
+    }
+  },
+  "terminal_decisions": {
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false
+  },
+  "first_failed_gate": {
+    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+    "dependency_gate": "dependency.S56-M-1085-VALIDATION.master_acceptance",
+    "reason": "S56-M-1085-VALIDATION is only provisional [_] worker evidence with accepted=false and release_grade=false, so RELEASE is not dependency-legal."
+  },
+  "nested_predecessor_failure": {
+    "gate_id": "dependency.S56-M-1085-PROOF.master_acceptance",
+    "reason": "The validation receipt records proof master acceptance as its own first failed dependency gate."
+  },
+  "first_failed_theorem_gate": {
+    "gate_id": "proof.root_kernel_closure",
+    "reason": "LawSlepianTarget is only a proposition for which no proof body is supplied or accepted. M1085-N-LAWS and the four downstream interpolation leaves in the frozen five-obligation cut set remain open, so no accepted body inhabits the exact SlepianTarget."
+  },
+  "first_failed_audit_gate": {
+    "gate_id": "S56-8.1-H0-R0-RECONCILIATION",
+    "reason": "The exact primary theorem/page, assumptions, singular-law coverage, errata, node crosswalk, and independent H0 and R0 reviews remain open."
+  },
+  "first_failed_release_gate": {
+    "gate_id": "S56-7.3-7.4-TRANSITIVE-PROVENANCE-TCB-CLOSURE",
+    "reason": "No accepted foundation profile or complete transitive proof-body, declaration, compiled-artifact, axiom, provenance, and TCB closure exists."
+  },
+  "first_failed_reproduction_gate": {
+    "gate_id": "S56-10.6-HERMETIC-COLD-EMPTY-CACHE",
+    "reason": "No immutable clean empty-cache cold build or offline archive restoration exists; the shared warm pinned closure is currently unusable because flt-regular HEAD does not resolve."
+  },
+  "artifact_probe": {
+    "path": "Formalizations/Lean/.lake/packages/flt-regular",
+    "manifest_revision": "56161b6eb5281fbfe9c38f2bcec0f429ebc11a27",
+    "head_contents": "ref: refs/heads/.invalid",
+    "head_resolvable": false,
+    "probe_argv": [
+      "git",
+      "-C",
+      "Formalizations/Lean/.lake/packages/flt-regular",
+      "rev-parse",
+      "--verify",
+      "HEAD"
+    ],
+    "probe_exit_code": 128,
+    "lean_replay_attempted_during_release_recipe": false,
+    "action": "No fetch, update, checkout, repair, build, clone, or other .lake mutation was performed."
+  },
+  "evidence_reconciliation": {
+    "archived_exact_statement_replay": "provisional historical pass; no current replay credit",
+    "archived_conditional_composition_replay": "provisional historical pass_not_root_closure",
+    "archived_partial_proof_replay": "provisional historical pass with zero closed frozen obligations",
+    "archived_observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "current_pinned_artifact_usable": false,
+    "current_lean_replay": "not_attempted_pinned_artifact_unusable",
+    "validation_dependency_master_accepted": false,
+    "exact_root_kernel_closed": false,
+    "accepted_closed_obligation_ids": [],
+    "structured_public_state_reconciled": false,
+    "pinpoint_h0_and_independent_source_review": false,
+    "independent_r0_review": false,
+    "audit_z_accepted": false,
+    "accepted_foundation_profile": false,
+    "complete_transitive_provenance_and_tcb": false,
+    "immutable_clean_release_input": false,
+    "hermetic_empty_cache_cold_offline_replay": false,
+    "complete_sbom_license_archive_closure": false,
+    "two_independent_signed_runner_attestations": false,
+    "independently_implemented_minimal_verifier": false,
+    "protected_ci_and_adversarial_gates": false,
+    "deterministic_content_addressed_release_bundle": false,
+    "master_acceptance": false
+  },
+  "mathematical_root_cut_set": [
+    "M1085-N-LAWS",
+    "M1085-C-INTERPOLATION",
+    "M1085-L-INTERPOLATION-ID",
+    "M1085-L-MIXED-SIGN",
+    "M1085-L-LIMIT"
+  ],
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-1085-VALIDATION and every transitive phase receipt",
+    "M1085-N-LAWS exact frozen normalization closure and an inhabitant of LawSlepianTarget",
+    "M1085-C-INTERPOLATION and the singular covariance interpolation construction",
+    "M1085-L-INTERPOLATION-ID Gaussian derivative identity",
+    "M1085-L-MIXED-SIGN mixed-derivative sign and monotonicity",
+    "M1085-L-LIMIT smoothing and indicator-limit closure",
+    "AUDIT-Z with accepted source-boundary, graph, evidence, debt, and public-state reconciliation",
+    "accepted H0 primary-source pinpoint, assumptions, singular-case and errata crosswalk with independent review",
+    "accepted R0 node-by-node readable reconstruction with independent reader review",
+    "accepted foundation profile and complete transitive proof-body provenance, axiom, compiled-artifact, and TCB closure",
+    "usable pinned dependency closure, immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "complete content-addressed SBOM and license closure",
+    "two signed attestations from separately provisioned clean runners without a shared writable cache",
+    "independently implemented minimal release verifier and protected adversarial CI",
+    "deterministic build-twice content-addressed release bundle, THEOREM-Z, and master acceptance"
+  ],
+  "reconciled_inputs": {
+    "README.md": "35d70195e7157fdb9aa3466e00cf58e022dcdddd218184b3398fc7ddd9e96646",
+    "instance.json": "d22545c42fd51e6fe26041eb07911b6169c7f428586df53cbd5af4890f313da0",
+    "task-dag.json": "6995b7e1899f142b319604fa2632e079428540bf7c9547c789462169d0db7472",
+    "Statement.lean": "ac7160af49ed699e13856c10d7a0aba637aaa5f76e30eb1ca943a9cbf3136a9d",
+    "AnchorAudit.lean": "07984d6f04ab3c4bb6dc67d0ac29889660e687a14202509d5b712b4b6c7deef8",
+    "ObligationTree.lean": "f2d917824b406c3d871d3621d392a78200ff92d58172a96d934ea7e6ee0531b9",
+    "LawReduction.lean": "1a5394659dba9d5d1502494a636fdc71b47799322684d72f22cc1de07bfd6f96",
+    "Validation.lean": "6aad43cd2e46cb4b63ebabdfe8b0428072a887038118812f145ca7ed800f09d4",
+    "source-statement-crosswalk.md": "ad7f36e7c5919590008c8340dd11e54d94c4d3f5fe2b2f217e14e6133fecc56a",
+    "statement.json": "12da4e651eafb78d25193163da4a9138d05147d16d2faa9ac6f8215ff1259a1b",
+    "anchor-audit.json": "33c82a2973972d046376847e801c23450509df3ff18f44c344e506db421dfe10",
+    "obligation-registry.json": "0da7c6b059548a2a6c77db369d025695669c9be1ab452c63e9adf03426d2d355",
+    "typed-graphs.json": "6f820c55b712708851b9595abbca0b6f1b5f289a2fc4b7a75abaea9f6f850a78",
+    "proof-receipt.json": "c8a3d1875e7d7cd44324931a72fdc88ba3368077e9556848b0449293e4ae7be0",
+    "validation-receipt.json": "5f3ee75d3161179f1c38ed7047ff01a6bb7787f891d0c1b76d07f94a39d4ea58",
+    "validation-spec.json": "4515530a0f53ef6781da33445909400ed8a7cfa70c5b765615ddba2d0c6ffb83",
+    "check_validation.py": "72500f69a996002501c65e5d9ef16633205debf66266a05d3670cc5d8630997e"
+  },
+  "authority_inputs": {
+    "Docs/Stage1_Targets_rev-5.6.json": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json": "0bb2f433832fe71156aa46c0828102ec3fb61a00dec81fae129c2826a59f63ca",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "c09f9f713bdbc820559e41e1e1840423d60cc2af666aeaf5f3c88587de77f161",
+    "skills/execute-stage1-rev56/SKILL.md": "26d47a66c6535feabb8bbf1051fd55d76a53fe761f4b3d953f86b97ec86152b8",
+    "Formalizations/Lean/lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "Formalizations/Lean/lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "exact_statement_delta": "none",
+  "typed_graph_delta": "none; release records the open authority without rewriting predecessor state",
+  "actual_source_ownership": [
+    "Stage1_Instances/THM-M-1085/check_release.py"
+  ],
+  "declaration_ownership": [],
+  "readable_ownership": [
+    "Stage1_Instances/THM-M-1085/release-validation.md"
+  ],
+  "change_impact_set": [
+    "S56-M-1085-RELEASE"
+  ],
+  "known_failures": [
+    "S56-M-1085-VALIDATION and every transitive phase receipt remain provisional rather than dependency-ordered master accepted.",
+    "The exact canonical root is not kernel-closed: no LawSlepianTarget proof body is supplied or accepted, and the frozen five-obligation mathematical cut set remains open at M4.",
+    "The committed validation receipt is historical nonrelease evidence; its checker is bound to revision 4ba3f2fd, the old validation DAG row, and the validation-phase packet identity, so it is not replayable with the current release packet.",
+    "The current automation-provided pinned .lake closure is unusable because flt-regular HEAD points to refs/heads/.invalid; no current Lean replay is claimed and no dependency repair or fetch was performed.",
+    "Primary-source H0, an independently reviewed R0 reconstruction, complete graph/evidence/public-state reconciliation, and AUDIT-Z remain open.",
+    "There is no accepted foundation profile or complete transitive proof-body provenance, declaration, axiom, compiled-artifact, trust, TCB, SBOM, and license closure.",
+    "There is no immutable clean empty-cache cold build, offline archive restoration, two independent signed runners, independently implemented minimal verifier, protected release CI, or deterministic content-addressed release bundle.",
+    "This worker checkout has the automation-provided untracked shared .lake link and the declared release artifacts, so it is explicitly nonrelease evidence.",
+    "No receipt is accepted; AUDIT-Z, THEOREM-Z, release, theorem completion, and master acceptance remain open."
+  ],
+  "retry_condition": "First implement and kernel-close the exact finite Gaussian lower-orthant comparison and every frozen interpolation obligation, then obtain dependency-ordered master acceptance through validation. Restore the exact pinned dependency artifact without a moving fetch, reconcile and accept H0/R0/AUDIT-Z plus foundation/provenance/trust closure, and run the immutable cold offline supply-chain and independent-verification protocol producing a deterministic release bundle before final THEOREM-Z reconsideration.",
+  "worktree_classification": "nonrelease worker clone: the automation-provided Formalizations/Lean/.lake symlink is untracked, its flt-regular checkout is unusable, and the owned release artifacts plus worker packet are provisional changes",
+  "freshness": {
+    "owner": "THM-M-1085 release lane",
+    "reviewer": "independent Stage1 integration lane",
+    "review_due": "before master acceptance and after any bound input or artifact-state change",
+    "support_state": "provisional_nonrelease_worker_evidence",
+    "supersession_state": "current_worker_proposal",
+    "revocation_state": "unaccepted",
+    "incident_path": "Revoke and rerun S56-M-1085-RELEASE after any input, dependency artifact, or gate-status change."
+  },
+  "status_boundary": "Self-tested negative release reconciliation only. It advances no lifecycle, debt, obligation, audit, theorem, or acceptance state; accepts no receipt; and does not claim a current Lean replay, E0/E1, M0, H0, R0, AUDIT-Z, THEOREM-Z, release grade, theorem completion, independent verification, or master acceptance."
+}
