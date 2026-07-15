@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-release-recipe/1.0",
+  "recipe_id": "S56-M-0957-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0957-RELEASE",
+  "theorem_id": "THM-M-0957",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0957/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The checker performs only local structured-data, Git, content-hash, source-hygiene, and release-authority reconciliation. It invokes no network client and never updates, builds, fetches, clones, or repairs dependencies. The separate narrow Lean command recorded by the worker uses the existing pinned artifacts through lake env lean and is explicitly warm nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/BLOCKED release reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0957-ROOT",
+    "M0957-S-FOUNDATION",
+    "M0957-X-SOURCE",
+    "M0957-X-PROVENANCE",
+    "M0957-X-TRUST",
+    "M0957-X-READABLE",
+    "M0957-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0957.BehrendConstructionTarget",
+    "Stage1Instances.THM_M_0957.sourceThreeAPFree_iff_threeAPFree",
+    "Stage1Instances.THM_M_0957.behrendConstructionTarget_iff_finiteSet",
+    "Stage1Instances.THM_M_0957_ObligationTree.behrendConstructionTarget_proof"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Fail-closed reconciliation of the current v2 dependency context, rev-5.6 authority, exact target evidence, and provisional validation receipt. It self-tests only the blocked release verdict. It supplies no accepted predecessor receipt, M0-L/E0/E1 credit, H0/R0, complete provenance/foundation/TCB/SBOM closure, immutable clean input, cold empty-cache offline replay, deterministic release bundle, distinct signed runner, independent minimal verifier, AUDIT-Z, THEOREM-Z, theorem completion, release acceptance, or master acceptance."
+}

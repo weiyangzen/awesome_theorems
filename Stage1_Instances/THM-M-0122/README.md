@@ -1,9 +1,11 @@
 # THM-M-0122: Faltings' theorem
 
 This directory is the rev-5.6 planned dossier for the Mordell-conjecture
-consequence of Faltings' work. `S56-M-0122-STATEMENT` now has worker-local
-self-tested exact-target evidence; the intake dependency and statement receipt
-remain provisional pending dependency-ordered master acceptance.
+consequence of Faltings' work. `S56-M-0122-STATEMENT` has worker-local
+self-tested exact-target evidence, and `S56-M-0122-ANCHOR_AUDIT` now has a
+bounded immutable candidate inventory. The intake dependency, statement
+receipt, and anchor-audit receipt remain provisional pending dependency-ordered
+master acceptance.
 
 ## Status boundary
 
@@ -38,11 +40,21 @@ boundary evidence. Their conclusion that no statement artifact could be
 created is superseded by the repository's explicit semantic-interface policy
 used here; they remain useful evidence that a native genus API is unavailable.
 
+The anchor inventory checks pinned mathlib representation, Northcott, and
+descent support and finds no terminal Faltings declaration. Its only direct
+external name match is
+`facebookresearch/atlas-lean@34ffed396f376454c1a9b297f3fd74c5c801fb50`;
+that declaration has a materially different `Q`-only curve encoding and ends
+in `by sorry`, so it receives no proof credit. `anchor-audit.json` and
+`external-anchor-snapshot.json` preserve the exact bounded evidence and search
+limits. The empty `dependency-reuse-ledger.json` records the authoritative v2
+closure; emptiness is not a mathematical independence claim.
+
 ## Open task DAG
 
 1. `S56-M-0122-STATEMENT`: worker-self-tested, pending master acceptance.
-2. `S56-M-0122-ANCHOR_AUDIT`: audit mathlib and external Lean 4 candidates at
-   immutable revisions and finish the primary-source locator audit.
+2. `S56-M-0122-ANCHOR_AUDIT`: bounded candidate inventory worker-self-tested,
+   pending master acceptance; the separate primary-source H0 audit remains open.
 3. `S56-M-0122-OBLIGATION_TREE`: freeze typed proof, provenance, trust,
    evidence, documentation, and workflow graphs.
 4. `S56-M-0122-PROOF`: provide genuine terminal proof bodies or pinned imports.

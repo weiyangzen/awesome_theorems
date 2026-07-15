@@ -1,0 +1,138 @@
+{
+  "schema_version": "stage1-external-anchor-snapshot/1.0",
+  "item_id": "S56-M-0122-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0122",
+  "observed_at": "2026-07-16T05:00:00+08:00",
+  "snapshot_role": "Content-addressed observations from immutable public source URLs and bounded public indexes; not vendored source, a dependency, or proof evidence.",
+  "atlas_faltings": {
+    "project": "facebookresearch/atlas-lean",
+    "remote": "https://github.com/facebookresearch/atlas-lean.git",
+    "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+    "tree": "c12fe2315fe475d70a4fcee81d6b731f853373ab",
+    "file": "Atlas/ArithmeticGeometry/code/FaltingsTheorem.lean",
+    "git_blob": "4579d134c827f2512293b185cccc06d896147790",
+    "immutable_raw_url": "https://raw.githubusercontent.com/facebookresearch/atlas-lean/34ffed396f376454c1a9b297f3fd74c5c801fb50/Atlas/ArithmeticGeometry/code/FaltingsTheorem.lean",
+    "source_bytes": 2323,
+    "source_sha256": "b5aca9ae03c178c908fdf0e28d4dd8672643b16390b25e9b9771882726ed8f01",
+    "declaration": "faltings_theorem",
+    "declaration_type": "(C : IrreducibleCurveOverQ) -> C.genus > 1 -> Finite C.ratPoints",
+    "terminal_body_location": "Atlas/ArithmeticGeometry/code/FaltingsTheorem.lean:60-61",
+    "terminal_body_excerpt": "theorem faltings_theorem (C : IrreducibleCurveOverQ) (hg : C.genus > 1) :\n    Finite C.ratPoints := by sorry",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "toolchain_file_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+    "lake_manifest_sha256": "9559872c8f0e7d25aa07199f2d618148a03c00e8d17d8789135fa2315259441c",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "license_sha256": "289dc0e96c537ecc7883cd94c3f65e2b691ac0fd6f4372fc01604531cbbf1abc",
+    "license_summary": "CC BY-NC 4.0 with a repository no-training rider; commercial and model-development uses are prohibited",
+    "actions_query_sha256": "52d589da93373d1efadfa660185a0970a1b2320703a8b87d6ed693946661e1cd",
+    "actions_total_count": 0,
+    "placeholder_status": "direct proof body is by sorry and therefore elaborates through sorryAx rather than a proof",
+    "axiom_status": "No kernel axiom replay was credited; the direct placeholder is already disqualifying.",
+    "unsafe_oracle_status": "No separate unsafe/oracle route was identified in the candidate file; this does not mitigate sorryAx.",
+    "normalized_mismatch": [
+      "The candidate quantifies only over a custom curve over Q, while the frozen target quantifies over every number field.",
+      "IrreducibleCurveOverQ stores a free Nat genus and constrains it only for one plane-curve case, rather than using the frozen concrete H^1 condition.",
+      "Its polynomial quotient projective points have no checked transport to scheme sections in the frozen target.",
+      "The direct placeholder prevents any terminal proof-body credit independently of the statement mismatch."
+    ],
+    "dependency_feasibility": "Lean and mathlib pins match the local closure, but Atlas is absent from lake-manifest.json, its source is not integrated, the direct body is invalid, and the restrictive license would require review.",
+    "classification": "M5_direct_placeholder_and_material_statement_mismatch"
+  },
+  "sourcegraph_observations": [
+    {
+      "query": "context:global archived:yes fork:yes Faltings lang:Lean count:100",
+      "done": true,
+      "match_count": 12,
+      "repositories_count": 1,
+      "skipped": [],
+      "response_sha256": "26e6df146045941ab059b2c6696472fdcfaf8b327c80c57774c41db2bd0c8d47",
+      "matches": [
+        {
+          "repository": "github.com/facebookresearch/atlas-lean",
+          "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+          "path": "Atlas/ArithmeticGeometry/code/FaltingsTheorem.lean",
+          "diagnosis": "direct Faltings declaration, audited above"
+        },
+        {
+          "repository": "github.com/facebookresearch/atlas-lean",
+          "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+          "path": "Atlas/EllipticCurves/code/ModularForms.lean",
+          "diagnosis": "Faltings-Tate isogeny name match, not curve rational-point finiteness"
+        },
+        {
+          "repository": "github.com/facebookresearch/atlas-lean",
+          "revision": "34ffed396f376454c1a9b297f3fd74c5c801fb50",
+          "path": "Atlas/ArithmeticGeometry/ArithmeticGeometry.lean",
+          "diagnosis": "aggregate import of the placeholder file, not another proof body"
+        }
+      ]
+    },
+    {
+      "query": "context:global archived:yes fork:yes \"Mordell conjecture\" lang:Lean count:100",
+      "done": true,
+      "match_count": 0,
+      "skipped": [],
+      "response_sha256": "d569733db878ba562756a365cebd274d9939989fd42b8a027ee15c0753d13162"
+    },
+    {
+      "query": "context:global archived:yes fork:yes (Faltings OR FaltingsTheorem OR faltings_theorem OR MordellConjecture OR \"Mordell conjecture\") lang:Lean count:100",
+      "done": true,
+      "match_count": 12,
+      "repositories_count": 1,
+      "skipped": [],
+      "response_sha256": "8e5bea96264e3dabf78d300ad9dffcbe5a6ab3d6b52098e6b5fb145356404728",
+      "result": "Only the three Atlas paths already classified above were returned."
+    },
+    {
+      "query": "repo:^github.com/facebookresearch/atlas-lean$@34ffed396f376454c1a9b297f3fd74c5c801fb50 file:Atlas/ArithmeticGeometry/code/FaltingsTheorem.lean (sorry OR axiom OR theorem) count:100",
+      "done": true,
+      "match_count": 3,
+      "repositories_count": 1,
+      "skipped": [],
+      "response_sha256": "358d82cfe7320ba336aaafe39792ae0f8093cfd4b41608d1d8cf438f16dc5e55",
+      "result": "The immutable indexed source displays the theorem declaration and its direct by-sorry body."
+    }
+  ],
+  "github_repository_observations": [
+    {
+      "queries": [
+        "quoted Faltings theorem Lean",
+        "quoted Mordell conjecture Lean",
+        "Faltings Lean",
+        "FaltingsTheorem Lean",
+        "MordellConjecture Lean",
+        "quoted genus at least two Lean",
+        "quoted rational points NumberField Lean"
+      ],
+      "http_status": 200,
+      "total_counts": [0, 0, 0, 0, 0, 0, 0],
+      "incomplete_results": [false, false, false, false, false, false, false],
+      "empty_response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2",
+      "boundary": "Repository metadata search is not source-code search and is not exhaustive."
+    }
+  ],
+  "statement_collection_observation": {
+    "project": "google-deepmind/formal-conjectures",
+    "revision": "7871d8fc7a8164a1ac16c3765b40c25ce015b681",
+    "toolchain": "leanprover/lean4:v4.27.0",
+    "result": "The immutable recursive tree recorded by the repository-local THM-M-0395 audit has no path containing Faltings or Mordell.",
+    "evidence_path": "Stage1_Instances/THM-M-0395/anchor-audit.json",
+    "evidence_sha256": "95830e54e3dfaf915b3fd3a5d2f632e2ca9cb1bf2cb6d3ace87a5b9abbc3867b",
+    "classification": "no_candidate_path_in_recorded_immutable_tree"
+  },
+  "access_failures": [
+    {
+      "service": "GitHub anonymous code search",
+      "queries": ["Faltings language:Lean", "quoted Mordell conjecture language:Lean"],
+      "status": "HTTP 401 Requires authentication",
+      "response_sha256": "b7dbd173f33b19650f61b1c528737e2037cf768d90076fdfce5d32541765e29e",
+      "boundary": "No code-search negative result is claimed."
+    },
+    {
+      "service": "GitHub core API after the recorded observations",
+      "status": "shared anonymous core limit exhausted during an attempted independent refresh of the formal-conjectures tree",
+      "boundary": "The failed refresh does not replace or strengthen the existing content-bound observation."
+    }
+  ],
+  "replay_boundary": "The target-owned checker validates the immutable source excerpt, pins, hashes, inventory, and classification offline. Network refresh is a new discovery version and must not silently change this snapshot."
+}

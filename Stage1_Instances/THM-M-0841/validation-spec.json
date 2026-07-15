@@ -1,0 +1,52 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0841-VALIDATION",
+  "theorem_id": "THM-M-0841",
+  "depends_on": [
+    "S56-M-0841-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0841-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0841/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line PASS/OPEN/FAIL CLOSED summary; root, proof-dependency, hermetic, and distinct-runner gates remain fail-closed"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0841-ROOT",
+        "M0841-S-COMPLEMENT-TRANSPORT",
+        "M0841-B-R-TWO",
+        "M0841-B-R-GE-THREE",
+        "M0841-T-DENSE-ASSEMBLE",
+        "M0841-T-ROOT-COMPOSE",
+        "M0841-X-PROVENANCE",
+        "M0841-X-TRUST"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0841.ErdosStoneTarget",
+        "Stage1Instances.THM_M_0841_Proof.cast_choose_two",
+        "Stage1Instances.THM_M_0841_Proof.card_edgeFinset_compl",
+        "Stage1Instances.THM_M_0841_Proof.sparseFromDense",
+        "Stage1Instances.THM_M_0841_Proof.denseFamily_of_base_step",
+        "Stage1Instances.THM_M_0841_Proof.erdosStone_of_dense_base_step",
+        "Stage1Instances.THM_M_0841_Validation.rootFromDenseProducts"
+      ],
+      "coverage_boundary": "The recipe validates the exact frozen statement, the five partial proof declarations, and a separately written composition conditional on DenseBase and DenseStep. It supplies no inhabitants of those premises and no root-closure, complete provenance/TCB, cold hermetic, or distinct-runner evidence."
+    }
+  ]
+}
