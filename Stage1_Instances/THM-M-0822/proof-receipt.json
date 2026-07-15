@@ -1,0 +1,348 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0822-PROOF-pinned-20260715T153320+0800",
+  "item_id": "S56-M-0822-PROOF",
+  "theorem_id": "THM-M-0822",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "8cfd5229cfb37c4199bfe53eb119c41667c21dc1",
+  "base_tree": "eaabd11d8998cd8462d62808d48ffc4af5912a2b",
+  "worker_ref": {
+    "worktree": "stage1-rev56 worker slot73 automation clone",
+    "release_clean": false
+  },
+  "validated_at": "2026-07-15T15:33:20+08:00",
+  "review_due": "2026-08-14",
+  "attestor": "stage1-rev56-worker-slot73",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "content_addressed_receipt_id": null,
+  "supersession_state": "active_provisional_until_master_acceptance_or_invalidation",
+  "incident_path": "Stage1 integration lane revocation and requeue for S56-M-0822-PROOF",
+  "diff_summary": "Adds an exact proof module, isolated Lean runner, fail-closed source/pin/graph checker, provisional receipt, proof notes, and worker packet. The canonical statement, registry, typed graphs, authoritative execution DAG, and accepted state are unchanged.",
+  "exact_statement_delta": "none; Proof.lean consumes the unchanged Stage1Instances.THM_M_0822.ErdosKoRadoMaximumTarget",
+  "typed_graph_delta": "none; Proof.lean realizes all eleven frozen required-machine obligations without changing registry version 1 or its denominator",
+  "canonical_target": "Stage1Instances.THM_M_0822.ErdosKoRadoMaximumTarget",
+  "canonical_target_expression_sha256": "646e9860afcf5efd962b6f69c9c2825220f23418d05f7675490b783e63afe209",
+  "registry_denominator_sha256": "40ff944c9434231f2656a60ff306e27b69ef6fe302df8dc1bd56f89d314a8f15",
+  "exact_declarations": [
+    "Stage1Instances.THM_M_0822.Proof.groundElement",
+    "Stage1Instances.THM_M_0822.Proof.starConstruction",
+    "Stage1Instances.THM_M_0822.Proof.starImage",
+    "Stage1Instances.THM_M_0822.Proof.starIntersecting",
+    "Stage1Instances.THM_M_0822.Proof.starSized",
+    "Stage1Instances.THM_M_0822.Proof.starCard",
+    "Stage1Instances.THM_M_0822.Proof.starAttainment",
+    "Stage1Instances.THM_M_0822.Proof.mathlibUpperBound",
+    "Stage1Instances.THM_M_0822.Proof.universalUpperBound",
+    "Stage1Instances.THM_M_0822.Proof.exactAssembly",
+    "Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum"
+  ],
+  "provisionally_closed_proof_obligation_ids": [
+    "M0822-ROOT",
+    "M0822-T-ASSEMBLE",
+    "M0822-T-ATTAINMENT",
+    "M0822-C-STAR",
+    "M0822-L-STAR-IMAGE",
+    "M0822-L-STAR-INTERSECTING",
+    "M0822-L-STAR-SIZED",
+    "M0822-L-STAR-CARD",
+    "M0822-L-GROUND-ELEMENT",
+    "M0822-T-UPPER-ADAPTER",
+    "M0822-T-MATHLIB-EKR"
+  ],
+  "required_machine_open_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "terminal_body_boundary": {
+    "frozen_distinct_terminal_body_count": 10,
+    "accepted_terminal_body_ids": [],
+    "proof_phase_terminal_body_acceptance_claimed": false,
+    "transitive_body_still_to_validate": "mathlib4@8a178386ffc0f5fef0b77738bb5449d50efeea95:f388fc0bfd201e1d9eb1279b5bd1c6dcbd253b34#Finset.kruskal_katona_lovasz_form",
+    "boundary": "This proof phase checks exact root elaboration through Finset.erdos_ko_rado but does not claim E1, accepted distinct-terminal-body closure, or transitive provenance/trust validation."
+  },
+  "proof_graph_composition": {
+    "root_declaration": "Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum",
+    "all_required_proof_edges_consumed": true,
+    "unverified_decomposition_count": 0,
+    "checked_composition_certificate_count": 6,
+    "certificates": [
+      {
+        "parent_obligation_id": "M0822-ROOT",
+        "required_child_ids": ["M0822-T-ASSEMBLE"],
+        "declaration": "Stage1Instances.THM_M_0822.ObligationTree.rootOfExactAssembly"
+      },
+      {
+        "parent_obligation_id": "M0822-T-ASSEMBLE",
+        "required_child_ids": [
+          "M0822-T-ATTAINMENT",
+          "M0822-T-UPPER-ADAPTER"
+        ],
+        "declaration": "Stage1Instances.THM_M_0822.ObligationTree.composeRoot"
+      },
+      {
+        "parent_obligation_id": "M0822-T-ATTAINMENT",
+        "required_child_ids": [
+          "M0822-C-STAR",
+          "M0822-L-STAR-INTERSECTING",
+          "M0822-L-STAR-SIZED",
+          "M0822-L-STAR-CARD"
+        ],
+        "declaration": "Stage1Instances.THM_M_0822.ObligationTree.attainment_of_starPackages"
+      },
+      {
+        "parent_obligation_id": "M0822-C-STAR",
+        "required_child_ids": ["M0822-L-GROUND-ELEMENT"],
+        "declaration": "Stage1Instances.THM_M_0822.ObligationTree.starConstruction_of_groundElement"
+      },
+      {
+        "parent_obligation_id": "M0822-L-STAR-CARD",
+        "required_child_ids": ["M0822-L-STAR-IMAGE"],
+        "declaration": "Stage1Instances.THM_M_0822.ObligationTree.starCard_of_image"
+      },
+      {
+        "parent_obligation_id": "M0822-T-UPPER-ADAPTER",
+        "required_child_ids": ["M0822-T-MATHLIB-EKR"],
+        "declaration": "Stage1Instances.THM_M_0822.ObligationTree.upperBound_of_mathlibTerminal"
+      }
+    ],
+    "deduplication_boundary": "The target-owned star proofs and exact local composition are repo-local. The universal bound is credited once to Finset.erdos_ko_rado in manifest-pinned mathlib; its refinement-graph source exposition does not create additional proof-premise nodes or duplicate terminal-body credit."
+  },
+  "proof_body": {
+    "classification": "local_wrapper_upstream_mathlib_with_repo_local_attainment_and_frozen_composition",
+    "machine_candidate_classification": "classification_pending_master_validation: exact root body is repo-local and its universal-bound terminal is pinned mathlib",
+    "source": "Stage1_Instances/THM-M-0822/Proof.lean",
+    "source_sha256": "1fe64b97e021ac3a3a817bf6d24af075ecdf5f7a61fc056b773d2bfc9e74cb01",
+    "terminal_declaration": "Finset.erdos_ko_rado",
+    "terminal_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "terminal_source": "Mathlib/Combinatorics/SetFamily/KruskalKatona.lean",
+    "terminal_source_blob": "f388fc0bfd201e1d9eb1279b5bd1c6dcbd253b34",
+    "terminal_source_sha256": "c6351d7ee422db9eed8f45335f4128eb3a66fe09997d12abc15eba38e9863f1c",
+    "terminal_olean_sha256": "96e8f29576d4353c3fa6450edc9bb096454f80512eb778c1c5da7599cd0c584a",
+    "terminal_body_lines": "343-390",
+    "terminal_body_sha256": "bafaad9695ea929dc30acd5dbc1275c48eb5d062b99c56e0ddd2013374e783c0",
+    "body_location_boundary": "The universal upper-bound body remains in manifest-pinned mathlib and is not vendored. The star construction, image/count proof, attainment, adapters, and exact two-conjunct root composition are target-local."
+  },
+  "provisional_obligation_evidence": [
+    {
+      "obligation_id": "M0822-ROOT",
+      "statement_fingerprint": "lean-expression-sha256:646e9860afcf5efd962b6f69c9c2825220f23418d05f7675490b783e63afe209",
+      "declarations": ["Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum"]
+    },
+    {
+      "obligation_id": "M0822-T-ASSEMBLE",
+      "statement_fingerprint": "planned:v1:sha256:95c8f9a6c004832c870082e14b5f4c783a8bbb8c0d869ab939d7c38f4f113b80",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.exactAssembly",
+        "Stage1Instances.THM_M_0822.ObligationTree.composeRoot"
+      ]
+    },
+    {
+      "obligation_id": "M0822-T-ATTAINMENT",
+      "statement_fingerprint": "planned:v1:sha256:e10979e4827dea280461c4f813fe44905545cd6a74cecba1b78456199728138d",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.starAttainment",
+        "Stage1Instances.THM_M_0822.ObligationTree.attainment_of_starPackages"
+      ]
+    },
+    {
+      "obligation_id": "M0822-C-STAR",
+      "statement_fingerprint": "planned:v1:sha256:d7a23bcbee1920db43e495b38f75b9fcd44eaf394f07dd74618d17c76608d60a",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.starConstruction",
+        "Stage1Instances.THM_M_0822.ObligationTree.starConstruction_of_groundElement",
+        "Stage1Instances.THM_M_0822.erdosKoRadoStar"
+      ]
+    },
+    {
+      "obligation_id": "M0822-L-STAR-IMAGE",
+      "statement_fingerprint": "planned:v1:sha256:b80905c17b1954f9ac03cd6d285f407c0ae0153d7cb1189d4df1735a62be3630",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.starImage",
+        "Stage1Instances.THM_M_0822.erdosKoRadoStar_eq_image"
+      ]
+    },
+    {
+      "obligation_id": "M0822-L-STAR-INTERSECTING",
+      "statement_fingerprint": "planned:v1:sha256:3fd99a5f2c06aa9387357361398225b2573c359b0a432cbe1ebefd957d1bc889",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.starIntersecting",
+        "Stage1Instances.THM_M_0822.erdosKoRadoStar_intersecting"
+      ]
+    },
+    {
+      "obligation_id": "M0822-L-STAR-SIZED",
+      "statement_fingerprint": "planned:v1:sha256:fe8fc961dfe7ccc522444f46d889370b54ec3bcbe963ccce34757f9d3427fd6a",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.starSized",
+        "Stage1Instances.THM_M_0822.erdosKoRadoStar_sized"
+      ]
+    },
+    {
+      "obligation_id": "M0822-L-STAR-CARD",
+      "statement_fingerprint": "planned:v1:sha256:09f2806e5542dd0a8900ce0d0c8fc141b23421e73a257af8d48bac746f4d90a3",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.starCard",
+        "Stage1Instances.THM_M_0822.ObligationTree.starCard_of_image",
+        "Stage1Instances.THM_M_0822.card_erdosKoRadoStar"
+      ]
+    },
+    {
+      "obligation_id": "M0822-L-GROUND-ELEMENT",
+      "statement_fingerprint": "planned:v1:sha256:975d21b934e9b3429e332a0fc5c69dc931d751d30f18ea5bcf5c57be47ab9a9d",
+      "declarations": ["Stage1Instances.THM_M_0822.Proof.groundElement"]
+    },
+    {
+      "obligation_id": "M0822-T-UPPER-ADAPTER",
+      "statement_fingerprint": "planned:v1:sha256:c7972be124953a85c26c6444f0ebe8fe271f2ab89d9a4ad01b4d830d8a78d227",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.universalUpperBound",
+        "Stage1Instances.THM_M_0822.ObligationTree.upperBound_of_mathlibTerminal"
+      ]
+    },
+    {
+      "obligation_id": "M0822-T-MATHLIB-EKR",
+      "statement_fingerprint": "planned:v1:sha256:7773cc974dde39dc61e49e70688265808c943470308c7c1d19638697f17fccb4",
+      "declarations": [
+        "Stage1Instances.THM_M_0822.Proof.mathlibUpperBound",
+        "Stage1Instances.THM_M_0822.ObligationTree.pinnedMathlibUpperBound",
+        "Finset.erdos_ko_rado"
+      ]
+    }
+  ],
+  "inputs": {
+    "statement_sha256": "b91d0fce7cd10a12585860b11af519cbe7496f555d04a751d5b4b6309309582d",
+    "obligation_tree_sha256": "2a1b89b25537b105eaba06fcf100fe6811b1f29470282ae24c469f4467322696",
+    "obligation_registry_sha256": "57d38c8d20bc4c8615707d52c7e30b18f0976af68cb1eed0a95a2e88de82e716",
+    "typed_graphs_sha256": "2b4ad3930023606c4f25a07fa2c8c11908d396de19c54d4f116914e921a742e5",
+    "anchor_audit_sha256": "380c1d6f3e10084bc82f24fca8a881a12fdc4794885b2e3f1ff7b5fd7985afee",
+    "validation_specs_sha256": "14d396502a30d7753756b1e8a4834bd167e53a868d3760978410dd41f0dbd801",
+    "check_proof_py_sha256": "e1541fe0698814cd83d1ada967d37793c4bad159d15f74957cdd36cf4531bf91",
+    "check_proof_sh_sha256": "c8c3717a06730996b1ad0082dc3564bebb31245bb27c72372230e74f193f72f1",
+    "proof_validation_sha256": "856b0adfe2e271126019968b728ad0adfe4b0e911b406077a59da8d254c7b257",
+    "worker_packet_sha256": "d14caabd8689eae5bb7a3c84c24f993d410aa7d085b5cc3ebb800a9580b53953",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "environment": {
+    "toolchain": "Lean 4.29.0, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "network": "not_used",
+    "dependency_cache": "automation-provided canonical pinned .lake symlink, reused read-only"
+  },
+  "recipe": {
+    "recipe_id": "S56-M-0822-PROOF-LEAN",
+    "cwd": ".",
+    "argv": ["bash", "Stage1_Instances/THM-M-0822/check_proof.sh"],
+    "env_allowlist": {
+      "LEAN_NUM_THREADS": "1",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC",
+      "ambient_runner_environment": "inherited_for_nonrelease_worker_evidence"
+    },
+    "timeout_seconds": 240,
+    "network_policy": "not_used_but_not_os_enforced_in_worker_clone",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "contains Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum : ErdosKoRadoMaximumTarget"
+      },
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "contains exactly 12 Declarations are sorry-free! reports"
+      },
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "contains exactly 12 axiom reports, each a subset of [propext, Classical.choice, Quot.sound]"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M0822-ROOT",
+      "M0822-T-ASSEMBLE",
+      "M0822-T-ATTAINMENT",
+      "M0822-C-STAR",
+      "M0822-L-STAR-IMAGE",
+      "M0822-L-STAR-INTERSECTING",
+      "M0822-L-STAR-SIZED",
+      "M0822-L-STAR-CARD",
+      "M0822-L-GROUND-ELEMENT",
+      "M0822-T-UPPER-ADAPTER",
+      "M0822-T-MATHLIB-EKR"
+    ],
+    "covered_declarations": [
+      "Finset.erdos_ko_rado",
+      "Stage1Instances.THM_M_0822.Proof.groundElement",
+      "Stage1Instances.THM_M_0822.Proof.starConstruction",
+      "Stage1Instances.THM_M_0822.Proof.starImage",
+      "Stage1Instances.THM_M_0822.Proof.starIntersecting",
+      "Stage1Instances.THM_M_0822.Proof.starSized",
+      "Stage1Instances.THM_M_0822.Proof.starCard",
+      "Stage1Instances.THM_M_0822.Proof.starAttainment",
+      "Stage1Instances.THM_M_0822.Proof.mathlibUpperBound",
+      "Stage1Instances.THM_M_0822.Proof.universalUpperBound",
+      "Stage1Instances.THM_M_0822.Proof.exactAssembly",
+      "Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum"
+    ]
+  },
+  "result": {
+    "exit_code": 0,
+    "output_summary": "Temporary Statement.olean and ObligationTree.olean built; the target-owned attaining star, pinned mathlib universal bound, and exact two-conjunct frozen root elaborated and passed sorry and axiom checks.",
+    "lean_stdout_sha256": "bd4b75ea37ddb8e4bb0da44456df3c304e550b93bad36e4d94c3b5cb13c2f712",
+    "lean_stdout_bytes": 2563,
+    "lean_stderr": "merged_into_stdout_by_nonrelease_worker_runner; no independent stderr digest claimed",
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "placeholder_scan": "pass: no sorry, admit, custom axiom, sorryAx, unsafe, opaque, native oracle, external declaration, or implementation escape",
+    "root_kernel_closed": true,
+    "accepted_root_closed": false,
+    "theorem_complete": false
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0822/Proof.lean",
+    "Stage1_Instances/THM-M-0822/check_proof.py",
+    "Stage1_Instances/THM-M-0822/check_proof.sh",
+    "Stage1_Instances/THM-M-0822/proof-receipt.json",
+    "Stage1_Instances/THM-M-0822/proof-validation.md"
+  ],
+  "root_vector_before": {"H": "H1", "M": "M3", "R": "R4"},
+  "proposed_root_vector_after_proof_node_acceptance": {"H": "H1", "M": "M3", "R": "R4"},
+  "eligible_root_vector_after_E1_and_downstream_acceptance": {"H": "H1", "M": "M0-class-pending", "R": "R4"},
+  "accepted_root_vector_after_worker_selftest": {"H": "H1", "M": "M3", "R": "R4"},
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "first_failed_gate": "dependency-ordered master acceptance of S56-M-0822-OBLIGATION_TREE",
+  "remaining_root_cut_set": [
+    "M0822-S-FOUNDATION",
+    "M0822-X-SOURCE",
+    "M0822-X-PROVENANCE",
+    "M0822-X-TRUST",
+    "M0822-X-READABLE",
+    "M0822-X-WORKFLOW",
+    "master acceptance of this provisional proof evidence",
+    "downstream validation and release gates"
+  ],
+  "known_failures": [
+    "S56-M-0822-OBLIGATION_TREE and its earlier prerequisites have provisional evidence but await dependency-ordered master acceptance.",
+    "The accepted root and proof-node-acceptance proposal remain H1/M3/R4; the eventual M0-L versus M0-W classification requires master validation because the exact root body is local while its universal-bound terminal is pinned mathlib.",
+    "The imported EKR body's refinement-graph source exposition is not counted as additional proof-premise closure or duplicate terminal-body credit; complete transitive provenance and trust remain validation work.",
+    "Human-source H0, readable R0, full transitive foundation/trust/provenance closure, hermetic replay, independent verification, AUDIT-Z, THEOREM-Z, validation, release, and theorem completion remain open.",
+    "The canonical .lake symlink is pre-existing untracked worker-clone state and was used read-only."
+  ],
+  "invalidation_inputs": [
+    "Proof.lean",
+    "Statement.lean or the canonical expression fingerprint",
+    "ObligationTree.lean, obligation-registry.json, typed-graphs.json, or composition certificates",
+    "anchor-audit.json or validation-specs.json",
+    "check_proof.py, check_proof.sh, proof-validation.md, or worker packet",
+    "mathlib revision, KruskalKatona source/blob/olean, or Finset.erdos_ko_rado body",
+    "Lean toolchain, executable, axiom/placeholder profile, or rev-5.6 assurance standard"
+  ]
+}

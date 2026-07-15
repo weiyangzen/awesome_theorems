@@ -1,53 +1,76 @@
-# THM-M-0508 proof-phase attempt
+# THM-M-0508 proof-phase validation
 
-Item: `S56-M-0508-PROOF`  
-Date: `2026-07-12` (`Asia/Shanghai`)  
-Base revision: `e3d0fd205c9c81486cb86f68cdc66d4d4e5bb264`
+Item: `S56-M-0508-PROOF`
 
-## Verdict
+Base revision: `8714972d4cf7ae256a92b9e35032c9df1bf5745c`
 
-`blocked`: no eligible proof body for the exact Vinogradov three-primes target exists in the
-repository or pinned dependency closure. The immediate unavailable proof package is
-`M0508-N-FOURIER`, the ternary exponential-sum integral identity for the frozen finite
-representation count. The first open root cut also includes the arc partition, major-arc
-asymptotic, positive singular-series estimate, and minor-arc bound.
+Base tree: `080d14e14102a733c6992aa0644e3c65d755e91b`
 
-`ObligationTree.lean` already contains genuine unconditional bodies for
-`representationCount_pos_iff` and the child-to-root composition
-`root_of_eventualPositiveRepresentationCount`. The latter requires
-`EventualPositiveRepresentationCount` as an explicit premise and therefore does not prove it. The
-prerequisite immutable anchor audit found no eligible terminal Lean proof: the only relevant
-external declaration discovered was stronger but had a literal `sorry` body and was rejected.
-A fresh bounded scan of pinned mathlib found no matching terminal theorem.
+## Implemented bodies
 
-Closing the target requires a new formalization of the ternary circle method, including the
-Fourier normalization, major/minor arc construction, major asymptotic, singular-series positivity,
-minor estimate, and eventual-positivity assembly. Postulating any package, importing the rejected
-placeholder, or presenting the conditional composition as the root proof would violate the frozen
-target. Root debt remains `M4`, `root_closed=false`, and `theorem_complete=false`. Because the
-assigned proof phase is incomplete, `.stage1-worker-selftest.json` is deliberately absent.
+`Proof.lean` adds two exact, unconditional theorem bodies at the previously
+prose-bound cross-module boundary:
 
-## Narrow validation evidence
+- `vinogradovThreePrimesTarget_iff_eventualPositiveRepresentationCount`
+  proves both directions between the canonical target from `Statement.lean`
+  and eventual positivity of the finite count from `ObligationTree.lean`;
+- `vinogradovThreePrimesTarget_of_eventualPositiveRepresentationCount`
+  exposes the exact canonical child-to-root composition.
 
-All commands ran in this worker clone and reused the canonical pinned Lake artifacts. No
-`lake update`, `lake build`, dependency clone/fetch, or `.lake` mutation was performed.
+The equivalence unpacks the common threshold and uses the already checked
+`ObligationTree.representationCount_pos_iff` in each direction. It is not an
+alias of the obligation-tree-local target: both modules are imported and Lean
+checks the transport to the canonical declaration. The frozen
+`M0508-T-ASSEMBLE` node already had a local conditional body, so this is an
+additional canonical-module composition certificate rather than progress or
+closure credit for a frozen obligation; zero frozen obligations are claimed closed by this proof
+receipt.
+
+## Boundary
+
+Neither new theorem constructs
+`ObligationTree.EventualPositiveRepresentationCount`. The frozen analytic cut
+therefore remains `M0508-N-FOURIER`, `M0508-B-ARCS`, `M0508-L-MAJOR`,
+`M0508-L-SINGULAR`, and `M0508-L-MINOR`. Closing it requires the ternary
+Fourier identity, major/minor arc partition, major-arc asymptotic, positive
+singular-series bound, minor-arc estimate, and eventual-positivity assembly.
+
+The exact root remains `[H1, M4, R3]`; `root_kernel_closed=false`,
+`audit_complete=false`, and `theorem_complete=false`. This partial proof
+handoff is not theorem completion. The existing stronger Formal Conjectures
+candidate still has a literal `sorry` body and remains forbidden evidence.
+
+## Validation
+
+All checks used the existing pinned dependency artifacts. Generated Lean
+objects and logs were written below `/tmp` and removed. No `lake update`,
+`lake build`, dependency clone/fetch, network request, or `.lake` mutation was
+performed.
 
 | Command | Exit | Exact result |
 |---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | `ok`: 15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 Lean 4 targets passed |
-| `python3 scripts/stage1_target.py check` | 0 | `ok`: 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
-| `python3 scripts/stage1_target.py show THM-M-0508` | 0 | rank 882; planned; L0/rework-required; legacy artifacts unaccepted; theorem incomplete |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 Lean 4 targets passed |
+| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
+| `python3 scripts/stage1_target.py show THM-M-0508` | 0 | rank 882; planned; L0/rework-required; theorem incomplete |
+| `python3 Stage1_Instances/THM-M-0508/check_statement.py` | 0 | elaborated-expression SHA-256 `54ddaa6f...c1ac5fb`; all four frozen statement mutations were killed |
 | `python3 Stage1_Instances/THM-M-0508/check_obligation_tree.py` | 0 | 17 obligations and 86 typed edges passed; denominator `79ff122b...53bc2`; root open M4 |
-| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0508/Statement.lean)` | 0 | exact canonical threshold target elaborated and printed |
-| `(cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0508/ObligationTree.lean)` | 0 | count equivalence and conditional root composition elaborated; both axiom reports contain only `propext`, `Classical.choice`, and `Quot.sound`; three nonfatal linter warnings |
-| `rg -n '\\b(sorry\|admit)\\b\|^[[:space:]]*axiom\\b\|^[[:space:]]*unsafe\\b' Stage1_Instances/THM-M-0508 -g '*.lean'` | 1 | expected no-match exit; no prohibited placeholder, axiom declaration, or unsafe declaration found |
-| bounded `rg -n -i` scan for Vinogradov/three-primes/ternary-Goldbach/weak-Goldbach terms in pinned mathlib Lean sources | 0 | only broad-term elementary prime hits; no relevant terminal theorem |
-| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
-| `(cd Formalizations/Lean && lake env lean --version)` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740`, Release |
-| `sha256sum` on statement, conditional assembly, registry, and anchor audit | 0 | `e27734b0...080da`; `576a3fc6...a172`; `1f5afb02...d695`; `dcb3df3d...53d00` |
+| `python3 Stage1_Instances/THM-M-0508/check_anchor_audit.py` | 0 | bounded audit, ten pinned probes, rejected placeholder candidate, and immutable mathlib pin passed |
+| `bash Stage1_Instances/THM-M-0508/check_proof.sh` | 0 | isolated `Statement`, `ObligationTree`, and `Proof` elaboration at `--trust=0 -t0` under direct pinned Lean and mathlib's `lake env lean`; proof outputs agreed; both exact bodies were sorry-free and used exactly `propext`, `Classical.choice`, and `Quot.sound`; receipt hashes and open-root boundary passed |
+| `rg -n -i --glob '*.lean' '(VinogradovThreePrimesTarget\|EventualPositiveRepresentationCount\|ternaryGoldbach\|three.?primes\|sum.?of.?three.?primes\|weak.?Goldbach\|Vinogradov.*prime)' . Formalizations/Lean/.lake/packages/mathlib/Mathlib` | 0 | only this target and blocked neighboring scaffolding matched; no eligible terminal Vinogradov proof was found |
+| `rg -n --pcre2 '\b(?:sorry\|admit)\b\|sorryAx\|^[[:space:]]*(?:axiom\|constant\|opaque\|unsafe\|extern)\b\|implemented_by\|native_decide' Stage1_Instances/THM-M-0508 --glob '*.lean'` | 1, expected | no prohibited proof device occurs |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD 'HEAD^{tree}'` | 0 | revision `8a178386...ea95`, tree `bdc39a31...e5c2b`; tracked package worktree clean |
+| `PYTHONPYCACHEPREFIX=/tmp/stage1-m0508-pycache python3 -m py_compile -q Stage1_Instances/THM-M-0508/check_proof.py` | 0 | checker syntax compiled outside the owned path |
+| `git diff --check -- Stage1_Instances/THM-M-0508 .stage1-worker-selftest.json` plus no-index checks for new files | 0 | no whitespace errors |
+
+`check_proof.sh` deterministically enumerates only existing compiled package
+directories, compiles both imported local modules to temporary `.olean` files,
+checks `Proof.lean` twice through the pinned toolchain, compares proof output,
+and removes the temporary directory on exit.
 
 ## Reopen condition
 
-Resume only after a placeholder-free implementation of the frozen circle-method packages, or
-discovery of an immutable compatible Lean 4 proof that can be pinned, exact-type transported, and
-validated in the repository closure.
+Resume root closure after placeholder-free bodies for the frozen Fourier,
+arc-partition, major-arc, singular-series, minor-arc, and eventual-positivity
+packages enter the pinned closure, or after an immutable compatible Lean 4
+proof is pinned, exact-type transported, and audited for terminal provenance
+and transitive trust.
