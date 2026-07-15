@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-release-spec/1.0",
+  "spec_id": "S56-M-0594-RELEASE-reconciliation-v1",
+  "item_id": "S56-M-0594-RELEASE",
+  "theorem_id": "THM-M-0594",
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0594-VALIDATION"
+  ],
+  "base_revision": "f976b9b21418bfda4bc815ba2a7238e932666231",
+  "base_tree": "6fbe6e3a73d5005115818a8f902da2b70f4aab24",
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_0594.WhitneyEmbeddingTarget",
+    "elaborated_expression_sha256": "32943593a17c04d3b6fab019d7cf0db88d5e59b59f3d73703e82514987e97ef6",
+    "registry_root_obligation_id": "M0594-ROOT",
+    "registry_denominator_sha256": "0ad656eddf1e42c8f47912729ceddcab9e45d56fd8a68e24b7bc82d59d367443",
+    "statement_delta": "none"
+  },
+  "decision_policy": {
+    "audit_z": "true only if the frozen inventory, typed graphs, source boundaries, evidence states, trust boundaries, and H/M/R debts are completely reconciled and accepted",
+    "theorem_z": "true only if AUDIT-Z is accepted, the exact root is kernel-closed at M0-L/M0-W/M0-P, and every composition, provenance, trust, source, readability, hermetic, freshness, and independent-verification gate is accepted",
+    "weaker_status_on_conflict": true,
+    "worker_acceptance_forbidden": true
+  },
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0594-RELEASE-current-base-reconciliation-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0594/check_release.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "HOME": "explicitly variable worker home used only to resolve the content-hashed pinned toolchain root",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied during the narrow Lean replay",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "sha256:51f617d0388300c9f49c493e07c9444336127620e8371136beb95e23c1900767 over the exact six-line UTF-8 PASS/BLOCKED summary with a final newline"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0594-ROOT",
+        "M0594-C-GLOBAL",
+        "M0594-L-TOPOLOGICAL"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0594.WhitneyEmbeddingTarget",
+        "Stage1Instances.THM_M_0594.properInjectiveEuclideanMap_isEmbedding",
+        "Stage1Instances.THM_M_0594.whitneyEmbeddingTarget_of_properInjectiveImmersion"
+      ],
+      "coverage_boundary": "The recipe re-elaborates the exact statement and existing partial or conditional bodies at trust zero, then derives a fail-closed release decision from current structured authority. It does not implement the missing global construction or qualify as a cold independent release run."
+    }
+  ],
+  "expected_decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "root_vector_after": {
+      "H": "H1",
+      "M": "M3",
+      "R": "R3"
+    },
+    "audit_complete": false,
+    "theorem_complete": false,
+    "accepted_receipt_ids": [],
+    "accepted_closed_obligation_ids": [],
+    "first_failed_gate": "dependency.S56-M-0594-VALIDATION.master_acceptance"
+  },
+  "status_boundary": "This specification can self-test a negative release reconciliation only. Passing it is not AUDIT-Z, THEOREM-Z, theorem completion, release acceptance, or master acceptance."
+}
