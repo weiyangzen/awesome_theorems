@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-1056-VALIDATION",
+  "theorem_id": "THM-M-1056",
+  "phase": "validation",
+  "depends_on": [
+    "S56-M-1056-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-1056-VALIDATION-network-isolated-warm-replay-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-1056/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "HOME": "inherited only for pinned elan/lake tool discovery before isolation",
+        "PATH": "$HOME/.elan/bin:/usr/bin:/bin",
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 2700,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean subprocess is launched as lake env lean --trust=0 -t0 under /usr/bin/bwrap --unshare-net with a read-only host root, one writable fresh /tmp replay directory, and a cleared fixed environment.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "Require the ten fixed PASS/OPEN/FAIL CLOSED summary lines after recomputing all evidence."
+        }
+      ],
+      "covered_obligation_ids": [
+        "M1056-ROOT",
+        "M1056-S-INTERFACE",
+        "M1056-S-BOUNDARY",
+        "M1056-S-FOUNDATION",
+        "M1056-N-ITERATES",
+        "M1056-N-COORDINATES",
+        "M1056-L-SUBADDITIVE",
+        "M1056-L-KINGMAN",
+        "M1056-C-FORWARD-FLAG",
+        "M1056-C-BACKWARD-FLAG",
+        "M1056-L-TRANSVERSAL",
+        "M1056-C-PROJECTIONS",
+        "M1056-L-EQUIVARIANCE",
+        "M1056-L-GROWTH",
+        "M1056-T-CORE",
+        "M1056-T-ASSEMBLE",
+        "M1056-X-EXTERNAL"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_1056.OseledetsMultiplicativeErgodicTarget",
+        "ErgodicTheory.oseledets_splitting",
+        "Stage1Instances.THM_M_1056.external_oseledets_on_arbitrary_fiber_coordinates",
+        "Stage1Instances.THM_M_1056.measurableObliqueProjectionPackage",
+        "Stage1Instances.THM_M_1056.oseledets_multiplicative_ergodic_target",
+        "Stage1Instances.THM_M_1056.oseledetsMultiplicativeErgodic",
+        "Stage1Instances.THM_M_1056.oseledetsMultiplicativeErgodicTarget"
+      ],
+      "coverage_boundary": "The obligation IDs are validation subjects, not closure credit. The recipe rebuilds all 62 vendored modules and 11 target/probe modules from copied source, checks the exact root and selected terminal/transport declarations, and proves that graph reconciliation, accepted foundation/TCB/provenance, cold empty-cache restoration, and distinct signed independent verification remain fail-closed."
+    }
+  ]
+}
