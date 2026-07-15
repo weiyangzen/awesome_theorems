@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0673-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0673-RELEASE",
+  "theorem_id": "THM-M-0673",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0673/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 120,
+  "network_policy": "denied",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact five-line UTF-8 negative release summary bound by release-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0673-ROOT",
+    "M0673-A-BOUNDED",
+    "M0673-S-FOUNDATION",
+    "M0673-X-SOURCE",
+    "M0673-X-PROVENANCE",
+    "M0673-X-TRUST",
+    "M0673-X-READABLE",
+    "M0673-X-WORKFLOW"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0673.LosSentenceTarget",
+    "Stage1Instances.THM_M_0673_Proof.losSentence_via_frozen",
+    "Stage1Instances.THM_M_0673_Proof.losSentence_pinned",
+    "Stage1Instances.THM_M_0673.Validation.independentlyReconstructedRoot",
+    "FirstOrder.Language.Ultraproduct.sentence_realize"
+  ],
+  "scope_boundary": "Fail-closed worker reconciliation of immutable current inputs and the provisional validation receipt. It verifies the blocked decision and unchanged accepted authority only. It is not a cold build, offline restoration, independent verifier, second attestation, deterministic release bundle, release acceptance, AUDIT-Z, or THEOREM-Z evidence."
+}

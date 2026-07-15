@@ -1,0 +1,144 @@
+# THM-M-1041 proof recheck at `a12315a0`
+
+Item: `S56-M-1041-PROOF`
+
+Intent: `prove`
+
+Base revision: `a12315a0f3a56453d5b3ae8f95ad3b476ff16d38`
+
+Base tree: `5d4abcd8c79347e07eb14d0499e53203ed69d7fe`
+
+Recorded: 2026-07-15 19:41:14 +08:00
+
+## Verdict
+
+`blocked`; no state change.
+
+The exact frozen target is the full real Banach-space contraction
+Hille--Yosida equivalence in `Statement.lean`, with elaborated-expression
+SHA-256
+`e6e5f0cbc4d61e4b3ac869fe7b01d4e0d28e3c558c1dea897c29871891f7768d`.
+A premise-free root proof must inhabit both `ForwardPackage` and
+`ConversePackage` from `ObligationTree.lean`. The existing theorem
+`root_of_directionPackages` only composes those complete packages after
+receiving them as arguments; it constructs neither direction and is not root
+proof evidence.
+
+No placeholder-free body for either package exists in the repository or the
+pinned Lake dependency closure. The minimal open root cut remains
+`{M1041-F-ASSEMBLE, M1041-C-ASSEMBLE}`. All fourteen substantive direction
+obligations remain without terminal bodies. The first unavailable forward
+leaf is `M1041-F-CLOSED`, generator closedness for the frozen `IsGenerator`
+definition. Independently, the first unavailable converse construction is
+`M1041-C-YOSIDA-APPROX`.
+
+The frozen proof inputs and dependency pins are byte-identical to their last
+target-changing revision, `76c08cb569093ff0ea02564e80dced5284ebd59d`.
+Repository history, duplicate target `THM-M-0330`, and legacy module
+`S1_M_234.lean` contain definitions, abstract interfaces, transports, or
+conditional composition only. A fresh source search over all `9676` Lean
+files in the existing pinned package cache found no Hille--Yosida theorem or
+strongly-continuous-semigroup generator API. Neither frozen direction package
+is inhabited.
+
+No shortcut through the statement was found. The nonnegative-real
+right-neighborhood filter is nontrivial, limits in normed spaces are unique,
+and the zero-generator/identity-semigroup case is a consistent special case,
+not a proof of the universally quantified target.
+
+The audited external main branches are unchanged:
+`mrdouglasny/hille-yosida` remains at
+`680e9499ee866763e737c8d888c1248684ced667`, and TauCeti remains at
+`c7e69c3c3e65039f6f25fc20a04ce52bb58d94fa`. The first project supplies only
+partial forward Laplace-resolvent work. The second uses incompatible pins and
+also lacks the complete forward and converse packages. Both remain outside
+the pinned closure. Neither was cloned, fetched, built, integrated, or
+credited.
+
+Closing the exact root requires new formal analysis: generator closedness and
+density; construction of the Laplace/Bochner resolvent with both inverse laws
+and its contraction estimate; and the Yosida approximation, limiting
+semigroup, semigroup laws, strong continuity, contraction, and exact generator
+identification. Assuming either package, weakening the equivalence, or moving
+these facts into abstract fields would add an unproved premise or substitute a
+different theorem.
+
+The item stays `[ ]`; lifecycle stays `planned`; the root vector stays
+`[H2, M4, R4]`; accepted receipt IDs stay empty; and `audit_complete` and
+`theorem_complete` stay false. This pair is current-base blocker evidence, not
+a proof receipt or state request. Because the proof phase is not genuinely
+self-tested as complete, `.stage1-worker-selftest.json` is deliberately
+absent.
+
+## Validation
+
+All commands ran in this worker clone. Initial `git status --short` showed only
+the automation-provided `Formalizations/Lean/.lake` symlink to the canonical
+pinned cache. No `lake update`, `lake build`, dependency clone/fetch, or
+`.lake` mutation ran. Direct Lean output was written under `/tmp` and removed;
+the statement checker also removed its temporary mutation sources on exit.
+
+| Command | Exit | Exact result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | `check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)` |
+| `python3 scripts/stage1_target.py check` | 0 | `stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)` |
+| `python3 scripts/stage1_target.py show THM-M-1041` | 0 | Rank 234; lifecycle `planned`; `theorem_complete=false`. |
+| `python3 Stage1_Instances/THM-M-1041/check_statement.py` | 0 | Exact expression SHA-256 `e6e5f0cbc4d61e4b3ac869fe7b01d4e0d28e3c558c1dea897c29871891f7768d`; all three structural mutations killed. |
+| `python3 Stage1_Instances/THM-M-1041/check_anchor_audit.py` | 0 | `anchor audit invariant check: ok` |
+| `python3 Stage1_Instances/THM-M-1041/check_obligation_tree.py` | 0 | 21 obligations and 56 typed edges passed; denominator `b9ebe90e50ff8cf0a0979d0e155ad58c2918a48cc3236e22f76fac67a6b39c42`; root and both direction packages remain `M4`. |
+| Direct pinned `lean --trust=0 -t0` replay below | 0 | Exact statement and conditional composition elaborated; `root_of_directionPackages` reports `[propext, Classical.choice, Quot.sound]`; temporary `Statement.olean` SHA-256 `e2a26c6ee6807a3deaeb3c3cdc46e1802e989fba1e463a7ca46712689748caca`. |
+| Pinned-package topical search below | 1 | Expected no-match over 9676 Lean source files: no terminal Hille--Yosida or semigroup-generator declaration. |
+| Scoped prohibited-token scan below | 1 | Expected no-match in owned Lean sources; supporting lexical evidence only. |
+| `git diff --quiet 76c08cb5 HEAD -- <proof-relevant inputs>` | 0 | Statement, composition, registry, typed graphs, anchor audit, validation specs, Lake manifest, and toolchain are unchanged. |
+| `git ls-remote https://github.com/mrdouglasny/hille-yosida.git refs/heads/main` | 0 | Main remains `680e9499ee866763e737c8d888c1248684ced667`; it was not fetched or integrated. |
+| `git ls-remote https://github.com/TauCetiProject/TauCeti.git refs/heads/main` | 0 | Main remains `c7e69c3c3e65039f6f25fc20a04ce52bb58d94fa`; it was not fetched or integrated. |
+| `test ! -e .stage1-worker-selftest.json` | 0 | Completion self-test manifest is absent because the proof phase is incomplete. |
+
+Exact narrow Lean replay:
+
+```bash
+set -euo pipefail
+repo=$PWD
+lean_root=$repo/Formalizations/Lean
+target=$repo/Stage1_Instances/THM-M-1041
+tmp=$(mktemp -d /tmp/thm-m-1041-proof-head-a12315a0-slot35.XXXXXX)
+trap 'rm -rf "$tmp"' EXIT
+lean=$(cd "$lean_root" && env -u LEAN_PATH lake env which lean)
+lean_path=$(cd "$lean_root" && env -u LEAN_PATH lake env printenv LEAN_PATH)
+cd "$target"
+LEAN_NUM_THREADS=1 LEAN_PATH="$lean_path" \
+  timeout --foreground 600 "$lean" --trust=0 -t0 --root="$target" \
+    -o "$tmp/Statement.olean" Statement.lean
+LEAN_NUM_THREADS=1 LEAN_PATH="$tmp:$lean_path" \
+  timeout --foreground 600 "$lean" --trust=0 -t0 --root="$target" \
+    ObligationTree.lean
+```
+
+Pinned-package search:
+
+```bash
+rg -n -i \
+  'Hille.?Yosida|HilleYosida|Yosida|strongly continuous semigroup|C.?0 semigroup|infinitesimal generator|ContractionSemigroup' \
+  Formalizations/Lean/.lake/packages --glob '*.lean'
+```
+
+Scoped prohibited-token scan:
+
+```bash
+rg -n -i \
+  '\b(sorry|admit|sorryAx|unsafe|oracle)\b|(^|[^A-Za-z])(axiom|opaque)[[:space:]]' \
+  Stage1_Instances/THM-M-1041 --glob '*.lean'
+```
+
+Pinned environment: Lean `4.29.0`, commit
+`98dc76e3c0a9b856c9b98726b713fb04fab16740`; Lake
+`5.0.0-src+98dc76e`; mathlib
+`8a178386ffc0f5fef0b77738bb5449d50efeea95`, tree
+`bdc39a3123201dae413a9d9be56ec242c19e5c2b`.
+
+## Retry Condition
+
+Resume after placeholder-free implementations of all children needed for both
+frozen direction packages are available in the pinned closure, or after an
+immutable compatible exact Lean 4 proof is pinned/imported and passes
+exact-type, provenance, placeholder, axiom, composition, and trust checks.
