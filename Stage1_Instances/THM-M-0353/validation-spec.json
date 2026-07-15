@@ -1,0 +1,83 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0353-VALIDATION",
+  "theorem_id": "THM-M-0353",
+  "phase": "validation",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0353-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0353-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/bwrap",
+        "--ro-bind",
+        "/",
+        "/",
+        "--dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--tmpfs",
+        "/tmp",
+        "--unshare-net",
+        "--die-with-parent",
+        "--setenv",
+        "LANG",
+        "C.UTF-8",
+        "--setenv",
+        "LC_ALL",
+        "C.UTF-8",
+        "--setenv",
+        "TZ",
+        "UTC",
+        "--setenv",
+        "LEAN_NUM_THREADS",
+        "1",
+        "--setenv",
+        "STAGE1_OUTER_NETWORK_ISOLATED",
+        "1",
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0353/check_validation.py"
+      ],
+      "env_allowlist": {
+        "HOME": "worker-provided Elan root; replaced with an empty temporary home for every Lean replay",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "STAGE1_OUTER_NETWORK_ISOLATED": "1"
+      },
+      "timeout_seconds": 1800,
+      "network_policy": "denied",
+      "network_enforcement": "Bubblewrap encloses the complete Python recipe with a read-only host root, private /tmp, and --unshare-net; a connection mutation verifies denial.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "Exact summary lines and per-stage stdout SHA-256 values are bound by validation-receipt.json."
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0353-ROOT",
+        "M0353-T-ASSEMBLE",
+        "M0353-P-MEMLP",
+        "M0353-P-BASIS"
+      ],
+      "covered_declarations": [
+        "hermiteFunction_memLp",
+        "hermiteFunction_orthonormal",
+        "hermiteFunction_complete",
+        "Stage1Instances.THM_M_0353.hermiteMemLpPackage_proof",
+        "Stage1Instances.THM_M_0353.hermiteBasisPackage_proof",
+        "Stage1Instances.THM_M_0353.hermiteCompletenessTarget_proof",
+        "Stage1Instances.THM_M_0353.Validation.recomposedHermiteCompleteness"
+      ],
+      "scope_boundary": "Network-isolated trust-zero fresh-output replay against pinned warm dependencies. Covered obligation IDs identify declarations provisionally exercised, not accepted closure. Proof master acceptance, reconciliation of the vendored proof route with the frozen graph, accepted foundation/TCB/provenance/source profiles, H0/R0, cold empty-cache replay, and distinct signed independent verification all fail closed."
+    }
+  ]
+}

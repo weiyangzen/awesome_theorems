@@ -1,0 +1,293 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0841-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0841",
+  "execution_rank": 1398,
+  "phase": "anchor_audit",
+  "inventory_version": "S56-M-0841-ANCHOR-INVENTORY-20260715-01",
+  "cutoff": "2026-07-15T16:46:00+08:00",
+  "base_revision": "b4319ef6d039de12cec559f173287d541c238d70",
+  "base_tree": "0b0762ebd01405d33218c3bcbcb24d4544b0fad0",
+  "canonical_target": {
+    "declaration": "Stage1Instances.THM_M_0841.ErdosStoneTarget",
+    "expression_sha256": "ed4a8b422615bfafc69ab9f770dc99b77d308d78bca30e67790206426799a733",
+    "statement_file_sha256": "897dcc398df34c0dd6ad02dc2092a08f46a6cafc908c2e9f8497a895aa66663d",
+    "scope_summary": "The original page-1087 sparse complement form: for every 0 < epsilon < 1 and r >= 2, sufficiently large sparse n-vertex G has a complement copy of completeEquipartiteGraph r k for some positive k at least sqrt of the (r-1)-fold iterated natural logarithm of n."
+  },
+  "discovery_protocol": {
+    "path": "Stage1_Instances/THM-M-0841/anchor-discovery-protocol.json",
+    "inventory_version": "S56-M-0841-ANCHOR-INVENTORY-20260715-01",
+    "frozen_before_candidate_classification": true,
+    "saturation_claim": false
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_clean_tree": true,
+    "mathlib_license": "Apache-2.0",
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "dependency_mode": "The automation-provided canonical pinned .lake artifacts were used read-only; no Lake update/build, dependency clone/fetch, checkout, or dependency mutation ran."
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0841-C01-LOCAL-STATEMENT",
+      "project": "awesome_theorems",
+      "revision": "b4319ef6d039de12cec559f173287d541c238d70",
+      "tree": "0b0762ebd01405d33218c3bcbcb24d4544b0fad0",
+      "module": "Stage1_Instances/THM-M-0841/Statement.lean",
+      "file_sha256": "897dcc398df34c0dd6ad02dc2092a08f46a6cafc908c2e9f8497a895aa66663d",
+      "declaration": "Stage1Instances.THM_M_0841.ErdosStoneTarget",
+      "normalized_match": "Expression-identical canonical statement surface.",
+      "terminal_proof_body": null,
+      "candidate_classification": "M3",
+      "evidence_level": "statement_only",
+      "integration_decision": "Retain as the canonical type; it supplies no proof credit."
+    },
+    {
+      "candidate_id": "M0841-C02-PINNED-MATHLIB-SUPPORT",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "modules": [
+        "Mathlib.Combinatorics.SimpleGraph.CompleteMultipartite",
+        "Mathlib.Combinatorics.SimpleGraph.Extremal.TuranDensity"
+      ],
+      "files": [
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/CompleteMultipartite.lean",
+          "blob": "d8c46737a0c7ac4062b7d0704c2a84a368aff314",
+          "sha256": "47d5f3f6aeef27940353ed98341de68673139973198de234482adbc139afb236"
+        },
+        {
+          "path": "Mathlib/Combinatorics/SimpleGraph/Extremal/TuranDensity.lean",
+          "blob": "0b9ff46f5a56fcbf80fdf29b675edb892a00ced7",
+          "sha256": "a2724d485df3a96fcbcf6b7f0cc55ae62dab4251f625a6b85f75bb72692f55e7"
+        }
+      ],
+      "declarations": [
+        "SimpleGraph.completeEquipartiteGraph",
+        "SimpleGraph.card_edgeFinset_completeEquipartiteGraph",
+        "SimpleGraph.completeEquipartiteGraph_isContained_iff",
+        "SimpleGraph.completeEquipartiteGraph_succ_isContained_iff",
+        "SimpleGraph.completeMultipartiteGraph.chromaticNumber",
+        "SimpleGraph.turanDensity",
+        "SimpleGraph.tendsto_turanDensity",
+        "SimpleGraph.isEquivalent_extremalNumber",
+        "SimpleGraph.eventually_isContained_of_card_edgeFinset",
+        "SimpleGraph.isContained_of_card_edgeFinset"
+      ],
+      "normalized_match": "Encoding and asymptotic-density infrastructure only. The fixed-H containment theorem requires a known turanDensity H and fixed forbidden H; it neither computes the density of complete equipartite graphs nor supplies the growing k, complement transport, or exact page-1087 conclusion.",
+      "terminal_target_body": null,
+      "machine_probe": "AnchorAudit.lean elaborates every listed API, checks the two expected later constants are absent, and reports standard axioms for five proof-bearing support declarations.",
+      "machine_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "placeholder_boundary": "Lean assert_no_sorry checks pass for five selected support declarations. This is not a transitive release trust/TCB closure and none is a target terminal body.",
+      "dependency_feasibility": "Already materialized at the exact clean manifest pin.",
+      "license": "Apache-2.0",
+      "candidate_classification": "M3",
+      "evidence_level": "node_local_support_check",
+      "integration_decision": "Retain for the obligation tree; no exact wrapper or proof route exists at the pin."
+    },
+    {
+      "candidate_id": "M0841-C03-POST-PIN-MATHLIB-MIN-DEGREE",
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "b9df47b72b287802f6d40cf7588dada976bc657d",
+      "tree": "e1dfb46b94cc7dbd9f95e96f1cd2f138f217d0d5",
+      "parent": "42b23e7cd99f2a4b5b76e7f6a34056529201ccb9",
+      "commit_date": "2026-07-02T11:53:35Z",
+      "module": "Mathlib.Combinatorics.SimpleGraph.Extremal.ErdosStoneSimonovits",
+      "file": "Mathlib/Combinatorics/SimpleGraph/Extremal/ErdosStoneSimonovits.lean",
+      "file_blob": "ef28446b9a088309e814a0eb7eae4b2e975ac9cc",
+      "file_sha256": "455735f55b4f2ec2e5dd94a6ef7cb473121609d3ec35d3522031914b41b11148",
+      "declaration": "SimpleGraph.eventually_completeEquipartiteGraph_isContained_of_minDegree",
+      "candidate_type": "For epsilon > 0 and fixed r t, eventually every G with minDegree at least (1 - 1/r + epsilon)n contains completeEquipartiteGraph (r+1) t.",
+      "normalized_match": "Material mismatch: dense G rather than sparse G/complement, minimum-degree rather than edge-count antecedent, fixed t rather than existential k growing at least as sqrt(iterated log), r+1 rather than r, and Filter.Eventually rather than the exact positive threshold binder.",
+      "body_provenance": "Explicit proof at source lines 195-324, using the ErdosStone.filter double-counting construction and induction on the part count.",
+      "toolchain": "leanprover/lean4:v4.32.0-rc1",
+      "lake_manifest_sha256": "e3aa6c216d1606e4c0e3a94d5a017cacf871019fc39eea8100f1155149649af5",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "placeholder_boundary": "A bounded scan of this immutable candidate file found no sorry/admit/sorryAx/axiom/opaque/unsafe/native_decide/implemented_by/extern token. The post-pin dependency closure was not built or transitively trust-audited.",
+      "dependency_feasibility": "Not importable in the pinned v4.29.0 environment. Integration would require a separately approved dependency upgrade to the recorded v4.32.0-rc1 manifest and still would not close the statement mismatch.",
+      "pin_boundary": "The immutable object is already present locally, but it is not an ancestor/file of the manifest pin and was inspected without checkout. It is not importable pinned evidence.",
+      "candidate_classification": "M5",
+      "evidence_level": "immutable_source_anchor",
+      "integration_decision": "Do not integrate or credit. A dependency upgrade alone would still not make this the canonical theorem.",
+      "reopen_condition": "Provide and kernel-check a complete mathematical transport from this fixed-part minimum-degree theorem to the exact sparse growing-part target, then separately approve and pin a dependency upgrade."
+    },
+    {
+      "candidate_id": "M0841-C04-EXTERNAL-DENSE-FIXED-PART",
+      "project": "mitchell-horner/ErdosStoneSimonovitsKovariSosTuran",
+      "remote": "https://github.com/mitchell-horner/ErdosStoneSimonovitsKovariSosTuran.git",
+      "revision": "fd0134209519a72b59462f796e957981bb322e7c",
+      "tree": "4cc782dc121d40030432320fd23542698ab39b40",
+      "commit_date": "2026-05-11T00:03:07Z",
+      "archive_sha256": "f8aa6d33638b139b96c553b063395cd3ba3ef02061863ea77fa4b818aad811a5",
+      "archive_bytes": 46260,
+      "semantic_file_manifest_sha256": "98a0be4425845135a0f40baf9740afee525f9b69460929713948aa63dfcf743b",
+      "module": "ErdosStoneSimonovitsKovariSosTuran.Combinatorics.SimpleGraph.Extremal.ErdosStoneSimonovits",
+      "file": "ErdosStoneSimonovitsKovariSosTuran/Combinatorics/SimpleGraph/Extremal/ErdosStoneSimonovits.lean",
+      "file_sha256": "ba08fa485e27f97fc338f8e2b41b785c0d12474c932decff0d5482580addc61b",
+      "declaration": "SimpleGraph.eventually_completeEquipartiteGraph_isContained_of_card_edgeFinset",
+      "candidate_type": "For epsilon > 0 and fixed r t, eventually every G with at least (1 - 1/r + epsilon)n^2/2 edges contains completeEquipartiteGraph (r+1) t.",
+      "normalized_match": "Credible neighboring formal theorem, but not the frozen target: dense versus sparse complement polarity, fixed t versus existential growing k, r+1 versus r, non-strict lower edge bound versus strict upper sparse bound, and Filter.Eventually versus the exact positive n0 binder. Epsilon < 1 and the iterated logarithm do not occur.",
+      "body_provenance": "Explicit body at source lines 418-480, reducing to the project's minimum-degree theorem through induced-subgraph lemmas; related density, little-o, Turan-density, colorable-H and chromatic-number declarations follow.",
+      "toolchain": "leanprover/lean4:v4.16.0-rc2",
+      "toolchain_sha256": "84ef6a813e3cd5cd2f12dbe33148d35d766b7c8039a5f48514347b5668fac869",
+      "mathlib_revision": "15f16b1ec50f425147926be1aede7b4baa725380",
+      "lake_manifest_sha256": "03ccd57ca0869130e8d37019b534d21eba6432e6e16d22dc4799cea58b5c7890",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "placeholder_boundary": "A bounded project-wide source scan found no sorry/admit/sorryAx/axiom/opaque/unsafe/native_decide/implemented_by/extern token. The immutable project was source-inspected, not built or transitively trust-audited in this worker.",
+      "dependency_feasibility": "Absent from local dependencies and pinned to an older incompatible Lean/mathlib environment. Per worker rules it was not cloned, fetched, installed, or built.",
+      "candidate_classification": "M5",
+      "evidence_level": "E3_immutable_source_anchor",
+      "integration_decision": "Do not integrate: it has no exact-root declaration, and importing it would leave the growing-part/complement transport unproved.",
+      "reopen_condition": "Locate or implement a checked diagonal/complement/density-slack transport proving the exact growing-part target, port it to compatible pins, and then pin/import/check the complete dependency closure."
+    },
+    {
+      "candidate_id": "M0841-C05-PUBLIC-SEARCH-NEGATIVE",
+      "project": "bounded public Lean search surfaces",
+      "queries": [
+        "ErdosStone and Erdős-Stone Lean declaration aliases",
+        "completeEquipartiteGraph plus iterated log/sqrt/growing part",
+        "sparse complement plus edge-count threshold",
+        "turanDensity_eq_of_chromaticNumber"
+      ],
+      "result": "No additional credible exact-root Lean 4 candidate was established. Sourcegraph found current post-pin mathlib ErdosStone source but did not index the authored project; GitHub repository search found the authored project; anonymous code/API and grep.app surfaces were rate/auth limited.",
+      "negative_evidence_boundary": "Bounded query results and access failures are recorded; global absence and discovery saturation are not claimed.",
+      "candidate_classification": "M3",
+      "integration_decision": "Nothing additional to integrate."
+    }
+  ],
+  "search_results": [
+    {
+      "surface": "repository-local Lean source",
+      "observed_at": "2026-07-15T16:29:00+08:00",
+      "query": "case-insensitive Erdos/Erdős-Stone aliases over local Lean, excluding dependency cache",
+      "result": "11 hits, all the frozen THM-M-0841 statement and its statement checks; no proof body",
+      "normalized_output_sha256": "60a1f806b8e6c7e3bb43f93419c83efa5d872cd38f8b86ea1c5d44a817d97f8c"
+    },
+    {
+      "surface": "pinned mathlib source",
+      "observed_at": "2026-07-15T16:29:00+08:00",
+      "query": "case-insensitive Erdos/Erdős-Stone aliases over all tracked Lean files at HEAD",
+      "result": "0 hits",
+      "normalized_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "surface": "other installed pinned packages",
+      "observed_at": "2026-07-15T16:29:00+08:00",
+      "query": "case-insensitive Erdos/Erdős-Stone aliases over all non-mathlib pinned package Lean files",
+      "result": "0 hits",
+      "normalized_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "surface": "GitHub repository search",
+      "observed_at": "2026-07-15T16:24:00+08:00",
+      "query": "Erdos Stone Lean",
+      "result": "one theorem-specific repository, candidate C04",
+      "response_sha256": "5fb87738c901860d2bbb07f35e51dd4cec8f31b3eacd7fa4854cad0c2dc12d5e"
+    },
+    {
+      "surface": "GitHub commit metadata",
+      "observed_at": "2026-07-15T16:24:00+08:00",
+      "query": "candidate C04 immutable HEAD metadata",
+      "result": "commit fd0134209519a72b59462f796e957981bb322e7c, tree 4cc782dc121d40030432320fd23542698ab39b40",
+      "response_sha256": "2d49da8cd67306cbc30bbdd4b13ed02421b530f4c6b6464a030598781fcbcc60"
+    },
+    {
+      "surface": "Sourcegraph",
+      "observed_at": "2026-07-15T16:25:00+08:00",
+      "query": "global ErdosStone",
+      "result": "16 matches in current mathlib post-pin source; no exact growing-part target",
+      "response_sha256": "5bd92ba4f903d065b2f967fa42d4ab6f9742c60d12d29e7ecc598fce780dfe21"
+    },
+    {
+      "surface": "Sourcegraph scoped authored repository",
+      "observed_at": "2026-07-15T16:31:00+08:00",
+      "query": "repo exact authored-project path",
+      "result": "0 indexed matches; indexing limitation, not negative source evidence",
+      "response_sha256": "b6c5019eb17c4bb2eeb2ba769c867eed7e708d7772ca757a4eeb0487b387c0ea"
+    },
+    {
+      "surface": "GitHub REST code/CI API and grep.app",
+      "observed_at": "2026-07-15T16:27:00+08:00",
+      "query": "exact declaration and iterated-log aliases",
+      "result": "anonymous API authentication/rate limits and grep.app checkpoint responses; no negative result inferred",
+      "access_failure_response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e"
+    }
+  ],
+  "inventory_metrics": {
+    "candidate_ids": [
+      "M0841-C01-LOCAL-STATEMENT",
+      "M0841-C02-PINNED-MATHLIB-SUPPORT",
+      "M0841-C03-POST-PIN-MATHLIB-MIN-DEGREE",
+      "M0841-C04-EXTERNAL-DENSE-FIXED-PART",
+      "M0841-C05-PUBLIC-SEARCH-NEGATIVE"
+    ],
+    "classification": "5/5 frozen candidate groups classified",
+    "exact_statement_surfaces": 1,
+    "exact_terminal_proof_bodies": 0,
+    "external_candidates_integrated": 0,
+    "exhaustive_discovery_claim": false,
+    "root_closure": false
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "exact_candidate_located": false,
+    "candidate_kernel_checked": false,
+    "support_interfaces_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M3",
+    "accepted_root_machine_debt_after": "M3",
+    "evidence_level": "bounded immutable anchor inventory plus pinned support probe",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "dependency-ordered master acceptance of statement and anchor audit",
+      "an exact proof body or checked transport from a credible formal variant to the growing-part sparse-complement target",
+      "S56-M-0841-OBLIGATION_TREE",
+      "S56-M-0841-PROOF",
+      "S56-M-0841-VALIDATION",
+      "S56-M-0841-RELEASE",
+      "release-grade transitive provenance/trust/TCB closure",
+      "primary-source H0 and independent review",
+      "readable R0 reconstruction and independent review"
+    ],
+    "status_boundary": "The bounded immutable formal-candidate inventory and pinned support APIs are worker-self-tested pending master acceptance. No exact terminal theorem was found; the root remains H1/M3/R4. This node completes neither AUDIT-Z nor THEOREM-Z."
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_candidate_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "accepted_root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance"
+}
