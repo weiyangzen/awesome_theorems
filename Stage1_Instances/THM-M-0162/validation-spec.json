@@ -1,0 +1,50 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0162-VALIDATION",
+  "theorem_id": "THM-M-0162",
+  "recipes": [
+    {
+      "recipe_id": "M0162-validation-fail-closed-runner-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0162/check_validation.py"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "PATH": "explicitly_variable_for_pinned_launcher_and_checked_host_helpers"
+      },
+      "timeout_seconds": 900,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains PASS THM-M-0162 narrow validation"
+        },
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "contains audit_complete=false; theorem_complete=false"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0162-ROOT",
+        "M0162-S-PREMISES",
+        "M0162-E-TANGENT",
+        "M0162-E-NORMAL",
+        "M0162-E-BINORMAL",
+        "M0162-T-ASSEMBLE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0162.FrenetSerretTarget",
+        "Stage1Instances.THM_M_0162.root_of_equation_packages",
+        "Stage1Instances.THM_M_0162.tangentEquation",
+        "Stage1Instances.THM_M_0162.normalEquation",
+        "Stage1Instances.THM_M_0162.binormalEquation",
+        "Stage1Instances.THM_M_0162.frenetSerret"
+      ]
+    }
+  ]
+}
