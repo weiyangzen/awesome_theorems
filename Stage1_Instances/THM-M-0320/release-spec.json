@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0320-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0320-RELEASE",
+  "theorem_id": "THM-M-0320",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0320/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "runner-provided local Python and Git command discovery"
+  },
+  "timeout_seconds": 300,
+  "network_policy": "denied_not_required",
+  "network_enforcement": "The checker reads and hashes repository-local authority, target, receipt, and handoff files only. It makes no network request and performs no Lake update, build, clone, fetch, checkout, repair, or .lake mutation.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line negative release summary ending verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0320-ROOT",
+    "M0320-S-STATEMENT",
+    "M0320-S-FOUNDATION",
+    "M0320-T-COMPACT",
+    "M0320-T-GRAPH",
+    "M0320-C-CORE",
+    "M0320-T-SUBTYPE",
+    "M0320-T-ASSEMBLE",
+    "M0320-X-SOURCE",
+    "M0320-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0320.KakutaniFixedPointTarget",
+    "Stage1Instances.THM_M_0320.upperHemicontinuityClosedGraphBridge",
+    "Stage1Instances.THM_M_0320.closedGraphKakutaniCore",
+    "Stage1Instances.THM_M_0320.kakutaniFixedPoint",
+    "Brouwer",
+    "Stage1Instances.THM_M_0320.Validation.kakutaniFixedPoint_conditional"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_no_closure_credit",
+  "scope_boundary": "Reconciles the current planned authority, frozen root cut, provisional proof and validation observations, receipt conflicts, and release assurance failures. It validates only the blocked decision; it creates no accepted state, obligation closure, M0/E0/E1 credit, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}
