@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-release-spec/1.0",
+  "spec_id": "S56-M-0005-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0005-RELEASE",
+  "theorem_id": "THM-M-0005",
+  "intent": "release",
+  "recipe": {
+    "recipe_id": "S56-M-0005-RELEASE-negative-reconciliation-v1",
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-0005/check_release.py"
+    ],
+    "env_allowlist": {},
+    "timeout_seconds": 240,
+    "network_policy": "denied",
+    "network_enforcement": "The checker performs local reconciliation and invokes only the existing pinned Lake environment for a narrow statement elaboration. It requests no network operation and runs no update, build, clone, fetch, checkout, or dependency repair. This is a worker self-test, not a kernel-enforced network-isolation or release-grade hermeticity attestation.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "sha256:b7c75bb1fabc8b1dff708d3ecd054696287de0082ea46beabe011662c4054ac9"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M0005-ROOT",
+      "M0005-SCOPE",
+      "M0005-CHAIN-FREE",
+      "M0005-EZ-MAP",
+      "M0005-EZ-EQUIV",
+      "M0005-EZ-NAT",
+      "M0005-ALG-MAPS",
+      "M0005-ALG-ZERO",
+      "M0005-ALG-EXACT",
+      "M0005-ALG-NAT",
+      "M0005-DIRECT-SUM",
+      "M0005-TOP-MAPS",
+      "M0005-COMPONENTS",
+      "M0005-TOP-NAT",
+      "M0005-ASSEMBLE",
+      "M0005-X-ATLAS",
+      "M0005-X-SOURCE",
+      "M0005-X-TCB"
+    ],
+    "covered_declarations": [
+      "AwesomeTheorems.Stage1.THM_M_0005.KunnethFormula"
+    ],
+    "covered_decisions": [
+      "AUDIT-Z",
+      "THEOREM-Z"
+    ],
+    "coverage_kind": "negative_release_inventory_reconciliation_with_current_warm_statement_elaboration_and_no_obligation_validation_or_closure_credit",
+    "scope_boundary": "Reconciles the full frozen inventory, current target/DAG authority, provisional validation receipt, and exact blocked release decisions. The Lean command checks statement elaboration only. It does not construct a Kunneth sequence, close a frozen obligation or the exact root, supply H0/R0/AUDIT-Z, perform a clean empty-cache cold build or offline restoration, or provide independent release verification."
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0319-VALIDATION",
+  "theorem_id": "THM-M-0319",
+  "phase": "validation",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0319-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0319-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/bwrap",
+        "--ro-bind",
+        "/",
+        "/",
+        "--dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--tmpfs",
+        "/tmp",
+        "--unshare-net",
+        "--die-with-parent",
+        "--setenv",
+        "LANG",
+        "C.UTF-8",
+        "--setenv",
+        "LC_ALL",
+        "C.UTF-8",
+        "--setenv",
+        "TZ",
+        "UTC",
+        "--setenv",
+        "LEAN_NUM_THREADS",
+        "1",
+        "--setenv",
+        "STAGE1_OUTER_NETWORK_ISOLATED",
+        "1",
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0319/check_validation.py"
+      ],
+      "env_allowlist": {
+        "HOME": "worker-provided Elan root; replaced with an empty temporary home for every Lean replay",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "STAGE1_OUTER_NETWORK_ISOLATED": "1"
+      },
+      "timeout_seconds": 1800,
+      "network_policy": "denied",
+      "network_enforcement": "Bubblewrap encloses the complete Python recipe with a read-only host root, private /tmp, and --unshare-net; every Lean child is independently enclosed again and a connection mutation verifies denial.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "Exact summary lines and per-stage stdout SHA-256 values are bound by validation-receipt.json."
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0319-ROOT",
+        "M0319-S-DEFINITIONS",
+        "M0319-S-BOUNDARY",
+        "M0319-T-SUBTYPE",
+        "M0319-N-FINITE-DIM"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0319.BrouwerFixedPointTarget",
+        "Stage1Instances.THM_M_0319.ObligationTree.root_of_external_body",
+        "Stage1Instances.THM_M_0319.ObligationTree.zero_dimensional_boundary",
+        "IndexedLOrder.Scarf",
+        "IndexedLOrder.GiComponentStructure_holds",
+        "Brouwer",
+        "Stage1Instances.THM_M_0319.exists_simplex_approximation",
+        "Stage1Instances.THM_M_0319.hasApproximateFixedPoints",
+        "Stage1Instances.THM_M_0319.exactFixedPoint",
+        "Stage1Instances.THM_M_0319.brouwerFixedPoint",
+        "Stage1Instances.THM_M_0319.Validation.recomposedBrouwerFixedPoint"
+      ],
+      "scope_boundary": "Network-isolated trust-zero fresh-output replay against pinned warm dependencies. Covered obligation IDs identify kernel declarations provisionally exercised, not accepted closure. M0319-S-FOUNDATION, M0319-X-INTEGRATION, M0319-X-SOURCE, and M0319-X-PROVENANCE are not claimed as covered; their gates fail closed. Proof master acceptance, graph-route reconciliation, complete foundation/TCB/provenance/SBOM, H0/R0, cold empty-cache replay, and distinct signed independent verification all fail closed."
+    }
+  ]
+}
