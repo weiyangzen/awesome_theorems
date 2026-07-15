@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0034-VALIDATION-local-v1",
+  "item_id": "S56-M-0034-VALIDATION",
+  "theorem_id": "THM-M-0034",
+  "depends_on": [
+    "S56-M-0034-PROOF"
+  ],
+  "intent": "validate",
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0034-VALIDATION-local-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0034/check_validation.py",
+        "--worker-packet",
+        ".stage1-worker-selftest.json"
+      ],
+      "env_allowlist": {
+        "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1",
+        "HOME": "runner home used only to address the hash-verified .elan/bin/lake launcher",
+        "PATH": "<HOME>/.elan/bin:/usr/bin:/bin"
+      },
+      "timeout_seconds": 900,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean replay subprocess runs inside bubblewrap with --unshare-net, a read-only host root, and only a fresh temporary output tree writable. The checker performs no update, build, clone, fetch, or dependency mutation.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact six-line UTF-8 summary bound by validation-receipt.json output_evidence.stdout_semantic_sha256"
+        }
+      ],
+      "expected_output_policy": "Six exact summary lines report three narrow passes and three fail-closed assurance boundaries.",
+      "covered_obligation_ids": [],
+      "observed_without_graph_credit_obligation_ids": [
+        "M0034-ROOT",
+        "M0034-X-ALT-PID"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0034.QuillenSuslinTarget",
+        "quillenSuslin",
+        "Stage1Instances.THM_M_0034.quillenSuslinTarget",
+        "Stage1Instances.THM_M_0034.Validation.differentialQuillenSuslinTarget"
+      ],
+      "scope_boundary": "Network-isolated, trust-zero worker replay of the frozen proposition, vendored terminal body, local exact adapter, and a separately written same-worker adapter. The selected frozen proof route instead names another terminal body; therefore no frozen obligation receives closure credit. This recipe is warm-cache nonrelease evidence, not a cold bootstrap or distinct-runner independent verification."
+    }
+  ],
+  "status_boundary": "A passing recipe self-tests a truthful blocked validation packet only. It cannot accept the provisional proof dependency, reconcile the frozen route, establish M0/E0/E1, pass release hermeticity or independent verification, or establish AUDIT-Z, THEOREM-Z, release, or master acceptance."
+}
