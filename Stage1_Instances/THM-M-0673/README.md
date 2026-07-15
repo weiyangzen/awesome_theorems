@@ -13,7 +13,15 @@ elaborates four structural mutations plus the principal-ultrafilter boundary. `s
 `statement-validation.md` record its expression and environment fingerprints. This is provisional
 statement-node evidence pending master acceptance; it does not credit the upstream proof body.
 
-The lifecycle remains `planned` at `[H1, M3, R4]`. The source edition and pinpoint mapping,
-statement master acceptance, obligation tree, trust/provenance closure, readable reconstruction,
-and release checks remain open. No accepted proof state, audit completion, or theorem completion is
-claimed.
+`AnchorAudit.lean` now checks an exact wrapper at the immutable mathlib pin. The terminal theorem,
+formula bridge, bounded-formula route, and wrapper are sorry-free and report only `propext`,
+`Classical.choice`, and `Quot.sound`; a machine traversal found no bodyless nonaxiom or unsafe
+declaration in their 5,075-declaration closure. The bounded public audit also classifies
+Foundation's equality-free raw-product theorem as a statement/integration mismatch rather than a
+substitute root.
+
+The lifecycle remains `planned` at the accepted `[H1, M3, R4]` vector. The exact mathlib route is a
+provisional `M0-W` candidate pending dependency-ordered master acceptance and downstream gates. The
+source edition and pinpoint mapping, obligation tree, release-grade trust/provenance closure,
+readable reconstruction, and release checks remain open. No accepted proof state, audit completion,
+or theorem completion is claimed.

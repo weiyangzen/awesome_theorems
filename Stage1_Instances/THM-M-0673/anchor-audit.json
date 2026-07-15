@@ -1,0 +1,324 @@
+{
+  "schema_version": "stage1-anchor-audit/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0673-ANCHOR_AUDIT",
+  "theorem_id": "THM-M-0673",
+  "execution_rank": 717,
+  "inventory_version": "THM-M-0673-anchor-inventory/1",
+  "protocol_frozen_at": "2026-07-15T16:04:42+08:00",
+  "cutoff": "2026-07-15T16:30:00+08:00",
+  "base_revision": "fc1568a2997ca815b767b8cc172f3d4d339bf3b9",
+  "base_tree": "635319193989301e577a430446e682952c51c538",
+  "canonical_target": "Stage1Instances.THM_M_0673.LosSentenceTarget",
+  "canonical_target_expression_sha256": "3b541698da0e2b40d0cef5ea0f03ebd62538d330293e4e393ce053e000906cba",
+  "canonical_statement_file_sha256": "131cab45507a3d3c7249d02f52f8cfbaf9d7b1c004a542e24f1bdb36be9ca424",
+  "discovery_protocol": {
+    "path": "Stage1_Instances/THM-M-0673/discovery-protocol.json",
+    "sha256": "4dd179537f27c66505e8ad73e318c217fa35a1e4480122e98bf20748713d5ba7",
+    "negative_evidence_policy": "Dated bounded results carry exact queries and response hashes; access failures are limitations rather than no-match evidence.",
+    "saturation_claim": false
+  },
+  "immutable_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "manifest": "Formalizations/Lean/lake-manifest.json",
+    "manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "dependency_mode": "existing automation-provided canonical pinned .lake artifacts used read-only",
+    "materialized_packages": "all 11 manifest packages matched their immutable revisions and had clean worktrees",
+    "mathlib_clean_tree": true,
+    "compiled_module_sha256": "1ee005283e38f3d6a64eb931f3452702a4a9ba33e2fc850ef48cf665008e2865",
+    "compiled_module_bytes": 50344,
+    "license": "Apache-2.0",
+    "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "M0673-C01-MATHLIB-EXACT",
+      "project": "leanprover-community/mathlib4",
+      "canonical_remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "module": "Mathlib.ModelTheory.Ultraproducts",
+      "file": "Mathlib/ModelTheory/Ultraproducts.lean",
+      "immutable_url": "https://github.com/leanprover-community/mathlib4/blob/8a178386ffc0f5fef0b77738bb5449d50efeea95/Mathlib/ModelTheory/Ultraproducts.lean#L152-L158",
+      "file_blob": "8c436697c7c071261251d3369b70e3882d46673a",
+      "file_sha256": "ba32a045647e55dee5bc5b4534ede125eb6cc7bef523aec77dea5e980dfacd54",
+      "body_lines": "152-158",
+      "body_sha256": "77fb5684a9cc762a6b3c0a563cd28b6c27cd5a7b76f767cb21605a8130956746",
+      "declaration": "FirstOrder.Language.Ultraproduct.sentence_realize",
+      "source_type": "For every alpha, M, ultrafilter u, language L, factor structures and nonemptiness instances, and sentence phi, (u : Filter alpha).Product M models phi iff eventually a in u, M a models phi.",
+      "normalized_match": "Exact. The local adapter universally introduces the frozen I, M, U, L, structure/nonempty instances, and phi in the same universes, then invokes the candidate without adding, removing, or changing any assumption, domain, boundary, or conclusion.",
+      "role": "pinned mathlib terminal declaration behind a repo-local audit wrapper",
+      "local_adapter": "Stage1Instances.THM_M_0673_AnchorAudit.exactTarget_mathlib_candidate",
+      "terminal_declaration": "FirstOrder.Language.Ultraproduct.sentence_realize",
+      "terminal_proof_body_id": "sha256:77fb5684a9cc762a6b3c0a563cd28b6c27cd5a7b76f767cb21605a8130956746",
+      "direct_source_imports": [
+        "Mathlib.ModelTheory.Quotients",
+        "Mathlib.Order.Filter.Finite",
+        "Mathlib.Order.Filter.Germ.Basic",
+        "Mathlib.Order.Filter.Ultrafilter.Defs"
+      ],
+      "direct_proof_dependencies_observed": [
+        "FirstOrder.Language.Ultraproduct.realize_formula_cast",
+        "FirstOrder.Language.Sentence.Realize",
+        "iff_eq_eq",
+        "congr",
+        "Subsingleton.elim"
+      ],
+      "machine_probe": {
+        "command": "cd Formalizations/Lean && LC_ALL=C LANG=C NO_COLOR=1 lake env lean --trust=0 ../../Stage1_Instances/THM-M-0673/AnchorAudit.lean",
+        "exit": 0,
+        "output_sha256": "660406097522f9a4bdfa24d5ba671c63a981e55e325a91c25dd301bddf451134",
+        "normal_and_trust_zero_outputs_identical": true,
+        "reported_axioms": ["propext", "Classical.choice", "Quot.sound"],
+        "sorry_reports": "sentence, formula, bounded-formula, and local-adapter declarations are machine-reported sorry-free",
+        "transitive_declaration_closure_count": 5075,
+        "transitive_module_count": 190,
+        "transitive_bodyless_nonaxioms": [],
+        "transitive_unsafe_declarations": []
+      },
+      "placeholder_bodyless_unsafe_oracle_status": "AssertNoSorry and PrintSorries pass for the terminal theorem, two supporting declarations, and the local adapter. Lean environment traversal reports no bodyless nonaxiom or unsafe declaration in the 5,075-declaration closure. A comment-stripped visible-source scan is supplemental; release-grade executable and compiled-artifact TCB provenance remains downstream.",
+      "axiom_probe": "The terminal theorem, both supporting declarations, and local adapter report exactly propext, Classical.choice, and Quot.sound.",
+      "foundation_fit": "Compatible provisional classical Lean foundation profile; Classical.choice is used in the quantified-formula proof. Formal foundation-profile acceptance remains downstream.",
+      "unsafe_or_oracle_boundary": "No unsafe declaration, native evaluator, external code, generated certificate, solver, experiment, or oracle appears in the machine-traversed declaration closure.",
+      "dependency_feasibility": "The exact revision is already pinned by lake-manifest.json and the local adapter elaborates through existing artifacts without modifying .lake.",
+      "license": "Apache-2.0",
+      "classification": "M0-W_candidate",
+      "evidence_level": "E2_nonrelease_worker_probe",
+      "classification_boundary": "Self-tested exact pinned-library wrapper candidate only. E1 acceptance, proof-phase integration, full release-grade TCB provenance, hermetic replay, independent validation, and master acceptance are not claimed."
+    },
+    {
+      "candidate_id": "M0673-C02-MATHLIB-FORMULA-BRIDGE",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.ModelTheory.Ultraproducts",
+      "file": "Mathlib/ModelTheory/Ultraproducts.lean",
+      "declaration": "FirstOrder.Language.Ultraproduct.realize_formula_cast",
+      "body_lines": "146-150",
+      "body_sha256": "1a23034033327b5398aae3624b8e12017fb5a30172bef3b2cd67cc71e755f819",
+      "relationship": "Stronger formula-with-assignment bridge used directly by C01; it is not a second root or independent terminal proof body.",
+      "terminal_candidate_id": "M0673-C01-MATHLIB-EXACT",
+      "classification": "M2_supporting_bridge",
+      "evidence_level": "E2_nonrelease_worker_probe",
+      "deduplication_boundary": "Supporting bridge on the same terminal proof path; no separate coverage credit."
+    },
+    {
+      "candidate_id": "M0673-C03-MATHLIB-BOUNDED-FORMULA-TERMINAL",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "module": "Mathlib.ModelTheory.Ultraproducts",
+      "file": "Mathlib/ModelTheory/Ultraproducts.lean",
+      "declaration": "FirstOrder.Language.Ultraproduct.boundedFormula_realize_cast",
+      "body_lines": "94-144",
+      "body_sha256": "89d7f530554a721ab6431f151ecee1f8a2e5c4c21f71e47d38ba39bc4320f0bf",
+      "relationship": "Structural induction terminal body for arbitrary bounded formulas; the quantifier cases visibly use Classical.epsilon. C02 and then C01 specialize this path.",
+      "terminal_candidate_id": "M0673-C01-MATHLIB-EXACT",
+      "classification": "M2_supporting_terminal",
+      "evidence_level": "E2_nonrelease_worker_probe",
+      "deduplication_boundary": "Same proof path as C01; no second root or duplicate proof credit."
+    },
+    {
+      "candidate_id": "M0673-C04-MATHLIB-CONSUMERS",
+      "project": "leanprover-community/mathlib4",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "files": [
+        "Mathlib/ModelTheory/Satisfiability.lean",
+        "Mathlib/Analysis/Real/Hyperreal.lean"
+      ],
+      "relationship": "Satisfiability invokes sentence_realize in a compactness route; Hyperreal names it as future transfer-principle substrate. Neither supplies an independent proof body for this root.",
+      "terminal_candidate_id": "M0673-C01-MATHLIB-EXACT",
+      "classification": "M3_downstream_consumers_only",
+      "evidence_level": "E3"
+    },
+    {
+      "candidate_id": "M0673-C05-FOUNDATION-MISMATCH",
+      "project": "FormalizedFormalLogic/Foundation",
+      "canonical_remote": "https://github.com/FormalizedFormalLogic/Foundation.git",
+      "revision": "c28942b7d9d0df41ee5b736602c3f27b8643532c",
+      "indexed_head_observed": "484e34cbcbdfb896f6161cbfd2c74788becff00a",
+      "toolchain": "leanprover/lean4:v4.29.0",
+      "mathlib_revision": "1a37cd3c8e618022c5e78dee604c75c3c946a681",
+      "module": "Foundation.FirstOrder.Ultraproduct",
+      "file": "Foundation/FirstOrder/Ultraproduct.lean",
+      "immutable_url": "https://github.com/FormalizedFormalLogic/Foundation/blob/c28942b7d9d0df41ee5b736602c3f27b8643532c/Foundation/FirstOrder/Ultraproduct.lean#L121-L122",
+      "file_blob": "bf156dcc0034dc5b1c1368d5a17f3d55e2a9507b",
+      "file_sha256": "dd0b42abd4e248585b22449828b8742908359d0cb81e0b0c505cccb927d631a6",
+      "declaration": "LO.FirstOrder.models_Uprod",
+      "body_lines": "121-122",
+      "body_sha256": "9f6d40c92d548bc0e6160e03063dc1fdd180bd998af35f54b4ef0b5a454e2b16",
+      "supporting_declarations": [
+        "LO.FirstOrder.Semiformula.eval_Uprod",
+        "LO.FirstOrder.Semiformula.val_Uprod"
+      ],
+      "statement_mismatch": "Not the frozen target. Foundation uses its own equality-free/custom-signature syntax, a raw dependent-function Structure.Uprod rather than the equality-quotiented Filter.Product, one shared universe for the language/index/factors, and an extra Nonempty I instance. No checked syntax, semantic, carrier, or statement transport to mathlib's target exists.",
+      "source_inspection": "The immutable terminal file and direct Basic.lean umbrella have no sorry, admit, axiom declaration, unsafe, native_decide, implemented_by, TODO, or FIXME token. A bounded immutable archive scan of the imported Foundation/FirstOrder/Basic tree found six sorry strings inside one block-commented example and two active unsafe pretty-printing declarations in Basic/Calculus.lean. No active placeholder was found at this source boundary, but no kernel declaration-dependency run established whether any unsafe declaration or undeclared axiom is reachable from models_Uprod, so the actual external trust closure remains unknown and fails closed.",
+      "archive_sha256": "477e62680d4fe1d2629fc652c39b55bf04ee38eb76afe85c5c2341f05e935975",
+      "archive_boundary": "Immutable codeload archive contained 685 entries and 537 Lean files; it was scanned in a temporary directory and deleted without installation or build.",
+      "toolchain_sha256": "85b71aa934e019c03eac6ec5ed97526956b4dff51b54c5d558fca8a5b34703e6",
+      "manifest_sha256": "57c46d51f96d78d9c1a801ff4bc009dce68e15b0d769ddc9c99e5217908ff177",
+      "lakefile_sha256": "92fa8c93fc2602528a2e6bbc83363ca717a72350d7d97a6943514bd21ec0b5ab",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "dependency_feasibility": "Foundation is absent from the local manifest, uses a different mathlib pin, and would require new syntax/semantics and carrier transports. It was immutable-source-inspected only and was not cloned, installed, fetched, or built.",
+      "classification": "M5_statement_and_integration_mismatch",
+      "evidence_level": "E3",
+      "reopen_condition": "A pinned local Foundation dependency plus kernel-checked translations proving equality-aware quotient-ultraproduct statement equivalence, together with actual declaration-level placeholder/axiom/unsafe/TCB closure that resolves the imported Basic-tree findings."
+    },
+    {
+      "candidate_id": "M0673-C06-MATHLIB3-HISTORICAL",
+      "project": "leanprover-community/mathlib3",
+      "indexed_revision": "65a1391a0106c9204fe45bc73a039f056558cb83",
+      "file": "src/model_theory/ultraproducts.lean",
+      "declaration": "first_order.language.ultraproduct.sentence_realize",
+      "relationship": "Historical Lean 3 theorem on the same lineage, located by public index. It is neither Lean 4 backend completion nor an independent proof body from current mathlib.",
+      "lineage_to_current_mathlib4": "The current Lean 4 source entered mathlib4 in port commit 141c9c36760495c13960e038fd5bdf4dfeb7a08b, an ancestor of the pinned revision.",
+      "classification": "M3_historical_nonbackend_lineage",
+      "evidence_level": "E3"
+    }
+  ],
+  "proof_body_provenance": {
+    "conclusion_id": "S56-M-0673-ANCHOR_AUDIT/canonical-root-candidate",
+    "local_declaration": "Stage1Instances.THM_M_0673_AnchorAudit.exactTarget_mathlib_candidate",
+    "local_role": "wrapper",
+    "terminal_declaration": "FirstOrder.Language.Ultraproduct.sentence_realize",
+    "terminal_proof_body_id": "sha256:77fb5684a9cc762a6b3c0a563cd28b6c27cd5a7b76f767cb21605a8130956746",
+    "origin": {
+      "project": "leanprover-community/mathlib4",
+      "remote": "https://github.com/leanprover-community/mathlib4.git",
+      "revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+      "tree_hash": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+      "file": "Mathlib/ModelTheory/Ultraproducts.lean",
+      "declaration": "FirstOrder.Language.Ultraproduct.sentence_realize",
+      "source_hash": "sha256:ba32a045647e55dee5bc5b4534ede125eb6cc7bef523aec77dea5e980dfacd54"
+    },
+    "direct_dependencies": [
+      "FirstOrder.Language.Ultraproduct.realize_formula_cast",
+      "FirstOrder.Language.Sentence.Realize",
+      "iff_eq_eq",
+      "congr",
+      "Subsingleton.elim"
+    ],
+    "machine_traversal": "5,075 transitive declarations in 190 modules; axioms propext/Classical.choice/Quot.sound; no bodyless nonaxiom or unsafe declaration",
+    "transitive_trust_closure_hash": null,
+    "closure_boundary": "The declaration graph is machine-traversed for axioms, bodyless declarations, unsafe declarations, and module count, but a release-grade TCB/supply-chain/executable closure hash is intentionally deferred.",
+    "historical_lineage": {
+      "lean4_port_commit": "141c9c36760495c13960e038fd5bdf4dfeb7a08b",
+      "lean4_port_tree": "f3bff7b704b22d492be73689e112b66dad2222cc",
+      "lean4_port_source_sha256": "758d63107a215b2a6f03d2d894323e70c60e3b2719ab701ff87efd0bbb2c9848",
+      "date": "2023-05-25T03:53:12Z",
+      "summary": "feat: port ModelTheory.Ultraproducts (#3976)",
+      "is_ancestor_of_pin": true
+    }
+  },
+  "search_evidence": {
+    "repository_and_materialized_packages": {
+      "query": "sentence_realize, realize_formula_cast, boundedFormula_realize_cast, Los theorem, and ultraproduct aliases across repo-local and all materialized package Lean sources",
+      "lean_files": 9042,
+      "result_sha256": "ea08be86d466e791d1b30e180f90aa8d9d10192db1c02d883e5c1b87c1c4b4eb",
+      "result": "Exact bodies occur only in pinned mathlib. Other local hits are mathlib consumers or target-local probes; no separate pinned external proof candidate was located."
+    },
+    "sourcegraph_queries": [
+      {
+        "query": "context:global fork:yes archived:yes sentence_realize patternType:literal",
+        "response_sha256": "359ed2e3c609904393424509b8be1beae53b36eac44f465fe1d2b1cff69c481d",
+        "done": true,
+        "repositories_count": 4,
+        "match_count": 12,
+        "skipped": [],
+        "result": "mathlib4 declaration/uses, historical mathlib3, and generated documentation/name consumers; no independent exact Lean 4 proof body"
+      },
+      {
+        "query": "context:global fork:yes archived:yes realize_formula_cast patternType:literal",
+        "response_sha256": "4903906fd4be21e0e8088ef1e38dab4dd0f985885662ebfe1805226836853833",
+        "done": true,
+        "repositories_count": 2,
+        "match_count": 4,
+        "skipped": [],
+        "result": "mathlib4 and historical mathlib3 only"
+      },
+      {
+        "query": "context:global fork:yes archived:yes repo:github.com/FormalizedFormalLogic/Foundation models_Uprod patternType:literal",
+        "response_sha256": "8a23f10cb53a7d239657f2f94d07a892e84f8a1a3c307c162062df24477570b6",
+        "done": true,
+        "repositories_count": 1,
+        "match_count": 2,
+        "skipped": [],
+        "result": "Foundation declaration and one same-file consumer at indexed head 484e34cb..."
+      },
+      {
+        "query": "context:global fork:yes archived:yes Los theorem patternType:literal",
+        "response_sha256": "52dcf139a0d3920c9d893d741fd30758686a71793da651f928a96c6798882e6f",
+        "done": true,
+        "match_count": 0,
+        "skipped": []
+      }
+    ],
+    "github_repository_queries": [
+      {
+        "query": "quoted Los theorem plus Lean4",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      },
+      {
+        "query": "ultraproduct Lean theorem prover",
+        "http_status": 200,
+        "total_count": 0,
+        "incomplete_results": false,
+        "response_sha256": "08c082fdf7ca87ba911a2aabb0f0cf2d3e482a6feeaac9713e4578c20b2600b2"
+      }
+    ],
+    "access_failures": [
+      {
+        "surface": "GitHub code search",
+        "query": "sentence_realize language:Lean",
+        "http_status": 403,
+        "response_sha256": "1db366a292a73aaa6963398fe4e4bdb2b42e9b7a2d745a0878210569945e386e",
+        "result": "rate-limit denial; no negative evidence"
+      },
+      {
+        "surface": "grep.app",
+        "queries": ["sentence_realize", "realize_formula_cast"],
+        "http_status": 429,
+        "response_sha256": "e350f71a62692c896d8b43b28951a6a6d2a551a1af472be8683cf74809416b93",
+        "result": "Vercel security checkpoint; no negative evidence"
+      }
+    ],
+    "result": "One exact pinned mathlib body and its same-path bridges were established. Foundation is a distinct Lean 4 implementation with a material statement/semantics mismatch. No independent external exact root was established.",
+    "limitations": "Discovery saturation is not claimed. Public indexes can omit private/unindexed sources; GitHub code search and grep.app were inaccessible; no external dependency was cloned, fetched, installed, or built."
+  },
+  "audit_result": {
+    "inventory_classified": true,
+    "source_boundary_coverage": "6/6 frozen candidates classified: one exact pinned terminal, two same-path supporting bridges, one consumer group, one external mismatch, and one historical lineage candidate",
+    "exact_candidate_located": true,
+    "candidate_kernel_checked": true,
+    "candidate_accepted_by_master": false,
+    "root_machine_debt_before": "M3",
+    "root_machine_candidate_after": "M0-W",
+    "accepted_root_machine_debt_after": "M3",
+    "root_evidence_level": "E2_nonrelease_worker_probe",
+    "human_debt": "H1",
+    "readability_debt": "R4",
+    "node_self_tested": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "S56-M-0673-OBLIGATION_TREE",
+      "S56-M-0673-PROOF",
+      "S56-M-0673-VALIDATION",
+      "S56-M-0673-RELEASE",
+      "primary-source H0 and independent source review",
+      "readable R0 and independent review",
+      "full release-grade provenance, trust, TCB, hermetic, and independent-verification acceptance",
+      "dependency-ordered master acceptance"
+    ],
+    "status_boundary": "The bounded immutable candidate inventory and exact pinned-mathlib audit wrapper are self-tested pending dependency-ordered master acceptance. This node does not freeze the obligation tree, accept M0-W/E1, establish H0 or R0, complete AUDIT-Z, or complete the theorem."
+  }
+}
