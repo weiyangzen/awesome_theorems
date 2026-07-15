@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-0822-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0822-VALIDATION",
+  "theorem_id": "THM-M-0822",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0822/check_validation.py"
+  ],
+  "env_allowlist": {
+    "PATH": "explicitly_variable_for_pinned_Lake_launcher_and_hash_checked_host_helpers",
+    "HOME": "explicitly_variable_for_pinned_Elan_toolchain_locator_only; replaced by a temporary home for every Lean replay",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean elaboration runs through Bubblewrap --unshare-net with the host filesystem read-only except for a temporary output directory and with fixed locale, timezone, and thread count. Host-side hash, pin, graph, and provenance checks make no network request. The automation-provided shared warm canonical .lake is reused read-only and is not represented as a cold hermetic cache.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact nine-line PASS/FAIL-CLOSED status summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0822-ROOT",
+    "M0822-T-ASSEMBLE",
+    "M0822-T-ATTAINMENT",
+    "M0822-C-STAR",
+    "M0822-L-STAR-IMAGE",
+    "M0822-L-STAR-INTERSECTING",
+    "M0822-L-STAR-SIZED",
+    "M0822-L-STAR-CARD",
+    "M0822-L-GROUND-ELEMENT",
+    "M0822-T-UPPER-ADAPTER",
+    "M0822-T-MATHLIB-EKR"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0822.ErdosKoRadoMaximumTarget",
+    "Stage1Instances.THM_M_0822.ObligationTree.starConstruction_of_groundElement",
+    "Stage1Instances.THM_M_0822.ObligationTree.starCard_of_image",
+    "Stage1Instances.THM_M_0822.ObligationTree.attainment_of_starPackages",
+    "Stage1Instances.THM_M_0822.ObligationTree.upperBound_of_mathlibTerminal",
+    "Stage1Instances.THM_M_0822.ObligationTree.composeRoot",
+    "Stage1Instances.THM_M_0822.ObligationTree.rootOfExactAssembly",
+    "Finset.erdos_ko_rado",
+    "Stage1Instances.THM_M_0822.Proof.groundElement",
+    "Stage1Instances.THM_M_0822.Proof.starConstruction",
+    "Stage1Instances.THM_M_0822.Proof.starImage",
+    "Stage1Instances.THM_M_0822.Proof.starIntersecting",
+    "Stage1Instances.THM_M_0822.Proof.starSized",
+    "Stage1Instances.THM_M_0822.Proof.starCard",
+    "Stage1Instances.THM_M_0822.Proof.starAttainment",
+    "Stage1Instances.THM_M_0822.Proof.mathlibUpperBound",
+    "Stage1Instances.THM_M_0822.Proof.universalUpperBound",
+    "Stage1Instances.THM_M_0822.Proof.exactAssembly",
+    "Stage1Instances.THM_M_0822.Proof.erdosKoRadoMaximum"
+  ],
+  "scope_boundary": "Network-isolated node-scoped worker replay of the exact frozen root, all six frozen package compositions, all eleven target proof declarations and their pinned terminal, selected pinned EKR provenance, and a proof-free validation recheck module. Full transitive declaration/body/compiled-object/TCB provenance, cold empty-cache offline restoration, and distinct signed independent verification remain fail-closed. The accepted dossier remains H1/M3/R4 with no accepted obligation or receipt until dependency-ordered master acceptance."
+}
