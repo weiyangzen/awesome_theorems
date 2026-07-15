@@ -1,0 +1,69 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "spec_id": "S56-M-0651-RELEASE-local-v1",
+  "item_id": "S56-M-0651-RELEASE",
+  "theorem_id": "THM-M-0651",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0651-VALIDATION"
+  ],
+  "recipe": {
+    "recipe_id": "S56-M-0651-RELEASE-local-v1",
+    "cwd": ".",
+    "argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-0651/check_release.py"
+    ],
+    "env_allowlist": {
+      "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC",
+      "LEAN_NUM_THREADS": "1",
+      "PATH": "hash-verified elan launcher plus /usr/bin:/bin"
+    },
+    "timeout_seconds": 600,
+    "network_policy": "denied",
+    "network_enforcement": "The release checker performs local hash, Git, JSON, and evidence checks. Its Lean replay invokes the existing proof checker, which writes only fresh temporary outputs and performs no network operation; this is narrow nonrelease replay, not the required cold whole-recipe release isolation.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "exact six-line fail-closed release summary bound by release-receipt.json"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M0651-ROOT",
+      "M0651-S-EXACT",
+      "M0651-L-ENUM",
+      "M0651-L-DENSE",
+      "M0651-L-HENKIN",
+      "M0651-L-OMIT",
+      "M0651-T-ASSEMBLE",
+      "M0651-B-ARITY0",
+      "M0651-X-ANCHOR",
+      "M0651-X-SOURCE",
+      "M0651-X-TCB"
+    ],
+    "covered_decisions": [
+      "AUDIT-Z",
+      "THEOREM-Z"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_0651.OmittingTypesTarget",
+      "Stage1Instances.THM_M_0651.omits_iff_no_realizing_tuple",
+      "Stage1Instances.THM_M_0651.ObligationTree.root_compose",
+      "Stage1Instances.THM_M_0651.ProofLemmas.countable_symbols",
+      "Stage1Instances.THM_M_0651.ProofLemmas.countable_finite_arity_syntax",
+      "Stage1Instances.THM_M_0651.ProofLemmas.exists_surjective_formula_schedule",
+      "Stage1Instances.THM_M_0651.ProofLemmas.countable_avoidance_requirements",
+      "Stage1Instances.THM_M_0651.ProofLemmas.zero_arity_formula_requirement_inhabited",
+      "Stage1Instances.THM_M_0651.ProofLemmas.zero_arity_tuple_requirement_inhabited",
+      "Stage1Instances.THM_M_0651.ProofLemmas.exists_surjective_avoidance_schedule",
+      "Stage1Instances.THM_M_0651.ProofLemmas.exists_consistent_avoidance_extension"
+    ],
+    "scope_boundary": "This recipe verifies a truthful blocked release reconciliation on the current integrated snapshot. It does not create release-grade evidence, accept the validation dependency, close a frozen obligation or the exact root, or satisfy cold hermetic and independent-verifier gates."
+  }
+}
