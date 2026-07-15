@@ -50,3 +50,17 @@ theorem completion is false, and no `.stage1-worker-selftest.json` is written.
 The remaining machine root cut set is `M0996-L-HALFSPACE` and
 `M0996-L-GENERAL`; source, readability, trust, hermetic replay, and independent
 acceptance gates also remain open.
+
+## Current worker supersession
+
+The historical record above is preserved byte-for-byte. At base revision
+`718e166c56e53c552ebb861ee01427f9a606fc72`, the current worker added further
+placeholder-free proof bodies and an isolated module-chain replay. The new
+work is recorded separately in `proof-validation.md`, `proof-receipt.json`,
+and `proof-blocker.json`.
+
+This supersession changes only the scope of self-tested partial progress. It
+does not retroactively alter the original result, close any frozen obligation,
+or prove the canonical root. The remaining root cut is still
+`M0996-L-HALFSPACE` and `M0996-L-GENERAL`, and theorem completion remains
+false.

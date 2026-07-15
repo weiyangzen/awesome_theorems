@@ -1,0 +1,56 @@
+{
+  "schema_version": "stage1-proof-blocker/1.0",
+  "item_id": "S56-M-0669-PROOF",
+  "theorem_id": "THM-M-0669",
+  "base_revision": "a23d86cd84f03c26102b43c6b1b3b6d0a7a31e61",
+  "base_tree": "9268aa9f5379837642b6f748f01255e8744c4e78",
+  "recorded_at": "2026-07-15T09:57:03+08:00",
+  "canonical_target": "Stage1.THM_M_0669.TarskiQuantifierEliminationTarget",
+  "canonical_target_expression_sha256": "91efc0e7986951efbb4f667a73f31de3eae2f0221d397c37c13a303f3769badd",
+  "registry_denominator_sha256": "9ec85645aa13399fb7dd6255e1cb66f90fc3694c536f6a282a6b30f19173afb4",
+  "partial_proof_receipt_id": "S56-M-0669-PROOF-partial-20260715T095703+0800",
+  "toolchain": "leanprover/lean4:v4.29.0",
+  "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+  "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+  "outcome": "partial_proof_progress_root_blocked",
+  "machine_classification": "M3",
+  "proof_body_added": true,
+  "provisionally_closed_obligation_ids": [
+    "M0669-C-BOOLEAN"
+  ],
+  "partial_progress_toward_obligation_ids": [
+    "M0669-C-ATOMIC",
+    "M0669-I-FORMULA",
+    "M0669-T-ASSEMBLE"
+  ],
+  "accepted_closed_obligation_ids": [],
+  "root_closed": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "M0669-E-ONE-VAR: no placeholder-free one-variable real-closed-field elimination body exists in the repository or pinned dependency closure",
+  "remaining_root_cut_set": [
+    "M0669-E-ONE-VAR",
+    "M0669-E-SIGN",
+    "M0669-E-ROOTS",
+    "M0669-E-PROJECT",
+    "M0669-E-SEMANTICS",
+    "M0669-I-FORMULA",
+    "M0669-T-ASSEMBLE",
+    "M0669-ROOT"
+  ],
+  "available_checked_bodies": {
+    "Stage1.THM_M_0669.atomicPolynomialNormalization": "unconditional semantic normalization of pure-ring atomic equalities to equality of universal integer polynomials; partial toward M0669-C-ATOMIC",
+    "Stage1.THM_M_0669.qfBooleanClosure": "unconditional complete IsQF closure under negation, implication, conjunction, and disjunction",
+    "Stage1.THM_M_0669.formulaElimination_of_oneVariable": "formula-recursion body conditional on the explicit exact OneVariableEliminationPackage premise",
+    "Stage1.THM_M_0669.tarskiQuantifierElimination_of_oneVariable": "conditional exact-root composition retaining the entire algebraic one-variable package as an explicit premise"
+  },
+  "candidate_assessment": {
+    "repo_local": "Proof.lean now supplies unconditional atomic-equality/polynomial syntax and Boolean closure bodies plus transparent conditional formula recursion. No local declaration inhabits OneVariableEliminationPackage or the canonical root unconditionally.",
+    "pinned_mathlib": "Pinned mathlib supplies first-order syntax, semantic equivalence, QF closure, free-commutative-ring term interpretation, and basic IsRealClosed algebra, but no real-closed-field sign-condition, projection, or quantifier-elimination terminal theorem.",
+    "audited_external": "The prerequisite immutable audit found no compatible exact Lean 4 real-closed-field quantifier-elimination proof. The avigad/qelim candidate is Lean 3 and proves results for DLO/LIA instead."
+  },
+  "blocker": "An exact root proof still requires the algebraic Tarski core: classify roots and sign cells for finite polynomial families, build parameter-only projection conditions, transport them to the selected complete-theory semantics, and inhabit OneVariableEliminationPackage. Assuming that package would add a prohibited theorem premise; returning the checked conditional theorem would substitute a weaker theorem.",
+  "retry_condition": "Resume after placeholder-free local implementations of M0669-E-ROOTS, M0669-E-PROJECT, M0669-E-SEMANTICS, M0669-E-SIGN, and M0669-E-ONE-VAR are available, or after an immutable compatible Lean 4 real-closed-field elimination proof is integrated at the exact frozen type.",
+  "status_boundary": "This is self-tested partial proof progress. It proposes provisional closure only of M0669-C-BOOLEAN and records atomic/formula-recursion progress pending master reconciliation; accepted closure remains empty. The exact root stays M3 and the full proof node is not satisfied. No validation, release, audit completion, M0, master acceptance, or theorem completion is claimed.",
+  "selftest_manifest_written": true
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1061-VALIDATION-network-isolated-replay-v1",
+  "item_id": "S56-M-1061-VALIDATION",
+  "theorem_id": "THM-M-1061",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1061/check_validation.py"
+  ],
+  "fixed_env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1"
+  },
+  "inherited_environment_boundary": "The Python runner inherits the worker environment for tool discovery and records/hashes the resolved Lean, Lake, Python, Git, and bubblewrap executables. Each Lean subprocess receives only the fixed values above plus the runner-resolved LEAN_PATH inside the network namespace.",
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "check_validation.sh invokes every Lean replay through bubblewrap --unshare-net with a read-only root and one fresh writable /tmp directory",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains the ordered PASS/FAIL-CLOSED summary and terminal audit_complete=false; theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1061-ROOT",
+    "M1061-S-DEFINITIONS",
+    "M1061-S-BOUNDARIES",
+    "M1061-S-FOUNDATION",
+    "M1061-N-VARIATIONAL",
+    "M1061-L-LOWER-LOCAL",
+    "M1061-T-LOWER",
+    "M1061-C-COMPACT-COVER",
+    "M1061-L-CORE-UPPER",
+    "M1061-L-TAIL-UPPER",
+    "M1061-T-UPPER",
+    "M1061-T-LIMIT-MERGE",
+    "M1061-T-ROOT-TRANSPORT",
+    "M1061-X-SOURCE",
+    "M1061-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1061.VaradhanIntegralLemmaTarget",
+    "Stage1Instances.THM_M_1061.ObligationTree.root_of_integralLemmaTerminal",
+    "Stage1Instances.THM_M_1061.Proof.probabilityMeasure_of_satisfiesLDP",
+    "Stage1Instances.THM_M_1061.Proof.speed_pos_of_satisfiesLDP",
+    "Stage1Instances.THM_M_1061.Proof.speed_tendsto_zero_of_satisfiesLDP",
+    "Stage1Instances.THM_M_1061.Proof.basic_boundaries_of_satisfiesLDP",
+    "Stage1Instances.THM_M_1061.Proof.closed_upper_of_satisfiesLDP",
+    "Stage1Instances.THM_M_1061.Proof.open_lower_of_satisfiesLDP",
+    "Stage1Instances.THM_M_1061.Proof.lowerSemicontinuous_of_isGoodRateFunction",
+    "Stage1Instances.THM_M_1061.Proof.compact_sublevel_of_isGoodRateFunction",
+    "Stage1Instances.THM_M_1061.Proof.logExpIntegral_upper_bound",
+    "Stage1Instances.THM_M_1061.Proof.logExpIntegral_lower_bound",
+    "Stage1Instances.THM_M_1061.Proof.logExpIntegral_bounds_of_satisfiesLDP",
+    "Stage1Instances.THM_M_1061.Proof.tendsto_of_variational_liminf_limsup",
+    "Stage1Instances.THM_M_1061.Proof.logExpIntegral_tendsto_of_bounds",
+    "Stage1Instances.THM_M_1061.Validation.independentlyProjectedOpenLower",
+    "Stage1Instances.THM_M_1061.Validation.independentlyMergedLiminfLimsup",
+    "LowerSemicontinuous",
+    "IsCompact",
+    "Filter.limsup",
+    "Filter.liminf",
+    "ENNReal.log",
+    "MeasureTheory.lintegral",
+    "MeasureTheory.IsProbabilityMeasure"
+  ],
+  "scope_boundary": "Network-isolated trust-zero warm-cache validation of the exact statement, conditional composition, thirteen partial proof declarations, seven anchor probes, and two same-worker differential partial probes. It does not validate a premise-free root, complete transitive TCB/provenance, cold offline restoration, or a distinct independent runner."
+}

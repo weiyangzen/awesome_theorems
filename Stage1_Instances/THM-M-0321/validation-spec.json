@@ -1,0 +1,71 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0321-VALIDATION",
+  "theorem_id": "THM-M-0321",
+  "phase": "validation",
+  "intent": "validate",
+  "depends_on": [
+    "S56-M-0321-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0321-VALIDATION-network-isolated-warm-v1",
+      "cwd": ".",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0321/check_validation.py"
+      ],
+      "env_allowlist": {
+        "HOME": "worker-provided toolchain root; replaced with an empty temporary home for Lean replay",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "UTC",
+        "LEAN_NUM_THREADS": "1"
+      },
+      "timeout_seconds": 600,
+      "network_policy": "denied",
+      "network_enforcement": "Every Lean process runs under bubblewrap --unshare-net with a read-only bind of / and only the disposable replay tree writable.",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exact summary lines and per-stage output SHA-256 values are bound by validation-receipt.json"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0321-ROOT",
+        "M0321-N-FINITE",
+        "M0321-B-FINITE-EMPTY",
+        "M0321-B-FINITE-INSERT",
+        "M0321-B-RECOMPOSE",
+        "M0321-C-FIXSET",
+        "M0321-C-RESTRICT",
+        "M0321-C-AVERAGE",
+        "M0321-C-FIP",
+        "M0321-L-SINGLE",
+        "M0321-L-AVERAGE-IN-K",
+        "M0321-L-AVERAGE-DEFECT",
+        "M0321-L-CLUSTER",
+        "M0321-L-FIXSET-COMPACT",
+        "M0321-L-FIXSET-CONVEX",
+        "M0321-L-COMMUTE-INVARIANT",
+        "M0321-L-FIP-COMPACT",
+        "M0321-T-FINITE",
+        "M0321-T-ASSEMBLE"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THM_M_0321.MarkovKakutaniTarget",
+        "Stage1Instances.THM_M_0321.ObligationTree.root_compose",
+        "Stage1Instances.THM_M_0321.singleMap_fixedPoint",
+        "Stage1Instances.THM_M_0321.finiteFamilyStep",
+        "Stage1Instances.THM_M_0321.continuousCompactnessUpgrade",
+        "Stage1Instances.THM_M_0321.markovKakutani_of_finiteFamily",
+        "Stage1Instances.THM_M_0321.markovKakutani_proof",
+        "Stage1Instances.THM_M_0321.Validation.recomposedMarkovKakutani"
+      ],
+      "scope_boundary": "Network-isolated, trust-zero, fresh-output replay against the pinned warm dependency artifacts. Obligation IDs identify provisional proof coverage being corroborated, not accepted closure. The false frozen CompactnessUpgrade/M0321-T-UPGRADE interface, proof dependency acceptance, complete trust/provenance, cold empty-cache hermetic replay, and distinct-runner verification fail closed."
+    }
+  ]
+}

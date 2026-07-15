@@ -1,0 +1,57 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0657-VALIDATION-narrow-v1",
+  "item_id": "S56-M-0657-VALIDATION",
+  "theorem_id": "THM-M-0657",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0657/check_validation.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "HOME": "runner home used only to address the hash-verified .elan/bin/lake launcher",
+    "PATH": "<HOME>/.elan/bin:/usr/bin:/bin"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "denied",
+  "network_policy_scope": "enforced for every Lean subprocess; the outer validator invokes no network command but is not itself network-sandboxed",
+  "network_enforcement": "Every Lean subprocess runs with --trust=0 inside Bubblewrap --unshare-net. The host root, toolchain, and canonical pinned dependency cache are read-only; only a new temporary module directory is writable.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line gate summary bound in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0657-S-ENCODING",
+    "M0657-N-SOURCE-SHAPE",
+    "M0657-L-COMPLETENESS",
+    "M0657-C-EXISTENCE",
+    "M0657-T-TARGET-CAT",
+    "M0657-T-ASSEMBLE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0657.MorleyCategoricityTarget",
+    "Stage1Instances.THM_M_0657.morleyCategoricityTarget_iff_existentialSourceShape",
+    "Stage1Instances.THM_M_0657.hasModelCardinality_of_uncountably_categorical",
+    "Stage1Instances.THM_M_0657.infinitePart_categorical",
+    "Stage1Instances.THM_M_0657.infinitePart_isComplete",
+    "Stage1Instances.THM_M_0657.categoricalWithExistence_of_categorical",
+    "Stage1Instances.THM_M_0657.morleyCategoricityTarget_of_categoricalTransfer",
+    "Stage1Instances.THM_M_0657.Validation.differentialHasModelCardinality",
+    "Stage1Instances.THM_M_0657.Validation.differentialInfinitePartCategorical",
+    "Stage1Instances.THM_M_0657.Validation.differentialInfinitePartIsComplete",
+    "Stage1Instances.THM_M_0657.Validation.differentialConditionalRoot"
+  ],
+  "scope_boundary": "Network-isolated trust-zero warm worker replay of the exact statement, two unconditional proof-phase bodies, conditional compositions, selected direct pinned provenance, and same-worker no-import differential reconstructions. The Morley rank/stability/saturation/uniqueness core, exact root, accepted foundation and complete trust/provenance closure, cold hermetic reproduction, and distinct-runner independent verification remain fail-closed."
+}

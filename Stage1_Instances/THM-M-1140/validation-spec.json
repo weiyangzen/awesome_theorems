@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-1140-VALIDATION-NETWORK-ISOLATED-v1",
+  "item_id": "S56-M-1140-VALIDATION",
+  "theorem_id": "THM-M-1140",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/bwrap",
+    "--ro-bind",
+    "/",
+    "/",
+    "--dev",
+    "/dev",
+    "--proc",
+    "/proc",
+    "--tmpfs",
+    "/tmp",
+    "--unshare-net",
+    "--die-with-parent",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1140/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "orchestration_environment_boundary": "The Python process inherits the caller environment but rejects STAGE1_SKIP_OUTPUT_CHECK. It does not execute network clients; proof-relevant Lean subprocesses use a cleared, fixed environment.",
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_policy_boundary": "The entire structured Python recipe runs under a read-only-root Bubblewrap network namespace. Lean runs directly inside that namespace from one fresh writable temporary directory; no nested namespace is created.",
+  "network_enforcement": "The recorded argv wraps the entire checker with bubblewrap --unshare-net and a fresh /tmp tmpfs. The checker invokes the pinned Lean executable directly and writes only below that fresh /tmp.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact PASS and fail-closed summary lines recorded in validation-receipt.json"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1140-ROOT",
+    "M1140-S-DEFINITIONS",
+    "M1140-S-DOMAIN",
+    "M1140-S-BOUNDARY",
+    "M1140-S-FOUNDATION",
+    "M1140-N-MAX-LEVEL",
+    "M1140-L-MEAN-VALUE",
+    "M1140-L-CONTINUITY",
+    "M1140-L-LEVEL-CLOSED",
+    "M1140-L-LEVEL-OPEN",
+    "M1140-L-CONNECTED",
+    "M1140-T-LOCAL-PACKAGE",
+    "M1140-T-PROPAGATION-PACKAGE",
+    "M1140-T-ASSEMBLE",
+    "M1140-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1140.HarmonicStrongMaximumPrinciple",
+    "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple_of_packages",
+    "Stage1Instances.THM_M_1140.interiorLocalRigidity",
+    "Stage1Instances.THM_M_1140.connectedLevelPropagation",
+    "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple",
+    "Stage1Instances.THM_M_1140.Validation.exactRootProbe",
+    "Stage1Instances.THM_M_1140.Validation.exactCompositionProbe"
+  ],
+  "coverage_boundary": "Checks exact statement/root elaboration, conditional composition, direct axiom and sorry observations, a same-worker differential probe, source hygiene, and selected pinned provenance. It records but does not close the frozen method reconciliation, accepted foundation profile, complete transitive TCB/provenance, cold empty-cache offline reproduction, or independent-runner gates."
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1271-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1271-RELEASE",
+  "theorem_id": "THM-M-1271",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1271/check_release.py"
+  ],
+  "env_allowlist": {
+    "PATH": "inherited only for local Python, Git, Bubblewrap, Lake, Lean, and Elan discovery",
+    "HOME": "inherited only for the pinned Elan toolchain and canonical read-only Lake cache",
+    "ELAN_TOOLCHAIN": "the checker fixes leanprover/lean4:v4.29.0",
+    "LANG": "the nested Lean recipe fixes C.UTF-8",
+    "LC_ALL": "the nested Lean recipe fixes C.UTF-8",
+    "TZ": "the nested Lean recipe fixes UTC",
+    "LEAN_NUM_THREADS": "the nested Lean recipe fixes one thread"
+  },
+  "timeout_seconds": 600,
+  "network_policy": "outer_not_namespace_enforced; nested_lean_denied",
+  "network_enforcement": "The outer checker performs only audited local file, Git, and process operations but is not placed in a network namespace. Every Lean subprocess runs under Bubblewrap with an unshared network, a read-only host root, fixed environment variables, and one fresh temporary directory as its only writable bind. This is partial enforcement and remains a warm-cache nonrelease replay.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed reconciliation summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1271-ROOT",
+    "M1271-S-DEFINITIONS",
+    "M1271-S-FOUNDATION",
+    "M1271-C-PATH-MAX",
+    "M1271-L-SPHERE-CROSSING",
+    "M1271-T-BARRIER",
+    "M1271-C-PS-SEQUENCE",
+    "M1271-L-PS-COMPACT",
+    "M1271-L-LIMIT-PASSAGE",
+    "M1271-T-CRITICAL",
+    "M1271-T-ASSEMBLE",
+    "M1271-X-SOURCE",
+    "M1271-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1271.MountainPassTarget",
+    "Stage1Instances.THM_M_1271.root_of_barrier_and_critical_packages",
+    "Stage1Instances.THM_M_1271.admissiblePath_meets_sphere",
+    "Stage1Instances.THM_M_1271.alpha_le_pathHeight",
+    "Stage1Instances.THM_M_1271.pathHeight_attained",
+    "Stage1Instances.THM_M_1271.mountainPassBarrierPackage",
+    "Stage1Instances.THM_M_1271.exists_valueSequence_at_mountainPassLevel",
+    "Stage1Instances.THM_M_1271.exists_criticalPoint_of_psSequence",
+    "Stage1Instances.THM_M_1271.mountainPassCriticalPackage_of_psSequence",
+    "Stage1Instances.THM_M_1271.Validation.directAdmissiblePath_meets_sphere",
+    "Stage1Instances.THM_M_1271.Validation.directAlpha_le_pathHeight",
+    "Stage1Instances.THM_M_1271.Validation.directAlpha_le_mountainPassLevel",
+    "Stage1Instances.THM_M_1271.Validation.directConditionalRoot"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Fail-closed release reconciliation over all 13 frozen obligations plus a current network-isolated trust-zero replay of the statement, conditional composition, partial proof bodies, and separately written geometric probes. Coverage means reconciliation, not closure credit. This recipe cannot create the missing derivative-small Palais-Smale sequence, accept the validation dependency, close AUDIT-Z or THEOREM-Z, provide cold/offline or independent evidence, or grant release/master acceptance."
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": "stage1-release-recipe/1.0",
+  "recipe_id": "S56-M-1083-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1083-RELEASE",
+  "theorem_id": "THM-M-1083",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1083/check_release.py"
+  ],
+  "env_allowlist": {
+    "HOME": "inherited only to let Lake resolve the pinned Lean toolchain before isolated Lean replay",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "sanitized variable; resolved Python, Git, Bash, timeout, Bubblewrap, Lean, and Lake identities are digest-checked by the receipt"
+  },
+  "timeout_seconds": 1800,
+  "network_policy": "denied",
+  "network_enforcement": "The checker invokes check_validation.sh, which places every Lean subprocess in its own Bubblewrap network namespace with read-only host mounts and a private writable output directory. The checker itself performs only repo-local reconciliation subprocesses and no network operation. Lean uses fixed locale/timezone/umask/thread count and disposable output space. The existing pinned shared warm dependency closure is read only, so this is deliberately nonrelease evidence rather than a cold empty-cache reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1083-ROOT",
+    "M1083-S-DEFINITIONS",
+    "M1083-S-BOUNDARY",
+    "M1083-S-FOUNDATION",
+    "M1083-N-KOLMOGOROV",
+    "M1083-N-COVERING",
+    "M1083-B-SCALES",
+    "M1083-C-NETS",
+    "M1083-L-MARKOV",
+    "M1083-L-BOREL-CANTELLI",
+    "M1083-L-CAUCHY",
+    "M1083-C-MODIFICATION",
+    "M1083-L-HOLDER-NET",
+    "M1083-L-HOLDER-EXTEND",
+    "M1083-T-ONE-GAMMA",
+    "M1083-T-MODIFICATION",
+    "M1083-T-COMPOSE",
+    "M1083-X-EXTERNAL",
+    "M1083-X-SOURCE",
+    "M1083-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1083.Statement",
+    "ProbabilityTheory.exists_modification_holder",
+    "Stage1Instances.THM_M_1083.Proof.timeInterval_hasBoundedCoveringNumber",
+    "Stage1Instances.THM_M_1083.Proof.isKolmogorovProcess_of_increment",
+    "Stage1Instances.THM_M_1083.Proof.kolmogorovContinuity",
+    "Stage1Instances.THM_M_1083.Proof.canonicalProof",
+    "Stage1Instances.THM_M_1083.ObligationTree.kolmogorovContinuity_of_engine"
+  ],
+  "scope_boundary": "This recipe independently replays every vendored source module, the exact statement, the frozen conditional composition, the exact proof root, and transitive placeholder/axiom probes, then validates only the negative release verdict. It cannot provide validation master acceptance, reconcile the alternate proof route with the frozen graph, accept a foundation profile or complete source/readability/trust closure, perform a cold offline build, supply-chain archive, independent attestations, minimal verifier, protected CI, deterministic release bundle, or master acceptance."
+}

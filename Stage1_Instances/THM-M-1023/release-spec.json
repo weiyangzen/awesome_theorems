@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1023-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1023-RELEASE",
+  "theorem_id": "THM-M-1023",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1023/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "runner-provided command discovery for Python, Git, Bash, Bubblewrap, and the existing pinned Lake environment",
+    "HOME": "runner-provided only so Lake can resolve the pinned Elan toolchain and automation-provided read-only dependency cache"
+  },
+  "timeout_seconds": 3600,
+  "network_policy": "denied_for_lean_subprocesses",
+  "network_enforcement": "The release checker invokes the target validation shell recipe. Every Lean subprocess runs under Bubblewrap with --unshare-net, --trust=0, a read-only host root, and a disposable writable output tree. The outer Python reconciliation performs only local file, hash, process, and Git checks and makes no network request, but it is not itself namespace-isolated. The shared warm pinned dependency cache is reused read-only, so this is expressly nonrelease worker evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact seven-line PASS/BLOCKED negative release summary ending verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1023-ROOT",
+    "M1023-S-DEFINITIONS",
+    "M1023-S-BOUNDARY",
+    "M1023-S-FOUNDATION",
+    "M1023-N-CONVENTION",
+    "M1023-F-COHERENT-ROOTS",
+    "M1023-F-TRIPLET-EXISTS",
+    "M1023-F-REPRESENTS",
+    "M1023-F-UNIQUE",
+    "M1023-T-FORWARD",
+    "M1023-R-SCALE-DATA",
+    "M1023-R-ROOT-MEASURE",
+    "M1023-R-CONVOLUTION-POWER",
+    "M1023-T-REVERSE",
+    "M1023-T-ASSEMBLE",
+    "M1023-X-SOURCE",
+    "M1023-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1023.InfinitelyDivisibleIffLevyKhintchine",
+    "Stage1Instances.THM_M_1023.infinitelyDivisibleIffLevyKhintchine",
+    "Stage1Instances.THM_M_1023.Validation.independentlyReconstructedRoot",
+    "Stage1Instances.THM_M_1023.root_of_directionPackages",
+    "ProbabilityTheory.isInfinitelyDivisible_iff_exists_levyKhintchineTriple",
+    "ProbabilityTheory.existsUnique_levyKhintchineTriple"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "coverage_kind": "negative_release_reconciliation_no_closure_credit",
+  "scope_boundary": "Reconciles all 17 frozen obligations, current structured authority, and the provisional proof and validation evidence. It freshly replays the exact statement, frozen composition, vendored terminal modules, exact proof root, and same-workspace differential root through the pinned environment. Covered obligations are release-decision subjects, not closure credit. The recipe does not accept the validation dependency, reconcile the late external route into authority, supply H0 or R0, approve the foundation or complete TCB/SBOM closure, produce a cold empty-cache offline replay or deterministic bundle, provide distinct signed runners or an independently implemented verifier, establish AUDIT-Z or THEOREM-Z, release the theorem, or exercise master authority."
+}

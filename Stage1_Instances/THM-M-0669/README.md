@@ -34,3 +34,13 @@ bridge, and formula recursion. `ObligationTree.lean` checks only an exact-type
 identity boundary that assumes the still-open root. It adds no proof credit:
 the root remains `H1/M3/R3`, and master acceptance, all substantive proof
 nodes, source/foundation closure, validation, and release remain open.
+
+The proof phase now adds checked local bodies in `Proof.lean`. It proves
+pure-ring atomic equality normalization through universal integer polynomials,
+the complete `IsQF` Boolean closure package, and formula recursion conditional
+on an explicit `OneVariableEliminationPackage`. Only `M0669-C-BOOLEAN` is
+proposed provisionally closed; atomic normalization is partial because the
+source-theory presentation bridge is open, while formula recursion and final
+assembly retain the missing one-variable package as a premise. The exact root
+therefore remains `H1/M3/R3`, with accepted closure empty. See
+`proof-validation.md`, `proof-receipt.json`, and `proof-blocker.json`.

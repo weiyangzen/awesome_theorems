@@ -1,4 +1,4 @@
-import Mathlib.Probability.Distributions.Gaussian.Multivariate
+import «Stage1_Instances».«THM-M-0996».Statement
 
 /-!
 # THM-M-0996 conditional obligation composition
@@ -15,21 +15,6 @@ open MeasureTheory ProbabilityTheory
 namespace Stage1Instances.THM_M_0996
 
 universe u
-
--- Repeated from `Statement.lean` so this narrow check needs no generated olean.
-def IsUnitHalfspace {E : Type u} [NormedAddCommGroup E]
-    [NormedSpace Real E] (H : Set E) : Prop :=
-  exists (L : E →L[Real] Real) (c : Real), ‖L‖ = 1 /\ H = {x | L x <= c}
-
-def GaussianIsoperimetricTarget : Prop :=
-  forall (E : Type u) [NormedAddCommGroup E] [InnerProductSpace Real E]
-    [MeasurableSpace E] [BorelSpace E] [FiniteDimensional Real E]
-    (A H : Set E),
-      MeasurableSet A -> IsUnitHalfspace H ->
-      stdGaussian E A = stdGaussian E H ->
-      forall r : Real, 0 < r ->
-        stdGaussian E (Metric.thickening r H) <=
-          stdGaussian E (Metric.thickening r A)
 
 /-- A profile-free interface for the half-space calculation.  The proof phase
 must instantiate `profile` and prove this equality; this declaration does not

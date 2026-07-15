@@ -1,0 +1,114 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-1285-RELEASE-local-20260715-slot9",
+  "item_id": "S56-M-1285-RELEASE",
+  "theorem_id": "THM-M-1285",
+  "execution_rank": 456,
+  "phase": "release",
+  "intent": "release",
+  "base_revision": "89bb36df208fff9659fdeac0e10edeea0248e711",
+  "base_tree": "02e87afb7859de6cf58c19f6cb64715c2e7d7513",
+  "decided_at": "2026-07-15T09:13:16+08:00",
+  "attestor": "stage1-rev56-worker-slot9",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "dependency": {
+    "item_id": "S56-M-1285-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-1285-VALIDATION-local-20260715-slot9",
+    "receipt_sha256": "b6342f41d8a7e0fc2a7c8241dc90f93c632f24cfd671a5a3993e37b7774960d7",
+    "support_state": "provisional_worker_selftest",
+    "release_grade": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-1285-PROOF-local-20260715-slot67",
+    "S56-M-1285-VALIDATION-local-20260715-slot9"
+  ],
+  "root_obligation_id": "M1285-ROOT",
+  "canonical_target": "Stage1Instances.THM_M_1285.SchwarzRearrangementTarget",
+  "canonical_target_expression_sha256": "ffce741885f8c5eeb87a6dd893e7c5bf6ccc7a7f88fcc37e9fdd8750ab2d41ac",
+  "registry_denominator_sha256": "6e441bf6a37b0bb83ae0a752e94b30ebf47c8eb567a9284969e869f68b032e9c",
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "exact_root_kernel_replay": "provisional_pass",
+    "conditional_composition_replay": "provisional_pass",
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "selected_provenance": "provisional_pass_with_incomplete_transitive_closure",
+    "accepted_root_machine_state": "M3_open",
+    "dependency_master_accepted": false,
+    "authoritative_graph_reconciled": false,
+    "audit_z_accepted": false,
+    "primary_source_h0_review": false,
+    "independent_r0_review": false,
+    "accepted_foundation_and_complete_tcb": false,
+    "complete_transitive_provenance": false,
+    "immutable_clean_release_input": false,
+    "hermetic_cold_offline_replay": false,
+    "sbom_and_license_closure": false,
+    "independent_clean_runner_attestations": false,
+    "independently_implemented_minimal_verifier": false,
+    "mutation_and_metamorphic_ci": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": [
+      "H2",
+      "M3",
+      "R3"
+    ],
+    "root_vector_after": [
+      "H2",
+      "M3",
+      "R3"
+    ],
+    "best_provisional_machine_evidence": "M0-L-candidate",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-1285-VALIDATION is [_] provisional worker evidence, release_grade=false, accepted=false, and has no master-accepted receipt."
+    },
+    "first_failed_release_gate": {
+      "gate_id": "S56-10.6-HERMETIC-COLD-BUILD",
+      "reason": "The validation replay reused the canonical shared warm .lake closure and did not perform a clean-checkout empty-cache cold build or content-addressed offline restoration."
+    },
+    "remaining_root_cut_set": [
+      "master acceptance of the validation dependency and all transitive phase receipts",
+      "authoritative reconciliation of node-specific proof evidence, fingerprints, compositions, and the stale M1285-T-PACKAGE root cut",
+      "accepted H0 primary-source edition, pinpoint theorem or page, assumptions, errata, node crosswalk, and independent source review",
+      "accepted R0 structured reconstruction for every required public node with independent reader review",
+      "accepted foundation, axiom, trust, and TCB closure",
+      "complete transitive provenance, source-origin, compiled-artifact, dependency, and supply-chain closure",
+      "immutable clean input plus empty-cache network-denied cold build and offline archive replay",
+      "complete SBOM and license closure",
+      "two signed attestations from separately provisioned independent runners with no shared writable cache",
+      "independently implemented minimal release verifier and required mutation and metamorphic CI",
+      "deterministic content-addressed release bundle and final master reconciliation"
+    ]
+  },
+  "retry_condition": "Master-accept and reconcile the dependency chain, then close H0 and R0 review, foundation, TCB, complete provenance, clean cold offline reproduction, supply-chain, independent-runner, minimal-verifier, mutation, deterministic-bundle, and final master gates on one immutable snapshot.",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1285/check_release.py",
+    "Stage1_Instances/THM-M-1285/release-decision.json",
+    "Stage1_Instances/THM-M-1285/release-validation.md"
+  ],
+  "known_failures": [
+    "The validation prerequisite and all earlier phase receipts remain provisional and lack dependency-ordered master acceptance.",
+    "The accepted authority remains H2/M3/R3 with no accepted closed obligation and a pre-proof M1285-T-PACKAGE cut.",
+    "Accepted H0/R0, foundation, provenance, trust, TCB, hermetic, supply-chain, independent-verification, deterministic-bundle, and final master gates remain open."
+  ],
+  "status_boundary": "Self-tested negative release reconciliation only. It accepts no receipt, advances no lifecycle or authoritative H/M/R state, and does not claim AUDIT-Z, THEOREM-Z, E0/E1, release grade, theorem completion, or master acceptance."
+}

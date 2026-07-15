@@ -1,0 +1,321 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-1140-VALIDATION-network-isolated-20260715-v1",
+  "item_id": "S56-M-1140-VALIDATION",
+  "theorem_id": "THM-M-1140",
+  "execution_rank": 345,
+  "phase": "validation",
+  "intent": "validate",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "verdict": "blocked",
+  "accepted": false,
+  "content_addressed": false,
+  "release_grade": false,
+  "base_revision": "557b928b377b386864527c9fb4831d45857837aa",
+  "base_tree": "e677879a6eb4cb9d6795ba1bd78726af06ab9465",
+  "canonical_target": "Stage1Instances.THM_M_1140.HarmonicStrongMaximumPrinciple",
+  "canonical_target_expression_sha256": "541e5716657e39b56e24f220a7118beecc0fc4f2a196312b7f278af92302b3b4",
+  "registry_denominator_sha256": "355cbcf3b25f5e8ac67d3d814a268744dbe8ba8ae8afaec651199e64d6520bee",
+  "exact_statements_changed": [],
+  "inputs": {
+    "Statement.lean": "c0f7ef8b8c003598b09d5984804630ca3d47bfde472c7748e5ee2035e6ef418a",
+    "ObligationTree.lean": "ed5fb3a36f248104c0f66458270fc362233a1634b46586cb33b2f006bc9f504b",
+    "Proof.lean": "998609dc7186a333fbf3ae6220e6b7f63bd1b5c22995af1bd752a9d2d7de98ae",
+    "Validation.lean": "c18f1f895224b991c5f11acee5edade11cd11af8a1d2fbcc3618bb09cb82241e",
+    "intake.json": "7dbdd20f4813f3b6e63c397482b485336630512eb154a57644caa8ea464a092d",
+    "statement.json": "57a7ddf69672b1b2bfb5be53d0752572c9b07b5915b7205da399e4b714ec1379",
+    "anchor-audit.json": "7f37819dc454ae67b7e0363ea50d85ac378b377bda58806f1b2eeff1fd1ffdfc",
+    "obligation-registry.json": "14dc0bf5e61a29063a530b3510c6b59f21be8d989c94ac2c13d31af481c90826",
+    "typed-graphs.json": "6e99d7b827544e1cd78a882a84a8bd28fb8e1eaa66d33f49feec55b21d2b7477",
+    "validation-specs.json": "bf0ff6ca61da45ca67a600a756b68505ddee03f06f79b71185f9b82b0c31b20b",
+    "proof-receipt.json": "4f2f07e773b2ef59ea2cb01584d40d463a14384e3dcc22f7024f50a9bc880fbd",
+    "proof-validation.md": "980e16fbe13285481b4481aabef2b1aebc740f792d9ba05e676242f1e0f7b82c",
+    "check_proof.sh": "fbff95b1fb7389eab5475a402599d566230ffa8d0e5ef2890024c0895b7979df",
+    "validation-spec.json": "08bdd99c41d3d73698f791169ce83b6ada56e97b7d359415ccfe30b2bdecf20d",
+    "check_validation.py": "53f60f04e6b854234a56d54afbb6a6c6e7417e5ccb665a469c4ed433b0de02ee",
+    "validation-phase.md": "07eb9d8a0a322152761e5bd488489465d661fa5c26def88ab3e16be81c77ee31"
+  },
+  "tool_inputs": {
+    "lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake-manifest.json": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "nonrelease_input_set": {
+    "git_status_sha256_excluding_preexisting_lake": "8bc7a7e8cb595b61eb31534b6c0803178fd5d0a45ad3724bd1669aac629400ca",
+    "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lake_symlink_target_sha256": "e7d8a6bce8b934a5b0dc162324c830c4f26e1146c65bb31e8063491a3f47bfcc",
+    "worker_selftest_sha256": "0ff3ca321bbde0ba4d0894580e5e903af0242335be495df8cde413063c775313",
+    "self_referential_receipt_hash": "omitted: hashing validation-receipt.json inside itself has no finite canonical value",
+    "preexisting_untracked_input": "Formalizations/Lean/.lake symlink to the automation-provided canonical dependency closure"
+  },
+  "recipe": {
+    "schema_version": "stage1-validation-spec/1.0",
+    "recipe_id": "S56-M-1140-VALIDATION-NETWORK-ISOLATED-v1",
+    "item_id": "S56-M-1140-VALIDATION",
+    "theorem_id": "THM-M-1140",
+    "cwd": ".",
+    "argv": [
+      "/usr/bin/bwrap",
+      "--ro-bind",
+      "/",
+      "/",
+      "--dev",
+      "/dev",
+      "--proc",
+      "/proc",
+      "--tmpfs",
+      "/tmp",
+      "--unshare-net",
+      "--die-with-parent",
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-1140/check_validation.py"
+    ],
+    "env_allowlist": {},
+    "orchestration_environment_boundary": "The Python process inherits the caller environment but rejects STAGE1_SKIP_OUTPUT_CHECK. It does not execute network clients; proof-relevant Lean subprocesses use a cleared, fixed environment.",
+    "timeout_seconds": 900,
+    "network_policy": "denied",
+    "network_policy_boundary": "The entire structured Python recipe runs under a read-only-root Bubblewrap network namespace. Lean runs directly inside that namespace from one fresh writable temporary directory; no nested namespace is created.",
+    "network_enforcement": "The recorded argv wraps the entire checker with bubblewrap --unshare-net and a fresh /tmp tmpfs. The checker invokes the pinned Lean executable directly and writes only below that fresh /tmp.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "exact PASS and fail-closed summary lines recorded in validation-receipt.json"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M1140-ROOT",
+      "M1140-S-DEFINITIONS",
+      "M1140-S-DOMAIN",
+      "M1140-S-BOUNDARY",
+      "M1140-S-FOUNDATION",
+      "M1140-N-MAX-LEVEL",
+      "M1140-L-MEAN-VALUE",
+      "M1140-L-CONTINUITY",
+      "M1140-L-LEVEL-CLOSED",
+      "M1140-L-LEVEL-OPEN",
+      "M1140-L-CONNECTED",
+      "M1140-T-LOCAL-PACKAGE",
+      "M1140-T-PROPAGATION-PACKAGE",
+      "M1140-T-ASSEMBLE",
+      "M1140-X-PROVENANCE"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_1140.HarmonicStrongMaximumPrinciple",
+      "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple_of_packages",
+      "Stage1Instances.THM_M_1140.interiorLocalRigidity",
+      "Stage1Instances.THM_M_1140.connectedLevelPropagation",
+      "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple",
+      "Stage1Instances.THM_M_1140.Validation.exactRootProbe",
+      "Stage1Instances.THM_M_1140.Validation.exactCompositionProbe"
+    ],
+    "coverage_boundary": "Checks exact statement/root elaboration, conditional composition, direct axiom and sorry observations, a same-worker differential probe, source hygiene, and selected pinned provenance. It records but does not close the frozen method reconciliation, accepted foundation profile, complete transitive TCB/provenance, cold empty-cache offline reproduction, or independent-runner gates."
+  },
+  "recipe_output": {
+    "stdout_semantic_sha256": "9734b8c66c4f47b2998b844f825a4a9668505faaf04198ef45635072220e6014",
+    "stdout_bytes": 1202,
+    "canonicalization": "UTF-8 deterministic summary lines joined with LF and one terminal LF"
+  },
+  "environment": {
+    "platform": "Linux x86_64",
+    "toolchain": "leanprover/lean4:v4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lean_executable_sha256": "3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+    "lake_executable_sha256": "a608ff084d7e2af228b92a29d7c2fd083ba0580e46889175ec74a81678c98359",
+    "python_executable_sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700",
+    "git_executable_sha256": "5516c9f362c29376ab9a499a33082f9f611941d8c75930c880e30ad109e39c9a",
+    "bubblewrap_executable_sha256": "0abea81db798ebf6b4742ac0664802d97521547a353c2a0dbdc21d76cbbfd2c0",
+    "locale_timezone_threads_umask": "C.UTF-8 / UTC / 1 / 0022",
+    "network": "denied for every Lean invocation by an unshared Bubblewrap network namespace",
+    "dependency_cache": "automation-provided canonical pinned .lake symlink, mounted read-only for each Lean subprocess and reused warm",
+    "worktree_classification": "nonrelease worker checkout with owned untracked validation artifacts and a pre-existing untracked .lake symlink"
+  },
+  "provenance": {
+    "classification": "repo_local_exact_body_over_manifest_pinned_mathlib",
+    "terminal_declaration": "Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple",
+    "terminal_proof_body_id": "repo-local:sha256:998609dc7186a333fbf3ae6220e6b7f63bd1b5c22995af1bd752a9d2d7de98ae:Stage1Instances.THM_M_1140.harmonicStrongMaximumPrinciple",
+    "mathlib_remote": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_worktree_clean": true,
+    "mathlib_license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "selected_theorem_proof_direct_imports_checked": 8,
+    "transitive_probe_observation": "35241 declarations across 1294 modules; axioms [propext, Classical.choice, Quot.sound]; bodyless_nonaxioms []; unsafe []",
+    "boundary": "All eight mathlib modules directly imported by Statement.lean and Proof.lean had source/blob/olean triples checked. Validation-only assertion utilities were kernel-replayed but are outside this selected source triple inventory. The complete transitive source, declaration, body, compiled-object, compiler/bootstrap, plugin, executable, SBOM, and archive closure was not produced.",
+    "independence_boundary": "Validation.lean imports Proof.lean and runs in this worker; it is not a distinct proof, runner, signature, or independently implemented verifier."
+  },
+  "frozen_architecture": {
+    "registry_version": 1,
+    "root_machine_debt": "M3",
+    "root_closed": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "remaining_root_cut_set": [
+      "M1140-T-LOCAL-PACKAGE",
+      "M1140-T-PROPAGATION-PACKAGE"
+    ],
+    "proof_receipt_provisionally_kernel_supported_ids": [
+      "M1140-ROOT",
+      "M1140-S-DEFINITIONS",
+      "M1140-S-DOMAIN",
+      "M1140-S-BOUNDARY",
+      "M1140-S-FOUNDATION",
+      "M1140-N-MAX-LEVEL",
+      "M1140-L-MEAN-VALUE",
+      "M1140-L-CONTINUITY",
+      "M1140-L-LEVEL-CLOSED",
+      "M1140-L-LEVEL-OPEN",
+      "M1140-L-CONNECTED",
+      "M1140-T-LOCAL-PACKAGE",
+      "M1140-T-PROPAGATION-PACKAGE",
+      "M1140-T-ASSEMBLE"
+    ],
+    "architecture_reconciliation_required": true,
+    "method_boundary": "The frozen M1140-L-MEAN-VALUE bridge expects local rigidity; Proof.lean realizes that output by a Gaussian barrier. Master review must accept the node mapping or publish an append-only method supersession.",
+    "frozen_recipe_gap": "All 16 validation-specs.json recipes belong to the obligation-tree item and execute only the structural checker; their declared boundary excludes analytic package closure."
+  },
+  "result": {
+    "exit_code": 0,
+    "exact_root_kernel_replay": "provisional_pass",
+    "network_isolated": true,
+    "fresh_output_directory": true,
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "kernel_sorry_reachable_unsafe_and_supplemental_source_scan": "pass",
+    "source_scan_boundary": "The Python comment-aware token scan is supplemental and not a Lean syntax parser. Kernel assert_no_sorry and the elaborated reachable-declaration closure are the parser/elaborator-aware trust observations.",
+    "validation_probe_closure": "no bodyless nonaxioms or unsafe declarations observed",
+    "selected_provenance": "pass",
+    "accepted_root_closed": false,
+    "accepted_machine_debt": "M3",
+    "accepted_closed_obligation_ids": [],
+    "complete_provenance_and_tcb": "fail_closed",
+    "hermetic_cold_offline_replay": "fail_closed",
+    "independent_distinct_runner": "fail_closed",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "root_vector_before": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R3"
+  },
+  "accepted_root_vector_after_worker_selftest": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R3"
+  },
+  "accepted_receipt_ids": [],
+  "accepted_closed_obligation_ids": [],
+  "first_failed_gate": "dependency.S56-M-1140-PROOF.master_acceptance",
+  "first_failed_node_specific_gate": "S56-M-1140-VALIDATION-FROZEN-ARCHITECTURE-RECONCILIATION",
+  "first_failed_release_gate": "S56-10.6-HERMETIC-COLD-BUILD",
+  "remaining_root_cut_set": [
+    "dependency-ordered master acceptance of S56-M-1140-PROOF",
+    "Gaussian-barrier-to-frozen-bridge architecture reconciliation",
+    "M1140-S-FOUNDATION accepted axiom policy and complete TCB closure",
+    "M1140-X-PROVENANCE complete transitive source/body/compiled-object/supply-chain provenance",
+    "M1140-X-SOURCE pinpoint independently reviewed primary-source H0 evidence",
+    "independently reviewed R0 reconstruction",
+    "cold empty-cache offline restoration with complete SBOM/licenses",
+    "two distinct signed runner attestations and an independently implemented minimal verifier",
+    "deterministic release bundle and public-surface reconciliation"
+  ],
+  "known_failures": [
+    "The proof prerequisite has provisional worker evidence but no dependency-ordered master acceptance.",
+    "The frozen M1140-L-MEAN-VALUE bridge describes the local-rigidity output through a mean-value or equivalent mechanism, while Proof.lean uses a Gaussian barrier; the integration lane must accept that mapping or publish a registry-v2 method supersession.",
+    "The authoritative registry, typed graph, and frozen structural recipes remain pre-proof: H2/M3/R3, root_closed=false, both substantive packages in the recorded cut set, and no analytic package closure credited.",
+    "Direct axiom observations, the transitive declaration probe, and eight direct mathlib source/blob/olean triples passed, but the accepted foundation policy and complete transitive source/body/compiled-object/compiler/bootstrap/plugin/executable/SBOM/TCB closure remain open.",
+    "The network-isolated replay writes fresh local outputs but reuses the shared warm canonical pinned .lake artifacts; it is not a new-checkout empty-cache cold build or offline archive restoration.",
+    "The exact-type and composition probes import Proof.lean and run under this worker identity, checkout, kernel, and cache; no distinct signed runner or independently implemented minimal verifier exists.",
+    "Primary-source H0, independently reviewed R0, deterministic evidence bundle, AUDIT-Z, THEOREM-Z, release, theorem completion, and master acceptance remain open.",
+    "The pre-existing automation .lake symlink and all owned validation artifacts make this nonrelease worker evidence."
+  ],
+  "retry_condition": "After the integration lane accepts the proof prerequisite and reconciles the Gaussian-barrier method against an immutable frozen architecture, rerun validation with an accepted foundation/TCB profile, complete transitive provenance and SBOM, cold offline restoration, two distinct signed runners, and an independently implemented minimal verifier.",
+  "commands_and_results": [
+    {
+      "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+      "exit_code": 0,
+      "result": "15 assurance groups and exactly 1546 uniform-L0 targets passed"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "check"],
+      "exit_code": 0,
+      "result": "1546 unique targets at ranks 1 through 1546 passed"
+    },
+    {
+      "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-1140"],
+      "exit_code": 0,
+      "result": "rank 345, planned, L0/rework_required, theorem_complete false"
+    },
+    {
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-1140/check_obligation_tree.py"],
+      "exit_code": 0,
+      "result": "16 obligations and 36 typed edges passed; denominator 355cbcf3...0bee; frozen root open M3"
+    },
+    {
+      "argv": ["python3", "-B", "Stage1_Instances/THM-M-1140/check_proof.py"],
+      "exit_code": 0,
+      "result": "preflight proof receipt and exact local root source checks passed before validation packet creation"
+    },
+    {
+      "argv": ["/usr/bin/bwrap", "--ro-bind", "/", "/", "--dev", "/dev", "--proc", "/proc", "--tmpfs", "/tmp", "--unshare-net", "--die-with-parent", "/usr/bin/python3", "-I", "-B", "Stage1_Instances/THM-M-1140/check_validation.py"],
+      "exit_code": 0,
+      "result": "network-isolated trust-zero replay, direct trust/closure observations, and selected provenance passed; incomplete gates failed closed"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1140/validation-spec.json"],
+      "exit_code": 0,
+      "result": "validation recipe parsed"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-1140/validation-receipt.json"],
+      "exit_code": 0,
+      "result": "validation receipt parsed"
+    },
+    {
+      "argv": ["python3", "-m", "json.tool", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "worker self-test packet parsed"
+    },
+    {
+      "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-1140", ".stage1-worker-selftest.json"],
+      "exit_code": 0,
+      "result": "no whitespace diagnostics"
+    }
+  ],
+  "output_summary": "The exact statement, frozen conditional composition, repo-local proof root, and same-worker probes replay under network-isolated lake env lean --trust=0 from fresh outputs. They are sorry-free, report exactly propext, Classical.choice, and Quot.sound, and the probe closure reports no bodyless nonaxioms or unsafe declarations. Dependency/architecture, complete trust/provenance, cold hermetic, and independent-verification gates remain fail-closed, so accepted state remains H2/M3/R3 and theorem_complete=false.",
+  "validation_started_at": "2026-07-15T09:13:32+08:00",
+  "validated_at": "2026-07-15T09:14:08+08:00",
+  "owner": "THM-M-1140 validation lane",
+  "reviewer": "pending independent Stage1 integration-lane review",
+  "attestor": "Stage1 rev-5.6 worker slot15",
+  "freshness": {
+    "review_due": "before master acceptance or upon any invalidation input change",
+    "supersession_state": "current provisional validation receipt",
+    "revocation_state": "not_revoked",
+    "incident_path": "The integration lane rejects or supersedes this packet and requires a fresh scoped validation replay."
+  },
+  "invalidation_inputs": [
+    "Statement.lean, canonical expression, statement records, or boundary encodings",
+    "ObligationTree.lean, Proof.lean, Validation.lean, or their checkers",
+    "obligation-registry.json, typed-graphs.json, frozen or node validation specifications, or denominator",
+    "proof-receipt.json, architecture mapping decision, anchor audit, source/body identity, or acceptance state",
+    "mathlib source/blob/olean, revision, tree, remote, license, Lean toolchain, Lake manifest, or runtime identities",
+    "rev-5.6 assurance standard, public source/readability records, freshness, revocation, or release policy"
+  ],
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-1140/Validation.lean",
+    "Stage1_Instances/THM-M-1140/check_validation.py",
+    "Stage1_Instances/THM-M-1140/validation-phase.md",
+    "Stage1_Instances/THM-M-1140/validation-receipt.json",
+    "Stage1_Instances/THM-M-1140/validation-spec.json"
+  ],
+  "status_boundary": "Self-tested nonrelease worker evidence for exact network-isolated kernel replay, direct trust/closure observations, selected pinned provenance, and explicit failure of unavailable gates. It proposes [_] for the validation implementation while returning blocked. It is not an accepted receipt, E0/M0, complete TCB/provenance evidence, section 10.6 cold hermetic evidence, section 10.7 independent verification, audit completion, theorem completion, release, or master acceptance."
+}
