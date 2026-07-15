@@ -1,0 +1,74 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1010-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1010-RELEASE",
+  "theorem_id": "THM-M-1010",
+  "cwd": ".",
+  "argv": [
+    "bwrap",
+    "--ro-bind",
+    "/",
+    "/",
+    "--dev",
+    "/dev",
+    "--proc",
+    "/proc",
+    "--tmpfs",
+    "/tmp",
+    "--unshare-net",
+    "--die-with-parent",
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1010/check_release.py"
+  ],
+  "env_allowlist": {
+    "PATH": "explicitly_variable",
+    "HOME": "explicitly_variable",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0"
+  },
+  "environment_enforcement": "The outer recipe is invoked through env -i with only the listed variables. The checker supplies the same controlled environment to Git, Lake, Lean, and helper subprocesses and verifies material executable identities.",
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The complete release checker runs inside bubblewrap --unshare-net with a read-only host root and private writable /tmp. Its current Lean replay inherits the denied network namespace and writes only to a temporary target tree. Reusing the canonical pinned warm .lake closure keeps this explicitly nonrelease evidence.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1010-ROOT",
+    "M1010-S-DEFINITIONS",
+    "M1010-S-DOMAIN",
+    "M1010-S-BOUNDARY",
+    "M1010-S-FOUNDATION",
+    "M1010-N-PARTITIONS",
+    "M1010-C-INTERVAL",
+    "M1010-C-COUPLING",
+    "M1010-L-MEASURABLE",
+    "M1010-L-LAWS",
+    "M1010-L-AE-STABILIZE",
+    "M1010-L-METRIC-CONVERGENCE",
+    "M1010-T-ASSEMBLE",
+    "M1010-X-SOURCE",
+    "M1010-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1010.Target",
+    "Stage1Instances.THM_M_1010.ObligationTree.target_of_couplingPackage",
+    "Stage1Instances.THM_M_1010.exists_common_space_exact_marginals",
+    "Stage1Instances.THM_M_1010.representation_of_constant_laws",
+    "Stage1Instances.THM_M_1010.target_for_constant_sequence"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "Reconciles all 15 frozen obligations and current authority, records the stale predecessor recipe honestly, and performs a current network-isolated trust-zero warm-cache replay of the exact statement, conditional composer, and three partial proof bodies. It accepts no receipt and supplies no unconditional Target or CouplingPackage, H0, R0, AUDIT-Z, complete provenance/TCB, cold offline release evidence, independent verification, THEOREM-Z, release, or master acceptance."
+}
